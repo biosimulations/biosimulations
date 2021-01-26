@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input,
-} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { IBreadCrumb, IContextButton } from './bread-crumbs.interface';
 import { filter, distinctUntilChanged } from 'rxjs/operators';
@@ -27,7 +22,7 @@ export class BreadCrumbsComponent implements OnInit {
   buildBreadCrumb(
     route: ActivatedRoute,
     url = '',
-    breadcrumbs: IBreadCrumb[] = [{ label: 'Home', url: '' }]
+    breadcrumbs: IBreadCrumb[] = [{ label: 'Home', url: '' }],
   ): IBreadCrumb[] {
     let label =
       route.routeConfig && route.routeConfig.data
@@ -48,7 +43,6 @@ export class BreadCrumbsComponent implements OnInit {
         label = label
           ? label + ' ' + route.snapshot.params[paramName]
           : route.snapshot.params[paramName];
-
       }
     };
 
@@ -92,12 +86,12 @@ export class BreadCrumbsComponent implements OnInit {
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
-        distinctUntilChanged()
+        distinctUntilChanged(),
       )
       .subscribe(() => {
         this.breadcrumbs = this.buildBreadCrumb(this.activatedRoute.root);
         this.contextButtons = this.buildContextButtons(
-          this.activatedRoute.root
+          this.activatedRoute.root,
         );
       });
   }

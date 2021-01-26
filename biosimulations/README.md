@@ -6,9 +6,10 @@
 
 ## Tools
 
-
 ### Nx
+
 This project uses [Nx](https://nx.dev). The below information should be sufficient for most development in the repository.
+
 #### Quick Start & Documentation
 
 [Nx Documentation](https://nx.dev/angular)
@@ -16,7 +17,6 @@ This project uses [Nx](https://nx.dev). The below information should be sufficie
 [10-minute video showing all Nx features](https://nx.dev/angular/getting-started/what-is-nx)
 
 [Interactive Tutorial](https://nx.dev/angular/tutorial/01-create-application)
-
 
 ##### Generate an application
 
@@ -69,4 +69,5 @@ Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
 ##### ☁ Nx Cloud
 
 ###### Computation Memoization in the Cloud
-This project uses [Nx Cloud](https://nx.app/) to help developers save time when building and testing. Visit [Nx Cloud](https://nx.app/) to learn more. 
+
+This project uses [Nx Cloud](https://nx.app/) to help developers save time when building and testing. Visit [Nx Cloud](https://nx.app/) to learn more.

@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     if (req.url.includes(this.env.apiDomain) && this.auth.isAuthenticated()) {
       return this.auth.getTokenSilently$().pipe(
@@ -36,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
           } else {
             return next.handle(req);
           }
-        })
+        }),
       );
     } else {
       return next.handle(req);

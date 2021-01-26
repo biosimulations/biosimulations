@@ -13,10 +13,15 @@
 >
   <div *ngIf="controls" class="controls-container column">
     <div class="title" (click)="toggleControls()">
-      <div class="title-inner">Controls</div><biosimulations-icon icon="controls"></biosimulations-icon>
+      <div class="title-inner">Controls</div>
+      <biosimulations-icon icon="controls"></biosimulations-icon>
     </div>
     <mat-accordion class="controls">
-      <mat-expansion-panel [expanded]="openControlPanelId === 1" [disabled]="openControlPanelId === 1" (opened)="openControlPanel(1)">
+      <mat-expansion-panel
+        [expanded]="openControlPanelId === 1"
+        [disabled]="openControlPanelId === 1"
+        (opened)="openControlPanel(1)"
+      >
         <mat-expansion-panel-header
           collapsedHeight="32px"
           expandedHeight="32px"
@@ -40,7 +45,11 @@
         </ng-template>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="openControlPanelId === 2" [disabled]="openControlPanelId === 2" (opened)="openControlPanel(2)">
+      <mat-expansion-panel
+        [expanded]="openControlPanelId === 2"
+        [disabled]="openControlPanelId === 2"
+        (opened)="openControlPanel(2)"
+      >
         <mat-expansion-panel-header
           collapsedHeight="32px"
           expandedHeight="32px"
@@ -119,13 +128,21 @@
                             filterSetValue(column, value, checkbox.checked)
                           "
                           ng-attr-title
-                          [attr.title]="column.showFilterItemToolTips === true ? value.formattedValue : null"
+                          [attr.title]="
+                            column.showFilterItemToolTips === true
+                              ? value.formattedValue
+                              : null
+                          "
                         >
                           {{ value.formattedValue }}
                         </mat-checkbox>
                       </mat-list-item>
                     </mat-list>
-                    <button mat-icon-button class="biosimulations-icon-button text filter-set-clear-all" (click)="clearFilter(column)">
+                    <button
+                      mat-icon-button
+                      class="biosimulations-icon-button text filter-set-clear-all"
+                      (click)="clearFilter(column)"
+                    >
                       Clear filter
                     </button>
                   </ng-container>
@@ -136,7 +153,11 @@
         </ng-template>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="openControlPanelId === 3" [disabled]="openControlPanelId === 3" (opened)="openControlPanel(3)">
+      <mat-expansion-panel
+        [expanded]="openControlPanelId === 3"
+        [disabled]="openControlPanelId === 3"
+        (opened)="openControlPanel(3)"
+      >
         <mat-expansion-panel-header
           collapsedHeight="32px"
           expandedHeight="32px"
@@ -148,13 +169,21 @@
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
           <mat-form-field appearance="fill" class="search-field">
-            <input #searchInput matInput type="text"
+            <input
+              #searchInput
+              matInput
+              type="text"
               [value]="searchQuery || null"
               (keydown.enter)="searchRows(searchInput.value)"
               [placeholder]="searchPlaceHolder"
               [matTooltip]="searchToolTip"
+            />
+            <button
+              matSuffix
+              mat-icon-button
+              class="biosimulations-icon-button text"
+              (click)="searchRows(searchInput.value)"
             >
-            <button matSuffix mat-icon-button class="biosimulations-icon-button text" (click)="searchRows(searchInput.value)">
               <biosimulations-icon icon="search"></biosimulations-icon>
             </button>
           </mat-form-field>
@@ -164,7 +193,11 @@
   </div>
 
   <div class="table-container">
-    <mat-table matSort class="biosimulations-table" [ngClass]="{'single-line-headings': singleLineHeadings}">
+    <mat-table
+      matSort
+      class="biosimulations-table"
+      [ngClass]="{ 'single-line-headings': singleLineHeadings }"
+    >
       <ng-container [matColumnDef]="column.id" *ngFor="let column of columns">
         <mat-header-cell
           *matHeaderCellDef
@@ -179,7 +212,11 @@
           }"
         >
           {{ column.heading }}
-          <biosimulations-icon icon="filter" class="column-filter-icon" *ngIf="columnIsFiltered[column.id] === true"></biosimulations-icon>
+          <biosimulations-icon
+            icon="filter"
+            class="column-filter-icon"
+            *ngIf="columnIsFiltered[column.id] === true"
+          ></biosimulations-icon>
         </mat-header-cell>
 
         <mat-cell
@@ -190,7 +227,7 @@
             'max-width.em':
               column.maxWidth !== undefined ? column.maxWidth / 14 : null
           }"
-          [ngClass]="{'highlight-row': element?._highlight}"
+          [ngClass]="{ 'highlight-row': element?._highlight }"
         >
           <div
             class="cell-content-container"
@@ -202,12 +239,17 @@
               'height.px': 22 * linesPerRow - 2
             }"
           >
-            <span [ngSwitch]="column.leftAction" *ngIf="element._cache[column.id].left.icon">
+            <span
+              [ngSwitch]="column.leftAction"
+              *ngIf="element._cache[column.id].left.icon"
+            >
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button
                   class="biosimulations-icon-button primary"
-                  *ngIf="element._cache[column.id].left.routerLink as routerLink"
+                  *ngIf="
+                    element._cache[column.id].left.routerLink as routerLink
+                  "
                   [routerLink]="routerLink"
                   [fragment]="element._cache[column.id].left.fragment"
                 >
@@ -271,7 +313,10 @@
               </ng-template>
             </span>
 
-            <span [ngSwitch]="column.centerAction" *ngIf="element._cache[column.id].value">
+            <span
+              [ngSwitch]="column.centerAction"
+              *ngIf="element._cache[column.id].value"
+            >
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button
@@ -282,7 +327,8 @@
                   [routerLink]="routerLink"
                   [fragment]="element._cache[column.id].center.fragment"
                 >
-                  <ng-container *ngTemplateOutlet="centerTemplate"
+                  <ng-container
+                    *ngTemplateOutlet="centerTemplate"
                   ></ng-container>
                 </a>
               </ng-template>
@@ -295,7 +341,8 @@
                   [href]="href"
                   target="_blank"
                 >
-                  <ng-container *ngTemplateOutlet="centerTemplate"
+                  <ng-container
+                    *ngTemplateOutlet="centerTemplate"
                   ></ng-container>
                 </a>
               </ng-template>
@@ -307,24 +354,29 @@
                   *ngIf="element._cache[column.id].center.click as click"
                   (click)="click(element)"
                 >
-                  <ng-container *ngTemplateOutlet="centerTemplate"
+                  <ng-container
+                    *ngTemplateOutlet="centerTemplate"
                   ></ng-container>
                 </button>
               </ng-template>
 
               <ng-template ngSwitchDefault>
-                <ng-container *ngTemplateOutlet="centerTemplate"
-                ></ng-container>
+                <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
               </ng-template>
 
               <ng-template #centerTemplate>
                 <ng-container *ngIf="element._cache[column.id].value as value">
-                  <span [attr.title]="element._cache[column.id].toolTip">{{ value }}</span>
+                  <span [attr.title]="element._cache[column.id].toolTip">{{
+                    value
+                  }}</span>
                 </ng-container>
               </ng-template>
             </span>
 
-            <span [ngSwitch]="column.rightAction" *ngIf="element._cache[column.id].right.icon">
+            <span
+              [ngSwitch]="column.rightAction"
+              *ngIf="element._cache[column.id].right.icon"
+            >
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button

@@ -12,17 +12,17 @@ import {
     {
       provide: 'NATS_CLIENT',
       useFactory: (configService: ConfigService): ClientProxy => {
-        const natsURL = configService.get('nats.url')
+        const natsURL = configService.get('nats.url');
         return ClientProxyFactory.create({
           transport: Transport.NATS,
           options: {
-            url: natsURL
-          }
+            url: natsURL,
+          },
         });
       },
-      inject: [ConfigService]
-    }
+      inject: [ConfigService],
+    },
   ],
   exports: ['NATS_CLIENT'],
 })
-export class SharedNatsClientModule { }
+export class SharedNatsClientModule {}

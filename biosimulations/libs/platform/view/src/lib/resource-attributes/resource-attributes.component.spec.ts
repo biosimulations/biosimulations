@@ -10,10 +10,9 @@ describe('ResourceAttributesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports:[SharedUiModule,BiosimulationsIconsModule],
-      declarations: [ ResourceAttributesComponent ]
-    })
-    .compileComponents();
+      imports: [SharedUiModule, BiosimulationsIconsModule],
+      declarations: [ResourceAttributesComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

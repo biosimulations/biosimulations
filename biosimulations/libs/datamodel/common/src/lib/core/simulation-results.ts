@@ -1,6 +1,5 @@
 import { BiomodelVariable } from '.';
 import { BiosimulationsId, DateString } from '../common/alias';
-import { PrimaryResourceMetaData } from '../..';
 
 export interface SimulationResultVariable {
   simulation: BiosimulationsId;
@@ -26,4 +25,3 @@ export interface LogItem {
   type: string;
   message: string;
 }
-

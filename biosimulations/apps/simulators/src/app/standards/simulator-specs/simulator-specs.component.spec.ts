@@ -15,7 +15,13 @@ describe('SimulatorSpecsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule, SharedContentModule, HighlightModule],
+      imports: [
+        RouterTestingModule,
+        SharedUiModule,
+        BiosimulationsIconsModule,
+        SharedContentModule,
+        HighlightModule,
+      ],
       providers: [
         RouterTestingModule,
         ConfigService,
@@ -24,8 +30,8 @@ describe('SimulatorSpecsComponent', () => {
           provide: HIGHLIGHT_OPTIONS,
           useValue: {
             fullLibraryLoader: () => import('highlight.js'),
-          }
-        }
+          },
+        },
       ],
       declarations: [SimulatorSpecsComponent],
     }).compileComponents();

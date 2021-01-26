@@ -5,7 +5,7 @@
 // Foreground Elements
 // Light Theme Text
 $dark-text: #000000;
-$dark-primary-text: rgba($dark-primary-text, 0.80);
+$dark-primary-text: rgba($dark-primary-text, 0.8);
 $dark-accent-text: rgba($dark-primary-text, 0.54);
 $dark-disabled-text: rgba($dark-primary-text, 0.38);
 $dark-dividers: rgba($dark-primary-text, 0.12);
@@ -139,7 +139,7 @@ $mat-primary: (
   darker: $theme-primary-darker,
   200: $theme-primary-main,
   // For slide toggle,
-    contrast:
+  contrast:
     (
       main: $light-primary-text,
       lighter: $dark-primary-text,
@@ -168,7 +168,7 @@ $mat-accent: (
   darker: $theme-accent-darker,
   200: $theme-accent-main,
   // For slide toggle,
-    contrast:
+  contrast:
     (
       main: $dark-primary-text,
       lighter: $dark-primary-text,
@@ -197,7 +197,7 @@ $mat-tertiary: (
   darker: $theme-tertiary-darker,
   200: $theme-tertiary-main,
   // For slide toggle,
-    contrast:
+  contrast:
     (
       main: $dark-primary-text,
       lighter: $dark-primary-text,
@@ -226,7 +226,7 @@ $mat-quartenary: (
   darker: $theme-quartenary-darker,
   200: $theme-quartenary-main,
   // For slide toggle,
-    contrast:
+  contrast:
     (
       main: $dark-primary-text,
       lighter: $dark-primary-text,
@@ -269,7 +269,7 @@ $mat-warn: (
   darker: $theme-warn-darker,
   200: $theme-warn-main,
   // For slide toggle,
-    contrast:
+  contrast:
     (
       main: $light-primary-text,
       lighter: $dark-primary-text,

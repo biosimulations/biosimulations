@@ -49,7 +49,7 @@ export abstract class TopLevelResource {
       } else {
         this.owner$ = this.userService.get$(this.ownerId).pipe(
           shareReplay(1),
-          tap((owner) => (this.owner = owner))
+          tap((owner) => (this.owner = owner)),
         );
         return this.owner$;
       }

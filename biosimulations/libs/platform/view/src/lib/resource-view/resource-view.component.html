@@ -4,16 +4,26 @@
   <mat-tab-group>
     <mat-tab label="Overview">
       <ng-template matTabContent>
-        <biosimulations-resource-overview [attributes]="attributes" [imageUrl]=imageUrl [description]=description
-          [tags]=tags [owner]=owner [authors]=authors>
+        <biosimulations-resource-overview
+          [attributes]="attributes"
+          [imageUrl]="imageUrl"
+          [description]="description"
+          [tags]="tags"
+          [owner]="owner"
+          [authors]="authors"
+        >
         </biosimulations-resource-overview>
       </ng-template>
     </mat-tab>
     <mat-tab *ngIf="parameters" label="Parameters">
-      <biosimulations-parameters-view [list]=parameters></biosimulations-parameters-view>
+      <biosimulations-parameters-view
+        [list]="parameters"
+      ></biosimulations-parameters-view>
     </mat-tab>
     <mat-tab *ngIf="variables" label="Variables">
-      <biosimulations-variables-view [list]=variables></biosimulations-variables-view>
+      <biosimulations-variables-view
+        [list]="variables"
+      ></biosimulations-variables-view>
     </mat-tab>
   </mat-tab-group>
 </div>

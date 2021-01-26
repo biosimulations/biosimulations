@@ -3,42 +3,70 @@
   banner="assets/images/biosimulations-logo/logo-white.svg"
 >
   <ng-container id="buttons">
-    <biosimulations-home-teaser-button [href]="config.simulatorsAppUrl" width="160px" color="accent">
+    <biosimulations-home-teaser-button
+      [href]="config.simulatorsAppUrl"
+      width="160px"
+      color="accent"
+    >
       <ng-container id="title">Simulation tools</ng-container>
       <ng-container id="text">
         <p>Share or find simulation tools</p>
         <p>@BioSimulators</p>
       </ng-container>
     </biosimulations-home-teaser-button>
-    <biosimulations-home-teaser-button [route]="['/projects']" width="160px" color="primary">
+    <biosimulations-home-teaser-button
+      [route]="['/projects']"
+      width="160px"
+      color="primary"
+    >
       <ng-container id="title">Projects</ng-container>
       <ng-container id="text">
         <p>Share or reuse projects</p>
         <p>@BioSimulations</p>
       </ng-container>
     </biosimulations-home-teaser-button>
-    <biosimulations-home-teaser-button [route]="['/models']" width="160px" color="primary" [disabled]="true">
+    <biosimulations-home-teaser-button
+      [route]="['/models']"
+      width="160px"
+      color="primary"
+      [disabled]="true"
+    >
       <ng-container id="title">Models</ng-container>
       <ng-container id="text">
         <p>Share or reuse models</p>
         <p>@BioSimulations</p>
       </ng-container>
     </biosimulations-home-teaser-button>
-    <biosimulations-home-teaser-button [route]="['/simulations']" width="160px" color="primary" [disabled]="true">
+    <biosimulations-home-teaser-button
+      [route]="['/simulations']"
+      width="160px"
+      color="primary"
+      [disabled]="true"
+    >
       <ng-container id="title">Simulations</ng-container>
       <ng-container id="text">
         <p>Share or reuse simulations</p>
         <p>@BioSimulations</p>
       </ng-container>
     </biosimulations-home-teaser-button>
-    <biosimulations-home-teaser-button [route]="['/charts']" width="160px" color="primary" [disabled]="true">
+    <biosimulations-home-teaser-button
+      [route]="['/charts']"
+      width="160px"
+      color="primary"
+      [disabled]="true"
+    >
       <ng-container id="title">Charts</ng-container>
       <ng-container id="text">
         <p>Share or reuse charts</p>
         <p>@BioSimulations</p>
       </ng-container>
     </biosimulations-home-teaser-button>
-    <biosimulations-home-teaser-button [route]="['/visualizations']" width="160px" color="primary" [disabled]="true">
+    <biosimulations-home-teaser-button
+      [route]="['/visualizations']"
+      width="160px"
+      color="primary"
+      [disabled]="true"
+    >
       <ng-container id="title">Visualizations</ng-container>
       <ng-container id="text">
         <p>Share or reuse visualizations</p>
@@ -47,15 +75,19 @@
     </biosimulations-home-teaser-button>
   </ng-container>
   <ng-container id="description">
-    BioSimulations is a free platform for sharing and re-using biomodels, simulations, and visualizations. BioSimulations makes sharing and reuse easier by providing a simple web interface for a wide range of frameworks (e.g., logical, Flux-Balance Analysis (FBA), continuous kinetic, discrete kinetic), simulation algorithms (e.g., FBA, SSA), model formats (e.g., SBML), and tools (e.g., COBRApy, COPASI, tellurium).
+    BioSimulations is a free platform for sharing and re-using biomodels,
+    simulations, and visualizations. BioSimulations makes sharing and reuse
+    easier by providing a simple web interface for a wide range of frameworks
+    (e.g., logical, Flux-Balance Analysis (FBA), continuous kinetic, discrete
+    kinetic), simulation algorithms (e.g., FBA, SSA), model formats (e.g.,
+    SBML), and tools (e.g., COBRApy, COPASI, tellurium).
   </ng-container>
 </biosimulations-home-teaser>
 
-<biosimulations-home-section
-  [columns]="3"
->
+<biosimulations-home-section [columns]="3">
   <ng-container id="heading">
-    Helping authors, reviewers, and investigators <span class="highlight-primary">share and reuse biomodeling studies</span>
+    Helping authors, reviewers, and investigators
+    <span class="highlight-primary">share and reuse biomodeling studies</span>
   </ng-container>
 
   <biosimulations-home-subsection
@@ -64,7 +96,9 @@
     subheading="Reuse published modeling studies"
     icon="simulator"
   >
-    BioSimulations provides investigators a central portal for finding models, simulations, and visualizations; modifying simulations and visualizations; executing simulations; and painting visualizations with simulation results.
+    BioSimulations provides investigators a central portal for finding models,
+    simulations, and visualizations; modifying simulations and visualizations;
+    executing simulations; and painting visualizations with simulation results.
   </biosimulations-home-subsection>
 
   <biosimulations-home-subsection
@@ -73,7 +107,9 @@
     subheading="Publish modeling studies"
     icon="write"
   >
-    BioSimulations makes it easier for authors to share models, simulations, and visualizations. Sharing modeling studies through BioSimulations makes it easier for other inevstigators to find and reuse them.
+    BioSimulations makes it easier for authors to share models, simulations, and
+    visualizations. Sharing modeling studies through BioSimulations makes it
+    easier for other inevstigators to find and reuse them.
   </biosimulations-home-subsection>
 
   <biosimulations-home-subsection
@@ -82,14 +118,20 @@
     subheading="Evaluate modeling studies"
     icon="review"
   >
-    BioSimulations makes it easier for reviewers to evaluate models, simulations, and visualizations. Reviewers can interactively explore studies, verify the reproducibility of reported results, and test models under alternate conditions.
+    BioSimulations makes it easier for reviewers to evaluate models,
+    simulations, and visualizations. Reviewers can interactively explore
+    studies, verify the reproducibility of reported results, and test models
+    under alternate conditions.
   </biosimulations-home-subsection>
 </biosimulations-home-section>
 
-<biosimulations-home-section
-  [columns]="4"
->
-  <ng-container id="heading">Central access to <span class="highlight-primary">multiple modeling frameworks, algorithms, formats &amp; tools</span></ng-container>
+<biosimulations-home-section [columns]="4">
+  <ng-container id="heading"
+    >Central access to
+    <span class="highlight-primary"
+      >multiple modeling frameworks, algorithms, formats &amp; tools</span
+    ></ng-container
+  >
 
   <biosimulations-home-subsection
     id="subsection"
@@ -223,7 +265,7 @@
         href="https://gillespy2.github.io/GillesPy2/"
       >
       </biosimulations-home-logo>
-    
+
       <biosimulations-home-logo
         title="iBioSim"
         src="assets/images/about/partners/ibiosim.svg"
@@ -256,21 +298,46 @@
   </biosimulations-home-subsection>
 </biosimulations-home-section>
 
-<biosimulations-home-section
-  [columns]="1"
->
-  <ng-container id="heading">About <span class="highlight-primary">BioSimulations</span></ng-container>
+<biosimulations-home-section [columns]="1">
+  <ng-container id="heading"
+    >About <span class="highlight-primary">BioSimulations</span></ng-container
+  >
   <ng-container id="subsection">
     <div class="about-content">
       <div class="text">
         <p>
-          BioSimulations was developed by the Center for Reproducible Biomedical Modeling <a href="https://reproduciblebiomodels.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, the Karr Lab at the Icahn School of Medicine at Mount Sinai <a href="https://www.karrlab.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and the Center for Cell Analysis &amp; Modeling at the University of Connecticut Health Center at the University of Connecticut Health Center <a href="https://health.uconn.edu/cell-analysis-modeling/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> with support from the National Institutes of Health and the National Science Foundation.
+          BioSimulations was developed by the Center for Reproducible Biomedical
+          Modeling
+          <a href="https://reproduciblebiomodels.org/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >, the Karr Lab at the Icahn School of Medicine at Mount Sinai
+          <a href="https://www.karrlab.org" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >, and the Center for Cell Analysis &amp; Modeling at the University
+          of Connecticut Health Center at the University of Connecticut Health
+          Center
+          <a
+            href="https://health.uconn.edu/cell-analysis-modeling/"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          with support from the National Institutes of Health and the National
+          Science Foundation.
         </p>
         <p>
-          BioSimulations is implemented using several open-source tools and cloud platforms. The models, simulations, and visualizations are available under the licenses specified for each resource. The code is openly available under the MIT license <a href="https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          BioSimulations is implemented using several open-source tools and
+          cloud platforms. The models, simulations, and visualizations are
+          available under the licenses specified for each resource. The code is
+          openly available under the MIT license
+          <a
+            href="https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >.
         </p>
         <p>
-          Please see the <a [routerLink]="['/help', 'about']">About page</a> for more information.
+          Please see the <a [routerLink]="['/help', 'about']">About page</a> for
+          more information.
         </p>
       </div>
       <div class="logos">
@@ -473,7 +540,7 @@
             src="assets/images/about/partners/ibiosim.svg"
             href="https://github.com/MyersResearchGroup/iBioSim"
           >
-          </biosimulations-home-logo>          
+          </biosimulations-home-logo>
 
           <biosimulations-home-logo
             title="PySCeS"

@@ -14,7 +14,7 @@ import {
   EdamOntologyIdVersionSchema,
   KisaoOntologyIdSchema,
   SboOntologyIdSchema,
-  SioOntologyIdSchema
+  SioOntologyIdSchema,
 } from './ontologyId';
 
 import {
@@ -22,10 +22,7 @@ import {
   AlgorithmParameterSchema,
 } from './algorithmParameter';
 
-import {
-  DependentPackage,
-  DependentPackageSchema,
-} from './dependentPackage';
+import { DependentPackage, DependentPackageSchema } from './dependentPackage';
 
 import { CitationSchema } from './common';
 
@@ -35,7 +32,8 @@ import { CitationSchema } from './common';
   strict: 'throw',
   useNestedStrict: true,
 })
-export class DependentVariableTargetPattern implements IDependentVariableTargetPattern {
+export class DependentVariableTargetPattern
+  implements IDependentVariableTargetPattern {
   @Prop({ type: String, required: true, default: undefined })
   variables!: string;
 
@@ -43,7 +41,9 @@ export class DependentVariableTargetPattern implements IDependentVariableTargetP
   targetPattern!: string;
 }
 
-export const DependentVariableTargetPatternSchema = SchemaFactory.createForClass(DependentVariableTargetPattern);
+export const DependentVariableTargetPatternSchema = SchemaFactory.createForClass(
+  DependentVariableTargetPattern,
+);
 
 @Schema({
   _id: false,
@@ -59,27 +59,34 @@ export class Algorithm implements IAlgorithm {
     type: [AlgorithmParameterSchema],
     required: false,
     default: undefined,
-    validate: [{
-      validator: (value: AlgorithmParameter[]): boolean => {
-        const kisaoIds = new Set();
-        for (const parameter of value) {
-          const kisaoId = parameter.kisaoId.id;
-          if (kisaoIds.has(kisaoId)) {
-            return false;
+    validate: [
+      {
+        validator: (value: AlgorithmParameter[]): boolean => {
+          const kisaoIds = new Set();
+          for (const parameter of value) {
+            const kisaoId = parameter.kisaoId.id;
+            if (kisaoIds.has(kisaoId)) {
+              return false;
+            }
+            kisaoIds.add(kisaoId);
           }
-          kisaoIds.add(kisaoId);
-        }
-        return true;
+          return true;
+        },
+        message: (props: any): string =>
+          'Parameters must be annotated with unique KiSAO terms',
       },
-      message: (props: any): string => 'Parameters must be annotated with unique KiSAO terms',
-    }],
+    ],
   })
   parameters!: AlgorithmParameter[] | null;
 
   @Prop({ type: [SioOntologyIdSchema], required: false, default: undefined })
   dependentDimensions!: ISioOntologyId[] | null;
 
-  @Prop({ type: [DependentVariableTargetPatternSchema], required: true, default: undefined })
+  @Prop({
+    type: [DependentVariableTargetPatternSchema],
+    required: true,
+    default: undefined,
+  })
   dependentVariableTargetPatterns!: DependentVariableTargetPattern[];
 
   @Prop({
@@ -96,32 +103,64 @@ export class Algorithm implements IAlgorithm {
   })
   name!: string | null;
 
-  @Prop({ type: [SboOntologyIdSchema], _id: false, required: true, default: undefined })
+  @Prop({
+    type: [SboOntologyIdSchema],
+    _id: false,
+    required: true,
+    default: undefined,
+  })
   modelingFrameworks!: ISboOntologyId[];
 
-  @Prop({ type: [EdamOntologyIdVersionSchema], _id: false, required: true, default: undefined })
+  @Prop({
+    type: [EdamOntologyIdVersionSchema],
+    _id: false,
+    required: true,
+    default: undefined,
+  })
   modelFormats!: IEdamOntologyIdVersion[];
 
-  @Prop({ type: [EdamOntologyIdVersionSchema], _id: false, required: true, default: undefined })
+  @Prop({
+    type: [EdamOntologyIdVersionSchema],
+    _id: false,
+    required: true,
+    default: undefined,
+  })
   simulationFormats!: IEdamOntologyIdVersion[];
 
-  @Prop({ type: [EdamOntologyIdVersionSchema], _id: false, required: true, default: undefined })
+  @Prop({
+    type: [EdamOntologyIdVersionSchema],
+    _id: false,
+    required: true,
+    default: undefined,
+  })
   archiveFormats!: IEdamOntologyIdVersion[];
 
   @Prop({
     type: [String],
-    enum: Object.entries(SoftwareInterfaceType).map((keyVal: [string, string]): string => {
-      return keyVal[1];
-    }),
+    enum: Object.entries(SoftwareInterfaceType).map(
+      (keyVal: [string, string]): string => {
+        return keyVal[1];
+      },
+    ),
     required: true,
     default: undefined,
   })
   availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 
-  @Prop({ type: [DependentPackageSchema], _id: false, required: false, default: undefined })
+  @Prop({
+    type: [DependentPackageSchema],
+    _id: false,
+    required: false,
+    default: undefined,
+  })
   dependencies!: DependentPackage[] | null;
 
-  @Prop({ type: [CitationSchema], _id: false, required: true, default: undefined })
+  @Prop({
+    type: [CitationSchema],
+    _id: false,
+    required: true,
+    default: undefined,
+  })
   citations!: Citation[];
 }
 

@@ -8,9 +8,8 @@ describe('ReferencesViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReferencesViewComponent ]
-    })
-    .compileComponents();
+      declarations: [ReferencesViewComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

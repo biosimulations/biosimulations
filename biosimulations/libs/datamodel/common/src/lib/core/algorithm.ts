@@ -3,11 +3,9 @@ import { Citation } from '../..';
 
 import {
   ISboOntologyId,
-  IOntologyId,
   IKisaoOntologyId,
   IEdamOntologyId,
   ISioOntologyId,
-  KisaoTerm,
 } from '../common';
 
 /**

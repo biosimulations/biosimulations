@@ -4,12 +4,11 @@ import {
   Delete,
   Get,
   Logger,
-  NotFoundException,
   NotImplementedException,
   Param,
   Patch,
   Post,
-  Put
+  Put,
 } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
@@ -18,7 +17,7 @@ import {
   SedPlot3DLog,
   SedReportLog,
   CreateSimulationRunLogBody,
-  Exception
+  Exception,
 } from '@biosimulations/dispatch/api-models';
 
 import { LogsService } from './logs.service';
@@ -28,22 +27,24 @@ import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 @Controller('logs')
 @ApiTags('Logs')
 export class LogsController {
-  logger = new Logger(LogsController.name);
-  constructor(private service: LogsService) {}
+  private logger = new Logger(LogsController.name);
+
+  // eslint-disable-next-line @typescript-eslint/no-parameter-properties
+  public constructor(private service: LogsService) {}
 
   @Get()
-  getAllLogs() {
+  public getAllLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
   @Delete()
-  deleteAllLogs() {
+  public deleteAllLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
   @ApiResponse({
-    type: CombineArchiveLog
+    type: CombineArchiveLog,
   })
   @Get(':id')
-  async getLogs(@Param('id') id: string): Promise<CombineArchiveLog> {
+  public async getLogs(@Param('id') id: string): Promise<CombineArchiveLog> {
     const structLogs = await this.service.getLog(id);
 
     if (!structLogs) {
@@ -56,7 +57,8 @@ export class LogsController {
         exception = {
           category: 'Old Simulation',
           message:
-            'This simulation does not have a log available. Please re-run the simulation'
+            'This simulation does not have a log available.\
+             Please re-run the simulation',
         };
       }
       const log = await this.service.createLog(id, {
@@ -65,7 +67,7 @@ export class LogsController {
         exception: exception,
         skipReason: null,
         duration: null,
-        output: logString
+        output: logString,
       });
 
       return log.log;
@@ -75,13 +77,13 @@ export class LogsController {
   }
 
   @Get(':id/download')
-  downloadLogs(@Param() id: string) {
+  public downloadLogs(@Param() id: string): void {
     throw new NotImplementedException('Not Implemented');
   }
 
   @Post()
-  async createLogs(
-    @Body() body: CreateSimulationRunLogBody
+  public async createLogs(
+    @Body() body: CreateSimulationRunLogBody,
   ): Promise<CombineArchiveLog> {
     this.logger.error('Creating Log');
     const logs = await this.service.createLog(body.simId, body.log);
@@ -89,17 +91,17 @@ export class LogsController {
   }
 
   @Delete(':id')
-  deleteLogs(@Param() id: string) {
+  public deleteLogs(@Param() id: string): void {
     throw new NotImplementedException('Not Implemented');
   }
 
   @Patch(':id')
-  editLogs() {
+  public editLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
 
   @Put(':id')
-  replaceLogs() {
+  public replaceLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
 }

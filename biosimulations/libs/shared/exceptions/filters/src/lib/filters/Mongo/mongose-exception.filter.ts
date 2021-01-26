@@ -1,17 +1,9 @@
-import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {
-  Catch,
-  ExceptionFilter,
-  ArgumentsHost,
-  HttpStatus,
   CallHandler,
   ExecutionContext,
   Injectable,
   NestInterceptor,
-  NotFoundException,
 } from '@nestjs/common';
-import { Response } from 'express';
-import * as mongoose from 'mongoose';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StrictModeError } from './strict-mode-exception';
@@ -27,7 +19,7 @@ export class MongooseErrorInterceptor implements NestInterceptor {
         } else {
           throw error;
         }
-      })
+      }),
     );
   }
 }

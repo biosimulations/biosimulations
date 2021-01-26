@@ -1,14 +1,8 @@
-import {
-  ExceptionFilter,
-  Catch,
-  ArgumentsHost,
-  HttpException,
-  HttpStatus
-} from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost } from '@nestjs/common';
 import { Request, Response } from 'express';
 import {
   ErrorObject,
-  ErrorResponseDocument
+  ErrorResponseDocument,
 } from '@biosimulations/datamodel/api';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
@@ -27,7 +21,7 @@ export class BiosimulationsExceptionFilter implements ExceptionFilter {
 
     resbody.meta = {
       time: Date.now(),
-      url: request.url
+      url: request.url,
     };
     const responseError: ErrorResponseDocument = { error: [resbody] };
     response.status(status).json(responseError);

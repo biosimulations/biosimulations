@@ -6,7 +6,6 @@ import {
   ILinguistOntologyId,
   IDependentVariableTargetPattern,
   ITestCase,
-  TestCaseResultType,
   ITestCaseException,
 } from '@biosimulations/datamodel/common';
 
@@ -32,7 +31,7 @@ export interface ViewAlgorithmObservable {
   kisaoId: string;
   heading: Observable<string>;
   name: Observable<string>;
-  description: Observable<DescriptionFragment[]| null>;
+  description: Observable<DescriptionFragment[] | null>;
   kisaoUrl: Observable<string>;
   modelingFrameworks: Observable<ViewFramework>[];
   modelFormats: ViewFormatObservable[];
@@ -63,13 +62,13 @@ export interface ViewFramework {
 }
 
 export interface ViewFormat {
-  term: ViewFormatTerm,
+  term: ViewFormatTerm;
   version: string | null;
   supportedFeatures: string[];
 }
 
 export interface ViewFormatObservable {
-  term: Observable<ViewFormatTerm>,
+  term: Observable<ViewFormatTerm>;
   version: string | null;
   supportedFeatures: string[];
 }

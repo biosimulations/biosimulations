@@ -1,4 +1,10 @@
-<button mat-flat-button [routerLink]="route || null" [disabled]="disabled" fxShow fxHide.lt-md>
+<button
+  mat-flat-button
+  [routerLink]="route || null"
+  [disabled]="disabled"
+  fxShow
+  fxHide.lt-md
+>
   <div class="button-content">
     <biosimulations-icon [icon]="icon"></biosimulations-icon>
     {{ heading }}

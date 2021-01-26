@@ -5,14 +5,10 @@ import { Author } from '../../shared/views/author';
 import { Taxon } from '../../shared/views/taxon';
 import { Format } from '../../shared/views/format';
 import { Owner } from '../../shared/views/owner';
-import {
-  Person,
-  IOntologyTerm,
-  UserId,
-} from '@biosimulations/datamodel/common';
+import { Person, IOntologyTerm } from '@biosimulations/datamodel/common';
 import { ModelHttpService } from './model-http.service';
 import { map } from 'rxjs/operators';
-import { Observable, throwError, never } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { LicenseModel } from '../../shared/views/license';
 import { BiomodelVariable } from '../../shared/views/biomodelVariable';
 import { BiomodelParameter } from '../../shared/views/biomodelParameter';
@@ -51,10 +47,10 @@ export class ModelService {
       framework: Framework.fromDTO(model.attributes.framework),
       format: Format.fromDTO(model.attributes.format),
       parameters: model.attributes.parameters.map((dto) =>
-        BiomodelParameter.fromDto(dto)
+        BiomodelParameter.fromDto(dto),
       ),
       variables: model.attributes.variables.map((dto) =>
-        BiomodelVariable.fromDTO(dto)
+        BiomodelVariable.fromDTO(dto),
       ),
 
       authors: model.attributes.metadata.authors.map((person: Person) => {
@@ -84,7 +80,7 @@ export class ModelService {
         } else {
           return ModelService.toDataModel(val);
         }
-      })
+      }),
     );
   }
 }

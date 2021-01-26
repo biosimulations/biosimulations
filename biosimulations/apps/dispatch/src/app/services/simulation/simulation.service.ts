@@ -8,25 +8,33 @@ import { Observable, Subject, BehaviorSubject, of } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { map } from 'rxjs/internal/operators/map';
-import { concatAll, debounce, debounceTime, delay, shareReplay, tap, timeout } from 'rxjs/operators';
+import { concatAll, debounceTime } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SimulationService {
   private key = 'simulations';
   private simulations: Simulation[] = [];
   private simulationsMap$: { [key: string]: BehaviorSubject<Simulation> } = {};
   private simulationsMap: { [key: string]: Simulation } = {};
-  private simulationsSubject = new BehaviorSubject<Simulation[]>(this.simulations);
-  public simulations$: Observable<Simulation[]> = this.simulationsSubject.asObservable();
+  private simulationsSubject = new BehaviorSubject<Simulation[]>(
+    this.simulations,
+  );
+  public simulations$: Observable<
+    Simulation[]
+  > = this.simulationsSubject.asObservable();
   private storageInitialized = false;
   private simulationsAddedBeforeStorageInitialized: Simulation[] = [];
 
   private refreshInterval!: any;
 
-  constructor(private config: ConfigService, private storage: Storage, private httpClient: HttpClient) {
+  constructor(
+    private config: ConfigService,
+    private storage: Storage,
+    private httpClient: HttpClient,
+  ) {
     this.storage.ready().then(() => {
       this.storage.keys().then((keys: string[]): void => {
         if (keys.includes(this.key)) {
@@ -51,7 +59,9 @@ export class SimulationService {
   }
 
   private initSimulations(storedSimulations: Simulation[]): void {
-    const simulations = storedSimulations.concat(this.simulationsAddedBeforeStorageInitialized);
+    const simulations = storedSimulations.concat(
+      this.simulationsAddedBeforeStorageInitialized,
+    );
     simulations.forEach((simulation: Simulation): void => {
       if (!(simulation.id in this.simulationsMap)) {
         this.simulations.push(simulation);
@@ -60,7 +70,10 @@ export class SimulationService {
     });
     this.simulationsSubject.next(this.simulations);
     this.updateSimulations();
-    this.refreshInterval = setInterval(() => this.updateSimulations(), this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000);
+    this.refreshInterval = setInterval(
+      () => this.updateSimulations(),
+      this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000,
+    );
     this.storageInitialized = true;
     if (this.simulationsAddedBeforeStorageInitialized.length) {
       this.storage.set(this.key, this.simulations);
@@ -82,9 +95,12 @@ export class SimulationService {
     if (this.storageInitialized) {
       newSimulations.forEach((newSimulation: Simulation): void => {
         if (newSimulation.id in this.simulationsMap) {
-          const submittedLocally = this.simulationsMap[newSimulation.id].submittedLocally;
+          const submittedLocally = this.simulationsMap[newSimulation.id]
+            .submittedLocally;
           Object.assign(this.simulationsMap[newSimulation.id], newSimulation);
-          this.simulationsMap[newSimulation.id].submittedLocally = submittedLocally;
+          this.simulationsMap[
+            newSimulation.id
+          ].submittedLocally = submittedLocally;
         } else {
           this.simulations.push(newSimulation);
           this.simulationsMap[newSimulation.id] = newSimulation;
@@ -106,8 +122,11 @@ export class SimulationService {
         this.simulations
           .filter((simulation: Simulation): boolean => {
             return (
-              SimulationStatusService.isSimulationStatusRunning(simulation.status) ||
-              (simulation.status === SimulationRunStatus.SUCCEEDED && simulation.resultsSize === undefined)
+              SimulationStatusService.isSimulationStatusRunning(
+                simulation.status,
+              ) ||
+              (simulation.status === SimulationRunStatus.SUCCEEDED &&
+                simulation.resultsSize === undefined)
             );
           })
           .map((simulation: Simulation): string => {
@@ -116,9 +135,9 @@ export class SimulationService {
           .concat(
             newSimulations.map((simulation: Simulation): string => {
               return simulation.id;
-            })
-          )
-      )
+            }),
+          ),
+      ),
     );
 
     // stop if no simulations need to be updated
@@ -129,7 +148,9 @@ export class SimulationService {
     // get status of simulations
     const promises = [];
     for (const simId of simulationIds) {
-      const promise = this.httpClient.get(`${urls.dispatchApi}run/${simId}`).toPromise();
+      const promise = this.httpClient
+        .get(`${urls.dispatchApi}run/${simId}`)
+        .toPromise();
       promises.push(promise);
     }
 
@@ -145,12 +166,13 @@ export class SimulationService {
           id: dispatchSim.id,
           status: (dispatchSim.status as unknown) as SimulationRunStatus,
           submitted: new Date(dispatchSim.submitted),
-          submittedLocally: this.simulationsMap?.[dispatchSim.id]?.submittedLocally || false,
+          submittedLocally:
+            this.simulationsMap?.[dispatchSim.id]?.submittedLocally || false,
           simulator: dispatchSim.simulator,
           simulatorVersion: dispatchSim.simulatorVersion,
           updated: new Date(dispatchSim.updated),
           resultsSize: dispatchSim.resultsSize,
-          projectSize: dispatchSim.projectSize
+          projectSize: dispatchSim.projectSize,
         });
       }
       this.storeSimulations(simulations);
@@ -170,34 +192,43 @@ export class SimulationService {
   }
 
   private getSimulationHttp(uuid: string): Observable<Simulation> {
-    return this.httpClient.get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`).pipe(
-      map((data: SimulationRun) => {
-        const dispatchSimulation = data;
-        const simulation: Simulation = {
-          name: dispatchSimulation.name,
-          email: dispatchSimulation.email || undefined,
-          runtime: dispatchSimulation.runtime,
-          id: dispatchSimulation.id,
-          status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
-          submitted: new Date(dispatchSimulation.submitted),
-          submittedLocally: false,
-          simulator: dispatchSimulation.simulator,
-          simulatorVersion: dispatchSimulation.simulatorVersion,
-          updated: new Date(dispatchSimulation.updated),
-          resultsSize: dispatchSimulation.resultsSize,
-          projectSize: dispatchSimulation.projectSize
-        };
-        return simulation;
-      })
-    );
+    return this.httpClient
+      .get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`)
+      .pipe(
+        map((data: SimulationRun) => {
+          const dispatchSimulation = data;
+          const simulation: Simulation = {
+            name: dispatchSimulation.name,
+            email: dispatchSimulation.email || undefined,
+            runtime: dispatchSimulation.runtime,
+            id: dispatchSimulation.id,
+            status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
+            submitted: new Date(dispatchSimulation.submitted),
+            submittedLocally: false,
+            simulator: dispatchSimulation.simulator,
+            simulatorVersion: dispatchSimulation.simulatorVersion,
+            updated: new Date(dispatchSimulation.updated),
+            resultsSize: dispatchSimulation.resultsSize,
+            projectSize: dispatchSimulation.projectSize,
+          };
+          return simulation;
+        }),
+      );
   }
 
   private updateSimulation(uuid: string) {
-
-    const current = this.getSimulationFromCache(uuid).pipe(debounceTime(this.config.appConfig.simulationStatusRefreshIntervalSec * 1000));
+    const current = this.getSimulationFromCache(uuid).pipe(
+      debounceTime(
+        this.config.appConfig.simulationStatusRefreshIntervalSec * 1000,
+      ),
+    );
     current.subscribe((currentSim) => {
-      if (SimulationStatusService.isSimulationStatusRunning(currentSim.status)) {
-        this.getSimulationHttp(uuid).pipe().subscribe((newSim) => this.simulationsMap$[uuid].next(newSim));
+      if (
+        SimulationStatusService.isSimulationStatusRunning(currentSim.status)
+      ) {
+        this.getSimulationHttp(uuid)
+          .pipe()
+          .subscribe((newSim) => this.simulationsMap$[uuid].next(newSim));
       }
     });
   }
@@ -209,17 +240,17 @@ export class SimulationService {
   // TODO integrate with local storage
   getSimulation(uuid: string): Observable<Simulation> {
     if (uuid in this.simulationsMap$) {
-      this.updateSimulation(uuid)
+      this.updateSimulation(uuid);
       return this.getSimulationFromCache(uuid).pipe();
     } else {
       const sim = this.getSimulationHttp(uuid).pipe(
         map((value: Simulation) => {
           const simSubject = new BehaviorSubject<Simulation>(value);
           this.simulationsMap$[uuid] = simSubject;
-          this.updateSimulation(uuid)
+          this.updateSimulation(uuid);
           return this.getSimulationFromCache(uuid).pipe();
         }),
-        concatAll()
+        concatAll(),
       );
 
       return sim;
@@ -232,25 +263,27 @@ export class SimulationService {
       return of(this.simulationsMap[uuid]);
     } else {
       const simulationSubject = new Subject<Simulation>();
-      this.httpClient.get(`${urls.dispatchApi}run/${uuid}`).subscribe((data: any) => {
-        const dispatchSimulation = data;
-        const simulation: Simulation = {
-          name: dispatchSimulation.name,
-          email: dispatchSimulation.email,
-          runtime: dispatchSimulation.runtime,
-          id: dispatchSimulation.id,
-          status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
-          submitted: new Date(dispatchSimulation.submitted),
-          submittedLocally: false,
-          simulator: dispatchSimulation.simulator,
-          simulatorVersion: dispatchSimulation.simulatorVersion,
-          updated: new Date(dispatchSimulation.updated),
-          resultsSize: dispatchSimulation.resultsSize,
-          projectSize: dispatchSimulation.projectSize
-        };
-        simulationSubject.next(simulation);
-        this.storeSimulations([simulation]);
-      });
+      this.httpClient
+        .get(`${urls.dispatchApi}run/${uuid}`)
+        .subscribe((data: any) => {
+          const dispatchSimulation = data;
+          const simulation: Simulation = {
+            name: dispatchSimulation.name,
+            email: dispatchSimulation.email,
+            runtime: dispatchSimulation.runtime,
+            id: dispatchSimulation.id,
+            status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
+            submitted: new Date(dispatchSimulation.submitted),
+            submittedLocally: false,
+            simulator: dispatchSimulation.simulator,
+            simulatorVersion: dispatchSimulation.simulatorVersion,
+            updated: new Date(dispatchSimulation.updated),
+            resultsSize: dispatchSimulation.resultsSize,
+            projectSize: dispatchSimulation.projectSize,
+          };
+          simulationSubject.next(simulation);
+          this.storeSimulations([simulation]);
+        });
       return simulationSubject.asObservable();
     }
   }

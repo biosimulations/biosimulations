@@ -29,7 +29,7 @@ export class ModelParameter implements BiomodelParameterDTO {
     this.description = data.description;
     this.identifiers = [];
     data.identifiers.map((value: IdentifierDTO) =>
-      this.identifiers.push(new Identifier(value))
+      this.identifiers.push(new Identifier(value)),
     );
 
     this.type = data.type;

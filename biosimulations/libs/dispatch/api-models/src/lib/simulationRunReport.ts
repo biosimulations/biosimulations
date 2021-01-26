@@ -17,8 +17,8 @@ export type SimulationRunReportDataStrings = { [key: string]: Array<string> };
 export const SimulationRunReportDataArraySchema: SchemaObject = {
   oneOf: [
     { type: 'array', items: { type: 'number', format: 'float' } },
-    { type: 'array', items: { type: 'boolean' } }
-  ]
+    { type: 'array', items: { type: 'boolean' } },
+  ],
 };
 
 export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
@@ -26,8 +26,8 @@ export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
   additionalProperties: SimulationRunReportDataArraySchema,
   example: {
     'property-1': [5.0, 2.3, 25.0],
-    'property-2': [true, true, false]
-  }
+    'property-2': [true, true, false],
+  },
 };
 
 export class SimulationRunReport {

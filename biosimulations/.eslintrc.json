@@ -1,20 +1,34 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "**/*"
-  ],
-  "plugins": [
-    "@nrwl/nx"
-  ],
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx", "unused-imports"],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
-      ],
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript", "prettier"],
+      "parserOptions": {
+        "project": "./tsconfig.*?.json"
+      },
       "rules": {
+        "@typescript-eslint/explicit-member-accessibility": "warn",
+        "@typescript-eslint/explicit-function-return-type": "warn",
+        "@typescript-eslint/no-parameter-properties": "warn",
+        "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/no-inferrable-types": "warn",
+        "@typescript-eslint/interface-name-prefix": "off",
+        "@typescript-eslint/member-ordering": "warn",
+        "max-len": "warn",
+        "@typescript-eslint/no-unused-vars": "off",
+        "unused-imports/no-unused-imports-ts": "error",
+        "unused-imports/no-unused-vars-ts": [
+          "warn",
+          {
+            "vars": "all",
+            "varsIgnorePattern": "^_",
+            "args": "after-used",
+            "argsIgnorePattern": "^_"
+          }
+        ],
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
           {
@@ -23,23 +37,15 @@
             "depConstraints": [
               {
                 "sourceTag": "platform:web",
-                "onlyDependOnLibsWithTags": [
-                  "platform:web",
-                  "platform:any"
-                ]
+                "onlyDependOnLibsWithTags": ["platform:web", "platform:any"]
               },
               {
                 "sourceTag": "platform:server",
-                "onlyDependOnLibsWithTags": [
-                  "platform:server",
-                  "platform:any"
-                ]
+                "onlyDependOnLibsWithTags": ["platform:server", "platform:any"]
               },
               {
                 "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": [
-                  "scope:shared"
-                ]
+                "onlyDependOnLibsWithTags": ["scope:shared"]
               },
               {
                 "sourceTag": "scope:config",
@@ -50,10 +56,7 @@
               },
               {
                 "sourceTag": "scope:auth",
-                "onlyDependOnLibsWithTags": [
-                  "scope:auth",
-                  "type:environments"
-                ]
+                "onlyDependOnLibsWithTags": ["scope:auth", "type:environments"]
               },
               {
                 "sourceTag": "scope:simulators",
@@ -97,9 +100,7 @@
               },
               {
                 "sourceTag": "*",
-                "onlyDependOnLibsWithTags": [
-                  "*"
-                ]
+                "onlyDependOnLibsWithTags": ["*"]
               }
             ]
           }
@@ -107,36 +108,8 @@
       }
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/typescript"
-      ],
-      "parserOptions": {
-        "project": "./tsconfig.*?.json"
-      },
-      "rules": {
-        "@typescript-eslint/explicit-member-accessibility": "warn",
-        "@typescript-eslint/explicit-function-return-type": "warn",
-        "@typescript-eslint/no-parameter-properties": "warn",
-        "@typescript-eslint/no-empty-function": "warn",
-        "@typescript-eslint/no-inferrable-types": "warn",
-        "@typescript-eslint/interface-name-prefix": "off",
-        "@typescript-eslint/no-unused-vars": "warn",
-        "@typescript-eslint/member-ordering": "warn",
-        "max-len": "warn"
-      }
-    },
-    {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript"
-      ],
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
     }
   ]

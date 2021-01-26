@@ -41,7 +41,7 @@ describe('BiosimulationsNavigationComponent', () => {
         BreadCrumbsModule,
         RouterTestingModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage']
+          driverOrder: ['indexeddb', 'websql', 'localstorage'],
         }),
         BiosimulationsIconsModule,
       ],

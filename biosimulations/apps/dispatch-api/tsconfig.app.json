@@ -8,7 +8,5 @@
   },
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"],
-  "files": [
-    "../../declarations.d.ts"
-  ]
+  "files": ["../../declarations.d.ts"]
 }

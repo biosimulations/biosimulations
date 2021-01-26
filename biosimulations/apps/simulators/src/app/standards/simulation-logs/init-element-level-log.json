@@ -1,64 +1,62 @@
 {
-   "status": "QUEUED",
-   "exception": null,
-   "skipReason": null,
-   "output": null,
-   "duration": null,
-   "sedDocuments": [
-      {
-         "location": "doc_1.sedml",
-         "status": "QUEUED",
-         "exception": null,
-         "skipReason": null,
-         "output": null,
-         "duration": null,
-         "tasks": [
-            {
-               "id": "task_1_ss",
-               "status": "QUEUED",
-               "exception": null,
-               "skipReason": null,
-               "output": null,
-               "duration": null,
-               "algorithm": null,
-               "simulatorDetails": null
-            },
-            {
-               "id": "task_2_time_course",
-               "status": "QUEUED",
-               "exception": null,
-               "skipReason": null,
-               "output": null,
-               "duration": null,
-               "algorithm": null,
-               "simulatorDetails": null
-            }
-         ],
-         "outputs": [
-            {
-               "id": "report_1",
-               "status": "QUEUED",
-               "exception": null,
-               "skipReason": null,
-               "output": null,
-               "duration": null,
-               "dataSets": [
-                  {"id": "dataset_1", "status": "QUEUED"},
-                  {"id": "dataset_2", "status": "QUEUED"}
-               ]
-            },
-            {
-               "id": "plot_1",
-               "status": "QUEUED",
-               "exception": null,
-               "skipReason": null,
-               "output": null,
-               "duration": null,
-               "curves": [
-                  {"id": "curve_1", "status": "QUEUED"}
-               ]
-            }
-         ]
-      }
-   ]
+  "status": "QUEUED",
+  "exception": null,
+  "skipReason": null,
+  "output": null,
+  "duration": null,
+  "sedDocuments": [
+    {
+      "location": "doc_1.sedml",
+      "status": "QUEUED",
+      "exception": null,
+      "skipReason": null,
+      "output": null,
+      "duration": null,
+      "tasks": [
+        {
+          "id": "task_1_ss",
+          "status": "QUEUED",
+          "exception": null,
+          "skipReason": null,
+          "output": null,
+          "duration": null,
+          "algorithm": null,
+          "simulatorDetails": null
+        },
+        {
+          "id": "task_2_time_course",
+          "status": "QUEUED",
+          "exception": null,
+          "skipReason": null,
+          "output": null,
+          "duration": null,
+          "algorithm": null,
+          "simulatorDetails": null
+        }
+      ],
+      "outputs": [
+        {
+          "id": "report_1",
+          "status": "QUEUED",
+          "exception": null,
+          "skipReason": null,
+          "output": null,
+          "duration": null,
+          "dataSets": [
+            { "id": "dataset_1", "status": "QUEUED" },
+            { "id": "dataset_2", "status": "QUEUED" }
+          ]
+        },
+        {
+          "id": "plot_1",
+          "status": "QUEUED",
+          "exception": null,
+          "skipReason": null,
+          "output": null,
+          "duration": null,
+          "curves": [{ "id": "curve_1", "status": "QUEUED" }]
+        }
+      ]
+    }
+  ]
 }

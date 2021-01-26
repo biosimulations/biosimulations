@@ -30,13 +30,13 @@ describe('DispatchComponent', () => {
         NgxMatFileInputModule,
         NoopAnimationsModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage']
+          driverOrder: ['indexeddb', 'websql', 'localstorage'],
         }),
       ],
       declarations: [DispatchComponent],
       providers: [
         HttpClient,
-        HttpHandler, 
+        HttpHandler,
         { provide: ConfigService, useValue: config },
       ],
     }).compileComponents();

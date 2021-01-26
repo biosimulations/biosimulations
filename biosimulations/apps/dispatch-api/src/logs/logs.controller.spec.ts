@@ -16,14 +16,14 @@ describe('LogsController', () => {
       getOldLogs(id: string): Promise<{ output: string; error: string }> {
         return of({
           output: 'oldOut',
-          error: 'oldErr'
+          error: 'oldErr',
         }).toPromise();
-      }
+      },
     };
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [LogsController],
-      providers: [{ provide: LogsService, useValue: mockService }]
+      providers: [{ provide: LogsService, useValue: mockService }],
     }).compile();
 
     controller = module.get<LogsController>(LogsController);

@@ -12,7 +12,7 @@ describe('SimulationService', () => {
       providers: [HttpClient, HttpHandler, ConfigService],
       imports: [
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage']
+          driverOrder: ['indexeddb', 'websql', 'localstorage'],
         }),
       ],
     });

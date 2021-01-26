@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { biosimulationsIcon } from '@biosimulations/shared/icons';
 
 interface View {
@@ -12,8 +12,7 @@ interface View {
   templateUrl: './resource-attributes.component.html',
   styleUrls: ['./resource-attributes.component.scss'],
 })
-export class ResourceAttributesComponent  {
+export class ResourceAttributesComponent {
   @Input()
   list!: View[];
-
 }

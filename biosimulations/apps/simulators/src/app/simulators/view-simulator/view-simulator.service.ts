@@ -37,27 +37,24 @@ import {
   ValueType,
   SoftwareInterfaceType,
   sortUrls,
-  IDependentVariableTargetPattern,
   IValidationTests,
   ITestCaseResult,
   TestCaseResultType,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
-import {
-  Citation
-} from '@biosimulations/datamodel/api';
+import { Citation } from '@biosimulations/datamodel/api';
 import { BiosimulationsError } from '@biosimulations/shared/ui';
 
 @Injectable({ providedIn: 'root' })
 export class ViewSimulatorService {
   constructor(
     private simService: SimulatorService,
-    private ontService: OntologyService
+    private ontService: OntologyService,
   ) {}
 
   getLatest(simulatorId: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getLatestById(
-      simulatorId
+      simulatorId,
     );
     return sim.pipe(map(this.apiToView.bind(this, simulatorId, undefined)));
   }
@@ -65,7 +62,7 @@ export class ViewSimulatorService {
   getVersion(simulatorId: string, version: string): Observable<ViewSimulator> {
     const sim: Observable<Simulator> = this.simService.getOneByVersion(
       simulatorId,
-      version
+      version,
     );
     return sim.pipe(map(this.apiToView.bind(this, simulatorId, version)));
   }
@@ -73,20 +70,20 @@ export class ViewSimulatorService {
   apiToView(
     simulatorId: string,
     version: string | undefined,
-    sim: Simulator | undefined
+    sim: Simulator | undefined,
   ): ViewSimulator {
     if (sim === undefined) {
       if (version) {
         throw new BiosimulationsError(
           'Simulation version not found',
           `Simulator "${simulatorId}" does not have version "${version}".`,
-          404
+          404,
         );
       } else {
         throw new BiosimulationsError(
           'Simulator not found',
           `There is no simulator with id "${simulatorId}".`,
-          404
+          404,
         );
       }
     }
@@ -95,7 +92,8 @@ export class ViewSimulatorService {
 
     let viewValidationTests: ViewValidationTests | null = null;
     if (sim?.biosimulators?.validationTests) {
-      const validationTests: IValidationTests = sim.biosimulators.validationTests;
+      const validationTests: IValidationTests =
+        sim.biosimulators.validationTests;
 
       let numTestsPassed = 0;
       let numTestPassedWithWarnings = 0;
@@ -109,50 +107,58 @@ export class ViewSimulatorService {
           }
         } else if (result.resultType == TestCaseResultType.skipped) {
           numTestsSkipped++;
-        } else{
+        } else {
           numTestsFailed++;
         }
       });
 
-      const viewResults = validationTests.results.map((result: ITestCaseResult): ViewTestCaseResult => {
-        const caseArchive = result.case.id.split('/')?.[1] || null;
+      const viewResults = validationTests.results
+        .map(
+          (result: ITestCaseResult): ViewTestCaseResult => {
+            const caseArchive = result.case.id.split('/')?.[1] || null;
 
-        return {
-          case: {
-            id: result.case.id,
-            description: result.case.description.replace('\n', '<br/>'),
+            return {
+              case: {
+                id: result.case.id,
+                description: result.case.description.replace('\n', '<br/>'),
+              },
+              caseUrl:
+                'https://github.com/biosimulators/Biosimulators_test_suite/blob/' +
+                validationTests.testSuiteVersion +
+                '/biosimulators_test_suite/test_case/' +
+                result.case.id.split('.')[0] +
+                '.py',
+              caseClass: result.case.id.split(':')[0],
+              caseArchive: caseArchive,
+              caseArchiveUrl: caseArchive
+                ? 'https://github.com/biosimulators/Biosimulators_test_suite/raw/' +
+                  validationTests.testSuiteVersion +
+                  '/examples/' +
+                  result.case.id.split(':')[1] +
+                  '.omex'
+                : null,
+              resultType:
+                result.resultType.substring(0, 1).toUpperCase() +
+                result.resultType.substring(1),
+              duration: result.duration.toFixed(1),
+              exception: result.exception,
+              warnings: result.warnings,
+              skipReason: result.skipReason,
+              log: result.log,
+            };
           },
-          caseUrl: (
-              'https://github.com/biosimulators/Biosimulators_test_suite/blob/'
-              + validationTests.testSuiteVersion
-              + '/biosimulators_test_suite/test_case/'
-              + result.case.id.split('.')[0]
-              + '.py'
-          ),
-          caseClass: result.case.id.split(':')[0],
-          caseArchive: caseArchive,
-          caseArchiveUrl: caseArchive ? (
-              'https://github.com/biosimulators/Biosimulators_test_suite/raw/'
-              + validationTests.testSuiteVersion
-              + '/examples/'
-              + result.case.id.split(':')[1]
-              + '.omex'
-          ) : null,
-          resultType: result.resultType.substring(0, 1).toUpperCase() + result.resultType.substring(1),
-          duration: result.duration.toFixed(1),
-          exception: result.exception,
-          warnings: result.warnings,
-          skipReason: result.skipReason,
-          log: result.log,
-        };
-      })
-      .sort((a, b) => {
-        return a.case.id.localeCompare(b.case.id, undefined, { numeric: true });
-      });
+        )
+        .sort((a, b) => {
+          return a.case.id.localeCompare(b.case.id, undefined, {
+            numeric: true,
+          });
+        });
 
       viewValidationTests = {
         testSuiteVersion: validationTests.testSuiteVersion,
-        testSuiteVersionUrl: 'https://github.com/biosimulators/Biosimulators_test_suite/releases/tag/' + validationTests.testSuiteVersion,
+        testSuiteVersionUrl:
+          'https://github.com/biosimulators/Biosimulators_test_suite/releases/tag/' +
+          validationTests.testSuiteVersion,
         numTests: validationTests.results.length,
         numTestsPassed: numTestsPassed,
         numTestPassedWithWarnings: numTestPassedWithWarnings,
@@ -184,16 +190,14 @@ export class ViewSimulatorService {
 
       licenseName: sim.license
         ? this.ontService.getSpdxTerm(sim.license.id).pipe(
-          pluck('name'),
-          map((name: string) =>
-            name.replace(/\bLicense\b/, '').replace('  ', ' ')
+            pluck('name'),
+            map((name: string) =>
+              name.replace(/\bLicense\b/, '').replace('  ', ' '),
+            ),
           )
-        )
         : null,
       licenseUrl: sim.license
-        ? this.ontService
-          .getSpdxTerm(sim.license.id)
-          .pipe(pluck('url'))
+        ? this.ontService.getSpdxTerm(sim.license.id).pipe(pluck('url'))
         : null,
       versions: this.simService
         .getVersions(sim.id)
@@ -201,18 +205,27 @@ export class ViewSimulatorService {
       algorithms: viewSimAlgorithms.asObservable(),
       interfaceTypes: sim.interfaceTypes
         .map((interfaceType: SoftwareInterfaceType): string => {
-          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+          return (
+            interfaceType.substring(0, 1).toUpperCase() +
+            interfaceType.substring(1)
+          );
         })
         .sort((a: string, b: string) => {
           return a.localeCompare(b, undefined, { numeric: true });
         }),
-      supportedOperatingSystemTypes: sim.supportedOperatingSystemTypes.sort((a: string, b: string) => {
-        return a.localeCompare(b, undefined, { numeric: true });
-      }),
-      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort((a: ILinguistOntologyId, b: ILinguistOntologyId) => {
-        return a.id.localeCompare(b.id, undefined, { numeric: true });
-      }),
-      curationStatus: UtilsService.getSimulatorCurationStatusMessage(UtilsService.getSimulatorCurationStatus(sim)),
+      supportedOperatingSystemTypes: sim.supportedOperatingSystemTypes.sort(
+        (a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        },
+      ),
+      supportedProgrammingLanguages: sim.supportedProgrammingLanguages.sort(
+        (a: ILinguistOntologyId, b: ILinguistOntologyId) => {
+          return a.id.localeCompare(b.id, undefined, { numeric: true });
+        },
+      ),
+      curationStatus: UtilsService.getSimulatorCurationStatusMessage(
+        UtilsService.getSimulatorCurationStatus(sim),
+      ),
       validated: sim?.biosimulators?.validated || false,
       validationTests: viewValidationTests,
       funding: sim.funding.map(this.getFunding, this),
@@ -220,7 +233,11 @@ export class ViewSimulatorService {
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),
     };
 
-    const unresolvedAlgorithms = sim.algorithms.filter((alg: Algorithm) => { return !!alg.kisaoId; }).map(this.mapAlgorithms, this);
+    const unresolvedAlgorithms = sim.algorithms
+      .filter((alg: Algorithm) => {
+        return !!alg.kisaoId;
+      })
+      .map(this.mapAlgorithms, this);
     UtilsService.recursiveForkJoin(unresolvedAlgorithms).subscribe(
       (algorithms: ViewAlgorithm[] | undefined) => {
         if (algorithms !== undefined) {
@@ -229,18 +246,34 @@ export class ViewSimulatorService {
           });
 
           algorithms.forEach((algorithm: ViewAlgorithm): void => {
-            algorithm.modelingFrameworks.sort((a: ViewFramework, b: ViewFramework): number => {
-              return a.name.localeCompare(b.name, undefined, { numeric: true });
-            });
-            algorithm.modelFormats.sort((a: ViewFormat, b: ViewFormat): number => {
-              return a.term.name.localeCompare(b.term.name, undefined, { numeric: true });
-            });
-            algorithm.simulationFormats.sort((a: ViewFormat, b: ViewFormat): number => {
-              return a.term.name.localeCompare(b.term.name, undefined, { numeric: true });
-            });
-            algorithm.archiveFormats.sort((a: ViewFormat, b: ViewFormat): number => {
-              return a.term.name.localeCompare(b.term.name, undefined, { numeric: true });
-            });
+            algorithm.modelingFrameworks.sort(
+              (a: ViewFramework, b: ViewFramework): number => {
+                return a.name.localeCompare(b.name, undefined, {
+                  numeric: true,
+                });
+              },
+            );
+            algorithm.modelFormats.sort(
+              (a: ViewFormat, b: ViewFormat): number => {
+                return a.term.name.localeCompare(b.term.name, undefined, {
+                  numeric: true,
+                });
+              },
+            );
+            algorithm.simulationFormats.sort(
+              (a: ViewFormat, b: ViewFormat): number => {
+                return a.term.name.localeCompare(b.term.name, undefined, {
+                  numeric: true,
+                });
+              },
+            );
+            algorithm.archiveFormats.sort(
+              (a: ViewFormat, b: ViewFormat): number => {
+                return a.term.name.localeCompare(b.term.name, undefined, {
+                  numeric: true,
+                });
+              },
+            );
 
             algorithm.parameters?.forEach((parameter: ViewParameter): void => {
               if (
@@ -257,7 +290,7 @@ export class ViewSimulatorService {
           });
           viewSimAlgorithms.next(algorithms);
         }
-      }
+      },
     );
 
     return viewSim;
@@ -272,33 +305,47 @@ export class ViewSimulatorService {
 
       name: kisaoName,
       heading: kisaoName.pipe(
-        map((nameval: string) => nameval + ' (' + value.kisaoId.id + ')')
+        map((nameval: string) => nameval + ' (' + value.kisaoId.id + ')'),
       ),
       description: kisaoTerm.pipe(
         pluck('description'),
-        map(this.formatKisaoDescription)
+        map(this.formatKisaoDescription),
       ),
       kisaoUrl: kisaoTerm.pipe(pluck('url')),
-      modelingFrameworks: value.modelingFrameworks.map(this.getFrameworks, this),
+      modelingFrameworks: value.modelingFrameworks.map(
+        this.getFrameworks,
+        this,
+      ),
       modelFormats: value.modelFormats.map(this.getFormats, this),
       simulationFormats: value.simulationFormats.map(this.getFormats, this),
       archiveFormats: value.archiveFormats.map(this.getFormats, this),
-      parameters: value.parameters ? value.parameters.map(this.getParameters, this) : null,
-      dependentDimensions: value?.dependentDimensions
-        ? value?.dependentDimensions?.map(this.getDependentDimensions, this) as Observable<ViewSioId>[]
+      parameters: value.parameters
+        ? value.parameters.map(this.getParameters, this)
         : null,
-      dependentVariableTargetPatterns: value?.dependentVariableTargetPatterns || [],
+      dependentDimensions: value?.dependentDimensions
+        ? (value?.dependentDimensions?.map(
+            this.getDependentDimensions,
+            this,
+          ) as Observable<ViewSioId>[])
+        : null,
+      dependentVariableTargetPatterns:
+        value?.dependentVariableTargetPatterns || [],
       availableSoftwareInterfaceTypes: value.availableSoftwareInterfaceTypes
         .map((interfaceType: SoftwareInterfaceType): string => {
-          return interfaceType.substring(0, 1).toUpperCase() + interfaceType.substring(1);
+          return (
+            interfaceType.substring(0, 1).toUpperCase() +
+            interfaceType.substring(1)
+          );
         })
         .sort((a: string, b: string) => {
           return a.localeCompare(b, undefined, { numeric: true });
         }),
       dependencies: value?.dependencies
-        ? value?.dependencies?.sort((a: DependentPackage, b: DependentPackage) => {
-            return a.name.localeCompare(b.name, undefined, { numeric: true });
-          })
+        ? value?.dependencies?.sort(
+            (a: DependentPackage, b: DependentPackage) => {
+              return a.name.localeCompare(b.name, undefined, { numeric: true });
+            },
+          )
         : null,
       citations: value?.citations
         ? value.citations.map(this.makeCitation, this)
@@ -314,25 +361,29 @@ export class ViewSimulatorService {
       type: parameter.type,
       value: this.parseParameterVal(parameter.type, parameter.value),
       range: parameter.recommendedRange
-        ? parameter.recommendedRange.map(this.parseParameterVal.bind(this, parameter.type)) as (boolean | number | string | Observable<string>)[]
+        ? (parameter.recommendedRange.map(
+            this.parseParameterVal.bind(this, parameter.type),
+          ) as (boolean | number | string | Observable<string>)[])
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
-      availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes
-        .sort((a: string, b: string) => {
+      availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes.sort(
+        (a: string, b: string) => {
           return a.localeCompare(b, undefined, { numeric: true });
-        }),
+        },
+      ),
     };
   }
 
-  parseParameterVal(type: string, val: string | null): boolean | number | string | Observable<string> | null {
+  parseParameterVal(
+    type: string,
+    val: string | null,
+  ): boolean | number | string | Observable<string> | null {
     if (val == null || val === '') {
       return null;
     } else {
       if (type === ValueType.kisaoId) {
-        return this.ontService
-          .getKisaoTerm(val)
-          .pipe(pluck('name'));
+        return this.ontService.getKisaoTerm(val).pipe(pluck('name'));
       } else if (type === ValueType.boolean) {
         return ['1', 'true'].includes(val.toLowerCase());
       } else if (type === ValueType.integer) {
@@ -357,9 +408,11 @@ export class ViewSimulatorService {
     return {
       term: this.ontService.getEdamTerm(value.id),
       version: value.version,
-      supportedFeatures: value?.supportedFeatures?.sort((a: string, b: string) => {
-        return a.localeCompare(b, undefined, { numeric: true });
-      }),
+      supportedFeatures: value?.supportedFeatures?.sort(
+        (a: string, b: string) => {
+          return a.localeCompare(b, undefined, { numeric: true });
+        },
+      ),
     };
   }
 
@@ -386,12 +439,12 @@ export class ViewSimulatorService {
         let orcidUrl: string | null = null;
         for (const identifier of author.identifiers) {
           if (identifier.namespace === 'orcid') {
-            orcidUrl = identifier.url
+            orcidUrl = identifier.url;
           }
         }
 
         return { name, orcidUrl };
-      }
+      },
     );
   }
 
@@ -478,10 +531,14 @@ export class ViewSimulatorService {
 
   getFunding(funding: Funding): ViewFunding {
     return {
-      funderName: this.ontService.getFunderRegistryTerm(funding.funder.id).pipe(pluck('name')),
-      funderUrl: this.ontService.getFunderRegistryTerm(funding.funder.id).pipe(pluck('url')),
+      funderName: this.ontService
+        .getFunderRegistryTerm(funding.funder.id)
+        .pipe(pluck('name')),
+      funderUrl: this.ontService
+        .getFunderRegistryTerm(funding.funder.id)
+        .pipe(pluck('url')),
       grant: funding.grant,
       url: funding.url,
-    }
+    };
   }
 }

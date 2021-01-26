@@ -9,7 +9,11 @@ import { AuthService } from '@biosimulations/auth/angular';
 })
 export class AppComponent implements AfterViewInit {
   title = 'platform';
-  constructor(public config: ConfigService, private scrollService: ScrollService, private auth: AuthService) { }
+  constructor(
+    public config: ConfigService,
+    private scrollService: ScrollService,
+    private auth: AuthService,
+  ) {}
 
   ngAfterViewInit(): void {
     this.scrollService.init();

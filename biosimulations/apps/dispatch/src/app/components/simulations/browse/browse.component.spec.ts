@@ -22,7 +22,7 @@ describe('BrowseComponent', () => {
         SharedUiModule,
         BiosimulationsIconsModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage']
+          driverOrder: ['indexeddb', 'websql', 'localstorage'],
         }),
       ],
       providers: [ConfigService],

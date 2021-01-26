@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,9 +11,7 @@ import { RunRoutingModule } from './run-routing.module';
 import { DispatchComponent } from './dispatch/dispatch.component';
 
 @NgModule({
-  declarations: [
-    DispatchComponent,
-  ],
+  declarations: [DispatchComponent],
   imports: [
     CommonModule,
     RunRoutingModule,
@@ -24,6 +21,6 @@ import { DispatchComponent } from './dispatch/dispatch.component';
     MatSelectModule,
     SharedUiModule,
     BiosimulationsIconsModule,
-  ]
+  ],
 })
-export class RunModule { }
+export class RunModule {}

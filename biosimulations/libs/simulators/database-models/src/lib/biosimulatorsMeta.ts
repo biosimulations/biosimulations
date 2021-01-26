@@ -10,7 +10,6 @@ import {
 } from '@biosimulations/datamodel/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-
 @Schema({
   _id: false,
   storeSubdocValidationError: false,
@@ -27,7 +26,6 @@ export class TestCase implements ITestCase {
 
 export const TestCaseSchema = SchemaFactory.createForClass(TestCase);
 
-
 @Schema({
   _id: false,
   storeSubdocValidationError: false,
@@ -42,8 +40,9 @@ export class TestCaseException implements ITestCaseException {
   message!: string;
 }
 
-export const TestCaseExceptionSchema = SchemaFactory.createForClass(TestCaseException);
-
+export const TestCaseExceptionSchema = SchemaFactory.createForClass(
+  TestCaseException,
+);
 
 @Schema({
   _id: false,
@@ -59,7 +58,7 @@ export class TestCaseResult implements ITestCaseResult {
     type: String,
     required: true,
     enum: Object.keys(TestCaseResultType).map(
-      (k) => TestCaseResultType[k as TestCaseResultType]
+      (k) => TestCaseResultType[k as TestCaseResultType],
     ),
     default: undefined,
   })
@@ -77,12 +76,13 @@ export class TestCaseResult implements ITestCaseResult {
   @Prop({ type: TestCaseExceptionSchema, required: false, default: undefined })
   skipReason!: TestCaseException | null;
 
-  @Prop({ type: String, required: false, default: "" })
+  @Prop({ type: String, required: false, default: '' })
   log!: string;
 }
 
-export const TestCaseResultSchema = SchemaFactory.createForClass(TestCaseResult);
-
+export const TestCaseResultSchema = SchemaFactory.createForClass(
+  TestCaseResult,
+);
 
 @Schema({
   _id: false,
@@ -104,8 +104,9 @@ export class ValidationTests implements IValidationTests {
   ghActionRun!: number;
 }
 
-export const ValidationTestsSchema = SchemaFactory.createForClass(ValidationTests);
-
+export const ValidationTestsSchema = SchemaFactory.createForClass(
+  ValidationTests,
+);
 
 @Schema({
   _id: false,
@@ -119,7 +120,7 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
     required: true,
     default: specificationVersions.latest,
     enum: Object.keys(specificationVersions).map(
-      (k) => specificationVersions[k as specificationVersions]
+      (k) => specificationVersions[k as specificationVersions],
     ),
   })
   specificationVersion!: specificationVersions;
@@ -128,7 +129,7 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
     type: String,
     required: true,
     enum: Object.keys(imageVersions).map(
-      (k) => imageVersions[k as imageVersions]
+      (k) => imageVersions[k as imageVersions],
     ),
     default: imageVersions.latest,
   })
@@ -149,7 +150,7 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
 }
 
 export const BiosimulatorsMetaSchema = SchemaFactory.createForClass(
-  BiosimulatorsMeta
+  BiosimulatorsMeta,
 );
 
 BiosimulatorsMetaSchema.set('timestamps', {

@@ -69,7 +69,7 @@ export class ValidationTests implements IValidationTests {
 }
 
 export class BiosimulatorsMeta implements IBiosimulatorsMeta {
-  meta: any
+  meta: any;
   @ApiProperty({
     type: String,
     required: true,
@@ -119,4 +119,3 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   })
   updated!: Date;
 }
-

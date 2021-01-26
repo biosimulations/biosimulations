@@ -13,7 +13,7 @@ import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.in
 
 const allowOrigin: CustomOrigin = (
   requestOrigin: string,
-  callback: (err: Error | null, allow?: boolean | undefined) => void
+  callback: (err: Error | null, allow?: boolean | undefined) => void,
 ) => {
   if (!requestOrigin) {
     callback(null, true);
@@ -58,10 +58,20 @@ function setupOpenApi(app: INestApplication) {
     .setTitle('BioSimulations resource API')
     .setDescription('The API to interact with the BioSimulations database')
     .setVersion('0.1')
-    .setLicense("MIT License", "https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE")
-    .setTermsOfService("https://biosimulations.org/help/terms")
-    .setExternalDoc('API specifications (Open API JSON)', 'https://api.biosimulations.org/openapi.json')
-    .setContact('BioSimulations Team', 'https://biosimulations.org/help/about', 'info@biosimulations.org')
+    .setLicense(
+      'MIT License',
+      'https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE',
+    )
+    .setTermsOfService('https://biosimulations.org/help/terms')
+    .setExternalDoc(
+      'API specifications (Open API JSON)',
+      'https://api.biosimulations.org/openapi.json',
+    )
+    .setContact(
+      'BioSimulations Team',
+      'https://biosimulations.org/help/about',
+      'info@biosimulations.org',
+    )
     .addTag('Models')
     .addTag('Projects')
     .addTag('Simulations')
@@ -77,7 +87,7 @@ function setupOpenApi(app: INestApplication) {
   if (unsortedSchemas) {
     const schemaNames = Object.keys(unsortedSchemas).sort();
 
-    const schemas: {[name: string]: any} = {};
+    const schemas: { [name: string]: any } = {};
     for (const schemaName of schemaNames) {
       schemas[schemaName] = unsortedSchemas?.[schemaName];
     }
@@ -98,7 +108,7 @@ function setupOpenApi(app: INestApplication) {
     customCss: ' .swagger-ui .topbar { display: none }',
   };
   SwaggerModule.setup('', app, document, customOptions);
-  
+
   return document;
 }
 

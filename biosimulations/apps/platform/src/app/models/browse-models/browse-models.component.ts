@@ -6,12 +6,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ModelData, ModelDataSource } from './models-datasource';
-import { ModelHttpService } from '../services/model-http.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'biosimulations-browse-models',
@@ -67,7 +66,7 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
   constructor(
     public dataSource: ModelDataSource,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -77,7 +76,7 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.displayedColumns.map(
-      (value: any) => (this.initCheckbox[value.id] = value.show)
+      (value: any) => (this.initCheckbox[value.id] = value.show),
     );
 
     this.isLoading = this.dataSource.isLoading$();
@@ -102,7 +101,7 @@ export class BrowseModelsComponent implements AfterViewInit, OnInit {
     moveItemInArray(
       this.columnsToDisplay,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
   }
 

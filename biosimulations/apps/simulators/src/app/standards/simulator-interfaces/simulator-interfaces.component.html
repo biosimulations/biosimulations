@@ -1,6 +1,13 @@
-<biosimulations-text-page heading="Standard command-line interface for biosimulation tools" [tocSections]="tocSections">
+<biosimulations-text-page
+  heading="Standard command-line interface for biosimulation tools"
+  [tocSections]="tocSections"
+>
   <ng-container id="sideBar">
-    <biosimulations-text-page-side-bar-section heading="Related resources" fxShow fxHide.lt-md>
+    <biosimulations-text-page-side-bar-section
+      heading="Related resources"
+      fxShow
+      fxHide.lt-md
+    >
       <div class="hanging-indent">
         <a [routerLink]="['/help']">
           <biosimulations-icon icon="tutorial"></biosimulations-icon>
@@ -8,7 +15,10 @@
         </a>
       </div>
       <div class="hanging-indent">
-        <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank">
+        <a
+          href="https://biosimulators.github.io/Biosimulators_utils/"
+          target="_blank"
+        >
           <biosimulations-icon icon="tutorial"></biosimulations-icon>
           BioSimulators utils
         </a>
@@ -39,7 +49,16 @@
       heading="Overview"
       tocSection="Overview"
     >
-      <p>The BioSimulators standard for command-line interfaces for biosimulation tools is a set of requirements for the syntax and semantics of the inputs and outputs of biosimulation software tools. The standard ensures that simulation tools can be consistently executed with the same input arguments (a path to a COMBINE/OMEX archive that defines models and simulations and a path to save the outputs of the simulaton experiments defined in the archive) and that the simulation tools produce consistent outputs (reports and plots at consistent paths in consistent formats).</p>
+      <p>
+        The BioSimulators standard for command-line interfaces for biosimulation
+        tools is a set of requirements for the syntax and semantics of the
+        inputs and outputs of biosimulation software tools. The standard ensures
+        that simulation tools can be consistently executed with the same input
+        arguments (a path to a COMBINE/OMEX archive that defines models and
+        simulations and a path to save the outputs of the simulaton experiments
+        defined in the archive) and that the simulation tools produce consistent
+        outputs (reports and plots at consistent paths in consistent formats).
+      </p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -47,37 +66,139 @@
       tocSection="Command-line arguments"
     >
       <h3>Command-line arguments</h3>
-      <p>Simulation tools which implement the BioSimulators command-line interface standard should support the following command-line arguments:</p>
+      <p>
+        Simulation tools which implement the BioSimulators command-line
+        interface standard should support the following command-line arguments:
+      </p>
 
       <ul class="vertically-spaced">
-        <li><b><code>-i, --archive</code>:</b> A path to a COMBINE/OMEX archive which contains descriptions of one or more simulation tasks.</li>
-        <li><b><code>-o, --out-dir</code>:</b> The path where the outputs (reports and plots) of the simulation tasks should be saved.</li>
-        <li><b><code>-h, --help</code>:</b> An optional argument that instructs the command-line program to print help information about itself.</li>
-        <li><b><code>-v, --version</code>:</b> An optional argument that instructs the command-line program to report its version and the versions of any critical dependencies.</li>
+        <li>
+          <b><code>-i, --archive</code>:</b> A path to a COMBINE/OMEX archive
+          which contains descriptions of one or more simulation tasks.
+        </li>
+        <li>
+          <b><code>-o, --out-dir</code>:</b> The path where the outputs (reports
+          and plots) of the simulation tasks should be saved.
+        </li>
+        <li>
+          <b><code>-h, --help</code>:</b> An optional argument that instructs
+          the command-line program to print help information about itself.
+        </li>
+        <li>
+          <b><code>-v, --version</code>:</b> An optional argument that instructs
+          the command-line program to report its version and the versions of any
+          critical dependencies.
+        </li>
       </ul>
 
       <h3>Execution behavior</h3>
-      <p>Simulation tools which implement the BioSimulators command-line interface standard should also support the following conventions:</p>
+      <p>
+        Simulation tools which implement the BioSimulators command-line
+        interface standard should also support the following conventions:
+      </p>
       <ul class="vertically-spaced">
-        <li><b>Support at least one "standard" modeling language.</b> Interfaces to simulation tools should support at least a subset of at least one community modeling language such as BNGL, CellML, Kappa, NeuroML, pharmML, or SBML.</li>
-        <li><b>Support the SED-ML format for describing simulation experiments.</b> Interfaces to simulation tools should support at least the following features of SED-ML:
+        <li>
+          <b>Support at least one "standard" modeling language.</b> Interfaces
+          to simulation tools should support at least a subset of at least one
+          community modeling language such as BNGL, CellML, Kappa, NeuroML,
+          pharmML, or SBML.
+        </li>
+        <li>
+          <b
+            >Support the SED-ML format for describing simulation experiments.</b
+          >
+          Interfaces to simulation tools should support at least the following
+          features of SED-ML:
           <ul>
-            <li>Models and model attribute changes: <code>sedml:model</code>, <code>sedml:changeAttribute</code></li>
-            <li>At least one of steady-state, one step, or timecourse simulations: <code>sedml:steadyState</code>, <code>sedml:oneStep</code>, or <code>sedml:uniformTimeCourse</code>.</li>
-            <li>Tasks to execute a single simulation of a single model: <code>sedml:task</code>.</li>
-            <li>Algorithms and their parameters: <code>sedml:algorithm</code>, <code>sedml:algorithmParameter</code>.</li>
-            <li>Data generators for individual variables: <code>sedml:dataGenerator</code></li>
+            <li>
+              Models and model attribute changes: <code>sedml:model</code>,
+              <code>sedml:changeAttribute</code>
+            </li>
+            <li>
+              At least one of steady-state, one step, or timecourse simulations:
+              <code>sedml:steadyState</code>, <code>sedml:oneStep</code>, or
+              <code>sedml:uniformTimeCourse</code>.
+            </li>
+            <li>
+              Tasks to execute a single simulation of a single model:
+              <code>sedml:task</code>.
+            </li>
+            <li>
+              Algorithms and their parameters: <code>sedml:algorithm</code>,
+              <code>sedml:algorithmParameter</code>.
+            </li>
+            <li>
+              Data generators for individual variables:
+              <code>sedml:dataGenerator</code>
+            </li>
             <li>Report outputs: <code>sedml:report</code>.</li>
           </ul>
-        <li><b>Use KiSAO to describe simulation algorithms and their parameters.</b> Interfaces to simulation tools should use KiSAO terms to indicate specific algorithms and algorithm parameters.</li>
-        <li><b>Support the COMBINE/OMEX format for collections of models and simulations.</b> Interfaces to simulation tools should support the full COMBINE/OMEX specification.</li>
-        <li><b>Execute all tasks described in the master file of the COMBINE/OMEX archive:</b> When a COMBINE/OMEX archive file contains a master SED-ML document, simulation tools should execute all tasks defined inside the master file. When an archive doesn't contain a master SED-ML file, simulation tools should execute all of the tasks defined in each SED-ML file in the archive.</li>
-        <li><b>Support the BioSimulators standard format for reports of simulation results:</b> Interfaces to simulation tools should save reports in the <a [routerLink]="['/standards', 'simulation-reports']">BioSimulators HDF5 format for reports of simulation results</a>. Within the HDF5 file, each report should be saved to a path equal to the combination of the relative path of its parent SED-ML file within the COMBINE/OMEX archive and the id of the report.</li>
-        <li><b>Save plots in Portable Document Format (PDF) bundled into a zip archive.</b> Within the zip archive, each plot should be saved to a path equal to the combination of the relative path of its parent SED-ML file within the COMBINE/OMEX archive, the id of the plot, and the extension <code>.pdf</code></li>
-        <li><b>Save simulation outputs to standard file paths:</b> Reports should be saved to <code>{{ '{ ' }} out-dir {{ ' }' }}/reports.h5</code>. Plots should be saved to <code>{{ '{ ' }} out-dir {{ ' }' }}/plots.zip</code>.</li>
+        </li>
+
+        <li>
+          <b
+            >Use KiSAO to describe simulation algorithms and their
+            parameters.</b
+          >
+          Interfaces to simulation tools should use KiSAO terms to indicate
+          specific algorithms and algorithm parameters.
+        </li>
+        <li>
+          <b
+            >Support the COMBINE/OMEX format for collections of models and
+            simulations.</b
+          >
+          Interfaces to simulation tools should support the full COMBINE/OMEX
+          specification.
+        </li>
+        <li>
+          <b
+            >Execute all tasks described in the master file of the COMBINE/OMEX
+            archive:</b
+          >
+          When a COMBINE/OMEX archive file contains a master SED-ML document,
+          simulation tools should execute all tasks defined inside the master
+          file. When an archive doesn't contain a master SED-ML file, simulation
+          tools should execute all of the tasks defined in each SED-ML file in
+          the archive.
+        </li>
+        <li>
+          <b
+            >Support the BioSimulators standard format for reports of simulation
+            results:</b
+          >
+          Interfaces to simulation tools should save reports in the
+          <a [routerLink]="['/standards', 'simulation-reports']"
+            >BioSimulators HDF5 format for reports of simulation results</a
+          >. Within the HDF5 file, each report should be saved to a path equal
+          to the combination of the relative path of its parent SED-ML file
+          within the COMBINE/OMEX archive and the id of the report.
+        </li>
+        <li>
+          <b
+            >Save plots in Portable Document Format (PDF) bundled into a zip
+            archive.</b
+          >
+          Within the zip archive, each plot should be saved to a path equal to
+          the combination of the relative path of its parent SED-ML file within
+          the COMBINE/OMEX archive, the id of the plot, and the extension
+          <code>.pdf</code>
+        </li>
+        <li>
+          <b>Save simulation outputs to standard file paths:</b> Reports should
+          be saved to <code>{{ '{ ' }} out-dir {{ ' }' }}/reports.h5</code>.
+          Plots should be saved to
+          <code>{{ '{ ' }} out-dir {{ ' }' }}/plots.zip</code>.
+        </li>
       </ul>
 
-      <p>An an example, below is the documentation for the command-line interface for tellurium <a href="http://tellurium.analogmachine.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+      <p>
+        An an example, below is the documentation for the command-line interface
+        for tellurium
+        <a href="http://tellurium.analogmachine.org" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >.
+      </p>
 
       <pre><code>usage: tellurium [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
 
@@ -93,46 +214,122 @@ optional arguments:
   -o OUT_DIR, --out-dir OUT_DIR
                         Directory to save outputs
   -v, --version         show program's version number and exit</code></pre>
-
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Environment variables"
       tocSection="Environment variables"
     >
-      <p>To further support consistent execution of simulations with other simulation tools, simulation tools are also encouraged to implement the following environment variables. The Dockerfiles for simulation tools should use the <code>ENV</code> directive to indicate the variables they support and their default values.</p>
+      <p>
+        To further support consistent execution of simulations with other
+        simulation tools, simulation tools are also encouraged to implement the
+        following environment variables. The Dockerfiles for simulation tools
+        should use the <code>ENV</code> directive to indicate the variables they
+        support and their default values.
+      </p>
 
       <ul class="vertically-spaced">
         <li>
-          <p><b><code>ALGORITHM_SUBSTITUTION_POLICY</code></b>: This environment variable enables users to control if and how the simulator substitutes algorithms with other mathematically-equivalent or similar algorithms.</p>
+          <p>
+            <b><code>ALGORITHM_SUBSTITUTION_POLICY</code></b
+            >: This environment variable enables users to control if and how the
+            simulator substitutes algorithms with other
+            mathematically-equivalent or similar algorithms.
+          </p>
 
-          <p>BioSimulators recognizes the increasing levels of substitution listed below. Simulation tools are encouraged to use <code>SIMILAR_VARIABLES</code> as the default value for <code>ALGORITHM_SUBSTITUTION_POLICY</code>.</p>
+          <p>
+            BioSimulators recognizes the increasing levels of substitution
+            listed below. Simulation tools are encouraged to use
+            <code>SIMILAR_VARIABLES</code> as the default value for
+            <code>ALGORITHM_SUBSTITUTION_POLICY</code>.
+          </p>
 
           <ul>
-            <li><code>NONE</code>: Tools should strictly interpret SED-ML simulations, and raise errors on the execution of SED-ML files that involve unsupported algorithms. For example, a simulation tool that only supports the Stochastic Simulation Algorithm (SSA, KISAO_0000029) should raise errors on SED-ML files that request simulations with the Next Reaction Method (NRM< KISAO_0000027).</li>
+            <li>
+              <code>NONE</code>: Tools should strictly interpret SED-ML
+              simulations, and raise errors on the execution of SED-ML files
+              that involve unsupported algorithms. For example, a simulation
+              tool that only supports the Stochastic Simulation Algorithm (SSA,
+              KISAO_0000029) should raise errors on SED-ML files that request
+              simulations with the Next Reaction Method (NRM< KISAO_0000027).
+            </li>
 
-            <li><code>SAME_METHOD</code>: Algorithms can be substituted with different realizations of the same method. For example, GLPK's implementation of the Simplex method could be substituted with SciPy's implementation.</li>
+            <li>
+              <code>SAME_METHOD</code>: Algorithms can be substituted with
+              different realizations of the same method. For example, GLPK's
+              implementation of the Simplex method could be substituted with
+              SciPy's implementation.
+            </li>
 
-            <li><code>SAME_MATH</code>: Tools should execute simulations with alternative mathematically-equivalent algorithms, and raise errors on the execution of SED-ML files which request algorithms that are mathematically distinct from those implemented by the tool. When tools execute alternative mathematically-equivalent algorithms, they should issue warnings to this effect. For example, a simulation tool that only supports SSA should execute simulations that request NRM with a warning, and raise an error on SED-ML files that request the tau-leaping method (KISAO_0000039).</li>
+            <li>
+              <code>SAME_MATH</code>: Tools should execute simulations with
+              alternative mathematically-equivalent algorithms, and raise errors
+              on the execution of SED-ML files which request algorithms that are
+              mathematically distinct from those implemented by the tool. When
+              tools execute alternative mathematically-equivalent algorithms,
+              they should issue warnings to this effect. For example, a
+              simulation tool that only supports SSA should execute simulations
+              that request NRM with a warning, and raise an error on SED-ML
+              files that request the tau-leaping method (KISAO_0000039).
+            </li>
 
-            <li><code>SIMILAR_APPROXIMATIONS</code>: Algorithms can be substituted with others that make similar approximations to the same mathematics. For example, CVODE could be substituted with LSODA or the Fehlberg method. Tau leaping could be substituted with partitioned tau leaping.</li>
+            <li>
+              <code>SIMILAR_APPROXIMATIONS</code>: Algorithms can be substituted
+              with others that make similar approximations to the same
+              mathematics. For example, CVODE could be substituted with LSODA or
+              the Fehlberg method. Tau leaping could be substituted with
+              partitioned tau leaping.
+            </li>
 
-            <li><code>DISTINCT_APPROXIMATIONS</code>: Algorithms can be substituted with others that make distinct approximations to the same math. For example, SSA could be substituted with tau leaping or the Pahle hybrid method.</li>
+            <li>
+              <code>DISTINCT_APPROXIMATIONS</code>: Algorithms can be
+              substituted with others that make distinct approximations to the
+              same math. For example, SSA could be substituted with tau leaping
+              or the Pahle hybrid method.
+            </li>
 
-            <li><code>DISTINCT_SCALES</code>: Algorithms can be substituted with others that make distinct approximations to the same math that substantially differ in their scales. For example, SSA could be substituted with CVODE.</li>
+            <li>
+              <code>DISTINCT_SCALES</code>: Algorithms can be substituted with
+              others that make distinct approximations to the same math that
+              substantially differ in their scales. For example, SSA could be
+              substituted with CVODE.
+            </li>
 
-            <li><code>SAME_VARIABLES</code>: Algorithms that predict the same dependent variables can be substituted. For example, FBA could be substituted with parsimonious FBA.</li>
+            <li>
+              <code>SAME_VARIABLES</code>: Algorithms that predict the same
+              dependent variables can be substituted. For example, FBA could be
+              substituted with parsimonious FBA.
+            </li>
 
-            <li><code>SIMILAR_VARIABLES</code> (recommended default): Algorithms that predict similar dependent variables can be substituted. For example, FBA could be substituted with geometric FBA.</li>
+            <li>
+              <code>SIMILAR_VARIABLES</code> (recommended default): Algorithms
+              that predict similar dependent variables can be substituted. For
+              example, FBA could be substituted with geometric FBA.
+            </li>
 
-            <li><code>SAME_FRAMEWORK</code>: Tools should execute simulations with alternative algorithms, including algorithms that are not mathematically equivalent, and issue warnings when alternative algorithms are executed.</li>
+            <li>
+              <code>SAME_FRAMEWORK</code>: Tools should execute simulations with
+              alternative algorithms, including algorithms that are not
+              mathematically equivalent, and issue warnings when alternative
+              algorithms are executed.
+            </li>
 
-            <li><code>ANY</code>: Tools can execute simulations with any alternative algorithm. Note, switching to any other algorithm can substantially change the interpretation of a simulation (e.g., switching SSA to CVODE loses all information about the variance of a simulation).</li>
+            <li>
+              <code>ANY</code>: Tools can execute simulations with any
+              alternative algorithm. Note, switching to any other algorithm can
+              substantially change the interpretation of a simulation (e.g.,
+              switching SSA to CVODE loses all information about the variance of
+              a simulation).
+            </li>
           </ul>
         </li>
 
         <li>
-          <p><b><code>VERBOSE</code></b>: Indicates whether a simulator should display detailed information about the execution of each task.</p>
+          <p>
+            <b><code>VERBOSE</code></b
+            >: Indicates whether a simulator should display detailed information
+            about the execution of each task.
+          </p>
 
           <p>BioSimulators recognizes the following values.</p>
 
@@ -158,12 +355,29 @@ optional arguments:
       heading="Execution of modeling projects encoded as COMBINE/OMEX archives"
       tocSection="Execution of projects"
     >
-      <p>To ensure consistent execution of simulation experiments, simulation tools should adopt the conventions described below for the execution of COMBINE/OMEX archives.</p>
+      <p>
+        To ensure consistent execution of simulation experiments, simulation
+        tools should adopt the conventions described below for the execution of
+        COMBINE/OMEX archives.
+      </p>
 
       <ul class="vertically-spaced">
-        <li><b>Identification of SED-ML files.</b> SED-ML files should be identified as <code>omex:content</code> whose <code>format</code> attribute starts with <code>http://identifiers.org/combine.specifications/sed-ml</code>.</li>
+        <li>
+          <b>Identification of SED-ML files.</b> SED-ML files should be
+          identified as <code>omex:content</code> whose
+          <code>format</code> attribute starts with
+          <code>http://identifiers.org/combine.specifications/sed-ml</code>.
+        </li>
 
-        <li><b>Preferential execution of "master" files.</b> The OMEX format supports the declaration of a single "master" file (<code>omex:content[@master='true']</code>). When a COMBINE/OMEX archive contains a single master file, simulation tools should only execute this file. Note, if the master file is not a SED-ML document, then no simualtions should be executed. When a COMBINE/OMEX archive doesn't have a master file, all SED-ML documents should be executed.</li>
+        <li>
+          <b>Preferential execution of "master" files.</b> The OMEX format
+          supports the declaration of a single "master" file
+          (<code>omex:content[@master='true']</code>). When a COMBINE/OMEX
+          archive contains a single master file, simulation tools should only
+          execute this file. Note, if the master file is not a SED-ML document,
+          then no simualtions should be executed. When a COMBINE/OMEX archive
+          doesn't have a master file, all SED-ML documents should be executed.
+        </li>
       </ul>
     </biosimulations-text-page-content-section>
 
@@ -171,15 +385,40 @@ optional arguments:
       heading="Execution of simulation experiments encoded in SED-ML"
       tocSection="Execution of simulations"
     >
-      <p>To ensure consistent execution of simulation experiments, simulation tools should adopt the conventions described below for the execution of SED-ML files.</p>
+      <p>
+        To ensure consistent execution of simulation experiments, simulation
+        tools should adopt the conventions described below for the execution of
+        SED-ML files.
+      </p>
 
       <ul class="vertically-spaced">
         <li>
           <p><b>Substitution of alternative simulation algorithms.</b></p>
-          <p>Because no simulation tool implements every simulation algorithm, simulation tools are encouraged to execute SED-ML simulations with alternative algorithms (close KiSAO terms) when the tool does not support the requested algorithm (<code>sedml:algorithm/@kisaoID</code>). For example, a tool which only implements the Stochastic Simulation Algorithm (SSA, KISAO_0000029) could choose to execute simulations that request the Next Reaction Method (NRM, KISAO_0000027), a mathematically-equivalent method, with SSA.</p>
-          <p>Simulation tools are encouraged to use the KiSAO ontology to systematically identify related simulation algorithms.</p>
-          <p>When a tool uses an alternative algorithm, the tool should issue a warning message to the user that indicates that an alternative algorithm was used.</p>
-          <p>Tools which choose to execute alternative algorithms should support the <code>ALGORITHM_SUBSTITUTION_POLICY</code> environment variable (see above).</p>
+          <p>
+            Because no simulation tool implements every simulation algorithm,
+            simulation tools are encouraged to execute SED-ML simulations with
+            alternative algorithms (close KiSAO terms) when the tool does not
+            support the requested algorithm
+            (<code>sedml:algorithm/@kisaoID</code>). For example, a tool which
+            only implements the Stochastic Simulation Algorithm (SSA,
+            KISAO_0000029) could choose to execute simulations that request the
+            Next Reaction Method (NRM, KISAO_0000027), a
+            mathematically-equivalent method, with SSA.
+          </p>
+          <p>
+            Simulation tools are encouraged to use the KiSAO ontology to
+            systematically identify related simulation algorithms.
+          </p>
+          <p>
+            When a tool uses an alternative algorithm, the tool should issue a
+            warning message to the user that indicates that an alternative
+            algorithm was used.
+          </p>
+          <p>
+            Tools which choose to execute alternative algorithms should support
+            the <code>ALGORITHM_SUBSTITUTION_POLICY</code> environment variable
+            (see above).
+          </p>
         </li>
       </ul>
     </biosimulations-text-page-content-section>
@@ -188,14 +427,54 @@ optional arguments:
       heading="Recommended resources for implementing command-line interfaces"
       tocSection="Recommended resources"
     >
-    <p>Below are helpful tools for implementing command-line interfaces to the above specifications:</p>
+      <p>
+        Below are helpful tools for implementing command-line interfaces to the
+        above specifications:
+      </p>
 
-    <ul>
-      <li><b>BioSimulators utils <a href="https://biosimulators.github.io/Biosimulators_utils/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a Python library which provides functions implementing command-line interfaces to the above specifications, as well as functions for interpreting COMBINE/OMEX archives and SED-ML files, generating tables and plots of simulation plots, and logging the execution of COMBINE/OMEX archives. BioSimulators utils provides high-level access to some of the lower-level libraries listed below.</li>
-      <li><b>libCOMBINE <a href="https://github.com/sbmlteam/libCombine" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a library for creating and unpacking COMBINE/OMEX archives. libCOMBINE provides bindings for several langauges.</li>
-      <li><b>libSED-ML <a href="https://github.com/fbergmann/libSEDML" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a library for serializing and deserializing SED documents to and from XML files. libSED-ML provides bindings for several langauges.</li>
-      <li><b>Cement <a href="https://builtoncement.com/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></b> is a Python library for implementing command-line applications.</li>
-    </ul>
-  </biosimulations-text-page-content-section>
+      <ul>
+        <li>
+          <b
+            >BioSimulators utils
+            <a
+              href="https://biosimulators.github.io/Biosimulators_utils/"
+              target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+          ></b>
+          is a Python library which provides functions implementing command-line
+          interfaces to the above specifications, as well as functions for
+          interpreting COMBINE/OMEX archives and SED-ML files, generating tables
+          and plots of simulation plots, and logging the execution of
+          COMBINE/OMEX archives. BioSimulators utils provides high-level access
+          to some of the lower-level libraries listed below.
+        </li>
+        <li>
+          <b
+            >libCOMBINE
+            <a href="https://github.com/sbmlteam/libCombine" target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+          ></b>
+          is a library for creating and unpacking COMBINE/OMEX archives.
+          libCOMBINE provides bindings for several langauges.
+        </li>
+        <li>
+          <b
+            >libSED-ML
+            <a href="https://github.com/fbergmann/libSEDML" target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+          ></b>
+          is a library for serializing and deserializing SED documents to and
+          from XML files. libSED-ML provides bindings for several langauges.
+        </li>
+        <li>
+          <b
+            >Cement
+            <a href="https://builtoncement.com/" target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+          ></b>
+          is a Python library for implementing command-line applications.
+        </li>
+      </ul>
+    </biosimulations-text-page-content-section>
   </ng-container>
 </biosimulations-text-page>

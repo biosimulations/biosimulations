@@ -69,7 +69,7 @@ export class Visualization extends TopLevelResource {
       for (let iRow = 0; iRow < rows; iRow++) {
         const maxColumns: number = Math.min(
           this.columns,
-          this.layout.length - iRow * this.columns
+          this.layout.length - iRow * this.columns,
         );
         const row = [];
         spec['vconcat'].push({ hconcat: row });
@@ -77,7 +77,7 @@ export class Visualization extends TopLevelResource {
           const specCopy: object = {};
           Object.assign(
             specCopy,
-            this.layout[iRow * this.columns + iCol].chartType.spec
+            this.layout[iRow * this.columns + iCol].chartType.spec,
           );
           for (const prop of ['autosize', 'height', 'width']) {
             if (prop in specCopy) {

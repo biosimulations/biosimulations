@@ -47,12 +47,12 @@ export class RegistrationComponent implements OnInit, OnChanges {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private registrationService: RegistrationService
+    private registrationService: RegistrationService,
   ) {
     this.userNameForm = new FormControl(
       '',
       Validators.required,
-      this.registrationService.uniqueUsernameAsyncValidator
+      this.registrationService.uniqueUsernameAsyncValidator,
     );
 
     this.termsAndConditionsForm = this.formBuilder.group({

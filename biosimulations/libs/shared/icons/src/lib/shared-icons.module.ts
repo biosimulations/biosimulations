@@ -8,7 +8,6 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import { FaIconComponent } from './fa-icon/fa-icon.component';
 import {
-  fas,
   faHome,
   faLink,
   faExternalLinkAlt,
@@ -79,11 +78,27 @@ import {
   faChevronUp,
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
-import { fab, faGitAlt, faGithub, faDocker, faLinkedin, faOrcid, faCreativeCommons, faCreativeCommonsBy, faCreativeCommonsNc, faCreativeCommonsZero, faCreativeCommonsSa, faCreativeCommonsShare, faOsi } from '@fortawesome/free-brands-svg-icons';
-import { far, faFile, faFileAlt as farFileAlt, faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+import {
+  faGitAlt,
+  faGithub,
+  faDocker,
+  faLinkedin,
+  faOrcid,
+  faCreativeCommons,
+  faCreativeCommonsBy,
+  faCreativeCommonsNc,
+  faCreativeCommonsZero,
+  faCreativeCommonsSa,
+  faCreativeCommonsShare,
+  faOsi,
+} from '@fortawesome/free-brands-svg-icons';
+import {
+  faFileAlt as farFileAlt,
+  faStar as farStar,
+} from '@fortawesome/free-regular-svg-icons';
 import { MatIconComponent } from './mat-icon/mat-icon.component';
 import { CCIconComponent } from './cc-icon/cc-icon.component';
-export { biosimulationsIcon } from './icon/icon.component'
+export { biosimulationsIcon } from './icon/icon.component';
 @NgModule({
   imports: [CommonModule, MatIconModule, FontAwesomeModule],
   declarations: [
@@ -92,12 +107,11 @@ export { biosimulationsIcon } from './icon/icon.component'
     MatIconComponent,
     CCIconComponent,
   ],
-  exports: [IconComponent,],
+  exports: [IconComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class BiosimulationsIconsModule {
   constructor(library: FaIconLibrary) {
-
     library.addIcons(
       faHome,
       faLink,
@@ -182,7 +196,6 @@ export class BiosimulationsIconsModule {
       farFileAlt,
       farStar,
       faOsi,
-    )
-
+    );
   }
 }

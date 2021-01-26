@@ -2,7 +2,7 @@ import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import {
   DispatchPayload,
   DispatchMessage,
-  DispatchFinishedPayload
+  DispatchFinishedPayload,
 } from '@biosimulations/messages/messages';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
@@ -19,7 +19,7 @@ export class SubmissionService {
     private service: SimulationRunService,
     private hpcService: HpcService,
     private schedulerRegistry: SchedulerRegistry,
-    @Inject('NATS_CLIENT') private messageClient: ClientProxy
+    @Inject('NATS_CLIENT') private messageClient: ClientProxy,
   ) {
     this.logger = new Logger(SubmissionService.name);
   }
@@ -27,14 +27,14 @@ export class SubmissionService {
     jobId: string,
     simId: string,
     seconds: number,
-    transpose: boolean
+    transpose: boolean,
   ) {
     const job = new CronJob(`*/${seconds.toString()} * * * * *`, async () => {
       const jobStatus: SimulationRunStatus = await this.hpcService.getJobStatus(
-        jobId
+        jobId,
       );
       this.logger.debug(
-        `Checking status for job with id ${jobId} for simulation ${simId}: Status is ${jobStatus}`
+        `Checking status for job with id ${jobId} for simulation ${simId}: Status is ${jobStatus}`,
       );
 
       this.updateSimulationRunStatus(simId, jobStatus);
@@ -43,10 +43,9 @@ export class SubmissionService {
         case SimulationRunStatus.QUEUED: {
           const message: DispatchPayload = {
             _message: DispatchMessage.queued,
-            id: simId
+            id: simId,
           };
           this.messageClient.emit(DispatchMessage.queued, message);
-
 
           break;
         }
@@ -54,7 +53,7 @@ export class SubmissionService {
         case SimulationRunStatus.RUNNING: {
           const runningMessage: DispatchPayload = {
             _message: DispatchMessage.started,
-            id: simId
+            id: simId,
           };
           this.messageClient.emit(DispatchMessage.started, runningMessage);
 
@@ -62,11 +61,10 @@ export class SubmissionService {
         }
 
         case SimulationRunStatus.PROCESSING: {
-
           const succeededMessage: DispatchFinishedPayload = {
             _message: DispatchMessage.finished,
             id: simId,
-            transpose: transpose
+            transpose: transpose,
           };
           this.messageClient.emit(DispatchMessage.finished, succeededMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
@@ -77,7 +75,7 @@ export class SubmissionService {
 
           const failedMessage: DispatchPayload = {
             _message: DispatchMessage.failed,
-            id: simId
+            id: simId,
           };
           this.messageClient.emit(DispatchMessage.failed, failedMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
@@ -92,25 +90,29 @@ export class SubmissionService {
     jobId: string,
     simId: string,
     seconds: number,
-    transpose: boolean
+    transpose: boolean,
   ) {
     const job = this.createJob(jobId, simId, seconds, transpose);
     this.schedulerRegistry.addCronJob(jobId, job);
     this.logger.debug(
-      `Starting to monitor job with id ${jobId} for simulation ${simId}`
+      `Starting to monitor job with id ${jobId} for simulation ${simId}`,
     );
     job.start();
   }
 
   async updateSimulationRunStatus(
     simId: string,
-    simStatus: SimulationRunStatus
+    simStatus: SimulationRunStatus,
   ): Promise<SimulationRun | void> {
-    return this.service.updateSimulationRunStatus(simId, simStatus).toPromise().then(val => {
-      this.logger.log("Successfully updated simulation")
-    }).catch(err => {
-      this.logger.error("Failed to update status")
-      return
-    });;
+    return this.service
+      .updateSimulationRunStatus(simId, simStatus)
+      .toPromise()
+      .then((val) => {
+        this.logger.log('Successfully updated simulation');
+      })
+      .catch((err) => {
+        this.logger.error('Failed to update status');
+        return;
+      });
   }
 }

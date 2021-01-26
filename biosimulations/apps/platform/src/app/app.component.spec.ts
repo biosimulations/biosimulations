@@ -16,10 +16,10 @@ describe('AppComponent', () => {
         HttpClientTestingModule,
         NoopAnimationsModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage']
+          driverOrder: ['indexeddb', 'websql', 'localstorage'],
         }),
       ],
-      providers:[AuthService, AuthEnvironment, ConfigService, ScrollService],
+      providers: [AuthService, AuthEnvironment, ConfigService, ScrollService],
       declarations: [AppComponent],
     }).compileComponents();
   }));
@@ -29,6 +29,4 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
-
-
 });

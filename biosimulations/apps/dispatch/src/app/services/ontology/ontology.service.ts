@@ -19,14 +19,18 @@ export class OntologyService {
   kisaoTerms: Observable<{ [id: string]: KisaoTerm }>;
 
   constructor(private http: HttpClient) {
-    this.kisaoTerms = this.fetchTerms<KisaoTerm>(Ontologies.KISAO) as Observable<{ [id: string]: KisaoTerm }>;
+    this.kisaoTerms = this.fetchTerms<KisaoTerm>(
+      Ontologies.KISAO,
+    ) as Observable<{ [id: string]: KisaoTerm }>;
     this.kisaoTerms.subscribe();
   }
 
   endpoint = urls.ontologyApi;
 
-  private fetchTerms<T extends IOntologyTerm>(ontologyId: Ontologies): Observable<{ [id: string]: T }> {
-    return this.http.get<T[]>(this.endpoint  + ontologyId + '/list').pipe(
+  private fetchTerms<T extends IOntologyTerm>(
+    ontologyId: Ontologies,
+  ): Observable<{ [id: string]: T }> {
+    return this.http.get<T[]>(this.endpoint + ontologyId + '/list').pipe(
       shareReplay(1),
       map((terms) => {
         const termSet: { [id: string]: T } = {};
@@ -34,42 +38,53 @@ export class OntologyService {
           termSet[term.id] = term;
         });
         return termSet;
-      })
+      }),
     );
   }
 
-  private getTerms<T extends IOntologyTerm>(ontologyId: Ontologies): Observable<{ [id: string]: T }> | null {
+  private getTerms<T extends IOntologyTerm>(
+    ontologyId: Ontologies,
+  ): Observable<{ [id: string]: T }> | null {
     switch (ontologyId) {
-      case Ontologies.KISAO: return this.kisaoTerms as Observable<{ [id: string]: T }>;
+      case Ontologies.KISAO:
+        return this.kisaoTerms as Observable<{ [id: string]: T }>;
     }
     return null;
   }
 
   private getTerm<T extends IOntologyTerm>(
     ontologyId: Ontologies,
-    term: string
+    term: string,
   ): Observable<T> {
-    const termsObservable = this.getTerms<T>(ontologyId) as Observable<{ [id: string]: T }>;
+    const termsObservable = this.getTerms<T>(ontologyId) as Observable<{
+      [id: string]: T;
+    }>;
     return termsObservable.pipe(
-      map((terms: { [id: string]: T }): T => {
-        const setTerm = terms[term];
+      map(
+        (terms: { [id: string]: T }): T => {
+          const setTerm = terms[term];
 
-        if (setTerm) {
-          return setTerm;
-        } else {
-          throw new Error(`Term with id ${term} not found in ontology ${ontologyId}`);
-        }
-      }),
-      catchError((terms: { [id: string]: T }): Observable<T> => {
-        return of(({
-          namespace: (terms[Object.keys(terms)[0]] as T).namespace,
-          id: term,
-          name: term,
-          description: 'Unknown term',
-          url: '',
-          iri: '',
-        } as unknown) as T);
-      })
+          if (setTerm) {
+            return setTerm;
+          } else {
+            throw new Error(
+              `Term with id ${term} not found in ontology ${ontologyId}`,
+            );
+          }
+        },
+      ),
+      catchError(
+        (terms: { [id: string]: T }): Observable<T> => {
+          return of(({
+            namespace: (terms[Object.keys(terms)[0]] as T).namespace,
+            id: term,
+            name: term,
+            description: 'Unknown term',
+            url: '',
+            iri: '',
+          } as unknown) as T);
+        },
+      ),
     );
   }
 
@@ -77,7 +92,9 @@ export class OntologyService {
     return this.getTerm<KisaoTerm>(Ontologies.KISAO, id);
   }
 
-  formatKisaoDescription(value: string | null): AlgorithmKisaoDescriptionFragment[] | undefined {
+  formatKisaoDescription(
+    value: string | null,
+  ): AlgorithmKisaoDescriptionFragment[] | undefined {
     if (!value) {
       return undefined;
     }

@@ -5,7 +5,6 @@ import {
   BiomodelAttributes,
   SimulationAttributes,
   VisualizationAttributes,
-
   BiomodelRelationships,
 } from '../core';
 import { BiosimulationsId } from '../common';
@@ -33,4 +32,3 @@ export interface VisualizationResource {
   type: ResourceType.visualization;
   attributes: VisualizationAttributes;
 }
-

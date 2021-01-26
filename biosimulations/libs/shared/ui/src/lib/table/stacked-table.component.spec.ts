@@ -38,9 +38,7 @@ describe('StackedTableComponent', () => {
         TocSectionDirective,
         TocSectionsContainerDirective,
       ],
-      providers: [
-        ScrollService,
-      ],
+      providers: [ScrollService],
     }).compileComponents();
   }));
 

@@ -1,9 +1,6 @@
 import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
-import {
-  SimulationRunLogStatus,
-  SimulationRunStatus
-} from '@biosimulations/datamodel/common';
-import { Injectable, NotFoundException } from '@nestjs/common';
+
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 import path from 'path';
@@ -15,11 +12,11 @@ import { Model } from 'mongoose';
 export class LogsService {
   async createLog(
     id: string,
-    data: CombineArchiveLog
+    data: CombineArchiveLog,
   ): Promise<SimulationRunLog> {
     const log = new this.logModel({
       simId: id,
-      log: data
+      log: data,
     });
 
     return log.save();
@@ -27,7 +24,7 @@ export class LogsService {
   constructor(
     private configService: ConfigService,
     @InjectModel(SimulationRunLog.name)
-    private logModel: Model<SimulationRunLog>
+    private logModel: Model<SimulationRunLog>,
   ) {}
   private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
 
@@ -57,7 +54,7 @@ export class LogsService {
 
     return {
       output: fileContentOut,
-      error: fileContentErr
+      error: fileContentErr,
     };
   }
 }

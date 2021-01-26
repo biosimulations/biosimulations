@@ -16,8 +16,18 @@ describe('TextPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PageComponent, TextPageComponent, TextPageSectionComponent, TextPageSideBarSectionComponent, TextPageTocItemComponent],
-      imports: [RouterTestingModule, BiosimulationsIconsModule, FlexLayoutModule],
+      declarations: [
+        PageComponent,
+        TextPageComponent,
+        TextPageSectionComponent,
+        TextPageSideBarSectionComponent,
+        TextPageTocItemComponent,
+      ],
+      imports: [
+        RouterTestingModule,
+        BiosimulationsIconsModule,
+        FlexLayoutModule,
+      ],
       providers: [ScrollService],
     }).compileComponents();
   }));

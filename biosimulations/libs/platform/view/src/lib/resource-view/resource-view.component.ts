@@ -1,16 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'biosimulations-resource-view',
   templateUrl: './resource-view.component.html',
   styleUrls: ['./resource-view.component.scss'],
 })
-export class ResourceViewComponent  {
+export class ResourceViewComponent {
   @Input()
   imageUrl = 'assets/images/resource-banners/models.svg';
 
   @Input()
-  name: string | undefined
+  name: string | undefined;
 
   @Input()
   authors = '';
@@ -28,18 +28,14 @@ export class ResourceViewComponent  {
   description!: string;
 
   @Input()
-  attributes: any[] |undefined
+  attributes: any[] | undefined;
 
   @Input()
-  parameters: any
+  parameters: any;
 
   @Input()
-  references: any
+  references: any;
 
   @Input()
-  variables: any
-
-
-
-
+  variables: any;
 }

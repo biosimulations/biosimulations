@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewModelComponent } from './view-model.component';
-import{ResourceViewModule} from '@biosimulations/platform/view'
+import { ResourceViewModule } from '@biosimulations/platform/view';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { SharedDebugModule } from '@biosimulations/shared/debug';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -12,10 +12,15 @@ describe('ViewModelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports:[ResourceViewModule, SharedUiModule, SharedDebugModule,RouterTestingModule,HttpClientTestingModule],
-      declarations: [ ViewModelComponent ]
-    })
-    .compileComponents();
+      imports: [
+        ResourceViewModule,
+        SharedUiModule,
+        SharedDebugModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+      ],
+      declarations: [ViewModelComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -28,10 +28,7 @@ export const errorRoutes: Routes = [
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(errorRoutes)
-  ],
+  imports: [CommonModule, RouterModule.forChild(errorRoutes)],
   exports: [RouterModule],
   providers: [],
 })

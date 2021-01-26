@@ -4,16 +4,10 @@ import {
   ViewChild,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators
-} from '@angular/forms';
-import { MatSelectChange } from '@angular/material/select';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
@@ -23,39 +17,44 @@ import {
   AxisType,
   ScatterTraceMode,
   ScatterTrace,
-  Axis,
-  Layout,
-  DataLayout
+  DataLayout,
 } from './visualization/visualization.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { Simulation, TaskMap } from '../../../datamodel';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
-import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
-import { BehaviorSubject, interval, Observable, of, Subject, Subscription } from 'rxjs';
-import { concatAll, flatMap, map, repeat, shareReplay, takeUntil, takeWhile, tap } from 'rxjs/operators';
-import { AxisLabelType, AXIS_LABEL_TYPES, CombineArchive, DataSetIdDisabled, FormattedSimulation, Report, ScatterTraceModeLabel, SCATTER_TRACE_MODEL_LABELS } from './view.model'
-import { ViewService } from './view.service'
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { concatAll, map, shareReplay } from 'rxjs/operators';
+import {
+  AxisLabelType,
+  AXIS_LABEL_TYPES,
+  CombineArchive,
+  DataSetIdDisabled,
+  FormattedSimulation,
+  Report,
+  ScatterTraceModeLabel,
+  SCATTER_TRACE_MODEL_LABELS,
+} from './view.model';
+import { ViewService } from './view.service';
 @Component({
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
   //this seems to be required oddly
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewComponent implements OnInit, OnDestroy {
-
   // Refactored Variables Start
   private uuid = '';
-  logs$!: Observable<SimulationLogs | null>
-  statusRunning$!: Observable<boolean>
-  statusSuceeded$!: Observable<boolean>
-  formattedSimulation$?: Observable<FormattedSimulation>
-  Simulation$!: Observable<Simulation>
+  logs$!: Observable<SimulationLogs | null>;
+  statusRunning$!: Observable<boolean>;
+  statusSuceeded$!: Observable<boolean>;
+  formattedSimulation$?: Observable<FormattedSimulation>;
+  Simulation$!: Observable<Simulation>;
   results$!: Observable<TaskMap | undefined>;
-  subs: Subscription[] = []
+  subs: Subscription[] = [];
 
-  // Form Controller Values 
+  // Form Controller Values
   sedmlLocationForm$!: Observable<any>;
   reportdIdForm$!: Observable<any>;
   xDataSetIdForm$!: Observable<any>;
@@ -81,16 +80,11 @@ export class ViewComponent implements OnInit, OnDestroy {
   scatterTraceModeLabels: ScatterTraceModeLabel[] = SCATTER_TRACE_MODEL_LABELS;
 
   private vizDataLayout = new BehaviorSubject<DataLayout | undefined>(
-    undefined
+    undefined,
   );
   vizDataLayout$ = this.vizDataLayout.asObservable();
 
   @ViewChild('visualization') visualization!: VisualizationComponent;
-
-
-
-
-
 
   constructor(
     private config: ConfigService,
@@ -100,7 +94,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     private simulationService: SimulationService,
     private appService: VisualizationService,
     private dispatchService: DispatchService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     this.formGroup = formBuilder.group({
       sedmlLocation: [undefined, [Validators.required]],
@@ -109,7 +103,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       yDataSetIds: [[], [Validators.required]],
       xAxisType: [AxisType.linear, [Validators.required]],
       yAxisType: [AxisType.linear, [Validators.required]],
-      scatterTraceMode: [ScatterTraceMode.lines, [Validators.required]]
+      scatterTraceMode: [ScatterTraceMode.lines, [Validators.required]],
     });
   }
 
@@ -121,37 +115,59 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.formGroup.controls.xDataSetId.disable();
     this.formGroup.controls.yDataSetIds.disable();
 
-    this.sedmlLocationForm$ = this.formGroup.controls.sedmlLocation.valueChanges
-    this.reportdIdForm$ = this.formGroup.controls.reportId.valueChanges
-    this.xDataSetIdForm$ = this.formGroup.controls.xDataSetId.valueChanges
-    this.yDataSetIdsForm$ = this.formGroup.controls.yDataSetIds.valueChanges
+    this.sedmlLocationForm$ = this.formGroup.controls.sedmlLocation.valueChanges;
+    this.reportdIdForm$ = this.formGroup.controls.reportId.valueChanges;
+    this.xDataSetIdForm$ = this.formGroup.controls.xDataSetId.valueChanges;
+    this.yDataSetIdsForm$ = this.formGroup.controls.yDataSetIds.valueChanges;
 
-    this.Simulation$ = this.simulationService.getSimulation(this.uuid).pipe(shareReplay(1))
-    this.formattedSimulation$ = this.Simulation$.pipe(map<Simulation, FormattedSimulation>(this.service.formatSimulation))
-    this.statusRunning$ = this.formattedSimulation$.pipe(map(value => SimulationStatusService.isSimulationStatusRunning(value.status)))
-    this.statusSuceeded$ = this.formattedSimulation$.pipe(map(value => SimulationStatusService.isSimulationStatusSucceeded(value.status)))
-    this.logs$ = this.statusRunning$.pipe(map(running => running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid)), concatAll())
-    this.results$ = this.statusSuceeded$.pipe(map(succeeded => succeeded ? this.appService.getResultStructure(this.uuid) : of(undefined)), concatAll())
+    this.Simulation$ = this.simulationService
+      .getSimulation(this.uuid)
+      .pipe(shareReplay(1));
+    this.formattedSimulation$ = this.Simulation$.pipe(
+      map<Simulation, FormattedSimulation>(this.service.formatSimulation),
+    );
+    this.statusRunning$ = this.formattedSimulation$.pipe(
+      map((value) =>
+        SimulationStatusService.isSimulationStatusRunning(value.status),
+      ),
+    );
+    this.statusSuceeded$ = this.formattedSimulation$.pipe(
+      map((value) =>
+        SimulationStatusService.isSimulationStatusSucceeded(value.status),
+      ),
+    );
+    this.logs$ = this.statusRunning$.pipe(
+      map((running) =>
+        running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid),
+      ),
+      concatAll(),
+    );
+    this.results$ = this.statusSuceeded$.pipe(
+      map((succeeded) =>
+        succeeded
+          ? this.appService.getResultStructure(this.uuid)
+          : of(undefined),
+      ),
+      concatAll(),
+    );
 
     // TODO Refactor
-    const statusSub = this.statusSuceeded$.subscribe(suceeded => {
+    const statusSub = this.statusSuceeded$.subscribe((suceeded) => {
       if (suceeded) {
-        const resultsub = this.appService.getResultStructure(this.uuid).subscribe(
-          response => {
+        const resultsub = this.appService
+          .getResultStructure(this.uuid)
+          .subscribe((response) => {
             this.setProjectOutputs(response as CombineArchive);
-          }
-        )
-        this.subs.push(resultsub)
+          });
+        this.subs.push(resultsub);
       }
-    })
-    this.subs.push(statusSub)
+    });
+    this.subs.push(statusSub);
   }
 
   ngOnDestroy(): void {
-    this.subs.forEach(subscription => subscription.unsubscribe())
+    this.subs.forEach((subscription) => subscription.unsubscribe());
   }
-
-
 
   private setProjectOutputs(combineArchive: CombineArchive): void {
     this.combineArchive = combineArchive;
@@ -179,7 +195,6 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.reportIds.next(reportIds);
     if (reportIds?.length) {
       this.formGroup.controls.reportId.enable();
-
     } else {
       this.formGroup.controls.reportId.disable();
     }
@@ -222,7 +237,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       .map(
         (id: string): DataSetIdDisabled => {
           return { id, disabled: dataSetIdDisabledMap[id] };
-        }
+        },
       );
     this.dataSetIdDisableds.next(dataSetIdDisabledArr);
 
@@ -230,7 +245,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     let yDataSetIds: string[] = [];
 
     if (dataSetIdDisabledArr.length > 0) {
-      xDataSetId = dataSetIdDisabledArr[0].id
+      xDataSetId = dataSetIdDisabledArr[0].id;
       if (dataSetIdDisabledArr.length > 1) {
         yDataSetIds = [dataSetIdDisabledArr[1].id];
       }
@@ -274,23 +289,23 @@ export class ViewComponent implements OnInit, OnDestroy {
               name: yDataSetId,
               x: xData,
               y: yData,
-              mode: this.formGroup.controls['scatterTraceMode'].value
+              mode: this.formGroup.controls['scatterTraceMode'].value,
             };
-          }
+          },
         ),
         layout: {
           xaxis: {
             title: xAxisTitle,
-            type: this.formGroup.controls['xAxisType'].value
+            type: this.formGroup.controls['xAxisType'].value,
           },
           yaxis: {
             title: yAxisTitle,
-            type: this.formGroup.controls['yAxisType'].value
+            type: this.formGroup.controls['yAxisType'].value,
           },
           showlegend: showlegend,
           width: undefined,
-          height: undefined
-        }
+          height: undefined,
+        },
       });
     } else {
       this.vizDataLayout.next(undefined);

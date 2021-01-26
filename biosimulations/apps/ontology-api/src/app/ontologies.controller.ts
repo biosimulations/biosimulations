@@ -8,8 +8,17 @@ import {
 
 import { Ontologies } from '@biosimulations/datamodel/common';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
-import { ApiOperation, ApiParam, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
-import { OntologyTerm, ErrorResponseDocument, OntologyInfo } from '@biosimulations/datamodel/api';
+import {
+  ApiOperation,
+  ApiParam,
+  ApiOkResponse,
+  ApiResponse,
+} from '@nestjs/swagger';
+import {
+  OntologyTerm,
+  ErrorResponseDocument,
+  OntologyInfo,
+} from '@biosimulations/datamodel/api';
 @Controller()
 export class OntologiesController {
   constructor(private service: OntologiesService) {}
@@ -17,7 +26,8 @@ export class OntologiesController {
   @Get('/list')
   @ApiOperation({
     summary: 'Get the ontologies used by BioSimulations and BioSimulators',
-    description: 'Get a list of the ontologies used by BioSimulations and BioSimulators',
+    description:
+      'Get a list of the ontologies used by BioSimulations and BioSimulators',
   })
   getList(): string[] {
     const ontologiesIds = new Set<string>();
@@ -31,12 +41,15 @@ export class OntologiesController {
   @Get(':ontologyId/info')
   @ApiOperation({
     summary: 'Get information about an ontology',
-    description: 'Get information about an ontology such as its identifiers, version, and source',
+    description:
+      'Get information about an ontology such as its identifiers, version, and source',
   })
   @ApiParam({
     name: 'ontologyId',
     required: true,
-    enum: Object.entries(Ontologies).map((idOntology: [string, Ontologies]): string => idOntology[1]).sort(),
+    enum: Object.entries(Ontologies)
+      .map((idOntology: [string, Ontologies]): string => idOntology[1])
+      .sort(),
   })
   @ApiOkResponse({ type: OntologyInfo })
   getInfo(@Param('ontologyId') ontologyId: Ontologies): OntologyInfo {
@@ -55,7 +68,9 @@ export class OntologiesController {
   @ApiParam({
     name: 'ontologyId',
     required: true,
-    enum: Object.entries(Ontologies).map((idOntology: [string, Ontologies]): string => idOntology[1]).sort(),
+    enum: Object.entries(Ontologies)
+      .map((idOntology: [string, Ontologies]): string => idOntology[1])
+      .sort(),
   })
   @ApiOkResponse({ type: [OntologyTerm] })
   getTerms(@Param('ontologyId') ontologyId: Ontologies) {
@@ -69,12 +84,15 @@ export class OntologiesController {
   @Get(':ontologyId/:termId')
   @ApiOperation({
     summary: 'Get a term in an ontology',
-    description: 'Get the name, description, IRI, and URL of a term in an ontology',
+    description:
+      'Get the name, description, IRI, and URL of a term in an ontology',
   })
   @ApiParam({
     name: 'ontologyId',
     required: true,
-    enum: Object.entries(Ontologies).map((idOntology: [string, Ontologies]): string => idOntology[1]).sort(),
+    enum: Object.entries(Ontologies)
+      .map((idOntology: [string, Ontologies]): string => idOntology[1])
+      .sort(),
   })
   @ApiParam({
     name: 'termId',
@@ -83,10 +101,15 @@ export class OntologiesController {
   })
   @ApiOkResponse({ type: OntologyTerm })
   @ApiResponse({ type: ErrorResponseDocument, status: HttpStatus.NOT_FOUND })
-  getTerm(@Param('ontologyId') ontologyId: Ontologies, @Param('termId') termId: string): OntologyTerm {
+  getTerm(
+    @Param('ontologyId') ontologyId: Ontologies,
+    @Param('termId') termId: string,
+  ): OntologyTerm {
     const term = this.service.getTerm(ontologyId, termId);
     if (!term) {
-      throw new NotFoundException(`No '${ontologyId}' term with id '${termId}' exists`);
+      throw new NotFoundException(
+        `No '${ontologyId}' term with id '${termId}' exists`,
+      );
     }
     return term;
   }

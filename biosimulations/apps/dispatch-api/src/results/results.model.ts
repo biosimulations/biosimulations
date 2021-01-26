@@ -6,13 +6,12 @@
  */
 import {
   omitPrivate,
-  ObjectIdValidator
+  ObjectIdValidator,
 } from '@biosimulations/datamodel/common';
 
 import {
   SimulationRun,
   SimulationRunReportData,
-  SimulationRunResults
 } from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
@@ -22,7 +21,7 @@ export class ResultsModel extends Document {
   @Prop({
     type: Types.ObjectId,
     ref: SimulationRun.name,
-    validate: ObjectIdValidator
+    validate: ObjectIdValidator,
   })
   simId!: string;
 
@@ -42,7 +41,7 @@ export class ResultsModel extends Document {
 export const ResultsSchema = SchemaFactory.createForClass(ResultsModel);
 ResultsSchema.set('timestamps', {
   createdAt: 'created',
-  updatedAt: 'updated'
+  updatedAt: 'updated',
 });
 ResultsSchema.index({ simId: 1, reportId: 1 }, { unique: true });
 ResultsSchema.set('toObject', { transform: omitPrivate });

@@ -5,19 +5,18 @@ import { SimulationStatusService } from '../../../services/simulation/simulation
 import { FormattedSimulation } from './view.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ViewService {
-
-  constructor() { }
+  constructor() {}
 
   public formatSimulation(simulation: Simulation): FormattedSimulation {
-
     const statusRunning = SimulationStatusService.isSimulationStatusRunning(
-      simulation.status
+      simulation.status,
     );
     const statusSucceeded = SimulationStatusService.isSimulationStatusSucceeded(
-      simulation.status);
+      simulation.status,
+    );
     return {
       id: simulation.id,
       name: simulation.name,
@@ -28,7 +27,7 @@ export class ViewService {
       statusSucceeded: statusSucceeded,
       statusLabel: SimulationStatusService.getSimulationStatusMessage(
         simulation.status,
-        true
+        true,
       ),
       runtime:
         simulation.runtime !== undefined
@@ -46,8 +45,7 @@ export class ViewService {
           : 'N/A',
       projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
       simulatorUrl: `${urls.simulators}/simulators/${simulation.simulator}/${simulation.simulatorVersion}`,
-      resultsUrl: `${urls.dispatchApi}download/result/${simulation.id}`
-    }
+      resultsUrl: `${urls.dispatchApi}download/result/${simulation.id}`,
+    };
   }
-
 }

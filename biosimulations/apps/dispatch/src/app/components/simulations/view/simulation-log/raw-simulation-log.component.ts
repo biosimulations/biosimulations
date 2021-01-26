@@ -7,7 +7,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'biosimulations-raw-simulation-log',
   templateUrl: './raw-simulation-log.component.html',
-  styleUrls: ['./raw-simulation-log.component.scss']
+  styleUrls: ['./raw-simulation-log.component.scss'],
 })
 export class RawSimulationLogComponent {
   constructor(private sanitizer: DomSanitizer) {}
@@ -18,7 +18,10 @@ export class RawSimulationLogComponent {
 
   @Input()
   set status(value: SimulationRunStatus) {
-    this.heading = 'Raw standard output and error for the entire job (' + value.toLowerCase() + ')';
+    this.heading =
+      'Raw standard output and error for the entire job (' +
+      value.toLowerCase() +
+      ')';
     this._status = value;
   }
 
@@ -31,6 +34,8 @@ export class RawSimulationLogComponent {
   @Input()
   set log(value: RawSimulationLog) {
     const convert = new Convert();
-    this.formattedLog = value ? this.sanitizer.bypassSecurityTrustHtml(convert.toHtml(value)) : null;
+    this.formattedLog = value
+      ? this.sanitizer.bypassSecurityTrustHtml(convert.toHtml(value))
+      : null;
   }
 }

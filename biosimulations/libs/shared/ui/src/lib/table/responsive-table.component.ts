@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Column, ColumnSort } from './table.interface';
-import { BreakpointObserver, } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'biosimulations-responsive-table',
@@ -19,7 +19,7 @@ export class ResponsiveTableComponent {
   stackedContentsHeading!: string;
 
   @Input()
-  getStackedHeading!: (row: any) => (string | Observable<string>);
+  getStackedHeading!: (row: any) => string | Observable<string>;
 
   @Input()
   getStackedHeadingMoreInfoRouterLink!: (row: any) => any[] | string | null;

@@ -10,19 +10,19 @@ export class NoticeComponent {
   private _appName?: string;
 
   @Input()
-  set appName (value: string | undefined) {
+  set appName(value: string | undefined) {
     this._appName = value;
     this.initStorage();
   }
 
-  get appName (): string | undefined {
+  get appName(): string | undefined {
     return this._appName;
   }
 
   private _type?: string;
 
   @Input()
-  set type (value: string | undefined) {
+  set type(value: string | undefined) {
     this._type = value;
     this.initStorage();
   }
@@ -34,7 +34,7 @@ export class NoticeComponent {
   private _version?: number;
 
   @Input()
-  set version (value: number | undefined) {
+  set version(value: number | undefined) {
     this._version = value;
     this.initStorage();
   }
@@ -49,7 +49,11 @@ export class NoticeComponent {
   constructor(private storage: Storage) {}
 
   initStorage(): void {
-    if (this._appName === undefined || this._type === undefined || this._version === undefined) {
+    if (
+      this._appName === undefined ||
+      this._type === undefined ||
+      this._version === undefined
+    ) {
       return;
     }
 
@@ -63,13 +67,13 @@ export class NoticeComponent {
       ].join('-');
 
       if (this.open) {
-        this.storage.get(this.storageKey).then(
-          (value: boolean | null): void => {
+        this.storage
+          .get(this.storageKey)
+          .then((value: boolean | null): void => {
             if (value === true) {
               this.open = false;
             }
-          }
-        );
+          });
       } else {
         this.storage.set(this.storageKey, true);
       }

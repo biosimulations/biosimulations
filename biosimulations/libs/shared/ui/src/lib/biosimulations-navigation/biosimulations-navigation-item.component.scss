@@ -1,44 +1,44 @@
-.mat-expansion-panel:not([class*=mat-elevation-z]) {
-    box-shadow: none;
+.mat-expansion-panel:not([class*='mat-elevation-z']) {
+  box-shadow: none;
 }
 
 .mat-expansion-panel {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0;
 }
 
 .mat-expansion-panel.above-divider {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.45);
 }
 
 .mat-expansion-panel-header {
-    padding: 0 1rem;
+  padding: 0 1rem;
 }
 
 .mat-expansion-panel {
-    .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
-        background: rgba(44, 44, 44, 0.04);
-        color: rgba(#000000, 0.9);
-    }
-    
-    .mat-expansion-panel-header:active:not([aria-disabled=true]) {
-        background: rgba(44, 44, 44, 0.08);
-        color: rgba(#000000, 1.0);
-    }
+  .mat-expansion-panel-header:hover:not([aria-disabled='true']) {
+    background: rgba(44, 44, 44, 0.04);
+    color: rgba(#000000, 0.9);
+  }
+
+  .mat-expansion-panel-header:active:not([aria-disabled='true']) {
+    background: rgba(44, 44, 44, 0.08);
+    color: rgba(#000000, 1);
+  }
 }
 
 .mat-expansion-panel-header-title biosimulations-icon {
-    font-size: 150%;
-    width: 29px;
-    text-align: center;
-    margin-right: 0.5rem;
+  font-size: 150%;
+  width: 29px;
+  text-align: center;
+  margin-right: 0.5rem;
 }
 
 .mat-expansion-panel.no-content ::ng-deep .mat-expansion-panel-content {
-    height: 0px !important;
-    visibility: hidden !important;
+  height: 0px !important;
+  visibility: hidden !important;
 }
 
 .mat-expansion-panel:focus {
-    outline: -webkit-focus-ring-color auto 1px;
+  outline: -webkit-focus-ring-color auto 1px;
 }

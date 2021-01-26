@@ -31,14 +31,14 @@ export interface Layout {
 }
 
 export interface DataLayout {
-  data: ScatterTrace[],
-  layout: Layout,
+  data: ScatterTrace[];
+  layout: Layout;
 }
 
 @Component({
   selector: 'biosimulations-visualization',
   templateUrl: './visualization.component.html',
-  styleUrls: ['./visualization.component.scss']
+  styleUrls: ['./visualization.component.scss'],
 })
 export class VisualizationComponent {
   data: ScatterTrace[] | undefined = undefined;
@@ -53,9 +53,7 @@ export class VisualizationComponent {
 
   visible = false;
 
-  constructor(
-    private hostElement: ElementRef,
-  ) { }
+  constructor(private hostElement: ElementRef) {}
 
   @HostListener('window:resize')
   onResize() {

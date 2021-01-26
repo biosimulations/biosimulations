@@ -1,4 +1,7 @@
-<div class="container full-height horz-centered vert-centered padded" [ngClass]="{'has-breadcrumbs': pageHasBreadCrumbs}">
+<div
+  class="container full-height horz-centered vert-centered padded"
+  [ngClass]="{ 'has-breadcrumbs': pageHasBreadCrumbs }"
+>
   <div class="icon">
     <biosimulations-icon [icon]="icon"></biosimulations-icon>
     <span *ngIf="code">{{ code }}</span>

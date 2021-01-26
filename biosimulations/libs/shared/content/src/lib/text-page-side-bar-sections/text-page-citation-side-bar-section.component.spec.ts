@@ -10,13 +10,8 @@ describe('TextPageCitationSideBarSectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TextPageCitationSideBarSectionComponent,
-      ],
-      imports: [
-        SharedUiModule,
-        BiosimulationsIconsModule,
-      ],
+      declarations: [TextPageCitationSideBarSectionComponent],
+      imports: [SharedUiModule, BiosimulationsIconsModule],
     }).compileComponents();
   }));
 

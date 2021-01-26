@@ -14,13 +14,7 @@ import { StructuredSimulationLogElementComponent } from './structured-simulation
     RawSimulationLogComponent,
     StructuredSimulationLogElementComponent,
   ],
-  exports: [
-    SimulationLogComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedUiModule,
-    BiosimulationsIconsModule,
-  ]
+  exports: [SimulationLogComponent],
+  imports: [CommonModule, SharedUiModule, BiosimulationsIconsModule],
 })
-export class SimulationLogModule { }
+export class SimulationLogModule {}

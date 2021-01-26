@@ -1,15 +1,14 @@
 <biosimulations-page [heading]="_heading" [padded]="padded">
-  <div
-    gdColumns.gt-sm="16rem 1fr"
-    gdGap.gt-sm="2rem"
-  >
+  <div gdColumns.gt-sm="16rem 1fr" gdGap.gt-sm="2rem">
     <div class="side-bar">
-      <div class="sections-container"
-        [ngStyle]="sideBarStyle$ | async"
-      >
-        <biosimulations-text-page-side-bar-section [heading]="contentsHeading" [fxHide]="!contentsHeading">
+      <div class="sections-container" [ngStyle]="sideBarStyle$ | async">
+        <biosimulations-text-page-side-bar-section
+          [heading]="contentsHeading"
+          [fxHide]="!contentsHeading"
+        >
           <ul>
-            <biosimulations-text-page-toc-item *ngFor="let section of (tocSections | async)"
+            <biosimulations-text-page-toc-item
+              *ngFor="let section of tocSections | async"
               [heading]="section.heading | async"
               [scrollTarget]="section.target"
               [scrollOffset]="tocScrollSectionScrollOffset"
@@ -22,7 +21,11 @@
       </div>
     </div>
 
-    <div #sectionsContainer class="sections-container content-container" [ngClass]="{'compact': compact}">
+    <div
+      #sectionsContainer
+      class="sections-container content-container"
+      [ngClass]="{ compact: compact }"
+    >
       <ng-content select="#content"></ng-content>
     </div>
   </div>

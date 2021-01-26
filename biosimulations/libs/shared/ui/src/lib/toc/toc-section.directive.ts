@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, Host } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { TocSection } from './toc-section';
 import { TocSectionsContainerDirective } from './toc-sections-container.directive';
 
@@ -19,7 +19,7 @@ export class TocSectionDirective {
 
   constructor(
     @Host() private sectionsContainer: TocSectionsContainerDirective,
-    elementRef: ElementRef
+    elementRef: ElementRef,
   ) {
     this.section = {
       heading: this.heading.asObservable(),
@@ -29,6 +29,6 @@ export class TocSectionDirective {
   }
 
   ngOnDestroy() {
-   this.sectionsContainer.removeToc(this.section);
+    this.sectionsContainer.removeToc(this.section);
   }
 }

@@ -11,17 +11,9 @@ describe('TextPageHelpSideBarSectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TextPageHelpSideBarSectionComponent,
-      ],
-      imports: [
-        RouterTestingModule,
-        SharedUiModule,
-        BiosimulationsIconsModule,
-      ],
-      providers: [
-        ConfigService,
-      ],
+      declarations: [TextPageHelpSideBarSectionComponent],
+      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule],
+      providers: [ConfigService],
     }).compileComponents();
   }));
 

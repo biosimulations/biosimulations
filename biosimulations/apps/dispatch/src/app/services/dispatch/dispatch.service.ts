@@ -3,16 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { map } from 'rxjs/operators';
-import { SimulationRun, UploadSimulationRun } from '@biosimulations/dispatch/api-models';
-import { SimulationLogs, RawSimulationLog, CombineArchiveLog } from '../../simulation-logs-datamodel';
-import { SimulationRunLogStatus, SimulationRunStatus } from '@biosimulations/datamodel/common';
+import {
+  SimulationRun,
+  UploadSimulationRun,
+} from '@biosimulations/dispatch/api-models';
+import {
+  SimulationLogs,
+  CombineArchiveLog,
+} from '../../simulation-logs-datamodel';
+import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 
 export interface SimulatorVersionsMap {
   [id: string]: string[];
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DispatchService {
   uuidUpdateEvent = new Subject<string>();
@@ -23,7 +29,7 @@ export class DispatchService {
     selectedSimulator: string,
     selectedVersion: string,
     name: string,
-    email: string
+    email: string,
   ): Observable<SimulationRun> {
     const endpoint = `${urls.dispatchApi}run/`;
 
@@ -33,12 +39,15 @@ export class DispatchService {
       name: name,
       email: email || null,
       simulator: selectedSimulator,
-      simulatorVersion: selectedVersion
+      simulatorVersion: selectedVersion,
     };
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
 
-    const response = this.http.post(endpoint, formData) as Observable<SimulationRun>;
+    const response = this.http.post(
+      endpoint,
+      formData,
+    ) as Observable<SimulationRun>;
     return response;
   }
 
@@ -47,7 +56,9 @@ export class DispatchService {
     if (simulatorName === undefined) {
       return this.http.get(endpoint) as Observable<string[]>;
     }
-    return this.http.get(`${endpoint}?name=${simulatorName}`) as Observable<string[]>;
+    return this.http.get(`${endpoint}?name=${simulatorName}`) as Observable<
+      string[]
+    >;
   }
 
   getSimulatorsFromDb(): Observable<SimulatorVersionsMap> {
@@ -77,8 +88,8 @@ export class DispatchService {
           }
 
           return simulatorVersionsMap;
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -90,17 +101,18 @@ export class DispatchService {
           // get structured log
           let structuredLog: CombineArchiveLog | undefined = response;
 
-          const rawLog = response.output || structuredLog?.exception?.message || '';
+          const rawLog =
+            response.output || structuredLog?.exception?.message || '';
           if (structuredLog.status == SimulationRunLogStatus.UNKNOWN) {
             structuredLog = undefined;
           }
           // return combineed log
           return {
             raw: rawLog,
-            structured: structuredLog
+            structured: structuredLog,
           };
-        }
-      )
+        },
+      ),
     );
   }
 

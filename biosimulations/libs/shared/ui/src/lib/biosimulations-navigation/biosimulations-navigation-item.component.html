@@ -1,4 +1,11 @@
-<mat-expansion-panel hideToggle [ngClass]="{'no-content': noExpansion || route !== '', 'above-divider': aboveDivider}" [disabled]="disabled">
+<mat-expansion-panel
+  hideToggle
+  [ngClass]="{
+    'no-content': noExpansion || route !== '',
+    'above-divider': aboveDivider
+  }"
+  [disabled]="disabled"
+>
   <mat-expansion-panel-header
     [routerLink]="route || null"
     [collapsedHeight]="'48px'"

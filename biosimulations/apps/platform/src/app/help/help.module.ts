@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
 
 import { HelpRoutingModule } from './help-routing.module';
 import { AboutComponent } from './about/about.component';
@@ -14,13 +13,19 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
 
 @NgModule({
-  declarations: [AboutComponent, FaqComponent, HelpComponent, TermsOfServiceComponent, PrivacyPolicyComponent],
+  declarations: [
+    AboutComponent,
+    FaqComponent,
+    HelpComponent,
+    TermsOfServiceComponent,
+    PrivacyPolicyComponent,
+  ],
   imports: [
-    CommonModule,    
+    CommonModule,
     HelpRoutingModule,
-    SharedUiModule,    
+    SharedUiModule,
     BiosimulationsIconsModule,
     SharedContentModule,
-  ]
+  ],
 })
-export class HelpModule { }
+export class HelpModule {}

@@ -1,7 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ScrollService } from '@biosimulations/shared/services';
 
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({
   selector: 'biosimulations-root',
   templateUrl: './app.component.html',

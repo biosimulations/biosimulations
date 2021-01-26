@@ -16,8 +16,8 @@ export class SimulatorsService {
     return sim.validate();
   }
   constructor(
-    @InjectModel(Simulator.name) private simulator: Model<Simulator>
-  ) { }
+    @InjectModel(Simulator.name) private simulator: Model<Simulator>,
+  ) {}
 
   async findAll(): Promise<Simulator[]> {
     const results = await this.simulator
@@ -49,7 +49,7 @@ export class SimulatorsService {
     } catch (e) {
       if (e.name == 'MongoError' && e.code == 11000) {
         throw new ConflictException(
-          `Simulator with id: ${e?.keyValue?.id}, version: ${e?.keyValue?.version} already exists`
+          `Simulator with id: ${e?.keyValue?.id}, version: ${e?.keyValue?.version} already exists`,
         );
       } else {
         // Will be caught by other filters
@@ -63,7 +63,7 @@ export class SimulatorsService {
   async replace(
     id: string,
     version: string,
-    doc: APISimulator
+    doc: APISimulator,
   ): Promise<Simulator> {
     const sim = await this.simulator
       .findOne({ id: id, version: version })
@@ -71,7 +71,7 @@ export class SimulatorsService {
 
     if (!sim) {
       throw new NotFoundException(
-        `No simulator with id ${id} and version ${version}`
+        `No simulator with id ${id} and version ${version}`,
       );
     }
 
@@ -87,7 +87,7 @@ export class SimulatorsService {
 
     if (!sim) {
       throw new NotFoundException(
-        `No simulator with id ${id} and version ${version}`
+        `No simulator with id ${id} and version ${version}`,
       );
     }
     const deleted = await this.simulator
@@ -104,7 +104,7 @@ export class SimulatorsService {
     } else {
       if (sims.deletedCount != sims.n) {
         throw new InternalServerErrorException(
-          `Could only delete ${sims.deletedCount} out of ${sims.n} documents. Please try again`
+          `Could only delete ${sims.deletedCount} out of ${sims.n} documents. Please try again`,
         );
       }
       if (!sims.ok) {
@@ -116,7 +116,7 @@ export class SimulatorsService {
     const sims = await this.simulator.deleteMany({});
     if (sims.deletedCount != sims.n) {
       throw new InternalServerErrorException(
-        `Could only delete ${sims.deletedCount} out of ${sims.n} documents. Please try again`
+        `Could only delete ${sims.deletedCount} out of ${sims.n} documents. Please try again`,
       );
     }
     if (!sims.ok) {

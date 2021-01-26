@@ -5,14 +5,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 class MockMailClient {
-  sendEmail() {
-
-  }
+  sendEmail() {}
 }
 class MockAppService {
-  getJob() {
-
-  }
+  getJob() {}
 }
 describe('AppController', () => {
   let app: TestingModule;
@@ -20,14 +16,18 @@ describe('AppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [{ provide: SimulationRunService, useValue: MockAppService }, { provide: AppService, useClass: MockAppService }, { provide: MailClientService, useClass: MockMailClient }],
+      providers: [
+        { provide: SimulationRunService, useValue: MockAppService },
+        { provide: AppService, useClass: MockAppService },
+        { provide: MailClientService, useClass: MockMailClient },
+      ],
     }).compile();
   });
 
   describe('getData', () => {
     it('should build', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController).toBeTruthy()
+      expect(appController).toBeTruthy();
     });
   });
 });

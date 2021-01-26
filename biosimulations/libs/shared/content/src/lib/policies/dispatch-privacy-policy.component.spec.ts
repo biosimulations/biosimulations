@@ -12,18 +12,9 @@ describe('DispatchPrivacyPolicyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        DispatchPrivacyPolicyComponent,
-      ],
-      imports: [
-        RouterTestingModule,
-        SharedUiModule,
-        BiosimulationsIconsModule,
-      ],
-      providers: [
-        ConfigService,
-        ScrollService,
-      ],
+      declarations: [DispatchPrivacyPolicyComponent],
+      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule],
+      providers: [ConfigService, ScrollService],
     }).compileComponents();
   }));
 

@@ -14,8 +14,6 @@ import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.in
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { ConfigService } from '@nestjs/config';
 import { json } from 'body-parser';
-import { Resolver } from "@stoplight/json-ref-resolver";
-import * as toJsonSchema from '@openapi-contrib/openapi-schema-to-json-schema';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -25,7 +23,7 @@ async function bootstrap() {
   // TODO intelligently allow origin based on production mode, abstract this
   const allowOrigin: CustomOrigin = (
     requestOrigin: string,
-    callback: (err: Error | null, allow?: boolean | undefined) => void
+    callback: (err: Error | null, allow?: boolean | undefined) => void,
   ) => {
     if (!requestOrigin) {
       callback(null, true);
@@ -41,7 +39,7 @@ async function bootstrap() {
       'https://biosimulations.dev',
       'https://biosimulations.org',
       'https://run.biosimulations.dev',
-      'https://run.biosimulations.org'
+      'https://run.biosimulations.org',
     ];
     const allow = allowedOrigins.includes(requestOrigin);
     const error = null;
@@ -56,27 +54,33 @@ async function bootstrap() {
     {
       name: 'Simulation Runs',
       description:
-        'Operations for submitting a Simulation Run, checking its status, modifying details, and canceling the run.'
+        'Operations for submitting a Simulation Run, checking its status, modifying details, and canceling the run.',
     },
     {
       name: 'Results',
       description:
-        ' Operations for viewing and retrieving the results of a Simulation Run'
-    }
+        ' Operations for viewing and retrieving the results of a Simulation Run',
+    },
   ];
   const builder = new DocumentBuilder()
     .setTitle('runBioSimulations API')
     .setDescription(
-      'API to submit and manage simulations jobs to the runBioSimulations service'
+      'API to submit and manage simulations jobs to the runBioSimulations service',
     )
     .setVersion('0.1')
-    .setLicense("MIT License", "https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE")
-    .setTermsOfService("https://run.biosimulations.org/help/terms")
-    .setExternalDoc('API specifications (Open API JSON)', 'https://run.api.biosimulations.org/openapi.json')
+    .setLicense(
+      'MIT License',
+      'https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE',
+    )
+    .setTermsOfService('https://run.biosimulations.org/help/terms')
+    .setExternalDoc(
+      'API specifications (Open API JSON)',
+      'https://run.api.biosimulations.org/openapi.json',
+    )
     .setContact(
       'runBioSimulations Team',
       'https://run.biosimulations.org/help/about',
-      'info@biosimulations.org'
+      'info@biosimulations.org',
     );
 
   for (const tag of tags) {
@@ -86,7 +90,7 @@ async function bootstrap() {
   const scopes = [
     'read:SimulationRuns',
     'write:SimulationRuns',
-    'delete:SimulationsRuns'
+    'delete:SimulationsRuns',
   ];
   const authorizationUrl =
     'https://auth.biosimulations.org/authorize?audience=dispatch.biosimulations.org';
@@ -99,16 +103,16 @@ async function bootstrap() {
     flows: {
       implicit: {
         authorizationUrl: authorizationUrl,
-        scopes: scopes
-      }
-    }
+        scopes: scopes,
+      },
+    },
   };
 
   builder.addOAuth2(oauthSchema);
 
   const openIDSchema: SecuritySchemeObject = {
     type: 'openIdConnect',
-    openIdConnectUrl: openIdConnectUrl
+    openIdConnectUrl: openIdConnectUrl,
   };
 
   builder.addSecurity('OpenIdc', openIDSchema);
@@ -121,7 +125,7 @@ async function bootstrap() {
   if (unsortedSchemas) {
     const schemaNames = Object.keys(unsortedSchemas).sort();
 
-    const schemas: {[name: string]: any} = {};
+    const schemas: { [name: string]: any } = {};
     for (const schemaName of schemaNames) {
       schemas[schemaName] = unsortedSchemas?.[schemaName];
     }
@@ -134,11 +138,11 @@ async function bootstrap() {
     customCss: removeIcon,
     swaggerOptions: {
       oauth: {
-        clientId: 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a'
+        clientId: 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a',
       },
       //tagsSorter: 'alpha',
       operationsSorter: 'alpha',
-    }
+    },
   });
 
   const httpAdapter = app.getHttpAdapter();
@@ -149,7 +153,7 @@ async function bootstrap() {
   // const resolvedDocument = await resolver.resolve(document);
   // const schema = resolvedDocument.result.components.schemas.CombineArchiveLog;
   // httpAdapter.get('/schema/CombineArchiveLog.json', (req, res) => res.json(toJsonSchema(schema)));
-  
+
   const configService = app.get(ConfigService);
   const limit = configService.get('server.limit');
   app.use(json({ limit }));

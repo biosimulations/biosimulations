@@ -10,9 +10,8 @@ describe('SpinnerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialWrapperModule],
-      declarations: [SpinnerComponent]
-    })
-      .compileComponents();
+      declarations: [SpinnerComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

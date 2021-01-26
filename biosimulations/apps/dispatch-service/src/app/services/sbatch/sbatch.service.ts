@@ -1,20 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class SbatchService {
-  constructor(private configService: ConfigService) { }
+  constructor(private configService: ConfigService) {}
   // Note: Don't indent the template lines starting with "#SBATCH", otherwise SLURM configuration doesn't work
   generateSbatch(
     tempSimDir: string,
     simulator: string,
     omexName: string,
     apiDomain: string,
-    simId: string
+    simId: string,
   ): string {
-
-    const homeDir = this.configService.get("hpc.homeDir")
+    const homeDir = this.configService.get('hpc.homeDir');
     const template = `#!/bin/bash    
 #SBATCH --job-name=BioSimulations_${simId}
 #SBATCH --time=20:00
@@ -35,12 +33,8 @@ command=\\"singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/ro
 eval \\$command;`;
     return template;
   }
-  generateImageUpdateSbatch(
-    url: string,
-    force: string,
-  ): string {
-
-    const homeDir = this.configService.get("hpc.homeDir")
+  generateImageUpdateSbatch(url: string, force: string): string {
+    const homeDir = this.configService.get('hpc.homeDir');
     const template = `#!/bin/bash    
 #SBATCH --job-name=BioSimulations_Image_Update
 #SBATCH --time=10:00

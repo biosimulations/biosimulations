@@ -17,6 +17,6 @@ export class LicenseInfo implements ILicenseInfo {
   @ApiProperty({ type: Number })
   swoId!: number;
 
-  @ApiProperty({ type: String, format: 'url', })
+  @ApiProperty({ type: String, format: 'url' })
   url!: string;
 }

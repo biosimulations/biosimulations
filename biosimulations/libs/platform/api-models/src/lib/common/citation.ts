@@ -1,5 +1,5 @@
 import { Citation as IJournalReference } from '@biosimulations/datamodel/common';
-import { ApiProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { Identifier } from './ontology.dto';
 
 export class Citation implements IJournalReference {

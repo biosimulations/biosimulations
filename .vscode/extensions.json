@@ -7,6 +7,6 @@
         "nrwl.angular-console",
         "msjsdiag.debugger-for-chrome",
         "firefox-devtools.vscode-firefox-debug",
-        "rvest.vs-code-prettier-eslint"
+        "esbenp.prettier-vscode"
     ]
 }

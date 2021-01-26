@@ -15,7 +15,12 @@
     </biosimulations-topbar-menu-item>
 
     <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="Simulator standards" icon="standard" id="trigger" [route]="['/standards']">
+      <biosimulations-topbar-menu-item
+        heading="Simulator standards"
+        icon="standard"
+        id="trigger"
+        [route]="['/standards']"
+      >
       </biosimulations-topbar-menu-item>
 
       <ng-container id="items">
@@ -107,7 +112,11 @@
   </biosimulations-topbar-menu>
 
   <ng-container id="sidenav-menu">
-    <biosimulations-navigation-item heading="Simulators" icon="simulator" [route]="['/simulators']">
+    <biosimulations-navigation-item
+      heading="Simulators"
+      icon="simulator"
+      [route]="['/simulators']"
+    >
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item
@@ -164,10 +173,7 @@
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item
-      heading="Help"
-      icon="help"
-    >
+    <biosimulations-navigation-item heading="Help" icon="help">
       <biosimulations-navigation-subitem
         heading="Tutorial"
         icon="tutorial"
@@ -201,8 +207,7 @@
     </biosimulations-navigation-item>
   </ng-container>
 
-  <ng-container id="news">
-  </ng-container>
+  <ng-container id="news"> </ng-container>
 
   <router-outlet></router-outlet>
 </biosimulations-navigation>

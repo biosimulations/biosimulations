@@ -11,7 +11,8 @@ export class SimulationResult {
     for (let iTime = 0; iTime < 100; iTime++) {
       const timePoint = new TimePoint();
       timePoint.time = iTime;
-      timePoint.value = Math.cos(iTime / 100 * 4 * Math.PI) + 0.1 * (Math.random() - 0.5);
+      timePoint.value =
+        Math.cos((iTime / 100) * 4 * Math.PI) + 0.1 * (Math.random() - 0.5);
       timePoints.push(timePoint);
     }
     return timePoints;

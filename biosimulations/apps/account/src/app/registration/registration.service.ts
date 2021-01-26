@@ -24,14 +24,14 @@ export class RegistrationService {
 
   // Todo Abstract this
   uniqueUsernameAsyncValidator: AsyncValidatorFn = (
-    control: AbstractControl
+    control: AbstractControl,
   ) => {
     const value = control.value;
     return timer(500).pipe(
       switchMap((_) => this.http.get<any>(baseUrl + 'valid/' + control.value)),
       map((res) => (res.valid === true ? null : { server: res.message })),
       tap((_) => control.markAsTouched()),
-      catchError((err, caught) => of({ 'Network Error': err }))
+      catchError((err, caught) => of({ 'Network Error': err })),
     );
   };
 }

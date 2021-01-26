@@ -1,9 +1,4 @@
-import {
-  AboutLinksObject,
-  ErrorObject,
-  ErrorResponseDocument,
-  MetaObject,
-} from '@biosimulations/datamodel/api';
+import { ErrorObject } from '@biosimulations/datamodel/api';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 export const makeErrorObject = (
@@ -15,7 +10,7 @@ export const makeErrorObject = (
   code?: string,
   pointer?: string,
   parameter?: string,
-  meta?: { [key: string]: any }
+  meta?: { [key: string]: any },
 ) => {
   const errorObj: ErrorObject = {
     id: id,

@@ -16,7 +16,7 @@ describe('ViewSimulatorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports:[
+      imports: [
         SharedUiModule,
         RouterTestingModule,
         HttpClientTestingModule,
@@ -25,7 +25,7 @@ describe('ViewSimulatorComponent', () => {
         NoopAnimationsModule,
         HighlightModule,
       ],
-      declarations: [ ViewSimulatorComponent ],
+      declarations: [ViewSimulatorComponent],
       providers: [
         ConfigService,
         ScrollService,
@@ -33,11 +33,10 @@ describe('ViewSimulatorComponent', () => {
           provide: HIGHLIGHT_OPTIONS,
           useValue: {
             fullLibraryLoader: () => import('highlight.js'),
-          }
-        }
+          },
+        },
       ],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

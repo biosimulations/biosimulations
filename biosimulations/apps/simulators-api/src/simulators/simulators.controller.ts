@@ -41,7 +41,7 @@ import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 @ApiTags('Simulators')
 @Controller('simulators')
 export class SimulatorsController {
-  constructor(private service: SimulatorsService) { }
+  constructor(private service: SimulatorsService) {}
 
   @Get()
   @ApiOperation({
@@ -61,7 +61,8 @@ export class SimulatorsController {
     description: 'Not Found',
   })
   @ApiOperation({
-    summary: 'Get the latest version of each simulator, or of a particular simulator',
+    summary:
+      'Get the latest version of each simulator, or of a particular simulator',
     description:
       'Returns a list of the specifications of the latest version of each simulator, ' +
       'or a list with one element which is the specifications of the latest version of a particular simulator.',
@@ -136,7 +137,7 @@ export class SimulatorsController {
   })
   async getSimulatorVersion(
     @Param('id') id: string,
-    @Param('version') version: string
+    @Param('version') version: string,
   ): Promise<Simulator> {
     return this.getSimulatorByVersion(id, version);
   }
@@ -154,7 +155,7 @@ export class SimulatorsController {
     if (!res) {
       if (version) {
         throw new NotFoundException(
-          `Simulator with id ${id} and version ${version} was not found`
+          `Simulator with id ${id} and version ${version} was not found`,
         );
       } else {
         throw new NotFoundException(`Simulator with id ${id} was not found`);
@@ -255,7 +256,7 @@ export class SimulatorsController {
   async update(
     @Body() doc: Simulator,
     @Param('id') id: string,
-    @Param('version') version: string
+    @Param('version') version: string,
   ) {
     return this.service.replace(id, version, doc).then((res) => res);
   }
@@ -296,7 +297,7 @@ export class SimulatorsController {
   })
   async deleteSimulatorVersion(
     @Param('id') id: string,
-    @Param('version') version: string
+    @Param('version') version: string,
   ) {
     return this.service.deleteOne(id, version);
   }

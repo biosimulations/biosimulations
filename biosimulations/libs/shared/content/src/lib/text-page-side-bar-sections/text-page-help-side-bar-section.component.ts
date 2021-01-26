@@ -8,7 +8,7 @@ import { ConfigService } from '@biosimulations/shared/services';
 })
 export class TextPageHelpSideBarSectionComponent {
   emailUrl!: string;
-  
+
   constructor(public config: ConfigService) {
     this.emailUrl = 'mailto:' + config.email;
   }

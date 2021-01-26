@@ -38,9 +38,8 @@ import { TabPageComponent } from './tab-page.component';
 })
 class TestHostComponent {
   @ViewChild(MatTabGroup) matTabGroup!: MatTabGroup;
-  @ContentChildren(TabPageTabComponent, { descendants: true }) tabs!: QueryList<
-    TabPageTabComponent
-  >;
+  @ContentChildren(TabPageTabComponent, { descendants: true })
+  tabs!: QueryList<TabPageTabComponent>;
   ngAfterViewInit(): void {
     const baseTabs: MatTab[] = [];
     for (const tab of this.tabs.toArray()) {

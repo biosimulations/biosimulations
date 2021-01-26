@@ -10,108 +10,252 @@ import { SimulationLogsComponent } from './simulation-logs/simulation-logs.compo
 import { SimulationReportsComponent } from './simulation-reports/simulation-reports.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: OverviewComponent,
-        data: {
-            contextButtons: [
-                {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
-                {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
-                {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
-                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
-                {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
-            ]
-        }
+  {
+    path: '',
+    component: OverviewComponent,
+    data: {
+      contextButtons: [
+        {
+          route: ['/standards', 'simulator-specs'],
+          icon: 'browse',
+          label: 'Simulator specs',
+        },
+        {
+          route: ['/standards', 'simulator-interfaces'],
+          icon: 'logs',
+          label: 'Simulator interfaces',
+        },
+        {
+          route: ['/standards', 'simulator-images'],
+          icon: 'docker',
+          label: 'Simulator images',
+        },
+        {
+          route: ['/standards', 'simulation-experiments'],
+          icon: 'experiment',
+          label: 'Simulation experiments',
+        },
+        {
+          route: ['/standards', 'simulation-reports'],
+          icon: 'report',
+          label: 'Simulation reports',
+        },
+        {
+          route: ['/standards', 'simulation-logs'],
+          icon: 'progress',
+          label: 'Simulation logs',
+        },
+      ],
     },
-    {
-        path: 'simulator-specs',
-        component: SimulatorSpecsComponent,
-        data: {
-            breadcrumb: 'Simulator specs',
-            contextButtons: [
-                {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
-                {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
-                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
-                {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
-            ]
-        }
+  },
+  {
+    path: 'simulator-specs',
+    component: SimulatorSpecsComponent,
+    data: {
+      breadcrumb: 'Simulator specs',
+      contextButtons: [
+        {
+          route: ['/standards', 'simulator-interfaces'],
+          icon: 'logs',
+          label: 'Simulator interfaces',
+        },
+        {
+          route: ['/standards', 'simulator-images'],
+          icon: 'docker',
+          label: 'Simulator images',
+        },
+        {
+          route: ['/standards', 'simulation-experiments'],
+          icon: 'experiment',
+          label: 'Simulation experiments',
+        },
+        {
+          route: ['/standards', 'simulation-reports'],
+          icon: 'report',
+          label: 'Simulation reports',
+        },
+        {
+          route: ['/standards', 'simulation-logs'],
+          icon: 'progress',
+          label: 'Simulation logs',
+        },
+      ],
     },
-    {
-        path: 'simulator-interfaces',
-        component: SimulatorInterfacesComponent,
-        data: {
-            breadcrumb: 'Simulator interfaces',
-            contextButtons: [
-                {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
-                {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
-                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
-                {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
-            ]
-        }
+  },
+  {
+    path: 'simulator-interfaces',
+    component: SimulatorInterfacesComponent,
+    data: {
+      breadcrumb: 'Simulator interfaces',
+      contextButtons: [
+        {
+          route: ['/standards', 'simulator-specs'],
+          icon: 'browse',
+          label: 'Simulator specs',
+        },
+        {
+          route: ['/standards', 'simulator-images'],
+          icon: 'docker',
+          label: 'Simulator images',
+        },
+        {
+          route: ['/standards', 'simulation-experiments'],
+          icon: 'experiment',
+          label: 'Simulation experiments',
+        },
+        {
+          route: ['/standards', 'simulation-reports'],
+          icon: 'report',
+          label: 'Simulation reports',
+        },
+        {
+          route: ['/standards', 'simulation-logs'],
+          icon: 'progress',
+          label: 'Simulation logs',
+        },
+      ],
     },
-    {
-        path: 'simulator-images',
-        component: SimulatorImagesComponent,
-        data: {
-            breadcrumb: 'Simulator images',
-            contextButtons: [
-                {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
-                {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
-                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
-                {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
-            ]
-        }
+  },
+  {
+    path: 'simulator-images',
+    component: SimulatorImagesComponent,
+    data: {
+      breadcrumb: 'Simulator images',
+      contextButtons: [
+        {
+          route: ['/standards', 'simulator-specs'],
+          icon: 'browse',
+          label: 'Simulator specs',
+        },
+        {
+          route: ['/standards', 'simulator-interfaces'],
+          icon: 'logs',
+          label: 'Simulator interfaces',
+        },
+        {
+          route: ['/standards', 'simulation-experiments'],
+          icon: 'experiment',
+          label: 'Simulation experiments',
+        },
+        {
+          route: ['/standards', 'simulation-reports'],
+          icon: 'report',
+          label: 'Simulation reports',
+        },
+        {
+          route: ['/standards', 'simulation-logs'],
+          icon: 'progress',
+          label: 'Simulation logs',
+        },
+      ],
     },
-    {
-        path: 'simulation-experiments',
-        component: SimulationExperimentsComponent,
-        data: {
-            breadcrumb: 'Simulation experiments',
-            contextButtons: [
-                {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
-                {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
-                {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
-                {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
-            ]
-        }
+  },
+  {
+    path: 'simulation-experiments',
+    component: SimulationExperimentsComponent,
+    data: {
+      breadcrumb: 'Simulation experiments',
+      contextButtons: [
+        {
+          route: ['/standards', 'simulator-specs'],
+          icon: 'browse',
+          label: 'Simulator specs',
+        },
+        {
+          route: ['/standards', 'simulator-interfaces'],
+          icon: 'logs',
+          label: 'Simulator interfaces',
+        },
+        {
+          route: ['/standards', 'simulator-images'],
+          icon: 'docker',
+          label: 'Simulator images',
+        },
+        {
+          route: ['/standards', 'simulation-reports'],
+          icon: 'report',
+          label: 'Simulation reports',
+        },
+        {
+          route: ['/standards', 'simulation-logs'],
+          icon: 'progress',
+          label: 'Simulation logs',
+        },
+      ],
     },
-    {
-        path: 'simulation-logs',
-        component: SimulationLogsComponent,
-        data: {
-            breadcrumb: 'Project Simulation logs',
-            contextButtons: [
-                {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
-                {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
-                {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
-                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
-                {route: ['/standards', 'simulation-reports'], icon: 'report', label: 'Simulation reports'},
-            ]
-        }
+  },
+  {
+    path: 'simulation-logs',
+    component: SimulationLogsComponent,
+    data: {
+      breadcrumb: 'Project Simulation logs',
+      contextButtons: [
+        {
+          route: ['/standards', 'simulator-specs'],
+          icon: 'browse',
+          label: 'Simulator specs',
+        },
+        {
+          route: ['/standards', 'simulator-interfaces'],
+          icon: 'logs',
+          label: 'Simulator interfaces',
+        },
+        {
+          route: ['/standards', 'simulator-images'],
+          icon: 'docker',
+          label: 'Simulator images',
+        },
+        {
+          route: ['/standards', 'simulation-experiments'],
+          icon: 'experiment',
+          label: 'Simulation experiments',
+        },
+        {
+          route: ['/standards', 'simulation-reports'],
+          icon: 'report',
+          label: 'Simulation reports',
+        },
+      ],
     },
-    {
-        path: 'simulation-reports',
-        component: SimulationReportsComponent,
-        data: {
-            breadcrumb: 'Simulation reports',
-            contextButtons: [
-                {route: ['/standards', 'simulator-specs'], icon: 'browse', label: 'Simulator specs'},
-                {route: ['/standards', 'simulator-interfaces'], icon: 'logs', label: 'Simulator interfaces'},
-                {route: ['/standards', 'simulator-images'], icon: 'docker', label: 'Simulator images'},
-                {route: ['/standards', 'simulation-experiments'], icon: 'experiment', label: 'Simulation experiments'},
-                {route: ['/standards', 'simulation-logs'], icon: 'progress', label: 'Simulation logs'},
-            ]
-        }
+  },
+  {
+    path: 'simulation-reports',
+    component: SimulationReportsComponent,
+    data: {
+      breadcrumb: 'Simulation reports',
+      contextButtons: [
+        {
+          route: ['/standards', 'simulator-specs'],
+          icon: 'browse',
+          label: 'Simulator specs',
+        },
+        {
+          route: ['/standards', 'simulator-interfaces'],
+          icon: 'logs',
+          label: 'Simulator interfaces',
+        },
+        {
+          route: ['/standards', 'simulator-images'],
+          icon: 'docker',
+          label: 'Simulator images',
+        },
+        {
+          route: ['/standards', 'simulation-experiments'],
+          icon: 'experiment',
+          label: 'Simulation experiments',
+        },
+        {
+          route: ['/standards', 'simulation-logs'],
+          icon: 'progress',
+          label: 'Simulation logs',
+        },
+      ],
     },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class StandardsRoutingModule { }
+export class StandardsRoutingModule {}

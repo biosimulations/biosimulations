@@ -12,11 +12,10 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
+      declarations: [HomeComponent],
       imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule],
       providers: [ConfigService],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

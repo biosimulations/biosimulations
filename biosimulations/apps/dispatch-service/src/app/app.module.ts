@@ -8,17 +8,24 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ArchiverService } from './services/archiver/archiver.service';
 import { SubmissionController } from './submission/submission.controller';
 
-
 import { SubmissionService } from './submission/submission.service';
 
 import { ResultsController } from './results/results.controller';
 import { ResultsService } from './results/results.service';
-import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
+import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { AuthClientModule } from '@biosimulations/auth/client';
 import { DispatchNestClientModule } from '@biosimulations/dispatch/nest-client';
 import { ImagesModule } from '../images/images.module';
 @Module({
-  imports: [HttpModule, ImagesModule, BiosimulationsConfigModule, AuthClientModule, SharedNatsClientModule, DispatchNestClientModule, ScheduleModule.forRoot()],
+  imports: [
+    HttpModule,
+    ImagesModule,
+    BiosimulationsConfigModule,
+    AuthClientModule,
+    SharedNatsClientModule,
+    DispatchNestClientModule,
+    ScheduleModule.forRoot(),
+  ],
   controllers: [SubmissionController, ResultsController],
   providers: [
     HpcService,
@@ -26,7 +33,7 @@ import { ImagesModule } from '../images/images.module';
     SshService,
     ArchiverService,
     SubmissionService,
-    ResultsService
-  ]
+    ResultsService,
+  ],
 })
-export class AppModule { }
+export class AppModule {}

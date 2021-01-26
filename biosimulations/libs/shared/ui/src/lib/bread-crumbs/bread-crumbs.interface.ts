@@ -1,10 +1,10 @@
 export interface IBreadCrumb {
-    label: string;
-    url: string;
+  label: string;
+  url: string;
 }
 
 export interface IContextButton {
-    route: string | string[]
-    icon: string
-    label: string
+  route: string | string[];
+  icon: string;
+  label: string;
 }

@@ -32,9 +32,9 @@ describe('ResultsController', () => {
         ResultsService,
         {
           provide: getModelToken(ResultsModel.name),
-          useClass: mockFile
-        }
-      ]
+          useClass: mockFile,
+        },
+      ],
     }).compile();
 
     controller = module.get<ResultsController>(ResultsController);

@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
-import { DispatchService, SimulatorVersionsMap } from '../../../services/dispatch/dispatch.service';
+  DispatchService,
+  SimulatorVersionsMap,
+} from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
-import { environment } from '@biosimulations/shared/environments';
 import { Simulation } from '../../../datamodel';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common'
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ConfigService } from '@biosimulations/shared/services';
 
 @Component({
@@ -37,7 +33,7 @@ export class DispatchComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
-    private simulationService: SimulationService
+    private simulationService: SimulationService,
   ) {
     this.formGroup = formBuilder.group({
       projectFile: ['', [Validators.required]],
@@ -47,53 +43,56 @@ export class DispatchComponent implements OnInit {
       email: ['', [Validators.email]],
     });
 
-    this.exampleCombineArchivesUrl = (
-      'https://github.com/'
-      + config.appConfig.exampleCombineArchives.repoOwnerName
-      + '/tree'
-      + '/' + config.appConfig.exampleCombineArchives.repoRef
-      + '/' + config.appConfig.exampleCombineArchives.repoPath
-    );
-    this.exampleCombineArchiveUrl = (
-      'https://github.com/'
-      + config.appConfig.exampleCombineArchives.repoOwnerName
-      + '/raw'
-      + '/' + config.appConfig.exampleCombineArchives.repoRef
-      + '/' + config.appConfig.exampleCombineArchives.repoPath
-      + config.appConfig.exampleCombineArchives.examplePath
-    );
+    this.exampleCombineArchivesUrl =
+      'https://github.com/' +
+      config.appConfig.exampleCombineArchives.repoOwnerName +
+      '/tree' +
+      '/' +
+      config.appConfig.exampleCombineArchives.repoRef +
+      '/' +
+      config.appConfig.exampleCombineArchives.repoPath;
+    this.exampleCombineArchiveUrl =
+      'https://github.com/' +
+      config.appConfig.exampleCombineArchives.repoOwnerName +
+      '/raw' +
+      '/' +
+      config.appConfig.exampleCombineArchives.repoRef +
+      '/' +
+      config.appConfig.exampleCombineArchives.repoPath +
+      config.appConfig.exampleCombineArchives.examplePath;
   }
 
   ngOnInit(): void {
     this.formGroup.controls.simulator.disable();
     this.formGroup.controls.simulatorVersion.disable();
 
-    combineLatest([this.dispatchService.getSimulatorsFromDb(), this.route.queryParams])
-      .subscribe((observerableValues: [SimulatorVersionsMap, Params]): void => {
-        const simulatorVersionsMap = observerableValues[0];
-        const params = observerableValues[1];
+    combineLatest([
+      this.dispatchService.getSimulatorsFromDb(),
+      this.route.queryParams,
+    ]).subscribe((observerableValues: [SimulatorVersionsMap, Params]): void => {
+      const simulatorVersionsMap = observerableValues[0];
+      const params = observerableValues[1];
 
-        this.simulatorVersionsMap = simulatorVersionsMap;
-        this.simulators = Object.keys(this.simulatorVersionsMap);
+      this.simulatorVersionsMap = simulatorVersionsMap;
+      this.simulators = Object.keys(this.simulatorVersionsMap);
 
-        this.simulators.sort((a: string, b: string): number => {
-          return a.localeCompare(b, undefined, { numeric: true });
-        });
+      this.simulators.sort((a: string, b: string): number => {
+        return a.localeCompare(b, undefined, { numeric: true });
+      });
 
-        this.formGroup.controls.simulator.enable();
+      this.formGroup.controls.simulator.enable();
 
-        // process query arguments
-        const simulator: string = params?.simulator?.toLowerCase();
-        const simulatorVersion: string = params?.simulatorVersion;
-        if (simulator) {
-          this.formGroup.controls.simulator.setValue(simulator);
-          this.onSimulatorChange({ value: simulator });
-          if (simulatorVersion) {
-            this.formGroup.controls.simulatorVersion.setValue(simulatorVersion);
-          }
+      // process query arguments
+      const simulator: string = params?.simulator?.toLowerCase();
+      const simulatorVersion: string = params?.simulatorVersion;
+      if (simulator) {
+        this.formGroup.controls.simulator.setValue(simulator);
+        this.onSimulatorChange({ value: simulator });
+        if (simulatorVersion) {
+          this.formGroup.controls.simulatorVersion.setValue(simulatorVersion);
         }
       }
-      );
+    });
   }
 
   onFormSubmit() {
@@ -138,7 +137,7 @@ export class DispatchComponent implements OnInit {
       this.simulatorVersions = this.simulatorVersionsMap[$event.value];
       this.formGroup.controls.simulatorVersion.enable();
       this.formGroup.controls.simulatorVersion.setValue(
-        this.simulatorVersions[0]
+        this.simulatorVersions[0],
       );
     }
   }

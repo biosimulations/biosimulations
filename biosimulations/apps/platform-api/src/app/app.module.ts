@@ -2,7 +2,7 @@ import { Module, CacheModule } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
 import { ModelsModule } from './resources/models/models.module';
 

@@ -9,10 +9,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, SharedUiModule],
       declarations: [AppComponent],
-      providers: [
-        ConfigService,
-        ScrollService,
-      ],
+      providers: [ConfigService, ScrollService],
     }).compileComponents();
   }));
 

@@ -18,13 +18,13 @@ export enum DispatchMessage {
 export class Response {
   okay: boolean;
   _message!: DispatchMessage;
-  constructor(ok: boolean = true) {
+  constructor(ok = true) {
     this.okay = ok;
   }
 }
 
 export class createdResponse extends Response {
-  constructor(ok: boolean = true, public description?: string) {
+  constructor(ok = true, public description?: string) {
     super(ok);
   }
   _message = DispatchMessage.created;
@@ -45,7 +45,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
     id: string,
     fileName: string,
     simulator: string,
-    version: string
+    version: string,
   ) {
     super(id);
     this.fileName = fileName;

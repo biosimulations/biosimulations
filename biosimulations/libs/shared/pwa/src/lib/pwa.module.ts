@@ -5,6 +5,5 @@ import { UpdateService } from './prompt-update.service';
 @NgModule({
   imports: [CommonModule],
   providers: [UpdateService],
-
 })
-export class PwaModule { }
+export class PwaModule {}

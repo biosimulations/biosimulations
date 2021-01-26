@@ -7,9 +7,11 @@
   <ol class="breadcrumb" [ngClass]="{ noPad: !this.pad }" fxFlex>
     <ng-container *ngFor="let breadcrumb of breadcrumbs; last as isLast">
       <li>
-        <a [routerLink]="breadcrumb.url" routerLinkActive="router-link-active">{{
-          breadcrumb.label
-        }}</a>
+        <a
+          [routerLink]="breadcrumb.url"
+          routerLinkActive="router-link-active"
+          >{{ breadcrumb.label }}</a
+        >
       </li>
     </ng-container>
   </ol>

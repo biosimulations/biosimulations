@@ -8,18 +8,16 @@ import { SshConnectionConfig } from '../../types/ssh-connection-config/ssh-conne
 export class SshService {
   private sshConfig: SshConnectionConfig = this.configService.get<SshConnectionConfig>(
     'hpc.ssh',
-    new SshConnectionConfig('', 0, '', '')
+    new SshConnectionConfig('', 0, '', ''),
   );
   private sftpConfig: SshConnectionConfig = this.configService.get(
     'hpc.sftp',
-    new SshConnectionConfig('', 0, '', '')
+    new SshConnectionConfig('', 0, '', ''),
   );
 
   private logger = new Logger('SshService');
 
-  constructor(
-    private configService: ConfigService
-  ) {
+  constructor(private configService: ConfigService) {
     this.logger.log('SSH config host: ' + this.sshConfig.host);
     this.logger.log('SFTP config host: ' + this.sftpConfig.host);
   }
@@ -39,7 +37,9 @@ export class SshService {
               }
               stream
                 .on('close', (code: any, signal: any) => {
-                  this.logger.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
+                  this.logger.log(
+                    'Stream :: close :: code: ' + code + ', signal: ' + signal,
+                  );
                   resolve({ stdout, stderr });
                   conn.end();
                   this.logger.log('Connection closed');
@@ -51,12 +51,13 @@ export class SshService {
                   stderr += data.toString('utf8');
                 });
             });
-          }).on("error", err => {
-            this.logger.error(err)
-            reject(err)
+          })
+          .on('error', (err) => {
+            this.logger.error(err);
+            reject(err);
           })
           .connect(this.sshConfig);
-      }
+      },
     );
   }
 
@@ -70,7 +71,7 @@ export class SshService {
             if (err) {
               this.logger.error(
                 'Unable to open SFTP connection',
-                JSON.stringify(err)
+                JSON.stringify(err),
               );
               reject(err);
             }
@@ -79,7 +80,7 @@ export class SshService {
               if (downloadError) {
                 this.logger.error(
                   'Error occured while downloading file',
-                  JSON.stringify(downloadError)
+                  JSON.stringify(downloadError),
                 );
                 reject(downloadError);
               }
@@ -102,7 +103,7 @@ export class SshService {
             if (err) {
               this.logger.error(
                 'Unable to open SFTP connection',
-                JSON.stringify(err)
+                JSON.stringify(err),
               );
               reject(err);
             }
@@ -138,7 +139,7 @@ export class SshService {
             if (err) {
               this.logger.error(
                 'Unable to open SFTP connection',
-                JSON.stringify(err)
+                JSON.stringify(err),
               );
               reject(err);
             }
@@ -147,7 +148,7 @@ export class SshService {
               if (readErr) {
                 this.logger.error(
                   'Cannot read remote directory',
-                  JSON.stringify(readErr)
+                  JSON.stringify(readErr),
                 );
                 reject(readErr);
               }

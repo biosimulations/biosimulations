@@ -15,36 +15,36 @@ import { HttpExceptionFilter } from './http-exception.filter';
     // ENSURE that the defualt filter is provided first! Filters catch from the bottom up
     {
       provide: APP_FILTER,
-      useClass: DefaultFilter
+      useClass: DefaultFilter,
     },
     // Keep mongose filter above other mongo errors
     {
       provide: APP_INTERCEPTOR,
-      useClass: MongooseErrorInterceptor
+      useClass: MongooseErrorInterceptor,
     },
     {
       provide: APP_FILTER,
-      useClass: MongoErrorFilter
-    },
-
-    {
-      provide: APP_FILTER,
-      useClass: BiosimulationsExceptionFilter
-    },
-    {
-      provide: APP_FILTER,
-      useClass: StrictModeExceptionFilter
+      useClass: MongoErrorFilter,
     },
 
     {
       provide: APP_FILTER,
-      useClass: HttpExceptionFilter
+      useClass: BiosimulationsExceptionFilter,
     },
     {
       provide: APP_FILTER,
-      useClass: ValidationExceptionFilter
-    }
+      useClass: StrictModeExceptionFilter,
+    },
+
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: ValidationExceptionFilter,
+    },
   ],
-  exports: []
+  exports: [],
 })
 export class SharedExceptionsFiltersModule {}

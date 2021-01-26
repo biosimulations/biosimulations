@@ -1,5 +1,5 @@
-import { Directive, ElementRef } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Directive } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { TocSection } from './toc-section';
 
@@ -20,8 +20,8 @@ export class TocSectionsContainerDirective {
   public removeToc(section: TocSection) {
     const iSection = this._sections.indexOf(section);
     if (iSection > -1) {
-        this._sections.splice(iSection, 1);
-        this.sections.next(this._sections);
+      this._sections.splice(iSection, 1);
+      this.sections.next(this._sections);
     }
   }
 }

@@ -7,13 +7,13 @@ import { ArchiverService } from '../services/archiver/archiver.service';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 
 class MockSimulationsRunService {
-  async sendReport() { }
+  async sendReport() {}
 }
 class MockResultsService {
-  async method() { }
+  async method() {}
 }
 class mockArchiverService {
-  async method() { }
+  async method() {}
 }
 
 describe('ResultsController', () => {
@@ -26,8 +26,8 @@ describe('ResultsController', () => {
         { provide: ResultsService, useClass: MockResultsService },
         { provide: ArchiverService, useClass: mockArchiverService },
         ConfigService,
-        { provide: SimulationRunService, useClass: MockSimulationsRunService }
-      ]
+        { provide: SimulationRunService, useClass: MockSimulationsRunService },
+      ],
     }).compile();
 
     controller = module.get<ResultsController>(ResultsController);

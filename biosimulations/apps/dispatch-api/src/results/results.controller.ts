@@ -7,13 +7,13 @@
 import {
   JwtGuard,
   PermissionsGuard,
-  permissions
+  permissions,
 } from '@biosimulations/auth/nest';
 import {
   SimulationRunReport,
   SimulationRunReportData,
   SimulationRunReportDataSchema,
-  SimulationRunReportDataStrings
+  SimulationRunReportDataStrings,
 } from '@biosimulations/dispatch/api-models';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
@@ -25,20 +25,16 @@ import {
   HttpStatus,
   Param,
   ParseBoolPipe,
-  ParseIntPipe,
   Post,
-  Put,
   Query,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBody,
   ApiCreatedResponse,
   ApiOAuth2,
-  ApiOkResponse,
   ApiQuery,
-  ApiResponse,
-  ApiTags
+  ApiTags,
 } from '@nestjs/swagger';
 
 import { ResultsService } from './results.service';
@@ -59,7 +55,7 @@ export class ResultsController {
   @ApiQuery({ name: 'sparse', type: Boolean })
   getResult(
     @Param('simId') simId: string,
-    @Query('sparse', ParseBoolPipe) sparse = true
+    @Query('sparse', ParseBoolPipe) sparse = true,
   ) {
     return this.service.getResult(simId, sparse);
   }
@@ -74,7 +70,7 @@ export class ResultsController {
   getResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
-    @Query('sparse', ParseBoolPipe) sparse = true
+    @Query('sparse', ParseBoolPipe) sparse = true,
   ) {
     return this.service.getResultReport(simId, reportId, sparse);
   }
@@ -82,7 +78,7 @@ export class ResultsController {
   @Get(':simId/:reportId/download')
   downloadResultReport(
     @Param('simId') simId: string,
-    @Param('resportId') reportId: string
+    @Param('resportId') reportId: string,
   ) {
     return this.service.downloadReport(simId, reportId);
   }
@@ -96,7 +92,7 @@ export class ResultsController {
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
     @Body()
-    data: SimulationRunReportDataStrings
+    data: SimulationRunReportDataStrings,
   ): Promise<SimulationRunReport> {
     const report: SimulationRunReportData = {};
     for (const key of Object.keys(data)) {
@@ -113,7 +109,7 @@ export class ResultsController {
               `Inconsistent datatypes for key `,
               undefined,
               undefined,
-              `/${key}`
+              `/${key}`,
             );
           }
           return Boolean(value);
@@ -129,7 +125,7 @@ export class ResultsController {
               `Inconsistent datatypes for key `,
               undefined,
               undefined,
-              `/${key}`
+              `/${key}`,
             );
           }
           return num;
@@ -162,7 +158,7 @@ export class ResultsController {
   @Delete(':simId/:resultId')
   deleteResultReport(
     @Param('simId') simId: string,
-    @Param('reportId') reportId: string
+    @Param('reportId') reportId: string,
   ) {
     return this.service.delete(simId);
   }

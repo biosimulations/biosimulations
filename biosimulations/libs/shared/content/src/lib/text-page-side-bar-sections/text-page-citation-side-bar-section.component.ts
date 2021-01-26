@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './text-page-citation-side-bar-section.component.html',
   styleUrls: ['./text-page-citation-side-bar-section.component.scss'],
 })
-export class TextPageCitationSideBarSectionComponent {  
-}
+export class TextPageCitationSideBarSectionComponent {}

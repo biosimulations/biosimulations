@@ -7,7 +7,7 @@ import { SimulationRunController } from './simulation-run.controller';
 import { SimulationRunModel } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
-import { SharedNatsClientModule } from '@biosimulations/shared/nats-client'
+import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { ConfigService } from '@nestjs/config';
 /**
  * @file Test file for controller
@@ -30,7 +30,11 @@ describe('SimulationRunsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [SimulationRunController],
-      imports: [BiosimulationsAuthModule, BiosimulationsConfigModule, SharedNatsClientModule],
+      imports: [
+        BiosimulationsAuthModule,
+        BiosimulationsConfigModule,
+        SharedNatsClientModule,
+      ],
       providers: [
         SimulationRunService,
         {
@@ -41,7 +45,6 @@ describe('SimulationRunsController', () => {
           provide: getModelToken(SimulationRunModel.name),
           useClass: mockFile,
         },
-
       ],
     }).compile();
 

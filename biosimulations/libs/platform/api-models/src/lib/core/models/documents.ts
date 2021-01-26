@@ -3,12 +3,8 @@ import {
   ResourceObject,
   Relationships,
   RelationshipObject,
-  ResourceIdentifier,
 } from '../jsonApi';
-import {
-  ResourceType,
-  BiomodelAttributes,
-} from '@biosimulations/datamodel/common';
+import { ResourceType } from '@biosimulations/datamodel/common';
 
 import {
   FileRelationshipObject,
@@ -20,7 +16,6 @@ import {
   ApiProperty,
   ApiPropertyOptional,
   OmitType,
-  IntersectionType,
   ApiExtraModels,
 } from '@nestjs/swagger';
 import { ModelAttributes } from '../biomodels.dto';

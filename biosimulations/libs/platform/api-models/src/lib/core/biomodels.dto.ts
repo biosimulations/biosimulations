@@ -4,14 +4,9 @@ import {
   BiomodelVariable,
   BiomodelAttributes,
 } from '@biosimulations/datamodel/common';
-import {
-  ApiProperty,
-  ApiExtraModels,
-  OmitType,
-  IntersectionType,
-} from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { Identifier, Taxon, Format, OntologyTerm } from '../common';
-import { AttributesMetadata, ResourceMetadata } from './metadata.dto';
+import { AttributesMetadata } from './metadata.dto';
 
 export class ModelParameter implements BiomodelParameter {
   @ApiProperty({
@@ -27,11 +22,22 @@ export class ModelParameter implements BiomodelParameter {
   @ApiProperty({ type: String, example: 'N' })
   id!: string;
 
-  @ApiProperty({ type: String, example: 'Nitrogen', nullable: true, required: false, default: null })
+  @ApiProperty({
+    type: String,
+    example: 'Nitrogen',
+    nullable: true,
+    required: false,
+    default: null,
+  })
   name!: string | null;
 
-  @ApiProperty({ type: String, nullable: true, required: false, default: null,
-    example: 'Initial concentration of Nitrogen' })
+  @ApiProperty({
+    type: String,
+    nullable: true,
+    required: false,
+    default: null,
+    example: 'Initial concentration of Nitrogen',
+  })
   description!: string | null;
 
   @ApiProperty({ type: [Identifier] })
@@ -45,16 +51,16 @@ export class ModelParameter implements BiomodelParameter {
   })
   type!: ValueType;
 
-  @ApiProperty({ 
+  @ApiProperty({
     type: String,
     nullable: true,
-    example: "227",
+    example: '227',
   })
   value!: string | null;
 
   @ApiProperty({
     type: [String],
-    example: ["22.7", "2270"],
+    example: ['22.7', '2270'],
     nullable: true,
     required: false,
     default: null,

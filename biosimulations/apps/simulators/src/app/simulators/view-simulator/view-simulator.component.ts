@@ -36,7 +36,7 @@ export class ViewSimulatorComponent implements OnInit {
     public route: ActivatedRoute,
     private simService: ViewSimulatorService,
     private cd: ChangeDetectorRef,
-    private config: ConfigService
+    private config: ConfigService,
   ) {}
 
   loadingSubject = new BehaviorSubject(true);
@@ -56,7 +56,7 @@ export class ViewSimulatorComponent implements OnInit {
         return name;
       },
       showStacked: false,
-      minWidth: 234
+      minWidth: 234,
     },
     {
       id: 'type',
@@ -81,7 +81,9 @@ export class ViewSimulatorComponent implements OnInit {
       key: 'range',
       getter: (parameter: ViewParameter): string | null => {
         if (parameter.range) {
-          return parameter.range.map(this.formatParameterVal.bind(this, parameter.type)).join(', ');
+          return parameter.range
+            .map(this.formatParameterVal.bind(this, parameter.type))
+            .join(', ');
         } else {
           return null;
         }
@@ -123,7 +125,10 @@ export class ViewSimulatorComponent implements OnInit {
     },
   ];
 
-  formatParameterVal(type: string, value: boolean | number | string | null): string | null {
+  formatParameterVal(
+    type: string,
+    value: boolean | number | string | null,
+  ): string | null {
     if (value == null) {
       return value;
     } else if (type === ValueType.boolean) {
@@ -135,11 +140,15 @@ export class ViewSimulatorComponent implements OnInit {
         const exp = Math.floor(Math.log10(value as number));
         const val = (value as number) / Math.pow(10, exp);
         let valStr: string;
-        if (Math.abs((val * 1e0 - Math.round(val * 1e0)) / (val * 1e0)) < 1e-12) {
+        if (Math.abs((val * 1 - Math.round(val * 1)) / (val * 1)) < 1e-12) {
           valStr = val.toFixed(0);
-        } else if (Math.abs((val * 1e1 - Math.round(val * 1e1)) / (val * 1e1)) < 1e-12) {
+        } else if (
+          Math.abs((val * 1e1 - Math.round(val * 1e1)) / (val * 1e1)) < 1e-12
+        ) {
           valStr = val.toFixed(1);
-        } else if (Math.abs((val * 1e2 - Math.round(val * 1e2)) / (val * 1e2)) < 1e-12) {
+        } else if (
+          Math.abs((val * 1e2 - Math.round(val * 1e2)) / (val * 1e2)) < 1e-12
+        ) {
           valStr = val.toFixed(2);
         } else {
           valStr = val.toFixed(3);
@@ -158,7 +167,7 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   getParameterStackedHeadingMoreInfoRouterLink(
-    parameter: ViewParameter
+    parameter: ViewParameter,
   ): string {
     return parameter.kisaoUrl;
   }
@@ -184,7 +193,9 @@ export class ViewSimulatorComponent implements OnInit {
     },
   ];
 
-  getDependentVariablesStackedHeading(dependentVariableTargetPattern: IDependentVariableTargetPattern): string {
+  getDependentVariablesStackedHeading(
+    dependentVariableTargetPattern: IDependentVariableTargetPattern,
+  ): string {
     return dependentVariableTargetPattern.variables;
   }
 
@@ -224,7 +235,10 @@ export class ViewSimulatorComponent implements OnInit {
       centerAction: ColumnActionType.href,
       centerHref: (version: ViewVersion): string | null => {
         if (version.image) {
-          return 'https://github.com/orgs/biosimulators/packages/container/package/' + this.id;
+          return (
+            'https://github.com/orgs/biosimulators/packages/container/package/' +
+            this.id
+          );
         } else {
           return null;
         }
@@ -248,19 +262,39 @@ export class ViewSimulatorComponent implements OnInit {
         return null;
       },
       stackedFormatter: (label: string): string => {
-        return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + label;
+        return (
+          this.config.dispatchAppUrl +
+          'run?simulator=' +
+          this.id +
+          '&simulatorVersion=' +
+          label
+        );
       },
       rightIcon: 'simulator',
       rightIconTitle: (version: ViewVersion): string => {
-        return 'Execute simulations with v' + version.label + ' @ runBioSimulations';
+        return (
+          'Execute simulations with v' + version.label + ' @ runBioSimulations'
+        );
       },
       centerAction: ColumnActionType.href,
       rightAction: ColumnActionType.href,
       centerHref: (version: ViewVersion): string => {
-        return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
+        return (
+          this.config.dispatchAppUrl +
+          'run?simulator=' +
+          this.id +
+          '&simulatorVersion=' +
+          version.label
+        );
       },
       rightHref: (version: ViewVersion): string => {
-        return this.config.dispatchAppUrl + 'run?simulator=' + this.id + '&simulatorVersion=' + version.label;
+        return (
+          this.config.dispatchAppUrl +
+          'run?simulator=' +
+          this.id +
+          '&simulatorVersion=' +
+          version.label
+        );
       },
       rightShowStacked: false,
       minWidth: 40,
@@ -282,7 +316,7 @@ export class ViewSimulatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getVersionLinkBound = this.getVersionStackedHeadingMoreInfoRouterLink.bind(
-      this
+      this,
     );
 
     const params = this.route.params;
@@ -305,13 +339,25 @@ export class ViewSimulatorComponent implements OnInit {
       tap(() => {
         this.loadingSubject.next(false);
         this.cd.detectChanges();
-      })
+      }),
     );
   }
 
   processSimulator(simulator: ViewSimulator): void {
-    this.dispatchAppUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
-    this.dispatchAppRunUrl = this.config.dispatchAppUrl + 'run' + '?simulator=' + simulator.id + '&simulatorVersion=' + simulator.version;
+    this.dispatchAppUrl =
+      this.config.dispatchAppUrl +
+      'run' +
+      '?simulator=' +
+      simulator.id +
+      '&simulatorVersion=' +
+      simulator.version;
+    this.dispatchAppRunUrl =
+      this.config.dispatchAppUrl +
+      'run' +
+      '?simulator=' +
+      simulator.id +
+      '&simulatorVersion=' +
+      simulator.version;
     this.highlightVersion = (version: ViewVersion): boolean => {
       return version.label === simulator.version;
     };

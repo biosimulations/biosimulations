@@ -1,13 +1,16 @@
-import {
-  DependentPackage as IDependentPackage,
-} from '@biosimulations/datamodel/common';
+import { DependentPackage as IDependentPackage } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class DependentPackage implements IDependentPackage {
   @ApiProperty({ type: String })
   name!: string;
 
-  @ApiProperty({ type: String, nullable: true, description: "Required version", example: ">= 3.1.1" })
+  @ApiProperty({
+    type: String,
+    nullable: true,
+    description: 'Required version',
+    example: '>= 3.1.1',
+  })
   version!: string | null;
 
   @ApiProperty({ type: Boolean })

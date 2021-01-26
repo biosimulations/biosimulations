@@ -1,12 +1,12 @@
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import {
   DispatchFinishedPayload,
-  DispatchMessage
+  DispatchMessage,
 } from '@biosimulations/messages/messages';
 import { Controller, Logger } from '@nestjs/common';
 
 import { MessagePattern } from '@nestjs/microservices';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common'
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { ArchiverService } from '../services/archiver/archiver.service';
 import { ResultsService } from './results.service';
 
@@ -15,8 +15,8 @@ export class ResultsController {
   constructor(
     private resultsService: ResultsService,
     private archiverService: ArchiverService,
-    private simService: SimulationRunService
-  ) { }
+    private simService: SimulationRunService,
+  ) {}
 
   private logger = new Logger(ResultsController.name);
 
@@ -30,10 +30,13 @@ export class ResultsController {
     // TODO move the logging methods to seperate service, add here
     await Promise.all([
       this.archiverService.createResultArchive(id),
-      this.resultsService.createResults(id, transpose)])
+      this.resultsService.createResults(id, transpose),
+    ]);
 
-    this.simService.updateSimulationRunStatus(id, SimulationRunStatus.SUCCEEDED).subscribe(
-      (run) => this.logger.log(`Updated Simulation ${run.id} to complete`)
-    )
+    this.simService
+      .updateSimulationRunStatus(id, SimulationRunStatus.SUCCEEDED)
+      .subscribe((run) =>
+        this.logger.log(`Updated Simulation ${run.id} to complete`),
+      );
   }
 }

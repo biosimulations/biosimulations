@@ -12,10 +12,14 @@ describe('ParametersViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SharedUiModule,MatTableModule,SharedDebugModule, RouterTestingModule],
-      declarations: [ ParametersViewComponent ]
-    })
-    .compileComponents();
+      imports: [
+        SharedUiModule,
+        MatTableModule,
+        SharedDebugModule,
+        RouterTestingModule,
+      ],
+      declarations: [ParametersViewComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

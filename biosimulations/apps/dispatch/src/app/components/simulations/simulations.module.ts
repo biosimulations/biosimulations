@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,11 +15,7 @@ import { VisualizationComponent } from './view/visualization/visualization.compo
 import { SimulationLogModule } from './view/simulation-log/simulation-log.module';
 
 @NgModule({
-  declarations: [
-    BrowseComponent,
-    ViewComponent,
-    VisualizationComponent,
-  ],
+  declarations: [BrowseComponent, ViewComponent, VisualizationComponent],
   imports: [
     CommonModule,
     SimulationsRoutingModule,
@@ -34,4 +29,4 @@ import { SimulationLogModule } from './view/simulation-log/simulation-log.module
     SimulationLogModule,
   ],
 })
-export class SimulationsModule { }
+export class SimulationsModule {}

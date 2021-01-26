@@ -19,14 +19,23 @@ import {
 } from '@biosimulations/datamodel/common';
 
 import { ExternalReferencesSchema, PersonSchema, UrlSchema } from './common';
-import { BiosimulatorsMeta, BiosimulatorsMetaSchema } from './biosimulatorsMeta';
+import {
+  BiosimulatorsMeta,
+  BiosimulatorsMetaSchema,
+} from './biosimulatorsMeta';
 
 @Schema({})
 export class Simulator extends Document {
   @Prop({ type: BiosimulatorsMetaSchema, required: true, default: undefined })
   biosimulators!: BiosimulatorsMeta;
 
-  @Prop({ type: String, lowercase: true, trim: true, required: true, default: undefined })
+  @Prop({
+    type: String,
+    lowercase: true,
+    trim: true,
+    required: true,
+    default: undefined,
+  })
   id!: string;
 
   @Prop({ type: String, required: true, default: undefined })
@@ -58,28 +67,33 @@ export class Simulator extends Document {
     _id: false,
     required: true,
     default: undefined,
-    validate: [{
-      validator: (value: Algorithm[]): boolean => {
-        const kisaoIds = new Set();
-        for (const algorithm of value) {
-          const kisaoId = algorithm.kisaoId.id;
-          if (kisaoIds.has(kisaoId)) {
-            return false;
+    validate: [
+      {
+        validator: (value: Algorithm[]): boolean => {
+          const kisaoIds = new Set();
+          for (const algorithm of value) {
+            const kisaoId = algorithm.kisaoId.id;
+            if (kisaoIds.has(kisaoId)) {
+              return false;
+            }
+            kisaoIds.add(kisaoId);
           }
-          kisaoIds.add(kisaoId);
-        }
-        return true;
+          return true;
+        },
+        message: (props: any): string =>
+          'Algorithms must be annotated with unique KiSAO terms',
       },
-      message: (props: any): string => 'Algorithms must be annotated with unique KiSAO terms',
-    }],
+    ],
   })
   algorithms!: Algorithm[];
 
   @Prop({
     type: [String],
-    enum: Object.entries(SoftwareInterfaceType).map((keyVal: [string, string]): string => {
-      return keyVal[1];
-    }),
+    enum: Object.entries(SoftwareInterfaceType).map(
+      (keyVal: [string, string]): string => {
+        return keyVal[1];
+      },
+    ),
     required: true,
     default: undefined,
   })
@@ -87,9 +101,11 @@ export class Simulator extends Document {
 
   @Prop({
     type: [String],
-    enum: Object.entries(OperatingSystemType).map((keyVal: [string, string]): string => {
-      return keyVal[1];
-    }),
+    enum: Object.entries(OperatingSystemType).map(
+      (keyVal: [string, string]): string => {
+        return keyVal[1];
+      },
+    ),
     required: true,
     default: undefined,
   })

@@ -1,27 +1,22 @@
 import {
   Controller,
   Get,
-  Put,
   Body,
   Param,
   Post,
-  Query,
   Delete,
   UseGuards,
   Req,
   CacheInterceptor,
   UseInterceptors,
   CacheTTL,
-  BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
 import {
-  ApiBody,
   ApiTags,
   ApiOAuth2,
   ApiCreatedResponse,
   ApiOkResponse,
-  ApiGoneResponse,
   ApiNotFoundResponse,
 } from '@nestjs/swagger';
 import { ModelsService } from './models.service';
@@ -51,7 +46,7 @@ const dbToApi = (dbModel: Model): ModelResource => {
       created: dbModel.created,
       updated: dbModel.updated,
       version: dbModel.version,
-    }
+    },
   );
 
   return returnModel;
@@ -76,7 +71,7 @@ export class ModelsController {
         return { data: [] };
       }
     });
-    return result
+    return result;
   }
 
   @ApiOkResponse({
@@ -110,7 +105,7 @@ export class ModelsController {
   @Post()
   async create(
     @Req() req: Request,
-    @Body() body: CreateModelDocument
+    @Body() body: CreateModelDocument,
   ): Promise<ModelDocument> {
     const user: AuthToken = req.user as any;
     const data = body.data;

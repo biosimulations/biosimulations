@@ -11,8 +11,8 @@ import { TagsViewComponent } from './tags-view/tags-view.component';
 import { AuthorsViewComponent } from './authors-view/authors-view.component';
 import { VariablesViewComponent } from './variables-view/variables-view.component';
 import { ParametersViewComponent } from './parameters-view/parameters-view.component';
-import { SharedDebugModule } from '@biosimulations/shared/debug'
-import { MatTableModule } from '@angular/material/table'
+import { SharedDebugModule } from '@biosimulations/shared/debug';
+import { MatTableModule } from '@angular/material/table';
 import { ResourceHomeComponent } from './resource-home/resource-home.component';
 import { ResourceHomeFeatureComponent } from './resource-home/resource-home-feature.component';
 import { ResourceHomeFeaturesComponent } from './resource-home/resource-home-features.component';
@@ -23,7 +23,7 @@ import { ResourceHomeFeaturesComponent } from './resource-home/resource-home-fea
     SharedDebugModule,
     BiosimulationsIconsModule,
     SharedUiModule,
-    MatTableModule
+    MatTableModule,
   ],
   declarations: [
     ResourceViewComponent,
@@ -36,7 +36,7 @@ import { ResourceHomeFeaturesComponent } from './resource-home/resource-home-fea
     ParametersViewComponent,
     ResourceHomeComponent,
     ResourceHomeFeatureComponent,
-    ResourceHomeFeaturesComponent
+    ResourceHomeFeaturesComponent,
   ],
   exports: [
     ResourceOverviewComponent,
@@ -49,7 +49,7 @@ import { ResourceHomeFeaturesComponent } from './resource-home/resource-home-fea
     ParametersViewComponent,
     ResourceHomeComponent,
     ResourceHomeFeatureComponent,
-    ResourceHomeFeaturesComponent
+    ResourceHomeFeaturesComponent,
   ],
 })
-export class ResourceViewModule { }
+export class ResourceViewModule {}

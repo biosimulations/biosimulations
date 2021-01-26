@@ -13,7 +13,11 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ErrorHandler as BiosimulationsErrorHandler, errorRoutes, Error404Component } from '@biosimulations/shared/ui';
+import {
+  ErrorHandler as BiosimulationsErrorHandler,
+  errorRoutes,
+  Error404Component,
+} from '@biosimulations/shared/ui';
 import {
   MARKED_PRELOADING_STRATEGY,
   RoutesModule,
@@ -40,7 +44,8 @@ const routes: Routes = [
   },
   {
     path: 'standards',
-    loadChildren: () => import('./standards/standards.module').then((m) => m.StandardsModule),
+    loadChildren: () =>
+      import('./standards/standards.module').then((m) => m.StandardsModule),
     data: {
       breadcrumb: 'Standards',
       preload: {
@@ -90,7 +95,7 @@ routes.forEach((route: Route): void => {
       initialNavigation: 'enabled',
       scrollPositionRestoration: 'disabled',
       preloadingStrategy: MARKED_PRELOADING_STRATEGY,
-      relativeLinkResolution: 'legacy'
+      relativeLinkResolution: 'legacy',
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -114,10 +119,10 @@ routes.forEach((route: Route): void => {
           dockerfile: () => import('highlight.js/lib/languages/dockerfile'),
           json: () => import('highlight.js/lib/languages/json'),
           typescript: () => import('highlight.js/lib/languages/typescript'),
-        }
-      }
+        },
+      },
     },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -8,9 +8,23 @@
   [last]="last"
 >
   <ng-container *ngIf="algorithmKisaoTerm | async as algorithm">
-    <h3>Executed algorithm: {{ algorithm.name }} (<a [href]="algorithm.url" target="_blank">{{ algorithm.id }}</a>)</h3>
-    <p *ngIf="algorithmKisaoTermDescription && (algorithmKisaoTermDescription | async)">
-      <ng-template ngFor let-fragment [ngForOf]="algorithmKisaoTermDescription | async">
+    <h3>
+      Executed algorithm: {{ algorithm.name }} (<a
+        [href]="algorithm.url"
+        target="_blank"
+        >{{ algorithm.id }}</a
+      >)
+    </h3>
+    <p
+      *ngIf="
+        algorithmKisaoTermDescription && (algorithmKisaoTermDescription | async)
+      "
+    >
+      <ng-template
+        ngFor
+        let-fragment
+        [ngForOf]="algorithmKisaoTermDescription | async"
+      >
         <span *ngIf="fragment.type == 'text'; else descriptionLink">
           {{ fragment.value }}
         </span>
@@ -35,7 +49,9 @@
 
   <ng-container *ngIf="log?.skipReason as skipReason">
     <h3>Reason why it was skipped: {{ skipReason.category }}</h3>
-    <pre *ngIf="skipReason.message; else noSkipMessage"><code>{{ skipReason.message }}</code></pre>
+    <pre
+      *ngIf="skipReason.message; else noSkipMessage"
+    ><code>{{ skipReason.message }}</code></pre>
     <ng-template #noSkipMessage>
       <p class="info-message">No details were provided.</p>
     </ng-template>
@@ -43,7 +59,9 @@
 
   <ng-container *ngIf="log?.exception as exception">
     <h3>Exception: {{ exception.category }}</h3>
-    <pre *ngIf="exception.message; else noExceptionMessage"><code>{{ exception.message }}</code></pre>
+    <pre
+      *ngIf="exception.message; else noExceptionMessage"
+    ><code>{{ exception.message }}</code></pre>
     <ng-template #noExceptionMessage>
       <p class="info-message">No details were provided.</p>
     </ng-template>
@@ -51,7 +69,10 @@
 
   <ng-container *ngIf="formattedOutput || noOutputMessage">
     <h3>Standard output and standard error</h3>
-    <pre *ngIf="formattedOutput; else noOutput" class="stdout dark"><code [innerHTML]="formattedOutput"></code></pre>
+    <pre
+      *ngIf="formattedOutput; else noOutput"
+      class="stdout dark"
+    ><code [innerHTML]="formattedOutput"></code></pre>
     <ng-template #noOutput>
       <p class="info-message">{{ noOutputMessage }}</p>
     </ng-template>

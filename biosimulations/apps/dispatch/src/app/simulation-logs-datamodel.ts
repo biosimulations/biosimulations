@@ -9,7 +9,7 @@ export enum StructuredLogLevel {
   CombineArchive = 1,
   SedDocument = 2,
   SedTaskOutput = 3,
-  SedDataSetCurveSurface = 4
+  SedDataSetCurveSurface = 4,
 }
 
 export interface Exception {
@@ -123,7 +123,7 @@ export interface SimulationLogs {
 /* Descriptions of KiSAO terms */
 export enum AlgorithmKisaoDescriptionFragmentType {
   text = 'text',
-  href = 'href'
+  href = 'href',
 }
 
 export interface AlgorithmKisaoDescriptionFragment {

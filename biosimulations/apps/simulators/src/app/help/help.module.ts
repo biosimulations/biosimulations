@@ -14,7 +14,13 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { HighlightModule } from 'ngx-highlightjs';
 
 @NgModule({
-  declarations: [AboutComponent, FaqComponent, HelpComponent, TermsOfServiceComponent, PrivacyPolicyComponent],
+  declarations: [
+    AboutComponent,
+    FaqComponent,
+    HelpComponent,
+    TermsOfServiceComponent,
+    PrivacyPolicyComponent,
+  ],
   imports: [
     CommonModule,
     SharedUiModule,
@@ -24,4 +30,4 @@ import { HighlightModule } from 'ngx-highlightjs';
     HighlightModule,
   ],
 })
-export class HelpModule { }
+export class HelpModule {}

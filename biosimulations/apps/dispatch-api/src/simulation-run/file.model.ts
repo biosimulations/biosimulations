@@ -23,6 +23,6 @@ export class SimulationFile extends Document {
 }
 
 export const SimulationFileSchema: SchemaType<SimulationFile> = SchemaFactory.createForClass(
-  SimulationFile
+  SimulationFile,
 );
 SimulationFileSchema.set('strict', 'throw');

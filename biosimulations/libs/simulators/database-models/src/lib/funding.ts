@@ -1,6 +1,6 @@
 import {
   Funding as IFunding,
-  IFunderRegistryOntologyId,  
+  IFunderRegistryOntologyId,
 } from '@biosimulations/datamodel/common';
 import { FunderRegistryOntologyIdSchema } from './ontologyId';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
@@ -13,7 +13,11 @@ import isUrl from 'is-url';
   useNestedStrict: true,
 })
 class Funding implements IFunding {
-  @Prop({ type: FunderRegistryOntologyIdSchema, required: true, default: undefined })
+  @Prop({
+    type: FunderRegistryOntologyIdSchema,
+    required: true,
+    default: undefined,
+  })
   funder!: IFunderRegistryOntologyId;
 
   @Prop({ type: String, required: false, default: null })
@@ -22,10 +26,12 @@ class Funding implements IFunding {
   @Prop({
     type: String,
     required: false,
-    validate: [{
-      validator: (value: any): boolean => value == null || isUrl(value),
-      message: (props: any): string => `${props.value} is not a valid URL`,
-    }],
+    validate: [
+      {
+        validator: (value: any): boolean => value == null || isUrl(value),
+        message: (props: any): string => `${props.value} is not a valid URL`,
+      },
+    ],
     default: null,
   })
   url!: string | null;

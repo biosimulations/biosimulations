@@ -1,28 +1,16 @@
 import { prop } from '@typegoose/typegoose';
 import isUrl from 'is-url';
 
-import {
-  IsString,
-  IsBoolean,
-  IsJSON,
-  IsUrl,
-  IsEmail,
-  IsObject,
-  IsMongoId,
-} from 'class-validator';
+import { IsString, IsObject, IsMongoId } from 'class-validator';
 import mongoose from 'mongoose';
 
 import {
-  BiomodelResource,
-  ResourceType,
   BiomodelAttributes,
-  PrimaryResourceMetaData,
   Taxon,
   BiomodelParameter,
   BiomodelVariable,
   IOntologyTerm,
   Format,
-  BiomodelRelationships,
   License,
   AccessLevel,
   Person,
@@ -59,10 +47,12 @@ class IdentiferDB implements Identifier {
 
   @prop({
     type: String,
-    validate: [{
-      validator: isUrl,
-      message: (props: any): string => `${props.value} is not a valid URL`,
-    }],
+    validate: [
+      {
+        validator: isUrl,
+        message: (props: any): string => `${props.value} is not a valid URL`,
+      },
+    ],
   })
   url!: string;
 }
@@ -152,7 +142,7 @@ export class BiomodelAttributesDB implements BiomodelAttributes {
     framework: IOntologyTerm,
     format: Format,
     metaData: AttributesMetadata,
-    variables: ModelVariable[]
+    variables: ModelVariable[],
   ) {
     this.taxon = taxon;
     this.parameters = parameters;
@@ -220,7 +210,7 @@ export class Model {
       model.attributes.framework,
       model.attributes.format,
       model.attributes.metadata,
-      model.attributes.variables
+      model.attributes.variables,
     );
     this.created = Date.now();
     this.updated = Date.now();

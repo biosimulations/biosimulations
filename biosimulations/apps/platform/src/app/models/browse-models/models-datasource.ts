@@ -1,14 +1,8 @@
 import { MatTableDataSource } from '@angular/material/table';
-import { Subscription, BehaviorSubject, Observable, merge, of } from 'rxjs';
-import {
-  BiomodelAttributes,
-  UserId,
-  Person,
-} from '@biosimulations/datamodel/common';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { Subscription, BehaviorSubject } from 'rxjs';
+import { UserId, Person } from '@biosimulations/datamodel/common';
 
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ModelHttpService } from '../services/model-http.service';
 import { Injectable } from '@angular/core';
 import { ModelResource } from '@biosimulations/platform/api-models';
@@ -42,8 +36,8 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
         map((value: ModelResource[]) =>
           value.map((model: ModelResource) => {
             return ModelDataSource.toDataModel(model);
-          })
-        )
+          }),
+        ),
       )
       .subscribe((value: ModelData[]) => (this.data = value));
     modelHttp
@@ -66,7 +60,7 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
       framework:
         Framework.fromDTO(model.attributes.framework).name?.replace(
           ' framework',
-          ''
+          '',
         ) || '',
       format: new Format(
         format.id,
@@ -77,7 +71,7 @@ export class ModelDataSource extends MatTableDataSource<ModelData> {
         format.url,
         format.mimetype,
         format.extension,
-        format.sedUrn
+        format.sedUrn,
       ),
       authors: model.attributes.metadata.authors.map((person: Person) => {
         return new Author(person.firstName, person.lastName, person.middleName);

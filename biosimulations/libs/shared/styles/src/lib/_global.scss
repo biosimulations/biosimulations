@@ -88,7 +88,7 @@ h2,
   margin: 0;
   padding: 0;
 
-  &>*:after:not(:last-child) {
+  & > *:after:not(:last-child) {
     content: ', ';
   }
 }
@@ -149,7 +149,8 @@ table.icon-list {
 }
 
 ul.key-value li {
-  a, .mat-icon-button.biosimulations-icon-button.primary {
+  a,
+  .mat-icon-button.biosimulations-icon-button.primary {
     color: $dark-primary-text;
 
     &:hover {
@@ -180,7 +181,7 @@ a {
 }
 
 .zoom {
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .zoom:hover {
@@ -218,12 +219,12 @@ ul.comma-separated {
     display: inline-block;
 
     &:not(:nth-last-child(1)):not(:nth-last-child(2))::after {
-      content: ",";
+      content: ',';
       margin-right: 0.25rem;
     }
 
     &:nth-last-child(2)::after {
-      content: ",";
+      content: ',';
       margin-right: 0.25rem;
     }
   }
@@ -234,21 +235,21 @@ ul.comma-separated {
 
   &.ampersand-separator {
     li:nth-last-child(2)::after {
-      content: " &";
+      content: ' &';
       margin-right: 0.25rem;
     }
   }
 
   &.and-separator {
     li:nth-last-child(2)::after {
-      content: " and";
+      content: ' and';
       margin-right: 0.25rem;
     }
   }
 
   &.or-separator {
     li:nth-last-child(2)::after {
-      content: " &";
+      content: ' &';
       margin-right: 0.25rem;
     }
   }
@@ -257,13 +258,12 @@ ul.comma-separated {
 /* forms */
 biosimulations-root {
   .mat-form-field {
-      display: block;
-      letter-spacing: unset;
+    display: block;
+    letter-spacing: unset;
   }
 
   .mat-form-field-appearance-fill {
-
-    .mat-form-field-flex  {
+    .mat-form-field-flex {
       padding: 0.75em 0.75em 0;
       background-color: $light-bg-darker-5;
     }
@@ -287,26 +287,29 @@ biosimulations-root {
   }
 
   .mat-form-field-prefix biosimulations-icon {
-      font-size: 32px;
-      position: relative;
-      top: -0.125rem;
-      margin-right: 0.5rem;
-      color: rgba(0, 0, 0, 0.7);
+    font-size: 32px;
+    position: relative;
+    top: -0.125rem;
+    margin-right: 0.5rem;
+    color: rgba(0, 0, 0, 0.7);
   }
 
   .ngx-mat-file-input .mat-icon-button.mat-primary {
     color: rgba(0, 0, 0, 0.8);
   }
 
-  .mat-form-field:not(.mat-form-field-appearance-legacy) .ngx-mat-file-input .mat-form-field-suffix .mat-icon-button {
+  .mat-form-field:not(.mat-form-field-appearance-legacy)
+    .ngx-mat-file-input
+    .mat-form-field-suffix
+    .mat-icon-button {
     width: 1.5em;
     margin-right: 0.2rem;
   }
 
   form {
     .mat-flat-button {
-        padding: 0 .75em;
-        background-color: $light-bg-darker-10;
+      padding: 0 0.75em;
+      background-color: $light-bg-darker-10;
     }
   }
 }
@@ -333,24 +336,29 @@ pre {
     margin-bottom: 0.5rem;
   }
 
-  code, code.hljs {
+  code,
+  code.hljs {
     padding: 0;
   }
 }
 
-code, code.hljs {
+code,
+code.hljs {
   padding: 0.25rem;
   display: inline;
 }
 
-code, code.hljs, pre {
+code,
+code.hljs,
+pre {
   font-size: 90%;
   background: $light-bg-darker-3;
   color: $dark-primary-text;
 }
 
 pre.dark {
-  &, code {
+  &,
+  code {
     background: $dark-background;
     color: $light-text;
   }
@@ -363,7 +371,8 @@ pre.dark {
 /* range slider */
 npn-slider .slider {
   .bar {
-    & > span.left-handle, & > span.right-handle {
+    & > span.left-handle,
+    & > span.right-handle {
       border-color: mat-color($theme-primary) !important;
       background: mat-color($theme-primary, lighter) !important;
 
@@ -484,7 +493,8 @@ table {
     }
   }
 
-  th, td {
+  th,
+  td {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     text-align: left;
@@ -547,22 +557,23 @@ table {
     background: $light-bg-darker-10;
   }
 
-  .mat-cell, .mat-header-cell {
+  .mat-cell,
+  .mat-header-cell {
     @include mat-typography-level-to-styles($fontConfig, body-1);
 
     &:not(:first-of-type) {
-        padding-left: 0.25rem;
-        border-left: 1px solid $light-bg-darker-20;
+      padding-left: 0.25rem;
+      border-left: 1px solid $light-bg-darker-20;
     }
     &:not(:last-of-type) {
-        padding-right: 0.25rem;
+      padding-right: 0.25rem;
     }
 
     &:first-of-type {
-        padding-left: 0.5rem;
+      padding-left: 0.5rem;
     }
     &:last-of-type {
-        padding-right: 0.5rem;
+      padding-right: 0.5rem;
     }
   }
 
@@ -574,7 +585,7 @@ table {
   .mat-cell {
     color: $dark-primary-text;
     *:focus {
-        outline: none;
+      outline: none;
     }
   }
 
@@ -632,11 +643,13 @@ table {
 
 /* status colors */
 .status-label {
-  &.CREATED, &.QUEUED {
+  &.CREATED,
+  &.QUEUED {
     color: mat-color($theme-primary);
   }
 
-  &.RUNNING, &.PROCESSING {
+  &.RUNNING,
+  &.PROCESSING {
     color: mat-color($theme-tertiary);
   }
 
@@ -654,7 +667,8 @@ table {
 }
 
 a.status-label {
-  &.CREATED, &.QUEUED {
+  &.CREATED,
+  &.QUEUED {
     &:hover {
       color: darken(mat-color($theme-primary), 10%);
     }
@@ -663,7 +677,8 @@ a.status-label {
     }
   }
 
-  &.RUNNING, &.PROCESSING {
+  &.RUNNING,
+  &.PROCESSING {
     &:hover {
       color: darken(mat-color($theme-tertiary), 8%);
     }
@@ -701,7 +716,9 @@ a.status-label {
 }
 
 .status-section {
-  &.CREATED, &.QUEUED, &.Warned {
+  &.CREATED,
+  &.QUEUED,
+  &.Warned {
     h2 {
       color: mat-color($theme-primary);
       background: $theme-primary-lightest;
@@ -717,7 +734,9 @@ a.status-label {
     }
   }
 
-  &.RUNNING, &.PROCESSING, &.Passed {
+  &.RUNNING,
+  &.PROCESSING,
+  &.Passed {
     h2 {
       color: mat-color($theme-tertiary);
       background: $theme-tertiary-lightest;
@@ -733,7 +752,8 @@ a.status-label {
     }
   }
 
-  &.SUCCEEDED, &.Skipped {
+  &.SUCCEEDED,
+  &.Skipped {
     h2 {
       color: $dark-primary-text;
       background: $light-bg-darker-10;
@@ -765,7 +785,8 @@ a.status-label {
     }
   }
 
-  &.FAILED, &.Failed {
+  &.FAILED,
+  &.Failed {
     h2 {
       color: mat-color($theme-warn);
       background: $theme-warn-lightest;

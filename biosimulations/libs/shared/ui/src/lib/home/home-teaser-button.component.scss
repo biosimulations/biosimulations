@@ -1,91 +1,92 @@
 @import 'biosimulations-colors';
 
 .mat-flat-button {
-    margin-top: 0.5rem;
-    padding: 0;
-    line-height: normal;
+  margin-top: 0.5rem;
+  padding: 0;
+  line-height: normal;
+  background: none;
+
+  svg {
+    width: 100%;
+    color: mat-color($theme-primary);
+    &.accent {
+      color: mat-color($theme-accent);
+
+      path.foreground {
+        fill: currentColor;
+        fill-opacity: 0.25;
+        stroke-opacity: 0.75;
+        stroke-dasharray: 2px 2px;
+      }
+    }
+
+    path.foreground {
+      fill: currentColor;
+      fill-opacity: 0.7;
+      stroke: currentColor;
+    }
+
+    path.background {
+      fill: #fff;
+      stroke: #fff;
+    }
+  }
+
+  &.mat-button-disabled {
     background: none;
+    svg,
+    svg.accent {
+      color: rgba(44, 44, 44, 0.4);
+      path.foreground {
+        fill: currentColor;
+        fill-opacity: 0.25;
+        stroke-opacity: 0.75;
+        stroke-dasharray: 2px 2px;
+      }
+    }
+  }
 
-    svg {
-        width: 100%;
-        color: mat-color($theme-primary);
-        &.accent {
-            color: mat-color($theme-accent);
+  &:not(.mat-button-disabled) {
+    &:hover {
+      svg {
+        color: darken(mat-color($theme-primary), 8%);
+      }
+      svg.accent {
+        color: darken(mat-color($theme-accent), 12.5%);
+      }
+    }
+    &:active {
+      svg {
+        color: darken(mat-color($theme-primary), 16%);
+      }
+      svg.accent {
+        color: darken(mat-color($theme-accent), 25%);
+      }
+    }
+  }
 
-            path.foreground {
-                fill: currentColor;
-                fill-opacity: 0.25;
-                stroke-opacity: 0.75;
-                stroke-dasharray: 2px 2px;
-            }
-        }
+  .content {
+    padding: 1rem;
+    white-space: normal;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    width: calc(100% - 2 * 1rem);
+    height: calc(100% - 2 * 1rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-        path.foreground {
-            fill: currentColor;
-            fill-opacity: 0.70;
-            stroke: currentColor;
-        }
-
-        path.background {
-            fill: #fff;
-            stroke: #fff;
-        }
+    .title {
+      font-weight: bold;
+      &:not(:last-child) {
+        margin-bottom: 0.25rem;
+      }
     }
 
-    &.mat-button-disabled {
-        background: none;
-        svg, svg.accent {
-            color: rgba(44, 44, 44, 0.4);
-            path.foreground {
-                fill: currentColor;
-                fill-opacity: 0.25;
-                stroke-opacity: 0.75;
-                stroke-dasharray: 2px 2px;
-            }
-        }        
+    .text ::ng-deep p:not(:last-child) {
+      margin-bottom: 0.25rem;
     }
-
-    &:not(.mat-button-disabled) {
-        &:hover {
-            svg {
-                color: darken(mat-color($theme-primary), 8%);
-            }
-            svg.accent {
-                color: darken(mat-color($theme-accent), 12.5%);
-            }
-        }
-        &:active {
-            svg {
-                color: darken(mat-color($theme-primary), 16%);
-            }
-            svg.accent {
-                color: darken(mat-color($theme-accent), 25%);
-            }
-        }
-    }
-
-    .content {
-        padding: 1rem;
-        white-space: normal;
-        text-align: center;
-        position: absolute;
-        top: 0;
-        width: calc(100% - 2 * 1rem);
-        height: calc(100% - 2 * 1rem);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        .title {
-            font-weight: bold;
-            &:not(:last-child) {
-                margin-bottom: 0.25rem;
-            }
-        }
-
-        .text ::ng-deep p:not(:last-child) {
-            margin-bottom: 0.25rem;
-        }
-    }
+  }
 }

@@ -20,6 +20,5 @@ export class SimulatorInterfacesComponent {
     });
   }
 
-  constructor(public config: ConfigService) {
-  }
+  constructor(public config: ConfigService) {}
 }

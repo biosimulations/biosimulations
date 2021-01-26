@@ -15,7 +15,11 @@ import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import { ErrorHandler as BiosimulationsErrorHandler, errorRoutes, Error404Component } from '@biosimulations/shared/ui';
+import {
+  ErrorHandler as BiosimulationsErrorHandler,
+  errorRoutes,
+  Error404Component,
+} from '@biosimulations/shared/ui';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
 import config from '../assets/config.json';
@@ -64,7 +68,7 @@ routes.forEach((route: Route): void => {
   if (route.data) {
     route.data.config = config;
   } else {
-    route.data = {config};
+    route.data = { config };
   }
 });
 @NgModule({
@@ -77,10 +81,10 @@ routes.forEach((route: Route): void => {
     MarkdownModule.forRoot({ loader: HttpClient }),
     SharedUiModule,
     RouterModule.forRoot(routes, {
-    initialNavigation: 'enabled',
-    scrollPositionRestoration: 'disabled',
-    relativeLinkResolution: 'legacy'
-}),
+      initialNavigation: 'enabled',
+      scrollPositionRestoration: 'disabled',
+      relativeLinkResolution: 'legacy',
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
@@ -92,7 +96,7 @@ routes.forEach((route: Route): void => {
   providers: [
     AuthService,
     { provide: AuthEnvironment, useValue: env },
-    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: {disabled: true} },
+    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
     { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },

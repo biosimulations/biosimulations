@@ -36,4 +36,4 @@ import { HighlightModule } from 'ngx-highlightjs';
     HighlightModule,
   ],
 })
-export class StandardsModule { }
+export class StandardsModule {}

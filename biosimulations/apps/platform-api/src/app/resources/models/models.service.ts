@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { Model as BiomodelDB } from './biomodel.model';
 import { InjectModel } from 'nestjs-typegoose';
-import { ReturnModelType,} from '@typegoose/typegoose';
+import { ReturnModelType } from '@typegoose/typegoose';
 import { CreateModelResource } from '@biosimulations/platform/api-models';
 
 /**

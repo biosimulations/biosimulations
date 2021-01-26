@@ -5,31 +5,28 @@
  * @license MIT
  */
 import {
-  BadRequestException,
   Injectable,
   InternalServerErrorException,
   Logger,
-  MethodNotAllowedException,
-  NotFoundException
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { SimulationFile, SimulationFileSchema } from './file.model';
+import { SimulationFile } from './file.model';
 import { Model } from 'mongoose';
 import {
   SimulationRunModel,
   SimulationRunModelReturnType,
-  SimulationRunModelSchema,
-  SimulationRunModelType
+  SimulationRunModelType,
 } from './simulation-run.model';
 import {
   SimulationRun,
-  UpdateSimulationRun
+  UpdateSimulationRun,
 } from '@biosimulations/dispatch/api-models';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
 const toApi = <T extends SimulationRunModelType>(
-  obj: T
+  obj: T,
 ): SimulationRunModelReturnType => {
   delete obj.__v;
   delete obj._id;
@@ -51,7 +48,7 @@ export class SimulationRunService {
    *
    */
   async download(
-    id: string
+    id: string,
   ): Promise<{
     size: number;
     buffer: Buffer;
@@ -70,7 +67,7 @@ export class SimulationRunService {
       const SimFile = await this.fileModel
         .findOne(
           { _id: fileId },
-          { size: 1, mimetype: 1, buffer: 1, originalname: 1, encoding: 1 }
+          { size: 1, mimetype: 1, buffer: 1, originalname: 1, encoding: 1 },
         )
         .exec();
       if (SimFile) {
@@ -80,7 +77,7 @@ export class SimulationRunService {
           mimetype: SimFile.mimetype,
           buffer: Buffer.from(SimFile.buffer.buffer),
           encoding: SimFile.encoding,
-          originalname: SimFile.originalname
+          originalname: SimFile.originalname,
         };
       } else {
         // The simulator gave a file id, but not found
@@ -96,7 +93,7 @@ export class SimulationRunService {
     const res = await this.simulationRunModel.deleteMany({}).exec();
     if (!res.ok) {
       throw new InternalServerErrorException(
-        `There was an error. Deleted ${res.deletedCount} out of ${res.n} documents`
+        `There was an error. Deleted ${res.deletedCount} out of ${res.n} documents`,
       );
     }
   }
@@ -108,7 +105,7 @@ export class SimulationRunService {
 
   async update(
     id: string,
-    run: UpdateSimulationRun
+    run: UpdateSimulationRun,
   ): Promise<SimulationRunModelReturnType> {
     const model = await this.simulationRunModel.findById(id).catch((err) => {
       if (err.name == 'CastError') {
@@ -182,14 +179,14 @@ export class SimulationRunService {
    */
   async createRun(
     run: SimulationRun,
-    file: any
+    file: any,
   ): Promise<SimulationRunModelReturnType> {
     const fileParsed = {
       originalname: file.originalname,
       encoding: file.encoding,
       mimetype: file.mimetype,
       buffer: file.buffer,
-      size: file.size
+      size: file.size,
     };
 
     const newFile = new this.fileModel(fileParsed);
@@ -219,6 +216,6 @@ export class SimulationRunService {
   constructor(
     @InjectModel(SimulationFile.name) private fileModel: Model<SimulationFile>,
     @InjectModel(SimulationRunModel.name)
-    private simulationRunModel: Model<SimulationRunModel>
+    private simulationRunModel: Model<SimulationRunModel>,
   ) {}
 }

@@ -9,8 +9,10 @@ import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 export class AppComponent implements AfterViewInit {
   title = 'simulators';
 
-  constructor(public config: ConfigService, private scrollService: ScrollService) {
-  }
+  constructor(
+    public config: ConfigService,
+    private scrollService: ScrollService,
+  ) {}
 
   ngAfterViewInit(): void {
     this.scrollService.init();

@@ -12,7 +12,6 @@ import { SharedDebugModule } from '@biosimulations/shared/debug';
 import { BrowserModule } from '@angular/platform-browser';
 
 describe('AgreementComponent', () => {
-
   let testHostComponent: TestHostComponent;
   let testHostFixture: ComponentFixture<TestHostComponent>;
 
@@ -34,9 +33,9 @@ describe('AgreementComponent', () => {
   }));
 
   beforeEach(() => {
-    Object.defineProperty(window, "matchMedia", {
+    Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: jest.fn().mockImplementation(query => ({
+      value: jest.fn().mockImplementation((query) => ({
         matches: false,
         media: query,
         onchange: null,
@@ -45,7 +44,7 @@ describe('AgreementComponent', () => {
         addEventListener: jest.fn(),
         removeEventListener: jest.fn(),
         dispatchEvent: jest.fn(),
-      }))
+      })),
     });
     testHostFixture = TestBed.createComponent(TestHostComponent);
     testHostComponent = testHostFixture.componentInstance;
@@ -55,10 +54,14 @@ describe('AgreementComponent', () => {
     testHostFixture.detectChanges();
     testHostFixture.whenStable().then(() => {
       expect(
-        testHostFixture.nativeElement.querySelector(
-          'biosimulations-login-agreement > div > mat-card > markdown > h1',
-        ).textContent.toLowerCase(),
-      ).toEqual('code of conduct for developers of the biosimulations and biosimulators platforms'.toLowerCase());
+        testHostFixture.nativeElement
+          .querySelector(
+            'biosimulations-login-agreement > div > mat-card > markdown > h1',
+          )
+          .textContent.toLowerCase(),
+      ).toEqual(
+        'code of conduct for developers of the biosimulations and biosimulators platforms'.toLowerCase(),
+      );
     });
   }));
 
@@ -71,5 +74,5 @@ describe('AgreementComponent', () => {
       ></biosimulations-login-agreement>
     `,
   })
-  class TestHostComponent { }
+  class TestHostComponent {}
 });

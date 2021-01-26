@@ -3,11 +3,7 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "types": [],
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
-  "files": [
-    "src/main.ts",
-    "src/polyfills.ts",
-    "../../declarations.d.ts"
-  ]
+  "files": ["src/main.ts", "src/polyfills.ts", "../../declarations.d.ts"]
 }

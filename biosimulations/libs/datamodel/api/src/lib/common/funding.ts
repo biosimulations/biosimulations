@@ -9,6 +9,12 @@ export class Funding implements IFunding {
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   grant!: string | null;
 
-  @ApiProperty({ type: String, format: 'url', nullable: true, required: false, default: null })
+  @ApiProperty({
+    type: String,
+    format: 'url',
+    nullable: true,
+    required: false,
+    default: null,
+  })
   url!: string | null;
 }

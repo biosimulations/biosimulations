@@ -11,9 +11,8 @@ describe('FullPageSpinnerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialWrapperModule],
-      declarations: [FullPageSpinnerComponent, SpinnerComponent]
-    })
-      .compileComponents();
+      declarations: [FullPageSpinnerComponent, SpinnerComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,12 +1,12 @@
 import {
   ErrorObject,
-  ErrorResponseDocument
+  ErrorResponseDocument,
 } from '@biosimulations/datamodel/api';
 import {
   Catch,
   ExceptionFilter,
   ArgumentsHost,
-  HttpStatus
+  HttpStatus,
 } from '@nestjs/common';
 import { Response } from 'express';
 import * as mongo from 'mongodb';
@@ -31,7 +31,7 @@ export class MongoErrorFilter implements ExceptionFilter {
           undefined,
           err.message.split('dup key: ')[1],
           undefined,
-          err
+          err,
         );
         errors.push(error);
         break;
@@ -46,7 +46,7 @@ export class MongoErrorFilter implements ExceptionFilter {
           undefined,
           err.errmsg,
           undefined,
-          undefined
+          undefined,
         );
       }
     }
