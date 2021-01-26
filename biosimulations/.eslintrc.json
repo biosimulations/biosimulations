@@ -1,20 +1,22 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "**/*"
-  ],
-  "plugins": [
-    "@nrwl/nx"
-  ],
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx", "unused-imports"],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
-      ],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "no-unused-vars": "off",
+        "unused-imports/no-unused-imports-ts": "warn",
+        "unused-imports/no-unused-vars-ts": [
+          "warn",
+          {
+            "vars": "all",
+            "varsIgnorePattern": "^_",
+            "args": "after-used",
+            "argsIgnorePattern": "^_"
+          }
+        ],
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
           {
@@ -23,23 +25,15 @@
             "depConstraints": [
               {
                 "sourceTag": "platform:web",
-                "onlyDependOnLibsWithTags": [
-                  "platform:web",
-                  "platform:any"
-                ]
+                "onlyDependOnLibsWithTags": ["platform:web", "platform:any"]
               },
               {
                 "sourceTag": "platform:server",
-                "onlyDependOnLibsWithTags": [
-                  "platform:server",
-                  "platform:any"
-                ]
+                "onlyDependOnLibsWithTags": ["platform:server", "platform:any"]
               },
               {
                 "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": [
-                  "scope:shared"
-                ]
+                "onlyDependOnLibsWithTags": ["scope:shared"]
               },
               {
                 "sourceTag": "scope:config",
@@ -50,10 +44,7 @@
               },
               {
                 "sourceTag": "scope:auth",
-                "onlyDependOnLibsWithTags": [
-                  "scope:auth",
-                  "type:environments"
-                ]
+                "onlyDependOnLibsWithTags": ["scope:auth", "type:environments"]
               },
               {
                 "sourceTag": "scope:simulators",
@@ -97,9 +88,7 @@
               },
               {
                 "sourceTag": "*",
-                "onlyDependOnLibsWithTags": [
-                  "*"
-                ]
+                "onlyDependOnLibsWithTags": ["*"]
               }
             ]
           }
@@ -107,13 +96,8 @@
       }
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/typescript"
-      ],
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript", "prettier"],
       "parserOptions": {
         "project": "./tsconfig.*?.json"
       },
@@ -130,13 +114,8 @@
       }
     },
     {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript"
-      ],
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
     }
   ]
