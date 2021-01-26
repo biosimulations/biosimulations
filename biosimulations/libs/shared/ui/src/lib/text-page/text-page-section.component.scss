@@ -62,7 +62,7 @@ h2 {
 
 .container ::ng-deep .mat-table.biosimulations-table {
   .mat-header-row {
-    background: $light-background;
+    background: $light-bg-darker-10;
   }
 
   .mat-header-cell {
@@ -72,7 +72,7 @@ h2 {
 
 .content ::ng-deep biosimulations-text-page-section {
   h2 {
-    background: $light-background;
+    background: $light-bg-darker-5;
     color: $dark-primary-text;
   }
 

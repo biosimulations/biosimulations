@@ -60,10 +60,13 @@ $mat-dark-theme-foreground: (
 // Background config
 // Light bg
 $light-background: #fff;
+$light-bg-darker-1: darken($light-background, 1%);
+$light-bg-darker-3: darken($light-background, 3%);
 $light-bg-darker-5: darken($light-background, 5%);
 $light-bg-darker-10: darken($light-background, 10%);
 $light-bg-darker-20: darken($light-background, 20%);
 $light-bg-darker-30: darken($light-background, 30%);
+$light-bg-darker-40: darken($light-background, 40%);
 $light-bg-lighter-5: lighten($light-background, 5%);
 $dark-bg-alpha-4: rgba(#2c2c2c, 0.04);
 $dark-bg-alpha-12: rgba(#2c2c2c, 0.12);

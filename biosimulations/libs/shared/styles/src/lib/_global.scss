@@ -265,7 +265,7 @@ biosimulations-root {
 
     .mat-form-field-flex  {
       padding: 0.75em 0.75em 0;
-      background-color: $light-background;
+      background-color: $light-bg-darker-5;
     }
 
     .mat-form-field-underline {
@@ -306,7 +306,7 @@ biosimulations-root {
   form {
     .mat-flat-button {
         padding: 0 .75em;
-        background-color: $light-background;
+        background-color: $light-bg-darker-10;
     }
   }
 }
@@ -345,7 +345,7 @@ code, code.hljs {
 
 code, code.hljs, pre {
   font-size: 90%;
-  background: $light-bg-lighter-5;
+  background: $light-bg-darker-3;
   color: $dark-primary-text;
 }
 
@@ -376,7 +376,7 @@ npn-slider .slider {
     }
 
     div.filler {
-      border-color: $light-bg-darker-5 !important;
+      border-color: $light-bg-darker-10 !important;
 
       & > span {
         background: mat-color($theme-primary, lighter) !important;
@@ -471,10 +471,13 @@ table {
 
   tbody {
     tr:nth-child(even) {
-      background: $light-bg-lighter-5;
+      background: $light-bg-darker-3;
+    }
+    tr:nth-child(odd) {
+      background: $light-bg-darker-1;
     }
     tr:hover {
-      background: $light-background;
+      background: $light-bg-darker-10;
     }
     td {
       vertical-align: top;
@@ -489,10 +492,13 @@ table {
 
   &.rotated {
     th {
-      background: $theme-primary-lightest;
+      background: $light-bg-darker-10;
     }
     td:nth-child(even) {
-      background: $light-bg-lighter-5;
+      background: $light-bg-darker-3;
+    }
+    td:nth-child(odd) {
+      background: $light-bg-darker-1;
     }
   }
 
@@ -505,7 +511,7 @@ table {
 .mat-table.biosimulations-table {
   width: auto;
   min-width: min-content;
-  border: 1px solid $light-bg-darker-5;
+  border: 1px solid $light-bg-darker-20;
   border-radius: 4px;
   background: transparent;
 
@@ -514,7 +520,7 @@ table {
   }
 
   .mat-header-row {
-    background: $theme-primary-lightest;
+    background: $light-bg-darker-10;
     min-height: 32px;
   }
 
@@ -524,18 +530,21 @@ table {
   }
 
   mat-row:nth-child(even) {
-    background: $light-bg-lighter-5;
+    background: $light-bg-darker-3;
+  }
+  mat-row:nth-child(odd) {
+    background: $light-bg-darker-1;
   }
 
   .mat-row {
     min-height: 28px;
     &:hover {
-      background: $light-background;
+      background: $light-bg-darker-10;
     }
   }
 
   .highlight-row {
-    background: $theme-primary-lightestest;
+    background: $light-bg-darker-10;
   }
 
   .mat-cell, .mat-header-cell {
@@ -543,7 +552,7 @@ table {
 
     &:not(:first-of-type) {
         padding-left: 0.25rem;
-        border-left: 1px solid $light-bg-darker-5;
+        border-left: 1px solid $light-bg-darker-20;
     }
     &:not(:last-of-type) {
         padding-right: 0.25rem;
@@ -558,7 +567,7 @@ table {
   }
 
   .mat-header-cell {
-    color: mat-color($theme-primary);
+    color: $dark-primary-text;
     font-weight: 500;
   }
 
@@ -588,7 +597,7 @@ table {
 }
 
 .border {
-  border: 1px solid $light-bg-darker-5;
+  border: 1px solid $light-bg-darker-20;
   border-radius: 4px;
 }
 
@@ -727,7 +736,7 @@ a.status-label {
   &.SUCCEEDED, &.Skipped {
     h2 {
       color: $dark-primary-text;
-      background: $light-background;
+      background: $light-bg-darker-10;
 
       .mat-icon-button.biosimulations-icon-button {
         &:hover {
