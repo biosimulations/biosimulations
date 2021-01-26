@@ -71,7 +71,8 @@ export class SimulationRunService {
       .toPromise();
   }
   async getJob(simId: string): Promise<SimulationRun> {
-    const token = await this.auth.getToken();
+    // TODO make enpoint consistent with other (no ending /)
+      const token = await this.auth.getToken();
     return this.http
       .get<SimulationRun>(`${this.endpoint}/run/${simId}`, {
         headers: {

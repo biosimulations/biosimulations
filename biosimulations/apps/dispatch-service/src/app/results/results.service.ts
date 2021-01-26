@@ -12,12 +12,16 @@ import { Dirent, promises as fsPromises } from 'fs';
 import ospath from 'path';
 import path from 'path';
 import csv from 'csvtojson';
+import YAML from 'yaml';
 
 import readline from 'readline';
 import fs from 'fs';
 import { SimulationRunReportDataStrings } from '@biosimulations/dispatch/api-models';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
-import { DispatchProcessedPayload, DispatchMessage } from '@biosimulations/messages/messages';
+import {
+  DispatchProcessedPayload,
+  DispatchMessage
+} from '@biosimulations/messages/messages';
 import { ClientProxy } from '@nestjs/microservices';
 
 export interface resultFile {
@@ -36,16 +40,18 @@ export class ResultsService {
     private readonly configService: ConfigService,
     private submit: SimulationRunService,
     @Inject('NATS_CLIENT') private client: ClientProxy
-  ) { }
+  ) {}
 
   private getResultsDirectory(id: string) {
     return path.join(this.fileStorage, 'simulations', id, 'out');
   }
   async createResults(id: string, transpose: boolean) {
-    const resultsDirectory = this.getResultsDirectory(id);
+    // const resultsDirectory = this.getResultsDirectory(id);
+    const resultsDirectory = 'testDir';
     const fileList: resultFile[] = await ResultsService.getFilesRecursively(
       resultsDirectory
     );
+    console.log(fileList);
 
     /* @todo Change this to hdf
      * @body change this to hdf files to implement changes needed for #1669
@@ -53,14 +59,41 @@ export class ResultsService {
     const csvFileList = fileList.filter((value: resultFile) =>
       value.name.endsWith('.csv')
     );
-    const resultPromises: Promise<void>[] = []
+    const runLogs = fileList.filter(
+      (value: resultFile) => value.name == 'log.yml'
+    );
+
+    const resultPromises: Promise<void>[] = [];
+
+    if (runLogs.length != 1) {
+      // TODO handle this error
+      console.log('No log found');
+    } else {
+      resultPromises.push(this.uploadLog(id, runLogs[0].path));
+    }
+
     csvFileList.forEach((file: resultFile) => {
       resultPromises.push(this.uploadResultFile(id, file, transpose));
     });
     Promise.all(resultPromises).then((_) => {
-      const data: DispatchProcessedPayload = { _message: DispatchMessage.processed, id: id }
-      this.client.emit(DispatchMessage.processed, data)
-    })
+      const data: DispatchProcessedPayload = {
+        _message: DispatchMessage.processed,
+        id: id
+      };
+      this.client.emit(DispatchMessage.processed, data);
+    });
+  }
+  uploadLog(id: string, path: string) {
+    
+    return fsPromises.readFile(path, 'utf8').then((file) => {
+      const log = YAML.parse(file);
+      return this.submit
+        .sendLog(id, log)
+        .toPromise()
+        .then((_) => {
+          return;
+        });
+    });
   }
   private async readCSV(file: string): Promise<SimulationRunReportDataStrings> {
     // info https://nodejs.org/api/readline.html#readline_example_read_file_stream_line_by_line
@@ -99,7 +132,11 @@ export class ResultsService {
     return resultsObject
     */
   }
-  async uploadResultFile(id: string, file: resultFile, transpose: boolean): Promise<void> {
+  async uploadResultFile(
+    id: string,
+    file: resultFile,
+    transpose: boolean
+  ): Promise<void> {
     let file_json: Promise<SimulationRunReportDataStrings>;
 
     if (transpose) {
@@ -107,7 +144,7 @@ export class ResultsService {
     } else {
       file_json = this.readCSV(file.path);
     }
-    this.logger.log("Read CSV")
+    this.logger.log('Read CSV');
     // apidomain/results/simulationID/reportId
     const sedml = encodeURIComponent(
       file.path
@@ -122,10 +159,13 @@ export class ResultsService {
     resultId: string,
     result: SimulationRunReportDataStrings
   ) {
-
     this.submit
-      .sendReport(simId, resultId, result).then(value =>
-        this.logger.log(`Successfully uploaded report ${resultId} for simulation ${simId}`))
+      .sendReport(simId, resultId, result)
+      .then((value) =>
+        this.logger.log(
+          `Successfully uploaded report ${resultId} for simulation ${simId}`
+        )
+      )
       .catch((err) => this.logger.error(err));
   }
   private async parseToJson(

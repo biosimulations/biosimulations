@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   NotFoundException,
   NotImplementedException,
   Param,
@@ -10,7 +11,7 @@ import {
   Post,
   Put
 } from '@nestjs/common';
-import { ApiExtraModels, ApiResponse } from '@nestjs/swagger';
+import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   CombineArchiveLog,
   SedPlot2DLog,
@@ -24,8 +25,10 @@ import { LogsService } from './logs.service';
 import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 
 @ApiExtraModels(SedReportLog, SedPlot2DLog, SedPlot3DLog)
-@Controller('logs/v2')
+  @Controller('logs')
+  @ApiTags('Logs')
 export class LogsController {
+  logger = new Logger(LogsController.name);
   constructor(private service: LogsService) {}
 
   @Get()
@@ -80,6 +83,7 @@ export class LogsController {
   async createLogs(
     @Body() body: CreateSimulationRunLogBody
   ): Promise<CombineArchiveLog> {
+    this.logger.error('Creating Log');
     const logs = await this.service.createLog(body.simId, body.log);
     return logs.log;
   }

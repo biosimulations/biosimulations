@@ -83,7 +83,7 @@ export class DispatchService {
   }
 
   getSimulationLogs(uuid: string): Observable<SimulationLogs> {
-    const endpoint = `${urls.dispatchApi}logs/v2/${uuid}?download=false`;
+    const endpoint = `${urls.dispatchApi}logs/${uuid}?download=false`;
     return this.http.get<CombineArchiveLog>(endpoint).pipe(
       map(
         (response: CombineArchiveLog): SimulationLogs => {
