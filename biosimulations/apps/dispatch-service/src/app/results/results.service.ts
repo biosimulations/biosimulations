@@ -46,8 +46,8 @@ export class ResultsService {
     return path.join(this.fileStorage, 'simulations', id, 'out');
   }
   async createResults(id: string, transpose: boolean) {
-    // const resultsDirectory = this.getResultsDirectory(id);
-    const resultsDirectory = 'testDir';
+    const resultsDirectory = this.getResultsDirectory(id);
+    //const resultsDirectory = 'testDir';
     const fileList: resultFile[] = await ResultsService.getFilesRecursively(
       resultsDirectory
     );
@@ -84,7 +84,6 @@ export class ResultsService {
     });
   }
   uploadLog(id: string, path: string) {
-    
     return fsPromises.readFile(path, 'utf8').then((file) => {
       const log = YAML.parse(file);
       return this.submit
