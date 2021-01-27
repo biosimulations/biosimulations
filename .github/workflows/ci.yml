@@ -129,7 +129,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "15.x"
-
+      - name: Install Nrwl CLI
+        working-directory: ./biosimulations
+        run: npm install -g @nrwl/cli
+        
       - name: Cache npm dependencies
         uses: actions/cache@v2
         with:
