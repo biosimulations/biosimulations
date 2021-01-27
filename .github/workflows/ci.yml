@@ -56,11 +56,11 @@ jobs:
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          path: biosimulations/node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx
+            ${{ runner.os }}-nx-
 
       - id: get-affected-libs-apps
         name: Determine affected libraries and apps
@@ -146,12 +146,11 @@ jobs:
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          path: biosimulations/node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx
-
+            ${{ runner.os }}-nx-
       - name: Lint library or app
         working-directory: ./biosimulations
         run: nx run ${{ matrix.libOrApp }}:lint
@@ -207,11 +206,11 @@ jobs:
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          path: biosimulations/node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx
+            ${{ runner.os }}-nx-
 
       - name: Build app
         working-directory: ./biosimulations
@@ -268,8 +267,8 @@ jobs:
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          path: biosimulations/node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-

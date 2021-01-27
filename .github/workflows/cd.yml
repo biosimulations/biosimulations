@@ -40,10 +40,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx
+            ${{ runner.os }}-nx-
 
       - id: get-all-apps
         name: Get the list of apps
@@ -100,7 +100,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: biosimulations/node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
+          restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx-
      
       - name: Build dev app
         working-directory: ./biosimulations
@@ -152,12 +155,12 @@ jobs:
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          path: biosimulations/node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx
-            
+            ${{ runner.os }}-nx-
+
       - name: Build prod app
         working-directory: ./biosimulations
         run: nx build --prod ${{matrix.app}}
