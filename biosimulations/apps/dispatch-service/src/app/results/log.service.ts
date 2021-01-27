@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { FileService } from './file.service';
 import { promises as fsPromises } from 'fs';
 import YAML from 'yaml';
@@ -6,6 +6,7 @@ import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
 @Injectable()
 export class LogService {
+  private logger = new Logger(LogService.name);
   public constructor(
     private fileService: FileService,
     private submit: SimulationRunService,
@@ -17,11 +18,12 @@ export class LogService {
   }
 
   private async makeLog(path: string): Promise<CombineArchiveLog> {
-    const log = this.readLog(path);
-    const stdLog = this.readStdLog(path);
+    const log = await this.readLog(path);
+    const stdLog = await this.readStdLog(path);
 
-    (await log).output = await stdLog;
-
+    log.output = stdLog;
+    this.logger.log(`created log: ${{ stdLog }}`);
+    this.logger.log(`created log: ${{ log }}`);
     return log;
   }
 
@@ -42,7 +44,7 @@ export class LogService {
       .sendLog(id, log)
       .toPromise()
       .then((_) => {
-        return;
+        this.logger.log(_);
       });
   }
 }
