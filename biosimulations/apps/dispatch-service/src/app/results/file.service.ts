@@ -11,10 +11,11 @@ export interface resultFile {
 
 Injectable();
 export class FileService {
-  private fileStorage: string = this.configService.get<string>(
-    'hpc.fileStorage',
-    '',
-  );
+  //   private fileStorage: string = this.configService.get<string>(
+  //     'hpc.fileStorage',
+  //     '',
+  //   );
+  private fileStorage = '/home/FCAM/crbmapi/nfs/biosimulations/dev/simulations';
   public constructor(private readonly configService: ConfigService) {}
 
   public getResultsDirectory(id: string): string {

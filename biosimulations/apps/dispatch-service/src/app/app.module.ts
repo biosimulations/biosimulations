@@ -17,6 +17,7 @@ import { AuthClientModule } from '@biosimulations/auth/client';
 import { DispatchNestClientModule } from '@biosimulations/dispatch/nest-client';
 import { ImagesModule } from '../images/images.module';
 import { FileService } from './results/file.service';
+import { LogService } from './results/log.service';
 @Module({
   imports: [
     HttpModule,
@@ -36,6 +37,7 @@ import { FileService } from './results/file.service';
     SubmissionService,
     ResultsService,
     FileService,
+    LogService,
   ],
 })
 export class AppModule {}
