@@ -4,7 +4,7 @@ import { promises as fsPromises } from 'fs';
 import YAML from 'yaml';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
-Injectable();
+@Injectable()
 export class LogService {
   public constructor(
     private fileService: FileService,
