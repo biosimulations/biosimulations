@@ -7,12 +7,7 @@
  * @license MIT
  */
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { Dirent, promises as fsPromises } from 'fs';
-import ospath from 'path';
-import path from 'path';
 import csv from 'csvtojson';
-import YAML from 'yaml';
 
 import readline from 'readline';
 import fs from 'fs';
@@ -23,54 +18,32 @@ import {
   DispatchMessage,
 } from '@biosimulations/messages/messages';
 import { ClientProxy } from '@nestjs/microservices';
-
-export interface resultFile {
-  name: string;
-  path: string;
-}
+import { FileService, resultFile } from './file.service';
 
 @Injectable()
 export class ResultsService {
   private logger = new Logger(ResultsService.name);
-  private fileStorage: string = this.configService.get<string>(
-    'hpc.fileStorage',
-    '',
-  );
-  constructor(
-    private readonly configService: ConfigService,
+
+  public constructor(
+    private readonly fileService: FileService,
     private submit: SimulationRunService,
     @Inject('NATS_CLIENT') private client: ClientProxy,
   ) {}
 
-  private getResultsDirectory(id: string) {
-    return path.join(this.fileStorage, 'simulations', id, 'out');
-  }
-  async createResults(id: string, transpose: boolean) {
-    const resultsDirectory = this.getResultsDirectory(id);
+  public async createResults(id: string, transpose: boolean): Promise<void> {
+    const resultsDirectory = this.fileService.getResultsDirectory(id);
     //const resultsDirectory = 'testDir';
-    const fileList: resultFile[] = await ResultsService.getFilesRecursively(
+    const fileList: resultFile[] = await this.fileService.getFilesRecursively(
       resultsDirectory,
     );
-    console.log(fileList);
-
     /* @todo Change this to hdf
      * @body change this to hdf files to implement changes needed for #1669
      */
     const csvFileList = fileList.filter((value: resultFile) =>
       value.name.endsWith('.csv'),
     );
-    const runLogs = fileList.filter(
-      (value: resultFile) => value.name == 'log.yml',
-    );
 
     const resultPromises: Promise<void>[] = [];
-
-    if (runLogs.length != 1) {
-      // TODO handle this error
-      console.log('No log found');
-    } else {
-      resultPromises.push(this.uploadLog(id, runLogs[0].path));
-    }
 
     csvFileList.forEach((file: resultFile) => {
       resultPromises.push(this.uploadResultFile(id, file, transpose));
@@ -83,17 +56,7 @@ export class ResultsService {
       this.client.emit(DispatchMessage.processed, data);
     });
   }
-  uploadLog(id: string, path: string) {
-    return fsPromises.readFile(path, 'utf8').then((file) => {
-      const log = YAML.parse(file);
-      return this.submit
-        .sendLog(id, log)
-        .toPromise()
-        .then((_) => {
-          return;
-        });
-    });
-  }
+
   private async readCSV(file: string): Promise<SimulationRunReportDataStrings> {
     // info https://nodejs.org/api/readline.html#readline_example_read_file_stream_line_by_line
 
@@ -131,7 +94,7 @@ export class ResultsService {
     return resultsObject
     */
   }
-  async uploadResultFile(
+  private async uploadResultFile(
     id: string,
     file: resultFile,
     transpose: boolean,
@@ -147,7 +110,7 @@ export class ResultsService {
     // apidomain/results/simulationID/reportId
     const sedml = encodeURIComponent(
       file.path
-        .replace(this.getResultsDirectory(id) + '/', '')
+        .replace(this.fileService.getResultsDirectory(id) + '/', '')
         .replace('.csv', ''),
     );
 
@@ -157,10 +120,10 @@ export class ResultsService {
     simId: string,
     resultId: string,
     result: SimulationRunReportDataStrings,
-  ) {
+  ): void {
     this.submit
       .sendReport(simId, resultId, result)
-      .then((value) =>
+      .then((_) =>
         this.logger.log(
           `Successfully uploaded report ${resultId} for simulation ${simId}`,
         ),
@@ -184,33 +147,5 @@ export class ResultsService {
     });
 
     return resultObject;
-  }
-  private static async getFilesRecursively(
-    path: string,
-  ): Promise<resultFile[]> {
-    // Get all the files and folders int the directory
-    const entries = fsPromises.readdir(path, { withFileTypes: true });
-
-    // Filter out the directories, then map the files into resultFile type
-    const files: resultFile[] = (await entries)
-      .filter((value: Dirent) => !value.isDirectory())
-      .map((file: Dirent) => ({
-        name: file.name,
-        path: ospath.join(path, file.name),
-      }));
-
-    //Filter out all the files
-    const directories = (await entries).filter((value: Dirent) =>
-      value.isDirectory(),
-    );
-
-    // Get the files in each directory
-    for (const folder of directories) {
-      const subFiles = await ResultsService.getFilesRecursively(
-        ospath.join(path, folder.name),
-      );
-      files.push(...subFiles);
-    }
-    return files;
   }
 }

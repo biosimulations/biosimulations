@@ -12,7 +12,7 @@
       "rules": {
         "@typescript-eslint/explicit-member-accessibility": "warn",
         "@typescript-eslint/explicit-function-return-type": "warn",
-        "@typescript-eslint/no-parameter-properties": "warn",
+        "@typescript-eslint/no-parameter-properties": "off",
         "@typescript-eslint/no-empty-function": "warn",
         "@typescript-eslint/no-inferrable-types": "warn",
         "@typescript-eslint/interface-name-prefix": "off",

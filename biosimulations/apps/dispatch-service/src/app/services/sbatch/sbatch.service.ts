@@ -4,8 +4,8 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class SbatchService {
   constructor(private configService: ConfigService) {}
-  // Note: Don't indent the template lines starting with "#SBATCH", otherwise SLURM configuration doesn't work
-  generateSbatch(
+
+  public generateSbatch(
     tempSimDir: string,
     simulator: string,
     omexName: string,
@@ -17,7 +17,7 @@ export class SbatchService {
 #SBATCH --job-name=BioSimulations_${simId}
 #SBATCH --time=20:00
 #SBATCH --output=${tempSimDir}/out/job.output
-#SBATCH --error=${tempSimDir}/out/job.error
+#SBATCH --error=${tempSimDir}/out/job.output
 #SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=1000
 #SBATCH --partition=crbm
@@ -28,12 +28,13 @@ module load singularity/3.1.1
 export XDG_RUNTIME_DIR=${homeDir}/singularityXDG/
 export SINGULARITY_CACHEDIR=${homeDir}/singularityCache/
 date
-\`wget ${apiDomain}run/${simId}/download -O "${tempSimDir}/in/${omexName}" 1>"${tempSimDir}/out/job.output" 2>&1\`
+\`wget ${apiDomain}run/${simId}/download -O "${tempSimDir}/in/${omexName}" 1>"${tempSimDir}/out/job.output" \`
 command=\\"singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out ${simulator} -i '/root/in/${omexName}' -o /root/out\\"
 eval \\$command;`;
     return template;
   }
-  generateImageUpdateSbatch(url: string, force: string): string {
+
+  public generateImageUpdateSbatch(url: string, force: string): string {
     const homeDir = this.configService.get('hpc.homeDir');
     const template = `#!/bin/bash    
 #SBATCH --job-name=BioSimulations_Image_Update
