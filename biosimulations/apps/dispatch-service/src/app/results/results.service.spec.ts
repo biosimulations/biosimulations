@@ -2,6 +2,7 @@ import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ArchiverService } from '../services/archiver/archiver.service';
+import { FileService } from './file.service';
 
 import { ResultsService } from './results.service';
 class MockSimulationsRunService {
@@ -10,7 +11,9 @@ class MockSimulationsRunService {
 class mockArchiverService {
   async createResultArchive() {}
 }
-
+class MockFileService {
+  async getResultdirectory() {}
+}
 class MockClient {
   emit() {}
 }
@@ -25,6 +28,7 @@ describe('ResultsService', () => {
         { provide: 'NATS_CLIENT', useClass: MockClient },
         { provide: SimulationRunService, useClass: MockSimulationsRunService },
         { provide: ArchiverService, useClass: mockArchiverService },
+        { provide: FileService, useClass: MockFileService },
       ],
     }).compile();
 
