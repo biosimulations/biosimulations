@@ -2,6 +2,7 @@ import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import {
   DispatchFinishedPayload,
   DispatchMessage,
+  DispatchPayload,
 } from '@biosimulations/messages/messages';
 import { Controller, Logger } from '@nestjs/common';
 
@@ -39,6 +40,23 @@ export class ResultsController {
       .updateSimulationRunStatus(id, SimulationRunStatus.SUCCEEDED)
       .subscribe((run) =>
         this.logger.log(`Updated Simulation ${run.id} to complete`),
+      );
+  }
+  @MessagePattern(DispatchMessage.failed)
+  public async processFailedResults(data: DispatchPayload): Promise<void> {
+    const id = data.id;
+
+    this.logger.log(`Simulation ${id} Finished`);
+
+    await Promise.all([
+      this.archiverService.createResultArchive(id),
+      this.logService.createLog(id),
+    ]);
+
+    this.simService
+      .updateSimulationRunStatus(id, SimulationRunStatus.FAILED)
+      .subscribe((run) =>
+        this.logger.log(`Updated Simulation ${run.id} to failed`),
       );
   }
 }
