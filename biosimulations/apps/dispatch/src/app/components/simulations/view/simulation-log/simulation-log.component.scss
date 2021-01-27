@@ -28,7 +28,7 @@ biosimulations-text-page-side-bar-section ::ng-deep {
 }
 
 h2 {
-  color: mat-color($theme-primary);
+  color: $dark-primary-text;
   background: $light-bg-darker-10;
 
   margin-block-start: 0;
