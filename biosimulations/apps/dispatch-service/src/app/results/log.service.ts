@@ -36,7 +36,7 @@ export class LogService {
 
   private async readStdLog(path: string): Promise<string> {
     const logFile = `${path}/job.output`;
-    return fsPromises.readFile(logFile, 'utf8');
+    return fsPromises.readFile(logFile, 'utf8').catch((_) => '');
   }
 
   private uploadLog(id: string, log: CombineArchiveLog): Promise<void> {

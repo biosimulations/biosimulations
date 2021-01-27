@@ -38,7 +38,7 @@ export class LogsService {
   }
 
   // TODO remove at some point, when sufficient number of older models have been converted.
-  async getOldLogs(uId: string) {
+  public async getOldLogs(uId: string) {
     const logPath = path.join(this.fileStorage, 'simulations', uId, 'out');
     let filePathOut = '';
     let filePathErr = '';
@@ -48,9 +48,9 @@ export class LogsService {
     const fileContentOut = (
       await FileModifiers.readFile(filePathOut)
     ).toString();
-    const fileContentErr = (
-      await FileModifiers.readFile(filePathErr)
-    ).toString();
+    const fileContentErr = (await FileModifiers.readFile(filePathErr))
+      .toString()
+      .catch((_: unknown) => '');
 
     return {
       output: fileContentOut,
