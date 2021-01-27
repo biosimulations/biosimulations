@@ -52,8 +52,10 @@ export class LogsController {
       let exception: Exception | null = null;
       try {
         const oldLog = await this.service.getOldLogs(id);
+
         logString = oldLog.output + oldLog.error;
       } catch (e) {
+        this.logger.error(e);
         logString =
           'This simulation does not have a log available.\
              Please re-run the simulation';
