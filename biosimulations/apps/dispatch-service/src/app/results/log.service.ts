@@ -13,21 +13,28 @@ export class LogService {
 
   public async createLog(id: string): Promise<void> {
     const path = this.fileService.getResultsDirectory(id);
-    return this.readLog(path).then((value) => this.uploadLog(id, value));
+    return this.makeLog(path).then((value) => this.uploadLog(id, value));
+  }
+
+  private async makeLog(path: string): Promise<CombineArchiveLog> {
+    const log = this.readLog(path);
+    const stdLog = this.readStdLog(path);
+
+    (await log).output = await stdLog;
+
+    return log;
   }
 
   private async readLog(path: string): Promise<CombineArchiveLog> {
     const yamlFile = `${path}/log.yml`;
+    return fsPromises
+      .readFile(yamlFile, 'utf8')
+      .then((file) => YAML.parse(file) as CombineArchiveLog);
+  }
+
+  private async readStdLog(path: string): Promise<string> {
     const logFile = `${path}/job.out`;
-    return fsPromises.readFile(yamlFile, 'utf8').then((file) => {
-      const log = YAML.parse(file) as CombineArchiveLog;
-      return fsPromises.readFile(logFile, 'utf8').then((stdout) => {
-        if (log) {
-          log.output = stdout;
-        }
-        return log;
-      });
-    });
+    return fsPromises.readFile(logFile, 'utf8');
   }
 
   private uploadLog(id: string, log: CombineArchiveLog): Promise<void> {
