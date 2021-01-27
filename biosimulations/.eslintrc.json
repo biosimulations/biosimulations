@@ -17,7 +17,7 @@
         "@typescript-eslint/no-inferrable-types": "warn",
         "@typescript-eslint/interface-name-prefix": "off",
         "@typescript-eslint/member-ordering": "warn",
-        "max-len": "warn",
+        "max-len": ["warn", { "code": 125 }],
         "@typescript-eslint/no-unused-vars": "off",
         "unused-imports/no-unused-imports-ts": "error",
         "unused-imports/no-unused-vars-ts": [

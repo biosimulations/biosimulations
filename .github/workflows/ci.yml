@@ -45,6 +45,9 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         working-directory: ./biosimulations
@@ -55,6 +58,9 @@ jobs:
         with:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx
 
       - id: get-affected-libs-apps
         name: Determine affected libraries and apps
@@ -124,15 +130,14 @@ jobs:
         with:
           node-version: "15.x"
 
-      - name: Install Nrwl CLI
-        working-directory: ./biosimulations
-        run: npm install -g @nrwl/cli
-
       - name: Cache npm dependencies
         uses: actions/cache@v2
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         working-directory: ./biosimulations
@@ -143,6 +148,9 @@ jobs:
         with:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx
 
       - name: Lint library or app
         working-directory: ./biosimulations
@@ -188,6 +196,9 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         working-directory: ./biosimulations
@@ -198,6 +209,9 @@ jobs:
         with:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx
 
       - name: Build app
         working-directory: ./biosimulations
@@ -243,6 +257,9 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         working-directory: ./biosimulations
@@ -253,6 +270,9 @@ jobs:
         with:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx-
 
       - name: Test library or app
         working-directory: ./biosimulations

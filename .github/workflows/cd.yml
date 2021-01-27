@@ -28,6 +28,9 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         working-directory: ./biosimulations
@@ -38,6 +41,9 @@ jobs:
         with:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx
 
       - id: get-all-apps
         name: Get the list of apps
@@ -135,6 +141,9 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         working-directory: ./biosimulations
@@ -143,8 +152,11 @@ jobs:
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
-          path: biosimulations/node_modules/.cache
+          path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx
             
       - name: Build prod app
         working-directory: ./biosimulations
