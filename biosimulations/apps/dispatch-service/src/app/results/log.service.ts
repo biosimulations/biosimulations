@@ -22,8 +22,8 @@ export class LogService {
     const stdLog = await this.readStdLog(path);
 
     log.output = stdLog;
-    this.logger.log(`created log: ${{ stdLog }}`);
-    this.logger.log(`created log: ${{ log }}`);
+    this.logger.log(stdLog);
+    this.logger.log(log);
     return log;
   }
 
@@ -35,7 +35,7 @@ export class LogService {
   }
 
   private async readStdLog(path: string): Promise<string> {
-    const logFile = `${path}/job.out`;
+    const logFile = `${path}/job.output`;
     return fsPromises.readFile(logFile, 'utf8');
   }
 
