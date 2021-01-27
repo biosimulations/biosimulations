@@ -5,6 +5,7 @@ import { ResultsService } from './results.service';
 
 import { ArchiverService } from '../services/archiver/archiver.service';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { LogService } from './log.service';
 
 class MockSimulationsRunService {
   async sendReport() {}
@@ -14,6 +15,9 @@ class MockResultsService {
 }
 class mockArchiverService {
   async method() {}
+}
+class mockLogService {
+  async sendLog() {}
 }
 
 describe('ResultsController', () => {
@@ -27,6 +31,7 @@ describe('ResultsController', () => {
         { provide: ArchiverService, useClass: mockArchiverService },
         ConfigService,
         { provide: SimulationRunService, useClass: MockSimulationsRunService },
+        { provide: LogService, useClass: mockLogService },
       ],
     }).compile();
 
