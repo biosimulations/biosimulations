@@ -1,6 +1,6 @@
 import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 import path from 'path';
@@ -10,7 +10,16 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class LogsService {
-  async createLog(
+  private logger = new Logger(LogsService.name);
+  private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
+
+  public constructor(
+    private configService: ConfigService,
+    @InjectModel(SimulationRunLog.name)
+    private logModel: Model<SimulationRunLog>,
+  ) {}
+
+  public async createLog(
     id: string,
     data: CombineArchiveLog,
   ): Promise<SimulationRunLog> {
@@ -21,14 +30,8 @@ export class LogsService {
 
     return log.save();
   }
-  constructor(
-    private configService: ConfigService,
-    @InjectModel(SimulationRunLog.name)
-    private logModel: Model<SimulationRunLog>,
-  ) {}
-  private fileStorage = this.configService.get<string>('hpc.fileStorage', '');
 
-  async getLog(id: string): Promise<CombineArchiveLog | null> {
+  public async getLog(id: string): Promise<CombineArchiveLog | null> {
     const log = await this.logModel.findOne({ simId: id }).exec();
     if (log) {
       return log.log;
@@ -38,7 +41,7 @@ export class LogsService {
   }
 
   // TODO remove at some point, when sufficient number of older models have been converted.
-  public async getOldLogs(uId: string) {
+  public async getOldLogs(uId: string): Promise<{ [key: string]: string }> {
     const logPath = path.join(this.fileStorage, 'simulations', uId, 'out');
     let filePathOut = '';
     let filePathErr = '';
@@ -46,11 +49,19 @@ export class LogsService {
     filePathOut = path.join(logPath, 'job.output');
     filePathErr = path.join(logPath, 'job.error');
     const fileContentOut = (
-      await FileModifiers.readFile(filePathOut)
+      await FileModifiers.readFile(filePathOut).catch((_: unknown) => {
+        this.logger.error('Error reading std_out');
+        this.logger.error(_);
+        throw _;
+      })
     ).toString();
     const fileContentErr = (await FileModifiers.readFile(filePathErr))
-      .toString()
-      .catch((_: unknown) => '');
+      .catch((_: unknown) => {
+        this.logger.error('Error reading std_err');
+        this.logger.error(_);
+        return '';
+      })
+      .toString();
 
     return {
       output: fileContentOut,
