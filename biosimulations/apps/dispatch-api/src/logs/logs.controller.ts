@@ -1,3 +1,9 @@
+/**
+ * @file Contains the controller for CRUD operations on simulation run logs
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team 2021
+ * @license MIT
+ */
 import {
   Body,
   Controller,

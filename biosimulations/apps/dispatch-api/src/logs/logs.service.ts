@@ -1,3 +1,9 @@
+/**
+ * @file  Reads the strucutred logs from the database. Reads older logs directly from the nfs disk
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team, 2020
+ * @license MIT
+ */
 import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
 
 import { Injectable, Logger } from '@nestjs/common';
@@ -55,6 +61,7 @@ export class LogsService {
         throw _;
       })
     ).toString();
+    // Newer runs wont produce a std out, so we can sub "". They stil have a std out, so that is a true error
     const fileContentErr = (await FileModifiers.readFile(filePathErr))
       .catch((_: unknown) => {
         this.logger.error('Error reading std_err');

@@ -1,3 +1,9 @@
+/**
+ * @file The mongoose model for the a log object. Contains logging output and a pointer to the original simulation run
+ * @author Bilal Shaikh
+ * @copyright Biosimulations Team, 2021
+ * @license MIT
+ */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import {
   CombineArchiveLog,
