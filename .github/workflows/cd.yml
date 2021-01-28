@@ -293,5 +293,5 @@ jobs:
         
         run: |
           echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
-          curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data
+          curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
 
