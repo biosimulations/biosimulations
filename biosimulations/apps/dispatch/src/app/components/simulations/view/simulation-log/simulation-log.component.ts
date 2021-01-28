@@ -319,7 +319,7 @@ export class SimulationLogComponent {
   }
 
   downloadRawLog(): void {
-    this.downloadLog(this.rawLog, 'log.txt', 'text/plain');
+    this.downloadLog(this.rawLog, 'log.txt', 'text/plain; charset=UTF-8');
   }
 
   downloadStructuredLog(): void {
