@@ -1476,27 +1476,6 @@
         }
       }
     },
-    "dispatch-file-modifiers": {
-      "root": "libs/dispatch/file-modifiers",
-      "sourceRoot": "libs/dispatch/file-modifiers/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/dispatch/file-modifiers/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/dispatch/file-modifiers/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "simulators-database-models": {
       "root": "libs/simulators/database-models",
       "sourceRoot": "libs/simulators/database-models/src",
