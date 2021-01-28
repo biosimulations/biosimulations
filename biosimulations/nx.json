@@ -1,9 +1,14 @@
 {
   "npmScope": "biosimulations",
-  "affected": { "defaultBase": "dev" },
+  "affected": {
+    "defaultBase": "dev"
+  },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
@@ -24,8 +29,13 @@
       "tags": ["scope:account", "platform:web", "type:frontend"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "account-e2e": { "tags": [], "implicitDependencies": ["account"] },
-    "shared-assets": { "tags": ["scope:shared", "type:assets"] },
+    "account-e2e": {
+      "tags": [],
+      "implicitDependencies": ["account"]
+    },
+    "shared-assets": {
+      "tags": ["scope:shared", "type:assets"]
+    },
     "shared-content": {
       "tags": ["scope:shared", "type:ui", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
@@ -41,13 +51,20 @@
       "tags": ["scope:shared", "type:ui", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "shared-icons": { "tags": ["scope:shared", "type:ui", "platform:web"] },
-    "shared-debug": { "tags": ["scope:shared", "type:ui", "platform:web"] },
+    "shared-icons": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
+    "shared-debug": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
     "dispatch": {
       "tags": ["scope:dispatch", "type:frontend", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "dispatch-e2e": { "tags": [], "implicitDependencies": ["dispatch"] },
+    "dispatch-e2e": {
+      "tags": [],
+      "implicitDependencies": ["dispatch"]
+    },
     "account-api": {
       "tags": ["scope:account", "platform:server", "type:api"],
       "implicitDependencies": []
@@ -91,13 +108,21 @@
       "tags": ["scope:platform", "type:frontend", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "platform-e2e": { "tags": [], "implicitDependencies": ["platform"] },
-    "platform-view": { "tags": ["scope:platform", "type:ui", "platform:web"] },
+    "platform-e2e": {
+      "tags": [],
+      "implicitDependencies": ["platform"]
+    },
+    "platform-view": {
+      "tags": ["scope:platform", "type:ui", "platform:web"]
+    },
     "simulators": {
       "tags": ["scope:simulators", "type:frontend", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "simulators-e2e": { "tags": [], "implicitDependencies": ["simulators"] },
+    "simulators-e2e": {
+      "tags": [],
+      "implicitDependencies": ["simulators"]
+    },
     "simulators-api": {
       "tags": ["scope:simulators", "type:api", "platform:server"]
     },
@@ -134,9 +159,6 @@
     },
     "shared-utils-routes": {
       "tags": ["scope:shared", "type:utils", "platform:web"]
-    },
-    "dispatch-file-modifiers": {
-      "tags": ["scope:dispatch", "type:util", "platform:server"]
     },
     "simulators-database-models": {
       "tags": ["scope:simulators", "type:datamodel", "platform:server"]
@@ -189,6 +211,8 @@
     "account-management": {
       "tags": ["scope:account", "type:util", "platform:server"]
     },
-    "shared-pwa": { "tags": ["scope:shared", "type:util", "platform:web"] }
+    "shared-pwa": {
+      "tags": ["scope:shared", "type:util", "platform:web"]
+    }
   }
 }

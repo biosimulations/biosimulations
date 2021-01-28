@@ -57,9 +57,6 @@
       "@biosimulations/shared/utils/routes": [
         "libs/shared/utils/routes/src/index.ts"
       ],
-      "@biosimulations/dispatch/file-modifiers": [
-        "libs/dispatch/file-modifiers/src/index.ts"
-      ],
       "@biosimulations/simulators/database-models": [
         "libs/simulators/database-models/src/index.ts"
       ],
