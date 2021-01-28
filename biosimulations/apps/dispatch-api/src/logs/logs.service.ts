@@ -8,12 +8,11 @@ import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
 
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { FileModifiers } from '@biosimulations/dispatch/file-modifiers';
 import path from 'path';
 import { InjectModel } from '@nestjs/mongoose';
 import { SimulationRunLog } from './logs.model';
 import { Model } from 'mongoose';
-
+import { promises as fsPromises } from 'fs';
 @Injectable()
 export class LogsService {
   private logger = new Logger(LogsService.name);
@@ -54,21 +53,22 @@ export class LogsService {
 
     filePathOut = path.join(logPath, 'job.output');
     filePathErr = path.join(logPath, 'job.error');
-    const fileContentOut = (
-      await FileModifiers.readFile(filePathOut).catch((_: unknown) => {
+    const fileContentOut = await fsPromises
+      .readFile(filePathOut, 'utf-8')
+      .catch((_: unknown) => {
         this.logger.error('Error reading std_out');
         this.logger.error(_);
         throw _;
-      })
-    ).toString();
-    // Newer runs wont produce a std out, so we can sub "". They stil have a std out, so that is a true error
-    const fileContentErr = (await FileModifiers.readFile(filePathErr))
+
+      });
+
+    const fileContentErr = await fsPromises
+      .readFile(filePathErr, 'utf-8')
       .catch((_: unknown) => {
         this.logger.error('Error reading std_err');
         this.logger.error(_);
         return '';
-      })
-      .toString();
+      });
 
     return {
       output: fileContentOut,
