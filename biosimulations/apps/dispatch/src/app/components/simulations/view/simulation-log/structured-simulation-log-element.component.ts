@@ -42,6 +42,9 @@ export class StructuredSimulationLogElementComponent {
   ) {}
 
   @Input()
+  isStructuredLog = true;
+
+  @Input()
   elementId!: string;
 
   @Input()
@@ -67,7 +70,7 @@ export class StructuredSimulationLogElementComponent {
 
     switch (value.status) {
       case SimulationRunLogStatus.QUEUED:
-        this.noOutputMessage = `The output of the ${this.elementId} will be available here once the ${this.elementId} completes.`;
+        this.noOutputMessage = `Output will be available once the ${this.elementType.toLowerCase()} completes.`;
         break;
       case SimulationRunLogStatus.RUNNING:
         this.noOutputMessage = 'Output is not yet available.';
@@ -121,8 +124,7 @@ export class StructuredSimulationLogElementComponent {
 
     return (
       this.elementType +
-      ' ' +
-      this.elementId +
+      (this.elementId ? ' ' + this.elementId : '') +
       ' ' +
       '(' +
       this.log.status.toLowerCase() +

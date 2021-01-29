@@ -19,7 +19,7 @@ export class RawSimulationLogComponent {
   @Input()
   set status(value: SimulationRunStatus) {
     this.heading =
-      'Raw standard output and error for the entire job (' +
+      'Standard output and error for the entire COMBINE/OMEX archive (' +
       value.toLowerCase() +
       ')';
     this._status = value;

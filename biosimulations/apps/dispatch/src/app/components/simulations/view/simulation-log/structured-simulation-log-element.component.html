@@ -68,7 +68,7 @@
   </ng-container>
 
   <ng-container *ngIf="formattedOutput || noOutputMessage">
-    <h3>Standard output and standard error</h3>
+    <h3 *ngIf="isStructuredLog">Standard output and standard error</h3>
     <pre
       *ngIf="formattedOutput; else noOutput"
       class="stdout dark"

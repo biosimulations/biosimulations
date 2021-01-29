@@ -26,14 +26,14 @@
       </biosimulations-text-page-side-bar-section>
 
       <biosimulations-text-page-side-bar-section
-        heading="Raw Log"
+        heading="Log"
         fxShow
         fxHide.lt-md
       >
         <ul class="vertically-spaced">
           <li>
             <a (click)="scrollToElement('log')"
-              >Raw standard output and error for the entire job</a
+              >Combined standard output and error for the COMBINE/OMEX archive</a
             >
           </li>
         </ul>
@@ -57,14 +57,14 @@
       </biosimulations-text-page-side-bar-section>
 
       <biosimulations-text-page-side-bar-section
-        heading="Combined log"
+        heading="Log"
         fxShow
         fxHide.lt-md
       >
         <ul>
           <li>
             <a (click)="scrollToElement('log')"
-              >Combined log of the entire job</a
+              >Combined log for the COMBINE/OMEX archive</a
             >
           </li>
         </ul>
@@ -196,9 +196,9 @@
         fxHide.lt-md
       >
         <ul class="vertically-spaced">
-          <li>
-            Tasks<ng-container *ngIf="logHasTasks; else logNotAvailable">
-              ({{ numTasks }})
+          <li *ngIf="(numTasks > 0) || (!logHasTasks)">
+            <ng-container *ngIf="logHasTasks; else logNotAvailable">
+              <a (click)="scrollToElement('section=tasks')">Tasks ({{ numTasks }})</a>
               <ul>
                 <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
                   <li *ngFor="let taskLog of docLog.tasks">
@@ -219,12 +219,12 @@
               </ul>
             </ng-container>
             <ng-template #logNotAvailable>
-              <span class="info-message">: N/A</span>
+              <span class="info-message">Tasks: N/A</span>
             </ng-template>
           </li>
-          <li>
-            Reports<ng-container *ngIf="logHasReports; else logNotAvailable">
-              ({{ numReports }})
+          <li *ngIf="(numReports > 0) || (!logHasReports)">
+            <ng-container *ngIf="logHasReports; else logNotAvailable">
+              <a (click)="scrollToElement('section=reports')">Reports ({{ numReports }})</a>
               <ul>
                 <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
                   <ng-container *ngFor="let outputLog of docLog.outputs">
@@ -247,12 +247,12 @@
               </ul>
             </ng-container>
             <ng-template #logNotAvailable>
-              <span class="info-message">: N/A</span>
+              <span class="info-message">Reports: N/A</span>
             </ng-template>
           </li>
-          <li>
-            Plots<ng-container *ngIf="logHasPlots; else logNotAvailable">
-              ({{ numPlots }})
+          <li *ngIf="(numPlots > 0) || (!logHasPlots)">
+            <ng-container *ngIf="logHasPlots; else logNotAvailable">
+              <a (click)="scrollToElement('section=plots')">Plots ({{ numPlots }})</a>
               <ul>
                 <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
                   <ng-container *ngFor="let outputLog of docLog.outputs">
@@ -275,7 +275,7 @@
               </ul>
             </ng-container>
             <ng-template #logNotAvailable>
-              <span class="info-message">: N/A</span>
+              <span class="info-message">Plots: N/A</span>
             </ng-template>
           </li>
         </ul>
@@ -292,23 +292,23 @@
           <button
             mat-icon-button
             class="biosimulations-icon-button"
-            title="Download raw log"
+            title="Download log"
             (click)="downloadStructuredLog()"
             [disabled]="structuredLog === undefined"
           >
             <biosimulations-icon icon="download"></biosimulations-icon>
-            Structured log of the entire run
+            Structured log
           </button>
         </li>
         <li>
           <button
             mat-icon-button
             class="biosimulations-icon-button"
-            title="Download raw log"
+            title="Download log"
             (click)="downloadRawLog()"
           >
             <biosimulations-icon icon="download"></biosimulations-icon>
-            Raw standard output and error log of the entire run
+            Combined standard output and error
           </button>
         </li>
       </ul>
@@ -328,7 +328,7 @@
     <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
       <biosimulations-structured-simulation-log-element
         [log]="structuredLog"
-        elementId="entire job"
+        elementId="COMBINE/OMEX archive"
         elementType="Combined log of the"
         id="log"
       >
@@ -336,6 +336,7 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
+      <h2 id="section=sed-documents">Simulation experiments (SED documents)</h2>
       <biosimulations-structured-simulation-log-element
         *ngFor="let docLog of structuredLog.sedDocuments; let iDoc = index"
         [elementId]="docLog.location"
@@ -348,11 +349,24 @@
         [last]="iDoc === structuredLog.sedDocuments.length - 1"
       >
       </biosimulations-structured-simulation-log-element>
+
+      <h2 id="section=combined-stdout-stderr">Combined standard output and error for the COMBINE/OMEX archive</h2>
+      <biosimulations-structured-simulation-log-element
+        [isStructuredLog]="false"
+        elementType="COMBINE/OMEX archive"
+        [log]="{output: structuredLog.output, status: status}"
+        id="log=combined-stdout-stderr"
+        [compact]="true"
+        iconActionType="toggle"
+        [first]="true"
+        [last]="true"
+      >
+      </biosimulations-structured-simulation-log-element>
     </ng-container>
 
     <ng-container *ngSwitchDefault>
       <ng-container *ngIf="numTasks > 0">
-        <h2>Tasks</h2>
+        <h2 id="section=tasks">Tasks</h2>
         <biosimulations-structured-simulation-log-element
           *ngFor="let docTaskLog of taskLogs; let iTask = index"
           [elementId]="docTaskLog.doc.location + ' :: ' + docTaskLog.task.id"
@@ -370,7 +384,7 @@
       </ng-container>
 
       <ng-container *ngIf="numReports > 0">
-        <h2>Reports</h2>
+        <h2 id="section=reports">Reports</h2>
         <biosimulations-structured-simulation-log-element
           *ngFor="let docOutputLog of reportLogs; let iReport = index"
           [elementId]="
@@ -393,7 +407,7 @@
       </ng-container>
 
       <ng-container *ngIf="numPlots > 0">
-        <h2>Plots</h2>
+        <h2 id="section=plots">Plots</h2>
         <biosimulations-structured-simulation-log-element
           *ngFor="let docOutputLog of plotLogs; let iPlot = index"
           [elementId]="
@@ -414,6 +428,19 @@
         >
         </biosimulations-structured-simulation-log-element>
       </ng-container>
+
+      <h2 id="section=combined-stdout-stderr">Combined standard output and error for the COMBINE/OMEX archive</h2>
+      <biosimulations-structured-simulation-log-element
+        [isStructuredLog]="false"
+        elementType="COMBINE/OMEX archive"
+        [log]="{output: structuredLog.output, status: status}"
+        id="log=combined-stdout-stderr"
+        [compact]="true"
+        iconActionType="toggle"
+        [first]="true"
+        [last]="true"
+      >
+      </biosimulations-structured-simulation-log-element>
     </ng-container>
   </ng-container>
 </biosimulations-text-page>
