@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /**
  * @file The mongoose model for the a resuls object. Contains results metadata and a pointer to the results file(s)
  * @author Bilal Shaikh
