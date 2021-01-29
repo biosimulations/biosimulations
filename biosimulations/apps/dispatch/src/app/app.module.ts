@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Route, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -11,8 +11,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { PwaModule } from '@biosimulations/shared/pwa';
-import { errorRoutes, Error404Component } from '@biosimulations/shared/ui';
-
+import {
+  ErrorHandler as BiosimulationsErrorHandler,
+  errorRoutes,
+  Error404Component,
+} from '@biosimulations/shared/ui';
 import config from '../assets/config.json';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
@@ -90,7 +93,7 @@ routes.forEach((route: Route): void => {
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
-    //{ provide: ErrorHandler, useClass: BiosimulationsErrorHandler }
+    { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
   ],
   bootstrap: [AppComponent],
   schemas: [],
