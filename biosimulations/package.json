@@ -105,7 +105,7 @@
     "@nestjs/schematics": "^7.2.6",
     "@nestjs/testing": "^7.6.5",
     "@nrwl/angular": "11.1.5",
-    "@nrwl/cli": "11.1.5",
+    "@nrwl/cli": "11.2.0",
     "@nrwl/cypress": "11.1.5",
     "@nrwl/eslint-plugin-nx": "11.1.5",
     "@nrwl/jest": "11.1.5",
