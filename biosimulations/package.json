@@ -58,7 +58,7 @@
     "jwks-rsa": "^1.12.1",
     "localforage": "^1.5.0",
     "lunr": "^2.3.9",
-    "mongoose": "^5.11.12",
+    "mongoose": "^5.11.14",
     "nats": "^1.4.12",
     "nestjs-typegoose": "^7.1.38",
     "passport": "^0.4.1",
