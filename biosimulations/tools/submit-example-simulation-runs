@@ -1,0 +1,142 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import requests
+import shutil
+import subprocess
+import tempfile
+
+GET_SIMULATORS_ENDPOINT = 'https://api.biosimulators.org/simulators/latest'
+
+EXAMPLE_COMBINE_ARCHIVES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples/'
+
+EXAMPLE_SIMULATIONS = [
+    {
+        "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, tellurium)",
+        "simulator": "tellurium",
+        "filename": 'sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex',
+    },
+    {
+        "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, VCell)",
+        "simulator": "vcell",
+        "filename": 'sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex',
+    },
+    {
+        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, COPASI)",
+        "simulator": "copasi",
+        "filename": 'sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex',
+    },
+    {
+        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, COPASI)",
+        "simulator": "gillespy2",
+        "filename": 'sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex',
+    },
+    {
+        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, tellurium)",
+        "simulator": "tellurium",
+        "filename": 'sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex',
+    },
+    {
+        "name": "Parmar 2017: iron distribution (CVODE, tellurium)",
+        "simulator": "tellurium",
+        "filename": 'sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex',
+    },
+    {
+        "name": "Parmar 2017: iron distribution (CVODE, VCell)",
+        "simulator": "vcell",
+        "filename": 'sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex',
+    },
+    {
+        "name": "Szymanska 2009: HSP synthesis (CVODES, AMICI)",
+        "simulator": "amici",
+        "filename": 'sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex',
+    },
+    {
+        "name": "Tomida 2003: NFAT translocation (LSODA/LSODAR, COPASI)",
+        "simulator": "copasi",
+        "filename": 'sbml-core/Tomida-EMBO-J-2003-NFAT-translocation.omex',
+    },
+    {
+        "name": "Varusai 2018: mTOR signaling (LSODA/LSODAR, COPASI)",
+        "simulator": "copasi",
+        "filename": 'sbml-core/Varusai-Sci-Rep-2018-mTOR-signaling-LSODA-LSODAR-SBML.omex',
+    },
+    {
+        "name": "Vilar 2002: circadian clock (multiple, VCell)",
+        "simulator": "vcell",
+        "filename": 'sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex',
+    },
+]
+
+SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://run.api.biosimulations.dev/run'
+
+EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
+                                                 '..', 'apps', 'dispatch', 'src', 'app', 'components',
+                                                 'simulations', 'browse', 'example-simulations.json')
+
+
+def main():
+    # get latest version of each simulator
+    response = requests.get(GET_SIMULATORS_ENDPOINT)
+    response.raise_for_status()
+    simulator_latest_versions = {simulator['id']: simulator['version'] for simulator in response.json()}
+
+    # execution simulations
+    temp_dir = tempfile.mkdtemp()
+    simulation_runs = []
+    for simulation in EXAMPLE_SIMULATIONS:
+        name = simulation['name']
+        simulator = simulation['simulator']
+        simulator_version = simulator_latest_versions[simulator]
+        url = EXAMPLE_COMBINE_ARCHIVES_BASE_URL + simulation['filename']
+
+        # get COMBINE archive
+        response = requests.get(url)
+        response.raise_for_status()
+        archive_filename = os.path.join(temp_dir, os.path.basename(simulation['filename']))
+        combine_archive = response.content
+        with open(archive_filename, 'wb') as file:
+            file.write(combine_archive)
+        project_size = len(combine_archive)
+
+        # submit simulation
+        process = subprocess.run(['curl',
+                                  '-X', 'POST', SUBMIT_SIMULATION_RUN_ENDPOINT,
+                                  '-H', "accept: application/json",
+                                  '-H',  "Content-Type: multipart/form-data",
+                                  '-F', "simulationRun=" + json.dumps({
+                                      "name": name,
+                                      'simulator': simulator,
+                                      "simulatorVersion": simulator_version,
+                                      "email": None,
+                                      "public": False,
+                                  }),
+                                  '-F', "file=@{}".format(archive_filename)
+                                  ], capture_output=True)
+        simulation_run = json.loads(process.stdout.decode())
+
+        # log run
+        simulation_runs.append({
+            "id": simulation_run['id'],
+            "name": name,
+            'simulator': simulator,
+            "simulatorVersion": simulator_version,
+            "submittedLocally": False,
+            "status": "SUCCEEDED",
+            "submitted": simulation_run['submitted'],
+            "updated": simulation_run['updated'],
+            "projectSize": project_size,
+            "runtime": None,
+            "resultsSize": None,
+            "email": None,
+        })
+
+    with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME, 'w') as file:
+        json.dump(simulation_runs, file, indent=2)
+
+    shutil.rmtree(temp_dir)
+
+
+if __name__ == '__main__':
+    main()
