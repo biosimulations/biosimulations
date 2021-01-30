@@ -387,42 +387,46 @@ export class TableComponent implements OnInit, AfterViewInit {
       opts = new URLSearchParams(this.route.snapshot.fragment);
     }
 
-    if (opts.has('table.q')) {
-      opts.delete('table.q');
+    if (this.controls) {
+      if (opts.has('table.q')) {
+        opts.delete('table.q');
+      }
+      if (this.searchQuery) {
+        opts.set('table.q', this.searchQuery);
+      }
+
+      this.columns.forEach((column: Column): void => {
+        if (opts.has('table.' + column.id)) {
+          opts.delete('table.' + column.id);
+        }
+        if (column.id in this.filter) {
+          opts.set('table.' + column.id, JSON.stringify(this.filter[column.id]));
+        }
+      });
+
+      if (opts.has('table.c')) {
+        opts.delete('table.c');
+      }
+      this.columns.forEach((column: Column): void => {
+        if (this.showColumns[column.id]) {
+          opts.append('table.c', column.id);
+        }
+      });
+
+      opts.set('table.p', this.openControlPanelId.toString());
     }
-    if (this.searchQuery) {
-      opts.set('table.q', this.searchQuery);
-    }
 
-    this.columns.forEach((column: Column): void => {
-      if (opts.has('table.' + column.id)) {
-        opts.delete('table.' + column.id);
-      }
-      if (column.id in this.filter) {
-        opts.set('table.' + column.id, JSON.stringify(this.filter[column.id]));
-      }
-    });
-
-    if (opts.has('table.c')) {
-      opts.delete('table.c');
-    }
-    this.columns.forEach((column: Column): void => {
-      if (this.showColumns[column.id]) {
-        opts.append('table.c', column.id);
-      }
-    });
-
-    opts.set('table.p', this.openControlPanelId.toString());
-
-    if (this.sort?.active && this.sort?.direction) {
-      opts.set('table.sort', this.sort.active);
-      opts.set('table.sortDir', this.sort.direction);
-    } else {
-      if (opts.has('table.sort')) {
-        opts.delete('table.sort');
-      }
-      if (opts.has('table.sortDir')) {
-        opts.delete('table.sortDir');
+    if (this.sortable) {
+      if (this.sort?.active && this.sort?.direction) {
+        opts.set('table.sort', this.sort.active);
+        opts.set('table.sortDir', this.sort.direction);
+      } else {
+        if (opts.has('table.sort')) {
+          opts.delete('table.sort');
+        }
+        if (opts.has('table.sortDir')) {
+          opts.delete('table.sortDir');
+        }
       }
     }
 
@@ -509,89 +513,93 @@ export class TableComponent implements OnInit, AfterViewInit {
     const sort = state?.sort;
 
     setTimeout(() => {
-      if (this.searchQuery != searchQuery) {
-        this.searchQuery = searchQuery;
-      }
-
-      this.filter = filter;
-      const columnIsFiltered: { [id: string]: boolean } = {};
-      this.columns.forEach((column: Column): void => {
-        columnIsFiltered[column.id] = column.id in filter;
-        switch (column.filterType) {
-          case ColumnFilterType.number: {
-            if (columnIsFiltered[column.id]) {
-              if (
-                filter[column.id][0] !==
-                this.columnFilterData[column.id]?.minSelected
-              ) {
-                this.columnFilterData[column.id].minSelected =
-                  filter[column.id][0];
-              }
-              if (
-                filter[column.id][1] !==
-                this.columnFilterData[column.id]?.maxSelected
-              ) {
-                this.columnFilterData[column.id].maxSelected =
-                  filter[column.id][1];
-              }
-            }
-            break;
-          }
-          case ColumnFilterType.date: {
-            if (columnIsFiltered[column.id]) {
-              if (filter[column.id][0] != null) {
-                const date = new Date(filter[column.id][0]);
-                if (date !== filter[column.id][0]) {
-                  filter[column.id][0] = date;
-                }
-              }
-              if (filter[column.id][1] != null) {
-                const date = new Date(filter[column.id][1]);
-                if (date !== filter[column.id][1]) {
-                  filter[column.id][1] = date;
-                }
-              }
-              this.columnFilterData[column.id] = filter[column.id];
-            }
-            break;
-          }
-          default: {
-            this.columnFilterData[column.id]?.forEach(
-              (val: any): void => {
-                const checked = filter?.[column.id]?.includes(val.value) || false;
-                if (checked !== val.checked) {
-                  val.checked = checked;
-                }
-              },
-            );
-            break;
-          }
+      if (this.controls) {
+        if (this.searchQuery != searchQuery) {
+          this.searchQuery = searchQuery;
         }
-      });
-      this.columnIsFiltered = columnIsFiltered;
 
-      this.setDataSourceFilter();
+        this.filter = filter;
+        const columnIsFiltered: { [id: string]: boolean } = {};
+        this.columns.forEach((column: Column): void => {
+          columnIsFiltered[column.id] = column.id in filter;
+          switch (column.filterType) {
+            case ColumnFilterType.number: {
+              if (columnIsFiltered[column.id]) {
+                if (
+                  filter[column.id][0] !==
+                  this.columnFilterData[column.id]?.minSelected
+                ) {
+                  this.columnFilterData[column.id].minSelected =
+                    filter[column.id][0];
+                }
+                if (
+                  filter[column.id][1] !==
+                  this.columnFilterData[column.id]?.maxSelected
+                ) {
+                  this.columnFilterData[column.id].maxSelected =
+                    filter[column.id][1];
+                }
+              }
+              break;
+            }
+            case ColumnFilterType.date: {
+              if (columnIsFiltered[column.id]) {
+                if (filter[column.id][0] != null) {
+                  const date = new Date(filter[column.id][0]);
+                  if (date !== filter[column.id][0]) {
+                    filter[column.id][0] = date;
+                  }
+                }
+                if (filter[column.id][1] != null) {
+                  const date = new Date(filter[column.id][1]);
+                  if (date !== filter[column.id][1]) {
+                    filter[column.id][1] = date;
+                  }
+                }
+                this.columnFilterData[column.id] = filter[column.id];
+              }
+              break;
+            }
+            default: {
+              this.columnFilterData[column.id]?.forEach(
+                (val: any): void => {
+                  const checked = filter?.[column.id]?.includes(val.value) || false;
+                  if (checked !== val.checked) {
+                    val.checked = checked;
+                  }
+                },
+              );
+              break;
+            }
+          }
+        });
+        this.columnIsFiltered = columnIsFiltered;
 
-      if (showColumns !== undefined) {
-        this.showColumns = showColumns;
-        this.setColumnsToShow();
-      }
+        this.setDataSourceFilter();
 
-      if (openControlPanelId !== undefined) {
-        this.openControlPanelId = openControlPanelId;
-      }
-
-      if (sort) {
-        if (sort.active != this.sort.active || sort.direction != this.sort.direction) {
-          this.sort.sort(({ id: '', start: sort.direction, disableClear: false}) as MatSortable);
-          this.sort.sort(({ id: sort.active, start: sort.direction, disableClear: false}) as MatSortable);
-          (this.sort.sortables.get(sort.active) as MatSortHeader)._setAnimationTransitionState({
-            fromState: sort.direction,
-            toState: 'active',
-          });
+        if (showColumns !== undefined) {
+          this.showColumns = showColumns;
+          this.setColumnsToShow();
         }
-      } else if (this.sort.active) {
-        this.sort.sort(({ id: '', start: 'asc', disableClear: false}) as MatSortable);
+
+        if (openControlPanelId !== undefined) {
+          this.openControlPanelId = openControlPanelId;
+        }
+      }
+
+      if (this.sortable) {
+        if (sort) {
+          if (sort.active != this.sort.active || sort.direction != this.sort.direction) {
+            this.sort.sort(({ id: '', start: sort.direction, disableClear: false}) as MatSortable);
+            this.sort.sort(({ id: sort.active, start: sort.direction, disableClear: false}) as MatSortable);
+            (this.sort.sortables.get(sort.active) as MatSortHeader)._setAnimationTransitionState({
+              fromState: sort.direction,
+              toState: 'active',
+            });
+          }
+        } else if (this.sort.active) {
+          this.sort.sort(({ id: '', start: 'asc', disableClear: false}) as MatSortable);
+        }
       }
     });
   }

@@ -279,7 +279,7 @@
             [padded]="false"
             alwaysFixed="calc(64px + 32px + 32px + 2rem)"
             [tocSections]="algorithmsTocSections"
-            [tocScrollSectionScrollOffset]="128"
+            [tocScrollSectionScrollOffset]="64 + 32 + 32"
           >
             <ng-container id="sideBar">
               <biosimulations-text-page-side-bar-section
@@ -301,6 +301,7 @@
                 *ngFor="let algorithm of algorithms"
                 [heading]="algorithm.heading"
                 [tocSection]="algorithm.name"
+                [scrollToTopOffset]="0"
               >
                 <ng-container *ngIf="algorithm.description as description">
                   <p class="subsection-heading no-bottom-margin">Description</p>
@@ -844,6 +845,7 @@
               iconActionType="toggle"
               [first]="iCase === 0"
               [last]="iCase === validationTests.results.length - 1"
+              [scrollToTopOffset]="0"
             >
               <p class="subsection-heading no-bottom-margin">Description</p>
               <p [innerHTML]="result.case.description"></p>

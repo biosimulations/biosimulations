@@ -15,6 +15,18 @@ export enum IconActionType {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextPageContentSectionComponent {
+  _scrollToTopOffset = 64 + 1;
+
+  @Input()
+  set scrollToTopOffset(value: number) {
+    this._scrollToTopOffset = value;
+    this.setIconAction();
+  }
+
+  get scrollToTopOffset(): number {
+    return this._scrollToTopOffset;
+  }
+
   @Input()
   heading = '';
 
@@ -47,14 +59,14 @@ export class TextPageContentSectionComponent {
   iconRouterLink: any = null;
   iconHref: string | null = null;
   iconClick: () => void = this.scrollService.scrollToTop.bind(
-    this.scrollService,
+    this.scrollService, this.scrollToTopOffset,
   );
 
   setIconAction(): void {
     if (this._iconActionType === IconActionType.scrollToTop) {
       this.iconRouterLink = null;
       this.iconHref = null;
-      this.iconClick = this.scrollService.scrollToTop.bind(this.scrollService);
+      this.iconClick = this.scrollService.scrollToTop.bind(this.scrollService, this.scrollToTopOffset);
     } else if (this._iconActionType === IconActionType.routerLink) {
       this.iconRouterLink = this._iconAction;
       this.iconHref = null;

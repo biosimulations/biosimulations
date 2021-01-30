@@ -55,7 +55,7 @@ export class ScrollService {
   }
 
   scrollToTop(offset = 0): void {
-    this.scrollTo({ top: 64 + 1 + offset, behavior: 'smooth' });
+    this.scrollTo({ top: offset, behavior: 'smooth' });
   }
 
   scrollToElement(target: Element, offset = 0): void {
