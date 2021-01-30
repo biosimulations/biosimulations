@@ -1,6 +1,7 @@
 <biosimulations-text-page-content-section
   [heading]="heading"
   [class]="['status-section', status]"
+  [scrollToTopOffset]="0"
 >
   <pre
     *ngIf="formattedLog; else noOutput"
