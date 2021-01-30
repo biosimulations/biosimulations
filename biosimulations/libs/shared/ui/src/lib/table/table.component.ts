@@ -9,8 +9,8 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { Sort } from '@angular/material/sort';
+import { MatSort, MatSortable, MatSortHeader } from '@angular/material/sort';
+import { Sort, SortDirection } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -47,11 +47,12 @@ export class TableDataSource extends MatTableDataSource<any> {
   refresh(): void {}
 }
 
-interface ColumnFilterSearchState {
+interface TableState {
   filter?: { [id: string]: any[] };
   searchQuery?: string;
   showColumns?: { [id: string]: boolean } | undefined;
   openControlPanelId?: number;
+  sort?: Sort;
 }
 
 @Component({
@@ -70,11 +71,13 @@ export class TableComponent implements OnInit, AfterViewInit {
   columnsToShow!: string[];
   private idToColumn!: IdColumnMap;
   columnFilterData!: { [id: string]: any };
+  private dataLoaded = false;
+  private dataSorted = false;
   isLoading!: Observable<boolean>;
   private isLoaded!: Observable<boolean>;
   private filter: { [id: string]: any[] } = {};
   columnIsFiltered: { [id: string]: boolean } = {};
-  columnFilterChanging = false;
+  private tableStateQueryFragment = '';
 
   private fullTextIndex!: any;
   private fullTextMatches!: { [index: number]: boolean };
@@ -155,6 +158,9 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   setData(data: any[]): void {
+    this.dataLoaded = false;
+    this.dataSorted = false;
+
     this.dataSource.isLoading.next(true);
     const sortedData = RowService.sortData(
       this.idToColumn,
@@ -311,6 +317,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     // set data for table
     this.dataSource.data = sortedData;
     this.dataSource.isLoading.next(false);
+    this.dataLoaded = sortedData.length > 0;
 
     // set filtering
     this.setDataSourceFilter();
@@ -348,108 +355,33 @@ export class TableComponent implements OnInit, AfterViewInit {
           ? ColumnSortDirection[sort.direction]
           : undefined,
       };
-      return RowService.sortData(this.idToColumn, data, columnSort);
+
+      const sortedData = RowService.sortData(this.idToColumn, data, columnSort);
+
+      if (this.dataLoaded) {
+        this.setTableStateQueryFragment();
+        this.dataSorted = true;
+      }
+
+      return sortedData;
     };
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
 
     this.route.fragment.subscribe((fragment: string): void => {
-      if (fragment != null && !this.columnFilterChanging) {
-        const state = this.parseFilterSearchQueryFragment(fragment);
-        const searchQuery = state?.searchQuery;
-        const filter = state?.filter;
-        const showColumns = state?.showColumns;
-        const openControlPanelId = state?.openControlPanelId;
-
-        setTimeout(() => {
-          if (searchQuery !== undefined) {
-            this.searchQuery = searchQuery;
-          }
-
-          let filterChanged = false;
-          if (filter !== undefined) {
-            this.filter = filter;
-
-            const columnIsFiltered: { [id: string]: boolean } = {};
-            this.columns.forEach((column: Column): void => {
-              columnIsFiltered[column.id] = column.id in filter;
-              if (columnIsFiltered[column.id]) {
-                switch (column.filterType) {
-                  case ColumnFilterType.number:
-                    if (
-                      filter[column.id][0] !==
-                      this.columnFilterData[column.id]?.minSelected
-                    ) {
-                      this.columnFilterData[column.id].minSelected =
-                        filter[column.id][0];
-                      filterChanged = true;
-                    }
-                    if (
-                      filter[column.id][1] !==
-                      this.columnFilterData[column.id]?.maxSelected
-                    ) {
-                      this.columnFilterData[column.id].maxSelected =
-                        filter[column.id][1];
-                      filterChanged = true;
-                    }
-                    break;
-                  case ColumnFilterType.date: {
-                    if (filter[column.id][0] != null) {
-                      const date = new Date(filter[column.id][0]);
-                      if (date !== filter[column.id][0]) {
-                        filter[column.id][0] = date;
-                        filterChanged = true;
-                      }
-                    }
-                    if (filter[column.id][1] != null) {
-                      const date = new Date(filter[column.id][1]);
-                      if (date !== filter[column.id][1]) {
-                        filter[column.id][1] = date;
-                        filterChanged = true;
-                      }
-                    }
-                    this.columnFilterData[column.id] = filter[column.id];
-                    break;
-                  }
-                  default:
-                    this.columnFilterData[column.id]?.forEach(
-                      (val: any): void => {
-                        const checked = filter[column.id].includes(val.value);
-                        if (checked !== val.checked) {
-                          val.checked = checked;
-                          filterChanged = true;
-                        }
-                      },
-                    );
-                    break;
-                }
-              }
-            });
-            this.columnIsFiltered = columnIsFiltered;
-          }
-
-          if (
-            (filter !== undefined || searchQuery !== undefined) &&
-            filterChanged
-          ) {
-            this.setDataSourceFilter();
-          }
-
-          if (showColumns !== undefined) {
-            this.showColumns = showColumns;
-            this.setColumnsToShow();
-          }
-
-          if (openControlPanelId !== undefined) {
-            this.openControlPanelId = openControlPanelId;
-          }
-        });
+      if (fragment != this.tableStateQueryFragment) {
+        this.tableStateQueryFragment = fragment;
+        const state = this.parseTableStateQueryFragment(fragment);
+        this.setTableState(state);
       }
-      this.columnFilterChanging = false;
     });
   }
 
-  buildFilterSearchQueryFragment(): string | undefined {
+  setTableStateQueryFragment(): void {
+    if (!this.dataLoaded || !this.dataSorted) {
+      return;
+    }
+
     let opts = new URLSearchParams();
     if (this.route.snapshot.fragment) {
       opts = new URLSearchParams(this.route.snapshot.fragment);
@@ -482,10 +414,34 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     opts.set('table.p', this.openControlPanelId.toString());
 
-    return opts.toString() || undefined;
+    if (this.sort?.active && this.sort?.direction) {
+      opts.set('table.sort', this.sort.active);
+      opts.set('table.sortDir', this.sort.direction);
+    } else {
+      if (opts.has('table.sort')) {
+        opts.delete('table.sort');
+      }
+      if (opts.has('table.sortDir')) {
+        opts.delete('table.sortDir');
+      }
+    }
+
+    const fragmentParts: string[] = [];
+    opts.forEach((value: string, key: string): void => {
+      fragmentParts.push(key + '=' + value);
+    });
+    fragmentParts.sort();
+    const fragment = fragmentParts.join('&') || '';
+
+    if (fragment != this.tableStateQueryFragment) {
+      this.tableStateQueryFragment = fragment;
+      this.router.navigate([], {
+        fragment: fragment,
+      });
+    }
   }
 
-  parseFilterSearchQueryFragment(value: string): ColumnFilterSearchState {
+  parseTableStateQueryFragment(value: string): TableState {
     const opts = new URLSearchParams(value);
 
     const searchQuery = opts.get('table.q') || undefined;
@@ -526,12 +482,118 @@ export class TableComponent implements OnInit, AfterViewInit {
       } catch (e) {} // eslint-disable-line no-empty
     }
 
+    let sort: Sort | undefined = undefined
+    const sortActive = opts.get('table.sort') || undefined;
+    if (sortActive) {
+      const sortDirection = (opts.get('table.sortDir') || 'asc') as SortDirection;
+      sort = {
+        active: sortActive,
+        direction: sortDirection,
+      };
+    }
+
     return {
       searchQuery,
       filter,
       showColumns,
       openControlPanelId,
+      sort,
     };
+  }
+
+  setTableState(state: TableState): void {
+    const searchQuery = state?.searchQuery;
+    const filter = state?.filter || {};
+    const showColumns = state?.showColumns;
+    const openControlPanelId = state?.openControlPanelId;
+    const sort = state?.sort;
+
+    setTimeout(() => {
+      if (this.searchQuery != searchQuery) {
+        this.searchQuery = searchQuery;
+      }
+
+      this.filter = filter;
+      const columnIsFiltered: { [id: string]: boolean } = {};
+      this.columns.forEach((column: Column): void => {
+        columnIsFiltered[column.id] = column.id in filter;
+        switch (column.filterType) {
+          case ColumnFilterType.number: {
+            if (columnIsFiltered[column.id]) {
+              if (
+                filter[column.id][0] !==
+                this.columnFilterData[column.id]?.minSelected
+              ) {
+                this.columnFilterData[column.id].minSelected =
+                  filter[column.id][0];
+              }
+              if (
+                filter[column.id][1] !==
+                this.columnFilterData[column.id]?.maxSelected
+              ) {
+                this.columnFilterData[column.id].maxSelected =
+                  filter[column.id][1];
+              }
+            }
+            break;
+          }
+          case ColumnFilterType.date: {
+            if (columnIsFiltered[column.id]) {
+              if (filter[column.id][0] != null) {
+                const date = new Date(filter[column.id][0]);
+                if (date !== filter[column.id][0]) {
+                  filter[column.id][0] = date;
+                }
+              }
+              if (filter[column.id][1] != null) {
+                const date = new Date(filter[column.id][1]);
+                if (date !== filter[column.id][1]) {
+                  filter[column.id][1] = date;
+                }
+              }
+              this.columnFilterData[column.id] = filter[column.id];
+            }
+            break;
+          }
+          default: {
+            this.columnFilterData[column.id]?.forEach(
+              (val: any): void => {
+                const checked = filter?.[column.id]?.includes(val.value) || false;
+                if (checked !== val.checked) {
+                  val.checked = checked;
+                }
+              },
+            );
+            break;
+          }
+        }
+      });
+      this.columnIsFiltered = columnIsFiltered;
+
+      this.setDataSourceFilter();
+
+      if (showColumns !== undefined) {
+        this.showColumns = showColumns;
+        this.setColumnsToShow();
+      }
+
+      if (openControlPanelId !== undefined) {
+        this.openControlPanelId = openControlPanelId;
+      }
+
+      if (sort) {
+        if (sort.active != this.sort.active || sort.direction != this.sort.direction) {
+          this.sort.sort(({ id: '', start: sort.direction, disableClear: false}) as MatSortable);
+          this.sort.sort(({ id: sort.active, start: sort.direction, disableClear: false}) as MatSortable);
+          (this.sort.sortables.get(sort.active) as MatSortHeader)._setAnimationTransitionState({
+            fromState: sort.direction,
+            toState: 'active',
+          });
+        }
+      } else if (this.sort.active) {
+        this.sort.sort(({ id: '', start: 'asc', disableClear: false}) as MatSortable);
+      }
+    });
   }
 
   setRowHighlighting(rows: any[]) {
@@ -679,10 +741,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     value.checked = show;
     this.columnIsFiltered[column.id] = column.id in this.filter;
 
-    this.columnFilterChanging = true;
-    this.router.navigate([], {
-      fragment: this.buildFilterSearchQueryFragment(),
-    });
+    this.setTableStateQueryFragment();
 
     this.setDataSourceFilter();
   }
@@ -706,10 +765,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     this.columnFilterData[column.id].minSelected = selectedRange[0];
     this.columnFilterData[column.id].maxSelected = selectedRange[1];
-    this.columnFilterChanging = true;
-    this.router.navigate([], {
-      fragment: this.buildFilterSearchQueryFragment(),
-    });
+    this.setTableStateQueryFragment();
     this.setDataSourceFilter();
   }
 
@@ -739,10 +795,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
     this.columnIsFiltered[column.id] = column.id in this.filter;
     this.columnFilterData[column.id] = [min, max];
-    this.columnFilterChanging = true;
-    this.router.navigate([], {
-      fragment: this.buildFilterSearchQueryFragment(),
-    });
+    this.setTableStateQueryFragment();
     this.setDataSourceFilter();
   }
 
@@ -772,10 +825,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
     this.columnIsFiltered[column.id] = column.id in this.filter;
     this.columnFilterData[column.id] = [min, max];
-    this.columnFilterChanging = true;
-    this.router.navigate([], {
-      fragment: this.buildFilterSearchQueryFragment(),
-    });
+    this.setTableStateQueryFragment();
     this.setDataSourceFilter();
   }
 
@@ -847,8 +897,9 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     } else if (column.filterType === ColumnFilterType.date) {
       const startDate = filterValue[0];
-      const endDate = filterValue[1];
+      let endDate = filterValue[1];
       if (endDate != null) {
+        endDate = new Date(endDate);
         endDate.setDate(endDate.getDate() + 1);
       }
 
@@ -888,20 +939,14 @@ export class TableComponent implements OnInit, AfterViewInit {
       val.checked = false;
     }
     this.columnIsFiltered[column.id] = false;
-    this.columnFilterChanging = true;
-    this.router.navigate([], {
-      fragment: this.buildFilterSearchQueryFragment(),
-    });
+    this.setTableStateQueryFragment();
     this.setDataSourceFilter();
   }
 
   toggleColumn(column: Column): void {
     this.showColumns[column.id] = this.showColumns[column.id] === false;
     this.setColumnsToShow();
-    this.columnFilterChanging = true;
-    this.router.navigate([], {
-      fragment: this.buildFilterSearchQueryFragment(),
-    });
+    this.setTableStateQueryFragment();
   }
 
   setColumnsToShow(): void {
@@ -932,10 +977,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   openControlPanel(id: number): void {
     if (id != this.openControlPanelId) {
       this.openControlPanelId = id;
-      this.columnFilterChanging = true;
-      this.router.navigate([], {
-        fragment: this.buildFilterSearchQueryFragment(),
-      });
+      this.setTableStateQueryFragment();
     }
   }
 
@@ -948,11 +990,8 @@ export class TableComponent implements OnInit, AfterViewInit {
   searchQuery: string | undefined = undefined;
 
   searchRows(query: string): void {
-    this.searchQuery = query.toLowerCase();
-    this.columnFilterChanging = true;
-    this.router.navigate([], {
-      fragment: this.buildFilterSearchQueryFragment(),
-    });
+    this.searchQuery = query.toLowerCase() || undefined;
+    this.setTableStateQueryFragment();
     this.setDataSourceFilter();
   }
 }
