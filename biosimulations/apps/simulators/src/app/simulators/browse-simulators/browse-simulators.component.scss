@@ -1,5 +1,9 @@
 biosimulations-responsive-table {
   ::ng-deep biosimulations-table {
+    .table-container {
+      max-height: calc(100vh - 64px - 32px - 32px - 2rem - 2rem - 2rem - 2rem);
+    }
+
     a:first-child {
       margin-right: 0.25rem;
     }
