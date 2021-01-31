@@ -3,13 +3,18 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   DispatchService,
-  SimulatorVersionsMap,
+  SimulatorSpecsMap,
 } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { Simulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { combineLatest } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
+
+interface SimulatorIdDisabled {
+  id: string;
+  disabled: boolean;
+}
 
 @Component({
   selector: 'biosimulations-dispatch',
@@ -18,10 +23,10 @@ import { ConfigService } from '@biosimulations/shared/services';
 })
 export class DispatchComponent implements OnInit {
   formGroup: FormGroup;
-  simulators: string[] = [];
+  simulators: SimulatorIdDisabled[] = [];
   simulatorVersions: string[] = [];
 
-  simulatorVersionsMap: SimulatorVersionsMap | undefined = undefined;
+  simulatorSpecsMap: SimulatorSpecsMap | undefined = undefined;
 
   simulationId: string | undefined = undefined;
 
@@ -69,22 +74,60 @@ export class DispatchComponent implements OnInit {
     combineLatest([
       this.dispatchService.getSimulatorsFromDb(),
       this.route.queryParams,
-    ]).subscribe((observerableValues: [SimulatorVersionsMap, Params]): void => {
-      const simulatorVersionsMap = observerableValues[0];
+    ]).subscribe((observerableValues: [SimulatorSpecsMap, Params]): void => {
+      const simulatorSpecsMap = observerableValues[0];
       const params = observerableValues[1];
 
-      this.simulatorVersionsMap = simulatorVersionsMap;
-      this.simulators = Object.keys(this.simulatorVersionsMap);
+      this.simulatorSpecsMap = simulatorSpecsMap;
+      this.simulators = Object.keys(this.simulatorSpecsMap)
+        .map((id: string): SimulatorIdDisabled => {
+          return {id: id, disabled: false};
+        });
 
-      this.simulators.sort((a: string, b: string): number => {
-        return a.localeCompare(b, undefined, { numeric: true });
+      this.simulators.sort((a: SimulatorIdDisabled, b: SimulatorIdDisabled): number => {
+        return a.id.localeCompare(b.id, undefined, { numeric: true });
       });
 
       this.formGroup.controls.simulator.enable();
 
       // process query arguments
+      // const projectUrl = params?.projectUrl; // TODO: support loading COMBINE archive URL by query argument
+
+      let modelFormat = params?.modelFormat?.toLowerCase();
+      if (modelFormat) {
+        const match = modelFormat.match(/^(format[:_])?(\d{1,4})$/)
+        if (match) {
+          modelFormat = 'format_' + '0'.repeat(4 - match[2].length) + match[2];
+        }
+      }
+
+      let modelingFramework = params?.modelingFramework?.toUpperCase();
+      if (modelingFramework) {
+        const match = modelingFramework.match(/^(SBO[:_])?(\d{1,7})$/)
+        if (match) {
+          modelingFramework = 'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
+        }
+      }
+
       const simulator: string = params?.simulator?.toLowerCase();
       const simulatorVersion: string = params?.simulatorVersion;
+
+      if (modelFormat || modelingFramework) {
+        this.simulators.forEach((simulatorIdDisabled: SimulatorIdDisabled): void => {
+          let enabled = false;
+          for (const modelingFrameworksForModelFormats of simulatorSpecsMap[simulatorIdDisabled.id].modelingFrameworksForModelFormats) {
+            if (
+              (!modelFormat || modelingFrameworksForModelFormats.formatEdamIds.includes(modelFormat)) &&
+              (!modelingFramework || modelingFrameworksForModelFormats.frameworkSboIds.includes(modelingFramework))
+            ) {
+              enabled = true;
+              break;
+            }
+          }
+          simulatorIdDisabled.disabled = !enabled;
+        });
+      }
+
       if (simulator) {
         this.formGroup.controls.simulator.setValue(simulator);
         this.onSimulatorChange({ value: simulator });
@@ -133,8 +176,8 @@ export class DispatchComponent implements OnInit {
   }
 
   onSimulatorChange($event: any) {
-    if (this.simulatorVersionsMap !== undefined) {
-      this.simulatorVersions = this.simulatorVersionsMap[$event.value];
+    if (this.simulatorSpecsMap !== undefined) {
+      this.simulatorVersions = this.simulatorSpecsMap[$event.value].versions;
       this.formGroup.controls.simulatorVersion.enable();
       this.formGroup.controls.simulatorVersion.setValue(
         this.simulatorVersions[0],

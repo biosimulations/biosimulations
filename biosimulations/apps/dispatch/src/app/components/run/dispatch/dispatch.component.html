@@ -45,8 +45,8 @@
         (selectionChange)="onSimulatorChange($event)"
         required
       >
-        <mat-option *ngFor="let simulator of simulators" [value]="simulator">
-          {{ simulator }}
+        <mat-option *ngFor="let simulator of simulators" [value]="simulator.id" [disabled]="simulator.disabled">
+          {{ simulator.id }}
         </mat-option>
       </mat-select>
       <biosimulations-icon icon="simulator" matPrefix></biosimulations-icon>
