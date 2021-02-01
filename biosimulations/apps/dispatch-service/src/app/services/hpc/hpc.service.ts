@@ -21,7 +21,7 @@ export class HpcService {
    * @param sbatchString
    */
 
-  async submitJob(
+  public async submitJob(
     id: string,
     simulator: string,
     version: string,
@@ -43,6 +43,7 @@ export class HpcService {
       id,
     );
 
+    // eslint-disable-next-line max-len
     const command = `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/${id}.sbatch && chmod +x ${simDirBase}/in/${id}.sbatch && sbatch ${simDirBase}/in/${id}.sbatch`;
 
     const res = this.sshService.execStringCommand(command);
@@ -53,7 +54,7 @@ export class HpcService {
     });
   }
 
-  async getJobStatus(jobId: string): Promise<SimulationRunStatus> {
+  public async getJobStatus(jobId: string): Promise<SimulationRunStatus> {
     const saactData = await this.sshService
       .execStringCommand(`sacct -X -j ${jobId} -o state%20`)
       .catch((err) => {
@@ -82,8 +83,12 @@ export class HpcService {
         'NODE_FAIL' ||
         'TIMEOUT' ||
         'CANCELLED':
-      default:
+      default: {
+        this.logger.error(
+          `Job ${jobId} failed with response of ${saactDataOutput}`,
+        );
         return SimulationRunStatus.FAILED;
+      }
     }
   }
 }
