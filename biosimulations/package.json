@@ -29,13 +29,14 @@
     "gen-dependency-license-report": "tools/gen-dependency-license-report",
     "help": "nx help",
     "build-sitemaps": "tools/build-sitemaps/__main__.py",
-    "build-push-deploy-docker": "tools/build-push-deploy-docker-image"
+    "build-push-deploy-docker": "tools/build-push-deploy-docker-image",
+    "submit-example-simulation-runs": "tools/submit-example-simulation-runs"
   },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^7.6.5",
     "@nestjs/config": "^0.5.0",
-    "@nestjs/core": "^7.6.5",
+    "@nestjs/core": "^7.6.8",
     "@nestjs/microservices": "^7.6.4",
     "@nestjs/mongoose": "^7.2.2",
     "@nestjs/passport": "^7.1.5",
