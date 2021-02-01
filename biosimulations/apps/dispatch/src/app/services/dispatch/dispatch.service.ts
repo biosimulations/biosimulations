@@ -13,8 +13,18 @@ import {
 } from '../../simulation-logs-datamodel';
 import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 
-export interface SimulatorVersionsMap {
-  [id: string]: string[];
+export interface ModelingFrameworksForModelFormat {
+  formatEdamIds: string[];
+  frameworkSboIds: string[];
+}
+
+export interface SimulatorSpecs {
+  versions: string[];
+  modelingFrameworksForModelFormats: ModelingFrameworksForModelFormat[];
+}
+
+export interface SimulatorSpecsMap {
+  [id: string]: SimulatorSpecs;
 }
 
 @Injectable({
@@ -61,33 +71,42 @@ export class DispatchService {
     >;
   }
 
-  getSimulatorsFromDb(): Observable<SimulatorVersionsMap> {
+  getSimulatorsFromDb(): Observable<SimulatorSpecsMap> {
     const endpoint = `https://api.biosimulators.org/simulators`;
 
     return this.http.get(endpoint).pipe(
       map(
-        (response: any): SimulatorVersionsMap => {
+        (response: any): SimulatorSpecsMap => {
           // response to dict logic
-          const simulatorVersionsMap: SimulatorVersionsMap = {};
+          const simulatorSpecsMap: SimulatorSpecsMap = {};
 
           for (const simulator of response) {
             if (simulator?.image && simulator?.biosimulators?.validated) {
-              if (!(simulator.id in simulatorVersionsMap)) {
-                simulatorVersionsMap[simulator.id] = [];
+              if (!(simulator.id in simulatorSpecsMap)) {
+                simulatorSpecsMap[simulator.id] = {
+                  versions: [],
+                  modelingFrameworksForModelFormats: [],
+                };
               }
-              simulatorVersionsMap[simulator.id].push(simulator.version);
+              simulatorSpecsMap[simulator.id].versions.push(simulator.version);
+              simulator.algorithms.forEach((algorithm: any): void => {
+                simulatorSpecsMap[simulator.id].modelingFrameworksForModelFormats.push({
+                  formatEdamIds: algorithm.modelFormats.map((format: any): void => {return format.id}),
+                  frameworkSboIds: algorithm.modelingFrameworks.map((format: any): void => {return format.id}),
+                });
+              });
             }
           }
 
-          for (const versions of Object.values(simulatorVersionsMap)) {
-            versions
+          for (const simulatorSpecs of Object.values(simulatorSpecsMap)) {
+            simulatorSpecs.versions
               .sort((a: string, b: string): number => {
                 return a.localeCompare(b, undefined, { numeric: true });
               })
               .reverse();
           }
 
-          return simulatorVersionsMap;
+          return simulatorSpecsMap;
         },
       ),
     );
