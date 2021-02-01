@@ -13,14 +13,15 @@ import { from, Observable } from 'rxjs';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 @Injectable({})
 export class SimulationRunService {
-  constructor(
+  private endpoint = this.configService.get('urls').dispatchApi;
+
+  public constructor(
     private auth: AuthClientService,
     private http: HttpService,
     private configService: ConfigService,
   ) {}
-  endpoint = this.configService.get('urls').dispatchApi;
 
-  updateSimulationRunStatus(
+  public updateSimulationRunStatus(
     id: string,
     status: SimulationRunStatus,
   ): Observable<SimulationRun> {
@@ -42,7 +43,8 @@ export class SimulationRunService {
     );
   }
 
-  async updateSimulationRunResultsSize(
+  // TODO Change return type to observable
+  public async updateSimulationRunResultsSize(
     id: string,
     size: number,
   ): Promise<SimulationRun> {
@@ -60,7 +62,7 @@ export class SimulationRunService {
       .pipe(pluck('data'))
       .toPromise();
   }
-  async getJob(simId: string): Promise<SimulationRun> {
+  public async getJob(simId: string): Promise<SimulationRun> {
     // TODO make enpoint consistent with other (no ending /)
     const token = await this.auth.getToken();
     return this.http
@@ -72,7 +74,8 @@ export class SimulationRunService {
       .pipe(pluck('data'))
       .toPromise();
   }
-  async sendReport(
+  // TODO Change return type to observable
+  public async sendReport(
     simId: string,
     reportId: string,
     data: SimulationRunReportDataStrings,
@@ -93,7 +96,7 @@ export class SimulationRunService {
       .toPromise();
   }
 
-  sendLog(
+  public sendLog(
     simId: string,
     log: CombineArchiveLog,
   ): Observable<CombineArchiveLog> {
