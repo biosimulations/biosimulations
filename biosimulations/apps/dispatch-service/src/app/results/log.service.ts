@@ -23,8 +23,6 @@ export class LogService {
     const stdLog = await this.readStdLog(path);
 
     log.output = stdLog;
-    this.logger.log(stdLog);
-    this.logger.log(log);
     return log;
   }
 
@@ -57,6 +55,9 @@ export class LogService {
     return this.submit
       .sendLog(id, log)
       .toPromise()
-      .then((_) => { this.logger.debug("Sent Log to API")}).catch(reason => this.logger.error(reason));
+      .then((_) => {
+        this.logger.debug('Sent Log to API');
+      })
+      .catch((reason) => this.logger.error(reason));
   }
 }
