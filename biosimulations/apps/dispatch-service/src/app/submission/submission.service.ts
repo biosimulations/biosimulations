@@ -86,12 +86,12 @@ export class SubmissionService {
     });
     return job;
   }
-  async startMonitoringCronJob(
+  public async startMonitoringCronJob(
     jobId: string,
     simId: string,
     seconds: number,
     transpose: boolean,
-  ) {
+  ): Promise<void> {
     const job = this.createJob(jobId, simId, seconds, transpose);
     this.schedulerRegistry.addCronJob(jobId, job);
     this.logger.debug(
@@ -100,7 +100,7 @@ export class SubmissionService {
     job.start();
   }
 
-  async updateSimulationRunStatus(
+  private async updateSimulationRunStatus(
     simId: string,
     simStatus: SimulationRunStatus,
   ): Promise<SimulationRun | void> {
@@ -112,6 +112,7 @@ export class SubmissionService {
       })
       .catch((err) => {
         this.logger.error('Failed to update status');
+        this.logger.error(err);
         return;
       });
   }
