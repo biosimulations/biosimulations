@@ -29,7 +29,8 @@
     "gen-dependency-license-report": "tools/gen-dependency-license-report",
     "help": "nx help",
     "build-sitemaps": "tools/build-sitemaps/__main__.py",
-    "build-push-deploy-docker": "tools/build-push-deploy-docker-image"
+    "build-push-deploy-docker": "tools/build-push-deploy-docker-image",
+    "submit-example-simulation-runs": "tools/submit-example-simulation-runs"
   },
   "private": true,
   "dependencies": {
@@ -104,7 +105,7 @@
     "@ionic/storage": "^2.3.1",
     "@nestjs/schematics": "^7.2.6",
     "@nestjs/testing": "^7.6.5",
-    "@nrwl/angular": "11.1.5",
+    "@nrwl/angular": "11.2.7",
     "@nrwl/cli": "11.1.5",
     "@nrwl/cypress": "11.1.5",
     "@nrwl/eslint-plugin-nx": "11.1.5",
