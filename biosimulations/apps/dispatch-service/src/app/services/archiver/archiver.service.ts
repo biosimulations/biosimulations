@@ -7,14 +7,15 @@ import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 
 @Injectable()
 export class ArchiverService {
-  constructor(
-    private configService: ConfigService,
-    private service: SimulationRunService,
-  ) {}
   private logger = new Logger('ArchiverService');
   private fileStorage: string = this.configService.get('hpc.fileStorage', '');
 
-  async createResultArchive(uuid: string) {
+  public constructor(
+    private configService: ConfigService,
+    private service: SimulationRunService,
+  ) {}
+
+  public async createResultArchive(uuid: string): Promise<void> {
     const resultPath = path.join(this.fileStorage, 'simulations', uuid, 'out');
     const simPath = path.join(this.fileStorage, 'simulations', uuid);
     const output = fs.createWriteStream(path.join(simPath, uuid + '.zip'));
@@ -30,7 +31,8 @@ export class ArchiverService {
     });
 
     archive.on('error', (err) => {
-      throw err;
+      this.logger.log(`Error reading output for ${uuid}`);
+      this.logger.log(err);
     });
 
     archive.pipe(output);
