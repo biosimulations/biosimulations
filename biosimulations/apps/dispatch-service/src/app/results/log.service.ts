@@ -57,8 +57,6 @@ export class LogService {
     return this.submit
       .sendLog(id, log)
       .toPromise()
-      .then((_) => {
-        this.logger.log(_);
-      });
+      .then((_) => { this.logger.debug("Sent Log to API")}).catch(reason => this.logger.error(reason));
   }
 }
