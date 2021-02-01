@@ -29,7 +29,8 @@
     "gen-dependency-license-report": "tools/gen-dependency-license-report",
     "help": "nx help",
     "build-sitemaps": "tools/build-sitemaps/__main__.py",
-    "build-push-deploy-docker": "tools/build-push-deploy-docker-image"
+    "build-push-deploy-docker": "tools/build-push-deploy-docker-image",
+    "submit-example-simulation-runs": "tools/submit-example-simulation-runs"
   },
   "private": true,
   "dependencies": {
@@ -113,7 +114,7 @@
     "@nrwl/node": "11.1.5",
     "@nrwl/nx-cloud": "11.0.1",
     "@nrwl/tao": "11.1.5",
-    "@nrwl/workspace": "11.1.5",
+    "@nrwl/workspace": "11.2.7",
     "@types/archiver": "^3.1.1",
     "@types/auth0": "^2.20.12",
     "@types/cron": "^1.7.2",
