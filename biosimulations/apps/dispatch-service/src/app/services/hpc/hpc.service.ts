@@ -56,24 +56,28 @@ export class HpcService {
 
   public async getJobStatus(jobId: string): Promise<SimulationRunStatus> {
     const saactData = await this.sshService
-      .execStringCommand(`sacct -X -j ${jobId} -o state%20`)
+      .execStringCommand(`sacct -X -j ${jobId} -o state -P | tail -1`)
       .catch((err) => {
         this.logger.error(
           'Failed to fetch results, updating the sim status as Pending, ' +
             JSON.stringify(err),
         );
-        return { stdout: '\n\nPENDING' };
+        return { stdout: 'PENDING' };
       });
 
     const saactDataOutput = saactData.stdout;
+    const finalStatus = saactDataOutput;
     // const saactDataError = saactData.stderr;
-    const saactDataOutputSplit = saactDataOutput.split('\n');
-    const finalStatusList = saactDataOutputSplit[2].split(' ');
-    const finalStatus = finalStatusList[finalStatusList.length - 2];
+    //const saactDataOutputSplit = saactDataOutput.split('\n');
+    //const finalStatusList = saactDataOutputSplit[2].split(' ');
+    //const finalStatus = finalStatusList[finalStatusList.length - 2];
+    this.logger.debug(`Job status is ${finalStatus}`);
     // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
     switch (finalStatus) {
-      case 'PENDING' || '':
+      case 'PENDING' || '': {
         return SimulationRunStatus.QUEUED;
+      }
+
       case 'RUNNING':
         return SimulationRunStatus.RUNNING;
       case 'COMPLETED':
