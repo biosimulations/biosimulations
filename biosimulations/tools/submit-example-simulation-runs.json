@@ -1,4 +1,9 @@
 [{
+        "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, PySCeS)",
+        "simulator": "pysces",
+        "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
+    },
+    {
         "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, tellurium)",
         "simulator": "tellurium",
         "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
@@ -9,12 +14,17 @@
         "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
     },
     {
+        "name": "Chaouiya et al. BMC Systems Biology 2013: EGF and TNFα signaling (synchronous updating, BoolNet)",
+        "simulator": "boolnet",
+        "filename": "sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex"
+    },
+    {
         "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, COPASI)",
         "simulator": "copasi",
         "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex"
     },
     {
-        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, COPASI)",
+        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, GillesPy2)",
         "simulator": "gillespy2",
         "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex"
     },
@@ -22,6 +32,31 @@
         "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, tellurium)",
         "simulator": "tellurium",
         "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex"
+    },
+    {
+        "name": "Parmar 2017: iron distribution (CVODE, tellurium)",
+        "simulator": "tellurium",
+        "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
+    },
+    {
+        "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (LSODA, PySCeS)",
+        "simulator": "pysces",
+        "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
+    },
+    {
+        "name": "Escherichia coli core metabolism (FBA, CBMPy)",
+        "simulator": "cbmpy",
+        "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
+    },
+    {
+        "name": "Escherichia coli core metabolism (FBA, COBRApy)",
+        "simulator": "cobrapy",
+        "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
+    },
+    {
+        "name": "Parmar 2017: iron distribution (CVODE, PySCeS)",
+        "simulator": "pysces",
+        "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
     },
     {
         "name": "Parmar 2017: iron distribution (CVODE, tellurium)",
@@ -37,6 +72,11 @@
         "name": "Szymanska 2009: HSP synthesis (CVODES, AMICI)",
         "simulator": "amici",
         "filename": "sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex"
+    },
+    {
+        "name": "BioNetGen example model (CVODE, BioNetGen)",
+        "simulator": "bionetgen",
+        "filename": "bngl/test-bngl.omex"
     },
     {
         "name": "Tomida 2003: NFAT translocation (LSODA/LSODAR, COPASI)",
