@@ -22,7 +22,9 @@ export class SshService {
     this.logger.log('SFTP config host: ' + this.sftpConfig.host);
   }
 
-  public execStringCommand(cmd: string): Promise<{ stdout: string; stderr: string }> {
+  public execStringCommand(
+    cmd: string,
+  ): Promise<{ stdout: string; stderr: string }> {
     return new Promise<{ stdout: string; stderr: string }>(
       (resolve, reject) => {
         const conn = new SSHClient();
@@ -33,7 +35,7 @@ export class SshService {
             let stderr = '';
             conn.exec(cmd, (err, stream) => {
               if (err) {
-              this.logger.error(err)
+                this.logger.error(err);
                 reject(err);
               }
               stream

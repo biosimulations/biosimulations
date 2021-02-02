@@ -400,7 +400,10 @@ export class TableComponent implements OnInit, AfterViewInit {
           opts.delete('table.' + column.id);
         }
         if (column.id in this.filter) {
-          opts.set('table.' + column.id, JSON.stringify(this.filter[column.id]));
+          opts.set(
+            'table.' + column.id,
+            JSON.stringify(this.filter[column.id]),
+          );
         }
       });
 
@@ -486,10 +489,11 @@ export class TableComponent implements OnInit, AfterViewInit {
       } catch (e) {} // eslint-disable-line no-empty
     }
 
-    let sort: Sort | undefined = undefined
+    let sort: Sort | undefined = undefined;
     const sortActive = opts.get('table.sort') || undefined;
     if (sortActive) {
-      const sortDirection = (opts.get('table.sortDir') || 'asc') as SortDirection;
+      const sortDirection = (opts.get('table.sortDir') ||
+        'asc') as SortDirection;
       sort = {
         active: sortActive,
         direction: sortDirection,
@@ -561,14 +565,13 @@ export class TableComponent implements OnInit, AfterViewInit {
               break;
             }
             default: {
-              this.columnFilterData[column.id]?.forEach(
-                (val: any): void => {
-                  const checked = filter?.[column.id]?.includes(val.value) || false;
-                  if (checked !== val.checked) {
-                    val.checked = checked;
-                  }
-                },
-              );
+              this.columnFilterData[column.id]?.forEach((val: any): void => {
+                const checked =
+                  filter?.[column.id]?.includes(val.value) || false;
+                if (checked !== val.checked) {
+                  val.checked = checked;
+                }
+              });
               break;
             }
           }
@@ -589,16 +592,33 @@ export class TableComponent implements OnInit, AfterViewInit {
 
       if (this.sortable) {
         if (sort) {
-          if (sort.active != this.sort.active || sort.direction != this.sort.direction) {
-            this.sort.sort(({ id: '', start: sort.direction, disableClear: false}) as MatSortable);
-            this.sort.sort(({ id: sort.active, start: sort.direction, disableClear: false}) as MatSortable);
-            (this.sort.sortables.get(sort.active) as MatSortHeader)._setAnimationTransitionState({
+          if (
+            sort.active != this.sort.active ||
+            sort.direction != this.sort.direction
+          ) {
+            this.sort.sort({
+              id: '',
+              start: sort.direction,
+              disableClear: false,
+            } as MatSortable);
+            this.sort.sort({
+              id: sort.active,
+              start: sort.direction,
+              disableClear: false,
+            } as MatSortable);
+            (this.sort.sortables.get(
+              sort.active,
+            ) as MatSortHeader)._setAnimationTransitionState({
               fromState: sort.direction,
               toState: 'active',
             });
           }
         } else if (this.sort.active) {
-          this.sort.sort(({ id: '', start: 'asc', disableClear: false}) as MatSortable);
+          this.sort.sort({
+            id: '',
+            start: 'asc',
+            disableClear: false,
+          } as MatSortable);
         }
       }
     });

@@ -59,7 +59,6 @@ export class LogsService {
         this.logger.error('Error reading std_out');
         this.logger.error(_);
         throw _;
-
       });
 
     const fileContentErr = await fsPromises

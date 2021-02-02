@@ -90,9 +90,19 @@ export class DispatchService {
               }
               simulatorSpecsMap[simulator.id].versions.push(simulator.version);
               simulator.algorithms.forEach((algorithm: any): void => {
-                simulatorSpecsMap[simulator.id].modelingFrameworksForModelFormats.push({
-                  formatEdamIds: algorithm.modelFormats.map((format: any): void => {return format.id}),
-                  frameworkSboIds: algorithm.modelingFrameworks.map((format: any): void => {return format.id}),
+                simulatorSpecsMap[
+                  simulator.id
+                ].modelingFrameworksForModelFormats.push({
+                  formatEdamIds: algorithm.modelFormats.map(
+                    (format: any): void => {
+                      return format.id;
+                    },
+                  ),
+                  frameworkSboIds: algorithm.modelingFrameworks.map(
+                    (format: any): void => {
+                      return format.id;
+                    },
+                  ),
                 });
               });
             }
@@ -120,8 +130,7 @@ export class DispatchService {
           // get structured log
           let structuredLog: CombineArchiveLog | undefined = response;
 
-          const rawLog =
-            response.output || structuredLog?.output || '';
+          const rawLog = response.output || structuredLog?.output || '';
           if (structuredLog.status == SimulationRunLogStatus.UNKNOWN) {
             structuredLog = undefined;
           }

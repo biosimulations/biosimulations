@@ -79,14 +79,17 @@ export class DispatchComponent implements OnInit {
       const params = observerableValues[1];
 
       this.simulatorSpecsMap = simulatorSpecsMap;
-      this.simulators = Object.keys(this.simulatorSpecsMap)
-        .map((id: string): SimulatorIdDisabled => {
-          return {id: id, disabled: false};
-        });
+      this.simulators = Object.keys(this.simulatorSpecsMap).map(
+        (id: string): SimulatorIdDisabled => {
+          return { id: id, disabled: false };
+        },
+      );
 
-      this.simulators.sort((a: SimulatorIdDisabled, b: SimulatorIdDisabled): number => {
-        return a.id.localeCompare(b.id, undefined, { numeric: true });
-      });
+      this.simulators.sort(
+        (a: SimulatorIdDisabled, b: SimulatorIdDisabled): number => {
+          return a.id.localeCompare(b.id, undefined, { numeric: true });
+        },
+      );
 
       this.formGroup.controls.simulator.enable();
 
@@ -95,7 +98,7 @@ export class DispatchComponent implements OnInit {
 
       let modelFormat = params?.modelFormat?.toLowerCase();
       if (modelFormat) {
-        const match = modelFormat.match(/^(format[:_])?(\d{1,4})$/)
+        const match = modelFormat.match(/^(format[:_])?(\d{1,4})$/);
         if (match) {
           modelFormat = 'format_' + '0'.repeat(4 - match[2].length) + match[2];
         }
@@ -103,9 +106,10 @@ export class DispatchComponent implements OnInit {
 
       let modelingFramework = params?.modelingFramework?.toUpperCase();
       if (modelingFramework) {
-        const match = modelingFramework.match(/^(SBO[:_])?(\d{1,7})$/)
+        const match = modelingFramework.match(/^(SBO[:_])?(\d{1,7})$/);
         if (match) {
-          modelingFramework = 'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
+          modelingFramework =
+            'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
         }
       }
 
@@ -113,19 +117,29 @@ export class DispatchComponent implements OnInit {
       const simulatorVersion: string = params?.simulatorVersion;
 
       if (modelFormat || modelingFramework) {
-        this.simulators.forEach((simulatorIdDisabled: SimulatorIdDisabled): void => {
-          let enabled = false;
-          for (const modelingFrameworksForModelFormats of simulatorSpecsMap[simulatorIdDisabled.id].modelingFrameworksForModelFormats) {
-            if (
-              (!modelFormat || modelingFrameworksForModelFormats.formatEdamIds.includes(modelFormat)) &&
-              (!modelingFramework || modelingFrameworksForModelFormats.frameworkSboIds.includes(modelingFramework))
-            ) {
-              enabled = true;
-              break;
+        this.simulators.forEach(
+          (simulatorIdDisabled: SimulatorIdDisabled): void => {
+            let enabled = false;
+            for (const modelingFrameworksForModelFormats of simulatorSpecsMap[
+              simulatorIdDisabled.id
+            ].modelingFrameworksForModelFormats) {
+              if (
+                (!modelFormat ||
+                  modelingFrameworksForModelFormats.formatEdamIds.includes(
+                    modelFormat,
+                  )) &&
+                (!modelingFramework ||
+                  modelingFrameworksForModelFormats.frameworkSboIds.includes(
+                    modelingFramework,
+                  ))
+              ) {
+                enabled = true;
+                break;
+              }
             }
-          }
-          simulatorIdDisabled.disabled = !enabled;
-        });
+            simulatorIdDisabled.disabled = !enabled;
+          },
+        );
       }
 
       if (simulator) {
