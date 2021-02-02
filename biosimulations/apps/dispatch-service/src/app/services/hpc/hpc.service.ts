@@ -66,11 +66,8 @@ export class HpcService {
       });
 
     const saactDataOutput = saactData.stdout;
-    const finalStatus = saactDataOutput;
-    // const saactDataError = saactData.stderr;
-    //const saactDataOutputSplit = saactDataOutput.split('\n');
-    //const finalStatusList = saactDataOutputSplit[2].split(' ');
-    //const finalStatus = finalStatusList[finalStatusList.length - 2];
+    const finalStatus = saactDataOutput.trim();
+
     this.logger.debug(`Job status is ${finalStatus}`);
     // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
     switch (finalStatus) {
@@ -78,18 +75,27 @@ export class HpcService {
         return SimulationRunStatus.QUEUED;
       }
 
-      case 'RUNNING':
+      case 'RUNNING': {
         return SimulationRunStatus.RUNNING;
-      case 'COMPLETED':
+      }
+
+      case 'COMPLETED': {
         return SimulationRunStatus.PROCESSING;
+      }
+
       case 'FAILED' ||
         'OUT-OF-MEMORY' ||
         'NODE_FAIL' ||
         'TIMEOUT' ||
-        'CANCELLED':
-      default: {
+        'CANCELLED': {
         this.logger.error(
           `Job ${jobId} failed with response of ${saactDataOutput}`,
+        );
+        return SimulationRunStatus.FAILED;
+      }
+      default: {
+        this.logger.error(
+          `Job ${jobId} failed by default with response of ${saactDataOutput}`,
         );
         return SimulationRunStatus.FAILED;
       }
