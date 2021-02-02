@@ -111,7 +111,7 @@
     "@nrwl/eslint-plugin-nx": "11.1.5",
     "@nrwl/jest": "11.1.5",
     "@nrwl/nest": "11.1.5",
-    "@nrwl/node": "11.1.5",
+    "@nrwl/node": "11.2.7",
     "@nrwl/nx-cloud": "11.0.1",
     "@nrwl/tao": "11.1.5",
     "@nrwl/workspace": "11.1.5",
