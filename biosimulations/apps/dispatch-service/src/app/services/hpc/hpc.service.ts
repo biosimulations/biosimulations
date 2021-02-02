@@ -54,15 +54,16 @@ export class HpcService {
     });
   }
 
-  public async getJobStatus(jobId: string): Promise<SimulationRunStatus> {
+  public async getJobStatus(
+    jobId: string,
+  ): Promise<SimulationRunStatus | null> {
     const saactData = await this.sshService
       .execStringCommand(`sacct -X -j ${jobId} -o state -P | tail -1`)
       .catch((err) => {
         this.logger.error(
-          'Failed to fetch results, updating the sim status as Pending, ' +
-            JSON.stringify(err),
+          'Failed to fetch status update, ' + JSON.stringify(err),
         );
-        return { stdout: 'PENDING' };
+        return { stdout: '' };
       });
 
     const saactDataOutput = saactData.stdout;
@@ -71,7 +72,7 @@ export class HpcService {
     this.logger.debug(`Job status is ${finalStatus}`);
     // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
     switch (finalStatus) {
-      case 'PENDING' || '': {
+      case 'PENDING': {
         return SimulationRunStatus.QUEUED;
       }
 
@@ -95,9 +96,9 @@ export class HpcService {
       }
       default: {
         this.logger.error(
-          `Job ${jobId} failed by default with response of ${saactDataOutput}`,
+          `Job ${jobId} status failed by default with response of ${saactDataOutput}`,
         );
-        return SimulationRunStatus.FAILED;
+        return null;
       }
     }
   }

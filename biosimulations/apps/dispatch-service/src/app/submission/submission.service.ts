@@ -30,16 +30,22 @@ export class SubmissionService {
     transpose: boolean,
   ) {
     const job = new CronJob(`*/${seconds.toString()} * * * * *`, async () => {
-      const jobStatus: SimulationRunStatus = await this.hpcService.getJobStatus(
+      const jobStatus: SimulationRunStatus | null = await this.hpcService.getJobStatus(
         jobId,
       );
       this.logger.debug(
         `Checking status for job with id ${jobId} for simulation ${simId}: Status is ${jobStatus}`,
       );
 
-      this.updateSimulationRunStatus(simId, jobStatus);
+      if (jobStatus) {
+        this.updateSimulationRunStatus(simId, jobStatus);
+      }
 
       switch (jobStatus) {
+        default: {
+          this.logger.log(`${simId} skipped update`);
+          break;
+        }
         case SimulationRunStatus.QUEUED: {
           const message: DispatchPayload = {
             _message: DispatchMessage.queued,
