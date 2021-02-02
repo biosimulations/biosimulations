@@ -70,7 +70,7 @@ EXAMPLE_SIMULATIONS = [
 ]
 
 SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://run.api.biosimulations.dev/run'
-
+VIEW_SIMULATION_RUN_URL = 'https://run.biosimulations.dev/simulations'
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  '..', 'apps', 'dispatch', 'src', 'app', 'components',
                                                  'simulations', 'browse', 'example-simulations.json')
@@ -80,7 +80,8 @@ def main():
     # get latest version of each simulator
     response = requests.get(GET_SIMULATORS_ENDPOINT)
     response.raise_for_status()
-    simulator_latest_versions = {simulator['id']: simulator['version'] for simulator in response.json()}
+    simulator_latest_versions = {
+        simulator['id']: simulator['version'] for simulator in response.json()}
 
     # execution simulations
     temp_dir = tempfile.mkdtemp()
@@ -94,7 +95,8 @@ def main():
         # get COMBINE archive
         response = requests.get(url)
         response.raise_for_status()
-        archive_filename = os.path.join(temp_dir, os.path.basename(simulation['filename']))
+        archive_filename = os.path.join(
+            temp_dir, os.path.basename(simulation['filename']))
         combine_archive = response.content
         with open(archive_filename, 'wb') as file:
             file.write(combine_archive)
@@ -115,7 +117,7 @@ def main():
                                   '-F', "file=@{}".format(archive_filename)
                                   ], capture_output=True)
         simulation_run = json.loads(process.stdout.decode())
-
+        print(VIEW_SIMULATION_RUN_URL+"/"+simulation_run['id'])
         # log run
         simulation_runs.append({
             "id": simulation_run['id'],
