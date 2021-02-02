@@ -1,5 +1,5 @@
 name: Continuous Deployment
-on: 
+on:
   push:
     branches: [dev]
 jobs:
@@ -8,15 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       apps: ${{steps.get-all-apps.outputs.apps}}
-      frontendApps:  ${{steps.get-all-apps.outputs.frontendApps}}
-    steps: 
-
+      frontendApps: ${{steps.get-all-apps.outputs.frontendApps}}
+    steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Install Node.js
         uses: actions/setup-node@v1
-        with: 
+        with:
           node-version: 15.x
 
       - name: Install Nrwl CLI
@@ -49,20 +48,20 @@ jobs:
         name: Get the list of apps
         working-directory: ./biosimulations
         run: |
-         mapfile -d " " -t appsArr < <(nx affected:apps --plain --all | sed  's/simulators[^-]//; s/account[^-]\|account$//; s/dispatch[^-]//;  s/platform[^-]//' | sed 's/ $//')
-          appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
+          mapfile -d " " -t appsArr < <(nx affected:apps --plain --all | sed  's/simulators[^-]//; s/account[^-]\|account$//; s/dispatch[^-]//;  s/platform[^-]//' | sed 's/ $//')
+           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
 
-          if [ -z "${appsArr[0]}" ]; then
-            unset appsArr[-1]
-            appsJson=[]
-          else
-            appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
-          fi
-          frontendAppsArr=('account' 'platform' 'simulators' 'dispatch')
-          frontendAppsJson=$(printf '"%s"\n' "${frontendAppsArr[@]}" | jq  . | jq -s . | tr -d '\n')
-          echo "::set-output name=apps::$appsJson"
-          echo "::set-output name=frontendApps::$frontendAppsJson"
-          
+           if [ -z "${appsArr[0]}" ]; then
+             unset appsArr[-1]
+             appsJson=[]
+           else
+             appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+           fi
+           frontendAppsArr=('account' 'platform' 'simulators' 'dispatch')
+           frontendAppsJson=$(printf '"%s"\n' "${frontendAppsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+           echo "::set-output name=apps::$appsJson"
+           echo "::set-output name=frontendApps::$frontendAppsJson"
+
   buildDevFrontEnds:
     name: Build development front end apps
     runs-on: ubuntu-latest
@@ -73,13 +72,12 @@ jobs:
         app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
 
     steps:
-  
       - name: Checkout repository
         uses: actions/checkout@v2
-    
+
       - name: Install Node.js
         uses: actions/setup-node@v1
-        with: 
+        with:
           node-version: 15.x
 
       - name: Install Nrwl CLI
@@ -100,22 +98,23 @@ jobs:
         uses: actions/cache@v2
         with:
           path: biosimulations/node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
           restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
-     
+
       - name: Build dev app
         working-directory: ./biosimulations
         run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build --prod ${{matrix.app}}
-        
+
       - name: Upload build
         uses: actions/upload-artifact@v2
         with:
           name: ${{matrix.app}}-dev
           path: biosimulations/dist/apps/${{matrix.app}}
           retention-days: 5
-      
+
   buildProdFrontEnds:
     name: Build production front end apps
     runs-on: ubuntu-latest
@@ -126,13 +125,12 @@ jobs:
         app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
 
     steps:
-  
       - name: Checkout repository
         uses: actions/checkout@v2
-    
+
       - name: Install Node.js
         uses: actions/setup-node@v1
-        with: 
+        with:
           node-version: 15.x
 
       - name: Install Nrwl CLI
@@ -156,17 +154,18 @@ jobs:
         uses: actions/cache@v2
         with:
           path: biosimulations/node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
           restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
 
       - name: Build prod app
         working-directory: ./biosimulations
         run: nx build --prod ${{matrix.app}}
-                
+
       - name: Upload build
-        
+
         uses: actions/upload-artifact@v2
         with:
           name: ${{matrix.app}}-prod
@@ -183,10 +182,9 @@ jobs:
         app: ${{ fromJson(needs.listApps.outputs.apps) }}
 
     steps:
-  
       - name: Checkout repository
         uses: actions/checkout@v2
-           
+
       - name: Build and Push Image
         uses: whoan/docker-build-with-cache-action@v5
         with:
@@ -198,39 +196,39 @@ jobs:
           registry: ghcr.io
           context: .
           dockerfile: Dockerfile
-          build_extra_args: "--compress=true --build-arg app=${{matrix.app}}"          
-        
+          build_extra_args: "--compress=true --build-arg app=${{matrix.app}}"
+
   deployDevFrontend:
-    name: Publish the development frontend 
+    name: Publish the development frontend
     runs-on: ubuntu-latest
     needs: [listApps, buildDevFrontEnds, buildPushDockerImages]
     environment: dev_environment
     strategy:
       matrix:
         app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
-    steps:    
-    - name: Install Node.js
-      uses: actions/setup-node@v1
-      with: 
-        node-version: 15.x
+    steps:
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
 
-    - name: Install Netlify CLI
-      run: npm install -g netlify-cli
-      
-    - name: Download Build for app
-      uses: actions/download-artifact@v2
-      with:
-       name: ${{matrix.app}}-dev
-            
-    - name: Push App
-      env:
-        idKey: ${{matrix.app}}_site_id
-        NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
-      run: |
-            export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
-            export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
-            netlify deploy --prod
-      
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Download Build for app
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{matrix.app}}-dev
+
+      - name: Push App
+        env:
+          idKey: ${{matrix.app}}_site_id
+          NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+        run: |
+          export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
+          export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
+          netlify deploy --prod
+
   deployProdFrontend:
     name: Publish the production frontend
     runs-on: ubuntu-latest
@@ -239,59 +237,56 @@ jobs:
     strategy:
       matrix:
         app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
-    steps:    
-    - name: Install Node.js
-      uses: actions/setup-node@v1
-      with: 
-        node-version: 15.x
-  
-    - name: Download Build for app
-      uses: actions/download-artifact@v2
-      with:
-       name: ${{matrix.app}}-prod
-            
-    - name: Push App
-      env:
-        idKey: ${{matrix.app}}_site_id
-        NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
-      run: |
-            export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
-            export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
-            netlify deploy --prod
-    
-       
+    steps:
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
+
+      - name: Download Build for app
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{matrix.app}}-prod
+
+      - name: Push App
+        env:
+          idKey: ${{matrix.app}}_site_id
+          NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+        run: |
+          export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
+          export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
+          netlify deploy --prod
+
   triggerDevDeployment:
     name: Trigger a new deployment of the dev backend
     runs-on: ubuntu-latest
     needs: [buildPushDockerImages, buildDevFrontEnds]
     environment: dev_environment
-    steps: 
+    steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-     
+
       - name: Call Webhook
         env:
-            GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
-            GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
-            BRANCH: ${{ secrets.NAME }}   #  TODO Change this to secrets.OVERLAY
+          GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
+          GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
+          BRANCH: ${{ secrets.NAME }} #  TODO Change this to secrets.OVERLAY
         run: |
           echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
-         
+
   triggerProdDeployment:
     name: Trigger a new deployment of the production backend
     runs-on: ubuntu-latest
     needs: [buildPushDockerImages, buildProdFrontEnds]
     environment: prod_environment
-    steps: 
-      
+    steps:
       - name: Call Webhook
         env:
-            GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
-            GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
-            BRANCH: ${{ secrets.NAME }}
-        
+          GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
+          GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
+          BRANCH: ${{ secrets.NAME }}
+
         run: |
           echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
-
