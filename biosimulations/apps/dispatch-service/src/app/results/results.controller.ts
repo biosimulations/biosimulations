@@ -28,7 +28,7 @@ export class ResultsController {
     const id = data.id;
     const transpose = data.transpose;
 
-    this.logger.log(`Simulation ${id} Finished`);
+    this.logger.log(`Simulation ${id} Finished. Creating logs and output`);
 
     await Promise.all([
       this.archiverService.createResultArchive(id),
@@ -46,7 +46,7 @@ export class ResultsController {
   public async processFailedResults(data: DispatchPayload): Promise<void> {
     const id = data.id;
 
-    this.logger.log(`Simulation ${id} Finished`);
+    this.logger.log(`Simulation ${id} Failed. Creating logs and output`);
 
     await Promise.all([
       this.archiverService.createResultArchive(id),

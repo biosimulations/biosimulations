@@ -64,10 +64,11 @@ import { Observable, of } from 'rxjs';
 @Controller('run')
 @ApiExtraModels(UploadSimulationRun, UploadSimulationRunUrl, SimulationUpload)
 export class SimulationRunController {
-  TIMEOUT_INTERVAL = 10000;
-  RETRY_COUNT = 2;
-  logger: Logger;
-  constructor(
+  private TIMEOUT_INTERVAL = 10000;
+  private RETRY_COUNT = 2;
+  private logger: Logger;
+
+  public constructor(
     private service: SimulationRunService,
     @Inject('NATS_CLIENT') private messageClient: ClientProxy,
   ) {
@@ -209,7 +210,7 @@ export class SimulationRunController {
    *  Creates the controllers return type SimulationRun
    * @param run The value that is returned from the service.
    */
-  makeSimulationRun(run: SimulationRunModelReturnType): SimulationRun {
+  public makeSimulationRun(run: SimulationRunModelReturnType): SimulationRun {
     return new SimulationRun(
       run.id,
       run.name,

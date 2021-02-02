@@ -21,17 +21,14 @@ import { SubmissionService } from './submission.service';
 
 @Controller()
 export class SubmissionController {
-  constructor(
+  private logger = new Logger(SubmissionController.name);
+
+  public constructor(
     private service: SubmissionService,
     private readonly configService: ConfigService,
     private hpcService: HpcService,
     @Inject('NATS_CLIENT') private messageClient: ClientProxy,
   ) {}
-  private logger = new Logger(SubmissionController.name);
-  private fileStorage: string = this.configService.get<string>(
-    'hpc.fileStorage',
-    '',
-  );
 
   /**
    *The method responds to the message by calling the hpc service to start a job. It then sends a reply to the message.
@@ -39,7 +36,9 @@ export class SubmissionController {
    * @param data The payload sent for the created simulation run message
    */
   @MessagePattern(DispatchMessage.created)
-  async uploadFile(data: DispatchCreatedPayload): Promise<createdResponse> {
+  public async uploadFile(
+    data: DispatchCreatedPayload,
+  ): Promise<createdResponse> {
     this.logger.log('Starting Submission:' + JSON.stringify(data));
 
     const response = await this.hpcService.submitJob(
