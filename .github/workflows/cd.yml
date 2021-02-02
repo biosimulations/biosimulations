@@ -270,7 +270,7 @@ jobs:
         env:
           GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
           GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
-          BRANCH: ${{ secrets.NAME }} #  TODO Change this to secrets.OVERLAY
+          BRANCH: ${{ secrets.OVERLAY }} 
         run: |
           echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
