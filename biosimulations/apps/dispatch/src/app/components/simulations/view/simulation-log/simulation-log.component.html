@@ -33,7 +33,8 @@
         <ul class="vertically-spaced">
           <li>
             <a (click)="scrollToElement('log')"
-              >Combined standard output and error for the COMBINE/OMEX archive</a
+              >Combined standard output and error for the COMBINE/OMEX
+              archive</a
             >
           </li>
         </ul>
@@ -196,9 +197,11 @@
         fxHide.lt-md
       >
         <ul class="vertically-spaced">
-          <li *ngIf="(numTasks > 0) || (!logHasTasks)">
+          <li *ngIf="numTasks > 0 || !logHasTasks">
             <ng-container *ngIf="logHasTasks; else logNotAvailable">
-              <a (click)="scrollToElement('section=tasks')">Tasks ({{ numTasks }})</a>
+              <a (click)="scrollToElement('section=tasks')"
+                >Tasks ({{ numTasks }})</a
+              >
               <ul>
                 <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
                   <li *ngFor="let taskLog of docLog.tasks">
@@ -222,9 +225,11 @@
               <span class="info-message">Tasks: N/A</span>
             </ng-template>
           </li>
-          <li *ngIf="(numReports > 0) || (!logHasReports)">
+          <li *ngIf="numReports > 0 || !logHasReports">
             <ng-container *ngIf="logHasReports; else logNotAvailable">
-              <a (click)="scrollToElement('section=reports')">Reports ({{ numReports }})</a>
+              <a (click)="scrollToElement('section=reports')"
+                >Reports ({{ numReports }})</a
+              >
               <ul>
                 <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
                   <ng-container *ngFor="let outputLog of docLog.outputs">
@@ -250,9 +255,11 @@
               <span class="info-message">Reports: N/A</span>
             </ng-template>
           </li>
-          <li *ngIf="(numPlots > 0) || (!logHasPlots)">
+          <li *ngIf="numPlots > 0 || !logHasPlots">
             <ng-container *ngIf="logHasPlots; else logNotAvailable">
-              <a (click)="scrollToElement('section=plots')">Plots ({{ numPlots }})</a>
+              <a (click)="scrollToElement('section=plots')"
+                >Plots ({{ numPlots }})</a
+              >
               <ul>
                 <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
                   <ng-container *ngFor="let outputLog of docLog.outputs">
@@ -350,11 +357,13 @@
       >
       </biosimulations-structured-simulation-log-element>
 
-      <h2 id="section=combined-stdout-stderr">Combined standard output and error for the COMBINE/OMEX archive</h2>
+      <h2 id="section=combined-stdout-stderr">
+        Combined standard output and error for the COMBINE/OMEX archive
+      </h2>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="COMBINE/OMEX archive"
-        [log]="{output: structuredLog.output, status: status}"
+        [log]="{ output: structuredLog.output, status: status }"
         id="log=combined-stdout-stderr"
         [compact]="true"
         iconActionType="toggle"
@@ -429,11 +438,13 @@
         </biosimulations-structured-simulation-log-element>
       </ng-container>
 
-      <h2 id="section=combined-stdout-stderr">Combined standard output and error for the COMBINE/OMEX archive</h2>
+      <h2 id="section=combined-stdout-stderr">
+        Combined standard output and error for the COMBINE/OMEX archive
+      </h2>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="COMBINE/OMEX archive"
-        [log]="{output: structuredLog.output, status: status}"
+        [log]="{ output: structuredLog.output, status: status }"
         id="log=combined-stdout-stderr"
         [compact]="true"
         iconActionType="toggle"

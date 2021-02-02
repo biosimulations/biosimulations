@@ -254,7 +254,7 @@ export class SimulationRunService {
     }
     return model;
   }
-  
+
   private updateModelResultSize(
     model: SimulationRunModel,
     resultsSize: number | undefined,

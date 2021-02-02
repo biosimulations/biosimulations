@@ -184,56 +184,123 @@
       <biosimulations-q-a
         heading="How can I enable peer reviewers and editors to use runBioSimulations to explore my simulations?"
       >
-        <p>First, use runBioSimulations to execute your COMBINE/OMEX archives. Second, copy the runBioSimulations URLs for your archives (e.g., <code>{{ config.appUrl }}simulations/{{ '{' }} simulation-id {{ '}' }}</code>) and embed them in your cover letter. These URLs are private until you choose to publish them.</p>
+        <p>
+          First, use runBioSimulations to execute your COMBINE/OMEX archives.
+          Second, copy the runBioSimulations URLs for your archives (e.g.,
+          <code
+            >{{ config.appUrl }}simulations/{{ '{' }} simulation-id
+            {{ '}' }}</code
+          >) and embed them in your cover letter. These URLs are private until
+          you choose to publish them.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="How can I enable readers of my article to use runBioSimulations to explore my simulations?"
       >
-        <p>First, use runBioSimulations to execute your COMBINE/OMEX archives. Second, copy the runBioSimulations URLs for your archives (e.g., <code>{{ config.appUrl }}simulations/{{ '{' }} simulation-id {{ '}' }}</code>) and embed them in your article.</p>
+        <p>
+          First, use runBioSimulations to execute your COMBINE/OMEX archives.
+          Second, copy the runBioSimulations URLs for your archives (e.g.,
+          <code
+            >{{ config.appUrl }}simulations/{{ '{' }} simulation-id
+            {{ '}' }}</code
+          >) and embed them in your article.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="How can I embed execution capabilities for my simulations into my website?"
       >
-        <p>Developers can use runBioSimulators to provide their users capabilities to execute their simulations. Developers can achieve this simply by adding hyperlinks to the run simulations page, <a [routerLink]="['/run']">{{ config.appUrl }}run</a>.</p>
+        <p>
+          Developers can use runBioSimulators to provide their users
+          capabilities to execute their simulations. Developers can achieve this
+          simply by adding hyperlinks to the run simulations page,
+          <a [routerLink]="['/run']">{{ config.appUrl }}run</a>.
+        </p>
 
         <p>The run simulations page supports several query arguments:</p>
         <ul class="vertically-spaced">
-          <li><b><code>projectUrl</code></b>:
-            URL of a COMBINE/OMEX archive to simulate. This argument instructs the web form to prefill the COMBINE/OMEX archive input with this URL.
+          <li>
+            <b><code>projectUrl</code></b
+            >: URL of a COMBINE/OMEX archive to simulate. This argument
+            instructs the web form to prefill the COMBINE/OMEX archive input
+            with this URL.
           </li>
-          <li><b><code>modelFormat</code></b>:
-            EDAM id of the format of the models to execute (e.g., <code>format_2585</code> for SBML). This argument instruct the web form to only enable simulation tools which support this format.
+          <li>
+            <b><code>modelFormat</code></b
+            >: EDAM id of the format of the models to execute (e.g.,
+            <code>format_2585</code> for SBML). This argument instruct the web
+            form to only enable simulation tools which support this format.
           </li>
-          <li><b><code>modelingFramework</code></b>:
-            SBO id of the modeling framework of the simulations to execute (e.g., <code>SBO_0000293</code> for continuous kinetic framework). This argument instruct the web form to only enable simulation tools which support this framework.
+          <li>
+            <b><code>modelingFramework</code></b
+            >: SBO id of the modeling framework of the simulations to execute
+            (e.g., <code>SBO_0000293</code> for continuous kinetic framework).
+            This argument instruct the web form to only enable simulation tools
+            which support this framework.
           </li>
-          <li><b><code>simulator</code></b>:
-            Id of the recommended simulator for executing the COMBINE/OMEX archive (e.g., <code>tellurium</code>). This argument instructs the web form to preselect this simulator.
+          <li>
+            <b><code>simulator</code></b
+            >: Id of the recommended simulator for executing the COMBINE/OMEX
+            archive (e.g., <code>tellurium</code>). This argument instructs the
+            web form to preselect this simulator.
           </li>
-          <li><b><code>simulatorVersion</code></b>:
-            Recommended version of the simulator for executing the COMBINE/OMEX archive (e.g., <code>2.2.0</code>). This argument instruct the web form to preselect this version.
+          <li>
+            <b><code>simulatorVersion</code></b
+            >: Recommended version of the simulator for executing the
+            COMBINE/OMEX archive (e.g., <code>2.2.0</code>). This argument
+            instruct the web form to preselect this version.
           </li>
         </ul>
 
-        <p>For example, the URL <code>{{ config.appUrl }}run?projectUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878&modelFormat=format_2585&modelingFramework=SBO_0000293</code> can be used to link to the capability to simulate BioModels entry BIOMD0000000878.</p>
+        <p>
+          For example, the URL
+          <code
+            >{{
+              config.appUrl
+            }}run?projectUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878&modelFormat=format_2585&modelingFramework=SBO_0000293</code
+          >
+          can be used to link to the capability to simulate BioModels entry
+          BIOMD0000000878.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="How can I create a shield for a simulation tool to embed into my website?"
       >
-        <p>We recommend using Shields.io to embed hyperlinked sheilds for runBioSimulators or individual simulation tools:</p>
+        <p>
+          We recommend using Shields.io to embed hyperlinked sheilds for
+          runBioSimulators or individual simulation tools:
+        </p>
         <ul class="vertically-spaced shields">
           <li>
             <b>Any simulation tool:</b>
-            <br>Use <code>https://img.shields.io/badge/Simulate-runBioSimulations-green</code> to generate the badge below.
-            <br/><a [routerLink]="['/run']"><img src="https://img.shields.io/badge/Simulate-runBioSimulations-green" /></a>
+            <br />Use
+            <code
+              >https://img.shields.io/badge/Simulate-runBioSimulations-green</code
+            >
+            to generate the badge below. <br /><a [routerLink]="['/run']"
+              ><img
+                src="https://img.shields.io/badge/Simulate-runBioSimulations-green"
+            /></a>
           </li>
           <li>
             <b>Specific simulation tool:</b>
-            <br/>Use the pattern <code>https://img.shields.io/badge/Simulate-{{ '{' }} simulator-name {{ '}' }}:{{ '{' }} simulator-version {{ '}' }}-green</code> to generate badges such as the badge below for tellurium 2.2.0.
-            <br/><a [routerLink]="['/run']" [queryParams]="{simulator: 'tellurium', simulatorVersion: '2.2.0'}"><img src="https://img.shields.io/badge/Simulate-tellurium:2.2.0-green" /></a>
+            <br />Use the pattern
+            <code
+              >https://img.shields.io/badge/Simulate-{{ '{' }} simulator-name
+              {{ '}' }}:{{ '{' }} simulator-version {{ '}' }}-green</code
+            >
+            to generate badges such as the badge below for tellurium 2.2.0.
+            <br /><a
+              [routerLink]="['/run']"
+              [queryParams]="{
+                simulator: 'tellurium',
+                simulatorVersion: '2.2.0'
+              }"
+              ><img
+                src="https://img.shields.io/badge/Simulate-tellurium:2.2.0-green"
+            /></a>
           </li>
         </ul>
       </biosimulations-q-a>
