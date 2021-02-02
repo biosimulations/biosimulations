@@ -112,7 +112,8 @@ if __name__ == '__main__':
               'to execute simulations (`dev`, `org`). Default: `dev`.'))
     parser.add_argument(
         '--biosimulators-test-suite-branch', type=str, default='deploy',
-        help='Branch of the BioSimulators test suite from which the example COMBINE/OMEX archives should be obtained.')
+        help=('Branch of the BioSimulators test suite from which the example COMBINE/OMEX archives should be obtained. '
+              'Default: `deploy`.'))
     args = parser.parse_args()
 
     main(runbiosimulations_api=args.runbiosimulations_api,
