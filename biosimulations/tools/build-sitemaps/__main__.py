@@ -262,7 +262,7 @@ if __name__ == '__main__':
     * Single argument with a comma-separated list of ids of apps: build sitemaps for the specified apps
     """
     parser = argparse.ArgumentParser(
-        description='Build sitemaps or one or more apps')
+        description='Build sitemaps for one or more apps')
     parser.add_argument('apps', type=str, nargs='*',
                         help='App id (e.g., simulators)')
     parser.add_argument('-v', '--verbose', action='store_true',
