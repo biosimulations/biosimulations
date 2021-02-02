@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import argparse
+import enum
 import json
 import os
 import requests
@@ -7,90 +9,48 @@ import shutil
 import subprocess
 import tempfile
 
-GET_SIMULATORS_ENDPOINT = 'https://api.biosimulators.org/simulators/latest'
 
-EXAMPLE_COMBINE_ARCHIVES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples/'
+GET_SIMULATORS_ENDPOINT = 'https://api.biosimulators.{}/simulators/latest'
 
-EXAMPLE_SIMULATIONS = [
-    {
-        "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, tellurium)",
-        "simulator": "tellurium",
-        "filename": 'sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex',
-    },
-    {
-        "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, VCell)",
-        "simulator": "vcell",
-        "filename": 'sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex',
-    },
-    {
-        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, COPASI)",
-        "simulator": "copasi",
-        "filename": 'sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex',
-    },
-    {
-        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, COPASI)",
-        "simulator": "gillespy2",
-        "filename": 'sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex',
-    },
-    {
-        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, tellurium)",
-        "simulator": "tellurium",
-        "filename": 'sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex',
-    },
-    {
-        "name": "Parmar 2017: iron distribution (CVODE, tellurium)",
-        "simulator": "tellurium",
-        "filename": 'sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex',
-    },
-    {
-        "name": "Parmar 2017: iron distribution (CVODE, VCell)",
-        "simulator": "vcell",
-        "filename": 'sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex',
-    },
-    {
-        "name": "Szymanska 2009: HSP synthesis (CVODES, AMICI)",
-        "simulator": "amici",
-        "filename": 'sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex',
-    },
-    {
-        "name": "Tomida 2003: NFAT translocation (LSODA/LSODAR, COPASI)",
-        "simulator": "copasi",
-        "filename": 'sbml-core/Tomida-EMBO-J-2003-NFAT-translocation.omex',
-    },
-    {
-        "name": "Varusai 2018: mTOR signaling (LSODA/LSODAR, COPASI)",
-        "simulator": "copasi",
-        "filename": 'sbml-core/Varusai-Sci-Rep-2018-mTOR-signaling-LSODA-LSODAR-SBML.omex',
-    },
-    {
-        "name": "Vilar 2002: circadian clock (multiple, VCell)",
-        "simulator": "vcell",
-        "filename": 'sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex',
-    },
-]
+EXAMPLE_COMBINE_ARCHIVES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/raw/{}/examples/'
 
-SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://run.api.biosimulations.dev/run'
-VIEW_SIMULATION_RUN_URL = 'https://run.biosimulations.dev/simulations'
+EXAMPLE_SIMULATIONS_FILENAME = __file__ + '.json'
+
+SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://run.api.biosimulations.{}/run'
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  '..', 'apps', 'dispatch', 'src', 'app', 'components',
                                                  'simulations', 'browse', 'example-simulations.json')
 
 
-def main():
+def main(runbiosimulations_api='dev', biosimulators_api='dev', biosimulators_test_suite_branch='deploy'):
+    """ Submit example simulations from the BioSimulators test suite to the runBioSimulations API and
+    record their runs to ``example-simulations.json`` within the browse simulations module of the 
+    dispatch app so that users can load runs of these simulations as examples.
+
+    Args:
+        runbiosimulations_api (:obj:`str`): which deployment of the runBioSimulations API to use (``dev`` or ``org``)
+        biosimulators_api (:obj:`str`): which deployment of the BioSimulators API to use (``dev`` or ``org``)
+        biosimulators_test_suite_branch (:obj:`str`): branch of the BioSimulators test suite to use (e.g., ``deploy`` or ``dev``).
+    """
+
     # get latest version of each simulator
-    response = requests.get(GET_SIMULATORS_ENDPOINT)
+    response = requests.get(GET_SIMULATORS_ENDPOINT.format(biosimulators_api))
     response.raise_for_status()
     simulator_latest_versions = {
         simulator['id']: simulator['version'] for simulator in response.json()}
 
+    # read simulations
+    with open(EXAMPLE_SIMULATIONS_FILENAME, 'r') as file:
+        simulations = json.load(file)
+
     # execution simulations
     temp_dir = tempfile.mkdtemp()
     simulation_runs = []
-    for simulation in EXAMPLE_SIMULATIONS:
+    for simulation in simulations:
         name = simulation['name']
         simulator = simulation['simulator']
         simulator_version = simulator_latest_versions[simulator]
-        url = EXAMPLE_COMBINE_ARCHIVES_BASE_URL + simulation['filename']
+        url = EXAMPLE_COMBINE_ARCHIVES_BASE_URL.format(biosimulators_test_suite_branch) + simulation['filename']
 
         # get COMBINE archive
         response = requests.get(url)
@@ -104,7 +64,7 @@ def main():
 
         # submit simulation
         process = subprocess.run(['curl',
-                                  '-X', 'POST', SUBMIT_SIMULATION_RUN_ENDPOINT,
+                                  '-X', 'POST', SUBMIT_SIMULATION_RUN_ENDPOINT.format(runbiosimulations_api),
                                   '-H', "accept: application/json",
                                   '-H',  "Content-Type: multipart/form-data",
                                   '-F', "simulationRun=" + json.dumps({
@@ -117,7 +77,7 @@ def main():
                                   '-F', "file=@{}".format(archive_filename)
                                   ], capture_output=True)
         simulation_run = json.loads(process.stdout.decode())
-        print(VIEW_SIMULATION_RUN_URL+"/"+simulation_run['id'])
+
         # log run
         simulation_runs.append({
             "id": simulation_run['id'],
@@ -141,4 +101,20 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(
+        description='Submit the example simulations to the runBioSimulations API and save their runs to the dispatch app.')
+    parser.add_argument(
+        '--runbiosimulations-api', type=str, default='dev',
+        help='runBioSimulations API which simulations should be submitted to (`dev`, `org`). Default: `dev`.')
+    parser.add_argument(
+        '--biosimulators-api', type=str, default='dev',
+        help=('BioSimulators API which should be used to select the version of each simulation tool used '
+              'to execute simulations (`dev`, `org`). Default: `dev`.'))
+    parser.add_argument(
+        '--biosimulators-test-suite-branch', type=str, default='deploy',
+        help='Branch of the BioSimulators test suite from which the example COMBINE/OMEX archives should be obtained.')
+    args = parser.parse_args()
+
+    main(runbiosimulations_api=args.runbiosimulations_api,
+         biosimulators_api=args.biosimulators_api,
+         biosimulators_test_suite_branch=args.biosimulators_test_suite_branch)

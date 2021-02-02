@@ -1,0 +1,56 @@
+[{
+        "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, tellurium)",
+        "simulator": "tellurium",
+        "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
+    },
+    {
+        "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, VCell)",
+        "simulator": "vcell",
+        "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
+    },
+    {
+        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, COPASI)",
+        "simulator": "copasi",
+        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex"
+    },
+    {
+        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, COPASI)",
+        "simulator": "gillespy2",
+        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex"
+    },
+    {
+        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, tellurium)",
+        "simulator": "tellurium",
+        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex"
+    },
+    {
+        "name": "Parmar 2017: iron distribution (CVODE, tellurium)",
+        "simulator": "tellurium",
+        "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
+    },
+    {
+        "name": "Parmar 2017: iron distribution (CVODE, VCell)",
+        "simulator": "vcell",
+        "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
+    },
+    {
+        "name": "Szymanska 2009: HSP synthesis (CVODES, AMICI)",
+        "simulator": "amici",
+        "filename": "sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex"
+    },
+    {
+        "name": "Tomida 2003: NFAT translocation (LSODA/LSODAR, COPASI)",
+        "simulator": "copasi",
+        "filename": "sbml-core/Tomida-EMBO-J-2003-NFAT-translocation.omex"
+    },
+    {
+        "name": "Varusai 2018: mTOR signaling (LSODA/LSODAR, COPASI)",
+        "simulator": "copasi",
+        "filename": "sbml-core/Varusai-Sci-Rep-2018-mTOR-signaling-LSODA-LSODAR-SBML.omex"
+    },
+    {
+        "name": "Vilar 2002: circadian clock (multiple, VCell)",
+        "simulator": "vcell",
+        "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
+    }
+]
