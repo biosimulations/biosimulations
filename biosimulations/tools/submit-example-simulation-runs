@@ -19,7 +19,7 @@ EXAMPLE_SIMULATIONS_FILENAME = __file__ + '.json'
 SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://run.api.biosimulations.{}/run'
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  '..', 'apps', 'dispatch', 'src', 'app', 'components',
-                                                 'simulations', 'browse', 'example-simulations.json')
+                                                 'simulations', 'browse', 'example-simulations.{}.json')
 
 
 def main(runbiosimulations_api='dev', biosimulators_api='dev', biosimulators_test_suite_branch='deploy'):
@@ -94,7 +94,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='dev', biosimulators_tes
             "email": None,
         })
 
-    with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME, 'w') as file:
+    with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(runbiosimulations_api), 'w') as file:
         json.dump(simulation_runs, file, indent=2)
 
     shutil.rmtree(temp_dir)
