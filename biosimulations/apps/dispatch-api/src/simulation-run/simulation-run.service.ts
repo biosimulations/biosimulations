@@ -243,7 +243,7 @@ export class SimulationRunService {
       model.status = status;
       model.refreshCount = model.refreshCount + 1;
       this.logger.log(
-        `Set ${model.status} status to ${model.status} on update ${model.refreshCount} `,
+        `Set ${model.id} status to ${model.status} on update ${model.refreshCount} `,
       );
       if (
         status == SimulationRunStatus.SUCCEEDED ||
@@ -265,9 +265,10 @@ export class SimulationRunService {
     }
     return model;
   }
+
   private updateModelPublic(
     model: SimulationRunModel,
-    isPublic: boolean | undefined,
+    isPublic: boolean | undefined | null,
   ): SimulationRunModel {
     if (isPublic != undefined && isPublic != null) {
       model.public = isPublic;
@@ -275,6 +276,7 @@ export class SimulationRunService {
     }
     return model;
   }
+
   private async getModel(id: string): Promise<SimulationRunModel | null> {
     return this.simulationRunModel.findById(id).catch((_) => null);
   }
