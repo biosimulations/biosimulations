@@ -35,6 +35,13 @@ const toApi = <T extends SimulationRunModelType>(
 
 @Injectable()
 export class SimulationRunService {
+  createRunWithURL(body: {
+    simulationRun: string;
+  }): SimulationRunModelReturnType {
+    throw new NotImplementedException(
+      'Providing a URL for the combine archive is coming soon!',
+    );
+  }
   private logger = new Logger(SimulationRunService.name);
 
   public constructor(
@@ -166,7 +173,7 @@ export class SimulationRunService {
    * @param run A POJO with the fields of the Simulation Run
    * @param file The file object returned by the Mutter library containing the OMEX file
    */
-  public async createRun(
+  public async createRunWithFile(
     run: SimulationRun,
     file: any,
   ): Promise<SimulationRunModelReturnType> {

@@ -28,7 +28,6 @@ import {
   Res,
   UploadedFile,
   UseInterceptors,
-  Headers,
   NotImplementedException,
   UnsupportedMediaTypeException,
 } from '@nestjs/common';
@@ -83,7 +82,7 @@ export class SimulationRunController {
   @ApiOkResponse({ description: 'OK', type: [SimulationRun] })
   @permissions('read:SimulationRuns')
   @Get()
-  async getRuns(): Promise<SimulationRun[]> {
+  public async getRuns(): Promise<SimulationRun[]> {
     const res = await this.service.getAll();
     return res.map(this.makeSimulationRun);
   }
@@ -94,7 +93,7 @@ export class SimulationRunController {
       'Upload an OMEX (Combine) archive along with a description of the simulator run.\
        The simulation will be excecuted and the status of the Simulation run object will be updated. \
       \nThe simulation can be uploaded as a combine archive by using the multipart/form-data accept header.\
-      Alternatively, use the application/json accept header to provide a url to an external combine archive instead',
+      Alternatively, use the application/json accept header to provide a url to an external combine archive',
     requestBody: {
       content: {
         'multipart/form-data': {
@@ -134,35 +133,26 @@ export class SimulationRunController {
   // Set a file size limit close to 16mb which is the mongodb limit
   @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 16000000 } }))
   @Post()
-  async createRun(
+  public async createRun(
     @Body() body: { simulationRun: string },
     @UploadedFile() file: any,
-    @Headers('Content-Type') contentType: string,
+    @Req() req: Request,
   ): Promise<SimulationRun> {
-    let urlMethod = false;
-    if (!contentType.startsWith('multipart/form-data')) {
-      if (contentType.startsWith('application/json')) {
-        urlMethod = true;
-        throw new NotImplementedException(
-          'Providing a URL for the combine archive is coming soon!',
-        );
-      }
+    const contentType = req.header('Content-Type');
+    let run: SimulationRunModelReturnType;
+    if (!contentType) {
+      // Todo maybe handle this to assume app/json and check for url
+      throw new UnsupportedMediaTypeException(' Must specifiy a media type');
+    } else if (contentType?.startsWith('multipart/form-data')) {
+      run = await this.createRunWithFile(body, file);
+    } else if (contentType?.startsWith('application/json')) {
+      run = this.service.createRunWithURL(body);
+    } else {
       throw new UnsupportedMediaTypeException(
         ' Can only accept application/json or multipart/form-data content',
       );
     }
-    // Since this is a multipart, the form field for "simulationRun" contains the SimulationRun object encoding as a string
-    try {
-      JSON.parse(body.simulationRun);
-    } catch (e) {
-      throw new BadRequestException(
-        'The provided input was not valid: ' + e.message,
-      );
-    }
-    const parsedRun = JSON.parse(body.simulationRun) as SimulationRun;
-
-    const run = await this.service.createRun(parsedRun, file);
-    const response: SimulationRun = this.makeSimulationRun(run);
+    const response = this.makeSimulationRun(run);
 
     const message: DispatchCreatedPayload = {
       _message: DispatchMessage.created,
@@ -183,6 +173,22 @@ export class SimulationRunController {
     return response;
   }
 
+  private async createRunWithFile(
+    body: { simulationRun: string },
+    file: any,
+  ): Promise<SimulationRunModelReturnType> {
+    let parsedRun: SimulationRun;
+    try {
+      parsedRun = JSON.parse(body.simulationRun) as SimulationRun;
+    } catch (e) {
+      throw new BadRequestException(
+        'The provided input was not valid: ' + e.message,
+      );
+    }
+
+    const run = this.service.createRunWithFile(parsedRun, file);
+    return run;
+  }
   // Move this to a util library
   private sendMessage(message: DispatchCreatedPayload) {
     return this.messageClient.send(DispatchMessage.created, message).pipe(
