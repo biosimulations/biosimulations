@@ -10,7 +10,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/config/README.md
-├─ @nestjs/core@7.6.5
+├─ @nestjs/core@7.6.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -441,7 +441,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Max Ogden
 │  ├─ email: max@maxogden.com
 │  └─ licenseFile: concat-stream/LICENSE
-├─ consola@2.15.0
+├─ consola@2.15.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nuxt/consola
 │  └─ licenseFile: consola/README.md
@@ -1920,6 +1920,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/Microsoft/tslib
 │  ├─ publisher: Microsoft Corp.
 │  └─ licenseFile: tslib/LICENSE.txt
+├─ tslib@2.1.0
+│  ├─ licenses: 0BSD
+│  ├─ repository: https://github.com/Microsoft/tslib
+│  ├─ publisher: Microsoft Corp.
+│  └─ licenseFile: @nestjs/core/node_modules/tslib/LICENSE.txt
 ├─ tweetnacl@0.14.5
 │  ├─ licenses: Unlicense
 │  ├─ repository: https://github.com/dchest/tweetnacl-js
