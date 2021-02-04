@@ -45,5 +45,6 @@ module.exports = {
     '<rootDir>/libs/auth/client',
     '<rootDir>/libs/account/management',
     '<rootDir>/libs/shared/pwa',
+    '<rootDir>/libs/shared/storage',
   ],
 };

@@ -89,7 +89,8 @@
       "@biosimulations/account/management": [
         "libs/account/management/src/index.ts"
       ],
-      "@biosimulations/shared/pwa": ["libs/shared/pwa/src/index.ts"]
+      "@biosimulations/shared/pwa": ["libs/shared/pwa/src/index.ts"],
+      "@biosimulations/shared/storage": ["libs/shared/storage/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
