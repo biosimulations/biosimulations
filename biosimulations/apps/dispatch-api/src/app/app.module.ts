@@ -14,7 +14,7 @@ import {
 } from '@biosimulations/auth/nest';
 import { ImagesModule } from '../images/images.module';
 import { LogsModule } from '../logs/logs.module';
-
+import { SharedStorageModule } from '@biosimulations/shared/storage';
 @Module({
   imports: [
     BiosimulationsConfigModule,
@@ -36,6 +36,7 @@ import { LogsModule } from '../logs/logs.module';
     SharedExceptionsFiltersModule,
     AuthTestModule,
     SharedNatsClientModule,
+    SharedStorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -2,26 +2,28 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectS3, S3 } from 'nestjs-s3';
 import * as AWS from 'aws-sdk';
+import { Credentials } from 'aws-sdk';
 @Injectable()
 export class SharedStorageService {
   private BUCKET: string;
   public constructor(
     @InjectS3() private readonly s3: S3,
-    configService: ConfigService,
+    private configService: ConfigService,
   ) {
     this.BUCKET = configService.get('storage.bucket') || 'biosimdev';
-    this.s3.config;
   }
 
   public async getBuckets(): Promise<AWS.S3.ListBucketsOutput> {
-    const res = await this.s3.listBuckets().promise();
-    const data = res.$response.data;
-    if (!data || res.$response.error) {
-      throw new Error(
-        JSON.stringify(res.$response?.error) ?? ' Error Fetching Data',
-      );
+    return await this.loadObject('Bertozzi2020.omex');
+  }
+  public async loadObject(id) {
+    const res = await this.s3
+      .getObject({ Bucket: this.BUCKET, Key: id })
+      .promise();
+    if (res.$response.error) {
+      console.log(res.$response.error.message);
     } else {
-      return data;
+      return res.$response.data;
     }
   }
 }
