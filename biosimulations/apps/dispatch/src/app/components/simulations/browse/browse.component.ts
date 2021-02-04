@@ -12,7 +12,9 @@ import {
 } from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/shared/services';
 import { Observable } from 'rxjs';
-import exampleSimulationsJson from './example-simulations.json';
+import { environment } from '@biosimulations/shared/environments';
+import exampleSimulationsDevJson from './example-simulations.dev.json';
+import exampleSimulationsOrgJson from './example-simulations.org.json';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -172,7 +174,7 @@ export class BrowseComponent implements OnInit {
       heading: 'Viz',
       key: 'status',
       getter: (simulation: Simulation): boolean => {
-        return (SimulationStatusService.isSimulationStatusSucceeded(simulation.status) 
+        return (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
             && simulation.resultsSize !== undefined
             && simulation.resultsSize > 0);
       },
@@ -423,6 +425,11 @@ export class BrowseComponent implements OnInit {
   }
 
   loadExampleSimulations(): void {
+    const exampleSimulationsJson =
+      environment.env == 'prod'
+        ? exampleSimulationsOrgJson
+        : exampleSimulationsDevJson;
+
     this.simulationService.storeExistingExternalSimulations(
       (exampleSimulationsJson as unknown) as Simulation[],
     );

@@ -19,18 +19,19 @@ EXAMPLE_SIMULATIONS_FILENAME = __file__ + '.json'
 SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://run.api.biosimulations.{}/run'
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  '..', 'apps', 'dispatch', 'src', 'app', 'components',
-                                                 'simulations', 'browse', 'example-simulations.json')
+                                                 'simulations', 'browse', 'example-simulations.{}.json')
 
 
-def main(runbiosimulations_api='dev', biosimulators_api='dev', biosimulators_test_suite_branch='deploy'):
+def main(runbiosimulations_api='dev', biosimulators_api='dev', biosimulators_test_suite_branch='deploy', simulation_names=None):
     """ Submit example simulations from the BioSimulators test suite to the runBioSimulations API and
-    record their runs to ``example-simulations.json`` within the browse simulations module of the 
+    record their runs to ``example-simulations.json`` within the browse simulations module of the
     dispatch app so that users can load runs of these simulations as examples.
 
     Args:
         runbiosimulations_api (:obj:`str`): which deployment of the runBioSimulations API to use (``dev`` or ``org``)
         biosimulators_api (:obj:`str`): which deployment of the BioSimulators API to use (``dev`` or ``org``)
         biosimulators_test_suite_branch (:obj:`str`): branch of the BioSimulators test suite to use (e.g., ``deploy`` or ``dev``).
+        simulation_names (:obj:`list` of :obj:`str`): filenames of example simulations to execute. Default: execute all examples.
     """
 
     # get latest version of each simulator
@@ -42,6 +43,15 @@ def main(runbiosimulations_api='dev', biosimulators_api='dev', biosimulators_tes
     # read simulations
     with open(EXAMPLE_SIMULATIONS_FILENAME, 'r') as file:
         simulations = json.load(file)
+
+    # filter to selected simulations
+    if simulation_names:
+        simulations = list(filter(lambda simulation: simulation['name'] in simulation_names, simulations))
+
+        missing_simulation_names = set(simulation_names).difference(set(simulation['name'] for simulation in simulations))
+        if missing_simulation_names:
+            raise ValueError('No example simulations have the following names:\n  - {}'.format(
+                '\n  - '.join(sorted(missing_simulation_names))))
 
     # execution simulations
     temp_dir = tempfile.mkdtemp()
@@ -94,7 +104,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='dev', biosimulators_tes
             "email": None,
         })
 
-    with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME, 'w') as file:
+    with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(runbiosimulations_api), 'w') as file:
         json.dump(simulation_runs, file, indent=2)
 
     shutil.rmtree(temp_dir)
@@ -112,9 +122,16 @@ if __name__ == '__main__':
               'to execute simulations (`dev`, `org`). Default: `dev`.'))
     parser.add_argument(
         '--biosimulators-test-suite-branch', type=str, default='deploy',
-        help='Branch of the BioSimulators test suite from which the example COMBINE/OMEX archives should be obtained.')
+        help=('Branch of the BioSimulators test suite from which the example COMBINE/OMEX archives should be obtained. '
+              'Default: `deploy`.'))
+    parser.add_argument(
+        '--simulation', type=str, nargs='*',
+        help='Names of the example simulations to execute. Default: execute all simulations.',
+        default=None, dest='simulation_names',
+    )
     args = parser.parse_args()
 
     main(runbiosimulations_api=args.runbiosimulations_api,
          biosimulators_api=args.biosimulators_api,
-         biosimulators_test_suite_branch=args.biosimulators_test_suite_branch)
+         biosimulators_test_suite_branch=args.biosimulators_test_suite_branch,
+         simulation_names=args.simulation_names)
