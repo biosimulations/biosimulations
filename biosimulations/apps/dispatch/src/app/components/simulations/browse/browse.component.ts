@@ -425,9 +425,10 @@ export class BrowseComponent implements OnInit {
   }
 
   loadExampleSimulations(): void {
-    const exampleSimulationsJson = environment.production
-      ? exampleSimulationsOrgJson
-      : exampleSimulationsDevJson;
+    const exampleSimulationsJson =
+      environment.env == 'prod'
+        ? exampleSimulationsOrgJson
+        : exampleSimulationsDevJson;
 
     this.simulationService.storeExistingExternalSimulations(
       (exampleSimulationsJson as unknown) as Simulation[],
