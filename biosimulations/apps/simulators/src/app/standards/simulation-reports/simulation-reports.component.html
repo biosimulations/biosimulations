@@ -87,27 +87,25 @@
           </p>
 
           <ul class="vertically-spaced">
-            <li>
-              <b>Steady-state simulations:</b> Tables should contain a single
-              column of the predicted steady-state of each data set.
+            <li><b><code>sedml:task</code></b>:
+              <ul>
+                <li>
+                  <b>Steady-state simulations:</b> Each data set should be a scalar.
+                </li>
+                <li>
+                  <b>One step simulations:</b> Each data set should be a tuple of the start and end points of the data set.
+                </li>
+                <li>
+                  <b>Time course simulations:</b> Each data set should be a vector with length equal to the number of
+                  steps of the time course + 1.
+                </li>
+                <li>
+                  <b>Simulations of spatial models:</b> Each data set should be a matrix whose dimensions represent space and time.
+                </li>
+              </ul>
             </li>
             <li>
-              <b>One step simulations:</b> Tables should contain two columns of
-              the predicted start and end points of each data set.
-            </li>
-            <li>
-              <b>Time course simulations:</b> Tables should contain number of
-              points + 1 columns for each time point of the predicted time
-              course.
-            </li>
-            <li>
-              <b>Simulations of non-spatial models:</b> Tables should not
-              contain additional dimensions.
-            </li>
-            <li>
-              <b>Simulations of spatial models:</b> Tables should contain
-              additional dimensions which represents the spatial axes of
-              simulations.
+              <b><code>sedml:repeatedTask</code></b>: The first dimension of each data set should represent the iterations of the tasks that produced its values. The second dimension of each data set should represent the individual sub-tasks of the task. If repeated tasks are nested within repeated tasks, the next dimensions should alternate between representing the iterations and sub-tasks of the nested repeated tasks. The final dimensions of each data set should be encoded as above for <code>sedml:task</code>. For example, non-spatial time course simulations should have a single additional dimension of length equal to the number of steps of the time course + 1.
             </li>
           </ul>
 
