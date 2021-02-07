@@ -868,6 +868,25 @@
   },
   {
     "type": "programming",
+    "color": "#c80fa0",
+    "extensions": [
+      ".bpl"
+    ],
+    "interpreters": [
+      "boogie"
+    ],
+    "tmScope": "source.boogie",
+    "aceMode": "text",
+    "languageId": 955017407,
+    "name": "Boogie",
+    "aliases": [
+      "boogie"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "programming",
     "color": "#2F2530",
     "extensions": [
       ".b",
@@ -950,6 +969,8 @@
     "color": "#178600",
     "aliases": [
       "csharp",
+      "cake",
+      "cakescript",
       "c#"
     ],
     "extensions": [
@@ -4158,6 +4179,7 @@
       ".tern-config",
       ".tern-project",
       ".watchmanconfig",
+      "Pipfile.lock",
       "composer.lock",
       "mcmod.info"
     ],
@@ -6553,6 +6575,7 @@
   },
   {
     "type": "prose",
+    "color": "#77aa99",
     "wrap": true,
     "extensions": [
       ".org"
@@ -9264,6 +9287,7 @@
     "filenames": [
       "Cargo.lock",
       "Gopkg.lock",
+      "Pipfile",
       "poetry.lock"
     ],
     "tmScope": "source.toml",
