@@ -7,10 +7,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Types } from 'mongoose';
-import * as EmailValidator from 'email-validator';
 import { SimulationFile } from './file.model';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { omitPrivate } from '@biosimulations/datamodel/common';
+import { isEmail, isUrl } from '@biosimulations/datamodel-database';
 
 @Schema({ collection: 'Simulation Runs', id: false })
 export class SimulationRunModel extends Document {
@@ -19,6 +19,14 @@ export class SimulationRunModel extends Document {
 
   @Prop({ type: Types.ObjectId, ref: SimulationFile.name })
   file!: SimulationFile;
+
+  @Prop({
+    type: String,
+    required: false,
+    validate: [isUrl],
+  })
+  fileUrl?: string;
+
   @Prop({ type: String, required: true })
   name!: string;
 
@@ -26,22 +34,13 @@ export class SimulationRunModel extends Document {
     type: String,
     required: false,
     default: null,
-    validate: [
-      {
-        validator: (value: any): boolean => {
-          return value == null || EmailValidator.validate(value);
-        },
-        message: (props: any): string => `${props.value} is not a valid email`,
-      },
-    ],
+    validate: [isEmail],
   })
   email!: string | null;
 
   @Prop({
     type: String,
-    enum: Object.keys(SimulationRunStatus).map(
-      (key) => SimulationRunStatus[key as SimulationRunStatus],
-    ),
+    enum: Object.keys(SimulationRunStatus).map((key) => SimulationRunStatus[key as SimulationRunStatus]),
 
     default: SimulationRunStatus.CREATED,
   })
@@ -51,7 +50,7 @@ export class SimulationRunModel extends Document {
   runtime!: number;
 
   @Prop()
-  projectSize!: number;
+  projectSize?: number;
 
   @Prop()
   resultsSize!: number;
@@ -94,13 +93,8 @@ export type SimulationRunModelType = Pick<
   | '_id'
 >;
 export type TestType = Exclude<SimulationRunModel, Document>;
-export type SimulationRunModelReturnType = Omit<
-  SimulationRunModelType,
-  '__v' | '_id' | 'file'
-> & { _id: never; __v: never };
-export const SimulationRunModelSchema = SchemaFactory.createForClass(
-  SimulationRunModel,
-);
+export type SimulationRunModelReturnType = Omit<SimulationRunModelType, '__v' | '_id' | 'file'> & { _id: never; __v: never };
+export const SimulationRunModelSchema = SchemaFactory.createForClass(SimulationRunModel);
 SimulationRunModelSchema.set('timestamps', {
   createdAt: 'submitted',
   updatedAt: 'updated',

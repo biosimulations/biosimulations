@@ -1,1 +1,1 @@
-export * from './lib/datamodel-database.module';
+export * from './lib/validators';

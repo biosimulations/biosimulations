@@ -1,14 +1,11 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 /**
  * @file Contains the controller for CRUD operations on simulation runs
  * @author Bilal Shaikh
  * @copyright Biosimulations Team 2020
  * @license MIT
  */
-import {
-  createdResponse,
-  DispatchCreatedPayload,
-  DispatchMessage,
-} from '@biosimulations/messages/messages';
+import { createdResponse, DispatchCreatedPayload, DispatchMessage } from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
 import { ClientProxy } from '@nestjs/microservices';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
@@ -28,8 +25,6 @@ import {
   Res,
   UploadedFile,
   UseInterceptors,
-  Headers,
-  NotImplementedException,
   UnsupportedMediaTypeException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -60,6 +55,8 @@ import { AuthToken } from '@biosimulations/auth/common';
 import { timeout, catchError, retry } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
+type multipartSimulationRunBody = { simulationRun: string };
+
 @ApiTags('Simulation Runs')
 @Controller('run')
 @ApiExtraModels(UploadSimulationRun, UploadSimulationRunUrl, SimulationUpload)
@@ -68,22 +65,25 @@ export class SimulationRunController {
   private RETRY_COUNT = 2;
   private logger: Logger;
 
-  public constructor(
-    private service: SimulationRunService,
-    @Inject('NATS_CLIENT') private messageClient: ClientProxy,
-  ) {
+  public constructor(private service: SimulationRunService, @Inject('NATS_CLIENT') private messageClient: ClientProxy) {
     this.logger = new Logger(SimulationRunController.name);
+  }
+
+  private isFileUploadBody(body: multipartSimulationRunBody | UploadSimulationRunUrl): body is multipartSimulationRunBody {
+    return (<multipartSimulationRunBody>body).simulationRun != undefined;
+  }
+  private isUrlBody(body: multipartSimulationRunBody | UploadSimulationRunUrl): body is UploadSimulationRunUrl {
+    return (<UploadSimulationRunUrl>body).url != undefined;
   }
 
   @ApiOperation({
     summary: 'Get all the Simulation Runs',
-    description:
-      'Returns an array of all the Simulation Run objects in the database',
+    description: 'Returns an array of all the Simulation Run objects in the database',
   })
   @ApiOkResponse({ description: 'OK', type: [SimulationRun] })
   @permissions('read:SimulationRuns')
   @Get()
-  async getRuns(): Promise<SimulationRun[]> {
+  public async getRuns(): Promise<SimulationRun[]> {
     const res = await this.service.getAll();
     return res.map(this.makeSimulationRun);
   }
@@ -94,7 +94,7 @@ export class SimulationRunController {
       'Upload an OMEX (Combine) archive along with a description of the simulator run.\
        The simulation will be excecuted and the status of the Simulation run object will be updated. \
       \nThe simulation can be uploaded as a combine archive by using the multipart/form-data accept header.\
-      Alternatively, use the application/json accept header to provide a url to an external combine archive instead',
+      Alternatively, use the application/json accept header to provide a url to an external combine archive',
     requestBody: {
       content: {
         'multipart/form-data': {
@@ -127,47 +127,35 @@ export class SimulationRunController {
   })
   @ApiUnsupportedMediaTypeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The mediatype is unsupported. Mediatype must be application/json or multipart/form-data',
+    description: 'The mediatype is unsupported. Mediatype must be application/json or multipart/form-data',
   })
 
   // Set a file size limit close to 16mb which is the mongodb limit
   @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 16000000 } }))
   @Post()
-  async createRun(
-    @Body() body: { simulationRun: string },
+  public async createRun(
+    @Body() body: multipartSimulationRunBody | UploadSimulationRunUrl,
     @UploadedFile() file: any,
-    @Headers('Content-Type') contentType: string,
+    @Req() req: Request,
   ): Promise<SimulationRun> {
-    let urlMethod = false;
-    if (!contentType.startsWith('multipart/form-data')) {
-      if (contentType.startsWith('application/json')) {
-        urlMethod = true;
-        throw new NotImplementedException(
-          'Providing a URL for the combine archive is coming soon!',
-        );
-      }
-      throw new UnsupportedMediaTypeException(
-        ' Can only accept application/json or multipart/form-data content',
-      );
+    const contentType = req.header('Content-Type');
+    let run: SimulationRunModelReturnType;
+    if (!contentType) {
+      // Todo maybe handle this to assume app/json and check for url
+      throw new UnsupportedMediaTypeException(' Must specifiy a media type');
+    } else if (contentType?.startsWith('multipart/form-data')) {
+      run = await this.createRunWithFile(body, file);
+    } else if (contentType?.startsWith('application/json') && this.isUrlBody(body)) {
+      run = await this.service.createRunWithURL(body);
+    } else {
+      throw new UnsupportedMediaTypeException(' Can only accept application/json or multipart/form-data content');
     }
-    // Since this is a multipart, the form field for "simulationRun" contains the SimulationRun object encoding as a string
-    try {
-      JSON.parse(body.simulationRun);
-    } catch (e) {
-      throw new BadRequestException(
-        'The provided input was not valid: ' + e.message,
-      );
-    }
-    const parsedRun = JSON.parse(body.simulationRun) as SimulationRun;
-
-    const run = await this.service.createRun(parsedRun, file);
-    const response: SimulationRun = this.makeSimulationRun(run);
+    const response = this.makeSimulationRun(run);
 
     const message: DispatchCreatedPayload = {
       _message: DispatchMessage.created,
       id: run.id,
-      fileName: file.originalname,
+      fileName: file?.originalname || 'input.omex',
       simulator: run.simulator,
       version: run.simulatorVersion,
     };
@@ -183,6 +171,25 @@ export class SimulationRunController {
     return response;
   }
 
+  private async createRunWithFile(
+    body: multipartSimulationRunBody | UploadSimulationRunUrl,
+    file: any,
+  ): Promise<SimulationRunModelReturnType> {
+    let parsedRun: SimulationRun;
+
+    try {
+      if (this.isFileUploadBody(body)) {
+        parsedRun = JSON.parse(body.simulationRun) as SimulationRun;
+      } else {
+        throw new Error('Body is invalid');
+      }
+    } catch (e) {
+      throw new BadRequestException('The provided input was not valid: ' + e.message);
+    }
+
+    const run = this.service.createRunWithFile(parsedRun, file);
+    return run;
+  }
   // Move this to a util library
   private sendMessage(message: DispatchCreatedPayload) {
     return this.messageClient.send(DispatchMessage.created, message).pipe(
@@ -193,9 +200,7 @@ export class SimulationRunController {
       // If error, just return a response that is "not okay" to the calling method
       catchError(
         (err, caught): Observable<createdResponse> => {
-          this.logger.error(
-            ` Error submitting Simulation ${message.id}: ${err}`,
-          );
+          this.logger.error(` Error submitting Simulation ${message.id}: ${err}`);
           return of({
             okay: false,
             id: message.id,
@@ -234,10 +239,7 @@ export class SimulationRunController {
   @ApiOkResponse({ type: SimulationRun })
   @Get(':id')
   @OptionalAuth()
-  async getRun(
-    @Param('id') id: string,
-    @Req() req: Request,
-  ): Promise<SimulationRun> {
+  async getRun(@Param('id') id: string, @Req() req: Request): Promise<SimulationRun> {
     const user = req?.user as AuthToken;
     let permission = false;
     if (user) {
@@ -259,10 +261,7 @@ export class SimulationRunController {
   })
   @permissions('write:SimulationRuns')
   @Patch(':id')
-  async modfiyRun(
-    @Param('id') id: string,
-    @Body() body: UpdateSimulationRun,
-  ): Promise<SimulationRun> {
+  async modfiyRun(@Param('id') id: string, @Body() body: UpdateSimulationRun): Promise<SimulationRun> {
     this.logger.log(`Patch called for ${id} with ${JSON.stringify(body)}`);
     const run = await this.service.update(id, body);
     return this.makeSimulationRun(run);
@@ -298,13 +297,19 @@ export class SimulationRunController {
     description: 'Download the OMEX file for the Simulation Run',
   })
   @Get(':id/download')
-  async download(@Param('id') id: string, @Res() response: Response) {
+  async download(@Param('id') id: string, @Res({ passthrough: true }) response: Response) {
     const file = await this.service.download(id);
-
-    response.setHeader('Content-Type', file.mimetype);
-    const contentDisposition = `attachment; filename=${file.originalname}`;
-    response.setHeader('Content-Disposition', contentDisposition);
-
-    response.send(file.buffer);
+    if (file.mimetype) {
+      response.setHeader('Content-Type', file.mimetype);
+    }
+    if (file.originalname) {
+      const contentDisposition = `attachment; filename=${file.originalname}`;
+      response.setHeader('Content-Disposition', contentDisposition);
+    }
+    if (file.buffer) {
+      response.write(file.buffer);
+    } else {
+      response.redirect(file.url || '');
+    }
   }
 }

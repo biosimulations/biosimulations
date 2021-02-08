@@ -4,30 +4,16 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
-import {
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { SimulationFile } from './file.model';
 import { Model } from 'mongoose';
-import {
-  SimulationRunModel,
-  SimulationRunModelReturnType,
-  SimulationRunModelType,
-} from './simulation-run.model';
-import {
-  SimulationRun,
-  UpdateSimulationRun,
-} from '@biosimulations/dispatch/api-models';
+import { SimulationRunModel, SimulationRunModelReturnType, SimulationRunModelType } from './simulation-run.model';
+import { UpdateSimulationRun, UploadSimulationRun, UploadSimulationRunUrl } from '@biosimulations/dispatch/api-models';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
-const toApi = <T extends SimulationRunModelType>(
-  obj: T,
-): SimulationRunModelReturnType => {
+const toApi = <T extends SimulationRunModelType>(obj: T): SimulationRunModelReturnType => {
   delete obj.__v;
   delete obj._id;
   return (obj as unknown) as SimulationRunModelReturnType;
@@ -43,10 +29,7 @@ export class SimulationRunService {
     private simulationRunModel: Model<SimulationRunModel>,
   ) {}
 
-  public async setStatus(
-    id: string,
-    status: SimulationRunStatus,
-  ): Promise<SimulationRunModel | null> {
+  public async setStatus(id: string, status: SimulationRunStatus): Promise<SimulationRunModel | null> {
     const model = await this.getModel(id);
     return this.updateModelStatus(model, status);
   }
@@ -59,11 +42,12 @@ export class SimulationRunService {
   public async download(
     id: string,
   ): Promise<{
-    size: number;
-    buffer: Buffer;
-    originalname: string;
-    mimetype: string;
-    encoding: string;
+    size?: number;
+    buffer?: Buffer;
+    originalname?: string;
+    mimetype?: string;
+    encoding?: string;
+    url?: string;
   }> {
     // Find the simulation with the id
     const file = await this.simulationRunModel.findById(id, { file: 1 }).exec();
@@ -74,19 +58,18 @@ export class SimulationRunService {
     if (fileId) {
       // Get the file object from the db
       const SimFile = await this.fileModel
-        .findOne(
-          { _id: fileId },
-          { size: 1, mimetype: 1, buffer: 1, originalname: 1, encoding: 1 },
-        )
+        .findOne({ _id: fileId }, { size: 1, mimetype: 1, buffer: 1, originalname: 1, encoding: 1, url: 1 })
         .exec();
       if (SimFile) {
         // Return the file and metadata
+        const buffer = SimFile?.buffer?.buffer ? Buffer.from(SimFile.buffer.buffer) : undefined;
         return {
           size: SimFile.size,
           mimetype: SimFile.mimetype,
-          buffer: Buffer.from(SimFile.buffer.buffer),
+          buffer: buffer,
           encoding: SimFile.encoding,
           originalname: SimFile.originalname,
+          url: SimFile.url,
         };
       } else {
         // The simulator gave a file id, but not found
@@ -101,9 +84,7 @@ export class SimulationRunService {
   public async deleteAll(): Promise<void> {
     const res = await this.simulationRunModel.deleteMany({}).exec();
     if (!res.ok) {
-      throw new InternalServerErrorException(
-        `There was an error. Deleted ${res.deletedCount} out of ${res.n} documents`,
-      );
+      throw new InternalServerErrorException(`There was an error. Deleted ${res.deletedCount} out of ${res.n} documents`);
     }
   }
 
@@ -112,10 +93,7 @@ export class SimulationRunService {
     return res;
   }
 
-  public async update(
-    id: string,
-    run: UpdateSimulationRun,
-  ): Promise<SimulationRunModelReturnType> {
+  public async update(id: string, run: UpdateSimulationRun): Promise<SimulationRunModelReturnType> {
     const model = await this.getModel(id);
 
     if (!model) {
@@ -161,15 +139,41 @@ export class SimulationRunService {
     return res;
   }
 
+  public async createRunWithURL(body: UploadSimulationRunUrl): Promise<SimulationRunModelReturnType> {
+    const url = body.url;
+    const file = new this.fileModel({ url });
+    return this.createRun(body, file);
+  }
   /**
    *
    * @param run A POJO with the fields of the Simulation Run
    * @param file The file object returned by the Mutter library containing the OMEX file
    */
-  public async createRun(
-    run: SimulationRun,
-    file: any,
-  ): Promise<SimulationRunModelReturnType> {
+
+  private async createRun(run: UploadSimulationRun, file: SimulationFile): Promise<SimulationRunModelReturnType> {
+    const newSimulationRun = new this.simulationRunModel(run);
+    newSimulationRun.id = newSimulationRun._id;
+    newSimulationRun.file = file;
+    newSimulationRun.projectSize = file.size;
+    newSimulationRun.depopulate('file');
+
+    const modelPromise = newSimulationRun.save();
+
+    /* Determine if there is a better way to do this. Need to ensure that file is saved properly, if not delete the model entry
+    Unclear if I should use a promise.all here. Since promise is created before await, this should be efficient either way.
+    The method will probably? still return even if the new run is removed. That would need to be fixed to retun an error instead */
+
+    const modelRes = await modelPromise;
+    //Wait for this to resolve to make sure that the model is deleted if needed.
+    try {
+      await file.save();
+    } catch (error) {
+      newSimulationRun.remove();
+      throw error;
+    }
+    return toApi(modelRes);
+  }
+  public async createRunWithFile(run: UploadSimulationRun, file: any): Promise<SimulationRunModelReturnType> {
     const fileParsed = {
       originalname: file.originalname,
       encoding: file.encoding,
@@ -179,28 +183,7 @@ export class SimulationRunService {
     };
 
     const newFile = new this.fileModel(fileParsed);
-    const newSimulationRun = new this.simulationRunModel(run);
-    newSimulationRun.id = newSimulationRun._id;
-    newSimulationRun.file = newFile;
-    newSimulationRun.projectSize = newFile.size;
-    newSimulationRun.depopulate('file');
-
-    const filePromise = newFile.save();
-    const modelPromise = newSimulationRun.save();
-
-    /* Determine if there is a better way to do this. Need to ensure that file is saved properly, if not delete the model entry
-    Unclear if I should use a promise.all here. Since promise is created before await, this should be efficient either way.
-    The method will probably? still return even if the new run is removed. That would need to be fixed to retun an error instead */
-
-    filePromise.catch((_) => {
-      newSimulationRun.remove();
-      throw new InternalServerErrorException('Could not save the file');
-    });
-
-    const modelRes = await modelPromise;
-    //Wait for this to resolve to make sure that the model is deleted if needed.
-    const _ = await filePromise;
-    return toApi(modelRes);
+    return this.createRun(run, newFile);
   }
   private updateModelRunTime(model: SimulationRunModel): SimulationRunModel {
     model.runtime = Date.now() - model.submitted.getTime();
@@ -216,49 +199,30 @@ export class SimulationRunService {
 
     if (!model) {
       allowUpdate = false;
-    } else if (
-      model.status == SimulationRunStatus.SUCCEEDED ||
-      model.status == SimulationRunStatus.FAILED ||
-      !status
-    ) {
+    } else if (model.status == SimulationRunStatus.SUCCEEDED || model.status == SimulationRunStatus.FAILED || !status) {
       // succeeded and failed should not be updated
       allowUpdate = false;
     } else if (model.status == SimulationRunStatus.PROCESSING) {
       // processing should not go back to created, queued or running
-      allowUpdate = ![
-        SimulationRunStatus.CREATED,
-        SimulationRunStatus.QUEUED,
-        SimulationRunStatus.RUNNING,
-      ].includes(status);
+      allowUpdate = ![SimulationRunStatus.CREATED, SimulationRunStatus.QUEUED, SimulationRunStatus.RUNNING].includes(status);
     } else if (model.status == SimulationRunStatus.RUNNING) {
       // running should not go back to created or queued
-      allowUpdate = ![
-        SimulationRunStatus.CREATED,
-        SimulationRunStatus.QUEUED,
-      ].includes(status);
+      allowUpdate = ![SimulationRunStatus.CREATED, SimulationRunStatus.QUEUED].includes(status);
     }
 
     // Careful not to add else here
     if (model && status && allowUpdate) {
       model.status = status;
       model.refreshCount = model.refreshCount + 1;
-      this.logger.log(
-        `Set ${model.id} status to ${model.status} on update ${model.refreshCount} `,
-      );
-      if (
-        status == SimulationRunStatus.SUCCEEDED ||
-        status == SimulationRunStatus.FAILED
-      ) {
+      this.logger.log(`Set ${model.id} status to ${model.status} on update ${model.refreshCount} `);
+      if (status == SimulationRunStatus.SUCCEEDED || status == SimulationRunStatus.FAILED) {
         this.updateModelRunTime(model);
       }
     }
     return model;
   }
 
-  private updateModelResultSize(
-    model: SimulationRunModel,
-    resultsSize: number | undefined,
-  ): SimulationRunModel {
+  private updateModelResultSize(model: SimulationRunModel, resultsSize: number | undefined): SimulationRunModel {
     if (resultsSize) {
       model.resultsSize = resultsSize;
       this.logger.debug(`Set ${model.id} resultsSize to ${model.resultsSize} `);
@@ -266,10 +230,7 @@ export class SimulationRunService {
     return model;
   }
 
-  private updateModelPublic(
-    model: SimulationRunModel,
-    isPublic: boolean | undefined | null,
-  ): SimulationRunModel {
+  private updateModelPublic(model: SimulationRunModel, isPublic: boolean | undefined | null): SimulationRunModel {
     if (isPublic != undefined && isPublic != null) {
       model.public = isPublic;
       this.logger.debug(`Set ${model.id} public to ${model.public} `);
