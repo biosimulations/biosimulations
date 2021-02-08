@@ -12,16 +12,15 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SimulationFile, SimulationFileSchema } from './file.model';
 import { SimulationRunController } from './simulation-run.controller';
-import {
-  SimulationRunModel,
-  SimulationRunModelSchema,
-} from './simulation-run.model';
+import { SimulationRunModel, SimulationRunModelSchema } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
+import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions/filters';
 @Module({
   controllers: [SimulationRunController],
   imports: [
     BiosimulationsAuthModule,
+    SharedExceptionsFiltersModule,
     SharedNatsClientModule,
     MongooseModule.forFeature([
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },

@@ -1,14 +1,11 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 /**
  * @file Contains the controller for CRUD operations on simulation runs
  * @author Bilal Shaikh
  * @copyright Biosimulations Team 2020
  * @license MIT
  */
-import {
-  createdResponse,
-  DispatchCreatedPayload,
-  DispatchMessage,
-} from '@biosimulations/messages/messages';
+import { createdResponse, DispatchCreatedPayload, DispatchMessage } from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
 import { ClientProxy } from '@nestjs/microservices';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
@@ -28,7 +25,6 @@ import {
   Res,
   UploadedFile,
   UseInterceptors,
-  NotImplementedException,
   UnsupportedMediaTypeException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -59,6 +55,8 @@ import { AuthToken } from '@biosimulations/auth/common';
 import { timeout, catchError, retry } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
+type multipartSimulationRunBody = { simulationRun: string };
+
 @ApiTags('Simulation Runs')
 @Controller('run')
 @ApiExtraModels(UploadSimulationRun, UploadSimulationRunUrl, SimulationUpload)
@@ -67,17 +65,20 @@ export class SimulationRunController {
   private RETRY_COUNT = 2;
   private logger: Logger;
 
-  public constructor(
-    private service: SimulationRunService,
-    @Inject('NATS_CLIENT') private messageClient: ClientProxy,
-  ) {
+  public constructor(private service: SimulationRunService, @Inject('NATS_CLIENT') private messageClient: ClientProxy) {
     this.logger = new Logger(SimulationRunController.name);
+  }
+
+  private isFileUploadBody(body: multipartSimulationRunBody | UploadSimulationRunUrl): body is multipartSimulationRunBody {
+    return (<multipartSimulationRunBody>body).simulationRun != undefined;
+  }
+  private isUrlBody(body: multipartSimulationRunBody | UploadSimulationRunUrl): body is UploadSimulationRunUrl {
+    return (<UploadSimulationRunUrl>body).url != undefined;
   }
 
   @ApiOperation({
     summary: 'Get all the Simulation Runs',
-    description:
-      'Returns an array of all the Simulation Run objects in the database',
+    description: 'Returns an array of all the Simulation Run objects in the database',
   })
   @ApiOkResponse({ description: 'OK', type: [SimulationRun] })
   @permissions('read:SimulationRuns')
@@ -126,15 +127,14 @@ export class SimulationRunController {
   })
   @ApiUnsupportedMediaTypeResponse({
     type: ErrorResponseDocument,
-    description:
-      'The mediatype is unsupported. Mediatype must be application/json or multipart/form-data',
+    description: 'The mediatype is unsupported. Mediatype must be application/json or multipart/form-data',
   })
 
   // Set a file size limit close to 16mb which is the mongodb limit
   @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 16000000 } }))
   @Post()
   public async createRun(
-    @Body() body: { simulationRun: string },
+    @Body() body: multipartSimulationRunBody | UploadSimulationRunUrl,
     @UploadedFile() file: any,
     @Req() req: Request,
   ): Promise<SimulationRun> {
@@ -145,19 +145,17 @@ export class SimulationRunController {
       throw new UnsupportedMediaTypeException(' Must specifiy a media type');
     } else if (contentType?.startsWith('multipart/form-data')) {
       run = await this.createRunWithFile(body, file);
-    } else if (contentType?.startsWith('application/json')) {
-      run = this.service.createRunWithURL(body);
+    } else if (contentType?.startsWith('application/json') && this.isUrlBody(body)) {
+      run = await this.service.createRunWithURL(body);
     } else {
-      throw new UnsupportedMediaTypeException(
-        ' Can only accept application/json or multipart/form-data content',
-      );
+      throw new UnsupportedMediaTypeException(' Can only accept application/json or multipart/form-data content');
     }
     const response = this.makeSimulationRun(run);
 
     const message: DispatchCreatedPayload = {
       _message: DispatchMessage.created,
       id: run.id,
-      fileName: file.originalname,
+      fileName: file?.originalname || 'input.omex',
       simulator: run.simulator,
       version: run.simulatorVersion,
     };
@@ -174,16 +172,19 @@ export class SimulationRunController {
   }
 
   private async createRunWithFile(
-    body: { simulationRun: string },
+    body: multipartSimulationRunBody | UploadSimulationRunUrl,
     file: any,
   ): Promise<SimulationRunModelReturnType> {
     let parsedRun: SimulationRun;
+
     try {
-      parsedRun = JSON.parse(body.simulationRun) as SimulationRun;
+      if (this.isFileUploadBody(body)) {
+        parsedRun = JSON.parse(body.simulationRun) as SimulationRun;
+      } else {
+        throw new Error('Body is invalid');
+      }
     } catch (e) {
-      throw new BadRequestException(
-        'The provided input was not valid: ' + e.message,
-      );
+      throw new BadRequestException('The provided input was not valid: ' + e.message);
     }
 
     const run = this.service.createRunWithFile(parsedRun, file);
@@ -199,9 +200,7 @@ export class SimulationRunController {
       // If error, just return a response that is "not okay" to the calling method
       catchError(
         (err, caught): Observable<createdResponse> => {
-          this.logger.error(
-            ` Error submitting Simulation ${message.id}: ${err}`,
-          );
+          this.logger.error(` Error submitting Simulation ${message.id}: ${err}`);
           return of({
             okay: false,
             id: message.id,
@@ -240,10 +239,7 @@ export class SimulationRunController {
   @ApiOkResponse({ type: SimulationRun })
   @Get(':id')
   @OptionalAuth()
-  async getRun(
-    @Param('id') id: string,
-    @Req() req: Request,
-  ): Promise<SimulationRun> {
+  async getRun(@Param('id') id: string, @Req() req: Request): Promise<SimulationRun> {
     const user = req?.user as AuthToken;
     let permission = false;
     if (user) {
@@ -265,10 +261,7 @@ export class SimulationRunController {
   })
   @permissions('write:SimulationRuns')
   @Patch(':id')
-  async modfiyRun(
-    @Param('id') id: string,
-    @Body() body: UpdateSimulationRun,
-  ): Promise<SimulationRun> {
+  async modfiyRun(@Param('id') id: string, @Body() body: UpdateSimulationRun): Promise<SimulationRun> {
     this.logger.log(`Patch called for ${id} with ${JSON.stringify(body)}`);
     const run = await this.service.update(id, body);
     return this.makeSimulationRun(run);
@@ -304,13 +297,19 @@ export class SimulationRunController {
     description: 'Download the OMEX file for the Simulation Run',
   })
   @Get(':id/download')
-  async download(@Param('id') id: string, @Res() response: Response) {
+  async download(@Param('id') id: string, @Res({ passthrough: true }) response: Response) {
     const file = await this.service.download(id);
-
-    response.setHeader('Content-Type', file.mimetype);
-    const contentDisposition = `attachment; filename=${file.originalname}`;
-    response.setHeader('Content-Disposition', contentDisposition);
-
-    response.send(file.buffer);
+    if (file.mimetype) {
+      response.setHeader('Content-Type', file.mimetype);
+    }
+    if (file.originalname) {
+      const contentDisposition = `attachment; filename=${file.originalname}`;
+      response.setHeader('Content-Disposition', contentDisposition);
+    }
+    if (file.buffer) {
+      response.write(file.buffer);
+    } else {
+      response.redirect(file.url || '');
+    }
   }
 }

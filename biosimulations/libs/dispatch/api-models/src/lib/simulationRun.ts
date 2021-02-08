@@ -4,13 +4,7 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
-import {
-  ApiProperty,
-  ApiPropertyOptional,
-  ApiResponseProperty,
-  PartialType,
-  PickType,
-} from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional, ApiResponseProperty, PartialType, PickType } from '@nestjs/swagger';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
 export class SimulationRun {
@@ -25,14 +19,7 @@ export class SimulationRun {
   @ApiProperty({
     type: String,
     description: 'The name of a BioSimulators compliant simulator',
-    examples: [
-      'vcell',
-      'gillespy2',
-      'cobrapy',
-      'copasi',
-      'bionetgen',
-      'tellurium',
-    ],
+    examples: ['vcell', 'gillespy2', 'cobrapy', 'copasi', 'bionetgen', 'tellurium'],
     example: 'tellurium',
     externalDocs: {
       url: 'https://biosimulators.org/simulators',
@@ -101,12 +88,7 @@ export class SimulationRun {
     this.email = email || null;
   }
 }
-export class UploadSimulationRun extends PickType(SimulationRun, [
-  'name',
-  'email',
-  'simulator',
-  'simulatorVersion',
-]) {}
+export class UploadSimulationRun extends PickType(SimulationRun, ['name', 'email', 'simulator', 'simulatorVersion']) {}
 export class UploadSimulationRunUrl extends UploadSimulationRun {
   @ApiProperty({ type: String, format: 'url' })
   url!: string;

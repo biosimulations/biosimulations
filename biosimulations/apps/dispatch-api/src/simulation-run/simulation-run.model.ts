@@ -39,9 +39,7 @@ export class SimulationRunModel extends Document {
 
   @Prop({
     type: String,
-    enum: Object.keys(SimulationRunStatus).map(
-      (key) => SimulationRunStatus[key as SimulationRunStatus],
-    ),
+    enum: Object.keys(SimulationRunStatus).map((key) => SimulationRunStatus[key as SimulationRunStatus]),
 
     default: SimulationRunStatus.CREATED,
   })
@@ -51,7 +49,7 @@ export class SimulationRunModel extends Document {
   runtime!: number;
 
   @Prop()
-  projectSize!: number;
+  projectSize?: number;
 
   @Prop()
   resultsSize!: number;
@@ -94,13 +92,8 @@ export type SimulationRunModelType = Pick<
   | '_id'
 >;
 export type TestType = Exclude<SimulationRunModel, Document>;
-export type SimulationRunModelReturnType = Omit<
-  SimulationRunModelType,
-  '__v' | '_id' | 'file'
-> & { _id: never; __v: never };
-export const SimulationRunModelSchema = SchemaFactory.createForClass(
-  SimulationRunModel,
-);
+export type SimulationRunModelReturnType = Omit<SimulationRunModelType, '__v' | '_id' | 'file'> & { _id: never; __v: never };
+export const SimulationRunModelSchema = SchemaFactory.createForClass(SimulationRunModel);
 SimulationRunModelSchema.set('timestamps', {
   createdAt: 'submitted',
   updatedAt: 'updated',

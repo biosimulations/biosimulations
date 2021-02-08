@@ -7,22 +7,23 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Schema as SchemaType } from 'mongoose';
+import validator from 'validator';
 
 @Schema({ collection: 'Simulation Files' })
 export class SimulationFile extends Document {
-  @Prop({ type: String, required: true })
-  originalname!: string;
-  @Prop({ type: String, required: true })
-  encoding!: string;
-  @Prop({ type: String, required: true })
-  mimetype!: string;
-  @Prop({ type: Object, required: true })
-  buffer!: Buffer;
-  @Prop({ type: String, required: true })
-  size!: number;
+  @Prop({ type: String, required: false })
+  originalname?: string;
+  @Prop({ type: String, required: false })
+  encoding?: string;
+  @Prop({ type: String, required: false })
+  mimetype?: string;
+  @Prop({ type: Object, required: false })
+  buffer?: Buffer;
+  @Prop({ type: String, required: false })
+  size?: number;
+  @Prop({ type: String, required: false, validate: validator.isURL })
+  url?: string;
 }
 
-export const SimulationFileSchema: SchemaType<SimulationFile> = SchemaFactory.createForClass(
-  SimulationFile,
-);
+export const SimulationFileSchema: SchemaType<SimulationFile> = SchemaFactory.createForClass(SimulationFile);
 SimulationFileSchema.set('strict', 'throw');
