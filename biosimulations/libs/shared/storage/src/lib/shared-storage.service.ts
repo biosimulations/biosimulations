@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectS3, S3 } from 'nestjs-s3';
 import * as AWS from 'aws-sdk';
-import { Credentials } from 'aws-sdk';
+
+import { GetObjectOutput } from 'aws-sdk/clients/s3';
 @Injectable()
 export class SharedStorageService {
   private BUCKET: string;
@@ -13,17 +14,15 @@ export class SharedStorageService {
     this.BUCKET = configService.get('storage.bucket') || 'biosimdev';
   }
 
-  public async getBuckets(): Promise<AWS.S3.ListBucketsOutput> {
-    return await this.loadObject('Bertozzi2020.omex');
-  }
-  public async loadObject(id) {
+  public async getObject(id:string): Promise<AWS.S3.GetObjectOutput> {
     const res = await this.s3
       .getObject({ Bucket: this.BUCKET, Key: id })
       .promise();
     if (res.$response.error) {
       console.log(res.$response.error.message);
+      throw res.$response.error.originalError
     } else {
-      return res.$response.data;
+      return res.$response.data as GetObjectOutput;
     }
   }
 }
