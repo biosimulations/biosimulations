@@ -2022,6 +2022,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/chriso/validator.js
 │  ├─ publisher: Chris O'Hara
 │  ├─ email: cohara87@gmail.com
+│  └─ licenseFile: class-validator/node_modules/validator/LICENSE
+├─ validator@13.5.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/chriso/validator.js
+│  ├─ publisher: Chris O'Hara
+│  ├─ email: cohara87@gmail.com
 │  └─ licenseFile: validator/LICENSE
 ├─ vary@1.1.2
 │  ├─ licenses: MIT
