@@ -7,7 +7,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Schema as SchemaType } from 'mongoose';
-import validator from 'validator';
+import { isUrl } from '@biosimulations/datamodel-database';
 
 @Schema({ collection: 'Simulation Files' })
 export class SimulationFile extends Document {
@@ -21,7 +21,7 @@ export class SimulationFile extends Document {
   buffer?: Buffer;
   @Prop({ type: String, required: false })
   size?: number;
-  @Prop({ type: String, required: false, validate: validator.isURL })
+  @Prop({ type: String, required: false, validate: [isUrl] })
   url?: string;
 }
 
