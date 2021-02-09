@@ -80,7 +80,7 @@
     "@angular-devkit/build-angular": "~0.1100.7",
     "@angular-eslint/eslint-plugin": "1.0.0",
     "@angular-eslint/eslint-plugin-template": "1.1.0",
-    "@angular-eslint/template-parser": "1.0.0",
+    "@angular-eslint/template-parser": "1.2.0",
     "@angular-material-components/file-input": "^5.0.0",
     "@angular/animations": "^11.0.0",
     "@angular/cdk": "^11.0.0",
