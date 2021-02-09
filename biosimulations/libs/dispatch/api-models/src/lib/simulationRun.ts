@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /**
- * @file Contains the DTO specification for the simulation run object, as well as the multipart/form-data request for uploading a new simulation
+ * @file Contains the DTO specification for the simulation run object,
+ *       as well as the multipart/form-data request for uploading a new simulation
  * @author Bilal Shaikh
  * @copyright Biosimulations Team, 2020
  * @license MIT
@@ -10,6 +13,8 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 export class SimulationRun {
   // Explicitly make sure not to send out file id from database
   file: never;
+  fileUrl: never;
+
   @ApiResponseProperty({ type: String, example: '5fab1cf714f9dd3dfbcfe51b' })
   id!: string;
 
@@ -89,6 +94,7 @@ export class SimulationRun {
   }
 }
 export class UploadSimulationRun extends PickType(SimulationRun, ['name', 'email', 'simulator', 'simulatorVersion']) {}
+
 export class UploadSimulationRunUrl extends UploadSimulationRun {
   @ApiProperty({ type: String, format: 'url' })
   url!: string;
@@ -98,7 +104,7 @@ export class SimulationUpload {
   @ApiProperty({ type: String, format: 'binary' })
   file!: string;
 
-  @ApiProperty({ type: SimulationRun })
+  @ApiProperty({ type: UploadSimulationRun })
   simulationRun!: UploadSimulationRun;
 }
 

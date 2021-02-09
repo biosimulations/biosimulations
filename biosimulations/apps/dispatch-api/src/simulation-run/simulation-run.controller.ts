@@ -32,7 +32,6 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiExtraModels,
-  ApiNotImplementedResponse,
   ApiOkResponse,
   ApiOperation,
   ApiPayloadTooLargeResponse,
@@ -120,10 +119,6 @@ export class SimulationRunController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description: 'Request did not adhere to schema',
-  })
-  @ApiNotImplementedResponse({
-    type: ErrorResponseDocument,
-    description: 'Providing a URL is not yet supported',
   })
   @ApiUnsupportedMediaTypeResponse({
     type: ErrorResponseDocument,
