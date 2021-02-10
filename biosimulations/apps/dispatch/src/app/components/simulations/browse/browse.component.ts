@@ -11,7 +11,7 @@ import {
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/shared/services';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
 import exampleSimulationsOrgJson from './example-simulations.org.json';

@@ -4,16 +4,26 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, BehaviorSubject, of, combineLatest } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  BehaviorSubject,
+  of,
+  combineLatest,
+  concat,
+} from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { map } from 'rxjs/internal/operators/map';
 import {
   combineAll,
   concatAll,
+  concatMap,
   debounceTime,
   mergeAll,
+  mergeMap,
   shareReplay,
+  tap,
 } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
@@ -26,7 +36,8 @@ export class SimulationService {
 
   // Memory/HTTP cache
   private simulationsMap$: { [key: string]: BehaviorSubject<Simulation> } = {};
-
+  private simulationsMapSubject = new BehaviorSubject(this.simulationsMap$);
+  private simulationsArrSubject = new BehaviorSubject<Simulation[]>([]);
   // Local Storage Map
   private simulationsMap: { [key: string]: Simulation } = {};
   private simulationsSubject = new BehaviorSubject<Simulation[]>(
@@ -64,6 +75,18 @@ export class SimulationService {
         }
       });
     });
+
+    this.simulationsMapSubject.subscribe((simulationMap) => {
+      if (Object.values(simulationMap).length) {
+        combineLatest(
+          Object.values(simulationMap).map((sims) => sims.asObservable()),
+        ).subscribe((arr) => {
+          this.simulationsArrSubject.next(arr);
+        });
+      } else {
+        this.simulationsArrSubject.next([]);
+      }
+    });
   }
 
   private initSimulations(storedSimulations: Simulation[]): void {
@@ -84,6 +107,7 @@ export class SimulationService {
       } else {
         this.simulationsMap$[simulation.id] = new BehaviorSubject(simulation);
       }
+      this.simulationsMapSubject.next(this.simulationsMap$);
     });
 
     this.updateSimulations();
@@ -102,8 +126,8 @@ export class SimulationService {
   public storeExistingExternalSimulations(simulations: Simulation[]): void {
     simulations.forEach((simulation) => {
       simulation.submittedLocally = false;
-
       this.addSimulation(simulation);
+      this.storeSimulations([simulation]);
     });
     this.updateSimulations(simulations);
     this.storeSimulations(simulations);
@@ -153,14 +177,13 @@ export class SimulationService {
     this.simulations.splice(iSimulation, 1);
     delete this.simulationsMap[id];
     delete this.simulationsMap$[id];
+    this.simulationsMapSubject.next(this.simulationsMap$);
+
     this.storeSimulations([]);
   }
 
-  getSimulations() {
-    return this.simulations$;
-    return combineLatest(
-      Object.keys(this.simulationsMap$).map((id) => this.getSimulation(id)),
-    );
+  getSimulations(): Observable<Simulation[]> {
+    return this.simulationsArrSubject.asObservable();
   }
 
   /**
@@ -224,6 +247,7 @@ export class SimulationService {
   }
   private cacheSimulation(newSim: Simulation): void {
     this.simulationsMap$[newSim.id].next(newSim);
+    this.simulationsMapSubject.next(this.simulationsMap$);
   }
 
   /**
@@ -236,6 +260,18 @@ export class SimulationService {
   }
 
   /**
+   * Add a sdimulation to the http cache
+   * @param simulation
+   */
+  public addSimulation(simulation: Simulation): void {
+    if (!(simulation.id in this.simulationsMap$)) {
+      const simSubject = new BehaviorSubject(simulation);
+      this.simulationsMap$[simulation.id] = simSubject;
+      this.simulationsMapSubject.next(this.simulationsMap$);
+    }
+  }
+
+  /**
    * @author Bilal
    * @param uuid The id of the simulation
    * If we have the simulations in cache(a map of behavior subjects), return it, and trigger an update
@@ -243,13 +279,6 @@ export class SimulationService {
    * In both cases we want to return from cache. This is because the cache contains behavior subjects already configured to poll the api
    * The recieving method can simply pipe or subscribe to have the latest data
    */
-  public addSimulation(simulation: Simulation): void {
-    if (!(simulation.id in this.simulationsMap$)) {
-      const simSubject = new BehaviorSubject(simulation);
-      this.simulationsMap$[simulation.id] = simSubject;
-    }
-  }
-
   public getSimulation(uuid: string): Observable<Simulation> {
     if (uuid in this.simulationsMap$) {
       this.updateSimulation(uuid);
@@ -261,6 +290,7 @@ export class SimulationService {
           this.storeSimulations([value]);
           const simSubject = new BehaviorSubject<Simulation>(value);
           this.simulationsMap$[uuid] = simSubject;
+          this.simulationsMapSubject.next(this.simulationsMap$);
           this.updateSimulation(uuid);
           return this.getSimulationFromCache(uuid);
         }),
