@@ -379,7 +379,7 @@ export class BrowseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.simulations = this.simulationService.simulations$;
+    this.simulations = this.simulationService.getSimulations();
   }
 
   getStackedHeading(simulation: Simulation): string {
