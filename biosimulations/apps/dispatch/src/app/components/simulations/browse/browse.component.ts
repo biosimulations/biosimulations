@@ -15,7 +15,6 @@ import { Observable } from 'rxjs';
 import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
 import exampleSimulationsOrgJson from './example-simulations.org.json';
-import { UpdateService } from '@biosimulations/shared/pwa';
 
 @Component({
   templateUrl: './browse.component.html',
