@@ -117,7 +117,7 @@
     "@nrwl/tao": "11.2.10",
     "@nrwl/workspace": "11.2.10",
     "@types/archiver": "^3.1.1",
-    "@types/auth0": "^2.20.12",
+    "@types/auth0": "^2.33.0",
     "@types/cron": "^1.7.2",
     "@types/csv2json": "^1.4.1",
     "@types/highlight.js": "^9.12.4",
