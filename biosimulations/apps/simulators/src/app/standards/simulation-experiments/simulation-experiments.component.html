@@ -76,6 +76,18 @@
         species.
       </p>
 
+      <p>In addition, the namespace prefixes used in XPATHs should be defined within the SED-ML document as illustrated below.</p>
+
+      <pre><code [languages]="['xml']" highlight="<sedML xmlns:sbml=&quot;http://www.sbml.org/sbml/level3/version1/core&quot;>
+  <listOfDataGenerators>
+    <dataGenerator>
+      <listOfVariables>
+        <variable target=&quot;/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']/@initialConcentration&quot; />
+      </listOfVariables>
+    </dataGenerator>
+  </listOfDataGenerators>
+</sedML>"></code></pre>
+
       <p>
         Note, the SED-ML specifications suggest that incomplete XPATHs such as
         <code
