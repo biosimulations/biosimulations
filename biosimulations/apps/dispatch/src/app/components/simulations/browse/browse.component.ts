@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
 import exampleSimulationsOrgJson from './example-simulations.org.json';
+import { UpdateService } from '@biosimulations/shared/pwa';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -417,6 +418,7 @@ export class BrowseComponent implements OnInit {
         }
 
         const simulations = JSON.parse(e.target.result);
+        console.log(simulations);
         this.simulationService.storeExistingExternalSimulations(simulations);
       };
       reader.readAsText(file);
@@ -425,13 +427,43 @@ export class BrowseComponent implements OnInit {
   }
 
   loadExampleSimulations(): void {
-    const exampleSimulationsJson =
+    const exampleSimulationsJson: {
+      id: string;
+      name: string;
+      simulator: string;
+      simulatorVersion: string;
+      submittedLocally: boolean;
+      status: string;
+      submitted: string;
+      updated: string;
+      projectSize: number;
+      runtime: null;
+      resultsSize: null;
+      email: null;
+    }[] =
       environment.env == 'prod'
         ? exampleSimulationsOrgJson
         : exampleSimulationsDevJson;
 
-    this.simulationService.storeExistingExternalSimulations(
-      (exampleSimulationsJson as unknown) as Simulation[],
-    );
+    const parsedSims: Simulation[] = [];
+    exampleSimulationsJson.forEach((jsonSim) => {
+      const sim: Simulation = {
+        email: jsonSim.email || undefined,
+        id: jsonSim.id,
+        name: jsonSim.name,
+        status: jsonSim.status as SimulationRunStatus,
+        simulator: jsonSim.simulator,
+        simulatorVersion: jsonSim.simulatorVersion,
+        submitted: new Date(jsonSim.submitted),
+        updated: new Date(jsonSim.updated),
+        submittedLocally: false,
+        runtime: jsonSim.runtime || undefined,
+        projectSize: jsonSim.projectSize,
+        resultsSize: jsonSim.resultsSize || undefined,
+      };
+      parsedSims.push(sim);
+    });
+
+    this.simulationService.storeExistingExternalSimulations(parsedSims);
   }
 }
