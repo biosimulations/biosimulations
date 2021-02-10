@@ -6,24 +6,15 @@ import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
 import {
   Observable,
-  Subject,
   BehaviorSubject,
-  of,
   combineLatest,
-  concat,
 } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { map } from 'rxjs/internal/operators/map';
 import {
-  combineAll,
   concatAll,
-  concatMap,
   debounceTime,
-  mergeAll,
-  mergeMap,
-  shareReplay,
-  tap,
 } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
@@ -75,7 +66,13 @@ export class SimulationService {
         }
       });
     });
-
+    this.createSimulationsArray();
+  }
+  /**
+   * Subscribes to the map of the simulators creates and observable list of simulators. This simplifies returning the simulators.
+   * @see getSimulations
+   */
+  private createSimulationsArray() {
     this.simulationsMapSubject.subscribe((simulationMap) => {
       if (Object.values(simulationMap).length) {
         combineLatest(
@@ -88,7 +85,6 @@ export class SimulationService {
       }
     });
   }
-
   private initSimulations(storedSimulations: Simulation[]): void {
     const simulations = storedSimulations.concat(
       this.simulationsAddedBeforeStorageInitialized,

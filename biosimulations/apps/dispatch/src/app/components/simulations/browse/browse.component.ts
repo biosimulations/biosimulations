@@ -11,7 +11,7 @@ import {
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
 import { ConfigService } from '@biosimulations/shared/services';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
 import exampleSimulationsOrgJson from './example-simulations.org.json';
@@ -425,8 +425,8 @@ export class BrowseComponent implements OnInit {
     input.click();
   }
 
-  loadExampleSimulations(): void {
-    const exampleSimulationsJson: {
+  private parseExampleSimulations(
+    jsonSims: {
       id: string;
       name: string;
       simulator: string;
@@ -439,13 +439,10 @@ export class BrowseComponent implements OnInit {
       runtime: null;
       resultsSize: null;
       email: null;
-    }[] =
-      environment.env == 'prod'
-        ? exampleSimulationsOrgJson
-        : exampleSimulationsDevJson;
-
+    }[],
+  ): Simulation[] {
     const parsedSims: Simulation[] = [];
-    exampleSimulationsJson.forEach((jsonSim) => {
+    jsonSims.forEach((jsonSim) => {
       const sim: Simulation = {
         email: jsonSim.email || undefined,
         id: jsonSim.id,
@@ -462,7 +459,16 @@ export class BrowseComponent implements OnInit {
       };
       parsedSims.push(sim);
     });
+    return parsedSims;
+  }
 
+  loadExampleSimulations(): void {
+    const exampleSimulationsJson =
+      environment.env == 'prod'
+        ? exampleSimulationsOrgJson
+        : exampleSimulationsDevJson;
+
+    const parsedSims = this.parseExampleSimulations(exampleSimulationsJson);
     this.simulationService.storeExistingExternalSimulations(parsedSims);
   }
 }
