@@ -379,7 +379,7 @@ export class BrowseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.simulations = this.simulationService.simulations$;
+    this.simulations = this.simulationService.getSimulations();
   }
 
   getStackedHeading(simulation: Simulation): string {
@@ -417,11 +417,49 @@ export class BrowseComponent implements OnInit {
         }
 
         const simulations = JSON.parse(e.target.result);
+        console.log(simulations);
         this.simulationService.storeExistingExternalSimulations(simulations);
       };
       reader.readAsText(file);
     };
     input.click();
+  }
+
+  private parseExampleSimulations(
+    jsonSims: {
+      id: string;
+      name: string;
+      simulator: string;
+      simulatorVersion: string;
+      submittedLocally: boolean;
+      status: string;
+      submitted: string;
+      updated: string;
+      projectSize: number;
+      runtime: null;
+      resultsSize: null;
+      email: null;
+    }[],
+  ): Simulation[] {
+    const parsedSims: Simulation[] = [];
+    jsonSims.forEach((jsonSim) => {
+      const sim: Simulation = {
+        email: jsonSim.email || undefined,
+        id: jsonSim.id,
+        name: jsonSim.name,
+        status: jsonSim.status as SimulationRunStatus,
+        simulator: jsonSim.simulator,
+        simulatorVersion: jsonSim.simulatorVersion,
+        submitted: new Date(jsonSim.submitted),
+        updated: new Date(jsonSim.updated),
+        submittedLocally: false,
+        runtime: jsonSim.runtime || undefined,
+        projectSize: jsonSim.projectSize,
+        resultsSize: jsonSim.resultsSize || undefined,
+      };
+      parsedSims.push(sim);
+    });
+    return parsedSims;
   }
 
   loadExampleSimulations(): void {
@@ -430,8 +468,7 @@ export class BrowseComponent implements OnInit {
         ? exampleSimulationsOrgJson
         : exampleSimulationsDevJson;
 
-    this.simulationService.storeExistingExternalSimulations(
-      (exampleSimulationsJson as unknown) as Simulation[],
-    );
+    const parsedSims = this.parseExampleSimulations(exampleSimulationsJson);
+    this.simulationService.storeExistingExternalSimulations(parsedSims);
   }
 }

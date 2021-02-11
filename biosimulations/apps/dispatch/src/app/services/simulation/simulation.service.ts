@@ -4,11 +4,18 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, BehaviorSubject, of } from 'rxjs';
+import {
+  Observable,
+  BehaviorSubject,
+  combineLatest,
+} from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { map } from 'rxjs/internal/operators/map';
-import { concatAll, debounceTime } from 'rxjs/operators';
+import {
+  concatAll,
+  debounceTime,
+} from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
 @Injectable({
@@ -17,7 +24,12 @@ import { SimulationRun } from '@biosimulations/dispatch/api-models';
 export class SimulationService {
   private key = 'simulations';
   private simulations: Simulation[] = [];
+
+  // Memory/HTTP cache
   private simulationsMap$: { [key: string]: BehaviorSubject<Simulation> } = {};
+  private simulationsMapSubject = new BehaviorSubject(this.simulationsMap$);
+  private simulationsArrSubject = new BehaviorSubject<Simulation[]>([]);
+  // Local Storage Map
   private simulationsMap: { [key: string]: Simulation } = {};
   private simulationsSubject = new BehaviorSubject<Simulation[]>(
     this.simulations,
@@ -27,8 +39,6 @@ export class SimulationService {
   > = this.simulationsSubject.asObservable();
   private storageInitialized = false;
   private simulationsAddedBeforeStorageInitialized: Simulation[] = [];
-
-  private refreshInterval!: any;
 
   constructor(
     private config: ConfigService,
@@ -56,51 +66,84 @@ export class SimulationService {
         }
       });
     });
+    this.createSimulationsArray();
   }
-
+  /**
+   * Subscribes to the map of the simulators creates and observable list of simulators. This simplifies returning the simulators.
+   * @see getSimulations
+   */
+  private createSimulationsArray() {
+    this.simulationsMapSubject.subscribe((simulationMap) => {
+      if (Object.values(simulationMap).length) {
+        combineLatest(
+          Object.values(simulationMap).map((sims) => sims.asObservable()),
+        ).subscribe((arr) => {
+          this.simulationsArrSubject.next(arr);
+        });
+      } else {
+        this.simulationsArrSubject.next([]);
+      }
+    });
+  }
   private initSimulations(storedSimulations: Simulation[]): void {
     const simulations = storedSimulations.concat(
       this.simulationsAddedBeforeStorageInitialized,
     );
     simulations.forEach((simulation: Simulation): void => {
+      // Save to local storage map
       if (!(simulation.id in this.simulationsMap)) {
         this.simulations.push(simulation);
         this.simulationsMap[simulation.id] = simulation;
       }
+      this.simulationsSubject.next(this.simulations);
+
+      // save to http map
+      if (this.simulationsMap$[simulation.id]) {
+        this.cacheSimulation(simulation);
+      } else {
+        this.simulationsMap$[simulation.id] = new BehaviorSubject(simulation);
+      }
+      this.simulationsMapSubject.next(this.simulationsMap$);
     });
-    this.simulationsSubject.next(this.simulations);
+
     this.updateSimulations();
-    this.refreshInterval = setInterval(
-      () => this.updateSimulations(),
-      this.config.appConfig?.simulationStatusRefreshIntervalSec * 1000,
-    );
+
     this.storageInitialized = true;
     if (this.simulationsAddedBeforeStorageInitialized.length) {
       this.storage.set(this.key, this.simulations);
     }
   }
 
-  storeNewLocalSimulation(simulation: Simulation): void {
+  public storeNewLocalSimulation(simulation: Simulation): void {
     this.storeSimulations([simulation]);
+    this.addSimulation(simulation);
   }
 
-  storeExistingExternalSimulations(simulations: Simulation[]): void {
-    simulations.forEach((simulation: any) => {
+  public storeExistingExternalSimulations(simulations: Simulation[]): void {
+    simulations.forEach((simulation) => {
       simulation.submittedLocally = false;
+      this.addSimulation(simulation);
+      this.storeSimulations([simulation]);
     });
     this.updateSimulations(simulations);
+    this.storeSimulations(simulations);
   }
 
+  /**
+   * @Author Jonathan
+   * @param newSimulations An array of Simulations
+   *
+   * Store to LOCAL storage
+   */
   private storeSimulations(newSimulations: Simulation[]): void {
     if (this.storageInitialized) {
       newSimulations.forEach((newSimulation: Simulation): void => {
         if (newSimulation.id in this.simulationsMap) {
           const submittedLocally = this.simulationsMap[newSimulation.id]
-            .submittedLocally;
+            ?.submittedLocally;
           Object.assign(this.simulationsMap[newSimulation.id], newSimulation);
-          this.simulationsMap[
-            newSimulation.id
-          ].submittedLocally = submittedLocally;
+          this.simulationsMap[newSimulation.id].submittedLocally =
+            submittedLocally || false;
         } else {
           this.simulations.push(newSimulation);
           this.simulationsMap[newSimulation.id] = newSimulation;
@@ -116,67 +159,12 @@ export class SimulationService {
   }
 
   private updateSimulations(newSimulations: Simulation[] = []): void {
-    // determine ids of simulations whose status needs to be updated
-    const simulationIds = Array.from(
-      new Set(
-        this.simulations
-          .filter((simulation: Simulation): boolean => {
-            return (
-              SimulationStatusService.isSimulationStatusRunning(
-                simulation.status,
-              ) ||
-              (simulation.status === SimulationRunStatus.SUCCEEDED &&
-                simulation.resultsSize === undefined)
-            );
-          })
-          .map((simulation: Simulation): string => {
-            return simulation.id;
-          })
-          .concat(
-            newSimulations.map((simulation: Simulation): string => {
-              return simulation.id;
-            }),
-          ),
-      ),
-    );
-
-    // stop if no simulations need to be updated
-    if (simulationIds.length === 0) {
-      return;
+    for (const sim of newSimulations) {
+      this.updateSimulation(sim.id);
     }
-
-    // get status of simulations
-    const promises = [];
-    for (const simId of simulationIds) {
-      const promise = this.httpClient
-        .get(`${urls.dispatchApi}run/${simId}`)
-        .toPromise();
-      promises.push(promise);
+    for (const sim of this.simulations) {
+      this.updateSimulation(sim.id);
     }
-
-    // update status
-    Promise.all(promises).then((data: any) => {
-      const simulations: Simulation[] = [];
-      for (const sim of data) {
-        const dispatchSim = sim;
-        simulations.push({
-          name: dispatchSim.name,
-          email: dispatchSim.email,
-          runtime: dispatchSim.runtime,
-          id: dispatchSim.id,
-          status: (dispatchSim.status as unknown) as SimulationRunStatus,
-          submitted: new Date(dispatchSim.submitted),
-          submittedLocally:
-            this.simulationsMap?.[dispatchSim.id]?.submittedLocally || false,
-          simulator: dispatchSim.simulator,
-          simulatorVersion: dispatchSim.simulatorVersion,
-          updated: new Date(dispatchSim.updated),
-          resultsSize: dispatchSim.resultsSize,
-          projectSize: dispatchSim.projectSize,
-        });
-      }
-      this.storeSimulations(simulations);
-    });
   }
 
   removeSimulation(id: string): void {
@@ -184,13 +172,20 @@ export class SimulationService {
     const iSimulation = this.simulations.indexOf(simulation);
     this.simulations.splice(iSimulation, 1);
     delete this.simulationsMap[id];
+    delete this.simulationsMap$[id];
+    this.simulationsMapSubject.next(this.simulationsMap$);
+
     this.storeSimulations([]);
   }
 
-  getSimulations(): Simulation[] {
-    return this.simulations;
+  getSimulations(): Observable<Simulation[]> {
+    return this.simulationsArrSubject.asObservable();
   }
 
+  /**
+   * @author Bilal
+   * @param uuid The id of the simulation
+   */
   private getSimulationHttp(uuid: string): Observable<Simulation> {
     return this.httpClient
       .get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`)
@@ -211,12 +206,23 @@ export class SimulationService {
             resultsSize: dispatchSimulation.resultsSize,
             projectSize: dispatchSimulation.projectSize,
           };
+
           return simulation;
         }),
       );
   }
 
-  private updateSimulation(uuid: string) {
+  /**
+   * @author Bilal
+   * @param uuid The id of the simulation
+   * Contains the logic for the polling update.
+   * Pull the simulator from cache, but add a debounce. Then, following subscription then must wait some numer of seconds before firing.
+   * If the cached suimulation is still running, call the http service to get the latest simulation. Then, save it to the cache
+   * Since this is happening inside a subscription of the simulator from cache, saving it triggers the subscription again.
+   * This will repeat until the simulator is no longer in a running state, and therefore wont be saved to the cache, and wont cause a repeat
+   * When saving it to the cache also save to local storage
+   */
+  private updateSimulation(uuid: string): void {
     const current = this.getSimulationFromCache(uuid).pipe(
       debounceTime(
         this.config.appConfig.simulationStatusRefreshIntervalSec * 1000,
@@ -226,65 +232,68 @@ export class SimulationService {
       if (
         SimulationStatusService.isSimulationStatusRunning(currentSim.status)
       ) {
-        this.getSimulationHttp(uuid)
-          .pipe()
-          .subscribe((newSim) => this.simulationsMap$[uuid].next(newSim));
+        this.getSimulationHttp(uuid).subscribe((newSim) => {
+          newSim.submittedLocally =
+            currentSim.submittedLocally || newSim.submittedLocally;
+          this.storeSimulations([newSim]);
+          this.cacheSimulation(newSim);
+        });
       }
     });
   }
-
-  private getSimulationFromCache(uuid: string): Observable<Simulation> {
-    return this.simulationsMap$[uuid].asObservable().pipe();
+  private cacheSimulation(newSim: Simulation): void {
+    this.simulationsMap$[newSim.id].next(newSim);
+    this.simulationsMapSubject.next(this.simulationsMap$);
   }
 
-  // TODO integrate with local storage
-  getSimulation(uuid: string): Observable<Simulation> {
+  /**
+   * @author Bilal
+   * @param uuid The id of the simulation
+   * Just a simple wrapper to hide the private behaviorsubjects
+   */
+  private getSimulationFromCache(uuid: string): Observable<Simulation> {
+    return this.simulationsMap$[uuid].asObservable();
+  }
+
+  /**
+   * Add a sdimulation to the http cache
+   * @param simulation
+   */
+  public addSimulation(simulation: Simulation): void {
+    if (!(simulation.id in this.simulationsMap$)) {
+      const simSubject = new BehaviorSubject(simulation);
+      this.simulationsMap$[simulation.id] = simSubject;
+      this.simulationsMapSubject.next(this.simulationsMap$);
+    }
+  }
+
+  /**
+   * @author Bilal
+   * @param uuid The id of the simulation
+   * If we have the simulations in cache(a map of behavior subjects), return it, and trigger an update
+   * If not, then get it via http, store it to cache, trigger an update (to start polling), and return the simulator from cache
+   * In both cases we want to return from cache. This is because the cache contains behavior subjects already configured to poll the api
+   * The recieving method can simply pipe or subscribe to have the latest data
+   */
+  public getSimulation(uuid: string): Observable<Simulation> {
     if (uuid in this.simulationsMap$) {
       this.updateSimulation(uuid);
-      return this.getSimulationFromCache(uuid).pipe();
+      return this.getSimulationFromCache(uuid);
     } else {
       const sim = this.getSimulationHttp(uuid).pipe(
         map((value: Simulation) => {
+          // LOCAL Storage
+          this.storeSimulations([value]);
           const simSubject = new BehaviorSubject<Simulation>(value);
           this.simulationsMap$[uuid] = simSubject;
+          this.simulationsMapSubject.next(this.simulationsMap$);
           this.updateSimulation(uuid);
-          return this.getSimulationFromCache(uuid).pipe();
+          return this.getSimulationFromCache(uuid);
         }),
         concatAll(),
       );
 
       return sim;
-    }
-  }
-
-  // !Deprecated
-  getSimulationByUuid(uuid: string): Observable<Simulation> {
-    if (uuid in this.simulationsMap) {
-      return of(this.simulationsMap[uuid]);
-    } else {
-      const simulationSubject = new Subject<Simulation>();
-      this.httpClient
-        .get(`${urls.dispatchApi}run/${uuid}`)
-        .subscribe((data: any) => {
-          const dispatchSimulation = data;
-          const simulation: Simulation = {
-            name: dispatchSimulation.name,
-            email: dispatchSimulation.email,
-            runtime: dispatchSimulation.runtime,
-            id: dispatchSimulation.id,
-            status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
-            submitted: new Date(dispatchSimulation.submitted),
-            submittedLocally: false,
-            simulator: dispatchSimulation.simulator,
-            simulatorVersion: dispatchSimulation.simulatorVersion,
-            updated: new Date(dispatchSimulation.updated),
-            resultsSize: dispatchSimulation.resultsSize,
-            projectSize: dispatchSimulation.projectSize,
-          };
-          simulationSubject.next(simulation);
-          this.storeSimulations([simulation]);
-        });
-      return simulationSubject.asObservable();
     }
   }
 }
