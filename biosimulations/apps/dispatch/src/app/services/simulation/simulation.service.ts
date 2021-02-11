@@ -4,18 +4,11 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
-import {
-  Observable,
-  BehaviorSubject,
-  combineLatest,
-} from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { map } from 'rxjs/internal/operators/map';
-import {
-  concatAll,
-  debounceTime,
-} from 'rxjs/operators';
+import { concatAll, debounceTime } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
 @Injectable({
@@ -264,6 +257,7 @@ export class SimulationService {
       const simSubject = new BehaviorSubject(simulation);
       this.simulationsMap$[simulation.id] = simSubject;
       this.simulationsMapSubject.next(this.simulationsMap$);
+      this.updateSimulation(simulation.id);
     }
   }
 
