@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
 import exampleSimulationsOrgJson from './example-simulations.org.json';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -379,7 +380,14 @@ export class BrowseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.simulations = this.simulationService.getSimulations();
+    this.simulations = this.simulationService
+      .getSimulations()
+      /*
+       * / This limits rendering of the table to around 60 fps.
+       * The lag is not noticible to the user, but prevents continious rendering which is very resource heavy
+       * At around 20 or so simulations,the page is unresponsive without this
+       */
+      .pipe(debounceTime(16));
   }
 
   getStackedHeading(simulation: Simulation): string {
