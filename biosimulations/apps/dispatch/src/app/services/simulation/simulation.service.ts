@@ -8,7 +8,7 @@ import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { map } from 'rxjs/internal/operators/map';
-import { concatAll, debounceTime } from 'rxjs/operators';
+import { concatAll, debounceTime, share, shareReplay } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
 @Injectable({
@@ -66,17 +66,19 @@ export class SimulationService {
    * @see getSimulations
    */
   private createSimulationsArray() {
-    this.simulationsMapSubject.subscribe((simulationMap) => {
-      if (Object.values(simulationMap).length) {
-        combineLatest(
-          Object.values(simulationMap).map((sims) => sims.asObservable()),
-        ).subscribe((arr) => {
-          this.simulationsArrSubject.next(arr);
-        });
-      } else {
-        this.simulationsArrSubject.next([]);
-      }
-    });
+    this.simulationsMapSubject
+      .pipe(shareReplay(1))
+      .subscribe((simulationMap) => {
+        if (Object.values(simulationMap).length) {
+          combineLatest(
+            Object.values(simulationMap).map((sims) => sims.asObservable()),
+          ).subscribe((arr) => {
+            this.simulationsArrSubject.next(arr);
+          });
+        } else {
+          this.simulationsArrSubject.next([]);
+        }
+      });
   }
   private initSimulations(storedSimulations: Simulation[]): void {
     const simulations = storedSimulations.concat(
@@ -118,7 +120,6 @@ export class SimulationService {
       this.addSimulation(simulation);
       this.storeSimulations([simulation]);
     });
-    this.updateSimulations(simulations);
     this.storeSimulations(simulations);
   }
 
@@ -172,7 +173,7 @@ export class SimulationService {
   }
 
   getSimulations(): Observable<Simulation[]> {
-    return this.simulationsArrSubject.asObservable();
+    return this.simulationsArrSubject.asObservable().pipe(shareReplay(1));
   }
 
   /**
@@ -235,8 +236,10 @@ export class SimulationService {
     });
   }
   private cacheSimulation(newSim: Simulation): void {
-    this.simulationsMap$[newSim.id].next(newSim);
-    this.simulationsMapSubject.next(this.simulationsMap$);
+    if (this.simulationsMap$[newSim.id]) {
+      this.simulationsMap$[newSim.id].next(newSim);
+      this.simulationsMapSubject.next(this.simulationsMap$);
+    }
   }
 
   /**
@@ -245,7 +248,7 @@ export class SimulationService {
    * Just a simple wrapper to hide the private behaviorsubjects
    */
   private getSimulationFromCache(uuid: string): Observable<Simulation> {
-    return this.simulationsMap$[uuid].asObservable();
+    return this.simulationsMap$[uuid].asObservable().pipe(shareReplay(1));
   }
 
   /**
@@ -271,20 +274,18 @@ export class SimulationService {
    */
   public getSimulation(uuid: string): Observable<Simulation> {
     if (uuid in this.simulationsMap$) {
-      this.updateSimulation(uuid);
       return this.getSimulationFromCache(uuid);
     } else {
       const sim = this.getSimulationHttp(uuid).pipe(
         map((value: Simulation) => {
           // LOCAL Storage
           this.storeSimulations([value]);
-          const simSubject = new BehaviorSubject<Simulation>(value);
-          this.simulationsMap$[uuid] = simSubject;
-          this.simulationsMapSubject.next(this.simulationsMap$);
-          this.updateSimulation(uuid);
+          this.addSimulation(value);
+
           return this.getSimulationFromCache(uuid);
         }),
         concatAll(),
+        shareReplay(1),
       );
 
       return sim;
