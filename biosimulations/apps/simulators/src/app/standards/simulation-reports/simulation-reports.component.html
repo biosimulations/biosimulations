@@ -105,7 +105,7 @@
               </ul>
             </li>
             <li>
-              <b><code>sedml:repeatedTask</code></b>: The first dimension of each data set should represent the iterations of the tasks that produced its values. The second dimension of each data set should represent the individual sub-tasks of the task. If repeated tasks are nested within repeated tasks, the next dimensions should alternate between representing the iterations and sub-tasks of the nested repeated tasks. The final dimensions of each data set should be encoded as above for <code>sedml:task</code>. For example, non-spatial time course simulations should have a single additional dimension of length equal to the number of steps of the time course + 1.
+              <b><code>sedml:repeatedTask</code></b>: The first dimension of each data set should represent the iterations of the tasks that produced its values. The second dimension of each data set should represent the individual sub-tasks of the task. The results of sub-tasks should be ordered in the same order the sub-tasks were executed (in order of their <code>order</code> attributes). If repeated tasks are nested within repeated tasks, the next dimensions should alternate between representing the iterations and sub-tasks of the nested repeated tasks. The final dimensions of each data set should be encoded as above for <code>sedml:task</code>. For example, non-spatial time course simulations should have a single additional dimension of length equal to the number of steps of the time course + 1.
             </li>
           </ul>
 
