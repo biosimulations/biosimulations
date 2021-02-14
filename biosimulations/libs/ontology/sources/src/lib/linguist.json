@@ -48,6 +48,22 @@
     "searchable": "true"
   },
   {
+    "type": "programming",
+    "color": "#555e25",
+    "extensions": [
+      ".asddls"
+    ],
+    "tmScope": "source.abapcds",
+    "languageId": 452681853,
+    "aceMode": "text",
+    "name": "ABAP CDS",
+    "aliases": [
+      "abap cds"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
     "type": "data",
     "aceMode": "text",
     "extensions": [
@@ -712,6 +728,24 @@
     "color": "#C1F12E",
     "languageId": 29,
     "name": "Batchfile",
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "programming",
+    "color": "#a52f4e",
+    "extensions": [
+      ".bf"
+    ],
+    "tmScope": "source.cs",
+    "aceMode": "csharp",
+    "codemirrorMode": "clike",
+    "codemirrorMimeType": "text/x-csharp",
+    "languageId": 545626333,
+    "name": "Beef",
+    "aliases": [
+      "beef"
+    ],
     "wrap": "false",
     "searchable": "true"
   },
@@ -1424,7 +1458,7 @@
   },
   {
     "type": "markup",
-    "group": "HTML",
+    "color": "#0d948f",
     "aceMode": "soy_template",
     "codemirrorMode": "soy",
     "codemirrorMimeType": "text/x-soy",
@@ -2189,7 +2223,6 @@
   {
     "type": "markup",
     "color": "#a91e50",
-    "group": "HTML",
     "extensions": [
       ".ejs",
       ".ect",
@@ -3525,16 +3558,13 @@
     "extensions": [
       ".jinja",
       ".j2",
-      ".jinja2",
-      ".njk"
+      ".jinja2"
     ],
     "aliases": [
       "django",
       "html+django/jinja",
       "html+jinja",
       "htmldjango",
-      "njk",
-      "nunjucks",
       "html+django"
     ],
     "aceMode": "django",
@@ -4004,6 +4034,23 @@
     "codemirrorMimeType": "text/x-sh",
     "languageId": 74444240,
     "name": "Ignore List",
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "programming",
+    "color": "#99AAFF",
+    "aliases": [
+      "ijm",
+      "imagej macro"
+    ],
+    "extensions": [
+      ".ijm"
+    ],
+    "aceMode": "text",
+    "tmScope": "none",
+    "languageId": 575143428,
+    "name": "ImageJ Macro",
     "wrap": "false",
     "searchable": "true"
   },
@@ -5423,6 +5470,7 @@
       ".mkdn",
       ".mkdown",
       ".ronn",
+      ".scd",
       ".workbook"
     ],
     "filenames": [
@@ -5816,7 +5864,7 @@
   },
   {
     "type": "markup",
-    "group": "HTML",
+    "color": "#724b3b",
     "extensions": [
       ".mustache"
     ],
@@ -6231,6 +6279,23 @@
     "aliases": [
       "numpy"
     ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "markup",
+    "color": "#3d8137",
+    "extensions": [
+      ".njk"
+    ],
+    "aliases": [
+      "njk",
+      "nunjucks"
+    ],
+    "tmScope": "text.html.nunjucks",
+    "aceMode": "nunjucks",
+    "languageId": 461856962,
+    "name": "Nunjucks",
     "wrap": "false",
     "searchable": "true"
   },
@@ -7957,6 +8022,24 @@
     "searchable": "true"
   },
   {
+    "type": "data",
+    "filenames": [
+      "language-subtag-registry.txt"
+    ],
+    "tmScope": "source.record-jar",
+    "codemirrorMode": "properties",
+    "codemirrorMimeType": "text/x-properties",
+    "aceMode": "text",
+    "color": "#0673ba",
+    "languageId": 865765202,
+    "name": "Record Jar",
+    "aliases": [
+      "record jar"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
     "type": "programming",
     "color": "#f50000",
     "extensions": [
@@ -8624,8 +8707,8 @@
     "searchable": "true"
   },
   {
-    "group": "HTML",
     "type": "markup",
+    "color": "#bd181a",
     "extensions": [
       ".scaml"
     ],
@@ -10395,6 +10478,7 @@
       ".rdf",
       ".res",
       ".resx",
+      ".rs",
       ".rss",
       ".sch",
       ".scxml",
