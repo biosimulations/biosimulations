@@ -274,6 +274,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
+├─ aws-sdk@2.838.0
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com/aws/aws-sdk-js
+│  ├─ publisher: Amazon Web Services
+│  ├─ url: https://aws.amazon.com/
+│  ├─ licenseFile: aws-sdk/LICENSE.txt
+│  └─ noticeFile: aws-sdk/NOTICE.txt
 ├─ axios@0.21.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
@@ -350,6 +357,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/LinusU/buffer-from
 │  └─ licenseFile: buffer-from/LICENSE
+├─ buffer@4.9.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/feross/buffer
+│  ├─ publisher: Feross Aboukhadijeh
+│  ├─ email: feross@feross.org
+│  ├─ url: http://feross.org
+│  └─ licenseFile: aws-sdk/node_modules/buffer/LICENSE
 ├─ buffer@5.7.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/feross/buffer
@@ -720,6 +734,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: dominic.tarr@gmail.com
 │  ├─ url: http://bit.ly/dominictarr
 │  └─ licenseFile: event-stream/LICENCE
+├─ events@1.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/Gozala/events
+│  ├─ publisher: Irakli Gozalishvili
+│  ├─ email: rfobic@gmail.com
+│  ├─ url: http://jeditoolkit.com
+│  └─ licenseFile: aws-sdk/node_modules/events/LICENSE
 ├─ exit-on-epipe@1.0.1
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/SheetJS/node-exit-on-epipe
@@ -887,6 +908,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Alexander Shtuchkin
 │  ├─ email: ashtuchkin@gmail.com
 │  └─ licenseFile: iconv-lite/LICENSE
+├─ ieee754@1.1.13
+│  ├─ licenses: BSD-3-Clause
+│  ├─ repository: https://github.com/feross/ieee754
+│  ├─ publisher: Feross Aboukhadijeh
+│  ├─ email: feross@feross.org
+│  ├─ url: http://feross.org
+│  └─ licenseFile: aws-sdk/node_modules/ieee754/LICENSE
 ├─ ieee754@1.2.1
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/feross/ieee754
@@ -980,6 +1008,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Felix Becker
 │  ├─ email: felix.b@outlook.com
 │  └─ licenseFile: iterare/LICENSE.txt
+├─ jmespath@0.15.0
+│  ├─ licenses: Apache 2.0
+│  ├─ repository: https://github.com/jmespath/jmespath.js
+│  ├─ publisher: James Saryerwinnie
+│  ├─ email: js@jamesls.com
+│  ├─ url: http://jamesls.com/
+│  └─ licenseFile: jmespath/LICENSE
 ├─ json-socket@0.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sebastianseilund/node-json-socket
@@ -1363,6 +1398,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/negotiator
 │  └─ licenseFile: negotiator/LICENSE
+├─ nestjs-s3@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/svtslv/nestjs-s3
+│  ├─ publisher: Sviatoslav H
+│  └─ licenseFile: nestjs-s3/README.md
 ├─ nestjs-typegoose@7.1.38
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/kpfromer/nestjs-typegoose
@@ -1549,6 +1589,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: pseudomap/LICENSE
+├─ punycode@1.3.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/bestiejs/punycode.js
+│  ├─ publisher: Mathias Bynens
+│  ├─ url: https://mathiasbynens.be/
+│  └─ licenseFile: aws-sdk/node_modules/punycode/LICENSE-MIT.txt
 ├─ qs@6.7.0
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/ljharb/qs
@@ -1557,6 +1603,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/ljharb/qs
 │  └─ licenseFile: superagent/node_modules/qs/LICENSE.md
+├─ querystring@0.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/Gozala/querystring
+│  ├─ publisher: Irakli Gozalishvili
+│  ├─ email: rfobic@gmail.com
+│  └─ licenseFile: querystring/License.md
 ├─ range-parser@1.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/range-parser
@@ -1679,6 +1731,20 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Paul Serby
 │  ├─ email: paul@serby.net
 │  └─ licenseFile: save/LICENSE
+├─ sax@1.2.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/isaacs/sax-js
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: http://blog.izs.me/
+│  └─ licenseFile: aws-sdk/node_modules/sax/LICENSE
+├─ sax@1.2.4
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/isaacs/sax-js
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: http://blog.izs.me/
+│  └─ licenseFile: sax/LICENSE
 ├─ semver@5.7.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/node-semver
@@ -1984,6 +2050,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Rodney Rehm
 │  ├─ url: http://rodneyrehm.de
 │  └─ licenseFile: urijs/LICENSE.txt
+├─ url@0.10.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/defunctzombie/node-url
+│  └─ licenseFile: aws-sdk/node_modules/url/LICENSE
 ├─ util-deprecate@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/util-deprecate
@@ -2005,6 +2075,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: jaredhanson@gmail.com
 │  ├─ url: http://www.jaredhanson.net/
 │  └─ licenseFile: utils-merge/LICENSE
+├─ uuid@3.3.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/kelektiv/node-uuid
+│  └─ licenseFile: aws-sdk/node_modules/uuid/LICENSE.md
 ├─ uuid@8.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/uuidjs/uuid
@@ -2048,6 +2122,19 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: wrappy/LICENSE
+├─ xml2js@0.4.19
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/Leonidas-from-XIV/node-xml2js
+│  ├─ publisher: Marek Kubica
+│  ├─ email: marek@xivilization.net
+│  ├─ url: https://xivilization.net
+│  └─ licenseFile: xml2js/LICENSE
+├─ xmlbuilder@9.0.7
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/oozcitak/xmlbuilder-js
+│  ├─ publisher: Ozgur Ozcitak
+│  ├─ email: oozcitak@gmail.com
+│  └─ licenseFile: xmlbuilder/LICENSE
 ├─ xregexp@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/slevithan/XRegExp
