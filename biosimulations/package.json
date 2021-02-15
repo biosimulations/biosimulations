@@ -112,7 +112,7 @@
     "@nrwl/cli": "11.2.10",
     "@nrwl/cypress": "11.2.10",
     "@nrwl/eslint-plugin-nx": "11.2.10",
-    "@nrwl/jest": "11.2.10",
+    "@nrwl/jest": "11.2.12",
     "@nrwl/nest": "11.2.10",
     "@nrwl/node": "11.2.10",
     "@nrwl/nx-cloud": "11.1.2",
