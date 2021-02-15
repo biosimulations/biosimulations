@@ -108,7 +108,7 @@
     "@ionic/storage": "^2.3.1",
     "@nestjs/schematics": "^7.2.6",
     "@nestjs/testing": "^7.6.11",
-    "@nrwl/angular": "11.2.10",
+    "@nrwl/angular": "11.2.12",
     "@nrwl/cli": "11.2.10",
     "@nrwl/cypress": "11.2.10",
     "@nrwl/eslint-plugin-nx": "11.2.10",
