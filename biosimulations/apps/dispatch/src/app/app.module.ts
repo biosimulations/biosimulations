@@ -11,14 +11,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { PwaModule } from '@biosimulations/shared/pwa';
-import {
-  ErrorHandler as BiosimulationsErrorHandler,
-  errorRoutes,
-  Error404Component,
-} from '@biosimulations/shared/ui';
+
 import config from '../assets/config.json';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
+import { ScullyLibModule } from '@scullyio/ng-lib';
 
 const routes: Routes = [
   {
@@ -28,7 +25,9 @@ const routes: Routes = [
   {
     path: 'run',
     loadChildren: () =>
-      import('./components/run/run.module').then((m) => m.RunModule),
+      import('apps/dispatch/src/app/components/run/run.module').then(
+        (m) => m.RunModule,
+      ),
     data: {
       breadcrumb: 'Run',
     },
@@ -36,9 +35,9 @@ const routes: Routes = [
   {
     path: 'simulations',
     loadChildren: () =>
-      import('./components/simulations/simulations.module').then(
-        (m) => m.SimulationsModule,
-      ),
+      import(
+        'apps/dispatch/src/app/components/simulations/simulations.module'
+      ).then((m) => m.SimulationsModule),
     data: {
       breadcrumb: 'Your simulations',
     },
@@ -46,19 +45,14 @@ const routes: Routes = [
   {
     path: 'help',
     loadChildren: () =>
-      import('./components/help/help.module').then((m) => m.HelpModule),
+      import('apps/dispatch/src/app/components/help/help.module').then(
+        (m) => m.HelpModule,
+      ),
     data: {
       breadcrumb: 'Help',
     },
   },
-  {
-    path: 'error',
-    children: errorRoutes,
-  },
-  {
-    path: '**',
-    component: Error404Component,
-  },
+  
 ];
 routes.forEach((route: Route): void => {
   if (route.data) {
@@ -88,12 +82,12 @@ routes.forEach((route: Route): void => {
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
+    ScullyLibModule,
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
-    { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
   ],
   bootstrap: [AppComponent],
   schemas: [],
