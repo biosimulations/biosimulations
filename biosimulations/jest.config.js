@@ -46,5 +46,6 @@ module.exports = {
     '<rootDir>/libs/account/management',
     '<rootDir>/libs/shared/pwa',
     '<rootDir>/libs/shared/storage',
+    '<rootDir>/libs/shared/error-handler',
   ],
 };

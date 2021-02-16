@@ -189,6 +189,9 @@
     "shared-pwa": { "tags": ["scope:shared", "type:util", "platform:web"] },
     "shared-storage": {
       "tags": ["scope:files", "type:util", "platform:server", "shared:true"]
+    },
+    "shared-error-handler": {
+      "tags": ["scope:shared", "platform:web", "type:UI"]
     }
   }
 }

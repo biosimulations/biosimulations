@@ -7,6 +7,6 @@ export * from './lib/toc/toc-section.directive';
 export * from './lib/toc/toc-sections-container.directive';
 export * from './lib/error/biosimulations-error';
 export * from './lib/error/error-handler';
-export * from './lib/error/error.module';
-export * from './lib/error/error-404.component';
+//export * from './lib/error/error.module';
+//export * from './lib/error/error-404.component';
 export * from './lib/shared-ui.module';

@@ -90,7 +90,10 @@
         "libs/account/management/src/index.ts"
       ],
       "@biosimulations/shared/pwa": ["libs/shared/pwa/src/index.ts"],
-      "@biosimulations/shared/storage": ["libs/shared/storage/src/index.ts"]
+      "@biosimulations/shared/storage": ["libs/shared/storage/src/index.ts"],
+      "@biosimulations/shared/error-handler": [
+        "libs/shared/error-handler/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
