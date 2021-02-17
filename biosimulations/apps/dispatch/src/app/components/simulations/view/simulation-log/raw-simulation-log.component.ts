@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RawSimulationLog } from '../../../../simulation-logs-datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import * as Convert from 'ansi-to-html';
@@ -8,6 +8,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   selector: 'biosimulations-raw-simulation-log',
   templateUrl: './raw-simulation-log.component.html',
   styleUrls: ['./raw-simulation-log.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RawSimulationLogComponent {
   constructor(private sanitizer: DomSanitizer) {}
@@ -35,7 +36,7 @@ export class RawSimulationLogComponent {
   set log(value: RawSimulationLog) {
     const convert = new Convert();
     this.formattedLog = value
-      ? this.sanitizer.bypassSecurityTrustHtml(convert.toHtml(value))
+      ? this.sanitizer.sanitize(0,convert.toHtml(value))
       : null;
   }
 }
