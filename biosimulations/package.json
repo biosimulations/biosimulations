@@ -133,7 +133,7 @@
     "@types/rimraf": "^3.0.0",
     "@types/ssh2": "^0.5.46",
     "@types/uuid": "^8.3.0",
-    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.12.0",
     "angular-plotly.js": "^3.0.0",
     "codelyzer": "~6.0.1",
