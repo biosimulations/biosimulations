@@ -14,10 +14,9 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import {
-  ErrorHandler as BiosimulationsErrorHandler,
-  errorRoutes,
+  SharedErrorHandlerModule,
   Error404Component,
-} from '@biosimulations/shared/ui';
+} from '@biosimulations/shared/error-handler';
 import {
   MARKED_PRELOADING_STRATEGY,
   RoutesModule,
@@ -67,11 +66,17 @@ const routes: Routes = [
   },
   {
     path: 'error',
-    children: errorRoutes,
+    loadChildren: () =>
+      import(
+        'libs/shared/error-handler/src/lib/shared-error-components.module'
+      ).then((m) => m.SharedErrorComponentsModule),
   },
   {
     path: '**',
-    component: Error404Component,
+    loadChildren: () =>
+      import(
+        'libs/shared/error-handler/src/lib/shared-error-components.module'
+      ).then((m) => m.SharedErrorComponentsModule),
   },
 ];
 routes.forEach((route: Route): void => {
@@ -109,7 +114,7 @@ routes.forEach((route: Route): void => {
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
-    { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
+
     {
       // Requires type declarations provided in the highlight.d.ts file in src
       provide: HIGHLIGHT_OPTIONS,

@@ -27,6 +27,10 @@ export const errorRoutes: Routes = [
     path: 'maintainence',
     component: UnderMaintainenceComponent,
   },
+  {
+    path: '',
+    component: Error404Component,
+  },
 ];
 
 @NgModule({

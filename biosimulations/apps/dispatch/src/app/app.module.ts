@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule, Route, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { PwaModule } from '@biosimulations/shared/pwa';
-
+import { SharedErrorHandlerModule } from '@biosimulations/shared/error-handler';
 import config from '../assets/config.json';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
@@ -20,6 +20,7 @@ import { ScullyLibModule } from '@scullyio/ng-lib';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     component: HomeComponent,
   },
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Run',
     },
+    pathMatch: 'full',
   },
   {
     path: 'simulations',
@@ -52,7 +54,20 @@ const routes: Routes = [
       breadcrumb: 'Help',
     },
   },
-  
+  {
+    path: 'error',
+    loadChildren: () =>
+      import(
+        'libs/shared/error-handler/src/lib/shared-error-components.module'
+      ).then((m) => m.SharedErrorComponentsModule),
+  },
+  {
+    path: '**',
+    loadChildren: () =>
+      import(
+        'libs/shared/error-handler/src/lib/shared-error-components.module'
+      ).then((m) => m.SharedErrorComponentsModule),
+  },
 ];
 routes.forEach((route: Route): void => {
   if (route.data) {
@@ -67,6 +82,7 @@ routes.forEach((route: Route): void => {
   imports: [
     BrowserModule,
     SharedUiModule,
+    SharedErrorHandlerModule,
     BiosimulationsIconsModule,
     BrowserAnimationsModule,
     HttpClientModule,
