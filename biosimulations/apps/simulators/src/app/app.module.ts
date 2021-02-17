@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { RouterModule, Route, Routes } from '@angular/router';
@@ -13,16 +13,17 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import {
-  SharedErrorHandlerModule,
-  Error404Component,
-} from '@biosimulations/shared/error-handler';
+
 import {
   MARKED_PRELOADING_STRATEGY,
   RoutesModule,
 } from '@biosimulations/shared/utils/routes';
 
 import config from '../assets/config.json';
+import {
+  SharedErrorComponentsModule,
+  SharedErrorHandlerModule,
+} from '@biosimulations/shared/error-handler';
 
 const routes: Routes = [
   {
@@ -66,17 +67,11 @@ const routes: Routes = [
   },
   {
     path: 'error',
-    loadChildren: () =>
-      import(
-        'libs/shared/error-handler/src/lib/shared-error-components.module'
-      ).then((m) => m.SharedErrorComponentsModule),
+    loadChildren: () => SharedErrorComponentsModule,
   },
   {
     path: '**',
-    loadChildren: () =>
-      import(
-        'libs/shared/error-handler/src/lib/shared-error-components.module'
-      ).then((m) => m.SharedErrorComponentsModule),
+    loadChildren: () => SharedErrorComponentsModule,
   },
 ];
 routes.forEach((route: Route): void => {
@@ -94,6 +89,7 @@ routes.forEach((route: Route): void => {
     CommonModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    SharedErrorHandlerModule,
     SharedUiModule,
     RoutesModule,
     RouterModule.forRoot(routes, {

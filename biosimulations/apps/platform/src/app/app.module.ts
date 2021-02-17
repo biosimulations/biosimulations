@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { RouterModule, Route, Routes } from '@angular/router';
@@ -8,7 +8,10 @@ import { environment } from '@biosimulations/shared/environments';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MarkdownModule } from 'ngx-markdown';
 import { IonicStorageModule } from '@ionic/storage';
-import { SharedErrorHandlerModule } from '@biosimulations/shared/error-handler';
+import {
+  SharedErrorComponentsModule,
+  SharedErrorHandlerModule,
+} from '@biosimulations/shared/error-handler';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedModule } from './shared/shared.module';
 import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
@@ -52,17 +55,11 @@ const routes: Routes = [
   },
   {
     path: 'error',
-    loadChildren: () =>
-      import(
-        'libs/shared/error-handler/src/lib/shared-error-components.module'
-      ).then((m) => m.SharedErrorComponentsModule),
+    loadChildren: () => SharedErrorComponentsModule,
   },
   {
     path: '**',
-    loadChildren: () =>
-      import(
-        'libs/shared/error-handler/src/lib/shared-error-components.module'
-      ).then((m) => m.SharedErrorComponentsModule),
+    loadChildren: () => SharedErrorComponentsModule,
   },
 ];
 routes.forEach((route: Route): void => {

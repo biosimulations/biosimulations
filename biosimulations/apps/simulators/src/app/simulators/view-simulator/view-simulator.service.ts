@@ -43,7 +43,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import { Citation } from '@biosimulations/datamodel/api';
-import { BiosimulationsError } from '@biosimulations/shared/ui';
+import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 
 @Injectable({ providedIn: 'root' })
 export class ViewSimulatorService {

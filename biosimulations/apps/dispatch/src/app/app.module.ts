@@ -11,7 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { PwaModule } from '@biosimulations/shared/pwa';
-import { SharedErrorHandlerModule } from '@biosimulations/shared/error-handler';
+import {
+  SharedErrorComponentsModule,
+  SharedErrorHandlerModule,
+} from '@biosimulations/shared/error-handler';
 import config from '../assets/config.json';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
@@ -56,17 +59,11 @@ const routes: Routes = [
   },
   {
     path: 'error',
-    loadChildren: () =>
-      import(
-        'libs/shared/error-handler/src/lib/shared-error-components.module'
-      ).then((m) => m.SharedErrorComponentsModule),
+    loadChildren: () => SharedErrorComponentsModule,
   },
   {
     path: '**',
-    loadChildren: () =>
-      import(
-        'libs/shared/error-handler/src/lib/shared-error-components.module'
-      ).then((m) => m.SharedErrorComponentsModule),
+    loadChildren: () => SharedErrorComponentsModule,
   },
 ];
 routes.forEach((route: Route): void => {
