@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { RouterModule, Route, Routes } from '@angular/router';
@@ -13,17 +13,17 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import {
-  ErrorHandler as BiosimulationsErrorHandler,
-  errorRoutes,
-  Error404Component,
-} from '@biosimulations/shared/ui';
+
 import {
   MARKED_PRELOADING_STRATEGY,
   RoutesModule,
 } from '@biosimulations/shared/utils/routes';
 
 import config from '../assets/config.json';
+import {
+  SharedErrorComponentsModule,
+  SharedErrorHandlerModule,
+} from '@biosimulations/shared/error-handler';
 
 const routes: Routes = [
   {
@@ -67,11 +67,11 @@ const routes: Routes = [
   },
   {
     path: 'error',
-    children: errorRoutes,
+    loadChildren: () => SharedErrorComponentsModule,
   },
   {
     path: '**',
-    component: Error404Component,
+    loadChildren: () => SharedErrorComponentsModule,
   },
 ];
 routes.forEach((route: Route): void => {
@@ -89,6 +89,7 @@ routes.forEach((route: Route): void => {
     CommonModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    SharedErrorHandlerModule,
     SharedUiModule,
     RoutesModule,
     RouterModule.forRoot(routes, {
@@ -109,7 +110,7 @@ routes.forEach((route: Route): void => {
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
-    { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
+
     {
       // Requires type declarations provided in the highlight.d.ts file in src
       provide: HIGHLIGHT_OPTIONS,

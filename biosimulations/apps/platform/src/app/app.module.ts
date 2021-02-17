@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { RouterModule, Route, Routes } from '@angular/router';
@@ -8,18 +8,16 @@ import { environment } from '@biosimulations/shared/environments';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MarkdownModule } from 'ngx-markdown';
 import { IonicStorageModule } from '@ionic/storage';
-
+import {
+  SharedErrorComponentsModule,
+  SharedErrorHandlerModule,
+} from '@biosimulations/shared/error-handler';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedModule } from './shared/shared.module';
 import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import {
-  ErrorHandler as BiosimulationsErrorHandler,
-  errorRoutes,
-  Error404Component,
-} from '@biosimulations/shared/ui';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
 import config from '../assets/config.json';
@@ -57,11 +55,11 @@ const routes: Routes = [
   },
   {
     path: 'error',
-    children: errorRoutes,
+    loadChildren: () => SharedErrorComponentsModule,
   },
   {
     path: '**',
-    component: Error404Component,
+    loadChildren: () => SharedErrorComponentsModule,
   },
 ];
 routes.forEach((route: Route): void => {
@@ -78,6 +76,7 @@ routes.forEach((route: Route): void => {
     CommonModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    SharedErrorHandlerModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
     SharedUiModule,
     RouterModule.forRoot(routes, {
@@ -99,7 +98,6 @@ routes.forEach((route: Route): void => {
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
-    { provide: ErrorHandler, useClass: BiosimulationsErrorHandler },
   ],
   bootstrap: [AppComponent],
 })

@@ -13,7 +13,7 @@ export class Error404Component {
 
   code: number | string | undefined = '404';
   message = 'Page not found';
-  details = "We're sorry! The page you requested could not be found.";
+  details = 'We\'re sorry! The page you requested could not be found.';
   email: string;
   emailUrl: string;
   newIssueUrl: string;

@@ -1794,6 +1794,31 @@
           }
         }
       }
+    },
+    "shared-error-handler": {
+      "projectType": "library",
+      "root": "libs/shared/error-handler",
+      "sourceRoot": "libs/shared/error-handler/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/error-handler/src/**/*.ts",
+              "libs/shared/error-handler/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/error-handler"],
+          "options": {
+            "jestConfig": "libs/shared/error-handler/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -1852,5 +1877,5 @@
       "style": "scss"
     }
   },
-  "defaultProject": "platform"
+  "defaultProject": "dispatch"
 }

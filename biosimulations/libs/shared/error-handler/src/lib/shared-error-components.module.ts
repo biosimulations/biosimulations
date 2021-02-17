@@ -6,6 +6,9 @@ import { Error404Component } from './error-404.component';
 import { Error500Component } from './error-500.component';
 import { UnderConstructionComponent } from './under-construction.component';
 import { UnderMaintainenceComponent } from './under-maintainence.component';
+import { ErrorComponent } from './error.component';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { SharedUiModule } from '@biosimulations/shared/ui';
 
 export const errorRoutes: Routes = [
   {
@@ -24,12 +27,27 @@ export const errorRoutes: Routes = [
     path: 'maintainence',
     component: UnderMaintainenceComponent,
   },
+  {
+    path: '',
+    component: Error404Component,
+  },
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule, RouterModule.forChild(errorRoutes)],
+  declarations: [
+    ErrorComponent,
+    Error404Component,
+    Error500Component,
+    UnderConstructionComponent,
+    UnderMaintainenceComponent,
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(errorRoutes),
+    BiosimulationsIconsModule,
+    SharedUiModule,
+  ],
   exports: [RouterModule],
   providers: [],
 })
-export class ErrorModule {}
+export class SharedErrorComponentsModule {}
