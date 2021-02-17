@@ -117,7 +117,7 @@
     "@nrwl/node": "11.2.10",
     "@nrwl/nx-cloud": "11.1.2",
     "@nrwl/tao": "11.2.10",
-    "@nrwl/workspace": "11.2.10",
+    "@nrwl/workspace": "11.2.12",
     "@types/archiver": "^3.1.1",
     "@types/auth0": "^2.20.12",
     "@types/cron": "^1.7.2",
