@@ -98,6 +98,7 @@ export type biosimulationsIcon =
   | 'trash'
   | 'progress'
   | 'open'
+  | 'url'
   | 'close';
 @Component({
   selector: 'biosimulations-icon',
@@ -114,10 +115,11 @@ export class IconComponent implements OnInit {
   iconInfo!: IconInfo;
   iconMap: { [key in biosimulationsIcon]: IconInfo } = {
     home: { type: 'fas', name: 'home' },
-    link: { type: 'fas', name: 'link' },
-    internalLink: { type: 'fas', name: 'external-link-alt' },
+    internalLink: { type: 'fas', name: 'link' },
+    link: { type: 'fas', name: 'external-link-alt' },
     toTop: { type: 'fas', name: 'angle-double-up' },
     more: { type: 'fas', name: 'angle-double-right' },
+    url: { type: 'fas', name: 'cloud' },
     email: { type: 'fas', name: 'envelope' },
     git: { type: 'fab', name: 'git-alt' },
     github: { type: 'fab', name: 'github' },

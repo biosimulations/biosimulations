@@ -77,6 +77,7 @@ import {
   faTrash,
   faChevronUp,
   faChevronDown,
+  faCloud,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -131,6 +132,7 @@ export class BiosimulationsIconsModule {
       faQuestionCircle,
       faBookOpen,
       faInfoCircle,
+      faCloud,
       faBalanceScale,
       faShieldAlt,
       faCommentDots,
