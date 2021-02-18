@@ -1,8 +1,21 @@
 @import 'biosimulations-colors';
 
-form {
+mat-form-field {
   min-width: 50%;
   max-width: 600px;
+  margin: auto;
+}
+.project {
+  width: 100%;
+  div {
+    min-width: 45%;
+    mat-form-field {
+      width: 100%;
+      margin-top: 0;
+      margin: auto;
+      padding: 0;
+    }
+  }
 }
 
 .message {
@@ -15,3 +28,8 @@ form {
     }
   }
 }
+
+.sub-button{
+  float: right
+}
+

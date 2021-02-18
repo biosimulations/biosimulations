@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
@@ -10,6 +10,10 @@ import { Simulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { combineLatest } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
+import {
+  MatSlideToggle,
+  MatSlideToggleChange,
+} from '@angular/material/slide-toggle';
 
 interface SimulatorIdDisabled {
   id: string;
@@ -22,6 +26,7 @@ interface SimulatorIdDisabled {
   styleUrls: ['./dispatch.component.scss'],
 })
 export class DispatchComponent implements OnInit {
+  submitMethod: 'file' | 'url' = 'file';
   formGroup: FormGroup;
   simulators: SimulatorIdDisabled[] = [];
   simulatorVersions: string[] = [];
@@ -40,8 +45,10 @@ export class DispatchComponent implements OnInit {
     private dispatchService: DispatchService,
     private simulationService: SimulationService,
   ) {
-    this.formGroup = formBuilder.group({
-      projectFile: ['', [Validators.required]],
+    this.formGroup = this.formBuilder.group({
+      projectFile: [''],
+      projectURL: [''],
+      submitMethod: [this.submitMethod],
       simulator: ['', [Validators.required]],
       simulatorVersion: ['', [Validators.required]],
       name: ['', [Validators.required]],
@@ -50,21 +57,21 @@ export class DispatchComponent implements OnInit {
 
     this.exampleCombineArchivesUrl =
       'https://github.com/' +
-      config.appConfig.exampleCombineArchives.repoOwnerName +
+      this.config.appConfig.exampleCombineArchives.repoOwnerName +
       '/tree' +
       '/' +
-      config.appConfig.exampleCombineArchives.repoRef +
+      this.config.appConfig.exampleCombineArchives.repoRef +
       '/' +
       config.appConfig.exampleCombineArchives.repoPath;
     this.exampleCombineArchiveUrl =
       'https://github.com/' +
-      config.appConfig.exampleCombineArchives.repoOwnerName +
+      this.config.appConfig.exampleCombineArchives.repoOwnerName +
       '/raw' +
       '/' +
-      config.appConfig.exampleCombineArchives.repoRef +
+      this.config.appConfig.exampleCombineArchives.repoRef +
       '/' +
-      config.appConfig.exampleCombineArchives.repoPath +
-      config.appConfig.exampleCombineArchives.examplePath;
+      this.config.appConfig.exampleCombineArchives.repoPath +
+      this.config.appConfig.exampleCombineArchives.examplePath;
   }
 
   ngOnInit(): void {
@@ -150,8 +157,23 @@ export class DispatchComponent implements OnInit {
         }
       }
     });
+    this.toggleSubmitMethod(this.submitMethod);
   }
 
+  toggleSubmitMethod(method: 'file' | 'url') {
+    this.submitMethod = method;
+    if (method == 'file') {
+      this.formGroup.controls.projectFile.enable();
+      this.formGroup.controls.projectFile.setValidators(Validators.required);
+      this.formGroup.controls.projectFile.updateValueAndValidity();
+      this.formGroup.controls.projectURL.disable();
+    } else {
+      this.formGroup.controls.projectFile.disable();
+      this.formGroup.controls.projectURL.enable();
+      this.formGroup.controls.projectURL.setValidators(Validators.required);
+      this.formGroup.controls.projectURL.updateValueAndValidity();
+    }
+  }
   onFormSubmit() {
     this.simulationId = undefined;
 
