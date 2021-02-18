@@ -8,12 +8,13 @@ import {
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { Simulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
 import {
   MatSlideToggle,
   MatSlideToggleChange,
 } from '@angular/material/slide-toggle';
+import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
 interface SimulatorIdDisabled {
   id: string;
@@ -181,36 +182,68 @@ export class DispatchComponent implements OnInit {
       return;
     }
 
-    const projectFile: File = this.formGroup.value.projectFile;
     const simulator: string = this.formGroup.value.simulator;
     const simulatorVersion: string = this.formGroup.value.simulatorVersion;
     const name: string = this.formGroup.value.name;
     const email: string = this.formGroup.value.email;
 
-    this.dispatchService
-      .submitJob(projectFile, simulator, simulatorVersion, name, email)
-      .subscribe((data: any) => {
-        const simulationId = data['id'];
-        this.dispatchService.uuidsDispatched.push(simulationId);
-        this.dispatchService.uuidUpdateEvent.next(simulationId);
-        this.simulationId = simulationId;
+    let simulationResponse: Observable<SimulationRun>;
+    if (this.submitMethod == 'file') {
+      const projectFile: File = this.formGroup.value.projectFile;
 
-        const simulation: Simulation = {
-          id: simulationId,
-          name: name,
-          email: email,
-          simulator: simulator,
-          simulatorVersion: simulatorVersion,
-          submittedLocally: true,
-          status: SimulationRunStatus.QUEUED,
-          runtime: undefined,
-          submitted: new Date(),
-          updated: new Date(),
-        };
-        this.simulationService.storeNewLocalSimulation(simulation);
-      });
+      simulationResponse = this.dispatchService.submitJob(
+        projectFile,
+        simulator,
+        simulatorVersion,
+        name,
+        email,
+      );
+    } else {
+      const projectURL: string = this.formGroup.value.projectURL;
+      simulationResponse = this.dispatchService.sumbitJobURL(
+        projectURL,
+        simulator,
+        simulatorVersion,
+        name,
+        email,
+      );
+    }
+    simulationResponse.subscribe((data: SimulationRun) =>
+      this.processSimulationResponse(
+        data,
+        name,
+        simulator,
+        simulatorVersion,
+        email,
+      ),
+    );
   }
 
+  private processSimulationResponse(
+    data: any,
+    name: string,
+    simulator: string,
+    simulatorVersion: string,
+    email?: string,
+  ): void {
+    const simulationId = data['id'];
+
+    this.simulationId = simulationId;
+
+    const simulation: Simulation = {
+      id: simulationId,
+      name: name,
+      email: email,
+      simulator: simulator,
+      simulatorVersion: simulatorVersion,
+      submittedLocally: true,
+      status: SimulationRunStatus.QUEUED,
+      runtime: undefined,
+      submitted: new Date(),
+      updated: new Date(),
+    };
+    this.simulationService.storeNewLocalSimulation(simulation);
+  }
   onSimulatorChange($event: any) {
     if (this.simulatorSpecsMap !== undefined) {
       this.simulatorVersions = this.simulatorSpecsMap[$event.value].versions;
