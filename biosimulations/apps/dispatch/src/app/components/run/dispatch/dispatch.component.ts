@@ -185,7 +185,7 @@ export class DispatchComponent implements OnInit {
     const simulator: string = this.formGroup.value.simulator;
     const simulatorVersion: string = this.formGroup.value.simulatorVersion;
     const name: string = this.formGroup.value.name;
-    const email: string = this.formGroup.value.email;
+    const email: string | null = this.formGroup.value.email || null;
 
     let simulationResponse: Observable<SimulationRun>;
     if (this.submitMethod == 'file') {
@@ -224,7 +224,7 @@ export class DispatchComponent implements OnInit {
     name: string,
     simulator: string,
     simulatorVersion: string,
-    email?: string,
+    email: string | null,
   ): void {
     const simulationId = data['id'];
 
@@ -233,7 +233,7 @@ export class DispatchComponent implements OnInit {
     const simulation: Simulation = {
       id: simulationId,
       name: name,
-      email: email,
+      email: email || undefined,
       simulator: simulator,
       simulatorVersion: simulatorVersion,
       submittedLocally: true,
