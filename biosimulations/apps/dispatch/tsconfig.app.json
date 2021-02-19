@@ -1,7 +1,13 @@
 {
   "extends": "./tsconfig.json",
+  "angularCompilerOptions": {
+    //"strictTemplates": true,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+  },
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
+
     "types": [],
     "resolveJsonModule": true
   },

@@ -67,7 +67,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   private sedmlLocations = new BehaviorSubject<string[] | undefined>(undefined);
   sedmlLocations$ = this.sedmlLocations.asObservable();
 
-  private reportIds = new BehaviorSubject<string[] | undefined>(undefined);
+  public reportIds = new BehaviorSubject<string[] | undefined>(undefined);
   reportIds$ = this.reportIds.asObservable();
 
   private selectedSedmlLocation: string | undefined;

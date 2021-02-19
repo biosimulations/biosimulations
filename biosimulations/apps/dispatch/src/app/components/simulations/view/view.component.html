@@ -168,7 +168,7 @@
           disableOptionCentering
         >
           <mat-option
-            *ngFor="let dataSet of dataSetIdDisableds | async"
+            *ngFor="let dataSet of dataSetIdDisableds$ | async"
             [value]="dataSet.id"
             [disabled]="dataSet.disabled"
           >
@@ -192,7 +192,7 @@
           disableOptionCentering
         >
           <mat-option
-            *ngFor="let dataSet of dataSetIdDisableds | async"
+            *ngFor="let dataSet of dataSetIdDisableds$ | async"
             [value]="dataSet.id"
             [disabled]="dataSet.disabled"
           >
