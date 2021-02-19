@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RawSimulationLog } from '../../../../simulation-logs-datamodel';
-import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunLogStatus,
+  SimulationRunStatus,
+} from '@biosimulations/datamodel/common';
 import * as Convert from 'ansi-to-html';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -14,19 +17,45 @@ export class RawSimulationLogComponent {
   constructor(private sanitizer: DomSanitizer) {}
 
   heading!: string;
-
-  private _status!: SimulationRunLogStatus;
+  logStatus!: SimulationRunLogStatus;
+  private _status!: SimulationRunStatus;
 
   @Input()
-  set status(value: SimulationRunLogStatus) {
+  set status(input: SimulationRunStatus) {
     this.heading =
       'Standard output and error for the entire COMBINE/OMEX archive (' +
-      value.toLowerCase() +
+      input.toLowerCase() +
       ')';
-    this._status = value;
+    // TODO remove repetition
+    this._status = input;
+    switch (input) {
+      case SimulationRunStatus.CREATED: {
+        this.logStatus = SimulationRunLogStatus.RUNNING;
+        break;
+      }
+      case SimulationRunStatus.QUEUED: {
+        this.logStatus = SimulationRunLogStatus.QUEUED;
+        break;
+      }
+      case SimulationRunStatus.FAILED: {
+        this.logStatus = SimulationRunLogStatus.FAILED;
+        break;
+      }
+      case SimulationRunStatus.PROCESSING: {
+        this.logStatus = SimulationRunLogStatus.RUNNING;
+        break;
+      }
+      case SimulationRunStatus.RUNNING: {
+        this.logStatus = SimulationRunLogStatus.RUNNING;
+        break;
+      }
+      case SimulationRunStatus.SUCCEEDED: {
+        this.logStatus = SimulationRunLogStatus.SUCCEEDED;
+      }
+    }
   }
 
-  get status(): SimulationRunLogStatus {
+  get status(): SimulationRunStatus {
     return this._status;
   }
 

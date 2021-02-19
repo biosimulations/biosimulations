@@ -302,8 +302,7 @@
     <ng-container *ngIf="logs$ | async as logs">
       <ng-container *ngIf="formattedSimulation$ | async as sim">
         <biosimulations-simulation-log
-          *ngIf="logs.structured != undefined"
-          [status]="logs.structured.status"
+          [status]="sim.status"
           [rawLog]="logs.raw"
           [structuredLog]="logs.structured"
         >

@@ -25,7 +25,7 @@ import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
 import { ConfigService } from '@biosimulations/shared/services';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import { concatAll, map, shareReplay } from 'rxjs/operators';
+import { concatAll, map, shareReplay, tap } from 'rxjs/operators';
 import {
   AxisLabelType,
   AXIS_LABEL_TYPES,
@@ -141,6 +141,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid),
       ),
       concatAll(),
+      tap((_) => console.log(_)),
     );
     this.results$ = this.statusSuceeded$.pipe(
       map((succeeded) =>

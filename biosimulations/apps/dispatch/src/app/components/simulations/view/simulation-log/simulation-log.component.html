@@ -338,6 +338,7 @@
 
     <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
       <biosimulations-structured-simulation-log-element
+        *ngIf="structuredLog"
         [log]="structuredLog"
         elementId="COMBINE/OMEX archive"
         elementType="Combined log of the"
@@ -369,7 +370,7 @@
         elementType="COMBINE/OMEX archive"
         [log]="{
           output: structuredLog?.output || null,
-          status: status,
+          status: logStatus,
           location: 'output',
           exception: null,
           skipReason: null,
@@ -459,7 +460,7 @@
         elementType="COMBINE/OMEX archive"
         [log]="{
           output: structuredLog?.output || null,
-          status: status,
+          status: logStatus,
           location: 'output',
           exception: null,
           skipReason: null,

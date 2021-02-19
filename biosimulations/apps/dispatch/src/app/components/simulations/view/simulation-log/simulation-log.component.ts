@@ -11,6 +11,7 @@ import {
 } from '../../../../simulation-logs-datamodel';
 import {
   SimulationRunLogStatus,
+  SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
 import {
   TocSection,
@@ -35,9 +36,40 @@ type StatusCountsMap = Map<SimulationRunLogStatus, StatusCount>;
 export class SimulationLogComponent {
   constructor(private scrollService: ScrollService) {}
 
+  logStatus!: SimulationRunLogStatus;
+  _status!: SimulationRunStatus;
   @Input()
-  status!: SimulationRunLogStatus;
-
+  set status(input: SimulationRunStatus) {
+    this._status = input;
+    switch (input) {
+      case SimulationRunStatus.CREATED: {
+        this.logStatus = SimulationRunLogStatus.RUNNING;
+        break;
+      }
+      case SimulationRunStatus.QUEUED: {
+        this.logStatus = SimulationRunLogStatus.QUEUED;
+        break;
+      }
+      case SimulationRunStatus.FAILED: {
+        this.logStatus = SimulationRunLogStatus.FAILED;
+        break;
+      }
+      case SimulationRunStatus.PROCESSING: {
+        this.logStatus = SimulationRunLogStatus.RUNNING;
+        break;
+      }
+      case SimulationRunStatus.RUNNING: {
+        this.logStatus = SimulationRunLogStatus.RUNNING;
+        break;
+      }
+      case SimulationRunStatus.SUCCEEDED: {
+        this.logStatus = SimulationRunLogStatus.SUCCEEDED;
+      }
+    }
+  }
+  get status(): SimulationRunStatus {
+    return this._status;
+  }
   @Input()
   rawLog!: RawSimulationLog;
 
@@ -62,7 +94,7 @@ export class SimulationLogComponent {
   plotLogs: { doc: SedDocumentLog; plot: SedPlot2DLog | SedPlot3DLog }[] = [];
 
   @Input()
-  set structuredLog(value: CombineArchiveLog) {
+  set structuredLog(value: CombineArchiveLog | undefined) {
     value
       ? (this._structuredLog = value)
       : (this._structuredLog = {
@@ -74,14 +106,14 @@ export class SimulationLogComponent {
           sedDocuments: [],
         });
 
-    this.processStructuredLog(this._structuredLog);
+    this.processStructuredLog(value);
   }
 
-  get structuredLog(): CombineArchiveLog {
+  get structuredLog(): CombineArchiveLog | undefined {
     return this._structuredLog;
   }
 
-  private processStructuredLog(log: CombineArchiveLog) {
+  private processStructuredLog(log: CombineArchiveLog | undefined) {
     let level: StructuredLogLevel = StructuredLogLevel.None;
     this.numSedDocuments = 0;
     this.numTasks = 0;
