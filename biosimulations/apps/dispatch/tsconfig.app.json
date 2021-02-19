@@ -3,7 +3,7 @@
   "angularCompilerOptions": {
     "strictTemplates": true,
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true,
+    "strictInjectionParameters": true
   },
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",

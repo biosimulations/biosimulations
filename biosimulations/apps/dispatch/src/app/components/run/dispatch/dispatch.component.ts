@@ -11,7 +11,6 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { combineLatest, Observable } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
 
-
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
 interface SimulatorIdDisabled {

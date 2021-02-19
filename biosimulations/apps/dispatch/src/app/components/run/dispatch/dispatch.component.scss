@@ -5,15 +5,16 @@ mat-form-field {
   max-width: 600px;
   margin: auto;
 }
+
 .project {
   width: 100%;
   div {
     min-width: 45%;
     mat-form-field {
-      width: 100%;
-      margin-top: 0;
       margin: auto;
+      margin-top: 0;
       padding: 0;
+      width: 100%;
     }
   }
 }
@@ -29,7 +30,6 @@ mat-form-field {
   }
 }
 
-.sub-button{
-  float: right
+.sub-button {
+  float: right;
 }
-
