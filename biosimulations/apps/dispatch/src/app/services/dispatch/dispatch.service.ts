@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { map } from 'rxjs/operators';
 import {

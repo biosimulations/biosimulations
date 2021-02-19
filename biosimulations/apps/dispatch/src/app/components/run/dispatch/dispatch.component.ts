@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
@@ -10,10 +10,8 @@ import { Simulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { combineLatest, Observable } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
-import {
-  MatSlideToggle,
-  MatSlideToggleChange,
-} from '@angular/material/slide-toggle';
+
+
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
 interface SimulatorIdDisabled {
