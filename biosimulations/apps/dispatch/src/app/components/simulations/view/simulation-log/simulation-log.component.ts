@@ -11,7 +11,6 @@ import {
 } from '../../../../simulation-logs-datamodel';
 import {
   SimulationRunLogStatus,
-  SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
 import {
   TocSection,
