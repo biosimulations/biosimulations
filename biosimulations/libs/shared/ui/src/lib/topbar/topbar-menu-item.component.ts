@@ -1,5 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 @Component({
   selector: 'biosimulations-topbar-menu-item',
   templateUrl: './topbar-menu-item.component.html',
@@ -11,11 +12,13 @@ export class TopbarMenuItemComponent {
   heading = '';
 
   @Input()
-  icon = '';
+  icon!: BiosimulationsIcon;
 
   @Input()
-  route = '';
+  route: string | string[] = '';
 
   @Input()
   disabled = false;
+
+  constructor() {}
 }

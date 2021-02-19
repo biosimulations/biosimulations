@@ -1,12 +1,8 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { ScrollService } from '@biosimulations/shared/services';
 
-export enum IconActionType {
-  scrollToTop = 'scrollToTop',
-  routerLink = 'routerLink',
-  href = 'href',
-  toggle = 'toggle',
-}
+export type IconActionType = 'scrollToTop' | 'routerLink' | 'href' | 'toggle';
 
 @Component({
   selector: 'biosimulations-text-page-content-section',
@@ -31,10 +27,10 @@ export class TextPageContentSectionComponent {
   heading = '';
 
   @Input()
-  icon = 'toTop';
+  icon: BiosimulationsIcon = 'toTop';
 
   _iconAction!: any;
-  _iconActionType = IconActionType.scrollToTop;
+  _iconActionType: IconActionType = 'scrollToTop';
 
   @Input()
   set iconAction(iconAction: any) {
@@ -64,22 +60,22 @@ export class TextPageContentSectionComponent {
   );
 
   setIconAction(): void {
-    if (this._iconActionType === IconActionType.scrollToTop) {
+    if (this._iconActionType === 'scrollToTop') {
       this.iconRouterLink = null;
       this.iconHref = null;
       this.iconClick = this.scrollService.scrollToTop.bind(
         this.scrollService,
         this.scrollToTopOffset,
       );
-    } else if (this._iconActionType === IconActionType.routerLink) {
+    } else if (this._iconActionType === 'routerLink') {
       this.iconRouterLink = this._iconAction;
       this.iconHref = null;
       this.iconClick = () => {};
-    } else if (this._iconActionType === IconActionType.href) {
+    } else if (this._iconActionType === 'href') {
       this.iconRouterLink = null;
       this.iconHref = this._iconAction;
       this.iconClick = () => {};
-    } else if (this._iconActionType === IconActionType.toggle) {
+    } else if (this._iconActionType === 'toggle') {
       this.icon = 'open';
       this.closed = true;
       this.iconRouterLink = null;

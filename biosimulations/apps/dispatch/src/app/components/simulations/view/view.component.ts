@@ -64,7 +64,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   private combineArchive: CombineArchive | undefined;
 
-  private sedmlLocations = new BehaviorSubject<string[] | undefined>(undefined);
+  private sedmlLocations = new BehaviorSubject<string[]>([]);
   sedmlLocations$ = this.sedmlLocations.asObservable();
 
   public reportIds = new BehaviorSubject<string[] | undefined>(undefined);

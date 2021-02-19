@@ -48,7 +48,7 @@ export class TextPageComponent {
   private smallLayout = false;
 
   @Input()
-  tocSections!: Observable<TocSection[] | null>;
+  tocSections!: Observable<TocSection[]>;
 
   @Input()
   tocScrollSectionScrollOffset = 96;

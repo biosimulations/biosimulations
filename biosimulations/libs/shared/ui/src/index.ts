@@ -6,3 +6,4 @@ export * from './lib/toc/toc-section';
 export * from './lib/toc/toc-section.directive';
 export * from './lib/toc/toc-sections-container.directive';
 export * from './lib/shared-ui.module';
+export { IconActionType } from './lib/text-page/text-page-content-section.component';

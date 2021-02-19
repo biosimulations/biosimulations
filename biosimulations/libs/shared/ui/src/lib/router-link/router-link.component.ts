@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./router-link.component.sass'],
 })
 export class RouterLinkComponent {
-  @Input() routerLink: string | number | (string | number)[] | undefined;
+  @Input() routerLink: string | (string | number)[] | undefined;
 }

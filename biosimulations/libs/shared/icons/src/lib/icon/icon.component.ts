@@ -1,12 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 
 interface IconInfo {
-  type: 'mat' | 'fas' | 'fab' | 'far' | 'cc';
-  name: string;
+  type: 'mat' | 'fas' | 'fab' | 'far' | 'fal' | 'fad' | 'cc';
+  name: IconName;
   spin?: boolean;
 }
 
-export type biosimulationsIcon =
+export type BiosimulationsIcon =
   | 'home'
   | 'file'
   | 'help'
@@ -107,13 +108,13 @@ export type biosimulationsIcon =
 })
 export class IconComponent implements OnInit {
   @Input()
-  icon!: biosimulationsIcon;
+  icon!: BiosimulationsIcon;
   iconLabel!: string;
   @Input()
   size?: string;
   isSyncAnimated = false;
   iconInfo!: IconInfo;
-  iconMap: { [key in biosimulationsIcon]: IconInfo } = {
+  iconMap: { [key in BiosimulationsIcon]: IconInfo } = {
     home: { type: 'fas', name: 'home' },
     internalLink: { type: 'fas', name: 'link' },
     link: { type: 'fas', name: 'external-link-alt' },
@@ -146,7 +147,7 @@ export class IconComponent implements OnInit {
     error: { type: 'fas', name: 'exclamation' },
     project: { type: 'fas', name: 'folder-open' },
     model: { type: 'fas', name: 'project-diagram' },
-    simulation: { type: 'mat', name: 'timeline' },
+    simulation: { type: 'mat', name: 'timeline' as IconName },
     experiment: { type: 'fas', name: 'flask' },
     task: { type: 'fas', name: 'tasks' },
     chart: { type: 'fas', name: 'chart-bar' },
@@ -159,7 +160,10 @@ export class IconComponent implements OnInit {
     upload: { type: 'fas', name: 'upload' },
     refresh: { type: 'fas', name: 'sync-alt' },
     logs: { type: 'fas', name: 'terminal' },
-    compare: { type: 'mat', name: 'stacked_line_chart' },
+    compare: {
+      type: 'mat' as IconPrefix,
+      name: 'stacked_line_chart' as IconName,
+    },
     controls: { type: 'fas', name: 'cog' },
     search: { type: 'fas', name: 'search' },
     filter: { type: 'fas', name: 'filter' },
@@ -191,12 +195,18 @@ export class IconComponent implements OnInit {
     ccNc: { type: 'fab', name: 'creative-commons-nc' },
     ccSa: { type: 'fab', name: 'creative-commons-sa' },
     ccS: { type: 'fab', name: 'creative-commons-share' },
-    ccByNc: { type: 'cc', name: 'creative-commons-by_creative-commons-nc' },
-    ccByNcSa: {
-      type: 'cc',
-      name: 'creative-commons-by_creative-commons-nc_creative-commons-sa',
+    ccByNc: {
+      type: 'cc' as IconPrefix,
+      name: 'creative-commons-by_creative-commons-nc' as IconName,
     },
-    ccBySa: { type: 'cc', name: 'creative-commons-by_creative-commons-sa' },
+    ccByNcSa: {
+      type: 'cc' as IconPrefix,
+      name: 'creative-commons-by_creative-commons-nc_creative-commons-sa' as IconName,
+    },
+    ccBySa: {
+      type: 'cc' as IconPrefix,
+      name: 'creative-commons-by_creative-commons-sa' as IconName,
+    },
     version: { type: 'fas', name: 'code-branch' },
     copy: { type: 'fas', name: 'copy' },
     fork: { type: 'fas', name: 'code-branch' },

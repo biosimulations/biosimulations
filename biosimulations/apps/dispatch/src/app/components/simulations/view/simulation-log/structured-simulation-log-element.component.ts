@@ -7,6 +7,7 @@ import {
   SedPlot3DLog,
   SimulatorDetail,
   AlgorithmKisaoDescriptionFragment,
+  CombineArchiveLog,
 } from '../../../../simulation-logs-datamodel';
 import * as Convert from 'ansi-to-html';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -17,13 +18,15 @@ import {
   KisaoTerm,
   SimulationRunLogStatus,
 } from '@biosimulations/datamodel/common';
+import { IconActionType } from '@biosimulations/shared/ui';
 
 type logTypes =
   | SedDocumentLog
   | SedTaskLog
   | SedReportLog
   | SedPlot2DLog
-  | SedPlot3DLog;
+  | SedPlot3DLog
+  | CombineArchiveLog;
 
 interface FormattedSimulatorDetail {
   key: string;
@@ -137,7 +140,7 @@ export class StructuredSimulationLogElementComponent {
   compact = false;
 
   @Input()
-  iconActionType = 'scrollToTop';
+  iconActionType: IconActionType = 'scrollToTop';
 
   @Input()
   first = false;

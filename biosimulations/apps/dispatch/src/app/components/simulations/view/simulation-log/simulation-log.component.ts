@@ -9,7 +9,10 @@ import {
   SedPlot3DLog,
   StructuredLogLevel,
 } from '../../../../simulation-logs-datamodel';
-import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunLogStatus,
+  SimulationRunStatus,
+} from '@biosimulations/datamodel/common';
 import {
   TocSection,
   TocSectionsContainerDirective,
@@ -60,7 +63,7 @@ export class SimulationLogComponent {
   plotLogs: { doc: SedDocumentLog; plot: SedPlot2DLog | SedPlot3DLog }[] = [];
 
   @Input()
-  set structuredLog(value: CombineArchiveLog | undefined) {
+  set structuredLog(value: CombineArchiveLog) {
     value
       ? (this._structuredLog = value)
       : (this._structuredLog = {
@@ -75,7 +78,7 @@ export class SimulationLogComponent {
     this.processStructuredLog(this._structuredLog);
   }
 
-  get structuredLog(): CombineArchiveLog | undefined {
+  get structuredLog(): CombineArchiveLog {
     return this._structuredLog;
   }
 

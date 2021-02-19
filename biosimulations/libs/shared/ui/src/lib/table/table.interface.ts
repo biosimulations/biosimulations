@@ -70,13 +70,14 @@ export interface IdColumnMap {
 
 export interface ColumnSort {
   active: string;
-  direction?: ColumnSortDirection;
+  direction?: ColumnSortDirectionType;
 }
 
 export enum ColumnSortDirection {
   asc = 'asc',
   desc = 'desc',
 }
+export type ColumnSortDirectionType = 'asc' | 'desc';
 
 export class RowService {
   static getElementRouterLink(

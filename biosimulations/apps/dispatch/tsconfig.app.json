@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "angularCompilerOptions": {
-    //"strictTemplates": true,
+    "strictTemplates": true,
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
   },

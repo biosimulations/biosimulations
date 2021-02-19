@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MatTab } from '@angular/material/tabs';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
 @Component({
   selector: 'biosimulations-tab-page-tab',
@@ -14,7 +15,7 @@ export class TabPageTabComponent {
   heading!: string;
 
   @Input()
-  icon!: string;
+  icon!: BiosimulationsIcon;
 
   @Input()
   partialWidth = false;

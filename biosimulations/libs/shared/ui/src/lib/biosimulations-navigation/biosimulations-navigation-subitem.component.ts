@@ -1,4 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
 @Component({
   selector: 'biosimulations-navigation-subitem',
@@ -11,10 +12,10 @@ export class BiosimulationsNavigationSubitemComponent {
   heading = '';
 
   @Input()
-  icon = '';
+  icon!: BiosimulationsIcon;
 
   @Input()
-  route = '';
+  route: string | string[] = '';
 
   @Input()
   disabled = false;

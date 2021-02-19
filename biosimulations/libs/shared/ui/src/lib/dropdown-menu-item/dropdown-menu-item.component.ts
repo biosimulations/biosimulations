@@ -1,4 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
 @Component({
   selector: 'biosimulations-dropdown-menu-item',
@@ -11,7 +12,7 @@ export class DropdownMenuItemComponent {
   heading = '';
 
   @Input()
-  icon = '';
+  icon!: BiosimulationsIcon;
 
   @Input()
   disabled = false;

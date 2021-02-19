@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RawSimulationLog } from '../../../../simulation-logs-datamodel';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 import * as Convert from 'ansi-to-html';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -8,17 +8,17 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   selector: 'biosimulations-raw-simulation-log',
   templateUrl: './raw-simulation-log.component.html',
   styleUrls: ['./raw-simulation-log.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RawSimulationLogComponent {
   constructor(private sanitizer: DomSanitizer) {}
 
   heading!: string;
 
-  private _status!: SimulationRunStatus;
+  private _status!: SimulationRunLogStatus;
 
   @Input()
-  set status(value: SimulationRunStatus) {
+  set status(value: SimulationRunLogStatus) {
     this.heading =
       'Standard output and error for the entire COMBINE/OMEX archive (' +
       value.toLowerCase() +
@@ -26,7 +26,7 @@ export class RawSimulationLogComponent {
     this._status = value;
   }
 
-  get status(): SimulationRunStatus {
+  get status(): SimulationRunLogStatus {
     return this._status;
   }
 
@@ -36,7 +36,7 @@ export class RawSimulationLogComponent {
   set log(value: RawSimulationLog) {
     const convert = new Convert();
     this.formattedLog = value
-      ? this.sanitizer.sanitize(0,convert.toHtml(value))
+      ? this.sanitizer.sanitize(0, convert.toHtml(value))
       : null;
   }
 }

@@ -4,9 +4,7 @@
   alwaysFixed="calc(64px + 32px + 32px + 2rem)"
   [tocScrollSectionScrollOffset]="128"
   *ngIf="structuredLogLevel !== undefined"
-  [compact]="
-    structuredLogLevel && structuredLogLevel >= StructuredLogLevel.SedDocument
-  "
+  [compact]="structuredLogLevel >= StructuredLogLevel.SedDocument"
 >
   <ng-container id="sideBar" [ngSwitch]="structuredLogLevel">
     <ng-container *ngSwitchCase="StructuredLogLevel.None">
@@ -237,7 +235,7 @@
                   *ngFor="let docLog of _structuredLog.sedDocuments"
                 >
                   <ng-container *ngFor="let outputLog of docLog.outputs">
-                    <li *ngIf="outputLog?.dataSets">
+                    <li *ngIf="$any(outputLog)?.dataSets">
                       <a
                         [class]="['status-label', outputLog.status]"
                         (click)="
@@ -269,7 +267,7 @@
                   *ngFor="let docLog of structuredLog?.sedDocuments || []"
                 >
                   <ng-container *ngFor="let outputLog of docLog.outputs">
-                    <li *ngIf="!outputLog?.dataSets">
+                    <li *ngIf="!$any(outputLog)?.dataSets">
                       <a
                         [class]="['status-label', outputLog.status]"
                         (click)="
@@ -369,7 +367,16 @@
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="COMBINE/OMEX archive"
-        [log]="{ output: structuredLog?.output, status: status }"
+        [log]="{
+          output: structuredLog?.output || null,
+          status: status,
+          location: 'output',
+          exception: null,
+          skipReason: null,
+          duration: null,
+          tasks: null,
+          outputs: null
+        }"
         id="log=combined-stdout-stderr"
         [compact]="true"
         iconActionType="toggle"
@@ -450,7 +457,16 @@
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="COMBINE/OMEX archive"
-        [log]="{ output: structuredLog?.output, status: status }"
+        [log]="{
+          output: structuredLog?.output || null,
+          status: status,
+          location: 'output',
+          exception: null,
+          skipReason: null,
+          duration: null,
+          tasks: null,
+          outputs: null
+        }"
         id="log=combined-stdout-stderr"
         [compact]="true"
         iconActionType="toggle"
