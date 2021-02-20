@@ -77,6 +77,7 @@ import {
   faTrash,
   faChevronUp,
   faChevronDown,
+  faCloud,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -98,7 +99,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { MatIconComponent } from './mat-icon/mat-icon.component';
 import { CCIconComponent } from './cc-icon/cc-icon.component';
-export { biosimulationsIcon } from './icon/icon.component';
+export { BiosimulationsIcon } from './icon/icon.component';
 @NgModule({
   imports: [CommonModule, MatIconModule, FontAwesomeModule],
   declarations: [
@@ -131,6 +132,7 @@ export class BiosimulationsIconsModule {
       faQuestionCircle,
       faBookOpen,
       faInfoCircle,
+      faCloud,
       faBalanceScale,
       faShieldAlt,
       faCommentDots,

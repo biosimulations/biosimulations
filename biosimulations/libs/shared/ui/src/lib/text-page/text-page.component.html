@@ -3,17 +3,20 @@
     <div class="side-bar">
       <div class="sections-container" [ngStyle]="sideBarStyle$ | async">
         <biosimulations-text-page-side-bar-section
+          *ngIf="tocSections | async as sections"
           [heading]="contentsHeading"
           [fxHide]="!contentsHeading"
         >
           <ul>
-            <biosimulations-text-page-toc-item
-              *ngFor="let section of tocSections | async"
-              [heading]="section.heading | async"
-              [scrollTarget]="section.target"
-              [scrollOffset]="tocScrollSectionScrollOffset"
-            >
-            </biosimulations-text-page-toc-item>
+            <ng-container *ngFor="let section of sections">
+              <biosimulations-text-page-toc-item
+                *ngIf="section.heading | async as heading"
+                [heading]="heading"
+                [scrollTarget]="section.target"
+                [scrollOffset]="tocScrollSectionScrollOffset"
+              >
+              </biosimulations-text-page-toc-item>
+            </ng-container>
           </ul>
         </biosimulations-text-page-side-bar-section>
 

@@ -4,9 +4,7 @@
   alwaysFixed="calc(64px + 32px + 32px + 2rem)"
   [tocScrollSectionScrollOffset]="128"
   *ngIf="structuredLogLevel !== undefined"
-  [compact]="
-    structuredLogLevel && structuredLogLevel >= StructuredLogLevel.SedDocument
-  "
+  [compact]="structuredLogLevel >= StructuredLogLevel.SedDocument"
 >
   <ng-container id="sideBar" [ngSwitch]="structuredLogLevel">
     <ng-container *ngSwitchCase="StructuredLogLevel.None">
@@ -104,7 +102,7 @@
         fxHide.lt-md
       >
         <ul>
-          <li *ngFor="let docLog of structuredLog.sedDocuments">
+          <li *ngFor="let docLog of _structuredLog.sedDocuments">
             <a
               [class]="['status-label', docLog.status]"
               (click)="scrollToElement('log=' + docLog.location)"
@@ -203,7 +201,9 @@
                 >Tasks ({{ numTasks }})</a
               >
               <ul>
-                <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+                <ng-container
+                  *ngFor="let docLog of _structuredLog.sedDocuments"
+                >
                   <li *ngFor="let taskLog of docLog.tasks">
                     <a
                       [class]="['status-label', taskLog.status]"
@@ -231,9 +231,11 @@
                 >Reports ({{ numReports }})</a
               >
               <ul>
-                <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+                <ng-container
+                  *ngFor="let docLog of _structuredLog.sedDocuments"
+                >
                   <ng-container *ngFor="let outputLog of docLog.outputs">
-                    <li *ngIf="outputLog?.dataSets">
+                    <li *ngIf="$any(outputLog)?.dataSets">
                       <a
                         [class]="['status-label', outputLog.status]"
                         (click)="
@@ -261,9 +263,11 @@
                 >Plots ({{ numPlots }})</a
               >
               <ul>
-                <ng-container *ngFor="let docLog of structuredLog.sedDocuments">
+                <ng-container
+                  *ngFor="let docLog of structuredLog?.sedDocuments || []"
+                >
                   <ng-container *ngFor="let outputLog of docLog.outputs">
-                    <li *ngIf="!outputLog?.dataSets">
+                    <li *ngIf="!$any(outputLog)?.dataSets">
                       <a
                         [class]="['status-label', outputLog.status]"
                         (click)="
@@ -334,6 +338,7 @@
 
     <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
       <biosimulations-structured-simulation-log-element
+        *ngIf="structuredLog"
         [log]="structuredLog"
         elementId="COMBINE/OMEX archive"
         elementType="Combined log of the"
@@ -345,7 +350,7 @@
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
       <h2 id="section=sed-documents">Simulation experiments (SED documents)</h2>
       <biosimulations-structured-simulation-log-element
-        *ngFor="let docLog of structuredLog.sedDocuments; let iDoc = index"
+        *ngFor="let docLog of _structuredLog.sedDocuments; let iDoc = index"
         [elementId]="docLog.location"
         elementType="Simulation experiment"
         [log]="docLog"
@@ -353,7 +358,7 @@
         [compact]="true"
         iconActionType="toggle"
         [first]="iDoc === 0"
-        [last]="iDoc === structuredLog.sedDocuments.length - 1"
+        [last]="iDoc === _structuredLog.sedDocuments.length - 1"
       >
       </biosimulations-structured-simulation-log-element>
 
@@ -363,7 +368,16 @@
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="COMBINE/OMEX archive"
-        [log]="{ output: structuredLog.output, status: status }"
+        [log]="{
+          output: structuredLog?.output || null,
+          status: logStatus,
+          location: 'output',
+          exception: null,
+          skipReason: null,
+          duration: null,
+          tasks: null,
+          outputs: null
+        }"
         id="log=combined-stdout-stderr"
         [compact]="true"
         iconActionType="toggle"
@@ -444,7 +458,16 @@
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="COMBINE/OMEX archive"
-        [log]="{ output: structuredLog.output, status: status }"
+        [log]="{
+          output: structuredLog?.output || null,
+          status: logStatus,
+          location: 'output',
+          exception: null,
+          skipReason: null,
+          duration: null,
+          tasks: null,
+          outputs: null
+        }"
         id="log=combined-stdout-stderr"
         [compact]="true"
         iconActionType="toggle"

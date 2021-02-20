@@ -1,4 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
 @Component({
   selector: 'biosimulations-text-page-section',
@@ -11,7 +12,7 @@ export class TextPageSectionComponent {
   heading = '';
 
   @Input()
-  icon = '';
+  icon!: BiosimulationsIcon;
 
   @Input()
   iconRouterLink!: any[] | string | null;

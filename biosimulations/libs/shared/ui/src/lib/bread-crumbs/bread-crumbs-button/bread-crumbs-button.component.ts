@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
+
 @Component({
   selector: 'biosimulations-bread-crumbs-button',
   templateUrl: './bread-crumbs-button.component.html',
@@ -10,8 +12,8 @@ export class BreadCrumbsButtonComponent {
   label!: string;
 
   @Input()
-  icon!: string;
+  icon!: BiosimulationsIcon;
 
   @Input()
-  route!: string;
+  route!: string | string[];
 }

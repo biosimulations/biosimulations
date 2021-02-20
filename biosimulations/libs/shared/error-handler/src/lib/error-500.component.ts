@@ -11,7 +11,7 @@ export class Error500Component {
   @Input()
   pageHasBreadCrumbs = false;
 
-  code: number | string | undefined = '500';
+  code: number | string = '500';
   message = 'Server error';
   details = 'Something went wrong.';
   email: string;

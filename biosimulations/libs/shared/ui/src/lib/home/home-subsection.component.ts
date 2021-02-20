@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
 @Component({
   selector: 'biosimulations-home-subsection',
@@ -17,5 +18,5 @@ export class HomeSubsectionComponent {
   subheadingSize = 'large';
 
   @Input()
-  icon = '';
+  icon!: BiosimulationsIcon;
 }

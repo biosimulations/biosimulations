@@ -4,7 +4,7 @@ import { IconComponent } from './icon.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
-  biosimulationsIcon,
+  BiosimulationsIcon,
   BiosimulationsIconsModule,
 } from '../shared-icons.module';
 import { Component, ViewChild } from '@angular/core';
@@ -41,12 +41,12 @@ describe('IconComponent', () => {
   it('should contain all needed icons', () => {
     const iconMap = fixture.componentInstance.iconComponent.iconMap;
     for (const key in iconMap) {
-      component.icon = key as biosimulationsIcon;
+      component.icon = key as BiosimulationsIcon;
       fixture.detectChanges();
       fixture.componentInstance.iconComponent.ngOnInit();
 
       expect(fixture.componentInstance.iconComponent.iconInfo.name).toEqual(
-        iconMap[key as biosimulationsIcon].name,
+        iconMap[key as BiosimulationsIcon].name,
       );
     }
   });

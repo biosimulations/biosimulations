@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IconPrefix, IconName } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'biosimulations-fa-icon',
@@ -7,7 +8,7 @@ import { Component, Input } from '@angular/core';
 })
 export class FaIconComponent {
   @Input()
-  icon!: string;
+  icon!: [IconPrefix | 'cc' | 'mat', IconName];
 
   @Input()
   spin = false;

@@ -9,7 +9,11 @@ import {
   SedPlot3DLog,
   StructuredLogLevel,
 } from '../../../../simulation-logs-datamodel';
-import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunLogStatus,
+  SimulationRunStatus,
+  SimulationStatusToSimulationLogStatus as statusConverter,
+} from '@biosimulations/datamodel/common';
 import {
   TocSection,
   TocSectionsContainerDirective,
@@ -23,7 +27,7 @@ interface StatusCount {
   count: number;
 }
 
-type StatusCountsMap = Map<SimulationRunLogStatus | null, StatusCount>;
+type StatusCountsMap = Map<SimulationRunLogStatus, StatusCount>;
 
 @Component({
   selector: 'biosimulations-simulation-log',
@@ -33,15 +37,23 @@ type StatusCountsMap = Map<SimulationRunLogStatus | null, StatusCount>;
 export class SimulationLogComponent {
   constructor(private scrollService: ScrollService) {}
 
+  logStatus!: SimulationRunLogStatus;
+  _status!: SimulationRunStatus;
   @Input()
-  status!: SimulationRunLogStatus;
+  set status(input: SimulationRunStatus) {
+    this._status = input;
 
+    this.logStatus = statusConverter(input);
+  }
+  get status(): SimulationRunStatus {
+    return this._status;
+  }
   @Input()
   rawLog!: RawSimulationLog;
 
   StructuredLogLevel = StructuredLogLevel;
-  private _structuredLog: CombineArchiveLog | undefined = undefined;
-  structuredLogLevel: StructuredLogLevel | undefined = undefined;
+  public _structuredLog!: CombineArchiveLog;
+  structuredLogLevel!: StructuredLogLevel;
   numSedDocuments = 0;
   numTasks = 0;
   numReports = 0;
@@ -61,15 +73,25 @@ export class SimulationLogComponent {
 
   @Input()
   set structuredLog(value: CombineArchiveLog | undefined) {
-    this._structuredLog = value;
-    this.procssStructuredLog(value);
+    value
+      ? (this._structuredLog = value)
+      : (this._structuredLog = {
+          status: SimulationRunLogStatus.UNKNOWN,
+          exception: null,
+          output: null,
+          skipReason: null,
+          duration: null,
+          sedDocuments: [],
+        });
+
+    this.processStructuredLog(value);
   }
 
   get structuredLog(): CombineArchiveLog | undefined {
     return this._structuredLog;
   }
 
-  private procssStructuredLog(log: CombineArchiveLog | undefined) {
+  private processStructuredLog(log: CombineArchiveLog | undefined) {
     let level: StructuredLogLevel = StructuredLogLevel.None;
     this.numSedDocuments = 0;
     this.numTasks = 0;
@@ -226,7 +248,7 @@ export class SimulationLogComponent {
 
   private initStatusCountsMap(): StatusCountsMap {
     const statusCounts: StatusCountsMap = new Map<
-      SimulationRunLogStatus | null,
+      SimulationRunLogStatus,
       StatusCount
     >();
     statusCounts.set(SimulationRunLogStatus.QUEUED, {
@@ -259,11 +281,6 @@ export class SimulationLogComponent {
       label: 'Unknown',
       count: 0,
     });
-    statusCounts.set(null, {
-      color: SimulationRunLogStatus.SUCCEEDED,
-      label: 'Unknown',
-      count: 0,
-    });
     return statusCounts;
   }
 
@@ -275,12 +292,11 @@ export class SimulationLogComponent {
       SimulationRunLogStatus.SKIPPED,
       SimulationRunLogStatus.FAILED,
       SimulationRunLogStatus.UNKNOWN,
-      null,
     ];
 
     const array: StatusCount[] = [];
 
-    order.forEach((key: SimulationRunLogStatus | null): void => {
+    order.forEach((key: SimulationRunLogStatus): void => {
       const statusCount = map.get(key) as StatusCount;
       if (statusCount.count === 0) {
         statusCount.color = SimulationRunLogStatus.SUCCEEDED;

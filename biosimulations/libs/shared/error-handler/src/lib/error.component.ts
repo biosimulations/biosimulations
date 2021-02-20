@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
 @Component({
   selector: 'biosimulations-error',
@@ -8,7 +9,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 })
 export class ErrorComponent {
   @Input()
-  icon!: string;
+  icon!: BiosimulationsIcon;
 
   @Input()
   code!: number | string;

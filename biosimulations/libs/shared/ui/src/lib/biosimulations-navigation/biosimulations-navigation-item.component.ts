@@ -5,6 +5,7 @@ import {
   ContentChildren,
   QueryList,
 } from '@angular/core';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { BiosimulationsNavigationSubitemComponent } from './biosimulations-navigation-subitem.component';
 
 @Component({
@@ -18,10 +19,10 @@ export class BiosimulationsNavigationItemComponent {
   heading = '';
 
   @Input()
-  icon = '';
+  icon!: BiosimulationsIcon;
 
   @Input()
-  route = '';
+  route: string | string[] = '';
 
   @Input()
   aboveDivider = false;

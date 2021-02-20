@@ -111,7 +111,7 @@ export interface CombineArchiveLog extends StructuredSimulationLog {
   skipReason: Exception | null;
   output: string | null;
   duration: number | null;
-  sedDocuments: SedDocumentLog[] | null;
+  sedDocuments: SedDocumentLog[];
 }
 
 /* Logs */

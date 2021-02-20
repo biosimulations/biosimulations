@@ -19,7 +19,7 @@ describe('FaIconComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FaIconComponent);
     component = fixture.componentInstance;
-    component.icon = 'question';
+    component.icon = ['fas', 'question'];
     fixture.detectChanges();
   });
 

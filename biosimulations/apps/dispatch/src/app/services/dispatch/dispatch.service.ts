@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { map } from 'rxjs/operators';
 import {
   SimulationRun,
   UploadSimulationRun,
+  UploadSimulationRunUrl,
 } from '@biosimulations/dispatch/api-models';
 import {
   SimulationLogs,
@@ -31,31 +32,47 @@ export interface SimulatorSpecsMap {
   providedIn: 'root',
 })
 export class DispatchService {
-  uuidUpdateEvent = new Subject<string>();
-  uuidsDispatched: Array<string> = [];
+  endpoint = `${urls.dispatchApi}run/`;
+
+  sumbitJobURL(
+    url: string,
+    simulator: string,
+    simulatorVersion: string,
+    name: string,
+    email: string | null,
+  ): Observable<SimulationRun> {
+    const body: UploadSimulationRunUrl = {
+      url,
+      name,
+      email,
+      simulator,
+      simulatorVersion,
+    };
+    return this.http.post<SimulationRun>(this.endpoint, body, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
   submitJob(
     fileToUpload: File,
-    selectedSimulator: string,
-    selectedVersion: string,
+    simulator: string,
+    simulatorVersion: string,
     name: string,
-    email: string,
+    email: string | null,
   ): Observable<SimulationRun> {
-    const endpoint = `${urls.dispatchApi}run/`;
-
     const formData = new FormData();
 
     const run: UploadSimulationRun = {
       name: name,
-      email: email || null,
-      simulator: selectedSimulator,
-      simulatorVersion: selectedVersion,
+      email: email,
+      simulator,
+      simulatorVersion,
     };
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
 
     const response = this.http.post(
-      endpoint,
+      this.endpoint,
       formData,
     ) as Observable<SimulationRun>;
     return response;

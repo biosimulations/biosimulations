@@ -25,7 +25,7 @@ import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
 import { ConfigService } from '@biosimulations/shared/services';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import { concatAll, map, shareReplay } from 'rxjs/operators';
+import { concatAll, map, shareReplay, tap } from 'rxjs/operators';
 import {
   AxisLabelType,
   AXIS_LABEL_TYPES,
@@ -64,10 +64,10 @@ export class ViewComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   private combineArchive: CombineArchive | undefined;
 
-  private sedmlLocations = new BehaviorSubject<string[] | undefined>(undefined);
+  private sedmlLocations = new BehaviorSubject<string[]>([]);
   sedmlLocations$ = this.sedmlLocations.asObservable();
 
-  private reportIds = new BehaviorSubject<string[] | undefined>(undefined);
+  public reportIds = new BehaviorSubject<string[] | undefined>(undefined);
   reportIds$ = this.reportIds.asObservable();
 
   private selectedSedmlLocation: string | undefined;
@@ -141,6 +141,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid),
       ),
       concatAll(),
+      tap((_) => console.log(_)),
     );
     this.results$ = this.statusSuceeded$.pipe(
       map((succeeded) =>

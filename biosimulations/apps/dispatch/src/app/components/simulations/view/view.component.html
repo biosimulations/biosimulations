@@ -105,7 +105,7 @@
     heading="Design chart"
     icon="write"
     urlHashFragment="design-viz"
-    [disabled]="!((sedmlLocations$ | async)?.length > 0)"
+    [disabled]="!(((sedmlLocations$ | async)?.length || -1) > 0)"
   >
     <form
       [formGroup]="formGroup"
@@ -168,7 +168,7 @@
           disableOptionCentering
         >
           <mat-option
-            *ngFor="let dataSet of dataSetIdDisableds | async"
+            *ngFor="let dataSet of dataSetIdDisableds$ | async"
             [value]="dataSet.id"
             [disabled]="dataSet.disabled"
           >
@@ -192,7 +192,7 @@
           disableOptionCentering
         >
           <mat-option
-            *ngFor="let dataSet of dataSetIdDisableds | async"
+            *ngFor="let dataSet of dataSetIdDisableds$ | async"
             [value]="dataSet.id"
             [disabled]="dataSet.disabled"
           >
@@ -286,8 +286,9 @@
     "
   >
     <biosimulations-visualization
+      *ngIf="vizDataLayout$ | async as data"
       #visualization
-      [dataLayout]="vizDataLayout$ | async"
+      [dataLayout]="data"
     >
     </biosimulations-visualization>
   </biosimulations-tab-page-tab>
@@ -298,15 +299,15 @@
     urlHashFragment="log"
     [disabled]="(statusRunning$ | async) || (logs$ | async) === null"
   >
-    <biosimulations-simulation-log
-      *ngIf="
-        (formattedSimulation$ | async)?.status != null &&
-        (logs$ | async) as logs
-      "
-      [status]="(formattedSimulation$ | async)?.status"
-      [rawLog]="logs.raw"
-      [structuredLog]="logs.structured"
-    >
-    </biosimulations-simulation-log>
+    <ng-container *ngIf="logs$ | async as logs">
+      <ng-container *ngIf="formattedSimulation$ | async as sim">
+        <biosimulations-simulation-log
+          [status]="sim.status"
+          [rawLog]="logs.raw"
+          [structuredLog]="logs.structured"
+        >
+        </biosimulations-simulation-log>
+      </ng-container>
+    </ng-container>
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>

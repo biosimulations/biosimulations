@@ -8,8 +8,10 @@ import {
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { Simulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
+
+import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
 interface SimulatorIdDisabled {
   id: string;
@@ -22,6 +24,7 @@ interface SimulatorIdDisabled {
   styleUrls: ['./dispatch.component.scss'],
 })
 export class DispatchComponent implements OnInit {
+  submitMethod: 'file' | 'url' = 'file';
   formGroup: FormGroup;
   simulators: SimulatorIdDisabled[] = [];
   simulatorVersions: string[] = [];
@@ -40,8 +43,10 @@ export class DispatchComponent implements OnInit {
     private dispatchService: DispatchService,
     private simulationService: SimulationService,
   ) {
-    this.formGroup = formBuilder.group({
-      projectFile: ['', [Validators.required]],
+    this.formGroup = this.formBuilder.group({
+      projectFile: [''],
+      projectURL: [''],
+      submitMethod: [this.submitMethod],
       simulator: ['', [Validators.required]],
       simulatorVersion: ['', [Validators.required]],
       name: ['', [Validators.required]],
@@ -50,21 +55,21 @@ export class DispatchComponent implements OnInit {
 
     this.exampleCombineArchivesUrl =
       'https://github.com/' +
-      config.appConfig.exampleCombineArchives.repoOwnerName +
+      this.config.appConfig.exampleCombineArchives.repoOwnerName +
       '/tree' +
       '/' +
-      config.appConfig.exampleCombineArchives.repoRef +
+      this.config.appConfig.exampleCombineArchives.repoRef +
       '/' +
       config.appConfig.exampleCombineArchives.repoPath;
     this.exampleCombineArchiveUrl =
       'https://github.com/' +
-      config.appConfig.exampleCombineArchives.repoOwnerName +
+      this.config.appConfig.exampleCombineArchives.repoOwnerName +
       '/raw' +
       '/' +
-      config.appConfig.exampleCombineArchives.repoRef +
+      this.config.appConfig.exampleCombineArchives.repoRef +
       '/' +
-      config.appConfig.exampleCombineArchives.repoPath +
-      config.appConfig.exampleCombineArchives.examplePath;
+      this.config.appConfig.exampleCombineArchives.repoPath +
+      this.config.appConfig.exampleCombineArchives.examplePath;
   }
 
   ngOnInit(): void {
@@ -150,8 +155,23 @@ export class DispatchComponent implements OnInit {
         }
       }
     });
+    this.toggleSubmitMethod(this.submitMethod);
   }
 
+  toggleSubmitMethod(method: 'file' | 'url') {
+    this.submitMethod = method;
+    if (method == 'file') {
+      this.formGroup.controls.projectFile.enable();
+      this.formGroup.controls.projectFile.setValidators(Validators.required);
+      this.formGroup.controls.projectFile.updateValueAndValidity();
+      this.formGroup.controls.projectURL.disable();
+    } else {
+      this.formGroup.controls.projectFile.disable();
+      this.formGroup.controls.projectURL.enable();
+      this.formGroup.controls.projectURL.setValidators(Validators.required);
+      this.formGroup.controls.projectURL.updateValueAndValidity();
+    }
+  }
   onFormSubmit() {
     this.simulationId = undefined;
 
@@ -159,36 +179,68 @@ export class DispatchComponent implements OnInit {
       return;
     }
 
-    const projectFile: File = this.formGroup.value.projectFile;
     const simulator: string = this.formGroup.value.simulator;
     const simulatorVersion: string = this.formGroup.value.simulatorVersion;
     const name: string = this.formGroup.value.name;
-    const email: string = this.formGroup.value.email;
+    const email: string | null = this.formGroup.value.email || null;
 
-    this.dispatchService
-      .submitJob(projectFile, simulator, simulatorVersion, name, email)
-      .subscribe((data: any) => {
-        const simulationId = data['id'];
-        this.dispatchService.uuidsDispatched.push(simulationId);
-        this.dispatchService.uuidUpdateEvent.next(simulationId);
-        this.simulationId = simulationId;
+    let simulationResponse: Observable<SimulationRun>;
+    if (this.submitMethod == 'file') {
+      const projectFile: File = this.formGroup.value.projectFile;
 
-        const simulation: Simulation = {
-          id: simulationId,
-          name: name,
-          email: email,
-          simulator: simulator,
-          simulatorVersion: simulatorVersion,
-          submittedLocally: true,
-          status: SimulationRunStatus.QUEUED,
-          runtime: undefined,
-          submitted: new Date(),
-          updated: new Date(),
-        };
-        this.simulationService.storeNewLocalSimulation(simulation);
-      });
+      simulationResponse = this.dispatchService.submitJob(
+        projectFile,
+        simulator,
+        simulatorVersion,
+        name,
+        email,
+      );
+    } else {
+      const projectURL: string = this.formGroup.value.projectURL;
+      simulationResponse = this.dispatchService.sumbitJobURL(
+        projectURL,
+        simulator,
+        simulatorVersion,
+        name,
+        email,
+      );
+    }
+    simulationResponse.subscribe((data: SimulationRun) =>
+      this.processSimulationResponse(
+        data,
+        name,
+        simulator,
+        simulatorVersion,
+        email,
+      ),
+    );
   }
 
+  private processSimulationResponse(
+    data: any,
+    name: string,
+    simulator: string,
+    simulatorVersion: string,
+    email: string | null,
+  ): void {
+    const simulationId = data['id'];
+
+    this.simulationId = simulationId;
+
+    const simulation: Simulation = {
+      id: simulationId,
+      name: name,
+      email: email || undefined,
+      simulator: simulator,
+      simulatorVersion: simulatorVersion,
+      submittedLocally: true,
+      status: SimulationRunStatus.QUEUED,
+      runtime: undefined,
+      submitted: new Date(),
+      updated: new Date(),
+    };
+    this.simulationService.storeNewLocalSimulation(simulation);
+  }
   onSimulatorChange($event: any) {
     if (this.simulatorSpecsMap !== undefined) {
       this.simulatorVersions = this.simulatorSpecsMap[$event.value].versions;

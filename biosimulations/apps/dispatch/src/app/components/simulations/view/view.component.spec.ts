@@ -14,6 +14,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 describe('ViewComponent', () => {
   let component: ViewComponent;
   let fixture: ComponentFixture<ViewComponent>;
@@ -34,6 +35,7 @@ describe('ViewComponent', () => {
           driverOrder: ['indexeddb', 'websql', 'localstorage'],
         }),
         SimulationLogModule,
+        NoopAnimationsModule,
       ],
       providers: [ConfigService, ScrollService],
       schemas: [NO_ERRORS_SCHEMA],
