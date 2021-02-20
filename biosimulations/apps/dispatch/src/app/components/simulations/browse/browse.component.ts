@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
 import exampleSimulationsOrgJson from './example-simulations.org.json';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, take } from 'rxjs/operators';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -400,32 +400,34 @@ export class BrowseComponent implements OnInit {
 
   exportSimulations(): void {
     const simulations = this.simulationService.getSimulations();
-
-    const blob = new Blob([JSON.stringify(simulations, null, 2)], {
-      type: 'application/json',
+    // Use the take operator to make sure that we don't download every time the observable emits
+    simulations.pipe(take(1)).subscribe((sims: Simulation[]) => {
+      const blob = new Blob([JSON.stringify(sims, null, 2)], {
+        type: 'application/json',
+      });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'simulations.json';
+      a.click();
     });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'simulations.json';
-    a.click();
   }
 
   importSimulations(): void {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
-    input.onchange = () => {
+    input.onchange = (): void => {
       if (input.files == null || input.files.length === 0) {
         return;
       }
       const file = input.files[0];
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = (e): void => {
         if (e.target == null || typeof e.target.result !== 'string') {
           return;
         }
 
         const simulations = JSON.parse(e.target.result);
-        console.log(simulations);
+
         this.simulationService.storeExistingExternalSimulations(simulations);
       };
       reader.readAsText(file);
@@ -475,7 +477,7 @@ export class BrowseComponent implements OnInit {
       environment.env == 'prod'
         ? exampleSimulationsOrgJson
         : exampleSimulationsDevJson;
-
+    // TODO remove the parser 
     const parsedSims = this.parseExampleSimulations(exampleSimulationsJson);
     this.simulationService.storeExistingExternalSimulations(parsedSims);
   }
