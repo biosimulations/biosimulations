@@ -1,5 +1,5 @@
 /**
- * @file results.service Uses teh mounted nfs to read the results file for a particular simulations
+ * @file results.service Uses the mounted nfs to read the results file for a particular simulations
  * Parses them into individual reports, and then uploads them to the dispatch api.
  * @author Bilal Shaikh <bilalshaikh42@gmail.com>
  * 2020-12-13
@@ -48,7 +48,7 @@ export class ResultsService {
     csvFileList.forEach((file: resultFile) => {
       resultPromises.push(this.uploadResultFile(id, file, transpose));
     });
-    Promise.all(resultPromises).then((_) => {
+    return Promise.all(resultPromises).then((_) => {
       const data: DispatchProcessedPayload = {
         _message: DispatchMessage.processed,
         id: id,
