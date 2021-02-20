@@ -120,7 +120,7 @@
     "@nrwl/nest": "11.3.0",
     "@nrwl/node": "11.2.12",
     "@nrwl/nx-cloud": "11.1.4",
-    "@nrwl/tao": "11.2.12",
+    "@nrwl/tao": "11.3.0",
     "@nrwl/workspace": "11.2.12",
     "@scullyio/init": "^1.0.1",
     "@scullyio/ng-lib": "^1.0.0",
