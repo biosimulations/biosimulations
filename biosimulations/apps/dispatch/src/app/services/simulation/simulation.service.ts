@@ -42,14 +42,7 @@ export class SimulationService {
         if (keys.includes(this.key)) {
           this.storage.get(this.key).then((simulations: Simulation[]): void => {
             // type case dates to `Date` -- necessary for WebSQL which converts dates to strings
-            simulations.forEach((simulation: Simulation): void => {
-              if (typeof simulation.submitted === 'string') {
-                simulation.submitted = new Date(simulation.submitted);
-              }
-              if (typeof simulation.updated === 'string') {
-                simulation.updated = new Date(simulation.updated);
-              }
-            });
+            simulations = this.parseDates(simulations);
 
             this.initSimulations(simulations);
           });
@@ -59,6 +52,18 @@ export class SimulationService {
       });
     });
     this.createSimulationsArray();
+  }
+
+  private parseDates(simulations: Simulation[]) {
+    simulations.forEach((simulation: Simulation): void => {
+      if (typeof simulation.submitted === 'string') {
+        simulation.submitted = new Date(simulation.submitted);
+      }
+      if (typeof simulation.updated === 'string') {
+        simulation.updated = new Date(simulation.updated);
+      }
+    });
+    return simulations;
   }
   /**
    * Subscribes to the map of the simulators creates and observable list of simulators. This simplifies returning the simulators.
@@ -114,6 +119,7 @@ export class SimulationService {
   }
 
   public storeExistingExternalSimulations(simulations: Simulation[]): void {
+    simulations = this.parseDates(simulations);
     simulations.forEach((simulation) => {
       simulation.submittedLocally = false;
       this.addSimulation(simulation);
