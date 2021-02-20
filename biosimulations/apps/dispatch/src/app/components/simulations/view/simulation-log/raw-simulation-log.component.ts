@@ -3,6 +3,7 @@ import { RawSimulationLog } from '../../../../simulation-logs-datamodel';
 import {
   SimulationRunLogStatus,
   SimulationRunStatus,
+  SimulationStatusToSimulationLogStatus as statusConverter,
 } from '@biosimulations/datamodel/common';
 import * as Convert from 'ansi-to-html';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -26,33 +27,9 @@ export class RawSimulationLogComponent {
       'Standard output and error for the entire COMBINE/OMEX archive (' +
       input.toLowerCase() +
       ')';
-    // TODO remove repetition
+
     this._status = input;
-    switch (input) {
-      case SimulationRunStatus.CREATED: {
-        this.logStatus = SimulationRunLogStatus.RUNNING;
-        break;
-      }
-      case SimulationRunStatus.QUEUED: {
-        this.logStatus = SimulationRunLogStatus.QUEUED;
-        break;
-      }
-      case SimulationRunStatus.FAILED: {
-        this.logStatus = SimulationRunLogStatus.FAILED;
-        break;
-      }
-      case SimulationRunStatus.PROCESSING: {
-        this.logStatus = SimulationRunLogStatus.RUNNING;
-        break;
-      }
-      case SimulationRunStatus.RUNNING: {
-        this.logStatus = SimulationRunLogStatus.RUNNING;
-        break;
-      }
-      case SimulationRunStatus.SUCCEEDED: {
-        this.logStatus = SimulationRunLogStatus.SUCCEEDED;
-      }
-    }
+    this.logStatus = statusConverter(input);
   }
 
   get status(): SimulationRunStatus {
