@@ -435,50 +435,14 @@ export class BrowseComponent implements OnInit {
     input.click();
   }
 
-  private parseExampleSimulations(
-    jsonSims: {
-      id: string;
-      name: string;
-      simulator: string;
-      simulatorVersion: string;
-      submittedLocally: boolean;
-      status: string;
-      submitted: string;
-      updated: string;
-      projectSize: number;
-      runtime: null;
-      resultsSize: null;
-      email: null;
-    }[],
-  ): Simulation[] {
-    const parsedSims: Simulation[] = [];
-    jsonSims.forEach((jsonSim) => {
-      const sim: Simulation = {
-        email: jsonSim.email || undefined,
-        id: jsonSim.id,
-        name: jsonSim.name,
-        status: jsonSim.status as SimulationRunStatus,
-        simulator: jsonSim.simulator,
-        simulatorVersion: jsonSim.simulatorVersion,
-        submitted: new Date(jsonSim.submitted),
-        updated: new Date(jsonSim.updated),
-        submittedLocally: false,
-        runtime: jsonSim.runtime || undefined,
-        projectSize: jsonSim.projectSize,
-        resultsSize: jsonSim.resultsSize || undefined,
-      };
-      parsedSims.push(sim);
-    });
-    return parsedSims;
-  }
-
   loadExampleSimulations(): void {
     const exampleSimulationsJson =
       environment.env == 'prod'
         ? exampleSimulationsOrgJson
         : exampleSimulationsDevJson;
-    // TODO remove the parser 
-    const parsedSims = this.parseExampleSimulations(exampleSimulationsJson);
-    this.simulationService.storeExistingExternalSimulations(parsedSims);
+
+    this.simulationService.storeExistingExternalSimulations(
+      (exampleSimulationsJson as unknown[]) as Simulation[],
+    );
   }
 }
