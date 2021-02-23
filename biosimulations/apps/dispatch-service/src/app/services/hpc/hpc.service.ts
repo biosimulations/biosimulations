@@ -85,7 +85,8 @@ export class HpcService {
       finalStatus == 'OUT-OF-MEMORY' ||
       finalStatus == 'NODE-FAIL' ||
       finalStatus == 'TIMEOUT' ||
-      finalStatus == 'CANCELLED'
+      finalStatus == 'CANCELLED' ||
+      finalStatus == 'CANCELLED+'
     ) {
       this.logger.error(`Job ${jobId} failed with response of ${finalStatus}`);
       simStatus= SimulationRunStatus.FAILED;
