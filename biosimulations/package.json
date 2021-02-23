@@ -123,7 +123,7 @@
     "@nrwl/tao": "11.2.12",
     "@nrwl/workspace": "11.2.12",
     "@scullyio/init": "^1.0.1",
-    "@scullyio/ng-lib": "^1.0.0",
+    "@scullyio/ng-lib": "^1.1.0",
     "@scullyio/scully": "^1.0.0",
     "@types/archiver": "^3.1.1",
     "@types/auth0": "^2.33.1",
