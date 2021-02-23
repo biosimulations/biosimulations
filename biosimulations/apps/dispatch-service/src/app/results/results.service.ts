@@ -16,6 +16,7 @@ import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import {
   DispatchProcessedPayload,
   DispatchMessage,
+  DispatchFailedPayload,
 } from '@biosimulations/messages/messages';
 import { ClientProxy } from '@nestjs/microservices';
 import { FileService, resultFile } from './file.service';
@@ -33,28 +34,35 @@ export class ResultsService {
   public async createResults(id: string, transpose: boolean): Promise<void> {
     const resultsDirectory = this.fileService.getResultsDirectory(id);
     //const resultsDirectory = 'testDir';
-    const fileList: resultFile[] = await this.fileService.getFilesRecursively(
-      resultsDirectory,
-    );
-    /* @todo Change this to hdf
-     * @body change this to hdf files to implement changes needed for #1669
-     */
-    const csvFileList = fileList.filter((value: resultFile) =>
-      value.name.endsWith('.csv'),
-    );
 
-    const resultPromises: Promise<void>[] = [];
+    try {
+      const fileList: resultFile[] = await this.fileService.getFilesRecursively(
+        resultsDirectory,
+      );
+      /* @todo Change this to hdf
+       * @body change this to hdf files to implement changes needed for #1669
+       */
+      const csvFileList = fileList.filter((value: resultFile) =>
+        value.name.endsWith('.csv'),
+      );
 
-    csvFileList.forEach((file: resultFile) => {
-      resultPromises.push(this.uploadResultFile(id, file, transpose));
-    });
-    return Promise.all(resultPromises).then((_) => {
-      const data: DispatchProcessedPayload = {
-        _message: DispatchMessage.processed,
-        id: id,
-      };
-      this.client.emit(DispatchMessage.processed, data);
-    });
+      const resultPromises: Promise<void>[] = [];
+
+      csvFileList.forEach((file: resultFile) => {
+        resultPromises.push(this.uploadResultFile(id, file, transpose));
+      });
+      return Promise.all(resultPromises).then((_) => {
+        const data: DispatchProcessedPayload = {
+          _message: DispatchMessage.processed,
+          id: id,
+        };
+        this.client.emit(DispatchMessage.processed, data);
+      });
+    } catch (e) {
+      this.logger.error(e);
+      const data: DispatchFailedPayload = new DispatchFailedPayload(id, false);
+      this.client.emit(DispatchMessage.failed, data);
+    }
   }
 
   private async readCSV(file: string): Promise<SimulationRunReportDataStrings> {

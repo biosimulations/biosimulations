@@ -1,5 +1,6 @@
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import {
+  DispatchFailedPayload,
   DispatchFinishedPayload,
   DispatchMessage,
   DispatchPayload,
@@ -43,15 +44,18 @@ export class ResultsController {
       );
   }
   @MessagePattern(DispatchMessage.failed)
-  public async processFailedResults(data: DispatchPayload): Promise<void> {
+  public async processFailedResults(
+    data: DispatchFailedPayload,
+  ): Promise<void> {
     const id = data.id;
 
     this.logger.log(`Simulation ${id} Failed. Creating logs and output`);
-
-    await Promise.all([
-      this.archiverService.createResultArchive(id),
-      this.logService.createLog(id),
-    ]);
+    if (data.proccessOutput) {
+      await Promise.all([
+        this.archiverService.createResultArchive(id),
+        this.logService.createLog(id),
+      ]);
+    }
 
     this.simService
       .updateSimulationRunStatus(id, SimulationRunStatus.FAILED)
