@@ -1,9 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
-import {
-  SimulationRunStatus,
-  
-} from '@biosimulations/datamodel/common';
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 
@@ -75,9 +72,9 @@ export class HpcService {
     this.logger.debug(`Job status is ${finalStatus}`);
     // Can not use logical or in a switch statement.
     if (finalStatus == 'PENDING') {
-      simStatus =SimulationRunStatus.QUEUED;
+      simStatus = SimulationRunStatus.QUEUED;
     } else if (finalStatus == 'RUNNING') {
-      simStatus= SimulationRunStatus.RUNNING;
+      simStatus = SimulationRunStatus.RUNNING;
     } else if (finalStatus == 'COMPLETED') {
       simStatus = SimulationRunStatus.PROCESSING;
     } else if (
@@ -86,16 +83,16 @@ export class HpcService {
       finalStatus == 'NODE-FAIL' ||
       finalStatus == 'TIMEOUT' ||
       finalStatus == 'CANCELLED' ||
-      finalStatus == 'CANCELLED+'
+      finalStatus.startsWith('CANCELLED')
     ) {
       this.logger.error(`Job ${jobId} failed with response of ${finalStatus}`);
-      simStatus= SimulationRunStatus.FAILED;
+      simStatus = SimulationRunStatus.FAILED;
     } else {
       this.logger.error(
         `Job ${jobId} status failed by default with response of ${finalStatus}`,
       );
-      simStatus= null;
+      simStatus = null;
     }
-    return simStatus
+    return simStatus;
   }
 }
