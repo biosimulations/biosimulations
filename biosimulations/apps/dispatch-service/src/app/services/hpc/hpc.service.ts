@@ -1,6 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunStatus,
+  
+} from '@biosimulations/datamodel/common';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 
@@ -68,38 +71,30 @@ export class HpcService {
 
     const saactDataOutput = saactData.stdout;
     const finalStatus = saactDataOutput.trim();
-
+    let simStatus: SimulationRunStatus | null;
     this.logger.debug(`Job status is ${finalStatus}`);
-    // Possible stdout's: PENDING, RUNNING, COMPLETED, CANCELLED, FAILED, TIMEOUT, OUT-OF-MEMORY,NODE_FAIL
-    switch (finalStatus) {
-      case 'PENDING': {
-        return SimulationRunStatus.QUEUED;
-      }
-
-      case 'RUNNING': {
-        return SimulationRunStatus.RUNNING;
-      }
-
-      case 'COMPLETED': {
-        return SimulationRunStatus.PROCESSING;
-      }
-
-      case 'FAILED' ||
-        'OUT-OF-MEMORY' ||
-        'NODE_FAIL' ||
-        'TIMEOUT' ||
-        'CANCELLED': {
-        this.logger.error(
-          `Job ${jobId} failed with response of ${saactDataOutput}`,
-        );
-        return SimulationRunStatus.FAILED;
-      }
-      default: {
-        this.logger.error(
-          `Job ${jobId} status failed by default with response of ${saactDataOutput}`,
-        );
-        return null;
-      }
+    // Can not use logical or in a switch statement.
+    if (finalStatus == 'PENDING') {
+      simStatus =SimulationRunStatus.QUEUED;
+    } else if (finalStatus == 'RUNNING') {
+      simStatus= SimulationRunStatus.RUNNING;
+    } else if (finalStatus == 'COMPLETED') {
+      simStatus = SimulationRunStatus.PROCESSING;
+    } else if (
+      finalStatus == 'FAILED' ||
+      finalStatus == 'OUT-OF-MEMORY' ||
+      finalStatus == 'NODE-FAIL' ||
+      finalStatus == 'TIMEOUT' ||
+      finalStatus == 'CANCELLED'
+    ) {
+      this.logger.error(`Job ${jobId} failed with response of ${finalStatus}`);
+      simStatus= SimulationRunStatus.FAILED;
+    } else {
+      this.logger.error(
+        `Job ${jobId} status failed by default with response of ${finalStatus}`,
+      );
+      simStatus= null;
     }
+    return simStatus
   }
 }
