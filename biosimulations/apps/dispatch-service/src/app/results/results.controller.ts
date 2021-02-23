@@ -3,7 +3,6 @@ import {
   DispatchFailedPayload,
   DispatchFinishedPayload,
   DispatchMessage,
-  DispatchPayload,
 } from '@biosimulations/messages/messages';
 import { Controller, Logger } from '@nestjs/common';
 
