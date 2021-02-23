@@ -53,7 +53,14 @@ export class DispatchCreatedPayload extends DispatchPayload {
     this.version = version;
   }
 }
-
+export class DispatchFailedPayload extends DispatchPayload {
+  public _message: DispatchMessage = DispatchMessage.failed;
+  public proccessOutput: boolean;
+  public constructor(id: string, processOutput = true) {
+    super(id);
+    this.proccessOutput = processOutput;
+  }
+}
 export class DispatchSubmittedPayload extends DispatchPayload {
   _message = DispatchMessage.submitted;
   constructor(id: string) {

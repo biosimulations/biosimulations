@@ -95,8 +95,6 @@ export class LogsController {
     @Body() body: CreateSimulationRunLogBody,
   ): Promise<CombineArchiveLog> {
     const logs = await this.service.createLog(body.simId, body.log);
-    this.logger.debug('Creating Log');
-    this.logger.debug(logs);
     return logs.log;
   }
 

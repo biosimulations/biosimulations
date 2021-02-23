@@ -3,6 +3,7 @@ import {
   DispatchPayload,
   DispatchMessage,
   DispatchFinishedPayload,
+  DispatchFailedPayload,
 } from '@biosimulations/messages/messages';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
@@ -79,9 +80,10 @@ export class SubmissionService {
         case SimulationRunStatus.FAILED: {
           this.logger.error(`Job with id ${jobId} failed`);
 
-          const failedMessage: DispatchPayload = {
+          const failedMessage: DispatchFailedPayload = {
             _message: DispatchMessage.failed,
             id: simId,
+            proccessOutput: true,
           };
           this.messageClient.emit(DispatchMessage.failed, failedMessage);
           this.schedulerRegistry.getCronJob(jobId).stop();
@@ -103,7 +105,8 @@ export class SubmissionService {
     this.logger.debug(
       `Starting to monitor job with id ${jobId} for simulation ${simId}`,
     );
-    job.start();
+    // Adding a random wait to prevent sims from syncing up
+    await setTimeout(() => job.start(), Math.random() * seconds * 1000);
   }
 
   private async updateSimulationRunStatus(
