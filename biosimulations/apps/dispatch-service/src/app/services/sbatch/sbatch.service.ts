@@ -21,6 +21,7 @@ export class SbatchService {
 #SBATCH --time=20:00
 #SBATCH --output=${tempSimDir}/out/job.output
 #SBATCH --error=${tempSimDir}/out/job.output
+#SBATCH --chdir=${tempSimDir}
 #SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=1000
 #SBATCH --partition=crbm
@@ -28,9 +29,12 @@ export class SbatchService {
 
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
-module load singularity/3.1.1
-export XDG_RUNTIME_DIR=${homeDir}/singularityXDG/
-export SINGULARITY_CACHEDIR=${homeDir}/singularityCache/
+module load singularity
+export XDG_RUNTIME_DIR=${homeDir}/singularity/XDG/
+export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
+export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
+export SINGULARITY_TMPDIR=${homeDir}/singularity/tmp/
+export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 wget ${apiDomain}run/${simId}/download -O '${tempSimDir}/in/${omexName}' 1>'${tempSimDir}/out/job.output' 2>&1
 singularity -v run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out ${simulator} -i '/root/in/${omexName}' -o '/root/out'`;
     return template;
@@ -46,11 +50,15 @@ singularity -v run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out $
 #SBATCH --mem-per-cpu=1000
 #SBATCH --partition=crbm
 #SBATCH --qos=general\n
+
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
-module load singularity/3.1.1
-export XDG_RUNTIME_DIR=${homeDir}/singularityXDG/
-export SINGULARITY_CACHEDIR=${homeDir}/singularityCache/
+module load singularity
+export XDG_RUNTIME_DIR=${homeDir}/singularity/XDG/
+export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
+export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
+export SINGULARITY_TMPDIR=${homeDir}/singularity/tmp/
+export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 command=\\"cd singularityImages && singularity pull ${force} ${url}\\"
     eval \\$command; `;
     return template;
