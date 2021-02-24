@@ -35,7 +35,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/passport
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/passport/LICENSE
-├─ @nestjs/platform-express@7.6.5
+├─ @nestjs/platform-express@7.6.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -167,7 +167,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/mongoose/LICENSE
-├─ @types/node@14.14.30
+├─ @types/node@14.14.31
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/node/LICENSE
@@ -269,7 +269,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Alex Indigo
 │  ├─ email: iam@alexindigo.com
 │  └─ licenseFile: asynckit/LICENSE
-├─ auth0@2.31.1
+├─ auth0@2.33.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
@@ -796,7 +796,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: ruben@verborgh.org
 │  ├─ url: https://ruben.verborgh.org/
 │  └─ licenseFile: follow-redirects/LICENSE
-├─ form-data@3.0.0
+├─ form-data@3.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/form-data/form-data
 │  ├─ publisher: Felix Geisendörfer
@@ -1293,7 +1293,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: robert@broofa.com
 │  ├─ url: http://github.com/broofa
 │  └─ licenseFile: mime/LICENSE
-├─ mime@2.4.7
+├─ mime@2.5.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/broofa/mime
 │  ├─ publisher: Robert Kieffer
@@ -1568,7 +1568,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Douglas Christopher Wilson
 │  ├─ email: doug@somethingdoug.com
 │  └─ licenseFile: proxy-addr/LICENSE
-├─ proxy-agent@4.0.0
+├─ proxy-agent@4.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/node-proxy-agent
 │  ├─ publisher: Nathan Rajlich
@@ -1599,7 +1599,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/ljharb/qs
 │  └─ licenseFile: qs/LICENSE
-├─ qs@6.9.4
+├─ qs@6.9.6
 │  ├─ licenses: BSD-3-Clause
 │  ├─ repository: https://github.com/ljharb/qs
 │  └─ licenseFile: superagent/node_modules/qs/LICENSE.md
