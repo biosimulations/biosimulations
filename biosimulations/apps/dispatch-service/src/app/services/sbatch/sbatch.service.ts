@@ -22,14 +22,12 @@ export class SbatchService {
 #SBATCH --output=${tempSimDir}/out/job.output
 #SBATCH --error=${tempSimDir}/out/job.output
 #SBATCH --chdir=${tempSimDir}
-#SBATCH --ntasks=1
-#SBATCH --mem-per-cpu=1000
 #SBATCH --partition=crbm
 #SBATCH --qos=general\n
 
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
-module load singularity
+module load singularity/3.7.1
 export XDG_RUNTIME_DIR=${homeDir}/singularity/XDG/
 export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
@@ -45,15 +43,13 @@ singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out ${si
     const template = `#!/bin/bash    
 #SBATCH --job-name=BioSimulations_Image_Update
 #SBATCH --time=10:00
-#SBATCH --output=${homeDir}/singularityImages/job.output
-#SBATCH --ntasks=1
-#SBATCH --mem-per-cpu=1000
+#SBATH --chdir${homeDir}/singularity/images/
 #SBATCH --partition=crbm
 #SBATCH --qos=general\n
 
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
-module load singularity
+module load singularity/3.7.1
 export XDG_RUNTIME_DIR=${homeDir}/singularity/XDG/
 export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
