@@ -32,8 +32,7 @@ module load singularity/3.1.1
 export XDG_RUNTIME_DIR=${homeDir}/singularityXDG/
 export SINGULARITY_CACHEDIR=${homeDir}/singularityCache/
 wget ${apiDomain}run/${simId}/download -O '${tempSimDir}/in/${omexName}' 1>'${tempSimDir}/out/job.output' 2>&1
-singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out ${simulator} -i '/root/in/${omexName}' -o '/root/out'
-date`;
+singularity -v run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out ${simulator} -i '/root/in/${omexName}' -o '/root/out'`;
     return template;
   }
 
