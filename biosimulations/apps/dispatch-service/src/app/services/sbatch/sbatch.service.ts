@@ -36,7 +36,7 @@ export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
 export SINGULARITY_TMPDIR=${homeDir}/singularity/tmp/
 export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 wget ${apiDomain}run/${simId}/download -O '${tempSimDir}/in/${omexName}' 1>'${tempSimDir}/out/job.output' 2>&1
-singularity -v run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out ${simulator} -i '/root/in/${omexName}' -o '/root/out'`;
+singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out ${simulator} -i '/root/in/${omexName}' -o '/root/out'`;
     return template;
   }
 
