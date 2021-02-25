@@ -28,8 +28,8 @@ export class SbatchService {
 
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
-module load singularity/3.7.1
 export PATH=$PATH:/usr/sbin/
+module load singularity/3.7.1
 export XDG_RUNTIME_DIR=${homeDir}/singularity/XDG/
 export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
@@ -44,7 +44,6 @@ singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out ${si
     const homeDir = this.configService.get('hpc.homeDir');
     const image = url.split('docker://ghcr.io/biosimulators/')[1];
     const template = `#!/bin/bash    
-
 #SBATCH --job-name=${image}-Build
 #SBATCH --time=30:00
 #SBATCH --chdir=${homeDir}/singularity/images/
