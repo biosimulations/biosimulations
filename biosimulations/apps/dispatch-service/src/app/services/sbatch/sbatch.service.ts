@@ -24,7 +24,10 @@ export class SbatchService {
 #SBATCH --chdir=${tempSimDir}
 #SBATCH --ntasks=1
 #SBATCH --partition=crbm
+#SBATCH --mem=8G
+#SBATCH --cpus-per-task=1
 #SBATCH --qos=general\n
+
 
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
