@@ -1,6 +1,6 @@
 BioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using license-checker (https://github.com/davglass/license-checker).
 
-├─ @nestjs/common@7.6.5
+├─ @nestjs/common@7.6.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -274,7 +274,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.838.0
+├─ aws-sdk@2.850.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services
@@ -1990,7 +1990,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: 0BSD
 │  ├─ repository: https://github.com/Microsoft/tslib
 │  ├─ publisher: Microsoft Corp.
-│  └─ licenseFile: @nestjs/core/node_modules/tslib/LICENSE.txt
+│  └─ licenseFile: @nestjs/common/node_modules/tslib/LICENSE.txt
 ├─ tweetnacl@0.14.5
 │  ├─ licenses: Unlicense
 │  ├─ repository: https://github.com/dchest/tweetnacl-js
