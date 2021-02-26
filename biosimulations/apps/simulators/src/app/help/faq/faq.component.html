@@ -191,6 +191,49 @@
           can be converted into a Singularity image.
         </p>
       </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How can I create a shield for a simulation tool to embed into my website?"
+      >
+        <p>
+          We recommend using Shields.io to generate shields for simulators. Several examples are below.
+        </p>
+        <ul class="vertically-spaced shields">
+          <li>
+            <b>Indicate that a simulator is registered:</b>
+            <br />Use
+            <code
+              >https://img.shields.io/badge/BioSimulators-registered-green</code
+            >
+            to generate the badge below. <br /><a [routerLink]="['/run']"
+              ><img
+                src="https://img.shields.io/badge/BioSimulators-registered-green"
+            /></a>
+          </li>
+          <li>
+            <b>Indicate that a simulator is valid:</b>
+            <br />Use
+            <code
+              >https://img.shields.io/badge/BioSimulators-valid-green</code
+            >
+            to generate the badge below. <br /><a [routerLink]="['/run']"
+              ><img
+                src="https://img.shields.io/badge/BioSimulators-valid-green"
+            /></a>
+          </li>
+          <li>
+            <b>Indicate the latest registered version of a simulator:</b>
+            <br />Use
+            <code
+              >https://img.shields.io/badge/BioSimulators-{{'{'}} latest-version {{'}'}}-green</code
+            >
+            to generate the badge below. <br /><a [routerLink]="['/run']"
+              ><img
+                src="https://img.shields.io/badge/BioSimulators-2.2.0-green"
+            /></a>
+          </li>
+        </ul>
+      </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
