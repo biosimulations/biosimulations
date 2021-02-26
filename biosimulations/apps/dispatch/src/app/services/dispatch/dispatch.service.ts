@@ -14,14 +14,15 @@ import {
 } from '../../simulation-logs-datamodel';
 import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 
-export interface ModelingFrameworksForModelFormat {
+export interface ModelingFrameworksAlgorithmsForModelFormat {
   formatEdamIds: string[];
   frameworkSboIds: string[];
+  algorithmKisaoIds: string[];
 }
 
 export interface SimulatorSpecs {
   versions: string[];
-  modelingFrameworksForModelFormats: ModelingFrameworksForModelFormat[];
+  modelingFrameworksAlgorithmsForModelFormats: ModelingFrameworksAlgorithmsForModelFormat[];
 }
 
 export interface SimulatorSpecsMap {
@@ -102,14 +103,14 @@ export class DispatchService {
               if (!(simulator.id in simulatorSpecsMap)) {
                 simulatorSpecsMap[simulator.id] = {
                   versions: [],
-                  modelingFrameworksForModelFormats: [],
+                  modelingFrameworksAlgorithmsForModelFormats: [],
                 };
               }
               simulatorSpecsMap[simulator.id].versions.push(simulator.version);
               simulator.algorithms.forEach((algorithm: any): void => {
                 simulatorSpecsMap[
                   simulator.id
-                ].modelingFrameworksForModelFormats.push({
+                ].modelingFrameworksAlgorithmsForModelFormats.push({
                   formatEdamIds: algorithm.modelFormats.map(
                     (format: any): void => {
                       return format.id;
@@ -120,6 +121,7 @@ export class DispatchService {
                       return format.id;
                     },
                   ),
+                  algorithmKisaoIds: [algorithm.kisaoId.id],
                 });
               });
             }

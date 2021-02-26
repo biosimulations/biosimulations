@@ -212,7 +212,7 @@
         heading="How can I embed execution capabilities for my simulations into my website?"
       >
         <p>
-          Developers can use runBioSimulators to provide their users
+          Developers can use runBioSimulations to provide their users
           capabilities to execute their simulations. Developers can achieve this
           simply by adding hyperlinks to the run simulations page,
           <a [routerLink]="['/run']">{{ config.appUrl }}run</a>.
@@ -269,26 +269,27 @@
         heading="How can I create a shield for a simulation tool to embed into my website?"
       >
         <p>
-          We recommend using Shields.io to embed hyperlinked sheilds for
-          runBioSimulators or individual simulation tools:
+          We recommend using Shields.io to generate shields for executing simulations with
+          runBioSimulations, executing simulations with specific simulators, or executing
+          specific modeling projects:
         </p>
         <ul class="vertically-spaced shields">
           <li>
-            <b>Any simulation tool:</b>
+            <b>Executing any simulation with any simulator:</b>
             <br />Use
             <code
-              >https://img.shields.io/badge/Simulate-runBioSimulations-green</code
+              >https://img.shields.io/badge/runBioSimulations-Simulate-green</code
             >
             to generate the badge below. <br /><a [routerLink]="['/run']"
               ><img
-                src="https://img.shields.io/badge/Simulate-runBioSimulations-green"
+                src="https://img.shields.io/badge/runBioSimulations-simulate-green"
             /></a>
           </li>
           <li>
-            <b>Specific simulation tool:</b>
+            <b>Executing simulations with a specific simulator:</b>
             <br />Use the pattern
             <code
-              >https://img.shields.io/badge/Simulate-{{ '{' }} simulator-name
+              >https://img.shields.io/badge/runBioSimulations-{{ '{' }} simulator-name
               {{ '}' }}:{{ '{' }} simulator-version {{ '}' }}-green</code
             >
             to generate badges such as the badge below for tellurium 2.2.0.
@@ -299,7 +300,27 @@
                 simulatorVersion: '2.2.0'
               }"
               ><img
-                src="https://img.shields.io/badge/Simulate-tellurium:2.2.0-green"
+                src="https://img.shields.io/badge/runBioSimulations-tellurium:2.2.0-green"
+            /></a>
+          </li>
+          <li>
+            <b>Executing specific modeling projects:</b>
+            <br />Use the pattern
+            <code
+              >https://img.shields.io/badge/runBioSimulations-{{ '{' }} model-name
+              {{ '}' }}:{{ '{' }} model-format {{ '}' }}-green</code
+            >
+            to generate badges such as the badge below for the Ciliberto model of the morphogenesis checkpoint in budding yeast <a href="https://doi.org/10.1083/jcb.200306139" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+            <br /><a
+              [routerLink]="['/run']"
+              [queryParams]="{
+                projectUrl: 'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples/sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex',
+                modelFormat: 'format_2585',
+                modelingFramework: 'SBO_0000293',
+                simulationAlgorithm: 'KISAO_0000019'
+              }"
+              ><img
+                src="https://img.shields.io/badge/runBioSimulations-Ciliberto et al.:SBML-green"
             /></a>
           </li>
         </ul>
