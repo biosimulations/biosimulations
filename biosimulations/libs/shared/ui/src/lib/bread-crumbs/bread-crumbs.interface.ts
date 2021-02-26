@@ -6,7 +6,9 @@ export interface IBreadCrumb {
 }
 
 export interface IContextButton {
-  route: string | string[];
+  route?: string | string[];
+  hover?: string;
   icon: BiosimulationsIcon;
   label: string;
+  onClick?: (route: string) => string | undefined;
 }

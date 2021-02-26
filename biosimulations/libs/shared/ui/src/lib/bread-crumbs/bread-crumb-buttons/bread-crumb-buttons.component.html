@@ -3,7 +3,9 @@
     <biosimulations-bread-crumbs-button
       [icon]="button.icon"
       [label]="button.label"
-      [route]="button.route"
+      [route]="button?.route"
+      [onClick]="button?.onClick"
+      [hover]="button.hover"
     ></biosimulations-bread-crumbs-button>
   </ng-container>
 </div>

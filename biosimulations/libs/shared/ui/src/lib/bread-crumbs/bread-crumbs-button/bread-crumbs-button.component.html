@@ -2,6 +2,9 @@
   mat-icon-button
   class="biosimulations-icon-button"
   [routerLink]="route ? route : null"
+  (click)="clickHandler()"
+  [matTooltip]="hover || label"
+  matTooltipPosition="below"
 >
   <biosimulations-icon class="icon" [icon]="icon"></biosimulations-icon>
   <span class="label">{{ label }}</span>

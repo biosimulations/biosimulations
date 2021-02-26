@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
 @Component({
@@ -9,11 +10,31 @@ import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 })
 export class BreadCrumbsButtonComponent {
   @Input()
-  label!: string;
+  public label!: string;
 
   @Input()
-  icon!: BiosimulationsIcon;
+  public icon!: BiosimulationsIcon;
 
   @Input()
-  route!: string | string[];
+  public route?: string | string[];
+
+  @Input()
+  public onClick?: (route: string) => string |undefined;
+
+  @Input()
+  public hover?: string;
+
+  public constructor(private router: Router, private _snackBar: MatSnackBar) {}
+  public clickHandler(): void {
+    if (this.onClick) {
+
+      const route = this.router.url;
+      const message = this.onClick(route);
+      if(message){
+        this._snackBar.open(message, undefined, {
+          duration: 2000,
+        })
+      }
+    }
+  }
 }
