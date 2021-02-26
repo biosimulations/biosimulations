@@ -19,7 +19,7 @@ export class BreadCrumbsButtonComponent {
   public route?: string | string[];
 
   @Input()
-  public onClick?: (route: string) => string |undefined;
+  public onClick?: (route: string) => string | undefined;
 
   @Input()
   public hover?: string;
@@ -27,13 +27,12 @@ export class BreadCrumbsButtonComponent {
   public constructor(private router: Router, private _snackBar: MatSnackBar) {}
   public clickHandler(): void {
     if (this.onClick) {
-
       const route = this.router.url;
       const message = this.onClick(route);
-      if(message){
+      if (message) {
         this._snackBar.open(message, undefined, {
           duration: 2000,
-        })
+        });
       }
     }
   }

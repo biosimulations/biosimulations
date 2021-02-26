@@ -47,6 +47,7 @@ const materialImports = [
   NgxMatFileInputModule,
   MatTableModule,
   DragDropModule,
+  MatTooltipModule,
   MatSortModule,
 ];
 
