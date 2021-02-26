@@ -4,6 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { BrowseComponent } from './browse/browse.component';
 import { ViewComponent } from './view/view.component';
 
+const shareUrl = (url: string): string => {
+  const host = window.location.host;
+  navigator.clipboard.writeText(host + url);
+  return 'Copied URL to clipboard';
+};
 const routes: Routes = [
   {
     path: '',
@@ -12,6 +17,16 @@ const routes: Routes = [
   {
     path: ':uuid',
     component: ViewComponent,
+    data: {
+      contextButtons: [
+        {
+          onClick: shareUrl,
+          hover: 'Click to copy url to clipboard',
+          icon: 'share',
+          label: 'Share',
+        },
+      ],
+    },
   },
 ];
 
