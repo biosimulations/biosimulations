@@ -1,22 +1,40 @@
 <biosimulations-page heading="Run a simulation project">
   <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
     <mat-form-field appearance="fill">
-      <mat-label>Provide Omex Archive by</mat-label>
+      <mat-label>Select a method for providing a simulation project (COMBINE/OMEX file)</mat-label>
       <mat-select
         [value]="submitMethod"
         (selectionChange)="toggleSubmitMethod($event.value)"
         required
         formControlName="submitMethod"
       >
-        <mat-option value="file">Submitting a File</mat-option>
-        <mat-option value="url">Providing a URL</mat-option>
+        <mat-option value="file">Upload a local file</mat-option>
+        <mat-option value="url">Enter a URL for a file</mat-option>
       </mat-select>
+      <mat-hint>
+        <p>
+          Select a method for providing a COMBINE/OMEX archive. COMBINE/OMEX files can either be uploaded
+          for your local computer or loaded from a publicly-accessible URL.
+        </p>
+      </mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" *ngIf="submitMethod === 'file'">
+      <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
+      <mat-label>Select a simulation project (COMBINE/OMEX file)</mat-label>
+      <ngx-mat-file-input
+        formControlName="projectFile"
+        accept=".omex"
+        [multiple]="false"
+        [required]="submitMethod === 'file'"
+        placeholder="COMBINE/OMEX file"
+      ></ngx-mat-file-input>
+
       <mat-hint>
         <p>
           Select a COMBINE/OMEX archive file which describes one or more
           simulations (e.g., in SED-ML format) of one or more models (e.g., in
-          BNGL, SBML formats). The COMBINE/OMEX archive can be provided by uploading
-          a file, or by providing a url that resolves to a file.
+          BNGL, SBML formats).
         </p>
 
         <p>
@@ -40,39 +58,46 @@
         </p>
       </mat-hint>
     </mat-form-field>
-    <div
-      class="project"
-      fxLayout="row"
-      fxLayoutAlign="space-around"
-      fxLayout.lt-md="column"
-      fxFlexAlign.lt-md="space-between stretch"
-    >
-      <div fxFlex.lt-md="grow">
-        <mat-form-field appearance="fill">
-          <mat-label>Select a simulation project (COMBINE/OMEX file)</mat-label>
-          <ngx-mat-file-input
-            formControlName="projectFile"
-            accept=".omex"
-            [multiple]="false"
-            [required]="submitMethod == 'file'"
-            placeholder="COMBINE/OMEX file"
-          ></ngx-mat-file-input>
-          <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
-        </mat-form-field>
-      </div>
-      <div fxFlex.lt-md="grow">
-        <mat-form-field appearance="fill">
-          <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
-          <mat-label>Enter a URL for a COMBINE/OMEX archive</mat-label>
-          <input
-            [required]="submitMethod == 'url'"
-            matInput
-            formControlName="projectUrl"
-            [placeholder]="exampleCombineArchiveUrl"
-          />
-        </mat-form-field>
-      </div>
-    </div>
+
+    <mat-form-field appearance="fill" *ngIf="submitMethod === 'url'">
+      <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
+      <mat-label>Enter a URL for a COMBINE/OMEX archive</mat-label>
+      <input
+        [required]="submitMethod === 'url'"
+        matInput
+        formControlName="projectUrl"
+        [placeholder]="exampleCombineArchiveUrl"
+      />
+
+      <mat-hint>
+        <p>
+          Enter URL for a COMBINE/OMEX archive file which describes one or more
+          simulations (e.g., in SED-ML format) of one or more models (e.g., in
+          BNGL, SBML formats).
+        </p>
+
+        <p>
+          An example archive which can be executed by VCell is available here
+          <a [href]="exampleCombineArchiveUrl"
+            ><biosimulations-icon icon="download"></biosimulations-icon></a
+          >. Additional examples are available in the BioSimulators test suite
+          <a [href]="exampleCombineArchivesUrl" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >.
+        </p>
+
+        <p>
+          More information about COMBINE/OMEX archives is available at
+          <a
+            href="https://combinearchive.org/"
+            target="_blank"
+            rel="noreferrer noopener"
+            >https://combinearchive.org</a
+          >.
+        </p>
+      </mat-hint>
+    </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Select a simulation tool</mat-label>
       <mat-select
@@ -186,14 +211,15 @@
         your simulation and retrieve its results.
       </mat-hint>
     </mat-form-field>
+
     <button
-      class="sub-button"
       mat-flat-button
       type="submit"
       [disabled]="!formGroup.valid"
     >
       Run
     </button>
+    <div class="clear-float"></div>
 
     <div *ngIf="simulationId" class="message success">
       Your simulation #{{ simulationId }} was submitted! You can view the status
