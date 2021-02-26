@@ -80,13 +80,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/mail/LICENSE
-├─ @stoplight/json-ref-resolver@3.1.0
+├─ @stoplight/json-ref-resolver@3.1.1
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/stoplightio/json-ref-resolver
 │  ├─ publisher: Stoplight
 │  ├─ email: support@stoplight.io
 │  └─ licenseFile: @stoplight/json-ref-resolver/LICENSE
-├─ @stoplight/json@3.10.0
+├─ @stoplight/json@3.10.3
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/stoplightio/json
 │  ├─ publisher: Stoplight
@@ -617,7 +617,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Douglas Christopher Wilson
 │  ├─ email: doug@somethingdoug.com
 │  └─ licenseFile: depd/LICENSE
-├─ dependency-graph@0.8.1
+├─ dependency-graph@0.10.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jriecken/dependency-graph
 │  ├─ publisher: Jim Riecken
@@ -926,7 +926,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/calvinmetcalf/immediate
 │  └─ licenseFile: immediate/LICENSE.txt
-├─ immer@5.3.6
+├─ immer@8.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/immerjs/immer
 │  ├─ publisher: Michel Weststrate
@@ -1980,7 +1980,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: 0BSD
 │  ├─ repository: https://github.com/Microsoft/tslib
 │  ├─ publisher: Microsoft Corp.
-│  └─ licenseFile: @stoplight/json-ref-resolver/node_modules/tslib/LICENSE.txt
+│  └─ licenseFile: rxjs/node_modules/tslib/LICENSE.txt
 ├─ tslib@2.0.3
 │  ├─ licenses: 0BSD
 │  ├─ repository: https://github.com/Microsoft/tslib
@@ -2044,7 +2044,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: hello@blakeembrey.com
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: upper-case/LICENSE
-├─ urijs@1.19.5
+├─ urijs@1.19.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/medialize/URI.js
 │  ├─ publisher: Rodney Rehm
