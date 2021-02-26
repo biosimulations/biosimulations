@@ -15,7 +15,7 @@
         <p>
           Select a COMBINE/OMEX archive file which describes one or more
           simulations (e.g., in SED-ML format) of one or more models (e.g., in
-          BNGL, SBML formats). The combine archive can be provided by uploading
+          BNGL, SBML formats). The COMBINE/OMEX archive can be provided by uploading
           a file, or by providing a url that resolves to a file.
         </p>
 
@@ -63,7 +63,7 @@
       <div fxFlex.lt-md="grow">
         <mat-form-field appearance="fill">
           <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
-          <mat-label> Provide a URL to a combine archive </mat-label>
+          <mat-label>Enter a URL for a COMBINE/OMEX archive</mat-label>
           <input
             [required]="submitMethod == 'url'"
             matInput
