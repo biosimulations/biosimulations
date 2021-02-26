@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BreadCrumbsButtonComponent } from '../bread-crumbs-button/bread-crumbs-button.component';
+import { MaterialWrapperModule } from '../../material-wrapper.module';
 describe('BreadCrumbButtonsComponent', () => {
   let component: BreadCrumbButtonsComponent;
   let fixture: ComponentFixture<BreadCrumbButtonsComponent>;
@@ -12,7 +13,11 @@ describe('BreadCrumbButtonsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [BreadCrumbButtonsComponent, BreadCrumbsButtonComponent],
-      imports: [RouterTestingModule, BiosimulationsIconsModule],
+      imports: [
+        RouterTestingModule,
+        BiosimulationsIconsModule,
+        MaterialWrapperModule,
+      ],
     }).compileComponents();
   }));
 
