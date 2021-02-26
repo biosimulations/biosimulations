@@ -100,6 +100,7 @@ export type BiosimulationsIcon =
   | 'progress'
   | 'open'
   | 'url'
+  | 'share'
   | 'close';
 @Component({
   selector: 'biosimulations-icon',
@@ -115,6 +116,7 @@ export class IconComponent implements OnInit {
   isSyncAnimated = false;
   iconInfo!: IconInfo;
   iconMap: { [key in BiosimulationsIcon]: IconInfo } = {
+    share: { type: 'fas', name: 'share-alt' },
     home: { type: 'fas', name: 'home' },
     internalLink: { type: 'fas', name: 'link' },
     link: { type: 'fas', name: 'external-link-alt' },

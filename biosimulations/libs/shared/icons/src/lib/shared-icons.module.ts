@@ -2,6 +2,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IconComponent } from './icon/icon.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   FontAwesomeModule,
   FaIconLibrary,
@@ -78,6 +79,7 @@ import {
   faChevronUp,
   faChevronDown,
   faCloud,
+  faShareAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -101,7 +103,7 @@ import { MatIconComponent } from './mat-icon/mat-icon.component';
 import { CCIconComponent } from './cc-icon/cc-icon.component';
 export { BiosimulationsIcon } from './icon/icon.component';
 @NgModule({
-  imports: [CommonModule, MatIconModule, FontAwesomeModule],
+  imports: [CommonModule, MatIconModule, FontAwesomeModule, MatSnackBarModule],
   declarations: [
     IconComponent,
     FaIconComponent,
@@ -114,6 +116,7 @@ export { BiosimulationsIcon } from './icon/icon.component';
 export class BiosimulationsIconsModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(
+      faShareAlt,
       faHome,
       faLink,
       faExternalLinkAlt,
