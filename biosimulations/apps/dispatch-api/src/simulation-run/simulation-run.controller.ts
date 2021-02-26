@@ -93,7 +93,7 @@ export class SimulationRunController {
       'Upload an OMEX (Combine) archive along with a description of the simulator run.\
        The simulation will be excecuted and the status of the Simulation run object will be updated. \
       \nThe simulation can be uploaded as a COMBINE archive by using the multipart/form-data accept header.\
-      Alternatively, use the application/json accept header to provide a url to an external COMBINE archive',
+      Alternatively, use the application/json accept header to provide a URL to an external COMBINE archive',
     requestBody: {
       content: {
         'multipart/form-data': {
@@ -136,7 +136,7 @@ export class SimulationRunController {
     const contentType = req.header('Content-Type');
     let run: SimulationRunModelReturnType;
     if (!contentType) {
-      // Todo maybe handle this to assume app/json and check for url
+      // Todo maybe handle this to assume app/json and check for URL
       throw new UnsupportedMediaTypeException(' Must specifiy a media type');
     } else if (contentType?.startsWith('multipart/form-data')) {
       run = await this.createRunWithFile(body, file);

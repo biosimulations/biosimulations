@@ -7,7 +7,7 @@ import { ViewComponent } from './view/view.component';
 const shareUrl = (url: string): string => {
   const host = window.location.host;
   navigator.clipboard.writeText(host + url);
-  return 'Copied URL to clipboard';
+  return 'URL was copied to clipboard';
 };
 const routes: Routes = [
   {
@@ -21,7 +21,7 @@ const routes: Routes = [
       contextButtons: [
         {
           onClick: shareUrl,
-          hover: 'Click to copy url to clipboard',
+          hover: 'Click to copy URL to clipboard',
           icon: 'share',
           label: 'Share',
         },
