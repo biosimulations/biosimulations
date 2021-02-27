@@ -25,8 +25,10 @@ import {
   ColumnSortDirection,
 } from './table.interface';
 import { UtilsService } from '@biosimulations/shared/services';
-import lunr from 'lunr';
 import { ActivatedRoute, Router } from '@angular/router';
+
+const FlexSearch = require('flexsearch');
+
 
 // TODO fix datasource / loading functionality
 @Injectable()
@@ -55,6 +57,11 @@ interface TableState {
   sort?: Sort;
 }
 
+interface FullTextDoc {
+  _index: string;
+  [colId: string]: string;
+}
+
 @Component({
   selector: 'biosimulations-table',
   templateUrl: './table.component.html',
@@ -79,6 +86,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   columnIsFiltered: { [id: string]: boolean } = {};
   private tableStateQueryFragment = '';
 
+  private fullTextFields!: string[];
   private fullTextIndex!: any;
   private fullTextMatches!: { [index: number]: boolean };
 
@@ -295,24 +303,28 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     // set up full text index
     const columns = this.columns;
-    this.fullTextIndex = lunr(function (this: any) {
-      this.ref('index');
-      columns.forEach((column: Column): void => {
-        this.field(column.heading.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-'));
-      });
-
-      sortedData.forEach((datum: any, iDatum: number): void => {
-        const fullTextDoc: { index: string; [colId: string]: string } = {
-          index: iDatum.toString(),
-        };
-        columns.forEach((column: Column): void => {
-          fullTextDoc[
-            column.heading.toLowerCase().replace(' ', '-')
-          ] = RowService.getElementSearchValue(datum, column);
-        });
-        this.add(fullTextDoc);
-      });
+    
+    this.fullTextFields = this.columns.map((column: Column): string => {
+      return column.heading.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-');
     });
+    this.fullTextIndex = FlexSearch.create({
+      doc: {
+        id: "_index",
+        field: this.fullTextFields,
+      }
+    });
+
+    this.fullTextIndex.add(sortedData.map((datum: any, iDatum: number): FullTextDoc => {
+      const doc: FullTextDoc = {
+        _index: iDatum.toString(),
+      };
+      columns.forEach((column: Column): void => {
+        doc[
+          column.heading.toLowerCase().replace(' ', '-')
+        ] = RowService.getElementSearchValue(datum, column);
+      });
+      return doc;
+    }));
 
     // set data for table
     this.dataSource.data = sortedData;
@@ -860,11 +872,11 @@ export class TableComponent implements OnInit, AfterViewInit {
   setDataSourceFilter(): void {
     // conduct full text search
     this.fullTextMatches = {};
-    if (this.searchQuery) {
+    if (this.searchQuery && this.fullTextIndex) {
       this.fullTextIndex
-        .search(this.searchQuery)
-        .forEach((match: any): void => {
-          this.fullTextMatches[parseInt(match.ref)] = true;
+        .search({query: this.searchQuery, field: this.fullTextFields, bool: "or"})
+        .forEach((match: FullTextDoc): void => {
+          this.fullTextMatches[parseInt(match._index)] = true;
         });
     }
 
