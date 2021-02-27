@@ -222,22 +222,29 @@
         <ul class="vertically-spaced">
           <li>
             <b><code>projectUrl</code></b
-            >: URL of a COMBINE/OMEX archive to simulate. This argument
+            >: URL for a COMBINE/OMEX archive to simulate. This argument
             instructs the web form to prefill the COMBINE/OMEX archive input
             with this URL.
           </li>
           <li>
             <b><code>modelFormat</code></b
             >: EDAM id of the format of the models to execute (e.g.,
-            <code>format_2585</code> for SBML). This argument instruct the web
+            <code>format_2585</code> for SBML). This argument instructs the web
             form to only enable simulation tools which support this format.
           </li>
           <li>
             <b><code>modelingFramework</code></b
             >: SBO id of the modeling framework of the simulations to execute
             (e.g., <code>SBO_0000293</code> for continuous kinetic framework).
-            This argument instruct the web form to only enable simulation tools
+            This argument instructs the web form to only enable simulation tools
             which support this framework.
+          </li>
+          <li>
+            <b><code>simulationAlgorithm</code></b
+            >: KiSAO id of the simulation algorithm to execute
+            (e.g., <code>KISAO_0000019</code> for CVODE).
+            This argument instructs the web form to only enable simulation tools
+            which can execute this algorithm.
           </li>
           <li>
             <b><code>simulator</code></b
