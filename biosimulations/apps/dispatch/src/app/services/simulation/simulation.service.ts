@@ -186,16 +186,14 @@ export class SimulationService {
    * @param uuid The id of the simulation
    */
   private getSimulationHttp(uuid: string): Observable<Simulation> {
-    return this.httpClient
-      .get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`)
+    return this.httpClient.get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`)
       .pipe(
-        map((data: SimulationRun) => {
-          const dispatchSimulation = data;
+        map((dispatchSimulation: SimulationRun) => {
           const simulation: Simulation = {
             name: dispatchSimulation.name,
             email: dispatchSimulation.email || undefined,
-            runtime: dispatchSimulation.runtime,
             id: dispatchSimulation.id,
+            runtime: dispatchSimulation?.runtime || undefined,
             status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
             submitted: new Date(dispatchSimulation.submitted),
             submittedLocally: false,

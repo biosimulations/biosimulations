@@ -15,7 +15,7 @@ export interface FormattedSimulation {
   statusLabel: string;
   submitted: string;
   updated: string;
-  runtime: string;
+  // runtime: string;
   projectUrl: string;
   projectSize: string;
   resultsUrl: string;

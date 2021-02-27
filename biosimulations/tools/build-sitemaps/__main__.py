@@ -137,7 +137,7 @@ def get_simulator_static_urls():
 
 
 def render_url_list(app_name, urls):
-    """ Render sitemap to url list for use in prerendering 
+    """ Render sitemap to URL list for use in prerendering 
     Args:
         app_name (:obj:`str`): application name (e.g., `simulators`
         urls (:obj:`list` of obj:`Url`): list of URLs

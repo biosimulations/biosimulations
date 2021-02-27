@@ -25,7 +25,7 @@ import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
 import { ConfigService } from '@biosimulations/shared/services';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import { concatAll, map, shareReplay, tap } from 'rxjs/operators';
+import { concatAll, map, shareReplay } from 'rxjs/operators';
 import {
   AxisLabelType,
   AXIS_LABEL_TYPES,
@@ -47,6 +47,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   // Refactored Variables Start
   private uuid = '';
   logs$!: Observable<SimulationLogs | null>;
+  runTime$!: Observable<string>;
   statusRunning$!: Observable<boolean>;
   statusSuceeded$!: Observable<boolean>;
   formattedSimulation$?: Observable<FormattedSimulation>;
@@ -141,7 +142,12 @@ export class ViewComponent implements OnInit, OnDestroy {
         running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid),
       ),
       concatAll(),
-      tap((_) => console.log(_)),
+    );
+    this.runTime$ = this.logs$.pipe(
+      map((log): string => {
+        const duration = log?.structured?.duration;
+        return duration == null ? 'N/A' : (Math.round(duration * 1000) / 1000).toString() + ' s';
+      })
     );
     this.results$ = this.statusSuceeded$.pipe(
       map((succeeded) =>
@@ -175,7 +181,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     const sedmlLocations = Object.keys(combineArchive);
     this.sedmlLocations.next(sedmlLocations);
-    if (sedmlLocations?.length) {
+    if (sedmlLocations.length) {
       this.formGroup.controls.sedmlLocation.enable();
     } else {
       this.formGroup.controls.sedmlLocation.disable();

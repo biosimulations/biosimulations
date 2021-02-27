@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { tap, switchMap } from 'rxjs/operators';
 import { Observable, BehaviorSubject, of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   TocSection,
   TocSectionsContainerDirective,
@@ -15,6 +16,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
+import { snackBarDuration } from '@biosimulations/config/common';
 
 import {
   ViewSimulator,
@@ -31,16 +33,18 @@ export class ViewSimulatorComponent implements OnInit {
   getVersionLinkBound!: (version: ViewVersion) => string[];
   dispatchAppUrl!: string;
   dispatchAppRunUrl!: string;
+  simulatorDocumentationUrl!: string | undefined;
 
   constructor(
     public route: ActivatedRoute,
     private simService: ViewSimulatorService,
     private cd: ChangeDetectorRef,
     private config: ConfigService,
+    private snackBar: MatSnackBar,
   ) {}
 
   loadingSubject = new BehaviorSubject(true);
-  loading$!: Observable<boolean>;
+  loading$ = this.loadingSubject.asObservable()
   // TODO handler errors from simulator service
   error = false;
 
@@ -320,7 +324,6 @@ export class ViewSimulatorComponent implements OnInit {
     );
 
     const params = this.route.params;
-    this.loading$ = this.loadingSubject.asObservable();
     this.simulator = params.pipe(
       switchMap((value: Params) => {
         const id = value.id;
@@ -361,6 +364,24 @@ export class ViewSimulatorComponent implements OnInit {
     this.highlightVersion = (version: ViewVersion): boolean => {
       return version.label === simulator.version;
     };
+
+    // find documentation URL
+    this.simulatorDocumentationUrl = undefined;
+    for (const url of simulator.urls) {
+      if (url.type === 'Documentation') {
+        this.simulatorDocumentationUrl = url.url;
+        break;
+      }
+    }
+
+    if (!this.simulatorDocumentationUrl) {
+      for (const url of simulator.urls) {
+        if (url.type === 'Home page') {
+          this.simulatorDocumentationUrl = url.url;
+          break;
+        }
+      }
+    }
   }
 
   algorithmsTocSections!: Observable<TocSection[]>;
@@ -378,5 +399,8 @@ export class ViewSimulatorComponent implements OnInit {
   copyDockerPullCmd(image = '{ image }'): void {
     const cmd = 'docker pull ' + image;
     navigator.clipboard.writeText(cmd);
+    this.snackBar.open('The command to pull the Docker image was copied to your clipboard.', undefined, {
+      duration: snackBarDuration,
+    });
   }
 }

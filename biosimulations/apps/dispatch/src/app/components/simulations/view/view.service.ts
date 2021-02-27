@@ -29,10 +29,10 @@ export class ViewService {
         simulation.status,
         true,
       ),
-      runtime:
-        simulation.runtime !== undefined
-          ? Math.round(simulation.runtime / 1000).toString() + ' s'
-          : 'N/A',
+      // runtime:
+      //   simulation.runtime !== undefined
+      //     ? Math.round(simulation.runtime / 1000).toString() + ' s'
+      //     : 'N/A',
       submitted: new Date(simulation.submitted).toLocaleString(),
       updated: new Date(simulation.updated).toLocaleString(),
       projectSize:

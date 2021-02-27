@@ -45,7 +45,7 @@ export class DispatchComponent implements OnInit {
   ) {
     this.formGroup = this.formBuilder.group({
       projectFile: [''],
-      projectURL: [''],
+      projectUrl: [''],
       submitMethod: [this.submitMethod],
       simulator: ['', [Validators.required]],
       simulatorVersion: ['', [Validators.required]],
@@ -99,7 +99,12 @@ export class DispatchComponent implements OnInit {
       this.formGroup.controls.simulator.enable();
 
       // process query arguments
-      // const projectUrl = params?.projectUrl; // TODO: support loading COMBINE archive URL by query argument
+      const projectUrl = params?.projectUrl;
+      if (projectUrl) {
+        this.formGroup.controls.submitMethod.setValue('url');
+        this.toggleSubmitMethod('url')
+        this.formGroup.controls.projectUrl.setValue(projectUrl);
+      }
 
       let modelFormat = params?.modelFormat?.toLowerCase();
       if (modelFormat) {
@@ -118,24 +123,34 @@ export class DispatchComponent implements OnInit {
         }
       }
 
-      const simulator: string = params?.simulator?.toLowerCase();
-      const simulatorVersion: string = params?.simulatorVersion;
+      let simulationAlgorithm = params?.simulationAlgorithm?.toUpperCase();
+      if (simulationAlgorithm) {
+        const match = simulationAlgorithm.match(/^(KISAO[:_])?(\d{1,7})$/);
+        if (match) {
+          simulationAlgorithm =
+            'KISAO_' + '0'.repeat(7 - match[2].length) + match[2];
+        }
+      }
 
-      if (modelFormat || modelingFramework) {
+      if (modelFormat || modelingFramework || simulationAlgorithm) {
         this.simulators.forEach(
           (simulatorIdDisabled: SimulatorIdDisabled): void => {
             let enabled = false;
-            for (const modelingFrameworksForModelFormats of simulatorSpecsMap[
+            for (const modelingFrameworksAlgorithmsForModelFormats of simulatorSpecsMap[
               simulatorIdDisabled.id
-            ].modelingFrameworksForModelFormats) {
+            ].modelingFrameworksAlgorithmsForModelFormats) {
               if (
                 (!modelFormat ||
-                  modelingFrameworksForModelFormats.formatEdamIds.includes(
+                  modelingFrameworksAlgorithmsForModelFormats.formatEdamIds.includes(
                     modelFormat,
                   )) &&
                 (!modelingFramework ||
-                  modelingFrameworksForModelFormats.frameworkSboIds.includes(
+                  modelingFrameworksAlgorithmsForModelFormats.frameworkSboIds.includes(
                     modelingFramework,
+                  )) &&
+                (!simulationAlgorithm ||
+                  modelingFrameworksAlgorithmsForModelFormats.algorithmKisaoIds.includes(
+                    simulationAlgorithm,
                   ))
               ) {
                 enabled = true;
@@ -147,15 +162,39 @@ export class DispatchComponent implements OnInit {
         );
       }
 
-      if (simulator) {
-        this.formGroup.controls.simulator.setValue(simulator);
-        this.onSimulatorChange({ value: simulator });
-        if (simulatorVersion) {
-          this.formGroup.controls.simulatorVersion.setValue(simulatorVersion);
+      let simulatorId: string = params?.simulator?.toLowerCase();
+      const simulatorVersion: string = params?.simulatorVersion;
+      if (simulatorId) {
+        for (const simulator of this.simulators) {
+          if (simulator.id.toLowerCase() === simulatorId) {
+            simulatorId = simulator.id;
+            this.formGroup.controls.simulator.setValue(simulatorId);
+            this.onSimulatorChange({ value: simulatorId });
+            if (simulatorVersion) {
+              for (const version of this.simulatorSpecsMap[simulatorId].versions) {
+                if (this.versionsEqual(version, simulatorVersion)) {
+                  this.formGroup.controls.simulatorVersion.setValue(version);
+                  break;
+                }
+              }
+            }
+            break;
+          }
         }
       }
     });
     this.toggleSubmitMethod(this.submitMethod);
+  }
+
+  versionsEqual(a: string, b: string) {
+    let aArr = a.toLowerCase().split('.');
+    let bArr = b.toLowerCase().split('.');
+
+    const lastPos = Math.min(aArr.length, bArr.length);
+    aArr = aArr.slice(0, lastPos);
+    bArr = bArr.slice(0, lastPos);
+
+    return aArr.every((val, index) => val === bArr[index]);
   }
 
   toggleSubmitMethod(method: 'file' | 'url') {
@@ -164,12 +203,12 @@ export class DispatchComponent implements OnInit {
       this.formGroup.controls.projectFile.enable();
       this.formGroup.controls.projectFile.setValidators(Validators.required);
       this.formGroup.controls.projectFile.updateValueAndValidity();
-      this.formGroup.controls.projectURL.disable();
+      this.formGroup.controls.projectUrl.disable();
     } else {
       this.formGroup.controls.projectFile.disable();
-      this.formGroup.controls.projectURL.enable();
-      this.formGroup.controls.projectURL.setValidators(Validators.required);
-      this.formGroup.controls.projectURL.updateValueAndValidity();
+      this.formGroup.controls.projectUrl.enable();
+      this.formGroup.controls.projectUrl.setValidators(Validators.required);
+      this.formGroup.controls.projectUrl.updateValueAndValidity();
     }
   }
   onFormSubmit() {
@@ -196,9 +235,9 @@ export class DispatchComponent implements OnInit {
         email,
       );
     } else {
-      const projectURL: string = this.formGroup.value.projectURL;
+      const projectUrl: string = this.formGroup.value.projectUrl;
       simulationResponse = this.dispatchService.sumbitJobURL(
-        projectURL,
+        projectUrl,
         simulator,
         simulatorVersion,
         name,

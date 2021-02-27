@@ -1,5 +1,5 @@
 /**
- * @file Contains the mongoose model definition for a Simulation Run. The omex file is stored as a ObjectId refrence to the file also stored in the database.
+ * @file Contains the mongoose model definition for a Simulation Run. The OMEX file is stored as a ObjectId refrence to the file also stored in the database.
  * @author Bilal Shaikh
  * @copyright Biosimulations Team, 2020
  * @license MIT

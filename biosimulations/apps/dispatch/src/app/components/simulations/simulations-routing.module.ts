@@ -5,9 +5,10 @@ import { BrowseComponent } from './browse/browse.component';
 import { ViewComponent } from './view/view.component';
 
 const shareUrl = (url: string): string => {
+  const protocol = window.location.protocol;
   const host = window.location.host;
-  navigator.clipboard.writeText(host + url);
-  return 'Copied URL to clipboard';
+  navigator.clipboard.writeText(protocol + '//' + host + url);
+  return 'The URL for sharing this simulation was copied to your clipboard.';
 };
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
       contextButtons: [
         {
           onClick: shareUrl,
-          hover: 'Click to copy url to clipboard',
+          hover: 'Click to copy URL to clipboard',
           icon: 'share',
           label: 'Share',
         },

@@ -6,7 +6,7 @@ A wrapper module for the NestJS Configures the connection to the S3 bucket used 
 
 The configuration is loaded via the config module, and uses the following environment variables
 
-- STORAGE_ENDPOINT - A url for an AWS S3 compatible s3 serverr
+- STORAGE_ENDPOINT - A URL for an AWS S3 compatible s3 serverr
 - STORAGE_ACCESS - The Access Key used for connecting to the bucket
 - STORAGE_SECRET - The Secret key associated with the key
 - STORAGE_BUCKET - The name of the storage bucket to use

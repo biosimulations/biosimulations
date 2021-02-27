@@ -16,6 +16,8 @@ import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
 import exampleSimulationsOrgJson from './example-simulations.org.json';
 import { debounceTime, take } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { snackBarDuration } from '@biosimulations/config/common';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -90,6 +92,7 @@ export class BrowseComponent implements OnInit {
       minWidth: 98,
       maxWidth: 98,
     },
+    /*
     {
       id: 'runtime',
       heading: 'Runtime',
@@ -99,7 +102,7 @@ export class BrowseComponent implements OnInit {
         if (simulation.runtime == null || simulation.runtime === undefined) {
           return null;
         } else {
-          return simulation.runtime / 1000;
+          return simulation.runtime;
         }
       },
       formatter: (valueSec: number | null): string | null => {
@@ -111,6 +114,7 @@ export class BrowseComponent implements OnInit {
       filterType: ColumnFilterType.number,
       show: false,
     },
+    */
     {
       id: 'submitted',
       heading: 'Submitted',
@@ -169,7 +173,6 @@ export class BrowseComponent implements OnInit {
       center: true,
       show: false,
     },
-    /*
     {
       id: 'visualize',
       heading: 'Viz',
@@ -213,9 +216,10 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 61,
-      maxWidth: 61,
+      minWidth: 43,
+      maxWidth: 43,
       filterable: false,
+      sortable: false,
       comparator: (
         a: boolean,
         b: boolean,
@@ -226,7 +230,6 @@ export class BrowseComponent implements OnInit {
         return 0;
       },
     },
-    */
     {
       id: 'download',
       heading: 'Export',
@@ -280,9 +283,10 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 61,
-      maxWidth: 61,
+      minWidth: 43,
+      maxWidth: 43,
       filterable: false,
+      sortable: false,
       comparator: (a: boolean, b: boolean, sign: number): number => {
         if (a > b) return -1;
         if (a < b) return 1;
@@ -325,9 +329,10 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 61,
-      maxWidth: 61,
+      minWidth: 43,
+      maxWidth: 43,
       filterable: false,
+      sortable: false,
       comparator: (
         a: SimulationRunStatus,
         b: SimulationRunStatus,
@@ -343,6 +348,39 @@ export class BrowseComponent implements OnInit {
         if (aVal < bVal) return -1;
         return 0;
       },
+    },
+    {
+      id: 'share',
+      heading: 'Share',
+      key: 'id',
+      center: true,
+      leftIcon: 'share',
+      leftAction: ColumnActionType.click,
+      leftClick: (simulation: Simulation): void => {
+        navigator.clipboard.writeText(window.location.protocol + '//' + window.location.host + '/simulations/' + simulation.id);
+        this.snackBar.open('The URL for sharing the simulation was copied to your clipboard.', undefined, {
+          duration: snackBarDuration,
+        });
+      },
+      centerAction: ColumnActionType.routerLink,
+      centerRouterLink: (simulation: Simulation): string[] => {
+        return ['/simulations', simulation.id];
+      },
+      formatter: (id: string): null => {
+        return null;
+      },
+      stackedFormatter: (id: string): string => {
+        return window.location.protocol + '//' + window.location.host + '/simulations/' + id;
+      },
+      toolTipFormatter: (name: string): string => {
+        return 'Click to copy URL to clipboard';
+      },
+      minWidth: 43,
+      maxWidth: 43,
+      filterable: false,
+      sortable: false,
+      show: true,
+      showStacked: true,
     },
     {
       id: 'remove',
@@ -364,8 +402,8 @@ export class BrowseComponent implements OnInit {
       stackedFormatter: (id: string): string => {
         return 'Remove simulation';
       },
-      minWidth: 61,
-      maxWidth: 61,
+      minWidth: 43,
+      maxWidth: 43,
       filterable: false,
       sortable: false,
       show: false,
@@ -377,6 +415,7 @@ export class BrowseComponent implements OnInit {
   constructor(
     private config: ConfigService,
     private simulationService: SimulationService,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {

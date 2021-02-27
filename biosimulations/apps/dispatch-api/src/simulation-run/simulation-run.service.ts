@@ -35,7 +35,7 @@ export class SimulationRunService {
   }
 
   /**
-   * Download the OMEX file for the provided id. The omex file is a ref on the object
+   * Download the OMEX file for the provided id. The OMEX file is a ref on the object
    * @param id The id of the simulation
    *
    */

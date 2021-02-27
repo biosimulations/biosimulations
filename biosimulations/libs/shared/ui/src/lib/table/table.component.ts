@@ -146,7 +146,7 @@ export class TableComponent implements OnInit, AfterViewInit {
           },
         );
       });
-    } else {
+    } else if (data) {
       UtilsService.recursiveForkJoin(data).subscribe(
         (resolvedData: any[] | undefined) => {
           if (resolvedData !== undefined) {
@@ -154,6 +154,8 @@ export class TableComponent implements OnInit, AfterViewInit {
           }
         },
       );
+    } else {
+      this.setData([]);
     }
   }
 
@@ -839,8 +841,8 @@ export class TableComponent implements OnInit, AfterViewInit {
           delete this.filter[column.id];
         } else {
           this.filter[column.id][1] = null;
+          min = this.filter[column.id][0];
         }
-        min = this.filter[column.id][0];
       }
     } else {
       if (column.id in this.filter) {

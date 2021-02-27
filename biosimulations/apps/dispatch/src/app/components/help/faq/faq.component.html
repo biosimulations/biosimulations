@@ -212,7 +212,7 @@
         heading="How can I embed execution capabilities for my simulations into my website?"
       >
         <p>
-          Developers can use runBioSimulators to provide their users
+          Developers can use runBioSimulations to provide their users
           capabilities to execute their simulations. Developers can achieve this
           simply by adding hyperlinks to the run simulations page,
           <a [routerLink]="['/run']">{{ config.appUrl }}run</a>.
@@ -222,22 +222,29 @@
         <ul class="vertically-spaced">
           <li>
             <b><code>projectUrl</code></b
-            >: URL of a COMBINE/OMEX archive to simulate. This argument
+            >: URL for a COMBINE/OMEX archive to simulate. This argument
             instructs the web form to prefill the COMBINE/OMEX archive input
             with this URL.
           </li>
           <li>
             <b><code>modelFormat</code></b
             >: EDAM id of the format of the models to execute (e.g.,
-            <code>format_2585</code> for SBML). This argument instruct the web
+            <code>format_2585</code> for SBML). This argument instructs the web
             form to only enable simulation tools which support this format.
           </li>
           <li>
             <b><code>modelingFramework</code></b
             >: SBO id of the modeling framework of the simulations to execute
             (e.g., <code>SBO_0000293</code> for continuous kinetic framework).
-            This argument instruct the web form to only enable simulation tools
+            This argument instructs the web form to only enable simulation tools
             which support this framework.
+          </li>
+          <li>
+            <b><code>simulationAlgorithm</code></b
+            >: KiSAO id of the simulation algorithm to execute
+            (e.g., <code>KISAO_0000019</code> for CVODE).
+            This argument instructs the web form to only enable simulation tools
+            which can execute this algorithm.
           </li>
           <li>
             <b><code>simulator</code></b
@@ -269,26 +276,27 @@
         heading="How can I create a shield for a simulation tool to embed into my website?"
       >
         <p>
-          We recommend using Shields.io to embed hyperlinked sheilds for
-          runBioSimulators or individual simulation tools:
+          We recommend using Shields.io to generate shields for executing simulations with
+          runBioSimulations, executing simulations with specific simulators, or executing
+          specific modeling projects:
         </p>
         <ul class="vertically-spaced shields">
           <li>
-            <b>Any simulation tool:</b>
+            <b>Executing any simulation with any simulator:</b>
             <br />Use
             <code
-              >https://img.shields.io/badge/Simulate-runBioSimulations-green</code
+              >https://img.shields.io/badge/runBioSimulations-simulate-green</code
             >
             to generate the badge below. <br /><a [routerLink]="['/run']"
               ><img
-                src="https://img.shields.io/badge/Simulate-runBioSimulations-green"
+                src="https://img.shields.io/badge/runBioSimulations-simulate-green"
             /></a>
           </li>
           <li>
-            <b>Specific simulation tool:</b>
+            <b>Executing simulations with a specific simulator:</b>
             <br />Use the pattern
             <code
-              >https://img.shields.io/badge/Simulate-{{ '{' }} simulator-name
+              >https://img.shields.io/badge/runBioSimulations-{{ '{' }} simulator-name
               {{ '}' }}:{{ '{' }} simulator-version {{ '}' }}-green</code
             >
             to generate badges such as the badge below for tellurium 2.2.0.
@@ -299,10 +307,62 @@
                 simulatorVersion: '2.2.0'
               }"
               ><img
-                src="https://img.shields.io/badge/Simulate-tellurium:2.2.0-green"
+                src="https://img.shields.io/badge/runBioSimulations-tellurium:2.2.0-green"
+            /></a>
+          </li>
+          <li>
+            <b>Executing specific modeling projects:</b>
+            <br />Use the pattern
+            <code
+              >https://img.shields.io/badge/runBioSimulations-{{ '{' }} model-name
+              {{ '}' }}:{{ '{' }} model-format {{ '}' }}-green</code
+            >
+            to generate badges such as the badge below for the Ciliberto model of the morphogenesis checkpoint in budding yeast <a href="https://doi.org/10.1083/jcb.200306139" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+            <br /><a
+              [routerLink]="['/run']"
+              [queryParams]="{
+                projectUrl: 'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples/sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex',
+                modelFormat: 'format_2585',
+                modelingFramework: 'SBO_0000293',
+                simulationAlgorithm: 'KISAO_0000019'
+              }"
+              ><img
+                src="https://img.shields.io/badge/runBioSimulations-Ciliberto et al.:SBML-green"
             /></a>
           </li>
         </ul>
+      </biosimulations-q-a>
+    </biosimulations-text-page-content-section>
+
+     <biosimulations-text-page-content-section
+      heading="Data visualizations"
+      tocSection="Data visualizations"
+    >
+      <biosimulations-q-a
+        heading="Which simulation outputs can runBioSimulations visualize?"        
+      >
+        <p>runBioSimulations can visualize data sets (<code>sedml:DataSet</code>) of reports (<code>sedml:report</code>) defined in SED-ML documents.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="What types of plots can runBioSimulations render?"
+      >
+        <p>runBioSimulations can render two-dimensional line plots and scatter plots of pairs of data sets.</p>
+
+        <p>runBioSimulations supports two options for the scales of the x and y axes: linear, logarithmic.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How can I use alternative types of plots to visualize simulation results?"
+      >
+        <p>Simulation results generated with runBioSimulations can be visualized by downloading the results and plotting them with an external program such as 
+          Altair <a href="https://altair-viz.github.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>,
+          ggplot2 <a href="https://ggplot2.tidyverse.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>,
+          Matplotlib <a href="https://matplotlib.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or
+          Seaborn <a href="https://seaborn.pydata.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        </p>
+
+        <p>Going forward, we plan to leverage Vega <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and Vega-Lite <a href="https://vega.github.io/vega-lite/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to enable users to visualize simulation results produced by runBioSimulations with any diagram. This will enable users to modularly define diagrams and define how they should be painted with simulation results. In turn, this will enable uses to re-use published diagrams with alternative simulation conditions.</p>
       </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 
