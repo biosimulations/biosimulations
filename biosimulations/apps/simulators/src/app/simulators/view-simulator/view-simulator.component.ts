@@ -33,6 +33,7 @@ export class ViewSimulatorComponent implements OnInit {
   getVersionLinkBound!: (version: ViewVersion) => string[];
   dispatchAppUrl!: string;
   dispatchAppRunUrl!: string;
+  simulatorDocumentationUrl!: string | undefined;
 
   constructor(
     public route: ActivatedRoute,
@@ -43,7 +44,7 @@ export class ViewSimulatorComponent implements OnInit {
   ) {}
 
   loadingSubject = new BehaviorSubject(true);
-  loading$!: Observable<boolean>;
+  loading$ = this.loadingSubject.asObservable()
   // TODO handler errors from simulator service
   error = false;
 
@@ -323,7 +324,6 @@ export class ViewSimulatorComponent implements OnInit {
     );
 
     const params = this.route.params;
-    this.loading$ = this.loadingSubject.asObservable();
     this.simulator = params.pipe(
       switchMap((value: Params) => {
         const id = value.id;
@@ -364,6 +364,24 @@ export class ViewSimulatorComponent implements OnInit {
     this.highlightVersion = (version: ViewVersion): boolean => {
       return version.label === simulator.version;
     };
+
+    // find documentation URL
+    this.simulatorDocumentationUrl = undefined;
+    for (const url of simulator.urls) {
+      if (url.type === 'Documentation') {
+        this.simulatorDocumentationUrl = url.url;
+        break;
+      }
+    }
+
+    if (!this.simulatorDocumentationUrl) {
+      for (const url of simulator.urls) {
+        if (url.type === 'Home page') {
+          this.simulatorDocumentationUrl = url.url;
+          break;
+        }
+      }
+    }
   }
 
   algorithmsTocSections!: Observable<TocSection[]>;

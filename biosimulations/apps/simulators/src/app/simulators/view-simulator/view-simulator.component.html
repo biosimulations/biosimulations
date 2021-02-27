@@ -1,4 +1,4 @@
-<biosimulations-tab-page [loading]="loading$ | async">
+<biosimulations-tab-page [loading]="(loading$ | async) || false">
   <biosimulations-tab-page-tab
     heading="Overview"
     icon="overview"
@@ -20,7 +20,7 @@
 
         <table class="icon-list">
           <tbody>
-            <tr *ngIf="simulator.authors?.length > 0">
+            <tr *ngIf="simulator.authors?.length">
               <th><biosimulations-icon icon="user"></biosimulations-icon></th>
               <td>
                 <ul class="comma-separated ampersand-separator">
@@ -40,7 +40,7 @@
             </tr>
           </tbody>
 
-          <tbody class="citations" *ngIf="simulator.citations?.length > 0">
+          <tbody class="citations" *ngIf="simulator.citations?.length">
             <tr *ngFor="let citation of simulator.citations">
               <th>
                 <biosimulations-icon icon="tutorial"></biosimulations-icon>
@@ -115,7 +115,7 @@
           </div>
         </div>
 
-        <div class="section" *ngIf="simulator.interfaceTypes?.length > 0">
+        <div class="section" *ngIf="simulator.interfaceTypes?.length">
           <h3>Interfaces</h3>
           <div class="section-content">
             <ul class="icon-list">
@@ -131,7 +131,7 @@
 
         <div
           class="section"
-          *ngIf="simulator.supportedOperatingSystemTypes?.length > 0"
+          *ngIf="simulator.supportedOperatingSystemTypes?.length"
         >
           <h3>Supported operating systems</h3>
           <div class="section-content">
@@ -152,7 +152,7 @@
 
         <div
           class="section"
-          *ngIf="simulator.supportedProgrammingLanguages?.length > 0"
+          *ngIf="simulator.supportedProgrammingLanguages?.length"
         >
           <h3>Supported programming languages</h3>
           <div class="section-content">
@@ -194,7 +194,7 @@
           </div>
         </div>
 
-        <div class="section" *ngIf="simulator?.urls?.length > 0">
+        <div class="section" *ngIf="simulator?.urls?.length">
           <h3>More info</h3>
           <div class="section-content">
             <ul class="icon-list">
@@ -222,7 +222,7 @@
           </div>
         </div>
 
-        <div class="section" *ngIf="simulator.funding?.length > 0">
+        <div class="section" *ngIf="simulator.funding?.length">
           <h3>Funding</h3>
           <div class="section-content">
             <ul class="funding icon-list">
@@ -281,14 +281,14 @@
             [tocSections]="algorithmsTocSections"
             [tocScrollSectionScrollOffset]="64 + 32 + 32"
           >
-            <ng-container id="sideBar">
+            <ng-container id="sideBar" *ngIf="simulatorDocumentationUrl">
               <biosimulations-text-page-side-bar-section
                 heading="More info"
                 fxShow
                 fxHide.lt-md
               >
                 <div class="hanging-indent">
-                  <a [href]="simulator.url" target="_blank">
+                  <a [href]="simulatorDocumentationUrl" target="_blank">
                     <biosimulations-icon icon="link"></biosimulations-icon>
                     Documentation
                   </a>
@@ -329,7 +329,7 @@
                 <ul
                   class="icon-list"
                   *ngIf="
-                    algorithm?.modelingFrameworks.length > 0;
+                    algorithm?.modelingFrameworks?.length;
                     else noFrameworksMessage
                   "
                 >
@@ -355,7 +355,7 @@
                 <ul
                   class="icon-list icon-list-format"
                   *ngIf="
-                    algorithm?.modelFormats?.length > 0;
+                    algorithm?.modelFormats?.length;
                     else noModelFormatsMessage
                   "
                 >
@@ -368,7 +368,7 @@
                       >:
                       <ul
                         *ngIf="
-                          format.supportedFeatures?.length > 0;
+                          format.supportedFeatures?.length;
                           else noSuportedModelFormatFeatures
                         "
                         class="comma-separated and-separator"
@@ -399,7 +399,7 @@
                 <ul
                   class="icon-list icon-list-format"
                   *ngIf="
-                    algorithm?.simulationFormats?.length > 0;
+                    algorithm?.simulationFormats?.length;
                     else noSimulationFormatsMessage
                   "
                 >
@@ -412,7 +412,7 @@
                       >:
                       <ul
                         *ngIf="
-                          format.supportedFeatures?.length > 0;
+                          format.supportedFeatures?.length;
                           else noSuportedSimulationFormatFeatures
                         "
                         class="comma-separated and-separator"
@@ -443,7 +443,7 @@
                 <ul
                   class="icon-list icon-list-format"
                   *ngIf="
-                    algorithm?.archiveFormats?.length > 0;
+                    algorithm?.archiveFormats?.length;
                     else noArchiveFormatsMessage
                   "
                 >
@@ -456,7 +456,7 @@
                       >:
                       <ul
                         *ngIf="
-                          format.supportedFeatures?.length > 0;
+                          format.supportedFeatures?.length;
                           else noSuportedArchiveFormatFeatures
                         "
                         class="comma-separated and-separator"
@@ -485,7 +485,7 @@
                 <div
                   class="table-container"
                   *ngIf="
-                    algorithm?.parameters?.length > 0;
+                    algorithm?.parameters?.length;
                     else noCuratedParametersMessage
                   "
                 >
@@ -530,7 +530,7 @@
                 </p>
                 <ul
                   *ngIf="
-                    algorithm?.dependentDimensions?.length > 0;
+                    algorithm?.dependentDimensions?.length;
                     else noDependentDimensionsMessage
                   "
                 >
@@ -570,7 +570,7 @@
                 <div
                   class="table-container"
                   *ngIf="
-                    algorithm?.dependentVariableTargetPatterns?.length > 0;
+                    algorithm?.dependentVariableTargetPatterns?.length;
                     else noCuratedDependentVariablesMessage
                   "
                 >
@@ -598,7 +598,7 @@
                 <p class="subsection-heading no-bottom-margin">Availability</p>
                 <ul
                   *ngIf="
-                    algorithm?.availableSoftwareInterfaceTypes?.length > 0;
+                    algorithm?.availableSoftwareInterfaceTypes?.length;
                     else noSupportedInterfaces
                   "
                   class="icon-list"
@@ -666,7 +666,7 @@
                   </p>
                 </ng-template>
 
-                <ng-container *ngIf="algorithm?.citations?.length > 0">
+                <ng-container *ngIf="algorithm?.citations?.length">
                   <p class="subsection-heading no-bottom-margin">Citations</p>
                   <ul class="icon-list">
                     <li *ngFor="let citation of algorithm.citations">
@@ -837,7 +837,7 @@
               [heading]="result.case.id"
               [class]="[
                 'status-section',
-                result.resultType === 'Passed' && result.warnings?.length > 0
+                result.resultType === 'Passed' && result.warnings?.length
                   ? 'Warned'
                   : result.resultType
               ]"
@@ -896,7 +896,7 @@
                 <pre><code>{{ exception.message }}</code></pre>
               </ng-container>
 
-              <ng-container *ngIf="result.warnings?.length > 0">
+              <ng-container *ngIf="result.warnings?.length">
                 <p class="subsection-heading no-bottom-margin">Warnings</p>
                 <ul class="vertically-spaced">
                   <li *ngFor="let warning of result.warnings">

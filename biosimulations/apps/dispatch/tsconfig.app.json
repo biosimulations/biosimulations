@@ -7,8 +7,8 @@
   },
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-
     "types": [],
+    "strict": true,
     "resolveJsonModule": true
   },
   "files": ["src/main.ts", "src/polyfills.ts", "../../declarations.d.ts"]

@@ -82,7 +82,7 @@ export class StackedTableComponent {
           },
         );
       });
-    } else {
+    } else if (data) {
       UtilsService.recursiveForkJoin(data).subscribe(
         (resolvedData: any[] | undefined) => {
           if (resolvedData !== undefined) {
@@ -90,6 +90,8 @@ export class StackedTableComponent {
           }
         },
       );
+    } else {
+      this.setData([]);
     }
   }
 

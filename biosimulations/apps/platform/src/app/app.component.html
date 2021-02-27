@@ -7,7 +7,7 @@
   [showNews]="false"
 >
   <biosimulations-topbar-menu>
-    <biosimulations-topbar-menu-item heading="Projects" icon="project" disabled>
+    <biosimulations-topbar-menu-item heading="Projects" icon="project" [disabled]="true">
     </biosimulations-topbar-menu-item>
 
     <biosimulations-topbar-menu-item
@@ -20,17 +20,17 @@
     <biosimulations-topbar-menu-item
       heading="Simulations"
       icon="simulation"
-      disabled
+      [disabled]="true"
     >
     </biosimulations-topbar-menu-item>
 
-    <biosimulations-topbar-menu-item heading="Charts" icon="chart" disabled>
+    <biosimulations-topbar-menu-item heading="Charts" icon="chart" [disabled]="true">
     </biosimulations-topbar-menu-item>
 
     <biosimulations-topbar-menu-item
       heading="Visualizations"
       icon="visualization"
-      disabled
+      [disabled]="true"
     >
     </biosimulations-topbar-menu-item>
 
@@ -98,35 +98,35 @@
         <biosimulations-dropdown-menu-item
           heading="Projects"
           icon="project"
-          disabled
+          [disabled]="true"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Models"
           icon="model"
-          disabled
+          [disabled]="true"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Simulations"
           icon="simulation"
-          disabled
+          [disabled]="true"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Charts"
           icon="chart"
-          disabled
+          [disabled]="true"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Visualizations"
           icon="visualization"
-          disabled
+          [disabled]="true"
         >
         </biosimulations-dropdown-menu-item>
 
@@ -135,7 +135,7 @@
         <biosimulations-dropdown-menu-item
           heading="Profile"
           icon="user"
-          disabled
+          [disabled]="true"
         >
         </biosimulations-dropdown-menu-item>
 
@@ -150,16 +150,16 @@
   </biosimulations-topbar-menu>
 
   <ng-container id="sidenav-menu">
-    <biosimulations-navigation-item heading="Projects" icon="project" disabled>
-      <biosimulations-navigation-subitem heading="Home" icon="home" disabled>
+    <biosimulations-navigation-item heading="Projects" icon="project" [disabled]="true">
+      <biosimulations-navigation-subitem heading="Home" icon="home" [disabled]="true">
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem
         heading="Browse"
         icon="browse"
-        disabled
+        [disabled]="true"
       >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Submit" icon="new" disabled>
+      <biosimulations-navigation-subitem heading="Submit" icon="new" [disabled]="true">
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
@@ -176,37 +176,37 @@
         [route]="['/models', 'browse']"
       >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Submit" icon="new" disabled>
+      <biosimulations-navigation-subitem heading="Submit" icon="new" [disabled]="true">
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item
       heading="Simulations"
       icon="simulation"
-      disabled
+      [disabled]="true"
     >
-      <biosimulations-navigation-subitem heading="Home" icon="home" disabled>
+      <biosimulations-navigation-subitem heading="Home" icon="home" [disabled]="true">
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem
         heading="Browse"
         icon="browse"
-        disabled
+        [disabled]="true"
       >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Submit" icon="new" disabled>
+      <biosimulations-navigation-subitem heading="Submit" icon="new" [disabled]="true">
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item heading="Charts" icon="chart" disabled>
-      <biosimulations-navigation-subitem heading="Home" icon="home" disabled>
+    <biosimulations-navigation-item heading="Charts" icon="chart" [disabled]="true">
+      <biosimulations-navigation-subitem heading="Home" icon="home" [disabled]="true">
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem
         heading="Browse"
         icon="browse"
-        disabled
+        [disabled]="true"
       >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Submit" icon="new" disabled>
+      <biosimulations-navigation-subitem heading="Submit" icon="new" [disabled]="true">
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
@@ -214,17 +214,17 @@
       heading="Visualizations"
       icon="visualization"
       [aboveDivider]="true"
-      disabled
+      [disabled]="true"
     >
-      <biosimulations-navigation-subitem heading="Home" icon="home" disabled>
+      <biosimulations-navigation-subitem heading="Home" icon="home" [disabled]="true">
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem
         heading="Browse"
         icon="browse"
-        disabled
+        [disabled]="true"
       >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Submit" icon="new" disabled>
+      <biosimulations-navigation-subitem heading="Submit" icon="new" [disabled]="true">
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
@@ -281,27 +281,27 @@
       <biosimulations-navigation-subitem
         heading="Projects"
         icon="project"
-        disabled
+        [disabled]="true"
       >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Models" icon="model" disabled>
+      <biosimulations-navigation-subitem heading="Models" icon="model" [disabled]="true">
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem
         heading="Simulation"
         icon="simulation"
-        disabled
+        [disabled]="true"
       >
       </biosimulations-navigation-subitem>
-      <biosimulations-navigation-subitem heading="Charts" icon="chart" disabled>
+      <biosimulations-navigation-subitem heading="Charts" icon="chart" [disabled]="true">
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem
         heading="Visualization"
         icon="visualization"
-        disabled
+        [disabled]="true"
       >
       </biosimulations-navigation-subitem>
       <mat-divider></mat-divider>
-      <biosimulations-navigation-subitem heading="Profile" icon="user" disabled>
+      <biosimulations-navigation-subitem heading="Profile" icon="user" [disabled]="true">
       </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem
         heading="Logout"

@@ -49,7 +49,7 @@ export class ResponsiveTableComponent {
   searchToolTip!: string;
 
   @Input()
-  data: Observable<any[]> = of([]);
+  data: any[] | Observable<any[]> | null | undefined;
 
   private showTable = new BehaviorSubject<boolean>(true);
   showTable$ = this.showTable.asObservable();

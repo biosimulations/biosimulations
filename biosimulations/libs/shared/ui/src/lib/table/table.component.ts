@@ -146,7 +146,7 @@ export class TableComponent implements OnInit, AfterViewInit {
           },
         );
       });
-    } else {
+    } else if (data) {
       UtilsService.recursiveForkJoin(data).subscribe(
         (resolvedData: any[] | undefined) => {
           if (resolvedData !== undefined) {
@@ -154,6 +154,8 @@ export class TableComponent implements OnInit, AfterViewInit {
           }
         },
       );
+    } else {
+      this.setData([]);
     }
   }
 
