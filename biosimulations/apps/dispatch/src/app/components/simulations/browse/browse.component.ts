@@ -173,7 +173,6 @@ export class BrowseComponent implements OnInit {
       center: true,
       show: false,
     },
-    /*
     {
       id: 'visualize',
       heading: 'Viz',
@@ -217,9 +216,10 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 61,
-      maxWidth: 61,
+      minWidth: 43,
+      maxWidth: 43,
       filterable: false,
+      sortable: false,
       comparator: (
         a: boolean,
         b: boolean,
@@ -230,7 +230,6 @@ export class BrowseComponent implements OnInit {
         return 0;
       },
     },
-    */
     {
       id: 'download',
       heading: 'Export',
@@ -284,9 +283,10 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 61,
-      maxWidth: 61,
+      minWidth: 43,
+      maxWidth: 43,
       filterable: false,
+      sortable: false,
       comparator: (a: boolean, b: boolean, sign: number): number => {
         if (a > b) return -1;
         if (a < b) return 1;
@@ -329,9 +329,10 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 61,
-      maxWidth: 61,
+      minWidth: 43,
+      maxWidth: 43,
       filterable: false,
+      sortable: false,
       comparator: (
         a: SimulationRunStatus,
         b: SimulationRunStatus,
@@ -374,8 +375,8 @@ export class BrowseComponent implements OnInit {
       toolTipFormatter: (name: string): string => {
         return 'Click to copy URL to clipboard';
       },
-      minWidth: 61,
-      maxWidth: 61,
+      minWidth: 43,
+      maxWidth: 43,
       filterable: false,
       sortable: false,
       show: true,
@@ -401,8 +402,8 @@ export class BrowseComponent implements OnInit {
       stackedFormatter: (id: string): string => {
         return 'Remove simulation';
       },
-      minWidth: 61,
-      maxWidth: 61,
+      minWidth: 43,
+      maxWidth: 43,
       filterable: false,
       sortable: false,
       show: false,

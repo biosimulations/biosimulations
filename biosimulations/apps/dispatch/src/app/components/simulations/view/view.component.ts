@@ -182,7 +182,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     const sedmlLocations = Object.keys(combineArchive);
     this.sedmlLocations.next(sedmlLocations);
-    if (sedmlLocations?.length) {
+    if (sedmlLocations.length) {
       this.formGroup.controls.sedmlLocation.enable();
     } else {
       this.formGroup.controls.sedmlLocation.disable();

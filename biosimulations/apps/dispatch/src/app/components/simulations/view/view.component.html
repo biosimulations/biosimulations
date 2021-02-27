@@ -105,12 +105,11 @@
     heading="Design chart"
     icon="write"
     urlHashFragment="design-viz"
-    [disabled]="!(((sedmlLocations$ | async)?.length || -1) > 0)"
   >
     <form
       [formGroup]="formGroup"
       class="design-visualization"
-      *ngIf="(sedmlLocations$ | async) !== undefined"
+      *ngIf="(sedmlLocations$ | async)?.length; else noSedDocs"
     >
       <mat-form-field appearance="fill">
         <mat-label>Select a simulation experiment</mat-label>
@@ -273,6 +272,10 @@
         <mat-hint>Select a type of plot such as "line" or "scatter".</mat-hint>
       </mat-form-field>
     </form>
+
+    <ng-template #noSedDocs>
+      <span class="info-message">The COMBINE/OMEX archive does not define any reports. runBioSimulations visualizes simulation results outputted via SED reports.</span>
+    </ng-template>
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab
