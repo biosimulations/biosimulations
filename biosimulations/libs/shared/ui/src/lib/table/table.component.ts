@@ -27,7 +27,7 @@ import {
 import { UtilsService } from '@biosimulations/shared/services';
 import { ActivatedRoute, Router } from '@angular/router';
 
-const FlexSearch = require('flexsearch');
+import flex from 'flexsearch';
 
 
 // TODO fix datasource / loading functionality
@@ -307,7 +307,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.fullTextFields = this.columns.map((column: Column): string => {
       return column.heading.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-');
     });
-    this.fullTextIndex = FlexSearch.create({
+    this.fullTextIndex = flex.create({
       doc: {
         id: "_index",
         field: this.fullTextFields,
