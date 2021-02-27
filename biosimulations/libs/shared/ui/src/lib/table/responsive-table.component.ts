@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Column, ColumnSort } from './table.interface';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
