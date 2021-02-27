@@ -345,6 +345,36 @@ export class BrowseComponent implements OnInit {
       },
     },
     {
+      id: 'share',
+      heading: 'Share',
+      key: 'id',
+      center: true,
+      leftIcon: 'share',
+      leftAction: ColumnActionType.click,
+      leftClick: (simulation: Simulation): void => {
+        navigator.clipboard.writeText(window.location.protocol + '//' + window.location.host + '/simulations/' + simulation.id);
+      },
+      centerAction: ColumnActionType.routerLink,
+      centerRouterLink: (simulation: Simulation): string[] => {
+        return ['/simulations', simulation.id];
+      },
+      formatter: (id: string): null => {
+        return null;
+      },
+      stackedFormatter: (id: string): string => {
+        return window.location.protocol + '//' + window.location.host + '/simulations/' + id;
+      },
+      toolTipFormatter: (name: string): string => {
+        return 'Click to copy URL to clipboard';
+      },
+      minWidth: 61,
+      maxWidth: 61,
+      filterable: false,
+      sortable: false,
+      show: true,
+      showStacked: true,
+    },
+    {
       id: 'remove',
       heading: 'Remove',
       key: 'id',

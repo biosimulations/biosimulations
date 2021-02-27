@@ -5,8 +5,9 @@ import { BrowseComponent } from './browse/browse.component';
 import { ViewComponent } from './view/view.component';
 
 const shareUrl = (url: string): string => {
+  const protocol = window.location.protocol;
   const host = window.location.host;
-  navigator.clipboard.writeText(host + url);
+  navigator.clipboard.writeText(protocol + '//' + host + url);
   return 'URL was copied to clipboard';
 };
 const routes: Routes = [
