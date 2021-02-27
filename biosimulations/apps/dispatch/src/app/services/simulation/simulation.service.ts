@@ -4,7 +4,7 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, combineLatest, forkJoin } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { concatAll, debounceTime, shareReplay, map } from 'rxjs/operators';
@@ -186,16 +186,14 @@ export class SimulationService {
    * @param uuid The id of the simulation
    */
   private getSimulationHttp(uuid: string): Observable<Simulation> {
-    return forkJoin([
-        this.httpClient.get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`),
-      ])
+    return this.httpClient.get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`)
       .pipe(
-        map((data: any[]) => {
-          const dispatchSimulation = data[0];
+        map((dispatchSimulation: SimulationRun) => {
           const simulation: Simulation = {
             name: dispatchSimulation.name,
             email: dispatchSimulation.email || undefined,
             id: dispatchSimulation.id,
+            runtime: dispatchSimulation?.runtime || undefined,
             status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
             submitted: new Date(dispatchSimulation.submitted),
             submittedLocally: false,
