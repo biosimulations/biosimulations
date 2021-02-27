@@ -25,9 +25,9 @@ function getSioTerms(input: any): { [id: string]: SioTerm } {
       );
       const termDescription = jsonTerm['rdfs:comment'] || null;
       const termName = jsonTerm['rdfs:label'];
-      const termUrl = encodeURI(
-        'https://www.ebi.ac.uk/ols/ontologies/sio/terms?iri=http%3A%2F%2Fsemanticscience.org%2Fresource%2F' +
-          termId,
+      const termUrl = (
+        'https://www.ebi.ac.uk/ols/ontologies/sio/terms?iri=' 
+        + encodeURIComponent('http://semanticscience.org/resource/' + termId)
       );
 
       let moreInfoUrl: string | null = null;

@@ -20,9 +20,9 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
       const termId = jsonTerm['@id'].replace('http://biomodels.net/SBO/', '');
       const termDescription = jsonTerm['rdfs:comment'] || null;
       const termName = jsonTerm['rdfs:label'];
-      const termUrl = encodeURI(
-        'https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=http%3A%2F%2Fbiomodels.net%2FSBO%2F' +
-          termId,
+      const termUrl = (
+        'https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri='
+        + encodeURIComponent('http://biomodels.net/SBO/' + termId)
       );
       const term: SboTerm = {
         id: termId,
