@@ -16,6 +16,8 @@ import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
 import exampleSimulationsOrgJson from './example-simulations.org.json';
 import { debounceTime, take } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { snackBarDuration } from '@biosimulations/config/common';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -353,6 +355,9 @@ export class BrowseComponent implements OnInit {
       leftAction: ColumnActionType.click,
       leftClick: (simulation: Simulation): void => {
         navigator.clipboard.writeText(window.location.protocol + '//' + window.location.host + '/simulations/' + simulation.id);
+        this.snackBar.open('The URL for sharing the simulation was copied to your clipboard.', undefined, {
+          duration: snackBarDuration,
+        });
       },
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] => {
@@ -407,6 +412,7 @@ export class BrowseComponent implements OnInit {
   constructor(
     private config: ConfigService,
     private simulationService: SimulationService,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {

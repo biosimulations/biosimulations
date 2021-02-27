@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { tap, switchMap } from 'rxjs/operators';
 import { Observable, BehaviorSubject, of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   TocSection,
   TocSectionsContainerDirective,
@@ -15,6 +16,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
+import { snackBarDuration } from '@biosimulations/config/common';
 
 import {
   ViewSimulator,
@@ -37,6 +39,7 @@ export class ViewSimulatorComponent implements OnInit {
     private simService: ViewSimulatorService,
     private cd: ChangeDetectorRef,
     private config: ConfigService,
+    private snackBar: MatSnackBar,
   ) {}
 
   loadingSubject = new BehaviorSubject(true);
@@ -378,5 +381,8 @@ export class ViewSimulatorComponent implements OnInit {
   copyDockerPullCmd(image = '{ image }'): void {
     const cmd = 'docker pull ' + image;
     navigator.clipboard.writeText(cmd);
+    this.snackBar.open('The command to pull the Docker image was copied to your clipboard.', undefined, {
+      duration: snackBarDuration,
+    });
   }
 }

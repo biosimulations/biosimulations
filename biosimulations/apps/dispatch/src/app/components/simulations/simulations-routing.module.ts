@@ -8,7 +8,7 @@ const shareUrl = (url: string): string => {
   const protocol = window.location.protocol;
   const host = window.location.host;
   navigator.clipboard.writeText(protocol + '//' + host + url);
-  return 'URL was copied to clipboard';
+  return 'The URL for sharing this simulation was copied to your clipboard.';
 };
 const routes: Routes = [
   {

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
+import { snackBarDuration } from '@biosimulations/config/common';
 
 @Component({
   selector: 'biosimulations-bread-crumbs-button',
@@ -31,7 +32,7 @@ export class BreadCrumbsButtonComponent {
       const message = this.onClick(route);
       if (message) {
         this._snackBar.open(message, undefined, {
-          duration: 2000,
+          duration: snackBarDuration,
         });
       }
     }
