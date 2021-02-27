@@ -99,7 +99,7 @@ export class DispatchComponent implements OnInit {
       this.formGroup.controls.simulator.enable();
 
       // process query arguments
-      const projectUrl = params?.projectUrl; // TODO: support loading COMBINE archive URL by query argument
+      const projectUrl = params?.projectUrl;
       if (projectUrl) {
         this.formGroup.controls.submitMethod.setValue('url');
         this.toggleSubmitMethod('url')
@@ -132,9 +132,6 @@ export class DispatchComponent implements OnInit {
         }
       }
 
-      const simulator: string = params?.simulator?.toLowerCase();
-      const simulatorVersion: string = params?.simulatorVersion;
-
       if (modelFormat || modelingFramework || simulationAlgorithm) {
         this.simulators.forEach(
           (simulatorIdDisabled: SimulatorIdDisabled): void => {
@@ -165,15 +162,39 @@ export class DispatchComponent implements OnInit {
         );
       }
 
-      if (simulator) {
-        this.formGroup.controls.simulator.setValue(simulator);
-        this.onSimulatorChange({ value: simulator });
-        if (simulatorVersion) {
-          this.formGroup.controls.simulatorVersion.setValue(simulatorVersion);
+      let simulatorId: string = params?.simulator?.toLowerCase();
+      const simulatorVersion: string = params?.simulatorVersion;
+      if (simulatorId) {
+        for (const simulator of this.simulators) {
+          if (simulator.id.toLowerCase() === simulatorId) {
+            simulatorId = simulator.id;
+            this.formGroup.controls.simulator.setValue(simulatorId);
+            this.onSimulatorChange({ value: simulatorId });
+            if (simulatorVersion) {
+              for (const version of this.simulatorSpecsMap[simulatorId].versions) {
+                if (this.versionsEqual(version, simulatorVersion)) {
+                  this.formGroup.controls.simulatorVersion.setValue(version);
+                  break;
+                }
+              }
+            }
+            break;
+          }
         }
       }
     });
     this.toggleSubmitMethod(this.submitMethod);
+  }
+
+  versionsEqual(a: string, b: string) {
+    let aArr = a.toLowerCase().split('.');
+    let bArr = b.toLowerCase().split('.');
+
+    const lastPos = Math.min(aArr.length, bArr.length);
+    aArr = aArr.slice(0, lastPos);
+    bArr = bArr.slice(0, lastPos);
+
+    return aArr.every((val, index) => val === bArr[index]);
   }
 
   toggleSubmitMethod(method: 'file' | 'url') {
