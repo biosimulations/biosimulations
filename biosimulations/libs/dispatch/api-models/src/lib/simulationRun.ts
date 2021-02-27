@@ -25,7 +25,6 @@ export class SimulationRun {
     type: String,
     description: 'The name of a BioSimulators compliant simulator',
     examples: ['vcell', 'gillespy2', 'cobrapy', 'copasi', 'bionetgen', 'tellurium'],
-    example: 'tellurium',
     externalDocs: {
       url: 'https://biosimulators.org/simulators',
       description: 'Simulators List',
@@ -33,7 +32,7 @@ export class SimulationRun {
   })
   simulator!: string;
 
-  @ApiProperty({ type: String, examples: ['latest', '2.1'], example: 'latest' })
+  @ApiProperty({ type: String, examples: ['latest', '2.1'] })
   simulatorVersion!: string;
 
   @ApiPropertyOptional({

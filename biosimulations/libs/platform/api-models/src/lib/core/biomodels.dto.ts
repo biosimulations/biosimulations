@@ -12,7 +12,7 @@ export class ModelParameter implements BiomodelParameter {
   @ApiProperty({
     type: String,
     // tslint:disable-next-line: quotemark
-    example: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='N' ",
+    example: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='N']",
   })
   target!: string;
 
@@ -47,7 +47,6 @@ export class ModelParameter implements BiomodelParameter {
     type: String,
     enum: ValueType,
     enumName: 'ValueType',
-    example: 'float',
   })
   type!: ValueType;
 

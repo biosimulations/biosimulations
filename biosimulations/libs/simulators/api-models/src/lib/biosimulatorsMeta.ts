@@ -75,7 +75,6 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
     required: true,
     description:
       'The version of the BioSimulators simulator specifications format that the simulator specifications conforms to',
-    examples: ['1.0.0'],
     enum: specificationVersions,
   })
   specificationVersion!: specificationVersions;
@@ -85,7 +84,6 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
     required: true,
     description:
       'The version of the BioSimulators simulator image format (command-line interface and Docker image structure) that the simulator implements',
-    examples: ['1.0.0'],
     enum: imageVersions,
   })
   imageVersion!: imageVersions;
