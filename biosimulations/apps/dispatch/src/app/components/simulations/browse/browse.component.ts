@@ -372,7 +372,7 @@ export class BrowseComponent implements OnInit {
       stackedFormatter: (id: string): string => {
         return window.location.protocol + '//' + window.location.host + '/simulations/' + id;
       },
-      toolTipFormatter: (name: string): string => {
+      leftIconTitle: (simulation: Simulation): string => {
         return 'Click to copy URL to clipboard';
       },
       minWidth: 43,
@@ -384,7 +384,7 @@ export class BrowseComponent implements OnInit {
     },
     {
       id: 'remove',
-      heading: 'Remove',
+      heading: 'Trash',
       key: 'id',
       center: true,
       leftIcon: 'trash',
