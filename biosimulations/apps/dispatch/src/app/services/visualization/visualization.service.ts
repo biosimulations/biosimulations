@@ -22,7 +22,7 @@ export class VisualizationService {
 
   getResultStructure(uuid: string): Observable<TaskMap> {
     return this.http.get(`${this.resultsEndpoint}/${uuid}?sparse=true`).pipe(
-      //tap((x) => console.log(x)),
+      // tap((x) => console.log(x)),
       map((result: any) => result.reports),
       map(
         (array: { [key: string]: string }[]): TaskMap => {

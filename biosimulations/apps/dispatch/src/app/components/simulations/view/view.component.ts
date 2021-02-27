@@ -142,7 +142,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid),
       ),
       concatAll(),
-      tap((_) => console.log(_)),
+      // tap((_) => console.log(_)),
     );
     this.runTime$ = this.logs$.pipe(
       map((log): string => {
