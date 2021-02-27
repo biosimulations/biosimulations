@@ -9,7 +9,6 @@ import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { concatAll, debounceTime, shareReplay, map } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
-import { CombineArchiveLog } from '../../simulation-logs-datamodel';
 
 @Injectable({
   providedIn: 'root',
@@ -189,16 +188,13 @@ export class SimulationService {
   private getSimulationHttp(uuid: string): Observable<Simulation> {
     return forkJoin([
         this.httpClient.get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`),
-        this.httpClient.get<CombineArchiveLog>(`${urls.dispatchApi}logs/${uuid}?download=false`),
       ])
       .pipe(
         map((data: any[]) => {
           const dispatchSimulation = data[0];
-          const log = data[1];
           const simulation: Simulation = {
             name: dispatchSimulation.name,
             email: dispatchSimulation.email || undefined,
-            runtime: log?.duration,
             id: dispatchSimulation.id,
             status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
             submitted: new Date(dispatchSimulation.submitted),

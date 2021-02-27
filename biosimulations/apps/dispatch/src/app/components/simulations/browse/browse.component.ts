@@ -92,6 +92,7 @@ export class BrowseComponent implements OnInit {
       minWidth: 98,
       maxWidth: 98,
     },
+    /*
     {
       id: 'runtime',
       heading: 'Runtime',
@@ -113,6 +114,7 @@ export class BrowseComponent implements OnInit {
       filterType: ColumnFilterType.number,
       show: false,
     },
+    */
     {
       id: 'submitted',
       heading: 'Submitted',
