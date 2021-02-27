@@ -334,6 +334,38 @@
       </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 
+     <biosimulations-text-page-content-section
+      heading="Data visualizations"
+      tocSection="Data visualizations"
+    >
+      <biosimulations-q-a
+        heading="Which simulation outputs can runBioSimulations visualize?"        
+      >
+        <p>runBioSimulations can visualize data sets (<code>sedml:DataSet</code>) of reports (<code>sedml:report</code>) defined in SED-ML documents.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="What types of plots can runBioSimulations render?"
+      >
+        <p>runBioSimulations can render two-dimensional line plots and scatter plots of pairs of data sets.</p>
+
+        <p>runBioSimulations supports two options for the scales of the x and y axes: linear, logarithmic.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How can I use alternative types of plots to visualize simulation results?"
+      >
+        <p>Simulation results generated with runBioSimulations can be visualized by downloading the results and plotting them with an external program such as 
+          Altair <a href="https://altair-viz.github.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>,
+          ggplot2 <a href="https://ggplot2.tidyverse.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>,
+          Matplotlib <a href="https://matplotlib.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or
+          Seaborn <a href="https://seaborn.pydata.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        </p>
+
+        <p>Going forward, we plan to leverage Vega <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and Vega-Lite <a href="https://vega.github.io/vega-lite/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to enable users to visualize simulation results produced by runBioSimulations with any diagram. This will enable users to modularly define diagrams and define how they should be painted with simulation results. In turn, this will enable uses to re-use published diagrams with alternative simulation conditions.</p>
+      </biosimulations-q-a>
+    </biosimulations-text-page-content-section>
+
     <biosimulations-text-page-content-section
       heading="Simulation software tools"
       tocSection="Simulation algorithms and tools"
