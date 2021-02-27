@@ -30,7 +30,10 @@ export class MailClientService {
         name,
         date: date.toLocaleString(),
       },
-      from: 'notifications@biosimulations.org',
+      from: {
+        email: 'notifications@biosimulations.org',
+        name: 'runBioSimulations',
+      },
       asm: {
         groupId: 14634,
       },
@@ -54,7 +57,10 @@ export class MailClientService {
         name,
         date: date.toLocaleString(),
       },
-      from: 'notifications@biosimulations.org',
+      from: {
+        email: 'notifications@biosimulations.org',
+        name: 'runBioSimulations',
+      },
       asm: {
         groupId: 14634,
       },
@@ -72,6 +78,6 @@ type MailData = SendGrid.MailDataRequired & {
   to: string;
   templateId: string;
   dynamicTemplateData: DynamicTemplateData;
-  from: string;
+  from: { email: string, name: string };
   asm: { groupId: number };
 };
