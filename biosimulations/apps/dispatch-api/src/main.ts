@@ -14,6 +14,8 @@ import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.in
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { ConfigService } from '@nestjs/config';
 import { json } from 'body-parser';
+import { Resolver } from '@stoplight/json-ref-resolver';
+import * as toJsonSchema from '@openapi-contrib/openapi-schema-to-json-schema';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -149,10 +151,10 @@ async function bootstrap() {
 
   httpAdapter.get('/openapi.json', (req, res) => res.json(document));
 
-  // const resolver = new Resolver();
-  // const resolvedDocument = await resolver.resolve(document);
-  // const schema = resolvedDocument.result.components.schemas.CombineArchiveLog;
-  // httpAdapter.get('/schema/CombineArchiveLog.json', (req, res) => res.json(toJsonSchema(schema)));
+  const resolver = new Resolver();
+  const resolvedDocument = await resolver.resolve(document);
+  const schema = resolvedDocument.result.components.schemas.CombineArchiveLog;
+  httpAdapter.get('/schema/CombineArchiveLog.json', (req, res) => res.json(toJsonSchema(schema)));
 
   const configService = app.get(ConfigService);
   const limit = configService.get('server.limit');
