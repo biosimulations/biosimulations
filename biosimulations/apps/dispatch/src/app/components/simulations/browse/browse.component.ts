@@ -101,7 +101,7 @@ export class BrowseComponent implements OnInit {
         if (simulation.runtime == null || simulation.runtime === undefined) {
           return null;
         } else {
-          return simulation.runtime / 1000;
+          return simulation.runtime;
         }
       },
       formatter: (valueSec: number | null): string | null => {

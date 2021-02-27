@@ -4,11 +4,12 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest, forkJoin } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
 import { concatAll, debounceTime, shareReplay, map } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
+import { CombineArchiveLog } from '../../simulation-logs-datamodel';
 
 @Injectable({
   providedIn: 'root',
@@ -186,15 +187,18 @@ export class SimulationService {
    * @param uuid The id of the simulation
    */
   private getSimulationHttp(uuid: string): Observable<Simulation> {
-    return this.httpClient
-      .get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`)
+    return forkJoin([
+        this.httpClient.get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`),
+        this.httpClient.get<CombineArchiveLog>(`${urls.dispatchApi}logs/${uuid}?download=false`),
+      ])
       .pipe(
-        map((data: SimulationRun) => {
-          const dispatchSimulation = data;
+        map((data: any[]) => {
+          const dispatchSimulation = data[0];
+          const log = data[1];
           const simulation: Simulation = {
             name: dispatchSimulation.name,
             email: dispatchSimulation.email || undefined,
-            runtime: dispatchSimulation.runtime,
+            runtime: log?.duration,
             id: dispatchSimulation.id,
             status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
             submitted: new Date(dispatchSimulation.submitted),
