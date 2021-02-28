@@ -4715,6 +4715,21 @@
     "searchable": "true"
   },
   {
+    "type": "data",
+    "extensions": [
+      ".csl"
+    ],
+    "tmScope": "source.kusto",
+    "aceMode": "text",
+    "languageId": 225697190,
+    "name": "Kusto",
+    "aliases": [
+      "kusto"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
     "type": "programming",
     "color": "#4C3023",
     "extensions": [
