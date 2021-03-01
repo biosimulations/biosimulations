@@ -1,9 +1,9 @@
 export class StrictModeError {
-  name: 'StrictModeError' = 'StrictModeError';
-  path!: string;
-  immutable!: boolean;
-  msg!: string;
-  constructor(path: string, message: string, immutable: boolean) {
+  public name: 'StrictModeError' = 'StrictModeError';
+  public path!: string;
+  public immutable!: boolean;
+  public msg!: string;
+  public constructor(path: string, message: string, immutable: boolean) {
     this.msg = message;
     this.immutable = immutable;
     this.path = path;

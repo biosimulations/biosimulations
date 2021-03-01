@@ -4,6 +4,7 @@ import {
   ExceptionFilter,
   ArgumentsHost,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 import { Response } from 'express';
 import * as mongoose from 'mongoose';
@@ -12,18 +13,19 @@ import { makeErrorObject } from '../../utils';
 
 @Catch(mongoose.Error.ValidationError)
 export class ValidationExceptionFilter implements ExceptionFilter {
-  catch(err: mongoose.Error.ValidationError, host: ArgumentsHost) {
+  private logger = new Logger(ValidationExceptionFilter.name);
+  public catch(err: mongoose.Error.ValidationError, host: ArgumentsHost): void {
+    this.logger.error(err);
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    const request = ctx.getRequest<Request>();
-
     const errors = [];
 
     for (const key in err.errors) {
       const validatorError:
         | mongoose.Error.ValidatorError
         | mongoose.Error.CastError = err.errors[key];
-      const path = ('/' + key).replace(new RegExp('\\.', 'g'), '/'); //Change the "." in the path to  "/" to make a valid JSON path as per RFC 6901
+      //Change the "." in the path to  "/" to make a valid JSON path as per RFC 6901
+      const path = ('/' + key).replace(new RegExp('\\.', 'g'), '/');
       const error = makeErrorObject(
         HttpStatus.BAD_REQUEST,
         validatorError.name,
@@ -37,6 +39,7 @@ export class ValidationExceptionFilter implements ExceptionFilter {
     }
 
     const responseError: ErrorResponseDocument = { error: errors };
+    this.logger.log(responseError);
     response.status(HttpStatus.BAD_REQUEST).json(responseError);
   }
 }
