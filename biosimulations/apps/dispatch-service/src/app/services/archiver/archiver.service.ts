@@ -25,9 +25,15 @@ export class ArchiverService {
 
     output.on('close', () => {
       const size = archive.pointer().toString();
-      this.service.updateSimulationRunResultsSize(uuid, parseInt(size)).pipe(catchError((err, caught) => {
-        this.logger.error(err)
-      return of(null)})).subscribe()
+      this.service
+        .updateSimulationRunResultsSize(uuid, parseInt(size))
+        .pipe(
+          catchError((err, caught) => {
+            this.logger.error(err);
+            return of(null);
+          }),
+        )
+        .subscribe();
       this.logger.verbose(`The resulting archive holds ${size} bytes in size`);
       this.logger.log(
         'Archiver has been finalized and the output file descriptor has closed.',
