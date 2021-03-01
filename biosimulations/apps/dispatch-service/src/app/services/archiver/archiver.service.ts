@@ -4,6 +4,8 @@ import archiver from 'archiver';
 import * as fs from 'fs';
 import path from 'path';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable()
 export class ArchiverService {
@@ -23,7 +25,9 @@ export class ArchiverService {
 
     output.on('close', () => {
       const size = archive.pointer().toString();
-      this.service.updateSimulationRunResultsSize(uuid, parseInt(size));
+      this.service.updateSimulationRunResultsSize(uuid, parseInt(size)).pipe(catchError((err, caught) => {
+        this.logger.error(err)
+      return of(null)})).subscribe()
       this.logger.verbose(`The resulting archive holds ${size} bytes in size`);
       this.logger.log(
         'Archiver has been finalized and the output file descriptor has closed.',
