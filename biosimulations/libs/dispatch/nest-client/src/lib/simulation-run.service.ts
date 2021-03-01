@@ -5,10 +5,10 @@ import {
   SimulationRunReport,
   SimulationRunReportDataStrings,
 } from '@biosimulations/dispatch/api-models';
-import { HttpService, Injectable } from '@nestjs/common';
+import { HttpService, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthClientService } from '@biosimulations/auth/client';
-import { pluck, map, mergeMap } from 'rxjs/operators';
+import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 @Injectable({})
@@ -20,6 +20,7 @@ export class SimulationRunService {
     private http: HttpService,
     private configService: ConfigService,
   ) {}
+  private logger = new Logger(SimulationRunService.name);
 
   public updateSimulationRunStatus(
     id: string,
@@ -43,24 +44,33 @@ export class SimulationRunService {
     );
   }
 
-  // TODO Change return type to observable
-  public async updateSimulationRunResultsSize(
+  public updateSimulationRunResultsSize(
     id: string,
     size: number,
-  ): Promise<SimulationRun> {
-    const token = await this.auth.getToken();
-    return this.http
-      .patch<SimulationRun>(
-        `${this.endpoint}run/${id}`,
-        { resultsSize: size },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      .pipe(pluck('data'))
-      .toPromise();
+  ): Observable<SimulationRun> {
+    return from(this.auth.getToken()).pipe(
+      map((token) => {
+        return this.http
+          .patch<SimulationRun>(
+            `${this.endpoint}run/${id}`,
+            { resultsSize: size },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
+          )
+          .pipe(
+            catchError((err, caught) => {
+              this.logger.error(err);
+              return caught;
+            }),
+            retry(2),
+            pluck('data'),
+          );
+      }),
+      mergeMap((value) => value),
+    );
   }
   public async getJob(simId: string): Promise<SimulationRun> {
     // TODO make enpoint consistent with other (no ending /)
