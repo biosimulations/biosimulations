@@ -31,7 +31,12 @@ export class LogService {
     const yamlFile = `${path}/log.yml`;
     return this.sshService
       .execStringCommand('cat ' + yamlFile)
-      .then((output) => YAML.parse(output.stdout) as CombineArchiveLog)
+      .then((output) => {
+        if (output.stderr != '') {
+          throw new Error('No log read');
+        }
+        return YAML.parse(output.stdout) as CombineArchiveLog;
+      })
       .catch((_: any) => {
         return {
           status: SimulationRunLogStatus.UNKNOWN,
