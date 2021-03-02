@@ -52,13 +52,16 @@ export class ResultsController {
     return this.service.getResults();
   }
 
-  @Get(':simId')
-  @ApiQuery({ name: 'sparse', type: Boolean })
-  getResult(
+  @Get(':simId/download')
+  async downloadResultReport(
     @Param('simId') simId: string,
-    @Query('sparse', ParseBoolPipe) sparse = true,
+    @Res() res: Response,
   ) {
-    return this.service.getResult(simId, sparse);
+    const file = await this.service.download(simId);
+    res.contentType('application/x-hdf5');
+    res.setHeader('Content-Disposition', 'attachment; filename="results.h5"');
+    res.write(file);
+    res.send();
   }
 
   @Get(':simId/:reportId')
@@ -71,17 +74,13 @@ export class ResultsController {
     return this.service.getResultReport(simId, reportId, sparse);
   }
 
-  @Get(':simId/download')
-  async downloadResultReport(
+  @Get(':simId')
+  @ApiQuery({ name: 'sparse', type: Boolean })
+  getResult(
     @Param('simId') simId: string,
-
-    @Res() res: Response,
+    @Query('sparse', ParseBoolPipe) sparse = true,
   ) {
-    const file = await this.service.download(simId);
-    res.contentType('application/x-hdf5');
-    res.setHeader('Content-Disposition', 'attachment; filename="results.h5"');
-    res.write(file);
-    res.send();
+    return this.service.getResult(simId, sparse);
   }
 
   @Post(':simId/:reportId')
