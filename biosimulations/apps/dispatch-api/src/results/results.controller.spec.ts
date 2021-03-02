@@ -6,6 +6,7 @@
  */
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { SharedStorageService } from '@biosimulations/shared/storage';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsController } from './results.controller';
@@ -24,6 +25,15 @@ describe('ResultsController', () => {
       };
     }
   }
+  class MockStorageService{
+    getObject(id:string) {
+      return
+    }
+    putObject(id:string, data:Buffer) {
+      
+    }
+    }
+  
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ResultsController],
@@ -33,7 +43,10 @@ describe('ResultsController', () => {
         {
           provide: getModelToken(ResultsModel.name),
           useClass: mockFile,
-        },
+        }, {
+          provide: SharedStorageService,
+          useClass: MockStorageService
+        }
       ],
     }).compile();
 

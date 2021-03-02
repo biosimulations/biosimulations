@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Client as SSHClient } from 'ssh2';
-import * as fs from 'fs';
 import { SshConnectionConfig } from '../../types/ssh-connection-config/ssh-connection-config';
 
 @Injectable()
@@ -62,106 +61,5 @@ export class SshService {
           .connect(this.sshConfig);
       },
     );
-  }
-
-  getFile(localFilePath: string, remoteFilePath: string): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      const conn = new SSHClient();
-      conn
-        .on('ready', () => {
-          this.logger.log('Connection ready');
-          conn.sftp((err, sftp) => {
-            if (err) {
-              this.logger.error(
-                'Unable to open SFTP connection',
-                JSON.stringify(err),
-              );
-              reject(err);
-            }
-
-            sftp.fastGet(remoteFilePath, localFilePath, {}, (downloadError) => {
-              if (downloadError) {
-                this.logger.error(
-                  'Error occured while downloading file',
-                  JSON.stringify(downloadError),
-                );
-                reject(downloadError);
-              }
-              this.logger.log('File download successful');
-              resolve(true);
-            });
-          });
-        })
-        .connect(this.sftpConfig);
-    });
-  }
-
-  putFile(localFilePath: string, remoteFilePath: string): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      const conn = new SSHClient();
-      conn
-        .on('ready', () => {
-          this.logger.log('Connection ready');
-          conn.sftp((err, sftp) => {
-            if (err) {
-              this.logger.error(
-                'Unable to open SFTP connection',
-                JSON.stringify(err),
-              );
-              reject(err);
-            }
-
-            const readStream = fs.createReadStream(localFilePath);
-            const writeStream = sftp.createWriteStream(remoteFilePath);
-
-            writeStream.on('close', () => {
-              this.logger.log('File transferred successfully');
-              resolve(true);
-            });
-
-            writeStream.on('end', () => {
-              this.logger.log('SFTP connection closed');
-              conn.destroy();
-            });
-
-            // initiate transfer of file
-            readStream.pipe(writeStream);
-          });
-        })
-        .connect(this.sftpConfig);
-    });
-  }
-
-  listFiles(remoteDirPath: string): Promise<string[]> {
-    return new Promise<string[]>((resolve, reject) => {
-      const conn = new SSHClient();
-      conn
-        .on('ready', () => {
-          this.logger.log('Connection ready');
-          conn.sftp((err: any, sftp: any) => {
-            if (err) {
-              this.logger.error(
-                'Unable to open SFTP connection',
-                JSON.stringify(err),
-              );
-              reject(err);
-            }
-
-            sftp.readdir(remoteDirPath, (readErr: any, list: any[]) => {
-              if (readErr) {
-                this.logger.error(
-                  'Cannot read remote directory',
-                  JSON.stringify(readErr),
-                );
-                reject(readErr);
-              }
-              resolve(list);
-              conn.end();
-              this.logger.log('SFTP connection closed successfully');
-            });
-          });
-        })
-        .connect(this.sftpConfig);
-    });
   }
 }

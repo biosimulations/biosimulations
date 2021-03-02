@@ -13,14 +13,16 @@ export class SbatchService {
     simId: string,
   ): string {
     const homeDir = this.configService.get('hpc.homeDir');
+    const bucket = this.configService.get('storage.bucket');
+    const endpoint = this.configService.get('storage.endpoint');
     if (apiDomain.startsWith('http://localhost')) {
       apiDomain = 'https://run.api.biosimulations.dev/';
     }
     const template = `#!/bin/bash    
 #SBATCH --job-name=${simId}_Biosimulations
 #SBATCH --time=20:00
-#SBATCH --output=${tempSimDir}/out/job.output
-#SBATCH --error=${tempSimDir}/out/job.output
+#SBATCH --output=${tempSimDir}/job.output
+#SBATCH --error=${tempSimDir}/job.output
 #SBATCH --chdir=${tempSimDir}
 #SBATCH --ntasks=1
 #SBATCH --partition=crbm
@@ -38,8 +40,14 @@ export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
 export SINGULARITY_TMPDIR=${homeDir}/singularity/tmp/
 export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
-wget ${apiDomain}run/${simId}/download -O '${tempSimDir}/in/${omexName}' 1>'${tempSimDir}/out/job.output' 2>&1
-singularity run -B ${tempSimDir}/in:/root/in -B ${tempSimDir}/out:/root/out ${simulator} -i '/root/in/${omexName}' -o '/root/out'`;
+date
+cd ${tempSimDir}
+wget ${apiDomain}run/${simId}/download -O '${omexName}'
+singularity run -B ${tempSimDir}:/root ${simulator} -i '/root/${omexName}' -o '/root'
+t1=$?
+aws --endpoint-url ${endpoint} s3 sync . s3://${bucket}/${simId}
+exit $t1`;
+
     return template;
   }
 

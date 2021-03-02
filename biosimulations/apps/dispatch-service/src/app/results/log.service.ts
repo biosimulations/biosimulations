@@ -1,16 +1,17 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { FileService } from './file.service';
-import { promises as fsPromises } from 'fs';
 import YAML from 'yaml';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
 import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
+import { SshService } from '../services/ssh/ssh.service';
 @Injectable()
 export class LogService {
   private logger = new Logger(LogService.name);
   public constructor(
     private fileService: FileService,
     private submit: SimulationRunService,
+    private sshService: SshService,
   ) {}
 
   public async createLog(id: string): Promise<void> {
@@ -28,9 +29,14 @@ export class LogService {
 
   private async readLog(path: string): Promise<CombineArchiveLog> {
     const yamlFile = `${path}/log.yml`;
-    return fsPromises
-      .readFile(yamlFile, 'utf8')
-      .then((file) => YAML.parse(file) as CombineArchiveLog)
+    return this.sshService
+      .execStringCommand('cat ' + yamlFile)
+      .then((output) => {
+        if (output.stderr != '') {
+          throw new Error('No log read');
+        }
+        return YAML.parse(output.stdout) as CombineArchiveLog;
+      })
       .catch((_: any) => {
         return {
           status: SimulationRunLogStatus.UNKNOWN,
@@ -48,10 +54,13 @@ export class LogService {
 
   private async readStdLog(path: string): Promise<string> {
     const logFile = `${path}/job.output`;
-    return fsPromises.readFile(logFile, 'utf8').catch((_) => {
-      this.logger.error(_);
-      return '';
-    });
+    return this.sshService
+      .execStringCommand('cat ' + logFile)
+      .then((output) => output.stdout)
+      .catch((_) => {
+        this.logger.error(_);
+        return '';
+      });
   }
 
   private uploadLog(id: string, log: CombineArchiveLog): Promise<void> {

@@ -19,7 +19,7 @@ export class FileService {
   public constructor(private readonly configService: ConfigService) {}
 
   public getResultsDirectory(id: string): string {
-    return path.join(this.fileStorage, 'simulations', id, 'out');
+    return path.join(this.fileStorage, 'simulations', id);
   }
 
   public async getFilesRecursively(path: string): Promise<resultFile[]> {
