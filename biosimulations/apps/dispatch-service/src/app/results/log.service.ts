@@ -15,7 +15,7 @@ export class LogService {
   ) {}
 
   public async createLog(id: string): Promise<void> {
-    const path = this.fileService.getResultsDirectory(id);
+    const path = this.fileService.getSSHResultsDirectory(id);
     return this.makeLog(path).then((value) => this.uploadLog(id, value));
   }
 
