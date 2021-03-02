@@ -26,7 +26,7 @@ export class FileService {
     return path.join(this.fileStorage, 'simulations', id);
   }
   public getSSHResultsDirectory(id: string): string {
-    return path.join(this.hpcBase, 'simulations', id);
+    return path.join(this.hpcBase, id);
   }
 
   public async getFilesRecursively(path: string): Promise<resultFile[]> {
