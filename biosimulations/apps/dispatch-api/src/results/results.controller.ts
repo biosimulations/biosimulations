@@ -61,14 +61,6 @@ export class ResultsController {
     return this.service.getResult(simId, sparse);
   }
 
-  @Get(':simId/download')
-  async downloadResult(@Param('simId') simId: string, @Res() res: any) {
-    const file = this.service.download(simId);
-    res.contentType('application/x-hdf5');
-    res.write(file);
-    res.send();
-  }
-
   @Get(':simId/:reportId')
   @ApiQuery({ name: 'sparse', type: Boolean })
   getResultReport(
