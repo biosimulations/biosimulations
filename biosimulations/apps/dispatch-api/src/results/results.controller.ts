@@ -27,6 +27,7 @@ import {
   ParseBoolPipe,
   Post,
   Query,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -61,8 +62,10 @@ export class ResultsController {
   }
 
   @Get(':simId/download')
-  downloadResult(@Param('simId') simId: string) {
-    return this.service.download(simId);
+  async downloadResult(@Param('simId') simId: string, @Res() res: any) {
+    const file = await this.service.downloadReport(simId);
+    console.log('downlaoded');
+    res.download(file);
   }
 
   @Get(':simId/:reportId')
@@ -75,12 +78,13 @@ export class ResultsController {
     return this.service.getResultReport(simId, reportId, sparse);
   }
 
-  @Get(':simId/:reportId/download')
-  downloadResultReport(
+  @Get(':simId/download')
+  async downloadResultReport(
     @Param('simId') simId: string,
-    @Param('resportId') reportId: string,
+
+    @Res() res: any,
   ) {
-    return this.service.downloadReport(simId, reportId);
+    res.download(await this.service.downloadReport(simId));
   }
 
   @Post(':simId/:reportId')
