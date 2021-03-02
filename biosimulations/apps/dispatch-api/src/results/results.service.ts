@@ -4,11 +4,12 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Res } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { ResultsModel } from './results.model';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
+import { SharedStorageService } from '@biosimulations/shared/storage';
 import {
   SimulationRunReport,
   SimulationRunReportData,
@@ -18,6 +19,7 @@ import {
 @Injectable()
 export class ResultsService {
   public constructor(
+    private storage: SharedStorageService,
     @InjectModel(ResultsModel.name) private resultModel: Model<ResultsModel>,
   ) {}
 
@@ -35,12 +37,9 @@ export class ResultsService {
     return result.save();
   }
 
-  public downloadReport(simId: string, reportId: string) {
-    throw new BiosimulationsException(
-      500,
-      'Not Yet Implemented',
-      'Sorry, this method is not yet available',
-    );
+  public async downloadReport(simId: string) {
+    const file = await this.storage.getObject(simId + '/' + 'reports.h5');
+    return file;
   }
   public async getResultReport(
     simId: string,
@@ -92,12 +91,9 @@ export class ResultsService {
     const response = { simId: simId, reports: reports };
     return response;
   }
-  public download(id: string) {
-    throw new BiosimulationsException(
-      500,
-      'Not Yet Implemented',
-      'Sorry, this method is not yet available',
-    );
+  public async download(simId: string) {
+    const file = await this.storage.getObject(simId + '/' + 'reports.h5');
+    return file;
   }
   public addResults(results: any) {
     throw new BiosimulationsException(
