@@ -4,7 +4,7 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
-import { Injectable, NotFoundException, Res } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { ResultsModel } from './results.model';
