@@ -37,7 +37,7 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-
+import { Response } from 'express';
 import { ResultsService } from './results.service';
 
 @Controller('results')
@@ -63,9 +63,10 @@ export class ResultsController {
 
   @Get(':simId/download')
   async downloadResult(@Param('simId') simId: string, @Res() res: any) {
-    const file = await this.service.downloadReport(simId);
-    console.log('downlaoded');
-    res.download(file);
+    const file = this.service.download(simId);
+    res.contentType('application/x-hdf5');
+    res.write(file);
+    res.send();
   }
 
   @Get(':simId/:reportId')
@@ -82,9 +83,12 @@ export class ResultsController {
   async downloadResultReport(
     @Param('simId') simId: string,
 
-    @Res() res: any,
+    @Res() res: Response,
   ) {
-    res.download(await this.service.downloadReport(simId));
+    const file = this.service.download(simId);
+    res.contentType('application/x-hdf5');
+    res.write(file);
+    res.send();
   }
 
   @Post(':simId/:reportId')

@@ -39,7 +39,7 @@ export class ResultsService {
 
   public async downloadReport(simId: string) {
     const file = await this.storage.getObject(simId + '/' + 'reports.h5');
-    return file;
+    return file.Body;
   }
   public async getResultReport(
     simId: string,
@@ -93,7 +93,7 @@ export class ResultsService {
   }
   public async download(simId: string) {
     const file = await this.storage.getObject(simId + '/' + 'reports.h5');
-    return file;
+    return file.Body;
   }
   public addResults(results: any) {
     throw new BiosimulationsException(
