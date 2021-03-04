@@ -45,7 +45,7 @@ export class PlotlyVisualizationComponent {
   layout: Layout | undefined = undefined;
 
   @Input()
-  set dataLayout(value: DataLayout) {
+  set dataLayout(value: DataLayout | null) {
     this.data = value?.data;
     this.layout = value?.layout;
     this.setLayout();
