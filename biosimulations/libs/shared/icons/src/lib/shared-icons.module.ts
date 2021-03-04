@@ -80,6 +80,7 @@ import {
   faChevronDown,
   faCloud,
   faShareAlt,
+  faLongArrowAltRight,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -201,6 +202,7 @@ export class BiosimulationsIconsModule {
       farFileAlt,
       farStar,
       faOsi,
+      faLongArrowAltRight,
     );
   }
 }

@@ -101,7 +101,8 @@ export type BiosimulationsIcon =
   | 'open'
   | 'url'
   | 'share'
-  | 'close';
+  | 'close'
+  | 'longRightArrow';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -222,6 +223,7 @@ export class IconComponent implements OnInit {
     progress: { type: 'fas', name: 'tasks' },
     open: { type: 'fas', name: 'chevron-down' },
     close: { type: 'fas', name: 'chevron-up' },
+    longRightArrow: { type: 'fas', name: 'long-arrow-alt-right' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];
