@@ -11,11 +11,11 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
 import { SimulationsRoutingModule } from './simulations-routing.module';
 import { BrowseComponent } from './browse/browse.component';
 import { ViewComponent } from './view/view.component';
-import { VisualizationComponent } from './view/visualization/visualization.component';
+import { PlotlyVisualizationComponent } from './view/plotly-visualization/plotly-visualization.component';
 import { SimulationLogModule } from './view/simulation-log/simulation-log.module';
 
 @NgModule({
-  declarations: [BrowseComponent, ViewComponent, VisualizationComponent],
+  declarations: [BrowseComponent, ViewComponent, PlotlyVisualizationComponent],
   imports: [
     CommonModule,
     SimulationsRoutingModule,

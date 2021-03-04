@@ -2,7 +2,7 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
   AxisType,
   ScatterTraceMode,
-} from './visualization/visualization.component';
+} from './plotly-visualization/plotly-visualization.component';
 export interface FormattedSimulation {
   id: string;
   name: string;
