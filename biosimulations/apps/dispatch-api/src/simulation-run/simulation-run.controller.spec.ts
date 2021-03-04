@@ -17,7 +17,7 @@ import { ConfigService } from '@nestjs/config';
  */
 describe('SimulationRunsController', () => {
   let controller: SimulationRunController;
-  class mockFile {
+  class mockSimService {
     data: any;
     save: () => any;
     constructor(body: any) {
@@ -36,15 +36,8 @@ describe('SimulationRunsController', () => {
         SharedNatsClientModule,
       ],
       providers: [
-        SimulationRunService,
-        {
-          provide: getModelToken(SimulationFile.name),
-          useClass: mockFile,
-        },
-        {
-          provide: getModelToken(SimulationRunModel.name),
-          useClass: mockFile,
-        },
+       {provide: SimulationRunService, useClass: mockSimService}
+
       ],
     }).compile();
 

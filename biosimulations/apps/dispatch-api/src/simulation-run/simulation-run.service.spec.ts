@@ -4,6 +4,7 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
+import { SharedStorageModule, SharedStorageService } from '@biosimulations/shared/storage';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
@@ -23,6 +24,10 @@ describe('SimulationRunService', () => {
       };
     }
   }
+  class mockStorage {
+    putObject() {}
+    getObject() {}
+  }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -35,6 +40,7 @@ describe('SimulationRunService', () => {
           provide: getModelToken(SimulationRunModel.name),
           useClass: mockFile,
         },
+        { provide: SharedStorageService, useClass: mockStorage },
       ],
     }).compile();
 
