@@ -79,6 +79,10 @@
     "tslib": "^2.0.0",
     "uuid": "^8.3.2",
     "validator": "^13.5.2",
+    "vega": "^5.19.1",
+    "vega-embed": "^6.15.2",
+    "vega-lite": "^5.0.0",
+    "vega-typings": "^0.19.2",
     "yaml": "^1.10.0",
     "zone.js": "^0.10.2"
   },
