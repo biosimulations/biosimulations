@@ -5,7 +5,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnDestroy,
-  ElementRef,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
@@ -25,7 +24,7 @@ import { Simulation, TaskMap } from '../../../datamodel';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
 import { ConfigService } from '@biosimulations/shared/services';
-import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription, forkJoin } from 'rxjs';
 import { concatAll, map, shareReplay } from 'rxjs/operators';
 import {
   AxisLabelType,
@@ -39,8 +38,14 @@ import {
 } from './view.model';
 import { ViewService } from './view.service';
 import { urls } from '@biosimulations/config/common';
-import * as vega from 'vega';
-import vegaEmbed from 'vega-embed';
+import { HttpClient } from '@angular/common/http';
+import {
+  Spec as VegaSpec,
+  BaseData as VegaBaseData,
+  ValuesData as VegaValuesData,
+  UrlData as VegaUrlData,
+  Format as VegaDataFormat,
+} from 'vega';
 
 enum VisualizationType {
   'lineScatter2d' = 'Two-dimensional line or scatter plot',
@@ -48,15 +53,28 @@ enum VisualizationType {
 }
 
 interface SedmlLocationReportId {
-  id: string | null;
+  id: string;
   label: string;
+}
+
+type SedmlDatasetResults = (number | boolean)[];
+
+interface SedmlReportResults {
+  data: {[label: string]: SedmlDatasetResults};
 }
 
 interface VegaDataSet {
   index: number;
   name: string;
-  values: any[] | undefined;
+  source: string | string[] | undefined;
   url: string | undefined;
+  values: any[] | undefined;
+  format: VegaDataFormat | undefined;
+}
+
+interface VegaDataSetEntry {
+  label: string;
+  values: (number | boolean)[];
 }
 
 @Component({
@@ -118,15 +136,16 @@ export class ViewComponent implements OnInit, OnDestroy {
   axisLabelTypes: AxisLabelType[] = AXIS_LABEL_TYPES;
   scatterTraceModeLabels: ScatterTraceModeLabel[] = SCATTER_TRACE_MODEL_LABELS;
 
-  private vizDataLayout = new BehaviorSubject<DataLayout | undefined>(
-    undefined,
+  private vizDataLayout = new BehaviorSubject<DataLayout | null>(
+    null,
   );
   vizDataLayout$ = this.vizDataLayout.asObservable();
 
-  vegaContent?: any;
+  private _vegaSpec: VegaSpec | null = null;
+  private vegaSpec = new BehaviorSubject<VegaSpec | null>(null);
+  vegaSpec$ = this.vegaSpec.asObservable();
 
   @ViewChild('plotlyVisualization') plotlyVisualization!: PlotlyVisualizationComponent;
-  @ViewChild('vegaContainer', { static: true }) vegaContainer!: ElementRef;
 
   constructor(
     private config: ConfigService,
@@ -137,6 +156,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     private appService: VisualizationService,
     private dispatchService: DispatchService,
     private changeDetectorRef: ChangeDetectorRef,
+    private http: HttpClient,
   ) {
     this.formGroup = formBuilder.group({
       visualizationType: [this.visualizationTypes[0], [Validators.required]],
@@ -246,7 +266,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.selectSedmlLocation(selectedSedmlLocation);
 
     const sedmlLocationsReportIds: SedmlLocationReportId[] = [{
-      id: null,
+      id: '__none__',
       label: '-- None --',
     }];
     sedmlLocations.forEach((sedmlLocation: string): void => {
@@ -388,14 +408,13 @@ export class ViewComponent implements OnInit, OnDestroy {
         },
       });
     } else {
-      this.vizDataLayout.next(undefined);
+      this.vizDataLayout.next(null);
     }
 
     setTimeout(() => this.changeDetectorRef.detectChanges());
   }
 
   selectVegaFile(file: File): void {
-    this.vegaContent = undefined;
     while (this.vegaDataSetSedmlLocationReportIdsFormArray.length !== 0) {
       this.vegaDataSets.pop();
       this.vegaDataSetSedmlLocationReportIdsFormArray.removeAt(0);
@@ -405,19 +424,21 @@ export class ViewComponent implements OnInit, OnDestroy {
     file.text().then(
       (content: string): void => {
         try {
-          this.vegaContent = JSON.parse(content);
+          this._vegaSpec = JSON.parse(content) as VegaSpec;
           this.vegaFileFormControl.setErrors(null);
 
-          const vegaDatas = this.vegaContent?.data;
+          const vegaDatas = this._vegaSpec?.data;
           if (Array.isArray(vegaDatas)) {
             (vegaDatas as any[]).forEach((data: any, iData: number): void => {
               const name = data?.name;
-              if (typeof name === 'string' && data?._mapToSedmlReport) {
+              if (typeof name === 'string' && data?._mapToSedmlReport !== false) {
                 this.vegaDataSets.push({
                   index: iData,
                   name: name,
-                  values: data?.values,
+                  source: data?.source,
                   url: data?.url,
+                  values: data?.values,
+                  format: data?.format,
                 });
                 this.vegaDataSetSedmlLocationReportIdsFormArray.push(this.formBuilder.control(this.sedmlLocationsReportIds.value[0].id));
               }
@@ -425,6 +446,7 @@ export class ViewComponent implements OnInit, OnDestroy {
           }
 
         } catch {
+          this._vegaSpec = null;
           this.vegaFileFormControl.setErrors({invalid: true});
         }
 
@@ -439,23 +461,90 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   buildVegaVizData(): void {
-    this.vegaDataSetSedmlLocationReportIdsFormArray.value.forEach((value: string | null, iValue: number): void => {
-      const vegaDataSet = this.vegaDataSets[iValue];
+    const vegaSpec = this._vegaSpec as VegaSpec;
+    const resultsPromises: Observable<SedmlReportResults>[] = [];
+
+    this.vegaDataSetSedmlLocationReportIdsFormArray.value.forEach((value: string | null, iVegaDataSet: number): void => {
+      const vegaDataSet = this.vegaDataSets[iVegaDataSet];
+      const vegaSpecDataSet = vegaSpec?.data?.[vegaDataSet.index] as VegaBaseData;
       if (value === this.sedmlLocationsReportIds.value[0].id) {
-        this.vegaContent.data[vegaDataSet.index].values = vegaDataSet.values;
-        this.vegaContent.data[vegaDataSet.index].url = vegaDataSet.url;
+        if (vegaDataSet.source) {
+          (vegaSpecDataSet as any).source = vegaDataSet.source;
+        } else if ('source' in vegaSpecDataSet) {
+          delete (vegaSpecDataSet as any).source;
+        }
+
+        if (vegaDataSet.url) {
+          (vegaSpecDataSet as any).url = vegaDataSet.url;
+        } else if ('url' in vegaSpecDataSet) {
+          delete (vegaSpecDataSet as any).url;
+        }
+
+        if (vegaDataSet.values) {
+          (vegaSpecDataSet as any).values = vegaDataSet.values;
+        } else if ('values' in vegaSpecDataSet) {
+          delete (vegaSpecDataSet as any).values;
+        }
+
+        if (vegaDataSet.format) {
+          (vegaSpecDataSet as any).format = vegaDataSet.format;
+        } else if ('format' in vegaSpecDataSet) {
+          delete (vegaSpecDataSet as any).format;
+        }
       } else {
-        this.vegaContent.data[vegaDataSet.index].values = undefined;
-        this.vegaContent.data[vegaDataSet.index].url = `${urls.dispatchApi}results/${this.uuid}/${value}`;
+        const vegaSpecUrlDataSet = vegaSpecDataSet as VegaUrlData;
+        const url = `${urls.dispatchApi}results/${this.uuid}/${value}?sparse=false`;
+        resultsPromises.push(this.http.get<SedmlReportResults>(url))
       }
     });
 
-    vegaEmbed(this.vegaContainer.nativeElement, this.vegaContent)
-      .catch(() => {
-        this.vegaFileFormControl.setErrors({invalid: true});
-        this.changeDetectorRef.detectChanges();
+    if (resultsPromises.length) {
+      forkJoin(resultsPromises).subscribe((reportsResults: SedmlReportResults[]): void => {
+        reportsResults.forEach((reportResults: SedmlReportResults, iVegaDataSet: number): void => {
+          const vegaDataSet = this.vegaDataSets[iVegaDataSet];
+          const vegaSpecDataSet = vegaSpec?.data?.[vegaDataSet.index] as VegaBaseData;
+
+          if ('source' in vegaDataSet) {
+            delete (vegaSpecDataSet as any).source;
+          }
+
+          if ('url' in vegaDataSet) {
+            delete (vegaSpecDataSet as any).url;
+          }
+
+          if ('format' in vegaDataSet) {
+            delete (vegaSpecDataSet as any).format;
+          }
+
+          const values: VegaDataSetEntry[] = [];
+          Object.entries(reportResults.data).forEach(
+            (labelValues: [string, unknown]): void => {
+              values.push({
+                label: labelValues[0] as string,
+                values: labelValues[1] as SedmlDatasetResults,
+              });
+            }
+          );
+
+          (vegaSpecDataSet as VegaValuesData).values = values;
+        });
+
+        this.vegaSpec.next(this._vegaSpec);
+        // this.changeDetectorRef.detectChanges();
       });
 
+    } else {
+      this.vegaSpec.next(this._vegaSpec);
+      // this.changeDetectorRef.detectChanges();
+    }
+  }
+
+  vegaRefreshHandler(): void {
+    // this.changeDetectorRef.detectChanges();
+  }
+
+  vegaErrorHandler(): void {
+    this.vegaFileFormControl.setErrors({invalid: true});
     this.changeDetectorRef.detectChanges();
   }
 

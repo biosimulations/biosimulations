@@ -13,11 +13,12 @@
 
 .design-visualization {
   max-width: 800px;
+  margin: 0 auto;
 }
 
 .form-array {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr auto 1fr;
   column-gap: 0.25rem;
   row-gap: 0.5rem;
 
@@ -55,13 +56,31 @@
 }
 
 .form-array-item-label {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-top: 0.35rem;
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.42);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 0.35rem;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.42);
 }
 
 .form-array-item-content {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
 }
 
+.form-array-hint {
+  padding: 0.5rem 1em 0 1em;
+  font-size: 75%;
+
+  code {
+    padding: 0.05rem;
+  }
+}
+
+.sed-to-vega-arrow {
+  font-size: 150%;
+  position: relative;
+  top: 0.35rem;
+
+  &.form-array-head {
+    top: 0;
+  }
+}
