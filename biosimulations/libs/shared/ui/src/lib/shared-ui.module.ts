@@ -39,6 +39,7 @@ import { HomeTeaserButtonComponent } from './home/home-teaser-button.component';
 import { HomeLogoComponent } from './home/home-logo.component';
 import { TocSectionDirective } from './toc/toc-section.directive';
 import { TocSectionsContainerDirective } from './toc/toc-sections-container.directive';
+import { VegaVisualizationComponent } from './vega-visualization/vega-visualization.component';
 
 @NgModule({
   imports: [
@@ -85,6 +86,7 @@ import { TocSectionsContainerDirective } from './toc/toc-sections-container.dire
     HomeLogoComponent,
     TocSectionDirective,
     TocSectionsContainerDirective,
+    VegaVisualizationComponent,
   ],
   declarations: [
     TopbarComponent,
@@ -122,6 +124,7 @@ import { TocSectionsContainerDirective } from './toc/toc-sections-container.dire
     HomeLogoComponent,
     TocSectionDirective,
     TocSectionsContainerDirective,
+    VegaVisualizationComponent,
   ],
 })
 export class SharedUiModule {}
