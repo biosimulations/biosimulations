@@ -29,12 +29,12 @@
 
 ::ng-deep biosimulations-root .form-array .mat-form-field-appearance-fill {
   .mat-form-field-flex {
-    padding: 0.25rem 0 0.25rem 0;
+    padding: 0.25rem 0;
   }
 
   .mat-form-field-infix {
     border-top: 0 solid transparent;
-    padding: 0.25rem 0.25rem 0 0.25rem;
+    padding: 0.25rem 0.25rem 0;
   }
 
   .mat-form-field-subscript-wrapper {
@@ -67,7 +67,7 @@
 }
 
 .form-array-hint {
-  padding: 0.5rem 1em 0 1em;
+  padding: 0.5rem 1em 0;
   font-size: 75%;
 
   code {
