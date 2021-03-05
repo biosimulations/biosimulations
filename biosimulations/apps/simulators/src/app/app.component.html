@@ -60,6 +60,13 @@
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
+          heading="Data visualizations"
+          icon="chart"
+          [routerLink]="['/standards', 'data-viz']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
           heading="Simulation logs"
           icon="progress"
           [routerLink]="['/standards', 'simulation-logs']"
@@ -162,6 +169,13 @@
         heading="Simulation reports"
         icon="report"
         [route]="['/standards', 'simulation-reports']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Data visualizations"
+        icon="chart"
+        [route]="['/standards', 'data-viz']"
       >
       </biosimulations-navigation-subitem>
 
