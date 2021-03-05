@@ -18,6 +18,9 @@ export class SbatchService {
     if (apiDomain.startsWith('http://localhost')) {
       apiDomain = 'https://run.api.biosimulations.dev/';
     }
+    /*
+     *
+     */
     const template = `#!/bin/bash    
 #SBATCH --job-name=${simId}_Biosimulations
 #SBATCH --time=20:00
@@ -45,7 +48,7 @@ cd ${tempSimDir}
 wget ${apiDomain}run/${simId}/download -O '${omexName}'
 singularity run -B ${tempSimDir}:/root ${simulator} -i '/root/${omexName}' -o '/root'
 t1=$?
-aws --endpoint-url ${endpoint} s3 sync . s3://${bucket}/${simId}
+aws --endpoint-url --no-verify-ssl ${endpoint} s3 sync --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/${simId}
 exit $t1`;
 
     return template;
