@@ -312,6 +312,10 @@ biosimulations-root {
       background-color: $light-bg-darker-10;
     }
   }
+
+  .mat-hint {
+    line-height: 1.25;
+  }
 }
 
 .cdk-overlay-container {

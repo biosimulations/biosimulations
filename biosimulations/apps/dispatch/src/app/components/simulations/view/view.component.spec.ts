@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewComponent } from './view.component';
-import { VisualizationComponent } from './visualization/visualization.component';
+import { PlotlyVisualizationComponent } from './plotly-visualization/plotly-visualization.component';
 import { SimulationLogModule } from './simulation-log/simulation-log.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +21,7 @@ describe('ViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ViewComponent, VisualizationComponent],
+      declarations: [ViewComponent, PlotlyVisualizationComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,

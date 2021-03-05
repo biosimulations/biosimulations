@@ -36,16 +36,16 @@ export interface DataLayout {
 }
 
 @Component({
-  selector: 'biosimulations-visualization',
-  templateUrl: './visualization.component.html',
-  styleUrls: ['./visualization.component.scss'],
+  selector: 'biosimulations-plotly-visualization',
+  templateUrl: './plotly-visualization.component.html',
+  styleUrls: ['./plotly-visualization.component.scss'],
 })
-export class VisualizationComponent {
+export class PlotlyVisualizationComponent {
   data: ScatterTrace[] | undefined = undefined;
   layout: Layout | undefined = undefined;
 
   @Input()
-  set dataLayout(value: DataLayout) {
+  set dataLayout(value: DataLayout | null) {
     this.data = value?.data;
     this.layout = value?.layout;
     this.setLayout();

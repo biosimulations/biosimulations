@@ -6,8 +6,9 @@ import { SimulatorSpecsComponent } from './simulator-specs/simulator-specs.compo
 import { SimulatorInterfacesComponent } from './simulator-interfaces/simulator-interfaces.component';
 import { SimulatorImagesComponent } from './simulator-images/simulator-images.component';
 import { SimulationExperimentsComponent } from './simulation-experiments/simulation-experiments.component';
-import { SimulationLogsComponent } from './simulation-logs/simulation-logs.component';
 import { SimulationReportsComponent } from './simulation-reports/simulation-reports.component';
+import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
+import { SimulationLogsComponent } from './simulation-logs/simulation-logs.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,11 @@ const routes: Routes = [
           route: ['/standards', 'simulation-reports'],
           icon: 'report',
           label: 'Simulation reports',
+        },
+        {
+          route: ['/standards', 'data-viz'],
+          icon: 'chart',
+          label: 'Data visualizations',
         },
         {
           route: ['/standards', 'simulation-logs'],
@@ -75,6 +81,11 @@ const routes: Routes = [
           label: 'Simulation reports',
         },
         {
+          route: ['/standards', 'data-viz'],
+          icon: 'chart',
+          label: 'Data visualizations',
+        },
+        {
           route: ['/standards', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
@@ -107,6 +118,11 @@ const routes: Routes = [
           route: ['/standards', 'simulation-reports'],
           icon: 'report',
           label: 'Simulation reports',
+        },
+        {
+          route: ['/standards', 'data-viz'],
+          icon: 'chart',
+          label: 'Data visualizations',
         },
         {
           route: ['/standards', 'simulation-logs'],
@@ -143,6 +159,11 @@ const routes: Routes = [
           label: 'Simulation reports',
         },
         {
+          route: ['/standards', 'data-viz'],
+          icon: 'chart',
+          label: 'Data visualizations',
+        },
+        {
           route: ['/standards', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
@@ -170,6 +191,89 @@ const routes: Routes = [
           route: ['/standards', 'simulator-images'],
           icon: 'docker',
           label: 'Simulator images',
+        },
+        {
+          route: ['/standards', 'simulation-reports'],
+          icon: 'report',
+          label: 'Simulation reports',
+        },
+        {
+          route: ['/standards', 'data-viz'],
+          icon: 'chart',
+          label: 'Data visualizations',
+        },
+        {
+          route: ['/standards', 'simulation-logs'],
+          icon: 'progress',
+          label: 'Simulation logs',
+        },
+      ],
+    },
+  },  
+  {
+    path: 'simulation-reports',
+    component: SimulationReportsComponent,
+    data: {
+      breadcrumb: 'Simulation reports',
+      contextButtons: [
+        {
+          route: ['/standards', 'simulator-specs'],
+          icon: 'browse',
+          label: 'Simulator specs',
+        },
+        {
+          route: ['/standards', 'simulator-interfaces'],
+          icon: 'logs',
+          label: 'Simulator interfaces',
+        },
+        {
+          route: ['/standards', 'simulator-images'],
+          icon: 'docker',
+          label: 'Simulator images',
+        },
+        {
+          route: ['/standards', 'simulation-experiments'],
+          icon: 'experiment',
+          label: 'Simulation experiments',
+        },
+        {
+          route: ['/standards', 'data-viz'],
+          icon: 'chart',
+          label: 'Data visualizations',
+        },
+        {
+          route: ['/standards', 'simulation-logs'],
+          icon: 'progress',
+          label: 'Simulation logs',
+        },
+      ],
+    },
+  },
+  {
+    path: 'data-viz',
+    component: DataVisualizationComponent,
+    data: {
+      breadcrumb: 'Data visualizations',
+      contextButtons: [
+        {
+          route: ['/standards', 'simulator-specs'],
+          icon: 'browse',
+          label: 'Simulator specs',
+        },
+        {
+          route: ['/standards', 'simulator-interfaces'],
+          icon: 'logs',
+          label: 'Simulator interfaces',
+        },
+        {
+          route: ['/standards', 'simulator-images'],
+          icon: 'docker',
+          label: 'Simulator images',
+        },
+        {
+          route: ['/standards', 'simulation-experiments'],
+          icon: 'experiment',
+          label: 'Simulation experiments',
         },
         {
           route: ['/standards', 'simulation-reports'],
@@ -215,39 +319,10 @@ const routes: Routes = [
           icon: 'report',
           label: 'Simulation reports',
         },
-      ],
-    },
-  },
-  {
-    path: 'simulation-reports',
-    component: SimulationReportsComponent,
-    data: {
-      breadcrumb: 'Simulation reports',
-      contextButtons: [
         {
-          route: ['/standards', 'simulator-specs'],
-          icon: 'browse',
-          label: 'Simulator specs',
-        },
-        {
-          route: ['/standards', 'simulator-interfaces'],
-          icon: 'logs',
-          label: 'Simulator interfaces',
-        },
-        {
-          route: ['/standards', 'simulator-images'],
-          icon: 'docker',
-          label: 'Simulator images',
-        },
-        {
-          route: ['/standards', 'simulation-experiments'],
-          icon: 'experiment',
-          label: 'Simulation experiments',
-        },
-        {
-          route: ['/standards', 'simulation-logs'],
-          icon: 'progress',
-          label: 'Simulation logs',
+          route: ['/standards', 'data-viz'],
+          icon: 'chart',
+          label: 'Data visualizations',
         },
       ],
     },

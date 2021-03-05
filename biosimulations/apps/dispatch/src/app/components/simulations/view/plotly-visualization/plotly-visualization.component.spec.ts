@@ -1,24 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VisualizationComponent } from './visualization.component';
+import { PlotlyVisualizationComponent } from './plotly-visualization.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('VisualizationComponent', () => {
-  let component: VisualizationComponent;
-  let fixture: ComponentFixture<VisualizationComponent>;
+describe('PlotlyVisualizationComponent', () => {
+  let component: PlotlyVisualizationComponent;
+  let fixture: ComponentFixture<PlotlyVisualizationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [VisualizationComponent],
+      declarations: [PlotlyVisualizationComponent],
       imports: [HttpClientTestingModule, RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    //fixture = TestBed.createComponent(VisualizationComponent);
+    //fixture = TestBed.createComponent(PlotlyVisualizationComponent);
     // component = fixture.componentInstance;
     // fixture.detectChanges();
   });

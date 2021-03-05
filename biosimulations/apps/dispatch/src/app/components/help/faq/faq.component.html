@@ -339,7 +339,7 @@
       tocSection="Data visualizations"
     >
       <biosimulations-q-a
-        heading="Which simulation outputs can runBioSimulations visualize?"        
+        heading="Which simulation outputs can runBioSimulations visualize?"
       >
         <p>runBioSimulations can visualize data sets (<code>sedml:DataSet</code>) of reports (<code>sedml:report</code>) defined in SED-ML documents.</p>
       </biosimulations-q-a>
@@ -347,22 +347,20 @@
       <biosimulations-q-a
         heading="What types of plots can runBioSimulations render?"
       >
-        <p>runBioSimulations can render two-dimensional line plots and scatter plots of pairs of data sets.</p>
+        <p>runBioSimulations provides two methods of visualizing simulation results. First, runBioSimulations provides a simple form for configuring two-dimensional line plots and scatter plots of pairs of data sets. These two-dimensional plots support linear and logarithmic axes.</p>
 
-        <p>runBioSimulations supports two options for the scales of the x and y axes: linear, logarithmic.</p>
+        <p>In addition, users can use data visualizations in Vega <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> or Vega-Lite <a href="https://vega.github.io/vega-lite/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> formats by uploading a Vega/Vega-Lite file and using a simple form to map the inputs of the visualization (Vega data sets) to the outputs of the COMBINE archive (SED-ML reports). Vega and Vega-Lite are flexible formats that can capture a wide range of high quality, interactive visualizations. By modularly defining graphical marks and how they should be painted with data, Vega and Vega-Lite also make diagrams reusable so the same diagram can be re-painted with results of multiple simulation conditions. Recommendations for using Vega and Vega-Lite to visualize simulation results are available here <a href="https://biosimulators.org/standards/data-viz"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="How can I use alternative types of plots to visualize simulation results?"
       >
-        <p>Simulation results generated with runBioSimulations can be visualized by downloading the results and plotting them with an external program such as 
+        <p>Simulation results generated with runBioSimulations can be visualized by downloading the results and plotting them with an external program such as
           Altair <a href="https://altair-viz.github.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>,
           ggplot2 <a href="https://ggplot2.tidyverse.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>,
           Matplotlib <a href="https://matplotlib.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or
           Seaborn <a href="https://seaborn.pydata.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
         </p>
-
-        <p>Going forward, we plan to leverage Vega <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and Vega-Lite <a href="https://vega.github.io/vega-lite/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to enable users to visualize simulation results produced by runBioSimulations with any diagram. This will enable users to modularly define diagrams and define how they should be painted with simulation results. In turn, this will enable uses to re-use published diagrams with alternative simulation conditions.</p>
       </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 

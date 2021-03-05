@@ -11,4 +11,7 @@ export class PageComponent {
 
   @Input()
   padded = true;
+
+  @Input()
+  maxWidth?: string;
 }

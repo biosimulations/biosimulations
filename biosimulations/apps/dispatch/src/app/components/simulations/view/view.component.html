@@ -112,165 +112,246 @@
       *ngIf="(sedmlLocations$ | async)?.length; else noSedDocs"
     >
       <mat-form-field appearance="fill">
-        <mat-label>Select a simulation experiment</mat-label>
+        <mat-label>Select a type of visualization</mat-label>
         <mat-select
-          formControlName="sedmlLocation"
+          formControlName="visualizationType"
           required
-          (selectionChange)="selectSedmlLocation($event.value)"
+          (selectionChange)="selectVisualizationType($event.value)"
           disableOptionCentering
         >
           <mat-option
-            *ngFor="let sedmlLocation of sedmlLocations$ | async"
-            [value]="sedmlLocation"
+            *ngFor="let visualizationType of visualizationTypes"
+            [value]="visualizationType"
           >
-            {{ sedmlLocation }}
+            {{ visualizationType }}
           </mat-option>
         </mat-select>
-        <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
+        <biosimulations-icon icon="write" matPrefix></biosimulations-icon>
         <mat-hint
-          >Select one of the SED-ML files in the COMBINE/OMEX archive which
-          describes one or more reports of one or more simulations.</mat-hint
-        >
+          >
+          <p>Choose to either use a simple form to design a two-dimensional line or scatter plot, or upload any visualization in Vega <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> or Vega-Lite <a href="https://vega.github.io/vega-lite/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> formats.</p>
+
+          <p>Vega and Vega-Lite powerful formats for describing data visualizations. By capturing how data should be used to paint visual elements, Vega and Vega-Lite enable reusable visualizations that can be re-painted with data from multiple simulations. Vega and Vega-Lite can also capture interactive and publication-quality graphics.</p>
+
+          <p>Recommendations for using Vega and Vega-Lite to visualize simulation results are available here <a href="https://biosimulators.org/standards/data-viz"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+        </mat-hint>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label
-          >Select a report of the results of one or more simulations</mat-label
-        >
-        <mat-select
-          formControlName="reportId"
-          required
-          (selectionChange)="selectReportId($event.value)"
-          disableOptionCentering
-        >
-          <mat-option
-            *ngFor="let reportId of reportIds | async"
-            [value]="reportId"
+      <ng-container *ngIf="selectedVisualizationType === VisualizationType.lineScatter2d" formGroupName="lineScatter2d">
+        <mat-form-field appearance="fill">
+          <mat-label>Select a simulation experiment</mat-label>
+          <mat-select
+            formControlName="sedmlLocation"
+            required
+            (selectionChange)="selectSedmlLocation($event.value)"
+            disableOptionCentering
           >
-            {{ reportId }}
-          </mat-option>
-        </mat-select>
-        <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
-        <mat-hint
-          >Select a report within the selected SED-ML file which describes the
-          results of one or more simulations (e.g., in SED-ML format) of one or
-          more models (e.g., in SBML format).</mat-hint
-        >
-      </mat-form-field>
+            <mat-option
+              *ngFor="let sedmlLocation of sedmlLocations$ | async"
+              [value]="sedmlLocation"
+            >
+              {{ sedmlLocation }}
+            </mat-option>
+          </mat-select>
+          <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
+          <mat-hint
+            >Select one of the SED-ML files in the COMBINE/OMEX archive which
+            describes one or more reports of one or more simulations.</mat-hint
+          >
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Select a data set for the x-axis</mat-label>
-        <mat-select
-          formControlName="xDataSetId"
-          required
-          (selectionChange)="buildVizData()"
-          disableOptionCentering
-        >
-          <mat-option
-            *ngFor="let dataSet of dataSetIdDisableds$ | async"
-            [value]="dataSet.id"
-            [disabled]="dataSet.disabled"
+        <mat-form-field appearance="fill">
+          <mat-label
+            >Select a report of the results of one or more simulations</mat-label
           >
-            {{ dataSet.id }}
-          </mat-option>
-        </mat-select>
-        <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
-        <mat-hint
-          >Select a data set within the selected report such as
-          "time".</mat-hint
-        >
-      </mat-form-field>
+          <mat-select
+            formControlName="reportId"
+            required
+            (selectionChange)="selectReportId($event.value)"
+            disableOptionCentering
+          >
+            <mat-option
+              *ngFor="let reportId of reportIds | async"
+              [value]="reportId"
+            >
+              {{ reportId }}
+            </mat-option>
+          </mat-select>
+          <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
+          <mat-hint
+            >Select a report within the selected SED-ML file which describes the
+            results of one or more simulations (e.g., in SED-ML format) of one or
+            more models (e.g., in SBML format).</mat-hint
+          >
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Select data sets for the y-axis</mat-label>
-        <mat-select
-          formControlName="yDataSetIds"
-          multiple
-          required
-          (selectionChange)="buildVizData()"
-          disableOptionCentering
-        >
-          <mat-option
-            *ngFor="let dataSet of dataSetIdDisableds$ | async"
-            [value]="dataSet.id"
-            [disabled]="dataSet.disabled"
+        <mat-form-field appearance="fill">
+          <mat-label>Select a data set for the x-axis</mat-label>
+          <mat-select
+            formControlName="xDataSetId"
+            required
+            (selectionChange)="build2dVizData()"
+            disableOptionCentering
           >
-            {{ dataSet.id }}
-          </mat-option>
-        </mat-select>
-        <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
-        <mat-hint
-          >Select one or more data sets within the selected report such as the
-          concentrations of specific species (e.g., "ATP") or the fluxes of
-          specific reactions (e.g., "AtpA").</mat-hint
-        >
-      </mat-form-field>
+            <mat-option
+              *ngFor="let dataSet of dataSetIdDisableds$ | async"
+              [value]="dataSet.id"
+              [disabled]="dataSet.disabled"
+            >
+              {{ dataSet.id }}
+            </mat-option>
+          </mat-select>
+          <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+          <mat-hint
+            >Select a data set within the selected report such as
+            "time".</mat-hint
+          >
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Select a scale for the x-axis</mat-label>
-        <mat-select
-          formControlName="xAxisType"
-          required
-          (selectionChange)="buildVizData()"
-          disableOptionCentering
-        >
-          <mat-option
-            *ngFor="let axisLabelType of axisLabelTypes"
-            [value]="axisLabelType.type"
+        <mat-form-field appearance="fill">
+          <mat-label>Select data sets for the y-axis</mat-label>
+          <mat-select
+            formControlName="yDataSetIds"
+            multiple
+            required
+            (selectionChange)="build2dVizData()"
+            disableOptionCentering
           >
-            {{ axisLabelType.label }}
-          </mat-option>
-        </mat-select>
-        <biosimulations-icon
-          icon="visualization"
-          matPrefix
-        ></biosimulations-icon>
-        <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
-      </mat-form-field>
+            <mat-option
+              *ngFor="let dataSet of dataSetIdDisableds$ | async"
+              [value]="dataSet.id"
+              [disabled]="dataSet.disabled"
+            >
+              {{ dataSet.id }}
+            </mat-option>
+          </mat-select>
+          <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+          <mat-hint
+            >Select one or more data sets within the selected report such as the
+            concentrations of specific species (e.g., "ATP") or the fluxes of
+            specific reactions (e.g., "AtpA").</mat-hint
+          >
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Select a scale for the y-axis</mat-label>
-        <mat-select
-          formControlName="yAxisType"
-          required
-          (selectionChange)="buildVizData()"
-          disableOptionCentering
-        >
-          <mat-option
-            *ngFor="let axisLabelType of axisLabelTypes"
-            [value]="axisLabelType.type"
+        <mat-form-field appearance="fill">
+          <mat-label>Select a scale for the x-axis</mat-label>
+          <mat-select
+            formControlName="xAxisType"
+            required
+            (selectionChange)="build2dVizData()"
+            disableOptionCentering
           >
-            {{ axisLabelType.label }}
-          </mat-option>
-        </mat-select>
-        <biosimulations-icon
-          icon="visualization"
-          matPrefix
-        ></biosimulations-icon>
-        <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
-      </mat-form-field>
+            <mat-option
+              *ngFor="let axisLabelType of axisLabelTypes"
+              [value]="axisLabelType.type"
+            >
+              {{ axisLabelType.label }}
+            </mat-option>
+          </mat-select>
+          <biosimulations-icon
+            icon="visualization"
+            matPrefix
+          ></biosimulations-icon>
+          <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Select a type of plot</mat-label>
-        <mat-select
-          formControlName="scatterTraceMode"
-          required
-          (selectionChange)="buildVizData()"
-          disableOptionCentering
-        >
-          <mat-option
-            *ngFor="let scatterTraceModeLabel of scatterTraceModeLabels"
-            [value]="scatterTraceModeLabel.mode"
+        <mat-form-field appearance="fill">
+          <mat-label>Select a scale for the y-axis</mat-label>
+          <mat-select
+            formControlName="yAxisType"
+            required
+            (selectionChange)="build2dVizData()"
+            disableOptionCentering
           >
-            {{ scatterTraceModeLabel.label }}
-          </mat-option>
-        </mat-select>
-        <biosimulations-icon
-          icon="visualization"
-          matPrefix
-        ></biosimulations-icon>
-        <mat-hint>Select a type of plot such as "line" or "scatter".</mat-hint>
-      </mat-form-field>
+            <mat-option
+              *ngFor="let axisLabelType of axisLabelTypes"
+              [value]="axisLabelType.type"
+            >
+              {{ axisLabelType.label }}
+            </mat-option>
+          </mat-select>
+          <biosimulations-icon
+            icon="visualization"
+            matPrefix
+          ></biosimulations-icon>
+          <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Select a type of plot</mat-label>
+          <mat-select
+            formControlName="scatterTraceMode"
+            required
+            (selectionChange)="build2dVizData()"
+            disableOptionCentering
+          >
+            <mat-option
+              *ngFor="let scatterTraceModeLabel of scatterTraceModeLabels"
+              [value]="scatterTraceModeLabel.mode"
+            >
+              {{ scatterTraceModeLabel.label }}
+            </mat-option>
+          </mat-select>
+          <biosimulations-icon
+            icon="visualization"
+            matPrefix
+          ></biosimulations-icon>
+          <mat-hint>Select a type of plot such as "line" or "scatter".</mat-hint>
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngIf="selectedVisualizationType === VisualizationType.vega" formGroupName="vega">
+        <mat-form-field appearance="fill">
+          <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
+          <mat-label>Select a Vega or Vega-Lite file</mat-label>
+          <ngx-mat-file-input
+            formControlName="vegaFile"
+            accept=".json"
+            [multiple]="false"
+            [required]="true"
+            placeholder="Vega or Vega-Lite file"
+          ></ngx-mat-file-input>
+          <mat-error *ngIf="!vegaFileFormControl.valid">
+            The selected file is not a syntactically valid Vega or Vega-Lite document.
+          </mat-error>
+        </mat-form-field>
+
+        <div *ngIf="vegaDataSetSedmlLocationReportIdsFormArray.controls.length">
+          <div formArrayName="vegaDataSetSedmlLocationReportIds" class="form-array">
+            <ng-container>
+              <div class="form-array-head">SED document location &amp; report id</div>
+              <biosimulations-icon icon="longRightArrow" class="form-array-head sed-to-vega-arrow"></biosimulations-icon>
+              <div class="form-array-head">Vega data set name</div>
+            </ng-container>
+
+            <ng-container *ngFor="let vegaDataSetSedmlLocationReportId of vegaDataSetSedmlLocationReportIdsFormArray.controls; index as iVegaDataSetSedReport; last as isLast">
+              <mat-form-field appearance="fill" class="form-array-item-content">
+                <mat-select
+                  [formControlName]="iVegaDataSetSedReport"
+                  required
+                  (selectionChange)="buildVegaVizData()"
+                  disableOptionCentering
+                >
+                  <mat-option
+                    *ngFor="let sedmlLocationsReportId of (sedmlLocationsReportIds$ | async)"
+                    [value]="sedmlLocationsReportId.id"
+                  >
+                    {{ sedmlLocationsReportId.label }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <biosimulations-icon icon="longRightArrow" class="sed-to-vega-arrow"></biosimulations-icon>
+
+              <div class="form-array-item-label" [title]="vegaDataSets[iVegaDataSetSedReport].name">{{ vegaDataSets[iVegaDataSetSedReport].name }}</div>
+            </ng-container>
+          </div>
+
+          <div class="form-array-hint mat-hint">
+            To paint Vega/Vega-Lite diagrams with simulation results, select the simulation output (SED-ML report) that should be mapped to each  input of the diagram (Vega/Vega-Lite data set).
+          </div>
+        </div>
+      </ng-container>
     </form>
 
     <ng-template #noSedDocs>
@@ -284,16 +365,32 @@
     urlHashFragment="viz"
     [fullHeight]="true"
     [disabled]="
-      !formGroup.controls.xDataSetId.value ||
-      formGroup.controls.yDataSetIds.value.length === 0
+      (
+        selectedVisualizationType === VisualizationType.lineScatter2d
+        && (
+          !lineScatter2dFormGroup.controls.xDataSetId.value
+          || lineScatter2dFormGroup.controls.yDataSetIds.value.length === 0
+        )
+      )
+      || (
+        selectedVisualizationType === VisualizationType.vega
+        && (vegaSpec$ | async) === null
+      )
     "
   >
-    <biosimulations-visualization
-      *ngIf="vizDataLayout$ | async as data"
-      #visualization
-      [dataLayout]="data"
+    <biosimulations-plotly-visualization
+      [dataLayout]="vizDataLayout$ | async"
+      *ngIf="(vizDataLayout$ | async) && selectedVisualizationType === VisualizationType.lineScatter2d"
     >
-    </biosimulations-visualization>
+    </biosimulations-plotly-visualization>
+
+    <biosimulations-vega-visualization
+      *ngIf="selectedVisualizationType === VisualizationType.vega"
+      [spec]="vegaSpec$"
+      (refreshed)="vegaRefreshHandler()"
+      (error)="vegaErrorHandler()"
+    >
+    </biosimulations-vega-visualization>
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab

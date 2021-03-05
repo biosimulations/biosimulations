@@ -55,8 +55,8 @@
           <b
             ><a [routerLink]="['/standards', 'simulator-specs']"
               >Format for describing the specifications of simulation tools</a
-            >:</b
-          >
+            ></b
+          >:
           This format enables investigators to describe the modeling frameworks,
           simulation algorithms, and modeling formats supported by each
           simulation tool. The format also enables investigators to describe the
@@ -67,8 +67,8 @@
           <b
             ><a [routerLink]="['/standards', 'simulator-interfaces']"
               >Conventions for command-line interfaces for simulation tools</a
-            >:</b
-          >
+            ></b
+          >:
           These conventions ensure that (a) simulation tools support consistent
           syntax for executing simulations and (b) simulation tools produce
           outputs at consistent locations in consistent formats.
@@ -77,8 +77,8 @@
           <b
             ><a [routerLink]="['/standards', 'simulator-images']"
               >Conventions for Docker images for simulation tools</a
-            >:</b
-          >
+            ></b
+          >:
           These conventions ensure that the entry points of containerized
           simulation tools support consistent syntax for executing simulations
           and that containerized simulation tools provide consistent metadata.
@@ -86,9 +86,9 @@
         <li>
           <b
             ><a [routerLink]="['/standards', 'simulation-experiments']"
-              >Conventions for targets and data types</a
-            >:</b
-          >
+              >Conventions for simulation experiments with SED-ML</a
+            ></b
+          >:
           These conventions ensure that the community consistently encodes
           simulation experiments into SED-ML. This includes conventions for
           targets for implicit elements of models which are not directly defined
@@ -99,12 +99,32 @@
           data structures.
         </li>
         <li>
+          <b
+            ><a [routerLink]="['/standards', 'simulation-reports']"
+              >Format for reports (<code>sedml:report</code>) of simulation
+              results</a
+            ></b
+          >:
+          This format ensures that simulation tools produce reports in a
+          consistent format (e.g., HDF5) with consistent shapes (e.g., rows:
+          data set (<code>sedml:dataSet</code>), columns: time) that can be
+          consistently visualized and interpreted.
+        </li>
+        <li>
+          <b
+            ><a [routerLink]="['/standards', 'data-viz']"
+              >Guidelines for data visualizations with Vega and Vega-Lite</a
+            ></b
+          >:
+          Vega <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and Vega-Lite <a href="https://vega.github.io/vega-lite/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> formats are powerful formats for describing interactive, two-dimensional data visualizations which make visualizations re-usable by separately capturing the visual marks of a visualization and how they should be painted with data. These guidelines provide recommendations for how to use Vega and Vega-Lite to visualize the results of simulation experiments captured by SED-ML reports.
+        </li>
+        <li>
           <p>
             <b
               ><a [routerLink]="['/standards', 'simulation-logs']"
                 >Format for logs of the execution of COMBINE/OMEX archives</a
-              >:</b
-            >
+              ></b
+            >:
             This format enables simulation tools to communicate their progress
             in the execution of COMBINE/OMEX archives, such as which tasks have
             been executed, which tasks are queued for execution, and which tasks
@@ -140,19 +160,7 @@
             </li>
             <li>The reason for any failed SED documents, tasks, or outputs.</li>
           </ul>
-        </li>
-        <li>
-          <b
-            ><a [routerLink]="['/standards', 'simulation-reports']"
-              >Format for reports (<code>sedml:report</code>) of simulation
-              results</a
-            >:</b
-          >
-          This format ensures that simulation tools produce reports in a
-          consistent format (e.g., HDF5) with consistent shapes (e.g., rows:
-          data set (<code>sedml:dataSet</code>), columns: time) that can be
-          consistently visualized and interpreted.
-        </li>
+        </li>        
       </ul>
     </biosimulations-text-page-content-section>
 
