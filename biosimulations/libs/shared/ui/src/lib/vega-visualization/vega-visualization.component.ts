@@ -1,10 +1,10 @@
 import {
   Component,
-  ViewChild,
   ElementRef,
   Input,
   Output,
   EventEmitter,
+  HostListener,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Spec } from 'vega';
@@ -16,13 +16,7 @@ import vegaEmbed from 'vega-embed';
   styleUrls: ['./vega-visualization.component.scss'],
 })
 export class VegaVisualizationComponent {
-  private _container: ElementRef | null = null;
-
-  @ViewChild('container')
-  set container(value: ElementRef | null) {
-    this._container = value;
-    this.renderVisualization();
-  }
+  constructor(private hostElement: ElementRef) { }
 
   private _spec: Spec | null = null;
 
@@ -30,14 +24,20 @@ export class VegaVisualizationComponent {
   set spec(value: Observable<Spec | null>) {
     value.subscribe((value: Spec | null): void => {
         this._spec = value;
-        this.renderVisualization();
+        this.render();
     })
   }
 
-  private renderVisualization(): void {
-    if (this._container) {
+  render(): void {
+    if (this.hostElement) {
       if (this._spec) {
-        vegaEmbed(this._container.nativeElement, this._spec as Spec)
+        const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
+        const options = {
+          width: Math.max(rect.width, 10),
+          height: Math.max(rect.height, 10),
+          padding: 0,
+        };
+        vegaEmbed(this.hostElement.nativeElement, this._spec as Spec, options)
           .then(() => {
             this.refreshed.emit(true);
           })
@@ -50,6 +50,11 @@ export class VegaVisualizationComponent {
 
   @Output()
   refreshed = new EventEmitter<boolean>();
+
+  @HostListener('window:resize')
+  onResize() {
+    this.render();
+  }
 
   @Output()
   error = new EventEmitter<Error>();

@@ -46,6 +46,7 @@ import {
   UrlData as VegaUrlData,
   Format as VegaDataFormat,
 } from 'vega';
+import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
 
 enum VisualizationType {
   'lineScatter2d' = 'Two-dimensional line or scatter plot',
@@ -145,7 +146,8 @@ export class ViewComponent implements OnInit, OnDestroy {
   private vegaSpec = new BehaviorSubject<VegaSpec | null>(null);
   vegaSpec$ = this.vegaSpec.asObservable();
 
-  @ViewChild('plotlyVisualization') plotlyVisualization!: PlotlyVisualizationComponent;
+  @ViewChild(PlotlyVisualizationComponent) plotlyVisualization!: PlotlyVisualizationComponent;
+  @ViewChild(VegaVisualizationComponent) vegaVisualization!: VegaVisualizationComponent;
 
   constructor(
     private config: ConfigService,
@@ -550,7 +552,12 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   selectedTabChange($event: MatTabChangeEvent): void {
     if ($event.index == 2) {
-      this.plotlyVisualization.setLayout();
+      if (this.plotlyVisualization) {
+        this.plotlyVisualization.setLayout();
+      }
+      if (this.vegaVisualization) {
+        this.vegaVisualization.render();
+      }
       this.changeDetectorRef.detectChanges();
     }
   }

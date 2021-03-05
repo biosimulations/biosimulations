@@ -379,13 +379,13 @@
     "
   >
     <biosimulations-plotly-visualization
-      #plotlyVisualization
       [dataLayout]="vizDataLayout$ | async"
-      [fxShow]="(vizDataLayout$ | async) && selectedVisualizationType === VisualizationType.lineScatter2d"
+      *ngIf="(vizDataLayout$ | async) && selectedVisualizationType === VisualizationType.lineScatter2d"
     >
     </biosimulations-plotly-visualization>
 
-    <biosimulations-vega-visualization *ngIf="selectedVisualizationType === VisualizationType.vega"
+    <biosimulations-vega-visualization
+      *ngIf="selectedVisualizationType === VisualizationType.vega"
       [spec]="vegaSpec$"
       (refreshed)="vegaRefreshHandler()"
       (error)="vegaErrorHandler()"
