@@ -45,7 +45,7 @@ cd ${tempSimDir}
 wget ${apiDomain}run/${simId}/download -O '${omexName}'
 singularity run -B ${tempSimDir}:/root ${simulator} -i '/root/${omexName}' -o '/root'
 t1=$?
-aws --endpoint-url ${endpoint} s3 sync . s3://${bucket}/${simId}
+aws --no-verify-ssl --endpoint-url  ${endpoint} s3 sync --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/${simId}
 exit $t1`;
 
     return template;
