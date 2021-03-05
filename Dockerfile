@@ -12,7 +12,6 @@ RUN echo building ${APP}
 #############
 FROM base as build
 
-
 WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
@@ -27,6 +26,19 @@ COPY biosimulations/package.json /app/package.json
 COPY biosimulations/package-lock.json /app/package-lock.json
 COPY biosimulations/declarations.d.ts /app/declarations.d.ts
 # set working directory
+
+# install dependencies needed to compile canvas (needed for Vega-embed)
+ENV PYTHONUNBUFFERED=1
+RUN apk add --update --no-cache \
+    python3 \
+    pkgconfig \
+    pixman-dev \
+    cairo-dev \
+    pango-dev \
+    alpine-sdk
+RUN ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
+RUN pip3 install --no-cache --upgrade pip setuptools
 
 # install the app, including the dev dependencies
 RUN npm ci
