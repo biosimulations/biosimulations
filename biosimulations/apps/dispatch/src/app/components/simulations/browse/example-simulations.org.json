@@ -99,26 +99,30 @@
     "projectSize": 7407
   },
   {
-    "id": "6037ee5f62974e4ac63b1e71",
     "name": "Escherichia coli core metabolism (FBA, CBMPy)",
+    "id": "6042a5909ee11ffdb73dde37",
+    "runtime": 11169,
+    "status": "SUCCEEDED",
+    "submitted": "2021-03-05T21:41:36.490Z",
+    "submittedLocally": true,
     "simulator": "cbmpy",
     "simulatorVersion": "0.7.25",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-02-25T18:37:19.082Z",
-    "updated": "2021-02-25T18:37:19.082Z",
-    "projectSize": 20375
+    "updated": "2021-03-05T21:41:47.661Z",
+    "resultsSize": 22,
+    "projectSize": 22927
   },
   {
-    "id": "6037ee5f62974edfe13b1e73",
     "name": "Escherichia coli core metabolism (FBA, COBRApy)",
+    "id": "6042a5a09ee11f9c723dde3b",
+    "runtime": 9957,
+    "status": "SUCCEEDED",
+    "submitted": "2021-03-05T21:41:52.611Z",
+    "submittedLocally": true,
     "simulator": "cobrapy",
     "simulatorVersion": "0.20.0",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-02-25T18:37:19.660Z",
-    "updated": "2021-02-25T18:37:19.660Z",
-    "projectSize": 20375
+    "updated": "2021-03-05T21:42:02.571Z",
+    "resultsSize": 22,
+    "projectSize": 22927
   },
   {
     "id": "6037ee6062974e810c3b1e75",

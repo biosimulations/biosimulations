@@ -99,26 +99,30 @@
     "projectSize": 7407
   },
   {
-    "id": "6037ee3c6e279f0c4795462e",
     "name": "Escherichia coli core metabolism (FBA, CBMPy)",
+    "id": "6042a4be39e3d0366eb658cc",
+    "runtime": 10945,
+    "status": "SUCCEEDED",
+    "submitted": "2021-03-05T21:38:06.535Z",
+    "submittedLocally": true,
     "simulator": "cbmpy",
     "simulatorVersion": "0.7.25",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-02-25T18:36:44.112Z",
-    "updated": "2021-02-25T18:36:44.112Z",
-    "projectSize": 20375
+    "updated": "2021-03-05T21:38:17.482Z",
+    "resultsSize": 22,
+    "projectSize": 22927
   },
   {
-    "id": "6037ee3c6e279f5d7d954630",
     "name": "Escherichia coli core metabolism (FBA, COBRApy)",
+    "id": "6042a4a939e3d0505cb658c8",
+    "runtime": 12081,
+    "status": "SUCCEEDED",
+    "submitted": "2021-03-05T21:37:45.372Z",
+    "submittedLocally": true,
     "simulator": "cobrapy",
     "simulatorVersion": "0.20.0",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-02-25T18:36:44.672Z",
-    "updated": "2021-02-25T18:36:44.672Z",
-    "projectSize": 20375
+    "updated": "2021-03-05T21:37:57.455Z",
+    "resultsSize": 22,
+    "projectSize": 22927
   },
   {
     "id": "6037ee3d6e279f8566954632",
@@ -165,15 +169,17 @@
     "projectSize": 8267
   },
   {
-    "id": "6037ee3f6e279f4a7995463c",
     "name": "BioNetGen example model (CVODE, BioNetGen)",
+    "id": "6042a5fd39e3d05ba9b658d0",
+    "runtime": 11629,
+    "status": "SUCCEEDED",
+    "submitted": "2021-03-05T21:43:25.748Z",
+    "submittedLocally": true,
     "simulator": "bionetgen",
-    "simulatorVersion": "2.5.1",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-02-25T18:36:47.579Z",
-    "updated": "2021-02-25T18:36:47.579Z",
-    "projectSize": 4041
+    "simulatorVersion": "2.5.2",
+    "updated": "2021-03-05T21:43:37.379Z",
+    "resultsSize": 22,
+    "projectSize": 4026
   },
   {
     "id": "6037ee406e279f2a8b954642",
