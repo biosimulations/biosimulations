@@ -19,19 +19,34 @@
         "filename": "sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex"
     },
     {
+        "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, PySCeS)",
+        "simulator": "copasi",
+        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+    },
+    {
+        "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, tellurium)",
+        "simulator": "gillespy2",
+        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+    },
+    {
+        "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, VCell)",
+        "simulator": "tellurium",
+        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+    },
+    {
         "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, COPASI)",
         "simulator": "copasi",
-        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex"
+        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-discrete.omex"
     },
     {
         "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, GillesPy2)",
         "simulator": "gillespy2",
-        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex"
+        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-discrete.omex"
     },
     {
         "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, tellurium)",
         "simulator": "tellurium",
-        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint.omex"
+        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-discrete.omex"
     },
     {
         "name": "Parmar 2017: iron distribution (CVODE, tellurium)",

@@ -129,11 +129,11 @@
         <biosimulations-icon icon="write" matPrefix></biosimulations-icon>
         <mat-hint
           >
-          <p>Choose to either use a simple form to design a two-dimensional line or scatter plot, or upload any visualization in Vega <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> or Vega-Lite <a href="https://vega.github.io/vega-lite/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> formats.</p>
+          <p>Choose to either use a simple form to design a two-dimensional line or scatter plot, or upload any visualization in Vega format <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
 
-          <p>Vega and Vega-Lite powerful formats for describing data visualizations. By capturing how data should be used to paint visual elements, Vega and Vega-Lite enable reusable visualizations that can be re-painted with data from multiple simulations. Vega and Vega-Lite can also capture interactive and publication-quality graphics.</p>
+          <p>Vega is a powerful format for describing data visualizations. By capturing how data should be used to paint visual elements, Vega enables reusable visualizations that can be re-painted with data from multiple simulations. Vega can also capture interactive and publication-quality graphics.</p>
 
-          <p>Recommendations for using Vega and Vega-Lite to visualize simulation results are available here <a href="https://biosimulators.org/standards/data-viz"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+          <p>Recommendations for using Vega to visualize simulation results are available here <a href="https://biosimulators.org/standards/data-viz"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
         </mat-hint>
       </mat-form-field>
 
@@ -303,16 +303,16 @@
       <ng-container *ngIf="selectedVisualizationType === VisualizationType.vega" formGroupName="vega">
         <mat-form-field appearance="fill">
           <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
-          <mat-label>Select a Vega or Vega-Lite file</mat-label>
+          <mat-label>Select a Vega file</mat-label>
           <ngx-mat-file-input
             formControlName="vegaFile"
             accept=".json"
             [multiple]="false"
             [required]="true"
-            placeholder="Vega or Vega-Lite file"
+            placeholder="Vega file"
           ></ngx-mat-file-input>
           <mat-error *ngIf="!vegaFileFormControl.valid">
-            The selected file is not a syntactically valid Vega or Vega-Lite document.
+            The selected file is not a syntactically valid Vega document.
           </mat-error>
         </mat-form-field>
 
@@ -348,7 +348,7 @@
           </div>
 
           <div class="form-array-hint mat-hint">
-            To paint Vega/Vega-Lite diagrams with simulation results, select the simulation output (SED-ML report) that should be mapped to each  input of the diagram (Vega/Vega-Lite data set).
+            To paint Vega diagrams with simulation results, select the simulation output (SED-ML report) that should be mapped to each  input of the diagram (Vega data set).
           </div>
         </div>
       </ng-container>

@@ -50,7 +50,7 @@ import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
 
 enum VisualizationType {
   'lineScatter2d' = 'Two-dimensional line or scatter plot',
-  'vega' = 'Vega or Vega-Lite visualization',
+  'vega' = 'Vega visualization',
 }
 
 interface SedmlLocationReportId {
