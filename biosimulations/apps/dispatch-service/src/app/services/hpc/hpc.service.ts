@@ -44,7 +44,7 @@ export class HpcService {
     );
 
     // eslint-disable-next-line max-len
-    const command = `mkdir -p ${simDirBase}/in && mkdir -p ${simDirBase}/out && echo "${sbatchString}" > ${simDirBase}/in/${id}.sbatch && chmod +x ${simDirBase}/in/${id}.sbatch && sbatch ${simDirBase}/in/${id}.sbatch`;
+    const command = `mkdir ${simDirBase} && echo "${sbatchString}" > ${simDirBase}/${id}.sbatch && chmod +x ${simDirBase}/${id}.sbatch && sbatch ${simDirBase}/${id}.sbatch`;
 
     const res = this.sshService.execStringCommand(command);
 
