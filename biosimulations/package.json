@@ -53,7 +53,7 @@
     "archiver": "^5.2.0",
     "auth0": "^2.33.0",
     "aws-sdk": "^2.850.0",
-    "cache-manager": "^3.4.0",
+    "cache-manager": "^3.4.1",
     "class-validator": "^0.12.2",
     "cron": "^1.8.2",
     "csvtojson": "^2.0.10",
