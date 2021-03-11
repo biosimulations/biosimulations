@@ -8,7 +8,7 @@ import { Controller, Logger } from '@nestjs/common';
 
 import { MessagePattern } from '@nestjs/microservices';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import { ArchiverService } from '../services/archiver/archiver.service';
+import { ArchiverService } from './archiver.service';
 import { ResultsService } from './results.service';
 import { LogService } from './log.service';
 

@@ -3,9 +3,9 @@ import { ResultsController } from './results.controller';
 import { ConfigService } from '@nestjs/config';
 import { ResultsService } from './results.service';
 
-import { ArchiverService } from '../services/archiver/archiver.service';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { LogService } from './log.service';
+import { ArchiverService } from './archiver.service';
 
 class MockSimulationsRunService {
   async sendReport() {}

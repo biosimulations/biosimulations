@@ -15,6 +15,9 @@ export class SbatchService {
     const homeDir = this.configService.get('hpc.homeDir');
     const bucket = this.configService.get('storage.bucket');
     const endpoint = this.configService.get('storage.endpoint');
+    const nc = '\\033[0m';
+    const red = '\\033[0;31m';
+    const cyan = '\\033[0;36m';
     if (apiDomain.startsWith('http://localhost')) {
       apiDomain = 'https://run.api.biosimulations.dev/';
     }
@@ -33,7 +36,6 @@ export class SbatchService {
 #SBATCH --cpus-per-task=1
 #SBATCH --qos=general\n
 
-
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
 export PATH=$PATH:/usr/sbin/
@@ -43,14 +45,17 @@ export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
 export SINGULARITY_TMPDIR=${homeDir}/singularity/tmp/
 export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
-date
 cd ${tempSimDir}
-wget ${apiDomain}run/${simId}/download -O '${omexName}'
-singularity run -B ${tempSimDir}:/root ${simulator} -i '/root/${omexName}' -o '/root'
-t1=$?
-aws --no-verify-ssl --endpoint-url  ${endpoint} s3 sync --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/${simId}
+echo -e '${cyan}=============Downloading Combine Archive=============${nc}'
+srun wget ${apiDomain}run/${simId}/download -O '${omexName}'
+echo -e '${cyan}=============Running docker image for simulator=============${nc}'
+srun  singularity run -B ${tempSimDir}:/root ${simulator} -i '/root/${omexName}' -o '/root'
+echo -e '${cyan}=============Creating output archive=============${nc}'
+srun zip ${simId}.zip reports.h5 log.yml plots.zip job.output
+echo -e '${cyan}=============Uploading outputs to storage=============${nc}'
+srun aws --no-verify-ssl --endpoint-url  ${endpoint} s3 sync --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/${simId}
 
-exit $t1`;
+`;
 
     return template;
   }
@@ -67,7 +72,6 @@ exit $t1`;
 #SBATCH --ntasks=1
 #SBATCH --output=${homeDir}/singularity/images/${image}.output
 #SBATCH --cpus-per-task=4
-
 
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash

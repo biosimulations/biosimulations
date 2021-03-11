@@ -1,7 +1,8 @@
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ArchiverService } from '../services/archiver/archiver.service';
+import { ArchiverService } from './archiver.service';
+
 import { FileService } from './file.service';
 
 import { ResultsService } from './results.service';
