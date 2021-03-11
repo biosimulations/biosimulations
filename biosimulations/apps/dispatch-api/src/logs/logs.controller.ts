@@ -10,6 +10,7 @@ import {
   Delete,
   Get,
   Logger,
+  NotFoundException,
   NotImplementedException,
   Param,
   Patch,
@@ -23,11 +24,9 @@ import {
   SedPlot3DLog,
   SedReportLog,
   CreateSimulationRunLogBody,
-  Exception,
 } from '@biosimulations/dispatch/api-models';
 
 import { LogsService } from './logs.service';
-import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 
 @ApiExtraModels(SedReportLog, SedPlot2DLog, SedPlot3DLog)
 @Controller('logs')
@@ -54,32 +53,7 @@ export class LogsController {
     const structLogs = await this.service.getLog(id);
 
     if (!structLogs) {
-      let logString = '';
-      let exception: Exception | null = null;
-      try {
-        const oldLog = await this.service.getOldLogs(id);
-
-        logString = oldLog.output + oldLog.error;
-      } catch (e) {
-        this.logger.error(e);
-        logString =
-          'This simulation does not have a log available.\
-             Please re-run the simulation';
-        exception = {
-          category: 'Old Simulation',
-          message: logString,
-        };
-      }
-      const log = await this.service.createLog(id, {
-        sedDocuments: null,
-        status: SimulationRunLogStatus.UNKNOWN,
-        exception: exception,
-        skipReason: null,
-        duration: null,
-        output: logString,
-      });
-
-      return log.log;
+      throw new NotFoundException('The logs were not found');
     }
 
     return structLogs;
