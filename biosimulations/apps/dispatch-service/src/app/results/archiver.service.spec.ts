@@ -4,8 +4,8 @@ import { ConfigService } from '@nestjs/config';
 
 import { HttpService } from '@nestjs/common';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
-import { SshService } from '../ssh/ssh.service';
-import { FileService } from '../../results/file.service';
+import { SshService } from '../services/ssh/ssh.service';
+import { FileService } from './file.service';
 
 class MockSimulationService {
   updateSimulationRunResultsSize(id: string, size: number) {}
@@ -28,13 +28,12 @@ describe('ArchiverService', () => {
         {
           provide: SshService,
           useClass: MockSSHService,
-
         },
         {
           provide: FileService,
           useClass: MockFileService,
         },
-          {
+        {
           provide: SimulationRunService,
           useClass: MockSimulationService,
         },
