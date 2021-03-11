@@ -8,11 +8,9 @@ import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
 
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import path from 'path';
 import { InjectModel } from '@nestjs/mongoose';
 import { SimulationRunLog } from './logs.model';
 import { Model } from 'mongoose';
-import { promises as fsPromises } from 'fs';
 @Injectable()
 export class LogsService {
   private logger = new Logger(LogsService.name);

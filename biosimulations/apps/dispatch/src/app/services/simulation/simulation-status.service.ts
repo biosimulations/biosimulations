@@ -1,7 +1,9 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
 export class SimulationStatusService {
-  static isSimulationStatusRunning(status: SimulationRunStatus): boolean {
+  public static isSimulationStatusRunning(
+    status: SimulationRunStatus,
+  ): boolean {
     return (
       status === SimulationRunStatus.CREATED ||
       status === SimulationRunStatus.QUEUED ||
@@ -10,15 +12,17 @@ export class SimulationStatusService {
     );
   }
 
-  static isSimulationStatusSucceeded(status: SimulationRunStatus): boolean {
+  public static isSimulationStatusSucceeded(
+    status: SimulationRunStatus,
+  ): boolean {
     return status === SimulationRunStatus.SUCCEEDED;
   }
 
-  static isSimulationStatusFailed(status: SimulationRunStatus): boolean {
+  public static isSimulationStatusFailed(status: SimulationRunStatus): boolean {
     return status === SimulationRunStatus.FAILED;
   }
 
-  static getSimulationStatusOrder(status: SimulationRunStatus): number {
+  public static getSimulationStatusOrder(status: SimulationRunStatus): number {
     switch (status) {
       case SimulationRunStatus.SUCCEEDED:
         return 0;
@@ -36,7 +40,7 @@ export class SimulationStatusService {
     return NaN;
   }
 
-  static getSimulationStatusMessage(
+  public static getSimulationStatusMessage(
     status: SimulationRunStatus,
     upperCaseFirstLetter = false,
   ): string {
@@ -49,7 +53,7 @@ export class SimulationStatusService {
     }
   }
 
-  static formatTime(
+  public static formatTime(
     nullFormattedValue: string | null,
     valueSec: number | null | undefined,
   ): string | null {
