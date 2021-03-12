@@ -114,7 +114,7 @@
     "@nrwl/cypress": "11.4.0",
     "@nrwl/eslint-plugin-nx": "11.4.0",
     "@nrwl/jest": "11.4.0",
-    "@nrwl/nest": "11.4.0",
+    "@nrwl/nest": "11.5.1",
     "@nrwl/node": "11.4.0",
     "@nrwl/nx-cloud": "11.1.4",
     "@nrwl/tao": "11.4.0",
