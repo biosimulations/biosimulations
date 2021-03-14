@@ -1865,6 +1865,10 @@
   {
     "type": "programming",
     "color": "#ba595e",
+    "aliases": [
+      "Dlang",
+      "d"
+    ],
     "extensions": [
       ".d",
       ".di"
@@ -1875,9 +1879,6 @@
     "codemirrorMimeType": "text/x-d",
     "languageId": 80,
     "name": "D",
-    "aliases": [
-      "d"
-    ],
     "wrap": "false",
     "searchable": "true"
   },
@@ -4324,7 +4325,7 @@
     "extensions": [
       ".jq"
     ],
-    "tmScope": "source.jq",
+    "tmScope": "source.jsoniq",
     "languageId": 177,
     "name": "JSONiq",
     "aliases": [
@@ -4836,8 +4837,7 @@
   },
   {
     "type": "data",
-    "group": "EBNF",
-    "color": "#0b130f",
+    "color": "#2980B9",
     "extensions": [
       ".lark"
     ],
@@ -5559,6 +5559,7 @@
   },
   {
     "type": "data",
+    "group": "XML",
     "tmScope": "text.xml.pom",
     "filenames": [
       "pom.xml"
@@ -11032,6 +11033,22 @@
     "name": "fish",
     "aliases": [
       "fish"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "color": "#c7254e",
+    "aceMode": "text",
+    "type": "programming",
+    "extensions": [
+      ".jq"
+    ],
+    "tmScope": "source.jq",
+    "languageId": 905371884,
+    "name": "jq",
+    "aliases": [
+      "jq"
     ],
     "wrap": "false",
     "searchable": "true"
