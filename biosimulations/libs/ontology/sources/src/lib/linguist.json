@@ -1146,6 +1146,21 @@
   },
   {
     "type": "data",
+    "filenames": [
+      "CODEOWNERS"
+    ],
+    "tmScope": "text.codeowners",
+    "aceMode": "gitignore",
+    "languageId": 321684729,
+    "name": "CODEOWNERS",
+    "aliases": [
+      "codeowners"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "data",
     "extensions": [
       ".dae"
     ],
@@ -3028,6 +3043,22 @@
     "searchable": "true"
   },
   {
+    "type": "data",
+    "color": "#701516",
+    "searchable": "true",
+    "tmScope": "source.gemfile-lock",
+    "aceMode": "text",
+    "filenames": [
+      "Gemfile.lock"
+    ],
+    "languageId": 907065713,
+    "name": "GemfileLock",
+    "aliases": [
+      "gemfilelock"
+    ],
+    "wrap": "false"
+  },
+  {
     "type": "programming",
     "aceMode": "text",
     "extensions": [
@@ -3543,36 +3574,11 @@
       ".htm",
       ".html.hl",
       ".inc",
-      ".st",
       ".xht",
       ".xhtml"
     ],
     "languageId": 146,
     "name": "HTML",
-    "wrap": "false",
-    "searchable": "true"
-  },
-  {
-    "type": "markup",
-    "tmScope": "text.html.django",
-    "group": "HTML",
-    "extensions": [
-      ".jinja",
-      ".j2",
-      ".jinja2"
-    ],
-    "aliases": [
-      "django",
-      "html+django/jinja",
-      "html+jinja",
-      "htmldjango",
-      "html+django"
-    ],
-    "aceMode": "django",
-    "codemirrorMode": "django",
-    "codemirrorMimeType": "text/x-django",
-    "languageId": 147,
-    "name": "HTML+Django",
     "wrap": "false",
     "searchable": "true"
   },
@@ -4474,6 +4480,30 @@
     "aliases": [
       "javascript+erb"
     ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "markup",
+    "color": "#a52a22",
+    "aliases": [
+      "django",
+      "html+django",
+      "html+jinja",
+      "htmldjango",
+      "jinja"
+    ],
+    "extensions": [
+      ".jinja",
+      ".j2",
+      ".jinja2"
+    ],
+    "tmScope": "text.html.django",
+    "aceMode": "django",
+    "codemirrorMode": "django",
+    "codemirrorMimeType": "text/x-django",
+    "languageId": 147,
+    "name": "Jinja",
     "wrap": "false",
     "searchable": "true"
   },
@@ -8090,6 +8120,22 @@
   },
   {
     "type": "data",
+    "aliases": [
+      "redirects",
+      "redirect rules"
+    ],
+    "filenames": [
+      "_redirects"
+    ],
+    "tmScope": "source.redirects",
+    "aceMode": "text",
+    "languageId": 1020148948,
+    "name": "Redirect Rules",
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "data",
     "extensions": [
       ".regexp",
       ".regex"
@@ -8342,6 +8388,7 @@
       ".mspec",
       ".pluginspec",
       ".podspec",
+      ".prawn",
       ".rabl",
       ".rake",
       ".rbi",
@@ -8374,7 +8421,6 @@
       "Deliverfile",
       "Fastfile",
       "Gemfile",
-      "Gemfile.lock",
       "Guardfile",
       "Jarfile",
       "Mavenfile",
@@ -8950,6 +8996,22 @@
   },
   {
     "type": "programming",
+    "color": "#64E6AD",
+    "tmScope": "source.singularity",
+    "filenames": [
+      "Singularity"
+    ],
+    "aceMode": "text",
+    "languageId": 987024632,
+    "name": "Singularity",
+    "aliases": [
+      "singularity"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "programming",
     "color": "#007eff",
     "extensions": [
       ".sl"
@@ -9216,6 +9278,24 @@
     "name": "Stata",
     "aliases": [
       "stata"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "markup",
+    "color": "#3fb34f",
+    "extensions": [
+      ".st"
+    ],
+    "tmScope": "source.string-template",
+    "aceMode": "html",
+    "codemirrorMode": "htmlmixed",
+    "codemirrorMimeType": "text/html",
+    "languageId": 89855901,
+    "name": "StringTemplate",
+    "aliases": [
+      "stringtemplate"
     ],
     "wrap": "false",
     "searchable": "true"
@@ -10695,6 +10775,24 @@
   },
   {
     "type": "programming",
+    "color": "#285EEF",
+    "extensions": [
+      ".xsh"
+    ],
+    "tmScope": "source.python",
+    "aceMode": "text",
+    "codemirrorMode": "python",
+    "codemirrorMimeType": "text/x-python",
+    "languageId": 614078284,
+    "name": "Xonsh",
+    "aliases": [
+      "xonsh"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "programming",
     "extensions": [
       ".xtend"
     ],
@@ -11187,6 +11285,23 @@
     "codemirrorMimeType": "text/x-rst",
     "languageId": 419,
     "name": "reStructuredText",
+    "searchable": "true"
+  },
+  {
+    "type": "data",
+    "aliases": [
+      "robots",
+      "robots txt",
+      "robotstxt"
+    ],
+    "filenames": [
+      "robots.txt"
+    ],
+    "aceMode": "text",
+    "tmScope": "text.robots-txt",
+    "languageId": 674736065,
+    "name": "robotsTxt",
+    "wrap": "false",
     "searchable": "true"
   },
   {
