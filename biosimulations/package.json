@@ -43,7 +43,7 @@
     "@nestjs/microservices": "^7.6.12",
     "@nestjs/mongoose": "^7.2.2",
     "@nestjs/passport": "^7.1.5",
-    "@nestjs/platform-express": "^7.6.13",
+    "@nestjs/platform-express": "^7.6.15",
     "@nestjs/schedule": "^0.4.1",
     "@nestjs/swagger": "^4.7.9",
     "@openapi-contrib/openapi-schema-to-json-schema": "^3.0.4",
