@@ -59,7 +59,7 @@ export class HpcService {
   ): Promise<SimulationRunStatus | null> {
     // TODO this needs to be changed everyime job srun changes. Need a better long term solution
     const saactData = await this.sshService
-      .execStringCommand(`sacct -j ${jobId}.2 -o state -P | tail -1`)
+      .execStringCommand(`sacct -j ${jobId}.1 -o state -P | tail -1`)
       .catch((err) => {
         this.logger.error(
           'Failed to fetch status update, ' + JSON.stringify(err),
