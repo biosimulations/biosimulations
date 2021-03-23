@@ -132,6 +132,11 @@ export class DispatchComponent implements OnInit {
         }
       }
 
+      let name = params?.name;
+      if (name) {
+        this.formGroup.controls.name.setValue(name);
+      }
+
       if (modelFormat || modelingFramework || simulationAlgorithm) {
         this.simulators.forEach(
           (simulatorIdDisabled: SimulatorIdDisabled): void => {
