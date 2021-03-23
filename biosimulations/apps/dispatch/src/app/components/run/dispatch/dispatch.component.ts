@@ -132,7 +132,7 @@ export class DispatchComponent implements OnInit {
         }
       }
 
-      let name = params?.name;
+      const name = params?.name;
       if (name) {
         this.formGroup.controls.name.setValue(name);
       }
