@@ -75,7 +75,7 @@ export class ViewSimulatorService {
     if (sim === undefined) {
       if (version) {
         throw new BiosimulationsError(
-          'Simulation version not found',
+          'Simulator version not found',
           `Simulator "${simulatorId}" does not have version "${version}".`,
           404,
         );
