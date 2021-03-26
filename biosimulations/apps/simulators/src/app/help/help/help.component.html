@@ -28,6 +28,32 @@
 
   <ng-container id="content" tocSectionsContainer>
     <biosimulations-text-page-content-section
+      heading="Overview"
+      tocSection="Overview"
+    >
+      <p>Below is a collection of brief tutorials on BioSimulators:</p>
+      
+      <ul class="vertically-spaced">
+        <li>Creating COMBINE archives with SED-ML documents for simulation experiments.</li>
+        <li>Finding simulations tools that have the capabilities to execute specific COMBINE archives.</li>
+        <li>Using simulation tools to execute COMBINE archives: 
+          <ul>
+            <li>In the cloud using runBioSimulations or its REST API.</li>
+            <li>Locally using Docker.</li>
+            <li>In HPC environments using Singularity.</li>
+          </ul>
+        </li>
+        <li>Developing standardized interfaces to simulation tools and contributing them to BioSimulators.</li>
+      </ul>
+
+      <p>This information was presented at the HARMONY meeting on 3/22.</p>
+      <ul>
+        <li>Video <a href="https://www.youtube.com/watch?v=h0SCn0ZDqq8" target="_blank"><biosimulations-icon icon="video"></biosimulations-icon></a>
+        <li>Slides <a href="https://drive.google.com/file/d/1Q0X6GNQlT5PfZOcBNVu1B92SSAxJWrnS/view?usp=sharing" target="_blank"><biosimulations-icon icon="pdf"></biosimulations-icon></a>
+      </ul>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
       heading="Creating a COMBINE/OMEX file for a modeling project"
       tocSection="Creating modeling projects"
     >
@@ -203,7 +229,7 @@
   --rm \
   --mount type=bind,source={{ '{' }} path-to-directory-of-COMBINE-archive {{ '}' }},target=/tmp/project,readonly \
   --mount type=bind,source={{ '{' }} path-to-save-results {{ '}' }},target=/tmp/results \
-  biosimulators/{{ '{' }} simulator-id {{ '}' }} \
+  ghcr.io/biosimulators/{{ '{' }} simulator-id {{ '}' }} \
     --archive /tmp/project/{{ '{' }} name-of-COMBINE-archive {{ '}' }} \
     --out-dir /tmp/results</code></pre>
 

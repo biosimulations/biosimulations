@@ -102,7 +102,11 @@ export type BiosimulationsIcon =
   | 'url'
   | 'share'
   | 'close'
-  | 'longRightArrow';
+  | 'longRightArrow'
+  | 'pdf'
+  | 'video'
+  | 'googleDrive'
+  | 'youtube';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -224,6 +228,11 @@ export class IconComponent implements OnInit {
     open: { type: 'fas', name: 'chevron-down' },
     close: { type: 'fas', name: 'chevron-up' },
     longRightArrow: { type: 'fas', name: 'long-arrow-alt-right' },
+
+    pdf: { type: 'fas', name: 'file-pdf' },
+    video: { type: 'fas', name: 'video' },
+    googleDrive: { type: 'fab', name: 'google-drive' },
+    youtube: { type: 'fab', name: 'youtube' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];

@@ -81,6 +81,8 @@ import {
   faCloud,
   faShareAlt,
   faLongArrowAltRight,
+  faFilePdf,
+  faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -95,6 +97,8 @@ import {
   faCreativeCommonsSa,
   faCreativeCommonsShare,
   faOsi,
+  faGoogleDrive,
+  faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 import {
   faFileAlt as farFileAlt,
@@ -203,6 +207,10 @@ export class BiosimulationsIconsModule {
       farStar,
       faOsi,
       faLongArrowAltRight,
+      faFilePdf,
+      faVideo,
+      faGoogleDrive,
+      faYoutube,
     );
   }
 }
