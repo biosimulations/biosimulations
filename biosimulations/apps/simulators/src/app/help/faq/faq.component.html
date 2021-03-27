@@ -138,6 +138,16 @@
       </biosimulations-q-a>
 
       <biosimulations-q-a
+        heading="How does BioSimulators manage ownership of BioSimulators entries for simulation tools?"
+      >
+        <p>BioSimulators uses GitHub teams to manage ownership of simulation tools.</p>
+
+        <p>When a simulator is first submitted to BioSimulators, BioSimulators creates a GitHub Team to own the simulator and Biosimulators adds the submitter as a maintainer of that team. The team will have the name <code>@biosimulators/{ simulator-id }</code>. Once the team is created, the submitter will be able to manage the team and add collaborators through GitHub <a href="https://github.com/orgs/biosimulators/teams/simulator-developers/teams" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+        <p>Only members of these teams can submit issues to edit the specifications of tools and post new versions of tools. If you are not a member of the team for your simulator, you will need to request access from the maintainers of the GitHub team for your tool.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
         heading="Do all of the simulators provide consistent Docker images?"
       >
         No, only the simulators that have a curation status of 5 stars provide
