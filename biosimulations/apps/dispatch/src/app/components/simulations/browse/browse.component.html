@@ -20,6 +20,14 @@
     >
       <biosimulations-icon icon="upload"></biosimulations-icon>
     </button>
+    <button
+      mat-icon-button
+      class="biosimulations-icon-button primary"
+      title="Delete all simulations"
+      (click)="removeSimulations()"
+    >
+      <biosimulations-icon icon="trash"></biosimulations-icon>
+    </button>
   </ng-container>
 
   <biosimulations-responsive-table

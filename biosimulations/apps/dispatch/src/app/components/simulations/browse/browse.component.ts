@@ -474,6 +474,10 @@ export class BrowseComponent implements OnInit {
     input.click();
   }
 
+  removeSimulations(): void {
+    this.simulationService.removeSimulations();
+  }
+
   loadExampleSimulations(): void {
     const exampleSimulationsJson =
       environment.env == 'prod'

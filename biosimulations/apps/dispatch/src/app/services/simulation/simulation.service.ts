@@ -166,6 +166,9 @@ export class SimulationService {
     }
   }
 
+  /**
+   * Delete a simulation
+   */
   removeSimulation(id: string): void {
     const simulation: Simulation = this.simulationsMap[id];
     const iSimulation = this.simulations.indexOf(simulation);
@@ -174,6 +177,19 @@ export class SimulationService {
     delete this.simulationsMap$[id];
     this.simulationsMapSubject.next(this.simulationsMap$);
 
+    this.storeSimulations([]);
+  }
+
+  /**
+   * Delete all simulations
+   */
+  public removeSimulations(): void {
+    while (this.simulations.length) {
+      const simulation: Simulation = this.simulations.pop() as Simulation;
+      delete this.simulationsMap[simulation.id];
+      delete this.simulationsMap$[simulation.id];
+    }
+    this.simulationsMapSubject.next(this.simulationsMap$);
     this.storeSimulations([]);
   }
 
@@ -255,7 +271,7 @@ export class SimulationService {
   }
 
   /**
-   * Add a sdimulation to the http cache
+   * Add a simulation to the http cache
    * @param simulation
    */
   public addSimulation(simulation: Simulation): void {
