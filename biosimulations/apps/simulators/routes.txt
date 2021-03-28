@@ -6,6 +6,7 @@
 /help/terms
 /simulators/amici
 /simulators/amici/0.11.11
+/simulators/amici/0.11.14
 /simulators/bionetgen
 /simulators/bionetgen/2.5.2
 /simulators/biouml
@@ -18,8 +19,10 @@
 /simulators/cellcollective/3.0.11
 /simulators/cellnetanalyzer
 /simulators/cellnetanalyzer/2020.3
+/simulators/cellnetanalyzer/2021.1
 /simulators/cobrapy
 /simulators/cobrapy/0.20.0
+/simulators/cobrapy/0.21.0
 /simulators/cobratoolbox
 /simulators/cobratoolbox/3.1
 /simulators/copasi
@@ -70,6 +73,7 @@
 /simulators/pysces/0.9.9
 /simulators/raven
 /simulators/raven/2.4.0
+/simulators/raven/2.4.3
 /simulators/sbscl
 /simulators/sbscl/1.5
 /simulators/tellurium
