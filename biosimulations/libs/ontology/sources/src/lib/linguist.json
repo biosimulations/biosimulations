@@ -5716,6 +5716,21 @@
     "searchable": "true"
   },
   {
+    "type": "data",
+    "extensions": [
+      ".sln"
+    ],
+    "tmScope": "source.solution",
+    "aceMode": "text",
+    "languageId": 849523096,
+    "name": "Microsoft Visual Studio Solution",
+    "aliases": [
+      "microsoft visual studio solution"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
     "type": "programming",
     "searchable": "true",
     "extensions": [
