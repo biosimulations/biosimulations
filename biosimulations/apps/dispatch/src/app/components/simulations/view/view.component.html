@@ -174,7 +174,7 @@
           <mat-tab
             *ngFor="let subplot of lineScatter2dSubplotsFormArray.controls; index as iSubplot"
           >
-            <ng-template matTabLabel>Subplot {{ (iSubplot + 1).toString() }}</ng-template>
+            <ng-template matTabLabel>{{ subplot.get('label')?.value }}</ng-template>
             <ng-template matTabContent [formGroupName]="iSubplot">
               <mat-form-field appearance="fill">
                 <mat-label>Choose whether to enable or disable the subplot</mat-label>

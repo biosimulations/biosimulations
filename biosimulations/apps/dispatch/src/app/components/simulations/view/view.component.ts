@@ -311,6 +311,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     while (this.lineScatter2dSubplotsFormArray.length < rows * cols) {
       const curves = this.formBuilder.array([]);
       const subplot = this.formBuilder.group({
+        label: [''],
         enabled: [SubplotEnabledType.enabled, Validators.required],
         numCurves: [1, [Validators.required]],
         curves: curves,
@@ -321,6 +322,13 @@ export class ViewComponent implements OnInit, OnDestroy {
       this.subplotCurves.push(curves.controls as FormGroup[]);
       this.lineScatter2dSubplotsFormArray.push(subplot);
       this.setNumCurves(this.lineScatter2dSubplotsFormArray.length - 1);
+    }
+
+    for (let iSubplot=0; iSubplot < rows * cols; iSubplot++) {
+      const subplot = this.lineScatter2dSubplotsFormArray.at(iSubplot) as FormGroup;
+      const iRow = Math.floor(iSubplot / cols);
+      const iCol = iSubplot % cols;
+      subplot.controls.label.setValue(`Subplot R${iRow + 1}, C${iCol + 1}`);
     }
 
     this.build2dViz();
