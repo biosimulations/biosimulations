@@ -43,6 +43,21 @@ export interface DataLayout {
 export class PlotlyVisualizationComponent {
   data: ScatterTrace[] | undefined = undefined;
   layout: Layout | undefined = undefined;
+  config: any = {
+    scrollZoom: true,
+    editable: false,
+    toImageButtonOptions: {
+      format: 'svg', // one of png, svg, jpeg, webp
+      filename: 'chart',
+      height: 500,
+      width: 700,
+      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+    },
+    modeBarButtonsToRemove: [],
+    showEditInChartStudio: true,
+    plotlyServerURL: "https://chart-studio.plotly.com",
+    // responsive: true,
+  };
 
   @Input()
   set dataLayout(value: DataLayout | null) {
