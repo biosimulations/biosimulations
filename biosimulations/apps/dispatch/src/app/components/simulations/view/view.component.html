@@ -138,35 +138,37 @@
       </mat-form-field>
 
       <ng-container *ngIf="selectedVisualizationType === VisualizationType.lineScatter2d" formGroupName="lineScatter2d">
-        <mat-form-field appearance="fill">
-          <mat-label>Select the number of rows of subplots</mat-label>
-          <input
-            matInput
-            formControlName="rows"
-            type="number"
-            min="1"
-            step="1"
-            required
-            (ngModelChange)="setVizGrid()"
-          />
-          <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
-          <mat-hint>runBioSimulations can display a grid of subplots. Select the number of rows of subplots that you would like to display.</mat-hint>
-        </mat-form-field>
+        <div class="line-scatter-grid">
+          <mat-form-field appearance="fill">
+            <mat-label>Select the number of rows of subplots</mat-label>
+            <input
+              matInput
+              formControlName="rows"
+              type="number"
+              min="1"
+              step="1"
+              required
+              (ngModelChange)="setVizGrid()"
+            />
+            <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+            <mat-hint>runBioSimulations can display a grid of subplots. Select the number of rows of subplots that you would like to display.</mat-hint>
+          </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Select the number of columns of subplots</mat-label>
-          <input
-            matInput
-            formControlName="cols"
-            type="number"
-            min="1"
-            step="1"
-            required
-            (ngModelChange)="setVizGrid()"
-          />
-          <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
-          <mat-hint>runBioSimulations can display a grid of subplots. Select the number of columns of subplots that you would like to display.</mat-hint>
-        </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Select the number of columns of subplots</mat-label>
+            <input
+              matInput
+              formControlName="cols"
+              type="number"
+              min="1"
+              step="1"
+              required
+              (ngModelChange)="setVizGrid()"
+            />
+            <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+            <mat-hint>runBioSimulations can display a grid of subplots. Select the number of columns of subplots that you would like to display.</mat-hint>
+          </mat-form-field>
+        </div>
 
         <mat-tab-group mat-align-tabs="start" formArrayName="subplots" class="subplots">
           <mat-tab

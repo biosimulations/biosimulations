@@ -13,13 +13,19 @@
   }
 }
 
-.subplots {
-  border: 1px solid rgba(0, 0, 0, 0.42);
+.line-scatter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1.34375em;
+}
 
+.subplots {
   ::ng-deep {
     .mat-tab-header {
       background-color: $light-bg-darker-5;
       border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
     }
     .mat-tab-label {
       color: $dark-primary-text;
@@ -31,6 +37,12 @@
 
     .mat-tab-body-wrapper {
       min-height: auto;
+      border-left: 1px solid rgba(0, 0, 0, 0.42);
+      border-right: 1px solid rgba(0, 0, 0, 0.42);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      padding: 1em;
     }
   }
 }
