@@ -260,6 +260,12 @@ biosimulations-root {
   .mat-form-field {
     display: block;
     letter-spacing: unset;
+
+    &:last-child {
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
+      }
+    }
   }
 
   .mat-form-field-appearance-fill {
@@ -810,4 +816,9 @@ a.status-label {
 /* snackbar */
 .mat-simple-snackbar {
   text-align: center;
+}
+
+/* select */
+.mat-select-panel .mat-optgroup-label {
+  height: auto !important;
 }
