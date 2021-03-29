@@ -14,20 +14,29 @@ export interface ScatterTrace {
   name: string;
   x: number[];
   y: number[];
+  xaxis: string;
+  yaxis: string;
   mode: ScatterTraceMode;
 }
 
 export interface Axis {
+  anchor: string;
   title: string | undefined;
   type: AxisType;
 }
 
+export interface Grid {
+  rows: number;
+  columns: number;
+  pattern: 'independent';
+}
+
 export interface Layout {
-  xaxis: Axis;
-  yaxis: Axis;
+  grid: Grid;
   showlegend: boolean;
   width: number | undefined;
   height: number | undefined;
+  [axisId: string]: any; // compiler complains about using type Axis here
 }
 
 export interface DataLayout {

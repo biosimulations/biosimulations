@@ -108,15 +108,15 @@
   >
     <form
       [formGroup]="formGroup"
-      class="design-visualization"
-      *ngIf="(sedmlLocations$ | async)?.length; else noSedDocs"
+      class="partial-width design-visualization"
+      *ngIf="hasData; else noSedDatasets"
     >
       <mat-form-field appearance="fill">
-        <mat-label>Select a type of visualization</mat-label>
+        <mat-label>How would you like to visualize the results of your simulation?</mat-label>
         <mat-select
           formControlName="visualizationType"
           required
-          (selectionChange)="selectVisualizationType($event.value)"
+          (selectionChange)="selectVisualizationType()"
           disableOptionCentering
         >
           <mat-option
@@ -139,165 +139,213 @@
 
       <ng-container *ngIf="selectedVisualizationType === VisualizationType.lineScatter2d" formGroupName="lineScatter2d">
         <mat-form-field appearance="fill">
-          <mat-label>Select a simulation experiment</mat-label>
-          <mat-select
-            formControlName="sedmlLocation"
+          <mat-label>Select the number of rows of subplots</mat-label>
+          <input
+            matInput
+            formControlName="rows"
+            type="number"
+            min="1"
+            step="1"
             required
-            (selectionChange)="selectSedmlLocation($event.value)"
-            disableOptionCentering
-          >
-            <mat-option
-              *ngFor="let sedmlLocation of sedmlLocations$ | async"
-              [value]="sedmlLocation"
-            >
-              {{ sedmlLocation }}
-            </mat-option>
-          </mat-select>
-          <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
-          <mat-hint
-            >Select one of the SED-ML files in the COMBINE/OMEX archive which
-            describes one or more reports of one or more simulations.</mat-hint
-          >
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label
-            >Select a report of the results of one or more simulations</mat-label
-          >
-          <mat-select
-            formControlName="reportId"
-            required
-            (selectionChange)="selectReportId($event.value)"
-            disableOptionCentering
-          >
-            <mat-option
-              *ngFor="let reportId of reportIds | async"
-              [value]="reportId"
-            >
-              {{ reportId }}
-            </mat-option>
-          </mat-select>
-          <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
-          <mat-hint
-            >Select a report within the selected SED-ML file which describes the
-            results of one or more simulations (e.g., in SED-ML format) of one or
-            more models (e.g., in SBML format).</mat-hint
-          >
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Select a data set for the x-axis</mat-label>
-          <mat-select
-            formControlName="xDataSetId"
-            required
-            (selectionChange)="build2dVizData()"
-            disableOptionCentering
-          >
-            <mat-option
-              *ngFor="let dataSet of dataSetIdDisableds$ | async"
-              [value]="dataSet.id"
-              [disabled]="dataSet.disabled"
-            >
-              {{ dataSet.id }}
-            </mat-option>
-          </mat-select>
+            (ngModelChange)="setVizGrid()"
+          />
           <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
-          <mat-hint
-            >Select a data set within the selected report such as
-            "time".</mat-hint
-          >
+          <mat-hint>runBioSimulations can display a grid of subplots. Select the number of rows of subplots that you would like to display.</mat-hint>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>Select data sets for the y-axis</mat-label>
-          <mat-select
-            formControlName="yDataSetIds"
-            multiple
+          <mat-label>Select the number of columns of subplots</mat-label>
+          <input
+            matInput
+            formControlName="cols"
+            type="number"
+            min="1"
+            step="1"
             required
-            (selectionChange)="build2dVizData()"
-            disableOptionCentering
-          >
-            <mat-option
-              *ngFor="let dataSet of dataSetIdDisableds$ | async"
-              [value]="dataSet.id"
-              [disabled]="dataSet.disabled"
-            >
-              {{ dataSet.id }}
-            </mat-option>
-          </mat-select>
+            (ngModelChange)="setVizGrid()"
+          />
           <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
-          <mat-hint
-            >Select one or more data sets within the selected report such as the
-            concentrations of specific species (e.g., "ATP") or the fluxes of
-            specific reactions (e.g., "AtpA").</mat-hint
-          >
+          <mat-hint>runBioSimulations can display a grid of subplots. Select the number of columns of subplots that you would like to display.</mat-hint>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Select a scale for the x-axis</mat-label>
-          <mat-select
-            formControlName="xAxisType"
-            required
-            (selectionChange)="build2dVizData()"
-            disableOptionCentering
+        <mat-tab-group mat-align-tabs="start" formArrayName="subplots" class="subplots">
+          <mat-tab
+            *ngFor="let subplot of lineScatter2dSubplotsFormArray.controls; index as iSubplot"
           >
-            <mat-option
-              *ngFor="let axisLabelType of axisLabelTypes"
-              [value]="axisLabelType.type"
-            >
-              {{ axisLabelType.label }}
-            </mat-option>
-          </mat-select>
-          <biosimulations-icon
-            icon="visualization"
-            matPrefix
-          ></biosimulations-icon>
-          <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
-        </mat-form-field>
+            <ng-template matTabLabel>Subplot {{ (iSubplot + 1).toString() }}</ng-template>
+            <ng-template matTabContent [formGroupName]="iSubplot">
+              <mat-form-field appearance="fill">
+                <mat-label>Choose whether to enable or disable the subplot</mat-label>
+                <mat-select
+                  formControlName="enabled"
+                  required
+                  (selectionChange)="build2dViz()"
+                  disableOptionCentering
+                >
+                  <mat-option
+                    *ngFor="let subplotEnabledType of subplotEnabledTypes"
+                    [value]="subplotEnabledType"
+                  >
+                    {{ subplotEnabledType }}
+                  </mat-option>
+                </mat-select>
+                <biosimulations-icon icon="visible" matPrefix></biosimulations-icon>
+                <mat-hint
+                  >Choose whether to enable or disable the subplot.</mat-hint
+                >
+              </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Select a scale for the y-axis</mat-label>
-          <mat-select
-            formControlName="yAxisType"
-            required
-            (selectionChange)="build2dVizData()"
-            disableOptionCentering
-          >
-            <mat-option
-              *ngFor="let axisLabelType of axisLabelTypes"
-              [value]="axisLabelType.type"
-            >
-              {{ axisLabelType.label }}
-            </mat-option>
-          </mat-select>
-          <biosimulations-icon
-            icon="visualization"
-            matPrefix
-          ></biosimulations-icon>
-          <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
-        </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Select the number of curves to display</mat-label>
+                <input
+                  matInput
+                  formControlName="numCurves"
+                  type="number"
+                  min="0"
+                  step="1"
+                  required
+                  (change)="setNumCurves(iSubplot)"
+                />
+                <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+                <mat-hint>runBioSimulations can display one or more curves per subplots. Select the number of curves that you would like to display.</mat-hint>
+              </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Select a type of plot</mat-label>
-          <mat-select
-            formControlName="scatterTraceMode"
-            required
-            (selectionChange)="build2dVizData()"
-            disableOptionCentering
-          >
-            <mat-option
-              *ngFor="let scatterTraceModeLabel of scatterTraceModeLabels"
-              [value]="scatterTraceModeLabel.mode"
-            >
-              {{ scatterTraceModeLabel.label }}
-            </mat-option>
-          </mat-select>
-          <biosimulations-icon
-            icon="visualization"
-            matPrefix
-          ></biosimulations-icon>
-          <mat-hint>Select a type of plot such as "line" or "scatter".</mat-hint>
-        </mat-form-field>
+              <div class="curves" formArrayName="curves">
+                <div class="icon-label-input">
+                  <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+                  <div class="label-input">
+                    <mat-label>Select the data for each curve *</mat-label>
+                    <div class="input">
+                      <div class="input-heading">No.</div>
+                      <div class="input-heading">X data set</div>
+                      <div class="input-heading">Y data set</div>
+                      <ng-container *ngFor="let curve of subplotCurves[iSubplot]; index as iCurve" [formGroupName]="iCurve">
+                        <div class="input-row curve-num">{{ (iCurve + 1).toString() }}.</div>
+                        <div class="input-row">
+                          <mat-select
+                            formControlName="xData"
+                            required
+                            (selectionChange)="build2dViz()"
+                            disableOptionCentering
+                          >
+                            <mat-optgroup
+                              *ngFor="let sedDocument of combineResultsStructure"
+                              [label]="sedDocument.location"
+                            >
+                              <mat-optgroup
+                                *ngFor="let report of sedDocument.reports"
+                                [label]="report.id"
+                              >
+                                <mat-option
+                                  *ngFor="let dataset of report.datasets"
+                                  [value]="dataset._id"
+                                >
+                                  {{ dataset.label }}
+                                </mat-option>
+                              </mat-optgroup>
+                            </mat-optgroup>
+                          </mat-select>
+                        </div>
+                        <div class="input-row">
+                          <mat-select
+                            formControlName="yData"
+                            required
+                            (selectionChange)="build2dViz()"
+                            disableOptionCentering
+                          >
+                            <mat-optgroup
+                              *ngFor="let sedDocument of (combineResultsStructure$ | async)"
+                              [label]="sedDocument.location"
+                            >
+                              <mat-optgroup
+                                *ngFor="let report of sedDocument.reports"
+                                [label]="report.id"
+                              >
+                                <mat-option
+                                  *ngFor="let dataset of report.datasets"
+                                  [value]="dataset._id"
+                                >
+                                  {{ dataset.label }}
+                                </mat-option>
+                              </mat-optgroup>
+                            </mat-optgroup>
+                          </mat-select>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <mat-hint>Select the SED data sets for the X and Y data of each curve.</mat-hint>
+              </div>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Select a scale for the x-axis</mat-label>
+                <mat-select
+                  formControlName="xAxisType"
+                  required
+                  (selectionChange)="build2dViz()"
+                  disableOptionCentering
+                >
+                  <mat-option
+                    *ngFor="let axisLabelType of axisLabelTypes"
+                    [value]="axisLabelType.type"
+                  >
+                    {{ axisLabelType.label }}
+                  </mat-option>
+                </mat-select>
+                <biosimulations-icon
+                  icon="visualization"
+                  matPrefix
+                ></biosimulations-icon>
+                <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Select a scale for the y-axis</mat-label>
+                <mat-select
+                  formControlName="yAxisType"
+                  required
+                  (selectionChange)="build2dViz()"
+                  disableOptionCentering
+                >
+                  <mat-option
+                    *ngFor="let axisLabelType of axisLabelTypes"
+                    [value]="axisLabelType.type"
+                  >
+                    {{ axisLabelType.label }}
+                  </mat-option>
+                </mat-select>
+                <biosimulations-icon
+                  icon="visualization"
+                  matPrefix
+                ></biosimulations-icon>
+                <mat-hint>Select a scale such as "linear" or "logarithmic".</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Select a type of plot</mat-label>
+                <mat-select
+                  formControlName="scatterTraceMode"
+                  required
+                  (selectionChange)="build2dViz()"
+                  disableOptionCentering
+                >
+                  <mat-option
+                    *ngFor="let scatterTraceModeLabel of scatterTraceModeLabels"
+                    [value]="scatterTraceModeLabel.mode"
+                  >
+                    {{ scatterTraceModeLabel.label }}
+                  </mat-option>
+                </mat-select>
+                <biosimulations-icon
+                  icon="visualization"
+                  matPrefix
+                ></biosimulations-icon>
+                <mat-hint>Select a type of plot such as "line" or "scatter".</mat-hint>
+              </mat-form-field>
+            </ng-template>
+          </mat-tab>
+        </mat-tab-group>
       </ng-container>
 
       <ng-container *ngIf="selectedVisualizationType === VisualizationType.vega" formGroupName="vega">
@@ -317,6 +365,7 @@
         </mat-form-field>
 
         <div *ngIf="vegaDataSetSedmlLocationReportIdsFormArray.controls.length">
+          <mat-label>Map SED reports to the data sets of the Vega visualization</mat-label>
           <div formArrayName="vegaDataSetSedmlLocationReportIds" class="form-array">
             <ng-container>
               <div class="form-array-head">SED document location &amp; report id</div>
@@ -354,8 +403,8 @@
       </ng-container>
     </form>
 
-    <ng-template #noSedDocs>
-      <span class="info-message">The COMBINE/OMEX archive does not define any reports. runBioSimulations visualizes simulation results outputted via SED reports.</span>
+    <ng-template #noSedDatasets>
+      <span class="info-message">The execution of the COMBINE/OMEX archive did not generate any data. runBioSimulations visualizes simulation results outputted via data sets of SED reports.</span>
     </ng-template>
   </biosimulations-tab-page-tab>
 
@@ -367,10 +416,7 @@
     [disabled]="
       (
         selectedVisualizationType === VisualizationType.lineScatter2d
-        && (
-          !lineScatter2dFormGroup.controls.xDataSetId.value
-          || lineScatter2dFormGroup.controls.yDataSetIds.value.length === 0
-        )
+        && !lineScatter2dValid
       )
       || (
         selectedVisualizationType === VisualizationType.vega
@@ -380,7 +426,7 @@
   >
     <biosimulations-plotly-visualization
       [dataLayout]="vizDataLayout$ | async"
-      *ngIf="(vizDataLayout$ | async) && selectedVisualizationType === VisualizationType.lineScatter2d"
+      *ngIf="selectedVisualizationType === VisualizationType.lineScatter2d"
     >
     </biosimulations-plotly-visualization>
 

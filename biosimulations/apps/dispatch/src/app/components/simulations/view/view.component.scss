@@ -1,3 +1,5 @@
+@import 'biosimulations-colors';
+
 .spinner-container {
   display: flex;
   height: calc(100vh - 64px - 28px - 0.5rem - 32px - 2 * 2rem);
@@ -11,9 +13,94 @@
   }
 }
 
-.design-visualization {
-  max-width: 800px;
-  margin: 0 auto;
+.subplots {
+  border: 1px solid rgba(0, 0, 0, 0.42);
+
+  ::ng-deep {
+    .mat-tab-header {
+      background-color: $light-bg-darker-5;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+    }
+    .mat-tab-label {
+      color: $dark-primary-text;
+      height: 53px;
+    }
+    .mat-ink-bar {
+      background-color: $dark-primary-text;
+    }
+
+    .mat-tab-body-wrapper {
+      min-height: auto;
+    }
+  }
+}
+
+.curves {
+  padding-bottom: 1.34375em;
+  width: 100%;
+
+  .icon-label-input {
+    padding: 0.75em 0.75em 0;
+    background-color: #f2f2f2;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+  }
+
+  biosimulations-icon {
+    position: relative;
+    top: 0.4rem;
+    margin-right: 0.5rem;
+    font-size: 32px;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .label-input {
+    width: 100%;
+  }
+
+  mat-label,
+  .input-heading {
+    font-size: 75%;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.0;
+    text-align: left;
+    font-weight: normal;
+  }
+
+  &:focus mat-label {
+    color: mat-color($theme-primary);
+  }
+
+  .input {
+    padding: 0.25em 0 0.75em 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    grid-column-gap: 0.5em;
+
+    .mat-select {
+      border-bottom: 1px dotted rgb(0, 0, 0, 0.6);
+    }
+  }
+
+  .input-row {
+    padding-top: 0.25em;
+  }
+
+  .curve-num {
+    text-align: right;
+    font-size: 75%;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  mat-hint {
+    padding-top: 0.5rem;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-top: 1px solid rgba(0, 0, 0, 0.42);
+    font-size: 75%;
+    display: block;
+  }
 }
 
 .form-array {
@@ -24,6 +111,12 @@
 
   ::ng-deep .mat-form-field-wrapper {
     padding-bottom: 0;
+  }
+
+  mat-label {
+    color: rgb(0, 0, 0, 0.6);
+    font-size: 75%;
+    line-height: 100%;
   }
 }
 
@@ -52,7 +145,9 @@
 
 .form-array-head {
   color: rgb(0, 0, 0, 0.6);
-  font-size: 14px;
+  font-size: 75%;
+  line-height: 100%;
+  padding-top: 0.25em;
 }
 
 .form-array-item-label {
@@ -81,7 +176,8 @@
   top: 0.35rem;
 
   &.form-array-head {
-    top: 0;
+    top: -5px;
+    height: 0;
   }
 }
 

@@ -14,6 +14,23 @@ export interface Simulation {
   resultsSize?: number;
   projectSize?: number;
 }
-export interface TaskMap {
-  [key: string]: string[];
+
+export interface SedDatasetResults {
+  _id: string | undefined;
+  location: string | undefined;
+  reportId: string | undefined;
+  label: string;
+  value: any;
 }
+
+export interface SedReportResults {
+  id: string;
+  datasets: SedDatasetResults[];
+};
+
+export interface SedDocumentResults {
+  location: string;
+  reports: SedReportResults[];
+}
+
+export type CombineResults = SedDocumentResults[];

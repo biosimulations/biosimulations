@@ -28,10 +28,10 @@ describe('VisualizationService', () => {
     });
   });
 
-  describe('test getResultStructure', () => {
+  describe('test getResults', () => {
     it('should return an observable containing the result structure', () => {
-      const observable = service.getResultStructure(
-        'edb035bc50-sdcj-sdc38ak93n',
+      const observable = service.getResults(
+        'edb035bc50-sdcj-sdc38ak93n', true
       );
       expect(observable).toEqual(observable);
     });
