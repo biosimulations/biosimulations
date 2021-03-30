@@ -138,29 +138,44 @@
       </biosimulations-q-a>
 
       <biosimulations-q-a
+        heading="Is there a limit to the size of simulation projects that can be submitted to runBioSimulations?"
+      >
+        Currently, simulation projects (COMBINE/OMEX archives) are limited to 16 MB. We are actively implementing an enhanced storage system that will support project files up to 5 TB.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
         heading="How much resources are available to each simulation?"
       >
-        <p class="no-bottom-margin">runBioSimulations allocates the following resources to each simulation:</p>
-        <ul>
-          <li>Reports: 16 MB <sup>&#8224;</sup></li>
-          <li>Cores: 1 <sup>&#8727;</sup></li>
-          <li>RAM: 8 GB <sup>&#8727;</sup></li>
-          <li>Walltime: 12 hr <sup>&#8727;</sup></li>
-          <li>Reports: 16 MB <sup>&#8224;</sup></li>
-          <li>Plots: 5 TB <sup>&#8225;</sup></li>
+        <p class="no-bottom-margin">runBioSimulations currently allows users to request up the following amounts of resources for each simulation project:</p>
+        <ul>          
+          <li>Cores: 24</li>
+          <li>RAM: 192 GB</li>
+          <li>Walltime: 20 days</li>          
         </ul>
 
-        <p><sup>&#8727;</sup> These limits are easily configurable. Please contact runBioSimulations Team <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> if these limits would constrain your work.</p>
-
-        <p><sup>&#8224;</sup> Simulation projects (COMBINE/OMEX archives) and the total size of all reports generated from a COMBINE/OMEX archive are currently limited to 16 MB. We are actively working to enhance the storage of simulation projects and their results to accomodate up to 5 TB per COMBINE/OMEX archive. In addition, the format that runBioSimulations relies for reports is limited to 32 dimensions. For a non-spatial time course, this means that runBioSimulations can accomodate up to 15 layers of nested repeated tasks.</p>
-
-        <p><sup>&#8225;</sup> The total size of all plots generated from a COMBINE/OMEX archive is limited to 5 TB.</p>
+        <p>These limits are easily configurable. Please contact runBioSimulations Team <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> if these limits would constrain your work.</p>        
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="How much resources are available to runBioSimulations?"
       >
-        runBioSimulations has access to XX total cores, XX total RAM, and XX of storage.
+        runBioSimulations has access to XX total cores, XX total RAM, and XX of storage. Of these, 48 cores and 384 GB RAM are dedicated to runBioSimulations. The remainder is shared with other users of the HPC system at the UConn Health.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How many users can use runBioSimulations simultaneously?"
+      >
+        <p>runBioSimulations is architected to accomodate many simultaneous users. There is no specific limit on the number of users that can use runBioSimulations simultaneously. If users submit many simulations simultaneously, their simulations will be queued and processed in the order in which they were submitted.</p>
+
+        <p>The runBioSimulations Team strives to make runBioSimulations' resources are fairly available to all users. If necessary, the runBioSimulations will implement a job priority policy to ensure this.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="Is there a limit to the size of simulation results that runBioSimulations can generate?"
+      >
+        <p>Currently, the total sizes of all reports generated from a COMBINE/OMEX archive and all plots generated from an archive are limited to 16 MB. We are actively implenting an enhanced system that will accomodate up to 10 TB per COMBINE/OMEX archive (5 TB for reports and 5 TB for plots).</p>
+
+        <p>In addition, the format that runBioSimulations relies for reports is limited to 32 dimensions. For a non-spatial time course, this means that runBioSimulations can accomodate up to 15 layers of nested repeated tasks. For a 3D spatial time course, this means that runBioSimulations can accomodate up to 13 layers of nested repeated tasks.</p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
