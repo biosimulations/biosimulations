@@ -18,6 +18,9 @@ export class TopbarMenuItemComponent {
   route: string | string[] = '';
 
   @Input()
+  queryParams: {[key: string]: string} = {};
+
+  @Input()
   disabled = false;
 
   constructor() {}
