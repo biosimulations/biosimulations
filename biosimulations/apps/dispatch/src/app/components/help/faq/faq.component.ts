@@ -20,5 +20,9 @@ export class FaqComponent {
     });
   }
 
-  constructor(public config: ConfigService) {}
+  emailUrl!: string;
+  
+  constructor(public config: ConfigService) {
+    this.emailUrl = 'mailto:' + config.email;
+  }
 }
