@@ -12,7 +12,11 @@ import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.inte
 export type SimulationRunReportData =
   | { [key: string]: Array<number> }
   | { [key: string]: Array<boolean> };
-
+export type SimulationRunReportDatum = {
+  id: string;
+  label: string;
+  values: number[] | boolean[];
+}
 export type SimulationRunReportDataStrings = { [key: string]: Array<string> };
 export const SimulationRunReportDataArraySchema: SchemaObject = {
   oneOf: [
