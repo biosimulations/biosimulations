@@ -105,6 +105,7 @@
       >
         <p class="no-bottom-margin">runBioSimulations allocates the following resources to each simulation:</p>
         <ul>
+          <li>Reports: 16 MB <sup>&#8224;</sup></li>
           <li>Cores: 1 <sup>&#8727;</sup></li>
           <li>RAM: 8 GB <sup>&#8727;</sup></li>
           <li>Walltime: 12 hr <sup>&#8727;</sup></li>
@@ -114,7 +115,7 @@
 
         <p><sup>&#8727;</sup> These limits are easily configurable. Please contact runBioSimulations Team <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> if these limits would constrain your work.</p>
 
-        <p><sup>&#8224;</sup> The total size of all reports generated from a COMBINE/OMEX archive is currently limited to 16 MB. We are actively working to enhance the storage of simulation results to accomodate up to 5 TB per COMBINE/OMEX archive. In addition, the format that runBioSimulations relies for reports is limited to 32 dimensions. For a non-spatial time course, this means that runBioSimulations can accomodate up to 15 layers of nested repeated tasks.</p>
+        <p><sup>&#8224;</sup> Simulation projects (COMBINE/OMEX archives) and the total size of all reports generated from a COMBINE/OMEX archive are currently limited to 16 MB. We are actively working to enhance the storage of simulation projects and their results to accomodate up to 5 TB per COMBINE/OMEX archive. In addition, the format that runBioSimulations relies for reports is limited to 32 dimensions. For a non-spatial time course, this means that runBioSimulations can accomodate up to 15 layers of nested repeated tasks.</p>
 
         <p><sup>&#8225;</sup> The total size of all plots generated from a COMBINE/OMEX archive is limited to 5 TB.</p>
       </biosimulations-q-a>
@@ -356,6 +357,12 @@
             /></a>
           </li>
         </ul>
+      </biosimulations-q-a>
+      
+      <biosimulations-q-a
+        heading="Where does runBioSimulations execute simulations and store their outputs?"
+      >
+        <p>runBioSimulations executes simulations using a high-performance computing cluster at UConn Health. The runBioSimulations user interface is deployed using Netlfiy. runBioSimulations' APIs are deployed using Google Cloud. runBioSimulations stores simulation projects (COMBINE/OMEX archives) and their results in MongoDB Atlas.</p>
       </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 
