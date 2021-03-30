@@ -1,6 +1,7 @@
 <biosimulations-page heading="Run a simulation project" maxWidth="800px">
   <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
     <mat-form-field appearance="fill">
+      <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
       <mat-label>Select a method for providing a simulation project (COMBINE/OMEX file)</mat-label>
       <mat-select
         [value]="submitMethod"

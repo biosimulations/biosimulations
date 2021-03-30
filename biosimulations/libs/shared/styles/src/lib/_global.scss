@@ -264,8 +264,14 @@ biosimulations-root {
 
   .mat-form-field-appearance-fill {
     .mat-form-field-flex {
-      padding: 0.75em 0.75em 0;
+      padding: 0.4em;
       background-color: $light-bg-darker-5;
+      align-items: center;
+    }
+
+    .mat-form-field-infix {
+      padding: 0;
+      padding-top: 0.25em;
     }
 
     .mat-form-field-underline {
@@ -286,16 +292,22 @@ biosimulations-root {
     }
   }
 
-  .mat-form-field-prefix biosimulations-icon {
-    font-size: 32px;
-    position: relative;
-    top: -0.125rem;
-    margin-right: 0.5rem;
-    color: rgba(0, 0, 0, 0.7);
+  .mat-form-field-prefix {
+    biosimulations-icon {
+      font-size: 32px;
+      margin-right: 0.5rem;
+      color: rgba(0, 0, 0, 0.7);
+      line-height: 0;
+    }
   }
 
-  .ngx-mat-file-input .mat-icon-button.mat-primary {
-    color: rgba(0, 0, 0, 0.8);
+  .ngx-mat-file-input {
+    height: 15px;
+    line-height: 15px;
+
+    .mat-icon-button.mat-primary {
+      color: rgba(0, 0, 0, 0.8);
+    }
   }
 
   .mat-form-field:not(.mat-form-field-appearance-legacy)
@@ -314,7 +326,8 @@ biosimulations-root {
   }
 
   .mat-hint {
-    line-height: 1.25;
+    font-size: 125%;
+    line-height: 1.3;
   }
 }
 
