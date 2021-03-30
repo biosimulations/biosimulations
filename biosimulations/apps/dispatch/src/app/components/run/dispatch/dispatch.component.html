@@ -220,14 +220,5 @@
       Run
     </button>
     <div class="clear-float"></div>
-
-    <div *ngIf="simulationId" class="message success">
-      Your simulation #{{ simulationId }} was submitted! You can view the status
-      of your simulation at
-      <a [routerLink]="['/simulations', simulationId]">this page</a> or from the
-      <a [routerLink]="['/simulations']">Your simulations page</a>. When your
-      simulation completes, you will able to retrieve and visualize your results
-      from the same page.
-    </div>
   </form>
 </biosimulations-page>

@@ -10,8 +10,9 @@ import { Simulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { combineLatest, Observable } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
-
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 interface SimulatorIdDisabled {
   id: string;
@@ -31,17 +32,17 @@ export class DispatchComponent implements OnInit {
 
   simulatorSpecsMap: SimulatorSpecsMap | undefined = undefined;
 
-  simulationId: string | undefined = undefined;
-
   exampleCombineArchiveUrl: string;
   exampleCombineArchivesUrl: string;
 
   constructor(
     private config: ConfigService,
     private route: ActivatedRoute,
+    private router: Router,
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
     private simulationService: SimulationService,
+    private snackBar: MatSnackBar,
   ) {
     this.formGroup = this.formBuilder.group({
       projectFile: [''],
@@ -216,9 +217,8 @@ export class DispatchComponent implements OnInit {
       this.formGroup.controls.projectUrl.updateValueAndValidity();
     }
   }
-  onFormSubmit() {
-    this.simulationId = undefined;
 
+  onFormSubmit() {
     if (!this.formGroup.valid) {
       return;
     }
@@ -269,8 +269,6 @@ export class DispatchComponent implements OnInit {
   ): void {
     const simulationId = data['id'];
 
-    this.simulationId = simulationId;
-
     const simulation: Simulation = {
       id: simulationId,
       name: name,
@@ -284,7 +282,20 @@ export class DispatchComponent implements OnInit {
       updated: new Date(),
     };
     this.simulationService.storeNewLocalSimulation(simulation);
+
+    this.router.navigate(['/simulations', simulationId]);
+
+    this.snackBar.open((
+      `Your simulation was submitted. `
+      + 'You can view the status of your simulation at this page '
+      + 'or from the "Your simulations page". '
+      + 'When your simulation completes, you will be able to '
+      + 'retrieve and visualize its results here.'
+      ), undefined, {
+      duration: 10000,
+    });
   }
+
   onSimulatorChange($event: any) {
     if (this.simulatorSpecsMap !== undefined) {
       this.simulatorVersions = this.simulatorSpecsMap[$event.value].versions;
