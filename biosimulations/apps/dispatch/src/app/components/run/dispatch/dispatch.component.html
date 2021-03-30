@@ -195,8 +195,8 @@
 
       <mat-error *ngIf="coresControl.hasError('min')">Jobs must request at least 1 core.</mat-error>
       <mat-error *ngIf="coresControl.hasError('max')">Jobs are limited to 24 cores.</mat-error>
-      <mat-error *ngIf="ramControlGb.hasError('min')">Jobs must request at least 1 GB RAM.</mat-error>
-      <mat-error *ngIf="ramControlGb.hasError('max')">Jobs are limited to 192 GB RAM.</mat-error>
+      <mat-error *ngIf="ramGbControl.hasError('min')">Jobs must request at least 1 GB RAM.</mat-error>
+      <mat-error *ngIf="ramGbControl.hasError('max')">Jobs are limited to 192 GB RAM.</mat-error>
       <mat-error *ngIf="walltimeMinControl.hasError('min')">Jobs must request at least 1 minute.</mat-error>
       <mat-error *ngIf="walltimeMinControl.hasError('max')">Jobs are limited to 20 days.</mat-error>
     </div>
