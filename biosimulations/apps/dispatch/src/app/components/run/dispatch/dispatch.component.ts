@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import {
   DispatchService,
   SimulatorSpecsMap,
@@ -19,14 +19,26 @@ interface SimulatorIdDisabled {
   disabled: boolean;
 }
 
+enum SubmitMethod {
+  file = 'file',
+  url = 'url',
+}
+
 @Component({
   selector: 'biosimulations-dispatch',
   templateUrl: './dispatch.component.html',
   styleUrls: ['./dispatch.component.scss'],
 })
 export class DispatchComponent implements OnInit {
-  submitMethod: 'file' | 'url' = 'file';
+  submitMethod: SubmitMethod = SubmitMethod.file;
   formGroup: FormGroup;
+  emailControl: FormControl;
+  projectFileControl: FormControl;
+  projectUrlControl: FormControl;
+  simulatorControl: FormControl;
+  simulatorVersionControl: FormControl;
+  nameControl: FormControl;
+
   simulators: SimulatorIdDisabled[] = [];
   simulatorVersions: string[] = [];
 
@@ -44,15 +56,28 @@ export class DispatchComponent implements OnInit {
     private simulationService: SimulationService,
     private snackBar: MatSnackBar,
   ) {
-    this.formGroup = this.formBuilder.group({
-      projectFile: [''],
-      projectUrl: [''],
-      submitMethod: [this.submitMethod],
-      simulator: ['', [Validators.required]],
-      simulatorVersion: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      email: ['', [Validators.email]],
-    });
+    this.formGroup = this.formBuilder.group(
+      {
+        submitMethod: [this.submitMethod],
+        projectFile: [''],
+        projectUrl: [''],        
+        simulator: ['', [Validators.required]],
+        simulatorVersion: ['', [Validators.required]],
+        name: ['', [Validators.required]],
+        email: ['', [Validators.email]],
+        emailConsent: [false],
+      },
+      { 
+        validators: this.formValidator,
+      },
+    );
+
+    this.projectFileControl = this.formGroup.controls.projectFile as FormControl;
+    this.projectUrlControl = this.formGroup.controls.projectUrl as FormControl;
+    this.simulatorControl = this.formGroup.controls.simulator as FormControl;
+    this.simulatorVersionControl = this.formGroup.controls.simulatorVersion as FormControl;
+    this.nameControl = this.formGroup.controls.name as FormControl;
+    this.emailControl = this.formGroup.controls.email as FormControl;
 
     this.exampleCombineArchivesUrl =
       'https://github.com/' +
@@ -71,6 +96,33 @@ export class DispatchComponent implements OnInit {
       '/' +
       this.config.appConfig.exampleCombineArchives.repoPath +
       this.config.appConfig.exampleCombineArchives.examplePath;
+  }
+
+  formValidator(formGroup: FormGroup): ValidationErrors | null {
+    const errors: ValidationErrors = {};
+
+    if (formGroup.value.submitMethod == SubmitMethod.file) {
+      if (!formGroup.value.projectFile) {
+        errors['noProjectFile'] = true;
+      }
+    } else {
+      if (!formGroup.value.projectUrl) {
+        errors['noProjectUrl'] = true;
+      }
+    }
+
+    const email = formGroup.controls.email as FormControl;
+    const emailConsent = formGroup.controls.emailConsent as FormControl;
+
+    if (email.value && !email.hasError('email') && !emailConsent.value) {
+      errors['emailNotConsented'] = true;
+    }
+
+    if (Object.keys(errors).length) {
+      return errors;
+    } else {
+      return null;
+    }
   }
 
   ngOnInit(): void {
@@ -102,8 +154,8 @@ export class DispatchComponent implements OnInit {
       // process query arguments
       const projectUrl = params?.projectUrl;
       if (projectUrl) {
-        this.formGroup.controls.submitMethod.setValue('url');
-        this.toggleSubmitMethod('url')
+        this.formGroup.controls.submitMethod.setValue(SubmitMethod.url);
+        this.toggleSubmitMethod(SubmitMethod.url)
         this.formGroup.controls.projectUrl.setValue(projectUrl);
       }
 
@@ -203,9 +255,9 @@ export class DispatchComponent implements OnInit {
     return aArr.every((val, index) => val === bArr[index]);
   }
 
-  toggleSubmitMethod(method: 'file' | 'url') {
+  toggleSubmitMethod(method: SubmitMethod) {
     this.submitMethod = method;
-    if (method == 'file') {
+    if (method == SubmitMethod.file) {
       this.formGroup.controls.projectFile.enable();
       this.formGroup.controls.projectFile.setValidators(Validators.required);
       this.formGroup.controls.projectFile.updateValueAndValidity();
@@ -229,7 +281,7 @@ export class DispatchComponent implements OnInit {
     const email: string | null = this.formGroup.value.email || null;
 
     let simulationResponse: Observable<SimulationRun>;
-    if (this.submitMethod == 'file') {
+    if (this.submitMethod == SubmitMethod.file) {
       const projectFile: File = this.formGroup.value.projectFile;
 
       simulationResponse = this.dispatchService.submitJob(

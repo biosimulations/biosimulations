@@ -48,6 +48,7 @@
           Information about obtaining or creating SED-ML files and COMBINE/OMEX archives is available in the <a [routerLink]="['/help']">help</a>. This includes recommendations for software tools.
         </p>
       </mat-hint>
+      <mat-error *ngIf="formGroup.hasError('noProjectFile')">Please select a file.</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" *ngIf="submitMethod === 'url'">
@@ -87,6 +88,7 @@
           >.
         </p>
       </mat-hint>
+      <mat-error *ngIf="formGroup.hasError('noProjectUrl')">Please enter a URL.</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -142,6 +144,7 @@
           executing your archive.
         </p>
       </mat-hint>
+      <mat-error *ngIf="simulatorControl.hasError('required')">Please select a simulator.</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -167,6 +170,7 @@
         ></a>
         for information about each version of each simulation tool.
       </mat-hint>
+      <mat-error *ngIf="simulatorVersionControl.hasError('required')">Please select a version.</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -185,6 +189,7 @@
         projects, this name will help you identify this project among all of
         your projects.
       </mat-hint>
+      <mat-error *ngIf="nameControl.hasError('required')">Please enter a name for your project.</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -196,12 +201,24 @@
       />
       <biosimulations-icon icon="email" matPrefix></biosimulations-icon>
       <mat-hint
-        >Optionally, enter your email address to receive notification of the
+        ><p>Optionally, enter your email address to receive notification of the
         completion of your simulation. After submitting your simulation, you
         will also receive a URL where you will be able to check the status of
-        your simulation and retrieve its results.
+        your simulation and retrieve its results.</p>
       </mat-hint>
+       <mat-error *ngIf="emailControl.hasError('email')">Please enter a valid email address.</mat-error>
     </mat-form-field>
+
+    <div>
+      <mat-checkbox
+        formControlName="emailConsent" *ngIf="emailControl.value && !emailControl.hasError('email')"
+        [disableRipple]="true"
+        color="primary"
+      >
+        I consent to receiving an email notification about the completion of my simulation.
+      </mat-checkbox>
+      <mat-error *ngIf="formGroup.hasError('emailNotConsented')">You must consent to receiving email notifications.</mat-error>
+    </div>
 
     <button
       mat-flat-button

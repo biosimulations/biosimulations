@@ -329,6 +329,10 @@ biosimulations-root {
     font-size: 125%;
     line-height: 1.3;
   }
+
+  .mat-checkbox-ripple {
+    display: none;
+  }
 }
 
 .cdk-overlay-container {
