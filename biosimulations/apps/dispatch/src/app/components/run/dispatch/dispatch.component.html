@@ -1,41 +1,51 @@
 <biosimulations-page heading="Run a simulation project">
   <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
-    <mat-form-field appearance="fill">
-      <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
-      <mat-label>Select a method for providing a simulation project (COMBINE/OMEX file)</mat-label>
-      <mat-select
-        [value]="submitMethod"
-        (selectionChange)="toggleSubmitMethod($event.value)"
-        required
-        formControlName="submitMethod"
-      >
-        <mat-option value="file">Upload a local file</mat-option>
-        <mat-option value="url">Enter a URL for a file</mat-option>
-      </mat-select>
+    <div class="form-field-group">
+      <div class="columns two-columns">
+        <mat-form-field appearance="fill">
+          <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
+          <mat-label>Select a method for providing a simulation project (COMBINE/OMEX file)</mat-label>
+          <mat-select
+            [value]="submitMethod"
+            (selectionChange)="toggleSubmitMethod($event.value)"
+            required
+            formControlName="submitMethod"
+          >
+            <mat-option value="file">Upload a local file</mat-option>
+            <mat-option value="url">Enter a URL for a file</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="submitMethod === 'file'">
+          <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
+          <mat-label>Select a simulation project (COMBINE/OMEX file)</mat-label>
+          <ngx-mat-file-input
+            formControlName="projectFile"
+            accept=".omex"
+            [multiple]="false"
+            [required]="submitMethod === 'file'"
+            placeholder="COMBINE/OMEX file"
+          ></ngx-mat-file-input>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="submitMethod === 'url'">
+          <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
+          <mat-label>Enter a URL for a COMBINE/OMEX archive</mat-label>
+          <input
+            [required]="submitMethod === 'url'"
+            matInput
+            formControlName="projectUrl"
+            [placeholder]="exampleCombineArchiveUrl"
+          />
+        </mat-form-field>
+      </div>
+
       <mat-hint>
         <p>
-          Select a method for providing a COMBINE/OMEX archive. COMBINE/OMEX files can either be uploaded
-          for your local computer or loaded from a publicly-accessible URL.
-        </p>
-      </mat-hint>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" *ngIf="submitMethod === 'file'">
-      <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
-      <mat-label>Select a simulation project (COMBINE/OMEX file)</mat-label>
-      <ngx-mat-file-input
-        formControlName="projectFile"
-        accept=".omex"
-        [multiple]="false"
-        [required]="submitMethod === 'file'"
-        placeholder="COMBINE/OMEX file"
-      ></ngx-mat-file-input>
-
-      <mat-hint>
-        <p>
-          Select a COMBINE/OMEX archive file which describes one or more
+          Select a method for providing a COMBINE/OMEX archive which describes one or more
           simulations (e.g., in SED-ML format) of one or more models (e.g., in
-          BNGL, SBML formats).
+          BNGL, SBML formats). COMBINE/OMEX files can either be uploaded
+          for your local computer or loaded from a publicly-accessible URL.
         </p>
 
         <p>
@@ -49,69 +59,53 @@
         </p>
       </mat-hint>
       <mat-error *ngIf="formGroup.hasError('noProjectFile')">Please select a file.</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" *ngIf="submitMethod === 'url'">
-      <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
-      <mat-label>Enter a URL for a COMBINE/OMEX archive</mat-label>
-      <input
-        [required]="submitMethod === 'url'"
-        matInput
-        formControlName="projectUrl"
-        [placeholder]="exampleCombineArchiveUrl"
-      />
-
-      <mat-hint>
-        <p>
-          Enter URL for a COMBINE/OMEX archive file which describes one or more
-          simulations (e.g., in SED-ML format) of one or more models (e.g., in
-          BNGL, SBML formats).
-        </p>
-
-        <p>
-          An example archive which can be executed by VCell is available here
-          <a [href]="exampleCombineArchiveUrl"
-            ><biosimulations-icon icon="download"></biosimulations-icon></a
-          >. Additional examples are available here
-          <a [href]="exampleCombineArchivesUrl" target="_blank"
-            ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >.
-        </p>
-
-        <p>
-          More information about COMBINE/OMEX archives is available at
-          <a
-            href="https://combinearchive.org/"
-            target="_blank"
-            rel="noreferrer noopener"
-            >https://combinearchive.org</a
-          >.
-        </p>
-      </mat-hint>
       <mat-error *ngIf="formGroup.hasError('noProjectUrl')">Please enter a URL.</mat-error>
-    </mat-form-field>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Select a simulation tool</mat-label>
-      <mat-select
-        formControlName="simulator"
-        disableOptionCentering
-        placeholder="COPASI"
-        (selectionChange)="onSimulatorChange($event)"
-        required
-      >
-        <mat-option
-          *ngFor="let simulator of simulators"
-          [value]="simulator.id"
-          [disabled]="simulator.disabled"
-        >
-          {{ simulator.id }}
-        </mat-option>
-      </mat-select>
-      <biosimulations-icon icon="simulator" matPrefix></biosimulations-icon>
+    <div class="form-field-group">
+      <div class="columns two-columns">
+        <mat-form-field appearance="fill">
+          <mat-label>Select a simulation tool</mat-label>
+          <mat-select
+            formControlName="simulator"
+            disableOptionCentering
+            placeholder="COPASI"
+            (selectionChange)="onSimulatorChange($event)"
+            required
+          >
+            <mat-option
+              *ngFor="let simulator of simulators"
+              [value]="simulator.id"
+              [disabled]="simulator.disabled"
+            >
+              {{ simulator.id }}
+            </mat-option>
+          </mat-select>
+          <biosimulations-icon icon="simulator" matPrefix></biosimulations-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Select a version of the simulation tool</mat-label>
+          <mat-select
+            formControlName="simulatorVersion"
+            disableOptionCentering
+            placeholder="latest"
+            required
+          >
+            <mat-option
+              *ngFor="let simulatorVersion of simulatorVersions"
+              [value]="simulatorVersion"
+            >
+              {{ simulatorVersion }}
+            </mat-option>
+          </mat-select>
+          <biosimulations-icon icon="version" matPrefix></biosimulations-icon>
+        </mat-form-field>
+      </div>
+
       <mat-hint>
         <p>
-          Select a simulation tool which is capable of executing your archive.
+          Select a simulation tool which is capable of executing your archive and a version of that tool.
           This tool must support all of the modeling frameworks (e.g., logical,
           FBA, kinetic), simulation algorithms (e.g., ODE, SSA), and model
           formats (e.g., BNGL, SED-ML) involved in your archive.
@@ -145,33 +139,67 @@
         </p>
       </mat-hint>
       <mat-error *ngIf="simulatorControl.hasError('required')">Please select a simulator.</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Select a version of the simulation tool</mat-label>
-      <mat-select
-        formControlName="simulatorVersion"
-        disableOptionCentering
-        placeholder="latest"
-        required
-      >
-        <mat-option
-          *ngFor="let simulatorVersion of simulatorVersions"
-          [value]="simulatorVersion"
-        >
-          {{ simulatorVersion }}
-        </mat-option>
-      </mat-select>
-      <biosimulations-icon icon="version" matPrefix></biosimulations-icon>
-      <mat-hint
-        >See BioSimulators
-        <a href="https://biosimulators.org" target="_blank"
-          ><biosimulations-icon icon="link"></biosimulations-icon
-        ></a>
-        for information about each version of each simulation tool.
-      </mat-hint>
       <mat-error *ngIf="simulatorVersionControl.hasError('required')">Please select a version.</mat-error>
-    </mat-form-field>
+    </div>
+
+    <div class="form-field-group">
+      <div class="columns three-columns">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter the cores needed for your project</mat-label>
+            <input
+              matInput
+              formControlName="cores"
+              type="number"
+              min="1"
+              max="24"
+              step="1"
+              required
+            />
+            <span matSuffix>cores</span>
+          <biosimulations-icon icon="simulator" matPrefix></biosimulations-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Enter the RAM needed for your project</mat-label>
+           <input
+              matInput
+              formControlName="ramGb"
+              type="number"
+              min="1"
+              max="192"
+              step="1"
+              required
+            />
+            <span matSuffix>GB</span>
+          <biosimulations-icon icon="processor" matPrefix></biosimulations-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Enter the walltime needed for your project</mat-label>
+           <input
+              matInput
+              formControlName="walltimeMin"
+              type="number"
+              min="1"
+              max="28800"
+              step="1"
+              required
+            />
+            <span matSuffix>min</span>
+          <biosimulations-icon icon="duration" matPrefix></biosimulations-icon>
+        </mat-form-field>
+      </div>
+
+      <mat-hint>Configure the amount of resources needed to execute your project. Currently, users can request up to 24 cores, 192 GB RAM, and 20 days. if additional resources are needed, please contact the runBioSimulations Team <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> to discuss additional options.
+      </mat-hint>
+
+      <mat-error *ngIf="coresControl.hasError('min')">Jobs must request at least 1 core.</mat-error>
+      <mat-error *ngIf="coresControl.hasError('max')">Jobs are limited to 24 cores.</mat-error>
+      <mat-error *ngIf="ramControlGb.hasError('min')">Jobs must request at least 1 GB RAM.</mat-error>
+      <mat-error *ngIf="ramControlGb.hasError('max')">Jobs are limited to 192 GB RAM.</mat-error>
+      <mat-error *ngIf="walltimeMinControl.hasError('min')">Jobs must request at least 1 minute.</mat-error>
+      <mat-error *ngIf="walltimeMinControl.hasError('max')">Jobs are limited to 20 days.</mat-error>
+    </div>
 
     <mat-form-field appearance="fill">
       <mat-label

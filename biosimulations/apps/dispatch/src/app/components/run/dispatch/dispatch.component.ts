@@ -37,6 +37,9 @@ export class DispatchComponent implements OnInit {
   projectUrlControl: FormControl;
   simulatorControl: FormControl;
   simulatorVersionControl: FormControl;
+  coresControl: FormControl;
+  ramGbControl: FormControl;
+  walltimeMinControl: FormControl;
   nameControl: FormControl;
 
   simulators: SimulatorIdDisabled[] = [];
@@ -46,6 +49,8 @@ export class DispatchComponent implements OnInit {
 
   exampleCombineArchiveUrl: string;
   exampleCombineArchivesUrl: string;
+
+  emailUrl!: string;
 
   constructor(
     private config: ConfigService,
@@ -60,14 +65,17 @@ export class DispatchComponent implements OnInit {
       {
         submitMethod: [this.submitMethod],
         projectFile: [''],
-        projectUrl: [''],        
+        projectUrl: [''],
         simulator: ['', [Validators.required]],
         simulatorVersion: ['', [Validators.required]],
+        cores: [1, [Validators.required, Validators.min(1), Validators.max(24)]],
+        ramGb: [8, [Validators.required, Validators.min(1), Validators.max(192)]],
+        walltimeMin: [20, [Validators.required, Validators.min(1), Validators.max(20 * 24 * 60)]],
         name: ['', [Validators.required]],
         email: ['', [Validators.email]],
         emailConsent: [false],
       },
-      { 
+      {
         validators: this.formValidator,
       },
     );
@@ -76,6 +84,9 @@ export class DispatchComponent implements OnInit {
     this.projectUrlControl = this.formGroup.controls.projectUrl as FormControl;
     this.simulatorControl = this.formGroup.controls.simulator as FormControl;
     this.simulatorVersionControl = this.formGroup.controls.simulatorVersion as FormControl;
+    this.coresControl = this.formGroup.controls.cores as FormControl;
+    this.ramGbControl = this.formGroup.controls.ramGb as FormControl;
+    this.walltimeMinControl = this.formGroup.controls.walltimeMin as FormControl;
     this.nameControl = this.formGroup.controls.name as FormControl;
     this.emailControl = this.formGroup.controls.email as FormControl;
 
@@ -96,6 +107,7 @@ export class DispatchComponent implements OnInit {
       '/' +
       this.config.appConfig.exampleCombineArchives.repoPath +
       this.config.appConfig.exampleCombineArchives.examplePath;
+    this.emailUrl = 'mailto:' + config.email;
   }
 
   formValidator(formGroup: FormGroup): ValidationErrors | null {
@@ -277,8 +289,11 @@ export class DispatchComponent implements OnInit {
 
     const simulator: string = this.formGroup.value.simulator;
     const simulatorVersion: string = this.formGroup.value.simulatorVersion;
+    const cores: number = this.formGroup.value.cores;
+    const ramGb: number = this.formGroup.value.ramGb;
+    const walltimeMin: number = this.formGroup.value.walltimeMin;
     const name: string = this.formGroup.value.name;
-    const email: string | null = this.formGroup.value.email || null;
+    const email: string | null = this.formGroup.value.email || null;    
 
     let simulationResponse: Observable<SimulationRun>;
     if (this.submitMethod == SubmitMethod.file) {
@@ -288,6 +303,9 @@ export class DispatchComponent implements OnInit {
         projectFile,
         simulator,
         simulatorVersion,
+        cores,
+        ramGb,
+        walltimeMin,
         name,
         email,
       );
@@ -297,6 +315,9 @@ export class DispatchComponent implements OnInit {
         projectUrl,
         simulator,
         simulatorVersion,
+        cores,
+        ramGb,
+        walltimeMin,
         name,
         email,
       );

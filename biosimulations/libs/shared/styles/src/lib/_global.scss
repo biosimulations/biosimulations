@@ -271,6 +271,7 @@ biosimulations-root {
       padding: 0.4em;
       background-color: $light-bg-darker-5;
       align-items: center;
+      height: 41.5px;
     }
 
     .mat-form-field-infix {
@@ -284,7 +285,7 @@ biosimulations-root {
 
     .mat-form-field-subscript-wrapper {
       margin-top: 0;
-      padding-top: 0.5rem;
+      padding: 0.4em 0.4em 0 0.4em;
       border-top: 1px solid rgba(0, 0, 0, 0.42);
       position: unset;
     }
@@ -303,6 +304,12 @@ biosimulations-root {
       color: rgba(0, 0, 0, 0.7);
       line-height: 0;
     }
+  }
+
+  .mat-form-field-suffix {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
   }
 
   .ngx-mat-file-input {

@@ -39,9 +39,13 @@ export class DispatchService {
     url: string,
     simulator: string,
     simulatorVersion: string,
+    cores: number,
+    ramGb: number,
+    walltimeMin: number,
     name: string,
     email: string | null,
   ): Observable<SimulationRun> {
+    /* Todo: send cores, RAM, walltime info to simulation system */
     const body: UploadSimulationRunUrl = {
       url,
       name,
@@ -58,11 +62,15 @@ export class DispatchService {
     fileToUpload: File,
     simulator: string,
     simulatorVersion: string,
+    cores: number,
+    ramGb: number,
+    walltimeMin: number,
     name: string,
     email: string | null,
   ): Observable<SimulationRun> {
     const formData = new FormData();
 
+    /* Todo: send cores, RAM, walltime info to simulation system */
     const run: UploadSimulationRun = {
       name: name,
       email: email,

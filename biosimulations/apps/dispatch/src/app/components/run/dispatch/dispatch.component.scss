@@ -4,6 +4,39 @@ button {
   float: right;
 }
 
+.form-field-group {
+  padding-bottom: 1.34375em;
+
+  .columns {
+    display: grid;
+    grid-column-gap: 1.34375em;
+  }
+
+  .two-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .three-columns {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  ::ng-deep .mat-form-field-subscript-wrapper {
+    padding-top: 0;
+  }
+
+  mat-hint, mat-error {
+    padding-top: 0.4em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+    font-size: 93.75%;
+    display: block;
+  }
+}
+
 .message {
   margin-top: 1rem;
 
