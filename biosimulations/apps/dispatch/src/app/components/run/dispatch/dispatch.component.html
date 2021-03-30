@@ -1,4 +1,4 @@
-<biosimulations-page heading="Run a simulation project" maxWidth="800px">
+<biosimulations-page heading="Run a simulation project">
   <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
     <mat-form-field appearance="fill">
       <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
@@ -42,20 +42,14 @@
           An example archive which can be executed by VCell is available here
           <a [href]="exampleCombineArchiveUrl"
             ><biosimulations-icon icon="download"></biosimulations-icon></a
-          >. Additional examples are available in the BioSimulators test suite
+          >. Additional examples are available here
           <a [href]="exampleCombineArchivesUrl" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >.
         </p>
 
         <p>
-          More information about COMBINE/OMEX archives is available at
-          <a
-            href="https://combinearchive.org/"
-            target="_blank"
-            rel="noreferrer noopener"
-            >https://combinearchive.org</a
-          >.
+          Information about obtaining or creating SED-ML files and COMBINE/OMEX archives is available in the <a [routerLink]="['/help']">help</a>. This includes recommendations for software tools.
         </p>
       </mat-hint>
     </mat-form-field>
@@ -81,7 +75,7 @@
           An example archive which can be executed by VCell is available here
           <a [href]="exampleCombineArchiveUrl"
             ><biosimulations-icon icon="download"></biosimulations-icon></a
-          >. Additional examples are available in the BioSimulators test suite
+          >. Additional examples are available here
           <a [href]="exampleCombineArchivesUrl" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >.
