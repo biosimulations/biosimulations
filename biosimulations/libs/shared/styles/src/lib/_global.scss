@@ -811,3 +811,8 @@ a.status-label {
 .mat-simple-snackbar {
   text-align: center;
 }
+
+/* superscripts, subscripts */
+sup, sub {
+  line-height: 0;
+}
