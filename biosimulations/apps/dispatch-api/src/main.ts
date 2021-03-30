@@ -42,6 +42,7 @@ async function bootstrap() {
       'https://biosimulations.org',
       'https://run.biosimulations.dev',
       'https://run.biosimulations.org',
+      'https://bio.libretexts.org',
     ];
     const allow = allowedOrigins.includes(requestOrigin);
     const error = null;
