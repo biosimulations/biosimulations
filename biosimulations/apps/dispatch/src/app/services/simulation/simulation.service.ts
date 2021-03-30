@@ -274,12 +274,15 @@ export class SimulationService {
    * Add a simulation to the http cache
    * @param simulation
    */
-  public addSimulation(simulation: Simulation): void {
+  public addSimulation(simulation: Simulation): boolean {
     if (!(simulation.id in this.simulationsMap$)) {
       const simSubject = new BehaviorSubject(simulation);
       this.simulationsMap$[simulation.id] = simSubject;
       this.simulationsMapSubject.next(this.simulationsMap$);
       this.updateSimulation(simulation.id);
+      return true;
+    } else {
+      return false;
     }
   }
 

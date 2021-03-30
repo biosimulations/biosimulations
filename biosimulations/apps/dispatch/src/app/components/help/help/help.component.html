@@ -51,6 +51,15 @@
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
+      heading="Executing a set of example simulation projects"
+      tocSection="Trying runBioSimulations"
+    >
+      Click <a [routerLink]="['/simulations']" [queryParams]="{try: '1'}">here</a> to load several example simulation projects (COMBINE/OMEX files) from the BioSimulators test suite <a [href]="exampleCombineArchivesUrl" target="_blank"
+        ><biosimulations-icon icon="link"></biosimulations-icon></a
+      >. These simulation projects are verified to be compatible with runBioSimulations. The BioSimulators test suite describes the specific simulation tools that are compatible with each example project.
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
       heading="Obtaining or creating COMBINE/OMEX files that describe modeling projects"
       tocSection="Obtaining or creating modeling projects"
     >

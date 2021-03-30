@@ -21,8 +21,18 @@ export class FaqComponent {
   }
 
   emailUrl!: string;
+  exampleCombineArchivesUrl!: string;
   
   constructor(public config: ConfigService) {
     this.emailUrl = 'mailto:' + config.email;
+
+    this.exampleCombineArchivesUrl =
+      'https://github.com/' +
+      this.config.appConfig.exampleCombineArchives.repoOwnerName +
+      '/tree' +
+      '/' +
+      this.config.appConfig.exampleCombineArchives.repoRef +
+      '/' +
+      config.appConfig.exampleCombineArchives.repoPath;
   }
 }

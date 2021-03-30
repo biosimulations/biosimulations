@@ -90,6 +90,14 @@
       </biosimulations-q-a>
 
       <biosimulations-q-a
+        heading="How can I quickly run a sample set of simulations?"
+      >
+        Click <a [routerLink]="['/simulations']" [queryParams]="{try: '1'}">here</a> to load several example simulation projects from the BioSimulators test suite <a [href]="exampleCombineArchivesUrl" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
         heading="Which simulation algorithms does runBioSimulations support?"
       >
         runBioSimulations uses the BioSimulators collection of simulation tools

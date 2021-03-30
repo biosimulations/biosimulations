@@ -27,6 +27,14 @@
 
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
+          heading="Try simulations"
+          icon="experiment"
+          [routerLink]="['/simulations']"
+          [queryParams]="{try: '1'}"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
           heading="Tutorial"
           icon="tutorial"
           [routerLink]="['/help']"
@@ -80,6 +88,13 @@
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item heading="Help" icon="help">
+      <biosimulations-navigation-subitem
+        heading="Try simulations"
+        icon="experiment"
+        [route]="['/simulations']"
+        [queryParams]="{try: '1'}"
+      >
+      </biosimulations-navigation-subitem>
       <biosimulations-navigation-subitem
         heading="Tutorial"
         icon="tutorial"

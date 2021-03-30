@@ -20,5 +20,16 @@ export class HelpComponent {
     });
   }
 
-  constructor(public config: ConfigService) {}
+  exampleCombineArchivesUrl!: string;
+
+  constructor(public config: ConfigService) {
+    this.exampleCombineArchivesUrl =
+      'https://github.com/' +
+      this.config.appConfig.exampleCombineArchives.repoOwnerName +
+      '/tree' +
+      '/' +
+      this.config.appConfig.exampleCombineArchives.repoRef +
+      '/' +
+      config.appConfig.exampleCombineArchives.repoPath;
+  }
 }

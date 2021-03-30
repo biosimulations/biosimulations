@@ -39,11 +39,7 @@
         </p>
 
         <p>
-          An example archive which can be executed by VCell is available here
-          <a [href]="exampleCombineArchiveUrl"
-            ><biosimulations-icon icon="download"></biosimulations-icon></a
-          >. Additional examples are available here
-          <a [href]="exampleCombineArchivesUrl" target="_blank"
+          Click <a [routerLink]="['/simulations']" [queryParams]="{try: '1'}">here</a> to load several example simulation projects from the BioSimulators test suite <a [href]="exampleCombineArchivesUrl" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >.
         </p>
