@@ -4,23 +4,24 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 import { TaskMap } from '../../datamodel';
+import { SimulationRunReport, SimulationRunReportData } from '@biosimulations/dispatch/api-models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VisualizationService {
   private resultsEndpoint = `${urls.dispatchApi}results`;
-  constructor(private http: HttpClient) {}
+  public constructor(private http: HttpClient) {}
 
-  getReport(uuid: string, sedml: string, report: string) {
+  public getReport(uuid: string, sedml: string, report: string): Observable<SimulationRunReportData>  {
     report = encodeURIComponent(sedml + '/' + report);
     // TODO: Save the data to localstorage, return from local storage if exists, if not return obeservable to request
     return this.http
-      .get(`${this.resultsEndpoint}/${uuid}/${report}?sparse=false`)
-      .pipe(map((x: any) => x.data));
+      .get<SimulationRunReport>(`${this.resultsEndpoint}/${uuid}/${report}?sparse=false`)
+      .pipe(map((x) => x.data));
   }
 
-  getResultStructure(uuid: string): Observable<TaskMap> {
+  public getResultStructure(uuid: string): Observable<TaskMap> {
     return this.http.get(`${this.resultsEndpoint}/${uuid}?sparse=true`).pipe(
       // tap((x) => console.log(x)),
       map((result: any) => result.reports),
