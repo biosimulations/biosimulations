@@ -31,7 +31,7 @@ import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
 import { ConfigService } from '@biosimulations/shared/services';
 import { BehaviorSubject, Observable, of, Subscription, forkJoin } from 'rxjs';
-import { concatAll, map, shareReplay, tap } from 'rxjs/operators';
+import { concatAll, map, shareReplay } from 'rxjs/operators';
 import {
   AxisLabelType,
   AXIS_LABEL_TYPES,
@@ -43,13 +43,11 @@ import {
   SCATTER_TRACE_MODEL_LABELS,
 } from './view.model';
 import { ViewService } from './view.service';
-import { urls } from '@biosimulations/config/common';
 import { HttpClient } from '@angular/common/http';
 import {
   Spec as VegaSpec,
   BaseData as VegaBaseData,
   ValuesData as VegaValuesData,
-  UrlData as VegaUrlData,
   Format as VegaDataFormat,
 } from 'vega';
 import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
