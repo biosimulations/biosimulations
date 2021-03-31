@@ -116,7 +116,7 @@
     "@nrwl/jest": "11.4.0",
     "@nrwl/nest": "11.4.0",
     "@nrwl/node": "11.4.0",
-    "@nrwl/nx-cloud": "11.1.4",
+    "@nrwl/nx-cloud": "11.2.0",
     "@nrwl/tao": "11.4.0",
     "@nrwl/workspace": "11.4.0",
     "@scullyio/init": "^1.1.1",
