@@ -118,7 +118,7 @@
     "@nrwl/node": "11.4.0",
     "@nrwl/nx-cloud": "11.1.4",
     "@nrwl/tao": "11.4.0",
-    "@nrwl/workspace": "11.4.0",
+    "@nrwl/workspace": "11.6.0",
     "@scullyio/init": "^1.1.1",
     "@scullyio/ng-lib": "^1.1.0",
     "@scullyio/scully": "^1.1.0",
