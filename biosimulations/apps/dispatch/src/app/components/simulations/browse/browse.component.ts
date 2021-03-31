@@ -61,6 +61,48 @@ export class BrowseComponent implements OnInit {
       show: false,
     },
     {
+      id: 'cpus',
+      heading: 'CPUs',
+      getter: (simulation: Simulation): number => {
+        return simulation.cpus || 1;
+      },
+      filterType: ColumnFilterType.number,
+      minWidth: 34,
+      show: false,
+    },
+    {
+      id: 'memory',
+      heading: 'RAM',
+      getter: (simulation: Simulation): number => {
+        return simulation.memory || 8;
+      },
+      formatter: (valueGB: number): string => {
+        return valueGB.toFixed(2) + ' GB';
+      },
+      stackedFormatter: (valueGB: number): string => {
+        return valueGB.toFixed(2) + ' GB';
+      },
+      filterType: ColumnFilterType.number,
+      minWidth: 34,
+      show: false,
+    },
+    {
+      id: 'maxTime',
+      heading: 'Max time',
+      getter: (simulation: Simulation): number => {
+        return simulation.maxTime || 20;
+      },
+      formatter: (valueMin: number): string => {
+        return SimulationStatusService.formatTime(null, valueMin * 60) as string;
+      },
+      stackedFormatter: (valueMin: number): string => {
+        return SimulationStatusService.formatTime('N/A', valueMin * 60) as string;
+      },
+      filterType: ColumnFilterType.number,
+      minWidth: 34,
+      show: false,
+    },
+    {
       id: 'status',
       heading: 'Status',
       key: 'status',

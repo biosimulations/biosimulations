@@ -38,6 +38,30 @@
             >
           </td>
         </tr>
+        <tr>
+          <th>
+            <biosimulations-icon icon="processor"></biosimulations-icon>
+          </th>
+          <td>
+            <span class="heading">CPU cores:</span>{{ ' ' }}{{ simulation.cpus }}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <biosimulations-icon icon="memory"></biosimulations-icon>
+          </th>
+          <td>
+            <span class="heading">RAM:</span>{{ ' ' }}{{ simulation.memory }}{{ ' ' }}GB
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <biosimulations-icon icon="duration"></biosimulations-icon>
+          </th>
+          <td>
+            <span class="heading">Max time:</span>{{ ' ' }}{{ simulation.maxTime }}{{ ' ' }}min
+          </td>
+        </tr>
       </table>
 
       <table class="icon-list">

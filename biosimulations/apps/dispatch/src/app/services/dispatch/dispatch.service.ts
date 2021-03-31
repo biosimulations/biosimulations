@@ -39,19 +39,21 @@ export class DispatchService {
     url: string,
     simulator: string,
     simulatorVersion: string,
-    cores: number,
-    ramGb: number,
-    walltimeMin: number,
+    cpus: number,
+    memory: number, // in GB
+    maxTime: number, // in minutes
     name: string,
     email: string | null,
   ): Observable<SimulationRun> {
-    /* Todo: send cores, RAM, walltime info to simulation system */
     const body: UploadSimulationRunUrl = {
       url,
       name,
       email,
       simulator,
       simulatorVersion,
+      cpus,
+      memory,
+      maxTime,
     };
     return this.http.post<SimulationRun>(this.endpoint, body, {
       headers: { 'Content-Type': 'application/json' },
@@ -62,20 +64,22 @@ export class DispatchService {
     fileToUpload: File,
     simulator: string,
     simulatorVersion: string,
-    cores: number,
-    ramGb: number,
-    walltimeMin: number,
+    cpus: number,
+    memory: number, // in GB
+    maxTime: number, // in minutes
     name: string,
     email: string | null,
   ): Observable<SimulationRun> {
     const formData = new FormData();
 
-    /* Todo: send cores, RAM, walltime info to simulation system */
     const run: UploadSimulationRun = {
       name: name,
       email: email,
       simulator,
       simulatorVersion,
+      cpus,
+      memory,
+      maxTime,
     };
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
