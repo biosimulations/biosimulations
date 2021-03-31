@@ -264,6 +264,12 @@ biosimulations-root {
   .mat-form-field {
     display: block;
     letter-spacing: normal;
+
+    &:last-child {
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
+      }
+    }
   }
 
   .mat-form-field-appearance-fill {
@@ -299,7 +305,7 @@ biosimulations-root {
 
   .mat-form-field-prefix {
     biosimulations-icon {
-      font-size: 32px;
+      font-size: 24px;
       margin-right: 0.5rem;
       color: rgba(0, 0, 0, 0.7);
       line-height: 0;
