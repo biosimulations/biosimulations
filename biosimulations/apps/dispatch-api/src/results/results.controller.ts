@@ -1,5 +1,7 @@
 /**
- * @file Provides the controller for HTTP API for the results of Simulation Runs. Get/Download operations are intended for end users. Post/Modification methods are intended for other services/admin/service users.
+ * @file Provides the controller for HTTP API for the results of Simulation Runs.
+ *  Get/Download operations are intended for end users.
+ *  Post/Modification methods are intended for other services/admin/service users.
  * @author Bilal Shaikh
  * @copyright Biosimulations Team, 2020
  * @license MIT
@@ -9,10 +11,12 @@ import {
   PermissionsGuard,
   permissions,
 } from '@biosimulations/auth/nest';
+
 import {
   SimulationRunReport,
+  SimulationRunResults,
   SimulationRunReportData,
-  SimulationRunReportDataSchema,
+  CreateSimulationRunReportSchema,
   SimulationRunReportDataStrings,
 } from '@biosimulations/dispatch/api-models';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
@@ -33,30 +37,37 @@ import {
 import {
   ApiBody,
   ApiCreatedResponse,
-  ApiOAuth2,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
+import { ResultsData, ResultsModel } from './results.model';
+
 import { ResultsService } from './results.service';
 
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
-  constructor(private service: ResultsService) {}
+  public constructor(private service: ResultsService) {}
+
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('read:SimulationRunResults')
-  @ApiOAuth2(['read:SimulationRunResults'])
   @Get()
-  getResults() {
-    return this.service.getResults();
+  public async getResults(): Promise<SimulationRunResults[]> {
+    const results = await this.service.getResults();
+    const reports = results.map(this.convertReport);
+    const allResults = results.map((value) => {
+      return { simId: value.simId, reports: reports };
+    });
+
+    return allResults;
   }
 
   @Get(':simId/download')
-  async downloadResultReport(
+  public async downloadResultReport(
     @Param('simId') simId: string,
     @Res() res: Response,
-  ) {
+  ): Promise<void> {
     const file = await this.service.download(simId);
     res.contentType('application/x-hdf5');
     res.setHeader('Content-Disposition', 'attachment; filename="results.h5"');
@@ -64,37 +75,45 @@ export class ResultsController {
     res.send();
   }
 
+  @Get(':simId')
+  @ApiQuery({ name: 'sparse', type: Boolean })
+  public async getResult(
+    @Param('simId') simId: string,
+    @Query('sparse', ParseBoolPipe) sparse = true,
+  ): Promise<SimulationRunResults> {
+    const reports = await this.service.getResult(simId, sparse);
+    const arrReports = reports.map(this.convertReport, this);
+    return { simId: simId, reports: arrReports };
+  }
+
   @Get(':simId/:reportId')
   @ApiQuery({ name: 'sparse', type: Boolean })
-  getResultReport(
+  public async getResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
     @Query('sparse', ParseBoolPipe) sparse = true,
-  ) {
-    return this.service.getResultReport(simId, reportId, sparse);
-  }
+  ): Promise<SimulationRunReport> {
+    const resultModel = await this.service.getResultReport(
+      simId,
+      reportId,
+      sparse,
+    );
+    const model = this.convertReport(resultModel);
 
-  @Get(':simId')
-  @ApiQuery({ name: 'sparse', type: Boolean })
-  getResult(
-    @Param('simId') simId: string,
-    @Query('sparse', ParseBoolPipe) sparse = true,
-  ) {
-    return this.service.getResult(simId, sparse);
+    return model;
   }
 
   @Post(':simId/:reportId')
-  @ApiBody({ schema: SimulationRunReportDataSchema })
+  @ApiBody({ schema: CreateSimulationRunReportSchema })
   @ApiCreatedResponse({ type: () => SimulationRunReport })
   @permissions('write:Results')
-  @ApiOAuth2(['write:Results'])
-  postResultReport(
+  public async postResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
     @Body()
     data: SimulationRunReportDataStrings,
   ): Promise<SimulationRunReport> {
-    const report: SimulationRunReportData = {};
+    const report: ResultsData = {};
     for (const key of Object.keys(data)) {
       const arr = data[key];
       const firstValue = String(arr[0]).toLowerCase().trim();
@@ -134,32 +153,58 @@ export class ResultsController {
       }
     }
 
-    return this.service.createReport(simId, reportId, report);
+    return this.convertReport(
+      await this.service.createReport(simId, reportId, report),
+    );
   }
 
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('delete:Results')
-  @ApiOAuth2(['delete:Results'])
   @Delete()
-  deleteResults() {
+  public deleteResults(): void {
     return this.service.deleteAll();
   }
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('delete:Results')
-  @ApiOAuth2(['delete:Results'])
   @Delete(':simId')
-  deleteResult(@Param('simId') simId: string) {
+  public deleteResult(@Param('simId') simId: string): void {
     return this.service.delete(simId);
   }
 
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('delete:Results')
-  @ApiOAuth2(['delete:Results'])
-  @Delete(':simId/:resultId')
-  deleteResultReport(
+  @Delete(':simId/:reportId')
+  public deleteResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
-  ) {
+  ): void {
     return this.service.delete(simId);
+  }
+
+  // TODO move this conversion to the write side after parsing hdf files
+  private convertData(
+    data: ResultsData,
+    reportId: string,
+  ): SimulationRunReportData {
+    const dataArr = [];
+    for (const prop in data) {
+      dataArr.push({
+        id: `${reportId}/${prop}`,
+        values: data[prop],
+        label: prop,
+      });
+    }
+    return dataArr;
+  }
+
+  private convertReport(convertReport: ResultsModel): SimulationRunReport {
+    const data = this.convertData(convertReport.data, convertReport.reportId);
+    return {
+      created: convertReport.created,
+      updated: convertReport.updated,
+      simId: convertReport.simId,
+      reportId: convertReport.reportId,
+      data: data,
+    };
   }
 }

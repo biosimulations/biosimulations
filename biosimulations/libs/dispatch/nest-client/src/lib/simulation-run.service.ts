@@ -73,7 +73,6 @@ export class SimulationRunService {
     );
   }
   public async getJob(simId: string): Promise<SimulationRun> {
-    // TODO make enpoint consistent with other (no ending /)
     const token = await this.auth.getToken();
     return this.http
       .get<SimulationRun>(`${this.endpoint}/run/${simId}`, {

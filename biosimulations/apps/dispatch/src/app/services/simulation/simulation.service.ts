@@ -32,7 +32,7 @@ export class SimulationService {
   private storageInitialized = false;
   private simulationsAddedBeforeStorageInitialized: Simulation[] = [];
 
-  constructor(
+  public constructor(
     private config: ConfigService,
     private storage: Storage,
     private httpClient: HttpClient,
@@ -169,7 +169,7 @@ export class SimulationService {
   /**
    * Delete a simulation
    */
-  removeSimulation(id: string): void {
+  public removeSimulation(id: string): void {
     const simulation: Simulation = this.simulationsMap[id];
     const iSimulation = this.simulations.indexOf(simulation);
     this.simulations.splice(iSimulation, 1);
@@ -193,7 +193,7 @@ export class SimulationService {
     this.storeSimulations([]);
   }
 
-  getSimulations(): Observable<Simulation[]> {
+  public getSimulations(): Observable<Simulation[]> {
     return this.simulationsArrSubject.asObservable().pipe(shareReplay(1));
   }
 
