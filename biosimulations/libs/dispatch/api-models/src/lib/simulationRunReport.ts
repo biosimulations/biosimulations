@@ -9,22 +9,36 @@
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
+// TODO RENAME
+export type SimulationRunReportDataArray = SimulationRunReportDatum[];
+
+// TODO REMOVE
 export type SimulationRunReportData =
   | { [key: string]: Array<number> }
   | { [key: string]: Array<boolean> };
-export type SimulationRunReportDatum = {
-  id: string;
-  label: string;
-  values: number[] | boolean[];
-}
-export type SimulationRunReportDataStrings = { [key: string]: Array<string> };
-export const SimulationRunReportDataArraySchema: SchemaObject = {
+
+
+// TODO REMOVE 
+export const SimulationRunReportDataArraySchema: Omit<SchemaObject,'required'> = {
   oneOf: [
     { type: 'array', items: { type: 'number', format: 'float' } },
     { type: 'array', items: { type: 'boolean' } },
   ],
 };
 
+
+export class SimulationRunReportDatum {
+  @ApiProperty({ type: String })
+  public id!: string;
+  @ApiProperty({ type: String })
+  public label!: string;
+  @ApiProperty(SimulationRunReportDataArraySchema)
+  public values: number[] | boolean[] = [];
+}
+
+export type SimulationRunReportDataStrings = { [key: string]: Array<string> };
+
+// TODO REMOVE 
 export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
   type: 'object',
   additionalProperties: SimulationRunReportDataArraySchema,
@@ -34,23 +48,45 @@ export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
   },
 };
 
+// TODO REMOVE 
 export class SimulationRunReport {
   @ApiProperty({ type: String })
-  simId!: string;
+  public simId!: string;
   @ApiProperty({ type: String })
-  reportId!: string;
+  public reportId!: string;
   @ApiProperty(SimulationRunReportDataSchema)
-  data!: SimulationRunReportData;
+  public data!: SimulationRunReportData;
   @ApiResponseProperty({ type: String, format: 'date-time' })
-  created!: Date;
+  public created!: Date;
   @ApiResponseProperty({ type: String, format: 'date-time' })
-  updated!: Date;
+  public updated!: Date;
 }
-
+// TODO RENAME
+export class SimulationRunArrayReport {
+  @ApiProperty({ type: String })
+  public simId!: string;
+  @ApiProperty({ type: String })
+  public reportId!: string;
+  @ApiProperty({ type: () => [SimulationRunReportDatum] })
+  public data!: SimulationRunReportDataArray;
+  @ApiResponseProperty({ type: String, format: 'date-time' })
+  public created!: Date;
+  @ApiResponseProperty({ type: String, format: 'date-time' })
+  public updated!: Date;
+}
+// TODO REMOVE 
 export class SimulationRunResults {
   @ApiResponseProperty({ type: String })
-  simId!: string;
+  public simId!: string;
 
   @ApiResponseProperty({ type: () => [SimulationRunReport] })
-  reports!: SimulationRunReport[];
+  public reports!: SimulationRunReport[];
+}
+// TODO RENAME
+export class SimulationRunArrayResults {
+  @ApiResponseProperty({ type: String })
+  public simId!: string;
+
+  @ApiResponseProperty({ type: () => [SimulationRunArrayReport] })
+  public reports!: SimulationRunArrayReport[];
 }

@@ -1,5 +1,7 @@
 /**
- * @file Provides the controller for HTTP API for the results of Simulation Runs. Get/Download operations are intended for end users. Post/Modification methods are intended for other services/admin/service users.
+ * @file Provides the controller for HTTP API for the results of Simulation Runs.
+ *  Get/Download operations are intended for end users.
+ *  Post/Modification methods are intended for other services/admin/service users.
  * @author Bilal Shaikh
  * @copyright Biosimulations Team, 2020
  * @license MIT
@@ -9,11 +11,13 @@ import {
   PermissionsGuard,
   permissions,
 } from '@biosimulations/auth/nest';
+
 import {
   SimulationRunReport,
   SimulationRunReportData,
   SimulationRunReportDataSchema,
   SimulationRunReportDataStrings,
+  SimulationRunResults,
 } from '@biosimulations/dispatch/api-models';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
@@ -33,30 +37,36 @@ import {
 import {
   ApiBody,
   ApiCreatedResponse,
-  ApiOAuth2,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
+
 import { ResultsService } from './results.service';
 
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
-  constructor(private service: ResultsService) {}
+  public constructor(private service: ResultsService) {}
+
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('read:SimulationRunResults')
-  @ApiOAuth2(['read:SimulationRunResults'])
   @Get()
-  getResults() {
-    return this.service.getResults();
+  public async getResults(): Promise<SimulationRunResults[]> {
+    const results = await this.service.getResults();
+
+    const reports = results.map((value) => {
+      return { simId: value.simId, reports: results };
+    });
+
+    return reports;
   }
 
   @Get(':simId/download')
-  async downloadResultReport(
+  public async downloadResultReport(
     @Param('simId') simId: string,
     @Res() res: Response,
-  ) {
+  ): Promise<void> {
     const file = await this.service.download(simId);
     res.contentType('application/x-hdf5');
     res.setHeader('Content-Disposition', 'attachment; filename="results.h5"');
@@ -66,20 +76,21 @@ export class ResultsController {
 
   @Get(':simId/:reportId')
   @ApiQuery({ name: 'sparse', type: Boolean })
-  getResultReport(
+  public async getResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
     @Query('sparse', ParseBoolPipe) sparse = true,
-  ) {
-    return this.service.getResultReport(simId, reportId, sparse);
+  ): Promise<SimulationRunReport> {
+    const resultModel = this.service.getResultReport(simId, reportId, sparse);
+    return resultModel;
   }
 
   @Get(':simId')
   @ApiQuery({ name: 'sparse', type: Boolean })
-  getResult(
+  public getResult(
     @Param('simId') simId: string,
     @Query('sparse', ParseBoolPipe) sparse = true,
-  ) {
+  ): Promise<SimulationRunResults> {
     return this.service.getResult(simId, sparse);
   }
 
@@ -87,8 +98,7 @@ export class ResultsController {
   @ApiBody({ schema: SimulationRunReportDataSchema })
   @ApiCreatedResponse({ type: () => SimulationRunReport })
   @permissions('write:Results')
-  @ApiOAuth2(['write:Results'])
-  postResultReport(
+  public postResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
     @Body()
@@ -139,27 +149,24 @@ export class ResultsController {
 
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('delete:Results')
-  @ApiOAuth2(['delete:Results'])
   @Delete()
-  deleteResults() {
+  public deleteResults(): void {
     return this.service.deleteAll();
   }
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('delete:Results')
-  @ApiOAuth2(['delete:Results'])
   @Delete(':simId')
-  deleteResult(@Param('simId') simId: string) {
+  public deleteResult(@Param('simId') simId: string): void {
     return this.service.delete(simId);
   }
 
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('delete:Results')
-  @ApiOAuth2(['delete:Results'])
-  @Delete(':simId/:resultId')
-  deleteResultReport(
+  @Delete(':simId/:reportId')
+  public deleteResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
-  ) {
+  ): void {
     return this.service.delete(simId);
   }
 }
