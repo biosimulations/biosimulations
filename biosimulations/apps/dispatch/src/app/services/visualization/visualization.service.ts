@@ -5,8 +5,8 @@ import { map, catchError } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 import { TaskMap } from '../../datamodel';
 import {
-  SimulationRunArrayReport,
-  SimulationRunArrayResults,
+  SimulationRunReport,
+  SimulationRunResults,
   SimulationRunReportDatum,
 } from '@biosimulations/dispatch/api-models';
 
@@ -25,7 +25,7 @@ export class VisualizationService {
     report = encodeURIComponent(sedml + '/' + report);
     // TODO: Save the data to localstorage, return from local storage if exists, if not return obeservable to request
     return this.http
-      .get<SimulationRunArrayReport>(
+      .get<SimulationRunReport>(
         `${this.resultsEndpoint}/${uuid}/${report}?sparse=false`,
       )
       .pipe(map((x) => x.data));
@@ -33,13 +33,11 @@ export class VisualizationService {
 
   public getResultStructure(uuid: string): Observable<TaskMap> {
     return this.http
-      .get<SimulationRunArrayResults>(
-        `${this.resultsEndpoint}/${uuid}?sparse=true`,
-      )
+      .get<SimulationRunResults>(`${this.resultsEndpoint}/${uuid}?sparse=true`)
       .pipe(
-        map((result: SimulationRunArrayResults) => result.reports),
+        map((result: SimulationRunResults) => result.reports),
         map(
-          (reports: SimulationRunArrayReport[]): TaskMap => {
+          (reports: SimulationRunReport[]): TaskMap => {
             const taskNames: string[] = [];
             const taskMap: TaskMap = {};
             reports.forEach((item) => {

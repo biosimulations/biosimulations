@@ -13,10 +13,10 @@ import {
 } from '@biosimulations/auth/nest';
 
 import {
-  SimulationRunArrayReport,
-  SimulationRunArrayResults,
-  SimulationRunReportDataArray,
-  SimulationRunReportDataSchema,
+  SimulationRunReport,
+  SimulationRunResults,
+  SimulationRunReportData,
+  CreateSimulationRunReportSchema,
   SimulationRunReportDataStrings,
 } from '@biosimulations/dispatch/api-models';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
@@ -53,7 +53,7 @@ export class ResultsController {
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('read:SimulationRunResults')
   @Get()
-  public async getResults(): Promise<SimulationRunArrayResults[]> {
+  public async getResults(): Promise<SimulationRunResults[]> {
     const results = await this.service.getResults();
     const reports = results.map(this.convertReport);
     const allResults = results.map((value) => {
@@ -80,7 +80,7 @@ export class ResultsController {
   public async getResult(
     @Param('simId') simId: string,
     @Query('sparse', ParseBoolPipe) sparse = true,
-  ): Promise<SimulationRunArrayResults> {
+  ): Promise<SimulationRunResults> {
     const reports = await this.service.getResult(simId, sparse);
     const arrReports = reports.map(this.convertReport, this);
     return { simId: simId, reports: arrReports };
@@ -92,7 +92,7 @@ export class ResultsController {
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
     @Query('sparse', ParseBoolPipe) sparse = true,
-  ): Promise<SimulationRunArrayReport> {
+  ): Promise<SimulationRunReport> {
     const resultModel = await this.service.getResultReport(
       simId,
       reportId,
@@ -104,15 +104,15 @@ export class ResultsController {
   }
 
   @Post(':simId/:reportId')
-  @ApiBody({ schema: SimulationRunReportDataSchema })
-  @ApiCreatedResponse({ type: () => SimulationRunArrayReport })
+  @ApiBody({ schema: CreateSimulationRunReportSchema })
+  @ApiCreatedResponse({ type: () => SimulationRunReport })
   @permissions('write:Results')
   public async postResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
     @Body()
     data: SimulationRunReportDataStrings,
-  ): Promise<SimulationRunArrayReport> {
+  ): Promise<SimulationRunReport> {
     const report: ResultsData = {};
     for (const key of Object.keys(data)) {
       const arr = data[key];
@@ -185,7 +185,7 @@ export class ResultsController {
   private convertData(
     data: ResultsData,
     reportId: string,
-  ): SimulationRunReportDataArray {
+  ): SimulationRunReportData {
     const dataArr = [];
     for (const prop in data) {
       dataArr.push({
@@ -197,7 +197,7 @@ export class ResultsController {
     return dataArr;
   }
 
-  private convertReport(convertReport: ResultsModel): SimulationRunArrayReport {
+  private convertReport(convertReport: ResultsModel): SimulationRunReport {
     const data = this.convertData(convertReport.data, convertReport.reportId);
     return {
       created: convertReport.created,

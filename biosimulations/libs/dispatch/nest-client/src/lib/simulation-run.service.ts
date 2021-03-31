@@ -2,7 +2,7 @@ import {
   CombineArchiveLog,
   CreateSimulationRunLogBody,
   SimulationRun,
-  SimulationRunArrayReport,
+  SimulationRunReport,
   SimulationRunReportDataStrings,
 } from '@biosimulations/dispatch/api-models';
 import { HttpService, Injectable, Logger } from '@nestjs/common';
@@ -88,11 +88,11 @@ export class SimulationRunService {
     simId: string,
     reportId: string,
     data: SimulationRunReportDataStrings,
-  ): Promise<SimulationRunArrayReport> {
+  ): Promise<SimulationRunReport> {
     const token = await this.auth.getToken();
 
     return this.http
-      .post<SimulationRunArrayReport>(
+      .post<SimulationRunReport>(
         `${this.endpoint}results/${simId}/${reportId}`,
         data,
         {
