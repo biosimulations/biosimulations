@@ -9,7 +9,6 @@
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
-// TODO RENAME
 export type SimulationRunReportData = SimulationRunReportDatum[];
 
 export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
