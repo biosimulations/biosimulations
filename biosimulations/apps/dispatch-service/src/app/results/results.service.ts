@@ -85,7 +85,6 @@ export class ResultsService {
 
       return resultObject;
     } catch (error) {
-      // TODO handle error
       this.logger.error('ERROR reading results file');
       this.logger.error(file);
       this.logger.error(error);

@@ -10,13 +10,13 @@ import {
   ObjectIdValidator,
 } from '@biosimulations/datamodel/common';
 
-import {
-  SimulationRun,
-  SimulationRunReportData,
-} from '@biosimulations/dispatch/api-models';
+import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
+export type ResultsData =
+  | { [key: string]: Array<number> }
+  | { [key: string]: Array<boolean> };
 @Schema({ collection: 'Results' })
 export class ResultsModel extends Document {
   @Prop({
@@ -30,7 +30,7 @@ export class ResultsModel extends Document {
   reportId!: string;
 
   @Prop({ type: Object })
-  data!: SimulationRunReportData;
+  data!: ResultsData;
 
   @Prop()
   created!: Date;

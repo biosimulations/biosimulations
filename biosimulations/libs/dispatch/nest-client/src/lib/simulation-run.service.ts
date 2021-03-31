@@ -2,7 +2,7 @@ import {
   CombineArchiveLog,
   CreateSimulationRunLogBody,
   SimulationRun,
-  SimulationRunReport,
+  SimulationRunArrayReport,
   SimulationRunReportDataStrings,
 } from '@biosimulations/dispatch/api-models';
 import { HttpService, Injectable, Logger } from '@nestjs/common';
@@ -73,7 +73,6 @@ export class SimulationRunService {
     );
   }
   public async getJob(simId: string): Promise<SimulationRun> {
-    // TODO make enpoint consistent with other (no ending /)
     const token = await this.auth.getToken();
     return this.http
       .get<SimulationRun>(`${this.endpoint}/run/${simId}`, {
@@ -89,11 +88,11 @@ export class SimulationRunService {
     simId: string,
     reportId: string,
     data: SimulationRunReportDataStrings,
-  ): Promise<SimulationRunReport> {
+  ): Promise<SimulationRunArrayReport> {
     const token = await this.auth.getToken();
 
     return this.http
-      .post<SimulationRunReport>(
+      .post<SimulationRunArrayReport>(
         `${this.endpoint}results/${simId}/${reportId}`,
         data,
         {

@@ -12,12 +12,6 @@ import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.inte
 // TODO RENAME
 export type SimulationRunReportDataArray = SimulationRunReportDatum[];
 
-// TODO REMOVE
-export type SimulationRunReportData =
-  | { [key: string]: Array<number> }
-  | { [key: string]: Array<boolean> };
-
-// TODO REMOVE
 export const SimulationRunReportDataArraySchema: Omit<
   SchemaObject,
   'required'
@@ -37,9 +31,10 @@ export class SimulationRunReportDatum {
   public values: number[] | boolean[] = [];
 }
 
+// This is used by the service when reading the results files
 export type SimulationRunReportDataStrings = { [key: string]: Array<string> };
 
-// TODO REMOVE
+// This is used by the api to define the schema for the incoming data from the service
 export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
   type: 'object',
   additionalProperties: SimulationRunReportDataArraySchema,
@@ -49,20 +44,6 @@ export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
   },
 };
 
-// TODO REMOVE
-export class SimulationRunReport {
-  @ApiProperty({ type: String })
-  public simId!: string;
-  @ApiProperty({ type: String })
-  public reportId!: string;
-  @ApiProperty(SimulationRunReportDataSchema)
-  public data!: SimulationRunReportData;
-  @ApiResponseProperty({ type: String, format: 'date-time' })
-  public created!: Date;
-  @ApiResponseProperty({ type: String, format: 'date-time' })
-  public updated!: Date;
-}
-// TODO RENAME
 export class SimulationRunArrayReport {
   @ApiProperty({ type: String })
   public simId!: string;
@@ -75,15 +56,7 @@ export class SimulationRunArrayReport {
   @ApiResponseProperty({ type: String, format: 'date-time' })
   public updated!: Date;
 }
-// TODO REMOVE
-export class SimulationRunResults {
-  @ApiResponseProperty({ type: String })
-  public simId!: string;
 
-  @ApiResponseProperty({ type: () => [SimulationRunReport] })
-  public reports!: SimulationRunReport[];
-}
-// TODO RENAME
 export class SimulationRunArrayResults {
   @ApiResponseProperty({ type: String })
   public simId!: string;

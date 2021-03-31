@@ -15,8 +15,6 @@ import {
 import {
   SimulationRunArrayReport,
   SimulationRunArrayResults,
-  SimulationRunReport,
-  SimulationRunReportData,
   SimulationRunReportDataArray,
   SimulationRunReportDataSchema,
   SimulationRunReportDataStrings,
@@ -43,6 +41,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
+import { ResultsData, ResultsModel } from './results.model';
 
 import { ResultsService } from './results.service';
 
@@ -82,10 +81,9 @@ export class ResultsController {
     @Param('simId') simId: string,
     @Query('sparse', ParseBoolPipe) sparse = true,
   ): Promise<SimulationRunArrayResults> {
-    const results = await this.service.getResult(simId, sparse);
-    const reports = results.reports;
+    const reports = await this.service.getResult(simId, sparse);
     const arrReports = reports.map(this.convertReport, this);
-    return { simId: results.simId, reports: arrReports };
+    return { simId: simId, reports: arrReports };
   }
 
   @Get(':simId/:reportId')
@@ -115,7 +113,7 @@ export class ResultsController {
     @Body()
     data: SimulationRunReportDataStrings,
   ): Promise<SimulationRunArrayReport> {
-    const report: SimulationRunReportData = {};
+    const report: ResultsData = {};
     for (const key of Object.keys(data)) {
       const arr = data[key];
       const firstValue = String(arr[0]).toLowerCase().trim();
@@ -185,7 +183,7 @@ export class ResultsController {
 
   // TODO move this conversion to the write side after parsing hdf files
   private convertData(
-    data: SimulationRunReportData,
+    data: ResultsData,
     reportId: string,
   ): SimulationRunReportDataArray {
     const dataArr = [];
@@ -199,9 +197,7 @@ export class ResultsController {
     return dataArr;
   }
 
-  private convertReport(
-    convertReport: SimulationRunReport,
-  ): SimulationRunArrayReport {
+  private convertReport(convertReport: ResultsModel): SimulationRunArrayReport {
     const data = this.convertData(convertReport.data, convertReport.reportId);
     return {
       created: convertReport.created,

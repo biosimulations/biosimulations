@@ -7,14 +7,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { ResultsModel } from './results.model';
+import { ResultsModel, ResultsData } from './results.model';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { SharedStorageService } from '@biosimulations/shared/storage';
-import {
-  SimulationRunReport,
-  SimulationRunReportData,
-  SimulationRunResults,
-} from '@biosimulations/dispatch/api-models';
 import { S3 } from 'aws-sdk';
 
 @Injectable()
@@ -27,8 +22,8 @@ export class ResultsService {
   public createReport(
     simId: string,
     reportId: string,
-    data: SimulationRunReportData,
-  ): Promise<SimulationRunReport> {
+    data: ResultsData,
+  ): Promise<ResultsModel> {
     const result = new this.resultModel({
       simId: simId,
       reportId: reportId,
@@ -65,7 +60,7 @@ export class ResultsService {
   public async getResult(
     simId: string,
     sparse: boolean,
-  ): Promise<SimulationRunResults> {
+  ): Promise<ResultsModel[]> {
     let reports = await this.resultModel.find({ simId }).exec();
 
     if (!reports.length) {
@@ -75,8 +70,8 @@ export class ResultsService {
     if (sparse) {
       reports = reports.map(this.makeSparse);
     }
-    const response = { simId: simId, reports: reports };
-    return response;
+
+    return reports;
   }
   public async download(simId: string): Promise<S3.Body | undefined> {
     const file = await this.storage.getObject(simId + '/' + 'reports.h5');
