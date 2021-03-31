@@ -84,7 +84,7 @@ export class ResultsController {
   ): Promise<SimulationRunArrayResults> {
     const results = await this.service.getResult(simId, sparse);
     const reports = results.reports;
-    const arrReports = reports.map(this.convertReport);
+    const arrReports = reports.map(this.convertReport, this);
     return { simId: results.simId, reports: arrReports };
   }
 
@@ -207,7 +207,7 @@ export class ResultsController {
       created: convertReport.created,
       updated: convertReport.updated,
       simId: convertReport.simId,
-      reportId: convertReport.simId,
+      reportId: convertReport.reportId,
       data: data,
     };
   }
