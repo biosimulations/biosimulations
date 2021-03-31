@@ -17,15 +17,16 @@ export type SimulationRunReportData =
   | { [key: string]: Array<number> }
   | { [key: string]: Array<boolean> };
 
-
-// TODO REMOVE 
-export const SimulationRunReportDataArraySchema: Omit<SchemaObject,'required'> = {
+// TODO REMOVE
+export const SimulationRunReportDataArraySchema: Omit<
+  SchemaObject,
+  'required'
+> = {
   oneOf: [
     { type: 'array', items: { type: 'number', format: 'float' } },
     { type: 'array', items: { type: 'boolean' } },
   ],
 };
-
 
 export class SimulationRunReportDatum {
   @ApiProperty({ type: String })
@@ -38,7 +39,7 @@ export class SimulationRunReportDatum {
 
 export type SimulationRunReportDataStrings = { [key: string]: Array<string> };
 
-// TODO REMOVE 
+// TODO REMOVE
 export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
   type: 'object',
   additionalProperties: SimulationRunReportDataArraySchema,
@@ -48,7 +49,7 @@ export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
   },
 };
 
-// TODO REMOVE 
+// TODO REMOVE
 export class SimulationRunReport {
   @ApiProperty({ type: String })
   public simId!: string;
@@ -74,7 +75,7 @@ export class SimulationRunArrayReport {
   @ApiResponseProperty({ type: String, format: 'date-time' })
   public updated!: Date;
 }
-// TODO REMOVE 
+// TODO REMOVE
 export class SimulationRunResults {
   @ApiResponseProperty({ type: String })
   public simId!: string;

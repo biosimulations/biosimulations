@@ -13,11 +13,13 @@ import {
 } from '@biosimulations/auth/nest';
 
 import {
+  SimulationRunArrayReport,
+  SimulationRunArrayResults,
   SimulationRunReport,
   SimulationRunReportData,
+  SimulationRunReportDataArray,
   SimulationRunReportDataSchema,
   SimulationRunReportDataStrings,
-  SimulationRunResults,
 } from '@biosimulations/dispatch/api-models';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
@@ -52,14 +54,14 @@ export class ResultsController {
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('read:SimulationRunResults')
   @Get()
-  public async getResults(): Promise<SimulationRunResults[]> {
+  public async getResults(): Promise<SimulationRunArrayResults[]> {
     const results = await this.service.getResults();
-
-    const reports = results.map((value) => {
-      return { simId: value.simId, reports: results };
+    const reports = results.map(this.convertReport);
+    const allResults = results.map((value) => {
+      return { simId: value.simId, reports: reports };
     });
 
-    return reports;
+    return allResults;
   }
 
   @Get(':simId/download')
@@ -74,36 +76,45 @@ export class ResultsController {
     res.send();
   }
 
+  @Get(':simId')
+  @ApiQuery({ name: 'sparse', type: Boolean })
+  public async getResult(
+    @Param('simId') simId: string,
+    @Query('sparse', ParseBoolPipe) sparse = true,
+  ): Promise<SimulationRunArrayResults> {
+    const results = await this.service.getResult(simId, sparse);
+    const reports = results.reports;
+    const arrReports = reports.map(this.convertReport);
+    return { simId: results.simId, reports: arrReports };
+  }
+
   @Get(':simId/:reportId')
   @ApiQuery({ name: 'sparse', type: Boolean })
   public async getResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
     @Query('sparse', ParseBoolPipe) sparse = true,
-  ): Promise<SimulationRunReport> {
-    const resultModel = this.service.getResultReport(simId, reportId, sparse);
-    return resultModel;
-  }
+  ): Promise<SimulationRunArrayReport> {
+    const resultModel = await this.service.getResultReport(
+      simId,
+      reportId,
+      sparse,
+    );
+    const model = this.convertReport(resultModel);
 
-  @Get(':simId')
-  @ApiQuery({ name: 'sparse', type: Boolean })
-  public getResult(
-    @Param('simId') simId: string,
-    @Query('sparse', ParseBoolPipe) sparse = true,
-  ): Promise<SimulationRunResults> {
-    return this.service.getResult(simId, sparse);
+    return model;
   }
 
   @Post(':simId/:reportId')
   @ApiBody({ schema: SimulationRunReportDataSchema })
-  @ApiCreatedResponse({ type: () => SimulationRunReport })
+  @ApiCreatedResponse({ type: () => SimulationRunArrayReport })
   @permissions('write:Results')
-  public postResultReport(
+  public async postResultReport(
     @Param('simId') simId: string,
     @Param('reportId') reportId: string,
     @Body()
     data: SimulationRunReportDataStrings,
-  ): Promise<SimulationRunReport> {
+  ): Promise<SimulationRunArrayReport> {
     const report: SimulationRunReportData = {};
     for (const key of Object.keys(data)) {
       const arr = data[key];
@@ -144,7 +155,9 @@ export class ResultsController {
       }
     }
 
-    return this.service.createReport(simId, reportId, report);
+    return this.convertReport(
+      await this.service.createReport(simId, reportId, report),
+    );
   }
 
   @UseGuards(JwtGuard, PermissionsGuard)
@@ -168,5 +181,34 @@ export class ResultsController {
     @Param('reportId') reportId: string,
   ): void {
     return this.service.delete(simId);
+  }
+
+  // TODO move this conversion to the write side after parsing hdf files
+  private convertData(
+    data: SimulationRunReportData,
+    reportId: string,
+  ): SimulationRunReportDataArray {
+    const dataArr = [];
+    for (const prop in data) {
+      dataArr.push({
+        id: `${reportId}/${prop}`,
+        values: data[prop],
+        label: prop,
+      });
+    }
+    return dataArr;
+  }
+
+  private convertReport(
+    convertReport: SimulationRunReport,
+  ): SimulationRunArrayReport {
+    const data = this.convertData(convertReport.data, convertReport.reportId);
+    return {
+      created: convertReport.created,
+      updated: convertReport.updated,
+      simId: convertReport.simId,
+      reportId: convertReport.simId,
+      data: data,
+    };
   }
 }
