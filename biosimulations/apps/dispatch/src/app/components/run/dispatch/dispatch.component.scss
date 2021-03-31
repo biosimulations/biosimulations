@@ -4,12 +4,49 @@ button {
   float: right;
 }
 
+.form-section {
+  border-radius: 4px;
+  border: 1px solid rgb(0, 0, 0, 0.42);
+
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
+
+.form-section-head {
+  padding: 0.4em;
+  background-color: $light-bg-darker-10;
+  height: calc(41.5px - 2 * 0.4rem);
+  border-bottom: 1px solid rgb(0, 0, 0, 0.42);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.form-section-title {
+  line-height: 100%;
+  padding-bottom: 3.5px;
+}
+
+.form-section-subtitle {
+  font-size: 75%;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 100%;
+}
+
+.form-section-body {
+  padding: 1rem;
+}
+
 .form-field-group {
-  padding-bottom: 1.34375em;
+  &:not(:last-child) {
+    padding-bottom: 1rem;
+  }
 
   .columns {
     display: grid;
-    grid-column-gap: 1.34375em;
+    grid-gap: 0.5rem;
   }
 
   .two-columns {

@@ -29,6 +29,24 @@ export interface SimulatorSpecsMap {
   [id: string]: SimulatorSpecs;
 }
 
+export interface OntologyTerm {
+  id: string;
+  name: string;
+  simulators: Set<string>;
+  disabled: boolean;
+}
+
+export interface OntologyTermsMap {
+  [id: string]: OntologyTerm;
+}
+
+export interface SimulatorData {
+  simulatorSpecs: SimulatorSpecsMap;
+  modelFormats: OntologyTermsMap;
+  modelingFrameworks: OntologyTermsMap;
+  simulationAlgorithms: OntologyTermsMap;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -101,14 +119,17 @@ export class DispatchService {
     >;
   }
 
-  getSimulatorsFromDb(): Observable<SimulatorSpecsMap> {
+  getSimulatorsFromDb(): Observable<SimulatorData> {
     const endpoint = `https://api.biosimulators.org/simulators`;
 
     return this.http.get(endpoint).pipe(
       map(
-        (response: any): SimulatorSpecsMap => {
+        (response: any): SimulatorData => {
           // response to dict logic
           const simulatorSpecsMap: SimulatorSpecsMap = {};
+          const modelFormats: OntologyTermsMap = {};
+          const modelingFrameworks: OntologyTermsMap = {};
+          const simulationAlgorithms: OntologyTermsMap = {};
 
           for (const simulator of response) {
             if (simulator?.image && simulator?.biosimulators?.validated) {
@@ -129,12 +150,48 @@ export class DispatchService {
                     },
                   ),
                   frameworkSboIds: algorithm.modelingFrameworks.map(
-                    (format: any): void => {
-                      return format.id;
+                    (framework: any): void => {
+                      return framework.id;
                     },
                   ),
                   algorithmKisaoIds: [algorithm.kisaoId.id],
                 });
+
+                // TODO: get names of ontology terms
+
+                algorithm.modelFormats.forEach((format: any): void => {
+                  if (!(format.id in modelFormats)) {
+                    modelFormats[format.id] = {
+                      id: format.id,
+                      name: format.id,
+                      simulators: new Set<string>(),
+                      disabled: false,
+                    }
+                  }
+                  modelFormats[format.id].simulators.add(simulator.id);
+                });
+
+                algorithm.modelingFrameworks.forEach((framework: any): void => {
+                  if (!(framework.id in modelingFrameworks)) {
+                    modelingFrameworks[framework.id] = {
+                      id: framework.id,
+                      name: framework.id,
+                      simulators: new Set<string>(),
+                      disabled: false,
+                    }
+                  }
+                  modelingFrameworks[framework.id].simulators.add(simulator.id);
+                });
+
+                if (!(algorithm.kisaoId.id in simulationAlgorithms)) {
+                  simulationAlgorithms[algorithm.kisaoId.id] = {
+                    id: algorithm.kisaoId.id,
+                    name: algorithm.kisaoId.id,
+                    simulators: new Set<string>(),
+                    disabled: false,
+                  }
+                }
+                simulationAlgorithms[algorithm.kisaoId.id].simulators.add(simulator.id);
               });
             }
           }
@@ -147,7 +204,12 @@ export class DispatchService {
               .reverse();
           }
 
-          return simulatorSpecsMap;
+          return {
+            simulatorSpecs: simulatorSpecsMap,
+            modelFormats,
+            modelingFrameworks,
+            simulationAlgorithms,
+          };
         },
       ),
     );

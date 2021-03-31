@@ -147,13 +147,13 @@
         heading="How much resources are available to each simulation?"
       >
         <p class="no-bottom-margin">runBioSimulations currently allows users to request up the following amounts of resources for each simulation project:</p>
-        <ul>          
+        <ul>
           <li>Cores: 24</li>
           <li>RAM: 192 GB</li>
-          <li>Time: 20 days</li>          
+          <li>Time: 20 days</li>
         </ul>
 
-        <p>These limits are easily configurable. Please contact runBioSimulations Team <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> if these limits would constrain your work.</p>        
+        <p>These limits are easily configurable. Please contact runBioSimulations Team <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> if these limits would constrain your work.</p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
@@ -309,20 +309,26 @@
             >: EDAM id of the format of the models to execute (e.g.,
             <code>format_2585</code> for SBML). This argument instructs the web
             form to only enable simulation tools which support this format.
+            This argument can be repeated to instruct the web form to only show
+            simulation tools which each support multiple formats.
           </li>
           <li>
             <b><code>modelingFramework</code></b
             >: SBO id of the modeling framework of the simulations to execute
             (e.g., <code>SBO_0000293</code> for continuous kinetic framework).
             This argument instructs the web form to only enable simulation tools
-            which support this framework.
+            which support this framework. This argument can be repeated to instruct
+            the web form to only show simulation tools which each support multiple
+            frameworks.
           </li>
           <li>
             <b><code>simulationAlgorithm</code></b
             >: KiSAO id of the simulation algorithm to execute
             (e.g., <code>KISAO_0000019</code> for CVODE).
             This argument instructs the web form to only enable simulation tools
-            which can execute this algorithm.
+            which can execute this algorithm. This argument can be repeated to instruct
+            the web form to only show simulation tools which each support multiple
+            algorithms.
           </li>
           <li>
             <b><code>simulator</code></b
@@ -334,7 +340,22 @@
             <b><code>simulatorVersion</code></b
             >: Recommended version of the simulator for executing the
             COMBINE/OMEX archive (e.g., <code>2.2.0</code>). This argument
-            instruct the web form to preselect this version.
+            instructs the web form to preselect this version.
+          </li>
+          <li>
+            <b><code>cpus</code></b
+            >: Recommended number of CPU cores needed to execute the COMBINE/OMEX archive. This argument
+            instruct the web form to preset the requested number of CPU cores.
+          </li>
+          <li>
+            <b><code>memory</code></b
+            >: Recommended amount of RAM in GB needed to execute the COMBINE/OMEX archive. This argument
+            instruct the web form to preset the requested amount of RAM.
+          </li>
+          <li>
+            <b><code>maxTime</code></b
+            >: Recommended amount of time in minutes needed to execute the COMBINE/OMEX archive. This argument
+            instruct the web form to preset the requested maximum execution time.
           </li>
         </ul>
 
@@ -410,7 +431,7 @@
           </li>
         </ul>
       </biosimulations-q-a>
-      
+
       <biosimulations-q-a
         heading="Where does runBioSimulations execute simulations and store their outputs?"
       >
