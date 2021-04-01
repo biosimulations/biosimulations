@@ -1,6 +1,6 @@
 # Guide to contributing to the BioSimulations and BioSimulators platforms
 
-We enthusiastically welcome contributions to BioSimulations and BioSimulators! This document describes how developers can contribute the BioSimulations and BioSimulators platforms (e.g., web applications, REST APIs, databases, and simulation services). Modelers can contributing models, simulations, and visualizations to BioSimulations via the web application at t https://biosimulations.org. Information for simulation software tool developers about contributing containerized simulation tools to BioSimulators is available at https://biosimulators.org/help.
+We enthusiastically welcome contributions to BioSimulations and BioSimulators! This document describes how developers can contribute the BioSimulations and BioSimulators platforms (e.g., web applications, REST APIs, databases, and simulation services). Modelers can contributing models, simulations, and visualizations to BioSimulations via the web application at https://biosimulations.org. Information for simulation software tool developers about contributing containerized simulation tools to BioSimulators is available at https://biosimulators.org/help.
 
 ## Coordinating contributions
 
