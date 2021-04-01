@@ -140,7 +140,7 @@
       <biosimulations-q-a
         heading="Is there a limit to the size of simulation projects that can be submitted to runBioSimulations?"
       >
-        Currently, simulation projects (COMBINE/OMEX archives) are limited to 16 MB. We are actively implementing an enhanced storage system that will support project files up to 5 TB.
+        Simulation projects (COMBINE/OMEX archives) are limited to 5 TB each.
       </biosimulations-q-a>
 
       <biosimulations-q-a
@@ -173,9 +173,11 @@
       <biosimulations-q-a
         heading="Is there a limit to the size of simulation results that runBioSimulations can generate?"
       >
-        <p>Currently, the total sizes of all reports generated from a COMBINE/OMEX archive and all plots generated from an archive are limited to 16 MB. We are actively implenting an enhanced system that will accomodate up to 10 TB per COMBINE/OMEX archive (5 TB for reports and 5 TB for plots).</p>
+        <p>Currently, the BSON representation of each report generated from a COMBINE/OMEX archive is limited to 16 MB. We are actively implementing an enhanced system that will accomodate at least 5 TB total for all reports generated from a COMBINE/OMEX archive.</p>
 
-        <p>In addition, the format that runBioSimulations relies for reports is limited to 32 dimensions. For a non-spatial time course, this means that runBioSimulations can accomodate up to 15 layers of nested repeated tasks. For a 3D spatial time course, this means that runBioSimulations can accomodate up to 13 layers of nested repeated tasks.</p>
+        <p>In addition, the format that runBioSimulations relies on for reports is limited to 32 dimensions. For a non-spatial time course, this means that runBioSimulations can accomodate up to 15 layers of nested repeated tasks. For a 3D spatial time course, this means that runBioSimulations can accomodate up to 13 layers of nested repeated tasks.</p>
+
+        <p>The total size of all plots generated from an archive is limited to 5 TB.</p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
