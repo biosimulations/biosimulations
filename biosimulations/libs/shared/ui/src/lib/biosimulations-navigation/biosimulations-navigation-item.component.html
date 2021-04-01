@@ -13,10 +13,17 @@
     [expandedHeight]="'48px'"
   >
     <mat-panel-title>
-      <biosimulations-icon [icon]="icon"></biosimulations-icon>
-      {{ heading }}
+      <a [href]="href" target="_blank" *ngIf="href; else plain">
+        <biosimulations-icon [icon]="icon"></biosimulations-icon>
+        {{ heading }}
+      </a>
+      <ng-template #plain>
+        <biosimulations-icon [icon]="icon"></biosimulations-icon>
+        {{ heading }}
+      </ng-template>
     </mat-panel-title>
   </mat-expansion-panel-header>
+
   <mat-nav-list matExpansionPanelContent>
     <ng-content></ng-content>
   </mat-nav-list>

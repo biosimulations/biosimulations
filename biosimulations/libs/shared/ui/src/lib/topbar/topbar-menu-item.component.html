@@ -1,13 +1,28 @@
-<button
-  mat-flat-button
-  [routerLink]="route || null"
-  [queryParams]="queryParams"
-  [disabled]="disabled"
+<div
   fxShow
   fxHide.lt-md
 >
-  <div class="button-content">
-    <biosimulations-icon [icon]="icon"></biosimulations-icon>
-    {{ heading }}
-  </div>
-</button>
+  <a mat-flat-button
+    *ngIf="href && !disabled; else button"
+    [href]="href" target="_blank"
+  >
+    <div class="button-content">
+      <biosimulations-icon [icon]="icon"></biosimulations-icon>
+      {{ heading }}
+    </div>
+  </a>
+
+  <ng-template #button>
+    <button
+      mat-flat-button
+      [routerLink]="route || null"
+      [queryParams]="queryParams"
+      [disabled]="disabled"
+    >
+      <div class="button-content">
+        <biosimulations-icon [icon]="icon"></biosimulations-icon>
+        {{ heading }}
+      </div>
+    </button>
+  </ng-template>
+</div>

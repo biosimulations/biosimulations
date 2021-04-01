@@ -28,6 +28,9 @@ export class BiosimulationsNavigationItemComponent {
   queryParams: {[key: string]: string} = {};
 
   @Input()
+  href: string = '';
+
+  @Input()
   aboveDivider = false;
 
   noExpansion = false;
