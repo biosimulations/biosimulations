@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } fro
 import {
   DispatchService,
   SimulatorSpecsMap,
-  SimulatorData,
+  SimulatorsData,
   OntologyTermsMap,
   OntologyTerm,
 } from '../../../services/dispatch/dispatch.service';
@@ -183,28 +183,28 @@ export class DispatchComponent implements OnInit {
     combineLatest([
       this.dispatchService.getSimulatorsFromDb(),
       this.route.queryParams,
-    ]).subscribe((observerableValues: [SimulatorData, Params]): void => {
-      const simulatorData = observerableValues[0] as SimulatorData;
+    ]).subscribe((observerableValues: [SimulatorsData, Params]): void => {
+      const simulatorsData = observerableValues[0] as SimulatorsData;
       const params = observerableValues[1] as Params;
 
       // Setup options for select menus
-      this.modelFormatsMap = simulatorData.modelFormats;
-      this.modelingFrameworksMap = simulatorData.modelingFrameworks;
-      this.simulationAlgorithmsMap  = simulatorData.simulationAlgorithms;
-      this.simulatorSpecsMap = simulatorData.simulatorSpecs;
+      this.modelFormatsMap = simulatorsData.modelFormats;
+      this.modelingFrameworksMap = simulatorsData.modelingFrameworks;
+      this.simulationAlgorithmsMap  = simulatorsData.simulationAlgorithms;
+      this.simulatorSpecsMap = simulatorsData.simulatorSpecs;
 
       this.modelFormats = Object.values(this.modelFormatsMap);
       this.modelingFrameworks = Object.values(this.modelingFrameworksMap);
       this.simulationAlgorithms = Object.values(this.simulationAlgorithmsMap);
 
       this.modelFormats.sort((a: OntologyTerm, b: OntologyTerm): number => {
-        return a.id.localeCompare(b.id, undefined, { numeric: true });
+        return a.name.localeCompare(b.name, undefined, { numeric: true });
       });
       this.modelingFrameworks.sort((a: OntologyTerm, b: OntologyTerm): number => {
-        return a.id.localeCompare(b.id, undefined, { numeric: true });
+        return a.name.localeCompare(b.name, undefined, { numeric: true });
       });
       this.simulationAlgorithms.sort((a: OntologyTerm, b: OntologyTerm): number => {
-        return a.id.localeCompare(b.id, undefined, { numeric: true });
+        return a.name.localeCompare(b.name, undefined, { numeric: true });
       });
 
       this.simulatorIds = new Set(Object.keys(this.simulatorSpecsMap));
