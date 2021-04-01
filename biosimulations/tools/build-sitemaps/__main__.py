@@ -101,39 +101,39 @@ def get_runbiosimulations_static_urls():
 
 def get_simulator_static_urls():
     help_route = get_common_static_urls()
-    standards = [Url(
-        loc="standards",
+    conventions = [Url(
+        loc="conventions",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="standards/simulator-specs",
+        loc="conventions/simulator-specs",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="standards/simulator-interfaces",
+        loc="conventions/simulator-interfaces",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="standards/simulator-images",
+        loc="conventions/simulator-images",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="standards/simulation-experiments",
+        loc="conventions/simulation-experiments",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     ),
         Url(
-        loc="standards/simulations-reports",
+        loc="conventions/simulations-reports",
         last_mod=datetime.datetime(2020, 12, 23),
         change_freq=ChangeFreq.monthly
     )
     ]
 
-    return help_route+standards
+    return help_route + conventions
 
 
 def render_url_list(app_name, urls):

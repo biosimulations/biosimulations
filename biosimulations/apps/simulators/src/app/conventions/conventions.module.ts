@@ -5,7 +5,7 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
 
-import { StandardsRoutingModule } from './standards-routing.module';
+import { ConventionsRoutingModule } from './conventions-routing.module';
 
 import { OverviewComponent } from './overview/overview.component';
 import { SimulatorSpecsComponent } from './simulator-specs/simulator-specs.component';
@@ -34,8 +34,8 @@ import { HighlightModule } from 'ngx-highlightjs';
     SharedUiModule,
     BiosimulationsIconsModule,
     SharedContentModule,
-    StandardsRoutingModule,
+    ConventionsRoutingModule,
     HighlightModule,
   ],
 })
-export class StandardsModule {}
+export class ConventionsModule {}
