@@ -59,7 +59,7 @@
     "csvtojson": "^2.0.10",
     "email-validator": "^2.0.4",
     "is-url": "^1.2.4",
-    "jwks-rsa": "^1.12.1",
+    "jwks-rsa": "^2.0.2",
     "mongoose": "^5.11.17",
     "nats": "^1.4.12",
     "nestjs-s3": "^1.0.1",
