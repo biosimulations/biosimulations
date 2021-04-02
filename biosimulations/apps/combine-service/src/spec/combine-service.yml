@@ -565,15 +565,15 @@ components:
     SeperateFileUpload:
       description: The two files uploaded in creating a combine archive
       required:
-      - ModelFile
-      - SimulationFile
+      - modelFile
+      - simulationFile
       type: object
       properties:
-        ModelFile:
+        modelFile:
           format: binary
           description: The file for the model in one of the supported formats
           type: string
-        SimulationFile:
+        simulationFile:
           format: binary
           description: The simulation specification in one of the accepted formats
             (sedml)
