@@ -1,0 +1,568 @@
+---
+openapi: 3.0.0
+info:
+  title: BioSimulations COMBINE service
+  version: "0.1"
+  description: "Endpoints for working with COMBINE/OMEX archives and model (e.g.,\
+    \ SBML) and simulation (e.g., SED-ML) files that they typically contain.\n\nNote,\
+    \ this API may change significantly in the future."
+  contact:
+    name: BioSimulations Team
+    url: https://biosimulations.org
+    email: info@biosimulations.org
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+paths:
+  /combine/sedml-output-specs:
+    get:
+      tags:
+      - COMBINE
+      - OMEX
+      - SED-ML
+      parameters:
+      - name: archiveUrl
+        description: |-
+          URL for a COMBINE/OMEX archive that contains one or more SED-ML files that describe one or more plots.
+
+          The SED-ML files should be defined in the manifest of the the COMBINE/OMEX archive with a format attribute such as  "http://identifiers.org/combine.specifications/sed-ml" or "http://identifiers.org/combine.specifications/sed-ml.level-1.version-3".
+        schema:
+          type: string
+        in: query
+        required: true
+      responses:
+        "400":
+          content:
+            application/json: {}
+          description: Invalid Combine Archive
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombineArchive'
+          description: Specifications of the plots in the SED-ML files in the COMBINE/OMEX
+            archive.
+      operationId: getPlotSpecs
+      summary: Get the specifications of the plots in SED-ML files in a COMBINE/OMEX
+        archive
+      description: Get the specifications of the outputs in SED-ML files in a COMBINE/OMEX
+        archive
+  /combine/create:
+    post:
+      requestBody:
+        description: Specifiations for the COMBINE/OMEX archive and its contents (specifications
+          of the SED-ML file and model file(s)).
+        content:
+          multipart/form-data: {}
+          application/json: {}
+        required: true
+      tags:
+      - COMBINE
+      - OMEX
+      - SED-ML
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: URL for the created COMBINE/OMEX archive.
+      operationId: handlers.create_combine
+      summary: Assemble a COMBINE/OMEX archive from model files and specifications
+        of a SED-ML document.
+      description: Assemble a COMBINE/OMEX archive from model files and specifications
+        of a SED-ML document.
+components:
+  schemas:
+    SedPlot2D:
+      description: Specifications for a 2D SED plot.
+      required:
+      - id
+      - curves
+      - xScale
+      - yScale
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        curves:
+          description: List of the curves of the plot (tuples of x and y data).
+          type: array
+          items:
+            $ref: '#/components/schemas/SedCurve'
+        xScale:
+          $ref: '#/components/schemas/AxisType'
+          description: Scale of the x axis.
+        yScale:
+          $ref: '#/components/schemas/AxisType'
+          description: Scale of the y axis.
+        _type:
+          description: Type of the plot.
+          enum:
+          - SedPlot2D
+          type: string
+      example:
+        id: ntp_dynamics
+        name: NTP dynamics
+        curves:
+        - id: atp_vs_time
+          name: ATP vs time
+          xDataGenerator:
+            id: time
+            name: Time (min)
+          yDataGenerator:
+            id: atp
+            name: ATP (mM)
+        - id: gtp_vs_time
+          name: GTP vs time
+          xDataGenerator:
+            id: time
+            name: Time (min)
+          yDataGenerator:
+            id: gtp
+            name: GTP (mM)
+        xScale: linear
+        yScale: linear
+    SedPlot3D:
+      description: Specifications for a 3D surface plot.
+      required:
+      - id
+      - surfaces
+      - xScale
+      - yScale
+      - zScale
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique id within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        surfaces:
+          $ref: '#/components/schemas/SedSurface'
+          description: "List of surfaces (tuples of x, y, and z data)."
+        xScale:
+          $ref: '#/components/schemas/AxisType'
+          description: Scale of the x axis.
+        yScale:
+          $ref: '#/components/schemas/AxisType'
+          description: Scale of the y axis.
+        zScale:
+          $ref: '#/components/schemas/AxisType'
+          description: Scale of the z axis.
+        _type:
+          description: Type of the output.
+          enum:
+          - SedPlot3D
+          type: string
+    SedCurve:
+      description: Curve of a 2D SED plot
+      required:
+      - id
+      - xDataGenerator
+      - yDataGenerator
+      type: object
+      properties:
+        id:
+          description: Unique identifier with its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        xDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the x data of the curve.
+        yDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the y data of the curve.
+      example:
+        id: atp_vs_time
+        name: ATP vs time
+        xDataGenerator:
+          id: time
+          name: Time (min)
+        yDataGenerator:
+          id: atp
+          name: ATP (mM)
+    SedSurface:
+      description: A surface a 3D plot.
+      required:
+      - id
+      - xDataGenerator
+      - yDataGenerator
+      - zDataGenerator
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        xDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the x data of the surface.
+        yDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the y data of the surface.
+        zDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the z data of the surface.
+      example:
+        id: atp_concentration
+        name: Spatial distribution of ATP
+        xDataGenerator:
+          id: x
+          name: X (mm)
+        yDataGenerator:
+          id: "y"
+          name: Y (mm)
+        zDataGenerator:
+          id: atp
+          name: ATP (mM)
+    SedDataGenerator:
+      description: Data generator for SED report or plot.
+      required:
+      - id
+      - math
+      - variables
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        variables:
+          description: Variables.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedVariable'
+        math:
+          description: Mathematical expression for its value.
+          type: string
+      example:
+        id: time
+        name: Time (hr)
+    SedDocument:
+      description: A SED document.
+      required:
+      - outputs
+      - level
+      - version
+      - models
+      - simulations
+      - tasks
+      - dataGenerators
+      type: object
+      properties:
+        outputs:
+          description: Outputs.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedOutput'
+        level:
+          description: Level.
+          type: integer
+        version:
+          description: Version.
+          type: integer
+        models:
+          description: Models.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedModel'
+        simulations:
+          description: Simulations.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedSimulation'
+        tasks:
+          description: Tasks.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedTask'
+        dataGenerators:
+          description: Data generators.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedDataGenerator'
+      example:
+        level: 1
+        version: 4
+        models: []
+        simulations: []
+        tasks: []
+        dataGenerators: []
+        outputs: []
+    SedOutput:
+      oneOf:
+      - type: object
+      - $ref: '#/components/schemas/SedPlot2D'
+      - $ref: '#/components/schemas/SedPlot3D'
+      - $ref: '#/components/schemas/SedReport'
+      discriminator:
+        propertyName: _type
+      description: An output of a SED document.
+      type: object
+    SedReport:
+      description: A SED report.
+      required:
+      - id
+      - _type
+      - dataSets
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        _type:
+          description: Type of the output.
+          enum:
+          - SedReport
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        dataSets:
+          description: List of the data sets of the report (rows of the report).
+          type: array
+          items:
+            $ref: '#/components/schemas/SedDataSet'
+    SedDataSet:
+      description: A SED data set
+      required:
+      - id
+      - label
+      - dataGenerator
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        label:
+          description: Brief description
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        dataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Generator which provides the data for the data set.
+      example:
+        id: atp data
+        label: ATP concentration
+        name: ATP Concentration
+        dataGenerator:
+          id: atp
+          name: ATP (mM)
+    CombineArchive:
+      description: A COMBINE/OMEX archive.
+      required:
+      - contents
+      type: object
+      properties:
+        contents:
+          description: ""
+          type: array
+          items:
+            $ref: '#/components/schemas/CombineArchiveContent'
+    CombineArchiveContent:
+      description: Content item of a COMBINE/OMEX archive.
+      required:
+      - location
+      - format
+      - master
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/CombineArchiveLocation'
+          description: Location within its parent COMBINE/OMEX archive.
+        format:
+          description: Format.
+          type: string
+        master:
+          description: ""
+          type: boolean
+    AxisType:
+      description: ""
+      enum:
+      - Log
+      - Linear
+      type: string
+    CombineArchiveLocation:
+      description: Location of an item in a COMBINE/OMEX archive and its value.
+      required:
+      - path
+      - value
+      type: object
+      properties:
+        path:
+          description: Path within a COMBINE/OMEX archive.
+          type: string
+        value:
+          $ref: '#/components/schemas/SedDocument'
+          description: Value of the content item of the COMBINE/OMEX archive.
+    SedModel:
+      description: A SED model.
+      required:
+      - id
+      - language
+      - source
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        language:
+          description: "Format (e.g., BNGL, SBML)."
+          type: string
+        source:
+          description: Location of the file for the model.
+          type: string
+      example:
+        id: model_1
+        name: Model 1
+        language: urn:sedml:language:sbml
+        source: model_1.xml
+    SedSimulation:
+      oneOf:
+      - type: object
+      - $ref: '#/components/schemas/SedSteadyStateSimulation'
+      - $ref: '#/components/schemas/SedUniformTimeCourseSimulation'
+      - $ref: '#/components/schemas/SedOneStepSimulation'
+      description: A SED simulation.
+      type: object
+    SedTask:
+      description: A SED task.
+      required:
+      - id
+      - model
+      - simulation
+      type: object
+      properties:
+        id:
+          description: Unique identifier within is parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        model:
+          $ref: '#/components/schemas/SedModel'
+          description: Model.
+        simulation:
+          $ref: '#/components/schemas/SedSimulation'
+          description: Simulation
+    SedUniformTimeCourseSimulation:
+      description: A SED uniform time course simulation.
+      required:
+      - id
+      - name
+      - _type
+      - initialTime
+      - outputStartTime
+      - outputEndTime
+      - numberOfSteps
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        _type:
+          description: Type of the simulation.
+          enum:
+          - SedUniformTimeCourseSimulation
+          type: string
+        initialTime:
+          description: Initial time.
+          type: number
+        outputStartTime:
+          description: Output start time.
+          type: number
+        outputEndTime:
+          description: Output end time.
+          type: number
+        numberOfSteps:
+          description: Number of steps.
+          type: integer
+    SedSteadyStateSimulation:
+      description: A SED steady state simulation.
+      required:
+      - id
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        _type:
+          description: Type of the simulation.
+          enum:
+          - SedSteadyStateSimulation
+          type: string
+    SedOneStepSimulation:
+      description: A SED one step simulation.
+      required:
+      - id
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        _type:
+          description: Type of the simulation.
+          enum:
+          - SedOneStepSimulation
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        step:
+          description: Step size.
+          type: number
+    SedVariable:
+      description: A SED variable.
+      required:
+      - id
+      - task
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        task:
+          $ref: '#/components/schemas/SedTask'
+          description: Task.
+        target:
+          description: "Target within a model (e.g., of a dependent variable such\
+            \ as the concentration of a species)."
+          type: string
+        symbol:
+          description: "Symbol (e.g., for an independent variable such as time)."
+          type: string
+  responses:
+    "404":
+      content:
+        application/json: {}
+      description: The selected resource was not found
