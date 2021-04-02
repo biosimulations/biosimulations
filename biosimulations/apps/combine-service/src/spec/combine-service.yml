@@ -55,10 +55,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              type: array
-              items:
-                format: binary
-                type: string
+              $ref: '#/components/schemas/SeperateFileUpload'
         required: true
       tags:
       - COMBINE
