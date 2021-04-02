@@ -185,7 +185,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - if: matrix.app !="combine-service"
+      - if: matrix.app != 'combine-service'
         name: Build and Push Image
         uses: whoan/docker-build-with-cache-action@v5
         with:
@@ -199,7 +199,7 @@ jobs:
           dockerfile: Dockerfile
           build_extra_args: "--compress=true --build-arg app=${{matrix.app}}"
           
-      - if: matrix.app =="combine-service"
+      - if: matrix.app == 'combine-service'
         name: Build and Push Python Image Image
         uses: whoan/docker-build-with-cache-action@v5
         with:
