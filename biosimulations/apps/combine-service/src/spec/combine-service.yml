@@ -42,7 +42,7 @@ paths:
                 $ref: '#/components/schemas/CombineArchive'
           description: Specifications of the plots in the SED-ML files in the COMBINE/OMEX
             archive.
-      operationId: getPlotSpecs
+      operationId: handlers.get_sed
       summary: Get the specifications of the plots in SED-ML files in a COMBINE/OMEX
         archive
       description: Get the specifications of the outputs in SED-ML files in a COMBINE/OMEX
@@ -53,8 +53,12 @@ paths:
         description: Specifiations for the COMBINE/OMEX archive and its contents (specifications
           of the SED-ML file and model file(s)).
         content:
-          multipart/form-data: {}
-          application/json: {}
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                format: binary
+                type: string
         required: true
       tags:
       - COMBINE
@@ -371,7 +375,7 @@ components:
       type: object
       properties:
         contents:
-          description: ""
+          description: The content of the archive
           type: array
           items:
             $ref: '#/components/schemas/CombineArchiveContent'
@@ -560,6 +564,22 @@ components:
           type: string
         symbol:
           description: "Symbol (e.g., for an independent variable such as time)."
+          type: string
+    SeperateFileUpload:
+      description: The two files uploaded in creating a combine archive
+      required:
+      - ModelFile
+      - SimulationFile
+      type: object
+      properties:
+        ModelFile:
+          format: binary
+          description: The file for the model in one of the supported formats
+          type: string
+        SimulationFile:
+          format: binary
+          description: The simulation specification in one of the accepted formats
+            (sedml)
           type: string
   responses:
     "404":
