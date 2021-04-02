@@ -60,10 +60,19 @@
         range of modeling frameworks and simulation algorithms, BioSimulators
         embraces the additional conventions for SED-ML described below, as well
         as the conventions for executing SED-ML documents described with the
-        <a [routerLink]="['/standards', 'simulator-interfaces']"
+        <a [routerLink]="['/conventions', 'simulator-interfaces']"
           >standard for command-line interfaces for simulation tools</a
         >.
       </p>
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Model and data descriptor source paths"
+      tocSection="Source paths"
+    >
+      <p>SED-ML can refer to model and data descriptor files in multiple ways, including via paths to local files, via URLs, via URL fragments to other models defined in the same SED-ML document, and via identifiers for an Identifiers.org namespace such as BioModels. When referencing files via local paths, SED-ML documents should use paths relative to the location of the SED-ML document.</p>
+
+      <p>To ensure that COMBINE/OMEX archives are self-contained, BioSimulators encourages SED-ML documents in COMBINE/OMEX archive to reference files via relative paths within archives.</p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section

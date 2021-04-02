@@ -9,6 +9,9 @@ export interface FormattedSimulation {
   simulator: string;
   simulatorVersion: string;
   simulatorUrl: string;
+  cpus: number;
+  memory: number; // GB
+  maxTime: number; // min
   status: SimulationRunStatus;
   statusRunning: boolean;
   statusSucceeded: boolean;

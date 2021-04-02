@@ -153,6 +153,9 @@ export class SimulationRunController {
       fileName: file?.originalname || 'input.omex',
       simulator: run.simulator,
       version: run.simulatorVersion,
+      cpus: run.cpus,
+      memory: run.memory,
+      maxTime: run.maxTime, 
     };
 
     this.sendMessage(message).subscribe((res: createdResponse) => {
@@ -216,6 +219,9 @@ export class SimulationRunController {
       run.name,
       run.simulator,
       run.simulatorVersion,
+      run.cpus,
+      run.memory,
+      run.maxTime,
       run.status,
       run.public,
       run.submitted,

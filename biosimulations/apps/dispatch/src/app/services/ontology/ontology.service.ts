@@ -1,28 +1,41 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import {
   AlgorithmKisaoDescriptionFragment,
   AlgorithmKisaoDescriptionFragmentType,
 } from '../../simulation-logs-datamodel';
-
 import {
   IOntologyTerm,
   Ontologies,
+  EdamTerm,
   KisaoTerm,
+  SboTerm
 } from '@biosimulations/datamodel/common';
 import { Observable, of } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
+
 @Injectable({ providedIn: 'root' })
 export class OntologyService {
+  edamTerms: Observable<{ [id: string]: EdamTerm }>;
   kisaoTerms: Observable<{ [id: string]: KisaoTerm }>;
+  sboTerms: Observable<{ [id: string]: SboTerm }>;
 
   constructor(private http: HttpClient) {
+    this.edamTerms = this.fetchTerms<EdamTerm>(Ontologies.EDAM) as Observable<{
+      [id: string]: EdamTerm;
+    }>;
+    this.edamTerms.subscribe();
+
     this.kisaoTerms = this.fetchTerms<KisaoTerm>(
       Ontologies.KISAO,
     ) as Observable<{ [id: string]: KisaoTerm }>;
     this.kisaoTerms.subscribe();
+
+    this.sboTerms = this.fetchTerms<SboTerm>(Ontologies.SBO) as Observable<{
+      [id: string]: SboTerm;
+    }>;
+    this.sboTerms.subscribe();
   }
 
   endpoint = urls.ontologyApi;
@@ -46,8 +59,12 @@ export class OntologyService {
     ontologyId: Ontologies,
   ): Observable<{ [id: string]: T }> | null {
     switch (ontologyId) {
+      case Ontologies.EDAM:
+        return this.edamTerms as Observable<{ [id: string]: T }>;
       case Ontologies.KISAO:
         return this.kisaoTerms as Observable<{ [id: string]: T }>;
+      case Ontologies.SBO:
+        return this.sboTerms as Observable<{ [id: string]: T }>;
     }
     return null;
   }
@@ -88,8 +105,16 @@ export class OntologyService {
     );
   }
 
+  getEdamTerm(id: string): Observable<EdamTerm> {
+    return this.getTerm<EdamTerm>(Ontologies.EDAM, id);
+  }
+
   getKisaoTerm(id: string): Observable<KisaoTerm> {
     return this.getTerm<KisaoTerm>(Ontologies.KISAO, id);
+  }
+
+  getSboTerm(id: string): Observable<SboTerm> {
+    return this.getTerm<SboTerm>(Ontologies.SBO, id);
   }
 
   formatKisaoDescription(

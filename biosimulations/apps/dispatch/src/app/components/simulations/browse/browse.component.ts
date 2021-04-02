@@ -18,6 +18,7 @@ import exampleSimulationsOrgJson from './example-simulations.org.json';
 import { debounceTime, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { snackBarDuration } from '@biosimulations/config/common';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -56,6 +57,48 @@ export class BrowseComponent implements OnInit {
       centerHref: (simulation: Simulation): string => {
         return `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
       },
+      minWidth: 34,
+      show: false,
+    },
+    {
+      id: 'cpus',
+      heading: 'CPUs',
+      getter: (simulation: Simulation): number => {
+        return simulation.cpus || 1;
+      },
+      filterType: ColumnFilterType.number,
+      minWidth: 34,
+      show: false,
+    },
+    {
+      id: 'memory',
+      heading: 'RAM',
+      getter: (simulation: Simulation): number => {
+        return simulation.memory || 8;
+      },
+      formatter: (valueGB: number): string => {
+        return valueGB.toFixed(2) + ' GB';
+      },
+      stackedFormatter: (valueGB: number): string => {
+        return valueGB.toFixed(2) + ' GB';
+      },
+      filterType: ColumnFilterType.number,
+      minWidth: 34,
+      show: false,
+    },
+    {
+      id: 'maxTime',
+      heading: 'Max time',
+      getter: (simulation: Simulation): number => {
+        return simulation.maxTime || 20;
+      },
+      formatter: (valueMin: number): string => {
+        return SimulationStatusService.formatTime(null, valueMin * 60) as string;
+      },
+      stackedFormatter: (valueMin: number): string => {
+        return SimulationStatusService.formatTime('N/A', valueMin * 60) as string;
+      },
+      filterType: ColumnFilterType.number,
       minWidth: 34,
       show: false,
     },
@@ -416,7 +459,18 @@ export class BrowseComponent implements OnInit {
     private config: ConfigService,
     private simulationService: SimulationService,
     private snackBar: MatSnackBar,
-  ) {}
+    private activatedRoute: ActivatedRoute,
+  ) {
+    activatedRoute.queryParams.subscribe((params: Params): void => {
+      if (params?.try) {
+        const numSimulations = this.loadExampleSimulations();
+        this.snackBar.open(`${numSimulations} example simulations were loaded into your list of simulations.`, undefined, {
+          verticalPosition: 'top',
+          duration: 10000,
+        });
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.simulations = this.simulationService
@@ -478,14 +532,14 @@ export class BrowseComponent implements OnInit {
     this.simulationService.removeSimulations();
   }
 
-  loadExampleSimulations(): void {
+  loadExampleSimulations(): number {
     const exampleSimulationsJson =
       environment.env == 'prod'
         ? exampleSimulationsOrgJson
         : exampleSimulationsDevJson;
 
-    this.simulationService.storeExistingExternalSimulations(
-      (exampleSimulationsJson as unknown[]) as Simulation[],
-    );
+    const exampleSimulations = (exampleSimulationsJson as unknown[]) as Simulation[];
+    this.simulationService.storeExistingExternalSimulations(exampleSimulations);
+    return exampleSimulations.length;
   }
 }

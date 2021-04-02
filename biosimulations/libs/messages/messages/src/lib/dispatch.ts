@@ -41,16 +41,26 @@ export class DispatchCreatedPayload extends DispatchPayload {
   fileName: string;
   simulator: string;
   version: string;
+  cpus: number;
+  memory: number;
+  maxTime: number;
+
   constructor(
     id: string,
     fileName: string,
     simulator: string,
     version: string,
+    cpus: number,
+    memory: number,
+    maxTime: number,
   ) {
     super(id);
     this.fileName = fileName;
     this.simulator = simulator;
     this.version = version;
+    this.cpus = cpus;
+    this.memory = memory;
+    this.maxTime = maxTime;
   }
 }
 export class DispatchFailedPayload extends DispatchPayload {

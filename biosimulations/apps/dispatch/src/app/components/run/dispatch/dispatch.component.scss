@@ -4,6 +4,76 @@ button {
   float: right;
 }
 
+.form-section {
+  border-radius: 4px;
+  border: 1px solid rgb(0, 0, 0, 0.42);
+
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
+
+.form-section-head {
+  padding: 0.4em;
+  background-color: $light-bg-darker-10;
+  height: calc(41.5px - 2 * 0.4rem);
+  border-bottom: 1px solid rgb(0, 0, 0, 0.42);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.form-section-title {
+  line-height: 100%;
+  padding-bottom: 3.5px;
+}
+
+.form-section-subtitle {
+  font-size: 75%;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 100%;
+}
+
+.form-section-body {
+  padding: 1rem;
+}
+
+.form-field-group {
+  &:not(:last-child) {
+    padding-bottom: 1rem;
+  }
+
+  .columns {
+    display: grid;
+    grid-gap: 0.5rem;
+  }
+
+  .two-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .three-columns {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  ::ng-deep .mat-form-field-subscript-wrapper {
+    padding-top: 0;
+  }
+
+  mat-hint, mat-error {
+    padding-top: 0.4em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+    font-size: 93.75%;
+    display: block;
+  }
+}
+
 .message {
   margin-top: 1rem;
 

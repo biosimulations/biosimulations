@@ -7,6 +7,9 @@ export interface Simulation {
   submittedLocally?: boolean;
   simulator: string;
   simulatorVersion: string;
+  cpus: number;
+  memory: number; // GB
+  maxTime: number; // min
   status: SimulationRunStatus;
   runtime?: number;
   submitted: Date;

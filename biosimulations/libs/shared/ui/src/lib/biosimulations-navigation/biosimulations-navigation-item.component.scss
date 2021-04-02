@@ -1,3 +1,5 @@
+@import 'biosimulations-colors';
+
 .mat-expansion-panel:not([class*='mat-elevation-z']) {
   box-shadow: none;
 }
@@ -24,6 +26,14 @@
   .mat-expansion-panel-header:active:not([aria-disabled='true']) {
     background: rgba(44, 44, 44, 0.08);
     color: rgba(#000000, 1);
+  }
+}
+
+.mat-expansion-panel-header-title a {
+  color: $dark-primary-text;
+  biosimulations-icon {
+    margin-left: 0.45rem;
+    margin-right: 0.55rem;
   }
 }
 

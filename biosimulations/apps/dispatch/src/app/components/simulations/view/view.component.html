@@ -38,6 +38,30 @@
             >
           </td>
         </tr>
+        <tr>
+          <th>
+            <biosimulations-icon icon="processor"></biosimulations-icon>
+          </th>
+          <td>
+            <span class="heading">CPU cores:</span>{{ ' ' }}{{ simulation.cpus }}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <biosimulations-icon icon="memory"></biosimulations-icon>
+          </th>
+          <td>
+            <span class="heading">RAM:</span>{{ ' ' }}{{ simulation.memory }}{{ ' ' }}GB
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <biosimulations-icon icon="duration"></biosimulations-icon>
+          </th>
+          <td>
+            <span class="heading">Max time:</span>{{ ' ' }}{{ simulation.maxTime }}{{ ' ' }}min
+          </td>
+        </tr>
       </table>
 
       <table class="icon-list">
@@ -108,7 +132,7 @@
   >
     <form
       [formGroup]="formGroup"
-      class="design-visualization"
+      class="partial-width design-visualization"
       *ngIf="(sedmlLocations$ | async)?.length; else noSedDocs"
     >
       <mat-form-field appearance="fill">
@@ -133,7 +157,7 @@
 
           <p>Vega is a powerful format for describing data visualizations. By capturing how data should be used to paint visual elements, Vega enables reusable visualizations that can be re-painted with data from multiple simulations. Vega can also capture interactive and publication-quality graphics.</p>
 
-          <p>Recommendations for using Vega to visualize simulation results are available here <a href="https://biosimulators.org/standards/data-viz"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+          <p>Recommendations for using Vega to visualize simulation results are available here <a href="https://biosimulators.org/conventions/data-viz"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
         </mat-hint>
       </mat-form-field>
 

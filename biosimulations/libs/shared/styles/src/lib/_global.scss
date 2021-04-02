@@ -122,7 +122,11 @@ ul.icon-list {
   }
 
   biosimulations-icon {
-    margin-right: 0.25rem;
+    margin-right: 0.3rem;
+  }
+
+  .mat-icon-button {
+    border-radius: 0;
   }
 }
 
@@ -259,13 +263,26 @@ ul.comma-separated {
 biosimulations-root {
   .mat-form-field {
     display: block;
-    letter-spacing: unset;
+    letter-spacing: normal;
+
+    &:last-child {
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
+      }
+    }
   }
 
   .mat-form-field-appearance-fill {
     .mat-form-field-flex {
-      padding: 0.75em 0.75em 0;
+      padding: 0.4em;
       background-color: $light-bg-darker-5;
+      align-items: center;
+      height: 41.5px;
+    }
+
+    .mat-form-field-infix {
+      padding: 0;
+      padding-top: 0.25em;
     }
 
     .mat-form-field-underline {
@@ -274,7 +291,7 @@ biosimulations-root {
 
     .mat-form-field-subscript-wrapper {
       margin-top: 0;
-      padding-top: 0.5rem;
+      padding: 0.4em 0.4em 0;
       border-top: 1px solid rgba(0, 0, 0, 0.42);
       position: unset;
     }
@@ -286,16 +303,28 @@ biosimulations-root {
     }
   }
 
-  .mat-form-field-prefix biosimulations-icon {
-    font-size: 32px;
-    position: relative;
-    top: -0.125rem;
-    margin-right: 0.5rem;
-    color: rgba(0, 0, 0, 0.7);
+  .mat-form-field-prefix {
+    biosimulations-icon {
+      font-size: 24px;
+      margin-right: 0.5rem;
+      color: rgba(0, 0, 0, 0.7);
+      line-height: 0;
+    }
   }
 
-  .ngx-mat-file-input .mat-icon-button.mat-primary {
-    color: rgba(0, 0, 0, 0.8);
+  .mat-form-field-suffix {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+  }
+
+  .ngx-mat-file-input {
+    height: 15px;
+    line-height: 15px;
+
+    .mat-icon-button.mat-primary {
+      color: rgba(0, 0, 0, 0.8);
+    }
   }
 
   .mat-form-field:not(.mat-form-field-appearance-legacy)
@@ -303,6 +332,7 @@ biosimulations-root {
     .mat-form-field-suffix
     .mat-icon-button {
     width: 1.5em;
+    height: 1.5em;
     margin-right: 0.2rem;
   }
 
@@ -314,7 +344,12 @@ biosimulations-root {
   }
 
   .mat-hint {
-    line-height: 1.25;
+    font-size: 125%;
+    line-height: 1.3;
+  }
+
+  .mat-checkbox-ripple {
+    display: none;
   }
 }
 
@@ -810,4 +845,9 @@ a.status-label {
 /* snackbar */
 .mat-simple-snackbar {
   text-align: center;
+}
+
+/* superscripts, subscripts */
+sup, sub {
+  line-height: 0;
 }

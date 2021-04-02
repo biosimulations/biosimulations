@@ -84,9 +84,9 @@
 /simulators/vcell/7.3.0.07
 /simulators/winbestkit
 /simulators/winbestkit/2.0.9
-/standards
-/standards/simulation-experiments
-/standards/simulations-reports
-/standards/simulator-images
-/standards/simulator-interfaces
-/standards/simulator-specs
+/conventions
+/conventions/simulation-experiments
+/conventions/simulations-reports
+/conventions/simulator-images
+/conventions/simulator-interfaces
+/conventions/simulator-specs
