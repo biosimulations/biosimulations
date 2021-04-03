@@ -5,9 +5,11 @@ name = "pypi"
 
 [packages]
 flask = "*"
-connexion = {extras = ["swagger-ui"], version = "*"}
+connexion = {extras = ["swagger-ui"],version = "*"}
+requests = "*"
+biosimulators-utils = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.7"
