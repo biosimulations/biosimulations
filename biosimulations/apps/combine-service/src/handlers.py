@@ -52,7 +52,7 @@ def get_sedml_output_specs_for_combine_archive(archive_url):
     for content in archive.contents:
         if content.format and re.match(CombineArchiveContentFormatPattern.SED_ML.value, content.format):
             sed_doc_filename = os.path.join(archive_dirname, content.location)
-            sed_doc_id = os.path.relpath(archive_dirname, sed_doc_filename)
+            sed_doc_id = os.path.relpath(sed_doc_filename, archive_dirname)
             try:
                 sed_doc = SedmlSimulationReader().run(sed_doc_filename, validate_semantics=False)
             except Exception:

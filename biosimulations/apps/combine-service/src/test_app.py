@@ -35,7 +35,7 @@ class HandlersTestCase(unittest.TestCase):
                                             'name': None,
                                             'label': 'time',
                                             'dataGenerator': {
-                                                '_resultsDataSetId': '../BIOMD0000000912_sim/time',
+                                                '_resultsDataSetId': 'BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/time',
                                                 'id': 'time',
                                                 'name': 'time',
                                                 'variables': [],
@@ -47,7 +47,7 @@ class HandlersTestCase(unittest.TestCase):
                                             'name': None,
                                             'label': 'T',
                                             'dataGenerator': {
-                                                '_resultsDataSetId': '../BIOMD0000000912_sim/T',
+                                                '_resultsDataSetId': 'BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/T',
                                                 'id': 'T',
                                                 'name': 'T',
                                                 'variables': [],
@@ -59,7 +59,7 @@ class HandlersTestCase(unittest.TestCase):
                                             'name': None,
                                             'label': 'E',
                                             'dataGenerator': {
-                                                '_resultsDataSetId': '../BIOMD0000000912_sim/E',
+                                                '_resultsDataSetId': 'BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/E',
                                                 'id': 'E',
                                                 'name': 'E',
                                                 'variables': [],
@@ -71,7 +71,7 @@ class HandlersTestCase(unittest.TestCase):
                                             'name': None,
                                             'label': 'I',
                                             'dataGenerator': {
-                                                '_resultsDataSetId': '../BIOMD0000000912_sim/I',
+                                                '_resultsDataSetId': 'BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/I',
                                                 'id': 'I',
                                                 'name': 'I',
                                                 'variables': [],
@@ -89,14 +89,14 @@ class HandlersTestCase(unittest.TestCase):
                                             'id': 'plot_1_T_time',
                                             'name': 'T',
                                             'xDataGenerator': {
-                                                '_resultsDataSetId': '../plot_1/time',
+                                                '_resultsDataSetId': 'BIOMD0000000912_sim.sedml/plot_1/time',
                                                 'id': 'time',
                                                 'name': 'time',
                                                 'variables': [],
                                                 'math': 'time'
                                             },
                                             'yDataGenerator': {
-                                                '_resultsDataSetId': '../plot_1/T',
+                                                '_resultsDataSetId': 'BIOMD0000000912_sim.sedml/plot_1/T',
                                                 'id': 'T',
                                                 'name': 'T',
                                                 'variables': [],
@@ -108,14 +108,14 @@ class HandlersTestCase(unittest.TestCase):
                                             'id': 'plot_1_E_time',
                                             'name': 'E',
                                             'xDataGenerator': {
-                                                '_resultsDataSetId': '../plot_1/time',
+                                                '_resultsDataSetId': 'BIOMD0000000912_sim.sedml/plot_1/time',
                                                 'id': 'time',
                                                 'name': 'time',
                                                 'variables': [],
                                                 'math': 'time'
                                             },
                                             'yDataGenerator': {
-                                                '_resultsDataSetId': '../plot_1/E',
+                                                '_resultsDataSetId': 'BIOMD0000000912_sim.sedml/plot_1/E',
                                                 'id': 'E',
                                                 'name': 'E',
                                                 'variables': [],
@@ -126,13 +126,13 @@ class HandlersTestCase(unittest.TestCase):
                                             'id': 'plot_1_I_time',
                                             'name': 'I',
                                             'xDataGenerator': {
-                                                '_resultsDataSetId': '../plot_1/time',
+                                                '_resultsDataSetId': 'BIOMD0000000912_sim.sedml/plot_1/time',
                                                 'id': 'time',
                                                 'name': 'time',
                                                 'variables': [],
                                                 'math': 'time'
                                             }, 'yDataGenerator': {
-                                                '_resultsDataSetId': '../plot_1/I',
+                                                '_resultsDataSetId': 'BIOMD0000000912_sim.sedml/plot_1/I',
                                                 'id': 'I',
                                                 'name': 'I',
                                                 'variables': [],
