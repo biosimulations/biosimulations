@@ -300,15 +300,29 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   private setPlotConfiguration(combineArchive: CombineArchive): void {
-    let nSubplots = 0;
+    const subplotsCurves: any[] = [];
     combineArchive.contents.forEach((content): void => {
       content.location.value.outputs.forEach((output): void => {
         if (output._type === SedOutputType.SedPlot2D) {
-          nSubplots++;
+          const curves = output.curves
+            .map((curve) => {
+              return {
+                xData: curve.xDataGenerator._resultsDataSetId,
+                yData: curve.yDataGenerator._resultsDataSetId,
+              };
+            })
+            .filter((curve): boolean => {
+              return curve.xData in this.combineResults && curve.yData in this.combineResults;
+            });
+
+          if (curves.length) {
+            subplotsCurves.push(curves);
+          }
         }
       })
     });
 
+    const nSubplots = subplotsCurves.length;
     if (nSubplots === 0) {
       return;
     }
@@ -319,31 +333,18 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.lineScatter2dRowsControl.setValue(cols)
     this.setVizGrid();
 
-    let iSubplot = -1;
-    combineArchive.contents.forEach((content): void => {
-      content.location.value.outputs.forEach((output): void => {
-        if (output._type === SedOutputType.SedPlot2D) {
-          iSubplot++;
+    for (let iSubplot=0; iSubplot < subplotsCurves.length; iSubplot++) {
+      const subplot = this.lineScatter2dSubplotsFormArray.at(iSubplot) as FormGroup;
+      
+      const curves = subplotsCurves[iSubplot];
+      
+      const numCurvesControl = subplot.get('numCurves') as FormControl;
+      numCurvesControl.setValue(curves.length);
+      this.setNumCurves(iSubplot);
 
-          const subplot = this.lineScatter2dSubplotsFormArray.at(iSubplot) as FormGroup;
-          const numCurvesControl = subplot.get('numCurves') as FormControl;
-          numCurvesControl.setValue(output.curves.length);
-          this.setNumCurves(iSubplot);
-
-          const curves = subplot.get('curves') as FormArray;
-          console.log(curves.length)
-
-          curves.setValue(output.curves.map((curve) => {
-            return {
-              xData: curve.xDataGenerator._resultsDataSetId,
-              yData: curve.yDataGenerator._resultsDataSetId,
-            }
-          }));
-        }
-      })
-    });
-
-
+      const curvesFormArray = subplot.get('curves') as FormArray;          
+      curvesFormArray.setValue(curves);
+    }
   }
 
   selectVisualizationType(): void {
