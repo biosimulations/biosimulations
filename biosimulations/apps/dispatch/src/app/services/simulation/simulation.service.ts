@@ -32,7 +32,7 @@ export class SimulationService {
   private storageInitialized = false;
   private simulationsAddedBeforeStorageInitialized: Simulation[] = [];
 
-  constructor(
+  public constructor(
     private config: ConfigService,
     private storage: Storage,
     private httpClient: HttpClient,
@@ -169,7 +169,7 @@ export class SimulationService {
   /**
    * Delete a simulation
    */
-  removeSimulation(id: string): void {
+  public removeSimulation(id: string): void {
     const simulation: Simulation = this.simulationsMap[id];
     const iSimulation = this.simulations.indexOf(simulation);
     this.simulations.splice(iSimulation, 1);
@@ -193,7 +193,7 @@ export class SimulationService {
     this.storeSimulations([]);
   }
 
-  getSimulations(): Observable<Simulation[]> {
+  public getSimulations(): Observable<Simulation[]> {
     return this.simulationsArrSubject.asObservable().pipe(shareReplay(1));
   }
 
@@ -215,6 +215,9 @@ export class SimulationService {
             submittedLocally: false,
             simulator: dispatchSimulation.simulator,
             simulatorVersion: dispatchSimulation.simulatorVersion,
+            cpus: dispatchSimulation.cpus,
+            memory: dispatchSimulation.memory,
+            maxTime: dispatchSimulation.maxTime,
             updated: new Date(dispatchSimulation.updated),
             resultsSize: dispatchSimulation.resultsSize,
             projectSize: dispatchSimulation.projectSize,
@@ -274,12 +277,15 @@ export class SimulationService {
    * Add a simulation to the http cache
    * @param simulation
    */
-  public addSimulation(simulation: Simulation): void {
+  public addSimulation(simulation: Simulation): boolean {
     if (!(simulation.id in this.simulationsMap$)) {
       const simSubject = new BehaviorSubject(simulation);
       this.simulationsMap$[simulation.id] = simSubject;
       this.simulationsMapSubject.next(this.simulationsMap$);
       this.updateSimulation(simulation.id);
+      return true;
+    } else {
+      return false;
     }
   }
 

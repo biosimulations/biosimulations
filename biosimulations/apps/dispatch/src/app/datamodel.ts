@@ -7,6 +7,9 @@ export interface Simulation {
   submittedLocally?: boolean;
   simulator: string;
   simulatorVersion: string;
+  cpus: number;
+  memory: number; // GB
+  maxTime: number; // min
   status: SimulationRunStatus;
   runtime?: number;
   submitted: Date;
@@ -16,11 +19,11 @@ export interface Simulation {
 }
 
 export interface SedDatasetResults {
-  _id: string | undefined;
-  location: string | undefined;
-  reportId: string | undefined;
+  id: string;
+  location: string;
+  reportId: string;
   label: string;
-  value: any;
+  values: (number | boolean | string)[];
 }
 
 export interface SedReportResults {
@@ -34,3 +37,7 @@ export interface SedDocumentResults {
 }
 
 export type CombineResults = SedDocumentResults[];
+
+export interface SedDatasetResultsMap {
+  [id: string]: SedDatasetResults;
+}

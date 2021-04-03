@@ -17,37 +17,37 @@ const routes: Routes = [
     data: {
       contextButtons: [
         {
-          route: ['/standards', 'simulator-specs'],
+          route: ['/conventions', 'simulator-specs'],
           icon: 'browse',
           label: 'Simulator specs',
         },
         {
-          route: ['/standards', 'simulator-interfaces'],
+          route: ['/conventions', 'simulator-interfaces'],
           icon: 'logs',
           label: 'Simulator interfaces',
         },
         {
-          route: ['/standards', 'simulator-images'],
+          route: ['/conventions', 'simulator-images'],
           icon: 'docker',
           label: 'Simulator images',
         },
         {
-          route: ['/standards', 'simulation-experiments'],
+          route: ['/conventions', 'simulation-experiments'],
           icon: 'experiment',
           label: 'Simulation experiments',
         },
         {
-          route: ['/standards', 'simulation-reports'],
+          route: ['/conventions', 'simulation-reports'],
           icon: 'report',
           label: 'Simulation reports',
         },
         {
-          route: ['/standards', 'data-viz'],
+          route: ['/conventions', 'data-viz'],
           icon: 'chart',
           label: 'Data visualizations',
         },
         {
-          route: ['/standards', 'simulation-logs'],
+          route: ['/conventions', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
         },
@@ -61,32 +61,32 @@ const routes: Routes = [
       breadcrumb: 'Simulator specs',
       contextButtons: [
         {
-          route: ['/standards', 'simulator-interfaces'],
+          route: ['/conventions', 'simulator-interfaces'],
           icon: 'logs',
           label: 'Simulator interfaces',
         },
         {
-          route: ['/standards', 'simulator-images'],
+          route: ['/conventions', 'simulator-images'],
           icon: 'docker',
           label: 'Simulator images',
         },
         {
-          route: ['/standards', 'simulation-experiments'],
+          route: ['/conventions', 'simulation-experiments'],
           icon: 'experiment',
           label: 'Simulation experiments',
         },
         {
-          route: ['/standards', 'simulation-reports'],
+          route: ['/conventions', 'simulation-reports'],
           icon: 'report',
           label: 'Simulation reports',
         },
         {
-          route: ['/standards', 'data-viz'],
+          route: ['/conventions', 'data-viz'],
           icon: 'chart',
           label: 'Data visualizations',
         },
         {
-          route: ['/standards', 'simulation-logs'],
+          route: ['/conventions', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
         },
@@ -100,32 +100,32 @@ const routes: Routes = [
       breadcrumb: 'Simulator interfaces',
       contextButtons: [
         {
-          route: ['/standards', 'simulator-specs'],
+          route: ['/conventions', 'simulator-specs'],
           icon: 'browse',
           label: 'Simulator specs',
         },
         {
-          route: ['/standards', 'simulator-images'],
+          route: ['/conventions', 'simulator-images'],
           icon: 'docker',
           label: 'Simulator images',
         },
         {
-          route: ['/standards', 'simulation-experiments'],
+          route: ['/conventions', 'simulation-experiments'],
           icon: 'experiment',
           label: 'Simulation experiments',
         },
         {
-          route: ['/standards', 'simulation-reports'],
+          route: ['/conventions', 'simulation-reports'],
           icon: 'report',
           label: 'Simulation reports',
         },
         {
-          route: ['/standards', 'data-viz'],
+          route: ['/conventions', 'data-viz'],
           icon: 'chart',
           label: 'Data visualizations',
         },
         {
-          route: ['/standards', 'simulation-logs'],
+          route: ['/conventions', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
         },
@@ -139,32 +139,32 @@ const routes: Routes = [
       breadcrumb: 'Simulator images',
       contextButtons: [
         {
-          route: ['/standards', 'simulator-specs'],
+          route: ['/conventions', 'simulator-specs'],
           icon: 'browse',
           label: 'Simulator specs',
         },
         {
-          route: ['/standards', 'simulator-interfaces'],
+          route: ['/conventions', 'simulator-interfaces'],
           icon: 'logs',
           label: 'Simulator interfaces',
         },
         {
-          route: ['/standards', 'simulation-experiments'],
+          route: ['/conventions', 'simulation-experiments'],
           icon: 'experiment',
           label: 'Simulation experiments',
         },
         {
-          route: ['/standards', 'simulation-reports'],
+          route: ['/conventions', 'simulation-reports'],
           icon: 'report',
           label: 'Simulation reports',
         },
         {
-          route: ['/standards', 'data-viz'],
+          route: ['/conventions', 'data-viz'],
           icon: 'chart',
           label: 'Data visualizations',
         },
         {
-          route: ['/standards', 'simulation-logs'],
+          route: ['/conventions', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
         },
@@ -178,32 +178,32 @@ const routes: Routes = [
       breadcrumb: 'Simulation experiments',
       contextButtons: [
         {
-          route: ['/standards', 'simulator-specs'],
+          route: ['/conventions', 'simulator-specs'],
           icon: 'browse',
           label: 'Simulator specs',
         },
         {
-          route: ['/standards', 'simulator-interfaces'],
+          route: ['/conventions', 'simulator-interfaces'],
           icon: 'logs',
           label: 'Simulator interfaces',
         },
         {
-          route: ['/standards', 'simulator-images'],
+          route: ['/conventions', 'simulator-images'],
           icon: 'docker',
           label: 'Simulator images',
         },
         {
-          route: ['/standards', 'simulation-reports'],
+          route: ['/conventions', 'simulation-reports'],
           icon: 'report',
           label: 'Simulation reports',
         },
         {
-          route: ['/standards', 'data-viz'],
+          route: ['/conventions', 'data-viz'],
           icon: 'chart',
           label: 'Data visualizations',
         },
         {
-          route: ['/standards', 'simulation-logs'],
+          route: ['/conventions', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
         },
@@ -217,32 +217,32 @@ const routes: Routes = [
       breadcrumb: 'Simulation reports',
       contextButtons: [
         {
-          route: ['/standards', 'simulator-specs'],
+          route: ['/conventions', 'simulator-specs'],
           icon: 'browse',
           label: 'Simulator specs',
         },
         {
-          route: ['/standards', 'simulator-interfaces'],
+          route: ['/conventions', 'simulator-interfaces'],
           icon: 'logs',
           label: 'Simulator interfaces',
         },
         {
-          route: ['/standards', 'simulator-images'],
+          route: ['/conventions', 'simulator-images'],
           icon: 'docker',
           label: 'Simulator images',
         },
         {
-          route: ['/standards', 'simulation-experiments'],
+          route: ['/conventions', 'simulation-experiments'],
           icon: 'experiment',
           label: 'Simulation experiments',
         },
         {
-          route: ['/standards', 'data-viz'],
+          route: ['/conventions', 'data-viz'],
           icon: 'chart',
           label: 'Data visualizations',
         },
         {
-          route: ['/standards', 'simulation-logs'],
+          route: ['/conventions', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
         },
@@ -256,32 +256,32 @@ const routes: Routes = [
       breadcrumb: 'Data visualizations',
       contextButtons: [
         {
-          route: ['/standards', 'simulator-specs'],
+          route: ['/conventions', 'simulator-specs'],
           icon: 'browse',
           label: 'Simulator specs',
         },
         {
-          route: ['/standards', 'simulator-interfaces'],
+          route: ['/conventions', 'simulator-interfaces'],
           icon: 'logs',
           label: 'Simulator interfaces',
         },
         {
-          route: ['/standards', 'simulator-images'],
+          route: ['/conventions', 'simulator-images'],
           icon: 'docker',
           label: 'Simulator images',
         },
         {
-          route: ['/standards', 'simulation-experiments'],
+          route: ['/conventions', 'simulation-experiments'],
           icon: 'experiment',
           label: 'Simulation experiments',
         },
         {
-          route: ['/standards', 'simulation-reports'],
+          route: ['/conventions', 'simulation-reports'],
           icon: 'report',
           label: 'Simulation reports',
         },
         {
-          route: ['/standards', 'simulation-logs'],
+          route: ['/conventions', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
         },
@@ -295,32 +295,32 @@ const routes: Routes = [
       breadcrumb: 'Project Simulation logs',
       contextButtons: [
         {
-          route: ['/standards', 'simulator-specs'],
+          route: ['/conventions', 'simulator-specs'],
           icon: 'browse',
           label: 'Simulator specs',
         },
         {
-          route: ['/standards', 'simulator-interfaces'],
+          route: ['/conventions', 'simulator-interfaces'],
           icon: 'logs',
           label: 'Simulator interfaces',
         },
         {
-          route: ['/standards', 'simulator-images'],
+          route: ['/conventions', 'simulator-images'],
           icon: 'docker',
           label: 'Simulator images',
         },
         {
-          route: ['/standards', 'simulation-experiments'],
+          route: ['/conventions', 'simulation-experiments'],
           icon: 'experiment',
           label: 'Simulation experiments',
         },
         {
-          route: ['/standards', 'simulation-reports'],
+          route: ['/conventions', 'simulation-reports'],
           icon: 'report',
           label: 'Simulation reports',
         },
         {
-          route: ['/standards', 'data-viz'],
+          route: ['/conventions', 'data-viz'],
           icon: 'chart',
           label: 'Data visualizations',
         },
@@ -333,4 +333,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class StandardsRoutingModule {}
+export class ConventionsRoutingModule {}

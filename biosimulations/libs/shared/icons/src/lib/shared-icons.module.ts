@@ -84,6 +84,10 @@ import {
   faFilePdf,
   faVideo,
   faEye,
+  faLocationArrow,
+  faMicrochip,
+  faMemory,
+  faServer,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -211,6 +215,10 @@ export class BiosimulationsIconsModule {
       faFilePdf,
       faVideo,
       faEye,
+      faLocationArrow,
+      faMicrochip,
+      faMemory,
+      faServer,
       faGoogleDrive,
       faYoutube,
     );

@@ -185,7 +185,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Build and Push Image
+      - if: matrix.app != 'combine-service'
+        name: Build and Push Image
         uses: whoan/docker-build-with-cache-action@v5
         with:
           username: "${{ secrets.GHCR_USERNAME }}"
@@ -197,7 +198,20 @@ jobs:
           context: .
           dockerfile: Dockerfile
           build_extra_args: "--compress=true --build-arg app=${{matrix.app}}"
-
+          
+      - if: matrix.app == 'combine-service'
+        name: Build and Push Python Image Image
+        uses: whoan/docker-build-with-cache-action@v5
+        with:
+          username: "${{ secrets.GHCR_USERNAME }}"
+          password: "${{ secrets.GHCR_TOKEN }}"
+          image_name: biosimulations/${{matrix.app}}
+          image_tag: latest,${{github.sha}}
+          push_git_tag: true
+          registry: ghcr.io
+          context: .
+          dockerfile: DockerfilePython
+          build_extra_args: "--compress=true --build-arg app=${{matrix.app}}"
   deployDevFrontend:
     name: Publish the development frontend
     runs-on: ubuntu-latest

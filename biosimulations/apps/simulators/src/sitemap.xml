@@ -39,13 +39,19 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/amici</loc>
-    <lastmod>2021-03-04</lastmod>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/amici/0.11.11</loc>
-    <lastmod>2021-03-04</lastmod>
+    <lastmod>2021-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/amici/0.11.14</loc>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -75,25 +81,25 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/boolnet</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/boolnet/2.1.5</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cbmpy</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cbmpy/0.7.25</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -111,25 +117,37 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/cellnetanalyzer</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-03-26</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cellnetanalyzer/2020.3</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-03-26</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/cellnetanalyzer/2021.1</loc>
+    <lastmod>2021-03-26</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cobrapy</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-26</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cobrapy/0.20.0</loc>
     <lastmod>2021-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/cobrapy/0.21.0</loc>
+    <lastmod>2021-03-26</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -147,7 +165,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -165,7 +183,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi/4.30.233</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-27</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -219,13 +237,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/gillespy2</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/gillespy2/1.5.7</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -411,25 +429,31 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/pysces</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/pysces/0.9.9</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/raven</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-03-26</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/raven/2.4.0</loc>
     <lastmod>2021-01-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/raven/2.4.3</loc>
+    <lastmod>2021-03-26</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -447,13 +471,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/tellurium</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/tellurium/2.2.0</loc>
-    <lastmod>2021-03-03</lastmod>
+    <lastmod>2021-03-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -494,37 +518,37 @@
   </url>
    
   <url>
-    <loc>https://biosimulators.org/standards</loc>
+    <loc>https://biosimulators.org/conventions</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/standards/simulation-experiments</loc>
+    <loc>https://biosimulators.org/conventions/simulation-experiments</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/standards/simulations-reports</loc>
+    <loc>https://biosimulators.org/conventions/simulations-reports</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/standards/simulator-images</loc>
+    <loc>https://biosimulators.org/conventions/simulator-images</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/standards/simulator-interfaces</loc>
+    <loc>https://biosimulators.org/conventions/simulator-interfaces</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/standards/simulator-specs</loc>
+    <loc>https://biosimulators.org/conventions/simulator-specs</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>

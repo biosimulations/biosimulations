@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { urls } from '@biosimulations/config/common';
+import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { urls } from '@biosimulations/config/common';
+// import { Simulator } from '@biosimulations/simulators/api-models';
 import {
   SimulationRun,
   UploadSimulationRun,
@@ -13,6 +14,12 @@ import {
   CombineArchiveLog,
 } from '../../simulation-logs-datamodel';
 import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
+import { OntologyService } from '../ontology/ontology.service';
+import {
+  EdamTerm,
+  KisaoTerm,
+  SboTerm
+} from '@biosimulations/datamodel/common';
 
 export interface ModelingFrameworksAlgorithmsForModelFormat {
   formatEdamIds: string[];
@@ -29,6 +36,24 @@ export interface SimulatorSpecsMap {
   [id: string]: SimulatorSpecs;
 }
 
+export interface OntologyTerm {
+  id: string;
+  name: string;
+  simulators: Set<string>;
+  disabled: boolean;
+}
+
+export interface OntologyTermsMap {
+  [id: string]: OntologyTerm;
+}
+
+export interface SimulatorsData {
+  simulatorSpecs: SimulatorSpecsMap;
+  modelFormats: OntologyTermsMap;
+  modelingFrameworks: OntologyTermsMap;
+  simulationAlgorithms: OntologyTermsMap;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -39,6 +64,9 @@ export class DispatchService {
     url: string,
     simulator: string,
     simulatorVersion: string,
+    cpus: number,
+    memory: number, // in GB
+    maxTime: number, // in minutes
     name: string,
     email: string | null,
   ): Observable<SimulationRun> {
@@ -48,6 +76,9 @@ export class DispatchService {
       email,
       simulator,
       simulatorVersion,
+      cpus,
+      memory,
+      maxTime,
     };
     return this.http.post<SimulationRun>(this.endpoint, body, {
       headers: { 'Content-Type': 'application/json' },
@@ -58,6 +89,9 @@ export class DispatchService {
     fileToUpload: File,
     simulator: string,
     simulatorVersion: string,
+    cpus: number,
+    memory: number, // in GB
+    maxTime: number, // in minutes
     name: string,
     email: string | null,
   ): Observable<SimulationRun> {
@@ -68,6 +102,9 @@ export class DispatchService {
       email: email,
       simulator,
       simulatorVersion,
+      cpus,
+      memory,
+      maxTime,
     };
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
@@ -89,16 +126,30 @@ export class DispatchService {
     >;
   }
 
-  getSimulatorsFromDb(): Observable<SimulatorSpecsMap> {
+  getSimulatorsFromDb(): Observable<SimulatorsData> {
     const endpoint = `https://api.biosimulators.org/simulators`;
+    const promises = [
+      this.http.get(endpoint),
+      this.ontologyService.edamTerms,
+      this.ontologyService.kisaoTerms,
+      this.ontologyService.sboTerms,
+    ];
 
-    return this.http.get(endpoint).pipe(
+    return forkJoin(promises).pipe(
       map(
-        (response: any): SimulatorSpecsMap => {
+        (resolvedPromises): SimulatorsData => {
+          const simulatorSpecs = resolvedPromises[0] as any[]; // Simulator[]
+          const edamTerms = resolvedPromises[1] as {[id: string]: EdamTerm};
+          const kisaoTerms = resolvedPromises[2] as {[id: string]: KisaoTerm};
+          const sboTerms = resolvedPromises[3] as {[id: string]: SboTerm};
+
           // response to dict logic
           const simulatorSpecsMap: SimulatorSpecsMap = {};
+          const modelFormats: OntologyTermsMap = {};
+          const modelingFrameworks: OntologyTermsMap = {};
+          const simulationAlgorithms: OntologyTermsMap = {};
 
-          for (const simulator of response) {
+          for (const simulator of simulatorSpecs) {
             if (simulator?.image && simulator?.biosimulators?.validated) {
               if (!(simulator.id in simulatorSpecsMap)) {
                 simulatorSpecsMap[simulator.id] = {
@@ -117,12 +168,48 @@ export class DispatchService {
                     },
                   ),
                   frameworkSboIds: algorithm.modelingFrameworks.map(
-                    (format: any): void => {
-                      return format.id;
+                    (framework: any): void => {
+                      return framework.id;
                     },
                   ),
                   algorithmKisaoIds: [algorithm.kisaoId.id],
                 });
+
+                // TODO: get names of ontology terms
+
+                algorithm.modelFormats.forEach((format: any): void => {
+                  if (!(format.id in modelFormats)) {
+                    modelFormats[format.id] = {
+                      id: format.id,
+                      name: edamTerms?.[format.id]?.name || format.id,
+                      simulators: new Set<string>(),
+                      disabled: false,
+                    }
+                  }
+                  modelFormats[format.id].simulators.add(simulator.id);
+                });
+
+                algorithm.modelingFrameworks.forEach((framework: any): void => {
+                  if (!(framework.id in modelingFrameworks)) {
+                    modelingFrameworks[framework.id] = {
+                      id: framework.id,
+                      name: sboTerms?.[framework.id]?.name || framework.id,
+                      simulators: new Set<string>(),
+                      disabled: false,
+                    }
+                  }
+                  modelingFrameworks[framework.id].simulators.add(simulator.id);
+                });
+
+                if (!(algorithm.kisaoId.id in simulationAlgorithms)) {
+                  simulationAlgorithms[algorithm.kisaoId.id] = {
+                    id: algorithm.kisaoId.id,
+                    name: kisaoTerms?.[algorithm.kisaoId.id]?.name || algorithm.id,
+                    simulators: new Set<string>(),
+                    disabled: false,
+                  }
+                }
+                simulationAlgorithms[algorithm.kisaoId.id].simulators.add(simulator.id);
               });
             }
           }
@@ -135,7 +222,12 @@ export class DispatchService {
               .reverse();
           }
 
-          return simulatorSpecsMap;
+          return {
+            simulatorSpecs: simulatorSpecsMap,
+            modelFormats,
+            modelingFrameworks,
+            simulationAlgorithms,
+          };
         },
       ),
     );
@@ -164,5 +256,5 @@ export class DispatchService {
     );
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private ontologyService: OntologyService) {}
 }

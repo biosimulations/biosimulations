@@ -7,6 +7,7 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import config from '../../../../assets/config.json';
 
 describe('FaqComponent', () => {
   let component: FaqComponent;
@@ -20,7 +21,11 @@ describe('FaqComponent', () => {
         BiosimulationsIconsModule,
         SharedContentModule,
       ],
-      providers: [RouterTestingModule, ConfigService, ScrollService],
+      providers: [
+        RouterTestingModule,
+        { provide: ConfigService, useValue: config },
+        ScrollService,
+      ],
       declarations: [FaqComponent],
     }).compileComponents();
   }));

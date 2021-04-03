@@ -61,6 +61,43 @@
       tocSection="Simulations"
     >
       <biosimulations-q-a
+        heading="Where can I obtain example COMBINE/OMEX archives and SED-ML files?"
+      >
+        Several examples COMBINE/OMEX archives and SED-ML files are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >. These examples are verified to work with runBioSimulations. This page lists that simulation tools that are compatible with each COMBINE/OMEX archive.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="Where can I obtain COMBINE/OMEX archives for simulation projects?"
+      >
+        COMBINE/OMEX archives can be obtained from model repositories such as BioModels <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >. However, most of the COMBINE/OMEX files currently available from BioModels are invalid. We are working with the BioModels Team to correct these files.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="Which tools can I use to create COMBINE/OMEX archives that contain simulation experiments in SED-ML format?"
+      >
+        <p class="no-bottom-margin">runBioSimulations recommends the following tools:</p>
+        <ul>
+          <li>COPASI <a href="http://copasi.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+          <li>iBioSim <a href="http://www.async.ece.utah.edu/ibiosim" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+          <li>JWS Online <a href="http://jjj.mib.ac.uk/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+          <li>tellurium <a href="http://tellurium.analogmachine.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+          <li>VCell <a href="http://vcell.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+        </ul>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How can I quickly run a sample set of simulations?"
+      >
+        Click <a [routerLink]="['/simulations']" [queryParams]="{try: '1'}">here</a> to load several example simulation projects from the BioSimulators test suite <a [href]="exampleCombineArchivesUrl" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
         heading="Which simulation algorithms does runBioSimulations support?"
       >
         runBioSimulations uses the BioSimulators collection of simulation tools
@@ -98,6 +135,49 @@
           ><biosimulations-icon icon="link"></biosimulations-icon
         ></a>
         for more information about the supported simulation formats.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="Is there a limit to the size of simulation projects that can be submitted to runBioSimulations?"
+      >
+        Simulation projects (COMBINE/OMEX archives) are limited to 5 TB each.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How much resources are available to each simulation?"
+      >
+        <p class="no-bottom-margin">runBioSimulations currently allows users to request up the following amounts of resources for each simulation project:</p>
+        <ul>
+          <li>Cores: 24</li>
+          <li>RAM: 192 GB</li>
+          <li>Time: 20 days</li>
+        </ul>
+
+        <p>These limits are easily configurable. Please contact runBioSimulations Team <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> if these limits would constrain your work.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How much resources are available to runBioSimulations?"
+      >
+        runBioSimulations has access to over 50 TFLOPs from 2,168 CPU cores, 11 TB RAM, and 8 PB of storage. Of this, 48 CPU cores and 384 GB RAM are dedicated to runBioSimulations. The remainder is shared with other users of the HPC system at UConn Health. More information about the infrastructure available to runBioSimulations is available from the UConn Health HPC facility <a href="https://health.uconn.edu/high-performance-computing/resources/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How many users can use runBioSimulations simultaneously?"
+      >
+        <p>runBioSimulations is architected to accomodate many simultaneous users. There is no specific limit on the number of users that can use runBioSimulations simultaneously. If users submit many simulations simultaneously, their simulations will be queued and processed in the order in which they were submitted.</p>
+
+        <p>The runBioSimulations Team strives to make runBioSimulations' resources are fairly available to all users. If necessary, the runBioSimulations will implement a job priority policy to ensure this.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="Is there a limit to the size of simulation results that runBioSimulations can generate?"
+      >
+        <p>Currently, the BSON representation of each report generated from a COMBINE/OMEX archive is limited to 16 MB. We are actively implementing an enhanced system that will accomodate at least 5 TB total for all reports generated from a COMBINE/OMEX archive.</p>
+
+        <p>In addition, the format that runBioSimulations relies on for reports is limited to 32 dimensions. For a non-spatial time course, this means that runBioSimulations can accomodate up to 15 layers of nested repeated tasks. For a 3D spatial time course, this means that runBioSimulations can accomodate up to 13 layers of nested repeated tasks.</p>
+
+        <p>The total size of all plots generated from an archive is limited to 5 TB.</p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
@@ -231,20 +311,26 @@
             >: EDAM id of the format of the models to execute (e.g.,
             <code>format_2585</code> for SBML). This argument instructs the web
             form to only enable simulation tools which support this format.
+            This argument can be repeated to instruct the web form to only show
+            simulation tools which each support multiple formats.
           </li>
           <li>
             <b><code>modelingFramework</code></b
             >: SBO id of the modeling framework of the simulations to execute
             (e.g., <code>SBO_0000293</code> for continuous kinetic framework).
             This argument instructs the web form to only enable simulation tools
-            which support this framework.
+            which support this framework. This argument can be repeated to instruct
+            the web form to only show simulation tools which each support multiple
+            frameworks.
           </li>
           <li>
             <b><code>simulationAlgorithm</code></b
             >: KiSAO id of the simulation algorithm to execute
             (e.g., <code>KISAO_0000019</code> for CVODE).
             This argument instructs the web form to only enable simulation tools
-            which can execute this algorithm.
+            which can execute this algorithm. This argument can be repeated to instruct
+            the web form to only show simulation tools which each support multiple
+            algorithms.
           </li>
           <li>
             <b><code>simulator</code></b
@@ -256,7 +342,22 @@
             <b><code>simulatorVersion</code></b
             >: Recommended version of the simulator for executing the
             COMBINE/OMEX archive (e.g., <code>2.2.0</code>). This argument
-            instruct the web form to preselect this version.
+            instructs the web form to preselect this version.
+          </li>
+          <li>
+            <b><code>cpus</code></b
+            >: Recommended number of CPU cores needed to execute the COMBINE/OMEX archive. This argument
+            instruct the web form to preset the requested number of CPU cores.
+          </li>
+          <li>
+            <b><code>memory</code></b
+            >: Recommended amount of RAM in GB needed to execute the COMBINE/OMEX archive. This argument
+            instruct the web form to preset the requested amount of RAM.
+          </li>
+          <li>
+            <b><code>maxTime</code></b
+            >: Recommended amount of time in minutes needed to execute the COMBINE/OMEX archive. This argument
+            instruct the web form to preset the requested maximum execution time.
           </li>
         </ul>
 
@@ -332,6 +433,18 @@
           </li>
         </ul>
       </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="Where does runBioSimulations execute simulations and store their outputs?"
+      >
+        <p>runBioSimulations executes simulations using a high-performance computing cluster at UConn Health. The runBioSimulations user interface is deployed using Netlfiy. runBioSimulations' APIs are deployed using Google Cloud. runBioSimulations stores simulation projects (COMBINE/OMEX archives) and their results in MongoDB Atlas.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="Can I use runBioSimulations to execute simulations involving confidential data (e.g., sensitive patient information)?"
+      >
+        <p>runBioSimulations should not be used for simulations involving confidential data such as information about individual patients. We recommend that investigators who wish to execute simulations involving confidential data use the simulation tools provided by BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to execute simulations using their own hardware or contact the BioSimulators Team <a href="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> to discuss other options.
+      </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 
      <biosimulations-text-page-content-section
@@ -349,7 +462,7 @@
       >
         <p>runBioSimulations provides two methods of visualizing simulation results. First, runBioSimulations provides a simple form for configuring two-dimensional line plots and scatter plots of pairs of data sets. These two-dimensional plots support linear and logarithmic axes.</p>
 
-        <p>In addition, users can use data visualizations in Vega format <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> by uploading a Vega file and using a simple form to map the inputs of the visualization (Vega data sets) to the outputs of the COMBINE archive (SED-ML reports). Vega is a flexible format that can capture a wide range of high quality, interactive visualizations. By modularly defining graphical marks and how they should be painted with data, Vega also makes diagrams reusable so the same diagram can be re-painted with results of multiple simulation conditions. Recommendations for using Vega to visualize simulation results are available here <a href="https://biosimulators.org/standards/data-viz"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+        <p>In addition, users can use data visualizations in Vega format <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> by uploading a Vega file and using a simple form to map the inputs of the visualization (Vega data sets) to the outputs of the COMBINE archive (SED-ML reports). Vega is a flexible format that can capture a wide range of high quality, interactive visualizations. By modularly defining graphical marks and how they should be painted with data, Vega also makes diagrams reusable so the same diagram can be re-painted with results of multiple simulation conditions. Recommendations for using Vega to visualize simulation results are available here <a href="https://biosimulators.org/conventions/data-viz"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
@@ -379,6 +492,14 @@
         for information about the available simulation tools, including the
         modeling frameworks, simulation algorithms, and model formats supported
         by each tool.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How frequently are the simulation tools available in runBioSimulations updated?"
+      >
+        <p>Simulations tools are available immediately after they are accepted into the BioSimulators registry.</p>
+
+        <p>BioSimulators has tried to make it easy for developers to push new versions to BioSimulators. Specifically, BioSimulators enables developers to programmatically submit simulation tools, and BioSimulators encourages developers to use systems such as CircleCI and GitHub actions to automate the release of new versions. BioSimulators provides template actions for developers. In addition, BioSimulators has developed a automated testing system to ensure that the tools in the registry work executed COMBINE archives as described.</p>
       </biosimulations-q-a>
 
       <biosimulations-q-a

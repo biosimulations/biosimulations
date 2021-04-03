@@ -45,6 +45,9 @@ export class SubmissionController {
       data.id,
       data.simulator,
       data.version,
+      data.cpus,
+      data.memory,
+      data.maxTime,
       data.fileName,
     );
     if (response.stderr != '') {

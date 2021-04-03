@@ -107,7 +107,11 @@ export type BiosimulationsIcon =
   | 'video'
   | 'googleDrive'
   | 'youtube'
-  | 'visible';
+  | 'visible'
+  | 'location'
+  | 'memory'
+  | 'processor'
+  | 'server';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -235,6 +239,11 @@ export class IconComponent implements OnInit {
     googleDrive: { type: 'fab', name: 'google-drive' },
     youtube: { type: 'fab', name: 'youtube' },
     visible: { type: 'fas', name: 'eye' },
+
+    location: { type: 'fas', name: 'location-arrow' },
+    memory: { type: 'fas', name: 'memory' },
+    processor: { type: 'fas', name: 'microchip' },
+    server: { type: 'fas', name: 'server' },
   };
   constructor() {
     this.iconInfo = this.iconMap[this.icon];

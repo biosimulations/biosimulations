@@ -25,6 +25,9 @@ export class HpcService {
     id: string,
     simulator: string,
     version: string,
+    cpus: number,
+    memory: number,
+    maxTime: number,
     fileName: string,
   ): Promise<{
     stdout: string;
@@ -38,6 +41,9 @@ export class HpcService {
     const sbatchString = this.sbatchService.generateSbatch(
       simDirBase,
       simulatorString,
+      cpus,
+      memory,
+      maxTime,
       fileName,
       endpoint,
       id,

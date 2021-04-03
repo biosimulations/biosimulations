@@ -36,6 +36,15 @@ jobs:
         with:
           node-version: "15.x"
 
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          architecture: 'x64'
+          
+      - name: Install Flake8
+        run: pip install flake8
+
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
@@ -125,10 +134,19 @@ jobs:
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
 
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          architecture: 'x64'
+          
+      - name: Install Flake8
+        run: pip install flake8
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "15.x"
+ 
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
@@ -184,7 +202,15 @@ jobs:
           else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
-
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          architecture: 'x64'
+          
+      - name: Install Flake8
+        run: pip install flake8
+        
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
@@ -246,7 +272,15 @@ jobs:
           else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
-
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          architecture: 'x64'
+          
+      - name: Install Flake8
+        run: pip install flake8
+        
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:

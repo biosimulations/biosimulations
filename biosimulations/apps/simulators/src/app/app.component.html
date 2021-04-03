@@ -8,18 +8,25 @@
 >
   <biosimulations-topbar-menu>
     <biosimulations-topbar-menu-item
-      heading="Simulators"
+      heading="Browse simulators"
       icon="simulator"
       [route]="['/simulators']"
     >
     </biosimulations-topbar-menu-item>
 
+    <biosimulations-topbar-menu-item
+      heading="Submit simulator"
+      icon="upload"
+      href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=validate-submit-a-simulator.md&title="
+    >
+    </biosimulations-topbar-menu-item>
+
     <biosimulations-hover-open-menu>
       <biosimulations-topbar-menu-item
-        heading="Simulator standards"
+        heading="Simulator conventions"
         icon="standard"
         id="trigger"
-        [route]="['/standards']"
+        [route]="['/conventions']"
       >
       </biosimulations-topbar-menu-item>
 
@@ -27,49 +34,49 @@
         <biosimulations-dropdown-menu-item
           heading="Simulator specs"
           icon="browse"
-          [routerLink]="['/standards', 'simulator-specs']"
+          [routerLink]="['/conventions', 'simulator-specs']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Simulator CLIs"
           icon="logs"
-          [routerLink]="['/standards', 'simulator-interfaces']"
+          [routerLink]="['/conventions', 'simulator-interfaces']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Simulator images"
           icon="docker"
-          [routerLink]="['/standards', 'simulator-images']"
+          [routerLink]="['/conventions', 'simulator-images']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Simulation experiments"
           icon="experiment"
-          [routerLink]="['/standards', 'simulation-experiments']"
+          [routerLink]="['/conventions', 'simulation-experiments']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Simulation reports"
           icon="report"
-          [routerLink]="['/standards', 'simulation-reports']"
+          [routerLink]="['/conventions', 'simulation-reports']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Data visualizations"
           icon="chart"
-          [routerLink]="['/standards', 'data-viz']"
+          [routerLink]="['/conventions', 'data-viz']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Simulation logs"
           icon="progress"
-          [routerLink]="['/standards', 'simulation-logs']"
+          [routerLink]="['/conventions', 'simulation-logs']"
         >
         </biosimulations-dropdown-menu-item>
       </ng-container>
@@ -120,69 +127,76 @@
 
   <ng-container id="sidenav-menu">
     <biosimulations-navigation-item
-      heading="Simulators"
+      heading="Browse simulators"
       icon="simulator"
       [route]="['/simulators']"
     >
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item
-      heading="Simulator standards"
+      heading="Submit simulator"
+      icon="upload"
+      href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=validate-submit-a-simulator.md&title="
+    >
+    </biosimulations-navigation-item>
+
+    <biosimulations-navigation-item
+      heading="Simulator conventions"
       icon="standard"
     >
       <biosimulations-navigation-subitem
         heading="Overview"
         icon="standard"
-        [route]="['/standards']"
+        [route]="['/conventions']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Simulator specs"
         icon="browse"
-        [route]="['/standards', 'simulator-specs']"
+        [route]="['/conventions', 'simulator-specs']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Simulators CLIs"
         icon="logs"
-        [route]="['/standards', 'simulator-interfaces']"
+        [route]="['/conventions', 'simulator-interfaces']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Simulator images"
         icon="docker"
-        [route]="['/standards', 'simulator-images']"
+        [route]="['/conventions', 'simulator-images']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Simulation expts"
         icon="experiment"
-        [route]="['/standards', 'simulation-experiments']"
+        [route]="['/conventions', 'simulation-experiments']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Simulation reports"
         icon="report"
-        [route]="['/standards', 'simulation-reports']"
+        [route]="['/conventions', 'simulation-reports']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Data visualizations"
         icon="chart"
-        [route]="['/standards', 'data-viz']"
+        [route]="['/conventions', 'data-viz']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Simulation logs"
         icon="progress"
-        [route]="['/standards', 'simulation-logs']"
+        [route]="['/conventions', 'simulation-logs']"
       >
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>

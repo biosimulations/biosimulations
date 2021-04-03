@@ -6,7 +6,7 @@
       fxHide.lt-md
     >
       <div class="hanging-indent">
-        <a [routerLink]="['/standards']">
+        <a [routerLink]="['/conventions']">
           <biosimulations-icon icon="tutorial"></biosimulations-icon>
           Documentation for the BioSimulators standards
         </a>
@@ -133,7 +133,7 @@
           OMEX is a format for describing a collection of modeling files, and a
           COMBINE archive is a zip file which contains an OMEX file and all of
           the other files which comprise the modeling project. Several example
-          COMBINE archives are available in the BioSimulators test suite
+          COMBINE archives are available here
           <a
             href="https://github.com/biosimulators/Biosimulators_test_suite"
             target="_blank"
@@ -244,7 +244,7 @@
             Reports will be saved in Hierarchical Data Format 5 (HDF5) format
             and plots will be saved in Portable Document Format (PDF) and
             bundled into a single zip archive. See the
-            <a [routerLink]="['/standards', 'simulation-reports']"
+            <a [routerLink]="['/conventions', 'simulation-reports']"
               >specifications for reports</a
             >
             for more information about the format of reports.
@@ -445,7 +445,7 @@
                 <code>-o, --out-dir</code>: A path to a directory where the
                 outputs of the simulation tasks should be saved. Reports should
                 be saved in HDF5 format (see the
-                <a [routerLink]="['/standards', 'simulation-reports']"
+                <a [routerLink]="['/conventions', 'simulation-reports']"
                   >specifications for reports</a
                 >
                 for more information) and plots should be saved in Portable
@@ -482,7 +482,7 @@
 
               <p>
                 See the
-                <a [routerLink]="['/standards', 'simulator-interfaces']"
+                <a [routerLink]="['/conventions', 'simulator-interfaces']"
                   >specifications for reports</a
                 >
                 for more information.
@@ -801,7 +801,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
         <li>
           Annotate the capabilities of your simulation tool (e.g., supported
           modeling frameworks, simulation algorithms, model formats) using the
-          <a [routerLink]="['/standards', 'simulator-specs']"
+          <a [routerLink]="['/conventions', 'simulator-specs']"
             >BioSimulators format for the specifications of simulation tools</a
           >.
         </li>
@@ -819,7 +819,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
               The command-line interface should support the arguments outlined
               in
               <b
-                ><a [routerLink]="['/standards', 'simulator-interfaces']"
+                ><a [routerLink]="['/conventions', 'simulator-interfaces']"
                   >BioSimulators' specifications for command-line interfaces for
                   simulation tools</a
                 ></b
@@ -836,7 +836,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
             <li>
               <b
                 >SED-ML and the
-                <a [routerLink]="['/standards', 'simulation-experiments']"
+                <a [routerLink]="['/conventions', 'simulation-experiments']"
                   >BioSimulators SED-ML conventions</a
                 ></b
               >
@@ -846,7 +846,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
               Optionally, the process of executing COMBINE/OMEX archives can be
               logged using
               <b
-                ><a [routerLink]="['/standards', 'simulation-logs']"
+                ><a [routerLink]="['/conventions', 'simulation-logs']"
                   >BioSimulators' format for logs of the execution of
                   COMBINE/OMEX archives</a
                 ></b
@@ -855,7 +855,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
             <li>
               Reports of simulation results should be saved according to the
               <b
-                ><a [routerLink]="['/standards', 'simulation-reports']"
+                ><a [routerLink]="['/conventions', 'simulation-reports']"
                   >BioSimulators format for reports of simulation results</a
                 ></b
               >.
@@ -885,7 +885,7 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
           >
           Such an image will make it easier for others to use your tool.
           Containerized simulation tools should follow
-          <a [routerLink]="['/standards', 'simulator-images']"
+          <a [routerLink]="['/conventions', 'simulator-images']"
             >BioSimulators' standard for Docker images for simulation tools</a
           >.
         </li>

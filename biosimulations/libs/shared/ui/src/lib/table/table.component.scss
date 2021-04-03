@@ -55,12 +55,9 @@
   }
 
   .search-field {
-    ::ng-deep .mat-form-field-wrapper {
-      padding-bottom: 0;
-    }
-
     ::ng-deep .mat-form-field-flex {
       padding: 0.25rem 0 0 0.25rem;
+      height: unset;
     }
 
     ::ng-deep .mat-form-field-infix {
@@ -189,10 +186,7 @@
     }
     ::ng-deep .mat-checkbox-inner-container {
       margin-right: 0.25rem;
-    }
-    .mat-checkbox-ripple {
-      display: none;
-    }
+    }    
 
     &:hover {
       color: rgba(#000000, 0.9);
@@ -220,6 +214,7 @@
 
     .mat-form-field-flex {
       padding: 0.25em 0.5em 0;
+      border-radius: 4px;
     }
 
     .mat-form-field-infix {

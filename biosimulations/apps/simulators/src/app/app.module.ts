@@ -43,11 +43,11 @@ const routes: Routes = [
     },
   },
   {
-    path: 'standards',
+    path: 'conventions',
     loadChildren: () =>
-      import('./standards/standards.module').then((m) => m.StandardsModule),
+      import('./conventions/conventions.module').then((m) => m.ConventionsModule),
     data: {
-      breadcrumb: 'Standards',
+      breadcrumb: 'Conventions',
       preload: {
         preload: true,
         delay: 1000,

@@ -12,8 +12,8 @@ export enum ScatterTraceMode {
 
 export interface ScatterTrace {
   name: string;
-  x: number[];
-  y: number[];
+  x: (number | boolean | string)[];
+  y: (number | boolean | string)[];
   xaxis: string;
   yaxis: string;
   mode: ScatterTraceMode;

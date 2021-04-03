@@ -32,8 +32,17 @@ export class SimulationRun {
   })
   simulator!: string;
 
-  @ApiProperty({ type: String, examples: ['latest', '2.1'] })
+  @ApiProperty({ type: String })
   simulatorVersion!: string;
+
+  @ApiProperty({ type: Number, description: 'Number of CPU cores needed to execute the simulation project', required: false, default: 1 })
+  cpus!: number;
+
+  @ApiProperty({ type: Number, description: 'Amount of RAM in GB needed to execute the simulation project', required: false, default: 8 })
+  memory!: number;
+
+  @ApiProperty({ type: Number, description: 'Time in minutes needed to execute the simulation project', required: false, default: 20 })
+  maxTime!: number;
 
   @ApiPropertyOptional({
     type: String,
@@ -68,6 +77,9 @@ export class SimulationRun {
     name: string,
     simulator: string,
     simulatorVersion: string,
+    cpus: number,
+    memory: number,
+    maxTime: number,
     status: SimulationRunStatus,
     isPublic: boolean,
     submitted: Date,
@@ -81,6 +93,9 @@ export class SimulationRun {
     this.name = name;
     this.simulator = simulator;
     this.simulatorVersion = simulatorVersion;
+    this.cpus = cpus;
+    this.memory = memory;
+    this.maxTime = maxTime;
     this.status = status;
     this.public = isPublic;
     this.submitted = submitted;
@@ -92,7 +107,7 @@ export class SimulationRun {
     this.email = email || null;
   }
 }
-export class UploadSimulationRun extends PickType(SimulationRun, ['name', 'email', 'simulator', 'simulatorVersion']) {}
+export class UploadSimulationRun extends PickType(SimulationRun, ['name', 'email', 'simulator', 'simulatorVersion', 'cpus', 'memory', 'maxTime']) {}
 
 export class UploadSimulationRunUrl extends UploadSimulationRun {
   @ApiProperty({ type: String, format: 'url' })

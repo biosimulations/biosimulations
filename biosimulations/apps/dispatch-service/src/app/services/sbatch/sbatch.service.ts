@@ -8,6 +8,9 @@ export class SbatchService {
   public generateSbatch(
     tempSimDir: string,
     simulator: string,
+    cpus: number,
+    memory: number,
+    maxTime: number,
     omexName: string,
     apiDomain: string,
     simId: string,
@@ -15,25 +18,37 @@ export class SbatchService {
     const homeDir = this.configService.get('hpc.homeDir');
     const bucket = this.configService.get('storage.bucket');
     const endpoint = this.configService.get('storage.endpoint');
+
+    const memoryFormatted = Math.ceil(memory * 1000);
+
+    let maxTimeMin = Math.floor(maxTime);
+    let maxTimeSec = Math.ceil((maxTime % 1) * 60);
+    if (maxTimeSec == 60) {
+      maxTimeMin++;
+      maxTimeSec = 0;
+    }
+    const maxTimeFormatted = `${maxTimeMin}:${maxTimeSec.toString().padStart(2, '0')}`;
+
     const nc = '\\033[0m';
     const red = '\\033[0;31m';
     const cyan = '\\033[0;36m';
+
     if (apiDomain.startsWith('http://localhost')) {
       apiDomain = 'https://run.api.biosimulations.dev/';
     }
     /*
      *
      */
-    const template = `#!/bin/bash    
+    const template = `#!/bin/bash
 #SBATCH --job-name=${simId}_Biosimulations
-#SBATCH --time=20:00
+#SBATCH --time=${maxTimeFormatted}
 #SBATCH --output=${tempSimDir}/job.output
 #SBATCH --error=${tempSimDir}/job.output
 #SBATCH --chdir=${tempSimDir}
 #SBATCH --ntasks=1
 #SBATCH --partition=crbm
-#SBATCH --mem=8G
-#SBATCH --cpus-per-task=1
+#SBATCH --mem=${memoryFormatted}M
+#SBATCH --cpus-per-task=${cpus}
 #SBATCH --qos=general\n
 
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
@@ -63,7 +78,7 @@ srun aws --no-verify-ssl --endpoint-url  ${endpoint} s3 sync --exclude "*.sbatch
   public generateImageUpdateSbatch(url: string, force: string): string {
     const homeDir = this.configService.get('hpc.homeDir');
     const image = url.split('docker://ghcr.io/biosimulators/')[1];
-    const template = `#!/bin/bash    
+    const template = `#!/bin/bash
 #SBATCH --job-name=${image}-Build
 #SBATCH --time=30:00
 #SBATCH --chdir=${homeDir}/singularity/images/

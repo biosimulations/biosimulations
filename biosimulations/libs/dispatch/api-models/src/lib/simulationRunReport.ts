@@ -9,21 +9,31 @@
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
-export type SimulationRunReportData =
-  | { [key: string]: Array<number> }
-  | { [key: string]: Array<boolean> };
+export type SimulationRunReportData = SimulationRunReportDatum[];
 
-export type SimulationRunReportDataStrings = { [key: string]: Array<string> };
-export const SimulationRunReportDataArraySchema: SchemaObject = {
+export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
   oneOf: [
     { type: 'array', items: { type: 'number', format: 'float' } },
     { type: 'array', items: { type: 'boolean' } },
   ],
 };
 
-export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
+export class SimulationRunReportDatum {
+  @ApiProperty({ type: String })
+  public id!: string;
+  @ApiProperty({ type: String })
+  public label!: string;
+  @ApiProperty(SimulationRunReportDataSchema)
+  public values: (number | boolean | string)[] = [];
+}
+
+// This is used by the service when reading the results files
+export type SimulationRunReportDataStrings = { [key: string]: Array<string> };
+
+// This is used by the api to define the schema for the incoming data from the service
+export const CreateSimulationRunReportSchema: Omit<SchemaObject, 'required'> = {
   type: 'object',
-  additionalProperties: SimulationRunReportDataArraySchema,
+  additionalProperties: SimulationRunReportDataSchema,
   example: {
     'property-1': [5.0, 2.3, 25.0],
     'property-2': [true, true, false],
@@ -32,21 +42,21 @@ export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
 
 export class SimulationRunReport {
   @ApiProperty({ type: String })
-  simId!: string;
+  public simId!: string;
   @ApiProperty({ type: String })
-  reportId!: string;
-  @ApiProperty(SimulationRunReportDataSchema)
-  data!: SimulationRunReportData;
+  public reportId!: string;
+  @ApiProperty({ type: () => [SimulationRunReportDatum] })
+  public data!: SimulationRunReportData;
   @ApiResponseProperty({ type: String, format: 'date-time' })
-  created!: Date;
+  public created!: Date;
   @ApiResponseProperty({ type: String, format: 'date-time' })
-  updated!: Date;
+  public updated!: Date;
 }
 
 export class SimulationRunResults {
   @ApiResponseProperty({ type: String })
-  simId!: string;
+  public simId!: string;
 
   @ApiResponseProperty({ type: () => [SimulationRunReport] })
-  reports!: SimulationRunReport[];
+  public reports!: SimulationRunReport[];
 }

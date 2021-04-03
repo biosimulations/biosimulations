@@ -51,21 +51,43 @@
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      heading="Creating COMBINE/OMEX files that describe modeling projects"
-      tocSection="Creating modeling projects"
+      heading="Executing a set of example simulation projects"
+      tocSection="Trying runBioSimulations"
+    >
+      Click <a [routerLink]="['/simulations']" [queryParams]="{try: '1'}">here</a> to load several example simulation projects (COMBINE/OMEX files) from the BioSimulators test suite <a [href]="exampleCombineArchivesUrl" target="_blank"
+        ><biosimulations-icon icon="link"></biosimulations-icon></a
+      >. These simulation projects are verified to be compatible with runBioSimulations. The BioSimulators test suite describes the specific simulation tools that are compatible with each example project.
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
+      heading="Obtaining or creating COMBINE/OMEX files that describe modeling projects"
+      tocSection="Obtaining or creating modeling projects"
     >
       <p>
-        runBioSimulations requires modeling projects (one or more simulations of
+        runBioSimulations requires modeling projects (one or more simulations typically in SED-ML format of
         one or more models) to be described by an OMEX file and packaged into a
-        COMBINE archive. Please follow these steps to create OMEX and COMBINE
-        files. Alternatively, COMBINE/OMEX files which describe modeling
-        projects can be obtained from the BioSimulations repository of modeling
-        projects
-        <a href="https://biosimulations.org" target="_blank"
+        COMBINE archive. Several examples COMBINE/OMEX archives are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples/" target="_blank"
           ><biosimulations-icon icon="link"></biosimulations-icon></a
         >.
       </p>
 
+      <p>COMBINE/OMEX files which describe modeling
+        projects can be obtained from model repositories such as BioModels
+        <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >. However, most of the COMBINE/OMEX files currently available from BioModels are invalid. We are working with the BioModels Team to correct these files.
+      </p>
+
+      <p class="no-bottom-margin">New COMBINE/OMEX archives can be created with several simulation tools such as those listed below:</p>
+      <ul>
+        <li>COPASI <a href="http://copasi.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+        <li>iBioSim <a href="http://www.async.ece.utah.edu/ibiosim" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+        <li>JWS Online <a href="http://jjj.mib.ac.uk/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+        <li>tellurium <a href="http://tellurium.analogmachine.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+        <li>VCell <a href="http://vcell.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+      </ul>
+
+      <p>Alternatively, new COMBINE/OMEX archives can be created by following these steps:</p>
       <ol class="vertically-spaced">
         <li>
           <b>Create a directory for the modeling project.</b>
@@ -87,10 +109,7 @@
           websites. Alternatively, models can be obtained from BioModels
           <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >, BioSimulations
-          <a href="https://biosimulations.org" target="_blank"
-            ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >, and other model repositories.
+          > and other model repositories.
         </li>
         <li>
           <b>Create or more simulations:</b>
@@ -129,7 +148,7 @@
           OMEX is a format for describing a collection of modeling files, and a
           COMBINE archive is a zip file which contains an OMEX file and all of
           the other files which comprise the modeling project. Several example
-          COMBINE archives are available in the BioSimulators test suite
+          COMBINE archives are available here
           <a
             href="https://github.com/biosimulators/Biosimulators_test_suite"
             target="_blank"

@@ -38,6 +38,30 @@
             >
           </td>
         </tr>
+        <tr>
+          <th>
+            <biosimulations-icon icon="processor"></biosimulations-icon>
+          </th>
+          <td>
+            <span class="heading">CPU cores:</span>{{ ' ' }}{{ simulation.cpus }}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <biosimulations-icon icon="memory"></biosimulations-icon>
+          </th>
+          <td>
+            <span class="heading">RAM:</span>{{ ' ' }}{{ simulation.memory }}{{ ' ' }}GB
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <biosimulations-icon icon="duration"></biosimulations-icon>
+          </th>
+          <td>
+            <span class="heading">Max time:</span>{{ ' ' }}{{ simulation.maxTime }}{{ ' ' }}min
+          </td>
+        </tr>
       </table>
 
       <table class="icon-list">
@@ -111,63 +135,81 @@
       class="partial-width design-visualization"
       *ngIf="hasData; else noSedDatasets"
     >
-      <mat-form-field appearance="fill">
-        <mat-label>How would you like to visualize the results of your simulation?</mat-label>
-        <mat-select
-          formControlName="visualizationType"
-          required
-          (selectionChange)="selectVisualizationType()"
-          disableOptionCentering
-        >
-          <mat-option
-            *ngFor="let visualizationType of visualizationTypes"
-            [value]="visualizationType"
-          >
-            {{ visualizationType }}
-          </mat-option>
-        </mat-select>
-        <biosimulations-icon icon="write" matPrefix></biosimulations-icon>
-        <mat-hint
-          >
-          <p>Choose to either use a simple form to design a two-dimensional line or scatter plot, or upload any visualization in Vega format <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+      <div class="form-section">
+        <div class="form-section-body">
+          <div class="form-field-group">
+            <mat-form-field appearance="fill">
+              <mat-label>How would you like to visualize the results of your simulation?</mat-label>
+              <mat-select
+                formControlName="visualizationType"
+                required
+                (selectionChange)="selectVisualizationType()"
+                disableOptionCentering
+              >
+                <mat-option
+                  *ngFor="let visualizationType of visualizationTypes"
+                  [value]="visualizationType"
+                >
+                  {{ visualizationType }}
+                </mat-option>
+              </mat-select>
+              <biosimulations-icon icon="write" matPrefix></biosimulations-icon>
+            </mat-form-field>
+            <mat-hint
+              >
+              <p>Choose to either use a simple form to design a two-dimensional line or scatter plot, or upload any visualization in Vega format <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
 
-          <p>Vega is a powerful format for describing data visualizations. By capturing how data should be used to paint visual elements, Vega enables reusable visualizations that can be re-painted with data from multiple simulations. Vega can also capture interactive and publication-quality graphics.</p>
-
-          <p>Recommendations for using Vega to visualize simulation results are available here <a href="https://biosimulators.org/standards/data-viz"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
-        </mat-hint>
-      </mat-form-field>
+              <p>Vega is a powerful format for describing data visualizations. By capturing how data should be used to paint visual elements, Vega enables reusable visualizations that can be re-painted with data from multiple simulations. Vega can also capture interactive and publication-quality graphics.</p>
+            </mat-hint>
+          </div>
+        </div>
+      </div>
 
       <ng-container *ngIf="selectedVisualizationType === VisualizationType.lineScatter2d" formGroupName="lineScatter2d">
-        <div class="line-scatter-grid">
-          <mat-form-field appearance="fill">
-            <mat-label>Select the number of rows of subplots</mat-label>
-            <input
-              matInput
-              formControlName="rows"
-              type="number"
-              min="1"
-              step="1"
-              required
-              (ngModelChange)="setVizGrid()"
-            />
-            <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
-            <mat-hint>runBioSimulations can display a grid of subplots. Select the number of rows of subplots that you would like to display.</mat-hint>
-          </mat-form-field>
+        <div class="form-section">
+          <div class="form-section-head">
+            <div class="mat-form-field-prefix">
+              <biosimulations-icon icon="report"></biosimulations-icon>
+            </div>
+            <div>
+              <div class="form-section-title">Subplot grid *</div>
+              <div class="form-section-subtitle">Select the numbers of rows and columns of sublots to display</div>
+            </div>
+          </div>
+          <div class="form-section-body">
+            <div class="form-field-group">
+              <div class="columns two-columns">
+                <mat-form-field appearance="fill">
+                  <mat-label>Rows</mat-label>
+                  <input
+                    matInput
+                    formControlName="rows"
+                    type="number"
+                    min="1"
+                    step="1"
+                    required
+                    (ngModelChange)="setVizGrid()"
+                  />
+                  <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+                </mat-form-field>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Select the number of columns of subplots</mat-label>
-            <input
-              matInput
-              formControlName="cols"
-              type="number"
-              min="1"
-              step="1"
-              required
-              (ngModelChange)="setVizGrid()"
-            />
-            <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
-            <mat-hint>runBioSimulations can display a grid of subplots. Select the number of columns of subplots that you would like to display.</mat-hint>
-          </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Columns</mat-label>
+                  <input
+                    matInput
+                    formControlName="cols"
+                    type="number"
+                    min="1"
+                    step="1"
+                    required
+                    (ngModelChange)="setVizGrid()"
+                  />
+                  <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+                </mat-form-field>
+              </div>
+              <mat-hint>runBioSimulations can display a grid of subplots. Select the numbers of rows and columns of subplots that you would like to display.</mat-hint>
+            </div>
+          </div>
         </div>
 
         <mat-tab-group mat-align-tabs="start" formArrayName="subplots" class="subplots">
@@ -240,7 +282,7 @@
                               >
                                 <mat-option
                                   *ngFor="let dataset of report.datasets"
-                                  [value]="dataset._id"
+                                  [value]="dataset.id"
                                 >
                                   {{ dataset.label }}
                                 </mat-option>
@@ -265,7 +307,7 @@
                               >
                                 <mat-option
                                   *ngFor="let dataset of report.datasets"
-                                  [value]="dataset._id"
+                                  [value]="dataset.id"
                                 >
                                   {{ dataset.label }}
                                 </mat-option>
@@ -351,55 +393,73 @@
       </ng-container>
 
       <ng-container *ngIf="selectedVisualizationType === VisualizationType.vega" formGroupName="vega">
-        <mat-form-field appearance="fill">
-          <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
-          <mat-label>Select a Vega file</mat-label>
-          <ngx-mat-file-input
-            formControlName="vegaFile"
-            accept=".json"
-            [multiple]="false"
-            [required]="true"
-            placeholder="Vega file"
-          ></ngx-mat-file-input>
-          <mat-error *ngIf="!vegaFileFormControl.valid">
-            The selected file is not a syntactically valid Vega document.
-          </mat-error>
-        </mat-form-field>
-
-        <div *ngIf="vegaDataSetSedmlLocationReportIdsFormArray.controls.length">
-          <mat-label>Map SED reports to the data sets of the Vega visualization</mat-label>
-          <div formArrayName="vegaDataSetSedmlLocationReportIds" class="form-array">
-            <ng-container>
-              <div class="form-array-head">SED document location &amp; report id</div>
-              <biosimulations-icon icon="longRightArrow" class="form-array-head sed-to-vega-arrow"></biosimulations-icon>
-              <div class="form-array-head">Vega data set name</div>
-            </ng-container>
-
-            <ng-container *ngFor="let vegaDataSetSedmlLocationReportId of vegaDataSetSedmlLocationReportIdsFormArray.controls; index as iVegaDataSetSedReport; last as isLast">
-              <mat-form-field appearance="fill" class="form-array-item-content">
-                <mat-select
-                  [formControlName]="iVegaDataSetSedReport"
-                  required
-                  (selectionChange)="buildVegaVizData()"
-                  disableOptionCentering
-                >
-                  <mat-option
-                    *ngFor="let sedmlLocationsReportId of (sedmlLocationsReportIds$ | async)"
-                    [value]="sedmlLocationsReportId.id"
-                  >
-                    {{ sedmlLocationsReportId.label }}
-                  </mat-option>
-                </mat-select>
+        <div class="form-section">
+          <div class="form-section-body">
+            <div class="form-field-group">
+              <mat-form-field appearance="fill">
+                <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
+                <mat-label>Select a Vega file</mat-label>
+                <ngx-mat-file-input
+                  formControlName="vegaFile"
+                  accept=".json"
+                  [multiple]="false"
+                  [required]="true"
+                  placeholder="Vega file"
+                ></ngx-mat-file-input>
               </mat-form-field>
-
-              <biosimulations-icon icon="longRightArrow" class="sed-to-vega-arrow"></biosimulations-icon>
-
-              <div class="form-array-item-label" [title]="vegaDataSets[iVegaDataSetSedReport].name">{{ vegaDataSets[iVegaDataSetSedReport].name }}</div>
-            </ng-container>
+              <mat-hint>
+                Select a Vega file. Information about the Vega format is here <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Guidelines for using Vega to visualize simulation results are available here <a href="https://biosimulators.org/conventions/data-viz" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+              </mat-hint>
+              <mat-error *ngIf="!vegaFileFormControl.valid">
+                The selected file is not a syntactically valid Vega document.
+              </mat-error>
+            </div>
           </div>
+        </div>
 
-          <div class="form-array-hint mat-hint">
-            To paint Vega diagrams with simulation results, select the simulation output (SED-ML report) that should be mapped to each  input of the diagram (Vega data set).
+        <div *ngIf="vegaDataSetSedmlLocationReportIdsFormArray.controls.length" class="form-section">
+          <div class="form-section-head">
+            <div class="mat-form-field-prefix">
+              <biosimulations-icon icon="report"></biosimulations-icon>
+            </div>
+            <div>
+              <div class="form-section-title">Map the results of the simulation to the visualization *</div>
+              <div class="form-section-subtitle">Map SED reports to the data sets of the Vega visualization</div>
+            </div>
+          </div>
+          <div class="form-section-body vega-map">
+            <div formArrayName="vegaDataSetSedmlLocationReportIds" class="form-field-group">
+              <ng-container>
+                <div class="vega-map-head">SED report</div>
+                <biosimulations-icon icon="longRightArrow" class="vega-map-head sed-to-vega-arrow"></biosimulations-icon>
+                <div class="vega-map-head">Vega data set</div>
+              </ng-container>
+
+              <ng-container *ngFor="let vegaDataSetSedmlLocationReportId of vegaDataSetSedmlLocationReportIdsFormArray.controls; index as iVegaDataSetSedReport; last as isLast">
+                <mat-form-field appearance="fill" class="vega-map-item-content">
+                  <mat-select
+                    [formControlName]="iVegaDataSetSedReport"
+                    required
+                    (selectionChange)="buildVegaVizData()"
+                    disableOptionCentering
+                  >
+                    <mat-option
+                      *ngFor="let sedmlLocationsReportId of (sedmlLocationsReportIds$ | async)"
+                      [value]="sedmlLocationsReportId.id"
+                    >
+                      {{ sedmlLocationsReportId.label }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <biosimulations-icon icon="longRightArrow" class="sed-to-vega-arrow"></biosimulations-icon>
+
+                <div class="vega-map-item-label" [title]="vegaDataSets[iVegaDataSetSedReport].name">{{ vegaDataSets[iVegaDataSetSedReport].name }}</div>
+              </ng-container>
+            </div>
+            <mat-hint>
+              To paint Vega diagrams with simulation results, select the simulation output (SED-ML report) that should be mapped to each input of the diagram (Vega data set).
+            </mat-hint>
           </div>
         </div>
       </ng-container>

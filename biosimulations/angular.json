@@ -1819,6 +1819,41 @@
           }
         }
       }
+    },
+    "combine-service": {
+      "projectType": "application",
+      "root": "apps/combine-service",
+      "sourceRoot": "apps/combine-service/src",
+      "architect": {
+        "build": {
+          "builder": "@nx-python/nx-python:build",
+          "options": {
+            "outputPath": "dist/apps/combine-service",
+            "main": "apps/combine-service/src/hello.py"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "builder": "@nx-python/nx-python:serve",
+          "options": {
+            "main": "apps/combine-service/src/hello.py"
+          }
+        },
+        "test": {
+          "builder": "@nx-python/nx-python:test",
+          "options": {
+            "main": "apps/combine-service/src/test_hello.py"
+          }
+        },
+        "lint": {
+          "builder": "@nx-python/nx-python:lint",
+          "options": {
+            "main": "apps/combine-service/src/hello.py"
+          }
+        }
+      }
     }
   },
   "cli": {

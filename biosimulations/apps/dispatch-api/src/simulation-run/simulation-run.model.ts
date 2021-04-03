@@ -61,6 +61,45 @@ export class SimulationRunModel extends Document {
   @Prop({ type: String, required: true })
   simulatorVersion!: string;
 
+  @Prop({
+    type: Number,
+    required: false,
+    default: 1,
+    validate: [{
+      validator: (value: any): boolean => {
+        return !isNaN(value) && value >= 1 && value <= 24 && value == Math.floor(value);
+      },
+      message: (props: any): string => 'Number of requested CPUs must be a positive integer less than or equal to 24.',
+    }],
+  })
+  cpus!: number;
+
+  @Prop({
+    type: Number,
+    required: false,
+    default: 8,
+    validate: [{
+      validator: (value: any): boolean => {
+        return !isNaN(value) && value > 0 && value <= 192 && value == Math.floor(value);
+      },
+      message: (props: any): string => 'Amount of requested RAM (in GB) must be a positive float less than or equal to 192.',
+    }],
+  })
+  memory!: number;
+
+  @Prop({
+    type: Number,
+    required: false,
+    default: 20,
+    validate: [{
+      validator: (value: any): boolean => {
+        return !isNaN(value) && value > 0 && value <= 20 * 24 * 60 && value == Math.floor(value);
+      },
+      message: (props: any): string => 'Amount of requested time (in min) must be a positive float less than or equal to 28800 (20 days).',
+    }],
+  })
+  maxTime!: number;
+
   @Prop()
   submitted!: Date;
 
@@ -85,6 +124,9 @@ export type SimulationRunModelType = Pick<
   | 'resultsSize'
   | 'simulator'
   | 'simulatorVersion'
+  | 'cpus'
+  | 'memory'
+  | 'maxTime'
   | 'refreshCount'
   | 'submitted'
   | 'updated'

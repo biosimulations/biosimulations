@@ -8,6 +8,14 @@
 >
   <biosimulations-topbar-menu>
     <biosimulations-topbar-menu-item
+      heading="Try simulations"
+      icon="experiment"
+      [route]="['/simulations']"
+      [queryParams]="{try: '1'}"
+    >
+    </biosimulations-topbar-menu-item>
+
+    <biosimulations-topbar-menu-item
       heading="Run a simulation"
       icon="simulator"
       [route]="['/run']"
@@ -66,6 +74,14 @@
 
   <ng-container id="sidenav-menu">
     <biosimulations-navigation-item
+      heading="Try simulations"
+      icon="experiment"
+      [route]="['/simulations']"
+      [queryParams]="{try: '1'}"
+    >
+    </biosimulations-navigation-item>
+      
+    <biosimulations-navigation-item
       heading="Run a simulation"
       icon="simulator"
       [route]="['/run']"
@@ -79,7 +95,7 @@
     >
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item heading="Help" icon="help">
+    <biosimulations-navigation-item heading="Help" icon="help">      
       <biosimulations-navigation-subitem
         heading="Tutorial"
         icon="tutorial"
