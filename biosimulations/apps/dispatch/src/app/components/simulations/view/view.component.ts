@@ -27,10 +27,14 @@ import {
   SedDatasetResults,
   SedDatasetResultsMap,
 } from '../../../datamodel';
+import {
+  CombineArchive,
+  SedOutputType,
+} from '../../../combine-sedml.interface';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
 import { ConfigService } from '@biosimulations/shared/services';
-import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription, forkJoin } from 'rxjs';
 import { concatAll, map, shareReplay } from 'rxjs/operators';
 import {
   AxisLabelType,
@@ -102,6 +106,8 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   formGroup: FormGroup;
   lineScatter2dFormGroup: FormGroup;
+  lineScatter2dRowsControl: FormControl;
+  lineScatter2dColsControl: FormControl;
   lineScatter2dSubplotsFormArray: FormArray;
   subplotCurves: (FormGroup[])[] = [];
   vegaFormGroup: FormGroup;
@@ -183,6 +189,8 @@ export class ViewComponent implements OnInit, OnDestroy {
     });
 
     this.lineScatter2dFormGroup = this.formGroup.get('lineScatter2d') as FormGroup;
+    this.lineScatter2dRowsControl = this.lineScatter2dFormGroup.get('rows') as FormControl;
+    this.lineScatter2dColsControl = this.lineScatter2dFormGroup.get('cols') as FormControl;
     this.lineScatter2dSubplotsFormArray = this.lineScatter2dFormGroup.get('subplots') as FormArray;
     this.vegaFormGroup = this.formGroup.get('vega') as FormGroup;
     this.vegaFileFormControl = this.vegaFormGroup.get('vegaFile') as FormControl;
@@ -235,12 +243,17 @@ export class ViewComponent implements OnInit, OnDestroy {
     // TODO Refactor
     const statusSub = this.statusSuceeded$.subscribe((suceeded) => {
       if (suceeded) {
-        const resultsub = this.visualizationService
-          .getCombineResultsStructure(this.uuid, true)
-          .subscribe((response) => {
-            this.setProjectOutputs(response as CombineResults);
+        const observables: [Observable<CombineResults>, Observable<CombineArchive>] = [
+          this.visualizationService.getCombineResultsStructure(this.uuid),
+          this.visualizationService.getSpecsOfSedPlotsInCombineArchive(this.uuid),
+        ];
+
+        const resultsSub = forkJoin(observables)
+          .subscribe((response: [CombineResults, CombineArchive]) => {
+            this.setProjectOutputs(response[0] as CombineResults);
+            this.setPlotConfiguration(response[1] as CombineArchive);
           });
-        this.subs.push(resultsub);
+        this.subs.push(resultsSub);
       }
     });
     this.subs.push(statusSub);
@@ -286,13 +299,60 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.setVizGrid();
   }
 
+  private setPlotConfiguration(combineArchive: CombineArchive): void {
+    let nSubplots = 0;
+    combineArchive.contents.forEach((content): void => {
+      content.location.value.outputs.forEach((output): void => {
+        if (output._type === SedOutputType.SedPlot2D) {
+          nSubplots++;
+        }
+      })
+    });
+
+    if (nSubplots === 0) {
+      return;
+    }
+
+    const rows = Math.floor(Math.sqrt(nSubplots));
+    const cols = Math.ceil(nSubplots / rows);
+    this.lineScatter2dRowsControl.setValue(rows)
+    this.lineScatter2dRowsControl.setValue(cols)
+    this.setVizGrid();
+
+    let iSubplot = -1;
+    combineArchive.contents.forEach((content): void => {
+      content.location.value.outputs.forEach((output): void => {
+        if (output._type === SedOutputType.SedPlot2D) {
+          iSubplot++;
+
+          const subplot = this.lineScatter2dSubplotsFormArray.at(iSubplot) as FormGroup;
+          const numCurvesControl = subplot.get('numCurves') as FormControl;
+          numCurvesControl.setValue(output.curves.length);
+          this.setNumCurves(iSubplot);
+
+          const curves = subplot.get('curves') as FormArray;
+          console.log(curves.length)
+
+          curves.setValue(output.curves.map((curve) => {
+            return {
+              xData: curve.xDataGenerator._resultsDataSetId,
+              yData: curve.yDataGenerator._resultsDataSetId,
+            }
+          }));
+        }
+      })
+    });
+
+
+  }
+
   selectVisualizationType(): void {
     this.selectedVisualizationType = this.formGroup.value.visualizationType;
   }
 
   setVizGrid(): void {
-    const rows = (this.lineScatter2dFormGroup.get('rows') as FormControl).value;
-    const cols = (this.lineScatter2dFormGroup.get('cols') as FormControl).value;
+    const rows = this.lineScatter2dRowsControl.value;
+    const cols = this.lineScatter2dColsControl.value;
 
     while (this.lineScatter2dSubplotsFormArray.length > rows * cols) {
       this.subplotCurves.pop();
@@ -364,8 +424,8 @@ export class ViewComponent implements OnInit, OnDestroy {
     const traces: ScatterTrace[] = [];
     const layout: Layout = {
       grid: {
-        rows: (this.lineScatter2dFormGroup.get('rows') as FormControl).value,
-        columns: (this.lineScatter2dFormGroup.get('cols') as FormControl).value,
+        rows: this.lineScatter2dRowsControl.value,
+        columns: this.lineScatter2dColsControl.value,
         pattern: 'independent',
       },
       showlegend: false,

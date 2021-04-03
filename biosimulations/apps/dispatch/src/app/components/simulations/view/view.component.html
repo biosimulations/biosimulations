@@ -143,7 +143,7 @@
               <mat-select
                 formControlName="visualizationType"
                 required
-                (selectionChange)="selectVisualizationType()"
+                (ngModelChange)="selectVisualizationType()"
                 disableOptionCentering
               >
                 <mat-option
@@ -223,7 +223,7 @@
                 <mat-select
                   formControlName="enabled"
                   required
-                  (selectionChange)="build2dViz()"
+                  (ngModelChange)="build2dViz()"
                   disableOptionCentering
                 >
                   <mat-option
@@ -248,7 +248,7 @@
                   min="0"
                   step="1"
                   required
-                  (change)="setNumCurves(iSubplot)"
+                  (ngModelChange)="setNumCurves(iSubplot)"
                 />
                 <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
                 <mat-hint>runBioSimulations can display one or more curves per subplots. Select the number of curves that you would like to display.</mat-hint>
@@ -269,7 +269,7 @@
                           <mat-select
                             formControlName="xData"
                             required
-                            (selectionChange)="build2dViz()"
+                            (ngModelChange)="build2dViz()"
                             disableOptionCentering
                           >
                             <mat-optgroup
@@ -294,7 +294,7 @@
                           <mat-select
                             formControlName="yData"
                             required
-                            (selectionChange)="build2dViz()"
+                            (ngModelChange)="build2dViz()"
                             disableOptionCentering
                           >
                             <mat-optgroup
@@ -327,7 +327,7 @@
                 <mat-select
                   formControlName="xAxisType"
                   required
-                  (selectionChange)="build2dViz()"
+                  (ngModelChange)="build2dViz()"
                   disableOptionCentering
                 >
                   <mat-option
@@ -349,7 +349,7 @@
                 <mat-select
                   formControlName="yAxisType"
                   required
-                  (selectionChange)="build2dViz()"
+                  (ngModelChange)="build2dViz()"
                   disableOptionCentering
                 >
                   <mat-option
@@ -371,7 +371,7 @@
                 <mat-select
                   formControlName="scatterTraceMode"
                   required
-                  (selectionChange)="build2dViz()"
+                  (ngModelChange)="build2dViz()"
                   disableOptionCentering
                 >
                   <mat-option
@@ -440,7 +440,7 @@
                   <mat-select
                     [formControlName]="iVegaDataSetSedReport"
                     required
-                    (selectionChange)="buildVegaVizData()"
+                    (ngModelChange)="buildVegaVizData()"
                     disableOptionCentering
                   >
                     <mat-option

@@ -10,6 +10,8 @@ import {
   SedDatasetResults,
   SedDatasetResultsMap,
 } from '../../datamodel';
+import { CombineArchive } from '../../combine-sedml.interface';
+
 
 // TODO: edit scopes so these interfaces can be imported here
 /*
@@ -147,8 +149,7 @@ export class VisualizationService {
     return `${this.resultsEndpoint}/${runId}/${reportId}?sparse=${sparse}`;
   }
 
-  public getReportResults(runId: string, reportId: string, sparse=false): Observable<SimulationRunReport> {
-    return this.http
-      .get<SimulationRunReport>(this.getReportResultsUrl(runId, reportId, sparse));
+  public getSpecsOfSedPlotsInCombineArchive(runId: string): Observable<CombineArchive> {
+    return of<CombineArchive>({contents: []});
   }
 }
