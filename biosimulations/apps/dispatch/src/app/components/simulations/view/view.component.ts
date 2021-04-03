@@ -24,15 +24,13 @@ import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import {
   Simulation,
   CombineResults,
-  SedDocumentResults,
-  SedReportResults,
   SedDatasetResults,
   SedDatasetResultsMap,
 } from '../../../datamodel';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
 import { ConfigService } from '@biosimulations/shared/services';
-import { BehaviorSubject, Observable, of, Subscription, forkJoin } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { concatAll, map, shareReplay } from 'rxjs/operators';
 import {
   AxisLabelType,
@@ -44,11 +42,9 @@ import {
   SCATTER_TRACE_MODEL_LABELS,
 } from './view.model';
 import { ViewService } from './view.service';
-import { urls } from '@biosimulations/config/common';
 import {
   Spec as VegaSpec,
   BaseData as VegaBaseData,
-  ValuesData as VegaValuesData,
   UrlData as VegaUrlData,
   Format as VegaDataFormat,
 } from 'vega';
