@@ -1,12 +1,17 @@
 from unittest import mock
 import handlers
+import os
 import unittest
 
 
 class HandlersTestCase(unittest.TestCase):
     def test_get_sedml_output_specs_for_combine_archive(self):
         archive_url = 'https://archive.combine.org'
-        with open('test-fixtures/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex', 'rb') as file:
+        with open(os.path.join(os.path.dirname(__file__),
+                               'test-fixtures',
+                               'Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex'
+                               ),
+                  'rb') as file:
             archive_url_content = file.read()
 
         with mock.patch('requests.get', return_value=mock.Mock(raise_for_status=lambda: None, content=archive_url_content)):
