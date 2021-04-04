@@ -34,8 +34,9 @@ paths:
         "400":
           content:
             application/json: {}
-          description: Unable to get specs for COMBINE/OMEX archive because URL is
-            unavailable or URL is not a valid COMBINE/OMEX archive.
+          description: Unable to get the specificatiosn of the SED outputs for COMBINE/OMEX
+            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
+            archive.
         "200":
           content:
             application/json:
@@ -56,7 +57,9 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/SeparateFileUpload'
+              type: array
+              items:
+                $ref: '#/components/schemas/FileUpload'
         required: true
       tags:
       - COMBINE
@@ -74,12 +77,14 @@ paths:
         of a SED-ML document.
       description: Assemble a COMBINE/OMEX archive from model files and specifications
         of a SED-ML document.
-  /sed-ml/get-data-generators-for-model:
+  /sed-ml/get-variables-for-model:
     post:
       requestBody:
         description: Model file
         content:
-          multipart/form-data: {}
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileUpload'
         required: true
       tags:
       - SED-ML
@@ -105,8 +110,11 @@ paths:
                 items:
                   $ref: '#/components/schemas/SedVariable'
           description: Possible observables of a model as a list of SED data generators
-        "400": {}
-      operationId: get_data_generators_for_model
+        "400":
+          content:
+            application/json: {}
+          description: Unable to get the variables of a model.
+      operationId: handlers.get_variables_for_model
       summary: Get the possible observables of a model as a list of SED variables
 components:
   schemas:
@@ -460,14 +468,6 @@ components:
         name: Model 1
         language: urn:sedml:language:sbml
         source: model_1.xml
-    SedSimulation:
-      oneOf:
-      - type: object
-      - $ref: '#/components/schemas/SedSteadyStateSimulation'
-      - $ref: '#/components/schemas/SedUniformTimeCourseSimulation'
-      - $ref: '#/components/schemas/SedOneStepSimulation'
-      description: A SED simulation.
-      type: object
     SedTask:
       description: A SED task.
       required:
@@ -597,22 +597,6 @@ components:
           enum:
           - SedVariable
           type: string
-    SeparateFileUpload:
-      description: The two files uploaded in creating a combine archive
-      required:
-      - modelFile
-      - simulationFile
-      type: object
-      properties:
-        modelFile:
-          format: binary
-          description: The file for the model in one of the supported formats
-          type: string
-        simulationFile:
-          format: binary
-          description: The simulation specification in one of the accepted formats
-            (sedml)
-          type: string
     SedRepeatedTask:
       description: A SED repeated task.
       required:
@@ -680,6 +664,19 @@ components:
         filename:
           description: Name of file on the submitter's machine
           type: string
+    SedSimulation:
+      oneOf:
+      - $ref: '#/components/schemas/SedSteadyStateSimulation'
+      - $ref: '#/components/schemas/SedUniformTimeCourseSimulation'
+      - $ref: '#/components/schemas/SedOneStepSimulation'
+      discriminator:
+        propertyName: _type
+      description: A SED simulation.
+      type: object
+    FileUpload:
+      format: binary
+      description: The two files uploaded in creating a combine archive
+      type: string
   responses:
     "404":
       content:
