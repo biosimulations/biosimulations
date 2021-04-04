@@ -1,7 +1,6 @@
 from biosimulators_utils.combine.data_model import (
     CombineArchive,
     CombineArchiveContent,
-    CombineArchiveContentFormat,
     CombineArchiveContentFormatPattern,
 )
 from biosimulators_utils.combine.io import (
@@ -9,16 +8,28 @@ from biosimulators_utils.combine.io import (
     CombineArchiveWriter,
 )
 from biosimulators_utils.sedml.data_model import (  # noqa: F401
+    SedDocument,
+    Model,
+    OneStepSimulation,
+    SteadyStateSimulation,
+    UniformTimeCourseSimulation,
+    Task,
     ModelLanguagePattern,
     DataGenerator,
+    Variable,
     Output,
     Report,
-    DataSet,
     Plot2D,
     Plot3D,
+    DataSet,
+    Curve,
+    Surface,
     AxisScale,
 )
-from biosimulators_utils.sedml.io import SedmlSimulationReader
+from biosimulators_utils.sedml.io import (
+    SedmlSimulationReader,
+    SedmlSimulationWriter,
+)
 import connexion
 import flask
 import os
@@ -296,12 +307,12 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
     return response
 
 
-def create_combine_archive(sed_doc_specs, model_files):
+def create_combine_archive(archive_specs, model_file_contents, model_files):
     ''' Create a COMBINE/OMEX archive for a model with a SED-ML document
     according to a particular specification.
 
     Args:
-        sed_doc_specs (``SedDocument``): specifications of the desired SED
+        archive_specs (``CombineArchive``): specifications of the desired SED
             document
         model_files (:obj:`list` of :obj:`werkzeug.FileStorage`): model file
             (e.g., SBML file)
@@ -321,30 +332,189 @@ def create_combine_archive(sed_doc_specs, model_files):
     archive = CombineArchive()
 
     # add models to archive
-    for model, model_file in zip(sed_doc_specs['models'], model_files):
+    for model_file_content, model_file in zip(
+            model_file_contents, model_files):
         content = CombineArchiveContent(
-            location=model['source'],
-            format=None,
+            location=model_file_content['location'],
+            format=model_file_content['format'],
             master=False,
         )
-        if re.match(ModelLanguagePattern.BNGL.value, model['langauage']):
-            content.format = CombineArchiveContentFormat.BNGL
-        elif re.match(ModelLanguagePattern.CellML.value, model['langauage']):
-            content.format = CombineArchiveContentFormat.CellML
-        elif re.match(ModelLanguagePattern.SBML.value, model['langauage']):
-            content.format = CombineArchiveContentFormat.SBML
-        else:
-            msg = 'Model language `{}` is not supported'.format(
-                model['langauage'])
-            return connexion.problem(400, 'Unsupported model language', msg)
-
-        shutil.copyfile(model_file.filename,
-                        os.path.join(archive_dirname, model['source']))
-
+        model_file.save(os.path.join(archive_dirname,
+                                     model_file_content['location']))
         archive.contents.append(content)
 
-    # generate SED-ML files and add to archive
-    # TODO
+    # add simulations to archive
+    for content in archive_specs['contents']:
+        sed_doc_specs = content['location']['value']
+        sed_doc = SedDocument(
+            level=sed_doc_specs['level'],
+            version=sed_doc_specs['version'],
+        )
+
+        # add models to SED document
+        model_id_map = {}
+        for model_spec in sed_doc_specs['models']:
+            model = Model(
+                id=model_spec.get('id'),
+                name=model_spec.get('name', None),
+                language=model_spec.get('language'),
+                source=model_spec.get('source'),
+            )
+            sed_doc.models.append(model)
+            model_id_map[model.id] = model
+
+        # add simulations to SED document
+        simulation_id_map = {}
+        for sim_spec in sed_doc_specs['simulations']:
+            if sim_spec['_type'] == 'SedOneStepSimulation':
+                sim = OneStepSimulation(
+                    id=sim_spec.get('id'),
+                    name=sim_spec.get('name', None),
+                    step=sim_spec.get('step'),
+                )
+            elif sim_spec['_type'] == 'SedSteadyStateSimulation':
+                sim = SteadyStateSimulation(
+                    id=sim_spec.get('id'),
+                    name=sim_spec.get('name', None),
+                )
+            elif sim_spec['_type'] == 'SedUniformTimeCourseSimulation':
+                sim = UniformTimeCourseSimulation(
+                    id=sim_spec.get('id'),
+                    name=sim_spec.get('name', None),
+                    initial_time=sim_spec.get('initialTime'),
+                    output_start_time=sim_spec.get('outputStartTime'),
+                    output_end_time=sim_spec.get('outputEndTime'),
+                    number_of_steps=sim_spec.get('numberOfSteps'),
+                )
+            else:
+                return connexion.problem(
+                    400,
+                    'Unsupported simulation',
+                    'Simulations of type `{}` are not supported'.format(
+                        sim_spec['_type'])
+                )  # pragma: no cover: unreachable due to schema validation
+
+            sed_doc.simulations.append(sim)
+            simulation_id_map[sim.id] = sim
+
+        # add tasks to SED document
+        task_id_map = {}
+        for task_spec in sed_doc_specs['tasks']:
+            if task_spec['_type'] == 'SedTask':
+                task = Task(
+                    id=task_spec.get('id'),
+                    name=task_spec.get('name', None),
+                    model=model_id_map[task_spec.get('model').get('id')],
+                    simulation=simulation_id_map[
+                        task_spec.get('simulation').get('id')],
+                )
+            else:
+                return connexion.problem(
+                    400,
+                    'Unsupported task',
+                    'Tasks of type `{}` are not supported'.format(
+                        task_spec['_type'])
+                )  # pragma: no cover: unreachable due to schema validation
+
+            sed_doc.tasks.append(task)
+            task_id_map[task.id] = task
+
+        # add data generators to SED document
+        data_gen_id_map = {}
+        for data_gen_spec in sed_doc_specs['dataGenerators']:
+            data_gen = DataGenerator(
+                id=data_gen_spec.get('id'),
+                name=data_gen_spec.get('name', None),
+                math=data_gen_spec.get('math'),
+            )
+
+            for var_spec in data_gen_spec['variables']:
+                var = Variable(
+                    id=data_gen_spec.get('id'),
+                    name=data_gen_spec.get('name', None),
+                    task=task_id_map[data_gen_spec.get('task').get('id')],
+                    symbol=data_gen_spec.get('symbol', None),
+                    target=data_gen_spec.get('target', None),
+                )
+                data_gen.variables.append(var)
+
+            sed_doc.data_generators.append(data_gen)
+            data_gen_id_map[data_gen.id] = data_gen
+
+        # add outputs to SED document
+        for output_spec in sed_doc_specs['outputs']:
+            if output_spec['_type'] == 'SedReport':
+                output = Report(
+                    id=output_spec.get('id'),
+                    name=output_spec.get('name', None),
+                )
+                for data_set_spec in output_spec['dataSets']:
+                    data_set = DataSet(
+                        id=data_set_spec.get('id'),
+                        name=data_set_spec.get('name', None),
+                        label=data_set_spec.get('label', None),
+                        data_generator=data_gen_id_map[
+                            data_set_spec['dataGenerator']['id']],
+                    )
+                    output.data_sets.append(data_set)
+
+            elif output_spec['_type'] == 'SedPlot2D':
+                output = Plot2D(
+                    id=output_spec.get('id'),
+                    name=output_spec.get('name', None),
+                )
+                for curve_spec in output_spec['curves']:
+                    curve = Curve(
+                        id=curve_spec.get('id'),
+                        name=curve_spec.get('name', None),
+                        label=curve_spec.get('label', None),
+                        x_data_generator=data_gen_id_map[
+                            curve_spec['xDataGenerator']['id']],
+                        y_data_generator=data_gen_id_map[
+                            curve_spec['yDataGenerator']['id']],
+                    )
+                    output.curves.append(curve)
+
+            elif output_spec['_type'] == 'SedPlot3D':
+                output = Plot3D(
+                    id=output_spec.get('id'),
+                    name=output_spec.get('name', None),
+                )
+                for surface_spec in output_spec['surfaces']:
+                    surface = Surface(
+                        id=surface_spec.get('id'),
+                        name=surface_spec.get('name', None),
+                        x_data_generator=data_gen_id_map[
+                            surface_spec['xDataGenerator']['id']],
+                        y_data_generator=data_gen_id_map[
+                            surface_spec['yDataGenerator']['id']],
+                        z_data_generator=data_gen_id_map[
+                            surface_spec['zDataGenerator']['id']],
+                    )
+                    output.surfaces.append(surface)
+
+            else:
+                return connexion.problem(
+                    400,
+                    'Unsupported output',
+                    'Outputs of type `{}` are not supported'.format(
+                        output_spec['_type'])
+                )  # pragma: no cover: unreachable due to schema validation
+
+            sed_doc.outputs.append(output)
+
+        # save SED document to file
+        SedmlSimulationWriter().run(
+            sed_doc,
+            os.path.join(archive_dirname, content['location']['path']))
+
+        # add SED document to archive
+        content = CombineArchiveContent(
+            location=content['location']['path'],
+            format=content['format'],
+            master=len(archive_specs['contents']) == 1,
+        )
+        archive.contents.append(content)
 
     # package COMBINE/OMEX archive
     CombineArchiveWriter.run(archive, archive_dirname, archive_filename)

@@ -38,7 +38,9 @@ app = connexion.App(__name__, specification_dir=get_specs_dir())
 
 # Setup handlers for APIs
 resolver = connexion.resolver.Resolver(function_resolver=handler_resolver)
-app.add_api('combine-service.yml', validate_responses=False,
+app.add_api('combine-service.yml',
+            strict_validation=True,
+            validate_responses=False,
             resolver=resolver)
 # Validate_response = True will give error when API returns something that
 # does not match the schema. If you want to send a response even if invalid,
