@@ -34,7 +34,8 @@ paths:
         "400":
           content:
             application/json: {}
-          description: Invalid Combine Archive
+          description: Unable to get specs for COMBINE/OMEX archive because URL is
+            unavailable or URL is not a valid COMBINE/OMEX archive.
         "200":
           content:
             application/json:
@@ -262,16 +263,6 @@ components:
         tasks: []
         dataGenerators: []
         outputs: []
-    SedOutput:
-      oneOf:
-      - type: object
-      - $ref: '#/components/schemas/SedPlot2D'
-      - $ref: '#/components/schemas/SedPlot3D'
-      - $ref: '#/components/schemas/SedReport'
-      discriminator:
-        propertyName: _type
-      description: An output of a SED document.
-      type: object
     SedReport:
       description: A SED report.
       required:
@@ -546,15 +537,6 @@ components:
           enum:
           - SedRepeatedTask
           type: string
-    SedAbstractTask:
-      oneOf:
-      - type: object
-      - $ref: '#/components/schemas/SedTask'
-      - $ref: '#/components/schemas/SedRepeatedTask'
-      discriminator:
-        propertyName: _type
-      description: A SED abstract task.
-      type: object
     SedAxisScale:
       description: ""
       enum:
@@ -564,6 +546,23 @@ components:
     BioSimulationsDataSetResultsId:
       description: Id of the results of a data set.
       type: string
+    SedOutput:
+      oneOf:
+      - $ref: '#/components/schemas/SedPlot2D'
+      - $ref: '#/components/schemas/SedPlot3D'
+      - $ref: '#/components/schemas/SedReport'
+      discriminator:
+        propertyName: _type
+      description: An output of a SED document.
+      type: object
+    SedAbstractTask:
+      oneOf:
+      - $ref: '#/components/schemas/SedTask'
+      - $ref: '#/components/schemas/SedRepeatedTask'
+      discriminator:
+        propertyName: _type
+      description: A SED abstract task.
+      type: object
   responses:
     "404":
       content:
