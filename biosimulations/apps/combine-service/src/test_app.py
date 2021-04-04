@@ -6,8 +6,8 @@ from openapi_core.validation.request.datatypes import (
     RequestParameters,
 )
 from openapi_core import create_spec
-from werkzeug.datastructures import MultiDict
 from unittest import mock
+from werkzeug.datastructures import MultiDict
 import importlib.util
 import json
 import os

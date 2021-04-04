@@ -8,8 +8,11 @@ flask = "*"
 connexion = {extras = ["swagger-ui"],version = "*"}
 requests = "*"
 biosimulators-utils = "*"
+werkzeug = "*"
 
 [dev-packages]
+openapi-core = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.7"
