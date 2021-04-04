@@ -74,6 +74,40 @@ paths:
         of a SED-ML document.
       description: Assemble a COMBINE/OMEX archive from model files and specifications
         of a SED-ML document.
+  /sed-ml/get-data-generators-for-model:
+    post:
+      requestBody:
+        description: Model file
+        content:
+          multipart/form-data: {}
+        required: true
+      tags:
+      - SED-ML
+      - SBML
+      parameters:
+      - examples:
+          SBML:
+            value: urn:sedml:language:sbml
+        name: modelFormat
+        description: SED URN for model format
+        schema:
+          enum:
+          - urn:sedml:language:sbml
+          type: string
+        in: query
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SedVariable'
+          description: Possible observables of a model as a list of SED data generators
+        "400": {}
+      operationId: get_data_generators_for_model
+      summary: Get the possible observables of a model as a list of SED variables
 components:
   schemas:
     SedPlot2D:
@@ -148,6 +182,7 @@ components:
       - id
       - xDataGenerator
       - yDataGenerator
+      - _type
       type: object
       properties:
         id:
@@ -162,6 +197,11 @@ components:
         yDataGenerator:
           $ref: '#/components/schemas/SedDataGenerator'
           description: Identifier of the data generator for the y data of the curve.
+        _type:
+          description: Type.
+          enum:
+          - SedCurve
+          type: string
     SedSurface:
       description: A surface a 3D plot.
       required:
@@ -169,6 +209,7 @@ components:
       - xDataGenerator
       - yDataGenerator
       - zDataGenerator
+      - _type
       type: object
       properties:
         id:
@@ -186,12 +227,18 @@ components:
         zDataGenerator:
           $ref: '#/components/schemas/SedDataGenerator'
           description: Identifier of the data generator for the z data of the surface.
+        _type:
+          description: Type.
+          enum:
+          - SedSurface
+          type: string
     SedDataGenerator:
       description: Data generator for SED report or plot.
       required:
       - id
       - math
       - variables
+      - _type
       type: object
       properties:
         id:
@@ -212,6 +259,11 @@ components:
           $ref: '#/components/schemas/BioSimulationsDataSetResultsId'
           description: Id of the results in the runBioSimulations database of simulation
             results.
+        _type:
+          description: Type.
+          enum:
+          - SedDataGenerator
+          type: string
     SedDocument:
       description: A SED document.
       required:
@@ -222,6 +274,7 @@ components:
       - simulations
       - tasks
       - dataGenerators
+      - _type
       type: object
       properties:
         outputs:
@@ -255,6 +308,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SedDataGenerator'
+        _type:
+          description: Type.
+          enum:
+          - SedDocument
+          type: string
       example:
         level: 1
         version: 4
@@ -292,6 +350,7 @@ components:
       required:
       - id
       - dataGenerator
+      - _type
       type: object
       properties:
         id:
@@ -306,10 +365,16 @@ components:
         dataGenerator:
           $ref: '#/components/schemas/SedDataGenerator'
           description: Generator which provides the data for the data set.
+        _type:
+          description: Type.
+          enum:
+          - SedDataSet
+          type: string
     CombineArchive:
       description: A COMBINE/OMEX archive.
       required:
       - contents
+      - _type
       type: object
       properties:
         contents:
@@ -317,12 +382,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CombineArchiveContent'
+        _type:
+          description: Type.
+          enum:
+          - CombineArchive
+          type: string
     CombineArchiveContent:
       description: Content item of a COMBINE/OMEX archive.
       required:
       - location
       - format
       - master
+      - _type
       type: object
       properties:
         location:
@@ -334,25 +405,37 @@ components:
         master:
           description: ""
           type: boolean
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveContent
+          type: string
     CombineArchiveLocation:
       description: Location of an item in a COMBINE/OMEX archive and its value.
       required:
       - path
       - value
+      - _type
       type: object
       properties:
         path:
           description: Path within a COMBINE/OMEX archive.
           type: string
         value:
-          $ref: '#/components/schemas/SedDocument'
+          $ref: '#/components/schemas/CombineArchiveLocationValue'
           description: Value of the content item of the COMBINE/OMEX archive.
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveLocation
+          type: string
     SedModel:
       description: A SED model.
       required:
       - id
       - language
       - source
+      - _type
       type: object
       properties:
         id:
@@ -366,6 +449,11 @@ components:
           type: string
         source:
           description: Location of the file for the model.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedModel
           type: string
       example:
         id: model_1
@@ -485,6 +573,7 @@ components:
       required:
       - id
       - task
+      - _type
       type: object
       properties:
         id:
@@ -502,6 +591,11 @@ components:
           type: string
         symbol:
           description: "Symbol (e.g., for an independent variable such as time)."
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedVariable
           type: string
     SeparateFileUpload:
       description: The two files uploaded in creating a combine archive
@@ -563,6 +657,29 @@ components:
         propertyName: _type
       description: A SED abstract task.
       type: object
+    CombineArchiveLocationValue:
+      oneOf:
+      - $ref: '#/components/schemas/SedDocument'
+      - $ref: '#/components/schemas/CombineArchiveContentFile'
+      discriminator:
+        propertyName: _type
+      description: The value of a location of a COMBINE/OMEX archive.
+      type: object
+    CombineArchiveContentFile:
+      description: File
+      required:
+      - _type
+      - filename
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveContentFile
+          type: string
+        filename:
+          description: Name of file on the submitter's machine
+          type: string
   responses:
     "404":
       content:
