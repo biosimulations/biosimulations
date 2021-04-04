@@ -8,6 +8,42 @@
   </url>
    
   <url>
+    <loc>https://biosimulators.org/conventions</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/conventions/simulation-experiments</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/conventions/simulations-reports</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/conventions/simulator-images</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/conventions/simulator-interfaces</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/conventions/simulator-specs</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulators.org/help</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -153,13 +189,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/cobratoolbox</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-04-02</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/cobratoolbox/3.1</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-04-02</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -321,13 +357,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/maboss</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-03-31</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/simulators/maboss/2.0</loc>
-    <lastmod>2021-01-07</lastmod>
+    <loc>https://biosimulators.org/simulators/maboss/2.3.4</loc>
+    <lastmod>2021-03-31</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -514,42 +550,6 @@
   <url>
     <loc>https://biosimulators.org/simulators/winbestkit/2.0.9</loc>
     <lastmod>2021-01-05</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-   
-  <url>
-    <loc>https://biosimulators.org/conventions</loc>
-    <lastmod>2020-12-23</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-   
-  <url>
-    <loc>https://biosimulators.org/conventions/simulation-experiments</loc>
-    <lastmod>2020-12-23</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-   
-  <url>
-    <loc>https://biosimulators.org/conventions/simulations-reports</loc>
-    <lastmod>2020-12-23</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-   
-  <url>
-    <loc>https://biosimulators.org/conventions/simulator-images</loc>
-    <lastmod>2020-12-23</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-   
-  <url>
-    <loc>https://biosimulators.org/conventions/simulator-interfaces</loc>
-    <lastmod>2020-12-23</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-   
-  <url>
-    <loc>https://biosimulators.org/conventions/simulator-specs</loc>
-    <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   
