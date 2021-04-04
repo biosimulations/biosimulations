@@ -43,11 +43,10 @@ app.add_api('combine-service.yml', validate_responses=False,
 # Validate_response = True will give error when API returns something that
 # does not match the schema. If you want to send a response even if invalid,
 # set to false. Set to false in production if optimistic that client can
-# handle the response better than getting error
+# handle the response better than getting error.
 
-# :obj:`validate_responses` is set to obj:`False` because connexion doesn't
-# support oneOf (see https://github.com/zalando/connexion/issues/691). Instead
-# responses are validated by the unit tests using openapi-core.
+# :obj:`validate_responses` is set to obj:`False` because responses are
+# validated by the unit tests using openapi-core.
 
 if __name__ == '__main__':
     # DEV Server only

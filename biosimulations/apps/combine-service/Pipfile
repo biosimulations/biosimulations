@@ -7,7 +7,7 @@ name = "pypi"
 flask = "*"
 connexion = {extras = ["swagger-ui"],version = "*"}
 requests = "*"
-biosimulators-utils = "*"
+biosimulators-utils = ">=0.1.48"
 werkzeug = "*"
 
 [dev-packages]

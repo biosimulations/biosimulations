@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "befe41bacb0e156d980afa6c3d3193f5910eeb5cccb81a8c631354b520a689b6"
+            "sha256": "e6dd7854c20775a047e50a7a8eaf297b828e8fc0e93e17e4025abe8638df9dc7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -25,11 +25,11 @@
         },
         "biosimulators-utils": {
             "hashes": [
-                "sha256:319bc1c3586545e85957b0682c36b351971ae3d5da1069bb3d60a1179a0b0178",
-                "sha256:6b36caaf776c4d34638431f8fe4524bdc845a7e8c5f566219f2de570b11c1ec4"
+                "sha256:84e790010c939b943a9d5f4204a5baed41ed3aa11837d52733008cf215461797",
+                "sha256:99967f30c9c20a6307da98d22a1e3279b78461779b8ab9ef966ec4e9f68f41ed"
             ],
             "index": "pypi",
-            "version": "==0.1.46"
+            "version": "==0.1.48"
         },
         "cached-property": {
             "hashes": [
