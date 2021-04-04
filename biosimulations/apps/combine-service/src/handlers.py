@@ -115,8 +115,10 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
 
                     for data_set in output.data_sets:
                         data_set_specs = {
+                            '_type': 'SedDataSet',
                             'id': data_set.id,
                             'dataGenerator': {
+                                '_type': 'SedDataGenerator',
                                 '_resultsDataSetId': get_results_data_set_id(
                                     content, output, data_set),
                                 'id': data_set.data_generator.id,
@@ -156,8 +158,10 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
 
                     for curve in output.curves:
                         curve_specs = {
+                            '_type': 'SedCurve',
                             'id': curve.id,
                             'xDataGenerator': {
+                                '_type': 'SedDataGenerator',
                                 '_resultsDataSetId': get_results_data_set_id(
                                     content, output, curve.x_data_generator),
                                 'id': curve.x_data_generator.id,
@@ -165,6 +169,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
                                 'math': curve.x_data_generator.math,
                             },
                             'yDataGenerator': {
+                                '_type': 'SedDataGenerator',
                                 '_resultsDataSetId': get_results_data_set_id(
                                     content, output, curve.y_data_generator),
                                 'id': curve.y_data_generator.id,
@@ -218,8 +223,10 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
 
                     for surface in output.surfaces:
                         surface_specs = {
+                            '_type': 'SedSurface',
                             'id': surface.id,
                             'xDataGenerator': {
+                                '_type': 'SedDataGenerator',
                                 '_resultsDataSetId': get_results_data_set_id(
                                     content, output, surface.x_data_generator),
                                 'id': surface.x_data_generator.id,
@@ -227,6 +234,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
                                 'math': surface.x_data_generator.math,
                             },
                             'yDataGenerator': {
+                                '_type': 'SedDataGenerator',
                                 '_resultsDataSetId': get_results_data_set_id(
                                     content, output, surface.y_data_generator),
                                 'id': surface.y_data_generator.id,
@@ -234,6 +242,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
                                 'math': surface.y_data_generator.math,
                             },
                             'zDataGenerator': {
+                                '_type': 'SedDataGenerator',
                                 '_resultsDataSetId': get_results_data_set_id(
                                     content, output, surface.z_data_generator),
                                 'id': surface.z_data_generator.id,
@@ -276,6 +285,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
                 sed_doc_outputs_specs.append(sed_doc_output_specs)
 
             sed_doc_specs = {
+                '_type': 'SedDocument',
                 'level': sed_doc.level,
                 'version': sed_doc.version,
                 'models': [],
@@ -286,7 +296,9 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
             }
 
             content_specs = {
+                '_type': 'CombineArchiveContent',
                 'location': {
+                    '_type': 'CombineArchiveLocation',
                     'path': content.location,
                     'value': sed_doc_specs,
                 },
@@ -300,6 +312,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
 
     # format response
     response = {
+        '_type': 'CombineArchive',
         'contents': contents_specs
     }
 
@@ -307,7 +320,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
     return response
 
 
-def get_data_generators_for_model(modelFormat, modelFile):
+def get_variables_for_model(modelFormat, modelFile):
     """ Get the observable variables of a model as a list of
     data generators
 
@@ -316,7 +329,7 @@ def get_data_generators_for_model(modelFormat, modelFile):
         modelFile (:obj:`werkzeug.FileStorage`): model file (e.g., SBML file)
 
     Returns:
-        :obj:`list` of ``#/components/schemas/SedDataGenerator``
+        :obj:`list` of ``#/components/schemas/SedVariable``
     """
     if re.match(ModelLanguagePattern.SBML.value, modelFormat):
         return []
@@ -362,8 +375,7 @@ def create_combine_archive(archiveSpecs, modelFiles):
 
     # add files to archive
     for content in archiveSpecs['contents']:
-        if re.match(CombineArchiveContentFormatPattern.SED_ML.value,
-                    content['format']):
+        if content['location']['value'] == 'SedDocument':
             sed_doc = _export_sed_doc(content['location']['value'])
 
             # save SED document to file
@@ -371,7 +383,8 @@ def create_combine_archive(archiveSpecs, modelFiles):
                 sed_doc,
                 os.path.join(archive_dirname, content['location']['path']))
         else:
-            model_file = model_filename_map[content['location']['value']]
+            model_file = model_filename_map[
+                content['location']['value']['filename']]
             model_file.save(os.path.join(archive_dirname,
                                          content['location']['path']))
 

@@ -309,8 +309,7 @@ jobs:
         working-directory: ./biosimulations
         run: |
           cd apps/${{ matrix.libOrApp }}
-          pipenv sync --dev
-          pipenv shell
+          pipenv install --dev
 
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
@@ -334,8 +333,15 @@ jobs:
           MANAGEMENT_DOMAIN: ${{ secrets.MANAGEMENT_DOMAIN }}
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
-
+        if: matrix.libOrApp != 'combine-service'
         run: nx run ${{ matrix.libOrApp }}:test --code-coverage --codeCoverage
+
+      - name: Test library or app
+        working-directory: ./biosimulations
+        if: matrix.libOrApp == 'combine-service'
+        run: |
+          cd apps/${{ matrix.libOrApp }}
+          pipenv run nx run ${{ matrix.libOrApp }}:test --code-coverage --codeCoverage
 
       - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v1.0.3

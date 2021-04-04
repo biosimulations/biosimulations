@@ -1,8 +1,12 @@
 {
+    "_type": "CombineArchive",
     "contents": [{
+        "_type": "CombineArchiveContent",
         "location": {
+            "_type": "CombineArchiveLocation",
             "path": "./BIOMD0000000912_sim.sedml",
             "value": {
+                "_type": "SedDocument",
                 "level": 1,
                 "version": 3,
                 "models": [],
@@ -14,9 +18,11 @@
                     "id": "BIOMD0000000912_sim",
                     "name": "Caravagna2010",
                     "dataSets": [{
+                        "_type": "SedDataSet",
                         "id": "data_set_time",
                         "label": "time",
                         "dataGenerator": {
+                            "_type": "SedDataGenerator",
                             "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/time",
                             "id": "time",
                             "name": "time",
@@ -24,9 +30,11 @@
                             "math": "time"
                         }
                     }, {
+                        "_type": "SedDataSet",
                         "id": "data_set_T",
                         "label": "T",
                         "dataGenerator": {
+                            "_type": "SedDataGenerator",
                             "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/T",
                             "id": "T",
                             "name": "T",
@@ -34,9 +42,11 @@
                             "math": "T"
                         }
                     }, {
+                        "_type": "SedDataSet",
                         "id": "data_set_E",
                         "label": "E",
                         "dataGenerator": {
+                            "_type": "SedDataGenerator",
                             "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/E",
                             "id": "E",
                             "name": "E",
@@ -44,9 +54,11 @@
                             "math": "E"
                         }
                     }, {
+                        "_type": "SedDataSet",
                         "id": "data_set_I",
                         "label": "I",
                         "dataGenerator": {
+                            "_type": "SedDataGenerator",
                             "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/I",
                             "id": "I",
                             "name": "I",
@@ -59,9 +71,11 @@
                     "id": "plot_1",
                     "name": " ",
                     "curves": [{
+                        "_type": "SedCurve",
                         "id": "plot_1_T_time",
                         "name": "T",
                         "xDataGenerator": {
+                            "_type": "SedDataGenerator",
                             "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/time",
                             "id": "time",
                             "name": "time",
@@ -69,6 +83,7 @@
                             "math": "time"
                         },
                         "yDataGenerator": {
+                            "_type": "SedDataGenerator",
                             "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/T",
                             "id": "T",
                             "name": "T",
@@ -76,9 +91,11 @@
                             "math": "T"
                         }
                     }, {
+                        "_type": "SedCurve",
                         "id": "plot_1_E_time",
                         "name": "E",
                         "xDataGenerator": {
+                            "_type": "SedDataGenerator",
                             "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/time",
                             "id": "time",
                             "name": "time",
@@ -86,6 +103,7 @@
                             "math": "time"
                         },
                         "yDataGenerator": {
+                            "_type": "SedDataGenerator",
                             "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/E",
                             "id": "E",
                             "name": "E",
@@ -93,9 +111,11 @@
                             "math": "E"
                         }
                     }, {
+                        "_type": "SedCurve",
                         "id": "plot_1_I_time",
                         "name": "I",
                         "xDataGenerator": {
+                            "_type": "SedDataGenerator",
                             "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/time",
                             "id": "time",
                             "name": "time",
@@ -103,6 +123,7 @@
                             "math": "time"
                         },
                         "yDataGenerator": {
+                            "_type": "SedDataGenerator",
                             "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/I",
                             "id": "I",
                             "name": "I",
