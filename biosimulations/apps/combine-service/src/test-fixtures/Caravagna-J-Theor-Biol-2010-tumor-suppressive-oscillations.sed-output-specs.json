@@ -1,0 +1,121 @@
+{
+    "contents": [{
+        "location": {
+            "path": "./BIOMD0000000912_sim.sedml",
+            "value": {
+                "level": 1,
+                "version": 3,
+                "models": [],
+                "simulations": [],
+                "tasks": [],
+                "dataGenerators": [],
+                "outputs": [{
+                    "_type": "SedReport",
+                    "id": "BIOMD0000000912_sim",
+                    "name": "Caravagna2010",
+                    "dataSets": [{
+                        "id": "data_set_time",
+                        "label": "time",
+                        "dataGenerator": {
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/time",
+                            "id": "time",
+                            "name": "time",
+                            "variables": [],
+                            "math": "time"
+                        }
+                    }, {
+                        "id": "data_set_T",
+                        "label": "T",
+                        "dataGenerator": {
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/T",
+                            "id": "T",
+                            "name": "T",
+                            "variables": [],
+                            "math": "T"
+                        }
+                    }, {
+                        "id": "data_set_E",
+                        "label": "E",
+                        "dataGenerator": {
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/E",
+                            "id": "E",
+                            "name": "E",
+                            "variables": [],
+                            "math": "E"
+                        }
+                    }, {
+                        "id": "data_set_I",
+                        "label": "I",
+                        "dataGenerator": {
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/I",
+                            "id": "I",
+                            "name": "I",
+                            "variables": [],
+                            "math": "I"
+                        }
+                    }]
+                }, {
+                    "_type": "SedPlot2D",
+                    "id": "plot_1",
+                    "name": " ",
+                    "curves": [{
+                        "id": "plot_1_T_time",
+                        "name": "T",
+                        "xDataGenerator": {
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/time",
+                            "id": "time",
+                            "name": "time",
+                            "variables": [],
+                            "math": "time"
+                        },
+                        "yDataGenerator": {
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/T",
+                            "id": "T",
+                            "name": "T",
+                            "variables": [],
+                            "math": "T"
+                        }
+                    }, {
+                        "id": "plot_1_E_time",
+                        "name": "E",
+                        "xDataGenerator": {
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/time",
+                            "id": "time",
+                            "name": "time",
+                            "variables": [],
+                            "math": "time"
+                        },
+                        "yDataGenerator": {
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/E",
+                            "id": "E",
+                            "name": "E",
+                            "variables": [],
+                            "math": "E"
+                        }
+                    }, {
+                        "id": "plot_1_I_time",
+                        "name": "I",
+                        "xDataGenerator": {
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/time",
+                            "id": "time",
+                            "name": "time",
+                            "variables": [],
+                            "math": "time"
+                        },
+                        "yDataGenerator": {
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/I",
+                            "id": "I",
+                            "name": "I",
+                            "variables": [],
+                            "math": "I"
+                        }
+                    }],
+                    "xScale": "linear",
+                    "yScale": "linear"
+                }]
+            }
+        },
+        "format": "http://identifiers.org/combine.specifications/sed-ml",
+        "master": true
+    }]
+}
