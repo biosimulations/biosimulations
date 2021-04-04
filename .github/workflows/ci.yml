@@ -305,9 +305,10 @@ jobs:
         run: npm ci
 
       - name: Install Python dependencies
-        if: 'combine-service' == matrix.libOrApp
-        working-directory: ./biosimulations/apps/${{ matrix.libOrApp }}
+        if: matrix.libOrApp == 'combine-service'
+        working-directory: ./biosimulations
         run: |
+          cd apps/${{ matrix.libOrApp }}
           pipenv sync --dev
           pipenv shell
 
