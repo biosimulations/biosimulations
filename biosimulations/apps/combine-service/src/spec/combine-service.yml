@@ -42,7 +42,7 @@ paths:
                 $ref: '#/components/schemas/CombineArchive'
           description: Specifications of the plots in the SED-ML files in the COMBINE/OMEX
             archive.
-      operationId: handlers.get_sed
+      operationId: handlers.get_sedml_output_specs_for_combine_archive
       summary: Get the specifications of the plots in SED-ML files in a COMBINE/OMEX
         archive
       description: Get the specifications of the outputs in SED-ML files in a COMBINE/OMEX
@@ -55,7 +55,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/SeperateFileUpload'
+              $ref: '#/components/schemas/SeparateFileUpload'
         required: true
       tags:
       - COMBINE
@@ -68,7 +68,7 @@ paths:
               schema:
                 type: string
           description: URL for the created COMBINE/OMEX archive.
-      operationId: handlers.create_combine
+      operationId: handlers.create_combine_archive
       summary: Assemble a COMBINE/OMEX archive from model files and specifications
         of a SED-ML document.
       description: Assemble a COMBINE/OMEX archive from model files and specifications
@@ -97,38 +97,16 @@ components:
           items:
             $ref: '#/components/schemas/SedCurve'
         xScale:
-          $ref: '#/components/schemas/AxisType'
+          $ref: '#/components/schemas/SedAxisScale'
           description: Scale of the x axis.
         yScale:
-          $ref: '#/components/schemas/AxisType'
+          $ref: '#/components/schemas/SedAxisScale'
           description: Scale of the y axis.
         _type:
           description: Type of the plot.
           enum:
           - SedPlot2D
           type: string
-      example:
-        id: ntp_dynamics
-        name: NTP dynamics
-        curves:
-        - id: atp_vs_time
-          name: ATP vs time
-          xDataGenerator:
-            id: time
-            name: Time (min)
-          yDataGenerator:
-            id: atp
-            name: ATP (mM)
-        - id: gtp_vs_time
-          name: GTP vs time
-          xDataGenerator:
-            id: time
-            name: Time (min)
-          yDataGenerator:
-            id: gtp
-            name: GTP (mM)
-        xScale: linear
-        yScale: linear
     SedPlot3D:
       description: Specifications for a 3D surface plot.
       required:
@@ -150,13 +128,13 @@ components:
           $ref: '#/components/schemas/SedSurface'
           description: "List of surfaces (tuples of x, y, and z data)."
         xScale:
-          $ref: '#/components/schemas/AxisType'
+          $ref: '#/components/schemas/SedAxisScale'
           description: Scale of the x axis.
         yScale:
-          $ref: '#/components/schemas/AxisType'
+          $ref: '#/components/schemas/SedAxisScale'
           description: Scale of the y axis.
         zScale:
-          $ref: '#/components/schemas/AxisType'
+          $ref: '#/components/schemas/SedAxisScale'
           description: Scale of the z axis.
         _type:
           description: Type of the output.
@@ -183,15 +161,6 @@ components:
         yDataGenerator:
           $ref: '#/components/schemas/SedDataGenerator'
           description: Identifier of the data generator for the y data of the curve.
-      example:
-        id: atp_vs_time
-        name: ATP vs time
-        xDataGenerator:
-          id: time
-          name: Time (min)
-        yDataGenerator:
-          id: atp
-          name: ATP (mM)
     SedSurface:
       description: A surface a 3D plot.
       required:
@@ -216,18 +185,6 @@ components:
         zDataGenerator:
           $ref: '#/components/schemas/SedDataGenerator'
           description: Identifier of the data generator for the z data of the surface.
-      example:
-        id: atp_concentration
-        name: Spatial distribution of ATP
-        xDataGenerator:
-          id: x
-          name: X (mm)
-        yDataGenerator:
-          id: "y"
-          name: Y (mm)
-        zDataGenerator:
-          id: atp
-          name: ATP (mM)
     SedDataGenerator:
       description: Data generator for SED report or plot.
       required:
@@ -250,9 +207,10 @@ components:
         math:
           description: Mathematical expression for its value.
           type: string
-      example:
-        id: time
-        name: Time (hr)
+        _resultsDataSetId:
+          $ref: '#/components/schemas/BioSimulationsDataSetResultsId'
+          description: Id of the results in the runBioSimulations database of simulation
+            results.
     SedDocument:
       description: A SED document.
       required:
@@ -342,7 +300,6 @@ components:
       description: A SED data set
       required:
       - id
-      - label
       - dataGenerator
       type: object
       properties:
@@ -358,13 +315,6 @@ components:
         dataGenerator:
           $ref: '#/components/schemas/SedDataGenerator'
           description: Generator which provides the data for the data set.
-      example:
-        id: atp data
-        label: ATP concentration
-        name: ATP Concentration
-        dataGenerator:
-          id: atp
-          name: ATP (mM)
     CombineArchive:
       description: A COMBINE/OMEX archive.
       required:
@@ -393,12 +343,6 @@ components:
         master:
           description: ""
           type: boolean
-    AxisType:
-      description: ""
-      enum:
-      - Log
-      - Linear
-      type: string
     CombineArchiveLocation:
       description: Location of an item in a COMBINE/OMEX archive and its value.
       required:
@@ -451,6 +395,7 @@ components:
       - id
       - model
       - simulation
+      - _type
       type: object
       properties:
         id:
@@ -465,6 +410,11 @@ components:
         simulation:
           $ref: '#/components/schemas/SedSimulation'
           description: Simulation
+        _type:
+          description: Type.
+          enum:
+          - SedTask
+          type: string
     SedUniformTimeCourseSimulation:
       description: A SED uniform time course simulation.
       required:
@@ -562,7 +512,7 @@ components:
         symbol:
           description: "Symbol (e.g., for an independent variable such as time)."
           type: string
-    SeperateFileUpload:
+    SeparateFileUpload:
       description: The two files uploaded in creating a combine archive
       required:
       - modelFile
@@ -578,6 +528,42 @@ components:
           description: The simulation specification in one of the accepted formats
             (sedml)
           type: string
+    SedRepeatedTask:
+      description: A SED repeated task.
+      required:
+      - id
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifiers with its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedRepeatedTask
+          type: string
+    SedAbstractTask:
+      oneOf:
+      - type: object
+      - $ref: '#/components/schemas/SedTask'
+      - $ref: '#/components/schemas/SedRepeatedTask'
+      discriminator:
+        propertyName: _type
+      description: A SED abstract task.
+      type: object
+    SedAxisScale:
+      description: ""
+      enum:
+      - log
+      - linear
+      type: string
+    BioSimulationsDataSetResultsId:
+      description: Id of the results of a data set.
+      type: string
   responses:
     "404":
       content:
