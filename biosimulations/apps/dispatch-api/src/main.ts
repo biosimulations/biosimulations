@@ -43,6 +43,8 @@ async function bootstrap() {
       'https://run.biosimulations.dev',
       'https://run.biosimulations.org',
       'https://bio.libretexts.org',
+      'https://vega.github.io', // Vega editor
+      'http://idl.cs.washington.edu', // Lyra Vega visual editor
     ];
     const allow = allowedOrigins.includes(requestOrigin);
     const error = null;

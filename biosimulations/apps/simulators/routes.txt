@@ -1,4 +1,10 @@
 /
+/conventions
+/conventions/simulation-experiments
+/conventions/simulations-reports
+/conventions/simulator-images
+/conventions/simulator-interfaces
+/conventions/simulator-specs
 /help
 /help/about
 /help/faq
@@ -52,7 +58,7 @@
 /simulators/libsbmlsim
 /simulators/libsbmlsim/1.4.0
 /simulators/maboss
-/simulators/maboss/2.0
+/simulators/maboss/2.3.4
 /simulators/metanetx
 /simulators/metanetx/4.1
 /simulators/mlxm
@@ -84,9 +90,3 @@
 /simulators/vcell/7.3.0.07
 /simulators/winbestkit
 /simulators/winbestkit/2.0.9
-/conventions
-/conventions/simulation-experiments
-/conventions/simulations-reports
-/conventions/simulator-images
-/conventions/simulator-interfaces
-/conventions/simulator-specs

@@ -3166,7 +3166,6 @@
   },
   {
     "type": "prose",
-    "searchable": "true",
     "aliases": [
       "pot",
       "gettext catalog"
@@ -3179,7 +3178,8 @@
     "aceMode": "text",
     "languageId": 129,
     "name": "Gettext Catalog",
-    "wrap": "false"
+    "wrap": "false",
+    "searchable": "true"
   },
   {
     "type": "programming",
@@ -4208,7 +4208,6 @@
     "aceMode": "json",
     "codemirrorMode": "javascript",
     "codemirrorMimeType": "application/json",
-    "searchable": "true",
     "extensions": [
       ".json",
       ".avsc",
@@ -4242,7 +4241,8 @@
     "aliases": [
       "json"
     ],
-    "wrap": "false"
+    "wrap": "false",
+    "searchable": "true"
   },
   {
     "type": "data",
@@ -5576,6 +5576,10 @@
     ],
     "aliases": [
       "mma",
+      "wolfram",
+      "wolfram language",
+      "wolfram lang",
+      "wl",
       "mathematica"
     ],
     "tmScope": "source.mathematica",
@@ -5732,7 +5736,6 @@
   },
   {
     "type": "programming",
-    "searchable": "true",
     "extensions": [
       ".minid"
     ],
@@ -5743,7 +5746,8 @@
     "aliases": [
       "minid"
     ],
-    "wrap": "false"
+    "wrap": "false",
+    "searchable": "true"
   },
   {
     "type": "programming",
@@ -7600,7 +7604,6 @@
   {
     "type": "programming",
     "group": "Python",
-    "searchable": "true",
     "aliases": [
       "pycon",
       "python console"
@@ -7609,12 +7612,12 @@
     "aceMode": "text",
     "languageId": 428,
     "name": "Python console",
-    "wrap": "false"
+    "wrap": "false",
+    "searchable": "true"
   },
   {
     "type": "data",
     "group": "Python",
-    "searchable": "true",
     "extensions": [
       ".pytb"
     ],
@@ -7625,7 +7628,8 @@
     "aliases": [
       "python traceback"
     ],
-    "wrap": "false"
+    "wrap": "false",
+    "searchable": "true"
   },
   {
     "type": "programming",
@@ -10626,6 +10630,7 @@
       ".xliff",
       ".xmi",
       ".xml.dist",
+      ".xmp",
       ".xproj",
       ".xsd",
       ".xspec",

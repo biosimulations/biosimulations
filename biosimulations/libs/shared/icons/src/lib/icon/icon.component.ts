@@ -107,6 +107,7 @@ export type BiosimulationsIcon =
   | 'video'
   | 'googleDrive'
   | 'youtube'
+  | 'visible'
   | 'location'
   | 'memory'
   | 'processor'
@@ -237,6 +238,7 @@ export class IconComponent implements OnInit {
     video: { type: 'fas', name: 'video' },
     googleDrive: { type: 'fab', name: 'google-drive' },
     youtube: { type: 'fab', name: 'youtube' },
+    visible: { type: 'fas', name: 'eye' },
 
     location: { type: 'fas', name: 'location-arrow' },
     memory: { type: 'fas', name: 'memory' },
