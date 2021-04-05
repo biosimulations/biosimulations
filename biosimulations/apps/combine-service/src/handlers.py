@@ -60,10 +60,13 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
     try:
         response = requests.get(archiveUrl)
         response.raise_for_status()
-    except requests.exceptions.RequestException:
-        msg = 'COMBINE/OMEX archive could not be loaded from `{}`'.format(
+    except requests.exceptions.RequestException as exception:
+        title = 'COMBINE/OMEX archive could not be loaded from `{}`'.format(
             archiveUrl)
-        return connexion.problem(400, 'URL unavailable', msg)
+        raise BadRequestException(
+            title=title,
+            instance=exception,
+        )
 
     # save archive to local temporary file
     archive_filename = os.path.join(temp_dirname, 'archive.omex')
@@ -74,15 +77,15 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
     archive_dirname = os.path.join(temp_dirname, 'archive')
     try:
         archive = CombineArchiveReader.run(archive_filename, archive_dirname)
-    except Exception:
+    except Exception as exception:
         # cleanup temporary files
         shutil.rmtree(temp_dirname)
 
         # return exception
-        return connexion.problem(
-            400,
-            'Invalid COMBINE/OMEX archive',
-            '`{}` is not a valid COMBINE/OMEX archive'.format(archiveUrl))
+        raise BadRequestException(
+            title='`{}` is not a valid COMBINE/OMEX archive'.format(archiveUrl),
+            instance=exception,
+        )
 
     # get specifications of SED outputs
     contents_specs = []
@@ -335,11 +338,10 @@ def get_variables_for_model(modelFormat, modelFile):
         return []
 
     else:
-        return connexion.problem(
-            400,
-            'Unsupported model',
-            'Models of format `{}` are not supported'.format(
-                modelFormat)
+        raise BadRequestException(
+            title='Models of format `{}` are not supported'.format(
+                modelFormat),
+            instance=NotImplementedError('Invalid model')
         )  # pragma: no cover: unreachable due to schema validation
 
 
@@ -463,11 +465,10 @@ def _export_sed_doc(sed_doc_specs):
                 number_of_steps=sim_spec.get('numberOfSteps'),
             )
         else:
-            return connexion.problem(
-                400,
-                'Unsupported simulation',
-                'Simulations of type `{}` are not supported'.format(
-                    sim_spec['_type'])
+            raise BadRequestException(
+                title='Simulations of type `{}` are not supported'.format(
+                    sim_spec['_type']),
+                instance=NotImplementedError('Invalid simulation')
             )  # pragma: no cover: unreachable due to schema validation
 
         sed_doc.simulations.append(sim)
@@ -485,11 +486,10 @@ def _export_sed_doc(sed_doc_specs):
                     task_spec.get('simulation').get('id')],
             )
         else:
-            return connexion.problem(
-                400,
-                'Unsupported task',
-                'Tasks of type `{}` are not supported'.format(
-                    task_spec['_type'])
+            raise BadRequestException(
+                title='Tasks of type `{}` are not supported'.format(
+                    task_spec['_type']),
+                instance=NotImplementedError('Invalid task')
             )  # pragma: no cover: unreachable due to schema validation
 
         sed_doc.tasks.append(task)
@@ -570,11 +570,10 @@ def _export_sed_doc(sed_doc_specs):
                 output.surfaces.append(surface)
 
         else:
-            return connexion.problem(
-                400,
-                'Unsupported output',
-                'Outputs of type `{}` are not supported'.format(
-                    output_spec['_type'])
+            raise BadRequestException(
+                title='Outputs of type `{}` are not supported'.format(
+                    output_spec['_type']),
+                instance=NotImplementedError('Invalid output')
             )  # pragma: no cover: unreachable due to schema validation
 
         sed_doc.outputs.append(output)
@@ -613,3 +612,48 @@ def get_results_data_set_id(content, output, data_element):
             output.id,
             data_element.name or data_element.id
         )
+
+
+class BadRequestException(connexion.ProblemException, werkzeug.exceptions.BadRequest):
+    ''' A bad request
+
+    Attributes:
+        title (:obj:`str`): title
+        instance (:obj:`Exception`): exception
+        status (:obj:`int`): status code
+    '''
+
+    def __init__(self, title, instance, status=400):
+        """
+        Args:
+            title (:obj:`str`): title
+            instance (:obj:`Exception`): exception
+            status (:obj:`int`, optional): status code
+        """
+        super(BadRequestException, self).__init__(title=title, instance=instance, status=status)
+
+    def get_response(self):
+        """ Get repsonse
+
+        Returns:
+            :obj:`werkzeug.wrappers.response.Response`: response
+        """
+        data = {
+            'status': self.status,
+            'title': self.title,
+            'detail': str(self.instance),
+            'type': str(self.instance.__class__.__name__),
+        }
+        return flask.jsonify(data), self.status
+
+
+def render_exception(exception):
+    """ Render an exception
+
+    Args:
+        exception (:obj:`BadRequestException`): exception
+
+    Returns:
+        :obj:`werkzeug.wrappers.response.Response`: response
+    """
+    return exception.get_response()

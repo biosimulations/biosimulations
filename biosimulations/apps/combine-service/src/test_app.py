@@ -82,3 +82,11 @@ class HandlersTestCase(unittest.TestCase):
                                    mimetype='application/json')
         result = self.response_validator.validate(request, response)
         result.raise_for_errors()
+
+    def test_get_sedml_output_specs_for_combine_archive_error_handling(self):
+        endpoint = '/combine/sedml-output-specs?archiveUrl=x'
+        with app.app.app.test_client() as client:
+            response = client.get(endpoint)
+        self.assertEqual(response.status_code, 400)
+        self.assertTrue(response.json['title'].startswith(
+            'COMBINE/OMEX archive could not be loaded'))
