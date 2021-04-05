@@ -12,22 +12,31 @@ export enum ScatterTraceMode {
 
 export interface ScatterTrace {
   name: string;
-  x: number[];
-  y: number[];
+  x: (number | boolean | string)[];
+  y: (number | boolean | string)[];
+  xaxis: string;
+  yaxis: string;
   mode: ScatterTraceMode;
 }
 
 export interface Axis {
+  anchor: string;
   title: string | undefined;
   type: AxisType;
 }
 
+export interface Grid {
+  rows: number;
+  columns: number;
+  pattern: 'independent';
+}
+
 export interface Layout {
-  xaxis: Axis;
-  yaxis: Axis;
+  grid: Grid;
   showlegend: boolean;
   width: number | undefined;
   height: number | undefined;
+  [axisId: string]: any; // compiler complains about using type Axis here
 }
 
 export interface DataLayout {
@@ -43,6 +52,21 @@ export interface DataLayout {
 export class PlotlyVisualizationComponent {
   data: ScatterTrace[] | undefined = undefined;
   layout: Layout | undefined = undefined;
+  config: any = {
+    scrollZoom: true,
+    editable: false,
+    toImageButtonOptions: {
+      format: 'svg', // one of png, svg, jpeg, webp
+      filename: 'chart',
+      height: 500,
+      width: 700,
+      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+    },
+    modeBarButtonsToRemove: [],
+    showEditInChartStudio: true,
+    plotlyServerURL: "https://chart-studio.plotly.com",
+    // responsive: true,
+  };
 
   @Input()
   set dataLayout(value: DataLayout | null) {

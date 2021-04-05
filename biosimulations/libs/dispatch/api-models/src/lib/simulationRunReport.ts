@@ -24,7 +24,7 @@ export class SimulationRunReportDatum {
   @ApiProperty({ type: String })
   public label!: string;
   @ApiProperty(SimulationRunReportDataSchema)
-  public values: number[] | boolean[] = [];
+  public values: (number | boolean | string)[] = [];
 }
 
 // This is used by the service when reading the results files

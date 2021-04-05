@@ -7,13 +7,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
@@ -23,10 +17,20 @@ import {
   AxisType,
   ScatterTraceMode,
   ScatterTrace,
+  Layout,
   DataLayout,
 } from './plotly-visualization/plotly-visualization.component';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
-import { Simulation, TaskMap } from '../../../datamodel';
+import {
+  Simulation,
+  CombineResults,
+  SedDatasetResults,
+  SedDatasetResultsMap,
+} from '../../../datamodel';
+import {
+  CombineArchive,
+  SedOutputType,
+} from '../../../combine-sedml.interface';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 
 import { ConfigService } from '@biosimulations/shared/services';
@@ -35,7 +39,6 @@ import { concatAll, map, shareReplay } from 'rxjs/operators';
 import {
   AxisLabelType,
   AXIS_LABEL_TYPES,
-  CombineArchive,
   DataSetIdDisabled,
   FormattedSimulation,
   Report,
@@ -43,19 +46,22 @@ import {
   SCATTER_TRACE_MODEL_LABELS,
 } from './view.model';
 import { ViewService } from './view.service';
-import { HttpClient } from '@angular/common/http';
 import {
   Spec as VegaSpec,
   BaseData as VegaBaseData,
-  ValuesData as VegaValuesData,
+  UrlData as VegaUrlData,
   Format as VegaDataFormat,
 } from 'vega';
 import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
-import { SimulationRunReportDatum } from '@biosimulations/dispatch/api-models';
 
 enum VisualizationType {
-  'lineScatter2d' = 'Two-dimensional line or scatter plot',
-  'vega' = 'Vega visualization',
+  'lineScatter2d' = 'Interactively design a grid of two-dimensional line or scatter plots',
+  'vega' = 'Select a Vega visualization file (supports arbitrarily complex visualizations) and map SED-ML reports to it',
+}
+
+enum SubplotEnabledType {
+  'enabled' = 'Enabled',
+  'disabled' = 'Disabled',
 }
 
 interface SedmlLocationReportId {
@@ -66,7 +72,7 @@ interface SedmlLocationReportId {
 type SedmlDatasetResults = (number | boolean)[];
 
 interface SedmlReportResults {
-  data: { [label: string]: SedmlDatasetResults };
+  data: {[label: string]: SedmlDatasetResults};
 }
 
 interface VegaDataSet {
@@ -78,10 +84,7 @@ interface VegaDataSet {
   format: VegaDataFormat | undefined;
 }
 
-interface VegaDataSetEntry {
-  label: string;
-  values: (number | boolean)[];
-}
+type SimulationRunReport = any;
 
 @Component({
   templateUrl: './view.component.html',
@@ -98,31 +101,38 @@ export class ViewComponent implements OnInit, OnDestroy {
   statusSuceeded$!: Observable<boolean>;
   formattedSimulation$?: Observable<FormattedSimulation>;
   Simulation$!: Observable<Simulation>;
-  results$!: Observable<TaskMap | undefined>;
+  combineResultsStructure$!: Observable<CombineResults | undefined>;
   subs: Subscription[] = [];
-
-  // Form Controller Values
-  sedmlLocationForm$!: Observable<any>;
-  reportdIdForm$!: Observable<any>;
-  xDataSetIdForm$!: Observable<any>;
-  yDataSetIdsForm$!: Observable<any>;
-  // Refactored Variables End
 
   formGroup: FormGroup;
   lineScatter2dFormGroup: FormGroup;
+  lineScatter2dRowsControl: FormControl;
+  lineScatter2dColsControl: FormControl;
+  lineScatter2dSubplotsFormArray: FormArray;
+  subplotCurves: (FormGroup[])[] = [];
   vegaFormGroup: FormGroup;
   vegaFileFormControl: FormControl;
   vegaDataSets: VegaDataSet[] = [];
   vegaDataSetSedmlLocationReportIdsFormArray: FormArray;
 
-  private combineArchive: CombineArchive | undefined;
+  hasData = false;
+  dataLoaded = false;
+  combineResultsStructure: CombineResults | undefined = undefined;
+  combineResults: SedDatasetResultsMap = {};
+  private defaultXSedDataset: SedDatasetResults | undefined = undefined;
+  private defaultYSedDataset: SedDatasetResults | undefined = undefined;
 
   VisualizationType = VisualizationType;
   visualizationTypes: VisualizationType[] = [
     VisualizationType.lineScatter2d,
     VisualizationType.vega,
-  ];
+  ]
   selectedVisualizationType = VisualizationType.lineScatter2d;
+
+  subplotEnabledTypes: SubplotEnabledType[] = [
+    SubplotEnabledType.enabled,
+    SubplotEnabledType.disabled,
+  ];
 
   private sedmlLocations = new BehaviorSubject<string[]>([]);
   sedmlLocations$ = this.sedmlLocations.asObservable();
@@ -132,9 +142,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   private selectedSedmlLocation: string | undefined;
 
-  private sedmlLocationsReportIds = new BehaviorSubject<
-    SedmlLocationReportId[]
-  >([]);
+  private sedmlLocationsReportIds = new BehaviorSubject<SedmlLocationReportId[]>([]);
   sedmlLocationsReportIds$ = this.sedmlLocationsReportIds.asObservable();
 
   private dataSets: Report = {};
@@ -144,17 +152,18 @@ export class ViewComponent implements OnInit, OnDestroy {
   axisLabelTypes: AxisLabelType[] = AXIS_LABEL_TYPES;
   scatterTraceModeLabels: ScatterTraceModeLabel[] = SCATTER_TRACE_MODEL_LABELS;
 
-  private vizDataLayout = new BehaviorSubject<DataLayout | null>(null);
+  lineScatter2dValid = false;
+  private vizDataLayout = new BehaviorSubject<DataLayout | null>(
+    null,
+  );
   vizDataLayout$ = this.vizDataLayout.asObservable();
 
   private _vegaSpec: VegaSpec | null = null;
   private vegaSpec = new BehaviorSubject<VegaSpec | null>(null);
   vegaSpec$ = this.vegaSpec.asObservable();
 
-  @ViewChild(PlotlyVisualizationComponent)
-  plotlyVisualization!: PlotlyVisualizationComponent;
-  @ViewChild(VegaVisualizationComponent)
-  vegaVisualization!: VegaVisualizationComponent;
+  @ViewChild(PlotlyVisualizationComponent) plotlyVisualization!: PlotlyVisualizationComponent;
+  @ViewChild(VegaVisualizationComponent) vegaVisualization!: VegaVisualizationComponent;
 
   constructor(
     private config: ConfigService,
@@ -162,96 +171,70 @@ export class ViewComponent implements OnInit, OnDestroy {
     private service: ViewService,
     private formBuilder: FormBuilder,
     private simulationService: SimulationService,
-    private appService: VisualizationService,
+    private visualizationService: VisualizationService,
     private dispatchService: DispatchService,
     private changeDetectorRef: ChangeDetectorRef,
-    private http: HttpClient,
   ) {
     this.formGroup = formBuilder.group({
       visualizationType: [this.visualizationTypes[0], [Validators.required]],
       lineScatter2d: formBuilder.group({
-        sedmlLocation: [undefined, [Validators.required]],
-        reportId: [undefined, [Validators.required]],
-        xDataSetId: [undefined, [Validators.required]],
-        yDataSetIds: [[], [Validators.required]],
-        xAxisType: [AxisType.linear, [Validators.required]],
-        yAxisType: [AxisType.linear, [Validators.required]],
-        scatterTraceMode: [ScatterTraceMode.lines, [Validators.required]],
+        rows: [1, [Validators.required, Validators.min(1)]],
+        cols: [1, [Validators.required, Validators.min(1)]],
+        subplots: formBuilder.array([]),
       }),
       vega: formBuilder.group({
         vegaFile: [''],
-        vegaDataSetSedmlLocationReportIds: formBuilder.array([]),
+        vegaDataSetSedmlLocationReportIds: formBuilder.array([])
       }),
     });
 
-    this.lineScatter2dFormGroup = this.formGroup.get(
-      'lineScatter2d',
-    ) as FormGroup;
+    this.lineScatter2dFormGroup = this.formGroup.get('lineScatter2d') as FormGroup;
+    this.lineScatter2dRowsControl = this.lineScatter2dFormGroup.get('rows') as FormControl;
+    this.lineScatter2dColsControl = this.lineScatter2dFormGroup.get('cols') as FormControl;
+    this.lineScatter2dSubplotsFormArray = this.lineScatter2dFormGroup.get('subplots') as FormArray;
     this.vegaFormGroup = this.formGroup.get('vega') as FormGroup;
-    this.vegaFileFormControl = this.vegaFormGroup.get(
-      'vegaFile',
-    ) as FormControl;
-    this.vegaDataSetSedmlLocationReportIdsFormArray = this.vegaFormGroup.get(
-      'vegaDataSetSedmlLocationReportIds',
-    ) as FormArray;
+    this.vegaFileFormControl = this.vegaFormGroup.get('vegaFile') as FormControl;
+    this.vegaFileFormControl.setErrors(null);
+    this.vegaDataSetSedmlLocationReportIdsFormArray = this.vegaFormGroup.get('vegaDataSetSedmlLocationReportIds') as FormArray;
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
 
-    this.lineScatter2dFormGroup.controls.sedmlLocation.disable();
-    this.lineScatter2dFormGroup.controls.reportId.disable();
-    this.lineScatter2dFormGroup.controls.xDataSetId.disable();
-    this.lineScatter2dFormGroup.controls.yDataSetIds.disable();
-
-    this.sedmlLocationForm$ = this.lineScatter2dFormGroup.controls.sedmlLocation.valueChanges;
-    this.reportdIdForm$ = this.lineScatter2dFormGroup.controls.reportId.valueChanges;
-    this.xDataSetIdForm$ = this.lineScatter2dFormGroup.controls.xDataSetId.valueChanges;
-    this.yDataSetIdsForm$ = this.lineScatter2dFormGroup.controls.yDataSetIds.valueChanges;
-    (this.vegaFormGroup.get('vegaFile') as FormControl).valueChanges.subscribe(
-      this.selectVegaFile.bind(this),
-    );
+    (this.vegaFormGroup.get('vegaFile') as FormControl).valueChanges.subscribe(this.selectVegaFile.bind(this));
 
     this.Simulation$ = this.simulationService
       .getSimulation(this.uuid)
       .pipe(shareReplay(1));
-
     this.formattedSimulation$ = this.Simulation$.pipe(
       map<Simulation, FormattedSimulation>(this.service.formatSimulation),
     );
-
     this.statusRunning$ = this.formattedSimulation$.pipe(
       map((value) =>
         SimulationStatusService.isSimulationStatusRunning(value.status),
       ),
     );
-
     this.statusSuceeded$ = this.formattedSimulation$.pipe(
       map((value) =>
         SimulationStatusService.isSimulationStatusSucceeded(value.status),
       ),
     );
-
     this.logs$ = this.statusRunning$.pipe(
       map((running) =>
         running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid),
       ),
       concatAll(),
     );
-
     this.runTime$ = this.logs$.pipe(
       map((log): string => {
         const duration = log?.structured?.duration;
-        return duration == null
-          ? 'N/A'
-          : (Math.round(duration * 1000) / 1000).toString() + ' s';
-      }),
+        return duration == null ? 'N/A' : (Math.round(duration * 1000) / 1000).toString() + ' s';
+      })
     );
-
-    this.results$ = this.statusSuceeded$.pipe(
+    this.combineResultsStructure$ = this.statusSuceeded$.pipe(
       map((succeeded) =>
         succeeded
-          ? this.appService.getResultStructure(this.uuid)
+          ? this.visualizationService.getCombineResultsStructure(this.uuid)
           : of(undefined),
       ),
       concatAll(),
@@ -260,14 +243,17 @@ export class ViewComponent implements OnInit, OnDestroy {
     // TODO Refactor
     const statusSub = this.statusSuceeded$.subscribe((suceeded) => {
       if (suceeded) {
-        console.log('called');
-        const resultsub = this.appService
-          .getResultStructure(this.uuid)
-          .subscribe((response) => {
-            console.log(response);
-            this.setProjectOutputs(response);
+        const observables: [Observable<CombineResults>, Observable<CombineArchive>] = [
+          this.visualizationService.getCombineResultsStructure(this.uuid),
+          this.visualizationService.getSpecsOfSedPlotsInCombineArchive(this.uuid),
+        ];
+
+        const resultsSub = forkJoin(observables)
+          .subscribe((response: [CombineResults, CombineArchive]) => {
+            this.setProjectOutputs(response[0] as CombineResults);
+            this.setPlotConfiguration(response[1] as CombineArchive);
           });
-        this.subs.push(resultsub);
+        this.subs.push(resultsSub);
       }
     });
     this.subs.push(statusSub);
@@ -275,185 +261,247 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.forEach((subscription) => subscription.unsubscribe());
-    1;
   }
 
-  private setProjectOutputs(combineArchive: CombineArchive): void {
-    this.combineArchive = combineArchive;
+  private setProjectOutputs(combineResultsStructure: CombineResults): void {
+    // store structure of results of the execution of the COMBINE archive
+    this.combineResultsStructure = combineResultsStructure;
 
-    const sedmlLocations = Object.keys(combineArchive);
-    this.sedmlLocations.next(sedmlLocations);
-    if (sedmlLocations.length) {
-      this.lineScatter2dFormGroup.controls.sedmlLocation.enable();
-    } else {
-      this.lineScatter2dFormGroup.controls.sedmlLocation.disable();
+    const sedmlLocationsReportIds: SedmlLocationReportId[] = [{
+      id: '__none__',
+      label: '-- None --',
+    }];
+    for (const sedDocumentResultsStructure of combineResultsStructure) {
+      for (const sedReportResultsStructure of sedDocumentResultsStructure.reports) {
+        sedmlLocationsReportIds.push({
+          id: encodeURIComponent(sedDocumentResultsStructure.location + '/' + sedReportResultsStructure.id),
+          label: sedDocumentResultsStructure.location + ' / ' + sedReportResultsStructure.id,
+        })
+      }
     }
-
-    const selectedSedmlLocation = sedmlLocations?.[0];
-    this.lineScatter2dFormGroup.controls.sedmlLocation.setValue(
-      selectedSedmlLocation,
-    );
-    this.selectSedmlLocation(selectedSedmlLocation);
-
-    const sedmlLocationsReportIds: SedmlLocationReportId[] = [
-      {
-        id: '__none__',
-        label: '-- None --',
-      },
-    ];
-    sedmlLocations.forEach((sedmlLocation: string): void => {
-      this.combineArchive?.[sedmlLocation]?.forEach(
-        (reportId: string): void => {
-          sedmlLocationsReportIds.push({
-            id: encodeURIComponent(sedmlLocation + '/' + reportId),
-            label: sedmlLocation + ' / ' + reportId,
-          });
-        },
-      );
-    });
     this.sedmlLocationsReportIds.next(sedmlLocationsReportIds);
-  }
 
-  selectVisualizationType(selectedVisualizationType: VisualizationType): void {
-    this.selectedVisualizationType = selectedVisualizationType;
-    this.formGroup.controls.visualizationType.setValue(
-      selectedVisualizationType,
-    );
-  }
-
-  selectSedmlLocation(selectedSedmlLocation?: string): void {
-    this.selectedSedmlLocation = selectedSedmlLocation;
-
-    const reportIds =
-      this.combineArchive && selectedSedmlLocation
-        ? this.combineArchive[selectedSedmlLocation]
-        : undefined;
-    this.reportIds.next(reportIds);
-    if (reportIds?.length) {
-      this.lineScatter2dFormGroup.controls.reportId.enable();
-    } else {
-      this.lineScatter2dFormGroup.controls.reportId.disable();
+    // determine if the COMBINE archive generated at least one data set
+    let hasData = false;
+    for (const sedDocumentResultsStructure of combineResultsStructure) {
+      for (const sedReportResultsStructure of sedDocumentResultsStructure.reports) {
+        if (sedReportResultsStructure.datasets.length) {
+          hasData = true;
+          this.defaultXSedDataset = sedReportResultsStructure.datasets[0];
+          this.defaultYSedDataset = sedReportResultsStructure.datasets?.[1] || this.defaultXSedDataset;
+          break;
+        }
+      }
     }
+    this.hasData = hasData;
 
-    const selectedReportId = reportIds?.[0];
-    this.lineScatter2dFormGroup.controls.reportId.setValue(selectedReportId);
-    this.selectReportId(selectedReportId);
+    // setup design visualization tab
+    this.setVizGrid();
   }
 
-  selectReportId(selectedReportId?: string): void {
-    this.lineScatter2dFormGroup.controls.xDataSetId.disable();
-    this.lineScatter2dFormGroup.controls.yDataSetIds.disable();
-    this.lineScatter2dFormGroup.controls.xDataSetId.setValue(undefined);
-    this.lineScatter2dFormGroup.controls.yDataSetIds.setValue([]);
-    this.build2dVizData();
+  private setPlotConfiguration(combineArchive: CombineArchive): void {
+    const subplotsCurves: any[] = [];
+    combineArchive.contents.forEach((content): void => {
+      content.location.value.outputs.forEach((output): void => {
+        if (output._type === SedOutputType.SedPlot2D) {
+          const curves = output.curves
+            .map((curve) => {
+              return {
+                xData: curve.xDataGenerator._resultsDataSetId,
+                yData: curve.yDataGenerator._resultsDataSetId,
+              };
+            })
+            .filter((curve): boolean => {
+              return curve.xData in this.combineResults && curve.yData in this.combineResults;
+            });
 
-    if (this.selectedSedmlLocation && selectedReportId) {
-      this.appService
-        .getReport(this.uuid, this.selectedSedmlLocation, selectedReportId)
-        .subscribe((data: SimulationRunReportDatum[]) =>
-          this.setDataSets(data),
-        );
-    }
-  }
-
-  private setDataSets(data: SimulationRunReportDatum[]): void {
-    const dataSets: Report = {};
-    const dataSetIdDisabledMap: { [id: string]: boolean } = {};
-
-    data.forEach((element: SimulationRunReportDatum): void => {
-      dataSetIdDisabledMap[element.label] = !(
-        element.values.length > 0 &&
-        ['boolean', 'number'].includes(typeof element.values[0])
-      );
-
-      dataSets[element.label] = element.values;
+          if (curves.length) {
+            subplotsCurves.push(curves);
+          }
+        }
+      })
     });
 
-    this.dataSets = dataSets;
-    const dataSetIdDisabledArr = Object.keys(dataSetIdDisabledMap)
-      //.sort()
-      .map(
-        (id: string): DataSetIdDisabled => {
-          return { id, disabled: dataSetIdDisabledMap[id] };
-        },
-      );
-    this.dataSetIdDisableds.next(dataSetIdDisabledArr);
-
-    let xDataSetId: string | undefined = undefined;
-    let yDataSetIds: string[] = [];
-
-    if (dataSetIdDisabledArr.length > 0) {
-      xDataSetId = dataSetIdDisabledArr[0].id;
-      if (dataSetIdDisabledArr.length > 1) {
-        yDataSetIds = [dataSetIdDisabledArr[1].id];
-      }
-
-      this.lineScatter2dFormGroup.controls.xDataSetId.enable();
-      this.lineScatter2dFormGroup.controls.yDataSetIds.enable();
-    } else {
-      this.lineScatter2dFormGroup.controls.xDataSetId.disable();
-      this.lineScatter2dFormGroup.controls.yDataSetIds.disable();
+    const nSubplots = subplotsCurves.length;
+    if (nSubplots === 0) {
+      return;
     }
 
-    this.lineScatter2dFormGroup.controls.xDataSetId.setValue(xDataSetId);
-    this.lineScatter2dFormGroup.controls.yDataSetIds.setValue(yDataSetIds);
-    this.build2dVizData();
+    const rows = Math.floor(Math.sqrt(nSubplots));
+    const cols = Math.ceil(nSubplots / rows);
+    this.lineScatter2dRowsControl.setValue(rows)
+    this.lineScatter2dRowsControl.setValue(cols)
+    this.setVizGrid();
+
+    for (let iSubplot=0; iSubplot < subplotsCurves.length; iSubplot++) {
+      const subplot = this.lineScatter2dSubplotsFormArray.at(iSubplot) as FormGroup;
+      
+      const curves = subplotsCurves[iSubplot];
+      
+      const numCurvesControl = subplot.get('numCurves') as FormControl;
+      numCurvesControl.setValue(curves.length);
+      this.setNumCurves(iSubplot);
+
+      const curvesFormArray = subplot.get('curves') as FormArray;          
+      curvesFormArray.setValue(curves);
+    }
   }
 
-  build2dVizData(): void {
-    const xDataSetId: string | undefined = this.lineScatter2dFormGroup.controls[
-      'xDataSetId'
-    ].value;
-    const yDataSetIds: string[] = this.lineScatter2dFormGroup.controls[
-      'yDataSetIds'
-    ].value;
+  selectVisualizationType(): void {
+    this.selectedVisualizationType = this.formGroup.value.visualizationType;
+  }
 
-    if (xDataSetId && yDataSetIds.length > 0) {
-      const xAxisTitle = xDataSetId;
-      const xData = this.dataSets[xDataSetId];
+  setVizGrid(): void {
+    const rows = this.lineScatter2dRowsControl.value;
+    const cols = this.lineScatter2dColsControl.value;
 
-      let yAxisTitle: string | undefined = undefined;
-      let showlegend = false;
-      if (yDataSetIds.length === 1) {
-        yAxisTitle = yDataSetIds[0];
-        showlegend = false;
-      } else {
-        yAxisTitle = undefined;
-        showlegend = true;
-      }
-
-      this.vizDataLayout.next({
-        data: yDataSetIds.map(
-          (yDataSetId: string): ScatterTrace => {
-            const yData = this.dataSets[yDataSetId];
-            return {
-              name: yDataSetId,
-              x: xData,
-              y: yData,
-              mode: this.lineScatter2dFormGroup.controls['scatterTraceMode']
-                .value,
-            };
-          },
-        ),
-        layout: {
-          xaxis: {
-            title: xAxisTitle,
-            type: this.lineScatter2dFormGroup.controls['xAxisType'].value,
-          },
-          yaxis: {
-            title: yAxisTitle,
-            type: this.lineScatter2dFormGroup.controls['yAxisType'].value,
-          },
-          showlegend: showlegend,
-          width: undefined,
-          height: undefined,
-        },
-      });
-    } else {
-      this.vizDataLayout.next(null);
+    while (this.lineScatter2dSubplotsFormArray.length > rows * cols) {
+      this.subplotCurves.pop();
+      this.lineScatter2dSubplotsFormArray.removeAt(this.lineScatter2dSubplotsFormArray.length - 1);
     }
 
-    setTimeout(() => this.changeDetectorRef.detectChanges());
+    while (this.lineScatter2dSubplotsFormArray.length < rows * cols) {
+      const curves = this.formBuilder.array([]);
+      const subplot = this.formBuilder.group({
+        label: [''],
+        enabled: [SubplotEnabledType.enabled, Validators.required],
+        numCurves: [1, [Validators.required]],
+        curves: curves,
+        xAxisType: [AxisType.linear, [Validators.required]],
+        yAxisType: [AxisType.linear, [Validators.required]],
+        scatterTraceMode: [ScatterTraceMode.lines, [Validators.required]],
+      });
+      this.subplotCurves.push(curves.controls as FormGroup[]);
+      this.lineScatter2dSubplotsFormArray.push(subplot);
+      this.setNumCurves(this.lineScatter2dSubplotsFormArray.length - 1);
+    }
+
+    for (let iSubplot=0; iSubplot < rows * cols; iSubplot++) {
+      const subplot = this.lineScatter2dSubplotsFormArray.at(iSubplot) as FormGroup;
+      const iRow = Math.floor(iSubplot / cols);
+      const iCol = iSubplot % cols;
+      subplot.controls.label.setValue(`Subplot R${iRow + 1}, C${iCol + 1}`);
+    }
+
+    this.build2dViz();
+  }
+
+  setNumCurves(iSubplot: number): void {
+    const subplot = this.lineScatter2dSubplotsFormArray.at(iSubplot) as FormGroup;
+    const numCurves = subplot.value.numCurves;
+    const curves = subplot.get('curves') as FormArray;
+
+    while (curves.length > numCurves) {
+      curves.removeAt(curves.length - 1);
+    }
+
+    while (curves.length < numCurves) {
+      const curve = this.formBuilder.group({
+        xData: [this.defaultXSedDataset?.id, [Validators.required]],
+        yData: [this.defaultYSedDataset?.id, [Validators.required]],
+      });
+      curves.push(curve);
+    }
+
+    this.build2dViz();
+  }
+
+  build2dViz(): void {
+    if (!this.dataLoaded && this.defaultYSedDataset) {
+      this.lineScatter2dValid = true;
+      this.visualizationService
+        .getCombineResults(this.uuid)
+        .subscribe((combineResults: SedDatasetResultsMap): void => {
+          this.combineResults = combineResults;
+          this.dataLoaded = true;
+          this.draw2dViz();
+        });
+    } else {
+      this.draw2dViz();
+    }
+  }
+
+  draw2dViz(): void {
+    const traces: ScatterTrace[] = [];
+    const layout: Layout = {
+      grid: {
+        rows: this.lineScatter2dRowsControl.value,
+        columns: this.lineScatter2dColsControl.value,
+        pattern: 'independent',
+      },
+      showlegend: false,
+      width: undefined,
+      height: undefined,
+    };
+
+    for (let iSubplot=0; iSubplot < this.lineScatter2dSubplotsFormArray.length; iSubplot++) {
+      const subplotFormGroup = this.lineScatter2dSubplotsFormArray.at(iSubplot) as FormGroup;
+      const xAxisId = 'x' + (iSubplot + 1).toString();
+      const yAxisId = 'y' + (iSubplot + 1).toString();
+      const xAxisTitlesSet = new Set<string>();
+      const yAxisTitlesSet = new Set<string>();
+
+      if (subplotFormGroup.controls['enabled'].value == SubplotEnabledType.enabled) {
+        const curvesFormArray = subplotFormGroup.controls['curves'] as FormArray;
+        for (let iCurve=0; iCurve < curvesFormArray.length; iCurve++) {
+          const curveFormGroup = curvesFormArray.at(iCurve) as FormGroup;
+
+          const xDataId = curveFormGroup.value.xData;
+          const yDataId = curveFormGroup.value.yData;
+
+          const xDataset = this.combineResults?.[xDataId] as SedDatasetResults;
+          const yDataset = this.combineResults?.[yDataId] as SedDatasetResults;
+
+          xAxisTitlesSet.add(xDataset.label);
+          yAxisTitlesSet.add(yDataset.label);
+
+          traces.push({
+            name: yDataset.label + ' vs. ' + xDataset.label,
+            x: xDataset.values,
+            y: yDataset.values,
+            xaxis: xAxisId,
+            yaxis: yAxisId,
+            mode: subplotFormGroup.controls['scatterTraceMode'].value,
+          });
+        }
+      }
+
+      const xAxisTitlesArr = Array.from(xAxisTitlesSet);
+      const yAxisTitlesArr = Array.from(yAxisTitlesSet);
+      let xAxisTitle: string | undefined = undefined;
+      let yAxisTitle: string | undefined = undefined;
+
+      if (xAxisTitlesArr.length == 1) {
+        xAxisTitle = xAxisTitlesArr[0];
+      } else if (xAxisTitlesArr.length > 1) {
+        layout.showlegend = true;
+      }
+
+      if (yAxisTitlesArr.length == 1) {
+        yAxisTitle = yAxisTitlesArr[0];
+      } else if (yAxisTitlesArr.length > 1) {
+        layout.showlegend = true;
+      }
+
+      layout['xaxis' + (iSubplot + 1).toString()] = {
+        anchor: xAxisId,
+        title: xAxisTitle,
+        type: subplotFormGroup.controls['xAxisType'].value,
+      };
+
+      layout['yaxis' + (iSubplot + 1).toString()] = {
+        anchor: yAxisId,
+        title: yAxisTitle,
+        type: subplotFormGroup.controls['yAxisType'].value,
+      };
+    }
+
+    this.vizDataLayout.next({
+      data: traces,
+      layout: layout,
+    });
+
+    // setTimeout(() => this.changeDetectorRef.detectChanges());
   }
 
   selectVegaFile(file: File): void {
@@ -473,10 +521,7 @@ export class ViewComponent implements OnInit, OnDestroy {
           if (Array.isArray(vegaDatas)) {
             (vegaDatas as any[]).forEach((data: any, iData: number): void => {
               const name = data?.name;
-              if (
-                typeof name === 'string' &&
-                data?._mapToSedmlReport !== false
-              ) {
+              if (typeof name === 'string' && data?._mapToSedmlReport !== false) {
                 this.vegaDataSets.push({
                   index: iData,
                   name: name,
@@ -485,17 +530,15 @@ export class ViewComponent implements OnInit, OnDestroy {
                   values: data?.values,
                   format: data?.format,
                 });
-                this.vegaDataSetSedmlLocationReportIdsFormArray.push(
-                  this.formBuilder.control(
-                    this.sedmlLocationsReportIds.value[0].id,
-                  ),
-                );
+                this.vegaDataSetSedmlLocationReportIdsFormArray.push(this.formBuilder.control(this.sedmlLocationsReportIds.value[0].id));
               }
-            });
+            })
           }
-        } catch {
+
+        } catch (err) {
+          // console.error(err);
           this._vegaSpec = null;
-          this.vegaFileFormControl.setErrors({ invalid: true });
+          this.vegaFileFormControl.setErrors({invalid: true});
         }
 
         this.changeDetectorRef.detectChanges();
@@ -503,108 +546,62 @@ export class ViewComponent implements OnInit, OnDestroy {
         this.buildVegaVizData();
       },
       (): void => {
-        this.vegaFileFormControl.setErrors({ invalid: true });
+        this.vegaFileFormControl.setErrors({invalid: true});
         this.changeDetectorRef.detectChanges();
-      },
-    );
+      });
   }
 
-  public buildVegaVizData(): void {
+  buildVegaVizData(): void {
     const vegaSpec = this._vegaSpec as VegaSpec;
-    const resultsPromises: Observable<SimulationRunReportDatum[]>[] = [];
 
-    this.vegaDataSetSedmlLocationReportIdsFormArray.value.forEach(
-      (value: string | null, iVegaDataSet: number): void => {
-        const vegaDataSet = this.vegaDataSets[iVegaDataSet];
-        const vegaSpecDataSet = vegaSpec?.data?.[
-          vegaDataSet.index
-        ] as VegaBaseData;
-        if (value === this.sedmlLocationsReportIds.value[0].id) {
-          if (vegaDataSet.source) {
-            (vegaSpecDataSet as any).source = vegaDataSet.source;
-          } else if ('source' in vegaSpecDataSet) {
-            delete (vegaSpecDataSet as any).source;
-          }
-
-          if (vegaDataSet.url) {
-            (vegaSpecDataSet as any).url = vegaDataSet.url;
-          } else if ('url' in vegaSpecDataSet) {
-            delete (vegaSpecDataSet as any).url;
-          }
-
-          if (vegaDataSet.values) {
-            (vegaSpecDataSet as any).values = vegaDataSet.values;
-          } else if ('values' in vegaSpecDataSet) {
-            delete (vegaSpecDataSet as any).values;
-          }
-
-          if (vegaDataSet.format) {
-            (vegaSpecDataSet as any).format = vegaDataSet.format;
-          } else if ('format' in vegaSpecDataSet) {
-            delete (vegaSpecDataSet as any).format;
-          }
-        } else {
-          // TODO abstract this conversion
-          value = decodeURIComponent(value || '');
-          const report = value?.split('/').reverse()[0] || '';
-          const sedml =
-            value?.split('/').reverse().slice(1).reverse().join('/') || '';
-          console.log(sedml);
-          resultsPromises.push(
-            this.appService.getReport(this.uuid, sedml, report),
-          );
+    this.vegaDataSetSedmlLocationReportIdsFormArray.value.forEach((value: string | null, iVegaDataSet: number): void => {
+      const vegaDataSet = this.vegaDataSets[iVegaDataSet];
+      const vegaSpecDataSet = vegaSpec?.data?.[vegaDataSet.index] as VegaBaseData;
+      if (value === this.sedmlLocationsReportIds.value[0].id) {
+        if (vegaDataSet.source) {
+          (vegaSpecDataSet as any).source = vegaDataSet.source;
+        } else if ('source' in vegaSpecDataSet) {
+          delete (vegaSpecDataSet as any).source;
         }
-      },
-    );
 
-    if (resultsPromises.length) {
-      forkJoin(resultsPromises).subscribe(
-        (reportsResults: SimulationRunReportDatum[][]): void => {
-          reportsResults.forEach(
-            (
-              reportResults: SimulationRunReportDatum[],
-              iVegaDataSet: number,
-            ): void => {
-              const vegaDataSet = this.vegaDataSets[iVegaDataSet];
-              const vegaSpecDataSet = vegaSpec?.data?.[
-                vegaDataSet.index
-              ] as VegaBaseData;
+        if (vegaDataSet.url) {
+          (vegaSpecDataSet as any).url = vegaDataSet.url;
+        } else if ('url' in vegaSpecDataSet) {
+          delete (vegaSpecDataSet as any).url;
+        }
 
-              if ('source' in vegaDataSet) {
-                delete (vegaSpecDataSet as any).source;
-              }
+        if (vegaDataSet.values) {
+          (vegaSpecDataSet as any).values = vegaDataSet.values;
+        } else if ('values' in vegaSpecDataSet) {
+          delete (vegaSpecDataSet as any).values;
+        }
 
-              if ('url' in vegaDataSet) {
-                delete (vegaSpecDataSet as any).url;
-              }
+        if (vegaDataSet.format) {
+          (vegaSpecDataSet as any).format = vegaDataSet.format;
+        } else if ('format' in vegaSpecDataSet) {
+          delete (vegaSpecDataSet as any).format;
+        }
+      } else {
+        if ('source' in vegaDataSet) {
+          delete (vegaSpecDataSet as any).source;
+        }
 
-              if ('format' in vegaDataSet) {
-                delete (vegaSpecDataSet as any).format;
-              }
+        if ('values' in vegaDataSet) {
+          delete (vegaSpecDataSet as any).values;
+        }
 
-              const values: VegaDataSetEntry[] = [];
+        const vegaSpecUrlDataSet = vegaSpecDataSet as VegaUrlData;
 
-              reportResults.forEach(
-                (labelValues: SimulationRunReportDatum): void => {
-                  values.push({
-                    label: labelValues.label,
-                    values: labelValues.values,
-                  });
-                },
-              );
+        vegaSpecUrlDataSet.url = this.visualizationService.getReportResultsUrl(this.uuid, value as string);
+        vegaSpecUrlDataSet.format = {
+          'type': 'json',
+          'property': 'data',
+        };
+      }
+    });
 
-              (vegaSpecDataSet as VegaValuesData).values = values;
-            },
-          );
-
-          this.vegaSpec.next(this._vegaSpec);
-          // this.changeDetectorRef.detectChanges();
-        },
-      );
-    } else {
-      this.vegaSpec.next(this._vegaSpec);
-      // this.changeDetectorRef.detectChanges();
-    }
+    this.vegaSpec.next(this._vegaSpec);
+    // this.changeDetectorRef.detectChanges();
   }
 
   vegaRefreshHandler(): void {
@@ -612,7 +609,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   vegaErrorHandler(): void {
-    this.vegaFileFormControl.setErrors({ invalid: true });
+    this.vegaFileFormControl.setErrors({invalid: true});
     this.changeDetectorRef.detectChanges();
   }
 
