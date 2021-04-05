@@ -18,8 +18,6 @@ paths:
     get:
       tags:
       - COMBINE
-      - OMEX
-      - SED-ML
       parameters:
       - name: archiveUrl
         description: |-
@@ -33,8 +31,10 @@ paths:
       responses:
         "400":
           content:
-            application/json: {}
-          description: Unable to get the specificatiosn of the SED outputs for COMBINE/OMEX
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
             archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
             archive.
         "200":
@@ -44,39 +44,17 @@ paths:
                 $ref: '#/components/schemas/CombineArchive'
           description: Specifications of the plots in the SED-ML files in the COMBINE/OMEX
             archive.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
       operationId: handlers.get_sedml_output_specs_for_combine_archive
       summary: Get the specifications of the plots in SED-ML files in a COMBINE/OMEX
         archive
       description: Get the specifications of the outputs in SED-ML files in a COMBINE/OMEX
         archive
-  /combine/create:
-    post:
-      requestBody:
-        description: Specifiations for the COMBINE/OMEX archive and its contents (specifications
-          of the SED-ML file and model file(s)).
-        content:
-          multipart/form-data:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/FileUpload'
-        required: true
-      tags:
-      - COMBINE
-      - OMEX
-      - SED-ML
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: URL for the created COMBINE/OMEX archive.
-      operationId: handlers.create_combine_archive
-      summary: Assemble a COMBINE/OMEX archive from model files and specifications
-        of a SED-ML document.
-      description: Assemble a COMBINE/OMEX archive from model files and specifications
-        of a SED-ML document.
   /sed-ml/get-variables-for-model:
     post:
       requestBody:
@@ -88,7 +66,6 @@ paths:
         required: true
       tags:
       - SED-ML
-      - SBML
       parameters:
       - examples:
           SBML:
@@ -112,10 +89,58 @@ paths:
           description: Possible observables of a model as a list of SED data generators
         "400":
           content:
-            application/json: {}
-          description: Unable to get the variables of a model.
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the variables of a model because the model file
+            is invalid.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
       operationId: handlers.get_variables_for_model
       summary: Get the possible observables of a model as a list of SED variables
+  /combine/create:
+    post:
+      requestBody:
+        description: Specifiations for the COMBINE/OMEX archive and its contents (specifications
+          of the SED-ML file and model file(s)).
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CombineArchiveSpecsAndFiles'
+            encoding:
+              specs:
+                contentType: application/json
+        required: true
+      tags:
+      - COMBINE
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: URL for the created COMBINE/OMEX archive.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Specifications for COMBINE archive are invalid.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: handlers.create_combine_archive
+      summary: Assemble a COMBINE/OMEX archive from model files and specifications
+        of a SED-ML document.
+      description: Assemble a COMBINE/OMEX archive from model files and specifications
+        of a SED-ML document.
 components:
   schemas:
     SedPlot2D:
@@ -168,8 +193,10 @@ components:
           description: Brief description.
           type: string
         surfaces:
-          $ref: '#/components/schemas/SedSurface'
           description: "List of surfaces (tuples of x, y, and z data)."
+          type: array
+          items:
+            $ref: '#/components/schemas/SedSurface'
         xScale:
           $ref: '#/components/schemas/SedAxisScale'
           description: Scale of the x axis.
@@ -353,31 +380,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SedDataSet'
-    SedDataSet:
-      description: A SED data set
-      required:
-      - id
-      - dataGenerator
-      - _type
-      type: object
-      properties:
-        id:
-          description: Unique identifier within its parent SED document.
-          type: string
-        label:
-          description: Brief description
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        dataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Generator which provides the data for the data set.
-        _type:
-          description: Type.
-          enum:
-          - SedDataSet
-          type: string
     CombineArchive:
       description: A COMBINE/OMEX archive.
       required:
@@ -498,12 +500,12 @@ components:
       description: A SED uniform time course simulation.
       required:
       - id
-      - name
       - _type
       - initialTime
       - outputStartTime
       - outputEndTime
       - numberOfSteps
+      - algorithm
       type: object
       properties:
         id:
@@ -529,11 +531,15 @@ components:
         numberOfSteps:
           description: Number of steps.
           type: integer
+        algorithm:
+          $ref: '#/components/schemas/SedAlgorithm'
+          description: Algorithm.
     SedSteadyStateSimulation:
       description: A SED steady state simulation.
       required:
       - id
       - _type
+      - algorithm
       type: object
       properties:
         id:
@@ -547,11 +553,15 @@ components:
           enum:
           - SedSteadyStateSimulation
           type: string
+        algorithm:
+          $ref: '#/components/schemas/SedAlgorithm'
+          description: Algorithm.
     SedOneStepSimulation:
       description: A SED one step simulation.
       required:
       - id
       - _type
+      - algorithm
       type: object
       properties:
         id:
@@ -568,6 +578,9 @@ components:
         step:
           description: Step size.
           type: number
+        algorithm:
+          $ref: '#/components/schemas/SedAlgorithm'
+          description: Algorithm.
     SedVariable:
       description: A SED variable.
       required:
@@ -673,10 +686,122 @@ components:
         propertyName: _type
       description: A SED simulation.
       type: object
+    Error:
+      description: Error.
+      required:
+      - status
+      - title
+      - detail
+      - type
+      type: object
+      properties:
+        status:
+          description: Status code.
+          type: integer
+        title:
+          description: Brief summary.
+          type: string
+        type:
+          description: Type
+          type: string
+        detail:
+          description: Description.
+          type: string
+      example:
+        status: 400
+        title: Unsupported model langauge
+        detail: Models of language XYZ are not supported
+        type: NotImplementedError
     FileUpload:
       format: binary
       description: The two files uploaded in creating a combine archive
       type: string
+    SedDataSet:
+      description: A SED data set
+      required:
+      - id
+      - label
+      - dataGenerator
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        label:
+          description: Brief description
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        dataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Generator which provides the data for the data set.
+        _type:
+          description: Type.
+          enum:
+          - SedDataSet
+          type: string
+    CombineArchiveSpecsAndFiles:
+      description: ""
+      required:
+      - specs
+      - files
+      type: object
+      properties:
+        specs:
+          $ref: '#/components/schemas/CombineArchive'
+          description: Specifications of the COMBINE archive.
+        files:
+          description: "File (e.g., model) to place into the COMBINE/OMEX archive."
+          type: array
+          items:
+            $ref: '#/components/schemas/FileUpload'
+      x-body-name: form
+    SedAlgorithm:
+      description: A SED algorithm.
+      required:
+      - _type
+      - kisaoId
+      - changes
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - SedAlgorithm
+          type: string
+        kisaoId:
+          $ref: '#/components/schemas/KisaoId'
+          description: KiSAO id
+        changes:
+          description: Changes to the default values of the parameters.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedAlgorithmParameterChange'
+    KisaoId:
+      description: KiSAO id
+      type: string
+      example: KISAO_0000019
+    SedAlgorithmParameterChange:
+      description: A SED algorithm parameter
+      required:
+      - kisaoId
+      - newValue
+      - _type
+      type: object
+      properties:
+        kisaoId:
+          $ref: '#/components/schemas/KisaoId'
+          description: KiSAO id
+        _type:
+          description: Type.
+          enum:
+          - SedAlgorithmParameterChange
+          type: string
+        newValue:
+          description: New value
+          type: string
   responses:
     "404":
       content:
