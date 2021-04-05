@@ -10,6 +10,7 @@ requests = "*"
 biosimulators-utils = ">=0.1.48"
 werkzeug = "*"
 python-dateutil = "*"
+gunicorn = "*"
 
 [dev-packages]
 openapi-core = "*"
