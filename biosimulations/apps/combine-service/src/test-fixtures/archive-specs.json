@@ -1,0 +1,384 @@
+{
+    "_type": "CombineArchive",
+    "contents": [{
+            "_type": "CombineArchiveContent",
+            "location": {
+                "_type": "CombineArchiveLocation",
+                "path": "model.xml",
+                "value": {
+                    "_type": "CombineArchiveContentFile",
+                    "filename": "model.xml"
+                }
+            },
+            "format": "http://identifiers.org/combine.specifications/sbml",
+            "master": false
+        },
+        {
+            "_type": "CombineArchiveContent",
+            "location": {
+                "_type": "CombineArchiveLocation",
+                "path": "file.txt",
+                "value": {
+                    "_type": "CombineArchiveContentFile",
+                    "filename": "file.txt"
+                }
+            },
+            "format": "http://purl.org/NET/mediatypes/text/plain",
+            "master": false
+        },
+        {
+            "_type": "CombineArchiveContent",
+            "location": {
+                "_type": "CombineArchiveLocation",
+                "path": "simulation.sedml",
+                "value": {
+                    "_type": "SedDocument",
+                    "level": 1,
+                    "version": 3,
+                    "models": [{
+                        "_type": "SedModel",
+                        "id": "model",
+                        "language": "urn:sedml:language:sbml",
+                        "source": "model.xml"
+                    }],
+                    "simulations": [{
+                        "_type": "SedUniformTimeCourseSimulation",
+                        "id": "sim",
+                        "initialTime": 10,
+                        "outputStartTime": 20,
+                        "outputEndTime": 40,
+                        "numberOfSteps": 40,
+                        "algorithm": {
+                            "_type": "SedAlgorithm",
+                            "kisaoId": "KISAO_0000019",
+                            "changes": [{
+                                "_type": "SedAlgorithmParameterChange",
+                                "kisaoId": "KISAO_0000488",
+                                "newValue": "10"
+                            }]
+                        }
+                    }],
+                    "tasks": [{
+                        "_type": "SedTask",
+                        "id": "task",
+                        "model": {
+                            "_type": "SedModel",
+                            "id": "model",
+                            "language": "urn:sedml:language:sbml",
+                            "source": "model.xml"
+                        },
+                        "simulation": {
+                            "_type": "SedUniformTimeCourseSimulation",
+                            "id": "sim",
+                            "initialTime": 10,
+                            "outputStartTime": 20,
+                            "outputEndTime": 40,
+                            "numberOfSteps": 40,
+                            "algorithm": {
+                                "_type": "SedAlgorithm",
+                                "kisaoId": "KISAO_0000019",
+                                "changes": [{
+                                    "_type": "SedAlgorithmParameterChange",
+                                    "kisaoId": "KISAO_0000488",
+                                    "newValue": "10"
+                                }]
+                            }
+                        }
+                    }],
+                    "dataGenerators": [{
+                        "_type": "SedDataGenerator",
+                        "id": "data_gen_x",
+                        "variables": [{
+                            "_type": "SedVariable",
+                            "id": "var_x",
+                            "task": {
+                                "_type": "SedTask",
+                                "id": "task",
+                                "model": {
+                                    "_type": "SedModel",
+                                    "id": "model",
+                                    "language": "urn:sedml:language:sbml",
+                                    "source": "model.xml"
+                                },
+                                "simulation": {
+                                    "_type": "SedUniformTimeCourseSimulation",
+                                    "id": "sim",
+                                    "initialTime": 10,
+                                    "outputStartTime": 20,
+                                    "outputEndTime": 40,
+                                    "numberOfSteps": 40,
+                                    "algorithm": {
+                                        "_type": "SedAlgorithm",
+                                        "kisaoId": "KISAO_0000019",
+                                        "changes": [{
+                                            "_type": "SedAlgorithmParameterChange",
+                                            "kisaoId": "KISAO_0000488",
+                                            "newValue": "10"
+                                        }]
+                                    }
+                                }
+                            },
+                            "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                        }],
+                        "math": "x"
+                    }],
+                    "outputs": [{
+                            "_type": "SedReport",
+                            "id": "report",
+                            "dataSets": [{
+                                "_type": "SedDataSet",
+                                "id": "data_set_x",
+                                "label": "data set x",
+                                "dataGenerator": {
+                                    "_type": "SedDataGenerator",
+                                    "id": "data_gen_x",
+                                    "variables": [{
+                                        "_type": "SedVariable",
+                                        "id": "var_x",
+                                        "task": {
+                                            "_type": "SedTask",
+                                            "id": "task",
+                                            "model": {
+                                                "_type": "SedModel",
+                                                "id": "model",
+                                                "language": "urn:sedml:language:sbml",
+                                                "source": "model.xml"
+                                            },
+                                            "simulation": {
+                                                "_type": "SedUniformTimeCourseSimulation",
+                                                "id": "sim",
+                                                "initialTime": 10,
+                                                "outputStartTime": 20,
+                                                "outputEndTime": 40,
+                                                "numberOfSteps": 40,
+                                                "algorithm": {
+                                                    "_type": "SedAlgorithm",
+                                                    "kisaoId": "KISAO_0000019",
+                                                    "changes": [{
+                                                        "_type": "SedAlgorithmParameterChange",
+                                                        "kisaoId": "KISAO_0000488",
+                                                        "newValue": "10"
+                                                    }]
+                                                }
+                                            }
+                                        },
+                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                    }],
+                                    "math": "x"
+                                }
+                            }]
+                        },
+                        {
+                            "_type": "SedPlot2D",
+                            "id": "plot2d",
+                            "xScale": "linear",
+                            "yScale": "linear",
+                            "curves": [{
+                                "_type": "SedCurve",
+                                "id": "curve_x",
+                                "xDataGenerator": {
+                                    "_type": "SedDataGenerator",
+                                    "id": "data_gen_x",
+                                    "variables": [{
+                                        "_type": "SedVariable",
+                                        "id": "var_x",
+                                        "task": {
+                                            "_type": "SedTask",
+                                            "id": "task",
+                                            "model": {
+                                                "_type": "SedModel",
+                                                "id": "model",
+                                                "language": "urn:sedml:language:sbml",
+                                                "source": "model.xml"
+                                            },
+                                            "simulation": {
+                                                "_type": "SedUniformTimeCourseSimulation",
+                                                "id": "sim",
+                                                "initialTime": 10,
+                                                "outputStartTime": 20,
+                                                "outputEndTime": 40,
+                                                "numberOfSteps": 40,
+                                                "algorithm": {
+                                                    "_type": "SedAlgorithm",
+                                                    "kisaoId": "KISAO_0000019",
+                                                    "changes": [{
+                                                        "_type": "SedAlgorithmParameterChange",
+                                                        "kisaoId": "KISAO_0000488",
+                                                        "newValue": "10"
+                                                    }]
+                                                }
+                                            }
+                                        },
+                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                    }],
+                                    "math": "x"
+                                },
+                                "yDataGenerator": {
+                                    "_type": "SedDataGenerator",
+                                    "id": "data_gen_x",
+                                    "variables": [{
+                                        "_type": "SedVariable",
+                                        "id": "var_x",
+                                        "task": {
+                                            "_type": "SedTask",
+                                            "id": "task",
+                                            "model": {
+                                                "_type": "SedModel",
+                                                "id": "model",
+                                                "language": "urn:sedml:language:sbml",
+                                                "source": "model.xml"
+                                            },
+                                            "simulation": {
+                                                "_type": "SedUniformTimeCourseSimulation",
+                                                "id": "sim",
+                                                "initialTime": 10,
+                                                "outputStartTime": 20,
+                                                "outputEndTime": 40,
+                                                "numberOfSteps": 40,
+                                                "algorithm": {
+                                                    "_type": "SedAlgorithm",
+                                                    "kisaoId": "KISAO_0000019",
+                                                    "changes": [{
+                                                        "_type": "SedAlgorithmParameterChange",
+                                                        "kisaoId": "KISAO_0000488",
+                                                        "newValue": "10"
+                                                    }]
+                                                }
+                                            }
+                                        },
+                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                    }],
+                                    "math": "x"
+                                }
+                            }]
+                        },
+                        {
+                            "_type": "SedPlot3D",
+                            "id": "plot3d",
+                            "xScale": "linear",
+                            "yScale": "linear",
+                            "zScale": "linear",
+                            "surfaces": [{
+                                "_type": "SedSurface",
+                                "id": "surface_x",
+                                "xDataGenerator": {
+                                    "_type": "SedDataGenerator",
+                                    "id": "data_gen_x",
+                                    "variables": [{
+                                        "_type": "SedVariable",
+                                        "id": "var_x",
+                                        "task": {
+                                            "_type": "SedTask",
+                                            "id": "task",
+                                            "model": {
+                                                "_type": "SedModel",
+                                                "id": "model",
+                                                "language": "urn:sedml:language:sbml",
+                                                "source": "model.xml"
+                                            },
+                                            "simulation": {
+                                                "_type": "SedUniformTimeCourseSimulation",
+                                                "id": "sim",
+                                                "initialTime": 10,
+                                                "outputStartTime": 20,
+                                                "outputEndTime": 40,
+                                                "numberOfSteps": 40,
+                                                "algorithm": {
+                                                    "_type": "SedAlgorithm",
+                                                    "kisaoId": "KISAO_0000019",
+                                                    "changes": [{
+                                                        "_type": "SedAlgorithmParameterChange",
+                                                        "kisaoId": "KISAO_0000488",
+                                                        "newValue": "10"
+                                                    }]
+                                                }
+                                            }
+                                        },
+                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                    }],
+                                    "math": "x"
+                                },
+                                "yDataGenerator": {
+                                    "_type": "SedDataGenerator",
+                                    "id": "data_gen_x",
+                                    "variables": [{
+                                        "_type": "SedVariable",
+                                        "id": "var_x",
+                                        "task": {
+                                            "_type": "SedTask",
+                                            "id": "task",
+                                            "model": {
+                                                "_type": "SedModel",
+                                                "id": "model",
+                                                "language": "urn:sedml:language:sbml",
+                                                "source": "model.xml"
+                                            },
+                                            "simulation": {
+                                                "_type": "SedUniformTimeCourseSimulation",
+                                                "id": "sim",
+                                                "initialTime": 10,
+                                                "outputStartTime": 20,
+                                                "outputEndTime": 40,
+                                                "numberOfSteps": 40,
+                                                "algorithm": {
+                                                    "_type": "SedAlgorithm",
+                                                    "kisaoId": "KISAO_0000019",
+                                                    "changes": [{
+                                                        "_type": "SedAlgorithmParameterChange",
+                                                        "kisaoId": "KISAO_0000488",
+                                                        "newValue": "10"
+                                                    }]
+                                                }
+                                            }
+                                        },
+                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                    }],
+                                    "math": "x"
+                                },
+                                "zDataGenerator": {
+                                    "_type": "SedDataGenerator",
+                                    "id": "data_gen_x",
+                                    "variables": [{
+                                        "_type": "SedVariable",
+                                        "id": "var_x",
+                                        "task": {
+                                            "_type": "SedTask",
+                                            "id": "task",
+                                            "model": {
+                                                "_type": "SedModel",
+                                                "id": "model",
+                                                "language": "urn:sedml:language:sbml",
+                                                "source": "model.xml"
+                                            },
+                                            "simulation": {
+                                                "_type": "SedUniformTimeCourseSimulation",
+                                                "id": "sim",
+                                                "initialTime": 10,
+                                                "outputStartTime": 20,
+                                                "outputEndTime": 40,
+                                                "numberOfSteps": 40,
+                                                "algorithm": {
+                                                    "_type": "SedAlgorithm",
+                                                    "kisaoId": "KISAO_0000019",
+                                                    "changes": [{
+                                                        "_type": "SedAlgorithmParameterChange",
+                                                        "kisaoId": "KISAO_0000488",
+                                                        "newValue": "10"
+                                                    }]
+                                                }
+                                            }
+                                        },
+                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                    }],
+                                    "math": "x"
+                                }
+                            }]
+                        }
+                    ]
+                }
+            },
+            "format": "http://identifiers.org/combine.specifications/sed-ml",
+            "master": false
+        }
+    ]
+}

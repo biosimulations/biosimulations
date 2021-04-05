@@ -13,6 +13,8 @@ from biosimulators_utils.sedml.data_model import (  # noqa: F401
     OneStepSimulation,
     SteadyStateSimulation,
     UniformTimeCourseSimulation,
+    Algorithm,
+    AlgorithmParameterChange,
     Task,
     ModelLanguagePattern,
     DataGenerator,
@@ -31,6 +33,8 @@ from biosimulators_utils.sedml.io import (
     SedmlSimulationWriter,
 )
 import connexion
+import datetime
+import dateutil.tz
 import flask
 import os
 import re
@@ -122,7 +126,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
                             'id': data_set.id,
                             'dataGenerator': {
                                 '_type': 'SedDataGenerator',
-                                '_resultsDataSetId': get_results_data_set_id(
+                                '_resultsDataSetId': _get_results_data_set_id(
                                     content, output, data_set),
                                 'id': data_set.data_generator.id,
                                 'variables': [],
@@ -165,7 +169,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
                             'id': curve.id,
                             'xDataGenerator': {
                                 '_type': 'SedDataGenerator',
-                                '_resultsDataSetId': get_results_data_set_id(
+                                '_resultsDataSetId': _get_results_data_set_id(
                                     content, output, curve.x_data_generator),
                                 'id': curve.x_data_generator.id,
                                 'variables': [],
@@ -173,7 +177,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
                             },
                             'yDataGenerator': {
                                 '_type': 'SedDataGenerator',
-                                '_resultsDataSetId': get_results_data_set_id(
+                                '_resultsDataSetId': _get_results_data_set_id(
                                     content, output, curve.y_data_generator),
                                 'id': curve.y_data_generator.id,
                                 'variables': [],
@@ -230,7 +234,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
                             'id': surface.id,
                             'xDataGenerator': {
                                 '_type': 'SedDataGenerator',
-                                '_resultsDataSetId': get_results_data_set_id(
+                                '_resultsDataSetId': _get_results_data_set_id(
                                     content, output, surface.x_data_generator),
                                 'id': surface.x_data_generator.id,
                                 'variables': [],
@@ -238,7 +242,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
                             },
                             'yDataGenerator': {
                                 '_type': 'SedDataGenerator',
-                                '_resultsDataSetId': get_results_data_set_id(
+                                '_resultsDataSetId': _get_results_data_set_id(
                                     content, output, surface.y_data_generator),
                                 'id': surface.y_data_generator.id,
                                 'variables': [],
@@ -246,7 +250,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
                             },
                             'zDataGenerator': {
                                 '_type': 'SedDataGenerator',
-                                '_resultsDataSetId': get_results_data_set_id(
+                                '_resultsDataSetId': _get_results_data_set_id(
                                     content, output, surface.z_data_generator),
                                 'id': surface.z_data_generator.id,
                                 'variables': [],
@@ -345,20 +349,23 @@ def get_variables_for_model(modelFormat, modelFile):
         )  # pragma: no cover: unreachable due to schema validation
 
 
-def create_combine_archive(archiveSpecs, modelFiles):
+def create_combine_archive(form, files):
     ''' Create a COMBINE/OMEX archive for a model with a SED-ML document
     according to a particular specification.
 
     Args:
-        archiveSpecs (``#/components/schemas/CombineArchive``): specifications
-            of the desired SED document
-        modelFiles (:obj:`list` of :obj:`werkzeug.FileStorage`): model file
-            (e.g., SBML file)
+        form (:obj:`dict`): with ``#/components/schemas/CombineArchive``
+            specifications of the desired SED document
+        files (:obj:`list` of :obj:`werkzeug.FileStorage`): files (e.g., SBML
+            file)
 
     Returns:
         :obj:`werkzeug.wrappers.response.Response`: response with COMBINE/OMEX
             archive
     '''
+    archive_specs = form['specs']
+    files = connexion.request.files.getlist('files')
+
     # create temporary working directory
     temp_dirname = tempfile.mkdtemp()
 
@@ -367,17 +374,21 @@ def create_combine_archive(archiveSpecs, modelFiles):
     archive_filename = os.path.join(temp_dirname, 'archive.omex')
 
     # initialize archive
-    archive = CombineArchive()
+    now = datetime.datetime.utcnow().replace(microsecond=0).astimezone(dateutil.tz.tzutc())
+    archive = CombineArchive(
+        created=now,
+        updated=now,
+    )
 
     # build map from model filenames to file objects
-    model_filename_map = {
-        model_file.archive_filename: model_file
-        for model_file in modelFiles
+    filename_map = {
+        file.filename: file
+        for file in files
     }
 
     # add files to archive
-    for content in archiveSpecs['contents']:
-        if content['location']['value'] == 'SedDocument':
+    for content in archive_specs['contents']:
+        if content['location']['value']['_type'] == 'SedDocument':
             sed_doc = _export_sed_doc(content['location']['value'])
 
             # save SED document to file
@@ -385,15 +396,26 @@ def create_combine_archive(archiveSpecs, modelFiles):
                 sed_doc,
                 os.path.join(archive_dirname, content['location']['path']))
         else:
-            model_file = model_filename_map[
-                content['location']['value']['filename']]
-            model_file.save(os.path.join(archive_dirname,
-                                         content['location']['path']))
+            file = filename_map.get(
+                content['location']['value']['filename'], None)
+            if not file:
+                raise BadRequestException(
+                    title='File with name `{}` was not uploaded'.format(
+                        content['location']['value']['filename']),
+                    instance=ValueError(),
+                )
+            filename = os.path.join(archive_dirname,
+                                    content['location']['path'])
+            if not os.path.isdir(os.path.dirname(filename)):
+                os.makedirs(os.path.dirname(filename))
+            file.save(filename)
 
         content = CombineArchiveContent(
             location=content['location']['path'],
             format=content['format'],
             master=content['master'],
+            created=now,
+            updated=now,
         )
 
         archive.contents.append(content)
@@ -401,18 +423,48 @@ def create_combine_archive(archiveSpecs, modelFiles):
     # package COMBINE/OMEX archive
     CombineArchiveWriter.run(archive, archive_dirname, archive_filename)
 
-    # clean up temporary archive files
-    shutil.rmtree(archive_dirname)
+    # save COMBINE/OMEX archive to S3 bucket
+    # TODO
+    archive_url = _save_file_to_s3_bucket(archive_filename)
 
-    @ flask.after_this_request
-    def cleanup():
-        os.remove(archive_filename)
+    # cleanup temporary file
+    shutil.rmtree(temp_dirname)
 
-    # return COMBINE/OMEX archive
-    return flask.send_file(archive_filename,
-                           mimetype='application/zip',
-                           as_attachment=True,
-                           attachment_filename='project.omex')
+    # return URL for archive in S3 bucket
+    return archive_url
+
+
+def _get_results_data_set_id(content, output, data_element):
+    ''' Get the runBioSimulations id for the results of a data set of a report
+    or a data generator of a curve or surface of a plot.
+
+    Args:
+        content (:obj:`CombineArchiveContent`): content item of a COMBINE/OMEX
+            archive
+        output (:obj:`Output`): SED report or plot
+        data_element (:obj:`DataSet` or :obj:`DataGenerator`): data set or
+            generator
+
+    Returns:
+        :obj:`str`: id for the results of a data set of a report or a data
+            generator of a curve or surface of a plot.
+    '''
+    sed_doc_id = os.path.relpath(content.location, '.')
+
+    if isinstance(data_element, DataSet):
+        # TODO: change last argument to `data_element.id`
+        return '{}/{}/{}'.format(
+            sed_doc_id,
+            output.id,
+            data_element.label or data_element.id
+        )
+    elif isinstance(data_element, DataGenerator):
+        # TODO: change last argument to a unique id based on `data_element.id`
+        return '{}/{}/{}'.format(
+            sed_doc_id,
+            output.id,
+            data_element.name or data_element.id
+        )
 
 
 def _export_sed_doc(sed_doc_specs):
@@ -471,6 +523,16 @@ def _export_sed_doc(sed_doc_specs):
                 instance=NotImplementedError('Invalid simulation')
             )  # pragma: no cover: unreachable due to schema validation
 
+        alg_spec = sim_spec.get('algorithm')
+        sim.algorithm = Algorithm(kisao_id=alg_spec.get('kisaoId'))
+        for change_spec in alg_spec.get('changes'):
+            sim.algorithm.changes.append(
+                AlgorithmParameterChange(
+                    kisao_id=change_spec.get('kisaoId'),
+                    new_value=change_spec.get('newValue'),
+                )
+            )
+
         sed_doc.simulations.append(sim)
         simulation_id_map[sim.id] = sim
 
@@ -478,12 +540,29 @@ def _export_sed_doc(sed_doc_specs):
     task_id_map = {}
     for task_spec in sed_doc_specs['tasks']:
         if task_spec['_type'] == 'SedTask':
+            model_id = task_spec.get('model').get('id')
+            sim_id = task_spec.get('simulation').get('id')
+            model = model_id_map.get(model_id, None)
+            sim = simulation_id_map.get(sim_id, None)
+
+            if not model:
+                raise BadRequestException(
+                    title='Model `{}` for task `{}` does not exist'.format(
+                        model_id, task_spec.get('id')),
+                    instance=ValueError('Model does not exist'),
+                )
+            if not sim:
+                raise BadRequestException(
+                    title='Simulation `{}` for task `{}` does not exist'.format(
+                        sim_id, task_spec.get('id')),
+                    instance=ValueError('Simulation does not exist'),
+                )
+
             task = Task(
                 id=task_spec.get('id'),
                 name=task_spec.get('name', None),
-                model=model_id_map[task_spec.get('model').get('id')],
-                simulation=simulation_id_map[
-                    task_spec.get('simulation').get('id')],
+                model=model,
+                simulation=sim,
             )
         else:
             raise BadRequestException(
@@ -505,12 +584,22 @@ def _export_sed_doc(sed_doc_specs):
         )
 
         for var_spec in data_gen_spec['variables']:
+            task_id = var_spec.get('task').get('id')
+            task = task_id_map.get(task_id, None)
+
+            if not task:
+                raise BadRequestException(
+                    title='Task `{}` for variable `{}` does not exist'.format(
+                        task_id, var_spec.get('id')),
+                    instance=ValueError('Task does not exist'),
+                )
+
             var = Variable(
-                id=data_gen_spec.get('id'),
-                name=data_gen_spec.get('name', None),
-                task=task_id_map[data_gen_spec.get('task').get('id')],
-                symbol=data_gen_spec.get('symbol', None),
-                target=data_gen_spec.get('target', None),
+                id=var_spec.get('id'),
+                name=var_spec.get('name', None),
+                task=task,
+                symbol=var_spec.get('symbol', None),
+                target=var_spec.get('target', None),
             )
             data_gen.variables.append(var)
 
@@ -525,12 +614,22 @@ def _export_sed_doc(sed_doc_specs):
                 name=output_spec.get('name', None),
             )
             for data_set_spec in output_spec['dataSets']:
+                data_gen_id = data_set_spec['dataGenerator']['id']
+                data_gen = data_gen_id_map.get(
+                    data_gen_id, None)
+
+                if not data_gen:
+                    raise BadRequestException(
+                        title='Data generator `{}` for output `{}` does not exist'.format(
+                            data_gen_id, output_spec.get('id')),
+                        instance=ValueError('Data generator does not exist'),
+                    )
+
                 data_set = DataSet(
                     id=data_set_spec.get('id'),
                     name=data_set_spec.get('name', None),
                     label=data_set_spec.get('label', None),
-                    data_generator=data_gen_id_map[
-                        data_set_spec['dataGenerator']['id']],
+                    data_generator=data_gen,
                 )
                 output.data_sets.append(data_set)
 
@@ -540,14 +639,31 @@ def _export_sed_doc(sed_doc_specs):
                 name=output_spec.get('name', None),
             )
             for curve_spec in output_spec['curves']:
+                x_data_gen_id = curve_spec['xDataGenerator']['id']
+                y_data_gen_id = curve_spec['yDataGenerator']['id']
+                x_data_gen = data_gen_id_map.get(x_data_gen_id, None)
+                y_data_gen = data_gen_id_map.get(y_data_gen_id, None)
+
+                if not x_data_gen:
+                    raise BadRequestException(
+                        title='X data generator `{}` for curve `{}` does not exist'.format(
+                            x_data_gen_id, output_spec.get('id')),
+                        instance=ValueError('Data generator does not exist'),
+                    )
+                if not y_data_gen:
+                    raise BadRequestException(
+                        title='Y data generator `{}` for curve `{}` does not exist'.format(
+                            y_data_gen_id, output_spec.get('id')),
+                        instance=ValueError('Data generator does not exist'),
+                    )
+
                 curve = Curve(
                     id=curve_spec.get('id'),
                     name=curve_spec.get('name', None),
-                    label=curve_spec.get('label', None),
-                    x_data_generator=data_gen_id_map[
-                        curve_spec['xDataGenerator']['id']],
-                    y_data_generator=data_gen_id_map[
-                        curve_spec['yDataGenerator']['id']],
+                    x_data_generator=x_data_gen,
+                    y_data_generator=y_data_gen,
+                    x_scale=AxisScale[output_spec['xScale']],
+                    y_scale=AxisScale[output_spec['yScale']],
                 )
                 output.curves.append(curve)
 
@@ -557,15 +673,41 @@ def _export_sed_doc(sed_doc_specs):
                 name=output_spec.get('name', None),
             )
             for surface_spec in output_spec['surfaces']:
+                x_data_gen_id = surface_spec['xDataGenerator']['id']
+                y_data_gen_id = surface_spec['yDataGenerator']['id']
+                z_data_gen_id = surface_spec['zDataGenerator']['id']
+                x_data_gen = data_gen_id_map.get(x_data_gen_id, None)
+                y_data_gen = data_gen_id_map.get(y_data_gen_id, None)
+                z_data_gen = data_gen_id_map.get(z_data_gen_id, None)
+
+                if not x_data_gen:
+                    raise BadRequestException(
+                        title='X data generator `{}` for surface `{}` does not exist'.format(
+                            x_data_gen_id, output_spec.get('id')),
+                        instance=ValueError('Data generator does not exist'),
+                    )
+                if not y_data_gen:
+                    raise BadRequestException(
+                        title='Y data generator `{}` for surface `{}` does not exist'.format(
+                            y_data_gen_id, output_spec.get('id')),
+                        instance=ValueError('Data generator does not exist'),
+                    )
+                if not z_data_gen:
+                    raise BadRequestException(
+                        title='X data generator `{}` for surface `{}` does not exist'.format(
+                            z_data_gen_id, output_spec.get('id')),
+                        instance=ValueError('Data generator does not exist'),
+                    )
+
                 surface = Surface(
                     id=surface_spec.get('id'),
                     name=surface_spec.get('name', None),
-                    x_data_generator=data_gen_id_map[
-                        surface_spec['xDataGenerator']['id']],
-                    y_data_generator=data_gen_id_map[
-                        surface_spec['yDataGenerator']['id']],
-                    z_data_generator=data_gen_id_map[
-                        surface_spec['zDataGenerator']['id']],
+                    x_data_generator=x_data_gen,
+                    y_data_generator=y_data_gen,
+                    z_data_generator=z_data_gen,
+                    x_scale=AxisScale[output_spec['xScale']],
+                    y_scale=AxisScale[output_spec['yScale']],
+                    z_scale=AxisScale[output_spec['zScale']],
                 )
                 output.surfaces.append(surface)
 
@@ -581,37 +723,16 @@ def _export_sed_doc(sed_doc_specs):
     return sed_doc
 
 
-def get_results_data_set_id(content, output, data_element):
-    ''' Get the runBioSimulations id for the results of a data set of a report
-    or a data generator of a curve or surface of a plot.
+def _save_file_to_s3_bucket(filename):
+    """ Save a file to the BioSimulations S3 bucket
 
     Args:
-        content (:obj:`CombineArchiveContent`): content item of a COMBINE/OMEX
-            archive
-        output (:obj:`Output`): SED report or plot
-        data_element (:obj:`DataSet` or :obj:`DataGenerator`): data set or
-            generator
+        filename (:obj:`str`): path of file to save to S3 bucket
 
     Returns:
-        :obj:`str`: id for the results of a data set of a report or a data
-            generator of a curve or surface of a plot.
-    '''
-    sed_doc_id = os.path.relpath(content.location, '.')
-
-    if isinstance(data_element, DataSet):
-        # TODO: change last argument to `data_element.id`
-        return '{}/{}/{}'.format(
-            sed_doc_id,
-            output.id,
-            data_element.label or data_element.id
-        )
-    elif isinstance(data_element, DataGenerator):
-        # TODO: change last argument to a unique id based on `data_element.id`
-        return '{}/{}/{}'.format(
-            sed_doc_id,
-            output.id,
-            data_element.name or data_element.id
-        )
+        :obj:`str`: URL for saved file
+    """
+    return 'https://data.biosimulations.org/XYZ'
 
 
 class BadRequestException(connexion.ProblemException, werkzeug.exceptions.BadRequest):
@@ -647,7 +768,7 @@ class BadRequestException(connexion.ProblemException, werkzeug.exceptions.BadReq
         return flask.jsonify(data), self.status
 
 
-def render_exception(exception):
+def _render_exception(exception):
     """ Render an exception
 
     Args:

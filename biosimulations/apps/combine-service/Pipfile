@@ -9,6 +9,7 @@ connexion = {extras = ["swagger-ui"],version = "*"}
 requests = "*"
 biosimulators-utils = ">=0.1.48"
 werkzeug = "*"
+python-dateutil = "*"
 
 [dev-packages]
 openapi-core = "*"

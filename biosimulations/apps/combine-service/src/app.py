@@ -40,7 +40,7 @@ app = connexion.App(__name__, specification_dir=get_specs_dir())
 # Setup handlers for APIs
 resolver = connexion.resolver.Resolver(function_resolver=handler_resolver)
 app.add_api('combine-service.yml',
-            strict_validation=True,
+            strict_validation=False,
             validate_responses=False,
             resolver=resolver)
 # Validate_response = True will give error when API returns something that
@@ -51,8 +51,8 @@ app.add_api('combine-service.yml',
 # :obj:`validate_responses` is set to obj:`False` because responses are
 # validated by the unit tests using openapi-core.
 
-app.add_error_handler(500, handlers.render_exception)
-app.add_error_handler(handlers.BadRequestException, handlers.render_exception)
+app.add_error_handler(500, handlers._render_exception)
+app.add_error_handler(handlers.BadRequestException, handlers._render_exception)
 
 
 if __name__ == '__main__':
