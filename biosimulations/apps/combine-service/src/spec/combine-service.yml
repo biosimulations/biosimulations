@@ -50,7 +50,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: handlers.get_sedml_output_specs_for_combine_archive
+      operationId: src.handlers.combine.get_sedml_output_specs_for_combine_archive.handler
       summary: Get the specifications of the plots in SED-ML files in a COMBINE/OMEX
         archive
       description: Get the specifications of the outputs in SED-ML files in a COMBINE/OMEX
@@ -89,7 +89,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: handlers.create_combine_archive
+      operationId: src.handlers.combine.create.handler
       summary: Assemble a COMBINE/OMEX archive from model files and specifications
         of a SED-ML document.
       description: Assemble a COMBINE/OMEX archive from model files and specifications
@@ -127,7 +127,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: handlers.get_variables_for_simulation
+      operationId: src.handlers.sed_ml.get_variables_for_simulation.handler
       summary: Get the possible observables of a simulation as a list of SED variables.
 components:
   schemas:
