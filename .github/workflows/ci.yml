@@ -389,7 +389,7 @@ jobs:
           password: "${{ secrets.GHCR_TOKEN }}"
           image_name: biosimulations/${{matrix.app}}
           image_tag: ${{ env.BRANCH_NAME }}
-          push_image_and_stages: false
+          push_image_and_stages: ${{github.event_name == 'pull_request'}}
           registry: ghcr.io
           context: .
           dockerfile: Dockerfile
@@ -403,7 +403,7 @@ jobs:
           password: "${{ secrets.GHCR_TOKEN }}"
           image_name: biosimulations/${{matrix.app}}
           image_tag: ${{ env.BRANCH_NAME }}
-          push_image_and_stages: github.event_name == 'pull_request'
+          push_image_and_stages: ${{github.event_name == 'pull_request'}}
           registry: ghcr.io
           context: .
           dockerfile: DockerfilePython
