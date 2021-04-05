@@ -9,7 +9,6 @@ from openapi_core.validation.request.datatypes import (
 )
 from openapi_core import create_spec
 from unittest import mock
-from werkzeug import FileStorage
 from werkzeug.datastructures import MultiDict
 import importlib.util
 import io
