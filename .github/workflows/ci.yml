@@ -371,6 +371,16 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 1
 
+      - name: Get branch name (merge)
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+
       - if: matrix.app != 'combine-service'
         name: Build Image
         uses: whoan/docker-build-with-cache-action@v5
@@ -378,7 +388,7 @@ jobs:
           username: "${{ secrets.GHCR_USERNAME }}"
           password: "${{ secrets.GHCR_TOKEN }}"
           image_name: biosimulations/${{matrix.app}}
-          image_tag: ${GITHUB_REF##*/}
+          image_tag: ${{ env.BRANCH_NAME }}
           push_image_and_stages: false
           registry: ghcr.io
           context: .
@@ -392,8 +402,8 @@ jobs:
           username: "${{ secrets.GHCR_USERNAME }}"
           password: "${{ secrets.GHCR_TOKEN }}"
           image_name: biosimulations/${{matrix.app}}
-          image_tag: ${GITHUB_REF##*/}
-          push_image_and_stages: false
+          image_tag: ${{ env.BRANCH_NAME }}
+          push_image_and_stages: github.event_name == 'pull_request'
           registry: ghcr.io
           context: .
           dockerfile: DockerfilePython
