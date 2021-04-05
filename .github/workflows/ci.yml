@@ -39,9 +39,9 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
-          architecture: 'x64'
-          
+          python-version: "3.9"
+          architecture: "x64"
+
       - name: Install Flake8
         run: pip install flake8
 
@@ -115,6 +115,7 @@ jobs:
     if: ${{ needs.getAffectedLibrariesApps.outputs.run == 'true' }}
 
     strategy:
+      fail-fast: false
       matrix:
         libOrApp: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.libsApps) }}
 
@@ -137,16 +138,16 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
-          architecture: 'x64'
-          
+          python-version: "3.9"
+          architecture: "x64"
+
       - name: Install Flake8
         run: pip install flake8
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "15.x"
- 
+
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
@@ -184,6 +185,7 @@ jobs:
     needs: getAffectedLibrariesApps
     if: ${{ needs.getAffectedLibrariesApps.outputs.run == 'true' }}
     strategy:
+      fail-fast: false
       matrix:
         app: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.apps) }}
 
@@ -205,12 +207,12 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
-          architecture: 'x64'
-          
+          python-version: "3.9"
+          architecture: "x64"
+
       - name: Install Flake8
         run: pip install flake8
-        
+
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
@@ -254,6 +256,7 @@ jobs:
     needs: getAffectedLibrariesApps
     if: ${{ needs.getAffectedLibrariesApps.outputs.run == 'true' }}
     strategy:
+      fail-fast: false
       matrix:
         libOrApp: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.libsApps) }}
 
@@ -275,12 +278,12 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
-          architecture: 'x64'
-          
+          python-version: "3.9"
+          architecture: "x64"
+
       - name: Install Flake8
         run: pip install flake8
-        
+
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
@@ -340,6 +343,7 @@ jobs:
     needs: [getAffectedLibrariesApps]
     if: ${{ needs.getAffectedLibrariesApps.outputs.run == 'true' }}
     strategy:
+      fail-fast: false
       matrix:
         app: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.apps) }}
 
