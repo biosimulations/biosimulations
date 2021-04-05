@@ -651,9 +651,18 @@ def render_exception(exception):
     """ Render an exception
 
     Args:
-        exception (:obj:`BadRequestException`): exception
+        exception (:obj:`Exception`): exception
 
     Returns:
         :obj:`werkzeug.wrappers.response.Response`: response
     """
-    return exception.get_response()
+    if isinstance(exception, BadRequestException):
+        return exception.get_response()
+    else:
+        data = {
+            'status': 500,
+            'title': 'Server error',
+            'detail': str(exception),
+            'type': exception.__class__.__name__,
+        }
+        return flask.jsonify(data), 500

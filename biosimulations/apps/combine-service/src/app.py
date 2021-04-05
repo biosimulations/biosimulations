@@ -51,8 +51,8 @@ app.add_api('combine-service.yml',
 # :obj:`validate_responses` is set to obj:`False` because responses are
 # validated by the unit tests using openapi-core.
 
-app.add_error_handler(handlers.BadRequestException,
-                      handlers.render_exception)
+app.add_error_handler(500, handlers.render_exception)
+app.add_error_handler(handlers.BadRequestException, handlers.render_exception)
 
 
 if __name__ == '__main__':
