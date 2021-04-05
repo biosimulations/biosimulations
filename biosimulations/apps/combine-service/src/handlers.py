@@ -10,13 +10,14 @@ from biosimulators_utils.combine.io import (
 from biosimulators_utils.sedml.data_model import (  # noqa: F401
     SedDocument,
     Model,
+    ModelLanguagePattern,
+    Simulation,
     OneStepSimulation,
     SteadyStateSimulation,
     UniformTimeCourseSimulation,
     Algorithm,
     AlgorithmParameterChange,
     Task,
-    ModelLanguagePattern,
     DataGenerator,
     Variable,
     Output,
@@ -36,6 +37,7 @@ import connexion
 import datetime
 import dateutil.tz
 import flask
+import importlib
 import os
 import re
 import requests
@@ -44,6 +46,14 @@ import shutil
 import tempfile
 import werkzeug  # noqa: F401
 import werkzeug.wrappers.response  # noqa: F401
+
+exceptions_spec = importlib.util.spec_from_file_location(
+    "exceptions",
+    os.path.abspath(os.path.join(os.path.dirname(__file__), 'exceptions.py')))
+exceptions = importlib.util.module_from_spec(exceptions_spec)
+exceptions_spec.loader.exec_module(exceptions)
+BadRequestException = exceptions.BadRequestException
+_render_exception = exceptions._render_exception
 
 
 def get_sedml_output_specs_for_combine_archive(archiveUrl):
@@ -58,7 +68,7 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
     '''
 
     # create temporary working directory
-    temp_dirname = tempfile.mkdtemp()
+    temp_dirname = _get_temp_dir()
 
     # get COMBINE/OMEX archive
     try:
@@ -82,9 +92,6 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
     try:
         archive = CombineArchiveReader.run(archive_filename, archive_dirname)
     except Exception as exception:
-        # cleanup temporary files
-        shutil.rmtree(temp_dirname)
-
         # return exception
         raise BadRequestException(
             title='`{}` is not a valid COMBINE/OMEX archive'.format(archiveUrl),
@@ -314,9 +321,6 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
             }
             contents_specs.append(content_specs)
 
-    # cleanup temporary files
-    shutil.rmtree(temp_dirname)
-
     # format response
     response = {
         '_type': 'CombineArchive',
@@ -327,47 +331,119 @@ def get_sedml_output_specs_for_combine_archive(archiveUrl):
     return response
 
 
-def get_variables_for_model(modelFormat, modelFile):
-    """ Get the observable variables of a model as a list of
-    data generators
+def get_variables_for_simulation(body, modelFile):
+    """ Get a SED report for a SED task that will record all of the
+    possible observables of the task
 
     Args:
-        modelFormat (:obj:`str`): SED URN for model format
-        modelFile (:obj:`werkzeug.FileStorage`): model file (e.g., SBML file)
+        body (:obj:`dict`): dictionary with keys
+
+            * ``task`` whose value
+            has schema ``#/components/schemas/SedTask`` with the
+            specifications of the desired SED task
+        modelFile (:obj:`werkzeug.datastructures.FileStorage`): model file (e.g., SBML file)
 
     Returns:
         :obj:`list` of ``#/components/schemas/SedVariable``
     """
-    if re.match(ModelLanguagePattern.SBML.value, modelFormat):
-        return []
+    model_lang = body['modelLanguage']
+    sim_type = body['simulationType']
+    alg_kisao_id = body['simulationAlgorithmKisaoId']
 
+    model_filename = _get_temp_file()
+    modelFile.save(model_filename)
+
+    if sim_type == 'SedOneStepSimulation':
+        sim_cls = OneStepSimulation
+    elif sim_type == 'SedSteadyStateSimulation':
+        sim_cls = SteadyStateSimulation
+    elif sim_type == 'SedUniformTimeCourseSimulation':
+        sim_cls = UniformTimeCourseSimulation
     else:
         raise BadRequestException(
-            title='Models of format `{}` are not supported'.format(
-                modelFormat),
-            instance=NotImplementedError('Invalid model')
+            title='Simulations of type `{}` are not supported'.format(
+                sim_type),
+            instance=NotImplementedError('Invalid simulation')
         )  # pragma: no cover: unreachable due to schema validation
 
+    try:
+        vars = _get_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
+    except Exception as exception:
+        raise BadRequestException(
+            title='Models of language `{}` are not supported'.format(
+                model_lang),
+            instance=exception
+        )  # pragma: no cover: unreachable due to schema validation
 
-def create_combine_archive(form, files):
+    # format SED variables for response
+    response_vars = []
+    task = {
+        "_type": "SedTask",
+        "id": "task",
+        "model": {
+            "_type": "SedModel",
+            "id": "model",
+            "language": model_lang,
+            "source": os.path.basename(modelFile.filename),
+        },
+        "simulation": {
+            "_type": sim_type,
+            "id": "simulation",
+            "algorithm": {
+                "_type": "SedAlgorithm",
+                "kisaoId": alg_kisao_id,
+                "changes": [],
+            },
+        },
+    }
+
+    if sim_type == 'SedUniformTimeCourseSimulation':
+        task["simulation"]["initialTime"] = 0
+        task["simulation"]["outputStartTime"] = 0
+        task["simulation"]["outputEndTime"] = 1
+        task["simulation"]["numberOfSteps"] = 0
+    elif sim_type == 'SedOneStepSimulation':
+        task["simulation"]["step"] = 1
+
+    for var in vars:
+        response_var = {
+            "_type": "SedVariable",
+            "id": var.id,
+            "task": task,
+        }
+
+        if var.name:
+            response_var['name'] = var.name
+        if var.symbol:
+            response_var['symbol'] = var.symbol
+        if var.target:
+            response_var['target'] = var.target
+
+        response_vars.append(response_var)
+
+    return response_vars
+
+
+def create_combine_archive(body, files):
     ''' Create a COMBINE/OMEX archive for a model with a SED-ML document
     according to a particular specification.
 
     Args:
-        form (:obj:`dict`): with ``#/components/schemas/CombineArchive``
+        body (:obj:`dict`): dictionary with key ``specs`` whose value
+            has schema ``#/components/schemas/CombineArchive`` with the
             specifications of the desired SED document
-        files (:obj:`list` of :obj:`werkzeug.FileStorage`): files (e.g., SBML
+        files (:obj:`list` of :obj:`werkzeug.datastructures.FileStorage`): files (e.g., SBML
             file)
 
     Returns:
         :obj:`werkzeug.wrappers.response.Response`: response with COMBINE/OMEX
             archive
     '''
-    archive_specs = form['specs']
+    archive_specs = body['specs']
     files = connexion.request.files.getlist('files')
 
     # create temporary working directory
-    temp_dirname = tempfile.mkdtemp()
+    temp_dirname = _get_temp_dir()
 
     # create temporary files for archive
     archive_dirname = os.path.join(temp_dirname, 'archive')
@@ -426,9 +502,6 @@ def create_combine_archive(form, files):
     # save COMBINE/OMEX archive to S3 bucket
     # TODO
     archive_url = _save_file_to_s3_bucket(archive_filename)
-
-    # cleanup temporary file
-    shutil.rmtree(temp_dirname)
 
     # return URL for archive in S3 bucket
     return archive_url
@@ -735,55 +808,58 @@ def _save_file_to_s3_bucket(filename):
     return 'https://data.biosimulations.org/XYZ'
 
 
-class BadRequestException(connexion.ProblemException, werkzeug.exceptions.BadRequest):
-    ''' A bad request
-
-    Attributes:
-        title (:obj:`str`): title
-        instance (:obj:`Exception`): exception
-        status (:obj:`int`): status code
-    '''
-
-    def __init__(self, title, instance, status=400):
-        """
-        Args:
-            title (:obj:`str`): title
-            instance (:obj:`Exception`): exception
-            status (:obj:`int`, optional): status code
-        """
-        super(BadRequestException, self).__init__(title=title, instance=instance, status=status)
-
-    def get_response(self):
-        """ Get repsonse
-
-        Returns:
-            :obj:`werkzeug.wrappers.response.Response`: response
-        """
-        data = {
-            'status': self.status,
-            'title': self.title,
-            'detail': str(self.instance),
-            'type': str(self.instance.__class__.__name__),
-        }
-        return flask.jsonify(data), self.status
-
-
-def _render_exception(exception):
-    """ Render an exception
-
-    Args:
-        exception (:obj:`Exception`): exception
+def _get_temp_dir():
+    ''' Get a temporary directory
 
     Returns:
-        :obj:`werkzeug.wrappers.response.Response`: response
+        :obj:`str`: path to temporary directory
+    '''
+    dirname = tempfile.mkdtemp()
+
+    @flask.after_this_request
+    def cleanup(response, dirname=dirname):
+        shutil.rmtree(dirname)
+        return response
+
+    return dirname
+
+
+def _get_temp_file():
+    ''' Get a temporary file
+
+    Returns:
+        :obj:`str`: path to temporary file
+    '''
+    file_id, file_name = tempfile.mkstemp()
+    os.close(file_id)
+
+    @flask.after_this_request
+    def cleanup(response, file_name=file_name):
+        os.remove(file_name)
+        return response
+
+    return file_name
+
+
+def _get_variables_for_simulation(model_filename, model_language, simulation_type, algorithm_kisao_id):
+    """ Get the possible observables for a simulation of a model
+
+    Args:
+        model_filename (:obj:`str`): path to model file
+        model_language (:obj:`str`): model language (e.g., ``urn:sedml:language:sbml``)
+        simulation_type (:obj:`types.Type`): subclass of :obj:`Simulation`
+        algorithm_kisao_id (:obj:`str`): KiSAO id of the algorithm for simulating the model (e.g., ``KISAO_0000019``
+            for CVODE)
+
+    Returns:
+        :obj:`list` of :obj:`Variable`: possible observables for a simulation of the model
     """
-    if isinstance(exception, BadRequestException):
-        return exception.get_response()
+    if re.match(ModelLanguagePattern.SBML.value, model_language):
+        return [
+            Variable(id='time', symbol='urn:sedml:symbol:time'),
+            Variable(id='x', target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"),
+        ]
+
     else:
-        data = {
-            'status': 500,
-            'title': 'Server error',
-            'detail': str(exception),
-            'type': exception.__class__.__name__,
-        }
-        return flask.jsonify(data), 500
+        raise NotImplementedError(
+            'Models of language `{}` are not supported'.format(model_language))

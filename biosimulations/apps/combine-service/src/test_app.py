@@ -1,5 +1,7 @@
 from biosimulators_utils.combine.io import CombineArchiveReader
+from biosimulators_utils.sedml.data_model import ModelLanguage
 from biosimulators_utils.sedml.io import SedmlSimulationReader
+from openapi_core.contrib.requests import RequestsOpenAPIRequestFactory
 from openapi_core.validation.response.validators import ResponseValidator
 from openapi_core.validation.response.datatypes import OpenAPIResponse
 from openapi_core.validation.request.validators import RequestValidator
@@ -9,8 +11,7 @@ from openapi_core.validation.request.datatypes import (
 )
 from openapi_core import create_spec
 from unittest import mock
-from werkzeug import FileStorage
-from werkzeug.datastructures import MultiDict
+from werkzeug.datastructures import FileStorage, MultiDict
 import importlib.util
 import io
 import json
@@ -116,6 +117,54 @@ class HandlersTestCase(unittest.TestCase):
             data=json.dumps(response.json),
             status_code=400,
             mimetype='application/json')
+        result = self.response_validator.validate(request, response)
+        result.raise_for_errors()
+
+    def test_get_variables_for_simulation(self):
+        endpoint = '/sed-ml/get-variables-for-simulation'
+
+        model_filename = os.path.abspath(os.path.join(self.FIXTURES_DIR, 'model.xml'))
+        model_fid = open(model_filename, 'rb')
+
+        with open(os.path.join(self.FIXTURES_DIR, 'task.json'), 'rb') as file:
+            task_specs = json.load(file)
+
+        data = MultiDict([
+            ('modelLanguage', 'urn:sedml:language:sbml'),
+            ('simulationType', 'SedUniformTimeCourseSimulation'),
+            ('simulationAlgorithmKisaoId', 'KISAO_0000029'),
+            ('modelFile', model_fid),
+        ])
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+
+        model_fid.close()
+
+        self.assertEqual(response.status_code, 200)
+        vars = response.json
+        self.assertEqual(len(vars), 2)
+
+        # validate request and response
+        with open(model_filename, 'rb') as file:
+            model_content = file.read()
+        request = OpenAPIRequest(
+            full_url_pattern='https://127.0.0.1/' + endpoint,
+            method='post',
+            body={
+                'modelLanguage': 'urn:sedml:language:sbml',
+                'simulationType': 'SedUniformTimeCourseSimulation',
+                'simulationAlgorithmKisaoId': 'KISAO_0000029',
+                'modelFile': model_content,
+            },
+            mimetype='multipart/form-data',
+            parameters=RequestParameters(),
+        )
+        result = self.request_validator.validate(request)
+        result.raise_for_errors()
+
+        response = OpenAPIResponse(data=json.dumps(vars),
+                                   status_code=200,
+                                   mimetype='application/json')
         result = self.response_validator.validate(request, response)
         result.raise_for_errors()
 
