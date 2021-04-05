@@ -55,53 +55,6 @@ paths:
         archive
       description: Get the specifications of the outputs in SED-ML files in a COMBINE/OMEX
         archive
-  /sed-ml/get-variables-for-model:
-    post:
-      requestBody:
-        description: Model file
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/FileUpload'
-        required: true
-      tags:
-      - SED-ML
-      parameters:
-      - examples:
-          SBML:
-            value: urn:sedml:language:sbml
-        name: modelFormat
-        description: SED URN for model format
-        schema:
-          enum:
-          - urn:sedml:language:sbml
-          type: string
-        in: query
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SedVariable'
-          description: Possible observables of a model as a list of SED data generators
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unable to get the variables of a model because the model file
-            is invalid.
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Server error.
-      operationId: handlers.get_variables_for_model
-      summary: Get the possible observables of a model as a list of SED variables
   /combine/create:
     post:
       requestBody:
@@ -141,6 +94,41 @@ paths:
         of a SED-ML document.
       description: Assemble a COMBINE/OMEX archive from model files and specifications
         of a SED-ML document.
+  /sed-ml/get-variables-for-simulation:
+    post:
+      requestBody:
+        description: Model file and specifications of a simulation task of the model.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModelFileAndSimulation'
+        required: true
+      tags:
+      - SED-ML
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SedVariable'
+          description: Possible observables of a SED task as a list of SED data generators.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the variables of a model because the model file
+            is invalid.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: handlers.get_variables_for_simulation
+      summary: Get the possible observables of a simulation as a list of SED variables.
 components:
   schemas:
     SedPlot2D:
@@ -455,8 +443,8 @@ components:
           description: Brief description.
           type: string
         language:
+          $ref: '#/components/schemas/SedModelLanguage'
           description: "Format (e.g., BNGL, SBML)."
-          type: string
         source:
           description: Location of the file for the model.
           type: string
@@ -712,10 +700,6 @@ components:
         title: Unsupported model langauge
         detail: Models of language XYZ are not supported
         type: NotImplementedError
-    FileUpload:
-      format: binary
-      description: The two files uploaded in creating a combine archive
-      type: string
     SedDataSet:
       description: A SED data set
       required:
@@ -742,22 +726,6 @@ components:
           enum:
           - SedDataSet
           type: string
-    CombineArchiveSpecsAndFiles:
-      description: ""
-      required:
-      - specs
-      - files
-      type: object
-      properties:
-        specs:
-          $ref: '#/components/schemas/CombineArchive'
-          description: Specifications of the COMBINE archive.
-        files:
-          description: "File (e.g., model) to place into the COMBINE/OMEX archive."
-          type: array
-          items:
-            $ref: '#/components/schemas/FileUpload'
-      x-body-name: form
     SedAlgorithm:
       description: A SED algorithm.
       required:
@@ -802,6 +770,60 @@ components:
         newValue:
           description: New value
           type: string
+    SedModelLanguage:
+      description: |-
+        A SED URN for a model language.
+
+        The full list of recognized values is available at http://sed-ml.org/urns.html.
+      type: string
+      example: urn:sedml:language:sbml
+    CombineArchiveSpecsAndFiles:
+      description: Specifications of a COMBINE/OMEX archive (including its SED-ML
+        files) and the other (non-SED-ML) files that it should contain.
+      required:
+      - specs
+      - files
+      type: object
+      properties:
+        specs:
+          $ref: '#/components/schemas/CombineArchive'
+          description: Specifications of the COMBINE archive.
+        files:
+          description: "File (e.g., model) to place into the COMBINE/OMEX archive."
+          type: array
+          items:
+            $ref: '#/components/schemas/FileUpload'
+      x-body-name: body
+    ModelFileAndSimulation:
+      description: A SED task and a model file
+      required:
+      - modelLanguage
+      - modelFile
+      - simulationType
+      - simulationAlgorithmKisaoId
+      type: object
+      properties:
+        modelFile:
+          $ref: '#/components/schemas/FileUpload'
+          description: Model file.
+        modelLanguage:
+          $ref: '#/components/schemas/SedModelLanguage'
+          description: Model language.
+        simulationType:
+          description: Type of simulation.
+          enum:
+          - SedUniformTimeCourseSimulation
+          - SedSteadyStateSimulation
+          - SedOneStepSimulation
+          type: string
+        simulationAlgorithmKisaoId:
+          $ref: '#/components/schemas/KisaoId'
+          description: KiSAO id for the simulation algorithm.
+      x-body-name: body
+    FileUpload:
+      format: binary
+      description: The two files uploaded in creating a combine archive
+      type: string
   responses:
     "404":
       content:

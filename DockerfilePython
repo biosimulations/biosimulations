@@ -1,0 +1,37 @@
+#############
+### base ###
+#############
+FROM python:3.7-buster as base
+
+#The name of the app to build
+ARG app
+ENV APP=$app
+RUN echo building ${APP}
+#############
+### build ###
+#############
+FROM base as build
+
+WORKDIR /app
+
+# Copy over dependency list
+COPY biosimulations/Pipfile /app/Pipfile
+COPY biosimulations/Pipfile.lock /app/Pipfile.lock
+
+
+RUN pip install pipenv 
+RUN pipenv install
+
+COPY biosimulations/apps/$APP/src/ /app/
+
+LABEL \
+    org.opencontainers.image.title="BioSimulations ${APP}" \
+    org.opencontainers.image.description="Docker image for the BioSimulations ${APP} app" \
+    org.opencontainers.image.url="https://biosimulations.org/" \
+    org.opencontainers.image.documentation="https://biosimulations.org/help" \
+    org.opencontainers.image.source="https://github.com/biosimulations/Biosimulations" \
+    org.opencontainers.image.authors="BioSimulations Team <info@biosimulations.org>" \
+    org.opencontainers.image.vendor="BioSimulations Team" \
+    org.opencontainers.image.licenses="MIT"
+EXPOSE 3333
+CMD pipenv run gunicorn -b 0.0.0.0:3333  app:app

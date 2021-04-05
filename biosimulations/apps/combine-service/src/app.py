@@ -1,14 +1,8 @@
-
+from . import exceptions
+from . import handlers
 import connexion
-import importlib
 import os
 import types  # noqa: F401
-
-handlers_spec = importlib.util.spec_from_file_location(
-    "handlers",
-    os.path.abspath(os.path.join(os.path.dirname(__file__), 'handlers.py')))
-handlers = importlib.util.module_from_spec(handlers_spec)
-handlers_spec.loader.exec_module(handlers)
 
 
 def get_specs_dir():
@@ -51,8 +45,8 @@ app.add_api('combine-service.yml',
 # :obj:`validate_responses` is set to obj:`False` because responses are
 # validated by the unit tests using openapi-core.
 
-app.add_error_handler(500, handlers._render_exception)
-app.add_error_handler(handlers.BadRequestException, handlers._render_exception)
+app.add_error_handler(500, exceptions._render_exception)
+app.add_error_handler(exceptions.BadRequestException, exceptions._render_exception)
 
 
 if __name__ == '__main__':

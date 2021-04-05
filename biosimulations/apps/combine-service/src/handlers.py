@@ -1,3 +1,4 @@
+from .exceptions import BadRequestException
 from biosimulators_utils.combine.data_model import (
     CombineArchive,
     CombineArchiveContent,
@@ -37,7 +38,6 @@ import connexion
 import datetime
 import dateutil.tz
 import flask
-import importlib
 import os
 import re
 import requests
@@ -46,14 +46,6 @@ import shutil
 import tempfile
 import werkzeug  # noqa: F401
 import werkzeug.wrappers.response  # noqa: F401
-
-exceptions_spec = importlib.util.spec_from_file_location(
-    "exceptions",
-    os.path.abspath(os.path.join(os.path.dirname(__file__), 'exceptions.py')))
-exceptions = importlib.util.module_from_spec(exceptions_spec)
-exceptions_spec.loader.exec_module(exceptions)
-BadRequestException = exceptions.BadRequestException
-_render_exception = exceptions._render_exception
 
 
 def get_sedml_output_specs_for_combine_archive(archiveUrl):
@@ -500,7 +492,6 @@ def create_combine_archive(body, files):
     CombineArchiveWriter.run(archive, archive_dirname, archive_filename)
 
     # save COMBINE/OMEX archive to S3 bucket
-    # TODO
     archive_url = _save_file_to_s3_bucket(archive_filename)
 
     # return URL for archive in S3 bucket
@@ -805,6 +796,7 @@ def _save_file_to_s3_bucket(filename):
     Returns:
         :obj:`str`: URL for saved file
     """
+    # TODO
     return 'https://data.biosimulations.org/XYZ'
 
 
@@ -854,7 +846,7 @@ def _get_variables_for_simulation(model_filename, model_language, simulation_typ
     Returns:
         :obj:`list` of :obj:`Variable`: possible observables for a simulation of the model
     """
-    if re.match(ModelLanguagePattern.SBML.value, model_language):
+    if True or re.match(ModelLanguagePattern.SBML.value, model_language):
         return [
             Variable(id='time', symbol='urn:sedml:symbol:time'),
             Variable(id='x', target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"),

@@ -5,11 +5,11 @@ name = "pypi"
 
 [packages]
 flask = "*"
-connexion = {extras = ["swagger-ui"],version = "*"}
+connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
 requests = "*"
 biosimulators-utils = ">=0.1.48"
-werkzeug = "*"
 python-dateutil = "*"
+gunicorn = "*"
 
 [dev-packages]
 openapi-core = "*"

@@ -10,6 +10,7 @@ from openapi_core.validation.request.datatypes import (
     RequestParameters,
 )
 from openapi_core import create_spec
+from src import app
 from unittest import mock
 from werkzeug.datastructures import FileStorage, MultiDict
 import importlib.util
@@ -20,16 +21,6 @@ import shutil
 import tempfile
 import unittest
 import yaml
-
-spec = importlib.util.spec_from_file_location(
-    "app",
-    os.path.abspath(os.path.join(os.path.dirname(__file__), 'app.py')))
-app = importlib.util.module_from_spec(spec)
-environ = {
-    'API_SPECS_DIR': os.path.join(os.path.dirname(__file__), 'spec')
-}
-with mock.patch.dict('os.environ', environ):
-    spec.loader.exec_module(app)
 
 
 class HandlersTestCase(unittest.TestCase):
