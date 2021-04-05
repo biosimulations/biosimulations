@@ -39,11 +39,14 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.7'
-          architecture: 'x64'
-          
+          python-version: "3.7"
+          architecture: "x64"
+
       - name: Install Pipenv and Flake8
         run: python -m pip install pipenv flake8
+
+      - name: Install Python Dependencies
+        run: pipenv install --dev
 
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
@@ -137,9 +140,9 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.7'
-          architecture: 'x64'
-          
+          python-version: "3.7"
+          architecture: "x64"
+
       - name: Install Pipenv and Flake8
         run: python -m pip install pipenv flake8
 
@@ -147,7 +150,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "15.x"
- 
+
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
@@ -203,15 +206,21 @@ jobs:
           else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
+
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.7'
-          architecture: 'x64'
-          
+          python-version: "3.7"
+          architecture: "x64"
+
       - name: Install Pipenv and Flake8
         run: python -m pip install pipenv flake8
-        
+
+      - name: Install Python dependencies
+        if: matrix.libOrApp == 'combine-service'
+        working-directory: ./biosimulations
+        run: pipenv install --dev
+
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
@@ -276,12 +285,17 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.7'
-          architecture: 'x64'
-          
+          python-version: "3.7"
+          architecture: "x64"
+
       - name: Install Pipenv and Flake8
         run: python -m pip install pipenv flake8
-        
+
+      - name: Install Python dependencies
+        if: matrix.libOrApp == 'combine-service'
+        working-directory: ./biosimulations
+        run: pipenv install --dev
+
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
@@ -303,13 +317,6 @@ jobs:
       - name: Install dependencies
         working-directory: ./biosimulations
         run: npm ci
-
-      - name: Install Python dependencies
-        if: matrix.libOrApp == 'combine-service'
-        working-directory: ./biosimulations
-        run: |
-          cd apps/${{ matrix.libOrApp }}
-          pipenv install --dev
 
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
@@ -340,7 +347,6 @@ jobs:
         working-directory: ./biosimulations
         if: matrix.libOrApp == 'combine-service'
         run: |
-          cd apps/${{ matrix.libOrApp }}
           pipenv run nx run ${{ matrix.libOrApp }}:test --code-coverage --codeCoverage
 
       - name: Upload coverage data to Codecov
