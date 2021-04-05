@@ -179,9 +179,16 @@ jobs:
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
-      - name: Lint library or app
+
+      - name: Lint library or app (TypeScript)
+        if: matrix.libOrApp != 'combine-service'
         working-directory: ./biosimulations
         run: nx run ${{ matrix.libOrApp }}:lint
+
+      - name: Lint library or app (Python)
+        if: matrix.libOrApp == 'combine-service'
+        working-directory: ./biosimulations
+        run: python -m flake8 apps/${{ matrix.libOrApp }}/src/
 
   build:
     name: Build app
@@ -333,7 +340,7 @@ jobs:
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
 
-      - name: Test library or app
+      - name: Test library or app (TypeScript)
         working-directory: ./biosimulations
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
@@ -348,11 +355,11 @@ jobs:
         if: matrix.libOrApp != 'combine-service'
         run: nx run ${{ matrix.libOrApp }}:test --code-coverage --codeCoverage
 
-      - name: Test library or app
+      - name: Test library or app (Python)
         working-directory: ./biosimulations
         if: matrix.libOrApp == 'combine-service'
         run: |
-          pipenv run python3 -m unittest discover -s apps/combine-service/
+          PYTHONPATH=apps/${{ matrix.libOrApp }}/ pipenv run python -m pytest apps/${{ matrix.libOrApp }}/tests/
 
       - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v1.0.3

@@ -18,13 +18,14 @@ import io
 import json
 import os
 import shutil
+import src.utils
 import tempfile
 import unittest
 import yaml
 
 
 class HandlersTestCase(unittest.TestCase):
-    FIXTURES_DIR = os.path.join(os.path.dirname(__file__), 'test-fixtures')
+    FIXTURES_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
     TEST_CASE = 'Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations'
 
     def setUp(self):
@@ -36,7 +37,7 @@ class HandlersTestCase(unittest.TestCase):
     @ classmethod
     def setUpClass(cls):
         specs_filename = os.path.join(os.path.dirname(__file__),
-                                      'spec', 'combine-service.yml')
+                                      '..', 'src', 'spec', 'combine-service.yml')
         with open(specs_filename, 'rb') as specs_file:
             specs_dict = yaml.load(specs_file, Loader=yaml.Loader)
         specs = create_spec(specs_dict)
@@ -183,13 +184,11 @@ class HandlersTestCase(unittest.TestCase):
         with app.app.app.test_client() as client:
             archive_filename = os.path.join(self.temp_dirname, 'archive.omex')
 
-            def _save_file_to_s3_bucket(filename, archive_filename=archive_filename):
+            def save_file_to_s3_bucket(filename, archive_filename=archive_filename):
                 shutil.copy(filename, archive_filename)
                 return archive_filename
-            original_save_file_to_s3_bucket = getattr(app.handlers, '_save_file_to_s3_bucket')
-            setattr(app.handlers, '_save_file_to_s3_bucket', _save_file_to_s3_bucket)
-            response = client.post(endpoint, data=data, content_type="multipart/form-data")
-            setattr(app.handlers, '_save_file_to_s3_bucket', original_save_file_to_s3_bucket)
+            with mock.patch('src.utils.save_file_to_s3_bucket', side_effect=save_file_to_s3_bucket):
+                response = client.post(endpoint, data=data, content_type="multipart/form-data")
 
         fid_0.close()
         fid_1.close()

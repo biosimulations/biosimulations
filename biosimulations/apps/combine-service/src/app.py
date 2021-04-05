@@ -1,5 +1,4 @@
 from . import exceptions
-from . import handlers
 import connexion
 import os
 import types  # noqa: F401
@@ -14,29 +13,13 @@ def get_specs_dir():
     return os.getenv('API_SPECS_DIR', 'spec')
 
 
-def handler_resolver(handler):
-    """ Get a handler function
-
-    Args:
-        handler (:obj:`str`): name of the handler
-
-    Returns:
-        :obj:`types.FunctionType`: handler function
-    """
-    module, _, function = handler.partition('.')
-    assert module == 'handlers'
-    return getattr(handlers, function)
-
-
 # Instantiate app from specs
 app = connexion.App(__name__, specification_dir=get_specs_dir())
 
 # Setup handlers for APIs
-resolver = connexion.resolver.Resolver(function_resolver=handler_resolver)
 app.add_api('combine-service.yml',
             strict_validation=True,
-            validate_responses=False,
-            resolver=resolver)
+            validate_responses=False)
 # Validate_response = True will give error when API returns something that
 # does not match the schema. If you want to send a response even if invalid,
 # set to false. Set to false in production if optimistic that client can
