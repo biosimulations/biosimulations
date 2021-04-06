@@ -1,20 +1,9 @@
 from . import exceptions
 import connexion
-import os
-import types  # noqa: F401
-
-
-def get_specs_dir():
-    """ Get the directory which contains the API specifications
-
-    Returns:
-        :obj:`str`: directory with API specifications
-    """
-    return os.getenv('API_SPECS_DIR', 'spec')
 
 
 # Instantiate app from specs
-app = connexion.App(__name__, specification_dir=get_specs_dir())
+app = connexion.App(__name__, specification_dir='spec')
 
 # Setup handlers for APIs
 app.add_api('combine-service.yml',
