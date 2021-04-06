@@ -587,9 +587,9 @@ components:
           $ref: '#/components/schemas/SedTask'
           description: Task.
         target:
+          $ref: '#/components/schemas/SedVariableTarget'
           description: "Target within a model (e.g., of a dependent variable such\
             \ as the concentration of a species)."
-          type: string
         symbol:
           description: "Symbol (e.g., for an independent variable such as time)."
           type: string
@@ -824,6 +824,58 @@ components:
       format: binary
       description: The two files uploaded in creating a combine archive
       type: string
+    SedVariableTarget:
+      description: Target of a variable.
+      required:
+      - _type
+      - value
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - SedVariableTarget
+          type: string
+        value:
+          description: Value.
+          type: string
+        namespaces:
+          description: Namespaces
+          type: array
+          items:
+            $ref: '#/components/schemas/Namespace'
+      example:
+        _type: SedVariableTarget
+        value: "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='erk']"
+        namespaces:
+        - prefix: sbml
+          uri: http://www.sbml.org/sbml/level3/version1/core
+          _type: Namespace
+        - prefix: qual
+          uri: http://www.sbml.org/sbml/level3/version1/qual/version1
+          _type: Namespace
+    Namespace:
+      description: Namespace
+      required:
+      - uri
+      - _type
+      type: object
+      properties:
+        prefix:
+          description: Prefix.
+          type: string
+        uri:
+          description: URI.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - Namespace
+          type: string
+      example:
+        prefix: sbml
+        uri: http://www.sbml.org/sbml/level3/version1/core
+        _type: Namespace
   responses:
     "404":
       content:
