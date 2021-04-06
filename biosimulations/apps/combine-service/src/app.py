@@ -30,8 +30,3 @@ app.add_api('combine-service.yml',
 
 app.add_error_handler(500, exceptions._render_exception)
 app.add_error_handler(exceptions.BadRequestException, exceptions._render_exception)
-
-
-if __name__ == '__main__':
-    # DEV Server only
-    app.run(host="127.0.0.1", port=3333, threaded=True, debug=True)
