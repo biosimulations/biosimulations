@@ -121,7 +121,7 @@ async function bootstrap() {
   const doc = new DocumentBuilder()
     .setTitle('BioSimulations/BioSimulators ontology API')
     .setDescription(
-      'An API to get information about ontologies and terms used in BioSimulations and BioSimulators',
+      'API for the ontologies and their terms used by BioSimulations and BioSimulators.',
     )
     .setVersion('0.1')
     .setLicense(
@@ -138,6 +138,17 @@ async function bootstrap() {
       'https://biosimulations.org/help/about',
       'info@biosimulations.org',
     );
+
+  const tags = [
+    {
+      name: 'Ontologies',
+      description:
+        'Operations for getting a list of the supported ontologies, getting entire ontologies, and getting individual terms.',
+    },
+  ];
+  for (const tag of tags) {
+    doc.addTag(tag.name, tag.description);
+  }
 
   const document = setupOpenApi(
     app,

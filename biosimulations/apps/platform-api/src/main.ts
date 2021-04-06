@@ -56,7 +56,7 @@ function setupOpenApi(app: INestApplication) {
   };
   const options = new DocumentBuilder()
     .setTitle('BioSimulations resource API')
-    .setDescription('The API to interact with the BioSimulations database')
+    .setDescription('API for the BioSimulations database.')
     .setVersion('0.1')
     .setLicense(
       'MIT License',

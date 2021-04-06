@@ -120,7 +120,7 @@ async function bootstrap() {
   const doc = new DocumentBuilder()
     .setTitle('BioSimulators API')
     .setDescription(
-      'A collection of standardized Docker containers for executing biosimulations',
+      'API for a registry of biosimulation software tools.',
     )
     .setVersion('0.1')
     .setLicense(
@@ -137,6 +137,22 @@ async function bootstrap() {
       'https://biosimulators.org/help/about',
       'info@biosimulators.org',
     );
+
+  const tags = [
+    {
+      name: 'Simulators',
+      description:
+        'Operations for submitting, updating, retrieving, and deleting simulation tools.',
+    },
+    {
+      name: 'Authentication testing',
+      description:
+        'Operations for checking whether a user is logged in and retrieving information about a user\'s privileges.',
+    },
+  ];
+  for (const tag of tags) {
+    doc.addTag(tag.name, tag.description);
+  }
 
   const document = setupOpenApi(
     app,
