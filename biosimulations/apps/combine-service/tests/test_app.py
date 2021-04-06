@@ -1,5 +1,5 @@
 from biosimulators_utils.combine.io import CombineArchiveReader
-from biosimulators_utils.sedml.data_model import ModelLanguage
+from biosimulators_utils.sedml.data_model import ModelLanguage, Symbol
 from biosimulators_utils.sedml.io import SedmlSimulationReader
 from openapi_core.contrib.requests import RequestsOpenAPIRequestFactory
 from openapi_core.validation.response.validators import ResponseValidator
@@ -115,7 +115,7 @@ class HandlersTestCase(unittest.TestCase):
     def test_get_variables_for_simulation(self):
         endpoint = '/sed-ml/get-variables-for-simulation'
 
-        model_filename = os.path.abspath(os.path.join(self.FIXTURES_DIR, 'model.xml'))
+        model_filename = os.path.abspath(os.path.join(self.FIXTURES_DIR, 'Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.xml'))
         model_fid = open(model_filename, 'rb')
 
         with open(os.path.join(self.FIXTURES_DIR, 'task.json'), 'rb') as file:
@@ -124,7 +124,7 @@ class HandlersTestCase(unittest.TestCase):
         data = MultiDict([
             ('modelLanguage', 'urn:sedml:language:sbml'),
             ('simulationType', 'SedUniformTimeCourseSimulation'),
-            ('simulationAlgorithmKisaoId', 'KISAO_0000029'),
+            ('simulationAlgorithmKisaoId', 'KISAO_0000450'),
             ('modelFile', model_fid),
         ])
         with app.app.app.test_client() as client:
@@ -134,7 +134,16 @@ class HandlersTestCase(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         vars = response.json
-        self.assertEqual(len(vars), 2)
+
+        self.assertEqual(vars[0]['id'], 'time')
+        self.assertEqual(vars[0]['name'], 'Time')
+        self.assertEqual(vars[0]['symbol'], Symbol.time)
+        self.assertNotIn('target', vars[0])
+
+        self.assertEqual(vars[-1]['id'], 'nik')
+        self.assertNotIn('name', vars[-1])
+        self.assertNotIn('symbol', vars[-1])
+        self.assertEqual(vars[-1]['target'], "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='nik']")
 
         # validate request and response
         with open(model_filename, 'rb') as file:

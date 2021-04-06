@@ -359,7 +359,11 @@ jobs:
         working-directory: ./biosimulations
         if: matrix.libOrApp == 'combine-service'
         run: |
-          PYTHONPATH=apps/${{ matrix.libOrApp }}/ pipenv run python -m pytest apps/${{ matrix.libOrApp }}/tests/
+          PYTHONPATH=apps/${{ matrix.libOrApp }}/ pipenv run \
+            python \
+              -m pytest \
+                --cov apps/${{ matrix.libOrApp }}/src/ \
+                apps/${{ matrix.libOrApp }}/tests/
 
       - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v1.0.3
