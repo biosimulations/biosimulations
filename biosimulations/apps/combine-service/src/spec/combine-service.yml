@@ -1,0 +1,883 @@
+---
+openapi: 3.0.0
+info:
+  title: BioSimulations COMBINE service
+  version: "0.1"
+  description: "Endpoints for working with COMBINE/OMEX archives and model (e.g.,\
+    \ SBML) and simulation (e.g., SED-ML) files that they typically contain.\n\nNote,\
+    \ this API may change significantly in the future."
+  contact:
+    name: BioSimulations Team
+    url: https://biosimulations.org
+    email: info@biosimulations.org
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+paths:
+  /combine/sedml-output-specs:
+    get:
+      tags:
+      - COMBINE
+      parameters:
+      - name: archiveUrl
+        description: |-
+          URL for a COMBINE/OMEX archive that contains one or more SED-ML files that describe one or more plots.
+
+          The SED-ML files should be defined in the manifest of the the COMBINE/OMEX archive with a format attribute such as  "http://identifiers.org/combine.specifications/sed-ml" or "http://identifiers.org/combine.specifications/sed-ml.level-1.version-3".
+        schema:
+          type: string
+        in: query
+        required: true
+      responses:
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
+            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
+            archive.
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombineArchive'
+          description: Specifications of the plots in the SED-ML files in the COMBINE/OMEX
+            archive.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.get_sedml_output_specs_for_combine_archive.handler
+      summary: Get the specifications of the plots in SED-ML files in a COMBINE/OMEX
+        archive
+      description: Get the specifications of the outputs in SED-ML files in a COMBINE/OMEX
+        archive
+  /combine/create:
+    post:
+      requestBody:
+        description: Specifiations for the COMBINE/OMEX archive and its contents (specifications
+          of the SED-ML file and model file(s)).
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CombineArchiveSpecsAndFiles'
+            encoding:
+              specs:
+                contentType: application/json
+        required: true
+      tags:
+      - COMBINE
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: URL for the created COMBINE/OMEX archive.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Specifications for COMBINE archive are invalid.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.create.handler
+      summary: Assemble a COMBINE/OMEX archive from model files and specifications
+        of a SED-ML document.
+      description: Assemble a COMBINE/OMEX archive from model files and specifications
+        of a SED-ML document.
+  /sed-ml/get-variables-for-simulation:
+    post:
+      requestBody:
+        description: Model file and specifications of a simulation task of the model.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModelFileAndSimulation'
+        required: true
+      tags:
+      - SED-ML
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SedVariable'
+          description: Possible observables of a SED task as a list of SED data generators.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the variables of a model because the model file
+            is invalid.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.sed_ml.get_variables_for_simulation.handler
+      summary: Get the possible observables of a simulation as a list of SED variables.
+components:
+  schemas:
+    SedPlot2D:
+      description: Specifications for a 2D SED plot.
+      required:
+      - id
+      - curves
+      - xScale
+      - yScale
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        curves:
+          description: List of the curves of the plot (tuples of x and y data).
+          type: array
+          items:
+            $ref: '#/components/schemas/SedCurve'
+        xScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the x axis.
+        yScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the y axis.
+        _type:
+          description: Type of the plot.
+          enum:
+          - SedPlot2D
+          type: string
+    SedPlot3D:
+      description: Specifications for a 3D surface plot.
+      required:
+      - id
+      - surfaces
+      - xScale
+      - yScale
+      - zScale
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique id within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        surfaces:
+          description: "List of surfaces (tuples of x, y, and z data)."
+          type: array
+          items:
+            $ref: '#/components/schemas/SedSurface'
+        xScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the x axis.
+        yScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the y axis.
+        zScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the z axis.
+        _type:
+          description: Type of the output.
+          enum:
+          - SedPlot3D
+          type: string
+    SedCurve:
+      description: Curve of a 2D SED plot
+      required:
+      - id
+      - xDataGenerator
+      - yDataGenerator
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier with its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        xDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the x data of the curve.
+        yDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the y data of the curve.
+        _type:
+          description: Type.
+          enum:
+          - SedCurve
+          type: string
+    SedSurface:
+      description: A surface a 3D plot.
+      required:
+      - id
+      - xDataGenerator
+      - yDataGenerator
+      - zDataGenerator
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        xDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the x data of the surface.
+        yDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the y data of the surface.
+        zDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the z data of the surface.
+        _type:
+          description: Type.
+          enum:
+          - SedSurface
+          type: string
+    SedDataGenerator:
+      description: Data generator for SED report or plot.
+      required:
+      - id
+      - math
+      - variables
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        variables:
+          description: Variables.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedVariable'
+        math:
+          description: Mathematical expression for its value.
+          type: string
+        _resultsDataSetId:
+          $ref: '#/components/schemas/BioSimulationsDataSetResultsId'
+          description: Id of the results in the runBioSimulations database of simulation
+            results.
+        _type:
+          description: Type.
+          enum:
+          - SedDataGenerator
+          type: string
+    SedDocument:
+      description: A SED document.
+      required:
+      - outputs
+      - level
+      - version
+      - models
+      - simulations
+      - tasks
+      - dataGenerators
+      - _type
+      type: object
+      properties:
+        outputs:
+          description: Outputs.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedOutput'
+        level:
+          description: Level.
+          type: integer
+        version:
+          description: Version.
+          type: integer
+        models:
+          description: Models.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedModel'
+        simulations:
+          description: Simulations.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedSimulation'
+        tasks:
+          description: Tasks.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedTask'
+        dataGenerators:
+          description: Data generators.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedDataGenerator'
+        _type:
+          description: Type.
+          enum:
+          - SedDocument
+          type: string
+      example:
+        level: 1
+        version: 4
+        models: []
+        simulations: []
+        tasks: []
+        dataGenerators: []
+        outputs: []
+    SedReport:
+      description: A SED report.
+      required:
+      - id
+      - _type
+      - dataSets
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        _type:
+          description: Type of the output.
+          enum:
+          - SedReport
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        dataSets:
+          description: List of the data sets of the report (rows of the report).
+          type: array
+          items:
+            $ref: '#/components/schemas/SedDataSet'
+    CombineArchive:
+      description: A COMBINE/OMEX archive.
+      required:
+      - contents
+      - _type
+      type: object
+      properties:
+        contents:
+          description: The content of the archive
+          type: array
+          items:
+            $ref: '#/components/schemas/CombineArchiveContent'
+        _type:
+          description: Type.
+          enum:
+          - CombineArchive
+          type: string
+    CombineArchiveContent:
+      description: Content item of a COMBINE/OMEX archive.
+      required:
+      - location
+      - format
+      - master
+      - _type
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/CombineArchiveLocation'
+          description: Location within its parent COMBINE/OMEX archive.
+        format:
+          description: Format.
+          type: string
+        master:
+          description: ""
+          type: boolean
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveContent
+          type: string
+    CombineArchiveLocation:
+      description: Location of an item in a COMBINE/OMEX archive and its value.
+      required:
+      - path
+      - value
+      - _type
+      type: object
+      properties:
+        path:
+          description: Path within a COMBINE/OMEX archive.
+          type: string
+        value:
+          $ref: '#/components/schemas/CombineArchiveLocationValue'
+          description: Value of the content item of the COMBINE/OMEX archive.
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveLocation
+          type: string
+    SedModel:
+      description: A SED model.
+      required:
+      - id
+      - language
+      - source
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        language:
+          $ref: '#/components/schemas/SedModelLanguage'
+          description: "Format (e.g., BNGL, SBML)."
+        source:
+          description: Location of the file for the model.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedModel
+          type: string
+      example:
+        id: model_1
+        name: Model 1
+        language: urn:sedml:language:sbml
+        source: model_1.xml
+    SedTask:
+      description: A SED task.
+      required:
+      - id
+      - model
+      - simulation
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within is parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        model:
+          $ref: '#/components/schemas/SedModel'
+          description: Model.
+        simulation:
+          $ref: '#/components/schemas/SedSimulation'
+          description: Simulation
+        _type:
+          description: Type.
+          enum:
+          - SedTask
+          type: string
+    SedUniformTimeCourseSimulation:
+      description: A SED uniform time course simulation.
+      required:
+      - id
+      - _type
+      - initialTime
+      - outputStartTime
+      - outputEndTime
+      - numberOfSteps
+      - algorithm
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        _type:
+          description: Type of the simulation.
+          enum:
+          - SedUniformTimeCourseSimulation
+          type: string
+        initialTime:
+          description: Initial time.
+          type: number
+        outputStartTime:
+          description: Output start time.
+          type: number
+        outputEndTime:
+          description: Output end time.
+          type: number
+        numberOfSteps:
+          description: Number of steps.
+          type: integer
+        algorithm:
+          $ref: '#/components/schemas/SedAlgorithm'
+          description: Algorithm.
+    SedSteadyStateSimulation:
+      description: A SED steady state simulation.
+      required:
+      - id
+      - _type
+      - algorithm
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        _type:
+          description: Type of the simulation.
+          enum:
+          - SedSteadyStateSimulation
+          type: string
+        algorithm:
+          $ref: '#/components/schemas/SedAlgorithm'
+          description: Algorithm.
+    SedOneStepSimulation:
+      description: A SED one step simulation.
+      required:
+      - id
+      - _type
+      - algorithm
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        _type:
+          description: Type of the simulation.
+          enum:
+          - SedOneStepSimulation
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        step:
+          description: Step size.
+          type: number
+        algorithm:
+          $ref: '#/components/schemas/SedAlgorithm'
+          description: Algorithm.
+    SedVariable:
+      description: A SED variable.
+      required:
+      - id
+      - task
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        task:
+          $ref: '#/components/schemas/SedTask'
+          description: Task.
+        target:
+          $ref: '#/components/schemas/SedVariableTarget'
+          description: "Target within a model (e.g., of a dependent variable such\
+            \ as the concentration of a species)."
+        symbol:
+          description: "Symbol (e.g., for an independent variable such as time)."
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedVariable
+          type: string
+    SedRepeatedTask:
+      description: A SED repeated task.
+      required:
+      - id
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifiers with its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedRepeatedTask
+          type: string
+    SedAxisScale:
+      description: ""
+      enum:
+      - log
+      - linear
+      type: string
+    BioSimulationsDataSetResultsId:
+      description: Id of the results of a data set.
+      type: string
+    SedOutput:
+      oneOf:
+      - $ref: '#/components/schemas/SedPlot2D'
+      - $ref: '#/components/schemas/SedPlot3D'
+      - $ref: '#/components/schemas/SedReport'
+      discriminator:
+        propertyName: _type
+      description: An output of a SED document.
+      type: object
+    SedAbstractTask:
+      oneOf:
+      - $ref: '#/components/schemas/SedTask'
+      - $ref: '#/components/schemas/SedRepeatedTask'
+      discriminator:
+        propertyName: _type
+      description: A SED abstract task.
+      type: object
+    CombineArchiveLocationValue:
+      oneOf:
+      - $ref: '#/components/schemas/SedDocument'
+      - $ref: '#/components/schemas/CombineArchiveContentFile'
+      discriminator:
+        propertyName: _type
+      description: The value of a location of a COMBINE/OMEX archive.
+      type: object
+    CombineArchiveContentFile:
+      description: File
+      required:
+      - _type
+      - filename
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveContentFile
+          type: string
+        filename:
+          description: Name of file on the submitter's machine
+          type: string
+    SedSimulation:
+      oneOf:
+      - $ref: '#/components/schemas/SedSteadyStateSimulation'
+      - $ref: '#/components/schemas/SedUniformTimeCourseSimulation'
+      - $ref: '#/components/schemas/SedOneStepSimulation'
+      discriminator:
+        propertyName: _type
+      description: A SED simulation.
+      type: object
+    Error:
+      description: Error.
+      required:
+      - status
+      - title
+      - detail
+      - type
+      type: object
+      properties:
+        status:
+          description: Status code.
+          type: integer
+        title:
+          description: Brief summary.
+          type: string
+        type:
+          description: Type
+          type: string
+        detail:
+          description: Description.
+          type: string
+      example:
+        status: 400
+        title: Unsupported model langauge
+        detail: Models of language XYZ are not supported
+        type: NotImplementedError
+    SedDataSet:
+      description: A SED data set
+      required:
+      - id
+      - label
+      - dataGenerator
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        label:
+          description: Brief description
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        dataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Generator which provides the data for the data set.
+        _type:
+          description: Type.
+          enum:
+          - SedDataSet
+          type: string
+    SedAlgorithm:
+      description: A SED algorithm.
+      required:
+      - _type
+      - kisaoId
+      - changes
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - SedAlgorithm
+          type: string
+        kisaoId:
+          $ref: '#/components/schemas/KisaoId'
+          description: KiSAO id
+        changes:
+          description: Changes to the default values of the parameters.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedAlgorithmParameterChange'
+    KisaoId:
+      description: KiSAO id
+      type: string
+      example: KISAO_0000019
+    SedAlgorithmParameterChange:
+      description: A SED algorithm parameter
+      required:
+      - kisaoId
+      - newValue
+      - _type
+      type: object
+      properties:
+        kisaoId:
+          $ref: '#/components/schemas/KisaoId'
+          description: KiSAO id
+        _type:
+          description: Type.
+          enum:
+          - SedAlgorithmParameterChange
+          type: string
+        newValue:
+          description: New value
+          type: string
+    SedModelLanguage:
+      description: |-
+        A SED URN for a model language.
+
+        The full list of recognized values is available at http://sed-ml.org/urns.html.
+      type: string
+      example: urn:sedml:language:sbml
+    CombineArchiveSpecsAndFiles:
+      description: Specifications of a COMBINE/OMEX archive (including its SED-ML
+        files) and the other (non-SED-ML) files that it should contain.
+      required:
+      - specs
+      - files
+      type: object
+      properties:
+        specs:
+          $ref: '#/components/schemas/CombineArchive'
+          description: Specifications of the COMBINE archive.
+        files:
+          description: "File (e.g., model) to place into the COMBINE/OMEX archive."
+          type: array
+          items:
+            $ref: '#/components/schemas/FileUpload'
+      x-body-name: body
+    ModelFileAndSimulation:
+      description: A SED task and a model file
+      required:
+      - modelLanguage
+      - modelFile
+      - simulationType
+      - simulationAlgorithmKisaoId
+      type: object
+      properties:
+        modelFile:
+          $ref: '#/components/schemas/FileUpload'
+          description: Model file.
+        modelLanguage:
+          $ref: '#/components/schemas/SedModelLanguage'
+          description: Model language.
+        simulationType:
+          description: Type of simulation.
+          enum:
+          - SedUniformTimeCourseSimulation
+          - SedSteadyStateSimulation
+          - SedOneStepSimulation
+          type: string
+        simulationAlgorithmKisaoId:
+          $ref: '#/components/schemas/KisaoId'
+          description: KiSAO id for the simulation algorithm.
+      x-body-name: body
+    FileUpload:
+      format: binary
+      description: The two files uploaded in creating a combine archive
+      type: string
+    SedVariableTarget:
+      description: Target of a variable.
+      required:
+      - _type
+      - value
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - SedVariableTarget
+          type: string
+        value:
+          description: Value.
+          type: string
+        namespaces:
+          description: Namespaces
+          type: array
+          items:
+            $ref: '#/components/schemas/Namespace'
+      example:
+        _type: SedVariableTarget
+        value: "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='erk']"
+        namespaces:
+        - prefix: sbml
+          uri: http://www.sbml.org/sbml/level3/version1/core
+          _type: Namespace
+        - prefix: qual
+          uri: http://www.sbml.org/sbml/level3/version1/qual/version1
+          _type: Namespace
+    Namespace:
+      description: Namespace
+      required:
+      - uri
+      - _type
+      type: object
+      properties:
+        prefix:
+          description: Prefix.
+          type: string
+        uri:
+          description: URI.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - Namespace
+          type: string
+      example:
+        prefix: sbml
+        uri: http://www.sbml.org/sbml/level3/version1/core
+        _type: Namespace
+  responses:
+    "404":
+      content:
+        application/json: {}
+      description: The selected resource was not found

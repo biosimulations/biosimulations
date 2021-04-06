@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
+requests = "*"
+biosimulators-utils = {extras = ["sbml"],version = ">=0.1.49"}
+python-dateutil = "*"
+gunicorn = "*"
+
+[dev-packages]
+openapi-core = "*"
+pyyaml = "*"
+pytest = "*"
+pytest-cov = "*"
+
+[requires]
+python_version = "3.7"

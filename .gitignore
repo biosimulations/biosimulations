@@ -68,3 +68,4 @@ typings/
 **/config.json
 
 #env files
+biosimulations/.vscode/settings.json
