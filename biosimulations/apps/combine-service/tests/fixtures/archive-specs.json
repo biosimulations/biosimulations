@@ -118,7 +118,22 @@
                                     }
                                 }
                             },
-                            "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                            "target": {
+                                "_type": "SedVariableTarget",
+                                "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
+                                "namespaces": [{
+                                        "_type": "Namespace",
+                                        "prefix": "sbml",
+                                        "uri": "http://www.sbml.org/sbml/level3/version1/core"
+                                    },
+                                    {
+                                        "_type": "Namespace",
+                                        "prefix": "qual",
+                                        "uri": "http://www.sbml.org/sbml/level3/version1/qual/version1"
+                                    }
+                                ]
+                            }
+
                         }],
                         "math": "x"
                     }],
@@ -162,7 +177,22 @@
                                                 }
                                             }
                                         },
-                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                        "target": {
+                                            "_type": "SedVariableTarget",
+                                            "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
+                                            "namespaces": [{
+                                                    "_type": "Namespace",
+                                                    "prefix": "sbml",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/core"
+                                                },
+                                                {
+                                                    "_type": "Namespace",
+                                                    "prefix": "qual",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/qual/version1"
+                                                }
+                                            ]
+                                        }
+
                                     }],
                                     "math": "x"
                                 }
@@ -209,7 +239,22 @@
                                                 }
                                             }
                                         },
-                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                        "target": {
+                                            "_type": "SedVariableTarget",
+                                            "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
+                                            "namespaces": [{
+                                                    "_type": "Namespace",
+                                                    "prefix": "sbml",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/core"
+                                                },
+                                                {
+                                                    "_type": "Namespace",
+                                                    "prefix": "qual",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/qual/version1"
+                                                }
+                                            ]
+                                        }
+
                                     }],
                                     "math": "x"
                                 },
@@ -246,7 +291,22 @@
                                                 }
                                             }
                                         },
-                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                        "target": {
+                                            "_type": "SedVariableTarget",
+                                            "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
+                                            "namespaces": [{
+                                                    "_type": "Namespace",
+                                                    "prefix": "sbml",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/core"
+                                                },
+                                                {
+                                                    "_type": "Namespace",
+                                                    "prefix": "qual",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/qual/version1"
+                                                }
+                                            ]
+                                        }
+
                                     }],
                                     "math": "x"
                                 }
@@ -294,7 +354,22 @@
                                                 }
                                             }
                                         },
-                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                        "target": {
+                                            "_type": "SedVariableTarget",
+                                            "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
+                                            "namespaces": [{
+                                                    "_type": "Namespace",
+                                                    "prefix": "sbml",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/core"
+                                                },
+                                                {
+                                                    "_type": "Namespace",
+                                                    "prefix": "qual",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/qual/version1"
+                                                }
+                                            ]
+                                        }
+
                                     }],
                                     "math": "x"
                                 },
@@ -331,7 +406,22 @@
                                                 }
                                             }
                                         },
-                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                        "target": {
+                                            "_type": "SedVariableTarget",
+                                            "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
+                                            "namespaces": [{
+                                                    "_type": "Namespace",
+                                                    "prefix": "sbml",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/core"
+                                                },
+                                                {
+                                                    "_type": "Namespace",
+                                                    "prefix": "qual",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/qual/version1"
+                                                }
+                                            ]
+                                        }
+
                                     }],
                                     "math": "x"
                                 },
@@ -368,7 +458,22 @@
                                                 }
                                             }
                                         },
-                                        "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']"
+                                        "target": {
+                                            "_type": "SedVariableTarget",
+                                            "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
+                                            "namespaces": [{
+                                                    "_type": "Namespace",
+                                                    "prefix": "sbml",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/core"
+                                                },
+                                                {
+                                                    "_type": "Namespace",
+                                                    "prefix": "qual",
+                                                    "uri": "http://www.sbml.org/sbml/level3/version1/qual/version1"
+                                                }
+                                            ]
+                                        }
+
                                     }],
                                     "math": "x"
                                 }

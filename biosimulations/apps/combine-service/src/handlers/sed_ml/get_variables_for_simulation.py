@@ -96,7 +96,20 @@ def handler(body, modelFile):
         if var.symbol:
             response_var['symbol'] = var.symbol
         if var.target:
-            response_var['target'] = var.target
+            response_var['target'] = {
+                "_type": "SedVariableTarget",
+                "value": var.target,
+            }
+            if var.target_namespaces:
+                response_var['target']['namespaces'] = []
+                for prefix, uri in var.target_namespaces.items():
+                    ns = {
+                        "_type": "Namespace",
+                        "uri": uri,
+                    }
+                    if prefix:
+                        ns['prefix'] = prefix
+                    response_var['target']['namespaces'].append(ns)
 
         response_vars.append(response_var)
 

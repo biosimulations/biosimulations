@@ -143,7 +143,19 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(vars[-1]['id'], 'nik')
         self.assertNotIn('name', vars[-1])
         self.assertNotIn('symbol', vars[-1])
-        self.assertEqual(vars[-1]['target'], "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='nik']")
+
+        vars[-1]['target']['namespaces'].sort(key=lambda ns: ns['prefix'])
+        self.assertEqual(
+            vars[-1]['target'],
+            {
+                "_type": "SedVariableTarget",
+                "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='nik']",
+                "namespaces": [
+                    {"_type": "Namespace", "prefix": "qual", "uri": "http://www.sbml.org/sbml/level3/version1/qual/version1"},
+                    {"_type": "Namespace", "prefix": "sbml", "uri": "http://www.sbml.org/sbml/level3/version1/core"},
+                ]
+            },
+        )
 
         # validate request and response
         with open(model_filename, 'rb') as file:
@@ -223,4 +235,11 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(sed_doc.tasks[0].simulation.algorithm.changes[0].kisao_id, 'KISAO_0000488')
         self.assertEqual(sed_doc.tasks[0].simulation.algorithm.changes[0].new_value, '10')
         self.assertEqual(sed_doc.outputs[1].curves[0].x_data_generator.variables[0].target,
-                         "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='x']")
+                         "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']")
+        self.assertEqual(
+            sed_doc.outputs[1].curves[0].x_data_generator.variables[0].target_namespaces,
+            {
+                "sbml": "http://www.sbml.org/sbml/level3/version1/core",
+                "qual": "http://www.sbml.org/sbml/level3/version1/qual/version1"
+            },
+        )

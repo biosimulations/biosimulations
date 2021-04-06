@@ -252,8 +252,14 @@ def export_sed_doc(sed_doc_specs):
                 name=var_spec.get('name', None),
                 task=task,
                 symbol=var_spec.get('symbol', None),
-                target=var_spec.get('target', None),
             )
+
+            target_spec = var_spec.get('target', None)
+            if target_spec:
+                var.target = target_spec['value']
+                for ns in target_spec.get('namespaces', []):
+                    var.target_namespaces[ns.get('prefix', None)] = ns['uri']
+
             data_gen.variables.append(var)
 
         sed_doc.data_generators.append(data_gen)
