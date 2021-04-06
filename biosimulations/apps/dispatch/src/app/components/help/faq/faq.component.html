@@ -90,6 +90,43 @@
       </biosimulations-q-a>
 
       <biosimulations-q-a
+        heading="Are there any limitations to the COMBINE/OMEX archives and SED-ML files that runBioSimulations can execute?"
+      >
+        <p>runBioSimulations is designed to be able to execute any COMBINE/OMEX archive and the SED-ML files they contain. In practice, runBioSimulations cannot execute every possible COMBINE/OMEX archive and SED-ML file for three main reasons.</p>
+
+        <p>First, currently runBioSimulations focuses on the latest version of SED-ML (L1V3) and has limited ability to execute simulation experiments encoded using older versions of SED-ML. Going forward, runBioSimulations will support new versions of SED-ML through new versions of simulation tools submitted to BioSimulators that support these new versions of SED-ML. Because BioSimulators stores old versions of simulation tools, runBioSimulations will also maintain the ability to execute simulations that involve the current version of SED-ML.</p>
+
+        <p>Second, runBioSimulations can only execute SED-ML files that involve model formats, modeling frameworks, and simulation algorithms that are supported by at least one of the standardized simulation tools in the BioSimulators registry. Presently, the standardized simulation tools support multiple formats, multiple frameworks, and over 40 algorithms. Going forward, we aim to expand this by working with the community to develop standardized interfaces to additional simulation tools and submitting them to BioSimulators.</p>
+
+        <p class="no-bottom-margin">Third, runBioSimulations has limited ability to execute SED-ML documents that deviate from the specifications of the COMBINE/OMEX archive and SED-ML formats. In practice, this is the most significant limitation because some simulation tools produce SED-ML files which deviate from the specifications of SED-ML and because most of the existing SED-ML files at SED-ML.org and in model repositories such as BioModels deviate from the specifications of SED-ML. Below is a list of known issues which prevent runBioSimulations from executing many SED-ML files.</p>
+        <ul>
+          <li><b>Broken model references</b>: The model sources in SED-ML files in some repositories such as BioModels are different from the actual locations of the model files.</li>
+          <li><b>Missing namespace definitions</b>: Most simulation tools do not define URIs for the namespace prefixes used in XPATH targets for model variables. Most existing SED-ML files at SED-ML.org and in model repositories also lack definitions of these namespace prefixes.</li>
+          <li><b>Missing attributes</b>: Some simulation tools produce SED-ML files that are missing required attributes.</li>
+          <li><b>Invalid attribute values</b>: Some simulation tools produce SED-ML files that have invalid values of some attributes.</li>
+          <li><b>Non-unique identifiers</b>: Some simulation tools produce SED-ML files that have multiple elements with the same identifier. In such cases, references to these elements cannot be resolved.</li>
+          <li><b>Broken references</b>: Some simulation tools produce SED-ML files that have broken references (e.g., no instance of <code>sed:model</code> has an <code>id</code> attribute equal to the value of the <code>modelReference</code> attribute of a <code>sed:task</code>).</li>
+          <li><b>Invalid XPATHs to model variables</b>: Some simulation tools produce SED-ML files that do not have correct XPATHs to variables in models. Most frequently, this is because some simulation tools confuse the ids and names of model elements.</li>
+          <li><b>Incorrect KiSAO ids for algorithms</b>: Some simulation tools produce SED-ML files that indicate different algorithms than what the simulation tool actually used to execute the simulation.</li>
+          <li><b>Inconsistent plot axes</b>: Some simulation tools produces SED-ML files where curves in the same plot have mixed (linear and log) x, y, and/or z axes.</li>
+        </ul>
+
+        <p>We are working with the SED-ML community to clarify the specifications of SED-ML and resolve these inconsistencies. To drive consistency, we also developed the BioSimulators test suite <a href="https://github.com/biosimulators/Biosimulators_test_suite" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for verifying whether simulation tools execute COMBINE/OMEX archives and SED-ML files consistently with the specifications of these formats. In addition, we developed BioSimulators utils <a href="https://github.com/biosimulators/Biosimulators_utils" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a Python package which provides methods for more deeply validating COMBINE/OMEX archives and SED-ML files.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="Which other tools can I use to execute COMBINE/OMEX archives? Are there any limitations executing archives with other tools?"
+      >
+        <p>runBioSimulations is designed to be compatible with the COMBINE/OMEX archive and SED-ML formats. In principle, this means that other tools such as COPASI <a href="http://copasi.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and VCell <a href="https://vcell.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> that support these same formats should be able to execute the same simulations that can be executed with runBioSimulations. In practice, there are two main factors which limit the ability of such tools to execute COMBINE/OMEX archives and SED-ML files.</p>
+
+        <p>First, each tool can only execute simulations involving a limited number of model formats, modeling frameworks, and simulation algorithms.</p>
+
+        <p>Second, some simulation tools only support a subset of SED-ML. For example, some tools do not support model resolution via URI fragments, some do not support model changes, some do not support repeated tasks, and some do not support 3D plots. Going forward, we hope to use BioSimulators to keep finer-grained track of the capabilities of each tool.</p>
+
+        <p>Third, some of the inconsistencies in the implementation of COMBINE and SED-ML described above prevent some simulation tools from consistently executing some COMBINE/OMEX archives and SED-ML files. In particular, some tools cannot execute COMBINE/OMEX archives that organize files into subdirectories.</p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
         heading="How can I quickly run a sample set of simulations?"
       >
         Click <a [routerLink]="['/simulations']" [queryParams]="{try: '1'}">here</a> to load several example simulation projects from the BioSimulators test suite <a [href]="exampleCombineArchivesUrl" target="_blank"
