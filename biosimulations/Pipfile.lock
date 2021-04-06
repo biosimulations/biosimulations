@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "29e1dc5ef78b43c54309c4cdb50b85c5d1bc0f742dc10d5b3d759b31d75ce962"
+            "sha256": "e6d21bedd819448849b0a65e375d7529b1f511dd8f37896c24fe3ca62b7c452b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -24,12 +24,15 @@
             "version": "==20.3.0"
         },
         "biosimulators-utils": {
+            "extras": [
+                "sbml"
+            ],
             "hashes": [
-                "sha256:84e790010c939b943a9d5f4204a5baed41ed3aa11837d52733008cf215461797",
-                "sha256:99967f30c9c20a6307da98d22a1e3279b78461779b8ab9ef966ec4e9f68f41ed"
+                "sha256:6c0fa00bf306ac34cd6227fc1fd6c23f19005528c945091a05fd69c1e23f829c",
+                "sha256:faf481debe96d4e4127257c5d03be29a40d84516082b1ec9928d3a3176042f60"
             ],
             "index": "pypi",
-            "version": "==0.1.48"
+            "version": "==0.1.49"
         },
         "cached-property": {
             "hashes": [
@@ -529,6 +532,41 @@
                 "sha256:f0b4f9e7ff11df133766c3912018b0f1d61441ee7e523359585dcbacd62c77c9"
             ],
             "version": "==0.2.10"
+        },
+        "python-libsbml": {
+            "hashes": [
+                "sha256:16430a2b97845ecb23f744b8aaa25137b9e88b4f33a57f4377294e742aab5069",
+                "sha256:16d4120adf64708506e78bd6ab345d5adf52cded5d34d9bcd9819449ede009fb",
+                "sha256:1956d2acb8c07b87946f640794b848fa947135842ea0d30522c3b5c24cca0bde",
+                "sha256:1f4b29b6c8c8a23dba63305c49a83ba6498bf109a2842350af83bb5322c437de",
+                "sha256:21cd07456878e52a10f48f6eab581a0f5bcb28b0375fff2217bd3d240b76a70b",
+                "sha256:317d8e3c1f8fd2de6953d81ef8b94d3dded51a5582fbcc9beebfe59e9541318d",
+                "sha256:39a0c48ddbaf4bf678929c6dcc4cd0eb5a268cd6d34c2e15a915379756f34b83",
+                "sha256:55174ce54c442c0ea8211d5496001c6ab496b6f70bc152448ae1513177faf89f",
+                "sha256:5590e1509166716f2c4754b53e18b8efb5c2d21f23b726704132741c348ed289",
+                "sha256:57ddd43dc3d7ecfbbf6a6cb1aff58c13d7d4171060ec90b920d563ab16f467ca",
+                "sha256:5fd77f09f3dc5c06b3064177eb6ddb9cfcfbb29f71adb61d10036747e7c70874",
+                "sha256:669b9deb92210fb02b0ffd62d789df3ba51a0c3136a4c985fc73d69561857fb6",
+                "sha256:6f77291de3e3ff25cab16b6806f2acf2e7afb69cb2fd674fd0942bb6bb5dd156",
+                "sha256:70330cfae71b79f35f9dc203bb7a589d549456b06b86abca9958606b39738f24",
+                "sha256:738ce267b36a35d7c442510f8f4dab43293a17176b1de56df9c33c247b54b481",
+                "sha256:7fd829736a57799837d67af67ed8f133358b5248c2936ad1d719aea74c840669",
+                "sha256:87596017aa76c1284e83247593fe999ab7ba9a84e7488bcf0434b01277858f86",
+                "sha256:910c8769498dcb8f0e5a9f194e73852934acb1a6ceea1390edc367739ed32cac",
+                "sha256:a5f7ca82738375241bca4fe881402b3ec5235ed153a2c919e5662a47455fb01f",
+                "sha256:ad18353b7900ed8238041c79ffcb002f18fff4208a14353171a90b795db4392c",
+                "sha256:b5f3b71a49a9c17ff3f823c95e76dfe0591b4a34bc5843242752fe828af3653d",
+                "sha256:bf9b10c032324c625d5236f30ca1b37b51a4cbee6c2ffe46cc93c7c6d079a873",
+                "sha256:cd3afeda3111a7afcfdc620e161823fc06af8aa1365d284518dbda29fc02552a",
+                "sha256:d8d315b24c4172bfb2e0353db262765d8f211b5f04848abb19b5f34133796670",
+                "sha256:dc3fc02d9349172c3488b30e88bc2745d886c5e5497e8940a9b8e2d2da566ff9",
+                "sha256:df981b2159d14d6bf38413c09dc60b50f447af85f0393197cf419eaee1ed8110",
+                "sha256:e2428872ba5815bc59923f589c23d53258d60452b726773c7d5472d100b8f5ef",
+                "sha256:eabc3b1f7499e29e13934b5f7fb88c0befa529f4b71559a196523502ecb8b9d5",
+                "sha256:fbd4bbce622182e959b81ef2585dc82df05ced85ba88c0832a3a5adce37d47d9",
+                "sha256:fec3e73f107e410cd2bbe1dd600747bf280df28513234cd6c280f855f78fe2d4"
+            ],
+            "version": "==5.19.0"
         },
         "python-libsedml": {
             "hashes": [
