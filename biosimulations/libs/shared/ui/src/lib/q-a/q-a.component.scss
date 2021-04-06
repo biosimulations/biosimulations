@@ -1,6 +1,12 @@
-:host(:not(:first-child)) {
+:host(:first-child) {
   .container {
     margin-top: 0.5rem;
+  }
+}
+
+:host(:not(:first-child)) {
+  .container {
+    margin-top: 1rem;
   }
 }
 
