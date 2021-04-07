@@ -144,7 +144,7 @@
     "ansi-to-html": "^0.6.14",
     "canvas": "^2.7.0",
     "codelyzer": "~6.0.1",
-    "cypress": "^6.4.0",
+    "cypress": "^6.9.1",
     "dotenv": "6.2.0",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^7.2.0",
