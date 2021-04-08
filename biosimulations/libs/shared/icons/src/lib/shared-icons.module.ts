@@ -55,6 +55,7 @@ import {
   faTags,
   faTachometerAlt,
   faCalendarAlt,
+  faClock,
   faStopwatch,
   faCopy,
   faCode,
@@ -88,6 +89,8 @@ import {
   faMicrochip,
   faMemory,
   faServer,
+  faWaveSquare,
+  faSquareRootAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -190,6 +193,7 @@ export class BiosimulationsIconsModule {
       faTags,
       faTachometerAlt,
       faCalendarAlt,
+      faClock,
       faStopwatch,
       faCopy,
       faCode,
@@ -221,6 +225,8 @@ export class BiosimulationsIconsModule {
       faServer,
       faGoogleDrive,
       faYoutube,
+      faWaveSquare,
+      faSquareRootAlt,
     );
   }
 }
