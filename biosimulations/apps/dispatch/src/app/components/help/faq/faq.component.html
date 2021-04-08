@@ -326,6 +326,61 @@
       </biosimulations-q-a>
 
       <biosimulations-q-a
+        heading="How can I embed capabilities to create COMBINE/OMEX archives into my website?"
+      >
+        <p>
+          Developers can use runBioSimulations to provide their users
+          capabilities to execute their simulations. Developers can achieve this
+          simply by adding hyperlinks to the create simulation project page,
+          <a [routerLink]="['/create']">{{ config.appUrl }}create</a>.
+        </p>
+
+        <p>This page supports several query arguments:</p>
+        <ul class="vertically-spaced">
+          <li>
+            <b><code>modelUrl</code></b
+            >: URL for a model file to create a COMBINE archive from. This argument
+            instructs the web form to prefill the model file input
+            with this URL.
+          </li>
+          <li>
+            <b><code>modelFormat</code></b
+            >: EDAM id of the format of the models to execute (e.g.,
+            <code>format_2585</code> for SBML). This argument instructs the web
+            form select this format.
+          </li>
+          <li>
+            <b><code>modelingFramework</code></b
+            >: SBO id of the modeling framework of the simulations to execute
+            (e.g., <code>SBO_0000293</code> for continuous kinetic framework).
+            This argument instructs the web form to select this modeling framework.
+          </li>
+          <li>
+            <b><code>simulationType</code></b
+            >: Name of the type of simulation to create (<code>OneStep</code>, <code>SteadyState</code>, <code>UniformTimeCourse</code>).
+            This argument instructs the web form to select this simulation type.
+          </li>
+          <li>
+            <b><code>simulationAlgorithm</code></b
+            >: KiSAO id of the simulation algorithm to execute
+            (e.g., <code>KISAO_0000019</code> for CVODE).
+            This argument instructs the web form to select this algorithm.
+          </li>
+        </ul>
+
+        <p>
+          For example, the URL
+          <code
+            >{{
+              config.appUrl
+            }}run?modelUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878.4%3Ffilename%3DLenbury2001.xml&modelFormat=format_2585&modelingFramework=SBO_0000293</code
+          >
+          can be used to link to the capability to create a COMBINE/OMEX archive for BioModels entry
+          BIOMD0000000878.
+        </p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
         heading="How can I embed execution capabilities for my simulations into my website?"
       >
         <p>
