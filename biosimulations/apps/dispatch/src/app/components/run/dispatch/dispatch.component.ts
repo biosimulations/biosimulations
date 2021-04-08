@@ -333,17 +333,6 @@ export class DispatchComponent implements OnInit {
     }
   }
 
-  versionsEqual(a: string, b: string) {
-    let aArr = a.toLowerCase().split('.');
-    let bArr = b.toLowerCase().split('.');
-
-    const lastPos = Math.min(aArr.length, bArr.length);
-    aArr = aArr.slice(0, lastPos);
-    bArr = bArr.slice(0, lastPos);
-
-    return aArr.every((val, index) => val === bArr[index]);
-  }
-
   applyFilters(): void {
     const modelFormatIds = this.formGroup.value.modelFormats;
     const modelingFrameworkIds = this.formGroup.value.modelingFrameworks;
@@ -375,7 +364,7 @@ export class DispatchComponent implements OnInit {
     });
   }
 
-  setIntersection(a: Set<string>, b: Set<string>): Set<string> {
+  private setIntersection(a: Set<string>, b: Set<string>): Set<string> {
     const _intersection = new Set<string>();
     for (const elem of b.values()) {
       if (a.has(elem)) {

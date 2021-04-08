@@ -405,6 +405,10 @@ biosimulations-root {
       grid-template-columns: 1fr 1fr 1fr;
     }
 
+    .four-columns {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
     .mat-form-field-wrapper {
       padding-bottom: 0;
     }
@@ -417,6 +421,81 @@ biosimulations-root {
       padding-top: 0.4em;
       font-size: 93.75%;
       display: block;
+
+      &:first-child {
+        padding-top: 0;
+      }
+    }
+  }
+}
+
+.icon-label-input {
+  padding: 0.4em 0.4em 0;
+  background-color: #f2f2f2;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+
+  > biosimulations-icon {
+    position: relative;
+    top: 0.4rem;
+    margin-right: 0.5rem;
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .label-input {
+    width: 100%;
+  }
+
+  mat-label,
+  .input-heading {
+    font-size: 75%;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.0;
+    text-align: left;
+    font-weight: normal;
+  }
+
+  &:focus mat-label {
+    color: mat-color($theme-primary);
+  }
+
+  .input {
+    padding: 0.25em 0 0.75em;
+    width: 100%;
+    display: grid;
+    grid-column-gap: 0.5em;
+
+    input, .mat-select {
+      border-bottom: 1px dotted rgb(0, 0, 0, 0.6);
+      background: $light-bg-darker-10;
+
+      &.error {
+        border-bottom-color: $theme-warn-main;
+      }
+    }
+  }
+
+  .input-row {
+    padding-top: 0.25em;
+  }
+
+  .input-label {
+    font-size: 93.75%;
+    color: rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  mat-hint {
+    padding-top: 0.4rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.42);
+    font-size: 93.75%;
+    display: block;
+
+    &:first-child {
+      padding-top: 0;
     }
   }
 }
