@@ -135,6 +135,8 @@ export class CreateSimulationProjectComponent implements OnInit {
   compatibleSimulators?: Simulator[];
 
   modelFileTypeSpecifiers = '.xml,.sbml,application/xml,application/sbml+xml,.bngl'
+  private static INIT_MODEL_NAMESPACES = 1;
+  private static INIT_MODEL_VARIABLES = 5;
   exampleModelUrl = 'https://raw.githubusercontent.com/biosimulators/Biosimulators_utils/dev/tests/fixtures/BIOMD0000000297.xml';
 
   submitPushed = false;
@@ -185,6 +187,13 @@ export class CreateSimulationProjectComponent implements OnInit {
     this.modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
     this.simulationAlgorithmParametersArray = this.formGroup.controls.simulationAlgorithmParameters as FormArray;
     this.modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
+
+    while (this.modelNamespacesArray.controls.length < CreateSimulationProjectComponent.INIT_MODEL_NAMESPACES) {
+      this.addModelNamespace();
+    }
+    while (this.modelVariablesArray.controls.length < CreateSimulationProjectComponent.INIT_MODEL_VARIABLES) {
+      this.addModelVariable();
+    }
 
     modelFormatControl.disable();
     modelingFrameworkControl.disable();
@@ -425,10 +434,6 @@ export class CreateSimulationProjectComponent implements OnInit {
     formData.append('modelingFramework', modelingFramework);
     formData.append('simulationType', simulationType);
     formData.append('simulationAlgorithmKisaoId', simulationAlgorithm);
-
-    while (modelVariablesArray.controls.length < 5) {
-      this.addModelVariable();
-    }
 
     /* TODO
     TODO: cancel old requests
@@ -904,6 +909,9 @@ export class CreateSimulationProjectComponent implements OnInit {
         }
         simulationAlgorithmControl.setValue(simulationAlgorithm);
       }
+
+      // clear errors
+      this.formGroup.setErrors(null);
      });
   }
 
@@ -924,19 +932,8 @@ export class CreateSimulationProjectComponent implements OnInit {
     formData.append('files', this.formGroup.value.modelLocationDetails);
 
     const url = `${urls.combineApi}combine/create`;
-    console.log(archiveSpecs)
-    this.http.post<string>(url, formData).subscribe((projectUrl: string): void => {
-      this.processCreatedCombineArchive(postCreateAction, projectUrl);
-    });
-
-    /*
-    this.http.post<string>(url, formData)
+    const projectUrl: Observable<string> = this.http.post<string>(url, formData)
       .pipe(
-        map((projectUrl: string): string => {
-          console.log(projectUrl)
-          this.processCreatedCombineArchive(postCreateAction, projectUrl);
-          return projectUrl;
-        }),
         catchError(
           (error: HttpErrorResponse): Observable<string> => {
             console.error(error);
@@ -951,7 +948,11 @@ export class CreateSimulationProjectComponent implements OnInit {
           },
         ),
       );
-    */
+    projectUrl.subscribe((projectUrl: string): void => {
+      if (projectUrl) {
+        this.processCreatedCombineArchive(postCreateAction, projectUrl);
+      }
+    });
   }
 
   private getArchiveSpecs(): any {
