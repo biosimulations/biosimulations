@@ -31,7 +31,7 @@
               <mat-label>Select a model file</mat-label>
               <ngx-mat-file-input
                 formControlName="modelLocationDetails"
-                accept=".omex"
+                [accept]="modelFileTypeSpecifiers"
                 [multiple]="false"
                 [required]="true"
                 (ngModelChange)="getModelVariables()"
@@ -80,6 +80,76 @@
           <mat-error *ngIf="submitPushed && formGroup.hasError('required', 'modelLocationDetails')">Please select a model file.</mat-error>
           <mat-error *ngIf="submitPushed && formGroup.hasError('url', 'modelLocationDetails')">Please enter a valid URL.</mat-error>
           <mat-error *ngIf="submitPushed && formGroup.hasError('required', 'modelFormat')">Please select a model format.</mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="location"></biosimulations-icon>
+        </div>
+        <div>
+          <div class="form-section-title">Model namespaces</div>
+          <div class="form-section-subtitle">Describe the namespaces of the parameters and variables of your model.</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group"
+          formArrayName="modelNamespaces"
+        >
+          <div class="icon-label-input">
+            <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
+            <div class="label-input">
+              <mat-label>Enter the prefix and URI for each namespace needed to reference the parameters and variables of your model.</mat-label>
+              <div class="input model-namespaces">
+                <div class="input-heading">Prefix</div>
+                <div class="input-heading more-info">URI *</div>
+                <div class="input-heading">
+                  <button
+                      mat-icon-button
+                      title="Add a namespace"
+                      (click)="addModelNamespace()"
+                    >
+                      <biosimulations-icon icon="new"></biosimulations-icon>
+                    </button>
+                </div>
+
+                <ng-container
+                  *ngFor="let ns of modelNamespacesArray.controls; index as iModelNamespace"
+                  [formGroupName]="iModelNamespace"
+                >
+                  <div class="input-row">
+                    <input
+                      matInput
+                      formControlName="prefix"
+                      [ngClass]="{error: ns.hasError('validNamespacePrefix', 'prefix')}"
+                    />
+                  </div>
+                  <div class="input-row">
+                    <input
+                      matInput
+                      formControlName="uri"
+                      [ngClass]="{error: ns.hasError('url', 'uri')}"
+                      required
+                    />
+                  </div>
+                  <div class="input-row">
+                    <button
+                      mat-icon-button
+                      title="Delete namespace"
+                      (click)="removeModelNamespace(iModelNamespace)"
+                    >
+                      <biosimulations-icon icon="trash"></biosimulations-icon>
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <mat-hint>Describe the namespaces needed to reference the parameters and variables of your model (e.g., <code>sbml</code>: <code>http://www.sbml.org/sbml/level2/version4</code> for SBML L2V4).</mat-hint>
+          <mat-error *ngIf="modelNamespacesArray.invalid && !modelNamespacesArray.hasError('prefixUnique')">One or more properties of one or more namespaces is invalid.</mat-error>
+          <mat-error *ngIf="modelNamespacesArray.hasError('prefixUnique')">The prefixes of the namespaces must be unique.</mat-error>
         </div>
       </div>
     </div>
@@ -375,8 +445,8 @@
             </div>
           </div>
           <mat-hint>Describe the variables (e.g., time symbol <code>urn:sedml:symbol:time</code>, species target <code>/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']</code>) that should be recorded from your simulation and enter an unique id and, optionally, a descriptive name for each variable.</mat-hint>
-          <mat-error *ngIf="modelVariablesArray.invalid && !modelVariablesArray.hasError('uniqueIds')">One or more properties of one or more variables is invalid.</mat-error>
-          <mat-error *ngIf="modelVariablesArray.hasError('uniqueIds')">The ids of the variables must be unique.</mat-error>
+          <mat-error *ngIf="modelVariablesArray.invalid && !modelVariablesArray.hasError('idUnique')">One or more properties of one or more variables is invalid.</mat-error>
+          <mat-error *ngIf="modelVariablesArray.hasError('idUnique')">The ids of the variables must be unique.</mat-error>
         </div>
       </div>
     </div>

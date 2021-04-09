@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormGroup, FormArray, FormControl, AbstractControl, Validators, ValidationErrors } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  FormControl,
+  AbstractControl,
+  Validators,
+  ValidationErrors,
+} from '@angular/forms';
 import { ValueType } from '@biosimulations/datamodel/common';
 import {
   DispatchService,
@@ -9,12 +17,14 @@ import {
   ModelingFrameworksAlgorithmsForModelFormat,
   AlgorithmParameter,
 } from '../../../services/dispatch/dispatch.service';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import isUrl from 'is-url';
 import { urls } from '@biosimulations/config/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
 import { UtilsService } from '@biosimulations/shared/services';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 enum LocationType {
   file = 'file',
@@ -86,6 +96,7 @@ type PostCreateAction = 'download' | 'simulate';
 })
 export class CreateSimulationProjectComponent implements OnInit {
   formGroup: FormGroup;
+  modelNamespacesArray: FormArray;
   simulationAlgorithmParametersArray: FormArray;
   modelVariablesArray: FormArray;
 
@@ -123,6 +134,7 @@ export class CreateSimulationProjectComponent implements OnInit {
   ] as OntologyTerm[];
   compatibleSimulators?: Simulator[];
 
+  modelFileTypeSpecifiers = '.xml,.sbml,application/xml,application/sbml+xml,.bngl'
   exampleModelUrl = 'https://raw.githubusercontent.com/biosimulators/Biosimulators_utils/dev/tests/fixtures/BIOMD0000000297.xml';
 
   submitPushed = false;
@@ -134,10 +146,14 @@ export class CreateSimulationProjectComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
     private http: HttpClient,
+    private snackBar: MatSnackBar,
   ) {
     this.formGroup = this.formBuilder.group({
       modelLocationType: [LocationType.file, Validators.required],
       modelLocationDetails: [null],
+      modelNamespaces: this.formBuilder.array([], {
+        validators: [this.uniqueAttributeValidator.bind(this, 'prefix')],
+      }),
       modelFormat: [null, Validators.required],
       modelingFramework: [null, Validators.required],
       simulationType: [null, Validators.required],
@@ -156,7 +172,7 @@ export class CreateSimulationProjectComponent implements OnInit {
       simulationAlgorithm: [null, Validators.required],
       simulationAlgorithmParameters: this.formBuilder.array([]),
       modelVariables: this.formBuilder.array([], {
-        validators: [this.uniqueIdsValidator],
+        validators: [this.uniqueAttributeValidator.bind(this, 'id')],
       }),
     }, {
       validators: [this.hasCompatibleSimulatorValidator.bind(this)],
@@ -166,6 +182,7 @@ export class CreateSimulationProjectComponent implements OnInit {
     const modelingFrameworkControl = this.formGroup.controls.modelingFramework as FormControl;
     const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
     const simulationAlgorithmControl = this.formGroup.controls.simulationAlgorithm as FormControl;
+    this.modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
     this.simulationAlgorithmParametersArray = this.formGroup.controls.simulationAlgorithmParameters as FormArray;
     this.modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
 
@@ -176,7 +193,8 @@ export class CreateSimulationProjectComponent implements OnInit {
   }
 
   urlValidator(control: AbstractControl): ValidationErrors | null {
-    if (isUrl(control.value)) {
+    const value = control.value;
+    if (value && isUrl(control.value)) {
       return null;
     } else {
       return {
@@ -269,6 +287,18 @@ export class CreateSimulationProjectComponent implements OnInit {
     }
   }
 
+  namespacePrefixValidator(formControl: FormControl): ValidationErrors | null {
+    const prefixPattern = /^[a-z_][a-z_0-9\-\.]+$/i;
+    const value = formControl.value;
+    if (!value || (value && formControl.value.match(prefixPattern))) {
+      return null;
+    } else {
+      return {
+        validNamespacePrefix: true,
+      };
+    }
+  }
+
   sedmlIdValidator(formControl: FormControl): ValidationErrors | null {
     const idPattern = /^[a-z_][a-z0-9_]+$/i;
     const value = formControl.value;
@@ -281,21 +311,21 @@ export class CreateSimulationProjectComponent implements OnInit {
     }
   }
 
-  uniqueIdsValidator(formArray: AbstractControl): ValidationErrors | null {
+  uniqueAttributeValidator(attrName: string, formArray: AbstractControl): ValidationErrors | null {
     const values = (formArray as FormArray).value as any[];
 
     const uniqueValues = new Set<string>(
       values.map((variable: any): string => {
-        return variable.id;
+        return variable[attrName];
       })
     );
 
     if (uniqueValues.size === values.length) {
       return null;
     } else {
-      return {
-        uniqueIds: true,
-      }
+      const error: any = {};
+      error[attrName + 'Unique'] = true;
+      return error;
     }
   }
 
@@ -363,42 +393,36 @@ export class CreateSimulationProjectComponent implements OnInit {
   }
 
   getModelVariables(): void {
-    const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
+    const modelLocationTypeControl = this.formGroup.controls.modelLocationType as FormControl;
+    const modelLocationDetailsControl = this.formGroup.controls.modelLocationDetails as FormControl;
 
-    // TODO: remove
-    while (modelVariablesArray.controls.length < 5) {
-      this.addModelVariable();
-    }
-    // TODO: end remove
+    const modelLocationType: LocationType = modelLocationTypeControl.value;
+    const modelLocationDetails: File | string = modelLocationDetailsControl.value;
 
-    const formData = new FormData();
-    formData.append('specs', JSON.stringify(this.getArchiveSpecs()));
-
-    if (this.formGroup.value.modelLocationType === LocationType.file) {
-      if (!this.formGroup.value.modelLocationDetails) {
-        return;
-      }
-      formData.append('modelFile', this.formGroup.value.modelLocationDetails, this.formGroup.value.modelLocationDetails.name);
-
-    } else {
-      if (!this.formGroup.value.modelLocationDetails) {
-        return;
-      }
-      formData.append('modelFile', this.formGroup.value.modelLocationDetails);
+    if (!modelLocationDetails || (modelLocationType == LocationType.url && !isUrl(modelLocationDetails as string))) {
+      return;
     }
 
     const modelFormatControl = this.formGroup.controls.modelFormat as FormControl;
+    const modelingFrameworkControl = this.formGroup.controls.modelingFramework as FormControl;
     const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
     const simulationAlgorithmControl = this.formGroup.controls.simulationAlgorithm as FormControl;
 
     const modelFormat = modelFormatControl.value as string;
+    const modelingFramework = modelingFrameworkControl.value as string;
     const simulationType = simulationTypeControl.value as SimulationType;
     const simulationAlgorithm = simulationAlgorithmControl.value as string;
-    if (!modelFormat || !simulationType || !simulationAlgorithm) {
+
+    if (!modelFormat || !modelingFramework || !simulationType || !simulationAlgorithm) {
       return;
     }
 
+    const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
+
+    const formData = new FormData();
+    formData.append('modelFile', modelLocationDetails);
     formData.append('modelLanguage', modelFormatMetaData[modelFormat].sedUrn as string);
+    formData.append('modelingFramework', modelingFramework);
     formData.append('simulationType', simulationType);
     formData.append('simulationAlgorithmKisaoId', simulationAlgorithm);
 
@@ -407,6 +431,7 @@ export class CreateSimulationProjectComponent implements OnInit {
     }
 
     /* TODO
+    TODO: cancel old requests
     this.http.post<any[]>(`${urls.combineApi}sed-ml/get-variables-for-simulation`,
       formData,
     ).subscribe((variables: any[]): void => {
@@ -724,9 +749,22 @@ export class CreateSimulationProjectComponent implements OnInit {
     return _intersection;
   }
 
+  addModelNamespace(): void {
+    const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
+    modelNamespacesArray.push(this.formBuilder.group({
+      prefix: [null, [this.namespacePrefixValidator]],
+      uri: [null, [this.urlValidator]],
+    }));
+  }
+
+  removeModelNamespace(iNamespace: number): void {
+    const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
+    modelNamespacesArray.removeAt(iNamespace);
+  }
+
   addModelVariable(): void {
     const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
-    this.modelVariablesArray.push(this.formBuilder.group({
+    modelVariablesArray.push(this.formBuilder.group({
       id: [null, [this.sedmlIdValidator]],
       name: [null],
       type: [ModelVariableType.target, Validators.required],
@@ -736,7 +774,7 @@ export class CreateSimulationProjectComponent implements OnInit {
 
   removeModelVariable(iVariable: number): void {
     const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
-    this.modelVariablesArray.removeAt(iVariable);
+    modelVariablesArray.removeAt(iVariable);
   }
 
   ngOnInit(): void {
@@ -873,6 +911,7 @@ export class CreateSimulationProjectComponent implements OnInit {
     this.submitPushed = true;
 
     this.formGroup.updateValueAndValidity();
+
     if (!this.formGroup.valid) {
       return;
     }
@@ -880,26 +919,43 @@ export class CreateSimulationProjectComponent implements OnInit {
     this.projectBeingCreated = true;
 
     const formData = new FormData();
-    formData.append('specs', JSON.stringify(this.getArchiveSpecs()));
+    const archiveSpecs = this.getArchiveSpecs();
+    formData.append('specs', JSON.stringify(archiveSpecs));
+    formData.append('files', this.formGroup.value.modelLocationDetails);
 
-    if (this.formGroup.value.modelLocationType === LocationType.file) {
-      formData.append('files', this.formGroup.value.modelLocationDetails, this.formGroup.value.modelLocationDetails.name);
-    } else {
-      formData.append('files', this.formGroup.value.modelLocationDetails);
-    }
+    const url = `${urls.combineApi}combine/create`;
+    console.log(archiveSpecs)
+    this.http.post<string>(url, formData).subscribe((projectUrl: string): void => {
+      this.processCreatedCombineArchive(postCreateAction, projectUrl);
+    });
 
-    /* TODO
-    const response: Observable<string> = this.http.post<string>(`${urls.combineApi}combine/create`,
-      formData,
-    );
-    response.subscribe(this.processCreatedCombineArchive.bind(this, postCreateAction));
+    /*
+    this.http.post<string>(url, formData)
+      .pipe(
+        map((projectUrl: string): string => {
+          console.log(projectUrl)
+          this.processCreatedCombineArchive(postCreateAction, projectUrl);
+          return projectUrl;
+        }),
+        catchError(
+          (error: HttpErrorResponse): Observable<string> => {
+            console.error(error);
+            this.snackBar.open(
+              'Sorry! We were unable to generate your COMBINE/OMEX archive.'
+              , undefined, {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            });
+            return of<string>('');
+          },
+        ),
+      );
     */
   }
 
   private getArchiveSpecs(): any {
-    // TODO
-    return {};
-
+    const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
     const modelFormatControl = this.formGroup.controls.modelFormat as FormControl;
     const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
     const simulationAlgorithmControl = this.formGroup.controls.simulationAlgorithm as FormControl;
@@ -959,6 +1015,18 @@ export class CreateSimulationProjectComponent implements OnInit {
     const dataGenerators: any[] = [];
     const dataSets: any[] = [];
 
+    const targetNamespaces = modelNamespacesArray.controls.map((control: AbstractControl): void => {
+      const ns = control.value;
+      const nsObj: any = {
+        "_type": "Namespace",
+        "uri": ns.uri,
+      }
+      if (ns.prefix) {
+        nsObj['prefix'] = ns.prefix;
+      }
+      return nsObj;
+    });
+
     modelVariablesArray.controls.forEach((control: AbstractControl): void => {
       const formVar = control.value;
       const sedVar: any = {
@@ -972,7 +1040,11 @@ export class CreateSimulationProjectComponent implements OnInit {
       if (formVar.type === ModelVariableType.symbol) {
         sedVar['symbol'] = formVar.symbolOrTarget;
       } else {
-        sedVar['target'] = formVar.symbolOrTarget;
+        sedVar['target'] = {
+          _type: "SedVariableTarget",
+          value: formVar.symbolOrTarget,
+          namespaces: targetNamespaces,
+        };
       }
 
       const dataGen: any = {
