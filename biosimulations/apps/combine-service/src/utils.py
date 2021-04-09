@@ -7,7 +7,7 @@ from biosimulators_utils.sedml.data_model import Output, DataSet, DataGenerator 
 from .S3 import S3Bucket
 import uuid
 
-s3_bucket= None
+s3_bucket = None
 
 def get_temp_dir():
     ''' Get a temporary directory
@@ -56,9 +56,9 @@ def save_file_to_s3_bucket(filename, public=False, id=None):
         s3_bucket = S3Bucket()
 
     if id is None:
-        id= str(uuid.uuid4())
+        id = str(uuid.uuid4())
 
-    url = s3_bucket.uploadFile(filename, public=public, id="omexArchive/"+id)
+    url = s3_bucket.uploadFile(filename, public=public, id="omexArchive/" + id)
     
     return url
 
