@@ -474,6 +474,11 @@ biosimulations-root {
         border-bottom-color: $theme-warn-main;
       }
     }
+
+    .mat-select {
+      position: relative;
+      top: -1px;
+    }
   }
 
   .input-row {
