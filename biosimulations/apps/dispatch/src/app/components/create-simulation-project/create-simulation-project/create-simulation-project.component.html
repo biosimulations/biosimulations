@@ -76,10 +76,215 @@
               Numerous BNGL models are available from RuleHub <a href="https://github.com/RuleWorld/RuleHub" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Numerous SBML models are available from BiGG <a href="http://bigg.ucsd.edu/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, BioModels <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, the Cell Collective <a href="https://cellcollective.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and JWS Online <a href="https://jjj.biochem.sun.ac.za/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
             </p>
           </mat-hint>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('required', 'modelLocationType')">Please select a method for upload a model file.</mat-error>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('required', 'modelLocationDetails')">Please select a model file.</mat-error>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('url', 'modelLocationDetails')">Please enter a valid URL.</mat-error>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('required', 'modelFormat')">Please select a model format.</mat-error>
+          <mat-error *ngIf="(formGroup.get('modelLocationType')?.touched || submitPushed) && formGroup.hasError('required', 'modelLocationType')">Please select a method for upload a model file.</mat-error>
+          <mat-error *ngIf="(formGroup.get('modelLocationDetails')?.touched || submitPushed) && formGroup.hasError('required', 'modelLocationDetails')">Please select a model file.</mat-error>
+          <mat-error *ngIf="(formGroup.get('modelLocationDetails')?.touched || submitPushed) && formGroup.hasError('url', 'modelLocationDetails')">Please enter a valid URL.</mat-error>
+          <mat-error *ngIf="(formGroup.get('modelFormat')?.touched || submitPushed) && formGroup.hasError('required', 'modelFormat')">Please select a model format.</mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="logicalSimulation"></biosimulations-icon>
+        </div>
+        <div>
+          <div class="form-section-title">Simulation *</div>
+          <div class="form-section-subtitle">Select a type of simulation and configure its parameters.</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <div class="columns two-columns">
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="math" matPrefix></biosimulations-icon>
+              <mat-label>Select a modeling framework</mat-label>
+              <mat-select
+                formControlName="modelingFramework"
+                (ngModelChange)="changeModelingFramework()"
+                required
+              >
+                <mat-option
+                  *ngFor="let framework of modelingFrameworks"
+                  [value]="framework.id"
+                >{{ framework.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="logicalSimulation" matPrefix></biosimulations-icon>
+              <mat-label>Select a type of simulation</mat-label>
+              <mat-select
+                formControlName="simulationType"
+                (ngModelChange)="changeSimulationType()"
+                required
+              >
+                <mat-option
+                  *ngFor="let simulationType of simulationTypes"
+                  [value]="simulationType.id"
+                >{{ simulationType.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <mat-hint>Select a modeling framework and a type of simulation.</mat-hint>
+          <mat-error *ngIf="(formGroup.get('modelingFramework')?.touched || submitPushed) && formGroup.hasError('required', 'modelingFramework')">Please select a modeling framework.</mat-error>
+          <mat-error *ngIf="(formGroup.get('simulationType')?.touched || submitPushed) && formGroup.hasError('required', 'simulationType')">Please select a type of simulation.</mat-error>
+        </div>
+
+        <div
+          class="form-field-group"
+          *ngIf="formGroup.value.simulationType === 'SedOneStepSimulation'"
+          formGroupName="oneStepSimulationParameters"
+        >
+          <mat-form-field appearance="fill">
+            <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
+            <mat-label>Enter the step size</mat-label>
+            <input
+              matInput
+              formControlName="step"
+              type="number"
+              min="0"
+              required
+            />
+          </mat-form-field>
+          <mat-hint>Enter a step size.</mat-hint>
+          <mat-error *ngIf="(formGroup.get('oneStepSimulationParameters')?.get('step')?.touched || submitPushed) && formGroup.hasError('positiveFloat', 'oneStepSimulationParameters.step')">The step size must be a positive float.</mat-error>
+        </div>
+
+        <div
+          class="form-field-group"
+          *ngIf="formGroup.value.simulationType === 'SedUniformTimeCourseSimulation'"
+          formGroupName="uniformTimeCourseSimulationParameters"
+        >
+          <div class="columns four-columns">
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="time" matPrefix></biosimulations-icon>
+              <mat-label>Enter the initial time</mat-label>
+              <input
+                matInput
+                formControlName="initialTime"
+                type="number"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="time" matPrefix></biosimulations-icon>
+              <mat-label>Enter the end time</mat-label>
+              <input
+                matInput
+                formControlName="outputEndTime"
+                type="number"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="duration" matPrefix></biosimulations-icon>
+              <mat-label>Enter the time to start recording the rsults</mat-label>
+              <input
+                matInput
+                formControlName="outputStartTime"
+                type="number"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="duration" matPrefix></biosimulations-icon>
+              <mat-label>Enter the number of steps to record</mat-label>
+              <input
+                matInput
+                formControlName="numberOfSteps"
+                type="number"
+                min="0"
+                step="1"
+                required
+              />
+            </mat-form-field>
+          </div>
+          <mat-hint>Enter the initial time of the simulation, the time when the simulation should terminate, the first time when output should be recorded, and the number of steps that should be recorded between the output start time and the termination time.</mat-hint>
+          <mat-error *ngIf="(formGroup.get('uniformTimeCourseSimulationParameters')?.get('initialTime')?.touched || submitPushed) && formGroup.hasError('float', 'uniformTimeCourseSimulationParameters.initialTime')">The initial time must be a float.</mat-error>
+          <mat-error *ngIf="(formGroup.get('uniformTimeCourseSimulationParameters')?.get('outputEndTime')?.touched || submitPushed) && formGroup.hasError('float', 'uniformTimeCourseSimulationParameters.outputEndTime')">The output end time must be a float.</mat-error>
+          <mat-error *ngIf="(formGroup.get('uniformTimeCourseSimulationParameters')?.get('outputStartTime')?.touched || submitPushed) && formGroup.hasError('float', 'uniformTimeCourseSimulationParameters.outputStartTime')">The output start time must be a float.</mat-error>
+          <mat-error *ngIf="(formGroup.get('uniformTimeCourseSimulationParameters')?.get('numberOfSteps')?.touched || submitPushed) && formGroup.hasError('nonNegativeInteger', 'uniformTimeCourseSimulationParameters.numberOfSteps')">The number of steps must be a non-negative integer.</mat-error>
+          <mat-error *ngIf="((formGroup.get('uniformTimeCourseSimulationParameters')?.get('initialTime')?.touched && formGroup.get('uniformTimeCourseSimulationParameters')?.get('outputStartTime')?.touched) || submitPushed) && formGroup.hasError('initialTimeGreaterThanOutputStartTime', 'uniformTimeCourseSimulationParameters')">The output start time must be at least the initial time.</mat-error>
+          <mat-error *ngIf="((formGroup.get('uniformTimeCourseSimulationParameters')?.get('outputStartTime')?.touched && formGroup.get('uniformTimeCourseSimulationParameters')?.get('outputEndTime')?.touched) || submitPushed) && formGroup.hasError('outputStartTimeGreaterThanOutputEndTime', 'uniformTimeCourseSimulationParameters')">The output end time must be at least the output start time.</mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="construction"></biosimulations-icon>
+        </div>
+        <div>
+          <div class="form-section-title">Simulation algorithm *</div>
+          <div class="form-section-subtitle">Select a simulation algorithm and configure its parameters.</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <mat-form-field appearance="fill">
+            <biosimulations-icon icon="construction" matPrefix></biosimulations-icon>
+            <mat-label>Select a simulation algorithm</mat-label>
+            <mat-select
+              formControlName="simulationAlgorithm"
+              (ngModelChange)="changeSimulationAlgorithm()"
+              required
+            >
+              <mat-option
+                *ngFor="let simulationAlgorithm of simulationAlgorithms"
+                [value]="simulationAlgorithm.id"
+              >{{ simulationAlgorithm.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-hint>Select a simulation algorithm.</mat-hint>
+          <mat-error *ngIf="(formGroup.get('simulationAlgorithm')?.touched || submitPushed) && formGroup.hasError('required', 'simulationAlgorithm')">Please select a simulation algorithm.</mat-error>
+        </div>
+
+        <div class="form-field-group"
+          formArrayName="simulationAlgorithmParameters"
+          *ngIf="formGroup.value.simulationAlgorithm"
+        >
+          <div class="icon-label-input">
+            <biosimulations-icon icon="simulators" matPrefix></biosimulations-icon>
+            <div class="label-input">
+              <mat-label>Configure the parameters of the selected algorithm *</mat-label>
+              <div class="input algorithm-parameters">
+                <div class="input-heading">Name</div>
+                <div class="input-heading more-info">More info</div>
+                <div class="input-heading">Supporting simulators</div>
+                <div class="input-heading">Type</div>
+                <div class="input-heading">Default</div>
+                <div class="input-heading">Recommended range</div>
+                <div class="input-heading">New value</div>
+
+                <ng-container
+                  *ngFor="let param of simulationAlgorithmParametersArray.controls; index as iParam"
+                  [formGroupName]="iParam"
+                >
+                  <div class="input-row input-label">{{ param.value.name }}</div>
+                  <div class="input-row input-label more-info"><a [href]="param.value.url"><biosimulations-icon icon="link"></biosimulations-icon></a></div>
+                  <div class="input-row input-label">{{ param.value.simulatorsStr }}</div>
+                  <div class="input-row input-label">{{ param.value.type }}</div>
+                  <div class="input-row input-label">{{ param.value.formattedValue }}</div>
+                  <div class="input-row input-label">{{ param.value.formattedRecommendedRangeJoined }}</div>
+                  <div class="input-row">
+                    <input
+                      matInput
+                      formControlName="newValue"
+                      [ngClass]="{error: param.hasError('invalid')}"
+                    />
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <mat-hint>Enter new values to override the default values of one or more parameters.</mat-hint>
+          <mat-error *ngIf="simulationAlgorithmParametersArray.invalid">The value of one of or more parameters is invalid.</mat-error>
         </div>
       </div>
     </div>
@@ -157,211 +362,6 @@
     <div class="form-section">
       <div class="form-section-head">
         <div class="mat-form-field-prefix">
-          <biosimulations-icon icon="logicalSimulation"></biosimulations-icon>
-        </div>
-        <div>
-          <div class="form-section-title">Simulation *</div>
-          <div class="form-section-subtitle">Select a type of simulation and configure its parameters.</div>
-        </div>
-      </div>
-      <div class="form-section-body">
-        <div class="form-field-group">
-          <div class="columns two-columns">
-            <mat-form-field appearance="fill">
-              <biosimulations-icon icon="math" matPrefix></biosimulations-icon>
-              <mat-label>Select a modeling framework</mat-label>
-              <mat-select
-                formControlName="modelingFramework"
-                (ngModelChange)="changeModelingFramework()"
-                required
-              >
-                <mat-option
-                  *ngFor="let framework of modelingFrameworks"
-                  [value]="framework.id"
-                >{{ framework.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-              <biosimulations-icon icon="logicalSimulation" matPrefix></biosimulations-icon>
-              <mat-label>Select a type of simulation</mat-label>
-              <mat-select
-                formControlName="simulationType"
-                (ngModelChange)="changeSimulationType()"
-                required
-              >
-                <mat-option
-                  *ngFor="let simulationType of simulationTypes"
-                  [value]="simulationType.id"
-                >{{ simulationType.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <mat-hint>Select a modeling framework and a type of simulation.</mat-hint>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('required', 'modelingFramework')">Please select a modeling framework.</mat-error>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('required', 'simulationType')">Please select a type of simulation.</mat-error>
-        </div>
-
-        <div
-          class="form-field-group"
-          *ngIf="formGroup.value.simulationType === 'SedOneStepSimulation'"
-          formGroupName="oneStepSimulationParameters"
-        >
-          <mat-form-field appearance="fill">
-            <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
-            <mat-label>Enter the step size</mat-label>
-            <input
-              matInput
-              formControlName="step"
-              type="number"
-              min="0"
-              required
-            />
-          </mat-form-field>
-          <mat-hint>Enter a step size.</mat-hint>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('positiveFloat', 'simulationTypeParameters.step')">The step size must be a positive float.</mat-error>
-        </div>
-
-        <div
-          class="form-field-group"
-          *ngIf="formGroup.value.simulationType === 'SedUniformTimeCourseSimulation'"
-          formGroupName="uniformTimeCourseSimulationParameters"
-        >
-          <div class="columns four-columns">
-            <mat-form-field appearance="fill">
-              <biosimulations-icon icon="time" matPrefix></biosimulations-icon>
-              <mat-label>Enter the initial time</mat-label>
-              <input
-                matInput
-                formControlName="initialTime"
-                type="number"
-                required
-              />
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-              <biosimulations-icon icon="time" matPrefix></biosimulations-icon>
-              <mat-label>Enter the end time</mat-label>
-              <input
-                matInput
-                formControlName="outputEndTime"
-                type="number"
-                required
-              />
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-              <biosimulations-icon icon="duration" matPrefix></biosimulations-icon>
-              <mat-label>Enter the time to start recording the rsults</mat-label>
-              <input
-                matInput
-                formControlName="outputStartTime"
-                type="number"
-                required
-              />
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-              <biosimulations-icon icon="duration" matPrefix></biosimulations-icon>
-              <mat-label>Enter the number of steps to record</mat-label>
-              <input
-                matInput
-                formControlName="numberOfSteps"
-                type="number"
-                min="0"
-                step="1"
-                required
-              />
-            </mat-form-field>
-          </div>
-          <mat-hint>Enter the initial time of the simulation, the time when the simulation should terminate, the first time when output should be recorded, and the number of steps that should be recorded between the output start time and the termination time.</mat-hint>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('float', 'simulationTypeParameters.initialTime')">The initial time must be a float.</mat-error>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('float', 'simulationTypeParameters.outputEndTime')">The output end time must be a float.</mat-error>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('float', 'simulationTypeParameters.outputStartTime')">The output start time must be a float.</mat-error>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('nonNegativeInteger', 'simulationTypeParameters.numberOfSteps')">The number of steps must be a non-negative integer.</mat-error>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('initialTimeGreaterThanOutputStartTime', 'simulationTypeParameters')">The output start time must be at least the initial time.</mat-error>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('outputStartTimeGreaterThanOutputEndTime', 'simulationTypeParameters')">The output end time must be at least the output start time.</mat-error>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-section">
-      <div class="form-section-head">
-        <div class="mat-form-field-prefix">
-          <biosimulations-icon icon="construction"></biosimulations-icon>
-        </div>
-        <div>
-          <div class="form-section-title">Simulation algorithm *</div>
-          <div class="form-section-subtitle">Select a simulation algorithm and configure its parameters.</div>
-        </div>
-      </div>
-      <div class="form-section-body">
-        <div class="form-field-group">
-          <mat-form-field appearance="fill">
-            <biosimulations-icon icon="construction" matPrefix></biosimulations-icon>
-            <mat-label>Select a simulation algorithm</mat-label>
-            <mat-select
-              formControlName="simulationAlgorithm"
-              (ngModelChange)="changeSimulationAlgorithm()"
-              required
-            >
-              <mat-option
-                *ngFor="let simulationAlgorithm of simulationAlgorithms"
-                [value]="simulationAlgorithm.id"
-              >{{ simulationAlgorithm.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-hint>Select a simulation algorithm.</mat-hint>
-          <mat-error *ngIf="(formGroup.touched || submitPushed) && formGroup.hasError('required', 'simulationAlgorithm')">Please select a simulation algorithm.</mat-error>
-        </div>
-
-        <div class="form-field-group"
-          formArrayName="simulationAlgorithmParameters"
-          *ngIf="formGroup.value.simulationAlgorithm"
-        >
-          <div class="icon-label-input">
-            <biosimulations-icon icon="simulators" matPrefix></biosimulations-icon>
-            <div class="label-input">
-              <mat-label>Configure the parameters of the selected algorithm *</mat-label>
-              <div class="input algorithm-parameters">
-                <div class="input-heading">Name</div>
-                <div class="input-heading more-info">More info</div>
-                <div class="input-heading">Supporting simulators</div>
-                <div class="input-heading">Type</div>
-                <div class="input-heading">Default</div>
-                <div class="input-heading">Recommended range</div>
-                <div class="input-heading">New value</div>
-
-                <ng-container
-                  *ngFor="let param of simulationAlgorithmParametersArray.controls; index as iParam"
-                  [formGroupName]="iParam"
-                >
-                  <div class="input-row input-label">{{ param.value.name }}</div>
-                  <div class="input-row input-label more-info"><a [href]="param.value.url"><biosimulations-icon icon="link"></biosimulations-icon></a></div>
-                  <div class="input-row input-label">{{ param.value.simulatorsStr }}</div>
-                  <div class="input-row input-label">{{ param.value.type }}</div>
-                  <div class="input-row input-label">{{ param.value.formattedValue }}</div>
-                  <div class="input-row input-label">{{ param.value.formattedRecommendedRangeJoined }}</div>
-                  <div class="input-row">
-                    <input
-                      matInput
-                      formControlName="newValue"
-                      [ngClass]="{error: param.hasError('invalid')}"
-                    />
-                  </div>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-          <mat-hint>Enter new values to override the default values of one or more parameters.</mat-hint>
-          <mat-error *ngIf="simulationAlgorithmParametersArray.invalid">The value of one of or more parameters is invalid.</mat-error>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-section">
-      <div class="form-section-head">
-        <div class="mat-form-field-prefix">
           <biosimulations-icon icon="report"></biosimulations-icon>
         </div>
         <div>
@@ -400,7 +400,7 @@
                     <input
                       matInput
                       formControlName="id"
-                      [ngClass]="{error: (param.touched || submitPushed) && param.hasError('validSedmlId', 'id')}"
+                      [ngClass]="{error: (param.get('id')?.touched || submitPushed) && param.hasError('validSedmlId', 'id')}"
                       required
                     />
                   </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import {
   FormBuilder,
@@ -17,12 +17,12 @@ import {
   ModelingFrameworksAlgorithmsForModelFormat,
   AlgorithmParameter,
 } from '../../../services/dispatch/dispatch.service';
-import { combineLatest, Observable, of } from 'rxjs';
+import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import isUrl from 'is-url';
 import { urls } from '@biosimulations/config/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { UtilsService } from '@biosimulations/shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -94,7 +94,7 @@ type PostCreateAction = 'download' | 'simulate';
   templateUrl: './create-simulation-project.component.html',
   styleUrls: ['./create-simulation-project.component.scss'],
 })
-export class CreateSimulationProjectComponent implements OnInit {
+export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   modelNamespacesArray: FormArray;
   simulationAlgorithmParametersArray: FormArray;
@@ -141,6 +141,9 @@ export class CreateSimulationProjectComponent implements OnInit {
 
   submitPushed = false;
   projectBeingCreated = false;
+
+  private subscriptions: Subscription[] = [];
+  private modelVariablesSubscription: Subscription | undefined = undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -297,7 +300,7 @@ export class CreateSimulationProjectComponent implements OnInit {
   }
 
   namespacePrefixValidator(formControl: FormControl): ValidationErrors | null {
-    const prefixPattern = /^[a-z_][a-z_0-9\-\.]+$/i;
+    const prefixPattern = /^[a-z_][a-z_0-9\-.]+$/i;
     const value = formControl.value;
     if (!value || (value && formControl.value.match(prefixPattern))) {
       return null;
@@ -402,6 +405,13 @@ export class CreateSimulationProjectComponent implements OnInit {
   }
 
   getModelVariables(): void {
+    if (this.modelVariablesSubscription) {
+      this.modelVariablesSubscription.unsubscribe();
+      const iSub = this.subscriptions.indexOf(this.modelVariablesSubscription);
+      this.subscriptions.splice(iSub, 1);
+      this.modelVariablesSubscription = undefined;
+    }
+
     const modelLocationTypeControl = this.formGroup.controls.modelLocationType as FormControl;
     const modelLocationDetailsControl = this.formGroup.controls.modelLocationDetails as FormControl;
 
@@ -426,6 +436,7 @@ export class CreateSimulationProjectComponent implements OnInit {
       return;
     }
 
+    const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
     const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
 
     const formData = new FormData();
@@ -435,27 +446,70 @@ export class CreateSimulationProjectComponent implements OnInit {
     formData.append('simulationType', simulationType);
     formData.append('simulationAlgorithmKisaoId', simulationAlgorithm);
 
-    /* TODO
-    TODO: cancel old requests
-    this.http.post<any[]>(`${urls.combineApi}sed-ml/get-variables-for-simulation`,
-      formData,
-    ).subscribe((variables: any[]): void => {
-      this.formGroup.setControl('modelVariables', this.formBuilder.array(
-        variables
-        .sort((a, b): number => {
-          return a.id.localeCompare(b.id, undefined, { numeric: true });
-        })
-        .map((variable): FormGroup => {
-          return this.formBuilder.group({
-            id: variable.id,
-            name: variable.name,
-            type: variable.symbol ? ModelVariableType.symbol : ModelVariableType.target,
-            symbolOrTarget: variable.symbol || variable.target,
+    const url = `${urls.combineApi}sed-ml/get-variables-for-simulation`;
+    const modelVars = this.http.post<any[]>(url, formData)
+      .pipe(
+          catchError(
+            (error: HttpErrorResponse): Observable<any[]> => {
+              console.error(error);
+              this.snackBar.open(
+                'Sorry! We were unable to get the dependent parameters and independent variables of your model.'
+                , undefined, {
+                duration: 5000,
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom',
+              });
+              return of<any[]>([]);
+            },
+          ),
+        );
+    const modelVariablesSubscription = modelVars.subscribe((modelVars: any[]): void => {
+      modelNamespacesArray.clear();
+      modelVariablesArray.clear();
+
+      const nsMap: {[prefix: string]: {prefix: string | null, uri: string}} = {};
+      const varVals: any[] = [];
+
+      modelVars
+        .forEach((modelVar: any): void => {
+          modelVar?.target?.namespaces?.forEach((ns: any): void => {
+            const prefixKey = ns.prefix || '';
+            if (!(prefixKey in nsMap)) {
+              this.addModelNamespace();
+            }
+            nsMap[prefixKey] = {
+              prefix: ns?.prefix || null,
+              uri: ns.uri,
+            };
           });
-        })
-      ));
+
+          this.addModelVariable();
+          const varVal = {
+            id: modelVar.id,
+            name: modelVar.name,
+            type: modelVar?.symbol ? ModelVariableType.symbol : ModelVariableType.target,
+            symbolOrTarget: modelVar?.symbol || modelVar?.target?.value,
+          };
+          varVals.push(varVal);
+        });
+
+      const nsVals = Object.values(nsMap).sort((a, b): number => {
+        return (a.prefix || '').localeCompare((b.prefix || ''), undefined, { numeric: true });
+      });
+
+      varVals.sort((a, b): number => {
+        if (a.type === b.type) {
+          return a.id.localeCompare(b.id, undefined, { numeric: true });
+        } else {
+          return a.type.localeCompare(b.type, undefined, { numeric: true });
+        }
+      });
+
+      modelNamespacesArray.setValue(nsVals);
+      modelVariablesArray.setValue(varVals);
     });
-    */
+    this.modelVariablesSubscription = modelVariablesSubscription;
+    this.subscriptions.push(modelVariablesSubscription);
   }
 
   changeModelFormat(): void {
@@ -915,6 +969,10 @@ export class CreateSimulationProjectComponent implements OnInit {
      });
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
+
   onFormSubmit(postCreateAction: PostCreateAction): void {
     this.submitPushed = true;
 
@@ -948,11 +1006,12 @@ export class CreateSimulationProjectComponent implements OnInit {
           },
         ),
       );
-    projectUrl.subscribe((projectUrl: string): void => {
+    const projectUrlSub = projectUrl.subscribe((projectUrl: string): void => {
       if (projectUrl) {
         this.processCreatedCombineArchive(postCreateAction, projectUrl);
       }
     });
+    this.subscriptions.push(projectUrlSub);
   }
 
   private getArchiveSpecs(): any {
@@ -1104,7 +1163,7 @@ export class CreateSimulationProjectComponent implements OnInit {
         },
         {
           _type: 'CombineArchiveContent',
-          format: modelFormatMetaData[modelFormatControl.value].combineSpecUrl,
+          format: modelFormatMetaData['format_3685'].combineSpecUrl,
           master: true,
           location: {
             _type: 'CombineArchiveLocation',
