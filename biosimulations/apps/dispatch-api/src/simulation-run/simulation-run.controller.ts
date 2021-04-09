@@ -56,7 +56,7 @@ import { Observable, of } from 'rxjs';
 
 type multipartSimulationRunBody = { simulationRun: string };
 
-@ApiTags('Simulation Runs')
+@ApiTags('Simulation runs')
 @Controller('run')
 @ApiExtraModels(UploadSimulationRun, UploadSimulationRunUrl, SimulationUpload)
 export class SimulationRunController {
