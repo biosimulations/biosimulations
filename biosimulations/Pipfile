@@ -10,6 +10,7 @@ requests = "*"
 biosimulators-utils = {extras = ["sbml"],version = ">=0.1.49"}
 python-dateutil = "*"
 gunicorn = "*"
+flask-cors = "*"
 
 [dev-packages]
 openapi-core = "*"
