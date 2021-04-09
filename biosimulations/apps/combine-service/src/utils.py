@@ -9,6 +9,7 @@ import uuid
 
 s3_bucket = None
 
+
 def get_temp_dir():
     ''' Get a temporary directory
 
@@ -59,7 +60,7 @@ def save_file_to_s3_bucket(filename, public=False, id=None):
         id = str(uuid.uuid4())
 
     url = s3_bucket.uploadFile(filename, public=public, id="omexArchive/" + id)
-    
+
     return url
 
 
