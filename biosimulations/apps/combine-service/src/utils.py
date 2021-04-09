@@ -4,6 +4,10 @@ import shutil
 import tempfile
 from biosimulators_utils.combine.data_model import CombineArchiveContent  # noqa: F401
 from biosimulators_utils.sedml.data_model import Output, DataSet, DataGenerator  # noqa: F401
+from .S3 import S3Bucket
+import uuid
+
+s3_bucket = None
 
 
 def get_temp_dir():
@@ -39,7 +43,7 @@ def get_temp_file():
     return file_name
 
 
-def save_file_to_s3_bucket(filename):
+def save_file_to_s3_bucket(filename, public=False, id=None):
     """ Save a file to the BioSimulations S3 bucket
 
     Args:
@@ -48,8 +52,16 @@ def save_file_to_s3_bucket(filename):
     Returns:
         :obj:`str`: URL for saved file
     """
-    # TODO
-    return 'https://data.biosimulations.org/XYZ'
+    global s3_bucket
+    if s3_bucket is None:
+        s3_bucket = S3Bucket()
+
+    if id is None:
+        id = str(uuid.uuid4())
+
+    url = s3_bucket.uploadFile(filename, public=public, id="omexArchive/" + id)
+
+    return url
 
 
 def get_results_data_set_id(content, output, data_element):

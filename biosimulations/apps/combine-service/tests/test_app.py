@@ -205,7 +205,7 @@ class HandlersTestCase(unittest.TestCase):
         with app.app.app.test_client() as client:
             archive_filename = os.path.join(self.temp_dirname, 'archive.omex')
 
-            def save_file_to_s3_bucket(filename, archive_filename=archive_filename):
+            def save_file_to_s3_bucket(filename, public=True, archive_filename=archive_filename):
                 shutil.copy(filename, archive_filename)
                 return archive_filename
             with mock.patch('src.utils.save_file_to_s3_bucket', side_effect=save_file_to_s3_bucket):
