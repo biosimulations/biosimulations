@@ -123,6 +123,7 @@ class HandlersTestCase(unittest.TestCase):
 
         data = MultiDict([
             ('modelLanguage', 'urn:sedml:language:sbml'),
+            ('modelingFramework', 'SBO_0000547'),
             ('simulationType', 'SedUniformTimeCourseSimulation'),
             ('simulationAlgorithmKisaoId', 'KISAO_0000450'),
             ('modelFile', model_fid),
@@ -165,6 +166,7 @@ class HandlersTestCase(unittest.TestCase):
             method='post',
             body={
                 'modelLanguage': 'urn:sedml:language:sbml',
+                'modelingFramework': 'SBO_0000547',
                 'simulationType': 'SedUniformTimeCourseSimulation',
                 'simulationAlgorithmKisaoId': 'KISAO_0000029',
                 'modelFile': model_content,

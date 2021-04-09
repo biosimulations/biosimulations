@@ -801,6 +801,7 @@ components:
       - modelFile
       - simulationType
       - simulationAlgorithmKisaoId
+      - modelingFramework
       type: object
       properties:
         modelFile:
@@ -819,6 +820,9 @@ components:
         simulationAlgorithmKisaoId:
           $ref: '#/components/schemas/KisaoId'
           description: KiSAO id for the simulation algorithm.
+        modelingFramework:
+          $ref: '#/components/schemas/SboId'
+          description: Modeling framework
       x-body-name: body
     FileUpload:
       format: binary
@@ -876,6 +880,10 @@ components:
         prefix: sbml
         uri: http://www.sbml.org/sbml/level3/version1/core
         _type: Namespace
+    SboId:
+      description: Identifier for an SBO term
+      type: string
+      example: SBO_0000293
   responses:
     "404":
       content:
