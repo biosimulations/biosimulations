@@ -49,7 +49,11 @@ def save_file_to_s3_bucket(filename):
         :obj:`str`: URL for saved file
     """
     # TODO
-    return 'https://data.biosimulations.org/XYZ'
+    temp_dirname = os.path.join('/tmp', 'combine-service-static')
+    if not os.path.isdir(temp_dirname):
+        os.makedirs(temp_dirname)
+    shutil.copy(filename, os.path.join(temp_dirname, 'archive.omex'))
+    return 'http://localhost:3334/archive.omex'
 
 
 def get_results_data_set_id(content, output, data_element):
