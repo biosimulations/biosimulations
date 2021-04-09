@@ -19,6 +19,7 @@
               <mat-select
                 required
                 formControlName="submitMethod"
+                (ngModelChange)="changeSubmitMethod()"
               >
                 <mat-option value="file">Upload a local file</mat-option>
                 <mat-option value="url">Enter a URL for a file</mat-option>

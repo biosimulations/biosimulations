@@ -82,8 +82,8 @@ export class DispatchComponent implements OnInit {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        projectFile: [''],
-        projectUrl: [''],
+        projectFile: ['', [Validators.required]],
+        projectUrl: ['', [Validators.required]],
         modelFormats: [[]],
         modelingFrameworks: [[]],
         simulationAlgorithms: [[]],
@@ -116,6 +116,7 @@ export class DispatchComponent implements OnInit {
     this.emailControl = this.formGroup.controls.email as FormControl;
     this.emailConsentControl = this.formGroup.controls.emailConsent as FormControl;
 
+    this.projectUrlControl.disable();
     this.modelFormatsControl.disable();
     this.modelingFrameworksControl.disable();
     this.simulationAlgorithmsControl.disable();
@@ -330,6 +331,17 @@ export class DispatchComponent implements OnInit {
       return [value];
     } else {
       return value;
+    }
+  }
+
+  changeSubmitMethod(): void {
+    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    if (submitMethodControl.value === SubmitMethod.file) {
+      this.formGroup.controls.projectFile.enable();
+      this.formGroup.controls.projectUrl.disable();
+    } else {
+      this.formGroup.controls.projectFile.disable();
+      this.formGroup.controls.projectUrl.enable();
     }
   }
 
