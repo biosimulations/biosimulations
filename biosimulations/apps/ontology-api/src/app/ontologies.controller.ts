@@ -13,13 +13,16 @@ import {
   ApiParam,
   ApiOkResponse,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import {
   OntologyTerm,
   ErrorResponseDocument,
   OntologyInfo,
 } from '@biosimulations/datamodel/api';
+
 @Controller()
+@ApiTags('Ontologies')
 export class OntologiesController {
   constructor(private service: OntologiesService) {}
 

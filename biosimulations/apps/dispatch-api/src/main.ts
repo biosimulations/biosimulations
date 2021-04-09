@@ -57,20 +57,40 @@ async function bootstrap() {
   // Swagger doc
   const tags = [
     {
-      name: 'Simulation Runs',
+      name: 'Simulation runs',
       description:
-        'Operations for submitting a Simulation Run, checking its status, modifying details, and canceling the run.',
+        'Operations for submitting a simulation run, checking the status of a run, modifying the details of a run, and deleting a run.',
     },
     {
       name: 'Results',
       description:
-        ' Operations for viewing and retrieving the results of a Simulation Run',
+        'Operations for viewing and retrieving the results of a simulation run.',
+    },
+    {
+      name: 'Downloads',
+      description:
+        'Operations for downloading the results of a simulation run.',
+    },
+    {
+      name: 'Logs',
+      description:
+        'Operations for submitting and retrieving a log of the execution of a simulation run.',
+    },
+    {
+      name: 'Authentication testing',
+      description:
+        'Operations for checking whether a user is logged in and retrieving information about a user\'s privileges.',
+    },
+    {
+      name: 'Internal management',
+      description:
+        'Operations for the management of runBioSimulations by the runBioSimulations Team.',
     },
   ];
   const builder = new DocumentBuilder()
     .setTitle('runBioSimulations API')
     .setDescription(
-      'API to submit and manage simulations jobs to the runBioSimulations service',
+      'API for submiting and managing simulation jobs to the runBioSimulations simulation service.',
     )
     .setVersion('0.1')
     .setLicense(

@@ -1829,7 +1829,7 @@
           "builder": "@nx-python/nx-python:build",
           "options": {
             "outputPath": "dist/apps/combine-service",
-            "main": "apps/combine-service/src/app.py"
+            "main": "apps/combine-service/src/__main__.py"
           },
           "configurations": {
             "production": {}
@@ -1838,18 +1838,17 @@
         "serve": {
           "builder": "@nx-python/nx-python:serve",
           "options": {
-            "main": "apps/combine-service/src/app.py"
+            "main": "-m src",
+            "cwd": "apps/combine-service"
           }
         },
         "test": {
           "builder": "@nx-python/nx-python:test",
-          "options": {
-          }
+          "options": {}
         },
         "lint": {
           "builder": "@nx-python/nx-python:lint",
-          "options": {
-          }
+          "options": {}
         }
       }
     }

@@ -114,7 +114,7 @@ def handler(body, files):
     CombineArchiveWriter.run(archive, archive_dirname, archive_filename)
 
     # save COMBINE/OMEX archive to S3 bucket
-    archive_url = src.utils.save_file_to_s3_bucket(archive_filename)
+    archive_url = src.utils.save_file_to_s3_bucket(archive_filename, public=True)
 
     # return URL for archive in S3 bucket
     return archive_url

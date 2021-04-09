@@ -17,7 +17,7 @@ import { refreshImageBody } from './image.dto';
 
 @Controller('images')
 @ApiResponse({})
-@ApiTags('Images', 'Internal')
+@ApiTags('Internal management')
 export class ImagesController {
   constructor(@Inject('NATS_CLIENT') private client: ClientProxy) {}
   @ApiOperation({

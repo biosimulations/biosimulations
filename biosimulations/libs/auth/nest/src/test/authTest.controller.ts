@@ -11,7 +11,7 @@ import { JwtGuard } from '../lib/jwt/jwt.guard';
 import { permissions } from '../lib/permissions/permissions.decorator';
 import { PermissionsGuard } from '../lib/permissions/permissions.guard';
 
-@ApiTags('Authentication Test')
+@ApiTags('Authentication testing')
 @ApiOAuth2([])
 @Controller('auth')
 @ApiResponse({
