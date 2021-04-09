@@ -356,14 +356,20 @@ export class ViewSimulatorService {
   getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
+    const getKisaoTermName = (id: string): Observable<string> => {
+      return this.ontService.getKisaoTerm(id).pipe(pluck('name'));
+    }
+
     return {
       name: kisaoTerm.pipe(pluck('name')),
       type: parameter.type,
-      value: this.parseParameterVal(parameter.type, parameter.value),
+      value: UtilsService.parseValue<Observable<string>>(getKisaoTermName, parameter.type, parameter.value),
       range: parameter.recommendedRange
         ? (parameter.recommendedRange.map(
-            this.parseParameterVal.bind(this, parameter.type),
-          ) as (boolean | number | string | Observable<string>)[])
+            (value: string): boolean | number | string | Observable<string> => {
+              return UtilsService.parseValue<Observable<string>>(getKisaoTermName, parameter.type, value) as boolean | number | string | Observable<string>;
+            })
+          )
         : null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
@@ -373,27 +379,6 @@ export class ViewSimulatorService {
         },
       ),
     };
-  }
-
-  parseParameterVal(
-    type: string,
-    val: string | null,
-  ): boolean | number | string | Observable<string> | null {
-    if (val == null || val === '') {
-      return null;
-    } else {
-      if (type === ValueType.kisaoId) {
-        return this.ontService.getKisaoTerm(val).pipe(pluck('name'));
-      } else if (type === ValueType.boolean) {
-        return ['1', 'true'].includes(val.toLowerCase());
-      } else if (type === ValueType.integer) {
-        return parseInt(val);
-      } else if (type === ValueType.float) {
-        return parseFloat(val);
-      } else {
-        return val;
-      }
-    }
   }
 
   getDependentDimensions(value: ISioOntologyId): Observable<ViewSioId> {

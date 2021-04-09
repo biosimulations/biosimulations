@@ -1,0 +1,49 @@
+@import 'biosimulations-colors';
+
+.form-field-group {
+  .icon-label-input {
+    .input.algorithm-parameters {
+      grid-template-columns: auto auto auto auto auto auto minmax(200px, auto);
+    }
+    .input.model-variables {
+      grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    }
+    .input.simulators {
+      grid-template-columns: auto auto 1fr;
+    }
+
+    .input-label {
+      border-bottom: 1px dotted rgba(0, 0, 0, 0.6);
+    }
+
+    .more-info {
+      text-align: center;
+    }
+
+    .mat-icon-button {
+      height: auto;
+      width: auto;
+      line-height: 100%;
+      position: relative;
+      top: -4px;
+    }
+  }
+}
+
+.submit {
+  button {
+    float: right;
+    margin-left: 0.5rem;
+  }
+}
+
+.message {
+  margin-top: 1rem;
+
+  &.success {
+    color: mat-color($theme-primary);
+    a {
+      text-decoration: underline;
+    }
+  }
+}

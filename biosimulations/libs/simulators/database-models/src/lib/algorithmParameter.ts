@@ -7,6 +7,7 @@ import {
 import { KisaoOntologyIdSchema } from './ontologyId';
 import { IKisaoOntologyId } from '@biosimulations/datamodel/common';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { UtilsService } from '@biosimulations/shared/services';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
@@ -69,7 +70,7 @@ AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
   const type: ValueType = doc.get('type');
 
   const value: string | null = doc.get('value');
-  if (value != null && !validateValue(value, type)) {
+  if (value != null && !UtilsService.validateValue(value, type)) {
     doc.invalidate('value', `value '${value}' must be an instance of ${type}`);
   }
 
@@ -77,7 +78,7 @@ AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
   if (recommendedRange != null) {
     for (let iRange = 0; iRange < recommendedRange.length; iRange++) {
       const value = recommendedRange[iRange];
-      if (!validateValue(value, type)) {
+      if (!UtilsService.validateValue(value, type)) {
         doc.invalidate(
           `recommendedRange/${iRange}`,
           `element of recommendedRange '${value}' must be an instance of ${type}`,
@@ -88,136 +89,3 @@ AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
 
   next();
 });
-
-export function parseValue(value: string, type: ValueType): any {
-  let parsedValue: any;
-  switch (type) {
-    case ValueType.boolean: {
-      const lowerValue = value.toLowerCase();
-      if (lowerValue === 'true' || lowerValue === '1') {
-        return true;
-      }
-      if (lowerValue === 'false' || lowerValue === '0') {
-        return false;
-      }
-      throw new Error(`value '${value}' must be an instance of ${type}`);
-      break;
-    }
-    case ValueType.integer: {
-      parsedValue = parseInt(value);
-      if (isNaN(parsedValue) || parsedValue !== parseFloat(value)) {
-        throw new Error(`value '${value}' must be an instance of ${type}`);
-      }
-      return parsedValue;
-    }
-    case ValueType.float: {
-      parsedValue = parseFloat(value);
-      if (isNaN(parsedValue)) {
-        throw new Error(`value '${value}' must be an instance of ${type}`);
-      }
-      return parsedValue;
-    }
-    case ValueType.string: {
-      return value;
-    }
-    case ValueType.kisaoId: {
-      if (OntologiesService.isTermId(Ontologies.KISAO, value)) {
-        return value;
-      }
-      throw new Error(`value '${value}' must be an instance of ${type}`);
-    }
-    case ValueType.list: {
-      try {
-        parsedValue = JSON.parse(value);
-        if (Array.isArray(parsedValue)) {
-          return parsedValue;
-        } else {
-          throw new Error(`value '${value}' must be an instance of ${type}`);
-        }
-      } catch {
-        throw new Error(`value '${value}' must be an instance of ${type}`);
-      }
-    }
-    case ValueType.object: {
-      try {
-        parsedValue = JSON.parse(value);
-        if (
-          parsedValue != null &&
-          typeof parsedValue !== 'string' &&
-          typeof parsedValue !== 'number' &&
-          !Array.isArray(parsedValue)
-        ) {
-          return parsedValue;
-        } else {
-          throw new Error(`value '${value}' must be an instance of ${type}`);
-        }
-      } catch {
-        throw new Error(`value '${value}' must be an instance of ${type}`);
-      }
-      throw new Error(`value '${value}' must be an instance of ${type}`);
-    }
-    case ValueType.any: {
-      try {
-        return JSON.parse(value);
-      } catch {
-        throw new Error(`value '${value}' must be an instance of ${type}`);
-      }
-    }
-    default: {
-      throw new Error(`type '${type}' is not supported`);
-    }
-  }
-}
-
-export function validateValue(value: string, type: ValueType): boolean {
-  let parsedValue: any;
-  switch (type) {
-    case ValueType.boolean: {
-      return ['true', 'false', '1', '0'].includes(value.toLowerCase());
-    }
-    case ValueType.integer: {
-      parsedValue = parseInt(value);
-      return !isNaN(parsedValue) && parsedValue === parseFloat(value);
-    }
-    case ValueType.float: {
-      return !isNaN(parseFloat(value));
-    }
-    case ValueType.string: {
-      return true;
-    }
-    case ValueType.kisaoId: {
-      return OntologiesService.isTermId(Ontologies.KISAO, value);
-    }
-    case ValueType.list: {
-      try {
-        return Array.isArray(JSON.parse(value));
-      } catch {
-        return false;
-      }
-    }
-    case ValueType.object: {
-      try {
-        parsedValue = JSON.parse(value);
-        return (
-          parsedValue != null &&
-          typeof parsedValue !== 'string' &&
-          typeof parsedValue !== 'number' &&
-          !Array.isArray(parsedValue)
-        );
-      } catch {
-        return false;
-      }
-    }
-    case ValueType.any: {
-      try {
-        JSON.parse(value);
-        return true;
-      } catch {
-        return false;
-      }
-    }
-    default: {
-      throw new Error(`type '${type}' is not supported`);
-    }
-  }
-}

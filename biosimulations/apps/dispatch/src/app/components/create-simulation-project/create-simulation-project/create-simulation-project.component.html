@@ -1,0 +1,437 @@
+<biosimulations-page heading="Create a simulation project">
+  <form [formGroup]="formGroup">
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="model"></biosimulations-icon>
+        </div>
+        <div>
+          <div class="form-section-title">Model *</div>
+          <div class="form-section-subtitle">Select a local file or enter a URL for file in a model format such as BNGL or SBML.</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <div class="columns three-columns">
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
+              <mat-label>Select a method for providing a model file</mat-label>
+              <mat-select
+                required
+                formControlName="modelLocationType"
+                (ngModelChange)="changeModelLocationType()"
+              >
+                <mat-option value="file">Upload a local file</mat-option>
+                <mat-option value="url">Enter a URL for a file</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" *ngIf="formGroup.value.modelLocationType === 'file'">
+              <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
+              <mat-label>Select a model file</mat-label>
+              <ngx-mat-file-input
+                formControlName="modelLocationDetails"
+                accept=".omex"
+                [multiple]="false"
+                [required]="true"
+                (ngModelChange)="getModelVariables()"
+              ></ngx-mat-file-input>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" *ngIf="formGroup.value.modelLocationType === 'url'">
+              <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
+              <mat-label>Enter a URL for a model file</mat-label>
+              <input
+                required
+                matInput
+                formControlName="modelLocationDetails"
+                [placeholder]="exampleModelUrl"
+                (ngModelChange)="getModelVariables()"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="format" matPrefix></biosimulations-icon>
+              <mat-label>Select the format of the model</mat-label>
+              <mat-select
+                formControlName="modelFormat"
+                (ngModelChange)="changeModelFormat()"
+                required
+              >
+                <mat-option
+                  *ngFor="let format of modelFormats"
+                  [value]="format.id"
+                >{{ format.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <mat-hint>
+            <p>
+              Select a model file in a format such as the BioNetGen Language (BNGL <a href="https://bionetgen.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>) or the Systems Biology Markup Language (SBML <a href="http://sbml.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>). Model files can either be uploaded
+              from your local computer or loaded from a publicly-accessible URL.
+            </p>
+
+            <p>
+              Numerous BNGL models are available from RuleHub <a href="https://github.com/RuleWorld/RuleHub" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Numerous SBML models are available from BiGG <a href="http://bigg.ucsd.edu/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, BioModels <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, the Cell Collective <a href="https://cellcollective.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, and JWS Online <a href="https://jjj.biochem.sun.ac.za/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+            </p>
+          </mat-hint>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('required', 'modelLocationType')">Please select a method for upload a model file.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('required', 'modelLocationDetails')">Please select a model file.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('url', 'modelLocationDetails')">Please enter a valid URL.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('required', 'modelFormat')">Please select a model format.</mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="logicalSimulation"></biosimulations-icon>
+        </div>
+        <div>
+          <div class="form-section-title">Simulation *</div>
+          <div class="form-section-subtitle">Select a type of simulation and configure its parameters.</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <div class="columns two-columns">
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="math" matPrefix></biosimulations-icon>
+              <mat-label>Select a modeling framework</mat-label>
+              <mat-select
+                formControlName="modelingFramework"
+                (ngModelChange)="changeModelingFramework()"
+                required
+              >
+                <mat-option
+                  *ngFor="let framework of modelingFrameworks"
+                  [value]="framework.id"
+                >{{ framework.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="logicalSimulation" matPrefix></biosimulations-icon>
+              <mat-label>Select a type of simulation</mat-label>
+              <mat-select
+                formControlName="simulationType"
+                (ngModelChange)="changeSimulationType()"
+                required
+              >
+                <mat-option
+                  *ngFor="let simulationType of simulationTypes"
+                  [value]="simulationType.id"
+                >{{ simulationType.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <mat-hint>Select a modeling framework and a type of simulation.</mat-hint>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('required', 'modelingFramework')">Please select a modeling framework.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('required', 'simulationType')">Please select a type of simulation.</mat-error>
+        </div>
+
+        <div
+          class="form-field-group"
+          *ngIf="formGroup.value.simulationType === 'SedOneStepSimulation'"
+          formGroupName="oneStepSimulationParameters"
+        >
+          <mat-form-field appearance="fill">
+            <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
+            <mat-label>Enter the step size</mat-label>
+            <input
+              matInput
+              formControlName="step"
+              type="number"
+              min="0"
+              required
+            />
+          </mat-form-field>
+          <mat-hint>Enter a step size.</mat-hint>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('positiveFloat', 'simulationTypeParameters.step')">The step size must be a positive float.</mat-error>
+        </div>
+
+        <div
+          class="form-field-group"
+          *ngIf="formGroup.value.simulationType === 'SedUniformTimeCourseSimulation'"
+          formGroupName="uniformTimeCourseSimulationParameters"
+        >
+          <div class="columns four-columns">
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="time" matPrefix></biosimulations-icon>
+              <mat-label>Enter the initial time</mat-label>
+              <input
+                matInput
+                formControlName="initialTime"
+                type="number"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="time" matPrefix></biosimulations-icon>
+              <mat-label>Enter the end time</mat-label>
+              <input
+                matInput
+                formControlName="outputEndTime"
+                type="number"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="duration" matPrefix></biosimulations-icon>
+              <mat-label>Enter the time to start recording the rsults</mat-label>
+              <input
+                matInput
+                formControlName="outputStartTime"
+                type="number"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="duration" matPrefix></biosimulations-icon>
+              <mat-label>Enter the number of steps to record</mat-label>
+              <input
+                matInput
+                formControlName="numberOfSteps"
+                type="number"
+                min="0"
+                step="1"
+                required
+              />
+            </mat-form-field>
+          </div>
+          <mat-hint>Enter the initial time of the simulation, the time when the simulation should terminate, the first time when output should be recorded, and the number of steps that should be recorded between the output start time and the termination time.</mat-hint>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('float', 'simulationTypeParameters.initialTime')">The initial time must be a float.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('float', 'simulationTypeParameters.outputEndTime')">The output end time must be a float.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('float', 'simulationTypeParameters.outputStartTime')">The output start time must be a float.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('nonNegativeInteger', 'simulationTypeParameters.numberOfSteps')">The number of steps must be a non-negative integer.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('initialTimeGreaterThanOutputStartTime', 'simulationTypeParameters')">The output start time must be at least the initial time.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('outputStartTimeGreaterThanOutputEndTime', 'simulationTypeParameters')">The output end time must be at least the output start time.</mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="construction"></biosimulations-icon>
+        </div>
+        <div>
+          <div class="form-section-title">Simulation algorithm *</div>
+          <div class="form-section-subtitle">Select a simulation algorithm and configure its parameters.</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <mat-form-field appearance="fill">
+            <biosimulations-icon icon="construction" matPrefix></biosimulations-icon>
+            <mat-label>Select a simulation algorithm</mat-label>
+            <mat-select
+              formControlName="simulationAlgorithm"
+              (ngModelChange)="changeSimulationAlgorithm()"
+              required
+            >
+              <mat-option
+                *ngFor="let simulationAlgorithm of simulationAlgorithms"
+                [value]="simulationAlgorithm.id"
+              >{{ simulationAlgorithm.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-hint>Select a simulation algorithm.</mat-hint>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('required', 'simulationAlgorithm')">Please select a simulation algorithm.</mat-error>
+        </div>
+
+        <div class="form-field-group"
+          formArrayName="simulationAlgorithmParameters"
+          *ngIf="formGroup.value.simulationAlgorithm"
+        >
+          <div class="icon-label-input">
+            <biosimulations-icon icon="simulators" matPrefix></biosimulations-icon>
+            <div class="label-input">
+              <mat-label>Configure the parameters of the selected algorithm *</mat-label>
+              <div class="input algorithm-parameters">
+                <div class="input-heading">Name</div>
+                <div class="input-heading more-info">More info</div>
+                <div class="input-heading">Supporting simulators</div>
+                <div class="input-heading">Type</div>
+                <div class="input-heading">Default</div>
+                <div class="input-heading">Recommended range</div>
+                <div class="input-heading">New value</div>
+
+                <ng-container
+                  *ngFor="let param of simulationAlgorithmParametersArray.controls; index as iParam"
+                  [formGroupName]="iParam"
+                >
+                  <div class="input-row input-label">{{ param.value.name }}</div>
+                  <div class="input-row input-label more-info"><a [href]="param.value.url"><biosimulations-icon icon="link"></biosimulations-icon></a></div>
+                  <div class="input-row input-label">{{ param.value.simulatorsStr }}</div>
+                  <div class="input-row input-label">{{ param.value.type }}</div>
+                  <div class="input-row input-label">{{ param.value.formattedValue }}</div>
+                  <div class="input-row input-label">{{ param.value.formattedRecommendedRangeJoined }}</div>
+                  <div class="input-row">
+                    <input
+                      matInput
+                      formControlName="newValue"
+                      [ngClass]="{error: param.hasError('invalid')}"
+                    />
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <mat-hint>Enter new values to override the default values of one or more parameters.</mat-hint>
+          <mat-error *ngIf="simulationAlgorithmParametersArray.invalid">The value of one of or more parameters is invalid.</mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="report"></biosimulations-icon>
+        </div>
+        <div>
+          <div class="form-section-title">Observables *</div>
+          <div class="form-section-subtitle">Describe the variables that should be recorded from your simulation.</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group"
+          formArrayName="modelVariables"
+        >
+          <div class="icon-label-input">
+            <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
+            <div class="label-input">
+              <mat-label>Enter the id, name, and symbol/target of each variable that should be recoded *</mat-label>
+              <div class="input model-variables">
+                <div class="input-heading">Id *</div>
+                <div class="input-heading more-info">Name</div>
+                <div class="input-heading">Type *</div>
+                <div class="input-heading">Address *</div>
+                <div class="input-heading">
+                  <button
+                      mat-icon-button
+                      title="Add a variable"
+                      (click)="addModelVariable()"
+                    >
+                      <biosimulations-icon icon="new"></biosimulations-icon>
+                    </button>
+                </div>
+
+                <ng-container
+                  *ngFor="let param of modelVariablesArray.controls; index as iModelVariable"
+                  [formGroupName]="iModelVariable"
+                >
+                  <div class="input-row">
+                    <input
+                      matInput
+                      formControlName="id"
+                      [ngClass]="{error: param.hasError('validSedmlId', 'id')}"
+                      required
+                    />
+                  </div>
+                  <div class="input-row">
+                    <input
+                      matInput
+                      formControlName="name"
+                    />
+                  </div>
+                  <div class="input-row">
+                    <mat-select
+                      formControlName="type"
+                      required
+                      disableOptionCentering
+                    >
+                      <mat-option
+                        *ngFor="let variableType of modelVariableTypes"
+                        [value]="variableType.id"
+                      >
+                        {{ variableType.name }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                  <div class="input-row">
+                    <input
+                      matInput
+                      formControlName="symbolOrTarget"
+                      required
+                    />
+                  </div>
+                  <div class="input-row">
+                    <button
+                      mat-icon-button
+                      title="Delete variable"
+                      (click)="removeModelVariable(iModelVariable)"
+                    >
+                      <biosimulations-icon icon="trash"></biosimulations-icon>
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <mat-hint>Describe the variables (e.g., time symbol <code>urn:sedml:symbol:time</code>, species target <code>/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']</code>) that should be recorded from your simulation and enter an unique id and, optionally, a descriptive name for each variable.</mat-hint>
+          <mat-error *ngIf="modelVariablesArray.invalid && !modelVariablesArray.hasError('uniqueIds')">One or more properties of one or more variables is invalid.</mat-error>
+          <mat-error *ngIf="modelVariablesArray.hasError('uniqueIds')">The ids of the variables must be unique.</mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section" *ngIf="formGroup.value.simulationAlgorithm">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="simulator"></biosimulations-icon>
+        </div>
+        <div>
+          <div class="form-section-title">Recommended simulation tools</div>
+          <div class="form-section-subtitle">Tools that have the capabilities to execute your simulation.</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <div class="icon-label-input" *ngIf="compatibleSimulators?.length">
+            <biosimulations-icon icon="simulator" matPrefix></biosimulations-icon>
+            <div class="label-input">
+              <mat-label>Below are simulation tools which likely can execute your simulation:</mat-label>
+              <div class="input simulators">
+                <div class="input-heading">Name</div>
+                <div class="input-heading more-info">More info</div>
+                <div class="input-heading"></div>
+
+                <ng-container *ngFor="let simulator of compatibleSimulators">
+                  <div class="input-row input-label">{{ simulator.name }}</div>
+                  <div class="input-row input-label more-info"><a [href]="simulator.url" target="_blank"><biosimulations-icon icon="link"></
+                    biosimulations-icon></a></div>
+                  <div class="input-row"></div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <mat-error *ngIf="formGroup.hasError('hasCompatibleSimulator')">No single simulation tool supports the selected combination of parameters. Please clear the value of one or more parameters.</mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit">
+      <button
+        mat-flat-button
+        type="submit"
+        (click)="onFormSubmit('download')"
+      >
+        Download
+      </button>
+
+      <button
+        mat-flat-button
+        type="submit"
+        (click)="onFormSubmit('simulate')"
+      >
+        Simulate
+      </button>
+    </div>
+  </form>
+</biosimulations-page>

@@ -17,6 +17,7 @@ import {
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
 import { snackBarDuration } from '@biosimulations/config/common';
+import { UtilsService } from '@biosimulations/shared/services';
 
 import {
   ViewSimulator,
@@ -74,7 +75,7 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Default',
       key: 'value',
       getter: (parameter: ViewParameter): string | null => {
-        return this.formatParameterVal(parameter.type, parameter.value);
+        return UtilsService.formatValue(parameter.type as ValueType, parameter.value);
       },
       minWidth: 66,
       maxWidth: 66,
@@ -85,8 +86,10 @@ export class ViewSimulatorComponent implements OnInit {
       key: 'range',
       getter: (parameter: ViewParameter): string | null => {
         if (parameter.range) {
-          return parameter.range
-            .map(this.formatParameterVal.bind(this, parameter.type))
+          return (parameter.range as string[])
+            .map((value: string): string | null => {
+              return UtilsService.formatValue(parameter.type as ValueType, value);
+            })
             .join(', ');
         } else {
           return null;
@@ -128,43 +131,6 @@ export class ViewSimulatorComponent implements OnInit {
       maxWidth: 110,
     },
   ];
-
-  formatParameterVal(
-    type: string,
-    value: boolean | number | string | null,
-  ): string | null {
-    if (value == null) {
-      return value;
-    } else if (type === ValueType.boolean) {
-      return value.toString();
-    } else if (type === ValueType.integer || type === ValueType.float) {
-      if (value === 0) {
-        return '0';
-      } else if (value < 1e-3 || value > 1e3) {
-        const exp = Math.floor(Math.log10(value as number));
-        const val = (value as number) / Math.pow(10, exp);
-        let valStr: string;
-        if (Math.abs((val * 1 - Math.round(val * 1)) / (val * 1)) < 1e-12) {
-          valStr = val.toFixed(0);
-        } else if (
-          Math.abs((val * 1e1 - Math.round(val * 1e1)) / (val * 1e1)) < 1e-12
-        ) {
-          valStr = val.toFixed(1);
-        } else if (
-          Math.abs((val * 1e2 - Math.round(val * 1e2)) / (val * 1e2)) < 1e-12
-        ) {
-          valStr = val.toFixed(2);
-        } else {
-          valStr = val.toFixed(3);
-        }
-        return `${valStr}e${exp}`;
-      } else {
-        return value.toString();
-      }
-    } else {
-      return value as string;
-    }
-  }
 
   getParameterStackedHeading(parameter: ViewParameter): string {
     return parameter.name;
