@@ -7,10 +7,12 @@ from biosimulators_utils.sedml.data_model import (
 )
 from biosimulators_utils.sedml.model_utils import get_variables_for_simulation
 import os
+import requests
+import requests.exceptions
 import werkzeug.datastructures  # noqa: F401
 
 
-def handler(body, modelFile):
+def handler(body, modelFile=None):
     """ Get a SED report for a SED task that will record all of the
     possible observables of the task
 
@@ -25,12 +27,40 @@ def handler(body, modelFile):
     Returns:
         :obj:`list` of ``#/components/schemas/SedVariable``
     """
+    model_url = body.get('modelUrl', None)
     model_lang = body['modelLanguage']
     sim_type = body['simulationType']
-    alg_kisao_id = body['simulationAlgorithmKisaoId']
+    alg_kisao_id = body['simulationAlgorithm']
 
     model_filename = get_temp_file()
-    modelFile.save(model_filename)
+
+    if modelFile and model_url:
+        raise ValueError((
+            'Only one of `modelFile` and `modelUrl` should be used at a time. '
+            '`modelFile` and `modelUrl` cannot be used together.'
+        ))
+
+    if modelFile:
+        modelFile.save(model_filename)
+        model_source = os.path.basename(modelFile.filename)
+
+    else:
+        try:
+            response = requests.get(model_url)
+            response.raise_for_status()
+
+        except requests.exceptions.RequestException as exception:
+            title = 'Model could not be loaded from `{}`'.format(
+                model_url)
+            raise BadRequestException(
+                title=title,
+                instance=exception,
+            )
+
+        with open(model_filename, 'wb') as file:
+            file.write(response.content)
+
+        model_source = os.path.basename(model_url)
 
     if sim_type == 'SedOneStepSimulation':
         sim_cls = OneStepSimulation
@@ -63,7 +93,7 @@ def handler(body, modelFile):
             "_type": "SedModel",
             "id": "model",
             "language": model_lang,
-            "source": os.path.basename(modelFile.filename),
+            "source": model_source,
         },
         "simulation": {
             "_type": sim_type,

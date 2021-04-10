@@ -33,12 +33,14 @@ import connexion
 import datetime
 import dateutil.tz
 import os
+import requests
+import requests.exceptions
 import src.utils
 import werkzeug.datastructures  # noqa: F401
 import werkzeug.wrappers.response  # noqa: F401
 
 
-def handler(body, files):
+def handler(body, files=None):
     ''' Create a COMBINE/OMEX archive for a model with a SED-ML document
     according to a particular specification.
 
@@ -78,14 +80,15 @@ def handler(body, files):
 
     # add files to archive
     for content in archive_specs['contents']:
-        if content['location']['value']['_type'] == 'SedDocument':
+        content_type = content['location']['value']['_type']
+        if content_type == 'SedDocument':
             sed_doc = export_sed_doc(content['location']['value'])
 
             # save SED document to file
             SedmlSimulationWriter().run(
                 sed_doc,
                 os.path.join(archive_dirname, content['location']['path']))
-        else:
+        elif content_type == 'CombineArchiveContentFile':
             file = filename_map.get(
                 content['location']['value']['filename'], None)
             if not file:
@@ -99,6 +102,33 @@ def handler(body, files):
             if not os.path.isdir(os.path.dirname(filename)):
                 os.makedirs(os.path.dirname(filename))
             file.save(filename)
+
+        elif content_type == 'CombineArchiveContentUrl':
+            filename = os.path.join(archive_dirname,
+                                    content['location']['path'])
+            if not os.path.isdir(os.path.dirname(filename)):
+                os.makedirs(os.path.dirname(filename))
+
+            content_url = content['location']['value']['url']
+            try:
+                response = requests.get(content_url)
+                response.raise_for_status()
+            except requests.exceptions.RequestException as exception:
+                title = 'COMBINE/OMEX archive content could not be loaded from `{}`'.format(
+                    content_url)
+                raise BadRequestException(
+                    title=title,
+                    instance=exception,
+                )
+            with open(filename, 'wb') as file:
+                file.write(response.content)
+
+        else:
+            raise BadRequestException(
+                title='Content of type `{}` is not supported'.format(
+                    content_type),
+                instance=NotImplementedError('Invalid content')
+            )  # pragma: no cover: unreachable due to schema validation
 
         content = CombineArchiveContent(
             location=content['location']['path'],

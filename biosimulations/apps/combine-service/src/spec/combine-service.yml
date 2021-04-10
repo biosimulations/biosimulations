@@ -101,7 +101,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/ModelFileAndSimulation'
+              $ref: '#/components/schemas/ModelAndSimulation'
         required: true
       tags:
       - SED-ML
@@ -385,6 +385,18 @@ components:
           enum:
           - CombineArchive
           type: string
+      example:
+        contents:
+        - location:
+            path: experiment1/model.xml
+            value:
+              _type: CombineArchiveContentFile
+              filename: model.xml
+            _type: CombineArchiveLocation
+          format: some text
+          master: true
+          _type: CombineArchiveContent
+        _type: CombineArchive
     CombineArchiveContent:
       description: Content item of a COMBINE/OMEX archive.
       required:
@@ -398,7 +410,7 @@ components:
           $ref: '#/components/schemas/CombineArchiveLocation'
           description: Location within its parent COMBINE/OMEX archive.
         format:
-          description: Format.
+          description: URI for a format.
           type: string
         master:
           description: ""
@@ -408,6 +420,16 @@ components:
           enum:
           - CombineArchiveContent
           type: string
+      example:
+        location:
+          path: experiment1/model.xml
+          value:
+            _type: CombineArchiveContentFile
+            filename: model.xml
+          _type: CombineArchiveLocation
+        format: some text
+        master: true
+        _type: CombineArchiveContent
     CombineArchiveLocation:
       description: Location of an item in a COMBINE/OMEX archive and its value.
       required:
@@ -427,6 +449,12 @@ components:
           enum:
           - CombineArchiveLocation
           type: string
+      example:
+        path: experiment1/model.xml
+        value:
+          _type: CombineArchiveContentFile
+          filename: model.xml
+        _type: CombineArchiveLocation
     SedModel:
       description: A SED model.
       required:
@@ -453,11 +481,6 @@ components:
           enum:
           - SedModel
           type: string
-      example:
-        id: model_1
-        name: Model 1
-        language: urn:sedml:language:sbml
-        source: model_1.xml
     SedTask:
       description: A SED task.
       required:
@@ -522,6 +545,18 @@ components:
         algorithm:
           $ref: '#/components/schemas/SedAlgorithm'
           description: Algorithm.
+      example:
+        id: ko_simulation
+        name: knockout simulation
+        _type: SedUniformTimeCourseSimulation
+        initialTime: 0
+        outputStartTime: 10
+        outputEndTime: 20
+        numberOfSteps: 100
+        algorithm:
+          _type: SedAlgorithm
+          kisaoId: KISAO_0000019
+          changes: []
     SedSteadyStateSimulation:
       description: A SED steady state simulation.
       required:
@@ -544,6 +579,14 @@ components:
         algorithm:
           $ref: '#/components/schemas/SedAlgorithm'
           description: Algorithm.
+      example:
+        id: koSimulation
+        name: knockout simulation
+        _type: SedSteadyStateSimulation
+        algorithm:
+          _type: SedAlgorithm
+          kisaoId: KISAO_0000437
+          changes: []
     SedOneStepSimulation:
       description: A SED one step simulation.
       required:
@@ -569,6 +612,15 @@ components:
         algorithm:
           $ref: '#/components/schemas/SedAlgorithm'
           description: Algorithm.
+      example:
+        id: singleStep
+        _type: SedOneStepSimulation
+        name: single step
+        step: 1
+        algorithm:
+          _type: SedAlgorithm
+          kisaoId: KISAO_0000019
+          changes: []
     SedVariable:
       description: A SED variable.
       required:
@@ -622,6 +674,7 @@ components:
       - log
       - linear
       type: string
+      example: linear
     BioSimulationsDataSetResultsId:
       description: Id of the results of a data set.
       type: string
@@ -642,29 +695,6 @@ components:
         propertyName: _type
       description: A SED abstract task.
       type: object
-    CombineArchiveLocationValue:
-      oneOf:
-      - $ref: '#/components/schemas/SedDocument'
-      - $ref: '#/components/schemas/CombineArchiveContentFile'
-      discriminator:
-        propertyName: _type
-      description: The value of a location of a COMBINE/OMEX archive.
-      type: object
-    CombineArchiveContentFile:
-      description: File
-      required:
-      - _type
-      - filename
-      type: object
-      properties:
-        _type:
-          description: Type.
-          enum:
-          - CombineArchiveContentFile
-          type: string
-        filename:
-          description: Name of file on the submitter's machine
-          type: string
     SedSimulation:
       oneOf:
       - $ref: '#/components/schemas/SedSteadyStateSimulation'
@@ -674,6 +704,14 @@ components:
         propertyName: _type
       description: A SED simulation.
       type: object
+      example:
+        id: koSimulation
+        name: knockout simulation
+        _type: SedSteadyStateSimulation
+        algorithm:
+          _type: SedAlgorithm
+          kisaoId: KISAO_0000437
+          changes: []
     Error:
       description: Error.
       required:
@@ -747,6 +785,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SedAlgorithmParameterChange'
+      example:
+        _type: SedAlgorithm
+        kisaoId: KISAO_0000029t
+        changes:
+        - kisaoId: KISAO_0000488
+          _type: SedAlgorithmParameterChange
+          newValue: "1000"
     KisaoId:
       description: KiSAO id
       type: string
@@ -770,6 +815,10 @@ components:
         newValue:
           description: New value
           type: string
+      example:
+        kisaoId: KISAO_0000488
+        _type: SedAlgorithmParameterChange
+        newValue: "1000"
     SedModelLanguage:
       description: |-
         A SED URN for a model language.
@@ -782,7 +831,6 @@ components:
         files) and the other (non-SED-ML) files that it should contain.
       required:
       - specs
-      - files
       type: object
       properties:
         specs:
@@ -792,42 +840,8 @@ components:
           description: "File (e.g., model) to place into the COMBINE/OMEX archive."
           type: array
           items:
-            $ref: '#/components/schemas/FileUpload'
+            $ref: '#/components/schemas/File'
       x-body-name: body
-    ModelFileAndSimulation:
-      description: A SED task and a model file
-      required:
-      - modelLanguage
-      - modelFile
-      - simulationType
-      - simulationAlgorithmKisaoId
-      - modelingFramework
-      type: object
-      properties:
-        modelFile:
-          $ref: '#/components/schemas/FileUpload'
-          description: Model file.
-        modelLanguage:
-          $ref: '#/components/schemas/SedModelLanguage'
-          description: Model language.
-        simulationType:
-          description: Type of simulation.
-          enum:
-          - SedUniformTimeCourseSimulation
-          - SedSteadyStateSimulation
-          - SedOneStepSimulation
-          type: string
-        simulationAlgorithmKisaoId:
-          $ref: '#/components/schemas/KisaoId'
-          description: KiSAO id for the simulation algorithm.
-        modelingFramework:
-          $ref: '#/components/schemas/SboId'
-          description: Modeling framework
-      x-body-name: body
-    FileUpload:
-      format: binary
-      description: The two files uploaded in creating a combine archive
-      type: string
     SedVariableTarget:
       description: Target of a variable.
       required:
@@ -884,6 +898,103 @@ components:
       description: Identifier for an SBO term
       type: string
       example: SBO_0000293
+    File:
+      format: binary
+      description: The two files uploaded in creating a combine archive
+      type: string
+    Url:
+      description: URL
+      type: string
+      example: https://biosimulations.org
+    ModelAndSimulation:
+      description: "A model file or URL and a type of simulation of that model.\n\n\
+        Only one of \"modelFile\" or \"modelUrl\" should be used at a time. \"modelFile\"\
+        \ and \n\"modelUrl\" cannot be used together."
+      required:
+      - modelLanguage
+      - simulationType
+      - simulationAlgorithm
+      - modelingFramework
+      type: object
+      properties:
+        modelFile:
+          $ref: '#/components/schemas/File'
+          description: Model file.
+        modelLanguage:
+          $ref: '#/components/schemas/SedModelLanguage'
+          description: Model language.
+        simulationType:
+          description: Type of simulation.
+          enum:
+          - SedUniformTimeCourseSimulation
+          - SedSteadyStateSimulation
+          - SedOneStepSimulation
+          type: string
+        modelingFramework:
+          $ref: '#/components/schemas/SboId'
+          description: Modeling framework
+        simulationAlgorithm:
+          $ref: '#/components/schemas/KisaoId'
+          description: KiSAO id for the simulation algorithm.
+        modelUrl:
+          $ref: '#/components/schemas/Url'
+          description: ""
+      example:
+        modelUrl: https://website.com/model.xml
+        modelLanguage: urn:sedml:language:sbml
+        simulationType: SedUniformTimeCourseSimulation
+        simulationAlgorithm: KISAO_0000019
+        modelingFramework: SBO_0000293
+      x-body-name: body
+    CombineArchiveContentUrl:
+      description: File to be resolved from a URL
+      required:
+      - _type
+      - url
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveContentUrl
+          type: string
+        url:
+          description: URL where file should resolved from
+          type: string
+      example:
+        _type: CombineArchiveContentFile
+        url: https://website.com/model.xml
+    CombineArchiveContentFile:
+      description: File
+      required:
+      - _type
+      - filename
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveContentFile
+          type: string
+        filename:
+          description: Location where the file should be placed inside the COMBINE/OMEX
+            archive
+          type: string
+      example:
+        _type: CombineArchiveContentFile
+        filename: model.xml
+    CombineArchiveLocationValue:
+      oneOf:
+      - $ref: '#/components/schemas/SedDocument'
+      - $ref: '#/components/schemas/CombineArchiveContentFile'
+      - $ref: '#/components/schemas/CombineArchiveContentUrl'
+      discriminator:
+        propertyName: _type
+      description: The value of a location of a COMBINE/OMEX archive.
+      type: object
+      example:
+        _type: CombineArchiveContentFile
+        filename: model.xml
   responses:
     "404":
       content:

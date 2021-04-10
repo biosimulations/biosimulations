@@ -440,11 +440,15 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
 
     const formData = new FormData();
-    formData.append('modelFile', modelLocationDetails);
+    if (modelLocationType === LocationType.file) {
+      formData.append('modelFile', modelLocationDetails);
+    } else {
+      formData.append('modelUrl', modelLocationDetails);
+    }
     formData.append('modelLanguage', modelFormatMetaData[modelFormat].sedUrn as string);
     formData.append('modelingFramework', modelingFramework);
     formData.append('simulationType', simulationType);
-    formData.append('simulationAlgorithmKisaoId', simulationAlgorithm);
+    formData.append('simulationAlgorithm', simulationAlgorithm);
 
     const url = `${urls.combineApi}sed-ml/get-variables-for-simulation`;
     const modelVars = this.http.post<any[]>(url, formData)
@@ -987,7 +991,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const formData = new FormData();
     const archiveSpecs = this.getArchiveSpecs();
     formData.append('specs', JSON.stringify(archiveSpecs));
-    formData.append('files', this.formGroup.value.modelLocationDetails);
+    if (this.formGroup.value.modelLocationType === LocationType.file) {
+      formData.append('files', this.formGroup.value.modelLocationDetails);
+    }
 
     const url = `${urls.combineApi}combine/create`;
     const projectUrl: Observable<string> = this.http.post<string>(url, formData)
@@ -1145,6 +1151,19 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       }],
     };
 
+    let modelContent: any = {};
+    if (this.formGroup.value.modelLocationType === LocationType.file) {
+      modelContent = {
+        _type: 'CombineArchiveContentFile',
+        filename: this.formGroup.value.modelLocationDetails.name,
+      };
+    } else {
+      modelContent = {
+        _type: 'CombineArchiveContentUrl',
+        url: this.formGroup.value.modelLocationDetails,
+      };
+    }  
+
     return {
       _type: 'CombineArchive',
       contents: [
@@ -1155,10 +1174,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           location: {
             _type: 'CombineArchiveLocation',
             path: model.source,
-            value: {
-              _type: 'CombineArchiveContentFile',
-              filename: this.formGroup.value.modelLocationDetails.name,
-            },
+            value: modelContent,
           },
         },
         {
