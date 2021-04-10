@@ -59,7 +59,7 @@
             <ng-template [ngSwitchCase]="'click'">
               <button
                 mat-icon-button
-                class="biosimulations-icon-button primary"
+                class="biosimulations-button primary"
                 *ngIf="
                   row.columns[column.id]?.centerClick as click;
                   else noClick
@@ -134,7 +134,7 @@
             <ng-template [ngSwitchCase]="'click'">
               <button
                 mat-icon-button
-                class="biosimulations-icon-button primary"
+                class="biosimulations-button primary"
                 *ngIf="
                   row.columns[column.id]?.rightClick as click;
                   else noClick

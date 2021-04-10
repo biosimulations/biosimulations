@@ -313,6 +313,7 @@
                 <div class="input-heading">
                   <button
                       mat-icon-button
+                      class="biosimulations-button text"
                       title="Add a namespace"
                       (click)="addModelNamespace()"
                     >
@@ -342,6 +343,7 @@
                   <div class="input-row">
                     <button
                       mat-icon-button
+                      class="biosimulations-button text"
                       title="Delete namespace"
                       (click)="removeModelNamespace(iModelNamespace)"
                     >
@@ -385,6 +387,7 @@
                 <div class="input-heading">
                   <button
                       mat-icon-button
+                      class="biosimulations-button text"
                       title="Add a variable"
                       (click)="addModelVariable()"
                     >
@@ -434,6 +437,7 @@
                   <div class="input-row">
                     <button
                       mat-icon-button
+                      class="biosimulations-button text"
                       title="Delete variable"
                       (click)="removeModelVariable(iModelVariable)"
                     >
@@ -493,6 +497,7 @@
         mat-flat-button
         type="submit"
         (click)="onFormSubmit('download')"
+        class="biosimulations-button text"
       >
         Download
       </button>
@@ -501,6 +506,7 @@
         mat-flat-button
         type="submit"
         (click)="onFormSubmit('simulate')"
+        class="biosimulations-button text"
       >
         Simulate
       </button>

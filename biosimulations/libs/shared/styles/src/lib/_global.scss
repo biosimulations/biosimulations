@@ -154,7 +154,7 @@ table.icon-list {
 
 ul.key-value li {
   a,
-  .mat-icon-button.biosimulations-icon-button.primary {
+  .mat-icon-button.biosimulations-button.primary {
     color: $dark-primary-text;
 
     &:hover {
@@ -591,7 +591,7 @@ npn-slider .slider {
 }
 
 /* buttons */
-.mat-icon-button.biosimulations-icon-button {
+.mat-icon-button.biosimulations-button {
   width: auto;
   height: auto;
   line-height: unset;
@@ -629,6 +629,63 @@ npn-slider .slider {
 
     &:active {
       color: darken(mat-color($theme-accent), 10%);
+    }
+  }
+
+  &.white {
+    color: #ffffff;
+
+    &:hover {
+      color: #ffffffdd;
+    }
+
+    &:active {
+      color: #ffffffbb;
+    }
+  }
+
+  .mat-button-focus-overlay {
+    display: none;
+  }
+}
+
+.mat-flat-button.biosimulations-button {
+  &.text {
+    color: $dark-primary-text;
+    background: $light-bg-darker-10;
+
+    &:hover {
+      background: darken($light-bg-darker-10, 4%);
+    }
+
+    &:active {
+      background: darken($light-bg-darker-10, 8%);
+    }
+  }
+
+  &.primary {
+    color: mat-color($theme-primary);
+    background: $theme-primary-lightest;
+
+    &:hover {
+      background: darken($theme-primary-lightest, 4%);
+    }
+
+    &:active {
+      background: darken($theme-primary-lightest, 8%);
+    }
+  }
+
+  &.accent {
+    color: mat-color($theme-accent);
+    background: $theme-accent-lightest;
+
+    &:hover {
+      background: darken($theme-accent-lightest, 4%);
+    }
+
+    &:active {
+      background: darken($theme-accent-lightest, 8%);
     }
   }
 
@@ -914,7 +971,7 @@ a.status-label {
       color: mat-color($theme-primary);
       background: $theme-primary-lightest;
 
-      .mat-icon-button.biosimulations-icon-button {
+      .mat-icon-button.biosimulations-button {
         &:hover {
           color: darken(mat-color($theme-primary), 10%) !important;
         }
@@ -932,7 +989,7 @@ a.status-label {
       color: mat-color($theme-tertiary);
       background: $theme-tertiary-lightest;
 
-      .mat-icon-button.biosimulations-icon-button {
+      .mat-icon-button.biosimulations-button {
         &:hover {
           color: darken(mat-color($theme-tertiary), 8%) !important;
         }
@@ -949,7 +1006,7 @@ a.status-label {
       color: $dark-primary-text;
       background: $light-bg-darker-10;
 
-      .mat-icon-button.biosimulations-icon-button {
+      .mat-icon-button.biosimulations-button {
         &:hover {
           color: darken(#333333, 15%) !important;
         }
@@ -965,7 +1022,7 @@ a.status-label {
       color: mat-color($theme-accent);
       background: $theme-accent-lightest;
 
-      .mat-icon-button.biosimulations-icon-button {
+      .mat-icon-button.biosimulations-button {
         &:hover {
           color: darken(mat-color($theme-accent), 7%) !important;
         }
@@ -982,7 +1039,7 @@ a.status-label {
       color: mat-color($theme-warn);
       background: $theme-warn-lightest;
 
-      .mat-icon-button.biosimulations-icon-button {
+      .mat-icon-button.biosimulations-button {
         &:hover {
           color: darken(mat-color($theme-warn), 15%) !important;
         }

@@ -14,7 +14,7 @@
       <a
         *ngIf="iconRouterLink; else noRouterLink"
         mat-icon-button
-        class="icon-container biosimulations-icon-button"
+        class="icon-container biosimulations-button"
         [routerLink]="iconRouterLink"
       >
         <biosimulations-icon [icon]="icon"></biosimulations-icon>
@@ -24,7 +24,7 @@
         <a
           *ngIf="iconHref; else noRouterHref"
           mat-icon-button
-          class="icon-container biosimulations-icon-button"
+          class="icon-container biosimulations-button"
           [href]="iconHref"
           target="_blank"
         >
@@ -34,7 +34,7 @@
         <ng-template #noRouterHref>
           <a
             mat-icon-button
-            class="icon-container biosimulations-icon-button"
+            class="icon-container biosimulations-button"
             (click)="iconClick()"
           >
             <biosimulations-icon [icon]="icon"></biosimulations-icon>
