@@ -458,7 +458,7 @@
         </div>
         <div>
           <div class="form-section-title">Recommended simulation tools</div>
-          <div class="form-section-subtitle">Tools that have the capabilities to execute your simulation.</div>
+          <div class="form-section-subtitle">Tools that likely have the capabilities to execute your simulation.</div>
         </div>
       </div>
       <div class="form-section-body">
@@ -474,13 +474,15 @@
 
                 <ng-container *ngFor="let simulator of compatibleSimulators">
                   <div class="input-row input-label">{{ simulator.name }}</div>
-                  <div class="input-row input-label more-info"><a [href]="simulator.url" target="_blank"><biosimulations-icon icon="link"></
-                    biosimulations-icon></a></div>
+                  <div class="input-row input-label more-info">
+                    <a [href]="simulator.url" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>
+                  </div>
                   <div class="input-row"></div>
                 </ng-container>
-              </div>
+              </div>              
             </div>
           </div>
+          <mat-hint *ngIf="formGroup.valid">Note, not all simulation tools have the capabilities to execute all possible simulations because most simulation tools do not support every aspect of modeling standards such as SBML and SED-ML. We are working to encourage developers to more fully support these standards and to catalog which features each tool supports so that we are better able to recommend simulation tools going forward.</mat-hint>
           <mat-error *ngIf="formGroup.hasError('hasCompatibleSimulator')">No single simulation tool supports the selected combination of parameters. Please clear the value of one or more parameters.</mat-error>
         </div>
       </div>
