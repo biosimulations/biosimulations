@@ -2,11 +2,9 @@ import {
   ValueType,
   AlgorithmParameter as IAlgorithmParameter,
   SoftwareInterfaceType,
-  Ontologies,
 } from '@biosimulations/datamodel/common';
 import { KisaoOntologyIdSchema } from './ontologyId';
 import { IKisaoOntologyId } from '@biosimulations/datamodel/common';
-import { OntologiesService } from '@biosimulations/ontology/ontologies';
 import { UtilsService } from '@biosimulations/shared/services';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
