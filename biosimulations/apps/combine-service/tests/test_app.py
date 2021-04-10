@@ -130,8 +130,6 @@ class HandlersTestCase(unittest.TestCase):
 
         model_fid.close()
 
-        print(response.json)
-
         self.assertEqual(response.status_code, 200)
         sed_doc = response.json
         vars = [data_gen['variables'][0] for data_gen in sed_doc['dataGenerators']]

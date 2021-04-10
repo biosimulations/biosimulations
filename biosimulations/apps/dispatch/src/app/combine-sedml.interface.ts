@@ -1,5 +1,7 @@
 export interface SedModelAttributeChange {
   _type: 'SedModelAttributeChange';
+  id: string;
+  name: string | null;
   target: string;
   newValue: string;
 }

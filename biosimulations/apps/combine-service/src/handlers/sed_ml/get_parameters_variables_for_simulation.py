@@ -5,7 +5,7 @@ from biosimulators_utils.sedml.data_model import (
     SteadyStateSimulation,
     UniformTimeCourseSimulation,
 )
-from biosimulators_utils.sedml.model_utils import get_variables_for_simulation as get_parameters_variables_for_simulation
+from biosimulators_utils.sedml.model_utils import get_parameters_variables_for_simulation
 import os
 import requests
 import requests.exceptions
@@ -76,9 +76,7 @@ def handler(body, modelFile=None):
         )  # pragma: no cover: unreachable due to schema validation
 
     try:
-        vars = get_parameters_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
-        # TODO: get variables
-        params = []
+        params, vars = get_parameters_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
     except Exception as exception:
         raise BadRequestException(
             title='Models of language `{}` are not supported with simulations of type `{}` and algorithm `{}`'.format(
@@ -114,6 +112,7 @@ def handler(body, modelFile=None):
     for param in params:
         change = {
             "_type": "SedModelAttributeChange",
+            "id": param.id,
             "target": {
                 "_type": "SedTarget",
                 "value": param.target,
@@ -121,7 +120,9 @@ def handler(body, modelFile=None):
             },
             "newValue": param.new_value,
         }
-        model['changes'].append()
+        if param.name:
+            change['name'] = param.name
+        model['changes'].append(change)
 
         for prefix, uri in param.target_namespaces.items():
             ns = {

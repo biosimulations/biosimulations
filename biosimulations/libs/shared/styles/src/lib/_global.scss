@@ -425,6 +425,10 @@ biosimulations-root {
       &:first-child {
         padding-top: 0;
       }
+
+      code, code.hljs {
+        padding: 0.15rem;
+      }
     }
   }
 }
@@ -470,6 +474,11 @@ biosimulations-root {
     input, .mat-select {
       border-bottom: 1px dotted rgb(0, 0, 0, 0.6);
       background: $light-bg-darker-10;
+      font-size: 93.75%;
+
+      &:disabled {
+        background: $light-bg-darker-20;        
+      }
 
       &.error {
         border-bottom-color: $theme-warn-main;
@@ -502,6 +511,10 @@ biosimulations-root {
 
     &:first-child {
       padding-top: 0;
+    }
+
+    code, code.hljs {
+      padding: 0.15rem;
     }
   }
 }

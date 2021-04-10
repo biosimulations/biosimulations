@@ -42,6 +42,8 @@
                         "source": "model.xml",
                         "changes": [{
                                 "_type": "SedModelAttributeChange",
+                                "id": "parameter_k1",
+                                "name": "parameter k1",
                                 "target": {
                                     "_type": "SedTarget",
                                     "value": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value",
@@ -55,8 +57,10 @@
                             },
                             {
                                 "_type": "SedModelAttributeChange",
+                                "id": "parameter_k1",
+                                "name": "parameter k1",
                                 "target": {
-                                    "_type": "SedTarget",
+                                    "_type": "SedTarget",                                    
                                     "value": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k2']/@value",
                                     "namespaces": [{
                                         "_type": "Namespace",

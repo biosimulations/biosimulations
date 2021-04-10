@@ -975,6 +975,7 @@ components:
       - _type
       - newValue
       - target
+      - id
       type: object
       properties:
         _type:
@@ -988,8 +989,16 @@ components:
         target:
           $ref: '#/components/schemas/SedTarget'
           description: Target
+        id:
+          description: Unique identifier within its parents SED document.
+          type: string
+        name:
+          description: Brief description
+          type: string
       example:
         _type: SedModelAttributeChange
+        id: parameter_k1
+        name: parameter k1
         newValue: "1.1"
         target:
           _type: SedTarget

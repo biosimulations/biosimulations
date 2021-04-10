@@ -162,7 +162,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       modelNamespaces: this.formBuilder.array([], {
         validators: [this.uniqueAttributeValidator.bind(this, 'prefix')],
       }),
-      modelChanges: this.formBuilder.array([]),
+      modelChanges: this.formBuilder.array([], {
+        validators: [this.uniqueAttributeValidator.bind(this, 'id')],
+      }),
       modelingFramework: [null, Validators.required],
       simulationType: [null, Validators.required],
       oneStepSimulationParameters: this.formBuilder.group({
@@ -334,8 +336,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const values = (formArray as FormArray).value as any[];
 
     const uniqueValues = new Set<string>(
-      values.map((variable: any): string => {
-        return variable[attrName];
+      values.map((value: any): string => {
+        return value?.[attrName];
       })
     );
 
@@ -484,8 +486,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       const changeVals: any[] = [];
       const varVals: any[] = [];
 
-      sedDoc.models[0].changes
-        .forEach((change: any): void => {
+      sedDoc?.models?.[0]?.changes
+        ?.forEach((change: any): void => {
           change.target.namespaces.forEach((ns: any): void => {
             const prefixKey = ns.prefix || '';
             if (!(prefixKey in nsMap)) {
@@ -497,15 +499,18 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
             };
           });
 
+          this.addModelChange();
           changeVals.push({
             target: change.target.value,
+            id: change.id,
+            name: change?.name || null,
             default: change.newValue,
             newValue: null,
           });
         });
 
-      sedDoc.dataGenerators
-        .forEach((dataGen: any): void => {
+      sedDoc?.dataGenerators
+        ?.forEach((dataGen: any): void => {
           const modelVar = dataGen.variables[0];
 
           modelVar?.target?.namespaces?.forEach((ns: any): void => {
@@ -534,7 +539,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       });
 
       changeVals.sort((a, b): number => {
-        return a.target.localeCompare(b.target, undefined, { numeric: true });
+        return a.id.localeCompare(b.id, undefined, { numeric: true });
       });
 
       varVals.sort((a, b): number => {
@@ -864,11 +869,15 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
   addModelChange(): void {
     const modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
-    modelChangesArray.push(this.formBuilder.group({
+    const modelChange = this.formBuilder.group({
+      id: [null, [this.sedmlIdValidator]],
+      name: [null, []],
       target: [null, [Validators.required]],
       default: [null, []],
       newValue: [null, []],
-    }));
+    });
+    modelChange.controls.default.disable();
+    modelChangesArray.push(modelChange);
   }
 
   removeModelChange(iChange: number): void {
@@ -1149,15 +1158,20 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     modelChangesArray.controls.forEach((control: AbstractControl): void => {
       const formVar = control.value;
       if (formVar.newValue) {
-        model.changes.push({
+        const change: any = {
           _type: 'SedModelAttributeChange',
+          id: formVar.id,
           target: {
             _type: 'SedTarget',
             value: formVar.target,
             namespaces: targetNamespaces,
           },
           newValue: formVar.newValue,
-        });
+        };
+        if (formVar.name) {
+          change['name'] = formVar.name;
+        }
+        model.changes.push(change);
       }
     });
 

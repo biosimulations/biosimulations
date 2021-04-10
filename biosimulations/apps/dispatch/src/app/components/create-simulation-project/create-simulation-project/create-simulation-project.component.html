@@ -1,4 +1,19 @@
-<biosimulations-page heading="Create a simulation project">
+<biosimulations-page
+  heading="Create a simulation project (COMBINE/OMEX archive with a SED-ML file) for a model "
+>
+  <div class="instructions">
+    <p>Use the form below to create a COMBINE/OMEX archive for simulating a model. This archive will contain your model and a SED-ML file generated from the form below. You can then use runBioSimulations to execute your archive, or you can download the archive.</p>
+
+    <ol>
+      <li>Upload a file for a model or enter a URL where a model file is located.</li>
+      <li>Select the format of the model.</li>
+      <li>Select the type of simulation that you'd like to execute (e.g., steady-state, time course) and configure its parameters (e.g., start time, end time).</li>
+      <li>Select the algorithm that you'd like to use to execute the simulation and configure its parameters (e.g., error tolerance, seed).</li>
+      <li>Describe the namespaces needed to describe changes to your model and observables of your simulation. This information will be pre-populated for SBML-encoded models.</li>
+      <li>Describe any attributes of your model that you'd like to change such as its initial conditions. For SBML-encoded, this will be pre-populated with initial conditions and kinetic parameters that can be modified.</li>
+      <li>Describe the simulation predictions that you'd like to record. For SBML-encoded models, this will be pre-populated with variables that can be recorded.</li>
+    </ol>
+  </div>
   <form [formGroup]="formGroup">
     <div class="form-section">
       <div class="form-section-head">
@@ -204,7 +219,7 @@
               />
             </mat-form-field>
           </div>
-          <mat-hint>Enter the initial time of the simulation, the time when the simulation should terminate, the first time when output should be recorded, and the number of steps that should be recorded between the output start time and the termination time.</mat-hint>
+          <mat-hint>Enter the initial time of the simulation, the time when the simulation should terminate, the first time when output should be recorded, and the number of steps that should be recorded between the output start and termination times.</mat-hint>
           <mat-error *ngIf="(formGroup.get('uniformTimeCourseSimulationParameters')?.get('initialTime')?.touched || submitPushed) && formGroup.hasError('float', 'uniformTimeCourseSimulationParameters.initialTime')">The initial time must be a float.</mat-error>
           <mat-error *ngIf="(formGroup.get('uniformTimeCourseSimulationParameters')?.get('outputEndTime')?.touched || submitPushed) && formGroup.hasError('float', 'uniformTimeCourseSimulationParameters.outputEndTime')">The output end time must be a float.</mat-error>
           <mat-error *ngIf="(formGroup.get('uniformTimeCourseSimulationParameters')?.get('outputStartTime')?.touched || submitPushed) && formGroup.hasError('float', 'uniformTimeCourseSimulationParameters.outputStartTime')">The output start time must be a float.</mat-error>
@@ -368,7 +383,7 @@
         </div>
         <div>
           <div class="form-section-title">Model changes</div>
-          <div class="form-section-subtitle">Describe of any changes that should be applied to the attributes of your model.</div>
+          <div class="form-section-subtitle">Describe changes that should be applied to the attributes of your model, such as to its initial conditions or kinetic parameters.</div>
         </div>
       </div>
       <div class="form-section-body">
@@ -380,6 +395,8 @@
             <div class="label-input">
               <mat-label>Enter the target for each change and the value it should be set to.</mat-label>
               <div class="input model-changes">
+                <div class="input-heading">Id *</div>
+                <div class="input-heading">Name</div>
                 <div class="input-heading">Target *</div>
                 <div class="input-heading">Default</div>
                 <div class="input-heading">New value</div>
@@ -401,11 +418,29 @@
                   <div class="input-row">
                     <input
                       matInput
+                      formControlName="id"
+                      [ngClass]="{error: (change.get('id')?.touched || submitPushed) && change.hasError('validSedmlId', 'id')}"
+                    />
+                  </div>
+                  <div class="input-row">
+                    <input
+                      matInput
+                      formControlName="name"
+                    />
+                  </div>
+                  <div class="input-row">
+                    <input
+                      matInput
                       formControlName="target"
                       [ngClass]="{error: (change.get('target')?.touched || submitPushed) && change.hasError('required', 'target')}"
                     />
                   </div>
-                  <div class="input-row input-label">{{ change.value.default }}</div>
+                  <div class="input-row">
+                    <input
+                      matInput
+                      formControlName="default"
+                    />
+                  </div>
                   <div class="input-row">
                     <input
                       matInput
@@ -426,8 +461,13 @@
               </div>
             </div>
           </div>
-          <mat-hint>Describe the changes that should be applied to the attributes of your model (e.g., set the value of target <code>/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value</code> to the new value <code>2.1</code>). For XML-based model languages such as SBML, targets should be XPATHs to XML attributes.</mat-hint>
+          <mat-hint>
+            <p>Describe the changes that should be applied to the attributes of your model (e.g., set the value of target <code>/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value</code> to the new value <code>2.1</code>). For XML-based model languages such as SBML, targets should be XPATHs to XML attributes.</p>
+            <p>Note, the ids and names data will not be exported to SED-ML because these attributes are not supported by SED-ML L1V3. Once simulation tools update to SED-ML L1V4, we will export this information to SED-ML.</p>
+            <p>Note, the default value of each attribute is provided as a reference. This information will not be encoded into the generated SED-ML document.</p>
+          </mat-hint>
           <mat-error *ngIf="(modelChangesArray.touched || submitPushed) && modelChangesArray.invalid">One or more properties of one or more changes invalid.</mat-error>
+          <mat-error *ngIf="(modelChangesArray.touched || submitPushed) && modelChangesArray.hasError('idUnique')">The ids of the changes must be unique.</mat-error>
         </div>
       </div>
     </div>
@@ -541,7 +581,7 @@
           <div class="icon-label-input" *ngIf="compatibleSimulators?.length">
             <biosimulations-icon icon="simulator" matPrefix></biosimulations-icon>
             <div class="label-input">
-              <mat-label>Below are simulation tools which likely can execute your simulation:</mat-label>
+              <mat-label>Based on the information about, below are simulation tools which likely can execute your simulation:</mat-label>
               <div class="input simulators">
                 <div class="input-heading">Name</div>
                 <div class="input-heading more-info">More info</div>
