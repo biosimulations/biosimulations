@@ -182,6 +182,9 @@ export class VisualizationService {
   public getSpecsOfSedPlotsInCombineArchive(
     runId: string,
   ): Observable<CombineArchive> {
-    return of<CombineArchive>({ contents: [] });
+    return of<CombineArchive>({ 
+      _type: 'CombineArchive',
+      contents: [] 
+    });
   }
 }

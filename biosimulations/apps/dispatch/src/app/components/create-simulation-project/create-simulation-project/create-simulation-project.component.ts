@@ -97,6 +97,7 @@ type PostCreateAction = 'download' | 'simulate';
 export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   modelNamespacesArray: FormArray;
+  modelChangesArray: FormArray;
   simulationAlgorithmParametersArray: FormArray;
   modelVariablesArray: FormArray;
 
@@ -136,6 +137,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
   modelFileTypeSpecifiers = '.xml,.sbml,application/xml,application/sbml+xml,.bngl'
   private static INIT_MODEL_NAMESPACES = 1;
+  private static INIT_MODEL_CHANGES = 3;
   private static INIT_MODEL_VARIABLES = 5;
   exampleModelUrl = 'https://raw.githubusercontent.com/biosimulators/Biosimulators_utils/dev/tests/fixtures/BIOMD0000000297.xml';
 
@@ -143,7 +145,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   projectBeingCreated = false;
 
   private subscriptions: Subscription[] = [];
-  private modelVariablesSubscription: Subscription | undefined = undefined;
+  private modelParametersAndVariablesSubscription: Subscription | undefined = undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -156,10 +158,11 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group({
       modelLocationType: [LocationType.file, Validators.required],
       modelLocationDetails: [null],
+      modelFormat: [null, Validators.required],
       modelNamespaces: this.formBuilder.array([], {
         validators: [this.uniqueAttributeValidator.bind(this, 'prefix')],
       }),
-      modelFormat: [null, Validators.required],
+      modelChanges: this.formBuilder.array([]),
       modelingFramework: [null, Validators.required],
       simulationType: [null, Validators.required],
       oneStepSimulationParameters: this.formBuilder.group({
@@ -188,11 +191,15 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
     const simulationAlgorithmControl = this.formGroup.controls.simulationAlgorithm as FormControl;
     this.modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
+    this.modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
     this.simulationAlgorithmParametersArray = this.formGroup.controls.simulationAlgorithmParameters as FormArray;
     this.modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
 
     while (this.modelNamespacesArray.controls.length < CreateSimulationProjectComponent.INIT_MODEL_NAMESPACES) {
       this.addModelNamespace();
+    }
+    while (this.modelChangesArray.controls.length < CreateSimulationProjectComponent.INIT_MODEL_CHANGES) {
+      this.addModelChange();
     }
     while (this.modelVariablesArray.controls.length < CreateSimulationProjectComponent.INIT_MODEL_VARIABLES) {
       this.addModelVariable();
@@ -401,15 +408,15 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       this.formGroup.setControl('modelLocationDetails', this.formBuilder.control('', [this.urlValidator]));
     }
 
-    this.getModelVariables();
+    this.getModelParametersAndVariables();
   }
 
-  getModelVariables(): void {
-    if (this.modelVariablesSubscription) {
-      this.modelVariablesSubscription.unsubscribe();
-      const iSub = this.subscriptions.indexOf(this.modelVariablesSubscription);
+  getModelParametersAndVariables(): void {
+    if (this.modelParametersAndVariablesSubscription) {
+      this.modelParametersAndVariablesSubscription.unsubscribe();
+      const iSub = this.subscriptions.indexOf(this.modelParametersAndVariablesSubscription);
       this.subscriptions.splice(iSub, 1);
-      this.modelVariablesSubscription = undefined;
+      this.modelParametersAndVariablesSubscription = undefined;
     }
 
     const modelLocationTypeControl = this.formGroup.controls.modelLocationType as FormControl;
@@ -437,6 +444,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     }
 
     const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
+    const modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
     const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
 
     const formData = new FormData();
@@ -450,8 +458,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     formData.append('simulationType', simulationType);
     formData.append('simulationAlgorithm', simulationAlgorithm);
 
-    const url = `${urls.combineApi}sed-ml/get-variables-for-simulation`;
-    const modelVars = this.http.post<any[]>(url, formData)
+    const url = `${urls.combineApi}sed-ml/get-parameters-variables-for-simulation`;
+    const sedDoc = this.http.post<any>(url, formData)
       .pipe(
           catchError(
             (error: HttpErrorResponse): Observable<any[]> => {
@@ -467,15 +475,39 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
             },
           ),
         );
-    const modelVariablesSubscription = modelVars.subscribe((modelVars: any[]): void => {
+    const modelParametersAndVariablesSubscription = sedDoc.subscribe((sedDoc: any): void => {
       modelNamespacesArray.clear();
+      modelChangesArray.clear();
       modelVariablesArray.clear();
 
       const nsMap: {[prefix: string]: {prefix: string | null, uri: string}} = {};
+      const changeVals: any[] = [];
       const varVals: any[] = [];
 
-      modelVars
-        .forEach((modelVar: any): void => {
+      sedDoc.models[0].changes
+        .forEach((change: any): void => {
+          change.target.namespaces.forEach((ns: any): void => {
+            const prefixKey = ns.prefix || '';
+            if (!(prefixKey in nsMap)) {
+              this.addModelNamespace();
+            }
+            nsMap[prefixKey] = {
+              prefix: ns?.prefix || null,
+              uri: ns.uri,
+            };
+          });
+
+          changeVals.push({
+            target: change.target.value,
+            default: change.newValue,
+            newValue: null,
+          });
+        });
+
+      sedDoc.dataGenerators
+        .forEach((dataGen: any): void => {
+          const modelVar = dataGen.variables[0];
+
           modelVar?.target?.namespaces?.forEach((ns: any): void => {
             const prefixKey = ns.prefix || '';
             if (!(prefixKey in nsMap)) {
@@ -501,6 +533,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         return (a.prefix || '').localeCompare((b.prefix || ''), undefined, { numeric: true });
       });
 
+      changeVals.sort((a, b): number => {
+        return a.target.localeCompare(b.target, undefined, { numeric: true });
+      });
+
       varVals.sort((a, b): number => {
         if (a.type === b.type) {
           return a.id.localeCompare(b.id, undefined, { numeric: true });
@@ -510,10 +546,11 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       });
 
       modelNamespacesArray.setValue(nsVals);
+      modelChangesArray.setValue(changeVals);
       modelVariablesArray.setValue(varVals);
     });
-    this.modelVariablesSubscription = modelVariablesSubscription;
-    this.subscriptions.push(modelVariablesSubscription);
+    this.modelParametersAndVariablesSubscription = modelParametersAndVariablesSubscription;
+    this.subscriptions.push(modelParametersAndVariablesSubscription);
   }
 
   changeModelFormat(): void {
@@ -799,7 +836,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         }));
       });
 
-    this.getModelVariables();
+    this.getModelParametersAndVariables();
   }
 
   private setIntersection(a: Set<string>, b: Set<string>): Set<string> {
@@ -823,6 +860,20 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   removeModelNamespace(iNamespace: number): void {
     const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
     modelNamespacesArray.removeAt(iNamespace);
+  }
+
+  addModelChange(): void {
+    const modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
+    modelChangesArray.push(this.formBuilder.group({
+      target: [null, [Validators.required]],
+      default: [null, []],
+      newValue: [null, []],
+    }));
+  }
+
+  removeModelChange(iChange: number): void {
+    const modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
+    modelChangesArray.removeAt(iChange);
   }
 
   addModelVariable(): void {
@@ -1021,18 +1072,20 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   }
 
   private getArchiveSpecs(): any {
-    const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
     const modelFormatControl = this.formGroup.controls.modelFormat as FormControl;
+    const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
+    const modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
     const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
     const simulationAlgorithmControl = this.formGroup.controls.simulationAlgorithm as FormControl;
     const simulationAlgorithmParametersArray = this.formGroup.controls.simulationAlgorithmParameters as FormArray;
     const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
 
-    const model = {
+    const model: any = {
       _type: 'SedModel',
       id: 'model',
       language: modelFormatMetaData[modelFormatControl.value].sedUrn,
       source: 'model.' + modelFormatMetaData[modelFormatControl.value].extension,
+      changes: [],
     };
 
     const simulation: any = {
@@ -1093,6 +1146,21 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       return nsObj;
     });
 
+    modelChangesArray.controls.forEach((control: AbstractControl): void => {
+      const formVar = control.value;
+      if (formVar.newValue) {
+        model.changes.push({
+          _type: 'SedModelAttributeChange',
+          target: {
+            _type: 'SedTarget',
+            value: formVar.target,
+            namespaces: targetNamespaces,
+          },
+          newValue: formVar.newValue,
+        });
+      }
+    });
+
     modelVariablesArray.controls.forEach((control: AbstractControl): void => {
       const formVar = control.value;
       const sedVar: any = {
@@ -1107,7 +1175,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         sedVar['symbol'] = formVar.symbolOrTarget;
       } else {
         sedVar['target'] = {
-          _type: "SedVariableTarget",
+          _type: "SedTarget",
           value: formVar.symbolOrTarget,
           namespaces: targetNamespaces,
         };
@@ -1162,7 +1230,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         _type: 'CombineArchiveContentUrl',
         url: this.formGroup.value.modelLocationDetails,
       };
-    }  
+    }
 
     return {
       _type: 'CombineArchive',

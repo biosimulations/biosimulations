@@ -112,14 +112,11 @@ class HandlersTestCase(unittest.TestCase):
         result = self.response_validator.validate(request, response)
         result.raise_for_errors()
 
-    def test_get_variables_for_simulation_from_file(self):
-        endpoint = '/sed-ml/get-variables-for-simulation'
+    def test_get_parameters_variables_for_simulation_from_file(self):
+        endpoint = '/sed-ml/get-parameters-variables-for-simulation'
 
         model_filename = os.path.abspath(os.path.join(self.FIXTURES_DIR, 'Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.xml'))
         model_fid = open(model_filename, 'rb')
-
-        with open(os.path.join(self.FIXTURES_DIR, 'task.json'), 'rb') as file:
-            task_specs = json.load(file)
 
         data = MultiDict([
             ('modelLanguage', 'urn:sedml:language:sbml'),
@@ -133,8 +130,11 @@ class HandlersTestCase(unittest.TestCase):
 
         model_fid.close()
 
+        print(response.json)
+
         self.assertEqual(response.status_code, 200)
-        vars = response.json
+        sed_doc = response.json
+        vars = [data_gen['variables'][0] for data_gen in sed_doc['dataGenerators']]
 
         self.assertEqual(vars[0]['id'], 'time')
         self.assertEqual(vars[0]['name'], 'Time')
@@ -149,7 +149,7 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(
             vars[-1]['target'],
             {
-                "_type": "SedVariableTarget",
+                "_type": "SedTarget",
                 "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='nik']",
                 "namespaces": [
                     {"_type": "Namespace", "prefix": "qual", "uri": "http://www.sbml.org/sbml/level3/version1/qual/version1"},
@@ -177,20 +177,17 @@ class HandlersTestCase(unittest.TestCase):
         result = self.request_validator.validate(request)
         result.raise_for_errors()
 
-        response = OpenAPIResponse(data=json.dumps(vars),
+        response = OpenAPIResponse(data=json.dumps(sed_doc),
                                    status_code=200,
                                    mimetype='application/json')
         result = self.response_validator.validate(request, response)
         result.raise_for_errors()
 
-    def test_get_variables_for_simulation_from_url(self):
-        endpoint = '/sed-ml/get-variables-for-simulation'
+    def test_get_parameters_variables_for_simulation_from_url(self):
+        endpoint = '/sed-ml/get-parameters-variables-for-simulation'
 
         model_filename = os.path.abspath(os.path.join(self.FIXTURES_DIR, 'Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.xml'))
         model_fid = open(model_filename, 'rb')
-
-        with open(os.path.join(self.FIXTURES_DIR, 'task.json'), 'rb') as file:
-            task_specs = json.load(file)
 
         model_url = 'http://models.org/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.xml'
 
@@ -212,7 +209,8 @@ class HandlersTestCase(unittest.TestCase):
         model_fid.close()
 
         self.assertEqual(response.status_code, 200)
-        vars = response.json
+        sed_doc = response.json
+        vars = [data_gen['variables'][0] for data_gen in sed_doc['dataGenerators']]
 
         self.assertEqual(vars[0]['id'], 'time')
         self.assertEqual(vars[0]['name'], 'Time')
@@ -227,7 +225,7 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(
             vars[-1]['target'],
             {
-                "_type": "SedVariableTarget",
+                "_type": "SedTarget",
                 "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='nik']",
                 "namespaces": [
                     {"_type": "Namespace", "prefix": "qual", "uri": "http://www.sbml.org/sbml/level3/version1/qual/version1"},
@@ -255,7 +253,7 @@ class HandlersTestCase(unittest.TestCase):
         result = self.request_validator.validate(request)
         result.raise_for_errors()
 
-        response = OpenAPIResponse(data=json.dumps(vars),
+        response = OpenAPIResponse(data=json.dumps(sed_doc),
                                    status_code=200,
                                    mimetype='application/json')
         result = self.response_validator.validate(request, response)
@@ -311,6 +309,15 @@ class HandlersTestCase(unittest.TestCase):
         sed_doc_specs = archive_specs['contents'][2]['location']['value']
         self.assertEqual(sed_doc.level, sed_doc_specs['level'])
         self.assertEqual(sed_doc.version, sed_doc_specs['version'])
+
+        self.assertEqual(sed_doc.tasks[0].model, sed_doc.models[0])
+        self.assertEqual(len(sed_doc.models[0].changes), 2)
+        self.assertEqual(sed_doc.models[0].changes[0].target,
+                         "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value")
+        self.assertEqual(sed_doc.models[0].changes[0].new_value, '1.2')
+        self.assertEqual(sed_doc.models[0].changes[0].target_namespaces, {
+            'sbml': 'http://www.sbml.org/sbml/level3/version1/core'
+        })
 
         self.assertEqual(sed_doc.tasks[0].simulation.algorithm.changes[0].kisao_id, 'KISAO_0000488')
         self.assertEqual(sed_doc.tasks[0].simulation.algorithm.changes[0].new_value, '10')

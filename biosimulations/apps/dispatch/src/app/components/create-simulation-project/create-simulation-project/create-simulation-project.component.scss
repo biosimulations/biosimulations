@@ -5,6 +5,9 @@
     .input.model-namespaces {
       grid-template-columns: 1fr 3fr auto;
     }
+    .input.model-changes {
+      grid-template-columns: 3fr 1fr 1fr auto;
+    }
     .input.algorithm-parameters {
       grid-template-columns: auto auto auto auto auto auto minmax(200px, auto);
     }

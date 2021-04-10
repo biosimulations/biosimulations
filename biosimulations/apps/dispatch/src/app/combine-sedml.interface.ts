@@ -1,8 +1,18 @@
+export interface SedModelAttributeChange {
+  _type: 'SedModelAttributeChange';
+  target: string;
+  newValue: string;
+}
+
+type SedModelChange = SedModelAttributeChange;
+
 export interface SedModel {
+  _type: 'SedModel';
   id: string;
   name: string | null;
   language: string;
   source: string;
+  changes: SedModelChange[];
 }
 
 export interface SedUniformTimeCourseSimulation {
@@ -47,6 +57,7 @@ export interface SedRepeatedTask {
 export type SedAbstractTask = SedTask | SedRepeatedTask;
 
 export interface SedVariable {
+  _type: 'SedVariable';
   id: string;
   name: string | null;
   symbol: string | null;
@@ -55,6 +66,7 @@ export interface SedVariable {
 }
 
 export interface SedDataGenerator {
+  _type: 'SedDataGenerator';
   id: string;
   name: string | null;
   variables: SedVariable[];
@@ -63,6 +75,7 @@ export interface SedDataGenerator {
 }
 
 export interface SedDataSet {
+  _type: 'SedDataSet';
   id: string;
   dataGenerator: SedDataGenerator;
   name: string | null;
@@ -88,6 +101,7 @@ export enum SedAxisScale {
 }
 
 export interface SedCurve {
+  _type: 'SedCurve';
   id: string;
   name: string | null;
   xDataGenerator: SedDataGenerator;
@@ -104,6 +118,7 @@ export interface SedPlot2D {
 }
 
 export interface SedSurface {
+  _type: 'SedSurface';
   id: string;
   name: string | null;
   xDataGenerator: SedDataGenerator;
@@ -124,6 +139,7 @@ export interface SedPlot3D {
 export type SedOutput = SedReport | SedPlot2D | SedPlot3D;
 
 export interface SedDocument {
+  _type: 'SedDocument';
   level: number;
   version: number;
   models: SedModel[];
@@ -134,16 +150,19 @@ export interface SedDocument {
 }
 
 export interface CombineArchiveLocation {
+  _type: 'CombineArchiveLocation';
   path: string;
   value: SedDocument;
 }
 
 export interface CombineArchiveContent {
+  _type: 'CombineArchiveContent';
   location: CombineArchiveLocation;
   format: string;
   master: boolean;
 }
 
 export interface CombineArchive {
+  _type: 'CombineArchive';
   contents: CombineArchiveContent[];
 }

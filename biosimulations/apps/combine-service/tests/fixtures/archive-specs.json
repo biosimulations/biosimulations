@@ -39,7 +39,33 @@
                         "_type": "SedModel",
                         "id": "model",
                         "language": "urn:sedml:language:sbml",
-                        "source": "model.xml"
+                        "source": "model.xml",
+                        "changes": [{
+                                "_type": "SedModelAttributeChange",
+                                "target": {
+                                    "_type": "SedTarget",
+                                    "value": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value",
+                                    "namespaces": [{
+                                        "_type": "Namespace",
+                                        "prefix": "sbml",
+                                        "uri": "http://www.sbml.org/sbml/level3/version1/core"
+                                    }]
+                                },
+                                "newValue": "1.2"
+                            },
+                            {
+                                "_type": "SedModelAttributeChange",
+                                "target": {
+                                    "_type": "SedTarget",
+                                    "value": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k2']/@value",
+                                    "namespaces": [{
+                                        "_type": "Namespace",
+                                        "prefix": "sbml",
+                                        "uri": "http://www.sbml.org/sbml/level3/version1/core"
+                                    }]
+                                },
+                                "newValue": "2.1"
+                            }]
                     }],
                     "simulations": [{
                         "_type": "SedUniformTimeCourseSimulation",
@@ -65,7 +91,8 @@
                             "_type": "SedModel",
                             "id": "model",
                             "language": "urn:sedml:language:sbml",
-                            "source": "model.xml"
+                            "source": "model.xml",
+                            "changes": []
                         },
                         "simulation": {
                             "_type": "SedUniformTimeCourseSimulation",
@@ -98,7 +125,8 @@
                                     "_type": "SedModel",
                                     "id": "model",
                                     "language": "urn:sedml:language:sbml",
-                                    "source": "model.xml"
+                                    "source": "model.xml",
+                                    "changes": []
                                 },
                                 "simulation": {
                                     "_type": "SedUniformTimeCourseSimulation",
@@ -119,7 +147,7 @@
                                 }
                             },
                             "target": {
-                                "_type": "SedVariableTarget",
+                                "_type": "SedTarget",
                                 "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
                                 "namespaces": [{
                                         "_type": "Namespace",
@@ -157,7 +185,8 @@
                                                 "_type": "SedModel",
                                                 "id": "model",
                                                 "language": "urn:sedml:language:sbml",
-                                                "source": "model.xml"
+                                                "source": "model.xml",
+                                                "changes": []
                                             },
                                             "simulation": {
                                                 "_type": "SedUniformTimeCourseSimulation",
@@ -178,7 +207,7 @@
                                             }
                                         },
                                         "target": {
-                                            "_type": "SedVariableTarget",
+                                            "_type": "SedTarget",
                                             "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
                                             "namespaces": [{
                                                     "_type": "Namespace",
@@ -219,7 +248,8 @@
                                                 "_type": "SedModel",
                                                 "id": "model",
                                                 "language": "urn:sedml:language:sbml",
-                                                "source": "model.xml"
+                                                "source": "model.xml",
+                                                "changes": []
                                             },
                                             "simulation": {
                                                 "_type": "SedUniformTimeCourseSimulation",
@@ -240,7 +270,7 @@
                                             }
                                         },
                                         "target": {
-                                            "_type": "SedVariableTarget",
+                                            "_type": "SedTarget",
                                             "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
                                             "namespaces": [{
                                                     "_type": "Namespace",
@@ -271,7 +301,8 @@
                                                 "_type": "SedModel",
                                                 "id": "model",
                                                 "language": "urn:sedml:language:sbml",
-                                                "source": "model.xml"
+                                                "source": "model.xml",
+                                                "changes": []
                                             },
                                             "simulation": {
                                                 "_type": "SedUniformTimeCourseSimulation",
@@ -292,7 +323,7 @@
                                             }
                                         },
                                         "target": {
-                                            "_type": "SedVariableTarget",
+                                            "_type": "SedTarget",
                                             "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
                                             "namespaces": [{
                                                     "_type": "Namespace",
@@ -334,7 +365,8 @@
                                                 "_type": "SedModel",
                                                 "id": "model",
                                                 "language": "urn:sedml:language:sbml",
-                                                "source": "model.xml"
+                                                "source": "model.xml",
+                                                "changes": []
                                             },
                                             "simulation": {
                                                 "_type": "SedUniformTimeCourseSimulation",
@@ -355,7 +387,7 @@
                                             }
                                         },
                                         "target": {
-                                            "_type": "SedVariableTarget",
+                                            "_type": "SedTarget",
                                             "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
                                             "namespaces": [{
                                                     "_type": "Namespace",
@@ -386,7 +418,8 @@
                                                 "_type": "SedModel",
                                                 "id": "model",
                                                 "language": "urn:sedml:language:sbml",
-                                                "source": "model.xml"
+                                                "source": "model.xml",
+                                                "changes": []
                                             },
                                             "simulation": {
                                                 "_type": "SedUniformTimeCourseSimulation",
@@ -407,7 +440,7 @@
                                             }
                                         },
                                         "target": {
-                                            "_type": "SedVariableTarget",
+                                            "_type": "SedTarget",
                                             "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
                                             "namespaces": [{
                                                     "_type": "Namespace",
@@ -438,7 +471,8 @@
                                                 "_type": "SedModel",
                                                 "id": "model",
                                                 "language": "urn:sedml:language:sbml",
-                                                "source": "model.xml"
+                                                "source": "model.xml",
+                                                "changes": []
                                             },
                                             "simulation": {
                                                 "_type": "SedUniformTimeCourseSimulation",
@@ -459,7 +493,7 @@
                                             }
                                         },
                                         "target": {
-                                            "_type": "SedVariableTarget",
+                                            "_type": "SedTarget",
                                             "value": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='x']",
                                             "namespaces": [{
                                                     "_type": "Namespace",

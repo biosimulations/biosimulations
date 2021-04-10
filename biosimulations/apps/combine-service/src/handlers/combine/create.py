@@ -10,6 +10,7 @@ from biosimulators_utils.combine.io import (
 from biosimulators_utils.sedml.data_model import (
     SedDocument,
     Model,
+    ModelAttributeChange,
     OneStepSimulation,
     SteadyStateSimulation,
     UniformTimeCourseSimulation,
@@ -175,6 +176,15 @@ def export_sed_doc(sed_doc_specs):
         )
         sed_doc.models.append(model)
         model_id_map[model.id] = model
+
+        for change_spec in model_spec['changes']:
+            change = ModelAttributeChange(
+                target=change_spec.get('target').get('value'),
+                new_value=change_spec.get('newValue'),
+            )
+            model.changes.append(change)
+            for ns in change_spec.get('namespaces', []):
+                change.target_namespaces[ns.get('prefix', None)] = ns['uri']
 
     # add simulations to SED document
     simulation_id_map = {}

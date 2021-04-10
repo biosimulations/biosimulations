@@ -94,7 +94,7 @@ paths:
         of a SED-ML document.
       description: Assemble a COMBINE/OMEX archive from model files and specifications
         of a SED-ML document.
-  /sed-ml/get-variables-for-simulation:
+  /sed-ml/get-parameters-variables-for-simulation:
     post:
       requestBody:
         description: Model file and specifications of a simulation task of the model.
@@ -110,9 +110,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SedVariable'
+                $ref: '#/components/schemas/SedDocument'
           description: Possible observables of a SED task as a list of SED data generators.
         "400":
           content:
@@ -127,7 +125,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.sed_ml.get_variables_for_simulation.handler
+      operationId: src.handlers.sed_ml.get_parameters_variables_for_simulation.handler
       summary: Get the possible observables of a simulation as a list of SED variables.
 components:
   schemas:
@@ -462,6 +460,7 @@ components:
       - language
       - source
       - _type
+      - changes
       type: object
       properties:
         id:
@@ -481,6 +480,11 @@ components:
           enum:
           - SedModel
           type: string
+        changes:
+          description: Changes to the model.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedModelChange'
     SedTask:
       description: A SED task.
       required:
@@ -639,7 +643,7 @@ components:
           $ref: '#/components/schemas/SedTask'
           description: Task.
         target:
-          $ref: '#/components/schemas/SedVariableTarget'
+          $ref: '#/components/schemas/SedTarget'
           description: "Target within a model (e.g., of a dependent variable such\
             \ as the concentration of a species)."
         symbol:
@@ -842,36 +846,6 @@ components:
           items:
             $ref: '#/components/schemas/File'
       x-body-name: body
-    SedVariableTarget:
-      description: Target of a variable.
-      required:
-      - _type
-      - value
-      type: object
-      properties:
-        _type:
-          description: Type.
-          enum:
-          - SedVariableTarget
-          type: string
-        value:
-          description: Value.
-          type: string
-        namespaces:
-          description: Namespaces
-          type: array
-          items:
-            $ref: '#/components/schemas/Namespace'
-      example:
-        _type: SedVariableTarget
-        value: "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='erk']"
-        namespaces:
-        - prefix: sbml
-          uri: http://www.sbml.org/sbml/level3/version1/core
-          _type: Namespace
-        - prefix: qual
-          uri: http://www.sbml.org/sbml/level3/version1/qual/version1
-          _type: Namespace
     Namespace:
       description: Namespace
       required:
@@ -995,6 +969,72 @@ components:
       example:
         _type: CombineArchiveContentFile
         filename: model.xml
+    SedModelAttributeChange:
+      description: A SED model attribute change.
+      required:
+      - _type
+      - newValue
+      - target
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - SedModelAttributeChange
+          type: string
+        newValue:
+          description: New value.
+          type: string
+        target:
+          $ref: '#/components/schemas/SedTarget'
+          description: Target
+      example:
+        _type: SedModelAttributeChange
+        newValue: "1.1"
+        target:
+          _type: SedTarget
+          value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value"
+          namespaces:
+          - prefix: sbml
+            uri: http://www.sbml.org/sbml/level3/version1/core
+            _type: Namespace
+    SedModelChange:
+      oneOf:
+      - $ref: '#/components/schemas/SedModelAttributeChange'
+      discriminator:
+        propertyName: _type
+      description: A SED model change.
+      type: object
+    SedTarget:
+      description: Target of a variable.
+      required:
+      - _type
+      - value
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - SedTarget
+          type: string
+        value:
+          description: Value.
+          type: string
+        namespaces:
+          description: Namespaces
+          type: array
+          items:
+            $ref: '#/components/schemas/Namespace'
+      example:
+        _type: SedTarget
+        value: "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='erk']"
+        namespaces:
+        - prefix: sbml
+          uri: http://www.sbml.org/sbml/level3/version1/core
+          _type: Namespace
+        - prefix: qual
+          uri: http://www.sbml.org/sbml/level3/version1/qual/version1
+          _type: Namespace
   responses:
     "404":
       content:

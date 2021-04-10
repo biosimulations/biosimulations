@@ -34,7 +34,7 @@
                 [accept]="modelFileTypeSpecifiers"
                 [multiple]="false"
                 [required]="true"
-                (ngModelChange)="getModelVariables()"
+                (ngModelChange)="getModelParametersAndVariables()"
               ></ngx-mat-file-input>
             </mat-form-field>
 
@@ -46,7 +46,7 @@
                 matInput
                 formControlName="modelLocationDetails"
                 [placeholder]="exampleModelUrl"
-                (ngModelChange)="getModelVariables()"
+                (ngModelChange)="getModelParametersAndVariables()"
               />
             </mat-form-field>
 
@@ -276,7 +276,7 @@
                     <input
                       matInput
                       formControlName="newValue"
-                      [ngClass]="{error: param.hasError('invalid')}"
+                      [ngClass]="{error: (param.get('newValue')?.touched || submitPushed) && param.hasError('invalid')}"
                     />
                   </div>
                 </ng-container>
@@ -329,14 +329,14 @@
                     <input
                       matInput
                       formControlName="prefix"
-                      [ngClass]="{error: ns.hasError('validNamespacePrefix', 'prefix')}"
+                      [ngClass]="{error: (ns.get('prefix')?.touched || submitPushed) && ns.hasError('validNamespacePrefix', 'prefix')}"
                     />
                   </div>
                   <div class="input-row">
                     <input
                       matInput
                       formControlName="uri"
-                      [ngClass]="{error: ns.hasError('url', 'uri')}"
+                      [ngClass]="{error: (ns.get('uri')?.touched || submitPushed) && ns.hasError('url', 'uri')}"
                       required
                     />
                   </div>
@@ -357,6 +357,77 @@
           <mat-hint>Describe the namespaces needed to reference the parameters and variables of your model (e.g., <code>sbml</code>: <code>http://www.sbml.org/sbml/level2/version4</code> for SBML L2V4).</mat-hint>
           <mat-error *ngIf="(modelNamespacesArray.touched || submitPushed) && modelNamespacesArray.invalid && !modelNamespacesArray.hasError('prefixUnique')">One or more properties of one or more namespaces is invalid.</mat-error>
           <mat-error *ngIf="(modelNamespacesArray.touched || submitPushed) && modelNamespacesArray.hasError('prefixUnique')">The prefixes of the namespaces must be unique.</mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="location"></biosimulations-icon>
+        </div>
+        <div>
+          <div class="form-section-title">Model changes</div>
+          <div class="form-section-subtitle">Describe of any changes that should be applied to the attributes of your model.</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group"
+          formArrayName="modelChanges"
+        >
+          <div class="icon-label-input">
+            <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
+            <div class="label-input">
+              <mat-label>Enter the target for each change and the value it should be set to.</mat-label>
+              <div class="input model-changes">
+                <div class="input-heading">Target *</div>
+                <div class="input-heading">Default</div>
+                <div class="input-heading">New value</div>
+                <div class="input-heading">
+                  <button
+                      mat-icon-button
+                      class="biosimulations-button text"
+                      title="Add a change"
+                      (click)="addModelChange()"
+                    >
+                      <biosimulations-icon icon="new"></biosimulations-icon>
+                    </button>
+                </div>
+
+                <ng-container
+                  *ngFor="let change of modelChangesArray.controls; index as iModelChange"
+                  [formGroupName]="iModelChange"
+                >
+                  <div class="input-row">
+                    <input
+                      matInput
+                      formControlName="target"
+                      [ngClass]="{error: (change.get('target')?.touched || submitPushed) && change.hasError('required', 'target')}"
+                    />
+                  </div>
+                  <div class="input-row input-label">{{ change.value.default }}</div>
+                  <div class="input-row">
+                    <input
+                      matInput
+                      formControlName="newValue"
+                    />
+                  </div>
+                  <div class="input-row">
+                    <button
+                      mat-icon-button
+                      class="biosimulations-button text"
+                      title="Delete chanage"
+                      (click)="removeModelChange(iModelChange)"
+                    >
+                      <biosimulations-icon icon="trash"></biosimulations-icon>
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <mat-hint>Describe the changes that should be applied to the attributes of your model (e.g., set the value of target <code>/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value</code> to the new value <code>2.1</code>). For XML-based model languages such as SBML, targets should be XPATHs to XML attributes.</mat-hint>
+          <mat-error *ngIf="(modelChangesArray.touched || submitPushed) && modelChangesArray.invalid">One or more properties of one or more changes invalid.</mat-error>
         </div>
       </div>
     </div>
@@ -448,7 +519,7 @@
               </div>
             </div>
           </div>
-          <mat-hint>Describe the variables (e.g., time symbol <code>urn:sedml:symbol:time</code>, species target <code>/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']</code>) that should be recorded from your simulation and enter an unique id and, optionally, a descriptive name for each variable.</mat-hint>
+          <mat-hint>Describe the variables (e.g., time symbol <code>urn:sedml:symbol:time</code>, species target <code>/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']</code>) that should be recorded from your simulation and enter an unique id and, optionally, a descriptive name for each variable. For XML-based model languages such as SBML, targets should be XPATHs to XML attributes.</mat-hint>
           <mat-error *ngIf="modelVariablesArray.invalid && !modelVariablesArray.hasError('idUnique')">One or more properties of one or more variables is invalid.</mat-error>
           <mat-error *ngIf="(modelVariablesArray.touched || submitPushed) && modelVariablesArray.hasError('idUnique')">The ids of the variables must be unique.</mat-error>
         </div>
@@ -483,7 +554,7 @@
                   </div>
                   <div class="input-row"></div>
                 </ng-container>
-              </div>              
+              </div>
             </div>
           </div>
           <mat-hint *ngIf="formGroup.valid">Note, not all simulation tools have the capabilities to execute all possible simulations because most simulation tools do not support every aspect of modeling standards such as SBML and SED-ML. We are working to encourage developers to more fully support these standards and to catalog which features each tool supports so that we are better able to recommend simulation tools going forward.</mat-hint>

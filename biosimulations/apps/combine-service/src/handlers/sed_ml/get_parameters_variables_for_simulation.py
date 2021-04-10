@@ -5,7 +5,7 @@ from biosimulators_utils.sedml.data_model import (
     SteadyStateSimulation,
     UniformTimeCourseSimulation,
 )
-from biosimulators_utils.sedml.model_utils import get_variables_for_simulation
+from biosimulators_utils.sedml.model_utils import get_variables_for_simulation as get_parameters_variables_for_simulation
 import os
 import requests
 import requests.exceptions
@@ -25,7 +25,7 @@ def handler(body, modelFile=None):
         modelFile (:obj:`werkzeug.datastructures.FileStorage`): model file (e.g., SBML file)
 
     Returns:
-        :obj:`list` of ``#/components/schemas/SedVariable``
+        :obj:``#/components/schemas/SedDocument``
     """
     model_url = body.get('modelUrl', None)
     model_lang = body['modelLanguage']
@@ -76,7 +76,9 @@ def handler(body, modelFile=None):
         )  # pragma: no cover: unreachable due to schema validation
 
     try:
-        vars = get_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
+        vars = get_parameters_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
+        # TODO: get variables
+        params = []
     except Exception as exception:
         raise BadRequestException(
             title='Models of language `{}` are not supported with simulations of type `{}` and algorithm `{}`'.format(
@@ -85,26 +87,50 @@ def handler(body, modelFile=None):
         )  # pragma: no cover: unreachable due to schema validation
 
     # format SED variables for response
-    response_vars = []
+    response_data_gens = []
+    model = {
+        "_type": "SedModel",
+        "id": "model",
+        "language": model_lang,
+        "source": model_source,
+        "changes": [],
+    }
+    simulation = {
+        "_type": sim_type,
+        "id": "simulation",
+        "algorithm": {
+            "_type": "SedAlgorithm",
+            "kisaoId": alg_kisao_id,
+            "changes": [],
+        },
+    }
     task = {
         "_type": "SedTask",
         "id": "task",
-        "model": {
-            "_type": "SedModel",
-            "id": "model",
-            "language": model_lang,
-            "source": model_source,
-        },
-        "simulation": {
-            "_type": sim_type,
-            "id": "simulation",
-            "algorithm": {
-                "_type": "SedAlgorithm",
-                "kisaoId": alg_kisao_id,
-                "changes": [],
-            },
-        },
+        "model": model,
+        "simulation": simulation,
     }
+
+    for param in params:
+        change = {
+            "_type": "SedModelAttributeChange",
+            "target": {
+                "_type": "SedTarget",
+                "value": param.target,
+                "namespaces": [],
+            },
+            "newValue": param.new_value,
+        }
+        model['changes'].append()
+
+        for prefix, uri in param.target_namespaces.items():
+            ns = {
+                "_type": "Namespace",
+                "uri": uri,
+            }
+            if prefix:
+                ns['prefix'] = prefix
+            change['target']['namespaces'].append(ns)
 
     if sim_type == 'SedUniformTimeCourseSimulation':
         task["simulation"]["initialTime"] = 0
@@ -127,7 +153,7 @@ def handler(body, modelFile=None):
             response_var['symbol'] = var.symbol
         if var.target:
             response_var['target'] = {
-                "_type": "SedVariableTarget",
+                "_type": "SedTarget",
                 "value": var.target,
             }
             if var.target_namespaces:
@@ -141,6 +167,26 @@ def handler(body, modelFile=None):
                         ns['prefix'] = prefix
                     response_var['target']['namespaces'].append(ns)
 
-        response_vars.append(response_var)
+        response_data_gen = {
+            "_type": "SedDataGenerator",
+            "id": "data_generator_" + var.id,
+            "variables": [response_var],
+            "math": response_var['id'],
+        }
+        if var.name:
+            response_data_gen['name'] = var.name
 
-    return response_vars
+        response_data_gens.append(response_data_gen)
+
+    response_doc = {
+        "_type": "SedDocument",
+        "level": 1,
+        "version": 3,
+        "models": [model],
+        "simulations": [simulation],
+        "tasks": [task],
+        "dataGenerators": response_data_gens,
+        "outputs": [],
+    }
+
+    return response_doc
