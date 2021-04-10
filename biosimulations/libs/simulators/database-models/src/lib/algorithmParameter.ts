@@ -2,9 +2,11 @@ import {
   ValueType,
   AlgorithmParameter as IAlgorithmParameter,
   SoftwareInterfaceType,
+  Ontologies,
 } from '@biosimulations/datamodel/common';
 import { KisaoOntologyIdSchema } from './ontologyId';
 import { IKisaoOntologyId } from '@biosimulations/datamodel/common';
+import { OntologiesService } from '@biosimulations/ontology/ontologies'
 import { UtilsService } from '@biosimulations/shared/services';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
@@ -67,8 +69,12 @@ export const AlgorithmParameterSchema = SchemaFactory.createForClass(
 AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
   const type: ValueType = doc.get('type');
 
+  const isKisaoId = (id: string): boolean => {
+    return OntologiesService.isTermId(Ontologies.KISAO, id);
+  };
+
   const value: string | null = doc.get('value');
-  if (value != null && !UtilsService.validateValue(value, type)) {
+  if (value != null && !UtilsService.validateValue(value, type, isKisaoId)) {
     doc.invalidate('value', `value '${value}' must be an instance of ${type}`);
   }
 
@@ -76,7 +82,7 @@ AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
   if (recommendedRange != null) {
     for (let iRange = 0; iRange < recommendedRange.length; iRange++) {
       const value = recommendedRange[iRange];
-      if (!UtilsService.validateValue(value, type)) {
+      if (!UtilsService.validateValue(value, type, isKisaoId)) {
         doc.invalidate(
           `recommendedRange/${iRange}`,
           `element of recommendedRange '${value}' must be an instance of ${type}`,
