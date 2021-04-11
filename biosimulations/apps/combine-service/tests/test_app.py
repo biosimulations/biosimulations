@@ -66,7 +66,7 @@ class HandlersTestCase(unittest.TestCase):
                 archive_url)
             with app.app.app.test_client() as client:
                 response = client.get(endpoint)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200, response.json)
         combine_specs = response.json
 
         sed_output_specs_filename = os.path.join(
@@ -136,7 +136,7 @@ class HandlersTestCase(unittest.TestCase):
 
         model_fid.close()
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200, response.json)
         sed_doc = response.json
         vars = [data_gen['variables'][0] for data_gen in sed_doc['dataGenerators']]
 
@@ -212,7 +212,7 @@ class HandlersTestCase(unittest.TestCase):
 
         model_fid.close()
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200, response.json)
         sed_doc = response.json
         vars = [data_gen['variables'][0] for data_gen in sed_doc['dataGenerators']]
 
@@ -296,7 +296,7 @@ class HandlersTestCase(unittest.TestCase):
         fid_0.close()
         fid_1.close()
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200, response.json)
         self.assertEqual(response.json, archive_filename)
 
         contents_dirname = os.path.join(self.temp_dirname, 'archive')
@@ -379,7 +379,7 @@ class HandlersTestCase(unittest.TestCase):
         fid_0.close()
         fid_1.close()
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200, response.json)
         self.assertEqual(response.json, archive_filename)
 
         contents_dirname = os.path.join(self.temp_dirname, 'archive')
