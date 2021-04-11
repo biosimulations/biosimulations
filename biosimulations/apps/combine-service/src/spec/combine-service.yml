@@ -19,7 +19,10 @@ paths:
       tags:
       - COMBINE
       parameters:
-      - name: archiveUrl
+      - examples:
+          Example URL:
+            value: https://data.biosimulations.org/XYZ
+        name: archiveUrl
         description: |-
           URL for a COMBINE/OMEX archive that contains one or more SED-ML files that describe one or more plots.
 
@@ -42,6 +45,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CombineArchive'
+              examples:
+                Example specifications of a COMBINE archive:
+                  value:
+                    _type: CombineArchive
+                    contents:
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/model.xml
+                        value:
+                          _type: CombineArchiveContentFile
+                          filename: model.xml
+                      format: http://identifiers.org/combine.specifications/sbml
+                      master: false
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/simulation.sedml
+                        value:
+                          _type: CombineArchiveContentUrl
+                          url: https://simulation.org/simulation.sedml
+                      format: http://identifiers.org/combine.specifications/sed-ml
+                      master: true
           description: Specifications of the plots in the SED-ML files in the COMBINE/OMEX
             archive.
         "500":
@@ -64,6 +90,32 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/CombineArchiveSpecsAndFiles'
+            examples:
+              Example specifications for a COMBINE archive and files to be included in the archive:
+                value:
+                  specs:
+                    _type: CombineArchive
+                    contents:
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/model.xml
+                        value:
+                          _type: CombineArchiveContentFile
+                          filename: model.xml
+                      format: http://identifiers.org/combine.specifications/sbml
+                      master: false
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/simulation.sedml
+                        value:
+                          _type: CombineArchiveContentUrl
+                          url: https://simulation.org/simulation.sedml
+                      format: http://identifiers.org/combine.specifications/sed-ml
+                      master: true
+                  files:
+                  - <FILE>
             encoding:
               specs:
                 contentType: application/json
@@ -76,6 +128,9 @@ paths:
             application/json:
               schema:
                 type: string
+              examples:
+                Example URL for a COMBINE archive:
+                  value: '"https://data.biosimulations.org/XYZ"'
           description: URL for the created COMBINE/OMEX archive.
         "400":
           content:
@@ -102,6 +157,14 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/ModelAndSimulation'
+            examples:
+              Example CVODE simulation of a SBML-encoded model located at a URL:
+                value:
+                  modelUrl: https://website.com/model.xml
+                  modelLanguage: urn:sedml:language:sbml
+                  simulationType: SedUniformTimeCourseSimulation
+                  simulationAlgorithm: KISAO_0000019
+                  modelingFramework: SBO_0000293
         required: true
       tags:
       - SED-ML
@@ -111,6 +174,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SedDocument'
+              examples:
+                Example SED document:
+                  value:
+                    _type: SedDocument
+                    level: 1
+                    version: 3
+                    models: []
+                    simulations: []
+                    tasks: []
+                    dataGenerators: []
+                    outputs: []
           description: Possible observables of a SED task as a list of SED data generators.
         "400":
           content:
@@ -670,7 +744,7 @@ components:
       example:
         _type: SedDocument
         level: 1
-        version: 4
+        version: 3
         models: []
         simulations: []
         tasks: []
@@ -1405,21 +1479,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/File'
-      example: "{\n    {\n    \"_type\": \"CombineArchive\",\n    \"contents\": [\n\
-        \        {\n            \"_type\": \"CombineArchiveContent\",\n          \
-        \  \"location\": {\n                \"_type\": \"CombineArchiveLocation\"\
-        ,\n                \"path\": \"experiment1/model.xml\",\n                \"\
-        value\": {\n                    \"_type\": \"CombineArchiveContentFile\",\n\
-        \                    \"filename\": \"model.xml\"\n                }\n    \
-        \        },\n            \"format\": \"http://identifiers.org/combine.specifications/sbml\"\
-        ,\n            \"master\": false\n        },\n        {\n            \"_type\"\
-        : \"CombineArchiveContent\",\n            \"location\": {\n              \
-        \  \"_type\": \"CombineArchiveLocation\",\n                \"path\": \"experiment1/simulation.sedml\"\
-        ,\n                \"value\": {\n                    \"_type\": \"CombineArchiveContentUrl\"\
-        ,\n                    \"url\": \"https://simulation.org/simulation.sedml\"\
-        \n                }\n            },\n            \"format\": \"http://identifiers.org/combine.specifications/sed-ml\"\
-        ,\n            \"master\": true\n        }\n    ]\n},\n    \"files\": [\n\
-        \        \"<FILE>\"\n    ]\n}"
+      example:
+        specs:
+          _type: CombineArchive
+          contents:
+          - _type: CombineArchiveContent
+            location:
+              _type: CombineArchiveLocation
+              path: experiment1/model.xml
+              value:
+                _type: CombineArchiveContentFile
+                filename: model.xml
+            format: http://identifiers.org/combine.specifications/sbml
+            master: false
+          - _type: CombineArchiveContent
+            location:
+              _type: CombineArchiveLocation
+              path: experiment1/simulation.sedml
+              value:
+                _type: CombineArchiveContentUrl
+                url: https://simulation.org/simulation.sedml
+            format: http://identifiers.org/combine.specifications/sed-ml
+            master: true
+        files:
+        - <FILE>
       x-body-name: body
     Namespace:
       description: Namespace
