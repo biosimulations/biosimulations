@@ -10,6 +10,8 @@ from openapi_core.validation.request.datatypes import (
     RequestParameters,
 )
 from openapi_core import create_spec
+from openapi_spec_validator import validate_spec as validate_api_spec
+from openapi_spec_validator.readers import read_from_filename as read_api_spec_from_filename
 from src import app
 from unittest import mock
 from werkzeug.datastructures import FileStorage, MultiDict
@@ -25,6 +27,8 @@ import yaml
 
 
 class HandlersTestCase(unittest.TestCase):
+    API_SPECS_FILENAME = os.path.join(os.path.dirname(__file__),
+                                      '..', 'src', 'spec', 'combine-service.yml')
     FIXTURES_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
     TEST_CASE = 'Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations'
 
@@ -36,13 +40,15 @@ class HandlersTestCase(unittest.TestCase):
 
     @ classmethod
     def setUpClass(cls):
-        specs_filename = os.path.join(os.path.dirname(__file__),
-                                      '..', 'src', 'spec', 'combine-service.yml')
-        with open(specs_filename, 'rb') as specs_file:
-            specs_dict = yaml.load(specs_file, Loader=yaml.Loader)
-        specs = create_spec(specs_dict)
-        cls.request_validator = RequestValidator(specs)
-        cls.response_validator = ResponseValidator(specs)
+        with open(cls.API_SPECS_FILENAME, 'rb') as specs_file:
+            cls.api_specs_dict = yaml.load(specs_file, Loader=yaml.Loader)
+        api_specs = create_spec(cls.api_specs_dict)
+        cls.request_validator = RequestValidator(api_specs)
+        cls.response_validator = ResponseValidator(api_specs)
+
+    def test_is_api_spec_valid(self):
+        spec_dict, spec_url = read_api_spec_from_filename(self.API_SPECS_FILENAME)
+        validate_api_spec(spec_dict)
 
     def test_get_sedml_output_specs_for_combine_archive(self):
         archive_filename = os.path.join(

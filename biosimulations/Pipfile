@@ -19,6 +19,7 @@ openapi-core = "*"
 pyyaml = "*"
 pytest = "*"
 pytest-cov = "*"
+openapi-spec-validator = "*"
 
 [requires]
 python_version = "3.7"
