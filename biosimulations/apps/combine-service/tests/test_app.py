@@ -28,7 +28,7 @@ import yaml
 
 class HandlersTestCase(unittest.TestCase):
     API_SPECS_FILENAME = os.path.join(os.path.dirname(__file__),
-                                      '..', 'src', 'spec', 'combine-service.yml')
+                                      '..', 'src', 'spec', 'spec.yml')
     FIXTURES_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
     TEST_CASE = 'Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations'
 

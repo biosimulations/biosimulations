@@ -6,7 +6,7 @@ import connexion
 app = connexion.App(__name__, specification_dir='spec')
 
 # Setup handlers for APIs
-app.add_api('combine-service.yml',
+app.add_api('spec.yml',
             strict_validation=True,
             validate_responses=False)
 # Validate_response = True will give error when API returns something that
