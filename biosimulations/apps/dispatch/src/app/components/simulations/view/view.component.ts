@@ -32,10 +32,11 @@ import {
   SedOutputType,
 } from '../../../combine-sedml.interface';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
-
 import { ConfigService } from '@biosimulations/shared/services';
-import { BehaviorSubject, Observable, of, Subscription, forkJoin } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription, combineLatest } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { concatAll, map, shareReplay } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   AxisLabelType,
   AXIS_LABEL_TYPES,
@@ -53,6 +54,8 @@ import {
   Format as VegaDataFormat,
 } from 'vega';
 import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
+import { environment } from '@biosimulations/shared/environments';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 enum VisualizationType {
   'lineScatter2d' = 'Interactively design a grid of two-dimensional line or scatter plots',
@@ -95,14 +98,15 @@ type SimulationRunReport = any;
 export class ViewComponent implements OnInit, OnDestroy {
   // Refactored Variables Start
   private uuid = '';
-  logs$!: Observable<SimulationLogs | null>;
+  logs$!: Observable<SimulationLogs | undefined>;
   runTime$!: Observable<string>;
   statusRunning$!: Observable<boolean>;
   statusSuceeded$!: Observable<boolean>;
   formattedSimulation$?: Observable<FormattedSimulation>;
   Simulation$!: Observable<Simulation>;
   combineResultsStructure$!: Observable<CombineResults | undefined>;
-  subs: Subscription[] = [];
+  sedPlotConfiguration$!: Observable<CombineArchive | undefined>;
+  subscriptions: Subscription[] = [];
 
   formGroup: FormGroup;
   lineScatter2dFormGroup: FormGroup;
@@ -174,6 +178,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     private visualizationService: VisualizationService,
     private dispatchService: DispatchService,
     private changeDetectorRef: ChangeDetectorRef,
+    private snackBar: MatSnackBar,
   ) {
     this.formGroup = formBuilder.group({
       visualizationType: [this.visualizationTypes[0], [Validators.required]],
@@ -201,66 +206,108 @@ export class ViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
 
-    (this.vegaFormGroup.get('vegaFile') as FormControl).valueChanges.subscribe(this.selectVegaFile.bind(this));
+    const vegaFileFormControl = this.vegaFormGroup.get('vegaFile') as FormControl;
+    const vegaSub = vegaFileFormControl.valueChanges.subscribe(this.selectVegaFile.bind(this))
+    this.subscriptions.push(vegaSub);
 
     this.Simulation$ = this.simulationService
       .getSimulation(this.uuid)
       .pipe(shareReplay(1));
+
     this.formattedSimulation$ = this.Simulation$.pipe(
       map<Simulation, FormattedSimulation>(this.service.formatSimulation),
     );
+
     this.statusRunning$ = this.formattedSimulation$.pipe(
-      map((value) =>
+      map((value: FormattedSimulation): boolean =>
         SimulationStatusService.isSimulationStatusRunning(value.status),
       ),
     );
+
     this.statusSuceeded$ = this.formattedSimulation$.pipe(
-      map((value) =>
+      map((value: FormattedSimulation): boolean =>
         SimulationStatusService.isSimulationStatusSucceeded(value.status),
       ),
     );
+
     this.logs$ = this.statusRunning$.pipe(
-      map((running) =>
-        running ? of(null) : this.dispatchService.getSimulationLogs(this.uuid),
+      map((running: boolean): Observable<SimulationLogs | undefined> =>
+        running
+        ? of<undefined>(undefined)
+        : this.dispatchService.getSimulationLogs(this.uuid),
       ),
       concatAll(),
     );
+
+    const runningLogSub = combineLatest([this.statusRunning$, this.logs$]).subscribe((runningLog: [boolean, SimulationLogs | undefined]): void => {
+      const running = runningLog[0];
+      const log = runningLog[1];
+      if (!running && !log) {
+        this.snackBar.open((
+            'Sorry! We were unable to get the log for this simulation.'
+            ), undefined, {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+      }
+    });
+    this.subscriptions.push(runningLogSub);
+
     this.runTime$ = this.logs$.pipe(
-      map((log): string => {
+      map((log: SimulationLogs | undefined): string => {
         const duration = log?.structured?.duration;
         return duration == null ? 'N/A' : (Math.round(duration * 1000) / 1000).toString() + ' s';
       })
     );
+
     this.combineResultsStructure$ = this.statusSuceeded$.pipe(
-      map((succeeded) =>
+      map((succeeded: boolean): Observable<CombineResults | undefined> =>
         succeeded
           ? this.visualizationService.getCombineResultsStructure(this.uuid)
           : of(undefined),
       ),
       concatAll(),
     );
-
-    // TODO Refactor
-    const statusSub = this.statusSuceeded$.subscribe((suceeded) => {
-      if (suceeded) {
-        const observables: [Observable<CombineResults>, Observable<CombineArchive>] = [
-          this.visualizationService.getCombineResultsStructure(this.uuid),
-          this.visualizationService.getSpecsOfSedPlotsInCombineArchive(this.uuid),
-        ];
-
-        const resultsSub = forkJoin(observables)
-          .subscribe((response: [CombineResults, CombineArchive]) => {
-            this.setProjectOutputs(response[0] as CombineResults);
-            this.setPlotConfiguration(response[1] as CombineArchive);
+    const combineResultsSub = this.combineResultsStructure$.subscribe((results: CombineResults | undefined): void => {
+      if (results?.length) {
+        this.setProjectOutputs(results);
+      } else {
+        this.snackBar.open((
+            'Sorry! We were unable to get results for this simulation.'
+            ), undefined, {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
           });
-        this.subs.push(resultsSub);
       }
     });
-    this.subs.push(statusSub);
+    this.subscriptions.push(combineResultsSub);
+
+    this.sedPlotConfiguration$ = this.combineResultsStructure$.pipe(
+      map((results: CombineResults | undefined): Observable<CombineArchive | undefined> => {
+        return results
+          ? this.visualizationService.getSpecsOfSedPlotsInCombineArchive(this.uuid)
+          : of(undefined);
+      }),
+      catchError((error: HttpErrorResponse): Observable<Observable<undefined>> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<Observable<undefined>>(of<undefined>(undefined));
+      }),
+      concatAll(),
+    );
+    const setPlotConfigurationSub = this.sedPlotConfiguration$.subscribe((archive: CombineArchive | undefined): void => {
+      if (archive) {
+        this.setPlotConfiguration(archive);
+      }
+    });
+    this.subscriptions.push(setPlotConfigurationSub);
   }
 
   ngOnDestroy(): void {
-    this.subs.forEach((subscription) => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   private setProjectOutputs(combineResultsStructure: CombineResults): void {
@@ -409,13 +456,23 @@ export class ViewComponent implements OnInit, OnDestroy {
   build2dViz(): void {
     if (!this.dataLoaded && this.defaultYSedDataset) {
       this.lineScatter2dValid = true;
-      this.visualizationService
-        .getCombineResults(this.uuid)
-        .subscribe((combineResults: SedDatasetResultsMap): void => {
+      const combineResults = this.visualizationService.getCombineResults(this.uuid);
+      const combineResultsSub = combineResults.subscribe((combineResults: SedDatasetResultsMap | undefined): void => {
+        if (combineResults) {
           this.combineResults = combineResults;
           this.dataLoaded = true;
           this.draw2dViz();
-        });
+        } else {
+          this.snackBar.open((
+            'Sorry! We were unable to get results for this simulation.'
+            ), undefined, {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+        }
+      });
+      this.subscriptions.push(combineResultsSub);
     } else {
       this.draw2dViz();
     }

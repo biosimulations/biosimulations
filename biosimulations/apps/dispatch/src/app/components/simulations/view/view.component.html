@@ -466,7 +466,10 @@
     </form>
 
     <ng-template #noSedDatasets>
-      <span class="info-message">The execution of the COMBINE/OMEX archive did not generate any data. runBioSimulations visualizes simulation results outputted via data sets of SED reports.</span>
+      <span class="info-message" *ngIf="(this.combineResultsStructure$ | async) !== undefined; else resultsError">The execution of the COMBINE/OMEX archive did not generate any data. runBioSimulations visualizes simulation results outputted via data sets of SED reports.</span>
+      <ng-template #resultsError>
+        <span class="info-message">Sorry! The results of your simulation could not be retrieved.</span>
+      </ng-template>
     </ng-template>
   </biosimulations-tab-page-tab>
 
@@ -505,9 +508,9 @@
     heading="Log"
     icon="logs"
     urlHashFragment="log"
-    [disabled]="(statusRunning$ | async) || (logs$ | async) === null"
+    [disabled]="(statusRunning$ | async) !== false"
   >
-    <ng-container *ngIf="logs$ | async as logs">
+    <ng-container *ngIf="logs$ | async as logs; else noLogs">
       <ng-container *ngIf="formattedSimulation$ | async as sim">
         <biosimulations-simulation-log
           [status]="sim.status"
@@ -517,5 +520,8 @@
         </biosimulations-simulation-log>
       </ng-container>
     </ng-container>
+    <ng-template #noLogs>
+      <span class="info-message">Sorry! The logs for your simulation could not be retrieved.</span>
+    </ng-template>
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>

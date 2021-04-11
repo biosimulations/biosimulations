@@ -17,6 +17,7 @@ import {
   SimulationRunResults,
   SimulationRunReportDatum,
 } from '@biosimulations/dispatch/api-models';
+import { environment } from '@biosimulations/shared/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,7 @@ export class VisualizationService {
   public getCombineResultsStructure(
     uuid: string,
     sparse = true,
-  ): Observable<CombineResults> {
+  ): Observable<CombineResults | undefined> {
     return this.http
       .get<SimulationRunResults>(
         `${this.resultsEndpoint}/${uuid}?sparse=${sparse}`,
@@ -105,12 +106,15 @@ export class VisualizationService {
           },
         ),
         catchError(
-          (error: HttpErrorResponse): Observable<CombineResults> => {
+          (error: HttpErrorResponse): Observable<CombineResults | undefined> => {
+            if (!environment.production) {
+              console.error(error);
+            }
+
             if (error instanceof HttpErrorResponse && error.status === 404) {
-              const combineResults: CombineResults = [];
-              return of<CombineResults>(combineResults);
+              return of<CombineResults>([]);
             } else {
-              throw error;
+              return of<undefined>(undefined);
             }
           },
         ),
@@ -120,7 +124,7 @@ export class VisualizationService {
   public getCombineResults(
     uuid: string,
     sparse = false,
-  ): Observable<SedDatasetResultsMap> {
+  ): Observable<SedDatasetResultsMap | undefined> {
     return this.http
       .get<SimulationRunResults>(
         `${this.resultsEndpoint}/${uuid}?sparse=${sparse}`,
@@ -159,13 +163,11 @@ export class VisualizationService {
           },
         ),
         catchError(
-          (error: HttpErrorResponse): Observable<SedDatasetResultsMap> => {
-            if (error instanceof HttpErrorResponse && error.status === 404) {
-              const results: SedDatasetResultsMap = {};
-              return of<SedDatasetResultsMap>(results);
-            } else {
-              throw error;
+          (error: HttpErrorResponse): Observable<undefined> => {
+            if (!environment.production) {
+              console.error(error);
             }
+            return of<undefined>(undefined);
           },
         ),
       );

@@ -465,7 +465,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const sedDoc = this.http.post<any>(url, formData)
       .pipe(
           catchError(
-            (error: HttpErrorResponse): Observable<any[]> => {
+            (error: HttpErrorResponse): Observable<null> => {
               if (!environment.production) {
                 console.error(error);
               }
@@ -477,7 +477,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
                 horizontalPosition: 'center',
                 verticalPosition: 'bottom',
               });
-              return of<any[]>([]);
+              return of<null>(null);
             },
           ),
         );

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, forkJoin, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 // import { Simulator } from '@biosimulations/simulators/api-models';
 import {
@@ -22,6 +22,7 @@ import {
   ValueType,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services'
+import { environment } from '@biosimulations/shared/environments';
 
 export interface AlgorithmParameter {
   id: string;
@@ -280,7 +281,7 @@ export class DispatchService {
     );
   }
 
-  getSimulationLogs(uuid: string): Observable<SimulationLogs> {
+  getSimulationLogs(uuid: string): Observable<SimulationLogs | undefined> {
     const endpoint = `${urls.dispatchApi}logs/${uuid}?download=false`;
     return this.http.get<CombineArchiveLog>(endpoint).pipe(
       map(
@@ -298,6 +299,14 @@ export class DispatchService {
             raw: rawLog,
             structured: structuredLog,
           };
+        },
+      ),
+      catchError(
+        (error: HttpErrorResponse): Observable<undefined> => {
+          if (!environment.production) {
+            console.error(error);
+          }
+          return of<undefined>(undefined);
         },
       ),
     );
