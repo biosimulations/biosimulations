@@ -34,9 +34,7 @@ import {
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 import { ConfigService } from '@biosimulations/shared/services';
 import { BehaviorSubject, Observable, of, Subscription, combineLatest } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { concatAll, map, shareReplay } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   AxisLabelType,
   AXIS_LABEL_TYPES,
@@ -54,7 +52,6 @@ import {
   Format as VegaDataFormat,
 } from 'vega';
 import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
-import { environment } from '@biosimulations/shared/environments';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 enum VisualizationType {
@@ -288,19 +285,21 @@ export class ViewComponent implements OnInit, OnDestroy {
       map((results: CombineResults | undefined): Observable<CombineArchive | undefined> => {
         return results
           ? this.visualizationService.getSpecsOfSedPlotsInCombineArchive(this.uuid)
-          : of(undefined);
-      }),
-      catchError((error: HttpErrorResponse): Observable<Observable<undefined>> => {
-        if (!environment.production) {
-          console.error(error);
-        }
-        return of<Observable<undefined>>(of<undefined>(undefined));
+          : of({_type: "CombineArchive", contents: []});
       }),
       concatAll(),
     );
     const setPlotConfigurationSub = this.sedPlotConfiguration$.subscribe((archive: CombineArchive | undefined): void => {
       if (archive) {
         this.setPlotConfiguration(archive);
+      } else {
+        this.snackBar.open((
+          'Sorry! We were unable to retrieve the specifications of the plots in the SED-ML files for this simulation.'
+          ), undefined, {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
       }
     });
     this.subscriptions.push(setPlotConfigurationSub);

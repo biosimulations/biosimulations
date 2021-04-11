@@ -23,7 +23,9 @@ import { environment } from '@biosimulations/shared/environments';
   providedIn: 'root',
 })
 export class VisualizationService {
+  private combineArchiveEndpoint = `${urls.dispatchApi}run/`;
   private resultsEndpoint = `${urls.dispatchApi}results`;
+  private sedmlPlotSpecsEndpoint = `${urls.combineApi}combine/sedml-output-specs`;
   public constructor(private http: HttpClient) {}
 
   public getCombineResultsStructure(
@@ -183,10 +185,19 @@ export class VisualizationService {
 
   public getSpecsOfSedPlotsInCombineArchive(
     runId: string,
-  ): Observable<CombineArchive> {
-    return of<CombineArchive>({
-      _type: 'CombineArchive',
-      contents: []
-    });
+  ): Observable<CombineArchive | undefined> {
+    const params = {
+      archiveUrl: `${this.combineArchiveEndpoint}${runId}/download`,
+    };
+    return this.http.get<CombineArchive>(this.sedmlPlotSpecsEndpoint, {params: params}).pipe(
+      catchError(
+        (error: HttpErrorResponse): Observable<undefined> => {
+          if (!environment.production) {
+            console.error(error);
+          }
+          return of<undefined>(undefined);
+        }
+      ),
+    );
   }
 }
