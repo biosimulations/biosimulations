@@ -4,7 +4,7 @@ import shutil
 import tempfile
 from biosimulators_utils.combine.data_model import CombineArchiveContent  # noqa: F401
 from biosimulators_utils.sedml.data_model import Output, DataSet, DataGenerator  # noqa: F401
-from .S3 import S3Bucket
+from .s3 import S3Bucket
 import uuid
 
 s3_bucket = None
@@ -59,7 +59,7 @@ def save_file_to_s3_bucket(filename, public=False, id=None):
     if id is None:
         id = str(uuid.uuid4())
 
-    url = s3_bucket.uploadFile(filename, public=public, id="omexArchive/" + id)
+    url = s3_bucket.uploadFile(filename, public=public, id="temp/createdCombineArchive/" + id)
 
     return url
 

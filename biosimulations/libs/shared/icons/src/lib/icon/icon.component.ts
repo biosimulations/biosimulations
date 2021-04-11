@@ -34,6 +34,7 @@ export type BiosimulationsIcon =
   | 'project'
   | 'model'
   | 'simulation'
+  | 'logicalSimulation'
   | 'experiment'
   | 'task'
   | 'chart'
@@ -54,6 +55,7 @@ export type BiosimulationsIcon =
   | 'reuse'
   | 'taxon'
   | 'framework'
+  | 'math'
   | 'format'
   | 'standard'
   | 'code'
@@ -67,6 +69,7 @@ export type BiosimulationsIcon =
   | 'tags'
   | 'status'
   | 'date'
+  | 'time'
   | 'duration'
   | 'cc0'
   | 'ccBy'
@@ -160,6 +163,7 @@ export class IconComponent implements OnInit {
     project: { type: 'fas', name: 'folder-open' },
     model: { type: 'fas', name: 'project-diagram' },
     simulation: { type: 'mat', name: 'timeline' as IconName },
+    logicalSimulation: { type: 'fas', name: 'wave-square' },
     experiment: { type: 'fas', name: 'flask' },
     task: { type: 'fas', name: 'tasks' },
     chart: { type: 'fas', name: 'chart-bar' },
@@ -184,6 +188,7 @@ export class IconComponent implements OnInit {
     taxon: { type: 'fas', name: 'dna' },
     oss: { type: 'fab', name: 'osi' },
     framework: { type: 'fas', name: 'calculator' },
+    math: { type: 'fas', name: 'square-root-alt' },
     format: { type: 'far', name: 'file-alt' },
     standard: { type: 'fas', name: 'check-double' },
     code: { type: 'fas', name: 'code' },
@@ -200,6 +205,7 @@ export class IconComponent implements OnInit {
     tags: { type: 'fas', name: 'tags' },
     status: { type: 'fas', name: 'tachometer-alt' },
     date: { type: 'fas', name: 'calendar-alt' },
+    time: { type: 'fas', name: 'clock' },
     duration: { type: 'fas', name: 'stopwatch' },
     cc: { type: 'fab', name: 'creative-commons' },
     cc0: { type: 'fab', name: 'creative-commons-zero' },

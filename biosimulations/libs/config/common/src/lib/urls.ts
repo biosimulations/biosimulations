@@ -4,6 +4,7 @@ export type appName =
   | 'platformApi'
   | 'accountApi'
   | 'dispatchApi'
+  | 'combineApi'
   | 'simulatorsApi'
   | 'platform'
   | 'account'
@@ -20,6 +21,7 @@ const envUrls: { [key in envs]: urlMap } = {
     platformApi: 'https://api.biosimulations.org/',
     accountApi: 'https://account.biosimulations.dev/', // NEED TO FIX LOGIN FLOW BEFORE UPDATING
     dispatchApi: 'https://run.api.biosimulations.org/',
+    combineApi: 'https://combine.api.biosimulations.org/',
     ontologyApi: 'https://ontology.api.biosimulations.org/',
     simulatorsApi: 'https://api.biosimulators.org/',
     platform: 'https://biosimulations.org',
@@ -35,6 +37,7 @@ const envUrls: { [key in envs]: urlMap } = {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: '/dispatch-api',
+    combineApi: '/dispatch-api',
     simulatorsApi: '/simulators-api',
     ontologyApi: '/ontology-api',
     platform: 'https://biosimulations.dev',
@@ -46,6 +49,7 @@ const envUrls: { [key in envs]: urlMap } = {
     platformApi: 'https://api.biosimulations.org/',
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: 'https://run.api.biosimulations.dev/',
+    combineApi: 'https://combine.api.biosimulations.dev/',
     simulatorsApi: 'https://api.biosimulators.dev/',
     ontologyApi: 'https://ontology.api.biosimulations.dev/',
     platform: 'https://biosimulations.dev',
@@ -57,6 +61,7 @@ const envUrls: { [key in envs]: urlMap } = {
     platformApi: '/api/', //proxies to localhost:3333 if using nx
     accountApi: '/api/',
     dispatchApi: '/dispatch-api/',
+    combineApi: '/combine-api/',
     simulatorsApi: '/simulators-api/',
     ontologyApi: '/ontology-api/',
     platform: 'https://biosimulations.dev',

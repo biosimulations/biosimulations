@@ -17,18 +17,21 @@ import {
   SimulationRunResults,
   SimulationRunReportDatum,
 } from '@biosimulations/dispatch/api-models';
+import { environment } from '@biosimulations/shared/environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VisualizationService {
+  private combineArchiveEndpoint = `${urls.dispatchApi}run/`;
   private resultsEndpoint = `${urls.dispatchApi}results`;
+  private sedmlPlotSpecsEndpoint = `${urls.combineApi}combine/sedml-output-specs`;
   public constructor(private http: HttpClient) {}
 
   public getCombineResultsStructure(
     uuid: string,
     sparse = true,
-  ): Observable<CombineResults> {
+  ): Observable<CombineResults | undefined> {
     return this.http
       .get<SimulationRunResults>(
         `${this.resultsEndpoint}/${uuid}?sparse=${sparse}`,
@@ -105,12 +108,15 @@ export class VisualizationService {
           },
         ),
         catchError(
-          (error: HttpErrorResponse): Observable<CombineResults> => {
+          (error: HttpErrorResponse): Observable<CombineResults | undefined> => {
+            if (!environment.production) {
+              console.error(error);
+            }
+
             if (error instanceof HttpErrorResponse && error.status === 404) {
-              const combineResults: CombineResults = [];
-              return of<CombineResults>(combineResults);
+              return of<CombineResults>([]);
             } else {
-              throw error;
+              return of<undefined>(undefined);
             }
           },
         ),
@@ -120,7 +126,7 @@ export class VisualizationService {
   public getCombineResults(
     uuid: string,
     sparse = false,
-  ): Observable<SedDatasetResultsMap> {
+  ): Observable<SedDatasetResultsMap | undefined> {
     return this.http
       .get<SimulationRunResults>(
         `${this.resultsEndpoint}/${uuid}?sparse=${sparse}`,
@@ -159,13 +165,11 @@ export class VisualizationService {
           },
         ),
         catchError(
-          (error: HttpErrorResponse): Observable<SedDatasetResultsMap> => {
-            if (error instanceof HttpErrorResponse && error.status === 404) {
-              const results: SedDatasetResultsMap = {};
-              return of<SedDatasetResultsMap>(results);
-            } else {
-              throw error;
+          (error: HttpErrorResponse): Observable<undefined> => {
+            if (!environment.production) {
+              console.error(error);
             }
+            return of<undefined>(undefined);
           },
         ),
       );
@@ -181,7 +185,19 @@ export class VisualizationService {
 
   public getSpecsOfSedPlotsInCombineArchive(
     runId: string,
-  ): Observable<CombineArchive> {
-    return of<CombineArchive>({ contents: [] });
+  ): Observable<CombineArchive | undefined> {
+    const params = {
+      archiveUrl: `${this.combineArchiveEndpoint}${runId}/download`,
+    };
+    return this.http.get<CombineArchive>(this.sedmlPlotSpecsEndpoint, {params: params}).pipe(
+      catchError(
+        (error: HttpErrorResponse): Observable<undefined> => {
+          if (!environment.production) {
+            console.error(error);
+          }
+          return of<undefined>(undefined);
+        }
+      ),
+    );
   }
 }

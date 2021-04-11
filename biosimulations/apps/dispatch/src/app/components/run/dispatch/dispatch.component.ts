@@ -82,8 +82,8 @@ export class DispatchComponent implements OnInit {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        projectFile: [''],
-        projectUrl: [''],
+        projectFile: ['', [Validators.required]],
+        projectUrl: ['', [Validators.required]],
         modelFormats: [[]],
         modelingFrameworks: [[]],
         simulationAlgorithms: [[]],
@@ -116,6 +116,7 @@ export class DispatchComponent implements OnInit {
     this.emailControl = this.formGroup.controls.email as FormControl;
     this.emailConsentControl = this.formGroup.controls.emailConsent as FormControl;
 
+    this.projectUrlControl.disable();
     this.modelFormatsControl.disable();
     this.modelingFrameworksControl.disable();
     this.simulationAlgorithmsControl.disable();
@@ -333,15 +334,15 @@ export class DispatchComponent implements OnInit {
     }
   }
 
-  versionsEqual(a: string, b: string) {
-    let aArr = a.toLowerCase().split('.');
-    let bArr = b.toLowerCase().split('.');
-
-    const lastPos = Math.min(aArr.length, bArr.length);
-    aArr = aArr.slice(0, lastPos);
-    bArr = bArr.slice(0, lastPos);
-
-    return aArr.every((val, index) => val === bArr[index]);
+  changeSubmitMethod(): void {
+    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    if (submitMethodControl.value === SubmitMethod.file) {
+      this.formGroup.controls.projectFile.enable();
+      this.formGroup.controls.projectUrl.disable();
+    } else {
+      this.formGroup.controls.projectFile.disable();
+      this.formGroup.controls.projectUrl.enable();
+    }
   }
 
   applyFilters(): void {
@@ -375,7 +376,7 @@ export class DispatchComponent implements OnInit {
     });
   }
 
-  setIntersection(a: Set<string>, b: Set<string>): Set<string> {
+  private setIntersection(a: Set<string>, b: Set<string>): Set<string> {
     const _intersection = new Set<string>();
     for (const elem of b.values()) {
       if (a.has(elem)) {

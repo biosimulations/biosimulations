@@ -7,9 +7,10 @@ name = "pypi"
 flask = "*"
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
 requests = "*"
-biosimulators-utils = {extras = ["sbml"],version = ">=0.1.49"}
+biosimulators-utils = {extras = ["sbml"],version = ">=0.1.50"}
 python-dateutil = "*"
 gunicorn = "*"
+flask-cors = "*"
 python-dotenv = "*"
 boto3 = "*"
 
@@ -18,6 +19,7 @@ openapi-core = "*"
 pyyaml = "*"
 pytest = "*"
 pytest-cov = "*"
+openapi-spec-validator = "*"
 
 [requires]
 python_version = "3.7"

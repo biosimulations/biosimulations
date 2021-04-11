@@ -29,11 +29,10 @@ class S3Bucket(object):
         self.bucket = s3.Bucket(default_bucket)
 
     def uploadFile(self, file, public, id):
-        if(public):
-            ExtraArgs = {'ACL': 'public-read'}
+        if public:
+            extra_args = {'ACL': 'public-read'}
         else:
-            ExtraArgs = {}
+            extra_args = {}
 
-        self.bucket.upload_file(file, str(id), ExtraArgs=ExtraArgs)
-        print(self.public_endpoint)
-        return self.public_endpoint+str(id)
+        self.bucket.upload_file(file, str(id), ExtraArgs=extra_args)
+        return self.public_endpoint + str(id)

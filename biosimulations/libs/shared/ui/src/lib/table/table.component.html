@@ -140,7 +140,7 @@
                     </mat-list>
                     <button
                       mat-icon-button
-                      class="biosimulations-icon-button text filter-set-clear-all"
+                      class="biosimulations-button text filter-set-clear-all"
                       (click)="clearFilter(column)"
                     >
                       Clear filter
@@ -181,7 +181,7 @@
             <button
               matSuffix
               mat-icon-button
-              class="biosimulations-icon-button text"
+              class="biosimulations-button text"
               (click)="searchRows(searchInput.value)"
             >
               <biosimulations-icon icon="search"></biosimulations-icon>
@@ -246,7 +246,7 @@
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button
-                  class="biosimulations-icon-button primary"
+                  class="biosimulations-button primary"
                   *ngIf="
                     element._cache[column.id].left.routerLink as routerLink
                   "
@@ -265,7 +265,7 @@
               <ng-template [ngSwitchCase]="'href'">
                 <a
                   mat-icon-button
-                  class="biosimulations-icon-button primary"
+                  class="biosimulations-button primary"
                   *ngIf="element._cache[column.id].left.href as href"
                   [href]="href"
                   target="_blank"
@@ -282,7 +282,7 @@
               <ng-template [ngSwitchCase]="'click'">
                 <button
                   mat-icon-button
-                  class="biosimulations-icon-button primary"
+                  class="biosimulations-button primary"
                   *ngIf="element._cache[column.id].left.click as click"
                   (click)="click(element)"
                 >
@@ -320,7 +320,7 @@
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button
-                  class="biosimulations-icon-button primary"
+                  class="biosimulations-button primary"
                   *ngIf="
                     element._cache[column.id].center.routerLink as routerLink
                   "
@@ -336,7 +336,7 @@
               <ng-template [ngSwitchCase]="'href'">
                 <a
                   mat-icon-button
-                  class="biosimulations-icon-button primary"
+                  class="biosimulations-button primary"
                   *ngIf="element._cache[column.id].center.href as href"
                   [href]="href"
                   target="_blank"
@@ -350,7 +350,7 @@
               <ng-template [ngSwitchCase]="'click'">
                 <button
                   mat-icon-button
-                  class="biosimulations-icon-button primary"
+                  class="biosimulations-button primary"
                   *ngIf="element._cache[column.id].center.click as click"
                   (click)="click(element)"
                 >
@@ -380,7 +380,7 @@
               <ng-template [ngSwitchCase]="'routerLink'">
                 <a
                   mat-icon-button
-                  class="biosimulations-icon-button primary"
+                  class="biosimulations-button primary"
                   *ngIf="
                     element._cache[column.id].right.routerLink as routerLink
                   "
@@ -399,7 +399,7 @@
               <ng-template [ngSwitchCase]="'href'">
                 <a
                   mat-icon-button
-                  class="biosimulations-icon-button primary"
+                  class="biosimulations-button primary"
                   *ngIf="element._cache[column.id].right.href as href"
                   [href]="href"
                   target="_blank"
@@ -416,7 +416,7 @@
               <ng-template [ngSwitchCase]="'click'">
                 <button
                   mat-icon-button
-                  class="biosimulations-icon-button primary"
+                  class="biosimulations-button primary"
                   *ngIf="element._cache[column.id].right.click as click"
                   (click)="click(element)"
                 >

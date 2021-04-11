@@ -6,8 +6,8 @@
           <biosimulations-icon icon="project"></biosimulations-icon>
         </div>
         <div>
-          <div class="form-section-title">COMBINE/OMEX archive *</div>
-          <div class="form-section-subtitle">Select a local file or enter a URL for file</div>
+          <div class="form-section-title">COMBINE/OMEX archive*</div>
+          <div class="form-section-subtitle">Select a local file or enter a URL for a COMBINE/OMEX archive that contains SED-ML files</div>
         </div>
       </div>
       <div class="form-section-body">
@@ -19,6 +19,7 @@
               <mat-select
                 required
                 formControlName="submitMethod"
+                (ngModelChange)="changeSubmitMethod()"
               >
                 <mat-option value="file">Upload a local file</mat-option>
                 <mat-option value="url">Enter a URL for a file</mat-option>
@@ -33,7 +34,6 @@
                 accept=".omex"
                 [multiple]="false"
                 [required]="true"
-                placeholder="COMBINE/OMEX file"
               ></ngx-mat-file-input>
             </mat-form-field>
 
@@ -52,19 +52,17 @@
           <mat-hint>
             <p>
               Select a method for providing a COMBINE/OMEX archive which describes one or more
-              simulations (e.g., in SED-ML format) of one or more models (e.g., in
+              simulations (in SED-ML format) of one or more models (e.g., in
               BNGL, SBML formats). COMBINE/OMEX files can either be uploaded
-              for your local computer or loaded from a publicly-accessible URL.
+              from your local computer or loaded from a publicly-accessible URL.
             </p>
+
+            <p>A form for creating COMBINE/OMEX archives and SED-ML files from model files is available <a [routerLink]="['/create']">here</a>. COMBINE/OMEX archives can also be created with simulation tools such as COPASI <a href="http://copasi.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and VCell <a href="https://vcell.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Additional information about obtaining and creating COMBINE/OMEX archives is available in the <a [routerLink]="['/help']">help</a> and <a [routerLink]="['/help']">FAQ</a>. The help includes recommendations for additional software tools for authoring COMBINE/OMEX archives and SED-ML files. The FAQ includes information about known incompatibilities among COMBINE/OMEX archives and SED-ML files created with different tools.</p>
 
             <p>
               Click <a [routerLink]="['/simulations']" [queryParams]="{try: '1'}">here</a> to load several example simulation projects from the BioSimulators test suite <a [href]="exampleCombineArchivesUrl" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon></a
               >.
-            </p>
-
-            <p>
-              Information about obtaining or creating SED-ML files and COMBINE/OMEX archives is available in the <a [routerLink]="['/help']">help</a>. This includes recommendations for software tools.
             </p>
           </mat-hint>
           <mat-error *ngIf="submitPushed && formGroup.hasError('noProjectFile')">Please select a COMBINE/OMEX file.</mat-error>
@@ -79,7 +77,7 @@
           <biosimulations-icon icon="review"></biosimulations-icon>
         </div>
         <div>
-          <div class="form-section-title">Required capabilities</div>
+          <div class="form-section-title">Required capabilities to execute your COMBINE/OMEX archive</div>
           <div class="form-section-subtitle">Optionally, describe the capabilities required to execute your COMBINE/OMEX archive</div>
         </div>
       </div>

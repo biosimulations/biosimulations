@@ -27,6 +27,17 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: 'create',
+    loadChildren: () =>
+      import('apps/dispatch/src/app/components/create-simulation-project/create-simulation-project.module').then(
+        (m) => m.CreateSimulationProjectModule,
+      ),
+    data: {
+      breadcrumb: 'Create simulation project',
+    },
+    pathMatch: 'full',
+  },
+  {
     path: 'run',
     loadChildren: () =>
       import('apps/dispatch/src/app/components/run/run.module').then(
