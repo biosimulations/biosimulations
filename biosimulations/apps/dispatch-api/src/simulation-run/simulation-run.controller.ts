@@ -76,8 +76,8 @@ export class SimulationRunController {
   }
 
   @ApiOperation({
-    summary: 'Get all the Simulation Runs',
-    description: 'Returns an array of all the Simulation Run objects in the database',
+    summary: 'Get all of the simulation runs',
+    description: 'Returns an array of all the simulation run objects in the database',
   })
   @ApiOkResponse({ description: 'OK', type: [SimulationRun] })
   @permissions('read:SimulationRuns')
@@ -90,8 +90,8 @@ export class SimulationRunController {
   @ApiOperation({
     summary: 'Submit a simulation to run',
     description:
-      'Upload an OMEX (Combine) archive along with a description of the simulator run.\
-       The simulation will be excecuted and the status of the Simulation run object will be updated. \
+      'Upload an COMBINE/OMEX archive file along with a description of the simulator to use to execute the archive.\
+       The simulation will be excecuted and the status of the simulation run object will be updated. \
       \nThe simulation can be uploaded as a COMBINE archive by using the multipart/form-data accept header.\
       Alternatively, use the application/json accept header to provide a URL to an external COMBINE archive',
     requestBody: {
@@ -110,7 +110,7 @@ export class SimulationRunController {
   })
   @ApiCreatedResponse({
     type: SimulationRun,
-    description: 'Simulation Run Submitted',
+    description: 'Simulation run submitted',
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
@@ -234,8 +234,8 @@ export class SimulationRunController {
   }
 
   @ApiOperation({
-    summary: 'Get a Simulation Run',
-    description: 'Returns the latest updated Simulation Run',
+    summary: 'Get a simulation run',
+    description: 'Get information about a simulation run',
   })
   @ApiOkResponse({ type: SimulationRun })
   @Get(':id')
@@ -252,7 +252,7 @@ export class SimulationRunController {
       permission ? null : (run.email = null);
       return this.makeSimulationRun(run);
     } else {
-      throw new NotFoundException(`No Simulation Run with id ${id}`);
+      throw new NotFoundException(`No simulation run with id ${id}`);
     }
   }
 
@@ -278,7 +278,7 @@ export class SimulationRunController {
     const res = this.service.delete(id);
 
     if (!res) {
-      throw new NotFoundException(`No Simulation Run with id ${id} found`);
+      throw new NotFoundException(`No simulation run with id ${id} found`);
     }
 
     return res;
@@ -295,7 +295,7 @@ export class SimulationRunController {
   }
 
   @ApiOperation({
-    description: 'Download the OMEX file for the Simulation Run',
+    description: 'Download the COMBINE/OMEX archive file for the simulation run',
   })
   @Get(':id/download')
   async download(@Param('id') id: string, @Res({ passthrough: true }) response: Response) {

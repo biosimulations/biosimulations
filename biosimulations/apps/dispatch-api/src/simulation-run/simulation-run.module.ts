@@ -1,5 +1,5 @@
 /**
- * @file Module file declares the controller for Simulation Runs and provides the service for accessing the database collection. Requires the Mongoose module to imported to the top level app.
+ * @file Module file declares the controller for simulation runs and provides the service for accessing the database collection. Requires the Mongoose module to imported to the top level app.
  *       Also includes the feature module for the Simulation run and Simulation File models.
  * @author Bilal Shaikh
  * @copyright Biosimulations Team, 2020

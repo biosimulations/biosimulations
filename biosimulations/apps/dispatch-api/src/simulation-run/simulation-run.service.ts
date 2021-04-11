@@ -1,5 +1,5 @@
 /**
- * @file Provides methods that imnplement the CRUD operations on the Simulation Runs in the mongo database. Is used by the controller to excute the user requests from the HTTP API.
+ * @file Provides methods that imnplement the CRUD operations on the simulation runs in the mongo database. Is used by the controller to excute the user requests from the HTTP API.
  * @author Bilal Shaikh
  * @copyright Biosimulations Team, 2020
  * @license MIT
@@ -55,7 +55,7 @@ export class SimulationRunService {
   }
 
   /**
-   * Download the OMEX file for the provided id. The OMEX file is a ref on the object
+   * Download the COMBINE/OMEX archive file for the provided id. The COMBINE/OMEX archive file is a ref on the object
    * @param id The id of the simulation
    *
    */
@@ -134,7 +134,7 @@ export class SimulationRunService {
     const model = await this.getModel(id);
 
     if (!model) {
-      throw new NotFoundException(`Simulation Run with id ${id} was not found`);
+      throw new NotFoundException(`Simulation run with id ${id} was not found`);
     }
 
     this.updateModelPublic(model, run.public);
@@ -185,8 +185,8 @@ export class SimulationRunService {
   }
   /**
    *
-   * @param run A POJO with the fields of the Simulation Run
-   * @param file The file object returned by the Mutter library containing the OMEX file
+   * @param run A POJO with the fields of the simulation run
+   * @param file The file object returned by the Mutter library containing the COMBINE/OMEX archive file
    */
 
   private async createRun(
