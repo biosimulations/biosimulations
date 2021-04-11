@@ -155,7 +155,7 @@ export class SimulationRunController {
       version: run.simulatorVersion,
       cpus: run.cpus,
       memory: run.memory,
-      maxTime: run.maxTime, 
+      maxTime: run.maxTime,
     };
 
     this.sendMessage(message).subscribe((res: createdResponse) => {
