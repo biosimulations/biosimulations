@@ -64,6 +64,7 @@
     "nats": "^1.4.12",
     "nestjs-s3": "^1.0.1",
     "nestjs-typegoose": "^7.1.38",
+    "openapi-examples-validator": "^4.3.3",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
