@@ -168,8 +168,8 @@ export class ViewComponent implements OnInit, OnDestroy {
   constructor(
     private config: ConfigService,
     private route: ActivatedRoute,
-    private service: ViewService,
     private formBuilder: FormBuilder,
+    private service: ViewService,
     private simulationService: SimulationService,
     private visualizationService: VisualizationService,
     private dispatchService: DispatchService,
@@ -335,14 +335,14 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     for (let iSubplot=0; iSubplot < subplotsCurves.length; iSubplot++) {
       const subplot = this.lineScatter2dSubplotsFormArray.at(iSubplot) as FormGroup;
-      
+
       const curves = subplotsCurves[iSubplot];
-      
+
       const numCurvesControl = subplot.get('numCurves') as FormControl;
       numCurvesControl.setValue(curves.length);
       this.setNumCurves(iSubplot);
 
-      const curvesFormArray = subplot.get('curves') as FormArray;          
+      const curvesFormArray = subplot.get('curves') as FormArray;
       curvesFormArray.setValue(curves);
     }
   }
