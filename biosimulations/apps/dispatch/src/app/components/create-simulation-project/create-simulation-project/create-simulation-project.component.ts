@@ -466,9 +466,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           catchError(
             (error: HttpErrorResponse): Observable<any[]> => {
               console.error(error);
-              this.snackBar.open(
-                'Sorry! We were unable to get the dependent parameters and independent variables of your model.'
-                , undefined, {
+              this.snackBar.open((
+                'Sorry! We were unable to get the dependent parameters and independent variables of your model. '
+                + 'This feature is only currently available for models encoded in SBML, SBML-fbc, and SBML-qual.'
+                ), undefined, {
                 duration: 5000,
                 horizontalPosition: 'center',
                 verticalPosition: 'bottom',

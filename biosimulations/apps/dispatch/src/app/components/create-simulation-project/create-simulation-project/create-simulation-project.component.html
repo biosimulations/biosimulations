@@ -5,14 +5,18 @@
     <p>Use the form below to create a COMBINE/OMEX archive for simulating a model. This archive will contain your model and a SED-ML file generated from the form below. You can then use runBioSimulations to execute your archive, or you can download the archive.</p>
 
     <ol>
-      <li>Upload a file for a model or enter a URL where a model file is located.</li>
-      <li>Select the format of the model.</li>
-      <li>Select the type of simulation that you'd like to execute (e.g., steady-state, time course) and configure its parameters (e.g., start time, end time).</li>
-      <li>Select the algorithm that you'd like to use to execute the simulation and configure its parameters (e.g., error tolerance, seed).</li>
-      <li>Describe the namespaces needed to describe changes to your model and observables of your simulation. This information will be pre-populated for SBML-encoded models.</li>
-      <li>Describe any attributes of your model that you'd like to change such as its initial conditions. For SBML-encoded, this will be pre-populated with initial conditions and kinetic parameters that can be modified.</li>
-      <li>Describe the simulation predictions that you'd like to record. For SBML-encoded models, this will be pre-populated with variables that can be recorded.</li>
+      <li>Upload a model or enter a URL where a model is located.</li>
+      <li>Select the format of the model (e.g., BNGL, SBML).</li>
+      <li>Select the type of simulation that you'd like to execute (e.g., steady-state, time course).</li>
+      <li>Configure the parameters of your simulation (e.g., start time, end time).</li>
+      <li>Select the algorithm that you'd like to use to execute your simulation (e.g., CVODE, SSA).</li>
+      <li>Configure the parameters of the selected algorithm (e.g., error tolerance, seed).</li>
+      <li>Describe the namespaces needed to specify changes to your model and observables of your simulation.</li>
+      <li>Describe any attributes of your model that you'd like to change (e.g., initial conditions).</li>
+      <li>Describe the simulation observables that you'd like to record (e.g., concentrations of species, fluxes of reactions).</li>
     </ol>
+
+    <p>For models encoded in SBML, SBML-fbc, and SBML-qual, the namespaces, changes, and observables sections will be pre-populated from your model. Going forward, we aim to extend this to additional model formats.</p>
   </div>
   <form [formGroup]="formGroup">
     <div class="form-section">
