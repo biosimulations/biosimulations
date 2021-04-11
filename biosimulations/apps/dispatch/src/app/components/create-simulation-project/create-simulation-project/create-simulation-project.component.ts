@@ -25,6 +25,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { UtilsService } from '@biosimulations/shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '@biosimulations/shared/environments';
 
 enum LocationType {
   file = 'file',
@@ -465,7 +466,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       .pipe(
           catchError(
             (error: HttpErrorResponse): Observable<any[]> => {
-              console.error(error);
+              if (!environment.production) {
+                console.error(error);
+              }
               this.snackBar.open((
                 'Sorry! We were unable to get the dependent parameters and independent variables of your model. '
                 + 'This feature is only currently available for models encoded in SBML, SBML-fbc, and SBML-qual.'
