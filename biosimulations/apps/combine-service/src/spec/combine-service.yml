@@ -161,6 +161,86 @@ components:
           enum:
           - SedPlot2D
           type: string
+      example:
+        _type: SedPlot2D
+        id: ntp_dynamics
+        name: NTP dynamics
+        curves:
+        - _type: SedCurve
+          id: atp_dynamics
+          name: ATP dynamics
+          xDataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_time
+            name: Time
+            variables:
+            - _type: SedVariable
+              id: time
+              name: Time
+              task:
+                _type: SedTask
+                id: task
+                name: Task
+                model:
+                  _type: SedModel
+                  id: model
+                  language: urn:sedml:language:sbml
+                  source: model.xml
+                  changes: []
+                simulation:
+                  _type: SedUniformTimeCourseSimulation
+                  id: koSimulation
+                  initialTime: 0
+                  outputStartTime: 0
+                  outputEndTime: 0
+                  numberOfSteps: 10
+                  algorithm:
+                    _type: SedAlgorithm
+                    kisaoId: KISAO_0000437
+                    changes: []
+              symbol: urn:sedml:symbol:time
+            math: time
+            _resultsDataSetId: experiment.sedml/report/data_set_time
+          yDataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_atp
+            name: ATP
+            variables:
+            - _type: SedVariable
+              id: atp
+              name: ATP
+              task:
+                _type: SedTask
+                id: task
+                name: Task
+                model:
+                  _type: SedModel
+                  id: model
+                  language: urn:sedml:language:sbml
+                  source: model.xml
+                  changes: []
+                simulation:
+                  _type: SedUniformTimeCourseSimulation
+                  id: koSimulation
+                  initialTime: 0
+                  outputStartTime: 0
+                  outputEndTime: 0
+                  numberOfSteps: 10
+                  algorithm:
+                    _type: SedAlgorithm
+                    kisaoId: KISAO_0000437
+                    changes: []
+              target:
+                _type: SedTarget
+                value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
+                namespaces:
+                - _type: Namespace
+                  prefix: sbml
+                  uri: http://www.sbml.org/sbml/level3/version1/core
+            math: atp
+            _resultsDataSetId: experiment.sedml/report/data_set_atp
+        xScale: linear
+        yScale: log
     SedPlot3D:
       description: Specifications for a 3D surface plot.
       required:
@@ -197,6 +277,83 @@ components:
           enum:
           - SedPlot3D
           type: string
+      example:
+        _type: SedPlot3D
+        id: plot
+        name: Plot
+        surfaces:
+        - _type: SedSurface
+          id: atp_concentration
+          name: ATP concentration
+          xDataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_y
+            name: "Y"
+            variables:
+            - _type: SedVariable
+              id: "y"
+              name: "Y"
+              task:
+                _type: SedTask
+                id: task
+                name: Task
+                model:
+                  _type: SedModel
+                  id: model
+                  language: urn:sedml:language:sbml
+                  source: model.xml
+                  changes: []
+                simulation:
+                  _type: SedSteadyStateSimulation
+                  id: simulation
+                  algorithm:
+                    _type: SedAlgorithm
+                    kisaoId: KISAO_0000437
+                    changes: []
+              symbol: urn:sedml:symbol:y
+            math: "y"
+            _resultsDataSetId: experiment.sedml/report/data_set_y
+          zDataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_atp
+            name: ATP
+            variables:
+            - _type: SedVariable
+              id: atp
+              name: ATP
+              task:
+                _type: SedTask
+                id: task
+                name: Task
+                model:
+                  _type: SedModel
+                  id: model
+                  language: urn:sedml:language:sbml
+                  source: model.xml
+                  changes: []
+                simulation:
+                  _type: SedUniformTimeCourseSimulation
+                  id: koSimulation
+                  initialTime: 0
+                  outputStartTime: 0
+                  outputEndTime: 0
+                  numberOfSteps: 10
+                  algorithm:
+                    _type: SedAlgorithm
+                    kisaoId: KISAO_0000437
+                    changes: []
+              target:
+                _type: SedTarget
+                value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
+                namespaces:
+                - _type: Namespace
+                  prefix: sbml
+                  uri: http://www.sbml.org/sbml/level3/version1/core
+            math: atp
+            _resultsDataSetId: experiment.sedml/report/data_set_atp
+        xScale: linear
+        yScale: linear
+        zScale: log
     SedCurve:
       description: Curve of a 2D SED plot
       required:
@@ -223,6 +380,80 @@ components:
           enum:
           - SedCurve
           type: string
+      example:
+        _type: SedCurve
+        id: atp_dynamics
+        name: ATP dynamics
+        xDataGenerator:
+          _type: SedDataGenerator
+          id: data_generator_time
+          name: Time
+          variables:
+          - _type: SedVariable
+            id: time
+            name: Time
+            task:
+              _type: SedTask
+              id: task
+              name: Task
+              model:
+                _type: SedModel
+                id: model
+                language: urn:sedml:language:sbml
+                source: model.xml
+                changes: []
+              simulation:
+                _type: SedUniformTimeCourseSimulation
+                id: koSimulation
+                initialTime: 0
+                outputStartTime: 0
+                outputEndTime: 0
+                numberOfSteps: 10
+                algorithm:
+                  _type: SedAlgorithm
+                  kisaoId: KISAO_0000437
+                  changes: []
+            symbol: urn:sedml:symbol:time
+          math: time
+          _resultsDataSetId: experiment.sedml/report/data_set_time
+        yDataGenerator:
+          _type: SedDataGenerator
+          id: data_generator_atp
+          name: ATP
+          variables:
+          - _type: SedVariable
+            id: atp
+            name: ATP
+            task:
+              _type: SedTask
+              id: task
+              name: Task
+              model:
+                _type: SedModel
+                id: model
+                language: urn:sedml:language:sbml
+                source: model.xml
+                changes: []
+              simulation:
+                _type: SedUniformTimeCourseSimulation
+                id: koSimulation
+                initialTime: 0
+                outputStartTime: 0
+                outputEndTime: 0
+                numberOfSteps: 10
+                algorithm:
+                  _type: SedAlgorithm
+                  kisaoId: KISAO_0000437
+                  changes: []
+            target:
+              _type: SedTarget
+              value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
+              namespaces:
+              - _type: Namespace
+                prefix: sbml
+                uri: http://www.sbml.org/sbml/level3/version1/core
+          math: atp
+          _resultsDataSetId: experiment.sedml/report/data_set_atp
     SedSurface:
       description: A surface a 3D plot.
       required:
@@ -253,6 +484,76 @@ components:
           enum:
           - SedSurface
           type: string
+      example:
+        _type: SedSurface
+        id: atp_concentration
+        name: ATP concentration
+        xDataGenerator:
+          _type: SedDataGenerator
+          id: data_generator_y
+          name: "Y"
+          variables:
+          - _type: SedVariable
+            id: "y"
+            name: "Y"
+            task:
+              _type: SedTask
+              id: task
+              name: Task
+              model:
+                _type: SedModel
+                id: model
+                language: urn:sedml:language:sbml
+                source: model.xml
+                changes: []
+              simulation:
+                _type: SedSteadyStateSimulation
+                id: simulation
+                algorithm:
+                  _type: SedAlgorithm
+                  kisaoId: KISAO_0000437
+                  changes: []
+            symbol: urn:sedml:symbol:y
+          math: "y"
+          _resultsDataSetId: experiment.sedml/report/data_set_y
+        zDataGenerator:
+          _type: SedDataGenerator
+          id: data_generator_atp
+          name: ATP
+          variables:
+          - _type: SedVariable
+            id: atp
+            name: ATP
+            task:
+              _type: SedTask
+              id: task
+              name: Task
+              model:
+                _type: SedModel
+                id: model
+                language: urn:sedml:language:sbml
+                source: model.xml
+                changes: []
+              simulation:
+                _type: SedUniformTimeCourseSimulation
+                id: koSimulation
+                initialTime: 0
+                outputStartTime: 0
+                outputEndTime: 0
+                numberOfSteps: 10
+                algorithm:
+                  _type: SedAlgorithm
+                  kisaoId: KISAO_0000437
+                  changes: []
+            target:
+              _type: SedTarget
+              value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
+              namespaces:
+              - _type: Namespace
+                prefix: sbml
+                uri: http://www.sbml.org/sbml/level3/version1/core
+          math: atp
+          _resultsDataSetId: experiment.sedml/report/data_set_atp
     SedDataGenerator:
       description: Data generator for SED report or plot.
       required:
@@ -285,6 +586,38 @@ components:
           enum:
           - SedDataGenerator
           type: string
+      example:
+        _type: SedDataGenerator
+        id: data_generator_time
+        name: Time
+        variables:
+        - _type: SedVariable
+          id: time
+          name: Time
+          task:
+            _type: SedTask
+            id: task
+            name: Task
+            model:
+              _type: SedModel
+              id: model
+              language: urn:sedml:language:sbml
+              source: model.xml
+              changes: []
+            simulation:
+              _type: SedUniformTimeCourseSimulation
+              id: koSimulation
+              initialTime: 0
+              outputStartTime: 0
+              outputEndTime: 0
+              numberOfSteps: 10
+              algorithm:
+                _type: SedAlgorithm
+                kisaoId: KISAO_0000437
+                changes: []
+          symbol: urn:sedml:symbol:time
+        math: time
+        _resultsDataSetId: experiment.sedml/report/data_set_time
     SedDocument:
       description: A SED document.
       required:
@@ -335,6 +668,7 @@ components:
           - SedDocument
           type: string
       example:
+        _type: SedDocument
         level: 1
         version: 4
         models: []
@@ -366,6 +700,53 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SedDataSet'
+      example:
+        _type: SedReport
+        id: report
+        name: Report
+        dataSets:
+        - _type: SedDataSet
+          id: data_set_atp
+          name: ATP
+          label: ATP
+          dataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_atp
+            name: ATP
+            variables:
+            - _type: SedVariable
+              id: atp
+              name: ATP
+              task:
+                _type: SedTask
+                id: task
+                name: Task
+                model:
+                  _type: SedModel
+                  id: model
+                  language: urn:sedml:language:sbml
+                  source: model.xml
+                  changes: []
+                simulation:
+                  _type: SedUniformTimeCourseSimulation
+                  id: koSimulation
+                  initialTime: 0
+                  outputStartTime: 0
+                  outputEndTime: 0
+                  numberOfSteps: 10
+                  algorithm:
+                    _type: SedAlgorithm
+                    kisaoId: KISAO_0000437
+                    changes: []
+              target:
+                _type: SedTarget
+                value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
+                namespaces:
+                - _type: Namespace
+                  prefix: sbml
+                  uri: http://www.sbml.org/sbml/level3/version1/core
+            math: atp
+            _resultsDataSetId: experiment.sedml/report/data_set_atp
     CombineArchive:
       description: A COMBINE/OMEX archive.
       required:
@@ -384,17 +765,26 @@ components:
           - CombineArchive
           type: string
       example:
+        _type: CombineArchive
         contents:
-        - location:
+        - _type: CombineArchiveContent
+          location:
+            _type: CombineArchiveLocation
             path: experiment1/model.xml
             value:
               _type: CombineArchiveContentFile
               filename: model.xml
+          format: http://identifiers.org/combine.specifications/sbml
+          master: false
+        - _type: CombineArchiveContent
+          location:
             _type: CombineArchiveLocation
-          format: some text
+            path: experiment1/simulation.sedml
+            value:
+              _type: CombineArchiveContentUrl
+              url: https://simulation.org/simulation.sedml
+          format: http://identifiers.org/combine.specifications/sed-ml
           master: true
-          _type: CombineArchiveContent
-        _type: CombineArchive
     CombineArchiveContent:
       description: Content item of a COMBINE/OMEX archive.
       required:
@@ -419,15 +809,15 @@ components:
           - CombineArchiveContent
           type: string
       example:
+        _type: CombineArchiveContent
         location:
+          _type: CombineArchiveLocation
           path: experiment1/model.xml
           value:
             _type: CombineArchiveContentFile
             filename: model.xml
-          _type: CombineArchiveLocation
-        format: some text
+        format: http://identifiers.org/combine.specifications/sbml
         master: true
-        _type: CombineArchiveContent
     CombineArchiveLocation:
       description: Location of an item in a COMBINE/OMEX archive and its value.
       required:
@@ -448,11 +838,11 @@ components:
           - CombineArchiveLocation
           type: string
       example:
+        _type: CombineArchiveLocation
         path: experiment1/model.xml
         value:
           _type: CombineArchiveContentFile
           filename: model.xml
-        _type: CombineArchiveLocation
     SedModel:
       description: A SED model.
       required:
@@ -485,6 +875,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SedModelChange'
+      example:
+        _type: SedModel
+        id: model
+        name: Model
+        language: urn:sedml:language:sbml
+        source: model.xml
+        changes:
+        - _type: SedModelAttributeChange
+          id: parameter_k1
+          name: parameter k1
+          target:
+            _type: SedTarget
+            value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value"
+            namespaces:
+            - _type: Namespace
+              prefix: sbml
+              uri: http://www.sbml.org/sbml/level3/version1/core
+          newValue: "1.1"
     SedTask:
       description: A SED task.
       required:
@@ -511,6 +919,27 @@ components:
           enum:
           - SedTask
           type: string
+      example:
+        _type: SedTask
+        id: task
+        name: Task
+        model:
+          _type: SedModel
+          id: model
+          language: urn:sedml:language:sbml
+          source: model.xml
+          changes: []
+        simulation:
+          _type: SedUniformTimeCourseSimulation
+          id: koSimulation
+          initialTime: 0
+          outputStartTime: 0
+          outputEndTime: 0
+          numberOfSteps: 10
+          algorithm:
+            _type: SedAlgorithm
+            kisaoId: KISAO_0000437
+            changes: []
     SedUniformTimeCourseSimulation:
       description: A SED uniform time course simulation.
       required:
@@ -550,9 +979,9 @@ components:
           $ref: '#/components/schemas/SedAlgorithm'
           description: Algorithm.
       example:
+        _type: SedUniformTimeCourseSimulation
         id: ko_simulation
         name: knockout simulation
-        _type: SedUniformTimeCourseSimulation
         initialTime: 0
         outputStartTime: 10
         outputEndTime: 20
@@ -584,9 +1013,9 @@ components:
           $ref: '#/components/schemas/SedAlgorithm'
           description: Algorithm.
       example:
+        _type: SedSteadyStateSimulation
         id: koSimulation
         name: knockout simulation
-        _type: SedSteadyStateSimulation
         algorithm:
           _type: SedAlgorithm
           kisaoId: KISAO_0000437
@@ -617,8 +1046,8 @@ components:
           $ref: '#/components/schemas/SedAlgorithm'
           description: Algorithm.
       example:
-        id: singleStep
         _type: SedOneStepSimulation
+        id: singleStep
         name: single step
         step: 1
         algorithm:
@@ -654,6 +1083,27 @@ components:
           enum:
           - SedVariable
           type: string
+      example:
+        id: atp
+        name: ATP
+        task:
+          id: task
+          model:
+            id: model
+            language: urn:sedml:language:sbml
+            source: model.xml
+            _type: SedModel
+            changes: []
+          simulation:
+            _type: SedSteadyStateSimulation
+            id: simulation
+            algorithm:
+              _type: SedAlgorithm
+              kisaoId: KISAO_0000437
+              changes: []
+          _type: SedTask
+        symbol: urn:sedml:symbol:time
+        _type: SedVariable
     SedRepeatedTask:
       description: A SED repeated task.
       required:
@@ -672,6 +1122,10 @@ components:
           enum:
           - SedRepeatedTask
           type: string
+      example:
+        _type: SedRepeatedTask
+        id: task
+        name: Task
     SedAxisScale:
       description: ""
       enum:
@@ -682,6 +1136,7 @@ components:
     BioSimulationsDataSetResultsId:
       description: Id of the results of a data set.
       type: string
+      example: experiment1/simulation.sedml/report_ntp_dynamics/data_set_atp_dynamics
     SedOutput:
       oneOf:
       - $ref: '#/components/schemas/SedPlot2D'
@@ -691,6 +1146,53 @@ components:
         propertyName: _type
       description: An output of a SED document.
       type: object
+      example:
+        _type: SedReport
+        id: report
+        name: Report
+        dataSets:
+        - _type: SedDataSet
+          id: data_set_atp
+          name: ATP
+          label: ATP
+          dataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_atp
+            name: ATP
+            variables:
+            - _type: SedVariable
+              id: atp
+              name: ATP
+              task:
+                _type: SedTask
+                id: task
+                name: Task
+                model:
+                  _type: SedModel
+                  id: model
+                  language: urn:sedml:language:sbml
+                  source: model.xml
+                  changes: []
+                simulation:
+                  _type: SedUniformTimeCourseSimulation
+                  id: koSimulation
+                  initialTime: 0
+                  outputStartTime: 0
+                  outputEndTime: 0
+                  numberOfSteps: 10
+                  algorithm:
+                    _type: SedAlgorithm
+                    kisaoId: KISAO_0000437
+                    changes: []
+              target:
+                _type: SedTarget
+                value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
+                namespaces:
+                - _type: Namespace
+                  prefix: sbml
+                  uri: http://www.sbml.org/sbml/level3/version1/core
+            math: atp
+            _resultsDataSetId: experiment.sedml/report/data_set_atp
     SedAbstractTask:
       oneOf:
       - $ref: '#/components/schemas/SedTask'
@@ -699,6 +1201,27 @@ components:
         propertyName: _type
       description: A SED abstract task.
       type: object
+      example:
+        _type: SedTask
+        id: task
+        name: Task
+        model:
+          _type: SedModel
+          id: model
+          language: urn:sedml:language:sbml
+          source: model.xml
+          changes: []
+        simulation:
+          _type: SedUniformTimeCourseSimulation
+          id: koSimulation
+          initialTime: 0
+          outputStartTime: 0
+          outputEndTime: 0
+          numberOfSteps: 10
+          algorithm:
+            _type: SedAlgorithm
+            kisaoId: KISAO_0000437
+            changes: []
     SedSimulation:
       oneOf:
       - $ref: '#/components/schemas/SedSteadyStateSimulation'
@@ -768,6 +1291,43 @@ components:
           enum:
           - SedDataSet
           type: string
+      example:
+        _type: SedDataSet
+        id: data_set_time
+        name: Time
+        label: Time
+        dataGenerator:
+          _type: SedDataGenerator
+          id: data_generator_time
+          name: Time
+          variables:
+          - _type: SedVariable
+            id: time
+            name: Time
+            task:
+              _type: SedTask
+              id: task
+              name: Task
+              model:
+                _type: SedModel
+                id: model
+                language: urn:sedml:language:sbml
+                source: model.xml
+                changes: []
+              simulation:
+                _type: SedUniformTimeCourseSimulation
+                id: koSimulation
+                initialTime: 0
+                outputStartTime: 0
+                outputEndTime: 0
+                numberOfSteps: 10
+                algorithm:
+                  _type: SedAlgorithm
+                  kisaoId: KISAO_0000437
+                  changes: []
+            symbol: urn:sedml:symbol:time
+          math: time
+          _resultsDataSetId: experiment.sedml/report/data_set_time
     SedAlgorithm:
       description: A SED algorithm.
       required:
@@ -791,10 +1351,10 @@ components:
             $ref: '#/components/schemas/SedAlgorithmParameterChange'
       example:
         _type: SedAlgorithm
-        kisaoId: KISAO_0000029t
+        kisaoId: KISAO_0000029
         changes:
-        - kisaoId: KISAO_0000488
-          _type: SedAlgorithmParameterChange
+        - _type: SedAlgorithmParameterChange
+          kisaoId: KISAO_0000488
           newValue: "1000"
     KisaoId:
       description: KiSAO id
@@ -820,8 +1380,8 @@ components:
           description: New value
           type: string
       example:
-        kisaoId: KISAO_0000488
         _type: SedAlgorithmParameterChange
+        kisaoId: KISAO_0000488
         newValue: "1000"
     SedModelLanguage:
       description: |-
@@ -845,6 +1405,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/File'
+      example: "{\n    {\n    \"_type\": \"CombineArchive\",\n    \"contents\": [\n\
+        \        {\n            \"_type\": \"CombineArchiveContent\",\n          \
+        \  \"location\": {\n                \"_type\": \"CombineArchiveLocation\"\
+        ,\n                \"path\": \"experiment1/model.xml\",\n                \"\
+        value\": {\n                    \"_type\": \"CombineArchiveContentFile\",\n\
+        \                    \"filename\": \"model.xml\"\n                }\n    \
+        \        },\n            \"format\": \"http://identifiers.org/combine.specifications/sbml\"\
+        ,\n            \"master\": false\n        },\n        {\n            \"_type\"\
+        : \"CombineArchiveContent\",\n            \"location\": {\n              \
+        \  \"_type\": \"CombineArchiveLocation\",\n                \"path\": \"experiment1/simulation.sedml\"\
+        ,\n                \"value\": {\n                    \"_type\": \"CombineArchiveContentUrl\"\
+        ,\n                    \"url\": \"https://simulation.org/simulation.sedml\"\
+        \n                }\n            },\n            \"format\": \"http://identifiers.org/combine.specifications/sed-ml\"\
+        ,\n            \"master\": true\n        }\n    ]\n},\n    \"files\": [\n\
+        \        \"<FILE>\"\n    ]\n}"
       x-body-name: body
     Namespace:
       description: Namespace
@@ -876,6 +1451,7 @@ components:
       format: binary
       description: The two files uploaded in creating a combine archive
       type: string
+      example: '"<FILE>"'
     Url:
       description: URL
       type: string
@@ -999,14 +1575,14 @@ components:
         _type: SedModelAttributeChange
         id: parameter_k1
         name: parameter k1
-        newValue: "1.1"
         target:
           _type: SedTarget
           value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value"
           namespaces:
-          - prefix: sbml
+          - _type: Namespace
+            prefix: sbml
             uri: http://www.sbml.org/sbml/level3/version1/core
-            _type: Namespace
+        newValue: "1.1"
     SedModelChange:
       oneOf:
       - $ref: '#/components/schemas/SedModelAttributeChange'
@@ -1014,6 +1590,18 @@ components:
         propertyName: _type
       description: A SED model change.
       type: object
+      example:
+        _type: SedModelAttributeChange
+        id: parameter_k1
+        name: parameter k1
+        target:
+          _type: SedTarget
+          value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value"
+          namespaces:
+          - _type: Namespace
+            prefix: sbml
+            uri: http://www.sbml.org/sbml/level3/version1/core
+        newValue: "1.1"
     SedTarget:
       description: Target of a variable.
       required:
