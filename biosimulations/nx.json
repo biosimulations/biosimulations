@@ -68,7 +68,7 @@
       "tags": [
         "scope:shared",
         "type:service",
-        "platform:any"
+        "platform:web"
       ],
       "implicitDependencies": []
     },
