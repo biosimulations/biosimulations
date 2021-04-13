@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 export enum ImageMessage {
   refresh = 'image.refresh',
 }

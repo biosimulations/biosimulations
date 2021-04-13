@@ -195,7 +195,7 @@
     },
     "combine-service": { "tags": [] },
     "datamodel-utils": {
-      "tags": ["scope:shared", "type: util", "platform: any"]
+      "tags": ["scope:shared", "type:util", "platform:any"]
     }
   }
 }

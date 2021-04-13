@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import {
   ValueType,
   AlgorithmParameter as IAlgorithmParameter,
