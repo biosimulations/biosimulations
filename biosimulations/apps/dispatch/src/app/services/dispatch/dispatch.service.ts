@@ -21,7 +21,7 @@ import {
   SboTerm,
   ValueType,
 } from '@biosimulations/datamodel/common';
-import { UtilsService } from '@biosimulations/shared/services'
+import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
 import { environment } from '@biosimulations/shared/environments';
 
 export interface AlgorithmParameter {
@@ -157,13 +157,13 @@ export class DispatchService {
       map(
         (resolvedPromises): SimulatorsData => {
           const simulatorSpecs = resolvedPromises[0] as any[]; // Simulator[]
-          const edamTerms = resolvedPromises[1] as {[id: string]: EdamTerm};
-          const kisaoTerms = resolvedPromises[2] as {[id: string]: KisaoTerm};
-          const sboTerms = resolvedPromises[3] as {[id: string]: SboTerm};
+          const edamTerms = resolvedPromises[1] as { [id: string]: EdamTerm };
+          const kisaoTerms = resolvedPromises[2] as { [id: string]: KisaoTerm };
+          const sboTerms = resolvedPromises[3] as { [id: string]: SboTerm };
 
           const getKisaoTermName = (id: string): string => {
             return kisaoTerms[id].name;
-          }
+          };
 
           // response to dict logic
           const simulatorSpecsMap: SimulatorSpecsMap = {};
@@ -197,32 +197,56 @@ export class DispatchService {
                     },
                   ),
                   algorithmKisaoIds: [algorithm.kisaoId.id],
-                  parameters: algorithm.parameters.map((param: any): AlgorithmParameter => {
-                    return {
-                      id: param.kisaoId.id,
-                      name: kisaoTerms[param.kisaoId.id].name,
-                      url: kisaoTerms[param.kisaoId.id].url,
-                      type: param.type,
-                      value: param.value,
-                      formattedValue: param.value
-                        ? UtilsService.formatValue(
-                          param.type, UtilsService.parseValue<string>(getKisaoTermName, param.type, param.value)) || ''
-                        : '',
-                      recommendedRange: param.recommendedRange,
-                      formattedRecommendedRange: param.recommendedRange
-                        ? param.recommendedRange.map((value: string): string => {
-                            return UtilsService.formatValue(
-                              param.type, UtilsService.parseValue<string>(getKisaoTermName, param.type, value)) as string;
-                          })
-                        : ['--none--'],
-                      formattedRecommendedRangeJoined: param.recommendedRange
-                        ? param.recommendedRange.map((value: string): string => {
-                            return UtilsService.formatValue(
-                              param.type, UtilsService.parseValue<string>(getKisaoTermName, param.type, value)) as string;
-                          }).join(', ')
-                        : '--none--',
-                    };
-                  }),
+                  parameters: algorithm.parameters.map(
+                    (param: any): AlgorithmParameter => {
+                      return {
+                        id: param.kisaoId.id,
+                        name: kisaoTerms[param.kisaoId.id].name,
+                        url: kisaoTerms[param.kisaoId.id].url,
+                        type: param.type,
+                        value: param.value,
+                        formattedValue: param.value
+                          ? formatValue(
+                              param.type,
+                              parseValue<string>(
+                                getKisaoTermName,
+                                param.type,
+                                param.value,
+                              ),
+                            ) || ''
+                          : '',
+                        recommendedRange: param.recommendedRange,
+                        formattedRecommendedRange: param.recommendedRange
+                          ? param.recommendedRange.map(
+                              (value: string): string => {
+                                return formatValue(
+                                  param.type,
+                                  parseValue<string>(
+                                    getKisaoTermName,
+                                    param.type,
+                                    value,
+                                  ),
+                                ) as string;
+                              },
+                            )
+                          : ['--none--'],
+                        formattedRecommendedRangeJoined: param.recommendedRange
+                          ? param.recommendedRange
+                              .map((value: string): string => {
+                                return formatValue(
+                                  param.type,
+                                  parseValue<string>(
+                                    getKisaoTermName,
+                                    param.type,
+                                    value,
+                                  ),
+                                ) as string;
+                              })
+                              .join(', ')
+                          : '--none--',
+                      };
+                    },
+                  ),
                 });
 
                 algorithm.modelFormats.forEach((format: any): void => {
@@ -232,7 +256,7 @@ export class DispatchService {
                       name: edamTerms?.[format.id]?.name || format.id,
                       simulators: new Set<string>(),
                       disabled: false,
-                    }
+                    };
                   }
                   modelFormats[format.id].simulators.add(simulator.id);
                 });
@@ -244,7 +268,7 @@ export class DispatchService {
                       name: sboTerms?.[framework.id]?.name || framework.id,
                       simulators: new Set<string>(),
                       disabled: false,
-                    }
+                    };
                   }
                   modelingFrameworks[framework.id].simulators.add(simulator.id);
                 });
@@ -252,12 +276,15 @@ export class DispatchService {
                 if (!(algorithm.kisaoId.id in simulationAlgorithms)) {
                   simulationAlgorithms[algorithm.kisaoId.id] = {
                     id: algorithm.kisaoId.id,
-                    name: kisaoTerms?.[algorithm.kisaoId.id]?.name || algorithm.id,
+                    name:
+                      kisaoTerms?.[algorithm.kisaoId.id]?.name || algorithm.id,
                     simulators: new Set<string>(),
                     disabled: false,
-                  }
+                  };
                 }
-                simulationAlgorithms[algorithm.kisaoId.id].simulators.add(simulator.id);
+                simulationAlgorithms[algorithm.kisaoId.id].simulators.add(
+                  simulator.id,
+                );
               });
             }
           }
@@ -312,5 +339,8 @@ export class DispatchService {
     );
   }
 
-  constructor(private http: HttpClient, private ontologyService: OntologyService) {}
+  constructor(
+    private http: HttpClient,
+    private ontologyService: OntologyService,
+  ) {}
 }

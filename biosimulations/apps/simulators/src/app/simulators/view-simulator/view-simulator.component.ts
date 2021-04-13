@@ -24,6 +24,7 @@ import {
   ViewParameter,
   ViewVersion,
 } from './view-simulator.interface';
+import { formatValue } from '@biosimulations/datamodel/utils';
 
 @Component({
   selector: 'biosimulations-view-simulator',
@@ -44,15 +45,16 @@ export class ViewSimulatorComponent implements OnInit {
     private snackBar: MatSnackBar,
   ) {}
 
-  loadingSubject = new BehaviorSubject(true);
-  loading$ = this.loadingSubject.asObservable()
+  public loadingSubject = new BehaviorSubject(true);
+  public loading$ = this.loadingSubject.asObservable();
   // TODO handler errors from simulator service
-  error = false;
+  public error = false;
 
-  simulator!: Observable<ViewSimulator>;
-  id!: string;
-
-  parametersColumns: Column[] = [
+  public simulator!: Observable<ViewSimulator>;
+  public id!: string;
+  public algorithmsTocSections!: Observable<TocSection[]>;
+  public testResultsTocSections = of(null);
+  public parametersColumns: Column[] = [
     {
       id: 'name',
       heading: 'Name',
@@ -75,7 +77,7 @@ export class ViewSimulatorComponent implements OnInit {
       heading: 'Default',
       key: 'value',
       getter: (parameter: ViewParameter): string | null => {
-        return UtilsService.formatValue(parameter.type as ValueType, parameter.value);
+        return formatValue(parameter.type as ValueType, parameter.value);
       },
       minWidth: 66,
       maxWidth: 66,
@@ -88,7 +90,7 @@ export class ViewSimulatorComponent implements OnInit {
         if (parameter.range) {
           return (parameter.range as string[])
             .map((value: string): string | null => {
-              return UtilsService.formatValue(parameter.type as ValueType, value);
+              return formatValue(parameter.type as ValueType, value);
             })
             .join(', ');
         } else {
@@ -132,44 +134,7 @@ export class ViewSimulatorComponent implements OnInit {
     },
   ];
 
-  getParameterStackedHeading(parameter: ViewParameter): string {
-    return parameter.name;
-  }
-
-  getParameterStackedHeadingMoreInfoRouterLink(
-    parameter: ViewParameter,
-  ): string {
-    return parameter.kisaoUrl;
-  }
-
-  dependentVariablesColumns: Column[] = [
-    {
-      id: 'variables',
-      heading: 'Description',
-      key: 'variables',
-      toolTipFormatter: (value: string): string => {
-        return value;
-      },
-      minWidth: 200,
-    },
-    {
-      id: 'targetPattern',
-      heading: 'Target pattern',
-      key: 'targetPattern',
-      toolTipFormatter: (value: string): string => {
-        return value;
-      },
-      minWidth: 600,
-    },
-  ];
-
-  getDependentVariablesStackedHeading(
-    dependentVariableTargetPattern: IDependentVariableTargetPattern,
-  ): string {
-    return dependentVariableTargetPattern.variables;
-  }
-
-  versionsColumns: Column[] = [
+  public versionsColumns: Column[] = [
     {
       id: 'label',
       heading: 'Version',
@@ -274,17 +239,56 @@ export class ViewSimulatorComponent implements OnInit {
     },
   ];
 
-  getVersionStackedHeading(version: ViewVersion): string {
+  public dependentVariablesColumns: Column[] = [
+    {
+      id: 'variables',
+      heading: 'Description',
+      key: 'variables',
+      toolTipFormatter: (value: string): string => {
+        return value;
+      },
+      minWidth: 200,
+    },
+    {
+      id: 'targetPattern',
+      heading: 'Target pattern',
+      key: 'targetPattern',
+      toolTipFormatter: (value: string): string => {
+        return value;
+      },
+      minWidth: 600,
+    },
+  ];
+
+  public highlightVersion!: (version: ViewVersion) => boolean;
+
+  public getVersionStackedHeading(version: ViewVersion): string {
     return version.label;
   }
 
-  getVersionStackedHeadingMoreInfoRouterLink(version: ViewVersion): string[] {
+  public getVersionStackedHeadingMoreInfoRouterLink(
+    version: ViewVersion,
+  ): string[] {
     return ['/simulators', this.id, version.label];
   }
 
-  highlightVersion!: (version: ViewVersion) => boolean;
+  public getParameterStackedHeading(parameter: ViewParameter): string {
+    return parameter.name;
+  }
 
-  ngOnInit(): void {
+  public getParameterStackedHeadingMoreInfoRouterLink(
+    parameter: ViewParameter,
+  ): string {
+    return parameter.kisaoUrl;
+  }
+
+  public getDependentVariablesStackedHeading(
+    dependentVariableTargetPattern: IDependentVariableTargetPattern,
+  ): string {
+    return dependentVariableTargetPattern.variables;
+  }
+
+  public ngOnInit(): void {
     this.getVersionLinkBound = this.getVersionStackedHeadingMoreInfoRouterLink.bind(
       this,
     );
@@ -312,7 +316,7 @@ export class ViewSimulatorComponent implements OnInit {
     );
   }
 
-  processSimulator(simulator: ViewSimulator): void {
+  public processSimulator(simulator: ViewSimulator): void {
     this.dispatchAppUrl =
       this.config.dispatchAppUrl +
       'run' +
@@ -350,11 +354,8 @@ export class ViewSimulatorComponent implements OnInit {
     }
   }
 
-  algorithmsTocSections!: Observable<TocSection[]>;
-  testResultsTocSections = of(null);
-
   @ViewChild(TocSectionsContainerDirective)
-  set tocSectionsContainer(container: TocSectionsContainerDirective) {
+  public set tocSectionsContainer(container: TocSectionsContainerDirective) {
     if (container) {
       setTimeout(() => {
         this.algorithmsTocSections = container.sections$;
@@ -362,11 +363,15 @@ export class ViewSimulatorComponent implements OnInit {
     }
   }
 
-  copyDockerPullCmd(image = '{ image }'): void {
+  public copyDockerPullCmd(image = '{ image }'): void {
     const cmd = 'docker pull ' + image;
     navigator.clipboard.writeText(cmd);
-    this.snackBar.open('The command to pull the Docker image was copied to your clipboard.', undefined, {
-      duration: snackBarDuration,
-    });
+    this.snackBar.open(
+      'The command to pull the Docker image was copied to your clipboard.',
+      undefined,
+      {
+        duration: snackBarDuration,
+      },
+    );
   }
 }
