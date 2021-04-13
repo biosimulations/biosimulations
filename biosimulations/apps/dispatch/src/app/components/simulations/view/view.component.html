@@ -498,7 +498,6 @@
     <biosimulations-vega-visualization
       *ngIf="selectedVisualizationType === VisualizationType.vega"
       [spec]="vegaSpec$"
-      (refreshed)="vegaRefreshHandler()"
       (error)="vegaErrorHandler()"
     >
     </biosimulations-vega-visualization>

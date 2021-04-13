@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, forkJoin, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, shareReplay } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 // import { Simulator } from '@biosimulations/simulators/api-models';
 import {
@@ -76,9 +76,9 @@ export interface SimulatorsData {
   providedIn: 'root',
 })
 export class DispatchService {
-  endpoint = `${urls.dispatchApi}run/`;
+  private endpoint = `${urls.dispatchApi}run/`;
 
-  sumbitJobURL(
+  public sumbitJobURL(
     url: string,
     simulator: string,
     simulatorVersion: string,
@@ -103,7 +103,7 @@ export class DispatchService {
     });
   }
 
-  submitJob(
+  public submitJob(
     fileToUpload: File,
     simulator: string,
     simulatorVersion: string,
@@ -134,7 +134,8 @@ export class DispatchService {
     return response;
   }
 
-  getAllSimulatorInfo(simulatorName?: string): Observable<string[]> {
+  // TODO Remove all of these hardcoded paths
+  public getAllSimulatorInfo(simulatorName?: string): Observable<string[]> {
     const endpoint = `${urls.dispatchApi}simulators`;
     if (simulatorName === undefined) {
       return this.http.get(endpoint) as Observable<string[]>;
@@ -144,7 +145,7 @@ export class DispatchService {
     >;
   }
 
-  getSimulatorsFromDb(): Observable<SimulatorsData> {
+  public getSimulatorsFromDb(): Observable<SimulatorsData> {
     const endpoint = `https://api.biosimulators.org/simulators`;
     const promises = [
       this.http.get(endpoint),
@@ -305,10 +306,13 @@ export class DispatchService {
           };
         },
       ),
+      shareReplay(1),
     );
   }
 
-  getSimulationLogs(uuid: string): Observable<SimulationLogs | undefined> {
+  public getSimulationLogs(
+    uuid: string,
+  ): Observable<SimulationLogs | undefined> {
     const endpoint = `${urls.dispatchApi}logs/${uuid}?download=false`;
     return this.http.get<CombineArchiveLog>(endpoint).pipe(
       map(
@@ -328,6 +332,7 @@ export class DispatchService {
           };
         },
       ),
+
       catchError(
         (error: HttpErrorResponse): Observable<undefined> => {
           if (!environment.production) {
@@ -339,7 +344,7 @@ export class DispatchService {
     );
   }
 
-  constructor(
+  public constructor(
     private http: HttpClient,
     private ontologyService: OntologyService,
   ) {}
