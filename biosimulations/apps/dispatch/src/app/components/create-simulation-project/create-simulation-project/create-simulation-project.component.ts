@@ -1545,10 +1545,14 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         },
       });
     } else {
-      const a = document.createElement('a');
-      a.href = projectUrl;
-      a.download = 'project.omex';
-      a.click();
+      // TODO: once https is enabled for http://biosimdevbucket.cam.uchc.edu,
+      // replace `window.location.href` with the commented out code below
+      window.location.href = projectUrl;
+
+      // const a = document.createElement('a');
+      // a.href = projectUrl;
+      // a.download = 'project.omex';
+      // a.click();
     }
   }
 }

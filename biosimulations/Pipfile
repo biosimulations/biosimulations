@@ -7,7 +7,7 @@ name = "pypi"
 flask = "*"
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
 requests = "*"
-biosimulators-utils = {extras = ["sbml"],version = ">=0.1.50"}
+biosimulators-utils = {extras = ["sbml"],version = ">=0.1.51"}
 python-dateutil = "*"
 gunicorn = "*"
 flask-cors = "*"
