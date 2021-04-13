@@ -70,6 +70,9 @@ export class LogService {
       .then((_) => {
         this.logger.debug('Sent Log to API');
       })
-      .catch((reason) => this.logger.error(reason));
+      .catch((reason) => {
+        this.logger.error(reason);
+        throw reason;
+      });
   }
 }

@@ -135,7 +135,10 @@ export class ResultsService {
           `Successfully uploaded report ${resultId} for simulation ${simId}`,
         ),
       )
-      .catch((err) => this.logger.error(err));
+      .catch((err) => {
+        this.logger.error(err);
+        throw err;
+      });
   }
   private async parseToJson(
     file: resultFile,
