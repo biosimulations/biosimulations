@@ -30,17 +30,36 @@ export class ResultsController {
 
     this.logger.log(`Simulation ${id} Finished. Creating logs and output`);
 
-    await Promise.all([
+    const processed: PromiseSettledResult<void>[] = await Promise.allSettled([
       this.archiverService.createResultArchive(id),
       this.resultsService.createResults(id, transpose),
       this.logService.createLog(id),
     ]);
 
-    this.simService
-      .updateSimulationRunStatus(id, SimulationRunStatus.SUCCEEDED)
-      .subscribe((run) =>
-        this.logger.log(`Updated Simulation ${run.id} to complete`),
-      );
+    let completed = true;
+
+    for (const val of processed) {
+      if (val.status == 'rejected') {
+        completed = false;
+        this.logger.error(val.reason);
+      }
+    }
+
+    if (completed) {
+      this.simService
+        .updateSimulationRunStatus(id, SimulationRunStatus.SUCCEEDED)
+        .subscribe((run) =>
+          this.logger.log(`Updated Simulation ${run.id} to complete`),
+        );
+    } else {
+      this.simService
+        .updateSimulationRunStatus(id, SimulationRunStatus.FAILED)
+        .subscribe((run) =>
+          this.logger.log(
+            `Updated Simulation ${run.id} to failed due to processing error`,
+          ),
+        );
+    }
   }
   @MessagePattern(DispatchMessage.failed)
   public async processFailedResults(
@@ -50,7 +69,7 @@ export class ResultsController {
 
     this.logger.log(`Simulation ${id} Failed. Creating logs and output`);
     if (data.proccessOutput) {
-      await Promise.all([
+      await Promise.allSettled([
         this.archiverService.createResultArchive(id),
         this.logService.createLog(id),
       ]);
