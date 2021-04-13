@@ -23,7 +23,7 @@ export class ImagesController {
   @ApiOperation({
     summary: 'Refresh Container Image',
     description:
-      'Trigger a rebuild of the singulairty image of a particular container',
+      'Trigger a rebuild of the Singularity image of a particular container',
   })
   @ApiBody({ type: refreshImageBody })
   @permissions('refresh:Images')
