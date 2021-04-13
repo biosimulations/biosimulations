@@ -23,9 +23,10 @@ import isUrl from 'is-url';
 import { urls } from '@biosimulations/config/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { UtilsService } from '@biosimulations/shared/services';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@biosimulations/shared/environments';
+import { validateValue } from '@biosimulations/datamodel/utils';
 
 enum LocationType {
   file = 'file',
@@ -37,7 +38,14 @@ interface OntologyTerm {
   name: string;
 }
 
-const modelFormatMetaData: {[id: string]: {name: string; sedUrn: string | null; combineSpecUrl: string; extension: string}} = {
+const modelFormatMetaData: {
+  [id: string]: {
+    name: string;
+    sedUrn: string | null;
+    combineSpecUrl: string;
+    extension: string;
+  };
+} = {
   format_3972: {
     name: 'BNGL',
     sedUrn: 'urn:sedml:language:bngl',
@@ -136,17 +144,21 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   ] as OntologyTerm[];
   compatibleSimulators?: Simulator[];
 
-  modelFileTypeSpecifiers = '.xml,.sbml,application/xml,application/sbml+xml,.bngl'
+  modelFileTypeSpecifiers =
+    '.xml,.sbml,application/xml,application/sbml+xml,.bngl';
   private static INIT_MODEL_NAMESPACES = 1;
   private static INIT_MODEL_CHANGES = 3;
   private static INIT_MODEL_VARIABLES = 5;
-  exampleModelUrl = 'https://raw.githubusercontent.com/biosimulators/Biosimulators_utils/dev/tests/fixtures/BIOMD0000000297.xml';
+  exampleModelUrl =
+    'https://raw.githubusercontent.com/biosimulators/Biosimulators_utils/dev/tests/fixtures/BIOMD0000000297.xml';
 
   submitPushed = false;
   projectBeingCreated = false;
 
   private subscriptions: Subscription[] = [];
-  private modelParametersAndVariablesSubscription: Subscription | undefined = undefined;
+  private modelParametersAndVariablesSubscription:
+    | Subscription
+    | undefined = undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -156,55 +168,76 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private snackBar: MatSnackBar,
   ) {
-    this.formGroup = this.formBuilder.group({
-      modelLocationType: [LocationType.file, Validators.required],
-      modelLocationDetails: [null],
-      modelFormat: [null, Validators.required],
-      modelNamespaces: this.formBuilder.array([], {
-        validators: [this.uniqueAttributeValidator.bind(this, 'prefix')],
-      }),
-      modelChanges: this.formBuilder.array([], {
-        validators: [this.uniqueAttributeValidator.bind(this, 'id')],
-      }),
-      modelingFramework: [null, Validators.required],
-      simulationType: [null, Validators.required],
-      oneStepSimulationParameters: this.formBuilder.group({
-        step: [null, this.positiveFloatValidator],
-      }),
-      uniformTimeCourseSimulationParameters: this.formBuilder.group({
-        initialTime: [null, this.floatValidator],
-        outputStartTime: [null, this.floatValidator],
-        outputEndTime: [null, this.floatValidator],
-        numberOfSteps: [null, this.nonNegativeIntegerValidator],
+    this.formGroup = this.formBuilder.group(
+      {
+        modelLocationType: [LocationType.file, Validators.required],
+        modelLocationDetails: [null],
+        modelFormat: [null, Validators.required],
+        modelNamespaces: this.formBuilder.array([], {
+          validators: [this.uniqueAttributeValidator.bind(this, 'prefix')],
+        }),
+        modelChanges: this.formBuilder.array([], {
+          validators: [this.uniqueAttributeValidator.bind(this, 'id')],
+        }),
+        modelingFramework: [null, Validators.required],
+        simulationType: [null, Validators.required],
+        oneStepSimulationParameters: this.formBuilder.group({
+          step: [null, this.positiveFloatValidator],
+        }),
+        uniformTimeCourseSimulationParameters: this.formBuilder.group(
+          {
+            initialTime: [null, this.floatValidator],
+            outputStartTime: [null, this.floatValidator],
+            outputEndTime: [null, this.floatValidator],
+            numberOfSteps: [null, this.nonNegativeIntegerValidator],
+          },
+          {
+            validators: this.uniformTimeCourseValidator,
+          },
+        ),
+        simulationAlgorithm: [null, Validators.required],
+        simulationAlgorithmParameters: this.formBuilder.array([]),
+        modelVariables: this.formBuilder.array([], {
+          validators: [this.uniqueAttributeValidator.bind(this, 'id')],
+        }),
       },
       {
-        validators: this.uniformTimeCourseValidator,
-      }),
-      simulationAlgorithm: [null, Validators.required],
-      simulationAlgorithmParameters: this.formBuilder.array([]),
-      modelVariables: this.formBuilder.array([], {
-        validators: [this.uniqueAttributeValidator.bind(this, 'id')],
-      }),
-    }, {
-      validators: [this.hasCompatibleSimulatorValidator.bind(this)],
-    });
+        validators: [this.hasCompatibleSimulatorValidator.bind(this)],
+      },
+    );
 
-    const modelFormatControl = this.formGroup.controls.modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls.modelingFramework as FormControl;
-    const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
-    const simulationAlgorithmControl = this.formGroup.controls.simulationAlgorithm as FormControl;
-    this.modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
+    const modelFormatControl = this.formGroup.controls
+      .modelFormat as FormControl;
+    const modelingFrameworkControl = this.formGroup.controls
+      .modelingFramework as FormControl;
+    const simulationTypeControl = this.formGroup.controls
+      .simulationType as FormControl;
+    const simulationAlgorithmControl = this.formGroup.controls
+      .simulationAlgorithm as FormControl;
+    this.modelNamespacesArray = this.formGroup.controls
+      .modelNamespaces as FormArray;
     this.modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
-    this.simulationAlgorithmParametersArray = this.formGroup.controls.simulationAlgorithmParameters as FormArray;
-    this.modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
+    this.simulationAlgorithmParametersArray = this.formGroup.controls
+      .simulationAlgorithmParameters as FormArray;
+    this.modelVariablesArray = this.formGroup.controls
+      .modelVariables as FormArray;
 
-    while (this.modelNamespacesArray.controls.length < CreateSimulationProjectComponent.INIT_MODEL_NAMESPACES) {
+    while (
+      this.modelNamespacesArray.controls.length <
+      CreateSimulationProjectComponent.INIT_MODEL_NAMESPACES
+    ) {
       this.addModelNamespace();
     }
-    while (this.modelChangesArray.controls.length < CreateSimulationProjectComponent.INIT_MODEL_CHANGES) {
+    while (
+      this.modelChangesArray.controls.length <
+      CreateSimulationProjectComponent.INIT_MODEL_CHANGES
+    ) {
       this.addModelChange();
     }
-    while (this.modelVariablesArray.controls.length < CreateSimulationProjectComponent.INIT_MODEL_VARIABLES) {
+    while (
+      this.modelVariablesArray.controls.length <
+      CreateSimulationProjectComponent.INIT_MODEL_VARIABLES
+    ) {
       this.addModelVariable();
     }
 
@@ -265,7 +298,11 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
     const errors: any = {};
 
-    if (!isNaN(initialTime) && !isNaN(outputStartTime) && !isNaN(outputEndTime)) {
+    if (
+      !isNaN(initialTime) &&
+      !isNaN(outputStartTime) &&
+      !isNaN(outputEndTime)
+    ) {
       if (initialTime > outputStartTime) {
         errors['initialTimeGreaterThanOutputStartTime'] = true;
       }
@@ -283,7 +320,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
   parameterValidator(formGroup: FormGroup): ValidationErrors | null {
     const type = formGroup.value.type as ValueType | '--multiple--';
-    const formattedRecommendedRange = formGroup.value.formattedRecommendedRange as string[] | null | '--multiple--';
+    const formattedRecommendedRange = formGroup.value
+      .formattedRecommendedRange as string[] | null | '--multiple--';
     const value: string = formGroup.value.newValue;
 
     if (!value) {
@@ -294,18 +332,22 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       return null;
     }
 
-    if (UtilsService.validateValue(value, type, (id: string) => true)) {
-      if ([ValueType.string, ValueType.kisaoId].includes(type) && formattedRecommendedRange && formattedRecommendedRange !== '--multiple--') {
+    if (validateValue(value, type, (id: string) => true)) {
+      if (
+        [ValueType.string, ValueType.kisaoId].includes(type) &&
+        formattedRecommendedRange &&
+        formattedRecommendedRange !== '--multiple--'
+      ) {
         if (formattedRecommendedRange.includes(value)) {
           return null;
         } else {
-          return {invalid: true};
+          return { invalid: true };
         }
       } else {
         return null;
       }
     } else {
-      return {invalid: true};
+      return { invalid: true };
     }
   }
 
@@ -333,13 +375,16 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     }
   }
 
-  uniqueAttributeValidator(attrName: string, formArray: AbstractControl): ValidationErrors | null {
+  uniqueAttributeValidator(
+    attrName: string,
+    formArray: AbstractControl,
+  ): ValidationErrors | null {
     const values = (formArray as FormArray).value as any[];
 
     const uniqueValues = new Set<string>(
       values.map((value: any): string => {
         return value?.[attrName];
-      })
+      }),
     );
 
     if (uniqueValues.size === values.length) {
@@ -351,11 +396,16 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     }
   }
 
-  hasCompatibleSimulatorValidator(formGroup: FormGroup): ValidationErrors | null {
+  hasCompatibleSimulatorValidator(
+    formGroup: FormGroup,
+  ): ValidationErrors | null {
     const modelFormatControl = formGroup.controls.modelFormat as FormControl;
-    const modelingFrameworkControl = formGroup.controls.modelingFramework as FormControl;
-    const simulationAlgorithmControl = formGroup.controls.simulationAlgorithm as FormControl;
-    const simulationAlgorithmParametersArray = formGroup.controls.simulationAlgorithmParameters as FormArray;
+    const modelingFrameworkControl = formGroup.controls
+      .modelingFramework as FormControl;
+    const simulationAlgorithmControl = formGroup.controls
+      .simulationAlgorithm as FormControl;
+    const simulationAlgorithmParametersArray = formGroup.controls
+      .simulationAlgorithmParameters as FormArray;
 
     const formatEdamId = modelFormatControl.value;
     const frameworkSboId = modelingFrameworkControl.value;
@@ -364,34 +414,47 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     let simIds = new Set<string>();
     this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
       simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-        (modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat): void => {
+        (
+          modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
+        ): void => {
           if (
-            modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(formatEdamId) &&
-            modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(frameworkSboId) &&
-            modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.includes(algKisaoId)
+            modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(
+              formatEdamId,
+            ) &&
+            modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(
+              frameworkSboId,
+            ) &&
+            modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.includes(
+              algKisaoId,
+            )
           ) {
             simIds.add(simulator.id);
           }
-        });
+        },
+      );
     });
 
-    formGroup.value.simulationAlgorithmParameters.forEach((control: any): void => {
-      if (control.newValue) {
-        simIds = this.setIntersection(simIds, control.simulators);
-      }
-    });
+    formGroup.value.simulationAlgorithmParameters.forEach(
+      (control: any): void => {
+        if (control.newValue) {
+          simIds = this.setIntersection(simIds, control.simulators);
+        }
+      },
+    );
 
     this.compatibleSimulators = this.simulatorSpecs
       ?.filter((simulator: SimulatorSpecs): boolean => {
         return simIds.has(simulator.id);
       })
-      ?.map((simulator: SimulatorSpecs): Simulator => {
-        return {
-          id: simulator.id,
-          name: simulator.name,
-          url: 'https://biosimulators.org/simulators/' + simulator.id,
-        };
-      })
+      ?.map(
+        (simulator: SimulatorSpecs): Simulator => {
+          return {
+            id: simulator.id,
+            name: simulator.name,
+            url: 'https://biosimulators.org/simulators/' + simulator.id,
+          };
+        },
+      );
 
     if (!this.simulatorSpecs || this.compatibleSimulators?.length) {
       return null;
@@ -403,12 +466,19 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   }
 
   changeModelLocationType(): void {
-    const locationTypeControl = this.formGroup.controls.modelLocationType as FormControl;
+    const locationTypeControl = this.formGroup.controls
+      .modelLocationType as FormControl;
     const locationType: LocationType = locationTypeControl.value;
     if (locationType === LocationType.file) {
-      this.formGroup.setControl('modelLocationDetails', this.formBuilder.control('', [Validators.required]));
+      this.formGroup.setControl(
+        'modelLocationDetails',
+        this.formBuilder.control('', [Validators.required]),
+      );
     } else {
-      this.formGroup.setControl('modelLocationDetails', this.formBuilder.control('', [this.urlValidator]));
+      this.formGroup.setControl(
+        'modelLocationDetails',
+        this.formBuilder.control('', [this.urlValidator]),
+      );
     }
 
     this.getModelParametersAndVariables();
@@ -417,38 +487,58 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   getModelParametersAndVariables(): void {
     if (this.modelParametersAndVariablesSubscription) {
       this.modelParametersAndVariablesSubscription.unsubscribe();
-      const iSub = this.subscriptions.indexOf(this.modelParametersAndVariablesSubscription);
+      const iSub = this.subscriptions.indexOf(
+        this.modelParametersAndVariablesSubscription,
+      );
       this.subscriptions.splice(iSub, 1);
       this.modelParametersAndVariablesSubscription = undefined;
     }
 
-    const modelLocationTypeControl = this.formGroup.controls.modelLocationType as FormControl;
-    const modelLocationDetailsControl = this.formGroup.controls.modelLocationDetails as FormControl;
+    const modelLocationTypeControl = this.formGroup.controls
+      .modelLocationType as FormControl;
+    const modelLocationDetailsControl = this.formGroup.controls
+      .modelLocationDetails as FormControl;
 
     const modelLocationType: LocationType = modelLocationTypeControl.value;
-    const modelLocationDetails: File | string = modelLocationDetailsControl.value;
+    const modelLocationDetails: File | string =
+      modelLocationDetailsControl.value;
 
-    if (!modelLocationDetails || (modelLocationType == LocationType.url && !isUrl(modelLocationDetails as string))) {
+    if (
+      !modelLocationDetails ||
+      (modelLocationType == LocationType.url &&
+        !isUrl(modelLocationDetails as string))
+    ) {
       return;
     }
 
-    const modelFormatControl = this.formGroup.controls.modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls.modelingFramework as FormControl;
-    const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
-    const simulationAlgorithmControl = this.formGroup.controls.simulationAlgorithm as FormControl;
+    const modelFormatControl = this.formGroup.controls
+      .modelFormat as FormControl;
+    const modelingFrameworkControl = this.formGroup.controls
+      .modelingFramework as FormControl;
+    const simulationTypeControl = this.formGroup.controls
+      .simulationType as FormControl;
+    const simulationAlgorithmControl = this.formGroup.controls
+      .simulationAlgorithm as FormControl;
 
     const modelFormat = modelFormatControl.value as string;
     const modelingFramework = modelingFrameworkControl.value as string;
     const simulationType = simulationTypeControl.value as SimulationType;
     const simulationAlgorithm = simulationAlgorithmControl.value as string;
 
-    if (!modelFormat || !modelingFramework || !simulationType || !simulationAlgorithm) {
+    if (
+      !modelFormat ||
+      !modelingFramework ||
+      !simulationType ||
+      !simulationAlgorithm
+    ) {
       return;
     }
 
-    const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
+    const modelNamespacesArray = this.formGroup.controls
+      .modelNamespaces as FormArray;
     const modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
-    const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
+    const modelVariablesArray = this.formGroup.controls
+      .modelVariables as FormArray;
 
     const formData = new FormData();
     if (modelLocationType === LocationType.file) {
@@ -456,42 +546,48 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     } else {
       formData.append('modelUrl', modelLocationDetails);
     }
-    formData.append('modelLanguage', modelFormatMetaData[modelFormat].sedUrn as string);
+    formData.append(
+      'modelLanguage',
+      modelFormatMetaData[modelFormat].sedUrn as string,
+    );
     formData.append('modelingFramework', modelingFramework);
     formData.append('simulationType', simulationType);
     formData.append('simulationAlgorithm', simulationAlgorithm);
 
     const url = `${urls.combineApi}sed-ml/get-parameters-variables-for-simulation`;
-    const sedDoc = this.http.post<any>(url, formData)
-      .pipe(
-          catchError(
-            (error: HttpErrorResponse): Observable<null> => {
-              if (!environment.production) {
-                console.error(error);
-              }
-              this.snackBar.open((
-                'Sorry! We were unable to get the dependent parameters and independent variables of your model. '
-                + 'This feature is only currently available for models encoded in SBML, SBML-fbc, and SBML-qual.'
-                ), undefined, {
-                duration: 5000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom',
-              });
-              return of<null>(null);
+    const sedDoc = this.http.post<any>(url, formData).pipe(
+      catchError(
+        (error: HttpErrorResponse): Observable<null> => {
+          if (!environment.production) {
+            console.error(error);
+          }
+          this.snackBar.open(
+            'Sorry! We were unable to get the dependent parameters and independent variables of your model. ' +
+              'This feature is only currently available for models encoded in SBML, SBML-fbc, and SBML-qual.',
+            undefined,
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
             },
-          ),
-        );
-    const modelParametersAndVariablesSubscription = sedDoc.subscribe((sedDoc: any): void => {
-      modelNamespacesArray.clear();
-      modelChangesArray.clear();
-      modelVariablesArray.clear();
+          );
+          return of<null>(null);
+        },
+      ),
+    );
+    const modelParametersAndVariablesSubscription = sedDoc.subscribe(
+      (sedDoc: any): void => {
+        modelNamespacesArray.clear();
+        modelChangesArray.clear();
+        modelVariablesArray.clear();
 
-      const nsMap: {[prefix: string]: {prefix: string | null, uri: string}} = {};
-      const changeVals: any[] = [];
-      const varVals: any[] = [];
+        const nsMap: {
+          [prefix: string]: { prefix: string | null; uri: string };
+        } = {};
+        const changeVals: any[] = [];
+        const varVals: any[] = [];
 
-      sedDoc?.models?.[0]?.changes
-        ?.forEach((change: any): void => {
+        sedDoc?.models?.[0]?.changes?.forEach((change: any): void => {
           change.target.namespaces.forEach((ns: any): void => {
             const prefixKey = ns.prefix || '';
             if (!(prefixKey in nsMap)) {
@@ -513,8 +609,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           });
         });
 
-      sedDoc?.dataGenerators
-        ?.forEach((dataGen: any): void => {
+        sedDoc?.dataGenerators?.forEach((dataGen: any): void => {
           const modelVar = dataGen.variables[0];
 
           modelVar?.target?.namespaces?.forEach((ns: any): void => {
@@ -532,39 +627,46 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           const varVal = {
             id: modelVar.id,
             name: modelVar?.name || null,
-            type: modelVar?.symbol ? ModelVariableType.symbol : ModelVariableType.target,
+            type: modelVar?.symbol
+              ? ModelVariableType.symbol
+              : ModelVariableType.target,
             symbolOrTarget: modelVar?.symbol || modelVar?.target?.value,
           };
           varVals.push(varVal);
         });
 
-      const nsVals = Object.values(nsMap).sort((a, b): number => {
-        return (a.prefix || '').localeCompare((b.prefix || ''), undefined, { numeric: true });
-      });
+        const nsVals = Object.values(nsMap).sort((a, b): number => {
+          return (a.prefix || '').localeCompare(b.prefix || '', undefined, {
+            numeric: true,
+          });
+        });
 
-      changeVals.sort((a, b): number => {
-        return a.id.localeCompare(b.id, undefined, { numeric: true });
-      });
-
-      varVals.sort((a, b): number => {
-        if (a.type === b.type) {
+        changeVals.sort((a, b): number => {
           return a.id.localeCompare(b.id, undefined, { numeric: true });
-        } else {
-          return a.type.localeCompare(b.type, undefined, { numeric: true });
-        }
-      });
+        });
 
-      modelNamespacesArray.setValue(nsVals);
-      modelChangesArray.setValue(changeVals);
-      modelVariablesArray.setValue(varVals);
-    });
+        varVals.sort((a, b): number => {
+          if (a.type === b.type) {
+            return a.id.localeCompare(b.id, undefined, { numeric: true });
+          } else {
+            return a.type.localeCompare(b.type, undefined, { numeric: true });
+          }
+        });
+
+        modelNamespacesArray.setValue(nsVals);
+        modelChangesArray.setValue(changeVals);
+        modelVariablesArray.setValue(varVals);
+      },
+    );
     this.modelParametersAndVariablesSubscription = modelParametersAndVariablesSubscription;
     this.subscriptions.push(modelParametersAndVariablesSubscription);
   }
 
   changeModelFormat(): void {
-    const modelFormatControl = this.formGroup.controls.modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls.modelingFramework as FormControl;
+    const modelFormatControl = this.formGroup.controls
+      .modelFormat as FormControl;
+    const modelingFrameworkControl = this.formGroup.controls
+      .modelingFramework as FormControl;
 
     const formatEdamId = modelFormatControl.value;
 
@@ -572,18 +674,29 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       const sboIds = new Set<string>();
       this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
         simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-          (modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat): void => {
-            if (modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(formatEdamId)) {
-              modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.forEach((sboId: string): void => {
-                sboIds.add(sboId);
-              });
+          (
+            modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
+          ): void => {
+            if (
+              modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(
+                formatEdamId,
+              )
+            ) {
+              modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.forEach(
+                (sboId: string): void => {
+                  sboIds.add(sboId);
+                },
+              );
             }
-          })
+          },
+        );
       });
 
-      this.modelingFrameworks = this.allModelingFrameworks.filter((framework: OntologyTerm): boolean => {
-        return sboIds.has(framework.id);
-      });
+      this.modelingFrameworks = this.allModelingFrameworks.filter(
+        (framework: OntologyTerm): boolean => {
+          return sboIds.has(framework.id);
+        },
+      );
 
       if (this.modelingFrameworks.length === 1) {
         modelingFrameworkControl.setValue(this.modelingFrameworks[0].id);
@@ -596,7 +709,6 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       if (sboIds.size === 0) {
         modelFormatControl.setValue(null);
       }
-
     } else {
       this.modelingFrameworks = undefined;
       modelingFrameworkControl.disable();
@@ -607,19 +719,27 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   }
 
   changeModelingFramework(): void {
-    const modelFormatControl = this.formGroup.controls.modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls.modelingFramework as FormControl;
-    const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
+    const modelFormatControl = this.formGroup.controls
+      .modelFormat as FormControl;
+    const modelingFrameworkControl = this.formGroup.controls
+      .modelingFramework as FormControl;
+    const simulationTypeControl = this.formGroup.controls
+      .simulationType as FormControl;
 
     const formatEdamId = modelFormatControl.value;
     const frameworkSboId = modelingFrameworkControl.value;
 
-    if (this.allSimulationAlgorithms && formatEdamId && frameworkSboId && this.simulatorSpecs) {
+    if (
+      this.allSimulationAlgorithms &&
+      formatEdamId &&
+      frameworkSboId &&
+      this.simulatorSpecs
+    ) {
       const simulationTypeIds = new Set<string>();
       const simulationTypes: OntologyTerm[] = [];
       if (
-        ['format_2585'].includes(formatEdamId)
-        && ['SBO_0000293', 'SBO_0000624'].includes(frameworkSboId)
+        ['format_2585'].includes(formatEdamId) &&
+        ['SBO_0000293', 'SBO_0000624'].includes(frameworkSboId)
       ) {
         simulationTypeIds.add(SimulationType.SedSteadyStateSimulation);
         simulationTypes.push({
@@ -628,8 +748,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         });
       }
       if (
-        ['format_2585', 'format_3972'].includes(formatEdamId)
-        && ['SBO_0000293', 'SBO_0000295', 'SBO_0000547'].includes(frameworkSboId)
+        ['format_2585', 'format_3972'].includes(formatEdamId) &&
+        ['SBO_0000293', 'SBO_0000295', 'SBO_0000547'].includes(frameworkSboId)
       ) {
         simulationTypeIds.add(SimulationType.SedUniformTimeCourseSimulation);
         simulationTypes.push({
@@ -649,10 +769,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       if (simulationTypeIds.size === 0) {
         modelingFrameworkControl.setValue(null);
       }
-
     } else if (!formatEdamId && frameworkSboId) {
       modelingFrameworkControl.setValue(null);
-
     } else {
       this.simulationTypes = undefined;
       simulationTypeControl.disable();
@@ -663,10 +781,14 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   }
 
   changeSimulationType(): void {
-    const modelFormatControl = this.formGroup.controls.modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls.modelingFramework as FormControl;
-    const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
-    const simulationAlgorithmControl = this.formGroup.controls.simulationAlgorithm as FormControl;
+    const modelFormatControl = this.formGroup.controls
+      .modelFormat as FormControl;
+    const modelingFrameworkControl = this.formGroup.controls
+      .modelingFramework as FormControl;
+    const simulationTypeControl = this.formGroup.controls
+      .simulationType as FormControl;
+    const simulationAlgorithmControl = this.formGroup.controls
+      .simulationAlgorithm as FormControl;
 
     const formatEdamId = modelFormatControl.value;
     const frameworkSboId = modelingFrameworkControl.value;
@@ -682,50 +804,70 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       simulationTypeControl.setValue(null);
     }
 
-    const oneStepSimulationParametersGroup = this.formGroup.controls.oneStepSimulationParameters as FormGroup;
-    const uniformTimeCourseSimulationParametersGroup = this.formGroup.controls.uniformTimeCourseSimulationParameters as FormGroup;
+    const oneStepSimulationParametersGroup = this.formGroup.controls
+      .oneStepSimulationParameters as FormGroup;
+    const uniformTimeCourseSimulationParametersGroup = this.formGroup.controls
+      .uniformTimeCourseSimulationParameters as FormGroup;
 
     if (simulationType === SimulationType.SedOneStepSimulation) {
       oneStepSimulationParametersGroup.enable();
       uniformTimeCourseSimulationParametersGroup.disable();
-
     } else if (simulationType === SimulationType.SedSteadyStateSimulation) {
       oneStepSimulationParametersGroup.disable();
       uniformTimeCourseSimulationParametersGroup.disable();
-
-    } else if (simulationType === SimulationType.SedUniformTimeCourseSimulation) {
+    } else if (
+      simulationType === SimulationType.SedUniformTimeCourseSimulation
+    ) {
       oneStepSimulationParametersGroup.disable();
       uniformTimeCourseSimulationParametersGroup.enable();
-
     } else {
       oneStepSimulationParametersGroup.disable();
       uniformTimeCourseSimulationParametersGroup.disable();
     }
 
-    if (this.allSimulationAlgorithms && formatEdamId && frameworkSboId && simulationType && this.simulatorSpecs) {
+    if (
+      this.allSimulationAlgorithms &&
+      formatEdamId &&
+      frameworkSboId &&
+      simulationType &&
+      this.simulatorSpecs
+    ) {
       const kisaoIds = new Set<string>();
       this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
         simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-          (modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat): void => {
+          (
+            modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
+          ): void => {
             if (
-              modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(formatEdamId) &&
-              modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(frameworkSboId)
+              modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(
+                formatEdamId,
+              ) &&
+              modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(
+                frameworkSboId,
+              )
             ) {
-              modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.forEach((kisaoId: string): void => {
-                kisaoIds.add(kisaoId);
-              });
+              modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.forEach(
+                (kisaoId: string): void => {
+                  kisaoIds.add(kisaoId);
+                },
+              );
             }
-          })
+          },
+        );
       });
 
       if (formatEdamId === 'format_2585') {
         if (['SBO_0000293', 'SBO_0000295'].includes(frameworkSboId)) {
-          if (simulationType === SimulationType.SedUniformTimeCourseSimulation) {
+          if (
+            simulationType === SimulationType.SedUniformTimeCourseSimulation
+          ) {
             const hasNewtonType = kisaoIds.has('KISAO_0000408');
             if (hasNewtonType) {
               kisaoIds.delete('KISAO_0000408');
             }
-          } else if (simulationType === SimulationType.SedSteadyStateSimulation) {
+          } else if (
+            simulationType === SimulationType.SedSteadyStateSimulation
+          ) {
             const hasNewtonType = kisaoIds.has('KISAO_0000408');
             kisaoIds.clear();
             if (hasNewtonType) {
@@ -735,9 +877,11 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         }
       }
 
-      this.simulationAlgorithms = this.allSimulationAlgorithms.filter((algorithm: OntologyTerm): boolean => {
-        return kisaoIds.has(algorithm.id);
-      });
+      this.simulationAlgorithms = this.allSimulationAlgorithms.filter(
+        (algorithm: OntologyTerm): boolean => {
+          return kisaoIds.has(algorithm.id);
+        },
+      );
 
       if (this.simulationAlgorithms.length === 1) {
         simulationAlgorithmControl.setValue(this.simulationAlgorithms[0].id);
@@ -746,7 +890,6 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       }
 
       simulationAlgorithmControl.enable();
-
     } else {
       this.simulationAlgorithms = undefined;
       simulationAlgorithmControl.disable();
@@ -757,11 +900,16 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   }
 
   changeSimulationAlgorithm(): void {
-    const modelFormatControl = this.formGroup.controls.modelFormat as FormControl;
-    const modelingFrameworkControl = this.formGroup.controls.modelingFramework as FormControl;
-    const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
-    const simulationAlgorithmControl = this.formGroup.controls.simulationAlgorithm as FormControl;
-    const simulationAlgorithmParametersArray = this.formGroup.controls.simulationAlgorithmParameters as FormArray
+    const modelFormatControl = this.formGroup.controls
+      .modelFormat as FormControl;
+    const modelingFrameworkControl = this.formGroup.controls
+      .modelingFramework as FormControl;
+    const simulationTypeControl = this.formGroup.controls
+      .simulationType as FormControl;
+    const simulationAlgorithmControl = this.formGroup.controls
+      .simulationAlgorithm as FormControl;
+    const simulationAlgorithmParametersArray = this.formGroup.controls
+      .simulationAlgorithmParameters as FormArray;
 
     const formatEdamId = modelFormatControl.value;
     const frameworkSboId = modelingFrameworkControl.value;
@@ -769,80 +917,114 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const algKisaoId = simulationAlgorithmControl.value;
 
     let hasImplementation = false;
-    const allParams: {[id: string]: MultipleSimulatorsAlgorithmParameter} = {};
+    const allParams: {
+      [id: string]: MultipleSimulatorsAlgorithmParameter;
+    } = {};
 
     this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
       simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-        (modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat): void => {
+        (
+          modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
+        ): void => {
           if (
-            modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(formatEdamId) &&
-            modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(frameworkSboId) &&
-            modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.includes(algKisaoId)
+            modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(
+              formatEdamId,
+            ) &&
+            modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(
+              frameworkSboId,
+            ) &&
+            modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.includes(
+              algKisaoId,
+            )
           ) {
             hasImplementation = true;
-            modelingFrameworksAlgorithmsForModelFormat.parameters.forEach((param: AlgorithmParameter): void => {
-              const allParam = allParams?.[param.id];
-              if (allParam) {
-                allParam.simulators.add(simulator.id);
-                if (allParam.type !== param.type) {
-                  allParam.type = '--multiple--';
+            modelingFrameworksAlgorithmsForModelFormat.parameters.forEach(
+              (param: AlgorithmParameter): void => {
+                const allParam = allParams?.[param.id];
+                if (allParam) {
+                  allParam.simulators.add(simulator.id);
+                  if (allParam.type !== param.type) {
+                    allParam.type = '--multiple--';
+                  }
+                  if (allParam.formattedValue !== param.formattedValue) {
+                    allParam.value = '--multiple--';
+                    allParam.formattedValue = '--multiple--';
+                  }
+                  if (
+                    allParam.formattedRecommendedRangeJoined !==
+                    param.formattedRecommendedRangeJoined
+                  ) {
+                    allParam.recommendedRange = '--multiple--';
+                    allParam.formattedRecommendedRange = '--multiple--';
+                    allParam.formattedRecommendedRangeJoined = '--multiple--';
+                  }
+                } else {
+                  allParams[param.id] = {
+                    id: param.id,
+                    name: param.name,
+                    url: param.url,
+                    simulators: new Set<string>([simulator.id]),
+                    type: param.type,
+                    value: param.value,
+                    formattedValue: param.formattedValue,
+                    recommendedRange: param.recommendedRange,
+                    formattedRecommendedRange: param.formattedRecommendedRange,
+                    formattedRecommendedRangeJoined:
+                      param.formattedRecommendedRangeJoined,
+                  };
                 }
-                if (allParam.formattedValue !== param.formattedValue) {
-                  allParam.value = '--multiple--';
-                  allParam.formattedValue = '--multiple--';
-                }
-                if (allParam.formattedRecommendedRangeJoined !== param.formattedRecommendedRangeJoined) {
-                  allParam.recommendedRange = '--multiple--';
-                  allParam.formattedRecommendedRange = '--multiple--';
-                  allParam.formattedRecommendedRangeJoined = '--multiple--';
-                }
-
-              } else {
-                allParams[param.id] = {
-                  id: param.id,
-                  name: param.name,
-                  url: param.url,
-                  simulators: new Set<string>([simulator.id]),
-                  type: param.type,
-                  value: param.value,
-                  formattedValue: param.formattedValue,
-                  recommendedRange: param.recommendedRange,
-                  formattedRecommendedRange: param.formattedRecommendedRange,
-                  formattedRecommendedRangeJoined: param.formattedRecommendedRangeJoined,
-                }
-              }
-            });
+              },
+            );
           }
-        })
+        },
+      );
     });
 
-    if (algKisaoId && (!formatEdamId || !frameworkSboId || !simulationType || !hasImplementation)) {
+    if (
+      algKisaoId &&
+      (!formatEdamId ||
+        !frameworkSboId ||
+        !simulationType ||
+        !hasImplementation)
+    ) {
       simulationAlgorithmControl.setValue(null);
     }
 
     simulationAlgorithmParametersArray.clear();
 
     Object.values(allParams)
-      .sort((a: MultipleSimulatorsAlgorithmParameter, b: MultipleSimulatorsAlgorithmParameter): number => {
-        return a.name.localeCompare(b.name, undefined, { numeric: true });
-      })
+      .sort(
+        (
+          a: MultipleSimulatorsAlgorithmParameter,
+          b: MultipleSimulatorsAlgorithmParameter,
+        ): number => {
+          return a.name.localeCompare(b.name, undefined, { numeric: true });
+        },
+      )
       .forEach((param: MultipleSimulatorsAlgorithmParameter): void => {
-        simulationAlgorithmParametersArray.push(this.formBuilder.group({
-          id: [param.id],
-          name: [param.name],
-          url: [param.url],
-          simulators: param.simulators,
-          simulatorsStr: [Array.from(param.simulators).sort().join(', ')],
-          type: [param.type],
-          value: [param.value],
-          formattedValue: [param.formattedValue],
-          recommendedRange: [param.recommendedRange],
-          formattedRecommendedRange: [param.formattedRecommendedRange],
-          formattedRecommendedRangeJoined: [param.formattedRecommendedRangeJoined],
-          newValue: [''],
-        }, {
-          validators: [this.parameterValidator],
-        }));
+        simulationAlgorithmParametersArray.push(
+          this.formBuilder.group(
+            {
+              id: [param.id],
+              name: [param.name],
+              url: [param.url],
+              simulators: param.simulators,
+              simulatorsStr: [Array.from(param.simulators).sort().join(', ')],
+              type: [param.type],
+              value: [param.value],
+              formattedValue: [param.formattedValue],
+              recommendedRange: [param.recommendedRange],
+              formattedRecommendedRange: [param.formattedRecommendedRange],
+              formattedRecommendedRangeJoined: [
+                param.formattedRecommendedRangeJoined,
+              ],
+              newValue: [''],
+            },
+            {
+              validators: [this.parameterValidator],
+            },
+          ),
+        );
       });
 
     this.getModelParametersAndVariables();
@@ -852,22 +1034,26 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const _intersection = new Set<string>();
     for (const elem of b) {
       if (a.has(elem)) {
-          _intersection.add(elem);
+        _intersection.add(elem);
       }
     }
     return _intersection;
   }
 
   addModelNamespace(): void {
-    const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
-    modelNamespacesArray.push(this.formBuilder.group({
-      prefix: [null, [this.namespacePrefixValidator]],
-      uri: [null, [this.urlValidator]],
-    }));
+    const modelNamespacesArray = this.formGroup.controls
+      .modelNamespaces as FormArray;
+    modelNamespacesArray.push(
+      this.formBuilder.group({
+        prefix: [null, [this.namespacePrefixValidator]],
+        uri: [null, [this.urlValidator]],
+      }),
+    );
   }
 
   removeModelNamespace(iNamespace: number): void {
-    const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
+    const modelNamespacesArray = this.formGroup.controls
+      .modelNamespaces as FormArray;
     modelNamespacesArray.removeAt(iNamespace);
   }
 
@@ -890,17 +1076,21 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   }
 
   addModelVariable(): void {
-    const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
-    modelVariablesArray.push(this.formBuilder.group({
-      id: [null, [this.sedmlIdValidator]],
-      name: [null],
-      type: [ModelVariableType.target, Validators.required],
-      symbolOrTarget: [null, Validators.required],
-    }));
+    const modelVariablesArray = this.formGroup.controls
+      .modelVariables as FormArray;
+    modelVariablesArray.push(
+      this.formBuilder.group({
+        id: [null, [this.sedmlIdValidator]],
+        name: [null],
+        type: [ModelVariableType.target, Validators.required],
+        symbolOrTarget: [null, Validators.required],
+      }),
+    );
   }
 
   removeModelVariable(iVariable: number): void {
-    const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
+    const modelVariablesArray = this.formGroup.controls
+      .modelVariables as FormArray;
     modelVariablesArray.removeAt(iVariable);
   }
 
@@ -912,66 +1102,92 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       const simulatorsData = observerableValues[0] as SimulatorsData;
       const queryParams = observerableValues[1] as Params;
       this.simulatorSpecs = Object.values(simulatorsData.simulatorSpecs);
-      this.allModelFormats = Object.values(simulatorsData.modelFormats)
-        .map((format: any): OntologyTerm => {
+      this.allModelFormats = Object.values(simulatorsData.modelFormats).map(
+        (format: any): OntologyTerm => {
           return {
             id: format.id,
             name: format.name,
           };
-        });
-      this.allModelingFrameworks = Object.values(simulatorsData.modelingFrameworks)
-        .map((framework: any): OntologyTerm => {
+        },
+      );
+      this.allModelingFrameworks = Object.values(
+        simulatorsData.modelingFrameworks,
+      ).map(
+        (framework: any): OntologyTerm => {
           return {
             id: framework.id,
             name: framework.name,
           };
-        });
-      this.allSimulationAlgorithms = Object.values(simulatorsData.simulationAlgorithms)
-        .map((algorithm: any): OntologyTerm => {
+        },
+      );
+      this.allSimulationAlgorithms = Object.values(
+        simulatorsData.simulationAlgorithms,
+      ).map(
+        (algorithm: any): OntologyTerm => {
           return {
             id: algorithm.id,
             name: algorithm.name,
           };
-        });
+        },
+      );
 
-      this.allModelingFrameworks = this.allModelingFrameworks
-        .filter((framework: OntologyTerm): boolean => {
+      this.allModelingFrameworks = this.allModelingFrameworks.filter(
+        (framework: OntologyTerm): boolean => {
           return framework.id !== 'SBO_0000292';
-        });
+        },
+      );
 
-      this.simulatorSpecs?.sort((a: SimulatorSpecs, b: SimulatorSpecs): number => {
-        return a.name.localeCompare(b.name, undefined, { numeric: true });
-      });
+      this.simulatorSpecs?.sort(
+        (a: SimulatorSpecs, b: SimulatorSpecs): number => {
+          return a.name.localeCompare(b.name, undefined, { numeric: true });
+        },
+      );
       this.allModelFormats?.sort((a: OntologyTerm, b: OntologyTerm): number => {
         return a.name.localeCompare(b.name, undefined, { numeric: true });
       });
-      this.allModelingFrameworks?.sort((a: OntologyTerm, b: OntologyTerm): number => {
-        return a.name.localeCompare(b.name, undefined, { numeric: true });
-      });
-      this.allSimulationAlgorithms?.sort((a: OntologyTerm, b: OntologyTerm): number => {
-        return a.name.localeCompare(b.name, undefined, { numeric: true });
-      });
+      this.allModelingFrameworks?.sort(
+        (a: OntologyTerm, b: OntologyTerm): number => {
+          return a.name.localeCompare(b.name, undefined, { numeric: true });
+        },
+      );
+      this.allSimulationAlgorithms?.sort(
+        (a: OntologyTerm, b: OntologyTerm): number => {
+          return a.name.localeCompare(b.name, undefined, { numeric: true });
+        },
+      );
 
       // setup model formats
       const formatEdamIds = new Set<string>();
       this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
         simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-          (modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat): void => {
-            modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.forEach((formatEdamId: string): void => {
-              formatEdamIds.add(formatEdamId);
-            });
-          });
+          (
+            modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
+          ): void => {
+            modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.forEach(
+              (formatEdamId: string): void => {
+                formatEdamIds.add(formatEdamId);
+              },
+            );
+          },
+        );
       });
-      this.modelFormats = this.allModelFormats.filter((format: OntologyTerm): boolean => {
-        return formatEdamIds.has(format.id);
-      });
+      this.modelFormats = this.allModelFormats.filter(
+        (format: OntologyTerm): boolean => {
+          return formatEdamIds.has(format.id);
+        },
+      );
 
       // get references to controls
-      const modelLocationTypeControl = this.formGroup.controls.modelLocationType as FormControl;
-      const modelFormatControl = this.formGroup.controls.modelFormat as FormControl;
-      const modelingFrameworkControl = this.formGroup.controls.modelingFramework as FormControl;
-      const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
-      const simulationAlgorithmControl = this.formGroup.controls.simulationAlgorithm as FormControl;
+      const modelLocationTypeControl = this.formGroup.controls
+        .modelLocationType as FormControl;
+      const modelFormatControl = this.formGroup.controls
+        .modelFormat as FormControl;
+      const modelingFrameworkControl = this.formGroup.controls
+        .modelingFramework as FormControl;
+      const simulationTypeControl = this.formGroup.controls
+        .simulationType as FormControl;
+      const simulationAlgorithmControl = this.formGroup.controls
+        .simulationAlgorithm as FormControl;
 
       // Enable model format select menu
       modelFormatControl.enable();
@@ -980,11 +1196,12 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       const modelUrl = queryParams?.modelUrl;
       if (modelUrl) {
         modelLocationTypeControl.setValue(LocationType.url);
-        const modelLocationDetailsControl = this.formGroup.controls.modelLocationDetails as FormControl;
+        const modelLocationDetailsControl = this.formGroup.controls
+          .modelLocationDetails as FormControl;
         modelLocationDetailsControl.setValue(modelUrl);
       }
 
-      let modelFormat = queryParams?.modelFormat
+      let modelFormat = queryParams?.modelFormat;
       if (modelFormat) {
         modelFormat = modelFormat.toLowerCase();
         const match = modelFormat.match(/^(format[:_])?(\d{1,4})$/);
@@ -999,17 +1216,18 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         modelingFramework = modelingFramework.toUpperCase();
         const match = modelingFramework.match(/^(SBO[:_])?(\d{1,7})$/);
         if (match) {
-          modelingFramework = 'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
+          modelingFramework =
+            'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
         }
         modelingFrameworkControl.setValue(modelingFramework);
       }
 
       let simulationType = queryParams?.simulationType;
       if (simulationType) {
-        if(!simulationType.startsWith('Sed')) {
+        if (!simulationType.startsWith('Sed')) {
           simulationType = 'Sed' + simulationType;
         }
-        if(!simulationType.endsWith('Simulation')) {
+        if (!simulationType.endsWith('Simulation')) {
           simulationType = simulationType + 'Simulation';
         }
 
@@ -1027,18 +1245,21 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         simulationAlgorithm = simulationAlgorithm.toUpperCase();
         const match = simulationAlgorithm.match(/^(KISAO[:_])?(\d{1,7})$/);
         if (match) {
-          simulationAlgorithm = 'KISAO_' + '0'.repeat(7 - match[2].length) + match[2];
+          simulationAlgorithm =
+            'KISAO_' + '0'.repeat(7 - match[2].length) + match[2];
         }
         simulationAlgorithmControl.setValue(simulationAlgorithm);
       }
 
       // clear errors
       this.formGroup.setErrors(null);
-     });
+    });
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription: Subscription) =>
+      subscription.unsubscribe(),
+    );
   }
 
   onFormSubmit(postCreateAction: PostCreateAction): void {
@@ -1060,18 +1281,21 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     }
 
     const url = `${urls.combineApi}combine/create`;
-    const projectUrl: Observable<string> = this.http.post<string>(url, formData)
+    const projectUrl: Observable<string> = this.http
+      .post<string>(url, formData)
       .pipe(
         catchError(
           (error: HttpErrorResponse): Observable<string> => {
             console.error(error);
             this.snackBar.open(
-              'Sorry! We were unable to generate your COMBINE/OMEX archive.'
-              , undefined, {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            });
+              'Sorry! We were unable to generate your COMBINE/OMEX archive.',
+              undefined,
+              {
+                duration: 5000,
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom',
+              },
+            );
             return of<string>('');
           },
         ),
@@ -1085,19 +1309,26 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   }
 
   private getArchiveSpecs(): any {
-    const modelFormatControl = this.formGroup.controls.modelFormat as FormControl;
-    const modelNamespacesArray = this.formGroup.controls.modelNamespaces as FormArray;
+    const modelFormatControl = this.formGroup.controls
+      .modelFormat as FormControl;
+    const modelNamespacesArray = this.formGroup.controls
+      .modelNamespaces as FormArray;
     const modelChangesArray = this.formGroup.controls.modelChanges as FormArray;
-    const simulationTypeControl = this.formGroup.controls.simulationType as FormControl;
-    const simulationAlgorithmControl = this.formGroup.controls.simulationAlgorithm as FormControl;
-    const simulationAlgorithmParametersArray = this.formGroup.controls.simulationAlgorithmParameters as FormArray;
-    const modelVariablesArray = this.formGroup.controls.modelVariables as FormArray;
+    const simulationTypeControl = this.formGroup.controls
+      .simulationType as FormControl;
+    const simulationAlgorithmControl = this.formGroup.controls
+      .simulationAlgorithm as FormControl;
+    const simulationAlgorithmParametersArray = this.formGroup.controls
+      .simulationAlgorithmParameters as FormArray;
+    const modelVariablesArray = this.formGroup.controls
+      .modelVariables as FormArray;
 
     const model: any = {
       _type: 'SedModel',
       id: 'model',
       language: modelFormatMetaData[modelFormatControl.value].sedUrn,
-      source: 'model.' + modelFormatMetaData[modelFormatControl.value].extension,
+      source:
+        'model.' + modelFormatMetaData[modelFormatControl.value].extension,
       changes: [],
     };
 
@@ -1106,14 +1337,22 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       id: 'simulation',
     };
     if (simulation._type === SimulationType.SedOneStepSimulation) {
-      const oneStepSimulationParametersGroup = this.formGroup.controls.oneStepSimulationParameters as FormGroup;
+      const oneStepSimulationParametersGroup = this.formGroup.controls
+        .oneStepSimulationParameters as FormGroup;
       simulation['step'] = oneStepSimulationParametersGroup.controls.step.value;
-    } else if (simulation._type === SimulationType.SedUniformTimeCourseSimulation) {
-      const uniformTimeCourseSimulationParametersGroup = this.formGroup.controls.uniformTimeCourseSimulationParameters as FormGroup;
-      simulation['initialTime'] = uniformTimeCourseSimulationParametersGroup.controls.initialTime.value;
-      simulation['outputStartTime'] = uniformTimeCourseSimulationParametersGroup.controls.outputStartTime.value;
-      simulation['outputEndTime'] = uniformTimeCourseSimulationParametersGroup.controls.outputEndTime.value;
-      simulation['numberOfSteps'] = uniformTimeCourseSimulationParametersGroup.controls.numberOfSteps.value;
+    } else if (
+      simulation._type === SimulationType.SedUniformTimeCourseSimulation
+    ) {
+      const uniformTimeCourseSimulationParametersGroup = this.formGroup.controls
+        .uniformTimeCourseSimulationParameters as FormGroup;
+      simulation['initialTime'] =
+        uniformTimeCourseSimulationParametersGroup.controls.initialTime.value;
+      simulation['outputStartTime'] =
+        uniformTimeCourseSimulationParametersGroup.controls.outputStartTime.value;
+      simulation['outputEndTime'] =
+        uniformTimeCourseSimulationParametersGroup.controls.outputEndTime.value;
+      simulation['numberOfSteps'] =
+        uniformTimeCourseSimulationParametersGroup.controls.numberOfSteps.value;
     }
     simulation['algorithm'] = {
       _type: 'SedAlgorithm',
@@ -1124,7 +1363,11 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         })
         .map((param: any) => {
           let newValue = param.newValue;
-          if (param.type === ValueType.kisaoId && param.recommendedRange && param.recommendedRange !== '--multiple--') {
+          if (
+            param.type === ValueType.kisaoId &&
+            param.recommendedRange &&
+            param.recommendedRange !== '--multiple--'
+          ) {
             const iValue = param.formattedRecommendedRange.indexOf(newValue);
             newValue = param.recommendedRange[iValue];
           }
@@ -1147,17 +1390,19 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const dataGenerators: any[] = [];
     const dataSets: any[] = [];
 
-    const targetNamespaces = modelNamespacesArray.controls.map((control: AbstractControl): void => {
-      const ns = control.value;
-      const nsObj: any = {
-        "_type": "Namespace",
-        "uri": ns.uri,
-      }
-      if (ns.prefix) {
-        nsObj['prefix'] = ns.prefix;
-      }
-      return nsObj;
-    });
+    const targetNamespaces = modelNamespacesArray.controls.map(
+      (control: AbstractControl): void => {
+        const ns = control.value;
+        const nsObj: any = {
+          _type: 'Namespace',
+          uri: ns.uri,
+        };
+        if (ns.prefix) {
+          nsObj['prefix'] = ns.prefix;
+        }
+        return nsObj;
+      },
+    );
 
     modelChangesArray.controls.forEach((control: AbstractControl): void => {
       const formVar = control.value;
@@ -1193,7 +1438,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         sedVar['symbol'] = formVar.symbolOrTarget;
       } else {
         sedVar['target'] = {
-          _type: "SedTarget",
+          _type: 'SedTarget',
           value: formVar.symbolOrTarget,
           namespaces: targetNamespaces,
         };
@@ -1230,11 +1475,13 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       simulations: [simulation],
       tasks: [task],
       dataGenerators: dataGenerators,
-      outputs: [{
-        _type: 'SedReport',
-        id: 'report',
-        dataSets: dataSets,
-      }],
+      outputs: [
+        {
+          _type: 'SedReport',
+          id: 'report',
+          dataSets: dataSets,
+        },
+      ],
     };
 
     let modelContent: any = {};
@@ -1271,10 +1518,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
             _type: 'CombineArchiveLocation',
             path: 'simulation.sedml',
             value: sedDoc,
-          }
-        }
+          },
+        },
       ],
-    }
+    };
   }
 
   private processCreatedCombineArchive(
@@ -1286,7 +1533,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     if (postCreateAction === 'simulate') {
       const modelFormat: string = this.formGroup.value.modelFormat;
       const modelingFramework: string = this.formGroup.value.modelingFramework;
-      const simulationAlgorithm: string = this.formGroup.value.simulationAlgorithm;
+      const simulationAlgorithm: string = this.formGroup.value
+        .simulationAlgorithm;
 
       this.router.navigate(['/run'], {
         queryParams: {
@@ -1296,7 +1544,6 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           simulationAlgorithm: simulationAlgorithm,
         },
       });
-
     } else {
       const a = document.createElement('a');
       a.href = projectUrl;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import {
   ValueType,
   AlgorithmParameter as IAlgorithmParameter,
@@ -6,8 +7,8 @@ import {
 } from '@biosimulations/datamodel/common';
 import { KisaoOntologyIdSchema } from './ontologyId';
 import { IKisaoOntologyId } from '@biosimulations/datamodel/common';
-import { OntologiesService } from '@biosimulations/ontology/ontologies'
-import { UtilsService } from '@biosimulations/shared/services';
+import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { validateValue } from '@biosimulations/datamodel/utils';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
@@ -74,7 +75,7 @@ AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
   };
 
   const value: string | null = doc.get('value');
-  if (value != null && !UtilsService.validateValue(value, type, isKisaoId)) {
+  if (value != null && !validateValue(value, type, isKisaoId)) {
     doc.invalidate('value', `value '${value}' must be an instance of ${type}`);
   }
 
@@ -82,7 +83,7 @@ AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
   if (recommendedRange != null) {
     for (let iRange = 0; iRange < recommendedRange.length; iRange++) {
       const value = recommendedRange[iRange];
-      if (!UtilsService.validateValue(value, type, isKisaoId)) {
+      if (!validateValue(value, type, isKisaoId)) {
         doc.invalidate(
           `recommendedRange/${iRange}`,
           `element of recommendedRange '${value}' must be an instance of ${type}`,

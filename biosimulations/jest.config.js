@@ -47,5 +47,6 @@ module.exports = {
     '<rootDir>/libs/shared/pwa',
     '<rootDir>/libs/shared/storage',
     '<rootDir>/libs/shared/error-handler',
+    '<rootDir>/libs/datamodel/utils',
   ],
 };
