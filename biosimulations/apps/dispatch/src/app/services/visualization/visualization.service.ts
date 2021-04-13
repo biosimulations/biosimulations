@@ -107,8 +107,11 @@ export class VisualizationService {
             return structureArray;
           },
         ),
+
         catchError(
-          (error: HttpErrorResponse): Observable<CombineResults | undefined> => {
+          (
+            error: HttpErrorResponse,
+          ): Observable<CombineResults | undefined> => {
             if (!environment.production) {
               console.error(error);
             }
@@ -164,6 +167,7 @@ export class VisualizationService {
             return datasetResultsMap;
           },
         ),
+
         catchError(
           (error: HttpErrorResponse): Observable<undefined> => {
             if (!environment.production) {
@@ -189,15 +193,17 @@ export class VisualizationService {
     const params = {
       archiveUrl: `${this.combineArchiveEndpoint}${runId}/download`,
     };
-    return this.http.get<CombineArchive>(this.sedmlPlotSpecsEndpoint, {params: params}).pipe(
-      catchError(
-        (error: HttpErrorResponse): Observable<undefined> => {
-          if (!environment.production) {
-            console.error(error);
-          }
-          return of<undefined>(undefined);
-        }
-      ),
-    );
+    return this.http
+      .get<CombineArchive>(this.sedmlPlotSpecsEndpoint, { params: params })
+      .pipe(
+        catchError(
+          (error: HttpErrorResponse): Observable<undefined> => {
+            if (!environment.production) {
+              console.error(error);
+            }
+            return of<undefined>(undefined);
+          },
+        ),
+      );
   }
 }
