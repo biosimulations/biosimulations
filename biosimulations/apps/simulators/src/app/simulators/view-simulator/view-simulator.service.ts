@@ -42,7 +42,7 @@ import {
   TestCaseResultType,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
-import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
+import { parseValue } from '@biosimulations/datamodel/utils';
 import { Citation } from '@biosimulations/datamodel/api';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 

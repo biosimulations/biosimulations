@@ -17,7 +17,6 @@ import {
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
 import { snackBarDuration } from '@biosimulations/config/common';
-import { UtilsService } from '@biosimulations/shared/services';
 
 import {
   ViewSimulator,

@@ -1,7 +1,6 @@
-import { datamodelUtils } from './datamodel-utils';
-
-describe('datamodelUtils', () => {
-  it('should work', () => {
-    expect(datamodelUtils()).toEqual('datamodel-utils');
+import { getFileExtension } from './datamodel-utils';
+describe('File Extension', () => {
+  it('should give file entension', () => {
+    expect(getFileExtension('Test.txt')).toEqual('txt');
   });
 });
