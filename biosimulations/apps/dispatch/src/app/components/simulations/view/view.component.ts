@@ -321,20 +321,28 @@ export class ViewComponent implements OnInit, OnDestroy {
       concatAll(),
       shareReplay(1),
     );
-    const combineResultsSub = this.combineResultsStructure$.subscribe(
-      (results: CombineResults | undefined): void => {
-        if (results?.length) {
-          this.setProjectOutputs(results);
-        } else {
-          this.snackBar.open(
-            'Sorry! We were unable to get results for this simulation.',
-            undefined,
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
+    const combineResultsSub = combineLatest([
+      this.statusSuceeded$,
+      this.combineResultsStructure$,
+    ])
+    .subscribe(
+      (succeededResults: [boolean, CombineResults | undefined]): void => {
+        const succeeded = succeededResults[0] as boolean;
+        const results = succeededResults[1] as CombineResults | undefined;
+        if (succeeded) {
+          if (results?.length) {
+            this.setProjectOutputs(results);
+          } else if (!results) {
+            this.snackBar.open(
+              'Sorry! We were unable to get results for this simulation.',
+              undefined,
+              {
+                duration: 5000,
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom',
+              },
+            );
+          }
         }
       },
     );
@@ -354,20 +362,30 @@ export class ViewComponent implements OnInit, OnDestroy {
       ),
       concatAll(),
     );
-    const setPlotConfigurationSub = this.sedPlotConfiguration$.subscribe(
-      (archive: CombineArchive | undefined): void => {
-        if (archive) {
-          this.setPlotConfiguration(archive);
-        } else {
-          this.snackBar.open(
-            'Sorry! We were unable to retrieve the specifications of the plots in the SED-ML files for this simulation.',
-            undefined,
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
+    const setPlotConfigurationSub = combineLatest([
+      this.statusSuceeded$,
+      this.combineResultsStructure$,
+      this.sedPlotConfiguration$,
+    ])
+    .subscribe(
+      (succeededResultsArchive: [boolean, CombineResults | undefined, CombineArchive | undefined]): void => {
+        const succeeded = succeededResultsArchive[0] as boolean;
+        const results = succeededResultsArchive[1] as CombineResults | undefined;
+        const archive = succeededResultsArchive[2] as CombineArchive | undefined;
+        if (succeeded && results?.length) {
+          if (archive) {
+            this.setPlotConfiguration(archive);
+          } else {
+            this.snackBar.open(
+              'Sorry! We were unable to retrieve the specifications of the plots in the SED-ML files for this simulation.',
+              undefined,
+              {
+                duration: 5000,
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom',
+              },
+            );
+          }
         }
       },
     );
