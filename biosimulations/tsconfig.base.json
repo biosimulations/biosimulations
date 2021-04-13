@@ -93,7 +93,8 @@
       "@biosimulations/shared/storage": ["libs/shared/storage/src/index.ts"],
       "@biosimulations/shared/error-handler": [
         "libs/shared/error-handler/src/index.ts"
-      ]
+      ],
+      "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

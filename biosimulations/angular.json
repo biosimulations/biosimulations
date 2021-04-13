@@ -1851,6 +1851,27 @@
           "options": {}
         }
       }
+    },
+    "datamodel-utils": {
+      "root": "libs/datamodel/utils",
+      "sourceRoot": "libs/datamodel/utils/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/datamodel/utils/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/datamodel/utils"],
+          "options": {
+            "jestConfig": "libs/datamodel/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
