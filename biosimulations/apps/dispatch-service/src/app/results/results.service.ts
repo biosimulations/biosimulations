@@ -51,13 +51,27 @@ export class ResultsService {
       csvFileList.forEach((file: resultFile) => {
         resultPromises.push(this.uploadResultFile(id, file, transpose));
       });
-      return Promise.all(resultPromises).then((_) => {
-        const data: DispatchProcessedPayload = {
-          _message: DispatchMessage.processed,
-          id: id,
-        };
-        this.client.emit(DispatchMessage.processed, data);
-      });
+      return (
+        Promise.all(resultPromises)
+          .then((_) => {
+            const data: DispatchProcessedPayload = {
+              _message: DispatchMessage.processed,
+              id: id,
+            };
+            this.client.emit(DispatchMessage.processed, data);
+          })
+          //This is catching any errors from Sending the results
+          .catch((e) => {
+            this.logger.error('Failed to upload all results');
+            this.logger.error(e);
+            const data: DispatchFailedPayload = new DispatchFailedPayload(
+              id,
+              false,
+            );
+            this.client.emit(DispatchMessage.failed, data);
+          })
+      );
+      // This is catching any errors from reading the results
     } catch (e) {
       this.logger.error(e);
       const data: DispatchFailedPayload = new DispatchFailedPayload(id, false);
