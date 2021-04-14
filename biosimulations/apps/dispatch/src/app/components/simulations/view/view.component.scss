@@ -43,11 +43,7 @@
   padding-bottom: 1.34375em;
 
   .input {
-    grid-template-columns: auto 1fr 1fr;
-  }
-
-  .input-label {
-    text-align: right;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
   mat-hint {

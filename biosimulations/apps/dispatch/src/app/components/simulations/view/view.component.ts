@@ -450,6 +450,8 @@ export class ViewComponent implements OnInit, OnDestroy {
           const curves = output.curves
             .map((curve) => {
               return {
+                id: curve.id,
+                name: curve?.name || null,
                 xData: curve.xDataGenerator._resultsDataSetId,
                 yData: curve.yDataGenerator._resultsDataSetId,
               };
@@ -551,6 +553,8 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     while (curves.length < numCurves) {
       const curve = this.formBuilder.group({
+        id: [null],
+        name: [null],
         xData: [this.defaultXSedDataset?.id, [Validators.required]],
         yData: [this.defaultYSedDataset?.id, [Validators.required]],
       });
@@ -624,6 +628,8 @@ export class ViewComponent implements OnInit, OnDestroy {
         for (let iCurve = 0; iCurve < curvesFormArray.length; iCurve++) {
           const curveFormGroup = curvesFormArray.at(iCurve) as FormGroup;
 
+          const name = curveFormGroup.value.name || curveFormGroup.value.id;
+
           const xDataId = curveFormGroup.value.xData;
           const yDataId = curveFormGroup.value.yData;
 
@@ -634,7 +640,7 @@ export class ViewComponent implements OnInit, OnDestroy {
           yAxisTitlesSet.add(yDataset.label);
 
           traces.push({
-            name: yDataset.label + ' vs. ' + xDataset.label,
+            name: name || (yDataset.label + ' vs. ' + xDataset.label),
             x: xDataset.values,
             y: yDataset.values,
             xaxis: xAxisId,
