@@ -135,14 +135,15 @@ export class ResultsService {
         .replace('.csv', ''),
     );
 
-    this.uploadJSON(id, sedml, await file_json);
+    return this.uploadJSON(id, sedml, await file_json);
   }
   private uploadJSON(
     simId: string,
     resultId: string,
     result: SimulationRunReportDataStrings,
-  ): void {
-    this.submit
+  ): Promise<void> {
+    // Make sure this is actually returned
+    return this.submit
       .sendReport(simId, resultId, result)
       .then((_) =>
         this.logger.log(
