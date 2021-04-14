@@ -169,8 +169,8 @@
           >
           Interfaces to simulation tools should save reports in the
           <a [routerLink]="['/conventions', 'simulation-reports']"
-            >BioSimulators HDF5 format for reports of simulation results</a
-          >. Within the HDF5 file, each report should be saved to a path equal
+            >BioSimulators HDF5 format for data for reports and plots of simulation results</a
+          >. Within the HDF5 file, each report and plot should be saved to a path equal
           to the combination of the relative path of its parent SED-ML file
           within the COMBINE/OMEX archive and the id of the report.
         </li>
@@ -185,7 +185,7 @@
           <code>.pdf</code>
         </li>
         <li>
-          <b>Save simulation outputs to standard file paths:</b> Reports should
+          <b>Save simulation outputs to standard file paths:</b> Data for reports and plots should
           be saved to <code>{{ '{ ' }} out-dir {{ ' }' }}/reports.h5</code>.
           Plots should be saved to
           <code>{{ '{ ' }} out-dir {{ ' }' }}/plots.zip</code>.

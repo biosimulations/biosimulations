@@ -241,7 +241,7 @@
 
           <p>
             The results will be saved to <code>path-to-save-results</code>.
-            Reports will be saved in Hierarchical Data Format 5 (HDF5) format
+            The data for reports and plots will be saved in Hierarchical Data Format 5 (HDF5) format
             and plots will be saved in Portable Document Format (PDF) and
             bundled into a single zip archive. See the
             <a [routerLink]="['/conventions', 'simulation-reports']"
@@ -251,10 +251,16 @@
           </p>
 
           <p>
-            The rows of each report table will represent the data sets
+            For reports, the rows of each data table will represent the data sets
             (<code>sedml:dataSet</code>) outlined in the SED-ML definition of
             the report. The heading of each row will be the label of the
-            corresponding data set. Report tables of steady-state simulations
+            corresponding data set. For plots, the rows of each data table will represent the data generators
+            (<code>sedml:dataGenerator</code>) outlined in the SED-ML definition of
+            the plot. The heading of each row will be the id of the
+            corresponding data generator
+          </p>
+          <p>
+            Report tables of steady-state simulations
             will have a single column of the steady-state predictions of each
             data set. Report tables of one step simulations will have two
             columns that represent the predicted start and end states of each
@@ -443,17 +449,17 @@
             <li>
               <p>
                 <code>-o, --out-dir</code>: A path to a directory where the
-                outputs of the simulation tasks should be saved. Reports should
+                outputs of the simulation tasks should be saved. Data for plots and reports should
                 be saved in HDF5 format (see the
                 <a [routerLink]="['/conventions', 'simulation-reports']"
-                  >specifications for reports</a
+                  >specifications for data sets</a
                 >
                 for more information) and plots should be saved in Portable
                 Document Format (PDF)
                 <a href="https://en.wikipedia.org/wiki/PDF" target="_blank"
                   ><biosimulations-icon icon="link"></biosimulations-icon
                 ></a>
-                bundled into a single zip archive. Reports should be saved to
+                bundled into a single zip archive. Data for reports and plots should be saved to
                 <code>{{ '{ ' }}out-dir{{ ' }' }}/reports.h5</code> and plots
                 should be saved to
                 <code>{{ '{ ' }}out-dir/plots.zip{{ ' }' }}</code
@@ -464,18 +470,26 @@
               </p>
 
               <p>
-                The rows of the report tables should correspond to the data sets
+                For reports, the rows of the data tables should correspond to the data sets
                 (<code>sedml:dataSet</code>) specified in the SED-ML definition
                 of the report (e.g., time, specific species). The heading of
                 each row should be the label of the corresponding data set.
-                Report tables of steady-state simulations should have a single
-                column of the steady-state predictions of each data set. Report
+              </p>
+              <p>
+                For plots, the rows of the data tables should correspond to the data generators
+                (<code>sedml:dataGenerator</code>) specified in the SED-ML definition
+                of each curve and surface of the plot (e.g., time, specific species). The heading of
+                each row should be the id of the corresponding data generator.
+              </p>
+              <p>
+                Data tables of steady-state simulations should have a single
+                column of the steady-state predictions of each data set. Data
                 tables of one step simulations should have two columns that
                 represent the predicted start and end states of each data set.
-                Report tables of time course simulations should have multiple
+                Data tables of time course simulations should have multiple
                 columns that represent the predicted time course of each data
-                set. Report tables of non-spatial simulations should not have
-                additional dimensions. Report tables of spatial simulations
+                set. Data tables of non-spatial simulations should not have
+                additional dimensions. Data tables of spatial simulations
                 should have additional dimensions that represent the spatial
                 axes of the simulation.
               </p>

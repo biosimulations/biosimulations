@@ -251,33 +251,37 @@
       tocSection="Simulation outputs"
     >
       <biosimulations-q-a heading="Which formats does BioSimulators support?">
-        Reports are saved in HDF5 format. See the
-        <a [routerLink]="['/conventions', 'simulator-interfaces']"
-          >specifications for reports</a
+        Data for reports and plots are saved in HDF5 format. See the
+        <a [routerLink]="['/conventions', 'simulator-reports']"
+          >specifications for data sets</a
         >
         for more information.
       </biosimulations-q-a>
 
       <biosimulations-q-a heading="How are results encoded into HDF5 files?">
         <p>
-          Within HDF5 files, report tables (<code>sedml:report</code>) are saved
+          Within HDF5 files, the results of each report (<code>sedml:report</code>) and plot (<code>sedml:plot2D</code>, <code>sedml:plot3D</code>) are saved
           to paths equal to a combination of the relative path of the parent
           SED-ML document within the parent COMBINE/OMEX archive and the id of
-          the report.
+          the report or plot.
         </p>
 
         <p>
-          The rows of report tables correspond to the data sets
+          For reports, the rows of these data tables correspond to the data sets
           (<code>sedml:dataSet</code>) specified in the SED-ML definition of the
-          report. For time course simulations, the columns of reports correspond
-          to the predicted time points. The heading of each row is the label of
-          the corresponding data set. Below is a sample report table.
+          report. The heading of each row is the label of
+          the corresponding data set. For plots, the rows of these data tables correspond to the data generators
+          (<code>sedml:dataGenerators</code>) specified in the SED-ML definition of the
+          curves and surfaces of the plot. The heading of each row is the id of
+          the corresponding data generator.</p>
+        <p>For time course simulations, the columns of these data tables correspond
+          to the predicted time points. Below is a sample data table for a report.
         </p>
 
         <p>
           See the
-          <a [routerLink]="['/conventions', 'simulator-interfaces']"
-            >specifications for reports</a
+          <a [routerLink]="['/conventions', 'simulator-reports']"
+            >specifications for data tables</a
           >
           for more information and examples.
         </p>
