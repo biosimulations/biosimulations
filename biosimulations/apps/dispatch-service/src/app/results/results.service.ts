@@ -69,6 +69,7 @@ export class ResultsService {
               false,
             );
             this.client.emit(DispatchMessage.failed, data);
+            throw e; //pass on error to controller 
           })
       );
       // This is catching any errors from reading the results
@@ -76,6 +77,7 @@ export class ResultsService {
       this.logger.error(e);
       const data: DispatchFailedPayload = new DispatchFailedPayload(id, false);
       this.client.emit(DispatchMessage.failed, data);
+      throw e;
     }
   }
 
