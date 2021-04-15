@@ -464,7 +464,14 @@ export class ViewComponent implements OnInit, OnDestroy {
             });
 
           if (curves.length) {
-            subplotsCurves.push(curves);
+            subplotsCurves.push({
+              enabled: SubplotEnabledType.enabled,
+              numCurves: curves.length,
+              curves: curves,
+              xAxisType: output.xScale,
+              yAxisType: output.yScale,
+              scatterTraceMode: ScatterTraceMode.lines,
+            });
           }
         }
       });
@@ -486,15 +493,19 @@ export class ViewComponent implements OnInit, OnDestroy {
         iSubplot,
       ) as FormGroup;
 
-      const curves = subplotsCurves[iSubplot];
+      const curves = subplotsCurves[iSubplot].curves;
 
       const numCurvesControl = subplot.get('numCurves') as FormControl;
       numCurvesControl.setValue(curves.length);
       this.setNumCurves(iSubplot);
 
-      const curvesFormArray = subplot.get('curves') as FormArray;
-      curvesFormArray.setValue(curves);
+      const iRow = Math.floor(iSubplot / cols);
+      const iCol = iSubplot % cols;
+      subplotsCurves[iSubplot]['label'] = `Subplot R${iRow + 1}, C${iCol + 1}`;
     }
+
+    this.lineScatter2dSubplotsFormArray.setValue(subplotsCurves);
+    this.build2dViz();
   }
 
   public selectVisualizationType(): void {
