@@ -57,6 +57,7 @@ export class VisualizationService {
               if (!structureObject?.[sedmlLocation]) {
                 structureObject[sedmlLocation] = {};
               }
+
               structureObject[sedmlLocation][reportId] = report.data.map(
                 (datum: SimulationRunReportDatum): SedDatasetResults => {
                   return {
@@ -77,24 +78,11 @@ export class VisualizationService {
             const structureArray = sedmlLocations.map(
               (sedmlLocation: string): SedDocumentResults => {
                 const reportIds = Object.keys(structureObject[sedmlLocation]);
-                reportIds.sort((a: string, b: string): number => {
-                  return a.localeCompare(b, undefined, { numeric: true });
-                });
                 return {
                   location: sedmlLocation,
                   reports: reportIds.map(
                     (reportId: string): SedReportResults => {
                       const datasets = structureObject[sedmlLocation][reportId];
-                      datasets.sort(
-                        (
-                          a: SedDatasetResults,
-                          b: SedDatasetResults,
-                        ): number => {
-                          return a.label.localeCompare(b.label, undefined, {
-                            numeric: true,
-                          });
-                        },
-                      );
                       return {
                         id: reportId,
                         datasets: datasets,
