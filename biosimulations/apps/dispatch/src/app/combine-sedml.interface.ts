@@ -17,6 +17,16 @@ export interface SedModel {
   changes: SedModelChange[];
 }
 
+export interface SedAlgorithmParameterChange {
+  kisaoId: string;
+  newValue: string;
+}
+
+export interface SedAlgorithm {
+  kisaoId: string;
+  changes: SedAlgorithmParameterChange[];
+}
+
 export interface SedUniformTimeCourseSimulation {
   _type: 'SedUniformTimeCourseSimulation';
   id: string;
@@ -25,12 +35,14 @@ export interface SedUniformTimeCourseSimulation {
   outputStartTime: number;
   outputEndTime: number;
   numberOfSteps: number;
+  algorithm: SedAlgorithm;
 }
 
 export interface SedSteadyStateSimulation {
   _type: 'SedSteadyStateSimulation';
   id: string;
   name: string | null;
+  algorithm: SedAlgorithm;
 }
 
 export interface SedOneStepSimulation {
@@ -38,6 +50,7 @@ export interface SedOneStepSimulation {
   id: string;
   name: string | null;
   step: number;
+  algorithm: SedAlgorithm;
 }
 
 export type SedSimulation = SedUniformTimeCourseSimulation | SedSteadyStateSimulation | SedOneStepSimulation;

@@ -34,6 +34,7 @@
                 accept=".omex"
                 [multiple]="false"
                 [required]="true"
+                (ngModelChange)="changeProject()"
               ></ngx-mat-file-input>
             </mat-form-field>
 
@@ -45,6 +46,7 @@
                 matInput
                 formControlName="projectUrl"
                 [placeholder]="exampleCombineArchiveUrl"
+                (ngModelChange)="changeProject()"
               />
             </mat-form-field>
           </div>
@@ -83,7 +85,7 @@
       </div>
       <div class="form-section-body">
         <div class="form-field-group">
-          <div class="columns three-columns">
+          <div class="columns two-columns">
             <mat-form-field appearance="fill">
               <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
               <mat-label>Model formats involved in the archive</mat-label>
@@ -97,22 +99,6 @@
                   [value]="format.id"
                   [disabled]="format.disabled"
                 >{{ format.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-              <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
-              <mat-label>Modeling frameworks involved in the archive</mat-label>
-              <mat-select
-                formControlName="modelingFrameworks"
-                (ngModelChange)="applyFilters()"
-                multiple
-              >
-                <mat-option
-                  *ngFor="let framework of modelingFrameworks"
-                  [value]="framework.id"
-                  [disabled]="framework.disabled"
-                >{{ framework.name }}</mat-option>
               </mat-select>
             </mat-form-field>
 
@@ -133,7 +119,9 @@
             </mat-form-field>
           </div>
 
-          <mat-hint>Use the above menus to narrow the list of simulation tools below to those tools which have the capabilities to execute your COMBINE/OMEX archive (tools which support the model formats, modeling frameworks, and simulation algorithms of the models and simulations described by your COMBINE/OMEX archive).</mat-hint>
+          <mat-hint>Use the above menus to narrow the list of simulation tools below to those tools which have the capabilities to execute your COMBINE/OMEX archive (tools which support the model formats and simulation algorithms of the models and simulations described by your COMBINE/OMEX archive).</mat-hint>
+          <mat-error *ngIf="submitPushed && modelFormatsControl.hasError('unsupportedFormats')">Your COMBINE/OMEX archive involves model formats that are not supported by any simulation tool available through runBioSimulations.</mat-error>
+          <mat-error *ngIf="submitPushed && modelFormatsControl.hasError('unsupportedAlgorithms')">Your COMBINE/OMEX archive involves simulation algorithms that are not supported by any simulation tool available through runBioSimulations.</mat-error>
         </div>
       </div>
     </div>
@@ -194,14 +182,13 @@
           <mat-hint>
             <p>
               Select a simulation tool which is capable of executing your archive and a version of that tool.
-              This tool must support all of the modeling frameworks (e.g., logical,
-              FBA, kinetic), simulation algorithms (e.g., ODE, SSA), and model
-              formats (e.g., BNGL, SED-ML) involved in your archive.
+              This tool must support all of the model
+              formats (e.g., BNGL, SED-ML) and simulation algorithms (e.g., ODE, SSA) involved in your archive.
             </p>
 
             <p>
-              Note, because each tool supports a different set of frameworks,
-              algorithms, and formats, your archive is likely only compatible with a
+              Note, because each tool supports a different set of formats
+              and algorithms, your archive is likely only compatible with a
               subset of the available simulation tools.
             </p>
 
@@ -219,9 +206,9 @@
               <a href="https://biosimulators.org" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon
               ></a>
-              describes the modeling frameworks (e.g., logical, FBA, kinetic),
-              simulation algorithms (e.g., ODE, SSA), and modeling formats (e.g.,
-              COMBINE/OMEX, SBML, SED-ML) that each simulation tool supports. We
+              describes the modeling formats (e.g.,
+              COMBINE/OMEX, SBML, SED-ML), modeling frameworks (e.g., logical, FBA, kinetic),
+              and simulation algorithms (e.g., ODE, SSA) that each simulation tool supports. We
               recommend using BioSimulators to determine which tools are capable of
               executing your archive.
             </p>

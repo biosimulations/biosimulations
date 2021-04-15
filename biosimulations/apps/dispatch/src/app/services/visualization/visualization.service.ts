@@ -18,6 +18,7 @@ import {
   SimulationRunReportDatum,
 } from '@biosimulations/dispatch/api-models';
 import { environment } from '@biosimulations/shared/environments';
+import { CombineService } from '../combine/combine.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +26,7 @@ import { environment } from '@biosimulations/shared/environments';
 export class VisualizationService {
   private combineArchiveEndpoint = `${urls.dispatchApi}run/`;
   private resultsEndpoint = `${urls.dispatchApi}results`;
-  private sedmlPlotSpecsEndpoint = `${urls.combineApi}combine/sedml-output-specs`;
-  public constructor(private http: HttpClient) {}
+  public constructor(private http: HttpClient, private combineService: CombineService) {}
 
   public getCombineResultsStructure(
     uuid: string,
@@ -190,20 +190,7 @@ export class VisualizationService {
   public getSpecsOfSedPlotsInCombineArchive(
     runId: string,
   ): Observable<CombineArchive | undefined> {
-    const params = {
-      archiveUrl: `${this.combineArchiveEndpoint}${runId}/download`,
-    };
-    return this.http
-      .get<CombineArchive>(this.sedmlPlotSpecsEndpoint, { params: params })
-      .pipe(
-        catchError(
-          (error: HttpErrorResponse): Observable<undefined> => {
-            if (!environment.production) {
-              console.error(error);
-            }
-            return of<undefined>(undefined);
-          },
-        ),
-      );
+    const archiveUrl = `${this.combineArchiveEndpoint}${runId}/download`;
+    return this.combineService.getSpecsOfSedDocsInCombineArchive(archiveUrl);
   }
 }

@@ -7,6 +7,11 @@ from biosimulators_utils.combine.io import (
     CombineArchiveReader
 )
 from biosimulators_utils.sedml.data_model import (
+    OneStepSimulation,
+    SteadyStateSimulation,
+    UniformTimeCourseSimulation,
+    Task,
+    RepeatedTask,
     Report,
     Plot2D,
     Plot3D,
@@ -15,42 +20,60 @@ from biosimulators_utils.sedml.data_model import (
 from biosimulators_utils.sedml.io import (
     SedmlSimulationReader,
 )
+import collections
 import os
 import re
 import requests
 import requests.exceptions
 
 
-def handler(archiveUrl):
-    ''' Get the specifications of the SED plots in a COMBINE/OMEX archive
+def handler(body, file=None):
+    ''' Get a SED report for a SED task that will record all of the
+    possible observables of the task
 
     Args:
-        archiveUrl (:obj:`str`): URL for COMBINE archive
+        body (:obj:`dict`): dictionary with keys
+
+            * ``url`` whose value
+            has schema ``#/components/schemas/Url`` with the
+            URL for a COMBINE/OMEX archive
+        file (:obj:`werkzeug.datastructures.FileStorage`): COMBINE/OMEX archive file
 
     Returns:
         ``#/components/schemas/CombineArchive``: specifications of the SED
             plots in a COMBINE/OMEX archive
     '''
+    archive_file = file
+    archive_url = body.get('url', None)
+    if archive_url and archive_file:
+        raise BadRequestException(
+            title='Only one of `file` or `url` can be used at a time.',
+            instance=ValueError(),
+        )
 
     # create temporary working directory
     temp_dirname = get_temp_dir()
+    archive_filename = os.path.join(temp_dirname, 'archive.omex')
 
     # get COMBINE/OMEX archive
-    try:
-        response = requests.get(archiveUrl)
-        response.raise_for_status()
-    except requests.exceptions.RequestException as exception:
-        title = 'COMBINE/OMEX archive could not be loaded from `{}`'.format(
-            archiveUrl)
-        raise BadRequestException(
-            title=title,
-            instance=exception,
-        )
+    if archive_file:
+        archive_file.save(archive_filename)
 
-    # save archive to local temporary file
-    archive_filename = os.path.join(temp_dirname, 'archive.omex')
-    with open(archive_filename, 'wb') as file:
-        file.write(response.content)
+    else:
+        try:
+            response = requests.get(archive_url)
+            response.raise_for_status()
+        except requests.exceptions.RequestException as exception:
+            title = 'COMBINE/OMEX archive could not be loaded from `{}`'.format(
+                archive_url)
+            raise BadRequestException(
+                title=title,
+                instance=exception,
+            )
+
+        # save archive to local temporary file
+        with open(archive_filename, 'wb') as file:
+            file.write(response.content)
 
     # read archive
     archive_dirname = os.path.join(temp_dirname, 'archive')
@@ -59,7 +82,7 @@ def handler(archiveUrl):
     except Exception as exception:
         # return exception
         raise BadRequestException(
-            title='`{}` is not a valid COMBINE/OMEX archive'.format(archiveUrl),
+            title='`{}` is not a valid COMBINE/OMEX archive'.format(archive_url if archive_url else archive_file.filename),
             instance=exception,
         )
 
@@ -79,6 +102,90 @@ def handler(archiveUrl):
                                                       validate_semantics=False)
             except Exception:
                 continue
+
+            sed_model_specs = collections.OrderedDict()
+            for model in sed_doc.models:
+                sed_model_spec = {
+                    "_type": "SedModel",
+                    "id": model.id,
+                    "source": model.source,
+                    "language": model.language,
+                    "changes": [],
+                }
+                if model.name:
+                    sed_model_spec['name'] = model.name
+                sed_model_specs[model.id] = sed_model_spec
+
+            sed_simulation_specs = collections.OrderedDict()
+            for sim in sed_doc.simulations:
+                sed_sim_spec = {
+                    "id": sim.id,
+                    "algorithm": {
+                        "_type": "SedAlgorithm",
+                        "kisaoId": sim.algorithm.kisao_id,
+                        "changes": [
+                        ],
+                    },
+                }
+
+                if isinstance(sim, OneStepSimulation):
+                    sed_sim_spec['_type'] = 'SedOneStepSimulation'
+
+                elif isinstance(sim, SteadyStateSimulation):
+                    sed_sim_spec['_type'] = 'SedSteadyStateSimulation'
+                    sed_sim_spec['step'] = sim.step
+
+                elif isinstance(sim, UniformTimeCourseSimulation):
+                    sed_sim_spec['_type'] = 'SedUniformTimeCourseSimulation'
+                    sed_sim_spec['initialTime'] = sim.initial_time
+                    sed_sim_spec['outputStartTime'] = sim.output_start_time
+                    sed_sim_spec['outputEndTime'] = sim.output_end_time
+                    sed_sim_spec['numberOfSteps'] = sim.number_of_steps
+
+                if sim.name:
+                    sed_sim_spec['name'] = sim.name
+
+                for change in sim.algorithm.changes:
+                    sed_sim_spec['algorithm']['changes'].append({
+                        "_type": "SedAlgorithmParameterChange",
+                        "kisaoId": change.kisao_id,
+                        "newValue": change.new_value,
+                    })
+
+                sed_simulation_specs[sim.id] = sed_sim_spec
+
+            sed_task_specs = collections.OrderedDict()
+            for task in sed_doc.tasks:
+                sed_task_spec = {
+                    "id": task.id,
+                }
+
+                if isinstance(task, Task):
+                    sed_task_spec['_type'] = 'SedTask'
+                    sed_task_spec['model'] = sed_model_specs[task.model.id]
+                    sed_task_spec['simulation'] = sed_simulation_specs[task.simulation.id]
+
+                elif isinstance(task, RepeatedTask):
+                    sed_task_spec['_type'] = 'SedRepeatedTask'
+
+                if task.name:
+                    sed_task_spec['name'] = task.name
+
+                sed_task_specs[task.id] = sed_task_spec
+
+            sed_data_generator_specs = collections.OrderedDict()
+            for data_generator in sed_doc.data_generators:
+                sed_data_generator_spec = {
+                    '_type': 'SedDataGenerator',
+                    'id': data_generator.id,
+                    'variables': [],
+                    'math': data_generator.math,
+                }
+
+                if data_generator.name:
+                    sed_data_generator_spec['name'] = data_generator.name
+
+                sed_data_generator_specs[data_generator.id] = sed_data_generator_spec
 
             sed_doc_outputs_specs = []
             for output in sed_doc.outputs:
@@ -267,10 +374,10 @@ def handler(archiveUrl):
                 '_type': 'SedDocument',
                 'level': sed_doc.level,
                 'version': sed_doc.version,
-                'models': [],
-                'simulations': [],
-                'tasks': [],
-                'dataGenerators': [],
+                'models': list(sed_model_specs.values()),
+                'simulations': list(sed_simulation_specs.values()),
+                'tasks': list(sed_task_specs.values()),
+                'dataGenerators': list(sed_data_generator_specs.values()),
                 'outputs': sed_doc_outputs_specs,
             }
 
