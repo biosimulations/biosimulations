@@ -27,7 +27,9 @@ export class SbatchService {
       maxTimeMin++;
       maxTimeSec = 0;
     }
-    const maxTimeFormatted = `${maxTimeMin}:${maxTimeSec.toString().padStart(2, '0')}`;
+    const maxTimeFormatted = `${maxTimeMin}:${maxTimeSec
+      .toString()
+      .padStart(2, '0')}`;
 
     const nc = '\\033[0m';
     const red = '\\033[0;31m';
@@ -80,13 +82,13 @@ srun aws --no-verify-ssl --endpoint-url  ${endpoint} s3 sync --exclude "*.sbatch
     const image = url.split('docker://ghcr.io/biosimulators/')[1];
     const template = `#!/bin/bash
 #SBATCH --job-name=${image}-Build
-#SBATCH --time=30:00
+#SBATCH --time=90:00
 #SBATCH --chdir=${homeDir}/singularity/images/
 #SBATCH --partition=crbm
 #SBATCH --qos=general
 #SBATCH --ntasks=1
 #SBATCH --output=${homeDir}/singularity/images/${image}.output
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=8
 
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash

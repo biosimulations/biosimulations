@@ -69,7 +69,7 @@ export class ResultsService {
               false,
             );
             this.client.emit(DispatchMessage.failed, data);
-            throw e; //pass on error to controller 
+            throw e; //pass on error to controller
           })
       );
       // This is catching any errors from reading the results
@@ -153,6 +153,9 @@ export class ResultsService {
         ),
       )
       .catch((err) => {
+        this.logger.error(
+          `Failed to upload report ${resultId} for simulation ${simId}`,
+        );
         this.logger.error(err);
         throw err;
       });
