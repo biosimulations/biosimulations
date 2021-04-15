@@ -320,7 +320,9 @@ class HandlersTestCase(unittest.TestCase):
                          "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value")
         self.assertEqual(sed_doc.models[0].changes[0].new_value, '1.2')
         self.assertEqual(sed_doc.models[0].changes[0].target_namespaces, {
-            'sbml': 'http://www.sbml.org/sbml/level3/version1/core'
+            None: 'http://sed-ml.org/sed-ml/level1/version3',
+            'sbml': 'http://www.sbml.org/sbml/level3/version1/core',
+            'qual': 'http://www.sbml.org/sbml/level3/version1/qual/version1',
         })
 
         self.assertEqual(sed_doc.tasks[0].simulation.algorithm.changes[0].kisao_id, 'KISAO_0000488')
@@ -330,6 +332,7 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(
             sed_doc.outputs[1].curves[0].x_data_generator.variables[0].target_namespaces,
             {
+                None: 'http://sed-ml.org/sed-ml/level1/version3',
                 "sbml": "http://www.sbml.org/sbml/level3/version1/core",
                 "qual": "http://www.sbml.org/sbml/level3/version1/qual/version1"
             },
@@ -404,6 +407,7 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(
             sed_doc.outputs[1].curves[0].x_data_generator.variables[0].target_namespaces,
             {
+                None: 'http://sed-ml.org/sed-ml/level1/version3',
                 "sbml": "http://www.sbml.org/sbml/level3/version1/core",
                 "qual": "http://www.sbml.org/sbml/level3/version1/qual/version1"
             },
