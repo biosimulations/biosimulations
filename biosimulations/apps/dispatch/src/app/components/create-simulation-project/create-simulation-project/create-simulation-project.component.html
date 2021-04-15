@@ -24,7 +24,7 @@
         <div class="mat-form-field-prefix">
           <biosimulations-icon icon="model"></biosimulations-icon>
         </div>
-        <div>
+        <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Model *</div>
           <div class="form-section-subtitle">Select a local file or enter a URL for file in a model format such as BNGL or SBML.</div>
         </div>
@@ -108,7 +108,7 @@
         <div class="mat-form-field-prefix">
           <biosimulations-icon icon="logicalSimulation"></biosimulations-icon>
         </div>
-        <div>
+        <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Simulation *</div>
           <div class="form-section-subtitle">Select a type of simulation and configure its parameters.</div>
         </div>
@@ -239,7 +239,7 @@
         <div class="mat-form-field-prefix">
           <biosimulations-icon icon="construction"></biosimulations-icon>
         </div>
-        <div>
+        <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Simulation algorithm *</div>
           <div class="form-section-subtitle">Select a simulation algorithm and configure its parameters.</div>
         </div>
@@ -308,14 +308,24 @@
       </div>
     </div>
 
-    <div class="form-section">
+    <div class="form-section" [ngClass]="{'form-section-closed': !(formSectionOpen$.modelNamespaces | async)}">
       <div class="form-section-head">
         <div class="mat-form-field-prefix">
           <biosimulations-icon icon="location"></biosimulations-icon>
         </div>
-        <div>
+        <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Model namespaces</div>
           <div class="form-section-subtitle">Describe the namespaces of the parameters and variables of your model.</div>
+        </div>
+        <div class="mat-form-field-suffix">
+          <button
+            mat-icon-button
+            class="biosimulations-button text"
+            [title]="(formSectionOpen$.modelNamespaces | async) ? 'Close' : 'Open'"
+            (click)="toggleFormSection('modelNamespaces')"
+          >
+            <biosimulations-icon [icon]="(formSectionOpen$.modelNamespaces | async) ? 'open': 'closed'"></biosimulations-icon>
+          </button>
         </div>
       </div>
       <div class="form-section-body">
@@ -380,14 +390,24 @@
       </div>
     </div>
 
-    <div class="form-section">
+    <div class="form-section" [ngClass]="{'form-section-closed': !(formSectionOpen$.modelChanges | async)}">
       <div class="form-section-head">
         <div class="mat-form-field-prefix">
           <biosimulations-icon icon="location"></biosimulations-icon>
         </div>
-        <div>
+        <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Model changes</div>
           <div class="form-section-subtitle">Describe changes that should be applied to the attributes of your model, such as to its initial conditions or kinetic parameters.</div>
+        </div>
+        <div class="mat-form-field-suffix">
+          <button
+            mat-icon-button
+            class="biosimulations-button text"
+            [title]="(formSectionOpen$.modelChanges | async) ? 'Close' : 'Open'"
+            (click)="toggleFormSection('modelChanges')"
+          >
+            <biosimulations-icon [icon]="(formSectionOpen$.modelChanges | async) ? 'open': 'closed'"></biosimulations-icon>
+          </button>
         </div>
       </div>
       <div class="form-section-body">
@@ -476,14 +496,24 @@
       </div>
     </div>
 
-    <div class="form-section">
+    <div class="form-section" [ngClass]="{'form-section-closed': !(formSectionOpen$.modelVariables | async)}">
       <div class="form-section-head">
         <div class="mat-form-field-prefix">
           <biosimulations-icon icon="report"></biosimulations-icon>
         </div>
-        <div>
+        <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Observables *</div>
           <div class="form-section-subtitle">Describe the variables that should be recorded from your simulation.</div>
+        </div>
+        <div class="mat-form-field-suffix">
+          <button
+            mat-icon-button
+            class="biosimulations-button text"
+            [title]="(formSectionOpen$.modelVariables | async) ? 'Close' : 'Open'"
+            (click)="toggleFormSection('modelVariables')"
+          >
+            <biosimulations-icon [icon]="(formSectionOpen$.modelVariables | async) ? 'open': 'closed'"></biosimulations-icon>
+          </button>
         </div>
       </div>
       <div class="form-section-body">
@@ -575,7 +605,7 @@
         <div class="mat-form-field-prefix">
           <biosimulations-icon icon="simulator"></biosimulations-icon>
         </div>
-        <div>
+        <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Recommended simulation tools</div>
           <div class="form-section-subtitle">Tools that likely have the capabilities to execute your simulation.</div>
         </div>
