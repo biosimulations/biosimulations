@@ -1,5 +1,5 @@
 {
-  "/dispatch-api": {
+  "/dispatch-api-local": {
     "target": "http://localhost:3333/",
     "secure": false,
     "changeOrigin": true,
@@ -8,8 +8,8 @@
       "^/dispatch-api": ""
     }
   },
-  "/dispatch-api-local": {
-    "target": "https://dispatch.biosimulations.dev/",
+  "/dispatch-api": {
+    "target": "https://run.api.biosimulations.dev/",
     "secure": true,
     "changeOrigin": true,
     "logLevel": "debug",
