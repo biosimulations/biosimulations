@@ -241,7 +241,7 @@
         </div>
         <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Simulation algorithm *</div>
-          <div class="form-section-subtitle">Select a simulation algorithm and configure its parameters.</div>
+          <div class="form-section-subtitle">Select a simulation algorithm.</div>
         </div>
       </div>
       <div class="form-section-body">
@@ -263,7 +263,30 @@
           <mat-hint>Select a simulation algorithm.</mat-hint>
           <mat-error *ngIf="(formGroup.get('simulationAlgorithm')?.touched || submitPushed) && formGroup.hasError('required', 'simulationAlgorithm')">Please select a simulation algorithm.</mat-error>
         </div>
+      </div>
+    </div>
 
+    <div class="form-section" [ngClass]="{'form-section-closed': (formSectionOpen$.simulationAlgorithmParameters | async) === false}">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="construction"></biosimulations-icon>
+        </div>
+        <div class="form-section-head-title-subtitle">
+          <div class="form-section-title">Simulation algorithm parameters</div>
+          <div class="form-section-subtitle">Configure parameters of the selected algorithm.</div>
+        </div>
+        <div class="mat-form-field-suffix">
+          <button
+            mat-icon-button
+            class="biosimulations-button text"
+            [title]="(formSectionOpen$.simulationAlgorithmParameters | async) ? 'Close' : 'Open'"
+            (click)="toggleFormSection('simulationAlgorithmParameters')"
+          >
+            <biosimulations-icon [icon]="(formSectionOpen$.simulationAlgorithmParameters | async) ? 'open': 'closed'"></biosimulations-icon>
+          </button>
+        </div>
+      </div>
+      <div class="form-section-body">
         <div class="form-field-group"
           formArrayName="simulationAlgorithmParameters"
           *ngIf="formGroup.value.simulationAlgorithm"
@@ -271,7 +294,7 @@
           <div class="icon-label-input">
             <biosimulations-icon icon="simulators" matPrefix></biosimulations-icon>
             <div class="label-input">
-              <mat-label>Configure the parameters of the selected algorithm *</mat-label>
+              <mat-label>Configure the parameters of the selected algorithm</mat-label>
               <div class="input algorithm-parameters">
                 <div class="input-heading">Name</div>
                 <div class="input-heading more-info">More info</div>

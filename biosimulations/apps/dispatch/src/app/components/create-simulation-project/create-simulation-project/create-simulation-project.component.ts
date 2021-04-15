@@ -1560,13 +1560,15 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     modelNamespaces: new BehaviorSubject<boolean>(false),
     modelChanges: new BehaviorSubject<boolean>(false),
     modelVariables: new BehaviorSubject<boolean>(false),
+    simulationAlgorithmParameters: new BehaviorSubject<boolean>(false),
   }
   formSectionOpen$ = {
     modelNamespaces: this.formSectionOpen.modelNamespaces.asObservable(),
     modelChanges: this.formSectionOpen.modelChanges.asObservable(),
     modelVariables: this.formSectionOpen.modelVariables.asObservable(),
+    simulationAlgorithmParameters: this.formSectionOpen.simulationAlgorithmParameters.asObservable(),
   }
-  toggleFormSection(name: 'modelNamespaces' | 'modelChanges' | 'modelVariables'): void {
+  toggleFormSection(name: 'modelNamespaces' | 'modelChanges' | 'modelVariables' | 'simulationAlgorithmParameters'): void {
     this.formSectionOpen[name].next(!this.formSectionOpen[name].value);
   }
 }
