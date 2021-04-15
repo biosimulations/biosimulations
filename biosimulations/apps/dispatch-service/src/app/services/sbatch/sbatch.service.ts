@@ -89,6 +89,7 @@ srun aws --no-verify-ssl --endpoint-url  ${endpoint} s3 sync --exclude "*.sbatch
 #SBATCH --ntasks=1
 #SBATCH --output=${homeDir}/singularity/images/${image}.output
 #SBATCH --cpus-per-task=8
+#SBATCH --mem=16G
 
 export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
