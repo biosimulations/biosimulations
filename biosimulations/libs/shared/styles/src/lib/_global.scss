@@ -314,8 +314,14 @@ biosimulations-root {
 
   .mat-form-field-suffix {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     height: 100%;
+
+    biosimulations-icon {
+      font-size: 16px;
+      margin-left: 0.5rem;
+      line-height: 0;
+    }
   }
 
   .ngx-mat-file-input {
@@ -370,6 +376,10 @@ biosimulations-root {
     border-top-right-radius: 4px;
     display: flex;
     align-items: center;
+  }
+
+  .form-section-head-title-subtitle {
+    flex-grow: 1;
   }
 
   .form-section-title {
@@ -429,6 +439,18 @@ biosimulations-root {
       code, code.hljs {
         padding: 0.15rem;
       }
+    }
+  }
+
+  &.form-section-closed {
+    .form-section-head {
+      border-bottom: none;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    .form-section-body {
+      display: none;
     }
   }
 }
