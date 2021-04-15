@@ -25,15 +25,6 @@ export interface FormattedSimulation {
   resultsSize: string;
 }
 
-export interface VizApiResponse {
-  message: string;
-  data: CombineArchive;
-}
-
-export interface CombineArchive {
-  [id: string]: string[];
-}
-
 export interface AxisLabelType {
   label: string;
   type: AxisType;
@@ -65,12 +56,3 @@ export const SCATTER_TRACE_MODEL_LABELS: ScatterTraceModeLabel[] = [
     mode: ScatterTraceMode.markers,
   },
 ];
-
-export interface Report {
-  [id: string]: any[];
-}
-
-export interface DataSetIdDisabled {
-  id: string;
-  disabled: boolean;
-}
