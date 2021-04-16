@@ -8,9 +8,6 @@
  */
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import csv from 'csvtojson';
-
-import readline from 'readline';
-import fs from 'fs';
 import { SimulationRunReportDataStrings } from '@biosimulations/dispatch/api-models';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import {
@@ -33,7 +30,7 @@ export class ResultsService {
 
   public async createResults(id: string, transpose: boolean): Promise<void> {
     const resultsDirectory = this.fileService.getResultsDirectory(id);
-    //const resultsDirectory = 'testDir';
+    //const resultsDirectory = 'testDir'; //for local testing
 
     try {
       const fileList: resultFile[] = await this.fileService.getFilesRecursively(
@@ -82,21 +79,17 @@ export class ResultsService {
   }
 
   private async readCSV(file: string): Promise<SimulationRunReportDataStrings> {
-    // info https://nodejs.org/api/readline.html#readline_example_read_file_stream_line_by_line
-
     try {
-      const rlp = readline.createInterface({
-        terminal: false,
-        input: fs.createReadStream(file),
-        crlfDelay: Infinity,
-      });
-      const resultObject: SimulationRunReportDataStrings = {};
+      const jsonArray: string[][] = await csv({
+        output: 'csv',
+        noheader: true,
+      }).fromFile(file);
 
-      for await (const line of rlp) {
-        const header = line.split(',')[0];
-        resultObject[header] = [];
-        const values = line.split(',').slice(1);
-        values.forEach((value) => resultObject[header].push(value));
+      const resultObject: SimulationRunReportDataStrings = {};
+      for (const line of jsonArray) {
+        const header: string = line[0];
+        const values: string[] = line.slice(1);
+        resultObject[header] = values;
       }
 
       return resultObject;
@@ -106,16 +99,6 @@ export class ResultsService {
       this.logger.error(error);
       throw error;
     }
-    // This should be much faster way to do it @Todo investigate
-    /*    rlp.on('line', (input) => {
-      const header = input.split(',')[0];
-      resultObject[header] = [];
-      const values = input.split(',').slice(1);
-      values.forEach((value) => resultObject[header].push(value));
-    });
-    await once(rlp, 'close');
-    return resultsObject
-    */
   }
   private async uploadResultFile(
     id: string,
