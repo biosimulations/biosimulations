@@ -33,7 +33,7 @@ export class BiomodelVariable extends ViewModel implements IBP {
     this.init();
   }
   toString(): string {
-    return name;
+    return this.name || '';
   }
   getIcon(): null {
     return null;
