@@ -32,7 +32,7 @@
     "build-push-deploy-docker": "tools/build-push-deploy-docker-image",
     "submit-example-simulation-runs": "tools/submit-example-simulation-runs",
     "scully": "scully",
-    "scully:serve": "scully serve",
+    "scully:serve": "scully serve"
     
   },
   "private": true,
