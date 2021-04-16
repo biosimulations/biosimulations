@@ -29,9 +29,10 @@ const routes: Routes = [
   {
     path: 'create',
     loadChildren: () =>
-      import('apps/dispatch/src/app/components/create-simulation-project/create-simulation-project.module').then(
-        (m) => m.CreateSimulationProjectModule,
-      ),
+      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+      import(
+        'apps/dispatch/src/app/components/create-simulation-project/create-simulation-project.module'
+      ).then((m) => m.CreateSimulationProjectModule),
     data: {
       breadcrumb: 'Create simulation project',
     },
@@ -40,6 +41,7 @@ const routes: Routes = [
   {
     path: 'run',
     loadChildren: () =>
+      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
       import('apps/dispatch/src/app/components/run/run.module').then(
         (m) => m.RunModule,
       ),
@@ -51,6 +53,7 @@ const routes: Routes = [
   {
     path: 'simulations',
     loadChildren: () =>
+      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
       import(
         'apps/dispatch/src/app/components/simulations/simulations.module'
       ).then((m) => m.SimulationsModule),
@@ -61,6 +64,7 @@ const routes: Routes = [
   {
     path: 'help',
     loadChildren: () =>
+      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
       import('apps/dispatch/src/app/components/help/help.module').then(
         (m) => m.HelpModule,
       ),
