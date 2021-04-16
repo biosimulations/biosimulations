@@ -38,7 +38,7 @@ RUN apk add --update --no-cache \
     alpine-sdk
 RUN ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
-RUN pip3 install --no-cache --upgrade pip setuptools
+RUN pip3 install --no-cache --no-cache-dir  --upgrade pip setuptools
 
 # install the app, including the dev dependencies
 RUN npm ci
@@ -74,8 +74,6 @@ WORKDIR /app
 
 #Copy over dependency list
 COPY biosimulations/package.json /app/package.json
-#TODO Remove this when #2186 is resolved
-RUN npm install -g npm@6.14.11
 # install the app and include only dependencies needed to run
 RUN npm install --only=production  --legacy-peer-deps
 # copy artifact build from the 'build environment'
