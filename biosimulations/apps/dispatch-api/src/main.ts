@@ -11,7 +11,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
-import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import {
+  ScopesObject,
+  SecuritySchemeObject,
+} from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { ConfigService } from '@nestjs/config';
 import { json } from 'body-parser';
 import { Resolver } from '@stoplight/json-ref-resolver';
@@ -79,7 +82,7 @@ async function bootstrap() {
     {
       name: 'Authentication testing',
       description:
-        'Operations for checking whether a user is logged in and retrieving information about a user\'s privileges.',
+        "Operations for checking whether a user is logged in and retrieving information about a user's privileges.",
     },
     {
       name: 'Internal management',
@@ -112,11 +115,12 @@ async function bootstrap() {
     builder.addTag(tag.name, tag.description);
   }
 
-  const scopes = [
-    'read:SimulationRuns',
-    'write:SimulationRuns',
-    'delete:SimulationsRuns',
-  ];
+  const scopes: ScopesObject = {
+    'read:SimulationRuns': 'Get information about a submitted run',
+    'write:SimulationRuns': 'Modify a run, including status',
+    'delete:SimulationsRuns': 'Delete runs from the database',
+    // TODO add all scopes/find a way to automate this from auth0
+  };
   const authorizationUrl =
     'https://auth.biosimulations.org/authorize?audience=dispatch.biosimulations.org';
   const openIdConnectUrl =
@@ -163,7 +167,7 @@ async function bootstrap() {
     customCss: removeIcon,
     swaggerOptions: {
       oauth: {
-        clientId: 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a',
+        clientId: clientId,
       },
       //tagsSorter: 'alpha',
       operationsSorter: 'alpha',
@@ -177,7 +181,9 @@ async function bootstrap() {
   const resolver = new Resolver();
   const resolvedDocument = await resolver.resolve(document);
   const schema = resolvedDocument.result.components.schemas.CombineArchiveLog;
-  httpAdapter.get('/schema/CombineArchiveLog.json', (req, res) => res.json(toJsonSchema(schema)));
+  httpAdapter.get('/schema/CombineArchiveLog.json', (req, res) =>
+    res.json(toJsonSchema(schema)),
+  );
 
   const configService = app.get(ConfigService);
   const limit = configService.get('server.limit');
