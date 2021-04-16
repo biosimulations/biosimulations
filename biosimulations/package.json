@@ -75,7 +75,7 @@
     "ssh2": "^0.8.9",
     "stackdriver-errors-js": "^0.8.0",
     "swagger-ui-express": "^4.1.6",
-    "tslib": "^2.0.0",
+    "tslib": "^2.2.0",
     "uuid": "^8.3.2",
     "validator": "^13.5.2",
     "yaml": "^1.10.0",
