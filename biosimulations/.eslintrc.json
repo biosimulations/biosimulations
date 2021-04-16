@@ -6,9 +6,6 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript", "prettier"],
-      "parserOptions": {
-        "project": "./tsconfig.*?.json"
-      },
       "rules": {
         "@typescript-eslint/explicit-member-accessibility": "warn",
         "@typescript-eslint/explicit-function-return-type": "warn",
@@ -17,7 +14,12 @@
         "@typescript-eslint/no-inferrable-types": "warn",
         "@typescript-eslint/interface-name-prefix": "off",
         "@typescript-eslint/member-ordering": "warn",
-        "max-len": ["warn", { "code": 125 }],
+        "max-len": [
+          "warn",
+          {
+            "code": 125
+          }
+        ],
         "@typescript-eslint/no-unused-vars": "off",
         "unused-imports/no-unused-imports-ts": "error",
         "unused-imports/no-unused-vars-ts": [
