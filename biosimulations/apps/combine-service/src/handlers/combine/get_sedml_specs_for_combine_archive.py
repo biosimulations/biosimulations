@@ -3,9 +3,8 @@ from ...utils import get_temp_dir, get_results_data_set_id
 from biosimulators_utils.combine.data_model import (
     CombineArchiveContentFormatPattern,
 )
-from biosimulators_utils.combine.io import (
-    CombineArchiveReader
-)
+from biosimulators_utils.combine.io import CombineArchiveReader
+from biosimulators_utils.combine.utils import get_sedml_contents
 from biosimulators_utils.sedml.data_model import (
     OneStepSimulation,
     SteadyStateSimulation,
@@ -89,7 +88,8 @@ def handler(body, file=None):
     # get specifications of SED outputs
     contents_specs = []
 
-    for content in archive.contents:
+    sedml_contents = get_sedml_contents(archive)
+    for content in sedml_contents:
         if (
             content.format and
             re.match(CombineArchiveContentFormatPattern.SED_ML.value,
