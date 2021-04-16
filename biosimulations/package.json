@@ -33,7 +33,7 @@
     "submit-example-simulation-runs": "tools/submit-example-simulation-runs",
     "scully": "scully",
     "scully:serve": "scully serve",
-    "postinstall": "ngcc --properties es2015 browser module main"
+    
   },
   "private": true,
   "dependencies": {
