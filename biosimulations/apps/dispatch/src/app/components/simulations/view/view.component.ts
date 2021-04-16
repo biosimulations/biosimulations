@@ -30,6 +30,7 @@ import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import {
   Simulation,
   CombineResults,
+  SedReportResults,
   SedDatasetResults,
   SedDatasetResultsMap,
 } from '../../../datamodel';
@@ -408,6 +409,10 @@ export class ViewComponent implements OnInit, OnDestroy {
     // determine if the COMBINE archive generated at least one data set
     let hasData = false;
     for (const sedDocumentResultsStructure of combineResultsStructure) {
+      sedDocumentResultsStructure.reports.sort((a: SedReportResults, b: SedReportResults): number => {
+        return a.id.localeCompare(b.id, undefined, { numeric: true });
+      });
+
       for (const sedReportResultsStructure of sedDocumentResultsStructure.reports) {
         if (sedReportResultsStructure.datasets.length) {
           hasData = true;
@@ -416,6 +421,17 @@ export class ViewComponent implements OnInit, OnDestroy {
             sedReportResultsStructure.datasets?.[1] || this.defaultXSedDataset;
           break;
         }
+
+        sedReportResultsStructure.datasets.sort(
+          (
+            a: SedDatasetResults,
+            b: SedDatasetResults,
+          ): number => {
+            return a.label.localeCompare(b.label, undefined, {
+              numeric: true,
+            });
+          },
+        );
       }
     }
     this.hasData = hasData;

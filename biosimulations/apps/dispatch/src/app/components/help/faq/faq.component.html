@@ -342,7 +342,7 @@
             >: URL for a model file to create a COMBINE archive from. This argument
             instructs the web form to prefill the model file input
             with this URL.
-          </li>
+          f</li>
           <li>
             <b><code>modelFormat</code></b
             >: EDAM id of the format of the models to execute (e.g.,
@@ -397,33 +397,7 @@
             >: URL for a COMBINE/OMEX archive to simulate. This argument
             instructs the web form to prefill the COMBINE/OMEX archive input
             with this URL.
-          </li>
-          <li>
-            <b><code>modelFormat</code></b
-            >: EDAM id of the format of the models to execute (e.g.,
-            <code>format_2585</code> for SBML). This argument instructs the web
-            form to only enable simulation tools which support this format.
-            This argument can be repeated to instruct the web form to only show
-            simulation tools which each support multiple formats.
-          </li>
-          <li>
-            <b><code>modelingFramework</code></b
-            >: SBO id of the modeling framework of the simulations to execute
-            (e.g., <code>SBO_0000293</code> for continuous kinetic framework).
-            This argument instructs the web form to only enable simulation tools
-            which support this framework. This argument can be repeated to instruct
-            the web form to only show simulation tools which each support multiple
-            frameworks.
-          </li>
-          <li>
-            <b><code>simulationAlgorithm</code></b
-            >: KiSAO id of the simulation algorithm to execute
-            (e.g., <code>KISAO_0000019</code> for CVODE).
-            This argument instructs the web form to only enable simulation tools
-            which can execute this algorithm. This argument can be repeated to instruct
-            the web form to only show simulation tools which each support multiple
-            algorithms.
-          </li>
+          </li>         
           <li>
             <b><code>simulator</code></b
             >: Id of the recommended simulator for executing the COMBINE/OMEX
@@ -458,7 +432,7 @@
           <code
             >{{
               config.appUrl
-            }}run?projectUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878&modelFormat=format_2585&modelingFramework=SBO_0000293</code
+            }}run?projectUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878</code
           >
           can be used to link to the capability to simulate BioModels entry
           BIOMD0000000878.

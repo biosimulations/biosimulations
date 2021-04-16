@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import {
@@ -9,9 +9,17 @@ import {
   OntologyTerm,
 } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
+import { CombineService } from '../../../services/combine/combine.service';
 import { Simulation } from '../../../datamodel';
+import {
+  CombineArchive,
+  CombineArchiveContent,
+  SedDocument,
+  SedModel,
+  SedSimulation,
+} from '../../../combine-sedml.interface';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -32,14 +40,13 @@ enum SubmitMethod {
   templateUrl: './dispatch.component.html',
   styleUrls: ['./dispatch.component.scss'],
 })
-export class DispatchComponent implements OnInit {
+export class DispatchComponent implements OnInit, OnDestroy {
   submitMethod: SubmitMethod = SubmitMethod.file;
   formGroup: FormGroup;
   submitMethodControl: FormControl;
   projectFileControl: FormControl;
   projectUrlControl: FormControl;
   modelFormatsControl: FormControl;
-  modelingFrameworksControl: FormControl;
   simulationAlgorithmsControl: FormControl;
   simulatorControl: FormControl;
   simulatorVersionControl: FormControl;
@@ -54,11 +61,9 @@ export class DispatchComponent implements OnInit {
   exampleCombineArchivesUrl: string;
 
   modelFormatsMap?: OntologyTermsMap;
-  modelingFrameworksMap?: OntologyTermsMap;
   simulationAlgorithmsMap?: OntologyTermsMap;
 
   modelFormats?: OntologyTerm[];
-  modelingFrameworks?: OntologyTerm[];
   simulationAlgorithms?: OntologyTerm[];
 
   simulatorIds = new Set<string>();
@@ -70,6 +75,8 @@ export class DispatchComponent implements OnInit {
 
   submitPushed = false;
 
+  private subscriptions: Subscription[] = [];
+
   constructor(
     private config: ConfigService,
     private route: ActivatedRoute,
@@ -77,6 +84,7 @@ export class DispatchComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
     private simulationService: SimulationService,
+    private combineService: CombineService,
     private snackBar: MatSnackBar,
   ) {
     this.formGroup = this.formBuilder.group(
@@ -85,7 +93,6 @@ export class DispatchComponent implements OnInit {
         projectFile: ['', [Validators.required]],
         projectUrl: ['', [Validators.required]],
         modelFormats: [[]],
-        modelingFrameworks: [[]],
         simulationAlgorithms: [[]],
         simulator: ['', [Validators.required]],
         simulatorVersion: ['', [Validators.required]],
@@ -105,7 +112,6 @@ export class DispatchComponent implements OnInit {
     this.projectFileControl = this.formGroup.controls.projectFile as FormControl;
     this.projectUrlControl = this.formGroup.controls.projectUrl as FormControl;
     this.modelFormatsControl = this.formGroup.controls.modelFormats as FormControl;
-    this.modelingFrameworksControl = this.formGroup.controls.modelingFrameworks as FormControl;
     this.simulationAlgorithmsControl = this.formGroup.controls.simulationAlgorithms as FormControl;
     this.simulatorControl = this.formGroup.controls.simulator as FormControl;
     this.simulatorVersionControl = this.formGroup.controls.simulatorVersion as FormControl;
@@ -118,7 +124,6 @@ export class DispatchComponent implements OnInit {
 
     this.projectUrlControl.disable();
     this.modelFormatsControl.disable();
-    this.modelingFrameworksControl.disable();
     this.simulationAlgorithmsControl.disable();
     this.simulatorControl.disable();
     this.simulatorVersionControl.disable();
@@ -190,18 +195,13 @@ export class DispatchComponent implements OnInit {
 
       // Setup options for select menus
       this.modelFormatsMap = simulatorsData.modelFormats;
-      this.modelingFrameworksMap = simulatorsData.modelingFrameworks;
       this.simulationAlgorithmsMap  = simulatorsData.simulationAlgorithms;
       this.simulatorSpecsMap = simulatorsData.simulatorSpecs;
 
       this.modelFormats = Object.values(this.modelFormatsMap);
-      this.modelingFrameworks = Object.values(this.modelingFrameworksMap);
       this.simulationAlgorithms = Object.values(this.simulationAlgorithmsMap);
 
       this.modelFormats.sort((a: OntologyTerm, b: OntologyTerm): number => {
-        return a.name.localeCompare(b.name, undefined, { numeric: true });
-      });
-      this.modelingFrameworks.sort((a: OntologyTerm, b: OntologyTerm): number => {
         return a.name.localeCompare(b.name, undefined, { numeric: true });
       });
       this.simulationAlgorithms.sort((a: OntologyTerm, b: OntologyTerm): number => {
@@ -223,7 +223,6 @@ export class DispatchComponent implements OnInit {
 
       // Enable select menus
       this.modelFormatsControl.enable();
-      this.modelingFrameworksControl.enable();
       this.simulationAlgorithmsControl.enable();
       this.simulatorControl.enable();
 
@@ -233,49 +232,6 @@ export class DispatchComponent implements OnInit {
         this.submitMethodControl.setValue(SubmitMethod.url);
         this.projectUrlControl.setValue(projectUrl);
       }
-
-      this.modelFormatsControl.setValue(this.makeArray(params?.modelFormat)
-        .map((modelFormat: string): string => {
-          modelFormat = modelFormat.toLowerCase();
-          const match = modelFormat.match(/^(format[:_])?(\d{1,4})$/);
-          if (match) {
-            modelFormat = 'format_' + '0'.repeat(4 - match[2].length) + match[2];
-          }
-
-          return modelFormat;
-        })
-        .filter((modelFormat: string): boolean => {
-          return this.modelFormatsMap?.[modelFormat] != null;
-        })
-      );
-
-      this.modelingFrameworksControl.setValue(this.makeArray(params?.modelingFramework)
-        .map((modelingFramework: string): string => {
-          modelingFramework = modelingFramework.toUpperCase();
-          const match = modelingFramework.match(/^(SBO[:_])?(\d{1,7})$/);
-          if (match) {
-            modelingFramework = 'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
-          }
-          return modelingFramework;
-        })
-        .filter((modelingFramework: string): boolean => {
-          return this.modelingFrameworksMap?.[modelingFramework] != null;
-        })
-      );
-
-      this.simulationAlgorithmsControl.setValue(this.makeArray(params?.simulationAlgorithm)
-        .map((simulationAlgorithm: string): string => {
-          simulationAlgorithm = simulationAlgorithm.toUpperCase();
-          const match = simulationAlgorithm.match(/^(KISAO[:_])?(\d{1,7})$/);
-          if (match) {
-            simulationAlgorithm = 'KISAO_' + '0'.repeat(7 - match[2].length) + match[2];
-          }
-          return simulationAlgorithm;
-        })
-        .filter((simulationAlgorithm: string): boolean => {
-          return this.simulationAlgorithmsMap?.[simulationAlgorithm] != null;
-        })
-      );
 
       const simulator = params?.simulator?.toLowerCase();
       if (simulator) {
@@ -324,6 +280,10 @@ export class DispatchComponent implements OnInit {
     });
   }
 
+  public ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
   makeArray(value: string | string[] | null): string[] {
     if (!value) {
       return [];
@@ -345,17 +305,72 @@ export class DispatchComponent implements OnInit {
     }
   }
 
+  changeProject(): void {
+    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+
+    let archive: File | string = '';
+    if (submitMethodControl.value === SubmitMethod.file) {
+      archive = this.formGroup.controls.projectFile.value;
+    } else {
+      archive = this.formGroup.controls.projectUrl.value;
+    }
+
+    if (archive) {
+      const sub = this.combineService.getSpecsOfSedDocsInCombineArchive(archive)
+        .subscribe((archive: CombineArchive | undefined): void => {
+          if (archive) {
+            const modelFormats = new Set<string>();
+            const simulationAlgorithms = new Set<string>();
+            const unsupportedModelFormats = new Set<string>();
+            const unsupportedSimulationAlgorithms = new Set<string>();
+            archive.contents.forEach((content: CombineArchiveContent): void => {
+              if (content.location.value._type === 'SedDocument') {
+                const sedDoc = content.location.value as SedDocument;
+
+                sedDoc.models.forEach((model: SedModel): void => {
+                  if (model.language.startsWith('urn:sedml:language:bngl')) {
+                    modelFormats.add('format_3972');
+                  } else if (model.language.startsWith('urn:sedml:language:sbml')) {
+                    modelFormats.add('format_2585');
+                  } else {
+                    unsupportedModelFormats.add(model.language);
+                  }
+                });
+
+                sedDoc.simulations.forEach((sim: SedSimulation): void => {
+                  const kisaoId = sim.algorithm.kisaoId;
+                  if (kisaoId in (this.simulationAlgorithmsMap as OntologyTermsMap)) {
+                    simulationAlgorithms.add(kisaoId);
+                  } else {
+                    unsupportedSimulationAlgorithms.add(kisaoId);
+                  }
+                });
+              }
+            });
+
+            this.modelFormatsControl.setValue(Array.from(modelFormats));
+            this.simulationAlgorithmsControl.setValue(Array.from(simulationAlgorithms));
+
+            this.modelFormatsControl.setErrors({'unsupportedFormats': unsupportedModelFormats.size > 0});
+            this.simulationAlgorithmsControl.setErrors({'unsupportedAlgorithms': unsupportedSimulationAlgorithms.size > 0});
+
+            this.applyFilters();
+          }
+        });
+      this.subscriptions.push(sub);
+    } else {
+      this.modelFormatsControl.setErrors({'unsupportedFormats': false});
+      this.simulationAlgorithmsControl.setErrors({'unsupportedAlgorithms': false});
+    }
+  }
+
   applyFilters(): void {
     const modelFormatIds = this.formGroup.value.modelFormats;
-    const modelingFrameworkIds = this.formGroup.value.modelingFrameworks;
     const simulationAlgorithmIds = this.formGroup.value.simulationAlgorithms;
 
     let simulators = this.simulatorIds;
     modelFormatIds.forEach((modelFormatId: string): void => {
       simulators = this.setIntersection(simulators, this.modelFormatsMap?.[modelFormatId]?.simulators as Set<string>);
-    });
-    modelingFrameworkIds.forEach((modelingFrameworkId: string): void => {
-      simulators = this.setIntersection(simulators, this.modelingFrameworksMap?.[modelingFrameworkId]?.simulators as Set<string>);
     });
     simulationAlgorithmIds.forEach((simulationAlgorithmId: string): void => {
       simulators = this.setIntersection(simulators, this.simulationAlgorithmsMap?.[simulationAlgorithmId]?.simulators as Set<string>);
@@ -364,9 +379,6 @@ export class DispatchComponent implements OnInit {
     this.modelFormats?.forEach((modelFormat: OntologyTerm): void => {
       modelFormat.disabled = this.setIntersection(simulators, modelFormat.simulators).size == 0;
     });
-    this.modelingFrameworks?.forEach((modelingFramework: OntologyTerm): void => {
-      modelingFramework.disabled = this.setIntersection(simulators, modelingFramework.simulators).size == 0;
-    });
     this.simulationAlgorithms?.forEach((simulationAlgorithm: OntologyTerm): void => {
       simulationAlgorithm.disabled = this.setIntersection(simulators, simulationAlgorithm.simulators).size == 0;
     });
@@ -374,6 +386,11 @@ export class DispatchComponent implements OnInit {
     this.simulators.forEach((simulator: SimulatorIdDisabled): void => {
       simulator.disabled = !simulators.has(simulator.id);
     });
+
+    if (simulators.size === 1) {
+      const simulatorControl = this.formGroup.controls.simulator as FormControl;
+      simulatorControl.setValue(Array.from(simulators)[0]);
+    }
   }
 
   private setIntersection(a: Set<string>, b: Set<string>): Set<string> {

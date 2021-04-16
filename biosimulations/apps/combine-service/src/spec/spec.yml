@@ -14,73 +14,6 @@ info:
     name: MIT License
     url: https://opensource.org/licenses/MIT
 paths:
-  /combine/sedml-output-specs:
-    get:
-      tags:
-      - COMBINE
-      parameters:
-      - examples:
-          Example URL:
-            value: https://data.biosimulations.org/XYZ
-        name: archiveUrl
-        description: |-
-          URL for a COMBINE/OMEX archive that contains one or more SED-ML files that describe one or more plots.
-
-          The SED-ML files should be defined in the manifest of the the COMBINE/OMEX archive with a format attribute such as  "http://identifiers.org/combine.specifications/sed-ml" or "http://identifiers.org/combine.specifications/sed-ml.level-1.version-3".
-        schema:
-          type: string
-        in: query
-        required: true
-      responses:
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
-            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
-            archive.
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CombineArchive'
-              examples:
-                Example specifications of a COMBINE archive:
-                  value:
-                    _type: CombineArchive
-                    contents:
-                    - _type: CombineArchiveContent
-                      location:
-                        _type: CombineArchiveLocation
-                        path: experiment1/model.xml
-                        value:
-                          _type: CombineArchiveContentFile
-                          filename: model.xml
-                      format: http://identifiers.org/combine.specifications/sbml
-                      master: false
-                    - _type: CombineArchiveContent
-                      location:
-                        _type: CombineArchiveLocation
-                        path: experiment1/simulation.sedml
-                        value:
-                          _type: CombineArchiveContentUrl
-                          url: https://simulation.org/simulation.sedml
-                      format: http://identifiers.org/combine.specifications/sed-ml
-                      master: true
-          description: Specifications of the plots in the SED-ML files in the COMBINE/OMEX
-            archive.
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Server error.
-      operationId: src.handlers.combine.get_sedml_output_specs_for_combine_archive.handler
-      summary: Get the specifications of the plots in SED-ML files in a COMBINE/OMEX
-        archive
-      description: Get the specifications of the outputs in SED-ML files in a COMBINE/OMEX
-        archive
   /combine/create:
     post:
       requestBody:
@@ -201,6 +134,71 @@ paths:
           description: Server error.
       operationId: src.handlers.sed_ml.get_parameters_variables_for_simulation.handler
       summary: Get the possible observables of a simulation as a list of SED variables.
+  /combine/sedml-specs:
+    post:
+      requestBody:
+        description: COMBINE/OMEX archive file or URL for a COMBINE/OMEX archive file.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileOrUrl'
+            examples:
+              File:
+                value:
+                  file: <FILE>
+              URL:
+                value:
+                  url: https://models.org/model.xml
+        required: true
+      tags:
+      - COMBINE
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombineArchive'
+              examples:
+                Example specifications of a COMBINE archive:
+                  value:
+                    _type: CombineArchive
+                    contents:
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/model.xml
+                        value:
+                          _type: CombineArchiveContentFile
+                          filename: model.xml
+                      format: http://identifiers.org/combine.specifications/sbml
+                      master: false
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/simulation.sedml
+                        value:
+                          _type: CombineArchiveContentUrl
+                          url: https://simulation.org/simulation.sedml
+                      format: http://identifiers.org/combine.specifications/sed-ml
+                      master: true
+          description: Specifications of the SED-ML files in the COMBINE/OMEX archive.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
+            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
+            archive.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.get_sedml_specs_for_combine_archive.handler
+      summary: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+      description: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
 components:
   schemas:
     SedPlot2D:
@@ -1715,6 +1713,18 @@ components:
         - prefix: qual
           uri: http://www.sbml.org/sbml/level3/version1/qual/version1
           _type: Namespace
+    FileOrUrl:
+      description: File or a URL for a file.
+      type: object
+      properties:
+        file:
+          $ref: '#/components/schemas/File'
+          description: File.
+        url:
+          $ref: '#/components/schemas/Url'
+          description: URL
+      example:
+        file: <FILE>
   responses:
     "404":
       content:

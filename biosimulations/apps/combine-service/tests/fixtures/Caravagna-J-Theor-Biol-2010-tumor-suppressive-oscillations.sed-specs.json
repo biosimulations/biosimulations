@@ -9,10 +9,84 @@
                 "_type": "SedDocument",
                 "level": 1,
                 "version": 3,
-                "models": [],
-                "simulations": [],
-                "tasks": [],
-                "dataGenerators": [],
+                "models": [{
+                    "_type": "SedModel",
+                    "id": "BIOMD0000000912",
+                    "name": "Caravagna2010 - Tumour suppression by immune system",
+                    "source": "Caravagna2010.xml",
+                    "language": "urn:sedml:language:sbml",
+                    "changes": []
+                }],
+                "simulations": [{
+                    "_type": "SedUniformTimeCourseSimulation",
+                    "id": "BIOMD0000000912_sim",
+                    "name": "Caravagna2010",
+                    "initialTime": 0,
+                    "outputStartTime": 0,
+                    "outputEndTime": 1000,
+                    "numberOfSteps": 5000,
+                    "algorithm": {
+                        "_type": "SedAlgorithm",
+                        "kisaoId": "KISAO_0000019",
+                        "changes": []
+                    }
+                }],
+                "tasks": [{
+                    "_type": "SedTask",
+                    "id": "BIOMD0000000912_sim",
+                    "name": "Caravagna2010",
+                    "model": {
+                        "_type": "SedModel",
+                        "id": "BIOMD0000000912",
+                        "name": "Caravagna2010 - Tumour suppression by immune system",
+                        "source": "Caravagna2010.xml",
+                        "language": "urn:sedml:language:sbml",
+                        "changes": []
+                    },
+                    "simulation": {
+                        "_type": "SedUniformTimeCourseSimulation",
+                        "id": "BIOMD0000000912_sim",
+                        "name": "Caravagna2010",
+                        "initialTime": 0,
+                        "outputStartTime": 0,
+                        "outputEndTime": 1000,
+                        "numberOfSteps": 5000,
+                        "algorithm": {
+                            "_type": "SedAlgorithm",
+                            "kisaoId": "KISAO_0000019",
+                            "changes": []
+                        }
+                    }
+                }],
+                "dataGenerators": [{
+                        "_type": "SedDataGenerator",
+                        "id": "time",
+                        "name": "time",
+                        "variables": [],
+                        "math": "time"
+                    },
+                    {
+                        "_type": "SedDataGenerator",
+                        "id": "T",
+                        "name": "T",
+                        "variables": [],
+                        "math": "T"
+                    },
+                    {
+                        "_type": "SedDataGenerator",
+                        "id": "E",
+                        "name": "E",
+                        "variables": [],
+                        "math": "E"
+                    },
+                    {
+                        "_type": "SedDataGenerator",
+                        "id": "I",
+                        "name": "I",
+                        "variables": [],
+                        "math": "I"
+                    }
+                ],
                 "outputs": [{
                     "_type": "SedReport",
                     "id": "BIOMD0000000912_sim",

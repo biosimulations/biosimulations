@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 
 interface IconInfo {
@@ -104,7 +104,7 @@ export type BiosimulationsIcon =
   | 'open'
   | 'url'
   | 'share'
-  | 'close'
+  | 'closed'
   | 'longRightArrow'
   | 'pdf'
   | 'video'
@@ -120,14 +120,21 @@ export type BiosimulationsIcon =
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
 })
-export class IconComponent implements OnInit {
+export class IconComponent {
   @Input()
-  icon!: BiosimulationsIcon;
+  set icon(value: BiosimulationsIcon) {
+    this.setIcon(value);
+  }
+
   iconLabel!: string;
+
   @Input()
   size?: string;
+
   isSyncAnimated = false;
+
   iconInfo!: IconInfo;
+
   iconMap: { [key in BiosimulationsIcon]: IconInfo } = {
     share: { type: 'fas', name: 'share-alt' },
     home: { type: 'fas', name: 'home' },
@@ -237,7 +244,7 @@ export class IconComponent implements OnInit {
     trash: { type: 'fas', name: 'trash' },
     progress: { type: 'fas', name: 'tasks' },
     open: { type: 'fas', name: 'chevron-down' },
-    close: { type: 'fas', name: 'chevron-up' },
+    closed: { type: 'fas', name: 'chevron-right' },
     longRightArrow: { type: 'fas', name: 'long-arrow-alt-right' },
 
     pdf: { type: 'fas', name: 'file-pdf' },
@@ -251,16 +258,18 @@ export class IconComponent implements OnInit {
     processor: { type: 'fas', name: 'microchip' },
     server: { type: 'fas', name: 'server' },
   };
-  constructor() {
-    this.iconInfo = this.iconMap[this.icon];
+
+  constructor () {
+    this.setIcon('help');
   }
 
-  ngOnInit(): void {
-    this.iconInfo = this.iconMap[this.icon];
+  private setIcon(value: BiosimulationsIcon): void {
+    this.iconInfo = this.iconMap?.[value];
     if (!this.iconInfo) {
-      console.error("icon '" + this.icon + "' not found in library");
+      console.error("icon '" + value + "' not found in library");
       this.iconInfo = this.iconMap['help'];
+      value = 'help';
     }
-    this.iconLabel = this.icon + '-icon';
+    this.iconLabel = value + '-icon';
   }
 }

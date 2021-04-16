@@ -1,5 +1,9 @@
 BioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using license-checker (https://github.com/davglass/license-checker).
 
+├─ @nestjs/bull@0.3.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/nestjs/bull
+│  └─ licenseFile: @nestjs/bull/LICENSE
 ├─ @nestjs/common@7.6.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
@@ -167,7 +171,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/mongoose/LICENSE
-├─ @types/node@14.14.31
+├─ @types/node@14.14.33
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/node/LICENSE
@@ -364,6 +368,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: feross@feross.org
 │  ├─ url: https://feross.org
 │  └─ licenseFile: buffer/LICENSE
+├─ bull@3.22.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/OptimalBits/bull
+│  ├─ publisher: OptimalBits
+│  └─ licenseFile: bull/LICENSE.md
 ├─ busboy@0.2.14
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mscdex/busboy
@@ -382,6 +391,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/BryanDonovan/node-cache-manager
 │  ├─ publisher: Bryan Donovan
 │  └─ licenseFile: cache-manager/LICENSE
+├─ call-bind@1.0.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/call-bind
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: call-bind/LICENSE
 ├─ camel-case@1.2.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/blakeembrey/camel-case
@@ -406,6 +421,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Umed Khudoiberdiev
 │  ├─ email: pleerock.me@gmail.com
 │  └─ licenseFile: class-validator/README.md
+├─ cluster-key-slot@1.1.0
+│  ├─ licenses: Apache*
+│  ├─ repository: https://github.com/Salakar/cluster-key-slot
+│  ├─ publisher: Mike Diarmid
+│  ├─ email: mike.diarmid@gmail.com
+│  ├─ url: http://github.com/Salakar/
+│  └─ licenseFile: cluster-key-slot/LICENSE
 ├─ color-convert@2.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Qix-/color-convert
@@ -517,6 +539,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Chris Talkington
 │  ├─ url: http://christalkington.com/
 │  └─ licenseFile: crc32-stream/LICENSE
+├─ cron-parser@2.18.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/harrisiirak/cron-parser
+│  ├─ publisher: Harri Siirak
+│  └─ licenseFile: cron-parser/LICENSE
 ├─ cron@1.7.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/kelektiv/node-cron
@@ -568,6 +595,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
 │  └─ licenseFile: jwks-rsa/node_modules/debug/LICENSE
+├─ debuglog@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sam-github/node-debuglog
+│  ├─ publisher: Sam Roberts
+│  ├─ email: sam@strongloop.com
+│  └─ licenseFile: debuglog/LICENSE
 ├─ deep-is@0.1.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/thlorenz/deep-is
@@ -583,6 +616,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TehShrike/deepmerge
 │  └─ licenseFile: deepmerge/license.txt
+├─ define-properties@1.1.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/define-properties
+│  ├─ publisher: Jordan Harband
+│  └─ licenseFile: define-properties/LICENSE
 ├─ degenerator@2.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/node-degenerator
@@ -643,7 +681,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 ├─ dotenv@8.2.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/motdotla/dotenv
-│  └─ licenseFile: @nestjs/config/node_modules/dotenv/LICENSE
+│  └─ licenseFile: dotenv/LICENSE
 ├─ duplexer@0.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Raynos/duplexer
@@ -682,6 +720,19 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/stacktracejs/error-stack-parser
 │  └─ licenseFile: error-stack-parser/LICENSE
+├─ es-abstract@1.18.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/es-abstract
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  ├─ url: http://ljharb.codes
+│  └─ licenseFile: es-abstract/LICENSE
+├─ es-to-primitive@1.2.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/es-to-primitive
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: es-to-primitive/LICENSE
 ├─ es6-promisify@6.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/digitaldesignlabs/es6-promisify
@@ -837,6 +888,25 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Brian White
 │  ├─ email: mscdex@mscdex.net
 │  └─ licenseFile: ftp/LICENSE
+├─ function-bind@1.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/Raynos/function-bind
+│  ├─ publisher: Raynos
+│  ├─ email: raynos2@gmail.com
+│  └─ licenseFile: function-bind/LICENSE
+├─ get-intrinsic@1.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/get-intrinsic
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: get-intrinsic/LICENSE
+├─ get-port@5.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/get-port
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  └─ licenseFile: get-port/license
 ├─ get-uri@3.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/node-get-uri
@@ -861,6 +931,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/node-graceful-fs
 │  └─ licenseFile: graceful-fs/LICENSE
+├─ has-bigints@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/has-bigints
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: has-bigints/LICENSE
 ├─ has-flag@4.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/has-flag
@@ -868,6 +944,19 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: has-flag/license
+├─ has-symbols@1.0.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/inspect-js/has-symbols
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  ├─ url: http://ljharb.codes
+│  └─ licenseFile: has-symbols/LICENSE
+├─ has@1.0.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/tarruda/has
+│  ├─ publisher: Thiago de Arruda
+│  ├─ email: tpadilha84@gmail.com
+│  └─ licenseFile: has/LICENSE-MIT
 ├─ http-errors@1.7.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/http-errors
@@ -929,6 +1018,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/inherits
 │  └─ licenseFile: bl/node_modules/inherits/LICENSE
+├─ ioredis@4.26.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/luin/ioredis
+│  ├─ publisher: luin
+│  ├─ email: i@zihua.li
+│  ├─ url: http://zihua.li
+│  └─ licenseFile: ioredis/LICENSE
 ├─ ip@1.1.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/indutny/node-ip
@@ -941,6 +1037,25 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: whitequark
 │  ├─ email: whitequark@whitequark.org
 │  └─ licenseFile: ipaddr.js/LICENSE
+├─ is-bigint@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/is-bigint
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: is-bigint/LICENSE
+├─ is-boolean-object@1.1.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/is-boolean-object
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: is-boolean-object/LICENSE
+├─ is-callable@1.2.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/is-callable
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  ├─ url: http://ljharb.codes
+│  └─ licenseFile: is-callable/LICENSE
 ├─ is-class@0.0.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/miguelmota/is-class
@@ -948,6 +1063,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: hello@miguelmota.com
 │  ├─ url: https://miguelmota.com/
 │  └─ licenseFile: is-class/LICENSE
+├─ is-date-object@1.0.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/is-date-object
+│  ├─ publisher: Jordan Harband
+│  └─ licenseFile: is-date-object/LICENSE
 ├─ is-lower-case@1.1.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/blakeembrey/is-lower-case
@@ -955,6 +1075,41 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: hello@blakeembrey.com
 │  ├─ url: http://blakeembrey.me
 │  └─ licenseFile: is-lower-case/LICENSE
+├─ is-nan@1.3.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/es-shims/is-nan
+│  ├─ publisher: Jordan Harband
+│  └─ licenseFile: is-nan/LICENSE
+├─ is-negative-zero@2.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/inspect-js/is-negative-zero
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: is-negative-zero/LICENSE
+├─ is-number-object@1.0.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/inspect-js/is-number-object
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: is-number-object/LICENSE
+├─ is-regex@1.1.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/inspect-js/is-regex
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: is-regex/LICENSE
+├─ is-string@1.0.5
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/is-string
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: is-string/LICENSE
+├─ is-symbol@1.0.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/inspect-js/is-symbol
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: is-symbol/LICENSE
 ├─ is-upper-case@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/blakeembrey/is-upper-case
@@ -1171,6 +1326,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: John-David Dalton
 │  ├─ email: john.david.dalton@gmail.com
 │  └─ licenseFile: lodash/LICENSE
+├─ lodash@4.17.21
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/lodash/lodash
+│  ├─ publisher: John-David Dalton
+│  ├─ email: john.david.dalton@gmail.com
+│  └─ licenseFile: bull/node_modules/lodash/LICENSE
 ├─ loglevel@1.7.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/pimterry/loglevel
@@ -1377,11 +1538,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/kpfromer/nestjs-typegoose
 │  ├─ publisher: Kyle Pfromer
 │  └─ licenseFile: nestjs-typegoose/LICENSE
-├─ netmask@1.0.6
+├─ netmask@2.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rs/node-netmask
 │  ├─ publisher: Olivier Poitrey
-│  ├─ email: rs@dailymotion.com
+│  ├─ email: rs@rhapsodyk.net
 │  └─ licenseFile: netmask/README.md
 ├─ node-fetch@2.6.1
 │  ├─ licenses: MIT
@@ -1412,6 +1573,31 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Scott Puleo
 │  ├─ email: puleos@gmail.com
 │  └─ licenseFile: object-hash/LICENSE
+├─ object-inspect@1.9.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/inspect-js/object-inspect
+│  ├─ publisher: James Halliday
+│  ├─ email: mail@substack.net
+│  ├─ url: http://substack.net
+│  └─ licenseFile: object-inspect/LICENSE
+├─ object-keys@1.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/object-keys
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  ├─ url: http://ljharb.codes
+│  └─ licenseFile: object-keys/LICENSE
+├─ object.assign@4.1.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/object.assign
+│  ├─ publisher: Jordan Harband
+│  └─ licenseFile: object.assign/LICENSE
+├─ object.getownpropertydescriptors@2.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/es-shims/object.getownpropertydescriptors
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: object.getownpropertydescriptors/LICENSE
 ├─ on-finished@2.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/on-finished
@@ -1429,6 +1615,27 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: George Zahariev
 │  ├─ email: z@georgezahariev.com
 │  └─ licenseFile: optionator/LICENSE
+├─ p-finally@1.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/p-finally
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  └─ licenseFile: p-finally/license
+├─ p-map@2.1.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/p-map
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  └─ licenseFile: ioredis/node_modules/p-map/license
+├─ p-timeout@3.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/sindresorhus/p-timeout
+│  ├─ publisher: Sindre Sorhus
+│  ├─ email: sindresorhus@gmail.com
+│  ├─ url: sindresorhus.com
+│  └─ licenseFile: p-timeout/license
 ├─ pac-proxy-agent@4.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/node-pac-proxy-agent
@@ -1436,7 +1643,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: nathan@tootallnate.net
 │  ├─ url: http://n8.io/
 │  └─ licenseFile: pac-proxy-agent/README.md
-├─ pac-resolver@4.1.0
+├─ pac-resolver@4.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/node-pac-resolver
 │  ├─ publisher: Nathan Rajlich
@@ -1531,6 +1738,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/calvinmetcalf/process-nextick-args
 │  └─ licenseFile: process-nextick-args/license.md
+├─ promise.prototype.finally@3.1.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/es-shims/Promise.prototype.finally
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: promise.prototype.finally/LICENSE
 ├─ proxy-addr@2.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/proxy-addr
@@ -1612,6 +1825,23 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/Yqnn/node-readdir-glob
 │  ├─ publisher: Yann Armelin
 │  └─ licenseFile: readdir-glob/LICENSE
+├─ redis-commands@1.7.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/NodeRedis/redis-commands
+│  ├─ publisher: luin
+│  ├─ email: i@zihua.li
+│  ├─ url: http://zihua.li
+│  └─ licenseFile: redis-commands/LICENSE
+├─ redis-errors@1.2.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/NodeRedis/redis-errors
+│  ├─ publisher: Ruben Bridgewater
+│  └─ licenseFile: redis-errors/LICENSE
+├─ redis-parser@3.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/NodeRedis/node-redis-parser
+│  ├─ publisher: Ruben Bridgewater
+│  └─ licenseFile: redis-parser/LICENSE
 ├─ reflect-metadata@0.1.13
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/rbuckton/reflect-metadata
@@ -1656,7 +1886,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: rimraf/LICENSE
-├─ rxjs@6.6.3
+├─ rxjs@6.6.7
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/reactivex/rxjs
 │  ├─ publisher: Ben Lesh
@@ -1722,6 +1952,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/node-semver
 │  └─ licenseFile: @typegoose/typegoose/node_modules/semver/LICENSE
+├─ semver@7.3.5
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/node-semver
+│  └─ licenseFile: bull/node_modules/semver/LICENSE
 ├─ send@0.17.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/pillarjs/send
@@ -1841,6 +2075,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/stacktracejs/stacktrace.js
 │  └─ licenseFile: stacktrace-js/LICENSE
+├─ standard-as-callback@2.1.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/luin/asCallback
+│  ├─ publisher: luin
+│  ├─ email: i@zihua.li
+│  └─ licenseFile: standard-as-callback/LICENSE
 ├─ statuses@1.5.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/statuses
@@ -1858,6 +2098,18 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Brian White
 │  ├─ email: mscdex@mscdex.net
 │  └─ licenseFile: streamsearch/LICENSE
+├─ string.prototype.trimend@1.0.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/es-shims/String.prototype.trimEnd
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: string.prototype.trimend/LICENSE
+├─ string.prototype.trimstart@1.0.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/es-shims/String.prototype.trimStart
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: string.prototype.trimstart/LICENSE
 ├─ string_decoder@0.10.31
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rvagg/string_decoder
@@ -1987,6 +2239,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: mail@substack.net
 │  ├─ url: http://substack.net
 │  └─ licenseFile: typedarray/LICENSE
+├─ unbox-primitive@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/unbox-primitive
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: unbox-primitive/LICENSE
 ├─ universalify@0.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/RyanZim/universalify
@@ -2030,6 +2288,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: nathan@tootallnate.net
 │  ├─ url: http://n8.io/
 │  └─ licenseFile: util-deprecate/LICENSE
+├─ util.promisify@1.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/ljharb/util.promisify
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: util.promisify/LICENSE
 ├─ utility-types@3.10.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/piotrwitek/utility-types
@@ -2078,6 +2342,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Douglas Christopher Wilson
 │  ├─ email: doug@somethingdoug.com
 │  └─ licenseFile: vary/LICENSE
+├─ which-boxed-primitive@1.0.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/inspect-js/which-boxed-primitive
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: which-boxed-primitive/LICENSE
 ├─ word-wrap@1.2.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jonschlinkert/word-wrap

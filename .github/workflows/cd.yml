@@ -32,6 +32,8 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
+        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - name: Install npm dependencies
         working-directory: ./biosimulations
         run: npm ci
 
@@ -91,6 +93,8 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
+        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - name: Install npm dependencies
         working-directory: ./biosimulations
         run: npm ci
 
@@ -147,6 +151,8 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
+        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - name: Install npm dependencies
         working-directory: ./biosimulations
         run: npm ci
 
@@ -198,7 +204,7 @@ jobs:
           context: .
           dockerfile: Dockerfile
           build_extra_args: "--compress=true --build-arg app=${{matrix.app}}"
-          
+
       - if: matrix.app == 'combine-service'
         name: Build and Push Python Image Image
         uses: whoan/docker-build-with-cache-action@v5
@@ -284,7 +290,7 @@ jobs:
         env:
           GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
           GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
-          BRANCH: ${{ secrets.OVERLAY }} 
+          BRANCH: ${{ secrets.OVERLAY }}
         run: |
           echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"

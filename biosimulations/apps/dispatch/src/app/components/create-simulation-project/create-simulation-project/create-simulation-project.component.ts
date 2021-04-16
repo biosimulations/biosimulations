@@ -17,7 +17,7 @@ import {
   ModelingFrameworksAlgorithmsForModelFormat,
   AlgorithmParameter,
 } from '../../../services/dispatch/dispatch.service';
-import { combineLatest, Observable, of, Subscription } from 'rxjs';
+import { combineLatest, Observable, of, Subscription, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import isUrl from 'is-url';
 import { urls } from '@biosimulations/config/common';
@@ -1554,5 +1554,21 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       // a.download = 'project.omex';
       // a.click();
     }
+  }
+
+  private formSectionOpen = {
+    modelNamespaces: new BehaviorSubject<boolean>(false),
+    modelChanges: new BehaviorSubject<boolean>(false),
+    modelVariables: new BehaviorSubject<boolean>(false),
+    simulationAlgorithmParameters: new BehaviorSubject<boolean>(false),
+  }
+  formSectionOpen$ = {
+    modelNamespaces: this.formSectionOpen.modelNamespaces.asObservable(),
+    modelChanges: this.formSectionOpen.modelChanges.asObservable(),
+    modelVariables: this.formSectionOpen.modelVariables.asObservable(),
+    simulationAlgorithmParameters: this.formSectionOpen.simulationAlgorithmParameters.asObservable(),
+  }
+  toggleFormSection(name: 'modelNamespaces' | 'modelChanges' | 'modelVariables' | 'simulationAlgorithmParameters'): void {
+    this.formSectionOpen[name].next(!this.formSectionOpen[name].value);
   }
 }

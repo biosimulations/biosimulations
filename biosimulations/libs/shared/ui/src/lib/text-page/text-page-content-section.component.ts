@@ -84,7 +84,7 @@ export class TextPageContentSectionComponent {
         this.closed = !this.closed;
 
         // TODO: make the toggle icon change; this seems like a change detection issue
-        this.icon = this.closed ? 'open' : 'close';
+        this.icon = this.closed ? 'closed' : 'open';
       };
     }
   }

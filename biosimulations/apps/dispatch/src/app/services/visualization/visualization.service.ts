@@ -18,6 +18,7 @@ import {
   SimulationRunReportDatum,
 } from '@biosimulations/dispatch/api-models';
 import { environment } from '@biosimulations/shared/environments';
+import { CombineService } from '../combine/combine.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +26,7 @@ import { environment } from '@biosimulations/shared/environments';
 export class VisualizationService {
   private combineArchiveEndpoint = `${urls.dispatchApi}run/`;
   private resultsEndpoint = `${urls.dispatchApi}results`;
-  private sedmlPlotSpecsEndpoint = `${urls.combineApi}combine/sedml-output-specs`;
-  public constructor(private http: HttpClient) {}
+  public constructor(private http: HttpClient, private combineService: CombineService) {}
 
   public getCombineResultsStructure(
     uuid: string,
@@ -57,6 +57,7 @@ export class VisualizationService {
               if (!structureObject?.[sedmlLocation]) {
                 structureObject[sedmlLocation] = {};
               }
+
               structureObject[sedmlLocation][reportId] = report.data.map(
                 (datum: SimulationRunReportDatum): SedDatasetResults => {
                   return {
@@ -77,24 +78,11 @@ export class VisualizationService {
             const structureArray = sedmlLocations.map(
               (sedmlLocation: string): SedDocumentResults => {
                 const reportIds = Object.keys(structureObject[sedmlLocation]);
-                reportIds.sort((a: string, b: string): number => {
-                  return a.localeCompare(b, undefined, { numeric: true });
-                });
                 return {
                   location: sedmlLocation,
                   reports: reportIds.map(
                     (reportId: string): SedReportResults => {
                       const datasets = structureObject[sedmlLocation][reportId];
-                      datasets.sort(
-                        (
-                          a: SedDatasetResults,
-                          b: SedDatasetResults,
-                        ): number => {
-                          return a.label.localeCompare(b.label, undefined, {
-                            numeric: true,
-                          });
-                        },
-                      );
                       return {
                         id: reportId,
                         datasets: datasets,
@@ -190,20 +178,7 @@ export class VisualizationService {
   public getSpecsOfSedPlotsInCombineArchive(
     runId: string,
   ): Observable<CombineArchive | undefined> {
-    const params = {
-      archiveUrl: `${this.combineArchiveEndpoint}${runId}/download`,
-    };
-    return this.http
-      .get<CombineArchive>(this.sedmlPlotSpecsEndpoint, { params: params })
-      .pipe(
-        catchError(
-          (error: HttpErrorResponse): Observable<undefined> => {
-            if (!environment.production) {
-              console.error(error);
-            }
-            return of<undefined>(undefined);
-          },
-        ),
-      );
+    const archiveUrl = `${this.combineArchiveEndpoint}${runId}/download`;
+    return this.combineService.getSpecsOfSedDocsInCombineArchive(archiveUrl);
   }
 }
