@@ -38,7 +38,7 @@ RUN apk add --update --no-cache \
     alpine-sdk
 RUN ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
-RUN pip3 install --no-cache --upgrade pip setuptools
+RUN pip3 install --no-cache --no-cache-dir  --upgrade pip setuptools
 
 # install the app, including the dev dependencies
 RUN npm ci
