@@ -12,11 +12,11 @@ import {
   Post,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation,  ApiTags } from '@nestjs/swagger';
 import { refreshImageBody } from './image.dto';
 
 @Controller('images')
-@ApiResponse({})
+
 @ApiTags('Internal management')
 export class ImagesController {
   constructor(@Inject('NATS_CLIENT') private client: ClientProxy) {}

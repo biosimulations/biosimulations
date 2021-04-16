@@ -46,6 +46,7 @@ export class LogsController {
     throw new NotImplementedException('Not Implemented');
   }
   @ApiResponse({
+    status: 200,
     type: CombineArchiveLog,
   })
   @Get(':id')
@@ -65,6 +66,10 @@ export class LogsController {
   }
 
   @Post()
+  @ApiResponse({
+    status: 201,
+    type: CombineArchiveLog,
+  })
   public async createLogs(
     @Body() body: CreateSimulationRunLogBody,
   ): Promise<CombineArchiveLog> {
