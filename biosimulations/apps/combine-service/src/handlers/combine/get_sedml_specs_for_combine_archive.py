@@ -1,8 +1,5 @@
 from ...exceptions import BadRequestException
 from ...utils import get_temp_dir, get_results_data_set_id
-from biosimulators_utils.combine.data_model import (
-    CombineArchiveContentFormatPattern,
-)
 from biosimulators_utils.combine.io import CombineArchiveReader
 from biosimulators_utils.combine.utils import get_sedml_contents
 from biosimulators_utils.sedml.data_model import (
@@ -21,7 +18,6 @@ from biosimulators_utils.sedml.io import (
 )
 import collections
 import os
-import re
 import requests
 import requests.exceptions
 
