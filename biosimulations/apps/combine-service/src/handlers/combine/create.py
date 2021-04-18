@@ -33,6 +33,7 @@ from biosimulators_utils.sedml.io import (
 import connexion
 import datetime
 import dateutil.tz
+import flask
 import os
 import requests
 import requests.exceptions
@@ -49,13 +50,14 @@ def handler(body, files=None):
         body (:obj:`dict`): dictionary with key ``specs`` whose value
             has schema ``#/components/schemas/CombineArchive`` with the
             specifications of the desired SED document
-        files (:obj:`list` of :obj:`werkzeug.datastructures.FileStorage`): files (e.g., SBML
+        files (:obj:`list` of :obj:`werkzeug.datastructures.FileStorage`, optional): files (e.g., SBML
             file)
 
     Returns:
         :obj:`werkzeug.wrappers.response.Response`: response with COMBINE/OMEX
             archive
     '''
+    download = body.get('download', False)
     archive_specs = body['specs']
     files = connexion.request.files.getlist('files')
 
@@ -145,11 +147,15 @@ def handler(body, files=None):
     # package COMBINE/OMEX archive
     CombineArchiveWriter().run(archive, archive_dirname, archive_filename)
 
-    # save COMBINE/OMEX archive to S3 bucket
-    archive_url = src.utils.save_file_to_s3_bucket(archive_filename, public=True)
+    if download:
+        return flask.send_file(archive_filename, mimetype='application/zip', as_attachment=True, attachment_filename='archive.omex')
 
-    # return URL for archive in S3 bucket
-    return archive_url
+    else:
+        # save COMBINE/OMEX archive to S3 bucket
+        archive_url = src.utils.save_file_to_s3_bucket(archive_filename, public=True)
+
+        # return URL for archive in S3 bucket
+        return archive_url
 
 
 def export_sed_doc(sed_doc_specs):

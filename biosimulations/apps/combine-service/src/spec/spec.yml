@@ -64,6 +64,12 @@ paths:
               examples:
                 Example URL for a COMBINE archive:
                   value: '"https://data.biosimulations.org/XYZ"'
+            application/zip:
+              schema:
+                $ref: '#/components/schemas/File'
+              examples:
+                COMBINE/OMEX archive:
+                  value: '"<FILE>"'
           description: URL for the created COMBINE/OMEX archive.
         "400":
           content:
@@ -1477,6 +1483,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/File'
+        download:
+          description: Whether to download the archive or return a URL where the archive
+            can be downloaded.
+          type: boolean
       example:
         specs:
           _type: CombineArchive
