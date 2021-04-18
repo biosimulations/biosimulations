@@ -231,6 +231,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       if (projectUrl) {
         this.submitMethodControl.setValue(SubmitMethod.url);
         this.projectUrlControl.setValue(projectUrl);
+        this.changeProject();
       }
 
       const simulator = params?.simulator?.toLowerCase();
