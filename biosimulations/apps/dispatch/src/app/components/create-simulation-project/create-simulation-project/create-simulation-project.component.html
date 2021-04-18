@@ -509,7 +509,7 @@
             </div>
           </div>
           <mat-hint>
-            <p>Describe the changes that should be applied to the attributes of your model (e.g., set the value of target <code>/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value</code> to the new value <code>2.1</code>). For XML-based model languages such as SBML, targets should be XPATHs to XML attributes.</p>
+            <p>Describe the changes that should be applied to the attributes of your model (e.g., set the value of target <code>/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value</code> to the new value <code>2.1</code>). For XML-based model languages such as SBML, targets should be XPaths to XML attributes.</p>
             <p>Note, the ids and names data will not be exported to SED-ML because these attributes are not supported by SED-ML L1V3. Once simulation tools update to SED-ML L1V4, we will export this information to SED-ML.</p>
             <p>Note, the default value of each attribute is provided as a reference. This information will not be encoded into the generated SED-ML document.</p>
           </mat-hint>
@@ -616,7 +616,7 @@
               </div>
             </div>
           </div>
-          <mat-hint>Describe the variables (e.g., time symbol <code>urn:sedml:symbol:time</code>, species target <code>/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']</code>) that should be recorded from your simulation and enter an unique id and, optionally, a descriptive name for each variable. For XML-based model languages such as SBML, targets should be XPATHs to XML attributes.</mat-hint>
+          <mat-hint>Describe the variables (e.g., time symbol <code>urn:sedml:symbol:time</code>, species target <code>/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']</code>) that should be recorded from your simulation and enter an unique id and, optionally, a descriptive name for each variable. For XML-based model languages such as SBML, targets should be XPaths to XML attributes.</mat-hint>
           <mat-error *ngIf="modelVariablesArray.invalid && !modelVariablesArray.hasError('idUnique')">One or more properties of one or more variables is invalid.</mat-error>
           <mat-error *ngIf="(modelVariablesArray.touched || submitPushed) && modelVariablesArray.hasError('idUnique')">The ids of the variables must be unique.</mat-error>
         </div>

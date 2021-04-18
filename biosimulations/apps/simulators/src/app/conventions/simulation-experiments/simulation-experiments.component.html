@@ -76,14 +76,14 @@
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
-      heading="Concrete XPATH targets for changes to XML-encoded models"
-      tocSection="XPATH targets for model changes"
+      heading="Concrete XPath targets for changes to XML-encoded models"
+      tocSection="XPath targets for model changes"
     >
       <p>
-        SED-ML enables investigators to use XPATHs to specify changes to models
+        SED-ML enables investigators to use XPaths to specify changes to models
         that are encoded in XML files. This encompasses models described using
         CellML, SBML, and other languages. SED-ML documents should use valid
-        XPATHs that resolve to XML elements. For example,
+        XPaths that resolve to XML elements. For example,
         <code
           >/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']/@initialConcentration</code
         >
@@ -91,7 +91,7 @@
         species.
       </p>
 
-      <p>In addition, the namespace prefixes used in XPATHs should be defined within the SED-ML document as illustrated below.</p>
+      <p>In addition, the namespace prefixes used in XPaths should be defined within the SED-ML document as illustrated below.</p>
 
       <pre><code [languages]="['xml']" highlight="<sedML xmlns:sbml=&quot;http://www.sbml.org/sbml/level3/version1/core&quot;>
   <listOfDataGenerators>
@@ -104,12 +104,12 @@
 </sedML>"></code></pre>
 
       <p>
-        Note, the SED-ML specifications suggest that incomplete XPATHs such as
+        Note, the SED-ML specifications suggest that incomplete XPaths such as
         <code
           >/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']</code
         >
         should be used to indicate changes to model elements. BioSimulators
-        discourages this convention of partial XPATHs because these XPATHs do
+        discourages this convention of partial XPaths because these XPaths do
         not point to the attribute that is intended to be changed.
       </p>
     </biosimulations-text-page-content-section>
@@ -390,7 +390,7 @@
           ></b>
           is a Java library for serializing and deserializing SED documents to and
           from XML files. The library also provides methods for resolving models,
-          working with XPATH targets for model elements, applying model changes,
+          working with XPath targets for model elements, applying model changes,
           orchestrating the execution of tasks, calculating the values of data
           generators, and logging the execution of simulations.
         </li>

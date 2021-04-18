@@ -31,7 +31,7 @@
               <mat-label>Select a simulation project (COMBINE/OMEX file)</mat-label>
               <ngx-mat-file-input
                 formControlName="projectFile"
-                accept=".omex"
+                accept=".omex,.sedx"
                 [multiple]="false"
                 [required]="true"
                 (ngModelChange)="changeProject()"

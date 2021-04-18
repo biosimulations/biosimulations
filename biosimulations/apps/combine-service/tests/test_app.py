@@ -75,7 +75,7 @@ class HandlersTestCase(unittest.TestCase):
             self.FIXTURES_DIR, self.TEST_CASE + '.sed-specs.json')
         with open(sed_output_specs_filename, 'r') as file:
             expected_combine_specs = json.load(file)
-        self.assertEqual(combine_specs, expected_combine_specs)
+        self.assertEqual(combine_specs, expected_combine_specs, combine_specs)
 
         # validate request and response
         request = OpenAPIRequest(
@@ -349,7 +349,7 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(response.json, archive_filename)
 
         contents_dirname = os.path.join(self.temp_dirname, 'archive')
-        archive = CombineArchiveReader.run(archive_filename, contents_dirname)
+        archive = CombineArchiveReader().run(archive_filename, contents_dirname)
 
         self.assertEqual(len(archive.contents), 3)
 
@@ -358,7 +358,11 @@ class HandlersTestCase(unittest.TestCase):
             self.assertEqual(content.format, expected_content['format'])
             self.assertEqual(content.master, expected_content['master'])
 
-        sed_doc = SedmlSimulationReader().run(os.path.join(contents_dirname, archive_specs['contents'][2]['location']['path']))
+        with self.assertRaisesRegex(ValueError, 'Missing a required XML attribute'):
+            sed_doc = SedmlSimulationReader().run(os.path.join(contents_dirname, archive_specs['contents'][2]['location']['path']),
+                                                  validate_models_with_languages=True)
+        sed_doc = SedmlSimulationReader().run(os.path.join(contents_dirname, archive_specs['contents'][2]['location']['path']),
+                                              validate_models_with_languages=False)
         sed_doc_specs = archive_specs['contents'][2]['location']['value']
         self.assertEqual(sed_doc.level, sed_doc_specs['level'])
         self.assertEqual(sed_doc.version, sed_doc_specs['version'])
@@ -435,7 +439,7 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(response.json, archive_filename)
 
         contents_dirname = os.path.join(self.temp_dirname, 'archive')
-        archive = CombineArchiveReader.run(archive_filename, contents_dirname)
+        archive = CombineArchiveReader().run(archive_filename, contents_dirname)
 
         self.assertEqual(len(archive.contents), 3)
 
@@ -444,7 +448,8 @@ class HandlersTestCase(unittest.TestCase):
             self.assertEqual(content.format, expected_content['format'])
             self.assertEqual(content.master, expected_content['master'])
 
-        sed_doc = SedmlSimulationReader().run(os.path.join(contents_dirname, archive_specs['contents'][2]['location']['path']))
+        sed_doc = SedmlSimulationReader().run(os.path.join(contents_dirname, archive_specs['contents'][2]['location']['path']),
+                                              validate_models_with_languages=False)
         sed_doc_specs = archive_specs['contents'][2]['location']['value']
         self.assertEqual(sed_doc.level, sed_doc_specs['level'])
         self.assertEqual(sed_doc.version, sed_doc_specs['version'])

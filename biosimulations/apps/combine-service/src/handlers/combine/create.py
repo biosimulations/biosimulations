@@ -88,7 +88,8 @@ def handler(body, files=None):
             # save SED document to file
             SedmlSimulationWriter().run(
                 sed_doc,
-                os.path.join(archive_dirname, content['location']['path']))
+                os.path.join(archive_dirname, content['location']['path']),
+                validate_models_with_languages=False)
         elif content_type == 'CombineArchiveContentFile':
             file = filename_map.get(
                 content['location']['value']['filename'], None)
@@ -142,7 +143,7 @@ def handler(body, files=None):
         archive.contents.append(content)
 
     # package COMBINE/OMEX archive
-    CombineArchiveWriter.run(archive, archive_dirname, archive_filename)
+    CombineArchiveWriter().run(archive, archive_dirname, archive_filename)
 
     # save COMBINE/OMEX archive to S3 bucket
     archive_url = src.utils.save_file_to_s3_bucket(archive_filename, public=True)
@@ -183,7 +184,7 @@ def export_sed_doc(sed_doc_specs):
                 new_value=change_spec.get('newValue'),
             )
             model.changes.append(change)
-            for ns in change_spec.get('namespaces', []):
+            for ns in change_spec.get('target').get('namespaces', []):
                 change.target_namespaces[ns.get('prefix', None)] = ns['uri']
 
     # add simulations to SED document
