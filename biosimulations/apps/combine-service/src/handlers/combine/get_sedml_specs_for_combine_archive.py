@@ -122,10 +122,10 @@ def handler(body, file=None):
 
             if isinstance(sim, OneStepSimulation):
                 sed_sim_spec['_type'] = 'SedOneStepSimulation'
+                sed_sim_spec['step'] = sim.step
 
             elif isinstance(sim, SteadyStateSimulation):
                 sed_sim_spec['_type'] = 'SedSteadyStateSimulation'
-                sed_sim_spec['step'] = sim.step
 
             elif isinstance(sim, UniformTimeCourseSimulation):
                 sed_sim_spec['_type'] = 'SedUniformTimeCourseSimulation'
