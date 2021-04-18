@@ -1,2 +1,18 @@
-<sbml>
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model id="test">
+    <listOfCompartments>
+        <compartment id="main">
+        </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="X" initialConcentration="1.0">
+      </species>
+      <species id="Y" compartment="main" initialConcentration="2.0">
+      </species>
+      <species id="Z" compartment="main" initialConcentration="3.0">
+      </species>
+    </listOfSpecies>
+  </model>
 </sbml>
+
