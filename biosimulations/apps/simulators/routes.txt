@@ -13,6 +13,7 @@
 /simulators/amici
 /simulators/amici/0.11.11
 /simulators/amici/0.11.14
+/simulators/amici/v0.11.16
 /simulators/bionetgen
 /simulators/bionetgen/2.5.2
 /simulators/biouml
@@ -35,6 +36,7 @@
 /simulators/copasi/4.28.226
 /simulators/copasi/4.29.227
 /simulators/copasi/4.30.233
+/simulators/copasi/4.30.240
 /simulators/ecell4
 /simulators/ecell4/1.1.2
 /simulators/escher-fba

@@ -24,7 +24,7 @@ export class SimulationRun {
   @ApiProperty({
     type: String,
     description: 'The name of a BioSimulators compliant simulator',
-    examples: ['vcell', 'gillespy2', 'cobrapy', 'copasi', 'bionetgen', 'tellurium'],
+    example: 'vcell',
     externalDocs: {
       url: 'https://biosimulators.org/simulators',
       description: 'Simulators List',

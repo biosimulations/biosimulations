@@ -1,4 +1,5 @@
 import { Module, HttpModule } from '@nestjs/common';
+import { BullModule } from '@nestjs/bull';
 
 import { HpcService } from './services/hpc/hpc.service';
 import { SbatchService } from './services/sbatch/sbatch.service';
@@ -27,6 +28,15 @@ import { LogService } from './results/log.service';
     SharedNatsClientModule,
     DispatchNestClientModule,
     ScheduleModule.forRoot(),
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
+    BullModule.registerQueue({
+      name: 'jobmonitor',
+    }),
   ],
   controllers: [SubmissionController, ResultsController],
   providers: [
