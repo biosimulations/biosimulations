@@ -424,7 +424,7 @@
               <mat-hint>
                 Select a Vega file. Information about the Vega format is here <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Guidelines for using Vega to visualize simulation results are available here <a href="https://biosimulators.org/conventions/data-viz" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
               </mat-hint>
-              <mat-error *ngIf="!vegaFileFormControl.valid">
+              <mat-error *ngIf="vegaFileFormControl.touched && !vegaFileFormControl.valid">
                 The selected file is not a syntactically valid Vega document.
               </mat-error>
             </div>
