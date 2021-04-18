@@ -1285,7 +1285,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       options['responseType'] = 'arraybuffer';
     }
 
-    let url = `${urls.combineApi}combine/create`;
+    const url = `${urls.combineApi}combine/create`;
     const projectOrUrl: Observable<string | any> = this.http
       .post<string>(url, formData, options)
       .pipe(
