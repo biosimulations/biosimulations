@@ -343,7 +343,7 @@ export class ViewComponent implements OnInit, OnDestroy {
           if (combineResults) {
             this.combineResults = combineResults;
             this.dataLoaded = true;
-            this.draw2dViz();
+            this.build2dViz();
           } else {
             this.snackBar.open(
               'Sorry! We were unable to get results for this simulation.',
