@@ -34,7 +34,19 @@ const routes: Routes = [
         'apps/dispatch/src/app/components/create-simulation-project/create-simulation-project.module'
       ).then((m) => m.CreateSimulationProjectModule),
     data: {
-      breadcrumb: 'Create simulation project',
+      breadcrumb: 'Create a simulation project',
+    },
+    pathMatch: 'full',
+  },
+  {
+    path: 'validate',
+    loadChildren: () =>
+      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+      import(
+        'apps/dispatch/src/app/components/validate-simulation-project/validate-simulation-project.module'
+      ).then((m) => m.ValidateSimulationProjectModule),
+    data: {
+      breadcrumb: 'Validate a simulation project',
     },
     pathMatch: 'full',
   },

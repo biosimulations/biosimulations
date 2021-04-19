@@ -154,7 +154,7 @@ paths:
                   file: <FILE>
               URL:
                 value:
-                  url: https://models.org/model.xml
+                  url: https://models.org/archive.omex
         required: true
       tags:
       - COMBINE
@@ -205,6 +205,68 @@ paths:
       operationId: src.handlers.combine.get_sedml_specs_for_combine_archive.handler
       summary: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
       description: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+  /combine/validate:
+    post:
+      requestBody:
+        description: COMBINE/OMEX archive file or URL for a COMBINE/OMEX archive file.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileOrUrl'
+            examples:
+              FIle:
+                value:
+                  file: <FILE>
+              URL:
+                value:
+                  url: https://models.org/archive.omex
+        required: true
+      tags:
+      - COMBINE
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationReport'
+              examples:
+                Valid archive:
+                  value:
+                    _type: ValidationReport
+                    status: valid
+                Invalid archive:
+                  value:
+                    _type: ValidationReport
+                    errors:
+                    - - _type: ValidationMessage
+                        summary: Archive is invalid
+                    status: invalid
+                Potentially invalid archive:
+                  value:
+                    _type: ValidationReport
+                    warnings:
+                    - - _type: ValidationMessage
+                        summary: Archive may be invalid
+                    status: warnings
+          description: Overall validity of COMBINE archive and errors and warnings
+            about how it isn't or may not be valid.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to determine if a COMBINE/OMEX archive is valid.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.validate.handler
+      summary: Validate a COMBINE archive and the simulation experiments and models
+        inside it.
+      description: "Validate a COMBINE archive and the simulation experiments (SED-ML\
+        \ files) and models (e.g., SBML files) inside it."
 components:
   schemas:
     SedPlot2D:
@@ -1735,6 +1797,75 @@ components:
           description: URL
       example:
         file: <FILE>
+    ValidationMessage:
+      description: "Error or warning message about validity (e.g., of a COMBINE/OMEX\
+        \ archive)."
+      required:
+      - summary
+      - _type
+      type: object
+      properties:
+        details:
+          description: Child messages with more detailed information.
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationMessage'
+        _type:
+          description: Type.
+          enum:
+          - ValidationMessage
+          type: string
+        summary:
+          description: Information about validity or lack thereof.
+          type: string
+      example:
+        _type: ValidationMessage
+        summary: COMBINE archive is invalid.
+        details:
+        - _type: ValidationMessage
+          summary: SED-ML document is invalid
+          details:
+          - _type: ValidationMessage
+            summary: Model is invalid
+    ValidationReport:
+      description: "Information about whether a COMBINE archive is valid, potentially\
+        \ invalid (1 or more warnings), or invalid (1 or more errors)."
+      required:
+      - status
+      - _type
+      type: object
+      properties:
+        errors:
+          description: Errors with the archive.
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationMessage'
+        status:
+          description: Overall status of the archive.
+          enum:
+          - valid
+          - invalid
+          - warnings
+          type: string
+        warnings:
+          description: Warnings for the archive.
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationMessage'
+        _type:
+          description: Type
+          enum:
+          - ValidationReport
+          type: string
+      example:
+        _type: ValidationReport
+        errors:
+        - - _type: ValidationMessage
+            summary: Archive is invalid
+        status: invalid
+        warnings:
+        - - _type: ValidationMessage
+            summary: Archive may be invalid
   responses:
     "404":
       content:
