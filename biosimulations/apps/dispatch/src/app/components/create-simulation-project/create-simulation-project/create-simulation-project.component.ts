@@ -1275,14 +1275,19 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
     const formData = new FormData();
     const archiveSpecs = this.getArchiveSpecs();
+    const options: any = {};
     formData.append('specs', JSON.stringify(archiveSpecs));
     if (this.formGroup.value.modelLocationType === LocationType.file) {
       formData.append('files', this.formGroup.value.modelLocationDetails);
     }
+    if (postCreateAction === 'download') {
+      formData.append('download', 'true');
+      options['responseType'] = 'arraybuffer';
+    }
 
     const url = `${urls.combineApi}combine/create`;
-    const projectUrl: Observable<string> = this.http
-      .post<string>(url, formData)
+    const projectOrUrl: Observable<string | any> = this.http
+      .post<string>(url, formData, options)
       .pipe(
         catchError(
           (error: HttpErrorResponse): Observable<string> => {
@@ -1300,12 +1305,12 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           },
         ),
       );
-    const projectUrlSub = projectUrl.subscribe((projectUrl: string): void => {
-      if (projectUrl) {
-        this.processCreatedCombineArchive(postCreateAction, projectUrl);
+    const projectOrUrlSub = projectOrUrl.subscribe((projectOrUrl: string | any): void => {
+      if (projectOrUrl) {
+        this.processCreatedCombineArchive(postCreateAction, projectOrUrl);
       }
     });
-    this.subscriptions.push(projectUrlSub);
+    this.subscriptions.push(projectOrUrlSub);
   }
 
   private getArchiveSpecs(): any {
@@ -1526,7 +1531,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
   private processCreatedCombineArchive(
     postCreateAction: PostCreateAction,
-    projectUrl: string,
+    projectOrUrl: string | any,
   ): void {
     this.projectBeingCreated = false;
 
@@ -1538,7 +1543,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
       this.router.navigate(['/run'], {
         queryParams: {
-          projectUrl: projectUrl,
+          projectUrl: projectOrUrl,
           modelFormat: modelFormat,
           modelingFramework: modelingFramework,
           simulationAlgorithm: simulationAlgorithm,
@@ -1546,8 +1551,12 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       });
     } else {
       // TODO: once https is enabled for http://biosimdevbucket.cam.uchc.edu,
-      // replace `window.location.href` with the commented out code below
-      window.location.href = projectUrl;
+      // replace with the commented out code below
+      const a = document.createElement('a');
+      const blob = new Blob([projectOrUrl]);
+      a.href = URL.createObjectURL(blob);
+      a.download = 'project.omex';
+      a.click();
 
       // const a = document.createElement('a');
       // a.href = projectUrl;

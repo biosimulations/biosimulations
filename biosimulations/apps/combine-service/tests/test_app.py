@@ -391,6 +391,47 @@ class HandlersTestCase(unittest.TestCase):
             },
         )
 
+    def test_create_combine_archive_with_uploaded_model_file_and_download(self):
+        endpoint = '/combine/create'
+
+        archive_specs_filename = os.path.join(
+            self.FIXTURES_DIR, 'archive-specs.json')
+        with open(archive_specs_filename, 'rb') as file:
+            archive_specs = json.load(file)
+
+        file_0_path = os.path.abspath(os.path.join(self.FIXTURES_DIR, 'model.xml'))
+        file_1_path = os.path.abspath(os.path.join(self.FIXTURES_DIR, 'file.txt'))
+        archive_specs['contents'][0]['location']['value']['filename'] = file_0_path
+        archive_specs['contents'][1]['location']['value']['filename'] = file_1_path
+
+        fid_0 = open(file_0_path, 'rb')
+        fid_1 = open(file_1_path, 'rb')
+
+        data = MultiDict([
+            ('specs', json.dumps(archive_specs)),
+            ('files', fid_0),
+            ('files', fid_1),
+            ('download', True)
+        ])
+        with app.app.app.test_client() as client:
+            archive_filename = os.path.join(self.temp_dirname, 'archive.omex')
+
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+
+        fid_0.close()
+        fid_1.close()
+
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.content_type, 'application/zip')
+        downloaded_archive_filename = os.path.join(self.temp_dirname, 'archive-downloaded.omex')
+        with open(downloaded_archive_filename, 'wb') as file:
+            file.write(response.data)
+
+        contents_dirname = os.path.join(self.temp_dirname, 'archive')
+        archive = CombineArchiveReader().run(downloaded_archive_filename, contents_dirname)
+
+        self.assertEqual(len(archive.contents), 3)
+
     def test_create_combine_archive_with_model_at_url(self):
         endpoint = '/combine/create'
 

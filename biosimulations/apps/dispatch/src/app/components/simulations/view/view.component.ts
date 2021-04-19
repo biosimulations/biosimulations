@@ -295,7 +295,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       shareReplay(1),
     );
 
-    const combineResultsSub = this.combineResultsStructure$.pipe(
+    const combineResultsStructureSub = this.combineResultsStructure$.pipe(
       withLatestFrom(this.statusSucceeded$),
       shareReplay(1),
     )
@@ -320,7 +320,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         }
       },
     );
-    this.subscriptions.push(combineResultsSub);
+    this.subscriptions.push(combineResultsStructureSub);
 
     this.combineResultsSucceeded$ = this.statusSucceeded$.pipe(
       map(
@@ -334,10 +334,36 @@ export class ViewComponent implements OnInit, OnDestroy {
       shareReplay(1),
     );
 
-    const sedPlotConfiguration = this.combineResultsStructure$.pipe(
+    const combineResultsSub = this.combineResultsSucceeded$.subscribe(
+      (combineResultsSucceeded: [SedDatasetResultsMap | undefined, boolean]): void => {
+        const combineResults = combineResultsSucceeded?.[0];
+        const statusSucceeded = combineResultsSucceeded?.[1];
+
+        if (statusSucceeded) {
+          if (combineResults) {
+            this.combineResults = combineResults;
+            this.dataLoaded = true;
+            this.build2dViz();
+          } else {
+            this.snackBar.open(
+              'Sorry! We were unable to get results for this simulation.',
+              undefined,
+              {
+                duration: 5000,
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom',
+              },
+            );
+          }
+        }
+      },
+    );
+    this.subscriptions.push(combineResultsSub);
+
+    const sedPlotConfiguration = this.combineResultsSucceeded$.pipe(
       map(
         (
-          results: CombineResults | undefined,
+          results: [SedDatasetResultsMap | undefined, boolean],
         ): Observable<CombineArchive | undefined> => {
           return results
             ? this.visualizationService.getSpecsOfSedPlotsInCombineArchive(
@@ -347,15 +373,15 @@ export class ViewComponent implements OnInit, OnDestroy {
         },
       ),
       concatAll(),
-      withLatestFrom(this.combineResultsStructure$, this.statusSucceeded$),
+      withLatestFrom(this.combineResultsSucceeded$),
     )
     const setPlotConfigurationSub = sedPlotConfiguration.subscribe(
-      (succeededResultsArchive: [CombineArchive | undefined, CombineResults | undefined, boolean]): void => {
+      (succeededResultsArchive: [CombineArchive | undefined, [SedDatasetResultsMap | undefined, boolean]]): void => {
         const archive = succeededResultsArchive[0] as CombineArchive | undefined;
-        const results = succeededResultsArchive[1] as CombineResults | undefined;
-        const succeeded = succeededResultsArchive[2] as boolean;
+        const results = succeededResultsArchive[1][0] as SedDatasetResultsMap | undefined;
+        const succeeded = succeededResultsArchive[1][1] as boolean;
 
-        if (succeeded && results?.length) {
+        if (succeeded && results && Object.keys(results).length) {
           if (archive) {
             this.setPlotConfiguration(archive);
           } else {
@@ -480,6 +506,8 @@ export class ViewComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.lineScatter2dValid = true;
+
     const rows = Math.floor(Math.sqrt(nSubplots));
     const cols = Math.ceil(nSubplots / rows);
     this.lineScatter2dRowsControl.setValue(rows);
@@ -574,35 +602,8 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   public build2dViz(): void {
-    if (!this.dataLoaded && this.defaultYSedDataset) {
+    if (this.dataLoaded && this.defaultYSedDataset) {
       this.lineScatter2dValid = true;
-
-      const combineResultsSub = this.combineResultsSucceeded$.subscribe(
-        (combineResultsSucceeded: [SedDatasetResultsMap | undefined, boolean]): void => {
-          const combineResults = combineResultsSucceeded?.[0];
-          const statusSucceeded = combineResultsSucceeded?.[1];
-
-          if (statusSucceeded) {
-            if (combineResults) {
-              this.combineResults = combineResults;
-              this.dataLoaded = true;
-              this.draw2dViz();
-            } else {
-              this.snackBar.open(
-                'Sorry! We were unable to get results for this simulation.',
-                undefined,
-                {
-                  duration: 5000,
-                  horizontalPosition: 'center',
-                  verticalPosition: 'bottom',
-                },
-              );
-            }
-          }
-        },
-      );
-      this.subscriptions.push(combineResultsSub);
-    } else {
       this.draw2dViz();
     }
   }

@@ -20,38 +20,28 @@
     },
     {
         "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, PySCeS)",
-        "simulator": "copasi",
+        "simulator": "pysces",
         "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
     },
     {
         "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, tellurium)",
-        "simulator": "gillespy2",
+        "simulator": "tellurium",
         "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
     },
     {
         "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, VCell)",
-        "simulator": "tellurium",
+        "simulator": "vcell",
         "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
     },
     {
-        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, COPASI)",
-        "simulator": "copasi",
-        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-discrete.omex"
+        "name": "Dolan 2020: Non-homologous end joining (NFSim, BioNetGen)",
+        "simulator": "bionetgen",
+        "filename": "bngl/Dolan-PLoS-Comput-Biol-2015-NHEJ.omex"
     },
     {
-        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, GillesPy2)",
+        "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (LSODA, GillesPy2)",
         "simulator": "gillespy2",
-        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-discrete.omex"
-    },
-    {
-        "name": "Ciliberto 2003: morphogenesis checkpoint (SSA, tellurium)",
-        "simulator": "tellurium",
-        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-discrete.omex"
-    },
-    {
-        "name": "Parmar 2017: iron distribution (CVODE, tellurium)",
-        "simulator": "tellurium",
-        "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
+        "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
     },
     {
         "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (LSODA, PySCeS)",
@@ -84,14 +74,14 @@
         "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
     },
     {
+        "name": "Saglam 2020: Toy gene regulatory network (CVODE, BioNetGen)",
+        "simulator": "bionetgen",
+        "filename": "bngl/test-bngl.omex"
+    },
+    {
         "name": "Szymanska 2009: HSP synthesis (CVODES, AMICI)",
         "simulator": "amici",
         "filename": "sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex"
-    },
-    {
-        "name": "BioNetGen example model (CVODE, BioNetGen)",
-        "simulator": "bionetgen",
-        "filename": "bngl/test-bngl.omex"
     },
     {
         "name": "Tomida 2003: NFAT translocation (LSODA/LSODAR, COPASI)",

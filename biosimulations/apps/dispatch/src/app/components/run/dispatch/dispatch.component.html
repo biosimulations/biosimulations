@@ -120,8 +120,8 @@
           </div>
 
           <mat-hint>Use the above menus to narrow the list of simulation tools below to those tools which have the capabilities to execute your COMBINE/OMEX archive (tools which support the model formats and simulation algorithms of the models and simulations described by your COMBINE/OMEX archive).</mat-hint>
-          <mat-error *ngIf="submitPushed && modelFormatsControl.hasError('unsupportedFormats')">Your COMBINE/OMEX archive involves model formats that are not supported by any simulation tool available through runBioSimulations.</mat-error>
-          <mat-error *ngIf="submitPushed && modelFormatsControl.hasError('unsupportedAlgorithms')">Your COMBINE/OMEX archive involves simulation algorithms that are not supported by any simulation tool available through runBioSimulations.</mat-error>
+          <mat-error *ngIf="(submitPushed || modelFormatsControl.touched) && modelFormatsControl.hasError('unsupportedFormats')">Your COMBINE/OMEX archive involves model formats that are not supported by any simulation tool available through runBioSimulations.</mat-error>
+          <mat-error *ngIf="(submitPushed || simulationAlgorithmsControl.touched) && simulationAlgorithmsControl.hasError('unsupportedAlgorithms')">Your COMBINE/OMEX archive involves simulation algorithms that are not supported by any simulation tool available through runBioSimulations.</mat-error>
         </div>
       </div>
     </div>

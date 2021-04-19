@@ -231,6 +231,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       if (projectUrl) {
         this.submitMethodControl.setValue(SubmitMethod.url);
         this.projectUrlControl.setValue(projectUrl);
+        this.changeProject();
       }
 
       const simulator = params?.simulator?.toLowerCase();
@@ -351,16 +352,30 @@ export class DispatchComponent implements OnInit, OnDestroy {
             this.modelFormatsControl.setValue(Array.from(modelFormats));
             this.simulationAlgorithmsControl.setValue(Array.from(simulationAlgorithms));
 
-            this.modelFormatsControl.setErrors({'unsupportedFormats': unsupportedModelFormats.size > 0});
-            this.simulationAlgorithmsControl.setErrors({'unsupportedAlgorithms': unsupportedSimulationAlgorithms.size > 0});
+            if (unsupportedModelFormats.size > 0) {
+              this.modelFormatsControl.setErrors({'unsupportedFormats': true});
+              this.modelFormatsControl.markAsTouched();
+            } else {
+              this.modelFormatsControl.setErrors({'unsupportedFormats': null});
+              this.modelFormatsControl.updateValueAndValidity();
+            }
+            if (unsupportedSimulationAlgorithms.size > 0) {
+              this.simulationAlgorithmsControl.setErrors({'unsupportedAlgorithms': true});
+              this.simulationAlgorithmsControl.markAsTouched();
+            } else {
+              this.simulationAlgorithmsControl.setErrors({'unsupportedAlgorithms': null});
+              this.simulationAlgorithmsControl.updateValueAndValidity();
+            }
 
             this.applyFilters();
           }
         });
       this.subscriptions.push(sub);
     } else {
-      this.modelFormatsControl.setErrors({'unsupportedFormats': false});
-      this.simulationAlgorithmsControl.setErrors({'unsupportedAlgorithms': false});
+      this.modelFormatsControl.setErrors({'unsupportedFormats': null});
+      this.simulationAlgorithmsControl.setErrors({'unsupportedAlgorithms': null});
+      this.modelFormatsControl.updateValueAndValidity();
+      this.simulationAlgorithmsControl.updateValueAndValidity();
     }
   }
 
