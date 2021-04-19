@@ -168,17 +168,17 @@
     "projectSize": 22242
   },
   {
-    "id": "607d4ee9842d6ebd1f21c7d6",
-    "name": "Parmar 2017: iron distribution (CVODE, PySCeS)",
-    "simulator": "pysces",
-    "simulatorVersion": "0.9.9",
+    "id": "607e06375c27f76bdfb99289",
+    "name": "Parmar 2017: iron distribution (CVODE, VCell)",
+    "simulator": "vcell",
+    "simulatorVersion": "7.3.0.07",
     "cpus": 1,
     "memory": 8,
     "maxTime": 20,
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-04-19T09:35:37.745Z",
-    "updated": "2021-04-19T09:35:37.745Z",
+    "submitted": "2021-04-19T22:37:43.971Z",
+    "updated": "2021-04-19T22:37:43.971Z",
     "projectSize": 13260
   },
   {
@@ -252,7 +252,7 @@
     "projectSize": 7856
   },
   {
-    "id": "607d4eee842d6e606f21c7f1",
+    "id": "607e05df5c27f768bfb99284",
     "name": "Varusai 2018: mTOR signaling (LSODA/LSODAR, COPASI)",
     "simulator": "copasi",
     "simulatorVersion": "4.30.240",
@@ -261,8 +261,8 @@
     "maxTime": 20,
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-04-19T09:35:42.778Z",
-    "updated": "2021-04-19T09:35:42.778Z",
+    "submitted": "2021-04-19T22:36:15.181Z",
+    "updated": "2021-04-19T22:36:15.181Z",
     "projectSize": 7060
   },
   {
