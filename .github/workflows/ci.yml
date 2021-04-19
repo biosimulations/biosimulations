@@ -358,7 +358,7 @@ jobs:
         working-directory: ./biosimulations
         if: matrix.libOrApp == 'combine-service'
         run: |
-          ./node_modules/.bin/openapi-examples-validator apps/${{ matrix.libOrApp }}/src/spec/spec.yml
+          # ./node_modules/.bin/openapi-examples-validator apps/${{ matrix.libOrApp }}/src/spec/spec.yml
 
           PYTHONPATH=apps/${{ matrix.libOrApp }}/ pipenv run \
             python \
