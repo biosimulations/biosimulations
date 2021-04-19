@@ -38,13 +38,13 @@ class HandlersTestCase(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.temp_dirname)
 
-    @ classmethod
-    def setUpClass(cls):
-        with open(cls.API_SPECS_FILENAME, 'rb') as specs_file:
-            cls.api_specs_dict = yaml.load(specs_file, Loader=yaml.Loader)
-        api_specs = create_spec(cls.api_specs_dict)
-        cls.request_validator = RequestValidator(api_specs)
-        cls.response_validator = ResponseValidator(api_specs)
+    # @ classmethod
+    # def setUpClass(cls):
+    #     with open(cls.API_SPECS_FILENAME, 'rb') as specs_file:
+    #         cls.api_specs_dict = yaml.load(specs_file, Loader=yaml.Loader)
+    #     api_specs = create_spec(cls.api_specs_dict)
+    #     cls.request_validator = RequestValidator(api_specs)
+    #     cls.response_validator = ResponseValidator(api_specs)
 
     def test_is_api_spec_valid(self):
         spec_dict, spec_url = read_api_spec_from_filename(self.API_SPECS_FILENAME)
@@ -78,23 +78,24 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(combine_specs, expected_combine_specs, combine_specs)
 
         # validate request and response
-        request = OpenAPIRequest(
-            full_url_pattern='https://127.0.0.1/combine/sedml-specs',
-            method='post',
-            body={
-                'url': archive_url,
-            },
-            mimetype='multipart/form-data',
-            parameters=RequestParameters(),
-        )
-        result = self.request_validator.validate(request)
-        result.raise_for_errors()
+        if hasattr(self, "request_validator"):
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/combine/sedml-specs',
+                method='post',
+                body={
+                    'url': archive_url,
+                },
+                mimetype='multipart/form-data',
+                parameters=RequestParameters(),
+            )
+            result = self.request_validator.validate(request)
+            result.raise_for_errors()
 
-        response = OpenAPIResponse(data=json.dumps(expected_combine_specs),
-                                   status_code=200,
-                                   mimetype='application/json')
-        result = self.response_validator.validate(request, response)
-        result.raise_for_errors()
+            response = OpenAPIResponse(data=json.dumps(expected_combine_specs),
+                                       status_code=200,
+                                       mimetype='application/json')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
 
     def test_get_sedml_specs_for_combine_archive_file(self):
         archive_filename = os.path.join(
@@ -119,26 +120,28 @@ class HandlersTestCase(unittest.TestCase):
         fid.close()
 
         # validate request and response
-        with open(archive_filename, 'rb') as file:
-            file_content = file.read()
+        if hasattr(self, "request_validator"):
+            with open(archive_filename, 'rb') as file:
+                file_content = file.read()
 
-        request = OpenAPIRequest(
-            full_url_pattern='https://127.0.0.1/combine/sedml-specs',
-            method='post',
-            body={
-                'file': file_content,
-            },
-            mimetype='multipart/form-data',
-            parameters=RequestParameters(),
-        )
-        result = self.request_validator.validate(request)
-        result.raise_for_errors()
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/combine/sedml-specs',
+                method='post',
+                body={
+                    'file': file_content,
+                },
+                mimetype='multipart/form-data',
+                parameters=RequestParameters(),
+            )
 
-        response = OpenAPIResponse(data=json.dumps(expected_combine_specs),
-                                   status_code=200,
-                                   mimetype='application/json')
-        result = self.response_validator.validate(request, response)
-        result.raise_for_errors()
+            result = self.request_validator.validate(request)
+            result.raise_for_errors()
+
+            response = OpenAPIResponse(data=json.dumps(expected_combine_specs),
+                                       status_code=200,
+                                       mimetype='application/json')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
 
     def test_get_sedml_specs_for_combine_archive_error_handling(self):
         endpoint = '/combine/sedml-specs'
@@ -151,21 +154,22 @@ class HandlersTestCase(unittest.TestCase):
         self.assertTrue(response.json['title'].startswith(
             'COMBINE/OMEX archive could not be loaded'))
 
-        request = OpenAPIRequest(
-            full_url_pattern='https://127.0.0.1/combine/sedml-specs',
-            method='post',
-            body={
-                'url': 'x',
-            },
-            mimetype=None,
-            parameters=RequestParameters(),
-        )
-        response = OpenAPIResponse(
-            data=json.dumps(response.json),
-            status_code=400,
-            mimetype='application/json')
-        result = self.response_validator.validate(request, response)
-        result.raise_for_errors()
+        if hasattr(self, "response_validator"):
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/combine/sedml-specs',
+                method='post',
+                body={
+                    'url': 'x',
+                },
+                mimetype=None,
+                parameters=RequestParameters(),
+            )
+            response = OpenAPIResponse(
+                data=json.dumps(response.json),
+                status_code=400,
+                mimetype='application/json')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
 
     def test_get_parameters_variables_for_simulation_from_file(self):
         endpoint = '/sed-ml/get-parameters-variables-for-simulation'
@@ -212,29 +216,31 @@ class HandlersTestCase(unittest.TestCase):
         )
 
         # validate request and response
-        with open(model_filename, 'rb') as file:
-            model_content = file.read()
-        request = OpenAPIRequest(
-            full_url_pattern='https://127.0.0.1/' + endpoint,
-            method='post',
-            body={
-                'modelLanguage': 'urn:sedml:language:sbml',
-                'modelingFramework': 'SBO_0000547',
-                'simulationType': 'SedUniformTimeCourseSimulation',
-                'simulationAlgorithm': 'KISAO_0000029',
-                'modelFile': model_content,
-            },
-            mimetype='multipart/form-data',
-            parameters=RequestParameters(),
-        )
-        result = self.request_validator.validate(request)
-        result.raise_for_errors()
+        if hasattr(self, "request_validator"):
+            with open(model_filename, 'rb') as file:
+                model_content = file.read()
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/' + endpoint,
+                method='post',
+                body={
+                    'modelLanguage': 'urn:sedml:language:sbml',
+                    'modelingFramework': 'SBO_0000547',
+                    'simulationType': 'SedUniformTimeCourseSimulation',
+                    'simulationAlgorithm': 'KISAO_0000029',
+                    'modelFile': model_content,
+                },
+                mimetype='multipart/form-data',
+                parameters=RequestParameters(),
+            )
 
-        response = OpenAPIResponse(data=json.dumps(sed_doc),
-                                   status_code=200,
-                                   mimetype='application/json')
-        result = self.response_validator.validate(request, response)
-        result.raise_for_errors()
+            result = self.request_validator.validate(request)
+            result.raise_for_errors()
+
+            response = OpenAPIResponse(data=json.dumps(sed_doc),
+                                       status_code=200,
+                                       mimetype='application/json')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
 
     def test_get_parameters_variables_for_simulation_from_url(self):
         endpoint = '/sed-ml/get-parameters-variables-for-simulation'
@@ -288,29 +294,31 @@ class HandlersTestCase(unittest.TestCase):
         )
 
         # validate request and response
-        with open(model_filename, 'rb') as file:
-            model_content = file.read()
-        request = OpenAPIRequest(
-            full_url_pattern='https://127.0.0.1/' + endpoint,
-            method='post',
-            body={
-                'modelLanguage': 'urn:sedml:language:sbml',
-                'modelingFramework': 'SBO_0000547',
-                'simulationType': 'SedUniformTimeCourseSimulation',
-                'simulationAlgorithm': 'KISAO_0000029',
-                'modelFile': model_content,
-            },
-            mimetype='multipart/form-data',
-            parameters=RequestParameters(),
-        )
-        result = self.request_validator.validate(request)
-        result.raise_for_errors()
+        if hasattr(self, "request_validator"):
+            with open(model_filename, 'rb') as file:
+                model_content = file.read()
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/' + endpoint,
+                method='post',
+                body={
+                    'modelLanguage': 'urn:sedml:language:sbml',
+                    'modelingFramework': 'SBO_0000547',
+                    'simulationType': 'SedUniformTimeCourseSimulation',
+                    'simulationAlgorithm': 'KISAO_0000029',
+                    'modelFile': model_content,
+                },
+                mimetype='multipart/form-data',
+                parameters=RequestParameters(),
+            )
 
-        response = OpenAPIResponse(data=json.dumps(sed_doc),
-                                   status_code=200,
-                                   mimetype='application/json')
-        result = self.response_validator.validate(request, response)
-        result.raise_for_errors()
+            result = self.request_validator.validate(request)
+            result.raise_for_errors()
+
+            response = OpenAPIResponse(data=json.dumps(sed_doc),
+                                       status_code=200,
+                                       mimetype='application/json')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
 
     def test_create_combine_archive_with_uploaded_model_file(self):
         endpoint = '/combine/create'
@@ -507,3 +515,83 @@ class HandlersTestCase(unittest.TestCase):
                 "qual": "http://www.sbml.org/sbml/level3/version1/qual/version1"
             },
         )
+
+    def test_validate_is_valid(self):
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, self.TEST_CASE + '.omex')
+        fid = open(archive_filename, 'rb')
+
+        data = MultiDict([
+            ('file', fid),
+        ])
+        endpoint = '/combine/validate'
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        fid.close()
+        self.assertEqual(response.status_code, 200, response.json)
+        validation_report = response.json
+
+        self.assertEqual(validation_report, {
+            "_type": "ValidationReport",
+            "status": "valid"
+        })
+
+        # validate request and response
+        if hasattr(self, "request_validator"):
+            with open(archive_filename, 'rb') as file:
+                file_content = file.read()
+
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/combine/validate',
+                method='post',
+                body={
+                    'file': file_content,
+                },
+                mimetype='multipart/form-data',
+                parameters=RequestParameters(),
+            )
+
+            result = self.request_validator.validate(request)
+            result.raise_for_errors()
+
+            response = OpenAPIResponse(data=json.dumps(validation_report),
+                                       status_code=200,
+                                       mimetype='application/json')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
+
+    def test_validate_is_invalid(self):
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, 'invalid-SED-ML.omex')
+        fid = open(archive_filename, 'rb')
+
+        data = MultiDict([
+            ('file', fid),
+        ])
+        endpoint = '/combine/validate'
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        fid.close()
+        self.assertEqual(response.status_code, 200, response.json)
+        validation_report = response.json
+
+        self.assertEqual(validation_report['status'], "invalid")
+        self.assertIn('must have the required attributes', json.dumps(validation_report['errors']))
+
+    def test_validate_is_not_an_archive(self):
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, 'file.txt')
+        fid = open(archive_filename, 'rb')
+
+        data = MultiDict([
+            ('file', fid),
+        ])
+        endpoint = '/combine/validate'
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        fid.close()
+        self.assertEqual(response.status_code, 200, response.json)
+        validation_report = response.json
+
+        self.assertEqual(validation_report['status'], "invalid")
+        self.assertIn('is not a valid COMBINE/OMEX archive', json.dumps(validation_report['errors']))
