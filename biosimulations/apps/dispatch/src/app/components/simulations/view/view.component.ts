@@ -463,7 +463,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.hasData = hasData;
 
     // setup design visualization tab
-    this.setVizGrid();
+    this.updateVizGrid();
   }
 
   private setPlotConfiguration(combineArchive: CombineArchive): void {
@@ -508,11 +508,11 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     this.lineScatter2dValid = true;
 
-    const rows = Math.floor(Math.sqrt(nSubplots));
+    const rows = Math.ceil(Math.sqrt(nSubplots));
     const cols = Math.ceil(nSubplots / rows);
     this.lineScatter2dRowsControl.setValue(rows);
-    this.lineScatter2dRowsControl.setValue(cols);
-    this.setVizGrid();
+    this.lineScatter2dColsControl.setValue(cols);
+    this.updateVizGrid();
 
     for (let iSubplot = 0; iSubplot < subplotsCurves.length; iSubplot++) {
       const subplot = this.lineScatter2dSubplotsFormArray.at(
@@ -530,6 +530,26 @@ export class ViewComponent implements OnInit, OnDestroy {
       subplotsCurves[iSubplot]['label'] = `Subplot R${iRow + 1}, C${iCol + 1}`;
     }
 
+    for (let iSubplot = subplotsCurves.length; iSubplot < rows * cols; iSubplot++) {
+      const iRow = Math.floor(iSubplot / cols);
+      const iCol = iSubplot % cols;
+
+      subplotsCurves.push({
+        enabled: SubplotEnabledType.disabled,
+        label: `Subplot R${iRow + 1}, C${iCol + 1}`,
+        numCurves: 1,
+        curves: [{
+          id: null,
+          name: null,
+          xData: this.defaultXSedDataset,
+          yData: this.defaultYSedDataset,
+        }],
+        xAxisType: AxisType.linear,
+        yAxisType: AxisType.linear,
+        scatterTraceMode: ScatterTraceMode.lines,
+      });
+    }
+
     this.lineScatter2dSubplotsFormArray.setValue(subplotsCurves);
     this.build2dViz();
   }
@@ -539,6 +559,10 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   public setVizGrid(): void {
+    this.updateVizGrid();
+  }
+
+  private updateVizGrid(): void {
     const rows = this.lineScatter2dRowsControl.value;
     const cols = this.lineScatter2dColsControl.value;
 
@@ -609,11 +633,14 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   private draw2dViz(): void {
+    const rows = this.lineScatter2dRowsControl.value;
+    const cols = this.lineScatter2dColsControl.value;
+
     const traces: ScatterTrace[] = [];
     const layout: Layout = {
       grid: {
-        rows: this.lineScatter2dRowsControl.value,
-        columns: this.lineScatter2dColsControl.value,
+        rows: rows,
+        columns: cols,
         pattern: 'independent',
       },
       showlegend: false,
