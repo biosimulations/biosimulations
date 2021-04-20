@@ -168,17 +168,17 @@
     "projectSize": 22242
   },
   {
-    "id": "607e06375c27f76bdfb99289",
-    "name": "Parmar 2017: iron distribution (CVODE, VCell)",
-    "simulator": "vcell",
-    "simulatorVersion": "7.3.0.07",
+    "id": "607edc499a2d1c3c137c342e",
+    "name": "Parmar 2017: iron distribution (CVODE, PySCeS)",
+    "simulator": "pysces",
+    "simulatorVersion": "0.9.9",
     "cpus": 1,
     "memory": 8,
     "maxTime": 20,
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-04-19T22:37:43.971Z",
-    "updated": "2021-04-19T22:37:43.971Z",
+    "submitted": "2021-04-20T13:51:05.474Z",
+    "updated": "2021-04-20T13:51:05.474Z",
     "projectSize": 13260
   },
   {
@@ -196,7 +196,7 @@
     "projectSize": 13260
   },
   {
-    "id": "607d4eeb842d6e339721c7de",
+    "id": "607e06375c27f76bdfb99289",
     "name": "Parmar 2017: iron distribution (CVODE, VCell)",
     "simulator": "vcell",
     "simulatorVersion": "7.3.0.07",
@@ -205,8 +205,8 @@
     "maxTime": 20,
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-04-19T09:35:39.172Z",
-    "updated": "2021-04-19T09:35:39.172Z",
+    "submitted": "2021-04-19T22:37:43.971Z",
+    "updated": "2021-04-19T22:37:43.971Z",
     "projectSize": 13260
   },
   {
