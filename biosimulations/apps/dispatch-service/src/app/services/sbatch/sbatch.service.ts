@@ -58,8 +58,6 @@ source /usr/share/Modules/init/bash
 export PATH=$PATH:/usr/sbin/
 module load singularity/3.7.1
 export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
-export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
-export SINGULARITY_TMPDIR=${homeDir}/singularity/tmp/
 export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 cd ${tempSimDir}
 echo -e '${cyan}=============Downloading Combine Archive=============${nc}'
@@ -70,7 +68,7 @@ echo -e '${cyan}=============Creating output archive=============${nc}'
 srun zip ${simId}.zip reports.h5 log.yml plots.zip job.output
 echo -e '${cyan}=============Uploading outputs to storage=============${nc}'
 srun aws --no-verify-ssl --endpoint-url  ${endpoint} s3 sync --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/${simId}
-
+echo -e '${cyan}=============Run Complete. Thank you for using BioSimulations!=============${nc}'
 `;
 
     return template;
@@ -78,7 +76,10 @@ srun aws --no-verify-ssl --endpoint-url  ${endpoint} s3 sync --exclude "*.sbatch
 
   public generateImageUpdateSbatch(url: string, force: string): string {
     const homeDir = this.configService.get('hpc.homeDir');
-    const image = url.split('docker://ghcr.io/biosimulators/')[1];
+    const image = url
+      .split('docker://ghcr.io/biosimulators/')[1]
+      .replace(':', '_');
+
     const template = `#!/bin/bash
 #SBATCH --job-name=${image}-Build
 #SBATCH --time=90:00
@@ -95,8 +96,6 @@ source /usr/share/Modules/init/bash
 export PATH=$PATH:/usr/sbin/
 module load singularity/3.7.1
 export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
-export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
-export SINGULARITY_TMPDIR=${homeDir}/singularity/tmp/
 export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 echo "Building On:"
 hostname
