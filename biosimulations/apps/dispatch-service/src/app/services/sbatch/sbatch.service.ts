@@ -57,7 +57,6 @@ export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
 export PATH=$PATH:/usr/sbin/
 module load singularity/3.7.1
-export XDG_RUNTIME_DIR=${homeDir}/singularity/XDG/
 export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
 export SINGULARITY_TMPDIR=${homeDir}/singularity/tmp/
@@ -95,7 +94,6 @@ export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
 source /usr/share/Modules/init/bash
 export PATH=$PATH:/usr/sbin/
 module load singularity/3.7.1
-export XDG_RUNTIME_DIR=${homeDir}/singularity/XDG/
 export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_LOCALCACHEDIR=${homeDir}/singularity/localCache/
 export SINGULARITY_TMPDIR=${homeDir}/singularity/tmp/
