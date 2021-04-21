@@ -33,7 +33,7 @@
                 }],
                 "tasks": [{
                     "_type": "SedTask",
-                    "id": "BIOMD0000000912_sim",
+                    "id": "BIOMD0000000912_task",
                     "name": "Caravagna2010",
                     "model": {
                         "_type": "SedModel",
@@ -60,36 +60,36 @@
                 }],
                 "dataGenerators": [{
                         "_type": "SedDataGenerator",
-                        "id": "time",
+                        "id": "data_generator_time",
                         "name": "time",
                         "variables": [],
-                        "math": "time"
+                        "math": "var_time"
                     },
                     {
                         "_type": "SedDataGenerator",
-                        "id": "T",
+                        "id": "data_generator_T",
                         "name": "T",
                         "variables": [],
-                        "math": "T"
+                        "math": "var_T"
                     },
                     {
                         "_type": "SedDataGenerator",
-                        "id": "E",
+                        "id": "data_generator_E",
                         "name": "E",
                         "variables": [],
-                        "math": "E"
+                        "math": "var_E"
                     },
                     {
                         "_type": "SedDataGenerator",
-                        "id": "I",
+                        "id": "data_generator_I",
                         "name": "I",
                         "variables": [],
-                        "math": "I"
+                        "math": "var_I"
                     }
                 ],
                 "outputs": [{
                     "_type": "SedReport",
-                    "id": "BIOMD0000000912_sim",
+                    "id": "BIOMD0000000912_report",
                     "name": "Caravagna2010",
                     "dataSets": [{
                         "_type": "SedDataSet",
@@ -97,11 +97,11 @@
                         "label": "time",
                         "dataGenerator": {
                             "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/time",
-                            "id": "time",
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/time",
+                            "id": "data_generator_time",
                             "name": "time",
                             "variables": [],
-                            "math": "time"
+                            "math": "var_time"
                         }
                     }, {
                         "_type": "SedDataSet",
@@ -109,11 +109,11 @@
                         "label": "T",
                         "dataGenerator": {
                             "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/T",
-                            "id": "T",
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/T",
+                            "id": "data_generator_T",
                             "name": "T",
                             "variables": [],
-                            "math": "T"
+                            "math": "var_T"
                         }
                     }, {
                         "_type": "SedDataSet",
@@ -121,11 +121,11 @@
                         "label": "E",
                         "dataGenerator": {
                             "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/E",
-                            "id": "E",
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/E",
+                            "id": "data_generator_E",
                             "name": "E",
                             "variables": [],
-                            "math": "E"
+                            "math": "var_E"
                         }
                     }, {
                         "_type": "SedDataSet",
@@ -133,11 +133,11 @@
                         "label": "I",
                         "dataGenerator": {
                             "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_sim/I",
-                            "id": "I",
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/I",
+                            "id": "data_generator_I",
                             "name": "I",
                             "variables": [],
-                            "math": "I"
+                            "math": "var_I"
                         }
                     }]
                 }, {
@@ -150,19 +150,19 @@
                         "name": "T",
                         "xDataGenerator": {
                             "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/time",
-                            "id": "time",
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_time",
+                            "id": "data_generator_time",
                             "name": "time",
                             "variables": [],
-                            "math": "time"
+                            "math": "var_time"
                         },
                         "yDataGenerator": {
                             "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/T",
-                            "id": "T",
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_T",
+                            "id": "data_generator_T",
                             "name": "T",
                             "variables": [],
-                            "math": "T"
+                            "math": "var_T"
                         }
                     }, {
                         "_type": "SedCurve",
@@ -170,19 +170,19 @@
                         "name": "E",
                         "xDataGenerator": {
                             "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/time",
-                            "id": "time",
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_time",
+                            "id": "data_generator_time",
                             "name": "time",
                             "variables": [],
-                            "math": "time"
+                            "math": "var_time"
                         },
                         "yDataGenerator": {
                             "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/E",
-                            "id": "E",
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_E",
+                            "id": "data_generator_E",
                             "name": "E",
                             "variables": [],
-                            "math": "E"
+                            "math": "var_E"
                         }
                     }, {
                         "_type": "SedCurve",
@@ -190,19 +190,19 @@
                         "name": "I",
                         "xDataGenerator": {
                             "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/time",
-                            "id": "time",
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_time",
+                            "id": "data_generator_time",
                             "name": "time",
                             "variables": [],
-                            "math": "time"
+                            "math": "var_time"
                         },
                         "yDataGenerator": {
                             "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/I",
-                            "id": "I",
+                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_I",
+                            "id": "data_generator_I",
                             "name": "I",
                             "variables": [],
-                            "math": "I"
+                            "math": "var_I"
                         }
                     }],
                     "xScale": "linear",

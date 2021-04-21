@@ -167,7 +167,7 @@
                             }
 
                         }],
-                        "math": "x"
+                        "math": "var_x"
                     }],
                     "outputs": [{
                             "_type": "SedReport",
@@ -227,7 +227,7 @@
                                         }
 
                                     }],
-                                    "math": "x"
+                                    "math": "var_x"
                                 }
                             }]
                         },
@@ -290,7 +290,7 @@
                                         }
 
                                     }],
-                                    "math": "x"
+                                    "math": "var_x"
                                 },
                                 "yDataGenerator": {
                                     "_type": "SedDataGenerator",
@@ -343,7 +343,7 @@
                                         }
 
                                     }],
-                                    "math": "x"
+                                    "math": "var_x"
                                 }
                             }]
                         },
@@ -407,7 +407,7 @@
                                         }
 
                                     }],
-                                    "math": "x"
+                                    "math": "var_x"
                                 },
                                 "yDataGenerator": {
                                     "_type": "SedDataGenerator",
@@ -460,7 +460,7 @@
                                         }
 
                                     }],
-                                    "math": "x"
+                                    "math": "var_x"
                                 },
                                 "zDataGenerator": {
                                     "_type": "SedDataGenerator",
@@ -513,7 +513,7 @@
                                         }
 
                                     }],
-                                    "math": "x"
+                                    "math": "var_x"
                                 }
                             }]
                         }
