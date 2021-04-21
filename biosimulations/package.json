@@ -119,7 +119,7 @@
     "@nrwl/nest": "12.0.6",
     "@nrwl/node": "12.0.6",
     "@nrwl/nx-cloud": "11.2.0",
-    "@nrwl/tao": "12.0.6",
+    "@nrwl/tao": "12.0.8",
     "@nrwl/workspace": "12.0.6",
     "@nx-python/nx-python": "^0.1.7",
     "@scullyio/init": "^1.0.1",
