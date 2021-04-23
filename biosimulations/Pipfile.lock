@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fadf1cd158346720437d15d68f085531f8a7e5144263375509f196bef9f243c4"
+            "sha256": "c6b298964d2605155caf1ca8ff94af98c8b6b5cc741843b11d14b128db1491ca"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -28,25 +28,26 @@
                 "sbml"
             ],
             "hashes": [
-                "sha256:630abfef7b91dbe7d69407889fe4d540a52913f4822ad9e9d4b0c946ce306fd3",
-                "sha256:89ac3f3365ae6d447738caf6cff6a298446aaffd715d710f7fd204a01b3f0ff5"
+                "sha256:82fcdb222dd8be83b32d6b028ee2436a9455117cc534e2685e4751c313f16978",
+                "sha256:d5d494885ed3ca673bf8682ce7d7c2e35e65954f2ee3bac697657e00d825eee9"
             ],
             "index": "pypi",
-            "version": "==0.1.57"
+            "version": "==0.1.58"
         },
         "boto3": {
             "hashes": [
-                "sha256:9caec835fdf9c3336068a28004bb6a6ffab14a75d2466dfe6e279946f409fe8f"
+                "sha256:2783947ec34dd84fc36093e8fc8a9a24679cf912a97bc9a0c47f4966ed059a29",
+                "sha256:6b4a79691a48740816f03c4cb1e8ef46f8335ad2019d9c4a95da73eb5cb98f05"
             ],
             "index": "pypi",
-            "version": "==1.17.56"
+            "version": "==1.17.57"
         },
         "botocore": {
             "hashes": [
-                "sha256:134a7b1d21030b6323b6094226d0cc898a8f2a2b5d27e1e5c0a0071372eab68d",
-                "sha256:367a7eaee80fdf7718f50461432ac2c4bd73363835a1ad011f99fdc592ba775d"
+                "sha256:ae4ac72921f23d35ad54a5fb0989fc00c6fff8a39e24f26128b9315cc6209fec",
+                "sha256:fa430bc773363a3d332c11c55bd8c0c0a5819d576121eb6990528a1bdaa89bcd"
             ],
-            "version": "==1.20.56"
+            "version": "==1.20.57"
         },
         "cached-property": {
             "hashes": [
@@ -388,6 +389,13 @@
                 "sha256:79ffb45cf9f4b101a807595bcb3e72e0396202e0b1d25d689134b48c4216a81a"
             ],
             "version": "==1.2.1"
+        },
+        "natsort": {
+            "hashes": [
+                "sha256:00c603a42365830c4722a2eb7663a25919551217ec09a243d3399fa8dd4ac403",
+                "sha256:d0f4fc06ca163fa4a5ef638d9bf111c67f65eedcc7920f98dec08e489045b67e"
+            ],
+            "version": "==7.1.1"
         },
         "networkx": {
             "hashes": [
