@@ -112,7 +112,7 @@
     "@nestjs/schematics": "^7.2.6",
     "@nestjs/testing": "^7.6.11",
     "@nrwl/angular": "12.0.6",
-    "@nrwl/cli": "12.0.6",
+    "@nrwl/cli": "12.0.8",
     "@nrwl/cypress": "12.0.6",
     "@nrwl/eslint-plugin-nx": "12.0.6",
     "@nrwl/jest": "12.0.6",
