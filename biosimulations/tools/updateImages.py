@@ -18,7 +18,7 @@ EXAMPLE_SIMULATIONS_FILENAME = __file__ + '.json'
 SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://run.api.biosimulations.{}/run'
 
 
-def main(runbiosimulations_api='dev',   token=None, image_names=None):
+def main(runbiosimulations_api='dev', token=None):
 
     # get latest version of each simulator
     response = requests.get(GET_SIMULATORS_ENDPOINT)
@@ -33,7 +33,6 @@ def main(runbiosimulations_api='dev',   token=None, image_names=None):
         headers = {'Authorization': "Bearer "+token}
         r = requests.post('http://localhost:3333/images/refresh',
                           data={"simulator": sim, "version": version}, headers=headers)
-        print(r.content)
 
 
 if __name__ == '__main__':
@@ -42,16 +41,9 @@ if __name__ == '__main__':
     parser.add_argument(
         '--runbiosimulations-api', type=str, default='dev',
         help='runBioSimulations API which simulations should be submitted to (`dev`, `org`). Default: `dev`.')
-
-    parser.add_argument(
-        '--images', type=str, nargs='*',
-        help='Names of the example images to update. Default: update all images.',
-        default=None, dest='image_names',
-    )
     parser.add_argument(
         '--token', type=str, help=('The authorization token to call the api'), dest='token')
-    args = parser.parse_args()
 
+    args = parser.parse_args()
     main(runbiosimulations_api=args.runbiosimulations_api,
-         image_names=args.image_names,
          token=args.token)
