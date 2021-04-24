@@ -169,8 +169,13 @@ export class ValidateSimulationProjectComponent implements OnDestroy {
           }
 
         } else {
+          let msg = 'Sorry! We were unable to validate your archive.';
+          if (submitMethodControl.value == SubmitMethod.url) {
+            msg += ` Please check that ${archive} is an accessible URL.`;
+          }
+
           this.snackBar.open(
-            'Sorry! We were unable to validate your archive.',
+            msg,
             undefined,
             {
               duration: 5000,

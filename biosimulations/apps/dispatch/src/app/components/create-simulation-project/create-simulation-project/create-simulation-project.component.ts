@@ -571,9 +571,15 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           if (!environment.production) {
             console.error(error);
           }
+
+          let msg = 'Sorry! We were unable to get the dependent parameters and independent variables of your model. ' +
+              'This feature is only currently available for models encoded in SBML, SBML-fbc, and SBML-qual.'
+          if (modelLocationType === LocationType.url) {
+            msg += ` Please check that ${modelLocationDetails} is an accessible URL.`;
+          }
+
           this.snackBar.open(
-            'Sorry! We were unable to get the dependent parameters and independent variables of your model. ' +
-              'This feature is only currently available for models encoded in SBML, SBML-fbc, and SBML-qual.',
+            msg,
             undefined,
             {
               duration: 5000,
