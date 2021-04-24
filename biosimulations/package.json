@@ -150,7 +150,7 @@
     "cypress": "^6.4.0",
     "dotenv": "8.2.0",
     "eslint": "7.22.0",
-    "eslint-config-prettier": "8.1.0",
+    "eslint-config-prettier": "8.3.0",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-unused-imports": "^1.0.1",
     "jest": "26.2.2",
