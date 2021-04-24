@@ -8,8 +8,8 @@ updates:
 - package-ecosystem: npm
   directory: "/biosimulations"
   schedule:
-    interval: daily
-  open-pull-requests-limit: 10
+    interval: weekly
+  open-pull-requests-limit: 5
   target-branch: dev
   labels:
   - dependencies
