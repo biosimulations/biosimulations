@@ -67,8 +67,9 @@
               >.
             </p>
           </mat-hint>
-          <mat-error *ngIf="submitPushed && formGroup.hasError('noProjectFile')">Please select a COMBINE/OMEX file.</mat-error>
-          <mat-error *ngIf="submitPushed && formGroup.hasError('noProjectUrl')">Please enter a URL for a COMBINE/OMEX file.</mat-error>
+          <mat-error *ngIf="(submitPushed || projectFileControl.touched) && formGroup.hasError('noProjectFile')">Please select a COMBINE/OMEX file.</mat-error>
+          <mat-error *ngIf="(submitPushed || projectFileControl.touched) && formGroup.hasError('maxSize', 'projectFile')">Currently, COMBINE/OMEX archives are limited to 16 MB.</mat-error>
+          <mat-error *ngIf="(submitPushed || projectUrlControl.touched) && formGroup.hasError('noProjectUrl')">Please enter a URL for a COMBINE/OMEX file.</mat-error>
         </div>
       </div>
     </div>

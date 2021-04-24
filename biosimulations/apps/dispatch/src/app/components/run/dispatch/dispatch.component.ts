@@ -90,7 +90,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        projectFile: ['', [Validators.required]],
+        projectFile: ['', [Validators.required, this.maxFileSizeValidator]],
         projectUrl: ['', [Validators.required]],
         modelFormats: [[]],
         simulationAlgorithms: [[]],
@@ -146,6 +146,16 @@ export class DispatchComponent implements OnInit, OnDestroy {
       this.config.appConfig.exampleCombineArchives.repoPath +
       this.config.appConfig.exampleCombineArchives.examplePath;
     this.emailUrl = 'mailto:' + config.email;
+  }
+
+  maxFileSizeValidator(control: FormControl): ValidationErrors | null {
+    if (control.value && control.value.size > 16000000) {
+      return {
+        maxSize: true,
+      };
+    } else {
+      return null;
+    }
   }
 
   integerValidator(formControl: FormControl): ValidationErrors | null {

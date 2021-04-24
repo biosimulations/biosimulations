@@ -44,7 +44,7 @@ export class ValidateSimulationProjectComponent implements OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        projectFile: ['', [Validators.required]],
+        projectFile: ['', [Validators.required, this.maxFileSizeValidator]],
         projectUrl: ['', [this.urlValidator]],
       },
       //{
@@ -75,6 +75,16 @@ export class ValidateSimulationProjectComponent implements OnDestroy {
       '/' +
       this.config.appConfig.exampleCombineArchives.repoPath +
       this.config.appConfig.exampleCombineArchives.examplePath;
+  }
+
+  maxFileSizeValidator(control: FormControl): ValidationErrors | null {
+    if (control.value && control.value.size > 16000000) {
+      return {
+        maxSize: true,
+      };
+    } else {
+      return null;
+    }
   }
 
   urlValidator(control: FormControl): ValidationErrors | null {

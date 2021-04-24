@@ -114,7 +114,7 @@ export class SimulationRunController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description: 'COMBINE/OMEX file is too large. Files must be less than 16 Mb.',
+    description: 'COMBINE/OMEX file is too large. Files must be less than 16 MB.',
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,

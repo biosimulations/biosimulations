@@ -171,7 +171,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         modelLocationType: [LocationType.file, Validators.required],
-        modelLocationDetails: [null],
+        modelLocationDetails: [null, [Validators.required, this.maxFileSizeValidator]],
         modelFormat: [null, Validators.required],
         modelNamespaces: this.formBuilder.array([], {
           validators: [this.uniqueAttributeValidator.bind(this, 'prefix')],
@@ -245,6 +245,16 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     modelingFrameworkControl.disable();
     simulationTypeControl.disable();
     simulationAlgorithmControl.disable();
+  }
+
+  maxFileSizeValidator(control: FormControl): ValidationErrors | null {
+    if (control.value && control.value.size > 16000000) {
+      return {
+        maxSize: true,
+      };
+    } else {
+      return null;
+    }
   }
 
   urlValidator(control: AbstractControl): ValidationErrors | null {
@@ -472,7 +482,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     if (locationType === LocationType.file) {
       this.formGroup.setControl(
         'modelLocationDetails',
-        this.formBuilder.control('', [Validators.required]),
+        this.formBuilder.control('', [Validators.required, this.maxFileSizeValidator]),
       );
     } else {
       this.formGroup.setControl(

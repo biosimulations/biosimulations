@@ -97,6 +97,7 @@
           </mat-hint>
           <mat-error *ngIf="(formGroup.get('modelLocationType')?.touched || submitPushed) && formGroup.hasError('required', 'modelLocationType')">Please select a method for upload a model file.</mat-error>
           <mat-error *ngIf="(formGroup.get('modelLocationDetails')?.touched || submitPushed) && formGroup.hasError('required', 'modelLocationDetails')">Please select a model file.</mat-error>
+          <mat-error *ngIf="(formGroup.get('modelLocationDetails')?.touched || submitPushed) && formGroup.hasError('maxSize', 'modelLocationDetails')">Currently, model files are limited to 16 MB.</mat-error>
           <mat-error *ngIf="(formGroup.get('modelLocationDetails')?.touched || submitPushed) && formGroup.hasError('url', 'modelLocationDetails')">Please enter a valid URL.</mat-error>
           <mat-error *ngIf="(formGroup.get('modelFormat')?.touched || submitPushed) && formGroup.hasError('required', 'modelFormat')">Please select a model format.</mat-error>
         </div>
