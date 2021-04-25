@@ -100,6 +100,25 @@
   },
   {
     "type": "programming",
+    "color": "#34EB6B",
+    "tmScope": "source.aidl",
+    "extensions": [
+      ".aidl"
+    ],
+    "aceMode": "text",
+    "interpreters": [
+      "aidl"
+    ],
+    "languageId": 451700185,
+    "name": "AIDL",
+    "aliases": [
+      "aidl"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "programming",
     "color": "#3AA2B5",
     "extensions": [
       ".al"
@@ -1120,6 +1139,21 @@
     "searchable": "true"
   },
   {
+    "type": "data",
+    "tmScope": "source.cil",
+    "extensions": [
+      ".cil"
+    ],
+    "aceMode": "text",
+    "languageId": 29176339,
+    "name": "CIL",
+    "aliases": [
+      "cil"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
     "type": "programming",
     "extensions": [
       ".clp"
@@ -1255,6 +1289,22 @@
     "name": "CSV",
     "aliases": [
       "csv"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "programming",
+    "extensions": [
+      ".cue"
+    ],
+    "tmScope": "source.cue",
+    "aceMode": "text",
+    "color": "#5886E1",
+    "languageId": 356063509,
+    "name": "CUE",
+    "aliases": [
+      "cue"
     ],
     "wrap": "false",
     "searchable": "true"
@@ -1867,6 +1917,21 @@
     "name": "Cuda",
     "aliases": [
       "cuda"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "data",
+    "extensions": [
+      ".cue"
+    ],
+    "tmScope": "source.cuesheet",
+    "aceMode": "text",
+    "languageId": 942714150,
+    "name": "Cue Sheet",
+    "aliases": [
+      "cue sheet"
     ],
     "wrap": "false",
     "searchable": "true"
@@ -5686,22 +5751,6 @@
     "searchable": "true"
   },
   {
-    "type": "prose",
-    "wrap": true,
-    "extensions": [
-      ".mediawiki",
-      ".wiki"
-    ],
-    "tmScope": "text.html.mediawiki",
-    "aceMode": "text",
-    "languageId": 228,
-    "name": "MediaWiki",
-    "aliases": [
-      "mediawiki"
-    ],
-    "searchable": "true"
-  },
-  {
     "type": "programming",
     "color": "#ff2b2b",
     "aceMode": "prolog",
@@ -8565,6 +8614,30 @@
     "searchable": "true"
   },
   {
+    "aliases": [
+      "SELinux Kernel Policy Language",
+      "sepolicy",
+      "selinux policy"
+    ],
+    "type": "data",
+    "tmScope": "source.sepolicy",
+    "extensions": [
+      ".te"
+    ],
+    "filenames": [
+      "file_contexts",
+      "genfs_contexts",
+      "initial_sids",
+      "port_contexts",
+      "security_classes"
+    ],
+    "aceMode": "text",
+    "languageId": 880010326,
+    "name": "SELinux Policy",
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
     "type": "programming",
     "extensions": [
       ".smt2",
@@ -10417,6 +10490,25 @@
     "languageId": 668457123,
     "name": "Wget Config",
     "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "prose",
+    "wrap": true,
+    "aliases": [
+      "mediawiki",
+      "wiki",
+      "wikitext"
+    ],
+    "extensions": [
+      ".mediawiki",
+      ".wiki",
+      ".wikitext"
+    ],
+    "tmScope": "text.html.mediawiki",
+    "aceMode": "text",
+    "languageId": 228,
+    "name": "Wikitext",
     "searchable": "true"
   },
   {
