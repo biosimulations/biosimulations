@@ -13,7 +13,7 @@
 /simulators/amici
 /simulators/amici/0.11.11
 /simulators/amici/0.11.14
-/simulators/amici/v0.11.16
+/simulators/amici/0.11.16
 /simulators/bionetgen
 /simulators/bionetgen/2.5.2
 /simulators/biouml
