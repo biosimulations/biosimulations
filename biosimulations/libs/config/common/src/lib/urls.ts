@@ -36,14 +36,14 @@ const envUrls: { [key in envs]: urlMap } = {
   dev: {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
-    dispatchApi: 'https://run.api.biosimulations.dev/',
-    combineApi: 'http://localhost:3333/',
-    simulatorsApi: 'https://api.biosimulators.dev/',
-    ontologyApi: 'https://ontology.api.biosimulations.dev/',
+    dispatchApi: '/dispatch-api',
+    combineApi: '/dispatch-api',
+    simulatorsApi: '/simulators-api',
+    ontologyApi: '/ontology-api',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
-    simulators: 'https://biosimulators.dev',
+    simulators: 'https://biosimulators.org',
   },
   stage: {
     platformApi: 'https://api.biosimulations.org/',
@@ -60,14 +60,14 @@ const envUrls: { [key in envs]: urlMap } = {
   local: {
     platformApi: '/api/', //proxies to localhost:3333 if using nx
     accountApi: '/api/',
-    dispatchApi: 'https://run.api.biosimulations.dev/',
-    combineApi: 'http://localhost:3333/',
-    simulatorsApi: 'https://api.biosimulators.dev/',
-    ontologyApi: 'https://ontology.api.biosimulations.dev/',
+    dispatchApi: '/dispatch-api/',
+    combineApi: '/combine-api/',
+    simulatorsApi: '/simulators-api/',
+    ontologyApi: '/ontology-api/',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
-    simulators: 'https://biosimulators.dev',
+    simulators: 'https://biosimulators.org',
   },
 };
 export type staticUrlNames =

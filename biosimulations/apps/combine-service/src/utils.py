@@ -52,9 +52,6 @@ def save_file_to_s3_bucket(filename, public=False, id=None):
     Returns:
         :obj:`str`: URL for saved file
     """
-    shutil.copy(filename, '/tmp/archive.omex')
-    return 'http://localhost:3334/achive.omex'
-
     global s3_bucket
     if s3_bucket is None:
         s3_bucket = S3Bucket()
