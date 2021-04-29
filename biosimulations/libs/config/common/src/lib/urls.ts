@@ -37,7 +37,7 @@ const envUrls: { [key in envs]: urlMap } = {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
     dispatchApi: '/dispatch-api',
-    combineApi: '/dispatch-api',
+    combineApi: '/combine-api',
     simulatorsApi: '/simulators-api',
     ontologyApi: '/ontology-api',
     platform: 'https://biosimulations.dev',
