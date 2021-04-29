@@ -7,7 +7,7 @@ name = "pypi"
 flask = "*"
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
 requests = "*"
-biosimulators-utils = {extras = ["sbml"],version = ">=0.1.58"}
+biosimulators-utils = {extras = ["sbml"],version = ">=0.1.63"}
 python-dateutil = "*"
 gunicorn = "*"
 flask-cors = "*"
@@ -22,4 +22,4 @@ pytest-cov = "*"
 openapi-spec-validator = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"

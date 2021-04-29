@@ -39,7 +39,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.7"
+          python-version: "3.9"
           architecture: "x64"
 
       - name: Install Pipenv and Flake8
@@ -142,7 +142,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.7"
+          python-version: "3.9"
           architecture: "x64"
 
       - name: Install Pipenv and Flake8
@@ -220,7 +220,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.7"
+          python-version: "3.9"
           architecture: "x64"
 
       - name: Install Pipenv and Flake8
@@ -296,7 +296,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.7"
+          python-version: "3.9"
           architecture: "x64"
 
       - name: Install Pipenv and Flake8
