@@ -114,7 +114,8 @@ export type BiosimulationsIcon =
   | 'location'
   | 'memory'
   | 'processor'
-  | 'server';
+  | 'server'
+  | 'redo';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -257,6 +258,7 @@ export class IconComponent {
     memory: { type: 'fas', name: 'memory' },
     processor: { type: 'fas', name: 'microchip' },
     server: { type: 'fas', name: 'server' },
+    redo: { type: 'fas', name: 'redo-alt' },
   };
 
   constructor () {

@@ -1,4 +1,5 @@
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
+import { Router } from '@angular/router';
 
 export interface IBreadCrumb {
   label: string;
@@ -10,5 +11,5 @@ export interface IContextButton {
   hover?: string;
   icon: BiosimulationsIcon;
   label: string;
-  onClick?: (route: string) => string | undefined;
+  onClick?: (route: string, router: Router) => string | undefined;
 }
