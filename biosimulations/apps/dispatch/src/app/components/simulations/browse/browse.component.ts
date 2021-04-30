@@ -19,6 +19,8 @@ import { debounceTime, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { snackBarDuration } from '@biosimulations/config/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteSimulationsDialogComponent } from './delete-simulations-dialog.component';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -474,11 +476,11 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'trash',
       leftAction: ColumnActionType.click,
       leftClick: (simulation: Simulation): void => {
-        this.simulationService.removeSimulation(simulation.id);
+        this.removeSimulations(simulation);
       },
       centerAction: ColumnActionType.click,
       centerClick: (simulation: Simulation): void => {
-        this.simulationService.removeSimulation(simulation.id);
+        this.removeSimulations(simulation);
       },
       formatter: (id: string): null => {
         return null;
@@ -502,6 +504,7 @@ export class BrowseComponent implements OnInit {
     private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private dialog: MatDialog,
   ) {
     activatedRoute.queryParams.subscribe((params: Params): void => {
       if (params?.try) {
@@ -570,8 +573,21 @@ export class BrowseComponent implements OnInit {
     input.click();
   }
 
-  removeSimulations(): void {
-    this.simulationService.removeSimulations();
+  removeSimulations(simulation?: Simulation): void {
+    const dialogRef = this.dialog.open(DeleteSimulationsDialogComponent, {
+      width: '350px',
+      data: simulation,
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean): void => {
+      if (confirmed) {
+        if (simulation) {
+          this.simulationService.removeSimulation(simulation.id);
+        } else {
+          this.simulationService.removeSimulations();
+        }
+      }
+    });
   }
 
   loadExampleSimulations(): number {
