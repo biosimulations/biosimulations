@@ -449,7 +449,7 @@ export class BrowseComponent implements OnInit {
       maxWidth: 43,
       filterable: false,
       sortable: false,
-      show: false,
+      show: true,
       showStacked: false,
     },
   ];
