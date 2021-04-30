@@ -531,9 +531,10 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200, response.json)
         validation_report = response.json
 
+        validation_report.pop('warnings')
         self.assertEqual(validation_report, {
             "_type": "ValidationReport",
-            "status": "valid"
+            "status": "warnings"
         })
 
         # validate request and response
@@ -595,3 +596,31 @@ class HandlersTestCase(unittest.TestCase):
 
         self.assertEqual(validation_report['status'], "invalid")
         self.assertIn('is not a valid COMBINE/OMEX archive', json.dumps(validation_report['errors']))
+
+    def test_get_similar_algorithms(self):
+        endpoint = '/kisao/get-similar-algorithms?algorithm=KISAO_0000088'
+        with app.app.app.test_client() as client:
+            response = client.get(endpoint)
+        self.assertEqual(response.status_code, 200, response.json)
+        alt_algs = response.json
+        self.assertEqual(alt_algs[0]['algorithm']['id'], 'KISAO_0000088')
+        self.assertNotEqual(alt_algs[1]['algorithm']['id'], 'KISAO_0000088')
+
+        alt_alg_ids = [alt_alg['algorithm']['id'] for alt_alg in alt_algs]
+        self.assertIn('KISAO_0000019', alt_alg_ids)
+        self.assertNotIn('KISAO_0000209', alt_alg_ids)
+
+        endpoint = '/kisao/get-similar-algorithms?algorithm=KISAO:9999999'
+        with app.app.app.test_client() as client:
+            response = client.get(endpoint)
+        self.assertEqual(response.status_code, 400, response.json)
+
+        endpoint = '/kisao/get-similar-algorithms?algorithm=KISAO_9999999'
+        with app.app.app.test_client() as client:
+            response = client.get(endpoint)
+        self.assertEqual(response.status_code, 400, response.json)
+
+        endpoint = '/kisao/get-similar-algorithms?algorithm=KISAO_0000209'
+        with app.app.app.test_client() as client:
+            response = client.get(endpoint)
+        self.assertEqual(response.status_code, 400, response.json)

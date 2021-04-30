@@ -23,13 +23,6 @@
     </biosimulations-topbar-menu-item>
 
     <biosimulations-topbar-menu-item
-      heading="Validate a simulation"
-      icon="bug"
-      [route]="['/validate']"
-    >
-    </biosimulations-topbar-menu-item>
-
-    <biosimulations-topbar-menu-item
       heading="Run a simulation"
       icon="simulator"
       [route]="['/run']"
@@ -42,6 +35,27 @@
       [route]="['/simulations']"
     >
     </biosimulations-topbar-menu-item>
+
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
+      </biosimulations-topbar-menu-item>
+
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulation"
+          icon="bug"
+          [routerLink]="['/utils', 'validate']"
+        >
+        </biosimulations-dropdown-menu-item>
+        
+        <biosimulations-dropdown-menu-item
+          heading="Suggest a simulator"
+          icon="simulator"
+          [routerLink]="['/utils', 'suggest-simulator']"
+        >
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu>
       <biosimulations-topbar-menu-item heading="Help" icon="help" id="trigger">
@@ -94,18 +108,11 @@
       [queryParams]="{try: '1'}"
     >
     </biosimulations-navigation-item>
-      
+
     <biosimulations-navigation-item
       heading="Create a simulation"
       icon="write"
       [route]="['/create']"
-    >
-    </biosimulations-navigation-item>
-
-    <biosimulations-navigation-item
-      heading="Validate a simulation"
-      icon="bug"
-      [route]="['/validate']"
     >
     </biosimulations-navigation-item>
 
@@ -123,7 +130,23 @@
     >
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item heading="Help" icon="help">      
+    <biosimulations-navigation-item heading="Utilities" icon="construction">
+      <biosimulations-navigation-subitem
+        heading="Validate simulation"
+        icon="bug"
+        [route]="['/utils', 'validate']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Suggest simulator"
+        icon="simulator"
+        [route]="['/utils', 'suggest-simulator']"
+      >
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
+
+    <biosimulations-navigation-item heading="Help" icon="help">
       <biosimulations-navigation-subitem
         heading="Tutorial"
         icon="tutorial"

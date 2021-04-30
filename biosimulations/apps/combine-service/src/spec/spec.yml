@@ -267,6 +267,57 @@ paths:
         inside it.
       description: "Validate a COMBINE archive and the simulation experiments (SED-ML\
         \ files) and models (e.g., SBML files) inside it."
+  /kisao/get-similar-algorithms:
+    get:
+      tags:
+      - KiSAO
+      parameters:
+      - examples:
+          CVODE:
+            value: KISAO_0000019
+        name: algorithm
+        description: KiSOA id of the algorithm to find similar algorithms for.
+        schema:
+          $ref: '#/components/schemas/KisaoId'
+        in: query
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KisaoAlgorithmSubstitution'
+              examples:
+                CVODE can be substituted:
+                  value:
+                  - _type: KisaoAlgorithmSubstitution
+                    algorithm:
+                      _type: KisaoTerm
+                      id: KISAO_0000019
+                      name: CVODE
+                    maxPolicy:
+                      _type: KisaoAlgorithmSubstitutionPolicy
+                      id: DISTINCT_APPROXIMATIONS
+                      name: Distinct approximations
+                      level: 4
+          description: List of the algorithms that are similar to the target algorithm.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get similar algorithms because the argument is not
+            an id of a valid algorithm term.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.kisao.get_similar_algorithms.handler
+      summary: Get a list of algorithms similar to an algorithm
 components:
   schemas:
     SedPlot2D:
@@ -1866,6 +1917,112 @@ components:
         warnings:
         - - _type: ValidationMessage
             summary: Archive may be invalid
+    KisaoAlgorithmSubstitutionPolicy:
+      description: "Algorithm substitution policy, the degree to switch algorithms\
+        \ can be substituted for each other."
+      required:
+      - id
+      - level
+      - name
+      - _type
+      type: object
+      properties:
+        id:
+          description: Id of the policy
+          enum:
+          - NONE
+          - SAME_METHOD
+          - SAME_MATH
+          - SIMILAR_APPROXIMATIONS
+          - DISTINCT_APPROXIMATIONS
+          - DISTINCT_SCALES
+          - SAME_VARIABLES
+          - SIMILAR_VARIABLES
+          - SAME_FRAMEWORK
+          - ANY
+          type: string
+        level:
+          description: "Level of the policy (0: most restrictive to 9: least restrictive)"
+          type: integer
+        name:
+          description: Name of the policy
+          enum:
+          - None
+          - Same method
+          - Same math
+          - Similar approximations
+          - Distinct approximations
+          - Distinct scales
+          - Same variables
+          - Similar variables
+          - Same framework
+          - Any
+          type: string
+        _type:
+          description: Type
+          enum:
+          - KisaoAlgorithmSubstitutionPolicy
+          type: string
+      example:
+        _type: KisaoAlgorithmSubstitutionPolicy
+        id: SAME_MATH
+        name: Same math
+        level: 1
+    KisaoAlgorithmSubstitution:
+      description: The most restrictive substition policy at which at algorithm can
+        be substituted for another.
+      required:
+      - algorithm
+      - maxPolicy
+      - _type
+      type: object
+      properties:
+        algorithm:
+          $ref: '#/components/schemas/KisaoId'
+          description: Algorithm
+        maxPolicy:
+          $ref: '#/components/schemas/KisaoAlgorithmSubstitutionPolicy'
+          description: Most restrictive substitution policy at which the algorithm
+            can be substituted
+        _type:
+          description: Type
+          enum:
+          - KisaoAlgorithmSubstitution
+          type: string
+      example:
+        _type: KisaoAlgorithmSubstitution
+        algorithm:
+          _type: KisaoTerm
+          id: KISAO_0000019
+          name: CVODE
+        maxPolicy:
+          _type: KisaoAlgorithmSubstitutionPolicy
+          id: DISTINCT_APPROXIMATIONS
+          name: Distinct approximations
+          level: 4
+    KisaoTerm:
+      description: Term in the KiSAO ontology.
+      required:
+      - _type
+      - id
+      - name
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - KisaoTerm
+          type: string
+        id:
+          description: Id of the term
+          type: string
+        name:
+          description: Name of the term.
+          type: string
+      example:
+        _type: KisaoTerm
+        id: KISAO_0000019
+        name: CVODE
   responses:
     "404":
       content:
