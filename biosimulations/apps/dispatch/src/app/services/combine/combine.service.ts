@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
@@ -67,10 +67,13 @@ export class CombineService {
   }
 
   public getSimilarAlgorithms(
-    algorithm: string,
+    algorithms: string[],
   ): Observable<AlgorithmSubstitution[] | undefined> {
+
+    const params = new HttpParams().appendAll({algorithms: algorithms});
+
     return this.http
-      .get<AlgorithmSubstitution[]>(this.similarAlgorithmsEndpoint, {params: {algorithm: algorithm}})
+      .get<AlgorithmSubstitution[]>(this.similarAlgorithmsEndpoint, {params: params})
       .pipe(
         catchError(
           (error: HttpErrorResponse): Observable<undefined> => {

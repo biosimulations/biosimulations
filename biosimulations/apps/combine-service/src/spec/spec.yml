@@ -275,10 +275,12 @@ paths:
       - examples:
           CVODE:
             value: KISAO_0000019
-        name: algorithm
+        name: algorithms
         description: KiSOA id of the algorithm to find similar algorithms for.
         schema:
-          $ref: '#/components/schemas/KisaoId'
+          type: array
+          items:
+            type: string
         in: query
         required: true
       responses:
@@ -294,9 +296,12 @@ paths:
                   value:
                   - _type: KisaoAlgorithmSubstitution
                     algorithm:
-                      _type: KisaoTerm
+                    - _type: KisaoTerm
                       id: KISAO_0000019
                       name: CVODE
+                    - _type: KisaoTerm
+                      id: KISAO_0000088
+                      name: LSODA
                     maxPolicy:
                       _type: KisaoAlgorithmSubstitutionPolicy
                       id: DISTINCT_APPROXIMATIONS
@@ -1972,14 +1977,11 @@ components:
       description: The most restrictive substition policy at which at algorithm can
         be substituted for another.
       required:
-      - algorithm
+      - algorithms
       - maxPolicy
       - _type
       type: object
       properties:
-        algorithm:
-          $ref: '#/components/schemas/KisaoId'
-          description: Algorithm
         maxPolicy:
           $ref: '#/components/schemas/KisaoAlgorithmSubstitutionPolicy'
           description: Most restrictive substitution policy at which the algorithm
@@ -1989,12 +1991,21 @@ components:
           enum:
           - KisaoAlgorithmSubstitution
           type: string
+        algorithms:
+          description: Pair of algorithms that can be substituted (up to a degree
+            of similarity).
+          type: array
+          items:
+            $ref: '#/components/schemas/KisaoTerm'
       example:
         _type: KisaoAlgorithmSubstitution
-        algorithm:
-          _type: KisaoTerm
+        algorithms:
+        - _type: KisaoTerm
           id: KISAO_0000019
           name: CVODE
+        - _type: KisaoTerm
+          id: KISAO_0000088
+          name: LSODA
         maxPolicy:
           _type: KisaoAlgorithmSubstitutionPolicy
           id: DISTINCT_APPROXIMATIONS

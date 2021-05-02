@@ -13,6 +13,6 @@ export interface AlgorithmSubstitutionPolicy {
 
 export interface AlgorithmSubstitution {
   _type: 'AlgorithmSubstitution';
-  algorithm: Algorithm;
+  algorithms: Algorithm[];
   maxPolicy: AlgorithmSubstitutionPolicy;
 }

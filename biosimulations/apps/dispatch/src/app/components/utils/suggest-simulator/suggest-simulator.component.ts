@@ -127,14 +127,14 @@ export class SuggestSimulatorComponent implements OnInit, OnDestroy {
     }
     this.suggestions = undefined;
 
-    this.suggestions = this.combineService.getSimilarAlgorithms(selectedAlgorithmId).pipe(
+    this.suggestions = this.combineService.getSimilarAlgorithms([selectedAlgorithmId]).pipe(
       map((altAlgs: AlgorithmSubstitution[] | undefined): Suggestions | undefined => {
         if (altAlgs) {
           const altAlgsByPolicies: any = {};
           const simulatorAlgPolicies: any = {};
           altAlgs
             .filter((altAlg: AlgorithmSubstitution): boolean => {
-              return altAlg.algorithm.id in (this.algorithmsMap as OntologyTermsMap);
+              return altAlg.algorithms[1].id in (this.algorithmsMap as OntologyTermsMap);
             })
             .forEach((altAlg: AlgorithmSubstitution): void => {
               if (!(altAlg.maxPolicy.id in altAlgsByPolicies)) {
@@ -144,12 +144,12 @@ export class SuggestSimulatorComponent implements OnInit, OnDestroy {
                 };
               }
               altAlgsByPolicies[altAlg.maxPolicy.id].algorithms.push({
-                id: altAlg.algorithm.id,
-                name: altAlg.algorithm.name,
-                url: 'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' + altAlg.algorithm.id,
+                id: altAlg.algorithms[1].id,
+                name: altAlg.algorithms[1].name,
+                url: 'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' + altAlg.algorithms[1].id,
               });
 
-              this.algorithmsMap?.[altAlg.algorithm.id]?.simulators?.forEach((simulator: string): void => {
+              this.algorithmsMap?.[altAlg.algorithms[1].id]?.simulators?.forEach((simulator: string): void => {
                 if (!(simulator in simulatorAlgPolicies)) {
                   simulatorAlgPolicies[simulator] = {
                     id: simulator,
@@ -175,9 +175,9 @@ export class SuggestSimulatorComponent implements OnInit, OnDestroy {
                 })
                 .map((altAlg: AlgorithmSubstitution): Algorithm => {
                   return {
-                    id: altAlg.algorithm.id,
-                    name: altAlg.algorithm.name,
-                    url: 'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' + altAlg.algorithm.id,
+                    id: altAlg.algorithms[1].id,
+                    name: altAlg.algorithms[1].name,
+                    url: 'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' + altAlg.algorithms[1].id,
                   }
                 });
               algorithms.sort((a: Algorithm, b: Algorithm): number => {
