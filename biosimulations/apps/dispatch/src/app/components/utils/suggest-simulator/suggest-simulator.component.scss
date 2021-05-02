@@ -13,9 +13,13 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 1rem;
+  &:not(:last-child) {
+    margin-bottom: 0;
+  }
 
   .form-section {
     height: 100%;
+    margin-bottom: 0;
   }
 
   ul {

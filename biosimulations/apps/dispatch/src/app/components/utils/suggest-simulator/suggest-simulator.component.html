@@ -23,7 +23,7 @@
                 formControlName="algorithm"
                 (ngModelChange)="getAlgorithmSimulatorSuggestions()"
               >
-                <mat-option *ngFor="let algorithm of algorithms | async" [value]="algorithm.id">{{ algorithm.name }} ({{ algorithm.id }})</mat-option>
+                <mat-option *ngFor="let algorithm of algorithms | async" [value]="algorithm.algorithm.id">{{ algorithm.algorithm.name }} ({{ algorithm.algorithm.id }})</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -31,8 +31,8 @@
       </div>
     </div>
 
-    <div class="suggestions" *ngIf="(suggestions | async) as suggestionsSync">
-      <div class="form-section" *ngIf="suggestionsSync.altAlgsByPolicies as altAlgsByPolicies">
+    <div class="suggestions" *ngIf="suggestions">
+      <div class="form-section" *ngIf="suggestions.altAlgorithms as altAlgorithms">
         <div class="form-section-head">
           <div class="mat-form-field-prefix">
             <biosimulations-icon icon="code"></biosimulations-icon>
@@ -43,16 +43,16 @@
           </div>
         </div>
         <div class="form-section-body">
-          <ng-container *ngIf="altAlgsByPolicies.length; else noSimilarAlgs">
+          <ng-container *ngIf="altAlgorithms.length; else noSimilarAlgs">
             <p>
-              In descending order of similarity, the following available algorithms are similar to {{ selectedAlgorithm?.name }} (<a [href]="selectedAlgorithm?.url" target="_blank">{{ selectedAlgorithm?.id }}</a>):
+              In descending order of similarity, the following available algorithms are similar to {{ suggestions?.algorithm?.name }} (<a [href]="suggestions?.algorithm?.url" target="_blank">{{ suggestions?.algorithm?.id }}</a>):
             </p>
             <ul class="vertically-spaced">
-              <li *ngFor="let altAlgsByPolicy of altAlgsByPolicies">
+              <li *ngFor="let altAlgorithm of altAlgorithms">
                 <div>
-                  <div>{{ altAlgsByPolicy.policy.name }} (<code>{{ altAlgsByPolicy.policy.id }}</code> - Level {{ altAlgsByPolicy.policy.level }})</div>
+                  <div>{{ altAlgorithm.maxPolicy.name }} (<code>{{ altAlgorithm.maxPolicy.id }}</code> - Level {{ altAlgorithm.maxPolicy.level }})</div>
                   <ul>
-                    <li *ngFor="let altAlg of altAlgsByPolicy.algorithms">
+                    <li *ngFor="let altAlg of altAlgorithm.algorithms">
                       <div>
                         {{ altAlg.name }} (<a [href]="altAlg.url" target="_blank">{{ altAlg.id }}</a>)
                       </div>
@@ -63,12 +63,12 @@
             </ul>
           </ng-container>
           <ng-template #noSimilarAlgs>
-            <p>No information is available about similar algorithms to {{ selectedAlgorithm?.name }} (<a [href]="selectedAlgorithm?.url" target="_blank">{{ selectedAlgorithm?.id }}</a>).</p>
+            <p>No information is available about similar algorithms to {{ suggestions?.algorithm?.name }} (<a [href]="suggestions?.algorithm?.url" target="_blank">{{ suggestions?.algorithm?.id }}</a>).</p>
           </ng-template>
         </div>
       </div>
 
-      <div class="form-section" *ngIf="suggestionsSync.simulatorsByPolicies as simulatorsByPolicies">
+      <div class="form-section" *ngIf="suggestions.simulators as simulatorsByPolicies">
         <div class="form-section-head">
           <div class="mat-form-field-prefix">
             <biosimulations-icon icon="simulator"></biosimulations-icon>
@@ -81,12 +81,12 @@
         <div class="form-section-body">
           <ng-container *ngIf="simulatorsByPolicies.length; else noImplementations">
             <p>
-              In descending order of similarity, the following simulation tools can execute algorithms similar to {{ selectedAlgorithm?.name }} (<a [href]="selectedAlgorithm?.url" target="_blank">{{ selectedAlgorithm?.id }}</a>):
+              In descending order of similarity, the following simulation tools can execute algorithms similar to {{ suggestions?.algorithm?.name }} (<a [href]="suggestions?.algorithm?.url" target="_blank">{{ suggestions?.algorithm?.id }}</a>):
             </p>
             <ul class="vertically-spaced">
               <li *ngFor="let simulatorsByPolicy of simulatorsByPolicies">
                 <div>
-                  <div>{{ simulatorsByPolicy.policy.name }} (<code>{{ simulatorsByPolicy.policy.id }}</code> - Level {{ simulatorsByPolicy.policy.level }})</div>
+                  <div>{{ simulatorsByPolicy.maxPolicy.name }} (<code>{{ simulatorsByPolicy.maxPolicy.id }}</code> - Level {{ simulatorsByPolicy.maxPolicy.level }})</div>
                   <ul class="vertically-spaced">
                     <li *ngFor="let simulator of simulatorsByPolicy.simulators">
                       <div>
@@ -109,7 +109,7 @@
 
           </ng-container>
           <ng-template #noImplementations>
-            <p>No information is available about simulation tools that can execute algorithms similar to {{ selectedAlgorithm?.name }} (<a [href]="selectedAlgorithm?.url" target="_blank">{{ selectedAlgorithm?.id }}</a>).</p>
+            <p>No information is available about simulation tools that can execute algorithms similar to {{ suggestions?.algorithm?.name }} (<a [href]="suggestions?.algorithm?.url" target="_blank">{{ suggestions?.algorithm?.id }}</a>).</p>
           </ng-template>
         </div>
       </div>
