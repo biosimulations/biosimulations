@@ -152,6 +152,10 @@ table.icon-list {
   margin-top: 0.5rem;
 }
 
+ul .vertically-spaced > li:not(:first-child) {
+  margin-top: 0.25rem;
+}
+
 ul.key-value li {
   a,
   .mat-icon-button.biosimulations-button.primary {

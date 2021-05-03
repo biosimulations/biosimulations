@@ -1,0 +1,118 @@
+<biosimulations-page heading="Find simulation tools that implement similar algorithms">
+  <p class="instructions">Executing a simulation requires a simulation tool that supports the algorithms, or similar algorithms, specified for the simulaton. In turn, this requires information about the similarity among simulation algorithms and which algorithms each simulation tool implements. This form combines this information to suggest simulation tools that have the capabilities to execute algorithms that are similar to a specified algorithm. The form also provides information about the degree of similar between the specified algorithm and potential alternative algorithms.</p>
+
+  <form [formGroup]="formGroup">
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="project"></biosimulations-icon>
+        </div>
+        <div class="form-section-head-title-subtitle">
+          <div class="form-section-title">Algorithm*</div>
+          <div class="form-section-subtitle">Select an algorithm</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <div class="columns one-columns">
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
+              <mat-label>Select an algorithm</mat-label>
+              <mat-select
+                required
+                formControlName="algorithm"
+                (ngModelChange)="getAlgorithmSimulatorSuggestions()"
+              >
+                <mat-option *ngFor="let algorithm of algorithms | async" [value]="algorithm.algorithm.id">{{ algorithm.algorithm.name }} ({{ algorithm.algorithm.id }})</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="suggestions" *ngIf="suggestions">
+      <div class="form-section" *ngIf="suggestions.altAlgorithms as altAlgorithms">
+        <div class="form-section-head">
+          <div class="mat-form-field-prefix">
+            <biosimulations-icon icon="code"></biosimulations-icon>
+          </div>
+          <div class="form-section-head-title-subtitle">
+            <div class="form-section-title">Similar algorithms</div>
+            <div class="form-section-subtitle">Algorithms that produce similar predictions to the selected algorithm</div>
+          </div>
+        </div>
+        <div class="form-section-body">
+          <ng-container *ngIf="altAlgorithms.length; else noSimilarAlgs">
+            <p>
+              In descending order of similarity, the following available algorithms are similar to {{ suggestions?.algorithm?.name }} (<a [href]="suggestions?.algorithm?.url" target="_blank">{{ suggestions?.algorithm?.id }}</a>):
+            </p>
+            <ul class="vertically-spaced">
+              <li *ngFor="let altAlgorithm of altAlgorithms">
+                <div>
+                  <div>{{ altAlgorithm.maxPolicy.name }} (<code>{{ altAlgorithm.maxPolicy.id }}</code> - Level {{ altAlgorithm.maxPolicy.level }})</div>
+                  <ul>
+                    <li *ngFor="let altAlg of altAlgorithm.algorithms">
+                      <div>
+                        {{ altAlg.name }} (<a [href]="altAlg.url" target="_blank">{{ altAlg.id }}</a>)
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </ng-container>
+          <ng-template #noSimilarAlgs>
+            <p>No information is available about similar algorithms to {{ suggestions?.algorithm?.name }} (<a [href]="suggestions?.algorithm?.url" target="_blank">{{ suggestions?.algorithm?.id }}</a>).</p>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="form-section" *ngIf="suggestions.simulators as simulatorsByPolicies">
+        <div class="form-section-head">
+          <div class="mat-form-field-prefix">
+            <biosimulations-icon icon="simulator"></biosimulations-icon>
+          </div>
+          <div class="form-section-head-title-subtitle">
+            <div class="form-section-title">Suggested simulation tools</div>
+            <div class="form-section-subtitle">Simulation tools that have capabilities the selected algorithm or similar algorithms</div>
+          </div>
+        </div>
+        <div class="form-section-body">
+          <ng-container *ngIf="simulatorsByPolicies.length; else noImplementations">
+            <p>
+              In descending order of similarity, the following simulation tools can execute algorithms similar to {{ suggestions?.algorithm?.name }} (<a [href]="suggestions?.algorithm?.url" target="_blank">{{ suggestions?.algorithm?.id }}</a>):
+            </p>
+            <ul class="vertically-spaced">
+              <li *ngFor="let simulatorsByPolicy of simulatorsByPolicies">
+                <div>
+                  <div>{{ simulatorsByPolicy.maxPolicy.name }} (<code>{{ simulatorsByPolicy.maxPolicy.id }}</code> - Level {{ simulatorsByPolicy.maxPolicy.level }})</div>
+                  <ul class="vertically-spaced">
+                    <li *ngFor="let simulator of simulatorsByPolicy.simulators">
+                      <div>
+                        {{ simulator.name }} (<a [href]="simulator.url" target="_blank">{{ simulator.id }}</a>)
+                      </div>
+                      <div>
+                        <ul>
+                          <li *ngFor="let alg of simulator.algorithms">
+                            <div>
+                              {{ alg.name }} (<a [href]="alg.url" target="_blank">{{ alg.id }}</a>)
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+
+          </ng-container>
+          <ng-template #noImplementations>
+            <p>No information is available about simulation tools that can execute algorithms similar to {{ suggestions?.algorithm?.name }} (<a [href]="suggestions?.algorithm?.url" target="_blank">{{ suggestions?.algorithm?.id }}</a>).</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </form>
+</biosimulations-page>

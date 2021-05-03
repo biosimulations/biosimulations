@@ -1,15 +1,31 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Router } from '@angular/router';
 
 import { BrowseComponent } from './browse/browse.component';
 import { ViewComponent } from './view/view.component';
+import { urls } from '@biosimulations/config/common';
 
-const shareUrl = (url: string): string => {
+function rerunSimulation(url: string, router: Router): undefined {
+  const parts = url.split('/');
+  const id = parts[parts.length - 1];
+
+  router.navigate(['/run'], {
+      queryParams: {
+        projectUrl: `${urls.dispatchApi}run/${id}/download`,
+      },
+    }
+  );
+
+  return undefined;
+}
+
+function shareSimulation(url: string): string {
   const protocol = window.location.protocol;
   const host = window.location.host;
   navigator.clipboard.writeText(protocol + '//' + host + url);
   return 'The URL for sharing this simulation was copied to your clipboard.';
-};
+}
+
 const routes: Routes = [
   {
     path: '',
@@ -21,7 +37,13 @@ const routes: Routes = [
     data: {
       contextButtons: [
         {
-          onClick: shareUrl,
+          onClick: rerunSimulation,
+          hover: 'Re-run simulation',
+          icon: 'redo',
+          label: 'Re-run',
+        },
+        {
+          onClick: shareSimulation,
           hover: 'Click to copy URL to clipboard',
           icon: 'share',
           label: 'Share',

@@ -25,5 +25,14 @@
     "pathRewrite": {
       "^/ontology-api": ""
     }
+  },
+  "/combine-api": {
+    "target": "https://combine.api.biosimulations.dev",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/combine-api": ""
+    }
   }
 }

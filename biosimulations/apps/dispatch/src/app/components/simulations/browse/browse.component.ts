@@ -18,7 +18,9 @@ import exampleSimulationsOrgJson from './example-simulations.org.json';
 import { debounceTime, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { snackBarDuration } from '@biosimulations/config/common';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteSimulationsDialogComponent } from './delete-simulations-dialog.component';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -132,8 +134,8 @@ export class BrowseComponent implements OnInit {
         if (aVal < bVal) return -1;
         return 0;
       },
-      minWidth: 98,
-      maxWidth: 98,
+      minWidth: 75,
+      maxWidth: 75,
     },
     /*
     {
@@ -178,8 +180,8 @@ export class BrowseComponent implements OnInit {
         );
       },
       filterType: ColumnFilterType.date,
-      minWidth: 142,
-      maxWidth: 142,
+      minWidth: 133,
+      maxWidth: 133,
     },
     {
       id: 'updated',
@@ -201,8 +203,8 @@ export class BrowseComponent implements OnInit {
         );
       },
       filterType: ColumnFilterType.date,
-      minWidth: 142,
-      maxWidth: 142,
+      minWidth: 133,
+      maxWidth: 133,
       show: false,
     },
     {
@@ -259,8 +261,8 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 43,
-      maxWidth: 43,
+      minWidth: 38,
+      maxWidth: 38,
       filterable: false,
       sortable: false,
       comparator: (
@@ -326,8 +328,8 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 43,
-      maxWidth: 43,
+      minWidth: 38,
+      maxWidth: 38,
       filterable: false,
       sortable: false,
       comparator: (a: boolean, b: boolean, sign: number): number => {
@@ -372,8 +374,8 @@ export class BrowseComponent implements OnInit {
           return 'N/A';
         }
       },
-      minWidth: 43,
-      maxWidth: 43,
+      minWidth: 38,
+      maxWidth: 38,
       filterable: false,
       sortable: false,
       comparator: (
@@ -391,6 +393,47 @@ export class BrowseComponent implements OnInit {
         if (aVal < bVal) return -1;
         return 0;
       },
+    },
+    {
+      id: 'rerun',
+      heading: 'Rerun',
+      key: 'id',
+      center: true,
+      leftIcon: 'redo',
+      leftAction: ColumnActionType.click,
+      leftClick: (simulation: Simulation): void => {
+        this.router.navigate(['/run'], {
+            queryParams: {
+              projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+              simulator: simulation.simulator,
+              simulatorVersion: simulation.simulatorVersion,
+            },
+          }
+        );
+      },
+      centerAction: ColumnActionType.click,
+      centerClick: (simulation: Simulation): void => {
+        this.router.navigate(['/run'], {
+            queryParams: {
+              projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+              simulator: simulation.simulator,
+              simulatorVersion: simulation.simulatorVersion,
+            },
+          }
+        );
+      },
+      formatter: (id: string): null => {
+        return null;
+      },
+      stackedFormatter: (id: string): string => {
+        return 'Rerun simulation (e.g., with another simulation tool)';
+      },
+      minWidth: 38,
+      maxWidth: 38,
+      filterable: false,
+      sortable: false,
+      show: true,
+      showStacked: true,
     },
     {
       id: 'share',
@@ -418,8 +461,8 @@ export class BrowseComponent implements OnInit {
       leftIconTitle: (simulation: Simulation): string => {
         return 'Click to copy URL to clipboard';
       },
-      minWidth: 43,
-      maxWidth: 43,
+      minWidth: 38,
+      maxWidth: 38,
       filterable: false,
       sortable: false,
       show: true,
@@ -433,11 +476,11 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'trash',
       leftAction: ColumnActionType.click,
       leftClick: (simulation: Simulation): void => {
-        this.simulationService.removeSimulation(simulation.id);
+        this.removeSimulations(simulation);
       },
       centerAction: ColumnActionType.click,
       centerClick: (simulation: Simulation): void => {
-        this.simulationService.removeSimulation(simulation.id);
+        this.removeSimulations(simulation);
       },
       formatter: (id: string): null => {
         return null;
@@ -445,11 +488,11 @@ export class BrowseComponent implements OnInit {
       stackedFormatter: (id: string): string => {
         return 'Remove simulation';
       },
-      minWidth: 43,
-      maxWidth: 43,
+      minWidth: 38,
+      maxWidth: 38,
       filterable: false,
       sortable: false,
-      show: false,
+      show: true,
       showStacked: false,
     },
   ];
@@ -460,6 +503,8 @@ export class BrowseComponent implements OnInit {
     private simulationService: SimulationService,
     private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog,
   ) {
     activatedRoute.queryParams.subscribe((params: Params): void => {
       if (params?.try) {
@@ -528,8 +573,21 @@ export class BrowseComponent implements OnInit {
     input.click();
   }
 
-  removeSimulations(): void {
-    this.simulationService.removeSimulations();
+  removeSimulations(simulation?: Simulation): void {
+    const dialogRef = this.dialog.open(DeleteSimulationsDialogComponent, {
+      width: '350px',
+      data: simulation,
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean): void => {
+      if (confirmed) {
+        if (simulation) {
+          this.simulationService.removeSimulation(simulation.id);
+        } else {
+          this.simulationService.removeSimulations();
+        }
+      }
+    });
   }
 
   loadExampleSimulations(): number {

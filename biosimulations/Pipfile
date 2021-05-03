@@ -13,6 +13,9 @@ gunicorn = "*"
 flask-cors = "*"
 python-dotenv = "*"
 boto3 = "*"
+kisao = "*"
+stringcase = "*"
+natsort = "*"
 
 [dev-packages]
 openapi-core = "*"

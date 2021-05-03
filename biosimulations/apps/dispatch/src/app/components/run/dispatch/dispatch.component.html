@@ -86,7 +86,7 @@
       </div>
       <div class="form-section-body">
         <div class="form-field-group">
-          <div class="columns two-columns">
+          <div class="columns three-columns">
             <mat-form-field appearance="fill">
               <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
               <mat-label>Model formats involved in the archive</mat-label>
@@ -118,11 +118,25 @@
                 >{{ algorithm.name }}</mat-option>
               </mat-select>
             </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
+              <mat-label>Degree to which similar algorithms can be executed</mat-label>
+              <mat-select
+                formControlName="simulationAlgorithmSubstitutionPolicy"
+                (ngModelChange)="applyFilters()"
+              >
+                <mat-option
+                  *ngFor="let policy of ALGORITHM_SUBSTITUTION_POLICIES"
+                  [value]="policy.level"
+                >{{ policy.level }}. {{ policy.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
           <mat-hint>Use the above menus to narrow the list of simulation tools below to those tools which have the capabilities to execute your COMBINE/OMEX archive (tools which support the model formats and simulation algorithms of the models and simulations described by your COMBINE/OMEX archive).</mat-hint>
-          <mat-error *ngIf="(submitPushed || modelFormatsControl.touched) && modelFormatsControl.hasError('unsupportedFormats')">Your COMBINE/OMEX archive involves model formats that are not supported by any simulation tool available through runBioSimulations.</mat-error>
-          <mat-error *ngIf="(submitPushed || simulationAlgorithmsControl.touched) && simulationAlgorithmsControl.hasError('unsupportedAlgorithms')">Your COMBINE/OMEX archive involves simulation algorithms that are not supported by any simulation tool available through runBioSimulations.</mat-error>
+          <mat-error *ngIf="(submitPushed || modelFormatsControl.touched) && formGroup.hasError('unsupportedFormats', 'modelFormats')">Your COMBINE/OMEX archive involves model formats that are not supported by any simulation tool available through runBioSimulations.</mat-error>
+          <mat-error *ngIf="(submitPushed || simulationAlgorithmsControl.touched) && formGroup.hasError('unsupportedAlgorithms', 'simulationAlgorithms')">Your COMBINE/OMEX archive involves simulation algorithms that are not supported by any simulation tool available through runBioSimulations.</mat-error>
         </div>
       </div>
     </div>
@@ -214,8 +228,8 @@
               executing your archive.
             </p>
           </mat-hint>
-          <mat-error *ngIf="submitPushed && simulatorControl.hasError('required')">Please select a simulator.</mat-error>
-          <mat-error *ngIf="submitPushed && simulatorVersionControl.hasError('required')">Please select a version of the simulator.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('required', 'simulator')">Please select a simulator.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('required', 'simulatorVersion')">Please select a version of the simulator.</mat-error>
         </div>
       </div>
     </div>
@@ -282,13 +296,13 @@
           <mat-hint>Configure the amount of resources needed to execute your project. Currently, users can request up to 24 CPU cores, 192 GB RAM, and 20 days. if additional resources are needed, please contact the runBioSimulations Team <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> to discuss additional options.
           </mat-hint>
 
-          <mat-error *ngIf="cpusControl.hasError('min')">Jobs must request at least 1 core.</mat-error>
-          <mat-error *ngIf="cpusControl.hasError('max')">Jobs are limited to 24 CPU cores.</mat-error>
-          <mat-error *ngIf="cpusControl.hasError('integer')">Jobs must request an integer number of CPU cores.</mat-error>
-          <mat-error *ngIf="memoryControl.hasError('min')">Jobs must request at least 1 GB RAM.</mat-error>
-          <mat-error *ngIf="memoryControl.hasError('max')">Jobs are limited to 192 GB RAM.</mat-error>
-          <mat-error *ngIf="maxTimeControl.hasError('min')">Jobs must request at least 1 minute.</mat-error>
-          <mat-error *ngIf="maxTimeControl.hasError('max')">Jobs are limited to 20 days.</mat-error>
+          <mat-error *ngIf="formGroup.hasError('min', 'cpus')">Jobs must request at least 1 core.</mat-error>
+          <mat-error *ngIf="formGroup.hasError('max', 'cpus')">Jobs are limited to 24 CPU cores.</mat-error>
+          <mat-error *ngIf="formGroup.hasError('integer', 'cpus')">Jobs must request an integer number of CPU cores.</mat-error>
+          <mat-error *ngIf="formGroup.hasError('min', 'memory')">Jobs must request at least 1 GB RAM.</mat-error>
+          <mat-error *ngIf="formGroup.hasError('max', 'memory')">Jobs are limited to 192 GB RAM.</mat-error>
+          <mat-error *ngIf="formGroup.hasError('min', 'maxTime')">Jobs must request at least 1 minute.</mat-error>
+          <mat-error *ngIf="formGroup.hasError('max', 'maxTime')">Jobs are limited to 20 days.</mat-error>
         </div>
       </div>
     </div>
@@ -320,7 +334,7 @@
             projects, this name will help you identify this project among all of
             your projects.
           </mat-hint>
-          <mat-error *ngIf="submitPushed && nameControl.hasError('required')">Please enter a name for your project.</mat-error>
+          <mat-error *ngIf="submitPushed && formGroup.hasError('required', 'name')">Please enter a name for your project.</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -350,10 +364,10 @@
             will also receive a URL where you will be able to check the status of
             your simulation and retrieve its results.</p>
           </mat-hint>
-           <mat-error *ngIf="emailControl.hasError('email')">Please enter a valid email address.</mat-error>
+           <mat-error *ngIf="formGroup.hasError('email', 'email')">Please enter a valid email address.</mat-error>
         </mat-form-field>
 
-        <div *ngIf="emailControl.value && !emailControl.hasError('email')">
+        <div *ngIf="formGroup.value.email && !formGroup.hasError('email', 'email')">
           <mat-checkbox
             formControlName="emailConsent"
             [disableRipple]="true"

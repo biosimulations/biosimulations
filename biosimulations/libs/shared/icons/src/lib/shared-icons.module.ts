@@ -91,6 +91,7 @@ import {
   faServer,
   faWaveSquare,
   faSquareRootAlt,
+  faRedoAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -227,6 +228,7 @@ export class BiosimulationsIconsModule {
       faYoutube,
       faWaveSquare,
       faSquareRootAlt,
+      faRedoAlt,
     );
   }
 }

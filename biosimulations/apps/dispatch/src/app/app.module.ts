@@ -39,16 +39,15 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'validate',
+    path: 'utils',
     loadChildren: () =>
       // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
       import(
-        'apps/dispatch/src/app/components/validate-simulation-project/validate-simulation-project.module'
-      ).then((m) => m.ValidateSimulationProjectModule),
+        'apps/dispatch/src/app/components/utils/utils.module'
+      ).then((m) => m.UtilsModule),
     data: {
-      breadcrumb: 'Validate a simulation project',
+      breadcrumb: 'Utilities',
     },
-    pathMatch: 'full',
   },
   {
     path: 'run',
