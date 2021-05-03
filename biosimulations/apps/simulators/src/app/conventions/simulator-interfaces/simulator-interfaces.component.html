@@ -248,14 +248,33 @@ optional arguments:
             A recommended matrix of algorithm substitutions is available from the KiSAO ontology <a href="https://github.com/SED-ML/KiSAO/blob/dev/libkisao/python/docs/algorithm-substitutability.csv"><biosimulations-icon icon="link"></biosimulations-icon></a>. A Python package is also available for implementing this matrix <a href="https://github.com/SED-ML/KiSAO/blob/dev/libkisao/python/"><biosimulations-icon icon="link"></biosimulations-icon></a>.
           </p>
 
-          <ul>
+          <p>
+            When alternate algorithms are substituted, BioSimulators recommends
+            that simulation tools ignore SED algorithm parameters as algorithm
+            parameters can have different meanings in the context of different
+            algorithms.
+          </p>
+
+          <p>
+            For algorithm substitution level <code>NONE</code>, BioSimulators
+            recommends that simulation tools raise errors for unsupported algorithm
+            parameters and unsupported values of algorithm parameters. For higher
+            substitution levels, BioSimulators recommends that simulation tools skip
+            unsupported parameters and unsupported values and raise warnings
+            when parameters are skipped.
+          </p>
+
+          <ol start="0">
             <li>
               <code>NONE</code>: Tools should strictly interpret SED-ML
               simulations, and raise errors on the execution of SED-ML files
               that involve unsupported algorithms. For example, a simulation
               tool that only supports the Stochastic Simulation Algorithm (SSA,
               KISAO_0000029) should raise errors on SED-ML files that request
-              simulations with the Next Reaction Method (NRM< KISAO_0000027).
+              simulations with the Next Reaction Method (NRM, KISAO_0000027).
+              In many cases, this level will effectively constrain the execution
+              of a SED-ML document to a specific implementation of an algorithm
+              by a specific simulation tool.
             </li>
 
             <li>
@@ -325,7 +344,7 @@ optional arguments:
               switching SSA to CVODE loses all information about the variance of
               a simulation).
             </li>
-          </ul>
+          </ol>
         </li>
 
         <li>
