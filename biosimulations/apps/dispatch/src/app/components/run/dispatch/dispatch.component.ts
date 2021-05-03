@@ -94,7 +94,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   simulationAlgorithms?: Algorithm[];
   ALGORITHM_SUBSTITUTION_POLICIES = ALGORITHM_SUBSTITUTION_POLICIES
     .filter((policy: AlgorithmSubstitutionPolicy): boolean => {
-      return policy.level >= AlgorithmSubstitutionPolicyLevels.SAME_METHOD && policy.level <= AlgorithmSubstitutionPolicyLevels.SAME_VARIABLES;
+      return policy.level >= AlgorithmSubstitutionPolicyLevels.SAME_METHOD && policy.level <= AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK;
     });
 
   private simulatorIds = new Set<string>();
@@ -125,7 +125,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         projectUrl: ['', [Validators.required]],
         modelFormats: [[]],
         simulationAlgorithms: [[]],
-        simulationAlgorithmSubstitutionPolicy: [AlgorithmSubstitutionPolicyLevels.SAME_VARIABLES, [Validators.required]],
+        simulationAlgorithmSubstitutionPolicy: [AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK, [Validators.required]],
         simulator: ['', [Validators.required]],
         simulatorVersion: ['', [Validators.required]],
         cpus: [1, [Validators.required, Validators.min(1), Validators.max(24), this.integerValidator]],
@@ -254,7 +254,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       if (algSubs) {
         algSubs
           .filter((algorithmSubstitution: AlgorithmSubstitution): boolean => {
-            return algorithmSubstitution.maxPolicy.level <= AlgorithmSubstitutionPolicyLevels.SAME_VARIABLES;
+            return algorithmSubstitution.maxPolicy.level <= AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK;
           })
           .forEach((algorithmSubstitution: AlgorithmSubstitution): void => {
             algorithmSubstitution.algorithms.forEach((algorithm: KisaoAlgorithm): void => {

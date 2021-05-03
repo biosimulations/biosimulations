@@ -642,13 +642,17 @@
               <mat-label>Based on the information about, below are simulation tools which likely can execute your simulation:</mat-label>
               <div class="input simulators">
                 <div class="input-heading">Name</div>
+                <div class="input-heading">Algorithm compatability</div>
+                <div class="input-heading">Algorithm parameter compatability</div>
                 <div class="input-heading more-info">More info</div>
                 <div class="input-heading"></div>
 
-                <ng-container *ngFor="let simulator of compatibleSimulators">
-                  <div class="input-row input-label">{{ simulator.name }}</div>
+                <ng-container *ngFor="let compatibleSimulator of compatibleSimulators">
+                  <div class="input-row input-label">{{ compatibleSimulator.simulator.name }}</div>
+                  <div class="input-row input-label">{{ compatibleSimulator.maxPolicy.level }}. {{ compatibleSimulator.maxPolicy.name }}</div>
+                  <div class="input-row input-label">{{ compatibleSimulator.parametersCompatibility ? 'Yes' : 'No' }}</div>
                   <div class="input-row input-label more-info">
-                    <a [href]="simulator.url" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>
+                    <a [href]="compatibleSimulator.simulator.url" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>
                   </div>
                   <div class="input-row"></div>
                 </ng-container>

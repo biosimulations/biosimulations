@@ -14,15 +14,23 @@ import {
   DispatchService,
   SimulatorsData,
   SimulatorSpecs,
+  SimulatorSpecsMap,
   ModelingFrameworksAlgorithmsForModelFormat,
   AlgorithmParameter,
 } from '../../../services/dispatch/dispatch.service';
-import { combineLatest, Observable, of, Subscription, BehaviorSubject } from 'rxjs';
+import {
+  AlgorithmSubstitutionPolicyLevels,
+  ALGORITHM_SUBSTITUTION_POLICIES,
+  AlgorithmSubstitution,
+  AlgorithmSubstitutionPolicy,
+} from '../../../kisao.interface';
+import { CombineService } from '../../../services/combine/combine.service';
+import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
+import { map, concatAll, withLatestFrom, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import isUrl from 'is-url';
 import { urls } from '@biosimulations/config/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@biosimulations/shared/environments';
@@ -98,6 +106,12 @@ interface MultipleSimulatorsAlgorithmParameter {
 
 type PostCreateAction = 'download' | 'simulate';
 
+interface CompatibleSimulator {
+  simulator: Simulator;
+  maxPolicy: AlgorithmSubstitutionPolicy;
+  parametersCompatibility: boolean;
+}
+
 @Component({
   selector: 'biosimulations-create-simulation-project',
   templateUrl: './create-simulation-project.component.html',
@@ -111,6 +125,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   modelVariablesArray: FormArray;
 
   private simulatorSpecs?: SimulatorSpecs[];
+  private simulatorSpecsMap?: SimulatorSpecsMap;
+  private algSubstitutions?: {[id:string]: AlgorithmSubstitutionPolicy};
   private allModelFormats?: OntologyTerm[];
   private allModelingFrameworks?: OntologyTerm[];
   private allSimulationTypes = [
@@ -142,7 +158,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       name: 'Target',
     },
   ] as OntologyTerm[];
-  compatibleSimulators?: Simulator[];
+  compatibleSimulators?: CompatibleSimulator[];
 
   modelFileTypeSpecifiers =
     '.xml,.sbml,application/xml,application/sbml+xml,.bngl';
@@ -165,6 +181,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     private router: Router,
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
+    private combineService: CombineService,
     private http: HttpClient,
     private snackBar: MatSnackBar,
   ) {
@@ -421,7 +438,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const frameworkSboId = modelingFrameworkControl.value;
     const algKisaoId = simulationAlgorithmControl.value;
 
-    let simIds = new Set<string>();
+    const simCompatibilities: {[id: string]: {algorithm: AlgorithmSubstitutionPolicy, parameters: boolean}} = {};
     this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
       simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
         (
@@ -433,12 +450,28 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
             ) &&
             modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(
               frameworkSboId,
-            ) &&
-            modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.includes(
-              algKisaoId,
             )
           ) {
-            simIds.add(simulator.id);
+            if (modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.includes(algKisaoId)) {
+              simCompatibilities[simulator.id] = {
+                algorithm: ALGORITHM_SUBSTITUTION_POLICIES[AlgorithmSubstitutionPolicyLevels.SAME_METHOD],
+                parameters: true,
+              }
+            }
+
+            modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.forEach((simAlgId: string): void => {
+              const policy = this.algSubstitutions?.[simAlgId + '/' + algKisaoId];
+              if (policy) {
+                if (!(simulator.id in simCompatibilities)) {
+                  simCompatibilities[simulator.id] = {
+                    algorithm: policy,
+                    parameters: true,
+                  }
+                } else if (policy.level < simCompatibilities[simulator.id].algorithm.level) {
+                  simCompatibilities[simulator.id].algorithm = policy;
+                }
+              }
+            });
           }
         },
       );
@@ -447,24 +480,27 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     formGroup.value.simulationAlgorithmParameters.forEach(
       (control: any): void => {
         if (control.newValue) {
-          simIds = this.setIntersection(simIds, control.simulators);
+          Object.entries(simCompatibilities).forEach(([simId, compatability]: [string, any]): void => {
+            if (!control.simulators.has(simId) && compatability.algorithm.level < AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK) {
+              simCompatibilities[simId].parameters = false;
+            }
+          })
         }
       },
     );
 
-    this.compatibleSimulators = this.simulatorSpecs
-      ?.filter((simulator: SimulatorSpecs): boolean => {
-        return simIds.has(simulator.id);
-      })
-      ?.map(
-        (simulator: SimulatorSpecs): Simulator => {
-          return {
-            id: simulator.id,
-            name: simulator.name,
-            url: 'https://biosimulators.org/simulators/' + simulator.id,
-          };
-        },
-      );
+    this.compatibleSimulators = Object.entries(simCompatibilities)
+      .map(([simId, compatability]: [string, any]): CompatibleSimulator => {
+        return {
+          simulator: {
+            id: simId,
+            name: this.simulatorSpecsMap?.[simId]?.name as string,
+            url: 'https://biosimulators.org/simulators/' + simId,
+          },
+          maxPolicy: compatability.algorithm,
+          parametersCompatibility: compatability.parameters,
+        };
+      });
 
     if (!this.simulatorSpecs || this.compatibleSimulators?.length) {
       return null;
@@ -1111,13 +1147,44 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    combineLatest([
-      this.dispatchService.getSimulatorsFromDb(),
-      this.route.queryParams,
-    ]).subscribe((observerableValues: [SimulatorsData, Params]): void => {
-      const simulatorsData = observerableValues[0] as SimulatorsData;
-      const queryParams = observerableValues[1] as Params;
+    const simulatorsDataObs = this.dispatchService.getSimulatorsFromDb();
+    const algorithmSubObs = simulatorsDataObs.pipe(
+      map((simulatorsData: SimulatorsData): Observable<AlgorithmSubstitution[] | undefined> => {
+        return this.combineService.getSimilarAlgorithms(Object.keys(simulatorsData.simulationAlgorithms));
+      }),
+      concatAll(),
+      withLatestFrom(simulatorsDataObs, this.route.queryParams),
+    );
+
+    const algorithmSubSubcription = algorithmSubObs.subscribe((observerableValues: [AlgorithmSubstitution[] | undefined, SimulatorsData, Params]): void => {
+      if (!observerableValues[0]) {
+        this.snackBar.open(
+          'Sorry! We were unable to load information about the simularity among algorithms.',
+          undefined,
+          {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          },
+        );
+      }
+
+      const algSubstitutions = observerableValues[0] as AlgorithmSubstitution[];
+      const simulatorsData = observerableValues[1] as SimulatorsData;
+      const queryParams = observerableValues[2] as Params;
+
+      this.simulatorSpecsMap = simulatorsData.simulatorSpecs;
       this.simulatorSpecs = Object.values(simulatorsData.simulatorSpecs);
+      const algSubstitutionsMap: any = {};
+      algSubstitutions
+        .filter((algSubstitution: AlgorithmSubstitution): boolean => {
+          return algSubstitution.maxPolicy.level <= AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK;
+        })
+        .forEach((algSubstitution: AlgorithmSubstitution): void => {
+          algSubstitutionsMap[algSubstitution.algorithms[0].id + '/' + algSubstitution.algorithms[1].id] = algSubstitution.maxPolicy;
+        })
+      this.algSubstitutions = algSubstitutionsMap;
+
       this.allModelFormats = Object.values(simulatorsData.modelFormats).map(
         (format: any): OntologyTerm => {
           return {
@@ -1270,6 +1337,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       // clear errors
       this.formGroup.setErrors(null);
     });
+  this.subscriptions.push(algorithmSubSubcription);
   }
 
   ngOnDestroy(): void {
