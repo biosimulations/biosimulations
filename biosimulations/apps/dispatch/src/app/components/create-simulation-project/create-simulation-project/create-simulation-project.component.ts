@@ -57,7 +57,7 @@ const modelFormatMetaData: {
   format_3972: {
     name: 'BNGL',
     sedUrn: 'urn:sedml:language:bngl',
-    combineSpecUrl: 'http://bionetgen.org/',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/text/bngl+plain',
     extension: 'bngl',
   },
   format_2585: {
