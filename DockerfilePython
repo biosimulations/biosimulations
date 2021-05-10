@@ -3,11 +3,6 @@
 #############
 FROM python:3.9-buster as base
 
-RUN apt-get update -y \
-    && apt-get install --no-install-recommends -y openjdk-11-jre \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
-
 #The name of the app to build
 ARG app
 ENV APP=$app
