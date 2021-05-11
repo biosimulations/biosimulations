@@ -201,19 +201,24 @@ export class SimulationRunService {
     body: UploadSimulationRunUrl,
   ): Promise<SimulationRunModelReturnType> {
     const url = body.url;
-    const file_headers = await this.http.head(url).toPromise();
-
     // If the url provides the following information, grab it and store it in the database
     //! This does not adress the security issues of downloading user provided urls.
     //! The content size may not be present or accurate. The backend must check the size. See @2536
+    let size = undefined;
+    let mimetype = undefined;
+    let originalname = undefined;
+    try {
+      const file_headers = await this.http.head(url).toPromise();
+      size = file_headers.headers['content-length'];
+      mimetype = file_headers.headers['content-type'];
+      originalname = file_headers.headers['content-disposition']?.split(
+        'filename=',
+      )[1];
+    } catch (e) {
+      this.logger.warn(e);
+    }
 
-    const size = file_headers.headers['content-length'];
-    const mimetype = file_headers.headers['content-type'];
-    const originalname = file_headers.headers['content-disposition']?.split(
-      'filename=',
-    )[1];
-
-    if (size > ONE_GIGABYTE) {
+    if (size && size > ONE_GIGABYTE) {
       throw new PayloadTooLargeException(
         'The maximum allowed size of the file is 1GB',
       );
