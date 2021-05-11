@@ -5,15 +5,17 @@
  * @license MIT
  */
 import {
+  HttpService,
   Injectable,
   InternalServerErrorException,
   Logger,
   NotFoundException,
+  PayloadTooLargeException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { SimulationFile } from './file.model';
-import { Model, mongo} from 'mongoose';
+import { Model, mongo } from 'mongoose';
 import {
   SimulationRunModel,
   SimulationRunModelReturnType,
@@ -27,6 +29,8 @@ import {
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SharedStorageService } from '@biosimulations/shared/storage';
 
+// 1gb in bytes to be used as file size limits
+const ONE_GIGABYTE = 1073741824;
 const toApi = <T extends SimulationRunModelType>(
   obj: T,
 ): SimulationRunModelReturnType => {
@@ -44,6 +48,7 @@ export class SimulationRunService {
     @InjectModel(SimulationRunModel.name)
     private simulationRunModel: Model<SimulationRunModel>,
     private storageService: SharedStorageService,
+    private http: HttpService,
   ) {}
 
   public async setStatus(
@@ -91,7 +96,6 @@ export class SimulationRunService {
         .exec();
       if (SimFile) {
         // Return the file and metadata
-
         return {
           size: SimFile.size,
           mimetype: SimFile.mimetype,
@@ -197,7 +201,25 @@ export class SimulationRunService {
     body: UploadSimulationRunUrl,
   ): Promise<SimulationRunModelReturnType> {
     const url = body.url;
-    const file = new this.fileModel({ url });
+    const file_headers = await this.http.head(url).toPromise();
+
+    // If the url provides the following information, grab it and store it in the database
+    //! This does not adress the security issues of downloading user provided urls.
+    //! The content size may not be present or accurate. The backend must check the size. See @2536
+
+    const size = file_headers.headers['content-length'];
+    const mimetype = file_headers.headers['content-type'];
+    const originalname = file_headers.headers['content-disposition']?.split(
+      'filename=',
+    )[1];
+
+    if (size > ONE_GIGABYTE) {
+      throw new PayloadTooLargeException(
+        'The maximum allowed size of the file is 1GB',
+      );
+    }
+
+    const file = new this.fileModel({ url, size, mimetype, originalname });
     const simId = String(new mongo.ObjectId());
     return this.createRun(body, file, simId);
   }
@@ -212,7 +234,10 @@ export class SimulationRunService {
     id: string,
   ): Promise<SimulationRunModelReturnType> {
     const newSimulationRun = new this.simulationRunModel(run);
+
     const session = await this.simulationRunModel.startSession();
+    // If any of the code within the transaction fails, then mongo will abort and revert any changes
+    // We dont need to worry about any error handling since any thrown errors will be caught by the app level error handlers
     await session.withTransaction(async (session) => {
       newSimulationRun.$session(session);
       file.$session(session);
