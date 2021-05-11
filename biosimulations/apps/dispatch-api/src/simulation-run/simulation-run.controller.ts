@@ -59,7 +59,8 @@ import { timeout, catchError, retry } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 type multipartSimulationRunBody = { simulationRun: string };
-
+// 1gb in bytes to be used as file size limits
+const ONE_GIGABYTE = 1073741824;
 @ApiTags('Simulation runs')
 @Controller('run')
 @ApiExtraModels(UploadSimulationRun, UploadSimulationRunUrl, SimulationUpload)
@@ -140,7 +141,7 @@ export class SimulationRunController {
   })
 
   // Set a file size limit close to 16mb which is the mongodb limit
-  @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 16000000 } }))
+  @UseInterceptors(FileInterceptor('file', { limits: { fileSize: ONE_GIGABYTE } }))
   @Post()
   public async createRun(
     @Body() body: multipartSimulationRunBody | UploadSimulationRunUrl,
