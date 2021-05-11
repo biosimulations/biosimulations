@@ -34,12 +34,16 @@ export class SharedStorageService {
   public async putObject(
     id: string,
     data: Buffer,
+    isPrivate = false,
   ): Promise<AWS.S3.ManagedUpload.SendData> {
+    const acl = isPrivate ? 'private' : 'public-read';
     const request: AWS.S3.PutObjectRequest = {
       Key: id,
       Body: data,
       Bucket: this.BUCKET,
+      ACL: acl,
     };
+
     const public_url = this.PUBLIC_ENDPOINT + id;
     const call = this.s3.upload(request);
     const res = await call.promise();
