@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { ConfigService } from '@nestjs/config';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppService } from './app.service';
+
 import { SimulationRunModule } from '../simulation-run/simulation-run.module';
 import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions/filters';
 import { ResultsModule } from '../results/results.module';
@@ -39,6 +39,6 @@ import { SharedStorageModule } from '@biosimulations/shared/storage';
     SharedStorageModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}
