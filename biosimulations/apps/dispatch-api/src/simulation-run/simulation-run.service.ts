@@ -13,7 +13,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 
 import { SimulationFile } from './file.model';
-import { Model } from 'mongoose';
+import { Model, mongo} from 'mongoose';
 import {
   SimulationRunModel,
   SimulationRunModelReturnType,
@@ -63,17 +63,16 @@ export class SimulationRunService {
     id: string,
   ): Promise<{
     size?: number;
-    buffer?: Buffer;
     originalname?: string;
     mimetype?: string;
     encoding?: string;
     url?: string;
   }> {
     // Find the simulation with the id
-    const file = await this.simulationRunModel.findById(id, { file: 1 }).exec();
+    const run = await this.simulationRunModel.findById(id, { file: 1 }).exec();
 
     //Get the id of the file
-    const fileId = (file?.file as unknown) as string;
+    const fileId = (run?.file as unknown) as string;
 
     if (fileId) {
       // Get the file object from the db
@@ -92,13 +91,10 @@ export class SimulationRunService {
         .exec();
       if (SimFile) {
         // Return the file and metadata
-        const buffer = SimFile?.buffer?.buffer
-          ? Buffer.from(SimFile.buffer.buffer)
-          : undefined;
+
         return {
           size: SimFile.size,
           mimetype: SimFile.mimetype,
-          buffer: buffer,
           encoding: SimFile.encoding,
           originalname: SimFile.originalname,
           url: SimFile.url,
@@ -176,71 +172,62 @@ export class SimulationRunService {
     return res;
   }
 
+  public async createRunWithFile(
+    run: UploadSimulationRun,
+    file: any,
+  ): Promise<SimulationRunModelReturnType> {
+    const simId = String(new mongo.ObjectId());
+    const fileId = 'simulations/' + String(simId) + '/' + file.originalname;
+    const s3file = await this.storageService.putObject(fileId, file.buffer);
+    const url = encodeURI(s3file.Location);
+
+    const fileParsed = {
+      originalname: file.originalname,
+      encoding: file.encoding,
+      mimetype: file.mimetype,
+      url: url,
+      size: file.size,
+    };
+
+    const newFile = new this.fileModel(fileParsed);
+
+    return this.createRun(run, newFile, simId);
+  }
   public async createRunWithURL(
     body: UploadSimulationRunUrl,
   ): Promise<SimulationRunModelReturnType> {
     const url = body.url;
     const file = new this.fileModel({ url });
-    return this.createRun(body, file);
+    const simId = String(new mongo.ObjectId());
+    return this.createRun(body, file, simId);
   }
   /**
    *
    * @param run A POJO with the fields of the simulation run
    * @param file The file object returned by the Mutter library containing the COMBINE/OMEX archive file
    */
-
   private async createRun(
     run: UploadSimulationRun,
     file: SimulationFile,
+    id: string,
   ): Promise<SimulationRunModelReturnType> {
     const newSimulationRun = new this.simulationRunModel(run);
-    newSimulationRun.id = newSimulationRun._id;
-    newSimulationRun.file = file;
-    newSimulationRun.projectSize = file.size;
-    newSimulationRun.depopulate('file');
-
-    if (file.buffer) {
-      this.logger.log('correct branch');
-      const name = file.originalname || 'input.omex';
-      const fileId = newSimulationRun.id + '/' + name;
-      this.storageService
-        .putObject(fileId, file.buffer)
-        .then((value) => console.log('test'))
-        .catch((err) => this.logger.error(err));
-    }
-
-    const modelPromise = newSimulationRun.save();
-
-    /* Determine if there is a better way to do this. Need to ensure that file is saved properly, if not delete the model entry
-    Unclear if I should use a promise.all here. Since promise is created before await, this should be efficient either way.
-    The method will probably? still return even if the new run is removed. That would need to be fixed to retun an error instead */
-    // yes, use transactions.
-
-    const modelRes = await modelPromise;
-    //Wait for this to resolve to make sure that the model is deleted if needed.
-    try {
-      await file.save();
-    } catch (error) {
-      newSimulationRun.remove();
-      throw error;
-    }
-    return toApi(modelRes);
+    const session = await this.simulationRunModel.startSession();
+    await session.withTransaction(async (session) => {
+      newSimulationRun.$session(session);
+      file.$session(session);
+      newSimulationRun._id = new mongo.ObjectID(id);
+      newSimulationRun.id = String(newSimulationRun._id);
+      newSimulationRun.file = file;
+      newSimulationRun.projectSize = file.size;
+      newSimulationRun.depopulate('file');
+      await file.save({ session: session });
+      await newSimulationRun.save({ session: session });
+    });
+    session.endSession();
+    return toApi(newSimulationRun);
   }
-  public async createRunWithFile(
-    run: UploadSimulationRun,
-    file: any,
-  ): Promise<SimulationRunModelReturnType> {
-    const fileParsed = {
-      originalname: file.originalname,
-      encoding: file.encoding,
-      mimetype: file.mimetype,
-      buffer: file.buffer,
-      size: file.size,
-    };
 
-    const newFile = new this.fileModel(fileParsed);
-    return this.createRun(run, newFile);
-  }
   private updateModelRunTime(model: SimulationRunModel): SimulationRunModel {
     model.runtime = Date.now() - model.submitted.getTime();
     this.logger.debug(`Set ${model.id} runtime to ${model.runtime} `);

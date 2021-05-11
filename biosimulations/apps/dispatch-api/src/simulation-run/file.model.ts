@@ -12,18 +12,18 @@ import { isUrl } from '@biosimulations/datamodel-database';
 @Schema({ collection: 'Simulation Files' })
 export class SimulationFile extends Document {
   @Prop({ type: String, required: false })
-  originalname?: string;
+  public originalname?: string;
   @Prop({ type: String, required: false })
-  encoding?: string;
+  public encoding?: string;
   @Prop({ type: String, required: false })
-  mimetype?: string;
-  @Prop({ type: Object, required: false })
-  buffer?: Buffer;
+  public mimetype?: string;
   @Prop({ type: String, required: false })
-  size?: number;
-  @Prop({ type: String, required: false, validate: [isUrl] })
-  url?: string;
+  public size?: number;
+  @Prop({ type: String, required: true, validate: [isUrl] })
+  public url!: string;
 }
 
-export const SimulationFileSchema: SchemaType<SimulationFile> = SchemaFactory.createForClass(SimulationFile);
+export const SimulationFileSchema: SchemaType<SimulationFile> = SchemaFactory.createForClass(
+  SimulationFile,
+);
 SimulationFileSchema.set('strict', 'throw');
