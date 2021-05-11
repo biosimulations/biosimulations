@@ -7,12 +7,15 @@
  */
 
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
-import { Module } from '@nestjs/common';
+import { HttpModule, Module } from '@nestjs/common';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { SimulationFile, SimulationFileSchema } from './file.model';
 import { SimulationRunController } from './simulation-run.controller';
-import { SimulationRunModel, SimulationRunModelSchema } from './simulation-run.model';
+import {
+  SimulationRunModel,
+  SimulationRunModelSchema,
+} from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions/filters';
@@ -22,6 +25,7 @@ import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions
     BiosimulationsAuthModule,
     SharedExceptionsFiltersModule,
     SharedNatsClientModule,
+    HttpModule,
     MongooseModule.forFeature([
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
       {
