@@ -128,7 +128,7 @@ export class SimulationRunController {
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
     description:
-      'COMBINE/OMEX file is too large. Files must be less than 16 MB.',
+      'COMBINE/OMEX file is too large. Files must be less than 1 GB.',
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
@@ -140,8 +140,10 @@ export class SimulationRunController {
       'The mediatype is unsupported. Mediatype must be application/json or multipart/form-data',
   })
 
-  // Set a file size limit close to 16mb which is the mongodb limit
-  @UseInterceptors(FileInterceptor('file', { limits: { fileSize: ONE_GIGABYTE } }))
+  // Set a file size limit of 1GB
+  @UseInterceptors(
+    FileInterceptor('file', { limits: { fileSize: ONE_GIGABYTE } }),
+  )
   @Post()
   public async createRun(
     @Body() body: multipartSimulationRunBody | UploadSimulationRunUrl,
@@ -151,7 +153,7 @@ export class SimulationRunController {
     const contentType = req.header('Content-Type');
     let run: SimulationRunModelReturnType;
     if (!contentType) {
-      throw new UnsupportedMediaTypeException(' Must specifiy a media type');
+      throw new UnsupportedMediaTypeException(' Must specifiy a Content-Type');
     } else if (contentType?.startsWith('multipart/form-data')) {
       run = await this.createRunWithFile(body, file);
     } else if (
@@ -161,7 +163,7 @@ export class SimulationRunController {
       run = await this.service.createRunWithURL(body);
     } else {
       throw new UnsupportedMediaTypeException(
-        ' Can only accept application/json or multipart/form-data content',
+        'Can only accept application/json or multipart/form-data content',
       );
     }
     const response = this.makeSimulationRun(run);
@@ -192,11 +194,13 @@ export class SimulationRunController {
     body: multipartSimulationRunBody | UploadSimulationRunUrl,
     file: any,
   ): Promise<SimulationRunModelReturnType> {
-    let parsedRun: SimulationRun;
+    let parsedRun: UploadSimulationRun;
 
     try {
       if (this.isFileUploadBody(body)) {
-        parsedRun = JSON.parse(body.simulationRun) as SimulationRun;
+        // We are making an unsafe assertion here, since the body could have any type.
+        // This should be caught by the database validation however
+        parsedRun = JSON.parse(body.simulationRun) as UploadSimulationRun;
       } else {
         throw new Error('Body is invalid');
       }
@@ -210,7 +214,9 @@ export class SimulationRunController {
     return run;
   }
   // Move this to a util library
-  private sendMessage(message: DispatchCreatedPayload):Observable<createdResponse> {
+  private sendMessage(
+    message: DispatchCreatedPayload,
+  ): Observable<createdResponse> {
     return this.messageClient.send(DispatchMessage.created, message).pipe(
       // Wait up to ten seconds for a response
       timeout(this.TIMEOUT_INTERVAL),
@@ -245,10 +251,10 @@ export class SimulationRunController {
       run.cpus,
       run.memory,
       run.maxTime,
-      run.status,
-      run.public,
       run.submitted,
       run.updated,
+      run.public,
+      run.status,
       run.runtime,
       run.projectSize,
       run.resultsSize,
@@ -303,14 +309,16 @@ export class SimulationRunController {
   })
   @permissions('delete:SimulationRuns')
   @Delete(':id')
-  public deleteRun(@Param('id') id: string) {
-    const res = this.service.delete(id);
+  public async deleteRun(
+    @Param('id') id: string,
+  ): Promise<SimulationRun | null> {
+    const res = await this.service.delete(id);
 
     if (!res) {
       throw new NotFoundException(`No simulation run with id ${id} found`);
     }
 
-    return res;
+    return this.makeSimulationRun(res);
   }
 
   @ApiOperation({
@@ -319,7 +327,7 @@ export class SimulationRunController {
   })
   @permissions('delete:SimulationRuns')
   @Delete()
-  public deleteAll() {
+  public deleteAll(): Proimise<void> {
     return this.service.deleteAll();
   }
 
@@ -340,6 +348,14 @@ export class SimulationRunController {
       const contentDisposition = `attachment; filename=${file.originalname}`;
       response.setHeader('Content-Disposition', contentDisposition);
     }
-    response.redirect(file.url || '');
+    if (file.size) {
+      response.setHeader('Content-Size', file.size);
+    }
+    if (file.url) {
+      response.redirect(file.url);
+    } else {
+      // Should never happen since url is a required property of the file model now
+      throw new NotFoundException('Unable to locate the file');
+    }
   }
 }

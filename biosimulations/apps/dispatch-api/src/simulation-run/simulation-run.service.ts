@@ -122,9 +122,15 @@ export class SimulationRunService {
     }
   }
 
-  public async delete(id: string): Promise<SimulationRunModel | null> {
+  public async delete(
+    id: string,
+  ): Promise<SimulationRunModelReturnType | null> {
     const res = await this.simulationRunModel.findByIdAndDelete(id);
-    return res;
+    if (res) {
+      return toApi(res);
+    } else {
+      return res;
+    }
   }
 
   public async update(
