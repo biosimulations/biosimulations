@@ -30,7 +30,7 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SharedStorageService } from '@biosimulations/shared/storage';
 
 // 1gb in bytes to be used as file size limits
-const ONE_GIGABYTE = 1073741824;
+const ONE_GIGABYTE = 1000000000;
 const toApi = <T extends SimulationRunModelType>(
   obj: T,
 ): SimulationRunModelReturnType => {
@@ -188,6 +188,7 @@ export class SimulationRunService {
   ): Promise<SimulationRunModelReturnType> {
     const simId = String(new mongo.ObjectId());
     const fileId = 'simulations/' + String(simId) + '/' + file.originalname;
+    // TODO account for network failure
     const s3file = await this.storageService.putObject(fileId, file.buffer);
     const url = encodeURI(s3file.Location);
 
@@ -226,7 +227,8 @@ export class SimulationRunService {
 
     if (size && size > ONE_GIGABYTE) {
       throw new PayloadTooLargeException(
-        'The maximum allowed size of the file is 1GB',
+        'The maximum allowed size of the file is 1GB. The provided file was ' +
+          String(size),
       );
     }
 
