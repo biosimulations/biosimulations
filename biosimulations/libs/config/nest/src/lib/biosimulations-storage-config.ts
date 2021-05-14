@@ -8,7 +8,7 @@ export default registerAs('storage', () => {
     bucket: process.env.STORAGE_BUCKET || 'biosimdev',
     publicEndpoint:
       process.env.STORAGE_PUBLIC_ENDPOINT ||
-      'https://files-dev.biosimulations.org/',
+      'https://files-dev.biosimulations.org/s3/',
   };
   return config;
 });
