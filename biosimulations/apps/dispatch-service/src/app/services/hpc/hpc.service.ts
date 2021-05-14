@@ -73,17 +73,6 @@ export class HpcService {
         return { stdout: '' };
       });
 
-    const stepStatus = (
-      await this.sshService
-        .execStringCommand(`sacct -j ${jobId}.1 -o state -P | tail -1`)
-        .catch((err) => {
-          this.logger.error(
-            'Failed to fetch status update, ' + JSON.stringify(err),
-          );
-          return { stdout: '' };
-        })
-    ).stdout.trim();
-
     const saactDataOutput = saactData.stdout;
     const finalStatus = saactDataOutput.trim();
     let simStatus: SimulationRunStatus | null;
@@ -94,16 +83,24 @@ export class HpcService {
     } else if (finalStatus == 'RUNNING') {
       simStatus = SimulationRunStatus.RUNNING;
     } else if (finalStatus == 'COMPLETED') {
+      const stepStatus = (
+        await this.sshService
+          .execStringCommand(`sacct -j ${jobId}.1 -o state -P | tail -1`)
+          .catch((err) => {
+            this.logger.error(
+              'Failed to fetch status update, ' + JSON.stringify(err),
+            );
+            return { stdout: '' };
+          })
+      ).stdout.trim();
       if (stepStatus == 'COMPLETED') {
-        simStatus = SimulationRunStatus.PROCESSING;  
-      }
-      else {
+        simStatus = SimulationRunStatus.PROCESSING;
+      } else {
         simStatus = SimulationRunStatus.FAILED;
         this.logger.error(
           `Job ${jobId} completed, but simulation failed with response of ${stepStatus}`,
         );
       }
-      
     } else if (
       finalStatus == 'FAILED' ||
       finalStatus == 'OUT-OF-MEMORY' ||
