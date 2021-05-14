@@ -6,7 +6,9 @@ export default registerAs('storage', () => {
     accessKey: process.env.STORAGE_ACCESS_KEY,
     secret: process.env.STORAGE_SECRET,
     bucket: process.env.STORAGE_BUCKET || 'biosimdev',
-    publicEndpoint: process.env.STORAGE_PUBLIC_ENDPOINT || "https://files-dev.biosimulations.org"
+    publicEndpoint:
+      process.env.STORAGE_PUBLIC_ENDPOINT ||
+      'https://files-dev.biosimulations.org',
   };
   return config;
 });
