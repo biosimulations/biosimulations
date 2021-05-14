@@ -5,6 +5,7 @@
  * @license MIT
  */
 import { SharedStorageModule, SharedStorageService } from '@biosimulations/shared/storage';
+import { HttpModule } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
@@ -30,6 +31,7 @@ describe('SimulationRunService', () => {
   }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports:[HttpModule],
       providers: [
         SimulationRunService,
         {
