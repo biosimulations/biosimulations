@@ -64,13 +64,12 @@ echo -e '${cyan}=============Downloading Combine Archive=============${nc}'
 ( ulimit -f 1048576; srun wget  --progress=bar:force ${apiDomain}run/${simId}/download -O '${omexName}')
 echo -e '${cyan}=============Running docker image for simulator=============${nc}'
 srun  singularity run -B ${tempSimDir}:/root ${simulator} -i '/root/${omexName}' -o '/root'
+echo -e '${cyan}=============Uploading results to data-service=============${nc}
+srun hsload -v reports.h5 '/results/${simId}'
 echo -e '${cyan}=============Creating output archive=============${nc}'
 srun zip ${simId}.zip reports.h5 log.yml plots.zip job.output
-echo -e '${cyan}=============Uploading outputs to storage=============${nc}'
-export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url  ${endpoint} s3 sync --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/simulations/${simId}
-echo -e '${cyan}=============Uploading results to data-service=============${nc}'
-srun hsload -v reports.h5 '/results/${simId}'
-echo -e '${cyan}=============Run Complete. Thank you for using BioSimulations!=============${nc}'
+echo -e '${cyan}=============Run Complete. Thank you for using BioSimulations!=============${nc}
+export PYTHONWARNINGS = "ignore"; srun aws --no-verify-ssl--endpoint - url  ${endpoint} s3  --acl public-read sync--exclude "*.sbatch" --exclude "*.omex".s3://${bucket}/simulations/${simId}'
 `;
 
     return template;
