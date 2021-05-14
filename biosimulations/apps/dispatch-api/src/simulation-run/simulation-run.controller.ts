@@ -59,8 +59,8 @@ import { timeout, catchError, retry } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 type multipartSimulationRunBody = { simulationRun: string };
-// 1gb in bytes to be used as file size limits
-const ONE_GIGABYTE = 1073741824;
+// 1gb in bytes plus a buffer to be used as file size limits
+const ONE_GIGABYTE = 1100000000;
 @ApiTags('Simulation runs')
 @Controller('run')
 @ApiExtraModels(UploadSimulationRun, UploadSimulationRunUrl, SimulationUpload)
@@ -152,6 +152,7 @@ export class SimulationRunController {
   ): Promise<SimulationRun> {
     const contentType = req.header('Content-Type');
     let run: SimulationRunModelReturnType;
+
     if (!contentType) {
       throw new UnsupportedMediaTypeException(' Must specifiy a Content-Type');
     } else if (contentType?.startsWith('multipart/form-data')) {
@@ -327,7 +328,7 @@ export class SimulationRunController {
   })
   @permissions('delete:SimulationRuns')
   @Delete()
-  public deleteAll(): Proimise<void> {
+  public deleteAll(): Promise<void> {
     return this.service.deleteAll();
   }
 
