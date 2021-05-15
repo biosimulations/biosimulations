@@ -33,7 +33,6 @@
     "submit-example-simulation-runs": "tools/submit-example-simulation-runs",
     "scully": "scully",
     "scully:serve": "scully serve"
-    
   },
   "private": true,
   "dependencies": {
@@ -144,7 +143,7 @@
     "@typescript-eslint/eslint-plugin": "4.19.0",
     "@typescript-eslint/parser": "4.19.0",
     "angular-plotly.js": "^3.0.0",
-    "ansi-to-html": "^0.6.14",
+    "anser": "^2.0.1",
     "canvas": "^2.7.0",
     "codelyzer": "~6.0.1",
     "cypress": "^6.4.0",
