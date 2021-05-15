@@ -5,7 +5,7 @@ import {
   SimulationRunStatus,
   SimulationStatusToSimulationLogStatus as statusConverter,
 } from '@biosimulations/datamodel/common';
-import * as Convert from 'ansi-to-html';
+import * as Anser from 'anser';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
@@ -40,9 +40,8 @@ export class RawSimulationLogComponent {
 
   @Input()
   set log(value: RawSimulationLog) {
-    const convert = new Convert();
     this.formattedLog = value
-      ? this.sanitizer.sanitize(0, convert.toHtml(value))
+      ? this.sanitizer.sanitize(0, Anser.ansiToHtml(value))
       : null;
   }
 }

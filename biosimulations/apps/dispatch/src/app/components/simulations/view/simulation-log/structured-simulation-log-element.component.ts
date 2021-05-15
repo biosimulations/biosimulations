@@ -9,7 +9,7 @@ import {
   AlgorithmKisaoDescriptionFragment,
   CombineArchiveLog,
 } from '../../../../simulation-logs-datamodel';
-import * as Convert from 'ansi-to-html';
+import * as Anser from 'anser';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
@@ -83,9 +83,8 @@ export class StructuredSimulationLogElementComponent {
         break;
     }
 
-    const convert = new Convert();
     this.formattedOutput = value?.output
-      ? this.sanitizer.bypassSecurityTrustHtml(convert.toHtml(value.output))
+      ? this.sanitizer.bypassSecurityTrustHtml(Anser.ansiToHtml(value.output))
       : undefined;
 
     if ('algorithm' in value && value.algorithm) {

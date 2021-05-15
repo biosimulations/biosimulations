@@ -7,7 +7,7 @@ import { urls } from '@biosimulations/config/common';
 
 function rerunSimulation(url: string, router: Router): undefined {
   const parts = url.split('/');
-  const id = parts[parts.length - 1];
+  const id = parts[parts.length - 1].split('#')[0];
 
   router.navigate(['/run'], {
       queryParams: {
@@ -22,7 +22,7 @@ function rerunSimulation(url: string, router: Router): undefined {
 function shareSimulation(url: string): string {
   const protocol = window.location.protocol;
   const host = window.location.host;
-  navigator.clipboard.writeText(protocol + '//' + host + url);
+  navigator.clipboard.writeText(protocol + '//' + host + url.split('#')[0]);
   return 'The URL for sharing this simulation was copied to your clipboard.';
 }
 
