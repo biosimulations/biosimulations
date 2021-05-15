@@ -68,8 +68,9 @@ echo -e '${cyan}=============Uploading results to data-service=============${nc}
 srun hsload -v reports.h5 '/results/${simId}'
 echo -e '${cyan}=============Creating output archive=============${nc}'
 srun zip ${simId}.zip reports.h5 log.yml plots.zip job.output
-echo -e '${cyan}=============Run Complete. Thank you for using BioSimulations!=============${nc}'
+echo -e '${cyan}=============Uploading outputs to storage=============${nc}'
 export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url  ${endpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/simulations/${simId}
+echo -e '${cyan}=============Run Complete. Thank you for using BioSimulations!=============${nc}'
 `;
 
     return template;
