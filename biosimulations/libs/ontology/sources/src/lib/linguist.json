@@ -9291,6 +9291,21 @@
     "searchable": "true"
   },
   {
+    "type": "data",
+    "tmScope": "source.bp",
+    "aceMode": "text",
+    "filenames": [
+      "Android.bp"
+    ],
+    "languageId": 222900098,
+    "name": "Soong",
+    "aliases": [
+      "soong"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
     "type": "programming",
     "color": "#f69e1d",
     "aliases": [
@@ -10363,7 +10378,7 @@
   },
   {
     "type": "markup",
-    "color": "#2c3e50",
+    "color": "#41b883",
     "extensions": [
       ".vue"
     ],
