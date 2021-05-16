@@ -39,27 +39,6 @@ h2 {
   padding: 0.5rem 0;
 }
 
-::ng-deep ol {
-  padding-inline-start: 1rem;
-}
-
-::ng-deep ul {
-  padding-inline-start: 1rem;
-}
-
-::ng-deep p,
-::ng-deep ol,
-::ng-deep ul {
-  margin-block-start: 0;
-  margin-block-end: 0.5em;
-}
-
-::ng-deep p:last-child,
-::ng-deep ol:last-child,
-::ng-deep ul:last-child {
-  margin-block-end: 0;
-}
-
 .container ::ng-deep .mat-table.biosimulations-table {
   .mat-header-row {
     background: $light-bg-darker-10;

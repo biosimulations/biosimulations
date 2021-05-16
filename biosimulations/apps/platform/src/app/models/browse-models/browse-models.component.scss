@@ -84,7 +84,7 @@ mat-paginator {
   overflow: hidden;
 }
 
-::ng-deep .controls {
+.controls-container ::ng-deep .controls {
   .mat-expansion-panel-header.mat-expanded {
     height: 32px;
     background: $light-bg-darker-10;
