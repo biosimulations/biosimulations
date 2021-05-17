@@ -4,6 +4,8 @@
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "Pipfile": ["combine-service"],
+    "Pipfile.lock": ["combine-service"],
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
