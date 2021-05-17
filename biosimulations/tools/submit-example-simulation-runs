@@ -21,7 +21,7 @@ EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  'simulations', 'browse', 'example-simulations.{}.json')
 
 
-def main(runbiosimulations_api='dev', biosimulators_api='dev', biosimulators_test_suite_branch='deploy', simulation_names=None):
+def main(runbiosimulations_api='dev', biosimulators_api='org', biosimulators_test_suite_branch='deploy', simulation_names=None):
     """ Submit example simulations from the BioSimulators test suite to the runBioSimulations API and
     record their runs to ``example-simulations.json`` within the browse simulations module of the
     dispatch app so that users can load runs of these simulations as examples.
@@ -124,9 +124,9 @@ if __name__ == '__main__':
         '--runbiosimulations-api', type=str, default='dev',
         help='runBioSimulations API which simulations should be submitted to (`dev`, `org`). Default: `dev`.')
     parser.add_argument(
-        '--biosimulators-api', type=str, default='dev',
+        '--biosimulators-api', type=str, default='org',
         help=('BioSimulators API which should be used to select the version of each simulation tool used '
-              'to execute simulations (`dev`, `org`). Default: `dev`.'))
+              'to execute simulations (`dev`, `org`). Default: `org`.'))
     parser.add_argument(
         '--biosimulators-test-suite-branch', type=str, default='deploy',
         help=('Branch of the BioSimulators test suite from which the example COMBINE/OMEX archives should be obtained. '
