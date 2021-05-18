@@ -10,6 +10,7 @@ import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { HttpModule, Module } from '@nestjs/common';
 
 import { MongooseModule } from '@nestjs/mongoose';
+import { BullModule } from '@nestjs/bull';
 import { SimulationFile, SimulationFileSchema } from './file.model';
 import { SimulationRunController } from './simulation-run.controller';
 import {
@@ -19,6 +20,7 @@ import {
 import { SimulationRunService } from './simulation-run.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions/filters';
+
 @Module({
   controllers: [SimulationRunController],
   imports: [
@@ -33,6 +35,9 @@ import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions
         schema: SimulationFileSchema,
       },
     ]),
+    BullModule.registerQueue({
+      name: 'dispatch',
+    }),
   ],
   providers: [SimulationRunService],
 })
