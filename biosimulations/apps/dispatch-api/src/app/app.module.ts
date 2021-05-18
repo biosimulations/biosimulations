@@ -33,13 +33,17 @@ import { BullModule } from '@nestjs/bull';
       }),
       inject: [ConfigService],
     }),
-    SimulationRunModule,
-    BullModule.forRoot({
-      redis: {
-        host: 'localhost',
-        port: 6379,
-      },
+    BullModule.forRootAsync({
+      imports: [BiosimulationsConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        redis: {
+          host: configService.get('queue.host'),
+          port: +configService.get('queue.port'),
+        },
+      }),
+      inject: [ConfigService],
     }),
+    SimulationRunModule,
     ResultsModule,
     SharedExceptionsFiltersModule,
     AuthTestModule,
