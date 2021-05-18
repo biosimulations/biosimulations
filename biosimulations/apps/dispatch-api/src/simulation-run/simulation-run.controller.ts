@@ -57,6 +57,8 @@ import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
 import { timeout, catchError, retry } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { InjectQueue } from '@nestjs/bull';
+import { Queue } from 'bull';
 
 type multipartSimulationRunBody = { simulationRun: string };
 // 1gb in bytes plus a buffer to be used as file size limits
@@ -72,6 +74,7 @@ export class SimulationRunController {
   public constructor(
     private service: SimulationRunService,
     @Inject('NATS_CLIENT') private messageClient: ClientProxy,
+    @InjectQueue('dispatch') private readonly dispatchQueue: Queue,
   ) {
     this.logger = new Logger(SimulationRunController.name);
   }
@@ -109,14 +112,13 @@ export class SimulationRunController {
       Alternatively, use the application/json accept header to provide a URL to an external COMBINE archive',
     requestBody: {
       content: {
-        'multipart/form-data': {
-          encoding: { body: { contentType: 'multipart/form-data' } },
-          schema: { $ref: getSchemaPath(SimulationUpload) },
-        },
-
         'application/json': {
           encoding: { body: { contentType: 'application/json' } },
           schema: { $ref: getSchemaPath(UploadSimulationRunUrl) },
+        },
+        'multipart/form-data': {
+          encoding: { body: { contentType: 'multipart/form-data' } },
+          schema: { $ref: getSchemaPath(SimulationUpload) },
         },
       },
     },
@@ -179,15 +181,7 @@ export class SimulationRunController {
       memory: run.memory,
       maxTime: run.maxTime,
     };
-
-    this.sendMessage(message).subscribe((res: createdResponse) => {
-      if (res.okay) {
-        this.service.setStatus(response.id, SimulationRunStatus.QUEUED);
-      } else {
-        this.service.setStatus(response.id, SimulationRunStatus.FAILED);
-      }
-    });
-
+    const sim = await this.dispatchQueue.add('new', message);
     return response;
   }
 
@@ -214,31 +208,6 @@ export class SimulationRunController {
     const run = this.service.createRunWithFile(parsedRun, file);
     return run;
   }
-  // Move this to a util library
-  private sendMessage(
-    message: DispatchCreatedPayload,
-  ): Observable<createdResponse> {
-    return this.messageClient.send(DispatchMessage.created, message).pipe(
-      // Wait up to ten seconds for a response
-      timeout(this.TIMEOUT_INTERVAL),
-      // Retry sending the message 3 times
-      retry(this.RETRY_COUNT),
-      // If error, just return a response that is "not okay" to the calling method
-      catchError(
-        (err, caught): Observable<createdResponse> => {
-          this.logger.error(
-            ` Error submitting Simulation ${message.id}: ${err}`,
-          );
-          return of({
-            okay: false,
-            id: message.id,
-            _message: DispatchMessage.created,
-          });
-        },
-      ),
-    );
-  }
-
   /**
    *  Creates the controllers return type SimulationRun
    * @param run The value that is returned from the service.

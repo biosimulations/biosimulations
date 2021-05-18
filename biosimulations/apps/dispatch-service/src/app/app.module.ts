@@ -7,11 +7,7 @@ import { SshService } from './services/ssh/ssh.service';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ArchiverService } from './results/archiver.service';
-import { SubmissionController } from './submission/submission.controller';
 
-import { SubmissionService } from './submission/submission.service';
-
-import { ResultsController } from './results/results.controller';
 import { ResultsService } from './results/results.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { AuthClientModule } from '@biosimulations/auth/client';
@@ -19,6 +15,9 @@ import { DispatchNestClientModule } from '@biosimulations/dispatch/nest-client';
 import { ImagesModule } from '../images/images.module';
 import { FileService } from './results/file.service';
 import { LogService } from './results/log.service';
+
+import { SubmissionProccessor } from './submission/submission.proccessor';
+
 @Module({
   imports: [
     HttpModule,
@@ -35,19 +34,28 @@ import { LogService } from './results/log.service';
       },
     }),
     BullModule.registerQueue({
-      name: 'jobmonitor',
+      name: 'dispatch',
+    }),
+    BullModule.registerQueue({
+      name: 'monitor',
+    }),
+    BullModule.registerQueue({
+      name: 'complete',
+    }),
+    BullModule.registerQueue({
+      name: 'failure',
     }),
   ],
-  controllers: [SubmissionController, ResultsController],
+  controllers: [],
   providers: [
     HpcService,
     SbatchService,
     SshService,
     ArchiverService,
-    SubmissionService,
     ResultsService,
     FileService,
     LogService,
+    SubmissionProccessor,
   ],
 })
 export class AppModule {}

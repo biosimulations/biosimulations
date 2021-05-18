@@ -15,6 +15,8 @@ import {
 import { ImagesModule } from '../images/images.module';
 import { LogsModule } from '../logs/logs.module';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
+import { BullModule } from '@nestjs/bull';
+
 @Module({
   imports: [
     BiosimulationsConfigModule,
@@ -32,6 +34,12 @@ import { SharedStorageModule } from '@biosimulations/shared/storage';
       inject: [ConfigService],
     }),
     SimulationRunModule,
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
     ResultsModule,
     SharedExceptionsFiltersModule,
     AuthTestModule,
