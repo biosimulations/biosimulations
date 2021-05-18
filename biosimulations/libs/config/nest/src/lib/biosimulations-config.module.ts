@@ -9,6 +9,7 @@ import natsConfig from './biosimulations-nats-config';
 import emailConfig from './biosimulations-email.config';
 import urlsConfig from './biosimulations-urls-config';
 import storageConfig from './biosimulations-storage-config';
+import queueConfig from './biosimulations-queue-config';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,6 +23,7 @@ import storageConfig from './biosimulations-storage-config';
         emailConfig,
         urlsConfig,
         storageConfig,
+        queueConfig,
       ],
       envFilePath: [
         './config/config.env',

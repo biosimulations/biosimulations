@@ -17,6 +17,7 @@ import { FileService } from './results/file.service';
 import { LogService } from './results/log.service';
 
 import { SubmissionProccessor } from './submission/submission.proccessor';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -27,11 +28,15 @@ import { SubmissionProccessor } from './submission/submission.proccessor';
     SharedNatsClientModule,
     DispatchNestClientModule,
     ScheduleModule.forRoot(),
-    BullModule.forRoot({
-      redis: {
-        host: 'localhost',
-        port: 6379,
-      },
+    BullModule.forRootAsync({
+      imports: [BiosimulationsConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        redis: {
+          host: configService.get('queue.host'),
+          port: +configService.get('queue.port'),
+        },
+      }),
+      inject: [ConfigService],
     }),
     BullModule.registerQueue({
       name: 'dispatch',
