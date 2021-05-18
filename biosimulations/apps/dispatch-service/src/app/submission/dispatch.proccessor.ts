@@ -1,0 +1,62 @@
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { DispatchJob, MonitorJob } from '@biosimulations/messages/messages';
+import { InjectQueue, Process, Processor } from '@nestjs/bull';
+import { Logger } from '@nestjs/common';
+import { Job, Queue } from 'bull';
+
+import { HpcService } from '../services/hpc/hpc.service';
+import { SimulationStatusService } from '../services/simulationStatus.service';
+
+// TODO define shared constants for queue names
+@Processor('dispatch')
+export class DispatchProcessor {
+  private readonly logger = new Logger(DispatchProcessor.name);
+  public constructor(
+    private hpcService: HpcService,
+    private simStatusService: SimulationStatusService,
+
+    @InjectQueue('monitor') private monitorQueue: Queue<MonitorJob>,
+  ) {}
+  @Process()
+  private async handleSubmission(job: Job<DispatchJob>): Promise<void> {
+    this.logger.debug('Starting Simulation...');
+    const data = job.data;
+
+    const response = await this.hpcService.submitJob(
+      data.simId,
+      data.simulator,
+      data.version,
+      data.cpus,
+      data.memory,
+      data.maxTime,
+      data.fileName,
+    );
+
+    if (response.stderr != '') {
+      // There was an error with submission of the job
+      this.logger.error(
+        'Error submitting simulation:' + data.simId + ' ' + response.stderr,
+      );
+      this.simStatusService.updateStatus(
+        data.simId,
+        SimulationRunStatus.FAILED,
+      );
+    } else if (response.stdout != null) {
+      // Get the slurm id of the job
+      // Expected output of the response is " Submitted batch job <ID> /n"
+      const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
+      const transpose = data.simulator == 'vcell';
+      this.logger.debug(
+        `Simulator is ${data.simulator} Will transpose: ${transpose}`,
+      );
+
+      const monitorData: MonitorJob = {
+        slurmJobId: slurmjobId.toString(),
+        simId: data.simId,
+        transpose,
+      };
+
+      this.monitorQueue.add(monitorData);
+    }
+  }
+}

@@ -16,8 +16,12 @@ import { ImagesModule } from '../images/images.module';
 import { FileService } from './results/file.service';
 import { LogService } from './results/log.service';
 
-import { SubmissionProccessor } from './submission/submission.proccessor';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
+import { DispatchProcessor } from './submission/dispatch.proccessor';
+import { FailProcessor } from './submission/fail.processor';
+import { CompleteProccessor } from './submission/complete.proccessor';
+import { MonitorProcessor } from './submission/monitor.processor';
+import { SimulationStatusService } from './services/simulationStatus.service';
 
 @Module({
   imports: [
@@ -38,17 +42,24 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
       inject: [ConfigService],
     }),
+    // Need to provide hash keys to allow use on cluster.
+    //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
     BullModule.registerQueue({
       name: 'dispatch',
+      prefix: '{dispatch}',
     }),
     BullModule.registerQueue({
       name: 'monitor',
+      prefix: '{monitor}',
     }),
     BullModule.registerQueue({
       name: 'complete',
+      prefix: '{complete}',
     }),
+
     BullModule.registerQueue({
-      name: 'failure',
+      name: 'fail',
+      prefix: '{fail}',
     }),
   ],
   controllers: [],
@@ -60,7 +71,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ResultsService,
     FileService,
     LogService,
-    SubmissionProccessor,
+    DispatchProcessor,
+    FailProcessor,
+    CompleteProccessor,
+    MonitorProcessor,
+    SimulationStatusService,
   ],
 })
 export class AppModule {}

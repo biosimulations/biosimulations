@@ -6,16 +6,10 @@
  * @copyright Biosimulations Team 2020
  * @license MIT
  */
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import csv from 'csvtojson';
 import { SimulationRunReportDataStrings } from '@biosimulations/dispatch/api-models';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
-import {
-  DispatchProcessedPayload,
-  DispatchMessage,
-  DispatchFailedPayload,
-} from '@biosimulations/messages/messages';
-import { ClientProxy } from '@nestjs/microservices';
 import { FileService, resultFile } from './file.service';
 
 @Injectable()
@@ -25,7 +19,6 @@ export class ResultsService {
   public constructor(
     private readonly fileService: FileService,
     private submit: SimulationRunService,
-    @Inject('NATS_CLIENT') private client: ClientProxy,
   ) {}
 
   public async createResults(id: string, transpose: boolean): Promise<void> {
@@ -48,32 +41,17 @@ export class ResultsService {
       csvFileList.forEach((file: resultFile) => {
         resultPromises.push(this.uploadResultFile(id, file, transpose));
       });
-      return (
-        Promise.all(resultPromises)
-          .then((_) => {
-            const data: DispatchProcessedPayload = {
-              _message: DispatchMessage.processed,
-              id: id,
-            };
-            this.client.emit(DispatchMessage.processed, data);
-          })
-          //This is catching any errors from Sending the results
-          .catch((e) => {
-            this.logger.error('Failed to upload all results');
-            this.logger.error(e);
-            const data: DispatchFailedPayload = new DispatchFailedPayload(
-              id,
-              false,
-            );
-            this.client.emit(DispatchMessage.failed, data);
-            throw e; //pass on error to controller
-          })
-      );
+      return Promise.all(resultPromises)
+        .then((_) => {})
+        .catch((e) => {
+          this.logger.error('Failed to upload all results');
+          this.logger.error(e);
+
+          throw e; //pass on error to controller
+        });
       // This is catching any errors from reading the results
     } catch (e) {
       this.logger.error(e);
-      const data: DispatchFailedPayload = new DispatchFailedPayload(id, false);
-      this.client.emit(DispatchMessage.failed, data);
       throw e;
     }
   }
