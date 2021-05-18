@@ -8,6 +8,7 @@
 import {
   createdResponse,
   DispatchCreatedPayload,
+  DispatchJob,
   DispatchMessage,
 } from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
@@ -73,8 +74,7 @@ export class SimulationRunController {
 
   public constructor(
     private service: SimulationRunService,
-    @Inject('NATS_CLIENT') private messageClient: ClientProxy,
-    @InjectQueue('dispatch') private readonly dispatchQueue: Queue,
+    @InjectQueue('dispatch') private readonly dispatchQueue: Queue<DispatchJob>,
   ) {
     this.logger = new Logger(SimulationRunController.name);
   }
@@ -171,9 +171,8 @@ export class SimulationRunController {
     }
     const response = this.makeSimulationRun(run);
 
-    const message: DispatchCreatedPayload = {
-      _message: DispatchMessage.created,
-      id: run.id,
+    const message: DispatchJob = {
+      simId: run.id,
       fileName: file?.originalname || 'input.omex',
       simulator: run.simulator,
       version: run.simulatorVersion,
@@ -181,7 +180,8 @@ export class SimulationRunController {
       memory: run.memory,
       maxTime: run.maxTime,
     };
-    const sim = await this.dispatchQueue.add('new', message);
+    const sim = await this.dispatchQueue.add(message);
+
     return response;
   }
 
