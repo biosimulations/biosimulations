@@ -35,14 +35,21 @@ jobs:
 
       - name: Update ontologies
         run: ${GITHUB_WORKSPACE}/biosimulations/tools/generate-ontologies ${{ github.event.inputs.ontologies }}
-        
+      
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          git-user-signingkey: true
+          git-commit-gpgsign: true
+          
       - name: Commit Changes 
         uses: EndBug/add-and-commit@v5 # You can change this to use a specific version
         with:
           author_name: Biosimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
           branch: dev
-          message: 'Updated Ontologies'
+          message: 'chore: Updated Ontologies [skip ci]'
           signoff: true
         env:
           # This is necessary in order to push a commit to the repo
