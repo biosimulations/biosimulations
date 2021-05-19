@@ -34,12 +34,16 @@ import { SimulationStatusService } from './services/simulationStatus.service';
     ScheduleModule.forRoot(),
     BullModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        redis: {
-          host: configService.get('queue.host'),
-          port: configService.get('queue.port'),
-        },
-      }),
+      useFactory: async (configService: ConfigService) => {
+        console.log(configService.get('queue.host'));
+        console.log(configService.get('queue.port'));
+        return {
+          redis: {
+            host: configService.get('queue.host'),
+            port: configService.get('queue.port'),
+          },
+        };
+      },
       inject: [ConfigService],
     }),
     // Need to provide hash keys to allow use on cluster.
