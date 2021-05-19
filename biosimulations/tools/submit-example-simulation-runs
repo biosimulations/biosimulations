@@ -21,7 +21,7 @@ EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  'simulations', 'browse', 'example-simulations.{}.json')
 
 
-def main(runbiosimulations_api='dev', biosimulators_api='org', biosimulators_test_suite_branch='deploy', simulation_names=None):
+def main(runbiosimulations_api='dev', biosimulators_api='org', biosimulators_test_suite_branch='deploy', simulation_names=None, test_mode=False):
     """ Submit example simulations from the BioSimulators test suite to the runBioSimulations API and
     record their runs to ``example-simulations.json`` within the browse simulations module of the
     dispatch app so that users can load runs of these simulations as examples.
@@ -95,6 +95,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org', biosimulators_tes
         simulation_run = json.loads(process.stdout.decode())
 
         # log run
+
         simulation_runs.append({
             "id": simulation_run['id'],
             "name": name,
@@ -110,11 +111,18 @@ def main(runbiosimulations_api='dev', biosimulators_api='org', biosimulators_tes
             "projectSize": project_size,
 
         })
+    if(test_mode):
+        monitorRuns(simulation_runs, runbiosimulations_api)
+    else:
 
-    with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(runbiosimulations_api), 'w') as file:
-        json.dump(simulation_runs, file, indent=2)
+        with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(runbiosimulations_api), 'w') as file:
+            json.dump(simulation_runs, file, indent=2)
 
     shutil.rmtree(temp_dir)
+
+
+def monitorRuns(simulation_runs, runbiosimulations_api, timeout=300):
+    pass
 
 
 if __name__ == '__main__':
@@ -135,10 +143,18 @@ if __name__ == '__main__':
         '--simulation', type=str, nargs='*',
         help='Names of the example simulations to execute. Default: execute all simulations.',
         default=None, dest='simulation_names',
+
+    )
+    parser.add_argument(
+        '--test', type=bool,
+        help='If the script should run in test mode to test API functionality',
+        default=False, dest='test_mode',
+
     )
     args = parser.parse_args()
 
     main(runbiosimulations_api=args.runbiosimulations_api,
          biosimulators_api=args.biosimulators_api,
          biosimulators_test_suite_branch=args.biosimulators_test_suite_branch,
-         simulation_names=args.simulation_names)
+         simulation_names=args.simulation_names,
+         test_mode=args.test_mode)
