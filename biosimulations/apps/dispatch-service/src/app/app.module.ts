@@ -37,7 +37,7 @@ import { SimulationStatusService } from './services/simulationStatus.service';
       useFactory: async (configService: ConfigService) => ({
         redis: {
           host: configService.get('queue.host'),
-          port: +configService.get('queue.port'),
+          port: configService.get('queue.port'),
         },
       }),
       inject: [ConfigService],
