@@ -19,7 +19,19 @@ jobs:
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
-
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-node-
+            
+      - name: Install npm dependencies
+        working-directory: ./biosimulations
+        run: npm ci
+        
       - name: Format files
         working-directory: ./biosimulations
         run: nx format --all
