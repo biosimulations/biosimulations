@@ -45,7 +45,9 @@ const routes: Routes = [
   {
     path: 'conventions',
     loadChildren: () =>
-      import('./conventions/conventions.module').then((m) => m.ConventionsModule),
+      import('./conventions/conventions.module').then(
+        (m) => m.ConventionsModule,
+      ),
     data: {
       breadcrumb: 'Conventions',
       preload: {

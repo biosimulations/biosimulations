@@ -26,10 +26,10 @@ export class DataVisualizationComponent {
 
   constructor() {
     this.exampleSedml = JSON.stringify(exampleVegaSedml.data.values, null, 2);
-    
+
     const exampleVega = JSON.parse(JSON.stringify(exampleVegaSedml));
     exampleVega.data.values = null;
-    this.exampleVega = JSON.stringify(exampleVega, null, 2);    
+    this.exampleVega = JSON.stringify(exampleVega, null, 2);
 
     this.exampleVegaSedml = JSON.stringify(exampleVegaSedml, null, 2);
   }

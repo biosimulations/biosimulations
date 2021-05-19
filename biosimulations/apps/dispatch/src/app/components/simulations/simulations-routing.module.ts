@@ -10,11 +10,10 @@ function rerunSimulation(url: string, router: Router): undefined {
   const id = parts[parts.length - 1].split('#')[0];
 
   router.navigate(['/run'], {
-      queryParams: {
-        projectUrl: `${urls.dispatchApi}run/${id}/download`,
-      },
-    }
-  );
+    queryParams: {
+      projectUrl: `${urls.dispatchApi}run/${id}/download`,
+    },
+  });
 
   return undefined;
 }

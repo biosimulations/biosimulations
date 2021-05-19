@@ -64,7 +64,6 @@ export class Algorithm implements IAlgorithm {
         validator: (value: AlgorithmParameter[] | null): boolean => {
           if (value == null) {
             return true;
-          
           } else {
             const kisaoIds = new Set();
             for (const parameter of value) {

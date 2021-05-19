@@ -9,7 +9,7 @@ import {
   Ontologies,
   EdamTerm,
   KisaoTerm,
-  SboTerm
+  SboTerm,
 } from '@biosimulations/datamodel/common';
 import { Observable, of } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';

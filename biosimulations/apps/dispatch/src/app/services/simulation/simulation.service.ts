@@ -202,7 +202,8 @@ export class SimulationService {
    * @param uuid The id of the simulation
    */
   private getSimulationHttp(uuid: string): Observable<Simulation> {
-    return this.httpClient.get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`)
+    return this.httpClient
+      .get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`)
       .pipe(
         map((dispatchSimulation: SimulationRun) => {
           const simulation: Simulation = {

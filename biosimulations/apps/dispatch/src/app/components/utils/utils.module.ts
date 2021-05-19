@@ -12,10 +12,7 @@ import { ValidateSimulationProjectComponent } from './validate-simulation-projec
 import { SuggestSimulatorComponent } from './suggest-simulator/suggest-simulator.component';
 
 @NgModule({
-  declarations: [
-    ValidateSimulationProjectComponent,
-    SuggestSimulatorComponent,
-  ],
+  declarations: [ValidateSimulationProjectComponent, SuggestSimulatorComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -25,7 +22,6 @@ import { SuggestSimulatorComponent } from './suggest-simulator/suggest-simulator
     SharedUiModule,
     BiosimulationsIconsModule,
     UtilsRoutingModule,
-    
   ],
 })
 export class UtilsModule {}

@@ -1,10 +1,9 @@
-<div
-  fxShow
-  fxHide.lt-md
->
-  <a mat-flat-button
+<div fxShow fxHide.lt-md>
+  <a
+    mat-flat-button
     *ngIf="href && !disabled; else button"
-    [href]="href" target="_blank"
+    [href]="href"
+    target="_blank"
   >
     <div class="button-content">
       <biosimulations-icon [icon]="icon"></biosimulations-icon>

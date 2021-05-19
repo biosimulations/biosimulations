@@ -9,6 +9,9 @@ export const permissions = (...args: string[]) => {
     ApiOAuth2(args),
     UseGuards(JwtGuard, PermissionsGuard),
     ApiResponse({ status: 401, description: 'You are not logged in' }),
-    ApiResponse({ status: 403, description: `You do not have the ${args} permissions` }),
+    ApiResponse({
+      status: 403,
+      description: `You do not have the ${args} permissions`,
+    }),
   );
 };

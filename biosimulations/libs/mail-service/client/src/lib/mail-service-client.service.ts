@@ -78,6 +78,6 @@ type MailData = SendGrid.MailDataRequired & {
   to: string;
   templateId: string;
   dynamicTemplateData: DynamicTemplateData;
-  from: { email: string, name: string };
+  from: { email: string; name: string };
   asm: { groupId: number };
 };

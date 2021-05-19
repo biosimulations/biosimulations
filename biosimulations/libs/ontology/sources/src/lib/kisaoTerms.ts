@@ -27,10 +27,9 @@ function getKisaoTerms(input: any): { [id: string]: KisaoTerm } {
       const termName = jsonTerm['rdfs:label'];
       const termDescription =
         jsonTerm['http://www.w3.org/2004/02/skos/core#definition'] || null;
-      const termUrl = (
-        'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri='
-        + encodeURIComponent('http://www.biomodels.net/kisao/KISAO#' + termId)
-      );
+      const termUrl =
+        'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=' +
+        encodeURIComponent('http://www.biomodels.net/kisao/KISAO#' + termId);
 
       let moreInfoUrl: string | null = null;
       const seeAlsos = jsonTerm['http://www.w3.org/2000/01/rdf-schema#seeAlso'];

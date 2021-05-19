@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MatDialogModule,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 import { DeleteSimulationsDialogComponent } from './delete-simulations-dialog.component';
@@ -10,20 +14,15 @@ describe('DeleteSimulationsDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatButtonModule,
-        MatDialogModule,
-      ],
+      imports: [MatButtonModule, MatDialogModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         {
           provide: MAT_DIALOG_DATA,
           useValue: undefined,
-        }
+        },
       ],
-      declarations: [
-        DeleteSimulationsDialogComponent,
-      ],
+      declarations: [DeleteSimulationsDialogComponent],
     }).compileComponents();
   }));
 

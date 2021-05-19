@@ -11,7 +11,11 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Validate a simulation project',
       contextButtons: [
-        { route: ['/utils', 'suggest-simulator'], icon: 'simulator', label: 'Suggest a simulator' },
+        {
+          route: ['/utils', 'suggest-simulator'],
+          icon: 'simulator',
+          label: 'Suggest a simulator',
+        },
       ],
     },
   },
@@ -21,7 +25,11 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Suggest a simulator',
       contextButtons: [
-        { route: ['/utils', 'validate'], icon: 'bug', label: 'Validate a simulation project' },
+        {
+          route: ['/utils', 'validate'],
+          icon: 'bug',
+          label: 'Validate a simulation project',
+        },
       ],
     },
   },

@@ -431,7 +431,8 @@ biosimulations-root {
       padding-top: 0;
     }
 
-    mat-hint, mat-error {
+    mat-hint,
+    mat-error {
       padding-top: 0.4em;
       font-size: 93.75%;
       display: block;
@@ -440,7 +441,8 @@ biosimulations-root {
         padding-top: 0;
       }
 
-      code, code.hljs {
+      code,
+      code.hljs {
         padding: 0.15rem;
       }
     }
@@ -481,7 +483,7 @@ biosimulations-root {
   .input-heading {
     font-size: 75%;
     color: rgba(0, 0, 0, 0.6);
-    line-height: 1.0;
+    line-height: 1;
     text-align: left;
     font-weight: normal;
     text-align: center;
@@ -497,13 +499,14 @@ biosimulations-root {
     display: grid;
     grid-column-gap: 0.5em;
 
-    input, .mat-select {
+    input,
+    .mat-select {
       border-bottom: 1px dotted rgb(0, 0, 0, 0.6);
       background: $light-bg-darker-10;
       font-size: 93.75%;
 
       &:disabled {
-        background: $light-bg-darker-20;        
+        background: $light-bg-darker-20;
       }
 
       &.error {
@@ -539,7 +542,8 @@ biosimulations-root {
       padding-top: 0;
     }
 
-    code, code.hljs {
+    code,
+    code.hljs {
       padding: 0.15rem;
     }
   }
@@ -1102,6 +1106,7 @@ a.status-label {
 }
 
 /* superscripts, subscripts */
-sup, sub {
+sup,
+sub {
   line-height: 0;
 }

@@ -42,9 +42,9 @@ const routes: Routes = [
     path: 'utils',
     loadChildren: () =>
       // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-      import(
-        'apps/dispatch/src/app/components/utils/utils.module'
-      ).then((m) => m.UtilsModule),
+      import('apps/dispatch/src/app/components/utils/utils.module').then(
+        (m) => m.UtilsModule,
+      ),
     data: {
       breadcrumb: 'Utilities',
     },

@@ -70,9 +70,20 @@
       heading="Model and data descriptor source paths"
       tocSection="Source paths"
     >
-      <p>SED-ML can refer to model and data descriptor files in multiple ways, including via paths to local files, via URLs, via URL fragments to other models defined in the same SED-ML document, and via identifiers for an Identifiers.org namespace such as BioModels. When referencing files via local paths, SED-ML documents should use paths relative to the location of the SED-ML document.</p>
+      <p>
+        SED-ML can refer to model and data descriptor files in multiple ways,
+        including via paths to local files, via URLs, via URL fragments to other
+        models defined in the same SED-ML document, and via identifiers for an
+        Identifiers.org namespace such as BioModels. When referencing files via
+        local paths, SED-ML documents should use paths relative to the location
+        of the SED-ML document.
+      </p>
 
-      <p>To ensure that COMBINE/OMEX archives are self-contained, BioSimulators encourages SED-ML documents in COMBINE/OMEX archive to reference files via relative paths within archives.</p>
+      <p>
+        To ensure that COMBINE/OMEX archives are self-contained, BioSimulators
+        encourages SED-ML documents in COMBINE/OMEX archive to reference files
+        via relative paths within archives.
+      </p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -91,7 +102,10 @@
         species.
       </p>
 
-      <p>In addition, the namespace prefixes used in XPaths should be defined within the SED-ML document as illustrated below.</p>
+      <p>
+        In addition, the namespace prefixes used in XPaths should be defined
+        within the SED-ML document as illustrated below.
+      </p>
 
       <pre><code [languages]="['xml']" highlight="<sedML xmlns:sbml=&quot;http://www.sbml.org/sbml/level3/version1/core&quot;>
   <listOfDataGenerators>
@@ -235,14 +249,55 @@
       heading="Limit use of repeated tasks to the execution of independent simulation runs"
       tocSection="Repeated tasks"
     >
-      <p>In addition to capturing multiple independent simulation runs, <code>sedml:repeatedTask/@resetModel="False"</code> provides limited abilities to describe sets of dependent simulation runs, where each run begins from the end state of the previous run. This provides investigators limited abilities to describe meta simulation algorithms.</p>
+      <p>
+        In addition to capturing multiple independent simulation runs,
+        <code>sedml:repeatedTask/@resetModel="False"</code> provides limited
+        abilities to describe sets of dependent simulation runs, where each run
+        begins from the end state of the previous run. This provides
+        investigators limited abilities to describe meta simulation algorithms.
+      </p>
 
-      <p>Simulation tools are encouraged to support a simpler subset of the features of <code>sedml:repeatedTask</code> that is sufficient to describe multiple independent simulation runs.</p>
+      <p>
+        Simulation tools are encouraged to support a simpler subset of the
+        features of <code>sedml:repeatedTask</code> that is sufficient to
+        describe multiple independent simulation runs.
+      </p>
 
       <ul class="vertically-spaced">
-        <li><b><code>sedml:repeatedTask</code></b>: Simulation tools should support <code>resetModel="True"</code> as described in the SED specifications; the model specifications and initial conditions should be reset. Simulator state such as the states of random number generators should not be reset. When <code>resetModel="False"</code>, simulation tools should support limited preservation of the state of simulations between iterations. Simulation tools should accumulate changes to the specifications of the model(s) involved in the task. Simulations tools should not copy the final simulation state from the previous iteration to the initial state of the next iteration.</li>
-        <li><b>Sub-tasks</b>: Sucessive subtasks should be executed independently, including when they involve the same model. The final state of the previous sub-task should not be used to set up the initial state for the next sub-task.</li>
-        <li><b>Shape of model variables for the results of repeated tasks</b>: Repeated tasks should produce multi-dimensional results. The first dimension should represent the iterations of the main range of the repeated task. The second dimension should represent the sub-tasks of the repeated task. The results of sub-tasks should be ordered in the same order the sub-tasks were executed (in order of their <code>order</code> attributes). The result of each sub-task should be reshaped to the largest shape of its sibling sub-tasks by padding smaller results with <code>NaN</code>. Each nesting of repeated tasks should contribute two additional dimensions for their ranges and sub-tasks. The final dimensions should be the dimensions of the atomic tasks of the repeated task (e.g., time for tasks of uniform time courses).</li>
+        <li>
+          <b><code>sedml:repeatedTask</code></b
+          >: Simulation tools should support <code>resetModel="True"</code> as
+          described in the SED specifications; the model specifications and
+          initial conditions should be reset. Simulator state such as the states
+          of random number generators should not be reset. When
+          <code>resetModel="False"</code>, simulation tools should support
+          limited preservation of the state of simulations between iterations.
+          Simulation tools should accumulate changes to the specifications of
+          the model(s) involved in the task. Simulations tools should not copy
+          the final simulation state from the previous iteration to the initial
+          state of the next iteration.
+        </li>
+        <li>
+          <b>Sub-tasks</b>: Sucessive subtasks should be executed independently,
+          including when they involve the same model. The final state of the
+          previous sub-task should not be used to set up the initial state for
+          the next sub-task.
+        </li>
+        <li>
+          <b>Shape of model variables for the results of repeated tasks</b>:
+          Repeated tasks should produce multi-dimensional results. The first
+          dimension should represent the iterations of the main range of the
+          repeated task. The second dimension should represent the sub-tasks of
+          the repeated task. The results of sub-tasks should be ordered in the
+          same order the sub-tasks were executed (in order of their
+          <code>order</code> attributes). The result of each sub-task should be
+          reshaped to the largest shape of its sibling sub-tasks by padding
+          smaller results with <code>NaN</code>. Each nesting of repeated tasks
+          should contribute two additional dimensions for their ranges and
+          sub-tasks. The final dimensions should be the dimensions of the atomic
+          tasks of the repeated task (e.g., time for tasks of uniform time
+          courses).
+        </li>
       </ul>
     </biosimulations-text-page-content-section>
 
@@ -250,18 +305,45 @@
       heading="Canonical order of execution of tasks"
       tocSection="Order of execution"
     >
-      <p>For reproducibility, simulation tools should execute tasks in the order in which they are defined in SED-ML files.</p>
+      <p>
+        For reproducibility, simulation tools should execute tasks in the order
+        in which they are defined in SED-ML files.
+      </p>
 
-      <p>Furthermore, because the order of execution can affect the results of simulations, in general, each task should be executed, including tasks which do not contribute to any output. This is particularly important for simulation tools that implement Monte Carlo algorithms. One exception is tasks whose results are invariant to their order of execution such as most deterministic simulations. Such tasks can be executed in any order or in parallel.</p>
+      <p>
+        Furthermore, because the order of execution can affect the results of
+        simulations, in general, each task should be executed, including tasks
+        which do not contribute to any output. This is particularly important
+        for simulation tools that implement Monte Carlo algorithms. One
+        exception is tasks whose results are invariant to their order of
+        execution such as most deterministic simulations. Such tasks can be
+        executed in any order or in parallel.
+      </p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Limit use of symbols to variables of data generators"
       tocSection="Symbols"
     >
-      <p>SED-ML uses symbols to reference implicit properties of simulations that are not explicitly defined in the specification of the model for the simulation. The most frequently used symbol for SBML-encoded models is <code>urn:sedml:symbol:time</code> for the independent variable time. Such symbols only have defined values for simulations of models and not for models themselves.</p>
+      <p>
+        SED-ML uses symbols to reference implicit properties of simulations that
+        are not explicitly defined in the specification of the model for the
+        simulation. The most frequently used symbol for SBML-encoded models is
+        <code>urn:sedml:symbol:time</code> for the independent variable time.
+        Such symbols only have defined values for simulations of models and not
+        for models themselves.
+      </p>
 
-      <p>Consquently, symbols should only be used in contexts where simulations are defined. Specifically, symbols should only be used in conjunction with variables of <code>sedml:dataGenerator</code> to record predicted values of symbols. Symbols should not be used in conjunction with the variables of <code>sedml:computeChange</code>, <code>sedml:setValue</code>, or <code>sedml:functionalRange</code>. Symbols should also not be used with <code>sedml:setValue</code> to set the values of symbols.</p>
+      <p>
+        Consquently, symbols should only be used in contexts where simulations
+        are defined. Specifically, symbols should only be used in conjunction
+        with variables of <code>sedml:dataGenerator</code> to record predicted
+        values of symbols. Symbols should not be used in conjunction with the
+        variables of <code>sedml:computeChange</code>,
+        <code>sedml:setValue</code>, or <code>sedml:functionalRange</code>.
+        Symbols should also not be used with <code>sedml:setValue</code> to set
+        the values of symbols.
+      </p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -385,14 +467,16 @@
         <li>
           <b
             >jlibSED-ML
-            <a href="https://sourceforge.net/projects/jlibsedml/" target="_blank"
+            <a
+              href="https://sourceforge.net/projects/jlibsedml/"
+              target="_blank"
               ><biosimulations-icon icon="link"></biosimulations-icon></a
           ></b>
-          is a Java library for serializing and deserializing SED documents to and
-          from XML files. The library also provides methods for resolving models,
-          working with XPath targets for model elements, applying model changes,
-          orchestrating the execution of tasks, calculating the values of data
-          generators, and logging the execution of simulations.
+          is a Java library for serializing and deserializing SED documents to
+          and from XML files. The library also provides methods for resolving
+          models, working with XPath targets for model elements, applying model
+          changes, orchestrating the execution of tasks, calculating the values
+          of data generators, and logging the execution of simulations.
         </li>
       </ul>
     </biosimulations-text-page-content-section>

@@ -11,7 +11,7 @@
       heading="Try simulations"
       icon="experiment"
       [route]="['/simulations']"
-      [queryParams]="{try: '1'}"
+      [queryParams]="{ try: '1' }"
     >
     </biosimulations-topbar-menu-item>
 
@@ -37,7 +37,11 @@
     </biosimulations-topbar-menu-item>
 
     <biosimulations-hover-open-menu>
-      <biosimulations-topbar-menu-item heading="Utilities" icon="construction" id="trigger">
+      <biosimulations-topbar-menu-item
+        heading="Utilities"
+        icon="construction"
+        id="trigger"
+      >
       </biosimulations-topbar-menu-item>
 
       <ng-container id="items">
@@ -47,7 +51,7 @@
           [routerLink]="['/utils', 'validate']"
         >
         </biosimulations-dropdown-menu-item>
-        
+
         <biosimulations-dropdown-menu-item
           heading="Suggest a simulator"
           icon="simulator"
@@ -105,7 +109,7 @@
       heading="Try simulations"
       icon="experiment"
       [route]="['/simulations']"
-      [queryParams]="{try: '1'}"
+      [queryParams]="{ try: '1' }"
     >
     </biosimulations-navigation-item>
 

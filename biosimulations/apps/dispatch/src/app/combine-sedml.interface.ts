@@ -53,7 +53,10 @@ export interface SedOneStepSimulation {
   algorithm: SedAlgorithm;
 }
 
-export type SedSimulation = SedUniformTimeCourseSimulation | SedSteadyStateSimulation | SedOneStepSimulation;
+export type SedSimulation =
+  | SedUniformTimeCourseSimulation
+  | SedSteadyStateSimulation
+  | SedOneStepSimulation;
 
 export interface SedTask {
   _type: 'SedTask';

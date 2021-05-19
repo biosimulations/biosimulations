@@ -25,15 +25,13 @@ describe('ResultsController', () => {
       };
     }
   }
-  class MockStorageService{
-    getObject(id:string) {
-      return
+  class MockStorageService {
+    getObject(id: string) {
+      return;
     }
-    putObject(id:string, data:Buffer) {
-      
-    }
-    }
-  
+    putObject(id: string, data: Buffer) {}
+  }
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ResultsController],
@@ -43,10 +41,11 @@ describe('ResultsController', () => {
         {
           provide: getModelToken(ResultsModel.name),
           useClass: mockFile,
-        }, {
+        },
+        {
           provide: SharedStorageService,
-          useClass: MockStorageService
-        }
+          useClass: MockStorageService,
+        },
       ],
     }).compile();
 

@@ -25,7 +25,7 @@ export class BiosimulationsNavigationItemComponent {
   route: string | string[] = '';
 
   @Input()
-  queryParams: {[key: string]: string} = {};
+  queryParams: { [key: string]: string } = {};
 
   @Input()
   href: string = '';

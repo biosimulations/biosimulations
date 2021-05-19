@@ -29,7 +29,7 @@ export interface SedDatasetResults {
 export interface SedReportResults {
   id: string;
   datasets: SedDatasetResults[];
-};
+}
 
 export interface SedDocumentResults {
   location: string;

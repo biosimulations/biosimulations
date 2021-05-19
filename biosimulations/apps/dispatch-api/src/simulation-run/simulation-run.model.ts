@@ -40,7 +40,9 @@ export class SimulationRunModel extends Document {
 
   @Prop({
     type: String,
-    enum: Object.keys(SimulationRunStatus).map((key) => SimulationRunStatus[key as SimulationRunStatus]),
+    enum: Object.keys(SimulationRunStatus).map(
+      (key) => SimulationRunStatus[key as SimulationRunStatus],
+    ),
 
     default: SimulationRunStatus.CREATED,
   })
@@ -65,12 +67,20 @@ export class SimulationRunModel extends Document {
     type: Number,
     required: false,
     default: 1,
-    validate: [{
-      validator: (value: any): boolean => {
-        return !isNaN(value) && value >= 1 && value <= 24 && value == Math.floor(value);
+    validate: [
+      {
+        validator: (value: any): boolean => {
+          return (
+            !isNaN(value) &&
+            value >= 1 &&
+            value <= 24 &&
+            value == Math.floor(value)
+          );
+        },
+        message: (props: any): string =>
+          'Number of requested CPUs must be a positive integer less than or equal to 24.',
       },
-      message: (props: any): string => 'Number of requested CPUs must be a positive integer less than or equal to 24.',
-    }],
+    ],
   })
   cpus!: number;
 
@@ -78,12 +88,20 @@ export class SimulationRunModel extends Document {
     type: Number,
     required: false,
     default: 8,
-    validate: [{
-      validator: (value: any): boolean => {
-        return !isNaN(value) && value > 0 && value <= 192 && value == Math.floor(value);
+    validate: [
+      {
+        validator: (value: any): boolean => {
+          return (
+            !isNaN(value) &&
+            value > 0 &&
+            value <= 192 &&
+            value == Math.floor(value)
+          );
+        },
+        message: (props: any): string =>
+          'Amount of requested RAM (in GB) must be a positive float less than or equal to 192.',
       },
-      message: (props: any): string => 'Amount of requested RAM (in GB) must be a positive float less than or equal to 192.',
-    }],
+    ],
   })
   memory!: number;
 
@@ -91,12 +109,20 @@ export class SimulationRunModel extends Document {
     type: Number,
     required: false,
     default: 20,
-    validate: [{
-      validator: (value: any): boolean => {
-        return !isNaN(value) && value > 0 && value <= 20 * 24 * 60 && value == Math.floor(value);
+    validate: [
+      {
+        validator: (value: any): boolean => {
+          return (
+            !isNaN(value) &&
+            value > 0 &&
+            value <= 20 * 24 * 60 &&
+            value == Math.floor(value)
+          );
+        },
+        message: (props: any): string =>
+          'Amount of requested time (in min) must be a positive float less than or equal to 28800 (20 days).',
       },
-      message: (props: any): string => 'Amount of requested time (in min) must be a positive float less than or equal to 28800 (20 days).',
-    }],
+    ],
   })
   maxTime!: number;
 
@@ -135,8 +161,13 @@ export type SimulationRunModelType = Pick<
   | '_id'
 >;
 export type TestType = Exclude<SimulationRunModel, Document>;
-export type SimulationRunModelReturnType = Omit<SimulationRunModelType, '__v' | '_id' | 'file'> & { _id: never; __v: never };
-export const SimulationRunModelSchema = SchemaFactory.createForClass(SimulationRunModel);
+export type SimulationRunModelReturnType = Omit<
+  SimulationRunModelType,
+  '__v' | '_id' | 'file'
+> & { _id: never; __v: never };
+export const SimulationRunModelSchema = SchemaFactory.createForClass(
+  SimulationRunModel,
+);
 SimulationRunModelSchema.set('timestamps', {
   createdAt: 'submitted',
   updatedAt: 'updated',

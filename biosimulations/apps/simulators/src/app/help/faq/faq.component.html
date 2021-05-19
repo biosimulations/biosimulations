@@ -140,11 +140,31 @@
       <biosimulations-q-a
         heading="How does BioSimulators manage ownership of BioSimulators entries for simulation tools?"
       >
-        <p>BioSimulators uses GitHub teams to manage ownership of simulation tools.</p>
+        <p>
+          BioSimulators uses GitHub teams to manage ownership of simulation
+          tools.
+        </p>
 
-        <p>When a simulator is first submitted to BioSimulators, BioSimulators creates a GitHub Team to own the simulator and Biosimulators adds the submitter as a maintainer of that team. The team will have the name <code>@biosimulators/{{ '{' }} simulator-id {{ '}' }}</code>. Once the team is created, the submitter will be able to manage the team and add collaborators through GitHub <a href="https://github.com/orgs/biosimulators/teams/simulator-developers/teams" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+        <p>
+          When a simulator is first submitted to BioSimulators, BioSimulators
+          creates a GitHub Team to own the simulator and Biosimulators adds the
+          submitter as a maintainer of that team. The team will have the name
+          <code>@biosimulators/{{ '{' }} simulator-id {{ '}' }}</code
+          >. Once the team is created, the submitter will be able to manage the
+          team and add collaborators through GitHub
+          <a
+            href="https://github.com/orgs/biosimulators/teams/simulator-developers/teams"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >.
+        </p>
 
-        <p>Only members of these teams can submit issues to edit the specifications of tools and post new versions of tools. If you are not a member of the team for your simulator, you will need to request access from the maintainers of the GitHub team for your tool.</p>
+        <p>
+          Only members of these teams can submit issues to edit the
+          specifications of tools and post new versions of tools. If you are not
+          a member of the team for your simulator, you will need to request
+          access from the maintainers of the GitHub team for your tool.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
@@ -206,7 +226,8 @@
         heading="How can I create a shield for a simulation tool to embed into my website?"
       >
         <p>
-          We recommend using Shields.io to generate shields for simulators. Several examples are below.
+          We recommend using Shields.io to generate shields for simulators.
+          Several examples are below.
         </p>
         <ul class="vertically-spaced shields">
           <li>
@@ -223,9 +244,7 @@
           <li>
             <b>Indicate that a simulator is valid:</b>
             <br />Use
-            <code
-              >https://img.shields.io/badge/BioSimulators-valid-green</code
-            >
+            <code>https://img.shields.io/badge/BioSimulators-valid-green</code>
             to generate the badge below. <br /><a [routerLink]="['/run']"
               ><img
                 src="https://img.shields.io/badge/BioSimulators-valid-green"
@@ -235,7 +254,10 @@
             <b>Indicate the latest registered version of a simulator:</b>
             <br />Use
             <code
-              >https://img.shields.io/badge/BioSimulators-{{'{'}} latest-version {{'}'}}-green</code
+              >https://img.shields.io/badge/BioSimulators-{{
+                '{'
+              }}
+              latest-version {{ '}' }}-green</code
             >
             to generate the badge below. <br /><a [routerLink]="['/run']"
               ><img
@@ -260,22 +282,26 @@
 
       <biosimulations-q-a heading="How are results encoded into HDF5 files?">
         <p>
-          Within HDF5 files, the results of each report (<code>sedml:report</code>) and plot (<code>sedml:plot2D</code>, <code>sedml:plot3D</code>) are saved
-          to paths equal to a combination of the relative path of the parent
-          SED-ML document within the parent COMBINE/OMEX archive and the id of
-          the report or plot.
+          Within HDF5 files, the results of each report
+          (<code>sedml:report</code>) and plot (<code>sedml:plot2D</code>,
+          <code>sedml:plot3D</code>) are saved to paths equal to a combination
+          of the relative path of the parent SED-ML document within the parent
+          COMBINE/OMEX archive and the id of the report or plot.
         </p>
 
         <p>
           For reports, the rows of these data tables correspond to the data sets
           (<code>sedml:dataSet</code>) specified in the SED-ML definition of the
-          report. The heading of each row is the label of
-          the corresponding data set. For plots, the rows of these data tables correspond to the data generators
-          (<code>sedml:dataGenerators</code>) specified in the SED-ML definition of the
-          curves and surfaces of the plot. The heading of each row is the id of
-          the corresponding data generator.</p>
-        <p>For time course simulations, the columns of these data tables correspond
-          to the predicted time points. Below is a sample data table for a report.
+          report. The heading of each row is the label of the corresponding data
+          set. For plots, the rows of these data tables correspond to the data
+          generators (<code>sedml:dataGenerators</code>) specified in the SED-ML
+          definition of the curves and surfaces of the plot. The heading of each
+          row is the id of the corresponding data generator.
+        </p>
+        <p>
+          For time course simulations, the columns of these data tables
+          correspond to the predicted time points. Below is a sample data table
+          for a report.
         </p>
 
         <p>

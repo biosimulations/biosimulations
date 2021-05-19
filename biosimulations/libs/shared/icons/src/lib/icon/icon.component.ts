@@ -261,7 +261,7 @@ export class IconComponent {
     redo: { type: 'fas', name: 'redo-alt' },
   };
 
-  constructor () {
+  constructor() {
     this.setIcon('help');
   }
 

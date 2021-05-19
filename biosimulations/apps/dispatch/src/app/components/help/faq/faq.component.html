@@ -63,73 +63,237 @@
       <biosimulations-q-a
         heading="Where can I obtain example COMBINE/OMEX archives and SED-ML files?"
       >
-        Several examples COMBINE/OMEX archives and SED-ML files are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"
+        Several examples COMBINE/OMEX archives and SED-ML files are available
+        here
+        <a
+          href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples"
+          target="_blank"
           ><biosimulations-icon icon="link"></biosimulations-icon></a
-        >. These examples are verified to work with runBioSimulations. This page lists that simulation tools that are compatible with each COMBINE/OMEX archive.
+        >. These examples are verified to work with runBioSimulations. This page
+        lists that simulation tools that are compatible with each COMBINE/OMEX
+        archive.
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="Where can I obtain COMBINE/OMEX archives for simulation projects?"
       >
-        COMBINE/OMEX archives can be obtained from model repositories such as BioModels <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"
+        COMBINE/OMEX archives can be obtained from model repositories such as
+        BioModels
+        <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"
           ><biosimulations-icon icon="link"></biosimulations-icon></a
-        >. However, most of the COMBINE/OMEX files currently available from BioModels are invalid. We are working with the BioModels Team to correct these files.
+        >. However, most of the COMBINE/OMEX files currently available from
+        BioModels are invalid. We are working with the BioModels Team to correct
+        these files.
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="Which tools can I use to create COMBINE/OMEX archives that contain simulation experiments in SED-ML format?"
       >
-        <p class="no-bottom-margin">runBioSimulations recommends the following tools:</p>
+        <p class="no-bottom-margin">
+          runBioSimulations recommends the following tools:
+        </p>
         <ul>
-          <li>COPASI <a href="http://copasi.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
-          <li>iBioSim <a href="http://www.async.ece.utah.edu/ibiosim" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
-          <li>JWS Online <a href="http://jjj.mib.ac.uk/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
-          <li>tellurium <a href="http://tellurium.analogmachine.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
-          <li>VCell <a href="http://vcell.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+          <li>
+            COPASI
+            <a href="http://copasi.org/" target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon
+            ></a>
+          </li>
+          <li>
+            iBioSim
+            <a href="http://www.async.ece.utah.edu/ibiosim" target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon
+            ></a>
+          </li>
+          <li>
+            JWS Online
+            <a href="http://jjj.mib.ac.uk/" target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon
+            ></a>
+          </li>
+          <li>
+            tellurium
+            <a href="http://tellurium.analogmachine.org/" target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon
+            ></a>
+          </li>
+          <li>
+            VCell
+            <a href="http://vcell.org/" target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon
+            ></a>
+          </li>
         </ul>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="Are there any limitations to the COMBINE/OMEX archives and SED-ML files that runBioSimulations can execute?"
       >
-        <p>runBioSimulations is designed to be able to execute any COMBINE/OMEX archive and the SED-ML files they contain. In practice, runBioSimulations cannot execute every possible COMBINE/OMEX archive and SED-ML file for three main reasons.</p>
+        <p>
+          runBioSimulations is designed to be able to execute any COMBINE/OMEX
+          archive and the SED-ML files they contain. In practice,
+          runBioSimulations cannot execute every possible COMBINE/OMEX archive
+          and SED-ML file for three main reasons.
+        </p>
 
-        <p>First, currently runBioSimulations focuses on the latest version of SED-ML (L1V3) and has limited ability to execute simulation experiments encoded using older versions of SED-ML. Going forward, runBioSimulations will support new versions of SED-ML through new versions of simulation tools submitted to BioSimulators that support these new versions of SED-ML. Because BioSimulators stores old versions of simulation tools, runBioSimulations will also maintain the ability to execute simulations that involve the current version of SED-ML.</p>
+        <p>
+          First, currently runBioSimulations focuses on the latest version of
+          SED-ML (L1V3) and has limited ability to execute simulation
+          experiments encoded using older versions of SED-ML. Going forward,
+          runBioSimulations will support new versions of SED-ML through new
+          versions of simulation tools submitted to BioSimulators that support
+          these new versions of SED-ML. Because BioSimulators stores old
+          versions of simulation tools, runBioSimulations will also maintain the
+          ability to execute simulations that involve the current version of
+          SED-ML.
+        </p>
 
-        <p>Second, runBioSimulations can only execute SED-ML files that involve model formats, modeling frameworks, and simulation algorithms that are supported by at least one of the standardized simulation tools in the BioSimulators registry. Presently, the standardized simulation tools support multiple formats, multiple frameworks, and over 40 algorithms. Going forward, we aim to expand this by working with the community to develop standardized interfaces to additional simulation tools and submitting them to BioSimulators.</p>
+        <p>
+          Second, runBioSimulations can only execute SED-ML files that involve
+          model formats, modeling frameworks, and simulation algorithms that are
+          supported by at least one of the standardized simulation tools in the
+          BioSimulators registry. Presently, the standardized simulation tools
+          support multiple formats, multiple frameworks, and over 40 algorithms.
+          Going forward, we aim to expand this by working with the community to
+          develop standardized interfaces to additional simulation tools and
+          submitting them to BioSimulators.
+        </p>
 
-        <p class="no-bottom-margin">Third, runBioSimulations has limited ability to execute SED-ML documents that deviate from the specifications of the COMBINE/OMEX archive and SED-ML formats. In practice, this is the most significant limitation because some simulation tools produce SED-ML files which deviate from the specifications of SED-ML and because most of the existing SED-ML files at SED-ML.org and in model repositories such as BioModels deviate from the specifications of SED-ML. Below is a list of known issues which prevent runBioSimulations from executing many SED-ML files.</p>
+        <p class="no-bottom-margin">
+          Third, runBioSimulations has limited ability to execute SED-ML
+          documents that deviate from the specifications of the COMBINE/OMEX
+          archive and SED-ML formats. In practice, this is the most significant
+          limitation because some simulation tools produce SED-ML files which
+          deviate from the specifications of SED-ML and because most of the
+          existing SED-ML files at SED-ML.org and in model repositories such as
+          BioModels deviate from the specifications of SED-ML. Below is a list
+          of known issues which prevent runBioSimulations from executing many
+          SED-ML files.
+        </p>
         <ul>
-          <li><b>Broken model references</b>: The model sources in SED-ML files in some repositories such as BioModels are different from the actual locations of the model files.</li>
-          <li><b>Missing namespace definitions</b>: Most simulation tools do not define URIs for the namespace prefixes used in XPath targets for model variables. Most existing SED-ML files at SED-ML.org and in model repositories also lack definitions of these namespace prefixes.</li>
-          <li><b>Missing attributes</b>: Some simulation tools produce SED-ML files that are missing required attributes.</li>
-          <li><b>Invalid attribute values</b>: Some simulation tools produce SED-ML files that have invalid values of some attributes.</li>
-          <li><b>Non-unique identifiers</b>: Some simulation tools produce SED-ML files that have multiple elements with the same identifier. In such cases, references to these elements cannot be resolved.</li>
-          <li><b>Broken references</b>: Some simulation tools produce SED-ML files that have broken references (e.g., no instance of <code>sed:model</code> has an <code>id</code> attribute equal to the value of the <code>modelReference</code> attribute of a <code>sed:task</code>).</li>
-          <li><b>Invalid XPaths to model variables</b>: Some simulation tools produce SED-ML files that do not have correct XPaths to variables in models. Most frequently, this is because some simulation tools confuse the ids and names of model elements.</li>
-          <li><b>Incorrect KiSAO ids for algorithms</b>: Some simulation tools produce SED-ML files that indicate different algorithms than what the simulation tool actually used to execute the simulation.</li>
-          <li><b>Inconsistent plot axes</b>: Some simulation tools produces SED-ML files where curves in the same plot have mixed (linear and log) x, y, and/or z axes.</li>
+          <li>
+            <b>Broken model references</b>: The model sources in SED-ML files in
+            some repositories such as BioModels are different from the actual
+            locations of the model files.
+          </li>
+          <li>
+            <b>Missing namespace definitions</b>: Most simulation tools do not
+            define URIs for the namespace prefixes used in XPath targets for
+            model variables. Most existing SED-ML files at SED-ML.org and in
+            model repositories also lack definitions of these namespace
+            prefixes.
+          </li>
+          <li>
+            <b>Missing attributes</b>: Some simulation tools produce SED-ML
+            files that are missing required attributes.
+          </li>
+          <li>
+            <b>Invalid attribute values</b>: Some simulation tools produce
+            SED-ML files that have invalid values of some attributes.
+          </li>
+          <li>
+            <b>Non-unique identifiers</b>: Some simulation tools produce SED-ML
+            files that have multiple elements with the same identifier. In such
+            cases, references to these elements cannot be resolved.
+          </li>
+          <li>
+            <b>Broken references</b>: Some simulation tools produce SED-ML files
+            that have broken references (e.g., no instance of
+            <code>sed:model</code> has an <code>id</code> attribute equal to the
+            value of the <code>modelReference</code> attribute of a
+            <code>sed:task</code>).
+          </li>
+          <li>
+            <b>Invalid XPaths to model variables</b>: Some simulation tools
+            produce SED-ML files that do not have correct XPaths to variables in
+            models. Most frequently, this is because some simulation tools
+            confuse the ids and names of model elements.
+          </li>
+          <li>
+            <b>Incorrect KiSAO ids for algorithms</b>: Some simulation tools
+            produce SED-ML files that indicate different algorithms than what
+            the simulation tool actually used to execute the simulation.
+          </li>
+          <li>
+            <b>Inconsistent plot axes</b>: Some simulation tools produces SED-ML
+            files where curves in the same plot have mixed (linear and log) x,
+            y, and/or z axes.
+          </li>
         </ul>
 
-        <p>We are working with the SED-ML community to clarify the specifications of SED-ML and resolve these inconsistencies. To drive consistency, we also developed the BioSimulators test suite <a href="https://github.com/biosimulators/Biosimulators_test_suite" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> for verifying whether simulation tools execute COMBINE/OMEX archives and SED-ML files consistently with the specifications of these formats. In addition, we developed BioSimulators utils <a href="https://github.com/biosimulators/Biosimulators_utils" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, a Python package which provides methods for more deeply validating COMBINE/OMEX archives and SED-ML files.</p>
+        <p>
+          We are working with the SED-ML community to clarify the specifications
+          of SED-ML and resolve these inconsistencies. To drive consistency, we
+          also developed the BioSimulators test suite
+          <a
+            href="https://github.com/biosimulators/Biosimulators_test_suite"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          for verifying whether simulation tools execute COMBINE/OMEX archives
+          and SED-ML files consistently with the specifications of these
+          formats. In addition, we developed BioSimulators utils
+          <a
+            href="https://github.com/biosimulators/Biosimulators_utils"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >, a Python package which provides methods for more deeply validating
+          COMBINE/OMEX archives and SED-ML files.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="Which other tools can I use to execute COMBINE/OMEX archives? Are there any limitations executing archives with other tools?"
       >
-        <p>runBioSimulations is designed to be compatible with the COMBINE/OMEX archive and SED-ML formats. In principle, this means that other tools such as COPASI <a href="http://copasi.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> and VCell <a href="https://vcell.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> that support these same formats should be able to execute the same simulations that can be executed with runBioSimulations. In practice, there are two main factors which limit the ability of such tools to execute COMBINE/OMEX archives and SED-ML files.</p>
+        <p>
+          runBioSimulations is designed to be compatible with the COMBINE/OMEX
+          archive and SED-ML formats. In principle, this means that other tools
+          such as COPASI
+          <a href="http://copasi.org/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          and VCell
+          <a href="https://vcell.org/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          that support these same formats should be able to execute the same
+          simulations that can be executed with runBioSimulations. In practice,
+          there are two main factors which limit the ability of such tools to
+          execute COMBINE/OMEX archives and SED-ML files.
+        </p>
 
-        <p>First, each tool can only execute simulations involving a limited number of model formats, modeling frameworks, and simulation algorithms.</p>
+        <p>
+          First, each tool can only execute simulations involving a limited
+          number of model formats, modeling frameworks, and simulation
+          algorithms.
+        </p>
 
-        <p>Second, some simulation tools only support a subset of SED-ML. For example, some tools do not support model resolution via URI fragments, some do not support model changes, some do not support repeated tasks, and some do not support 3D plots. Going forward, we hope to use BioSimulators to keep finer-grained track of the capabilities of each tool.</p>
+        <p>
+          Second, some simulation tools only support a subset of SED-ML. For
+          example, some tools do not support model resolution via URI fragments,
+          some do not support model changes, some do not support repeated tasks,
+          and some do not support 3D plots. Going forward, we hope to use
+          BioSimulators to keep finer-grained track of the capabilities of each
+          tool.
+        </p>
 
-        <p>Third, some of the inconsistencies in the implementation of COMBINE and SED-ML described above prevent some simulation tools from consistently executing some COMBINE/OMEX archives and SED-ML files. In particular, some tools cannot execute COMBINE/OMEX archives that organize files into subdirectories.</p>
+        <p>
+          Third, some of the inconsistencies in the implementation of COMBINE
+          and SED-ML described above prevent some simulation tools from
+          consistently executing some COMBINE/OMEX archives and SED-ML files. In
+          particular, some tools cannot execute COMBINE/OMEX archives that
+          organize files into subdirectories.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="How can I quickly run a sample set of simulations?"
       >
-        Click <a [routerLink]="['/simulations']" [queryParams]="{try: '1'}">here</a> to load several example simulation projects from the BioSimulators test suite <a [href]="exampleCombineArchivesUrl" target="_blank"
+        Click
+        <a [routerLink]="['/simulations']" [queryParams]="{ try: '1' }">here</a>
+        to load several example simulation projects from the BioSimulators test
+        suite
+        <a [href]="exampleCombineArchivesUrl" target="_blank"
           ><biosimulations-icon icon="link"></biosimulations-icon></a
         >.
       </biosimulations-q-a>
@@ -183,38 +347,83 @@
       <biosimulations-q-a
         heading="How much resources are available to each simulation?"
       >
-        <p class="no-bottom-margin">runBioSimulations currently allows users to request up the following amounts of resources for each simulation project:</p>
+        <p class="no-bottom-margin">
+          runBioSimulations currently allows users to request up the following
+          amounts of resources for each simulation project:
+        </p>
         <ul>
           <li>Cores: 24</li>
           <li>RAM: 192 GB</li>
           <li>Time: 20 days</li>
         </ul>
 
-        <p>These limits are easily configurable. Please contact runBioSimulations Team <a [href]="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> if these limits would constrain your work.</p>
+        <p>
+          These limits are easily configurable. Please contact runBioSimulations
+          Team
+          <a [href]="emailUrl"
+            ><biosimulations-icon icon="email"></biosimulations-icon
+          ></a>
+          if these limits would constrain your work.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="How much resources are available to runBioSimulations?"
       >
-        runBioSimulations has access to over 50 TFLOPs from 2,168 CPU cores, 11 TB RAM, and 8 PB of storage. Of this, 48 CPU cores and 384 GB RAM are dedicated to runBioSimulations. The remainder is shared with other users of the HPC system at UConn Health. More information about the infrastructure available to runBioSimulations is available from the UConn Health HPC facility <a href="https://health.uconn.edu/high-performance-computing/resources/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        runBioSimulations has access to over 50 TFLOPs from 2,168 CPU cores, 11
+        TB RAM, and 8 PB of storage. Of this, 48 CPU cores and 384 GB RAM are
+        dedicated to runBioSimulations. The remainder is shared with other users
+        of the HPC system at UConn Health. More information about the
+        infrastructure available to runBioSimulations is available from the
+        UConn Health HPC facility
+        <a
+          href="https://health.uconn.edu/high-performance-computing/resources/"
+          target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >.
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="How many users can use runBioSimulations simultaneously?"
       >
-        <p>runBioSimulations is architected to accomodate many simultaneous users. There is no specific limit on the number of users that can use runBioSimulations simultaneously. If users submit many simulations simultaneously, their simulations will be queued and processed in the order in which they were submitted.</p>
+        <p>
+          runBioSimulations is architected to accomodate many simultaneous
+          users. There is no specific limit on the number of users that can use
+          runBioSimulations simultaneously. If users submit many simulations
+          simultaneously, their simulations will be queued and processed in the
+          order in which they were submitted.
+        </p>
 
-        <p>The runBioSimulations Team strives to make runBioSimulations' resources are fairly available to all users. If necessary, the runBioSimulations will implement a job priority policy to ensure this.</p>
+        <p>
+          The runBioSimulations Team strives to make runBioSimulations'
+          resources are fairly available to all users. If necessary, the
+          runBioSimulations will implement a job priority policy to ensure this.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="Is there a limit to the size of simulation results that runBioSimulations can generate?"
       >
-        <p>Currently, the BSON representation of each report generated from a COMBINE/OMEX archive is limited to 16 MB. We are actively implementing an enhanced system that will accomodate at least 5 TB total for all reports generated from a COMBINE/OMEX archive.</p>
+        <p>
+          Currently, the BSON representation of each report generated from a
+          COMBINE/OMEX archive is limited to 16 MB. We are actively implementing
+          an enhanced system that will accomodate at least 5 TB total for all
+          reports generated from a COMBINE/OMEX archive.
+        </p>
 
-        <p>In addition, the format that runBioSimulations relies on for reports is limited to 32 dimensions. For a non-spatial time course, this means that runBioSimulations can accomodate up to 15 layers of nested repeated tasks. For a 3D spatial time course, this means that runBioSimulations can accomodate up to 13 layers of nested repeated tasks.</p>
+        <p>
+          In addition, the format that runBioSimulations relies on for reports
+          is limited to 32 dimensions. For a non-spatial time course, this means
+          that runBioSimulations can accomodate up to 15 layers of nested
+          repeated tasks. For a 3D spatial time course, this means that
+          runBioSimulations can accomodate up to 13 layers of nested repeated
+          tasks.
+        </p>
 
-        <p>The total size of all plots generated from an archive is limited to 5 TB.</p>
+        <p>
+          The total size of all plots generated from an archive is limited to 5
+          TB.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
@@ -339,10 +548,10 @@
         <ul class="vertically-spaced">
           <li>
             <b><code>modelUrl</code></b
-            >: URL for a model file to create a COMBINE archive from. This argument
-            instructs the web form to prefill the model file input
-            with this URL.
-          f</li>
+            >: URL for a model file to create a COMBINE archive from. This
+            argument instructs the web form to prefill the model file input with
+            this URL. f
+          </li>
           <li>
             <b><code>modelFormat</code></b
             >: EDAM id of the format of the models to execute (e.g.,
@@ -353,18 +562,20 @@
             <b><code>modelingFramework</code></b
             >: SBO id of the modeling framework of the simulations to execute
             (e.g., <code>SBO_0000293</code> for continuous kinetic framework).
-            This argument instructs the web form to select this modeling framework.
+            This argument instructs the web form to select this modeling
+            framework.
           </li>
           <li>
             <b><code>simulationType</code></b
-            >: Name of the type of simulation to create (<code>OneStep</code>, <code>SteadyState</code>, <code>UniformTimeCourse</code>).
-            This argument instructs the web form to select this simulation type.
+            >: Name of the type of simulation to create (<code>OneStep</code>,
+            <code>SteadyState</code>, <code>UniformTimeCourse</code>). This
+            argument instructs the web form to select this simulation type.
           </li>
           <li>
             <b><code>simulationAlgorithm</code></b
-            >: KiSAO id of the simulation algorithm to execute
-            (e.g., <code>KISAO_0000019</code> for CVODE).
-            This argument instructs the web form to select this algorithm.
+            >: KiSAO id of the simulation algorithm to execute (e.g.,
+            <code>KISAO_0000019</code> for CVODE). This argument instructs the
+            web form to select this algorithm.
           </li>
         </ul>
 
@@ -375,8 +586,8 @@
               config.appUrl
             }}run?modelUrl=https%3A%2F%2Fwww.ebi.ac.uk%2Fbiomodels%2Fmodel%2Fdownload%2FBIOMD0000000878.4%3Ffilename%3DLenbury2001.xml&modelFormat=format_2585&modelingFramework=SBO_0000293</code
           >
-          can be used to link to the capability to create a COMBINE/OMEX archive for BioModels entry
-          BIOMD0000000878.
+          can be used to link to the capability to create a COMBINE/OMEX archive
+          for BioModels entry BIOMD0000000878.
         </p>
       </biosimulations-q-a>
 
@@ -397,7 +608,7 @@
             >: URL for a COMBINE/OMEX archive to simulate. This argument
             instructs the web form to prefill the COMBINE/OMEX archive input
             with this URL.
-          </li>         
+          </li>
           <li>
             <b><code>simulator</code></b
             >: Id of the recommended simulator for executing the COMBINE/OMEX
@@ -412,18 +623,21 @@
           </li>
           <li>
             <b><code>cpus</code></b
-            >: Recommended number of CPU cores needed to execute the COMBINE/OMEX archive. This argument
-            instruct the web form to preset the requested number of CPU cores.
+            >: Recommended number of CPU cores needed to execute the
+            COMBINE/OMEX archive. This argument instruct the web form to preset
+            the requested number of CPU cores.
           </li>
           <li>
             <b><code>memory</code></b
-            >: Recommended amount of RAM in GB needed to execute the COMBINE/OMEX archive. This argument
-            instruct the web form to preset the requested amount of RAM.
+            >: Recommended amount of RAM in GB needed to execute the
+            COMBINE/OMEX archive. This argument instruct the web form to preset
+            the requested amount of RAM.
           </li>
           <li>
             <b><code>maxTime</code></b
-            >: Recommended amount of time in minutes needed to execute the COMBINE/OMEX archive. This argument
-            instruct the web form to preset the requested maximum execution time.
+            >: Recommended amount of time in minutes needed to execute the
+            COMBINE/OMEX archive. This argument instruct the web form to preset
+            the requested maximum execution time.
           </li>
         </ul>
 
@@ -443,9 +657,9 @@
         heading="How can I create a shield for a simulation tool to embed into my website?"
       >
         <p>
-          We recommend using Shields.io to generate shields for executing simulations with
-          runBioSimulations, executing simulations with specific simulators, or executing
-          specific modeling projects:
+          We recommend using Shields.io to generate shields for executing
+          simulations with runBioSimulations, executing simulations with
+          specific simulators, or executing specific modeling projects:
         </p>
         <ul class="vertically-spaced shields">
           <li>
@@ -463,8 +677,11 @@
             <b>Executing simulations with a specific simulator:</b>
             <br />Use the pattern
             <code
-              >https://img.shields.io/badge/runBioSimulations-{{ '{' }} simulator-name
-              {{ '}' }}:{{ '{' }} simulator-version {{ '}' }}-green</code
+              >https://img.shields.io/badge/runBioSimulations-{{
+                '{'
+              }}
+              simulator-name {{ '}' }}:{{ '{' }} simulator-version
+              {{ '}' }}-green</code
             >
             to generate badges such as the badge below for tellurium 2.2.0.
             <br /><a
@@ -481,14 +698,20 @@
             <b>Executing specific modeling projects:</b>
             <br />Use the pattern
             <code
-              >https://img.shields.io/badge/runBioSimulations-{{ '{' }} model-name
-              {{ '}' }}:{{ '{' }} model-format {{ '}' }}-green</code
+              >https://img.shields.io/badge/runBioSimulations-{{
+                '{'
+              }}
+              model-name {{ '}' }}:{{ '{' }} model-format {{ '}' }}-green</code
             >
-            to generate badges such as the badge below for the Ciliberto model of the morphogenesis checkpoint in budding yeast <a href="https://doi.org/10.1083/jcb.200306139" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
-            <br /><a
+            to generate badges such as the badge below for the Ciliberto model
+            of the morphogenesis checkpoint in budding yeast
+            <a href="https://doi.org/10.1083/jcb.200306139" target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+            >. <br /><a
               [routerLink]="['/run']"
               [queryParams]="{
-                projectUrl: 'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples/sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex',
+                projectUrl:
+                  'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples/sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex',
                 modelFormat: 'format_2585',
                 modelingFramework: 'SBO_0000293',
                 simulationAlgorithm: 'KISAO_0000019'
@@ -503,42 +726,105 @@
       <biosimulations-q-a
         heading="Where does runBioSimulations execute simulations and store their outputs?"
       >
-        <p>runBioSimulations executes simulations using a high-performance computing cluster at UConn Health. The runBioSimulations user interface is deployed using Netlfiy. runBioSimulations' APIs are deployed using Google Cloud. runBioSimulations stores simulation projects (COMBINE/OMEX archives) and their results in MongoDB Atlas.</p>
+        <p>
+          runBioSimulations executes simulations using a high-performance
+          computing cluster at UConn Health. The runBioSimulations user
+          interface is deployed using Netlfiy. runBioSimulations' APIs are
+          deployed using Google Cloud. runBioSimulations stores simulation
+          projects (COMBINE/OMEX archives) and their results in MongoDB Atlas.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="Can I use runBioSimulations to execute simulations involving confidential data (e.g., sensitive patient information)?"
       >
-        <p>runBioSimulations should not be used for simulations involving confidential data such as information about individual patients. We recommend that investigators who wish to execute simulations involving confidential data use the simulation tools provided by BioSimulators <a href="https://biosimulators.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to execute simulations using their own hardware or contact the BioSimulators Team <a href="emailUrl"><biosimulations-icon icon="email"></biosimulations-icon></a> to discuss other options.
-      </biosimulations-q-a>
+        <p>
+          runBioSimulations should not be used for simulations involving
+          confidential data such as information about individual patients. We
+          recommend that investigators who wish to execute simulations involving
+          confidential data use the simulation tools provided by BioSimulators
+          <a href="https://biosimulators.org" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          to execute simulations using their own hardware or contact the
+          BioSimulators Team
+          <a href="emailUrl"
+            ><biosimulations-icon icon="email"></biosimulations-icon
+          ></a>
+          to discuss other options.
+        </p></biosimulations-q-a
+      >
     </biosimulations-text-page-content-section>
 
-     <biosimulations-text-page-content-section
+    <biosimulations-text-page-content-section
       heading="Data visualizations"
       tocSection="Data visualizations"
     >
       <biosimulations-q-a
         heading="Which simulation outputs can runBioSimulations visualize?"
       >
-        <p>runBioSimulations can visualize data sets (<code>sedml:DataSet</code>) of reports (<code>sedml:report</code>) defined in SED-ML documents.</p>
+        <p>
+          runBioSimulations can visualize data sets (<code>sedml:DataSet</code>)
+          of reports (<code>sedml:report</code>) defined in SED-ML documents.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="What types of plots can runBioSimulations render?"
       >
-        <p>runBioSimulations provides two methods of visualizing simulation results. First, runBioSimulations provides a simple form for configuring two-dimensional line plots and scatter plots of pairs of data sets. These two-dimensional plots support linear and logarithmic axes.</p>
+        <p>
+          runBioSimulations provides two methods of visualizing simulation
+          results. First, runBioSimulations provides a simple form for
+          configuring two-dimensional line plots and scatter plots of pairs of
+          data sets. These two-dimensional plots support linear and logarithmic
+          axes.
+        </p>
 
-        <p>In addition, users can use data visualizations in Vega format <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> by uploading a Vega file and using a simple form to map the inputs of the visualization (Vega data sets) to the outputs of the COMBINE archive (SED-ML reports). Vega is a flexible format that can capture a wide range of high quality, interactive visualizations. By modularly defining graphical marks and how they should be painted with data, Vega also makes diagrams reusable so the same diagram can be re-painted with results of multiple simulation conditions. Recommendations for using Vega to visualize simulation results are available here <a href="https://biosimulators.org/conventions/data-viz"><biosimulations-icon icon="link"></biosimulations-icon></a>. Example visualizations for simulation predictions are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+        <p>
+          In addition, users can use data visualizations in Vega format
+          <a href="https://vega.github.io/vega/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          by uploading a Vega file and using a simple form to map the inputs of
+          the visualization (Vega data sets) to the outputs of the COMBINE
+          archive (SED-ML reports). Vega is a flexible format that can capture a
+          wide range of high quality, interactive visualizations. By modularly
+          defining graphical marks and how they should be painted with data,
+          Vega also makes diagrams reusable so the same diagram can be
+          re-painted with results of multiple simulation conditions.
+          Recommendations for using Vega to visualize simulation results are
+          available here
+          <a href="https://biosimulators.org/conventions/data-viz"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >. Example visualizations for simulation predictions are available
+          here
+          <a
+            href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="How can I use alternative types of plots to visualize simulation results?"
       >
-        <p>Simulation results generated with runBioSimulations can be visualized by downloading the results and plotting them with an external program such as
-          Altair <a href="https://altair-viz.github.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>,
-          ggplot2 <a href="https://ggplot2.tidyverse.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>,
-          Matplotlib <a href="https://matplotlib.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, or
-          Seaborn <a href="https://seaborn.pydata.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        <p>
+          Simulation results generated with runBioSimulations can be visualized
+          by downloading the results and plotting them with an external program
+          such as Altair
+          <a href="https://altair-viz.github.io/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >, ggplot2
+          <a href="https://ggplot2.tidyverse.org/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >, Matplotlib
+          <a href="https://matplotlib.org/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >, or Seaborn
+          <a href="https://seaborn.pydata.org/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >.
         </p>
       </biosimulations-q-a>
     </biosimulations-text-page-content-section>
@@ -563,9 +849,21 @@
       <biosimulations-q-a
         heading="How frequently are the simulation tools available in runBioSimulations updated?"
       >
-        <p>Simulations tools are available immediately after they are accepted into the BioSimulators registry.</p>
+        <p>
+          Simulations tools are available immediately after they are accepted
+          into the BioSimulators registry.
+        </p>
 
-        <p>BioSimulators has tried to make it easy for developers to push new versions to BioSimulators. Specifically, BioSimulators enables developers to programmatically submit simulation tools, and BioSimulators encourages developers to use systems such as CircleCI and GitHub actions to automate the release of new versions. BioSimulators provides template actions for developers. In addition, BioSimulators has developed a automated testing system to ensure that the tools in the registry work executed COMBINE archives as described.</p>
+        <p>
+          BioSimulators has tried to make it easy for developers to push new
+          versions to BioSimulators. Specifically, BioSimulators enables
+          developers to programmatically submit simulation tools, and
+          BioSimulators encourages developers to use systems such as CircleCI
+          and GitHub actions to automate the release of new versions.
+          BioSimulators provides template actions for developers. In addition,
+          BioSimulators has developed a automated testing system to ensure that
+          the tools in the registry work executed COMBINE archives as described.
+        </p>
       </biosimulations-q-a>
 
       <biosimulations-q-a

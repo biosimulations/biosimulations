@@ -30,10 +30,9 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
           'http://www.geneontology.org/formats/oboInOwl#hasDefinition'
         ] || null;
       const termName = jsonTerm['rdfs:label'];
-      const termUrl = (
-        'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=' 
-        + encodeURIComponent('http://edamontology.org/' + termId)
-      );
+      const termUrl =
+        'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=' +
+        encodeURIComponent('http://edamontology.org/' + termId);
       let moreInfoUrl: string | null = null;
       if (isUrl(jsonTerm?.['http://edamontology.org/documentation']?.['@id'])) {
         moreInfoUrl =

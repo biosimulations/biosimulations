@@ -16,16 +16,16 @@ import vegaEmbed from 'vega-embed';
   styleUrls: ['./vega-visualization.component.scss'],
 })
 export class VegaVisualizationComponent {
-  constructor(private hostElement: ElementRef) { }
+  constructor(private hostElement: ElementRef) {}
 
   private _spec: Spec | null = null;
 
   @Input()
   set spec(value: Observable<Spec | null>) {
     value.subscribe((value: Spec | null): void => {
-        this._spec = value;
-        this.render();
-    })
+      this._spec = value;
+      this.render();
+    });
   }
 
   render(): void {

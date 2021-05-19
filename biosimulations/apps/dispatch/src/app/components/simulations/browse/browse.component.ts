@@ -95,10 +95,16 @@ export class BrowseComponent implements OnInit {
         return simulation.maxTime || 20;
       },
       formatter: (valueMin: number): string => {
-        return SimulationStatusService.formatTime(null, valueMin * 60) as string;
+        return SimulationStatusService.formatTime(
+          null,
+          valueMin * 60,
+        ) as string;
       },
       stackedFormatter: (valueMin: number): string => {
-        return SimulationStatusService.formatTime('N/A', valueMin * 60) as string;
+        return SimulationStatusService.formatTime(
+          'N/A',
+          valueMin * 60,
+        ) as string;
       },
       filterType: ColumnFilterType.number,
       minWidth: 34,
@@ -223,30 +229,40 @@ export class BrowseComponent implements OnInit {
       heading: 'Viz',
       key: 'status',
       getter: (simulation: Simulation): boolean => {
-        return (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
-            && simulation.resultsSize !== undefined
-            && simulation.resultsSize > 0);
+        return (
+          SimulationStatusService.isSimulationStatusSucceeded(
+            simulation.status,
+          ) &&
+          simulation.resultsSize !== undefined &&
+          simulation.resultsSize > 0
+        );
       },
       center: true,
       leftIcon: 'chart',
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
-        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
-            && simulation.resultsSize !== undefined
-            && simulation.resultsSize > 0
+        if (
+          SimulationStatusService.isSimulationStatusSucceeded(
+            simulation.status,
+          ) &&
+          simulation.resultsSize !== undefined &&
+          simulation.resultsSize > 0
         ) {
-          return ['/simulations', simulation.id, "#tab=design-viz"];
+          return ['/simulations', simulation.id, '#tab=design-viz'];
         } else {
           return null;
         }
       },
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
-        if (SimulationStatusService.isSimulationStatusSucceeded(simulation.status)
-            && simulation.resultsSize !== undefined
-            && simulation.resultsSize > 0
+        if (
+          SimulationStatusService.isSimulationStatusSucceeded(
+            simulation.status,
+          ) &&
+          simulation.resultsSize !== undefined &&
+          simulation.resultsSize > 0
         ) {
-          return ['/simulations', simulation.id, "#tab=design-viz"];
+          return ['/simulations', simulation.id, '#tab=design-viz'];
         } else {
           return null;
         }
@@ -265,11 +281,7 @@ export class BrowseComponent implements OnInit {
       maxWidth: 38,
       filterable: false,
       sortable: false,
-      comparator: (
-        a: boolean,
-        b: boolean,
-        sign: number
-      ): number => {
+      comparator: (a: boolean, b: boolean, sign: number): number => {
         if (a > b) return -1;
         if (a < b) return 1;
         return 0;
@@ -403,24 +415,22 @@ export class BrowseComponent implements OnInit {
       leftAction: ColumnActionType.click,
       leftClick: (simulation: Simulation): void => {
         this.router.navigate(['/run'], {
-            queryParams: {
-              projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-              simulator: simulation.simulator,
-              simulatorVersion: simulation.simulatorVersion,
-            },
-          }
-        );
+          queryParams: {
+            projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+            simulator: simulation.simulator,
+            simulatorVersion: simulation.simulatorVersion,
+          },
+        });
       },
       centerAction: ColumnActionType.click,
       centerClick: (simulation: Simulation): void => {
         this.router.navigate(['/run'], {
-            queryParams: {
-              projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-              simulator: simulation.simulator,
-              simulatorVersion: simulation.simulatorVersion,
-            },
-          }
-        );
+          queryParams: {
+            projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+            simulator: simulation.simulator,
+            simulatorVersion: simulation.simulatorVersion,
+          },
+        });
       },
       formatter: (id: string): null => {
         return null;
@@ -443,10 +453,20 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'share',
       leftAction: ColumnActionType.click,
       leftClick: (simulation: Simulation): void => {
-        navigator.clipboard.writeText(window.location.protocol + '//' + window.location.host + '/simulations/' + simulation.id);
-        this.snackBar.open('The URL for sharing the simulation was copied to your clipboard.', undefined, {
-          duration: snackBarDuration,
-        });
+        navigator.clipboard.writeText(
+          window.location.protocol +
+            '//' +
+            window.location.host +
+            '/simulations/' +
+            simulation.id,
+        );
+        this.snackBar.open(
+          'The URL for sharing the simulation was copied to your clipboard.',
+          undefined,
+          {
+            duration: snackBarDuration,
+          },
+        );
       },
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] => {
@@ -456,7 +476,13 @@ export class BrowseComponent implements OnInit {
         return null;
       },
       stackedFormatter: (id: string): string => {
-        return window.location.protocol + '//' + window.location.host + '/simulations/' + id;
+        return (
+          window.location.protocol +
+          '//' +
+          window.location.host +
+          '/simulations/' +
+          id
+        );
       },
       leftIconTitle: (simulation: Simulation): string => {
         return 'Click to copy URL to clipboard';
@@ -509,10 +535,14 @@ export class BrowseComponent implements OnInit {
     activatedRoute.queryParams.subscribe((params: Params): void => {
       if (params?.try) {
         const numSimulations = this.loadExampleSimulations();
-        this.snackBar.open(`${numSimulations} example simulations were loaded into your list of simulations.`, undefined, {
-          verticalPosition: 'top',
-          duration: 10000,
-        });
+        this.snackBar.open(
+          `${numSimulations} example simulations were loaded into your list of simulations.`,
+          undefined,
+          {
+            verticalPosition: 'top',
+            duration: 10000,
+          },
+        );
       }
     });
   }

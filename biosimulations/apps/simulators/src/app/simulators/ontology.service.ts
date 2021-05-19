@@ -66,8 +66,8 @@ export class OntologyService {
 
   getKisaoUrl(id: string): string {
     return (
-      'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri='
-      + encodeURIComponent('http://www.biomodels.net/kisao/KISAO#' + id)
+      'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=' +
+      encodeURIComponent('http://www.biomodels.net/kisao/KISAO#' + id)
     );
   }
 

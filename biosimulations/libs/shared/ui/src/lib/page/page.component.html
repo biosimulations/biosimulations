@@ -1,4 +1,8 @@
-<div class="partial-width" [ngClass]="{ padded: padded }" [ngStyle]="{'max-width': maxWidth}">
+<div
+  class="partial-width"
+  [ngClass]="{ padded: padded }"
+  [ngStyle]="{ 'max-width': maxWidth }"
+>
   <div class="heading" fxShow fxHide.lt-md *ngIf="heading">
     <h1>
       {{ heading }}

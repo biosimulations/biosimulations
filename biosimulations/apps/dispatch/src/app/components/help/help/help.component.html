@@ -33,20 +33,42 @@
       heading="Overview"
       tocSection="Overview"
     >
-      <p class="no-bottom-margin">Below is a collection of brief tutorials on runBioSimulations:</p>      
+      <p class="no-bottom-margin">
+        Below is a collection of brief tutorials on runBioSimulations:
+      </p>
       <ul>
-        <li>Creating COMBINE archives with SED-ML documents for simulation experiments.</li>
-        <li>Finding simulations tools that have the capabilities to execute specific COMBINE archives.</li>
+        <li>
+          Creating COMBINE archives with SED-ML documents for simulation
+          experiments.
+        </li>
+        <li>
+          Finding simulations tools that have the capabilities to execute
+          specific COMBINE archives.
+        </li>
         <li>Using this application or its API to execute COMBINE archives.</li>
         <li>Checking the status of simulations.</li>
         <li>Retrieving the results of simulations.</li>
         <li>Visualizing the results of simulations.</li>
       </ul>
 
-      <p class="no-bottom-margin">This information was presented at the HARMONY meeting on 3/22.</p>
+      <p class="no-bottom-margin">
+        This information was presented at the HARMONY meeting on 3/22.
+      </p>
       <ul>
-        <li>Video <a href="https://www.youtube.com/watch?v=h0SCn0ZDqq8" target="_blank"><biosimulations-icon icon="video"></biosimulations-icon></a>
-        <li>Slides <a href="https://drive.google.com/file/d/1Q0X6GNQlT5PfZOcBNVu1B92SSAxJWrnS/view?usp=sharing" target="_blank"><biosimulations-icon icon="pdf"></biosimulations-icon></a>
+        <li>
+          Video
+          <a href="https://www.youtube.com/watch?v=h0SCn0ZDqq8" target="_blank"
+            ><biosimulations-icon icon="video"></biosimulations-icon
+          ></a>
+        </li>
+        <li>
+          Slides
+          <a
+            href="https://drive.google.com/file/d/1Q0X6GNQlT5PfZOcBNVu1B92SSAxJWrnS/view?usp=sharing"
+            target="_blank"
+            ><biosimulations-icon icon="pdf"></biosimulations-icon
+          ></a>
+        </li>
       </ul>
     </biosimulations-text-page-content-section>
 
@@ -54,9 +76,15 @@
       heading="Executing a set of example simulation projects"
       tocSection="Trying runBioSimulations"
     >
-      Click <a [routerLink]="['/simulations']" [queryParams]="{try: '1'}">here</a> to load several example simulation projects (COMBINE/OMEX files) from the BioSimulators test suite <a [href]="exampleCombineArchivesUrl" target="_blank"
+      Click
+      <a [routerLink]="['/simulations']" [queryParams]="{ try: '1' }">here</a>
+      to load several example simulation projects (COMBINE/OMEX files) from the
+      BioSimulators test suite
+      <a [href]="exampleCombineArchivesUrl" target="_blank"
         ><biosimulations-icon icon="link"></biosimulations-icon></a
-      >. These simulation projects are verified to be compatible with runBioSimulations. The BioSimulators test suite describes the specific simulation tools that are compatible with each example project.
+      >. These simulation projects are verified to be compatible with
+      runBioSimulations. The BioSimulators test suite describes the specific
+      simulation tools that are compatible with each example project.
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -64,30 +92,72 @@
       tocSection="Obtaining or creating modeling projects"
     >
       <p>
-        runBioSimulations requires modeling projects (one or more simulations typically in SED-ML format of
-        one or more models) to be described by an OMEX file and packaged into a
-        COMBINE archive. Several examples COMBINE/OMEX archives are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples/" target="_blank"
+        runBioSimulations requires modeling projects (one or more simulations
+        typically in SED-ML format of one or more models) to be described by an
+        OMEX file and packaged into a COMBINE archive. Several examples
+        COMBINE/OMEX archives are available here
+        <a
+          href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples/"
+          target="_blank"
           ><biosimulations-icon icon="link"></biosimulations-icon></a
         >.
       </p>
 
-      <p>COMBINE/OMEX files which describe modeling
-        projects can be obtained from model repositories such as BioModels
+      <p>
+        COMBINE/OMEX files which describe modeling projects can be obtained from
+        model repositories such as BioModels
         <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"
           ><biosimulations-icon icon="link"></biosimulations-icon></a
-        >. However, most of the COMBINE/OMEX files currently available from BioModels are invalid. We are working with the BioModels Team to correct these files.
+        >. However, most of the COMBINE/OMEX files currently available from
+        BioModels are invalid. We are working with the BioModels Team to correct
+        these files.
       </p>
 
-      <p class="no-bottom-margin">COMBINE/OMEX archives can be created with several simulation tools such as those listed below. Note, due to divergence between these tools and the specifications of the COMBINE/OMEX archive and SED-ML formats (see <a [routerLink]="['/help', 'faq']">FAQs</a>), runBioSimulations cannot execute all COMBINE/OMEX archives that can be created with these tools. We are working the community to address these issues.</p>
+      <p class="no-bottom-margin">
+        COMBINE/OMEX archives can be created with several simulation tools such
+        as those listed below. Note, due to divergence between these tools and
+        the specifications of the COMBINE/OMEX archive and SED-ML formats (see
+        <a [routerLink]="['/help', 'faq']">FAQs</a>), runBioSimulations cannot
+        execute all COMBINE/OMEX archives that can be created with these tools.
+        We are working the community to address these issues.
+      </p>
       <ul>
-        <li>COPASI <a href="http://copasi.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
-        <li>iBioSim <a href="http://www.async.ece.utah.edu/ibiosim" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
-        <li>JWS Online <a href="http://jjj.mib.ac.uk/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
-        <li>tellurium <a href="http://tellurium.analogmachine.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
-        <li>VCell <a href="http://vcell.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></li>
+        <li>
+          COPASI
+          <a href="http://copasi.org/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+        </li>
+        <li>
+          iBioSim
+          <a href="http://www.async.ece.utah.edu/ibiosim" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+        </li>
+        <li>
+          JWS Online
+          <a href="http://jjj.mib.ac.uk/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+        </li>
+        <li>
+          tellurium
+          <a href="http://tellurium.analogmachine.org/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+        </li>
+        <li>
+          VCell
+          <a href="http://vcell.org/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+        </li>
       </ul>
 
-      <p>Alternatively, new COMBINE/OMEX archives can be created by following these steps:</p>
+      <p>
+        Alternatively, new COMBINE/OMEX archives can be created by following
+        these steps:
+      </p>
       <ol class="vertically-spaced">
         <li>
           <b>Create a directory for the modeling project.</b>
@@ -108,8 +178,9 @@
           networks. More information about BNGL and SBML is available from their
           websites. Alternatively, models can be obtained from BioModels
           <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"
-            ><biosimulations-icon icon="link"></biosimulations-icon></a
-          > and other model repositories.
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          and other model repositories.
         </li>
         <li>
           <b>Create or more simulations:</b>

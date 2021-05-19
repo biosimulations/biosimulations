@@ -60,11 +60,11 @@ export class PlotlyVisualizationComponent {
       filename: 'chart',
       height: 500,
       width: 700,
-      scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+      scale: 1, // Multiply title/legend/axis/canvas sizes by this factor
     },
     modeBarButtonsToRemove: [],
     showEditInChartStudio: true,
-    plotlyServerURL: "https://chart-studio.plotly.com",
+    plotlyServerURL: 'https://chart-studio.plotly.com',
     // responsive: true,
   };
 

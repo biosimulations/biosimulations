@@ -40,12 +40,7 @@ import {
 } from '../../../combine-sedml.interface';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 import { ConfigService } from '@biosimulations/shared/services';
-import {
-  BehaviorSubject,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { concatAll, map, shareReplay, withLatestFrom } from 'rxjs/operators';
 import {
   AxisLabelType,
@@ -112,7 +107,9 @@ export class ViewComponent implements OnInit, OnDestroy {
   formattedSimulation$?: Observable<FormattedSimulation>;
   private Simulation$!: Observable<Simulation>;
   combineResultsStructure$!: Observable<CombineResults | undefined>;
-  private combineResultsSucceeded$!: Observable<[SedDatasetResultsMap | undefined, boolean]>;
+  private combineResultsSucceeded$!: Observable<
+    [SedDatasetResultsMap | undefined, boolean]
+  >;
   private subscriptions: Subscription[] = [];
   // refactored variables end
 
@@ -240,7 +237,9 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     this.statusSucceeded$ = this.formattedSimulation$.pipe(
       map((value: FormattedSimulation): boolean => {
-        return SimulationStatusService.isSimulationStatusSucceeded(value.status);
+        return SimulationStatusService.isSimulationStatusSucceeded(
+          value.status,
+        );
       }),
     );
 
@@ -255,23 +254,23 @@ export class ViewComponent implements OnInit, OnDestroy {
       shareReplay(1),
     );
 
-    const runningLogSub = this.logs$.pipe(
-      withLatestFrom(this.statusRunning$),
-    ).subscribe((runningLog: [SimulationLogs | undefined, boolean]): void => {
-      const log = runningLog[0];
-      const running = runningLog[1];
-      if (!running && !log) {
-        this.snackBar.open(
-          'Sorry! We were unable to get the log for this simulation.',
-          undefined,
-          {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-          },
-        );
-      }
-    });
+    const runningLogSub = this.logs$
+      .pipe(withLatestFrom(this.statusRunning$))
+      .subscribe((runningLog: [SimulationLogs | undefined, boolean]): void => {
+        const log = runningLog[0];
+        const running = runningLog[1];
+        if (!running && !log) {
+          this.snackBar.open(
+            'Sorry! We were unable to get the log for this simulation.',
+            undefined,
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            },
+          );
+        }
+      });
     this.subscriptions.push(runningLogSub);
 
     this.runTime$ = this.logs$.pipe(
@@ -295,31 +294,29 @@ export class ViewComponent implements OnInit, OnDestroy {
       shareReplay(1),
     );
 
-    const combineResultsStructureSub = this.combineResultsStructure$.pipe(
-      withLatestFrom(this.statusSucceeded$),
-      shareReplay(1),
-    )
-    .subscribe(
-      (succeededResults: [CombineResults | undefined, boolean]): void => {
-        const results = succeededResults[0] as CombineResults | undefined;
-        const succeeded = succeededResults[1] as boolean;
-        if (succeeded) {
-          if (results?.length) {
-            this.setProjectOutputs(results);
-          } else if (!results) {
-            this.snackBar.open(
-              'Sorry! We were unable to get results for this simulation.',
-              undefined,
-              {
-                duration: 5000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom',
-              },
-            );
+    const combineResultsStructureSub = this.combineResultsStructure$
+      .pipe(withLatestFrom(this.statusSucceeded$), shareReplay(1))
+      .subscribe(
+        (succeededResults: [CombineResults | undefined, boolean]): void => {
+          const results = succeededResults[0] as CombineResults | undefined;
+          const succeeded = succeededResults[1] as boolean;
+          if (succeeded) {
+            if (results?.length) {
+              this.setProjectOutputs(results);
+            } else if (!results) {
+              this.snackBar.open(
+                'Sorry! We were unable to get results for this simulation.',
+                undefined,
+                {
+                  duration: 5000,
+                  horizontalPosition: 'center',
+                  verticalPosition: 'bottom',
+                },
+              );
+            }
           }
-        }
-      },
-    );
+        },
+      );
     this.subscriptions.push(combineResultsStructureSub);
 
     this.combineResultsSucceeded$ = this.statusSucceeded$.pipe(
@@ -335,7 +332,9 @@ export class ViewComponent implements OnInit, OnDestroy {
     );
 
     const combineResultsSub = this.combineResultsSucceeded$.subscribe(
-      (combineResultsSucceeded: [SedDatasetResultsMap | undefined, boolean]): void => {
+      (
+        combineResultsSucceeded: [SedDatasetResultsMap | undefined, boolean],
+      ): void => {
         const combineResults = combineResultsSucceeded?.[0];
         const statusSucceeded = combineResultsSucceeded?.[1];
 
@@ -374,11 +373,20 @@ export class ViewComponent implements OnInit, OnDestroy {
       ),
       concatAll(),
       withLatestFrom(this.combineResultsSucceeded$),
-    )
+    );
     const setPlotConfigurationSub = sedPlotConfiguration.subscribe(
-      (succeededResultsArchive: [CombineArchive | undefined, [SedDatasetResultsMap | undefined, boolean]]): void => {
-        const archive = succeededResultsArchive[0] as CombineArchive | undefined;
-        const results = succeededResultsArchive[1][0] as SedDatasetResultsMap | undefined;
+      (
+        succeededResultsArchive: [
+          CombineArchive | undefined,
+          [SedDatasetResultsMap | undefined, boolean],
+        ],
+      ): void => {
+        const archive = succeededResultsArchive[0] as
+          | CombineArchive
+          | undefined;
+        const results = succeededResultsArchive[1][0] as
+          | SedDatasetResultsMap
+          | undefined;
         const succeeded = succeededResultsArchive[1][1] as boolean;
 
         if (succeeded && results && Object.keys(results).length) {
@@ -435,9 +443,11 @@ export class ViewComponent implements OnInit, OnDestroy {
     // determine if the COMBINE archive generated at least one data set
     let hasData = false;
     for (const sedDocumentResultsStructure of combineResultsStructure) {
-      sedDocumentResultsStructure.reports.sort((a: SedReportResults, b: SedReportResults): number => {
-        return a.id.localeCompare(b.id, undefined, { numeric: true });
-      });
+      sedDocumentResultsStructure.reports.sort(
+        (a: SedReportResults, b: SedReportResults): number => {
+          return a.id.localeCompare(b.id, undefined, { numeric: true });
+        },
+      );
 
       for (const sedReportResultsStructure of sedDocumentResultsStructure.reports) {
         if (sedReportResultsStructure.datasets.length) {
@@ -449,10 +459,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         }
 
         sedReportResultsStructure.datasets.sort(
-          (
-            a: SedDatasetResults,
-            b: SedDatasetResults,
-          ): number => {
+          (a: SedDatasetResults, b: SedDatasetResults): number => {
             return a.label.localeCompare(b.label, undefined, {
               numeric: true,
             });
@@ -530,7 +537,11 @@ export class ViewComponent implements OnInit, OnDestroy {
       subplotsCurves[iSubplot]['label'] = `Subplot R${iRow + 1}, C${iCol + 1}`;
     }
 
-    for (let iSubplot = subplotsCurves.length; iSubplot < rows * cols; iSubplot++) {
+    for (
+      let iSubplot = subplotsCurves.length;
+      iSubplot < rows * cols;
+      iSubplot++
+    ) {
       const iRow = Math.floor(iSubplot / cols);
       const iCol = iSubplot % cols;
 
@@ -538,12 +549,14 @@ export class ViewComponent implements OnInit, OnDestroy {
         enabled: SubplotEnabledType.disabled,
         label: `Subplot R${iRow + 1}, C${iCol + 1}`,
         numCurves: 1,
-        curves: [{
-          id: null,
-          name: null,
-          xData: this.defaultXSedDataset,
-          yData: this.defaultYSedDataset,
-        }],
+        curves: [
+          {
+            id: null,
+            name: null,
+            xData: this.defaultXSedDataset,
+            yData: this.defaultYSedDataset,
+          },
+        ],
         xAxisType: AxisType.linear,
         yAxisType: AxisType.linear,
         scatterTraceMode: ScatterTraceMode.lines,
@@ -682,7 +695,7 @@ export class ViewComponent implements OnInit, OnDestroy {
           yAxisTitlesSet.add(yDataset.label);
 
           traces.push({
-            name: name || (yDataset.label + ' vs. ' + xDataset.label),
+            name: name || yDataset.label + ' vs. ' + xDataset.label,
             x: xDataset.values,
             y: yDataset.values,
             xaxis: xAxisId,

@@ -1,101 +1,102 @@
-[{
-        "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, PySCeS)",
-        "simulator": "pysces",
-        "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
-    },
-    {
-        "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, tellurium)",
-        "simulator": "tellurium",
-        "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
-    },
-    {
-        "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, VCell)",
-        "simulator": "vcell",
-        "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
-    },
-    {
-        "name": "Chaouiya et al. BMC Systems Biology 2013: EGF and TNFα signaling (synchronous updating, BoolNet)",
-        "simulator": "boolnet",
-        "filename": "sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex"
-    },
-    {
-        "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, PySCeS)",
-        "simulator": "pysces",
-        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
-    },
-    {
-        "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, tellurium)",
-        "simulator": "tellurium",
-        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
-    },
-    {
-        "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, VCell)",
-        "simulator": "vcell",
-        "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
-    },
-    {
-        "name": "Dolan 2020: Non-homologous end joining (NFSim, BioNetGen)",
-        "simulator": "bionetgen",
-        "filename": "bngl/Dolan-PLoS-Comput-Biol-2015-NHEJ.omex"
-    },
-    {
-        "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (LSODA, GillesPy2)",
-        "simulator": "gillespy2",
-        "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
-    },
-    {
-        "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (LSODA, PySCeS)",
-        "simulator": "pysces",
-        "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
-    },
-    {
-        "name": "Escherichia coli core metabolism (FBA, CBMPy)",
-        "simulator": "cbmpy",
-        "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
-    },
-    {
-        "name": "Escherichia coli core metabolism (FBA, COBRApy)",
-        "simulator": "cobrapy",
-        "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
-    },
-    {
-        "name": "Parmar 2017: iron distribution (CVODE, PySCeS)",
-        "simulator": "pysces",
-        "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
-    },
-    {
-        "name": "Parmar 2017: iron distribution (CVODE, tellurium)",
-        "simulator": "tellurium",
-        "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
-    },
-    {
-        "name": "Parmar 2017: iron distribution (CVODE, VCell)",
-        "simulator": "vcell",
-        "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
-    },
-    {
-        "name": "Saglam 2020: Toy gene regulatory network (CVODE, BioNetGen)",
-        "simulator": "bionetgen",
-        "filename": "bngl/test-bngl.omex"
-    },
-    {
-        "name": "Szymanska 2009: HSP synthesis (CVODES, AMICI)",
-        "simulator": "amici",
-        "filename": "sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex"
-    },
-    {
-        "name": "Tomida 2003: NFAT translocation (LSODA/LSODAR, COPASI)",
-        "simulator": "copasi",
-        "filename": "sbml-core/Tomida-EMBO-J-2003-NFAT-translocation.omex"
-    },
-    {
-        "name": "Varusai 2018: mTOR signaling (LSODA/LSODAR, COPASI)",
-        "simulator": "copasi",
-        "filename": "sbml-core/Varusai-Sci-Rep-2018-mTOR-signaling-LSODA-LSODAR-SBML.omex"
-    },
-    {
-        "name": "Vilar 2002: circadian clock (multiple, VCell)",
-        "simulator": "vcell",
-        "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
-    }
+[
+  {
+    "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, PySCeS)",
+    "simulator": "pysces",
+    "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
+  },
+  {
+    "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, tellurium)",
+    "simulator": "tellurium",
+    "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
+  },
+  {
+    "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, VCell)",
+    "simulator": "vcell",
+    "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
+  },
+  {
+    "name": "Chaouiya et al. BMC Systems Biology 2013: EGF and TNFα signaling (synchronous updating, BoolNet)",
+    "simulator": "boolnet",
+    "filename": "sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex"
+  },
+  {
+    "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, PySCeS)",
+    "simulator": "pysces",
+    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+  },
+  {
+    "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, tellurium)",
+    "simulator": "tellurium",
+    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+  },
+  {
+    "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, VCell)",
+    "simulator": "vcell",
+    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+  },
+  {
+    "name": "Dolan 2020: Non-homologous end joining (NFSim, BioNetGen)",
+    "simulator": "bionetgen",
+    "filename": "bngl/Dolan-PLoS-Comput-Biol-2015-NHEJ.omex"
+  },
+  {
+    "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (LSODA, GillesPy2)",
+    "simulator": "gillespy2",
+    "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
+  },
+  {
+    "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (LSODA, PySCeS)",
+    "simulator": "pysces",
+    "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
+  },
+  {
+    "name": "Escherichia coli core metabolism (FBA, CBMPy)",
+    "simulator": "cbmpy",
+    "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
+  },
+  {
+    "name": "Escherichia coli core metabolism (FBA, COBRApy)",
+    "simulator": "cobrapy",
+    "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
+  },
+  {
+    "name": "Parmar 2017: iron distribution (CVODE, PySCeS)",
+    "simulator": "pysces",
+    "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
+  },
+  {
+    "name": "Parmar 2017: iron distribution (CVODE, tellurium)",
+    "simulator": "tellurium",
+    "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
+  },
+  {
+    "name": "Parmar 2017: iron distribution (CVODE, VCell)",
+    "simulator": "vcell",
+    "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
+  },
+  {
+    "name": "Saglam 2020: Toy gene regulatory network (CVODE, BioNetGen)",
+    "simulator": "bionetgen",
+    "filename": "bngl/test-bngl.omex"
+  },
+  {
+    "name": "Szymanska 2009: HSP synthesis (CVODES, AMICI)",
+    "simulator": "amici",
+    "filename": "sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex"
+  },
+  {
+    "name": "Tomida 2003: NFAT translocation (LSODA/LSODAR, COPASI)",
+    "simulator": "copasi",
+    "filename": "sbml-core/Tomida-EMBO-J-2003-NFAT-translocation.omex"
+  },
+  {
+    "name": "Varusai 2018: mTOR signaling (LSODA/LSODAR, COPASI)",
+    "simulator": "copasi",
+    "filename": "sbml-core/Varusai-Sci-Rep-2018-mTOR-signaling-LSODA-LSODAR-SBML.omex"
+  },
+  {
+    "name": "Vilar 2002: circadian clock (multiple, VCell)",
+    "simulator": "vcell",
+    "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
+  }
 ]

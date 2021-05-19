@@ -1,216 +1,237 @@
 {
-    "_type": "CombineArchive",
-    "contents": [{
-        "_type": "CombineArchiveContent",
-        "location": {
-            "_type": "CombineArchiveLocation",
-            "path": "./BIOMD0000000912_sim.sedml",
-            "value": {
-                "_type": "SedDocument",
-                "level": 1,
-                "version": 3,
-                "models": [{
-                    "_type": "SedModel",
-                    "id": "BIOMD0000000912",
-                    "name": "Caravagna2010 - Tumour suppression by immune system",
-                    "source": "Caravagna2010.xml",
-                    "language": "urn:sedml:language:sbml",
-                    "changes": []
-                }],
-                "simulations": [{
-                    "_type": "SedUniformTimeCourseSimulation",
-                    "id": "BIOMD0000000912_sim",
-                    "name": "Caravagna2010",
-                    "initialTime": 0,
-                    "outputStartTime": 0,
-                    "outputEndTime": 1000,
-                    "numberOfSteps": 5000,
-                    "algorithm": {
-                        "_type": "SedAlgorithm",
-                        "kisaoId": "KISAO_0000019",
-                        "changes": []
-                    }
-                }],
-                "tasks": [{
-                    "_type": "SedTask",
-                    "id": "BIOMD0000000912_task",
-                    "name": "Caravagna2010",
-                    "model": {
-                        "_type": "SedModel",
-                        "id": "BIOMD0000000912",
-                        "name": "Caravagna2010 - Tumour suppression by immune system",
-                        "source": "Caravagna2010.xml",
-                        "language": "urn:sedml:language:sbml",
-                        "changes": []
-                    },
-                    "simulation": {
-                        "_type": "SedUniformTimeCourseSimulation",
-                        "id": "BIOMD0000000912_sim",
-                        "name": "Caravagna2010",
-                        "initialTime": 0,
-                        "outputStartTime": 0,
-                        "outputEndTime": 1000,
-                        "numberOfSteps": 5000,
-                        "algorithm": {
-                            "_type": "SedAlgorithm",
-                            "kisaoId": "KISAO_0000019",
-                            "changes": []
-                        }
-                    }
-                }],
-                "dataGenerators": [{
-                        "_type": "SedDataGenerator",
-                        "id": "data_generator_time",
-                        "name": "time",
-                        "variables": [],
-                        "math": "var_time"
-                    },
-                    {
-                        "_type": "SedDataGenerator",
-                        "id": "data_generator_T",
-                        "name": "T",
-                        "variables": [],
-                        "math": "var_T"
-                    },
-                    {
-                        "_type": "SedDataGenerator",
-                        "id": "data_generator_E",
-                        "name": "E",
-                        "variables": [],
-                        "math": "var_E"
-                    },
-                    {
-                        "_type": "SedDataGenerator",
-                        "id": "data_generator_I",
-                        "name": "I",
-                        "variables": [],
-                        "math": "var_I"
-                    }
-                ],
-                "outputs": [{
-                    "_type": "SedReport",
-                    "id": "BIOMD0000000912_report",
-                    "name": "Caravagna2010",
-                    "dataSets": [{
-                        "_type": "SedDataSet",
-                        "id": "data_set_time",
-                        "label": "time",
-                        "dataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/time",
-                            "id": "data_generator_time",
-                            "name": "time",
-                            "variables": [],
-                            "math": "var_time"
-                        }
-                    }, {
-                        "_type": "SedDataSet",
-                        "id": "data_set_T",
-                        "label": "T",
-                        "dataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/T",
-                            "id": "data_generator_T",
-                            "name": "T",
-                            "variables": [],
-                            "math": "var_T"
-                        }
-                    }, {
-                        "_type": "SedDataSet",
-                        "id": "data_set_E",
-                        "label": "E",
-                        "dataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/E",
-                            "id": "data_generator_E",
-                            "name": "E",
-                            "variables": [],
-                            "math": "var_E"
-                        }
-                    }, {
-                        "_type": "SedDataSet",
-                        "id": "data_set_I",
-                        "label": "I",
-                        "dataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/I",
-                            "id": "data_generator_I",
-                            "name": "I",
-                            "variables": [],
-                            "math": "var_I"
-                        }
-                    }]
-                }, {
-                    "_type": "SedPlot2D",
-                    "id": "plot_1",
-                    "name": " ",
-                    "curves": [{
-                        "_type": "SedCurve",
-                        "id": "plot_1_T_time",
-                        "name": "T",
-                        "xDataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_time",
-                            "id": "data_generator_time",
-                            "name": "time",
-                            "variables": [],
-                            "math": "var_time"
-                        },
-                        "yDataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_T",
-                            "id": "data_generator_T",
-                            "name": "T",
-                            "variables": [],
-                            "math": "var_T"
-                        }
-                    }, {
-                        "_type": "SedCurve",
-                        "id": "plot_1_E_time",
-                        "name": "E",
-                        "xDataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_time",
-                            "id": "data_generator_time",
-                            "name": "time",
-                            "variables": [],
-                            "math": "var_time"
-                        },
-                        "yDataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_E",
-                            "id": "data_generator_E",
-                            "name": "E",
-                            "variables": [],
-                            "math": "var_E"
-                        }
-                    }, {
-                        "_type": "SedCurve",
-                        "id": "plot_1_I_time",
-                        "name": "I",
-                        "xDataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_time",
-                            "id": "data_generator_time",
-                            "name": "time",
-                            "variables": [],
-                            "math": "var_time"
-                        },
-                        "yDataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_I",
-                            "id": "data_generator_I",
-                            "name": "I",
-                            "variables": [],
-                            "math": "var_I"
-                        }
-                    }],
-                    "xScale": "linear",
-                    "yScale": "linear"
-                }]
+  "_type": "CombineArchive",
+  "contents": [
+    {
+      "_type": "CombineArchiveContent",
+      "location": {
+        "_type": "CombineArchiveLocation",
+        "path": "./BIOMD0000000912_sim.sedml",
+        "value": {
+          "_type": "SedDocument",
+          "level": 1,
+          "version": 3,
+          "models": [
+            {
+              "_type": "SedModel",
+              "id": "BIOMD0000000912",
+              "name": "Caravagna2010 - Tumour suppression by immune system",
+              "source": "Caravagna2010.xml",
+              "language": "urn:sedml:language:sbml",
+              "changes": []
             }
-        },
-        "format": "http://identifiers.org/combine.specifications/sed-ml",
-        "master": true
-    }]
+          ],
+          "simulations": [
+            {
+              "_type": "SedUniformTimeCourseSimulation",
+              "id": "BIOMD0000000912_sim",
+              "name": "Caravagna2010",
+              "initialTime": 0,
+              "outputStartTime": 0,
+              "outputEndTime": 1000,
+              "numberOfSteps": 5000,
+              "algorithm": {
+                "_type": "SedAlgorithm",
+                "kisaoId": "KISAO_0000019",
+                "changes": []
+              }
+            }
+          ],
+          "tasks": [
+            {
+              "_type": "SedTask",
+              "id": "BIOMD0000000912_task",
+              "name": "Caravagna2010",
+              "model": {
+                "_type": "SedModel",
+                "id": "BIOMD0000000912",
+                "name": "Caravagna2010 - Tumour suppression by immune system",
+                "source": "Caravagna2010.xml",
+                "language": "urn:sedml:language:sbml",
+                "changes": []
+              },
+              "simulation": {
+                "_type": "SedUniformTimeCourseSimulation",
+                "id": "BIOMD0000000912_sim",
+                "name": "Caravagna2010",
+                "initialTime": 0,
+                "outputStartTime": 0,
+                "outputEndTime": 1000,
+                "numberOfSteps": 5000,
+                "algorithm": {
+                  "_type": "SedAlgorithm",
+                  "kisaoId": "KISAO_0000019",
+                  "changes": []
+                }
+              }
+            }
+          ],
+          "dataGenerators": [
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_time",
+              "name": "time",
+              "variables": [],
+              "math": "var_time"
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_T",
+              "name": "T",
+              "variables": [],
+              "math": "var_T"
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_E",
+              "name": "E",
+              "variables": [],
+              "math": "var_E"
+            },
+            {
+              "_type": "SedDataGenerator",
+              "id": "data_generator_I",
+              "name": "I",
+              "variables": [],
+              "math": "var_I"
+            }
+          ],
+          "outputs": [
+            {
+              "_type": "SedReport",
+              "id": "BIOMD0000000912_report",
+              "name": "Caravagna2010",
+              "dataSets": [
+                {
+                  "_type": "SedDataSet",
+                  "id": "data_set_time",
+                  "label": "time",
+                  "dataGenerator": {
+                    "_type": "SedDataGenerator",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/time",
+                    "id": "data_generator_time",
+                    "name": "time",
+                    "variables": [],
+                    "math": "var_time"
+                  }
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "data_set_T",
+                  "label": "T",
+                  "dataGenerator": {
+                    "_type": "SedDataGenerator",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/T",
+                    "id": "data_generator_T",
+                    "name": "T",
+                    "variables": [],
+                    "math": "var_T"
+                  }
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "data_set_E",
+                  "label": "E",
+                  "dataGenerator": {
+                    "_type": "SedDataGenerator",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/E",
+                    "id": "data_generator_E",
+                    "name": "E",
+                    "variables": [],
+                    "math": "var_E"
+                  }
+                },
+                {
+                  "_type": "SedDataSet",
+                  "id": "data_set_I",
+                  "label": "I",
+                  "dataGenerator": {
+                    "_type": "SedDataGenerator",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/I",
+                    "id": "data_generator_I",
+                    "name": "I",
+                    "variables": [],
+                    "math": "var_I"
+                  }
+                }
+              ]
+            },
+            {
+              "_type": "SedPlot2D",
+              "id": "plot_1",
+              "name": " ",
+              "curves": [
+                {
+                  "_type": "SedCurve",
+                  "id": "plot_1_T_time",
+                  "name": "T",
+                  "xDataGenerator": {
+                    "_type": "SedDataGenerator",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_time",
+                    "id": "data_generator_time",
+                    "name": "time",
+                    "variables": [],
+                    "math": "var_time"
+                  },
+                  "yDataGenerator": {
+                    "_type": "SedDataGenerator",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_T",
+                    "id": "data_generator_T",
+                    "name": "T",
+                    "variables": [],
+                    "math": "var_T"
+                  }
+                },
+                {
+                  "_type": "SedCurve",
+                  "id": "plot_1_E_time",
+                  "name": "E",
+                  "xDataGenerator": {
+                    "_type": "SedDataGenerator",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_time",
+                    "id": "data_generator_time",
+                    "name": "time",
+                    "variables": [],
+                    "math": "var_time"
+                  },
+                  "yDataGenerator": {
+                    "_type": "SedDataGenerator",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_E",
+                    "id": "data_generator_E",
+                    "name": "E",
+                    "variables": [],
+                    "math": "var_E"
+                  }
+                },
+                {
+                  "_type": "SedCurve",
+                  "id": "plot_1_I_time",
+                  "name": "I",
+                  "xDataGenerator": {
+                    "_type": "SedDataGenerator",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_time",
+                    "id": "data_generator_time",
+                    "name": "time",
+                    "variables": [],
+                    "math": "var_time"
+                  },
+                  "yDataGenerator": {
+                    "_type": "SedDataGenerator",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/plot_1/data_generator_I",
+                    "id": "data_generator_I",
+                    "name": "I",
+                    "variables": [],
+                    "math": "var_I"
+                  }
+                }
+              ],
+              "xScale": "linear",
+              "yScale": "linear"
+            }
+          ]
+        }
+      },
+      "format": "http://identifiers.org/combine.specifications/sed-ml",
+      "master": true
+    }
+  ]
 }

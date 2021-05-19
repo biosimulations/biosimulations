@@ -84,7 +84,7 @@ export const ALGORITHM_SUBSTITUTION_POLICIES: AlgorithmSubstitutionPolicy[] = [
     level: 9,
     id: 'ANY',
     name: 'Any',
-  }
+  },
 ];
 
 export interface AlgorithmSubstitution {

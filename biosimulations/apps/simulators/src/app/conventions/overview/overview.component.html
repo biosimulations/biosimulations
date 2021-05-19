@@ -56,30 +56,27 @@
             ><a [routerLink]="['/conventions', 'simulator-specs']"
               >Format for describing the specifications of simulation tools</a
             ></b
-          >:
-          This format enables investigators to describe the modeling frameworks,
-          simulation algorithms, and modeling formats supported by each
-          simulation tool. The format also enables investigators to describe the
-          parameters of each algorithm, their data types, and their default
-          values.
+          >: This format enables investigators to describe the modeling
+          frameworks, simulation algorithms, and modeling formats supported by
+          each simulation tool. The format also enables investigators to
+          describe the parameters of each algorithm, their data types, and their
+          default values.
         </li>
         <li>
           <b
             ><a [routerLink]="['/conventions', 'simulator-interfaces']"
               >Conventions for command-line interfaces for simulation tools</a
             ></b
-          >:
-          These conventions ensure that (a) simulation tools support consistent
-          syntax for executing simulations and (b) simulation tools produce
-          outputs at consistent locations in consistent formats.
+          >: These conventions ensure that (a) simulation tools support
+          consistent syntax for executing simulations and (b) simulation tools
+          produce outputs at consistent locations in consistent formats.
         </li>
         <li>
           <b
             ><a [routerLink]="['/conventions', 'simulator-images']"
               >Conventions for Docker images for simulation tools</a
             ></b
-          >:
-          These conventions ensure that the entry points of containerized
+          >: These conventions ensure that the entry points of containerized
           simulation tools support consistent syntax for executing simulations
           and that containerized simulation tools provide consistent metadata.
         </li>
@@ -88,8 +85,7 @@
             ><a [routerLink]="['/conventions', 'simulation-experiments']"
               >Conventions for simulation experiments with SED-ML</a
             ></b
-          >:
-          These conventions ensure that the community consistently encodes
+          >: These conventions ensure that the community consistently encodes
           simulation experiments into SED-ML. This includes conventions for
           targets for implicit elements of models which are not directly defined
           in models (e.g., reduced costs of FBA reactions, shadow prices of FBA
@@ -101,22 +97,30 @@
         <li>
           <b
             ><a [routerLink]="['/conventions', 'simulation-reports']"
-              >Format for data for reports (<code>sedml:report</code>) and plots (<code>sedml:plot2D</code>, <code>sedml:plot3D</code>) of simulation
-              results</a
+              >Format for data for reports (<code>sedml:report</code>) and plots
+              (<code>sedml:plot2D</code>, <code>sedml:plot3D</code>) of
+              simulation results</a
             ></b
-          >:
-          This format ensures that simulation tools produce data for reports and plots in a
-          consistent format (e.g., HDF5) with consistent shapes (e.g., rows:
-          data set (<code>sedml:dataSet</code>), columns: time) that can be
-          consistently visualized and interpreted.
+          >: This format ensures that simulation tools produce data for reports
+          and plots in a consistent format (e.g., HDF5) with consistent shapes
+          (e.g., rows: data set (<code>sedml:dataSet</code>), columns: time)
+          that can be consistently visualized and interpreted.
         </li>
         <li>
           <b
             ><a [routerLink]="['/conventions', 'data-viz']"
               >Guidelines for data visualizations with Vega</a
             ></b
-          >:
-          Vega format <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> is a powerful format for describing interactive, two-dimensional data visualizations which make visualizations re-usable by separately capturing the visual marks of a visualization and how they should be painted with data. These guidelines provide recommendations for how to use Vega to visualize the results of simulation experiments captured by SED-ML reports.
+          >: Vega format
+          <a href="https://vega.github.io/vega/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          is a powerful format for describing interactive, two-dimensional data
+          visualizations which make visualizations re-usable by separately
+          capturing the visual marks of a visualization and how they should be
+          painted with data. These guidelines provide recommendations for how to
+          use Vega to visualize the results of simulation experiments captured
+          by SED-ML reports.
         </li>
         <li>
           <p>
@@ -124,12 +128,11 @@
               ><a [routerLink]="['/conventions', 'simulation-logs']"
                 >Format for logs of the execution of COMBINE/OMEX archives</a
               ></b
-            >:
-            This format enables simulation tools to communicate their progress
-            in the execution of COMBINE/OMEX archives, such as which tasks have
-            been executed, which tasks are queued for execution, and which tasks
-            will be skipped because, for example, they require features of
-            SED-ML that the simulation tool does not support.
+            >: This format enables simulation tools to communicate their
+            progress in the execution of COMBINE/OMEX archives, such as which
+            tasks have been executed, which tasks are queued for execution, and
+            which tasks will be skipped because, for example, they require
+            features of SED-ML that the simulation tool does not support.
           </p>
 
           <p>
@@ -160,7 +163,7 @@
             </li>
             <li>The reason for any failed SED documents, tasks, or outputs.</li>
           </ul>
-        </li>        
+        </li>
       </ul>
     </biosimulations-text-page-content-section>
 

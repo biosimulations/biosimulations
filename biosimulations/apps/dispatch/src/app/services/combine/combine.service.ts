@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
@@ -22,7 +26,7 @@ export class CombineService {
     archiveFileOrUrl: File | string,
   ): Observable<CombineArchive | undefined> {
     const formData = new FormData();
-    if (typeof archiveFileOrUrl === "object") {
+    if (typeof archiveFileOrUrl === 'object') {
       formData.append('file', archiveFileOrUrl);
     } else {
       formData.append('url', archiveFileOrUrl);
@@ -46,7 +50,7 @@ export class CombineService {
     archiveFileOrUrl: File | string,
   ): Observable<ValidationReport | undefined> {
     const formData = new FormData();
-    if (typeof archiveFileOrUrl === "object") {
+    if (typeof archiveFileOrUrl === 'object') {
       formData.append('file', archiveFileOrUrl);
     } else {
       formData.append('url', archiveFileOrUrl);
@@ -69,11 +73,12 @@ export class CombineService {
   public getSimilarAlgorithms(
     algorithms: string[],
   ): Observable<AlgorithmSubstitution[] | undefined> {
-
-    const params = new HttpParams().appendAll({algorithms: algorithms});
+    const params = new HttpParams().appendAll({ algorithms: algorithms });
 
     return this.http
-      .get<AlgorithmSubstitution[]>(this.similarAlgorithmsEndpoint, {params: params})
+      .get<AlgorithmSubstitution[]>(this.similarAlgorithmsEndpoint, {
+        params: params,
+      })
       .pipe(
         catchError(
           (error: HttpErrorResponse): Observable<undefined> => {

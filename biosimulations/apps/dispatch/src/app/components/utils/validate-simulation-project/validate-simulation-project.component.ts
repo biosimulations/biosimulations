@@ -1,7 +1,17 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+  ValidationErrors,
+} from '@angular/forms';
 import { CombineService } from '../../../services/combine/combine.service';
-import { ValidationReport, ValidationMessage, ValidationStatus } from '../../../validation-report.interface';
+import {
+  ValidationReport,
+  ValidationMessage,
+  ValidationStatus,
+} from '../../../validation-report.interface';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -52,8 +62,10 @@ export class ValidateSimulationProjectComponent implements OnDestroy {
       //},
     );
 
-    this.submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
-    this.projectFileControl = this.formGroup.controls.projectFile as FormControl;
+    this.submitMethodControl = this.formGroup.controls
+      .submitMethod as FormControl;
+    this.projectFileControl = this.formGroup.controls
+      .projectFile as FormControl;
     this.projectUrlControl = this.formGroup.controls.projectUrl as FormControl;
 
     this.projectUrlControl.disable();
@@ -123,7 +135,8 @@ export class ValidateSimulationProjectComponent implements OnDestroy {
   }
 
   changeSubmitMethod(): void {
-    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls
+      .submitMethod as FormControl;
     if (submitMethodControl.value === SubmitMethod.file) {
       this.formGroup.controls.projectFile.enable();
       this.formGroup.controls.projectUrl.disable();
@@ -143,10 +156,11 @@ export class ValidateSimulationProjectComponent implements OnDestroy {
     // clear previous report
     this.status = undefined;
     this.errors = undefined;
-    this.warnings = undefined
+    this.warnings = undefined;
 
     // get data for API
-    const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
+    const submitMethodControl = this.formGroup.controls
+      .submitMethod as FormControl;
 
     let archive: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {
@@ -156,45 +170,51 @@ export class ValidateSimulationProjectComponent implements OnDestroy {
     }
 
     // call API to validate archive
-    const validationSub = this.combineService.validateCombineArchive(archive).subscribe(
-      (report: ValidationReport | undefined): void => {
+    const validationSub = this.combineService
+      .validateCombineArchive(archive)
+      .subscribe((report: ValidationReport | undefined): void => {
         if (report) {
           this.status = report.status;
 
           if (report?.errors?.length) {
-            this.errors = this.convertValidationMessagesToList(report?.errors as ValidationMessage[]);
+            this.errors = this.convertValidationMessagesToList(
+              report?.errors as ValidationMessage[],
+            );
           }
           if (report?.warnings?.length) {
-            this.warnings = this.convertValidationMessagesToList(report?.warnings as ValidationMessage[]);
+            this.warnings = this.convertValidationMessagesToList(
+              report?.warnings as ValidationMessage[],
+            );
           }
-
         } else {
           let msg = 'Sorry! We were unable to validate your archive.';
           if (submitMethodControl.value == SubmitMethod.url) {
             msg += ` Please check that ${archive} is an accessible URL.`;
           }
 
-          this.snackBar.open(
-            msg,
-            undefined,
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
+          this.snackBar.open(msg, undefined, {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
         }
-      }
-    );
+      });
     this.subscriptions.push(validationSub);
   }
 
-  private convertValidationMessagesToList(messages: ValidationMessage[]): string {
+  private convertValidationMessagesToList(
+    messages: ValidationMessage[],
+  ): string {
     return messages
       .map((message: ValidationMessage): string => {
         let details = '';
         if (message?.details?.length) {
-          details = '<ul>' + this.convertValidationMessagesToList(message?.details as ValidationMessage[]) + '</ul>';
+          details =
+            '<ul>' +
+            this.convertValidationMessagesToList(
+              message?.details as ValidationMessage[],
+            ) +
+            '</ul>';
         }
 
         return '<li>' + message.summary + details + '</li>';

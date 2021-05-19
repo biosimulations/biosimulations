@@ -22,7 +22,7 @@ export class FaqComponent {
 
   emailUrl!: string;
   exampleCombineArchivesUrl!: string;
-  
+
   constructor(public config: ConfigService) {
     this.emailUrl = 'mailto:' + config.email;
 

@@ -119,9 +119,7 @@ async function bootstrap() {
   app.enableCors({ origin: allowOrigin });
   const doc = new DocumentBuilder()
     .setTitle('BioSimulators API')
-    .setDescription(
-      'API for a registry of biosimulation software tools.',
-    )
+    .setDescription('API for a registry of biosimulation software tools.')
     .setVersion('0.1')
     .setLicense(
       'MIT License',
@@ -147,7 +145,7 @@ async function bootstrap() {
     {
       name: 'Authentication testing',
       description:
-        'Operations for checking whether a user is logged in and retrieving information about a user\'s privileges.',
+        "Operations for checking whether a user is logged in and retrieving information about a user's privileges.",
     },
   ];
   for (const tag of tags) {

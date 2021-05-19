@@ -17,7 +17,12 @@ import { PlotlyVisualizationComponent } from './view/plotly-visualization/plotly
 import { SimulationLogModule } from './view/simulation-log/simulation-log.module';
 
 @NgModule({
-  declarations: [BrowseComponent, DeleteSimulationsDialogComponent, ViewComponent, PlotlyVisualizationComponent],
+  declarations: [
+    BrowseComponent,
+    DeleteSimulationsDialogComponent,
+    ViewComponent,
+    PlotlyVisualizationComponent,
+  ],
   imports: [
     CommonModule,
     SimulationsRoutingModule,

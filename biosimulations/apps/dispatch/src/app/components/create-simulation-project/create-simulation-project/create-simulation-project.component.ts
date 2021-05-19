@@ -126,7 +126,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
   private simulatorSpecs?: SimulatorSpecs[];
   private simulatorSpecsMap?: SimulatorSpecsMap;
-  private algSubstitutions?: {[id:string]: AlgorithmSubstitutionPolicy};
+  private algSubstitutions?: { [id: string]: AlgorithmSubstitutionPolicy };
   private allModelFormats?: OntologyTerm[];
   private allModelingFrameworks?: OntologyTerm[];
   private allSimulationTypes = [
@@ -188,7 +188,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         modelLocationType: [LocationType.file, Validators.required],
-        modelLocationDetails: [null, [Validators.required, this.maxFileSizeValidator]],
+        modelLocationDetails: [
+          null,
+          [Validators.required, this.maxFileSizeValidator],
+        ],
         modelFormat: [null, Validators.required],
         modelNamespaces: this.formBuilder.array([], {
           validators: [this.uniqueAttributeValidator.bind(this, 'prefix')],
@@ -438,7 +441,12 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const frameworkSboId = modelingFrameworkControl.value;
     const algKisaoId = simulationAlgorithmControl.value;
 
-    const simCompatibilities: {[id: string]: {algorithm: AlgorithmSubstitutionPolicy, parameters: boolean}} = {};
+    const simCompatibilities: {
+      [id: string]: {
+        algorithm: AlgorithmSubstitutionPolicy;
+        parameters: boolean;
+      };
+    } = {};
     this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
       simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
         (
@@ -452,26 +460,40 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
               frameworkSboId,
             )
           ) {
-            if (modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.includes(algKisaoId)) {
+            if (
+              modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.includes(
+                algKisaoId,
+              )
+            ) {
               simCompatibilities[simulator.id] = {
-                algorithm: ALGORITHM_SUBSTITUTION_POLICIES[AlgorithmSubstitutionPolicyLevels.SAME_METHOD],
+                algorithm:
+                  ALGORITHM_SUBSTITUTION_POLICIES[
+                    AlgorithmSubstitutionPolicyLevels.SAME_METHOD
+                  ],
                 parameters: true,
-              }
+              };
             }
 
-            modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.forEach((simAlgId: string): void => {
-              const policy = this.algSubstitutions?.[simAlgId + '/' + algKisaoId];
-              if (policy) {
-                if (!(simulator.id in simCompatibilities)) {
-                  simCompatibilities[simulator.id] = {
-                    algorithm: policy,
-                    parameters: true,
+            modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.forEach(
+              (simAlgId: string): void => {
+                const policy = this.algSubstitutions?.[
+                  simAlgId + '/' + algKisaoId
+                ];
+                if (policy) {
+                  if (!(simulator.id in simCompatibilities)) {
+                    simCompatibilities[simulator.id] = {
+                      algorithm: policy,
+                      parameters: true,
+                    };
+                  } else if (
+                    policy.level <
+                    simCompatibilities[simulator.id].algorithm.level
+                  ) {
+                    simCompatibilities[simulator.id].algorithm = policy;
                   }
-                } else if (policy.level < simCompatibilities[simulator.id].algorithm.level) {
-                  simCompatibilities[simulator.id].algorithm = policy;
                 }
-              }
-            });
+              },
+            );
           }
         },
       );
@@ -480,17 +502,23 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     formGroup.value.simulationAlgorithmParameters.forEach(
       (control: any): void => {
         if (control.newValue) {
-          Object.entries(simCompatibilities).forEach(([simId, compatability]: [string, any]): void => {
-            if (!control.simulators.has(simId) && compatability.algorithm.level < AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK) {
-              simCompatibilities[simId].parameters = false;
-            }
-          })
+          Object.entries(simCompatibilities).forEach(
+            ([simId, compatability]: [string, any]): void => {
+              if (
+                !control.simulators.has(simId) &&
+                compatability.algorithm.level <
+                  AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK
+              ) {
+                simCompatibilities[simId].parameters = false;
+              }
+            },
+          );
         }
       },
     );
 
-    this.compatibleSimulators = Object.entries(simCompatibilities)
-      .map(([simId, compatability]: [string, any]): CompatibleSimulator => {
+    this.compatibleSimulators = Object.entries(simCompatibilities).map(
+      ([simId, compatability]: [string, any]): CompatibleSimulator => {
         return {
           simulator: {
             id: simId,
@@ -500,7 +528,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           maxPolicy: compatability.algorithm,
           parametersCompatibility: compatability.parameters,
         };
-      });
+      },
+    );
 
     if (!this.simulatorSpecs || this.compatibleSimulators?.length) {
       return null;
@@ -518,7 +547,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     if (locationType === LocationType.file) {
       this.formGroup.setControl(
         'modelLocationDetails',
-        this.formBuilder.control('', [Validators.required, this.maxFileSizeValidator]),
+        this.formBuilder.control('', [
+          Validators.required,
+          this.maxFileSizeValidator,
+        ]),
       );
     } else {
       this.formGroup.setControl(
@@ -608,21 +640,18 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
             console.error(error);
           }
 
-          let msg = 'Sorry! We were unable to get the dependent parameters and independent variables of your model. ' +
-              'This feature is only currently available for models encoded in SBML, SBML-fbc, and SBML-qual.'
+          let msg =
+            'Sorry! We were unable to get the dependent parameters and independent variables of your model. ' +
+            'This feature is only currently available for models encoded in SBML, SBML-fbc, and SBML-qual.';
           if (modelLocationType === LocationType.url) {
             msg += ` Please check that ${modelLocationDetails} is an accessible URL.`;
           }
 
-          this.snackBar.open(
-            msg,
-            undefined,
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
+          this.snackBar.open(msg, undefined, {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
           return of<null>(null);
         },
       ),
@@ -1149,195 +1178,219 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const simulatorsDataObs = this.dispatchService.getSimulatorsFromDb();
     const algorithmSubObs = simulatorsDataObs.pipe(
-      map((simulatorsData: SimulatorsData): Observable<AlgorithmSubstitution[] | undefined> => {
-        return this.combineService.getSimilarAlgorithms(Object.keys(simulatorsData.simulationAlgorithms));
-      }),
+      map(
+        (
+          simulatorsData: SimulatorsData,
+        ): Observable<AlgorithmSubstitution[] | undefined> => {
+          return this.combineService.getSimilarAlgorithms(
+            Object.keys(simulatorsData.simulationAlgorithms),
+          );
+        },
+      ),
       concatAll(),
       withLatestFrom(simulatorsDataObs, this.route.queryParams),
     );
 
-    const algorithmSubSubcription = algorithmSubObs.subscribe((observerableValues: [AlgorithmSubstitution[] | undefined, SimulatorsData, Params]): void => {
-      if (!observerableValues[0]) {
-        this.snackBar.open(
-          'Sorry! We were unable to load information about the simularity among algorithms.',
-          undefined,
-          {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-          },
-        );
-      }
+    const algorithmSubSubcription = algorithmSubObs.subscribe(
+      (
+        observerableValues: [
+          AlgorithmSubstitution[] | undefined,
+          SimulatorsData,
+          Params,
+        ],
+      ): void => {
+        if (!observerableValues[0]) {
+          this.snackBar.open(
+            'Sorry! We were unable to load information about the simularity among algorithms.',
+            undefined,
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            },
+          );
+        }
 
-      const algSubstitutions = observerableValues[0] as AlgorithmSubstitution[];
-      const simulatorsData = observerableValues[1] as SimulatorsData;
-      const queryParams = observerableValues[2] as Params;
+        const algSubstitutions = observerableValues[0] as AlgorithmSubstitution[];
+        const simulatorsData = observerableValues[1] as SimulatorsData;
+        const queryParams = observerableValues[2] as Params;
 
-      this.simulatorSpecsMap = simulatorsData.simulatorSpecs;
-      this.simulatorSpecs = Object.values(simulatorsData.simulatorSpecs);
-      const algSubstitutionsMap: any = {};
-      algSubstitutions
-        .filter((algSubstitution: AlgorithmSubstitution): boolean => {
-          return algSubstitution.maxPolicy.level <= AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK;
-        })
-        .forEach((algSubstitution: AlgorithmSubstitution): void => {
-          algSubstitutionsMap[algSubstitution.algorithms[0].id + '/' + algSubstitution.algorithms[1].id] = algSubstitution.maxPolicy;
-        })
-      this.algSubstitutions = algSubstitutionsMap;
-
-      this.allModelFormats = Object.values(simulatorsData.modelFormats).map(
-        (format: any): OntologyTerm => {
-          return {
-            id: format.id,
-            name: format.name,
-          };
-        },
-      );
-      this.allModelingFrameworks = Object.values(
-        simulatorsData.modelingFrameworks,
-      ).map(
-        (framework: any): OntologyTerm => {
-          return {
-            id: framework.id,
-            name: framework.name,
-          };
-        },
-      );
-      this.allSimulationAlgorithms = Object.values(
-        simulatorsData.simulationAlgorithms,
-      ).map(
-        (algorithm: any): OntologyTerm => {
-          return {
-            id: algorithm.id,
-            name: algorithm.name,
-          };
-        },
-      );
-
-      this.allModelingFrameworks = this.allModelingFrameworks.filter(
-        (framework: OntologyTerm): boolean => {
-          return framework.id !== 'SBO_0000292';
-        },
-      );
-
-      this.simulatorSpecs?.sort(
-        (a: SimulatorSpecs, b: SimulatorSpecs): number => {
-          return a.name.localeCompare(b.name, undefined, { numeric: true });
-        },
-      );
-      this.allModelFormats?.sort((a: OntologyTerm, b: OntologyTerm): number => {
-        return a.name.localeCompare(b.name, undefined, { numeric: true });
-      });
-      this.allModelingFrameworks?.sort(
-        (a: OntologyTerm, b: OntologyTerm): number => {
-          return a.name.localeCompare(b.name, undefined, { numeric: true });
-        },
-      );
-      this.allSimulationAlgorithms?.sort(
-        (a: OntologyTerm, b: OntologyTerm): number => {
-          return a.name.localeCompare(b.name, undefined, { numeric: true });
-        },
-      );
-
-      // setup model formats
-      const formatEdamIds = new Set<string>();
-      this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
-        simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-          (
-            modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
-          ): void => {
-            modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.forEach(
-              (formatEdamId: string): void => {
-                formatEdamIds.add(formatEdamId);
-              },
+        this.simulatorSpecsMap = simulatorsData.simulatorSpecs;
+        this.simulatorSpecs = Object.values(simulatorsData.simulatorSpecs);
+        const algSubstitutionsMap: any = {};
+        algSubstitutions
+          .filter((algSubstitution: AlgorithmSubstitution): boolean => {
+            return (
+              algSubstitution.maxPolicy.level <=
+              AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK
             );
+          })
+          .forEach((algSubstitution: AlgorithmSubstitution): void => {
+            algSubstitutionsMap[
+              algSubstitution.algorithms[0].id +
+                '/' +
+                algSubstitution.algorithms[1].id
+            ] = algSubstitution.maxPolicy;
+          });
+        this.algSubstitutions = algSubstitutionsMap;
+
+        this.allModelFormats = Object.values(simulatorsData.modelFormats).map(
+          (format: any): OntologyTerm => {
+            return {
+              id: format.id,
+              name: format.name,
+            };
           },
         );
-      });
-      this.modelFormats = this.allModelFormats.filter(
-        (format: OntologyTerm): boolean => {
-          return formatEdamIds.has(format.id);
-        },
-      );
+        this.allModelingFrameworks = Object.values(
+          simulatorsData.modelingFrameworks,
+        ).map(
+          (framework: any): OntologyTerm => {
+            return {
+              id: framework.id,
+              name: framework.name,
+            };
+          },
+        );
+        this.allSimulationAlgorithms = Object.values(
+          simulatorsData.simulationAlgorithms,
+        ).map(
+          (algorithm: any): OntologyTerm => {
+            return {
+              id: algorithm.id,
+              name: algorithm.name,
+            };
+          },
+        );
 
-      // get references to controls
-      const modelLocationTypeControl = this.formGroup.controls
-        .modelLocationType as FormControl;
-      const modelFormatControl = this.formGroup.controls
-        .modelFormat as FormControl;
-      const modelingFrameworkControl = this.formGroup.controls
-        .modelingFramework as FormControl;
-      const simulationTypeControl = this.formGroup.controls
-        .simulationType as FormControl;
-      const simulationAlgorithmControl = this.formGroup.controls
-        .simulationAlgorithm as FormControl;
+        this.allModelingFrameworks = this.allModelingFrameworks.filter(
+          (framework: OntologyTerm): boolean => {
+            return framework.id !== 'SBO_0000292';
+          },
+        );
 
-      // Enable model format select menu
-      modelFormatControl.enable();
+        this.simulatorSpecs?.sort(
+          (a: SimulatorSpecs, b: SimulatorSpecs): number => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          },
+        );
+        this.allModelFormats?.sort(
+          (a: OntologyTerm, b: OntologyTerm): number => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          },
+        );
+        this.allModelingFrameworks?.sort(
+          (a: OntologyTerm, b: OntologyTerm): number => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          },
+        );
+        this.allSimulationAlgorithms?.sort(
+          (a: OntologyTerm, b: OntologyTerm): number => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          },
+        );
 
-      // set value of form based on query arguments
-      const modelUrl = queryParams?.modelUrl;
-      if (modelUrl) {
-        modelLocationTypeControl.setValue(LocationType.url);
-        const modelLocationDetailsControl = this.formGroup.controls
-          .modelLocationDetails as FormControl;
-        modelLocationDetailsControl.setValue(modelUrl);
-      }
-
-      let modelFormat = queryParams?.modelFormat;
-      if (modelFormat) {
-        modelFormat = modelFormat.toLowerCase();
-        const match = modelFormat.match(/^(format[:_])?(\d{1,4})$/);
-        if (match) {
-          modelFormat = 'format_' + '0'.repeat(4 - match[2].length) + match[2];
-        }
-        modelFormatControl.setValue(modelFormat);
-      }
-
-      let modelingFramework = queryParams?.modelingFramework;
-      if (modelingFramework) {
-        modelingFramework = modelingFramework.toUpperCase();
-        const match = modelingFramework.match(/^(SBO[:_])?(\d{1,7})$/);
-        if (match) {
-          modelingFramework =
-            'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
-        }
-        modelingFrameworkControl.setValue(modelingFramework);
-      }
-
-      let simulationType = queryParams?.simulationType;
-      if (simulationType) {
-        if (!simulationType.startsWith('Sed')) {
-          simulationType = 'Sed' + simulationType;
-        }
-        if (!simulationType.endsWith('Simulation')) {
-          simulationType = simulationType + 'Simulation';
-        }
-
-        this.allSimulationTypes.forEach((simType: OntologyTerm): void => {
-          if (simulationType.toLowerCase() == simType.id.toLowerCase()) {
-            simulationType = simType.id;
-          }
+        // setup model formats
+        const formatEdamIds = new Set<string>();
+        this.simulatorSpecs?.forEach((simulator: SimulatorSpecs): void => {
+          simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
+            (
+              modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
+            ): void => {
+              modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.forEach(
+                (formatEdamId: string): void => {
+                  formatEdamIds.add(formatEdamId);
+                },
+              );
+            },
+          );
         });
+        this.modelFormats = this.allModelFormats.filter(
+          (format: OntologyTerm): boolean => {
+            return formatEdamIds.has(format.id);
+          },
+        );
 
-        simulationTypeControl.setValue(simulationType);
-      }
+        // get references to controls
+        const modelLocationTypeControl = this.formGroup.controls
+          .modelLocationType as FormControl;
+        const modelFormatControl = this.formGroup.controls
+          .modelFormat as FormControl;
+        const modelingFrameworkControl = this.formGroup.controls
+          .modelingFramework as FormControl;
+        const simulationTypeControl = this.formGroup.controls
+          .simulationType as FormControl;
+        const simulationAlgorithmControl = this.formGroup.controls
+          .simulationAlgorithm as FormControl;
 
-      let simulationAlgorithm = queryParams?.simulationAlgorithm;
-      if (simulationAlgorithm) {
-        simulationAlgorithm = simulationAlgorithm.toUpperCase();
-        const match = simulationAlgorithm.match(/^(KISAO[:_])?(\d{1,7})$/);
-        if (match) {
-          simulationAlgorithm =
-            'KISAO_' + '0'.repeat(7 - match[2].length) + match[2];
+        // Enable model format select menu
+        modelFormatControl.enable();
+
+        // set value of form based on query arguments
+        const modelUrl = queryParams?.modelUrl;
+        if (modelUrl) {
+          modelLocationTypeControl.setValue(LocationType.url);
+          const modelLocationDetailsControl = this.formGroup.controls
+            .modelLocationDetails as FormControl;
+          modelLocationDetailsControl.setValue(modelUrl);
         }
-        simulationAlgorithmControl.setValue(simulationAlgorithm);
-      }
 
-      // clear errors
-      this.formGroup.setErrors(null);
-    });
-  this.subscriptions.push(algorithmSubSubcription);
+        let modelFormat = queryParams?.modelFormat;
+        if (modelFormat) {
+          modelFormat = modelFormat.toLowerCase();
+          const match = modelFormat.match(/^(format[:_])?(\d{1,4})$/);
+          if (match) {
+            modelFormat =
+              'format_' + '0'.repeat(4 - match[2].length) + match[2];
+          }
+          modelFormatControl.setValue(modelFormat);
+        }
+
+        let modelingFramework = queryParams?.modelingFramework;
+        if (modelingFramework) {
+          modelingFramework = modelingFramework.toUpperCase();
+          const match = modelingFramework.match(/^(SBO[:_])?(\d{1,7})$/);
+          if (match) {
+            modelingFramework =
+              'SBO_' + '0'.repeat(7 - match[2].length) + match[2];
+          }
+          modelingFrameworkControl.setValue(modelingFramework);
+        }
+
+        let simulationType = queryParams?.simulationType;
+        if (simulationType) {
+          if (!simulationType.startsWith('Sed')) {
+            simulationType = 'Sed' + simulationType;
+          }
+          if (!simulationType.endsWith('Simulation')) {
+            simulationType = simulationType + 'Simulation';
+          }
+
+          this.allSimulationTypes.forEach((simType: OntologyTerm): void => {
+            if (simulationType.toLowerCase() == simType.id.toLowerCase()) {
+              simulationType = simType.id;
+            }
+          });
+
+          simulationTypeControl.setValue(simulationType);
+        }
+
+        let simulationAlgorithm = queryParams?.simulationAlgorithm;
+        if (simulationAlgorithm) {
+          simulationAlgorithm = simulationAlgorithm.toUpperCase();
+          const match = simulationAlgorithm.match(/^(KISAO[:_])?(\d{1,7})$/);
+          if (match) {
+            simulationAlgorithm =
+              'KISAO_' + '0'.repeat(7 - match[2].length) + match[2];
+          }
+          simulationAlgorithmControl.setValue(simulationAlgorithm);
+        }
+
+        // clear errors
+        this.formGroup.setErrors(null);
+      },
+    );
+    this.subscriptions.push(algorithmSubSubcription);
   }
 
   ngOnDestroy(): void {
@@ -1389,11 +1442,13 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           },
         ),
       );
-    const projectOrUrlSub = projectOrUrl.subscribe((projectOrUrl: string | any): void => {
-      if (projectOrUrl) {
-        this.processCreatedCombineArchive(postCreateAction, projectOrUrl);
-      }
-    });
+    const projectOrUrlSub = projectOrUrl.subscribe(
+      (projectOrUrl: string | any): void => {
+        if (projectOrUrl) {
+          this.processCreatedCombineArchive(postCreateAction, projectOrUrl);
+        }
+      },
+    );
     this.subscriptions.push(projectOrUrlSub);
   }
 
@@ -1654,14 +1709,20 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     modelChanges: new BehaviorSubject<boolean>(false),
     modelVariables: new BehaviorSubject<boolean>(false),
     simulationAlgorithmParameters: new BehaviorSubject<boolean>(false),
-  }
+  };
   formSectionOpen$ = {
     modelNamespaces: this.formSectionOpen.modelNamespaces.asObservable(),
     modelChanges: this.formSectionOpen.modelChanges.asObservable(),
     modelVariables: this.formSectionOpen.modelVariables.asObservable(),
     simulationAlgorithmParameters: this.formSectionOpen.simulationAlgorithmParameters.asObservable(),
-  }
-  toggleFormSection(name: 'modelNamespaces' | 'modelChanges' | 'modelVariables' | 'simulationAlgorithmParameters'): void {
+  };
+  toggleFormSection(
+    name:
+      | 'modelNamespaces'
+      | 'modelChanges'
+      | 'modelVariables'
+      | 'simulationAlgorithmParameters',
+  ): void {
     this.formSectionOpen[name].next(!this.formSectionOpen[name].value);
   }
 }

@@ -26,7 +26,10 @@ import { CombineService } from '../combine/combine.service';
 export class VisualizationService {
   private combineArchiveEndpoint = `${urls.dispatchApi}run/`;
   private resultsEndpoint = `${urls.dispatchApi}results`;
-  public constructor(private http: HttpClient, private combineService: CombineService) {}
+  public constructor(
+    private http: HttpClient,
+    private combineService: CombineService,
+  ) {}
 
   public getCombineResultsStructure(
     uuid: string,

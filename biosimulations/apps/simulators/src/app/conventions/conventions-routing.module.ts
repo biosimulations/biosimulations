@@ -209,7 +209,7 @@ const routes: Routes = [
         },
       ],
     },
-  },  
+  },
   {
     path: 'simulation-reports',
     component: SimulationReportsComponent,

@@ -169,10 +169,11 @@
           >
           Interfaces to simulation tools should save reports in the
           <a [routerLink]="['/conventions', 'simulation-reports']"
-            >BioSimulators HDF5 format for data for reports and plots of simulation results</a
-          >. Within the HDF5 file, each report and plot should be saved to a path equal
-          to the combination of the relative path of its parent SED-ML file
-          within the COMBINE/OMEX archive and the id of the report.
+            >BioSimulators HDF5 format for data for reports and plots of
+            simulation results</a
+          >. Within the HDF5 file, each report and plot should be saved to a
+          path equal to the combination of the relative path of its parent
+          SED-ML file within the COMBINE/OMEX archive and the id of the report.
         </li>
         <li>
           <b
@@ -185,10 +186,10 @@
           <code>.pdf</code>
         </li>
         <li>
-          <b>Save simulation outputs to standard file paths:</b> Data for reports and plots should
-          be saved to <code>{{ '{ ' }} out-dir {{ ' }' }}/reports.h5</code>.
-          Plots should be saved to
-          <code>{{ '{ ' }} out-dir {{ ' }' }}/plots.zip</code>.
+          <b>Save simulation outputs to standard file paths:</b> Data for
+          reports and plots should be saved to
+          <code>{{ '{ ' }} out-dir {{ ' }' }}/reports.h5</code>. Plots should be
+          saved to <code>{{ '{ ' }} out-dir {{ ' }' }}/plots.zip</code>.
         </li>
       </ul>
 
@@ -245,7 +246,15 @@ optional arguments:
           </p>
 
           <p>
-            A recommended matrix of algorithm substitutions is available from the KiSAO ontology <a href="https://github.com/SED-ML/KiSAO/blob/dev/libkisao/python/docs/algorithm-substitutability.csv"><biosimulations-icon icon="link"></biosimulations-icon></a>. A Python package is also available for implementing this matrix <a href="https://github.com/SED-ML/KiSAO/blob/dev/libkisao/python/"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+            A recommended matrix of algorithm substitutions is available from
+            the KiSAO ontology
+            <a
+              href="https://github.com/SED-ML/KiSAO/blob/dev/libkisao/python/docs/algorithm-substitutability.csv"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+            >. A Python package is also available for implementing this matrix
+            <a href="https://github.com/SED-ML/KiSAO/blob/dev/libkisao/python/"
+              ><biosimulations-icon icon="link"></biosimulations-icon></a
+            >.
           </p>
 
           <p>
@@ -257,11 +266,11 @@ optional arguments:
 
           <p>
             For algorithm substitution level <code>NONE</code>, BioSimulators
-            recommends that simulation tools raise errors for unsupported algorithm
-            parameters and unsupported values of algorithm parameters. For higher
-            substitution levels, BioSimulators recommends that simulation tools skip
-            unsupported parameters and unsupported values and raise warnings
-            when parameters are skipped.
+            recommends that simulation tools raise errors for unsupported
+            algorithm parameters and unsupported values of algorithm parameters.
+            For higher substitution levels, BioSimulators recommends that
+            simulation tools skip unsupported parameters and unsupported values
+            and raise warnings when parameters are skipped.
           </p>
 
           <ol start="0">
@@ -271,10 +280,10 @@ optional arguments:
               that involve unsupported algorithms. For example, a simulation
               tool that only supports the Stochastic Simulation Algorithm (SSA,
               KISAO_0000029) should raise errors on SED-ML files that request
-              simulations with the Next Reaction Method (NRM, KISAO_0000027).
-              In many cases, this level will effectively constrain the execution
-              of a SED-ML document to a specific implementation of an algorithm
-              by a specific simulation tool.
+              simulations with the Next Reaction Method (NRM, KISAO_0000027). In
+              many cases, this level will effectively constrain the execution of
+              a SED-ML document to a specific implementation of an algorithm by
+              a specific simulation tool.
             </li>
 
             <li>

@@ -7,15 +7,24 @@
         </div>
         <div class="form-section-head-title-subtitle">
           <div class="form-section-title">COMBINE/OMEX archive*</div>
-          <div class="form-section-subtitle">Select a local file or enter a URL for a COMBINE/OMEX archive that contains SED-ML files</div>
+          <div class="form-section-subtitle">
+            Select a local file or enter a URL for a COMBINE/OMEX archive that
+            contains SED-ML files
+          </div>
         </div>
       </div>
       <div class="form-section-body">
         <div class="form-field-group">
           <div class="columns two-columns">
             <mat-form-field appearance="fill">
-              <biosimulations-icon icon="location" matPrefix></biosimulations-icon>
-              <mat-label>Select a method for providing a simulation project (COMBINE/OMEX file)</mat-label>
+              <biosimulations-icon
+                icon="location"
+                matPrefix
+              ></biosimulations-icon>
+              <mat-label
+                >Select a method for providing a simulation project
+                (COMBINE/OMEX file)</mat-label
+              >
               <mat-select
                 required
                 formControlName="submitMethod"
@@ -26,9 +35,17 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="fill" *ngIf="formGroup.value.submitMethod === 'file'">
-              <biosimulations-icon icon="project" matPrefix></biosimulations-icon>
-              <mat-label>Select a simulation project (COMBINE/OMEX file)</mat-label>
+            <mat-form-field
+              appearance="fill"
+              *ngIf="formGroup.value.submitMethod === 'file'"
+            >
+              <biosimulations-icon
+                icon="project"
+                matPrefix
+              ></biosimulations-icon>
+              <mat-label
+                >Select a simulation project (COMBINE/OMEX file)</mat-label
+              >
               <ngx-mat-file-input
                 formControlName="projectFile"
                 accept=".omex,.sedx"
@@ -37,7 +54,10 @@
               ></ngx-mat-file-input>
             </mat-form-field>
 
-            <mat-form-field appearance="fill" *ngIf="formGroup.value.submitMethod === 'url'">
+            <mat-form-field
+              appearance="fill"
+              *ngIf="formGroup.value.submitMethod === 'url'"
+            >
               <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
               <mat-label>Enter a URL for a COMBINE/OMEX archive</mat-label>
               <input
@@ -51,46 +71,73 @@
 
           <mat-hint>
             <p>
-              Select a method for providing a COMBINE/OMEX archive which describes one or more
-              simulations (in SED-ML format) of one or more models (e.g., in
-              BNGL, SBML formats). COMBINE/OMEX files can either be uploaded
-              from your local computer or loaded from a publicly-accessible URL.
+              Select a method for providing a COMBINE/OMEX archive which
+              describes one or more simulations (in SED-ML format) of one or
+              more models (e.g., in BNGL, SBML formats). COMBINE/OMEX files can
+              either be uploaded from your local computer or loaded from a
+              publicly-accessible URL.
             </p>
 
             <p>
-              Several example simulation projects are available from the BioSimulators test suite <a [href]="exampleCombineArchivesUrl" target="_blank"
+              Several example simulation projects are available from the
+              BioSimulators test suite
+              <a [href]="exampleCombineArchivesUrl" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon></a
               >.
             </p>
           </mat-hint>
-          <mat-error *ngIf="(submitPushed || projectFileControl.touched) && formGroup.hasError('required', 'projectFile')">Please select a COMBINE/OMEX file.</mat-error>
-          <mat-error *ngIf="(submitPushed || projectFileControl.touched) && formGroup.hasError('maxSize', 'projectFile')">Currently, COMBINE/OMEX files are limited to 16 MB.</mat-error>
-          <mat-error *ngIf="(submitPushed || projectUrlControl.touched) && formGroup.hasError('url', 'projectUrl')">Please enter a URL for a COMBINE/OMEX file.</mat-error>
+          <mat-error
+            *ngIf="
+              (submitPushed || projectFileControl.touched) &&
+              formGroup.hasError('required', 'projectFile')
+            "
+            >Please select a COMBINE/OMEX file.</mat-error
+          >
+          <mat-error
+            *ngIf="
+              (submitPushed || projectFileControl.touched) &&
+              formGroup.hasError('maxSize', 'projectFile')
+            "
+            >Currently, COMBINE/OMEX files are limited to 16 MB.</mat-error
+          >
+          <mat-error
+            *ngIf="
+              (submitPushed || projectUrlControl.touched) &&
+              formGroup.hasError('url', 'projectUrl')
+            "
+            >Please enter a URL for a COMBINE/OMEX file.</mat-error
+          >
         </div>
       </div>
     </div>
 
     <div class="button-container">
       <div class="status-summary">
-        <div class="valid" *ngIf="status === 'valid'">Your COMBINE/OMEX archive is likely valid!</div>
-        <div class="errors" *ngIf="status === 'invalid'">Your COMBINE/OMEX archive is invalid.</div>
-        <div class="warnings" *ngIf="status === 'warnings'">Your COMBINE/OMEX archive may be invalid.</div>
+        <div class="valid" *ngIf="status === 'valid'">
+          Your COMBINE/OMEX archive is likely valid!
+        </div>
+        <div class="errors" *ngIf="status === 'invalid'">
+          Your COMBINE/OMEX archive is invalid.
+        </div>
+        <div class="warnings" *ngIf="status === 'warnings'">
+          Your COMBINE/OMEX archive may be invalid.
+        </div>
       </div>
 
-      <button
-        mat-flat-button
-        type="submit"
-      >
-        Validate
-      </button>
+      <button mat-flat-button type="submit">Validate</button>
     </div>
 
-    <div class="validation-report" *ngIf="status === 'invalid' || status === 'warnings'">
-      <div class="validation-report-section errors" *ngIf="errors">Errors:
+    <div
+      class="validation-report"
+      *ngIf="status === 'invalid' || status === 'warnings'"
+    >
+      <div class="validation-report-section errors" *ngIf="errors">
+        Errors:
         <ul [innerHTML]="errors"></ul>
       </div>
 
-      <div class="validation-report-section warnings" *ngIf="warnings">Warnings:
+      <div class="validation-report-section warnings" *ngIf="warnings">
+        Warnings:
         <ul [innerHTML]="warnings"></ul>
       </div>
     </div>
