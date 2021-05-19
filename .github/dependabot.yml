@@ -13,3 +13,8 @@ updates:
   target-branch: dev
   labels:
   - dependencies
+  
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "daily"
