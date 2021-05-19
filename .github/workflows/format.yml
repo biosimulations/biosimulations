@@ -1,0 +1,44 @@
+name: Format Source Code  
+on:
+  push:
+    branches: [dev]
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN}}
+
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+          
+      - name: Install Nrwl CLI
+        working-directory: ./biosimulations
+        run: npm install -g @nrwl/cli
+
+      - name: Format files
+        working-directory: ./biosimulations
+        run: nx format --all
+        
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          git-user-signingkey: true
+          git-commit-gpgsign: true
+
+      - name: Commit Changes 
+        uses: EndBug/add-and-commit@v5 # You can change this to use a specific version
+        with:
+          author_name: Biosimulations-Daemon
+          author_email: biosimulationsdaemon@gmail.com
+          branch: dev
+          message: 'Formatted Files. [skip ci]'
+          signoff: true
+        env:
+          # This is necessary in order to push a commit to the repo
+          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN}} # Leave this line unchanged       
