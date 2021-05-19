@@ -28,6 +28,9 @@ describe('SimulationRunsController', () => {
       };
     }
   }
+  class dispatchQueue {
+    add(job: any) {}
+  }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [SimulationRunController],
@@ -37,7 +40,10 @@ describe('SimulationRunsController', () => {
         SharedNatsClientModule,
         HttpModule,
       ],
-      providers: [{ provide: SimulationRunService, useClass: mockSimService }],
+      providers: [
+        { provide: SimulationRunService, useClass: mockSimService },
+        { provide: 'BullQueue_dispatch', useClass: dispatchQueue },
+      ],
     }).compile();
 
     controller = module.get<SimulationRunController>(SimulationRunController);
