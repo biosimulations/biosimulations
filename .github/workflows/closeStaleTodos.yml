@@ -10,7 +10,7 @@ jobs:
     name: close-issues
     steps:
       - name: Close Stale Issues
-        uses: actions/stale@v3.0.15
+        uses: actions/stale@v3.0.19
         with:
           # The message to post on the issue when tagging it. If none provided, will not mark issues stale.
           stale-issue-message: Closed as stale. If needed, can be reopened
