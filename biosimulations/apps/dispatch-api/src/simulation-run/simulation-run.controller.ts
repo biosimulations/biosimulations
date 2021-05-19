@@ -5,14 +5,8 @@
  * @copyright Biosimulations Team 2020
  * @license MIT
  */
-import {
-  createdResponse,
-  DispatchCreatedPayload,
-  DispatchJob,
-  DispatchMessage,
-} from '@biosimulations/messages/messages';
+import { DispatchJob } from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
-import { ClientProxy } from '@nestjs/microservices';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {
   BadRequestException,
@@ -20,7 +14,6 @@ import {
   Controller,
   Delete,
   Get,
-  Inject,
   Logger,
   NotFoundException,
   Param,
@@ -53,11 +46,8 @@ import {
   UploadSimulationRunUrl,
 } from '@biosimulations/dispatch/api-models';
 import { SimulationRunService } from './simulation-run.service';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
-import { timeout, catchError, retry } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 
