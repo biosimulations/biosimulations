@@ -13,7 +13,7 @@ jobs:
         uses: actions/stale@v3.0.19
         with:
           # The message to post on the issue when tagging it. If none provided, will not mark issues stale.
-          stale-issue-message: Closed as stale. If needed, can be reopened
+          stale-issue-message: This issue has been marked as stale. If still relevent, the label can be removed. 
           # The message to post on the issue when closing it. If none provided, will not comment when closing an issue.
           close-issue-message: Closed as stale. If needed, can be reopened
           # Only issues or pull requests with all of these labels are checked if stale. Defaults to `[]` (disabled) and can be a comma-separated list of labels.
