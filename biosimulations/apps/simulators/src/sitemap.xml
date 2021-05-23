@@ -134,6 +134,18 @@
   </url>
    
   <url>
+    <loc>https://biosimulators.org/simulators/boolsim</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/boolsim/1.2.0</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulators.org/simulators/cbmpy</loc>
     <lastmod>2021-05-04</lastmod>
     <changefreq>monthly</changefreq>
@@ -248,6 +260,18 @@
   </url>
    
   <url>
+    <loc>https://biosimulators.org/simulators/epilog</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/epilog/1.1.2</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulators.org/simulators/escher-fba</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -284,6 +308,18 @@
   </url>
    
   <url>
+    <loc>https://biosimulators.org/simulators/genysis</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/genysis/3.0</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulators.org/simulators/gillespy2</loc>
     <lastmod>2021-05-04</lastmod>
     <changefreq>monthly</changefreq>
@@ -304,6 +340,18 @@
   <url>
     <loc>https://biosimulators.org/simulators/ginsim/3.0.0b</loc>
     <lastmod>2021-01-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/gna</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/gna/8.7</loc>
+    <lastmod>2021-05-16</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -356,6 +404,30 @@
   </url>
    
   <url>
+    <loc>https://biosimulators.org/simulators/kasim</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/kasim/4.1</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/latticemicrobes</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/latticemicrobes/2.3</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulators.org/simulators/libsbmlsim</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -376,6 +448,18 @@
   <url>
     <loc>https://biosimulators.org/simulators/maboss/2.3.4</loc>
     <lastmod>2021-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/mcell</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/mcell/3.5.0</loc>
+    <lastmod>2021-05-16</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -436,6 +520,30 @@
   <url>
     <loc>https://biosimulators.org/simulators/opencor/0.6</loc>
     <lastmod>2021-01-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/openknee</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/openknee/1.0</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/opensim</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/opensim/4.2</loc>
+    <lastmod>2021-05-16</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -506,6 +614,18 @@
   </url>
    
   <url>
+    <loc>https://biosimulators.org/simulators/rbapy</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/rbapy/1.0</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
     <loc>https://biosimulators.org/simulators/sbscl</loc>
     <lastmod>2021-01-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -514,6 +634,42 @@
   <url>
     <loc>https://biosimulators.org/simulators/sbscl/1.5</loc>
     <lastmod>2021-01-07</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/simmune</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/simmune/2.3.1</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/simvascular</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/simvascular/2021-02-07</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/smoldyn</loc>
+    <lastmod>2021-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/smoldyn/2.64</loc>
+    <lastmod>2021-05-16</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
