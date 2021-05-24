@@ -95,8 +95,10 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
       const archiveUrl = params?.archiveUrl;
       if (archiveUrl) {
-        const submitMethodControl = this.formGroup.controls.submitMethod as FormControl;
-        const projectUrlControl = this.formGroup.controls.projectUrl as FormControl;
+        const submitMethodControl = this.formGroup.controls
+          .submitMethod as FormControl;
+        const projectUrlControl = this.formGroup.controls
+          .projectUrl as FormControl;
         submitMethodControl.setValue(SubmitMethod.url);
         projectUrlControl.setValue(archiveUrl);
         this.changeSubmitMethod();
