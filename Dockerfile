@@ -75,7 +75,7 @@ WORKDIR /app
 #Copy over dependency list
 COPY biosimulations/package.json /app/package.json
 # install the app and include only dependencies needed to run
-RUN npm install --only=production
+RUN npm install --only=production  --legacy-peer-deps
 # copy artifact build from the 'build environment'
 RUN echo app is ${APP}
 COPY --from=build /app/dist/apps/${APP}/ .
