@@ -26,7 +26,7 @@
         let-fragment
         [ngForOf]="algorithmKisaoTermDescription | async"
       >
-        <span *ngIf="fragment.type == 'text'; else descriptionLink">
+        <span *ngIf="fragment.type === 'text'; else descriptionLink">
           {{ fragment.value }}
         </span>
         <ng-template #descriptionLink>

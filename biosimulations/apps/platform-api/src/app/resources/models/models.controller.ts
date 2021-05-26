@@ -112,6 +112,9 @@ export class ModelsController {
     data.relationships.owner.data.id =
       user['https://biosimulations.org/user_metadata'].username;
     const model = await this.service.createNewBiomodel(data);
+    // !!! THIS IS BAD, Should be fixed when file is worked on
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     return { data: dbToApi(model.toObject()) };
   }
 

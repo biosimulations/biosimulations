@@ -29,19 +29,29 @@ export class AppService {
     const createdAccount = await (
       await new this.accountModel(createAccountDto).save()
     ).toObject();
+
     const userMetadata: UserMetadata = {
+      // !!! THIS IS BAD, Should be fixed when file is worked on
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
       username: createdAccount.username,
     };
 
     // TODO Determine admin status dynamically
     const appMetadata: AppMetadata = {
       registered: true,
+      // !!! THIS IS BAD, Should be fixed when file is worked on
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
       termsAcceptedOn: createdAccount.termsAcceptedOn,
       roles: [],
       permissions: [],
     };
     this.authz.updateUserMetadata(createdAccount._id, userMetadata);
     this.authz.updateAppMetadata(createdAccount._id, appMetadata);
+    // !!! THIS IS BAD, Should be fixed when file is worked on
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     return createdAccount;
   }
 

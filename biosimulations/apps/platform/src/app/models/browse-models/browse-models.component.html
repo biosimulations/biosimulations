@@ -79,10 +79,10 @@
               mat-sort-header
               [ngStyle]="{
                 'min-width.em':
-                  column.minWidth != null ? column.minWidth / 12 : null,
+                  column.minWidth !== null ? column.minWidth / 12 : null,
                 'max-width.em':
-                  column.maxWidth != null ? column.maxWidth / 12 : null,
-                'flex-grow': column.minWidth != null ? 0 : 1
+                  column.maxWidth !== null ? column.maxWidth / 12 : null,
+                'flex-grow': column.minWidth !== null ? 0 : 1
               }"
             >
               {{ column.id | titlecase }}
@@ -91,10 +91,10 @@
               *matCellDef="let element"
               [ngStyle]="{
                 'min-width.em':
-                  column.minWidth != null ? column.minWidth / 14 : null,
+                  column.minWidth !== null ? column.minWidth / 14 : null,
                 'max-width.em':
-                  column.maxWidth != null ? column.maxWidth / 14 : null,
-                'flex-grow': column.minWidth != null ? 0 : 1,
+                  column.maxWidth !== null ? column.maxWidth / 14 : null,
+                'flex-grow': column.minWidth !== null ? 0 : 1,
                 'white-space': column.nowrap
               }"
             >
