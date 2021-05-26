@@ -21,7 +21,7 @@ export class TopbarMenuItemComponent {
   queryParams: { [key: string]: string } = {};
 
   @Input()
-  href: string = '';
+  href = '';
 
   @Input()
   disabled = false;
