@@ -34,7 +34,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: "15.x"
+          node-version: "14.x"
 
       - name: Install Python
         uses: actions/setup-python@v2
@@ -60,6 +60,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-node-
+            
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Install npm dependencies
@@ -74,6 +75,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
+            
+      - name: Compile Angular Dependencies
+        run: npm run compile
 
       - id: get-affected-libs-apps
         name: Determine affected libraries and apps
