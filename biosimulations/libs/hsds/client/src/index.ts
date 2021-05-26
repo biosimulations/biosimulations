@@ -1,1 +1,3 @@
-export * from './lib/hsds-client.module';
+import { HsdsClientModule } from './lib/hsds-client.module';
+
+export { HsdsClientModule };
