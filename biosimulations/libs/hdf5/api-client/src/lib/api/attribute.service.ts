@@ -137,7 +137,7 @@ export class AttributeService {
    * @param collection The collection of the HDF5 object (&#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).
    * @param objUuid HDF5 object\&#39;s UUID.
    * @param attr Name of attribute.
-   * @param body Information to create a new attribute of the HDF5 object &#x60;obj_uuid&#x60;.
+   * @param body Information to create a new attribute of the HDF5 object &#x60;objUuid&#x60;.
    * @param authorization
    * @param domain
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -236,7 +236,7 @@ export class AttributeService {
     );
   }
   /**
-   * List all Attributes attached to the HDF5 object &#x60;obj_uuid&#x60;.
+   * List all Attributes attached to the HDF5 object &#x60;objUuid&#x60;.
    * Attributes sorted alphanumerically by name.
    * @param accept Accept header
    * @param collection The collection of the HDF5 object (one of: &#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).

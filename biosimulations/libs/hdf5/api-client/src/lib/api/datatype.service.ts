@@ -11,7 +11,7 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { HttpService, Injectable, Optional } from '@nestjs/common';
+import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { InlineObject7 } from '../model/inlineObject7';
@@ -98,12 +98,12 @@ export class DatatypeService {
       );
     }
 
-    const queryParameters = {};
+    let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
-    const headers = this.defaultHeaders;
+    let headers = this.defaultHeaders;
     if (accept !== undefined && accept !== null) {
       headers['Accept'] = String(accept);
     }
@@ -112,7 +112,7 @@ export class DatatypeService {
     }
 
     // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
@@ -142,7 +142,7 @@ export class DatatypeService {
    * @param collection The collection of the HDF5 object (&#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).
    * @param objUuid HDF5 object\&#39;s UUID.
    * @param attr Name of attribute.
-   * @param body Information to create a new attribute of the HDF5 object &#x60;obj_uuid&#x60;.
+   * @param body Information to create a new attribute of the HDF5 object &#x60;objUuid&#x60;.
    * @param authorization
    * @param domain
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -196,12 +196,12 @@ export class DatatypeService {
       );
     }
 
-    const queryParameters = {};
+    let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
-    const headers = this.defaultHeaders;
+    let headers = this.defaultHeaders;
     if (accept !== undefined && accept !== null) {
       headers['Accept'] = String(accept);
     }
@@ -210,7 +210,7 @@ export class DatatypeService {
     }
 
     // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
@@ -241,7 +241,7 @@ export class DatatypeService {
     );
   }
   /**
-   * List all Attributes attached to the HDF5 object &#x60;obj_uuid&#x60;.
+   * List all Attributes attached to the HDF5 object &#x60;objUuid&#x60;.
    * Attributes sorted alphanumerically by name.
    * @param accept Accept header
    * @param collection The collection of the HDF5 object (one of: &#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).
@@ -289,7 +289,7 @@ export class DatatypeService {
       );
     }
 
-    const queryParameters = {};
+    let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -300,7 +300,7 @@ export class DatatypeService {
       queryParameters['Marker'] = <any>marker;
     }
 
-    const headers = this.defaultHeaders;
+    let headers = this.defaultHeaders;
     if (accept !== undefined && accept !== null) {
       headers['Accept'] = String(accept);
     }
@@ -309,7 +309,7 @@ export class DatatypeService {
     }
 
     // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
@@ -364,12 +364,12 @@ export class DatatypeService {
       );
     }
 
-    const queryParameters = {};
+    let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
-    const headers = this.defaultHeaders;
+    let headers = this.defaultHeaders;
     if (accept !== undefined && accept !== null) {
       headers['Accept'] = String(accept);
     }
@@ -378,7 +378,7 @@ export class DatatypeService {
     }
 
     // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
@@ -431,12 +431,12 @@ export class DatatypeService {
       );
     }
 
-    const queryParameters = {};
+    let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
-    const headers = this.defaultHeaders;
+    let headers = this.defaultHeaders;
     if (accept !== undefined && accept !== null) {
       headers['Accept'] = String(accept);
     }
@@ -445,7 +445,7 @@ export class DatatypeService {
     }
 
     // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
@@ -498,12 +498,12 @@ export class DatatypeService {
       );
     }
 
-    const queryParameters = {};
+    let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
-    const headers = this.defaultHeaders;
+    let headers = this.defaultHeaders;
     if (accept !== undefined && accept !== null) {
       headers['Accept'] = String(accept);
     }
@@ -512,7 +512,7 @@ export class DatatypeService {
     }
 
     // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
@@ -565,12 +565,12 @@ export class DatatypeService {
       );
     }
 
-    const queryParameters = {};
+    let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
-    const headers = this.defaultHeaders;
+    let headers = this.defaultHeaders;
     if (accept !== undefined && accept !== null) {
       headers['Accept'] = String(accept);
     }
@@ -579,7 +579,7 @@ export class DatatypeService {
     }
 
     // to determine the Accept header
-    const httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected:
       | string
       | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
