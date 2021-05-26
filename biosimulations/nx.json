@@ -230,6 +230,9 @@
     },
     "hsds-client": {
       "tags": ["scope:data", "shared:true", "platform:server", "type:client"]
+    },
+    "hdf5-api-client": {
+      "tags": ["scope:hsds", "type:client", "platform:server"]
     }
   }
 }
