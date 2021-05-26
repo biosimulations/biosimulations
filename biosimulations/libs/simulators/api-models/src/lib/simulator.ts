@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
 import {
   SoftwareInterfaceType,
