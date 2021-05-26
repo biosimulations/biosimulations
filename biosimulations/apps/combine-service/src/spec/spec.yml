@@ -2,9 +2,8 @@
 openapi: 3.0.0
 info:
   title: BioSimulations COMBINE service
-  version: '0.1'
-  description:
-    "Endpoints for working with COMBINE/OMEX archives and model (e.g.,\
+  version: "0.1"
+  description: "Endpoints for working with COMBINE/OMEX archives and model (e.g.,\
     \ SBML) and simulation (e.g., SED-ML) files that they typically contain.\n\nNote,\
     \ this API may change significantly in the future."
   contact:
@@ -18,47 +17,46 @@ paths:
   /combine/create:
     post:
       requestBody:
-        description:
-          Specifiations for the COMBINE/OMEX archive and its contents (specifications
+        description: Specifiations for the COMBINE/OMEX archive and its contents (specifications
           of the SED-ML file and model file(s)).
         content:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/CombineArchiveSpecsAndFiles'
             examples:
-              ? Example specifications for a COMBINE archive and files to be included in the archive
-              : value:
+              Example specifications for a COMBINE archive and files to be included in the archive:
+                value:
                   specs:
                     _type: CombineArchive
                     contents:
-                      - _type: CombineArchiveContent
-                        location:
-                          _type: CombineArchiveLocation
-                          path: experiment1/model.xml
-                          value:
-                            _type: CombineArchiveContentFile
-                            filename: model.xml
-                        format: http://identifiers.org/combine.specifications/sbml
-                        master: false
-                      - _type: CombineArchiveContent
-                        location:
-                          _type: CombineArchiveLocation
-                          path: experiment1/simulation.sedml
-                          value:
-                            _type: CombineArchiveContentUrl
-                            url: https://simulation.org/simulation.sedml
-                        format: http://identifiers.org/combine.specifications/sed-ml
-                        master: true
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/model.xml
+                        value:
+                          _type: CombineArchiveContentFile
+                          filename: model.xml
+                      format: http://identifiers.org/combine.specifications/sbml
+                      master: false
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/simulation.sedml
+                        value:
+                          _type: CombineArchiveContentUrl
+                          url: https://simulation.org/simulation.sedml
+                      format: http://identifiers.org/combine.specifications/sed-ml
+                      master: true
                   files:
-                    - <FILE>
+                  - <FILE>
             encoding:
               specs:
                 contentType: application/json
         required: true
       tags:
-        - COMBINE
+      - COMBINE
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
@@ -73,24 +71,22 @@ paths:
                 COMBINE/OMEX archive:
                   value: '"<FILE>"'
           description: URL for the created COMBINE/OMEX archive.
-        '400':
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Specifications for COMBINE archive are invalid.
-        '500':
+        "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
       operationId: src.handlers.combine.create.handler
-      summary:
-        Assemble a COMBINE/OMEX archive from model files and specifications
+      summary: Assemble a COMBINE/OMEX archive from model files and specifications
         of a SED-ML document.
-      description:
-        Assemble a COMBINE/OMEX archive from model files and specifications
+      description: Assemble a COMBINE/OMEX archive from model files and specifications
         of a SED-ML document.
   /sed-ml/get-parameters-variables-for-simulation:
     post:
@@ -110,9 +106,9 @@ paths:
                   modelingFramework: SBO_0000293
         required: true
       tags:
-        - SED-ML
+      - SED-ML
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
@@ -129,15 +125,14 @@ paths:
                     dataGenerators: []
                     outputs: []
           description: Possible observables of a SED task as a list of SED data generators.
-        '400':
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description:
-            Unable to get the variables of a model because the model file
+          description: Unable to get the variables of a model because the model file
             is invalid.
-        '500':
+        "500":
           content:
             application/json:
               schema:
@@ -162,9 +157,9 @@ paths:
                   url: https://models.org/archive.omex
         required: true
       tags:
-        - COMBINE
+      - COMBINE
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
@@ -174,35 +169,34 @@ paths:
                   value:
                     _type: CombineArchive
                     contents:
-                      - _type: CombineArchiveContent
-                        location:
-                          _type: CombineArchiveLocation
-                          path: experiment1/model.xml
-                          value:
-                            _type: CombineArchiveContentFile
-                            filename: model.xml
-                        format: http://identifiers.org/combine.specifications/sbml
-                        master: false
-                      - _type: CombineArchiveContent
-                        location:
-                          _type: CombineArchiveLocation
-                          path: experiment1/simulation.sedml
-                          value:
-                            _type: CombineArchiveContentUrl
-                            url: https://simulation.org/simulation.sedml
-                        format: http://identifiers.org/combine.specifications/sed-ml
-                        master: true
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/model.xml
+                        value:
+                          _type: CombineArchiveContentFile
+                          filename: model.xml
+                      format: http://identifiers.org/combine.specifications/sbml
+                      master: false
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/simulation.sedml
+                        value:
+                          _type: CombineArchiveContentUrl
+                          url: https://simulation.org/simulation.sedml
+                      format: http://identifiers.org/combine.specifications/sed-ml
+                      master: true
           description: Specifications of the SED-ML files in the COMBINE/OMEX archive.
-        '400':
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description:
-            Unable to get the specifications of the SED outputs for COMBINE/OMEX
+          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
             archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
             archive.
-        '500':
+        "500":
           content:
             application/json:
               schema:
@@ -228,9 +222,9 @@ paths:
                   url: https://models.org/archive.omex
         required: true
       tags:
-        - COMBINE
+      - COMBINE
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
@@ -244,56 +238,53 @@ paths:
                   value:
                     _type: ValidationReport
                     errors:
-                      - - _type: ValidationMessage
-                          summary: Archive is invalid
+                    - - _type: ValidationMessage
+                        summary: Archive is invalid
                     status: invalid
                 Potentially invalid archive:
                   value:
                     _type: ValidationReport
                     warnings:
-                      - - _type: ValidationMessage
-                          summary: Archive may be invalid
+                    - - _type: ValidationMessage
+                        summary: Archive may be invalid
                     status: warnings
-          description:
-            Overall validity of COMBINE archive and errors and warnings
+          description: Overall validity of COMBINE archive and errors and warnings
             about how it isn't or may not be valid.
-        '400':
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Unable to determine if a COMBINE/OMEX archive is valid.
-        '500':
+        "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
       operationId: src.handlers.combine.validate.handler
-      summary:
-        Validate a COMBINE archive and the simulation experiments and models
+      summary: Validate a COMBINE archive and the simulation experiments and models
         inside it.
-      description:
-        "Validate a COMBINE archive and the simulation experiments (SED-ML\
+      description: "Validate a COMBINE archive and the simulation experiments (SED-ML\
         \ files) and models (e.g., SBML files) inside it."
   /kisao/get-similar-algorithms:
     get:
       tags:
-        - KiSAO
+      - KiSAO
       parameters:
-        - examples:
-            CVODE:
-              value: KISAO_0000019
-          name: algorithms
-          description: KiSOA id of the algorithm to find similar algorithms for.
-          schema:
-            type: array
-            items:
-              type: string
-          in: query
-          required: true
+      - examples:
+          CVODE:
+            value: KISAO_0000019
+        name: algorithms
+        description: KiSOA id of the algorithm to find similar algorithms for.
+        schema:
+          type: array
+          items:
+            type: string
+        in: query
+        required: true
       responses:
-        '200':
+        "200":
           content:
             application/json:
               schema:
@@ -303,29 +294,28 @@ paths:
               examples:
                 CVODE can be substituted:
                   value:
-                    - _type: KisaoAlgorithmSubstitution
-                      algorithm:
-                        - _type: KisaoTerm
-                          id: KISAO_0000019
-                          name: CVODE
-                        - _type: KisaoTerm
-                          id: KISAO_0000088
-                          name: LSODA
-                      maxPolicy:
-                        _type: KisaoAlgorithmSubstitutionPolicy
-                        id: DISTINCT_APPROXIMATIONS
-                        name: Distinct approximations
-                        level: 4
+                  - _type: KisaoAlgorithmSubstitution
+                    algorithm:
+                    - _type: KisaoTerm
+                      id: KISAO_0000019
+                      name: CVODE
+                    - _type: KisaoTerm
+                      id: KISAO_0000088
+                      name: LSODA
+                    maxPolicy:
+                      _type: KisaoAlgorithmSubstitutionPolicy
+                      id: DISTINCT_APPROXIMATIONS
+                      name: Distinct approximations
+                      level: 4
           description: List of the algorithms that are similar to the target algorithm.
-        '400':
+        "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description:
-            Unable to get similar algorithms because the argument is not
+          description: Unable to get similar algorithms because the argument is not
             an id of a valid algorithm term.
-        '500':
+        "500":
           content:
             application/json:
               schema:
@@ -338,11 +328,11 @@ components:
     SedPlot2D:
       description: Specifications for a 2D SED plot.
       required:
-        - id
-        - curves
-        - xScale
-        - yScale
-        - _type
+      - id
+      - curves
+      - xScale
+      - yScale
+      - _type
       type: object
       properties:
         id:
@@ -365,236 +355,21 @@ components:
         _type:
           description: Type of the plot.
           enum:
-            - SedPlot2D
+          - SedPlot2D
           type: string
       example:
         _type: SedPlot2D
         id: ntp_dynamics
         name: NTP dynamics
         curves:
-          - _type: SedCurve
-            id: atp_dynamics
-            name: ATP dynamics
-            xDataGenerator:
-              _type: SedDataGenerator
-              id: data_generator_time
-              name: Time
-              variables:
-                - _type: SedVariable
-                  id: time
-                  name: Time
-                  task:
-                    _type: SedTask
-                    id: task
-                    name: Task
-                    model:
-                      _type: SedModel
-                      id: model
-                      language: urn:sedml:language:sbml
-                      source: model.xml
-                      changes: []
-                    simulation:
-                      _type: SedUniformTimeCourseSimulation
-                      id: koSimulation
-                      initialTime: 0
-                      outputStartTime: 0
-                      outputEndTime: 0
-                      numberOfSteps: 10
-                      algorithm:
-                        _type: SedAlgorithm
-                        kisaoId: KISAO_0000437
-                        changes: []
-                  symbol: urn:sedml:symbol:time
-              math: time
-              _resultsDataSetId: experiment.sedml/report/data_set_time
-            yDataGenerator:
-              _type: SedDataGenerator
-              id: data_generator_atp
-              name: ATP
-              variables:
-                - _type: SedVariable
-                  id: atp
-                  name: ATP
-                  task:
-                    _type: SedTask
-                    id: task
-                    name: Task
-                    model:
-                      _type: SedModel
-                      id: model
-                      language: urn:sedml:language:sbml
-                      source: model.xml
-                      changes: []
-                    simulation:
-                      _type: SedUniformTimeCourseSimulation
-                      id: koSimulation
-                      initialTime: 0
-                      outputStartTime: 0
-                      outputEndTime: 0
-                      numberOfSteps: 10
-                      algorithm:
-                        _type: SedAlgorithm
-                        kisaoId: KISAO_0000437
-                        changes: []
-                  target:
-                    _type: SedTarget
-                    value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
-                    namespaces:
-                      - _type: Namespace
-                        prefix: sbml
-                        uri: http://www.sbml.org/sbml/level3/version1/core
-              math: atp
-              _resultsDataSetId: experiment.sedml/report/data_set_atp
-        xScale: linear
-        yScale: log
-    SedPlot3D:
-      description: Specifications for a 3D surface plot.
-      required:
-        - id
-        - surfaces
-        - xScale
-        - yScale
-        - zScale
-        - _type
-      type: object
-      properties:
-        id:
-          description: Unique id within its parent SED document.
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        surfaces:
-          description: 'List of surfaces (tuples of x, y, and z data).'
-          type: array
-          items:
-            $ref: '#/components/schemas/SedSurface'
-        xScale:
-          $ref: '#/components/schemas/SedAxisScale'
-          description: Scale of the x axis.
-        yScale:
-          $ref: '#/components/schemas/SedAxisScale'
-          description: Scale of the y axis.
-        zScale:
-          $ref: '#/components/schemas/SedAxisScale'
-          description: Scale of the z axis.
-        _type:
-          description: Type of the output.
-          enum:
-            - SedPlot3D
-          type: string
-      example:
-        _type: SedPlot3D
-        id: plot
-        name: Plot
-        surfaces:
-          - _type: SedSurface
-            id: atp_concentration
-            name: ATP concentration
-            xDataGenerator:
-              _type: SedDataGenerator
-              id: data_generator_y
-              name: 'Y'
-              variables:
-                - _type: SedVariable
-                  id: 'y'
-                  name: 'Y'
-                  task:
-                    _type: SedTask
-                    id: task
-                    name: Task
-                    model:
-                      _type: SedModel
-                      id: model
-                      language: urn:sedml:language:sbml
-                      source: model.xml
-                      changes: []
-                    simulation:
-                      _type: SedSteadyStateSimulation
-                      id: simulation
-                      algorithm:
-                        _type: SedAlgorithm
-                        kisaoId: KISAO_0000437
-                        changes: []
-                  symbol: urn:sedml:symbol:y
-              math: 'y'
-              _resultsDataSetId: experiment.sedml/report/data_set_y
-            zDataGenerator:
-              _type: SedDataGenerator
-              id: data_generator_atp
-              name: ATP
-              variables:
-                - _type: SedVariable
-                  id: atp
-                  name: ATP
-                  task:
-                    _type: SedTask
-                    id: task
-                    name: Task
-                    model:
-                      _type: SedModel
-                      id: model
-                      language: urn:sedml:language:sbml
-                      source: model.xml
-                      changes: []
-                    simulation:
-                      _type: SedUniformTimeCourseSimulation
-                      id: koSimulation
-                      initialTime: 0
-                      outputStartTime: 0
-                      outputEndTime: 0
-                      numberOfSteps: 10
-                      algorithm:
-                        _type: SedAlgorithm
-                        kisaoId: KISAO_0000437
-                        changes: []
-                  target:
-                    _type: SedTarget
-                    value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
-                    namespaces:
-                      - _type: Namespace
-                        prefix: sbml
-                        uri: http://www.sbml.org/sbml/level3/version1/core
-              math: atp
-              _resultsDataSetId: experiment.sedml/report/data_set_atp
-        xScale: linear
-        yScale: linear
-        zScale: log
-    SedCurve:
-      description: Curve of a 2D SED plot
-      required:
-        - id
-        - xDataGenerator
-        - yDataGenerator
-        - _type
-      type: object
-      properties:
-        id:
-          description: Unique identifier with its parent SED document.
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        xDataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Identifier of the data generator for the x data of the curve.
-        yDataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Identifier of the data generator for the y data of the curve.
-        _type:
-          description: Type.
-          enum:
-            - SedCurve
-          type: string
-      example:
-        _type: SedCurve
-        id: atp_dynamics
-        name: ATP dynamics
-        xDataGenerator:
-          _type: SedDataGenerator
-          id: data_generator_time
-          name: Time
-          variables:
+        - _type: SedCurve
+          id: atp_dynamics
+          name: ATP dynamics
+          xDataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_time
+            name: Time
+            variables:
             - _type: SedVariable
               id: time
               name: Time
@@ -620,13 +395,13 @@ components:
                     kisaoId: KISAO_0000437
                     changes: []
               symbol: urn:sedml:symbol:time
-          math: time
-          _resultsDataSetId: experiment.sedml/report/data_set_time
-        yDataGenerator:
-          _type: SedDataGenerator
-          id: data_generator_atp
-          name: ATP
-          variables:
+            math: time
+            _resultsDataSetId: experiment.sedml/report/data_set_time
+          yDataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_atp
+            name: ATP
+            variables:
             - _type: SedVariable
               id: atp
               name: ATP
@@ -655,53 +430,65 @@ components:
                 _type: SedTarget
                 value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
                 namespaces:
-                  - _type: Namespace
-                    prefix: sbml
-                    uri: http://www.sbml.org/sbml/level3/version1/core
-          math: atp
-          _resultsDataSetId: experiment.sedml/report/data_set_atp
-    SedSurface:
-      description: A surface a 3D plot.
+                - _type: Namespace
+                  prefix: sbml
+                  uri: http://www.sbml.org/sbml/level3/version1/core
+            math: atp
+            _resultsDataSetId: experiment.sedml/report/data_set_atp
+        xScale: linear
+        yScale: log
+    SedPlot3D:
+      description: Specifications for a 3D surface plot.
       required:
-        - id
-        - xDataGenerator
-        - yDataGenerator
-        - zDataGenerator
-        - _type
+      - id
+      - surfaces
+      - xScale
+      - yScale
+      - zScale
+      - _type
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique id within its parent SED document.
           type: string
         name:
           description: Brief description.
           type: string
-        xDataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Identifier of the data generator for the x data of the surface.
-        yDataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Identifier of the data generator for the y data of the surface.
-        zDataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Identifier of the data generator for the z data of the surface.
+        surfaces:
+          description: "List of surfaces (tuples of x, y, and z data)."
+          type: array
+          items:
+            $ref: '#/components/schemas/SedSurface'
+        xScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the x axis.
+        yScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the y axis.
+        zScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the z axis.
         _type:
-          description: Type.
+          description: Type of the output.
           enum:
-            - SedSurface
+          - SedPlot3D
           type: string
       example:
-        _type: SedSurface
-        id: atp_concentration
-        name: ATP concentration
-        xDataGenerator:
-          _type: SedDataGenerator
-          id: data_generator_y
-          name: 'Y'
-          variables:
+        _type: SedPlot3D
+        id: plot
+        name: Plot
+        surfaces:
+        - _type: SedSurface
+          id: atp_concentration
+          name: ATP concentration
+          xDataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_y
+            name: "Y"
+            variables:
             - _type: SedVariable
-              id: 'y'
-              name: 'Y'
+              id: "y"
+              name: "Y"
               task:
                 _type: SedTask
                 id: task
@@ -720,13 +507,13 @@ components:
                     kisaoId: KISAO_0000437
                     changes: []
               symbol: urn:sedml:symbol:y
-          math: 'y'
-          _resultsDataSetId: experiment.sedml/report/data_set_y
-        zDataGenerator:
-          _type: SedDataGenerator
-          id: data_generator_atp
-          name: ATP
-          variables:
+            math: "y"
+            _resultsDataSetId: experiment.sedml/report/data_set_y
+          zDataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_atp
+            name: ATP
+            variables:
             - _type: SedVariable
               id: atp
               name: ATP
@@ -755,49 +542,49 @@ components:
                 _type: SedTarget
                 value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
                 namespaces:
-                  - _type: Namespace
-                    prefix: sbml
-                    uri: http://www.sbml.org/sbml/level3/version1/core
-          math: atp
-          _resultsDataSetId: experiment.sedml/report/data_set_atp
-    SedDataGenerator:
-      description: Data generator for SED report or plot.
+                - _type: Namespace
+                  prefix: sbml
+                  uri: http://www.sbml.org/sbml/level3/version1/core
+            math: atp
+            _resultsDataSetId: experiment.sedml/report/data_set_atp
+        xScale: linear
+        yScale: linear
+        zScale: log
+    SedCurve:
+      description: Curve of a 2D SED plot
       required:
-        - id
-        - math
-        - variables
-        - _type
+      - id
+      - xDataGenerator
+      - yDataGenerator
+      - _type
       type: object
       properties:
         id:
-          description: Unique identifier within its parent SED document.
+          description: Unique identifier with its parent SED document.
           type: string
         name:
           description: Brief description.
           type: string
-        variables:
-          description: Variables.
-          type: array
-          items:
-            $ref: '#/components/schemas/SedVariable'
-        math:
-          description: Mathematical expression for its value.
-          type: string
-        _resultsDataSetId:
-          $ref: '#/components/schemas/BioSimulationsDataSetResultsId'
-          description:
-            Id of the results in the runBioSimulations database of simulation
-            results.
+        xDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the x data of the curve.
+        yDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the y data of the curve.
         _type:
           description: Type.
           enum:
-            - SedDataGenerator
+          - SedCurve
           type: string
       example:
-        _type: SedDataGenerator
-        id: data_generator_time
-        name: Time
-        variables:
+        _type: SedCurve
+        id: atp_dynamics
+        name: ATP dynamics
+        xDataGenerator:
+          _type: SedDataGenerator
+          id: data_generator_time
+          name: Time
+          variables:
           - _type: SedVariable
             id: time
             name: Time
@@ -823,19 +610,221 @@ components:
                   kisaoId: KISAO_0000437
                   changes: []
             symbol: urn:sedml:symbol:time
+          math: time
+          _resultsDataSetId: experiment.sedml/report/data_set_time
+        yDataGenerator:
+          _type: SedDataGenerator
+          id: data_generator_atp
+          name: ATP
+          variables:
+          - _type: SedVariable
+            id: atp
+            name: ATP
+            task:
+              _type: SedTask
+              id: task
+              name: Task
+              model:
+                _type: SedModel
+                id: model
+                language: urn:sedml:language:sbml
+                source: model.xml
+                changes: []
+              simulation:
+                _type: SedUniformTimeCourseSimulation
+                id: koSimulation
+                initialTime: 0
+                outputStartTime: 0
+                outputEndTime: 0
+                numberOfSteps: 10
+                algorithm:
+                  _type: SedAlgorithm
+                  kisaoId: KISAO_0000437
+                  changes: []
+            target:
+              _type: SedTarget
+              value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
+              namespaces:
+              - _type: Namespace
+                prefix: sbml
+                uri: http://www.sbml.org/sbml/level3/version1/core
+          math: atp
+          _resultsDataSetId: experiment.sedml/report/data_set_atp
+    SedSurface:
+      description: A surface a 3D plot.
+      required:
+      - id
+      - xDataGenerator
+      - yDataGenerator
+      - zDataGenerator
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        xDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the x data of the surface.
+        yDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the y data of the surface.
+        zDataGenerator:
+          $ref: '#/components/schemas/SedDataGenerator'
+          description: Identifier of the data generator for the z data of the surface.
+        _type:
+          description: Type.
+          enum:
+          - SedSurface
+          type: string
+      example:
+        _type: SedSurface
+        id: atp_concentration
+        name: ATP concentration
+        xDataGenerator:
+          _type: SedDataGenerator
+          id: data_generator_y
+          name: "Y"
+          variables:
+          - _type: SedVariable
+            id: "y"
+            name: "Y"
+            task:
+              _type: SedTask
+              id: task
+              name: Task
+              model:
+                _type: SedModel
+                id: model
+                language: urn:sedml:language:sbml
+                source: model.xml
+                changes: []
+              simulation:
+                _type: SedSteadyStateSimulation
+                id: simulation
+                algorithm:
+                  _type: SedAlgorithm
+                  kisaoId: KISAO_0000437
+                  changes: []
+            symbol: urn:sedml:symbol:y
+          math: "y"
+          _resultsDataSetId: experiment.sedml/report/data_set_y
+        zDataGenerator:
+          _type: SedDataGenerator
+          id: data_generator_atp
+          name: ATP
+          variables:
+          - _type: SedVariable
+            id: atp
+            name: ATP
+            task:
+              _type: SedTask
+              id: task
+              name: Task
+              model:
+                _type: SedModel
+                id: model
+                language: urn:sedml:language:sbml
+                source: model.xml
+                changes: []
+              simulation:
+                _type: SedUniformTimeCourseSimulation
+                id: koSimulation
+                initialTime: 0
+                outputStartTime: 0
+                outputEndTime: 0
+                numberOfSteps: 10
+                algorithm:
+                  _type: SedAlgorithm
+                  kisaoId: KISAO_0000437
+                  changes: []
+            target:
+              _type: SedTarget
+              value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
+              namespaces:
+              - _type: Namespace
+                prefix: sbml
+                uri: http://www.sbml.org/sbml/level3/version1/core
+          math: atp
+          _resultsDataSetId: experiment.sedml/report/data_set_atp
+    SedDataGenerator:
+      description: Data generator for SED report or plot.
+      required:
+      - id
+      - math
+      - variables
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        variables:
+          description: Variables.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedVariable'
+        math:
+          description: Mathematical expression for its value.
+          type: string
+        _resultsDataSetId:
+          $ref: '#/components/schemas/BioSimulationsDataSetResultsId'
+          description: Id of the results in the runBioSimulations database of simulation
+            results.
+        _type:
+          description: Type.
+          enum:
+          - SedDataGenerator
+          type: string
+      example:
+        _type: SedDataGenerator
+        id: data_generator_time
+        name: Time
+        variables:
+        - _type: SedVariable
+          id: time
+          name: Time
+          task:
+            _type: SedTask
+            id: task
+            name: Task
+            model:
+              _type: SedModel
+              id: model
+              language: urn:sedml:language:sbml
+              source: model.xml
+              changes: []
+            simulation:
+              _type: SedUniformTimeCourseSimulation
+              id: koSimulation
+              initialTime: 0
+              outputStartTime: 0
+              outputEndTime: 0
+              numberOfSteps: 10
+              algorithm:
+                _type: SedAlgorithm
+                kisaoId: KISAO_0000437
+                changes: []
+          symbol: urn:sedml:symbol:time
         math: time
         _resultsDataSetId: experiment.sedml/report/data_set_time
     SedDocument:
       description: A SED document.
       required:
-        - outputs
-        - level
-        - version
-        - models
-        - simulations
-        - tasks
-        - dataGenerators
-        - _type
+      - outputs
+      - level
+      - version
+      - models
+      - simulations
+      - tasks
+      - dataGenerators
+      - _type
       type: object
       properties:
         outputs:
@@ -872,7 +861,7 @@ components:
         _type:
           description: Type.
           enum:
-            - SedDocument
+          - SedDocument
           type: string
       example:
         _type: SedDocument
@@ -886,9 +875,9 @@ components:
     SedReport:
       description: A SED report.
       required:
-        - id
-        - _type
-        - dataSets
+      - id
+      - _type
+      - dataSets
       type: object
       properties:
         id:
@@ -897,7 +886,7 @@ components:
         _type:
           description: Type of the output.
           enum:
-            - SedReport
+          - SedReport
           type: string
         name:
           description: Brief description.
@@ -912,53 +901,53 @@ components:
         id: report
         name: Report
         dataSets:
-          - _type: SedDataSet
-            id: data_set_atp
+        - _type: SedDataSet
+          id: data_set_atp
+          name: ATP
+          label: ATP
+          dataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_atp
             name: ATP
-            label: ATP
-            dataGenerator:
-              _type: SedDataGenerator
-              id: data_generator_atp
+            variables:
+            - _type: SedVariable
+              id: atp
               name: ATP
-              variables:
-                - _type: SedVariable
-                  id: atp
-                  name: ATP
-                  task:
-                    _type: SedTask
-                    id: task
-                    name: Task
-                    model:
-                      _type: SedModel
-                      id: model
-                      language: urn:sedml:language:sbml
-                      source: model.xml
-                      changes: []
-                    simulation:
-                      _type: SedUniformTimeCourseSimulation
-                      id: koSimulation
-                      initialTime: 0
-                      outputStartTime: 0
-                      outputEndTime: 0
-                      numberOfSteps: 10
-                      algorithm:
-                        _type: SedAlgorithm
-                        kisaoId: KISAO_0000437
-                        changes: []
-                  target:
-                    _type: SedTarget
-                    value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
-                    namespaces:
-                      - _type: Namespace
-                        prefix: sbml
-                        uri: http://www.sbml.org/sbml/level3/version1/core
-              math: atp
-              _resultsDataSetId: experiment.sedml/report/data_set_atp
+              task:
+                _type: SedTask
+                id: task
+                name: Task
+                model:
+                  _type: SedModel
+                  id: model
+                  language: urn:sedml:language:sbml
+                  source: model.xml
+                  changes: []
+                simulation:
+                  _type: SedUniformTimeCourseSimulation
+                  id: koSimulation
+                  initialTime: 0
+                  outputStartTime: 0
+                  outputEndTime: 0
+                  numberOfSteps: 10
+                  algorithm:
+                    _type: SedAlgorithm
+                    kisaoId: KISAO_0000437
+                    changes: []
+              target:
+                _type: SedTarget
+                value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
+                namespaces:
+                - _type: Namespace
+                  prefix: sbml
+                  uri: http://www.sbml.org/sbml/level3/version1/core
+            math: atp
+            _resultsDataSetId: experiment.sedml/report/data_set_atp
     CombineArchive:
       description: A COMBINE/OMEX archive.
       required:
-        - contents
-        - _type
+      - contents
+      - _type
       type: object
       properties:
         contents:
@@ -969,36 +958,36 @@ components:
         _type:
           description: Type.
           enum:
-            - CombineArchive
+          - CombineArchive
           type: string
       example:
         _type: CombineArchive
         contents:
-          - _type: CombineArchiveContent
-            location:
-              _type: CombineArchiveLocation
-              path: experiment1/model.xml
-              value:
-                _type: CombineArchiveContentFile
-                filename: model.xml
-            format: http://identifiers.org/combine.specifications/sbml
-            master: false
-          - _type: CombineArchiveContent
-            location:
-              _type: CombineArchiveLocation
-              path: experiment1/simulation.sedml
-              value:
-                _type: CombineArchiveContentUrl
-                url: https://simulation.org/simulation.sedml
-            format: http://identifiers.org/combine.specifications/sed-ml
-            master: true
+        - _type: CombineArchiveContent
+          location:
+            _type: CombineArchiveLocation
+            path: experiment1/model.xml
+            value:
+              _type: CombineArchiveContentFile
+              filename: model.xml
+          format: http://identifiers.org/combine.specifications/sbml
+          master: false
+        - _type: CombineArchiveContent
+          location:
+            _type: CombineArchiveLocation
+            path: experiment1/simulation.sedml
+            value:
+              _type: CombineArchiveContentUrl
+              url: https://simulation.org/simulation.sedml
+          format: http://identifiers.org/combine.specifications/sed-ml
+          master: true
     CombineArchiveContent:
       description: Content item of a COMBINE/OMEX archive.
       required:
-        - location
-        - format
-        - master
-        - _type
+      - location
+      - format
+      - master
+      - _type
       type: object
       properties:
         location:
@@ -1008,12 +997,12 @@ components:
           description: URI for a format.
           type: string
         master:
-          description: ''
+          description: ""
           type: boolean
         _type:
           description: Type.
           enum:
-            - CombineArchiveContent
+          - CombineArchiveContent
           type: string
       example:
         _type: CombineArchiveContent
@@ -1028,9 +1017,9 @@ components:
     CombineArchiveLocation:
       description: Location of an item in a COMBINE/OMEX archive and its value.
       required:
-        - path
-        - value
-        - _type
+      - path
+      - value
+      - _type
       type: object
       properties:
         path:
@@ -1042,7 +1031,7 @@ components:
         _type:
           description: Type.
           enum:
-            - CombineArchiveLocation
+          - CombineArchiveLocation
           type: string
       example:
         _type: CombineArchiveLocation
@@ -1053,11 +1042,11 @@ components:
     SedModel:
       description: A SED model.
       required:
-        - id
-        - language
-        - source
-        - _type
-        - changes
+      - id
+      - language
+      - source
+      - _type
+      - changes
       type: object
       properties:
         id:
@@ -1068,14 +1057,14 @@ components:
           type: string
         language:
           $ref: '#/components/schemas/SedModelLanguage'
-          description: 'Format (e.g., BNGL, SBML).'
+          description: "Format (e.g., BNGL, SBML)."
         source:
           description: Location of the file for the model.
           type: string
         _type:
           description: Type.
           enum:
-            - SedModel
+          - SedModel
           type: string
         changes:
           description: Changes to the model.
@@ -1089,24 +1078,24 @@ components:
         language: urn:sedml:language:sbml
         source: model.xml
         changes:
-          - _type: SedModelAttributeChange
-            id: parameter_k1
-            name: parameter k1
-            target:
-              _type: SedTarget
-              value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value"
-              namespaces:
-                - _type: Namespace
-                  prefix: sbml
-                  uri: http://www.sbml.org/sbml/level3/version1/core
-            newValue: '1.1'
+        - _type: SedModelAttributeChange
+          id: parameter_k1
+          name: parameter k1
+          target:
+            _type: SedTarget
+            value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value"
+            namespaces:
+            - _type: Namespace
+              prefix: sbml
+              uri: http://www.sbml.org/sbml/level3/version1/core
+          newValue: "1.1"
     SedTask:
       description: A SED task.
       required:
-        - id
-        - model
-        - simulation
-        - _type
+      - id
+      - model
+      - simulation
+      - _type
       type: object
       properties:
         id:
@@ -1124,7 +1113,7 @@ components:
         _type:
           description: Type.
           enum:
-            - SedTask
+          - SedTask
           type: string
       example:
         _type: SedTask
@@ -1150,13 +1139,13 @@ components:
     SedUniformTimeCourseSimulation:
       description: A SED uniform time course simulation.
       required:
-        - id
-        - _type
-        - initialTime
-        - outputStartTime
-        - outputEndTime
-        - numberOfSteps
-        - algorithm
+      - id
+      - _type
+      - initialTime
+      - outputStartTime
+      - outputEndTime
+      - numberOfSteps
+      - algorithm
       type: object
       properties:
         id:
@@ -1168,7 +1157,7 @@ components:
         _type:
           description: Type of the simulation.
           enum:
-            - SedUniformTimeCourseSimulation
+          - SedUniformTimeCourseSimulation
           type: string
         initialTime:
           description: Initial time.
@@ -1200,9 +1189,9 @@ components:
     SedSteadyStateSimulation:
       description: A SED steady state simulation.
       required:
-        - id
-        - _type
-        - algorithm
+      - id
+      - _type
+      - algorithm
       type: object
       properties:
         id:
@@ -1214,7 +1203,7 @@ components:
         _type:
           description: Type of the simulation.
           enum:
-            - SedSteadyStateSimulation
+          - SedSteadyStateSimulation
           type: string
         algorithm:
           $ref: '#/components/schemas/SedAlgorithm'
@@ -1230,9 +1219,9 @@ components:
     SedOneStepSimulation:
       description: A SED one step simulation.
       required:
-        - id
-        - _type
-        - algorithm
+      - id
+      - _type
+      - algorithm
       type: object
       properties:
         id:
@@ -1241,7 +1230,7 @@ components:
         _type:
           description: Type of the simulation.
           enum:
-            - SedOneStepSimulation
+          - SedOneStepSimulation
           type: string
         name:
           description: Brief description.
@@ -1264,9 +1253,9 @@ components:
     SedVariable:
       description: A SED variable.
       required:
-        - id
-        - task
-        - _type
+      - id
+      - task
+      - _type
       type: object
       properties:
         id:
@@ -1280,16 +1269,15 @@ components:
           description: Task.
         target:
           $ref: '#/components/schemas/SedTarget'
-          description:
-            "Target within a model (e.g., of a dependent variable such\
+          description: "Target within a model (e.g., of a dependent variable such\
             \ as the concentration of a species)."
         symbol:
-          description: 'Symbol (e.g., for an independent variable such as time).'
+          description: "Symbol (e.g., for an independent variable such as time)."
           type: string
         _type:
           description: Type.
           enum:
-            - SedVariable
+          - SedVariable
           type: string
       example:
         id: atp
@@ -1315,8 +1303,8 @@ components:
     SedRepeatedTask:
       description: A SED repeated task.
       required:
-        - id
-        - _type
+      - id
+      - _type
       type: object
       properties:
         id:
@@ -1328,17 +1316,17 @@ components:
         _type:
           description: Type.
           enum:
-            - SedRepeatedTask
+          - SedRepeatedTask
           type: string
       example:
         _type: SedRepeatedTask
         id: task
         name: Task
     SedAxisScale:
-      description: ''
+      description: ""
       enum:
-        - log
-        - linear
+      - log
+      - linear
       type: string
       example: linear
     BioSimulationsDataSetResultsId:
@@ -1347,9 +1335,9 @@ components:
       example: experiment1/simulation.sedml/report_ntp_dynamics/data_set_atp_dynamics
     SedOutput:
       oneOf:
-        - $ref: '#/components/schemas/SedPlot2D'
-        - $ref: '#/components/schemas/SedPlot3D'
-        - $ref: '#/components/schemas/SedReport'
+      - $ref: '#/components/schemas/SedPlot2D'
+      - $ref: '#/components/schemas/SedPlot3D'
+      - $ref: '#/components/schemas/SedReport'
       discriminator:
         propertyName: _type
       description: An output of a SED document.
@@ -1359,52 +1347,52 @@ components:
         id: report
         name: Report
         dataSets:
-          - _type: SedDataSet
-            id: data_set_atp
+        - _type: SedDataSet
+          id: data_set_atp
+          name: ATP
+          label: ATP
+          dataGenerator:
+            _type: SedDataGenerator
+            id: data_generator_atp
             name: ATP
-            label: ATP
-            dataGenerator:
-              _type: SedDataGenerator
-              id: data_generator_atp
+            variables:
+            - _type: SedVariable
+              id: atp
               name: ATP
-              variables:
-                - _type: SedVariable
-                  id: atp
-                  name: ATP
-                  task:
-                    _type: SedTask
-                    id: task
-                    name: Task
-                    model:
-                      _type: SedModel
-                      id: model
-                      language: urn:sedml:language:sbml
-                      source: model.xml
-                      changes: []
-                    simulation:
-                      _type: SedUniformTimeCourseSimulation
-                      id: koSimulation
-                      initialTime: 0
-                      outputStartTime: 0
-                      outputEndTime: 0
-                      numberOfSteps: 10
-                      algorithm:
-                        _type: SedAlgorithm
-                        kisaoId: KISAO_0000437
-                        changes: []
-                  target:
-                    _type: SedTarget
-                    value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
-                    namespaces:
-                      - _type: Namespace
-                        prefix: sbml
-                        uri: http://www.sbml.org/sbml/level3/version1/core
-              math: atp
-              _resultsDataSetId: experiment.sedml/report/data_set_atp
+              task:
+                _type: SedTask
+                id: task
+                name: Task
+                model:
+                  _type: SedModel
+                  id: model
+                  language: urn:sedml:language:sbml
+                  source: model.xml
+                  changes: []
+                simulation:
+                  _type: SedUniformTimeCourseSimulation
+                  id: koSimulation
+                  initialTime: 0
+                  outputStartTime: 0
+                  outputEndTime: 0
+                  numberOfSteps: 10
+                  algorithm:
+                    _type: SedAlgorithm
+                    kisaoId: KISAO_0000437
+                    changes: []
+              target:
+                _type: SedTarget
+                value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
+                namespaces:
+                - _type: Namespace
+                  prefix: sbml
+                  uri: http://www.sbml.org/sbml/level3/version1/core
+            math: atp
+            _resultsDataSetId: experiment.sedml/report/data_set_atp
     SedAbstractTask:
       oneOf:
-        - $ref: '#/components/schemas/SedTask'
-        - $ref: '#/components/schemas/SedRepeatedTask'
+      - $ref: '#/components/schemas/SedTask'
+      - $ref: '#/components/schemas/SedRepeatedTask'
       discriminator:
         propertyName: _type
       description: A SED abstract task.
@@ -1432,9 +1420,9 @@ components:
             changes: []
     SedSimulation:
       oneOf:
-        - $ref: '#/components/schemas/SedSteadyStateSimulation'
-        - $ref: '#/components/schemas/SedUniformTimeCourseSimulation'
-        - $ref: '#/components/schemas/SedOneStepSimulation'
+      - $ref: '#/components/schemas/SedSteadyStateSimulation'
+      - $ref: '#/components/schemas/SedUniformTimeCourseSimulation'
+      - $ref: '#/components/schemas/SedOneStepSimulation'
       discriminator:
         propertyName: _type
       description: A SED simulation.
@@ -1450,10 +1438,10 @@ components:
     Error:
       description: Error.
       required:
-        - status
-        - title
-        - detail
-        - type
+      - status
+      - title
+      - detail
+      - type
       type: object
       properties:
         status:
@@ -1476,10 +1464,10 @@ components:
     SedDataSet:
       description: A SED data set
       required:
-        - id
-        - label
-        - dataGenerator
-        - _type
+      - id
+      - label
+      - dataGenerator
+      - _type
       type: object
       properties:
         id:
@@ -1497,7 +1485,7 @@ components:
         _type:
           description: Type.
           enum:
-            - SedDataSet
+          - SedDataSet
           type: string
       example:
         _type: SedDataSet
@@ -1509,45 +1497,45 @@ components:
           id: data_generator_time
           name: Time
           variables:
-            - _type: SedVariable
-              id: time
-              name: Time
-              task:
-                _type: SedTask
-                id: task
-                name: Task
-                model:
-                  _type: SedModel
-                  id: model
-                  language: urn:sedml:language:sbml
-                  source: model.xml
+          - _type: SedVariable
+            id: time
+            name: Time
+            task:
+              _type: SedTask
+              id: task
+              name: Task
+              model:
+                _type: SedModel
+                id: model
+                language: urn:sedml:language:sbml
+                source: model.xml
+                changes: []
+              simulation:
+                _type: SedUniformTimeCourseSimulation
+                id: koSimulation
+                initialTime: 0
+                outputStartTime: 0
+                outputEndTime: 0
+                numberOfSteps: 10
+                algorithm:
+                  _type: SedAlgorithm
+                  kisaoId: KISAO_0000437
                   changes: []
-                simulation:
-                  _type: SedUniformTimeCourseSimulation
-                  id: koSimulation
-                  initialTime: 0
-                  outputStartTime: 0
-                  outputEndTime: 0
-                  numberOfSteps: 10
-                  algorithm:
-                    _type: SedAlgorithm
-                    kisaoId: KISAO_0000437
-                    changes: []
-              symbol: urn:sedml:symbol:time
+            symbol: urn:sedml:symbol:time
           math: time
           _resultsDataSetId: experiment.sedml/report/data_set_time
     SedAlgorithm:
       description: A SED algorithm.
       required:
-        - _type
-        - kisaoId
-        - changes
+      - _type
+      - kisaoId
+      - changes
       type: object
       properties:
         _type:
           description: Type.
           enum:
-            - SedAlgorithm
+          - SedAlgorithm
           type: string
         kisaoId:
           $ref: '#/components/schemas/KisaoId'
@@ -1561,9 +1549,9 @@ components:
         _type: SedAlgorithm
         kisaoId: KISAO_0000029
         changes:
-          - _type: SedAlgorithmParameterChange
-            kisaoId: KISAO_0000488
-            newValue: '1000'
+        - _type: SedAlgorithmParameterChange
+          kisaoId: KISAO_0000488
+          newValue: "1000"
     KisaoId:
       description: KiSAO id
       type: string
@@ -1571,9 +1559,9 @@ components:
     SedAlgorithmParameterChange:
       description: A SED algorithm parameter
       required:
-        - kisaoId
-        - newValue
-        - _type
+      - kisaoId
+      - newValue
+      - _type
       type: object
       properties:
         kisaoId:
@@ -1582,7 +1570,7 @@ components:
         _type:
           description: Type.
           enum:
-            - SedAlgorithmParameterChange
+          - SedAlgorithmParameterChange
           type: string
         newValue:
           description: New value
@@ -1590,7 +1578,7 @@ components:
       example:
         _type: SedAlgorithmParameterChange
         kisaoId: KISAO_0000488
-        newValue: '1000'
+        newValue: "1000"
     SedModelLanguage:
       description: |-
         A SED URN for a model language.
@@ -1599,56 +1587,54 @@ components:
       type: string
       example: urn:sedml:language:sbml
     CombineArchiveSpecsAndFiles:
-      description:
-        Specifications of a COMBINE/OMEX archive (including its SED-ML
+      description: Specifications of a COMBINE/OMEX archive (including its SED-ML
         files) and the other (non-SED-ML) files that it should contain.
       required:
-        - specs
+      - specs
       type: object
       properties:
         specs:
           $ref: '#/components/schemas/CombineArchive'
           description: Specifications of the COMBINE archive.
         files:
-          description: 'File (e.g., model) to place into the COMBINE/OMEX archive.'
+          description: "File (e.g., model) to place into the COMBINE/OMEX archive."
           type: array
           items:
             $ref: '#/components/schemas/File'
         download:
-          description:
-            Whether to download the archive or return a URL where the archive
+          description: Whether to download the archive or return a URL where the archive
             can be downloaded.
           type: boolean
       example:
         specs:
           _type: CombineArchive
           contents:
-            - _type: CombineArchiveContent
-              location:
-                _type: CombineArchiveLocation
-                path: experiment1/model.xml
-                value:
-                  _type: CombineArchiveContentFile
-                  filename: model.xml
-              format: http://identifiers.org/combine.specifications/sbml
-              master: false
-            - _type: CombineArchiveContent
-              location:
-                _type: CombineArchiveLocation
-                path: experiment1/simulation.sedml
-                value:
-                  _type: CombineArchiveContentUrl
-                  url: https://simulation.org/simulation.sedml
-              format: http://identifiers.org/combine.specifications/sed-ml
-              master: true
+          - _type: CombineArchiveContent
+            location:
+              _type: CombineArchiveLocation
+              path: experiment1/model.xml
+              value:
+                _type: CombineArchiveContentFile
+                filename: model.xml
+            format: http://identifiers.org/combine.specifications/sbml
+            master: false
+          - _type: CombineArchiveContent
+            location:
+              _type: CombineArchiveLocation
+              path: experiment1/simulation.sedml
+              value:
+                _type: CombineArchiveContentUrl
+                url: https://simulation.org/simulation.sedml
+            format: http://identifiers.org/combine.specifications/sed-ml
+            master: true
         files:
-          - <FILE>
+        - <FILE>
       x-body-name: body
     Namespace:
       description: Namespace
       required:
-        - uri
-        - _type
+      - uri
+      - _type
       type: object
       properties:
         prefix:
@@ -1660,7 +1646,7 @@ components:
         _type:
           description: Type.
           enum:
-            - Namespace
+          - Namespace
           type: string
       example:
         prefix: sbml
@@ -1680,15 +1666,14 @@ components:
       type: string
       example: https://biosimulations.org
     ModelAndSimulation:
-      description:
-        "A model file or URL and a type of simulation of that model.\n\n\
+      description: "A model file or URL and a type of simulation of that model.\n\n\
         Only one of \"modelFile\" or \"modelUrl\" should be used at a time. \"modelFile\"\
         \ and \n\"modelUrl\" cannot be used together."
       required:
-        - modelLanguage
-        - simulationType
-        - simulationAlgorithm
-        - modelingFramework
+      - modelLanguage
+      - simulationType
+      - simulationAlgorithm
+      - modelingFramework
       type: object
       properties:
         modelFile:
@@ -1700,9 +1685,9 @@ components:
         simulationType:
           description: Type of simulation.
           enum:
-            - SedUniformTimeCourseSimulation
-            - SedSteadyStateSimulation
-            - SedOneStepSimulation
+          - SedUniformTimeCourseSimulation
+          - SedSteadyStateSimulation
+          - SedOneStepSimulation
           type: string
         modelingFramework:
           $ref: '#/components/schemas/SboId'
@@ -1712,7 +1697,7 @@ components:
           description: KiSAO id for the simulation algorithm.
         modelUrl:
           $ref: '#/components/schemas/Url'
-          description: ''
+          description: ""
       example:
         modelUrl: https://website.com/model.xml
         modelLanguage: urn:sedml:language:sbml
@@ -1723,14 +1708,14 @@ components:
     CombineArchiveContentUrl:
       description: File to be resolved from a URL
       required:
-        - _type
-        - url
+      - _type
+      - url
       type: object
       properties:
         _type:
           description: Type.
           enum:
-            - CombineArchiveContentUrl
+          - CombineArchiveContentUrl
           type: string
         url:
           description: URL where file should resolved from
@@ -1741,18 +1726,17 @@ components:
     CombineArchiveContentFile:
       description: File
       required:
-        - _type
-        - filename
+      - _type
+      - filename
       type: object
       properties:
         _type:
           description: Type.
           enum:
-            - CombineArchiveContentFile
+          - CombineArchiveContentFile
           type: string
         filename:
-          description:
-            Location where the file should be placed inside the COMBINE/OMEX
+          description: Location where the file should be placed inside the COMBINE/OMEX
             archive
           type: string
       example:
@@ -1760,9 +1744,9 @@ components:
         filename: model.xml
     CombineArchiveLocationValue:
       oneOf:
-        - $ref: '#/components/schemas/SedDocument'
-        - $ref: '#/components/schemas/CombineArchiveContentFile'
-        - $ref: '#/components/schemas/CombineArchiveContentUrl'
+      - $ref: '#/components/schemas/SedDocument'
+      - $ref: '#/components/schemas/CombineArchiveContentFile'
+      - $ref: '#/components/schemas/CombineArchiveContentUrl'
       discriminator:
         propertyName: _type
       description: The value of a location of a COMBINE/OMEX archive.
@@ -1773,16 +1757,16 @@ components:
     SedModelAttributeChange:
       description: A SED model attribute change.
       required:
-        - _type
-        - newValue
-        - target
-        - id
+      - _type
+      - newValue
+      - target
+      - id
       type: object
       properties:
         _type:
           description: Type.
           enum:
-            - SedModelAttributeChange
+          - SedModelAttributeChange
           type: string
         newValue:
           description: New value.
@@ -1804,13 +1788,13 @@ components:
           _type: SedTarget
           value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value"
           namespaces:
-            - _type: Namespace
-              prefix: sbml
-              uri: http://www.sbml.org/sbml/level3/version1/core
-        newValue: '1.1'
+          - _type: Namespace
+            prefix: sbml
+            uri: http://www.sbml.org/sbml/level3/version1/core
+        newValue: "1.1"
     SedModelChange:
       oneOf:
-        - $ref: '#/components/schemas/SedModelAttributeChange'
+      - $ref: '#/components/schemas/SedModelAttributeChange'
       discriminator:
         propertyName: _type
       description: A SED model change.
@@ -1823,21 +1807,21 @@ components:
           _type: SedTarget
           value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value"
           namespaces:
-            - _type: Namespace
-              prefix: sbml
-              uri: http://www.sbml.org/sbml/level3/version1/core
-        newValue: '1.1'
+          - _type: Namespace
+            prefix: sbml
+            uri: http://www.sbml.org/sbml/level3/version1/core
+        newValue: "1.1"
     SedTarget:
       description: Target of a variable.
       required:
-        - _type
-        - value
+      - _type
+      - value
       type: object
       properties:
         _type:
           description: Type.
           enum:
-            - SedTarget
+          - SedTarget
           type: string
         value:
           description: Value.
@@ -1851,12 +1835,12 @@ components:
         _type: SedTarget
         value: "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='erk']"
         namespaces:
-          - prefix: sbml
-            uri: http://www.sbml.org/sbml/level3/version1/core
-            _type: Namespace
-          - prefix: qual
-            uri: http://www.sbml.org/sbml/level3/version1/qual/version1
-            _type: Namespace
+        - prefix: sbml
+          uri: http://www.sbml.org/sbml/level3/version1/core
+          _type: Namespace
+        - prefix: qual
+          uri: http://www.sbml.org/sbml/level3/version1/qual/version1
+          _type: Namespace
     FileOrUrl:
       description: File or a URL for a file.
       type: object
@@ -1870,12 +1854,11 @@ components:
       example:
         file: <FILE>
     ValidationMessage:
-      description:
-        "Error or warning message about validity (e.g., of a COMBINE/OMEX\
+      description: "Error or warning message about validity (e.g., of a COMBINE/OMEX\
         \ archive)."
       required:
-        - summary
-        - _type
+      - summary
+      - _type
       type: object
       properties:
         details:
@@ -1886,7 +1869,7 @@ components:
         _type:
           description: Type.
           enum:
-            - ValidationMessage
+          - ValidationMessage
           type: string
         summary:
           description: Information about validity or lack thereof.
@@ -1895,18 +1878,17 @@ components:
         _type: ValidationMessage
         summary: COMBINE archive is invalid.
         details:
+        - _type: ValidationMessage
+          summary: SED-ML document is invalid
+          details:
           - _type: ValidationMessage
-            summary: SED-ML document is invalid
-            details:
-              - _type: ValidationMessage
-                summary: Model is invalid
+            summary: Model is invalid
     ValidationReport:
-      description:
-        "Information about whether a COMBINE archive is valid, potentially\
+      description: "Information about whether a COMBINE archive is valid, potentially\
         \ invalid (1 or more warnings), or invalid (1 or more errors)."
       required:
-        - status
-        - _type
+      - status
+      - _type
       type: object
       properties:
         errors:
@@ -1917,9 +1899,9 @@ components:
         status:
           description: Overall status of the archive.
           enum:
-            - valid
-            - invalid
-            - warnings
+          - valid
+          - invalid
+          - warnings
           type: string
         warnings:
           description: Warnings for the archive.
@@ -1929,63 +1911,62 @@ components:
         _type:
           description: Type
           enum:
-            - ValidationReport
+          - ValidationReport
           type: string
       example:
         _type: ValidationReport
         errors:
-          - - _type: ValidationMessage
-              summary: Archive is invalid
+        - - _type: ValidationMessage
+            summary: Archive is invalid
         status: invalid
         warnings:
-          - - _type: ValidationMessage
-              summary: Archive may be invalid
+        - - _type: ValidationMessage
+            summary: Archive may be invalid
     KisaoAlgorithmSubstitutionPolicy:
-      description:
-        "Algorithm substitution policy, the degree to switch algorithms\
+      description: "Algorithm substitution policy, the degree to switch algorithms\
         \ can be substituted for each other."
       required:
-        - id
-        - level
-        - name
-        - _type
+      - id
+      - level
+      - name
+      - _type
       type: object
       properties:
         id:
           description: Id of the policy
           enum:
-            - NONE
-            - SAME_METHOD
-            - SAME_MATH
-            - SIMILAR_APPROXIMATIONS
-            - DISTINCT_APPROXIMATIONS
-            - DISTINCT_SCALES
-            - SAME_VARIABLES
-            - SIMILAR_VARIABLES
-            - SAME_FRAMEWORK
-            - ANY
+          - NONE
+          - SAME_METHOD
+          - SAME_MATH
+          - SIMILAR_APPROXIMATIONS
+          - DISTINCT_APPROXIMATIONS
+          - DISTINCT_SCALES
+          - SAME_VARIABLES
+          - SIMILAR_VARIABLES
+          - SAME_FRAMEWORK
+          - ANY
           type: string
         level:
-          description: 'Level of the policy (0: most restrictive to 9: least restrictive)'
+          description: "Level of the policy (0: most restrictive to 9: least restrictive)"
           type: integer
         name:
           description: Name of the policy
           enum:
-            - None
-            - Same method
-            - Same math
-            - Similar approximations
-            - Distinct approximations
-            - Distinct scales
-            - Same variables
-            - Similar variables
-            - Same framework
-            - Any
+          - None
+          - Same method
+          - Same math
+          - Similar approximations
+          - Distinct approximations
+          - Distinct scales
+          - Same variables
+          - Similar variables
+          - Same framework
+          - Any
           type: string
         _type:
           description: Type
           enum:
-            - KisaoAlgorithmSubstitutionPolicy
+          - KisaoAlgorithmSubstitutionPolicy
           type: string
       example:
         _type: KisaoAlgorithmSubstitutionPolicy
@@ -1993,28 +1974,25 @@ components:
         name: Same math
         level: 1
     KisaoAlgorithmSubstitution:
-      description:
-        The most restrictive substition policy at which at algorithm can
+      description: The most restrictive substition policy at which at algorithm can
         be substituted for another.
       required:
-        - algorithms
-        - maxPolicy
-        - _type
+      - algorithms
+      - maxPolicy
+      - _type
       type: object
       properties:
         maxPolicy:
           $ref: '#/components/schemas/KisaoAlgorithmSubstitutionPolicy'
-          description:
-            Most restrictive substitution policy at which the algorithm
+          description: Most restrictive substitution policy at which the algorithm
             can be substituted
         _type:
           description: Type
           enum:
-            - KisaoAlgorithmSubstitution
+          - KisaoAlgorithmSubstitution
           type: string
         algorithms:
-          description:
-            Pair of algorithms that can be substituted (up to a degree
+          description: Pair of algorithms that can be substituted (up to a degree
             of similarity).
           type: array
           items:
@@ -2022,12 +2000,12 @@ components:
       example:
         _type: KisaoAlgorithmSubstitution
         algorithms:
-          - _type: KisaoTerm
-            id: KISAO_0000019
-            name: CVODE
-          - _type: KisaoTerm
-            id: KISAO_0000088
-            name: LSODA
+        - _type: KisaoTerm
+          id: KISAO_0000019
+          name: CVODE
+        - _type: KisaoTerm
+          id: KISAO_0000088
+          name: LSODA
         maxPolicy:
           _type: KisaoAlgorithmSubstitutionPolicy
           id: DISTINCT_APPROXIMATIONS
@@ -2036,15 +2014,15 @@ components:
     KisaoTerm:
       description: Term in the KiSAO ontology.
       required:
-        - _type
-        - id
-        - name
+      - _type
+      - id
+      - name
       type: object
       properties:
         _type:
           description: Type
           enum:
-            - KisaoTerm
+          - KisaoTerm
           type: string
         id:
           description: Id of the term
@@ -2057,7 +2035,7 @@ components:
         id: KISAO_0000019
         name: CVODE
   responses:
-    '404':
+    "404":
       content:
         application/json: {}
       description: The selected resource was not found
