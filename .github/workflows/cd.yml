@@ -36,7 +36,9 @@ jobs:
       - name: Install npm dependencies
         working-directory: ./biosimulations
         run: npm ci
-
+      - name: Compile Angular Dependencies
+        working-directory: ./biosimulations
+        run: npm run compile
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
