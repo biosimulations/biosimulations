@@ -118,6 +118,7 @@ jobs:
           name: ${{matrix.app}}-dev
           path: biosimulations/dist/apps/${{matrix.app}}
           retention-days: 5
+          if-no-files-found: error
 
   buildProdFrontEnds:
     name: Build production front end apps
@@ -177,6 +178,7 @@ jobs:
           name: ${{matrix.app}}-prod
           path: biosimulations/dist/apps/${{matrix.app}}
           retention-days: 5
+          if-no-files-found: error
 
   buildPushDockerImages:
     name: Build and push backend docker images
