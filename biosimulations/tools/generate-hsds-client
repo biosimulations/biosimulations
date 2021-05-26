@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+java -jar openapi-generator-cli.jar generate -g typescript-nestjs -i https://raw.githubusercontent.com/biosimulations/data-service-api/master/openapi.yaml -o ../libs/hsds/client/src/lib/
