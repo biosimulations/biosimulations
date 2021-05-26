@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 15.x
+          node-version: 14.x
 
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
@@ -82,7 +82,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 15.x
+          node-version: 14.x
 
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
@@ -138,7 +138,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 15.x
+          node-version: 14.x
 
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
@@ -234,7 +234,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 15.x
+          node-version: 14.x
 
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
@@ -265,7 +265,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 15.x
+          node-version: 14.x
 
       - name: Download Build for app
         uses: actions/download-artifact@v2
