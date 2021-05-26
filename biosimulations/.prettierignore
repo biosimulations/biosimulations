@@ -1,5 +1,7 @@
 # Add files here to ignore them from prettier formatting
-
 /dist
 /coverage
 libs/ontology/sources/src/lib/*.json
+*.yml
+*.yaml
+*.json
