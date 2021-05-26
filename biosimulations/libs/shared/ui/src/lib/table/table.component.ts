@@ -370,7 +370,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
 
-    this.route.fragment.subscribe((fragment: string|null): void => {
+    this.route.fragment.subscribe((fragment: string | null): void => {
       if (fragment && fragment != this.tableStateQueryFragment) {
         this.tableStateQueryFragment = fragment;
         const state = this.parseTableStateQueryFragment(fragment);
