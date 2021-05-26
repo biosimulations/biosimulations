@@ -60,7 +60,7 @@ export class SimulatorsService {
     return res;
   }
 
-  async replace(
+  public async replace(
     id: string,
     version: string,
     doc: APISimulator,
@@ -74,8 +74,10 @@ export class SimulatorsService {
         `No simulator with id ${id} and version ${version}`,
       );
     }
-
+    const created = sim.biosimulators.created;
     sim.overwrite(doc);
+    // Preserve the original date
+    sim.biosimulators.created = created;
     const res = sim.save();
     return res;
   }
