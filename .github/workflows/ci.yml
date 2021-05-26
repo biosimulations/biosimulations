@@ -77,6 +77,7 @@ jobs:
             ${{ runner.os }}-nx-
             
       - name: Compile Angular Dependencies
+        working-directory: ./biosimulations
         run: npm run compile
 
       - id: get-affected-libs-apps
