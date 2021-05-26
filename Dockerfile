@@ -1,7 +1,7 @@
 #############
 ### base ###
 #############
-FROM node:15-alpine as base
+FROM node:14-alpine as base
 
 #The name of the app to build
 ARG app
