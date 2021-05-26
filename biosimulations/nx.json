@@ -227,6 +227,9 @@
     },
     "datamodel-utils": {
       "tags": ["scope:shared", "type:util", "platform:any"]
+    },
+    "hsds-client": {
+      "tags": ["scope:data", "shared:true", "platform:server", "type:client"]
     }
   }
 }

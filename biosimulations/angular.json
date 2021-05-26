@@ -47,12 +47,8 @@
                 "output": "assets"
               }
             ],
-            "styles": [
-              "libs/shared/styles/src/index.scss"
-            ],
-            "scripts": [
-              "node_modules/marked/lib/marked.js"
-            ],
+            "styles": ["libs/shared/styles/src/index.scss"],
+            "scripts": ["node_modules/marked/lib/marked.js"],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -115,10 +111,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/account/**/*.ts",
-              "apps/account/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/account/**/*.ts", "apps/account/**/*.ts"]
           }
         },
         "test": {
@@ -151,9 +144,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/account-e2e/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/account-e2e/**/*.ts"]
           }
         }
       }
@@ -171,9 +162,7 @@
             "outputPath": "dist/apps/account-api",
             "main": "apps/account-api/src/main.ts",
             "tsConfig": "apps/account-api/tsconfig.app.json",
-            "assets": [
-              "apps/account-api/src/assets"
-            ]
+            "assets": ["apps/account-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -198,9 +187,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/account-api/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/account-api/**/*.ts"]
           }
         },
         "test": {
@@ -221,9 +208,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/assets/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/assets/**/*.ts"]
           }
         },
         "test": {
@@ -249,9 +234,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/content/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/content/**/*.ts"]
           }
         },
         "test": {
@@ -277,9 +260,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/services/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/services/**/*.ts"]
           }
         },
         "test": {
@@ -301,9 +282,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/styles/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/styles/**/*.ts"]
           }
         },
         "test": {
@@ -329,9 +308,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/ui/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/ui/**/*.ts"]
           }
         },
         "test": {
@@ -357,9 +334,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/icons/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/icons/**/*.ts"]
           }
         },
         "test": {
@@ -385,9 +360,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/debug/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/debug/**/*.ts"]
           }
         },
         "test": {
@@ -454,12 +427,8 @@
               "apps/dispatch/src/sitemap.xml",
               "apps/dispatch/src/manifest.webmanifest"
             ],
-            "styles": [
-              "libs/shared/styles/src/index.scss"
-            ],
-            "scripts": [
-              "node_modules/plotly.js/dist/plotly.min.js"
-            ],
+            "styles": ["libs/shared/styles/src/index.scss"],
+            "scripts": ["node_modules/plotly.js/dist/plotly.min.js"],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -560,9 +529,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/dispatch-e2e/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/dispatch-e2e/**/*.ts"]
           }
         }
       }
@@ -576,9 +543,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/auth/common/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/auth/common/**/*.ts"]
           }
         },
         "test": {
@@ -599,9 +564,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/auth/angular/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/auth/angular/**/*.ts"]
           }
         },
         "test": {
@@ -627,9 +590,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/auth/nest/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/auth/nest/**/*.ts"]
           }
         },
         "test": {
@@ -650,9 +611,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/config/common/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/config/common/**/*.ts"]
           }
         },
         "test": {
@@ -673,9 +632,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/config/nest/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/config/nest/**/*.ts"]
           }
         },
         "test": {
@@ -696,9 +653,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/config/angular/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/config/angular/**/*.ts"]
           }
         },
         "test": {
@@ -728,9 +683,7 @@
             "outputPath": "dist/apps/platform-api",
             "main": "apps/platform-api/src/main.ts",
             "tsConfig": "apps/platform-api/tsconfig.app.json",
-            "assets": [
-              "apps/platform-api/src/assets"
-            ]
+            "assets": ["apps/platform-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -755,9 +708,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/platform-api/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/platform-api/**/*.ts"]
           }
         },
         "test": {
@@ -778,9 +729,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/platform/api-models/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/platform/api-models/**/*.ts"]
           }
         },
         "test": {
@@ -801,9 +750,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/platform/database-models/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/platform/database-models/**/*.ts"]
           }
         },
         "test": {
@@ -828,9 +775,7 @@
             "outputPath": "dist/apps/dispatch-service",
             "main": "apps/dispatch-service/src/main.ts",
             "tsConfig": "apps/dispatch-service/tsconfig.app.json",
-            "assets": [
-              "apps/dispatch-service/src/assets"
-            ]
+            "assets": ["apps/dispatch-service/src/assets"]
           },
           "configurations": {
             "production": {
@@ -857,9 +802,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/dispatch-service/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/dispatch-service/**/*.ts"]
           }
         },
         "test": {
@@ -884,9 +827,7 @@
             "outputPath": "dist/apps/dispatch-api",
             "main": "apps/dispatch-api/src/main.ts",
             "tsConfig": "apps/dispatch-api/tsconfig.app.json",
-            "assets": [
-              "apps/dispatch-api/src/assets"
-            ]
+            "assets": ["apps/dispatch-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -913,9 +854,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/dispatch-api/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/dispatch-api/**/*.ts"]
           }
         },
         "test": {
@@ -976,12 +915,8 @@
               "apps/platform/src/browserconfig.xml",
               "apps/platform/src/sitemap.xml"
             ],
-            "styles": [
-              "libs/shared/styles/src/index.scss"
-            ],
-            "scripts": [
-              "node_modules/marked/lib/marked.js"
-            ],
+            "styles": ["libs/shared/styles/src/index.scss"],
+            "scripts": ["node_modules/marked/lib/marked.js"],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -1081,9 +1016,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/platform-e2e/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/platform-e2e/**/*.ts"]
           }
         }
       }
@@ -1097,9 +1030,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/platform/view/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/platform/view/**/*.ts"]
           }
         },
         "test": {
@@ -1165,12 +1096,8 @@
               "apps/simulators/src/browserconfig.xml",
               "apps/simulators/src/sitemap.xml"
             ],
-            "styles": [
-              "libs/shared/styles/src/index.scss"
-            ],
-            "scripts": [
-              "node_modules/marked/lib/marked.js"
-            ],
+            "styles": ["libs/shared/styles/src/index.scss"],
+            "scripts": ["node_modules/marked/lib/marked.js"],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -1269,9 +1196,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/simulators-e2e/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/simulators-e2e/**/*.ts"]
           }
         }
       }
@@ -1289,9 +1214,7 @@
             "outputPath": "dist/apps/simulators-api",
             "main": "apps/simulators-api/src/main.ts",
             "tsConfig": "apps/simulators-api/tsconfig.app.json",
-            "assets": [
-              "apps/simulators-api/src/assets"
-            ]
+            "assets": ["apps/simulators-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -1316,9 +1239,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/simulators-api/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/simulators-api/**/*.ts"]
           }
         },
         "test": {
@@ -1339,9 +1260,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/simulators/api-models/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/simulators/api-models/**/*.ts"]
           }
         },
         "test": {
@@ -1362,9 +1281,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/environments/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/environments/**/*.ts"]
           }
         },
         "test": {
@@ -1390,9 +1307,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/dispatch/api-models/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/dispatch/api-models/**/*.ts"]
           }
         },
         "test": {
@@ -1417,9 +1332,7 @@
             "outputPath": "dist/apps/mail-service",
             "main": "apps/mail-service/src/main.ts",
             "tsConfig": "apps/mail-service/tsconfig.app.json",
-            "assets": [
-              "apps/mail-service/src/assets"
-            ]
+            "assets": ["apps/mail-service/src/assets"]
           },
           "configurations": {
             "production": {
@@ -1444,9 +1357,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/mail-service/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/mail-service/**/*.ts"]
           }
         },
         "test": {
@@ -1471,9 +1382,7 @@
             "outputPath": "dist/apps/ontology-api",
             "main": "apps/ontology-api/src/main.ts",
             "tsConfig": "apps/ontology-api/tsconfig.app.json",
-            "assets": [
-              "apps/ontology-api/src/assets"
-            ]
+            "assets": ["apps/ontology-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -1498,9 +1407,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/ontology-api/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/ontology-api/**/*.ts"]
           }
         },
         "test": {
@@ -1521,9 +1428,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ontology/sources/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/ontology/sources/**/*.ts"]
           }
         },
         "test": {
@@ -1544,9 +1449,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ontology/ontologies/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/ontology/ontologies/**/*.ts"]
           }
         },
         "test": {
@@ -1567,9 +1470,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/utils/routes/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/utils/routes/**/*.ts"]
           }
         },
         "test": {
@@ -1629,10 +1530,7 @@
               "libs/datamodel/database/tsconfig.lib.json",
               "libs/datamodel/database/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/datamodel/database/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/datamodel/database/**/*"]
           }
         },
         "test": {
@@ -1653,9 +1551,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/datamodel/api/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/datamodel/api/**/*.ts"]
           }
         },
         "test": {
@@ -1676,9 +1572,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/datamodel/common/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/datamodel/common/**/*.ts"]
           }
         },
         "test": {
@@ -1699,9 +1593,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/messages/messages/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/messages/messages/**/*.ts"]
           }
         },
         "test": {
@@ -1751,9 +1643,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/exceptions/exceptions/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/exceptions/exceptions/**/*.ts"]
           }
         },
         "test": {
@@ -1774,9 +1664,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/mail-service/client/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/mail-service/client/**/*.ts"]
           }
         },
         "test": {
@@ -1797,9 +1685,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/dispatch/nest-client/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/dispatch/nest-client/**/*.ts"]
           }
         },
         "test": {
@@ -1820,9 +1706,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/nats-client/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/nats-client/**/*.ts"]
           }
         },
         "test": {
@@ -1842,16 +1726,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/auth/client/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/auth/client/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/auth/client"
-          ],
+          "outputs": ["coverage/libs/auth/client"],
           "options": {
             "jestConfig": "libs/auth/client/jest.config.js",
             "passWithNoTests": true
@@ -1867,16 +1747,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/account/management/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/account/management/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/account/management"
-          ],
+          "outputs": ["coverage/libs/account/management"],
           "options": {
             "jestConfig": "libs/account/management/jest.config.js",
             "passWithNoTests": true
@@ -1901,9 +1777,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/shared/pwa"
-          ],
+          "outputs": ["coverage/libs/shared/pwa"],
           "options": {
             "jestConfig": "libs/shared/pwa/jest.config.js",
             "passWithNoTests": true
@@ -1919,16 +1793,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/storage/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/storage/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/shared/storage"
-          ],
+          "outputs": ["coverage/libs/shared/storage"],
           "options": {
             "jestConfig": "libs/shared/storage/jest.config.js",
             "passWithNoTests": true
@@ -1953,9 +1823,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/shared/error-handler"
-          ],
+          "outputs": ["coverage/libs/shared/error-handler"],
           "options": {
             "jestConfig": "libs/shared/error-handler/jest.config.js",
             "passWithNoTests": true
@@ -2003,18 +1871,35 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/datamodel/utils/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/datamodel/utils/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/datamodel/utils"
-          ],
+          "outputs": ["coverage/libs/datamodel/utils"],
           "options": {
             "jestConfig": "libs/datamodel/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "hsds-client": {
+      "root": "libs/hsds/client",
+      "sourceRoot": "libs/hsds/client/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/hsds/client/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/hsds/client"],
+          "options": {
+            "jestConfig": "libs/hsds/client/jest.config.js",
             "passWithNoTests": true
           }
         }

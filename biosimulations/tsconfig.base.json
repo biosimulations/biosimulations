@@ -94,7 +94,8 @@
       "@biosimulations/shared/error-handler": [
         "libs/shared/error-handler/src/index.ts"
       ],
-      "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"]
+      "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"],
+      "@biosimulations/hsds/client": ["libs/hsds/client/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
