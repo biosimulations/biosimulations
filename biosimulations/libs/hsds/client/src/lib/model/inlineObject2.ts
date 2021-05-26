@@ -10,19 +10,17 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineObject2 { 
-    /**
-     * UUID of object to link to. Creates a hard Link. Target UUID _must_ be the UUID of an object which exists within the Domain. Deleted, missing, or malformed UUIDs will result in an error. Overrides other fields. 
-     */
-    id?: string;
-    /**
-     * Path to an object relative to a Domain\'s root. TODO: Resolves by following hard Links to groups that match the path elements until a non-group terminal is reached. (alias of Link?) Creating a Link to a target that does not exist is allowed, but must be done with caution -- results in a dangling Link. If used, will create a soft or external Link. 
-     */
-    h5path?: string;
-    /**
-     * URL of external domain. Results in an external Link. Requires `h5path` be present. 
-     */
-    h5domain?: string;
+export interface InlineObject2 {
+  /**
+   * UUID of object to link to. Creates a hard Link. Target UUID _must_ be the UUID of an object which exists within the Domain. Deleted, missing, or malformed UUIDs will result in an error. Overrides other fields.
+   */
+  id?: string;
+  /**
+   * Path to an object relative to a Domain\'s root. TODO: Resolves by following hard Links to groups that match the path elements until a non-group terminal is reached. (alias of Link?) Creating a Link to a target that does not exist is allowed, but must be done with caution -- results in a dangling Link. If used, will create a soft or external Link.
+   */
+  h5path?: string;
+  /**
+   * URL of external domain. Results in an external Link. Requires `h5path` be present.
+   */
+  h5domain?: string;
 }
-

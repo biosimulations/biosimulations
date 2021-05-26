@@ -11,30 +11,27 @@
  */
 import { InlineResponse200Hrefs } from './inlineResponse200Hrefs';
 
-
-export interface InlineResponse200 { 
-    /**
-     * UUID of root Group. If Domain is of class \'folder\', this entry is not present. 
-     */
-    root?: string;
-    owner?: string;
-    /**
-     * Category of Domain. If \'folder\' no root group is included in response. 
-     */
-    _class?: InlineResponse200.ClassEnum;
-    created?: number;
-    lastModified?: number;
-    /**
-     * Array of url references and their relation to this Domain. Should include entries for: `acls`, `database` (if not class is not `folder`), `groupbase` (if not class is not `folder`), `parent`, `root` (if not class is not `folder`), `self`, `typebase` (if not class is not `folder`). 
-     */
-    hrefs?: Array<InlineResponse200Hrefs>;
+export interface InlineResponse200 {
+  /**
+   * UUID of root Group. If Domain is of class \'folder\', this entry is not present.
+   */
+  root?: string;
+  owner?: string;
+  /**
+   * Category of Domain. If \'folder\' no root group is included in response.
+   */
+  _class?: InlineResponse200.ClassEnum;
+  created?: number;
+  lastModified?: number;
+  /**
+   * Array of url references and their relation to this Domain. Should include entries for: `acls`, `database` (if not class is not `folder`), `groupbase` (if not class is not `folder`), `parent`, `root` (if not class is not `folder`), `self`, `typebase` (if not class is not `folder`).
+   */
+  hrefs?: Array<InlineResponse200Hrefs>;
 }
 export namespace InlineResponse200 {
-    export type ClassEnum = 'domain' | 'folder';
-    export const ClassEnum = {
-        Domain: 'domain' as ClassEnum,
-        Folder: 'folder' as ClassEnum
-    };
+  export type ClassEnum = 'domain' | 'folder';
+  export const ClassEnum = {
+    Domain: 'domain' as ClassEnum,
+    Folder: 'folder' as ClassEnum,
+  };
 }
-
-

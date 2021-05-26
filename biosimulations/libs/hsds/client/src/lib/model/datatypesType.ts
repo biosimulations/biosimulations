@@ -11,15 +11,13 @@
  */
 import { DatatypesTypeFields } from './datatypesTypeFields';
 
-
 /**
- * _Can be a string enum of a predefined type_, e.g., `H5T_STD_U32LE` or `H5T_IEEE_F64LE`. 
+ * _Can be a string enum of a predefined type_, e.g., `H5T_STD_U32LE` or `H5T_IEEE_F64LE`.
  */
-export interface DatatypesType { 
-    /**
-     * Must be \"H5T_COMPOUND\"? 
-     */
-    _class?: string;
-    fields?: Array<DatatypesTypeFields>;
+export interface DatatypesType {
+  /**
+   * Must be \"H5T_COMPOUND\"?
+   */
+  _class?: string;
+  fields?: Array<DatatypesTypeFields>;
 }
-

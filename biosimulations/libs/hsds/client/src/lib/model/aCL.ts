@@ -11,11 +11,9 @@
  */
 import { InlineObject8 } from './inlineObject8';
 
-
 /**
  * Access Control List for a single user.
  */
-export interface ACL { 
-    username?: InlineObject8;
+export interface ACL {
+  username?: InlineObject8;
 }
-

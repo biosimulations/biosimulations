@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse20014Attributes { 
-    created?: number;
-    href?: string;
-    name?: string;
-    shape?: object;
-    type?: object;
-    value?: string;
+export interface InlineResponse20014Attributes {
+  created?: number;
+  href?: string;
+  name?: string;
+  shape?: object;
+  type?: object;
+  value?: string;
 }
-

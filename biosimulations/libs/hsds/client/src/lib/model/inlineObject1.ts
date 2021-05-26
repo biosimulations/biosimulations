@@ -11,8 +11,6 @@
  */
 import { GroupsLink } from './groupsLink';
 
-
-export interface InlineObject1 { 
-    link?: GroupsLink;
+export interface InlineObject1 {
+  link?: GroupsLink;
 }
-

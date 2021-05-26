@@ -3,6 +3,7 @@
 ### Building
 
 To install the required dependencies and to build the typescript sources run:
+
 ```
 npm install
 npm run build
@@ -11,7 +12,6 @@ npm run build
 #### General usage
 
 In your Nestjs project:
-
 
 ```
 // without configuring providers
@@ -60,9 +60,11 @@ Note: The ApiModule a dynamic module and instantiated once app wide.
 This is to ensure that all services are treated as singletons.
 
 #### Using multiple swagger files / APIs / ApiModules
+
 In order to use multiple `ApiModules` generated from different swagger files,
 you can create an alias name when importing the modules
 in order to avoid naming conflicts:
+
 ```
 import { ApiModule } from 'my-api-path';
 import { ApiModule as OtherApiModule } from 'my-other-api-path';
@@ -80,9 +82,9 @@ export class AppModule {
 }
 ```
 
-
 ### Set service base path
-If different than the generated base path, during app bootstrap, you can provide the base path to your service. 
+
+If different than the generated base path, during app bootstrap, you can provide the base path to your service.
 
 ```
 import { BASE_PATH } from '';
@@ -91,6 +93,7 @@ bootstrap(AppComponent, [
     { provide: BASE_PATH, useValue: 'https://your-web-service.com' },
 ]);
 ```
+
 or
 
 ```
@@ -105,8 +108,8 @@ import { BASE_PATH } from '';
 export class AppModule {}
 ```
 
-
 #### Using @nestjs/cli
+
 First extend your `src/environments/*.ts` files by adding the corresponding base path:
 
 ```
@@ -117,6 +120,7 @@ export const environment = {
 ```
 
 In the src/app/app.module.ts:
+
 ```
 import { BASE_PATH } from '';
 import { environment } from '../environments/environment';
@@ -127,9 +131,9 @@ import { environment } from '../environments/environment';
   ],
   imports: [ ],
   providers: [
-    { 
-      provide: 'BASE_PATH', 
-      useValue: environment.API_BASE_PATH 
+    {
+      provide: 'BASE_PATH',
+      useValue: environment.API_BASE_PATH
     }
   ]
 })

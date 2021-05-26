@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse2008Hrefs { 
-    /**
-     * URL of resource
-     */
-    href?: string;
-    /**
-     * relation to this object
-     */
-    rel?: string;
+export interface InlineResponse2008Hrefs {
+  /**
+   * URL of resource
+   */
+  href?: string;
+  /**
+   * relation to this object
+   */
+  rel?: string;
 }
-

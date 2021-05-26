@@ -11,9 +11,7 @@
  */
 import { InlineResponse2002Hrefs } from './inlineResponse2002Hrefs';
 
-
-export interface InlineResponse2002 { 
-    groups?: Array<string>;
-    hrefs?: Array<InlineResponse2002Hrefs>;
+export interface InlineResponse2002 {
+  groups?: Array<string>;
+  hrefs?: Array<InlineResponse2002Hrefs>;
 }
-

@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse2005Link { 
-    id?: string;
-    title?: string;
-    collection?: string;
-    _class?: string;
+export interface InlineResponse2005Link {
+  id?: string;
+  title?: string;
+  collection?: string;
+  _class?: string;
 }
-

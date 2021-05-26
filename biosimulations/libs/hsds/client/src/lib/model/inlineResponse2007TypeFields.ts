@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse2007TypeFields { 
-    /**
-     * Descriptive or identifying name. Must be unique in the fields list. 
-     */
-    name?: string;
-    /**
-     * Enum of pre-defined type, UUID of committed type, or type definition. (TODO: see `POST Dataset`?) 
-     */
-    type?: string;
+export interface InlineResponse2007TypeFields {
+  /**
+   * Descriptive or identifying name. Must be unique in the fields list.
+   */
+  name?: string;
+  /**
+   * Enum of pre-defined type, UUID of committed type, or type definition. (TODO: see `POST Dataset`?)
+   */
+  type?: string;
 }
-

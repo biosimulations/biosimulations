@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineObject4 { 
-    shape: Array<number>;
+export interface InlineObject4 {
+  shape: Array<number>;
 }
-

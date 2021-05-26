@@ -12,14 +12,12 @@
 import { InlineResponse2005Hrefs } from './inlineResponse2005Hrefs';
 import { InlineResponse2005Link } from './inlineResponse2005Link';
 
-
-export interface InlineResponse2005 { 
-    lastModified?: number;
-    created?: number;
-    link?: InlineResponse2005Link;
-    /**
-     * List of references to other entities. Should contain references for: `home`, `owner`, `self`, `target`, 
-     */
-    hrefs?: Array<InlineResponse2005Hrefs>;
+export interface InlineResponse2005 {
+  lastModified?: number;
+  created?: number;
+  link?: InlineResponse2005Link;
+  /**
+   * List of references to other entities. Should contain references for: `home`, `owner`, `self`, `target`,
+   */
+  hrefs?: Array<InlineResponse2005Hrefs>;
 }
-

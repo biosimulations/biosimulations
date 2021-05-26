@@ -1,4 +1,10 @@
-import { DynamicModule, HttpService, HttpModule, Module, Global } from '@nestjs/common';
+import {
+  DynamicModule,
+  HttpService,
+  HttpModule,
+  Module,
+  Global,
+} from '@nestjs/common';
 import { Configuration } from './configuration';
 
 import { ACLSService } from './api/aCLS.service';
@@ -11,15 +17,15 @@ import { LinkService } from './api/link.service';
 
 @Global()
 @Module({
-  imports:      [ HttpModule ],
-  exports:      [
+  imports: [HttpModule],
+  exports: [
     ACLSService,
     AttributeService,
     DatasetService,
     DatatypeService,
     DomainService,
     GroupService,
-    LinkService
+    LinkService,
   ],
   providers: [
     ACLSService,
@@ -28,16 +34,18 @@ import { LinkService } from './api/link.service';
     DatatypeService,
     DomainService,
     GroupService,
-    LinkService
-  ]
+    LinkService,
+  ],
 })
 export class ApiModule {
-    public static forRoot(configurationFactory: () => Configuration): DynamicModule {
-        return {
-            module: ApiModule,
-            providers: [ { provide: Configuration, useFactory: configurationFactory } ]
-        };
-    }
+  public static forRoot(
+    configurationFactory: () => Configuration,
+  ): DynamicModule {
+    return {
+      module: ApiModule,
+      providers: [{ provide: Configuration, useFactory: configurationFactory }],
+    };
+  }
 
-    constructor( httpService: HttpService) { }
+  constructor(httpService: HttpService) {}
 }

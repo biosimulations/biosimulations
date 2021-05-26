@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse2013 { 
-    hrefs?: Array<string>;
+export interface InlineResponse2013 {
+  hrefs?: Array<string>;
 }
-

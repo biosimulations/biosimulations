@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 /**
- * Optional JSON object to immediately create a hard Link to the newly-created object. If present, both `id` and `name` must be supplied and `id` must be the UUID of an existing Group -- UUID of any non-Group object will result in an error. Note that the id reference is _reverse_ the usual for Link creation: the `id` value refers to the targeting object, not the target object of the link. 
+ * Optional JSON object to immediately create a hard Link to the newly-created object. If present, both `id` and `name` must be supplied and `id` must be the UUID of an existing Group -- UUID of any non-Group object will result in an error. Note that the id reference is _reverse_ the usual for Link creation: the `id` value refers to the targeting object, not the target object of the link.
  */
-export interface DatasetsLink { 
-    /**
-     * UUID of Group to link from.
-     */
-    id: string;
-    /**
-     * Title of Link.
-     */
-    name: string;
+export interface DatasetsLink {
+  /**
+   * UUID of Group to link from.
+   */
+  id: string;
+  /**
+   * Title of Link.
+   */
+  name: string;
 }
-

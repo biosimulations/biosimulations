@@ -12,12 +12,10 @@
 import { InlineResponse2004Links } from './inlineResponse2004Links';
 import { InlineResponse2004Hrefs } from './inlineResponse2004Hrefs';
 
-
-export interface InlineResponse2004 { 
-    links?: Array<InlineResponse2004Links>;
-    /**
-     * List of references to other entities. Should contain references for: `home`, `owner`, `self`. 
-     */
-    hrefs?: Array<InlineResponse2004Hrefs>;
+export interface InlineResponse2004 {
+  links?: Array<InlineResponse2004Links>;
+  /**
+   * List of references to other entities. Should contain references for: `home`, `owner`, `self`.
+   */
+  hrefs?: Array<InlineResponse2004Hrefs>;
 }
-

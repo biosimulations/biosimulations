@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * TODO
  */
-export interface InlineResponse2014 { 
-    attributeCount?: number;
-    id?: string;
+export interface InlineResponse2014 {
+  attributeCount?: number;
+  id?: string;
 }
-

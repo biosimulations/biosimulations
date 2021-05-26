@@ -12,4 +12,12 @@ export * from './group.service';
 import { GroupService } from './group.service';
 export * from './link.service';
 import { LinkService } from './link.service';
-export const APIS = [ACLSService, AttributeService, DatasetService, DatatypeService, DomainService, GroupService, LinkService];
+export const APIS = [
+  ACLSService,
+  AttributeService,
+  DatasetService,
+  DatatypeService,
+  DomainService,
+  GroupService,
+  LinkService,
+];

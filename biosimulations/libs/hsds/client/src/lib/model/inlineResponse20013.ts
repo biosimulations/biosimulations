@@ -11,11 +11,9 @@
  */
 import { InlineResponse2008Hrefs } from './inlineResponse2008Hrefs';
 
-
 /**
  * Always returns `{\"hrefs\": []}` (TODO confirm)
  */
-export interface InlineResponse20013 { 
-    hrefs?: Array<InlineResponse2008Hrefs>;
+export interface InlineResponse20013 {
+  hrefs?: Array<InlineResponse2008Hrefs>;
 }
-

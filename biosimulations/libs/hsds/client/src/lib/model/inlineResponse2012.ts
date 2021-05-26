@@ -10,26 +10,24 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse2012 { 
-    /**
-     * UUID of this Dataset.
-     */
-    id?: string;
-    /**
-     * UUID of root Group in Domain.
-     */
-    root?: string;
-    created?: number;
-    lastModified?: number;
-    attributeCount?: number;
-    /**
-     * (See `GET /datasets/{id}`)
-     */
-    type?: object;
-    /**
-     * (See `GET /datasets/{id}`)
-     */
-    shape?: object;
+export interface InlineResponse2012 {
+  /**
+   * UUID of this Dataset.
+   */
+  id?: string;
+  /**
+   * UUID of root Group in Domain.
+   */
+  root?: string;
+  created?: number;
+  lastModified?: number;
+  attributeCount?: number;
+  /**
+   * (See `GET /datasets/{id}`)
+   */
+  type?: object;
+  /**
+   * (See `GET /datasets/{id}`)
+   */
+  shape?: object;
 }
-

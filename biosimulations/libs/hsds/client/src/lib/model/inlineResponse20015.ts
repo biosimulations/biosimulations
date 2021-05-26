@@ -11,16 +11,14 @@
  */
 import { InlineResponse2008Hrefs } from './inlineResponse2008Hrefs';
 
-
 /**
- * TODO 
+ * TODO
  */
-export interface InlineResponse20015 { 
-    created?: number;
-    lastModified?: number;
-    name?: string;
-    shape?: object;
-    value?: string;
-    hrefs?: Array<InlineResponse2008Hrefs>;
+export interface InlineResponse20015 {
+  created?: number;
+  lastModified?: number;
+  name?: string;
+  shape?: object;
+  value?: string;
+  hrefs?: Array<InlineResponse2008Hrefs>;
 }
-

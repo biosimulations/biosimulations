@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse20010 { 
-    /**
-     * List of indices (TODO: coordinates?) corresponding with each value returned. i.e., `index[i]` is the coordinate of `value[i]`. Only present if `query` parameter is part of the request URI. 
-     */
-    index?: Array<string>;
-    values?: Array<string>;
+export interface InlineResponse20010 {
+  /**
+   * List of indices (TODO: coordinates?) corresponding with each value returned. i.e., `index[i]` is the coordinate of `value[i]`. Only present if `query` parameter is part of the request URI.
+   */
+  index?: Array<string>;
+  values?: Array<string>;
 }
-

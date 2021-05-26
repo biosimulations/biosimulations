@@ -11,12 +11,10 @@
  */
 import { InlineResponse2006Hrefs } from './inlineResponse2006Hrefs';
 
-
-export interface InlineResponse2006 { 
-    datasets?: Array<string>;
-    /**
-     * List of references to other objects. Should contain references for: `attributes`, `data`, `home`, `root`, `self` 
-     */
-    hrefs?: Array<InlineResponse2006Hrefs>;
+export interface InlineResponse2006 {
+  datasets?: Array<string>;
+  /**
+   * List of references to other objects. Should contain references for: `attributes`, `data`, `home`, `root`, `self`
+   */
+  hrefs?: Array<InlineResponse2006Hrefs>;
 }
-

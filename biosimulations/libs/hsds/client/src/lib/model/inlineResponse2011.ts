@@ -10,19 +10,17 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse2011 { 
-    /**
-     * UUID of new Group.
-     */
-    id?: string;
-    /**
-     * UUID of root Group in Domain.
-     */
-    root?: string;
-    lastModified?: number;
-    created?: number;
-    attributeCount?: number;
-    linkCount?: number;
+export interface InlineResponse2011 {
+  /**
+   * UUID of new Group.
+   */
+  id?: string;
+  /**
+   * UUID of root Group in Domain.
+   */
+  root?: string;
+  lastModified?: number;
+  created?: number;
+  attributeCount?: number;
+  linkCount?: number;
 }
-

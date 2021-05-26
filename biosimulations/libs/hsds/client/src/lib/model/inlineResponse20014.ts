@@ -12,12 +12,10 @@
 import { InlineResponse2008Hrefs } from './inlineResponse2008Hrefs';
 import { InlineResponse20014Attributes } from './inlineResponse20014Attributes';
 
-
 /**
- * TODO 
+ * TODO
  */
-export interface InlineResponse20014 { 
-    attributes?: Array<InlineResponse20014Attributes>;
-    hrefs?: Array<InlineResponse2008Hrefs>;
+export interface InlineResponse20014 {
+  attributes?: Array<InlineResponse20014Attributes>;
+  hrefs?: Array<InlineResponse2008Hrefs>;
 }
-

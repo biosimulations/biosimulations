@@ -11,11 +11,9 @@
  */
 import { ACL } from './aCL';
 
-
 /**
  * Access Control Lists for users.
  */
-export interface ACLS { 
-    forWhom?: ACL;
+export interface ACLS {
+  forWhom?: ACL;
 }
-

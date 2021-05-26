@@ -12,12 +12,10 @@
 import { ACLS } from './aCLS';
 import { InlineResponse20019Hrefs } from './inlineResponse20019Hrefs';
 
-
 /**
  * TODO
  */
-export interface InlineResponse20019 { 
-    acls?: ACLS;
-    hrefs?: Array<InlineResponse20019Hrefs>;
+export interface InlineResponse20019 {
+  acls?: ACLS;
+  hrefs?: Array<InlineResponse20019Hrefs>;
 }
-

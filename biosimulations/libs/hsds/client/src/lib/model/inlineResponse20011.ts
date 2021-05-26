@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse20011 { 
-    value?: Array<string>;
+export interface InlineResponse20011 {
+  value?: Array<string>;
 }
-

@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineObject8 { 
-    create?: boolean;
-    update?: boolean;
-    _delete?: boolean;
-    updateACL?: boolean;
-    read?: boolean;
-    readACL?: boolean;
+export interface InlineObject8 {
+  create?: boolean;
+  update?: boolean;
+  _delete?: boolean;
+  updateACL?: boolean;
+  read?: boolean;
+  readACL?: boolean;
 }
-

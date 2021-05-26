@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse200Hrefs { 
-    /**
-     * URL to reference.
-     */
-    href?: string;
-    /**
-     * Relation to this Domain.
-     */
-    rel?: string;
+export interface InlineResponse200Hrefs {
+  /**
+   * URL to reference.
+   */
+  href?: string;
+  /**
+   * Relation to this Domain.
+   */
+  rel?: string;
 }
-

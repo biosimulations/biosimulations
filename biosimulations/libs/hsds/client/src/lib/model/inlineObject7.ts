@@ -11,9 +11,7 @@
  */
 import { DatatypesType } from './datatypesType';
 
-
-export interface InlineObject7 { 
-    name?: string;
-    type?: DatatypesType;
+export interface InlineObject7 {
+  name?: string;
+  type?: DatatypesType;
 }
-

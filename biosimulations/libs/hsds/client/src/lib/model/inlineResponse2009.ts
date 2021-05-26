@@ -11,12 +11,10 @@
  */
 import { InlineResponse2009Hrefs } from './inlineResponse2009Hrefs';
 
-
 /**
- * (See `GET /datasets/{id}`) 
+ * (See `GET /datasets/{id}`)
  */
-export interface InlineResponse2009 { 
-    type?: object;
-    hrefs?: Array<InlineResponse2009Hrefs>;
+export interface InlineResponse2009 {
+  type?: object;
+  hrefs?: Array<InlineResponse2009Hrefs>;
 }
-

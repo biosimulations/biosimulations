@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * The Domain or Folder which was deleted.
  */
-export interface InlineResponse2001 { 
-    /**
-     * domain path
-     */
-    domain?: string;
+export interface InlineResponse2001 {
+  /**
+   * domain path
+   */
+  domain?: string;
 }
-

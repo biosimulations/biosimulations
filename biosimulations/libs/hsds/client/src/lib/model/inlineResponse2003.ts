@@ -11,28 +11,26 @@
  */
 import { InlineResponse2003Hrefs } from './inlineResponse2003Hrefs';
 
-
-export interface InlineResponse2003 { 
-    /**
-     * UUID of this Group.
-     */
-    id?: string;
-    /**
-     * UUID of root Group.
-     */
-    root?: string;
-    /**
-     * List of aliases for the Group, as reached by _hard_ Links. If Group is unlinked, its alias list will be empty (`[]`). Only present if `alias=1` is present as query parameter. 
-     */
-    alias?: Array<string>;
-    created?: number;
-    lastModified?: number;
-    domain?: string;
-    attributeCount?: number;
-    linkCount?: number;
-    /**
-     * List of references to other objects.
-     */
-    hrefs?: Array<InlineResponse2003Hrefs>;
+export interface InlineResponse2003 {
+  /**
+   * UUID of this Group.
+   */
+  id?: string;
+  /**
+   * UUID of root Group.
+   */
+  root?: string;
+  /**
+   * List of aliases for the Group, as reached by _hard_ Links. If Group is unlinked, its alias list will be empty (`[]`). Only present if `alias=1` is present as query parameter.
+   */
+  alias?: Array<string>;
+  created?: number;
+  lastModified?: number;
+  domain?: string;
+  attributeCount?: number;
+  linkCount?: number;
+  /**
+   * List of references to other objects.
+   */
+  hrefs?: Array<InlineResponse2003Hrefs>;
 }
-

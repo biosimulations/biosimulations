@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineObject { 
-    folder?: boolean;
+export interface InlineObject {
+  folder?: boolean;
 }
-

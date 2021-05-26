@@ -11,24 +11,22 @@
  */
 import { ACLS } from './aCLS';
 
-
-export interface InlineResponse201 { 
-    acls?: ACLS;
-    /**
-     * When domain was created.
-     */
-    created?: number;
-    /**
-     * When object was last modified.
-     */
-    lastModified?: number;
-    /**
-     * Name of owner.
-     */
-    owner?: string;
-    /**
-     * ID of root group.
-     */
-    root?: string;
+export interface InlineResponse201 {
+  acls?: ACLS;
+  /**
+   * When domain was created.
+   */
+  created?: number;
+  /**
+   * When object was last modified.
+   */
+  lastModified?: number;
+  /**
+   * Name of owner.
+   */
+  owner?: string;
+  /**
+   * ID of root group.
+   */
+  root?: string;
 }
-

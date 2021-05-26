@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 /**
- * References to other objects. Must contain references for only: `attributes`, `home`, `links`, `root`, `self`. 
+ * References to other objects. Must contain references for only: `attributes`, `home`, `links`, `root`, `self`.
  */
-export interface InlineResponse2002Hrefs { 
-    /**
-     * URL reference.
-     */
-    href?: string;
-    /**
-     * Relation to this object.
-     */
-    rel?: string;
+export interface InlineResponse2002Hrefs {
+  /**
+   * URL reference.
+   */
+  href?: string;
+  /**
+   * Relation to this object.
+   */
+  rel?: string;
 }
-

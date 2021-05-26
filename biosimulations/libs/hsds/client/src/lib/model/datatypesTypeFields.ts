@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
-export interface DatatypesTypeFields { 
-    /**
-     * Identifier of the field. 
-     */
-    name?: string;
-    /**
-     * Type of the field. TODO: pre-defined enum string vs type object? 
-     */
-    type?: string;
+export interface DatatypesTypeFields {
+  /**
+   * Identifier of the field.
+   */
+  name?: string;
+  /**
+   * Type of the field. TODO: pre-defined enum string vs type object?
+   */
+  type?: string;
 }
-

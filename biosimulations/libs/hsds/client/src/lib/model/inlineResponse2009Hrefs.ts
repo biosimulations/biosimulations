@@ -10,24 +10,21 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse2009Hrefs { 
-    /**
-     * URL of resource
-     */
-    href?: string;
-    /**
-     * relation to this object
-     */
-    rel?: InlineResponse2009Hrefs.RelEnum;
+export interface InlineResponse2009Hrefs {
+  /**
+   * URL of resource
+   */
+  href?: string;
+  /**
+   * relation to this object
+   */
+  rel?: InlineResponse2009Hrefs.RelEnum;
 }
 export namespace InlineResponse2009Hrefs {
-    export type RelEnum = 'owner' | 'root' | 'self';
-    export const RelEnum = {
-        Owner: 'owner' as RelEnum,
-        Root: 'root' as RelEnum,
-        Self: 'self' as RelEnum
-    };
+  export type RelEnum = 'owner' | 'root' | 'self';
+  export const RelEnum = {
+    Owner: 'owner' as RelEnum,
+    Root: 'root' as RelEnum,
+    Self: 'self' as RelEnum,
+  };
 }
-
-

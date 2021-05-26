@@ -11,17 +11,15 @@
  */
 import { InlineResponse2008Hrefs } from './inlineResponse2008Hrefs';
 
-
 /**
- * (See `GET /datasets/{id}`) 
+ * (See `GET /datasets/{id}`)
  */
-export interface InlineResponse2008 { 
-    created?: number;
-    lastModified?: number;
-    shape?: object;
-    /**
-     * Must include references to only: `owner`, `root`, `self`. 
-     */
-    hrefs?: Array<InlineResponse2008Hrefs>;
+export interface InlineResponse2008 {
+  created?: number;
+  lastModified?: number;
+  shape?: object;
+  /**
+   * Must include references to only: `owner`, `root`, `self`.
+   */
+  hrefs?: Array<InlineResponse2008Hrefs>;
 }
-
