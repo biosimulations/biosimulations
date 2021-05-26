@@ -19,11 +19,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/core/LICENSE
-├─ @nestjs/mapped-types@0.1.1
+├─ @nestjs/mapped-types@0.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/mapped-types
 │  ├─ publisher: Kamil Mysliwiec
-│  └─ licenseFile: @nestjs/mapped-types/README.md
+│  └─ licenseFile: @nestjs/mapped-types/LICENSE
 ├─ @nestjs/microservices@7.6.12
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
@@ -49,7 +49,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/schedule
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/schedule/README.md
-├─ @nestjs/swagger@4.7.9
+├─ @nestjs/swagger@4.8.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/swagger
 │  ├─ publisher: Kamil Mysliwiec
@@ -1320,18 +1320,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: john.david.dalton@gmail.com
 │  ├─ url: http://allyoucanleet.com/
 │  └─ licenseFile: lodash.union/LICENSE
-├─ lodash@4.17.20
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/lodash/lodash
-│  ├─ publisher: John-David Dalton
-│  ├─ email: john.david.dalton@gmail.com
-│  └─ licenseFile: lodash/LICENSE
 ├─ lodash@4.17.21
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/lodash/lodash
 │  ├─ publisher: John-David Dalton
 │  ├─ email: john.david.dalton@gmail.com
-│  └─ licenseFile: bull/node_modules/lodash/LICENSE
+│  └─ licenseFile: lodash/LICENSE
 ├─ loglevel@1.7.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/pimterry/loglevel
@@ -2419,7 +2413,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Chris Talkington
 │  ├─ url: http://christalkington.com/
 │  └─ licenseFile: zip-stream/LICENSE
-└─ zone.js@0.10.3
+└─ zone.js@0.11.4
    ├─ licenses: MIT
    ├─ repository: https://github.com/angular/angular
    ├─ publisher: Brian Ford
