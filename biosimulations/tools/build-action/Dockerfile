@@ -12,10 +12,7 @@ RUN echo building ${app}
 RUN echo env is $env
 RUN pwd
 RUN echo $GITHUB_WORKSPACE 
-RUN ls
-RUN ls home
-RUN ls home/runner
-RUN ls home/runner/work
+
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH ./node_modules/.bin:$PATH
@@ -23,8 +20,10 @@ ENV PATH ./node_modules/.bin:$PATH
 # install nrwl cli
 RUN npm install -g @nrwl/cli
 
-COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/tsconfig.base.json /tsconfig.base.json
-COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/package.json /package.json
+COPY entrypoint.sh /entrypoint.sh
+
+COPY  biosimulations/tsconfig.base.json /tsconfig.base.json
+COPY  biosimulations/package.json /package.json
 COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/package-lock.json /package-lock.json
 COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/declarations.d.ts /declarations.d.ts
 
@@ -52,6 +51,6 @@ COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/libs /libs
 COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/apps /apps
 
 # generate build
-COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/tools/build-action/entrypoint.sh /entrypoint.sh
+
 
 ENTRYPOINT ["/entrypoint.sh"]
