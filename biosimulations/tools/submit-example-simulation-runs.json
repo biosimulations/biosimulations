@@ -1,5 +1,4 @@
-[
-  {
+[{
     "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, PySCeS)",
     "simulator": "pysces",
     "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
@@ -58,6 +57,11 @@
     "name": "Escherichia coli core metabolism (FBA, COBRApy)",
     "simulator": "cobrapy",
     "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
+  },
+  {
+    "name": "Lotka-Volterra model (Smoluchowski method, Smoldyn)",
+    "simulator": "smoldyn",
+    "filename": "smoldyn/Lotka-Volterra.omex"
   },
   {
     "name": "Parmar 2017: iron distribution (CVODE, PySCeS)",
