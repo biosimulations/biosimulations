@@ -78,7 +78,7 @@ jobs:
         uses: ./biosimulations/tools/build-action/
         with:
           env: "stage"
-          app: ${{matrix.app}
+          app: ${{matrix.app}}
 
       - name: Upload build
         uses: actions/upload-artifact@v2
@@ -105,7 +105,7 @@ jobs:
         uses: ./biosimulations/tools/build-action/
         with:
           env: "prod"
-          app: ${{matrix.app}
+          app: ${{matrix.app}}
 
       - name: Upload build
         uses: actions/upload-artifact@v2
