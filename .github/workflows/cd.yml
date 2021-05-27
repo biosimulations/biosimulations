@@ -36,17 +36,15 @@ jobs:
       - name: Install npm dependencies
         working-directory: ./biosimulations
         run: npm ci
-      - name: Compile Angular Dependencies
-        working-directory: ./biosimulations
-        run: npm run compile
-      - name: Cache Angular and NX dependencies
-        uses: actions/cache@v2
-        with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
-          restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx-
+
+      # - name: Cache Angular and NX dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: node_modules/.cache
+      #     key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
+      #     restore-keys: |
+      #       ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+      #       ${{ runner.os }}-nx-
 
       - id: get-all-apps
         name: Get the list of apps
@@ -112,7 +110,7 @@ jobs:
 
       - name: Build dev app
         working-directory: ./biosimulations
-        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build --prod ${{matrix.app}}
+        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build --prod ${{matrix.app}} --outputPath=dist/apps/
       - name: Debug
         run: pwd; ls; cd biosimulations; pwd; ls;
       - name: Debug 2
@@ -148,14 +146,14 @@ jobs:
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
 
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-node-
+      # - name: Cache npm dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      #       ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
@@ -163,15 +161,15 @@ jobs:
         working-directory: ./biosimulations
         run: npm ci
 
-      - name: Cache Angular and NX dependencies
-        uses: actions/cache@v2
-        with:
-          path: biosimulations/node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
-          restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx-
+      # - name: Cache Angular and NX dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: biosimulations/node_modules/.cache
+      #     key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
+      #     restore-keys: |
+      #       ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
+      #       ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+      #       ${{ runner.os }}-nx-
 
       - name: Build prod app
         working-directory: ./biosimulations
