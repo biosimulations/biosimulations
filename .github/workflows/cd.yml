@@ -93,11 +93,11 @@ jobs:
       #     path: ~/.npm
       #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
-      # - name: Install dependencies
-      #   run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
-      # - name: Install npm dependencies
-      #   working-directory: ./biosimulations
-      #   run: npm ci
+      - name: Install dependencies
+        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - name: Install npm dependencies
+        working-directory: ./biosimulations
+        run: npm ci
 
       # - name: Cache Angular and NX dependencies
       #   uses: actions/cache@v2
