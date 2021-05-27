@@ -11,7 +11,7 @@ jobs:
       frontendApps: ${{steps.get-all-apps.outputs.frontendApps}}
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
@@ -76,7 +76,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
@@ -137,7 +137,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
@@ -197,7 +197,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - if: matrix.app != 'combine-service'
         name: Build and Push Image
@@ -292,7 +292,7 @@ jobs:
     environment: dev_environment
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
 
       - name: Call Webhook
         env:
