@@ -3,7 +3,23 @@ on:
   push:
     branches: [dev, debugci]
 jobs:
+  buildwithdocker:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build simulaotrs
+        uses: ./biosimulations/tools/build-action/
+        with:
+          env: "stage"
+          app: "simulators"
+      - name: Build "dispatch"
+        uses: ./biosimulations/tools/build-action/
+        with:
+          env: "stage"
+          app: "dispatch"
   buildDevFrontEnds:
+    if: "false"
     name: Build development front end apps
     runs-on: ubuntu-latest
 

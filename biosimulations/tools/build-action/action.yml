@@ -1,0 +1,21 @@
+# action.yml
+name: 'Build Front End Apps'
+description: 'Use NX to build front end app'
+inputs:
+  app: # name of app
+    description: 'Name of App'
+    required: true
+    default: 'dispatch'
+  env:
+    description: 'Name of env'
+    required: true
+    default: stage
+outputs:
+  dist: # id of output
+    description: 'Dist folder'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.app }}
+    - ${{ inputs.env }}
