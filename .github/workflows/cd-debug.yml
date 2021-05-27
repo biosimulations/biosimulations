@@ -1,7 +1,7 @@
 name: Continuous Deployment
 on:
   push:
-    branches: [debug]
+    branches: [dev, debug]
 jobs:
   buildDevFrontEnds:
     name: Build development front end apps
