@@ -110,7 +110,7 @@ jobs:
 
       - name: Build dev app
         working-directory: ./biosimulations
-        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build --prod ${{matrix.app}} --outputPath=dist/apps/
+        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && mkdir dist && nx build --prod ${{matrix.app}} --outputPath=dist
       - name: Debug
         run: pwd; ls; cd biosimulations; pwd; ls;
       - name: Debug 2
