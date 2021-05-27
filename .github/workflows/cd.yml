@@ -50,19 +50,10 @@ jobs:
         name: Get the list of apps
         working-directory: ./biosimulations
         run: |
-          # mapfile -d " " -t appsArr < <(nx affected:apps --plain --all | sed  's/simulators[^-]//; s/account[^-]\|account$//; s/dispatch[^-]//;  s/platform[^-]//' | sed 's/ $//')
-          #  appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
-
-          #  if [ -z "${appsArr[0]}" ]; then
-          #    unset appsArr[-1]
-          #    appsJson=[]
-          #  else
-          #    appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
-          #  fi
-           frontendAppsArr=('account' 'platform' 'simulators' 'dispatch')
-           frontendAppsJson=$(printf '"%s"\n' "${frontendAppsArr[@]}" | jq  . | jq -s . | tr -d '\n')
-           echo "::set-output name=apps::$appsJson"
-           echo "::set-output name=frontendApps::$frontendAppsJson"
+          frontendAppsArr=('account' 'platform' 'simulators' 'dispatch')
+          frontendAppsJson=$(printf '"%s"\n' "${frontendAppsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          echo "::set-output name=apps::$appsJson"
+          echo "::set-output name=frontendApps::$frontendAppsJson"
 
   buildDevFrontEnds:
     name: Build development front end apps
