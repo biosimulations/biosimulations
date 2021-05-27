@@ -93,11 +93,11 @@ jobs:
       #     path: ~/.npm
       #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Install dependencies
-        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
-      - name: Install npm dependencies
-        working-directory: ./biosimulations
-        run: npm ci
+      # - name: Install dependencies
+      #   run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      # - name: Install npm dependencies
+      #   working-directory: ./biosimulations
+      #   run: npm ci
 
       # - name: Cache Angular and NX dependencies
       #   uses: actions/cache@v2
@@ -111,7 +111,7 @@ jobs:
 
       - name: Build dev app
         working-directory: ./biosimulations
-        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && mkdir dist && nx build --prod ${{matrix.app}} --outputPath=. && ls && ls dist
+        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && mkdir dist &&mkdir testdist && npm run nx build --prod ${{matrix.app}} --outputPath=testdist && ls && ls dist && ls testdist
       - name: Debug
         run: pwd; ls; cd biosimulations; pwd; ls;
       - name: Debug 2
