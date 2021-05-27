@@ -11,7 +11,7 @@ ENV ENVNAME=$env
 RUN echo building ${app}
 RUN echo env is $env
 RUN pwd
-run echo $GITHUB_WORKSPACE 
+RUN echo $GITHUB_WORKSPACE 
 RUN ls
 
 # add `/app/node_modules/.bin` to $PATH
@@ -20,10 +20,10 @@ ENV PATH ./node_modules/.bin:$PATH
 # install nrwl cli
 RUN npm install -g @nrwl/cli
 
-COPY biosimulations/tsconfig.base.json /tsconfig.base.json
-COPY biosimulations/package.json /package.json
-COPY biosimulations/package-lock.json /package-lock.json
-COPY biosimulations/declarations.d.ts /declarations.d.ts
+COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/tsconfig.base.json /tsconfig.base.json
+COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/package.json /package.json
+COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/package-lock.json /package-lock.json
+COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/declarations.d.ts /declarations.d.ts
 
 # install dependencies needed to compile canvas (needed for Vega-embed)
 ENV PYTHONUNBUFFERED=1
@@ -42,13 +42,13 @@ RUN pip3 install --no-cache --no-cache-dir  --upgrade pip setuptools
 # install the app, including the dev dependencies
 RUN npm ci
 
-COPY biosimulations/nx.json  /nx.json	
-COPY biosimulations/angular.json /angular.json
+COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/nx.json  /nx.json	
+COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/angular.json /angular.json
 #copy source
-COPY biosimulations/libs /libs
-COPY biosimulations/apps /apps
+COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/libs /libs
+COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/apps /apps
 
 # generate build
-COPY entrypoint.sh /entrypoint.sh
+COPY /home/runner/work/Biosimulations/Biosimulations/biosimulations/tools/build-action/entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
