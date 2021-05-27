@@ -114,7 +114,10 @@ jobs:
         working-directory: ./biosimulations
         run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build --prod ${{matrix.app}}
       - name: Debug 
-        run: pwd; ls; cd biosimulations; ls; cd dist; ls; cd apps; ls; cd ${{matrix.app}}; ls
+        run: pwd; ls; cd biosimulations; pwd; ls;
+      - name: Debug 2
+        working-directory: ./biosimulations
+        run: pwd; ls; cd dist; ls; cd apps; ls; cd ${{matrix.app}}; ls
       - name: Upload build
         uses: actions/upload-artifact@v2
         with:
