@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "nx",
     "compile": "ngcc",
+    "postinstall": "ngcc",
     "nx": "nx",
     "start": "ng serve",
     "build": "ng build",
