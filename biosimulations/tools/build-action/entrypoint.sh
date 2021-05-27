@@ -7,5 +7,6 @@ npm ci
 npm run nx build $1 --prod
 ls 
 cd dist
+pwd
 ls
 
