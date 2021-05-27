@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 14.x
+          node-version: 15.x
 
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
@@ -80,7 +80,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 14.x
+          node-version: 15.x
 
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
@@ -113,7 +113,7 @@ jobs:
         run: mkdir dist && mkdir dist/apps && echo "hello" > dist/apps/testfile && cd dist && cd apps && cat testfile
       - name: Build dev app
         working-directory: ./biosimulations
-        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build --prod ${{matrix.app}} --outputPath=dist
+        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && mkdir dist && nx build --prod ${{matrix.app}} --outputPath=dist && ls && ls dist
       - name: Debug
         run: pwd; ls; cd biosimulations; pwd; ls;
       - name: Debug 2
