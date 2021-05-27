@@ -112,10 +112,6 @@ jobs:
         with:
           node-version: 15.x
 
-      - name: Install Nrwl CLI
-        working-directory: ./biosimulations
-        run: npm install -g @nrwl/cli
-
       - name: Cache npm dependencies
         uses: actions/cache@v2
         with:
@@ -131,24 +127,25 @@ jobs:
         working-directory: ./biosimulations
         run: npm ci
 
-      - name: Cache Angular and NX dependencies
-        uses: actions/cache@v2
-        with:
-          path: biosimulations/node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
-          restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx-
+      # - name: Cache Angular and NX dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: biosimulations/node_modules/.cache
+      #     key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
+      #     restore-keys: |
+      #       ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
+      #       ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+      #       ${{ runner.os }}-nx-
 
       - name: Build prod app
         working-directory: ./biosimulations
-        run: nx build --prod ${{matrix.app}}
+        run: npm run nx build --prod ${{matrix.app}}
 
       - name: Upload build
 
         uses: actions/upload-artifact@v2
         with:
+          if-no-files-found: error
           name: ${{matrix.app}}-prod
           path: biosimulations/dist/apps/${{matrix.app}}
           retention-days: 5
