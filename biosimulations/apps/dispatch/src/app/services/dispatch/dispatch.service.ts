@@ -148,7 +148,7 @@ export class DispatchService {
   }
 
   public getSimulatorsFromDb(): Observable<SimulatorsData> {
-    const endpoint = `https://api.biosimulators.org/simulators`;
+    const endpoint = `${urls.simulatorsApi}simulators`;
     const promises = [
       this.http.get(endpoint),
       this.ontologyService.edamTerms,

@@ -613,7 +613,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     modelFormatIds.forEach((modelFormatId: string): void => {
       simulators = this.setIntersection(
         simulators,
-        this.modelFormatsMap?.[modelFormatId]?.simulators as Set<string>,
+        this.modelFormatsMap?.[modelFormatId]?.simulators as Set<string> || new Set<string>(),
       );
     });
     simulationAlgorithmIds.forEach((simulationAlgorithmId: string): void => {
