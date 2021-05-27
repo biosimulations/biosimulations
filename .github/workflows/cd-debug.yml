@@ -21,19 +21,13 @@ jobs:
         with:
           node-version: 15.x
 
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
       - name: Install npm dependencies
         working-directory: ./biosimulations
         run: npm ci
 
       - name: Build dev app
         working-directory: ./biosimulations
-        run: mkdir dist && npm run nx build --prod ${{matrix.app}} && ls && ls dist
+        run: npm run nx build --prod ${{matrix.app}} && ls && ls dist
 
       - name: Upload build
         uses: actions/upload-artifact@v2
