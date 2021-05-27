@@ -37,15 +37,6 @@ jobs:
         working-directory: ./biosimulations
         run: npm ci
 
-      - name: Cache Angular and NX dependencies
-        uses: actions/cache@v2
-        with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
-          restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx-
-
       - id: get-all-apps
         name: Get the list of apps
         working-directory: ./biosimulations
@@ -82,10 +73,6 @@ jobs:
         with:
           node-version: 15.x
 
-      - name: Install Nrwl CLI
-        working-directory: ./biosimulations
-        run: npm install -g @nrwl/cli
-
       - name: Cache npm dependencies
         uses: actions/cache@v2
         with:
@@ -94,19 +81,10 @@ jobs:
 
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
       - name: Install npm dependencies
         working-directory: ./biosimulations
         run: npm ci
-
-      - name: Cache Angular and NX dependencies
-        uses: actions/cache@v2
-        with:
-          path: biosimulations/node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
-          restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx-
 
       - name: Build dev app
         working-directory: ./biosimulations
@@ -117,6 +95,7 @@ jobs:
         with:
           name: ${{matrix.app}}-dev
           path: biosimulations/dist/apps/${{matrix.app}}
+          if-no-files-found: error
           retention-days: 5
 
   buildProdFrontEnds:
