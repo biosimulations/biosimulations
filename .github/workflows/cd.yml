@@ -74,30 +74,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2.1.5
+      - name: Build frontends
+        uses: ./biosimulations/tools/build-action/
         with:
-          node-version: 14.x
-
-      - name: Install Nrwl CLI
-        working-directory: ./biosimulations
-        run: npm install -g @nrwl/cli
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install dependencies
-        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
-      - name: Install npm dependencies
-        working-directory: ./biosimulations
-        run: npm ci
-
-      - name: Build dev app
-        working-directory: ./biosimulations
-        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && npm run nx build --prod ${{matrix.app}} && ls && ls dist
+          env: "stage"
+          app: ${{matrix.app}
 
       - name: Upload build
         uses: actions/upload-artifact@v2
@@ -120,41 +101,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2.1.5
+      - name: Build frontends
+        uses: ./biosimulations/tools/build-action/
         with:
-          node-version: 14.x
+          env: "prod"
+          app: ${{matrix.app}
 
-      - name: Install Nrwl CLI
-        working-directory: ./biosimulations
-        run: npm install -g @nrwl/cli
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
+      - name: Upload build
+        uses: actions/upload-artifact@v2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-node-
-      - name: Install dependencies
-        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
-      - name: Install npm dependencies
-        working-directory: ./biosimulations
-        run: npm ci
-
-      - name: Cache Angular and NX dependencies
-        uses: actions/cache@v2
-        with:
-          path: biosimulations/node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
-          restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx-
-      - name: Build prod app
-        working-directory: ./biosimulations
-        run: nx build --prod ${{matrix.app}}
+          name: ${{matrix.app}}-dev
+          path: biosimulations/dist/apps/${{matrix.app}}
+          retention-days: 5
+          if-no-files-found: error
 
       - name: Upload build
 
