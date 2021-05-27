@@ -25,6 +25,12 @@ jobs:
         working-directory: ./biosimulations
         run: npm ci
 
+      - name: Print Node versions
+        run: |
+          npm -v 
+          node -v
+          npm run nx -v
+
       - name: Build dev app
         working-directory: ./biosimulations
         run: npm run nx --verbose build --prod ${{matrix.app}} && ls && ls dist
