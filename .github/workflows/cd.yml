@@ -66,6 +66,7 @@ jobs:
 
     needs: [listApps]
     strategy:
+      fail-fast: false
       matrix:
         app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
 
@@ -105,7 +106,7 @@ jobs:
             ${{ runner.os }}-nx-
       - name: Build dev app
         working-directory: ./biosimulations
-        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && npm run nx build --prod ${{matrix.app}}
+        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && npm run nx build --prod ${{matrix.app}} && ls && ls dist
 
       - name: Upload build
         uses: actions/upload-artifact@v2
