@@ -17,5 +17,5 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.app }}
-    - ${{ inputs.env }}
+    - --build-arg app=${{ inputs.app }}
+    - --build-arg env=${{ inputs.env }}
