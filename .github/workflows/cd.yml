@@ -1,7 +1,7 @@
 name: Continuous Deployment
 on:
   push:
-    branches: [dev]
+    branches: [dev, debugci]
 jobs:
   listApps:
     name: Get a list of all apps
