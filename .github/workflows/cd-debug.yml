@@ -1,0 +1,44 @@
+name: Continuous Deployment
+on:
+  push:
+    branches: [debug]
+jobs:
+  buildDevFrontEnds:
+    name: Build development front end apps
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        app: ["simulators", "account", "platform", "dispatch"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 15.x
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install npm dependencies
+        working-directory: ./biosimulations
+        run: npm ci
+
+      - name: Build dev app
+        working-directory: ./biosimulations
+        run: mkdir dist && npm run nx build --prod ${{matrix.app}} && ls && ls dist
+
+      - name: Upload build
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{matrix.app}}-dev
+          path: biosimulations/dist/apps/${{matrix.app}}
+          retention-days: 5
+          if-no-files-found: error
