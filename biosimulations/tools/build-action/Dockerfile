@@ -20,7 +20,7 @@ ENV PATH ./node_modules/.bin:$PATH
 # install nrwl cli
 RUN npm install -g @nrwl/cli
 
-COPY entrypoint.sh /entrypoint.sh
+COPY biosimulations/tools/build-action/entrypoint.sh /entrypoint.sh
 
 COPY  biosimulations/tsconfig.base.json /tsconfig.base.json
 COPY  biosimulations/package.json /package.json
