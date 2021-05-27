@@ -70,6 +70,7 @@ jobs:
 
     needs: [listApps]
     strategy:
+      fail-fast: false
       matrix:
         app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
 
@@ -133,6 +134,7 @@ jobs:
 
     needs: [listApps]
     strategy:
+      fail-fast: false
       matrix:
         app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
 
