@@ -10,17 +10,17 @@ jobs:
       apps: ${{steps.get-all-apps.outputs.apps}}
       frontendApps: ${{steps.get-all-apps.outputs.frontendApps}}
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      # - name: Checkout Repository
+      #   uses: actions/checkout@v2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2.1.5
-        with:
-          node-version: 15.x
+      # - name: Install Node.js
+      #   uses: actions/setup-node@v2.1.5
+      #   with:
+      #     node-version: 15.x
 
-      - name: Install Nrwl CLI
-        working-directory: ./biosimulations
-        run: npm install -g @nrwl/cli
+      # - name: Install Nrwl CLI
+      #   working-directory: ./biosimulations
+      #   run: npm install -g @nrwl/cli
 
       #- name: Cache npm dependencies
       #  uses: actions/cache@v2
@@ -31,11 +31,11 @@ jobs:
       #   ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       #   ${{ runner.os }}-node-
 
-      - name: Install dependencies
-        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
-      - name: Install npm dependencies
-        working-directory: ./biosimulations
-        run: npm ci
+      # - name: Install dependencies
+      #   run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      # - name: Install npm dependencies
+      #   working-directory: ./biosimulations
+      #   run: npm ci
 
       # - name: Cache Angular and NX dependencies
       #   uses: actions/cache@v2
@@ -50,15 +50,15 @@ jobs:
         name: Get the list of apps
         working-directory: ./biosimulations
         run: |
-          mapfile -d " " -t appsArr < <(nx affected:apps --plain --all | sed  's/simulators[^-]//; s/account[^-]\|account$//; s/dispatch[^-]//;  s/platform[^-]//' | sed 's/ $//')
-           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
+          # mapfile -d " " -t appsArr < <(nx affected:apps --plain --all | sed  's/simulators[^-]//; s/account[^-]\|account$//; s/dispatch[^-]//;  s/platform[^-]//' | sed 's/ $//')
+          #  appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
 
-           if [ -z "${appsArr[0]}" ]; then
-             unset appsArr[-1]
-             appsJson=[]
-           else
-             appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
-           fi
+          #  if [ -z "${appsArr[0]}" ]; then
+          #    unset appsArr[-1]
+          #    appsJson=[]
+          #  else
+          #    appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
+          #  fi
            frontendAppsArr=('account' 'platform' 'simulators' 'dispatch')
            frontendAppsJson=$(printf '"%s"\n' "${frontendAppsArr[@]}" | jq  . | jq -s . | tr -d '\n')
            echo "::set-output name=apps::$appsJson"
