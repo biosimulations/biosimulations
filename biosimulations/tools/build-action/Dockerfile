@@ -9,7 +9,8 @@ ARG env
 ENV APP=$app
 ENV ENVNAME=$env
 RUN echo building ${APP}
-
+RUN pwd
+RUN ls
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH ./node_modules/.bin:$PATH
@@ -34,8 +35,7 @@ RUN apk add --update --no-cache \
 RUN ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
 RUN pip3 install --no-cache --no-cache-dir  --upgrade pip setuptools
-RUN pwd
-RUN ls
+
 
 # install the app, including the dev dependencies
 RUN npm ci
