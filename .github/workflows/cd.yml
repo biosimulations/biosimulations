@@ -118,7 +118,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{matrix.app}}-dev
-          path: biosimulations/dist/apps/${{matrix.app}}
+          path: biosimulations/dist/apps/${{matrix.app}}/
           retention-days: 5
           if-no-files-found: error
 
@@ -178,7 +178,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{matrix.app}}-prod
-          path: biosimulations/dist/apps/${{matrix.app}}
+          path: biosimulations/dist/apps/${{matrix.app}}/
           retention-days: 5
           if-no-files-found: error
 
