@@ -1,0 +1,37 @@
+[{
+        "id": "format_9000",
+        "name": "VCML",
+        "description": "Virtual Cell Markup Language",
+        "namespace": "EDAM",
+        "iri": "",
+        "url": "https://vcell.org",
+        "moreInfoUrl": "https://vcell.org"
+    },
+    {
+        "id": "format_9001",
+        "name": "Smoldyn",
+        "description": "Smoldyn simulation configuration language",
+        "namespace": "EDAM",
+        "iri": "",
+        "url": "http://www.smoldyn.org/",
+        "moreInfoUrl": "http://www.smoldyn.org/"
+    },
+    {
+        "id": "format_9002",
+        "name": "MorpheusML",
+        "description": "Morpheus Markup Language",
+        "namespace": "EDAM",
+        "iri": "",
+        "url": "https://morpheus.gitlab.io/courses/getting-started/behind-the-scenes/",
+        "moreInfoUrl": "https://morpheus.gitlab.io/courses/getting-started/behind-the-scenes/"
+    },
+    {
+        "id": "format_9003",
+        "name": "CopasiML",
+        "description": "COPASI Markup Language",
+        "namespace": "EDAM",
+        "iri": "",
+        "url": "http://copasi.org/Support/Technical_Documentation/File_Format/",
+        "moreInfoUrl": "http://copasi.org/Support/Technical_Documentation/File_Format/"
+    }
+]
