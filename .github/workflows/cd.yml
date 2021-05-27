@@ -85,13 +85,11 @@ jobs:
 
         run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && npm run nx build --prod ${{matrix.app}}
 
-
       - name: Upload build
         uses: actions/upload-artifact@v2
         with:
           name: ${{matrix.app}}-dev
           path: biosimulations/dist/apps/${{matrix.app}}
-          if-no-files-found: error
           retention-days: 5
           if-no-files-found: error
 
@@ -137,7 +135,6 @@ jobs:
       #       ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
       #       ${{ runner.os }}-nx-
 
-
       - name: Build prod app
         working-directory: ./biosimulations
         run: npm run nx build --prod ${{matrix.app}}
@@ -146,7 +143,6 @@ jobs:
 
         uses: actions/upload-artifact@v2
         with:
-          if-no-files-found: error
           name: ${{matrix.app}}-prod
           path: biosimulations/dist/apps/${{matrix.app}}
           retention-days: 5
