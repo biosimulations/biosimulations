@@ -30,7 +30,9 @@ jobs:
       # restore-keys: |
       #   ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       #   ${{ runner.os }}-node-
-
+      - name: Debug file creation
+        working-directory: ./biosimulations
+        run: mkdir dist && mkdir dist/apps && echo "hello" > dist/apps/testfile && cd dist && cd apps && cat testfile
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Install npm dependencies
