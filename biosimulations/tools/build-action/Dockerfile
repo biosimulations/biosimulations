@@ -13,6 +13,9 @@ RUN echo env is $env
 RUN pwd
 RUN echo $GITHUB_WORKSPACE 
 RUN ls
+RUN ls home
+RUN ls home/runner
+RUN ls home/runner/work
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH ./node_modules/.bin:$PATH
