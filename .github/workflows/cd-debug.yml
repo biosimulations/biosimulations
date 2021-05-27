@@ -33,7 +33,7 @@ jobs:
 
       - name: Build dev app
         working-directory: ./biosimulations
-        run: npm run nx --verbose build --prod ${{matrix.app}} && ls && ls dist
+        run: npm run nx --verbose build ${{matrix.app}} && ls && ls dist
 
       - name: Upload build
         uses: actions/upload-artifact@v2
