@@ -83,7 +83,7 @@
   }
 }
 
-::ng-deep .mat-accordion {
+.controls-container ::ng-deep .mat-accordion {
   .mat-expansion-panel {
     border-left: 1px solid $light-bg-darker-10;
     border-right: 1px solid $light-bg-darker-10;

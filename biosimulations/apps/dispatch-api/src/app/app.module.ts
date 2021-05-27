@@ -15,6 +15,8 @@ import {
 import { ImagesModule } from '../images/images.module';
 import { LogsModule } from '../logs/logs.module';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
+import { BullModule } from '@nestjs/bull';
+
 @Module({
   imports: [
     BiosimulationsConfigModule,
@@ -28,6 +30,16 @@ import { SharedStorageModule } from '@biosimulations/shared/storage';
         uri: configService.get('database.uri') || '',
         useNewUrlParser: true,
         useUnifiedTopology: true,
+      }),
+      inject: [ConfigService],
+    }),
+    BullModule.forRootAsync({
+      imports: [BiosimulationsConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        redis: {
+          host: configService.get('queue.host'),
+          port: configService.get('queue.port'),
+        },
       }),
       inject: [ConfigService],
     }),

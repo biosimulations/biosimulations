@@ -16,7 +16,7 @@ export class ArchiverService {
     private service: SimulationRunService,
   ) {}
 
-  public async createResultArchive(id: string): Promise<void> {
+  public async updateResultsSize(id: string): Promise<void> {
     const path = this.fileService.getSSHResultsDirectory(id);
     const archive = `${path}/${id}.zip`;
     const command = `du -b ${archive} | cut -f1`;

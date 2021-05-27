@@ -308,7 +308,7 @@
                   <p>
                     <ng-template ngFor let-fragment [ngForOf]="description">
                       <span
-                        *ngIf="fragment.type == 'text'; else descriptionLink"
+                        *ngIf="fragment.type === 'text'; else descriptionLink"
                       >
                         {{ fragment.value }}
                       </span>
@@ -510,7 +510,7 @@
                   <p
                     class="info-message"
                     *ngIf="
-                      algorithm.parameters == null;
+                      algorithm.parameters === null;
                       else zeroParametersMessage
                     "
                   >

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -15,6 +15,7 @@ import {
 import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Params } from '@angular/router';
 import isUrl from 'is-url';
 
 enum SubmitMethod {
@@ -27,7 +28,7 @@ enum SubmitMethod {
   templateUrl: './validate-simulation-project.component.html',
   styleUrls: ['./validate-simulation-project.component.scss'],
 })
-export class ValidateSimulationProjectComponent implements OnDestroy {
+export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
   submitMethod: SubmitMethod = SubmitMethod.file;
   formGroup: FormGroup;
   submitMethodControl: FormControl;
@@ -49,6 +50,7 @@ export class ValidateSimulationProjectComponent implements OnDestroy {
     private config: ConfigService,
     private formBuilder: FormBuilder,
     private combineService: CombineService,
+    private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
   ) {
     this.formGroup = this.formBuilder.group(
@@ -87,6 +89,21 @@ export class ValidateSimulationProjectComponent implements OnDestroy {
       '/' +
       this.config.appConfig.exampleCombineArchives.repoPath +
       this.config.appConfig.exampleCombineArchives.examplePath;
+  }
+
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe((params: Params): void => {
+      const archiveUrl = params?.archiveUrl;
+      if (archiveUrl) {
+        const submitMethodControl = this.formGroup.controls
+          .submitMethod as FormControl;
+        const projectUrlControl = this.formGroup.controls
+          .projectUrl as FormControl;
+        submitMethodControl.setValue(SubmitMethod.url);
+        projectUrlControl.setValue(archiveUrl);
+        this.changeSubmitMethod();
+      }
+    });
   }
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {

@@ -69,7 +69,7 @@ export class TabPageComponent implements AfterViewInit, AfterViewChecked {
     this.matTabGroup._tabs.notifyOnChanges();
 
     combineLatest(this.route.paramMap, this.route.fragment).subscribe(
-      ([paramMap, fragment]: [ParamMap, string]): void => {
+      ([paramMap, fragment]: [ParamMap, string | null]): void => {
         let selectedTabIndex = 0;
         if (fragment) {
           const params = new URLSearchParams(fragment);

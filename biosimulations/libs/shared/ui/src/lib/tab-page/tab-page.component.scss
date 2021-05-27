@@ -1,6 +1,6 @@
 @import 'biosimulations-colors';
 
-::ng-deep mat-tab-group {
+.container ::ng-deep mat-tab-group {
   .mat-tab-header {
     background: $theme-primary-lightest;
     border-bottom: none;

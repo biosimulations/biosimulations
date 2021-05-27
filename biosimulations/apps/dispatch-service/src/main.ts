@@ -22,8 +22,11 @@ async function bootstrap() {
       reconnect: true,
     },
   };
+
   app.connectMicroservice(natsConfig);
   await app.startAllMicroservicesAsync();
+
+  app.listen('3334');
 }
 
 bootstrap();

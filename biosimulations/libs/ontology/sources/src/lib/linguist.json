@@ -9893,6 +9893,25 @@
     "searchable": "true"
   },
   {
+    "type": "data",
+    "color": "#df66e4",
+    "aliases": [
+      "tm-properties",
+      "textmate properties"
+    ],
+    "filenames": [
+      ".tm_properties"
+    ],
+    "aceMode": "properties",
+    "codemirrorMode": "properties",
+    "codemirrorMimeType": "text/x-properties",
+    "tmScope": "source.tm-properties",
+    "languageId": 981795023,
+    "name": "TextMate Properties",
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
     "type": "prose",
     "aceMode": "textile",
     "codemirrorMode": "textile",

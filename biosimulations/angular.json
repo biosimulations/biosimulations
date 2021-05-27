@@ -20,7 +20,6 @@
             "main": "apps/account/src/main.ts",
             "polyfills": "apps/account/src/polyfills.ts",
             "tsConfig": "apps/account/tsconfig.app.json",
-            "aot": true,
             "assets": [
               {
                 "glob": "favicon.svg",
@@ -55,7 +54,13 @@
                 "libs/shared/styles/src/lib",
                 "libs/shared/styles/src/lib/biosimulations"
               ]
-            }
+            },
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -67,8 +72,6 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -393,7 +396,6 @@
             "main": "apps/dispatch/src/main.ts",
             "polyfills": "apps/dispatch/src/polyfills.ts",
             "tsConfig": "apps/dispatch/tsconfig.app.json",
-            "aot": true,
             "assets": [
               {
                 "glob": "favicon.svg",
@@ -432,7 +434,13 @@
                 "libs/shared/styles/src/lib",
                 "libs/shared/styles/src/lib/biosimulations"
               ]
-            }
+            },
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -444,8 +452,6 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -879,7 +885,6 @@
             "main": "apps/platform/src/main.ts",
             "polyfills": "apps/platform/src/polyfills.ts",
             "tsConfig": "apps/platform/tsconfig.app.json",
-            "aot": true,
             "assets": [
               {
                 "glob": "favicon.svg",
@@ -917,7 +922,13 @@
                 "libs/shared/styles/src/lib",
                 "libs/shared/styles/src/lib/biosimulations"
               ]
-            }
+            },
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -929,8 +940,6 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -1057,7 +1066,6 @@
             "main": "apps/simulators/src/main.ts",
             "polyfills": "apps/simulators/src/polyfills.ts",
             "tsConfig": "apps/simulators/tsconfig.app.json",
-            "aot": true,
             "assets": [
               {
                 "glob": "favicon.svg",
@@ -1095,7 +1103,13 @@
                 "libs/shared/styles/src/lib",
                 "libs/shared/styles/src/lib/biosimulators"
               ]
-            }
+            },
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -1107,10 +1121,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": true,
               "extractLicenses": true,
-              "vendorChunk": true,
               "buildOptimizer": true,
               "serviceWorker": true,
               "budgets": [
@@ -1868,6 +1879,27 @@
           "outputs": ["coverage/libs/datamodel/utils"],
           "options": {
             "jestConfig": "libs/datamodel/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "hsds-client": {
+      "root": "libs/hsds/client",
+      "sourceRoot": "libs/hsds/client/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/hsds/client/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/hsds/client"],
+          "options": {
+            "jestConfig": "libs/hsds/client/jest.config.js",
             "passWithNoTests": true
           }
         }

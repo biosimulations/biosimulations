@@ -1,9 +1,14 @@
 {
   "npmScope": "biosimulations",
-  "affected": { "defaultBase": "dev" },
+  "affected": {
+    "defaultBase": "dev"
+  },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "Pipfile": ["combine-service"],
     "Pipfile.lock": ["combine-service"],
     "tsconfig.base.json": "*",
@@ -12,12 +17,9 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "accessToken": "NzI5NWRhNWYtZWM4OC00YjhjLWFmNzMtZTIyMTc3YjhkZmJkfHJlYWQtd3JpdGU=",
-        "cacheableOperations": ["build", "test", "lint", "e2e"],
-        "canTrackAnalytics": false,
-        "showUsageWarnings": true
+        "cacheableOperations": ["lint", "test", "e2e"]
       }
     }
   },
@@ -26,8 +28,13 @@
       "tags": ["scope:account", "platform:web", "type:frontend"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "account-e2e": { "tags": [], "implicitDependencies": ["account"] },
-    "shared-assets": { "tags": ["scope:shared", "type:assets"] },
+    "account-e2e": {
+      "tags": [],
+      "implicitDependencies": ["account"]
+    },
+    "shared-assets": {
+      "tags": ["scope:shared", "type:assets"]
+    },
     "shared-content": {
       "tags": ["scope:shared", "type:ui", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
@@ -43,13 +50,20 @@
       "tags": ["scope:shared", "type:ui", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "shared-icons": { "tags": ["scope:shared", "type:ui", "platform:web"] },
-    "shared-debug": { "tags": ["scope:shared", "type:ui", "platform:web"] },
+    "shared-icons": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
+    "shared-debug": {
+      "tags": ["scope:shared", "type:ui", "platform:web"]
+    },
     "dispatch": {
       "tags": ["scope:dispatch", "type:frontend", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "dispatch-e2e": { "tags": [], "implicitDependencies": ["dispatch"] },
+    "dispatch-e2e": {
+      "tags": [],
+      "implicitDependencies": ["dispatch"]
+    },
     "account-api": {
       "tags": ["scope:account", "platform:server", "type:api"],
       "implicitDependencies": []
@@ -93,13 +107,21 @@
       "tags": ["scope:platform", "type:frontend", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "platform-e2e": { "tags": [], "implicitDependencies": ["platform"] },
-    "platform-view": { "tags": ["scope:platform", "type:ui", "platform:web"] },
+    "platform-e2e": {
+      "tags": [],
+      "implicitDependencies": ["platform"]
+    },
+    "platform-view": {
+      "tags": ["scope:platform", "type:ui", "platform:web"]
+    },
     "simulators": {
       "tags": ["scope:simulators", "type:frontend", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "simulators-e2e": { "tags": [], "implicitDependencies": ["simulators"] },
+    "simulators-e2e": {
+      "tags": [],
+      "implicitDependencies": ["simulators"]
+    },
     "simulators-api": {
       "tags": ["scope:simulators", "type:api", "platform:server"]
     },
@@ -188,16 +210,23 @@
     "account-management": {
       "tags": ["scope:account", "type:util", "platform:server"]
     },
-    "shared-pwa": { "tags": ["scope:shared", "type:util", "platform:web"] },
+    "shared-pwa": {
+      "tags": ["scope:shared", "type:util", "platform:web"]
+    },
     "shared-storage": {
       "tags": ["scope:files", "type:util", "platform:server", "shared:true"]
     },
     "shared-error-handler": {
       "tags": ["scope:shared", "platform:web", "type:UI"]
     },
-    "combine-service": { "tags": [] },
+    "combine-service": {
+      "tags": []
+    },
     "datamodel-utils": {
       "tags": ["scope:shared", "type:util", "platform:any"]
+    },
+    "hsds-client": {
+      "tags": ["scope:data", "shared:true", "platform:server", "type:client"]
     }
   }
 }

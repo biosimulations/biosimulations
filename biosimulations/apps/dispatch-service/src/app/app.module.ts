@@ -7,11 +7,7 @@ import { SshService } from './services/ssh/ssh.service';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ArchiverService } from './results/archiver.service';
-import { SubmissionController } from './submission/submission.controller';
 
-import { SubmissionService } from './submission/submission.service';
-
-import { ResultsController } from './results/results.controller';
 import { ResultsService } from './results/results.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { AuthClientModule } from '@biosimulations/auth/client';
@@ -19,6 +15,14 @@ import { DispatchNestClientModule } from '@biosimulations/dispatch/nest-client';
 import { ImagesModule } from '../images/images.module';
 import { FileService } from './results/file.service';
 import { LogService } from './results/log.service';
+
+import { ConfigService } from '@nestjs/config';
+import { DispatchProcessor } from './submission/dispatch.proccessor';
+import { FailProcessor } from './submission/fail.processor';
+import { CompleteProccessor } from './submission/complete.proccessor';
+import { MonitorProcessor } from './submission/monitor.processor';
+import { SimulationStatusService } from './services/simulationStatus.service';
+
 @Module({
   imports: [
     HttpModule,
@@ -28,26 +32,50 @@ import { LogService } from './results/log.service';
     SharedNatsClientModule,
     DispatchNestClientModule,
     ScheduleModule.forRoot(),
-    BullModule.forRoot({
-      redis: {
-        host: 'localhost',
-        port: 6379,
-      },
+    BullModule.forRootAsync({
+      imports: [BiosimulationsConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        redis: {
+          host: configService.get('queue.host'),
+          port: configService.get('queue.port'),
+        },
+      }),
+      inject: [ConfigService],
+    }),
+    // Need to provide hash keys to allow use on cluster.
+    //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
+    BullModule.registerQueue({
+      name: 'dispatch',
+      prefix: '{dispatch}',
     }),
     BullModule.registerQueue({
-      name: 'jobmonitor',
+      name: 'monitor',
+      prefix: '{monitor}',
+    }),
+    BullModule.registerQueue({
+      name: 'complete',
+      prefix: '{complete}',
+    }),
+
+    BullModule.registerQueue({
+      name: 'fail',
+      prefix: '{fail}',
     }),
   ],
-  controllers: [SubmissionController, ResultsController],
+  controllers: [],
   providers: [
     HpcService,
     SbatchService,
     SshService,
     ArchiverService,
-    SubmissionService,
     ResultsService,
     FileService,
     LogService,
+    DispatchProcessor,
+    FailProcessor,
+    CompleteProccessor,
+    MonitorProcessor,
+    SimulationStatusService,
   ],
 })
 export class AppModule {}

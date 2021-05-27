@@ -30,7 +30,7 @@ export class SimulationRun {
   @ApiProperty({
     type: String,
     description: 'The name of a BioSimulators compliant simulator',
-    example: 'vcell',
+    example: 'tellurium',
     externalDocs: {
       url: 'https://biosimulators.org/simulators',
       description: 'Simulators List',
@@ -38,7 +38,7 @@ export class SimulationRun {
   })
   simulator!: string;
 
-  @ApiProperty({ type: String })
+  @ApiProperty({ type: String, example: '2.2.0' })
   simulatorVersion!: string;
 
   // The optional properities cannot contain the '!' assertion since they are not garunteed!! Must be set in the constructor
@@ -141,7 +141,13 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
 ]) {}
 
 export class UploadSimulationRunUrl extends UploadSimulationRun {
-  @ApiProperty({ type: String, format: 'url' })
+  @ApiProperty({
+    type: String,
+    format: 'url',
+    example:
+      // eslint-disable-next-line max-len
+      'https://github.com/biosimulators/Biosimulators_test_suite/raw/dev/examples/sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex',
+  })
   url!: string;
 }
 

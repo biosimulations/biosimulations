@@ -32,9 +32,9 @@ jobs:
           fi
 
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.1.5
         with:
-          node-version: "15.x"
+          node-version: "14.x"
 
       - name: Install Python
         uses: actions/setup-python@v2
@@ -60,6 +60,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-node-
+            
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Install npm dependencies
@@ -74,6 +75,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
+            
+      - name: Compile Angular Dependencies
+        working-directory: ./biosimulations
+        run: npm run compile
 
       - id: get-affected-libs-apps
         name: Determine affected libraries and apps
@@ -149,9 +154,9 @@ jobs:
         run: python -m pip install pipenv flake8
 
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.1.5
         with:
-          node-version: "15.x"
+          node-version: "14.x"
 
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
@@ -232,9 +237,9 @@ jobs:
         run: pipenv install --dev
 
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.1.5
         with:
-          node-version: "15.x"
+          node-version: "14.x"
 
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
@@ -308,9 +313,9 @@ jobs:
         run: pipenv install --dev
 
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.1.5
         with:
-          node-version: "15.x"
+          node-version: "14.x"
 
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
@@ -352,7 +357,7 @@ jobs:
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
         if: matrix.libOrApp != 'combine-service'
-        run: nx run ${{ matrix.libOrApp }}:test --code-coverage --codeCoverage
+        run: nx run ${{ matrix.libOrApp }}:test --coverage
 
       - name: Test library or app (Python)
         working-directory: ./biosimulations
@@ -367,7 +372,7 @@ jobs:
                 apps/${{ matrix.libOrApp }}/tests/
 
       - name: Upload coverage data to Codecov
-        uses: codecov/codecov-action@v1.0.3
+        uses: codecov/codecov-action@v1.5.0
         with:
           token: ${{secrets.CODECOV_TOKEN}}
 
