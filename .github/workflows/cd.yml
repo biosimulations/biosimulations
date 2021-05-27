@@ -22,37 +22,34 @@ jobs:
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
 
-      #- name: Cache npm dependencies
-      #  uses: actions/cache@v2
-      #  with:
-      # path: ~/.npm
-      # key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      # restore-keys: |
-      #   ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      #   ${{ runner.os }}-node-
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - name: Install npm dependencies
+        working-directory: ./biosimulations
+        run: npm ci
 
-      # - name: Install dependencies
-      #   run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
-      # - name: Install npm dependencies
-      #   working-directory: ./biosimulations
-      #   run: npm ci
-
-      # - name: Cache Angular and NX dependencies
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: node_modules/.cache
-      #     key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
-      #     restore-keys: |
-      #       ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-      #       ${{ runner.os }}-nx-
-
+      - name: Cache Angular and NX dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
+          restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx-
       - id: get-all-apps
         name: Get the list of apps
         working-directory: ./biosimulations
         run: |
           mapfile -d " " -t appsArr < <(nx affected:apps --plain --all | sed  's/simulators[^-]//; s/account[^-]\|account$//; s/dispatch[^-]//;  s/platform[^-]//' | sed 's/ $//')
            appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
-
            if [ -z "${appsArr[0]}" ]; then
              unset appsArr[-1]
              appsJson=[]
@@ -63,14 +60,12 @@ jobs:
            frontendAppsJson=$(printf '"%s"\n' "${frontendAppsArr[@]}" | jq  . | jq -s . | tr -d '\n')
            echo "::set-output name=apps::$appsJson"
            echo "::set-output name=frontendApps::$frontendAppsJson"
-
   buildDevFrontEnds:
     name: Build development front end apps
     runs-on: ubuntu-latest
 
     needs: [listApps]
     strategy:
-      fail-fast: false
       matrix:
         app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
 
@@ -87,11 +82,11 @@ jobs:
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
 
-      # - name: Cache npm dependencies
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
@@ -99,24 +94,19 @@ jobs:
         working-directory: ./biosimulations
         run: npm ci
 
-      # - name: Cache Angular and NX dependencies
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: biosimulations/node_modules/.cache
-      #     key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
-      #     restore-keys: |
-      #       ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
-      #       ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-      #       ${{ runner.os }}-nx-
-
+      - name: Cache Angular and NX dependencies
+        uses: actions/cache@v2
+        with:
+          path: biosimulations/node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
+          restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx-
       - name: Build dev app
         working-directory: ./biosimulations
-        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && mkdir dist &&mkdir testdist && npm run nx build --prod ${{matrix.app}} --outputPath=testdist && ls && ls dist && ls testdist
-      - name: Debug
-        run: pwd; ls; cd biosimulations; pwd; ls;
-      - name: Debug 2
-        working-directory: ./biosimulations
-        run: pwd; ls; cd dist; ls; cd apps; ls; cd ${{matrix.app}}; ls
+        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && npm run nx build --prod ${{matrix.app}}
+
       - name: Upload build
         uses: actions/upload-artifact@v2
         with:
@@ -131,7 +121,6 @@ jobs:
 
     needs: [listApps]
     strategy:
-      fail-fast: false
       matrix:
         app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
 
@@ -142,37 +131,35 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 14.x
+          node-version: 15.x
 
       - name: Install Nrwl CLI
         working-directory: ./biosimulations
         run: npm install -g @nrwl/cli
 
-      # - name: Cache npm dependencies
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      #       ${{ runner.os }}-node-
-
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-node-
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Install npm dependencies
         working-directory: ./biosimulations
         run: npm ci
 
-      # - name: Cache Angular and NX dependencies
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: biosimulations/node_modules/.cache
-      #     key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
-      #     restore-keys: |
-      #       ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
-      #       ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-      #       ${{ runner.os }}-nx-
-
+      - name: Cache Angular and NX dependencies
+        uses: actions/cache@v2
+        with:
+          path: biosimulations/node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
+          restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx-
       - name: Build prod app
         working-directory: ./biosimulations
         run: nx build --prod ${{matrix.app}}
@@ -238,7 +225,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 14.x
+          node-version: 15.x
 
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
@@ -256,7 +243,6 @@ jobs:
           export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
           export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
           netlify deploy --prod
-
   deployProdFrontend:
     name: Publish the production frontend
     runs-on: ubuntu-latest
@@ -269,7 +255,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 14.x
+          node-version: 15.x
 
       - name: Download Build for app
         uses: actions/download-artifact@v2
@@ -284,7 +270,6 @@ jobs:
           export NETLIFY_SITE_ID=${{secrets[env.idKey]}}
           export NETLIFY_AUTH_TOKEN=${{secrets.NETLIFY_AUTH_TOKEN}}
           netlify deploy --prod
-
   triggerDevDeployment:
     name: Trigger a new deployment of the dev backend
     runs-on: ubuntu-latest
@@ -302,7 +287,6 @@ jobs:
         run: |
           echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/Biosimulations-Deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
-
   triggerProdDeployment:
     name: Trigger a new deployment of the production backend
     runs-on: ubuntu-latest
