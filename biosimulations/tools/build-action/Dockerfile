@@ -8,8 +8,10 @@ ARG app
 ARG env
 ENV APP=$app
 ENV ENVNAME=$env
-RUN echo building ${APP}
+RUN echo building ${app}
+RUN echo env is $env
 RUN pwd
+run echo $GITHUB_WORKSPACE 
 RUN ls
 
 # add `/app/node_modules/.bin` to $PATH
@@ -18,10 +20,10 @@ ENV PATH ./node_modules/.bin:$PATH
 # install nrwl cli
 RUN npm install -g @nrwl/cli
 
-COPY biosimulations/tsconfig.base.json /app/tsconfig.base.json
-COPY biosimulations/package.json /app/package.json
-COPY biosimulations/package-lock.json /app/package-lock.json
-COPY biosimulations/declarations.d.ts /app/declarations.d.ts
+COPY biosimulations/tsconfig.base.json /tsconfig.base.json
+COPY biosimulations/package.json /package.json
+COPY biosimulations/package-lock.json /package-lock.json
+COPY biosimulations/declarations.d.ts /declarations.d.ts
 
 # install dependencies needed to compile canvas (needed for Vega-embed)
 ENV PYTHONUNBUFFERED=1
@@ -40,11 +42,11 @@ RUN pip3 install --no-cache --no-cache-dir  --upgrade pip setuptools
 # install the app, including the dev dependencies
 RUN npm ci
 
-COPY biosimulations/nx.json  /app/nx.json	
-COPY biosimulations/angular.json /app/angular.json
+COPY biosimulations/nx.json  /nx.json	
+COPY biosimulations/angular.json /angular.json
 #copy source
-COPY biosimulations/libs /app/libs
-COPY biosimulations/apps /app/apps
+COPY biosimulations/libs /libs
+COPY biosimulations/apps /apps
 
 # generate build
 COPY entrypoint.sh /entrypoint.sh
