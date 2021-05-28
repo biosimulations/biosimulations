@@ -1,7 +1,7 @@
 #############
 ### base ###
 #############
-FROM python:3.7-buster as base
+FROM python:3.9.5-buster as base
 
 #The name of the app to build
 ARG app
