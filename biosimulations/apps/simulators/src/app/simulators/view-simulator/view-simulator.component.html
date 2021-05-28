@@ -621,12 +621,12 @@
                   </p>
                 </ng-template>
 
+                <p class="subsection-heading no-bottom-margin">
+                  Dependencies
+                </p>
                 <ng-container
                   *ngIf="algorithm.dependencies; else unknownDependencies"
-                >
-                  <p class="subsection-heading no-bottom-margin">
-                    Dependencies
-                  </p>
+                >                  
                   <ul
                     *ngIf="
                       algorithm.dependencies.length > 0;
