@@ -84,7 +84,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.9",
     "@angular-eslint/eslint-plugin": "2.0.2",
-    "@angular-eslint/eslint-plugin-template": "2.0.2",
+    "@angular-eslint/eslint-plugin-template": "4.3.0",
     "@angular-eslint/template-parser": "2.0.2",
     "@angular-material-components/file-input": "^5.0.0",
     "@angular/animations": "^11.2.10",
