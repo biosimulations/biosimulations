@@ -11,7 +11,7 @@ jobs:
     if: github.actor == 'biosimulations-daemon'
     runs-on: ubuntu-latest
     steps:
-      - uses: hmarr/auto-approve-action@v2.0.0
+      - uses: hmarr/auto-approve-action@v2.1.0
         with:
           github-token: "${{secrets.GITHUB_TOKEN }}"
         
