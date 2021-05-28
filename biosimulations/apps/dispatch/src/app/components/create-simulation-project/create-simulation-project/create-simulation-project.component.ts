@@ -841,8 +841,16 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         });
       }
       if (
-        ['format_2585', 'format_3972', 'format_9000', 'format_9001'].includes(formatEdamId) &&
-        ['SBO_0000293', 'SBO_0000295', 'SBO_0000292', 'SBO_0000294', 'SBO_0000547'].includes(frameworkSboId)
+        ['format_2585', 'format_3972', 'format_9000', 'format_9001'].includes(
+          formatEdamId,
+        ) &&
+        [
+          'SBO_0000293',
+          'SBO_0000295',
+          'SBO_0000292',
+          'SBO_0000294',
+          'SBO_0000547',
+        ].includes(frameworkSboId)
       ) {
         simulationTypeIds.add(SimulationType.SedUniformTimeCourseSimulation);
         simulationTypes.push({
