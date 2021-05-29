@@ -1,2 +1,12 @@
 #!/usr/bin/env bash
-java -jar openapi-generator-cli.jar generate -g typescript-nestjs -i https://raw.githubusercontent.com/biosimulations/data-service-api/master/openapi.yaml -o ../libs/hsds/client/src/lib/
+
+# location of this script
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+java -jar ${script_dir}/openapi-generator-cli.jar generate -g typescript-nestjs -i https://raw.githubusercontent.com/biosimulations/data-service-api/master/openapi.yaml -o ${script_dir}/../libs/hdf5/api-client/src/lib/
+
+# Correct a bug in the generation code that caused mismatched variable names
+sed -i 's/obj_uuid/objUuid/'  ${script_dir}/../libs/hdf5/api-client/src/lib/api/*.service.ts
+
+# Format the files
+nx format --projects hdf5-api-client

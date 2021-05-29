@@ -40,15 +40,19 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { Response } from 'express';
+import { response, Response } from 'express';
 import { ResultsData, ResultsModel } from './results.model';
 
 import { ResultsService } from './results.service';
-
+import { DatasetService } from '@biosimulations/hsds/client';
+import { pluck } from 'rxjs/operators';
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
-  public constructor(private service: ResultsService) {}
+  public constructor(
+    private service: ResultsService,
+    private dataSetService: DatasetService,
+  ) {}
 
   @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('read:SimulationRunResults')
@@ -63,6 +67,16 @@ export class ResultsController {
     return allResults;
   }
 
+  @Get(':simId/reportnames')
+  public async getReportNames(
+    @Param('simId')
+    simId: string,
+  ) {
+    const dataset = this.dataSetService
+      .datasetsGet('application/json', simId)
+      .pipe(pluck('data'));
+    return dataset;
+  }
   @Get(':simId/download')
   public async downloadResultReport(
     @Param('simId') simId: string,

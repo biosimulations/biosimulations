@@ -49,5 +49,6 @@ module.exports = {
     '<rootDir>/libs/shared/error-handler',
     '<rootDir>/libs/datamodel/utils',
     '<rootDir>/libs/hsds/client',
+    '<rootDir>/libs/hdf5/api-client',
   ],
 };

@@ -1,3 +1,4 @@
+// Set the strict to false, and suppress ImplicitAnyIndexErrors to true to work with machine generated code
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
@@ -7,7 +8,9 @@
     "types": ["node"],
     "target": "es6",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
