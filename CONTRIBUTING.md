@@ -18,7 +18,7 @@ Each app contains a Readme file that is used to describe its purpose and interna
 
 ### Libraries
 
-The libraries folder contains code that can be used by multiple apps. To enforce proper separation of concerns and manage dependency trees, Nx provides constraints on the libraries that can be used by each app. For more information, read the [Nx documentation](https://nx.dev/angular/workspace/structure/monorepo-tags), and look at the repository's [linting rules](/biosimulations/.eslintrc). In general, libraries should be organized by the principles recommended [here](https://nx.dev/angular/guides/monorepo-nx-enterprise).
+The libraries folder contains code that can be used by multiple apps. To enforce proper separation of concerns and manage dependency trees, Nx provides constraints on the libraries that can be used by each app. For more information, read the [Nx documentation](https://nx.dev/angular/workspace/structure/monorepo-tags), and look at the repository's [linting rules](/.eslintrc). In general, libraries should be organized by the principles recommended [here](https://nx.dev/angular/guides/monorepo-nx-enterprise).
 
 ## Coding convention
 
@@ -29,7 +29,7 @@ BioSimulations and BioSimulators follow standard TypeScript style conventions:
 - Function names: `lowerCamelCase`
 - Variable names: `lowerCamelCase`
 
-Further information about style conventions can be found in the [lint rules definition](/biosimulations/.eslintrc)
+Further information about style conventions can be found in the [lint rules definition](/.eslintrc)
 
 ## Linting
 

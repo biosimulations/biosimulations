@@ -17,7 +17,7 @@ jobs:
           node-version: "13.x"
 
       - name: Generate license report
-        working-directory: ./biosimulations
+       
         run: |
           npm install -g license-checker
           npm ci

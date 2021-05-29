@@ -17,7 +17,7 @@ jobs:
           node-version: "13.x"
           
       - name: Install Nrwl CLI
-        working-directory: ./biosimulations
+       
         run: npm install -g @nrwl/cli
       - name: Cache npm dependencies
         uses: actions/cache@v2
@@ -29,11 +29,11 @@ jobs:
             ${{ runner.os }}-node-
             
       - name: Install npm dependencies
-        working-directory: ./biosimulations
+       
         run: npm ci
         
       - name: Format files
-        working-directory: ./biosimulations
+       
         run: nx format --all
         
       - name: Import GPG key

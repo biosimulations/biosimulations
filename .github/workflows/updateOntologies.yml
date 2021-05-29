@@ -31,10 +31,10 @@ jobs:
 
       - name: Install Python packages
         run: |
-          python -m pip install -r ${GITHUB_WORKSPACE}/biosimulations/tools/generate-ontologies-requirements.txt
+          python -m pip install -r ${GITHUB_WORKSPACE}/tools/generate-ontologies-requirements.txt
 
       - name: Update ontologies
-        run: ${GITHUB_WORKSPACE}/biosimulations/tools/generate-ontologies ${{ github.event.inputs.ontologies }}
+        run: ${GITHUB_WORKSPACE}/tools/generate-ontologies ${{ github.event.inputs.ontologies }}
       
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v3

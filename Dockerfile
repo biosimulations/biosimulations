@@ -21,10 +21,10 @@ RUN npm install -g @nrwl/cli
 
 # copy dependencies
 # Copy over dependency list
-COPY biosimulations/tsconfig.base.json /app/tsconfig.base.json
-COPY biosimulations/package.json /app/package.json
-COPY biosimulations/package-lock.json /app/package-lock.json
-COPY biosimulations/declarations.d.ts /app/declarations.d.ts
+COPY tsconfig.base.json /app/tsconfig.base.json
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+COPY declarations.d.ts /app/declarations.d.ts
 # set working directory
 
 # install dependencies needed to compile canvas (needed for Vega-embed)
@@ -43,11 +43,11 @@ RUN pip3 install --no-cache --no-cache-dir  --upgrade pip setuptools
 # install the app, including the dev dependencies
 RUN npm ci
 
-COPY biosimulations/nx.json  /app/nx.json	
-COPY biosimulations/angular.json /app/angular.json
+COPY nx.json  /app/nx.json	
+COPY angular.json /app/angular.json
 #copy source
-COPY biosimulations/libs /app/libs
-COPY biosimulations/apps /app/apps
+COPY libs /app/libs
+COPY apps /app/apps
 
 # generate build
 # Redifining the env *might* correct cache invalidtion issue
@@ -73,7 +73,7 @@ LABEL \
 WORKDIR /app
 
 #Copy over dependency list
-COPY biosimulations/package.json /app/package.json
+COPY package.json /app/package.json
 # install the app and include only dependencies needed to run
 RUN npm install --only=production  --legacy-peer-deps
 # copy artifact build from the 'build environment'

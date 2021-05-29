@@ -36,10 +36,10 @@ jobs:
           python3.9 -m pip install setuptools
       
       - name: Install sitemap build utility
-        run: python3.9 -m pip install -r ${GITHUB_WORKSPACE}/biosimulations/tools/build-sitemaps/requirements.txt
+        run: python3.9 -m pip install -r ${GITHUB_WORKSPACE}/tools/build-sitemaps/requirements.txt
       
       - name: Build sitemap(s)
-        run: python3.9 ${GITHUB_WORKSPACE}/biosimulations/tools/build-sitemaps ${{ github.event.inputs.apps }}
+        run: python3.9 ${GITHUB_WORKSPACE}/tools/build-sitemaps ${{ github.event.inputs.apps }}
         
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v3
