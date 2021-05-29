@@ -1,4 +1,4 @@
-![Logo](https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/biosimulations/libs/shared/assets/src/assets/images/biosimulations-logo/logo-white.svg)
+![Logo](https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/libs/shared/assets/src/assets/images/biosimulations-logo/logo-white.svg)
 
 [![Continuous Integration](https://github.com/biosimulations/Biosimulations/workflows/Continuous%20Integration/badge.svg)](https://github.com/biosimulations/Biosimulations/actions?query=workflow%3A%22Continuous+Integration%22)
 [![App Status](https://deployment.api.biosimulations.org/api/badge?name=biosimulations-dev&revision=true)](https://deployment.api.biosimulations.org/applications/biosimulations-dev)
