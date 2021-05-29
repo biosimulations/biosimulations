@@ -4,6 +4,8 @@ on:
   pull_request:
 jobs:
   getAffectedLibrariesApps:
+    env:
+        NX_BRANCH: ${{ github.event.pull_request.head.ref }}  
     name: Determine affected libraries and apps
     runs-on: ubuntu-latest
     outputs:
@@ -112,6 +114,8 @@ jobs:
           echo "::set-output name=run::$run"
 
   lint:
+    env:
+        NX_BRANCH: ${{ github.event.pull_request.head.ref }}      
     name: Lint libraries and apps
     runs-on: ubuntu-latest
 
@@ -191,6 +195,8 @@ jobs:
         run: python -m flake8 apps/${{ matrix.libOrApp }}/src/
 
   build:
+    env:
+        NX_BRANCH: ${{ github.event.pull_request.head.ref }}      
     name: Build app
     runs-on: ubuntu-latest
 
@@ -268,6 +274,8 @@ jobs:
         run: nx run ${{ matrix.app }}:build --prod --with-deps
 
   test:
+    env:
+        NX_BRANCH: ${{ github.event.pull_request.head.ref }}      
     name: Test library or app
     runs-on: ubuntu-latest
 
