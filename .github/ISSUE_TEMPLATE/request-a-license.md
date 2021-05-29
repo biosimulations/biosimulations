@@ -4,7 +4,6 @@ about: Suggest a license for BioSimulations
 title: ''
 labels: enhancement
 assignees: ''
-
 ---
 
 **What license would you like to add?**
