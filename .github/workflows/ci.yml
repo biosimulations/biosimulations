@@ -49,7 +49,7 @@ jobs:
         run: pipenv install --dev
 
       - name: Install Nrwl CLI
-        working-directory: ./biosimulations
+       
         run: npm install -g @nrwl/cli
 
       - name: Cache npm dependencies
@@ -63,13 +63,13 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Install npm dependencies
-        working-directory: ./biosimulations
+       
         run: npm ci
 
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
-          path: biosimulations/node_modules/.cache
+          path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
@@ -77,7 +77,7 @@ jobs:
 
       - id: get-affected-libs-apps
         name: Determine affected libraries and apps
-        working-directory: ./biosimulations
+       
         run: |
           mapfile -d " " -t libsArr < <( nx affected:libs --base=$NX_BASE --plain )
           mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
@@ -154,7 +154,7 @@ jobs:
           node-version: "15.x"
 
       - name: Install Nrwl CLI
-        working-directory: ./biosimulations
+       
         run: npm install -g @nrwl/cli
 
       - name: Cache npm dependencies
@@ -167,13 +167,13 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        working-directory: ./biosimulations
+       
         run: npm ci
 
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
-          path: biosimulations/node_modules/.cache
+          path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}-${{github.sha}}
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
@@ -182,12 +182,12 @@ jobs:
 
       - name: Lint library or app (TypeScript)
         if: matrix.libOrApp != 'combine-service'
-        working-directory: ./biosimulations
+       
         run: nx run ${{ matrix.libOrApp }}:lint
 
       - name: Lint library or app (Python)
         if: matrix.libOrApp == 'combine-service'
-        working-directory: ./biosimulations
+       
         run: python -m flake8 apps/${{ matrix.libOrApp }}/src/
 
   build:
@@ -228,7 +228,7 @@ jobs:
 
       - name: Install Python dependencies
         if: matrix.libOrApp == 'combine-service'
-        working-directory: ./biosimulations
+       
         run: pipenv install --dev
 
       - name: Install Node.js
@@ -237,7 +237,7 @@ jobs:
           node-version: "15.x"
 
       - name: Install Nrwl CLI
-        working-directory: ./biosimulations
+       
         run: npm install -g @nrwl/cli
 
       - name: Cache npm dependencies
@@ -250,13 +250,13 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        working-directory: ./biosimulations
+       
         run: npm ci
 
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
-          path: biosimulations/node_modules/.cache
+          path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
@@ -264,7 +264,7 @@ jobs:
             ${{ runner.os }}-nx-
 
       - name: Build app
-        working-directory: ./biosimulations
+       
         run: nx run ${{ matrix.app }}:build --prod
 
   test:
@@ -304,7 +304,7 @@ jobs:
 
       - name: Install Python dependencies
         if: matrix.libOrApp == 'combine-service'
-        working-directory: ./biosimulations
+       
         run: pipenv install --dev
 
       - name: Install Node.js
@@ -313,7 +313,7 @@ jobs:
           node-version: "15.x"
 
       - name: Install Nrwl CLI
-        working-directory: ./biosimulations
+       
         run: npm install -g @nrwl/cli
 
       - name: Cache npm dependencies
@@ -326,13 +326,13 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        working-directory: ./biosimulations
+       
         run: npm ci
 
       - name: Cache Angular and NX dependencies
         uses: actions/cache@v2
         with:
-          path: biosimulations/node_modules/.cache
+          path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}-${{github.sha}}
           restore-keys: |
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
@@ -340,7 +340,7 @@ jobs:
             ${{ runner.os }}-nx-
 
       - name: Test library or app (TypeScript)
-        working-directory: ./biosimulations
+       
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
@@ -355,7 +355,7 @@ jobs:
         run: nx run ${{ matrix.libOrApp }}:test --coverage
 
       - name: Test library or app (Python)
-        working-directory: ./biosimulations
+       
         if: matrix.libOrApp == 'combine-service'
         run: |
           # ./node_modules/.bin/openapi-examples-validator apps/${{ matrix.libOrApp }}/src/spec/spec.yml
