@@ -110,7 +110,7 @@ jobs:
 
       - name: Build dev app
        
-        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build --prod ${{matrix.app}}
+        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build --prod --with-deps ${{matrix.app}}
 
       - name: Upload build
         uses: actions/upload-artifact@v2
@@ -169,7 +169,7 @@ jobs:
 
       - name: Build prod app
        
-        run: nx build --prod ${{matrix.app}}
+        run: nx build --with-deps --prod ${{matrix.app}}
 
       - name: Upload build
 

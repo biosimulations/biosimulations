@@ -13,7 +13,9 @@
     "Pipfile.lock": ["combine-service"],
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
-    "nx.json": "*"
+    "nx.json": "*",
+    "Dockerfile": "*",
+    "DockerfilePython":["combine-service"]
   },
   "tasksRunnerOptions": {
     "default": {

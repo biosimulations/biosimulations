@@ -1,14 +1,7 @@
-import {
-  DynamicModule,
-  HttpService,
-  HttpModule,
-  Module,
-  Global,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 
-import { ApiModule } from './api.module';
-import { Configuration } from './configuration';
+import { ApiModule, Configuration } from '@biosimulations/HDF5ApiClient';
 
 @Module({
   imports: [
