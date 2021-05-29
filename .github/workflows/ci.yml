@@ -265,7 +265,7 @@ jobs:
 
       - name: Build app
        
-        run: nx run ${{ matrix.app }}:build --prod
+        run: nx run ${{ matrix.app }}:build --prod --with-deps
 
   test:
     name: Test library or app
