@@ -2798,6 +2798,22 @@
     "searchable": "true"
   },
   {
+    "type": "programming",
+    "color": "#ffcc33",
+    "extensions": [
+      ".ftl"
+    ],
+    "tmScope": "source.ftl",
+    "aceMode": "text",
+    "languageId": 206353404,
+    "name": "Fluent",
+    "aliases": [
+      "fluent"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
     "type": "data",
     "extensions": [
       ".for",
@@ -4346,6 +4362,7 @@
     "filenames": [
       ".arcconfig",
       ".htmlhintrc",
+      ".imgbotconfig",
       ".tern-config",
       ".tern-project",
       ".watchmanconfig",
@@ -4394,6 +4411,7 @@
       ".jscsrc",
       ".jshintrc",
       ".jslintrc",
+      "api-extractor.json",
       "devcontainer.json",
       "jsconfig.json",
       "language-configuration.json",
@@ -5096,6 +5114,7 @@
   },
   {
     "type": "programming",
+    "color": "#9ccc7c",
     "extensions": [
       ".ly",
       ".ily"
@@ -10268,6 +10287,24 @@
     "searchable": "true"
   },
   {
+    "type": "data",
+    "color": "#f26025",
+    "aliases": [
+      "keyvalues",
+      "vdf",
+      "valve data format"
+    ],
+    "extensions": [
+      ".vdf"
+    ],
+    "aceMode": "text",
+    "tmScope": "source.keyvalues",
+    "languageId": 544060961,
+    "name": "Valve Data Format",
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
     "type": "programming",
     "color": "#b2b7f8",
     "extensions": [
@@ -10289,6 +10326,7 @@
   {
     "type": "prose",
     "aliases": [
+      "help",
       "vimhelp",
       "vim help file"
     ],
