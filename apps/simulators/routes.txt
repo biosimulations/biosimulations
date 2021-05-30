@@ -92,7 +92,7 @@
 /simulators/optflux
 /simulators/optflux/3.4.0
 /simulators/pyneuroml
-/simulators/pyneuroml/0.3.15
+/simulators/pyneuroml/0.5.11
 /simulators/pysb
 /simulators/pysb/1.11.0
 /simulators/pysces
@@ -109,7 +109,7 @@
 /simulators/simvascular
 /simulators/simvascular/2021-02-07
 /simulators/smoldyn
-/simulators/smoldyn/2.64
+/simulators/smoldyn/2.65
 /simulators/tellurium
 /simulators/tellurium/2.2.0
 /simulators/vcell

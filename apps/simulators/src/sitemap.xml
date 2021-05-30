@@ -369,13 +369,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/jneuroml</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-05-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/jneuroml/0.8.5</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-05-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -513,13 +513,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/opencor</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-05-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/opencor/0.6</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-05-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -561,13 +561,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/pyneuroml</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-05-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/simulators/pyneuroml/0.3.15</loc>
-    <lastmod>2021-01-07</lastmod>
+    <loc>https://biosimulators.org/simulators/pyneuroml/0.5.11</loc>
+    <lastmod>2021-05-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -639,13 +639,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/simmune</loc>
-    <lastmod>2021-05-16</lastmod>
+    <lastmod>2021-05-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/simmune/2.3.1</loc>
-    <lastmod>2021-05-16</lastmod>
+    <lastmod>2021-05-25</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -663,13 +663,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/smoldyn</loc>
-    <lastmod>2021-05-16</lastmod>
+    <lastmod>2021-05-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/simulators/smoldyn/2.64</loc>
-    <lastmod>2021-05-16</lastmod>
+    <loc>https://biosimulators.org/simulators/smoldyn/2.65</loc>
+    <lastmod>2021-05-28</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
