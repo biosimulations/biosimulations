@@ -40,12 +40,11 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { response, Response } from 'express';
+import { Response } from 'express';
 import { ResultsData, ResultsModel } from './results.model';
 
 import { ResultsService } from './results.service';
 
-import { pluck } from 'rxjs/operators';
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
