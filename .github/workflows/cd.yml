@@ -111,7 +111,7 @@ jobs:
 
       - name: Build dev app
        
-        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build --prod --with-deps ${{matrix.app}} && ls dist/apps &&  ls dist/apps/${{matrix.app}}
+        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build ${{matrix.app}} --prod --with-deps
 
       - name: Upload build
         uses: actions/upload-artifact@v2
