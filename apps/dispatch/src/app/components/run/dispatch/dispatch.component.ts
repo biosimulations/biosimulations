@@ -536,6 +536,22 @@ export class DispatchComponent implements OnInit, OnDestroy {
                   if (model.language.startsWith('urn:sedml:language:bngl')) {
                     modelFormats.add('format_3972');
                   } else if (
+                    model.language.startsWith('urn:sedml:language:cellml')
+                  ) {
+                    modelFormats.add('format_3240');
+                  } else if (
+                    model.language.startsWith('urn:sedml:language:copasiml')
+                  ) {
+                    modelFormats.add('format_9003');
+                  } else if (
+                    model.language.startsWith('urn:sedml:language:morpheusml')
+                  ) {
+                    modelFormats.add('format_9002');
+                  } else if (
+                    model.language.startsWith('urn:sedml:language:neuroml')
+                  ) {
+                    modelFormats.add('format_3971');
+                  } else if (
                     model.language.startsWith('urn:sedml:language:sbml')
                   ) {
                     modelFormats.add('format_2585');
