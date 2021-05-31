@@ -1,105 +1,110 @@
 [{
-    "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, PySCeS)",
+    "name": "Caravagna 2010: tumor-suppressive oscillations (SBML, CVODE, PySCeS)",
     "simulator": "pysces",
     "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
   },
   {
-    "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, tellurium)",
+    "name": "Caravagna 2010: tumor-suppressive oscillations (SBML, CVODE, tellurium)",
     "simulator": "tellurium",
     "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
   },
   {
-    "name": "Caravagna 2010: tumor-suppressive oscillations (CVODE, VCell)",
+    "name": "Caravagna 2010: tumor-suppressive oscillations (SBML, CVODE, VCell)",
     "simulator": "vcell",
     "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
   },
   {
-    "name": "Chaouiya et al. BMC Systems Biology 2013: EGF and TNFα signaling (synchronous updating, BoolNet)",
+    "name": "Chaouiya et al. BMC Systems Biology 2013: EGF and TNFα signaling (SBML-qual, synchronous updating, BoolNet)",
     "simulator": "boolnet",
     "filename": "sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex"
   },
   {
-    "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, PySCeS)",
+    "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, CVODE, PySCeS)",
     "simulator": "pysces",
     "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
   },
   {
-    "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, tellurium)",
+    "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, CVODE, tellurium)",
     "simulator": "tellurium",
     "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
   },
   {
-    "name": "Ciliberto 2003: morphogenesis checkpoint (CVODE, VCell)",
+    "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, CVODE, VCell)",
     "simulator": "vcell",
     "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
   },
   {
-    "name": "Dolan 2020: Non-homologous end joining (NFSim, BioNetGen)",
+    "name": "Dolan 2020: Non-homologous end joining (BNGL, NFSim, BioNetGen)",
     "simulator": "bionetgen",
     "filename": "bngl/Dolan-PLoS-Comput-Biol-2015-NHEJ.omex"
   },
   {
-    "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (LSODA, GillesPy2)",
+    "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (SBML, LSODA, GillesPy2)",
     "simulator": "gillespy2",
     "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
   },
   {
-    "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (LSODA, PySCeS)",
+    "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (SBML, LSODA, PySCeS)",
     "simulator": "pysces",
     "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
   },
   {
-    "name": "Escherichia coli core metabolism (FBA, CBMPy)",
+    "name": "Escherichia coli core metabolism (SBML-fbc, FBA, CBMPy)",
     "simulator": "cbmpy",
     "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
   },
   {
-    "name": "Escherichia coli core metabolism (FBA, COBRApy)",
+    "name": "Escherichia coli core metabolism (SBML-fbc, FBA, COBRApy)",
     "simulator": "cobrapy",
     "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
   },
   {
-    "name": "Lotka-Volterra model (Smoluchowski method, Smoldyn)",
+    "name": "Lorenz system (CellML, CVODE, OpenCOR)",
+    "simulator": "opencor",
+    "filename": "cellml/Lorenz-system.omex"
+  },
+  {
+    "name": "Lotka-Volterra model (Smoldyn, Smoluchowski method, Smoldyn)",
     "simulator": "smoldyn",
     "filename": "smoldyn/Lotka-Volterra.omex"
   },
   {
-    "name": "Parmar 2017: iron distribution (CVODE, PySCeS)",
+    "name": "Parmar 2017: iron distribution (SBML, CVODE, PySCeS)",
     "simulator": "pysces",
     "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
   },
   {
-    "name": "Parmar 2017: iron distribution (CVODE, tellurium)",
+    "name": "Parmar 2017: iron distribution (SBML, CVODE, tellurium)",
     "simulator": "tellurium",
     "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
   },
   {
-    "name": "Parmar 2017: iron distribution (CVODE, VCell)",
+    "name": "Parmar 2017: iron distribution (SBML, CVODE, VCell)",
     "simulator": "vcell",
     "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
   },
   {
-    "name": "Saglam 2020: Toy gene regulatory network (CVODE, BioNetGen)",
+    "name": "Saglam 2020: Toy gene regulatory network (BNGL, CVODE, BioNetGen)",
     "simulator": "bionetgen",
     "filename": "bngl/test-bngl.omex"
   },
   {
-    "name": "Szymanska 2009: HSP synthesis (CVODES, AMICI)",
+    "name": "Szymanska 2009: HSP synthesis (SBML, CVODES, AMICI)",
     "simulator": "amici",
     "filename": "sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex"
   },
   {
-    "name": "Tomida 2003: NFAT translocation (LSODA/LSODAR, COPASI)",
+    "name": "Tomida 2003: NFAT translocation (SBML, LSODA/LSODAR, COPASI)",
     "simulator": "copasi",
     "filename": "sbml-core/Tomida-EMBO-J-2003-NFAT-translocation.omex"
   },
   {
-    "name": "Varusai 2018: mTOR signaling (LSODA/LSODAR, COPASI)",
+    "name": "Varusai 2018: mTOR signaling (SBML, LSODA/LSODAR, COPASI)",
     "simulator": "copasi",
     "filename": "sbml-core/Varusai-Sci-Rep-2018-mTOR-signaling-LSODA-LSODAR-SBML.omex"
   },
   {
-    "name": "Vilar 2002: circadian clock (multiple, VCell)",
+    "name": "Vilar 2002: circadian clock (SBML, multiple, VCell)",
     "simulator": "vcell",
     "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
   }
