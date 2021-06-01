@@ -171,7 +171,7 @@ jobs:
 
       - name: Build prod app
        
-        run: nx build --with-deps --prod ${{matrix.app}}
+        run:  nx build ${{matrix.app}} --prod --with-deps
 
       - name: Upload build
 
