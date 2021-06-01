@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 
-import { ApiModule, Configuration } from '@biosimulations/HDF5ApiClient';
+import { ApiModule, Configuration } from '@biosimulations/hdf5apiclient';
 
 @Module({
   imports: [

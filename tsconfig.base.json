@@ -97,7 +97,7 @@
       "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"],
       "@biosimulations/hsds/client": ["libs/hsds/client/src/index.ts"],
       "@biosimulations/hdf5/api-client": ["libs/hdf5/api-client/src/index.ts"],
-      "@biosimulations/HDF5ApiClient": ["dist/libs/hdf5/api-client/src/","libs/hdf5/api-client/src/index.ts"]
+      "@biosimulations/hdf5apiclient": ["dist/libs/hdf5/api-client/src/","libs/hdf5/api-client/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
