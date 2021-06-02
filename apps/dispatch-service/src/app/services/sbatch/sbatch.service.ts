@@ -53,10 +53,10 @@ export class SbatchService {
 #SBATCH --cpus-per-task=${cpus}
 #SBATCH --qos=general\n
 
-export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
+export MODULEPATH=/home/FCAM/crbmapi/module/
 source /usr/share/Modules/init/bash
 export PATH=$PATH:/usr/sbin/
-module load singularity/3.7.1
+module load singularity/3.7.1-biosim
 export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 cd ${tempSimDir}
@@ -93,10 +93,10 @@ echo -e '${cyan}=============Run Complete. Thank you for using BioSimulations!==
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=16G
 
-export MODULEPATH=/isg/shared/modulefiles:/tgcapps/modulefiles
+export MODULEPATH=/home/FCAM/crbmapi/module/
 source /usr/share/Modules/init/bash
 export PATH=$PATH:/usr/sbin/
-module load singularity/3.7.1
+module load singularity/3.7.1-biosim
 export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 echo "Building On:"
