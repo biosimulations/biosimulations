@@ -40,16 +40,19 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
+import { DatasetService } from '@biosimulations/hdf5apiclient';
 import { Response } from 'express';
 import { ResultsData, ResultsModel } from './results.model';
 
 import { ResultsService } from './results.service';
+import { pluck } from 'rxjs/operators';
 
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
   public constructor(
-    private service: ResultsService, // private dataSetService: DatasetService,
+    private service: ResultsService,
+    private dataSetService: DatasetService,
   ) {}
 
   @UseGuards(JwtGuard, PermissionsGuard)
@@ -70,10 +73,10 @@ export class ResultsController {
     @Param('simId')
     simId: string,
   ) {
-    // const dataset = this.dataSetService
-    //   .datasetsGet('application/json', simId)
-    //   .pipe(pluck('data'));
-    const dataset = 'test';
+    const dataset = this.dataSetService
+      .datasetsGet('application/json', simId)
+      .pipe(pluck('data'));
+
     return dataset;
   }
   @Get(':simId/download')
