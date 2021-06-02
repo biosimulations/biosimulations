@@ -17,29 +17,20 @@ import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { HSDSClientModule } from '@biosimulations/hsds/client';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { ConfigService } from '@nestjs/config';
+import { Configuration } from '@biosimulations/hdf5apiclient';
+import { NewResultsController } from './newResults.controller';
+import { HSDSResultsService } from './results.hsds.service';
 
 @Module({
   imports: [
     BiosimulationsAuthModule,
-    HSDSClientModule.registerAsync({
-      imports: [BiosimulationsConfigModule],
-      useFactory: {
-        createHSDSConnectionOptions: (service: ConfigService) => {
-          const username = service.get('user');
-          const password = service.get('user');
-          const basePath = service.get('user');
-          const withCredentials = service.get('user');
-          return { username, password, basePath, withCredentials };
-        },
-      },
-      inject: [ConfigService],
-    }),
+    HSDSClientModule,
     MongooseModule.forFeature([
       { name: ResultsModel.name, schema: ResultsSchema },
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
     ]),
   ],
-  providers: [ResultsService],
-  controllers: [ResultsController],
+  providers: [ResultsService, HSDSResultsService],
+  controllers: [ResultsController, NewResultsController],
 })
 export class ResultsModule {}

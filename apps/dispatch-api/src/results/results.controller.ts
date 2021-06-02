@@ -40,19 +40,19 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { DatasetService } from '@biosimulations/hdf5apiclient';
+
 import { Response } from 'express';
 import { ResultsData, ResultsModel } from './results.model';
 
 import { ResultsService } from './results.service';
-import { pluck } from 'rxjs/operators';
+import { SimulationHDFService } from '@biosimulations/hsds/client';
 
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
   public constructor(
     private service: ResultsService,
-    private dataSetService: DatasetService,
+    private dataSetService: SimulationHDFService,
   ) {}
 
   @UseGuards(JwtGuard, PermissionsGuard)
@@ -73,9 +73,7 @@ export class ResultsController {
     @Param('simId')
     simId: string,
   ) {
-    const dataset = this.dataSetService
-      .datasetsGet('application/json', simId)
-      .pipe(pluck('data'));
+    const dataset = this.dataSetService.getDatasets(simId);
 
     return dataset;
   }

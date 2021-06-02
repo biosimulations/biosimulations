@@ -1,77 +1,37 @@
-import {
-  DynamicModule,
-  Inject,
-  Injectable,
-  Module,
-  Options,
-  Provider,
-} from '@nestjs/common';
+import { HttpModule, HttpService, Module } from '@nestjs/common';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 
-import { ApiModule, Configuration } from '@biosimulations/hdf5apiclient';
+import { Configuration, DomainService } from '@biosimulations/hdf5apiclient';
 import { ConfigService } from '@nestjs/config';
+import { APIClientWrapperModule } from './api-client-wrapper.module';
+import { SimulationHDFService } from './dataset.service';
 
-export interface HSDSConnectionOptions {
-  username: string;
-  password: string;
-  basePath: string;
-  withCredentials?: boolean;
-}
-export interface HSDSConnectionAsyncOptions {
-  imports: any[];
-  inject: any[];
-  useFactory: HSDSConnectionOptionsFactory;
-}
-
-export interface HSDSConnectionOptionsFactory {
-  createHSDSConnectionOptions(...args: any[]): HSDSConnectionOptions;
-}
-
-Module({
-  imports: [BiosimulationsConfigModule],
-});
+@Module({
+  imports: [
+    HttpModule,
+    BiosimulationsConfigModule,
+    APIClientWrapperModule.registerAsync({
+      imports: [BiosimulationsConfigModule],
+      useFactory: {
+        createHSDSConnectionOptions: (service: ConfigService) => {
+          const username = service.get('data.username');
+          const password = service.get('data.password');
+          const basePath = service.get('data.basePath');
+          const withCredentials = service.get('data.withCredentials');
+          return new Configuration({
+            username,
+            password,
+            basePath,
+            withCredentials,
+          });
+        },
+      },
+      inject: [ConfigService],
+    }),
+  ],
+  providers: [SimulationHDFService, DomainService],
+  exports: [SimulationHDFService],
+})
 export class HSDSClientModule {
-  public static async registerAsync(
-    options: HSDSConnectionAsyncOptions,
-  ): Promise<DynamicModule> {
-    const imports = options.imports || [];
-    const dynamicImports = await this.getImports(options);
-    const finalImports = imports.concat(dynamicImports);
-
-    const providers = await this.getProviders(options);
-    return {
-      module: HSDSClientModule,
-      providers: providers,
-      imports: finalImports,
-    };
-  }
-
-  private static async getProviders(
-    options: HSDSConnectionAsyncOptions,
-  ): Promise<Provider<HSDSConnectionOptions>[]> {
-    return [
-      {
-        provide: 'HSDSOPTIONS',
-        useFactory: options.useFactory.createHSDSConnectionOptions,
-        inject: options.inject || [],
-      },
-    ];
-  }
-  private static async getImports(
-    options: HSDSConnectionAsyncOptions,
-  ): Promise<DynamicModule[]> {
-    return [
-      ...options.imports,
-      {
-        module: ApiModule,
-        providers: [
-          {
-            provide: Configuration,
-            useFactory: options.useFactory.createHSDSConnectionOptions,
-            inject: [ConfigService],
-          },
-        ],
-      },
-    ];
-  }
+  constructor() {}
 }
