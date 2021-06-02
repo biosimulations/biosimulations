@@ -60,6 +60,30 @@ const modelFormatMetaData: {
     combineSpecUrl: 'http://purl.org/NET/mediatypes/text/bngl+plain',
     extension: 'bngl',
   },
+  format_3240: {
+    name: 'CellML',
+    sedUrn: 'urn:sedml:language:cellml',
+    combineSpecUrl: 'http://identifiers.org/combine.specifications/cellml',
+    extension: 'cellml',
+  },
+  format_9003: {
+    name: 'CopasiML',
+    sedUrn: 'urn:sedml:language:copasiml',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/x-copasi',
+    extension: 'cps',
+  },
+  format_9002: {
+    name: 'MorpheusML',
+    sedUrn: 'urn:sedml:language:morpheusml',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/morpheusml+xml',
+    extension: 'xml',
+  },
+  format_3971: {
+    name: 'NeuroML',
+    sedUrn: 'urn:sedml:language:neuroml',
+    combineSpecUrl: 'http://identifiers.org/combine.specifications/neuroml',
+    extension: 'nml',
+  },
   format_2585: {
     name: 'SBML',
     sedUrn: 'urn:sedml:language:sbml',
@@ -841,7 +865,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         });
       }
       if (
-        ['format_2585', 'format_3972', 'format_9000', 'format_9001'].includes(
+        ['format_2585', 'format_3240', 'format_3971', 'format_3972', 'format_9000', 'format_9001', 'format_9002', 'format_9003'].includes(
           formatEdamId,
         ) &&
         [
