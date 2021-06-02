@@ -15,9 +15,6 @@ import {
 } from '../simulation-run/simulation-run.model';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { HSDSClientModule } from '@biosimulations/hsds/client';
-import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
-import { ConfigService } from '@nestjs/config';
-import { Configuration } from '@biosimulations/hdf5apiclient';
 import { NewResultsController } from './newResults.controller';
 import { HSDSResultsService } from './results.hsds.service';
 
