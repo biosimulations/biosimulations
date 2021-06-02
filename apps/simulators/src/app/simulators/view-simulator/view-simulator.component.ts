@@ -10,9 +10,7 @@ import {
   ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
-import {
-  IDependentVariableTargetPattern,
-} from '@biosimulations/datamodel/common';
+import { IDependentVariableTargetPattern } from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
 import { snackBarDuration } from '@biosimulations/config/common';
@@ -50,7 +48,7 @@ export class ViewSimulatorComponent implements OnInit {
   public simulator!: Observable<ViewSimulator>;
   public id!: string;
   public algorithmsTocSections!: Observable<TocSection[]>;
-  public testResultsTocSections = of(null);  
+  public testResultsTocSections = of(null);
 
   public versionsColumns: Column[] = [
     {

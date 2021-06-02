@@ -291,30 +291,43 @@ export class ViewSimulatorService {
                   return a.localeCompare(b, undefined, { numeric: true });
                 });
               }
-              
-              parameter.valueUrl = parameter.type === ValueType.kisaoId ? this.ontService.getKisaoUrl(parameter.rawValue as string) : null;
-              parameter.formattedValue = formatValue(parameter.type as ValueType, parameter.value);              
-              
+
+              parameter.valueUrl =
+                parameter.type === ValueType.kisaoId
+                  ? this.ontService.getKisaoUrl(parameter.rawValue as string)
+                  : null;
+              parameter.formattedValue = formatValue(
+                parameter.type as ValueType,
+                parameter.value,
+              );
+
               if (parameter.range) {
                 if (parameter.type === ValueType.kisaoId) {
-                  parameter.formattedKisaoRange = (parameter.rawRange as string[])
-                    .map((id: string, index: number): ViewKisaoTerm => {
+                  parameter.formattedKisaoRange = (parameter.rawRange as string[]).map(
+                    (id: string, index: number): ViewKisaoTerm => {
                       return {
                         id: id,
                         name: parameter.range?.[index] as string,
                         url: this.ontService.getKisaoUrl(id),
                       };
-                    });
+                    },
+                  );
                 } else {
-                  parameter.formattedRange = (parameter.range as (boolean | number | string)[])
-                    .map((value: boolean | number | string): string => {
-                      return formatValue(parameter.type as ValueType, value) as string;
-                    });
+                  parameter.formattedRange = (parameter.range as (
+                    | boolean
+                    | number
+                    | string
+                  )[]).map((value: boolean | number | string): string => {
+                    return formatValue(
+                      parameter.type as ValueType,
+                      value,
+                    ) as string;
+                  });
                 }
               }
             });
 
-           algorithm.parameters?.sort((a: ViewParameter, b: ViewParameter) => {
+            algorithm.parameters?.sort((a: ViewParameter, b: ViewParameter) => {
               return a.name.localeCompare(b.name, undefined, { numeric: true });
             });
           });

@@ -91,7 +91,7 @@ export interface ViewParameter {
   rawValue: string | null;
   value: boolean | number | string | null;
   valueUrl: string | null;
-  formattedValue: string | null;  
+  formattedValue: string | null;
   rawRange: string[] | null;
   range: (boolean | number | string)[] | null;
   formattedRange: string[] | null;

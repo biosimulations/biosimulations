@@ -491,33 +491,77 @@
                 >
                   <li *ngFor="let parameter of algorithm?.parameters">
                     <div>
-                      {{ parameter.name }} (<a [href]="parameter.kisaoUrl" target="_blank">{{ parameter.kisaoId }}</a>)
+                      {{ parameter.name }} (<a
+                        [href]="parameter.kisaoUrl"
+                        target="_blank"
+                        >{{ parameter.kisaoId }}</a
+                      >)
                       <ul>
                         <li>Type: {{ parameter.type }}</li>
-                        <li>Default: 
-                          <span *ngIf="parameter.formattedValue !== null; else nullDefaultValue">
-                            {{ parameter.formattedValue }} <span *ngIf="parameter.type === 'kisaoId'">(<a [href]="parameter.valueUrl" target="_blank">{{ parameter.rawValue }}</a>)</span>
+                        <li>
+                          Default:
+                          <span
+                            *ngIf="
+                              parameter.formattedValue !== null;
+                              else nullDefaultValue
+                            "
+                          >
+                            {{ parameter.formattedValue }}
+                            <span *ngIf="parameter.type === 'kisaoId'"
+                              >(<a
+                                [href]="parameter.valueUrl"
+                                target="_blank"
+                                >{{ parameter.rawValue }}</a
+                              >)</span
+                            >
                           </span>
                           <ng-template #nullDefaultValue>null</ng-template>
                         </li>
-                        <li *ngIf="parameter.formattedKisaoRange !== null && parameter.type === 'kisaoId'; else notKisaoEnum">
-                          Supported values: 
+                        <li
+                          *ngIf="
+                            parameter.formattedKisaoRange !== null &&
+                              parameter.type === 'kisaoId';
+                            else notKisaoEnum
+                          "
+                        >
+                          Supported values:
                           <ul>
-                            <li *ngFor="let rangeEl of parameter.formattedKisaoRange">
-                              {{ rangeEl?.name }} 
-                              (<a [href]="rangeEl?.url" target="_blank">{{ rangeEl?.id }}</a>)
+                            <li
+                              *ngFor="
+                                let rangeEl of parameter.formattedKisaoRange
+                              "
+                            >
+                              {{ rangeEl?.name }}
+                              (<a [href]="rangeEl?.url" target="_blank">{{
+                                rangeEl?.id
+                              }}</a
+                              >)
                             </li>
                           </ul>
-                        </li>                        
+                        </li>
                         <ng-template #notKisaoEnum>
-                          <li *ngIf="parameter.formattedRange !== null && parameter.type === 'string'; else notEnum">
-                            Supported values: 
+                          <li
+                            *ngIf="
+                              parameter.formattedRange !== null &&
+                                parameter.type === 'string';
+                              else notEnum
+                            "
+                          >
+                            Supported values:
                             <ul>
-                              <li *ngFor="let rangeEl of parameter.formattedRange">{{ rangeEl }}</li>
+                              <li
+                                *ngFor="let rangeEl of parameter.formattedRange"
+                              >
+                                {{ rangeEl }}
+                              </li>
                             </ul>
                           </li>
                           <ng-template #notEnum>
-                            <li *ngIf="parameter.formattedRange !== null">Recommended range: [{{ parameter.formattedRange?.join(', ') }}]</li>
+                            <li *ngIf="parameter.formattedRange !== null">
+                              Recommended range: [{{
+                                parameter.formattedRange?.join(', ')
+                              }}]
+                            </li>
                           </ng-template>
                         </ng-template>
                       </ul>
@@ -589,11 +633,16 @@
                   *ngIf="
                     algorithm?.dependentVariableTargetPatterns?.length;
                     else noCuratedDependentVariablesMessage
-                  "                 
+                  "
                 >
-                  <li *ngFor="let varTargetPattern of algorithm.dependentVariableTargetPatterns">
-                    {{ varTargetPattern.variables }}: <code>{{ varTargetPattern.targetPattern }}</code>
-                  </li>                  
+                  <li
+                    *ngFor="
+                      let varTargetPattern of algorithm.dependentVariableTargetPatterns
+                    "
+                  >
+                    {{ varTargetPattern.variables }}:
+                    <code>{{ varTargetPattern.targetPattern }}</code>
+                  </li>
                 </ul>
                 <ng-template #noCuratedDependentVariablesMessage>
                   <p class="info-message">
