@@ -12,6 +12,7 @@ import {
   ViewFormatObservable,
   ViewParameter,
   ViewParameterObservable,
+  ViewKisaoTerm,
   ViewSioId,
   ViewAuthor,
   ViewFunding,
@@ -42,7 +43,7 @@ import {
   TestCaseResultType,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
-import { parseValue } from '@biosimulations/datamodel/utils';
+import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
 import { Citation } from '@biosimulations/datamodel/api';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 
@@ -290,6 +291,31 @@ export class ViewSimulatorService {
                   return a.localeCompare(b, undefined, { numeric: true });
                 });
               }
+              
+              parameter.valueUrl = parameter.type === ValueType.kisaoId ? this.ontService.getKisaoUrl(parameter.rawValue as string) : null;
+              parameter.formattedValue = formatValue(parameter.type as ValueType, parameter.value);              
+              
+              if (parameter.range) {
+                if (parameter.type === ValueType.kisaoId) {
+                  parameter.formattedKisaoRange = (parameter.rawRange as string[])
+                    .map((id: string, index: number): ViewKisaoTerm => {
+                      return {
+                        id: id,
+                        name: parameter.range?.[index] as string,
+                        url: this.ontService.getKisaoUrl(id),
+                      };
+                    });
+                } else {
+                  parameter.formattedRange = (parameter.range as (boolean | number | string)[])
+                    .map((value: boolean | number | string): string => {
+                      return formatValue(parameter.type as ValueType, value) as string;
+                    });
+                }
+              }
+            });
+
+           algorithm.parameters?.sort((a: ViewParameter, b: ViewParameter) => {
+              return a.name.localeCompare(b.name, undefined, { numeric: true });
             });
           });
           viewSimAlgorithms.next(algorithms);
@@ -367,11 +393,15 @@ export class ViewSimulatorService {
     return {
       name: kisaoTerm.pipe(pluck('name')),
       type: parameter.type,
+      rawValue: parameter.value,
       value: parseValue<Observable<string>>(
         getKisaoTermName,
         parameter.type,
         parameter.value,
       ),
+      valueUrl: null,
+      formattedValue: null,
+      rawRange: parameter.recommendedRange,
       range: parameter.recommendedRange
         ? parameter.recommendedRange.map((value: string):
             | boolean
@@ -385,6 +415,8 @@ export class ViewSimulatorService {
             ) as boolean | number | string | Observable<string>;
           })
         : null,
+      formattedRange: null,
+      formattedKisaoRange: null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
       availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes.sort(

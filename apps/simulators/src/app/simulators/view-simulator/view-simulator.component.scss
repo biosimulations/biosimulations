@@ -113,6 +113,10 @@ biosimulations-tab-page ::ng-deep {
   );
 }
 
+.half-vertically-spaced > li:not(:first-child) {
+  margin-top: 0.25rem;
+}
+
 @media screen and (max-width: 959px) {
   .json {
     max-height: calc(100vh - 56px - 32px - 2 * 1rem - 2 * 0.5rem);
