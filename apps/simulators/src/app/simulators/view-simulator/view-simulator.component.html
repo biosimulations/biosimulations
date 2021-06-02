@@ -482,30 +482,48 @@
                 </ng-template>
 
                 <p class="subsection-heading no-bottom-margin">Parameters</p>
-                <div
-                  class="table-container"
+                <ul
                   *ngIf="
                     algorithm?.parameters?.length;
                     else noCuratedParametersMessage
                   "
+                  class="half-vertically-spaced"
                 >
-                  <biosimulations-responsive-table
-                    [columns]="parametersColumns"
-                    [singleLineHeadings]="true"
-                    [data]="algorithm.parameters"
-                    [sortable]="true"
-                    [controls]="false"
-                    searchPlaceHolder="Query (e.g., tol)"
-                    searchToolTip="Enter a query such as 'tol'. By default, your query will be searched over all columns. This search supports the features of the Lunr search engine. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) (e.g., 'kisao-id: KISAO_0000211')."
-                    stackedContentsHeading="Parameters"
-                    [getStackedHeading]="getParameterStackedHeading"
-                    [getStackedHeadingMoreInfoRouterLink]="
-                      getParameterStackedHeadingMoreInfoRouterLink
-                    "
-                    [defaultSort]="{ active: 'name', direction: 'asc' }"
-                  >
-                  </biosimulations-responsive-table>
-                </div>
+                  <li *ngFor="let parameter of algorithm?.parameters">
+                    <div>
+                      {{ parameter.name }} (<a [href]="parameter.kisaoUrl" target="_blank">{{ parameter.kisaoId }}</a>)
+                      <ul>
+                        <li>Type: {{ parameter.type }}</li>
+                        <li>Default: 
+                          <span *ngIf="parameter.formattedValue !== null; else nullDefaultValue">
+                            {{ parameter.formattedValue }} <span *ngIf="parameter.type === 'kisaoId'">(<a [href]="parameter.valueUrl" target="_blank">{{ parameter.rawValue }}</a>)</span>
+                          </span>
+                          <ng-template #nullDefaultValue>null</ng-template>
+                        </li>
+                        <li *ngIf="parameter.formattedKisaoRange !== null && parameter.type === 'kisaoId'; else notKisaoEnum">
+                          Supported values: 
+                          <ul>
+                            <li *ngFor="let rangeEl of parameter.formattedKisaoRange">
+                              {{ rangeEl?.name }} 
+                              (<a [href]="rangeEl?.url" target="_blank">{{ rangeEl?.id }}</a>)
+                            </li>
+                          </ul>
+                        </li>                        
+                        <ng-template #notKisaoEnum>
+                          <li *ngIf="parameter.formattedRange !== null && parameter.type === 'string'; else notEnum">
+                            Supported values: 
+                            <ul>
+                              <li *ngFor="let rangeEl of parameter.formattedRange">{{ rangeEl }}</li>
+                            </ul>
+                          </li>
+                          <ng-template #notEnum>
+                            <li *ngIf="parameter.formattedRange !== null">Recommended range: [{{ parameter.formattedRange?.join(', ') }}]</li>
+                          </ng-template>
+                        </ng-template>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
                 <ng-template #noCuratedParametersMessage>
                   <p
                     class="info-message"
@@ -567,27 +585,16 @@
                 <p class="subsection-heading no-bottom-margin">
                   Dependent variables
                 </p>
-                <div
-                  class="table-container"
+                <ul
                   *ngIf="
                     algorithm?.dependentVariableTargetPatterns?.length;
                     else noCuratedDependentVariablesMessage
-                  "
+                  "                 
                 >
-                  <biosimulations-responsive-table
-                    [columns]="dependentVariablesColumns"
-                    [singleLineHeadings]="true"
-                    [data]="algorithm.dependentVariableTargetPatterns"
-                    [sortable]="true"
-                    [controls]="false"
-                    searchPlaceHolder="Query (e.g., tol)"
-                    searchToolTip="Enter a query such as 'tol'. By default, your query will be searched over all columns. This search supports the features of the Lunr search engine. To search over a specific column, prefix your query with the heading of the column (with spaces replaced by dashes) (e.g., 'kisao-id: KISAO_0000211')."
-                    stackedContentsHeading="Dependent variables"
-                    [getStackedHeading]="getDependentVariablesStackedHeading"
-                    [defaultSort]="{ active: 'variables', direction: 'asc' }"
-                  >
-                  </biosimulations-responsive-table>
-                </div>
+                  <li *ngFor="let varTargetPattern of algorithm.dependentVariableTargetPatterns">
+                    {{ varTargetPattern.variables }}: <code>{{ varTargetPattern.targetPattern }}</code>
+                  </li>                  
+                </ul>
                 <ng-template #noCuratedDependentVariablesMessage>
                   <p class="info-message">
                     The dependent variables for this implementation of

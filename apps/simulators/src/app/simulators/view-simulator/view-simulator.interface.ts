@@ -79,11 +79,23 @@ export interface ViewFormatTerm {
   url: string;
 }
 
+export interface ViewKisaoTerm {
+  id: string;
+  name: string;
+  url: string;
+}
+
 export interface ViewParameter {
   name: string;
   type: string;
+  rawValue: string | null;
   value: boolean | number | string | null;
+  valueUrl: string | null;
+  formattedValue: string | null;  
+  rawRange: string[] | null;
   range: (boolean | number | string)[] | null;
+  formattedRange: string[] | null;
+  formattedKisaoRange: ViewKisaoTerm[] | null;
   kisaoId: string;
   kisaoUrl: string;
   availableSoftwareInterfaceTypes: string[];
@@ -92,8 +104,14 @@ export interface ViewParameter {
 export interface ViewParameterObservable {
   name: Observable<string>;
   type: string;
+  rawValue: string | null;
   value: boolean | number | string | Observable<string> | null;
+  valueUrl: string | null;
+  formattedValue: string | null;
+  rawRange: string[] | null;
   range: (boolean | number | string | Observable<string>)[] | null;
+  formattedRange: string[] | null;
+  formattedKisaoRange: ViewKisaoTerm[] | null;
   kisaoId: string;
   kisaoUrl: string;
   availableSoftwareInterfaceTypes: string[];

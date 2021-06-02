@@ -11,7 +11,6 @@ import {
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
 import {
-  ValueType,
   IDependentVariableTargetPattern,
 } from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
@@ -23,7 +22,6 @@ import {
   ViewParameter,
   ViewVersion,
 } from './view-simulator.interface';
-import { formatValue } from '@biosimulations/datamodel/utils';
 
 @Component({
   selector: 'biosimulations-view-simulator',
@@ -52,86 +50,7 @@ export class ViewSimulatorComponent implements OnInit {
   public simulator!: Observable<ViewSimulator>;
   public id!: string;
   public algorithmsTocSections!: Observable<TocSection[]>;
-  public testResultsTocSections = of(null);
-  public parametersColumns: Column[] = [
-    {
-      id: 'name',
-      heading: 'Name',
-      key: 'name',
-      toolTipFormatter: (name: string): string => {
-        return name;
-      },
-      showStacked: false,
-      minWidth: 234,
-    },
-    {
-      id: 'type',
-      heading: 'Type',
-      key: 'type',
-      minWidth: 66,
-      maxWidth: 66,
-    },
-    {
-      id: 'value',
-      heading: 'Default',
-      key: 'value',
-      getter: (parameter: ViewParameter): string | null => {
-        return formatValue(parameter.type as ValueType, parameter.value);
-      },
-      minWidth: 66,
-      maxWidth: 66,
-    },
-    {
-      id: 'range',
-      heading: 'Recommended range',
-      key: 'range',
-      getter: (parameter: ViewParameter): string | null => {
-        if (parameter.range) {
-          return (parameter.range as string[])
-            .map((value: string): string | null => {
-              return formatValue(parameter.type as ValueType, value);
-            })
-            .join(', ');
-        } else {
-          return null;
-        }
-      },
-      minWidth: 163,
-      maxWidth: 163,
-      filterable: false,
-    },
-    {
-      id: 'availableSoftwareInterfaceTypes',
-      heading: 'Availability',
-      key: 'availableSoftwareInterfaceTypes',
-      formatter: (interfaceTypes: string[] | string): string => {
-        let returnVal = '';
-        if (Array.isArray(interfaceTypes)) {
-          returnVal = interfaceTypes.join(', ');
-        } else {
-          returnVal = interfaceTypes;
-        }
-        return returnVal.substring(0, 1).toUpperCase() + returnVal.substring(1);
-      },
-      toolTipFormatter: (interfaceTypes: string[]): string => {
-        return interfaceTypes.join(', ');
-      },
-      minWidth: 163,
-      maxWidth: 163,
-    },
-    {
-      id: 'kisaoId',
-      heading: 'KiSAO id',
-      key: 'kisaoId',
-      centerAction: ColumnActionType.href,
-      centerHref: (parameter: ViewParameter): string => {
-        return parameter.kisaoUrl;
-      },
-      showStacked: true,
-      minWidth: 110,
-      maxWidth: 110,
-    },
-  ];
+  public testResultsTocSections = of(null);  
 
   public versionsColumns: Column[] = [
     {
@@ -235,27 +154,6 @@ export class ViewSimulatorComponent implements OnInit {
       center: true,
       filterable: false,
       sortable: false,
-    },
-  ];
-
-  public dependentVariablesColumns: Column[] = [
-    {
-      id: 'variables',
-      heading: 'Description',
-      key: 'variables',
-      toolTipFormatter: (value: string): string => {
-        return value;
-      },
-      minWidth: 200,
-    },
-    {
-      id: 'targetPattern',
-      heading: 'Target pattern',
-      key: 'targetPattern',
-      toolTipFormatter: (value: string): string => {
-        return value;
-      },
-      minWidth: 600,
     },
   ];
 
