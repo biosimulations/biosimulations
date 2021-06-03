@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { pluck } from 'rxjs/operators';
 import {
   AttributeService,
   DatasetService,
@@ -15,26 +14,26 @@ export class SimulationHDFService {
     @Inject(GroupService) private groupService: GroupService,
     @Inject(AttributeService) private attrbuteService: AttributeService,
   ) {}
-  async getReport(simId: string) {
+  async getDatasets(simId: string) {
     const domain = simId + '.results';
 
     const response = await this.domainService
       .datasetsGet('application/json', domain)
       .toPromise();
 
-    const datasetIds = response.data.datasets;
+    const datasetIds = response.data.datasets ||  [];
     const datasetNames = [];
     for (const datasetId of datasetIds) {
       const dataResponse = await this.datasetService
         .datasetsIdGet(datasetId, 'application/json', domain)
         .toPromise();
-
+      const datasetAttributes = await this.attrbuteService.collectionObjUuidAttributesGet("application/json","datasets",datasetId,undefined,domain).toPromise()
+      const datasetIdResponse = await this.attrbuteService.collectionObjUuidAttributesAttrGet("application/json", "datasets", datasetId, "id", undefined, domain).toPromise()
+      const datasetIdName = datasetIdResponse.data
       datasetNames.push(dataResponse.data);
     }
 
     return datasetNames;
   }
-  public getDatasets(simId: string) {
-    return `Simid ${{ simId }} datasets`;
-  }
+
 }

@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class HSDSResultsService {
   getResults(simId: string) {
-    return this.results.getReport(simId);
+    return this.results.getDatasets(simId);
   }
   public constructor(
     private storage: SharedStorageService,
