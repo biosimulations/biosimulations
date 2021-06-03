@@ -72,6 +72,12 @@ const modelFormatMetaData: {
     combineSpecUrl: 'http://purl.org/NET/mediatypes/application/x-copasi',
     extension: 'cps',
   },
+  format_9005: {
+    name: 'HOC',
+    sedUrn: 'urn:sedml:language:hoc',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/text/x-hoc',
+    extension: 'hoc',
+  },
   format_9004: {
     name: 'LEMS',
     sedUrn: 'urn:sedml:language:lems',
@@ -881,6 +887,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           'format_9002',
           'format_9003',
           'format_9004',
+          'format_9005',
         ].includes(formatEdamId) &&
         [
           'SBO_0000293',

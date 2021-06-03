@@ -544,6 +544,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
                   ) {
                     modelFormats.add('format_9003');
                   } else if (
+                    model.language.startsWith('urn:sedml:language:hoc')
+                  ) {
+                    modelFormats.add('format_9005');
+                  } else if (
                     model.language.startsWith('urn:sedml:language:lems')
                   ) {
                     modelFormats.add('format_9004');
