@@ -871,9 +871,17 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         });
       }
       if (
-        ['format_2585', 'format_3240', 'format_3971', 'format_3972', 'format_9000', 'format_9001', 'format_9002', 'format_9003', 'format_9004'].includes(
-          formatEdamId,
-        ) &&
+        [
+          'format_2585',
+          'format_3240',
+          'format_3971',
+          'format_3972',
+          'format_9000',
+          'format_9001',
+          'format_9002',
+          'format_9003',
+          'format_9004',
+        ].includes(formatEdamId) &&
         [
           'SBO_0000293',
           'SBO_0000295',
