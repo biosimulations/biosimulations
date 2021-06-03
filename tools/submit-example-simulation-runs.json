@@ -59,6 +59,21 @@
     "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
   },
   {
+    "name": "Hodgkin-Huxley cell (NeuroML/LEMS, CVODE, NetPyNe)",
+    "simulator": "netpyne",
+    "filename": "neuroml-lems/Hodgkin-Huxley-cell.omex"
+  },
+  {
+    "name": "Hodgkin-Huxley cell (NeuroML/LEMS, CVODE, Neuron)",
+    "simulator": "neuron",
+    "filename": "neuroml-lems/Hodgkin-Huxley-cell.omex"
+  },
+  {
+    "name": "Hodgkin-Huxley cell (NeuroML/LEMS, Euler, pyNeuroML)",
+    "simulator": "pyneuroml",
+    "filename": "neuroml-lems/Hodgkin-Huxley-cell.omex"
+  },
+  {
     "name": "Lorenz system (CellML, CVODE, OpenCOR)",
     "simulator": "opencor",
     "filename": "cellml/Lorenz-system.omex"
