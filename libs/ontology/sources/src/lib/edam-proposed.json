@@ -33,5 +33,14 @@
         "iri": "",
         "url": "http://copasi.org/Support/Technical_Documentation/File_Format/",
         "moreInfoUrl": "http://copasi.org/Support/Technical_Documentation/File_Format/"
+    },
+    {
+        "id": "format_9004",
+        "name": "LEMS",
+        "description": "Low Entropy Model Specification Language",
+        "namespace": "EDAM",
+        "iri": "",
+        "url": "https://lems.github.io/LEMS/",
+        "moreInfoUrl": "https://lems.github.io/LEMS/"
     }
 ]
