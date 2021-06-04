@@ -4,6 +4,9 @@ import {
   DatasetService,
   DomainService,
   GroupService,
+  InlineResponse200,
+  InlineResponse2003,
+  InlineResponse2004Links,
   LinkService,
 } from '@biosimulations/hdf5apiclient';
 
@@ -25,7 +28,7 @@ export class SimulationHDFService {
     return linksResponse.data.links;
   }
 
-  private async getRootGroupId(domain: string): string {
+  private async getRootGroupId(domain: string): Promise<string | undefined> {
     const domainResponse = await this.domainService
       .rootGet(ACCEPT, domain)
       .toPromise();
@@ -38,16 +41,16 @@ export class SimulationHDFService {
   public async getGroups(simId: string) {
     const domain = simId + '.results';
 
-    const rootGroup = await this.getRootGroupId(domain);
-    this.linkService.groupsIdLinksLinknameGet
-    const rootGroupResponse =  this.groupService
+    const rootGroup = (await this.getRootGroupId(domain)) || '';
+    this.linkService.groupsIdLinksLinknameGet;
+    const rootGroupResponse = this.groupService
       .groupsIdGet(rootGroup, ACCEPT, domain)
       .toPromise();
     const groupsResponse = await this.domainService
       .groupsGet(ACCEPT, domain)
       .toPromise();
 
-    const groups = groupsResponse.data.groups;
+    const groups = groupsResponse.data.groups || [];
     const returned_groups = [];
     for (const group of groups) {
       const group_name = await this.getGroupName(group, domain);
@@ -55,7 +58,12 @@ export class SimulationHDFService {
         .groupsIdLinksGet(group, ACCEPT, domain)
         .toPromise();
       const links = linksResponse.data.links;
-      const return_group = {};
+      const return_group: {
+        [key: string]: {
+          links: InlineResponse2004Links[] | undefined;
+          info: InlineResponse2003;
+        };
+      } = {};
       return_group[group] = { links: links, info: group_name };
       returned_groups.push(return_group);
     }

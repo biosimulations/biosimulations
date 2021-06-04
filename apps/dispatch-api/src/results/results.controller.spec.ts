@@ -6,6 +6,10 @@
  */
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import {
+  HSDSClientModule,
+  SimulationHDFService,
+} from '@biosimulations/hsds/client';
 import { SharedStorageService } from '@biosimulations/shared/storage';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -38,6 +42,10 @@ describe('ResultsController', () => {
       imports: [BiosimulationsAuthModule, BiosimulationsConfigModule],
       providers: [
         ResultsService,
+        {
+          provide: SimulationHDFService,
+          useClass: MockStorageService,
+        },
         {
           provide: getModelToken(ResultsModel.name),
           useClass: mockFile,
