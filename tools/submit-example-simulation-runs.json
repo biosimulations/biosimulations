@@ -61,17 +61,17 @@
   {
     "name": "Hodgkin-Huxley cell (NeuroML/LEMS, CVODE, NetPyNe)",
     "simulator": "netpyne",
-    "filename": "neuroml-lems/Hodgkin-Huxley-cell.omex"
+    "filename": "neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex"
   },
   {
     "name": "Hodgkin-Huxley cell (NeuroML/LEMS, CVODE, Neuron)",
     "simulator": "neuron",
-    "filename": "neuroml-lems/Hodgkin-Huxley-cell.omex"
+    "filename": "neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex"
   },
   {
     "name": "Hodgkin-Huxley cell (NeuroML/LEMS, Euler, pyNeuroML)",
     "simulator": "pyneuroml",
-    "filename": "neuroml-lems/Hodgkin-Huxley-cell.omex"
+    "filename": "neuroml-lems/Hodgkin-Huxley-cell-Euler.omex"
   },
   {
     "name": "Lorenz system (CellML, CVODE, OpenCOR)",
