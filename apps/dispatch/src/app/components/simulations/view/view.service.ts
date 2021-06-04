@@ -48,7 +48,7 @@ export class ViewService {
           : 'N/A',
       projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
       simulatorUrl: `${urls.simulators}/simulators/${simulation.simulator}/${simulation.simulatorVersion}`,
-      resultsUrl: `${urls.dispatchApi}download/result/${simulation.id}`,
+      resultsUrl: `${urls.dispatchApi}results/${simulation.id}/download`,
     };
   }
 }
