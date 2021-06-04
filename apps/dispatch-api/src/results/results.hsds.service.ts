@@ -4,6 +4,9 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class HSDSResultsService {
+  getGroups(id: string) {
+    return this.results.getGroups(id);
+  }
   getResults(simId: string) {
     return this.results.getDatasets(simId);
   }

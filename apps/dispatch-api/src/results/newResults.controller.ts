@@ -7,20 +7,8 @@
  * @license MIT
  */
 
-
-
-
-
-
-import {
-  Controller,
-  Get,
-  Param,
-} from '@nestjs/common';
-import {
-  ApiTags,
-} from '@nestjs/swagger';
-
+import { Controller, Get, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { HSDSResultsService } from './results.hsds.service';
 
@@ -34,6 +22,6 @@ export class NewResultsController {
 
   @Get(':id')
   public async getResults(@Param('id') id: string) {
-    return this.service.getResults(id);
+    return this.service.getGroups(id);
   }
 }
