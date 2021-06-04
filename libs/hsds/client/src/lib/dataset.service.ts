@@ -4,7 +4,6 @@ import {
   DatasetService,
   DomainService,
   GroupService,
-  InlineResponse200,
   InlineResponse2003,
   InlineResponse2004Links,
   LinkService,

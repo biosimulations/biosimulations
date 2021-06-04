@@ -1,4 +1,4 @@
-import { HttpModule, HttpService, Module } from '@nestjs/common';
+import { HttpModule, Module } from '@nestjs/common';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 
 import { Configuration, DomainService } from '@biosimulations/hdf5apiclient';
