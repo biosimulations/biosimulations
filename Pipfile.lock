@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d71753bde70e628e1e5929e3897146851f9e7266710633cf15114085408c1ac8"
+            "sha256": "159dc29fa04a8b599de40ffe2857f814061e7e605279fca5a8755b9bce5e15f8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -33,15 +33,16 @@
         "biosimulators-utils": {
             "extras": [
                 "cellml",
+                "lems",
                 "neuroml",
                 "sbml"
             ],
             "hashes": [
-                "sha256:0689380a6a361a7e40969bdd17c2f35deb861ce83915c8082589103a18ca6066",
-                "sha256:a261fab03774e66f7a0cfd60c4af450f8fb21c02783a57bcd8c67356cceee961"
+                "sha256:2f37461a6ca4cad646785bc3418339a4358aa774f2fc3bc946ef10b4ec0f9a87",
+                "sha256:fddb9cf2df169df4648e53941a5a5cf578dda4dffa4a525406ca27784a6ff7e5"
             ],
             "index": "pypi",
-            "version": "==0.1.78"
+            "version": "==0.1.79"
         },
         "boto3": {
             "hashes": [
@@ -477,7 +478,7 @@
                 "sha256:f5e7cd7068df4aa803be68edc7c6fc5e3ed934d53a7ab1f21539fb5925e0172e",
                 "sha256:ff442e4fe6e66019b2070352e0cd6e7dde994ff1267d45343b587ed621e4ec47"
             ],
-            "markers": "python_version >= '3.9'",
+            "markers": "platform_python_implementation != 'PyPy' and python_version < '3.10'",
             "version": "==1.21.0rc1"
         },
         "openapi-schema-validator": {
@@ -570,6 +571,13 @@
                 "sha256:55fd38fff927630a74643b8e3655de47006a6cb21580d0c0bbd1a90c20e01d1a"
             ],
             "version": "==2.4.2"
+        },
+        "pylems": {
+            "hashes": [
+                "sha256:a98599abc5157f7e048d37f2b36d89fbe61251fd1de6594d194f21d56769154f",
+                "sha256:d35636c809fb70f12e7cf278466280f62df09287a727003a4d63a84e59c33757"
+            ],
+            "version": "==0.5.2"
         },
         "pyparsing": {
             "hashes": [
