@@ -139,16 +139,15 @@
         </li>
         <li>
           <p>
-            <b>Metadata for reports:</b> The following metadata should be encoded into
-            attributes of the corresponding HDF5 dataset.
+            <b>Metadata for reports:</b> The following metadata should be
+            encoded into attributes of the corresponding HDF5 dataset.
           </p>
 
           <ul class="vertically-spaced">
             <li>
               <b>Type of the output:</b> The type of the output
-              (<code>Report</code>, <code>Plot2D</code>,
-              <code>Plot3D</code>) should be encoded into the key
-              <code>_type</code>.
+              (<code>Report</code>, <code>Plot2D</code>, <code>Plot3D</code>)
+              should be encoded into the key <code>_type</code>.
             </li>
             <li>
               <b>Complete id of the output:</b> The complete id of the output
@@ -171,13 +170,13 @@
             <li>
               <b>Ids of rows (SED data sets or data generators):</b> For
               reports, the ids of the data sets should be encoded into the key
-              <code>sedmlDataSetIds</code>. The value of this key should be an array
-              of the ids of the data sets, in the order in which the data sets
-              were defined in their parent SED document. For plots, the ids of
-              the data generators should be encoded into the key
-              <code>sedmlDataSetIds</code>. The value of this key should be an array
-              of the ids of the data generators, in the order in which the data
-              generators were defined in their parent SED document.
+              <code>sedmlDataSetIds</code>. The value of this key should be an
+              array of the ids of the data sets, in the order in which the data
+              sets were defined in their parent SED document. For plots, the ids
+              of the data generators should be encoded into the key
+              <code>sedmlDataSetIds</code>. The value of this key should be an
+              array of the ids of the data generators, in the order in which the
+              data generators were defined in their parent SED document.
             </li>
             <li>
               <b>Names of row (SED data sets or data generators):</b> For
@@ -193,15 +192,15 @@
               reports, the labels of the data sets should be encoded into the
               key <code>sedmlDataSetLabels</code>. For plots, the id of the data
               generators should be encoded into the key
-              <code>sedmlDataSetLabels</code>. The value of this key should be an
-              array of the labels of the data sets, in the order in which the
+              <code>sedmlDataSetLabels</code>. The value of this key should be
+              an array of the labels of the data sets, in the order in which the
               data sets were defined in their parent SED document.
             </li>
             <li>
               <b>Data types of SED data sets/generators</b>: The data types of
               the data sets (reports) or data generators (plots) should be
-              encoded into the key <code>sedmlDataSetDataTypes</code>. The value of
-              this key should be an array of the data types of the data
+              encoded into the key <code>sedmlDataSetDataTypes</code>. The value
+              of this key should be an array of the data types of the data
               sets/generators, in the order in which the data sets/generators
               were defined in their parent SED document. The data type of each
               data set should be described using a NumPy dtype (e.g.,
@@ -212,28 +211,30 @@
             <li>
               <b>Shapes of SED data sets/generators</b>: The shapes of the data
               sets (reports) or data generators (plots) should be encoded into
-              the key <code>sedmlDataSetShapes</code>. The value of this key should
-              be an array of comma-separated lists of the shapes of the data
-              sets/generators. The shapes of the data sets/generators should be
-              listed in the order in which the data sets/generators were defined
-              in their parent SED document.
+              the key <code>sedmlDataSetShapes</code>. The value of this key
+              should be an array of comma-separated lists of the shapes of the
+              data sets/generators. The shapes of the data sets/generators
+              should be listed in the order in which the data sets/generators
+              were defined in their parent SED document.
             </li>
           </ul>
         </li>
 
         <li>
           <p>
-            <b>Metadata for SED-ML files:</b> The following metadata should be encoded into
-            attributes of the parent groups of HDF5 datasets which represent SED-ML files
-            and their parent directories within their parent COMBINE archives.
+            <b>Metadata for SED-ML files:</b> The following metadata should be
+            encoded into attributes of the parent groups of HDF5 datasets which
+            represent SED-ML files and their parent directories within their
+            parent COMBINE archives.
           </p>
 
           <ul class="vertically-spaced">
             <li>
-              <b>Complete id of the COMBINE archive location:</b> The location of each
-              SED-ML file and the location of each parent directory of each SED-ML file
-              with their parent COMBINE archive (<code>omex-manifest:content/@location</code>)
-              should be encoded into the keys <code>uri</code> and
+              <b>Complete id of the COMBINE archive location:</b> The location
+              of each SED-ML file and the location of each parent directory of
+              each SED-ML file with their parent COMBINE archive
+              (<code>omex-manifest:content/@location</code>) should be encoded
+              into the keys <code>uri</code> and
               <code>combineArchiveLocation</code>.
             </li>
           </ul>
@@ -257,7 +258,8 @@
       <p>
         Below is a graphical illustration of the organization of a HDF5 file for
         a SED report with id <code>report-1</code> defined in a SED-ML file
-        located at <code>experiment-1/batch-1/simulation-1.sedml</code> within a COMBINE/OMEX archive.
+        located at <code>experiment-1/batch-1/simulation-1.sedml</code> within a
+        COMBINE/OMEX archive.
       </p>
 
       <h3>Path of the HDF5 dataset for the SED report</h3>
@@ -377,21 +379,17 @@
 
       <h3>Attributes of the HDF5 dataset for the SED report</h3>
       <ul class="vertically-spaced">
+        <li><code>_type</code>: <code>Report</code></li>
         <li>
-          <code>_type</code>: <code>Report</code>
+          <code>uri</code>:
+          <code>experiment-1/batch-1/simulation-1.sedml/report-1</code>
         </li>
+        <li><code>sedmlId</code>: <code>report-1</code></li>
+        <li><code>sedmlName</code>: <code>Report 1</code></li>
         <li>
-          <code>uri</code>: <code>experiment-1/batch-1/simulation-1.sedml/report-1</code>
-        </li>
-        <li>
-          <code>sedmlId</code>: <code>report-1</code>
-        </li>
-        <li>
-          <code>sedmlName</code>: <code>Report 1</code>
-        </li>
-        <li>
-          <code>sedmlDataSetIds</code>: <code>time</code>, <code>metabolite_a</code>,
-          <code>metabolite_b</code>, <code>sum_metabolite_a_b</code>,
+          <code>sedmlDataSetIds</code>: <code>time</code>,
+          <code>metabolite_a</code>, <code>metabolite_b</code>,
+          <code>sum_metabolite_a_b</code>,
           <code>ratio_flux_c_d</code>
         </li>
         <li>
@@ -412,35 +410,43 @@
         </li>
       </ul>
 
-      <h3>Attributes of the HDF5 groups for the SED-ML file and its parent subdirectories</h3>
+      <h3>
+        Attributes of the HDF5 groups for the SED-ML file and its parent
+        subdirectories
+      </h3>
       <ul class="vertically-spaced">
-        <li><code>experiment-1</code> HDF5 group for the grandparent directory of the SED-ML file
+        <li>
+          <code>experiment-1</code> HDF5 group for the grandparent directory of
+          the SED-ML file
           <ul>
-            <li>
-              <code>uri</code>: <code>experiment-1</code>
-            </li>
+            <li><code>uri</code>: <code>experiment-1</code></li>
             <li>
               <code>combineArchiveLocation</code>: <code>experiment-1</code>
             </li>
           </ul>
         </li>
-        <li><code>experiment-1/batch-1</code> HDF5 group for the parent directory of the SED-ML file
+        <li>
+          <code>experiment-1/batch-1</code> HDF5 group for the parent directory
+          of the SED-ML file
           <ul>
+            <li><code>uri</code>: <code>experiment-1/batch-1</code></li>
             <li>
-              <code>uri</code>: <code>experiment-1/batch-1</code>
-            </li>
-            <li>
-              <code>combineArchiveLocation</code>: <code>experiment-1/batch-1</code>
+              <code>combineArchiveLocation</code>:
+              <code>experiment-1/batch-1</code>
             </li>
           </ul>
         </li>
-        <li><code>experiment-1/batch-1/simulation-1.sedml</code> HDF5 group for the SED-ML file
+        <li>
+          <code>experiment-1/batch-1/simulation-1.sedml</code> HDF5 group for
+          the SED-ML file
           <ul>
             <li>
-              <code>uri</code>: <code>experiment-1/batch-1/simulation-1.sedml</code>
+              <code>uri</code>:
+              <code>experiment-1/batch-1/simulation-1.sedml</code>
             </li>
             <li>
-              <code>combineArchiveLocation</code>: <code>experiment-1/batch-1/simulation-1.sedml</code>
+              <code>combineArchiveLocation</code>:
+              <code>experiment-1/batch-1/simulation-1.sedml</code>
             </li>
           </ul>
         </li>
