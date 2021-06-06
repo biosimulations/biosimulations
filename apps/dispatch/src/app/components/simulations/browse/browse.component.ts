@@ -38,8 +38,8 @@ export class BrowseComponent implements OnInit {
       centerRouterLink: (simulation: Simulation): string[] => {
         return ['/simulations', simulation.id];
       },
-      minWidth: 195,
-      maxWidth: 195,
+      minWidth: 205,
+      maxWidth: 205,
       filterable: false,
       showStacked: false,
     },
@@ -176,24 +176,10 @@ export class BrowseComponent implements OnInit {
           '-' +
           (value.getMonth() + 1).toString().padStart(2, '0') +
           '-' +
-          value.getDate().toString().padStart(2, '0') +
-          ' ' +
-          value.getHours().toString().padStart(2, '0') +
-          ':' +
-          value.getMinutes().toString().padStart(2, '0') +
-          ':' +
-          value.getSeconds().toString().padStart(2, '0')
+          value.getDate().toString().padStart(2, '0')
         );
       },
-      filterType: ColumnFilterType.date,
-      minWidth: 133,
-      maxWidth: 133,
-    },
-    {
-      id: 'updated',
-      heading: 'Last updated',
-      key: 'updated',
-      formatter: (value: Date): string => {
+      toolTipFormatter: (value: Date): string => {
         return (
           value.getFullYear().toString() +
           '-' +
@@ -209,8 +195,40 @@ export class BrowseComponent implements OnInit {
         );
       },
       filterType: ColumnFilterType.date,
-      minWidth: 133,
-      maxWidth: 133,
+      minWidth: 78,
+      maxWidth: 78,
+    },
+    {
+      id: 'updated',
+      heading: 'Last updated',
+      key: 'updated',
+      formatter: (value: Date): string => {
+        return (
+          value.getFullYear().toString() +
+          '-' +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
+          '-' +
+          value.getDate().toString().padStart(2, '0')
+        );
+      },
+      toolTipFormatter: (value: Date): string => {
+        return (
+          value.getFullYear().toString() +
+          '-' +
+          (value.getMonth() + 1).toString().padStart(2, '0') +
+          '-' +
+          value.getDate().toString().padStart(2, '0') +
+          ' ' +
+          value.getHours().toString().padStart(2, '0') +
+          ':' +
+          value.getMinutes().toString().padStart(2, '0') +
+          ':' +
+          value.getSeconds().toString().padStart(2, '0')
+        );
+      },
+      filterType: ColumnFilterType.date,
+      minWidth: 78,
+      maxWidth: 78,
       show: false,
     },
     {
