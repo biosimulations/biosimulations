@@ -1,6 +1,6 @@
 {
   "name": "biosimulations",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
@@ -30,9 +30,11 @@
     "help": "nx help",
     "build-sitemaps": "tools/build-sitemaps/__main__.py",
     "build-push-deploy-docker": "tools/build-push-deploy-docker-image",
-    "submit-example-simulation-runs": "tools/submit-example-simulation-runs",
+    "submit-dev-simulation-runs": "tools/submit-example-simulation-runs",
+    "submit-prod-simulation-runs": "tools/submit-example-simulation-runs --runbiosimulation-api org",
     "scully": "scully",
-    "scully:serve": "scully serve"
+    "scully:serve": "scully serve",
+    "semantic-release": "semantic-release"
   },
   "private": true,
   "dependencies": {
@@ -124,6 +126,8 @@
     "@scullyio/init": "^1.1.4",
     "@scullyio/ng-lib": "^1.1.0",
     "@scullyio/scully": "^1.1.0",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "@types/archiver": "^3.1.1",
     "@types/auth0": "^2.33.1",
     "@types/bull": "^3.15.0",
@@ -163,6 +167,7 @@
     "openapi-examples-validator": "^4.3.3",
     "plotly.js": "^1.58.4",
     "prettier": "2.2.1",
+    "semantic-release": "^17.4.3",
     "ts-jest": "26.5.5",
     "ts-node": "~9.1.1",
     "tslint": "~6.1.3",
