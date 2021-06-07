@@ -77,7 +77,7 @@ def handler(body, modelFile=None):
 
     try:
         params, vars = get_parameters_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
-    except Exception as exception:
+    except NotImplementedError as exception:
         raise BadRequestException(
             title='Models of language `{}` are not supported with simulations of type `{}` and algorithm `{}`'.format(
                 model_lang, sim_type, alg_kisao_id),

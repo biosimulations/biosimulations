@@ -3,6 +3,22 @@
 #############
 FROM python:3.9-buster as base
 
+RUN apt-get -y update \
+    && apt-get install --no-install-recommends -y \
+        xvfb \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir /tmp/.X11-unix \
+    && chmod 1777 /tmp/.X11-unix
+COPY tools/xvfb-startup.sh /xvfb-startup.sh
+ENV XVFB_RES="1920x1080x24" \
+    XVFB_ARGS="" \
+    DISPLAY=":1"
+
+RUN mkdir -p /.cache/matplotlib \
+    && mkdir -p /.config/matplotlib \
+    && chmod ugo+rw /.config/matplotlib \
+    && chmod ugo+rw /.cache/matplotlib
+
 #The name of the app to build
 ARG app
 ENV APP=$app
@@ -34,4 +50,4 @@ LABEL \
     org.opencontainers.image.vendor="BioSimulations Team" \
     org.opencontainers.image.licenses="MIT"
 EXPOSE 3333
-CMD pipenv run gunicorn -b 0.0.0.0:3333  src.app:app
+CMD /bin/bash /xvfb-startup.sh pipenv run gunicorn -b 0.0.0.0:3333  src.app:app
