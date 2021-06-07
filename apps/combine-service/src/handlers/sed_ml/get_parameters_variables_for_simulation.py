@@ -5,6 +5,7 @@ from biosimulators_utils.sedml.data_model import (
     SteadyStateSimulation,
     UniformTimeCourseSimulation,
 )
+from biosimulators_utils.sedml.exceptions import UnsupportedModelLanguageError
 from biosimulators_utils.sedml.model_utils import get_parameters_variables_for_simulation
 import os
 import requests
@@ -76,11 +77,17 @@ def handler(body, modelFile=None):
         )  # pragma: no cover: unreachable due to schema validation
 
     try:
-        params, vars = get_parameters_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
-    except NotImplementedError as exception:
+        params, vars = get_parameters_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)    
+    except UnsupportedModelLanguageError as exception:
         raise BadRequestException(
             title='Models of language `{}` are not supported with simulations of type `{}` and algorithm `{}`'.format(
                 model_lang, sim_type, alg_kisao_id),
+            instance=exception
+        )  # pragma: no cover: unreachable due to schema validation
+    except Exception as exception:
+        raise BadRequestException(
+            title='Information about parameters and observable could not be extract from the model of language `{}`'.format(
+                model_lang),
             instance=exception
         )  # pragma: no cover: unreachable due to schema validation
 
