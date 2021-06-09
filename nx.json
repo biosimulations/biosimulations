@@ -107,7 +107,8 @@
       "implicitDependencies": []
     },
     "dispatch-api": {
-      "tags": ["scope:dispatch", "type:api", "platform:server"]
+      "tags": ["scope:dispatch", "type:api", "platform:server"],
+      "implicitDependencies":["hdf5-api-client"]
     },
     "platform": {
       "tags": ["scope:platform", "type:frontend", "platform:web"],
