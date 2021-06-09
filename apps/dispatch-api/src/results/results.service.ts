@@ -74,7 +74,9 @@ export class ResultsService {
     return reports;
   }
   public async download(simId: string): Promise<S3.Body | undefined> {
-    const file = await this.storage.getObject(simId + '/' + 'reports.h5');
+    const file = await this.storage.getObject(
+      'simulations/' + simId + '/' + simId + '.zip',
+    ); // TODO remove harcoded path
     return file.Body;
   }
   public addResults(results: any): void {
