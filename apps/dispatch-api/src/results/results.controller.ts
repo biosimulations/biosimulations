@@ -82,8 +82,8 @@ export class ResultsController {
     @Res() res: Response,
   ): Promise<void> {
     const file = await this.service.download(simId);
-    res.contentType('application/x-hdf5');
-    res.setHeader('Content-Disposition', 'attachment; filename="results.h5"');
+    res.contentType('application/zip');
+    res.setHeader('Content-Disposition', 'attachment; filename="outputs.zip"');
     res.write(file);
     res.send();
   }
