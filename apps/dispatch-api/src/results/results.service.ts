@@ -33,10 +33,6 @@ export class ResultsService {
     return result.save();
   }
 
-  public async downloadReport(simId: string): Promise<S3.Body | undefined> {
-    const file = await this.storage.getObject(simId + '/' + 'reports.h5');
-    return file.Body;
-  }
   public async getResultReport(
     simId: string,
     reportId: string,

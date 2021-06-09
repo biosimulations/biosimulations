@@ -15,6 +15,9 @@ import {
 } from '../simulation-run/simulation-run.model';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { HSDSClientModule } from '@biosimulations/hsds/client';
+import { NewResultsController } from './newResults.controller';
+import { HSDSResultsService } from './results.hsds.service';
+
 @Module({
   imports: [
     BiosimulationsAuthModule,
@@ -24,7 +27,7 @@ import { HSDSClientModule } from '@biosimulations/hsds/client';
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
     ]),
   ],
-  providers: [ResultsService],
-  controllers: [ResultsController],
+  providers: [ResultsService, HSDSResultsService],
+  controllers: [ResultsController, NewResultsController],
 })
 export class ResultsModule {}
