@@ -21,11 +21,13 @@ export class FaqComponent {
   }
 
   emailUrl!: string;
+  modelLanguageDocsUrl!: string;
   exampleCombineArchivesUrl!: string;
 
   constructor(public config: ConfigService) {
     this.emailUrl = 'mailto:' + config.email;
 
+    this.modelLanguageDocsUrl = this.config.simulatorsAppUrl + 'conventions/simulation-experiments';
     this.exampleCombineArchivesUrl =
       'https://github.com/' +
       this.config.appConfig.exampleCombineArchives.repoOwnerName +

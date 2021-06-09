@@ -1,0 +1,16 @@
+@import 'biosimulations-colors';
+.biosimulations-table {
+  font-size: 82%;
+
+  thead tr {
+    background: $light-bg-darker-10;
+  }
+
+  th {
+    white-space: nowrap;
+  }
+
+  td:last-child {
+    text-align: center;
+  }
+}

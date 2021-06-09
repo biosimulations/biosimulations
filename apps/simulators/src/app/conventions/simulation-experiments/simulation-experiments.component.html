@@ -431,6 +431,76 @@
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
+      heading="Guides for using SED-ML and the COMBINE archive format with specific model languages"
+      tocSection="Model langauges"
+    >
+      <p>Simulation tools should recognize the URNs and IRIs below to identify model languages described in SED-ML files and COMBINE archives. The link in the "Info" column below contain more information about how simulation tools should interpret SED-ML in combination with specific model languages.</p>
+      <table class="biosimulations-table">
+        <thead>
+          <tr>
+            <th>Language</th>        
+            <th>EDAM id</th>
+            <th>SED-ML URN</th>
+            <th>COMBINE archive specification URI</th>
+            <th>MIME type</th>
+            <th>Extensions</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="https://bionetgen.org" target="_blank">BNGL</a></td>
+            <td><a href="https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3972"><span class="monospace">3972</span></a></td>
+            <td><span class="monospace">urn:sedml:language:bngl</span></td>
+            <td><span class="monospace">http://purl.org/NET/mediatypes/text/bngl+plain</span></td>
+            <td><span class="monospace">text/bngl+plain</span></td>
+            <td><span class="monospace">.bngl</span></td>
+            <td><a href="https://biosimulators.github.io/Biosimulators_BioNetGen/tutorial.html" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></td>
+          </tr>
+          <tr>
+            <td><a href="http://cellml.org/" target="_blank">CellML</a></td>
+            <td><a href="https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3240"><span class="monospace">3240</span></a></td>
+            <td><span class="monospace">urn:sedml:language:cellml</span></td>
+            <td><span class="monospace">http://identifiers.org/combine.specifications/cellml</span></td>
+            <td><span class="monospace">application/cellml+xml</span></td>
+            <td><span class="monospace">.xml</span>, <span class="monospace">.cellml</span></td>
+            <td><a href="http://sed-ml.org/specifications.html" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></td>
+          </tr>
+          <tr>
+            <td>(<a href="https://neuroml.org/" target="_blank">NeuroML</a>)/<a href="https://lems.github.io/LEMS/" target="_blank">LEMS</a></td>
+            <td><span class="monospace">9004</span></td>
+            <td><span class="monospace">urn:sedml:language:lems</span></td>
+            <td><span class="monospace">http://purl.org/NET/mediatypes/application/lems+xml</span></td>
+            <td><span class="monospace">application/lems+xml</span></td>
+            <td><span class="monospace">.xml</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="http://sbml.org" target="_blank">SBML</a></td>
+            <td><a href="https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2585"><span class="monospace">2585</span></a></td>
+            <td><span class="monospace">urn:sedml:language:sbml</span></td>
+            <td><span class="monospace">http://identifiers.org/combine.specifications/sbml</span></td>
+            <td><span class="monospace">application/sbml+xml</span></td>
+            <td><span class="monospace">.xml</span>, <span class="monospace">.sbml</span></td>
+            <td><a href="http://sed-ml.org/specifications.html" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></td>
+          </tr>
+          <tr>
+            <td><a href="http://www.smoldyn.org/" target="_blank">Smoldyn</a></td>
+            <td><span class="monospace">9001</span></td>
+            <td><span class="monospace">urn:sedml:language:smoldyn</span></td>
+            <td><span class="monospace">http://purl.org/NET/mediatypes/text/smoldyn+plain</span></td>
+            <td><span class="monospace">text/smoldyn+plain</span></td>
+            <td><span class="monospace">.txt</span></td>
+            <td><a href="https://github.com/ssandrews/Smoldyn/blob/master/Using-Smoldyn-with-SED-ML-COMBINE-BioSimulators.md" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Example SED-ML files and COMBINE archives for all of the languages listed above are available here <a href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+
+    </biosimulations-text-page-content-section>
+
+    <biosimulations-text-page-content-section
       heading="Recommended resources for implementing the execution of simulation experiments"
       tocSection="Recommended resources"
     >
