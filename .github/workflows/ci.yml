@@ -373,12 +373,7 @@ jobs:
         env:
           PYTHONPATH: apps/${{ matrix.libOrApp }}/
         with:
-          run: |
-             pipenv run \
-              python \
-                -m pytest \
-                  --cov apps/${{ matrix.libOrApp }}/src/ \
-                  apps/${{ matrix.libOrApp }}/tests/
+          run: pipenv run python -m pytest --cov apps/${{ matrix.libOrApp }}/src/ apps/${{ matrix.libOrApp }}/tests/
 
       - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v1.5.0
