@@ -362,17 +362,18 @@ jobs:
         if: matrix.libOrApp != 'combine-service'
         run: nx run ${{ matrix.libOrApp }}:test --coverage
 
-      - name: Test library or app (Python)
-       
+      - name: Validate OpenAPI specification for library or app (Python)
         if: matrix.libOrApp == 'combine-service'
         run: |
           # ./node_modules/.bin/openapi-examples-validator apps/${{ matrix.libOrApp }}/src/spec/spec.yml
 
-          PYTHONPATH=apps/${{ matrix.libOrApp }}/ pipenv run \
-            python \
-              -m pytest \
-                --cov apps/${{ matrix.libOrApp }}/src/ \
-                apps/${{ matrix.libOrApp }}/tests/
+      - name: Test library or app (Python)
+        if: matrix.libOrApp == 'combine-service'
+        uses: GabrielBB/xvfb-action@v1
+        env:
+          PYTHONPATH: apps/${{ matrix.libOrApp }}/
+        with:
+          run: pipenv run python -m pytest --cov apps/${{ matrix.libOrApp }}/src/ apps/${{ matrix.libOrApp }}/tests/
 
       - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v1.5.0

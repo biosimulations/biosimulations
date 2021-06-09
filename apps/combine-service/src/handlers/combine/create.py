@@ -88,10 +88,18 @@ def handler(body, files=None):
             sed_doc = export_sed_doc(content['location']['value'])
 
             # save SED document to file
-            SedmlSimulationWriter().run(
-                sed_doc,
-                os.path.join(archive_dirname, content['location']['path']),
-                validate_models_with_languages=False)
+            try:
+                SedmlSimulationWriter().run(
+                    sed_doc,
+                    os.path.join(archive_dirname, content['location']['path']),
+                    validate_models_with_languages=False)
+            except ValueError as exception:
+                raise BadRequestException(
+                    title='`{}` does not contain a configuration for a valid SED-ML document.'.format(
+                        content['location']['value']),
+                    instance=exception,
+                )
+
         elif content_type == 'CombineArchiveContentFile':
             file = filename_map.get(
                 content['location']['value']['filename'], None)
