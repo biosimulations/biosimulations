@@ -726,7 +726,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
           let msg =
             'Sorry! We were unable to get the dependent parameters and independent variables of your model. ' +
-            'This feature is only currently available for models encoded in BNGL, CellML, SBML, SBML-fbc, ' + 
+            'This feature is only currently available for models encoded in BNGL, CellML, SBML, SBML-fbc, ' +
             'SBML-qual, and Smoldyn.';
           if (modelLocationType === LocationType.url) {
             msg += ` Please check that ${modelLocationDetails} is an accessible URL.`;
@@ -1409,7 +1409,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         });
         this.modelFormats = this.allModelFormats.filter(
           (format: OntologyTerm): boolean => {
-            return formatEdamIds.has(format.id) && modelFormatMetaData[format.id].enabled;
+            return (
+              formatEdamIds.has(format.id) &&
+              modelFormatMetaData[format.id].enabled
+            );
           },
         );
 
