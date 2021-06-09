@@ -362,7 +362,7 @@ jobs:
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
         if: matrix.libOrApp != 'combine-service'
-        run: nx run ${{ matrix.app }}:build --prod --with-deps && nx run ${{ matrix.libOrApp }}:test --coverage
+        run: nx run ${{ matrix.libOrApp }}:build --prod --with-deps && nx run ${{ matrix.libOrApp }}:test --coverage
 
       - name: Validate OpenAPI specification for library or app (Python)
         if: matrix.libOrApp == 'combine-service'
