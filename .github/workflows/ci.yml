@@ -370,9 +370,11 @@ jobs:
       - name: Test library or app (Python)
         if: matrix.libOrApp == 'combine-service'
         uses: GabrielBB/xvfb-action@v1
+        env:
+          PYTHONPATH: apps/${{ matrix.libOrApp }}/
         with:
           run: |
-            PYTHONPATH=apps/${{ matrix.libOrApp }}/ pipenv run \
+             pipenv run \
               python \
                 -m pytest \
                   --cov apps/${{ matrix.libOrApp }}/src/ \
