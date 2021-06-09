@@ -9,6 +9,7 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
+    ".github/workflows/ci.yml": "*",
     "Pipfile": ["combine-service"],
     "Pipfile.lock": ["combine-service"],
     "tsconfig.base.json": "*",
