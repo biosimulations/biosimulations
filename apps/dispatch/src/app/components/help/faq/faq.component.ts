@@ -27,7 +27,8 @@ export class FaqComponent {
   constructor(public config: ConfigService) {
     this.emailUrl = 'mailto:' + config.email;
 
-    this.modelLanguageDocsUrl = this.config.simulatorsAppUrl + 'conventions/simulation-experiments';
+    this.modelLanguageDocsUrl =
+      this.config.simulatorsAppUrl + 'conventions/simulation-experiments';
     this.exampleCombineArchivesUrl =
       'https://github.com/' +
       this.config.appConfig.exampleCombineArchives.repoOwnerName +
