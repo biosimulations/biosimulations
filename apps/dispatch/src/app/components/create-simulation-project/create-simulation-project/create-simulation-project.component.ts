@@ -52,6 +52,7 @@ const modelFormatMetaData: {
     sedUrn: string | null;
     combineSpecUrl: string;
     extension: string;
+    enabled: boolean;
   };
 } = {
   format_3972: {
@@ -59,66 +60,77 @@ const modelFormatMetaData: {
     sedUrn: 'urn:sedml:language:bngl',
     combineSpecUrl: 'http://purl.org/NET/mediatypes/text/bngl+plain',
     extension: 'bngl',
+    enabled: true,
   },
   format_3240: {
     name: 'CellML',
     sedUrn: 'urn:sedml:language:cellml',
     combineSpecUrl: 'http://identifiers.org/combine.specifications/cellml',
     extension: 'cellml',
+    enabled: true,
   },
   format_9003: {
     name: 'CopasiML',
     sedUrn: 'urn:sedml:language:copasiml',
     combineSpecUrl: 'http://purl.org/NET/mediatypes/application/x-copasi',
     extension: 'cps',
+    enabled: false,
   },
   format_9005: {
     name: 'HOC',
     sedUrn: 'urn:sedml:language:hoc',
     combineSpecUrl: 'http://purl.org/NET/mediatypes/text/x-hoc',
     extension: 'hoc',
+    enabled: false,
   },
   format_9004: {
     name: 'LEMS',
     sedUrn: 'urn:sedml:language:lems',
     combineSpecUrl: 'http://purl.org/NET/mediatypes/application/lems+xml',
     extension: 'xml',
+    enabled: false,
   },
   format_9002: {
     name: 'MorpheusML',
     sedUrn: 'urn:sedml:language:morpheusml',
     combineSpecUrl: 'http://purl.org/NET/mediatypes/application/morpheusml+xml',
     extension: 'xml',
+    enabled: false,
   },
   format_3971: {
     name: 'NeuroML',
     sedUrn: 'urn:sedml:language:neuroml',
     combineSpecUrl: 'http://identifiers.org/combine.specifications/neuroml',
     extension: 'nml',
+    enabled: false,
   },
   format_2585: {
     name: 'SBML',
     sedUrn: 'urn:sedml:language:sbml',
     combineSpecUrl: 'http://identifiers.org/combine.specifications/sbml',
     extension: 'xml',
+    enabled: true,
   },
   format_3685: {
     name: 'SED-ML',
     sedUrn: null,
     combineSpecUrl: 'http://identifiers.org/combine.specifications/sed-ml',
     extension: 'sedml',
+    enabled: true,
   },
   format_9000: {
     name: 'VCML',
     sedUrn: 'urn:sedml:language:vcml',
     combineSpecUrl: 'http://purl.org/NET/mediatypes/application/vcml+xml',
     extension: 'vcml',
+    enabled: false,
   },
   format_9001: {
     name: 'Smoldyn',
     sedUrn: 'urn:sedml:language:smoldyn',
     combineSpecUrl: 'http://purl.org/NET/mediatypes/text/smoldyn+plain',
     extension: 'txt',
+    enabled: true,
   },
 };
 
@@ -208,8 +220,32 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   ] as OntologyTerm[];
   compatibleSimulators?: CompatibleSimulator[];
 
-  modelFileTypeSpecifiers =
-    '.xml,.sbml,application/xml,application/sbml+xml,.bngl';
+  modelFileTypeSpecifiers = [
+    // BNGL
+    '.bngl',
+    'text/plain',
+    'text/bngl+plain',
+    'text/x-bngl',
+    'application/x-bngl',
+
+    // CellML
+    '.cellml',
+    '.xml',
+    'application/cellml+xml',
+    'application/x-cellml',
+    'application/xml',
+
+    //sbml
+    '.sbml',
+    'application/sbml+xml',
+    'application/x-sbml',
+
+    // smoldyn
+    '.txt',
+    'text/smoldyn+plain',
+    'text/x-smoldyn',
+    'application/x-smoldyn',
+  ].join(',');
   private static INIT_MODEL_NAMESPACES = 1;
   private static INIT_MODEL_CHANGES = 3;
   private static INIT_MODEL_VARIABLES = 5;
@@ -690,7 +726,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
           let msg =
             'Sorry! We were unable to get the dependent parameters and independent variables of your model. ' +
-            'This feature is only currently available for models encoded in SBML, SBML-fbc, and SBML-qual.';
+            'This feature is only currently available for models encoded in BNGL, CellML, SBML, SBML-fbc, ' + 
+            'SBML-qual, and Smoldyn.';
           if (modelLocationType === LocationType.url) {
             msg += ` Please check that ${modelLocationDetails} is an accessible URL.`;
           }
@@ -1372,7 +1409,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         });
         this.modelFormats = this.allModelFormats.filter(
           (format: OntologyTerm): boolean => {
-            return formatEdamIds.has(format.id);
+            return formatEdamIds.has(format.id) && modelFormatMetaData[format.id].enabled;
           },
         );
 

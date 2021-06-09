@@ -198,8 +198,8 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(vars[0]['symbol'], Symbol.time)
         self.assertNotIn('target', vars[0])
 
-        self.assertEqual(vars[-1]['id'], 'nik')
-        self.assertNotIn('name', vars[-1])
+        self.assertEqual(vars[-1]['id'], 'level_species_nik')
+        self.assertEqual(vars[-1]['name'], 'Level of species "nik"')
         self.assertNotIn('symbol', vars[-1])
 
         vars[-1]['target']['namespaces'].sort(key=lambda ns: ns['prefix'])
@@ -276,8 +276,8 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(vars[0]['symbol'], Symbol.time)
         self.assertNotIn('target', vars[0])
 
-        self.assertEqual(vars[-1]['id'], 'nik')
-        self.assertNotIn('name', vars[-1])
+        self.assertEqual(vars[-1]['id'], 'level_species_nik')
+        self.assertEqual(vars[-1]['name'], 'Level of species "nik"')
         self.assertNotIn('symbol', vars[-1])
 
         vars[-1]['target']['namespaces'].sort(key=lambda ns: ns['prefix'])
