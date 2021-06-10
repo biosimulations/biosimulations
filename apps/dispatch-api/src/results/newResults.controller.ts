@@ -22,6 +22,7 @@ export class NewResultsController {
 
   @Get(':id')
   public async getResults(@Param('id') id: string) {
-    return this.service.getGroups(id);
+    const results = this.service.getResults(id);
+    return results;
   }
 }

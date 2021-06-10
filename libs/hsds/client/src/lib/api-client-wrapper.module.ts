@@ -68,7 +68,6 @@ export class APIClientWrapperModule {
             useFactory: options.useFactory.createHSDSConnectionOptions,
             inject: [ConfigService],
           },
-          DomainService,
         ],
       },
     ];
