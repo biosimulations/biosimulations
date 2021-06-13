@@ -51,5 +51,23 @@
         "iri": "",
         "url": "https://www.neuron.yale.edu/neuron/static/new_doc/programming/hoc.html",
         "moreInfoUrl": "https://www.neuron.yale.edu/neuron/static/new_doc/programming/hoc.html"
+    },
+    {
+        "id": "format_9006",
+        "name": "Kappa",
+        "description": "Kappa Language",
+        "namespace": "EDAM",
+        "iri": "",
+        "url": "https://kappalanguage.org/",
+        "moreInfoUrl": "https://kappalanguage.org/"
+    },
+    {
+        "id": "format_9007",
+        "name": "pharmML",
+        "description": "Pharmacometrics Markup Language",
+        "namespace": "EDAM",
+        "iri": "",
+        "url": "http://www.pharmml.org/",
+        "moreInfoUrl": "http://www.pharmml.org/"
     }
 ]
