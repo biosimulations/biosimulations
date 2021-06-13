@@ -1002,7 +1002,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.controlsOpen = !this.controlsOpen;
   }
 
-  openControlPanelId = 3;
+  openControlPanelId = 2;
 
   openControlPanel(id: number): void {
     if (id != this.openControlPanelId) {
