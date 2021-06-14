@@ -14,16 +14,16 @@ import {
 
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
-export type SimulationRunReportData = SimulationRunReportDatum[];
+export type SimulationRunOutputData = SimulationRunOutputDatum[];
 
-export const SimulationRunReportDataSchema: Omit<SchemaObject, 'required'> = {
+export const SimulationRunOutputDataSchema: Omit<SchemaObject, 'required'> = {
   oneOf: [
     { type: 'array', items: { type: 'number', format: 'float' } },
     { type: 'array', items: { type: 'boolean' } },
   ],
 };
 
-export class SimulationRunReportDatum {
+export class SimulationRunOutputDatum {
   @ApiProperty({ type: String })
   public id!: string;
   @ApiProperty({ type: String })
@@ -31,19 +31,21 @@ export class SimulationRunReportDatum {
   @ApiProperty({ type: String })
   public shape!: string;
   @ApiProperty({ type: String })
+  // "float64", "int" etc. Not the same as seddatatype
   public type!: string;
-  @ApiProperty(SimulationRunReportDataSchema)
+  @ApiProperty(SimulationRunOutputDataSchema)
   public values: (number | boolean | string)[] = [];
 }
 
-export class SimulationRunReport {
+export class SimulationRunOutput {
   @ApiProperty({ type: String })
   public simId!: string;
 
   @ApiProperty({ type: String })
-  public reportId!: string;
+  public outputId!: string;
 
   @ApiPropertyOptional({ type: String })
+  // "SedReport" , "SedPlot2D", "SedPlot3D" see #2442
   public type!: string;
 
   @ApiPropertyOptional({ type: String })
@@ -62,8 +64,8 @@ export class SimulationRunReport {
   @ApiResponseProperty({ type: String, format: 'date-time' })
   public updated!: string;
 
-  @ApiProperty({ type: () => [SimulationRunReportDatum] })
-  public data!: SimulationRunReportData;
+  @ApiProperty({ type: () => [SimulationRunOutputDatum] })
+  public data!: SimulationRunOutputData;
 }
 
 export class SimulationRunResults {
@@ -76,6 +78,6 @@ export class SimulationRunResults {
   @ApiResponseProperty({ type: String, format: 'date-time' })
   public updated!: string;
 
-  @ApiResponseProperty({ type: () => [SimulationRunReport] })
-  public reports!: SimulationRunReport[];
+  @ApiResponseProperty({ type: () => [SimulationRunOutput] })
+  public output!: SimulationRunOutput[];
 }
