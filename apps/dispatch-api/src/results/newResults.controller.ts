@@ -25,10 +25,10 @@ export class NewResultsController {
   ) {}
 
   @Get(':id')
-  @ApiQuery({ name: 'sparse', type: Boolean })
+  @ApiQuery({ name: 'includeData', type: Boolean })
   public async getResults(
     @Param('id') id: string,
-    @Query('sparse', ParseBoolPipe) includeData = false,
+    @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunResults> {
     const results = await this.service.getResults(id, includeData);
 
@@ -39,6 +39,6 @@ export class NewResultsController {
       outputs: results.outputs,
     };
 
-    return results;
+    return returnValue;
   }
 }

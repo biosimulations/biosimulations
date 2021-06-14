@@ -22,14 +22,16 @@ export class HSDSResultsService {
         const sedTypes = dataset.attributes.sedmlDataSetDataTypes as string[];
         const sedNames = dataset.attributes.sedmlDataSetNames as string[];
         console.log(dataset.attributes);
-        const values = (await this.getValues(simId, dataset.id)) || [];
+        const values = includeValues
+          ? (await this.getValues(simId, dataset.id)) || []
+          : [];
 
         const consistent =
           sedIds.length == sedLabels.length &&
           sedIds.length == sedShapes.length &&
           sedIds.length == sedTypes.length &&
           sedIds.length == sedNames.length &&
-          sedIds.length == values.length;
+          ((includeValues && sedIds.length == values.length) || !includeValues);
 
         if (!consistent) {
           throw new Error('Cannot process data');
@@ -71,6 +73,8 @@ export class HSDSResultsService {
       updated: dates.updated ? dates.updated.toTimeString() : '',
       outputs: outputs,
     };
+
+    return results;
   }
   public async getValues(
     simId: string,
