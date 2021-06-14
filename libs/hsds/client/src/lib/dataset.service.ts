@@ -9,28 +9,12 @@ import {
   InlineResponse2004Links as HDF5Links,
   LinkService,
 } from '@biosimulations/hdf5apiclient';
+import {
+  BiosimulationsDataAtributes,
+  isArrayAttribute,
+  isStringAttribute,
+} from './datamodel';
 
-type BiosimulationsDataAtributes = {
-  _type: string;
-  uri: string;
-  sedmlId: string;
-  sedmlName: string;
-  sedmlDataSetDataTypes: string[];
-  sedmlDataSetIds: string[];
-  sedmlDataSetLabels: string[];
-  sedmlDataSetNames: string[];
-  sedmlDataSetShapes: string[];
-};
-const ATTRIBUTES: (keyof BiosimulationsDataAtributes)[] = [
-  '_type',
-  'sedmlId',
-  'sedmlName',
-  'sedmlDataSetDataTypes',
-  'sedmlDataSetIds',
-  'sedmlDataSetNames',
-  'sedmlDataSetShapes',
-  'sedmlDataSetLabels',
-];
 const ACCEPT = 'application/json';
 const DATASET = 'datasets';
 const AUTH = undefined;
@@ -38,20 +22,6 @@ const GROUP = 'groups';
 Injectable();
 export class SimulationHDFService {
   private logger = new Logger(SimulationHDFService.name);
-  public async getResultsTimestamps(simId: string) {
-    const domain = simId + '.results';
-    const root_id = await this.getRootGroupId(domain);
-    if (root_id) {
-      const metadata = await this.getGroup(domain, root_id);
-      if (metadata.created && metadata.lastModified) {
-        return {
-          created: new Date(metadata.created * 1000),
-          updated: new Date(metadata.lastModified * 1000),
-        };
-      }
-    }
-    return { created: undefined, updated: undefined };
-  }
 
   public constructor(
     @Inject(DatasetService) private datasetService: DatasetService,
@@ -61,6 +31,38 @@ export class SimulationHDFService {
     @Inject(LinkService) private linkService: LinkService,
   ) {}
 
+  public async getDatasetValues(simId, datasetId) {
+    const domain = this.getDomainName(simId);
+    const dataResponse = await this.datasetService
+      .datasetsIdValueGet(
+        datasetId,
+        domain,
+        undefined,
+        undefined,
+        undefined,
+        ACCEPT,
+      )
+      .toPromise();
+
+    return dataResponse.data;
+  }
+  public async getResultsTimestamps(
+    simId: string,
+  ): Promise<{ created?: Date; updated?: Date }> {
+    const domain = simId + '.results';
+    const root_id = await this.getRootGroupId(domain);
+    if (root_id) {
+      const metadata = await this.getGroup(domain, root_id);
+      if (metadata.created && metadata.lastModified) {
+        return {
+          created: this.createDate(metadata.created),
+          updated: this.createDate(metadata.lastModified),
+        };
+      }
+    }
+    return { created: undefined, updated: undefined };
+  }
+
   public async getDatasets(simId: string) {
     const domain = this.getDomainName(simId);
 
@@ -69,37 +71,66 @@ export class SimulationHDFService {
       .toPromise();
 
     const datasetIds = response.data.datasets || [];
-    const datasets = [];
-    for (const datasetId of datasetIds) {
-      const dataset = this.getDataset(domain, datasetId);
-      let attributeNames = await this.getDatasetAttributeIds(domain, datasetId);
-      const logger = new Logger('test');
-      logger.error(attributeNames);
-      attributeNames = ATTRIBUTES;
-      logger.error(attributeNames);
-      const attributes = {};
-      for (const attribute of attributeNames) {
-        const value = await this.getDatasetAttributeValue(
-          domain,
-          datasetId,
-          attribute,
-        );
 
-        attributes[attribute] = value;
-      }
+    // List of attrbute ids for each dataset
+    const datasetAttributeIds: (keyof BiosimulationsDataAtributes)[][] = await Promise.all(
+      datasetIds.map((datasetId: string) =>
+        this.getDatasetAttributeIds(domain, datasetId),
+      ),
+    );
+    const datasetAttributes = await Promise.all(
+      (await datasetAttributeIds).map(async (attributeIds, index) => {
+        const attributes: BiosimulationsDataAtributes = {
+          _type: '',
+          uri: '',
+          sedmlId: '',
+          sedmlName: '',
+          sedmlDataSetDataTypes: [],
+          sedmlDataSetIds: [],
+          sedmlDataSetNames: [],
+          sedmlDataSetShapes: [],
+          sedmlDataSetLabels: [],
+        };
+        for (const attribute of attributeIds) {
+          const value = await this.getDatasetAttributeValue(
+            domain,
+            datasetIds[index],
+            attribute,
+          );
+          if (isStringAttribute(attribute)) {
+            attributes[attribute] = value as string;
+          } else if (isArrayAttribute(attribute)) {
+            attributes[attribute] = value as string[];
+          }
+        }
+        return attributes;
+      }),
+    );
 
-      datasets.push({
-        uri: attributes['uri'],
-        id: datasetId,
-        created: (await dataset).created,
-        updated: (await dataset).lastModified,
-        attributes: attributes,
-      });
-    }
-
+    const datasets = Promise.all(
+      datasetAttributes.map(async (value, index) => {
+        const dataset = await this.getDataset(domain, datasetIds[index]);
+        const datasetReturn = {
+          uri: value.uri,
+          id: datasetIds[index],
+          created: this.createDate(dataset.created),
+          updated: this.createDate(dataset.lastModified),
+          attributes: value,
+        };
+        return datasetReturn;
+      }),
+    );
     return datasets;
   }
 
+  private createDate(timestamp: number | undefined): Date | undefined {
+    // HSDS defines dates as seconds since epoch. Date() takes ms.
+    if (timestamp) {
+      return new Date(timestamp * 1000);
+    } else {
+      return undefined;
+    }
+  }
   private getDomainName(simId: string): string {
     return simId + '.results';
   }
@@ -146,7 +177,7 @@ export class SimulationHDFService {
     domain: string,
     datasetId: string,
     attribute: keyof BiosimulationsDataAtributes,
-  ): Promise<(string & string[]) | undefined> {
+  ): Promise<string | string[]> {
     try {
       const uriResponse = await this.attrbuteService
         .collectionObjUuidAttributesAttrGet(
@@ -158,12 +189,10 @@ export class SimulationHDFService {
           domain,
         )
         .toPromise();
-
-      // This must be hillariously wrong. I am unsure how to get this typed properly. We know the names of the attributes, and the types of each value.
-      return uriResponse.data.value as string & string[];
+      return uriResponse.data.value || '';
     } catch (e) {
       this.logger.error('error for attribute' + attribute);
-      return 'Testname';
+      return '';
     }
   }
   private async getRootGroupId(domain: string): Promise<string | undefined> {

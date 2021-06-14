@@ -28,6 +28,6 @@ import { HSDSResultsService } from './results.hsds.service';
     ]),
   ],
   providers: [ResultsService, HSDSResultsService],
-  controllers: [ResultsController, NewResultsController],
+  controllers: [NewResultsController],
 })
 export class ResultsModule {}

@@ -7,10 +7,14 @@
  * @license MIT
  */
 
-import { Controller, Get, Param } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Param, ParseBoolPipe, Query } from '@nestjs/common';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { HSDSResultsService } from './results.hsds.service';
+import {
+  SimulationRunOutput,
+  SimulationRunResults,
+} from '@biosimulations/dispatch/api-models';
 
 @Controller('v2/results')
 @ApiTags('HSDS Results')
@@ -21,8 +25,20 @@ export class NewResultsController {
   ) {}
 
   @Get(':id')
-  public async getResults(@Param('id') id: string) {
-    const results = this.service.getResults(id);
+  @ApiQuery({ name: 'sparse', type: Boolean })
+  public async getResults(
+    @Param('id') id: string,
+    @Query('sparse', ParseBoolPipe) includeData = false,
+  ): Promise<SimulationRunResults> {
+    const results = await this.service.getResults(id, includeData);
+
+    const returnValue: SimulationRunResults = {
+      simId: results.simId,
+      created: results.created,
+      updated: results.updated,
+      outputs: results.outputs,
+    };
+
     return results;
   }
 }
