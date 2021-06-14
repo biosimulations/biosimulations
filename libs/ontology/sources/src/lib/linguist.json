@@ -690,6 +690,7 @@
   },
   {
     "type": "programming",
+    "color": "#c30e9b",
     "extensions": [
       ".awk",
       ".auk",
@@ -4862,7 +4863,7 @@
   },
   {
     "type": "programming",
-    "color": "#F18E33",
+    "color": "#A97BFF",
     "extensions": [
       ".kt",
       ".ktm",
@@ -6908,6 +6909,24 @@
   },
   {
     "type": "programming",
+    "color": "#234d6b",
+    "extensions": [
+      ".pegjs"
+    ],
+    "tmScope": "source.pegjs",
+    "aceMode": "javascript",
+    "codemirrorMode": "javascript",
+    "codemirrorMimeType": "text/javascript",
+    "languageId": 81442128,
+    "name": "PEGJs",
+    "aliases": [
+      "pegjs"
+    ],
+    "wrap": "false",
+    "searchable": "true"
+  },
+  {
+    "type": "programming",
     "tmScope": "text.html.php",
     "aceMode": "php",
     "codemirrorMode": "php",
@@ -7554,7 +7573,7 @@
     "extensions": [
       ".proto"
     ],
-    "tmScope": "source.protobuf",
+    "tmScope": "source.proto",
     "aceMode": "protobuf",
     "codemirrorMode": "protobuf",
     "codemirrorMimeType": "text/x-protobuf",
@@ -8275,6 +8294,7 @@
   },
   {
     "type": "data",
+    "color": "#009a00",
     "extensions": [
       ".regexp",
       ".regex"
