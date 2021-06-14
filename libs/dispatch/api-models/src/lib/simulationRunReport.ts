@@ -54,9 +54,6 @@ export class SimulationRunOutput {
   @ApiPropertyOptional({ type: String })
   public sedmlId!: string;
 
-  @ApiPropertyOptional({ type: String })
-  public sedmlName!: string;
-
   // Dates are serialized when sending over http. Typing must be correct to prevent client from using data operations on string objects
   @ApiResponseProperty({ type: String, format: 'date-time' })
   public created!: string;
@@ -79,5 +76,5 @@ export class SimulationRunResults {
   public updated!: string;
 
   @ApiResponseProperty({ type: () => [SimulationRunOutput] })
-  public output!: SimulationRunOutput[];
+  public outputs!: SimulationRunOutput[];
 }
