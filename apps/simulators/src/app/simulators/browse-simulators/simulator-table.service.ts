@@ -96,6 +96,7 @@ export class SimulatorTableService {
                     return {
                       id: simulator.id,
                       name: simulator.name,
+                      description: simulator.description,
                       latestVersion: simulator.version,
                       url: simulator.urls.sort(sortUrls)?.[0]?.url || null,
                       updated: new Date(simulator.biosimulators.updated),

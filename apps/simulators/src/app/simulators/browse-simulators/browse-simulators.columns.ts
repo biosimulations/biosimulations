@@ -29,7 +29,15 @@ export const columns: Column[] = [
       return ['/simulators', element.id];
     },
     filterable: false,
-    minWidth: 130,
+    minWidth: 195,
+    showStacked: false,
+  },
+  {
+    id: 'description',
+    heading: 'Description',
+    key: 'description',
+    filterable: false,
+    minWidth: 490,
     showStacked: false,
   },
   {
@@ -70,6 +78,7 @@ export const columns: Column[] = [
       return element.frameworkIds.join(' ');
     },
     minWidth: 165,
+    show: false,
   },
   {
     id: 'algorithms',
@@ -116,6 +125,7 @@ export const columns: Column[] = [
       return element.algorithmIds.join(' ');
     },
     minWidth: 165,
+    show: false,
   },
   {
     id: 'modelFormats',
@@ -145,6 +155,7 @@ export const columns: Column[] = [
       return element.modelFormatIds.join(' ');
     },
     minWidth: 132,
+    show: false,
   },
   {
     id: 'simulationFormats',

@@ -3,6 +3,7 @@ import { SimulatorCurationStatus } from '@biosimulations/datamodel/common';
 export interface TableSimulator {
   id: string;
   name: string;
+  description: string;
   image?: string;
   frameworks: string[];
   frameworkIds: string[];
