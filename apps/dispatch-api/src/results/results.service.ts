@@ -1,9 +1,7 @@
 import { Dataset, SimulationHDFService } from '@biosimulations/hsds/client';
 import { SharedStorageService } from '@biosimulations/shared/storage';
 import { Injectable, Logger } from '@nestjs/common';
-import { retry } from 'rxjs/operators';
 import { Output, OutputData, Results } from './datamodel';
-import { ResultsController } from './results.controller';
 import { S3 } from 'aws-sdk';
 
 @Injectable()
