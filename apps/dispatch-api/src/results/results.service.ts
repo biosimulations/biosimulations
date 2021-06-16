@@ -1,117 +1,115 @@
-/**
- * @file Service for implementing the methods of the controller. Relies on the mongoose model for results being injected.
- * @author Bilal Shaikh
- * @copyright Biosimulations Team, 2020
- * @license MIT
- */
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { ResultsModel, ResultsData } from './results.model';
-import { BiosimulationsException } from '@biosimulations/shared/exceptions';
+import { Dataset, SimulationHDFService } from '@biosimulations/hsds/client';
 import { SharedStorageService } from '@biosimulations/shared/storage';
+import { Injectable, Logger } from '@nestjs/common';
+import { Output, OutputData, Results } from './datamodel';
 import { S3 } from 'aws-sdk';
 
 @Injectable()
 export class ResultsService {
   public constructor(
     private storage: SharedStorageService,
-    @InjectModel(ResultsModel.name) private resultModel: Model<ResultsModel>,
+    private results: SimulationHDFService,
   ) {}
-
-  public createReport(
+  private logger = new Logger(ResultsService.name);
+  public async getResults(
     simId: string,
-    reportId: string,
-    data: ResultsData,
-  ): Promise<ResultsModel> {
-    const result = new this.resultModel({
-      simId: simId,
-      reportId: reportId,
-      data: data,
-    });
+    includeValues = true,
+  ): Promise<Results> {
+    const timestamps = this.results.getResultsTimestamps(simId);
+    const datasets = await this.results.getDatasets(simId);
 
-    return result.save();
-  }
+    const outputs: Output[] = await Promise.all(
+      datasets.map(this.parseDataset.bind(null, simId, includeValues)),
+    );
 
-  public async getResultReport(
-    simId: string,
-    reportId: string,
-    sparse = false,
-  ): Promise<ResultsModel> {
-    let response = await this.resultModel.findOne({ simId, reportId });
-    if (!response) {
-      throw new NotFoundException();
-    } else {
-      if (sparse) {
-        response = this.makeSparse(response);
-      }
-      return response;
-    }
-  }
+    const dates = await timestamps;
+    const results: Results = {
+      simId,
+      created: dates.created ? dates.created.toTimeString() : '',
+      updated: dates.updated ? dates.updated.toTimeString() : '',
+      outputs: outputs,
+    };
 
-  public async getResults(): Promise<ResultsModel[]> {
-    const results = await this.resultModel.find({}).exec();
     return results;
   }
-  public async getResult(
+  public async getValues(
     simId: string,
-    sparse: boolean,
-  ): Promise<ResultsModel[]> {
-    let reports = await this.resultModel.find({ simId }).exec();
-
-    if (!reports.length) {
-      throw new NotFoundException();
-    }
-
-    if (sparse) {
-      reports = reports.map(this.makeSparse);
-    }
-
-    return reports;
+    datasetId: string,
+  ): Promise<undefined | (string[] | number[] | boolean[])[]> {
+    // The index feild will be needed when we are doing slicing of the data so this will need to change
+    return (await this.results.getDatasetValues(simId, datasetId)).value;
   }
+
   public async download(simId: string): Promise<S3.Body | undefined> {
     const file = await this.storage.getObject(
       'simulations/' + simId + '/' + simId + '.zip',
     ); // TODO remove harcoded path
     return file.Body;
   }
-  public addResults(results: any): void {
-    throw new BiosimulationsException(
-      500,
-      'Not Yet Implemented',
-      'Sorry, this method is not yet available',
-    );
-  }
-  public editResults(id: string, results: any): void {
-    throw new BiosimulationsException(
-      500,
-      'Not Yet Implemented',
-      'Sorry, this method is not yet available',
-    );
-  }
-  public deleteAll(): void {
-    throw new BiosimulationsException(
-      500,
-      'Not Yet Implemented',
-      'Sorry, this method is not yet available',
-    );
-  }
-  public delete(id: string): void {
-    throw new BiosimulationsException(
-      500,
-      'Not Yet Implemented',
-      'Sorry, this method is not yet available',
-    );
+
+  public async getOutput(
+    simId: string,
+    reportId: string,
+    includeData = false,
+  ): Promise<Output> {
+    const dataset = await this.results.getDatasetbyId(simId, reportId);
+    if (dataset) {
+      return this.parseDataset(simId, includeData, dataset);
+    }
+    throw new Error('Output Not Found');
   }
 
-  private makeSparse(response: ResultsModel): ResultsModel {
-    const sparseResult:
-      | { [key: string]: boolean[] }
-      | { [key: string]: number[] } = {};
-    for (const key of Object.keys(response.data)) {
-      sparseResult[key] = [];
+  private async parseDataset(
+    simId: string,
+    includeValues: boolean,
+    dataset: Dataset,
+  ): Promise<Output> {
+    const data: OutputData[] = [];
+    const sedIds = dataset.attributes.sedmlDataSetIds as string[];
+    const sedLabels = dataset.attributes.sedmlDataSetLabels as string[];
+    const sedShapes = dataset.attributes.sedmlDataSetShapes as string[];
+    const sedTypes = dataset.attributes.sedmlDataSetDataTypes as string[];
+    const sedNames = dataset.attributes.sedmlDataSetNames as string[];
+    console.log(dataset.attributes);
+    const values = includeValues
+      ? (await this.getValues(simId, dataset.id)) || []
+      : [];
+
+    const consistent =
+      sedIds.length == sedLabels.length &&
+      sedIds.length == sedShapes.length &&
+      sedIds.length == sedTypes.length &&
+      sedIds.length == sedNames.length &&
+      ((includeValues && sedIds.length == values.length) || !includeValues);
+
+    if (!consistent) {
+      throw new Error('Cannot process data');
     }
-    response['data'] = sparseResult;
-    return response;
+
+    sedIds.forEach((sedId, index) => {
+      // These accesses by index should work, but this *feels* unsafe.
+      //The above check should help, but add more checking and error handling here
+      const output: OutputData = {
+        id: sedId,
+        label: sedLabels[index],
+        shape: sedShapes[index],
+        type: sedTypes[index],
+        name: sedNames[index],
+        values: values[index] || [],
+      };
+      data.push(output);
+    });
+
+    const ret: Output = {
+      simId,
+      outputId: dataset.attributes.uri,
+      created: dataset.created ? dataset.created.toTimeString() : '',
+      updated: dataset.updated ? dataset.updated.toTimeString() : '',
+      name: dataset.attributes.sedmlName || dataset.attributes.sedmlId,
+      type: dataset.attributes._type,
+      data: data,
+    };
+
+    return ret;
   }
 }

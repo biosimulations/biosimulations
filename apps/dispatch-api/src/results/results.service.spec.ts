@@ -5,6 +5,7 @@
  * @license MIT
  */
 import { SharedStorageService } from '@biosimulations/shared/storage';
+import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsModel } from './results.model';
@@ -28,6 +29,13 @@ describe('ResultsService', () => {
     }
     putObject(id: string, data: Buffer) {}
   }
+
+  class mockSimService {
+    getDataSets(id: string) {
+      return;
+    }
+    getDataSetbyId(id: string) {}
+  }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -39,6 +47,10 @@ describe('ResultsService', () => {
         {
           provide: SharedStorageService,
           useClass: MockStorageService,
+        },
+        {
+          provide: SimulationHDFService,
+          useClass: mockSimService,
         },
       ],
     }).compile();

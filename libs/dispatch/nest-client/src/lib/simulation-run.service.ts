@@ -2,8 +2,6 @@ import {
   CombineArchiveLog,
   CreateSimulationRunLogBody,
   SimulationRun,
-  SimulationRunReport,
-  SimulationRunReportDataStrings,
 } from '@biosimulations/dispatch/api-models';
 import { HttpService, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -80,27 +78,6 @@ export class SimulationRunService {
           Authorization: `Bearer ${token}`,
         },
       })
-      .pipe(pluck('data'))
-      .toPromise();
-  }
-  // TODO Change return type to observable
-  public async sendReport(
-    simId: string,
-    reportId: string,
-    data: SimulationRunReportDataStrings,
-  ): Promise<SimulationRunReport> {
-    const token = await this.auth.getToken();
-
-    return this.http
-      .post<SimulationRunReport>(
-        `${this.endpoint}results/${simId}/${reportId}`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
       .pipe(pluck('data'))
       .toPromise();
   }

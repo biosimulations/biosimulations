@@ -4,14 +4,13 @@ import { Logger } from '@nestjs/common';
 import { Job } from 'bull';
 import { ArchiverService } from '../results/archiver.service';
 import { LogService } from '../results/log.service';
-import { ResultsService } from '../results/results.service';
+
 import { SimulationStatusService } from '../services/simulationStatus.service';
 
 @Processor('fail')
 export class FailProcessor {
   private readonly logger = new Logger(FailProcessor.name);
   public constructor(
-    private resultsService: ResultsService,
     private archiverService: ArchiverService,
     private logService: LogService,
     private simStatusService: SimulationStatusService,
