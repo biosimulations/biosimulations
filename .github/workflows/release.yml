@@ -21,6 +21,8 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{secrets.GH_RELEASE_TOKEN}}
+          GIT_AUTHOR_NAME: "biosimulations-daemon"
+          GIT_AUTHOR_EMAIL: "biosimulations-daemon@gmail.com"
           GIT_COMMITER_NAME: "biosimulations-daemon"
           GIT_COMMITER_EMAIL: "biosimulations-daemon@gmail.com"
           
