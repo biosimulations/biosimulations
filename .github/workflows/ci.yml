@@ -534,7 +534,7 @@ jobs:
 
   markDone:
     name: Mark CI as complete
-    needs: [getAffectedLibrariesApps, lint, test, build, buildPushDockerImages]
+    needs: [getAffectedLibrariesApps, lint, testApp, testLib, build, buildPushDockerImages]
     runs-on: ubuntu-latest
     steps:
       - name: Done
