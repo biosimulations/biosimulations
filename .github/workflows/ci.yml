@@ -273,10 +273,11 @@ jobs:
        
         run: nx run ${{ matrix.app }}:build --prod --with-deps
 
-  test:
+
+  testApp:
     env:
         NX_BRANCH: ${{ github.event.pull_request.head.ref }}      
-    name: Test library or app
+    name: Test app
     runs-on: ubuntu-latest
 
     needs: getAffectedLibrariesApps
@@ -284,7 +285,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        libOrApp: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.libsApps) }}
+        libOrApp: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.apps) }}
 
     steps:
       - name: Checkout repository
@@ -301,6 +302,7 @@ jobs:
           else
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
+
       - name: Install Python
         uses: actions/setup-python@v2
         with:
@@ -341,15 +343,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}-${{github.sha}}
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
           restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
-      
-      
-     
-      - name: Test library or app (TypeScript)
+
+      - name: Test app (TypeScript)
        
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
@@ -363,6 +363,100 @@ jobs:
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
         if: matrix.libOrApp != 'combine-service'
         run: nx run ${{ matrix.libOrApp }}:build --prod --with-deps && nx run ${{ matrix.libOrApp }}:test --coverage
+
+      - name: Validate OpenAPI specification for library or app (Python)
+        if: matrix.libOrApp == 'combine-service'
+        run: |
+          # ./node_modules/.bin/openapi-examples-validator apps/${{ matrix.libOrApp }}/src/spec/spec.yml
+
+      - name: Test library or app (Python)
+        if: matrix.libOrApp == 'combine-service'
+        uses: GabrielBB/xvfb-action@v1
+        env:
+          PYTHONPATH: apps/${{ matrix.libOrApp }}/
+        with:
+          run: pipenv run python -m pytest --cov apps/${{ matrix.libOrApp }}/src/ apps/${{ matrix.libOrApp }}/tests/
+
+      - name: Upload coverage data to Codecov
+        uses: codecov/codecov-action@v1.5.0
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+      
+  testLib:
+    env:
+        NX_BRANCH: ${{ github.event.pull_request.head.ref }}      
+    name: Test library or app
+    runs-on: ubuntu-latest
+
+    needs: getAffectedLibrariesApps
+    if: ${{ needs.getAffectedLibrariesApps.outputs.run == 'true' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        libOrApp: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.libs) }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 1
+
+      - name: Configure base commit
+        run: |
+          if [[ $GITHUB_BASE_REF ]]
+          then
+            echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
+          else
+            echo NX_BASE=origin/deploy >>$GITHUB_ENV
+          fi
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: "15.x"
+
+      - name: Install Nrwl CLI
+       
+        run: npm install -g @nrwl/cli
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+       
+        run: npm ci
+
+      - name: Cache Angular and NX dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules/.cache
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}-${{github.sha}}
+          restore-keys: |
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
+            ${{ runner.os }}-nx-
+     
+      - name: Test library 
+       
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+          AUTH0_ISSUER: ${{ secrets.AUTH0_ISSUER }}
+          API_AUDIENCE: ${{ secrets.API_AUDIENCE }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          MANAGEMENT_DOMAIN: ${{ secrets.MANAGEMENT_DOMAIN }}
+          MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
+          MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
+        if: matrix.libOrApp != 'combine-service'
+        run: nx run ${{ matrix.libOrApp }}:test --coverage
 
       - name: Validate OpenAPI specification for library or app (Python)
         if: matrix.libOrApp == 'combine-service'
