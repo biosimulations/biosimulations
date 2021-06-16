@@ -13,6 +13,8 @@ jobs:
       apps: ${{ steps.get-affected-libs-apps.outputs.apps }}
       libsApps: ${{ steps.get-affected-libs-apps.outputs.libsApps }}
       run: ${{ steps.get-affected-libs-apps.outputs.run }}
+      runApps: ${{ steps.get-affected-libs-apps.outputs.runApps }}
+      runLibs: ${{ steps.get-affected-libs-apps.outputs.runLibs }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2.3.4
@@ -86,10 +88,13 @@ jobs:
           libsArr[-1]=$(echo "${libsArr[-1]}" | xargs)
           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
           run=true
+          runApps=true
+          runLubs=true
 
           if [ -z "${libsArr[0]}" ]; then
             unset libsArr[-1]
             libsJson=[]
+            runLibs=false
           else
             libsJson=$(printf '"%s"\n' "${libsArr[@]}" | jq  . | jq -s . | tr -d '\n')
           fi
@@ -97,6 +102,7 @@ jobs:
           if [ -z "${appsArr[0]}" ]; then
             unset appsArr[-1]
             appsJson=[]
+            runApps=false
           else
             appsJson=$(printf '"%s"\n' "${appsArr[@]}" | jq  . | jq -s . | tr -d '\n')
           fi
@@ -112,6 +118,8 @@ jobs:
           echo "::set-output name=apps::$appsJson"
           echo "::set-output name=libsApps::$libsAppsJson"
           echo "::set-output name=run::$run"
+          echo "::set-output name=runApps::$runApps"
+          echo "::set-output name=runLibs::$runLibs"
 
   lint:
     env:
@@ -281,7 +289,7 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: getAffectedLibrariesApps
-    if: ${{ needs.getAffectedLibrariesApps.outputs.run == 'true' }}
+    if: ${{ needs.getAffectedLibrariesApps.outputs.runApps == 'true' }}
     strategy:
       fail-fast: false
       matrix:
@@ -389,7 +397,7 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: getAffectedLibrariesApps
-    if: ${{ needs.getAffectedLibrariesApps.outputs.run == 'true' }}
+    if: ${{ needs.getAffectedLibrariesApps.outputs.runLib == 'true' }}
     strategy:
       fail-fast: false
       matrix:
