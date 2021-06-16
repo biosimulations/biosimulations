@@ -119,8 +119,8 @@
     "filename": "sbml-core/Varusai-Sci-Rep-2018-mTOR-signaling-LSODA-LSODAR-SBML.omex"
   },
   {
-    "name": "Vilar 2002: circadian clock (SBML, multiple, VCell)",
+    "name": "Vilar 2002: circadian clock (SBML, NRM, VCell)",
     "simulator": "vcell",
-    "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
+    "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock-discrete-NRM.omex"
   }
 ]
