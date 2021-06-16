@@ -28,7 +28,7 @@ RUN apt-get -y update \
     \
     && apt-get install --no-install-recommends -y \
         default-jre-headless \
-    && mkdir /usr/share/man/man1/ \
+    && mkdir -p /usr/share/man/man1/ \
     \
     && rm -rf /var/lib/apt/lists/*
 
