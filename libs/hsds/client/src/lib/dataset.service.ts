@@ -33,7 +33,10 @@ export class SimulationHDFService {
     @Inject(LinkService) private linkService: LinkService,
   ) {}
 
-  public async getDatasetValues(simId: string, datasetId: string): Promise<InlineResponse20010> {
+  public async getDatasetValues(
+    simId: string,
+    datasetId: string,
+  ): Promise<InlineResponse20010> {
     const domain = this.getDomainName(simId);
     const dataResponse = await this.datasetService
       .datasetsIdValueGet(
