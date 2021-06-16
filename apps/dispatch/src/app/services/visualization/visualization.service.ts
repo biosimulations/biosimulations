@@ -37,7 +37,8 @@ export class VisualizationService {
   ): Observable<CombineResults | undefined> {
     return this.http
       .get<SimulationRunResults>(
-        `${this.resultsEndpoint}/${uuid}?sparse=${sparse}`,
+        // TODO Remove hardocoded string. Caused #2635
+        `${this.resultsEndpoint}/${uuid}?includeData=${!sparse}`,
       )
       .pipe(
         map(
@@ -123,7 +124,8 @@ export class VisualizationService {
   ): Observable<SedDatasetResultsMap | undefined> {
     return this.http
       .get<SimulationRunResults>(
-        `${this.resultsEndpoint}/${uuid}?sparse=${sparse}`,
+        // TODO Remove hardocoded string. Caused #2635
+        `${this.resultsEndpoint}/${uuid}?includeData=${!sparse}`,
       )
       .pipe(
         map(
@@ -175,7 +177,10 @@ export class VisualizationService {
     reportId: string,
     sparse = false,
   ): string {
-    return `${this.resultsEndpoint}/${runId}/${reportId}?sparse=${sparse}`;
+    // TODO Remove hardocoded string. Caused #2635
+    return `${
+      this.resultsEndpoint
+    }/${runId}/${reportId}?includeData=${!sparse}`;
   }
 
   public getSpecsOfSedPlotsInCombineArchive(
