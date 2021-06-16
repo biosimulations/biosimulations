@@ -3,15 +3,25 @@ on:
   workflow_dispatch:
 jobs:
   Release:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: "14"
       - run: npm ci
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          git-user-signingkey: true
+          git-commit-gpgsign: true 
+
       - name: Release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GIT_COMMITER_NAME: "biosimulations-daemon"
+          GIT_COMMITER_EMAIL: "biosimulations-daemon@gmail.com"
+          
         run: npx semantic-release
