@@ -48,6 +48,10 @@ describe('ResultsService', () => {
           provide: SharedStorageService,
           useClass: MockStorageService,
         },
+        {
+          provide: SimulationHDFService,
+          useClass: mockSimService,
+        },
       ],
     }).compile();
 
