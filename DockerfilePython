@@ -3,21 +3,34 @@
 #############
 FROM python:3.9-buster as base
 
+# setup headless for Smoldyn
 RUN apt-get -y update \
+    \
     && apt-get install --no-install-recommends -y \
         xvfb \
-    && rm -rf /var/lib/apt/lists/* \
     && mkdir /tmp/.X11-unix \
-    && chmod 1777 /tmp/.X11-unix
+    && chmod 1777 /tmp/.X11-unix \
+    \
+    && rm -rf /var/lib/apt/lists/*
 COPY tools/xvfb-startup.sh /xvfb-startup.sh
 ENV XVFB_RES="1920x1080x24" \
     XVFB_ARGS="" \
     DISPLAY=":1"
 
+# configure matplotlib to avoid warnings from Smoldyn
 RUN mkdir -p /.cache/matplotlib \
     && mkdir -p /.config/matplotlib \
     && chmod ugo+rw /.config/matplotlib \
     && chmod ugo+rw /.cache/matplotlib
+
+# install java for working with LEMS
+RUN apt-get -y update \
+    \
+    && apt-get install --no-install-recommends -y \
+        default-jre-headless \
+    && mkdir -p /usr/share/man/man1/ \
+    \
+    && rm -rf /var/lib/apt/lists/*
 
 #The name of the app to build
 ARG app
@@ -35,7 +48,7 @@ COPY Pipfile /app/Pipfile
 COPY Pipfile.lock /app/Pipfile.lock
 
 
-RUN pip install pipenv 
+RUN pip install pipenv
 RUN pipenv install
 
 COPY apps/$APP/src/ /app/src/
