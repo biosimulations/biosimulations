@@ -28,8 +28,16 @@ export const isArrayAttribute = (
     'sedmlDataSetShapes',
   ].includes(value);
 };
-export type ArrayAttributeName = keyof BiosimulationsDataArrayAtributes;
+type ArrayAttributeName = keyof BiosimulationsDataArrayAtributes;
 export type AttributeName = StringAttributeName | ArrayAttributeName;
 
 export type BiosimulationsDataAtributes = BiosimulationsDataArrayAtributes &
   BiosimulationsDataStringAtributes;
+
+export type Dataset = {
+  uri: string;
+  id: string;
+  created?: Date;
+  updated?: Date;
+  attributes: BiosimulationsDataAtributes;
+};

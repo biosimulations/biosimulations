@@ -8,9 +8,11 @@ import {
   InlineResponse2003 as HDF5Group,
   InlineResponse2004Links as HDF5Links,
   LinkService,
+  InlineResponse20010,
 } from '@biosimulations/hdf5apiclient';
 import {
   BiosimulationsDataAtributes,
+  Dataset,
   isArrayAttribute,
   isStringAttribute,
 } from './datamodel';
@@ -31,7 +33,7 @@ export class SimulationHDFService {
     @Inject(LinkService) private linkService: LinkService,
   ) {}
 
-  public async getDatasetValues(simId, datasetId) {
+  public async getDatasetValues(simId: string, datasetId: string): Promise<InlineResponse20010> {
     const domain = this.getDomainName(simId);
     const dataResponse = await this.datasetService
       .datasetsIdValueGet(
@@ -43,8 +45,8 @@ export class SimulationHDFService {
         ACCEPT,
       )
       .toPromise();
-
-    return dataResponse.data;
+    const data: InlineResponse20010 = dataResponse.data;
+    return data;
   }
   public async getResultsTimestamps(
     simId: string,
@@ -63,7 +65,16 @@ export class SimulationHDFService {
     return { created: undefined, updated: undefined };
   }
 
-  public async getDatasets(simId: string) {
+  public async getDatasetbyId(
+    simId: string,
+    reportId: string,
+  ): Promise<Dataset | undefined> {
+    const datasets = await this.getDatasets(simId);
+    datasets.filter((value) => value.attributes.sedmlId == reportId);
+
+    return datasets[0];
+  }
+  public async getDatasets(simId: string): Promise<Dataset[]> {
     const domain = this.getDomainName(simId);
 
     const response = await this.domainService

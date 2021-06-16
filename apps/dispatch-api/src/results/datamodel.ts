@@ -5,14 +5,13 @@ export class OutputData {
   shape!: string;
   type!: string;
   name!: string;
-  values?: string[] | number[] | boolean[];
+  values!: string[] | number[] | boolean[];
 }
 export class Output {
   simId!: string;
   outputId!: string;
-  created?: string;
-  updated?: string;
-  sedmlId!: string;
+  created!: string;
+  updated!: string;
   name!: string;
   type!: string;
   data!: OutputData[];
