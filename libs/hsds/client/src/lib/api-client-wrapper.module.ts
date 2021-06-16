@@ -4,7 +4,6 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import {
   ApiModule,
   Configuration,
-  DomainService,
 } from '@biosimulations/hdf5apiclient';
 import { ConfigService } from '@nestjs/config';
 
@@ -68,7 +67,6 @@ export class APIClientWrapperModule {
             useFactory: options.useFactory.createHSDSConnectionOptions,
             inject: [ConfigService],
           },
-          DomainService,
         ],
       },
     ];
