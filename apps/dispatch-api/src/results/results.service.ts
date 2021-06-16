@@ -19,7 +19,7 @@ export class ResultsService {
     const datasets = await this.results.getDatasets(simId);
 
     const outputs: Output[] = await Promise.all(
-      datasets.map(this.parseDataset.bind(null, simId, includeValues)),
+      datasets.map(this.parseDataset.bind(this, simId, includeValues)),
     );
 
     const dates = await timestamps;
