@@ -6,6 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with: 
+          token: ${{secrets.GH_RELEASE_TOKEN}}
+      - name: Configure CI Git User
+        run: |
+          git config --global user.name 'Biosimulations-Daemon'
+          git config --global user.email 'biosimulationsdaemon@gmail.com'
+
       - uses: actions/setup-node@v2
         with:
           node-version: "12"
