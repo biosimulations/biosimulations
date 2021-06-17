@@ -4,6 +4,8 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import {
   SharedStorageModule,
   SharedStorageService,
@@ -34,7 +36,7 @@ describe('SimulationRunService', () => {
   }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule],
+      imports: [HttpModule, SharedNatsClientModule, BiosimulationsConfigModule],
       providers: [
         SimulationRunService,
         {

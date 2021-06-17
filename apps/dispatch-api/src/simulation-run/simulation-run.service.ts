@@ -7,6 +7,7 @@
 import {
   HttpService,
   Injectable,
+  Inject,
   InternalServerErrorException,
   Logger,
   NotFoundException,
@@ -28,7 +29,12 @@ import {
 } from '@biosimulations/dispatch/api-models';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SharedStorageService } from '@biosimulations/shared/storage';
-
+import {
+  DispatchFailedPayload,
+  DispatchMessage,
+  DispatchProcessedPayload,
+} from '@biosimulations/messages/messages';
+import { ClientProxy } from '@nestjs/microservices';
 // 1gb in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
 const toApi = <T extends SimulationRunModelType>(
@@ -49,6 +55,7 @@ export class SimulationRunService {
     private simulationRunModel: Model<SimulationRunModel>,
     private storageService: SharedStorageService,
     private http: HttpService,
+    @Inject('NATS_CLIENT') private client: ClientProxy,
   ) {}
 
   public async setStatus(
@@ -211,7 +218,7 @@ export class SimulationRunService {
     const url = body.url;
     // If the url provides the following information, grab it and store it in the database
     //! This does not adress the security issues of downloading user provided urls.
-    //! The content size may not be present or accurate. The backend must check the size. See @2536
+    //! The content size may not be present or accurate. The backend must check the size. See #2536
     let size = undefined;
     let mimetype = undefined;
     let originalname = undefined;
@@ -312,11 +319,13 @@ export class SimulationRunService {
       this.logger.log(
         `Set ${model.id} status to ${model.status} on update ${model.refreshCount} `,
       );
-      if (
-        status == SimulationRunStatus.SUCCEEDED ||
-        status == SimulationRunStatus.FAILED
-      ) {
-        this.updateModelRunTime(model);
+      this.updateModelRunTime(model);
+      if (status == SimulationRunStatus.SUCCEEDED) {
+        const message = new DispatchFailedPayload(model.id);
+        this.client.emit(DispatchMessage.failed, message);
+      } else if (status == SimulationRunStatus.FAILED) {
+        const message = new DispatchProcessedPayload(model.id);
+        this.client.emit(DispatchMessage.processed, message);
       }
     }
     return model;
