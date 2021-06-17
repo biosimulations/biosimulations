@@ -48,6 +48,12 @@ export class SimulationRunModel extends Document {
   })
   status!: SimulationRunStatus;
 
+  @Prop({
+    type: String,
+    required: false,
+  })
+  statusReason: string | undefined;
+
   @Prop()
   runtime!: number;
 

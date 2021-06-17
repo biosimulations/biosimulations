@@ -2,9 +2,5 @@
   "branches": ["dev"], 
   "plugins": ["@semantic-release/commit-analyzer", "@semantic-release/release-notes-generator","@semantic-release/changelog",{
         "changelogFile": "CHANGELOG.md"
-      },   "@semantic-release/git"],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/biosimulations/Biosimulations.git"
-  }
+      }, "@semantic-release/npm",   "@semantic-release/git", "@semantic-release/github"],
 }
