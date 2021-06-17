@@ -17,7 +17,9 @@
   The datamodel for results has been adjusted to include all outputs, not just reports. "reports" has been renamed to "outputs"
 
 # 1.0.0 (2021-06-16)
-This is an arbitrary starting point for tracking changes and versioning. It should not be considered as the "first release". 
+
+This is an arbitrary starting point for tracking changes and versioning. It should not be considered as the "first release".
+
 ### Bug Fixes
 
 - bash script ([866b58a](https://github.com/biosimulations/Biosimulations/commit/866b58a244d3483fa6afa2ae0e8383e234920ba6))
