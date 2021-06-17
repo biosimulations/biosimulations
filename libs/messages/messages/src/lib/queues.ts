@@ -2,7 +2,6 @@
 export class MonitorJob {
   slurmJobId!: string;
   simId!: string;
-  transpose!: boolean;
 }
 
 export class DispatchJob {
@@ -17,9 +16,9 @@ export class DispatchJob {
 
 export class CompleteJob {
   simId!: string;
-  transpose!: boolean;
 }
 
 export class FailJob {
   simId!: string;
+  reason!: string;
 }
