@@ -1,3 +1,24 @@
+# [2.0.0](https://github.com/biosimulations/Biosimulations/compare/v1.0.0...v2.0.0) (2021-06-17)
+
+
+### Bug Fixes
+
+* **dispatch-api:**  bind class to this variable in map ([b4bb3ca](https://github.com/biosimulations/Biosimulations/commit/b4bb3ca27cd52d27abe68dcaa524a158a1a73507))
+* dispatch frontend uses the updated api parameter ([#2636](https://github.com/biosimulations/Biosimulations/issues/2636)) ([a13779c](https://github.com/biosimulations/Biosimulations/commit/a13779cdc320d58c595f85399ca4d7747d603657)), closes [#2635](https://github.com/biosimulations/Biosimulations/issues/2635)
+
+
+### Features
+
+* **dispatch-api, dispatch-service:** Use HSDS to get simulation run data ([33b8030](https://github.com/biosimulations/Biosimulations/commit/33b8030e60fcbd2eb693e2a962620cf42855b4e4)), closes [#2533](https://github.com/biosimulations/Biosimulations/issues/2533) [#2442](https://github.com/biosimulations/Biosimulations/issues/2442) [#2440](https://github.com/biosimulations/Biosimulations/issues/2440) [#2369](https://github.com/biosimulations/Biosimulations/issues/2369) [#2069](https://github.com/biosimulations/Biosimulations/issues/2069)
+
+
+### BREAKING CHANGES
+
+* **dispatch-api, dispatch-service:** Dispatch API no longer has endpoints for creating or updating "Result" objects.
+The output of the results endpoints are updated to include information about type and shape of the data.
+The parameter "sparse" has been changed to "includeData".
+The datamodel for results has been adjusted to include all outputs, not just reports. "reports" has been renamed to "outputs"
+
 # 1.0.0 (2021-06-16)
 
 ### Bug Fixes
