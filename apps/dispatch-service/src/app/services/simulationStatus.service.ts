@@ -17,9 +17,10 @@ export class SimulationStatusService {
   public updateStatus(
     simId: string,
     simStatus: SimulationRunStatus,
+    reason: string,
   ): Promise<void> {
     return this.simService
-      .updateSimulationRunStatus(simId, simStatus)
+      .updateSimulationRunStatus(simId, simStatus, reason)
       .toPromise()
       .then((val) => {
         this.logger.log('Successfully updated simulation');

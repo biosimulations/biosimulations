@@ -23,13 +23,17 @@ export class SimulationRunService {
   public updateSimulationRunStatus(
     id: string,
     status: SimulationRunStatus,
+    statusReason: string,
   ): Observable<SimulationRun> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
           .patch<SimulationRun>(
             `${this.endpoint}run/${id}`,
-            { status: status },
+            {
+              status,
+              statusReason,
+            },
             {
               headers: {
                 Authorization: `Bearer ${token}`,

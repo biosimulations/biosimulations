@@ -34,26 +34,22 @@ export class DispatchProcessor {
 
     if (response.stderr != '') {
       // There was an error with submission of the job
-      this.logger.error(
-        'Error submitting simulation:' + data.simId + ' ' + response.stderr,
-      );
+      const message =
+        "'Error submitting simulation:' + data.simId + ' ' + response.stderr,";
+      this.logger.error(message);
       this.simStatusService.updateStatus(
         data.simId,
         SimulationRunStatus.FAILED,
+        message,
       );
     } else if (response.stdout != null) {
       // Get the slurm id of the job
       // Expected output of the response is " Submitted batch job <ID> /n"
       const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
-      const transpose = data.simulator == 'vcell';
-      this.logger.debug(
-        `Simulator is ${data.simulator} Will transpose: ${transpose}`,
-      );
 
       const monitorData: MonitorJob = {
         slurmJobId: slurmjobId.toString(),
         simId: data.simId,
-        transpose,
       };
 
       this.monitorQueue.add(monitorData);

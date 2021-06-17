@@ -54,9 +54,10 @@ export class SimulationRunService {
   public async setStatus(
     id: string,
     status: SimulationRunStatus,
+    statusReason: string,
   ): Promise<SimulationRunModel | null> {
     const model = await this.getModel(id);
-    return this.updateModelStatus(model, status);
+    return this.updateModelStatus(model, status, statusReason);
   }
 
   /**
@@ -145,7 +146,7 @@ export class SimulationRunService {
 
     this.updateModelPublic(model, run.public);
     this.updateModelResultSize(model, run.resultsSize);
-    this.updateModelStatus(model, run.status);
+    this.updateModelStatus(model, run.status, run.statusReason);
 
     return toApi(await model.save());
   }
@@ -275,6 +276,7 @@ export class SimulationRunService {
   private updateModelStatus(
     model: SimulationRunModel | null,
     status: SimulationRunStatus | undefined,
+    statusReason: string | undefined,
   ): SimulationRunModel | null {
     let allowUpdate = true;
 
@@ -305,6 +307,7 @@ export class SimulationRunService {
     // Careful not to add else here
     if (model && status && allowUpdate) {
       model.status = status;
+      model.statusReason = statusReason;
       model.refreshCount = model.refreshCount + 1;
       this.logger.log(
         `Set ${model.id} status to ${model.status} on update ${model.refreshCount} `,

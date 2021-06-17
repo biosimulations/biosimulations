@@ -20,6 +20,7 @@ export class FailProcessor {
   private async failureHandler(job: Job): Promise<void> {
     const data = job.data;
     const id = data.simId;
+    const reason = data.reason;
 
     this.logger.log(`Simulation ${id} Failed. Creating logs and output`);
     if (data.proccessOutput) {
@@ -29,6 +30,6 @@ export class FailProcessor {
       ]);
     }
 
-    this.simStatusService.updateStatus(id, SimulationRunStatus.FAILED);
+    this.simStatusService.updateStatus(id, SimulationRunStatus.FAILED, reason);
   }
 }

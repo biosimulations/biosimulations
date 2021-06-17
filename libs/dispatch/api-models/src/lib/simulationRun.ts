@@ -76,6 +76,9 @@ export class SimulationRun {
   @ApiProperty({ type: Boolean, default: false })
   public: boolean;
 
+  @ApiPropertyOptional({ type: String })
+  statusReason?: string;
+
   @ApiResponseProperty({ type: String, enum: SimulationRunStatus })
   status: SimulationRunStatus;
 
@@ -110,6 +113,7 @@ export class SimulationRun {
     projectSize?: number,
     resultsSize?: number,
     email?: string | null,
+    statusReason?: string,
   ) {
     this.id = id;
     this.name = name;
@@ -124,6 +128,7 @@ export class SimulationRun {
     this.updated = updated;
     this.projectSize = projectSize;
     this.resultsSize = resultsSize;
+    this.statusReason = statusReason;
 
     this.runtime = runtime;
     this.email = email || null;
@@ -168,6 +173,9 @@ export class PatchSimulationRun {
 
   @ApiPropertyOptional({ type: Number, example: 11234 })
   resultsSize?: number;
+
+  @ApiPropertyOptional({ type: Number, example: 11234 })
+  statusReason?: string;
 }
 
 export class UpdateSimulationRun extends PartialType(PatchSimulationRun) {}

@@ -22,7 +22,6 @@ export class CompleteProccessor {
     const data = job.data;
 
     const id = data.simId;
-    const transpose = data.transpose;
 
     this.logger.log(`Simulation ${id} Finished. Creating logs and output`);
 
@@ -32,26 +31,23 @@ export class CompleteProccessor {
     ]);
 
     let completed = true;
-
+    let reason = '';
     for (const val of processed) {
       if (val.status == 'rejected') {
         completed = false;
+        reason = val.reason;
         this.logger.error(val.reason);
       }
     }
-
+    const errorMessage = `Updating Simulation ${id} to failed due to processing error: ${reason}`;
     if (completed) {
       this.simStatusService
-        .updateStatus(id, SimulationRunStatus.SUCCEEDED)
+        .updateStatus(id, SimulationRunStatus.SUCCEEDED, 'Completed')
         .then((run) => this.logger.log(`Updated Simulation ${id} to complete`));
     } else {
       this.simStatusService
-        .updateStatus(id, SimulationRunStatus.FAILED)
-        .then((run) =>
-          this.logger.error(
-            `Updated Simulation ${id} to failed due to processing error`,
-          ),
-        );
+        .updateStatus(id, SimulationRunStatus.FAILED, errorMessage)
+        .then((run) => this.logger.error(errorMessage));
     }
   }
 }
