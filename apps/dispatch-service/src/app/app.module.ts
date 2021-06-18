@@ -8,7 +8,6 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ArchiverService } from './results/archiver.service';
 
-import { ResultsService } from './results/results.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { AuthClientModule } from '@biosimulations/auth/client';
 import { DispatchNestClientModule } from '@biosimulations/dispatch/nest-client';
@@ -68,7 +67,6 @@ import { SimulationStatusService } from './services/simulationStatus.service';
     SbatchService,
     SshService,
     ArchiverService,
-    ResultsService,
     FileService,
     LogService,
     DispatchProcessor,

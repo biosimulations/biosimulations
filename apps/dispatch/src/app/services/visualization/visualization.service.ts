@@ -13,9 +13,9 @@ import {
 import { CombineArchive } from '../../combine-sedml.interface';
 
 import {
-  SimulationRunReport,
+  SimulationRunOutput,
   SimulationRunResults,
-  SimulationRunReportDatum,
+  SimulationRunOutputDatum,
 } from '@biosimulations/dispatch/api-models';
 import { environment } from '@biosimulations/shared/environments';
 import { CombineService } from '../combine/combine.service';
@@ -37,18 +37,19 @@ export class VisualizationService {
   ): Observable<CombineResults | undefined> {
     return this.http
       .get<SimulationRunResults>(
-        `${this.resultsEndpoint}/${uuid}?sparse=${sparse}`,
+        // TODO Remove hardocoded string. Caused #2635
+        `${this.resultsEndpoint}/${uuid}?includeData=${!sparse}`,
       )
       .pipe(
         map(
-          (result: SimulationRunResults): SimulationRunReport[] =>
-            result.reports,
+          (result: SimulationRunResults): SimulationRunOutput[] =>
+            result.outputs,
         ),
         map(
-          (reports: SimulationRunReport[]): CombineResults => {
+          (reports: SimulationRunOutput[]): CombineResults => {
             const structureObject: any = {};
-            reports.forEach((report: SimulationRunReport): void => {
-              const sedmlLocationReportId = report.reportId;
+            reports.forEach((report: SimulationRunOutput): void => {
+              const sedmlLocationReportId = report.outputId;
               const sedmlLocation = sedmlLocationReportId
                 .split('/')
                 .reverse()
@@ -62,7 +63,7 @@ export class VisualizationService {
               }
 
               structureObject[sedmlLocation][reportId] = report.data.map(
-                (datum: SimulationRunReportDatum): SedDatasetResults => {
+                (datum: SimulationRunOutputDatum): SedDatasetResults => {
                   return {
                     id: datum.id,
                     location: sedmlLocation,
@@ -123,19 +124,20 @@ export class VisualizationService {
   ): Observable<SedDatasetResultsMap | undefined> {
     return this.http
       .get<SimulationRunResults>(
-        `${this.resultsEndpoint}/${uuid}?sparse=${sparse}`,
+        // TODO Remove hardocoded string. Caused #2635
+        `${this.resultsEndpoint}/${uuid}?includeData=${!sparse}`,
       )
       .pipe(
         map(
-          (result: SimulationRunResults): SimulationRunReport[] =>
-            result.reports,
+          (result: SimulationRunResults): SimulationRunOutput[] =>
+            result.outputs,
         ),
         map(
-          (reports: SimulationRunReport[]): SedDatasetResultsMap => {
+          (reports: SimulationRunOutput[]): SedDatasetResultsMap => {
             const datasetResultsMap: SedDatasetResultsMap = {};
 
-            reports.forEach((report: SimulationRunReport): void => {
-              const sedmlLocationReportId = report.reportId;
+            reports.forEach((report: SimulationRunOutput): void => {
+              const sedmlLocationReportId = report.outputId;
               const sedmlLocation = sedmlLocationReportId
                 .split('/')
                 .reverse()
@@ -144,7 +146,7 @@ export class VisualizationService {
                 .join('/');
               const reportId = sedmlLocationReportId.split('/').reverse()[0];
 
-              report.data.forEach((datum: SimulationRunReportDatum): void => {
+              report.data.forEach((datum: SimulationRunOutputDatum): void => {
                 datasetResultsMap[datum.id] = {
                   id: datum.id,
                   location: sedmlLocation,
@@ -175,7 +177,10 @@ export class VisualizationService {
     reportId: string,
     sparse = false,
   ): string {
-    return `${this.resultsEndpoint}/${runId}/${reportId}?sparse=${sparse}`;
+    // TODO Remove hardocoded string. Caused #2635
+    return `${
+      this.resultsEndpoint
+    }/${runId}/${reportId}?includeData=${!sparse}`;
   }
 
   public getSpecsOfSedPlotsInCombineArchive(
