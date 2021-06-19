@@ -77,7 +77,7 @@ def handler(body, modelFile=None):
         )  # pragma: no cover: unreachable due to schema validation
 
     try:
-        params, vars = get_parameters_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
+        params, sim, vars = get_parameters_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
     except UnsupportedModelLanguageError as exception:
         raise BadRequestException(
             title='Models of language `{}` are not supported with simulations of type `{}` and algorithm `{}`'.format(
@@ -141,12 +141,13 @@ def handler(body, modelFile=None):
             change['target']['namespaces'].append(ns)
 
     if sim_type == 'SedUniformTimeCourseSimulation':
-        task["simulation"]["initialTime"] = 0
-        task["simulation"]["outputStartTime"] = 0
-        task["simulation"]["outputEndTime"] = 1
-        task["simulation"]["numberOfSteps"] = 0
+        task["simulation"]["initialTime"] = sim.initial_time
+        task["simulation"]["outputStartTime"] = sim.output_start_time
+        task["simulation"]["outputEndTime"] = sim.output_end_time
+        task["simulation"]["numberOfSteps"] = sim.number_of_steps
+
     elif sim_type == 'SedOneStepSimulation':
-        task["simulation"]["step"] = 1
+        task["simulation"]["step"] = sim.step
 
     for var in vars:
         response_var = {

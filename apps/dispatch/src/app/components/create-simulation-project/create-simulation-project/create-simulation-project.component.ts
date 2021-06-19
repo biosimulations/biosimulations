@@ -83,6 +83,13 @@ const modelFormatMetaData: {
     extension: 'hoc',
     enabled: false,
   },
+  format_9006: {
+    name: 'Kappa',
+    sedUrn: 'urn:sedml:language:kappa',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/text/x-kappa',
+    extension: 'ka',
+    enabled: true,
+  },
   format_9004: {
     name: 'LEMS',
     sedUrn: 'urn:sedml:language:lems',
@@ -103,6 +110,13 @@ const modelFormatMetaData: {
     combineSpecUrl: 'http://identifiers.org/combine.specifications/neuroml',
     extension: 'nml',
     enabled: false,
+  },
+  format_9007: {
+    name: 'pharmML',
+    sedUrn: 'urn:sedml:language:pharmml',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/pharmml+xml',
+    extension: 'xml',
+    enabled: true,
   },
   format_2585: {
     name: 'SBML',
@@ -775,6 +789,27 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           });
         });
 
+        const simulation = sedDoc?.simulations?.[0];
+
+        switch (simulation?._type){
+          case 'SedUniformTimeCourseSimulation': {
+            const simParametersGroup = this.formGroup.controls
+              .uniformTimeCourseSimulationParameters as FormGroup;
+            simParametersGroup.controls.initialTime.setValue(simulation?.initialTime);
+            simParametersGroup.controls.outputStartTime.setValue(simulation?.outputStartTime);
+            simParametersGroup.controls.outputEndTime.setValue(simulation?.outputEndTime);
+            simParametersGroup.controls.numberOfSteps.setValue(simulation?.numberOfSteps);
+            break;
+          }
+
+          case 'SedOneStepSimulation': {
+            const simParametersGroup = this.formGroup.controls
+              .oneStepSimulationParameters as FormGroup;
+            simParametersGroup.controls.step.setValue(simulation?.step);
+            break;
+          }
+        }
+
         sedDoc?.dataGenerators?.forEach((dataGen: any): void => {
           const modelVar = dataGen.variables[0];
 
@@ -925,6 +960,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           'format_9003',
           'format_9004',
           'format_9005',
+          'format_9006',
         ].includes(formatEdamId) &&
         [
           'SBO_0000293',
