@@ -308,6 +308,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
             outputStartTime: [null, this.floatValidator],
             outputEndTime: [null, this.floatValidator],
             numberOfSteps: [null, this.nonNegativeIntegerValidator],
+            step: [null],
           },
           {
             validators: this.uniformTimeCourseValidator,
@@ -330,6 +331,11 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       .modelingFramework as FormControl;
     const simulationTypeControl = this.formGroup.controls
       .simulationType as FormControl;
+    const uniformTimeCourseSimulationParametersControl = this.formGroup.controls
+      .uniformTimeCourseSimulationParameters as FormGroup;
+    const uniformTimeCourseSimulationStepControl = uniformTimeCourseSimulationParametersControl.controls
+      .step as FormControl;
+    uniformTimeCourseSimulationStepControl.disable();
     const simulationAlgorithmControl = this.formGroup.controls
       .simulationAlgorithm as FormControl;
     this.modelNamespacesArray = this.formGroup.controls
@@ -660,6 +666,24 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     this.getModelParametersAndVariables();
   }
 
+  changeUniformTimeCourseSimulationStep(): void {
+    const paramsGroup = this.formGroup.controls
+      .uniformTimeCourseSimulationParameters as FormGroup;
+    const outputEndTimeControl = paramsGroup.controls.outputEndTime as FormControl;
+    const outputStartTimeControl = paramsGroup.controls.outputStartTime as FormControl;
+    const numberOfStepsControl = paramsGroup.controls.numberOfSteps as FormControl;
+
+    if (
+      outputEndTimeControl.value != null
+      && outputStartTimeControl.value != null
+      && numberOfStepsControl.value != null
+    ) {
+      paramsGroup.controls.step.setValue(
+        (outputEndTimeControl.value - outputStartTimeControl.value) /
+        numberOfStepsControl.value);
+    }
+  }
+
   getModelParametersAndVariables(): void {
     if (this.modelParametersAndVariablesSubscription) {
       this.modelParametersAndVariablesSubscription.unsubscribe();
@@ -799,6 +823,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
             simParametersGroup.controls.outputStartTime.setValue(simulation?.outputStartTime);
             simParametersGroup.controls.outputEndTime.setValue(simulation?.outputEndTime);
             simParametersGroup.controls.numberOfSteps.setValue(simulation?.numberOfSteps);
+            simParametersGroup.controls.step.setValue(
+              (simulation?.outputEndTime - simulation?.outputStartTime) /
+              simulation?.numberOfSteps);
             break;
           }
 
