@@ -29,6 +29,7 @@ import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions
     SharedExceptionsFiltersModule,
     SharedNatsClientModule,
     HttpModule,
+    SharedNatsClientModule,
     MongooseModule.forFeature([
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
       {

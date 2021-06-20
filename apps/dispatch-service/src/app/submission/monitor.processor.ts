@@ -32,28 +32,28 @@ export class MonitorProcessor {
     const jobStatus: SimulationRunStatus | null = await this.hpcService.getJobStatus(
       slurmJobId,
     );
-    this.logger.debug(
-      `Checking status for job with id ${slurmJobId} for simulation ${simId}: Status is ${jobStatus}`,
-    );
+
+    const message = `Checking status for job with id ${slurmJobId} for simulation ${simId}: Status is ${jobStatus}`;
+    this.logger.debug(message);
 
     if (jobStatus) {
-      this.simStatusService.updateStatus(simId, jobStatus);
+      this.simStatusService.updateStatus(simId, jobStatus, message);
     }
 
     if (jobStatus == SimulationRunStatus.PROCESSING) {
-      this.completeQueue.add({ simId, transpose });
+      this.completeQueue.add({ simId });
     } else if (jobStatus == SimulationRunStatus.FAILED) {
-      this.failQueue.add({ simId });
+      this.failQueue.add({ simId, reason: message });
     } else if (
       jobStatus == SimulationRunStatus.QUEUED ||
       jobStatus == SimulationRunStatus.RUNNING
     ) {
-      this.monitorQueue.add({ slurmJobId, simId, transpose }, { delay: DELAY });
+      this.monitorQueue.add({ slurmJobId, simId }, { delay: DELAY });
     } else {
       this.logger.warn(
         `${simId} skipped update, due to unknown status of ${jobStatus}`,
       );
-      this.monitorQueue.add({ slurmJobId, simId, transpose }, { delay: DELAY });
+      this.monitorQueue.add({ slurmJobId, simId }, { delay: DELAY });
     }
   }
 }

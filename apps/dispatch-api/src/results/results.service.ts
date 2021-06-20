@@ -83,6 +83,15 @@ export class ResultsService {
       ((includeValues && sedIds.length == values.length) || !includeValues);
 
     if (!consistent) {
+      this.logger.error(
+        'Error parsing data due to inconsistent atributes and values. Recieved ids, labels, shapes, names,types:',
+      );
+      this.logger.error(sedIds);
+      this.logger.error(sedLabels);
+      this.logger.error(sedShapes);
+      this.logger.error(sedNames);
+      this.logger.error(sedTypes);
+      this.logger.error(values.length);
       throw new Error('Cannot process data');
     }
 
