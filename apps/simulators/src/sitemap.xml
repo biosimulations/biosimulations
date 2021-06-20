@@ -159,13 +159,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/brian2</loc>
-    <lastmod>2021-06-06</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/brian2/2.4.2</loc>
-    <lastmod>2021-06-06</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -411,13 +411,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/jneuroml</loc>
-    <lastmod>2021-06-06</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/jneuroml/0.8.5</loc>
-    <lastmod>2021-06-06</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -447,13 +447,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/kasim</loc>
-    <lastmod>2021-05-16</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/kasim/4.1</loc>
-    <lastmod>2021-05-16</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -543,37 +543,37 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/morpheus</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-06-13</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/simulators/morpheus/2.2.0-rc1</loc>
-    <lastmod>2021-01-07</lastmod>
+    <loc>https://biosimulators.org/simulators/morpheus/2.2.3</loc>
+    <lastmod>2021-06-13</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/netpyne</loc>
-    <lastmod>2021-06-06</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/netpyne/1.0.0.2</loc>
-    <lastmod>2021-06-06</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/neuron</loc>
-    <lastmod>2021-06-06</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/neuron/8.0.0</loc>
-    <lastmod>2021-06-06</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -627,25 +627,25 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/pyneuroml</loc>
-    <lastmod>2021-06-06</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/pyneuroml/0.5.11</loc>
-    <lastmod>2021-06-06</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/pysb</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://biosimulators.org/simulators/pysb/1.11.0</loc>
-    <lastmod>2021-01-07</lastmod>
+    <loc>https://biosimulators.org/simulators/pysb/1.13.0</loc>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -729,13 +729,19 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/smoldyn</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/smoldyn/2.65</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/smoldyn/2.66</loc>
+    <lastmod>2021-06-19</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
