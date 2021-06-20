@@ -89,7 +89,7 @@
 /simulators/mlxr
 /simulators/mlxr/4.1.3
 /simulators/morpheus
-/simulators/morpheus/2.2.0-rc1
+/simulators/morpheus/2.2.3
 /simulators/netpyne
 /simulators/netpyne/1.0.0.2
 /simulators/neuron
@@ -105,7 +105,7 @@
 /simulators/pyneuroml
 /simulators/pyneuroml/0.5.11
 /simulators/pysb
-/simulators/pysb/1.11.0
+/simulators/pysb/1.13.0
 /simulators/pysces
 /simulators/pysces/0.9.9
 /simulators/raven
@@ -121,6 +121,7 @@
 /simulators/simvascular/2021-02-07
 /simulators/smoldyn
 /simulators/smoldyn/2.65
+/simulators/smoldyn/2.66
 /simulators/tellurium
 /simulators/tellurium/2.2.0
 /simulators/vcell
