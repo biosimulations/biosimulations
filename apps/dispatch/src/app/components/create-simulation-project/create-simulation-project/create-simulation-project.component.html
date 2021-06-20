@@ -315,7 +315,7 @@
           "
           formGroupName="uniformTimeCourseSimulationParameters"
         >
-          <div class="columns four-columns">
+          <div class="columns five-columns">
             <mat-form-field appearance="fill">
               <biosimulations-icon icon="time" matPrefix></biosimulations-icon>
               <mat-label>Enter the initial time</mat-label>
@@ -324,6 +324,7 @@
                 formControlName="initialTime"
                 type="number"
                 required
+                (ngModelChange)="changeUniformTimeCourseSimulationStep()"
               />
             </mat-form-field>
 
@@ -335,6 +336,7 @@
                 formControlName="outputEndTime"
                 type="number"
                 required
+                (ngModelChange)="changeUniformTimeCourseSimulationStep()"
               />
             </mat-form-field>
 
@@ -351,6 +353,7 @@
                 formControlName="outputStartTime"
                 type="number"
                 required
+                (ngModelChange)="changeUniformTimeCourseSimulationStep()"
               />
             </mat-form-field>
 
@@ -367,6 +370,23 @@
                 min="0"
                 step="1"
                 required
+                (ngModelChange)="changeUniformTimeCourseSimulationStep()"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="mat-form-field-disabled">
+              <biosimulations-icon
+                icon="duration"
+                matPrefix
+              ></biosimulations-icon>
+              <mat-label>Time step</mat-label>
+              <input
+                matInput
+                formControlName="step"
+                type="number"
+                min="0"
+                required
+                [readonly]="true"
               />
             </mat-form-field>
           </div>
@@ -374,7 +394,8 @@
             >Enter the initial time of the simulation, the time when the
             simulation should terminate, the first time when output should be
             recorded, and the number of steps that should be recorded between
-            the output start and termination times.</mat-hint
+            the output start and termination times. This combination of inputs
+            specifies a time step.</mat-hint
           >
           <mat-error
             *ngIf="
