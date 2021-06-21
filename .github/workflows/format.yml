@@ -49,7 +49,7 @@ jobs:
           author_name: Biosimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
           branch: dev
-          message: 'Formatted Files. [skip ci]'
+          message: 'chore: Formatted Files. [skip ci]'
           signoff: true
         env:
           # This is necessary in order to push a commit to the repo
