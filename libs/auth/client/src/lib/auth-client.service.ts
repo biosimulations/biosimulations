@@ -1,5 +1,8 @@
 import { Logger, HttpService, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { hasAudience, isTokenCurrent } from '@biosimulations/auth/common';
 
 @Injectable({})
 export class AuthClientService {
@@ -9,7 +12,9 @@ export class AuthClientService {
   private api_audience: string;
   private client_secret: string;
   private auth0_domain: string;
-  constructor(
+  private token?: string;
+
+  public constructor(
     private http: HttpService,
     private readonly configService: ConfigService,
   ) {
@@ -20,16 +25,35 @@ export class AuthClientService {
   }
   public async getToken(audience = this.api_audience): Promise<string> {
     this.logger.debug(
-      `Getting auth token for audience ${this.api_audience} for client ${this.client_id}`,
+      `Getting auth token for audience ${audience} for client ${this.client_id}`,
     );
-    const res: any = await this.http
+
+    // If we have a token cached and its not expired send it. Also check that it is for same audience
+    if (this.token) {
+      if (isTokenCurrent(this.token) && hasAudience(this.token, audience)) {
+        return this.token;
+      }
+    }
+
+    const newTok = await this.getTokenHTTP(audience).toPromise();
+    this.token = newTok;
+    return newTok;
+  }
+
+  private getTokenHTTP(audience = this.api_audience): Observable<string> {
+    const res: any = this.http
       .post(`${this.auth0_domain}oauth/token`, {
         client_id: this.client_id,
         client_secret: this.client_secret,
         audience: audience,
         grant_type: 'client_credentials',
       })
-      .toPromise();
-    return res.data.access_token;
+      .pipe(
+        map((value) => {
+          return value.data.access_token as string;
+        }),
+      );
+
+    return res;
   }
 }
