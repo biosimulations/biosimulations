@@ -1,4 +1,3 @@
-// TODO create a dispatch even class to distinguish between response/no response
 export enum DispatchMessage {
   // Job created on the database
   created = 'dispatch.created',
@@ -78,11 +77,10 @@ export class DispatchSubmittedPayload extends DispatchPayload {
   }
 }
 
-// TODO remove transpose once all simulators follow row format
 export class DispatchFinishedPayload extends DispatchPayload {
   _message = DispatchMessage.finished;
 
-  constructor(id: string, public readonly transpose: boolean) {
+  constructor(id: string) {
     super(id);
   }
 }
