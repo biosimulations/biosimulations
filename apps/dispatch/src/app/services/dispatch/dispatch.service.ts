@@ -138,7 +138,7 @@ export class DispatchService {
 
   // TODO Remove all of these hardcoded paths
   public getAllSimulatorInfo(simulatorName?: string): Observable<string[]> {
-    const endpoint = `${urls.dispatchApi}simulators`;
+    const endpoint = `${urls.simulatorsApi}simulators`;
     if (simulatorName === undefined) {
       return this.http.get(endpoint) as Observable<string[]>;
     }
