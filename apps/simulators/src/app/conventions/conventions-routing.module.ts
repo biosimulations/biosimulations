@@ -11,7 +11,6 @@ import { DataVisualizationComponent } from './data-visualization/data-visualizat
 import { MetadataComponent } from './metadata/metadata.component';
 import { SimulationLogsComponent } from './simulation-logs/simulation-logs.component';
 
-
 const routes: Routes = [
   {
     path: '',

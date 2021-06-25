@@ -41,10 +41,23 @@
       tocSection="Overview"
     >
       <p>
-        Metadata about COMBINE/OMEX archives should be annotated using triples of subjects, predicates, and objects in RDF XML files according to the OMEX Metadata guidelines.
+        Metadata about COMBINE/OMEX archives should be annotated using triples
+        of subjects, predicates, and objects in RDF XML files according to the
+        OMEX Metadata guidelines.
       </p>
       <p>
-        On top of these guidelines, BioSimulations recommends the predicates and identifier namespaces described below. In addition, the URI for each object should be annotated using <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/identifier</code> and a human-readable description of each object should be annotated using <code>http://www.w3.org/2000/01/rdf-schema#label</code>. Futhermore, alternative predictates should also be described using <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/description</code>.
+        On top of these guidelines, BioSimulations recommends the predicates and
+        identifier namespaces described below. In addition, the URI for each
+        object should be annotated using
+        <code
+          >https://dublincore.org/specifications/dublin-core/dcmi-terms/identifier</code
+        >
+        and a human-readable description of each object should be annotated
+        using <code>http://www.w3.org/2000/01/rdf-schema#label</code>.
+        Futhermore, alternative predictates should also be described using
+        <code
+          >https://dublincore.org/specifications/dublin-core/dcmi-terms/description</code
+        >.
       </p>
     </biosimulations-text-page-content-section>
 
@@ -52,9 +65,27 @@
       heading="Recommended URIs for COMBINE/OMEX archives and the contents"
       tocSection="Recommended URIs"
     >
-      <p>COMBINE/OMEX archives should be referenced using unique identifiers which begin with the prefix <code>http://omex-libary.org/</code> and end with the file extension <code>.omex</code> (e.g., <code>http://omex-libary.org/BioSimulations-0001.omex</code>).</p>
-      <p>Files in COMBINE archives should be referenced by concatenating the above identifiers with their location within their parent COMBINE archives (e.g., <code>http://omex-libary.org/BioSimulations-0001.omex/simulation.sedml</code>).</p>
-      <p>Elements in SED-ML files in COMBINE archives should be referenced by concatenating the above identifiers with their id (e.g., <code>http://omex-libary.org/BioSimulations-0001.omex/simulation.sedml/Figure_3a</code>).</p>
+      <p>
+        COMBINE/OMEX archives should be referenced using unique identifiers
+        which begin with the prefix <code>http://omex-libary.org/</code> and end
+        with the file extension <code>.omex</code> (e.g.,
+        <code>http://omex-libary.org/BioSimulations-0001.omex</code>).
+      </p>
+      <p>
+        Files in COMBINE archives should be referenced by concatenating the
+        above identifiers with their location within their parent COMBINE
+        archives (e.g.,
+        <code
+          >http://omex-libary.org/BioSimulations-0001.omex/simulation.sedml</code
+        >).
+      </p>
+      <p>
+        Elements in SED-ML files in COMBINE archives should be referenced by
+        concatenating the above identifiers with their id (e.g.,
+        <code
+          >http://omex-libary.org/BioSimulations-0001.omex/simulation.sedml/Figure_3a</code
+        >).
+      </p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -62,164 +93,329 @@
       tocSection="Recommended predicates and objects"
     >
       <p>
-        BioSimulators recommends that COMBINE/OMEX archives be annotated using the predicates and objects below.
+        BioSimulators recommends that COMBINE/OMEX archives be annotated using
+        the predicates and objects below.
       </p>
 
       <ul class="vertically-spaced">
-        <li>Title: 
+        <li>
+          Title:
           <ul>
-            <li>Predicate: <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/title</code></li>
+            <li>
+              Predicate:
+              <code
+                >https://dublincore.org/specifications/dublin-core/dcmi-terms/title</code
+              >
+            </li>
             <li>Object: Literal string</li>
           </ul>
         </li>
 
-        <li>Abstract (short summary): 
+        <li>
+          Abstract (short summary):
           <ul>
-            <li>Predicate: <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/abstract</code></li>
+            <li>
+              Predicate:
+              <code
+                >https://dublincore.org/specifications/dublin-core/dcmi-terms/abstract</code
+              >
+            </li>
             <li>Object: Literal string</li>
           </ul>
         </li>
 
-        <li>Description (long summary): 
+        <li>
+          Description (long summary):
           <ul>
-            <li>Predicate: <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/description</code></li>
+            <li>
+              Predicate:
+              <code
+                >https://dublincore.org/specifications/dublin-core/dcmi-terms/description</code
+              >
+            </li>
             <li>Object: Literal string</li>
           </ul>
         </li>
 
-        <li>Keyword: 
+        <li>
+          Keyword:
           <ul>
-            <li>Predicate: <code>http://prismstandard.org/namespaces/basic/2.0/keyword</code></li>
+            <li>
+              Predicate:
+              <code>http://prismstandard.org/namespaces/basic/2.0/keyword</code>
+            </li>
             <li>Object: Literal string</li>
           </ul>
         </li>
 
-        <li>Thumbnail image: 
+        <li>
+          Thumbnail image:
           <ul>
-            <li>Predicate: <code>http://www.collex.org/schema#thumbnail</code></li>
-            <li>Object: URI for thumbnail file (e.g., <code>http://omex-libary.org/Ciliberto.omex/Figure1.png</code>)</li>
+            <li>
+              Predicate: <code>http://www.collex.org/schema#thumbnail</code>
+            </li>
+            <li>
+              Object: URI for thumbnail file (e.g.,
+              <code>http://omex-libary.org/Ciliberto.omex/Figure1.png</code>)
+            </li>
           </ul>
         </li>
 
-        <li>Organism captured by a modeling project: 
+        <li>
+          Organism captured by a modeling project:
           <ul>
-            <li>Predicate: <code>http://biomodels.net/biology-qualifiers/hasTaxon</code></li>
-            <li>Objects: Identifiers.org URI for an entry in NCBI Taxonomy (e.g., <code>https://identifiers.org/taxonomy/9606</code>), Literal string</li>
+            <li>
+              Predicate:
+              <code>http://biomodels.net/biology-qualifiers/hasTaxon</code>
+            </li>
+            <li>
+              Objects: Identifiers.org URI for an entry in NCBI Taxonomy (e.g.,
+              <code>https://identifiers.org/taxonomy/9606</code>), Literal
+              string
+            </li>
           </ul>
         </li>
 
-        <li>Other biology (e.g., cell type, organ) captured by a modeling project: 
+        <li>
+          Other biology (e.g., cell type, organ) captured by a modeling project:
           <ul>
-            <li>Predicate: <code>http://biomodels.net/biology-qualifiers/encodes</code></li>
-            <li>Objects: URI (e.g., <code>https://www.uniprot.org/uniprot/P07527</code>), Literal string</li>
+            <li>
+              Predicate:
+              <code>http://biomodels.net/biology-qualifiers/encodes</code>
+            </li>
+            <li>
+              Objects: URI (e.g.,
+              <code>https://www.uniprot.org/uniprot/P07527</code>), Literal
+              string
+            </li>
           </ul>
         </li>
 
-        <li>Source a modeling project: 
+        <li>
+          Source a modeling project:
           <ul>
-            <li>Predicate: <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/source</code></li>
-            <li>Objects: URI (e.g., <code>https://github.com/org/repo</code>), Literal string</li>
+            <li>
+              Predicate:
+              <code
+                >https://dublincore.org/specifications/dublin-core/dcmi-terms/source</code
+              >
+            </li>
+            <li>
+              Objects: URI (e.g., <code>https://github.com/org/repo</code>),
+              Literal string
+            </li>
           </ul>
         </li>
 
-        <li>Predecessor of a modeling project: 
+        <li>
+          Predecessor of a modeling project:
           <ul>
-            <li>Predicate: <code>http://biomodels.net/model-qualifiers/isDerivedFrom</code></li>
-            <li>Objects: URI (e.g., <code>https://identifiers.org/biomodels.db:BIOMD0000000296</code>), Literal string</li>
+            <li>
+              Predicate:
+              <code>http://biomodels.net/model-qualifiers/isDerivedFrom</code>
+            </li>
+            <li>
+              Objects: URI (e.g.,
+              <code>https://identifiers.org/biomodels.db:BIOMD0000000296</code
+              >), Literal string
+            </li>
           </ul>
         </li>
 
-        <li>Successor of a modeling project: 
+        <li>
+          Successor of a modeling project:
           <ul>
-            <li>Predicate: <code>http://purl.org/spar/scoro/successor</code></li>
-            <li>Objects: URI (e.g., <code>https://identifiers.org/biomodels.db:BIOMD0000000298</code>), Literal string</li>
+            <li>
+              Predicate: <code>http://purl.org/spar/scoro/successor</code>
+            </li>
+            <li>
+              Objects: URI (e.g.,
+              <code>https://identifiers.org/biomodels.db:BIOMD0000000298</code
+              >), Literal string
+            </li>
           </ul>
         </li>
 
-        <li>More information about a modeling project: 
+        <li>
+          More information about a modeling project:
           <ul>
-            <li>Predicate: <code>http://www.w3.org/2000/01/rdf-schema#seeAlso</code></li>
-            <li>Objects: URI (e.g., <code>http://mpf.biol.vt.edu/lab_website/</code>), Literal string</li>
+            <li>
+              Predicate:
+              <code>http://www.w3.org/2000/01/rdf-schema#seeAlso</code>
+            </li>
+            <li>
+              Objects: URI (e.g.,
+              <code>http://mpf.biol.vt.edu/lab_website/</code>), Literal string
+            </li>
           </ul>
         </li>
 
-        <li>Other identifier for a modeling project: 
+        <li>
+          Other identifier for a modeling project:
           <ul>
-            <li>Predicate: <code>http://biomodels.net/model-qualifiers/is</code></li>
-            <li>Objects: URI (e.g., <code>https://identifiers.org/biomodels.db:BIOMD0000000297</code>), Literal string</li>
+            <li>
+              Predicate: <code>http://biomodels.net/model-qualifiers/is</code>
+            </li>
+            <li>
+              Objects: URI (e.g.,
+              <code>https://identifiers.org/biomodels.db:BIOMD0000000297</code
+              >), Literal string
+            </li>
           </ul>
         </li>
 
-        <li>Citation for a modeling project: 
+        <li>
+          Citation for a modeling project:
           <ul>
-            <li>Predicate: <code>http://biomodels.net/model-qualifiers/isDescribedBy</code></li>
-            <li>Objects: Identifiers.org DOI URI (e.g., <code>https://identifiers.org/doi:10.1083/jcb.200306139</code>), Literal string</li>
+            <li>
+              Predicate:
+              <code>http://biomodels.net/model-qualifiers/isDescribedBy</code>
+            </li>
+            <li>
+              Objects: Identifiers.org DOI URI (e.g.,
+              <code>https://identifiers.org/doi:10.1083/jcb.200306139</code>),
+              Literal string
+            </li>
           </ul>
         </li>
 
-        <li>Author: 
+        <li>
+          Author:
           <ul>
-            <li>Predicate: <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/creator</code></li>
-            <li>Objects: ORCID Identifiers.org URI (e.g., <code>https://identifiers.org/biomodels.db:BIOMD0000000297</code>), Literal string</li>
+            <li>
+              Predicate:
+              <code
+                >https://dublincore.org/specifications/dublin-core/dcmi-terms/creator</code
+              >
+            </li>
+            <li>
+              Objects: ORCID Identifiers.org URI (e.g.,
+              <code>https://identifiers.org/biomodels.db:BIOMD0000000297</code
+              >), Literal string
+            </li>
           </ul>
         </li>
 
-        <li>Contributor (e.g., curator): 
+        <li>
+          Contributor (e.g., curator):
           <ul>
-            <li>Predicate: <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/contributor</code></li>
-            <li>Objects: ORCID Identifiers.org URI (e.g., <code>https://identifiers.org/orcid:0000-0001-7560-6013</code>), Literal string</li>
+            <li>
+              Predicate:
+              <code
+                >https://dublincore.org/specifications/dublin-core/dcmi-terms/contributor</code
+              >
+            </li>
+            <li>
+              Objects: ORCID Identifiers.org URI (e.g.,
+              <code>https://identifiers.org/orcid:0000-0001-7560-6013</code>),
+              Literal string
+            </li>
           </ul>
         </li>
 
-        <li>License for a modeling project: 
+        <li>
+          License for a modeling project:
           <ul>
-            <li>Predicate: <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/identifier</code></li>
-            <li>Objects: SPDX Identifiers.org URI (e.g., <code>https://identifiers.org/spdx:CCO</code>), Literal string</li>
+            <li>
+              Predicate:
+              <code
+                >https://dublincore.org/specifications/dublin-core/dcmi-terms/identifier</code
+              >
+            </li>
+            <li>
+              Objects: SPDX Identifiers.org URI (e.g.,
+              <code>https://identifiers.org/spdx:CCO</code>), Literal string
+            </li>
           </ul>
         </li>
 
-        <li>Funder: 
+        <li>
+          Funder:
           <ul>
             <li>Predicate: <code>http://purl.org/spar/scoro/funder</code></li>
-            <li>Objects: FunderRegistry Identifiers.org URI (e.g., <code>https://identifiers.org/doi:10.13039/100000185</code>), Literal string</li>
+            <li>
+              Objects: FunderRegistry Identifiers.org URI (e.g.,
+              <code>https://identifiers.org/doi:10.13039/100000185</code>),
+              Literal string
+            </li>
           </ul>
         </li>
 
-        <li>Creation date: 
+        <li>
+          Creation date:
           <ul>
-            <li>Predicate: <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/created</code></li>
-            <li>Objects: WC3DTF-encoded literal string (e.g., <code>2021-06-01</code>)</li>
+            <li>
+              Predicate:
+              <code
+                >https://dublincore.org/specifications/dublin-core/dcmi-terms/created</code
+              >
+            </li>
+            <li>
+              Objects: WC3DTF-encoded literal string (e.g.,
+              <code>2021-06-01</code>)
+            </li>
           </ul>
         </li>
 
-        <li>Modification date: 
+        <li>
+          Modification date:
           <ul>
-            <li>Predicate: <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/modified</code></li>
-            <li>Objects: WC3DTF-encoded literal string (e.g., <code>2021-06-01</code>)</li>
+            <li>
+              Predicate:
+              <code
+                >https://dublincore.org/specifications/dublin-core/dcmi-terms/modified</code
+              >
+            </li>
+            <li>
+              Objects: WC3DTF-encoded literal string (e.g.,
+              <code>2021-06-01</code>)
+            </li>
           </ul>
         </li>
       </ul>
 
-      <p>Further, BioSimulators recommends that the title, abstract, description, license, and creation date predicates be used only per subject.</p>
-
       <p>
-    </biosimulations-text-page-content-section>
+        Further, BioSimulators recommends that the title, abstract, description,
+        license, and creation date predicates be used only per subject.
+      </p>
+
+      <p></p
+    ></biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
       heading="Required metadata about COMBINE archives for BioSimulations"
       tocSection="Required metadata"
     >
-      <p>
-        Submissions to BioSimulations must include the following metadata:
-      </p>
+      <p>Submissions to BioSimulations must include the following metadata:</p>
       <ul>
-        <li>Title (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/title</code>)</li>
-        <li>Abstract (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/abstract</code>)</li>
-        <li>Author (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/creator</code>)</li>
-        <li>Contributor (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/contributor</code>)</li>
-        <li>License (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/license</code>)</li>
-        <li>Creation date (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/created</code>)</li>
-        <li>Modification date (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/modified</code>)</li>
+        <li>
+          Title
+          (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/title</code>)
+        </li>
+        <li>
+          Abstract
+          (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/abstract</code>)
+        </li>
+        <li>
+          Author
+          (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/creator</code>)
+        </li>
+        <li>
+          Contributor
+          (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/contributor</code>)
+        </li>
+        <li>
+          License
+          (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/license</code>)
+        </li>
+        <li>
+          Creation date
+          (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/created</code>)
+        </li>
+        <li>
+          Modification date
+          (<code>https://dublincore.org/specifications/dublin-core/dcmi-terms/modified</code>)
+        </li>
       </ul>
     </biosimulations-text-page-content-section>
 
@@ -228,11 +424,15 @@
       tocSection="Recommendations for describing figures"
     >
       <p>
-        BioSimulators recommends using the <code>https://dublincore.org/specifications/dublin-core/dcmi-terms/identifier</code> predicate and literal strings to describe the SED-ML files, reports, and plots responsible for tables and figures in articles.
+        BioSimulators recommends using the
+        <code
+          >https://dublincore.org/specifications/dublin-core/dcmi-terms/identifier</code
+        >
+        predicate and literal strings to describe the SED-ML files, reports, and
+        plots responsible for tables and figures in articles.
       </p>
 
       <pre><code [languages]="['xml']"[highlight]="exampleFigureMetadata"></code></pre>
-
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -240,8 +440,11 @@
       tocSection="Example metadata"
     >
       <p>
-        As an example, below is a representation of metadata for the Ciliberto 2003 model of the budding yeast cell cycle
-        <a href="https://identifiers.org/doi:10.1083/jcb.200306139" target="_blank"
+        As an example, below is a representation of metadata for the Ciliberto
+        2003 model of the budding yeast cell cycle
+        <a
+          href="https://identifiers.org/doi:10.1083/jcb.200306139"
+          target="_blank"
           ><biosimulations-icon icon="link"></biosimulations-icon></a
         >.
       </p>

@@ -27,7 +27,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     SimulatorImagesComponent,
     SimulationExperimentsComponent,
     SimulationLogsComponent,
-    SimulationReportsComponent,    
+    SimulationReportsComponent,
     MetadataComponent,
     DataVisualizationComponent,
   ],
