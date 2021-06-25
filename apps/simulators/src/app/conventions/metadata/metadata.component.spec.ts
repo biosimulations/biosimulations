@@ -2,16 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SimulatorSpecsComponent } from './simulator-specs.component';
+import { MetadataComponent } from './metadata.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-describe('SimulatorSpecsComponent', () => {
-  let component: SimulatorSpecsComponent;
-  let fixture: ComponentFixture<SimulatorSpecsComponent>;
+describe('MetadataComponent', () => {
+  let component: MetadataComponent;
+  let fixture: ComponentFixture<MetadataComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -33,12 +33,12 @@ describe('SimulatorSpecsComponent', () => {
           },
         },
       ],
-      declarations: [SimulatorSpecsComponent],
+      declarations: [MetadataComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SimulatorSpecsComponent);
+    fixture = TestBed.createComponent(MetadataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
