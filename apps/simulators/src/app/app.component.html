@@ -74,6 +74,13 @@
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
+          heading="Metadata"
+          icon="tags"
+          [routerLink]="['/conventions', 'metadata']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
           heading="Simulation logs"
           icon="progress"
           [routerLink]="['/conventions', 'simulation-logs']"
@@ -187,6 +194,13 @@
         heading="Data visualizations"
         icon="chart"
         [route]="['/conventions', 'data-viz']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Metadata"
+        icon="tags"
+        [route]="['/conventions', 'metadata']"
       >
       </biosimulations-navigation-subitem>
 
