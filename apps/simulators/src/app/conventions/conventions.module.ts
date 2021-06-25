@@ -14,6 +14,7 @@ import { SimulatorImagesComponent } from './simulator-images/simulator-images.co
 import { SimulationExperimentsComponent } from './simulation-experiments/simulation-experiments.component';
 import { SimulationLogsComponent } from './simulation-logs/simulation-logs.component';
 import { SimulationReportsComponent } from './simulation-reports/simulation-reports.component';
+import { MetadataComponent } from './metadata/metadata.component';
 import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
 
 import { HighlightModule } from 'ngx-highlightjs';
@@ -26,7 +27,8 @@ import { HighlightModule } from 'ngx-highlightjs';
     SimulatorImagesComponent,
     SimulationExperimentsComponent,
     SimulationLogsComponent,
-    SimulationReportsComponent,
+    SimulationReportsComponent,    
+    MetadataComponent,
     DataVisualizationComponent,
   ],
   imports: [
