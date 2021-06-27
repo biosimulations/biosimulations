@@ -60,6 +60,7 @@
 /simulators/gillespy2
 /simulators/gillespy2/1.5.11
 /simulators/gillespy2/1.5.7
+/simulators/gillespy2/1.6.0
 /simulators/ginsim
 /simulators/ginsim/3.0.0b
 /simulators/gna
