@@ -28,6 +28,13 @@ class MockSimulatorService {
         id: 'sim3',
         version: '1.7',
       },
+      {
+        id: 'sim4',
+        version: '2020-01-05'
+      },
+      {
+        id: 'sim4',
+      version: '2020-02-01'}
     ];
   }
 }
@@ -61,5 +68,6 @@ describe('SimulatorsController', () => {
     expect(latest[0].version).toBe('1.11');
     expect(latest[1].version).toBe('1.2');
     expect(latest[2].version).toBe('1.7');
+    expect(latest[3].version).toBe('2020-02-01');
   });
 });

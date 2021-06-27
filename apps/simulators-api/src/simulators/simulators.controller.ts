@@ -81,8 +81,8 @@ export class SimulatorsController {
     allSims.forEach((element) => {
       const latestSim = latest.get(element.id);
       if (latestSim) {
-        const latestVersion = latestSim.version;
-        const currentVersion = element.version;
+        const latestVersion = latestSim.version.replace(/-/g,".");
+        const currentVersion = element.version.replace(/-/g,".");
         if (compareVersions(latestVersion, currentVersion) == -1) {
           latest.set(element.id, element);
         }
