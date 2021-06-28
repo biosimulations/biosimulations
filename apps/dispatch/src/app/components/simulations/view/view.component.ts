@@ -488,10 +488,11 @@ export class ViewComponent implements OnInit, OnDestroy {
               };
             })
             .filter((curve): boolean => {
-              return (
+              const resultsAvailable =
                 curve.xData in this.combineResults &&
-                curve.yData in this.combineResults
-              );
+                curve.yData in this.combineResults;
+
+              return resultsAvailable;
             });
 
           if (curves.length) {
@@ -781,7 +782,7 @@ export class ViewComponent implements OnInit, OnDestroy {
             });
           }
         } catch (err) {
-          // console.error(err);
+          console.error(err);
           this._vegaSpec = null;
           this.vegaFileFormControl.setErrors({ invalid: true });
         }
