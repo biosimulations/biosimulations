@@ -6,9 +6,14 @@ We enthusiastically welcome contributions to BioSimulations and BioSimulators! T
 
 Before getting started, please contact the lead developers at [info@biosimulations.org](mailto:info@biosimulations.org) to coordinate your planned contributions with other ongoing efforts. Please also use GitHub issues to announce your plans to the community so that other developers can provide input into your plans and coordinate their own work. As the development community grows, we will institute additional infrastructure as needed such as a leadership committee and regular online meetings.
 
+## Repository Conventions
+
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+The repository uses conventional commits to enable changelog generation and versioning. Commitizen allows developers to easily create compliant commit messages. To use Commitizen, simply run `npm run commit` insteead of ` git commit` in your workflow.
+
 ## Repository organization
 
-The repository is organized as a monorepo using tooling from [Nx](https://nx.dev/angular/getting-started/why-nx). The [biosimulations](/biosimulations/README.md) folder contains the Nx workspace and top level source code.
+The repository is organized as a monorepo using tooling from [Nx](https://nx.dev/angular/getting-started/why-nx)
 
 ### Apps
 
