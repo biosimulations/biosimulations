@@ -1,31 +1,20 @@
 @import 'biosimulations-colors';
 
-.spinner-container {
-  display: flex;
-  height: calc(100vh - 64px - 28px - 0.5rem - 32px - 2 * 2rem);
-  align-items: center;
-  justify-content: center;
-}
-
-@media screen and (max-width: 959px) {
-  .spinner-container {
-    height: calc(100vh - 56px - 32px - 2 * 1rem);
-  }
-}
-
 .subplots {
   border: 1px solid rgba(0, 0, 0, 0.42);
   border-radius: 4px;
 
   ::ng-deep {
     .mat-tab-header {
-      background-color: $light-bg-darker-10;
+      background-color: $light-bg-darker-10 !important;
       border-bottom: 1px solid rgba(0, 0, 0, 0.42);
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
     }
     .mat-tab-label {
-      color: $dark-primary-text;
+      &:not(.mat-tab-disabled) {
+        color: $dark-primary-text !important;
+      }
       height: 41.5px;
     }
     .mat-ink-bar {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable, of, throwError, timer } from 'rxjs';
+import { map, catchError, retryWhen, mergeMap } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 import {
   CombineResults,
@@ -35,12 +35,14 @@ export class VisualizationService {
     uuid: string,
     sparse = true,
   ): Observable<CombineResults | undefined> {
+    const retryStrategy = new RetryStrategy();
     return this.http
       .get<SimulationRunResults>(
         // TODO Remove hardocoded string. Caused #2635
         `${this.resultsEndpoint}/${uuid}?includeData=${!sparse}`,
       )
       .pipe(
+        retryWhen(retryStrategy.handler.bind(retryStrategy)),
         map(
           (result: SimulationRunResults): SimulationRunOutput[] =>
             result.outputs,
@@ -125,12 +127,14 @@ export class VisualizationService {
     uuid: string,
     sparse = false,
   ): Observable<SedDatasetResultsMap | undefined> {
+    const retryStrategy = new RetryStrategy();
     return this.http
       .get<SimulationRunResults>(
         // TODO Remove hardocoded string. Caused #2635
         `${this.resultsEndpoint}/${uuid}?includeData=${!sparse}`,
       )
       .pipe(
+        retryWhen(retryStrategy.handler.bind(retryStrategy)),
         map(
           (result: SimulationRunResults): SimulationRunOutput[] =>
             result.outputs,
@@ -204,4 +208,40 @@ export class VisualizationService {
     const archiveUrl = `${this.combineArchiveEndpoint}${runId}/download`;
     return this.combineService.getSpecsOfSedDocsInCombineArchive(archiveUrl);
   }
+}
+
+class RetryStrategy {
+  constructor(
+    private maxAttempts=7,
+    private initialDelayMs=1000,
+    private scalingFactor=2,
+    private includedStatusCodes: number[]=[500],
+    private excludedStatusCodes: number[]=[],
+    private shouldErrorBeRetried: ((error: HttpErrorResponse) => boolean) = (error: HttpErrorResponse) => true,
+  ) {}
+
+ handler(attempts: Observable<any>) {
+   return attempts.pipe(
+    mergeMap((error: HttpErrorResponse, iRetryAttempt: number): Observable<number> => {
+      if ((iRetryAttempt + 1) >= this.maxAttempts) {
+        return throwError(error);
+      }
+
+      if (this.includedStatusCodes.length && !this.includedStatusCodes.includes(error.status)) {
+        return throwError(error);
+      }
+
+      if (this.excludedStatusCodes.includes(error.status)) {
+        return throwError(error);
+      }
+
+      if (!this.shouldErrorBeRetried(error)) {
+        return throwError(error);
+      }
+
+      const delay = this.initialDelayMs * (this.scalingFactor ** iRetryAttempt);
+      return timer(delay);
+    }),
+  );
+ }
 }
