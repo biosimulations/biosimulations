@@ -19,6 +19,7 @@ export interface Simulation {
 }
 
 export interface SedDatasetResults {
+  uri: string;
   id: string;
   location: string;
   reportId: string;
@@ -27,11 +28,13 @@ export interface SedDatasetResults {
 }
 
 export interface SedReportResults {
+  uri: string;
   id: string;
   datasets: SedDatasetResults[];
 }
 
 export interface SedDocumentResults {
+  uri: string;
   location: string;
   reports: SedReportResults[];
 }
@@ -39,5 +42,5 @@ export interface SedDocumentResults {
 export type CombineResults = SedDocumentResults[];
 
 export interface SedDatasetResultsMap {
-  [id: string]: SedDatasetResults;
+  [uri: string]: SedDatasetResults;
 }

@@ -358,7 +358,7 @@
                               >
                                 <mat-option
                                   *ngFor="let dataset of report.datasets"
-                                  [value]="dataset.id"
+                                  [value]="dataset.uri"
                                 >
                                   {{ dataset.label }}
                                 </mat-option>
@@ -386,7 +386,7 @@
                               >
                                 <mat-option
                                   *ngFor="let dataset of report.datasets"
-                                  [value]="dataset.id"
+                                  [value]="dataset.uri"
                                 >
                                   {{ dataset.label }}
                                 </mat-option>
@@ -580,7 +580,7 @@
                         let sedmlLocationsReportId of sedmlLocationsReportIds$
                           | async
                       "
-                      [value]="sedmlLocationsReportId.id"
+                      [value]="sedmlLocationsReportId.uri"
                     >
                       {{ sedmlLocationsReportId.label }}
                     </mat-option>

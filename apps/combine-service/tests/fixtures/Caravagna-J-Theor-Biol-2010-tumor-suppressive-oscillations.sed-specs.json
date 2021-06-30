@@ -107,7 +107,7 @@
                   "label": "time",
                   "dataGenerator": {
                     "_type": "SedDataGenerator",
-                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/time",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/data_set_time",
                     "id": "data_generator_time",
                     "name": "time",
                     "variables": [],
@@ -120,7 +120,7 @@
                   "label": "T",
                   "dataGenerator": {
                     "_type": "SedDataGenerator",
-                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/T",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/data_set_T",
                     "id": "data_generator_T",
                     "name": "T",
                     "variables": [],
@@ -133,7 +133,7 @@
                   "label": "E",
                   "dataGenerator": {
                     "_type": "SedDataGenerator",
-                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/E",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/data_set_E",
                     "id": "data_generator_E",
                     "name": "E",
                     "variables": [],
@@ -146,7 +146,7 @@
                   "label": "I",
                   "dataGenerator": {
                     "_type": "SedDataGenerator",
-                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/I",
+                    "_resultsDataSetId": "BIOMD0000000912_sim.sedml/BIOMD0000000912_report/data_set_I",
                     "id": "data_generator_I",
                     "name": "I",
                     "variables": [],

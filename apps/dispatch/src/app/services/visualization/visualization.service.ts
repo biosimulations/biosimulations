@@ -65,6 +65,7 @@ export class VisualizationService {
               structureObject[sedmlLocation][reportId] = report.data.map(
                 (datum: SimulationRunOutputDatum): SedDatasetResults => {
                   return {
+                    uri: sedmlLocation + '/' + reportId + '/' + datum.id,
                     id: datum.id,
                     location: sedmlLocation,
                     reportId: reportId,
@@ -83,11 +84,13 @@ export class VisualizationService {
               (sedmlLocation: string): SedDocumentResults => {
                 const reportIds = Object.keys(structureObject[sedmlLocation]);
                 return {
+                  uri: sedmlLocation,
                   location: sedmlLocation,
                   reports: reportIds.map(
                     (reportId: string): SedReportResults => {
                       const datasets = structureObject[sedmlLocation][reportId];
                       return {
+                        uri: sedmlLocation + '/' + reportId,
                         id: reportId,
                         datasets: datasets,
                       };
@@ -148,7 +151,9 @@ export class VisualizationService {
               );
 
               report.data.forEach((datum: SimulationRunOutputDatum): void => {
-                datasetResultsMap[datum.id] = {
+                const uri = sedmlLocation + '/' + reportId + '/' + datum.id;
+                datasetResultsMap[uri] = {
+                  uri: uri,
                   id: datum.id,
                   location: sedmlLocation,
                   reportId: reportId,
