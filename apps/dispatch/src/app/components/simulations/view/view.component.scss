@@ -19,13 +19,15 @@
 
   ::ng-deep {
     .mat-tab-header {
-      background-color: $light-bg-darker-10;
+      background-color: $light-bg-darker-10 !important;
       border-bottom: 1px solid rgba(0, 0, 0, 0.42);
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
     }
     .mat-tab-label {
-      color: $dark-primary-text;
+      &:not(.mat-tab-disabled) {
+        color: $dark-primary-text !important;
+      }
       height: 41.5px;
     }
     .mat-ink-bar {

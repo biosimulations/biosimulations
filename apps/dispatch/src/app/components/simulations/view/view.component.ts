@@ -124,7 +124,9 @@ export class ViewComponent implements OnInit, OnDestroy {
   vegaDataSets: VegaDataSet[] = [];
   vegaDataSetSedmlLocationReportIdsFormArray: FormArray;
 
+  gettingResultsStructure = true;
   hasData = false;
+  gettingResults = false;
   dataLoaded = false;
   combineResultsStructure: CombineResults | undefined = undefined;
   private combineResults: SedDatasetResultsMap = {};
@@ -315,6 +317,8 @@ export class ViewComponent implements OnInit, OnDestroy {
               );
             }
           }
+          this.gettingResultsStructure = false;
+          this.gettingResults = true;
         },
       );
     this.subscriptions.push(combineResultsStructureSub);
@@ -355,6 +359,8 @@ export class ViewComponent implements OnInit, OnDestroy {
             );
           }
         }
+
+        this.gettingResults = false;
       },
     );
     this.subscriptions.push(combineResultsSub);

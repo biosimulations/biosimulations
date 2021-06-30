@@ -9,7 +9,7 @@
     z-index: 5;
   }
 
-  .mat-tab-label-container {
+  mat-tab-disabled .mat-tab-label-container {
     padding-left: 0;
   }
 
@@ -17,15 +17,18 @@
     height: 32px;
     min-width: unset;
     padding: 0 1rem;
-    color: mat-color($theme-primary);
     opacity: 1;
 
-    &:hover {
-      color: mat-color($theme-accent);
-    }
+    &:not(.mat-tab-disabled) {
+      color: mat-color($theme-primary);
 
-    &:active {
-      color: mat-color($theme-accent, darker);
+      &:hover {
+        color: mat-color($theme-accent);
+      }
+
+      &:active {
+        color: mat-color($theme-accent, darker);
+      }
     }
   }
 

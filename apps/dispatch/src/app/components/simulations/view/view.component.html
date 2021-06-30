@@ -611,20 +611,25 @@
     </form>
 
     <ng-template #noSedDatasets>
-      <span
-        class="info-message"
-        *ngIf="
-          (this.combineResultsStructure$ | async) !== undefined;
-          else resultsError
-        "
-        >The execution of the COMBINE/OMEX archive did not generate any data.
-        runBioSimulations visualizes simulation results outputted via data sets
-        of SED reports.</span
-      >
-      <ng-template #resultsError>
-        <span class="info-message"
-          >Sorry! The results of your simulation could not be retrieved.</span
+      <div class="spinner-container" *ngIf="gettingResultsStructure; else noDataOrError">
+        <biosimulations-spinner></biosimulations-spinner>
+      </div>
+      <ng-template #noDataOrError>
+        <span
+          class="info-message"
+          *ngIf="
+            (this.combineResultsStructure$ | async) !== undefined;
+            else resultsError
+          "
+          >The execution of the COMBINE/OMEX archive did not generate any data.
+          runBioSimulations visualizes simulation results outputted via data sets
+          of SED reports.</span
         >
+        <ng-template #resultsError>
+          <span class="info-message"
+            >Sorry! The results of your simulation could not be retrieved.</span
+          >
+        </ng-template>
       </ng-template>
     </ng-template>
   </biosimulations-tab-page-tab>
@@ -635,20 +640,37 @@
     urlHashFragment="viz"
     [fullHeight]="true"
     [disabled]="
-      (selectedVisualizationType === VisualizationType.lineScatter2d &&
-        !lineScatter2dValid) ||
-      (selectedVisualizationType === VisualizationType.vega &&
-        (vegaSpec$ | async) === null)
+      !gettingResults && 
+      (
+        (selectedVisualizationType === VisualizationType.lineScatter2d &&
+          !lineScatter2dValid) ||
+        (selectedVisualizationType === VisualizationType.vega &&
+          (vegaSpec$ | async) === null)
+      )
     "
   >
+    <div
+      class="spinner-container"
+      *ngIf="gettingResults && 
+        (
+          (selectedVisualizationType === VisualizationType.lineScatter2d &&
+            !lineScatter2dValid) ||
+          (selectedVisualizationType === VisualizationType.vega &&
+            (vegaSpec$ | async) === null)
+        )
+      "
+    >
+      <biosimulations-spinner> </biosimulations-spinner>
+    </div>
+
     <biosimulations-plotly-visualization
       [dataLayout]="vizDataLayout$ | async"
-      *ngIf="selectedVisualizationType === VisualizationType.lineScatter2d"
+      *ngIf="!gettingResults && selectedVisualizationType === VisualizationType.lineScatter2d"
     >
     </biosimulations-plotly-visualization>
 
     <biosimulations-vega-visualization
-      *ngIf="selectedVisualizationType === VisualizationType.vega"
+      *ngIf="!gettingResults && selectedVisualizationType === VisualizationType.vega"
       [spec]="vegaSpec$"
       (error)="vegaErrorHandler()"
     >
