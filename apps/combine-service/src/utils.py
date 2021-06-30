@@ -82,11 +82,10 @@ def get_results_data_set_id(content, output, data_element):
     sed_doc_id = os.path.relpath(content.location, '.')
 
     if isinstance(data_element, DataSet):
-        # TODO: change last argument to `data_element.id`
         return '{}/{}/{}'.format(
             sed_doc_id,
             output.id,
-            data_element.label or data_element.id
+            data_element.id
         )
     elif isinstance(data_element, DataGenerator):
         return '{}/{}/{}'.format(
