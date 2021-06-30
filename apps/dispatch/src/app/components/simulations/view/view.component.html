@@ -1,7 +1,7 @@
 <biosimulations-tab-page (selectedTabChange)="selectedTabChange($event)">
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
     <div
-      class="spinner-container"
+      class="headed-page-spinner-container"
       *ngIf="(formattedSimulation$ | async) === null"
     >
       <biosimulations-spinner> </biosimulations-spinner>
@@ -611,7 +611,7 @@
     </form>
 
     <ng-template #noSedDatasets>
-      <div class="spinner-container" *ngIf="gettingResultsStructure; else noDataOrError">
+      <div class="headed-page-spinner-container" *ngIf="gettingResultsStructure; else noDataOrError">
         <biosimulations-spinner></biosimulations-spinner>
       </div>
       <ng-template #noDataOrError>
@@ -650,7 +650,7 @@
     "
   >
     <div
-      class="spinner-container"
+      class="headed-page-spinner-container"
       *ngIf="gettingResults && 
         (
           (selectedVisualizationType === VisualizationType.lineScatter2d &&
