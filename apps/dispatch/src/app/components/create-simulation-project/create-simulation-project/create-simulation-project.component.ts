@@ -333,8 +333,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       .simulationType as FormControl;
     const uniformTimeCourseSimulationParametersControl = this.formGroup.controls
       .uniformTimeCourseSimulationParameters as FormGroup;
-    const uniformTimeCourseSimulationStepControl = uniformTimeCourseSimulationParametersControl.controls
-      .step as FormControl;
+    const uniformTimeCourseSimulationStepControl = uniformTimeCourseSimulationParametersControl
+      .controls.step as FormControl;
     uniformTimeCourseSimulationStepControl.disable();
     const simulationAlgorithmControl = this.formGroup.controls
       .simulationAlgorithm as FormControl;
@@ -669,18 +669,22 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   changeUniformTimeCourseSimulationStep(): void {
     const paramsGroup = this.formGroup.controls
       .uniformTimeCourseSimulationParameters as FormGroup;
-    const outputEndTimeControl = paramsGroup.controls.outputEndTime as FormControl;
-    const outputStartTimeControl = paramsGroup.controls.outputStartTime as FormControl;
-    const numberOfStepsControl = paramsGroup.controls.numberOfSteps as FormControl;
+    const outputEndTimeControl = paramsGroup.controls
+      .outputEndTime as FormControl;
+    const outputStartTimeControl = paramsGroup.controls
+      .outputStartTime as FormControl;
+    const numberOfStepsControl = paramsGroup.controls
+      .numberOfSteps as FormControl;
 
     if (
-      outputEndTimeControl.value != null
-      && outputStartTimeControl.value != null
-      && numberOfStepsControl.value != null
+      outputEndTimeControl.value != null &&
+      outputStartTimeControl.value != null &&
+      numberOfStepsControl.value != null
     ) {
       paramsGroup.controls.step.setValue(
         (outputEndTimeControl.value - outputStartTimeControl.value) /
-        numberOfStepsControl.value);
+          numberOfStepsControl.value,
+      );
     }
   }
 
@@ -815,17 +819,26 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
         const simulation = sedDoc?.simulations?.[0];
 
-        switch (simulation?._type){
+        switch (simulation?._type) {
           case 'SedUniformTimeCourseSimulation': {
             const simParametersGroup = this.formGroup.controls
               .uniformTimeCourseSimulationParameters as FormGroup;
-            simParametersGroup.controls.initialTime.setValue(simulation?.initialTime);
-            simParametersGroup.controls.outputStartTime.setValue(simulation?.outputStartTime);
-            simParametersGroup.controls.outputEndTime.setValue(simulation?.outputEndTime);
-            simParametersGroup.controls.numberOfSteps.setValue(simulation?.numberOfSteps);
+            simParametersGroup.controls.initialTime.setValue(
+              simulation?.initialTime,
+            );
+            simParametersGroup.controls.outputStartTime.setValue(
+              simulation?.outputStartTime,
+            );
+            simParametersGroup.controls.outputEndTime.setValue(
+              simulation?.outputEndTime,
+            );
+            simParametersGroup.controls.numberOfSteps.setValue(
+              simulation?.numberOfSteps,
+            );
             simParametersGroup.controls.step.setValue(
               (simulation?.outputEndTime - simulation?.outputStartTime) /
-              simulation?.numberOfSteps);
+                simulation?.numberOfSteps,
+            );
             break;
           }
 
@@ -1857,18 +1870,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         },
       });
     } else {
-      // TODO: once https is enabled for http://biosimdevbucket.cam.uchc.edu,
-      // replace with the commented out code below
       const a = document.createElement('a');
-      const blob = new Blob([projectOrUrl]);
-      a.href = URL.createObjectURL(blob);
+      a.href = projectOrUrl;
       a.download = 'project.omex';
       a.click();
-
-      // const a = document.createElement('a');
-      // a.href = projectUrl;
-      // a.download = 'project.omex';
-      // a.click();
     }
   }
 

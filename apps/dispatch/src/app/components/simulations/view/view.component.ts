@@ -70,7 +70,7 @@ enum SubplotEnabledType {
 }
 
 interface SedmlLocationReportId {
-  id: string;
+  uri: string;
   label: string;
 }
 
@@ -419,22 +419,15 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     const sedmlLocationsReportIds: SedmlLocationReportId[] = [
       {
-        id: '__none__',
+        uri: '__none__',
         label: '-- None --',
       },
     ];
     for (const sedDocumentResultsStructure of combineResultsStructure) {
       for (const sedReportResultsStructure of sedDocumentResultsStructure.reports) {
         sedmlLocationsReportIds.push({
-          id: encodeURIComponent(
-            sedDocumentResultsStructure.location +
-              '/' +
-              sedReportResultsStructure.id,
-          ),
-          label:
-            sedDocumentResultsStructure.location +
-            ' / ' +
-            sedReportResultsStructure.id,
+          uri: encodeURIComponent(sedReportResultsStructure.uri),
+          label: sedReportResultsStructure.uri,
         });
       }
     }
@@ -488,10 +481,11 @@ export class ViewComponent implements OnInit, OnDestroy {
               };
             })
             .filter((curve): boolean => {
-              return (
+              const resultsAvailable =
                 curve.xData in this.combineResults &&
-                curve.yData in this.combineResults
-              );
+                curve.yData in this.combineResults;
+
+              return resultsAvailable;
             });
 
           if (curves.length) {
@@ -629,8 +623,8 @@ export class ViewComponent implements OnInit, OnDestroy {
       const curve = this.formBuilder.group({
         id: [null],
         name: [null],
-        xData: [this.defaultXSedDataset?.id, [Validators.required]],
-        yData: [this.defaultYSedDataset?.id, [Validators.required]],
+        xData: [this.defaultXSedDataset?.uri, [Validators.required]],
+        yData: [this.defaultYSedDataset?.uri, [Validators.required]],
       });
       curves.push(curve);
     }
@@ -774,14 +768,14 @@ export class ViewComponent implements OnInit, OnDestroy {
                 });
                 this.vegaDataSetSedmlLocationReportIdsFormArray.push(
                   this.formBuilder.control(
-                    this.sedmlLocationsReportIds.value[0].id,
+                    this.sedmlLocationsReportIds.value[0].uri,
                   ),
                 );
               }
             });
           }
         } catch (err) {
-          // console.error(err);
+          console.error(err);
           this._vegaSpec = null;
           this.vegaFileFormControl.setErrors({ invalid: true });
         }
@@ -806,7 +800,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         const vegaSpecDataSet = vegaSpec?.data?.[
           vegaDataSet.index
         ] as VegaBaseData;
-        if (value === this.sedmlLocationsReportIds.value[0].id) {
+        if (value === this.sedmlLocationsReportIds.value[0].uri) {
           if (vegaDataSet.source) {
             (vegaSpecDataSet as any).source = vegaDataSet.source;
           } else if ('source' in vegaSpecDataSet) {

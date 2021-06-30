@@ -8,6 +8,7 @@ import { SimulatorImagesComponent } from './simulator-images/simulator-images.co
 import { SimulationExperimentsComponent } from './simulation-experiments/simulation-experiments.component';
 import { SimulationReportsComponent } from './simulation-reports/simulation-reports.component';
 import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
+import { MetadataComponent } from './metadata/metadata.component';
 import { SimulationLogsComponent } from './simulation-logs/simulation-logs.component';
 
 const routes: Routes = [
@@ -45,6 +46,11 @@ const routes: Routes = [
           route: ['/conventions', 'data-viz'],
           icon: 'chart',
           label: 'Data visualizations',
+        },
+        {
+          route: ['/conventions', 'metadata'],
+          icon: 'tags',
+          label: 'Metadata',
         },
         {
           route: ['/conventions', 'simulation-logs'],
@@ -86,6 +92,11 @@ const routes: Routes = [
           label: 'Data visualizations',
         },
         {
+          route: ['/conventions', 'metadata'],
+          icon: 'tags',
+          label: 'Metadata',
+        },
+        {
           route: ['/conventions', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
@@ -123,6 +134,11 @@ const routes: Routes = [
           route: ['/conventions', 'data-viz'],
           icon: 'chart',
           label: 'Data visualizations',
+        },
+        {
+          route: ['/conventions', 'metadata'],
+          icon: 'tags',
+          label: 'Metadata',
         },
         {
           route: ['/conventions', 'simulation-logs'],
@@ -164,6 +180,11 @@ const routes: Routes = [
           label: 'Data visualizations',
         },
         {
+          route: ['/conventions', 'metadata'],
+          icon: 'tags',
+          label: 'Metadata',
+        },
+        {
           route: ['/conventions', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
@@ -201,6 +222,11 @@ const routes: Routes = [
           route: ['/conventions', 'data-viz'],
           icon: 'chart',
           label: 'Data visualizations',
+        },
+        {
+          route: ['/conventions', 'metadata'],
+          icon: 'tags',
+          label: 'Metadata',
         },
         {
           route: ['/conventions', 'simulation-logs'],
@@ -242,6 +268,11 @@ const routes: Routes = [
           label: 'Data visualizations',
         },
         {
+          route: ['/conventions', 'metadata'],
+          icon: 'tags',
+          label: 'Metadata',
+        },
+        {
           route: ['/conventions', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
@@ -281,6 +312,11 @@ const routes: Routes = [
           label: 'Simulation reports',
         },
         {
+          route: ['/conventions', 'metadata'],
+          icon: 'tags',
+          label: 'Metadata',
+        },
+        {
           route: ['/conventions', 'simulation-logs'],
           icon: 'progress',
           label: 'Simulation logs',
@@ -289,10 +325,10 @@ const routes: Routes = [
     },
   },
   {
-    path: 'simulation-logs',
-    component: SimulationLogsComponent,
+    path: 'metadata',
+    component: MetadataComponent,
     data: {
-      breadcrumb: 'Project Simulation logs',
+      breadcrumb: 'Metadata',
       contextButtons: [
         {
           route: ['/conventions', 'simulator-specs'],
@@ -323,6 +359,55 @@ const routes: Routes = [
           route: ['/conventions', 'data-viz'],
           icon: 'chart',
           label: 'Data visualizations',
+        },
+        {
+          route: ['/conventions', 'simulation-logs'],
+          icon: 'progress',
+          label: 'Simulation logs',
+        },
+      ],
+    },
+  },
+  {
+    path: 'simulation-logs',
+    component: SimulationLogsComponent,
+    data: {
+      breadcrumb: 'Simulation logs',
+      contextButtons: [
+        {
+          route: ['/conventions', 'simulator-specs'],
+          icon: 'browse',
+          label: 'Simulator specs',
+        },
+        {
+          route: ['/conventions', 'simulator-interfaces'],
+          icon: 'logs',
+          label: 'Simulator interfaces',
+        },
+        {
+          route: ['/conventions', 'simulator-images'],
+          icon: 'docker',
+          label: 'Simulator images',
+        },
+        {
+          route: ['/conventions', 'simulation-experiments'],
+          icon: 'experiment',
+          label: 'Simulation experiments',
+        },
+        {
+          route: ['/conventions', 'simulation-reports'],
+          icon: 'report',
+          label: 'Simulation reports',
+        },
+        {
+          route: ['/conventions', 'data-viz'],
+          icon: 'chart',
+          label: 'Data visualizations',
+        },
+        {
+          route: ['/conventions', 'metadata'],
+          icon: 'tags',
+          label: 'Metadata',
         },
       ],
     },

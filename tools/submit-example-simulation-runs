@@ -94,6 +94,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org', biosimulators_tes
                                   ], capture_output=True)
         simulation_run = json.loads(process.stdout.decode())
         print("Submitted simulation: " + simulation_run['id'])
+        print("View: https://run.biosimulations.{}/simulations/{}".format(runbiosimulations_api, simulation_run['id']))
         # log run
 
         simulation_runs.append({

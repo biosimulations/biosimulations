@@ -65,6 +65,7 @@ export class VisualizationService {
               structureObject[sedmlLocation][reportId] = report.data.map(
                 (datum: SimulationRunOutputDatum): SedDatasetResults => {
                   return {
+                    uri: sedmlLocation + '/' + reportId + '/' + datum.id,
                     id: datum.id,
                     location: sedmlLocation,
                     reportId: reportId,
@@ -83,11 +84,13 @@ export class VisualizationService {
               (sedmlLocation: string): SedDocumentResults => {
                 const reportIds = Object.keys(structureObject[sedmlLocation]);
                 return {
+                  uri: sedmlLocation,
                   location: sedmlLocation,
                   reports: reportIds.map(
                     (reportId: string): SedReportResults => {
                       const datasets = structureObject[sedmlLocation][reportId];
                       return {
+                        uri: sedmlLocation + '/' + reportId,
                         id: reportId,
                         datasets: datasets,
                       };
@@ -138,16 +141,19 @@ export class VisualizationService {
 
             reports.forEach((report: SimulationRunOutput): void => {
               const sedmlLocationReportId = report.outputId;
-              const sedmlLocation = sedmlLocationReportId
-                .split('/')
-                .reverse()
-                .slice(1)
-                .reverse()
-                .join('/');
-              const reportId = sedmlLocationReportId.split('/').reverse()[0];
+
+              const sedmlLocation = this.getLocationFromSedmLocationId(
+                sedmlLocationReportId,
+              );
+
+              const reportId = this.getReportIdFromSedmlLocationId(
+                sedmlLocationReportId,
+              );
 
               report.data.forEach((datum: SimulationRunOutputDatum): void => {
-                datasetResultsMap[datum.id] = {
+                const uri = sedmlLocation + '/' + reportId + '/' + datum.id;
+                datasetResultsMap[uri] = {
+                  uri: uri,
                   id: datum.id,
                   location: sedmlLocation,
                   reportId: reportId,
@@ -172,6 +178,15 @@ export class VisualizationService {
       );
   }
 
+  public getLocationFromSedmLocationId(locationId: string): string {
+    // Remove the last "/" and the text after the last "/"
+    // EG simulation_1.sedml/subfolder1/Figure_3b" => simulation_1.sedml/subfolder1
+    // TODO write tests
+    return locationId.split('/').reverse().slice(1).reverse().join('/');
+  }
+  public getReportIdFromSedmlLocationId(location: string): string {
+    return location.split('/').reverse()[0];
+  }
   public getReportResultsUrl(
     runId: string,
     reportId: string,

@@ -11,6 +11,7 @@
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
+    "prepare": "husky install",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
@@ -34,7 +35,8 @@
     "submit-prod-simulation-runs": "tools/submit-example-simulation-runs --runbiosimulation-api org",
     "scully": "scully",
     "scully:serve": "scully serve",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "commit": "cz"
   },
   "private": true,
   "dependencies": {
@@ -152,12 +154,15 @@
     "anser": "^2.0.1",
     "canvas": "^2.7.0",
     "codelyzer": "~6.0.1",
+    "commitizen": "^4.2.4",
     "cypress": "^6.4.0",
+    "cz-conventional-changelog": "^3.3.0",
     "dotenv": "8.2.0",
     "eslint": "7.22.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-unused-imports": "^1.0.1",
+    "husky": "^6.0.0",
     "jest": "26.2.2",
     "jest-preset-angular": "8.4.0",
     "license-checker": "^25.0.1",
@@ -177,5 +182,10 @@
     "vega": "^5.19.1",
     "vega-embed": "^6.15.2",
     "vega-lite": "^5.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

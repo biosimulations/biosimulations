@@ -357,7 +357,7 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/gillespy2</loc>
-    <lastmod>2021-06-01</lastmod>
+    <lastmod>2021-06-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -370,6 +370,12 @@
   <url>
     <loc>https://biosimulators.org/simulators/gillespy2/1.5.7</loc>
     <lastmod>2021-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/gillespy2/1.6.0</loc>
+    <lastmod>2021-06-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -471,13 +477,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/libsbmlsim</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-06-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/libsbmlsim/1.4.0</loc>
-    <lastmod>2021-01-07</lastmod>
+    <lastmod>2021-06-22</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
