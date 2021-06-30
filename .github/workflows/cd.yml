@@ -317,7 +317,6 @@ jobs:
   Release:
     runs-on: ubuntu-latest
     needs: [buildPushDockerImages, buildProdFrontEnds,triggerDevDeployment, triggerProdDeployment, deployProdFrontend,deployDevFrontend]
-    environment: prod_environment
     steps:
       - uses: actions/checkout@v2
         with: 
