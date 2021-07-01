@@ -1,5 +1,6 @@
 from ...exceptions import BadRequestException
 from ...utils import get_temp_dir
+from biosimulators_utils.combine.data_model import CombineArchiveContentFormat
 from biosimulators_utils.combine.io import CombineArchiveReader
 from biosimulators_utils.combine.validation import validate
 import os
@@ -65,7 +66,9 @@ def handler(body, file=None):
         errors = [['The file could not be parsed as a COMBINE/OMEX archive.', [[str(exception)]]]]
 
     if not errors:
-        errors, warnings = validate(archive, archive_dirname)
+        errors, warnings = validate(
+            archive, archive_dirname,
+            formats_to_validate=list(CombineArchiveContentFormat.__members__.values()))
 
     report = {
         "_type": "ValidationReport",
