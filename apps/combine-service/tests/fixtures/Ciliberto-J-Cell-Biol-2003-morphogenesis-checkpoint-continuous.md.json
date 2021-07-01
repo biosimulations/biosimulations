@@ -1,0 +1,95 @@
+[{
+    "_type": "BioSimulationsCombineArchiveElementMetadata",
+    "uri": ".",
+    "title": "Morphogenesis checkpoint in budding yeast (continuous) (Ciliberto et al., Journal Cell Biology, 2003)",
+    "abstract": "Continuous kinetic model of the molecular network that controls Swe1 and the regulation of cyclin-dependent kinase.",
+    "keywords": ["cell cycle", "cell division", "cyclin-dependent kinase", "morphogenesis", "signal transduction"],
+    "description": "Set of ordinary differential equations that model the molecular network that controls Swe1 and the regulation of cyclin-dependent kinase. The model is based on published observations of budding yeast and analogous control signals in fission yeast. Simulations of the model accurately reproduce the phenotypes of a dozen checkpoint mutants. Among other predictions, the model attributes a new role to Hsl1, a kinase known to play a role in Swe1 degradation: Hsl1 must also be indirectly responsible for potent inhibition of Swe1 activity. The model supports the idea that the morphogenesis checkpoint, like other checkpoints, raises the cell size threshold for progression from one phase of the cell cycle to the next.",
+    "thumbnails": ["./Figure1.jpg", "./Figure2.jpg"],
+    "taxa": [{
+        "_type": "BioSimulationsMetadataValue",
+        "label": "Schizosaccharomyces pombe",
+        "uri": "https://identifiers.org/taxonomy/4896"
+    }],
+    "encodes": [],
+    "sources": [],
+    "predecessors": [{
+        "_type": "BioSimulationsMetadataValue",
+        "label": "John J. Tyson & Bela Novak. Regulation of the eukaryotic cell cycle: molecular antagonism, hysteresis, and irreversible transitions. Journal of Theoretical Biology 210 (2001): 249-263.",
+        "uri": "https://identifiers.org/doi:10.1006/jtbi.2001.2293"
+    }, {
+        "_type": "BioSimulationsMetadataValue",
+        "label": "Katherine C. Chen, Attila Csikasz-Nagy, Bela Gyorffy, John Val, Bela Novak & John J. Tyson. Kinetic analysis of a molecular model of the budding yeast cell cycle. Mololecular Biology of the Cell 11 (2000): 369-391.",
+        "uri": "https://identifiers.org/doi:10.1091/mbc.11.1.369"
+    }],
+    "successors": [],
+    "see_also": [],
+    "other": [],
+    "creators": [{
+        "_type": "BioSimulationsMetadataValue",
+        "label": "Andrea Ciliberto",
+        "uri": null
+    }, {
+        "_type": "BioSimulationsMetadataValue",
+        "label": "Bela Novak",
+        "uri": "https://identifiers.org/orcid:0000-0002-6961-1366"
+    }, {
+        "_type": "BioSimulationsMetadataValue",
+        "label": "John J. Tyson",
+        "uri": "https://identifiers.org/orcid:0000-0001-7560-6013"
+    }],
+    "contributors": [{
+        "_type": "BioSimulationsMetadataValue",
+        "label": "Harish Dharuri",
+        "uri": null
+    }, {
+        "_type": "BioSimulationsMetadataValue",
+        "label": "Jonathan Karr",
+        "uri": "https://identifiers.org/orcid:0000-0002-2605-5080"
+    }],
+    "identifiers": [{
+        "_type": "BioSimulationsMetadataValue",
+        "label": "biomodels.db:BIOMD0000000297",
+        "uri": "https://identifiers.org/biomodels.db:BIOMD0000000297"
+    }],
+    "citations": [{
+        "_type": "BioSimulationsMetadataValue",
+        "label": "Andrea Ciliberto, Bela Novak & John J. Tyson. Cell Biology 163, 3 (2003): 1243-1254.",
+        "uri": "https://identifiers.org/doi:10.1083/jcb.200306139"
+    }],
+    "license": {
+        "_type": "BioSimulationsMetadataValue",
+        "label": "CC0",
+        "uri": "https://identifiers.org/spdx:CC0"
+    },
+    "funders": [],
+    "created": "2003-12-22",
+    "modified": ["2021-06-26"]
+}, {
+    "_type": "BioSimulationsCombineArchiveElementMetadata",
+    "abstract": null,
+    "citations": [],
+    "contributors": [],
+    "created": null,
+    "creators": [],
+    "description": null,
+    "encodes": [],
+    "funders": [],
+    "identifiers": [{
+        "_type": "BioSimulationsMetadataValue",
+        "label": "Figure 3",
+        "uri": "https://identifiers.org/doi:10.1083/jcb.200306139"
+    }],
+    "keywords": [],
+    "license": null,
+    "modified": [],
+    "other": [],
+    "predecessors": [],
+    "see_also": [],
+    "sources": [],
+    "successors": [],
+    "taxa": [],
+    "thumbnails": [],
+    "title": null,
+    "uri": "./simulation_1.sedml"
+}]

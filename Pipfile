@@ -16,6 +16,7 @@ boto3 = "*"
 kisao = "*"
 stringcase = "*"
 natsort = "*"
+rdflib = "*"
 
 [dev-packages]
 openapi-core = "*"

@@ -28,6 +28,7 @@ module.exports = {
         'ontology',
         'storage',
         'release',
+        'combine-service',
       ],
     ],
   },
