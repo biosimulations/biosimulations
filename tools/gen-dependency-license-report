@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DEP_LICENSES_PATH=../LICENSE-DEPENDENCIES
+DEP_LICENSES_PATH=./LICENSE-DEPENDENCIES
 license-checker --production --excludePackages biosimulations@0.0.0 --out ${DEP_LICENSES_PATH}
 
 # Remove local paths
