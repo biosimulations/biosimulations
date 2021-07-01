@@ -13,6 +13,7 @@ export interface Version {
   created: Date;
   image: IImage | null;
   curationStatus: string;
+  validated: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -69,6 +70,7 @@ export class SimulatorService {
                 UtilsService.getSimulatorCurationStatus(sim),
                 false,
               ),
+              validated: sim.biosimulators.validated,
             });
           }
         }

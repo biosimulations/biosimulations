@@ -182,8 +182,8 @@ export class TableComponent implements OnInit, AfterViewInit {
       this.columns.forEach((column: Column): void => {
         const value = RowService.getElementValue(datum, column);
         cache[column.id] = {
-          value: RowService.formatElementValue(value, column),
-          toolTip: RowService.formatElementToolTip(value, column),
+          value: RowService.formatElementValue(datum, value, column),
+          toolTip: RowService.formatElementToolTip(datum, value, column),
           left: {},
           center: {},
           right: {},
@@ -648,7 +648,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     for (const value of values) {
       if (Array.isArray(value)) {
         for (const v of value) {
-          const formattedV = RowService.formatElementFilterValue(v, column);
+          const formattedV = RowService.formatElementFilterValue(value, v, column);
           if (formattedV != null && formattedV !== '') {
             formattedValuesMap[v] = formattedV;
             allValues.add(v);
@@ -656,6 +656,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         }
       } else {
         const formattedValue = RowService.formatElementFilterValue(
+          value,
           value,
           column,
         );
