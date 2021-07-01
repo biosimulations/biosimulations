@@ -1,5 +1,23 @@
 @import 'biosimulations-colors';
 
+
+
+.metadata {
+  .creators {
+    font-style: italic;
+  }
+
+  table.icon-list {
+    .comma-separated {
+      display: inline;
+    }
+
+    a {
+      color: mat-color($theme-primary);
+    }
+  }
+}
+
 .subplots {
   border: 1px solid rgba(0, 0, 0, 0.42);
   border-radius: 4px;

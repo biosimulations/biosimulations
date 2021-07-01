@@ -44,6 +44,7 @@ import {
   faFilter,
   faColumns,
   faSyncAlt,
+  faBacterium,
   faDna,
   faCalculator,
   faCertificate,
@@ -92,6 +93,8 @@ import {
   faWaveSquare,
   faSquareRootAlt,
   faRedoAlt,
+  faBackward,
+  faForward,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -184,6 +187,7 @@ export class BiosimulationsIconsModule {
       faFilter,
       faColumns,
       faSyncAlt,
+      faBacterium,
       faDna,
       faCalculator,
       faCog,
@@ -229,6 +233,8 @@ export class BiosimulationsIconsModule {
       faWaveSquare,
       faSquareRootAlt,
       faRedoAlt,
+      faBackward,
+      faForward,
     );
   }
 }

@@ -53,6 +53,7 @@ export type BiosimulationsIcon =
   | 'filter'
   | 'columns'
   | 'reuse'
+  | 'cell'
   | 'taxon'
   | 'framework'
   | 'math'
@@ -115,7 +116,10 @@ export type BiosimulationsIcon =
   | 'memory'
   | 'processor'
   | 'server'
-  | 'redo';
+  | 'redo'
+  | 'backward'
+  | 'forward'
+  ;
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -193,6 +197,7 @@ export class IconComponent {
     filter: { type: 'fas', name: 'filter' },
     columns: { type: 'fas', name: 'columns' },
     reuse: { type: 'fas', name: 'sync-alt' },
+    cell: { type: 'fas', name: 'bacterium' },
     taxon: { type: 'fas', name: 'dna' },
     oss: { type: 'fab', name: 'osi' },
     framework: { type: 'fas', name: 'calculator' },
@@ -259,6 +264,8 @@ export class IconComponent {
     processor: { type: 'fas', name: 'microchip' },
     server: { type: 'fas', name: 'server' },
     redo: { type: 'fas', name: 'redo-alt' },
+    backward: { type: 'fas', name: 'backward' },
+    forward: { type: 'fas', name: 'forward' },
   };
 
   constructor() {
