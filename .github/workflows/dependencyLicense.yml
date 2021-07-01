@@ -36,7 +36,7 @@ jobs:
           author_name: Biosimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
           branch: dev
-          message: 'Updated dependency licences. [skip ci]'
+          message: 'chore: updated dependency licences [skip ci]'
           signoff: true
         env:
           # This is necessary in order to push a commit to the repo
