@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2.3.4
 
       - name: Install Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.2.0
         with:
           node-version: 15.x
 
@@ -79,7 +79,7 @@ jobs:
         uses: actions/checkout@v2.3.4
 
       - name: Install Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.2.0
         with:
           node-version: 15.x
 
@@ -136,7 +136,7 @@ jobs:
         uses: actions/checkout@v2.3.4
 
       - name: Install Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.2.0
         with:
           node-version: 15.x
 
@@ -232,7 +232,7 @@ jobs:
         app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
     steps:
       - name: Install Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.2.0
         with:
           node-version: 15.x
 
@@ -263,7 +263,7 @@ jobs:
         app: ${{ fromJson(needs.listApps.outputs.frontendApps) }}
     steps:
       - name: Install Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.2.0
         with:
           node-version: 15.x
 
@@ -326,7 +326,7 @@ jobs:
           git config --global user.name 'Biosimulations-Daemon'
           git config --global user.email 'biosimulationsdaemon@gmail.com'
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2.2.0
         with:
           node-version: "12"
       - run: npm ci
