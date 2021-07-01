@@ -814,6 +814,18 @@ class HandlersTestCase(unittest.TestCase):
             result = self.response_validator.validate(request, response)
             result.raise_for_errors()
 
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, 'invalid-metadata.omex')
+        fid = open(archive_filename, 'rb')
+        data = MultiDict([
+            ('file', fid),
+        ])
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        self.assertEqual(response.status_code, 400, response.json)
+        self.assertIn('are invalid', response.json['title'])
+        fid.close()
+
     def test__convert_rdf_node_to_json(self):
         with self.assertRaises(BadRequestException):
             _convert_rdf_node_to_json(None)

@@ -149,7 +149,9 @@ def handler(body, file=None, schema=OmexMetaSchema.biosimulations):
     if errors:
         msg = 'The OMEX Meta files for the COMBINE archive are invalid:\n{}'.format(
             flatten_nested_list_of_strings(errors))
-        raise BadRequestException(msg)
+        raise BadRequestException(
+            title=msg,
+            instance=ValueError())
 
     # return response
     return metadata
