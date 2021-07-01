@@ -37,6 +37,7 @@ import {
 import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import compareVersions from 'compare-versions';
 
 @ApiTags('Simulators')
 @Controller('simulators')
@@ -72,7 +73,9 @@ export class SimulatorsController {
     required: false,
     type: String,
   })
-  async getLatestSimulators(@Query('id') id?: string): Promise<Simulator[]> {
+  public async getLatestSimulators(
+    @Query('id') id?: string,
+  ): Promise<Simulator[]> {
     const allSims = await this.service.findAll();
     const latest = new Map<string, Simulator>();
     allSims.forEach((element) => {
@@ -80,7 +83,7 @@ export class SimulatorsController {
       if (latestSim) {
         const latestVersion = latestSim.version;
         const currentVersion = element.version;
-        if (currentVersion > latestVersion) {
+        if (compareVersions(latestVersion, currentVersion) == -1) {
           latest.set(element.id, element);
         }
       } else {
