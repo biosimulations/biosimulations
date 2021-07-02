@@ -12,21 +12,16 @@ jobs:
           token: ${{ secrets.GH_ACCESS_TOKEN}}
 
       - name: Install Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.2.0
         with:
-          node-version: "13.x"
+          node-version: lts/fermium
+          cache: npm
+
           
       - name: Install Nrwl CLI
        
         run: npm install -g @nrwl/cli
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-node-
+
             
       - name: Install npm dependencies
        
@@ -49,7 +44,7 @@ jobs:
           author_name: Biosimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
           branch: dev
-          message: 'chore: Formatted Files. [skip ci]'
+          message: 'chore: formatted files. [skip ci]'
           signoff: true
         env:
           # This is necessary in order to push a commit to the repo

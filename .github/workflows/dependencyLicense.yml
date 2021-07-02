@@ -12,9 +12,11 @@ jobs:
           token: ${{ secrets.GH_ACCESS_TOKEN}}
 
       - name: Install Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.2.0
         with:
-          node-version: "13.x"
+          node-version: lts/fermium
+          cache: npm
+
 
       - name: Generate license report
        
@@ -36,7 +38,7 @@ jobs:
           author_name: Biosimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
           branch: dev
-          message: 'Updated dependency licences. [skip ci]'
+          message: 'chore: updated dependency licences [skip ci]'
           signoff: true
         env:
           # This is necessary in order to push a commit to the repo

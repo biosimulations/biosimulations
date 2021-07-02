@@ -5,7 +5,32 @@ import {
 import { Test, TestingModule } from '@nestjs/testing';
 import { SimulatorsController } from './simulators.controller';
 
-class MockSimulatorService {}
+class MockSimulatorService {
+  findAll() {
+    return [
+      {
+        id: 'sim1',
+        version: '1.7',
+      },
+      {
+        id: 'sim1',
+        version: '1.11',
+      },
+      {
+        id: 'sim2',
+        version: '1.1',
+      },
+      {
+        id: 'sim2',
+        version: '1.2',
+      },
+      {
+        id: 'sim3',
+        version: '1.7',
+      },
+    ];
+  }
+}
 describe('SimulatorsController', () => {
   let controller: SimulatorsController;
 
@@ -23,5 +48,18 @@ describe('SimulatorsController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  it('should return the correct latest version', async () => {
+    const latest = await controller.getLatestSimulators('sim1');
+    expect(latest[0].version).toBe('1.11');
+  });
+
+  it('should return the correct latest versions', async () => {
+    const latest = await controller.getLatestSimulators();
+    console.log(latest);
+    expect(latest[0].version).toBe('1.11');
+    expect(latest[1].version).toBe('1.2');
+    expect(latest[2].version).toBe('1.7');
   });
 });

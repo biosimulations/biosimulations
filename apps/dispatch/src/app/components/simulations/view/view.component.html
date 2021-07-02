@@ -793,7 +793,10 @@
     </form>
 
     <ng-template #noSedDatasets>
-      <div class="tab-spinner-container" *ngIf="gettingResultsStructure; else noDataOrError">
+      <div
+        class="tab-spinner-container"
+        *ngIf="gettingResultsStructure; else noDataOrError"
+      >
         <biosimulations-spinner></biosimulations-spinner>
       </div>
       <ng-template #noDataOrError>
@@ -804,8 +807,8 @@
             else resultsError
           "
           >The execution of the COMBINE/OMEX archive did not generate any data.
-          runBioSimulations visualizes simulation results outputted via data sets
-          of SED reports.</span
+          runBioSimulations visualizes simulation results outputted via data
+          sets of SED reports.</span
         >
         <ng-template #resultsError>
           <span class="info-message"
@@ -823,23 +826,20 @@
     [fullHeight]="true"
     [disabled]="
       !gettingResults &&
-      (
-        (selectedVisualizationType === VisualizationType.lineScatter2d &&
-          !lineScatter2dValid) ||
+      ((selectedVisualizationType === VisualizationType.lineScatter2d &&
+        !lineScatter2dValid) ||
         (selectedVisualizationType === VisualizationType.vega &&
-          (vegaSpec$ | async) === null)
-      )
+          (vegaSpec$ | async) === null))
     "
   >
     <div
       class="tab-spinner-container"
-      *ngIf="gettingResults &&
-        (
-          (selectedVisualizationType === VisualizationType.lineScatter2d &&
-            !lineScatter2dValid) ||
+      *ngIf="
+        gettingResults &&
+        ((selectedVisualizationType === VisualizationType.lineScatter2d &&
+          !lineScatter2dValid) ||
           (selectedVisualizationType === VisualizationType.vega &&
-            (vegaSpec$ | async) === null)
-        )
+            (vegaSpec$ | async) === null))
       "
     >
       <biosimulations-spinner> </biosimulations-spinner>
@@ -847,12 +847,17 @@
 
     <biosimulations-plotly-visualization
       [dataLayout]="vizDataLayout$ | async"
-      *ngIf="!gettingResults && selectedVisualizationType === VisualizationType.lineScatter2d"
+      *ngIf="
+        !gettingResults &&
+        selectedVisualizationType === VisualizationType.lineScatter2d
+      "
     >
     </biosimulations-plotly-visualization>
 
     <biosimulations-vega-visualization
-      *ngIf="!gettingResults && selectedVisualizationType === VisualizationType.vega"
+      *ngIf="
+        !gettingResults && selectedVisualizationType === VisualizationType.vega
+      "
       [spec]="vegaSpec$"
       (error)="vegaErrorHandler()"
     >

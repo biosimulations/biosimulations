@@ -42,7 +42,9 @@ def main(runbiosimulations_api='dev', biosimulators_api='org', biosimulators_tes
     # read simulations
     with open(EXAMPLE_SIMULATIONS_FILENAME, 'r') as file:
         simulations = json.load(file)
-
+    # Temporarily filter vcell
+    # TODO renable 
+    simulations=list(filter(lambda simulation: not (simulation['simulator']=='vcell'),simulations))
     # filter to selected simulations
     if simulation_names:
         simulations = list(
