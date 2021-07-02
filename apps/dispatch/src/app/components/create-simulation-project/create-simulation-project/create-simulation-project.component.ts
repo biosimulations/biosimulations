@@ -76,6 +76,13 @@ const modelFormatMetaData: {
     extension: 'cps',
     enabled: false,
   },
+  format_9009: {
+    name: 'GINML',
+    sedUrn: 'urn:sedml:language:ginml',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/ginml+xml',
+    extension: 'ginml',
+    enabled: false,
+  },
   format_9005: {
     name: 'HOC',
     sedUrn: 'urn:sedml:language:hoc',
@@ -145,6 +152,13 @@ const modelFormatMetaData: {
     combineSpecUrl: 'http://purl.org/NET/mediatypes/text/smoldyn+plain',
     extension: 'txt',
     enabled: true,
+  },
+  format_9008: {
+    name: 'ZGINML',
+    sedUrn: 'urn:sedml:language:zginml',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/zginml+zip',
+    extension: 'zginml',
+    enabled: false,
   },
 };
 
