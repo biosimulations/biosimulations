@@ -112,7 +112,10 @@ export class ViewSimulatorComponent implements OnInit {
       formatter: (): null => {
         return null;
       },
-      stackedFormatter: (label: string, version: ViewVersion): string | null => {
+      stackedFormatter: (
+        label: string,
+        version: ViewVersion,
+      ): string | null => {
         if (version.validated) {
           return (
             this.config.dispatchAppUrl +
@@ -129,7 +132,9 @@ export class ViewSimulatorComponent implements OnInit {
       rightIconTitle: (version: ViewVersion): string | null => {
         if (version.validated) {
           return (
-            'Execute simulations with v' + version.label + ' @ runBioSimulations'
+            'Execute simulations with v' +
+            version.label +
+            ' @ runBioSimulations'
           );
         } else {
           return null;

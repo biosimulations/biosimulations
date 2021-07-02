@@ -20,7 +20,7 @@ export class CombineService {
   private sedmlSpecsEndpoint = `${urls.combineApi}combine/sedml-specs`;
   private archiveMetadataEndpoint = `${urls.combineApi}combine/metadata/biosimulations`;
   private validateEndpoint = `${urls.combineApi}combine/validate`;
-  private similarAlgorithmsEndpoint = `${urls.combineApi}kisao/get-similar-algorithms`;  
+  private similarAlgorithmsEndpoint = `${urls.combineApi}kisao/get-similar-algorithms`;
 
   public constructor(private http: HttpClient) {}
 
@@ -59,7 +59,10 @@ export class CombineService {
     }
 
     return this.http
-      .post<CombineArchiveElementMetadata[]>(this.archiveMetadataEndpoint, formData)
+      .post<CombineArchiveElementMetadata[]>(
+        this.archiveMetadataEndpoint,
+        formData,
+      )
       .pipe(
         catchError(
           (error: HttpErrorResponse): Observable<undefined> => {

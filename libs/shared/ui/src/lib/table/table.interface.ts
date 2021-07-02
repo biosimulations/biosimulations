@@ -376,7 +376,12 @@ export class RowService {
     return 0;
   }
 
-  static formatElementValue(el: any, value: any, column: Column, stacked = false): any {
+  static formatElementValue(
+    el: any,
+    value: any,
+    column: Column,
+    stacked = false,
+  ): any {
     if (stacked && column.stackedFormatter !== undefined) {
       return column.stackedFormatter(value, el);
     } else if (column.formatter !== undefined) {

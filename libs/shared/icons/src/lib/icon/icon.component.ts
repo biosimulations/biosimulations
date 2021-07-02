@@ -118,8 +118,7 @@ export type BiosimulationsIcon =
   | 'server'
   | 'redo'
   | 'backward'
-  | 'forward'
-  ;
+  | 'forward';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
