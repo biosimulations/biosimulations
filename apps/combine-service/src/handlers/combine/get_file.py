@@ -5,7 +5,6 @@ import flask
 import os
 import requests
 import requests.exceptions
-import shutil
 
 
 def handler(url, location):
