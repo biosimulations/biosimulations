@@ -128,166 +128,193 @@
 
   <biosimulations-tab-page-tab
     heading="Simulation project"
-    icon="tags"
+    icon="code"
     urlHashFragment="project"
   >
     <ng-container *ngIf="metadataLoaded$; else loading">
       <ng-container *ngIf="(metadata$ | async) as metadata; else error">
         <ng-container *ngIf="metadata.archive as archiveMetadata; else noMetadata">
-          <div class="metadata">
-            <!-- thumbnail -->
+          <div class="metadata"
+            fxLayout="row"
+            fxLayout.lt-md="column"
+            fxLayoutAlign="space-between"
+            fxLayoutGap="2rem"
+            fxLayoutGap.lt-md="1rem"
+          >
+            <div class="thumbnails-outer-container" *ngIf="archiveMetadata.thumbnails.length"
+              fxLayout="column"
+              fxLayout.lt-md="row"
+              fxLayoutGap="1rem"
+              fxLayoutAlign="start"
+              fxLayoutAlign.lt-md="center"
+            >
+              <div
+                class="thumbnails-inner-container"
+                *ngFor="let thumbnail of archiveMetadata.thumbnails"
+              >
+                <img class="thumbnail zoom" [src]="thumbnail"/>
+              </div>
+              <div
+                class="thumbnails-inner-container"
+                *ngFor="let thumbnail of archiveMetadata.thumbnails"
+              >
+                <img class="thumbnail zoom" [src]="thumbnail"/>
+              </div>
+            </div>
 
-            <p class="no-bottom-margin">
-              <b class="highlight-primary">Project: {{ archiveMetadata.title }}</b
-              ><br />
-              {{ archiveMetadata.abstract }}
-            </p>
-            <ul class="comma-separated and-separator creators">
-              <li *ngFor="let creator of archiveMetadata.creators">
-                {{ creator.label }}{{ creator.uri ? ' ' : ''}}<a [href]="creator.uri" target="_blank" *ngIf="creator.uri">
-                  <biosimulations-icon icon="orcid"></biosimulations-icon>
-                </a>
-              </li>
-            </ul>
+            <div>
+              <p class="no-bottom-margin">
+                <b class="highlight-primary">{{ archiveMetadata.title }}</b
+                ><br />
+                {{ archiveMetadata.abstract }}
+              </p>
+              <ul class="comma-separated and-separator creators">
+                <li *ngFor="let creator of archiveMetadata.creators">
+                  {{ creator.label }}{{ creator.uri ? ' ' : ''}}<a [href]="creator.uri" target="_blank" *ngIf="creator.uri">
+                    <biosimulations-icon icon="orcid"></biosimulations-icon>
+                  </a>
+                </li>
+              </ul>
 
-            <p *ngIf="archiveMetadata.description">
-              {{ archiveMetadata.description }}
-            </p>
+              <p *ngIf="archiveMetadata.description">
+                {{ archiveMetadata.description }}
+              </p>
 
-            <table class="icon-list metadata">
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'Taxa', icon: 'bacterium', els: archiveMetadata.taxa }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'Biology', icon: 'taxon', els: archiveMetadata.encodes }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  inlineList;
-                  context: { heading: 'Tags', icon: 'tags', els: archiveMetadata.keywords }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  customList;
-                  context: { icon: 'info', els: archiveMetadata.other }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'Source', icon: 'code', els: archiveMetadata.sources }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'Predecessor', icon: 'backward', els: archiveMetadata.predecessors }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'Successor', icon: 'forward', els: archiveMetadata.successors }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'Citation', icon: 'file', els: archiveMetadata.citations }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'Cross ref', icon: 'id', els: archiveMetadata.identifiers }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'More information', icon: 'info', els: archiveMetadata.seeAlso }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'License', icon: 'license', els: [archiveMetadata.license] }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'Funding', icon: 'funding', els: archiveMetadata.funders }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'Curator', icon: 'author', els: archiveMetadata.contributors }
-                "
-              ></ng-container>
-              <ng-container
-                *ngTemplateOutlet="
-                  list;
-                  context: { heading: 'Created', icon: 'date', els: [{label: archiveMetadata.created}] }
-                "
-              ></ng-container>
-              <ng-container *ngIf="archiveMetadata.modified.length">
+              <table class="icon-list metadata">
                 <ng-container
                   *ngTemplateOutlet="
                     list;
-                    context: { heading: 'Last modified', icon: 'date', els: [{label: archiveMetadata.modified[0]}] }
+                    context: { heading: 'Taxa', icon: 'cell', els: archiveMetadata.taxa }
                   "
                 ></ng-container>
-              </ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    list;
+                    context: { heading: 'Biology', icon: 'taxon', els: archiveMetadata.encodes }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    inlineList;
+                    context: { heading: 'Tags', icon: 'tags', els: archiveMetadata.keywords }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    customList;
+                    context: { icon: 'info', els: archiveMetadata.other }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    list;
+                    context: { heading: 'Source', icon: 'code', els: archiveMetadata.sources }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    list;
+                    context: { heading: 'Predecessor', icon: 'backward', els: archiveMetadata.predecessors }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    list;
+                    context: { heading: 'Successor', icon: 'forward', els: archiveMetadata.successors }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    list;
+                    context: { heading: 'Citation', icon: 'file', els: archiveMetadata.citations }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    list;
+                    context: { heading: 'Cross ref', icon: 'id', els: archiveMetadata.identifiers }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    list;
+                    context: { heading: 'More information', icon: 'info', els: archiveMetadata.seeAlso }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    list;
+                    context: { heading: 'License', icon: 'license', els: [archiveMetadata.license] }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    list;
+                    context: { heading: 'Funding', icon: 'funding', els: archiveMetadata.funders }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    list;
+                    context: { heading: 'Curator', icon: 'author', els: archiveMetadata.contributors }
+                  "
+                ></ng-container>
+                <ng-container
+                  *ngTemplateOutlet="
+                    list;
+                    context: { heading: 'Created', icon: 'date', els: [{label: archiveMetadata.created}] }
+                  "
+                ></ng-container>
+                <ng-container *ngIf="archiveMetadata.modified.length">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      list;
+                      context: { heading: 'Last modified', icon: 'date', els: [{label: archiveMetadata.modified[0]}] }
+                    "
+                  ></ng-container>
+                </ng-container>
 
-              <ng-template #list let-heading="heading" let-icon="icon" let-els="els">
-                <tr *ngFor="let el of els">
-                  <th>
-                    <biosimulations-icon [icon]="icon"></biosimulations-icon>
-                  </th>
-                  <td>
-                    <span class="heading">{{ heading }}:</span>{{' '}}
-                    <a [href]="el.uri" target="_blank" *ngIf="el.uri; else noUri">{{ el.label || el.uri }}</a>
-                    <ng-template #noUri>{{ el.label }}</ng-template>
-                  </td>
-                </tr>
-              </ng-template>
+                <ng-template #list let-heading="heading" let-icon="icon" let-els="els">
+                  <tr *ngFor="let el of els">
+                    <th>
+                      <biosimulations-icon [icon]="icon"></biosimulations-icon>
+                    </th>
+                    <td>
+                      <span class="heading">{{ heading }}:</span>{{' '}}
+                      <a [href]="el.uri" target="_blank" *ngIf="el.uri; else noUri">{{ el.label || el.uri }}</a>
+                      <ng-template #noUri>{{ el.label }}</ng-template>
+                    </td>
+                  </tr>
+                </ng-template>
 
-              <ng-template #customList let-icon="icon" let-els="els">
-                <tr *ngFor="let el of els">
-                  <th>
-                    <biosimulations-icon [icon]="icon"></biosimulations-icon>
-                  </th>
-                  <td>
-                    <span class="heading">{{ els.attribute.label }}:</span>{{' '}}
-                    <a [href]="el.value.uri" target="_blank" *ngIf="el.value.uri; else noUri">{{ el.value.label || el.value.uri }}</a>
-                    <ng-template #noUri>{{ el.value.label }}</ng-template>
-                  </td>
-                </tr>
-              </ng-template>
+                <ng-template #customList let-icon="icon" let-els="els">
+                  <tr *ngFor="let el of els">
+                    <th>
+                      <biosimulations-icon [icon]="icon"></biosimulations-icon>
+                    </th>
+                    <td>
+                      <span class="heading">{{ els.attribute.label }}:</span>{{' '}}
+                      <a [href]="el.value.uri" target="_blank" *ngIf="el.value.uri; else noUri">{{ el.value.label || el.value.uri }}</a>
+                      <ng-template #noUri>{{ el.value.label }}</ng-template>
+                    </td>
+                  </tr>
+                </ng-template>
 
-              <ng-template #inlineList let-heading="heading" let-icon="icon" let-els="els">
-                <tr *ngIf="els.length">
-                  <th>
-                    <biosimulations-icon [icon]="icon"></biosimulations-icon>
-                  </th>
-                  <td>
-                    <span class="heading">{{ heading }}:</span>{{' '}}
-                    <ul class="comma-separated">
-                      <li *ngFor="let el of els">{{ el }}</li>
-                    </ul>
-                  </td>
-                </tr>
-              </ng-template>
-            </table>
+                <ng-template #inlineList let-heading="heading" let-icon="icon" let-els="els">
+                  <tr *ngIf="els.length">
+                    <th>
+                      <biosimulations-icon [icon]="icon"></biosimulations-icon>
+                    </th>
+                    <td>
+                      <span class="heading">{{ heading }}:</span>{{' '}}
+                      <ul class="comma-separated">
+                        <li *ngFor="let el of els">{{ el }}</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </ng-template>
+              </table>
+            </div>
           </div>
         </ng-container>
 

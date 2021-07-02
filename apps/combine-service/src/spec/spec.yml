@@ -349,15 +349,14 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/BioSimulationsCombineArchiveElementMetadata'
-          description: Specifications of the SED-ML files in the COMBINE/OMEX archive.
+          description: Metadata about the the COMBINE/OMEX archive.
         "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
-            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
-            archive.
+          description: Unable to get the metadata about the COMBINE/OMEX archive because
+            the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
         "500":
           content:
             application/json:
@@ -394,15 +393,14 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/RdfTriple'
-          description: Specifications of the SED-ML files in the COMBINE/OMEX archive.
+          description: Metadata about the the COMBINE/OMEX archive.
         "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
-            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
-            archive.
+          description: Unable to get the metadata about the COMBINE/OMEX archive because
+            the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
         "500":
           content:
             application/json:
@@ -413,6 +411,46 @@ paths:
       summary: Get the metadata about a COMBINE/OMEX archive
       description: Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata
         files as a list of RDF triples.
+  /combine/file:
+    get:
+      tags:
+      - COMBINE
+      parameters:
+      - name: url
+        description: URL for the COMBINE/OMEX archive.
+        schema:
+          $ref: '#/components/schemas/Url'
+        in: query
+        required: true
+      - name: location
+        description: Location in the COMBINE/OMEX archive.
+        schema:
+          $ref: '#/components/schemas/Url'
+        in: query
+        required: true
+      responses:
+        "200":
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/File'
+          description: Files in the COMBINE/OMEX archive.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the file in the COMBINE/OMEX archive because
+            the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.get_file.handler
+      summary: Get a file in a COMBINE/OMEX archive
+      description: Get a file at a location in a COMBINE/OMEX archive.
 components:
   schemas:
     SedPlot2D:

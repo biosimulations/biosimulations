@@ -1,8 +1,17 @@
 @import 'biosimulations-colors';
 
-
-
 .metadata {
+  .thumbnails-inner-container {
+    width: 250px;
+    height: min-content;
+    border: 1px solid darken($dark-dividers, 50%);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .thumbnail {
+    width: 100%;
+  }
+
   .creators {
     font-style: italic;
   }
@@ -13,7 +22,7 @@
     }
 
     a {
-      color: mat-color($theme-primary);
+      text-decoration: underline;
     }
   }
 }

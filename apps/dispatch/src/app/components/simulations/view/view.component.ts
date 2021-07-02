@@ -430,13 +430,15 @@ export class ViewComponent implements OnInit, OnDestroy {
     const archiveUrl = `${urls.dispatchApi}run/${this.uuid}/download`;
     this.metadata$ = this.combineService.getCombineArchiveMetadata(archiveUrl).pipe(
       map((elMetadatas: CombineArchiveElementMetadata[] | undefined): Metadata | undefined => {
-        console.log(elMetadatas);
-
         if (elMetadatas === undefined) {
           return undefined;
         }
 
         elMetadatas.forEach((elMetadata: CombineArchiveElementMetadata): void => {
+          elMetadata.thumbnails = elMetadata.thumbnails.map((thumbnail: string): string => {
+            return `${urls.combineApi}combine/file?url=${encodeURI(archiveUrl)}&location=${encodeURI(thumbnail)}`;
+          });
+
           if (elMetadata.created) {
             const d = new Date(elMetadata.created);
             elMetadata.created = (

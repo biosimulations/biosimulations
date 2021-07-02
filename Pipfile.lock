@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3a7314d7faf49f2372f40984404967695d82e65b3e8b778e74d3cbd207390849"
+            "sha256": "0a40d860c564bfa199c2a05eebaee795a6b5557ced4844a02ed2965a06f37e80"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -119,11 +119,11 @@
                 "smoldyn"
             ],
             "hashes": [
-                "sha256:3b83df8751744826c667758f6733c9fa101ff6cbebcc84a518ed3e1359a0fb8d",
-                "sha256:f8cdef04fad7334fe507bf82bdbbf19d78942e8157f98f3cf4cca345dbc5212d"
+                "sha256:582813d75a51b9d12b5f9eb83665f3ba115e38061fc61673ec03768d8630adb6",
+                "sha256:9be1ddbe9dbf0ac9f16cb17b360ebefab8d72796d795e019b2adf7fc62e0777a"
             ],
             "index": "pypi",
-            "version": "==0.1.87"
+            "version": "==0.1.88"
         },
         "bleach": {
             "hashes": [
