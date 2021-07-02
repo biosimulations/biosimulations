@@ -5,3 +5,4 @@ libs/ontology/sources/src/lib/*.json
 *.yml
 *.yaml
 *.json
+*.md
