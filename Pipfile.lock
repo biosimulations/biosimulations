@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "7659823e113b8d9887d804643ec503f11cdec8d39d76c4358fb748d1c6e24fd9"
+            "sha256": "3a7314d7faf49f2372f40984404967695d82e65b3e8b778e74d3cbd207390849"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -119,11 +119,11 @@
                 "smoldyn"
             ],
             "hashes": [
-                "sha256:1732d9d3be1e3905bd9f6a3b87925bac7e3cc4228b9af986ed963755b0aae860",
-                "sha256:30eac6036d2d11ab8e3d740dde0da3360e8d6010ee76831a02265acf885c64c8"
+                "sha256:3b83df8751744826c667758f6733c9fa101ff6cbebcc84a518ed3e1359a0fb8d",
+                "sha256:f8cdef04fad7334fe507bf82bdbbf19d78942e8157f98f3cf4cca345dbc5212d"
             ],
             "index": "pypi",
-            "version": "==0.1.86"
+            "version": "==0.1.87"
         },
         "bleach": {
             "hashes": [
@@ -135,19 +135,19 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:5de0db8433acc06c1b6811899587d65997fb4031f54506e63716c9e188b4ff3c",
-                "sha256:b50067fc63c519387fc3ec46c05a78e5c7e25c1a1ec0d07a40103c4a47544fd4"
+                "sha256:055f9dc07f95f202a4dc25196a3a9f1e2f137171ee364cf980e4673de75fb529",
+                "sha256:bc9b278e362ec9b531511a498262297f074c4f5ca9560455919a0af1a4698615"
             ],
             "index": "pypi",
-            "version": "==1.17.103"
+            "version": "==1.17.104"
         },
         "botocore": {
             "hashes": [
-                "sha256:5b39773056a94f85e884a658a5126bb4fee957e31d98b69c255b137eb9f11d6b",
-                "sha256:afbfe10fcd580224016d652330db21e7d89099181a437c9ec588b5b7cb3ea644"
+                "sha256:23aa3238c004319f78423eb8cbba2813b62ee64d0e3bab04e0a00e067f99542a",
+                "sha256:95ab472c8254b8d2cfa6d719b433e511fbcf80895b4cd18e4219c1efa0b78270"
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'",
-            "version": "==1.20.103"
+            "version": "==1.20.104"
         },
         "breathe": {
             "hashes": [
