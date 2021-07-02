@@ -108,44 +108,60 @@ export class ViewSimulatorComponent implements OnInit {
     {
       id: 'run',
       heading: 'Run',
-      key: 'label',
+      key: 'validated',
       formatter: (): null => {
         return null;
       },
-      stackedFormatter: (label: string): string => {
-        return (
-          this.config.dispatchAppUrl +
-          'run?simulator=' +
-          this.id +
-          '&simulatorVersion=' +
-          label
-        );
+      stackedFormatter: (label: string, version: ViewVersion): string | null => {
+        if (version.validated) {
+          return (
+            this.config.dispatchAppUrl +
+            'run?simulator=' +
+            this.id +
+            '&simulatorVersion=' +
+            label
+          );
+        } else {
+          return null;
+        }
       },
       rightIcon: 'simulator',
-      rightIconTitle: (version: ViewVersion): string => {
-        return (
-          'Execute simulations with v' + version.label + ' @ runBioSimulations'
-        );
+      rightIconTitle: (version: ViewVersion): string | null => {
+        if (version.validated) {
+          return (
+            'Execute simulations with v' + version.label + ' @ runBioSimulations'
+          );
+        } else {
+          return null;
+        }
       },
       centerAction: ColumnActionType.href,
       rightAction: ColumnActionType.href,
-      centerHref: (version: ViewVersion): string => {
-        return (
-          this.config.dispatchAppUrl +
-          'run?simulator=' +
-          this.id +
-          '&simulatorVersion=' +
-          version.label
-        );
+      centerHref: (version: ViewVersion): string | null => {
+        if (version.validated) {
+          return (
+            this.config.dispatchAppUrl +
+            'run?simulator=' +
+            this.id +
+            '&simulatorVersion=' +
+            version.label
+          );
+        } else {
+          return null;
+        }
       },
-      rightHref: (version: ViewVersion): string => {
-        return (
-          this.config.dispatchAppUrl +
-          'run?simulator=' +
-          this.id +
-          '&simulatorVersion=' +
-          version.label
-        );
+      rightHref: (version: ViewVersion): string | null => {
+        if (version.validated) {
+          return (
+            this.config.dispatchAppUrl +
+            'run?simulator=' +
+            this.id +
+            '&simulatorVersion=' +
+            version.label
+          );
+        } else {
+          return null;
+        }
       },
       rightShowStacked: false,
       minWidth: 40,

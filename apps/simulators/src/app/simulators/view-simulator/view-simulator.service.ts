@@ -466,6 +466,7 @@ export class ViewSimulatorService {
       created: this.getDateStr(new Date(value.created as Date)),
       image: value.image,
       curationStatus: value.curationStatus,
+      validated: value.validated,
     };
   }
 

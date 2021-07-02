@@ -148,6 +148,7 @@ export class StackedTableComponent {
         derivedDatum[column.id] = {};
 
         derivedDatum[column.id]['value'] = RowService.formatElementValue(
+          datum,
           RowService.getElementValue(datum, column),
           column,
           true,

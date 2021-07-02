@@ -24,12 +24,12 @@ export interface Column {
   filterGetter?: (rowData: any) => any;
   extraSearchGetter?: (rowData: any) => string | null;
   passesFilter?: (rowData: any, filterValues: any[]) => boolean;
-  formatter?: (cellValue: any) => any;
-  toolTipFormatter?: (cellValue: any) => any;
-  stackedFormatter?: (cellValue: any) => any;
-  filterFormatter?: (cellValue: any) => any;
-  leftIcon?: string | ((cellValue: any) => string | null);
-  rightIcon?: string | ((cellValue: any) => string | null);
+  formatter?: (cellValue: any, rowData: any) => any;
+  toolTipFormatter?: (cellValue: any, rowData: any) => any;
+  stackedFormatter?: (cellValue: any, rowData: any) => any;
+  filterFormatter?: (cellValue: any, rowData: any) => any;
+  leftIcon?: string | ((rowData: any) => string | null);
+  rightIcon?: string | ((rowData: any) => string | null);
   leftIconTitle?: (rowData: any) => string | null;
   rightIconTitle?: (rowData: any) => string | null;
   leftAction?: ColumnActionType;
@@ -376,29 +376,29 @@ export class RowService {
     return 0;
   }
 
-  static formatElementValue(value: any, column: Column, stacked = false): any {
+  static formatElementValue(el: any, value: any, column: Column, stacked = false): any {
     if (stacked && column.stackedFormatter !== undefined) {
-      return column.stackedFormatter(value);
+      return column.stackedFormatter(value, el);
     } else if (column.formatter !== undefined) {
-      return column.formatter(value);
+      return column.formatter(value, el);
     } else {
       return value;
     }
   }
 
-  static formatElementToolTip(value: any, column: Column): any {
+  static formatElementToolTip(el: any, value: any, column: Column): any {
     if (column.toolTipFormatter !== undefined) {
-      return column.toolTipFormatter(value);
+      return column.toolTipFormatter(value, el);
     } else {
       return null;
     }
   }
 
-  static formatElementFilterValue(value: any, column: Column): any {
+  static formatElementFilterValue(el: any, value: any, column: Column): any {
     if (column.filterFormatter !== undefined) {
-      return column.filterFormatter(value);
+      return column.filterFormatter(value, el);
     } else if (column.formatter !== undefined) {
-      return column.formatter(value);
+      return column.formatter(value, el);
     } else {
       return value;
     }
@@ -410,6 +410,7 @@ export class RowService {
     stacked = false,
   ): string {
     const val = RowService.formatElementValue(
+      value,
       RowService.getElementValue(value, column),
       column,
       stacked,

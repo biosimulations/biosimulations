@@ -323,6 +323,134 @@ paths:
           description: Server error.
       operationId: src.handlers.kisao.get_similar_algorithms.handler
       summary: Get a list of algorithms similar to an algorithm
+  /combine/metadata/biosimulations:
+    post:
+      requestBody:
+        description: COMBINE/OMEX archive file or URL for a COMBINE/OMEX archive file.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileOrUrl'
+            examples:
+              File:
+                value:
+                  file: <FILE>
+              URL:
+                value:
+                  url: https://models.org/archive.omex
+        required: true
+      tags:
+      - COMBINE
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BioSimulationsCombineArchiveElementMetadata'
+          description: Metadata about the the COMBINE/OMEX archive.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the metadata about the COMBINE/OMEX archive because
+            the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.get_metadata_for_combine_archive.handler_biosimulations
+      summary: Get the metadata about a COMBINE/OMEX archive
+      description: Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata
+        files in the archive encoded in BioSimulations' schema.
+  /combine/metadata/rdf:
+    post:
+      requestBody:
+        description: COMBINE/OMEX archive file or URL for a COMBINE/OMEX archive file.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileOrUrl'
+            examples:
+              File:
+                value:
+                  file: <FILE>
+              URL:
+                value:
+                  url: https://models.org/archive.omex
+        required: true
+      tags:
+      - COMBINE
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RdfTriple'
+          description: Metadata about the the COMBINE/OMEX archive.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the metadata about the COMBINE/OMEX archive because
+            the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.get_metadata_for_combine_archive.handler_rdf_triples
+      summary: Get the metadata about a COMBINE/OMEX archive
+      description: Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata
+        files as a list of RDF triples.
+  /combine/file:
+    get:
+      tags:
+      - COMBINE
+      parameters:
+      - name: url
+        description: URL for the COMBINE/OMEX archive.
+        schema:
+          $ref: '#/components/schemas/Url'
+        in: query
+        required: true
+      - name: location
+        description: Location in the COMBINE/OMEX archive.
+        schema:
+          $ref: '#/components/schemas/Url'
+        in: query
+        required: true
+      responses:
+        "200":
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/File'
+          description: Files in the COMBINE/OMEX archive.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the file in the COMBINE/OMEX archive because
+            the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.get_file.handler
+      summary: Get a file in a COMBINE/OMEX archive
+      description: Get a file at a location in a COMBINE/OMEX archive.
 components:
   schemas:
     SedPlot2D:
@@ -2034,6 +2162,359 @@ components:
         _type: KisaoTerm
         id: KISAO_0000019
         name: CVODE
+    RdfTriple:
+      description: "An RDF triple (subject, predicate, object)."
+      required:
+      - _type
+      - subject
+      - predictate
+      - object
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - RdfTriple
+          type: string
+        subject:
+          $ref: '#/components/schemas/RdfNode'
+          description: Subject
+        predictate:
+          $ref: '#/components/schemas/RdfNode'
+          description: Predicate
+        object:
+          $ref: '#/components/schemas/RdfNode'
+          description: Object
+      example:
+        _type: RdfTriple
+        subject:
+          _type: uri
+          value: http://omex-libary.org/MyCombineArchive.omex
+        predictate:
+          _type: uri
+          value: https://dublincore.org/specifications/dublin-core/dcmi-terms/title
+        object:
+          _type: literal
+          value: Title of my COMBINE archive
+    URI:
+      description: Uniform Resource Identifier (URI)
+      type: string
+      example: https://identifiers.org/doi:10.1083/jcb.200306139
+    BioSimulationsCustomMetadata:
+      description: ""
+      required:
+      - _type
+      - attribute
+      - value
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - BioSimulationsCustomMetadata
+          type: string
+        attribute:
+          $ref: '#/components/schemas/BioSimulationsMetadataValue'
+          description: Atttribute of the COMBINE/OMEX archive.
+        value:
+          $ref: '#/components/schemas/BioSimulationsMetadataValue'
+          description: Value of the attribute of the COMBINE/OMEX archive.
+      example:
+        _type: BioSimulationsCustomMetadata
+        attribute:
+          _type: BioSimulationsMetadataValue
+          uri: http://www.collex.org/schema#thumbnail
+          label: Graphical abstract
+        value:
+          _type: BioSimulationsMetadataValue
+          uri: https://website.com/image.png
+          label: Caption of the graphical abstract
+    BioSimulationsMetadataValue:
+      description: A URI and a human-readable label for the URI
+      required:
+      - _type
+      - uri
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - BioSimulationsMetadataValue
+          type: string
+        uri:
+          $ref: '#/components/schemas/URI'
+          description: Unique identifier.
+        label:
+          description: Human-readable label.
+          type: string
+      example:
+        _type: BioSimulationsMetadataValue
+        uri: https://doi.org/10.1371/journal.pcbi.1008379.g001
+        label: Inferring latent temporal progression and regulatory networks from
+          cross-sectional transcriptomic data of cancer samples
+    RdfLiteralNode:
+      description: Literal RDF node.
+      required:
+      - _type
+      - value
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - RdfLiteralNode
+          type: string
+        value:
+          description: Value
+          type: string
+      example:
+        _type: RdfLiteralNode
+        value: First name Last name
+    RdfUriNode:
+      description: URI RDF node.
+      required:
+      - _type
+      - value
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - RdfUriNode
+          type: string
+        value:
+          $ref: '#/components/schemas/URI'
+          description: 'Value   '
+      example:
+        _type: RdfUriNode
+        value: https://identifiers.org/pubmed:1234
+    RdfBlankNode:
+      description: Blank RDF node
+      required:
+      - _type
+      - value
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - RdfBlankNode
+          type: string
+        value:
+          description: Value
+          type: string
+      example:
+        _type: RdfBlankNode
+        value: abcxyz
+    RdfNode:
+      anyOf:
+      - $ref: '#/components/schemas/RdfBlankNode'
+      - $ref: '#/components/schemas/RdfLiteralNode'
+      - $ref: '#/components/schemas/RdfUriNode'
+      discriminator:
+        propertyName: _type
+      description: A node of an RDF triple.
+      type: object
+      example:
+        _type: RdfLiteralNode
+        value: First name Last name
+    BioSimulationsCombineArchiveElementMetadata:
+      description: Metadata about a COMBINE/OMEX archive or an entity in the archive
+        such as a SED-ML document or a report of a SED-ML document.
+      required:
+      - _type
+      - uri
+      - title
+      - abstract
+      - license
+      - created
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - BioSimulationsCombineArchiveElementMetadata
+          type: string
+        title:
+          description: Title
+          type: string
+        abstract:
+          description: Short summary
+          type: string
+        keywords:
+          description: Keywords
+          type: array
+          items:
+            type: string
+        description:
+          description: Long summary
+          type: string
+        thumbnails:
+          description: Locations of summary images within the COMBINE/OMEX archive.
+          type: array
+          items:
+            $ref: '#/components/schemas/URI'
+        taxa:
+          description: Taxa represented by the COMBINE/OMEX archive.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        encodes:
+          description: "Biology represented by the COMBINE/OMEX archive such as molecules,\
+            \ cell types, and organs."
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        sources:
+          description: Locations of the source code or materials for the COMBINE/OMEX
+            archive such as a GitHub repository.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        predecessors:
+          description: Predecessors from which the content of the COMBINE/OMEX archive
+            was derived from such as a prior version of a model.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        successors:
+          description: Successors of the content of the COMBINE/OMEX archive such
+            as an improved version of a model.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        identifiers:
+          description: Other identifiers for the COMBINE/OME archive or its contents
+            such as an identifier for an entry in BioModels.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        citations:
+          description: Citations such as journal articlces and books for the COMBINE/OMEX
+            archive.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        creators:
+          description: Authors of the COMBINE/OMEX archive and its contents.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        contributors:
+          description: Other people who contributed to the COMBINE/OMEX archive such
+            as curators.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        license:
+          $ref: '#/components/schemas/BioSimulationsMetadataValue'
+          description: License for the COMBINE/OMEX archive such as SPDX:MIT.
+        funders:
+          description: Agencies which funded the work which produced the COMBINE/OMEX
+            archive.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        seeAlso:
+          description: Other resources relevant to a COMBINE/OMEX archive such as
+            a software tool that was used to build a model in the archive.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsMetadataValue'
+        created:
+          format: date
+          description: Date when the COMBINE/OMEX archive or its key content was created.
+          type: string
+        modified:
+          description: Dates when the COMBINE/OMEX archive or its key content was
+            modified.
+          type: array
+          items:
+            format: date
+            type: string
+        other:
+          description: Additional custom metadata about the COMBINE/OMEX archive.
+          type: array
+          items:
+            $ref: '#/components/schemas/BioSimulationsCustomMetadata'
+        uri:
+          $ref: '#/components/schemas/URI'
+          description: "URI of the subject of the metadata with in the COMBINE/OMEX\
+            \ archive such as \n\n\".\": COMBINE/OMEX archive\n\"./path/to/sim.sedml\"\
+            : SED-ML document\n\"./path/to/sim.sedml/Table1\": Report in a SED-ML\
+            \ document"
+      example:
+        _type: BioSimulationsMetadata
+        title: Title
+        abstract: Short summary
+        keywords:
+        - topic 1
+        - topic 2
+        description: Long summary
+        thumbnails:
+        - ./Figure1.png
+        taxa:
+        - _type: BioSimulationsMetadataValue
+          uri: https://identifiers.org/taxonomy:9606
+          label: Homo sapiens
+        encodes:
+        - _type: BioSimulationsMetadataValue
+          uri: https://identifiers.org/uniprot:P0DP23
+          label: Calmodulin-1
+        sources:
+        - _type: BioSimulationsMetadataValue
+          uri: https://github.com/org/repo
+          label: Source code
+        predecessors:
+        - _type: BioSimulationsMetadataValue
+          uri: https://identifiers.org/biomodels.db:BIOMD0000000048
+          label: BioModels:BIOMD0000000048
+        successors:
+        - _type: BioSimulationsMetadataValue
+          uri: https://identifiers.org/biomodels.db:BIOMD0000000050
+          label: BioModels:BIOMD0000000050
+        identifiers:
+        - _type: BioSimulationsMetadataValue
+          uri: https://identifiers.org/biomodels.db:BIOMD0000000049
+          label: BioModels:BIOMD0000000049
+        citations:
+        - _type: BioSimulationsMetadataValue
+          uri: https://identfiers.org/pubmed:1234
+          label: "Author. Title. Journal volume, number: pages (year)."
+        creators:
+        - _type: BioSimulationsMetadataValue
+          uri: https://identifiers.org/orcid:0000-1111-2222-3333
+          label: First Last
+        contributors:
+        - _type: BioSimulationsMetadataValue
+          uri: https://identifiers.org/orcid:0000-1111-2222-3333
+          label: First Last
+        license:
+          _type: BioSimulationsMetadataValue
+          uri: https://identifiers.org/spdx:MIT
+          label: MIT
+        funders:
+        - _type: BioSimulationsMetadataValue
+          uri: https://identifiers.org/doi:10.13039/100000001
+          label: National Science Foundation
+        seeAlso:
+        - _type: BioSimulationsMetadataValue
+          uri: https://en.wikipedia.org/wiki/Semantic_triple
+          label: More information
+        created: 2018-01-17
+        modified:
+        - 2018-01-17
+        other:
+        - _type: BioSimulationsCustomMetadata
+          attribute:
+            _type: BioSimulationsMetadataValue
+            uri: http://ontology.eil.utoronto.ca/icity/OM/temporalUnit
+            label: Temporal unit
+          value:
+            _type: BioSimulationsMetadataValue
+            uri: http://www.w3.org/2006/time#second
+            label: second
+        uri: "."
   responses:
     "404":
       content:

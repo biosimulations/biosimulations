@@ -58,3 +58,19 @@
     }
   }
 }
+
+
+.container ::ng-deep {
+  .tab-spinner-container {
+    display: flex;
+    height: calc(100vh - 64px - 28px - 0.5rem - 32px - 2 * 2rem);
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 959px) {
+    .tab-spinner-container {
+      height: calc(100vh - 56px - 32px - 2 * 1rem);
+    }
+  }
+}

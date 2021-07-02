@@ -138,6 +138,7 @@ export interface ViewVersion {
   created: string;
   image: IImage | null;
   curationStatus: string;
+  validated: boolean;
 }
 
 export interface ViewAuthor {

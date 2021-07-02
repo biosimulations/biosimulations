@@ -29,10 +29,10 @@ def handler(body, file=None):
     Args:
         body (:obj:`dict`): dictionary with keys
 
-            * ``url`` whose value
-            has schema ``#/components/schemas/Url`` with the
-            URL for a COMBINE/OMEX archive
-        file (:obj:`werkzeug.datastructures.FileStorage`): COMBINE/OMEX archive file
+            * ``url`` whose value has schema ``#/components/schemas/Url`` with the
+              URL for a COMBINE/OMEX archive
+
+        file (:obj:`werkzeug.datastructures.FileStorage`, optional): COMBINE/OMEX archive file
 
     Returns:
         ``#/components/schemas/CombineArchive``: specifications of the SED

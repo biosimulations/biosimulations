@@ -26,6 +26,7 @@ import {
   Layout,
   DataLayout,
 } from './plotly-visualization/plotly-visualization.component';
+import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import {
   Simulation,
@@ -58,6 +59,8 @@ import {
 } from 'vega';
 import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { urls } from '@biosimulations/config/common';
+import { CombineArchiveElementMetadata } from '../../../metadata.interface';
 
 enum VisualizationType {
   'lineScatter2d' = 'Interactively design a grid of two-dimensional line or scatter plots',
@@ -90,6 +93,11 @@ interface VegaDataSet {
 }
 
 type SimulationRunReport = any;
+
+interface Metadata {
+  archive: CombineArchiveElementMetadata | null;
+  other: CombineArchiveElementMetadata[];
+}
 
 @Component({
   templateUrl: './view.component.html',
@@ -166,11 +174,15 @@ export class ViewComponent implements OnInit, OnDestroy {
   @ViewChild(VegaVisualizationComponent)
   private vegaVisualization!: VegaVisualizationComponent;
 
+  metadataLoaded$!: Observable<boolean | undefined>;
+  metadata$!: Observable<Metadata | undefined>;
+
   constructor(
     private config: ConfigService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private service: ViewService,
+    private combineService: CombineService,
     private simulationService: SimulationService,
     private visualizationService: VisualizationService,
     private dispatchService: DispatchService,
@@ -413,6 +425,59 @@ export class ViewComponent implements OnInit, OnDestroy {
       },
     );
     this.subscriptions.push(setPlotConfigurationSub);
+
+    // get metadata
+    const archiveUrl = `${urls.dispatchApi}run/${this.uuid}/download`;
+    this.metadata$ = this.combineService.getCombineArchiveMetadata(archiveUrl).pipe(
+      map((elMetadatas: CombineArchiveElementMetadata[] | undefined): Metadata | undefined => {
+        if (elMetadatas === undefined) {
+          return undefined;
+        }
+
+        elMetadatas.forEach((elMetadata: CombineArchiveElementMetadata): void => {
+          elMetadata.thumbnails = elMetadata.thumbnails.map((thumbnail: string): string => {
+            return `${urls.combineApi}combine/file?url=${encodeURI(archiveUrl)}&location=${encodeURI(thumbnail)}`;
+          });
+
+          if (elMetadata.created) {
+            const d = new Date(elMetadata.created);
+            elMetadata.created = (
+              d.getFullYear() 
+              + "-" 
+              + ("0"+(d.getMonth()+1)).slice(-2)
+              + "-" 
+              + ("0" + d.getDate()).slice(-2)
+            );
+          }
+          elMetadata.modified = elMetadata.modified.map((date: string): string => {
+            const d = new Date(date);
+            return (
+              d.getFullYear() 
+              + "-" 
+              + ("0"+(d.getMonth()+1)).slice(-2)
+              + "-" 
+              + ("0" + d.getDate()).slice(-2)
+            );
+          });
+          elMetadata.modified.sort();
+          elMetadata.modified.reverse();
+        });
+
+        return {
+          archive: elMetadatas.filter((elMetadata: CombineArchiveElementMetadata): boolean => {
+            return elMetadata.uri === '.';
+          })?.[0],
+          other: elMetadatas.filter((elMetadata: CombineArchiveElementMetadata): boolean => {
+            return elMetadata.uri !== '.';
+          }),
+        };
+      }),
+    );
+    this.metadataLoaded$ = this.metadata$.pipe(
+      map((): boolean => {
+        return true;
+      }),
+    );
   }
 
   public ngOnDestroy(): void {
@@ -862,8 +927,10 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
+  private iVisualizationTab = 3;
+
   public selectedTabChange($event: MatTabChangeEvent): void {
-    if ($event.index == 2) {
+    if ($event.index == this.iVisualizationTab) {
       if (this.plotlyVisualization) {
         this.plotlyVisualization.setLayout();
       }

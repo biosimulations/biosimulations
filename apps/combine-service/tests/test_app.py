@@ -13,8 +13,11 @@ from openapi_core import create_spec
 from openapi_spec_validator import validate_spec as validate_api_spec
 from openapi_spec_validator.readers import read_from_filename as read_api_spec_from_filename
 from src import app
+from src.exceptions import BadRequestException
+from src.handlers.combine.get_metadata_for_combine_archive import _convert_rdf_node_to_json
 from unittest import mock
 from werkzeug.datastructures import FileStorage, MultiDict
+import imghdr
 import importlib.util
 import io
 import json
@@ -23,6 +26,7 @@ import shutil
 import src.utils
 import tempfile
 import unittest
+import urllib.parse
 import yaml
 
 
@@ -633,3 +637,289 @@ class HandlersTestCase(unittest.TestCase):
         with app.app.app.test_client() as client:
             response = client.get(endpoint)
         self.assertEqual(response.status_code, 400, response.json)
+
+    def test_get_metadata_for_combine_archive_url(self):
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, 'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex')
+        with open(archive_filename, 'rb') as file:
+            archive_url_content = file.read()
+
+        archive_url = 'https://archive.combine.org'
+        data = MultiDict([
+            ('url', archive_url),
+        ])
+        response = mock.Mock(
+            raise_for_status=lambda: None,
+            content=archive_url_content,
+        )
+        endpoint = '/combine/metadata/biosimulations'
+        with mock.patch('requests.get', return_value=response):
+            with app.app.app.test_client() as client:
+                response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        self.assertEqual(response.status_code, 200, response.json)
+        metadata = response.json
+
+        sed_output_specs_filename = os.path.join(
+            self.FIXTURES_DIR, 'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.md.json')
+
+        with open(sed_output_specs_filename, 'r') as file:
+            expected_metadata = json.load(file)
+        self.assertEqual(metadata, expected_metadata, metadata)
+
+        # validate request and response
+        if hasattr(self, "request_validator"):
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/combine/metadata/biosimulations',
+                method='post',
+                body={
+                    'url': archive_url,
+                },
+                mimetype='multipart/form-data',
+                parameters=RequestParameters(),
+            )
+            result = self.request_validator.validate(request)
+            result.raise_for_errors()
+
+            response = OpenAPIResponse(data=json.dumps(expected_metadata),
+                                       status_code=200,
+                                       mimetype='application/json')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
+
+    def test_get_metadata_for_combine_archive_file_as_biosimulations(self):
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, 'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex')
+        fid = open(archive_filename, 'rb')
+
+        data = MultiDict([
+            ('file', fid),
+        ])
+        endpoint = '/combine/metadata/biosimulations'
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        self.assertEqual(response.status_code, 200, response.json)
+        metadata = response.json
+
+        sed_output_specs_filename = os.path.join(
+            self.FIXTURES_DIR, 'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.md.json')
+        with open(sed_output_specs_filename, 'r') as file:
+            expected_metadata = json.load(file)
+        self.assertEqual(metadata, expected_metadata)
+
+        fid.close()
+
+        # validate request and response
+        if hasattr(self, "request_validator"):
+            with open(archive_filename, 'rb') as file:
+                file_content = file.read()
+
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/combine/metadata/biosimulations',
+                method='post',
+                body={
+                    'file': file_content,
+                },
+                mimetype='multipart/form-data',
+                parameters=RequestParameters(),
+            )
+
+            result = self.request_validator.validate(request)
+            result.raise_for_errors()
+
+            response = OpenAPIResponse(data=json.dumps(expected_metadata),
+                                       status_code=200,
+                                       mimetype='application/json')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
+
+    def test_get_metadata_for_combine_archive_file_as_rdf_triples(self):
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, 'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex')
+        fid = open(archive_filename, 'rb')
+
+        data = MultiDict([
+            ('file', fid),
+        ])
+        endpoint = '/combine/metadata/rdf'
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        self.assertEqual(response.status_code, 200, response.json)
+        metadata = response.json
+
+        self.assertEqual(metadata[0], {
+            '_type': 'RdfTriple',
+            'subject': {
+                '_type': 'RdfUriNode',
+                'value': 'http://omex-libary.org/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex',
+            },
+            'predicate': {
+                '_type': 'RdfUriNode',
+                'value': 'https://dublincore.org/specifications/dublin-core/dcmi-terms/title',
+            },
+            'object': {
+                '_type': 'RdfLiteralNode',
+                'value': 'Morphogenesis checkpoint in budding yeast (continuous) (Ciliberto et al., Journal Cell Biology, 2003)',
+            }
+        })
+
+        fid.close()
+
+        # validate request and response
+        if hasattr(self, "request_validator"):
+            with open(archive_filename, 'rb') as file:
+                file_content = file.read()
+
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/combine/metadata/rdf',
+                method='post',
+                body={
+                    'file': file_content,
+                },
+                mimetype='multipart/form-data',
+                parameters=RequestParameters(),
+            )
+
+            result = self.request_validator.validate(request)
+            result.raise_for_errors()
+
+            response = OpenAPIResponse(data=json.dumps(metadata),
+                                       status_code=200,
+                                       mimetype='application/json')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
+
+    def test_get_metadata_for_combine_archive_error_handling(self):
+        endpoint = '/combine/metadata/biosimulations'
+        data = MultiDict([
+            ('url', 'x'),
+        ])
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        self.assertEqual(response.status_code, 400, response.json)
+        self.assertTrue(response.json['title'].startswith(
+            'COMBINE/OMEX archive could not be loaded'))
+
+        if hasattr(self, "response_validator"):
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/combine/metadata/biosimulations',
+                method='post',
+                body={
+                    'url': 'x',
+                },
+                mimetype=None,
+                parameters=RequestParameters(),
+            )
+            response = OpenAPIResponse(
+                data=json.dumps(response.json),
+                status_code=400,
+                mimetype='application/json')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
+
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, 'invalid-metadata.omex')
+        fid = open(archive_filename, 'rb')
+        data = MultiDict([
+            ('file', fid),
+        ])
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        self.assertEqual(response.status_code, 400, response.json)
+        self.assertIn('are invalid', response.json['title'])
+        fid.close()
+
+    def test__convert_rdf_node_to_json(self):
+        with self.assertRaises(BadRequestException):
+            _convert_rdf_node_to_json(None)
+
+    def test_get_file_in_combine_archive_url(self):
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, 'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex')
+        with open(archive_filename, 'rb') as file:
+            archive_url_content = file.read()
+
+        archive_url = 'https://archive.combine.org'
+        resolve_archive_response = mock.Mock(
+            raise_for_status=lambda: None,
+            content=archive_url_content,
+        )
+        endpoint = '/combine/file?url={}&location={}'.format(
+            urllib.parse.quote(archive_url),
+            urllib.parse.quote('Figure1.jpg'),
+        )
+        with mock.patch('requests.get', return_value=resolve_archive_response):
+            with app.app.app.test_client() as client:
+                response = client.get(endpoint)
+        self.assertEqual(response.status_code, 200, response.json)
+        image_filename = os.path.join(self.temp_dirname, 'image')
+        with open(image_filename, 'wb') as file:
+            file.write(response.data)
+
+        self.assertEqual(imghdr.what(image_filename), 'jpeg')
+
+        # validate request and response
+        if hasattr(self, "request_validator"):
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/combine/file',
+                method='get',
+                body={
+                    'url': archive_url,
+                    'location': 'Figure1.jpg',
+                },
+                mimetype='multipart/form-data',
+                parameters=RequestParameters(url=archive_url,
+                                             location='Figure1.jpg'),
+            )
+            result = self.request_validator.validate(request)
+            result.raise_for_errors()
+
+            response = OpenAPIResponse(data=response.data,
+                                       status_code=200,
+                                       mimetype='image/jpeg')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
+
+    def test_get_file_in_combine_archive_error_handling(self):
+        endpoint = '/combine/file?url={}&location={}'.format(
+            urllib.parse.quote('x'),
+            urllib.parse.quote('Figure1.jpg'),
+        )
+        with app.app.app.test_client() as client:
+            response = client.get(endpoint)
+        self.assertEqual(response.status_code, 400, response.json)
+        self.assertTrue(response.json['title'].startswith(
+            'COMBINE/OMEX archive could not be loaded'))
+
+        if hasattr(self, "response_validator"):
+            request = OpenAPIRequest(
+                full_url_pattern='https://127.0.0.1/combine/file',
+                method='get',
+                mimetype=None,
+                parameters=RequestParameters(url='x', location='Figure1.jpg'),
+            )
+            response = OpenAPIResponse(
+                data=json.dumps(response.json),
+                status_code=400,
+                mimetype='image/jpeg')
+            result = self.response_validator.validate(request, response)
+            result.raise_for_errors()
+
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, 'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex')
+        with open(archive_filename, 'rb') as file:
+            archive_url_content = file.read()
+
+        archive_url = 'https://archive.combine.org'
+        resolve_archive_response = mock.Mock(
+            raise_for_status=lambda: None,
+            content=archive_url_content,
+        )
+        endpoint = '/combine/file?url={}&location={}'.format(
+            urllib.parse.quote(archive_url),
+            urllib.parse.quote('undefined'),
+        )
+        with mock.patch('requests.get', return_value=resolve_archive_response):
+            with app.app.app.test_client() as client:
+                response = client.get(endpoint)
+        self.assertEqual(response.status_code, 400, response.json)
+        self.assertIn('not a valid location', response.json['title'])
