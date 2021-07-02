@@ -16,20 +16,12 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.2.0
         with:
-          node-version: 15.x
+          node-version: lts/fermium
+          cache: npm
 
       - name: Install Nrwl CLI
        
         run: npm install -g @nrwl/cli
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
@@ -81,17 +73,13 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.2.0
         with:
-          node-version: 15.x
+          node-version: lts/fermium
+          cache: npm
 
       - name: Install Nrwl CLI
        
         run: npm install -g @nrwl/cli
 
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
@@ -138,20 +126,12 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.2.0
         with:
-          node-version: 15.x
+          node-version: lts/fermium
+          cache: npm
 
-      - name: Install Nrwl CLI
-       
+      - name: Install Nrwl CLI       
         run: npm install -g @nrwl/cli
 
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
@@ -234,8 +214,8 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2.2.0
         with:
-          node-version: 15.x
-
+          node-version: lts/fermium
+          
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
 
