@@ -21,7 +21,9 @@ EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  'simulations', 'browse', 'example-simulations.{}.json')
 
 
-def main(runbiosimulations_api='dev', biosimulators_api='org', biosimulators_test_suite_branch='deploy', simulation_names=None, test_mode=False):
+def main(runbiosimulations_api='dev', biosimulators_api='org',
+         biosimulators_test_suite_branch='deploy', simulation_names=None,
+         test_mode=False):
     """ Submit example simulations from the BioSimulators test suite to the runBioSimulations API and
     record their runs to ``example-simulations.json`` within the browse simulations module of the
     dispatch app so that users can load runs of these simulations as examples.
@@ -38,13 +40,19 @@ def main(runbiosimulations_api='dev', biosimulators_api='org', biosimulators_tes
     response.raise_for_status()
     simulator_latest_versions = {
         simulator['id']: simulator['version'] for simulator in response.json()}
+    simulator_specs = {
+        simulator['id']: simulator for simulator in response.json()}
 
     # read simulations
     with open(EXAMPLE_SIMULATIONS_FILENAME, 'r') as file:
         simulations = json.load(file)
-    # Temporarily filter vcell
-    # TODO renable 
-    simulations=list(filter(lambda simulation: not (simulation['simulator']=='vcell'),simulations))
+
+    # filter out runs for simulators that aren't enabled
+    simulations = list(filter(
+        lambda simulation:
+        simulator_specs[simulation['simulator']]['biosimulators']['validated'],
+        simulations))
+
     # filter to selected simulations
     if simulation_names:
         simulations = list(
@@ -97,8 +105,8 @@ def main(runbiosimulations_api='dev', biosimulators_api='org', biosimulators_tes
         simulation_run = json.loads(process.stdout.decode())
         print("Submitted simulation: " + simulation_run['id'])
         print("View: https://run.biosimulations.{}/simulations/{}".format(runbiosimulations_api, simulation_run['id']))
-        # log run
 
+        # log run
         simulation_runs.append({
             "id": simulation_run['id'],
             "name": name,
@@ -114,17 +122,18 @@ def main(runbiosimulations_api='dev', biosimulators_api='org', biosimulators_tes
             "projectSize": project_size,
 
         })
-    if(test_mode):
-        monitorRuns(simulation_runs, runbiosimulations_api)
-    else:
 
+    if test_mode:
+        monitor_runs(simulation_runs, runbiosimulations_api)
+
+    else:
         with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(runbiosimulations_api), 'w') as file:
             json.dump(simulation_runs, file, indent=2)
 
     shutil.rmtree(temp_dir)
 
 
-def monitorRuns(simulation_runs, runbiosimulations_api, timeout=300):
+def monitor_runs(simulation_runs, runbiosimulations_api, timeout=300):
     pass
 
 
