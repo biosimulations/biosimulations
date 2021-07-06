@@ -1,8 +1,8 @@
 <ng-container *ngIf="model$ | async as model; else notPresent">
   <biosimulations-resource-view
     [name]="model.name"
-    [authors]="model.authors"
-    [owner]="model.owner"
+    [authors]="model.authors.toString()"
+    [owner]="model.owner.toString()"
     [tags]="model.tags"
     [description]="model.description"
     [summary]="model.summary"
