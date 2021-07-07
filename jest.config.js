@@ -50,5 +50,6 @@ module.exports = {
     '<rootDir>/libs/datamodel/utils',
     '<rootDir>/libs/hsds/client',
     '<rootDir>/libs/hdf5/api-client',
+    '<rootDir>/libs/combine/api-client',
   ],
 };

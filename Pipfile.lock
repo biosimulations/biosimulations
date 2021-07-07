@@ -918,7 +918,7 @@
                 "sha256:eda2829af498946c59d8585a9fd74da3f810866e05f8df03a86f70079c7531dd",
                 "sha256:fd0a359c1c17f00cb37de2969984a74320970e0ceef4808c32e00773b06649d9"
             ],
-            "markers": "python_version >= '3.9'",
+            "index": "pypi",
             "version": "==1.21.0"
         },
         "openapi-schema-validator": {

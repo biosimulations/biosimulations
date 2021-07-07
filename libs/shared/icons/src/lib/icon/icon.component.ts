@@ -126,7 +126,11 @@ export type BiosimulationsIcon =
 })
 export class IconComponent {
   @Input()
-  set icon(value: BiosimulationsIcon) {
+  set icon(value: BiosimulationsIcon | null) {
+    if (!value) {
+      value = 'invalid';
+    }
+
     this.setIcon(value);
   }
 
