@@ -158,7 +158,7 @@ const modelFormatMetaData: {
     sedUrn: 'urn:sedml:language:zginml',
     combineSpecUrl: 'http://purl.org/NET/mediatypes/application/zginml+zip',
     extension: 'zginml',
-    enabled: false,
+    enabled: true,
   },
 };
 
@@ -1015,6 +1015,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           'format_9004',
           'format_9005',
           'format_9006',
+          'format_9008',
+          'format_9009',
         ].includes(formatEdamId) &&
         [
           'SBO_0000293',
