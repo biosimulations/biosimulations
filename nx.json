@@ -16,7 +16,7 @@
     ".eslintrc.json": "*",
     "nx.json": "*",
     "Dockerfile": "*",
-    "DockerfilePython":["combine-service"]
+    "DockerfilePython": ["combine-service"]
   },
   "tasksRunnerOptions": {
     "default": {
@@ -108,7 +108,7 @@
     },
     "dispatch-api": {
       "tags": ["scope:dispatch", "type:api", "platform:server"],
-      "implicitDependencies":["hdf5-api-client"]
+      "implicitDependencies": ["hdf5-api-client"]
     },
     "platform": {
       "tags": ["scope:platform", "type:frontend", "platform:web"],
@@ -237,6 +237,9 @@
     },
     "hdf5-api-client": {
       "tags": ["scope:hsds", "type:client", "platform:server"]
+    },
+    "combine-api-client": {
+      "tags": ["scope:combine", "shared:true", "platform:server", "type:client"]
     }
   }
 }

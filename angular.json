@@ -1936,6 +1936,38 @@
           }
         }
       }
+    },
+    "combine-api-client": {
+      "root": "libs/combine/api-client",
+      "sourceRoot": "libs/combine/api-client/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/combine/api-client",
+            "tsConfig": "libs/combine/api-client/tsconfig.lib.json",
+            "packageJson": "libs/combine/api-client/package.json",
+            "main": "libs/combine/api-client/src/index.ts",
+            "assets": ["libs/combine/api-client/*.md"]
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/combine/api-client/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/combine/api-client"],
+          "options": {
+            "jestConfig": "libs/combine/api-client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
