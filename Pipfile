@@ -17,6 +17,7 @@ kisao = "*"
 stringcase = "*"
 natsort = "*"
 rdflib = "*"
+numpy = "*"
 
 [dev-packages]
 openapi-core = "*"
