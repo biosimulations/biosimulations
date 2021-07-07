@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# location of this script
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+java -jar ${script_dir}/openapi-generator-cli.jar generate -g typescript-nestjs -i ${script_dir}/../apps/combine-service/src/spec/spec.yml -o ${script_dir}/../libs/combine/api-client/src/lib/
+
+# Correct a definition in the generated code to play nicer with typescript compiler
+sed -i 's/        let formParams: { append(param: string, value: any): void; };/        let formParams: { append(param: string, value: any): void; } = new FormData(); /'  ${script_dir}/../libs/combine/api-client/src/lib/api/*.service.ts
+
+# Format the files
+nx format --projects combine-api-client
