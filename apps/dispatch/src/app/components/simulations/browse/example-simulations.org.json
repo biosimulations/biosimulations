@@ -70,6 +70,20 @@
     "projectSize": 91154
   },
   {
+    "id": "60e6579eca37e35f72074a7c",
+    "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, Fehlberg, LibSBMLSim)",
+    "simulator": "libsbmlsim",
+    "simulatorVersion": "1.4.0",
+    "cpus": 1,
+    "memory": 8,
+    "maxTime": 20,
+    "submittedLocally": false,
+    "status": "CREATED",
+    "submitted": "2021-07-08T01:40:49.117Z",
+    "updated": "2021-07-08T01:40:49.117Z",
+    "projectSize": 91157
+  },
+  {
     "id": "60dcfdc8bc2d038016d4d21d",
     "name": "Dolan 2020: Non-homologous end joining (BNGL, NFSim, BioNetGen)",
     "simulator": "bionetgen",
