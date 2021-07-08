@@ -19,6 +19,11 @@
     "filename": "sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex"
   },
   {
+    "name": "Chaouiya et al. BMC Systems Biology 2013: EGF and TNFα signaling (SBML-qual, synchronous updating, GINsim)",
+    "simulator": "ginsim",
+    "filename": "sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex"
+  },
+  {
     "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, CVODE, PySCeS)",
     "simulator": "pysces",
     "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
@@ -32,6 +37,11 @@
     "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, CVODE, VCell)",
     "simulator": "vcell",
     "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+  },
+  {
+    "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, Fehlberg, LibSBMLSim)",
+    "simulator": "libsbmlsim",
+    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-Fehlberg.omex"
   },
   {
     "name": "Dolan 2020: Non-homologous end joining (BNGL, NFSim, BioNetGen)",
