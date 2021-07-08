@@ -5,4 +5,5 @@ module.exports = {
   },
   coverageDirectory: '../../coverage/apps/mail-service',
   displayName: 'mail-service',
+  testEnvironment: 'node',
 };

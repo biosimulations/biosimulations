@@ -5,4 +5,5 @@ module.exports = {
   },
   coverageDirectory: '../../coverage/apps/ontology-api',
   displayName: 'ontology-api',
+  testEnvironment: 'node',
 };

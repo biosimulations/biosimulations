@@ -47,8 +47,12 @@
                 "output": "assets"
               }
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -111,13 +115,70 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/account/**/*.ts", "apps/account/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/account/**/*.ts",
+              "apps/account/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/account/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "account-api": {
+      "root": "apps/account-api",
+      "sourceRoot": "apps/account-api/src",
+      "projectType": "application",
+      "prefix": "account-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/account-api",
+            "main": "apps/account-api/src/main.ts",
+            "tsConfig": "apps/account-api/tsconfig.app.json",
+            "assets": [
+              "apps/account-api/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "libs/shared/environments/src/lib/environment.ts",
+                  "with": "libs/shared/environments/src/lib/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "account-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/account-api/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/account-api/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -144,77 +205,227 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/account-e2e/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/account-e2e/**/*.ts"
+            ]
           }
         }
       }
     },
-    "account-api": {
-      "root": "apps/account-api",
-      "sourceRoot": "apps/account-api/src",
-      "projectType": "application",
-      "prefix": "account-api",
+    "account-management": {
+      "root": "libs/account/management",
+      "sourceRoot": "libs/account/management/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/account/management/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/account/management"
+          ],
+          "options": {
+            "jestConfig": "libs/account/management/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "auth-angular": {
+      "projectType": "library",
+      "root": "libs/auth/angular",
+      "sourceRoot": "libs/auth/angular/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/auth/angular/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/auth/angular/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "auth-client": {
+      "root": "libs/auth/client",
+      "sourceRoot": "libs/auth/client/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/auth/client/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/auth/client"
+          ],
+          "options": {
+            "jestConfig": "libs/auth/client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "auth-common": {
+      "root": "libs/auth/common",
+      "sourceRoot": "libs/auth/common/src",
+      "projectType": "library",
       "schematics": {},
       "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "outputPath": "dist/apps/account-api",
-            "main": "apps/account-api/src/main.ts",
-            "tsConfig": "apps/account-api/tsconfig.app.json",
-            "assets": ["apps/account-api/src/assets"]
+            "lintFilePatterns": [
+              "libs/auth/common/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/auth/common/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "auth-nest": {
+      "root": "libs/auth/nest",
+      "sourceRoot": "libs/auth/nest/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/auth/nest/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/auth/nest/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "combine-api-client": {
+      "root": "libs/combine/api-client",
+      "sourceRoot": "libs/combine/api-client/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/libs/combine/api-client",
+            "tsConfig": "libs/combine/api-client/tsconfig.lib.json",
+            "packageJson": "libs/combine/api-client/package.json",
+            "main": "libs/combine/api-client/src/index.ts",
+            "assets": [
+              "libs/combine/api-client/*.md"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/combine/api-client/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/combine/api-client"
+          ],
+          "options": {
+            "jestConfig": "libs/combine/api-client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "combine-service": {
+      "projectType": "application",
+      "root": "apps/combine-service",
+      "sourceRoot": "apps/combine-service/src",
+      "architect": {
+        "build": {
+          "builder": "@nx-python/nx-python:build",
+          "options": {
+            "outputPath": "dist/apps/combine-service",
+            "main": "apps/combine-service/src/__main__.py"
           },
           "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "libs/shared/environments/src/lib/environment.ts",
-                  "with": "libs/shared/environments/src/lib/environment.prod.ts"
-                }
-              ]
-            }
+            "production": {}
           }
         },
         "serve": {
-          "builder": "@nrwl/node:execute",
+          "builder": "@nx-python/nx-python:serve",
           "options": {
-            "buildTarget": "account-api:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/account-api/**/*.ts"]
+            "main": "-m src",
+            "cwd": "apps/combine-service"
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/account-api/jest.config.js",
-            "passWithNoTests": true
-          }
+          "builder": "@nx-python/nx-python:test",
+          "options": {}
+        },
+        "lint": {
+          "builder": "@nx-python/nx-python:lint",
+          "options": {}
         }
       }
     },
-    "shared-assets": {
+    "config-angular": {
       "projectType": "library",
-      "root": "libs/shared/assets",
-      "sourceRoot": "libs/shared/assets/src",
+      "root": "libs/config/angular",
+      "sourceRoot": "libs/config/angular/src",
       "prefix": "biosimulations",
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/assets/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/config/angular/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/shared/assets/jest.config.js",
+            "jestConfig": "libs/config/angular/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -225,155 +436,149 @@
         }
       }
     },
-    "shared-content": {
+    "config-common": {
+      "root": "libs/config/common",
+      "sourceRoot": "libs/config/common/src",
       "projectType": "library",
-      "root": "libs/shared/content",
-      "sourceRoot": "libs/shared/content/src",
-      "prefix": "biosimulations",
+      "schematics": {},
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/content/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/config/common/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/shared/content/jest.config.js",
+            "jestConfig": "libs/config/common/jest.config.js",
             "passWithNoTests": true
           }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
         }
       }
     },
-    "shared-services": {
+    "config-nest": {
+      "root": "libs/config/nest",
+      "sourceRoot": "libs/config/nest/src",
       "projectType": "library",
-      "root": "libs/shared/services",
-      "sourceRoot": "libs/shared/services/src",
-      "prefix": "biosimulations",
+      "schematics": {},
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/services/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/config/nest/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/shared/services/jest.config.js",
+            "jestConfig": "libs/config/nest/jest.config.js",
             "passWithNoTests": true
           }
-        }
-      },
-      "schematics": {}
-    },
-    "shared-styles": {
-      "projectType": "library",
-      "root": "libs/shared/styles",
-      "sourceRoot": "libs/shared/styles/src",
-      "prefix": "biosimulations",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/styles/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/styles/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
         }
       }
     },
-    "shared-ui": {
+    "datamodel-api": {
+      "root": "libs/datamodel/api",
+      "sourceRoot": "libs/datamodel/api/src",
       "projectType": "library",
-      "root": "libs/shared/ui",
-      "sourceRoot": "libs/shared/ui/src",
-      "prefix": "biosimulations",
+      "schematics": {},
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/ui/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/datamodel/api/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/shared/ui/jest.config.js",
+            "jestConfig": "libs/datamodel/api/jest.config.js",
             "passWithNoTests": true
           }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
         }
       }
     },
-    "shared-icons": {
+    "datamodel-common": {
+      "root": "libs/datamodel/common",
+      "sourceRoot": "libs/datamodel/common/src",
       "projectType": "library",
-      "root": "libs/shared/icons",
-      "sourceRoot": "libs/shared/icons/src",
-      "prefix": "biosimulations",
+      "schematics": {},
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/icons/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/datamodel/common/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/shared/icons/jest.config.js",
+            "jestConfig": "libs/datamodel/common/jest.config.js",
             "passWithNoTests": true
           }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
         }
       }
     },
-    "shared-debug": {
+    "datamodel-database": {
+      "root": "libs/datamodel/database",
+      "sourceRoot": "libs/datamodel/database/src",
       "projectType": "library",
-      "root": "libs/shared/debug",
-      "sourceRoot": "libs/shared/debug/src",
-      "prefix": "biosimulations",
+      "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "builder": "@nrwl/linter:lint",
           "options": {
-            "lintFilePatterns": ["libs/shared/debug/**/*.ts"]
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/datamodel/database/tsconfig.lib.json",
+              "libs/datamodel/database/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/datamodel/database/**/*"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/shared/debug/jest.config.js",
+            "jestConfig": "libs/datamodel/database/jest.config.js",
             "passWithNoTests": true
           }
         }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
+      }
+    },
+    "datamodel-utils": {
+      "root": "libs/datamodel/utils",
+      "sourceRoot": "libs/datamodel/utils/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/datamodel/utils/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/datamodel/utils"
+          ],
+          "options": {
+            "jestConfig": "libs/datamodel/utils/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },
@@ -427,8 +632,12 @@
               "apps/dispatch/src/sitemap.xml",
               "apps/dispatch/src/manifest.webmanifest"
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/plotly.js/dist/plotly.min.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/plotly.js/dist/plotly.min.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -508,312 +717,6 @@
         }
       }
     },
-    "dispatch-e2e": {
-      "root": "apps/dispatch-e2e",
-      "sourceRoot": "apps/dispatch-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/dispatch-e2e/cypress.json",
-            "tsConfig": "apps/dispatch-e2e/tsconfig.e2e.json",
-            "devServerTarget": "dispatch:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "dispatch:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/dispatch-e2e/**/*.ts"]
-          }
-        }
-      }
-    },
-    "auth-common": {
-      "root": "libs/auth/common",
-      "sourceRoot": "libs/auth/common/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/auth/common/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/auth/common/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "auth-angular": {
-      "projectType": "library",
-      "root": "libs/auth/angular",
-      "sourceRoot": "libs/auth/angular/src",
-      "prefix": "biosimulations",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/auth/angular/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/auth/angular/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
-    "auth-nest": {
-      "root": "libs/auth/nest",
-      "sourceRoot": "libs/auth/nest/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/auth/nest/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/auth/nest/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "config-common": {
-      "root": "libs/config/common",
-      "sourceRoot": "libs/config/common/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/config/common/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/config/common/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "config-nest": {
-      "root": "libs/config/nest",
-      "sourceRoot": "libs/config/nest/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/config/nest/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/config/nest/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "config-angular": {
-      "projectType": "library",
-      "root": "libs/config/angular",
-      "sourceRoot": "libs/config/angular/src",
-      "prefix": "biosimulations",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/config/angular/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/config/angular/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
-    "platform-api": {
-      "root": "apps/platform-api",
-      "sourceRoot": "apps/platform-api/src",
-      "projectType": "application",
-      "prefix": "platform-api",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/platform-api",
-            "main": "apps/platform-api/src/main.ts",
-            "tsConfig": "apps/platform-api/tsconfig.app.json",
-            "assets": ["apps/platform-api/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "libs/shared/environments/src/lib/environment.ts",
-                  "with": "libs/shared/environments/src/lib/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "platform-api:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/platform-api/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/platform-api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "platform-api-models": {
-      "root": "libs/platform/api-models",
-      "sourceRoot": "libs/platform/api-models/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/platform/api-models/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/platform/api-models/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "platform-database-models": {
-      "root": "libs/platform/database-models",
-      "sourceRoot": "libs/platform/database-models/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/platform/database-models/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/platform/database-models/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "dispatch-service": {
-      "root": "apps/dispatch-service",
-      "sourceRoot": "apps/dispatch-service/src",
-      "projectType": "application",
-      "prefix": "dispatch-service",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/dispatch-service",
-            "main": "apps/dispatch-service/src/main.ts",
-            "tsConfig": "apps/dispatch-service/tsconfig.app.json",
-            "assets": ["apps/dispatch-service/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "libs/shared/environments/src/lib/environment.ts",
-                  "with": "libs/shared/environments/src/lib/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "dispatch-service:build",
-            "inspect": true,
-            "port": 7777
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/dispatch-service/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/dispatch-service/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "dispatch-api": {
       "root": "apps/dispatch-api",
       "sourceRoot": "apps/dispatch-api/src",
@@ -827,7 +730,9 @@
             "outputPath": "dist/apps/dispatch-api",
             "main": "apps/dispatch-api/src/main.ts",
             "tsConfig": "apps/dispatch-api/tsconfig.app.json",
-            "assets": ["apps/dispatch-api/src/assets"]
+            "assets": [
+              "apps/dispatch-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -854,13 +759,410 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/dispatch-api/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/dispatch-api/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/dispatch-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dispatch-api-models": {
+      "root": "libs/dispatch/api-models",
+      "sourceRoot": "libs/dispatch/api-models/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/dispatch/api-models/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/dispatch/api-models/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dispatch-e2e": {
+      "root": "apps/dispatch-e2e",
+      "sourceRoot": "apps/dispatch-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/dispatch-e2e/cypress.json",
+            "tsConfig": "apps/dispatch-e2e/tsconfig.e2e.json",
+            "devServerTarget": "dispatch:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dispatch:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/dispatch-e2e/**/*.ts"
+            ]
+          }
+        }
+      }
+    },
+    "dispatch-nest-client": {
+      "root": "libs/dispatch/nest-client",
+      "sourceRoot": "libs/dispatch/nest-client/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/dispatch/nest-client/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/dispatch/nest-client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dispatch-service": {
+      "root": "apps/dispatch-service",
+      "sourceRoot": "apps/dispatch-service/src",
+      "projectType": "application",
+      "prefix": "dispatch-service",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/dispatch-service",
+            "main": "apps/dispatch-service/src/main.ts",
+            "tsConfig": "apps/dispatch-service/tsconfig.app.json",
+            "assets": [
+              "apps/dispatch-service/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "libs/shared/environments/src/lib/environment.ts",
+                  "with": "libs/shared/environments/src/lib/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "dispatch-service:build",
+            "inspect": true,
+            "port": 7777
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/dispatch-service/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/dispatch-service/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "hdf5-api-client": {
+      "root": "libs/hdf5/api-client",
+      "sourceRoot": "libs/hdf5/api-client/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/libs/hdf5/api-client",
+            "tsConfig": "libs/hdf5/api-client/tsconfig.lib.json",
+            "packageJson": "libs/hdf5/api-client/package.json",
+            "main": "libs/hdf5/api-client/src/index.ts",
+            "assets": [
+              "libs/hdf5/api-client/*.md"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/hdf5/api-client/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/hdf5/api-client"
+          ],
+          "options": {
+            "jestConfig": "libs/hdf5/api-client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "hsds-client": {
+      "root": "libs/hsds/client",
+      "sourceRoot": "libs/hsds/client/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/hsds/client/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/hsds/client"
+          ],
+          "options": {
+            "jestConfig": "libs/hsds/client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mail-service": {
+      "root": "apps/mail-service",
+      "sourceRoot": "apps/mail-service/src",
+      "projectType": "application",
+      "prefix": "mail-service",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/mail-service",
+            "main": "apps/mail-service/src/main.ts",
+            "tsConfig": "apps/mail-service/tsconfig.app.json",
+            "assets": [
+              "apps/mail-service/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/mail-service/src/environments/environment.ts",
+                  "with": "apps/mail-service/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "mail-service:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/mail-service/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/mail-service/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mail-service-client": {
+      "root": "libs/mail-service/client",
+      "sourceRoot": "libs/mail-service/client/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/mail-service/client/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/mail-service/client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "messages-messages": {
+      "root": "libs/messages/messages",
+      "sourceRoot": "libs/messages/messages/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/messages/messages/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/messages/messages/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ontology-api": {
+      "root": "apps/ontology-api",
+      "sourceRoot": "apps/ontology-api/src",
+      "projectType": "application",
+      "prefix": "ontology-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/ontology-api",
+            "main": "apps/ontology-api/src/main.ts",
+            "tsConfig": "apps/ontology-api/tsconfig.app.json",
+            "assets": [
+              "apps/ontology-api/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/ontology-api/src/environments/environment.ts",
+                  "with": "apps/ontology-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "ontology-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/ontology-api/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/ontology-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ontology-ontologies": {
+      "root": "libs/ontology/ontologies",
+      "sourceRoot": "libs/ontology/ontologies/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ontology/ontologies/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ontology/ontologies/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ontology-sources": {
+      "root": "libs/ontology/sources",
+      "sourceRoot": "libs/ontology/sources/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ontology/sources/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ontology/sources/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -915,8 +1217,12 @@
               "apps/platform/src/browserconfig.xml",
               "apps/platform/src/sitemap.xml"
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -995,6 +1301,106 @@
         }
       }
     },
+    "platform-api": {
+      "root": "apps/platform-api",
+      "sourceRoot": "apps/platform-api/src",
+      "projectType": "application",
+      "prefix": "platform-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/platform-api",
+            "main": "apps/platform-api/src/main.ts",
+            "tsConfig": "apps/platform-api/tsconfig.app.json",
+            "assets": [
+              "apps/platform-api/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "libs/shared/environments/src/lib/environment.ts",
+                  "with": "libs/shared/environments/src/lib/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "platform-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/platform-api/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/platform-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "platform-api-models": {
+      "root": "libs/platform/api-models",
+      "sourceRoot": "libs/platform/api-models/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/platform/api-models/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/platform/api-models/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "platform-database-models": {
+      "root": "libs/platform/database-models",
+      "sourceRoot": "libs/platform/database-models/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/platform/database-models/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/platform/database-models/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "platform-e2e": {
       "root": "apps/platform-e2e",
       "sourceRoot": "apps/platform-e2e/src",
@@ -1016,7 +1422,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/platform-e2e/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/platform-e2e/**/*.ts"
+            ]
           }
         }
       }
@@ -1030,13 +1438,417 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/platform/view/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/platform/view/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/platform/view/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-assets": {
+      "projectType": "library",
+      "root": "libs/shared/assets",
+      "sourceRoot": "libs/shared/assets/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/assets/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/assets/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-content": {
+      "projectType": "library",
+      "root": "libs/shared/content",
+      "sourceRoot": "libs/shared/content/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/content/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/content/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-debug": {
+      "projectType": "library",
+      "root": "libs/shared/debug",
+      "sourceRoot": "libs/shared/debug/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/debug/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/debug/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-environments": {
+      "projectType": "library",
+      "root": "libs/shared/environments",
+      "sourceRoot": "libs/shared/environments/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/environments/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/environments/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-error-handler": {
+      "projectType": "library",
+      "root": "libs/shared/error-handler",
+      "sourceRoot": "libs/shared/error-handler/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/error-handler/src/**/*.ts",
+              "libs/shared/error-handler/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/shared/error-handler"
+          ],
+          "options": {
+            "jestConfig": "libs/shared/error-handler/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-exceptions-exceptions": {
+      "root": "libs/shared/exceptions/exceptions",
+      "sourceRoot": "libs/shared/exceptions/exceptions/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/exceptions/exceptions/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/exceptions/exceptions/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-exceptions-filters": {
+      "root": "libs/shared/exceptions/filters",
+      "sourceRoot": "libs/shared/exceptions/filters/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/shared/exceptions/filters/tsconfig.lib.json",
+              "libs/shared/exceptions/filters/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/exceptions/filters/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/exceptions/filters/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-icons": {
+      "projectType": "library",
+      "root": "libs/shared/icons",
+      "sourceRoot": "libs/shared/icons/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/icons/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/icons/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-nats-client": {
+      "root": "libs/shared/nats-client",
+      "sourceRoot": "libs/shared/nats-client/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/nats-client/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/nats-client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-pwa": {
+      "projectType": "library",
+      "root": "libs/shared/pwa",
+      "sourceRoot": "libs/shared/pwa/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/pwa/src/**/*.ts",
+              "libs/shared/pwa/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/shared/pwa"
+          ],
+          "options": {
+            "jestConfig": "libs/shared/pwa/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-services": {
+      "projectType": "library",
+      "root": "libs/shared/services",
+      "sourceRoot": "libs/shared/services/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/services/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/services/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "shared-storage": {
+      "root": "libs/shared/storage",
+      "sourceRoot": "libs/shared/storage/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/storage/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/shared/storage"
+          ],
+          "options": {
+            "jestConfig": "libs/shared/storage/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-styles": {
+      "projectType": "library",
+      "root": "libs/shared/styles",
+      "sourceRoot": "libs/shared/styles/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/styles/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/styles/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-ui": {
+      "projectType": "library",
+      "root": "libs/shared/ui",
+      "sourceRoot": "libs/shared/ui/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/ui/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-utils-routes": {
+      "projectType": "library",
+      "root": "libs/shared/utils/routes",
+      "sourceRoot": "libs/shared/utils/routes/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/utils/routes/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/utils/routes/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -1096,8 +1908,12 @@
               "apps/simulators/src/browserconfig.xml",
               "apps/simulators/src/sitemap.xml"
             ],
-            "styles": ["libs/shared/styles/src/index.scss"],
-            "scripts": ["node_modules/marked/lib/marked.js"],
+            "styles": [
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": [
+              "node_modules/marked/lib/marked.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "libs/shared/styles/src/lib",
@@ -1175,32 +1991,6 @@
         }
       }
     },
-    "simulators-e2e": {
-      "root": "apps/simulators-e2e",
-      "sourceRoot": "apps/simulators-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/simulators-e2e/cypress.json",
-            "tsConfig": "apps/simulators-e2e/tsconfig.e2e.json",
-            "devServerTarget": "simulators:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "simulators:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/simulators-e2e/**/*.ts"]
-          }
-        }
-      }
-    },
     "simulators-api": {
       "root": "apps/simulators-api",
       "sourceRoot": "apps/simulators-api/src",
@@ -1214,7 +2004,9 @@
             "outputPath": "dist/apps/simulators-api",
             "main": "apps/simulators-api/src/main.ts",
             "tsConfig": "apps/simulators-api/tsconfig.app.json",
-            "assets": ["apps/simulators-api/src/assets"]
+            "assets": [
+              "apps/simulators-api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -1239,7 +2031,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/simulators-api/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/simulators-api/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1260,7 +2054,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/simulators/api-models/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/simulators/api-models/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -1269,221 +2065,6 @@
             "jestConfig": "libs/simulators/api-models/jest.config.js",
             "passWithNoTests": true
           }
-        }
-      }
-    },
-    "shared-environments": {
-      "projectType": "library",
-      "root": "libs/shared/environments",
-      "sourceRoot": "libs/shared/environments/src",
-      "prefix": "biosimulations",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/environments/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/environments/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
-    "dispatch-api-models": {
-      "root": "libs/dispatch/api-models",
-      "sourceRoot": "libs/dispatch/api-models/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/dispatch/api-models/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/dispatch/api-models/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "mail-service": {
-      "root": "apps/mail-service",
-      "sourceRoot": "apps/mail-service/src",
-      "projectType": "application",
-      "prefix": "mail-service",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/mail-service",
-            "main": "apps/mail-service/src/main.ts",
-            "tsConfig": "apps/mail-service/tsconfig.app.json",
-            "assets": ["apps/mail-service/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/mail-service/src/environments/environment.ts",
-                  "with": "apps/mail-service/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "mail-service:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/mail-service/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/mail-service/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "ontology-api": {
-      "root": "apps/ontology-api",
-      "sourceRoot": "apps/ontology-api/src",
-      "projectType": "application",
-      "prefix": "ontology-api",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/ontology-api",
-            "main": "apps/ontology-api/src/main.ts",
-            "tsConfig": "apps/ontology-api/tsconfig.app.json",
-            "assets": ["apps/ontology-api/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/ontology-api/src/environments/environment.ts",
-                  "with": "apps/ontology-api/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "ontology-api:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/ontology-api/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/ontology-api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "ontology-sources": {
-      "root": "libs/ontology/sources",
-      "sourceRoot": "libs/ontology/sources/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/ontology/sources/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/ontology/sources/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "ontology-ontologies": {
-      "root": "libs/ontology/ontologies",
-      "sourceRoot": "libs/ontology/ontologies/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/ontology/ontologies/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/ontology/ontologies/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "shared-utils-routes": {
-      "projectType": "library",
-      "root": "libs/shared/utils/routes",
-      "sourceRoot": "libs/shared/utils/routes/src",
-      "prefix": "biosimulations",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/utils/routes/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/utils/routes/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
         }
       }
     },
@@ -1516,455 +2097,30 @@
         }
       }
     },
-    "datamodel-database": {
-      "root": "libs/datamodel/database",
-      "sourceRoot": "libs/datamodel/database/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "libs/datamodel/database/tsconfig.lib.json",
-              "libs/datamodel/database/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/datamodel/database/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/datamodel/database/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "datamodel-api": {
-      "root": "libs/datamodel/api",
-      "sourceRoot": "libs/datamodel/api/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/datamodel/api/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/datamodel/api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "datamodel-common": {
-      "root": "libs/datamodel/common",
-      "sourceRoot": "libs/datamodel/common/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/datamodel/common/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/datamodel/common/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "messages-messages": {
-      "root": "libs/messages/messages",
-      "sourceRoot": "libs/messages/messages/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/messages/messages/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/messages/messages/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "shared-exceptions-filters": {
-      "root": "libs/shared/exceptions/filters",
-      "sourceRoot": "libs/shared/exceptions/filters/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "libs/shared/exceptions/filters/tsconfig.lib.json",
-              "libs/shared/exceptions/filters/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/shared/exceptions/filters/**/*"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/exceptions/filters/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "shared-exceptions-exceptions": {
-      "root": "libs/shared/exceptions/exceptions",
-      "sourceRoot": "libs/shared/exceptions/exceptions/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/exceptions/exceptions/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/exceptions/exceptions/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "mail-service-client": {
-      "root": "libs/mail-service/client",
-      "sourceRoot": "libs/mail-service/client/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/mail-service/client/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/mail-service/client/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "dispatch-nest-client": {
-      "root": "libs/dispatch/nest-client",
-      "sourceRoot": "libs/dispatch/nest-client/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/dispatch/nest-client/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/dispatch/nest-client/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "shared-nats-client": {
-      "root": "libs/shared/nats-client",
-      "sourceRoot": "libs/shared/nats-client/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/nats-client/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/nats-client/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "auth-client": {
-      "root": "libs/auth/client",
-      "sourceRoot": "libs/auth/client/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/auth/client/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/auth/client"],
-          "options": {
-            "jestConfig": "libs/auth/client/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "account-management": {
-      "root": "libs/account/management",
-      "sourceRoot": "libs/account/management/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/account/management/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/account/management"],
-          "options": {
-            "jestConfig": "libs/account/management/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "shared-pwa": {
-      "projectType": "library",
-      "root": "libs/shared/pwa",
-      "sourceRoot": "libs/shared/pwa/src",
-      "prefix": "biosimulations",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/shared/pwa/src/**/*.ts",
-              "libs/shared/pwa/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/shared/pwa"],
-          "options": {
-            "jestConfig": "libs/shared/pwa/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "shared-storage": {
-      "root": "libs/shared/storage",
-      "sourceRoot": "libs/shared/storage/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/storage/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/shared/storage"],
-          "options": {
-            "jestConfig": "libs/shared/storage/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "shared-error-handler": {
-      "projectType": "library",
-      "root": "libs/shared/error-handler",
-      "sourceRoot": "libs/shared/error-handler/src",
-      "prefix": "biosimulations",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/shared/error-handler/src/**/*.ts",
-              "libs/shared/error-handler/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/shared/error-handler"],
-          "options": {
-            "jestConfig": "libs/shared/error-handler/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "combine-service": {
+    "simulators-e2e": {
+      "root": "apps/simulators-e2e",
+      "sourceRoot": "apps/simulators-e2e/src",
       "projectType": "application",
-      "root": "apps/combine-service",
-      "sourceRoot": "apps/combine-service/src",
       "architect": {
-        "build": {
-          "builder": "@nx-python/nx-python:build",
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
           "options": {
-            "outputPath": "dist/apps/combine-service",
-            "main": "apps/combine-service/src/__main__.py"
+            "cypressConfig": "apps/simulators-e2e/cypress.json",
+            "tsConfig": "apps/simulators-e2e/tsconfig.e2e.json",
+            "devServerTarget": "simulators:serve"
           },
           "configurations": {
-            "production": {}
-          }
-        },
-        "serve": {
-          "builder": "@nx-python/nx-python:serve",
-          "options": {
-            "main": "-m src",
-            "cwd": "apps/combine-service"
-          }
-        },
-        "test": {
-          "builder": "@nx-python/nx-python:test",
-          "options": {}
-        },
-        "lint": {
-          "builder": "@nx-python/nx-python:lint",
-          "options": {}
-        }
-      }
-    },
-    "datamodel-utils": {
-      "root": "libs/datamodel/utils",
-      "sourceRoot": "libs/datamodel/utils/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/datamodel/utils/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/datamodel/utils"],
-          "options": {
-            "jestConfig": "libs/datamodel/utils/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "hsds-client": {
-      "root": "libs/hsds/client",
-      "sourceRoot": "libs/hsds/client/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/hsds/client/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/hsds/client"],
-          "options": {
-            "jestConfig": "libs/hsds/client/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "hdf5-api-client": {
-      "root": "libs/hdf5/api-client",
-      "sourceRoot": "libs/hdf5/api-client/src",
-      "projectType": "library",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/libs/hdf5/api-client",
-            "tsConfig": "libs/hdf5/api-client/tsconfig.lib.json",
-            "packageJson": "libs/hdf5/api-client/package.json",
-            "main": "libs/hdf5/api-client/src/index.ts",
-            "assets": ["libs/hdf5/api-client/*.md"]
+            "production": {
+              "devServerTarget": "simulators:serve:production"
+            }
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/hdf5/api-client/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/hdf5/api-client"],
-          "options": {
-            "jestConfig": "libs/hdf5/api-client/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "combine-api-client": {
-      "root": "libs/combine/api-client",
-      "sourceRoot": "libs/combine/api-client/src",
-      "projectType": "library",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/libs/combine/api-client",
-            "tsConfig": "libs/combine/api-client/tsconfig.lib.json",
-            "packageJson": "libs/combine/api-client/package.json",
-            "main": "libs/combine/api-client/src/index.ts",
-            "assets": ["libs/combine/api-client/*.md"]
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/combine/api-client/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/combine/api-client"],
-          "options": {
-            "jestConfig": "libs/combine/api-client/jest.config.js",
-            "passWithNoTests": true
+            "lintFilePatterns": [
+              "apps/simulators-e2e/**/*.ts"
+            ]
           }
         }
       }
