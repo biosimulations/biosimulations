@@ -691,7 +691,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 ├─ biosimulations@2.4.0
 │  ├─ licenses: UNLICENSED
 │  ├─ private: true
-│  └─ licenseFile: /home/runner/work/Biosimulations/Biosimulations/README.md
+│  └─ licenseFile: /home/runner/work/Biosimulations/Biosimulations/LICENSE.md
 ├─ bl@2.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rvagg/bl
