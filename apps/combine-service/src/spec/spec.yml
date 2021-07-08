@@ -14,9 +14,9 @@ info:
     name: MIT License
     url: https://opensource.org/licenses/MIT
 servers:
-- url: combine.api.biosimulations.dev
+- url: https://combine.api.biosimulations.dev
   description: Development Server
-- url: combine.api.biosimulations.org
+- url: https://combine.api.biosimulations.org
   description: Production Server
 paths:
   /sed-ml/get-parameters-variables-for-simulation:
@@ -417,6 +417,9 @@ paths:
                       master: true
                   files:
                   - <FILE>
+            encoding:
+              specs:
+                contentType: application/json
         required: true
       tags:
       - COMBINE

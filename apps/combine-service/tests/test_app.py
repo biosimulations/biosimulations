@@ -423,7 +423,7 @@ class HandlersTestCase(unittest.TestCase):
             ('specs', json.dumps(archive_specs)),
             ('files', fid_0),
             ('files', fid_1),
-            ('download', True)
+            ('download', True),
         ])
         with app.app.app.test_client() as client:
             archive_filename = os.path.join(self.temp_dirname, 'archive.omex')
