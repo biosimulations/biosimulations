@@ -20,11 +20,9 @@ export class BiosimulationsExceptionFilter implements ExceptionFilter {
 
     status = exception.getStatus();
     resbody = exception.getError();
+    resbody.meta = resbody.meta || {};
+    (resbody.meta['time'] = Date.now()), (resbody.meta['url'] = request.url);
 
-    resbody.meta = {
-      time: Date.now(),
-      url: request.url,
-    };
     const responseError: ErrorResponseDocument = { error: [resbody] };
     this.logger.log(responseError);
     response.status(status).json(responseError);
