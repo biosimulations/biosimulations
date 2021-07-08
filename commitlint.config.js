@@ -29,6 +29,7 @@ module.exports = {
         'storage',
         'release',
         'combine-service',
+        'shared-exceptions',
       ],
     ],
   },
