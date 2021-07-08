@@ -51,7 +51,7 @@ export class BiosimulationsException extends Error {
       error.source = source;
     }
     if (this.meta) {
-      error.meta = { meta: this.meta };
+      error.meta = this.meta;
     }
     return error;
   }
