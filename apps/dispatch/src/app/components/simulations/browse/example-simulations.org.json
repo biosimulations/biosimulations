@@ -42,6 +42,20 @@
     "projectSize": 10109
   },
   {
+    "id": "60e66981ca37e33010074b0f",
+    "name": "Chaouiya et al. BMC Systems Biology 2013: EGF and TNF\u03b1 signaling (SBML-qual, synchronous updating, GINsim)",
+    "simulator": "ginsim",
+    "simulatorVersion": "3.0.0b",
+    "cpus": 1,
+    "memory": 8,
+    "maxTime": 20,
+    "submittedLocally": false,
+    "status": "CREATED",
+    "submitted": "2021-07-08T02:57:08.149Z",
+    "updated": "2021-07-08T02:57:08.149Z",
+    "projectSize": 10109
+  },
+  {
     "id": "60dcfdc7bc2d03c921d4d20f",
     "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, CVODE, PySCeS)",
     "simulator": "pysces",
