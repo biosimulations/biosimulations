@@ -102,7 +102,7 @@ const modelFormatMetaData: {
     sedUrn: 'urn:sedml:language:lems',
     combineSpecUrl: 'http://purl.org/NET/mediatypes/application/lems+xml',
     extension: 'xml',
-    enabled: false,
+    enabled: true,
   },
   format_9002: {
     name: 'MorpheusML',
@@ -994,7 +994,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       const simulationTypes: OntologyTerm[] = [];
       if (
         ['format_2585'].includes(formatEdamId) &&
-        ['SBO_0000293', 'SBO_0000624'].includes(frameworkSboId)
+        ['SBO_0000293', 'SBO_0000547', 'SBO_0000624'].includes(frameworkSboId)
       ) {
         simulationTypeIds.add(SimulationType.SedSteadyStateSimulation);
         simulationTypes.push({
@@ -1131,22 +1131,29 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         );
       });
 
+      const possibleSteadyStateKisaoIds: string[] = ['KISAO_0000408', 'KISAO_0000659', 'KISAO_0000662', 'KISAO_0000663'];
       if (formatEdamId === 'format_2585') {
-        if (['SBO_0000293', 'SBO_0000295'].includes(frameworkSboId)) {
+        if (['SBO_0000293', 'SBO_0000295', 'SBO_0000547'].includes(frameworkSboId)) {
           if (
             simulationType === SimulationType.SedUniformTimeCourseSimulation
           ) {
-            const hasNewtonType = kisaoIds.has('KISAO_0000408');
-            if (hasNewtonType) {
-              kisaoIds.delete('KISAO_0000408');
+            for (const kisaoId of possibleSteadyStateKisaoIds) {
+              if (kisaoIds.has(kisaoId)) {
+                kisaoIds.delete(kisaoId);
+              }
             }
           } else if (
             simulationType === SimulationType.SedSteadyStateSimulation
           ) {
-            const hasNewtonType = kisaoIds.has('KISAO_0000408');
+            const implementedKisaoIds = new Set<string>();
+            for (const kisaoId of possibleSteadyStateKisaoIds) {
+              if (kisaoIds.has(kisaoId)) {
+                implementedKisaoIds.add(kisaoId);
+              }
+            }
             kisaoIds.clear();
-            if (hasNewtonType) {
-              kisaoIds.add('KISAO_0000408');
+            for (const kisaoId of implementedKisaoIds) {
+              kisaoIds.add(kisaoId);
             }
           }
         }
