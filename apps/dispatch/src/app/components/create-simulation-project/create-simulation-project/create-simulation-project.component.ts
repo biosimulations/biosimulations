@@ -1621,10 +1621,6 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     if (this.formGroup.value.modelLocationType === LocationType.file) {
       formData.append('files', this.formGroup.value.modelLocationDetails);
     }
-    if (postCreateAction === 'download') {
-      formData.append('download', 'true');
-      options['responseType'] = 'arraybuffer';
-    }
 
     const url = `${urls.combineApi}combine/create`;
     const projectOrUrl: Observable<string | any> = this.http
