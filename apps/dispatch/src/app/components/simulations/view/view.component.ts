@@ -431,62 +431,64 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.metadata$ = this.combineService
       .getCombineArchiveMetadata(archiveUrl)
       .pipe(
-        map((elMetadatas: CombineArchiveElementMetadata[] | undefined):
-          | Metadata
-          | undefined => {
-          if (elMetadatas === undefined) {
-            return undefined;
-          }
+        map(
+          (
+            elMetadatas: CombineArchiveElementMetadata[] | undefined,
+          ): Metadata | undefined => {
+            if (elMetadatas === undefined) {
+              return undefined;
+            }
 
-          elMetadatas.forEach(
-            (elMetadata: CombineArchiveElementMetadata): void => {
-              elMetadata.thumbnails = elMetadata.thumbnails.map(
-                (thumbnail: string): string => {
-                  return `${urls.combineApi}combine/file?url=${encodeURI(
-                    archiveUrl,
-                  )}&location=${encodeURI(thumbnail)}`;
-                },
-              );
+            elMetadatas.forEach(
+              (elMetadata: CombineArchiveElementMetadata): void => {
+                elMetadata.thumbnails = elMetadata.thumbnails.map(
+                  (thumbnail: string): string => {
+                    return `${urls.combineApi}combine/file?url=${encodeURI(
+                      archiveUrl,
+                    )}&location=${encodeURI(thumbnail)}`;
+                  },
+                );
 
-              if (elMetadata.created) {
-                const d = new Date(elMetadata.created);
-                elMetadata.created =
-                  d.getFullYear() +
-                  '-' +
-                  ('0' + (d.getMonth() + 1)).slice(-2) +
-                  '-' +
-                  ('0' + d.getDate()).slice(-2);
-              }
-              elMetadata.modified = elMetadata.modified.map(
-                (date: string): string => {
-                  const d = new Date(date);
-                  return (
+                if (elMetadata.created) {
+                  const d = new Date(elMetadata.created);
+                  elMetadata.created =
                     d.getFullYear() +
                     '-' +
                     ('0' + (d.getMonth() + 1)).slice(-2) +
                     '-' +
-                    ('0' + d.getDate()).slice(-2)
-                  );
-                },
-              );
-              elMetadata.modified.sort();
-              elMetadata.modified.reverse();
-            },
-          );
+                    ('0' + d.getDate()).slice(-2);
+                }
+                elMetadata.modified = elMetadata.modified.map(
+                  (date: string): string => {
+                    const d = new Date(date);
+                    return (
+                      d.getFullYear() +
+                      '-' +
+                      ('0' + (d.getMonth() + 1)).slice(-2) +
+                      '-' +
+                      ('0' + d.getDate()).slice(-2)
+                    );
+                  },
+                );
+                elMetadata.modified.sort();
+                elMetadata.modified.reverse();
+              },
+            );
 
-          return {
-            archive: elMetadatas.filter(
-              (elMetadata: CombineArchiveElementMetadata): boolean => {
-                return elMetadata.uri === '.';
-              },
-            )?.[0],
-            other: elMetadatas.filter(
-              (elMetadata: CombineArchiveElementMetadata): boolean => {
-                return elMetadata.uri !== '.';
-              },
-            ),
-          };
-        }),
+            return {
+              archive: elMetadatas.filter(
+                (elMetadata: CombineArchiveElementMetadata): boolean => {
+                  return elMetadata.uri === '.';
+                },
+              )?.[0],
+              other: elMetadatas.filter(
+                (elMetadata: CombineArchiveElementMetadata): boolean => {
+                  return elMetadata.uri !== '.';
+                },
+              ),
+            };
+          },
+        ),
       );
     this.metadataLoaded$ = this.metadata$.pipe(
       map((): boolean => {
@@ -921,10 +923,11 @@ export class ViewComponent implements OnInit, OnDestroy {
 
           const vegaSpecUrlDataSet = vegaSpecDataSet as VegaUrlData;
 
-          vegaSpecUrlDataSet.url = this.visualizationService.getReportResultsUrl(
-            this.uuid,
-            value as string,
-          );
+          vegaSpecUrlDataSet.url =
+            this.visualizationService.getReportResultsUrl(
+              this.uuid,
+              value as string,
+            );
           vegaSpecUrlDataSet.format = {
             type: 'json',
             property: 'data',

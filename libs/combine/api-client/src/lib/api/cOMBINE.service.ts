@@ -72,9 +72,8 @@ export class COMBINEService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json', 'application/zip'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -163,9 +162,8 @@ export class COMBINEService {
       'application/octet-stream',
       'application/json',
     ];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -201,9 +199,8 @@ export class COMBINEService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -267,9 +264,8 @@ export class COMBINEService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -331,9 +327,8 @@ export class COMBINEService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }
@@ -395,9 +390,8 @@ export class COMBINEService {
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
-    const httpHeaderAcceptSelected:
-      | string
-      | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
       headers['Accept'] = httpHeaderAcceptSelected;
     }

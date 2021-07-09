@@ -63,9 +63,8 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 }
 
-export const AlgorithmParameterSchema = SchemaFactory.createForClass(
-  AlgorithmParameter,
-);
+export const AlgorithmParameterSchema =
+  SchemaFactory.createForClass(AlgorithmParameter);
 
 AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
   const type: ValueType = doc.get('type');

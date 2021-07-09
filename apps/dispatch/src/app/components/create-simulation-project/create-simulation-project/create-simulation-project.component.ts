@@ -284,9 +284,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   projectBeingCreated = false;
 
   private subscriptions: Subscription[] = [];
-  private modelParametersAndVariablesSubscription:
-    | Subscription
-    | undefined = undefined;
+  private modelParametersAndVariablesSubscription: Subscription | undefined =
+    undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -347,8 +346,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       .simulationType as FormControl;
     const uniformTimeCourseSimulationParametersControl = this.formGroup.controls
       .uniformTimeCourseSimulationParameters as FormGroup;
-    const uniformTimeCourseSimulationStepControl = uniformTimeCourseSimulationParametersControl
-      .controls.step as FormControl;
+    const uniformTimeCourseSimulationStepControl =
+      uniformTimeCourseSimulationParametersControl.controls.step as FormControl;
     uniformTimeCourseSimulationStepControl.disable();
     const simulationAlgorithmControl = this.formGroup.controls
       .simulationAlgorithm as FormControl;
@@ -594,9 +593,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
             modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.forEach(
               (simAlgId: string): void => {
-                const policy = this.algSubstitutions?.[
-                  simAlgId + '/' + algKisaoId
-                ];
+                const policy =
+                  this.algSubstitutions?.[simAlgId + '/' + algKisaoId];
                 if (policy) {
                   if (!(simulator.id in simCompatibilities)) {
                     simCompatibilities[simulator.id] = {
@@ -774,28 +772,26 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
     const url = `${urls.combineApi}sed-ml/get-parameters-variables-for-simulation`;
     const sedDoc = this.http.post<any>(url, formData).pipe(
-      catchError(
-        (error: HttpErrorResponse): Observable<null> => {
-          if (!environment.production) {
-            console.error(error);
-          }
+      catchError((error: HttpErrorResponse): Observable<null> => {
+        if (!environment.production) {
+          console.error(error);
+        }
 
-          let msg =
-            'Sorry! We were unable to get the dependent parameters and independent variables of your model. ' +
-            'This feature is only currently available for models encoded in BNGL, CellML, SBML, SBML-fbc, ' +
-            'SBML-qual, and Smoldyn.';
-          if (modelLocationType === LocationType.url) {
-            msg += ` Please check that ${modelLocationDetails} is an accessible URL.`;
-          }
+        let msg =
+          'Sorry! We were unable to get the dependent parameters and independent variables of your model. ' +
+          'This feature is only currently available for models encoded in BNGL, CellML, SBML, SBML-fbc, ' +
+          'SBML-qual, and Smoldyn.';
+        if (modelLocationType === LocationType.url) {
+          msg += ` Please check that ${modelLocationDetails} is an accessible URL.`;
+        }
 
-          this.snackBar.open(msg, undefined, {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-          });
-          return of<null>(null);
-        },
-      ),
+        this.snackBar.open(msg, undefined, {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+        return of<null>(null);
+      }),
     );
     const modelParametersAndVariablesSubscription = sedDoc.subscribe(
       (sedDoc: any): void => {
@@ -913,7 +909,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         modelVariablesArray.setValue(varVals);
       },
     );
-    this.modelParametersAndVariablesSubscription = modelParametersAndVariablesSubscription;
+    this.modelParametersAndVariablesSubscription =
+      modelParametersAndVariablesSubscription;
     this.subscriptions.push(modelParametersAndVariablesSubscription);
   }
 
@@ -1419,7 +1416,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           );
         }
 
-        const algSubstitutions = observerableValues[0] as AlgorithmSubstitution[];
+        const algSubstitutions =
+          observerableValues[0] as AlgorithmSubstitution[];
         const simulatorsData = observerableValues[1] as SimulatorsData;
         const queryParams = observerableValues[2] as Params;
 
@@ -1452,24 +1450,20 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         );
         this.allModelingFrameworks = Object.values(
           simulatorsData.modelingFrameworks,
-        ).map(
-          (framework: any): OntologyTerm => {
-            return {
-              id: framework.id,
-              name: framework.name,
-            };
-          },
-        );
+        ).map((framework: any): OntologyTerm => {
+          return {
+            id: framework.id,
+            name: framework.name,
+          };
+        });
         this.allSimulationAlgorithms = Object.values(
           simulatorsData.simulationAlgorithms,
-        ).map(
-          (algorithm: any): OntologyTerm => {
-            return {
-              id: algorithm.id,
-              name: algorithm.name,
-            };
-          },
-        );
+        ).map((algorithm: any): OntologyTerm => {
+          return {
+            id: algorithm.id,
+            name: algorithm.name,
+          };
+        });
 
         this.allModelingFrameworks = this.allModelingFrameworks.filter(
           (framework: OntologyTerm): boolean => {
@@ -1633,21 +1627,19 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const projectOrUrl: Observable<string | any> = this.http
       .post<string>(url, formData, options)
       .pipe(
-        catchError(
-          (error: HttpErrorResponse): Observable<string> => {
-            console.error(error);
-            this.snackBar.open(
-              'Sorry! We were unable to generate your COMBINE/OMEX archive.',
-              undefined,
-              {
-                duration: 5000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom',
-              },
-            );
-            return of<string>('');
-          },
-        ),
+        catchError((error: HttpErrorResponse): Observable<string> => {
+          console.error(error);
+          this.snackBar.open(
+            'Sorry! We were unable to generate your COMBINE/OMEX archive.',
+            undefined,
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            },
+          );
+          return of<string>('');
+        }),
       );
     const projectOrUrlSub = projectOrUrl.subscribe(
       (projectOrUrl: string | any): void => {
@@ -1884,8 +1876,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     if (postCreateAction === 'simulate') {
       const modelFormat: string = this.formGroup.value.modelFormat;
       const modelingFramework: string = this.formGroup.value.modelingFramework;
-      const simulationAlgorithm: string = this.formGroup.value
-        .simulationAlgorithm;
+      const simulationAlgorithm: string =
+        this.formGroup.value.simulationAlgorithm;
 
       this.router.navigate(['/run'], {
         queryParams: {
@@ -1913,7 +1905,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     modelNamespaces: this.formSectionOpen.modelNamespaces.asObservable(),
     modelChanges: this.formSectionOpen.modelChanges.asObservable(),
     modelVariables: this.formSectionOpen.modelVariables.asObservable(),
-    simulationAlgorithmParameters: this.formSectionOpen.simulationAlgorithmParameters.asObservable(),
+    simulationAlgorithmParameters:
+      this.formSectionOpen.simulationAlgorithmParameters.asObservable(),
   };
   toggleFormSection(
     name:

@@ -5,10 +5,11 @@ import { SshConnectionConfig } from '../../types/ssh-connection-config/ssh-conne
 
 @Injectable()
 export class SshService {
-  private sshConfig: SshConnectionConfig = this.configService.get<SshConnectionConfig>(
-    'hpc.ssh',
-    new SshConnectionConfig('', 0, '', ''),
-  );
+  private sshConfig: SshConnectionConfig =
+    this.configService.get<SshConnectionConfig>(
+      'hpc.ssh',
+      new SshConnectionConfig('', 0, '', ''),
+    );
   private sftpConfig: SshConnectionConfig = this.configService.get(
     'hpc.sftp',
     new SshConnectionConfig('', 0, '', ''),

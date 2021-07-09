@@ -55,9 +55,8 @@ const EBI_KISAO_BASE_URL =
 })
 export class SuggestSimulatorComponent implements OnInit {
   algorithms: Observable<AlgorithmData[]> | undefined = undefined;
-  private algorithmsMap:
-    | { [id: string]: AlgorithmData }
-    | undefined = undefined;
+  private algorithmsMap: { [id: string]: AlgorithmData } | undefined =
+    undefined;
 
   formGroup: FormGroup;
   selectedAlgorithm: Algorithm | undefined = undefined;
@@ -217,9 +216,8 @@ export class SuggestSimulatorComponent implements OnInit {
                   subPolicy.level <
                   algorithmsMap[altAlg.id].simulators[simulator].maxPolicy.level
                 ) {
-                  algorithmsMap[altAlg.id].simulators[
-                    simulator
-                  ].maxPolicy = subPolicy;
+                  algorithmsMap[altAlg.id].simulators[simulator].maxPolicy =
+                    subPolicy;
                   algorithmsMap[altAlg.id].simulators[
                     simulator
                   ].simulatorAlgorithms.algorithms = {};
@@ -293,9 +291,10 @@ export class SuggestSimulatorComponent implements OnInit {
                 simulatorPolicices[
                   simulatorPolicyAlgs.maxPolicy.level
                 ].simulators.push(simulatorPolicyAlgs.simulatorAlgorithms);
-                simulatorPolicyAlgs.simulatorAlgorithms.algorithms = Object.values(
-                  simulatorPolicyAlgs.simulatorAlgorithms.algorithms,
-                );
+                simulatorPolicyAlgs.simulatorAlgorithms.algorithms =
+                  Object.values(
+                    simulatorPolicyAlgs.simulatorAlgorithms.algorithms,
+                  );
               },
             );
 

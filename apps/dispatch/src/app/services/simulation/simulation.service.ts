@@ -26,9 +26,8 @@ export class SimulationService {
   private simulationsSubject = new BehaviorSubject<Simulation[]>(
     this.simulations,
   );
-  public simulations$: Observable<
-    Simulation[]
-  > = this.simulationsSubject.asObservable();
+  public simulations$: Observable<Simulation[]> =
+    this.simulationsSubject.asObservable();
   private storageInitialized = false;
   private simulationsAddedBeforeStorageInitialized: Simulation[] = [];
 
@@ -138,8 +137,8 @@ export class SimulationService {
     if (this.storageInitialized) {
       newSimulations.forEach((newSimulation: Simulation): void => {
         if (newSimulation.id in this.simulationsMap) {
-          const submittedLocally = this.simulationsMap[newSimulation.id]
-            ?.submittedLocally;
+          const submittedLocally =
+            this.simulationsMap[newSimulation.id]?.submittedLocally;
           Object.assign(this.simulationsMap[newSimulation.id], newSimulation);
           this.simulationsMap[newSimulation.id].submittedLocally =
             submittedLocally || false;
@@ -211,7 +210,7 @@ export class SimulationService {
             email: dispatchSimulation.email || undefined,
             id: dispatchSimulation.id,
             runtime: dispatchSimulation?.runtime || undefined,
-            status: (dispatchSimulation.status as unknown) as SimulationRunStatus,
+            status: dispatchSimulation.status as unknown as SimulationRunStatus,
             submitted: new Date(dispatchSimulation.submitted),
             submittedLocally: false,
             simulator: dispatchSimulation.simulator,

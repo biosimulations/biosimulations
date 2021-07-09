@@ -124,9 +124,8 @@ export class RowService {
       ) {
         return {
           routerLink: routerLinkFragment.slice(0, -1),
-          fragment: routerLinkFragment[routerLinkFragment.length - 1].substring(
-            1,
-          ),
+          fragment:
+            routerLinkFragment[routerLinkFragment.length - 1].substring(1),
         };
       } else {
         return {

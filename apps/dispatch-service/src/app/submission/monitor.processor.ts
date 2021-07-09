@@ -29,9 +29,8 @@ export class MonitorProcessor {
     const simId = data.simId;
     const transpose = data.transpose;
     const DELAY = 5000;
-    const jobStatus: SimulationRunStatus | null = await this.hpcService.getJobStatus(
-      slurmJobId,
-    );
+    const jobStatus: SimulationRunStatus | null =
+      await this.hpcService.getJobStatus(slurmJobId);
 
     const message = `Checking status for job with id ${slurmJobId} for simulation ${simId}: Status is ${jobStatus}`;
     this.logger.debug(message);

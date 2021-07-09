@@ -233,15 +233,13 @@ export class SimulationLogComponent {
     this.sedDocumentStatusCounts = this.convertStatusCountsMapToArray(
       sedDocumentStatusCountsMap,
     );
-    this.taskStatusCounts = this.convertStatusCountsMapToArray(
-      taskStatusCountsMap,
-    );
+    this.taskStatusCounts =
+      this.convertStatusCountsMapToArray(taskStatusCountsMap);
     this.reportStatusCounts = this.convertStatusCountsMapToArray(
       reportStatusCountsMap,
     );
-    this.plotStatusCounts = this.convertStatusCountsMapToArray(
-      plotStatusCountsMap,
-    );
+    this.plotStatusCounts =
+      this.convertStatusCountsMapToArray(plotStatusCountsMap);
 
     this.structuredLogLevel = level;
   }

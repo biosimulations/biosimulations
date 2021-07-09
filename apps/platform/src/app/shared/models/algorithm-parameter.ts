@@ -3,7 +3,8 @@ import { JsonSerializable } from '@biosimulations/datamodel/utils';
 import { ValueType } from '@biosimulations/datamodel/common';
 
 export class AlgorithmParameter
-  implements JsonSerializable<AlgorithmParameterDTO> {
+  implements JsonSerializable<AlgorithmParameterDTO>
+{
   name: string | null;
   id: string;
   value: string | null;

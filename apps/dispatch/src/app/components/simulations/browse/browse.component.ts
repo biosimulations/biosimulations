@@ -644,7 +644,8 @@ export class BrowseComponent implements OnInit {
         ? exampleSimulationsOrgJson
         : exampleSimulationsDevJson;
 
-    const exampleSimulations = (exampleSimulationsJson as unknown[]) as Simulation[];
+    const exampleSimulations =
+      exampleSimulationsJson as unknown[] as Simulation[];
     this.simulationService.storeExistingExternalSimulations(exampleSimulations);
     return exampleSimulations.length;
   }

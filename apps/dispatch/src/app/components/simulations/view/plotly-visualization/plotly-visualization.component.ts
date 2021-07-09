@@ -87,7 +87,8 @@ export class PlotlyVisualizationComponent {
   setLayout(): void {
     this.visible = this.hostElement.nativeElement.offsetParent != null;
     if (this.visible && this.layout) {
-      const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
+      const rect =
+        this.hostElement.nativeElement.parentElement.getBoundingClientRect();
       this.layout.width = rect.width;
       this.layout.height = rect.height;
     }

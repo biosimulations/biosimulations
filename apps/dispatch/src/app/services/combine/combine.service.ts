@@ -37,14 +37,12 @@ export class CombineService {
     return this.http
       .post<CombineArchive>(this.sedmlSpecsEndpoint, formData)
       .pipe(
-        catchError(
-          (error: HttpErrorResponse): Observable<undefined> => {
-            if (!environment.production) {
-              console.error(error);
-            }
-            return of<undefined>(undefined);
-          },
-        ),
+        catchError((error: HttpErrorResponse): Observable<undefined> => {
+          if (!environment.production) {
+            console.error(error);
+          }
+          return of<undefined>(undefined);
+        }),
       );
   }
 
@@ -64,14 +62,12 @@ export class CombineService {
         formData,
       )
       .pipe(
-        catchError(
-          (error: HttpErrorResponse): Observable<undefined> => {
-            if (!environment.production) {
-              console.error(error);
-            }
-            return of<undefined>(undefined);
-          },
-        ),
+        catchError((error: HttpErrorResponse): Observable<undefined> => {
+          if (!environment.production) {
+            console.error(error);
+          }
+          return of<undefined>(undefined);
+        }),
       );
   }
 
@@ -88,14 +84,12 @@ export class CombineService {
     return this.http
       .post<ValidationReport>(this.validateEndpoint, formData)
       .pipe(
-        catchError(
-          (error: HttpErrorResponse): Observable<undefined> => {
-            if (!environment.production) {
-              console.error(error);
-            }
-            return of<undefined>(undefined);
-          },
-        ),
+        catchError((error: HttpErrorResponse): Observable<undefined> => {
+          if (!environment.production) {
+            console.error(error);
+          }
+          return of<undefined>(undefined);
+        }),
       );
   }
 
@@ -109,14 +103,12 @@ export class CombineService {
         params: params,
       })
       .pipe(
-        catchError(
-          (error: HttpErrorResponse): Observable<undefined> => {
-            if (!environment.production) {
-              console.error(error);
-            }
-            return of<undefined>(undefined);
-          },
-        ),
+        catchError((error: HttpErrorResponse): Observable<undefined> => {
+          if (!environment.production) {
+            console.error(error);
+          }
+          return of<undefined>(undefined);
+        }),
       );
   }
 }

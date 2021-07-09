@@ -87,13 +87,16 @@ export class SimulationHDFService {
     const datasetIds = response.data.datasets || [];
 
     // List of attrbute ids for each dataset
-    const datasetAttributeIds: (keyof BiosimulationsDataAtributes)[][] = await Promise.all(
-      datasetIds.map((datasetId: string) =>
-        this.getDatasetAttributeIds(domain, datasetId),
-      ),
-    );
+    const datasetAttributeIds: (keyof BiosimulationsDataAtributes)[][] =
+      await Promise.all(
+        datasetIds.map((datasetId: string) =>
+          this.getDatasetAttributeIds(domain, datasetId),
+        ),
+      );
     const datasetAttributes = await Promise.all(
-      (await datasetAttributeIds).map(async (attributeIds, index) => {
+      (
+        await datasetAttributeIds
+      ).map(async (attributeIds, index) => {
         const attributes: BiosimulationsDataAtributes = {
           _type: '',
           uri: '',

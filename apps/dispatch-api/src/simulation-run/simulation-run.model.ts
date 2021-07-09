@@ -171,9 +171,8 @@ export type SimulationRunModelReturnType = Omit<
   SimulationRunModelType,
   '__v' | '_id' | 'file'
 > & { _id: never; __v: never };
-export const SimulationRunModelSchema = SchemaFactory.createForClass(
-  SimulationRunModel,
-);
+export const SimulationRunModelSchema =
+  SchemaFactory.createForClass(SimulationRunModel);
 SimulationRunModelSchema.set('timestamps', {
   createdAt: 'submitted',
   updatedAt: 'updated',

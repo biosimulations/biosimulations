@@ -31,7 +31,8 @@ export class VegaVisualizationComponent {
   render(): void {
     if (this.hostElement) {
       if (this._spec) {
-        const rect = this.hostElement.nativeElement.parentElement.getBoundingClientRect();
+        const rect =
+          this.hostElement.nativeElement.parentElement.getBoundingClientRect();
         const options = {
           width: Math.max(rect.width, 10),
           height: Math.max(rect.height, 10),

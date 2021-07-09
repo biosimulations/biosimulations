@@ -80,6 +80,7 @@ export namespace KisaoAlgorithmSubstitutionPolicy {
   };
   export type TypeEnum = 'KisaoAlgorithmSubstitutionPolicy';
   export const TypeEnum = {
-    KisaoAlgorithmSubstitutionPolicy: 'KisaoAlgorithmSubstitutionPolicy' as TypeEnum,
+    KisaoAlgorithmSubstitutionPolicy:
+      'KisaoAlgorithmSubstitutionPolicy' as TypeEnum,
   };
 }

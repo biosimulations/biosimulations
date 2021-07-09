@@ -99,9 +99,8 @@ export class TabPageComponent implements AfterViewInit, AfterViewChecked {
       params = new URLSearchParams(this.route.snapshot.fragment);
     }
     if (this.selectedTabIndex in this.iTabToUrlHashFragmentMap) {
-      const urlHashFragment: string = this.iTabToUrlHashFragmentMap[
-        this.selectedTabIndex
-      ];
+      const urlHashFragment: string =
+        this.iTabToUrlHashFragmentMap[this.selectedTabIndex];
       params.set('tab', urlHashFragment);
     } else if (params.has('tab')) {
       params.delete('tab');

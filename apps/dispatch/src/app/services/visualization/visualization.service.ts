@@ -47,63 +47,59 @@ export class VisualizationService {
           (result: SimulationRunResults): SimulationRunOutput[] =>
             result.outputs,
         ),
-        map(
-          (reports: SimulationRunOutput[]): CombineResults => {
-            const structureObject: any = {};
-            reports.forEach((report: SimulationRunOutput): void => {
-              const sedmlLocationReportId = report.outputId;
-              const sedmlLocation = sedmlLocationReportId
-                .split('/')
-                .reverse()
-                .slice(1)
-                .reverse()
-                .join('/');
-              const reportId = sedmlLocationReportId.split('/').reverse()[0];
+        map((reports: SimulationRunOutput[]): CombineResults => {
+          const structureObject: any = {};
+          reports.forEach((report: SimulationRunOutput): void => {
+            const sedmlLocationReportId = report.outputId;
+            const sedmlLocation = sedmlLocationReportId
+              .split('/')
+              .reverse()
+              .slice(1)
+              .reverse()
+              .join('/');
+            const reportId = sedmlLocationReportId.split('/').reverse()[0];
 
-              if (!structureObject?.[sedmlLocation]) {
-                structureObject[sedmlLocation] = {};
-              }
+            if (!structureObject?.[sedmlLocation]) {
+              structureObject[sedmlLocation] = {};
+            }
 
-              structureObject[sedmlLocation][reportId] = report.data.map(
-                (datum: SimulationRunOutputDatum): SedDatasetResults => {
-                  return {
-                    uri: sedmlLocation + '/' + reportId + '/' + datum.id,
-                    id: datum.id,
-                    location: sedmlLocation,
-                    reportId: reportId,
-                    label: datum.label,
-                    values: datum.values,
-                  };
-                },
-              );
-            });
-
-            const sedmlLocations = Object.keys(structureObject);
-            sedmlLocations.sort((a: string, b: string): number => {
-              return a.localeCompare(b, undefined, { numeric: true });
-            });
-            const structureArray = sedmlLocations.map(
-              (sedmlLocation: string): SedDocumentResults => {
-                const reportIds = Object.keys(structureObject[sedmlLocation]);
+            structureObject[sedmlLocation][reportId] = report.data.map(
+              (datum: SimulationRunOutputDatum): SedDatasetResults => {
                 return {
-                  uri: sedmlLocation,
+                  uri: sedmlLocation + '/' + reportId + '/' + datum.id,
+                  id: datum.id,
                   location: sedmlLocation,
-                  reports: reportIds.map(
-                    (reportId: string): SedReportResults => {
-                      const datasets = structureObject[sedmlLocation][reportId];
-                      return {
-                        uri: sedmlLocation + '/' + reportId,
-                        id: reportId,
-                        datasets: datasets,
-                      };
-                    },
-                  ),
+                  reportId: reportId,
+                  label: datum.label,
+                  values: datum.values,
                 };
               },
             );
-            return structureArray;
-          },
-        ),
+          });
+
+          const sedmlLocations = Object.keys(structureObject);
+          sedmlLocations.sort((a: string, b: string): number => {
+            return a.localeCompare(b, undefined, { numeric: true });
+          });
+          const structureArray = sedmlLocations.map(
+            (sedmlLocation: string): SedDocumentResults => {
+              const reportIds = Object.keys(structureObject[sedmlLocation]);
+              return {
+                uri: sedmlLocation,
+                location: sedmlLocation,
+                reports: reportIds.map((reportId: string): SedReportResults => {
+                  const datasets = structureObject[sedmlLocation][reportId];
+                  return {
+                    uri: sedmlLocation + '/' + reportId,
+                    id: reportId,
+                    datasets: datasets,
+                  };
+                }),
+              };
+            },
+          );
+          return structureArray;
+        }),
 
         catchError(
           (
@@ -139,46 +135,42 @@ export class VisualizationService {
           (result: SimulationRunResults): SimulationRunOutput[] =>
             result.outputs,
         ),
-        map(
-          (reports: SimulationRunOutput[]): SedDatasetResultsMap => {
-            const datasetResultsMap: SedDatasetResultsMap = {};
+        map((reports: SimulationRunOutput[]): SedDatasetResultsMap => {
+          const datasetResultsMap: SedDatasetResultsMap = {};
 
-            reports.forEach((report: SimulationRunOutput): void => {
-              const sedmlLocationReportId = report.outputId;
+          reports.forEach((report: SimulationRunOutput): void => {
+            const sedmlLocationReportId = report.outputId;
 
-              const sedmlLocation = this.getLocationFromSedmLocationId(
-                sedmlLocationReportId,
-              );
+            const sedmlLocation = this.getLocationFromSedmLocationId(
+              sedmlLocationReportId,
+            );
 
-              const reportId = this.getReportIdFromSedmlLocationId(
-                sedmlLocationReportId,
-              );
+            const reportId = this.getReportIdFromSedmlLocationId(
+              sedmlLocationReportId,
+            );
 
-              report.data.forEach((datum: SimulationRunOutputDatum): void => {
-                const uri = sedmlLocation + '/' + reportId + '/' + datum.id;
-                datasetResultsMap[uri] = {
-                  uri: uri,
-                  id: datum.id,
-                  location: sedmlLocation,
-                  reportId: reportId,
-                  label: datum.label,
-                  values: datum.values,
-                };
-              });
+            report.data.forEach((datum: SimulationRunOutputDatum): void => {
+              const uri = sedmlLocation + '/' + reportId + '/' + datum.id;
+              datasetResultsMap[uri] = {
+                uri: uri,
+                id: datum.id,
+                location: sedmlLocation,
+                reportId: reportId,
+                label: datum.label,
+                values: datum.values,
+              };
             });
+          });
 
-            return datasetResultsMap;
-          },
-        ),
+          return datasetResultsMap;
+        }),
 
-        catchError(
-          (error: HttpErrorResponse): Observable<undefined> => {
-            if (!environment.production) {
-              console.error(error);
-            }
-            return of<undefined>(undefined);
-          },
-        ),
+        catchError((error: HttpErrorResponse): Observable<undefined> => {
+          if (!environment.production) {
+            console.error(error);
+          }
+          return of<undefined>(undefined);
+        }),
       );
   }
 

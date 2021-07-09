@@ -42,7 +42,7 @@ const toApi = <T extends SimulationRunModelType>(
 ): SimulationRunModelReturnType => {
   delete obj.__v;
   delete obj._id;
-  return (obj as unknown) as SimulationRunModelReturnType;
+  return obj as unknown as SimulationRunModelReturnType;
 };
 
 @Injectable()
@@ -72,9 +72,7 @@ export class SimulationRunService {
    * @param id The id of the simulation
    *
    */
-  public async download(
-    id: string,
-  ): Promise<{
+  public async download(id: string): Promise<{
     size?: number;
     originalname?: string;
     mimetype?: string;
@@ -85,7 +83,7 @@ export class SimulationRunService {
     const run = await this.simulationRunModel.findById(id, { file: 1 }).exec();
 
     //Get the id of the file
-    const fileId = (run?.file as unknown) as string;
+    const fileId = run?.file as unknown as string;
 
     if (fileId) {
       // Get the file object from the db
@@ -164,7 +162,7 @@ export class SimulationRunService {
       .lean()
       .map((sims) => {
         // This assertion is true unless only one simulation run is in the database
-        const data = (sims as unknown) as SimulationRunModel[];
+        const data = sims as unknown as SimulationRunModel[];
         return data.map((sim) => {
           return toApi({ ...sim, id: sim._id });
         });
@@ -226,9 +224,8 @@ export class SimulationRunService {
       const file_headers = await this.http.head(url).toPromise();
       size = file_headers.headers['content-length'];
       mimetype = file_headers.headers['content-type'];
-      originalname = file_headers.headers['content-disposition']?.split(
-        'filename=',
-      )[1];
+      originalname =
+        file_headers.headers['content-disposition']?.split('filename=')[1];
     } catch (e) {
       this.logger.warn(e);
     }

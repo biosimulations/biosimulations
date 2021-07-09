@@ -205,9 +205,8 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.getVersionLinkBound = this.getVersionStackedHeadingMoreInfoRouterLink.bind(
-      this,
-    );
+    this.getVersionLinkBound =
+      this.getVersionStackedHeadingMoreInfoRouterLink.bind(this);
 
     const params = this.route.params;
     this.simulator = params.pipe(

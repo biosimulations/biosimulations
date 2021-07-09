@@ -55,9 +55,8 @@ export class ViewSimulatorService {
   ) {}
 
   public getLatest(simulatorId: string): Observable<ViewSimulator> {
-    const sim: Observable<Simulator> = this.simService.getLatestById(
-      simulatorId,
-    );
+    const sim: Observable<Simulator> =
+      this.simService.getLatestById(simulatorId);
     return sim.pipe(map(this.apiToView.bind(this, simulatorId, undefined)));
   }
 
@@ -118,41 +117,39 @@ export class ViewSimulatorService {
       });
 
       const viewResults = validationTests.results
-        .map(
-          (result: ITestCaseResult): ViewTestCaseResult => {
-            const caseArchive = result.case.id.split('/')?.[1] || null;
+        .map((result: ITestCaseResult): ViewTestCaseResult => {
+          const caseArchive = result.case.id.split('/')?.[1] || null;
 
-            return {
-              case: {
-                id: result.case.id,
-                description: result.case.description.replace('\n', '<br/>'),
-              },
-              caseUrl:
-                'https://github.com/biosimulators/Biosimulators_test_suite/blob/' +
+          return {
+            case: {
+              id: result.case.id,
+              description: result.case.description.replace('\n', '<br/>'),
+            },
+            caseUrl:
+              'https://github.com/biosimulators/Biosimulators_test_suite/blob/' +
+              validationTests.testSuiteVersion +
+              '/biosimulators_test_suite/test_case/' +
+              result.case.id.split('.')[0] +
+              '.py',
+            caseClass: result.case.id.split(':')[0],
+            caseArchive: caseArchive,
+            caseArchiveUrl: caseArchive
+              ? 'https://github.com/biosimulators/Biosimulators_test_suite/raw/' +
                 validationTests.testSuiteVersion +
-                '/biosimulators_test_suite/test_case/' +
-                result.case.id.split('.')[0] +
-                '.py',
-              caseClass: result.case.id.split(':')[0],
-              caseArchive: caseArchive,
-              caseArchiveUrl: caseArchive
-                ? 'https://github.com/biosimulators/Biosimulators_test_suite/raw/' +
-                  validationTests.testSuiteVersion +
-                  '/examples/' +
-                  result.case.id.split(':')[1] +
-                  '.omex'
-                : null,
-              resultType:
-                result.resultType.substring(0, 1).toUpperCase() +
-                result.resultType.substring(1),
-              duration: result.duration.toFixed(1),
-              exception: result.exception,
-              warnings: result.warnings,
-              skipReason: result.skipReason,
-              log: result.log,
-            };
-          },
-        )
+                '/examples/' +
+                result.case.id.split(':')[1] +
+                '.omex'
+              : null,
+            resultType:
+              result.resultType.substring(0, 1).toUpperCase() +
+              result.resultType.substring(1),
+            duration: result.duration.toFixed(1),
+            exception: result.exception,
+            warnings: result.warnings,
+            skipReason: result.skipReason,
+            log: result.log,
+          };
+        })
         .sort((a, b) => {
           return a.case.id.localeCompare(b.case.id, undefined, {
             numeric: true,
@@ -303,21 +300,19 @@ export class ViewSimulatorService {
 
               if (parameter.range) {
                 if (parameter.type === ValueType.kisaoId) {
-                  parameter.formattedKisaoRange = (parameter.rawRange as string[]).map(
-                    (id: string, index: number): ViewKisaoTerm => {
-                      return {
-                        id: id,
-                        name: parameter.range?.[index] as string,
-                        url: this.ontService.getKisaoUrl(id),
-                      };
-                    },
-                  );
+                  parameter.formattedKisaoRange = (
+                    parameter.rawRange as string[]
+                  ).map((id: string, index: number): ViewKisaoTerm => {
+                    return {
+                      id: id,
+                      name: parameter.range?.[index] as string,
+                      url: this.ontService.getKisaoUrl(id),
+                    };
+                  });
                 } else {
-                  parameter.formattedRange = (parameter.range as (
-                    | boolean
-                    | number
-                    | string
-                  )[]).map((value: boolean | number | string): string => {
+                  parameter.formattedRange = (
+                    parameter.range as (boolean | number | string)[]
+                  ).map((value: boolean | number | string): string => {
                     return formatValue(
                       parameter.type as ValueType,
                       value,
@@ -416,27 +411,26 @@ export class ViewSimulatorService {
       formattedValue: null,
       rawRange: parameter.recommendedRange,
       range: parameter.recommendedRange
-        ? parameter.recommendedRange.map((value: string):
-            | boolean
-            | number
-            | string
-            | Observable<string> => {
-            return parseValue<Observable<string>>(
-              getKisaoTermName,
-              parameter.type,
-              value,
-            ) as boolean | number | string | Observable<string>;
-          })
+        ? parameter.recommendedRange.map(
+            (value: string): boolean | number | string | Observable<string> => {
+              return parseValue<Observable<string>>(
+                getKisaoTermName,
+                parameter.type,
+                value,
+              ) as boolean | number | string | Observable<string>;
+            },
+          )
         : null,
       formattedRange: null,
       formattedKisaoRange: null,
       kisaoId: parameter.kisaoId.id,
       kisaoUrl: this.ontService.getKisaoUrl(parameter.kisaoId.id),
-      availableSoftwareInterfaceTypes: parameter.availableSoftwareInterfaceTypes.sort(
-        (a: string, b: string) => {
-          return a.localeCompare(b, undefined, { numeric: true });
-        },
-      ),
+      availableSoftwareInterfaceTypes:
+        parameter.availableSoftwareInterfaceTypes.sort(
+          (a: string, b: string) => {
+            return a.localeCompare(b, undefined, { numeric: true });
+          },
+        ),
     };
   }
 
@@ -471,26 +465,24 @@ export class ViewSimulatorService {
   }
 
   public getAuthors(simulator: Simulator): ViewAuthor[] {
-    return simulator?.authors?.map(
-      (author: Person): ViewAuthor => {
-        let name = author.lastName;
-        if (author.middleName) {
-          name = author.middleName + ' ' + name;
-        }
-        if (author.firstName) {
-          name = author.firstName + ' ' + name;
-        }
+    return simulator?.authors?.map((author: Person): ViewAuthor => {
+      let name = author.lastName;
+      if (author.middleName) {
+        name = author.middleName + ' ' + name;
+      }
+      if (author.firstName) {
+        name = author.firstName + ' ' + name;
+      }
 
-        let orcidUrl: string | null = null;
-        for (const identifier of author.identifiers) {
-          if (identifier.namespace === 'orcid') {
-            orcidUrl = identifier.url;
-          }
+      let orcidUrl: string | null = null;
+      for (const identifier of author.identifiers) {
+        if (identifier.namespace === 'orcid') {
+          orcidUrl = identifier.url;
         }
+      }
 
-        return { name, orcidUrl };
-      },
-    );
+      return { name, orcidUrl };
+    });
   }
 
   public formatKisaoDescription(

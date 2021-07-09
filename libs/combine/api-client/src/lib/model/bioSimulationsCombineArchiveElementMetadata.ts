@@ -105,6 +105,7 @@ export interface BioSimulationsCombineArchiveElementMetadata {
 export namespace BioSimulationsCombineArchiveElementMetadata {
   export type TypeEnum = 'BioSimulationsCombineArchiveElementMetadata';
   export const TypeEnum = {
-    BioSimulationsCombineArchiveElementMetadata: 'BioSimulationsCombineArchiveElementMetadata' as TypeEnum,
+    BioSimulationsCombineArchiveElementMetadata:
+      'BioSimulationsCombineArchiveElementMetadata' as TypeEnum,
   };
 }

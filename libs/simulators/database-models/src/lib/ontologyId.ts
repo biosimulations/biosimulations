@@ -103,9 +103,8 @@ class EdamOntologyId implements IEdamOntologyId {
   id!: string;
 }
 
-export const EdamOntologyIdSchema = SchemaFactory.createForClass(
-  EdamOntologyId,
-);
+export const EdamOntologyIdSchema =
+  SchemaFactory.createForClass(EdamOntologyId);
 
 @Schema({
   _id: false,
@@ -219,9 +218,8 @@ class LinguistOntologyId implements ILinguistOntologyId {
   id!: string;
 }
 
-export const LinguistOntologyIdSchema = SchemaFactory.createForClass(
-  LinguistOntologyId,
-);
+export const LinguistOntologyIdSchema =
+  SchemaFactory.createForClass(LinguistOntologyId);
 
 @Schema({
   _id: false,
@@ -258,9 +256,8 @@ class KisaoOntologyId implements IKisaoOntologyId {
   })
   id!: string;
 }
-export const KisaoOntologyIdSchema = SchemaFactory.createForClass(
-  KisaoOntologyId,
-);
+export const KisaoOntologyIdSchema =
+  SchemaFactory.createForClass(KisaoOntologyId);
 
 @Schema({
   _id: false,
@@ -366,6 +363,5 @@ class SpdxOntologyId implements ISpdxOntologyId {
   })
   id!: string;
 }
-export const SpdxOntologyIdSchema = SchemaFactory.createForClass(
-  SpdxOntologyId,
-);
+export const SpdxOntologyIdSchema =
+  SchemaFactory.createForClass(SpdxOntologyId);

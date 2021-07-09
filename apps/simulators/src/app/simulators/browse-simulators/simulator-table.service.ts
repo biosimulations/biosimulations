@@ -73,9 +73,8 @@ export class SimulatorTableService {
               }
             }
 
-            const curationStatus = UtilsService.getSimulatorCurationStatus(
-              simulator,
-            );
+            const curationStatus =
+              UtilsService.getSimulatorCurationStatus(simulator);
 
             //Observable of the table object
             const tableSimulatorObservable = of(innerObservables).pipe(
@@ -129,26 +128,28 @@ export class SimulatorTableService {
                           });
                         },
                       ),
-                      supportedOperatingSystemTypes: simulator.supportedOperatingSystemTypes.sort(
-                        (a: string, b: string) => {
-                          return a.localeCompare(b, undefined, {
-                            numeric: true,
-                          });
-                        },
-                      ),
-                      supportedProgrammingLanguages: simulator.supportedProgrammingLanguages
-                        .map(
-                          (
-                            supportedProgrammingLanguage: ILinguistOntologyId,
-                          ): string => {
-                            return supportedProgrammingLanguage.id;
+                      supportedOperatingSystemTypes:
+                        simulator.supportedOperatingSystemTypes.sort(
+                          (a: string, b: string) => {
+                            return a.localeCompare(b, undefined, {
+                              numeric: true,
+                            });
                           },
-                        )
-                        .sort((a: string, b: string) => {
-                          return a.localeCompare(b, undefined, {
-                            numeric: true,
-                          });
-                        }),
+                        ),
+                      supportedProgrammingLanguages:
+                        simulator.supportedProgrammingLanguages
+                          .map(
+                            (
+                              supportedProgrammingLanguage: ILinguistOntologyId,
+                            ): string => {
+                              return supportedProgrammingLanguage.id;
+                            },
+                          )
+                          .sort((a: string, b: string) => {
+                            return a.localeCompare(b, undefined, {
+                              numeric: true,
+                            });
+                          }),
                       image: simulator.image?.url || undefined,
                       curationStatus: curationStatus,
                       license:

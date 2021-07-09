@@ -36,16 +36,18 @@ export class AuthService {
     // Handle redirect from Auth0 login
     this.handleAuthCallback();
   }
-  private auth0Client$ = (from(
-    createAuth0Client({
-      domain: this.environment.authDomain,
-      client_id: this.environment.clientId,
-      redirect_uri: this.environment.redirectUri,
-      response_type: 'token id_token',
-      scope: this.environment.scope,
-      audience: this.environment.audience,
-    }),
-  ) as Observable<Auth0Client>).pipe(
+  private auth0Client$ = (
+    from(
+      createAuth0Client({
+        domain: this.environment.authDomain,
+        client_id: this.environment.clientId,
+        redirect_uri: this.environment.redirectUri,
+        response_type: 'token id_token',
+        scope: this.environment.scope,
+        audience: this.environment.audience,
+      }),
+    ) as Observable<Auth0Client>
+  ).pipe(
     shareReplay(1), // Every subscription receives the same shared value
     catchError((err) => throwError(err)),
   );

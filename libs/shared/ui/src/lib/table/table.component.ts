@@ -308,9 +308,8 @@ export class TableComponent implements OnInit, AfterViewInit {
           index: iDatum.toString(),
         };
         columns.forEach((column: Column): void => {
-          fullTextDoc[
-            column.heading.toLowerCase().replace(' ', '-')
-          ] = RowService.getElementSearchValue(datum, column);
+          fullTextDoc[column.heading.toLowerCase().replace(' ', '-')] =
+            RowService.getElementSearchValue(datum, column);
         });
         this.add(fullTextDoc);
       });
@@ -608,9 +607,9 @@ export class TableComponent implements OnInit, AfterViewInit {
               start: sort.direction,
               disableClear: false,
             } as MatSortable);
-            (this.sort.sortables.get(
-              sort.active,
-            ) as MatSortHeader)._setAnimationTransitionState({
+            (
+              this.sort.sortables.get(sort.active) as MatSortHeader
+            )._setAnimationTransitionState({
               fromState: sort.direction,
               toState: 'active',
             });

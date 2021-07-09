@@ -48,6 +48,7 @@ export interface SedUniformTimeCourseSimulation {
 export namespace SedUniformTimeCourseSimulation {
   export type TypeEnum = 'SedUniformTimeCourseSimulation';
   export const TypeEnum = {
-    SedUniformTimeCourseSimulation: 'SedUniformTimeCourseSimulation' as TypeEnum,
+    SedUniformTimeCourseSimulation:
+      'SedUniformTimeCourseSimulation' as TypeEnum,
   };
 }

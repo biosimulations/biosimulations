@@ -638,8 +638,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
   applyFilters(): void {
     const modelFormatIds = this.formGroup.value.modelFormats;
     const simulationAlgorithmIds = this.formGroup.value.simulationAlgorithms;
-    const algSubPolicy: number = this.formGroup.value
-      .simulationAlgorithmSubstitutionPolicy;
+    const algSubPolicy: number =
+      this.formGroup.value.simulationAlgorithmSubstitutionPolicy;
 
     let simulators = this.simulatorIds;
     modelFormatIds.forEach((modelFormatId: string): void => {

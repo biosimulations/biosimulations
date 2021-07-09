@@ -16,7 +16,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
 
 export class DependentVariableTargetPattern
-  implements IDependentVariableTargetPattern {
+  implements IDependentVariableTargetPattern
+{
   @ApiProperty({ type: String, required: true })
   variables!: string;
 

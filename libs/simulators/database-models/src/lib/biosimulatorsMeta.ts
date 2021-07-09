@@ -41,9 +41,8 @@ export class TestCaseException implements ITestCaseException {
   message!: string;
 }
 
-export const TestCaseExceptionSchema = SchemaFactory.createForClass(
-  TestCaseException,
-);
+export const TestCaseExceptionSchema =
+  SchemaFactory.createForClass(TestCaseException);
 
 @Schema({
   _id: false,
@@ -81,9 +80,8 @@ export class TestCaseResult implements ITestCaseResult {
   log!: string;
 }
 
-export const TestCaseResultSchema = SchemaFactory.createForClass(
-  TestCaseResult,
-);
+export const TestCaseResultSchema =
+  SchemaFactory.createForClass(TestCaseResult);
 
 @Schema({
   _id: false,
@@ -105,9 +103,8 @@ export class ValidationTests implements IValidationTests {
   ghActionRun!: number;
 }
 
-export const ValidationTestsSchema = SchemaFactory.createForClass(
-  ValidationTests,
-);
+export const ValidationTestsSchema =
+  SchemaFactory.createForClass(ValidationTests);
 
 @Schema({
   _id: false,
@@ -150,9 +147,8 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   updated!: Date;
 }
 
-export const BiosimulatorsMetaSchema = SchemaFactory.createForClass(
-  BiosimulatorsMeta,
-);
+export const BiosimulatorsMetaSchema =
+  SchemaFactory.createForClass(BiosimulatorsMeta);
 
 BiosimulatorsMetaSchema.set('timestamps', {
   createdAt: 'created',

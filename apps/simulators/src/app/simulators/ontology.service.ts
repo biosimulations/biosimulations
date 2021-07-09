@@ -116,31 +116,27 @@ export class OntologyService {
       [id: string]: T;
     }>;
     return termsObservable.pipe(
-      map(
-        (terms: { [id: string]: T }): T => {
-          const setTerm = terms[term];
+      map((terms: { [id: string]: T }): T => {
+        const setTerm = terms[term];
 
-          if (setTerm) {
-            return setTerm;
-          } else {
-            throw new Error(
-              `Term with id ${term} not found in ontology ${ontologyId}`,
-            );
-          }
-        },
-      ),
-      catchError(
-        (terms: { [id: string]: T }): Observable<T> => {
-          return of(({
-            namespace: (terms[Object.keys(terms)[0]] as T).namespace,
-            id: term,
-            name: term,
-            description: 'Unknown term',
-            url: '',
-            iri: '',
-          } as unknown) as T);
-        },
-      ),
+        if (setTerm) {
+          return setTerm;
+        } else {
+          throw new Error(
+            `Term with id ${term} not found in ontology ${ontologyId}`,
+          );
+        }
+      }),
+      catchError((terms: { [id: string]: T }): Observable<T> => {
+        return of({
+          namespace: (terms[Object.keys(terms)[0]] as T).namespace,
+          id: term,
+          name: term,
+          description: 'Unknown term',
+          url: '',
+          iri: '',
+        } as unknown as T);
+      }),
     );
   }
 

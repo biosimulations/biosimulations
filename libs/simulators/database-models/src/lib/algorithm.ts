@@ -33,7 +33,8 @@ import { CitationSchema } from './common';
   useNestedStrict: true,
 })
 export class DependentVariableTargetPattern
-  implements IDependentVariableTargetPattern {
+  implements IDependentVariableTargetPattern
+{
   @Prop({ type: String, required: true, default: undefined })
   variables!: string;
 
@@ -41,9 +42,8 @@ export class DependentVariableTargetPattern
   targetPattern!: string;
 }
 
-export const DependentVariableTargetPatternSchema = SchemaFactory.createForClass(
-  DependentVariableTargetPattern,
-);
+export const DependentVariableTargetPatternSchema =
+  SchemaFactory.createForClass(DependentVariableTargetPattern);
 
 @Schema({
   _id: false,
