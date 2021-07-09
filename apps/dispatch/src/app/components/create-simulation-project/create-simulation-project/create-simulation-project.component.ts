@@ -1131,9 +1131,16 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         );
       });
 
-      const possibleSteadyStateKisaoIds: string[] = ['KISAO_0000408', 'KISAO_0000659', 'KISAO_0000662', 'KISAO_0000663'];
+      const possibleSteadyStateKisaoIds: string[] = [
+        'KISAO_0000408',
+        'KISAO_0000659',
+        'KISAO_0000662',
+        'KISAO_0000663',
+      ];
       if (formatEdamId === 'format_2585') {
-        if (['SBO_0000293', 'SBO_0000295', 'SBO_0000547'].includes(frameworkSboId)) {
+        if (
+          ['SBO_0000293', 'SBO_0000295', 'SBO_0000547'].includes(frameworkSboId)
+        ) {
           if (
             simulationType === SimulationType.SedUniformTimeCourseSimulation
           ) {
