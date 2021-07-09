@@ -30,11 +30,12 @@ class MockSimulatorService {
       },
       {
         id: 'sim4',
-        version: '2020-01-05'
+        version: '2020-01-05',
       },
       {
         id: 'sim4',
-      version: '2020-02-01'}
+        version: '2020-02-01',
+      },
     ];
   }
 }
