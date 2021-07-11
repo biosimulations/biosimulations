@@ -85,7 +85,7 @@
 /simulators/neuron
 /simulators/neuron/8.0.0
 /simulators/opencor
-/simulators/opencor/2021-05-19
+/simulators/opencor/2021-07-09
 /simulators/openknee
 /simulators/openknee/1.0
 /simulators/opensim
