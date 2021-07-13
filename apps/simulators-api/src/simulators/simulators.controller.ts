@@ -202,9 +202,7 @@ export class SimulatorsController {
     return res;
   }
 
-  @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('write:Simulators')
-  @ApiOAuth2([])
   @Post()
   @ApiOperation({
     summary: 'Add a version of a simulator to the database',
@@ -215,14 +213,6 @@ export class SimulatorsController {
     type: Simulator,
   })
   @ApiCreatedResponse({ description: 'Simulator Created', type: Simulator })
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'Invalid Authorization Provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description: 'No permission to edit simulator',
-  })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description: 'Request body does not match schema',
@@ -272,14 +262,6 @@ export class SimulatorsController {
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
     description: 'No such simulator',
-  })
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'Invalid Authorization Provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description: 'No permission to edit simulator',
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,

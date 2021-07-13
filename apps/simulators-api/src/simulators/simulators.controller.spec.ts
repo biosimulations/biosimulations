@@ -2,8 +2,11 @@ import {
   AdminGuard,
   BiosimulationsAuthModule,
 } from '@biosimulations/auth/nest';
+import { Simulator } from '@biosimulations/simulators/database-models';
 import { Test, TestingModule } from '@nestjs/testing';
+import { LeanDocument } from 'mongoose';
 import { SimulatorsController } from './simulators.controller';
+import { SimulatorsService } from './simulators.service';
 
 class MockSimulatorService {
   findAll() {
@@ -11,6 +14,16 @@ class MockSimulatorService {
       {
         id: 'sim1',
         version: '1.7',
+        biosimulators: {
+          validated: true,
+
+          validationTests: {
+            testSuiteVersion: 'v1',
+            results: ' some reuslts object',
+            ghActionRun: 42,
+            ghIssue: 42,
+          },
+        },
       },
       {
         id: 'sim1',
@@ -46,7 +59,7 @@ describe('SimulatorsController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [SimulatorsController, BiosimulationsAuthModule],
       providers: [
-        { provide: 'SimulatorsService', useClass: MockSimulatorService },
+        { provide: SimulatorsService, useClass: MockSimulatorService },
         AdminGuard,
       ],
     }).compile();

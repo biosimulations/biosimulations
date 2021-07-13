@@ -4,6 +4,19 @@ import { SimulatorsService } from './simulators.service';
 describe('SimulatorsService', () => {
   let service: SimulatorsService;
 
+  class MockSimulatorModel {
+    constructor(private data = {}) {}
+    find() {
+      return this.data;
+    }
+    exec() {
+      return this;
+    }
+    lean() {
+      return this;
+    }
+    static find(filter, projection, data) {}
+  }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
