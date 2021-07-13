@@ -15,7 +15,7 @@ describe('SimulatorsService', () => {
     lean() {
       return this;
     }
-    static find(filter, projection, data) {}
+    static find(filter: any, projection: any, data: any) {}
   }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
