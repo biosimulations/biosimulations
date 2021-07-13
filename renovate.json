@@ -8,5 +8,6 @@
       "matchDepTypes": ["devDependencies"],
       "addLabels": ["dev"]
     }
-  ] 
+  ],
+  "prConcurrentLimit": 3
 }
