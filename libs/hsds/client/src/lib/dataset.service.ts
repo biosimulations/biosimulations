@@ -36,7 +36,7 @@ export class SimulationHDFService {
   public async getDatasetValues(
     simId: string,
     datasetId: string,
-  ): Promise<InlineResponse20010> {
+  ): Promise<InlineResponse20010 | undefined> {
     const domain = this.getDomainName(simId);
     const dataResponse = await this.datasetService
       .datasetsIdValueGet(
@@ -48,7 +48,7 @@ export class SimulationHDFService {
         ACCEPT,
       )
       .toPromise();
-    const data: InlineResponse20010 = dataResponse.data;
+    const data: InlineResponse20010 | undefined = dataResponse?.data;
     return data;
   }
   public async getResultsTimestamps(
@@ -58,10 +58,10 @@ export class SimulationHDFService {
     const root_id = await this.getRootGroupId(domain);
     if (root_id) {
       const metadata = await this.getGroup(domain, root_id);
-      if (metadata.created && metadata.lastModified) {
+      if (metadata?.created && metadata?.lastModified) {
         return {
-          created: this.createDate(metadata.created),
-          updated: this.createDate(metadata.lastModified),
+          created: this.createDate(metadata?.created),
+          updated: this.createDate(metadata?.lastModified),
         };
       }
     }
@@ -84,7 +84,7 @@ export class SimulationHDFService {
       .datasetsGet('application/json', domain)
       .toPromise();
 
-    const datasetIds = response.data.datasets || [];
+    const datasetIds = response?.data.datasets || [];
 
     // List of attrbute ids for each dataset
     const datasetAttributeIds: (keyof BiosimulationsDataAtributes)[][] =
@@ -130,8 +130,8 @@ export class SimulationHDFService {
         const datasetReturn = {
           uri: value.uri,
           id: datasetIds[index],
-          created: this.createDate(dataset.created),
-          updated: this.createDate(dataset.lastModified),
+          created: this.createDate(dataset?.created),
+          updated: this.createDate(dataset?.lastModified),
           attributes: value,
         };
         return datasetReturn;
@@ -152,19 +152,25 @@ export class SimulationHDFService {
     return simId + '.results';
   }
 
-  private async getGroup(domain: string, id: string): Promise<HDF5Group> {
+  private async getGroup(
+    domain: string,
+    id: string,
+  ): Promise<HDF5Group | undefined> {
     const response = await this.groupService
       .groupsIdGet(id, ACCEPT, domain)
       .toPromise();
-    const data = response.data;
+    const data = response?.data;
     return data;
   }
 
-  private async getDataset(domain: string, id: string): Promise<HDF5Dataset> {
+  private async getDataset(
+    domain: string,
+    id: string,
+  ): Promise<HDF5Dataset | undefined> {
     const response = await this.datasetService
       .datasetsIdGet(id, ACCEPT, domain)
       .toPromise();
-    return response.data;
+    return response?.data;
   }
 
   private async getLinks(
@@ -174,7 +180,7 @@ export class SimulationHDFService {
     const linksResponse = await this.linkService
       .groupsIdLinksGet(groupId, ACCEPT, domain)
       .toPromise();
-    return linksResponse.data.links || [];
+    return linksResponse?.data.links || [];
   }
 
   private async getDatasetAttributeIds(
@@ -184,7 +190,7 @@ export class SimulationHDFService {
     const response = await this.attrbuteService
       .collectionObjUuidAttributesGet(ACCEPT, DATASET, datasetId, AUTH, domain)
       .toPromise();
-    const attributes = response.data.attributes || [];
+    const attributes = response?.data.attributes || [];
     return attributes.map(
       (value) => value.name as keyof BiosimulationsDataAtributes,
     );
@@ -206,7 +212,7 @@ export class SimulationHDFService {
           domain,
         )
         .toPromise();
-      return uriResponse.data.value || '';
+      return uriResponse?.data.value || '';
     } catch (e) {
       this.logger.error('error for attribute' + attribute);
       return '';
@@ -217,9 +223,9 @@ export class SimulationHDFService {
       .rootGet(ACCEPT, domain)
       .toPromise();
 
-    const domainInfo = domainResponse.data;
+    const domainInfo = domainResponse?.data;
 
-    const rootGroup = domainInfo.root;
+    const rootGroup = domainInfo?.root;
     return rootGroup;
   }
 }
