@@ -73,9 +73,9 @@ export class SimulationHDFService {
     reportId: string,
   ): Promise<Dataset | undefined> {
     const datasets = await this.getDatasets(simId);
-    datasets.filter((value) => value.attributes.sedmlId == reportId);
-
-    return datasets[0];
+    this.logger.error(datasets[0]);
+    const filtered = datasets.filter((value) => value.uri == reportId);
+    return filtered[0];
   }
   public async getDatasets(simId: string): Promise<Dataset[]> {
     const domain = this.getDomainName(simId);

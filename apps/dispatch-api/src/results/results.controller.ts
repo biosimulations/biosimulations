@@ -67,12 +67,12 @@ export class ResultsController {
   @ApiQuery({ name: 'includeData', type: Boolean })
   public async getResultReport(
     @Param('simId') simId: string,
-    @Param('reportId') reportId: string,
+    @Param('outputId') outputId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunOutput> {
     const resultModel = await this.service.getOutput(
       simId,
-      reportId,
+      outputId,
       includeData,
     );
 

@@ -69,7 +69,7 @@
     "is-url": "^1.2.4",
     "jwks-rsa": "^1.12.1",
     "mongoose": "^5.11.17",
-    "nats": "^1.4.12",
+    "nats": "^2.0.0",
     "nestjs-s3": "^1.0.1",
     "nestjs-typegoose": "^7.1.38",
     "passport": "^0.4.1",
