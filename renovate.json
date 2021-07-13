@@ -1,5 +1,12 @@
 {
   "extends": [
+      "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "matchDepTypes": ["devDependencies"],
+      "addLabels": ["dev"]
+    }
+  ]
     "config:base"
   ]
 }
