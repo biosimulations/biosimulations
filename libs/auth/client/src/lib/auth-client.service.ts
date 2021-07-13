@@ -1,4 +1,5 @@
-import { Logger, HttpService, Injectable } from '@nestjs/common';
+import { Logger, Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -6,7 +7,7 @@ import { hasAudience, isTokenCurrent } from '@biosimulations/auth/common';
 
 @Injectable({})
 export class AuthClientService {
-  private authConfig: any = this.configService.get('auth', {});
+  private authConfig: any = this.configService.get('auth');
   private logger = new Logger(AuthClientService.name);
   private client_id: string;
   private api_audience: string;
@@ -23,7 +24,9 @@ export class AuthClientService {
     this.api_audience = this.authConfig.api_audience;
     this.client_secret = this.authConfig.client_secret;
   }
-  public async getToken(audience = this.api_audience): Promise<string> {
+  public async getToken(
+    audience = this.api_audience,
+  ): Promise<string | undefined> {
     this.logger.debug(
       `Getting auth token for audience ${audience} for client ${this.client_id}`,
     );

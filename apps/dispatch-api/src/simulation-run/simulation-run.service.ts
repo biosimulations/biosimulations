@@ -222,10 +222,10 @@ export class SimulationRunService {
     let originalname = undefined;
     try {
       const file_headers = await this.http.head(url).toPromise();
-      size = file_headers.headers['content-length'];
-      mimetype = file_headers.headers['content-type'];
+      size = file_headers?.headers['content-length'];
+      mimetype = file_headers?.headers['content-type'];
       originalname =
-        file_headers.headers['content-disposition']?.split('filename=')[1];
+        file_headers?.headers['content-disposition']?.split('filename=')[1];
     } catch (e) {
       this.logger.warn(e);
     }
