@@ -3143,7 +3143,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: npm/node_modules/mute-stream/LICENSE
-├─ nats@1.4.12
+├─ nats@2.1.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/nats-io/nats.js
 │  ├─ publisher: The NATS Authors
@@ -3179,6 +3179,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Olivier Poitrey
 │  ├─ email: rs@rhapsodyk.net
 │  └─ licenseFile: netmask/README.md
+├─ nkeys.js@1.0.0-9
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com//nats-io/ts-nkeys
+│  ├─ publisher: The NATS Authors
+│  └─ licenseFile: nkeys.js/LICENSE
 ├─ node-emoji@1.10.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/omnidan/node-emoji
@@ -3312,11 +3317,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: npm/node_modules/npmlog/LICENSE
-├─ nuid@1.1.6
-│  ├─ licenses: Apache-2.0
-│  ├─ repository: https://github.com/nats-io/node-nuid
-│  ├─ publisher: The NATS Authors
-│  └─ licenseFile: nuid/LICENSE
 ├─ number-is-nan@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/number-is-nan
@@ -4662,11 +4662,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: maochenyan@gmail.com
 │  ├─ url: github.com/stevemao
 │  └─ licenseFile: trim-off-newlines/license
-├─ ts-nkeys@1.0.16
-│  ├─ licenses: Apache-2.0
-│  ├─ repository: https://github.com//nats-io/ts-nkeys
-│  ├─ publisher: The NATS Authors
-│  └─ licenseFile: ts-nkeys/LICENSE
 ├─ tslib@2.1.0
 │  ├─ licenses: 0BSD
 │  ├─ repository: https://github.com/Microsoft/tslib
