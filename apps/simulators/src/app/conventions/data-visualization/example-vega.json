@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "name": "Data for visual marks",
+      "values": []
+    },
+    {
+      "name": "Time courses",
+      "sedml": "simulation.sedml/report1"
+    }
+  ]
+}
