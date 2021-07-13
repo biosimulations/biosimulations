@@ -33,10 +33,10 @@ export class ImagesController {
     const success = await this.client
       .send<ImageMessageResponse>(ImageMessage.refresh, message)
       .toPromise();
-    if (success.okay) {
+    if (success?.okay) {
       return success.description;
     } else {
-      throw new InternalServerErrorException(success.description);
+      throw new InternalServerErrorException(success?.description);
     }
   }
 }

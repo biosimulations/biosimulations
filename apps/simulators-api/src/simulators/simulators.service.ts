@@ -7,7 +7,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Simulator } from '@biosimulations/simulators/database-models';
 import { Simulator as APISimulator } from '@biosimulations/simulators/api-models';
-import { Model } from 'mongoose';
+import { LeanDocument, Model } from 'mongoose';
 
 @Injectable()
 export class SimulatorsService {
@@ -19,29 +19,56 @@ export class SimulatorsService {
     @InjectModel(Simulator.name) private simulator: Model<Simulator>,
   ) {}
 
-  async findAll(): Promise<Simulator[]> {
-    const results = await this.simulator
-      .find({}, { _id: 0, __v: 0 })
-      .lean()
-      .exec();
+  public async findAll(
+    includeTestResults = false,
+  ): Promise<LeanDocument<Simulator>[]> {
+    let projection: any = {
+      _id: 0,
+      __v: 0,
+      'biosimulators.validationTests': 0,
+    };
+    if (includeTestResults) {
+      projection = { _id: 0, __v: 0 };
+    }
+    const results = await this.simulator.find({}, projection).lean().exec();
 
     //results.forEach((value) => value.toJSON());
-    return results as Simulator[];
+    return results;
   }
-  async findAllLatest() {
-    const all = this.simulator.find({}, { _id: 0, __v: 0 }).lean().exec();
-    return all;
+
+  public async findById(
+    id: string,
+    includeTestResults = false,
+  ): Promise<LeanDocument<Simulator>[]> {
+    let projection: any = {
+      _id: 0,
+      __v: 0,
+      'biosimulators.validationTests': 0,
+    };
+    if (includeTestResults) {
+      projection = { _id: 0, __v: 0 };
+    }
+    return this.simulator.find({ id: id }, projection).lean().exec();
   }
-  async findById(id: string) {
-    return this.simulator.find({ id: id }, { _id: 0, __v: 0 }).lean().exec();
-  }
-  async findByVersion(id: string, version: string): Promise<Simulator | null> {
+  public async findByVersion(
+    id: string,
+    version: string,
+    includeTestResults = false,
+  ): Promise<Simulator | null> {
+    let projection: any = {
+      _id: 0,
+      __v: 0,
+      'biosimulators.validationTests': 0,
+    };
+    if (includeTestResults) {
+      projection = { _id: 0, __v: 0 };
+    }
     return this.simulator
-      .findOne({ id: id, version: version }, { _id: 0, __v: 0 })
+      .findOne({ id: id, version: version }, projection)
       .exec();
   }
 
-  async new(doc: APISimulator): Promise<Simulator> {
+  public async new(doc: APISimulator): Promise<Simulator> {
     const sim = new this.simulator(doc);
     let res: Simulator;
     try {
@@ -82,7 +109,7 @@ export class SimulatorsService {
     return res;
   }
 
-  async deleteOne(id: string, version: string): Promise<Simulator> {
+  public async deleteOne(id: string, version: string): Promise<Simulator> {
     const sim = await this.simulator
       .findOne({ id: id, version: version }, { _id: 0, __v: 0 })
       .exec();
@@ -99,7 +126,7 @@ export class SimulatorsService {
     return sim;
   }
 
-  async deleteMany(id: string) {
+  public async deleteMany(id: string): Promise<void> {
     const sims = await this.simulator.deleteMany({ id: id }).exec();
     if (sims.n == 0) {
       throw new NotFoundException(`No simulator with id ${id}`);
@@ -114,7 +141,7 @@ export class SimulatorsService {
       }
     }
   }
-  async deleteAll() {
+  public async deleteAll(): Promise<void> {
     const sims = await this.simulator.deleteMany({});
     if (sims.deletedCount != sims.n) {
       throw new InternalServerErrorException(

@@ -1,7 +1,7 @@
 import { AuthClientModule } from '@biosimulations/auth/client';
-import { HttpModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { SimulationRunService } from './simulation-run.service';
-
+import { HttpModule } from '@nestjs/axios';
 @Module({
   controllers: [],
   imports: [HttpModule, AuthClientModule],

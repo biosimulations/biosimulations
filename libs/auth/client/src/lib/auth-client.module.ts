@@ -1,6 +1,6 @@
-import { HttpModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AuthClientService } from './auth-client.service';
-
+import { HttpModule } from '@nestjs/axios';
 @Module({
   controllers: [],
   imports: [HttpModule],

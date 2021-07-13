@@ -3,7 +3,8 @@ import {
   CreateSimulationRunLogBody,
   SimulationRun,
 } from '@biosimulations/dispatch/api-models';
-import { HttpService, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { AuthClientService } from '@biosimulations/auth/client';
 import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
@@ -25,9 +26,9 @@ export class SimulationRunService {
     status: SimulationRunStatus,
     statusReason: string,
   ): Observable<SimulationRun> {
-    return from(this.auth.getToken()).pipe(
+    const response = from(this.auth.getToken()).pipe(
       map((token) => {
-        return this.http
+        const httpRes = this.http
           .patch<SimulationRun>(
             `${this.endpoint}run/${id}`,
             {
@@ -41,9 +42,12 @@ export class SimulationRunService {
             },
           )
           .pipe(pluck('data'));
+
+        return httpRes;
       }),
       mergeMap((value) => value),
     );
+    return response;
   }
 
   public updateSimulationRunResultsSize(
@@ -76,14 +80,16 @@ export class SimulationRunService {
   }
   public async getJob(simId: string): Promise<SimulationRun> {
     const token = await this.auth.getToken();
-    return this.http
+    const res: Promise<SimulationRun> = this.http
       .get<SimulationRun>(`${this.endpoint}/run/${simId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .pipe(pluck('data'))
-      .toPromise();
+      .toPromise() as Promise<SimulationRun>;
+
+    return res;
   }
 
   public sendLog(

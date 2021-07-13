@@ -50,9 +50,16 @@ export class SimulatorsController {
     description:
       'Returns a list of the specifications of each available version of each simulators.',
   })
+  @ApiQuery({
+    name: 'includeTests',
+    required: false,
+    type: Boolean,
+  })
   @ApiOkResponse({ description: 'OK', type: [Simulator] })
-  getSimulators() {
-    return this.service.findAll();
+  public getSimulators(@Query('includeTests') includeTests = 'false') {
+    const includeBool = includeTests == 'true';
+
+    return this.service.findAll(includeBool);
   }
 
   @Get('latest')
@@ -73,10 +80,17 @@ export class SimulatorsController {
     required: false,
     type: String,
   })
+  @ApiQuery({
+    name: 'includeTests',
+    required: false,
+    type: Boolean,
+  })
   public async getLatestSimulators(
     @Query('id') id?: string,
+    @Query('includeTests') includeTests = 'false',
   ): Promise<Simulator[]> {
-    const allSims = await this.service.findAll();
+    const includeBool = includeTests == 'true';
+    const allSims = await this.service.findAll(includeBool);
     const latest = new Map<string, Simulator>();
     allSims.forEach((element) => {
       const latestSim = latest.get(element.id);
@@ -109,13 +123,22 @@ export class SimulatorsController {
     required: true,
     type: String,
   })
+  @ApiQuery({
+    name: 'includeTests',
+    required: false,
+    type: Boolean,
+  })
   @ApiOkResponse({ type: [Simulator] })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
     description: 'Simulator not found',
   })
-  async getSimulator(@Param('id') id: string) {
-    return await this.getSimulatorById(id);
+  public async getSimulator(
+    @Param('id') id: string,
+    @Query('includeTests') includeTests = 'false',
+  ) {
+    const includeBool = includeTests == 'true';
+    return await this.getSimulatorById(id, includeBool);
   }
 
   @Get(':id/:version')
@@ -133,6 +156,11 @@ export class SimulatorsController {
     required: true,
     type: String,
   })
+  @ApiQuery({
+    name: 'includeTests',
+    required: false,
+    type: Boolean,
+  })
   @ApiOkResponse({ type: Simulator })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
@@ -141,20 +169,26 @@ export class SimulatorsController {
   async getSimulatorVersion(
     @Param('id') id: string,
     @Param('version') version: string,
+    @Query('includeTests') includeTests = 'false',
   ): Promise<Simulator> {
-    return this.getSimulatorByVersion(id, version);
+    const includeTestBool = includeTests == 'true';
+    return this.getSimulatorByVersion(id, version, includeTestBool);
   }
 
-  private async getSimulatorById(id: string) {
-    const res = await this.service.findById(id);
+  private async getSimulatorById(id: string, includeTests: boolean) {
+    const res = await this.service.findById(id, includeTests);
     if (!res?.length) {
       throw new NotFoundException(`Simulator with id ${id} was not found`);
     }
     return res;
   }
 
-  private async getSimulatorByVersion(id: string, version: string) {
-    const res = await this.service.findByVersion(id, version);
+  private async getSimulatorByVersion(
+    id: string,
+    version: string,
+    includeTests: boolean,
+  ) {
+    const res = await this.service.findByVersion(id, version, includeTests);
     if (!res) {
       if (version) {
         throw new NotFoundException(
@@ -168,9 +202,7 @@ export class SimulatorsController {
     return res;
   }
 
-  @UseGuards(JwtGuard, PermissionsGuard)
   @permissions('write:Simulators')
-  @ApiOAuth2([])
   @Post()
   @ApiOperation({
     summary: 'Add a version of a simulator to the database',
@@ -181,14 +213,6 @@ export class SimulatorsController {
     type: Simulator,
   })
   @ApiCreatedResponse({ description: 'Simulator Created', type: Simulator })
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'Invalid Authorization Provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description: 'No permission to edit simulator',
-  })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description: 'Request body does not match schema',
@@ -238,14 +262,6 @@ export class SimulatorsController {
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
     description: 'No such simulator',
-  })
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'Invalid Authorization Provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description: 'No permission to edit simulator',
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
