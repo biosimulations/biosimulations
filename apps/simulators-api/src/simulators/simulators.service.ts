@@ -19,7 +19,6 @@ export class SimulatorsService {
     @InjectModel(Simulator.name) private simulator: Model<Simulator>,
   ) {}
 
-  // TODO Combine find methods, just use optional args
   public async findAll(
     includeTestResults = false,
   ): Promise<LeanDocument<Simulator>[]> {
