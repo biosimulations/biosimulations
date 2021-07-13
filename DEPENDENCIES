@@ -16,6 +16,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: suchipi
 │  ├─ email: me@suchipi.com
 │  └─ licenseFile: @babel/highlight/LICENSE
+├─ @nestjs/axios@0.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/nestjs/axios
+│  ├─ publisher: Kamil Mysliwiec
+│  └─ licenseFile: @nestjs/axios/LICENSE
 ├─ @nestjs/bull@0.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/bull
