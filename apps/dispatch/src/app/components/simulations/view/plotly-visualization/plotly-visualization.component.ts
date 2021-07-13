@@ -50,6 +50,7 @@ export interface DataLayout {
   styleUrls: ['./plotly-visualization.component.scss'],
 })
 export class PlotlyVisualizationComponent {
+  loading = false;
   data: ScatterTrace[] | undefined = undefined;
   layout: Layout | undefined = undefined;
   config: any = {
@@ -67,12 +68,25 @@ export class PlotlyVisualizationComponent {
     plotlyServerURL: 'https://chart-studio.plotly.com',
     // responsive: true,
   };
+  error = false;
 
   @Input()
-  set dataLayout(value: DataLayout | null) {
-    this.data = value?.data;
-    this.layout = value?.layout;
-    this.setLayout();
+  set dataLayout(value: DataLayout | null | false) {
+    if (value) {
+      this.loading = false;
+      this.data = value.data;
+      this.layout = value.layout;
+      this.error = false;
+      this.setLayout();
+
+    } else if (value == null) {
+      this.loading = true;
+      this.error = false;
+
+    } else {
+      this.loading = false;
+      this.error = true;
+    }
   }
 
   visible = false;
