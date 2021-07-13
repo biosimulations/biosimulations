@@ -21,7 +21,7 @@ module.exports = {
         'auth',
         'config',
         'datamodel',
-        'hsf5',
+        'hdf5',
         'hsds',
         'dependencies',
         'messages',
