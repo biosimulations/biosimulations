@@ -178,47 +178,49 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/auth-token.js
 │  └─ licenseFile: @octokit/auth-token/LICENSE
-├─ @octokit/core@3.4.0
+├─ @octokit/core@3.5.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/core.js
 │  └─ licenseFile: @octokit/core/LICENSE
-├─ @octokit/endpoint@6.0.11
+├─ @octokit/endpoint@6.0.12
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/endpoint.js
 │  └─ licenseFile: @octokit/endpoint/LICENSE
-├─ @octokit/graphql@4.6.2
+├─ @octokit/graphql@4.6.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/graphql.js
 │  └─ licenseFile: @octokit/graphql/LICENSE
-├─ @octokit/openapi-types@7.2.3
+├─ @octokit/openapi-types@8.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/openapi-types.ts
-│  └─ licenseFile: @octokit/openapi-types/LICENSE
-├─ @octokit/plugin-paginate-rest@2.13.3
+│  ├─ publisher: Gregor Martynus
+│  ├─ url: https://twitter.com/gr2m
+│  └─ licenseFile: @octokit/openapi-types/README.md
+├─ @octokit/plugin-paginate-rest@2.14.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/plugin-paginate-rest.js
 │  └─ licenseFile: @octokit/plugin-paginate-rest/LICENSE
-├─ @octokit/plugin-request-log@1.0.3
+├─ @octokit/plugin-request-log@1.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/plugin-request-log.js
 │  └─ licenseFile: @octokit/plugin-request-log/LICENSE
-├─ @octokit/plugin-rest-endpoint-methods@5.3.1
+├─ @octokit/plugin-rest-endpoint-methods@5.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/plugin-rest-endpoint-methods.js
 │  └─ licenseFile: @octokit/plugin-rest-endpoint-methods/LICENSE
-├─ @octokit/request-error@2.0.5
+├─ @octokit/request-error@2.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/request-error.js
 │  └─ licenseFile: @octokit/request-error/LICENSE
-├─ @octokit/request@5.5.0
+├─ @octokit/request@5.6.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/request.js
 │  └─ licenseFile: @octokit/request/LICENSE
-├─ @octokit/rest@18.5.6
+├─ @octokit/rest@18.6.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/rest.js
 │  └─ licenseFile: @octokit/rest/LICENSE
-├─ @octokit/types@6.16.2
+├─ @octokit/types@6.19.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/types.ts
 │  └─ licenseFile: @octokit/types/LICENSE
@@ -252,7 +254,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Pierre Vanduynslager
 │  ├─ url: https://twitter.com/@pvdlg_
 │  └─ licenseFile: @semantic-release/npm/LICENSE
-├─ @semantic-release/release-notes-generator@9.0.2
+├─ @semantic-release/release-notes-generator@9.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/release-notes-generator
 │  ├─ publisher: Pierre Vanduynslager
@@ -400,7 +402,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/range-parser/LICENSE
-├─ @types/retry@0.12.0
+├─ @types/retry@0.12.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/retry/LICENSE
@@ -1232,6 +1234,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
 │  └─ licenseFile: npm/node_modules/debug/LICENSE
+├─ debug@4.3.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/visionmedia/debug
+│  ├─ publisher: TJ Holowaychuk
+│  ├─ email: tj@vision-media.ca
+│  └─ licenseFile: @semantic-release/commit-analyzer/node_modules/debug/LICENSE
 ├─ debuglog@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sam-github/node-debuglog
@@ -1814,7 +1822,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
-│  └─ licenseFile: @semantic-release/release-notes-generator/node_modules/get-stream/license
+│  └─ licenseFile: env-ci/node_modules/get-stream/license
 ├─ get-stream@6.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/get-stream
@@ -3487,7 +3495,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: p-reduce/license
-├─ p-retry@4.5.0
+├─ p-retry@4.6.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/p-retry
 │  ├─ publisher: Sindre Sorhus
@@ -4037,6 +4045,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: tim@debuggable.com
 │  ├─ url: http://debuggable.com/
 │  └─ licenseFile: npm/node_modules/retry/License
+├─ retry@0.13.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/tim-kos/node-retry
+│  ├─ publisher: Tim Koschützki
+│  ├─ email: tim@debuggable.com
+│  ├─ url: http://debuggable.com/
+│  └─ licenseFile: @semantic-release/github/node_modules/retry/License
 ├─ reusify@1.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mcollina/reusify
@@ -4108,7 +4123,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: sax/LICENSE
-├─ semantic-release@17.4.3
+├─ semantic-release@17.4.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/semantic-release
 │  ├─ publisher: Stephan Bönnemann
@@ -4758,7 +4773,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: mail@substack.net
 │  ├─ url: http://substack.net
 │  └─ licenseFile: typedarray/LICENSE
-├─ uglify-js@3.13.9
+├─ uglify-js@3.13.10
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/mishoo/UglifyJS
 │  ├─ publisher: Mihai Bazon
@@ -5054,6 +5069,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Ben Coe
 │  ├─ email: ben@npmjs.com
 │  └─ licenseFile: meow/node_modules/yargs-parser/LICENSE.txt
+├─ yargs-parser@20.2.9
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/yargs/yargs-parser
+│  ├─ publisher: Ben Coe
+│  ├─ email: ben@npmjs.com
+│  └─ licenseFile: semantic-release/node_modules/yargs-parser/LICENSE.txt
 ├─ yargs@16.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/yargs/yargs
