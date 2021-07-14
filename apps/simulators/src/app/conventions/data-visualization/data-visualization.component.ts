@@ -38,7 +38,9 @@ export class DataVisualizationComponent {
     );
 
     const exampleVegaWithData = JSON.parse(JSON.stringify(exampleVega));
-    delete exampleVegaWithData.data['sedml']
+    delete exampleVegaWithData.signals[1]['sedmlUri']
+    delete exampleVegaWithData.data[1]['sedmlUri']
+    exampleVegaWithData.signals[1]['value'] = 100
     exampleVegaWithData.data[1]['values'] = JSON.parse(JSON.stringify(exampleSedmlData));
 
     this.exampleVegaWithData = JSON.stringify(
