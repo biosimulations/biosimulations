@@ -1,4 +1,7 @@
-<biosimulations-tab-page (selectedTabChange)="selectedTabChange($event)">
+<biosimulations-tab-page
+  [selectedTabIndex]="selectedTabIndex"
+  (selectedTabChange)="selectedTabChange($event)"
+>
   <biosimulations-tab-page-tab heading="Simulation run" icon="overview">
     <div
       class="tab-spinner-container"
@@ -418,7 +421,19 @@
                               identifier.label
                             }}</a
                             >: </span
-                          >{{ ' ' }}{{ other.uri }}
+                          >{{ ' ' }}
+                          <button
+                            *ngIf="other.click; else noButton"
+                            type="button"
+                            mat-icon-button
+                            (click)="other.click()"
+                            class="biosimulations-button text"
+                          >
+                            {{ other.uri }}
+                          </button>
+                          <ng-template #noButton>
+                            {{ other.uri }}
+                          </ng-template>
                         </td>
                       </tr>
                     </ng-container>
