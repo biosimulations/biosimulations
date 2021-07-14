@@ -7,7 +7,7 @@
       class="tab-spinner-container"
       *ngIf="(formattedSimulation$ | async) === null"
     >
-      <biosimulations-spinner> </biosimulations-spinner>
+      <biosimulations-spinner></biosimulations-spinner>
     </div>
     <ng-container *ngIf="formattedSimulation$ | async as simulation">
       <p>
