@@ -5,18 +5,24 @@ export enum AxisType {
   log = 'log',
 }
 
-export enum ScatterTraceMode {
+export enum TraceMode {
   lines = 'lines',
   markers = 'markers',
 }
 
-export interface ScatterTrace {
-  name: string;
+export enum TraceType {
+  scatter = 'scatter',
+  histogram = 'histogram',
+}
+
+export interface Trace {
+  name?: string;
   x: (number | boolean | string)[];
-  y: (number | boolean | string)[];
+  y?: (number | boolean | string)[];
   xaxis: string;
   yaxis: string;
-  mode: ScatterTraceMode;
+  type: TraceType;
+  mode?: TraceMode;
 }
 
 export interface Axis {
@@ -40,7 +46,7 @@ export interface Layout {
 }
 
 export interface DataLayout {
-  data: ScatterTrace[];
+  data: Trace[];
   layout: Layout;
 }
 
@@ -51,7 +57,7 @@ export interface DataLayout {
 })
 export class PlotlyVisualizationComponent {
   loading = false;
-  data: ScatterTrace[] | undefined = undefined;
+  data: Trace[] | undefined = undefined;
   layout: Layout | undefined = undefined;
   config: any = {
     scrollZoom: true,
