@@ -30,6 +30,7 @@ module.exports = {
         'release',
         'combine-service',
         'shared-exceptions',
+        'shared-nats-client',
       ],
     ],
   },

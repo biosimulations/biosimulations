@@ -16,7 +16,7 @@ import {
         return ClientProxyFactory.create({
           transport: Transport.NATS,
           options: {
-            url: natsURL,
+            servers: [natsURL],
           },
         });
       },

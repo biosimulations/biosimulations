@@ -17,7 +17,7 @@ async function bootstrap() {
   const natsConfig: NatsOptions = {
     transport: Transport.NATS,
     options: {
-      url: natsUrl,
+      servers: [natsUrl],
       queue: natsQueue,
       reconnect: true,
     },
