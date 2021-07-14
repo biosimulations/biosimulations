@@ -735,7 +735,6 @@ export class ViewComponent implements OnInit, OnDestroy {
       sedDocumentUri = sedDocumentUri.substring(2);
     }
 
-    let sedDocument: SedDocument | undefined = undefined;
     for (const content of this.sedDocumentsConfiguration.contents) {
       let thisSedDocumentUri = content.location.path;
       if (thisSedDocumentUri.startsWith('./')) {
@@ -760,7 +759,6 @@ export class ViewComponent implements OnInit, OnDestroy {
       return undefined;
     }
 
-    let report: SedReport | undefined = undefined;
     for (const thisReport of sedDocument.outputs) {
       if (thisReport._type == 'SedReport' && thisReport.id === reportId) {
         return thisReport as SedReport;
