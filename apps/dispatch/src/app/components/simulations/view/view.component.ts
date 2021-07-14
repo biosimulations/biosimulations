@@ -157,6 +157,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   metadata$!: Observable<Metadata | undefined>;
 
   // SED documents in COMBINE/OMEX archive of simulation run
+  sedDocumentsConfiguration: CombineArchive | undefined;
   sedDocumentsConfiguration$!: Observable<CombineArchive | undefined>;
   sedDocumentReportsConfiguration$!: Observable<SedDocumentReportsCombineArchiveContent[]>;
   private sedDataSetConfigurationMap!: {[uri: string]: SedDataSet};
@@ -295,6 +296,13 @@ export class ViewComponent implements OnInit, OnDestroy {
       concatAll(),
       shareReplay(1),
     );
+
+    const sedDocumentsConfigurationSub = this.sedDocumentsConfiguration$.subscribe(
+      (archive: CombineArchive | undefined): void => {
+        this.sedDocumentsConfiguration = archive;
+      }
+    );
+    this.subscriptions.push(sedDocumentsConfigurationSub);
 
     this.sedDocumentReportsConfiguration$ = this.sedDocumentsConfiguration$
       .pipe(
@@ -660,25 +668,45 @@ export class ViewComponent implements OnInit, OnDestroy {
       .pipe(
         map((spec: VegaSpec | undefined): VegaSpec | false => {
           if (spec) {
-            const datas = spec.data;
-            if (Array.isArray(datas)) {
-              (datas as any[]).forEach((data: any, iData: number): void => {
-                const name = data?.name;
-                if (data?.sedml) {
-                  data.url = this.visualizationService.getOutputResultsUrl(
-                    this.uuid,
-                    data?.sedml as string,
-                  );
-                  data.format = {
-                    type: 'json',
-                    property: 'data',
-                  };
-                  delete data['sedml'];
-                  if ('values' in data) {
-                    delete data['values'];
+            // link attributes of SED-ML documents to Vega signals
+            if (Array.isArray(spec?.signals)) {
+              for (const signal of spec?.signals) {
+                const anySignal = signal as any;
+                if ('sedmlUri' in signal) {
+                  const sedmlSimulationAttributePath = anySignal.sedmlUri as any;
+                  anySignal.value = this.getValueOfSedmlSimulationAttribute(sedmlSimulationAttributePath);
+                  if (anySignal.value === undefined) {
+                    return false;
+                  }
+                  delete anySignal['sedmlUri'];
+                }
+              }
+            }
+
+            // link results of SED-ML reports to Vega data sets
+            if (Array.isArray(spec?.data)) {
+              for (const data of spec?.data) {
+                const anyData = data as any;
+                const name = anyData?.name;
+                if ('sedmlUri' in anyData) {
+                  if (this.getSedReport(anyData.sedmlUri) && anyData.sedmlUri?.length == 2) {
+                    anyData.url = this.visualizationService.getOutputResultsUrl(
+                      this.uuid,
+                      anyData.sedmlUri.join('/'),
+                    );
+                    anyData.format = {
+                      type: 'json',
+                      property: 'data',
+                    };
+                    delete anyData['sedmlUri'];
+                    if ('values' in anyData) {
+                      delete anyData['values'];
+                    }
+                  } else {
+                    return false;
                   }
                 }
-              });
+              }
             }
             return spec;
           } else {
@@ -687,6 +715,101 @@ export class ViewComponent implements OnInit, OnDestroy {
         }),
         shareReplay(1),
       );
+  }
+
+  private getSedDocument(path: any): SedDocument | undefined {
+    if (!Array.isArray(path)) {
+      return undefined;
+    }
+
+    if (!this.sedDocumentsConfiguration) {
+      return undefined;
+    }
+
+    let sedDocumentUri = path?.[0];
+    if (!(typeof sedDocumentUri === 'string' || sedDocumentUri instanceof String)) {
+      return undefined;
+    }
+
+    if (sedDocumentUri.startsWith('./')) {
+      sedDocumentUri = sedDocumentUri.substring(2);
+    }
+
+    let sedDocument: SedDocument | undefined = undefined;
+    for (const content of this.sedDocumentsConfiguration.contents) {
+      let thisSedDocumentUri = content.location.path;
+      if (thisSedDocumentUri.startsWith('./')) {
+        thisSedDocumentUri = thisSedDocumentUri.substring(2);
+      }
+      if (sedDocumentUri === thisSedDocumentUri) {
+        return content.location.value as SedDocument;
+      }
+    }
+
+    return undefined;
+  }
+
+  private getSedReport(path: any): SedReport | undefined {
+    const sedDocument: SedDocument | undefined = this.getSedDocument(path);
+    if (!sedDocument) {
+      return undefined;
+    }
+
+    const reportId = path?.[1];
+    if (!(typeof reportId === 'string' || reportId instanceof String)) {
+      return undefined;
+    }
+
+    let report: SedReport | undefined = undefined;
+    for (const thisReport of sedDocument.outputs) {
+      if (thisReport._type == 'SedReport' && thisReport.id === reportId) {
+        return thisReport as SedReport;
+      }
+    }
+
+    return undefined;
+  }
+
+  private getValueOfSedmlSimulationAttribute(path: any): any {
+    const sedDocument: SedDocument | undefined = this.getSedDocument(path);
+    if (!sedDocument) {
+      return undefined;
+    }
+
+    const simulationId = path?.[1];
+    if (!(typeof simulationId === 'string' || simulationId instanceof String)) {
+      return undefined;
+    }
+
+    let simulation: SedSimulation | undefined = undefined;
+    for (const thisSimulation of sedDocument.simulations) {
+      if (thisSimulation.id === simulationId) {
+        simulation = thisSimulation;
+        break;
+      }
+    }
+    if (!simulation) {
+      return undefined;
+    }
+
+    if (path.length > 3) {
+      return undefined;
+    }
+
+    let attributeName = path?.[2];
+    if (!(typeof attributeName === 'string' || attributeName instanceof String)) {
+      return undefined;
+    }
+    if (attributeName === 'numberOfPoints') {
+      attributeName = 'numberOfSteps';
+    }
+
+    if (attributeName in simulation) {
+      const attributeValue = (simulation as any)[attributeName];
+      return attributeValue;
+    }
+
+    return undefined;
   }
 
   /* SED-ML visualization */
