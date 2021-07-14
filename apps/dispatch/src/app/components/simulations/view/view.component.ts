@@ -1047,7 +1047,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
       let missingData = false;
 
-      let zData: any[][] = [];
+      const zData: any[][] = [];
       const yTicks: string[] = [];
       for (let selectedUri of selectedYUris) {
         if (selectedUri.startsWith('./')) {
