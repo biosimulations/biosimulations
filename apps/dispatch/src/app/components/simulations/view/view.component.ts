@@ -21,8 +21,9 @@ import { VisualizationService } from '../../../services/visualization/visualizat
 import {
   PlotlyVisualizationComponent,
   AxisType,
-  ScatterTraceMode,
-  ScatterTrace,
+  TraceType,
+  TraceMode,
+  Trace,
   DataLayout,
 } from './plotly-visualization/plotly-visualization.component';
 import { CombineService } from '../../../services/combine/combine.service';
@@ -53,8 +54,8 @@ import {
   AxisLabelType,
   AXIS_LABEL_TYPES,
   FormattedSimulation,
-  ScatterTraceModeLabel,
-  SCATTER_TRACE_MODEL_LABELS,
+  TraceModeLabel,
+  TRACE_MODE_LABELS,
 } from './view.model';
 import { ViewService } from './view.service';
 import {
@@ -177,7 +178,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   user2DLineScatterCurvesFormGroups: FormGroup[];
 
   axisLabelTypes: AxisLabelType[] = AXIS_LABEL_TYPES;
-  scatterTraceModeLabels: ScatterTraceModeLabel[] = SCATTER_TRACE_MODEL_LABELS;
+  traceModeLabels: TraceModeLabel[] = TRACE_MODE_LABELS;
 
   private userSimulationResults: SedDatasetResultsMap | undefined | false = undefined;
   private userSimulationResultsLoaded = false;
@@ -203,6 +204,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.visualizationFormGroup = formBuilder.group({
       visualization: [null, [Validators.required]],
       user1DHistogram: formBuilder.group({
+        dataSets: [[], Validators.required],
       }),
       user2DHeatmap: formBuilder.group({
       }),
@@ -211,7 +213,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         curves: formBuilder.array([]),
         xAxisType: [AxisType.linear, [Validators.required]],
         yAxisType: [AxisType.linear, [Validators.required]],
-        scatterTraceMode: [ScatterTraceMode.lines, [Validators.required]],
+        traceMode: [TraceMode.lines, [Validators.required]],
       }),
     });
 
@@ -585,7 +587,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   /* Vega visualization */
-  public setUpVegaVisualization(): void {
+  private setUpVegaVisualization(): void {
     const visualization = this.selectedVisualization;
 
     const archiveUrl = this.getArchiveUrl();
@@ -633,7 +635,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       // .getCombineResults(this.uuid, visualization.uri as string)
       .subscribe((results: SedDatasetResultsMap | undefined): void => {
         if (results) {
-          const traces: ScatterTrace[] = [];
+          const traces: Trace[] = [];
           const xAxisTitlesSet = new Set<string>();
           const yAxisTitlesSet = new Set<string>();
           const output = visualization.sedmlOutputSpec as SedPlot2D;
@@ -649,10 +651,11 @@ export class ViewComponent implements OnInit, OnDestroy {
               y: results?.[yId]?.values,
               xaxis: 'x1',
               yaxis: 'y1',
-              mode: ScatterTraceMode.lines,
+              type: TraceType.scatter,
+              mode: TraceMode.lines,
             };
             if (trace.x && trace.y) {
-              traces.push(trace as ScatterTrace);
+              traces.push(trace as Trace);
             } else {
               missingData = true;
             }
@@ -716,10 +719,12 @@ export class ViewComponent implements OnInit, OnDestroy {
   /* User-defined visualization */
   private setUpUser1DHistogramVisualization() {
     this.getUserSimulationResults();
+    this.displayUser1DHistogram();
   }
 
   private setUpUser2DHeatmapVisualization() {
     this.getUserSimulationResults();
+    this.displayUser2DHeatmap();
   }
 
   private setUpUser2DLineScatterVisualization() {
@@ -741,6 +746,105 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
   }
 
+  public select1DHistogramDataSet(
+      type: 'SedDocument' | 'SedReport' | 'SedDataSet',
+      sedDocument: SedDocumentReportsCombineArchiveContent,
+      sedDocumentId: string,
+      report?: SedReport,
+      reportId?: string,
+      dataSet?: SedDataSet,
+      dataSetId?: string,
+    ): void {
+    const formGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
+    const dataSetsFormControl = formGroup.controls.dataSets as FormControl;
+    const selectedUris = new Set(dataSetsFormControl.value);
+
+    const uri = sedDocumentId
+      + (reportId ? '/' + reportId : '')
+      + (dataSetId ? '/' + dataSetId : '');
+    const selected = selectedUris.has(uri);
+
+    if (type === 'SedDocument') {
+      sedDocument.location.value.outputs.forEach((report: SedReport): void => {
+        const reportUri = uri + '/' + report.id;
+        if (selected) {
+          selectedUris.add(reportUri);
+        } else {
+          selectedUris.delete(reportUri);
+        }
+
+        report.dataSets.forEach((dataSet: SedDataSet): void => {
+          const dataSetUri = reportUri + '/' + dataSet.id;
+          if (selected) {
+            selectedUris.add(dataSetUri);
+          } else {
+            selectedUris.delete(dataSetUri);
+          }
+        });
+      });
+
+    } else if (type === 'SedReport') {
+      if (!selected) {
+        selectedUris.delete(sedDocumentId);
+      }
+
+      (report as SedReport).dataSets.forEach((dataSet: SedDataSet): void => {
+        const dataSetUri = uri + '/' + dataSet.id;
+        if (selected) {
+          selectedUris.add(dataSetUri);
+        } else {
+          selectedUris.delete(dataSetUri);
+        }
+      });
+
+      let hasAllReports = true;
+      for (const report of sedDocument.location.value.outputs) {
+        const reportUri = sedDocumentId + '/' + (report as SedReport).id;
+        if (!selectedUris.has(reportUri)) {
+          hasAllReports = false;
+          break;
+        }
+      }
+      if (hasAllReports) {
+        selectedUris.add(sedDocumentId);
+      }
+
+    } else {
+      if (selected) {
+        let hasAllDataSets = true;
+        for (const dataSet of (report as SedReport).dataSets) {
+          const dataSetUri = sedDocumentId + '/' + (report as SedReport).id + '/' + dataSet.id;
+          if (!selectedUris.has(dataSetUri)) {
+            hasAllDataSets = false;
+            break;
+          }
+        }
+        if (hasAllDataSets) {
+          selectedUris.add(sedDocumentId + '/' + (reportId as string));
+        }
+
+        let hasAllReports = true;
+        for (const report of sedDocument.location.value.outputs) {
+          const reportUri = sedDocumentId + '/' + (report as SedReport).id;
+          if (!selectedUris.has(reportUri)) {
+            hasAllReports = false;
+            break;
+          }
+        }
+        if (hasAllReports) {
+          selectedUris.add(sedDocumentId);
+        }
+
+      } else {
+        selectedUris.delete(sedDocumentId + '/' + (reportId as string));
+        selectedUris.delete(sedDocumentId);
+      }
+    }
+
+    dataSetsFormControl.setValue(Array.from(selectedUris));
+    this.displayUser1DHistogram();
+  }
+
   public setNum2DLineScatterCurves(): void {
     const formGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
     const numCurves = formGroup.value.numCurves;
@@ -760,10 +864,122 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  public displayUser2DLineScatterViz(): void {
+  public displayUserViz(): void {
+    switch (this.selectedVisualization.type) {
+      case VisualizationType.user1DHistogram: {
+        this.displayUser1DHistogram();
+        break;
+      }
+      case VisualizationType.user2DHeatmap: {
+        this.displayUser2DHeatmap();
+        break;
+      }
+      case VisualizationType.user2DLineScatter: {
+        this.displayUser2DLineScatterViz();
+        break;
+      }
+    }
+  }
+
+  private displayUser1DHistogram(): void {
+    if (this.userSimulationResults) {
+      const formGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
+      const dataSetsFormControl = formGroup.controls.dataSets as FormControl;
+      const selectedUris = dataSetsFormControl.value;
+
+      let allData: any = [];
+      let missingData = false;
+      const xAxisTitles: string[] = [];
+      for (let selectedUri of selectedUris) {
+        if (selectedUri.startsWith('./')) {
+          selectedUri = selectedUri.substring(2);
+        }
+
+        const selectedDataSet = this.sedDataSetConfigurationMap?.[selectedUri];
+        if (selectedDataSet) {
+          const data = this.userSimulationResults?.[selectedUri];
+          if (data) {
+            allData = allData.concat(this.flattenArray(data.values));
+            xAxisTitles.push(data.label);
+          } else {
+            missingData = true;
+            break;
+          }
+        }
+      }
+
+      const trace = {
+        x: allData,
+        xaxis: 'x1',
+        yaxis: 'y1',
+        type: TraceType.histogram,
+      };
+
+      let xAxisTitle: string | undefined = undefined;
+      if (xAxisTitles.length === 1) {
+        xAxisTitle = xAxisTitles[0];
+      } else if (xAxisTitles.length > 1) {
+        xAxisTitle = 'Multiple';
+      }
+
+      const dataLayout = {
+        data: [trace],
+        layout: {
+          xaxis1: {
+            anchor: 'x1',
+            title: xAxisTitle,
+            type: 'linear',
+          },
+          yaxis1: {
+            anchor: 'y1',
+            title: 'Frequency',
+            type: 'linear',
+          },
+          grid: {
+            rows: 1,
+            columns: 1,
+            pattern: 'independent',
+          },
+          showlegend: false,
+          width: undefined,
+          height: undefined,
+        }
+      } as DataLayout;
+
+      if (missingData) {
+        this.plotlyVizDataLayout.next(false);
+      } else {
+        this.plotlyVizDataLayout.next(dataLayout);
+      }
+    } else if (this.userSimulationResults === undefined) {
+      this.plotlyVizDataLayout.next(null);
+    } else {
+      this.plotlyVizDataLayout.next(false);
+    }
+  }
+
+  private flattenArray(nestedArray: any[]): any[] {
+    const flattenedArray: any[] = [];
+    const toFlatten = [...nestedArray];
+    while (toFlatten.length) {
+      const el = toFlatten.pop();
+      if (Array.isArray(el)) {
+        toFlatten.push(el);
+      } else {
+        flattenedArray.push(el);
+      }
+    }
+    return flattenedArray;
+  }
+
+  private displayUser2DHeatmap(): void {
+
+  }
+
+  private displayUser2DLineScatterViz(): void {
     if (this.userSimulationResults) {
       const formGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
-      const scatterTraceMode = (formGroup.controls.scatterTraceMode as FormControl).value;
+      const traceMode = (formGroup.controls.traceMode as FormControl).value;
 
       const traces = [];
       const xAxisTitlesSet = new Set<string>();
@@ -786,7 +1002,8 @@ export class ViewComponent implements OnInit, OnDestroy {
             y: this.userSimulationResults?.[yDataUri]?.values,
             xaxis: 'x1',
             yaxis: 'y1',
-            mode: scatterTraceMode,
+            type: TraceType.scatter,
+            mode: traceMode,
           }
 
           if (trace.x && trace.y) {
