@@ -157,6 +157,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   metadata$!: Observable<Metadata | undefined>;
 
   // SED documents in COMBINE/OMEX archive of simulation run
+  sedDocumentsConfiguration$!: Observable<CombineArchive | undefined>;
   sedDocumentReportsConfiguration$!: Observable<SedDocumentReportsCombineArchiveContent[]>;
   private sedDataSetConfigurationMap!: {[uri: string]: SedDataSet};
 
@@ -164,7 +165,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   visualizationFormGroup: FormGroup;
 
   visualizations$!: Observable<Visualization[]>;
-  private visualizationsMap!: {[id: string]: Visualization};
+  private visualizationsIdMap!: {[id: string]: Visualization};
   selectedVisualization!: Visualization;
 
   @ViewChild(VegaVisualizationComponent)
@@ -188,8 +189,11 @@ export class ViewComponent implements OnInit, OnDestroy {
   // log of simulation run
   logs$!: Observable<SimulationLogs | undefined>;
 
-  // subscripts
+  // subscriptions
   private subscriptions: Subscription[] = [];
+
+  // tabs
+  selectedTabIndex = 0;
 
   constructor(
     private config: ConfigService,
@@ -232,9 +236,9 @@ export class ViewComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
     this.initSimulationRun();
-    this.initSimulationProjectMetadata();
     this.initVisualizations();
     this.initSimulationRunLog();
+    this.initSimulationProjectMetadata();
   }
 
   initSimulationRun(): void {
@@ -261,79 +265,6 @@ export class ViewComponent implements OnInit, OnDestroy {
     );
   }
 
-  initSimulationProjectMetadata(): void {
-    const archiveUrl = this.getArchiveUrl();
-    this.metadata$ = this.combineService
-      .getCombineArchiveMetadata(archiveUrl)
-      .pipe(
-        map(
-          (
-            elMetadatas: CombineArchiveElementMetadata[] | undefined,
-          ): Metadata | undefined => {
-            if (elMetadatas === undefined) {
-              return undefined;
-            }
-
-            elMetadatas.forEach(
-              (elMetadata: CombineArchiveElementMetadata): void => {
-                elMetadata.thumbnails = elMetadata.thumbnails.map(
-                  (thumbnail: string): string => {
-                    return `${urls.combineApi}combine/file?url=${encodeURI(
-                      archiveUrl,
-                    )}&location=${encodeURI(thumbnail)}`;
-                  },
-                );
-
-                if (elMetadata.created) {
-                  const d = new Date(elMetadata.created);
-                  elMetadata.created =
-                    d.getFullYear() +
-                    '-' +
-                    ('0' + (d.getMonth() + 1)).slice(-2) +
-                    '-' +
-                    ('0' + d.getDate()).slice(-2);
-                }
-                elMetadata.modified = elMetadata.modified.map(
-                  (date: string): string => {
-                    const d = new Date(date);
-                    return (
-                      d.getFullYear() +
-                      '-' +
-                      ('0' + (d.getMonth() + 1)).slice(-2) +
-                      '-' +
-                      ('0' + d.getDate()).slice(-2)
-                    );
-                  },
-                );
-                elMetadata.modified.sort();
-                elMetadata.modified.reverse();
-              },
-            );
-
-            return {
-              archive: elMetadatas.filter(
-                (elMetadata: CombineArchiveElementMetadata): boolean => {
-                  return elMetadata.uri === '.';
-                },
-              )?.[0],
-              other: elMetadatas.filter(
-                (elMetadata: CombineArchiveElementMetadata): boolean => {
-                  return elMetadata.uri !== '.';
-                },
-              ),
-            };
-          },
-        ),
-        shareReplay(1),
-      );
-    this.metadataLoaded$ = this.metadata$.pipe(
-      map((): boolean => {
-        return true;
-      }),
-      shareReplay(1),
-    );
-  }
-
   initVisualizations(): void {
     const archiveUrl = `${urls.dispatchApi}run/${this.uuid}/download`;
 
@@ -351,7 +282,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       shareReplay(1),
     );
 
-    const sedDocumentsConfiguration = this.statusSucceeded$.pipe(
+    this.sedDocumentsConfiguration$ = this.statusSucceeded$.pipe(
       map(
         (succeeded: boolean): Observable<CombineArchive | undefined> => {
           return succeeded
@@ -365,7 +296,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       shareReplay(1),
     );
 
-    this.sedDocumentReportsConfiguration$ = sedDocumentsConfiguration
+    this.sedDocumentReportsConfiguration$ = this.sedDocumentsConfiguration$
       .pipe(
         map((archive: CombineArchive | undefined): SedDocumentReportsCombineArchiveContent[] => {
           if (archive) {
@@ -397,7 +328,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         })
       });
 
-    this.visualizations$ = combineLatest(this.statusSucceeded$, archiveManifest, sedDocumentsConfiguration)
+    this.visualizations$ = combineLatest(this.statusSucceeded$, archiveManifest, this.sedDocumentsConfiguration$)
       .pipe(
         map((
           args: [
@@ -479,9 +410,9 @@ export class ViewComponent implements OnInit, OnDestroy {
             });
           }
 
-          this.visualizationsMap = {};
+          this.visualizationsIdMap = {};
           for (const visualization of visualizations) {
-            this.visualizationsMap[visualization.id] = visualization;
+            this.visualizationsIdMap[visualization.id] = visualization;
           }
 
           if (visualizations.length) {
@@ -562,6 +493,126 @@ export class ViewComponent implements OnInit, OnDestroy {
     );
   }
 
+  initSimulationProjectMetadata(): void {
+    const archiveUrl = this.getArchiveUrl();
+    this.metadata$ = combineLatest(
+        this.combineService.getCombineArchiveMetadata(archiveUrl),
+        this.visualizations$,
+        this.sedDocumentsConfiguration$,
+      ).pipe(
+        map(
+          (args: [
+            CombineArchiveElementMetadata[] | undefined,
+            Visualization[],
+            CombineArchive | undefined,
+          ]): Metadata | undefined => {
+            const elMetadatas = args[0];
+            const visualizations = args[1];
+            const sedDocumentsConfiguration = args[2];
+
+            if (elMetadatas === undefined) {
+              return undefined;
+            }
+
+            elMetadatas.forEach(
+              (elMetadata: CombineArchiveElementMetadata): void => {
+                elMetadata.thumbnails = elMetadata.thumbnails.map(
+                  (thumbnail: string): string => {
+                    return `${urls.combineApi}combine/file?url=${encodeURI(
+                      archiveUrl,
+                    )}&location=${encodeURI(thumbnail)}`;
+                  },
+                );
+
+                if (elMetadata.created) {
+                  const d = new Date(elMetadata.created);
+                  elMetadata.created =
+                    d.getFullYear() +
+                    '-' +
+                    ('0' + (d.getMonth() + 1)).slice(-2) +
+                    '-' +
+                    ('0' + d.getDate()).slice(-2);
+                }
+                elMetadata.modified = elMetadata.modified.map(
+                  (date: string): string => {
+                    const d = new Date(date);
+                    return (
+                      d.getFullYear() +
+                      '-' +
+                      ('0' + (d.getMonth() + 1)).slice(-2) +
+                      '-' +
+                      ('0' + d.getDate()).slice(-2)
+                    );
+                  },
+                );
+                elMetadata.modified.sort();
+                elMetadata.modified.reverse();
+              },
+            );
+
+            const visualizationsUriIdMap: {[uri: string]: string} = {};
+            for (const visualization of visualizations) {
+              if (visualization.uri) {
+                visualizationsUriIdMap[visualization.uri] = visualization.id;
+              }
+            }
+
+            const sedUris = new Set<string>();
+            if (sedDocumentsConfiguration) {
+              sedDocumentsConfiguration.contents.forEach((content: CombineArchiveContent): void => {
+                const uri = content.location.path;
+                const sedDocument = content.location.value as SedDocument
+                sedUris.add(uri);
+                sedDocument.outputs.forEach((output: SedOutput): void => {
+                  sedUris.add(uri + '/' + output.id);
+                });
+              });
+            }
+
+            return {
+              archive: elMetadatas.filter(
+                (elMetadata: CombineArchiveElementMetadata): boolean => {
+                  return elMetadata.uri === '.';
+                },
+              )?.[0],
+              other: elMetadatas.filter(
+                (elMetadata: CombineArchiveElementMetadata): boolean => {
+                  return elMetadata.uri !== '.';
+                },
+              ).map((elMetadata: CombineArchiveElementMetadata): CombineArchiveElementMetadata => {
+                if (elMetadata.uri.startsWith('./')) {
+                  elMetadata.uri = elMetadata.uri.substring(2);
+                }
+
+                if (elMetadata.uri in visualizationsUriIdMap) {
+                  elMetadata.click = (): void => {
+                    const vizFormControl = this.visualizationFormGroup.controls.visualization as FormControl;
+                    vizFormControl.setValue(visualizationsUriIdMap[elMetadata.uri]);
+                    this.selectVisualization();
+                    this.selectedTabIndex = this.iViewChartTab;
+                  };
+
+                } else if (sedUris.has(elMetadata.uri)) {
+                  elMetadata.click = (): void => {
+                    this.selectedTabIndex = this.iSelectChartTab;
+                  };
+                }
+
+                return elMetadata;
+              }),
+            };
+          },
+        ),
+        shareReplay(1),
+      );
+    this.metadataLoaded$ = this.metadata$.pipe(
+      map((): boolean => {
+        return true;
+      }),
+      shareReplay(1),
+    );
+  }
+
   getArchiveUrl(): string {
     return `${urls.dispatchApi}run/${this.uuid}/download`;
   }
@@ -571,7 +622,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   public selectVisualization(): void {
-    this.selectedVisualization = this.visualizationsMap?.[this.visualizationFormGroup.value.visualization];
+    this.selectedVisualization = this.visualizationsIdMap?.[this.visualizationFormGroup.value.visualization];
     if (this.selectedVisualization) {
       switch (this.selectedVisualization.type) {
         case VisualizationType.vega: {
@@ -1173,10 +1224,12 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   /* tabs */
-  private iVisualizationTab = 3;
+  private iSelectChartTab = 2;
+  private iViewChartTab = 3;
 
   public selectedTabChange($event: MatTabChangeEvent): void {
-    if ($event.index == this.iVisualizationTab) {
+    this.selectedTabIndex = $event.index;
+    if ($event.index == this.iViewChartTab) {
       if (this.plotlyVisualization) {
         this.plotlyVisualization.setLayout();
       }
