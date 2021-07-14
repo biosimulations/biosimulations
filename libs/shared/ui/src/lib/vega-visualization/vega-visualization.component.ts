@@ -3,8 +3,6 @@ import {
   ViewChild,
   ElementRef,
   Input,
-  Output,
-  EventEmitter,
   HostListener,
 } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
