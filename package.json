@@ -179,7 +179,7 @@
     "openapi-examples-validator": "4.3.3",
     "plotly.js": "1.58.4",
     "prettier": "2.3.2",
-    "semantic-release": "17.4.3",
+    "semantic-release": "17.4.4",
     "ts-jest": "27.0.3",
     "ts-node": "9.1.1",
     "tslint": "6.1.3",
