@@ -175,6 +175,8 @@ export class ViewComponent implements OnInit, OnDestroy {
   private plotlyVizDataLayout = new BehaviorSubject<DataLayout | null | false>(null);
   plotlyVizDataLayout$ = this.plotlyVizDataLayout.asObservable();
 
+  user1DHistogramDataSetsFormControl: FormControl;
+  user2DHeatmapYDataSetsFormControl: FormControl;
   user2DLineScatterCurvesFormGroups: FormGroup[];
 
   axisLabelTypes: AxisLabelType[] = AXIS_LABEL_TYPES;
@@ -207,6 +209,8 @@ export class ViewComponent implements OnInit, OnDestroy {
         dataSets: [[], Validators.required],
       }),
       user2DHeatmap: formBuilder.group({
+        yDataSets: [[], Validators.required],
+        xDataSet: [null],
       }),
       user2DLineScatter: formBuilder.group({
         numCurves: [1, [Validators.required]],
@@ -217,7 +221,11 @@ export class ViewComponent implements OnInit, OnDestroy {
       }),
     });
 
+    const user1DHistogramFormGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
+    const user2DHeatmapFormGroup = this.visualizationFormGroup.controls.user2DHeatmap as FormGroup;
     const user2DLineScatterFormGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
+    this.user1DHistogramDataSetsFormControl = user1DHistogramFormGroup.controls.dataSets as FormControl;
+    this.user2DHeatmapYDataSetsFormControl = user2DHeatmapFormGroup.controls.yDataSets as FormControl;
     this.user2DLineScatterCurvesFormGroups = (user2DLineScatterFormGroup.controls.curves as FormArray).controls as FormGroup[];
   }
 
@@ -316,11 +324,13 @@ export class ViewComponent implements OnInit, OnDestroy {
             };
           },
         ),
+        shareReplay(1),
       );
     this.metadataLoaded$ = this.metadata$.pipe(
       map((): boolean => {
         return true;
       }),
+      shareReplay(1),
     );
   }
 
@@ -370,7 +380,8 @@ export class ViewComponent implements OnInit, OnDestroy {
           } else {
             return [];
           }
-        })
+        }),
+        shareReplay(1),
       );
 
     this.sedDocumentReportsConfiguration$.subscribe(
@@ -505,6 +516,7 @@ export class ViewComponent implements OnInit, OnDestroy {
             });
           return visualizations;
         }),
+        shareReplay(1),
       );
   }
 
@@ -602,10 +614,6 @@ export class ViewComponent implements OnInit, OnDestroy {
               (datas as any[]).forEach((data: any, iData: number): void => {
                 const name = data?.name;
                 if (data?.sedml) {
-                  delete data['sedml'];
-                  if ('values' in data) {
-                    delete data['values'];
-                  }
                   data.url = this.visualizationService.getOutputResultsUrl(
                     this.uuid,
                     data?.sedml as string,
@@ -614,6 +622,10 @@ export class ViewComponent implements OnInit, OnDestroy {
                     type: 'json',
                     property: 'data',
                   };
+                  delete data['sedml'];
+                  if ('values' in data) {
+                    delete data['values'];
+                  }
                 }
               });
             }
@@ -621,7 +633,8 @@ export class ViewComponent implements OnInit, OnDestroy {
           } else {
             return false;
           }
-        })
+        }),
+        shareReplay(1),
       );
   }
 
@@ -746,18 +759,19 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  public select1DHistogramDataSet(
-      type: 'SedDocument' | 'SedReport' | 'SedDataSet',
-      sedDocument: SedDocumentReportsCombineArchiveContent,
-      sedDocumentId: string,
-      report?: SedReport,
-      reportId?: string,
-      dataSet?: SedDataSet,
-      dataSetId?: string,
-    ): void {
-    const formGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
-    const dataSetsFormControl = formGroup.controls.dataSets as FormControl;
-    const selectedUris = new Set(dataSetsFormControl.value);
+  public setSelectedDataSets(
+    formControl: FormControl,
+    type: 'SedDocument' | 'SedReport' | 'SedDataSet',
+    sedDocument: SedDocumentReportsCombineArchiveContent,
+    sedDocumentId: string,
+    report?: SedReport,
+    reportId?: string,
+    dataSet?: SedDataSet,
+    dataSetId?: string,
+  ): void {
+    // const formGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
+    // const formControl = formGroup.controls.dataSets as FormControl;
+    const selectedUris = new Set(formControl.value);
 
     const uri = sedDocumentId
       + (reportId ? '/' + reportId : '')
@@ -841,8 +855,8 @@ export class ViewComponent implements OnInit, OnDestroy {
       }
     }
 
-    dataSetsFormControl.setValue(Array.from(selectedUris));
-    this.displayUser1DHistogram();
+    formControl.setValue(Array.from(selectedUris));
+    this.displayUserViz();
   }
 
   public setNum2DLineScatterCurves(): void {
@@ -884,8 +898,8 @@ export class ViewComponent implements OnInit, OnDestroy {
   private displayUser1DHistogram(): void {
     if (this.userSimulationResults) {
       const formGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
-      const dataSetsFormControl = formGroup.controls.dataSets as FormControl;
-      const selectedUris = dataSetsFormControl.value;
+      const formControl = formGroup.controls.dataSets as FormControl;
+      const selectedUris = formControl.value;
 
       let allData: any = [];
       let missingData = false;
@@ -973,7 +987,95 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   private displayUser2DHeatmap(): void {
+    if (this.userSimulationResults) {
+      const formGroup = this.visualizationFormGroup.controls.user2DHeatmap as FormGroup;
+      const yFormControl = formGroup.controls.yDataSets as FormControl;
+      const xFormControl = formGroup.controls.xDataSet as FormControl;
+      const selectedYUris = yFormControl.value;
+      const selectedXUri = xFormControl.value;
 
+      let missingData = false;
+
+      let zData: any[][] = [];
+      const yTicks: string[] = [];
+      for (let selectedUri of selectedYUris) {
+        if (selectedUri.startsWith('./')) {
+          selectedUri = selectedUri.substring(2);
+        }
+
+        const selectedDataSet = this.sedDataSetConfigurationMap?.[selectedUri];
+        if (selectedDataSet) {
+          const data = this.userSimulationResults?.[selectedUri];
+          if (data) {
+            const flattenedData = this.flattenArray(data.values);
+            zData.push(flattenedData);
+            yTicks.push(data.label);
+          } else {
+            missingData = true;
+            break;
+          }
+        }
+      }
+
+      let xTicks: any[] | undefined = undefined;
+      let xAxisTitle: string | undefined = undefined;
+      if (selectedXUri) {
+        const data = this.userSimulationResults?.[selectedXUri];
+        if (data) {
+          xTicks = this.flattenArray(data.values);
+          xAxisTitle = data.label;
+        } else {
+          missingData = true;
+        }
+      }
+
+      zData.reverse();
+      yTicks.reverse();
+
+      const trace = {
+        z: zData,
+        y: yTicks,
+        x: xTicks,
+        xaxis: 'x1',
+        yaxis: 'y1',
+        type: TraceType.heatmap,
+        hoverongaps: false,
+      };
+
+      const dataLayout = {
+        data: [trace],
+        layout: {
+          xaxis1: {
+            anchor: 'x1',
+            title: xAxisTitle,
+            type: 'linear',
+          },
+          //yaxis1: {
+          //  anchor: 'y1',
+          //  title: undefined,
+          //  type: 'linear',
+          //},
+          grid: {
+            rows: 1,
+            columns: 1,
+            pattern: 'independent',
+          },
+          showlegend: false,
+          width: undefined,
+          height: undefined,
+        }
+      } as DataLayout;
+
+      if (missingData) {
+        this.plotlyVizDataLayout.next(false);
+      } else {
+        this.plotlyVizDataLayout.next(dataLayout);
+      }
+    } else if (this.userSimulationResults === undefined) {
+      this.plotlyVizDataLayout.next(null);
+    } else {
+      this.plotlyVizDataLayout.next(false);
+    }
   }
 
   private displayUser2DLineScatterViz(): void {

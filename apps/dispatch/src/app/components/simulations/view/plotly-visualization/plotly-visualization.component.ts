@@ -13,16 +13,19 @@ export enum TraceMode {
 export enum TraceType {
   scatter = 'scatter',
   histogram = 'histogram',
+  heatmap = 'heatmap',
 }
 
 export interface Trace {
   name?: string;
-  x: (number | boolean | string)[];
-  y?: (number | boolean | string)[];
-  xaxis: string;
-  yaxis: string;
+  x?: any[];
+  y?: any[];
+  z?: any[];
+  xaxis?: string;
+  yaxis?: string;
   type: TraceType;
   mode?: TraceMode;
+  hoverongaps?: boolean;
 }
 
 export interface Axis {
