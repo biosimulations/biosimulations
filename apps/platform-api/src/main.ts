@@ -5,12 +5,16 @@ import {
   DocumentBuilder,
   SwaggerCustomOptions,
 } from '@nestjs/swagger';
-import { INestApplication } from '@nestjs/common';
+import {
+  INestApplication,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { json } from 'body-parser';
 import { ConfigService } from '@nestjs/config';
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
-
+import { BiosimulationsValidationExceptionFactory } from '@biosimulations/shared/exceptions';
 const allowOrigin: CustomOrigin = (
   requestOrigin: string,
   callback: (err: Error | null, allow?: boolean | undefined) => void,
@@ -128,6 +132,14 @@ async function bootstrap() {
   const httpAdapter = app.getHttpAdapter();
   httpAdapter.get('/openapi.json', (req, res) => res.json(document));
 
+  app.useGlobalPipes(
+    new ValidationPipe({
+      exceptionFactory: BiosimulationsValidationExceptionFactory,
+    }),
+  );
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
   await app.listen(port, () => {
     console.log('Listening at ' + host);
   });
