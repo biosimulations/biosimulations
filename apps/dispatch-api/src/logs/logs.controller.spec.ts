@@ -13,7 +13,7 @@ describe('LogsController', () => {
       createLog(id: string, data: any) {
         return { simId: id, log: data };
       },
-      getOldLogs(id: string): Promise<{ output: string; error: string }> {
+      getOldLogs(id: string) {
         return of({
           output: 'oldOut',
           error: 'oldErr',
