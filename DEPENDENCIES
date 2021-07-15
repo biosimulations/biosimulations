@@ -25,7 +25,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/bull
 │  └─ licenseFile: @nestjs/bull/LICENSE
-├─ @nestjs/common@8.0.0
+├─ @nestjs/common@8.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -35,7 +35,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/config/LICENSE
-├─ @nestjs/core@8.0.0
+├─ @nestjs/core@8.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -45,7 +45,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/mapped-types
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/mapped-types/LICENSE
-├─ @nestjs/microservices@8.0.0
+├─ @nestjs/microservices@8.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -60,7 +60,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/passport
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/passport/LICENSE
-├─ @nestjs/platform-express@8.0.0
+├─ @nestjs/platform-express@8.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -1625,6 +1625,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/davidmarkclements/fast-safe-stringify
 │  ├─ publisher: David Mark Clements
 │  └─ licenseFile: fast-safe-stringify/LICENSE
+├─ fast-safe-stringify@2.0.8
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/davidmarkclements/fast-safe-stringify
+│  ├─ publisher: David Mark Clements
+│  └─ licenseFile: @nestjs/core/node_modules/fast-safe-stringify/LICENSE
 ├─ fastq@1.11.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/mcollina/fastq
