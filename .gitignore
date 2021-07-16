@@ -112,3 +112,6 @@ __pycache__/
 
 # coverage
 .coverage
+
+#docs
+site/*
