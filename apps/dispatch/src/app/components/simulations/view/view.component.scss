@@ -47,6 +47,13 @@
       display: block;
     }
   }
+
+  .export-viz-button-container {
+    text-align: right;
+    button:not(:last-child) {
+      margin-right: 1rem;
+    }
+  }
 }
 
 biosimulations-vega-visualization {
