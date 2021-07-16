@@ -66,6 +66,9 @@ import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { urls } from '@biosimulations/config/common';
 import { CombineArchiveElementMetadata } from '../../../metadata.interface';
+import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
+import user2DHeatmapVegaTemplate from './viz-vega-templates/2d-heatmap.json';
+import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.json';
 
 interface Metadata {
   archive: CombineArchiveElementMetadata | null;
@@ -184,7 +187,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   axisLabelTypes: AxisLabelType[] = AXIS_LABEL_TYPES;
   traceModeLabels: TraceModeLabel[] = TRACE_MODE_LABELS;
 
-  private userSimulationResults: SedDatasetResultsMap | undefined | false = undefined;
+  userSimulationResults: SedDatasetResultsMap | undefined | false = undefined;
   private userSimulationResultsLoaded = false;
 
   // log of simulation run
@@ -1341,6 +1344,110 @@ export class ViewComponent implements OnInit, OnDestroy {
       this.plotlyVizDataLayout.next(null);
     } else {
       this.plotlyVizDataLayout.next(false);
+    }
+  }
+
+  exportUserViz(format: 'vega' | 'combine'): void {
+    this.selectedVisualization;
+
+    const selectedDataSets: {[outputUri: string]: string[]} = {};
+    let vega: any;
+    switch (this.selectedVisualization.type) {
+      case VisualizationType.user1DHistogram: {
+        const formGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
+        const formControl = formGroup.controls.dataSets as FormControl;
+        const selectedUris = formControl.value;
+        vega = JSON.parse(JSON.stringify(user1DHistogramVegaTemplate)) as any;
+
+        const xAxisTitles: string[] = [];
+        for (let selectedUri of selectedUris) {
+          if (selectedUri.startsWith('./')) {
+            selectedUri = selectedUri.substring(2);
+          }
+
+          const selectedDataSet = this.sedDataSetConfigurationMap?.[selectedUri];
+          if (selectedDataSet) {
+            const data = (this.userSimulationResults as SedDatasetResultsMap)?.[selectedUri];
+            if (data) {
+              const outputUri = data.location + '/' + data.outputId;
+              if (!(outputUri in selectedDataSets)) {
+                selectedDataSets[outputUri] = [];
+              }
+              selectedDataSets[outputUri].push(data.id);
+              xAxisTitles.push(data.label);
+            }
+          }
+        }
+
+        let xAxisTitle: string | undefined = undefined;
+        if (xAxisTitles.length === 1) {
+          xAxisTitle = xAxisTitles[0];
+        } else if (xAxisTitles.length > 1) {
+          xAxisTitle = 'Multiple';
+        }
+        vega.signals.forEach((signal: any): void => {
+          if (signal.name === 'xAxisTitle') {
+            signal.value = xAxisTitle;
+          }
+        });
+        break;
+      }
+      case VisualizationType.user2DHeatmap: {
+        const formGroup = this.visualizationFormGroup.controls.user2DHeatmap as FormGroup;
+        const yFormControl = formGroup.controls.yDataSets as FormControl;
+        const xFormControl = formGroup.controls.xDataSet as FormControl;
+        const selectedYUris = yFormControl.value;
+        const selectedXUri = xFormControl.value;
+        vega = JSON.parse(JSON.stringify(user2DHeatmapVegaTemplate)) as any;
+        break;
+      }
+      case VisualizationType.user2DLineScatter: {
+        const formGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
+        const curvesFormArray = formGroup.controls.curves as FormArray;
+        vega = JSON.parse(JSON.stringify(user2DLineScatterVegaTemplate)) as any;
+        break;
+      }
+    }
+
+    const data = vega.data as any[];
+    data.shift();
+    data.shift();
+
+    const filteredVegaDataSetNames: string[] = [];
+    Object.entries(selectedDataSets).forEach((outputUriDataSetIds: [string, string[]], i: number): void => {
+      const outputUriParts = outputUriDataSetIds[0].split('/');
+      const outputId = outputUriParts.pop();
+      const sedDocumentLocation = outputUriParts.join('/');
+      const dataSetIds = outputUriDataSetIds[1];
+      const filteredVegaDataSetName = `rawData${i}_filtered`;
+
+      filteredVegaDataSetNames.push(filteredVegaDataSetName);
+      data.unshift({
+        "name": filteredVegaDataSetName,
+        "source": `rawData${i}`,
+        "transform": [{
+          "type": "filter",
+          "expr": `indexof(['${dataSetIds.join('\', \'')}'], datum.id) !== -1`
+        }]
+      })
+      data.unshift({
+        "name": `rawData${i}`,
+        "sedmlUri": [sedDocumentLocation, outputId],
+      })
+    });
+
+    data[2 * Object.keys(selectedDataSets).length].source = filteredVegaDataSetNames;
+
+    // download
+    if (format === 'vega') {
+      const blob = new Blob([JSON.stringify(vega, null, 2)], { type: 'application/vega+json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'visualization.json';
+      a.click();
+
+    // } else {
+
     }
   }
 
