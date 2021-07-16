@@ -610,6 +610,23 @@
             </div>
           </div>
         </div>
+
+        <div class="export-viz-button-container">
+          <button
+            type="button"
+            mat-flat-button
+            class="biosimulations-button text"
+            (click)="exportUserViz('vega')"
+            [disabled]="!userSimulationResults"
+          >Export to Vega</button>
+          <button
+            type="button"
+            mat-flat-button
+            class="biosimulations-button text"
+            (click)="exportUserViz('combine')"
+            [disabled]="!userSimulationResults"
+          >Export in archive</button>
+        </div>
       </ng-container>
 
       <ng-container
@@ -747,6 +764,23 @@
               >
             </div>
           </div>
+        </div>
+
+        <div class="export-viz-button-container">
+          <button
+            type="button"
+            mat-flat-button
+            class="biosimulations-button text"
+            (click)="exportUserViz('vega')"
+            [disabled]="!userSimulationResults"
+          >Export to Vega</button>
+          <button
+            type="button"
+            mat-flat-button
+            class="biosimulations-button text"
+            (click)="exportUserViz('combine')"
+            [disabled]="!userSimulationResults"
+          >Export in archive</button>
         </div>
       </ng-container>
 
@@ -959,6 +993,23 @@
               >
             </div>
           </div>
+        </div>
+
+        <div class="export-viz-button-container">
+          <button
+            type="button"
+            mat-flat-button
+            class="biosimulations-button text"
+            (click)="exportUserViz('vega')"
+            [disabled]="!userSimulationResults"
+          >Export to Vega</button>
+          <button
+            type="button"
+            mat-flat-button
+            class="biosimulations-button text"
+            (click)="exportUserViz('combine')"
+            [disabled]="!userSimulationResults"
+          >Export in archive</button>
         </div>
       </ng-container>
     </form>
