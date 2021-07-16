@@ -4,17 +4,28 @@
   "width": 400,
   "height": 200,
   "padding": 0,
-
   "signals": [{
-      "name": "kdeExtent",
-      "value": null
+      "name": "histogramExtent",
+      "value": [null, null]
     },
     {
-      "name": "kdeMinSteps",
+      "name": "numHistogramBins",
+      "value": 51
+    },
+    {
+      "name": "KdeExtent",
+      "update": "histogramExtent"
+    },
+    {
+      "name": "KdeBandwidth",
+      "value": 0
+    },
+    {
+      "name": "MinKdeSteps",
       "value": 200
     },
     {
-      "name": "kdeMaxSteps",
+      "name": "MaxKdeSteps",
       "value": 1000
     },
     {
@@ -38,20 +49,28 @@
       "value": "X axis title"
     },
     {
-      "name": "yAxisTitle",
-      "value": "Frequency"
-    },
-    {
       "name": "axesWidth",
-      "value": 38
+      "value": 60
     },
     {
       "name": "axesHeight",
-      "value": 38
+      "value": 32
     },
-
     {
-      "name": "hover",
+      "name": "binsHover",
+      "value": null,
+      "on": [{
+          "events": "rect:mouseover",
+          "update": "datum"
+        },
+        {
+          "events": "rect:mouseout",
+          "update": "null"
+        }
+      ]
+    },
+    {
+      "name": "kdeHover",
       "value": null,
       "on": [{
           "events": "symbol:mouseover",
@@ -64,7 +83,6 @@
       ]
     }
   ],
-
   "data": [{
       "name": "rawData0",
       "sedmlUri": ["location/of/simulation.sedml", "idOfReport"]
@@ -74,40 +92,88 @@
       "source": "rawData0",
       "transform": [{
         "type": "filter",
-        "expr": "indexof(['data_set_time'], datum.id) !== -1"
+        "expr": "indexof(['data_set_BE'], datum.id) !== -1"
       }]
     },
     {
-      "name": "kde",
+      "name": "rawData_flattened",
       "source": ["rawData0_filtered"],
       "transform": [{
-          "type": "flatten",
-          "fields": ["values"]
-        },
-        {
-          "type": "kde",
+        "type": "flatten",
+        "fields": ["values"]
+      }]
+    },
+    {
+      "name": "rawData_extrema",
+      "source": "rawData_flattened",
+      "transform": [{
+        "type": "aggregate",
+        "fields": ["values", "values", "values"],
+        "ops": ["min", "max", "count"],
+        "as": ["min", "max", "count"]
+      }]
+    },
+    {
+      "name": "bins",
+      "source": "rawData_flattened",
+      "transform": [{
+          "type": "bin",
           "field": "values",
           "extent": {
-            "signal": "kdeExtent"
+            "signal": "histogramExtent"
           },
-          "minsteps": {
-            "signal": "kdeMinSteps"
+          "step": {
+            "signal": "(histogramExtent[1] - histogramExtent[0]) / (numHistogramBins - 1)"
           },
-          "maxsteps": {
-            "signal": "kdeMaxSteps"
-          },
-          "as": ["value", "freq"]
+          "nice": false
+        },
+        {
+          "type": "aggregate",
+          "groupby": ["bin0", "bin1"],
+          "fields": ["bin0"],
+          "ops": ["count"],
+          "as": ["count"]
+        },
+        {
+          "type": "formula",
+          "expr": "(datum.bin0 + datum.bin1) / 2",
+          "as": "value"
+        },
+        {
+          "type": "filter",
+          "expr": "datum.bin0 >= histogramExtent[0] && datum.bin1 <= histogramExtent[1]"
         }
       ]
+    },
+    {
+      "name": "kde",
+      "source": "rawData_flattened",
+      "transform": [{
+        "type": "kde",
+        "field": "values",
+        "extent": {
+          "signal": "KdeExtent"
+        },
+        "counts": true,
+        "bandwidth": {
+          "signal": "KdeBandwidth"
+        },
+        "minsteps": {
+          "signal": "MinKdeSteps"
+        },
+        "maxsteps": {
+          "signal": "MaxKdeSteps"
+        },
+        "as": ["value", "freq"]
+      }]
     }
   ],
-
   "scales": [{
       "name": "xScale",
       "type": "linear",
       "domain": {
-        "data": "kde",
-        "field": "value"
+        "data": "rawData_flattened",
+        "field": "values"
       },
       "zero": {
         "signal": "xScaleZero"
@@ -117,7 +183,21 @@
       }]
     },
     {
-      "name": "yScale",
+      "name": "yScaleBins",
+      "type": "linear",
+      "domain": {
+        "data": "bins",
+        "field": "count"
+      },
+      "zero": {
+        "signal": "yScaleZero"
+      },
+      "range": [{
+        "signal": "height - axesHeight"
+      }, 0]
+    },
+    {
+      "name": "yScaleKde",
       "type": "linear",
       "domain": {
         "data": "kde",
@@ -131,7 +211,6 @@
       }, 0]
     }
   ],
-
   "axes": [{
       "orient": "bottom",
       "scale": "xScale",
@@ -147,20 +226,97 @@
     },
     {
       "orient": "left",
-      "scale": "yScale",
+      "scale": "yScaleBins",
       "tickCount": {
         "signal": "yScaleTickCount"
       },
       "title": {
-        "signal": "yAxisTitle"
+        "value": "Counts"
       },
       "offset": {
         "signal": "0"
       }
+    },
+    {
+      "orient": "right",
+      "scale": "yScaleKde",
+      "tickCount": {
+        "signal": "yScaleTickCount"
+      },
+      "title": {
+        "value": "Density"
+      },
+      "offset": {
+        "signal": "-axesWidth"
+      }
     }
   ],
-
   "marks": [{
+      "type": "rect",
+      "from": {
+        "data": "bins"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "scale('xScale', datum.bin0) + 0.5"
+          },
+          "x2": {
+            "signal": "scale('xScale', datum.bin1) - 0.5"
+          },
+          "y": {
+            "scale": "yScaleBins",
+            "value": 0
+          },
+          "y2": {
+            "scale": "yScaleBins",
+            "field": "count"
+          }
+        },
+        "update": {
+          "fill": {
+            "value": "lightgray"
+          }
+        },
+        "hover": {
+          "fill": {
+            "value": "steelblue"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "bottom"
+          },
+          "fill": {
+            "value": "black"
+          }
+        },
+        "update": {
+          "text": {
+            "signal": "binsHover == null ? '' : format(binsHover.count, '.1f')"
+          },
+          "x": {
+            "scale": "xScale",
+            "signal": "binsHover == null ? 0 : binsHover.value"
+          },
+          "y": {
+            "signal": "binsHover == null ? 0 : scale('yScaleBins', binsHover.count) - 1"
+          },
+          "opacity": {
+            "signal": "binsHover == null ? 0 : 1"
+          }
+        }
+      }
+    },
+    {
       "type": "line",
       "from": {
         "data": "kde"
@@ -172,7 +328,7 @@
             "field": "value"
           },
           "y": {
-            "scale": "yScale",
+            "scale": "yScaleKde",
             "field": "freq"
           },
           "stroke": {
@@ -193,7 +349,7 @@
             "field": "value"
           },
           "y": {
-            "scale": "yScale",
+            "scale": "yScaleKde",
             "field": "freq"
           },
           "size": {
@@ -210,8 +366,7 @@
       "encode": {
         "enter": {
           "x": {
-            "scale": "xScale",
-            "value": "0"
+            "signal": "width - axesWidth"
           },
           "stroke": {
             "value": "gray"
@@ -220,22 +375,22 @@
         "update": {
           "x2": {
             "scale": "xScale",
-            "signal": "hover == null ? 0 : hover.value"
+            "signal": "kdeHover == null ? 0 : kdeHover.value"
           },
           "y": {
-            "scale": "yScale",
-            "signal": "hover == null ? 0 : hover.freq"
+            "scale": "yScaleKde",
+            "signal": "kdeHover == null ? 0 : kdeHover.freq"
           },
           "y2": {
-            "scale": "yScale",
-            "signal": "hover == null ? 0 : hover.freq"
+            "scale": "yScaleKde",
+            "signal": "kdeHover == null ? 0 : kdeHover.freq"
           },
           "strokeWidth": [0.5],
           "strokeDash": {
             "value": [2, 2]
           },
           "opacity": {
-            "signal": "hover == null ? 0 : 1"
+            "signal": "kdeHover == null ? 0 : 1"
           }
         }
       }
@@ -245,7 +400,7 @@
       "encode": {
         "enter": {
           "y": {
-            "scale": "yScale",
+            "scale": "yScaleKde",
             "value": "0"
           },
           "stroke": {
@@ -255,22 +410,77 @@
         "update": {
           "x": {
             "scale": "xScale",
-            "signal": "hover == null ? 0 : hover.value"
+            "signal": "kdeHover == null ? 0 : kdeHover.value"
           },
           "x2": {
             "scale": "xScale",
-            "signal": "hover == null ? 0 : hover.value"
+            "signal": "kdeHover == null ? 0 : kdeHover.value"
           },
           "y2": {
-            "scale": "yScale",
-            "signal": "hover == null ? 0 : hover.freq"
+            "scale": "yScaleKde",
+            "signal": "kdeHover == null ? 0 : kdeHover.freq"
           },
           "strokeWidth": [0.5],
           "strokeDash": {
             "value": [2, 2]
           },
           "opacity": {
-            "signal": "hover == null ? 0 : 1"
+            "signal": "kdeHover == null ? 0 : 1"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "align": {
+            "value": "center"
+          },
+          "fill": {
+            "value": "black"
+          }
+        },
+        "update": {
+          "text": {
+            "signal": "kdeHover == null ? '' : format(kdeHover.freq, '.1f')"
+          },
+          "x": {
+            "signal": "kdeHover == null ? 0 : (scale('xScale', kdeHover.value) + width - axesWidth) / 2"
+          },
+          "y": {
+            "signal": "kdeHover == null ? 0 : scale('yScaleKde', kdeHover.freq) - 2"
+          },
+          "opacity": {
+            "signal": "kdeHover == null ? 0 : 1"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "align": {
+            "value": "right"
+          },
+          "fill": {
+            "value": "black"
+          }
+        },
+        "update": {
+          "text": {
+            "signal": "kdeHover == null ? '' : format(kdeHover.value, '.1f')"
+          },
+          "x": {
+            "signal": "kdeHover == null ? 0 : scale('xScale', kdeHover.value) - 2"
+          },
+          "y": {
+            "scale": "yScaleKde",
+            "signal": "kdeHover == null ? 0 : kdeHover.freq / 2"
+          },
+          "opacity": {
+            "signal": "kdeHover == null ? 0 : 1"
           }
         }
       }

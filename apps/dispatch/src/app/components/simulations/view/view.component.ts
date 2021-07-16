@@ -1359,6 +1359,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         const selectedUris = formControl.value;
         vega = JSON.parse(JSON.stringify(user1DHistogramVegaTemplate)) as any;
 
+        const histogramExtent = [NaN, NaN];
         const xAxisTitles: string[] = [];
         for (let selectedUri of selectedUris) {
           if (selectedUri.startsWith('./')) {
@@ -1374,6 +1375,15 @@ export class ViewComponent implements OnInit, OnDestroy {
                 selectedDataSets[outputUri] = [];
               }
               selectedDataSets[outputUri].push(data.id);
+
+              const flatData = this.flattenArray(data.values);
+              histogramExtent[0] = isNaN(histogramExtent[0]) 
+                ? Math.min(...flatData) 
+                : Math.min(histogramExtent[0], Math.min(...flatData));
+              histogramExtent[1] = isNaN(histogramExtent[1]) 
+                ? Math.max(...flatData)
+                : Math.max(histogramExtent[1], Math.max(...flatData));
+
               xAxisTitles.push(data.label);
             }
           }
@@ -1386,8 +1396,16 @@ export class ViewComponent implements OnInit, OnDestroy {
           xAxisTitle = 'Multiple';
         }
         vega.signals.forEach((signal: any): void => {
-          if (signal.name === 'xAxisTitle') {
-            signal.value = xAxisTitle;
+          switch (signal.name) {
+            case 'histogramExtent':
+              signal.value = [
+                isNaN(histogramExtent[0]) ? null : histogramExtent[0],
+                isNaN(histogramExtent[1]) ? null : histogramExtent[1],
+              ];
+              break;
+            case 'xAxisTitle':
+              signal.value = xAxisTitle;
+              break;
           }
         });
         break;
