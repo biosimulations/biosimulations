@@ -1,13 +1,11 @@
 import {
   Body,
   Controller,
-  Param,
   Post,
-  Req,
   VERSION_NEUTRAL,
 } from '@nestjs/common';
 
-import { ApiBody, ApiExtraModels, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { PublishBioModelInput, BioModel } from './bioModel.model';
 
 @ApiTags('Models')
