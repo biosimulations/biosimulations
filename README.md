@@ -27,17 +27,17 @@ Please use the hosted versions of BioSimulations, runBioSimulations, and BioSimu
 
 ### Developers
 
-We welcome contributions to BioSimulations, runBioSimulations, and BioSimulations! Please see the [Guide to Contributing](./CONTRIBUTING.md/) for information about how to get started including how to install this package and how to run BioSimulations, runBioSimulations, and BioSimulators locally.
+We welcome contributions to BioSimulations, runBioSimulations, and BioSimulations! Please see the [Guide to Contributing](./CONTRIBUTING.md) for information about how to get started including how to install this package and how to run BioSimulations, runBioSimulations, and BioSimulators locally.
 
 ## License
 
-This package is released under the [MIT license](./LICENSE.md/). This package uses a number of open-source third-party packages. Their licenses are summarized in [DEPENDENCIES](./DEPENDENCIES/).
+This package is released under the [MIT license](./LICENSE.md). This package uses a number of open-source third-party packages. Their licenses are summarized in [DEPENDENCIES](./DEPENDENCIES/).
 
 ## Development team
 
 This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York and the [Center for Cell Analysis and Modeling](https://health.uconn.edu/cell-analysis-modeling/) at UConn Health as part of the [Center for Reproducible Biomodeling Modeling](https://reproduciblebiomodels.org).
 
-- [Bilal Shaikh](https://www.bshaikh.com)
+- [Bilal Shaikh](https://bshaikh.com)
 - [Jonathan Karr](https://www.karrlab.org)
 - Akhil Marupilla
 - [Mike Wilson](https://www.linkedin.com/in/mike-wilson-08b3324/)
