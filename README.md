@@ -27,11 +27,11 @@ Please use the hosted versions of BioSimulations, runBioSimulations, and BioSimu
 
 ### Developers
 
-We welcome contributions to BioSimulations, runBioSimulations, and BioSimulations! Please see the [Guide to Contributing](CONTRIBUTING.md) for information about how to get started including how to install this package and how to run BioSimulations, runBioSimulations, and BioSimulators locally.
+We welcome contributions to BioSimulations, runBioSimulations, and BioSimulations! Please see the [Guide to Contributing](./CONTRIBUTING.md/) for information about how to get started including how to install this package and how to run BioSimulations, runBioSimulations, and BioSimulators locally.
 
 ## License
 
-This package is released under the [MIT license](LICENSE). This package uses a number of open-source third-party packages. Their licenses are summarized in [DEPENDENCIES](DEPENDENCIES).
+This package is released under the [MIT license](./LICENSE/). This package uses a number of open-source third-party packages. Their licenses are summarized in [DEPENDENCIES](./DEPENDENCIES/).
 
 ## Development team
 
