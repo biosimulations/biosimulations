@@ -43,19 +43,17 @@ import werkzeug.wrappers.response  # noqa: F401
 
 
 def handler(body, files=None):
-    ''' Create a COMBINE/OMEX archive for a model with a SED-ML document
-    according to a particular specification.
+    ''' Create a COMBINE/OMEX archive.
 
     Args:
-        body (:obj:`dict`): dictionary with key ``specs`` whose value
-            has schema ``#/components/schemas/CombineArchive`` with the
-            specifications of the desired SED document
+        body (:obj:`dict`): dictionary with schema ``#/components/schemas/CombineArchiveSpecsAndFiles`` with the
+            specifications of the COMBINE/OMEX archive to create
         files (:obj:`list` of :obj:`werkzeug.datastructures.FileStorage`, optional): files (e.g., SBML
             file)
 
     Returns:
-        :obj:`werkzeug.wrappers.response.Response`: response with COMBINE/OMEX
-            archive
+        :obj:`werkzeug.wrappers.response.Response` or :obj:`str`: response with COMBINE/OMEX
+            archive or a URL to a COMBINE/OMEX archive
     '''
     download = body.get('download', False)
     archive_specs = body['specs']
@@ -66,7 +64,7 @@ def handler(body, files=None):
 
     # create temporary files for archive
     archive_dirname = os.path.join(temp_dirname, 'archive')
-    archive_filename = os.path.join(temp_dirname, 'archive.omex')
+    archive_filename = os.path.join(temp_dirname, 'project.omex')
 
     # initialize archive
     now = datetime.datetime.utcnow().replace(microsecond=0).astimezone(dateutil.tz.tzutc())
@@ -156,7 +154,10 @@ def handler(body, files=None):
     CombineArchiveWriter().run(archive, archive_dirname, archive_filename)
 
     if download:
-        return flask.send_file(archive_filename, mimetype='application/zip', as_attachment=True, attachment_filename='archive.omex')
+        return flask.send_file(archive_filename,
+                               mimetype='application/zip',
+                               as_attachment=True,
+                               attachment_filename='project.omex')
 
     else:
         # save COMBINE/OMEX archive to S3 bucket

@@ -136,6 +136,56 @@ export class CombineService {
       );
   }
 
+  public addFileToCombineArchive(
+    archiveFileOrUrl: File | string,
+    newContentLocation: string,
+    newContentFormat: string,
+    newContentMaster: boolean,
+    newContentFile: Blob,
+    overwriteLocations = false,
+  ): Observable<ArrayBuffer | string | undefined> {
+    const formData = new FormData();
+
+    if (typeof archiveFileOrUrl === 'object') {
+      formData.append('files', archiveFileOrUrl);
+      formData.append('archive', JSON.stringify({filename: archiveFileOrUrl.name}));
+    } else {
+      formData.append('archive', JSON.stringify({url: archiveFileOrUrl}));
+    }
+
+    const newContentFilename = '__new_content__';
+    formData.append('files', newContentFile, newContentFilename);
+
+    formData.append('newContent', JSON.stringify({
+      _type: 'CombineArchiveContent',
+      location: newContentLocation,
+      format: newContentFormat,
+      master: newContentMaster,
+      filename: newContentFilename,
+    }));
+
+    formData.append('overwriteLocations', JSON.stringify(overwriteLocations));
+    formData.append('download', JSON.stringify(false));
+
+    const headers = {
+      'Accept': 'application/zip',
+    };
+
+    return this.http
+      .post<string>(this.fileInCombineArchiveEndpoint, formData, {
+        headers: headers,
+        responseType: 'json',
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse): Observable<undefined> => {
+          if (!environment.production) {
+            console.error(error);
+          }
+          return of<undefined>(undefined);
+        }),
+      );
+  }
+
   public getFileInCombineArchive(
     url: string,
     location: string,
