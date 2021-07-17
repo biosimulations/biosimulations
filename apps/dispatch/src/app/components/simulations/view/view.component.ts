@@ -187,8 +187,9 @@ export class ViewComponent implements OnInit, OnDestroy {
   axisLabelTypes: AxisLabelType[] = AXIS_LABEL_TYPES;
   traceModeLabels: TraceModeLabel[] = TRACE_MODE_LABELS;
 
-  userSimulationResults: SedDatasetResultsMap | undefined | false = undefined;
-  private userSimulationResultsLoaded = false;
+  private userSimulationResults: SedDatasetResultsMap | undefined | false = undefined;
+  private userSimulationResultsLoadingInitialized = false;
+  userSimulationResultsLoaded = false;
 
   // log of simulation run
   logs$!: Observable<SimulationLogs | undefined>;
@@ -922,11 +923,12 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   private getUserSimulationResults(): void {
-    if (!this.userSimulationResultsLoaded) {
-      this.userSimulationResultsLoaded = true;
+    if (!this.userSimulationResultsLoadingInitialized) {
+      this.userSimulationResultsLoadingInitialized = true;
       this.visualizationService.getCombineResults(this.uuid)
         .subscribe((results: SedDatasetResultsMap | undefined): void => {
           this.userSimulationResults = results || false;
+          this.userSimulationResultsLoaded = results !== undefined;
           if (this.selectedVisualization.source == VisualizationSource.user) {
             this.selectVisualization();
           }
@@ -1377,10 +1379,10 @@ export class ViewComponent implements OnInit, OnDestroy {
               selectedDataSets[outputUri].push(data.id);
 
               const flatData = this.flattenArray(data.values);
-              histogramExtent[0] = isNaN(histogramExtent[0]) 
-                ? Math.min(...flatData) 
+              histogramExtent[0] = isNaN(histogramExtent[0])
+                ? Math.min(...flatData)
                 : Math.min(histogramExtent[0], Math.min(...flatData));
-              histogramExtent[1] = isNaN(histogramExtent[1]) 
+              histogramExtent[1] = isNaN(histogramExtent[1])
                 ? Math.max(...flatData)
                 : Math.max(histogramExtent[1], Math.max(...flatData));
 
@@ -1457,15 +1459,45 @@ export class ViewComponent implements OnInit, OnDestroy {
     data[2 * Object.keys(selectedDataSets).length].source = filteredVegaDataSetNames;
 
     // download
+    const blob = new Blob([JSON.stringify(vega, null, 2)], { type: 'application/vega+json' });
+
     if (format === 'vega') {
-      const blob = new Blob([JSON.stringify(vega, null, 2)], { type: 'application/vega+json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = 'visualization.json';
       a.click();
 
-    // } else {
-
+    } else {
+      const sub = this.combineService.addFileToCombineArchive(
+        `${urls.dispatchApi}run/${this.uuid}/download`,
+        'plot.json',
+        'http://purl.org/NET/mediatypes/application/vega+json',
+        false,
+        blob,
+        false,
+      ).subscribe((fileOrUrl: any | string | undefined): void => {
+        if (fileOrUrl) {
+          const a = document.createElement('a');
+          a.download = 'project.omex';
+          if (typeof fileOrUrl === 'string' || fileOrUrl instanceof String) {
+            a.href = fileOrUrl as string;
+          } else {
+            a.href = URL.createObjectURL(fileOrUrl);
+          }
+          a.click();
+        } else {
+          this.snackBar.open(
+            'Sorry! We were unable to modify your COMBINE/OMEX archive.',
+            undefined,
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            },
+          );
+        }
+      });
+      this.subscriptions.push(sub);
     }
   }
 
