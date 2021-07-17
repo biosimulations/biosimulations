@@ -342,46 +342,80 @@ paths:
       summary: Get the metadata about a COMBINE/OMEX archive
       description: Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata
         files as a list of RDF triples.
-  /combine/file:
-    get:
+  /combine/create:
+    post:
+      requestBody:
+        description: Specifiations for the COMBINE/OMEX archive and its contents (specifications
+          of the SED-ML file and model file(s)).
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CombineArchiveSpecsAndFiles'
+            examples:
+              Example specifications for a COMBINE archive and files to be included in the archive:
+                value:
+                  specs:
+                    _type: CombineArchive
+                    contents:
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/model.xml
+                        value:
+                          _type: CombineArchiveContentFile
+                          filename: model.xml
+                      format: http://identifiers.org/combine.specifications/sbml
+                      master: false
+                    - _type: CombineArchiveContent
+                      location:
+                        _type: CombineArchiveLocation
+                        path: experiment1/simulation.sedml
+                        value:
+                          _type: CombineArchiveContentUrl
+                          url: https://simulation.org/simulation.sedml
+                      format: http://identifiers.org/combine.specifications/sed-ml
+                      master: true
+                  files:
+                  - <FILE>
+            encoding:
+              specs:
+                contentType: application/json
+        required: true
       tags:
       - COMBINE
-      parameters:
-      - name: url
-        description: URL for the COMBINE/OMEX archive.
-        schema:
-          $ref: '#/components/schemas/Url'
-        in: query
-        required: true
-      - name: location
-        description: Location in the COMBINE/OMEX archive.
-        schema:
-          $ref: '#/components/schemas/Url'
-        in: query
-        required: true
       responses:
         "200":
           content:
-            application/octet-stream:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+              examples:
+                Example URL for a COMBINE archive:
+                  value: '"https://data.biosimulations.org/XYZ"'
+            application/zip:
               schema:
                 $ref: '#/components/schemas/File'
-          description: Files in the COMBINE/OMEX archive.
+              examples:
+                COMBINE/OMEX archive:
+                  value: '"<FILE>"'
+          description: URL for the created COMBINE/OMEX archive.
         "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Unable to get the file in the COMBINE/OMEX archive because
-            the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
+          description: Specifications for COMBINE archive are invalid.
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.get_file.handler
-      summary: Get a file in a COMBINE/OMEX archive
-      description: Get a file at a location in a COMBINE/OMEX archive.
+      operationId: src.handlers.combine.create.handler
+      summary: Assemble a COMBINE/OMEX archive from model files and specifications
+        of a SED-ML document.
+      description: Assemble a COMBINE/OMEX archive from model files and specifications
+        of a SED-ML document.
   /combine/manifest:
     post:
       requestBody:
@@ -447,43 +481,75 @@ paths:
       operationId: src.handlers.combine.get_manifest.handler
       summary: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
       description: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
-  /combine/create:
+  /combine/file:
+    get:
+      tags:
+      - COMBINE
+      parameters:
+      - name: url
+        description: URL for the COMBINE/OMEX archive.
+        schema:
+          $ref: '#/components/schemas/Url'
+        in: query
+        required: true
+      - name: location
+        description: Location in the COMBINE/OMEX archive.
+        schema:
+          $ref: '#/components/schemas/Url'
+        in: query
+        required: true
+      responses:
+        "200":
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/File'
+              examples:
+                File:
+                  value: '"<FILE>"'
+          description: Files in the COMBINE/OMEX archive.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the file in the COMBINE/OMEX archive because
+            the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.get_file.handler
+      summary: Get a file in a COMBINE/OMEX archive
+      description: Get a file at a location in a COMBINE/OMEX archive.
     post:
       requestBody:
-        description: Specifiations for the COMBINE/OMEX archive and its contents (specifications
-          of the SED-ML file and model file(s)).
+        description: COMBINE/OMEX archive and the file to add.
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CombineArchiveSpecsAndFiles'
+              $ref: '#/components/schemas/CombineArchiveAndAdditionalContent'
             examples:
-              Example specifications for a COMBINE archive and files to be included in the archive:
+              Add a text file to a COMBINE/OMEX archive:
                 value:
-                  specs:
-                    _type: CombineArchive
-                    contents:
-                    - _type: CombineArchiveContent
-                      location:
-                        _type: CombineArchiveLocation
-                        path: experiment1/model.xml
-                        value:
-                          _type: CombineArchiveContentFile
-                          filename: model.xml
-                      format: http://identifiers.org/combine.specifications/sbml
-                      master: false
-                    - _type: CombineArchiveContent
-                      location:
-                        _type: CombineArchiveLocation
-                        path: experiment1/simulation.sedml
-                        value:
-                          _type: CombineArchiveContentUrl
-                          url: https://simulation.org/simulation.sedml
-                      format: http://identifiers.org/combine.specifications/sed-ml
-                      master: true
+                  archive:
+                    url: https://website.com/archive.omex
+                  newContent:
+                    _type: CombineArchiveFileContent
+                    location: experiment1/model.xml
+                    filename: model.xml
+                    format: http://identifiers.org/combine.specifications/sbml
+                    master: true
                   files:
                   - <FILE>
+                  overwriteLocations: true
+                  download: true
             encoding:
-              specs:
+              archive:
+                contentType: application/json
+              newContent:
                 contentType: application/json
         required: true
       tags:
@@ -491,36 +557,35 @@ paths:
       responses:
         "200":
           content:
-            application/json:
-              schema:
-                type: string
-              examples:
-                Example URL for a COMBINE archive:
-                  value: '"https://data.biosimulations.org/XYZ"'
             application/zip:
               schema:
                 $ref: '#/components/schemas/File'
               examples:
-                COMBINE/OMEX archive:
+                Modified COMBINE/OMEX archive:
                   value: '"<FILE>"'
-          description: URL for the created COMBINE/OMEX archive.
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+              examples:
+                URL for the created COMBINE/OMEX archive:
+                  value: '"https://data.biosimulations.org/XYZ"'
+          description: Modified COMBINE/OMEX archive.
         "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Specifications for COMBINE archive are invalid.
+          description: Unable to get the file in the COMBINE/OMEX archive because
+            the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.create.handler
-      summary: Assemble a COMBINE/OMEX archive from model files and specifications
-        of a SED-ML document.
-      description: Assemble a COMBINE/OMEX archive from model files and specifications
-        of a SED-ML document.
+      operationId: src.handlers.combine.add_file.handler
+      summary: Add content items to a COMBINE/OMEX archive
+      description: Add content items to a COMBINE/OMEX archive.
 components:
   schemas:
     SedPlot2D:
@@ -2585,6 +2650,94 @@ components:
             uri: http://www.w3.org/2006/time#second
             label: second
         uri: "."
+    CombineArchiveAndAdditionalContent:
+      description: A COMBINE/OMEX archive and an additional content items that should
+        be added to the archive.
+      required:
+      - archive
+      - newContent
+      - files
+      type: object
+      properties:
+        archive:
+          $ref: '#/components/schemas/FilenameOrUrl'
+          description: URL or filename for the COMBINE/OMEX archive.
+        overwriteLocations:
+          description: "Whether to overwrite the location if it already exists, or\
+            \ to add the content at an alternative location (indicated location plus\
+            \ a unique integer).\n\nDefault: true"
+          type: boolean
+        download:
+          description: "Whether to download the modified COMBINE/OMEX archive or return\
+            \ a URL where it can be retrieved.\n\nDefault: false"
+          type: boolean
+        files:
+          description: "Files to add to the COMBINE/OMEX archive and, optionally,\
+            \ the archive."
+          type: array
+          items:
+            $ref: '#/components/schemas/File'
+        newContent:
+          $ref: '#/components/schemas/CombineArchiveFileContent'
+          description: Content to add to the COMBINE/OMEX archive.
+      example:
+        archive:
+          url: https://website.com/archive.omex
+        newContent:
+          _type: CombineArchiveFileContent
+          location: experiment1/model.xml
+          filename: model.xml
+          format: http://identifiers.org/combine.specifications/sbml
+          master: true
+        files:
+        - <FILE>
+        overwriteLocations: true
+        download: true
+    FilenameOrUrl:
+      description: Filename or URL
+      type: object
+      properties:
+        filename:
+          description: Filename.
+          type: string
+        url:
+          $ref: '#/components/schemas/Url'
+          description: URL
+      example:
+        filename: ./path/to/file.ext
+    CombineArchiveFileContent:
+      description: A file for a COMBINE/OMEX archive
+      required:
+      - location
+      - format
+      - master
+      - _type
+      - filename
+      type: object
+      properties:
+        location:
+          description: Location within its parent COMBINE/OMEX archive.
+          type: string
+        format:
+          description: URI for a format.
+          type: string
+        master:
+          description: ""
+          type: boolean
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveContent
+          type: string
+        filename:
+          description: Uploaded filename
+          type: string
+      example:
+        _type: CombineArchiveFileContent
+        location: experiment1/model.xml
+        filename: model.xml
+        format: http://identifiers.org/combine.specifications/sbml
+        master: true
   responses:
     "404":
       content:
