@@ -617,14 +617,14 @@
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('vega')"
-            [disabled]="!userSimulationResultsLoaded"
+            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
           >Export to Vega</button>
           <button
             type="button"
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('combine')"
-            [disabled]="!userSimulationResultsLoaded"
+            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
           >Export in archive</button>
         </div>
       </ng-container>
@@ -719,7 +719,6 @@
 
                 <mat-select
                   formControlName="xDataSet"
-                  required
                   disableOptionCentering
                   (ngModelChange)="displayUserViz()"
                 >
@@ -772,14 +771,14 @@
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('vega')"
-            [disabled]="!userSimulationResultsLoaded"
+            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
           >Export to Vega</button>
           <button
             type="button"
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('combine')"
-            [disabled]="!userSimulationResultsLoaded"
+            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
           >Export in archive</button>
         </div>
       </ng-container>
@@ -1001,14 +1000,14 @@
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('vega')"
-            [disabled]="!userSimulationResultsLoaded"
+            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
           >Export to Vega</button>
           <button
             type="button"
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('combine')"
-            [disabled]="!userSimulationResultsLoaded"
+            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
           >Export in archive</button>
         </div>
       </ng-container>
@@ -1035,7 +1034,7 @@
     icon="chart"
     urlHashFragment="viz"
     [fullHeight]="true"
-    [disabled]="!selectedVisualization"
+    [disabled]="!selectedVisualization || !visualizationFormGroup.valid"
   >
     <biosimulations-vega-visualization
       *ngIf="selectedVisualization && selectedVisualization.renderer === 'vega'"

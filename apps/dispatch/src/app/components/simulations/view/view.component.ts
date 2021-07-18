@@ -13,6 +13,7 @@ import {
   FormArray,
   FormControl,
   Validators,
+  ValidationErrors,
 } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SimulationService } from '../../../services/simulation/simulation.service';
@@ -215,15 +216,15 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.visualizationFormGroup = formBuilder.group({
       visualization: [null, [Validators.required]],
       user1DHistogram: formBuilder.group({
-        dataSets: [[], Validators.required],
+        dataSets: [[], Validators.minLength(1)],
       }),
       user2DHeatmap: formBuilder.group({
-        yDataSets: [[], Validators.required],
+        yDataSets: [[], Validators.minLength(1)],
         xDataSet: [null],
       }),
       user2DLineScatter: formBuilder.group({
-        numCurves: [1, [Validators.required]],
-        curves: formBuilder.array([]),
+        numCurves: [1, [Validators.required, Validators.min(1), this.integerValidator]],
+        curves: formBuilder.array([], Validators.minLength(1)),
         xAxisType: [AxisType.linear, [Validators.required]],
         yAxisType: [AxisType.linear, [Validators.required]],
         traceMode: [TraceMode.lines, [Validators.required]],
@@ -233,9 +234,24 @@ export class ViewComponent implements OnInit, OnDestroy {
     const user1DHistogramFormGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
     const user2DHeatmapFormGroup = this.visualizationFormGroup.controls.user2DHeatmap as FormGroup;
     const user2DLineScatterFormGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
+
+    user1DHistogramFormGroup.disable();
+    user2DHeatmapFormGroup.disable();
+    user2DLineScatterFormGroup.disable();
+
     this.user1DHistogramDataSetsFormControl = user1DHistogramFormGroup.controls.dataSets as FormControl;
     this.user2DHeatmapYDataSetsFormControl = user2DHeatmapFormGroup.controls.yDataSets as FormControl;
     this.user2DLineScatterCurvesFormGroups = (user2DLineScatterFormGroup.controls.curves as FormArray).controls as FormGroup[];
+  }
+
+  integerValidator(control: FormControl): ValidationErrors | null {
+    if (control.value && control.value != Math.round(control.value)) {
+      return {
+        integer: true,
+      };
+    } else {
+      return null;
+    }
   }
 
   public ngOnInit(): void {
@@ -634,6 +650,10 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   public selectVisualization(): void {
+    (this.visualizationFormGroup.controls.user1DHistogram as FormGroup).disable();
+    (this.visualizationFormGroup.controls.user2DHeatmap as FormGroup).disable();
+    (this.visualizationFormGroup.controls.user2DLineScatter as FormGroup).disable();
+
     this.selectedVisualization = this.visualizationsIdMap?.[this.visualizationFormGroup.value.visualization];
     if (this.selectedVisualization) {
       switch (this.selectedVisualization.type) {
@@ -646,14 +666,17 @@ export class ViewComponent implements OnInit, OnDestroy {
           break;
         }
         case VisualizationType.user1DHistogram: {
+          (this.visualizationFormGroup.controls.user1DHistogram as FormGroup).enable();
           this.setUpUser1DHistogramVisualization();
           break;
         }
         case VisualizationType.user2DHeatmap: {
+          (this.visualizationFormGroup.controls.user2DHeatmap as FormGroup).enable();
           this.setUpUser2DHeatmapVisualization();
           break;
         }
         case VisualizationType.user2DLineScatter: {
+          (this.visualizationFormGroup.controls.user2DLineScatter as FormGroup).enable();
           this.setUpUser2DLineScatterVisualization();
           break;
         }
@@ -1038,7 +1061,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   public setNum2DLineScatterCurves(): void {
     const formGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
-    const numCurves = formGroup.value.numCurves;
+    const numCurves = Math.round(formGroup.value.numCurves);
     const curvesFormArray = formGroup.controls.curves as FormArray;
 
     while (curvesFormArray.length > numCurves) {
@@ -1352,8 +1375,15 @@ export class ViewComponent implements OnInit, OnDestroy {
   exportUserViz(format: 'vega' | 'combine'): void {
     this.selectedVisualization;
 
-    const selectedDataSets: {[outputUri: string]: string[]} = {};
     let vega: any;
+    let vegaDataSets: {
+      templateNames: string[],
+      sourceName: (iDataSet: number) => string,
+      filteredName: (iDataSet: number) => string,
+      joinedName?: string,
+      data: {[outputUri: string]: string[]},
+    }[] = [];
+    let vegaSignals: {[name: string]: any} = {};
     switch (this.selectedVisualization.type) {
       case VisualizationType.user1DHistogram: {
         const formGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
@@ -1361,6 +1391,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         const selectedUris = formControl.value;
         vega = JSON.parse(JSON.stringify(user1DHistogramVegaTemplate)) as any;
 
+        const selectedDataSets: {[outputUri: string]: string[]} = {};
         const histogramExtent = [NaN, NaN];
         const xAxisTitles: string[] = [];
         for (let selectedUri of selectedUris) {
@@ -1390,6 +1421,15 @@ export class ViewComponent implements OnInit, OnDestroy {
             }
           }
         }
+        vegaDataSets = [
+          {
+            templateNames: ['rawData0', 'rawData0_filtered', 'rawData_joined'],
+            sourceName: (iDataSet: number): string => `rawData${iDataSet}`,
+            filteredName: (iDataSet: number): string => `rawData${iDataSet}_filtered`,
+            joinedName: 'rawData_joined',
+            data: selectedDataSets,
+          },
+        ];
 
         let xAxisTitle: string | undefined = undefined;
         if (xAxisTitles.length === 1) {
@@ -1397,66 +1437,157 @@ export class ViewComponent implements OnInit, OnDestroy {
         } else if (xAxisTitles.length > 1) {
           xAxisTitle = 'Multiple';
         }
-        vega.signals.forEach((signal: any): void => {
-          switch (signal.name) {
-            case 'histogramExtent':
-              signal.value = [
-                isNaN(histogramExtent[0]) ? null : histogramExtent[0],
-                isNaN(histogramExtent[1]) ? null : histogramExtent[1],
-              ];
-              break;
-            case 'xAxisTitle':
-              signal.value = xAxisTitle;
-              break;
-          }
-        });
+        vegaSignals = {
+          histogramExtent: [
+            isNaN(histogramExtent[0]) ? null : histogramExtent[0],
+            isNaN(histogramExtent[1]) ? null : histogramExtent[1],
+          ],
+          xAxisTitle: xAxisTitle,
+        };
         break;
       }
+
       case VisualizationType.user2DHeatmap: {
         const formGroup = this.visualizationFormGroup.controls.user2DHeatmap as FormGroup;
         const yFormControl = formGroup.controls.yDataSets as FormControl;
         const xFormControl = formGroup.controls.xDataSet as FormControl;
         const selectedYUris = yFormControl.value;
-        const selectedXUri = xFormControl.value;
+        let selectedXUri = xFormControl.value;
         vega = JSON.parse(JSON.stringify(user2DHeatmapVegaTemplate)) as any;
+
+        // y axis
+        const selectedYDataSets: {[outputUri: string]: string[]} = {};
+        for (let selectedUri of selectedYUris) {
+          if (selectedUri.startsWith('./')) {
+            selectedUri = selectedUri.substring(2);
+          }
+
+          const selectedDataSet = this.sedDataSetConfigurationMap?.[selectedUri];
+          if (selectedDataSet) {
+            const data = (this.userSimulationResults as SedDatasetResultsMap)?.[selectedUri];
+            if (data) {
+              const outputUri = data.location + '/' + data.outputId;
+              if (!(outputUri in selectedYDataSets)) {
+                selectedYDataSets[outputUri] = [];
+              }
+              selectedYDataSets[outputUri].push(data.id);
+            }
+          }
+        }
+
+        // x axis
+        let xAxisTitle: string;
+        let selectedXOutputUri: string;
+        let selectedXDataSetId: string;
+        if (selectedXUri) {
+          if (selectedXUri.startsWith('./')) {
+            selectedXUri = selectedXUri.substring(2);
+          }
+          const data = (this.userSimulationResults as SedDatasetResultsMap)?.[selectedXUri];
+          selectedXOutputUri = data.location + '/' + data.outputId;
+          selectedXDataSetId = data.id;
+          xAxisTitle = data.label;
+        } else {
+          selectedXOutputUri = Object.keys(selectedYDataSets)[0];
+          selectedXDataSetId = selectedYDataSets[selectedXOutputUri][0];
+          xAxisTitle = 'Index';
+        }
+        const selectedXDataSet: {[outputUri: string]: string[]} = {};
+        selectedXDataSet[selectedXOutputUri] = [selectedXDataSetId];
+
+        vegaDataSets = [
+          {
+            templateNames: ['rawHeatmapData0', 'rawHeatmapData0_filtered', 'rawHeatmapData_joined'],
+            sourceName: (iDataSet: number): string => `rawHeatmapData${iDataSet}`,
+            filteredName: (iDataSet: number): string => `rawHeatmapData${iDataSet}_filtered`,
+            joinedName: 'rawHeatmapData_joined',
+            data: selectedYDataSets,
+          },
+          {
+            templateNames: ['rawXData', 'rawXData_filtered'],
+            sourceName: (iDataSet: number): string => `rawXData`,
+            filteredName: (iDataSet: number): string => `rawXData_filtered`,
+            data: selectedXDataSet,
+          },
+        ];
+
+        // signals
+        vegaSignals = {
+          ordinalXScale: !selectedXUri,
+          xAxisTitle: xAxisTitle,
+        };
         break;
       }
+
       case VisualizationType.user2DLineScatter: {
         const formGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
         const curvesFormArray = formGroup.controls.curves as FormArray;
         vega = JSON.parse(JSON.stringify(user2DLineScatterVegaTemplate)) as any;
+
+        // data sets
+        vegaDataSets = [
+        ];
+
+        //signals
+        vegaSignals = {
+
+        };
         break;
       }
     }
 
-    const data = vega.data as any[];
-    data.shift();
-    data.shift();
-
-    const filteredVegaDataSetNames: string[] = [];
-    Object.entries(selectedDataSets).forEach((outputUriDataSetIds: [string, string[]], i: number): void => {
-      const outputUriParts = outputUriDataSetIds[0].split('/');
-      const outputId = outputUriParts.pop();
-      const sedDocumentLocation = outputUriParts.join('/');
-      const dataSetIds = outputUriDataSetIds[1];
-      const filteredVegaDataSetName = `rawData${i}_filtered`;
-
-      filteredVegaDataSetNames.push(filteredVegaDataSetName);
-      data.unshift({
-        "name": filteredVegaDataSetName,
-        "source": `rawData${i}`,
-        "transform": [{
-          "type": "filter",
-          "expr": `indexof(['${dataSetIds.join('\', \'')}'], datum.id) !== -1`
-        }]
-      })
-      data.unshift({
-        "name": `rawData${i}`,
-        "sedmlUri": [sedDocumentLocation, outputId],
-      })
+    // signals
+    vega.signals.forEach((signalTemplate: any): void => {
+      if (signalTemplate.name in vegaSignals) {
+        signalTemplate.value = vegaSignals[signalTemplate.name];
+      }
     });
 
-    data[2 * Object.keys(selectedDataSets).length].source = filteredVegaDataSetNames;
+    // data
+    vegaDataSets.forEach((vegaDataSet: any): void => {
+      // remove template data sets
+      for (let iData = vega.data.length - 1; iData >= 0; iData--) {
+        if (vegaDataSet.templateNames.includes(vega.data[iData].name)) {
+          vega.data.splice(iData, 1);
+        }
+      }
+
+      // add concrete data sets
+      const concreteDataSets: any[] = [];
+      const filteredVegaDataSetNames: string[] = [];
+      Object.entries(vegaDataSet.data).forEach((outputUriDataSetIds: [string, any], iDataSet: number): void => {
+        const outputUriParts = outputUriDataSetIds[0].split('/');
+        const outputId = outputUriParts.pop();
+        const sedDocumentLocation = outputUriParts.join('/');
+        const dataSetIds = outputUriDataSetIds[1] as string[];
+
+        concreteDataSets.push({
+          "name": vegaDataSet.sourceName(iDataSet),
+          "sedmlUri": [sedDocumentLocation, outputId],
+        })
+
+        concreteDataSets.push({
+          "name": vegaDataSet.filteredName(iDataSet),
+          "source": concreteDataSets[concreteDataSets.length - 1].name,
+          "transform": [{
+            "type": "filter",
+            "expr": `indexof(['${dataSetIds.join('\', \'')}'], datum.id) !== -1`
+          }],
+        });
+
+        filteredVegaDataSetNames.push(concreteDataSets[concreteDataSets.length - 1].name);
+      });
+
+      if (vegaDataSet.joinedName) {
+        concreteDataSets.push({
+          "name": vegaDataSet.joinedName,
+          "source": filteredVegaDataSetNames,
+          "transform": []
+        });
+      }
+
+      vega.data = concreteDataSets.concat(vega.data);
+    });
 
     // download
     const blob = new Blob([JSON.stringify(vega, null, 2)], { type: 'application/vega+json' });
