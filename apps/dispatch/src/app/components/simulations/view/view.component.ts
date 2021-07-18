@@ -1381,9 +1381,11 @@ export class ViewComponent implements OnInit, OnDestroy {
       sourceName: (iDataSet: number) => string,
       filteredName: (iDataSet: number) => string,
       joinedName?: string,
+      joinedTransforms?: any[],
       data: {[outputUri: string]: string[]},
     }[] = [];
     let vegaSignals: {[name: string]: any} = {};
+    let vegaScales: {name: string, attributes: {[key: string]: any}}[] = [];
     switch (this.selectedVisualization.type) {
       case VisualizationType.user1DHistogram: {
         const formGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
@@ -1521,17 +1523,114 @@ export class ViewComponent implements OnInit, OnDestroy {
 
       case VisualizationType.user2DLineScatter: {
         const formGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
-        const curvesFormArray = formGroup.controls.curves as FormArray;
         vega = JSON.parse(JSON.stringify(user2DLineScatterVegaTemplate)) as any;
 
         // data sets
-        vegaDataSets = [
-        ];
+        const selectedDataSets: {[outputUri: string]: any[]} = {};
+        const curveFilters: string[] = [];
+        const xAxisTitlesSet = new Set<string>();
+        const yAxisTitlesSet = new Set<string>();
+
+        for (const curve of this.user2DLineScatterCurvesFormGroups) {
+          const xDataUri = (curve.controls.xData as FormControl).value;
+          const yDataUri = (curve.controls.yData as FormControl).value;
+          if (
+            xDataUri && 
+            yDataUri && 
+            this.userSimulationResults &&
+            xDataUri in this.userSimulationResults && 
+            yDataUri in this.userSimulationResults
+          ) {
+            const xDataSet = this.sedDataSetConfigurationMap[xDataUri];
+            const yDataSet = this.sedDataSetConfigurationMap[yDataUri];
+            const xLabel = xDataSet.name || xDataSet.label || xDataSet.id;
+            const yLabel = yDataSet.name || yDataSet.label || yDataSet.id;
+
+            const xDataUriParts = xDataUri.split('/');
+            const yDataUriParts = yDataUri.split('/');
+            const xOutputUri = xDataUriParts.slice(0, xDataUriParts.length - 1).join('/');
+            const yOutputUri = yDataUriParts.slice(0, yDataUriParts.length - 1).join('/');
+
+            if (!(xOutputUri in selectedDataSets)) {
+              selectedDataSets[xOutputUri] = [];
+            }
+            if (!(yOutputUri in selectedDataSets)) {
+              selectedDataSets[yOutputUri] = [];
+            }
+            selectedDataSets[xOutputUri].push(xDataUriParts[xDataUriParts.length - 1]);
+            selectedDataSets[yOutputUri].push(yDataUriParts[yDataUriParts.length - 1]);
+
+            const conditions = [
+              `datum.X.outputUri === '${xOutputUri}'`,
+              `datum.X.id == '${xDataSet.id}'`,
+              `datum.Y.outputUri === '${yOutputUri}'`,
+              `datum.Y.id == '${yDataSet.id}'`
+            ];        
+            curveFilters.push(`(${conditions.join(' && ')})`);
+            xAxisTitlesSet.add(xLabel);
+            yAxisTitlesSet.add(yLabel);
+          }
+        }
+
+        const xAxisTitlesArr = Array.from(xAxisTitlesSet);
+        const yAxisTitlesArr = Array.from(yAxisTitlesSet);
+        let xAxisTitle: string | null = null;
+        let yAxisTitle: string | null = null;
+        let singleXAxis = false;
+        let singleYAxis = false;
+        
+        if (xAxisTitlesArr.length === 1) {
+          singleXAxis = true;
+          xAxisTitle = xAxisTitlesArr[0];
+        } else if (xAxisTitlesArr.length > 1) {
+          xAxisTitle = 'Multiple';
+        }
+
+        if (yAxisTitlesArr.length === 1) {
+          singleYAxis = true;
+          yAxisTitle = yAxisTitlesArr[0];
+        } else if (yAxisTitlesArr.length > 1) {
+          yAxisTitle = 'Multiple';
+        }
+
+        vegaDataSets = [{
+          templateNames: ['rawData0', 'rawData0_filtered', 'rawData_joined'],
+          sourceName: (iDataSet: number): string => `rawData${iDataSet}`,
+          filteredName: (iDataSet: number): string => `rawData${iDataSet}_filtered`,
+          joinedName: 'rawData_joined',
+          joinedTransforms: [{
+            "type": "cross",
+            "as": ["X", "Y"],
+            "filter": curveFilters.join('||')
+          }],
+          data: selectedDataSets,
+        }];
 
         //signals
+        const traceMode = (formGroup.controls.traceMode as FormControl).value;
         vegaSignals = {
-
+          singleXAxis: singleXAxis,
+          singleYAxis: singleYAxis,
+          xAxisTitle: xAxisTitle,
+          yAxisTitle: yAxisTitle,
+          style: traceMode,
         };
+
+        // other properties
+        vegaScales = [
+          {
+            name: 'xScale',
+            attributes: {
+              type: (formGroup.controls.xAxisType as FormControl).value,
+            }
+          },
+          {
+            name: 'yScale',
+            attributes: {
+              type: (formGroup.controls.yAxisType as FormControl).value,
+            }
+          },
+        ];
         break;
       }
     }
@@ -1556,23 +1655,31 @@ export class ViewComponent implements OnInit, OnDestroy {
       const concreteDataSets: any[] = [];
       const filteredVegaDataSetNames: string[] = [];
       Object.entries(vegaDataSet.data).forEach((outputUriDataSetIds: [string, any], iDataSet: number): void => {
-        const outputUriParts = outputUriDataSetIds[0].split('/');
+        const outputUri = outputUriDataSetIds[0];
+        const outputUriParts = outputUri.split('/');
         const outputId = outputUriParts.pop();
         const sedDocumentLocation = outputUriParts.join('/');
         const dataSetIds = outputUriDataSetIds[1] as string[];
 
         concreteDataSets.push({
-          "name": vegaDataSet.sourceName(iDataSet),
-          "sedmlUri": [sedDocumentLocation, outputId],
+          name: vegaDataSet.sourceName(iDataSet),
+          sedmlUri: [sedDocumentLocation, outputId],
         })
 
         concreteDataSets.push({
-          "name": vegaDataSet.filteredName(iDataSet),
-          "source": concreteDataSets[concreteDataSets.length - 1].name,
-          "transform": [{
-            "type": "filter",
-            "expr": `indexof(['${dataSetIds.join('\', \'')}'], datum.id) !== -1`
-          }],
+          name: vegaDataSet.filteredName(iDataSet),
+          source: concreteDataSets[concreteDataSets.length - 1].name,
+          transform: [
+            {
+              type: "filter",
+              expr: `indexof(['${dataSetIds.join('\', \'')}'], datum.id) !== -1`,
+            },
+            {
+              type: "formula",
+              expr: `'${outputUri}'`,
+              as: "outputUri",
+            },
+          ],
         });
 
         filteredVegaDataSetNames.push(concreteDataSets[concreteDataSets.length - 1].name);
@@ -1580,13 +1687,25 @@ export class ViewComponent implements OnInit, OnDestroy {
 
       if (vegaDataSet.joinedName) {
         concreteDataSets.push({
-          "name": vegaDataSet.joinedName,
-          "source": filteredVegaDataSetNames,
-          "transform": []
+          name: vegaDataSet.joinedName,
+          source: filteredVegaDataSetNames,
+          transform: vegaDataSet.joinedTransforms || [],
         });
       }
 
       vega.data = concreteDataSets.concat(vega.data);
+    });
+
+    // scales
+    vegaScales.forEach((vegaScale): void => {
+      for (const scale of vega.scales) {
+        if (scale.name === vegaScale.name) {
+          Object.entries(vegaScale.attributes).forEach((keyVal: [string, any]): void => {
+            scale[keyVal[0]] = keyVal[1];
+          });
+          break;
+        }
+      }
     });
 
     // download
