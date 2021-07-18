@@ -12,6 +12,7 @@
 /help/terms
 /simulators/amici
 /simulators/amici/0.11.17
+/simulators/amici/0.11.18
 /simulators/bionetgen
 /simulators/bionetgen/2.6.0
 /simulators/biouml
