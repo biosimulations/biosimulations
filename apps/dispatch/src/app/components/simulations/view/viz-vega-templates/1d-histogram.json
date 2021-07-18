@@ -50,11 +50,11 @@
     },
     {
       "name": "axesWidth",
-      "value": 60
+      "value": 100
     },
     {
       "name": "axesHeight",
-      "value": 32
+      "value": 42
     },
     {
       "name": "binsHover",
@@ -92,12 +92,17 @@
       "source": "rawData0",
       "transform": [{
         "type": "filter",
-        "expr": "indexof(['data_set_BE'], datum.id) !== -1"
+        "expr": "indexof(['data_set_1_id', 'data_set_2_id'], datum.id) !== -1"
       }]
     },
     {
-      "name": "rawData_flattened",
+      "name": "rawData_joined",
       "source": ["rawData0_filtered"],
+      "transform": []
+    },
+    {
+      "name": "rawData_flattened",
+      "source": "rawData_joined",
       "transform": [{
         "type": "flatten",
         "fields": ["values"]
