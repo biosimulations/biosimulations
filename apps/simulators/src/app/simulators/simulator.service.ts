@@ -27,6 +27,7 @@ export class SimulatorService {
   getAll(): Observable<Simulator[]> {
     return this.allSims;
   }
+
   getLatest(): Observable<Simulator[]> {
     return this.latestSims;
   }
@@ -38,6 +39,7 @@ export class SimulatorService {
       }),
     );
   }
+
   getOneByVersion(id: string, version: string): Observable<Simulator> {
     return this.getAll().pipe(
       map((value: Simulator[]) => {
@@ -48,6 +50,7 @@ export class SimulatorService {
       }),
     );
   }
+
   getAllById(id: string): Observable<Simulator[]> {
     return this.getAll().pipe(
       map((sims: Simulator[]) => {
@@ -78,5 +81,11 @@ export class SimulatorService {
       }),
     );
   }
+
+  getValidationTestResultsForOneByVersion(id: string, version: string): Observable<Simulator> {
+    return this.http.get<Simulator>(this.endpoint + id + '/' + version,
+      {params: {includeTests: true}});
+  }
+
   constructor(private http: HttpClient) {}
 }
