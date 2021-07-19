@@ -87,11 +87,9 @@ export class PlotlyVisualizationComponent {
       this.layout = value.layout;
       this.error = false;
       this.setLayout();
-
     } else if (value == null) {
       this.loading = true;
       this.error = false;
-
     } else {
       this.loading = false;
       this.error = true;

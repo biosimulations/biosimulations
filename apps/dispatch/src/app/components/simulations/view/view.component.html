@@ -481,9 +481,7 @@
         <div class="form-section-body">
           <div class="form-field-group">
             <mat-form-field appearance="fill">
-              <mat-label
-                >Select a chart</mat-label
-              >
+              <mat-label>Select a chart</mat-label>
               <mat-select
                 formControlName="visualization"
                 required
@@ -491,7 +489,7 @@
                 disableOptionCentering
               >
                 <mat-option
-                  *ngFor="let visualization of (visualizations$ | async)"
+                  *ngFor="let visualization of visualizations$ | async"
                   [value]="visualization.id"
                 >
                   {{ visualization.label }}
@@ -501,16 +499,18 @@
             </mat-form-field>
             <mat-hint>
               <p>
-                Select a plot defined in a SED-ML or Vega <a href="https://vega.github.io/vega/" target="_blank"
-                  ><biosimulations-icon icon="link"></biosimulations-icon></a
-                > document in the simulation
-                project, or design a custom grid of plots.
+                Select a plot defined in a SED-ML or Vega
+                <a href="https://vega.github.io/vega/" target="_blank"
+                  ><biosimulations-icon icon="link"></biosimulations-icon
+                ></a>
+                document in the simulation project, or design a custom grid of
+                plots.
               </p>
 
               <p>
                 SED-ML L1V3 provides basic capabilities for 2D line plots.
-                SED-ML L1V4 will provide capabilities for several additional types of plots.
-                We aim to support L1V4 once it is approved.
+                SED-ML L1V4 will provide capabilities for several additional
+                types of plots. We aim to support L1V4 once it is approved.
               </p>
 
               <p>
@@ -526,10 +526,13 @@
       </div>
 
       <ng-container
-        *ngIf="selectedVisualization && selectedVisualization.type === 'user1DHistogram'"
+        *ngIf="
+          selectedVisualization &&
+          selectedVisualization.type === 'user1DHistogram'
+        "
         formGroupName="user1DHistogram"
       >
-         <div class="form-section">
+        <div class="form-section">
           <div class="form-section-head">
             <div class="mat-form-field-prefix">
               <biosimulations-icon icon="report"></biosimulations-icon>
@@ -552,13 +555,21 @@
                   disableOptionCentering
                   multiple
                 >
-                  <ng-container *ngFor="let sedDocument of (sedDocumentReportsConfiguration$ | async)">
+                  <ng-container
+                    *ngFor="
+                      let sedDocument of sedDocumentReportsConfiguration$
+                        | async
+                    "
+                  >
                     <mat-option
                       [value]="sedDocument.location.path"
-                      (click)="setSelectedDataSets(
-                        user1DHistogramDataSetsFormControl,
-                        'SedDocument',
-                        sedDocument, sedDocument.location.path)
+                      (click)="
+                        setSelectedDataSets(
+                          user1DHistogramDataSetsFormControl,
+                          'SedDocument',
+                          sedDocument,
+                          sedDocument.location.path
+                        )
                       "
                     >
                       {{ sedDocument.location.path }}
@@ -570,11 +581,15 @@
                     >
                       <mat-option
                         [value]="sedDocument.location.path + '/' + output.id"
-                        (click)="setSelectedDataSets(
-                          user1DHistogramDataSetsFormControl,
-                          'SedReport',
-                          sedDocument, sedDocument.location.path,
-                          output, output.id)
+                        (click)="
+                          setSelectedDataSets(
+                            user1DHistogramDataSetsFormControl,
+                            'SedReport',
+                            sedDocument,
+                            sedDocument.location.path,
+                            output,
+                            output.id
+                          )
                         "
                       >
                         {{ output.id }}
@@ -583,13 +598,24 @@
                       <div class="multi-select-opt-group">
                         <mat-option
                           *ngFor="let dataset of output.dataSets"
-                          [value]="sedDocument.location.path + '/' + output.id + '/' + dataset.id"
-                          (click)="setSelectedDataSets(
-                            user1DHistogramDataSetsFormControl,
-                            'SedDataSet',
-                            sedDocument, sedDocument.location.path,
-                            output, output.id,
-                            dataset, dataset.id)
+                          [value]="
+                            sedDocument.location.path +
+                            '/' +
+                            output.id +
+                            '/' +
+                            dataset.id
+                          "
+                          (click)="
+                            setSelectedDataSets(
+                              user1DHistogramDataSetsFormControl,
+                              'SedDataSet',
+                              sedDocument,
+                              sedDocument.location.path,
+                              output,
+                              output.id,
+                              dataset,
+                              dataset.id
+                            )
                           "
                         >
                           {{ dataset.label }}
@@ -604,9 +630,7 @@
                   matPrefix
                 ></biosimulations-icon>
               </mat-form-field>
-              <mat-hint
-                >Select the SED-ML data sets to plot.</mat-hint
-              >
+              <mat-hint>Select the SED-ML data sets to plot.</mat-hint>
             </div>
           </div>
         </div>
@@ -617,20 +641,31 @@
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('vega')"
-            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
-          >Export to Vega</button>
+            [disabled]="
+              !userSimulationResultsLoaded || !visualizationFormGroup.valid
+            "
+          >
+            Export to Vega
+          </button>
           <button
             type="button"
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('combine')"
-            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
-          >Export in archive</button>
+            [disabled]="
+              !userSimulationResultsLoaded || !visualizationFormGroup.valid
+            "
+          >
+            Export in archive
+          </button>
         </div>
       </ng-container>
 
       <ng-container
-        *ngIf="selectedVisualization && selectedVisualization.type === 'user2DHeatmap'"
+        *ngIf="
+          selectedVisualization &&
+          selectedVisualization.type === 'user2DHeatmap'
+        "
         formGroupName="user2DHeatmap"
       >
         <div class="form-section">
@@ -656,13 +691,21 @@
                   disableOptionCentering
                   multiple
                 >
-                  <ng-container *ngFor="let sedDocument of (sedDocumentReportsConfiguration$ | async)">
+                  <ng-container
+                    *ngFor="
+                      let sedDocument of sedDocumentReportsConfiguration$
+                        | async
+                    "
+                  >
                     <mat-option
                       [value]="sedDocument.location.path"
-                      (click)="setSelectedDataSets(
-                        user2DHeatmapYDataSetsFormControl,
-                        'SedDocument',
-                        sedDocument, sedDocument.location.path)
+                      (click)="
+                        setSelectedDataSets(
+                          user2DHeatmapYDataSetsFormControl,
+                          'SedDocument',
+                          sedDocument,
+                          sedDocument.location.path
+                        )
                       "
                     >
                       {{ sedDocument.location.path }}
@@ -674,11 +717,15 @@
                     >
                       <mat-option
                         [value]="sedDocument.location.path + '/' + output.id"
-                        (click)="setSelectedDataSets(
-                          user2DHeatmapYDataSetsFormControl,
-                          'SedReport',
-                          sedDocument, sedDocument.location.path,
-                          output, output.id)
+                        (click)="
+                          setSelectedDataSets(
+                            user2DHeatmapYDataSetsFormControl,
+                            'SedReport',
+                            sedDocument,
+                            sedDocument.location.path,
+                            output,
+                            output.id
+                          )
                         "
                       >
                         {{ output.id }}
@@ -687,13 +734,24 @@
                       <div class="multi-select-opt-group">
                         <mat-option
                           *ngFor="let dataset of output.dataSets"
-                          [value]="sedDocument.location.path + '/' + output.id + '/' + dataset.id"
-                          (click)="setSelectedDataSets(
-                            user2DHeatmapYDataSetsFormControl,
-                            'SedDataSet',
-                            sedDocument, sedDocument.location.path,
-                            output, output.id,
-                            dataset, dataset.id)
+                          [value]="
+                            sedDocument.location.path +
+                            '/' +
+                            output.id +
+                            '/' +
+                            dataset.id
+                          "
+                          (click)="
+                            setSelectedDataSets(
+                              user2DHeatmapYDataSetsFormControl,
+                              'SedDataSet',
+                              sedDocument,
+                              sedDocument.location.path,
+                              output,
+                              output.id,
+                              dataset,
+                              dataset.id
+                            )
                           "
                         >
                           {{ dataset.label }}
@@ -708,21 +766,26 @@
                   matPrefix
                 ></biosimulations-icon>
               </mat-form-field>
-              <mat-hint
-                >Select the SED-ML data sets to plot.</mat-hint
-              >
+              <mat-hint>Select the SED-ML data sets to plot.</mat-hint>
             </div>
 
             <div class="form-field-group">
               <mat-form-field appearance="fill">
-                <mat-label>Select the x labels for the selected data sets</mat-label>
+                <mat-label
+                  >Select the x labels for the selected data sets</mat-label
+                >
 
                 <mat-select
                   formControlName="xDataSet"
                   disableOptionCentering
                   (ngModelChange)="displayUserViz()"
                 >
-                  <ng-container *ngFor="let sedDocument of (sedDocumentReportsConfiguration$ | async)">
+                  <ng-container
+                    *ngFor="
+                      let sedDocument of sedDocumentReportsConfiguration$
+                        | async
+                    "
+                  >
                     <mat-option
                       [value]="sedDocument.location.path"
                       [disabled]="true"
@@ -744,7 +807,13 @@
                       <div class="multi-select-opt-group">
                         <mat-option
                           *ngFor="let dataset of output.dataSets"
-                          [value]="sedDocument.location.path + '/' + output.id + '/' + dataset.id"
+                          [value]="
+                            sedDocument.location.path +
+                            '/' +
+                            output.id +
+                            '/' +
+                            dataset.id
+                          "
                         >
                           {{ dataset.label }}
                         </mat-option>
@@ -759,7 +828,8 @@
                 ></biosimulations-icon>
               </mat-form-field>
               <mat-hint
-                >Select the SED-ML data set that contains the labels for each element of the selected data sets.</mat-hint
+                >Select the SED-ML data set that contains the labels for each
+                element of the selected data sets.</mat-hint
               >
             </div>
           </div>
@@ -771,20 +841,31 @@
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('vega')"
-            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
-          >Export to Vega</button>
+            [disabled]="
+              !userSimulationResultsLoaded || !visualizationFormGroup.valid
+            "
+          >
+            Export to Vega
+          </button>
           <button
             type="button"
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('combine')"
-            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
-          >Export in archive</button>
+            [disabled]="
+              !userSimulationResultsLoaded || !visualizationFormGroup.valid
+            "
+          >
+            Export in archive
+          </button>
         </div>
       </ng-container>
 
       <ng-container
-        *ngIf="selectedVisualization && selectedVisualization.type === 'user2DLineScatter'"
+        *ngIf="
+          selectedVisualization &&
+          selectedVisualization.type === 'user2DLineScatter'
+        "
         formGroupName="user2DLineScatter"
       >
         <div class="form-section">
@@ -795,7 +876,8 @@
             <div class="form-section-head-title-subtitle">
               <div class="form-section-title">Configure chart *</div>
               <div class="form-section-subtitle">
-                Configure the data to plot, the axes, and visual style of the plot.
+                Configure the data to plot, the axes, and visual style of the
+                plot.
               </div>
             </div>
           </div>
@@ -818,13 +900,16 @@
                 ></biosimulations-icon>
               </mat-form-field>
               <mat-hint
-                >runBioSimulations can display one or more curves per
-                subplots. Select the number of curves that you would like to
+                >runBioSimulations can display one or more curves per subplots.
+                Select the number of curves that you would like to
                 display.</mat-hint
               >
             </div>
 
-            <div class="form-field-group user-2d-line-scatter-curves" formArrayName="curves">
+            <div
+              class="form-field-group user-2d-line-scatter-curves"
+              formArrayName="curves"
+            >
               <div class="icon-label-input">
                 <biosimulations-icon
                   icon="report"
@@ -852,17 +937,26 @@
                         >
                           <mat-optgroup
                             *ngFor="
-                              let sedDocument of (sedDocumentReportsConfiguration$ | async)
+                              let sedDocument of sedDocumentReportsConfiguration$
+                                | async
                             "
                             [label]="sedDocument.location.path"
                           >
                             <mat-optgroup
-                              *ngFor="let output of sedDocument.location.value.outputs"
+                              *ngFor="
+                                let output of sedDocument.location.value.outputs
+                              "
                               [label]="output.name || output.id"
                             >
                               <mat-option
                                 *ngFor="let dataset of output.dataSets"
-                                [value]="sedDocument.location.path + '/' + output.id + '/' + dataset.id"
+                                [value]="
+                                  sedDocument.location.path +
+                                  '/' +
+                                  output.id +
+                                  '/' +
+                                  dataset.id
+                                "
                               >
                                 {{ dataset.label }}
                               </mat-option>
@@ -879,17 +973,26 @@
                         >
                           <mat-optgroup
                             *ngFor="
-                              let sedDocument of (sedDocumentReportsConfiguration$ | async)
+                              let sedDocument of sedDocumentReportsConfiguration$
+                                | async
                             "
                             [label]="sedDocument.location.path"
                           >
                             <mat-optgroup
-                              *ngFor="let output of sedDocument.location.value.outputs"
+                              *ngFor="
+                                let output of sedDocument.location.value.outputs
+                              "
                               [label]="output.name || output.id"
                             >
                               <mat-option
                                 *ngFor="let dataset of output.dataSets"
-                                [value]="sedDocument.location.path + '/' + output.id + '/' + dataset.id"
+                                [value]="
+                                  sedDocument.location.path +
+                                  '/' +
+                                  output.id +
+                                  '/' +
+                                  dataset.id
+                                "
                               >
                                 {{ dataset.label }}
                               </mat-option>
@@ -1000,15 +1103,23 @@
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('vega')"
-            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
-          >Export to Vega</button>
+            [disabled]="
+              !userSimulationResultsLoaded || !visualizationFormGroup.valid
+            "
+          >
+            Export to Vega
+          </button>
           <button
             type="button"
             mat-flat-button
             class="biosimulations-button text"
             (click)="exportUserViz('combine')"
-            [disabled]="!userSimulationResultsLoaded || !visualizationFormGroup.valid"
-          >Export in archive</button>
+            [disabled]="
+              !userSimulationResultsLoaded || !visualizationFormGroup.valid
+            "
+          >
+            Export in archive
+          </button>
         </div>
       </ng-container>
     </form>
@@ -1021,9 +1132,9 @@
         <biosimulations-spinner></biosimulations-spinner>
       </div>
       <ng-template #error>
-        <span
-          class="info-message"
-          >Sorry! The visualizations for the project could not be retrieved.</span
+        <span class="info-message"
+          >Sorry! The visualizations for the project could not be
+          retrieved.</span
         >
       </ng-template>
     </ng-template>
@@ -1043,7 +1154,9 @@
     </biosimulations-vega-visualization>
 
     <biosimulations-plotly-visualization
-      *ngIf="selectedVisualization && selectedVisualization.renderer === 'plotly'"
+      *ngIf="
+        selectedVisualization && selectedVisualization.renderer === 'plotly'
+      "
       [dataLayout]="plotlyVizDataLayout$ | async"
     >
     </biosimulations-plotly-visualization>

@@ -1,6 +1,6 @@
 export interface MetadataValue {
   label: string | null;
-  uri: string | null;  
+  uri: string | null;
 }
 
 export interface CustomMetadata {

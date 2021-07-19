@@ -148,27 +148,33 @@ export class CombineService {
 
     if (typeof archiveFileOrUrl === 'object') {
       formData.append('files', archiveFileOrUrl);
-      formData.append('archive', JSON.stringify({filename: archiveFileOrUrl.name}));
+      formData.append(
+        'archive',
+        JSON.stringify({ filename: archiveFileOrUrl.name }),
+      );
     } else {
-      formData.append('archive', JSON.stringify({url: archiveFileOrUrl}));
+      formData.append('archive', JSON.stringify({ url: archiveFileOrUrl }));
     }
 
     const newContentFilename = '__new_content__';
     formData.append('files', newContentFile, newContentFilename);
 
-    formData.append('newContent', JSON.stringify({
-      _type: 'CombineArchiveContent',
-      location: newContentLocation,
-      format: newContentFormat,
-      master: newContentMaster,
-      filename: newContentFilename,
-    }));
+    formData.append(
+      'newContent',
+      JSON.stringify({
+        _type: 'CombineArchiveContent',
+        location: newContentLocation,
+        format: newContentFormat,
+        master: newContentMaster,
+        filename: newContentFilename,
+      }),
+    );
 
     formData.append('overwriteLocations', JSON.stringify(overwriteLocations));
     formData.append('download', JSON.stringify(false));
 
     const headers = {
-      'Accept': 'application/zip',
+      Accept: 'application/zip',
     };
 
     return this.http
