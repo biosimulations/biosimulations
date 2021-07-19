@@ -5,15 +5,24 @@ import { BrowseComponent } from './browse/browse.component';
 import { ViewComponent } from './view/view.component';
 import { urls } from '@biosimulations/config/common';
 
+import { HttpClient, HttpXhrBackend } from '@angular/common/http';
+import { SimulationRun } from '@biosimulations/dispatch/api-models';
+
 function rerunSimulation(url: string, router: Router): undefined {
   const parts = url.split('/');
   const id = parts[parts.length - 1].split('#')[0];
 
-  router.navigate(['/run'], {
-    queryParams: {
-      projectUrl: `${urls.dispatchApi}run/${id}/download`,
-    },
-  });
+  new HttpClient(new HttpXhrBackend({ build: () => new XMLHttpRequest() }))
+    .get<SimulationRun>(`${urls.dispatchApi}run/${id}`)
+    .subscribe((simulationRun: SimulationRun): void => {
+      const queryParams = {
+        projectUrl: `${urls.dispatchApi}run/${id}/download`,
+        simulator: simulationRun.simulator,
+        simulatorVersion: simulationRun.simulatorVersion,          
+        runName: simulationRun.name + ' (rerun)',
+      };
+      router.navigate(['/run'], {queryParams: queryParams});
+    });
 
   return undefined;
 }
@@ -37,9 +46,9 @@ const routes: Routes = [
       contextButtons: [
         {
           onClick: rerunSimulation,
-          hover: 'Re-run simulation',
+          hover: 'Rerun simulation',
           icon: 'redo',
-          label: 'Re-run',
+          label: 'Rerun',
         },
         {
           onClick: shareSimulation,

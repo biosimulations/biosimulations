@@ -426,6 +426,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         if (projectUrl) {
           this.submitMethodControl.setValue(SubmitMethod.url);
           this.projectUrlControl.setValue(projectUrl);
+          this.changeSubmitMethod();
           this.changeProject();
         }
 
@@ -434,6 +435,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
           for (const simulatorId of this.simulatorIds) {
             if (simulatorId.toLowerCase() === simulator) {
               this.simulatorControl.setValue(simulatorId);
+              this.changeSimulator();
 
               const simulatorVersion = params?.simulatorVersion;
               if (
@@ -473,9 +475,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
           }
         }
 
-        const name = params?.name;
-        if (name) {
-          this.nameControl.setValue(name);
+        const runName = params?.runName;
+        if (runName) {
+          this.nameControl.setValue(runName);
         }
       },
     );
@@ -621,7 +623,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
               this.simulationAlgorithmsControl.updateValueAndValidity();
             }
 
-            this.applyFilters();
+            this.filterSimulators();
           }
         });
       this.subscriptions.push(sub);
@@ -635,7 +637,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
   }
 
-  applyFilters(): void {
+  filterSimulators(): void {
     const modelFormatIds = this.formGroup.value.modelFormats;
     const simulationAlgorithmIds = this.formGroup.value.simulationAlgorithms;
     const algSubPolicy: number =
@@ -812,7 +814,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     );
   }
 
-  onSimulatorChange() {
+  changeSimulator() {
     if (this.simulatorSpecsMap !== undefined) {
       this.simulatorVersions =
         this.simulatorSpecsMap[this.simulatorControl.value]?.versions || [];
