@@ -61,17 +61,8 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Install npm dependencies
-       
         run: npm ci
 
-      - name: Cache Angular and NX dependencies
-        uses: actions/cache@v2
-        with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{github.sha}}
-          restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx-
 
       - id: get-affected-libs-apps
         name: Determine affected libraries and apps
