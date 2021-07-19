@@ -48,10 +48,13 @@ export class VegaVisualizationComponent {
           height: Math.max(rect?.height || 0, 10),
           padding: 0,
         };
-        vegaEmbed(this.vegaContainer.nativeElement, this._spec as Spec, options)
-          .catch((error: Error): void => {
-            this.error = `The visualization is invalid: ${error.message}.`;
-          });
+        vegaEmbed(
+          this.vegaContainer.nativeElement,
+          this._spec as Spec,
+          options,
+        ).catch((error: Error): void => {
+          this.error = `The visualization is invalid: ${error.message}.`;
+        });
       } else {
         this.error = 'Visualization could not be loaded.';
       }

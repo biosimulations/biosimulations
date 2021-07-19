@@ -60,8 +60,8 @@
         One key feature of Vega is that it modularly captures the graphical
         marks which comprise visualizations and how those graphical marks should
         be painted with data. This feature makes it easy to produce data
-        visualizations for multiple simulation conditions by combining the
-        same graphical marks with results from multiple simulations. This features
+        visualizations for multiple simulation conditions by combining the same
+        graphical marks with results from multiple simulations. This features
         also makes the provenance of data visualizations transparent. As a
         result, Vega is ideal for collaboration and publication.
       </p>
@@ -77,24 +77,54 @@
       tocSection="Creating Vega visualizations"
     >
       <p>
-        BioSimulators recommends creating Vega visualizations for simulation results as follows:
+        BioSimulators recommends creating Vega visualizations for simulation
+        results as follows:
       </p>
 
       <ol class="vertically-spaced">
         <li>Create one or more SED-ML files.</li>
-        <li>Use tools such as the Vega Editor <a href="https://vega.github.io/editor" target="_blank"
-              ><biosimulations-icon icon="link"></biosimulations-icon></a
-          > and Altair <a href="https://altair-viz.github.io/" target="_blank"
-              ><biosimulations-icon icon="link"></biosimulations-icon></a
-          > to design the structures of visualizations for the results of the SED-ML files.</li>
+        <li>
+          Use tools such as the Vega Editor
+          <a href="https://vega.github.io/editor" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          and Altair
+          <a href="https://altair-viz.github.io/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          to design the structures of visualizations for the results of the
+          SED-ML files.
+        </li>
         <li>Encode these diagramatic structures into Vega.</li>
-        <li>Indicate the Vega signals whose values should be rendered with the values of the attributes of SED-ML simulations by adding the key <code>sedmlUri</code> to such Vega signals. The values of these keys should be lists of the locations of the SED-ML documents, the ids of the SED-ML simulations, the names of the desired attributes of the simulations (e.g., <code>['location/of/simulation.sedml', 'simulationId', 'numberOfSteps']</code>).</li>
-        <li>Indicate the Vega data sets who values should be rendered with the results of SED-ML reports by adding a key <code>sedmlUri</code> to such Vega datas. The values of these keys should be lists of the locations of the SED-ML documents and the ids of the SED-ML reports (e.g., <code>['location/of/simulation.sedml', 'reportId']</code>).</li>
-        <li>Package the SED-ML and Vega files into a COMBINE/OMEX archive. Include the Vega files in the manifest of the archive with the format <code>http://purl.org/NET/mediatypes/application/vega+json</code>.</li>
+        <li>
+          Indicate the Vega signals whose values should be rendered with the
+          values of the attributes of SED-ML simulations by adding the key
+          <code>sedmlUri</code> to such Vega signals. The values of these keys
+          should be lists of the locations of the SED-ML documents, the ids of
+          the SED-ML simulations, the names of the desired attributes of the
+          simulations (e.g.,
+          <code
+            >['location/of/simulation.sedml', 'simulationId',
+            'numberOfSteps']</code
+          >).
+        </li>
+        <li>
+          Indicate the Vega data sets who values should be rendered with the
+          results of SED-ML reports by adding a key <code>sedmlUri</code> to
+          such Vega datas. The values of these keys should be lists of the
+          locations of the SED-ML documents and the ids of the SED-ML reports
+          (e.g., <code>['location/of/simulation.sedml', 'reportId']</code>).
+        </li>
+        <li>
+          Package the SED-ML and Vega files into a COMBINE/OMEX archive. Include
+          the Vega files in the manifest of the archive with the format
+          <code>http://purl.org/NET/mediatypes/application/vega+json</code>.
+        </li>
       </ol>
 
       <b
-        >Example data visualization snippet (Vega document which indicates which Vega data sets should be mapped to SED-ML reports)</b
+        >Example data visualization snippet (Vega document which indicates which
+        Vega data sets should be mapped to SED-ML reports)</b
       >
       <pre><code [languages]="['json']" [highlight]="exampleVega"></code></pre>
     </biosimulations-text-page-content-section>
@@ -105,26 +135,51 @@
     >
       <p>
         Simulation software tools, such as RunBioSimulations, should render such
-        Vega visualizations linked to SED-ML files in COMBINE/OMEX archives as illustrated below:
+        Vega visualizations linked to SED-ML files in COMBINE/OMEX archives as
+        illustrated below:
       </p>
 
       <ol class="vertically-spaced">
-        <li>Execute the SED-ML files in the COMBINE/OMEX archive and save each report.</li>
-        <li>Use the manifest of the archive to identify the Vega visualizations in the archive (contents with the format <code>http://purl.org/NET/mediatypes/application/vega+json</code>).</li>
+        <li>
+          Execute the SED-ML files in the COMBINE/OMEX archive and save each
+          report.
+        </li>
+        <li>
+          Use the manifest of the archive to identify the Vega visualizations in
+          the archive (contents with the format
+          <code>http://purl.org/NET/mediatypes/application/vega+json</code>).
+        </li>
         <li>Extract these Vega visualization files from the archive.</li>
         <li>Use a JSON library to parse the Vega visualization files.</li>
-        <li>Identify the Vega signals and data sets whose values are intended to be rendered with the values of attributes of simulations of SED-ML documents and the results of reports of SED-ML documents (Vega signals and data sets with the key <code>sedmlUri</code>).</li>
-        <li>Set the values of these Vega signals and data sets equal to the values of the indicated attributes of SED-ML simulations and the resutls of SED-ML reports. As illustrated below, SED-ML reports should be encoded as lists of objects that represent the results of each SED-ML dataset. Data sets with multidimensional values should be captured using nested lists.
+        <li>
+          Identify the Vega signals and data sets whose values are intended to
+          be rendered with the values of attributes of simulations of SED-ML
+          documents and the results of reports of SED-ML documents (Vega signals
+          and data sets with the key <code>sedmlUri</code>).
         </li>
-        <li>Use Vega-Embed <a href="https://github.com/vega/vega-embed" target="_blank"
-              ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >to render the resultant Vega visualizations.</li>
+        <li>
+          Set the values of these Vega signals and data sets equal to the values
+          of the indicated attributes of SED-ML simulations and the resutls of
+          SED-ML reports. As illustrated below, SED-ML reports should be encoded
+          as lists of objects that represent the results of each SED-ML dataset.
+          Data sets with multidimensional values should be captured using nested
+          lists.
+        </li>
+        <li>
+          Use Vega-Embed
+          <a href="https://github.com/vega/vega-embed" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >to render the resultant Vega visualizations.
+        </li>
       </ol>
 
       <b>Example simulation results (SED-ML report)</b>
       <pre><code [languages]="['json']" [highlight]="exampleSedmlData"></code></pre>
 
-      <b>Example rendered Vega document (Vega document with data sets replaced with the values of SED-ML reports)</b>
+      <b
+        >Example rendered Vega document (Vega document with data sets replaced
+        with the values of SED-ML reports)</b
+      >
       <pre><code [languages]="['json']" [highlight]="exampleVegaWithData"></code></pre>
     </biosimulations-text-page-content-section>
 
@@ -133,7 +188,8 @@
       tocSection="Examples"
     >
       <p>
-        Several example COMBINE/OMEX archives with Vega visualizations are available here
+        Several example COMBINE/OMEX archives with Vega visualizations are
+        available here
         <a
           href="https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples"
           target="_blank"
@@ -185,7 +241,8 @@
             <a href="https://github.com/vega/vega-embed" target="_blank"
               ><biosimulations-icon icon="link"></biosimulations-icon></a
           ></b>
-          is a JavaScript program for rendering Vega visualizations inside web pages.
+          is a JavaScript program for rendering Vega visualizations inside web
+          pages.
         </li>
       </ul>
     </biosimulations-text-page-content-section>

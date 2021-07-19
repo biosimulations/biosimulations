@@ -29,10 +29,7 @@ import {
 } from './plotly-visualization/plotly-visualization.component';
 import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
-import {
-  Simulation,
-  SedDatasetResultsMap,
-} from '../../../datamodel';
+import { Simulation, SedDatasetResultsMap } from '../../../datamodel';
 import {
   CombineArchive,
   CombineArchiveContent,
@@ -49,7 +46,13 @@ import {
 } from '../../../combine-sedml.interface';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 import { ConfigService } from '@biosimulations/shared/services';
-import { BehaviorSubject, Observable, of, Subscription, combineLatest } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+  Subscription,
+  combineLatest,
+} from 'rxjs';
 import { concatAll, map, shareReplay, withLatestFrom } from 'rxjs/operators';
 import {
   AxisLabelType,
@@ -59,10 +62,7 @@ import {
   TRACE_MODE_LABELS,
 } from './view.model';
 import { ViewService } from './view.service';
-import {
-  Spec as VegaSpec,
-  Format as VegaDataFormat,
-} from 'vega';
+import { Spec as VegaSpec, Format as VegaDataFormat } from 'vega';
 import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { urls } from '@biosimulations/config/common';
@@ -97,9 +97,9 @@ enum VisualizationRenderer {
 
 interface Visualization {
   id: string;
-  source: VisualizationSource,
-  type: VisualizationType,
-  renderer: VisualizationRenderer,
+  source: VisualizationSource;
+  type: VisualizationType;
+  renderer: VisualizationRenderer;
   uri: string | undefined;
   label: string;
   vegaSpec: Observable<VegaSpec | undefined | false>;
@@ -163,14 +163,16 @@ export class ViewComponent implements OnInit, OnDestroy {
   // SED documents in COMBINE/OMEX archive of simulation run
   sedDocumentsConfiguration: CombineArchive | undefined;
   sedDocumentsConfiguration$!: Observable<CombineArchive | undefined>;
-  sedDocumentReportsConfiguration$!: Observable<SedDocumentReportsCombineArchiveContent[]>;
-  private sedDataSetConfigurationMap!: {[uri: string]: SedDataSet};
+  sedDocumentReportsConfiguration$!: Observable<
+    SedDocumentReportsCombineArchiveContent[]
+  >;
+  private sedDataSetConfigurationMap!: { [uri: string]: SedDataSet };
 
   // visualizations
   visualizationFormGroup: FormGroup;
 
   visualizations$!: Observable<Visualization[]>;
-  private visualizationsIdMap!: {[id: string]: Visualization};
+  private visualizationsIdMap!: { [id: string]: Visualization };
   selectedVisualization!: Visualization;
 
   @ViewChild(VegaVisualizationComponent)
@@ -178,7 +180,9 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   @ViewChild(PlotlyVisualizationComponent)
   private plotlyVisualization!: PlotlyVisualizationComponent;
-  private plotlyVizDataLayout = new BehaviorSubject<DataLayout | null | false>(null);
+  private plotlyVizDataLayout = new BehaviorSubject<DataLayout | null | false>(
+    null,
+  );
   plotlyVizDataLayout$ = this.plotlyVizDataLayout.asObservable();
 
   user1DHistogramDataSetsFormControl: FormControl;
@@ -188,7 +192,8 @@ export class ViewComponent implements OnInit, OnDestroy {
   axisLabelTypes: AxisLabelType[] = AXIS_LABEL_TYPES;
   traceModeLabels: TraceModeLabel[] = TRACE_MODE_LABELS;
 
-  private userSimulationResults: SedDatasetResultsMap | undefined | false = undefined;
+  private userSimulationResults: SedDatasetResultsMap | undefined | false =
+    undefined;
   private userSimulationResultsLoadingInitialized = false;
   userSimulationResultsLoaded = false;
 
@@ -223,7 +228,10 @@ export class ViewComponent implements OnInit, OnDestroy {
         xDataSet: [null],
       }),
       user2DLineScatter: formBuilder.group({
-        numCurves: [1, [Validators.required, Validators.min(1), this.integerValidator]],
+        numCurves: [
+          1,
+          [Validators.required, Validators.min(1), this.integerValidator],
+        ],
         curves: formBuilder.array([], Validators.minLength(1)),
         xAxisType: [AxisType.linear, [Validators.required]],
         yAxisType: [AxisType.linear, [Validators.required]],
@@ -231,17 +239,24 @@ export class ViewComponent implements OnInit, OnDestroy {
       }),
     });
 
-    const user1DHistogramFormGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
-    const user2DHeatmapFormGroup = this.visualizationFormGroup.controls.user2DHeatmap as FormGroup;
-    const user2DLineScatterFormGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
+    const user1DHistogramFormGroup = this.visualizationFormGroup.controls
+      .user1DHistogram as FormGroup;
+    const user2DHeatmapFormGroup = this.visualizationFormGroup.controls
+      .user2DHeatmap as FormGroup;
+    const user2DLineScatterFormGroup = this.visualizationFormGroup.controls
+      .user2DLineScatter as FormGroup;
 
     user1DHistogramFormGroup.disable();
     user2DHeatmapFormGroup.disable();
     user2DLineScatterFormGroup.disable();
 
-    this.user1DHistogramDataSetsFormControl = user1DHistogramFormGroup.controls.dataSets as FormControl;
-    this.user2DHeatmapYDataSetsFormControl = user2DHeatmapFormGroup.controls.yDataSets as FormControl;
-    this.user2DLineScatterCurvesFormGroups = (user2DLineScatterFormGroup.controls.curves as FormArray).controls as FormGroup[];
+    this.user1DHistogramDataSetsFormControl = user1DHistogramFormGroup.controls
+      .dataSets as FormControl;
+    this.user2DHeatmapYDataSetsFormControl = user2DHeatmapFormGroup.controls
+      .yDataSets as FormControl;
+    this.user2DLineScatterCurvesFormGroups = (
+      user2DLineScatterFormGroup.controls.curves as FormArray
+    ).controls as FormGroup[];
   }
 
   integerValidator(control: FormControl): ValidationErrors | null {
@@ -290,75 +305,86 @@ export class ViewComponent implements OnInit, OnDestroy {
     const archiveUrl = `${urls.dispatchApi}run/${this.uuid}/download`;
 
     const archiveManifest = this.statusSucceeded$.pipe(
-      map(
-        (succeeded: boolean): Observable<CombineArchive | undefined> => {
-          return succeeded
-            ? this.combineService.getCombineArchiveManifest(
-                archiveUrl,
-              )
-            : of({ _type: 'CombineArchive', contents: [] });
-        }
-      ),
+      map((succeeded: boolean): Observable<CombineArchive | undefined> => {
+        return succeeded
+          ? this.combineService.getCombineArchiveManifest(archiveUrl)
+          : of({ _type: 'CombineArchive', contents: [] });
+      }),
       concatAll(),
       shareReplay(1),
     );
 
     this.sedDocumentsConfiguration$ = this.statusSucceeded$.pipe(
-      map(
-        (succeeded: boolean): Observable<CombineArchive | undefined> => {
-          return succeeded
-            ? this.visualizationService.getSpecsOfSedDocsInCombineArchive(
-                this.uuid,
-              )
-            : of({ _type: 'CombineArchive', contents: [] });
-        }
-      ),
+      map((succeeded: boolean): Observable<CombineArchive | undefined> => {
+        return succeeded
+          ? this.visualizationService.getSpecsOfSedDocsInCombineArchive(
+              this.uuid,
+            )
+          : of({ _type: 'CombineArchive', contents: [] });
+      }),
       concatAll(),
       shareReplay(1),
     );
 
-    const sedDocumentsConfigurationSub = this.sedDocumentsConfiguration$.subscribe(
-      (archive: CombineArchive | undefined): void => {
-        this.sedDocumentsConfiguration = archive;
-      }
-    );
+    const sedDocumentsConfigurationSub =
+      this.sedDocumentsConfiguration$.subscribe(
+        (archive: CombineArchive | undefined): void => {
+          this.sedDocumentsConfiguration = archive;
+        },
+      );
     this.subscriptions.push(sedDocumentsConfigurationSub);
 
-    this.sedDocumentReportsConfiguration$ = this.sedDocumentsConfiguration$
-      .pipe(
-        map((archive: CombineArchive | undefined): SedDocumentReportsCombineArchiveContent[] => {
-          if (archive) {
-            archive = JSON.parse(JSON.stringify(archive)) as CombineArchive;
-            archive.contents.forEach((content: CombineArchiveContent): void => {
-              const sedDoc = content.location.value as SedDocument;
-              sedDoc.outputs = sedDoc.outputs.filter((output: SedOutput): boolean => {
-                return output._type === 'SedReport';
-              });
-            })
-            return archive.contents as SedDocumentReportsCombineArchiveContent[];
-          } else {
-            return [];
-          }
-        }),
+    this.sedDocumentReportsConfiguration$ =
+      this.sedDocumentsConfiguration$.pipe(
+        map(
+          (
+            archive: CombineArchive | undefined,
+          ): SedDocumentReportsCombineArchiveContent[] => {
+            if (archive) {
+              archive = JSON.parse(JSON.stringify(archive)) as CombineArchive;
+              archive.contents.forEach(
+                (content: CombineArchiveContent): void => {
+                  const sedDoc = content.location.value as SedDocument;
+                  sedDoc.outputs = sedDoc.outputs.filter(
+                    (output: SedOutput): boolean => {
+                      return output._type === 'SedReport';
+                    },
+                  );
+                },
+              );
+              return archive.contents as SedDocumentReportsCombineArchiveContent[];
+            } else {
+              return [];
+            }
+          },
+        ),
         shareReplay(1),
       );
 
     this.sedDocumentReportsConfiguration$.subscribe(
       (contents: SedDocumentReportsCombineArchiveContent[]): void => {
         this.sedDataSetConfigurationMap = {};
-        contents.forEach((sedDoc: SedDocumentReportsCombineArchiveContent): void => {
-          sedDoc.location.value.outputs.forEach((output: SedReport): void => {
-            output.dataSets.forEach((dataSet: SedDataSet): void => {
-              const uri = sedDoc.location.path + '/' + output.id + '/' + dataSet.id;
-              this.sedDataSetConfigurationMap[uri] = dataSet;
-            })
-          })
-        })
-      });
+        contents.forEach(
+          (sedDoc: SedDocumentReportsCombineArchiveContent): void => {
+            sedDoc.location.value.outputs.forEach((output: SedReport): void => {
+              output.dataSets.forEach((dataSet: SedDataSet): void => {
+                const uri =
+                  sedDoc.location.path + '/' + output.id + '/' + dataSet.id;
+                this.sedDataSetConfigurationMap[uri] = dataSet;
+              });
+            });
+          },
+        );
+      },
+    );
 
-    this.visualizations$ = combineLatest(this.statusSucceeded$, archiveManifest, this.sedDocumentsConfiguration$)
-      .pipe(
-        map((
+    this.visualizations$ = combineLatest(
+      this.statusSucceeded$,
+      archiveManifest,
+      this.sedDocumentsConfiguration$,
+    ).pipe(
+      map(
+        (
           args: [
             boolean,
             CombineArchive | undefined,
@@ -372,14 +398,23 @@ export class ViewComponent implements OnInit, OnDestroy {
           const visualizations: Visualization[] = [];
           if (succeeded && manifest && sedmlSpecs) {
             for (const content of manifest.contents) {
-              if (content.format == 'http://purl.org/NET/mediatypes/application/vega+json') {
+              if (
+                content.format ==
+                'http://purl.org/NET/mediatypes/application/vega+json'
+              ) {
                 visualizations.push({
-                  id: 'vega/' + (content.location.value as CombineArchiveContentFile).filename,
+                  id:
+                    'vega/' +
+                    (content.location.value as CombineArchiveContentFile)
+                      .filename,
                   source: VisualizationSource.vega,
                   type: VisualizationType.vega,
                   renderer: VisualizationRenderer.vega,
-                  uri: (content.location.value as CombineArchiveContentFile).filename,
-                  label: (content.location.value as CombineArchiveContentFile).filename + ' (Vega)',
+                  uri: (content.location.value as CombineArchiveContentFile)
+                    .filename,
+                  label:
+                    (content.location.value as CombineArchiveContentFile)
+                      .filename + ' (Vega)',
                   vegaSpec: of(undefined),
                   sedmlOutputSpec: undefined,
                 });
@@ -396,7 +431,9 @@ export class ViewComponent implements OnInit, OnDestroy {
                     type: VisualizationType.sedml,
                     renderer: VisualizationRenderer.plotly,
                     uri: `${content.location.path}/${output.id}`,
-                    label: `${output.name || output.id} of ${content.location.path} (SED-ML 2D line plot)`,
+                    label: `${output.name || output.id} of ${
+                      content.location.path
+                    } (SED-ML 2D line plot)`,
                     vegaSpec: of(undefined),
                     sedmlOutputSpec: output as SedPlot2D,
                   });
@@ -444,39 +481,52 @@ export class ViewComponent implements OnInit, OnDestroy {
           }
 
           if (visualizations.length) {
-            const visualizationFormControl = this.visualizationFormGroup.controls.visualization as FormControl;
+            const visualizationFormControl = this.visualizationFormGroup
+              .controls.visualization as FormControl;
             visualizationFormControl.setValue(visualizations[0].id);
             this.selectVisualization();
           }
 
-          visualizations.sort(
-            (a: Visualization, b: Visualization): number => {
-              let aSource = 0;
-              let bSource = 0;
-              switch (a.source) {
-                case VisualizationSource.vega: aSource = 0; break;
-                case VisualizationSource.sedml: aSource = 1; break;
-                default: aSource = 2; break;
-              }
-              switch (b.source) {
-                case VisualizationSource.vega: bSource = 0; break;
-                case VisualizationSource.sedml: bSource = 1; break;
-                default: bSource = 2; break;
-              }
+          visualizations.sort((a: Visualization, b: Visualization): number => {
+            let aSource = 0;
+            let bSource = 0;
+            switch (a.source) {
+              case VisualizationSource.vega:
+                aSource = 0;
+                break;
+              case VisualizationSource.sedml:
+                aSource = 1;
+                break;
+              default:
+                aSource = 2;
+                break;
+            }
+            switch (b.source) {
+              case VisualizationSource.vega:
+                bSource = 0;
+                break;
+              case VisualizationSource.sedml:
+                bSource = 1;
+                break;
+              default:
+                bSource = 2;
+                break;
+            }
 
-              if (aSource < bSource) {
-                return -1;
-              }
-              if (aSource > bSource) {
-                return 1;
-              }
+            if (aSource < bSource) {
+              return -1;
+            }
+            if (aSource > bSource) {
+              return 1;
+            }
 
-              return a.label.localeCompare(b.label, undefined, { numeric: true });
-            });
+            return a.label.localeCompare(b.label, undefined, { numeric: true });
+          });
           return visualizations;
-        }),
-        shareReplay(1),
-      );
+        },
+      ),
+      shareReplay(1),
+    );
   }
 
   initSimulationRunLog(): void {
@@ -524,115 +574,125 @@ export class ViewComponent implements OnInit, OnDestroy {
   initSimulationProjectMetadata(): void {
     const archiveUrl = this.getArchiveUrl();
     this.metadata$ = combineLatest(
-        this.combineService.getCombineArchiveMetadata(archiveUrl),
-        this.visualizations$,
-        this.sedDocumentsConfiguration$,
-      ).pipe(
-        map(
-          (args: [
+      this.combineService.getCombineArchiveMetadata(archiveUrl),
+      this.visualizations$,
+      this.sedDocumentsConfiguration$,
+    ).pipe(
+      map(
+        (
+          args: [
             CombineArchiveElementMetadata[] | undefined,
             Visualization[],
             CombineArchive | undefined,
-          ]): Metadata | undefined => {
-            const elMetadatas = args[0];
-            const visualizations = args[1];
-            const sedDocumentsConfiguration = args[2];
+          ],
+        ): Metadata | undefined => {
+          const elMetadatas = args[0];
+          const visualizations = args[1];
+          const sedDocumentsConfiguration = args[2];
 
-            if (elMetadatas === undefined) {
-              return undefined;
-            }
+          if (elMetadatas === undefined) {
+            return undefined;
+          }
 
-            elMetadatas.forEach(
-              (elMetadata: CombineArchiveElementMetadata): void => {
-                elMetadata.thumbnails = elMetadata.thumbnails.map(
-                  (thumbnail: string): string => {
-                    return `${urls.combineApi}combine/file?url=${encodeURI(
-                      archiveUrl,
-                    )}&location=${encodeURI(thumbnail)}`;
-                  },
-                );
+          elMetadatas.forEach(
+            (elMetadata: CombineArchiveElementMetadata): void => {
+              elMetadata.thumbnails = elMetadata.thumbnails.map(
+                (thumbnail: string): string => {
+                  return `${urls.combineApi}combine/file?url=${encodeURI(
+                    archiveUrl,
+                  )}&location=${encodeURI(thumbnail)}`;
+                },
+              );
 
-                if (elMetadata.created) {
-                  const d = new Date(elMetadata.created);
-                  elMetadata.created =
+              if (elMetadata.created) {
+                const d = new Date(elMetadata.created);
+                elMetadata.created =
+                  d.getFullYear() +
+                  '-' +
+                  ('0' + (d.getMonth() + 1)).slice(-2) +
+                  '-' +
+                  ('0' + d.getDate()).slice(-2);
+              }
+              elMetadata.modified = elMetadata.modified.map(
+                (date: string): string => {
+                  const d = new Date(date);
+                  return (
                     d.getFullYear() +
                     '-' +
                     ('0' + (d.getMonth() + 1)).slice(-2) +
                     '-' +
-                    ('0' + d.getDate()).slice(-2);
-                }
-                elMetadata.modified = elMetadata.modified.map(
-                  (date: string): string => {
-                    const d = new Date(date);
-                    return (
-                      d.getFullYear() +
-                      '-' +
-                      ('0' + (d.getMonth() + 1)).slice(-2) +
-                      '-' +
-                      ('0' + d.getDate()).slice(-2)
-                    );
-                  },
-                );
-                elMetadata.modified.sort();
-                elMetadata.modified.reverse();
-              },
-            );
+                    ('0' + d.getDate()).slice(-2)
+                  );
+                },
+              );
+              elMetadata.modified.sort();
+              elMetadata.modified.reverse();
+            },
+          );
 
-            const visualizationsUriIdMap: {[uri: string]: string} = {};
-            for (const visualization of visualizations) {
-              if (visualization.uri) {
-                visualizationsUriIdMap[visualization.uri] = visualization.id;
-              }
+          const visualizationsUriIdMap: { [uri: string]: string } = {};
+          for (const visualization of visualizations) {
+            if (visualization.uri) {
+              visualizationsUriIdMap[visualization.uri] = visualization.id;
             }
+          }
 
-            const sedUris = new Set<string>();
-            if (sedDocumentsConfiguration) {
-              sedDocumentsConfiguration.contents.forEach((content: CombineArchiveContent): void => {
+          const sedUris = new Set<string>();
+          if (sedDocumentsConfiguration) {
+            sedDocumentsConfiguration.contents.forEach(
+              (content: CombineArchiveContent): void => {
                 const uri = content.location.path;
-                const sedDocument = content.location.value as SedDocument
+                const sedDocument = content.location.value as SedDocument;
                 sedUris.add(uri);
                 sedDocument.outputs.forEach((output: SedOutput): void => {
                   sedUris.add(uri + '/' + output.id);
                 });
-              });
-            }
+              },
+            );
+          }
 
-            return {
-              archive: elMetadatas.filter(
-                (elMetadata: CombineArchiveElementMetadata): boolean => {
-                  return elMetadata.uri === '.';
+          return {
+            archive: elMetadatas.filter(
+              (elMetadata: CombineArchiveElementMetadata): boolean => {
+                return elMetadata.uri === '.';
+              },
+            )?.[0],
+            other: elMetadatas
+              .filter((elMetadata: CombineArchiveElementMetadata): boolean => {
+                return elMetadata.uri !== '.';
+              })
+              .map(
+                (
+                  elMetadata: CombineArchiveElementMetadata,
+                ): CombineArchiveElementMetadata => {
+                  if (elMetadata.uri.startsWith('./')) {
+                    elMetadata.uri = elMetadata.uri.substring(2);
+                  }
+
+                  if (elMetadata.uri in visualizationsUriIdMap) {
+                    elMetadata.click = (): void => {
+                      const vizFormControl = this.visualizationFormGroup
+                        .controls.visualization as FormControl;
+                      vizFormControl.setValue(
+                        visualizationsUriIdMap[elMetadata.uri],
+                      );
+                      this.selectVisualization();
+                      this.selectedTabIndex = this.iViewChartTab;
+                    };
+                  } else if (sedUris.has(elMetadata.uri)) {
+                    elMetadata.click = (): void => {
+                      this.selectedTabIndex = this.iSelectChartTab;
+                    };
+                  }
+
+                  return elMetadata;
                 },
-              )?.[0],
-              other: elMetadatas.filter(
-                (elMetadata: CombineArchiveElementMetadata): boolean => {
-                  return elMetadata.uri !== '.';
-                },
-              ).map((elMetadata: CombineArchiveElementMetadata): CombineArchiveElementMetadata => {
-                if (elMetadata.uri.startsWith('./')) {
-                  elMetadata.uri = elMetadata.uri.substring(2);
-                }
-
-                if (elMetadata.uri in visualizationsUriIdMap) {
-                  elMetadata.click = (): void => {
-                    const vizFormControl = this.visualizationFormGroup.controls.visualization as FormControl;
-                    vizFormControl.setValue(visualizationsUriIdMap[elMetadata.uri]);
-                    this.selectVisualization();
-                    this.selectedTabIndex = this.iViewChartTab;
-                  };
-
-                } else if (sedUris.has(elMetadata.uri)) {
-                  elMetadata.click = (): void => {
-                    this.selectedTabIndex = this.iSelectChartTab;
-                  };
-                }
-
-                return elMetadata;
-              }),
-            };
-          },
-        ),
-        shareReplay(1),
-      );
+              ),
+          };
+        },
+      ),
+      shareReplay(1),
+    );
     this.metadataLoaded$ = this.metadata$.pipe(
       map((): boolean => {
         return true;
@@ -650,11 +710,18 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   public selectVisualization(): void {
-    (this.visualizationFormGroup.controls.user1DHistogram as FormGroup).disable();
+    (
+      this.visualizationFormGroup.controls.user1DHistogram as FormGroup
+    ).disable();
     (this.visualizationFormGroup.controls.user2DHeatmap as FormGroup).disable();
-    (this.visualizationFormGroup.controls.user2DLineScatter as FormGroup).disable();
+    (
+      this.visualizationFormGroup.controls.user2DLineScatter as FormGroup
+    ).disable();
 
-    this.selectedVisualization = this.visualizationsIdMap?.[this.visualizationFormGroup.value.visualization];
+    this.selectedVisualization =
+      this.visualizationsIdMap?.[
+        this.visualizationFormGroup.value.visualization
+      ];
     if (this.selectedVisualization) {
       switch (this.selectedVisualization.type) {
         case VisualizationType.vega: {
@@ -666,17 +733,23 @@ export class ViewComponent implements OnInit, OnDestroy {
           break;
         }
         case VisualizationType.user1DHistogram: {
-          (this.visualizationFormGroup.controls.user1DHistogram as FormGroup).enable();
+          (
+            this.visualizationFormGroup.controls.user1DHistogram as FormGroup
+          ).enable();
           this.setUpUser1DHistogramVisualization();
           break;
         }
         case VisualizationType.user2DHeatmap: {
-          (this.visualizationFormGroup.controls.user2DHeatmap as FormGroup).enable();
+          (
+            this.visualizationFormGroup.controls.user2DHeatmap as FormGroup
+          ).enable();
           this.setUpUser2DHeatmapVisualization();
           break;
         }
         case VisualizationType.user2DLineScatter: {
-          (this.visualizationFormGroup.controls.user2DLineScatter as FormGroup).enable();
+          (
+            this.visualizationFormGroup.controls.user2DLineScatter as FormGroup
+          ).enable();
           this.setUpUser2DLineScatterVisualization();
           break;
         }
@@ -700,8 +773,11 @@ export class ViewComponent implements OnInit, OnDestroy {
               for (const signal of spec?.signals) {
                 const anySignal = signal as any;
                 if ('sedmlUri' in signal) {
-                  const sedmlSimulationAttributePath = anySignal.sedmlUri as any;
-                  anySignal.value = this.getValueOfSedmlSimulationAttribute(sedmlSimulationAttributePath);
+                  const sedmlSimulationAttributePath =
+                    anySignal.sedmlUri as any;
+                  anySignal.value = this.getValueOfSedmlSimulationAttribute(
+                    sedmlSimulationAttributePath,
+                  );
                   if (anySignal.value === undefined) {
                     return false;
                   }
@@ -716,7 +792,10 @@ export class ViewComponent implements OnInit, OnDestroy {
                 const anyData = data as any;
                 const name = anyData?.name;
                 if ('sedmlUri' in anyData) {
-                  if (this.getSedReport(anyData.sedmlUri) && anyData.sedmlUri?.length == 2) {
+                  if (
+                    this.getSedReport(anyData.sedmlUri) &&
+                    anyData.sedmlUri?.length == 2
+                  ) {
                     anyData.url = this.visualizationService.getOutputResultsUrl(
                       this.uuid,
                       anyData.sedmlUri.join('/'),
@@ -754,7 +833,9 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     let sedDocumentUri = path?.[0];
-    if (!(typeof sedDocumentUri === 'string' || sedDocumentUri instanceof String)) {
+    if (
+      !(typeof sedDocumentUri === 'string' || sedDocumentUri instanceof String)
+    ) {
       return undefined;
     }
 
@@ -822,7 +903,9 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     let attributeName = path?.[2];
-    if (!(typeof attributeName === 'string' || attributeName instanceof String)) {
+    if (
+      !(typeof attributeName === 'string' || attributeName instanceof String)
+    ) {
       return undefined;
     }
     if (attributeName === 'numberOfPoints') {
@@ -855,8 +938,12 @@ export class ViewComponent implements OnInit, OnDestroy {
           for (const curve of output.curves) {
             const xId = curve.xDataGenerator._resultsDataSetId;
             const yId = curve.yDataGenerator._resultsDataSetId;
-            xAxisTitlesSet.add(curve.xDataGenerator.name || curve.xDataGenerator.id);
-            yAxisTitlesSet.add(curve.yDataGenerator.name || curve.yDataGenerator.id);
+            xAxisTitlesSet.add(
+              curve.xDataGenerator.name || curve.xDataGenerator.id,
+            );
+            yAxisTitlesSet.add(
+              curve.yDataGenerator.name || curve.yDataGenerator.id,
+            );
             const trace = {
               name: curve.name || curve.id,
               x: results?.[xId]?.values,
@@ -914,7 +1001,7 @@ export class ViewComponent implements OnInit, OnDestroy {
               showlegend: showLegend,
               width: undefined,
               height: undefined,
-            }
+            },
           } as DataLayout;
           if (missingData) {
             this.plotlyVizDataLayout.next(false);
@@ -948,7 +1035,8 @@ export class ViewComponent implements OnInit, OnDestroy {
   private getUserSimulationResults(): void {
     if (!this.userSimulationResultsLoadingInitialized) {
       this.userSimulationResultsLoadingInitialized = true;
-      this.visualizationService.getCombineResults(this.uuid)
+      this.visualizationService
+        .getCombineResults(this.uuid)
         .subscribe((results: SedDatasetResultsMap | undefined): void => {
           this.userSimulationResults = results || false;
           this.userSimulationResultsLoaded = results !== undefined;
@@ -973,9 +1061,10 @@ export class ViewComponent implements OnInit, OnDestroy {
     // const formControl = formGroup.controls.dataSets as FormControl;
     const selectedUris = new Set(formControl.value);
 
-    const uri = sedDocumentId
-      + (reportId ? '/' + reportId : '')
-      + (dataSetId ? '/' + dataSetId : '');
+    const uri =
+      sedDocumentId +
+      (reportId ? '/' + reportId : '') +
+      (dataSetId ? '/' + dataSetId : '');
     const selected = selectedUris.has(uri);
 
     if (type === 'SedDocument') {
@@ -996,7 +1085,6 @@ export class ViewComponent implements OnInit, OnDestroy {
           }
         });
       });
-
     } else if (type === 'SedReport') {
       if (!selected) {
         selectedUris.delete(sedDocumentId);
@@ -1022,12 +1110,12 @@ export class ViewComponent implements OnInit, OnDestroy {
       if (hasAllReports) {
         selectedUris.add(sedDocumentId);
       }
-
     } else {
       if (selected) {
         let hasAllDataSets = true;
         for (const dataSet of (report as SedReport).dataSets) {
-          const dataSetUri = sedDocumentId + '/' + (report as SedReport).id + '/' + dataSet.id;
+          const dataSetUri =
+            sedDocumentId + '/' + (report as SedReport).id + '/' + dataSet.id;
           if (!selectedUris.has(dataSetUri)) {
             hasAllDataSets = false;
             break;
@@ -1048,7 +1136,6 @@ export class ViewComponent implements OnInit, OnDestroy {
         if (hasAllReports) {
           selectedUris.add(sedDocumentId);
         }
-
       } else {
         selectedUris.delete(sedDocumentId + '/' + (reportId as string));
         selectedUris.delete(sedDocumentId);
@@ -1060,7 +1147,8 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   public setNum2DLineScatterCurves(): void {
-    const formGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
+    const formGroup = this.visualizationFormGroup.controls
+      .user2DLineScatter as FormGroup;
     const numCurves = Math.round(formGroup.value.numCurves);
     const curvesFormArray = formGroup.controls.curves as FormArray;
 
@@ -1097,7 +1185,8 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   private displayUser1DHistogram(): void {
     if (this.userSimulationResults) {
-      const formGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
+      const formGroup = this.visualizationFormGroup.controls
+        .user1DHistogram as FormGroup;
       const formControl = formGroup.controls.dataSets as FormControl;
       const selectedUris = formControl.value;
 
@@ -1157,7 +1246,7 @@ export class ViewComponent implements OnInit, OnDestroy {
           showlegend: false,
           width: undefined,
           height: undefined,
-        }
+        },
       } as DataLayout;
 
       if (missingData) {
@@ -1188,7 +1277,8 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   private displayUser2DHeatmap(): void {
     if (this.userSimulationResults) {
-      const formGroup = this.visualizationFormGroup.controls.user2DHeatmap as FormGroup;
+      const formGroup = this.visualizationFormGroup.controls
+        .user2DHeatmap as FormGroup;
       const yFormControl = formGroup.controls.yDataSets as FormControl;
       const xFormControl = formGroup.controls.xDataSet as FormControl;
       const selectedYUris = yFormControl.value;
@@ -1263,7 +1353,7 @@ export class ViewComponent implements OnInit, OnDestroy {
           showlegend: false,
           width: undefined,
           height: undefined,
-        }
+        },
       } as DataLayout;
 
       if (missingData) {
@@ -1280,7 +1370,8 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   private displayUser2DLineScatterViz(): void {
     if (this.userSimulationResults) {
-      const formGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
+      const formGroup = this.visualizationFormGroup.controls
+        .user2DLineScatter as FormGroup;
       const traceMode = (formGroup.controls.traceMode as FormControl).value;
 
       const traces = [];
@@ -1296,7 +1387,9 @@ export class ViewComponent implements OnInit, OnDestroy {
           const yDataSet = this.sedDataSetConfigurationMap[yDataUri];
           const xLabel = xDataSet.name || xDataSet.label || xDataSet.id;
           const yLabel = yDataSet.name || yDataSet.label || yDataSet.id;
-          const name = (curve.controls.name as FormControl).value || `${yLabel} vs ${xLabel}`;
+          const name =
+            (curve.controls.name as FormControl).value ||
+            `${yLabel} vs ${xLabel}`;
 
           const trace = {
             name: name,
@@ -1306,7 +1399,7 @@ export class ViewComponent implements OnInit, OnDestroy {
             yaxis: 'y1',
             type: TraceType.scatter,
             mode: traceMode,
-          }
+          };
 
           if (trace.x && trace.y) {
             traces.push(trace);
@@ -1357,7 +1450,7 @@ export class ViewComponent implements OnInit, OnDestroy {
           showlegend: traces.length > 1,
           width: undefined,
           height: undefined,
-        }
+        },
       } as DataLayout;
 
       if (missingData) {
@@ -1377,23 +1470,24 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     let vega: any;
     let vegaDataSets: {
-      templateNames: string[],
-      sourceName: (iDataSet: number) => string,
-      filteredName: (iDataSet: number) => string,
-      joinedName?: string,
-      joinedTransforms?: any[],
-      data: {[outputUri: string]: string[]},
+      templateNames: string[];
+      sourceName: (iDataSet: number) => string;
+      filteredName: (iDataSet: number) => string;
+      joinedName?: string;
+      joinedTransforms?: any[];
+      data: { [outputUri: string]: string[] };
     }[] = [];
-    let vegaSignals: {[name: string]: any} = {};
-    let vegaScales: {name: string, attributes: {[key: string]: any}}[] = [];
+    let vegaSignals: { [name: string]: any } = {};
+    let vegaScales: { name: string; attributes: { [key: string]: any } }[] = [];
     switch (this.selectedVisualization.type) {
       case VisualizationType.user1DHistogram: {
-        const formGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
+        const formGroup = this.visualizationFormGroup.controls
+          .user1DHistogram as FormGroup;
         const formControl = formGroup.controls.dataSets as FormControl;
         const selectedUris = formControl.value;
         vega = JSON.parse(JSON.stringify(user1DHistogramVegaTemplate)) as any;
 
-        const selectedDataSets: {[outputUri: string]: string[]} = {};
+        const selectedDataSets: { [outputUri: string]: string[] } = {};
         const histogramExtent = [NaN, NaN];
         const xAxisTitles: string[] = [];
         for (let selectedUri of selectedUris) {
@@ -1401,9 +1495,12 @@ export class ViewComponent implements OnInit, OnDestroy {
             selectedUri = selectedUri.substring(2);
           }
 
-          const selectedDataSet = this.sedDataSetConfigurationMap?.[selectedUri];
+          const selectedDataSet =
+            this.sedDataSetConfigurationMap?.[selectedUri];
           if (selectedDataSet) {
-            const data = (this.userSimulationResults as SedDatasetResultsMap)?.[selectedUri];
+            const data = (this.userSimulationResults as SedDatasetResultsMap)?.[
+              selectedUri
+            ];
             if (data) {
               const outputUri = data.location + '/' + data.outputId;
               if (!(outputUri in selectedDataSets)) {
@@ -1427,7 +1524,8 @@ export class ViewComponent implements OnInit, OnDestroy {
           {
             templateNames: ['rawData0', 'rawData0_filtered', 'rawData_joined'],
             sourceName: (iDataSet: number): string => `rawData${iDataSet}`,
-            filteredName: (iDataSet: number): string => `rawData${iDataSet}_filtered`,
+            filteredName: (iDataSet: number): string =>
+              `rawData${iDataSet}_filtered`,
             joinedName: 'rawData_joined',
             data: selectedDataSets,
           },
@@ -1450,7 +1548,8 @@ export class ViewComponent implements OnInit, OnDestroy {
       }
 
       case VisualizationType.user2DHeatmap: {
-        const formGroup = this.visualizationFormGroup.controls.user2DHeatmap as FormGroup;
+        const formGroup = this.visualizationFormGroup.controls
+          .user2DHeatmap as FormGroup;
         const yFormControl = formGroup.controls.yDataSets as FormControl;
         const xFormControl = formGroup.controls.xDataSet as FormControl;
         const selectedYUris = yFormControl.value;
@@ -1458,15 +1557,18 @@ export class ViewComponent implements OnInit, OnDestroy {
         vega = JSON.parse(JSON.stringify(user2DHeatmapVegaTemplate)) as any;
 
         // y axis
-        const selectedYDataSets: {[outputUri: string]: string[]} = {};
+        const selectedYDataSets: { [outputUri: string]: string[] } = {};
         for (let selectedUri of selectedYUris) {
           if (selectedUri.startsWith('./')) {
             selectedUri = selectedUri.substring(2);
           }
 
-          const selectedDataSet = this.sedDataSetConfigurationMap?.[selectedUri];
+          const selectedDataSet =
+            this.sedDataSetConfigurationMap?.[selectedUri];
           if (selectedDataSet) {
-            const data = (this.userSimulationResults as SedDatasetResultsMap)?.[selectedUri];
+            const data = (this.userSimulationResults as SedDatasetResultsMap)?.[
+              selectedUri
+            ];
             if (data) {
               const outputUri = data.location + '/' + data.outputId;
               if (!(outputUri in selectedYDataSets)) {
@@ -1485,7 +1587,9 @@ export class ViewComponent implements OnInit, OnDestroy {
           if (selectedXUri.startsWith('./')) {
             selectedXUri = selectedXUri.substring(2);
           }
-          const data = (this.userSimulationResults as SedDatasetResultsMap)?.[selectedXUri];
+          const data = (this.userSimulationResults as SedDatasetResultsMap)?.[
+            selectedXUri
+          ];
           selectedXOutputUri = data.location + '/' + data.outputId;
           selectedXDataSetId = data.id;
           xAxisTitle = data.label;
@@ -1494,14 +1598,20 @@ export class ViewComponent implements OnInit, OnDestroy {
           selectedXDataSetId = selectedYDataSets[selectedXOutputUri][0];
           xAxisTitle = 'Index';
         }
-        const selectedXDataSet: {[outputUri: string]: string[]} = {};
+        const selectedXDataSet: { [outputUri: string]: string[] } = {};
         selectedXDataSet[selectedXOutputUri] = [selectedXDataSetId];
 
         vegaDataSets = [
           {
-            templateNames: ['rawHeatmapData0', 'rawHeatmapData0_filtered', 'rawHeatmapData_joined'],
-            sourceName: (iDataSet: number): string => `rawHeatmapData${iDataSet}`,
-            filteredName: (iDataSet: number): string => `rawHeatmapData${iDataSet}_filtered`,
+            templateNames: [
+              'rawHeatmapData0',
+              'rawHeatmapData0_filtered',
+              'rawHeatmapData_joined',
+            ],
+            sourceName: (iDataSet: number): string =>
+              `rawHeatmapData${iDataSet}`,
+            filteredName: (iDataSet: number): string =>
+              `rawHeatmapData${iDataSet}_filtered`,
             joinedName: 'rawHeatmapData_joined',
             data: selectedYDataSets,
           },
@@ -1522,11 +1632,12 @@ export class ViewComponent implements OnInit, OnDestroy {
       }
 
       case VisualizationType.user2DLineScatter: {
-        const formGroup = this.visualizationFormGroup.controls.user2DLineScatter as FormGroup;
+        const formGroup = this.visualizationFormGroup.controls
+          .user2DLineScatter as FormGroup;
         vega = JSON.parse(JSON.stringify(user2DLineScatterVegaTemplate)) as any;
 
         // data sets
-        const selectedDataSets: {[outputUri: string]: any[]} = {};
+        const selectedDataSets: { [outputUri: string]: any[] } = {};
         const curveFilters: string[] = [];
         const xAxisTitlesSet = new Set<string>();
         const yAxisTitlesSet = new Set<string>();
@@ -1535,10 +1646,10 @@ export class ViewComponent implements OnInit, OnDestroy {
           const xDataUri = (curve.controls.xData as FormControl).value;
           const yDataUri = (curve.controls.yData as FormControl).value;
           if (
-            xDataUri && 
-            yDataUri && 
+            xDataUri &&
+            yDataUri &&
             this.userSimulationResults &&
-            xDataUri in this.userSimulationResults && 
+            xDataUri in this.userSimulationResults &&
             yDataUri in this.userSimulationResults
           ) {
             const xDataSet = this.sedDataSetConfigurationMap[xDataUri];
@@ -1548,8 +1659,12 @@ export class ViewComponent implements OnInit, OnDestroy {
 
             const xDataUriParts = xDataUri.split('/');
             const yDataUriParts = yDataUri.split('/');
-            const xOutputUri = xDataUriParts.slice(0, xDataUriParts.length - 1).join('/');
-            const yOutputUri = yDataUriParts.slice(0, yDataUriParts.length - 1).join('/');
+            const xOutputUri = xDataUriParts
+              .slice(0, xDataUriParts.length - 1)
+              .join('/');
+            const yOutputUri = yDataUriParts
+              .slice(0, yDataUriParts.length - 1)
+              .join('/');
 
             if (!(xOutputUri in selectedDataSets)) {
               selectedDataSets[xOutputUri] = [];
@@ -1557,15 +1672,19 @@ export class ViewComponent implements OnInit, OnDestroy {
             if (!(yOutputUri in selectedDataSets)) {
               selectedDataSets[yOutputUri] = [];
             }
-            selectedDataSets[xOutputUri].push(xDataUriParts[xDataUriParts.length - 1]);
-            selectedDataSets[yOutputUri].push(yDataUriParts[yDataUriParts.length - 1]);
+            selectedDataSets[xOutputUri].push(
+              xDataUriParts[xDataUriParts.length - 1],
+            );
+            selectedDataSets[yOutputUri].push(
+              yDataUriParts[yDataUriParts.length - 1],
+            );
 
             const conditions = [
               `datum.X.outputUri === '${xOutputUri}'`,
               `datum.X.id == '${xDataSet.id}'`,
               `datum.Y.outputUri === '${yOutputUri}'`,
-              `datum.Y.id == '${yDataSet.id}'`
-            ];        
+              `datum.Y.id == '${yDataSet.id}'`,
+            ];
             curveFilters.push(`(${conditions.join(' && ')})`);
             xAxisTitlesSet.add(xLabel);
             yAxisTitlesSet.add(yLabel);
@@ -1578,7 +1697,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         let yAxisTitle: string | null = null;
         let singleXAxis = false;
         let singleYAxis = false;
-        
+
         if (xAxisTitlesArr.length === 1) {
           singleXAxis = true;
           xAxisTitle = xAxisTitlesArr[0];
@@ -1593,18 +1712,23 @@ export class ViewComponent implements OnInit, OnDestroy {
           yAxisTitle = 'Multiple';
         }
 
-        vegaDataSets = [{
-          templateNames: ['rawData0', 'rawData0_filtered', 'rawData_joined'],
-          sourceName: (iDataSet: number): string => `rawData${iDataSet}`,
-          filteredName: (iDataSet: number): string => `rawData${iDataSet}_filtered`,
-          joinedName: 'rawData_joined',
-          joinedTransforms: [{
-            "type": "cross",
-            "as": ["X", "Y"],
-            "filter": curveFilters.join('||')
-          }],
-          data: selectedDataSets,
-        }];
+        vegaDataSets = [
+          {
+            templateNames: ['rawData0', 'rawData0_filtered', 'rawData_joined'],
+            sourceName: (iDataSet: number): string => `rawData${iDataSet}`,
+            filteredName: (iDataSet: number): string =>
+              `rawData${iDataSet}_filtered`,
+            joinedName: 'rawData_joined',
+            joinedTransforms: [
+              {
+                type: 'cross',
+                as: ['X', 'Y'],
+                filter: curveFilters.join('||'),
+              },
+            ],
+            data: selectedDataSets,
+          },
+        ];
 
         //signals
         const traceMode = (formGroup.controls.traceMode as FormControl).value;
@@ -1622,13 +1746,13 @@ export class ViewComponent implements OnInit, OnDestroy {
             name: 'xScale',
             attributes: {
               type: (formGroup.controls.xAxisType as FormControl).value,
-            }
+            },
           },
           {
             name: 'yScale',
             attributes: {
               type: (formGroup.controls.yAxisType as FormControl).value,
-            }
+            },
           },
         ];
         break;
@@ -1654,36 +1778,42 @@ export class ViewComponent implements OnInit, OnDestroy {
       // add concrete data sets
       const concreteDataSets: any[] = [];
       const filteredVegaDataSetNames: string[] = [];
-      Object.entries(vegaDataSet.data).forEach((outputUriDataSetIds: [string, any], iDataSet: number): void => {
-        const outputUri = outputUriDataSetIds[0];
-        const outputUriParts = outputUri.split('/');
-        const outputId = outputUriParts.pop();
-        const sedDocumentLocation = outputUriParts.join('/');
-        const dataSetIds = outputUriDataSetIds[1] as string[];
+      Object.entries(vegaDataSet.data).forEach(
+        (outputUriDataSetIds: [string, any], iDataSet: number): void => {
+          const outputUri = outputUriDataSetIds[0];
+          const outputUriParts = outputUri.split('/');
+          const outputId = outputUriParts.pop();
+          const sedDocumentLocation = outputUriParts.join('/');
+          const dataSetIds = outputUriDataSetIds[1] as string[];
 
-        concreteDataSets.push({
-          name: vegaDataSet.sourceName(iDataSet),
-          sedmlUri: [sedDocumentLocation, outputId],
-        })
+          concreteDataSets.push({
+            name: vegaDataSet.sourceName(iDataSet),
+            sedmlUri: [sedDocumentLocation, outputId],
+          });
 
-        concreteDataSets.push({
-          name: vegaDataSet.filteredName(iDataSet),
-          source: concreteDataSets[concreteDataSets.length - 1].name,
-          transform: [
-            {
-              type: "filter",
-              expr: `indexof(['${dataSetIds.join('\', \'')}'], datum.id) !== -1`,
-            },
-            {
-              type: "formula",
-              expr: `'${outputUri}'`,
-              as: "outputUri",
-            },
-          ],
-        });
+          concreteDataSets.push({
+            name: vegaDataSet.filteredName(iDataSet),
+            source: concreteDataSets[concreteDataSets.length - 1].name,
+            transform: [
+              {
+                type: 'filter',
+                expr: `indexof(['${dataSetIds.join(
+                  "', '",
+                )}'], datum.id) !== -1`,
+              },
+              {
+                type: 'formula',
+                expr: `'${outputUri}'`,
+                as: 'outputUri',
+              },
+            ],
+          });
 
-        filteredVegaDataSetNames.push(concreteDataSets[concreteDataSets.length - 1].name);
-      });
+          filteredVegaDataSetNames.push(
+            concreteDataSets[concreteDataSets.length - 1].name,
+          );
+        },
+      );
 
       if (vegaDataSet.joinedName) {
         concreteDataSets.push({
@@ -1700,53 +1830,58 @@ export class ViewComponent implements OnInit, OnDestroy {
     vegaScales.forEach((vegaScale): void => {
       for (const scale of vega.scales) {
         if (scale.name === vegaScale.name) {
-          Object.entries(vegaScale.attributes).forEach((keyVal: [string, any]): void => {
-            scale[keyVal[0]] = keyVal[1];
-          });
+          Object.entries(vegaScale.attributes).forEach(
+            (keyVal: [string, any]): void => {
+              scale[keyVal[0]] = keyVal[1];
+            },
+          );
           break;
         }
       }
     });
 
     // download
-    const blob = new Blob([JSON.stringify(vega, null, 2)], { type: 'application/vega+json' });
+    const blob = new Blob([JSON.stringify(vega, null, 2)], {
+      type: 'application/vega+json',
+    });
 
     if (format === 'vega') {
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = 'visualization.json';
       a.click();
-
     } else {
-      const sub = this.combineService.addFileToCombineArchive(
-        `${urls.dispatchApi}run/${this.uuid}/download`,
-        'plot.json',
-        'http://purl.org/NET/mediatypes/application/vega+json',
-        false,
-        blob,
-        false,
-      ).subscribe((fileOrUrl: any | string | undefined): void => {
-        if (fileOrUrl) {
-          const a = document.createElement('a');
-          a.download = 'project.omex';
-          if (typeof fileOrUrl === 'string' || fileOrUrl instanceof String) {
-            a.href = fileOrUrl as string;
+      const sub = this.combineService
+        .addFileToCombineArchive(
+          `${urls.dispatchApi}run/${this.uuid}/download`,
+          'plot.json',
+          'http://purl.org/NET/mediatypes/application/vega+json',
+          false,
+          blob,
+          false,
+        )
+        .subscribe((fileOrUrl: any | string | undefined): void => {
+          if (fileOrUrl) {
+            const a = document.createElement('a');
+            a.download = 'project.omex';
+            if (typeof fileOrUrl === 'string' || fileOrUrl instanceof String) {
+              a.href = fileOrUrl as string;
+            } else {
+              a.href = URL.createObjectURL(fileOrUrl);
+            }
+            a.click();
           } else {
-            a.href = URL.createObjectURL(fileOrUrl);
+            this.snackBar.open(
+              'Sorry! We were unable to modify your COMBINE/OMEX archive.',
+              undefined,
+              {
+                duration: 5000,
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom',
+              },
+            );
           }
-          a.click();
-        } else {
-          this.snackBar.open(
-            'Sorry! We were unable to modify your COMBINE/OMEX archive.',
-            undefined,
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            },
-          );
-        }
-      });
+        });
       this.subscriptions.push(sub);
     }
   }

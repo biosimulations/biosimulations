@@ -10,7 +10,10 @@ import {
   SedDatasetResults,
   SedDatasetResultsMap,
 } from '../../datamodel';
-import { CombineArchive, CombineArchiveContent } from '../../combine-sedml.interface';
+import {
+  CombineArchive,
+  CombineArchiveContent,
+} from '../../combine-sedml.interface';
 
 import {
   SimulationRunOutput,
@@ -40,13 +43,16 @@ export class VisualizationService {
     const retryStrategy = new RetryStrategy();
     // TODO Remove hardcoded string. Caused #2635
     const url = outputId
-      ? `${this.resultsEndpoint}/${uuid}/${encodeURIComponent(outputId)}?includeData=${!sparse}`
+      ? `${this.resultsEndpoint}/${uuid}/${encodeURIComponent(
+          outputId,
+        )}?includeData=${!sparse}`
       : `${this.resultsEndpoint}/${uuid}?includeData=${!sparse}`;
-    return this.http
-      .get<SimulationRunOutput | SimulationRunResults>(url)
-      .pipe(
-        retryWhen(retryStrategy.handler.bind(retryStrategy)),
-        map((result: SimulationRunOutput | SimulationRunResults): CombineResults => {
+    return this.http.get<SimulationRunOutput | SimulationRunResults>(url).pipe(
+      retryWhen(retryStrategy.handler.bind(retryStrategy)),
+      map(
+        (
+          result: SimulationRunOutput | SimulationRunResults,
+        ): CombineResults => {
           const outputs = outputId
             ? [result as SimulationRunOutput]
             : (result as SimulationRunResults).outputs;
@@ -102,24 +108,23 @@ export class VisualizationService {
             },
           );
           return structureArray;
-        }),
+        },
+      ),
 
-        catchError(
-          (
-            error: HttpErrorResponse,
-          ): Observable<CombineResults | undefined> => {
-            if (!environment.production) {
-              console.error(error);
-            }
+      catchError(
+        (error: HttpErrorResponse): Observable<CombineResults | undefined> => {
+          if (!environment.production) {
+            console.error(error);
+          }
 
-            if (error instanceof HttpErrorResponse && error.status === 404) {
-              return of<CombineResults>([]);
-            } else {
-              return of<undefined>(undefined);
-            }
-          },
-        ),
-      );
+          if (error instanceof HttpErrorResponse && error.status === 404) {
+            return of<CombineResults>([]);
+          } else {
+            return of<undefined>(undefined);
+          }
+        },
+      ),
+    );
   }
 
   public getCombineResults(
@@ -130,13 +135,16 @@ export class VisualizationService {
     const retryStrategy = new RetryStrategy();
     // TODO Remove hardcoded string. Caused #2635
     const url = outputId
-      ? `${this.resultsEndpoint}/${uuid}/${encodeURIComponent(outputId)}?includeData=${!sparse}`
+      ? `${this.resultsEndpoint}/${uuid}/${encodeURIComponent(
+          outputId,
+        )}?includeData=${!sparse}`
       : `${this.resultsEndpoint}/${uuid}?includeData=${!sparse}`;
-    return this.http
-      .get<SimulationRunOutput | SimulationRunResults>(url)
-      .pipe(
-        retryWhen(retryStrategy.handler.bind(retryStrategy)),
-        map((result: SimulationRunOutput | SimulationRunResults): SedDatasetResultsMap => {
+    return this.http.get<SimulationRunOutput | SimulationRunResults>(url).pipe(
+      retryWhen(retryStrategy.handler.bind(retryStrategy)),
+      map(
+        (
+          result: SimulationRunOutput | SimulationRunResults,
+        ): SedDatasetResultsMap => {
           const outputs = outputId
             ? [result as SimulationRunOutput]
             : (result as SimulationRunResults).outputs;
@@ -168,15 +176,16 @@ export class VisualizationService {
           });
 
           return datasetResultsMap;
-        }),
+        },
+      ),
 
-        catchError((error: HttpErrorResponse): Observable<undefined> => {
-          if (!environment.production) {
-            console.error(error);
-          }
-          return of<undefined>(undefined);
-        }),
-      );
+      catchError((error: HttpErrorResponse): Observable<undefined> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<undefined>(undefined);
+      }),
+    );
   }
 
   public getLocationFromSedmLocationId(locationId: string): string {
@@ -194,27 +203,32 @@ export class VisualizationService {
     sparse = false,
   ): string {
     // TODO Remove hardcoded string. Caused #2635
-    return `${
-      this.resultsEndpoint
-    }/${runId}/${encodeURIComponent(outputId)}?includeData=${!sparse}`;
+    return `${this.resultsEndpoint}/${runId}/${encodeURIComponent(
+      outputId,
+    )}?includeData=${!sparse}`;
   }
 
   public getSpecsOfSedDocsInCombineArchive(
     runId: string,
   ): Observable<CombineArchive | undefined> {
     const archiveUrl = `${this.combineArchiveEndpoint}${runId}/download`;
-    return this.combineService.getSpecsOfSedDocsInCombineArchive(archiveUrl)
+    return this.combineService
+      .getSpecsOfSedDocsInCombineArchive(archiveUrl)
       .pipe(
-        map((archive: CombineArchive | undefined): CombineArchive | undefined => {
-          if (archive) {
-            archive.contents?.forEach((content: CombineArchiveContent): void => {
-              if (content.location.path.startsWith('./')) {
-                content.location.path = content.location.path.substring(2);
-              }
-            });
-          }
-          return archive;
-        })
+        map(
+          (archive: CombineArchive | undefined): CombineArchive | undefined => {
+            if (archive) {
+              archive.contents?.forEach(
+                (content: CombineArchiveContent): void => {
+                  if (content.location.path.startsWith('./')) {
+                    content.location.path = content.location.path.substring(2);
+                  }
+                },
+              );
+            }
+            return archive;
+          },
+        ),
       );
   }
 }
