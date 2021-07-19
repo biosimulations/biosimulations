@@ -438,7 +438,7 @@ export class BrowseComponent implements OnInit {
           simulatorVersion: simulation.simulatorVersion,
           runName: simulation.name + ' (rerun)',
         };
-        this.router.navigate(['/run'], {queryParams: queryParams});
+        this.router.navigate(['/run'], { queryParams: queryParams });
       },
       centerAction: ColumnActionType.click,
       centerClick: (simulation: Simulation): void => {
@@ -448,7 +448,7 @@ export class BrowseComponent implements OnInit {
           simulatorVersion: simulation.simulatorVersion,
           runName: simulation.name + ' (rerun)',
         };
-        this.router.navigate(['/run'], {queryParams: queryParams});
+        this.router.navigate(['/run'], { queryParams: queryParams });
       },
       formatter: (id: string): null => {
         return null;

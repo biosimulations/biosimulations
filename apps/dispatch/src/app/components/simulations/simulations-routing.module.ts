@@ -18,10 +18,10 @@ function rerunSimulation(url: string, router: Router): undefined {
       const queryParams = {
         projectUrl: `${urls.dispatchApi}run/${id}/download`,
         simulator: simulationRun.simulator,
-        simulatorVersion: simulationRun.simulatorVersion,          
+        simulatorVersion: simulationRun.simulatorVersion,
         runName: simulationRun.name + ' (rerun)',
       };
-      router.navigate(['/run'], {queryParams: queryParams});
+      router.navigate(['/run'], { queryParams: queryParams });
     });
 
   return undefined;
