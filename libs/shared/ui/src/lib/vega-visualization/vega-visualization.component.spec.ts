@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SharedUiModule } from '../shared-ui.module';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 import { VegaVisualizationComponent } from './vega-visualization.component';
 
@@ -8,8 +11,8 @@ describe('VegaVisualizationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [VegaVisualizationComponent],
-      imports: [],
+      declarations: [VegaVisualizationComponent, SpinnerComponent],
+      imports: [MatProgressSpinnerModule],
     }).compileComponents();
   }));
 

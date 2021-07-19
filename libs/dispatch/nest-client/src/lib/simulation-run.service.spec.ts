@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { SimulationRunService } from './simulation-run.service';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
-import { HttpService } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { AuthClientService } from '@biosimulations/auth/client';
 class MockAuthService {
   getToken(audience = 'audience') {

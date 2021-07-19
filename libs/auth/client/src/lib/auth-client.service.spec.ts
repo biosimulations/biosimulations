@@ -1,6 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { AuthClientService } from './auth-client.service';
-import { HttpModule, HttpService } from '@nestjs/common';
+
+import { HttpModule, HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { of } from 'rxjs';
 import { AxiosResponse } from 'axios';
