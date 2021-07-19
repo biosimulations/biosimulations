@@ -82,9 +82,13 @@ export class SimulatorService {
     );
   }
 
-  getValidationTestResultsForOneByVersion(id: string, version: string): Observable<Simulator> {
-    return this.http.get<Simulator>(this.endpoint + id + '/' + version,
-      {params: {includeTests: true}});
+  getValidationTestResultsForOneByVersion(
+    id: string,
+    version: string,
+  ): Observable<Simulator> {
+    return this.http.get<Simulator>(this.endpoint + id + '/' + version, {
+      params: { includeTests: true },
+    });
   }
 
   constructor(private http: HttpClient) {}

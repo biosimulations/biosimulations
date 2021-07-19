@@ -812,7 +812,7 @@
     <ng-container *ngIf="simulator | async as simulator">
       <ng-container
         *ngIf="
-          (simulator?.validationTests | async) as validationTests;
+          simulator?.validationTests | async as validationTests;
           else noValidationTestResults
         "
       >

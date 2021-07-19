@@ -94,90 +94,93 @@ export class ViewSimulatorService {
 
     const viewSimAlgorithms = new BehaviorSubject<ViewAlgorithm[]>([]);
 
-    const viewValidationTests = this.simService.getValidationTestResultsForOneByVersion(sim.id, sim.version)
-      .pipe(map((sim: Simulator): ViewValidationTests | null => {
-        let viewValidationTests: ViewValidationTests | null = null;
-        if (sim?.biosimulators?.validationTests) {
-          const validationTests: IValidationTests =
-            sim.biosimulators.validationTests;
+    const viewValidationTests = this.simService
+      .getValidationTestResultsForOneByVersion(sim.id, sim.version)
+      .pipe(
+        map((sim: Simulator): ViewValidationTests | null => {
+          let viewValidationTests: ViewValidationTests | null = null;
+          if (sim?.biosimulators?.validationTests) {
+            const validationTests: IValidationTests =
+              sim.biosimulators.validationTests;
 
-          let numTestsPassed = 0;
-          let numTestPassedWithWarnings = 0;
-          let numTestsSkipped = 0;
-          let numTestsFailed = 0;
-          validationTests.results.forEach((result: ITestCaseResult): void => {
-            if (result.resultType == TestCaseResultType.passed) {
-              numTestsPassed++;
-              if (result.warnings?.length > 0) {
-                numTestPassedWithWarnings++;
+            let numTestsPassed = 0;
+            let numTestPassedWithWarnings = 0;
+            let numTestsSkipped = 0;
+            let numTestsFailed = 0;
+            validationTests.results.forEach((result: ITestCaseResult): void => {
+              if (result.resultType == TestCaseResultType.passed) {
+                numTestsPassed++;
+                if (result.warnings?.length > 0) {
+                  numTestPassedWithWarnings++;
+                }
+              } else if (result.resultType == TestCaseResultType.skipped) {
+                numTestsSkipped++;
+              } else {
+                numTestsFailed++;
               }
-            } else if (result.resultType == TestCaseResultType.skipped) {
-              numTestsSkipped++;
-            } else {
-              numTestsFailed++;
-            }
-          });
-
-          const viewResults = validationTests.results
-            .map((result: ITestCaseResult): ViewTestCaseResult => {
-              const caseArchive = result.case.id.split('/')?.[1] || null;
-
-              return {
-                case: {
-                  id: result.case.id,
-                  description: result.case.description.replace('\n', '<br/>'),
-                },
-                caseUrl:
-                  'https://github.com/biosimulators/Biosimulators_test_suite/blob/' +
-                  validationTests.testSuiteVersion +
-                  '/biosimulators_test_suite/test_case/' +
-                  result.case.id.split('.')[0] +
-                  '.py',
-                caseClass: result.case.id.split(':')[0],
-                caseArchive: caseArchive,
-                caseArchiveUrl: caseArchive
-                  ? 'https://github.com/biosimulators/Biosimulators_test_suite/raw/' +
-                    validationTests.testSuiteVersion +
-                    '/examples/' +
-                    result.case.id.split(':')[1] +
-                    '.omex'
-                  : null,
-                resultType:
-                  result.resultType.substring(0, 1).toUpperCase() +
-                  result.resultType.substring(1),
-                duration: result.duration.toFixed(1),
-                exception: result.exception,
-                warnings: result.warnings,
-                skipReason: result.skipReason,
-                log: result.log,
-              };
-            })
-            .sort((a, b) => {
-              return a.case.id.localeCompare(b.case.id, undefined, {
-                numeric: true,
-              });
             });
 
-          viewValidationTests = {
-            testSuiteVersion: validationTests.testSuiteVersion,
-            testSuiteVersionUrl:
-              'https://github.com/biosimulators/Biosimulators_test_suite/releases/tag/' +
-              validationTests.testSuiteVersion,
-            numTests: validationTests.results.length,
-            numTestsPassed: numTestsPassed,
-            numTestPassedWithWarnings: numTestPassedWithWarnings,
-            numTestsSkipped: numTestsSkipped,
-            numTestsFailed: numTestsFailed,
-            results: viewResults,
-            ghIssue: validationTests.ghIssue,
-            ghIssueUrl: `https://github.com/biosimulators/Biosimulators/issues/${validationTests.ghIssue}`,
-            ghActionRun: validationTests.ghActionRun,
-            ghActionRunUrl: `https://github.com/biosimulators/Biosimulators/actions/runs/${validationTests.ghActionRun}`,
-          };
-        }
+            const viewResults = validationTests.results
+              .map((result: ITestCaseResult): ViewTestCaseResult => {
+                const caseArchive = result.case.id.split('/')?.[1] || null;
 
-        return viewValidationTests;
-      }));
+                return {
+                  case: {
+                    id: result.case.id,
+                    description: result.case.description.replace('\n', '<br/>'),
+                  },
+                  caseUrl:
+                    'https://github.com/biosimulators/Biosimulators_test_suite/blob/' +
+                    validationTests.testSuiteVersion +
+                    '/biosimulators_test_suite/test_case/' +
+                    result.case.id.split('.')[0] +
+                    '.py',
+                  caseClass: result.case.id.split(':')[0],
+                  caseArchive: caseArchive,
+                  caseArchiveUrl: caseArchive
+                    ? 'https://github.com/biosimulators/Biosimulators_test_suite/raw/' +
+                      validationTests.testSuiteVersion +
+                      '/examples/' +
+                      result.case.id.split(':')[1] +
+                      '.omex'
+                    : null,
+                  resultType:
+                    result.resultType.substring(0, 1).toUpperCase() +
+                    result.resultType.substring(1),
+                  duration: result.duration.toFixed(1),
+                  exception: result.exception,
+                  warnings: result.warnings,
+                  skipReason: result.skipReason,
+                  log: result.log,
+                };
+              })
+              .sort((a, b) => {
+                return a.case.id.localeCompare(b.case.id, undefined, {
+                  numeric: true,
+                });
+              });
+
+            viewValidationTests = {
+              testSuiteVersion: validationTests.testSuiteVersion,
+              testSuiteVersionUrl:
+                'https://github.com/biosimulators/Biosimulators_test_suite/releases/tag/' +
+                validationTests.testSuiteVersion,
+              numTests: validationTests.results.length,
+              numTestsPassed: numTestsPassed,
+              numTestPassedWithWarnings: numTestPassedWithWarnings,
+              numTestsSkipped: numTestsSkipped,
+              numTestsFailed: numTestsFailed,
+              results: viewResults,
+              ghIssue: validationTests.ghIssue,
+              ghIssueUrl: `https://github.com/biosimulators/Biosimulators/issues/${validationTests.ghIssue}`,
+              ghActionRun: validationTests.ghActionRun,
+              ghActionRunUrl: `https://github.com/biosimulators/Biosimulators/actions/runs/${validationTests.ghActionRun}`,
+            };
+          }
+
+          return viewValidationTests;
+        }),
+      );
 
     const viewSim: ViewSimulator = {
       _json: JSON.stringify(sim, null, 2),
