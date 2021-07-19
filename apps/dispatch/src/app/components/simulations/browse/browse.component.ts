@@ -432,23 +432,23 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'redo',
       leftAction: ColumnActionType.click,
       leftClick: (simulation: Simulation): void => {
-        this.router.navigate(['/run'], {
-          queryParams: {
-            projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-            simulator: simulation.simulator,
-            simulatorVersion: simulation.simulatorVersion,
-          },
-        });
+        const queryParams: any = {
+          projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+          simulator: simulation.simulator,
+          simulatorVersion: simulation.simulatorVersion,
+          runName: simulation.name + ' (rerun)',
+        };
+        this.router.navigate(['/run'], {queryParams: queryParams});
       },
       centerAction: ColumnActionType.click,
       centerClick: (simulation: Simulation): void => {
-        this.router.navigate(['/run'], {
-          queryParams: {
-            projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-            simulator: simulation.simulator,
-            simulatorVersion: simulation.simulatorVersion,
-          },
-        });
+        const queryParams: any = {
+          projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+          simulator: simulation.simulator,
+          simulatorVersion: simulation.simulatorVersion,
+          runName: simulation.name + ' (rerun)',
+        };
+        this.router.navigate(['/run'], {queryParams: queryParams});
       },
       formatter: (id: string): null => {
         return null;

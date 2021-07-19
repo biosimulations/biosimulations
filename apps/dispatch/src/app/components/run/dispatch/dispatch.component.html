@@ -165,7 +165,7 @@
               <mat-label>Model formats involved in the archive</mat-label>
               <mat-select
                 formControlName="modelFormats"
-                (ngModelChange)="applyFilters()"
+                (ngModelChange)="filterSimulators()"
                 multiple
               >
                 <mat-option
@@ -182,7 +182,7 @@
               <mat-label>Algorithms involved in the archive</mat-label>
               <mat-select
                 formControlName="simulationAlgorithms"
-                (ngModelChange)="applyFilters()"
+                (ngModelChange)="filterSimulators()"
                 multiple
               >
                 <mat-option
@@ -201,7 +201,7 @@
               >
               <mat-select
                 formControlName="simulationAlgorithmSubstitutionPolicy"
-                (ngModelChange)="applyFilters()"
+                (ngModelChange)="filterSimulators()"
               >
                 <mat-option
                   *ngFor="let policy of ALGORITHM_SUBSTITUTION_POLICIES"
@@ -267,7 +267,7 @@
                 formControlName="simulator"
                 disableOptionCentering
                 placeholder="COPASI"
-                (ngModelChange)="onSimulatorChange()"
+                (ngModelChange)="changeSimulator()"
                 required
               >
                 <mat-option
