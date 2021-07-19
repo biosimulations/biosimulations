@@ -812,7 +812,7 @@
     <ng-container *ngIf="simulator | async as simulator">
       <ng-container
         *ngIf="
-          simulator?.validationTests as validationTests;
+          (simulator?.validationTests | async) as validationTests;
           else noValidationTestResults
         "
       >
@@ -979,16 +979,14 @@
       <ng-template #noValidationTestResults>
         <p
           class="info-message"
-          *ngIf="!simulator.validated; else testResultsNotRecorded"
+          *ngIf="!simulator.validated; else testResultsNotAvailable"
         >
           No test results are available because {{ simulator.name }} has not
           been validated.
         </p>
-        <ng-template #testResultsNotRecorded>
+        <ng-template #testResultsNotAvailable>
           <p class="info-message">
-            Test results are not available because {{ simulator.name }} was
-            validated before we began logging the results of the validation
-            tests.
+            Sorry!. Test results could not be retreived.
           </p>
         </ng-template>
       </ng-template>

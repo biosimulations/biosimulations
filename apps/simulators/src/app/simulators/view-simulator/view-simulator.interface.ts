@@ -205,5 +205,5 @@ export interface ViewSimulator {
   created: string;
   updated: string;
   validated: boolean;
-  validationTests: ViewValidationTests | null;
+  validationTests: Observable<ViewValidationTests | null>;
 }
