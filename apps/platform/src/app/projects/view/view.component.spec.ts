@@ -1,5 +1,8 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { SharedUiModule } from '@biosimulations/shared/ui';
+import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { ViewComponent } from './view.component';
 
 describe('ViewComponent', () => {
@@ -8,9 +11,14 @@ describe('ViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewComponent ]
-    })
-    .compileComponents();
+      declarations: [ViewComponent],
+      imports: [
+        BiosimulationsIconsModule,
+        MatCarouselModule.forRoot(),
+        //SharedUiModule, // TODO Need to reneable this, find out why it is casing error
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA], // Fopr so
+    }).compileComponents();
   });
 
   beforeEach(() => {
