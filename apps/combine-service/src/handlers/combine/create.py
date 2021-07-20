@@ -67,11 +67,7 @@ def handler(body, files=None):
     archive_filename = os.path.join(temp_dirname, 'project.omex')
 
     # initialize archive
-    now = datetime.datetime.utcnow().replace(microsecond=0).astimezone(dateutil.tz.tzutc())
-    archive = CombineArchive(
-        created=now,
-        updated=now,
-    )
+    archive = CombineArchive()
 
     # build map from model filenames to file objects
     filename_map = {
@@ -144,8 +140,6 @@ def handler(body, files=None):
             location=content['location']['path'],
             format=content['format'],
             master=content['master'],
-            created=now,
-            updated=now,
         )
 
         archive.contents.append(content)

@@ -1,6 +1,7 @@
 from ...exceptions import BadRequestException
 from ...utils import get_temp_dir
 from biosimulators_utils.combine.io import CombineArchiveReader
+from biosimulators_utils.utils.core import flatten_nested_list_of_strings
 import os
 import requests
 import requests.exceptions
@@ -67,13 +68,13 @@ def handler(body, file=None):
             instance=exception)
 
     manifest_filename = os.path.join(temp_dirname, 'manifest.xml')
-    try:
-        contents = CombineArchiveReader().read_manifest(manifest_filename)
-    except Exception as exception:
-        # return exception
+    reader = CombineArchiveReader()
+    contents = reader.read_manifest(manifest_filename)
+    if reader.errors:
         raise BadRequestException(
-            title='COMBINE/OMEX archive does not contain a valid manifest.',
-            instance=exception)
+            title='COMBINE/OMEX archive does not contain a valid manifest.\n  {}'.format(
+                flatten_nested_list_of_strings(reader.errors).replace('\n', '\n  ')),
+            instance=ValueError())
 
     contents_specs = []
     for content in contents:

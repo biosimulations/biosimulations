@@ -75,13 +75,14 @@ def handler(body, files=None):
         )
 
     now = datetime.datetime.utcnow().replace(microsecond=0).astimezone(dateutil.tz.tzutc())
-    archive.updated = now
+    if archive.updated:
+        archive.updated = now
 
     location_content_map = {os.path.relpath(content.location, '.'): content for content in archive.contents}
     new_location = os.path.relpath(new_content['location'], '.')
     content = location_content_map.get(new_location, None)
     if content is None:
-        content = CombineArchiveContent(location=new_location, created=now)
+        content = CombineArchiveContent(location=new_location)
         archive.contents.append(content)
 
     else:
@@ -95,7 +96,7 @@ def handler(body, files=None):
                     new_location = temp_new_location
                     break
 
-            content = CombineArchiveContent(location=new_location, created=now)
+            content = CombineArchiveContent(location=new_location)
             archive.contents.append(content)
 
     content_filename = new_content['filename']
@@ -110,12 +111,8 @@ def handler(body, files=None):
 
     content.format = new_content['format']
     content.master = new_content['master']
-    content.updated = now
-
-    # fill in last updated dates -- because libCOMBINE requires them
-    for content in archive.contents:
-        if content.updated is None:
-            content.updated = now
+    if content.updated is not None:
+        content.updated = now
 
     # package COMBINE/OMEX archive
     CombineArchiveWriter().run(archive, archive_dirname, archive_filename)
