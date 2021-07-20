@@ -68,15 +68,20 @@ export class VegaVisualizationComponent implements OnDestroy {
           }
         });
 
-        console.warn = function(this: VegaVisualizationComponent, ...args: any[]): void {
+        console.warn = function (
+          this: VegaVisualizationComponent,
+          ...args: any[]
+        ): void {
           if (
-            args.length === 4
-            && args[1] == 'Loading failed'
-            && dataUrls.includes(args[2])
-            && args[3].constructor.name === 'Error'
-            && args[3].message === '500'
+            args.length === 4 &&
+            args[1] == 'Loading failed' &&
+            dataUrls.includes(args[2]) &&
+            args[3].constructor.name === 'Error' &&
+            args[3].message === '500'
           ) {
-            this.error.next('The data for the visualization could not be loaded.');
+            this.error.next(
+              'The data for the visualization could not be loaded.',
+            );
           } else {
             this.builtInConsoleWarn(...args);
           }
