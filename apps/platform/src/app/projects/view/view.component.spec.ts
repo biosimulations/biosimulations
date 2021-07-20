@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { SharedUiModule } from '@biosimulations/shared/ui';
+// import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { ViewComponent } from './view.component';
 
