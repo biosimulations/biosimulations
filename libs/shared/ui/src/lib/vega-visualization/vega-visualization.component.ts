@@ -4,28 +4,39 @@ import {
   ElementRef,
   Input,
   HostListener,
+  OnDestroy,
 } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Spec } from 'vega';
 import vegaEmbed from 'vega-embed';
+import { environment } from '@biosimulations/shared/environments';
 
 @Component({
   selector: 'biosimulations-vega-visualization',
   templateUrl: './vega-visualization.component.html',
   styleUrls: ['./vega-visualization.component.scss'],
 })
-export class VegaVisualizationComponent {
+export class VegaVisualizationComponent implements OnDestroy {
   @ViewChild('vegaContainer', { static: false })
   private vegaContainer!: ElementRef;
 
-  constructor(private hostElement: ElementRef) {}
+  private builtInConsoleWarn!: any;
+
+  constructor(private hostElement: ElementRef) {
+    this.builtInConsoleWarn = console.warn;
+  }
+
+  ngOnDestroy(): void {
+    console.warn = this.builtInConsoleWarn;
+  }
 
   private loading = new BehaviorSubject<boolean>(true);
   loading$ = this.loading.asObservable();
 
   private _spec: Spec | undefined | false = undefined;
 
-  error = '';
+  private error = new BehaviorSubject<string>('');
+  error$ = this.error.asObservable();
 
   @Input()
   set spec(value: Observable<Spec | undefined | false>) {
@@ -48,15 +59,41 @@ export class VegaVisualizationComponent {
           height: Math.max(rect?.height || 0, 10),
           padding: 0,
         };
+
+        const dataUrls: string[] = [];
+        this._spec?.data?.forEach((data: any): void => {
+          const url = data?.url;
+          if (url) {
+            dataUrls.push(url as string);
+          }
+        });
+
+        console.warn = function(this: VegaVisualizationComponent): void {
+          if (
+            arguments.length === 4
+            && arguments[1] == 'Loading failed'
+            && dataUrls.includes(arguments[2])
+            && arguments[3].constructor.name === 'Error'
+            && arguments[3].message === '500'
+          ) {
+            this.error.next('The data for the visualization could not be loaded.');
+          } else {
+            this.builtInConsoleWarn(...arguments);
+          }
+        }.bind(this);
+
         vegaEmbed(
           this.vegaContainer.nativeElement,
           this._spec as Spec,
           options,
         ).catch((error: Error): void => {
-          this.error = `The visualization is invalid: ${error.message}.`;
+          if (!environment.production) {
+            console.error(error);
+          }
+          this.error.next(`The visualization is invalid: ${error.message}.`);
         });
       } else {
-        this.error = 'Visualization could not be loaded.';
+        this.error.next('Visualization could not be loaded.');
       }
     }
   }
