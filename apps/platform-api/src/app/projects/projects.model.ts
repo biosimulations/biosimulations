@@ -38,7 +38,7 @@ interface FileMetadata {
 }
 
 type ArchiveMetadata = FileMetadata[];
-export class PublishBioModelInput {
+export class PublishProjectInput {
   @ApiProperty({
     type: String,
     description:
@@ -48,7 +48,7 @@ export class PublishBioModelInput {
   @IsUrl()
   public simulationRun!: string;
 }
-export class BioModel extends PublishBioModelInput {
+export class BioModel extends PublishProjectInput {
   public id!: string;
   public constructor(id: string, simulationRun: string) {
     super();
