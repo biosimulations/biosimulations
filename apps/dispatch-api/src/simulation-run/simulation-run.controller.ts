@@ -55,7 +55,7 @@ type multipartSimulationRunBody = { simulationRun: string };
 // 1gb in bytes plus a buffer to be used as file size limits
 const ONE_GIGABYTE = 1100000000;
 @ApiTags('Simulation runs')
-@Controller(['runs','run'])
+@Controller(['runs', 'run'])
 @ApiExtraModels(UploadSimulationRun, UploadSimulationRunUrl, SimulationUpload)
 export class SimulationRunController {
   private TIMEOUT_INTERVAL = 10000;
