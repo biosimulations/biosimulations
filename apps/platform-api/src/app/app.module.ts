@@ -8,7 +8,7 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 
 import { MongooseModule } from '@nestjs/mongoose';
-import { BioModelsModule } from './models/bioModels.module';
+import { ProjectsModule } from './projects/projects.module';
 import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions/filters';
 
 @Module({
@@ -26,7 +26,7 @@ import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions
       inject: [ConfigService],
     }),
     CacheModule.register(),
-    BioModelsModule,
+    ProjectsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
