@@ -13,7 +13,6 @@ import {
   SharedErrorHandlerModule,
 } from '@biosimulations/shared/error-handler';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
-import { SharedModule } from './shared/shared.module';
 import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -87,7 +86,7 @@ routes.forEach((route: Route): void => {
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'localstorage'],
     }),
-    SharedModule,
+    
   ],
   providers: [
     AuthService,
