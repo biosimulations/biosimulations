@@ -10,3 +10,4 @@ export * from './simulationRunLog';
 export * from './user';
 export * from './simulator';
 export * from './dependent-package';
+export * from './archiveMetadata';

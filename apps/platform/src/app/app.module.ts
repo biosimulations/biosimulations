@@ -10,7 +10,6 @@ import { MarkdownModule } from 'ngx-markdown';
 import { IonicStorageModule } from '@ionic/storage';
 import {
   SharedErrorComponentsModule,
-  SharedErrorHandlerModule,
 } from '@biosimulations/shared/error-handler';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
@@ -73,7 +72,7 @@ routes.forEach((route: Route): void => {
     CommonModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SharedErrorHandlerModule,
+    //SharedErrorHandlerModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
     SharedUiModule,
     RouterModule.forRoot(routes, {

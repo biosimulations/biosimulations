@@ -1,19 +1,38 @@
-import { Body, Controller, Post, VERSION_NEUTRAL } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  VERSION_NEUTRAL,
+} from '@nestjs/common';
 
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-import { PublishProjectInput, BioModel } from './projects.model';
 
-@ApiTags('Models')
-@Controller({ path: 'models', version: VERSION_NEUTRAL })
+import { PublishProjectInput, Project } from '@biosimulations/datamodel/api';
+import { ProjectsService } from './projects.service';
+
+@ApiTags('Projects')
+@Controller({ path: 'projects', version: VERSION_NEUTRAL })
 export class ProjectsController {
+  public constructor(private service: ProjectsService) {}
+
   @ApiBody({ type: PublishProjectInput })
   @Post()
-  public makeModel(@Body() body: PublishProjectInput): BioModel {
-    const id = 'test';
-    const model: BioModel = {
-      simulationRun: body.simulationRun,
-      id,
-    };
-    return model;
+  public makeProject(@Body() body: PublishProjectInput): Project {
+    const project = this.service.saveProject(body);
+    return project;
+  }
+
+  @Get()
+  public getProjects(): Project[] {
+    const projects = this.service.getProjects();
+    return projects;
+  }
+
+  @Get(':id')
+  public getProject(@Param('id') id: string): Project {
+    const project = this.service.getProject(id);
+    return project;
   }
 }

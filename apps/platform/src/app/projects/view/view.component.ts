@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 import { BehaviorSubject, map, Observable, shareReplay, tap } from 'rxjs';
-import { CombineArchiveElementMetadata, MetadataValue } from './view.model';
+import { MetadataValue } from './view.model';
 import { ViewService } from './view.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { ViewService } from './view.service';
 })
 export class ViewComponent implements OnInit {
   public loading$ = new BehaviorSubject(true);
-  metadata?: Observable<CombineArchiveElementMetadata | undefined> = undefined;
+  metadata?: Observable<ArchiveMetadata | undefined> = undefined;
   title?: Observable<string | undefined>;
   abstract?: Observable<string | undefined>;
   created?: Observable<string | undefined>;
@@ -52,8 +53,12 @@ export class ViewComponent implements OnInit {
       map((metadata) => metadata?.creators || undefined),
     );
     this.sources = this.metadata?.pipe(map((metadata) => metadata?.sources));
-    this.created = this.metadata?.pipe(map((metadata) => metadata?.created));
-    this.modified = this.metadata?.pipe(map((metadata) => metadata?.modified));
+    this.created = this.metadata?.pipe(
+      map((metadata) => metadata?.created?.toUTCString()),
+    );
+    this.modified = this.metadata?.pipe(
+      map((metadata) => metadata?.modified?.map((date) => date.toUTCString())),
+    );
     this.description = this.metadata?.pipe(
       map((metadata) => metadata?.description),
     );

@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
@@ -15,6 +16,7 @@ describe('ViewComponent', () => {
       imports: [
         BiosimulationsIconsModule,
         MatCarouselModule.forRoot(),
+        HttpClientTestingModule,
         //SharedUiModule, // TODO Need to reneable this, find out why it is casing error
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA], // Fopr so
