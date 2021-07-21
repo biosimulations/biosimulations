@@ -8,9 +8,7 @@ import { environment } from '@biosimulations/shared/environments';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MarkdownModule } from 'ngx-markdown';
 import { IonicStorageModule } from '@ionic/storage';
-import {
-  SharedErrorComponentsModule,
-} from '@biosimulations/shared/error-handler';
+import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
