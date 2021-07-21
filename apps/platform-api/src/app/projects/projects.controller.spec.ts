@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProjectsController } from './projects.controller';
+import { ProjectsService } from './projects.service';
 
 describe('ModelsController', () => {
   let controller: ProjectsController;
@@ -7,6 +8,7 @@ describe('ModelsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProjectsController],
+      providers: [{ provide: ProjectsService, useValue: {} }],
     }).compile();
 
     controller = module.get<ProjectsController>(ProjectsController);
@@ -14,11 +16,5 @@ describe('ModelsController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
-  });
-
-  it('should return model with id', () => {
-    expect(
-      controller.makeModel({ simulationRun: 'exampleSim' }).id,
-    ).toBeDefined();
   });
 });

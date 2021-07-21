@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AgreementComponent } from './agreement.component';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { MarkdownModule, MarkdownService } from 'ngx-markdown';
-import { SharedUiModule } from '@biosimulations/shared/ui';
+//import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MatCardModule } from '@angular/material/card';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -20,7 +20,7 @@ describe('AgreementComponent', () => {
       declarations: [AgreementComponent, TestHostComponent],
       imports: [
         MarkdownModule.forRoot(),
-        SharedUiModule,
+        //SharedUiModule,
         MatCardModule,
         MatCheckboxModule,
         SharedDebugModule,
@@ -70,7 +70,7 @@ describe('AgreementComponent', () => {
     selector: `host-component`,
     template: `
       <biosimulations-login-agreement
-        agreementUrl="https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/CODE_OF_CONDUCT.md"
+        agreementUrl="https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/docs/CODE_OF_CONDUCT.md"
       ></biosimulations-login-agreement>
     `,
   })

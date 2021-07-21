@@ -9,3 +9,5 @@ export * from './ontologyId.dto';
 export * from './url';
 export * from './dependentPackage';
 export * from './funding';
+export * from './archiveMetadata';
+export * from './project';
