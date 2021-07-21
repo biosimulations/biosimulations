@@ -86,7 +86,6 @@ routes.forEach((route: Route): void => {
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'localstorage'],
     }),
-    
   ],
   providers: [
     AuthService,
