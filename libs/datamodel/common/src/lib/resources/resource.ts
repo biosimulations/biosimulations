@@ -9,7 +9,7 @@ export enum ResourceType {
   project = 'project',
   model = 'model',
   simulation = 'simulation',
-  simulationRun = 'SimulatonRun',
+  simulationRun = 'SimulationRun',
   chart = 'chart',
   visualization = 'visualization',
   simulator = 'simulator',
