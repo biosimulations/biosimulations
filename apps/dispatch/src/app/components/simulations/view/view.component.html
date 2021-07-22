@@ -404,39 +404,37 @@
                 </table>
               </div>
 
-              <div class="section">
+              <div class="section" *ngIf="(figuresTablesMetadata$ | async)?.length">
                 <b>Figures and tables</b>
                 <table class="icon-list">
-                  <ng-container *ngFor="let other of metadata.other">
-                    <ng-container *ngFor="let identifier of other.identifiers">
-                      <tr>
-                        <th>
-                          <biosimulations-icon
-                            icon="chart"
-                          ></biosimulations-icon>
-                        </th>
-                        <td>
-                          <span class="heading">
-                            <a [href]="identifier.uri" target="_blank">{{
-                              identifier.label
-                            }}</a
-                            >: </span
-                          >{{ ' ' }}
-                          <button
-                            *ngIf="other.click; else noButton"
-                            type="button"
-                            mat-icon-button
-                            (click)="other.click()"
-                            class="biosimulations-button text"
-                          >
-                            {{ other.uri }}
-                          </button>
-                          <ng-template #noButton>
-                            {{ other.uri }}
-                          </ng-template>
-                        </td>
-                      </tr>
-                    </ng-container>
+                  <ng-container *ngFor="let figureTable of (figuresTablesMetadata$ | async)">
+                    <tr>
+                      <th>
+                        <biosimulations-icon
+                          icon="chart"
+                        ></biosimulations-icon>
+                      </th>
+                      <td>
+                        <span class="heading">
+                          <a [href]="figureTable.identifier.uri" target="_blank">{{
+                            figureTable.identifier.label
+                          }}</a
+                          >: </span
+                        >{{ ' ' }}
+                        <button
+                          *ngIf="figureTable.click; else noButton"
+                          type="button"
+                          mat-icon-button
+                          (click)="figureTable.click()"
+                          class="biosimulations-button text"
+                        >
+                          {{ figureTable.uri }}
+                        </button>
+                        <ng-template #noButton>
+                          {{ figureTable.uri }}
+                        </ng-template>
+                      </td>
+                    </tr>
                   </ng-container>
                 </table>
               </div>
