@@ -13,7 +13,7 @@ export interface CombineArchiveElementMetadata {
   title: string;
   abstract: string;
   keywords: string[];
-  description: string;
+  description: string | null;
   thumbnails: string[];
   taxa: MetadataValue[];
   encodes: MetadataValue[];
@@ -28,7 +28,7 @@ export interface CombineArchiveElementMetadata {
   citations: MetadataValue[];
   license: MetadataValue;
   funders: MetadataValue[];
-  created: string;
+  created: string | null;
   modified: string[];
   click?: () => void;
 }

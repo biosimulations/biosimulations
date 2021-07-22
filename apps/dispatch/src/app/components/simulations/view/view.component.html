@@ -318,7 +318,7 @@
                       context: {
                         heading: 'Created',
                         icon: 'date',
-                        els: [{ label: archiveMetadata.created }]
+                        els: archiveMetadata.created ? [{ label: archiveMetadata.created }] : []
                       }
                     "
                   ></ng-container>
