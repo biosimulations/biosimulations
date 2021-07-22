@@ -66,7 +66,7 @@ import { Spec as VegaSpec, Format as VegaDataFormat } from 'vega';
 import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { urls } from '@biosimulations/config/common';
-import { CombineArchiveElementMetadata } from '../../../metadata.interface';
+import { CombineArchiveElementMetadata, MetadataValue } from '../../../metadata.interface';
 import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
 import user2DHeatmapVegaTemplate from './viz-vega-templates/2d-heatmap.json';
 import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.json';
@@ -74,6 +74,12 @@ import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.
 interface Metadata {
   archive: CombineArchiveElementMetadata | null;
   other: CombineArchiveElementMetadata[];
+}
+
+interface FigureTableMetadata {
+  uri: string;
+  identifier: MetadataValue;
+  click?: () => void;
 }
 
 enum VisualizationSource {
@@ -159,6 +165,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   // metadata about COMBINE/OMEX archive of simulation run
   metadataLoaded$!: Observable<boolean | undefined>;
   metadata$!: Observable<Metadata | undefined>;
+  figuresTablesMetadata$!: Observable<FigureTableMetadata[] | undefined>;
 
   // SED documents in COMBINE/OMEX archive of simulation run
   sedDocumentsConfiguration: CombineArchive | undefined;
@@ -696,6 +703,26 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.metadataLoaded$ = this.metadata$.pipe(
       map((): boolean => {
         return true;
+      }),
+      shareReplay(1),
+    );
+    this.figuresTablesMetadata$ = this.metadata$.pipe(
+      map((metadata: Metadata | undefined): FigureTableMetadata[] | undefined => {
+        if (metadata) {
+          const figuresTables: FigureTableMetadata[] = [];
+          metadata.other.forEach((other: CombineArchiveElementMetadata): void => {
+            other.identifiers.forEach((identifier: MetadataValue): void => {
+              figuresTables.push({
+                uri: other.uri,                
+                identifier: identifier,
+                click: other.click,
+              });
+            });
+          });
+          return figuresTables;
+        } else {
+          return undefined;
+        }
       }),
       shareReplay(1),
     );
