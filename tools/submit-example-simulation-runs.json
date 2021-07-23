@@ -1,5 +1,15 @@
 [
   {
+    "name": "Budding yeast cell cycle (Irons, J Theor Biol, 2009; SBML-qual; BoolNet; synchronous)",
+    "simulator": "boolnet",
+    "filename": "sbml-qual/Irons-J-Theor-Biol-2009-yeast-cell-cycle.omex"
+  },
+  {
+    "name": "Budding yeast cell cycle (Irons, J Theor Biol, 2009; SBML-qual; GINsim; synchronous)",
+    "simulator": "ginsim",
+    "filename": "sbml-qual/Irons-J-Theor-Biol-2009-yeast-cell-cycle.omex"
+  },
+  {
     "name": "Circadian clock (Vilar et al., PNAS, 2002; SBML; NRM; VCell)",
     "simulator": "vcell",
     "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock-discrete-NRM.omex"
@@ -133,5 +143,5 @@
     "name": "Tumor-suppressive oscillations (Caravagna et al., J Theor Biol, 2010; SBML; CVODE; tellurium)",
     "simulator": "tellurium",
     "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
-  }  
+  }
 ]
