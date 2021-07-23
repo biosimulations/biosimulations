@@ -58,6 +58,13 @@
           [routerLink]="['/utils', 'suggest-simulator']"
         >
         </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Convert a file"
+          icon="convert"
+          [routerLink]="['/utils', 'convert']"
+        >
+        </biosimulations-dropdown-menu-item>
       </ng-container>
     </biosimulations-hover-open-menu>
 
@@ -146,6 +153,13 @@
         heading="Suggest simulator"
         icon="simulator"
         [route]="['/utils', 'suggest-simulator']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Convert a file"
+        icon="convert"
+        [route]="['/utils', 'convert']"
       >
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>

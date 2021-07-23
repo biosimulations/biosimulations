@@ -1,0 +1,20 @@
+<biosimulations-page
+  heading="Utilities for converting diagrams into visualizations of simulation results"
+>
+  <p>
+    RunBioSimulations recommends that investigators use Vega <a href="https://vega.github.io/vega/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to describe visualizations of simulation results. Vega is a powerful and flexible format which can capture a wide range of interactive 2D data visualizations, including common charts such as histograms, heatmaps, and line plots and domain-specific diagrams such as metabolic maps, activity flow digrams, and genome tracks. RunBioSimulations supports Vega as outlined in the BioSimulators conventions <a href="https://biosimulators.org/conventions/data-viz" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. These guidelines describe how to connect the outputs of SED-ML reports to the inputs of Vega data sets.
+  </p>
+
+  <p>
+    BioSimulators-utils <a href="https://docs.biosimulators.org/Biosimulators_utils/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> provides a command-line program and Python API for converting diagrams in multiple formats into Vega data visualizations.
+  </p>
+
+  <ul class="vertically-spaced">
+    <li>
+      <b>Escher <a href="https://escher.github.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> metabolic maps:</b> Examples &#8211; "Escherichia coli core metabolism" simulations <a [routerLink]="['/simulations']" [queryParams]="{try: '1'}"><biosimulations-icon icon="link"></biosimulations-icon></a>
+    </li>
+    <li>
+      <b>GINsim <a href="https://escher.github.io/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> activity flow diagrams:</b> Examples &#8211; "Irons, J Theor Biol, 2009" simulations <a [routerLink]="['/simulations']" [queryParams]="{try: '1'}"><biosimulations-icon icon="link"></biosimulations-icon></a>
+    </li>
+  </ul>
+</biosimulations-page>
