@@ -10,11 +10,7 @@ describe('ConvertComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        SharedUiModule,
-        BiosimulationsIconsModule,
-      ],
+      imports: [RouterTestingModule, SharedUiModule, BiosimulationsIconsModule],
       declarations: [ConvertComponent],
     }).compileComponents();
   }));

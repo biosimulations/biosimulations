@@ -318,7 +318,9 @@
                       context: {
                         heading: 'Created',
                         icon: 'date',
-                        els: archiveMetadata.created ? [{ label: archiveMetadata.created }] : []
+                        els: archiveMetadata.created
+                          ? [{ label: archiveMetadata.created }]
+                          : []
                       }
                     "
                   ></ng-container>
@@ -404,21 +406,25 @@
                 </table>
               </div>
 
-              <div class="section" *ngIf="(figuresTablesMetadata$ | async)?.length">
+              <div
+                class="section"
+                *ngIf="(figuresTablesMetadata$ | async)?.length"
+              >
                 <b>Figures and tables</b>
                 <table class="icon-list">
-                  <ng-container *ngFor="let figureTable of (figuresTablesMetadata$ | async)">
+                  <ng-container
+                    *ngFor="let figureTable of figuresTablesMetadata$ | async"
+                  >
                     <tr>
                       <th>
-                        <biosimulations-icon
-                          icon="chart"
-                        ></biosimulations-icon>
+                        <biosimulations-icon icon="chart"></biosimulations-icon>
                       </th>
                       <td>
                         <span class="heading">
-                          <a [href]="figureTable.identifier.uri" target="_blank">{{
-                            figureTable.identifier.label
-                          }}</a
+                          <a
+                            [href]="figureTable.identifier.uri"
+                            target="_blank"
+                            >{{ figureTable.identifier.label }}</a
                           >: </span
                         >{{ ' ' }}
                         <button
