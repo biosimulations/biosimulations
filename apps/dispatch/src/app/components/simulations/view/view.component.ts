@@ -596,7 +596,7 @@ export class ViewComponent implements OnInit, OnDestroy {
             CombineArchive | undefined,
           ],
         ): Metadata | undefined => {
-          const elMetadatas = args[0];
+          let elMetadatas = args[0];
           const visualizations = args[1];
           const sedDocumentsConfiguration = args[2];
 
@@ -604,8 +604,9 @@ export class ViewComponent implements OnInit, OnDestroy {
             return undefined;
           }
 
-          elMetadatas.forEach(
-            (elMetadata: CombineArchiveElementMetadata): void => {
+          elMetadatas = elMetadatas.map(
+            (elMetadata: CombineArchiveElementMetadata): CombineArchiveElementMetadata => {
+              elMetadata = Object.assign({}, elMetadata); 
               elMetadata.thumbnails = elMetadata.thumbnails.map(
                 (thumbnail: string): string => {
                   return `${urls.combineApi}combine/file?url=${encodeURI(
@@ -637,6 +638,8 @@ export class ViewComponent implements OnInit, OnDestroy {
               );
               elMetadata.modified.sort();
               elMetadata.modified.reverse();
+
+              return elMetadata;
             },
           );
 
