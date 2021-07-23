@@ -118,7 +118,8 @@ export type BiosimulationsIcon =
   | 'server'
   | 'redo'
   | 'backward'
-  | 'forward';
+  | 'forward'
+  | 'convert';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -269,6 +270,7 @@ export class IconComponent {
     redo: { type: 'fas', name: 'redo-alt' },
     backward: { type: 'fas', name: 'backward' },
     forward: { type: 'fas', name: 'forward' },
+    convert: { type: 'fas', name: 'exchange-alt' },
   };
 
   constructor() {

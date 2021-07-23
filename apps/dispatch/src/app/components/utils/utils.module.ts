@@ -10,9 +10,14 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { UtilsRoutingModule } from './utils-routing.module';
 import { ValidateSimulationProjectComponent } from './validate-simulation-project/validate-simulation-project.component';
 import { SuggestSimulatorComponent } from './suggest-simulator/suggest-simulator.component';
+import { ConvertComponent } from './convert/convert.component';
 
 @NgModule({
-  declarations: [ValidateSimulationProjectComponent, SuggestSimulatorComponent],
+  declarations: [
+    ValidateSimulationProjectComponent,
+    SuggestSimulatorComponent,
+    ConvertComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ValidateSimulationProjectComponent } from './validate-simulation-project/validate-simulation-project.component';
 import { SuggestSimulatorComponent } from './suggest-simulator/suggest-simulator.component';
+import { ConvertComponent } from './convert/convert.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,20 @@ const routes: Routes = [
           route: ['/utils', 'validate'],
           icon: 'bug',
           label: 'Validate a simulation project',
+        },
+      ],
+    },
+  },
+  {
+    path: 'convert',
+    component: ConvertComponent,
+    data: {
+      breadcrumb: 'Convert a file',
+      contextButtons: [
+        {
+          route: ['/utils', 'convert'],
+          icon: 'bug',
+          label: 'Convert a file',
         },
       ],
     },

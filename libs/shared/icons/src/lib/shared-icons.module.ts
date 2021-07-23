@@ -95,6 +95,7 @@ import {
   faRedoAlt,
   faBackward,
   faForward,
+  faExchangeAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -235,6 +236,7 @@ export class BiosimulationsIconsModule {
       faRedoAlt,
       faBackward,
       faForward,
+      faExchangeAlt,
     );
   }
 }
