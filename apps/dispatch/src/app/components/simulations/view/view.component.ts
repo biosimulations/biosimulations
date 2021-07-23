@@ -73,6 +73,7 @@ import {
 import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
 import user2DHeatmapVegaTemplate from './viz-vega-templates/2d-heatmap.json';
 import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.json';
+import { UtilsService } from '@biosimulations/shared/services';
 
 interface Metadata {
   archive: CombineArchiveElementMetadata | null;
@@ -616,24 +617,11 @@ export class ViewComponent implements OnInit, OnDestroy {
               );
 
               if (elMetadata.created) {
-                const d = new Date(elMetadata.created);
-                elMetadata.created =
-                  d.getFullYear() +
-                  '-' +
-                  ('0' + (d.getMonth() + 1)).slice(-2) +
-                  '-' +
-                  ('0' + d.getDate()).slice(-2);
+                elMetadata.created = UtilsService.getDateString(new Date(elMetadata.created));
               }
               elMetadata.modified = elMetadata.modified.map(
                 (date: string): string => {
-                  const d = new Date(date);
-                  return (
-                    d.getFullYear() +
-                    '-' +
-                    ('0' + (d.getMonth() + 1)).slice(-2) +
-                    '-' +
-                    ('0' + d.getDate()).slice(-2)
-                  );
+                  return UtilsService.getDateString(new Date(date));
                 },
               );
               elMetadata.modified.sort();

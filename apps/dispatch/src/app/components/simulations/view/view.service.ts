@@ -3,6 +3,7 @@ import { urls } from '@biosimulations/config/common';
 import { Simulation } from '../../../datamodel';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { FormattedSimulation } from './view.model';
+import { UtilsService } from '@biosimulations/shared/services';
 
 @Injectable({
   providedIn: 'root',
@@ -36,8 +37,8 @@ export class ViewService {
       //   simulation.runtime !== undefined
       //     ? Math.round(simulation.runtime / 1000).toString() + ' s'
       //     : 'N/A',
-      submitted: new Date(simulation.submitted).toLocaleString(),
-      updated: new Date(simulation.updated).toLocaleString(),
+      submitted: UtilsService.getDateTimeString(new Date(simulation.submitted)),
+      updated: UtilsService.getDateTimeString(new Date(simulation.updated)),
       projectSize:
         simulation.projectSize !== undefined
           ? (simulation.projectSize / 1024).toFixed(2) + ' KB'
