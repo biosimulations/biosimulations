@@ -3,6 +3,7 @@ from ...utils import get_temp_dir
 from biosimulators_utils.combine.data_model import CombineArchiveContentFormat
 from biosimulators_utils.combine.io import CombineArchiveReader
 from biosimulators_utils.combine.validation import validate
+from biosimulators_utils.omex_meta.data_model import OmexMetaSchema
 import os
 import requests
 import requests.exceptions
@@ -68,7 +69,9 @@ def handler(body, file=None):
     if not errors:
         errors, warnings = validate(
             archive, archive_dirname,
-            formats_to_validate=list(CombineArchiveContentFormat.__members__.values()))
+            formats_to_validate=list(CombineArchiveContentFormat.__members__.values()),
+            metadata_schema=OmexMetaSchema.biosimulations,
+        )
 
     report = {
         "_type": "ValidationReport",

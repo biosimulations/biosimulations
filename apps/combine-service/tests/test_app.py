@@ -836,7 +836,6 @@ class HandlersTestCase(unittest.TestCase):
                              'BIOMD0000000912_sim.sedml',
                              'Caravagna2010.xml',
                              'metadata.rdf',
-                             'metadata_1.rdf',
                              'NewLocation.txt',
                          ]))
 
@@ -899,7 +898,6 @@ class HandlersTestCase(unittest.TestCase):
                              'BIOMD0000000912_sim.sedml',
                              'Caravagna2010.xml',
                              'metadata.rdf',
-                             'metadata_1.rdf',
                              'NewLocation.txt',
                          ]))
 
@@ -959,7 +957,6 @@ class HandlersTestCase(unittest.TestCase):
                              'BIOMD0000000912_sim.sedml',
                              'Caravagna2010.xml',
                              'metadata.rdf',
-                             'metadata_1.rdf',
                              'Caravagna2010_1.xml',
                          ]))
 
@@ -1019,7 +1016,6 @@ class HandlersTestCase(unittest.TestCase):
                              'BIOMD0000000912_sim.sedml',
                              'Caravagna2010.xml',
                              'metadata.rdf',
-                             'metadata_1.rdf',
                          ]))
 
         content = next(content for content in archive.contents
@@ -1079,7 +1075,6 @@ class HandlersTestCase(unittest.TestCase):
                              'BIOMD0000000912_sim.sedml',
                              'Caravagna2010.xml',
                              'metadata.rdf',
-                             'metadata_1.rdf',
                              'NewLocation.txt',
                          ]))
 

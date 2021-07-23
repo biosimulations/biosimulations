@@ -238,7 +238,7 @@
     "projectSize": 59208
   },
   {
-    "id": "60f906844420d758d76c9270",
+    "id": "60fa5e4099f0a32eb36d8484",
     "name": "Parmar 2017: iron distribution (SBML, CVODE, PySCeS)",
     "simulator": "pysces",
     "simulatorVersion": "0.9.9",
@@ -247,12 +247,12 @@
     "maxTime": 20,
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-07-22T05:47:48.592Z",
-    "updated": "2021-07-22T05:47:48.592Z",
+    "submitted": "2021-07-23T06:14:25.347Z",
+    "updated": "2021-07-23T06:14:25.347Z",
     "projectSize": 402893
   },
   {
-    "id": "60f906864420d780a76c9273",
+    "id": "60fa5e43bb6e1ee17472adea",
     "name": "Parmar 2017: iron distribution (SBML, CVODE, tellurium)",
     "simulator": "tellurium",
     "simulatorVersion": "2.2.0",
@@ -261,12 +261,12 @@
     "maxTime": 20,
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-07-22T05:47:50.642Z",
-    "updated": "2021-07-22T05:47:50.642Z",
+    "submitted": "2021-07-23T06:14:27.559Z",
+    "updated": "2021-07-23T06:14:27.559Z",
     "projectSize": 402893
   },
   {
-    "id": "60f9068772a58735f9db7dd5",
+    "id": "60fa5e4499f0a3e7b26d8487",
     "name": "Saglam 2020: Toy gene regulatory network (BNGL, CVODE, BioNetGen)",
     "simulator": "bionetgen",
     "simulatorVersion": "2.6.0",
@@ -275,9 +275,9 @@
     "maxTime": 20,
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-07-22T05:47:52.101Z",
-    "updated": "2021-07-22T05:47:52.101Z",
-    "projectSize": 57762
+    "submitted": "2021-07-23T06:14:32.264Z",
+    "updated": "2021-07-23T06:14:32.264Z",
+    "projectSize": 55725
   },
   {
     "id": "60f9068a72a58716fcdb7dd8",
