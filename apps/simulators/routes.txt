@@ -116,7 +116,6 @@
 /simulators/tellurium
 /simulators/tellurium/2.2.0
 /simulators/vcell
-/simulators/vcell/7.4.0.07
 /simulators/vcell/7.4.0.14
 /simulators/winbestkit
 /simulators/winbestkit/2.0.9
