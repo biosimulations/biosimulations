@@ -1,7 +1,7 @@
 ![Logo](https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/libs/shared/assets/src/assets/images/biosimulations-logo/logo-white.svg)
 
 
-[![dependencies Status](https://status.david-dm.org/gh/biosimulations/biosimulations.svg)](https://david-dm.org/biosimulations/biosimulations)
+[![DOI](https://zenodo.org/badge/207730765.svg)](https://zenodo.org/badge/latestdoi/207730765) [![dependencies Status](https://status.david-dm.org/gh/biosimulations/biosimulations.svg)](https://david-dm.org/biosimulations/biosimulations)
 [![Continuous Integration](https://github.com/biosimulations/Biosimulations/workflows/Continuous%20Integration/badge.svg)](https://github.com/biosimulations/Biosimulations/actions?query=workflow%3A%22Continuous+Integration%22)
 [![App Status](https://deployment.api.biosimulations.org/api/badge?name=biosimulations-dev&revision=true)](https://deployment.api.biosimulations.org/applications/biosimulations-dev)
 [![Continuous Deployment](https://github.com/biosimulations/Biosimulations/workflows/Continuous%20Deployment/badge.svg)](https://github.com/biosimulations/Biosimulations/actions?query=workflow%3A%22Continuous+Deployment%22)
