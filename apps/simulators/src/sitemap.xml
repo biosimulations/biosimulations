@@ -705,19 +705,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/vcell</loc>
-    <lastmod>2021-07-03</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-   
-  <url>
-    <loc>https://biosimulators.org/simulators/vcell/7.4.0.07</loc>
-    <lastmod>2021-07-01</lastmod>
+    <lastmod>2021-07-20</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/vcell/7.4.0.14</loc>
-    <lastmod>2021-07-03</lastmod>
+    <lastmod>2021-07-20</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    

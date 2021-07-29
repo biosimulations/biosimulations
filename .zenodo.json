@@ -1,0 +1,24 @@
+{
+    "license": "MIT", 
+    "creators": [
+        {
+            "affiliation": "Icahn School of Medicine at Mount Sinai", 
+            "name": "Bilal Shaikh",
+            "orcid": "0000-0001-5801-5510"
+        }, 
+        {
+            "affiliation": "Icahn School of Medicine at Mount Sinai", 
+            "name": "Jonathan Karr",
+            "orcid": "0000-0002-2605-5080"
+        }, 
+        {
+            "affiliation": "UConn Health", 
+            "name": "GMarupilla"
+        },  
+        {
+            "affiliation": "UConn Health", 
+            "name": "Mike Wilson"
+        }
+    ], 
+    "access_right": "open"
+}
