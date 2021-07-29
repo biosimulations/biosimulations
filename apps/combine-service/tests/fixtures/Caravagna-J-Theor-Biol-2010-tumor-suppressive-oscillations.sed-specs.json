@@ -104,6 +104,7 @@
                 {
                   "_type": "SedDataSet",
                   "id": "data_set_time",
+                  "name": null,
                   "label": "time",
                   "dataGenerator": {
                     "_type": "SedDataGenerator",
@@ -117,6 +118,7 @@
                 {
                   "_type": "SedDataSet",
                   "id": "data_set_T",
+                  "name": null,
                   "label": "T",
                   "dataGenerator": {
                     "_type": "SedDataGenerator",
@@ -130,6 +132,7 @@
                 {
                   "_type": "SedDataSet",
                   "id": "data_set_E",
+                  "name": null,
                   "label": "E",
                   "dataGenerator": {
                     "_type": "SedDataGenerator",
@@ -143,6 +146,7 @@
                 {
                   "_type": "SedDataSet",
                   "id": "data_set_I",
+                  "name": null,
                   "label": "I",
                   "dataGenerator": {
                     "_type": "SedDataGenerator",

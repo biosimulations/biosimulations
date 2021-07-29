@@ -21,6 +21,7 @@ import { snackBarDuration } from '@biosimulations/config/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteSimulationsDialogComponent } from './delete-simulations-dialog.component';
+import { UtilsService } from '@biosimulations/shared/services';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -171,28 +172,10 @@ export class BrowseComponent implements OnInit {
       heading: 'Submitted',
       key: 'submitted',
       formatter: (value: Date): string => {
-        return (
-          value.getFullYear().toString() +
-          '-' +
-          (value.getMonth() + 1).toString().padStart(2, '0') +
-          '-' +
-          value.getDate().toString().padStart(2, '0')
-        );
+        return UtilsService.getDateString(value);
       },
       toolTipFormatter: (value: Date): string => {
-        return (
-          value.getFullYear().toString() +
-          '-' +
-          (value.getMonth() + 1).toString().padStart(2, '0') +
-          '-' +
-          value.getDate().toString().padStart(2, '0') +
-          ' ' +
-          value.getHours().toString().padStart(2, '0') +
-          ':' +
-          value.getMinutes().toString().padStart(2, '0') +
-          ':' +
-          value.getSeconds().toString().padStart(2, '0')
-        );
+        return UtilsService.getDateTimeString(value);      
       },
       filterType: ColumnFilterType.date,
       minWidth: 78,
@@ -203,28 +186,10 @@ export class BrowseComponent implements OnInit {
       heading: 'Last updated',
       key: 'updated',
       formatter: (value: Date): string => {
-        return (
-          value.getFullYear().toString() +
-          '-' +
-          (value.getMonth() + 1).toString().padStart(2, '0') +
-          '-' +
-          value.getDate().toString().padStart(2, '0')
-        );
+        return UtilsService.getDateString(value);;
       },
       toolTipFormatter: (value: Date): string => {
-        return (
-          value.getFullYear().toString() +
-          '-' +
-          (value.getMonth() + 1).toString().padStart(2, '0') +
-          '-' +
-          value.getDate().toString().padStart(2, '0') +
-          ' ' +
-          value.getHours().toString().padStart(2, '0') +
-          ':' +
-          value.getMinutes().toString().padStart(2, '0') +
-          ':' +
-          value.getSeconds().toString().padStart(2, '0')
-        );
+        return UtilsService.getDateTimeString(value);
       },
       filterType: ColumnFilterType.date,
       minWidth: 78,

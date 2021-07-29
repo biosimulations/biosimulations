@@ -73,6 +73,7 @@ import {
 import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
 import user2DHeatmapVegaTemplate from './viz-vega-templates/2d-heatmap.json';
 import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.json';
+import { UtilsService } from '@biosimulations/shared/services';
 
 interface Metadata {
   archive: CombineArchiveElementMetadata | null;
@@ -596,7 +597,7 @@ export class ViewComponent implements OnInit, OnDestroy {
             CombineArchive | undefined,
           ],
         ): Metadata | undefined => {
-          const elMetadatas = args[0];
+          let elMetadatas = args[0];
           const visualizations = args[1];
           const sedDocumentsConfiguration = args[2];
 
@@ -604,8 +605,9 @@ export class ViewComponent implements OnInit, OnDestroy {
             return undefined;
           }
 
-          elMetadatas.forEach(
-            (elMetadata: CombineArchiveElementMetadata): void => {
+          elMetadatas = elMetadatas.map(
+            (elMetadata: CombineArchiveElementMetadata): CombineArchiveElementMetadata => {
+              elMetadata = Object.assign({}, elMetadata); 
               elMetadata.thumbnails = elMetadata.thumbnails.map(
                 (thumbnail: string): string => {
                   return `${urls.combineApi}combine/file?url=${encodeURI(
@@ -615,28 +617,17 @@ export class ViewComponent implements OnInit, OnDestroy {
               );
 
               if (elMetadata.created) {
-                const d = new Date(elMetadata.created);
-                elMetadata.created =
-                  d.getFullYear() +
-                  '-' +
-                  ('0' + (d.getMonth() + 1)).slice(-2) +
-                  '-' +
-                  ('0' + d.getDate()).slice(-2);
+                elMetadata.created = UtilsService.getDateString(new Date(elMetadata.created));
               }
               elMetadata.modified = elMetadata.modified.map(
                 (date: string): string => {
-                  const d = new Date(date);
-                  return (
-                    d.getFullYear() +
-                    '-' +
-                    ('0' + (d.getMonth() + 1)).slice(-2) +
-                    '-' +
-                    ('0' + d.getDate()).slice(-2)
-                  );
+                  return UtilsService.getDateString(new Date(date));
                 },
               );
               elMetadata.modified.sort();
               elMetadata.modified.reverse();
+
+              return elMetadata;
             },
           );
 
@@ -809,13 +800,26 @@ export class ViewComponent implements OnInit, OnDestroy {
                 if ('sedmlUri' in signal) {
                   const sedmlSimulationAttributePath =
                     anySignal.sedmlUri as any;
-                  anySignal.value = this.getValueOfSedmlSimulationAttribute(
+                  anySignal.value = this.getValueOfSedmlObjectAttribute(
                     sedmlSimulationAttributePath,
                   );
                   if (anySignal.value === undefined) {
                     return false;
                   }
                   delete anySignal['sedmlUri'];
+                }
+
+                if ('bind' in signal) {
+                  const bind = signal.bind as any;
+                  for (const [key, val] of Object.entries(bind)) {
+                    const anyVal = val as any;
+                    if (anyVal != null && typeof anyVal === 'object' && 'sedmlUri' in anyVal) {
+                      bind[key] = this.getValueOfSedmlObjectAttribute(anyVal['sedmlUri']);
+                      if (bind[key] === undefined) {
+                        return false;
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -827,27 +831,30 @@ export class ViewComponent implements OnInit, OnDestroy {
                 const name = anyData?.name;
                 if ('sedmlUri' in anyData) {
                   if (
-                    this.getSedReport(anyData.sedmlUri) &&
-                    anyData.sedmlUri?.length == 2
+                    anyData.sedmlUri?.length == 0 || 
+                    (anyData.sedmlUri?.length == 2 &&
+                    this.getSedReport(anyData.sedmlUri)) &&
+                    !Array.isArray(this.getSedReport(anyData.sedmlUri))
                   ) {
-                    anyData.url = this.visualizationService.getOutputResultsUrl(
+                    anyData.url = this.visualizationService.getRunResultsUrl(
                       this.uuid,
                       anyData.sedmlUri.join('/'),
                     );
                     anyData.format = {
                       type: 'json',
-                      property: 'data',
+                      property: anyData.sedmlUri?.length == 0 ? 'outputs': 'data',
                     };
                     delete anyData['sedmlUri'];
                     if ('values' in anyData) {
                       delete anyData['values'];
-                    }
+                    } 
                   } else {
                     return false;
                   }
                 }
               }
             }
+
             return spec;
           } else {
             return false;
@@ -857,7 +864,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       );
   }
 
-  private getSedDocument(path: any): SedDocument | undefined {
+  private getSedDocument(path: any): SedDocument | SedDocument[] | undefined {
     if (!Array.isArray(path)) {
       return undefined;
     }
@@ -866,69 +873,133 @@ export class ViewComponent implements OnInit, OnDestroy {
       return undefined;
     }
 
-    let sedDocumentUri = path?.[0];
+    const contentTypeUriStr = path?.[0];
     if (
-      !(typeof sedDocumentUri === 'string' || sedDocumentUri instanceof String)
+      !(typeof contentTypeUriStr === 'string' || contentTypeUriStr instanceof String)
     ) {
       return undefined;
+    }    
+
+    const contentTypeUriArr = contentTypeUriStr.split(':');
+    const contentType = contentTypeUriArr.length === 1 ? '' : contentTypeUriArr[0];
+    let contentUri = contentTypeUriArr[contentTypeUriArr.length - 1];
+
+    if (contentUri.startsWith('./')) {
+      contentUri = contentUri.substring(2);
     }
 
-    if (sedDocumentUri.startsWith('./')) {
-      sedDocumentUri = sedDocumentUri.substring(2);
-    }
+    const contents: SedDocument[] = [];
+    const multipleContents = contentUri === '*';
 
-    for (const content of this.sedDocumentsConfiguration.contents) {
-      let thisSedDocumentUri = content.location.path;
-      if (thisSedDocumentUri.startsWith('./')) {
-        thisSedDocumentUri = thisSedDocumentUri.substring(2);
+    for (let iContent = 0; iContent < this.sedDocumentsConfiguration.contents.length; iContent++) {
+      const content = this.sedDocumentsConfiguration.contents[iContent];
+      let thisContentUri = content.location.path;
+      if (thisContentUri.startsWith('./')) {
+        thisContentUri = thisContentUri.substring(2);
       }
-      if (sedDocumentUri === thisSedDocumentUri) {
-        return content.location.value as SedDocument;
+      if (
+        ['', 'SedDocument'].includes(contentType)
+        && (['*', thisContentUri].includes(contentUri) || contentUri === `[${iContent}]`)
+      ) {
+        contents.push(content.location.value as SedDocument)
+      }
+    }
+
+    if (multipleContents) {
+      return contents;
+    } else if (contents.length) {
+      return contents[0];
+    } else {
+      return undefined;
+    }
+  }
+
+  private getSedReport(path: any): SedReport | SedReport[] | undefined {
+    const sedDocument: SedDocument | SedDocument[] | undefined = this.getSedDocument(path);
+    if (!sedDocument || Array.isArray(sedDocument)) {
+      return undefined;
+    }
+
+    const reportTypeIdStr = path?.[1];
+    if (!(typeof reportTypeIdStr === 'string' || reportTypeIdStr instanceof String)) {
+      return undefined;
+    }
+
+    const reportTypeIdArr = reportTypeIdStr.split(':');
+    const reportType = reportTypeIdArr.length === 1 ? '' : reportTypeIdArr[0];
+    const reportId = reportTypeIdArr[reportTypeIdArr.length - 1];    
+
+    const reports: SedReport[] = [];
+    const multipleReports = reportId === '*';
+
+    let iReport = -1;
+    for (const thisOutput of sedDocument.outputs) {
+      if (thisOutput._type == 'SedReport') {
+        iReport++;
+        if (
+          ['', 'Report'].includes(reportType) 
+          && (['*', thisOutput.id].includes(reportId) || reportId === `[${iReport}]`)
+        ) {
+          reports.push(thisOutput as SedReport);
+        }
+      }
+    }
+
+    if (multipleReports) {
+      return reports;
+    } else {
+      if (reports.length) {
+        return reports[0];
       }
     }
 
     return undefined;
   }
 
-  private getSedReport(path: any): SedReport | undefined {
-    const sedDocument: SedDocument | undefined = this.getSedDocument(path);
+  private getValueOfSedmlObjectAttribute(path: any): any {
+    const sedDocument: SedDocument | SedDocument[] | undefined = this.getSedDocument(path);    
     if (!sedDocument) {
       return undefined;
     }
 
-    const reportId = path?.[1];
-    if (!(typeof reportId === 'string' || reportId instanceof String)) {
+    const objectTypeIdStr = path?.[1];
+    if (!(typeof objectTypeIdStr === 'string' || objectTypeIdStr instanceof String)) {
       return undefined;
     }
+    const objectTypeIdArr = objectTypeIdStr.split(':');
+    const objectType = objectTypeIdArr.length === 1 ? '' : objectTypeIdArr[0];
+    const objectId = objectTypeIdArr[objectTypeIdArr.length - 1];
 
-    for (const thisReport of sedDocument.outputs) {
-      if (thisReport._type == 'SedReport' && thisReport.id === reportId) {
-        return thisReport as SedReport;
+    const sedObjects: (SedSimulation | SedReport)[] = [];
+    const multipleSedObjects = objectId === '*' || Array.isArray(sedDocument);
+    const sedDocuments = Array.isArray(sedDocument) ? sedDocument : [sedDocument];
+    
+    for (const sedDocument of sedDocuments) {
+      for (let iSim = 0; iSim < sedDocument.simulations.length; iSim++) {
+        const thisSimulation = sedDocument.simulations[iSim];
+        if (
+          ['Simulation', ''].includes(objectType) 
+          && (['*', thisSimulation.id].includes(objectId) || objectId === `[${iSim}]`)
+        ) {
+          sedObjects.push(thisSimulation);
+        }
+      }
+      let iReport = -1;
+      for (let iOutput = 0; iOutput < sedDocument.outputs.length; iOutput++) {
+        const thisOutput = sedDocument.outputs[iOutput];
+        if (thisOutput._type == 'SedReport') {
+          iReport++;
+          if (
+            ['Report', ''].includes(objectType) 
+            && (['*', thisOutput.id].includes(objectId) || objectId === `[${iReport}]`)
+          ) {
+            sedObjects.push(thisOutput as SedReport);
+          }
+        }
       }
     }
-
-    return undefined;
-  }
-
-  private getValueOfSedmlSimulationAttribute(path: any): any {
-    const sedDocument: SedDocument | undefined = this.getSedDocument(path);
-    if (!sedDocument) {
-      return undefined;
-    }
-
-    const simulationId = path?.[1];
-    if (!(typeof simulationId === 'string' || simulationId instanceof String)) {
-      return undefined;
-    }
-
-    let simulation: SedSimulation | undefined = undefined;
-    for (const thisSimulation of sedDocument.simulations) {
-      if (thisSimulation.id === simulationId) {
-        simulation = thisSimulation;
-        break;
-      }
-    }
-    if (!simulation) {
+    
+    if (!multipleSedObjects && !sedObjects.length) {
       return undefined;
     }
 
@@ -946,9 +1017,19 @@ export class ViewComponent implements OnInit, OnDestroy {
       attributeName = 'numberOfSteps';
     }
 
-    if (attributeName in simulation) {
-      const attributeValue = (simulation as any)[attributeName];
-      return attributeValue;
+    const attributeValues: any[] = [];
+    for (const sedObject of sedObjects) {
+      if (attributeName in (sedObject as any)) {
+        attributeValues.push((sedObject as any)[attributeName]);
+      } else {
+        return undefined;
+      }
+    }
+
+    if (multipleSedObjects) {
+      return attributeValues;
+    } else {
+      return attributeValues[0];
     }
 
     return undefined;

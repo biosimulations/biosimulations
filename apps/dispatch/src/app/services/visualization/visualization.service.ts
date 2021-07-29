@@ -194,18 +194,24 @@ export class VisualizationService {
     // TODO write tests
     return locationId.split('/').reverse().slice(1).reverse().join('/');
   }
+  
   public getOutputIdFromSedmlLocationId(location: string): string {
     return location.split('/').reverse()[0];
   }
-  public getOutputResultsUrl(
+
+  public getRunResultsUrl(
     runId: string,
-    outputId: string,
+    outputId = '',
     sparse = false,
   ): string {
     // TODO Remove hardcoded string. Caused #2635
-    return `${this.resultsEndpoint}/${runId}/${encodeURIComponent(
-      outputId,
-    )}?includeData=${!sparse}`;
+    if (outputId) {
+      return `${this.resultsEndpoint}/${runId}/${encodeURIComponent(
+        outputId,
+      )}?includeData=${!sparse}`;
+    } else {
+      return `${this.resultsEndpoint}/${runId}?includeData=${!sparse}`;
+    }
   }
 
   public getSpecsOfSedDocsInCombineArchive(

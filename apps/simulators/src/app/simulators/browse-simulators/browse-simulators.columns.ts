@@ -364,13 +364,7 @@ export const columns: Column[] = [
     heading: 'Updated',
     key: 'updated',
     formatter: (value: Date): string => {
-      return (
-        value.getFullYear().toString() +
-        '-' +
-        (value.getMonth() + 1).toString().padStart(2, '0') +
-        '-' +
-        value.getDate().toString().padStart(2, '0')
-      );
+      return UtilsService.getDateString(value);
     },
     filterType: ColumnFilterType.date,
     show: false,

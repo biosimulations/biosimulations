@@ -1,136 +1,147 @@
-[{
-    "name": "Caravagna 2010: tumor-suppressive oscillations (SBML, CVODE, PySCeS)",
-    "simulator": "pysces",
-    "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
+[
+  {
+    "name": "Budding yeast cell cycle (Irons, J Theor Biol, 2009; SBML-qual; BoolNet; synchronous)",
+    "simulator": "boolnet",
+    "filename": "sbml-qual/Irons-J-Theor-Biol-2009-yeast-cell-cycle.omex"
   },
   {
-    "name": "Caravagna 2010: tumor-suppressive oscillations (SBML, CVODE, tellurium)",
-    "simulator": "tellurium",
-    "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
+    "name": "Budding yeast cell cycle (Irons, J Theor Biol, 2009; SBML-qual; GINsim; synchronous)",
+    "simulator": "ginsim",
+    "filename": "sbml-qual/Irons-J-Theor-Biol-2009-yeast-cell-cycle.omex"
   },
   {
-    "name": "Caravagna 2010: tumor-suppressive oscillations (SBML, CVODE, VCell)",
+    "name": "Circadian clock (Vilar et al., PNAS, 2002; SBML; NRM; VCell)",
     "simulator": "vcell",
-    "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
+    "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock-discrete-NRM.omex"
   },
   {
-    "name": "Chaouiya et al. BMC Systems Biology 2013: EGF and TNFα signaling (SBML-qual, synchronous updating, BoolNet)",
+    "name": "EGF and TNFα signaling (Chaouiya et al., BMC Syst Biol, 2013; SBML-qual; synchronous updating; BoolNet)",
     "simulator": "boolnet",
     "filename": "sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex"
   },
   {
-    "name": "Chaouiya et al. BMC Systems Biology 2013: EGF and TNFα signaling (SBML-qual, synchronous updating, GINsim)",
+    "name": "EGF and TNFα signaling (Chaouiya et al., BMC Syst Biol, 2013; SBML-qual; synchronous updating; GINsim)",
     "simulator": "ginsim",
     "filename": "sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex"
   },
   {
-    "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, CVODE, PySCeS)",
-    "simulator": "pysces",
-    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
-  },
-  {
-    "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, CVODE, tellurium)",
-    "simulator": "tellurium",
-    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
-  },
-  {
-    "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, CVODE, VCell)",
-    "simulator": "vcell",
-    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
-  },
-  {
-    "name": "Ciliberto 2003: morphogenesis checkpoint (SBML, Fehlberg, LibSBMLSim)",
-    "simulator": "libsbmlsim",
-    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-Fehlberg.omex"
-  },
-  {
-    "name": "Dolan 2020: Non-homologous end joining (BNGL, NFSim, BioNetGen)",
-    "simulator": "bionetgen",
-    "filename": "bngl/Dolan-PLoS-Comput-Biol-2015-NHEJ.omex"
-  },
-  {
-    "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (SBML, LSODA, GillesPy2)",
-    "simulator": "gillespy2",
-    "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
-  },
-  {
-    "name": "Edelstein et al. Biological Cybernetics 1996: Nicotinic excitatory post-synaptic potential (SBML, LSODA, PySCeS)",
-    "simulator": "pysces",
-    "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
-  },
-  {
-    "name": "Escherichia coli core metabolism (SBML-fbc, FBA, CBMPy)",
+    "name": "Escherichia coli core metabolism (COBRApy Team; SBML-fbc; FBA; CBMPy)",
     "simulator": "cbmpy",
     "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
   },
   {
-    "name": "Escherichia coli core metabolism (SBML-fbc, FBA, COBRApy)",
+    "name": "Escherichia coli core metabolism (COBRApy Team; SBML-fbc; FBA; COBRApy)",
     "simulator": "cobrapy",
     "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
   },
   {
-    "name": "Hodgkin-Huxley cell (NeuroML/LEMS, CVODE, NetPyNe)",
-    "simulator": "netpyne",
-    "filename": "neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex"
-  },
-  {
-    "name": "Hodgkin-Huxley cell (NeuroML/LEMS, CVODE, Neuron)",
-    "simulator": "neuron",
-    "filename": "neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex"
-  },
-  {
-    "name": "Hodgkin-Huxley cell (NeuroML/LEMS, Euler, pyNeuroML)",
-    "simulator": "pyneuroml",
-    "filename": "neuroml-lems/Hodgkin-Huxley-cell-Euler.omex"
-  },
-  {
-    "name": "Lorenz system (CellML, CVODE, OpenCOR)",
-    "simulator": "opencor",
-    "filename": "cellml/Lorenz-system.omex"
-  },
-  {
-    "name": "Lotka-Volterra model (Smoldyn, Smoluchowski method, Smoldyn)",
-    "simulator": "smoldyn",
-    "filename": "smoldyn/Lotka-Volterra.omex"
-  },
-  {
-    "name": "Parmar 2017: iron distribution (SBML, CVODE, PySCeS)",
-    "simulator": "pysces",
-    "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
-  },
-  {
-    "name": "Parmar 2017: iron distribution (SBML, CVODE, tellurium)",
-    "simulator": "tellurium",
-    "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
-  },
-  {
-    "name": "Parmar 2017: iron distribution (SBML, CVODE, VCell)",
-    "simulator": "vcell",
-    "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
-  },
-  {
-    "name": "Saglam 2020: Toy gene regulatory network (BNGL, CVODE, BioNetGen)",
-    "simulator": "bionetgen",
-    "filename": "bngl/test-bngl.omex"
-  },
-  {
-    "name": "Szymanska 2009: HSP synthesis (SBML, CVODES, AMICI)",
+    "name": "Heat shock protein synthesis (Szymanska et al., J Theor Biol, 2009; SBML; CVODES; AMICI)",
     "simulator": "amici",
     "filename": "sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex"
   },
   {
-    "name": "Tomida 2003: NFAT translocation (SBML, LSODA/LSODAR, COPASI)",
-    "simulator": "copasi",
-    "filename": "sbml-core/Tomida-EMBO-J-2003-NFAT-translocation.omex"
+    "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; NetPyNe)",
+    "simulator": "netpyne",
+    "filename": "neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex"
   },
   {
-    "name": "Varusai 2018: mTOR signaling (SBML, LSODA/LSODAR, COPASI)",
+    "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; Neuron)",
+    "simulator": "neuron",
+    "filename": "neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex"
+  },
+  {
+    "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; Euler; pyNeuroML)",
+    "simulator": "pyneuroml",
+    "filename": "neuroml-lems/Hodgkin-Huxley-cell-Euler.omex"
+  },
+  {
+    "name": "Iron distribution (Parmar et al., BMC Syst Biol, 2017; SBML; CVODE; PySCeS)",
+    "simulator": "pysces",
+    "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
+  },
+  {
+    "name": "Iron distribution (Parmar et al., BMC Syst Biol, 2017; SBML; CVODE; VCell)",
+    "simulator": "vcell",
+    "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
+  },
+  {
+    "name": "Iron distribution (Parmar et al., BMC Syst Biol, 2017; SBML; CVODE; tellurium)",
+    "simulator": "tellurium",
+    "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex"
+  },
+  {
+    "name": "Lorenz system (Garny; CellML; CVODE; OpenCOR)",
+    "simulator": "opencor",
+    "filename": "cellml/Lorenz-system.omex"
+  },
+  {
+    "name": "Lotka-Volterra model (Andrews; Smoldyn; Smoluchowski method)",
+    "simulator": "smoldyn",
+    "filename": "smoldyn/Lotka-Volterra.omex"
+  },
+  {
+    "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; CVODE; PySCeS)",
+    "simulator": "pysces",
+    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+  },
+  {
+    "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; CVODE; VCell)",
+    "simulator": "vcell",
+    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+  },
+  {
+    "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; CVODE; tellurium)",
+    "simulator": "tellurium",
+    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
+  },
+  {
+    "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; Fehlberg; LibSBMLSim)",
+    "simulator": "libsbmlsim",
+    "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-Fehlberg.omex"
+  },
+  {
+    "name": "mTOR signaling (Varusai & Nguyen, Sci Rep, 2018; SBML; LSODA/LSODAR; COPASI)",
     "simulator": "copasi",
     "filename": "sbml-core/Varusai-Sci-Rep-2018-mTOR-signaling-LSODA-LSODAR-SBML.omex"
   },
   {
-    "name": "Vilar 2002: circadian clock (SBML, NRM, VCell)",
+    "name": "NFAT translocation (Tomida et al., EMBO J, 2003; SBML; LSODA/LSODAR; COPASI)",
+    "simulator": "copasi",
+    "filename": "sbml-core/Tomida-EMBO-J-2003-NFAT-translocation.omex"
+  },
+  {
+    "name": "Nicotinic excitatory post-synaptic potential (Edelstein et al., Biological Cybernetics, 1996; SBML; LSODA; GillesPy2)",
+    "simulator": "gillespy2",
+    "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
+  },
+  {
+    "name": "Nicotinic excitatory post-synaptic potential (Edelstein et al., Biological Cybernetics, 1996; SBML; LSODA; PySCeS)",
+    "simulator": "pysces",
+    "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex"
+  },
+  {
+    "name": "Non-homologous end joining (Dolan et al., PLoS Comput Biol, 2020; BNGL; NFSim; BioNetGen)",
+    "simulator": "bionetgen",
+    "filename": "bngl/Dolan-PLoS-Comput-Biol-2015-NHEJ.omex"
+  },
+  {
+    "name": "Toy gene regulatory network (Saglam, 2020; BNGL; CVODE; BioNetGen)",
+    "simulator": "bionetgen",
+    "filename": "bngl/test-bngl.omex"
+  },
+  {
+    "name": "Tumor-suppressive oscillations (Caravagna et al., J Theor Biol, 2010; SBML; CVODE; PySCeS)",
+    "simulator": "pysces",
+    "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
+  },
+  {
+    "name": "Tumor-suppressive oscillations (Caravagna et al., J Theor Biol, 2010; SBML; CVODE; VCell)",
     "simulator": "vcell",
-    "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock-discrete-NRM.omex"
+    "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
+  },
+  {
+    "name": "Tumor-suppressive oscillations (Caravagna et al., J Theor Biol, 2010; SBML; CVODE; tellurium)",
+    "simulator": "tellurium",
+    "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex"
   }
 ]
