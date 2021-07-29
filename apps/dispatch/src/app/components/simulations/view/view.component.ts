@@ -606,8 +606,10 @@ export class ViewComponent implements OnInit, OnDestroy {
           }
 
           elMetadatas = elMetadatas.map(
-            (elMetadata: CombineArchiveElementMetadata): CombineArchiveElementMetadata => {
-              elMetadata = Object.assign({}, elMetadata); 
+            (
+              elMetadata: CombineArchiveElementMetadata,
+            ): CombineArchiveElementMetadata => {
+              elMetadata = Object.assign({}, elMetadata);
               elMetadata.thumbnails = elMetadata.thumbnails.map(
                 (thumbnail: string): string => {
                   return `${urls.combineApi}combine/file?url=${encodeURI(
@@ -617,7 +619,9 @@ export class ViewComponent implements OnInit, OnDestroy {
               );
 
               if (elMetadata.created) {
-                elMetadata.created = UtilsService.getDateString(new Date(elMetadata.created));
+                elMetadata.created = UtilsService.getDateString(
+                  new Date(elMetadata.created),
+                );
               }
               elMetadata.modified = elMetadata.modified.map(
                 (date: string): string => {
@@ -813,8 +817,14 @@ export class ViewComponent implements OnInit, OnDestroy {
                   const bind = signal.bind as any;
                   for (const [key, val] of Object.entries(bind)) {
                     const anyVal = val as any;
-                    if (anyVal != null && typeof anyVal === 'object' && 'sedmlUri' in anyVal) {
-                      bind[key] = this.getValueOfSedmlObjectAttribute(anyVal['sedmlUri']);
+                    if (
+                      anyVal != null &&
+                      typeof anyVal === 'object' &&
+                      'sedmlUri' in anyVal
+                    ) {
+                      bind[key] = this.getValueOfSedmlObjectAttribute(
+                        anyVal['sedmlUri'],
+                      );
                       if (bind[key] === undefined) {
                         return false;
                       }
@@ -831,10 +841,10 @@ export class ViewComponent implements OnInit, OnDestroy {
                 const name = anyData?.name;
                 if ('sedmlUri' in anyData) {
                   if (
-                    anyData.sedmlUri?.length == 0 || 
+                    anyData.sedmlUri?.length == 0 ||
                     (anyData.sedmlUri?.length == 2 &&
-                    this.getSedReport(anyData.sedmlUri)) &&
-                    !Array.isArray(this.getSedReport(anyData.sedmlUri))
+                      this.getSedReport(anyData.sedmlUri) &&
+                      !Array.isArray(this.getSedReport(anyData.sedmlUri)))
                   ) {
                     anyData.url = this.visualizationService.getRunResultsUrl(
                       this.uuid,
@@ -842,12 +852,13 @@ export class ViewComponent implements OnInit, OnDestroy {
                     );
                     anyData.format = {
                       type: 'json',
-                      property: anyData.sedmlUri?.length == 0 ? 'outputs': 'data',
+                      property:
+                        anyData.sedmlUri?.length == 0 ? 'outputs' : 'data',
                     };
                     delete anyData['sedmlUri'];
                     if ('values' in anyData) {
                       delete anyData['values'];
-                    } 
+                    }
                   } else {
                     return false;
                   }
@@ -875,13 +886,17 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     const contentTypeUriStr = path?.[0];
     if (
-      !(typeof contentTypeUriStr === 'string' || contentTypeUriStr instanceof String)
+      !(
+        typeof contentTypeUriStr === 'string' ||
+        contentTypeUriStr instanceof String
+      )
     ) {
       return undefined;
-    }    
+    }
 
     const contentTypeUriArr = contentTypeUriStr.split(':');
-    const contentType = contentTypeUriArr.length === 1 ? '' : contentTypeUriArr[0];
+    const contentType =
+      contentTypeUriArr.length === 1 ? '' : contentTypeUriArr[0];
     let contentUri = contentTypeUriArr[contentTypeUriArr.length - 1];
 
     if (contentUri.startsWith('./')) {
@@ -891,17 +906,22 @@ export class ViewComponent implements OnInit, OnDestroy {
     const contents: SedDocument[] = [];
     const multipleContents = contentUri === '*';
 
-    for (let iContent = 0; iContent < this.sedDocumentsConfiguration.contents.length; iContent++) {
+    for (
+      let iContent = 0;
+      iContent < this.sedDocumentsConfiguration.contents.length;
+      iContent++
+    ) {
       const content = this.sedDocumentsConfiguration.contents[iContent];
       let thisContentUri = content.location.path;
       if (thisContentUri.startsWith('./')) {
         thisContentUri = thisContentUri.substring(2);
       }
       if (
-        ['', 'SedDocument'].includes(contentType)
-        && (['*', thisContentUri].includes(contentUri) || contentUri === `[${iContent}]`)
+        ['', 'SedDocument'].includes(contentType) &&
+        (['*', thisContentUri].includes(contentUri) ||
+          contentUri === `[${iContent}]`)
       ) {
-        contents.push(content.location.value as SedDocument)
+        contents.push(content.location.value as SedDocument);
       }
     }
 
@@ -915,19 +935,24 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   private getSedReport(path: any): SedReport | SedReport[] | undefined {
-    const sedDocument: SedDocument | SedDocument[] | undefined = this.getSedDocument(path);
+    const sedDocument: SedDocument | SedDocument[] | undefined =
+      this.getSedDocument(path);
     if (!sedDocument || Array.isArray(sedDocument)) {
       return undefined;
     }
 
     const reportTypeIdStr = path?.[1];
-    if (!(typeof reportTypeIdStr === 'string' || reportTypeIdStr instanceof String)) {
+    if (
+      !(
+        typeof reportTypeIdStr === 'string' || reportTypeIdStr instanceof String
+      )
+    ) {
       return undefined;
     }
 
     const reportTypeIdArr = reportTypeIdStr.split(':');
     const reportType = reportTypeIdArr.length === 1 ? '' : reportTypeIdArr[0];
-    const reportId = reportTypeIdArr[reportTypeIdArr.length - 1];    
+    const reportId = reportTypeIdArr[reportTypeIdArr.length - 1];
 
     const reports: SedReport[] = [];
     const multipleReports = reportId === '*';
@@ -937,8 +962,9 @@ export class ViewComponent implements OnInit, OnDestroy {
       if (thisOutput._type == 'SedReport') {
         iReport++;
         if (
-          ['', 'Report'].includes(reportType) 
-          && (['*', thisOutput.id].includes(reportId) || reportId === `[${iReport}]`)
+          ['', 'Report'].includes(reportType) &&
+          (['*', thisOutput.id].includes(reportId) ||
+            reportId === `[${iReport}]`)
         ) {
           reports.push(thisOutput as SedReport);
         }
@@ -957,13 +983,18 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   private getValueOfSedmlObjectAttribute(path: any): any {
-    const sedDocument: SedDocument | SedDocument[] | undefined = this.getSedDocument(path);    
+    const sedDocument: SedDocument | SedDocument[] | undefined =
+      this.getSedDocument(path);
     if (!sedDocument) {
       return undefined;
     }
 
     const objectTypeIdStr = path?.[1];
-    if (!(typeof objectTypeIdStr === 'string' || objectTypeIdStr instanceof String)) {
+    if (
+      !(
+        typeof objectTypeIdStr === 'string' || objectTypeIdStr instanceof String
+      )
+    ) {
       return undefined;
     }
     const objectTypeIdArr = objectTypeIdStr.split(':');
@@ -972,14 +1003,17 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     const sedObjects: (SedSimulation | SedReport)[] = [];
     const multipleSedObjects = objectId === '*' || Array.isArray(sedDocument);
-    const sedDocuments = Array.isArray(sedDocument) ? sedDocument : [sedDocument];
-    
+    const sedDocuments = Array.isArray(sedDocument)
+      ? sedDocument
+      : [sedDocument];
+
     for (const sedDocument of sedDocuments) {
       for (let iSim = 0; iSim < sedDocument.simulations.length; iSim++) {
         const thisSimulation = sedDocument.simulations[iSim];
         if (
-          ['Simulation', ''].includes(objectType) 
-          && (['*', thisSimulation.id].includes(objectId) || objectId === `[${iSim}]`)
+          ['Simulation', ''].includes(objectType) &&
+          (['*', thisSimulation.id].includes(objectId) ||
+            objectId === `[${iSim}]`)
         ) {
           sedObjects.push(thisSimulation);
         }
@@ -990,15 +1024,16 @@ export class ViewComponent implements OnInit, OnDestroy {
         if (thisOutput._type == 'SedReport') {
           iReport++;
           if (
-            ['Report', ''].includes(objectType) 
-            && (['*', thisOutput.id].includes(objectId) || objectId === `[${iReport}]`)
+            ['Report', ''].includes(objectType) &&
+            (['*', thisOutput.id].includes(objectId) ||
+              objectId === `[${iReport}]`)
           ) {
             sedObjects.push(thisOutput as SedReport);
           }
         }
       }
     }
-    
+
     if (!multipleSedObjects && !sedObjects.length) {
       return undefined;
     }

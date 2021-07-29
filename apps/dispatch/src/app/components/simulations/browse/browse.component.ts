@@ -175,7 +175,7 @@ export class BrowseComponent implements OnInit {
         return UtilsService.getDateString(value);
       },
       toolTipFormatter: (value: Date): string => {
-        return UtilsService.getDateTimeString(value);      
+        return UtilsService.getDateTimeString(value);
       },
       filterType: ColumnFilterType.date,
       minWidth: 78,
@@ -186,7 +186,7 @@ export class BrowseComponent implements OnInit {
       heading: 'Last updated',
       key: 'updated',
       formatter: (value: Date): string => {
-        return UtilsService.getDateString(value);;
+        return UtilsService.getDateString(value);
       },
       toolTipFormatter: (value: Date): string => {
         return UtilsService.getDateTimeString(value);

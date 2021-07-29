@@ -169,8 +169,8 @@ export class UtilsService {
       ':' +
       value.getMinutes().toString().padStart(2, '0') +
       ':' +
-      value.getSeconds().toString().padStart(2, '0') + 
-      ' ' + 
+      value.getSeconds().toString().padStart(2, '0') +
+      ' ' +
       (value.getHours() <= 11 ? 'AM' : 'PM')
     );
   }

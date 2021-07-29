@@ -194,7 +194,7 @@ export class VisualizationService {
     // TODO write tests
     return locationId.split('/').reverse().slice(1).reverse().join('/');
   }
-  
+
   public getOutputIdFromSedmlLocationId(location: string): string {
     return location.split('/').reverse()[0];
   }
