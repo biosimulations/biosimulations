@@ -15,7 +15,7 @@ EXAMPLE_COMBINE_ARCHIVES_BASE_URL = 'https://github.com/biosimulators/Biosimulat
 
 EXAMPLE_SIMULATIONS_FILENAME = __file__ + '.json'
 
-SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://run.api.biosimulations.{}/run'
+SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://run.api.biosimulations.{}/runs'
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  '..', 'apps', 'dispatch', 'src', 'app', 'components',
                                                  'simulations', 'browse', 'example-simulations.{}.json')
@@ -89,8 +89,8 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
                                   '-X', 'POST', SUBMIT_SIMULATION_RUN_ENDPOINT.format(
                                       runbiosimulations_api),
                                   '-H', "accept: application/json",
-                                  '-H',  "Content-Type: multipart/form-data",
-                                  '-F', "simulationRun=" + json.dumps({
+                                  '-H', "Content-Type: application/json",
+                                  '-d', json.dumps({
                                       "name": name,
                                       'simulator': simulator,
                                       "simulatorVersion": simulator_version,
@@ -99,12 +99,17 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
                                       "maxTime": 20,
                                       "email": None,
                                       "public": False,
+                                      "url": url,
                                   }),
-                                  '-F', "file=@{}".format(archive_filename)
                                   ], capture_output=True)
         simulation_run = json.loads(process.stdout.decode())
-        print("Submitted simulation: " + simulation_run['id'])
-        print("View: https://run.biosimulations.{}/simulations/{}".format(runbiosimulations_api, simulation_run['id']))
+        if 'id' in simulation_run:
+            print("Submitted simulation: " + simulation_run['id'])
+            print("View: https://run.biosimulations.{}/simulations/{}".format(runbiosimulations_api, simulation_run['id']))
+        else:
+            raise RuntimeError('Simulation could not be run on {}: {}'.format(
+                SUBMIT_SIMULATION_RUN_ENDPOINT.format(runbiosimulations_api),
+                simulation_run['error']))
 
         # log run
         simulation_runs.append({

@@ -120,7 +120,7 @@ class HandlersTestCase(unittest.TestCase):
             self.FIXTURES_DIR, self.TEST_CASE + '.sed-specs.json')
         with open(sed_output_specs_filename, 'r') as file:
             expected_combine_specs = json.load(file)
-        self.assertEqual(combine_specs, expected_combine_specs)
+        self.assertEqual(combine_specs, expected_combine_specs, combine_specs)
 
         fid.close()
 
@@ -1464,7 +1464,7 @@ class HandlersTestCase(unittest.TestCase):
             },
             'predicate': {
                 '_type': 'RdfUriNode',
-                'value': 'https://dublincore.org/specifications/dublin-core/dcmi-terms/title',
+                'value': 'http://dublincore.org/specifications/dublin-core/dcmi-terms/title',
             },
             'object': {
                 '_type': 'RdfLiteralNode',

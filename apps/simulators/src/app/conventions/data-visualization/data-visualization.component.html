@@ -97,23 +97,57 @@
         </li>
         <li>Encode these diagramatic structures into Vega.</li>
         <li>
-          Indicate the Vega signals whose values should be rendered with the
-          values of the attributes of SED-ML simulations by adding the key
-          <code>sedmlUri</code> to such Vega signals. The values of these keys
-          should be lists of the locations of the SED-ML documents, the ids of
-          the SED-ML simulations, the names of the desired attributes of the
-          simulations (e.g.,
-          <code
-            >['location/of/simulation.sedml', 'simulationId',
-            'numberOfSteps']</code
-          >).
+          <p>
+            Indicate the Vega signals whose attributes should be rendered with the
+            values of the attributes of SED-ML simulations.
+          </p>
+
+          <ul>
+            <li>
+              To render the <code>value</code> of a Vega signal with information
+              from a SED-ML file, add the key <code>sedmlUri</code> to the Vega signal.
+            </li>
+            <li>
+              To render an attribute of the <code>bind</code> attribute of a Vega signal
+              with information from a SED-ML file, set the value of the attribute equal to
+              a dictionary with a single key <code>sedmlUri</code>.
+            </li>
+          </ul>
+
+          <p>
+            The value of each <code>sedmlUri</code> key should be a list of the location 
+            of the SED-ML document, the id of the SED-ML simulation or report, and the 
+            name of the attribute of the simulation or report that the value of the signal or 
+            attribute of the bind attribute of the signal should be rendered with (e.g.,
+            <code
+              >['location/of/simulation.sedml', 'simulationId',
+              'numberOfSteps']</code
+            >). To indicate that a <code>sedmlUri</code> key should be rendered with a list of
+            the values of an attribute of multiple simulations or reports, use <code>SedDocument:*</code>,
+            <code>Simulation:*</code>, or <code>Report:*</code> for the SED-ML document location 
+            or simulation/report id (e.g., <code>['SedDocument:*', 'Report:*', 'id']</code> to render
+            an attribute with a list of the ids of the all of the reports of all of the SED-ML files
+            in the COMBINE/OMEX archive).
+          </p>
         </li>
         <li>
-          Indicate the Vega data sets who values should be rendered with the
+          Indicate the Vega data sets whose values should be rendered with the
           results of SED-ML reports by adding a key <code>sedmlUri</code> to
-          such Vega datas. The values of these keys should be lists of the
-          locations of the SED-ML documents and the ids of the SED-ML reports
-          (e.g., <code>['location/of/simulation.sedml', 'reportId']</code>).
+          such Vega datas. The values of these keys should be set as follows:
+          <ul>
+            <li>
+              To render a Vega data set with the results of all of the reports 
+              of all of the SED-ML files in the parent COMBINE/OMEX archive, the 
+              value of <code>sedmlUri</code> should be set to an empty array (<code>[]</code>).
+            </li>
+            <li>
+              To render a Vega data set with the result of a single report of
+              one of the SED-ML files in the parent COMBINE/OMEX archive, the
+              value of <code>sedmlUri</code> should be set to a list of the 
+              location of the SED-ML document and the id of the SED-ML report
+              (e.g., <code>['location/of/simulation.sedml', 'reportId']</code>).
+            </li>
+          </ul>
         </li>
         <li>
           Package the SED-ML and Vega files into a COMBINE/OMEX archive. Include
@@ -169,7 +203,7 @@
           Use Vega-Embed
           <a href="https://github.com/vega/vega-embed" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >to render the resultant Vega visualizations.
+          > to render the resultant Vega visualizations.
         </li>
       </ol>
 

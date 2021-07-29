@@ -99,6 +99,7 @@ def handler(body, file=None):
             sed_model_spec = {
                 "_type": "SedModel",
                 "id": model.id,
+                "name": model.name,
                 "source": model.source,
                 "language": model.language,
                 "changes": [],
@@ -111,6 +112,7 @@ def handler(body, file=None):
         for sim in sed_doc.simulations:
             sed_sim_spec = {
                 "id": sim.id,
+                "name": sim.name,
                 "algorithm": {
                     "_type": "SedAlgorithm",
                     "kisaoId": sim.algorithm.kisao_id,
@@ -149,6 +151,7 @@ def handler(body, file=None):
         for task in sed_doc.tasks:
             sed_task_spec = {
                 "id": task.id,
+                "name": task.name,
             }
 
             if isinstance(task, Task):
@@ -169,6 +172,7 @@ def handler(body, file=None):
             sed_data_generator_spec = {
                 '_type': 'SedDataGenerator',
                 'id': data_generator.id,
+                'name': data_generator.name,
                 'variables': [],
                 'math': data_generator.math,
             }
@@ -184,6 +188,7 @@ def handler(body, file=None):
                 sed_doc_output_specs = {
                     '_type': 'SedReport',
                     'id': output.id,
+                    'name': output.name,
                     'dataSets': [],
                 }
 
@@ -194,11 +199,13 @@ def handler(body, file=None):
                     data_set_specs = {
                         '_type': 'SedDataSet',
                         'id': data_set.id,
+                        'name': data_set.name,
                         'dataGenerator': {
                             '_type': 'SedDataGenerator',
                             '_resultsDataSetId': get_results_data_set_id(
                                 content, output, data_set),
                             'id': data_set.data_generator.id,
+                            'name': data_set.data_generator.name,
                             'variables': [],
                             'math': data_set.data_generator.math,
                         }
@@ -218,6 +225,7 @@ def handler(body, file=None):
                 sed_doc_output_specs = {
                     '_type': 'SedPlot2D',
                     'id': output.id,
+                    'name': output.name,
                     'curves': [],
                     'xScale': None,
                     'yScale': None,
@@ -237,11 +245,13 @@ def handler(body, file=None):
                     curve_specs = {
                         '_type': 'SedCurve',
                         'id': curve.id,
+                        'name': curve.name,
                         'xDataGenerator': {
                             '_type': 'SedDataGenerator',
                             '_resultsDataSetId': get_results_data_set_id(
                                 content, output, curve.x_data_generator),
                             'id': curve.x_data_generator.id,
+                            'name': curve.x_data_generator.name,
                             'variables': [],
                             'math': curve.x_data_generator.math,
                         },
@@ -250,6 +260,7 @@ def handler(body, file=None):
                             '_resultsDataSetId': get_results_data_set_id(
                                 content, output, curve.y_data_generator),
                             'id': curve.y_data_generator.id,
+                            'name': curve.y_data_generator.name,
                             'variables': [],
                             'math': curve.y_data_generator.math,
                         },
@@ -280,6 +291,7 @@ def handler(body, file=None):
                 sed_doc_output_specs = {
                     '_type': 'SedPlot3D',
                     'id': output.id,
+                    'name': output.name,
                     'surfaces': [],
                     'xScale': None,
                     'yScale': None,
@@ -302,11 +314,13 @@ def handler(body, file=None):
                     surface_specs = {
                         '_type': 'SedSurface',
                         'id': surface.id,
+                        'name': surface.name,
                         'xDataGenerator': {
                             '_type': 'SedDataGenerator',
                             '_resultsDataSetId': get_results_data_set_id(
                                 content, output, surface.x_data_generator),
                             'id': surface.x_data_generator.id,
+                            'name': surface.x_data_generator.name,
                             'variables': [],
                             'math': surface.x_data_generator.math,
                         },
@@ -315,6 +329,7 @@ def handler(body, file=None):
                             '_resultsDataSetId': get_results_data_set_id(
                                 content, output, surface.y_data_generator),
                             'id': surface.y_data_generator.id,
+                            'name': surface.y_data_generator.name,
                             'variables': [],
                             'math': surface.y_data_generator.math,
                         },
@@ -323,6 +338,7 @@ def handler(body, file=None):
                             '_resultsDataSetId': get_results_data_set_id(
                                 content, output, surface.z_data_generator),
                             'id': surface.z_data_generator.id,
+                            'name': surface.z_data_generator.name,
                             'variables': [],
                             'math': surface.z_data_generator.math,
                         },

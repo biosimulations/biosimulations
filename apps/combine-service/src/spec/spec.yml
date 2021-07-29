@@ -2327,7 +2327,7 @@ components:
           value: http://omex-libary.org/MyCombineArchive.omex
         predictate:
           _type: uri
-          value: https://dublincore.org/specifications/dublin-core/dcmi-terms/title
+          value: http://dublincore.org/specifications/dublin-core/dcmi-terms/title
         object:
           _type: literal
           value: Title of my COMBINE archive
