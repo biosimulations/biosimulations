@@ -8,6 +8,10 @@
     {
       "matchDepTypes": ["devDependencies"],
       "addLabels": ["dev"]
+    },
+    {
+      "matchUpdateTypes": ["pin"],
+      "automerge": true
     }
   ],
   "prConcurrentLimit": 3
