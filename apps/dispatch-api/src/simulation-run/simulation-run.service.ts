@@ -317,10 +317,10 @@ export class SimulationRunService {
         `Set ${model.id} status to ${model.status} on update ${model.refreshCount} `,
       );
       this.updateModelRunTime(model);
-      if (status == SimulationRunStatus.SUCCEEDED) {
+      if (status == SimulationRunStatus.FAILED) {
         const message = new DispatchFailedPayload(model.id);
         this.client.emit(DispatchMessage.failed, message);
-      } else if (status == SimulationRunStatus.FAILED) {
+      } else if (status == SimulationRunStatus.SUCCEEDED) {
         const message = new DispatchProcessedPayload(model.id);
         this.client.emit(DispatchMessage.processed, message);
       }
