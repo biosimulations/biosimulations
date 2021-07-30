@@ -12,6 +12,10 @@
     {
       "matchUpdateTypes": ["pin"],
       "automerge": true
+    },
+    {
+      "matchPackagePrefixes": ["@types"],
+      "automerge": true
     }
   ],
   "prConcurrentLimit": 3
