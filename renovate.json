@@ -15,7 +15,12 @@
     },
     {
       "matchPackagePrefixes": ["@types"],
-      "automerge": true
+      "automerge": true, 
+      "groupName": "types"
+    },
+     {
+      "matchPackagePrefixes": [ "@angular" ],
+      "groupName": "angular"
     }
   ],
   "prConcurrentLimit": 3
