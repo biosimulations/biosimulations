@@ -1,3 +1,11 @@
+## [3.4.1](https://github.com/biosimulations/Biosimulations/compare/v3.4.0...v3.4.1) (2021-07-30)
+
+
+### Bug Fixes
+
+* **deps:** pin dependency @ngbmodule/material-carousel to 0.7.1 ([0d1acde](https://github.com/biosimulations/Biosimulations/commit/0d1acde594b0bc455c50209603684b8da7f66a02))
+* **dispatch-api:** send correct message when simulation status changes ([a3c9c62](https://github.com/biosimulations/Biosimulations/commit/a3c9c6235102a33dafbc8414d0d5535c1a641f2f)), closes [#2739](https://github.com/biosimulations/Biosimulations/issues/2739)
+
 # [3.4.0](https://github.com/biosimulations/Biosimulations/compare/v3.3.0...v3.4.0) (2021-07-29)
 
 
