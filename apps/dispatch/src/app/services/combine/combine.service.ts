@@ -5,7 +5,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, timeout } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 import { environment } from '@biosimulations/shared/environments';
 import { CombineArchive } from '../../combine-sedml.interface';
@@ -127,6 +127,7 @@ export class CombineService {
         params: params,
       })
       .pipe(
+        timeout(2500),
         catchError((error: HttpErrorResponse): Observable<undefined> => {
           if (!environment.production) {
             console.error(error);
