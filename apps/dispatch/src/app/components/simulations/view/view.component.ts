@@ -1400,8 +1400,8 @@ export class ViewComponent implements OnInit, OnDestroy {
     while (curvesFormArray.length < numCurves) {
       const curve = this.formBuilder.group({
         name: [null],
-        xData: [null, [Validators.required]],
-        yData: [null, [Validators.required]],
+        xData: [[], [Validators.required]],
+        yData: [[], [Validators.required]],
       });
       curvesFormArray.push(curve);
     }
@@ -1621,33 +1621,48 @@ export class ViewComponent implements OnInit, OnDestroy {
       let missingData = false;
 
       for (const curve of this.user2DLineScatterCurvesFormGroups) {
-        const xDataUri = (curve.controls.xData as FormControl).value;
-        const yDataUri = (curve.controls.yData as FormControl).value;
-        if (xDataUri && yDataUri) {
-          const xDataSet = this.sedDataSetConfigurationMap[xDataUri];
-          const yDataSet = this.sedDataSetConfigurationMap[yDataUri];
-          const xLabel = xDataSet.name || xDataSet.label || xDataSet.id;
-          const yLabel = yDataSet.name || yDataSet.label || yDataSet.id;
-          const name =
-            (curve.controls.name as FormControl).value ||
-            `${yLabel} vs ${xLabel}`;
+        for (const xDataUri of (curve.controls.xData as FormControl).value) {
+          for (const yDataUri of (curve.controls.yData as FormControl).value) {
+            const xDataSet = this.sedDataSetConfigurationMap[xDataUri];
+            const yDataSet = this.sedDataSetConfigurationMap[yDataUri];
+            const xLabel = xDataSet.name || xDataSet.label || xDataSet.id;
+            const yLabel = yDataSet.name || yDataSet.label || yDataSet.id;
+            let name!: string;
+            if ((curve.controls.name as FormControl).value) {
+              name = (curve.controls.name as FormControl).value;
 
-          const trace = {
-            name: name,
-            x: this.userSimulationResults?.[xDataUri]?.values,
-            y: this.userSimulationResults?.[yDataUri]?.values,
-            xaxis: 'x1',
-            yaxis: 'y1',
-            type: TraceType.scatter,
-            mode: traceMode,
-          };
+              const attributes = [];
+              if ((curve.controls.xData as FormControl).value.length > 1) {
+                attributes.push(`x: ${xLabel}`);
+              }
+              if ((curve.controls.yData as FormControl).value.length > 1) {
+                attributes.push(`y: ${yLabel}`);
+              }
 
-          if (trace.x && trace.y) {
-            traces.push(trace);
-            xAxisTitlesSet.add(xLabel);
-            yAxisTitlesSet.add(yLabel);
-          } else if (xDataUri && yDataUri) {
-            missingData = true;
+              if (attributes.length) {
+                name += ` (${attributes.join(', ')})`;
+              }
+            } else {
+              name = `${yLabel} vs ${xLabel}`;
+            }
+
+            const trace = {
+              name: name,
+              x: this.userSimulationResults?.[xDataUri]?.values,
+              y: this.userSimulationResults?.[yDataUri]?.values,
+              xaxis: 'x1',
+              yaxis: 'y1',
+              type: TraceType.scatter,
+              mode: traceMode,
+            };
+
+            if (trace.x && trace.y) {
+              traces.push(trace);
+              xAxisTitlesSet.add(xLabel);
+              yAxisTitlesSet.add(yLabel);
+            } else if (xDataUri && yDataUri) {
+              missingData = true;
+            }
           }
         }
       }
@@ -1884,51 +1899,51 @@ export class ViewComponent implements OnInit, OnDestroy {
         const yAxisTitlesSet = new Set<string>();
 
         for (const curve of this.user2DLineScatterCurvesFormGroups) {
-          const xDataUri = (curve.controls.xData as FormControl).value;
-          const yDataUri = (curve.controls.yData as FormControl).value;
-          if (
-            xDataUri &&
-            yDataUri &&
-            this.userSimulationResults &&
-            xDataUri in this.userSimulationResults &&
-            yDataUri in this.userSimulationResults
-          ) {
-            const xDataSet = this.sedDataSetConfigurationMap[xDataUri];
-            const yDataSet = this.sedDataSetConfigurationMap[yDataUri];
-            const xLabel = xDataSet.name || xDataSet.label || xDataSet.id;
-            const yLabel = yDataSet.name || yDataSet.label || yDataSet.id;
+          for (const xDataUri of (curve.controls.xData as FormControl).value) {
+            for (const yDataUri of (curve.controls.yData as FormControl).value) {
+              if (
+                this.userSimulationResults &&
+                xDataUri in this.userSimulationResults &&
+                yDataUri in this.userSimulationResults
+              ) {
+                const xDataSet = this.sedDataSetConfigurationMap[xDataUri];
+                const yDataSet = this.sedDataSetConfigurationMap[yDataUri];
+                const xLabel = xDataSet.name || xDataSet.label || xDataSet.id;
+                const yLabel = yDataSet.name || yDataSet.label || yDataSet.id;
 
-            const xDataUriParts = xDataUri.split('/');
-            const yDataUriParts = yDataUri.split('/');
-            const xOutputUri = xDataUriParts
-              .slice(0, xDataUriParts.length - 1)
-              .join('/');
-            const yOutputUri = yDataUriParts
-              .slice(0, yDataUriParts.length - 1)
-              .join('/');
+                const xDataUriParts = xDataUri.split('/');
+                const yDataUriParts = yDataUri.split('/');
+                const xOutputUri = xDataUriParts
+                  .slice(0, xDataUriParts.length - 1)
+                  .join('/');
+                const yOutputUri = yDataUriParts
+                  .slice(0, yDataUriParts.length - 1)
+                  .join('/');
 
-            if (!(xOutputUri in selectedDataSets)) {
-              selectedDataSets[xOutputUri] = [];
+                if (!(xOutputUri in selectedDataSets)) {
+                  selectedDataSets[xOutputUri] = [];
+                }
+                if (!(yOutputUri in selectedDataSets)) {
+                  selectedDataSets[yOutputUri] = [];
+                }
+                selectedDataSets[xOutputUri].push(
+                  xDataUriParts[xDataUriParts.length - 1],
+                );
+                selectedDataSets[yOutputUri].push(
+                  yDataUriParts[yDataUriParts.length - 1],
+                );
+
+                const conditions = [
+                  `datum.X.outputUri === '${xOutputUri}'`,
+                  `datum.X.id == '${xDataSet.id}'`,
+                  `datum.Y.outputUri === '${yOutputUri}'`,
+                  `datum.Y.id == '${yDataSet.id}'`,
+                ];
+                curveFilters.push(`(${conditions.join(' && ')})`);
+                xAxisTitlesSet.add(xLabel);
+                yAxisTitlesSet.add(yLabel);
+              }
             }
-            if (!(yOutputUri in selectedDataSets)) {
-              selectedDataSets[yOutputUri] = [];
-            }
-            selectedDataSets[xOutputUri].push(
-              xDataUriParts[xDataUriParts.length - 1],
-            );
-            selectedDataSets[yOutputUri].push(
-              yDataUriParts[yDataUriParts.length - 1],
-            );
-
-            const conditions = [
-              `datum.X.outputUri === '${xOutputUri}'`,
-              `datum.X.id == '${xDataSet.id}'`,
-              `datum.Y.outputUri === '${yOutputUri}'`,
-              `datum.Y.id == '${yDataSet.id}'`,
-            ];
-            curveFilters.push(`(${conditions.join(' && ')})`);
-            xAxisTitlesSet.add(xLabel);
-            yAxisTitlesSet.add(yLabel);
           }
         }
 
