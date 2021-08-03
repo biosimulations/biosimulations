@@ -81,6 +81,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   projectUrlControl: FormControl;
   modelFormatsControl: FormControl;
   simulationAlgorithmsControl: FormControl;
+  simulationAlgorithmSubstitutionPolicyControl: FormControl;
   private simulatorControl: FormControl;
   private simulatorVersionControl: FormControl;
   private cpusControl: FormControl;
@@ -180,6 +181,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
       .modelFormats as FormControl;
     this.simulationAlgorithmsControl = this.formGroup.controls
       .simulationAlgorithms as FormControl;
+    this.simulationAlgorithmSubstitutionPolicyControl = this.formGroup.controls
+      .simulationAlgorithmSubstitutionPolicy as FormControl;
     this.simulatorControl = this.formGroup.controls.simulator as FormControl;
     this.simulatorVersionControl = this.formGroup.controls
       .simulatorVersion as FormControl;
@@ -194,6 +197,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.projectUrlControl.disable();
     this.modelFormatsControl.disable();
     this.simulationAlgorithmsControl.disable();
+    this.simulationAlgorithmSubstitutionPolicyControl.disable();
     this.simulatorControl.disable();
     this.simulatorVersionControl.disable();
 
@@ -272,6 +276,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
         (
           simulatorsData: SimulatorsData,
         ): Observable<AlgorithmSubstitution[] | undefined> => {
+
+
           return this.combineService.getSimilarAlgorithms(
             Object.keys(simulatorsData.simulationAlgorithms),
           );
@@ -289,7 +295,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
           Params,
         ],
       ): void => {
-        const algSubs = observerableValues[0] as
+        const curatedAlgSubs = observerableValues[0] as
           | AlgorithmSubstitution[]
           | undefined;
         const simulatorsData = observerableValues[1] as SimulatorsData;
@@ -303,84 +309,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.modelFormats = Object.values(this.modelFormatsMap);
 
         const simulationAlgorithmsMap: any = {};
-        if (algSubs) {
-          algSubs
-            .filter((algorithmSubstitution: AlgorithmSubstitution): boolean => {
-              return (
-                algorithmSubstitution.maxPolicy.level <=
-                AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK
-              );
-            })
-            .forEach((algorithmSubstitution: AlgorithmSubstitution): void => {
-              algorithmSubstitution.algorithms.forEach(
-                (algorithm: KisaoAlgorithm): void => {
-                  if (!(algorithm.id in simulationAlgorithmsMap)) {
-                    simulationAlgorithmsMap[algorithm.id] = {
-                      id: algorithm.id,
-                      name: algorithm.name,
-                      simulatorPolicies: {},
-                      disabled: false,
-                    };
-                  }
-                },
-              );
-
-              const mainAlg = algorithmSubstitution.algorithms[0];
-              const altAlg = algorithmSubstitution.algorithms[1];
-              const subPolicy = algorithmSubstitution.maxPolicy;
-
-              Array.from(
-                simulatorsData.simulationAlgorithms[mainAlg.id].simulators,
-              ).forEach((simulator: string): void => {
-                // main implementation
-                simulationAlgorithmsMap[mainAlg.id].simulatorPolicies[
-                  simulator
-                ] = {
-                  maxPolicy: {
-                    id: 'SAME_METHOD',
-                    name: 'Same method',
-                    level: AlgorithmSubstitutionPolicyLevels.SAME_METHOD,
-                  },
-                  simulator: {
-                    id: simulator,
-                    name: simulatorsData.simulatorSpecs[simulator].name,
-                  },
-                };
-
-                // alternatives
-                if (
-                  !(
-                    simulator in
-                    simulationAlgorithmsMap[altAlg.id].simulatorPolicies
-                  )
-                ) {
-                  simulationAlgorithmsMap[altAlg.id].simulatorPolicies[
-                    simulator
-                  ] = {
-                    maxPolicy: subPolicy,
-                    simulator: {
-                      id: simulator,
-                      name: simulatorsData.simulatorSpecs[simulator].name,
-                    },
-                  };
-                }
-
-                if (
-                  subPolicy.level <
-                  simulationAlgorithmsMap[altAlg.id].simulatorPolicies[
-                    simulator
-                  ].maxPolicy.level
-                ) {
-                  simulationAlgorithmsMap[altAlg.id].simulatorPolicies[
-                    simulator
-                  ].maxPolicy = subPolicy;
-                }
-              });
-            });
-
-          Object.values(simulationAlgorithmsMap).forEach((alg: any): void => {
-            alg.simulatorPolicies = Object.values(alg.simulatorPolicies);
-          });
+        let algSubs!: AlgorithmSubstitution[];
+        if (curatedAlgSubs) {
+          algSubs = curatedAlgSubs;
         } else {
           this.snackBar.open(
             'Sorry! We were unable to load information about the simularity among algorithms.',
@@ -391,7 +322,100 @@ export class DispatchComponent implements OnInit, OnDestroy {
               verticalPosition: 'bottom',
             },
           );
+
+          algSubs = Object.entries(simulatorsData.simulationAlgorithms).map(
+            (keyVal: [string, OntologyTerm]): AlgorithmSubstitution => {
+              const alg: KisaoAlgorithm = {
+                _type: 'Algorithm',
+                id: keyVal[1].id,
+                name: keyVal[1].name,
+              };
+              return {
+                _type: 'AlgorithmSubstitution',
+                algorithms: [alg, alg],
+                maxPolicy: ALGORITHM_SUBSTITUTION_POLICIES[AlgorithmSubstitutionPolicyLevels.SAME_METHOD],
+              };
+            }
+          );
         }
+
+        algSubs
+          .filter((algorithmSubstitution: AlgorithmSubstitution): boolean => {
+            return (
+              algorithmSubstitution.maxPolicy.level <=
+              AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK
+            );
+          })
+          .forEach((algorithmSubstitution: AlgorithmSubstitution): void => {
+            algorithmSubstitution.algorithms.forEach(
+              (algorithm: KisaoAlgorithm): void => {
+                if (!(algorithm.id in simulationAlgorithmsMap)) {
+                  simulationAlgorithmsMap[algorithm.id] = {
+                    id: algorithm.id,
+                    name: algorithm.name,
+                    simulatorPolicies: {},
+                    disabled: false,
+                  };
+                }
+              },
+            );
+
+            const mainAlg = algorithmSubstitution.algorithms[0];
+            const altAlg = algorithmSubstitution.algorithms[1];
+            const subPolicy = algorithmSubstitution.maxPolicy;
+
+            Array.from(
+              simulatorsData.simulationAlgorithms[mainAlg.id].simulators,
+            ).forEach((simulator: string): void => {
+              // main implementation
+              simulationAlgorithmsMap[mainAlg.id].simulatorPolicies[
+                simulator
+              ] = {
+                maxPolicy: {
+                  id: 'SAME_METHOD',
+                  name: 'Same method',
+                  level: AlgorithmSubstitutionPolicyLevels.SAME_METHOD,
+                },
+                simulator: {
+                  id: simulator,
+                  name: simulatorsData.simulatorSpecs[simulator].name,
+                },
+              };
+
+              // alternatives
+              if (
+                !(
+                  simulator in
+                  simulationAlgorithmsMap[altAlg.id].simulatorPolicies
+                )
+              ) {
+                simulationAlgorithmsMap[altAlg.id].simulatorPolicies[
+                  simulator
+                ] = {
+                  maxPolicy: subPolicy,
+                  simulator: {
+                    id: simulator,
+                    name: simulatorsData.simulatorSpecs[simulator].name,
+                  },
+                };
+              }
+
+              if (
+                subPolicy.level <
+                simulationAlgorithmsMap[altAlg.id].simulatorPolicies[
+                  simulator
+                ].maxPolicy.level
+              ) {
+                simulationAlgorithmsMap[altAlg.id].simulatorPolicies[
+                  simulator
+                ].maxPolicy = subPolicy;
+              }
+            });
+          });
+
+        Object.values(simulationAlgorithmsMap).forEach((alg: any): void => {
+          alg.simulatorPolicies = Object.values(alg.simulatorPolicies);
+        });
 
         this.simulationAlgorithmsMap = simulationAlgorithmsMap;
         this.simulationAlgorithms = Object.values(simulationAlgorithmsMap);
@@ -419,6 +443,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
         // Enable select menus
         this.modelFormatsControl.enable();
         this.simulationAlgorithmsControl.enable();
+        if (curatedAlgSubs) {
+          this.simulationAlgorithmSubstitutionPolicyControl.setValue(AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK);
+          this.simulationAlgorithmSubstitutionPolicyControl.enable();
+        } else {
+          this.simulationAlgorithmSubstitutionPolicyControl.setValue(AlgorithmSubstitutionPolicyLevels.SAME_METHOD);
+        }
         this.simulatorControl.enable();
 
         // Initialize value of form according to query arguments

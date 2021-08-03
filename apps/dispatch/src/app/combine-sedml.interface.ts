@@ -95,7 +95,7 @@ export interface SedDataGenerator {
 export interface SedDataSet {
   _type: 'SedDataSet';
   id: string;
-  dataGenerator: SedDataGenerator;
+  dataGenerator?: SedDataGenerator;
   name: string | null;
   label: string | null;
 }
