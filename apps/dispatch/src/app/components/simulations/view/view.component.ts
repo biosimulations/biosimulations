@@ -29,7 +29,14 @@ import {
 } from './plotly-visualization/plotly-visualization.component';
 import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
-import { Simulation, SedDatasetResultsMap } from '../../../datamodel';
+import {
+  Simulation,
+  SedDatasetResultsMap,
+  CombineResults,
+  SedDocumentResults,
+  SedOutputResults,
+  SedDatasetResults,
+} from '../../../datamodel';
 import {
   CombineArchive,
   CombineArchiveContent,
@@ -40,6 +47,7 @@ import {
   SedAbstractTask,
   SedDataGenerator,
   SedOutput,
+  SedOutputType,
   SedPlot2D,
   SedReport,
   SedDataSet,
@@ -345,12 +353,32 @@ export class ViewComponent implements OnInit, OnDestroy {
       );
     this.subscriptions.push(sedDocumentsConfigurationSub);
 
+
+    const combineResultStructure = this.statusSucceeded$.pipe(
+      map((succeeded: boolean): Observable<CombineResults | undefined> => {
+        return succeeded
+          ? this.visualizationService.getCombineResultsStructure(
+              this.uuid,
+            )
+          : of([]);
+      }),
+      concatAll(),
+      shareReplay(1),
+    );
+
     this.sedDocumentReportsConfiguration$ =
-      this.sedDocumentsConfiguration$.pipe(
+      combineLatest(
+        this.sedDocumentsConfiguration$,
+        combineResultStructure,
+      )
+      .pipe(
         map(
           (
-            archive: CombineArchive | undefined,
+            args: [CombineArchive | undefined, CombineResults | undefined],
           ): SedDocumentReportsCombineArchiveContent[] => {
+            let archive = args[0];
+            const combineResults = args[1];
+
             if (archive) {
               archive = JSON.parse(JSON.stringify(archive)) as CombineArchive;
               archive.contents.forEach(
@@ -361,9 +389,70 @@ export class ViewComponent implements OnInit, OnDestroy {
                       return output._type === 'SedReport';
                     },
                   );
+                  sedDoc.outputs.sort((a: SedOutput, b: SedOutput): number => {
+                    return (a.name || a.id).localeCompare((b.name || b.id), undefined, { numeric: true });
+                  });
                 },
               );
+              archive.contents.sort((a: CombineArchiveContent, b: CombineArchiveContent): number => {
+                return a.location.path.localeCompare(b.location.path, undefined, { numeric: true });
+              });
               return archive.contents as SedDocumentReportsCombineArchiveContent[];
+
+            } else if (combineResults) {
+              this.snackBar.open(
+                'Sorry! We were unable to get the SED-ML and Vega charts for this project.',
+                undefined,
+                {
+                  duration: 5000,
+                  horizontalPosition: 'center',
+                  verticalPosition: 'bottom',
+                },
+              );
+
+              return combineResults
+                .map((sedDocumentResults: SedDocumentResults): SedDocumentReportsCombineArchiveContent => {
+                  return {
+                    _type: 'CombineArchiveContent',
+                    location: {
+                      _type: 'CombineArchiveLocation',
+                      path: sedDocumentResults.location,
+                      value: {
+                        _type: 'SedDocument',
+                        level: 0,
+                        version: 0,
+                        models: [],
+                        simulations: [],
+                        tasks: [],
+                        dataGenerators: [],
+                        outputs: sedDocumentResults.outputs.map((outputResults: SedOutputResults): SedReport => {
+                          return {
+                            _type: SedOutputType.SedReport,
+                            id: outputResults.id,
+                            name: null,
+                            dataSets: outputResults.datasets.map((dataSetResults: SedDatasetResults): SedDataSet => {
+                              return {
+                                _type: 'SedDataSet',
+                                id: dataSetResults.id,
+                                label: dataSetResults.label,
+                                name: null,
+                                dataGenerator: undefined,
+                              };
+                            }),
+                          }
+                        })
+                        .sort((a: SedReport, b: SedReport): number => {
+                          return a.id.localeCompare(b.id, undefined, { numeric: true });
+                        }),
+                      },
+                    },
+                    format: 'http://identifiers.org/combine.specifications/sed-ml',
+                    master: true,
+                  }
+                })
+                .sort((a: SedDocumentReportsCombineArchiveContent, b: SedDocumentReportsCombineArchiveContent): number => {
+                  return a.location.path.localeCompare(b.location.path, undefined, { numeric: true });
+                });
             } else {
               return [];
             }
@@ -407,47 +496,49 @@ export class ViewComponent implements OnInit, OnDestroy {
           const sedmlSpecs = args[2];
 
           const visualizations: Visualization[] = [];
-          if (succeeded && manifest && sedmlSpecs) {
-            for (const content of manifest.contents) {
-              if (
-                content.format ==
-                'http://purl.org/NET/mediatypes/application/vega+json'
-              ) {
-                visualizations.push({
-                  id:
-                    'vega/' +
-                    (content.location.value as CombineArchiveContentFile)
-                      .filename,
-                  source: VisualizationSource.vega,
-                  type: VisualizationType.vega,
-                  renderer: VisualizationRenderer.vega,
-                  uri: (content.location.value as CombineArchiveContentFile)
-                    .filename,
-                  label:
-                    (content.location.value as CombineArchiveContentFile)
-                      .filename + ' (Vega)',
-                  vegaSpec: of(undefined),
-                  sedmlOutputSpec: undefined,
-                });
-              }
-            }
-
-            for (const content of sedmlSpecs.contents) {
-              const sedDocument = content.location.value as SedDocument;
-              for (const output of sedDocument.outputs) {
-                if (['SedPlot2D'].includes(output._type)) {
+          if (succeeded) {
+            if (manifest && sedmlSpecs) {
+              for (const content of manifest.contents) {
+                if (
+                  content.format ==
+                  'http://purl.org/NET/mediatypes/application/vega+json'
+                ) {
                   visualizations.push({
-                    id: `sedml/${content.location.path}/${output.id}`,
-                    source: VisualizationSource.sedml,
-                    type: VisualizationType.sedml,
-                    renderer: VisualizationRenderer.plotly,
-                    uri: `${content.location.path}/${output.id}`,
-                    label: `${output.name || output.id} of ${
-                      content.location.path
-                    } (SED-ML 2D line plot)`,
+                    id:
+                      'vega/' +
+                      (content.location.value as CombineArchiveContentFile)
+                        .filename,
+                    source: VisualizationSource.vega,
+                    type: VisualizationType.vega,
+                    renderer: VisualizationRenderer.vega,
+                    uri: (content.location.value as CombineArchiveContentFile)
+                      .filename,
+                    label:
+                      (content.location.value as CombineArchiveContentFile)
+                        .filename + ' (Vega)',
                     vegaSpec: of(undefined),
-                    sedmlOutputSpec: output as SedPlot2D,
+                    sedmlOutputSpec: undefined,
                   });
+                }
+              }
+
+              for (const content of sedmlSpecs.contents) {
+                const sedDocument = content.location.value as SedDocument;
+                for (const output of sedDocument.outputs) {
+                  if (['SedPlot2D'].includes(output._type)) {
+                    visualizations.push({
+                      id: `sedml/${content.location.path}/${output.id}`,
+                      source: VisualizationSource.sedml,
+                      type: VisualizationType.sedml,
+                      renderer: VisualizationRenderer.plotly,
+                      uri: `${content.location.path}/${output.id}`,
+                      label: `${output.name || output.id} of ${
+                        content.location.path
+                      } (SED-ML 2D line plot)`,
+                      vegaSpec: of(undefined),
+                      sedmlOutputSpec: output as SedPlot2D,
+                    });
+                  }
                 }
               }
             }
@@ -559,7 +650,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         const running = runningLog[1];
         if (!running && !log) {
           this.snackBar.open(
-            'Sorry! We were unable to get the log for this simulation.',
+            'Sorry! We were unable to get the log for this project.',
             undefined,
             {
               duration: 5000,
@@ -2022,7 +2113,7 @@ export class ViewComponent implements OnInit, OnDestroy {
             a.click();
           } else {
             this.snackBar.open(
-              'Sorry! We were unable to modify your COMBINE/OMEX archive.',
+              'Sorry! We were unable to modify your project.',
               undefined,
               {
                 duration: 5000,
