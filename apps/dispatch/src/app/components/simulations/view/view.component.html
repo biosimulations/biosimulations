@@ -134,7 +134,7 @@
     icon="code"
     urlHashFragment="project"
   >
-    <ng-container *ngIf="metadataLoaded$; else loading">
+    <ng-container *ngIf="metadataLoaded$ | async; else loading">
       <ng-container *ngIf="metadata$ | async as metadata; else error">
         <ng-container
           *ngIf="metadata.archive as archiveMetadata; else noMetadata"
@@ -450,8 +450,8 @@
 
         <ng-template #noMetadata>
           <span class="info-message"
-            >No metadata is available about the simulation project is
-            avaiable.</span
+            >No metadata about the simulation project is
+            available.</span
           >
         </ng-template>
       </ng-container>
