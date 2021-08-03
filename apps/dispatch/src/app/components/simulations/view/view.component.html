@@ -1131,7 +1131,7 @@
     <ng-template #noVisualizations>
       <div
         class="tab-spinner-container"
-        *ngIf="(visualizations$ | async) === undefined; else error"
+        *ngIf="!(visualizations$ | async); else error"
       >
         <biosimulations-spinner></biosimulations-spinner>
       </div>
