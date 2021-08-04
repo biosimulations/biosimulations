@@ -276,8 +276,6 @@ export class DispatchComponent implements OnInit, OnDestroy {
         (
           simulatorsData: SimulatorsData,
         ): Observable<AlgorithmSubstitution[] | undefined> => {
-
-
           return this.combineService.getSimilarAlgorithms(
             Object.keys(simulatorsData.simulationAlgorithms),
           );
@@ -333,9 +331,12 @@ export class DispatchComponent implements OnInit, OnDestroy {
               return {
                 _type: 'AlgorithmSubstitution',
                 algorithms: [alg, alg],
-                maxPolicy: ALGORITHM_SUBSTITUTION_POLICIES[AlgorithmSubstitutionPolicyLevels.SAME_METHOD],
+                maxPolicy:
+                  ALGORITHM_SUBSTITUTION_POLICIES[
+                    AlgorithmSubstitutionPolicyLevels.SAME_METHOD
+                  ],
               };
-            }
+            },
           );
         }
 
@@ -368,19 +369,18 @@ export class DispatchComponent implements OnInit, OnDestroy {
               simulatorsData.simulationAlgorithms[mainAlg.id].simulators,
             ).forEach((simulator: string): void => {
               // main implementation
-              simulationAlgorithmsMap[mainAlg.id].simulatorPolicies[
-                simulator
-              ] = {
-                maxPolicy: {
-                  id: 'SAME_METHOD',
-                  name: 'Same method',
-                  level: AlgorithmSubstitutionPolicyLevels.SAME_METHOD,
-                },
-                simulator: {
-                  id: simulator,
-                  name: simulatorsData.simulatorSpecs[simulator].name,
-                },
-              };
+              simulationAlgorithmsMap[mainAlg.id].simulatorPolicies[simulator] =
+                {
+                  maxPolicy: {
+                    id: 'SAME_METHOD',
+                    name: 'Same method',
+                    level: AlgorithmSubstitutionPolicyLevels.SAME_METHOD,
+                  },
+                  simulator: {
+                    id: simulator,
+                    name: simulatorsData.simulatorSpecs[simulator].name,
+                  },
+                };
 
               // alternatives
               if (
@@ -402,9 +402,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
               if (
                 subPolicy.level <
-                simulationAlgorithmsMap[altAlg.id].simulatorPolicies[
-                  simulator
-                ].maxPolicy.level
+                simulationAlgorithmsMap[altAlg.id].simulatorPolicies[simulator]
+                  .maxPolicy.level
               ) {
                 simulationAlgorithmsMap[altAlg.id].simulatorPolicies[
                   simulator
@@ -444,10 +443,14 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.modelFormatsControl.enable();
         this.simulationAlgorithmsControl.enable();
         if (curatedAlgSubs) {
-          this.simulationAlgorithmSubstitutionPolicyControl.setValue(AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK);
+          this.simulationAlgorithmSubstitutionPolicyControl.setValue(
+            AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK,
+          );
           this.simulationAlgorithmSubstitutionPolicyControl.enable();
         } else {
-          this.simulationAlgorithmSubstitutionPolicyControl.setValue(AlgorithmSubstitutionPolicyLevels.SAME_METHOD);
+          this.simulationAlgorithmSubstitutionPolicyControl.setValue(
+            AlgorithmSubstitutionPolicyLevels.SAME_METHOD,
+          );
         }
         this.simulatorControl.enable();
 

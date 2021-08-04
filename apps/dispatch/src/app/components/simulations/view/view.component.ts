@@ -353,65 +353,70 @@ export class ViewComponent implements OnInit, OnDestroy {
       );
     this.subscriptions.push(sedDocumentsConfigurationSub);
 
-
     const combineResultStructure = this.statusSucceeded$.pipe(
       map((succeeded: boolean): Observable<CombineResults | undefined> => {
         return succeeded
-          ? this.visualizationService.getCombineResultsStructure(
-              this.uuid,
-            )
+          ? this.visualizationService.getCombineResultsStructure(this.uuid)
           : of([]);
       }),
       concatAll(),
       shareReplay(1),
     );
 
-    this.sedDocumentReportsConfiguration$ =
-      combineLatest(
-        this.sedDocumentsConfiguration$,
-        combineResultStructure,
-      )
-      .pipe(
-        map(
-          (
-            args: [CombineArchive | undefined, CombineResults | undefined],
-          ): SedDocumentReportsCombineArchiveContent[] => {
-            let archive = args[0];
-            const combineResults = args[1];
+    this.sedDocumentReportsConfiguration$ = combineLatest(
+      this.sedDocumentsConfiguration$,
+      combineResultStructure,
+    ).pipe(
+      map(
+        (
+          args: [CombineArchive | undefined, CombineResults | undefined],
+        ): SedDocumentReportsCombineArchiveContent[] => {
+          let archive = args[0];
+          const combineResults = args[1];
 
-            if (archive) {
-              archive = JSON.parse(JSON.stringify(archive)) as CombineArchive;
-              archive.contents.forEach(
-                (content: CombineArchiveContent): void => {
-                  const sedDoc = content.location.value as SedDocument;
-                  sedDoc.outputs = sedDoc.outputs.filter(
-                    (output: SedOutput): boolean => {
-                      return output._type === 'SedReport';
-                    },
-                  );
-                  sedDoc.outputs.sort((a: SedOutput, b: SedOutput): number => {
-                    return (a.name || a.id).localeCompare((b.name || b.id), undefined, { numeric: true });
-                  });
+          if (archive) {
+            archive = JSON.parse(JSON.stringify(archive)) as CombineArchive;
+            archive.contents.forEach((content: CombineArchiveContent): void => {
+              const sedDoc = content.location.value as SedDocument;
+              sedDoc.outputs = sedDoc.outputs.filter(
+                (output: SedOutput): boolean => {
+                  return output._type === 'SedReport';
                 },
               );
-              archive.contents.sort((a: CombineArchiveContent, b: CombineArchiveContent): number => {
-                return a.location.path.localeCompare(b.location.path, undefined, { numeric: true });
+              sedDoc.outputs.sort((a: SedOutput, b: SedOutput): number => {
+                return (a.name || a.id).localeCompare(
+                  b.name || b.id,
+                  undefined,
+                  { numeric: true },
+                );
               });
-              return archive.contents as SedDocumentReportsCombineArchiveContent[];
+            });
+            archive.contents.sort(
+              (a: CombineArchiveContent, b: CombineArchiveContent): number => {
+                return a.location.path.localeCompare(
+                  b.location.path,
+                  undefined,
+                  { numeric: true },
+                );
+              },
+            );
+            return archive.contents as SedDocumentReportsCombineArchiveContent[];
+          } else if (combineResults) {
+            this.snackBar.open(
+              'Sorry! We were unable to get the SED-ML and Vega charts for this project.',
+              undefined,
+              {
+                duration: 5000,
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom',
+              },
+            );
 
-            } else if (combineResults) {
-              this.snackBar.open(
-                'Sorry! We were unable to get the SED-ML and Vega charts for this project.',
-                undefined,
-                {
-                  duration: 5000,
-                  horizontalPosition: 'center',
-                  verticalPosition: 'bottom',
-                },
-              );
-
-              return combineResults
-                .map((sedDocumentResults: SedDocumentResults): SedDocumentReportsCombineArchiveContent => {
+            return combineResults
+              .map(
+                (
+                  sedDocumentResults: SedDocumentResults,
+                ): SedDocumentReportsCombineArchiveContent => {
                   return {
                     _type: 'CombineArchiveContent',
                     location: {
@@ -425,41 +430,59 @@ export class ViewComponent implements OnInit, OnDestroy {
                         simulations: [],
                         tasks: [],
                         dataGenerators: [],
-                        outputs: sedDocumentResults.outputs.map((outputResults: SedOutputResults): SedReport => {
-                          return {
-                            _type: SedOutputType.SedReport,
-                            id: outputResults.id,
-                            name: null,
-                            dataSets: outputResults.datasets.map((dataSetResults: SedDatasetResults): SedDataSet => {
-                              return {
-                                _type: 'SedDataSet',
-                                id: dataSetResults.id,
-                                label: dataSetResults.label,
-                                name: null,
-                                dataGenerator: undefined,
-                              };
-                            }),
-                          }
-                        })
-                        .sort((a: SedReport, b: SedReport): number => {
-                          return a.id.localeCompare(b.id, undefined, { numeric: true });
-                        }),
+                        outputs: sedDocumentResults.outputs
+                          .map((outputResults: SedOutputResults): SedReport => {
+                            return {
+                              _type: SedOutputType.SedReport,
+                              id: outputResults.id,
+                              name: null,
+                              dataSets: outputResults.datasets.map(
+                                (
+                                  dataSetResults: SedDatasetResults,
+                                ): SedDataSet => {
+                                  return {
+                                    _type: 'SedDataSet',
+                                    id: dataSetResults.id,
+                                    label: dataSetResults.label,
+                                    name: null,
+                                    dataGenerator: undefined,
+                                  };
+                                },
+                              ),
+                            };
+                          })
+                          .sort((a: SedReport, b: SedReport): number => {
+                            return a.id.localeCompare(b.id, undefined, {
+                              numeric: true,
+                            });
+                          }),
                       },
                     },
-                    format: 'http://identifiers.org/combine.specifications/sed-ml',
+                    format:
+                      'http://identifiers.org/combine.specifications/sed-ml',
                     master: true,
-                  }
-                })
-                .sort((a: SedDocumentReportsCombineArchiveContent, b: SedDocumentReportsCombineArchiveContent): number => {
-                  return a.location.path.localeCompare(b.location.path, undefined, { numeric: true });
-                });
-            } else {
-              return [];
-            }
-          },
-        ),
-        shareReplay(1),
-      );
+                  };
+                },
+              )
+              .sort(
+                (
+                  a: SedDocumentReportsCombineArchiveContent,
+                  b: SedDocumentReportsCombineArchiveContent,
+                ): number => {
+                  return a.location.path.localeCompare(
+                    b.location.path,
+                    undefined,
+                    { numeric: true },
+                  );
+                },
+              );
+          } else {
+            return [];
+          }
+        },
+      ),
+      shareReplay(1),
+    );
 
     this.sedDocumentReportsConfiguration$.subscribe(
       (contents: SedDocumentReportsCombineArchiveContent[]): void => {
@@ -1900,7 +1923,8 @@ export class ViewComponent implements OnInit, OnDestroy {
 
         for (const curve of this.user2DLineScatterCurvesFormGroups) {
           for (const xDataUri of (curve.controls.xData as FormControl).value) {
-            for (const yDataUri of (curve.controls.yData as FormControl).value) {
+            for (const yDataUri of (curve.controls.yData as FormControl)
+              .value) {
               if (
                 this.userSimulationResults &&
                 xDataUri in this.userSimulationResults &&
