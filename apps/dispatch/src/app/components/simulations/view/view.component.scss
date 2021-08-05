@@ -33,8 +33,6 @@
 }
 
 .metadata-validation-report {
-  color: mat-color($theme-warn);
-
   .metadata-validation-report-section {
     margin-top: 0.5rem;
   }
@@ -75,4 +73,8 @@ biosimulations-vega-visualization {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+.error {
+  color: mat-color($theme-warn);
 }
