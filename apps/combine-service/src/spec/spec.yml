@@ -3,9 +3,10 @@ openapi: 3.0.0
 info:
   title: BioSimulations COMBINE service
   version: "0.1"
-  description: "Endpoints for working with COMBINE/OMEX archives and model (e.g.,\
-    \ SBML) and simulation (e.g., SED-ML) files that they typically contain.\n\nNote,\
-    \ this API may change significantly in the future."
+  description: |-
+    Endpoints for working with COMBINE/OMEX archives and model (e.g., SBML) and simulation (e.g., SED-ML) files that they typically contain.
+
+    Note, this API may change significantly in the future.
   contact:
     name: BioSimulations Team
     url: https://biosimulations.org
@@ -1719,6 +1720,9 @@ components:
         detail:
           description: Description.
           type: string
+        validationReport:
+          $ref: '#/components/schemas/ValidationReport'
+          description: Validation report
       example:
         status: 400
         title: Unsupported model langauge
@@ -2327,7 +2331,7 @@ components:
           value: http://omex-libary.org/MyCombineArchive.omex
         predictate:
           _type: uri
-          value: http://dublincore.org/specifications/dublin-core/dcmi-terms/title
+          value: https://dublincore.org/specifications/dublin-core/dcmi-terms/title
         object:
           _type: literal
           value: Title of my COMBINE archive
@@ -2663,13 +2667,16 @@ components:
           $ref: '#/components/schemas/FilenameOrUrl'
           description: URL or filename for the COMBINE/OMEX archive.
         overwriteLocations:
-          description: "Whether to overwrite the location if it already exists, or\
-            \ to add the content at an alternative location (indicated location plus\
-            \ a unique integer).\n\nDefault: true"
+          description: |-
+            Whether to overwrite the location if it already exists, or to add the content at an alternative location (indicated location plus a unique integer).
+
+            Default: true
           type: boolean
         download:
-          description: "Whether to download the modified COMBINE/OMEX archive or return\
-            \ a URL where it can be retrieved.\n\nDefault: false"
+          description: |-
+            Whether to download the modified COMBINE/OMEX archive or return a URL where it can be retrieved.
+
+            Default: false
           type: boolean
         files:
           description: "Files to add to the COMBINE/OMEX archive and, optionally,\

@@ -9,17 +9,20 @@ class BadRequestException(connexion.ProblemException, werkzeug.exceptions.BadReq
     Attributes:
         title (:obj:`str`): title
         instance (:obj:`Exception`): exception
+        validation_report (``#/components/schemas/ValidationReport``): validation report
         status (:obj:`int`): status code
     '''
 
-    def __init__(self, title, instance, status=400):
+    def __init__(self, title, instance, validation_report=None, status=400):
         """
         Args:
             title (:obj:`str`): title
             instance (:obj:`Exception`): exception
+            validation_report (``#/components/schemas/ValidationReport``, optional): validation report
             status (:obj:`int`, optional): status code
         """
         super(BadRequestException, self).__init__(title=title, instance=instance, status=status)
+        self.validation_report = validation_report
 
     def get_response(self):
         """ Get repsonse
@@ -33,6 +36,8 @@ class BadRequestException(connexion.ProblemException, werkzeug.exceptions.BadReq
             'detail': str(self.instance),
             'type': str(self.instance.__class__.__name__),
         }
+        if self.validation_report is not None:
+            data['validationReport'] = self.validation_report
         return flask.jsonify(data), self.status
 
 

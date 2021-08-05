@@ -78,14 +78,24 @@ import {
   CombineArchiveElementMetadata,
   MetadataValue,
 } from '../../../metadata.interface';
+import { 
+  ValidationReport,
+  ValidationMessage,
+} from '../../../validation-report.interface';
 import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
 import user2DHeatmapVegaTemplate from './viz-vega-templates/2d-heatmap.json';
 import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.json';
 import { UtilsService } from '@biosimulations/shared/services';
 
+interface ValidationReportLists {
+  errors: string | null;
+  warnings: string | null;
+}
+
 interface Metadata {
   archive: CombineArchiveElementMetadata | null;
   other: CombineArchiveElementMetadata[];
+  validationReport: ValidationReportLists | null;
 }
 
 interface FigureTableMetadata {
@@ -706,19 +716,36 @@ export class ViewComponent implements OnInit, OnDestroy {
       map(
         (
           args: [
-            CombineArchiveElementMetadata[] | undefined,
+            CombineArchiveElementMetadata[] | ValidationReport | undefined,
             Visualization[],
             CombineArchive | undefined,
           ],
         ): Metadata | undefined => {
-          let elMetadatas = args[0];
+          let elMetadatasOrValidationReport = args[0];
           const visualizations = args[1];
           const sedDocumentsConfiguration = args[2];
 
-          if (elMetadatas === undefined) {
+          if (elMetadatasOrValidationReport === undefined) {
             return undefined;
           }
 
+          if (!Array.isArray(elMetadatasOrValidationReport)) {
+            const validationReport = elMetadatasOrValidationReport as ValidationReport;
+            return {
+              archive: null,
+              other: [],
+              validationReport: {
+                errors: validationReport?.errors?.length 
+                  ? this.convertValidationMessagesToList(validationReport.errors)
+                  : null,
+                warnings: validationReport?.warnings?.length
+                  ? this.convertValidationMessagesToList(validationReport.warnings)
+                  : null,
+              },
+            };
+          }
+
+          let elMetadatas = elMetadatasOrValidationReport as CombineArchiveElementMetadata[];
           elMetadatas = elMetadatas.map(
             (
               elMetadata: CombineArchiveElementMetadata,
@@ -807,6 +834,7 @@ export class ViewComponent implements OnInit, OnDestroy {
                   return elMetadata;
                 },
               ),
+              validationReport: null,
           };
         },
       ),
@@ -842,6 +870,26 @@ export class ViewComponent implements OnInit, OnDestroy {
       ),
       shareReplay(1),
     );
+  }
+
+  private convertValidationMessagesToList(
+    messages: ValidationMessage[],
+  ): string {
+    return messages
+      .map((message: ValidationMessage): string => {
+        let details = '';
+        if (message?.details?.length) {
+          details =
+            '<ul>' +
+            this.convertValidationMessagesToList(
+              message?.details as ValidationMessage[],
+            ) +
+            '</ul>';
+        }
+
+        return '<li>' + message.summary + details + '</li>';
+      })
+      .join('\n');
   }
 
   getArchiveUrl(): string {

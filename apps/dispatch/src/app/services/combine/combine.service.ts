@@ -72,7 +72,7 @@ export class CombineService {
 
   public getCombineArchiveMetadata(
     archiveFileOrUrl: File | string,
-  ): Observable<CombineArchiveElementMetadata[] | undefined> {
+  ): Observable<CombineArchiveElementMetadata[] | ValidationReport | undefined> {
     const formData = new FormData();
     if (typeof archiveFileOrUrl === 'object') {
       formData.append('file', archiveFileOrUrl);
@@ -86,10 +86,15 @@ export class CombineService {
         formData,
       )
       .pipe(
-        catchError((error: HttpErrorResponse): Observable<undefined> => {
+        catchError((error: HttpErrorResponse): Observable<ValidationReport | undefined> => {
+          if (error?.error?.validationReport) {
+            return of<ValidationReport>(error?.error?.validationReport as ValidationReport);
+          }
+
           if (!environment.production) {
             console.error(error);
           }
+
           return of<undefined>(undefined);
         }),
       );
