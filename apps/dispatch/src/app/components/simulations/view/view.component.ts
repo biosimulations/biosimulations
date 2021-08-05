@@ -80,6 +80,7 @@ import {
 } from '../../../metadata.interface';
 import { 
   ValidationReport,
+  ValidationStatus,
   ValidationMessage,
 } from '../../../validation-report.interface';
 import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
@@ -88,6 +89,7 @@ import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.
 import { UtilsService } from '@biosimulations/shared/services';
 
 interface ValidationReportLists {
+  status: ValidationStatus;
   errors: string | null;
   warnings: string | null;
 }
@@ -735,6 +737,7 @@ export class ViewComponent implements OnInit, OnDestroy {
               archive: null,
               other: [],
               validationReport: {
+                status: validationReport.status,
                 errors: validationReport?.errors?.length 
                   ? this.convertValidationMessagesToList(validationReport.errors)
                   : null,

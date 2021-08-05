@@ -136,7 +136,7 @@
   >
     <ng-container *ngIf="metadataLoaded$ | async; else loading">
       <ng-container *ngIf="metadata$ | async as metadata; else error">
-        <ng-container *ngIf="!metadata.validationReport?.errors; else validationReport">
+        <ng-container *ngIf="metadata?.validationReport?.status !== 'invalid'; else validationReport">
           <ng-container
             *ngIf="metadata.archive as archiveMetadata; else noMetadata"
           >
@@ -450,15 +450,15 @@
           </ng-container>
 
           <ng-template #noMetadata>
-            <span class="info-message"
+            <span class="error"
               >No metadata about the simulation project is available.</span
             >
           </ng-template>
         </ng-container>
 
         <ng-template #validationReport>
-          <div class="metadata-validation-report" *ngIf="metadata.validationReport as validationReport">
-            <p>The metadata about the COMBINE/OMEX archive is not valid.</p>
+          <div class="metadata-validation-report error" *ngIf="metadata.validationReport as validationReport">
+            <p>The metadata about the simulation project is not valid.</p>
 
             <div class="metadata-validation-report-section" *ngIf="validationReport.errors">
               Errors:
