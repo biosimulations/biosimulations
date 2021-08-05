@@ -1535,7 +1535,7 @@ class HandlersTestCase(unittest.TestCase):
         with app.app.app.test_client() as client:
             response = client.post(endpoint, data=data, content_type="multipart/form-data")
         self.assertEqual(response.status_code, 400, response.json)
-        self.assertIn('are invalid', response.json['title'])
+        self.assertIn('is not valid', response.json['title'])
         fid.close()
 
     def test__convert_rdf_node_to_json(self):

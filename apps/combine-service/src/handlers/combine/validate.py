@@ -1,5 +1,5 @@
 from ...exceptions import BadRequestException
-from ...utils import get_temp_dir
+from ...utils import get_temp_dir, make_validation_report
 from biosimulators_utils.combine.data_model import CombineArchiveContentFormat
 from biosimulators_utils.combine.io import CombineArchiveReader
 from biosimulators_utils.combine.validation import validate
@@ -73,32 +73,4 @@ def handler(body, file=None):
             metadata_schema=OmexMetaSchema.biosimulations,
         )
 
-    report = {
-        "_type": "ValidationReport",
-        "status": "valid"
-    }
-
-    if warnings:
-        report['status'] = 'warnings'
-        report['warnings'] = convert_nested_list_to_validation_messages(warnings, archive_filename)
-
-    if errors:
-        report['status'] = 'invalid'
-        report['errors'] = convert_nested_list_to_validation_messages(errors, archive_filename)
-
-    return report
-
-
-def convert_nested_list_to_validation_messages(nested, archive_filename):
-    msgs = []
-    for el in nested:
-        msg = {
-            "_type": "ValidationMessage",
-            "summary": el[0]
-            .replace('`' + archive_filename + '`', 'file')
-            .replace(archive_filename, 'file')
-        }
-        if len(el) > 1:
-            msg['details'] = convert_nested_list_to_validation_messages(el[1], archive_filename)
-        msgs.append(msg)
-    return msgs
+    return make_validation_report(errors, warnings, filenames=[archive_filename])

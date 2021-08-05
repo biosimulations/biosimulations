@@ -1,9 +1,8 @@
 from ...exceptions import BadRequestException
-from ...utils import get_temp_dir
+from ...utils import get_temp_dir, make_validation_report
 from biosimulators_utils.combine.io import CombineArchiveReader
 from biosimulators_utils.omex_meta.data_model import OmexMetaSchema, BIOSIMULATIONS_PREDICATE_TYPES
 from biosimulators_utils.omex_meta.io import read_omex_meta_files_for_archive
-from biosimulators_utils.utils.core import flatten_nested_list_of_strings
 import os
 import rdflib.term
 import requests
@@ -147,11 +146,11 @@ def handler(body, file=None, schema=OmexMetaSchema.biosimulations):
     shutil.rmtree(archive_dirname)
 
     if errors:
-        msg = 'The OMEX Meta files for the COMBINE archive are invalid:\n{}'.format(
-            flatten_nested_list_of_strings(errors))
         raise BadRequestException(
-            title=msg,
-            instance=ValueError())
+            title='The metadata for the COMBINE/OMEX archive is not valid.',
+            instance=ValueError(),
+            validation_report=make_validation_report(errors, warnings, filenames=[archive_filename]),
+        )
 
     # return response
     return metadata
