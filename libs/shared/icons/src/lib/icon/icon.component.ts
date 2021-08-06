@@ -105,6 +105,7 @@ export type BiosimulationsIcon =
   | 'open'
   | 'url'
   | 'share'
+  | 'publish'
   | 'closed'
   | 'longRightArrow'
   | 'pdf'
@@ -146,6 +147,7 @@ export class IconComponent {
 
   iconMap: { [key in BiosimulationsIcon]: IconInfo } = {
     share: { type: 'fas', name: 'share-alt' },
+    publish: { type: 'fas', name: 'bullhorn' },
     home: { type: 'fas', name: 'home' },
     internalLink: { type: 'fas', name: 'link' },
     link: { type: 'fas', name: 'external-link-alt' },
