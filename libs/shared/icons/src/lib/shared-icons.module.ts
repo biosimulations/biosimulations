@@ -96,6 +96,7 @@ import {
   faBackward,
   faForward,
   faExchangeAlt,
+  faBullhorn,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -237,6 +238,7 @@ export class BiosimulationsIconsModule {
       faBackward,
       faForward,
       faExchangeAlt,
+      faBullhorn,
     );
   }
 }
