@@ -1,0 +1,9 @@
+@import 'biosimulations-colors';
+
+.button-container {
+  text-align: right;
+}
+
+.error {
+  color: mat-color($theme-warn);
+}

@@ -15,6 +15,7 @@ import { DeleteSimulationsDialogComponent } from './browse/delete-simulations-di
 import { ViewComponent } from './view/view.component';
 import { PlotlyVisualizationComponent } from './view/plotly-visualization/plotly-visualization.component';
 import { SimulationLogModule } from './view/simulation-log/simulation-log.module';
+import { PublishComponent } from './publish/publish.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SimulationLogModule } from './view/simulation-log/simulation-log.module
     DeleteSimulationsDialogComponent,
     ViewComponent,
     PlotlyVisualizationComponent,
+    PublishComponent,
   ],
   imports: [
     CommonModule,
