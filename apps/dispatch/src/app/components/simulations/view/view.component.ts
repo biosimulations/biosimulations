@@ -723,7 +723,7 @@ export class ViewComponent implements OnInit, OnDestroy {
             CombineArchive | undefined,
           ],
         ): Metadata | undefined => {
-          let elMetadatasOrValidationReport = args[0];
+          const elMetadatasOrValidationReport = args[0];
           const visualizations = args[1];
           const sedDocumentsConfiguration = args[2];
 
