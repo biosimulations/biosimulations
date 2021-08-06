@@ -255,7 +255,7 @@ export class BrowseComponent implements OnInit {
       },
       stackedFormatter: (hasReports: boolean): string | null => {
         if (hasReports) {
-          return 'visualize results';
+          return 'Visualize results';
         } else {
           return 'N/A';
         }
@@ -318,7 +318,7 @@ export class BrowseComponent implements OnInit {
       },
       stackedFormatter: (hasReports: boolean): string | null => {
         if (hasReports) {
-          return 'download results';
+          return 'Download results';
         } else {
           return 'N/A';
         }
@@ -364,7 +364,7 @@ export class BrowseComponent implements OnInit {
       },
       stackedFormatter: (status: SimulationRunStatus): string | null => {
         if (!SimulationStatusService.isSimulationStatusRunning(status)) {
-          return 'view logs';
+          return 'View logs';
         } else {
           return 'N/A';
         }
@@ -419,7 +419,7 @@ export class BrowseComponent implements OnInit {
         return null;
       },
       stackedFormatter: (id: string): string => {
-        return 'Rerun simulation (e.g., with another simulation tool)';
+        return 'Rerun project (e.g., with another simulation tool)';
       },
       minWidth: 38,
       maxWidth: 38,
@@ -469,6 +469,33 @@ export class BrowseComponent implements OnInit {
       },
       leftIconTitle: (simulation: Simulation): string => {
         return 'Click to copy URL to clipboard';
+      },
+      minWidth: 38,
+      maxWidth: 38,
+      filterable: false,
+      sortable: false,
+      show: true,
+      showStacked: true,
+    },
+    {
+      id: 'publish',
+      heading: 'Pub',
+      key: 'id',
+      center: true,
+      leftIcon: 'publish',
+      leftAction: ColumnActionType.routerLink,
+      leftRouterLink: (simulation: Simulation): string[] => {
+        return ['/simulations', simulation.id, 'publish'];
+      },
+      centerAction: ColumnActionType.routerLink,
+      centerRouterLink: (simulation: Simulation): string[] => {
+        return ['/simulations', simulation.id, 'publish'];
+      },
+      formatter: (id: string): null => {
+        return null;
+      },
+      stackedFormatter: (id: string): string => {
+        return 'Publish simulation (e.g., with another simulation tool)';
       },
       minWidth: 38,
       maxWidth: 38,
