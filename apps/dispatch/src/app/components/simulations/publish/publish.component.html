@@ -1,7 +1,6 @@
-<biosimulations-page
-  heading="Publish project"
->
-  <form *ngIf="(metadataValid$ | async) === true; else invalidErrorLoading"
+<biosimulations-page heading="Publish project">
+  <form
+    *ngIf="(metadataValid$ | async) === true; else invalidErrorLoading"
     [formGroup]="formGroup"
     (ngSubmit)="onFormSubmit()"
   >
@@ -14,22 +13,20 @@
         required
       />
       <biosimulations-icon icon="id" matPrefix></biosimulations-icon>
-      <mat-hint>
-        Enter a unique id for your modeling project.
-      </mat-hint>
-      <mat-error
-        *ngIf="formGroup.hasError('required', 'id')"
+      <mat-hint> Enter a unique id for your modeling project. </mat-hint>
+      <mat-error *ngIf="formGroup.hasError('required', 'id')"
         >Please enter an id for your project.</mat-error
       >
-      <mat-error
-        *ngIf="formGroup.hasError('unique', 'id')"
-        >The id has already been claimed. Please enter a unique id for your project.</mat-error
+      <mat-error *ngIf="formGroup.hasError('unique', 'id')"
+        >The id has already been claimed. Please enter a unique id for your
+        project.</mat-error
       >
     </mat-form-field>
 
     <div class="button-container">
       <button
-        mat-flat-button type="submit"
+        mat-flat-button
+        type="submit"
         class="biosimulations-button text"
         [disabled]="formGroup.invalid"
       >
@@ -39,13 +36,23 @@
   </form>
 
   <ng-template #invalidErrorLoading>
-    <div *ngIf="(metadataValid$ | async) === false; else errorLoading" class="error">
-      The metadata for the project is invalid. The metadata must be valid for publication. Click <a [routerLink]="['/simulations', uuid]" fragment="tab=project">here</a> for more information.
+    <div
+      *ngIf="(metadataValid$ | async) === false; else errorLoading"
+      class="error"
+    >
+      The metadata for the project is invalid. The metadata must be valid for
+      publication. Click
+      <a [routerLink]="['/simulations', uuid]" fragment="tab=project">here</a>
+      for more information.
     </div>
 
     <ng-template #errorLoading>
-      <div *ngIf="(metadataValid$ | async) === undefined; else loading" class="error">
-        Sorry! The metadata for the project could not be validated. The metadata must be valid for publication. Please try again later.
+      <div
+        *ngIf="(metadataValid$ | async) === undefined; else loading"
+        class="error"
+      >
+        Sorry! The metadata for the project could not be validated. The metadata
+        must be valid for publication. Please try again later.
       </div>
 
       <ng-template #loading>

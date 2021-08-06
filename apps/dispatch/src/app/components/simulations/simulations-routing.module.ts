@@ -90,7 +90,7 @@ const routes: Routes = [
         path: 'publish',
         component: PublishComponent,
         data: {
-          breadcrumb: "Publish",
+          breadcrumb: 'Publish',
           contextButtons: [
             {
               onClick: viewProject,
@@ -112,8 +112,8 @@ const routes: Routes = [
             },
           ],
         },
-      }
-    ]
+      },
+    ],
   },
 ];
 

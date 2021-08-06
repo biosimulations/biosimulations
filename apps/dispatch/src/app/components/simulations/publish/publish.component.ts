@@ -1,7 +1,4 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -47,11 +44,11 @@ export class PublishComponent implements OnInit {
       return this.checkIdExists(control.value).pipe(
         map((exists: boolean): ValidationErrors | null => {
           if (exists) {
-            return {unique: true};
+            return { unique: true };
           } else {
             return null;
           }
-        })
+        }),
       );
     };
   }
@@ -64,33 +61,39 @@ export class PublishComponent implements OnInit {
   public ngOnInit(): void {
     // TODO: remove routing to construction message
     if (environment.production) {
-      this.router.navigate(['/error', 'construction'], {skipLocationChange: true})
+      this.router.navigate(['/error', 'construction'], {
+        skipLocationChange: true,
+      });
       return;
     }
 
     this.uuid = this.route.snapshot.params['uuid'];
 
     const archiveUrl = this.getArchiveUrl();
-    this.metadataValid$ = this.combineService.getCombineArchiveMetadata(archiveUrl).pipe(
-      map(
-        (arg: CombineArchiveElementMetadata[] | ValidationReport | undefined): boolean | undefined => {
-          if (arg === undefined) {
-            return undefined;
-          }
-          if (!Array.isArray(arg)) {
-            return false;
-          }
-
-          for (const elMetadata of (arg as CombineArchiveElementMetadata[])) {
-            if (elMetadata.uri === '.') {
-              return true;
+    this.metadataValid$ = this.combineService
+      .getCombineArchiveMetadata(archiveUrl)
+      .pipe(
+        map(
+          (
+            arg: CombineArchiveElementMetadata[] | ValidationReport | undefined,
+          ): boolean | undefined => {
+            if (arg === undefined) {
+              return undefined;
             }
-          }
+            if (!Array.isArray(arg)) {
+              return false;
+            }
 
-          return false;
-        }
-      )
-    );
+            for (const elMetadata of arg as CombineArchiveElementMetadata[]) {
+              if (elMetadata.uri === '.') {
+                return true;
+              }
+            }
+
+            return false;
+          },
+        ),
+      );
   }
 
   getArchiveUrl(): string {

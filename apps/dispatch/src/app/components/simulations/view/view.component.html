@@ -136,7 +136,12 @@
   >
     <ng-container *ngIf="metadataLoaded$ | async; else loading">
       <ng-container *ngIf="metadata$ | async as metadata; else error">
-        <ng-container *ngIf="metadata?.validationReport?.status !== 'invalid'; else validationReport">
+        <ng-container
+          *ngIf="
+            metadata?.validationReport?.status !== 'invalid';
+            else validationReport
+          "
+        >
           <ng-container
             *ngIf="metadata.archive as archiveMetadata; else noMetadata"
           >
@@ -174,7 +179,11 @@
                 <ul class="comma-separated and-separator creators">
                   <li *ngFor="let creator of archiveMetadata.creators">
                     {{ creator.label }}{{ creator.uri ? ' ' : ''
-                    }}<a [href]="creator.uri" target="_blank" *ngIf="creator.uri">
+                    }}<a
+                      [href]="creator.uri"
+                      target="_blank"
+                      *ngIf="creator.uri"
+                    >
                       <biosimulations-icon icon="orcid"></biosimulations-icon>
                     </a>
                   </li>
@@ -418,7 +427,9 @@
                     >
                       <tr>
                         <th>
-                          <biosimulations-icon icon="chart"></biosimulations-icon>
+                          <biosimulations-icon
+                            icon="chart"
+                          ></biosimulations-icon>
                         </th>
                         <td>
                           <span class="heading">
@@ -457,15 +468,24 @@
         </ng-container>
 
         <ng-template #validationReport>
-          <div class="metadata-validation-report error" *ngIf="metadata.validationReport as validationReport">
+          <div
+            class="metadata-validation-report error"
+            *ngIf="metadata.validationReport as validationReport"
+          >
             <p>The metadata about the simulation project is not valid.</p>
 
-            <div class="metadata-validation-report-section" *ngIf="validationReport.errors">
+            <div
+              class="metadata-validation-report-section"
+              *ngIf="validationReport.errors"
+            >
               Errors:
               <ul [innerHTML]="validationReport.errors"></ul>
             </div>
 
-            <div class="metadata-validation-report-section" *ngIf="validationReport.warnings">
+            <div
+              class="metadata-validation-report-section"
+              *ngIf="validationReport.warnings"
+            >
               Warnings:
               <ul [innerHTML]="validationReport.warnings"></ul>
             </div>

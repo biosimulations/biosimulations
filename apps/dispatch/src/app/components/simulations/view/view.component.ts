@@ -78,7 +78,7 @@ import {
   CombineArchiveElementMetadata,
   MetadataValue,
 } from '../../../metadata.interface';
-import { 
+import {
   ValidationReport,
   ValidationStatus,
   ValidationMessage,
@@ -732,23 +732,29 @@ export class ViewComponent implements OnInit, OnDestroy {
           }
 
           if (!Array.isArray(elMetadatasOrValidationReport)) {
-            const validationReport = elMetadatasOrValidationReport as ValidationReport;
+            const validationReport =
+              elMetadatasOrValidationReport as ValidationReport;
             return {
               archive: null,
               other: [],
               validationReport: {
                 status: validationReport.status,
-                errors: validationReport?.errors?.length 
-                  ? this.convertValidationMessagesToList(validationReport.errors)
+                errors: validationReport?.errors?.length
+                  ? this.convertValidationMessagesToList(
+                      validationReport.errors,
+                    )
                   : null,
                 warnings: validationReport?.warnings?.length
-                  ? this.convertValidationMessagesToList(validationReport.warnings)
+                  ? this.convertValidationMessagesToList(
+                      validationReport.warnings,
+                    )
                   : null,
               },
             };
           }
 
-          let elMetadatas = elMetadatasOrValidationReport as CombineArchiveElementMetadata[];
+          let elMetadatas =
+            elMetadatasOrValidationReport as CombineArchiveElementMetadata[];
           elMetadatas = elMetadatas.map(
             (
               elMetadata: CombineArchiveElementMetadata,
@@ -837,7 +843,7 @@ export class ViewComponent implements OnInit, OnDestroy {
                   return elMetadata;
                 },
               ),
-              validationReport: null,
+            validationReport: null,
           };
         },
       ),
