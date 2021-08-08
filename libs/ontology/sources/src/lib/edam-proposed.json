@@ -87,5 +87,14 @@
         "iri": "",
         "url": "http://ginsim.org/",
         "moreInfoUrl": "http://ginsim.org/"
+    },
+    {
+        "id": "format_9010",
+        "name": "XPP",
+        "description": "XPP Language",
+        "namespace": "EDAM",
+        "iri": "",
+        "url": "http://www.math.pitt.edu/~bard/xpp/xpp.html",
+        "moreInfoUrl": "http://www.math.pitt.edu/~bard/xpp/xpp.html"
     }
 ]

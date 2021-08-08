@@ -77,7 +77,7 @@ def handler(body, modelFile=None):
         )  # pragma: no cover: unreachable due to schema validation
 
     try:
-        params, sim, vars = get_parameters_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
+        params, sims, vars = get_parameters_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
     except UnsupportedModelLanguageError as exception:
         raise BadRequestException(
             title='Models of language `{}` are not supported with simulations of type `{}` and algorithm `{}`'.format(
@@ -92,28 +92,12 @@ def handler(body, modelFile=None):
         )  # pragma: no cover: unreachable due to schema validation
 
     # format SED variables for response
-    response_data_gens = []
     model = {
         "_type": "SedModel",
         "id": "model",
         "language": model_lang,
         "source": model_source,
         "changes": [],
-    }
-    simulation = {
-        "_type": sim_type,
-        "id": "simulation",
-        "algorithm": {
-            "_type": "SedAlgorithm",
-            "kisaoId": alg_kisao_id,
-            "changes": [],
-        },
-    }
-    task = {
-        "_type": "SedTask",
-        "id": "task",
-        "model": model,
-        "simulation": simulation,
     }
 
     for param in params:
@@ -140,62 +124,120 @@ def handler(body, modelFile=None):
                 ns['prefix'] = prefix
             change['target']['namespaces'].append(ns)
 
-    if sim_type == 'SedUniformTimeCourseSimulation':
-        task["simulation"]["initialTime"] = sim.initial_time
-        task["simulation"]["outputStartTime"] = sim.output_start_time
-        task["simulation"]["outputEndTime"] = sim.output_end_time
-        task["simulation"]["numberOfSteps"] = sim.number_of_steps
+    simulations = []
+    tasks = []
+    data_generators = []
+    outputs = []
+    for i_sim, sim in enumerate(sims):
+        if isinstance(sim, OneStepSimulation):
+            sim_type = 'SedOneStepSimulation'
+        elif isinstance(sim, SteadyStateSimulation):
+            sim_type = 'SedSteadyStateSimulation'
+        elif isinstance(sim, UniformTimeCourseSimulation):
+            sim_type = 'SedUniformTimeCourseSimulation'
+        else:
+            raise NotImplementedError('Simulations of type `{}` is not supported.'.format(sim.__class__.__name__))
 
-    elif sim_type == 'SedOneStepSimulation':
-        task["simulation"]["step"] = sim.step
-
-    for var in vars:
-        response_var = {
-            "_type": "SedVariable",
-            "id": var.id,
-            "task": task,
+        simulation = {
+            "_type": sim_type,
+            "id": "simulation_{}".format(i_sim),
+            "algorithm": {
+                "_type": "SedAlgorithm",
+                "kisaoId": sim.algorithm.kisao_id,
+                "changes": [],
+            },
         }
 
-        if var.name:
-            response_var['name'] = var.name
-        if var.symbol:
-            response_var['symbol'] = var.symbol
-        if var.target:
-            response_var['target'] = {
-                "_type": "SedTarget",
-                "value": var.target,
+        if isinstance(sim, OneStepSimulation):
+            simulation["step"] = sim.step
+
+        elif isinstance(sim, UniformTimeCourseSimulation):
+            simulation["initialTime"] = sim.initial_time
+            simulation["outputStartTime"] = sim.output_start_time
+            simulation["outputEndTime"] = sim.output_end_time
+            simulation["numberOfSteps"] = sim.number_of_steps
+
+        for change in sim.algorithm.changes:
+            simulation['algorithm']['changes'].append({
+                '_type': 'SedAlgorithmParameterChange',
+                'kisaoId': change.kisao_id,
+                'newValue': change.new_value,
+            })
+
+        simulations.append(simulation)
+
+        task = {
+            "_type": "SedTask",
+            "id": "task_{}".format(i_sim),
+            "model": model,
+            "simulation": simulation,
+        }
+        tasks.append(task)
+
+        report = {
+            "_type": "SedReport",
+            "id": "report_{}".format(i_sim),
+            'dataSets': [],
+        }
+        outputs.append(report)
+
+        for var in vars:
+            response_var = {
+                "_type": "SedVariable",
+                "id": '{}_{}'.format(var.id, i_sim),
+                "task": task,
             }
-            if var.target_namespaces:
-                response_var['target']['namespaces'] = []
-                for prefix, uri in var.target_namespaces.items():
-                    ns = {
-                        "_type": "Namespace",
-                        "uri": uri,
-                    }
-                    if prefix:
-                        ns['prefix'] = prefix
-                    response_var['target']['namespaces'].append(ns)
 
-        response_data_gen = {
-            "_type": "SedDataGenerator",
-            "id": "data_generator_" + var.id,
-            "variables": [response_var],
-            "math": response_var['id'],
-        }
-        if var.name:
-            response_data_gen['name'] = var.name
+            if var.name:
+                response_var['name'] = var.name
+            if var.symbol:
+                response_var['symbol'] = var.symbol
+            if var.target:
+                response_var['target'] = {
+                    "_type": "SedTarget",
+                    "value": var.target,
+                }
+                if var.target_namespaces:
+                    response_var['target']['namespaces'] = []
+                    for prefix, uri in var.target_namespaces.items():
+                        ns = {
+                            "_type": "Namespace",
+                            "uri": uri,
+                        }
+                        if prefix:
+                            ns['prefix'] = prefix
+                        response_var['target']['namespaces'].append(ns)
 
-        response_data_gens.append(response_data_gen)
+            data_generator = {
+                "_type": "SedDataGenerator",
+                "id": "data_generator_{}_{}".format(i_sim, var.id),
+                "variables": [response_var],
+                "math": response_var['id'],
+            }
+            if var.name:
+                data_generator['name'] = var.name
 
-    response_doc = {
+            data_generators.append(data_generator)
+
+            data_set = {
+                '_type': 'SedDataSet',
+                'id': 'data_set_{}_{}'.format(i_sim, var.id),
+                'label': var.name or var.id,
+                'name': var.name,
+                'dataGenerator': data_generator,
+            }
+
+            report['dataSets'].append(data_set)
+
+    doc = {
         "_type": "SedDocument",
         "level": 1,
         "version": 3,
         "models": [model],
-        "simulations": [simulation],
-        "tasks": [task],
-        "dataGenerators": response_data_gens,
-        "outputs": [],
+        "simulations": simulations,
+        "tasks": tasks,
+        "dataGenerators": data_generators,
+        "outputs": outputs,
     }
 
-    return response_doc
+    return doc

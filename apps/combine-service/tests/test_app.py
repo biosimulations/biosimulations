@@ -463,12 +463,12 @@ class HandlersTestCase(unittest.TestCase):
         sed_doc = response.json
         vars = [data_gen['variables'][0] for data_gen in sed_doc['dataGenerators']]
 
-        self.assertEqual(vars[0]['id'], 'time')
+        self.assertEqual(vars[0]['id'], 'time_0')
         self.assertEqual(vars[0]['name'], 'Time')
         self.assertEqual(vars[0]['symbol'], Symbol.time)
         self.assertNotIn('target', vars[0])
 
-        self.assertEqual(vars[-1]['id'], 'level_species_nik')
+        self.assertEqual(vars[-1]['id'], 'level_species_nik_0')
         self.assertEqual(vars[-1]['name'], 'Level of species "nik"')
         self.assertNotIn('symbol', vars[-1])
 
@@ -541,12 +541,12 @@ class HandlersTestCase(unittest.TestCase):
         sed_doc = response.json
         vars = [data_gen['variables'][0] for data_gen in sed_doc['dataGenerators']]
 
-        self.assertEqual(vars[0]['id'], 'time')
+        self.assertEqual(vars[0]['id'], 'time_0')
         self.assertEqual(vars[0]['name'], 'Time')
         self.assertEqual(vars[0]['symbol'], Symbol.time)
         self.assertNotIn('target', vars[0])
 
-        self.assertEqual(vars[-1]['id'], 'level_species_nik')
+        self.assertEqual(vars[-1]['id'], 'level_species_nik_0')
         self.assertEqual(vars[-1]['name'], 'Level of species "nik"')
         self.assertNotIn('symbol', vars[-1])
 

@@ -153,6 +153,13 @@ const modelFormatMetaData: {
     extension: 'txt',
     enabled: true,
   },
+  format_9010: {
+    name: 'XPP',
+    sedUrn: 'urn:sedml:language:xpp',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/text/x-xpp',
+    extension: 'ode',
+    enabled: true,
+  },
   format_9008: {
     name: 'ZGINML',
     sedUrn: 'urn:sedml:language:zginml',
@@ -263,16 +270,39 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     'application/x-cellml',
     'application/xml',
 
+    // LEMS
+    '.xml',
+    'application/lems+xml',
+    'application/x-lems',
+    'application/xml',
+
     //sbml
     '.sbml',
+    '.xml',
     'application/sbml+xml',
     'application/x-sbml',
+    'application/xml',
 
     // smoldyn
     '.txt',
+    'text/plain',
     'text/smoldyn+plain',
     'text/x-smoldyn',
     'application/x-smoldyn',
+
+    // XPP
+    '.ode',
+    '.xpp',
+    'text/plain',
+    'text/xpp+plain',
+    'text/x-xpp',
+    'application/x-xpp',
+
+    // ZGINML
+    '.zginml',
+    'application/zginml+zip',
+    'application/x-zginml',
+    'application/zip',
   ].join(',');
   private static INIT_MODEL_NAMESPACES = 1;
   private static INIT_MODEL_CHANGES = 3;
@@ -860,8 +890,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           }
         }
 
-        sedDoc?.dataGenerators?.forEach((dataGen: any): void => {
-          const modelVar = dataGen.variables[0];
+        sedDoc?.outputs?.[0].dataSets?.forEach((dataSet: any): void => {
+          const modelVar = dataSet.dataGenerator.variables[0];
 
           modelVar?.target?.namespaces?.forEach((ns: any): void => {
             const prefixKey = ns.prefix || '';
@@ -876,7 +906,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
           this.addModelVariable();
           const varVal = {
-            id: modelVar.id,
+            id: modelVar.id.substring(0, modelVar.id.lastIndexOf('_')),
             name: modelVar?.name || null,
             type: modelVar?.symbol
               ? ModelVariableType.symbol
@@ -1014,6 +1044,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           'format_9006',
           'format_9008',
           'format_9009',
+          'format_9010',
         ].includes(formatEdamId) &&
         [
           'SBO_0000293',
