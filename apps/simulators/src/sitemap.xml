@@ -219,13 +219,19 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-08-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/copasi/4.31.243</loc>
-    <lastmod>2021-06-05</lastmod>
+    <lastmod>2021-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://biosimulators.org/simulators/copasi/4.33.246</loc>
+    <lastmod>2021-08-05</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -321,13 +327,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/ginsim</loc>
-    <lastmod>2021-07-09</lastmod>
+    <lastmod>2021-08-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/ginsim/3.0.0b</loc>
-    <lastmod>2021-07-09</lastmod>
+    <lastmod>2021-08-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
@@ -417,13 +423,13 @@
    
   <url>
     <loc>https://biosimulators.org/simulators/libsbmlsim</loc>
-    <lastmod>2021-06-22</lastmod>
+    <lastmod>2021-08-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://biosimulators.org/simulators/libsbmlsim/1.4.0</loc>
-    <lastmod>2021-06-22</lastmod>
+    <lastmod>2021-08-07</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
