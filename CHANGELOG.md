@@ -1,3 +1,22 @@
+# [3.5.0](https://github.com/biosimulations/Biosimulations/compare/v3.4.1...v3.5.0) (2021-08-09)
+
+
+### Bug Fixes
+
+* **deps:** pin dependency zone.js to 0.11.4 ([51bd9c7](https://github.com/biosimulations/Biosimulations/commit/51bd9c77245528ba8903d1644ddf5985899aa803))
+* **dispatch:** added timeout for loading similar algorithms ([8c7a725](https://github.com/biosimulations/Biosimulations/commit/8c7a7256e13c9d6fd6c88fd4b5c89553d14906ef))
+* **dispatch:** corrected display metadata loading indicator ([346aaeb](https://github.com/biosimulations/Biosimulations/commit/346aaeb809007d25b27e9a970f22eb7a3a715069))
+* **dispatch:** fixed display of visualization loading indicator ([59fcd98](https://github.com/biosimulations/Biosimulations/commit/59fcd98686da9f8c6d22af7048b178d1b3362611))
+
+
+### Features
+
+* **dispatch:** added buttons to publish projects ([33c199a](https://github.com/biosimulations/Biosimulations/commit/33c199ae9e9ccdcc3ef41778f83c7caa7290d65e))
+* **dispatch:** added display of errors with metadata of COMBINE archives ([41a0146](https://github.com/biosimulations/Biosimulations/commit/41a0146c8ac7421f13f0a9fe8aa61d2018f38ff0))
+* **dispatch:** added support for XPP ([3d108ad](https://github.com/biosimulations/Biosimulations/commit/3d108adb5e468d408b4fbad061eab48f84861ea0))
+* **dispatch:** improving capabilities when COMBINE service is down ([dc9ca09](https://github.com/biosimulations/Biosimulations/commit/dc9ca095ff96405e46a13d5f7ce56b95645308e7))
+* **dispatch:** simplified designing 2D line/scatter plots with multiple curves ([beab68e](https://github.com/biosimulations/Biosimulations/commit/beab68e194e637940c57637520f292d0262fa328))
+
 ## [3.4.1](https://github.com/biosimulations/Biosimulations/compare/v3.4.0...v3.4.1) (2021-07-30)
 
 
