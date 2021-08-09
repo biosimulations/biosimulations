@@ -23,7 +23,7 @@ RUN mkdir -p /.cache/matplotlib \
     && chmod ugo+rw /.config/matplotlib \
     && chmod ugo+rw /.cache/matplotlib
 
-# install java for working with LEMS
+# install Java for working with LEMS
 RUN apt-get -y update \
     \
     && apt-get install --no-install-recommends -y \
@@ -31,6 +31,24 @@ RUN apt-get -y update \
     && mkdir -p /usr/share/man/man1/ \
     \
     && rm -rf /var/lib/apt/lists/*
+
+# install Perl for working with BioNetGen
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends perl \
+    && rm -rf /var/lib/apt/lists/*
+
+# install XPP
+RUN cd /tmp \
+    && wget http://www.math.pitt.edu/~bard/bardware/xppaut_latest.tar.gz \
+    && mkdir xpp \
+    && tar zxvf xppaut_latest.tar.gz --directory xpp \
+    && cd xpp \
+    && make \
+    && make install \
+    \
+    && cd /tmp \
+    && rm xppaut_latest.tar.gz \
+    && rm -r xpp
 
 #The name of the app to build
 ARG app

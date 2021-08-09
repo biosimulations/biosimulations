@@ -611,6 +611,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
                   ) {
                     modelFormats.add('format_9000');
                   } else if (
+                    model.language.startsWith('urn:sedml:language:xpp')
+                  ) {
+                    modelFormats.add('format_9010');
+                  } else if (
                     model.language.startsWith('urn:sedml:language:zginml')
                   ) {
                     modelFormats.add('format_9008');

@@ -5,7 +5,7 @@ on:
 jobs:
   getAffectedLibrariesApps:
     env:
-        NX_BRANCH: ${{ github.event.pull_request.head.ref }}  
+        NX_BRANCH: ${{ github.event.pull_request.head.ref }}
     name: Determine affected libraries and apps
     runs-on: ubuntu-latest
     outputs:
@@ -41,32 +41,17 @@ jobs:
           node-version: lts/fermium
           cache: npm
 
-
-      - name: Install Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.9"
-          architecture: "x64"
-
-      - name: Install Pipenv and Flake8
-        run: python -m pip install pipenv flake8
-
-      - name: Install Python Dependencies
-        run: pipenv install --dev
-
       - name: Install Nrwl CLI
-       
         run: npm install -g @nrwl/cli
 
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
       - name: Install npm dependencies
         run: npm ci
 
-
       - id: get-affected-libs-apps
         name: Determine affected libraries and apps
-       
         run: |
           mapfile -d " " -t libsArr < <( nx affected:libs --base=$NX_BASE --plain )
           mapfile -d " " -t appsArr < <( nx affected:apps --base=$NX_BASE --plain )
@@ -108,18 +93,15 @@ jobs:
 
   lint:
     env:
-        NX_BRANCH: ${{ github.event.pull_request.head.ref }}      
+        NX_BRANCH: ${{ github.event.pull_request.head.ref }}
     name: Lint libraries and apps
     runs-on: ubuntu-latest
-
     needs: getAffectedLibrariesApps
     if: ${{ needs.getAffectedLibrariesApps.outputs.run == 'true' }}
-
     strategy:
       fail-fast: false
       matrix:
         libOrApp: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.libsApps) }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2.3.4
@@ -137,13 +119,11 @@ jobs:
           fi
 
       - name: Install Python
+        if: matrix.libOrApp == 'combine-service'
         uses: actions/setup-python@v2
         with:
           python-version: "3.9"
           architecture: "x64"
-
-      - name: Install Pipenv and Flake8
-        run: python -m pip install pipenv flake8
 
       - name: Install Node.js
         uses: actions/setup-node@v2.4.0
@@ -151,15 +131,10 @@ jobs:
           node-version: lts/fermium
           cache: npm
 
-
       - name: Install Nrwl CLI
-       
         run: npm install -g @nrwl/cli
 
-
-
       - name: Install dependencies
-       
         run: npm ci
 
       - name: Cache Angular and NX dependencies
@@ -174,17 +149,17 @@ jobs:
 
       - name: Lint library or app (TypeScript)
         if: matrix.libOrApp != 'combine-service'
-       
         run: nx run ${{ matrix.libOrApp }}:lint
 
       - name: Lint library or app (Python)
         if: matrix.libOrApp == 'combine-service'
-       
-        run: python -m flake8 apps/${{ matrix.libOrApp }}/src/
+        run: |
+          python -m pip install flake8
+          python -m flake8 apps/${{ matrix.libOrApp }}/src/
 
   build:
     env:
-        NX_BRANCH: ${{ github.event.pull_request.head.ref }}      
+        NX_BRANCH: ${{ github.event.pull_request.head.ref }}
     name: Build app
     runs-on: ubuntu-latest
 
@@ -212,17 +187,18 @@ jobs:
           fi
 
       - name: Install Python
+        if: matrix.libOrApp == 'combine-service'
         uses: actions/setup-python@v2
         with:
           python-version: "3.9"
           architecture: "x64"
 
-      - name: Install Pipenv and Flake8
-        run: python -m pip install pipenv flake8
+      - name: Install Pipenv
+        if: matrix.libOrApp == 'combine-service'
+        run: python -m pip install pipenv
 
       - name: Install Python dependencies
         if: matrix.libOrApp == 'combine-service'
-       
         run: pipenv install --dev
 
       - name: Install Node.js
@@ -231,9 +207,7 @@ jobs:
           node-version: lts/fermium
           cache: npm
 
-
       - name: Install Nrwl CLI
-       
         run: npm install -g @nrwl/cli
 
       - name: Cache npm dependencies
@@ -246,7 +220,6 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-       
         run: npm ci
 
       - name: Cache Angular and NX dependencies
@@ -260,13 +233,11 @@ jobs:
             ${{ runner.os }}-nx-
 
       - name: Build app and dependencies
-       
         run: nx run ${{ matrix.app }}:build --prod --with-deps
-
 
   testApp:
     env:
-        NX_BRANCH: ${{ github.event.pull_request.head.ref }}      
+        NX_BRANCH: ${{ github.event.pull_request.head.ref }}
     name: Test app
     runs-on: ubuntu-latest
 
@@ -293,37 +264,25 @@ jobs:
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
 
-      - name: Install Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.9"
-          architecture: "x64"
-
-      - name: Install Pipenv and Flake8
-        run: python -m pip install pipenv flake8
-
-      - name: Install Python dependencies
-        if: matrix.libOrApp == 'combine-service'
-       
-        run: pipenv install --dev
-
+      ############################
+      ## TypeScript apps
       - name: Install Node.js
+        if: matrix.libOrApp != 'combine-service'
         uses: actions/setup-node@v2.4.0
         with:
           node-version: lts/fermium
           cache: npm
 
-
       - name: Install Nrwl CLI
-       
+        if: matrix.libOrApp != 'combine-service'
         run: npm install -g @nrwl/cli
 
-
       - name: Install dependencies
-       
+        if: matrix.libOrApp != 'combine-service'
         run: npm ci
 
       - name: Cache Angular and NX dependencies
+        if: matrix.libOrApp != 'combine-service'
         uses: actions/cache@v2
         with:
           path: node_modules/.cache
@@ -334,7 +293,7 @@ jobs:
             ${{ runner.os }}-nx-
 
       - name: Test app (TypeScript)
-       
+        if: matrix.libOrApp != 'combine-service'
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
@@ -345,8 +304,55 @@ jobs:
           MANAGEMENT_DOMAIN: ${{ secrets.MANAGEMENT_DOMAIN }}
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
-        if: matrix.libOrApp != 'combine-service'
         run: nx run ${{ matrix.libOrApp }}:build --prod --with-deps && nx run ${{ matrix.libOrApp }}:test --coverage
+
+      ############################
+      ## Python apps
+      - name: Install Java # for pyNeuroML
+        if: matrix.libOrApp == 'combine-service'
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '15'
+
+      - name: Install Perl # for BioNetGen
+        if: matrix.libOrApp == 'combine-service'
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends perl
+
+      - name: Install XPP
+        if: matrix.libOrApp == 'combine-service'
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends wget make gcc libx11-dev
+
+          cd /tmp
+          wget http://www.math.pitt.edu/~bard/bardware/xppaut_latest.tar.gz
+          mkdir xpp
+          tar zxvf xppaut_latest.tar.gz --directory xpp
+          cd xpp
+          make
+          sudo make install
+
+          cd /tmp
+          rm xppaut_latest.tar.gz
+          rm -r xpp
+
+      - name: Install Python
+        if: matrix.libOrApp == 'combine-service'
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+          architecture: "x64"
+
+      - name: Install Pipenv
+        if: matrix.libOrApp == 'combine-service'
+        run: python -m pip install pipenv
+
+      - name: Install Python dependencies
+        if: matrix.libOrApp == 'combine-service'
+        run: pipenv install --dev
 
       - name: Validate OpenAPI specification for library or app (Python)
         if: matrix.libOrApp == 'combine-service'
@@ -361,14 +367,16 @@ jobs:
         with:
           run: pipenv run python -m pytest --cov apps/${{ matrix.libOrApp }}/src/ apps/${{ matrix.libOrApp }}/tests/
 
+      ############################
+      ## Upload coverage data
       - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v2.0.2
         with:
           token: ${{secrets.CODECOV_TOKEN}}
-      
+
   testLib:
     env:
-        NX_BRANCH: ${{ github.event.pull_request.head.ref }}      
+        NX_BRANCH: ${{ github.event.pull_request.head.ref }}
     name: Test library or app
     runs-on: ubuntu-latest
 
@@ -395,6 +403,21 @@ jobs:
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
 
+      - name: Install Python
+        if: matrix.libOrApp == 'combine-service'
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+          architecture: "x64"
+
+      - name: Install Pipenv
+        if: matrix.libOrApp == 'combine-service'
+        run: python -m pip install pipenv
+
+      - name: Install Python dependencies
+        if: matrix.libOrApp == 'combine-service'
+        run: pipenv install --dev
+
       - name: Install Node.js
         uses: actions/setup-node@v2.4.0
         with:
@@ -402,12 +425,9 @@ jobs:
           cache: npm
 
       - name: Install Nrwl CLI
-       
         run: npm install -g @nrwl/cli
 
-
       - name: Install dependencies
-       
         run: npm ci
 
       - name: Cache Angular and NX dependencies
@@ -419,9 +439,8 @@ jobs:
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
-     
-      - name: Test library 
-       
+
+      - name: Test library
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
