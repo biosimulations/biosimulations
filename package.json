@@ -49,7 +49,7 @@
     "@nestjs/mongoose": "8.0.0",
     "@nestjs/passport": "8.0.0",
     "@nestjs/platform-express": "8.0.3",
-    "@nestjs/schedule": "1.0.0",
+    "@nestjs/schedule": "1.0.1",
     "@nestjs/swagger": "5.0.0",
     "@ngbmodule/material-carousel": "0.7.1",
     "@openapi-contrib/openapi-schema-to-json-schema": "3.1.0",
