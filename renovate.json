@@ -5,7 +5,7 @@
   "rebaseWhen": "auto",
   "pip_requirements": {
     "fileMatch": ["Pipfile", "Pipfile.lock"]
-  }
+  },
   "labels": ["dependencies"],
   "packageRules": [
     {
