@@ -48,6 +48,12 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
     with open(EXAMPLE_SIMULATIONS_FILENAME, 'r') as file:
         simulations = json.load(file)
 
+    # filter out disabled runs
+    simulations = list(filter(
+        lambda simulation:
+        simulation.get('disabled', False),
+        simulations))
+
     # filter out runs for simulators that aren't enabled
     simulations = list(filter(
         lambda simulation:
