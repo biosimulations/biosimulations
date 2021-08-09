@@ -26,5 +26,8 @@
       "groupName": "angular"
     }
   ],
+  "pip_requirements": {
+    "fileMatch": ["Pipfile"]
+  },
   "prConcurrentLimit": 3
 }
