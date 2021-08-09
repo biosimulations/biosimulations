@@ -322,6 +322,20 @@
     "projectSize": 2142381
   },
   {
+    "id": "6111bd56685c693ca5b41178",
+    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; CellML; CVODE; OpenCOR)",
+    "simulator": "opencor",
+    "simulatorVersion": "2021-07-09",
+    "cpus": 1,
+    "memory": 8,
+    "maxTime": 20,
+    "submittedLocally": false,
+    "status": "CREATED",
+    "submitted": "2021-08-09T23:42:14.797Z",
+    "updated": "2021-08-09T23:42:14.797Z",
+    "projectSize": 149219
+  },
+  {
     "id": "6111b2f3685c692d81b41160",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; PySCeS)",
     "simulator": "pysces",
