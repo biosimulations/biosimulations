@@ -36,7 +36,7 @@ jobs:
           fi
 
       - name: Install Node.js
-        uses: actions/setup-node@v2.3.2
+        uses: actions/setup-node@v2.4.0
         with:
           node-version: lts/fermium
           cache: npm
@@ -126,7 +126,7 @@ jobs:
           architecture: "x64"
 
       - name: Install Node.js
-        uses: actions/setup-node@v2.3.2
+        uses: actions/setup-node@v2.4.0
         with:
           node-version: lts/fermium
           cache: npm
@@ -202,7 +202,7 @@ jobs:
         run: pipenv install --dev
 
       - name: Install Node.js
-        uses: actions/setup-node@v2.3.2
+        uses: actions/setup-node@v2.4.0
         with:
           node-version: lts/fermium
           cache: npm
@@ -268,7 +268,7 @@ jobs:
       ## TypeScript apps
       - name: Install Node.js
         if: matrix.libOrApp != 'combine-service'
-        uses: actions/setup-node@v2.3.2
+        uses: actions/setup-node@v2.4.0
         with:
           node-version: lts/fermium
           cache: npm
@@ -419,7 +419,7 @@ jobs:
         run: pipenv install --dev
 
       - name: Install Node.js
-        uses: actions/setup-node@v2.3.2
+        uses: actions/setup-node@v2.4.0
         with:
           node-version: lts/fermium
           cache: npm
