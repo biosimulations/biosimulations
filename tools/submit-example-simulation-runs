@@ -51,7 +51,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
     # filter out disabled runs
     simulations = list(filter(
         lambda simulation:
-        simulation.get('disabled', False),
+        not simulation.get('disabled', False),
         simulations))
 
     # filter out runs for simulators that aren't enabled
