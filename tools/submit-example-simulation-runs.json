@@ -130,6 +130,53 @@
     "filename": "xpp/Wu-Biochem-Pharmacol-2006-pituitary-GH3-cells.omex"
   },
   {
+    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; CellML; CVODE; OpenCOR)",
+    "simulator": "opencor",
+    "filename": "cellml/Elowitz-Nature-2000-Repressilator.omex"
+  },
+  {
+    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; PySCeS)",
+    "simulator": "pysces",
+    "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex"
+  },
+  {
+    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; tellurium)",
+    "simulator": "tellurium",
+    "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex",
+    "disabled": "Cannot modify values of parameters set via assignment rules"
+  },
+  {
+    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; VCell)",
+    "simulator": "vcell",
+    "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex"
+  },
+  {
+    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODES; AMICI)",
+    "simulator": "amici",
+    "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex"
+  },
+  {
+    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; LSODA; GillesPy2)",
+    "simulator": "gillespy2",
+    "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex",
+    "disabled": "Cannot handle ln function"
+  },
+  {
+    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; LSODA/LSODAR; COPASI)",
+    "simulator": "copasi",
+    "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex"
+  },
+  {
+    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; substituted; LibSBMLSim)",
+    "simulator": "libsbmlsim",
+    "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex"
+  },
+  {
+    "name": "Toy gene regulatory network (Saglam, 2020; BNGL; CVODE; BioNetGen)",
+    "simulator": "bionetgen",
+    "filename": "bngl/test-bngl.omex"
+  },
+  {
     "name": "Toy gene regulatory network (Saglam, 2020; BNGL; CVODE; BioNetGen)",
     "simulator": "bionetgen",
     "filename": "bngl/test-bngl.omex"
