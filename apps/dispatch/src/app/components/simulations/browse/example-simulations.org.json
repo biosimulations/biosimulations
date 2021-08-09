@@ -308,6 +308,20 @@
     "projectSize": 1279388
   },
   {
+    "id": "61113abb01a2111362a86439",
+    "name": "Pituitary GH(3) cells (Wu & Chang, Biochem Pharmacol, 2006; XPP; CVODE; XPP)",
+    "simulator": "xpp",
+    "simulatorVersion": "8.0",
+    "cpus": 1,
+    "memory": 8,
+    "maxTime": 20,
+    "submittedLocally": false,
+    "status": "CREATED",
+    "submitted": "2021-08-09T14:24:59.664Z",
+    "updated": "2021-08-09T14:24:59.664Z",
+    "projectSize": 2142381
+  },
+  {
     "id": "6101f59f414ac55b816b7fa8",
     "name": "Toy gene regulatory network (Saglam, 2020; BNGL; CVODE; BioNetGen)",
     "simulator": "bionetgen",

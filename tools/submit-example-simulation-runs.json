@@ -125,6 +125,11 @@
     "filename": "bngl/Dolan-PLoS-Comput-Biol-2015-NHEJ.omex"
   },
   {
+    "name": "Pituitary GH(3) cells (Wu & Chang, Biochem Pharmacol, 2006; XPP; CVODE; XPP)",
+    "simulator": "xpp",
+    "filename": "xpp/Wu-Biochem-Pharmacol-2006-pituitary-GH3-cells.omex"
+  },
+  {
     "name": "Toy gene regulatory network (Saglam, 2020; BNGL; CVODE; BioNetGen)",
     "simulator": "bionetgen",
     "filename": "bngl/test-bngl.omex"

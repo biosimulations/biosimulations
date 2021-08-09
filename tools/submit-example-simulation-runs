@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import natsort
 import os
 import requests
 import shutil
@@ -66,7 +67,14 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
 
     # execution simulations
     temp_dir = tempfile.mkdtemp()
-    simulation_runs = []
+    new_simulation_runs = []
+    if simulation_names:
+        with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(runbiosimulations_api), 'r') as file:
+            simulation_runs = {run['name']: run for run in json.load(file)}
+
+    else:
+        simulation_runs = {}
+
     for simulation in simulations:
         name = simulation['name']
         simulator = simulation['simulator']
@@ -112,7 +120,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
                 simulation_run['error']))
 
         # log run
-        simulation_runs.append({
+        simulation_runs[name] = {
             "id": simulation_run['id'],
             "name": name,
             'simulator': simulator,
@@ -125,15 +133,18 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
             "submitted": simulation_run['submitted'],
             "updated": simulation_run['updated'],
             "projectSize": project_size,
-
-        })
+        }
+        new_simulation_runs.append(simulation_runs[name])
 
     if test_mode:
-        monitor_runs(simulation_runs, runbiosimulations_api)
+        monitor_runs(new_simulation_runs, runbiosimulations_api)
 
     else:
+        sorted_simulation_runs = natsort.natsorted(list(simulation_runs.values()),
+                                                   key=lambda run: (run['name'], run['simulator'], run['simulatorVersion']),
+                                                   alg=natsort.IGNORECASE)
         with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(runbiosimulations_api), 'w') as file:
-            json.dump(simulation_runs, file, indent=2)
+            json.dump(sorted_simulation_runs, file, indent=2)
 
     shutil.rmtree(temp_dir)
 
