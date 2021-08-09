@@ -1021,10 +1021,10 @@ biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }
                   body:
                   <pre><code>---
 name: {{ '{' }} simulator-name {{ '}' }}
-version: {{ '{' }} simulator-version {{ '}' }}
+version: "{{ '{' }} simulator-version {{ '}' }}"
 specificationsUrl: {{ '{' }} specifications-url {{ '}' }}
 specificationsPatch:
-  version: {{ '{' }} simulator-version {{ '}' }}
+  version: "{{ '{' }} simulator-version {{ '}' }}"
   image:
     url: {{ '{' }} docker-image-repo-url {{ '}' }}:{{ '{' }} simulator-version {{ '}' }}
 validateImage: true
