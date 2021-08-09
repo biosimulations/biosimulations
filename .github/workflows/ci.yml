@@ -325,7 +325,7 @@ jobs:
         if: matrix.libOrApp == 'combine-service'
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y --no-install-recommends wget make gcc libx11-dev
+          sudo apt-get install -y --no-install-recommends wget make gcc libx11-dev libc6-dev
 
           cd /tmp
           wget http://www.math.pitt.edu/~bard/bardware/xppaut_latest.tar.gz
