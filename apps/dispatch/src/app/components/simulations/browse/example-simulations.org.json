@@ -336,20 +336,6 @@
     "projectSize": 149219
   },
   {
-    "id": "6111b2f3685c692d81b41160",
-    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; PySCeS)",
-    "simulator": "pysces",
-    "simulatorVersion": "0.9.9",
-    "cpus": 1,
-    "memory": 8,
-    "maxTime": 20,
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-08-09T22:57:55.189Z",
-    "updated": "2021-08-09T22:57:55.189Z",
-    "projectSize": 170604
-  },
-  {
     "id": "6111b31d685c69b677b41167",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODES; AMICI)",
     "simulator": "amici",
