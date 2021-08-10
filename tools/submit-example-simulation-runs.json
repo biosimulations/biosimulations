@@ -137,7 +137,8 @@
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; PySCeS)",
     "simulator": "pysces",
-    "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex"
+    "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex",
+    "disabled": "PySCeS' results aren't consistent with other tools"
   },
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; tellurium)",
