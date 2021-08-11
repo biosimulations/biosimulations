@@ -92,6 +92,7 @@ def handler(body, file=None):
                                                   validate_semantics=False,
                                                   validate_models_with_languages=False)
         except Exception:
+            traceback.print_exc()
             continue
 
         sed_model_specs = collections.OrderedDict()
@@ -285,7 +286,7 @@ def handler(body, file=None):
                 sed_doc_output_specs['xScale'] = (
                     x_scale or AxisScale.linear).value
                 sed_doc_output_specs['yScale'] = (
-                    y_scale or AxisScale.linear).value
+                    y_scale or AxisScale.linear).value 
 
             elif isinstance(output, Plot3D):
                 sed_doc_output_specs = {
