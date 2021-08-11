@@ -56,21 +56,21 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/axios
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/axios/LICENSE
-├─ @nestjs/bull@0.4.0
+├─ @nestjs/bull@0.4.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/bull
 │  └─ licenseFile: @nestjs/bull/LICENSE
-├─ @nestjs/common@8.0.3
+├─ @nestjs/common@8.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/common/LICENSE
-├─ @nestjs/config@1.0.0
+├─ @nestjs/config@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/config/LICENSE
-├─ @nestjs/core@8.0.3
+├─ @nestjs/core@8.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -80,7 +80,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/mapped-types
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/mapped-types/LICENSE
-├─ @nestjs/microservices@8.0.3
+├─ @nestjs/microservices@8.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
@@ -90,22 +90,22 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/mongoose
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/mongoose/LICENSE
-├─ @nestjs/passport@8.0.0
+├─ @nestjs/passport@8.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/passport
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/passport/LICENSE
-├─ @nestjs/platform-express@8.0.3
+├─ @nestjs/platform-express@8.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/platform-express/LICENSE
-├─ @nestjs/schedule@1.0.0
+├─ @nestjs/schedule@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/schedule
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/schedule/LICENSE
-├─ @nestjs/swagger@5.0.0
+├─ @nestjs/swagger@5.0.9
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/swagger
 │  ├─ publisher: Kamil Mysliwiec
@@ -269,7 +269,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/types.ts
 │  └─ licenseFile: @octokit/types/LICENSE
-├─ @openapi-contrib/openapi-schema-to-json-schema@3.1.0
+├─ @openapi-contrib/openapi-schema-to-json-schema@3.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/openapi-contrib/openapi-schema-to-json-schema
 │  ├─ publisher: OpenAPI Contrib
@@ -305,21 +305,21 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Pierre Vanduynslager
 │  ├─ url: https://twitter.com/@pvdlg_
 │  └─ licenseFile: @semantic-release/release-notes-generator/LICENSE
-├─ @sendgrid/client@7.4.3
+├─ @sendgrid/client@7.4.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/client/LICENSE
-├─ @sendgrid/helpers@7.4.3
+├─ @sendgrid/helpers@7.4.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/helpers/LICENSE
-├─ @sendgrid/mail@7.4.4
+├─ @sendgrid/mail@7.4.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
@@ -368,7 +368,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Nathan Rajlich
 │  ├─ email: nathan@tootallnate.net
 │  └─ url: http://n8.io/
-├─ @typegoose/typegoose@7.6.0
+├─ @typegoose/typegoose@7.6.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typegoose/typegoose
 │  ├─ publisher: Akos Szokodi
@@ -854,7 +854,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/cacache
 │  └─ licenseFile: npm/node_modules/cacache/LICENSE.md
-├─ cache-manager@3.4.3
+├─ cache-manager@3.4.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/BryanDonovan/node-cache-manager
 │  ├─ publisher: Bryan Donovan
