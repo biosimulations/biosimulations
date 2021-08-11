@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ArchiverService } from './archiver.service';
 import { ConfigService } from '@nestjs/config';
 
-import { HttpService } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { SshService } from '../services/ssh/ssh.service';
 import { FileService } from './file.service';
