@@ -5,7 +5,6 @@ export class SimulationRunMetadata {
   public metadata!: ArchiveMetadata[];
   public simulationRun: string;
   public constructor(id: string, simulationRun: string) {
-
     this.id = id;
     this.simulationRun = simulationRun;
   }

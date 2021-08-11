@@ -19,7 +19,9 @@ export class MetadataController {
 
   @ApiBody({ type: SimulationRunMetadata })
   @Post()
-  public makeMetadata(@Body() body: SimulationRunMetadata): SimulationRunMetadata {
+  public makeMetadata(
+    @Body() body: SimulationRunMetadata,
+  ): SimulationRunMetadata {
     const metadata = this.service.createMetadata(body);
     return metadata;
   }
@@ -36,4 +38,3 @@ export class MetadataController {
     return metadata;
   }
 }
- 

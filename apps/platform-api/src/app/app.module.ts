@@ -26,7 +26,6 @@ import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions
       inject: [ConfigService],
     }),
     CacheModule.register(),
-  
   ],
   controllers: [AppController],
   providers: [AppService],

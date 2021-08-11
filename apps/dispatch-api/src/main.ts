@@ -61,14 +61,14 @@ async function bootstrap() {
     logger.log('Listening at http://localhost:' + port);
   });
 
-    app.useGlobalPipes(
-      new ValidationPipe({
-        exceptionFactory: BiosimulationsValidationExceptionFactory,
-      }),
-    );
-    app.enableVersioning({
-      type: VersioningType.URI,
-    });
+  app.useGlobalPipes(
+    new ValidationPipe({
+      exceptionFactory: BiosimulationsValidationExceptionFactory,
+    }),
+  );
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
 }
 
 bootstrap();

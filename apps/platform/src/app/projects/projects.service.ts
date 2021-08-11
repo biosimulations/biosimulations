@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ArchiveMetadata, SimulationRunMetadata } from '@biosimulations/datamodel/api';
+import {
+  ArchiveMetadata,
+  SimulationRunMetadata,
+} from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
