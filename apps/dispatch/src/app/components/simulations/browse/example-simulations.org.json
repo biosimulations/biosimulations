@@ -322,7 +322,7 @@
     "projectSize": 2142381
   },
   {
-    "id": "6111bd56685c693ca5b41178",
+    "id": "611419dc685c695ff0b41193",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; CellML; CVODE; OpenCOR)",
     "simulator": "opencor",
     "simulatorVersion": "2021-07-09",
@@ -331,12 +331,26 @@
     "maxTime": 20,
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-08-09T23:42:14.797Z",
-    "updated": "2021-08-09T23:42:14.797Z",
-    "projectSize": 149219
+    "submitted": "2021-08-11T18:41:32.617Z",
+    "updated": "2021-08-11T18:41:32.617Z",
+    "projectSize": 195397
   },
   {
-    "id": "6111b31d685c69b677b41167",
+    "id": "611419e9685c69ad68b41196",
+    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; tellurium)",
+    "simulator": "tellurium",
+    "simulatorVersion": "2.2.0",
+    "cpus": 1,
+    "memory": 8,
+    "maxTime": 20,
+    "submittedLocally": false,
+    "status": "CREATED",
+    "submitted": "2021-08-11T18:41:45.409Z",
+    "updated": "2021-08-11T18:41:45.409Z",
+    "projectSize": 216791
+  },
+  {
+    "id": "611419f8685c694c88b41199",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODES; AMICI)",
     "simulator": "amici",
     "simulatorVersion": "0.11.18",
@@ -345,12 +359,12 @@
     "maxTime": 20,
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-08-09T22:58:37.943Z",
-    "updated": "2021-08-09T22:58:37.943Z",
-    "projectSize": 170604
+    "submitted": "2021-08-11T18:42:00.319Z",
+    "updated": "2021-08-11T18:42:00.319Z",
+    "projectSize": 216791
   },
   {
-    "id": "6111b34f685c691302b4116f",
+    "id": "61141a06685c69f3ddb4119e",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; LSODA/LSODAR; COPASI)",
     "simulator": "copasi",
     "simulatorVersion": "4.33.246",
@@ -359,12 +373,12 @@
     "maxTime": 20,
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-08-09T22:59:27.325Z",
-    "updated": "2021-08-09T22:59:27.325Z",
-    "projectSize": 170604
+    "submitted": "2021-08-11T18:42:14.546Z",
+    "updated": "2021-08-11T18:42:14.546Z",
+    "projectSize": 216791
   },
   {
-    "id": "6111b35c685c693119b41172",
+    "id": "61141a10685c69d65ab411a1",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; substituted; LibSBMLSim)",
     "simulator": "libsbmlsim",
     "simulatorVersion": "1.4.0",
@@ -373,9 +387,9 @@
     "maxTime": 20,
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-08-09T22:59:40.046Z",
-    "updated": "2021-08-09T22:59:40.046Z",
-    "projectSize": 170604
+    "submitted": "2021-08-11T18:42:24.760Z",
+    "updated": "2021-08-11T18:42:24.760Z",
+    "projectSize": 216791
   },
   {
     "id": "6101f59f414ac55b816b7fa8",
