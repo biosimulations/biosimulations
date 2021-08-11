@@ -17,9 +17,13 @@
       "automerge": true
     },
     {
-      "matchPackagePrefixes": ["@types"],
+      "matchPackagePrefixes": ["@types/"],
       "automerge": true, 
       "groupName": "types"
+    },
+    {
+      "matchPackagePrefixes": ["@nestjs/"],
+      "groupName": "nest"
     },
      {
       "matchPackagePrefixes": [ "@angular" ],
