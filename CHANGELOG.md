@@ -1,3 +1,17 @@
+# [3.6.0](https://github.com/biosimulations/Biosimulations/compare/v3.5.0...v3.6.0) (2021-08-11)
+
+
+### Bug Fixes
+
+* **dispatch:** add logging when catching error ([85fab6c](https://github.com/biosimulations/Biosimulations/commit/85fab6cd89789cbf7357569194404e824bb60865))
+
+
+### Features
+
+* **dispatch:** added example runs for represillator model with SBML ([3400fa1](https://github.com/biosimulations/Biosimulations/commit/3400fa13eed1178ba74f76111b8ec83c995580f9))
+* **dispatch:** added example simulation run for represillator model with OpenCOR ([ebffbae](https://github.com/biosimulations/Biosimulations/commit/ebffbae270595afd8d479d0a5ab6e90623b2323a))
+* **dispatch:** added example simulation runs with visuaulizations using SBGN PD maps ([3c371e0](https://github.com/biosimulations/Biosimulations/commit/3c371e00758ab7a56b54afb5997da485fa3d071c))
+
 # [3.5.0](https://github.com/biosimulations/Biosimulations/compare/v3.4.1...v3.5.0) (2021-08-09)
 
 
