@@ -6,7 +6,7 @@
  * @license MIT
  */
 
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 
@@ -15,6 +15,7 @@ import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.in
 import { ConfigService } from '@nestjs/config';
 import { json } from 'body-parser';
 import { setupOpenApi } from './openApi';
+import { BiosimulationsValidationExceptionFactory } from '@biosimulations/shared/exceptions';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -59,6 +60,15 @@ async function bootstrap() {
   await app.listen(port, () => {
     logger.log('Listening at http://localhost:' + port);
   });
+
+    app.useGlobalPipes(
+      new ValidationPipe({
+        exceptionFactory: BiosimulationsValidationExceptionFactory,
+      }),
+    );
+    app.enableVersioning({
+      type: VersioningType.URI,
+    });
 }
 
 bootstrap();
