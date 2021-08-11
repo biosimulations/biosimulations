@@ -20,6 +20,7 @@ import collections
 import os
 import requests
 import requests.exceptions
+import traceback
 
 
 def handler(body, file=None):
@@ -286,7 +287,7 @@ def handler(body, file=None):
                 sed_doc_output_specs['xScale'] = (
                     x_scale or AxisScale.linear).value
                 sed_doc_output_specs['yScale'] = (
-                    y_scale or AxisScale.linear).value 
+                    y_scale or AxisScale.linear).value
 
             elif isinstance(output, Plot3D):
                 sed_doc_output_specs = {
