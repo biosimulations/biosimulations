@@ -67,6 +67,14 @@ export class SimulationRun {
   maxTime: number;
 
   @ApiPropertyOptional({
+    type: Object,
+    description: 'Key-value pairs of environment variables to execute the simulator with',
+    required: false,
+    default: {},
+  })
+  env: {[key: string]: string};
+
+  @ApiPropertyOptional({
     type: String,
     format: 'email',
     example: 'info@biosimulations.org',
@@ -105,6 +113,7 @@ export class SimulationRun {
     cpus: number,
     memory: number,
     maxTime: number,
+    env: {[key: String]: string},
     submitted: Date,
     updated: Date,
     isPublic?: boolean,
@@ -122,6 +131,7 @@ export class SimulationRun {
     this.cpus = cpus || 1;
     this.memory = memory || 8;
     this.maxTime = maxTime || 20;
+    this.env = env || {};
     this.status = status || SimulationRunStatus.CREATED;
     this.public = isPublic || false;
     this.submitted = submitted;
@@ -142,6 +152,7 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
   'cpus',
   'memory',
   'maxTime',
+  'env',
   'public',
 ]) {}
 

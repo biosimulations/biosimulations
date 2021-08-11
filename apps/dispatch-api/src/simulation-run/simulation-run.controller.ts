@@ -169,6 +169,7 @@ export class SimulationRunController {
       cpus: run.cpus,
       memory: run.memory,
       maxTime: run.maxTime,
+      env: run.env,
     };
     const sim = await this.dispatchQueue.add(message);
 
@@ -211,6 +212,7 @@ export class SimulationRunController {
       run.cpus,
       run.memory,
       run.maxTime,
+      run.env,
       run.submitted,
       run.updated,
       run.public,

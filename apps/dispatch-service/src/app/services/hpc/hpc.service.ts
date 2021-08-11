@@ -28,7 +28,8 @@ export class HpcService {
     cpus: number,
     memory: number,
     maxTime: number,
-    fileName: string,
+    env: {[key: string]: string},
+    fileName: string,    
   ): Promise<{
     stdout: string;
     stderr: string;
@@ -44,9 +45,10 @@ export class HpcService {
       cpus,
       memory,
       maxTime,
+      env,
       fileName,
       endpoint,
-      id,
+      id,      
     );
 
     // eslint-disable-next-line max-len

@@ -4,6 +4,10 @@ export class MonitorJob {
   simId!: string;
 }
 
+export interface Environment {
+  [key: string]: string;
+}
+
 export class DispatchJob {
   simId!: string;
   simulator!: string;
@@ -12,6 +16,7 @@ export class DispatchJob {
   cpus!: number;
   memory!: number;
   maxTime!: number;
+  env!: Environment;
 }
 
 export class CompleteJob {

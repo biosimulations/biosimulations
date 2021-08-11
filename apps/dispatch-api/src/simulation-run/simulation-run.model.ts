@@ -132,6 +132,36 @@ export class SimulationRunModel extends Document {
   })
   maxTime!: number;
 
+  @Prop({
+    type: Object,
+    required: false,
+    default: {},
+    validate: [
+      {
+        validator: (value: any): boolean => {
+          if (typeof value !== "object") {
+            return false;
+          }
+
+          for (const [key, val] of Object.entries(value)) {
+            if (typeof key !== 'string') {
+              return false;
+            }
+
+            if (typeof val !== 'string') {
+              return false;
+            }
+          }
+            
+          return true;
+        },
+        message: (props: any): string =>
+          'Amount of requested time (in min) must be a positive float less than or equal to 28800 (20 days).',
+      },
+    ],
+  })
+  env!: {[key: string]: string};
+
   @Prop()
   submitted!: Date;
 
@@ -159,6 +189,7 @@ export type SimulationRunModelType = Pick<
   | 'cpus'
   | 'memory'
   | 'maxTime'
+  | 'env'
   | 'refreshCount'
   | 'submitted'
   | 'updated'

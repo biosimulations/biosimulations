@@ -10,6 +10,7 @@ export interface Simulation {
   cpus: number;
   memory: number; // GB
   maxTime: number; // min
+  env: {[key: string]: string};
   status: SimulationRunStatus;
   runtime?: number;
   submitted: Date;
