@@ -4,8 +4,8 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
+import { HttpService } from '@nestjs/axios';
 import {
-  HttpService,
   Injectable,
   Inject,
   InternalServerErrorException,

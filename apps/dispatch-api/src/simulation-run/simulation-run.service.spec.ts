@@ -10,7 +10,7 @@ import {
   SharedStorageModule,
   SharedStorageService,
 } from '@biosimulations/shared/storage';
-import { HttpModule } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 

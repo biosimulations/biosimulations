@@ -8,7 +8,8 @@
  */
 
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
-import { HttpModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { BullModule } from '@nestjs/bull';
