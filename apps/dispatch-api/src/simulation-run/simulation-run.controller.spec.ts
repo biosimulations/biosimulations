@@ -9,7 +9,7 @@ import { SimulationRunService } from './simulation-run.service';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { ConfigService } from '@nestjs/config';
-import { HttpModule } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
 /**
  * @file Test file for controller
  * @author Bilal Shaikh

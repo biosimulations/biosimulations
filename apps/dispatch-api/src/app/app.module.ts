@@ -1,4 +1,5 @@
-import { Module, HttpModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios'
 import { AppController } from './app.controller';
 import { ConfigService } from '@nestjs/config';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
@@ -16,6 +17,7 @@ import { ImagesModule } from '../images/images.module';
 import { LogsModule } from '../logs/logs.module';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
 import { BullModule } from '@nestjs/bull';
+import { MetadataModule } from '../metadata/metadata.module';
 
 @Module({
   imports: [
@@ -45,6 +47,7 @@ import { BullModule } from '@nestjs/bull';
     }),
     SimulationRunModule,
     ResultsModule,
+    MetadataModule,
     SharedExceptionsFiltersModule,
     AuthTestModule,
     SharedNatsClientModule,
