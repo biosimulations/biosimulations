@@ -1,11 +1,11 @@
-import { PublishProjectInput } from '.';
 import { ArchiveMetadata } from './archiveMetadata';
 
-export class Project extends PublishProjectInput {
+export class SimulationRunMetadata {
   public id!: string;
   public metadata!: ArchiveMetadata[];
+  public simulationRun: string;
   public constructor(id: string, simulationRun: string) {
-    super();
+
     this.id = id;
     this.simulationRun = simulationRun;
   }

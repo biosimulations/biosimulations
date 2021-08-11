@@ -9,7 +9,7 @@ import {
 
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 
-import { MetadataInput, Metadata } from '@biosimulations/datamodel/api';
+import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
 import { MetadataService } from './metadata.service';
 
 @ApiTags('Metadata')
@@ -17,22 +17,23 @@ import { MetadataService } from './metadata.service';
 export class MetadataController {
   public constructor(private service: MetadataService) {}
 
-  @ApiBody({ type: MetadataInput })
+  @ApiBody({ type: SimulationRunMetadata })
   @Post()
-  public makeMetadata(@Body() body: MetadataInput): Metadata {
-    const Metadata = this.service.saveMetadata(body);
-    return Metadata;
+  public makeMetadata(@Body() body: SimulationRunMetadata): SimulationRunMetadata {
+    const metadata = this.service.createMetadata(body);
+    return metadata;
   }
 
   @Get()
-  public getAllMetadata(): Metadata[] {
-    const Metadata = this.service.getMetadata();
-    return Metadata;
+  public getAllMetadata(): SimulationRunMetadata[] {
+    const metadata = this.service.getAllMetadata();
+    return metadata;
   }
 
   @Get(':id')
-  public getMetadata(@Param('id') id: string): Metadata {
-    const Metadata = this.service.getMetadata(id);
-    return Metadata;
+  public getMetadata(@Param('id') id: string): SimulationRunMetadata {
+    const metadata = this.service.getMetadata(id);
+    return metadata;
   }
 }
+ 
