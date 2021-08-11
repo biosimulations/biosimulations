@@ -12,6 +12,7 @@ export interface FormattedSimulation {
   cpus: number;
   memory: number; // GB
   maxTime: number; // min
+  env: {[key: string]: string};
   status: SimulationRunStatus;
   statusRunning: boolean;
   statusSucceeded: boolean;

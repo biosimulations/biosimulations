@@ -29,7 +29,8 @@ export class DispatchProcessor {
       data.cpus,
       data.memory,
       data.maxTime,
-      data.fileName,
+      data.env,
+      data.fileName,      
     );
 
     if (response.stderr != '') {

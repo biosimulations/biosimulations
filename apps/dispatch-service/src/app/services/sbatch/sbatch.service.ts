@@ -11,9 +11,10 @@ export class SbatchService {
     cpus: number,
     memory: number,
     maxTime: number,
+    env: {[key: string]: string},
     omexName: string,
     apiDomain: string,
-    simId: string,
+    simId: string,    
   ): string {
     const homeDir = this.configService.get('hpc.homeDir');
     const bucket = this.configService.get('storage.bucket');
@@ -38,9 +39,16 @@ export class SbatchService {
     if (apiDomain.startsWith('http://localhost')) {
       apiDomain = 'https://run.api.biosimulations.dev/';
     }
-    /*
-     *
-     */
+    
+    const envString = Object.entries(env)
+      .map((keyVal: [string, string]): string => {
+        const key = keyVal[0].replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
+        const val = keyVal[1].replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
+        return `${key}=${val}`;
+
+      })
+      .join(',');
+
     const template = `#!/bin/bash
 #SBATCH --job-name=${simId}_Biosimulations
 #SBATCH --time=${maxTimeFormatted}
@@ -61,15 +69,15 @@ export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 cd ${tempSimDir}
 echo -e '${cyan}=============Downloading Combine Archive=============${nc}'
-( ulimit -f 1048576; srun wget  --progress=bar:force ${apiDomain}run/${simId}/download -O '${omexName}')
+( ulimit -f 1048576; srun wget --progress=bar:force ${apiDomain}run/${simId}/download -O '${omexName}')
 echo -e '${cyan}=============Running docker image for simulator=============${nc}'
-srun  singularity run  --tmpdir /local -B ${tempSimDir}:/root ${simulator} -i '/root/${omexName}' -o '/root'
+srun singularity run --tmpdir /local --bind ${tempSimDir}:/root --env "${envString}" ${simulator} -i '/root/${omexName}' -o '/root'
 echo -e '${cyan}=============Uploading results to data-service=============${nc}'
 srun hsload -v reports.h5 '/results/${simId}'
 echo -e '${cyan}=============Creating output archive=============${nc}'
 srun zip ${simId}.zip reports.h5 log.yml plots.zip job.output
 echo -e '${cyan}=============Uploading outputs to storage=============${nc}'
-export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url  ${endpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/simulations/${simId}
+export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url ${endpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/simulations/${simId}
 echo -e '${cyan}=============Run Complete. Thank you for using BioSimulations!=============${nc}'
 `;
 
@@ -103,7 +111,7 @@ echo "Building On:"
 hostname
 echo "Using Singularity"
 singularity --version
-singularity -v pull  --tmpdir /local ${force} ${url}`;
+singularity -v pull --tmpdir /local ${force} ${url}`;
     return template;
   }
 }

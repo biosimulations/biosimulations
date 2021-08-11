@@ -762,6 +762,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const cpus: number = this.formGroup.value.cpus;
     const memory: number = this.formGroup.value.memory; // in GB
     const maxTime: number = this.formGroup.value.maxTime; // in min
+    const env: {[key: string]: string} = {};
     const name: string = this.formGroup.value.name;
     const email: string | null = this.formGroup.value.email || null;
 
@@ -776,6 +777,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         cpus,
         memory,
         maxTime,
+        env,
         name,
         email,
       );
@@ -788,6 +790,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         cpus,
         memory,
         maxTime,
+        env,
         name,
         email,
       );
@@ -801,6 +804,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         cpus,
         memory,
         maxTime,
+        env,
         email,
       ),
     );
@@ -815,6 +819,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     cpus: number,
     memory: number, // in GB
     maxTime: number, // min min
+    env: {[key: string]: string},
     email: string | null,
   ): void {
     const simulationId = data['id'];
@@ -828,6 +833,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       cpus: cpus,
       memory: memory,
       maxTime: maxTime,
+      env: env,
       submittedLocally: true,
       status: SimulationRunStatus.QUEUED,
       runtime: undefined,

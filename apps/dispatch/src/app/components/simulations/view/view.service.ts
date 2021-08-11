@@ -26,6 +26,7 @@ export class ViewService {
       cpus: simulation.cpus || 1,
       memory: simulation.memory || 8,
       maxTime: simulation.maxTime || 20,
+      env: simulation.env || {},
       status: simulation.status,
       statusRunning: statusRunning,
       statusSucceeded: statusSucceeded,

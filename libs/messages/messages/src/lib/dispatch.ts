@@ -43,6 +43,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
   cpus: number;
   memory: number;
   maxTime: number;
+  env: {[key: string]: string};
 
   constructor(
     id: string,
@@ -52,6 +53,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
     cpus: number,
     memory: number,
     maxTime: number,
+    env: {[key: string]: string},
   ) {
     super(id);
     this.fileName = fileName;
@@ -60,6 +62,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
     this.cpus = cpus;
     this.memory = memory;
     this.maxTime = maxTime;
+    this.env = env;
   }
 }
 export class DispatchFailedPayload extends DispatchPayload {
