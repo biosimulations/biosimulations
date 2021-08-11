@@ -7,7 +7,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { IsUrl } from 'class-validator';
 
-export class PublishProjectInput {
+export class ArchiveMetadataInput {
   @ApiProperty({
     type: String,
     description:
