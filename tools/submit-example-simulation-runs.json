@@ -143,8 +143,7 @@
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; tellurium)",
     "simulator": "tellurium",
-    "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex",
-    "disabled": "Cannot modify values of parameters set via assignment rules"
+    "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex"
   },
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; VCell)",
