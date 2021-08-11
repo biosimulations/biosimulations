@@ -3,7 +3,7 @@ import { map, Observable, shareReplay } from 'rxjs';
 import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 import {
   ArchiveMetadata as APIMetadata,
-  Project,
+  SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { ProjectsService } from '../projects.service';
 import { environment } from '@biosimulations/shared/environments';
@@ -26,7 +26,7 @@ export class ViewService {
       .pipe(
         // Only call the HTTP service once
         shareReplay(1),
-        map((data: Project) => {
+        map((data: SimulationRunMetadata) => {
           console.assert(environment.production, data);
           return data.metadata.map((metaData: APIMetadata) => {
             return {

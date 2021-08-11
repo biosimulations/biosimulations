@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ArchiveMetadata, Project } from '@biosimulations/datamodel/api';
+import { ArchiveMetadata, SimulationRunMetadata } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
@@ -15,9 +15,9 @@ export class ProjectsService {
 
     return metaData;
   }
-  public getProject(id: string): Observable<Project> {
+  public getProject(id: string): Observable<SimulationRunMetadata> {
     const response = this.http
-      .get<Project>('http://localhost:3333/projects/' + id)
+      .get<SimulationRunMetadata>('http://localhost:3333/metadata/' + id)
       .pipe();
 
     return response;
