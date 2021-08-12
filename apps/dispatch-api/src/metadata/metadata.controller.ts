@@ -7,9 +7,12 @@ import {
   VERSION_NEUTRAL,
 } from '@nestjs/common';
 
-import { ApiBody,  ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
-import {  SimulationRunMetadata, SimulationRunMetadataInput } from '@biosimulations/datamodel/api';
+import {
+  SimulationRunMetadata,
+  SimulationRunMetadataInput,
+} from '@biosimulations/datamodel/api';
 import { MetadataService } from './metadata.service';
 
 @ApiTags('Metadata')

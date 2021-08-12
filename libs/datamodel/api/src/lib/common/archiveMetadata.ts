@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
-import {
-  ArchiveMetadata as IArchiveMetadata,
-} from '@biosimulations/datamodel/common';
-
+import { ArchiveMetadata as IArchiveMetadata } from '@biosimulations/datamodel/common';
 
 import {
   ABSTRACT,
@@ -25,7 +22,7 @@ import {
   SUCCESSORS,
   TAXA,
   TITLE,
-  FUNDERS
+  FUNDERS,
 } from './commonDefinitions';
 
 type IArchiveMetadataType = Omit<IArchiveMetadata, 'created' | 'modified'> & {
@@ -51,7 +48,7 @@ export class ArchiveMetadata implements IArchiveMetadataType {
   @ApiProperty(ENCODES)
   encodes: LabeledIdentifier[] = [];
   @ApiProperty(SOURCES)
-  sources: LabeledIdentifier[]=[];
+  sources: LabeledIdentifier[] = [];
   @ApiProperty(PREDECESSORS)
   predecessors: LabeledIdentifier[] = [];
   @ApiProperty(SUCCESSORS)
@@ -91,4 +88,3 @@ export class ArchiveMetadataInputContainer {
   @ApiProperty({ type: ArchiveMetadataInput })
   metadata!: ArchiveMetadataInput;
 }
-

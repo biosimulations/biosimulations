@@ -1,6 +1,13 @@
-import { ApiExtraModels, ApiProperty, IntersectionType, OmitType } from '@nestjs/swagger';
-import { ArchiveMetadata, ArchiveMetadataInputContainer } from './archiveMetadata';
-
+import {
+  ApiExtraModels,
+  ApiProperty,
+  IntersectionType,
+  OmitType,
+} from '@nestjs/swagger';
+import {
+  ArchiveMetadata,
+  ArchiveMetadataInputContainer,
+} from './archiveMetadata';
 
 @ApiExtraModels(ArchiveMetadata)
 export class SimulationRunMetadata {
@@ -16,6 +23,8 @@ export class SimulationRunMetadata {
   }
 }
 
-
 // eslint-disable-next-line max-len
-export class SimulationRunMetadataInput extends IntersectionType (OmitType(SimulationRunMetadata, ['metadata'] as const), ArchiveMetadataInputContainer) { }
+export class SimulationRunMetadataInput extends IntersectionType(
+  OmitType(SimulationRunMetadata, ['metadata'] as const),
+  ArchiveMetadataInputContainer,
+) {}

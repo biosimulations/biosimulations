@@ -26,7 +26,6 @@ export class DescribedIdentifier
   attribute_label?: string;
 }
 
-
 export const CREATORS = {
   type: [LabeledIdentifier],
   description: 'An entity responsible for making the resource',
@@ -157,7 +156,8 @@ export const ENCODES = {
     {
       label: 'Protein Kinase Activity',
       uri: 'https://identifiers.org/GO:0004672',
-    }]
+    },
+  ],
 };
 
 export const SOURCES = {
@@ -167,7 +167,12 @@ export const SOURCES = {
     description: 'Dublin Core Metadata Terms Source',
     url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/source',
   },
-  example: [{ label: "Source code", uri: 'https://identifiers.org/doi:10.5281/zenodo.5057108' }]
+  example: [
+    {
+      label: 'Source code',
+      uri: 'https://identifiers.org/doi:10.5281/zenodo.5057108',
+    },
+  ],
 };
 
 export const PREDECESSORS = {
@@ -191,43 +196,43 @@ export const SUCCESSORS = {
   description: 'Other modeling projects that were based on this project',
   externalDocs: {
     description: 'The Scholarly Contributions and Roles Ontology Successor',
-    url: 'https://sparontologies.github.io/scoro/current/scoro.html#d4e2176'
+    url: 'https://sparontologies.github.io/scoro/current/scoro.html#d4e2176',
   },
   example: [
     {
-      label: "Leloup1999_CircadianRhythms_Drosophila",
-      uri: "https://www.ebi.ac.uk/biomodels/BIOMD0000000298"
-    }
+      label: 'Leloup1999_CircadianRhythms_Drosophila',
+      uri: 'https://www.ebi.ac.uk/biomodels/BIOMD0000000298',
+    },
   ],
 };
 
 export const SEEALSO = {
   type: [LabeledIdentifier],
-  description: "More information about a modeling project",
+  description: 'More information about a modeling project',
   externalDocs: {
-    description: "RDF Schema See Also",
-    url: "https://www.w3.org/TR/rdf-schema/#ch_seealso",
+    description: 'RDF Schema See Also',
+    url: 'https://www.w3.org/TR/rdf-schema/#ch_seealso',
   },
   example: [
     {
-      label: "Karr Lab Website",
-      uri: "https://karrlab.org",
+      label: 'Karr Lab Website',
+      uri: 'https://karrlab.org',
     },
-  ]
+  ],
 };
 export const IDENTIFIERS = {
   type: [LabeledIdentifier],
   description: 'Identifiers for a modeling project',
   externalDocs: {
-    description: "Biomodels Model Qualifiers Is",
-    url: "http://biomodels.net/model-qualifiers/is",
+    description: 'Biomodels Model Qualifiers Is',
+    url: 'http://biomodels.net/model-qualifiers/is',
   },
   example: [
     {
       label: 'BIOMD0000000296',
       uri: 'https://identifiers.org/biomodels.db:BIOMD0000000296',
     },
-  ]
+  ],
 };
 
 export const CITATIONS = {
@@ -250,7 +255,7 @@ export const FUNDERS = {
   description: 'Funder for a modeling project',
   externalDocs: {
     description: 'The Scholarly Contributions and Roles Ontology Funder',
-    url: 'https://sparontologies.github.io/scoro/current/scoro.html#d4e1256'
+    url: 'https://sparontologies.github.io/scoro/current/scoro.html#d4e1256',
   },
   example: [
     {
@@ -265,7 +270,7 @@ export const CREATED = {
   description: 'The date the modeling project was created',
   externalDocs: {
     description: 'Dublin Core Metadata Terms Date Created',
-    url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/created'
+    url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/created',
   },
   example: '2018-01-01',
 };
@@ -275,7 +280,7 @@ export const MODIFIED = {
   description: 'The dates the modeling project was modified',
   externalDocs: {
     description: 'Dublin Core Metadata Terms Date Modified',
-    url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/modified'
+    url: 'https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/modified',
   },
   example: ['2018-01-01', '2018-01-02'],
 };
