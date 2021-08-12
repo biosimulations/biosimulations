@@ -104,6 +104,13 @@ const modelFormatMetaData: {
     extension: 'xml',
     enabled: true,
   },
+  format_9011: {
+    name: 'MASS',
+    sedUrn: 'urn:sedml:language:mass',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/mass+json',
+    extension: 'json',
+    enabled: false,
+  },
   format_9002: {
     name: 'MorpheusML',
     sedUrn: 'urn:sedml:language:morpheusml',
@@ -125,6 +132,13 @@ const modelFormatMetaData: {
     extension: 'xml',
     enabled: true,
   },
+  format_9012: {
+    name: 'RBA models',
+    sedUrn: 'urn:sedml:language:rba',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/text/rba-model+tab-separated-values',
+    extension: 'tsv',
+    enabled: false,
+  },
   format_2585: {
     name: 'SBML',
     sedUrn: 'urn:sedml:language:sbml',
@@ -139,19 +153,19 @@ const modelFormatMetaData: {
     extension: 'sedml',
     enabled: true,
   },
-  format_9000: {
-    name: 'VCML',
-    sedUrn: 'urn:sedml:language:vcml',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/vcml+xml',
-    extension: 'vcml',
-    enabled: false,
-  },
   format_9001: {
     name: 'Smoldyn',
     sedUrn: 'urn:sedml:language:smoldyn',
     combineSpecUrl: 'http://purl.org/NET/mediatypes/text/smoldyn+plain',
     extension: 'txt',
     enabled: true,
+  },
+  format_9000: {
+    name: 'VCML',
+    sedUrn: 'urn:sedml:language:vcml',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/vcml+xml',
+    extension: 'vcml',
+    enabled: false,
   },
   format_9010: {
     name: 'XPP',

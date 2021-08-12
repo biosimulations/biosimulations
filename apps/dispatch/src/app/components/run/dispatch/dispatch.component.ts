@@ -594,6 +594,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
                   ) {
                     modelFormats.add('format_9004');
                   } else if (
+                    model.language.startsWith('urn:sedml:language:mass')
+                  ) {
+                    modelFormats.add('format_9011');
+                  } else if (
                     model.language.startsWith('urn:sedml:language:morpheusml')
                   ) {
                     modelFormats.add('format_9002');
@@ -601,6 +605,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
                     model.language.startsWith('urn:sedml:language:neuroml')
                   ) {
                     modelFormats.add('format_3971');
+                  } else if (
+                    model.language.startsWith('urn:sedml:language:rba')
+                  ) {
+                    modelFormats.add('format_9012');
                   } else if (
                     model.language.startsWith('urn:sedml:language:sbml')
                   ) {
