@@ -41,13 +41,15 @@ export class SbatchService {
       apiDomain = 'https://run.api.biosimulations.dev/';
     }
 
-    const envString = envVars
-      .map((envVar: EnvironmentVariable): string => {
-        const key = envVar.key.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
-        const val = envVar.value.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
-        return `${key}=${val}`;
-      })
-      .join(',');
+    const envString = envVars.length
+      ? '--env ' + envVars
+        .map((envVar: EnvironmentVariable): string => {
+          const key = envVar.key.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
+          const val = envVar.value.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
+          return `${key}=${val}`;
+        })
+        .join(',')
+      : '';
 
     const template = `#!/bin/bash
 #SBATCH --job-name=${simId}_Biosimulations
@@ -71,7 +73,7 @@ cd ${tempSimDir}
 echo -e '${cyan}=============Downloading Combine Archive=============${nc}'
 ( ulimit -f 1048576; srun wget --progress=bar:force ${apiDomain}run/${simId}/download -O '${omexName}')
 echo -e '${cyan}=============Running docker image for simulator=============${nc}'
-srun singularity run --tmpdir /local --bind ${tempSimDir}:/root --env "${envString}" ${simulator} -i '/root/${omexName}' -o '/root'
+srun singularity run --tmpdir /local --bind ${tempSimDir}:/root "${envString}" ${simulator} -i '/root/${omexName}' -o '/root'
 echo -e '${cyan}=============Uploading results to data-service=============${nc}'
 srun hsload -v reports.h5 '/results/${simId}'
 echo -e '${cyan}=============Creating output archive=============${nc}'
