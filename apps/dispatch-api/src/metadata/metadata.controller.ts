@@ -7,9 +7,9 @@ import {
   VERSION_NEUTRAL,
 } from '@nestjs/common';
 
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBody,  ApiTags } from '@nestjs/swagger';
 
-import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
+import {  SimulationRunMetadata, SimulationRunMetadataInput } from '@biosimulations/datamodel/api';
 import { MetadataService } from './metadata.service';
 
 @ApiTags('Metadata')
@@ -17,10 +17,10 @@ import { MetadataService } from './metadata.service';
 export class MetadataController {
   public constructor(private service: MetadataService) {}
 
-  @ApiBody({ type: SimulationRunMetadata })
+  @ApiBody({ type: SimulationRunMetadataInput })
   @Post()
   public makeMetadata(
-    @Body() body: SimulationRunMetadata,
+    @Body() body: SimulationRunMetadataInput,
   ): SimulationRunMetadata {
     const metadata = this.service.createMetadata(body);
     return metadata;
