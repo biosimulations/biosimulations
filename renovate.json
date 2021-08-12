@@ -22,6 +22,11 @@
       "groupName": "types"
     },
     {
+      "matchPackagePrefixes": ["eslint"],
+      "automerge": true, 
+      "groupName": "eslint"
+    },
+    {
       "matchPackagePrefixes": ["@nestjs/"],
       "groupName": "nest"
     },
