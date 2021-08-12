@@ -164,7 +164,7 @@
     "commitizen": "4.2.4",
     "cypress": "6.9.1",
     "cz-conventional-changelog": "3.3.0",
-    "dotenv": "8.2.0",
+    "dotenv": "8.6.0",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-cypress": "2.11.3",
