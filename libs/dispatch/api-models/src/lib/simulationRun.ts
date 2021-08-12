@@ -113,7 +113,7 @@ export class SimulationRun {
     cpus: number,
     memory: number,
     maxTime: number,
-    env: {[key: String]: string},
+    env: {[key: string]: string},
     submitted: Date,
     updated: Date,
     isPublic?: boolean,
