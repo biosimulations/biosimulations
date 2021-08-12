@@ -1,88 +1,94 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import {
-  LabeledIdentifier as ILabeledIdentifier,
-  DescribedIdentifier as IDescribedIdentifier,
   ArchiveMetadata as IArchiveMetadata,
 } from '@biosimulations/datamodel/common';
-import { IsUrl } from 'class-validator';
 
-export class ArchiveMetadataInput {
-  @ApiProperty({
-    type: String,
-    description:
-      'A url pointing to a https://run.biosimulations.org SimulationRun in JSON Format',
-    example: 'https://run.api.biosimulations.dev/run/60dcfd67241495e505262353',
-  })
-  @IsUrl()
-  public simulationRun!: string;
-}
 
-export class LabeledIdentifier implements ILabeledIdentifier {
-  @ApiProperty()
-  uri!: string | null;
-  @ApiProperty()
-  label!: string;
-}
+import {
+  ABSTRACT,
+  CITATIONS,
+  CONTRIBUTORS,
+  CREATED,
+  CREATORS,
+  DescribedIdentifier,
+  DESCRIPTION,
+  ENCODES,
+  IDENTIFIERS,
+  KEYWORDS,
+  LabeledIdentifier,
+  LICENCE,
+  MODIFIED,
+  PREDECESSORS,
+  SEEALSO,
+  SOURCES,
+  SUCCESSORS,
+  TAXA,
+  TITLE,
+  FUNDERS
+} from './commonDefinitions';
 
-export class DescribedIdentifier
-  extends LabeledIdentifier
-  implements IDescribedIdentifier
-{
-  @ApiProperty()
-  uri!: string | null;
-  @ApiProperty()
-  label!: string;
-  @ApiProperty()
-  attribute_uri?: string;
-  @ApiProperty()
-  attribute_label?: string;
-}
 type IArchiveMetadataType = Omit<IArchiveMetadata, 'created' | 'modified'> & {
   created: string;
   modified: string[];
 };
+
 export class ArchiveMetadata implements IArchiveMetadataType {
-  @ApiProperty()
-  uri!: string;
-  @ApiProperty()
+  @ApiProperty({ type: 'string' })
+  uri!: string; // Should this be in the API>
+  @ApiPropertyOptional(TITLE)
   title?: string;
-  @ApiProperty()
+  @ApiPropertyOptional(ABSTRACT)
   abstract?: string;
-  @ApiProperty()
+  @ApiProperty(KEYWORDS)
   keywords: LabeledIdentifier[] = [];
-  @ApiProperty()
+  @ApiProperty({ type: [String] })
   thumbnails: string[] = [];
-  @ApiProperty()
+  @ApiPropertyOptional(DESCRIPTION)
   description?: string;
-  @ApiProperty()
+  @ApiProperty(TAXA)
   taxa: LabeledIdentifier[] = [];
-  @ApiProperty()
+  @ApiProperty(ENCODES)
   encodes: LabeledIdentifier[] = [];
-  @ApiProperty()
-  sources: LabeledIdentifier[] = [];
-  @ApiProperty()
+  @ApiProperty(SOURCES)
+  sources: LabeledIdentifier[]=[];
+  @ApiProperty(PREDECESSORS)
   predecessors: LabeledIdentifier[] = [];
-  @ApiProperty()
+  @ApiProperty(SUCCESSORS)
   successors: LabeledIdentifier[] = [];
-  @ApiProperty()
+  @ApiProperty(SEEALSO)
   seeAlso: DescribedIdentifier[] = [];
-  @ApiProperty()
+  @ApiProperty(IDENTIFIERS)
   identifiers: LabeledIdentifier[] = [];
-  @ApiProperty()
+  @ApiProperty(CITATIONS)
   citations: LabeledIdentifier[] = [];
-  @ApiProperty()
+  @ApiProperty(CREATORS)
   creators: LabeledIdentifier[] = [];
-  @ApiProperty()
+  @ApiProperty(CONTRIBUTORS)
   contributors: LabeledIdentifier[] = [];
-  @ApiProperty()
+  @ApiPropertyOptional(LICENCE)
   license?: LabeledIdentifier;
-  @ApiProperty()
+  @ApiProperty(FUNDERS)
   funders: LabeledIdentifier[] = [];
-  @ApiProperty()
+  @ApiProperty(CREATED)
   created!: string;
-  @ApiProperty()
+  @ApiProperty(MODIFIED)
   modified: string[] = [];
-  @ApiProperty()
+  @ApiProperty({ type: [DescribedIdentifier] })
   other: DescribedIdentifier[] = [];
 }
+
+export class ArchiveMetadataInput extends OmitType(ArchiveMetadata, [
+  'created',
+  'modified',
+] as const) {}
+
+export class ArchiveMetadataContainer {
+  @ApiProperty({ type: ArchiveMetadata })
+  metadata!: ArchiveMetadata;
+}
+export class ArchiveMetadataInputContainer {
+  @ApiProperty({ type: ArchiveMetadataInput })
+  metadata!: ArchiveMetadataInput;
+}
+

@@ -12,12 +12,12 @@ export interface ArchiveMetadata {
   uri: string;
   title?: string;
   abstract?: string;
-  keywords: LabeledIdentifier[];
-  thumbnails: string[];
   description?: string;
+  thumbnails: string[];
+  sources: LabeledIdentifier[];
+  keywords: LabeledIdentifier[];
   taxa: LabeledIdentifier[];
   encodes: LabeledIdentifier[];
-  sources: LabeledIdentifier[];
   predecessors: LabeledIdentifier[];
   successors: LabeledIdentifier[];
   seeAlso: LabeledIdentifier[];
