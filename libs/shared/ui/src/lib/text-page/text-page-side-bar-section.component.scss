@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
 biosimulations-text-page-section ::ng-deep h2 {
@@ -6,11 +7,11 @@ biosimulations-text-page-section ::ng-deep h2 {
 
   .mat-icon-button.biosimulations-button {
     &:hover {
-      color: mat-color($theme-primary);
+      color: mat.get-color-from-palette($theme-primary);
     }
 
     &:active {
-      color: mat-color($theme-primary, darker);
+      color: mat.get-color-from-palette($theme-primary, darker);
     }
   }
 }
@@ -19,6 +20,6 @@ biosimulations-text-page-section ::ng-deep a {
   color: $dark-primary-text;
 
   &:hover {
-    color: mat-color($theme-primary);
+    color: mat.get-color-from-palette($theme-primary);
   }
 }

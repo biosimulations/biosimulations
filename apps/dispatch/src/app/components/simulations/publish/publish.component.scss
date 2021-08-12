@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
 .button-container {
@@ -5,5 +6,5 @@
 }
 
 .error {
-  color: mat-color($theme-warn);
+  color: mat.get-color-from-palette($theme-warn);
 }

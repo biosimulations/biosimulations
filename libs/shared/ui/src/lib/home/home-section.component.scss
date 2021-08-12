@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
 :host:not(:last-child) {
@@ -19,7 +20,7 @@
 }
 
 .heading-separator {
-  border-bottom: 2px solid mat-color($theme-primary);
+  border-bottom: 2px solid mat.get-color-from-palette($theme-primary);
   height: 0;
   width: 4rem;
   margin-top: 2rem;

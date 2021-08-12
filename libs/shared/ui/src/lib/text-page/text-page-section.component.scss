@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
@@ -59,17 +60,17 @@ h2 {
     color: $dark-primary-text;
 
     &:hover {
-      color: mat-color($theme-primary);
+      color: mat.get-color-from-palette($theme-primary);
     }
   }
 }
 
 .highlight-container {
-  border: 1px solid mat-color($theme-primary);
+  border: 1px solid mat.get-color-from-palette($theme-primary);
   border-radius: 4px;
 
   h2 {
-    background: mat-color($theme-primary);
+    background: mat.get-color-from-palette($theme-primary);
     color: $light-text;
     border-radius: 0;
 
@@ -105,7 +106,7 @@ h2 {
 
   h2 {
     border-radius: 0;
-    @include mat-typography-level-to-styles($fontConfig, body-2);
+    @include mat.typography-level($fontConfig, body-2);
     font-weight: 500;
   }
 
@@ -118,7 +119,7 @@ h2 {
         margin-bottom: 0.25rem;
         padding: 0;
         border-radius: 0;
-        @include mat-typography-level-to-styles($fontConfig, body-1);
+        @include mat.typography-level($fontConfig, body-1);
         font-weight: 500;
         background: none;
         border-bottom: 1px dotted $dark-primary-text;

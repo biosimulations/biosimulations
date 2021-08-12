@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
 .button-container {
@@ -24,13 +25,13 @@
 }
 
 .valid {
-  color: mat-color($theme-primary);
+  color: mat.get-color-from-palette($theme-primary);
 }
 
 .errors {
-  color: mat-color($theme-warn);
+  color: mat.get-color-from-palette($theme-warn);
 }
 
 .warnings {
-  color: mat-color($theme-accent);
+  color: mat.get-color-from-palette($theme-accent);
 }

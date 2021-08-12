@@ -1,14 +1,15 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
 .biosimulations-button {
-  color: mat-color($theme-primary);
+  color: mat.get-color-from-palette($theme-primary);
 
   &:hover {
-    color: mat-color($theme-accent);
+    color: mat.get-color-from-palette($theme-accent);
   }
 
   &:active {
-    color: mat-color($theme-accent, darker);
+    color: mat.get-color-from-palette($theme-accent, darker);
   }
 
   .icon {

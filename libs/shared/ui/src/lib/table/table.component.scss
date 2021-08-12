@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
@@ -115,7 +116,7 @@
   .mat-expansion-panel-header {
     background: $light-bg-darker-5;
     padding: 0 0.5rem;
-    @include mat-typography-level-to-styles($fontConfig, body-1);
+    @include mat.typography-level($fontConfig, body-1);
     font-weight: 500;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -158,7 +159,7 @@
 
     .mat-list-item {
       height: 24px;
-      @include mat-typography-level-to-styles($fontConfig, body-1);
+      @include mat.typography-level($fontConfig, body-1);
 
       .mat-list-item-content {
         padding: 0;
@@ -167,7 +168,7 @@
   }
 
   .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: mat-color($theme-primary);
+    background-color: mat.get-color-from-palette($theme-primary);
   }
 
   .mat-checkbox {

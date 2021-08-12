@@ -1,10 +1,11 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
 .container {
   position: sticky;
   bottom: 0;
   width: 100%;
-  background: mat-color($theme-accent, lighter);
+  background: mat.get-color-from-palette($theme-accent, lighter);
 }
 
 .message {
