@@ -42,13 +42,14 @@ export class SbatchService {
     }
 
     const envString = envVars.length
-      ? '--env ' + envVars
-        .map((envVar: EnvironmentVariable): string => {
-          const key = envVar.key.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
-          const val = envVar.value.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
-          return `${key}=${val}`;
-        })
-        .join(',')
+      ? '--env ' +
+        envVars
+          .map((envVar: EnvironmentVariable): string => {
+            const key = envVar.key.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
+            const val = envVar.value.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
+            return `${key}=${val}`;
+          })
+          .join(',')
       : '';
 
     const template = `#!/bin/bash
