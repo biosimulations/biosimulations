@@ -29,7 +29,7 @@ export class DispatchProcessor {
       data.cpus,
       data.memory,
       data.maxTime,
-      data.env,
+      data.envVars,
       data.fileName,      
     );
 

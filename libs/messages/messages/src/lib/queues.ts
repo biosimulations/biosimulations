@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
+
+import { EnvironmentVariable } from '@biosimulations/datamodel/common';
+
 export class MonitorJob {
   slurmJobId!: string;
   simId!: string;
-}
-
-export interface Environment {
-  [key: string]: string;
 }
 
 export class DispatchJob {
@@ -16,7 +15,7 @@ export class DispatchJob {
   cpus!: number;
   memory!: number;
   maxTime!: number;
-  env!: Environment;
+  envVars!: EnvironmentVariable[];
 }
 
 export class CompleteJob {

@@ -1,4 +1,4 @@
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, EnvironmentVariable } from '@biosimulations/datamodel/common';
 import {
   AxisType,
   TraceMode,
@@ -12,7 +12,7 @@ export interface FormattedSimulation {
   cpus: number;
   memory: number; // GB
   maxTime: number; // min
-  env: {[key: string]: string};
+  envVars: EnvironmentVariable[];
   status: SimulationRunStatus;
   statusRunning: boolean;
   statusSucceeded: boolean;

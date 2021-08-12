@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { EnvironmentVariable } from '@biosimulations/datamodel/common';
 
 @Injectable()
 export class SbatchService {
@@ -11,7 +12,7 @@ export class SbatchService {
     cpus: number,
     memory: number,
     maxTime: number,
-    env: {[key: string]: string},
+    envVars: EnvironmentVariable[],
     omexName: string,
     apiDomain: string,
     simId: string,    
@@ -40,12 +41,11 @@ export class SbatchService {
       apiDomain = 'https://run.api.biosimulations.dev/';
     }
     
-    const envString = Object.entries(env)
-      .map((keyVal: [string, string]): string => {
-        const key = keyVal[0].replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
-        const val = keyVal[1].replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
+    const envString = envVars.map(
+      (envVar: EnvironmentVariable): string => {
+        const key = envVar.key.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
+        const val = envVar.value.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
         return `${key}=${val}`;
-
       })
       .join(',');
 
