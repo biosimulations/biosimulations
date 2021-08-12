@@ -24,7 +24,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/forms/README.md
-├─ @angular/material@11.2.13
+├─ @angular/material@12.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
@@ -128,7 +128,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nodelib/nodelib/tree/master/packages/fs/fs.walk
 │  └─ licenseFile: @nodelib/fs.walk/LICENSE
-├─ @npmcli/arborist@2.6.4
+├─ @npmcli/arborist@2.8.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/arborist
 │  ├─ publisher: Isaac Z. Schlueter
@@ -155,7 +155,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: npm Inc.
 │  ├─ email: support@npmjs.com
 │  └─ licenseFile: npm/node_modules/@npmcli/disparity-colors/LICENSE
-├─ @npmcli/git@2.0.9
+├─ @npmcli/git@2.1.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/git
 │  ├─ publisher: Isaac Z. Schlueter
@@ -571,7 +571,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/iarna/aproba
 │  ├─ publisher: Rebecca Turner
 │  ├─ email: me@re-becca.org
-│  └─ licenseFile: npm/node_modules/gauge/node_modules/aproba/LICENSE
+│  └─ licenseFile: npm/node_modules/node-gyp/node_modules/aproba/LICENSE
 ├─ aproba@2.0.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/iarna/aproba
@@ -914,6 +914,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/chalk/chalk
 │  └─ licenseFile: chalk/license
+├─ chalk@4.1.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/chalk/chalk
+│  └─ licenseFile: npm/node_modules/chalk/license
 ├─ change-case@2.3.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/blakeembrey/change-case
@@ -1025,6 +1029,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: DY
 │  ├─ email: dfcreative@gmail.com
 │  └─ licenseFile: color-name/LICENSE
+├─ color-support@1.1.3
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/isaacs/color-support
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: http://blog.izs.me/
+│  └─ licenseFile: npm/node_modules/color-support/LICENSE
 ├─ colors@1.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Marak/colors.js
@@ -1272,18 +1283,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
 │  └─ licenseFile: superagent-proxy/node_modules/debug/LICENSE
-├─ debug@4.3.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/visionmedia/debug
-│  ├─ publisher: TJ Holowaychuk
-│  ├─ email: tj@vision-media.ca
-│  └─ licenseFile: npm/node_modules/debug/LICENSE
 ├─ debug@4.3.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/visionmedia/debug
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
-│  └─ licenseFile: jwks-rsa/node_modules/debug/LICENSE
+│  └─ licenseFile: npm/node_modules/debug/LICENSE
 ├─ debuglog@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sam-github/node-debuglog
@@ -1841,6 +1846,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/iarna/gauge
 │  ├─ publisher: Rebecca Turner
 │  ├─ email: me@re-becca.org
+│  └─ licenseFile: npm/node_modules/node-gyp/node_modules/gauge/LICENSE
+├─ gauge@3.0.1
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/iarna/gauge
+│  ├─ publisher: Rebecca Turner
+│  ├─ email: me@re-becca.org
 │  └─ licenseFile: npm/node_modules/gauge/LICENSE
 ├─ get-caller-file@2.0.5
 │  ├─ licenses: ISC
@@ -1922,6 +1933,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/node-graceful-fs
 │  └─ licenseFile: graceful-fs/LICENSE
+├─ graceful-fs@4.2.8
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/isaacs/node-graceful-fs
+│  └─ licenseFile: npm/node_modules/graceful-fs/LICENSE
 ├─ handlebars@4.7.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/wycats/handlebars.js
@@ -2243,18 +2258,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: hello@miguelmota.com
 │  ├─ url: https://miguelmota.com/
 │  └─ licenseFile: is-class/LICENSE
-├─ is-core-module@2.4.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/inspect-js/is-core-module
-│  ├─ publisher: Jordan Harband
-│  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: npm/node_modules/is-core-module/LICENSE
 ├─ is-core-module@2.5.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/is-core-module
 │  ├─ publisher: Jordan Harband
 │  ├─ email: ljharb@gmail.com
-│  └─ licenseFile: is-core-module/LICENSE
+│  └─ licenseFile: npm/node_modules/is-core-module/LICENSE
 ├─ is-date-object@1.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/is-date-object
@@ -2272,7 +2281,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  └─ licenseFile: npm/node_modules/gauge/node_modules/is-fullwidth-code-point/license
+│  └─ licenseFile: npm/node_modules/node-gyp/node_modules/is-fullwidth-code-point/license
 ├─ is-fullwidth-code-point@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/is-fullwidth-code-point
@@ -2622,7 +2631,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/npm/libnpmdiff
 │  ├─ publisher: GitHub Inc.
 │  └─ licenseFile: npm/node_modules/libnpmdiff/LICENSE
-├─ libnpmexec@2.0.0
+├─ libnpmexec@2.0.1
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/libnpmexec
 │  ├─ publisher: GitHub Inc.
@@ -2908,7 +2917,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: jfromaniello@gmail.com
 │  ├─ url: http://joseoncode.com
 │  └─ licenseFile: lru-memoizer/LICENSE
-├─ make-fetch-happen@9.0.3
+├─ make-fetch-happen@9.0.4
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/make-fetch-happen
 │  ├─ publisher: Kat Marchán
@@ -2995,10 +3004,18 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/mime-db
 │  └─ licenseFile: mime-db/LICENSE
+├─ mime-db@1.49.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/jshttp/mime-db
+│  └─ licenseFile: npm/node_modules/mime-db/LICENSE
 ├─ mime-types@2.1.31
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jshttp/mime-types
 │  └─ licenseFile: mime-types/LICENSE
+├─ mime-types@2.1.32
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/jshttp/mime-types
+│  └─ licenseFile: npm/node_modules/mime-types/LICENSE
 ├─ mime@1.6.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/broofa/node-mime
@@ -3059,7 +3076,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/minipass-collect/LICENSE
-├─ minipass-fetch@1.3.3
+├─ minipass-fetch@1.3.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/npm/minipass-fetch
 │  └─ licenseFile: npm/node_modules/minipass-fetch/LICENSE
@@ -3358,7 +3375,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Robert Kowalski
 │  ├─ email: rok@kowalski.gd
 │  └─ licenseFile: npm/node_modules/npm-user-validate/LICENSE
-├─ npm@7.19.1
+├─ npm@7.20.5
 │  ├─ licenses: Artistic-2.0
 │  ├─ repository: https://github.com/npm/cli
 │  ├─ publisher: Isaac Z. Schlueter
@@ -3366,6 +3383,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ url: http://blog.izs.me
 │  └─ licenseFile: npm/LICENSE
 ├─ npmlog@4.1.2
+│  ├─ licenses: ISC
+│  ├─ repository: https://github.com/npm/npmlog
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: http://blog.izs.me/
+│  └─ licenseFile: npm/node_modules/node-gyp/node_modules/npmlog/LICENSE
+├─ npmlog@5.0.0
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/npmlog
 │  ├─ publisher: Isaac Z. Schlueter
@@ -3579,7 +3603,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: nathan@tootallnate.net
 │  ├─ url: http://n8.io/
 │  └─ licenseFile: pac-resolver/README.md
-├─ pacote@11.3.4
+├─ pacote@11.3.5
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/pacote
 │  ├─ publisher: Isaac Z. Schlueter
@@ -3936,7 +3960,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/read-cmd-shim
 │  └─ licenseFile: npm/node_modules/read-cmd-shim/LICENSE
-├─ read-package-json-fast@2.0.2
+├─ read-package-json-fast@2.0.3
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/read-package-json-fast
 │  ├─ publisher: Isaac Z. Schlueter
@@ -4464,7 +4488,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Sindre Sorhus
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
-│  └─ licenseFile: npm/node_modules/gauge/node_modules/string-width/license
+│  └─ licenseFile: npm/node_modules/node-gyp/node_modules/string-width/license
 ├─ string-width@2.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/string-width
@@ -4622,7 +4646,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Mathias Buus
 │  ├─ email: mathiasbuus@gmail.com
 │  └─ licenseFile: tar-stream/LICENSE
-├─ tar@6.1.0
+├─ tar@6.1.6
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/node-tar
 │  ├─ publisher: Isaac Z. Schlueter
