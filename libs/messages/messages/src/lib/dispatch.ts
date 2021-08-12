@@ -1,3 +1,5 @@
+import { EnvironmentVariable } from '@biosimulations/datamodel/common';
+
 export enum DispatchMessage {
   // Job created on the database
   created = 'dispatch.created',
@@ -14,6 +16,7 @@ export enum DispatchMessage {
   // Job failed
   failed = 'dispatch.failed',
 }
+
 export class Response {
   okay: boolean;
   _message!: DispatchMessage;
@@ -28,6 +31,7 @@ export class createdResponse extends Response {
   }
   _message = DispatchMessage.created;
 }
+
 export class DispatchPayload {
   _message!: DispatchMessage;
   id: string;
@@ -35,6 +39,7 @@ export class DispatchPayload {
     this.id = id;
   }
 }
+
 export class DispatchCreatedPayload extends DispatchPayload {
   _message: DispatchMessage = DispatchMessage.created;
   fileName: string;
@@ -43,7 +48,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
   cpus: number;
   memory: number;
   maxTime: number;
-  env: {[key: string]: string};
+  envVars: EnvironmentVariable[];
 
   constructor(
     id: string,
@@ -53,7 +58,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
     cpus: number,
     memory: number,
     maxTime: number,
-    env: {[key: string]: string},
+    envVars: EnvironmentVariable[],
   ) {
     super(id);
     this.fileName = fileName;
@@ -62,9 +67,10 @@ export class DispatchCreatedPayload extends DispatchPayload {
     this.cpus = cpus;
     this.memory = memory;
     this.maxTime = maxTime;
-    this.env = env;
+    this.envVars = envVars;
   }
 }
+
 export class DispatchFailedPayload extends DispatchPayload {
   public _message: DispatchMessage = DispatchMessage.failed;
   public proccessOutput: boolean;

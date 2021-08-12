@@ -31,7 +31,7 @@ import {
   AlgorithmSubstitutionPolicy,
   Algorithm as KisaoAlgorithm,
 } from '../../../kisao.interface';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, EnvironmentVariable } from '@biosimulations/datamodel/common';
 import { Observable, Subscription } from 'rxjs';
 import { map, concatAll, withLatestFrom } from 'rxjs/operators';
 import { ConfigService } from '@biosimulations/shared/services';
@@ -762,7 +762,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const cpus: number = this.formGroup.value.cpus;
     const memory: number = this.formGroup.value.memory; // in GB
     const maxTime: number = this.formGroup.value.maxTime; // in min
-    const env: {[key: string]: string} = {};
+    const envVars: EnvironmentVariable[] = [];
     const name: string = this.formGroup.value.name;
     const email: string | null = this.formGroup.value.email || null;
 
@@ -777,7 +777,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         cpus,
         memory,
         maxTime,
-        env,
+        envVars,
         name,
         email,
       );
@@ -790,7 +790,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         cpus,
         memory,
         maxTime,
-        env,
+        envVars,
         name,
         email,
       );
@@ -804,7 +804,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         cpus,
         memory,
         maxTime,
-        env,
+        envVars,
         email,
       ),
     );
@@ -819,7 +819,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     cpus: number,
     memory: number, // in GB
     maxTime: number, // min min
-    env: {[key: string]: string},
+    envVars: EnvironmentVariable[],
     email: string | null,
   ): void {
     const simulationId = data['id'];
@@ -833,7 +833,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       cpus: cpus,
       memory: memory,
       maxTime: maxTime,
-      env: env,
+      envVars: envVars,
       submittedLocally: true,
       status: SimulationRunStatus.QUEUED,
       runtime: undefined,

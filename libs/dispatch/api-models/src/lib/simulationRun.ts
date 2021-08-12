@@ -16,6 +16,14 @@ import {
 } from '@nestjs/swagger';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
+export class EnvironmentVariable {
+  @ApiProperty({ type: String, example: 'VERBOSE'})
+  key!: string;
+
+  @ApiProperty({ type: String, example: '1'})
+  value!: string;
+}
+
 export class SimulationRun {
   // Explicitly make sure not to send out file id from database
   file: never;
@@ -67,12 +75,12 @@ export class SimulationRun {
   maxTime: number;
 
   @ApiPropertyOptional({
-    type: Object,
+    type: [EnvironmentVariable],
     description: 'Key-value pairs of environment variables to execute the simulator with',
     required: false,
-    default: {},
+    default: [],
   })
-  env: {[key: string]: string};
+  envVars: EnvironmentVariable[];
 
   @ApiPropertyOptional({
     type: String,
@@ -113,7 +121,7 @@ export class SimulationRun {
     cpus: number,
     memory: number,
     maxTime: number,
-    env: {[key: string]: string},
+    envVars: EnvironmentVariable[],
     submitted: Date,
     updated: Date,
     isPublic?: boolean,
@@ -131,7 +139,7 @@ export class SimulationRun {
     this.cpus = cpus || 1;
     this.memory = memory || 8;
     this.maxTime = maxTime || 20;
-    this.env = env || {};
+    this.envVars = envVars || [];
     this.status = status || SimulationRunStatus.CREATED;
     this.public = isPublic || false;
     this.submitted = submitted;
@@ -144,6 +152,7 @@ export class SimulationRun {
     this.email = email || null;
   }
 }
+
 export class UploadSimulationRun extends PickType(SimulationRun, [
   'name',
   'email',
@@ -152,7 +161,7 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
   'cpus',
   'memory',
   'maxTime',
-  'env',
+  'envVars',
   'public',
 ]) {}
 

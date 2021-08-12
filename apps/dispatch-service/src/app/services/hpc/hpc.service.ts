@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, EnvironmentVariable } from '@biosimulations/datamodel/common';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 
@@ -28,7 +28,7 @@ export class HpcService {
     cpus: number,
     memory: number,
     maxTime: number,
-    env: {[key: string]: string},
+    envVars: EnvironmentVariable[],
     fileName: string,    
   ): Promise<{
     stdout: string;
@@ -45,7 +45,7 @@ export class HpcService {
       cpus,
       memory,
       maxTime,
-      env,
+      envVars,
       fileName,
       endpoint,
       id,      

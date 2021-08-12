@@ -39,3 +39,8 @@ export const SimulationStatusToSimulationLogStatus = (
     }
   }
 };
+
+export interface EnvironmentVariable {
+  key: string;
+  value: string;
+}

@@ -13,6 +13,17 @@ import { omitPrivate } from '@biosimulations/datamodel/common';
 import { isEmail, isUrl } from '@biosimulations/datamodel-database';
 
 @Schema({ collection: 'Simulation Runs', id: false })
+export class EnvironmentVariable {
+  @Prop({ type: String, required: true })
+  key!: string;
+
+  @Prop({ type: String, required: true })
+  value!: string;
+}
+export const EnvironmentVariableSchema =
+  SchemaFactory.createForClass(EnvironmentVariable);
+
+@Schema({ collection: 'Simulation Runs', id: false })
 export class SimulationRunModel extends Document {
   @Prop({ required: true, unique: true, index: true })
   id!: string;
@@ -133,34 +144,11 @@ export class SimulationRunModel extends Document {
   maxTime!: number;
 
   @Prop({
-    type: Object,
+    type: [EnvironmentVariableSchema],
     required: false,
-    default: {},
-    validate: [
-      {
-        validator: (value: any): boolean => {
-          if (typeof value !== "object") {
-            return false;
-          }
-
-          for (const [key, val] of Object.entries(value)) {
-            if (typeof key !== 'string') {
-              return false;
-            }
-
-            if (typeof val !== 'string') {
-              return false;
-            }
-          }
-            
-          return true;
-        },
-        message: (props: any): string =>
-          'Amount of requested time (in min) must be a positive float less than or equal to 28800 (20 days).',
-      },
-    ],
+    default: [],
   })
-  env!: {[key: string]: string};
+  envVars!: EnvironmentVariable[];
 
   @Prop()
   submitted!: Date;
@@ -189,7 +177,7 @@ export type SimulationRunModelType = Pick<
   | 'cpus'
   | 'memory'
   | 'maxTime'
-  | 'env'
+  | 'envVars'
   | 'refreshCount'
   | 'submitted'
   | 'updated'

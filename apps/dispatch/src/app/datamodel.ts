@@ -1,4 +1,4 @@
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, EnvironmentVariable } from '@biosimulations/datamodel/common';
 
 export interface Simulation {
   id: string;
@@ -10,7 +10,7 @@ export interface Simulation {
   cpus: number;
   memory: number; // GB
   maxTime: number; // min
-  env: {[key: string]: string};
+  envVars: EnvironmentVariable[];
   status: SimulationRunStatus;
   runtime?: number;
   submitted: Date;
