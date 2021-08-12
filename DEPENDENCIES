@@ -675,7 +675,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Alex Indigo
 │  ├─ email: iam@alexindigo.com
 │  └─ licenseFile: npm/node_modules/asynckit/LICENSE
-├─ auth0@2.35.0
+├─ auth0@2.36.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
@@ -4100,7 +4100,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Tim Koschützki
 │  ├─ email: tim@debuggable.com
 │  ├─ url: http://debuggable.com/
-│  └─ licenseFile: @semantic-release/github/node_modules/retry/License
+│  └─ licenseFile: auth0/node_modules/retry/License
 ├─ reusify@1.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mcollina/reusify
