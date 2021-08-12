@@ -98,7 +98,7 @@
     "@angular-eslint/template-parser": "12.3.1",
     "@angular-material-components/file-input": "5.0.1",
     "@angular/animations": "12.2.1",
-    "@angular/cdk": "11.2.13",
+    "@angular/cdk": "12.2.1",
     "@angular/cli": "12.1.4",
     "@angular/common": "12.2.1",
     "@angular/compiler": "12.2.1",
