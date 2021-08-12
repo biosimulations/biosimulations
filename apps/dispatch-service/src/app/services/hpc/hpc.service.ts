@@ -1,6 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
-import { SimulationRunStatus, EnvironmentVariable } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunStatus,
+  EnvironmentVariable,
+} from '@biosimulations/datamodel/common';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 
@@ -29,7 +32,7 @@ export class HpcService {
     memory: number,
     maxTime: number,
     envVars: EnvironmentVariable[],
-    fileName: string,    
+    fileName: string,
   ): Promise<{
     stdout: string;
     stderr: string;
@@ -48,7 +51,7 @@ export class HpcService {
       envVars,
       fileName,
       endpoint,
-      id,      
+      id,
     );
 
     // eslint-disable-next-line max-len

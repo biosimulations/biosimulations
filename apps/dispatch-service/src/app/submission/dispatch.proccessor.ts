@@ -30,7 +30,7 @@ export class DispatchProcessor {
       data.memory,
       data.maxTime,
       data.envVars,
-      data.fileName,      
+      data.fileName,
     );
 
     if (response.stderr != '') {

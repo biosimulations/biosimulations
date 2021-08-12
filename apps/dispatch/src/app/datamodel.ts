@@ -1,4 +1,7 @@
-import { SimulationRunStatus, EnvironmentVariable } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunStatus,
+  EnvironmentVariable,
+} from '@biosimulations/datamodel/common';
 
 export interface Simulation {
   id: string;

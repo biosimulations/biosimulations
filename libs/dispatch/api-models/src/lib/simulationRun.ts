@@ -17,10 +17,10 @@ import {
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
 export class EnvironmentVariable {
-  @ApiProperty({ type: String, example: 'VERBOSE'})
+  @ApiProperty({ type: String, example: 'VERBOSE' })
   key!: string;
 
-  @ApiProperty({ type: String, example: '1'})
+  @ApiProperty({ type: String, example: '1' })
   value!: string;
 }
 
@@ -76,7 +76,8 @@ export class SimulationRun {
 
   @ApiPropertyOptional({
     type: [EnvironmentVariable],
-    description: 'Key-value pairs of environment variables to execute the simulator with',
+    description:
+      'Key-value pairs of environment variables to execute the simulator with',
     required: false,
     default: [],
   })

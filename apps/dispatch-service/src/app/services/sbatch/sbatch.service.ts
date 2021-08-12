@@ -15,7 +15,7 @@ export class SbatchService {
     envVars: EnvironmentVariable[],
     omexName: string,
     apiDomain: string,
-    simId: string,    
+    simId: string,
   ): string {
     const homeDir = this.configService.get('hpc.homeDir');
     const bucket = this.configService.get('storage.bucket');
@@ -40,9 +40,9 @@ export class SbatchService {
     if (apiDomain.startsWith('http://localhost')) {
       apiDomain = 'https://run.api.biosimulations.dev/';
     }
-    
-    const envString = envVars.map(
-      (envVar: EnvironmentVariable): string => {
+
+    const envString = envVars
+      .map((envVar: EnvironmentVariable): string => {
         const key = envVar.key.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
         const val = envVar.value.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
         return `${key}=${val}`;

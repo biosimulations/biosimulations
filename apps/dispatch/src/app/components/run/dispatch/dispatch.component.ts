@@ -31,7 +31,10 @@ import {
   AlgorithmSubstitutionPolicy,
   Algorithm as KisaoAlgorithm,
 } from '../../../kisao.interface';
-import { SimulationRunStatus, EnvironmentVariable } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunStatus,
+  EnvironmentVariable,
+} from '@biosimulations/datamodel/common';
 import { Observable, Subscription } from 'rxjs';
 import { map, concatAll, withLatestFrom } from 'rxjs/operators';
 import { ConfigService } from '@biosimulations/shared/services';
