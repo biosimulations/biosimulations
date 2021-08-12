@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
 .section {
@@ -31,12 +32,12 @@ h1 {
   justify-content: center;
 
   .mat-flat-button {
-    background: mat-color($theme-primary, lighter);
+    background: mat.get-color-from-palette($theme-primary, lighter);
     padding: 1rem 2rem;
     line-height: normal;
 
     &:hover {
-      background: mat-color($theme-primary);
+      background: mat.get-color-from-palette($theme-primary);
     }
   }
 

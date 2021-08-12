@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
 .mat-flat-button {
@@ -8,9 +9,9 @@
 
   svg {
     width: 100%;
-    color: mat-color($theme-primary);
+    color: mat.get-color-from-palette($theme-primary);
     &.accent {
-      color: mat-color($theme-accent);
+      color: mat.get-color-from-palette($theme-accent);
 
       path.foreground {
         fill: currentColor;
@@ -49,18 +50,18 @@
   &:not(.mat-button-disabled) {
     &:hover {
       svg {
-        color: darken(mat-color($theme-primary), 8%);
+        color: darken(mat.get-color-from-palette($theme-primary), 8%);
       }
       svg.accent {
-        color: darken(mat-color($theme-accent), 12.5%);
+        color: darken(mat.get-color-from-palette($theme-accent), 12.5%);
       }
     }
     &:active {
       svg {
-        color: darken(mat-color($theme-primary), 16%);
+        color: darken(mat.get-color-from-palette($theme-primary), 16%);
       }
       svg.accent {
-        color: darken(mat-color($theme-accent), 25%);
+        color: darken(mat.get-color-from-palette($theme-accent), 25%);
       }
     }
   }

@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
 .mat-flat-button {
@@ -9,11 +10,11 @@
   min-width: auto;
 
   &:hover:not(.mat-button-disabled) {
-    color: mat-color($theme-accent);
+    color: mat.get-color-from-palette($theme-accent);
   }
 
   &:active:not(.mat-button-disabled) {
-    color: mat-color($theme-accent, darker);
+    color: mat.get-color-from-palette($theme-accent, darker);
   }
 
   .button-content {
