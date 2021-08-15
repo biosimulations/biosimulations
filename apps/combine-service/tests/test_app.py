@@ -16,7 +16,7 @@ from src import app
 from src.exceptions import BadRequestException
 from src.handlers.combine.get_metadata_for_combine_archive import _convert_rdf_node_to_json
 from unittest import mock
-from werkzeug.datastructures import FileStorage, MultiDict
+from werkzeug.datastructures import MultiDict
 import imghdr
 import importlib.util
 import io

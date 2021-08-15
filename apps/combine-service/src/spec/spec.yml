@@ -587,6 +587,130 @@ paths:
       operationId: src.handlers.combine.add_file.handler
       summary: Add content items to a COMBINE/OMEX archive
       description: Add content items to a COMBINE/OMEX archive.
+  /run/simulators:
+    get:
+      tags:
+      - COMBINE
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Simulator'
+              examples:
+                COPASI and tellurium:
+                  value:
+                  - _type: Simulator
+                    id: copasi
+                    version: 4.33.246
+                    api:
+                      _type: SimulatorApi
+                      package: biosimulators_copasi
+                      module: biosimulators_copasi
+                      version: 0.1.0
+                    specs: https://api.biosimulators.org/simulators/copasi/4.33.246
+                  - _type: Simulator
+                    id: tellurium
+                    version: 2.2.0
+                    api:
+                      _type: SimulatorApi
+                      package: biosimulators_tellurium
+                      module: biosimulators_tellurium
+                      version: 0.1.0
+                    specs: https://api.biosimulators.org/simulators/tellurium/2.2.0
+          description: "Ids, vesions, and properties of simulators available to execute\
+            \ COMBINE/OMEX archives."
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
+            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
+            archive.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.run.get_simulators.handler
+      summary: Get the simulators available to execute COMBINE/OMEX archives
+      description: "Get the ids, vesions, and properties of simulators available to\
+        \ execute COMBINE/OMEX archives."
+  /run/run:
+    description: ""
+    post:
+      requestBody:
+        description: Requested run
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SimulationRun'
+            examples:
+              Uploaded archive:
+                value:
+                  _type: SimulationRun
+                  archiveFile: <FILE>
+                  simulator: tellurium
+                  environment:
+                    _type: Environment
+                    variables:
+                    - _type: EnvironmentVariable
+                      key: VERBOSE
+                      value: "1"
+              Archive at URL:
+                value:
+                  _type: SimulationRun
+                  archiveUrl: https://site.com/archive.omex
+                  simulator: tellurium
+                  environment:
+                    _type: Environment
+                    variables:
+                    - _type: EnvironmentVariable
+                      key: VERBOSE
+                      value: "1"
+            encoding:
+              environment:
+                contentType: application/json
+        required: true
+      tags:
+      - COMBINE
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimulationRun'
+              examples:
+                Kinetic simulation with tellurium:
+                  value:
+                    _type: SimulationRun
+                    archiveFile: <FILE>
+                    simulator: tellurium
+                    envVars:
+                    - _type: EnvironmentVariable
+                      key: VERBOSE
+                      value: "1"
+          description: The COMBINE/OMEX archive was executed.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: The COMBINE/OMEX archive could not be executed.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.run.run.handler
+      summary: Execute a COMBINE/OMEX archive
+      description: Execute the simulations defined in SED-ML format in a COMBINE/OMEX
+        archive and return the result of each report and plot.
 components:
   schemas:
     SedPlot2D:
@@ -2745,6 +2869,599 @@ components:
         filename: model.xml
         format: http://identifiers.org/combine.specifications/sbml
         master: true
+    SimulationRun:
+      description: Request for the execution of a COMBINE/OMEX archive
+      required:
+      - simulator
+      - _type
+      type: object
+      properties:
+        simulator:
+          $ref: '#/components/schemas/BioSimulatorsId'
+          description: Id of a validated simulation tool registered with BioSimulators
+            (see https://biosimulators.org/).
+        archiveUrl:
+          $ref: '#/components/schemas/Url'
+          description: URL for a COMBINE archive
+        archiveFile:
+          $ref: '#/components/schemas/File'
+          description: COMBINE/OMEX archive file
+        _type:
+          description: Type
+          enum:
+          - SimulationRun
+          type: string
+        environment:
+          $ref: '#/components/schemas/Environment'
+          description: Values of simulator-specific environment variables to use run
+            the simulation. See the BioSimulators documentation (https://biosimulators.org/help)
+            and the technical documentation for each simulation tool (https://docs.biosimulators.org/)
+            for information about the available environment variables.
+      example:
+        _type: SimulationRun
+        archiveFile: <FILE>
+        simulator: tellurium
+        environment:
+          _type: Environment
+          variables:
+          - _type: EnvironmentVariable
+            key: VERBOSE
+            value: "1"
+    EnvironmentVariable:
+      title: Root Type for EnvironmentVariable
+      description: A value of an environment variable
+      required:
+      - _type
+      - key
+      - value
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - EnvironmentVariable
+          type: string
+        key:
+          description: Name of the environment variable
+          type: string
+        value:
+          description: Value of the environment variable
+          type: string
+      example:
+        _type: EnvironmentVariable
+        key: VERBOSE
+        value: "1"
+    Simulator:
+      title: Root Type for Simulator
+      description: Simulation tool
+      required:
+      - id
+      - _type
+      - version
+      - specs
+      - api
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - Simulator
+          type: string
+        id:
+          $ref: '#/components/schemas/BioSimulatorsId'
+          description: BioSimulators id of the simulation tool.
+        version:
+          description: Version of the simulation tool
+          type: string
+        specs:
+          $ref: '#/components/schemas/Url'
+          description: URL where the specifications of the simulation tool can be
+            retrieved.
+        api:
+          $ref: '#/components/schemas/SimulatorApi'
+          description: BioSimulators API for the simulation tool.
+      example:
+        _type: Simulator
+        id: tellurium
+        version: 2.2.0
+        api:
+          _type: SimulatorApi
+          package: biosimulators_tellurium
+          module: biosimulators_tellurium
+          version: 0.1.0
+        specs: https://api.biosimulators.org/simulators/tellurium/2.2.0
+    BioSimulatorsId:
+      description: Id of a simulation tool registered with BioSimulators.
+      type: string
+      example: tellurium
+    SimulationRunResults:
+      description: Results of the execution of a COMBINE/OMEX archive
+      required:
+      - outputs
+      - log
+      - _type
+      type: object
+      properties:
+        outputs:
+          description: Results of each SED-ML output
+          type: array
+          items:
+            $ref: '#/components/schemas/SimulationRunOutput'
+        log:
+          $ref: '#/components/schemas/CombineArchiveLog'
+          description: Log of the execution of the run.
+        _type:
+          description: Type
+          enum:
+          - SimulationRunResults
+          type: string
+    SimulatorApi:
+      title: Root Type for SimulatorApi
+      description: BioSimulators API for a simulation tool.
+      required:
+      - _type
+      - module
+      - version
+      - package
+      type: object
+      properties:
+        _type:
+          enum:
+          - SimulatorApi
+          type: string
+        package:
+          description: "Python package which implements the BioSimulators API for\
+            \ the simulation tool (e.g., PyPI: biosimulators_tellurium, git+https://github.com/biosimulators/biosimulators_tellurium.git)."
+          type: string
+        module:
+          description: Python module which implements the BioSimulators API for the
+            simulation tool.
+          type: string
+        version:
+          description: Version of the API of the simulation tool.
+          type: string
+      example:
+        _type: SimulatorApi
+        package: biosimulators_tellurium
+        module: biosimulators_tellurium
+        version: 0.1.0
+    SimulationRunOutput:
+      title: Root Type for SimulationRunOutput
+      description: "Results of a SED-ML output (e.g, report, plot)."
+      required:
+      - outputId
+      - type
+      - data
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - SimulationRunOutput
+          type: string
+        outputId:
+          description: "Forward slash-separated tuple of the location of the parent\
+            \ SED-ML document and the id of the output (e.g, `simulation.sedml/report`)."
+          type: string
+        name:
+          description: Name of the output.
+          type: string
+        type:
+          description: Type of the output.
+          enum:
+          - SedReport
+          - SedPlot2D
+          - SedPlot3d
+          type: string
+        data:
+          description: Results of the output.
+          type: array
+          items:
+            $ref: '#/components/schemas/SimulationRunOutputDatum'
+      example:
+        _type: SimulationRunOutput
+        outputId: report
+        name: Report
+        type: SedReport
+        data: []
+    SimulationRunOutputDatum:
+      title: Root Type for SimulationRunOutputDatum
+      description: Result of a dataset of a SED-ML report or a data generator involved
+        in a SED-ML plot.
+      required:
+      - _type
+      - id
+      - label
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - SimulationRunOutputDatum
+          type: string
+        id:
+          description: Id of the datum
+          type: string
+        label:
+          description: Label of the datum.
+          type: string
+        name:
+          description: Name of the datum.
+          type: string
+        shape:
+          description: Shape of `values`.
+          type: string
+        type:
+          description: Data type of `values`.
+          type: string
+        values:
+          description: Result of the datum.
+          type: array
+          items: {}
+      example:
+        _type: SimulationRunOutputDatum
+        id: atp
+        label: ATP
+        name: ATP
+        shape: "1001"
+        type: float64
+        values:
+        - 5
+        - 4.9
+        - 4.95
+        - 4.97
+        - 5.03
+        - 5.01
+    Environment:
+      title: Root Type for Environment
+      description: Set of environment variables.
+      required:
+      - _type
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - Environment
+          type: string
+        variables:
+          description: Values of environment variables.
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvironmentVariable'
+      example:
+        _type: Environment
+        variables: []
+    CombineArchiveLog:
+      required:
+      - status
+      - exception
+      - skipReason
+      - output
+      - duration
+      - sedDocuments
+      type: object
+      properties:
+        status:
+          enum:
+          - QUEUED
+          - RUNNING
+          - SKIPPED
+          - SUCCEEDED
+          - FAILED
+          - UNKNOWN
+          type: string
+        exception:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        skipReason:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        output:
+          nullable: true
+          type: string
+          example: |
+            Reading model ... done
+            Executing model ... done
+            Saving results ... done
+        duration:
+          nullable: true
+          type: number
+          example: 10.5
+        sedDocuments:
+          nullable: true
+          type: array
+          items:
+            $ref: '#/components/schemas/SedDocumentLog'
+    Exception:
+      required:
+      - category
+      - message
+      type: object
+      properties:
+        category:
+          type: string
+          example: FileNotFoundError
+        message:
+          type: string
+          example: File 'model.xml' does not exist.
+    SedDocumentLog:
+      required:
+      - location
+      - status
+      - exception
+      - skipReason
+      - output
+      - duration
+      - tasks
+      - outputs
+      type: object
+      properties:
+        location:
+          type: string
+        status:
+          enum:
+          - QUEUED
+          - RUNNING
+          - SKIPPED
+          - SUCCEEDED
+          - FAILED
+          - UNKNOWN
+          type: string
+        exception:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        skipReason:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        output:
+          nullable: true
+          type: string
+          example: |
+            Reading model ... done
+            Executing model ... done
+            Saving results ... done
+        duration:
+          nullable: true
+          type: number
+          example: 10.5
+        tasks:
+          nullable: true
+          type: array
+          items:
+            $ref: '#/components/schemas/SedTaskLog'
+        outputs:
+          nullable: true
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/SedReportLog'
+            - $ref: '#/components/schemas/SedPlot2DLog'
+            - $ref: '#/components/schemas/SedPlot3DLog'
+    SedTaskLog:
+      required:
+      - id
+      - status
+      - exception
+      - skipReason
+      - output
+      - duration
+      - algorithm
+      - simulatorDetails
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          enum:
+          - QUEUED
+          - RUNNING
+          - SKIPPED
+          - SUCCEEDED
+          - FAILED
+          - UNKNOWN
+          type: string
+        exception:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        skipReason:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        output:
+          nullable: true
+          type: string
+          example: |
+            Reading model ... done
+            Executing model ... done
+            Saving results ... done
+        duration:
+          nullable: true
+          type: number
+          example: 10.5
+        algorithm:
+          nullable: true
+          type: string
+          example: KISAO_0000019
+        simulatorDetails:
+          nullable: true
+          type: array
+          items:
+            $ref: '#/components/schemas/SimulatorDetail'
+    SedReportLog:
+      required:
+      - id
+      - status
+      - exception
+      - skipReason
+      - output
+      - duration
+      - dataSets
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          enum:
+          - QUEUED
+          - RUNNING
+          - SKIPPED
+          - SUCCEEDED
+          - FAILED
+          - UNKNOWN
+          type: string
+        exception:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        skipReason:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        output:
+          nullable: true
+          type: string
+          example: |
+            Reading model ... done
+            Executing model ... done
+            Saving results ... done
+        duration:
+          nullable: true
+          type: number
+          example: 10.5
+        dataSets:
+          nullable: true
+          type: array
+          items:
+            $ref: '#/components/schemas/SedOutputElementLog'
+    SedPlot2DLog:
+      required:
+      - id
+      - status
+      - exception
+      - skipReason
+      - output
+      - duration
+      - curves
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          enum:
+          - QUEUED
+          - RUNNING
+          - SKIPPED
+          - SUCCEEDED
+          - FAILED
+          - UNKNOWN
+          type: string
+        exception:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        skipReason:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        output:
+          nullable: true
+          type: string
+          example: |
+            Reading model ... done
+            Executing model ... done
+            Saving results ... done
+        duration:
+          nullable: true
+          type: number
+          example: 10.5
+        curves:
+          nullable: true
+          type: array
+          items:
+            $ref: '#/components/schemas/SedOutputElementLog'
+    SedPlot3DLog:
+      required:
+      - id
+      - status
+      - exception
+      - skipReason
+      - output
+      - duration
+      - surfaces
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          enum:
+          - QUEUED
+          - RUNNING
+          - SKIPPED
+          - SUCCEEDED
+          - FAILED
+          - UNKNOWN
+          type: string
+        exception:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        skipReason:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Exception'
+        output:
+          nullable: true
+          type: string
+          example: |
+            Reading model ... done
+            Executing model ... done
+            Saving results ... done
+        duration:
+          nullable: true
+          type: number
+          example: 10.5
+        surfaces:
+          nullable: true
+          type: array
+          items:
+            $ref: '#/components/schemas/SedOutputElementLog'
+    SimulatorDetail:
+      required:
+      - key
+      - value
+      type: object
+      properties:
+        key:
+          type: string
+          example: arguments
+        value:
+          type: object
+          example:
+            relTol: 1.0E-6
+            absTol: 1.0E-8
+    SedOutputElementLog:
+      required:
+      - id
+      - status
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          enum:
+          - QUEUED
+          - RUNNING
+          - SKIPPED
+          - SUCCEEDED
+          - FAILED
+          - UNKNOWN
+          type: string
   responses:
     "404":
       content:

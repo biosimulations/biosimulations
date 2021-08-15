@@ -3,7 +3,166 @@
 #############
 FROM python:3.9-buster as base
 
-# setup headless for Smoldyn
+# install AMICI
+RUN apt-get update -y \
+    && apt-get install --no-install-recommends -y \
+        g++ \
+        libatlas-base-dev \
+        swig \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# install BioNetGen
+ARG BIONETGEN_VERSION=2.6.0
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        perl \
+        tar \
+        wget \
+    \
+    && cd /tmp \
+    && wget https://github.com/RuleWorld/bionetgen/releases/download/BioNetGen-${BIONETGEN_VERSION}/BioNetGen-${BIONETGEN_VERSION}-linux.tgz \
+    && tar xvvf BioNetGen-${BIONETGEN_VERSION}-linux.tgz \
+    && mv BioNetGen-${BIONETGEN_VERSION}/ /opt/ \
+    \
+    && rm BioNetGen-${BIONETGEN_VERSION}-linux.tgz \
+    \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+ENV PATH=${PATH}:/opt/BioNetGen-${BIONETGEN_VERSION}/
+
+# Install BoolNet
+BOOLNET_VERSION=2.1.5
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        r-base \
+        build-essential \
+        gcc \
+        gfortran \
+        libblas-dev \
+        libcurl4-openssl-dev \
+        libgit2-dev \
+        liblapack-dev \
+        libssl-dev \
+        libxml2 \
+        libxml2-dev \
+    \
+    && Rscript \
+        -e "install.packages('devtools')" \
+        -e "require(devtools)" \
+        -e "install_version('BoolNet', version='${BOOLNET_VERSION}')" \
+        -e "require('BoolNet')" \
+    \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install requirements for CBMPy
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        gcc \
+        libglpk-dev \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install requirements for GillesPy2
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set up path for GINsim; needed up installation of GINsim Python package is fixed
+RUN mkdir -p /usr/share/man/man1/ \
+    && apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        default-jre \
+        wget \
+    \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# install libSBML
+ARG LSBMLSIM_VERSION=1.4.0
+ARG LIBSBML_VERSION=5.19.0
+RUN apt-get update -y \
+    && apt-get install --no-install-recommends -y \
+        wget \
+        libxml2 \
+        build-essential \
+        cmake \
+        swig \
+        libbz2-dev \
+    \
+    && cd /tmp \
+    && wget https://master.dl.sourceforge.net/project/sbml/libsbml/${LIBSBML_VERSION}/stable/Linux/64-bit/libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
+    && dpkg -i libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
+    && rm libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
+    && export LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH \
+    \
+    && cd /tmp \
+    && wget https://github.com/libsbmlsim/libsbmlsim/archive/refs/tags/v${LSBMLSIM_VERSION}.tar.gz \
+    && tar xvvf v${LSBMLSIM_VERSION}.tar.gz \
+    && cd libsbmlsim-${LSBMLSIM_VERSION} \
+    && mkdir build \
+    && cd build \
+    && cmake \
+        -D LIBSBML_INCLUDE_DIR=/usr/include \
+        -D LIBSBML_LIBRARY=/usr/lib64/libsbml.so \
+        -D WITH_PYTHON=ON \
+        .. \
+    && make \
+    && make install \
+    && cd /tmp \
+    && rm v${LSBMLSIM_VERSION}.tar.gz \
+    && rm -r libsbmlsim-${LSBMLSIM_VERSION} \
+    \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+ENV LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
+
+# install requires for pyNeuroML, LEMS
+RUN mkdir -p /usr/share/man/man1/ \
+    && apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        default-jre \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install requirements for tellurium
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        libxml2 \
+        libncurses5 \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# install XPP
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        wget \
+        make \
+        gcc \
+        libx11-dev \
+        libc6-dev \
+        libx11-6 \
+        libc6 \
+    \
+    && cd /tmp \
+    && wget http://www.math.pitt.edu/~bard/bardware/xppaut_latest.tar.gz \
+    && mkdir xpp \
+    && tar zxvf xppaut_latest.tar.gz --directory xpp \
+    && cd xpp \
+    && make \
+    && make install \
+    \
+    && cd /tmp \
+    && rm xppaut_latest.tar.gz \
+    && rm -r xpp \
+    \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# setup headless for NEURON, Smoldyn
 RUN apt-get -y update \
     \
     && apt-get install --no-install-recommends -y \
@@ -17,38 +176,17 @@ ENV XVFB_RES="1920x1080x24" \
     XVFB_ARGS="" \
     DISPLAY=":1"
 
-# configure matplotlib to avoid warnings from Smoldyn
+# configure matplotlib cache and config to avoid warnings
 RUN mkdir -p /.cache/matplotlib \
     && mkdir -p /.config/matplotlib \
     && chmod ugo+rw /.config/matplotlib \
     && chmod ugo+rw /.cache/matplotlib
 
-# install Java for working with LEMS
-RUN apt-get -y update \
-    \
-    && apt-get install --no-install-recommends -y \
-        default-jre-headless \
-    && mkdir -p /usr/share/man/man1/ \
-    \
-    && rm -rf /var/lib/apt/lists/*
-
-# install Perl for working with BioNetGen
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends perl \
-    && rm -rf /var/lib/apt/lists/*
-
-# install XPP
-RUN cd /tmp \
-    && wget http://www.math.pitt.edu/~bard/bardware/xppaut_latest.tar.gz \
-    && mkdir xpp \
-    && tar zxvf xppaut_latest.tar.gz --directory xpp \
-    && cd xpp \
-    && make \
-    && make install \
-    \
-    && cd /tmp \
-    && rm xppaut_latest.tar.gz \
-    && rm -r xpp
+# Configure default simulator options
+ENV ALGORITHM_SUBSTITUTION_POLICY=SIMILAR_VARIABLES \
+    VERBOSE=0 \
+    MPLBACKEND=PDF \
+    PLOTTING_ENGINE=matplotlib
 
 #The name of the app to build
 ARG app
@@ -65,9 +203,17 @@ WORKDIR /app
 COPY Pipfile /app/Pipfile
 COPY Pipfile.lock /app/Pipfile.lock
 
-
 RUN pip install pipenv
 RUN pipenv install
+RUN pipenv install matplotlib \
+    && pipenv run python -c "import matplotlib.font_manager"
+
+RUN cd /tmp \
+    && pipenv install ginsim \
+    && wget https://raw.githubusercontent.com/GINsim/GINsim-python/master/ginsim_setup.py \
+    && pipenv run python ginsim_setup.py \
+    && rm ginsim_setup.py
+ENV PATH=/usr/local/share/colomoto/bin:$PATH
 
 COPY apps/$APP/src/ /app/src/
 

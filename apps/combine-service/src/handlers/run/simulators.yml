@@ -1,0 +1,87 @@
+- id: amici
+  api:
+    module: biosimulators_amici
+    package: biosimulators_amici
+
+- id: boolnet
+  api:
+    module: biosimulators_boolnet
+    package: biosimulators_boolnet
+
+- id: bionetgen
+  api:
+    module: biosimulators_bionetgen
+    package: biosimulators_bionetgen
+
+- id: cbmpy
+  api:
+    module: biosimulators_cbmpy
+    package: biosimulators_cbmpy
+
+- id: cobrapy
+  api:
+    module: biosimulators_cobrapy
+    package: biosimulators_cobrapy
+
+- id: copasi
+  api: 
+    module: biosimulators_copasi
+    package: biosimulators_copasi
+
+- id: gillespy2
+  api: 
+    module: biosimulators_gillespy2
+    package: biosimulators_gillespy2
+
+- id: ginsim
+  api: 
+    module: biosimulators_ginsim
+    package: biosimulators_ginsim
+
+#- id: libsbmlsim
+#  api:
+#    module: biosimulators_libsbmlsim
+#    package: biosimulators_libsbmlsim
+
+#- id: netpyne
+#  api: 
+#    module: biosimulators_pyneuroml
+#    package: biosimulators_pyneuroml
+
+#- id: neuron
+#  api: 
+#    module: biosimulators_pyneuroml
+#    package: biosimulators_pyneuroml
+
+#- id: opencor
+#  api: 
+#    module: biosimulators_opencor
+#    package: biosimulators_opencor
+
+#- id: pyneuroml
+#  api:
+#    module: biosimulators_pyneuroml
+#    package: biosimulators_pyneuroml
+
+# - id: pysces
+#   api: 
+#    module: biosimulators_pysces
+#    package: biosimulators_pysces
+
+- id: smoldyn
+  api: 
+    module: smoldyn.biosimulators
+    package: smoldyn
+
+- id: tellurium
+  api:
+    module: biosimulators_tellurium
+    package: biosimulators_tellurium
+
+#- id: vcell
+#  api:
+
+- id: xpp
+  api:
+    module: biosimulators_xpp
+    package: biosimulators_xpp
