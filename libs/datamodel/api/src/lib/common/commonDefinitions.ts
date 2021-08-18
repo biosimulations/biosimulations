@@ -186,7 +186,7 @@ export const PREDECESSORS = {
   example: [
     {
       label: 'Balagaddé2008_E_coli_Predator_Prey',
-      url: 'https://identifiers.org/biomodels.db:BIOMD0000000296',
+      uri: 'https://identifiers.org/biomodels.db:BIOMD0000000296',
     },
   ],
 };

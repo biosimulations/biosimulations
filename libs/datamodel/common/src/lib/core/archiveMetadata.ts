@@ -27,7 +27,7 @@ export interface ArchiveMetadata {
   contributors: LabeledIdentifier[];
   license?: LabeledIdentifier;
   funders: LabeledIdentifier[];
-  created?: Date;
-  modified: Date[];
+  created?: Date | string;
+  modified: Date[] | string[];
   other: DescribedIdentifier[];
 }

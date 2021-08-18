@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 import { BehaviorSubject, map, Observable, shareReplay, tap } from 'rxjs';
 import { MetadataValue } from './view.model';
@@ -32,10 +33,11 @@ export class ViewComponent implements OnInit {
   funders?: Observable<MetadataValue[] | undefined>;
   identifiers?: Observable<MetadataValue[] | undefined>;
 
-  constructor(private service: ViewService) {}
+  constructor(private service: ViewService, private route: ActivatedRoute) {}
   public showImage = new BehaviorSubject(false);
   public ngOnInit(): void {
-    this.metadata = this.service.getArchiveMetadata('id').pipe(
+    const id = this.route.snapshot.params['id'];
+    this.metadata = this.service.getArchiveMetadata(id).pipe(
       tap((_) => {
         this.loading$.next(false);
         shareReplay(1);
@@ -54,10 +56,10 @@ export class ViewComponent implements OnInit {
     );
     this.sources = this.metadata?.pipe(map((metadata) => metadata?.sources));
     this.created = this.metadata?.pipe(
-      map((metadata) => metadata?.created?.toUTCString()),
+      map((metadata) => metadata?.created?.toLocaleString ? metadata?.created.toLocaleString() : JSON.stringify(metadata?.created)),
     );
     this.modified = this.metadata?.pipe(
-      map((metadata) => metadata?.modified?.map((date) => date.toUTCString())),
+      map((metadata) => metadata?.modified?.map((date) => date.toLocaleString? date.toLocaleString() : JSON.stringify(date))),
     );
     this.description = this.metadata?.pipe(
       map((metadata) => metadata?.description),
