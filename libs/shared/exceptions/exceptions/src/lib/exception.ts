@@ -5,6 +5,8 @@ import {
 } from '@biosimulations/datamodel/api';
 import { HttpException } from '@nestjs/common';
 
+
+// TODO refactor to be able to hold multiple errors
 export class BiosimulationsException extends Error {
   private errorObject: ErrorObject;
   constructor(

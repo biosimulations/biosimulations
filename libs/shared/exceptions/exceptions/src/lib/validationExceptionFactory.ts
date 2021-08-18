@@ -4,9 +4,11 @@ import { BiosimulationsException } from './exception';
 export const BiosimulationsValidationExceptionFactory = (
   errors: ValidationError[],
 ): BiosimulationsException => {
-  const err = errors[0];
-  const message = err.property + 'failed validation';
 
+  // TODO handle all errors, not just first one
+  const err = errors[0];
+  const message = 'Parameter or property "'+err.property + '" failed validation';
+  
   const bioSimErr = new BiosimulationsException(
     HttpStatus.BAD_REQUEST,
     'Validation Error',
@@ -15,7 +17,7 @@ export const BiosimulationsValidationExceptionFactory = (
     undefined,
     err.property,
     undefined,
-    { errors: errors },
+     {...err },
   );
 
   return bioSimErr;

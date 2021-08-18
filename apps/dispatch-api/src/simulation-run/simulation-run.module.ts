@@ -21,13 +21,12 @@ import {
 } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
-import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions/filters';
 
 @Module({
   controllers: [SimulationRunController],
   imports: [
     BiosimulationsAuthModule,
-    SharedExceptionsFiltersModule,
+    
     SharedNatsClientModule,
     HttpModule,
     SharedNatsClientModule,
