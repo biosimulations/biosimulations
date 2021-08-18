@@ -26,7 +26,7 @@ import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
   controllers: [SimulationRunController],
   imports: [
     BiosimulationsAuthModule,
-    
+
     SharedNatsClientModule,
     HttpModule,
     SharedNatsClientModule,

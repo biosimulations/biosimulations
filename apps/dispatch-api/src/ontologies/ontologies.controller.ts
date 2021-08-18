@@ -21,7 +21,7 @@ import {
   OntologyInfo,
 } from '@biosimulations/datamodel/api';
 
-@Controller("ontologies")
+@Controller('ontologies')
 @ApiTags('Ontologies')
 export class OntologiesController {
   constructor(private service: OntologiesService) {}

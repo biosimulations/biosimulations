@@ -51,7 +51,7 @@ export class ResultsController {
   }
 
   @Get(':simId/download')
-    @ApiTags('Downloads')
+  @ApiTags('Downloads')
   public async downloadResultReport(
     @Param('simId') simId: string,
     @Res() res: Response,

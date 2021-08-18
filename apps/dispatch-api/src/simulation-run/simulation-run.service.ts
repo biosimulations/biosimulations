@@ -168,9 +168,7 @@ export class SimulationRunService {
       projection[field] = 1;
     }
 
-    const res = await this.simulationRunModel
-      .find({}, projection)
-      .lean();
+    const res = await this.simulationRunModel.find({}, projection).lean();
 
     return res;
   }
