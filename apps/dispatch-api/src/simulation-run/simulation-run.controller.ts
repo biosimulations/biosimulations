@@ -7,7 +7,11 @@
  */
 import { DispatchJob } from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
-import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import {
+  ApiFieldsQuery,
+  ErrorResponseDocument,
+  FieldsQueryParameters,
+} from '@biosimulations/datamodel/api';
 import {
   BadRequestException,
   Body,
@@ -24,6 +28,7 @@ import {
   UploadedFile,
   UseInterceptors,
   UnsupportedMediaTypeException,
+  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -50,6 +55,9 @@ import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
+
+
+
 
 type multipartSimulationRunBody = { simulationRun: string };
 // 1gb in bytes plus a buffer to be used as file size limits
@@ -85,12 +93,15 @@ export class SimulationRunController {
     description:
       'Returns an array of all the simulation run objects in the database',
   })
+  @ApiFieldsQuery()
   @ApiOkResponse({ description: 'OK', type: [SimulationRun] })
   @permissions('read:SimulationRuns')
   @Get()
-  public async getRuns(): Promise<SimulationRun[]> {
-    const res = await this.service.getAll();
-    return res.map(this.makeSimulationRun);
+  public async getRuns(
+    @Query() queryparams: FieldsQueryParameters,
+  ): Promise<{ id: string; status: string }[]> {
+    const res = await this.service.getAll(queryparams.fields);
+    return res;
   }
 
   @ApiOperation({
