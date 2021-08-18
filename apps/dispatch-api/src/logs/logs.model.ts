@@ -5,19 +5,17 @@
  * @license MIT
  */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import {
-  CombineArchiveLog,
-  SimulationRun,
-} from '@biosimulations/dispatch/api-models';
+import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, Document } from 'mongoose';
 import { ObjectIdValidator } from '@biosimulations/datamodel/common';
+import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 
 @Schema({ collection: 'Simulation Run Logs', minimize: false })
 export class SimulationRunLog extends Document {
   @Prop({
     type: Types.ObjectId,
-    ref: SimulationRun.name,
+    ref: SimulationRunModel.name,
     validate: ObjectIdValidator,
     unique: true,
     index: true,

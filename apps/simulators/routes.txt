@@ -35,7 +35,6 @@
 /simulators/cobratoolbox
 /simulators/cobratoolbox/3.1
 /simulators/copasi
-/simulators/copasi/4.31.243
 /simulators/copasi/4.33.246
 /simulators/ecell4
 /simulators/ecell4/1.1.2
@@ -72,6 +71,8 @@
 /simulators/libsbmlsim/1.4.0
 /simulators/maboss
 /simulators/maboss/2.3.4
+/simulators/masspy
+/simulators/masspy/0.1.1
 /simulators/mcell
 /simulators/mcell/3.5.0
 /simulators/metanetx
@@ -114,9 +115,12 @@
 /simulators/smoldyn
 /simulators/smoldyn/2.65
 /simulators/smoldyn/2.66
+/simulators/smoldyn/2.67
 /simulators/tellurium
 /simulators/tellurium/2.2.0
 /simulators/vcell
 /simulators/vcell/7.4.0.14
 /simulators/winbestkit
 /simulators/winbestkit/2.0.9
+/simulators/xpp
+/simulators/xpp/8.0

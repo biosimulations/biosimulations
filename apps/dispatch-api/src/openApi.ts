@@ -23,15 +23,26 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
       description:
         'Operations for viewing and retrieving the results of a simulation run.',
     },
+
+    {
+      name: 'Logs',
+      description:
+        'Operations for submitting and retrieving a log of the execution of a simulation run.',
+    },
+    {
+      name: 'Metadata',
+      description:
+        'Operations for creating and retriving the metadata associated with a simulation run',
+    },
     {
       name: 'Downloads',
       description:
         'Operations for downloading the files and results of a simulation run.',
     },
     {
-      name: 'Logs',
+      name: 'Ontologies',
       description:
-        'Operations for submitting and retrieving a log of the execution of a simulation run.',
+        'Operations for getting a list of the supported ontologies, getting entire ontologies, and getting individual terms.',
     },
     {
       name: 'Internal management',
