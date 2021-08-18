@@ -31,6 +31,7 @@ module.exports = {
         'combine-service',
         'exceptions',
         'nats-client',
+        'deps',
       ],
     ],
   },

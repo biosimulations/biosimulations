@@ -61,6 +61,7 @@ export class LogsController {
   }
 
   @Get(':id/download')
+  @ApiTags('Downloads')
   public downloadLogs(@Param() id: string): void {
     throw new NotImplementedException('Not Implemented');
   }

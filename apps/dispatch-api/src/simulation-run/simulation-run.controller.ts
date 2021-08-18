@@ -298,6 +298,7 @@ export class SimulationRunController {
       'Download the COMBINE/OMEX archive file for the simulation run',
   })
   @Get(':id/download')
+  @ApiTags('Downloads')
   public async download(
     @Param('id') id: string,
     @Res({ passthrough: true }) response: Response,

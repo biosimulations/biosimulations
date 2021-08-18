@@ -18,6 +18,7 @@ import { LogsModule } from '../logs/logs.module';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
 import { BullModule } from '@nestjs/bull';
 import { MetadataModule } from '../metadata/metadata.module';
+import { OntologiesModule } from '../ontologies/ontologies.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { MetadataModule } from '../metadata/metadata.module';
     SimulationRunModule,
     ResultsModule,
     MetadataModule,
+    OntologiesModule,
     SharedExceptionsFiltersModule,
     AuthTestModule,
     SharedNatsClientModule,
