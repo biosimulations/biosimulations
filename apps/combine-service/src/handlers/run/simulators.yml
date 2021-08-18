@@ -38,35 +38,40 @@
     module: biosimulators_ginsim
     package: biosimulators_ginsim
 
-#- id: libsbmlsim
-#  api:
-#    module: biosimulators_libsbmlsim
-#    package: biosimulators_libsbmlsim
+- id: libsbmlsim
+  api:
+    module: biosimulators_libsbmlsim
+    package: biosimulators_libsbmlsim
 
-#- id: netpyne
-#  api: 
-#    module: biosimulators_pyneuroml
-#    package: biosimulators_pyneuroml
+- id: masspy
+  api: 
+    module: biosimulators_masspy
+    package: biosimulators_masspy
 
-#- id: neuron
-#  api: 
-#    module: biosimulators_pyneuroml
-#    package: biosimulators_pyneuroml
+# - id: netpyne
+#   api: 
+#     module: biosimulators_pyneuroml.api.netpyne
+#     package: biosimulators_pyneuroml
+
+# - id: neuron
+#   api: 
+#     module: biosimulators_pyneuroml.api.neuron
+#     package: biosimulators_pyneuroml
 
 #- id: opencor
 #  api: 
 #    module: biosimulators_opencor
 #    package: biosimulators_opencor
 
-#- id: pyneuroml
-#  api:
-#    module: biosimulators_pyneuroml
-#    package: biosimulators_pyneuroml
+- id: pyneuroml
+  api:
+    module: biosimulators_pyneuroml.api.pyneuroml
+    package: biosimulators_pyneuroml
 
-# - id: pysces
-#   api: 
-#    module: biosimulators_pysces
-#    package: biosimulators_pysces
+- id: pysces
+  api: 
+    module: biosimulators_pysces
+    package: biosimulators_pysces
 
 - id: smoldyn
   api: 

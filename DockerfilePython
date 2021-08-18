@@ -3,6 +3,7 @@
 #############
 FROM python:3.9-buster as base
 
+###################################
 # install AMICI
 RUN apt-get update -y \
     && apt-get install --no-install-recommends -y \
@@ -12,6 +13,7 @@ RUN apt-get update -y \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
+###################################
 # install BioNetGen
 ARG BIONETGEN_VERSION=2.6.0
 RUN apt-get update -y \
@@ -31,6 +33,7 @@ RUN apt-get update -y \
     && rm -rf /var/lib/apt/lists/*
 ENV PATH=${PATH}:/opt/BioNetGen-${BIONETGEN_VERSION}/
 
+###################################
 # Install BoolNet
 BOOLNET_VERSION=2.1.5
 RUN apt-get update -y \
@@ -56,6 +59,7 @@ RUN apt-get update -y \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
+###################################
 # Install requirements for CBMPy
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
@@ -64,6 +68,7 @@ RUN apt-get update -y \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
+###################################
 # Install requirements for GillesPy2
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
@@ -71,6 +76,7 @@ RUN apt-get update -y \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
+###################################
 # Set up path for GINsim; needed up installation of GINsim Python package is fixed
 RUN mkdir -p /usr/share/man/man1/ \
     && apt-get update -y \
@@ -81,23 +87,34 @@ RUN mkdir -p /usr/share/man/man1/ \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-# install libSBML
+###################################
+# install libSBMLSIM
 ARG LSBMLSIM_VERSION=1.4.0
 ARG LIBSBML_VERSION=5.19.0
+
+# install libSBML
 RUN apt-get update -y \
     && apt-get install --no-install-recommends -y \
         wget \
         libxml2 \
-        build-essential \
-        cmake \
-        swig \
-        libbz2-dev \
     \
-    && cd /tmp \
     && wget https://master.dl.sourceforge.net/project/sbml/libsbml/${LIBSBML_VERSION}/stable/Linux/64-bit/libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
     && dpkg -i libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
     && rm libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
     && export LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH \
+    \    
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+ENV LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
+
+# install LibSBMLSim
+RUN apt-get update -y \
+    && apt-get install --no-install-recommends -y \
+        wget \
+        build-essential \
+        cmake \
+        swig \
+        libbz2-dev \
     \
     && cd /tmp \
     && wget https://github.com/libsbmlsim/libsbmlsim/archive/refs/tags/v${LSBMLSIM_VERSION}.tar.gz \
@@ -118,9 +135,27 @@ RUN apt-get update -y \
     \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
-ENV LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
 
-# install requires for pyNeuroML, LEMS
+###################################
+# install requirements for MASSpy
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        git \
+        gcc \
+        build-essential \
+        libfreetype6-dev \
+        libfreetype6 \
+        pkg-config \
+    \
+    && pip install numpy==1.19.3 \
+    && pip install matplotlib==3.2 \
+    && pip install masspy \
+    \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+###################################
+# install requirements for pyNeuroML, LEMS
 RUN mkdir -p /usr/share/man/man1/ \
     && apt-get update -y \
     && apt-get install -y --no-install-recommends \
@@ -128,6 +163,70 @@ RUN mkdir -p /usr/share/man/man1/ \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
+###################################
+# Install requirements for PySCeS
+
+# install SUNDIALS
+ARG SUNDIALS_VERSION=2.6.2
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        wget \
+        cmake \
+        make \
+        g++ \
+    \
+    && cd /tmp \
+    && wget https://computing.llnl.gov/sites/default/files/inline-files/sundials-${SUNDIALS_VERSION}.tar.gz \
+    && tar xvvf sundials-${SUNDIALS_VERSION}.tar.gz \
+    && cd sundials-${SUNDIALS_VERSION} \
+    && mkdir build \
+    && cd build \
+    && cmake .. \
+    && make \
+    && make install \
+    \
+    && cd /tmp \
+    && rm sundials-${SUNDIALS_VERSION}.tar.gz \
+    && rm -r sundials-${SUNDIALS_VERSION} \
+    \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists
+
+# install Python requirements for assimulo
+RUN pip install cython numpy scipy matplotlib
+
+ARG ASSIMULO_VERSION=3.2.5
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        g++ \
+        gfortran \
+        liblas-dev \
+        liblapack-dev \
+        git \
+    \
+    && pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-${ASSIMULO_VERSION} \
+    \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists
+
+# install Python requirements for PySCeS
+RUN pip install ipyparallel
+
+# install PySCeS
+ARG PYSCES_REVISION=470cd0b8afa4c14721a2b2bc00d4c71d80603801
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        git \
+        gcc \
+        gfortran \
+        libgfortran-7-dev \
+    \
+    && pip install git+https://github.com/PySCeS/pysces.git@${PYSCES_REVISION} \
+    \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists
+
+###################################
 # Install requirements for tellurium
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
@@ -136,6 +235,7 @@ RUN apt-get update -y \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
+###################################
 # install XPP
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
@@ -162,6 +262,7 @@ RUN apt-get update -y \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
+###################################
 # setup headless for NEURON, Smoldyn
 RUN apt-get -y update \
     \
@@ -176,6 +277,7 @@ ENV XVFB_RES="1920x1080x24" \
     XVFB_ARGS="" \
     DISPLAY=":1"
 
+###################################
 # configure matplotlib cache and config to avoid warnings
 RUN mkdir -p /.cache/matplotlib \
     && mkdir -p /.config/matplotlib \
