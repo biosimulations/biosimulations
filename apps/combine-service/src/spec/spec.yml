@@ -685,7 +685,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimulationRun'
+                $ref: '#/components/schemas/SimulationRunResults'
               examples:
                 Kinetic simulation with tellurium:
                   value:
@@ -696,6 +696,20 @@ paths:
                     - _type: EnvironmentVariable
                       key: VERBOSE
                       value: "1"
+            application/x-hdf:
+              schema:
+                $ref: '#/components/schemas/File'
+              examples:
+                HDF5 file with the result of each SED-ML report and, optionally, each SED-ML plot:
+                  value: '"<FILE>"'
+            application/zip:
+              schema:
+                $ref: '#/components/schemas/File'
+              examples:
+                ? Zip archive with (a) an HDF5 file with the results of each SED-ML
+                  report and, optionally, each SED-ML plot and (b) PDF files for each
+                  SED-ML plot.
+                : value: '"<FILE>"'
           description: The COMBINE/OMEX archive was executed.
         "400":
           content:
