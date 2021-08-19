@@ -37,6 +37,7 @@ export class LogsController {
   // eslint-disable-next-line @typescript-eslint/no-parameter-properties
   public constructor(private service: LogsService) {}
 
+  /*
   @Get()
   public getAllLogs(): void {
     throw new NotImplementedException('Not Implemented');
@@ -45,6 +46,7 @@ export class LogsController {
   public deleteAllLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
+  */
   @ApiResponse({
     status: 200,
     type: CombineArchiveLog,
@@ -60,11 +62,13 @@ export class LogsController {
     return structLogs;
   }
 
+  /*
   @Get(':id/download')
   @ApiTags('Downloads')
   public downloadLogs(@Param() id: string): void {
     throw new NotImplementedException('Not Implemented');
   }
+  */
 
   @Post()
   @ApiResponse({
@@ -78,6 +82,7 @@ export class LogsController {
     return logs.log;
   }
 
+  /*
   @Delete(':id')
   public deleteLogs(@Param() id: string): void {
     throw new NotImplementedException('Not Implemented');
@@ -92,4 +97,5 @@ export class LogsController {
   public replaceLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
+  */
 }
