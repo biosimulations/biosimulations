@@ -4,9 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage';
 import {
-MatDialogModule,
-MAT_DIALOG_DATA,
-MatDialogRef,
+  MatDialogModule,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
 } from '@angular/material/dialog';
 
 import { ConfigService } from '@biosimulations/shared/services';
