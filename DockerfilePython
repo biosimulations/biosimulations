@@ -213,18 +213,27 @@ RUN apt-get update -y \
 RUN pip install ipyparallel
 
 # install PySCeS
-ARG PYSCES_REVISION=470cd0b8afa4c14721a2b2bc00d4c71d80603801
+ARG PYSCES_REVISION=7478a05bc4480e580fabfe89acb259274ced7f6c
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
         git \
         gcc \
         gfortran \
-        libgfortran-7-dev \
+        libgfortran5 \
     \
     && pip install git+https://github.com/PySCeS/pysces.git@${PYSCES_REVISION} \
     \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists
+
+# Configure PySCeS
+COPY DockerfilePython-assets/.pys_usercfg.ini /Pysces/.pys_usercfg.ini
+COPY DockerfilePython-assets/.pys_usercfg.ini /root/Pysces/.pys_usercfg.ini
+RUN mkdir -p /Pysces \
+    && mkdir -p /Pysces/psc \
+    && mkdir -p /root/Pysces \
+    && mkdir -p /root/Pysces/psc \
+    && chmod ugo+rw -R /Pysces
 
 ###################################
 # Install requirements for tellurium
