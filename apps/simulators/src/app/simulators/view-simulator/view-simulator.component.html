@@ -24,17 +24,14 @@
               <th><biosimulations-icon icon="user"></biosimulations-icon></th>
               <td>
                 <ul class="comma-separated ampersand-separator">
-                  <li *ngFor="let author of simulator.authors">
-                    <a
+                  <li *ngFor="let author of simulator.authors"><a
                       *ngIf="author.orcidUrl; else noOrcidUrl"
                       [href]="author.orcidUrl"
                       target="_blank"
                       title="ORCID profile"
                       >{{ author.name }}
                       <biosimulations-icon icon="orcid"></biosimulations-icon
-                    ></a>
-                    <ng-template #noOrcidUrl>{{ author.name }}</ng-template>
-                  </li>
+                    ></a><ng-template #noOrcidUrl>{{ author.name }}</ng-template></li>
                 </ul>
               </td>
             </tr>
@@ -373,9 +370,7 @@
                         "
                         class="comma-separated and-separator"
                       >
-                        <li *ngFor="let feature of format.supportedFeatures">
-                          {{ feature }}
-                        </li>
+                        <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
                       </ul>
                       <ng-template #noSuportedModelFormatFeatures>
                         <span class="info-message"
@@ -417,9 +412,7 @@
                         "
                         class="comma-separated and-separator"
                       >
-                        <li *ngFor="let feature of format.supportedFeatures">
-                          {{ feature }}
-                        </li>
+                        <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
                       </ul>
                       <ng-template #noSuportedSimulationFormatFeatures>
                         <span class="info-message"
@@ -461,9 +454,7 @@
                         "
                         class="comma-separated and-separator"
                       >
-                        <li *ngFor="let feature of format.supportedFeatures">
-                          {{ feature }}
-                        </li>
+                        <li *ngFor="let feature of format.supportedFeatures">{{ feature }}</li>
                       </ul>
                       <ng-template #noSuportedArchiveFormatFeatures>
                         <span class="info-message"
