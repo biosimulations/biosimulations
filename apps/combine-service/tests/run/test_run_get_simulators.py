@@ -11,16 +11,18 @@ class GetSimulatorsTestCase(unittest.TestCase):
             simulators = [
                 {
                     'id': 'copasi',
+                    'name': "COPASI",
                     'api': {
                         'module': 'biosimulators_copasi',
                         'package': 'biosimulators_copasi',
                     },
                 },
                 {
-                    'id': 'tellurium',
+                    'id': 'gillespy2',
+                    'name': 'GillesPy2',
                     'api': {
-                        'module': 'biosimulators_tellurium',
-                        'package': 'biosimulators_tellurium',
+                        'module': 'biosimulators_gillespy2',
+                        'package': 'biosimulators_gillespy2',
                     },
                 },
             ]
@@ -29,13 +31,15 @@ class GetSimulatorsTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200, response.json)
 
         simulators = response.json
-        id = 'tellurium'
+        id = 'copasi'
+        name = 'COPASI'
         sim = next(simulator for simulator in simulators if simulator['id'] == id)
-        api_name = 'biosimulators_tellurium'
+        api_name = 'biosimulators_copasi'
         api = get_simulator_api(api_name)
         self.assertEqual(sim, {
             '_type': 'Simulator',
             'id': id,
+            'name': name,
             'version': api.get_simulator_version(),
             'api': {
                 '_type': 'SimulatorApi',

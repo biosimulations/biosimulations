@@ -45,6 +45,7 @@ def get_simulator_metadata(id):
     simulator = next(simulator for simulator in get_simulators() if simulator['id'] == id)
 
     id = simulator['id']
+    name = simulator['name']
     api_module = simulator['api']['module']
     api = get_simulator_api(api_module)
     version = api.get_simulator_version()
@@ -52,6 +53,7 @@ def get_simulator_metadata(id):
     return {
         '_type': 'Simulator',
         'id': id,
+        'name': name,
         'version': version,
         'api': {
             '_type': 'SimulatorApi',

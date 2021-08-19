@@ -1,92 +1,111 @@
 - id: amici
+  name: AMICI
   api:
     module: biosimulators_amici
     package: biosimulators_amici
 
 - id: boolnet
+  name: BoolNet
   api:
     module: biosimulators_boolnet
     package: biosimulators_boolnet
 
 - id: bionetgen
+  name: BioNetGen
   api:
     module: biosimulators_bionetgen
     package: biosimulators_bionetgen
 
 - id: cbmpy
+  name: CBMPy
   api:
     module: biosimulators_cbmpy
     package: biosimulators_cbmpy
 
 - id: cobrapy
+  name: COBRApy
   api:
     module: biosimulators_cobrapy
     package: biosimulators_cobrapy
 
 - id: copasi
+  name: COPASI
   api: 
     module: biosimulators_copasi
     package: biosimulators_copasi
 
 - id: gillespy2
+  name: GillesPy2
   api: 
     module: biosimulators_gillespy2
     package: biosimulators_gillespy2
 
 - id: ginsim
+  name: GINsim
   api: 
     module: biosimulators_ginsim
     package: biosimulators_ginsim
 
 - id: libsbmlsim
+  name: LibSBMLSim
   api:
     module: biosimulators_libsbmlsim
     package: biosimulators_libsbmlsim
 
 - id: masspy
+  name: MASSpy
   api: 
     module: biosimulators_masspy
     package: biosimulators_masspy
 
 # - id: netpyne
+#   name: NetPyNe
 #   api: 
 #     module: biosimulators_pyneuroml.api.netpyne
 #     package: biosimulators_pyneuroml
 
 # - id: neuron
+#   name: NEURON
 #   api: 
 #     module: biosimulators_pyneuroml.api.neuron
 #     package: biosimulators_pyneuroml
 
 #- id: opencor
+#  name: OpenCOR
 #  api: 
 #    module: biosimulators_opencor
 #    package: biosimulators_opencor
 
 - id: pyneuroml
+  name: pyNeuroML
   api:
     module: biosimulators_pyneuroml.api.pyneuroml
     package: biosimulators_pyneuroml
 
 - id: pysces
+  name: PySCeS
   api: 
     module: biosimulators_pysces
     package: biosimulators_pysces
 
 - id: smoldyn
+  name: Smoldyn
   api: 
     module: smoldyn.biosimulators
     package: smoldyn
 
 - id: tellurium
+  name: tellurium
   api:
     module: biosimulators_tellurium
     package: biosimulators_tellurium
 
 #- id: vcell
+#  name: Virtual Cell
 #  api:
 
 - id: xpp
+  name: XPP
   api:
     module: biosimulators_xpp
     package: biosimulators_xpp

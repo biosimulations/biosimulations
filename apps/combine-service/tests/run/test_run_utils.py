@@ -5,16 +5,17 @@ import unittest
 class CombineUtilsTestCase(unittest.TestCase):
     def test_get_simulators(self):
         simulators = utils.get_simulators()
-        sim = next(simulator for simulator in simulators if simulator['id'] == 'tellurium')
+        sim = next(simulator for simulator in simulators if simulator['id'] == 'copasi')
         self.assertEqual(sim, {
-            'id': 'tellurium',
+            'id': 'copasi',
+            'name': 'COPASI',
             'api': {
-                'module': 'biosimulators_tellurium',
-                'package': 'biosimulators_tellurium',
+                'module': 'biosimulators_copasi',
+                'package': 'biosimulators_copasi',
             }
         })
 
     def test_get_simulator_api(self):
-        import biosimulators_tellurium
-        api = utils.get_simulator_api('biosimulators_tellurium')
-        self.assertEqual(api, biosimulators_tellurium)
+        import biosimulators_copasi
+        api = utils.get_simulator_api('biosimulators_copasi')
+        self.assertEqual(api, biosimulators_copasi)

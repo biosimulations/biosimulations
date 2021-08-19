@@ -604,6 +604,7 @@ paths:
                   value:
                   - _type: Simulator
                     id: copasi
+                    name: COPASI
                     version: 4.33.246
                     api:
                       _type: SimulatorApi
@@ -613,6 +614,7 @@ paths:
                     specs: https://api.biosimulators.org/simulators/copasi/4.33.246
                   - _type: Simulator
                     id: tellurium
+                    name: tellurium
                     version: 2.2.0
                     api:
                       _type: SimulatorApi
@@ -2940,6 +2942,7 @@ components:
       - version
       - specs
       - api
+      - name
       type: object
       properties:
         _type:
@@ -2960,9 +2963,13 @@ components:
         api:
           $ref: '#/components/schemas/SimulatorApi'
           description: BioSimulators API for the simulation tool.
+        name:
+          description: Name
+          type: string
       example:
         _type: Simulator
         id: tellurium
+        name: tellurium
         version: 2.2.0
         api:
           _type: SimulatorApi
