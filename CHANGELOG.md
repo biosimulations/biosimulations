@@ -1,3 +1,36 @@
+# [3.8.0](https://github.com/biosimulations/Biosimulations/compare/v3.7.0...v3.8.0) (2021-08-18)
+
+
+### Features
+
+* **ontology:** updated to kisao 2.26 ([0f1f31a](https://github.com/biosimulations/Biosimulations/commit/0f1f31ae0383af38f9e7cd06aa28f022b7d6df07))
+
+# [3.7.0](https://github.com/biosimulations/Biosimulations/compare/v3.6.0...v3.7.0) (2021-08-18)
+
+
+### Bug Fixes
+
+* update angular/cdk ([c7a18c1](https://github.com/biosimulations/Biosimulations/commit/c7a18c16f0c71fb0057a8cd331bbdd28abddb74b))
+* **deps:** update dependency @openapi-contrib/openapi-schema-to-json-schema to v3.1.1 ([#2799](https://github.com/biosimulations/Biosimulations/issues/2799)) ([5d6453f](https://github.com/biosimulations/Biosimulations/commit/5d6453f1fc211b61ba7a0b40c9e18e7877bb874d))
+* **deps:** update dependency @sendgrid/mail to v7.4.6 ([#2800](https://github.com/biosimulations/Biosimulations/issues/2800)) ([1e83398](https://github.com/biosimulations/Biosimulations/commit/1e83398a2b75f5af5b44506603f906f3c6e00b9d))
+* **deps:** update dependency @typegoose/typegoose to v7.6.3 ([#2803](https://github.com/biosimulations/Biosimulations/issues/2803)) ([1a02d14](https://github.com/biosimulations/Biosimulations/commit/1a02d14610ec792e967f71cd4eec35c83af31d74))
+* **deps:** update dependency auth0 to v2.36.1 ([#2823](https://github.com/biosimulations/Biosimulations/issues/2823)) ([fa11231](https://github.com/biosimulations/Biosimulations/commit/fa11231f161bb778e67f52287d707756b5315f20))
+* **deps:** update dependency cache-manager to v3.4.4 ([#2804](https://github.com/biosimulations/Biosimulations/issues/2804)) ([3c62abb](https://github.com/biosimulations/Biosimulations/commit/3c62abb0576ede01ba5d9eec1ca0daf56a8b5a4e))
+* **deps:** update nest ([#2807](https://github.com/biosimulations/Biosimulations/issues/2807)) ([875673f](https://github.com/biosimulations/Biosimulations/commit/875673f37fe2e4d0cc3f33497043f27899d03fd9))
+* **dispatch-service:** added handling for case when no environment variables need to be set ([b51418d](https://github.com/biosimulations/Biosimulations/commit/b51418db31f38c534e774603070943d2abd0901e))
+* **platform:** fix import of simulationrun metadata ([fb85650](https://github.com/biosimulations/Biosimulations/commit/fb85650554373a20e48be805d1068f0885bee7c0))
+
+
+### Features
+
+* **datamodel:** add common api query parameters ([c8bace5](https://github.com/biosimulations/Biosimulations/commit/c8bace5a78d6e991f0590a403927ab28757895f9))
+* **dispatch:** added support for passing environment variables to simulators ([107221a](https://github.com/biosimulations/Biosimulations/commit/107221acfef0d611dba986f1da1e1782c1472d91))
+* **dispatch-api:** add ability to get sparse simulationRuns ([5570ebb](https://github.com/biosimulations/Biosimulations/commit/5570ebb053df9d19c1fcb8f838564b1107d4c33f))
+* **dispatch-api:** add endpoint for metadata ([24ffa40](https://github.com/biosimulations/Biosimulations/commit/24ffa40e96f42054ae4cee1f3eb62c6544ff08fe))
+* **dispatch-api:** add tags, add ontology endpoint ([d056b4a](https://github.com/biosimulations/Biosimulations/commit/d056b4a74f0d19454e0eff0c515aea2eba5a0cd5))
+* **dispatch-api:** create api model for metadata ([#2815](https://github.com/biosimulations/Biosimulations/issues/2815)) ([d55f7a5](https://github.com/biosimulations/Biosimulations/commit/d55f7a5d29e1f3cbb23ab472f84a2d8b961af843))
+* **exceptions:** add better handling of validation errors ([e4e1986](https://github.com/biosimulations/Biosimulations/commit/e4e198623ae0d3f86460da18040faf9f28c9ee9a))
+
 # [3.6.0](https://github.com/biosimulations/Biosimulations/compare/v3.5.0...v3.6.0) (2021-08-11)
 
 

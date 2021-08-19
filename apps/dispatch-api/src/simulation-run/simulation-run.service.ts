@@ -156,17 +156,20 @@ export class SimulationRunService {
     return toApi(await model.save());
   }
 
-  public async getAll(): Promise<SimulationRunModelReturnType[]> {
-    const res = await this.simulationRunModel
-      .find()
-      .lean()
-      .map((sims) => {
-        // This assertion is true unless only one simulation run is in the database
-        const data = sims as unknown as SimulationRunModel[];
-        return data.map((sim) => {
-          return toApi({ ...sim, id: sim._id });
-        });
-      });
+  public async getAll(
+    fields: string[] = [],
+  ): Promise<{ id: string; status: string }[]> {
+    const projection: { [key: string]: number } = {
+      id: 1,
+      _id: 0,
+    };
+
+    for (const field of fields) {
+      projection[field] = 1;
+    }
+
+    const res = await this.simulationRunModel.find({}, projection).lean();
+
     return res;
   }
 

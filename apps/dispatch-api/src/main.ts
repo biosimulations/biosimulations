@@ -55,20 +55,23 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const limit = configService.get('server.limit');
   app.use(json({ limit }));
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+
   setupOpenApi(app);
-  await app.listen(port, () => {
-    logger.log('Listening at http://localhost:' + port);
-  });
 
   app.useGlobalPipes(
     new ValidationPipe({
       exceptionFactory: BiosimulationsValidationExceptionFactory,
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
   app.enableVersioning({
     type: VersioningType.URI,
   });
+  await app.listen(port, () => {
+    logger.log('Listening at http://localhost:' + port);
+  });
 }
-
 bootstrap();

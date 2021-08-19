@@ -160,6 +160,7 @@ jobs:
   build:
     env:
         NX_BRANCH: ${{ github.event.pull_request.head.ref }}
+        NODE_OPTIONS: --max_old_space_size=4096
     name: Build app
     runs-on: ubuntu-latest
 
@@ -238,6 +239,7 @@ jobs:
   testApp:
     env:
         NX_BRANCH: ${{ github.event.pull_request.head.ref }}
+        NODE_OPTIONS: --max_old_space_size=4096
     name: Test app
     runs-on: ubuntu-latest
 
@@ -304,6 +306,7 @@ jobs:
           MANAGEMENT_DOMAIN: ${{ secrets.MANAGEMENT_DOMAIN }}
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
+          NODE_OPTIONS: --max_old_space_size=4096
         run: nx run ${{ matrix.libOrApp }}:build --prod --with-deps && nx run ${{ matrix.libOrApp }}:test --coverage
 
       ############################
@@ -377,6 +380,7 @@ jobs:
   testLib:
     env:
         NX_BRANCH: ${{ github.event.pull_request.head.ref }}
+        NODE_OPTIONS: --max_old_space_size=4096
     name: Test library or app
     runs-on: ubuntu-latest
 
