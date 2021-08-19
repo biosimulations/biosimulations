@@ -96,5 +96,23 @@
         "iri": "",
         "url": "http://www.math.pitt.edu/~bard/xpp/xpp.html",
         "moreInfoUrl": "http://www.math.pitt.edu/~bard/xpp/xpp.html"
+    },
+    {
+        "id": "format_9011",
+        "name": "MASS",
+        "description": "JSON-based MASS format",
+        "namespace": "EDAM",
+        "iri": "",
+        "url": "https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html",
+        "moreInfoUrl": "https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html"
+    },
+    {
+        "id": "format_9012",
+        "name": "RBA models",
+        "description": "RBA model format",
+        "namespace": "EDAM",
+        "iri": "",
+        "url": "https://rba.inrae.fr/",
+        "moreInfoUrl": "https://rba.inrae.fr/"
     }
 ]

@@ -27,7 +27,7 @@ RUN mkdir -p /.cache/matplotlib \
 RUN apt-get -y update \
     \
     && apt-get install --no-install-recommends -y \
-        default-jre-headless \
+        default-jre \
     && mkdir -p /usr/share/man/man1/ \
     \
     && rm -rf /var/lib/apt/lists/*

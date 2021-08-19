@@ -130,6 +130,11 @@
     "filename": "xpp/Wu-Biochem-Pharmacol-2006-pituitary-GH3-cells.omex"
   },
   {
+    "name": "RBC metabolism (Bordbar et al., Cell Syst, 2015; SBML-MASS; CVODE; MASSpy)",
+    "simulator": "masspy",
+    "filename": "mass/Bordbar-Cell-Syst-2015-RBC-metabolism.omex"
+  },
+  {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; CellML; CVODE; OpenCOR)",
     "simulator": "opencor",
     "filename": "cellml/Elowitz-Nature-2000-Repressilator.omex"
