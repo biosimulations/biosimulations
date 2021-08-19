@@ -7,7 +7,7 @@ name = "pypi"
 flask = {version = "<2"}
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
 requests = "*"
-biosimulators-utils = {version = ">=0.1.105", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
+biosimulators-utils = {version = ">=0.1.106", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
 python-dateutil = "*"
 gunicorn = "*"
 flask-cors = "*"
@@ -26,6 +26,7 @@ pyyaml = "*"
 pytest = "*"
 pytest-cov = "*"
 openapi-spec-validator = "*"
+parameterized = "*"
 
 [requires]
 python_version = "3.9"

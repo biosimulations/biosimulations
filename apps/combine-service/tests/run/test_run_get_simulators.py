@@ -1,6 +1,7 @@
 from src import app
-from src.handlers.run.utils import get_simulator_api
+from src.handlers.run.utils import get_simulator_api, get_simulators
 from unittest import mock
+import parameterized
 import unittest
 
 
@@ -49,3 +50,55 @@ class GetSimulatorsTestCase(unittest.TestCase):
             },
             'specs': 'https://api.biosimulators.org/simulators/{}/{}'.format(id, api.get_simulator_version())
         })
+
+
+class SimulatorsHaveValidApisTestCase(unittest.TestCase):
+    @parameterized.parameterized.expand((simulator['id'], simulator) for simulator in get_simulators())
+    def test(self, id, simulator):
+        api = get_simulator_api(simulator['api']['module'])
+
+        # __version__
+        self.assertTrue(
+            hasattr(api, '__version__'),
+            'API must have a `__version__` attribute whose value is a non-empty string (e.g., 1.0.1)')
+        self.assertIsInstance(
+            api.__version__, str,
+            'API must have a `__version__` attribute whose value is a non-empty string (e.g., 1.0.1), not `{}`'.format(
+                api.__version__.__class__.__name__))
+        self.assertNotEqual(
+            api.__version__, '',
+            'API must have a `__version__` attribute whose value is a non-empty string (e.g., 1.0.1), not `{}`'.format(
+                api.__version__))
+
+        # get_simulator_version
+        self.assertTrue(
+            hasattr(api, 'get_simulator_version'),
+            'API must have a `get_simulator_version` callable that returns a non-empty string (e.g., 1.0.1)')
+        self.assertTrue(
+            callable(api.get_simulator_version),
+            '`get_simulator_version` must be a callable that returns a non-empty string (e.g., 1.0.1), not `{}`'.format(
+                api.get_simulator_version.__class__.__name__))
+        self.assertIsInstance(
+            api.get_simulator_version(), str,
+            '`get_simulator_version` must return a non-empty string (e.g., 1.0.1), not `{}`'.format(
+                api.get_simulator_version().__class__.__name__))
+        self.assertNotEqual(
+            api.get_simulator_version(), '',
+            '`get_simulator_version` must return a non-empty string (e.g., 1.0.1), not `{}`'.format(
+                api.get_simulator_version()))
+
+        # exec_sedml_docs_in_combine_archive
+        self.assertTrue(hasattr(api, 'exec_sedml_docs_in_combine_archive'), 'API must have a `exec_sedml_docs_in_combine_archive` callable')
+        self.assertTrue(
+            callable(api.exec_sedml_docs_in_combine_archive),
+            '`exec_sedml_docs_in_combine_archive` must be a callable, not `{}`'.format(
+                api.exec_sedml_docs_in_combine_archive.__class__.__name__))
+
+        # exec_sed_task
+        """
+        self.assertTrue(hasattr(api, 'exec_sed_task'), 'API must have a `exec_sed_task` callable')
+        self.assertTrue(
+            callable(api.exec_sed_task),
+            '`exec_sed_task` must be a callable, not `{}`'.format(
+                api.exec_sed_task.__class__.__name__))
+        """
