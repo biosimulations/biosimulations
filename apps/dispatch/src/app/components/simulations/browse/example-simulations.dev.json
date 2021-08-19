@@ -345,6 +345,21 @@
     "projectSize": 2142381
   },
   {
+    "id": "611df89d42ca69760e274e22",
+    "name": "RBC metabolism (Bordbar et al., Cell Syst, 2015; SBML-MASS; CVODE; MASSpy)",
+    "simulator": "masspy",
+    "simulatorVersion": "0.1.2",
+    "cpus": 1,
+    "memory": 8,
+    "maxTime": 20,
+    "envVars": [],
+    "submittedLocally": false,
+    "status": "CREATED",
+    "submitted": "2021-08-19T06:22:21.556Z",
+    "updated": "2021-08-19T06:22:21.556Z",
+    "projectSize": 1541849
+  },
+  {
     "id": "61141af2425fe77431ca956e",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; CellML; CVODE; OpenCOR)",
     "simulator": "opencor",
