@@ -339,11 +339,13 @@ jobs:
           docker run \
             --rm \
             --entrypoint bash \
-            --mount type=bind,source=${cwd}/apps/${{ matrix.libOrApp }},target=/app/app \
+            --mount type=bind,source=${cwd}/apps/${{ matrix.libOrApp }},target=/app/apps/${{ matrix.libOrApp }} \
             ghcr.io/biosimulations/${{matrix.libOrApp}}:${{ env.BRANCH_NAME }} \
             -c "
               pipenv install --dev
-              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --cov app/src/ app/tests/
+              mv src src-ignore
+              export PYTHONPATH=apps/${{ matrix.libOrApp }}
+              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --cov apps/${{ matrix.libOrApp }}/src/ apps/${{ matrix.libOrApp }}/tests/
             "
 
       - name: Validate OpenAPI specification for library or app (Python)
@@ -452,11 +454,13 @@ jobs:
           docker run \
             --rm \
             --entrypoint bash \
-            --mount type=bind,source=${cwd}/libs/${{ matrix.libOrApp }},target=/app/lib \
+            --mount type=bind,source=${cwd}/libs/${{ matrix.libOrApp }},target=/app/libs/${{ matrix.libOrApp }} \
             ghcr.io/biosimulations/${{matrix.libOrApp}}:${{ env.BRANCH_NAME }} \
             -c "
               pipenv install --dev
-              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --cov lib/src/ lib/tests/
+              mv src src-ignore
+              export PYTHONPATH=libs/${{ matrix.libOrApp }}
+              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --cov libs/${{ matrix.libOrApp }}/src/ libs/${{ matrix.libOrApp }}/tests/
             "
 
       - name: Validate OpenAPI specification for library or app (Python)
