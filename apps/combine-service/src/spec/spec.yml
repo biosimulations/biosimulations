@@ -590,7 +590,7 @@ paths:
   /run/simulators:
     get:
       tags:
-      - COMBINE
+      - Run
       responses:
         "200":
           content:
@@ -679,7 +679,7 @@ paths:
                 contentType: application/json
         required: true
       tags:
-      - COMBINE
+      - Run
       responses:
         "200":
           content:
