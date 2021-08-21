@@ -58,7 +58,7 @@ jobs:
 
   buildDevFrontEnds:
     env:
-      NODE_OPTIONS: --max_old_space_size=4096
+      NODE_OPTIONS: --max_old_space_size=6144
     name: Build development front end apps
     runs-on: ubuntu-latest
 
@@ -113,7 +113,7 @@ jobs:
 
   buildProdFrontEnds:
     env:
-      NODE_OPTIONS: --max_old_space_size=4096
+      NODE_OPTIONS: --max_old_space_size=6144
     name: Build production front end apps
     runs-on: ubuntu-latest
 
