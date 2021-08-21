@@ -68,19 +68,19 @@
     package: biosimulators_masspy
   exampleCombineArchive: mass/Bordbar-Cell-Syst-2015-RBC-metabolism.omex
 
-# - id: netpyne
-#   name: NetPyNe
-#   api:
-#     module: biosimulators_pyneuroml.api.netpyne
-#     package: biosimulators_pyneuroml
-#   exampleCombineArchive: neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex
+- id: netpyne
+  name: NetPyNe
+  api:
+    module: biosimulators_pyneuroml.api.netpyne
+    package: biosimulators_pyneuroml
+  exampleCombineArchive: neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex
 
-# - id: neuron
-#   name: NEURON
-#   api:
-#     module: biosimulators_pyneuroml.api.neuron
-#     package: biosimulators_pyneuroml
-#   exampleCombineArchive: neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex
+- id: neuron
+  name: NEURON
+  api:
+    module: biosimulators_pyneuroml.api.neuron
+    package: biosimulators_pyneuroml
+  exampleCombineArchive: neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex
 
 #- id: opencor
 #  name: OpenCOR

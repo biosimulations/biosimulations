@@ -154,6 +154,12 @@ RUN apt-get install -y --no-install-recommends \
     && mkdir -p /.cache/cobrapy
 
 ###################################
+# NetPyNe
+
+###################################
+# NEURON
+
+###################################
 # pyNeuroML, LEMS
 RUN mkdir -p /usr/share/man/man1/ \
     && apt-get install -y --no-install-recommends \
