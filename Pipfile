@@ -47,7 +47,7 @@ ipyparallel = "*"
 pysces = {ref = "7478a05bc4480e580fabfe89acb259274ced7f6c", git = "https://github.com/PySCeS/pysces.git"}
 biosimulators-pysces = ">=0.1.19"
 # pyNeuroML
-biosimulators-pyneuroml = ">=0.0.7"
+biosimulators-pyneuroml = {version = ">=0.0.7", extras = ["netpyne", "neuron"]}
 # Smoldyn
 smoldyn = "*"
 # tellurium
