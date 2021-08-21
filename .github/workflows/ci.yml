@@ -226,6 +226,16 @@ jobs:
             ${{ runner.os }}-nx-
 
       # Python
+      - name: Get branch name (merge)
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+
       - if: matrix.app == 'combine-service'
         name: Build Image
         uses: whoan/docker-build-with-cache-action@v5
@@ -318,6 +328,16 @@ jobs:
 
       ############################
       ## Python apps
+      - name: Get branch name (merge)
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+
       - if: matrix.libOrApp == 'combine-service'
         name: Build Image
         uses: whoan/docker-build-with-cache-action@v5
@@ -432,6 +452,16 @@ jobs:
         run: nx run ${{ matrix.libOrApp }}:test --coverage
 
       # Python libraries
+      - name: Get branch name (merge)
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+
       - if: matrix.libOrApp == 'combine-service'
         name: Build Image
         uses: whoan/docker-build-with-cache-action@v5
