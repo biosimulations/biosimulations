@@ -365,7 +365,7 @@ jobs:
               pipenv install --dev
               mv src src-ignore
               export PYTHONPATH=apps/${{ matrix.libOrApp }}
-              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --cov apps/${{ matrix.libOrApp }}/src/ apps/${{ matrix.libOrApp }}/tests/
+              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --verbose --cov apps/${{ matrix.libOrApp }}/src/ apps/${{ matrix.libOrApp }}/tests/
             "
 
       - name: Validate OpenAPI specification for library or app (Python)
@@ -489,7 +489,7 @@ jobs:
               pipenv install --dev
               mv src src-ignore
               export PYTHONPATH=libs/${{ matrix.libOrApp }}
-              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --cov libs/${{ matrix.libOrApp }}/src/ libs/${{ matrix.libOrApp }}/tests/
+              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --verbose --cov libs/${{ matrix.libOrApp }}/src/ libs/${{ matrix.libOrApp }}/tests/
             "
 
       - name: Validate OpenAPI specification for library or app (Python)
