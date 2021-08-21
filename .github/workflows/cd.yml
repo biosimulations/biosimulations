@@ -20,13 +20,13 @@ jobs:
           cache: npm
 
       - name: Install Nrwl CLI
-       
+
         run: npm install -g @nrwl/cli
 
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Install npm dependencies
-       
+
         run: npm ci
 
       - name: Cache Angular and NX dependencies
@@ -40,7 +40,7 @@ jobs:
 
       - id: get-all-apps
         name: Get the list of apps
-       
+
         run: |
           mapfile -d " " -t appsArr < <(nx affected:apps --plain --all | sed  's/simulators[^-]//; s/account[^-]\|account$//; s/dispatch[^-]//;  s/platform[^-]//' | sed 's/ $//')
            appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
@@ -58,7 +58,7 @@ jobs:
 
   buildDevFrontEnds:
     env:
-      NODE_OPTIONS: --max_old_space_size=4096
+      NODE_OPTIONS: --max_old_space_size=6144
     name: Build development front end apps
     runs-on: ubuntu-latest
 
@@ -79,14 +79,14 @@ jobs:
           cache: npm
 
       - name: Install Nrwl CLI
-       
+
         run: npm install -g @nrwl/cli
 
 
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Install npm dependencies
-       
+
         run: npm ci
 
       - name: Cache Angular and NX dependencies
@@ -95,12 +95,12 @@ jobs:
           path: node_modules/.cache
           key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
           restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
 
       - name: Build dev app
-       
+
         run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build ${{matrix.app}} --prod --with-deps
 
       - name: Upload build
@@ -113,7 +113,7 @@ jobs:
 
   buildProdFrontEnds:
     env:
-      NODE_OPTIONS: --max_old_space_size=4096
+      NODE_OPTIONS: --max_old_space_size=6144
     name: Build production front end apps
     runs-on: ubuntu-latest
 
@@ -133,14 +133,14 @@ jobs:
           node-version: lts/fermium
           cache: npm
 
-      - name: Install Nrwl CLI       
+      - name: Install Nrwl CLI
         run: npm install -g @nrwl/cli
 
 
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Install npm dependencies
-       
+
         run: npm ci
 
       - name: Cache Angular and NX dependencies
@@ -154,7 +154,7 @@ jobs:
             ${{ runner.os }}-nx-
 
       - name: Build prod app
-       
+
         run:  nx build ${{matrix.app}} --prod --with-deps
 
       - name: Upload build
@@ -179,6 +179,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2.3.4
 
+      - id: get-timestamp
+        name: Get a timestamp
+        run: |
+          TIMESTAMP=$(date --rfc-3339=seconds | sed 's/ /T/')
+          echo "::set-output name=timestamp::$TIMESTAMP"
+
       - if: matrix.app != 'combine-service'
         name: Build and Push Image
         uses: whoan/docker-build-with-cache-action@v5
@@ -191,7 +197,7 @@ jobs:
           registry: ghcr.io
           context: .
           dockerfile: Dockerfile
-          build_extra_args: "--compress=true --build-arg app=${{matrix.app}}"
+          build_extra_args: "--compress=true --build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
       - if: matrix.app == 'combine-service'
         name: Build and Push Python Image Image
@@ -205,7 +211,8 @@ jobs:
           registry: ghcr.io
           context: .
           dockerfile: DockerfilePython
-          build_extra_args: "--compress=true --build-arg app=${{matrix.app}}"
+          build_extra_args: "--compress=true --build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
+
   deployDevFrontend:
     name: Publish the development frontend
     runs-on: ubuntu-latest
@@ -219,7 +226,7 @@ jobs:
         uses: actions/setup-node@v2.4.0
         with:
           node-version: lts/fermium
-          
+
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
 
@@ -303,7 +310,7 @@ jobs:
     needs: [buildPushDockerImages, buildProdFrontEnds,triggerDevDeployment, triggerProdDeployment, deployProdFrontend,deployDevFrontend]
     steps:
       - uses: actions/checkout@v2
-        with: 
+        with:
           token: ${{secrets.GH_RELEASE_TOKEN}}
           ref: dev
       - name: Configure CI Git User
@@ -320,7 +327,7 @@ jobs:
         with:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           git-user-signingkey: true
-          git-commit-gpgsign: true 
+          git-commit-gpgsign: true
 
       - name: Release
         env:
@@ -331,5 +338,5 @@ jobs:
           GIT_AUTHOR_EMAIL: "biosimulationsdaemon@gmail.com"
           GIT_COMMITTER_NAME: "Biosimulations-Daemon"
           GIT_COMMITTER_EMAIL: "biosimulationsdaemon@gmail.com"
-          
+
         run: npx semantic-release

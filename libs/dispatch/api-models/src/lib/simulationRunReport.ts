@@ -29,6 +29,8 @@ export class SimulationRunOutputDatum {
   @ApiProperty({ type: String })
   public label!: string;
   @ApiProperty({ type: String })
+  public name?: string;
+  @ApiProperty({ type: String })
   public shape!: string;
   @ApiProperty({ type: String })
   // "float64", "int" etc. Not the same as seddatatype

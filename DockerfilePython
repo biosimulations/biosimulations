@@ -3,42 +3,239 @@
 #############
 FROM python:3.9-buster as base
 
-# setup headless for Smoldyn
-RUN apt-get -y update \
-    \
-    && apt-get install --no-install-recommends -y \
-        xvfb \
-    && mkdir /tmp/.X11-unix \
-    && chmod 1777 /tmp/.X11-unix \
-    \
-    && rm -rf /var/lib/apt/lists/*
-COPY tools/xvfb-startup.sh /xvfb-startup.sh
-ENV XVFB_RES="1920x1080x24" \
-    XVFB_ARGS="" \
-    DISPLAY=":1"
+WORKDIR /app
 
-# configure matplotlib to avoid warnings from Smoldyn
-RUN mkdir -p /.cache/matplotlib \
-    && mkdir -p /.config/matplotlib \
-    && chmod ugo+rw /.config/matplotlib \
-    && chmod ugo+rw /.cache/matplotlib
+###################################
+# update apt package database
+RUN apt-get update -y
 
-# install Java for working with LEMS
-RUN apt-get -y update \
+###################################
+# install pipenv
+RUN pip install pipenv
+
+###################################
+# install AMICI
+RUN apt-get install --no-install-recommends -y \
+        g++ \
+        libatlas-base-dev \
+        swig
+
+###################################
+# install BioNetGen
+ARG BIONETGEN_VERSION=2.6.0
+RUN apt-get install -y --no-install-recommends \
+        perl \
+        tar \
+        wget \
     \
-    && apt-get install --no-install-recommends -y \
+    && cd /tmp \
+    && wget https://github.com/RuleWorld/bionetgen/releases/download/BioNetGen-${BIONETGEN_VERSION}/BioNetGen-${BIONETGEN_VERSION}-linux.tgz \
+    && tar xvvf BioNetGen-${BIONETGEN_VERSION}-linux.tgz \
+    && mv BioNetGen-${BIONETGEN_VERSION}/ /opt/ \
+    \
+    && rm BioNetGen-${BIONETGEN_VERSION}-linux.tgz
+ENV PATH=${PATH}:/opt/BioNetGen-${BIONETGEN_VERSION}/
+
+###################################
+# Install BoolNet
+ARG BOOLNET_VERSION=2.1.5
+RUN apt-get install -y --no-install-recommends \
+        r-base \
+        build-essential \
+        gcc \
+        gfortran \
+        libblas-dev \
+        libcurl4-openssl-dev \
+        libgit2-dev \
+        liblapack-dev \
+        libssl-dev \
+        libxml2 \
+        libxml2-dev \
+    \
+    && Rscript \
+        -e "install.packages('devtools')" \
+        -e "require(devtools)" \
+        -e "install_version('BoolNet', version='${BOOLNET_VERSION}')" \
+        -e "require('BoolNet')"
+
+###################################
+# CBMPy
+RUN apt-get install -y --no-install-recommends \
+        gcc \
+        libglpk-dev
+
+###################################
+# COBRAPY
+RUN mkdir -p /.cache/cobrapy \
+    && chmod ugo+rw /.cache/cobrapy
+
+###################################
+# COPASI
+
+###################################
+# GillesPy2
+RUN apt-get install -y --no-install-recommends \
+        build-essential
+
+###################################
+# Set up path for GINsim; needed up installation of GINsim Python package is fixed
+RUN mkdir -p /usr/share/man/man1/ \
+    && apt-get install -y --no-install-recommends \
         default-jre \
-    && mkdir -p /usr/share/man/man1/ \
+        wget \
     \
-    && rm -rf /var/lib/apt/lists/*
+    && cd /tmp \
+    && pip install ginsim \
+    && wget https://raw.githubusercontent.com/GINsim/GINsim-python/master/ginsim_setup.py \
+    && python ginsim_setup.py \
+    \
+    && rm ginsim_setup.py
+ENV PATH=/usr/local/share/colomoto/bin:$PATH
 
-# install Perl for working with BioNetGen
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends perl \
-    && rm -rf /var/lib/apt/lists/*
+###################################
+# install libSBMLSIM
+ARG LSBMLSIM_VERSION=1.4.0
+ARG LIBSBML_VERSION=5.19.0
 
+# install libSBML
+RUN apt-get install --no-install-recommends -y \
+        wget \
+        libxml2 \
+    \
+    && wget https://master.dl.sourceforge.net/project/sbml/libsbml/${LIBSBML_VERSION}/stable/Linux/64-bit/libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
+    && dpkg -i libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
+    \
+    && rm libSBML-${LIBSBML_VERSION}-Linux-x64.deb
+ENV LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
+
+# install LibSBMLSim
+RUN apt-get install --no-install-recommends -y \
+        wget \
+        build-essential \
+        cmake \
+        swig \
+        libbz2-dev \
+    \
+    && PY_EXEC_PATH=$(pipenv run which python) \
+    && PY_PREFIX=$(echo ${PY_EXEC_PATH} | rev | cut -d "/" -f 3- | rev) \
+    && cd /tmp \
+    && wget https://github.com/libsbmlsim/libsbmlsim/archive/refs/tags/v${LSBMLSIM_VERSION}.tar.gz \
+    && tar xvvf v${LSBMLSIM_VERSION}.tar.gz \
+    && cd libsbmlsim-${LSBMLSIM_VERSION} \
+    && mkdir build \
+    && cd build \
+    && cmake \
+        -D LIBSBML_INCLUDE_DIR=/usr/include \
+        -D LIBSBML_LIBRARY=/usr/lib64/libsbml.so \
+        -D WITH_PYTHON=ON \
+        -D PYTHON_PREFIX=${PY_PREFIX} \
+        -D PYTHON_EXECUTABLE:FILEPATH=${PY_EXEC_PATH} \
+        -D PYTHON_INCLUDE_DIR:PATH=/usr/local/include/python3.9 \
+        -D PYTHON_LIBRARY:FILEPATH=/usr/local/lib/libpython3.9.so \
+        .. \
+    \
+    && make \
+    && make install \
+    \
+    && cd /tmp \
+    && rm v${LSBMLSIM_VERSION}.tar.gz \
+    && rm -r libsbmlsim-${LSBMLSIM_VERSION}
+
+###################################
+# MASSpy
+RUN apt-get install -y --no-install-recommends \
+        git \
+        gcc \
+        build-essential \
+        libfreetype6-dev \
+        libfreetype6 \
+        pkg-config \
+    \
+    && mkdir -p /.cache/cobrapy
+
+###################################
+# pyNeuroML, LEMS
+RUN mkdir -p /usr/share/man/man1/ \
+    && apt-get install -y --no-install-recommends \
+        default-jre
+
+###################################
+# PySCeS
+
+# install SUNDIALS
+ARG SUNDIALS_VERSION=2.6.2
+RUN apt-get install -y --no-install-recommends \
+        wget \
+        cmake \
+        make \
+        g++ \
+    \
+    && cd /tmp \
+    && wget https://computing.llnl.gov/sites/default/files/inline-files/sundials-${SUNDIALS_VERSION}.tar.gz \
+    && tar xvvf sundials-${SUNDIALS_VERSION}.tar.gz \
+    && cd sundials-${SUNDIALS_VERSION} \
+    && mkdir build \
+    && cd build \
+    && cmake .. \
+    && make \
+    && make install \
+    \
+    && cd /tmp \
+    && rm sundials-${SUNDIALS_VERSION}.tar.gz \
+    && rm -r sundials-${SUNDIALS_VERSION}
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+# install Python requirements for assimulo
+# RUN pipenv install cython numpy scipy matplotlib
+
+ARG ASSIMULO_VERSION=3.2.5
+RUN apt-get install -y --no-install-recommends \
+        g++ \
+        gfortran \
+        liblas-dev \
+        liblapack-dev \
+        git
+
+# install PySCeS
+ARG PYSCES_REVISION=7478a05bc4480e580fabfe89acb259274ced7f6c
+RUN apt-get install -y --no-install-recommends \
+        git \
+        gcc \
+        gfortran \
+        libgfortran5
+
+# Configure PySCeS
+COPY DockerfilePython-assets/.pys_usercfg.ini /Pysces/.pys_usercfg.ini
+COPY DockerfilePython-assets/.pys_usercfg.ini /root/Pysces/.pys_usercfg.ini
+RUN mkdir -p /Pysces \
+    && mkdir -p /Pysces/psc \
+    && mkdir -p /root/Pysces \
+    && mkdir -p /root/Pysces/psc \
+    && chmod ugo+rw -R /Pysces
+
+###################################
+# Smoldyn
+
+###################################
+# tellurium
+RUN apt-get install -y --no-install-recommends \
+        libxml2 \
+        libncurses5
+ENV PLOTTING_ENGINE=matplotlib \
+    PYTHONWARNINGS="ignore:The 'warn' parameter of use():UserWarning:tellurium.tellurium,ignore:Matplotlib is currently using agg:UserWarning:tellurium.plotting.engine_mpl"
+
+###################################
 # install XPP
-RUN cd /tmp \
+RUN apt-get install -y --no-install-recommends \
+        wget \
+        make \
+        gcc \
+        libx11-dev \
+        libc6-dev \
+        libx11-6 \
+        libc6 \
+    \
+    && cd /tmp \
     && wget http://www.math.pitt.edu/~bard/bardware/xppaut_latest.tar.gz \
     && mkdir xpp \
     && tar zxvf xppaut_latest.tar.gz --directory xpp \
@@ -50,35 +247,73 @@ RUN cd /tmp \
     && rm xppaut_latest.tar.gz \
     && rm -r xpp
 
-#The name of the app to build
-ARG app
-ENV APP=$app
-RUN echo building ${APP}
-#############
-### build ###
-#############
-FROM base as build
+###################################
+# setup headless for NEURON, Smoldyn
+RUN apt-get -y update \
+    \
+    && apt-get install --no-install-recommends -y \
+        xvfb \
+    && mkdir /tmp/.X11-unix \
+    && chmod 1777 /tmp/.X11-unix \
+    \
+    && rm -rf /var/lib/apt/lists/*
+COPY tools/xvfb-startup.sh /xvfb-startup.sh
+ENV XVFB_RES="1920x1080x24" \
+    XVFB_ARGS=""
 
-WORKDIR /app
+###################################
+# configure matplotlib cache and config to avoid warnings
+RUN mkdir -p /.cache/matplotlib \
+    && mkdir -p /.config/matplotlib \
+    && chmod ugo+rw /.config/matplotlib \
+    && chmod ugo+rw /.cache/matplotlib
+
+# Configure default simulator options
+ENV ALGORITHM_SUBSTITUTION_POLICY=SIMILAR_VARIABLES \
+    VERBOSE=0 \
+    MPLBACKEND=PDF \
+    PLOTTING_ENGINE=matplotlib
+
+###################################
+# setup pipenv, ports
 
 # Copy over dependency list
 COPY Pipfile /app/Pipfile
 COPY Pipfile.lock /app/Pipfile.lock
 
-
-RUN pip install pipenv
+# install environment
 RUN pipenv install
 
-COPY apps/$APP/src/ /app/src/
+# force reinstall of matplotlib due to inconsistent version
+RUN pipenv run pip uninstall -y matplotlib \
+    && pipenv run pip install "matplotlib==3.2.0" \
+    && pipenv run python -c "import matplotlib.font_manager"
+
+# install assimulo because pipenv fails to install it
+ARG ASSIMULO_VERSION=3.2.5
+RUN pipenv run pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-${ASSIMULO_VERSION}
+
+EXPOSE 3333
+CMD /bin/bash /xvfb-startup.sh pipenv run gunicorn -b 0.0.0.0:3333  src.app:app
+
+#############
+### build ###
+#############
+FROM base as build
+
+ARG app
+ENV APP=$app
+
+RUN echo building ${app}
+
+COPY apps/${app}/src/ /app/src/
 
 LABEL \
-    org.opencontainers.image.title="BioSimulations ${APP}" \
-    org.opencontainers.image.description="Docker image for the BioSimulations ${APP} app" \
+    org.opencontainers.image.title="BioSimulations ${app}" \
+    org.opencontainers.image.description="Docker image for BioSimulations ${app}" \
     org.opencontainers.image.url="https://biosimulations.org/" \
     org.opencontainers.image.documentation="https://biosimulations.org/help" \
     org.opencontainers.image.source="https://github.com/biosimulations/Biosimulations" \
     org.opencontainers.image.authors="BioSimulations Team <info@biosimulations.org>" \
     org.opencontainers.image.vendor="BioSimulations Team" \
     org.opencontainers.image.licenses="MIT"
-EXPOSE 3333
-CMD /bin/bash /xvfb-startup.sh pipenv run gunicorn -b 0.0.0.0:3333  src.app:app

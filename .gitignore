@@ -19,6 +19,9 @@ coverage
 # nyc test coverage
 .nyc_output
 
+# coverage reports
+htmlcov/
+
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
@@ -115,3 +118,6 @@ __pycache__/
 
 #docs
 site/*
+
+# temporary PySCeS files
+_pystmptmp*_parsetab.py

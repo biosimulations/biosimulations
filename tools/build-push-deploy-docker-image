@@ -4,6 +4,7 @@ COMMIT=$(git rev-parse HEAD)
 BRANCH=$(echo "${GITHUB_REF/refs\/heads\//}")
 DOCKER_BUILD_CONTEXT_PATH=.. 
 DOCKERFILE_PATH=../Dockerfile
+TIMESTAMP=$(date --rfc-3339=seconds | sed 's/ /T/')
 
 USAGE="$0 -a <App name>"
 
@@ -22,6 +23,8 @@ docker build \
     --tag ghcr.io/biosimulations/$APP:$COMMIT \
     --tag ghcr.io/biosimulations/$APP:$BRANCH \
     --tag docker.io/biosimulations/$APP:$BRANCH \
+    --label org.opencontainers.image.revision=${COMMIT} \
+    --label org.opencontainers.image.created=${TIMESTAMP} \
     --build-arg app=$APP \
     $DOCKER_BUILD_CONTEXT_PATH
 

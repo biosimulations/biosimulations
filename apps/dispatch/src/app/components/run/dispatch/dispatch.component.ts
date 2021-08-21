@@ -10,6 +10,7 @@ import {
 import {
   DispatchService,
   SimulatorSpecsMap,
+  SimulatorSpecs,
   SimulatorsData,
   OntologyTermsMap,
   OntologyTerm,
@@ -42,8 +43,9 @@ import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-interface SimulatorIdDisabled {
+interface SimulatorIdNameDisabled {
   id: string;
+  name: string;
   disabled: boolean;
 }
 
@@ -112,7 +114,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   );
 
   private simulatorIds = new Set<string>();
-  simulators: SimulatorIdDisabled[] = [];
+  simulators: SimulatorIdNameDisabled[] = [];
   simulatorVersions: string[] = [];
   private simulatorSpecsMap: SimulatorSpecsMap | undefined = undefined;
 
@@ -430,15 +432,19 @@ export class DispatchComponent implements OnInit, OnDestroy {
         });
 
         this.simulatorIds = new Set(Object.keys(this.simulatorSpecsMap));
-        this.simulators = Array.from(this.simulatorIds).map(
-          (id: string): SimulatorIdDisabled => {
-            return { id: id, disabled: false };
+        this.simulators = Object.values(this.simulatorSpecsMap).map(
+          (specs: SimulatorSpecs): SimulatorIdNameDisabled => {
+            return { 
+              id: specs.id,
+              name: specs.name, 
+              disabled: false,
+            };
           },
         );
 
         this.simulators.sort(
-          (a: SimulatorIdDisabled, b: SimulatorIdDisabled): number => {
-            return a.id.localeCompare(b.id, undefined, { numeric: true });
+          (a: SimulatorIdNameDisabled, b: SimulatorIdNameDisabled): number => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
           },
         );
 
@@ -730,7 +736,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       },
     );
 
-    this.simulators.forEach((simulator: SimulatorIdDisabled): void => {
+    this.simulators.forEach((simulator: SimulatorIdNameDisabled): void => {
       simulator.disabled = !simulators.has(simulator.id);
     });
 
@@ -740,7 +746,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     } else {
       const selectedSimulator = this.formGroup.value.simulator;
       if (selectedSimulator) {
-        this.simulators.forEach((simulator: SimulatorIdDisabled): void => {
+        this.simulators.forEach((simulator: SimulatorIdNameDisabled): void => {
           if (simulator.id === selectedSimulator && simulator.disabled) {
             const simulatorControl = this.formGroup.controls
               .simulator as FormControl;

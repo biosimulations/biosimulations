@@ -36,13 +36,16 @@ def get_temp_dir():
     return dirname
 
 
-def get_temp_file():
+def get_temp_file(suffix=None):
     ''' Get a temporary file that will be cleaned up after the request is completed
+
+    Args:
+        suffix (:obj:`str`, optional): suffix
 
     Returns:
         :obj:`str`: path to temporary file
     '''
-    file_id, file_name = tempfile.mkstemp()
+    file_id, file_name = tempfile.mkstemp(suffix=suffix)
     os.close(file_id)
 
     @flask.after_this_request
