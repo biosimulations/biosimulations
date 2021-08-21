@@ -310,7 +310,8 @@ COPY apps/${app}/src/ /app/src/
 RUN pipenv run python -m compileall /app/src/ \
     && PY_EXEC_PATH=$(pipenv run which python) \
     && PY_PREFIX=$(echo ${PY_EXEC_PATH} | rev | cut -d "/" -f 3- | rev) \
-    && pipenv run python -m compileall ${PY_PREFIX}/lib/python3.9/site-packages
+    && pipenv run python -m compileall ${PY_PREFIX}/lib/python3.9/site-packages \
+    || exit 0
  
 LABEL \
     org.opencontainers.image.title="BioSimulations ${app}" \
