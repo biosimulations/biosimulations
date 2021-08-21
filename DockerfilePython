@@ -3,21 +3,27 @@
 #############
 FROM python:3.9-buster as base
 
+WORKDIR /app
+
+###################################
+# update apt package database
+RUN apt-get update -y
+
+###################################
+# install pipenv
+RUN pip install pipenv
+
 ###################################
 # install AMICI
-RUN apt-get update -y \
-    && apt-get install --no-install-recommends -y \
+RUN apt-get install --no-install-recommends -y \
         g++ \
         libatlas-base-dev \
-        swig \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+        swig
 
 ###################################
 # install BioNetGen
 ARG BIONETGEN_VERSION=2.6.0
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
         perl \
         tar \
         wget \
@@ -27,17 +33,13 @@ RUN apt-get update -y \
     && tar xvvf BioNetGen-${BIONETGEN_VERSION}-linux.tgz \
     && mv BioNetGen-${BIONETGEN_VERSION}/ /opt/ \
     \
-    && rm BioNetGen-${BIONETGEN_VERSION}-linux.tgz \
-    \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+    && rm BioNetGen-${BIONETGEN_VERSION}-linux.tgz
 ENV PATH=${PATH}:/opt/BioNetGen-${BIONETGEN_VERSION}/
 
 ###################################
 # Install BoolNet
-BOOLNET_VERSION=2.1.5
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
+ARG BOOLNET_VERSION=2.1.5
+RUN apt-get install -y --no-install-recommends \
         r-base \
         build-essential \
         gcc \
@@ -54,38 +56,41 @@ RUN apt-get update -y \
         -e "install.packages('devtools')" \
         -e "require(devtools)" \
         -e "install_version('BoolNet', version='${BOOLNET_VERSION}')" \
-        -e "require('BoolNet')" \
-    \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+        -e "require('BoolNet')"
 
 ###################################
-# Install requirements for CBMPy
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
+# CBMPy
+RUN apt-get install -y --no-install-recommends \
         gcc \
-        libglpk-dev \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+        libglpk-dev
 
 ###################################
-# Install requirements for GillesPy2
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
-        build-essential \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+# COBRAPY
+RUN mkdir -p /.cache/cobrapy \
+    && chmod ugo+rw /.cache/cobrapy
+
+###################################
+# COPASI
+
+###################################
+# GillesPy2
+RUN apt-get install -y --no-install-recommends \
+        build-essential
 
 ###################################
 # Set up path for GINsim; needed up installation of GINsim Python package is fixed
 RUN mkdir -p /usr/share/man/man1/ \
-    && apt-get update -y \
     && apt-get install -y --no-install-recommends \
         default-jre \
         wget \
     \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+    && cd /tmp \
+    && pip install ginsim \
+    && wget https://raw.githubusercontent.com/GINsim/GINsim-python/master/ginsim_setup.py \
+    && python ginsim_setup.py \
+    \
+    && rm ginsim_setup.py
+ENV PATH=/usr/local/share/colomoto/bin:$PATH
 
 ###################################
 # install libSBMLSIM
@@ -93,29 +98,26 @@ ARG LSBMLSIM_VERSION=1.4.0
 ARG LIBSBML_VERSION=5.19.0
 
 # install libSBML
-RUN apt-get update -y \
-    && apt-get install --no-install-recommends -y \
+RUN apt-get install --no-install-recommends -y \
         wget \
         libxml2 \
     \
     && wget https://master.dl.sourceforge.net/project/sbml/libsbml/${LIBSBML_VERSION}/stable/Linux/64-bit/libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
     && dpkg -i libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
-    && rm libSBML-${LIBSBML_VERSION}-Linux-x64.deb \
-    && export LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH \
-    \    
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+    \
+    && rm libSBML-${LIBSBML_VERSION}-Linux-x64.deb
 ENV LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
 
 # install LibSBMLSim
-RUN apt-get update -y \
-    && apt-get install --no-install-recommends -y \
+RUN apt-get install --no-install-recommends -y \
         wget \
         build-essential \
         cmake \
         swig \
         libbz2-dev \
     \
+    && PY_EXEC_PATH=$(pipenv run which python) \
+    && PY_PREFIX=$(echo ${PY_EXEC_PATH} | rev | cut -d "/" -f 3- | rev) \
     && cd /tmp \
     && wget https://github.com/libsbmlsim/libsbmlsim/archive/refs/tags/v${LSBMLSIM_VERSION}.tar.gz \
     && tar xvvf v${LSBMLSIM_VERSION}.tar.gz \
@@ -126,20 +128,22 @@ RUN apt-get update -y \
         -D LIBSBML_INCLUDE_DIR=/usr/include \
         -D LIBSBML_LIBRARY=/usr/lib64/libsbml.so \
         -D WITH_PYTHON=ON \
+        -D PYTHON_PREFIX=${PY_PREFIX} \
+        -D PYTHON_EXECUTABLE:FILEPATH=${PY_EXEC_PATH} \
+        -D PYTHON_INCLUDE_DIR:PATH=/usr/local/include/python3.9 \
+        -D PYTHON_LIBRARY:FILEPATH=/usr/local/lib/libpython3.9.so \
         .. \
+    \
     && make \
     && make install \
+    \
     && cd /tmp \
     && rm v${LSBMLSIM_VERSION}.tar.gz \
-    && rm -r libsbmlsim-${LSBMLSIM_VERSION} \
-    \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -r libsbmlsim-${LSBMLSIM_VERSION}
 
 ###################################
-# install requirements for MASSpy
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
+# MASSpy
+RUN apt-get install -y --no-install-recommends \
         git \
         gcc \
         build-essential \
@@ -147,29 +151,20 @@ RUN apt-get update -y \
         libfreetype6 \
         pkg-config \
     \
-    && pip install numpy==1.19.3 \
-    && pip install matplotlib==3.2 \
-    && pip install masspy \
-    \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+    && mkdir -p /.cache/cobrapy
 
 ###################################
-# install requirements for pyNeuroML, LEMS
+# pyNeuroML, LEMS
 RUN mkdir -p /usr/share/man/man1/ \
-    && apt-get update -y \
     && apt-get install -y --no-install-recommends \
-        default-jre \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+        default-jre
 
 ###################################
-# Install requirements for PySCeS
+# PySCeS
 
 # install SUNDIALS
 ARG SUNDIALS_VERSION=2.6.2
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
         wget \
         cmake \
         make \
@@ -187,44 +182,27 @@ RUN apt-get update -y \
     \
     && cd /tmp \
     && rm sundials-${SUNDIALS_VERSION}.tar.gz \
-    && rm -r sundials-${SUNDIALS_VERSION} \
-    \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists
+    && rm -r sundials-${SUNDIALS_VERSION}
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 # install Python requirements for assimulo
-RUN pip install cython numpy scipy matplotlib
+# RUN pipenv install cython numpy scipy matplotlib
 
 ARG ASSIMULO_VERSION=3.2.5
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
         g++ \
         gfortran \
         liblas-dev \
         liblapack-dev \
-        git \
-    \
-    && pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-${ASSIMULO_VERSION} \
-    \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists
-
-# install Python requirements for PySCeS
-RUN pip install ipyparallel
+        git
 
 # install PySCeS
 ARG PYSCES_REVISION=7478a05bc4480e580fabfe89acb259274ced7f6c
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
         git \
         gcc \
         gfortran \
-        libgfortran5 \
-    \
-    && pip install git+https://github.com/PySCeS/pysces.git@${PYSCES_REVISION} \
-    \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists
+        libgfortran5
 
 # Configure PySCeS
 COPY DockerfilePython-assets/.pys_usercfg.ini /Pysces/.pys_usercfg.ini
@@ -236,18 +214,19 @@ RUN mkdir -p /Pysces \
     && chmod ugo+rw -R /Pysces
 
 ###################################
-# Install requirements for tellurium
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
+# Smoldyn
+
+###################################
+# tellurium
+RUN apt-get install -y --no-install-recommends \
         libxml2 \
-        libncurses5 \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+        libncurses5
+ENV PLOTTING_ENGINE=matplotlib \
+    PYTHONWARNINGS="ignore:The 'warn' parameter of use():UserWarning:tellurium.tellurium,ignore:Matplotlib is currently using agg:UserWarning:tellurium.plotting.engine_mpl"
 
 ###################################
 # install XPP
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
         wget \
         make \
         gcc \
@@ -266,10 +245,7 @@ RUN apt-get update -y \
     \
     && cd /tmp \
     && rm xppaut_latest.tar.gz \
-    && rm -r xpp \
-    \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -r xpp
 
 ###################################
 # setup headless for NEURON, Smoldyn
@@ -283,8 +259,7 @@ RUN apt-get -y update \
     && rm -rf /var/lib/apt/lists/*
 COPY tools/xvfb-startup.sh /xvfb-startup.sh
 ENV XVFB_RES="1920x1080x24" \
-    XVFB_ARGS="" \
-    DISPLAY=":1"
+    XVFB_ARGS=""
 
 ###################################
 # configure matplotlib cache and config to avoid warnings
@@ -299,43 +274,46 @@ ENV ALGORITHM_SUBSTITUTION_POLICY=SIMILAR_VARIABLES \
     MPLBACKEND=PDF \
     PLOTTING_ENGINE=matplotlib
 
-#The name of the app to build
-ARG app
-ENV APP=$app
-RUN echo building ${APP}
-#############
-### build ###
-#############
-FROM base as build
-
-WORKDIR /app
+###################################
+# setup pipenv, ports
 
 # Copy over dependency list
 COPY Pipfile /app/Pipfile
 COPY Pipfile.lock /app/Pipfile.lock
 
-RUN pip install pipenv
+# install environment
 RUN pipenv install
-RUN pipenv install matplotlib \
+
+# force reinstall of matplotlib due to inconsistent version
+RUN pipenv run pip uninstall -y matplotlib \
+    && pipenv run pip install "matplotlib==3.2.0" \
     && pipenv run python -c "import matplotlib.font_manager"
 
-RUN cd /tmp \
-    && pipenv install ginsim \
-    && wget https://raw.githubusercontent.com/GINsim/GINsim-python/master/ginsim_setup.py \
-    && pipenv run python ginsim_setup.py \
-    && rm ginsim_setup.py
-ENV PATH=/usr/local/share/colomoto/bin:$PATH
+# install assimulo because pipenv fails to install it
+ARG ASSIMULO_VERSION=3.2.5
+RUN pipenv run pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-${ASSIMULO_VERSION}
 
-COPY apps/$APP/src/ /app/src/
+EXPOSE 3333
+CMD /bin/bash /xvfb-startup.sh pipenv run gunicorn -b 0.0.0.0:3333  src.app:app
+
+#############
+### build ###
+#############
+FROM base as build
+
+ARG app
+ENV APP=$app
+
+RUN echo building ${app}
+
+COPY apps/${app}/src/ /app/src/
 
 LABEL \
-    org.opencontainers.image.title="BioSimulations ${APP}" \
-    org.opencontainers.image.description="Docker image for the BioSimulations ${APP} app" \
+    org.opencontainers.image.title="BioSimulations ${app}" \
+    org.opencontainers.image.description="Docker image for BioSimulations ${app}" \
     org.opencontainers.image.url="https://biosimulations.org/" \
     org.opencontainers.image.documentation="https://biosimulations.org/help" \
     org.opencontainers.image.source="https://github.com/biosimulations/Biosimulations" \
     org.opencontainers.image.authors="BioSimulations Team <info@biosimulations.org>" \
     org.opencontainers.image.vendor="BioSimulations Team" \
     org.opencontainers.image.licenses="MIT"
-EXPOSE 3333
-CMD /bin/bash /xvfb-startup.sh pipenv run gunicorn -b 0.0.0.0:3333  src.app:app

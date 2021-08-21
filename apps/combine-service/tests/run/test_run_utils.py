@@ -12,7 +12,8 @@ class CombineUtilsTestCase(unittest.TestCase):
             'api': {
                 'module': 'biosimulators_copasi',
                 'package': 'biosimulators_copasi',
-            }
+            },
+            'exampleCombineArchive': sim['exampleCombineArchive'],
         })
 
     def test_get_simulator_api(self):

@@ -3,109 +3,128 @@
   api:
     module: biosimulators_amici
     package: biosimulators_amici
+  exampleCombineArchive: sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex
 
 - id: boolnet
   name: BoolNet
   api:
     module: biosimulators_boolnet
     package: biosimulators_boolnet
+  exampleCombineArchive: sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex
 
 - id: bionetgen
   name: BioNetGen
   api:
     module: biosimulators_bionetgen
     package: biosimulators_bionetgen
+  exampleCombineArchive: bngl/test-bngl.omex
 
 - id: cbmpy
   name: CBMPy
   api:
     module: biosimulators_cbmpy
     package: biosimulators_cbmpy
+  exampleCombineArchive: sbml-fbc/Escherichia-coli-core-metabolism.omex
 
 - id: cobrapy
   name: COBRApy
   api:
     module: biosimulators_cobrapy
     package: biosimulators_cobrapy
+  exampleCombineArchive: sbml-fbc/Escherichia-coli-core-metabolism.omex
 
 - id: copasi
   name: COPASI
-  api: 
+  api:
     module: biosimulators_copasi
     package: biosimulators_copasi
+  exampleCombineArchive: sbml-core/Tomida-EMBO-J-2003-NFAT-translocation.omex
 
 - id: gillespy2
   name: GillesPy2
-  api: 
+  api:
     module: biosimulators_gillespy2
     package: biosimulators_gillespy2
+  exampleCombineArchive: sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex
 
 - id: ginsim
   name: GINsim
-  api: 
+  api:
     module: biosimulators_ginsim
     package: biosimulators_ginsim
+  exampleCombineArchive: sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex
 
 - id: libsbmlsim
   name: LibSBMLSim
   api:
     module: biosimulators_libsbmlsim
     package: biosimulators_libsbmlsim
+  exampleCombineArchive: sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-Fehlberg.omex
 
 - id: masspy
   name: MASSpy
-  api: 
+  api:
     module: biosimulators_masspy
     package: biosimulators_masspy
+  exampleCombineArchive: mass/Bordbar-Cell-Syst-2015-RBC-metabolism.omex
 
 # - id: netpyne
 #   name: NetPyNe
-#   api: 
+#   api:
 #     module: biosimulators_pyneuroml.api.netpyne
 #     package: biosimulators_pyneuroml
+#   exampleCombineArchive: neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex
 
 # - id: neuron
 #   name: NEURON
-#   api: 
+#   api:
 #     module: biosimulators_pyneuroml.api.neuron
 #     package: biosimulators_pyneuroml
+#   exampleCombineArchive: neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex
 
 #- id: opencor
 #  name: OpenCOR
-#  api: 
+#  api:
 #    module: biosimulators_opencor
 #    package: biosimulators_opencor
+#  exampleCombineArchive: cellml/Lorenz-system.omex
 
 - id: pyneuroml
   name: pyNeuroML
   api:
     module: biosimulators_pyneuroml.api.pyneuroml
     package: biosimulators_pyneuroml
+  exampleCombineArchive: neuroml-lems/Hodgkin-Huxley-cell-Euler.omex
 
 - id: pysces
   name: PySCeS
-  api: 
+  api:
     module: biosimulators_pysces
     package: biosimulators_pysces
+  exampleCombineArchive: sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex
 
 - id: smoldyn
   name: Smoldyn
-  api: 
+  api:
     module: smoldyn.biosimulators
     package: smoldyn
+  exampleCombineArchive: smoldyn/Lotka-Volterra.omex
 
 - id: tellurium
   name: tellurium
   api:
     module: biosimulators_tellurium
     package: biosimulators_tellurium
+  exampleCombineArchive: sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex
 
 #- id: vcell
 #  name: Virtual Cell
 #  api:
+#  exampleCombineArchive: sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex
 
 - id: xpp
   name: XPP
   api:
     module: biosimulators_xpp
     package: biosimulators_xpp
+  exampleCombineArchive: xpp/Wu-Biochem-Pharmacol-2006-pituitary-GH3-cells.omex

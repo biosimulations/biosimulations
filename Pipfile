@@ -7,7 +7,7 @@ name = "pypi"
 flask = {version = "<2"}
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
 requests = "*"
-biosimulators-utils = {version = ">=0.1.106", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
+biosimulators-utils = {version = ">=0.1.107", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
 python-dateutil = "*"
 gunicorn = "*"
 flask-cors = "*"
@@ -19,6 +19,41 @@ natsort = "*"
 rdflib = "*"
 numpy = "*"
 requests-cache = "<0.7" # to resolve conflict in required version of itsdangerous dependency with flask
+# AMICI
+biosimulators-amici = ">=0.1.15"
+# BioNetGen
+biosimulators-bionetgen = ">=0.1.11"
+# BoolNet
+biosimulators-boolnet = ">=0.1.14"
+# CBMPy
+glpk = "*"
+biosimulators-cbmpy = ">=0.1.11"
+# COBRApy
+biosimulators-cobrapy = ">=0.1.14"
+# COPASI
+biosimulators-copasi = ">=0.1.29"
+# GillesPy2
+biosimulators-gillespy2 = ">=0.1.29"
+# GINsim
+biosimulators-ginsim = ">=0.0.4"
+# LibSBMLSim
+biosimulators-libsbmlsim = ">=0.0.1"
+# MASSpy
+biosimulators-masspy = ">=0.0.2"
+# PySCeS
+cython = "<3"
+# assimulo = {version = ">=3.2.5", ref = "Assimulo-3.2.5", git = "https://github.com/modelon-community/Assimulo.git"}
+ipyparallel = "*"
+pysces = {ref = "7478a05bc4480e580fabfe89acb259274ced7f6c", git = "https://github.com/PySCeS/pysces.git"}
+biosimulators-pysces = ">=0.1.19"
+# pyNeuroML
+biosimulators-pyneuroml = ">=0.0.7"
+# Smoldyn
+smoldyn = "*"
+# tellurium
+biosimulators-tellurium = ">=0.1.13"
+# XPP
+biosimulators-xpp = ">=0.0.4"
 
 [dev-packages]
 openapi-core = "*"
@@ -27,6 +62,7 @@ pytest = "*"
 pytest-cov = "*"
 openapi-spec-validator = "*"
 parameterized = "*"
+requests = "*"
 
 [requires]
 python_version = "3.9"

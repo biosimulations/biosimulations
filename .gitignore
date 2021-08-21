@@ -118,3 +118,6 @@ __pycache__/
 
 #docs
 site/*
+
+# temporary PySCeS files
+_pystmptmp*_parsetab.py

@@ -1,7 +1,11 @@
 from src import app
 from src.handlers.run.utils import get_simulator_api, get_simulators
 from unittest import mock
+import os.path
 import parameterized
+import requests
+import shutil
+import tempfile
 import unittest
 
 
@@ -53,6 +57,14 @@ class GetSimulatorsTestCase(unittest.TestCase):
 
 
 class SimulatorsHaveValidApisTestCase(unittest.TestCase):
+    EXAMPLES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples'
+
+    def setUp(self):
+        self.tmp_dirname = tempfile.mkdtemp()
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp_dirname)
+
     @parameterized.parameterized.expand((simulator['id'], simulator) for simulator in get_simulators())
     def test(self, id, simulator):
         api = get_simulator_api(simulator['api']['module'])
@@ -93,6 +105,18 @@ class SimulatorsHaveValidApisTestCase(unittest.TestCase):
             callable(api.exec_sedml_docs_in_combine_archive),
             '`exec_sedml_docs_in_combine_archive` must be a callable, not `{}`'.format(
                 api.exec_sedml_docs_in_combine_archive.__class__.__name__))
+
+        response = requests.get(self.EXAMPLES_BASE_URL + '/' + simulator['exampleCombineArchive'])
+        response.raise_for_status()
+        archive_filename = os.path.join(self.tmp_dirname, 'archive.omex')
+        with open(archive_filename, 'wb') as file:
+            file.write(response.content)
+        out_dir = os.path.join(self.tmp_dirname, 'out')
+        api.exec_sedml_docs_in_combine_archive(archive_filename, out_dir,
+                                               return_results=False,
+                                               report_formats=None, plot_formats=None,
+                                               bundle_outputs=None, keep_individual_outputs=None,
+                                               raise_exceptions=True)
 
         # exec_sed_task
         """

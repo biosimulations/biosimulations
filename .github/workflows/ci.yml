@@ -118,26 +118,24 @@ jobs:
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
 
-      - name: Install Python
-        if: matrix.libOrApp == 'combine-service'
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.9"
-          architecture: "x64"
-
+      # TypeScript
       - name: Install Node.js
+        if: matrix.libOrApp != 'combine-service'
         uses: actions/setup-node@v2.4.0
         with:
           node-version: lts/fermium
           cache: npm
 
       - name: Install Nrwl CLI
+        if: matrix.libOrApp != 'combine-service'
         run: npm install -g @nrwl/cli
 
       - name: Install dependencies
+        if: matrix.libOrApp != 'combine-service'
         run: npm ci
 
       - name: Cache Angular and NX dependencies
+        if: matrix.libOrApp != 'combine-service'
         uses: actions/cache@v2
         with:
           path: node_modules/.cache
@@ -150,6 +148,14 @@ jobs:
       - name: Lint library or app (TypeScript)
         if: matrix.libOrApp != 'combine-service'
         run: nx run ${{ matrix.libOrApp }}:lint
+
+      # Python
+      - name: Install Python
+        if: matrix.libOrApp == 'combine-service'
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+          architecture: "x64"
 
       - name: Lint library or app (Python)
         if: matrix.libOrApp == 'combine-service'
@@ -187,21 +193,7 @@ jobs:
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
 
-      - name: Install Python
-        if: matrix.libOrApp == 'combine-service'
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.9"
-          architecture: "x64"
-
-      - name: Install Pipenv
-        if: matrix.libOrApp == 'combine-service'
-        run: python -m pip install pipenv
-
-      - name: Install Python dependencies
-        if: matrix.libOrApp == 'combine-service'
-        run: pipenv install --dev
-
+      # TypeScript
       - name: Install Node.js
         uses: actions/setup-node@v2.4.0
         with:
@@ -232,6 +224,21 @@ jobs:
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
+
+      # Python
+      - if: matrix.app == 'combine-service'
+        name: Build Image
+        uses: whoan/docker-build-with-cache-action@v5
+        with:
+          username: "${{ secrets.GHCR_USERNAME }}"
+          password: "${{ secrets.GHCR_TOKEN }}"
+          image_name: biosimulations/${{matrix.app}}
+          image_tag: ${{ env.BRANCH_NAME }}
+          push_image_and_stages: ${{github.event_name == 'pull_request'}}
+          registry: ghcr.io
+          context: .
+          dockerfile: DockerfilePython
+          build_extra_args: "--build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
       - name: Build app and dependencies
         run: nx run ${{ matrix.app }}:build --prod --with-deps
@@ -288,9 +295,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
+          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}-${{github.sha}}
           restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
+            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
 
@@ -311,64 +318,38 @@ jobs:
 
       ############################
       ## Python apps
-      - name: Install Java # for pyNeuroML
-        if: matrix.libOrApp == 'combine-service'
-        uses: actions/setup-java@v2
+      - if: matrix.libOrApp == 'combine-service'
+        name: Build Image
+        uses: whoan/docker-build-with-cache-action@v5
         with:
-          distribution: 'adopt'
-          java-version: '15'
+          username: "${{ secrets.GHCR_USERNAME }}"
+          password: "${{ secrets.GHCR_TOKEN }}"
+          image_name: biosimulations/${{matrix.libOrApp}}
+          image_tag: ${{ env.BRANCH_NAME }}
+          push_image_and_stages: ${{github.event_name == 'pull_request'}}
+          registry: ghcr.io
+          context: .
+          dockerfile: DockerfilePython
+          build_extra_args: "--build-arg app=${{matrix.libOrApp}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
-      - name: Install Perl # for BioNetGen
+      - name: Install dev dependencies and execute tests (Python)
         if: matrix.libOrApp == 'combine-service'
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y --no-install-recommends perl
-
-      - name: Install XPP
-        if: matrix.libOrApp == 'combine-service'
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y --no-install-recommends wget make gcc libx11-dev libc6-dev
-
-          cd /tmp
-          wget http://www.math.pitt.edu/~bard/bardware/xppaut_latest.tar.gz
-          mkdir xpp
-          tar zxvf xppaut_latest.tar.gz --directory xpp
-          cd xpp
-          make
-          sudo make install
-
-          cd /tmp
-          rm xppaut_latest.tar.gz
-          rm -r xpp
-
-      - name: Install Python
-        if: matrix.libOrApp == 'combine-service'
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.9"
-          architecture: "x64"
-
-      - name: Install Pipenv
-        if: matrix.libOrApp == 'combine-service'
-        run: python -m pip install pipenv
-
-      - name: Install Python dependencies
-        if: matrix.libOrApp == 'combine-service'
-        run: pipenv install --dev
+          cwd=$(pwd)
+          docker run \
+            --rm \
+            --entrypoint bash \
+            --mount type=bind,source=${cwd}/apps/${{ matrix.libOrApp }},target=/app/app \
+            ghcr.io/biosimulations/${{matrix.libOrApp}}:${{ env.BRANCH_NAME }} \
+            -c "
+              pipenv install --dev
+              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --cov app/src/ app/tests/
+            "
 
       - name: Validate OpenAPI specification for library or app (Python)
         if: matrix.libOrApp == 'combine-service'
         run: |
           # ./node_modules/.bin/openapi-examples-validator apps/${{ matrix.libOrApp }}/src/spec/spec.yml
-
-      - name: Test library or app (Python)
-        if: matrix.libOrApp == 'combine-service'
-        uses: GabrielBB/xvfb-action@v1
-        env:
-          PYTHONPATH: apps/${{ matrix.libOrApp }}/
-        with:
-          run: pipenv run python -m pytest --cov apps/${{ matrix.libOrApp }}/src/ apps/${{ matrix.libOrApp }}/tests/
 
       ############################
       ## Upload coverage data
@@ -407,34 +388,24 @@ jobs:
             echo NX_BASE=origin/deploy >>$GITHUB_ENV
           fi
 
-      - name: Install Python
-        if: matrix.libOrApp == 'combine-service'
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.9"
-          architecture: "x64"
-
-      - name: Install Pipenv
-        if: matrix.libOrApp == 'combine-service'
-        run: python -m pip install pipenv
-
-      - name: Install Python dependencies
-        if: matrix.libOrApp == 'combine-service'
-        run: pipenv install --dev
-
+      # TypeScript libraries
       - name: Install Node.js
+        if: matrix.libOrApp != 'combine-service'
         uses: actions/setup-node@v2.4.0
         with:
           node-version: lts/fermium
           cache: npm
 
       - name: Install Nrwl CLI
+        if: matrix.libOrApp != 'combine-service'
         run: npm install -g @nrwl/cli
 
-      - name: Install dependencies
+      - name: Install dependencies (TypeScript)
+        if: matrix.libOrApp != 'combine-service'
         run: npm ci
 
-      - name: Cache Angular and NX dependencies
+      - name: Cache Angular and NX dependencies (TypeScript)
+        if: matrix.libOrApp != 'combine-service'
         uses: actions/cache@v2
         with:
           path: node_modules/.cache
@@ -444,7 +415,8 @@ jobs:
             ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
             ${{ runner.os }}-nx-
 
-      - name: Test library
+      - name: Test library (TypeScript)
+        if: matrix.libOrApp != 'combine-service'
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
@@ -458,19 +430,41 @@ jobs:
         if: matrix.libOrApp != 'combine-service'
         run: nx run ${{ matrix.libOrApp }}:test --coverage
 
+      # Python libraries
+      - if: matrix.libOrApp == 'combine-service'
+        name: Build Image
+        uses: whoan/docker-build-with-cache-action@v5
+        with:
+          username: "${{ secrets.GHCR_USERNAME }}"
+          password: "${{ secrets.GHCR_TOKEN }}"
+          image_name: biosimulations/${{matrix.libOrApp}}
+          image_tag: ${{ env.BRANCH_NAME }}
+          push_image_and_stages: ${{github.event_name == 'pull_request'}}
+          registry: ghcr.io
+          context: .
+          dockerfile: DockerfilePython
+          build_extra_args: "--build-arg app=${{matrix.libOrApp}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
+
+      - name: Install dev dependencies and execute tests (Python)
+        if: matrix.libOrApp == 'combine-service'
+        run: |
+          cwd=$(pwd)
+          docker run \
+            --rm \
+            --entrypoint bash \
+            --mount type=bind,source=${cwd}/libs/${{ matrix.libOrApp }},target=/app/lib \
+            ghcr.io/biosimulations/${{matrix.libOrApp}}:${{ env.BRANCH_NAME }} \
+            -c "
+              pipenv install --dev
+              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --cov lib/src/ lib/tests/
+            "
+
       - name: Validate OpenAPI specification for library or app (Python)
         if: matrix.libOrApp == 'combine-service'
         run: |
-          # ./node_modules/.bin/openapi-examples-validator apps/${{ matrix.libOrApp }}/src/spec/spec.yml
+          # ./node_modules/.bin/openapi-examples-validator libs/${{ matrix.libOrApp }}/src/spec/spec.yml
 
-      - name: Test library or app (Python)
-        if: matrix.libOrApp == 'combine-service'
-        uses: GabrielBB/xvfb-action@v1
-        env:
-          PYTHONPATH: apps/${{ matrix.libOrApp }}/
-        with:
-          run: pipenv run python -m pytest --cov apps/${{ matrix.libOrApp }}/src/ apps/${{ matrix.libOrApp }}/tests/
-
+      # Upload coverage data
       - name: Upload coverage data to Codecov
         uses: codecov/codecov-action@v2.0.2
         with:
@@ -504,6 +498,12 @@ jobs:
         shell: bash
         run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
 
+      - id: get-timestamp
+        name: Get a timestamp
+        run: |
+          TIMESTAMP=$(date --rfc-3339=seconds | sed 's/ /T/')
+          echo "::set-output name=timestamp::$TIMESTAMP"
+
       - if: matrix.app != 'combine-service'
         name: Build Image
         uses: whoan/docker-build-with-cache-action@v5
@@ -516,7 +516,7 @@ jobs:
           registry: ghcr.io
           context: .
           dockerfile: Dockerfile
-          build_extra_args: "--build-arg app=${{matrix.app}}"
+          build_extra_args: "--build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
       - if: matrix.app == 'combine-service'
         name: Build Image
@@ -530,7 +530,7 @@ jobs:
           registry: ghcr.io
           context: .
           dockerfile: DockerfilePython
-          build_extra_args: "--build-arg app=${{matrix.app}}"
+          build_extra_args: "--build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
   markDone:
     name: Mark CI as complete
