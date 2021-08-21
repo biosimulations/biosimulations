@@ -1,3 +1,21 @@
+# [3.10.0](https://github.com/biosimulations/Biosimulations/compare/v3.9.0...v3.10.0) (2021-08-21)
+
+
+### Features
+
+* **combine-service:** added endpoint for low latency simulation ([b44f5e3](https://github.com/biosimulations/Biosimulations/commit/b44f5e30df6b0e23b40ed302fa6a7a61a6969c09))
+* **combine-service:** added endpoint for low-latency simulations ([931f3c7](https://github.com/biosimulations/Biosimulations/commit/931f3c7d25b329f55578cb0e7ba5e59ce7c91858))
+* **combine-service:** added options to export simulation results in HDF5, zip formats ([c0cd699](https://github.com/biosimulations/Biosimulations/commit/c0cd6998dc850c5afbcee00fa2afec7390ffd235))
+* **combine-service:** added simulator name to get simulaton tools endpoint ([1f708dd](https://github.com/biosimulations/Biosimulations/commit/1f708dd70e138a2c7d662b8689ef73566180e3ba))
+* **combine-service:** added test to verify simulator APIs ([0bcaff3](https://github.com/biosimulations/Biosimulations/commit/0bcaff3f11fbc9e85285ef709432219d80fb1ef1))
+* **combine-service:** pre-compiled Python code for faster initial calls ([f368de9](https://github.com/biosimulations/Biosimulations/commit/f368de9d973274c0e218e24075665a255d698e7f))
+* **combine-service:** updated AMICI, GillesPy2, libSBMLSim ([fe8df2a](https://github.com/biosimulations/Biosimulations/commit/fe8df2a7b1da8c955210be78432565f60080d5bd))
+* **combine-service:** updated to KiSAO 2.26, BioSimalators-utils 0.1.105 ([05b9dc5](https://github.com/biosimulations/Biosimulations/commit/05b9dc5ebe393c1e4c4143a0125867a3a79a58ea))
+* **combine-service:** updated to KiSAO 2.26, BioSimulators-utils 0.1.105 ([74d0b36](https://github.com/biosimulations/Biosimulations/commit/74d0b369a933ec4b3f7b46c4028addfb794ef90d))
+* **dispatch:** added simulator names to simulation tools menu in run form ([5170810](https://github.com/biosimulations/Biosimulations/commit/51708108ce772851690a4a3edff556513feb9368))
+* **ontology:** updated to KiSAO 2.26 ([f25f243](https://github.com/biosimulations/Biosimulations/commit/f25f243bf85af086902badfd22b25547d974b9fb))
+* **simulators:** added documentation for Python API conventions ([60669be](https://github.com/biosimulations/Biosimulations/commit/60669be5f166ac30a1af137240fbc049c13db331))
+
 # [3.9.0](https://github.com/biosimulations/Biosimulations/compare/v3.8.0...v3.9.0) (2021-08-19)
 
 
