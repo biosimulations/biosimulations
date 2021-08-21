@@ -434,9 +434,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
         this.simulatorIds = new Set(Object.keys(this.simulatorSpecsMap));
         this.simulators = Object.values(this.simulatorSpecsMap).map(
           (specs: SimulatorSpecs): SimulatorIdNameDisabled => {
-            return { 
+            return {
               id: specs.id,
-              name: specs.name, 
+              name: specs.name,
               disabled: false,
             };
           },

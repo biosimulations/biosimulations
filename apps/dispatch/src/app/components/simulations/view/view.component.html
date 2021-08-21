@@ -177,12 +177,15 @@
                   {{ archiveMetadata.abstract }}
                 </p>
                 <ul class="comma-separated and-separator creators">
-                  <li *ngFor="let creator of archiveMetadata.creators">{{ creator.label }}{{ creator.uri ? ' ' : ''
+                  <li *ngFor="let creator of archiveMetadata.creators">
+                    {{ creator.label }}{{ creator.uri ? ' ' : ''
                     }}<a
                       [href]="creator.uri"
                       target="_blank"
                       *ngIf="creator.uri"
-                    ><biosimulations-icon icon="orcid"></biosimulations-icon></a></li>
+                      ><biosimulations-icon icon="orcid"></biosimulations-icon
+                    ></a>
+                  </li>
                 </ul>
 
                 <p *ngIf="archiveMetadata.description">

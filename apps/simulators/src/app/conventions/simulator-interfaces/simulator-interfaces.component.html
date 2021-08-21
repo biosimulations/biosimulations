@@ -50,30 +50,65 @@
       tocSection="Overview"
     >
       <p>
-        The BioSimulators conventions for command-line applications and Python APIs for biosimulation
-        tools are sets of requirements for the syntax and semantics of the
-        inputs and outputs of biosimulation software tools. The conventions ensure
-        that simulation tools can be consistently executed with the same input
-        arguments (a path to a COMBINE/OMEX archive that defines models and
-        simulations and a path to save the outputs of the simulation experiments
-        defined in the archive) and that the simulation tools produce consistent
-        outputs (reports and plots at consistent paths in consistent formats).
+        The BioSimulators conventions for command-line applications and Python
+        APIs for biosimulation tools are sets of requirements for the syntax and
+        semantics of the inputs and outputs of biosimulation software tools. The
+        conventions ensure that simulation tools can be consistently executed
+        with the same input arguments (a path to a COMBINE/OMEX archive that
+        defines models and simulations and a path to save the outputs of the
+        simulation experiments defined in the archive) and that the simulation
+        tools produce consistent outputs (reports and plots at consistent paths
+        in consistent formats).
       </p>
 
-      <p class="no-bottom-margin">BioSimulators encourages developers to provide two interfaces for two purposes:</p>
+      <p class="no-bottom-margin">
+        BioSimulators encourages developers to provide two interfaces for two
+        purposes:
+      </p>
       <ul>
-        <li><b>Docker images whose entrypoints are command-line applications:</b> These Docker images provides developers a wide degree of flexibility (e.g., to use different programming languages and dependencies), make it easy for BioSimulators to archive each version of each tool, and make it easy for investigators to use tools to execute COMBINE/OMEX archives. However, these Docker images are not optimally efficient, and they provide investigators limited flexibility.</li>
-        <li><b>Python APIs:</b> APIs provide investigators additional flexibility, such as to develop higher-performance simulation services or co-simulate models using multiple tools. However, for optimal efficiency, these APIs require developers to use a specific programming language. In addition, these APIs require developers to package their tools for easy installation or provide straightforward installation instructions. Furthermore, these APIs are typically more complex for investigators to install and use.</li>
+        <li>
+          <b>Docker images whose entrypoints are command-line applications:</b>
+          These Docker images provides developers a wide degree of flexibility
+          (e.g., to use different programming languages and dependencies), make
+          it easy for BioSimulators to archive each version of each tool, and
+          make it easy for investigators to use tools to execute COMBINE/OMEX
+          archives. However, these Docker images are not optimally efficient,
+          and they provide investigators limited flexibility.
+        </li>
+        <li>
+          <b>Python APIs:</b> APIs provide investigators additional flexibility,
+          such as to develop higher-performance simulation services or
+          co-simulate models using multiple tools. However, for optimal
+          efficiency, these APIs require developers to use a specific
+          programming language. In addition, these APIs require developers to
+          package their tools for easy installation or provide straightforward
+          installation instructions. Furthermore, these APIs are typically more
+          complex for investigators to install and use.
+        </li>
       </ul>
 
-      <p class="no-bottom-margin">In most cases, we recommend that developers create BioSimulators-compliant interfaces in three steps:</p>
+      <p class="no-bottom-margin">
+        In most cases, we recommend that developers create
+        BioSimulators-compliant interfaces in three steps:
+      </p>
       <ol>
         <li>Use BioSimulators-utils to develop a compliant Python API.</li>
-        <li>Use <code>biosimulators_utils.simulator.cli.build_cli</code> to construct a command-line application from their Python API.</li>
-        <li>Construct a Docker image by attaching their command-line application to the entrypoint of their image.</li>
+        <li>
+          Use <code>biosimulators_utils.simulator.cli.build_cli</code> to
+          construct a command-line application from their Python API.
+        </li>
+        <li>
+          Construct a Docker image by attaching their command-line application
+          to the entrypoint of their image.
+        </li>
       </ol>
 
-      <p>For validation, simulation tools MUST provide Docker images whose entrypoints are BioSimulators-compliant command-line applications. Simulation tools are also OPTIONALLY encouraged to provide BioSimulators-compliant APIs.</p>
+      <p>
+        For validation, simulation tools MUST provide Docker images whose
+        entrypoints are BioSimulators-compliant command-line applications.
+        Simulation tools are also OPTIONALLY encouraged to provide
+        BioSimulators-compliant APIs.
+      </p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -99,17 +134,18 @@
         </li>
         <li>
           <b><code>-v, --version</code>:</b> An optional argument that instructs
-          the command-line application to report its version and the versions of any
-          critical dependencies.
+          the command-line application to report its version and the versions of
+          any critical dependencies.
         </li>
       </ul>
 
       <p>
-        As an example, below is the documentation for the command-line application
-        for the tellurium
+        As an example, below is the documentation for the command-line
+        application for the tellurium
         <a href="http://tellurium.analogmachine.org" target="_blank"
-          ><biosimulations-icon icon="link"></biosimulations-icon></a
-        > biochemical simulation program.
+          ><biosimulations-icon icon="link"></biosimulations-icon
+        ></a>
+        biochemical simulation program.
       </p>
 
       <pre><code>usage: tellurium [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
@@ -133,17 +169,48 @@ optional arguments:
       tocSection="Python APIs"
     >
       <p>
-        Python APIs should be Python modules which provide the following attributes and methods:
+        Python APIs should be Python modules which provide the following
+        attributes and methods:
       </p>
-      
+
       <ul class="vertically-spaced">
-        <li><b><code>__version__</code></b> (<code>str</code>): Version of the API (e.g., <code>0.1.0</code>).</li>
-        <li><b><code>get_simulator_version</code></b> (<code>() -> str</code>): Get the version of the underyling simulation tool (e.g., <code>1.0.0</code>).</li>
-        <li><b><code>exec_sed_task</code></b> (<code>(task: Task, variables: list[Variable]) -> (VariableResults, TaskLog)</code>): Execute a single SED-ML task involving a single simulation of a single mode and return the predicted value of each requested output variable and a log of the execution of the simulation.</li>
-        <li><b><code>exec_sedml_docs_in_combine_archive</code></b> (<code>(archive_filename: str, out_dir: str, return_results: bool = False) -> (SedDocumentResults, CombineArchiveLog)</code>): Execute all of the tasks in all of the SED-ML files in a COMBINE/OMEX archive, export all of the requested reports and plots, optionally return the result of each output, and return a log of the execution of the archive.</li>
+        <li>
+          <b><code>__version__</code></b> (<code>str</code>): Version of the API
+          (e.g., <code>0.1.0</code>).
+        </li>
+        <li>
+          <b><code>get_simulator_version</code></b> (<code>() -> str</code>):
+          Get the version of the underyling simulation tool (e.g.,
+          <code>1.0.0</code>).
+        </li>
+        <li>
+          <b><code>exec_sed_task</code></b> (<code
+            >(task: Task, variables: list[Variable]) -> (VariableResults,
+            TaskLog)</code
+          >): Execute a single SED-ML task involving a single simulation of a
+          single mode and return the predicted value of each requested output
+          variable and a log of the execution of the simulation.
+        </li>
+        <li>
+          <b><code>exec_sedml_docs_in_combine_archive</code></b> (<code
+            >(archive_filename: str, out_dir: str, return_results: bool = False)
+            -> (SedDocumentResults, CombineArchiveLog)</code
+          >): Execute all of the tasks in all of the SED-ML files in a
+          COMBINE/OMEX archive, export all of the requested reports and plots,
+          optionally return the result of each output, and return a log of the
+          execution of the archive.
+        </li>
       </ul>
 
-      <p>More information about the required method signatures is available in the simulator template <a href="https://github.com/biosimulators/Biosimulators_simulator_template/blob/dev/my_simulator/__init__.py" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.</p>
+      <p>
+        More information about the required method signatures is available in
+        the simulator template
+        <a
+          href="https://github.com/biosimulators/Biosimulators_simulator_template/blob/dev/my_simulator/__init__.py"
+          target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >.
+      </p>
     </biosimulations-text-page-content-section>
 
     <biosimulations-text-page-content-section
@@ -151,7 +218,8 @@ optional arguments:
       tocSection="Execution behavior"
     >
       <p>
-        Both command-line interfaces and Python APIs should also support the following conventions:
+        Both command-line interfaces and Python APIs should also support the
+        following conventions:
       </p>
       <ul class="vertically-spaced">
         <li>
@@ -257,10 +325,11 @@ optional arguments:
     >
       <p>
         To further support consistent execution of simulations with other
-        simulation tools, command-line interfaces and Python APIs are also encouraged to implement the
-        following environment variables. The Dockerfiles for simulation tools
-        should use the <code>ENV</code> directive to indicate the variables they
-        support and their default values.
+        simulation tools, command-line interfaces and Python APIs are also
+        encouraged to implement the following environment variables. The
+        Dockerfiles for simulation tools should use the
+        <code>ENV</code> directive to indicate the variables they support and
+        their default values.
       </p>
 
       <ul class="vertically-spaced">
@@ -422,9 +491,9 @@ optional arguments:
       tocSection="Execution of projects"
     >
       <p>
-        To ensure consistent execution of simulation experiments, command-line applications and Python APIs
-        should adopt the conventions described below for the execution of
-        COMBINE/OMEX archives.
+        To ensure consistent execution of simulation experiments, command-line
+        applications and Python APIs should adopt the conventions described
+        below for the execution of COMBINE/OMEX archives.
       </p>
 
       <ul class="vertically-spaced">
@@ -452,7 +521,9 @@ optional arguments:
       tocSection="Execution of simulations"
     >
       <p>
-        To ensure consistent execution of simulation experiments, command-line applications and Python APIs should adopt the conventions described below for the execution of SED-ML files.
+        To ensure consistent execution of simulation experiments, command-line
+        applications and Python APIs should adopt the conventions described
+        below for the execution of SED-ML files.
       </p>
 
       <ul class="vertically-spaced">
@@ -492,8 +563,8 @@ optional arguments:
       tocSection="Recommended resources"
     >
       <p>
-        Below are helpful tools for implementing command-line applications and Python APIs to the
-        above specifications:
+        Below are helpful tools for implementing command-line applications and
+        Python APIs to the above specifications:
       </p>
 
       <ul>
@@ -536,13 +607,15 @@ optional arguments:
             <a href="https://github.com/sys-bio/libOmexMeta" target="_blank"
               ><biosimulations-icon icon="link"></biosimulations-icon></a
           ></b>
-          is a library for reading and querying OMEX Metadata files. libOmexMeta provides bindings
-          for several langauges.
+          is a library for reading and querying OMEX Metadata files. libOmexMeta
+          provides bindings for several langauges.
         </li>
         <li>
           <b
             >argparse
-            <a href="https://docs.python.org/3/library/argparse.html" target="_blank"
+            <a
+              href="https://docs.python.org/3/library/argparse.html"
+              target="_blank"
               ><biosimulations-icon icon="link"></biosimulations-icon></a
           ></b>
           is a Python module for implementing command-line applications.
@@ -553,7 +626,8 @@ optional arguments:
             <a href="https://builtoncement.com/" target="_blank"
               ><biosimulations-icon icon="link"></biosimulations-icon></a
           ></b>
-          is a higher-level Python library for implementing more complex command-line applications.
+          is a higher-level Python library for implementing more complex
+          command-line applications.
         </li>
       </ul>
     </biosimulations-text-page-content-section>
