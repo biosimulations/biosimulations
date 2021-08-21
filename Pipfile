@@ -20,7 +20,7 @@ rdflib = "*"
 numpy = "*"
 requests-cache = "<0.7" # to resolve conflict in required version of itsdangerous dependency with flask
 # AMICI
-biosimulators-amici = ">=0.1.15"
+biosimulators-amici = ">=0.1.16"
 # BioNetGen
 biosimulators-bionetgen = ">=0.1.11"
 # BoolNet
@@ -33,11 +33,11 @@ biosimulators-cobrapy = ">=0.1.14"
 # COPASI
 biosimulators-copasi = ">=0.1.29"
 # GillesPy2
-biosimulators-gillespy2 = ">=0.1.29"
+biosimulators-gillespy2 = ">=0.1.30"
 # GINsim
 biosimulators-ginsim = ">=0.0.4"
 # LibSBMLSim
-biosimulators-libsbmlsim = ">=0.0.1"
+biosimulators-libsbmlsim = ">=0.0.2"
 # MASSpy
 biosimulators-masspy = ">=0.0.2"
 # PySCeS

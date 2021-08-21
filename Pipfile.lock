@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "9ac5627a2de65658078e0cc0ca1c790f118e057b5bbb62bf3aa3e665256bad20"
+            "sha256": "3cc87adbcb87ce2b9665f9dc455aca78d7f0d8e15e92636c64424fc7d0c74186"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -132,11 +132,11 @@
         },
         "biosimulators-amici": {
             "hashes": [
-                "sha256:60c089d2b8544db79be7da6b71743d51387b4646aee2ec278b7383b1f62cee89",
-                "sha256:c51a1b8bbed3e0b851a6a6297302e56786075fcf4ac2decfbc629b9cd0b0c25b"
+                "sha256:121bcefd2e07208fe2fc23d6502c1558ac696958aaca1d5f5e45831bc9ae9de3",
+                "sha256:50f851879889e57e8dc7b94dd410bb7e924e4858cc7ab308b8ae3bf5b46f5c9e"
             ],
             "index": "pypi",
-            "version": "==0.1.15"
+            "version": "==0.1.16"
         },
         "biosimulators-bionetgen": {
             "hashes": [
@@ -180,11 +180,11 @@
         },
         "biosimulators-gillespy2": {
             "hashes": [
-                "sha256:bf17b6c60297d277b4be98ca20bf216a95321164875417c47ae200df4bfee549",
-                "sha256:f674ba29a42375569a691b93acc263b6caa5272b0d5b2c351f3ceaaddded8037"
+                "sha256:74f85d23a3756ade4a15f463443335be0894496deb281233f199bfdc17821e67",
+                "sha256:bd035a978728062ff7624b068aadbf707fd02f258e0bece7a3623ef35b951402"
             ],
             "index": "pypi",
-            "version": "==0.1.29"
+            "version": "==0.1.30"
         },
         "biosimulators-ginsim": {
             "hashes": [
@@ -196,11 +196,11 @@
         },
         "biosimulators-libsbmlsim": {
             "hashes": [
-                "sha256:27ca392b95d2d9d61f8b46513969bd2a8e1c6a8ecce7836f33c748f1b73ad01d",
-                "sha256:73bccfad116162073492def7467d2708db424d393a35a0e0b4d628fa88ae3946"
+                "sha256:6118c01bede3ba4c7662618f4dbfcf1800971d697a2c48f866f4f6a7043f5e85",
+                "sha256:80606824af5ef89adaac76376fba5d236f15b6c0ef860875426ae010f12bef56"
             ],
             "index": "pypi",
-            "version": "==0.0.1"
+            "version": "==0.0.2"
         },
         "biosimulators-masspy": {
             "hashes": [
@@ -2055,10 +2055,11 @@
         },
         "send2trash": {
             "hashes": [
-                "sha256:d2c24762fd3759860a0aff155e45871447ea58d2be6bdd39b5c8f966a0c99c2d",
-                "sha256:f20eaadfdb517eaca5ce077640cb261c7d2698385a6a0f072a4a5447fd49fa08"
+                "sha256:56215329f48b4b147d93719fe901d7de84cae0048cad6e6c31e6d593d9f2dcbb",
+                "sha256:9c9f667f7211232dda8add62116e835304c8015210cbd8612847aaf19875a487"
             ],
-            "version": "==1.8.0"
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
+            "version": "==1.8.1b0"
         },
         "simplejson": {
             "hashes": [
