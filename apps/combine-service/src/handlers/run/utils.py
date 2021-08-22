@@ -20,16 +20,20 @@ def get_simulators():
         return yaml.load(file, Loader=yaml.Loader)
 
 
-def get_simulator_api(api):
+def get_simulator_api(api, reload=False):
     """ Get the BioSimulators API for a simulator
 
     Args:
         api (:obj:`str`): module which implements the API for the simulator
+        reload (:obj:`bool`, optional): whether to reload the API
 
     Returns:
         :obj:`types.ModuleType`
     """
-    return importlib.import_module(api)
+    module = importlib.import_module(api)
+    if reload:
+        importlib.reload(module)
+    return module
 
 
 @functools.lru_cache(maxsize=None)

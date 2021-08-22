@@ -1,7 +1,7 @@
 from src import app
 from src.handlers.run.utils import get_simulator_api, get_simulators
 from unittest import mock
-import os.path
+import os
 import parameterized
 import requests
 import shutil
@@ -56,6 +56,21 @@ class GetSimulatorsTestCase(unittest.TestCase):
         })
 
 
+SIMULATORS = os.environ.get('SIMULATORS', None)
+if SIMULATORS is not None:
+    if SIMULATORS:
+        SIMULATORS = SIMULATORS.split(',')
+    else:
+        SIMULATORS = []
+
+SKIPPED_SIMULATORS = os.environ.get('SKIPPED_SIMULATORS', None)
+if SKIPPED_SIMULATORS is not None:
+    if SKIPPED_SIMULATORS:
+        SKIPPED_SIMULATORS = SKIPPED_SIMULATORS.split(',')
+    else:
+        SKIPPED_SIMULATORS = []
+
+
 class SimulatorsHaveValidApisTestCase(unittest.TestCase):
     EXAMPLES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples'
 
@@ -65,9 +80,16 @@ class SimulatorsHaveValidApisTestCase(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.tmp_dirname)
 
-    @parameterized.parameterized.expand((simulator['id'], simulator) for simulator in get_simulators())
+    @parameterized.parameterized.expand(
+        (simulator['id'], simulator)
+        for simulator in get_simulators()
+        if (
+            (SIMULATORS is None or simulator['id'] in SIMULATORS)
+            and (SKIPPED_SIMULATORS is None or simulator['id'] not in SKIPPED_SIMULATORS)
+        )
+    )
     def test(self, id, simulator):
-        api = get_simulator_api(simulator['api']['module'])
+        api = get_simulator_api(simulator['api']['module'], False)
 
         # __version__
         self.assertTrue(
