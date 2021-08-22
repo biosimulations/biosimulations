@@ -11,7 +11,6 @@
 /help/privacy
 /help/terms
 /simulators/amici
-/simulators/amici/0.11.17
 /simulators/amici/0.11.18
 /simulators/bionetgen
 /simulators/bionetgen/2.6.0
@@ -31,11 +30,11 @@
 /simulators/cellnetanalyzer/2020.3
 /simulators/cellnetanalyzer/2021.1
 /simulators/cobrapy
-/simulators/cobrapy/0.22.0
+/simulators/cobrapy/0.22.1
 /simulators/cobratoolbox
 /simulators/cobratoolbox/3.1
 /simulators/copasi
-/simulators/copasi/4.33.246
+/simulators/copasi/4.34.251
 /simulators/ecell4
 /simulators/ecell4/1.1.2
 /simulators/epilog
@@ -49,7 +48,6 @@
 /simulators/genysis
 /simulators/genysis/3.0
 /simulators/gillespy2
-/simulators/gillespy2/1.6.0
 /simulators/gillespy2/1.6.2
 /simulators/ginsim
 /simulators/ginsim/3.0.0b
@@ -72,7 +70,7 @@
 /simulators/maboss
 /simulators/maboss/2.3.4
 /simulators/masspy
-/simulators/masspy/0.1.1
+/simulators/masspy/0.1.2
 /simulators/mcell
 /simulators/mcell/3.5.0
 /simulators/metanetx
@@ -89,6 +87,7 @@
 /simulators/neuron/8.0.0
 /simulators/opencor
 /simulators/opencor/2021-07-09
+/simulators/opencor/2021-08-19
 /simulators/openknee
 /simulators/openknee/1.0
 /simulators/opensim
@@ -113,8 +112,6 @@
 /simulators/simvascular
 /simulators/simvascular/2021-02-07
 /simulators/smoldyn
-/simulators/smoldyn/2.65
-/simulators/smoldyn/2.66
 /simulators/smoldyn/2.67
 /simulators/tellurium
 /simulators/tellurium/2.2.0
