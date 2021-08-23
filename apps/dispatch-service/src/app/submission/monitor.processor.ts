@@ -2,6 +2,7 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
   CompleteJob,
   FailJob,
+  JobQueue,
   MonitorJob,
 } from '@biosimulations/messages/messages';
 import { Processor, InjectQueue, Process } from '@nestjs/bull';
@@ -10,24 +11,23 @@ import { Job, Queue } from 'bull';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
 
-@Processor('monitor')
+@Processor(JobQueue.monitor)
 export class MonitorProcessor {
   private readonly logger = new Logger(MonitorProcessor.name);
   public constructor(
     private simStatusService: SimulationStatusService,
     private hpcService: HpcService,
 
-    @InjectQueue('monitor') private monitorQueue: Queue<MonitorJob>,
-    @InjectQueue('complete') private completeQueue: Queue<CompleteJob>,
-    @InjectQueue('fail') private failQueue: Queue<FailJob>,
+    @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJob>,
+    @InjectQueue(JobQueue.complete) private completeQueue: Queue<CompleteJob>,
+    @InjectQueue(JobQueue.fail) private failQueue: Queue<FailJob>,
   ) {}
 
   @Process()
   private async handleMonitoring(job: Job): Promise<void> {
     const data = job.data;
     const slurmJobId = data.slurmJobId;
-    const simId = data.simId;
-    const transpose = data.transpose;
+    const simId = data.simId;    
     const DELAY = 5000;
     const jobStatus: SimulationRunStatus | null =
       await this.hpcService.getJobStatus(slurmJobId);

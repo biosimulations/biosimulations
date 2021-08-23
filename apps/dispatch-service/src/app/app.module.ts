@@ -48,6 +48,10 @@ import { SimulationStatusService } from './services/simulationStatus.service';
       prefix: '{dispatch}',
     }),
     BullModule.registerQueue({
+      name: 'extractMetadata',
+      prefix: '{extractMetadata}',
+    }),
+    BullModule.registerQueue({
       name: 'monitor',
       prefix: '{monitor}',
     }),

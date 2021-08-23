@@ -1,4 +1,5 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { JobQueue } from '@biosimulations/messages/messages';
 
 import { Processor, Process } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
@@ -8,7 +9,7 @@ import { LogService } from '../results/log.service';
 
 import { SimulationStatusService } from '../services/simulationStatus.service';
 
-@Processor('complete')
+@Processor(JobQueue.complete)
 export class CompleteProccessor {
   private readonly logger = new Logger(CompleteProccessor.name);
   public constructor(

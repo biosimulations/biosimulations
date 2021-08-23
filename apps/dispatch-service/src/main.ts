@@ -24,7 +24,7 @@ async function bootstrap() {
   };
 
   app.connectMicroservice(natsConfig);
-  await app.startAllMicroservicesAsync();
+  await app.startAllMicroservices();
 
   app.listen('3334');
 }
