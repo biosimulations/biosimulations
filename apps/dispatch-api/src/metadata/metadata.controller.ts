@@ -16,7 +16,7 @@ import {
   SimulationRunMetadataInput,
 } from '@biosimulations/datamodel/api';
 import { MetadataService } from './metadata.service';
-import { MetadataModel, SimulationRunMetadataModel } from './metadata.model';
+import { SimulationRunMetadataModel } from './metadata.model';
 
 @ApiTags('Metadata')
 @Controller({ path: 'metadata', version: VERSION_NEUTRAL })

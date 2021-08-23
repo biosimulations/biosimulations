@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 import { BehaviorSubject, map, Observable, shareReplay, tap } from 'rxjs';
 import { MetadataValue } from './view.model';

@@ -8,7 +8,7 @@ import {
   LabeledIdentifier,
   ObjectIdValidator,
 } from '@biosimulations/datamodel/common';
-import { SimulationRunModel, SimulationRunModelSchema } from '../simulation-run/simulation-run.model';
+import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 
 
 @Schema({
