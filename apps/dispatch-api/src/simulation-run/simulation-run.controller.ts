@@ -8,7 +8,6 @@
 import { DispatchJob } from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
 import {
-  ApiFieldsQuery,
   ErrorResponseDocument,
   FieldsQueryParameters,
 } from '@biosimulations/datamodel/api';
@@ -90,7 +89,7 @@ export class SimulationRunController {
     description:
       'Returns an array of all the simulation run objects in the database',
   })
-  @ApiFieldsQuery()
+  
   @ApiOkResponse({ description: 'OK', type: [SimulationRun] })
   @permissions('read:SimulationRuns')
   @Get()

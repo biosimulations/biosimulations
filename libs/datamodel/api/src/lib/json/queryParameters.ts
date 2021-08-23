@@ -1,29 +1,20 @@
-import { ApiProperty, ApiQuery } from '@nestjs/swagger';
-import { IsArray, IsInt, IsOptional, IsString } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsArray, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
-import { applyDecorators } from '@nestjs/common';
+
 
 export class FieldsQueryParameters {
   @IsString({ each: true })
+  @IsNotEmpty({each: true})
   @IsArray()
   @IsOptional()
-  @ApiProperty({ type: [String] })
+  @ApiPropertyOptional({ type: [String] })  
   @Transform((params) => {
     return params.value.split(',');
   })
-  fields!: string[];
+  fields?: string[];
 }
 
-export const ApiFieldsQuery = (...args: string[]) =>
-  applyDecorators(
-    ApiQuery({
-      name: 'fields',
-      explode: false,
-      style: 'form',
-      type: String,
-      isArray: true,
-    }),
-  );
 
 // WIP can use this to define the query parameters for operations like sorting, filtering, paging, etc.
 class FullJsonAPIQueryParameters {
