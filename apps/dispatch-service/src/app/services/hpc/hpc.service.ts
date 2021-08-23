@@ -69,6 +69,7 @@ export class HpcService {
     jobId: string,
   ): Promise<SimulationRunStatus | null> {
     // TODO this needs to be changed everyime job srun changes. Need a better long term solution
+    // TODO account for each step failing
     const saactData = await this.sshService
       .execStringCommand(`sacct -j ${jobId} -o state -P | tail -1`)
       .catch((err) => {
@@ -116,7 +117,11 @@ export class HpcService {
     ) {
       this.logger.error(`Job ${jobId} failed with response of ${finalStatus}`);
       simStatus = SimulationRunStatus.FAILED;
-    } else {
+    } else if(finalStatus=='State'){
+      this.logger.warn(`Job ${jobId} does not have a status yet`)
+      simStatus = null;
+    }
+    else {
       this.logger.error(
         `Job ${jobId} status failed by default with response of ${finalStatus}`,
       );
