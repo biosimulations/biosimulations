@@ -1,5 +1,5 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import { DispatchJob, MonitorJob } from '@biosimulations/messages/messages';
+import { DispatchJob, ExtractMetadataJob, JobQueue, MonitorJob } from '@biosimulations/messages/messages';
 import { InjectQueue, Process, Processor } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
 import { Job, Queue } from 'bull';
@@ -7,8 +7,8 @@ import { Job, Queue } from 'bull';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
 
-// TODO define shared constants for queue names
-@Processor('dispatch')
+
+@Processor(JobQueue.dispatch)
 export class DispatchProcessor {
   private readonly logger = new Logger(DispatchProcessor.name);
   public constructor(
@@ -16,6 +16,7 @@ export class DispatchProcessor {
     private simStatusService: SimulationStatusService,
 
     @InjectQueue('monitor') private monitorQueue: Queue<MonitorJob>,
+    @InjectQueue('extractMetadata') private metadataQueue: Queue<ExtractMetadataJob>,
   ) {}
   @Process()
   private async handleSubmission(job: Job<DispatchJob>): Promise<void> {
@@ -52,8 +53,9 @@ export class DispatchProcessor {
         slurmJobId: slurmjobId.toString(),
         simId: data.simId,
       };
-
+      const metadataJob: ExtractMetadataJob = {simId: data.simId };
       this.monitorQueue.add(monitorData);
+      this.metadataQueue.add(metadataJob)
     }
   }
 }
