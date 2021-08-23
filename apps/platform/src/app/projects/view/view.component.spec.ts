@@ -19,7 +19,7 @@ describe('ViewComponent', () => {
         MatCarouselModule.forRoot(),
         HttpClientTestingModule,
         SharedUiModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA], // Fopr so
     }).compileComponents();

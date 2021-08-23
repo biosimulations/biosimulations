@@ -56,10 +56,18 @@ export class ViewComponent implements OnInit {
     );
     this.sources = this.metadata?.pipe(map((metadata) => metadata?.sources));
     this.created = this.metadata?.pipe(
-      map((metadata) => metadata?.created?.toLocaleString ? metadata?.created.toLocaleString() : JSON.stringify(metadata?.created)),
+      map((metadata) =>
+        metadata?.created?.toLocaleString
+          ? metadata?.created.toLocaleString()
+          : JSON.stringify(metadata?.created),
+      ),
     );
     this.modified = this.metadata?.pipe(
-      map((metadata) => metadata?.modified?.map((date) => date.toLocaleString? date.toLocaleString() : JSON.stringify(date))),
+      map((metadata) =>
+        metadata?.modified?.map((date) =>
+          date.toLocaleString ? date.toLocaleString() : JSON.stringify(date),
+        ),
+      ),
     );
     this.description = this.metadata?.pipe(
       map((metadata) => metadata?.description),

@@ -10,7 +10,6 @@ import {
 } from '@biosimulations/datamodel/common';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 
-
 @Schema({
   _id: false,
   storeSubdocValidationError: false,
@@ -26,8 +25,6 @@ export class LabeledIdentifierModel implements LabeledIdentifier {
 const LabeledIdentifierSchema = SchemaFactory.createForClass(
   LabeledIdentifierModel,
 );
-
-
 
 @Schema({
   _id: false,
@@ -51,7 +48,6 @@ export class DescribedIdentifierModel
 const DescribedIdentifierSchema = SchemaFactory.createForClass(
   DescribedIdentifierModel,
 );
-
 
 @Schema({
   _id: false,
@@ -117,26 +113,31 @@ export class MetadataModel implements ArchiveMetadata {
   @Prop({ type: [DescribedIdentifierSchema] })
   other: DescribedIdentifier[] = [];
 
-  @Prop({type:[String], required:true})
+  @Prop({ type: [String], required: true })
   modified!: string[];
 
-  @Prop({type: String, required: true})
+  @Prop({ type: String, required: true })
   created!: string;
 }
 
-
-export const MetadataModelSchema =
-  SchemaFactory.createForClass(MetadataModel);
+export const MetadataModelSchema = SchemaFactory.createForClass(MetadataModel);
 MetadataModelSchema.set('strict', 'throw');
-
 
 @Schema({ collection: 'Metadata' })
 export class SimulationRunMetadataModel extends Document {
-  @Prop({ type: Types.ObjectId,ref: SimulationRunModel.name, required: true, unique: true, index: true, validate: ObjectIdValidator, immutable: true })
-    public simulationRun!: string;
+  @Prop({
+    type: Types.ObjectId,
+    ref: SimulationRunModel.name,
+    required: true,
+    unique: true,
+    index: true,
+    validate: ObjectIdValidator,
+    immutable: true,
+  })
+  public simulationRun!: string;
   @Prop({ type: [MetadataModelSchema], minimize: false, required: false })
   public metadata!: [MetadataModel];
-  
+
   public created!: string;
   public updated!: string;
 }

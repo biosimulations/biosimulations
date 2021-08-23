@@ -14,24 +14,22 @@ export class MetadataService {
     @InjectModel(SimulationRunModel.name)
     private simulationModel: Model<SimulationRunModel>,
   ) {}
-  public async  getAllMetadata() {
+  public async getAllMetadata() {
     const metadta = await this.metadataModel.find({}).exec();
 
-    
     return metadta;
   }
 
-  public async  getMetadata(id: string) {
+  public async getMetadata(id: string) {
     const metadata = await this.metadataModel
       .findOne({ simulationRun: id }, { id: 0, __v: 0 })
       .lean()
       .exec();
-    
 
     return metadata;
   }
 
-  public async  createMetadata(data: any) {
+  public async createMetadata(data: any) {
     const metadata = new this.metadataModel(data);
     const sim = await this.simulationModel.findById(data.simulationRun);
     if (!sim) {

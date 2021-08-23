@@ -89,7 +89,6 @@ export class SimulationRunController {
     description:
       'Returns an array of all the simulation run objects in the database',
   })
-  
   @ApiOkResponse({ description: 'OK', type: [SimulationRun] })
   @permissions('read:SimulationRuns')
   @Get()

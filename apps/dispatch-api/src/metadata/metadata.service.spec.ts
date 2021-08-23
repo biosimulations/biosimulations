@@ -4,8 +4,7 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { SimulationRunMetadataModel } from './metadata.model';
 import { MetadataService } from './metadata.service';
 
-
-class MockModel { }
+class MockModel {}
 describe('MetadataService', () => {
   let service: MetadataService;
 
