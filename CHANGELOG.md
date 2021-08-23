@@ -1,3 +1,15 @@
+# [3.12.0](https://github.com/biosimulations/Biosimulations/compare/v3.11.0...v3.12.0) (2021-08-23)
+
+
+### Bug Fixes
+
+* **dispatch-api:** fields paramter is optional ([c3863e3](https://github.com/biosimulations/Biosimulations/commit/c3863e3c92709fb094ea6a9712aacbe59cdd412b))
+
+
+### Features
+
+* **dispatch-api:** implement metadata endpoints ([9d067e9](https://github.com/biosimulations/Biosimulations/commit/9d067e983cd625a8d706bc1cb3cfa2033bdabf62))
+
 # [3.11.0](https://github.com/biosimulations/Biosimulations/compare/v3.10.0...v3.11.0) (2021-08-22)
 
 
