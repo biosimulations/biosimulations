@@ -27,16 +27,18 @@ export class AuthClientService {
   public async getToken(
     audience = this.api_audience,
   ): Promise<string | undefined> {
-    this.logger.debug(
-      `Getting auth token for audience ${audience} for client ${this.client_id}`,
-    );
-
     // If we have a token cached and its not expired send it. Also check that it is for same audience
     if (this.token) {
       if (isTokenCurrent(this.token) && hasAudience(this.token, audience)) {
+        this.logger.debug(
+          `Using cached token for audience ${audience} for client ${this.client_id}`,
+        );
         return this.token;
       }
     }
+    this.logger.debug(
+      `Getting auth token for audience ${audience} for client ${this.client_id}`,
+    );
 
     const newTok = await this.getTokenHTTP(audience).toPromise();
     this.token = newTok;
