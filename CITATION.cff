@@ -26,7 +26,28 @@ authors:
     family-names: Marupilla
     given-names: Gnaneswara
 cff-version: '1.1.0'
+keywords:
+  - simulation
+  - biology
+  - modeling
+  - standards
+  - vega
+  - reproducibility
+  - sbml
+  - sedml
+  - biochemical-networks
+  - biosimulations
 doi: '10.5281/zenodo.5057108'
+identifiers:
+  - type: url
+    description: The repository for the software
+    value: https://identifiers.org/github/biosimulations/biosimulations
+  - type: url
+    description: The Zenodo entry for the software
+    value: https://identifiers.org/doi/10.5281/zenodo.5057108
+  - type: doi
+    value: 10.5281/zenodo.5057108
+    description: The concept DOI of the work.
 license: MIT
 message: 'If you use this software, please cite it using these metadata.'
 repository-code: 'https://github.com/biosimulations/Biosimulations'
