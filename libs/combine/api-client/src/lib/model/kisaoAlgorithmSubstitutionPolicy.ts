@@ -17,7 +17,7 @@ export interface KisaoAlgorithmSubstitutionPolicy {
   /**
    * Id of the policy
    */
-  id: KisaoAlgorithmSubstitutionPolicy.IdEnum;
+  id: KisaoAlgorithmSubstitutionPolicyId;
   /**
    * Level of the policy (0: most restrictive to 9: least restrictive)
    */
@@ -25,62 +25,36 @@ export interface KisaoAlgorithmSubstitutionPolicy {
   /**
    * Name of the policy
    */
-  name: KisaoAlgorithmSubstitutionPolicy.NameEnum;
+  name: KisaoAlgorithmSubstitutionPolicyName;
   /**
    * Type
    */
-  _type: KisaoAlgorithmSubstitutionPolicy.TypeEnum;
+  _type: KisaoAlgorithmSubstitutionPolicyType;
 }
-export namespace KisaoAlgorithmSubstitutionPolicy {
-  export type IdEnum =
-    | 'NONE'
-    | 'SAME_METHOD'
-    | 'SAME_MATH'
-    | 'SIMILAR_APPROXIMATIONS'
-    | 'DISTINCT_APPROXIMATIONS'
-    | 'DISTINCT_SCALES'
-    | 'SAME_VARIABLES'
-    | 'SIMILAR_VARIABLES'
-    | 'SAME_FRAMEWORK'
-    | 'ANY';
-  export const IdEnum = {
-    None: 'NONE' as IdEnum,
-    SameMethod: 'SAME_METHOD' as IdEnum,
-    SameMath: 'SAME_MATH' as IdEnum,
-    SimilarApproximations: 'SIMILAR_APPROXIMATIONS' as IdEnum,
-    DistinctApproximations: 'DISTINCT_APPROXIMATIONS' as IdEnum,
-    DistinctScales: 'DISTINCT_SCALES' as IdEnum,
-    SameVariables: 'SAME_VARIABLES' as IdEnum,
-    SimilarVariables: 'SIMILAR_VARIABLES' as IdEnum,
-    SameFramework: 'SAME_FRAMEWORK' as IdEnum,
-    Any: 'ANY' as IdEnum,
-  };
-  export type NameEnum =
-    | 'None'
-    | 'Same method'
-    | 'Same math'
-    | 'Similar approximations'
-    | 'Distinct approximations'
-    | 'Distinct scales'
-    | 'Same variables'
-    | 'Similar variables'
-    | 'Same framework'
-    | 'Any';
-  export const NameEnum = {
-    None: 'None' as NameEnum,
-    SameMethod: 'Same method' as NameEnum,
-    SameMath: 'Same math' as NameEnum,
-    SimilarApproximations: 'Similar approximations' as NameEnum,
-    DistinctApproximations: 'Distinct approximations' as NameEnum,
-    DistinctScales: 'Distinct scales' as NameEnum,
-    SameVariables: 'Same variables' as NameEnum,
-    SimilarVariables: 'Similar variables' as NameEnum,
-    SameFramework: 'Same framework' as NameEnum,
-    Any: 'Any' as NameEnum,
-  };
-  export type TypeEnum = 'KisaoAlgorithmSubstitutionPolicy';
-  export const TypeEnum = {
-    KisaoAlgorithmSubstitutionPolicy:
-      'KisaoAlgorithmSubstitutionPolicy' as TypeEnum,
-  };
+export enum KisaoAlgorithmSubstitutionPolicyId {
+  None = 'NONE',
+  SameMethod = 'SAME_METHOD',
+  SameMath = 'SAME_MATH',
+  SimilarApproximations = 'SIMILAR_APPROXIMATIONS',
+  DistinctApproximations = 'DISTINCT_APPROXIMATIONS',
+  DistinctScales = 'DISTINCT_SCALES',
+  SameVariables = 'SAME_VARIABLES',
+  SimilarVariables = 'SIMILAR_VARIABLES',
+  SameFramework = 'SAME_FRAMEWORK',
+  Any = 'ANY',
+}
+export enum KisaoAlgorithmSubstitutionPolicyName {
+  None = 'None',
+  SameMethod = 'Same method',
+  SameMath = 'Same math',
+  SimilarApproximations = 'Similar approximations',
+  DistinctApproximations = 'Distinct approximations',
+  DistinctScales = 'Distinct scales',
+  SameVariables = 'Same variables',
+  SimilarVariables = 'Similar variables',
+  SameFramework = 'Same framework',
+  Any = 'Any',
+}
+export enum KisaoAlgorithmSubstitutionPolicyType {
+  KisaoAlgorithmSubstitutionPolicy = 'KisaoAlgorithmSubstitutionPolicy',
 }

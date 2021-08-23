@@ -22,7 +22,7 @@ export interface SedOneStepSimulation {
   /**
    * Type of the simulation.
    */
-  _type: SedOneStepSimulation.TypeEnum;
+  _type: SedOneStepSimulationType;
   /**
    * Brief description.
    */
@@ -33,9 +33,6 @@ export interface SedOneStepSimulation {
   step?: number;
   algorithm: SedAlgorithm;
 }
-export namespace SedOneStepSimulation {
-  export type TypeEnum = 'SedOneStepSimulation';
-  export const TypeEnum = {
-    SedOneStepSimulation: 'SedOneStepSimulation' as TypeEnum,
-  };
+export enum SedOneStepSimulationType {
+  SedOneStepSimulation = 'SedOneStepSimulation',
 }

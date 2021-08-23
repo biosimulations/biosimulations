@@ -18,14 +18,11 @@ export interface RdfTriple {
   /**
    * Type
    */
-  _type: RdfTriple.TypeEnum;
+  _type: RdfTripleType;
   subject: RdfNode;
   predictate: RdfNode;
   object: RdfNode;
 }
-export namespace RdfTriple {
-  export type TypeEnum = 'RdfTriple';
-  export const TypeEnum = {
-    RdfTriple: 'RdfTriple' as TypeEnum,
-  };
+export enum RdfTripleType {
+  RdfTriple = 'RdfTriple',
 }

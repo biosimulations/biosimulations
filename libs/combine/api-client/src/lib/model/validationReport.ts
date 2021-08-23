@@ -22,7 +22,7 @@ export interface ValidationReport {
   /**
    * Overall status of the archive.
    */
-  status: ValidationReport.StatusEnum;
+  status: ValidationReportStatus;
   /**
    * Warnings for the archive.
    */
@@ -30,17 +30,13 @@ export interface ValidationReport {
   /**
    * Type
    */
-  _type: ValidationReport.TypeEnum;
+  _type: ValidationReportType;
 }
-export namespace ValidationReport {
-  export type StatusEnum = 'valid' | 'invalid' | 'warnings';
-  export const StatusEnum = {
-    Valid: 'valid' as StatusEnum,
-    Invalid: 'invalid' as StatusEnum,
-    Warnings: 'warnings' as StatusEnum,
-  };
-  export type TypeEnum = 'ValidationReport';
-  export const TypeEnum = {
-    ValidationReport: 'ValidationReport' as TypeEnum,
-  };
+export enum ValidationReportStatus {
+  Valid = 'valid',
+  Invalid = 'invalid',
+  Warnings = 'warnings',
+}
+export enum ValidationReportType {
+  ValidationReport = 'ValidationReport',
 }

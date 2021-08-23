@@ -21,15 +21,12 @@ export interface ValidationMessage {
   /**
    * Type.
    */
-  _type: ValidationMessage.TypeEnum;
+  _type: ValidationMessageType;
   /**
    * Information about validity or lack thereof.
    */
   summary: string;
 }
-export namespace ValidationMessage {
-  export type TypeEnum = 'ValidationMessage';
-  export const TypeEnum = {
-    ValidationMessage: 'ValidationMessage' as TypeEnum,
-  };
+export enum ValidationMessageType {
+  ValidationMessage = 'ValidationMessage',
 }

@@ -26,12 +26,9 @@ export interface SedSteadyStateSimulation {
   /**
    * Type of the simulation.
    */
-  _type: SedSteadyStateSimulation.TypeEnum;
+  _type: SedSteadyStateSimulationType;
   algorithm: SedAlgorithm;
 }
-export namespace SedSteadyStateSimulation {
-  export type TypeEnum = 'SedSteadyStateSimulation';
-  export const TypeEnum = {
-    SedSteadyStateSimulation: 'SedSteadyStateSimulation' as TypeEnum,
-  };
+export enum SedSteadyStateSimulationType {
+  SedSteadyStateSimulation = 'SedSteadyStateSimulation',
 }

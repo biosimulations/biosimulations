@@ -33,11 +33,8 @@ export interface SedPlot2D {
   /**
    * Type of the plot.
    */
-  _type: SedPlot2D.TypeEnum;
+  _type: SedPlot2DType;
 }
-export namespace SedPlot2D {
-  export type TypeEnum = 'SedPlot2D';
-  export const TypeEnum = {
-    SedPlot2D: 'SedPlot2D' as TypeEnum,
-  };
+export enum SedPlot2DType {
+  SedPlot2D = 'SedPlot2D',
 }

@@ -18,7 +18,7 @@ export interface SedTarget {
   /**
    * Type.
    */
-  _type: SedTarget.TypeEnum;
+  _type: SedTargetType;
   /**
    * Value.
    */
@@ -28,9 +28,6 @@ export interface SedTarget {
    */
   namespaces?: Array<Namespace>;
 }
-export namespace SedTarget {
-  export type TypeEnum = 'SedTarget';
-  export const TypeEnum = {
-    SedTarget: 'SedTarget' as TypeEnum,
-  };
+export enum SedTargetType {
+  SedTarget = 'SedTarget',
 }

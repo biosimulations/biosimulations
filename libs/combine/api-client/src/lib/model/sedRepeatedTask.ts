@@ -25,11 +25,8 @@ export interface SedRepeatedTask {
   /**
    * Type.
    */
-  _type: SedRepeatedTask.TypeEnum;
+  _type: SedRepeatedTaskType;
 }
-export namespace SedRepeatedTask {
-  export type TypeEnum = 'SedRepeatedTask';
-  export const TypeEnum = {
-    SedRepeatedTask: 'SedRepeatedTask' as TypeEnum,
-  };
+export enum SedRepeatedTaskType {
+  SedRepeatedTask = 'SedRepeatedTask',
 }

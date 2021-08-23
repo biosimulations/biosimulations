@@ -33,11 +33,8 @@ export interface SedVariable {
   /**
    * Type.
    */
-  _type: SedVariable.TypeEnum;
+  _type: SedVariableType;
 }
-export namespace SedVariable {
-  export type TypeEnum = 'SedVariable';
-  export const TypeEnum = {
-    SedVariable: 'SedVariable' as TypeEnum,
-  };
+export enum SedVariableType {
+  SedVariable = 'SedVariable',
 }

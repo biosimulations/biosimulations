@@ -17,15 +17,12 @@ export interface CombineArchiveContentFile {
   /**
    * Type.
    */
-  _type: CombineArchiveContentFile.TypeEnum;
+  _type: CombineArchiveContentFileType;
   /**
    * Location where the file should be placed inside the COMBINE/OMEX archive
    */
   filename: string;
 }
-export namespace CombineArchiveContentFile {
-  export type TypeEnum = 'CombineArchiveContentFile';
-  export const TypeEnum = {
-    CombineArchiveContentFile: 'CombineArchiveContentFile' as TypeEnum,
-  };
+export enum CombineArchiveContentFileType {
+  CombineArchiveContentFile = 'CombineArchiveContentFile',
 }

@@ -19,7 +19,7 @@ export interface BioSimulationsCombineArchiveElementMetadata {
   /**
    * Type
    */
-  _type: BioSimulationsCombineArchiveElementMetadata.TypeEnum;
+  _type: BioSimulationsCombineArchiveElementMetadataType;
   /**
    * Title
    */
@@ -102,10 +102,6 @@ export interface BioSimulationsCombineArchiveElementMetadata {
    */
   uri: string;
 }
-export namespace BioSimulationsCombineArchiveElementMetadata {
-  export type TypeEnum = 'BioSimulationsCombineArchiveElementMetadata';
-  export const TypeEnum = {
-    BioSimulationsCombineArchiveElementMetadata:
-      'BioSimulationsCombineArchiveElementMetadata' as TypeEnum,
-  };
+export enum BioSimulationsCombineArchiveElementMetadataType {
+  BioSimulationsCombineArchiveElementMetadata = 'BioSimulationsCombineArchiveElementMetadata',
 }

@@ -29,11 +29,8 @@ export interface SedSurface {
   /**
    * Type.
    */
-  _type: SedSurface.TypeEnum;
+  _type: SedSurfaceType;
 }
-export namespace SedSurface {
-  export type TypeEnum = 'SedSurface';
-  export const TypeEnum = {
-    SedSurface: 'SedSurface' as TypeEnum,
-  };
+export enum SedSurfaceType {
+  SedSurface = 'SedSurface',
 }

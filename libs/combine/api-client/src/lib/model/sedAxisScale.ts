@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-export type SedAxisScale = 'log' | 'linear';
-
-export const SedAxisScale = {
-  Log: 'log' as SedAxisScale,
-  Linear: 'linear' as SedAxisScale,
-};
+export enum SedAxisScale {
+  Log = 'log',
+  Linear = 'linear',
+}

@@ -16,13 +16,15 @@ import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { BioSimulationsCombineArchiveElementMetadata } from '../model/bioSimulationsCombineArchiveElementMetadata';
 import { CombineArchive } from '../model/combineArchive';
+import { CombineArchiveFileContent } from '../model/combineArchiveFileContent';
+import { FilenameOrUrl } from '../model/filenameOrUrl';
 import { RdfTriple } from '../model/rdfTriple';
 import { ValidationReport } from '../model/validationReport';
 import { Configuration } from '../configuration';
 
 @Injectable()
 export class COMBINEService {
-  protected basePath = 'http://combine.api.biosimulations.dev';
+  protected basePath = 'https://combine.api.biosimulations.dev';
   public defaultHeaders = new Map();
   public configuration = new Configuration();
 
@@ -43,6 +45,108 @@ export class COMBINEService {
     return consumes.includes(form);
   }
 
+  /**
+   * Add content items to a COMBINE/OMEX archive
+   * Add content items to a COMBINE/OMEX archive.
+   * @param archive
+   * @param files Files to add to the COMBINE/OMEX archive and, optionally, the archive.
+   * @param newContent
+   * @param overwriteLocations Whether to overwrite the location if it already exists, or to add the content at an alternative location (indicated location plus a unique integer).  Default: true
+   * @param download Whether to download the modified COMBINE/OMEX archive or return a URL where it can be retrieved.  Default: false
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public srcHandlersCombineAddFileHandler(
+    archive: FilenameOrUrl,
+    files: Array<Blob>,
+    newContent: CombineArchiveFileContent,
+    overwriteLocations?: boolean,
+    download?: boolean,
+  ): Observable<AxiosResponse<Blob>>;
+  public srcHandlersCombineAddFileHandler(
+    archive: FilenameOrUrl,
+    files: Array<Blob>,
+    newContent: CombineArchiveFileContent,
+    overwriteLocations?: boolean,
+    download?: boolean,
+  ): Observable<any> {
+    if (archive === null || archive === undefined) {
+      throw new Error(
+        'Required parameter archive was null or undefined when calling srcHandlersCombineAddFileHandler.',
+      );
+    }
+
+    if (files === null || files === undefined) {
+      throw new Error(
+        'Required parameter files was null or undefined when calling srcHandlersCombineAddFileHandler.',
+      );
+    }
+
+    if (newContent === null || newContent === undefined) {
+      throw new Error(
+        'Required parameter newContent was null or undefined when calling srcHandlersCombineAddFileHandler.',
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/zip', 'application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers['Accept'] = httpHeaderAcceptSelected;
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['multipart/form-data'];
+
+    const canConsumeForm = this.canConsumeForm(consumes);
+
+    let formParams: { append(param: string, value: any): void } =
+      new FormData();
+    let useForm = false;
+    let convertFormParamsToString = false;
+
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    useForm = canConsumeForm;
+    if (useForm) {
+      formParams = new FormData();
+    } else {
+      // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    }
+
+    if (archive !== undefined) {
+      formParams.append('archive', <any>archive);
+    }
+
+    if (overwriteLocations !== undefined) {
+      formParams.append('overwriteLocations', <any>overwriteLocations);
+    }
+
+    if (download !== undefined) {
+      formParams.append('download', <any>download);
+    }
+
+    if (files !== undefined) {
+      formParams.append('files', <any>files);
+    }
+
+    if (newContent !== undefined) {
+      formParams.append('newContent', <any>newContent);
+    }
+
+    return this.httpClient.post(
+      `${this.basePath}/combine/file`,
+      convertFormParamsToString ? formParams.toString() : formParams,
+      {
+        responseType: 'blob',
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+      },
+    );
+  }
   /**
    * Assemble a COMBINE/OMEX archive from model files and specifications of a SED-ML document.
    * Assemble a COMBINE/OMEX archive from model files and specifications of a SED-ML document.
@@ -83,9 +187,8 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: {
-      append(param: string, value: any): void;
-    } = new FormData();
+    let formParams: { append(param: string, value: any): void } =
+      new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -178,6 +281,68 @@ export class COMBINEService {
     });
   }
   /**
+   * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+   * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+   * @param file The two files uploaded in creating a combine archive
+   * @param url URL
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public srcHandlersCombineGetManifestHandler(
+    file?: Blob,
+    url?: string,
+  ): Observable<AxiosResponse<CombineArchive>>;
+  public srcHandlersCombineGetManifestHandler(
+    file?: Blob,
+    url?: string,
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers['Accept'] = httpHeaderAcceptSelected;
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['multipart/form-data'];
+
+    const canConsumeForm = this.canConsumeForm(consumes);
+
+    let formParams: { append(param: string, value: any): void } =
+      new FormData();
+    let useForm = false;
+    let convertFormParamsToString = false;
+
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    useForm = canConsumeForm;
+    if (useForm) {
+      formParams = new FormData();
+    } else {
+      // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    }
+
+    if (file !== undefined) {
+      formParams.append('file', <any>file);
+    }
+
+    if (url !== undefined) {
+      formParams.append('url', <any>url);
+    }
+
+    return this.httpClient.post<CombineArchive>(
+      `${this.basePath}/combine/manifest`,
+      convertFormParamsToString ? formParams.toString() : formParams,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+      },
+    );
+  }
+  /**
    * Get the metadata about a COMBINE/OMEX archive
    * Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata files in the archive encoded in BioSimulations\&#39; schema.
    * @param file The two files uploaded in creating a combine archive
@@ -210,9 +375,8 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: {
-      append(param: string, value: any): void;
-    } = new FormData();
+    let formParams: { append(param: string, value: any): void } =
+      new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -275,9 +439,8 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: {
-      append(param: string, value: any): void;
-    } = new FormData();
+    let formParams: { append(param: string, value: any): void } =
+      new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -338,9 +501,8 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: {
-      append(param: string, value: any): void;
-    } = new FormData();
+    let formParams: { append(param: string, value: any): void } =
+      new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -401,9 +563,8 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: {
-      append(param: string, value: any): void;
-    } = new FormData();
+    let formParams: { append(param: string, value: any): void } =
+      new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 

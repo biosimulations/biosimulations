@@ -17,15 +17,12 @@ export interface RdfBlankNode {
   /**
    * Type
    */
-  _type: RdfBlankNode.TypeEnum;
+  _type: RdfBlankNodeType;
   /**
    * Value
    */
   value: string;
 }
-export namespace RdfBlankNode {
-  export type TypeEnum = 'RdfBlankNode';
-  export const TypeEnum = {
-    RdfBlankNode: 'RdfBlankNode' as TypeEnum,
-  };
+export enum RdfBlankNodeType {
+  RdfBlankNode = 'RdfBlankNode',
 }

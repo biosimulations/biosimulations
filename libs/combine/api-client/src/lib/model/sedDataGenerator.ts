@@ -38,11 +38,8 @@ export interface SedDataGenerator {
   /**
    * Type.
    */
-  _type: SedDataGenerator.TypeEnum;
+  _type: SedDataGeneratorType;
 }
-export namespace SedDataGenerator {
-  export type TypeEnum = 'SedDataGenerator';
-  export const TypeEnum = {
-    SedDataGenerator: 'SedDataGenerator' as TypeEnum,
-  };
+export enum SedDataGeneratorType {
+  SedDataGenerator = 'SedDataGenerator',
 }

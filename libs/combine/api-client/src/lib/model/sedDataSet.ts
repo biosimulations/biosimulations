@@ -31,11 +31,8 @@ export interface SedDataSet {
   /**
    * Type.
    */
-  _type: SedDataSet.TypeEnum;
+  _type: SedDataSetType;
 }
-export namespace SedDataSet {
-  export type TypeEnum = 'SedDataSet';
-  export const TypeEnum = {
-    SedDataSet: 'SedDataSet' as TypeEnum,
-  };
+export enum SedDataSetType {
+  SedDataSet = 'SedDataSet',
 }

@@ -25,11 +25,8 @@ export interface Namespace {
   /**
    * Type.
    */
-  _type: Namespace.TypeEnum;
+  _type: NamespaceType;
 }
-export namespace Namespace {
-  export type TypeEnum = 'Namespace';
-  export const TypeEnum = {
-    Namespace: 'Namespace' as TypeEnum,
-  };
+export enum NamespaceType {
+  Namespace = 'Namespace',
 }

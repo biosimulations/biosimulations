@@ -18,7 +18,7 @@ export interface SedModelAttributeChange {
   /**
    * Type.
    */
-  _type: SedModelAttributeChange.TypeEnum;
+  _type: SedModelAttributeChangeType;
   /**
    * New value.
    */
@@ -33,9 +33,6 @@ export interface SedModelAttributeChange {
    */
   name?: string;
 }
-export namespace SedModelAttributeChange {
-  export type TypeEnum = 'SedModelAttributeChange';
-  export const TypeEnum = {
-    SedModelAttributeChange: 'SedModelAttributeChange' as TypeEnum,
-  };
+export enum SedModelAttributeChangeType {
+  SedModelAttributeChange = 'SedModelAttributeChange',
 }

@@ -17,7 +17,7 @@ export interface BioSimulationsMetadataValue {
   /**
    * Type
    */
-  _type: BioSimulationsMetadataValue.TypeEnum;
+  _type: BioSimulationsMetadataValueType;
   /**
    * Uniform Resource Identifier (URI)
    */
@@ -27,9 +27,6 @@ export interface BioSimulationsMetadataValue {
    */
   label?: string;
 }
-export namespace BioSimulationsMetadataValue {
-  export type TypeEnum = 'BioSimulationsMetadataValue';
-  export const TypeEnum = {
-    BioSimulationsMetadataValue: 'BioSimulationsMetadataValue' as TypeEnum,
-  };
+export enum BioSimulationsMetadataValueType {
+  BioSimulationsMetadataValue = 'BioSimulationsMetadataValue',
 }

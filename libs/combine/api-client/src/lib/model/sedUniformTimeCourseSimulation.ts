@@ -26,7 +26,7 @@ export interface SedUniformTimeCourseSimulation {
   /**
    * Type of the simulation.
    */
-  _type: SedUniformTimeCourseSimulation.TypeEnum;
+  _type: SedUniformTimeCourseSimulationType;
   /**
    * Initial time.
    */
@@ -45,10 +45,6 @@ export interface SedUniformTimeCourseSimulation {
   numberOfSteps: number;
   algorithm: SedAlgorithm;
 }
-export namespace SedUniformTimeCourseSimulation {
-  export type TypeEnum = 'SedUniformTimeCourseSimulation';
-  export const TypeEnum = {
-    SedUniformTimeCourseSimulation:
-      'SedUniformTimeCourseSimulation' as TypeEnum,
-  };
+export enum SedUniformTimeCourseSimulationType {
+  SedUniformTimeCourseSimulation = 'SedUniformTimeCourseSimulation',
 }

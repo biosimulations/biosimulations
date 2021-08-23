@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ValidationReport } from './validationReport';
 
 /**
  * Error.
@@ -30,4 +31,5 @@ export interface ModelError {
    * Description.
    */
   detail: string;
+  validationReport?: ValidationReport;
 }

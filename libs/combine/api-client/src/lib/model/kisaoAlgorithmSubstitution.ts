@@ -20,15 +20,12 @@ export interface KisaoAlgorithmSubstitution {
   /**
    * Type
    */
-  _type: KisaoAlgorithmSubstitution.TypeEnum;
+  _type: KisaoAlgorithmSubstitutionType;
   /**
    * Pair of algorithms that can be substituted (up to a degree of similarity).
    */
   algorithms: Array<KisaoTerm>;
 }
-export namespace KisaoAlgorithmSubstitution {
-  export type TypeEnum = 'KisaoAlgorithmSubstitution';
-  export const TypeEnum = {
-    KisaoAlgorithmSubstitution: 'KisaoAlgorithmSubstitution' as TypeEnum,
-  };
+export enum KisaoAlgorithmSubstitutionType {
+  KisaoAlgorithmSubstitution = 'KisaoAlgorithmSubstitution',
 }

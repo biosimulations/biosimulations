@@ -17,7 +17,7 @@ export interface KisaoTerm {
   /**
    * Type
    */
-  _type: KisaoTerm.TypeEnum;
+  _type: KisaoTermType;
   /**
    * Id of the term
    */
@@ -27,9 +27,6 @@ export interface KisaoTerm {
    */
   name: string;
 }
-export namespace KisaoTerm {
-  export type TypeEnum = 'KisaoTerm';
-  export const TypeEnum = {
-    KisaoTerm: 'KisaoTerm' as TypeEnum,
-  };
+export enum KisaoTermType {
+  KisaoTerm = 'KisaoTerm',
 }

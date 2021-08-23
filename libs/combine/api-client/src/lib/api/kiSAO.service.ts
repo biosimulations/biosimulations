@@ -19,7 +19,7 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class KiSAOService {
-  protected basePath = 'http://combine.api.biosimulations.dev';
+  protected basePath = 'https://combine.api.biosimulations.dev';
   public defaultHeaders = new Map();
   public configuration = new Configuration();
 

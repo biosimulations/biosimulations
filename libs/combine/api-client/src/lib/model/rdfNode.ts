@@ -20,15 +20,12 @@ export interface RdfNode {
   /**
    * Type
    */
-  _type: RdfNode.TypeEnum;
+  _type: RdfNodeType;
   /**
    * Uniform Resource Identifier (URI)
    */
   value: string;
 }
-export namespace RdfNode {
-  export type TypeEnum = 'RdfUriNode';
-  export const TypeEnum = {
-    RdfUriNode: 'RdfUriNode' as TypeEnum,
-  };
+export enum RdfNodeType {
+  RdfUriNode = 'RdfUriNode',
 }

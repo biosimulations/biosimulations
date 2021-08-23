@@ -28,11 +28,8 @@ export interface SedCurve {
   /**
    * Type.
    */
-  _type: SedCurve.TypeEnum;
+  _type: SedCurveType;
 }
-export namespace SedCurve {
-  export type TypeEnum = 'SedCurve';
-  export const TypeEnum = {
-    SedCurve: 'SedCurve' as TypeEnum,
-  };
+export enum SedCurveType {
+  SedCurve = 'SedCurve',
 }

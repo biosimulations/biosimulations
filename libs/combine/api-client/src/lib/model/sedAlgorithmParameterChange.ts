@@ -21,15 +21,12 @@ export interface SedAlgorithmParameterChange {
   /**
    * Type.
    */
-  _type: SedAlgorithmParameterChange.TypeEnum;
+  _type: SedAlgorithmParameterChangeType;
   /**
    * New value
    */
   newValue: string;
 }
-export namespace SedAlgorithmParameterChange {
-  export type TypeEnum = 'SedAlgorithmParameterChange';
-  export const TypeEnum = {
-    SedAlgorithmParameterChange: 'SedAlgorithmParameterChange' as TypeEnum,
-  };
+export enum SedAlgorithmParameterChangeType {
+  SedAlgorithmParameterChange = 'SedAlgorithmParameterChange',
 }

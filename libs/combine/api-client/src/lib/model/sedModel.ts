@@ -34,15 +34,12 @@ export interface SedModel {
   /**
    * Type.
    */
-  _type: SedModel.TypeEnum;
+  _type: SedModelType;
   /**
    * Changes to the model.
    */
   changes: Array<SedModelChange>;
 }
-export namespace SedModel {
-  export type TypeEnum = 'SedModel';
-  export const TypeEnum = {
-    SedModel: 'SedModel' as TypeEnum,
-  };
+export enum SedModelType {
+  SedModel = 'SedModel',
 }

@@ -23,11 +23,8 @@ export interface CombineArchiveLocation {
   /**
    * Type.
    */
-  _type: CombineArchiveLocation.TypeEnum;
+  _type: CombineArchiveLocationType;
 }
-export namespace CombineArchiveLocation {
-  export type TypeEnum = 'CombineArchiveLocation';
-  export const TypeEnum = {
-    CombineArchiveLocation: 'CombineArchiveLocation' as TypeEnum,
-  };
+export enum CombineArchiveLocationType {
+  CombineArchiveLocation = 'CombineArchiveLocation',
 }

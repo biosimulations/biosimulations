@@ -15,13 +15,10 @@ export interface BioSimulationsCustomMetadata {
   /**
    * Type
    */
-  _type: BioSimulationsCustomMetadata.TypeEnum;
+  _type: BioSimulationsCustomMetadataType;
   attribute: BioSimulationsMetadataValue;
   value: BioSimulationsMetadataValue;
 }
-export namespace BioSimulationsCustomMetadata {
-  export type TypeEnum = 'BioSimulationsCustomMetadata';
-  export const TypeEnum = {
-    BioSimulationsCustomMetadata: 'BioSimulationsCustomMetadata' as TypeEnum,
-  };
+export enum BioSimulationsCustomMetadataType {
+  BioSimulationsCustomMetadata = 'BioSimulationsCustomMetadata',
 }

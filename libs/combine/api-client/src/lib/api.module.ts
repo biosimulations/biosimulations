@@ -9,13 +9,14 @@ import { Configuration } from './configuration';
 
 import { COMBINEService } from './api/cOMBINE.service';
 import { KiSAOService } from './api/kiSAO.service';
+import { RunService } from './api/run.service';
 import { SEDMLService } from './api/sEDML.service';
 
 @Global()
 @Module({
   imports: [HttpModule],
-  exports: [COMBINEService, KiSAOService, SEDMLService],
-  providers: [COMBINEService, KiSAOService, SEDMLService],
+  exports: [COMBINEService, KiSAOService, RunService, SEDMLService],
+  providers: [COMBINEService, KiSAOService, RunService, SEDMLService],
 })
 export class ApiModule {
   public static forRoot(

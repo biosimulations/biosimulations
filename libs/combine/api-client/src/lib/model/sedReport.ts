@@ -22,7 +22,7 @@ export interface SedReport {
   /**
    * Type of the output.
    */
-  _type: SedReport.TypeEnum;
+  _type: SedReportType;
   /**
    * Brief description.
    */
@@ -32,9 +32,6 @@ export interface SedReport {
    */
   dataSets: Array<SedDataSet>;
 }
-export namespace SedReport {
-  export type TypeEnum = 'SedReport';
-  export const TypeEnum = {
-    SedReport: 'SedReport' as TypeEnum,
-  };
+export enum SedReportType {
+  SedReport = 'SedReport',
 }

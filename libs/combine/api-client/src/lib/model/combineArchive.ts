@@ -22,11 +22,8 @@ export interface CombineArchive {
   /**
    * Type.
    */
-  _type: CombineArchive.TypeEnum;
+  _type: CombineArchiveType;
 }
-export namespace CombineArchive {
-  export type TypeEnum = 'CombineArchive';
-  export const TypeEnum = {
-    CombineArchive: 'CombineArchive' as TypeEnum,
-  };
+export enum CombineArchiveType {
+  CombineArchive = 'CombineArchive',
 }

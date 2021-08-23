@@ -17,15 +17,12 @@ export interface RdfLiteralNode {
   /**
    * Type
    */
-  _type: RdfLiteralNode.TypeEnum;
+  _type: RdfLiteralNodeType;
   /**
    * Value
    */
   value: string;
 }
-export namespace RdfLiteralNode {
-  export type TypeEnum = 'RdfLiteralNode';
-  export const TypeEnum = {
-    RdfLiteralNode: 'RdfLiteralNode' as TypeEnum,
-  };
+export enum RdfLiteralNodeType {
+  RdfLiteralNode = 'RdfLiteralNode',
 }

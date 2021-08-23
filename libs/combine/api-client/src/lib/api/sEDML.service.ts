@@ -19,7 +19,7 @@ import { Configuration } from '../configuration';
 
 @Injectable()
 export class SEDMLService {
-  protected basePath = 'http://combine.api.biosimulations.dev';
+  protected basePath = 'https://combine.api.biosimulations.dev';
   public defaultHeaders = new Map();
   public configuration = new Configuration();
 
@@ -107,9 +107,8 @@ export class SEDMLService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: {
-      append(param: string, value: any): void;
-    } = new FormData();
+    let formParams: { append(param: string, value: any): void } =
+      new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 

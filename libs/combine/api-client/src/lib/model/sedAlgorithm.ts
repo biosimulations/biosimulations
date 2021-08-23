@@ -18,7 +18,7 @@ export interface SedAlgorithm {
   /**
    * Type.
    */
-  _type: SedAlgorithm.TypeEnum;
+  _type: SedAlgorithmType;
   /**
    * KiSAO id
    */
@@ -28,9 +28,6 @@ export interface SedAlgorithm {
    */
   changes: Array<SedAlgorithmParameterChange>;
 }
-export namespace SedAlgorithm {
-  export type TypeEnum = 'SedAlgorithm';
-  export const TypeEnum = {
-    SedAlgorithm: 'SedAlgorithm' as TypeEnum,
-  };
+export enum SedAlgorithmType {
+  SedAlgorithm = 'SedAlgorithm',
 }

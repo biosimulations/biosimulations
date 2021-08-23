@@ -17,15 +17,12 @@ export interface CombineArchiveContentUrl {
   /**
    * Type.
    */
-  _type: CombineArchiveContentUrl.TypeEnum;
+  _type: CombineArchiveContentUrlType;
   /**
    * URL where file should resolved from
    */
   url: string;
 }
-export namespace CombineArchiveContentUrl {
-  export type TypeEnum = 'CombineArchiveContentUrl';
-  export const TypeEnum = {
-    CombineArchiveContentUrl: 'CombineArchiveContentUrl' as TypeEnum,
-  };
+export enum CombineArchiveContentUrlType {
+  CombineArchiveContentUrl = 'CombineArchiveContentUrl',
 }

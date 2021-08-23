@@ -34,11 +34,8 @@ export interface SedPlot3D {
   /**
    * Type of the output.
    */
-  _type: SedPlot3D.TypeEnum;
+  _type: SedPlot3DType;
 }
-export namespace SedPlot3D {
-  export type TypeEnum = 'SedPlot3D';
-  export const TypeEnum = {
-    SedPlot3D: 'SedPlot3D' as TypeEnum,
-  };
+export enum SedPlot3DType {
+  SedPlot3D = 'SedPlot3D',
 }

@@ -50,11 +50,8 @@ export interface SedDocument {
   /**
    * Type.
    */
-  _type: SedDocument.TypeEnum;
+  _type: SedDocumentType;
 }
-export namespace SedDocument {
-  export type TypeEnum = 'SedDocument';
-  export const TypeEnum = {
-    SedDocument: 'SedDocument' as TypeEnum,
-  };
+export enum SedDocumentType {
+  SedDocument = 'SedDocument',
 }
