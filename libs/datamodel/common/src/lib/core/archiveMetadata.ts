@@ -1,11 +1,11 @@
 export interface LabeledIdentifier {
   uri: string | null;
-  label: string;
+  label: string | null;
 }
 
 export interface DescribedIdentifier extends LabeledIdentifier {
-  attribute_uri?: string;
-  attribute_label?: string;
+  attribute_uri?: string | null;
+  attribute_label?: string | null;
 }
 
 export interface ArchiveMetadata {
