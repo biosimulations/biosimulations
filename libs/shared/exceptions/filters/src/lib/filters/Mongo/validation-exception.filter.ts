@@ -19,7 +19,7 @@ export class ValidationExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const errors = [];
-
+    // Mongo can retun an array of errors, or a single error, so we want to include all the information for the user
     for (const key in err.errors) {
       const validatorError:
         | mongoose.Error.ValidatorError
@@ -27,8 +27,9 @@ export class ValidationExceptionFilter implements ExceptionFilter {
       //Change the "." in the path to  "/" to make a valid JSON path as per RFC 6901
       const path = ('/' + key).replace(new RegExp('\\.', 'g'), '/');
       const error = makeErrorObject(
-        HttpStatus.BAD_REQUEST,
-        validatorError.name,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        // Specify that this is a database issue
+        "Database "+validatorError.name,
         validatorError.message,
         undefined,
         undefined,
@@ -40,6 +41,13 @@ export class ValidationExceptionFilter implements ExceptionFilter {
 
     const responseError: ErrorResponseDocument = { error: errors };
     this.logger.log(responseError);
-    response.status(HttpStatus.BAD_REQUEST).json(responseError);
+    /* Return a 500 error since this is a validation error at the dataabase level
+     * It is the developers/api responsibility to make sure data sent to the database is valid
+     * If the user provides a bad input, this should be caught before trying to save to the database,
+     * in the api validation layer. That layer should return a 400 error.
+     * This is a fallback for when the api validation layer misses something, and should be corrected.
+     * */
+
+    response.status(HttpStatus.INTERNAL_SERVER_ERROR).json(responseError);
   }
 }
