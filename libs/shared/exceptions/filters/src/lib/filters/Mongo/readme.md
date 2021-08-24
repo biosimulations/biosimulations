@@ -1,0 +1,2 @@
+These filters catch errors that are thrown by the mongo database. In general, these should all be returning 500, even if they are casued by bad input from the user. This is because we want the API validation layer to catch the user errors and provide useful information to the user there. If the bad input reaches the database, then we have missed something, and its a 500 error for the purpose of logging/alerts. 
+The one exception is the key conflict error, since a 409 fits better here, and checking this at the api layer has the same effect.

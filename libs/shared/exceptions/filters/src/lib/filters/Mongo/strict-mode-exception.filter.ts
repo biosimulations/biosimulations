@@ -24,7 +24,7 @@ export class StrictModeExceptionFilter implements ExceptionFilter {
 
     const errors: ErrorObject[] = [];
     const errorObject = makeErrorObject(
-      HttpStatus.BAD_REQUEST,
+      HttpStatus.INTERNAL_SERVER_ERROR,
       'Extra Fields Error',
       'The input object contains fields that are not a part of the schema',
       undefined,
@@ -36,6 +36,6 @@ export class StrictModeExceptionFilter implements ExceptionFilter {
 
     const responseError: ErrorResponseDocument = { error: errors };
     this.logger.log(responseError);
-    response.status(HttpStatus.BAD_REQUEST).json(responseError);
+    response.status(HttpStatus.INTERNAL_SERVER_ERROR).json(responseError);
   }
 }
