@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 /* tslint:disable:no-unused-variable member-ordering */
+import FormData from 'form-data';
 
 import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
@@ -64,7 +65,7 @@ export class KiSAOService {
       queryParameters['algorithms'] = <any>algorithms;
     }
 
-    let headers = this.defaultHeaders;
+    let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
