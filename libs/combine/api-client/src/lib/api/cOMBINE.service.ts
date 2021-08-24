@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 /* tslint:disable:no-unused-variable member-ordering */
+import FormData from 'form-data';
 
 import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
@@ -88,7 +89,7 @@ export class COMBINEService {
       );
     }
 
-    let headers = this.defaultHeaders;
+    let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/zip', 'application/json'];
@@ -103,8 +104,7 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: { append(param: string, value: any): void } =
-      new FormData();
+    let formParams: FormData = new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -113,6 +113,7 @@ export class COMBINEService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -172,7 +173,7 @@ export class COMBINEService {
       );
     }
 
-    let headers = this.defaultHeaders;
+    let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json', 'application/zip'];
@@ -187,8 +188,7 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: { append(param: string, value: any): void } =
-      new FormData();
+    let formParams: FormData = new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -197,6 +197,7 @@ export class COMBINEService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -258,7 +259,7 @@ export class COMBINEService {
       queryParameters['location'] = <any>location;
     }
 
-    let headers = this.defaultHeaders;
+    let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = [
@@ -296,7 +297,7 @@ export class COMBINEService {
     file?: Blob,
     url?: string,
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -311,8 +312,7 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: { append(param: string, value: any): void } =
-      new FormData();
+    let formParams: FormData = new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -321,6 +321,7 @@ export class COMBINEService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -360,7 +361,7 @@ export class COMBINEService {
     file?: Blob,
     url?: string,
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -375,8 +376,7 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: { append(param: string, value: any): void } =
-      new FormData();
+    let formParams: FormData = new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -385,6 +385,7 @@ export class COMBINEService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -424,7 +425,7 @@ export class COMBINEService {
     file?: Blob,
     url?: string,
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -439,8 +440,7 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: { append(param: string, value: any): void } =
-      new FormData();
+    let formParams: FormData = new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -449,6 +449,7 @@ export class COMBINEService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -486,7 +487,7 @@ export class COMBINEService {
     file?: Blob,
     url?: string,
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -501,8 +502,7 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: { append(param: string, value: any): void } =
-      new FormData();
+    let formParams: FormData = new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -511,6 +511,7 @@ export class COMBINEService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -548,7 +549,7 @@ export class COMBINEService {
     file?: Blob,
     url?: string,
   ): Observable<any> {
-    let headers = this.defaultHeaders;
+    let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -563,8 +564,7 @@ export class COMBINEService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: { append(param: string, value: any): void } =
-      new FormData();
+    let formParams: FormData = new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -573,6 +573,7 @@ export class COMBINEService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }

@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 /* tslint:disable:no-unused-variable member-ordering */
+import FormData from 'form-data';
 
 import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
@@ -52,7 +53,7 @@ export class RunService {
     AxiosResponse<Array<Simulator>>
   >;
   public srcHandlersRunGetSimulatorsHandler(): Observable<any> {
-    let headers = this.defaultHeaders;
+    let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = ['application/json'];
@@ -109,7 +110,7 @@ export class RunService {
       );
     }
 
-    let headers = this.defaultHeaders;
+    let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
     let httpHeaderAccepts: string[] = [
@@ -128,8 +129,7 @@ export class RunService {
 
     const canConsumeForm = this.canConsumeForm(consumes);
 
-    let formParams: { append(param: string, value: any): void } =
-      new FormData();
+    let formParams: FormData = new FormData();
     let useForm = false;
     let convertFormParamsToString = false;
 
@@ -138,6 +138,7 @@ export class RunService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }

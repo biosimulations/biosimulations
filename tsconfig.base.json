@@ -44,6 +44,7 @@
         "libs/auth/nest/src/index.ts"
       ],
       "@biosimulations/combine-api-client": [
+        "dist/libs/combine/api-client",
         "libs/combine/api-client/src/index.ts"
       ],
       "@biosimulations/config/angular": [
