@@ -21,7 +21,9 @@ import { FailProcessor } from './submission/fail.processor';
 import { CompleteProccessor } from './submission/complete.proccessor';
 import { MonitorProcessor } from './submission/monitor.processor';
 import { SimulationStatusService } from './services/simulationStatus.service';
-
+import { MetadataProcessor } from './submission/extractMetadata.proccessor';
+import {ApiModule as CombineApiModule, Configuration as combineConfig} from '@biosimulations/combine-api-client';
+import { JobQueue } from '@biosimulations/messages/messages';
 @Module({
   imports: [
     HttpModule,
@@ -29,7 +31,9 @@ import { SimulationStatusService } from './services/simulationStatus.service';
     BiosimulationsConfigModule,
     AuthClientModule,
     SharedNatsClientModule,
+    HttpModule,
     DispatchNestClientModule,
+    CombineApiModule.forRoot(() => new combineConfig({})),
     ScheduleModule.forRoot(),
     BullModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
@@ -44,24 +48,24 @@ import { SimulationStatusService } from './services/simulationStatus.service';
     // Need to provide hash keys to allow use on cluster.
     //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
     BullModule.registerQueue({
-      name: 'dispatch',
+      name: JobQueue.dispatch,
       prefix: '{dispatch}',
     }),
     BullModule.registerQueue({
-      name: 'extractMetadata',
+      name: JobQueue.metadata,
       prefix: '{extractMetadata}',
     }),
     BullModule.registerQueue({
-      name: 'monitor',
+      name: JobQueue.monitor,
       prefix: '{monitor}',
     }),
     BullModule.registerQueue({
-      name: 'complete',
+      name: JobQueue.complete,
       prefix: '{complete}',
     }),
 
     BullModule.registerQueue({
-      name: 'fail',
+      name: JobQueue.fail,
       prefix: '{fail}',
     }),
   ],
@@ -77,6 +81,7 @@ import { SimulationStatusService } from './services/simulationStatus.service';
     FailProcessor,
     CompleteProccessor,
     MonitorProcessor,
+    MetadataProcessor,
     SimulationStatusService,
   ],
 })
