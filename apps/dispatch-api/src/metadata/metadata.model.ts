@@ -118,7 +118,7 @@ export class MetadataModel implements ArchiveMetadata {
   modified: string[] =[];
 
   @Prop({ type: String, required: false, default: undefined })
-  created: string ='';
+  created ='';
 }
 
 export const MetadataModelSchema = SchemaFactory.createForClass(MetadataModel);

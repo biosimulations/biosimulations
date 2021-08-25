@@ -1,9 +1,7 @@
 import {
   BioSimulationsCombineArchiveElementMetadata,
   BioSimulationsCustomMetadata,
-  BioSimulationsCustomMetadataType,
   BioSimulationsMetadataValue,
-  BioSimulationsMetadataValueType,
   COMBINEService,
 } from '@biosimulations/combine-api-client';
 import {
@@ -18,7 +16,6 @@ import { firstValueFrom } from 'rxjs';
 import {
   ArchiveMetadata,
   LabeledIdentifier,
-  SimulationRunMetadata,
   SimulationRunMetadataInput,
 } from '@biosimulations/datamodel/api';
 import { AxiosError } from 'axios';
