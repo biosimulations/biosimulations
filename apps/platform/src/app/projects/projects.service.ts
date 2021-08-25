@@ -19,8 +19,9 @@ export class ProjectsService {
     return metaData;
   }
   public getProject(id: string): Observable<SimulationRunMetadata> {
+    // TODO remove hardcoded url, use correct deployments
     const response = this.http
-      .get<SimulationRunMetadata>('http://localhost:3333/metadata/' + id)
+      .get<SimulationRunMetadata>('https://run.api.biosimulations.dev/metadata/ + id)
       .pipe();
 
     return response;
