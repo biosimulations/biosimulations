@@ -27,7 +27,7 @@ export interface BioSimulationsCombineArchiveElementMetadata {
   /**
    * Short summary
    */
-  _abstract: string;
+  abstract: string;
   /**
    * Keywords
    */
