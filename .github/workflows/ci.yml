@@ -98,10 +98,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: getAffectedLibrariesApps
     if: ${{ needs.getAffectedLibrariesApps.outputs.run == 'true' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        libOrApp: ${{ fromJson(needs.getAffectedLibrariesApps.outputs.libsApps) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2.3.4
@@ -120,48 +116,31 @@ jobs:
 
       # TypeScript
       - name: Install Node.js
-        if: matrix.libOrApp != 'combine-service'
         uses: actions/setup-node@v2.4.0
         with:
           node-version: lts/fermium
           cache: npm
 
       - name: Install Nrwl CLI
-        if: matrix.libOrApp != 'combine-service'
         run: npm install -g @nrwl/cli
 
       - name: Install dependencies
-        if: matrix.libOrApp != 'combine-service'
         run: npm ci
-
-      - name: Cache Angular and NX dependencies
-        if: matrix.libOrApp != 'combine-service'
-        uses: actions/cache@v2
-        with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}-${{github.sha}}
-          restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx-
-
-      - name: Lint library or app (TypeScript)
-        if: matrix.libOrApp != 'combine-service'
-        run: nx run ${{ matrix.libOrApp }}:lint
 
       # Python
       - name: Install Python
-        if: matrix.libOrApp == 'combine-service'
         uses: actions/setup-python@v2
         with:
           python-version: "3.9"
           architecture: "x64"
 
-      - name: Lint library or app (Python)
-        if: matrix.libOrApp == 'combine-service'
+      - name: Install Flake8
         run: |
           python -m pip install flake8
-          python -m flake8 apps/${{ matrix.libOrApp }}/src/
+      
+      - name: Lint
+        run: nx run affected:lint
+
 
   build:
     env:
