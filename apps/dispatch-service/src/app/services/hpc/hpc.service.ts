@@ -117,11 +117,10 @@ export class HpcService {
     ) {
       this.logger.error(`Job ${jobId} failed with response of ${finalStatus}`);
       simStatus = SimulationRunStatus.FAILED;
-    } else if(finalStatus=='State'){
-      this.logger.warn(`Job ${jobId} does not have a status yet`)
+    } else if (finalStatus == 'State') {
+      this.logger.warn(`Job ${jobId} does not have a status yet`);
       simStatus = null;
-    }
-    else {
+    } else {
       this.logger.error(
         `Job ${jobId} status failed by default with response of ${finalStatus}`,
       );

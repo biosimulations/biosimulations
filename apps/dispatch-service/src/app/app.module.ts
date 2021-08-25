@@ -22,7 +22,10 @@ import { CompleteProccessor } from './submission/complete.proccessor';
 import { MonitorProcessor } from './submission/monitor.processor';
 import { SimulationStatusService } from './services/simulationStatus.service';
 import { MetadataProcessor } from './submission/extractMetadata.proccessor';
-import {ApiModule as CombineApiModule, Configuration as combineConfig} from '@biosimulations/combine-api-client';
+import {
+  ApiModule as CombineApiModule,
+  Configuration as combineConfig,
+} from '@biosimulations/combine-api-client';
 import { JobQueue } from '@biosimulations/messages/messages';
 @Module({
   imports: [

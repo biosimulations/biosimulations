@@ -38,4 +38,3 @@ export class SimulationRunMetadataInput extends IntersectionType(
   OmitType(SimulationRunMetadata, ['metadata', 'created', 'modified'] as const),
   ArchiveMetadataContainer,
 ) {}
-

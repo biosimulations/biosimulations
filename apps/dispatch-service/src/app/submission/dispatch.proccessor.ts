@@ -1,12 +1,16 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import { DispatchJob, extractMetadataJob, JobQueue, MonitorJob } from '@biosimulations/messages/messages';
+import {
+  DispatchJob,
+  extractMetadataJob,
+  JobQueue,
+  MonitorJob,
+} from '@biosimulations/messages/messages';
 import { InjectQueue, Process, Processor } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
 import { Job, Queue } from 'bull';
 
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
-
 
 @Processor(JobQueue.dispatch)
 export class DispatchProcessor {
@@ -16,7 +20,8 @@ export class DispatchProcessor {
     private simStatusService: SimulationStatusService,
 
     @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJob>,
-    @InjectQueue(JobQueue.metadata) private metadataQueue: Queue<extractMetadataJob>,
+    @InjectQueue(JobQueue.metadata)
+    private metadataQueue: Queue<extractMetadataJob>,
   ) {}
   @Process()
   private async handleSubmission(job: Job<DispatchJob>): Promise<void> {
@@ -53,9 +58,9 @@ export class DispatchProcessor {
         slurmJobId: slurmjobId.toString(),
         simId: data.simId,
       };
-      const metadataJob: extractMetadataJob = {simId: data.simId };
+      const metadataJob: extractMetadataJob = { simId: data.simId };
       this.monitorQueue.add(monitorData);
-      this.metadataQueue.add(metadataJob)
+      this.metadataQueue.add(metadataJob);
     }
   }
 }

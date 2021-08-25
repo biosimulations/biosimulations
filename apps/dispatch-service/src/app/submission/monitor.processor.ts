@@ -27,7 +27,7 @@ export class MonitorProcessor {
   private async handleMonitoring(job: Job): Promise<void> {
     const data = job.data;
     const slurmJobId = data.slurmJobId;
-    const simId = data.simId;    
+    const simId = data.simId;
     const DELAY = 5000;
     const jobStatus: SimulationRunStatus | null =
       await this.hpcService.getJobStatus(slurmJobId);

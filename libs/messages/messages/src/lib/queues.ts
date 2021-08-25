@@ -2,14 +2,12 @@
 
 import { EnvironmentVariable } from '@biosimulations/datamodel/common';
 
-
-
-export enum JobQueue{
+export enum JobQueue {
   dispatch = 'dispatch',
   monitor = 'monitor',
   complete = 'complete',
   fail = 'fail',
-  metadata='metadata'
+  metadata = 'metadata',
 }
 export class extractMetadataJob {
   simId!: string;

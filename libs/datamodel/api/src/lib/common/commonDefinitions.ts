@@ -19,11 +19,11 @@ export class DescribedIdentifier
   @ApiProperty()
   uri!: string | null;
   @ApiProperty()
-  label!: string| null;
+  label!: string | null;
   @ApiPropertyOptional()
-  attribute_uri?: string| null;
+  attribute_uri?: string | null;
   @ApiPropertyOptional()
-  attribute_label?: string| null;
+  attribute_label?: string | null;
 }
 
 export const CREATORS = {

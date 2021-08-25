@@ -7,7 +7,10 @@ import { ConfigService } from '@nestjs/config';
 import { Account } from './account.model';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { AppService } from './app.service';
-import { AccountManagementModule, ManagementService } from '@biosimulations/account/management';
+import {
+  AccountManagementModule,
+  ManagementService,
+} from '@biosimulations/account/management';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -27,9 +30,8 @@ describe('AppController', () => {
         }),
         TypegooseModule.forFeature([Account]),
         BiosimulationsAuthModule,
-        
       ],
-      providers: [AppService, {provide: ManagementService, useValue: {}}],
+      providers: [AppService, { provide: ManagementService, useValue: {} }],
       controllers: [AppController],
     }).compile();
   });

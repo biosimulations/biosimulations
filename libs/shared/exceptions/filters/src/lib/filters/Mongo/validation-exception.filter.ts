@@ -29,7 +29,7 @@ export class ValidationExceptionFilter implements ExceptionFilter {
       const error = makeErrorObject(
         HttpStatus.INTERNAL_SERVER_ERROR,
         // Specify that this is a database issue
-        "Database "+validatorError.name,
+        'Database ' + validatorError.name,
         validatorError.message,
         undefined,
         undefined,
