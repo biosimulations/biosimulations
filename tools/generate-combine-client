@@ -4,6 +4,7 @@
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 npx @openapitools/openapi-generator-cli  generate -g typescript-nestjs -i ${script_dir}/../apps/combine-service/src/spec/spec.yml -o ${script_dir}/../libs/combine/api-client/src/lib/  --global-property=skipFormModel=false  --additional-properties=stringEnums=true,nestVersion=7.0.0,supportsES6=true
+--reserved-words-mappings abstract=abstract
 
 # Import formdata from form-data to allow use on server side
 sed -i '13s/^/import  FormData from "form-data"\n/' ${script_dir}/../libs/combine/api-client/src/lib/api/*.service.ts

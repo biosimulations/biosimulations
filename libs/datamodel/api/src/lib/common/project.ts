@@ -35,6 +35,7 @@ export class SimulationRunMetadata {
 
 // eslint-disable-next-line max-len
 export class SimulationRunMetadataInput extends IntersectionType(
-  OmitType(SimulationRunMetadata, ['metadata'] as const),
+  OmitType(SimulationRunMetadata, ['metadata', 'created', 'modified'] as const),
   ArchiveMetadataContainer,
 ) {}
+

@@ -17,7 +17,7 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
   useNestedStrict: true,
 })
 export class LabeledIdentifierModel implements LabeledIdentifier {
-  @Prop({ type: String, required: true, index: true })
+  @Prop({ type: String, required: false, index: true })
   public label!: string;
   @Prop({ type: String, required: false, index: true })
   public uri!: string | null;
@@ -54,15 +54,16 @@ const DescribedIdentifierSchema = SchemaFactory.createForClass(
   strict: 'throw',
   useNestedStrict: true,
   storeSubdocValidationError: false,
+  minimize: false,
 })
 export class MetadataModel implements ArchiveMetadata {
   @Prop({ type: String })
   uri!: string;
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: false, default: undefined })
   title?: string;
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: false, default: undefined })
   abstract?: string;
 
   @Prop({ type: [LabeledIdentifierSchema] })
@@ -71,7 +72,7 @@ export class MetadataModel implements ArchiveMetadata {
   @Prop({ type: [String], required: true })
   thumbnails: string[] = [];
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: false, default: undefined })
   description?: string;
 
   @Prop({ type: [LabeledIdentifierSchema] })
@@ -114,10 +115,10 @@ export class MetadataModel implements ArchiveMetadata {
   other: DescribedIdentifier[] = [];
 
   @Prop({ type: [String], required: true })
-  modified!: string[];
+  modified: string[] =[];
 
-  @Prop({ type: String, required: true })
-  created!: string;
+  @Prop({ type: String, required: false, default: undefined })
+  created: string ='';
 }
 
 export const MetadataModelSchema = SchemaFactory.createForClass(MetadataModel);

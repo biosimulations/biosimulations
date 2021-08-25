@@ -1,3 +1,4 @@
+import { SimulationRunMetadataInput } from '@biosimulations/datamodel/api';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -29,12 +30,13 @@ export class MetadataService {
     return metadata;
   }
 
-  public async createMetadata(data: any) {
+  public async createMetadata(data: SimulationRunMetadataInput) {
     const metadata = new this.metadataModel(data);
-    const sim = await this.simulationModel.findById(data.simulationRun);
+    const sim = await this.simulationModel.findById(data.id);
     if (!sim) {
       //throw new Error('Simulation not found');
     }
     return await metadata.save();
   }
 }
+

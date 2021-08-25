@@ -9,7 +9,7 @@ export class LabeledIdentifier implements ILabeledIdentifier {
   @ApiProperty({ oneOf: [{ type: 'string' }, { type: 'null' }] })
   uri!: string | null;
   @ApiProperty({ type: 'string' })
-  label!: string;
+  label!: string | null;
 }
 
 export class DescribedIdentifier
@@ -19,11 +19,11 @@ export class DescribedIdentifier
   @ApiProperty()
   uri!: string | null;
   @ApiProperty()
-  label!: string;
+  label!: string| null;
   @ApiPropertyOptional()
-  attribute_uri?: string;
+  attribute_uri?: string| null;
   @ApiPropertyOptional()
-  attribute_label?: string;
+  attribute_label?: string| null;
 }
 
 export const CREATORS = {

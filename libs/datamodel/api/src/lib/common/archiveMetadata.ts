@@ -81,10 +81,10 @@ export class ArchiveMetadataInput extends OmitType(ArchiveMetadata, [
 ] as const) {}
 
 export class ArchiveMetadataContainer {
-  @ApiProperty({ type: ArchiveMetadata })
-  metadata!: ArchiveMetadata;
+  @ApiProperty({ type: [ArchiveMetadata] })
+  metadata!: ArchiveMetadata[];
 }
 export class ArchiveMetadataInputContainer {
-  @ApiProperty({ type: ArchiveMetadataInput })
-  metadata!: ArchiveMetadataInput;
+  @ApiProperty({ type: [ArchiveMetadataInput] })
+  metadata!: ArchiveMetadataInput[];
 }
