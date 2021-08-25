@@ -139,7 +139,7 @@ jobs:
           python -m pip install flake8
       
       - name: Lint
-        run: nx run affected:lint
+        run: nx affected:lint
 
 
   build:
