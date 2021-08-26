@@ -458,7 +458,7 @@ jobs:
           TIMESTAMP=$(date --rfc-3339=seconds | sed 's/ /T/')
           echo "::set-output name=timestamp::$TIMESTAMP"
 
-      - if: matrix.app != 'combine-service'
+      - if: matrix.app != 'combine-service' && matrix.app != 'dispatch' && matrix.app != 'platform' && matrix.app != 'account' && matrix.app != 'simulators'
         name: Build Image
         uses: whoan/docker-build-with-cache-action@v5
         with:
