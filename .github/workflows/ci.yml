@@ -137,7 +137,7 @@ jobs:
       - name: Install Flake8
         run: |
           python -m pip install flake8
-      
+
       - name: Lint
         run: nx affected:lint
 
@@ -344,13 +344,7 @@ jobs:
               pipenv install --dev
               mv src src-ignore
               export PYTHONPATH=apps/${{ matrix.libOrApp }}
-              
-              export SKIPPED_SIMULATORS=neuron,netpyne
               /bin/bash /xvfb-startup.sh pipenv run python -m pytest --verbose --cov apps/${{ matrix.libOrApp }}/src/ --cov-report=xml apps/${{ matrix.libOrApp }}/tests/
-              
-              unset SKIPPED_SIMULATORS
-              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --verbose --cov apps/${{ matrix.libOrApp }}/src/ apps/${{ matrix.libOrApp }}/tests/run/test_run_get_simulators.py -k neuron
-              /bin/bash /xvfb-startup.sh pipenv run python -m pytest --verbose --cov apps/${{ matrix.libOrApp }}/src/ apps/${{ matrix.libOrApp }}/tests/run/test_run_get_simulators.py -k netpyne
             "
 
       - name: Validate OpenAPI specification for library or app (Python)

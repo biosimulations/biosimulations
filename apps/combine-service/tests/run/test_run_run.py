@@ -4,7 +4,6 @@ from biosimulators_utils.log.data_model import Status
 from biosimulators_utils.report.io import ReportReader
 from biosimulators_utils.sedml.io import SedmlSimulationReader
 from src import app
-from src.handlers.run.utils import get_simulator_api
 from unittest import mock
 from werkzeug.datastructures import FileStorage, MultiDict
 import json

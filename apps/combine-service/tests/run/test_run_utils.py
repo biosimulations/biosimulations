@@ -17,6 +17,10 @@ class CombineUtilsTestCase(unittest.TestCase):
         })
 
     def test_get_simulator_api(self):
+        utils.exec_in_subprocess(self._test_get_simulator_api)
+
+    @staticmethod
+    def _test_get_simulator_api():
         import biosimulators_copasi
         api = utils.get_simulator_api('biosimulators_copasi')
-        self.assertEqual(api, biosimulators_copasi)
+        assert api is biosimulators_copasi

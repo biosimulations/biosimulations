@@ -1,6 +1,6 @@
 from ...exceptions import BadRequestException
 from ...utils import get_temp_file, get_temp_dir
-from .utils import get_simulators, get_simulator_api
+from .utils import get_simulators, use_simulator_api_to_exec_sedml_docs_in_combine_archive, exec_in_subprocess
 from biosimulators_utils.config import get_config
 from biosimulators_utils.report.data_model import ReportFormat
 from biosimulators_utils.sedml.data_model import Report, Plot2D, Plot3D
@@ -133,17 +133,19 @@ def handler(body, archiveFile=None):
             instance=ValueError(),
         )
 
-    simulator_api = get_simulator_api(simulator['api']['module'])
-
     # execute the simulation
     out_dir = get_temp_dir()
+
     with mock.patch.dict('os.environ', env):
-        results, log = simulator_api.exec_sedml_docs_in_combine_archive(
-            archive_filename, out_dir,
-            return_results=return_results, report_formats=report_formats, plot_formats=viz_formats,
-            bundle_outputs=bundle_outputs, keep_individual_outputs=keep_individual_outputs,
-            raise_exceptions=False,
-        )
+        results, log = exec_in_subprocess(use_simulator_api_to_exec_sedml_docs_in_combine_archive,
+                                          simulator['api']['module'],
+                                          archive_filename, out_dir,
+                                          return_results=return_results,
+                                          report_formats=report_formats,
+                                          plot_formats=viz_formats,
+                                          bundle_outputs=bundle_outputs,
+                                          keep_individual_outputs=keep_individual_outputs,
+                                          raise_exceptions=False)
 
     # transform the results
     if return_type == 'json':
@@ -200,7 +202,7 @@ def handler(body, archiveFile=None):
         return {
             '_type': 'SimulationRunResults',
             'outputs': outputs,
-            'log': log.to_json(),
+            'log': log,
         }
 
     elif return_type == 'h5':
