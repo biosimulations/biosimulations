@@ -34,7 +34,7 @@ export class MetadataProcessor {
     // TODO Remove hardcoded URLS
     const url = `https://run.api.biosimulations.dev/runs/${id}/download`;
     //const metadataURL= 'https://run.api.biosimulations.dev/metadata/';
-    const metadataURL = 'http://localhost:3333/metadata';
+    const metadataURL = 'https://run.api.biosimulations.dev/metadata';
 
     const res = await firstValueFrom(
       this.service.srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
@@ -66,13 +66,9 @@ export class MetadataProcessor {
       .post(metadataURL, postMetadata)
       .subscribe(
         (res) => {
-          if (res.status !== 201) {
-            this.logger.error(`Failed to post metadata for ${id}`);
-          }
           if (res.status === 201) {
             this.logger.log(`Posted metadata for ${id}`);
           }
-          this.logger.debug(postedMetadata);
           job.progress(100);
         },
         (err: AxiosError) => {
