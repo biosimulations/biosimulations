@@ -37,10 +37,10 @@ jobs:
           if [[ $GITHUB_BASE_REF ]]
           then
             echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
-            echo "::set-output name=nxBase::$NXBASE"
+            echo "::set-output name=nxBase::origin/$GITHUB_BASE_REF"
           else
             echo NX_BASE=${{steps.last_successful_commit.outputs.commit_hash}} >>$GITHUB_ENV
-            echo "::set-output name=nxBase::$NXBASE"
+            echo "::set-output name=nxBase::${{steps.last_successful_commit.outputs.commit_hash}} "
           fi
 
       - name: Install dependencies
