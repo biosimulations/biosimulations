@@ -4,12 +4,18 @@ import connexion
 import os
 import tempfile
 import yaml
-
+from dotenv import dotenv_values
 spec_dirname = 'spec'
 spec_filename = 'spec.yml'
 
+config = {
+    **dotenv_values("secret/secret.env"),
+    **dotenv_values("config/config.env"),
+        }
+env= config.get("ENV")
+                
 # disable ``/run`` endpoints from production
-if os.environ.get('ENV', 'dev').lower() == 'prod':
+if env.lower() == 'prod':
     with open(os.path.join(os.path.dirname(__file__), spec_dirname, spec_filename), 'r') as file:
         specs = yaml.load(file, Loader=yaml.Loader)
 
@@ -33,7 +39,7 @@ app.add_api(spec_filename,
             validate_responses=False)
 
 # clean up temporary spec file for production
-if os.environ.get('ENV', 'dev').lower() == 'prod':
+if env.lower() == 'prod':
     os.remove(temp_spec_filename)
 
 # Validate_response = True will give error when API returns something that
