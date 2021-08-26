@@ -11,9 +11,9 @@ spec_filename = 'spec.yml'
 config = {
     **dotenv_values("secret/secret.env"),
     **dotenv_values("config/config.env"),
-        }
-env= config.get("ENV")
-                
+}
+env = config.get("ENV", 'dev') || 'dev'
+
 # disable ``/run`` endpoints from production
 if env.lower() == 'prod':
     with open(os.path.join(os.path.dirname(__file__), spec_dirname, spec_filename), 'r') as file:
