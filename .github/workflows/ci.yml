@@ -1,6 +1,8 @@
 name: Continuous Integration
 on:
   push:
+    branches: 
+      - dev
   pull_request_target:
 jobs:
   getAffectedLibrariesApps:
@@ -21,18 +23,20 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+      - name: Get last successful commit
+        uses: nrwl/last-successful-commit-action@v1
+        id: last_successful_commit
+        with:
+          branch: 'dev'
+          workflow_id: 'ci.yml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Configure base commit
         run: |
           if [[ $GITHUB_BASE_REF ]]
           then
             echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
           else
-          if [  ${{github.event.before}} == 0000000000000000000000000000000000000000 ]
-          then
-            echo NX_BASE=origin/dev >>$GITHUB_ENV
-          else
-            echo NX_BASE=${{ github.event.before }} >>$GITHUB_ENV
-          fi
+            echo NX_BASE= ${{ steps.last_successful_commit.outputs.commit_hash }} >>$GITHUB_ENV
           fi
 
       - name: Install Node.js
