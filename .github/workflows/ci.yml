@@ -35,20 +35,16 @@ jobs:
           fi
           fi
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2.4.0
-        with:
-          node-version: lts/fermium
-          cache: npm
-
-      - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli
-
       - name: Install dependencies
         run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
       - name: Install npm dependencies
-        run: npm ci
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+      
+      - name: Install Nrwl CLI
+        run: npm install -g @nrwl/cli      
 
       - id: get-affected-libs-apps
         name: Determine affected libraries and apps
@@ -115,17 +111,16 @@ jobs:
           fi
 
       # TypeScript
-      - name: Install Node.js
-        uses: actions/setup-node@v2.4.0
-        with:
-          node-version: lts/fermium
-          cache: npm
-
-      - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli
-
       - name: Install dependencies
-        run: npm ci
+        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+      
+      - name: Install Nrwl CLI
+        run: npm install -g @nrwl/cli      
 
       # Python
       - name: Install Python
@@ -172,38 +167,16 @@ jobs:
             echo NX_BASE=origin/dev >>$GITHUB_ENV
           fi
 
-      # TypeScript
-      - name: Install Node.js
-        uses: actions/setup-node@v2.4.0
-        with:
-          node-version: lts/fermium
-          cache: npm
-
-      - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-node-
-
       - name: Install dependencies
-        run: npm ci
+        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
-      - name: Cache Angular and NX dependencies
-        uses: actions/cache@v2
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
         with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}-${{github.sha}}
-          restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.app }}
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx-
-
+          useRollingCache: true
+      
+      - name: Install Nrwl CLI
+        run: npm install -g @nrwl/cli      
       # Python
       - name: Get branch name (merge)
         if: github.event_name != 'pull_request'
@@ -264,31 +237,16 @@ jobs:
 
       ############################
       ## TypeScript apps
-      - name: Install Node.js
-        if: matrix.libOrApp != 'combine-service'
-        uses: actions/setup-node@v2.4.0
-        with:
-          node-version: lts/fermium
-          cache: npm
-
-      - name: Install Nrwl CLI
-        if: matrix.libOrApp != 'combine-service'
-        run: npm install -g @nrwl/cli
-
       - name: Install dependencies
-        if: matrix.libOrApp != 'combine-service'
-        run: npm ci
+        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
-      - name: Cache Angular and NX dependencies
-        if: matrix.libOrApp != 'combine-service'
-        uses: actions/cache@v2
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
         with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}-${{github.sha}}
-          restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx-
+          useRollingCache: true
+      
+      - name: Install Nrwl CLI
+        run: npm install -g @nrwl/cli      
 
       - name: Test app (TypeScript)
         if: matrix.libOrApp != 'combine-service'
@@ -390,31 +348,16 @@ jobs:
           fi
 
       # TypeScript libraries
-      - name: Install Node.js
-        if: matrix.libOrApp != 'combine-service'
-        uses: actions/setup-node@v2.4.0
-        with:
-          node-version: lts/fermium
-          cache: npm
+      - name: Install dependencies
+        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+      
       - name: Install Nrwl CLI
-        if: matrix.libOrApp != 'combine-service'
-        run: npm install -g @nrwl/cli
-
-      - name: Install dependencies (TypeScript)
-        if: matrix.libOrApp != 'combine-service'
-        run: npm ci
-
-      - name: Cache Angular and NX dependencies (TypeScript)
-        if: matrix.libOrApp != 'combine-service'
-        uses: actions/cache@v2
-        with:
-          path: node_modules/.cache
-          key: ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}-${{github.sha}}
-          restore-keys: |
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}-${{ matrix.libOrApp }}
-            ${{ runner.os }}-nx-${{ hashFiles('**/package-lock.json') }}
-            ${{ runner.os }}-nx-
+        run: npm install -g @nrwl/cli      
 
       - name: Test library (TypeScript)
         if: matrix.libOrApp != 'combine-service'
