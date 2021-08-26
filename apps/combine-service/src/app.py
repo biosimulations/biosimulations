@@ -12,7 +12,7 @@ config = {
     **dotenv_values("secret/secret.env"),
     **dotenv_values("config/config.env"),
 }
-env = config.get("ENV", 'dev') || 'dev'
+env = config.get("ENV", 'dev') or 'dev'
 
 # disable ``/run`` endpoints from production
 if env.lower() == 'prod':
