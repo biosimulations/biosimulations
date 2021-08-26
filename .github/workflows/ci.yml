@@ -17,7 +17,7 @@ jobs:
       run: ${{ steps.get-affected-libs-apps.outputs.run }}
       runApps: ${{ steps.get-affected-libs-apps.outputs.runApps }}
       runLibs: ${{ steps.get-affected-libs-apps.outputs.runLibs }}
-      nxBase: ${{ steps.configure.outputs.nxBase }}
+      nxBase: ${{ steps.configure-base-commit.outputs.nxBase }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2.3.4
