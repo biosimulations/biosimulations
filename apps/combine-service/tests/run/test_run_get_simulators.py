@@ -1,5 +1,5 @@
 from src import app
-from src.handlers.run.utils import get_simulator_api, get_simulators
+from src.handlers.run.utils import get_simulator_api, get_simulators, exec_in_subprocess
 from unittest import mock
 import os
 import parameterized
@@ -40,19 +40,18 @@ class GetSimulatorsTestCase(unittest.TestCase):
         name = 'COPASI'
         sim = next(simulator for simulator in simulators if simulator['id'] == id)
         api_name = 'biosimulators_copasi'
-        api = get_simulator_api(api_name)
         self.assertEqual(sim, {
             '_type': 'Simulator',
             'id': id,
             'name': name,
-            'version': api.get_simulator_version(),
+            'version': sim['version'],
             'api': {
                 '_type': 'SimulatorApi',
                 'module': api_name,
                 'package': api_name,
-                'version': api.__version__,
+                'version': sim['api']['version'],
             },
-            'specs': 'https://api.biosimulators.org/simulators/{}/{}'.format(id, api.get_simulator_version())
+            'specs': 'https://api.biosimulators.org/simulators/{}/{}'.format(id, sim['version'])
         })
 
 
@@ -70,10 +69,10 @@ if SKIPPED_SIMULATORS is not None:
     else:
         SKIPPED_SIMULATORS = []
 
+EXAMPLES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples'
+
 
 class SimulatorsHaveValidApisTestCase(unittest.TestCase):
-    EXAMPLES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples'
-
     def setUp(self):
         self.tmp_dirname = tempfile.mkdtemp()
 
@@ -89,62 +88,58 @@ class SimulatorsHaveValidApisTestCase(unittest.TestCase):
         )
     )
     def test(self, id, simulator):
-        api = get_simulator_api(simulator['api']['module'], False)
+        exec_in_subprocess(self._test, simulator['api']['module'], simulator['exampleCombineArchive'], self.tmp_dirname)
+
+    @staticmethod
+    def _test(simulator_module, example_combine_archive, tmp_dirname):
+        api = get_simulator_api(simulator_module, False)
 
         # __version__
-        self.assertTrue(
-            hasattr(api, '__version__'),
-            'API must have a `__version__` attribute whose value is a non-empty string (e.g., 1.0.1)')
-        self.assertIsInstance(
-            api.__version__, str,
-            'API must have a `__version__` attribute whose value is a non-empty string (e.g., 1.0.1), not `{}`'.format(
+        if not hasattr(api, '__version__'):
+            raise NotImplementedError('API must have a `__version__` attribute whose value is a non-empty string (e.g., 1.0.1)')
+        if not isinstance(api.__version__, str):
+            raise ValueError('API must have a `__version__` attribute whose value is a non-empty string (e.g., 1.0.1), not `{}`'.format(
                 api.__version__.__class__.__name__))
-        self.assertNotEqual(
-            api.__version__, '',
-            'API must have a `__version__` attribute whose value is a non-empty string (e.g., 1.0.1), not `{}`'.format(
+        if api.__version__ == '':
+            raise ValueError('API must have a `__version__` attribute whose value is a non-empty string (e.g., 1.0.1), not `{}`'.format(
                 api.__version__))
 
         # get_simulator_version
-        self.assertTrue(
-            hasattr(api, 'get_simulator_version'),
-            'API must have a `get_simulator_version` callable that returns a non-empty string (e.g., 1.0.1)')
-        self.assertTrue(
-            callable(api.get_simulator_version),
-            '`get_simulator_version` must be a callable that returns a non-empty string (e.g., 1.0.1), not `{}`'.format(
+        if not hasattr(api, 'get_simulator_version'):
+            raise NotImplementedError('API must have a `get_simulator_version` callable that returns a non-empty string (e.g., 1.0.1)')
+        if not callable(api.get_simulator_version):
+            raise ValueError('`get_simulator_version` must be a callable that returns a non-empty string (e.g., 1.0.1), not `{}`'.format(
                 api.get_simulator_version.__class__.__name__))
-        self.assertIsInstance(
-            api.get_simulator_version(), str,
-            '`get_simulator_version` must return a non-empty string (e.g., 1.0.1), not `{}`'.format(
-                api.get_simulator_version().__class__.__name__))
-        self.assertNotEqual(
-            api.get_simulator_version(), '',
-            '`get_simulator_version` must return a non-empty string (e.g., 1.0.1), not `{}`'.format(
-                api.get_simulator_version()))
+        simulator_version = api.get_simulator_version()
+        if not isinstance(simulator_version, str):
+            raise ValueError('`get_simulator_version` must return a non-empty string (e.g., 1.0.1), not `{}`'.format(
+                simulator_version.__class__.__name__))
+        if simulator_version == '':
+            raise ValueError('`get_simulator_version` must return a non-empty string (e.g., 1.0.1), not `{}`'.format(
+                simulator_version))
 
         # exec_sedml_docs_in_combine_archive
-        self.assertTrue(hasattr(api, 'exec_sedml_docs_in_combine_archive'), 'API must have a `exec_sedml_docs_in_combine_archive` callable')
-        self.assertTrue(
-            callable(api.exec_sedml_docs_in_combine_archive),
-            '`exec_sedml_docs_in_combine_archive` must be a callable, not `{}`'.format(
+        if not hasattr(api, 'exec_sedml_docs_in_combine_archive'):
+            raise NotImplementedError('API must have a `exec_sedml_docs_in_combine_archive` callable')
+        if not callable(api.exec_sedml_docs_in_combine_archive):
+            raise ValueError('`exec_sedml_docs_in_combine_archive` must be a callable, not `{}`'.format(
                 api.exec_sedml_docs_in_combine_archive.__class__.__name__))
 
-        response = requests.get(self.EXAMPLES_BASE_URL + '/' + simulator['exampleCombineArchive'])
+        response = requests.get(EXAMPLES_BASE_URL + '/' + example_combine_archive)
         response.raise_for_status()
-        archive_filename = os.path.join(self.tmp_dirname, 'archive.omex')
+        archive_filename = os.path.join(tmp_dirname, 'archive.omex')
         with open(archive_filename, 'wb') as file:
             file.write(response.content)
-        out_dir = os.path.join(self.tmp_dirname, 'out')
-        api.exec_sedml_docs_in_combine_archive(archive_filename, out_dir,
-                                               return_results=False,
-                                               report_formats=None, plot_formats=None,
-                                               bundle_outputs=None, keep_individual_outputs=None,
-                                               raise_exceptions=True)
+        out_dir = os.path.join(tmp_dirname, 'out')
+        results, log = api.exec_sedml_docs_in_combine_archive(archive_filename, out_dir,
+                                                              return_results=True,
+                                                              report_formats=None, plot_formats=None,
+                                                              bundle_outputs=None, keep_individual_outputs=None,
+                                                              raise_exceptions=True)
 
         # exec_sed_task
-        """
-        self.assertTrue(hasattr(api, 'exec_sed_task'), 'API must have a `exec_sed_task` callable')
-        self.assertTrue(
-            callable(api.exec_sed_task),
-            '`exec_sed_task` must be a callable, not `{}`'.format(
+        if not hasattr(api, 'exec_sed_task'):
+            raise NotImplementedError('API must have a `exec_sed_task` callable')
+        if not callable(api.exec_sed_task):
+            raise ValueError('`exec_sed_task` must be a callable, not `{}`'.format(
                 api.exec_sed_task.__class__.__name__))
-        """

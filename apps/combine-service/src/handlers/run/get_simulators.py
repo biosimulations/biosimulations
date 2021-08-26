@@ -14,5 +14,6 @@ def handler():
     simulators = []
 
     for sim in utils.get_simulators():
-        simulators.append(utils.get_simulator_metadata(sim['id']))
+        simulators.append(utils.exec_in_subprocess(utils.get_simulator_metadata, sim['id']))
+
     return simulators

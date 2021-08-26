@@ -51,7 +51,7 @@ biosimulators-pyneuroml = {version = ">=0.0.7", extras = ["netpyne", "neuron"]}
 # Smoldyn
 smoldyn = "*"
 # tellurium
-biosimulators-tellurium = ">=0.1.13"
+biosimulators-tellurium = ">=0.1.16"
 # XPP
 biosimulators-xpp = ">=0.0.4"
 
