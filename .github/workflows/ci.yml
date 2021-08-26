@@ -36,7 +36,7 @@ jobs:
           then
             echo NX_BASE=origin/$GITHUB_BASE_REF >>$GITHUB_ENV
           else
-            echo NX_BASE= ${{ steps.last_successful_commit.outputs.commit_hash }} >>$GITHUB_ENV
+            echo NX_BASE= ${{steps.last_successful_commit.outputs.commit_hash}} >>$GITHUB_ENV
           fi
 
       - name: Install dependencies
