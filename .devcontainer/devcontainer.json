@@ -1,12 +1,10 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.192.0/containers/javascript-node
 {
-	"name": "Node.js",
-	"build": {
-		"dockerfile": "Dockerfile",
-		// Update 'VARIANT' to pick a Node version: 12, 14, 16
-		"args": { "VARIANT": "16" }
-	},
+	"name": "Biosimulations",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspace",
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
