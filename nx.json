@@ -1,5 +1,4 @@
 {
-  
   "npmScope": "biosimulations",
   "affected": {
     "defaultBase": "dev"
