@@ -10,31 +10,20 @@
       "devDependencies": "*"
     },
     ".github/workflows/ci.yml": "*",
-    "Pipfile": [
-      "combine-service"
-    ],
-    "Pipfile.lock": [
-      "combine-service"
-    ],
+    "Pipfile": ["combine-service"],
+    "Pipfile.lock": ["combine-service"],
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*",
     "Dockerfile": "*",
-    "DockerfilePython": [
-      "combine-service"
-    ]
+    "DockerfilePython": ["combine-service"]
   },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "NzI5NWRhNWYtZWM4OC00YjhjLWFmNzMtZTIyMTc3YjhkZmJkfHJlYWQtd3JpdGU=",
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -42,165 +31,73 @@
   },
   "projects": {
     "account": {
-      "tags": [
-        "scope:account",
-        "platform:web",
-        "type:frontend"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:account", "platform:web", "type:frontend"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
     "account-api": {
-      "tags": [
-        "scope:account",
-        "platform:server",
-        "type:api"
-      ],
+      "tags": ["scope:account", "platform:server", "type:api"],
       "implicitDependencies": []
     },
     "account-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "account"
-      ]
+      "implicitDependencies": ["account"]
     },
     "account-management": {
-      "tags": [
-        "scope:account",
-        "type:util",
-        "platform:server"
-      ]
+      "tags": ["scope:account", "type:util", "platform:server"]
     },
     "auth-angular": {
-      "tags": [
-        "scope:auth",
-        "type:util",
-        "platform:web",
-        "shared:true"
-      ]
+      "tags": ["scope:auth", "type:util", "platform:web", "shared:true"]
     },
     "auth-client": {
-      "tags": [
-        "scope:auth",
-        "type:util",
-        "shared:true",
-        "platform:server"
-      ]
+      "tags": ["scope:auth", "type:util", "shared:true", "platform:server"]
     },
     "auth-common": {
-      "tags": [
-        "scope:auth",
-        "platform:any",
-        "type:datamodel",
-        "shared:true"
-      ]
+      "tags": ["scope:auth", "platform:any", "type:datamodel", "shared:true"]
     },
     "auth-nest": {
-      "tags": [
-        "scope:auth",
-        "type:util",
-        "platform:server",
-        "shared:true"
-      ]
+      "tags": ["scope:auth", "type:util", "platform:server", "shared:true"]
     },
     "combine-api-client": {
-      "tags": [
-        "scope:combine",
-        "platform:server",
-        "shared:true",
-        "type:client"
-      ]
+      "tags": ["scope:combine", "platform:server", "shared:true", "type:client"]
     },
     "combine-service": {
       "tags": []
     },
     "config-angular": {
-      "tags": [
-        "scope:config",
-        "type:config",
-        "shared:true",
-        "platform:web"
-      ]
+      "tags": ["scope:config", "type:config", "shared:true", "platform:web"]
     },
     "config-common": {
-      "tags": [
-        "scope:config",
-        "type:datamodel",
-        "platform:any",
-        "shared:true"
-      ]
+      "tags": ["scope:config", "type:datamodel", "platform:any", "shared:true"]
     },
     "config-nest": {
-      "tags": [
-        "scope:config",
-        "type:config",
-        "platform:server",
-        "shared:true"
-      ]
+      "tags": ["scope:config", "type:config", "platform:server", "shared:true"]
     },
     "datamodel-api": {
-      "tags": [
-        "scope:shared",
-        "type:datamodel",
-        "platform:any"
-      ]
+      "tags": ["scope:shared", "type:datamodel", "platform:any"]
     },
     "datamodel-common": {
-      "tags": [
-        "scope:shared",
-        "type:datamodel",
-        "platform:any"
-      ]
+      "tags": ["scope:shared", "type:datamodel", "platform:any"]
     },
     "datamodel-database": {
-      "tags": [
-        "scope:shared",
-        "type:datamodel",
-        "platform:server"
-      ]
+      "tags": ["scope:shared", "type:datamodel", "platform:server"]
     },
     "datamodel-utils": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:any"
-      ]
+      "tags": ["scope:shared", "type:util", "platform:any"]
     },
     "dispatch": {
-      "tags": [
-        "scope:dispatch",
-        "type:frontend",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:dispatch", "type:frontend", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
     "dispatch-api": {
-      "tags": [
-        "scope:dispatch",
-        "type:api",
-        "platform:server"
-      ],
-      "implicitDependencies": [
-        "hdf5-api-client"
-      ]
+      "tags": ["scope:dispatch", "type:api", "platform:server"],
+      "implicitDependencies": ["hdf5-api-client"]
     },
     "dispatch-api-models": {
-      "tags": [
-        "scope:dispatch",
-        "type:datamodel",
-        "platform:any"
-      ]
+      "tags": ["scope:dispatch", "type:datamodel", "platform:any"]
     },
     "dispatch-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "dispatch"
-      ]
+      "implicitDependencies": ["dispatch"]
     },
     "dispatch-nest-client": {
       "tags": [
@@ -211,41 +108,20 @@
       ]
     },
     "dispatch-service": {
-      "tags": [
-        "scope:dispatch",
-        "type:service",
-        "platform:server"
-      ],
+      "tags": ["scope:dispatch", "type:service", "platform:server"],
       "implicitDependencies": []
     },
     "hdf5-api-client": {
-      "tags": [
-        "scope:hsds",
-        "type:client",
-        "platform:server"
-      ]
+      "tags": ["scope:hsds", "type:client", "platform:server"]
     },
     "hsds-client": {
-      "tags": [
-        "scope:data",
-        "shared:true",
-        "platform:server",
-        "type:client"
-      ]
+      "tags": ["scope:data", "shared:true", "platform:server", "type:client"]
     },
     "mail-service": {
-      "tags": [
-        "scope:mail",
-        "type:service",
-        "platform:server"
-      ]
+      "tags": ["scope:mail", "type:service", "platform:server"]
     },
     "mail-service-client": {
-      "tags": [
-        "scope:mail",
-        "type:client",
-        "platform:server"
-      ]
+      "tags": ["scope:mail", "type:client", "platform:server"]
     },
     "messages-messages": {
       "tags": [
@@ -256,11 +132,7 @@
       ]
     },
     "ontology-api": {
-      "tags": [
-        "scope:ontology",
-        "type:api",
-        "platform:server"
-      ]
+      "tags": ["scope:ontology", "type:api", "platform:server"]
     },
     "ontology-ontologies": {
       "tags": [
@@ -279,109 +151,50 @@
       ]
     },
     "platform": {
-      "tags": [
-        "scope:platform",
-        "type:frontend",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:platform", "type:frontend", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
     "platform-api": {
-      "tags": [
-        "scope:platform",
-        "type:api",
-        "platform:server"
-      ],
+      "tags": ["scope:platform", "type:api", "platform:server"],
       "implicitDependencies": []
     },
     "platform-api-models": {
-      "tags": [
-        "scope:platform",
-        "type:datamodel",
-        "platform:any"
-      ]
+      "tags": ["scope:platform", "type:datamodel", "platform:any"]
     },
     "platform-database-models": {
-      "tags": [
-        "scope:platform",
-        "type:datamodel",
-        "platform:server"
-      ]
+      "tags": ["scope:platform", "type:datamodel", "platform:server"]
     },
     "platform-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "platform"
-      ]
+      "implicitDependencies": ["platform"]
     },
     "platform-view": {
-      "tags": [
-        "scope:platform",
-        "type:ui",
-        "platform:web"
-      ]
+      "tags": ["scope:platform", "type:ui", "platform:web"]
     },
     "shared-assets": {
-      "tags": [
-        "scope:shared",
-        "type:assets"
-      ]
+      "tags": ["scope:shared", "type:assets"]
     },
     "shared-content": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:shared", "type:ui", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
     "shared-debug": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ]
+      "tags": ["scope:shared", "type:ui", "platform:web"]
     },
     "shared-environments": {
-      "tags": [
-        "scope:shared",
-        "type:environments",
-        "platform:any"
-      ]
+      "tags": ["scope:shared", "type:environments", "platform:any"]
     },
     "shared-error-handler": {
-      "tags": [
-        "scope:shared",
-        "platform:web",
-        "type:UI"
-      ]
+      "tags": ["scope:shared", "platform:web", "type:UI"]
     },
     "shared-exceptions-exceptions": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:server"
-      ]
+      "tags": ["scope:shared", "type:util", "platform:server"]
     },
     "shared-exceptions-filters": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:server"
-      ]
+      "tags": ["scope:shared", "type:util", "platform:server"]
     },
     "shared-icons": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ]
+      "tags": ["scope:shared", "type:ui", "platform:web"]
     },
     "shared-nats-client": {
       "tags": [
@@ -392,90 +205,41 @@
       ]
     },
     "shared-pwa": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:web"
-      ]
+      "tags": ["scope:shared", "type:util", "platform:web"]
     },
     "shared-services": {
-      "tags": [
-        "scope:shared",
-        "type:service",
-        "platform:web"
-      ],
+      "tags": ["scope:shared", "type:service", "platform:web"],
       "implicitDependencies": []
     },
     "shared-storage": {
-      "tags": [
-        "scope:files",
-        "type:util",
-        "platform:server",
-        "shared:true"
-      ]
+      "tags": ["scope:files", "type:util", "platform:server", "shared:true"]
     },
     "shared-styles": {
-      "tags": [
-        "scope:shared",
-        "type:styles",
-        "platform:web"
-      ]
+      "tags": ["scope:shared", "type:styles", "platform:web"]
     },
     "shared-ui": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:shared", "type:ui", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
     "shared-utils-routes": {
-      "tags": [
-        "scope:shared",
-        "type:utils",
-        "platform:web"
-      ]
+      "tags": ["scope:shared", "type:utils", "platform:web"]
     },
     "simulators": {
-      "tags": [
-        "scope:simulators",
-        "type:frontend",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      "tags": ["scope:simulators", "type:frontend", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
     "simulators-api": {
-      "tags": [
-        "scope:simulators",
-        "type:api",
-        "platform:server"
-      ]
+      "tags": ["scope:simulators", "type:api", "platform:server"]
     },
     "simulators-api-models": {
-      "tags": [
-        "scope:simulators",
-        "type:datamodel",
-        "platform:any"
-      ]
+      "tags": ["scope:simulators", "type:datamodel", "platform:any"]
     },
     "simulators-database-models": {
-      "tags": [
-        "scope:simulators",
-        "type:datamodel",
-        "platform:server"
-      ]
+      "tags": ["scope:simulators", "type:datamodel", "platform:server"]
     },
     "simulators-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "simulators"
-      ]
+      "implicitDependencies": ["simulators"]
     }
   },
   "targetDependencies": {
