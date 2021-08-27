@@ -77,34 +77,22 @@ import { urls } from '@biosimulations/config/common';
 import {
   CombineArchiveElementMetadata,
   MetadataValue,
-} from '../../../metadata.interface';
+  Metadata,
+  FigureTableMetadata
+} from '../../../datamodel/metadata.interface'
 import {
   ValidationReport,
-  ValidationStatus,
   ValidationMessage,
-} from '../../../validation-report.interface';
+} from '../../../datamodel/validation-report.interface';
 import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
 import user2DHeatmapVegaTemplate from './viz-vega-templates/2d-heatmap.json';
 import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.json';
 import { UtilsService } from '@biosimulations/shared/services';
+import { MetadataService} from '../../../services/simulation/metadata.service'
 
-interface ValidationReportLists {
-  status: ValidationStatus;
-  errors: string | null;
-  warnings: string | null;
-}
 
-interface Metadata {
-  archive: CombineArchiveElementMetadata | null;
-  other: CombineArchiveElementMetadata[];
-  validationReport: ValidationReportLists | null;
-}
 
-interface FigureTableMetadata {
-  uri: string;
-  identifier: MetadataValue;
-  click?: () => void;
-}
+
 
 enum VisualizationSource {
   sedml = 'sedml',
@@ -243,6 +231,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private service: ViewService,
     private combineService: CombineService,
+    private metadataService: MetadataService,
     private simulationService: SimulationService,
     private visualizationService: VisualizationService,
     private dispatchService: DispatchService,
@@ -308,7 +297,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.initSimulationProjectMetadata();
   }
 
-  initSimulationRun(): void {
+  private initSimulationRun(): void {
     this.Simulation$ = this.simulationService
       .getSimulation(this.uuid)
       .pipe(shareReplay(1));
@@ -332,7 +321,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     );
   }
 
-  initVisualizations(): void {
+  private initVisualizations(): void {
     const archiveUrl = `${urls.dispatchApi}run/${this.uuid}/download`;
 
     const archiveManifest = this.statusSucceeded$.pipe(
@@ -666,7 +655,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     );
   }
 
-  initSimulationRunLog(): void {
+  private initSimulationRunLog(): void {
     this.logs$ = this.statusRunning$.pipe(
       map(
         (running: boolean): Observable<SimulationLogs | undefined> =>
@@ -708,8 +697,14 @@ export class ViewComponent implements OnInit, OnDestroy {
     );
   }
 
-  initSimulationProjectMetadata(): void {
+  private initSimulationProjectMetadata(): void {
     const archiveUrl = this.getArchiveUrl();
+
+    
+    this.metadata$ = this.metadataService
+      .getMetadata(this.uuid)
+      .pipe(map(this.service.formatMetadata));
+    // TODO replace below with above after sorting out the uri mapping. Move most of the mapping to the backend api
     this.metadata$ = combineLatest(
       this.combineService.getCombineArchiveMetadata(archiveUrl),
       this.visualizations$,
@@ -760,6 +755,7 @@ export class ViewComponent implements OnInit, OnDestroy {
               elMetadata: CombineArchiveElementMetadata,
             ): CombineArchiveElementMetadata => {
               elMetadata = Object.assign({}, elMetadata);
+              // This should be moved server side 
               elMetadata.thumbnails = elMetadata.thumbnails.map(
                 (thumbnail: string): string => {
                   return `${urls.combineApi}combine/file?url=${encodeURI(
@@ -820,24 +816,29 @@ export class ViewComponent implements OnInit, OnDestroy {
                 (
                   elMetadata: CombineArchiveElementMetadata,
                 ): CombineArchiveElementMetadata => {
-                  if (elMetadata.uri.startsWith('./')) {
-                    elMetadata.uri = elMetadata.uri.substring(2);
-                  }
 
-                  if (elMetadata.uri in visualizationsUriIdMap) {
-                    elMetadata.click = (): void => {
-                      const vizFormControl = this.visualizationFormGroup
-                        .controls.visualization as FormControl;
-                      vizFormControl.setValue(
-                        visualizationsUriIdMap[elMetadata.uri],
-                      );
-                      this.selectVisualization();
-                      this.selectedTabIndex = this.iViewChartTab;
-                    };
-                  } else if (sedUris.has(elMetadata.uri)) {
-                    elMetadata.click = (): void => {
-                      this.selectedTabIndex = this.iSelectChartTab;
-                    };
+                  if (elMetadata != null && elMetadata.uri != null) {
+                    const uriPrefix = this.uuid +"/"
+                    if (elMetadata.uri?.startsWith(this.uuid+'/')) {
+                      elMetadata.uri = elMetadata.uri.substring(uriPrefix.length);
+                    }
+
+                    if (elMetadata?.uri in visualizationsUriIdMap) {
+                      elMetadata.click = (): void => {
+                        const vizFormControl = this.visualizationFormGroup
+                          .controls.visualization as FormControl;
+                        vizFormControl.setValue(
+                          
+                          visualizationsUriIdMap[elMetadata.uri || ""],
+                        );
+                        this.selectVisualization();
+                        this.selectedTabIndex = this.iViewChartTab;
+                      };
+                    } else if (sedUris.has(elMetadata.uri)) {
+                      elMetadata.click = (): void => {
+                        this.selectedTabIndex = this.iSelectChartTab;
+                      };
+                    }
                   }
 
                   return elMetadata;
@@ -849,6 +850,10 @@ export class ViewComponent implements OnInit, OnDestroy {
       ),
       shareReplay(1),
     );
+
+
+
+
     this.metadataLoaded$ = this.metadata$.pipe(
       map((): boolean => {
         return true;
@@ -864,7 +869,7 @@ export class ViewComponent implements OnInit, OnDestroy {
               (other: CombineArchiveElementMetadata): void => {
                 other.identifiers.forEach((identifier: MetadataValue): void => {
                   figuresTables.push({
-                    uri: other.uri,
+                    uri: other.uri || '',
                     identifier: identifier,
                     click: other.click,
                   });

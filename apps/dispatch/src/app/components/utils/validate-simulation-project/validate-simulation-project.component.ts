@@ -11,7 +11,7 @@ import {
   ValidationReport,
   ValidationMessage,
   ValidationStatus,
-} from '../../../validation-report.interface';
+} from '../../../datamodel/validation-report.interface';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
