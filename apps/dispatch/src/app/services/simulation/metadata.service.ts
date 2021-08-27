@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
-  HttpErrorResponse,
-  HttpParams,
 } from '@angular/common/http';
 import { SimulationRunMetadata} from '@biosimulations/datamodel/api'
 import { Endpoints } from '@biosimulations/config/common';
