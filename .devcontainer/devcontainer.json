@@ -20,7 +20,8 @@
 		"firefox-devtools.vscode-firefox-debug",
 		"esbenp.prettier-vscode",
 		"dbaeumer.vscode-eslint",
-		"firsttris.vscode-jest-runner"
+		"firsttris.vscode-jest-runner",
+		"eamodio.gitlens"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
