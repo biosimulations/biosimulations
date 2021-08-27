@@ -1,3 +1,24 @@
+# [3.14.0](https://github.com/biosimulations/Biosimulations/compare/v3.13.0...v3.14.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* **combine-service:** dont change field "abstract" to "_abstract" ([591b0db](https://github.com/biosimulations/Biosimulations/commit/591b0db5bef0c4a260fb6f0583ed82b0eaf77481))
+* **combine-service:** fix api client implementation ([d313f1c](https://github.com/biosimulations/Biosimulations/commit/d313f1cae8f64d1e93a0741bab2545d9b14d1109))
+* **dispatch-service:** dont log error if job is not yet present ([b80db71](https://github.com/biosimulations/Biosimulations/commit/b80db71ed633cbf9c6cb2103a513d7dd1fc397cd))
+* **dispatch-service:** fix url for posting metadata ([a5926e7](https://github.com/biosimulations/Biosimulations/commit/a5926e70d24985d0d50adfc65acdd4d6bbb8ca7d))
+* **platform:** correct url for metadata ([c2a7a63](https://github.com/biosimulations/Biosimulations/commit/c2a7a63f57072598f9890905697edcfb461742f4))
+* **platform:** fix unterminated string literal ([fe0343d](https://github.com/biosimulations/Biosimulations/commit/fe0343dc6fe808023c822b3ffeb004c094be96a2))
+
+
+### Features
+
+* **combine-service:** isolating simulation execution into separate processes ([9d23a5d](https://github.com/biosimulations/Biosimulations/commit/9d23a5d12571708ecf7b44bc83675cb5b5802a98))
+* **combine-service:** update combine api client ([c1bb566](https://github.com/biosimulations/Biosimulations/commit/c1bb56636207d966bbd41f2dcf697008c43a27cf))
+* **dispatch-service:** create handler to extract metadata ([16b469a](https://github.com/biosimulations/Biosimulations/commit/16b469a479061d643ffa8541a5db55e95f687404))
+* **dispatch-service:** process and create metadata for simulation runs ([99df19d](https://github.com/biosimulations/Biosimulations/commit/99df19d50c786992aad6d35da1443fa3b8126c98))
+* **exceptions:** change database errors to return 500 errors instead of 400 ([7390b7f](https://github.com/biosimulations/Biosimulations/commit/7390b7f3e35c6c1f0d1dfb8f145cf4ad8e5545c9))
+
 # [3.13.0](https://github.com/biosimulations/Biosimulations/compare/v3.12.0...v3.13.0) (2021-08-24)
 
 
