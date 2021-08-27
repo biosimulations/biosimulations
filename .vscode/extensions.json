@@ -10,6 +10,7 @@
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
     "firsttris.vscode-jest-runner",
-    "eamodio.gitlens"
+    "eamodio.gitlens",
+    "github.copilot"
   ]
 }
