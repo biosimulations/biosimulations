@@ -4,8 +4,8 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 import { CombineService } from '../../../services/combine/combine.service';
-import { CombineArchiveElementMetadata } from '../../../metadata.interface';
-import { ValidationReport } from '../../../validation-report.interface';
+import { CombineArchiveElementMetadata } from '../../../datamodel/metadata.interface';
+import { ValidationReport } from '../../../datamodel/validation-report.interface'
 import {
   FormBuilder,
   FormGroup,

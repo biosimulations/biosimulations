@@ -16,3 +16,9 @@ export interface ValidationReport {
   errors?: ValidationMessage[];
   warnings?: ValidationMessage[];
 }
+
+export interface ValidationReportLists {
+  status: ValidationStatus;
+  errors: string | null;
+  warnings: string | null;
+}

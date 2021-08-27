@@ -1,3 +1,11 @@
+import { ValidationReportLists } from "./validation-report.interface";
+
+export interface Metadata {
+  archive: CombineArchiveElementMetadata | null;
+  other: CombineArchiveElementMetadata[];
+  validationReport: ValidationReportLists | null;
+}
+
 export interface MetadataValue {
   label: string | null;
   uri: string | null;
@@ -9,9 +17,9 @@ export interface CustomMetadata {
 }
 
 export interface CombineArchiveElementMetadata {
-  uri: string;
-  title: string;
-  abstract: string;
+  uri: string | null;
+  title: string | null;
+  abstract: string | null;
   keywords: string[];
   description: string | null;
   thumbnails: string[];
@@ -26,9 +34,15 @@ export interface CombineArchiveElementMetadata {
   contributors: MetadataValue[];
   identifiers: MetadataValue[];
   citations: MetadataValue[];
-  license: MetadataValue;
+  license: MetadataValue | null;
   funders: MetadataValue[];
   created: string | null;
   modified: string[];
+  click?: () => void;
+}
+
+export interface FigureTableMetadata {
+  uri: string;
+  identifier: MetadataValue;
   click?: () => void;
 }
