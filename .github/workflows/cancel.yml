@@ -8,5 +8,5 @@ jobs:
     steps:
       - uses: styfle/cancel-workflow-action@0.9.1
         with:
-          workflow_id: cd.yml, ci.yml, dependencyLicense.yml
+          workflow_id: cd.yml, ci.yml, dependencyLicense.yml, codeql-analysis.yml, ossar-analysis.yml
           access_token: ${{ github.token }}
