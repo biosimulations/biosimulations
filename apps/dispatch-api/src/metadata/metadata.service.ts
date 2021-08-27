@@ -36,6 +36,18 @@ export class MetadataService {
     if (!sim) {
       //throw new Error('Simulation not found');
     }
+    metadata.metadata.map(
+      m => {
+        if (m.uri == ".") {
+          m.uri = data.id
+        }
+        else if (m.uri.startsWith("./")) {
+          m.uri = data.id + m.uri.substring(1)
+          
+        }
+        return m;
+      }
+    )
     return await metadata.save();
   }
 }
