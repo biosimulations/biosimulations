@@ -1,0 +1,15 @@
+on:
+  pull_request:
+    types: [closed]
+jobs:
+  cleanup:
+    name: 'Cancel workflows after PR closed'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Cancel build runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          ignore_sha: true
+          workflow_id: cd.yml, ci.yml, dependencyLicense.yml, codeql-analysis.yml, ossar-analysis.yml
+          access_token: ${{ github.token }}
