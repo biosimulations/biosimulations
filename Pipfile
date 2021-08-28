@@ -48,6 +48,9 @@ pysces = {ref = "7478a05bc4480e580fabfe89acb259274ced7f6c", git = "https://githu
 biosimulators-pysces = ">=0.1.19"
 # pyNeuroML
 biosimulators-pyneuroml = {version = ">=0.0.7", extras = ["netpyne", "neuron"]}
+# RBApy
+# rba = {version = ">=1.0.2", git = "https://github.com/biosimulators/RBApy.git"}
+# biosimulators-rbapy = ">=0.0.1"
 # Smoldyn
 smoldyn = "*"
 # tellurium
