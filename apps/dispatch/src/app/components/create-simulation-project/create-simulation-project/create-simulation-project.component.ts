@@ -135,8 +135,7 @@ const modelFormatMetaData: {
   format_9012: {
     name: 'RBA models',
     sedUrn: 'urn:sedml:language:rba',
-    combineSpecUrl:
-      'http://purl.org/NET/mediatypes/application/rba+zip',
+    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/rba+zip',
     extension: 'zip',
     enabled: false,
   },
@@ -1036,7 +1035,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       const simulationTypes: OntologyTerm[] = [];
       if (
         ['format_2585', 'format_9012'].includes(formatEdamId) &&
-        ['SBO_0000293', 'SBO_0000547', 'SBO_0000624', 'SBO_0000692'].includes(frameworkSboId)
+        ['SBO_0000293', 'SBO_0000547', 'SBO_0000624', 'SBO_0000692'].includes(
+          frameworkSboId,
+        )
       ) {
         simulationTypeIds.add(SimulationType.SedSteadyStateSimulation);
         simulationTypes.push({
