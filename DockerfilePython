@@ -220,6 +220,20 @@ RUN mkdir -p /Pysces \
     && chmod ugo+rw -R /Pysces
 
 ###################################
+# RBApy
+# commented out because CPLEX is not yet compatible with Python 3.9
+# ARG CPLEX_VERSION=20.10
+# ARG CPLEX_VERSION_NO_DOT_TRUNC=201
+# ARG PYTHON_VERSION=3.8
+# COPY ILOG_COS_${CPLEX_VERSION}_LINUX_X86_64.bin /tmp/ILOG_COS_${CPLEX_VERSION}_LINUX_X86_64.bin
+# RUN apt-get install -y --no-install-recommends default-jre \
+#     && /tmp/ILOG_COS_${CPLEX_VERSION}_LINUX_X86_64.bin \
+#         -i silent \
+#         -DLICENSE_ACCEPTED=TRUE \
+#         -DINSTALLER_LOCALE=en \
+#     && pipenv run pip install /opt/ibm/ILOG/CPLEX_Studio${CPLEX_VERSION_NO_DOT_TRUNC}/cplex/python/${PYTHON_VERSION}/x86-64_linux/
+
+###################################
 # Smoldyn
 
 ###################################
