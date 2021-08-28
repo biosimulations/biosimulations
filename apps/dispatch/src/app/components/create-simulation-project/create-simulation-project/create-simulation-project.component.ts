@@ -1035,8 +1035,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       const simulationTypeIds = new Set<string>();
       const simulationTypes: OntologyTerm[] = [];
       if (
-        ['format_2585'].includes(formatEdamId) &&
-        ['SBO_0000293', 'SBO_0000547', 'SBO_0000624'].includes(frameworkSboId)
+        ['format_2585', 'format_9012'].includes(formatEdamId) &&
+        ['SBO_0000293', 'SBO_0000547', 'SBO_0000624', 'SBO_0000692'].includes(frameworkSboId)
       ) {
         simulationTypeIds.add(SimulationType.SedSteadyStateSimulation);
         simulationTypes.push({
@@ -1180,7 +1180,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         'KISAO_0000662',
         'KISAO_0000663',
       ];
-      if (formatEdamId === 'format_2585') {
+      if (['format_2585'].includes(formatEdamId)) {
         if (
           ['SBO_0000293', 'SBO_0000295', 'SBO_0000547'].includes(frameworkSboId)
         ) {
