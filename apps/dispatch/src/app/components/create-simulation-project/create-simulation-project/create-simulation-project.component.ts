@@ -290,6 +290,11 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     'application/x-lems',
     'application/xml',
 
+    // RBA
+    '.zip',
+    'application/rba+zip',
+    'application/zip',
+
     //sbml
     '.sbml',
     '.xml',
