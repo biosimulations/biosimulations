@@ -35,6 +35,11 @@
     "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex"
   },
   {
+    "name": "Escherichia coli resource allocation (Bulović et al., Metab Eng, 2019; RBA TSV/XML; RBA; RBApy)",
+    "simulator": "rbapy",
+    "filename": "rba/Escherichia-coli-K12-WT.omex"
+  },
+  {
     "name": "Heat shock protein synthesis (Szymanska et al., J Theor Biol, 2009; SBML; CVODES; AMICI)",
     "simulator": "amici",
     "filename": "sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex"
