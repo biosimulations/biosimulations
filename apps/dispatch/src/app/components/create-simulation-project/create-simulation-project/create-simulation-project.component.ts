@@ -136,8 +136,8 @@ const modelFormatMetaData: {
     name: 'RBA models',
     sedUrn: 'urn:sedml:language:rba',
     combineSpecUrl:
-      'http://purl.org/NET/mediatypes/text/rba-model+tab-separated-values',
-    extension: 'tsv',
+      'http://purl.org/NET/mediatypes/application/rba+zip',
+    extension: 'zip',
     enabled: false,
   },
   format_2585: {
