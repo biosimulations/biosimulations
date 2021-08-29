@@ -1,3 +1,19 @@
+# [3.15.0](https://github.com/biosimulations/Biosimulations/compare/v3.14.0...v3.15.0) (2021-08-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency aws-sdk to v2.978.0 ([#2883](https://github.com/biosimulations/Biosimulations/issues/2883)) ([ca487aa](https://github.com/biosimulations/Biosimulations/commit/ca487aab71671f9a4a71668e253800fdc7e98708))
+* **deps:** update dependency bull to v3.29.1 ([#2884](https://github.com/biosimulations/Biosimulations/issues/2884)) ([e6589e7](https://github.com/biosimulations/Biosimulations/commit/e6589e7d70baa6c9d6797d4fde95687d4798c19b))
+* **deps:** update nest ([#2835](https://github.com/biosimulations/Biosimulations/issues/2835)) ([0e65b60](https://github.com/biosimulations/Biosimulations/commit/0e65b6084e75aae31ff8d089e6321f581fd8742d))
+
+
+### Features
+
+* **combine-service:** updated to Biosimulators-utils with support for RBA models ([610225b](https://github.com/biosimulations/Biosimulations/commit/610225b46f8bd9ed26c1ca632f01c051d5765dc8))
+* updated biosimulators documentation links to docs.biosimulatos.org ([bfa49bb](https://github.com/biosimulations/Biosimulations/commit/bfa49bb7530cb656689eb8632b365110fb6b5aca))
+* updated SBO for term for RBA ([fc64418](https://github.com/biosimulations/Biosimulations/commit/fc64418993cb06a162884461646b586801b7f37e))
+
 # [3.14.0](https://github.com/biosimulations/Biosimulations/compare/v3.13.0...v3.14.0) (2021-08-27)
 
 
