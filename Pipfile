@@ -35,7 +35,7 @@ biosimulators-copasi = ">=0.1.29"
 # GillesPy2
 biosimulators-gillespy2 = ">=0.1.30"
 # GINsim
-biosimulators-ginsim = ">=0.0.4"
+biosimulators-ginsim = ">=0.0.5"
 # LibSBMLSim
 biosimulators-libsbmlsim = ">=0.0.2"
 # MASSpy
