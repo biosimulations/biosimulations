@@ -90,7 +90,6 @@ RUN mkdir -p /usr/share/man/man1/ \
     && python ginsim_setup.py \
     \
     && rm ginsim_setup.py
-ENV PATH=/usr/local/share/colomoto/bin:$PATH
 
 ###################################
 # install libSBMLSIM
