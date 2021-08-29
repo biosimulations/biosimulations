@@ -14,29 +14,47 @@ authors:
     family-names: Shaikh
     given-names: Bilal
     orcid: 'https://orcid.org/0000-0001-5801-5510'
-  - affiliation: 'Icahn School of Medicine at Mount Sinai'
-    family-names: Karr
-    given-names: Jonathan
-    orcid: 'https://orcid.org/0000-0002-2605-5080'
-  - affiliation: 'UConn Health'
+  - affiliation: 'University of Connecticut School of Medicine'
+    family-names: Marupilla
+    given-names: Gnaneswara
+  - affiliation: 'University of Connecticut School of Medicine'
     family-names: Wilson
     given-names: Mike
     orcid: 'https://orcid.org/0000-0001-5892-6074'
-  - affiliation: 'UConn Health'
-    family-names: Marupilla
-    given-names: Gnaneswara
+  - affiliation: 'University of Connecticut School of Medicine'
+    family-names: Michael
+    given-names: Blinov L.
+    orcid: 'https://orcid.org/0000-0002-9363-9705'
+  - affiliation: 'University of Connecticut School of Medicine'
+    family-names: Moraru
+    given-names: Ion I.
+    orcid: 'https://orcid.org/0000-0002-3746-9676'
+  - affiliation: 'Icahn School of Medicine at Mount Sinai'
+    family-names: Karr
+    given-names: Jonathan R.
+    orcid: 'https://orcid.org/0000-0002-2605-5080'
 cff-version: '1.1.0'
 keywords:
-  - simulation
-  - biology
-  - modeling
+  - numerical simulation
+  - systems biology
+  - computational biology
+  - mathematical modeling
   - standards
-  - vega
+  - Vega
   - reproducibility
-  - sbml
-  - sedml
-  - biochemical-networks
+  - Systems Biology Markup Language
+  - SBML
+  - Simulation Experiment Description Markup Language
+  - SED-ML
+  - Kinetic Simulation Algorithm Ontology
+  - KiSAO
+  - Systems Biology Ontology
+  - SBO
+  - COMBINE
+  - OMEX
+  - biochemical networks
   - biosimulations
+  - biosimulators
 doi: '10.5281/zenodo.5057108'
 identifiers:
   - type: url
@@ -48,7 +66,57 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.5057108
     description: The concept DOI of the work.
+  - type: other
+    value: biocatalogue.service:4043
+    description: BioCatalogue entry for BioSimulations
+  - type: other
+    value: biocatalogue.service:4178
+    description: BioCatalogue entry for runBioSimulations
+  - type: other
+    value: biocatalogue.service:
+    description: BioCatalogue entry for BioSimulators
+  - type: other
+    value: biotools:biosimulations
+    description: bio.tools entry for BioSimulations
+  - type: other
+    value: biotools:runbiosimulations
+    description: bio.tools entry for runBioSimulations
+  - type: other
+    value: biotools:biosimulators
+    description: bio.tools entry for BioSimulators
+  - type: other
+    value: fairsharing:bsg-d001721
+    description: FAIRSharing entry for BioSimulations
+  - type: other
+    value: fairsharing:FAIRsharing.pweima
+    description: FAIRSharing entry for BioSimulators
+  - type: other
+    value: runbiosimulations
+    description: Identifiers.org entry for runBioSimulations
+  - type: other
+    value: biosimulators
+    description: Identifiers.org entry for BioSimulators
+  - type: other
+    value: re3data:r3d100013361
+    description: re3data entry for BioSimulations
+  - type: other
+    value: re3data:r3d100013432
+    description: re3data entry for BioSimulators
+  - type: other
+    value: RRID:SCR_018733
+    description: SciCrunch entry for BioSimulations
+  - type: other
+    value: RRID:SCR_019110
+    description: SciCrunch entry for runBioSimulations
+  - type: other
+    value: RRID:SCR_019111
+    description: SciCrunch entry for BioSimulators
 license: MIT
 message: 'If you use this software, please cite it using these metadata.'
 repository-code: 'https://github.com/biosimulations/Biosimulations'
 title: BioSimulations
+contact:
+  - email: "info@biosimulations.org"
+    family-names: BioSimulations Team
+type: software
+url: https://biosimulations.org
