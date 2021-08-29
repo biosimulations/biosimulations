@@ -33,7 +33,7 @@ authors:
     family-names: Karr
     given-names: Jonathan R.
     orcid: 'https://orcid.org/0000-0002-2605-5080'
-cff-version: '1.1.0'
+cff-version: '1.2.0'
 keywords:
   - numerical simulation
   - systems biology
@@ -72,9 +72,9 @@ identifiers:
   - type: other
     value: biocatalogue.service:4178
     description: BioCatalogue entry for runBioSimulations
-  - type: other
-    value: biocatalogue.service:
-    description: BioCatalogue entry for BioSimulators
+  # - type: other
+  #   value: biocatalogue.service:????
+  #  description: BioCatalogue entry for BioSimulators
   - type: other
     value: biotools:biosimulations
     description: bio.tools entry for BioSimulations
