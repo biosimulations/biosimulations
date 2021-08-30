@@ -1174,10 +1174,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/bmeck/node-cookiejar
 │  ├─ publisher: bradleymeck
 │  └─ licenseFile: cookiejar/LICENSE
-├─ core-js@2.6.12
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/zloirock/core-js
-│  └─ licenseFile: core-js/LICENSE
 ├─ core-util-is@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/isaacs/core-util-is
@@ -4453,7 +4449,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/stacktracejs/stack-generator
 │  └─ licenseFile: stack-generator/LICENSE
-├─ stackdriver-errors-js@0.8.0
+├─ stackdriver-errors-js@0.10.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/GoogleCloudPlatform/stackdriver-errors-js
 │  ├─ publisher: steren@google.com
@@ -4785,16 +4781,16 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/Microsoft/tslib
 │  ├─ publisher: Microsoft Corp.
 │  └─ licenseFile: rxjs/node_modules/tslib/LICENSE.txt
-├─ tslib@2.2.0
-│  ├─ licenses: 0BSD
-│  ├─ repository: https://github.com/Microsoft/tslib
-│  ├─ publisher: Microsoft Corp.
-│  └─ licenseFile: tslib/LICENSE.txt
 ├─ tslib@2.3.0
 │  ├─ licenses: 0BSD
 │  ├─ repository: https://github.com/Microsoft/tslib
 │  ├─ publisher: Microsoft Corp.
 │  └─ licenseFile: @nestjs/common/node_modules/tslib/LICENSE.txt
+├─ tslib@2.3.1
+│  ├─ licenses: 0BSD
+│  ├─ repository: https://github.com/Microsoft/tslib
+│  ├─ publisher: Microsoft Corp.
+│  └─ licenseFile: tslib/LICENSE.txt
 ├─ tunnel-agent@0.6.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mikeal/tunnel-agent
