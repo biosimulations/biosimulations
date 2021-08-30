@@ -10,7 +10,7 @@ import { urls } from '@biosimulations/config/common';
 import { environment } from '@biosimulations/shared/environments';
 import { CombineArchive } from '../../combine-sedml.interface';
 import { CombineArchiveElementMetadata } from '../../datamodel/metadata.interface';
-import { ValidationReport } from '../../datamodel/validation-report.interface'
+import { ValidationReport } from '../../datamodel/validation-report.interface';
 import { AlgorithmSubstitution } from '../../kisao.interface';
 
 @Injectable({

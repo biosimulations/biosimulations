@@ -1,4 +1,4 @@
-import { ValidationReportLists } from "./validation-report.interface";
+import { ValidationReportLists } from './validation-report.interface';
 
 export interface Metadata {
   archive: CombineArchiveElementMetadata | null;

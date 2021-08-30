@@ -11,7 +11,7 @@ export type endpoints =
 
 type endpointMap = { [key in endpoints]: string };
 
-const baseUrl= environment.baseUrl
+const baseUrl = environment.baseUrl;
 
 export const Endpoints: endpointMap = {
   simulationRuns: `${baseUrl}/runs`,

@@ -78,8 +78,8 @@ import {
   CombineArchiveElementMetadata,
   MetadataValue,
   Metadata,
-  FigureTableMetadata
-} from '../../../datamodel/metadata.interface'
+  FigureTableMetadata,
+} from '../../../datamodel/metadata.interface';
 import {
   ValidationReport,
   ValidationMessage,
@@ -88,11 +88,7 @@ import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json'
 import user2DHeatmapVegaTemplate from './viz-vega-templates/2d-heatmap.json';
 import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.json';
 import { UtilsService } from '@biosimulations/shared/services';
-import { MetadataService} from '../../../services/simulation/metadata.service'
-
-
-
-
+import { MetadataService } from '../../../services/simulation/metadata.service';
 
 enum VisualizationSource {
   sedml = 'sedml',
@@ -700,7 +696,6 @@ export class ViewComponent implements OnInit, OnDestroy {
   private initSimulationProjectMetadata(): void {
     const archiveUrl = this.getArchiveUrl();
 
-    
     this.metadata$ = this.metadataService
       .getMetadata(this.uuid)
       .pipe(map(this.service.formatMetadata));
@@ -755,7 +750,7 @@ export class ViewComponent implements OnInit, OnDestroy {
               elMetadata: CombineArchiveElementMetadata,
             ): CombineArchiveElementMetadata => {
               elMetadata = Object.assign({}, elMetadata);
-              // This should be moved server side 
+              // This should be moved server side
               elMetadata.thumbnails = elMetadata.thumbnails.map(
                 (thumbnail: string): string => {
                   return `${urls.combineApi}combine/file?url=${encodeURI(
@@ -816,11 +811,12 @@ export class ViewComponent implements OnInit, OnDestroy {
                 (
                   elMetadata: CombineArchiveElementMetadata,
                 ): CombineArchiveElementMetadata => {
-
                   if (elMetadata != null && elMetadata.uri != null) {
-                    const uriPrefix = this.uuid +"/"
-                    if (elMetadata.uri?.startsWith(this.uuid+'/')) {
-                      elMetadata.uri = elMetadata.uri.substring(uriPrefix.length);
+                    const uriPrefix = this.uuid + '/';
+                    if (elMetadata.uri?.startsWith(this.uuid + '/')) {
+                      elMetadata.uri = elMetadata.uri.substring(
+                        uriPrefix.length,
+                      );
                     }
 
                     if (elMetadata?.uri in visualizationsUriIdMap) {
@@ -828,8 +824,7 @@ export class ViewComponent implements OnInit, OnDestroy {
                         const vizFormControl = this.visualizationFormGroup
                           .controls.visualization as FormControl;
                         vizFormControl.setValue(
-                          
-                          visualizationsUriIdMap[elMetadata.uri || ""],
+                          visualizationsUriIdMap[elMetadata.uri || ''],
                         );
                         this.selectVisualization();
                         this.selectedTabIndex = this.iViewChartTab;
@@ -850,9 +845,6 @@ export class ViewComponent implements OnInit, OnDestroy {
       ),
       shareReplay(1),
     );
-
-
-
 
     this.metadataLoaded$ = this.metadata$.pipe(
       map((): boolean => {

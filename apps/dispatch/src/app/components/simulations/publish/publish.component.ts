@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 import { CombineService } from '../../../services/combine/combine.service';
 import { CombineArchiveElementMetadata } from '../../../datamodel/metadata.interface';
-import { ValidationReport } from '../../../datamodel/validation-report.interface'
+import { ValidationReport } from '../../../datamodel/validation-report.interface';
 import {
   FormBuilder,
   FormGroup,

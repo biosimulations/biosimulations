@@ -4,7 +4,10 @@ import { Simulation } from '../../../datamodel';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { FormattedSimulation } from './view.model';
 import { UtilsService } from '@biosimulations/shared/services';
-import { ArchiveMetadata, SimulationRunMetadata } from '@biosimulations/datamodel/api';
+import {
+  ArchiveMetadata,
+  SimulationRunMetadata,
+} from '@biosimulations/datamodel/api';
 import {
   CombineArchiveElementMetadata,
   Metadata,
@@ -14,9 +17,11 @@ import {
   providedIn: 'root',
 })
 export class ViewService {
-  constructor() { }
+  constructor() {}
 
-  private formatElementMetadata(elementMetadata: ArchiveMetadata | undefined): CombineArchiveElementMetadata {
+  private formatElementMetadata(
+    elementMetadata: ArchiveMetadata | undefined,
+  ): CombineArchiveElementMetadata {
     return {
       ...elementMetadata,
       sources: elementMetadata?.sources || [],
@@ -24,7 +29,7 @@ export class ViewService {
       taxa: elementMetadata?.taxa || [],
       thumbnails: elementMetadata?.thumbnails || [],
       description: elementMetadata?.description || null,
-      keywords: elementMetadata?.keywords?.map(k => k.label || "") || [],
+      keywords: elementMetadata?.keywords?.map((k) => k.label || '') || [],
       abstract: elementMetadata?.abstract ? elementMetadata.abstract : null,
       uri: elementMetadata?.uri ? elementMetadata.uri : null,
       title: elementMetadata?.title ? elementMetadata.title : null,
@@ -39,23 +44,28 @@ export class ViewService {
       citations: elementMetadata?.citations || [],
       created: elementMetadata?.created || null,
       modified: elementMetadata?.modified || [],
-      other: elementMetadata?.other?.map(value => {
-        return {
-          attribute: { uri: value.attribute_uri || null, label: value.attribute_label || null },
-          value: { uri: value.uri, label: value.label }
-        }
-      }) || [],
-    }
+      other:
+        elementMetadata?.other?.map((value) => {
+          return {
+            attribute: {
+              uri: value.attribute_uri || null,
+              label: value.attribute_label || null,
+            },
+            value: { uri: value.uri, label: value.label },
+          };
+        }) || [],
+    };
   }
-    
+
   public formatMetadata(simulationMetadata: SimulationRunMetadata): Metadata {
     const allMetadta = simulationMetadata.metadata;
-    const archiveMetadata =this.formatElementMetadata( allMetadta.find(
-      (m) => (m.uri = simulationMetadata.id),
-    ));
- 
-    const otherMetadata =
-      (allMetadta.filter((m) => m.uri !== simulationMetadata.id) || []).map(this.formatElementMetadata);
+    const archiveMetadata = this.formatElementMetadata(
+      allMetadta.find((m) => (m.uri = simulationMetadata.id)),
+    );
+
+    const otherMetadata = (
+      allMetadta.filter((m) => m.uri !== simulationMetadata.id) || []
+    ).map(this.formatElementMetadata);
 
     const metadata: Metadata = {
       archive: archiveMetadata,
