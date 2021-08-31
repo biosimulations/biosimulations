@@ -151,6 +151,7 @@ export class SimulatorTableService {
                             });
                           }),
                       image: simulator.image?.url || undefined,
+                      pythonApi: simulator?.pythonApi?.package || undefined,
                       curationStatus: curationStatus,
                       license:
                         license instanceof Observable ? value.license : license,

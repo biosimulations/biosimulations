@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import {
   Url,
   IImage,
+  IPythonApi,
   DependentPackage,
   ILinguistOntologyId,
   IDependentVariableTargetPattern,
@@ -189,6 +190,7 @@ export interface ViewSimulator {
   name: string;
   description: string | null;
   image: IImage | null;
+  pythonApi: IPythonApi | null;
   urls: Url[];
   licenseUrl: Observable<string> | null;
   licenseName: Observable<string> | null;

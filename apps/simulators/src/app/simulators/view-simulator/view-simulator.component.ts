@@ -289,4 +289,28 @@ export class ViewSimulatorComponent implements OnInit {
       },
     );
   }
+
+  public copyPipInstallCmd(pythonPackage = '{ package }'): void {
+    const cmd = 'pip install ' + pythonPackage;
+    navigator.clipboard.writeText(cmd);
+    this.snackBar.open(
+      'The command to install the Python package was copied to your clipboard.',
+      undefined,
+      {
+        duration: snackBarDuration,
+      },
+    );
+  }
+
+  public copyPythonImportCmd(module = '{ module }'): void {
+    const cmd = 'import ' + module;
+    navigator.clipboard.writeText(cmd);
+    this.snackBar.open(
+      'The command to import the Python module was copied to your clipboard.',
+      undefined,
+      {
+        duration: snackBarDuration,
+      },
+    );
+  }
 }

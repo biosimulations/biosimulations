@@ -55,6 +55,10 @@
     },
     "operatingSystemType": "Linux"
   },
+  "pythonApi": {
+    "package": "biosimulators-tellurium",
+    "module": "biosimulators_tellurium"
+  },
   "authors": [
     {
       "firstName": "Jayit",

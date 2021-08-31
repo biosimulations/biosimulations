@@ -188,6 +188,7 @@ export class ViewSimulatorService {
       version: sim.version,
       name: sim.name,
       image: sim.image,
+      pythonApi: sim?.pythonApi,
       description: sim.description,
       urls: sim.urls.sort(sortUrls),
       authors: this.getAuthors(sim),

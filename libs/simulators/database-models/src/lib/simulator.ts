@@ -5,12 +5,14 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 import { ImageSchema } from './image';
+import { PythonApiSchema } from './pythonApi';
 import { AlgorithmSchema } from './algorithm';
 import { LinguistOntologyIdSchema, SpdxOntologyIdSchema } from './ontologyId';
 import { Algorithm } from './algorithm';
 import { FundingSchema } from './funding';
 import {
   IImage,
+  IPythonApi,
   ILinguistOntologyId,
   ISpdxOntologyId,
   SoftwareInterfaceType,
@@ -53,6 +55,9 @@ export class Simulator extends Document {
 
   @Prop({ type: ImageSchema, required: false, default: undefined })
   image!: IImage | null;
+
+  @Prop({ type: PythonApiSchema, required: false, default: undefined })
+  pythonApi!: IPythonApi| null;
 
   @Prop({ type: [PersonSchema], required: true, default: undefined })
   authors!: Person[];

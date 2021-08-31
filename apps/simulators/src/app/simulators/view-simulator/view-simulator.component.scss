@@ -70,6 +70,11 @@ biosimulations-tab-page ::ng-deep {
 }
 
 .copy-image {
+  .icon-list li {
+    margin-left: 0;
+    text-indent: 0;
+  }
+
   biosimulations-icon,
   .code {
     float: left;
@@ -87,7 +92,7 @@ biosimulations-tab-page ::ng-deep {
   .biosimulations-button {
     position: relative;
     top: -0.15rem;
-    float: left;
+    float: right;
     font-size: 125%;
   }
 }
