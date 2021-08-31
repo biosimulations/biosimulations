@@ -81,7 +81,6 @@ import {
   FigureTableMetadata,
 } from '../../../datamodel/metadata.interface';
 import {
-  ValidationReport,
   ValidationMessage,
 } from '../../../datamodel/validation-report.interface';
 import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
