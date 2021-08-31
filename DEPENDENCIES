@@ -458,7 +458,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/urijs/LICENSE
-├─ @types/validator@13.0.0
+├─ @types/validator@13.6.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/validator/LICENSE
@@ -944,12 +944,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/typestack/class-transformer
 │  ├─ publisher: TypeStack contributors
 │  └─ licenseFile: class-transformer/LICENSE
-├─ class-validator@0.12.2
+├─ class-validator@0.13.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typestack/class-validator
-│  ├─ publisher: Umed Khudoiberdiev
-│  ├─ email: pleerock.me@gmail.com
-│  └─ licenseFile: class-validator/README.md
+│  ├─ publisher: TypeStack contributors
+│  └─ licenseFile: class-validator/LICENSE
 ├─ clean-stack@2.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/clean-stack
@@ -1920,12 +1919,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: globby/license
-├─ google-libphonenumber@3.2.22
-│  ├─ licenses: (MIT AND Apache-2.0)
-│  ├─ repository: https://github.com/ruimarinho/google-libphonenumber
-│  ├─ publisher: Rui Marinho
-│  ├─ email: ruipmarinho@gmail.com
-│  └─ licenseFile: google-libphonenumber/LICENSE
 ├─ graceful-fs@4.2.8
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/node-graceful-fs
@@ -2691,6 +2684,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/libnpmversion/LICENSE
+├─ libphonenumber-js@1.9.25
+│  ├─ licenses: MIT
+│  ├─ repository: git+https://gitlab.com/catamphetamine/libphonenumber-js
+│  ├─ publisher: catamphetamine
+│  ├─ email: purecatamphetamine@gmail.com
+│  └─ licenseFile: libphonenumber-js/LICENSE
 ├─ limiter@1.1.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jhurliman/node-rate-limiter
@@ -3213,7 +3212,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: npm/node_modules/mute-stream/LICENSE
-├─ nats@2.1.0
+├─ nats@2.2.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/nats-io/nats.js
 │  ├─ publisher: The NATS Authors
@@ -5011,12 +5010,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/npm/validate-npm-package-name
 │  ├─ publisher: zeke
 │  └─ licenseFile: npm/node_modules/validate-npm-package-name/LICENSE
-├─ validator@13.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/chriso/validator.js
-│  ├─ publisher: Chris O'Hara
-│  ├─ email: cohara87@gmail.com
-│  └─ licenseFile: class-validator/node_modules/validator/LICENSE
 ├─ validator@13.6.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/validatorjs/validator.js
