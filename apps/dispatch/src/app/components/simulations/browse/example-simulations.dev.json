@@ -90,6 +90,21 @@
     "projectSize": 1457341
   },
   {
+    "id": "XXXXXXXXX",
+    "name": "Escherichia coli resource allocation (Bulovi\u0107 et al., Metab Eng, 2019; RBA TSV/XML; RBA; RBApy)",
+    "simulator": "rbapy",
+    "simulatorVersion": "1.0.2",
+    "cpus": 1,
+    "memory": 8,
+    "maxTime": 20,
+    "envVars": [],
+    "submittedLocally": false,
+    "status": "CREATED",
+    "submitted": "XXXXXXXXX",
+    "updated": "XXXXXXXXX",
+    "projectSize": 15565133
+  },
+  {
     "id": "6101f4a2fe118f93fca47634",
     "name": "Heat shock protein synthesis (Szymanska et al., J Theor Biol, 2009; SBML; CVODES; AMICI)",
     "simulator": "amici",
