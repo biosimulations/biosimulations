@@ -90,6 +90,7 @@ export type BiosimulationsIcon =
   | 'git'
   | 'github'
   | 'docker'
+  | 'python'
   | 'linkedin'
   | 'orcid'
   | 'toTop'
@@ -158,6 +159,7 @@ export class IconComponent {
     git: { type: 'fab', name: 'git-alt' },
     github: { type: 'fab', name: 'github' },
     docker: { type: 'fab', name: 'docker' },
+    python: { type: 'fab', name: 'python' },
     linkedin: { type: 'fab', name: 'linkedin' },
     orcid: { type: 'fab', name: 'orcid' },
     file: { type: 'fas', name: 'file-alt' },

@@ -272,6 +272,62 @@ export const columns: Column[] = [
     rightShowStacked: false,
   },
   {
+    id: 'pythonApi',
+    heading: 'API',
+    key: 'pythonApi',
+    formatter: (): null => {
+      return null;
+    },
+    stackedFormatter: (value: string | undefined): string => {
+      return value ? value : 'Not available';
+    },
+    filterGetter: (element: TableSimulator): boolean => {
+      return !!element?.pythonApi;
+    },
+    filterFormatter: (value: string | undefined): string => {
+      return value ? 'Yes' : 'No';
+    },
+    centerAction: ColumnActionType.href,
+    rightAction: ColumnActionType.href,
+    centerHref: (element: TableSimulator): string | null => {
+      if (element?.pythonApi) {
+        if (element?.pythonApi.startsWith('http://') || element?.pythonApi.startsWith('https://')) {
+          return element?.pythonApi;
+        } else {
+          return 'https://pypi.org/project/' + element?.pythonApi;
+        }
+      } else {
+        return null;
+      }
+    },
+    rightHref: (element: TableSimulator): string | null => {
+      if (element?.pythonApi) {
+        if (element?.pythonApi.startsWith('http://') || element?.pythonApi?.startsWith('https://')) {
+          return element?.pythonApi;
+        } else {
+          return 'https://pypi.org/project/' + element?.pythonApi;
+        }
+      } else {
+        return null;
+      }
+    },
+    rightIcon: 'python',
+    rightIconTitle: (element: TableSimulator): string | null => {
+      if (element?.pythonApi) {
+        return 'BioSimulators-compliant Python API';
+      } else {
+        return null;
+      }
+    },
+    filterable: true,
+    filterSortDirection: ColumnSortDirection.desc,
+    show: false,
+    minWidth: 60,
+    maxWidth: 60,
+    center: true,
+    rightShowStacked: false,
+  },
+  {
     id: 'interfaceTypes',
     heading: 'Interfaces',
     key: 'interfaceTypes',

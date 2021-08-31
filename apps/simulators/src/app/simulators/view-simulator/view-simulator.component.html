@@ -62,6 +62,20 @@
         </table>
       </div>
       <div class="column border">
+        <div class="section" *ngIf="simulator.image && simulator.validated">
+          <h3>Run simulations online with runBioSimulations</h3>
+          <div class="section-content">
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon icon="simulator"></biosimulations-icon>
+                <a [href]="dispatchAppRunUrl" target="_blank" class="text">
+                  {{ dispatchAppUrl }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div class="section" *ngIf="simulator.image">
           <h3>BioSimulators-compliant Docker image</h3>
           <div class="section-content">
@@ -86,7 +100,7 @@
         </div>
 
         <div class="section" *ngIf="simulator.image">
-          <h3>Run simulations locally with Docker</h3>
+          <h3>Run simulations with Docker</h3>
           <div class="section-content copy-image">
             <biosimulations-icon icon="logs"></biosimulations-icon>
             <div class="code">docker pull {{ simulator.image.url }}</div>
@@ -102,15 +116,57 @@
           </div>
         </div>
 
-        <div class="section" *ngIf="simulator.image && simulator.validated">
-          <h3>Run simulations online with runBioSimulations</h3>
+        <div class="section" *ngIf="simulator?.pythonApi">
+          <h3>BioSimulators-compliant Python API</h3>
           <div class="section-content">
             <ul class="icon-list">
               <li>
-                <biosimulations-icon icon="simulator"></biosimulations-icon>
-                <a [href]="dispatchAppRunUrl" target="_blank" class="text">
-                  {{ dispatchAppUrl }}
-                </a>
+                <biosimulations-icon icon="python"></biosimulations-icon>
+                <a
+                  [href]="
+                    simulator?.pythonApi?.package?.startsWith('http://') || simulator?.pythonApi?.package?.startsWith('https://')
+                    ? simulator?.pythonApi?.package
+                    : 'https://pypi.org/project/' + simulator?.pythonApi?.package + '/'
+                  "
+                  target="_blank"
+                  class="text"
+                >
+                  <span *ngIf="!(simulator?.pythonApi?.package?.startsWith('http://') || simulator?.pythonApi?.package?.startsWith('https://'))">PyPI:</span>{{ simulator?.pythonApi?.package }} </a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section" *ngIf="simulator?.pythonApi">
+          <h3>Run simulations with Python API</h3>
+          <div class="section-content copy-image">
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon icon="logs"></biosimulations-icon>
+                <div class="code">pip install {{ simulator?.pythonApi?.package }}</div>
+                <button
+                  mat-icon-button
+                  class="biosimulations-button primary"
+                  title="Copy to clipboard"
+                  (click)="copyPipInstallCmd(simulator?.pythonApi?.package)"
+                >
+                  <biosimulations-icon icon="copy"></biosimulations-icon>
+                </button>
+                <div class="clear-float"></div>
+              </li>
+              <li>
+                <biosimulations-icon icon="logs"></biosimulations-icon>
+                <div class="code">import {{ simulator?.pythonApi?.module }}</div>
+                <button
+                  mat-icon-button
+                  class="biosimulations-button primary"
+                  title="Copy to clipboard"
+                  (click)="copyPythonImportCmd(simulator?.pythonApi?.module)"
+                >
+                  <biosimulations-icon icon="copy"></biosimulations-icon>
+                </button>
+                <div class="clear-float"></div>
               </li>
             </ul>
           </div>

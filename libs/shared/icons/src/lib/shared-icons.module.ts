@@ -102,6 +102,7 @@ import {
   faGitAlt,
   faGithub,
   faDocker,
+  faPython,
   faLinkedin,
   faOrcid,
   faCreativeCommons,
@@ -112,7 +113,7 @@ import {
   faCreativeCommonsShare,
   faOsi,
   faGoogleDrive,
-  faYoutube,
+  faYoutube,  
 } from '@fortawesome/free-brands-svg-icons';
 import {
   faFileAlt as farFileAlt,
@@ -211,6 +212,7 @@ export class BiosimulationsIconsModule {
       faQuestion,
       faGithub,
       faDocker,
+      faPython,
       faLinkedin,
       faOrcid,
       faCreativeCommons,
