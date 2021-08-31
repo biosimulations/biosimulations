@@ -1,3 +1,22 @@
+# [3.16.0](https://github.com/biosimulations/Biosimulations/compare/v3.15.0...v3.16.0) (2021-08-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency class-validator to v0.13.1 ([#2894](https://github.com/biosimulations/Biosimulations/issues/2894)) ([3676e59](https://github.com/biosimulations/Biosimulations/commit/3676e59d26a91d81bd7b12cd0287d619fa8e89ab))
+* **deps:** update dependency nats to v2.2.0 ([#2886](https://github.com/biosimulations/Biosimulations/issues/2886)) ([7097edc](https://github.com/biosimulations/Biosimulations/commit/7097edc10eef06edc70ede51b1c2c4dc9eec5810))
+* **deps:** update dependency rxjs to v7.3.0 ([#2895](https://github.com/biosimulations/Biosimulations/issues/2895)) ([c01604b](https://github.com/biosimulations/Biosimulations/commit/c01604bfcf4df5516158b442435f63002ef9720c))
+* **deps:** update dependency stackdriver-errors-js to v0.10.0 ([43451aa](https://github.com/biosimulations/Biosimulations/commit/43451aa19accdc7c670a17cd6fec1aa660934234))
+* **deps:** update dependency tslib to v2.3.1 ([#2888](https://github.com/biosimulations/Biosimulations/issues/2888)) ([fc78756](https://github.com/biosimulations/Biosimulations/commit/fc787565990a70489c6ee0a6b9450af7e92eb118))
+
+
+### Features
+
+* **dispatch:** added dry run option to example simulation submission ([1487880](https://github.com/biosimulations/Biosimulations/commit/1487880a87f82f48e29dafcfe9741bf9ff862cb7))
+* **dispatch:** added example simulation run for RBApy ([277772e](https://github.com/biosimulations/Biosimulations/commit/277772e9d062f4a82fab455efbc2c67d088770ad))
+* **dispatch-api:** set uris for metadata elements ([96e94fe](https://github.com/biosimulations/Biosimulations/commit/96e94fef4ea1a25ad95cba100c9b635618d29e7e))
+* **simulators:** added ability to capture Python APIs in simulator specs ([5ed44cb](https://github.com/biosimulations/Biosimulations/commit/5ed44cb904349e4f91eb6b8cf62f264eb6eeebdd))
+
 # [3.15.0](https://github.com/biosimulations/Biosimulations/compare/v3.14.0...v3.15.0) (2021-08-29)
 
 
