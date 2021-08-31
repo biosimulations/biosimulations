@@ -81,7 +81,6 @@ import {
   FigureTableMetadata,
 } from '../../../datamodel/metadata.interface';
 import {
-  ValidationReport,
   ValidationMessage,
 } from '../../../datamodel/validation-report.interface';
 import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
@@ -698,83 +697,66 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     this.metadata$ = this.metadataService
       .getMetadata(this.uuid)
-      .pipe(map(this.service.formatMetadata));
-    // TODO replace below with above after sorting out the uri mapping. Move most of the mapping to the backend api
+      .pipe(map(this.service.formatMetadata, this.service),
+      map((metadata)=>{
+
+         
+       const thumbnails = metadata.archive?.thumbnails?.map(thumbnail=>{
+        return `${urls.combineApi}combine/file?url=${encodeURI(
+          archiveUrl,
+        )}&location=${encodeURI(thumbnail)}`
+        });
+        if(metadata.archive){
+          metadata.archive.thumbnails = thumbnails || [];
+        }
+        
+        const allmetadata=metadata?.archive ? [metadata.archive, ...metadata.other]: metadata.other
+        allmetadata.map(elMetadata =>{
+          if(elMetadata){
+          if (elMetadata?.created) {
+            elMetadata.created = UtilsService.getDateString(
+              new Date(elMetadata.created),
+            );
+          }
+          elMetadata.modified = elMetadata.modified.map(
+            (date: string): string => {
+              return UtilsService.getDateString(new Date(date));
+            },
+          );
+          elMetadata.modified.sort();
+          elMetadata.modified.reverse();
+          
+        }
+        return elMetadata
+      })
+      metadata.archive=allmetadata[0]
+      metadata.other=allmetadata.slice(1)
+    
+      return metadata
+      }));
+        
+        
     this.metadata$ = combineLatest(
-      this.combineService.getCombineArchiveMetadata(archiveUrl),
+      this.metadata$,
       this.visualizations$,
       this.sedDocumentsConfiguration$,
     ).pipe(
       map(
         (
           args: [
-            CombineArchiveElementMetadata[] | ValidationReport | undefined,
+            Metadata | undefined,
             Visualization[],
             CombineArchive | undefined,
           ],
         ): Metadata | undefined => {
-          const elMetadatasOrValidationReport = args[0];
+          const elMetadatas = args[0];
           const visualizations = args[1];
           const sedDocumentsConfiguration = args[2];
 
-          if (elMetadatasOrValidationReport === undefined) {
+          if (elMetadatas === undefined) {
             return undefined;
           }
 
-          if (!Array.isArray(elMetadatasOrValidationReport)) {
-            const validationReport =
-              elMetadatasOrValidationReport as ValidationReport;
-            return {
-              archive: null,
-              other: [],
-              validationReport: {
-                status: validationReport.status,
-                errors: validationReport?.errors?.length
-                  ? this.convertValidationMessagesToList(
-                      validationReport.errors,
-                    )
-                  : null,
-                warnings: validationReport?.warnings?.length
-                  ? this.convertValidationMessagesToList(
-                      validationReport.warnings,
-                    )
-                  : null,
-              },
-            };
-          }
-
-          let elMetadatas =
-            elMetadatasOrValidationReport as CombineArchiveElementMetadata[];
-          elMetadatas = elMetadatas.map(
-            (
-              elMetadata: CombineArchiveElementMetadata,
-            ): CombineArchiveElementMetadata => {
-              elMetadata = Object.assign({}, elMetadata);
-              // This should be moved server side
-              elMetadata.thumbnails = elMetadata.thumbnails.map(
-                (thumbnail: string): string => {
-                  return `${urls.combineApi}combine/file?url=${encodeURI(
-                    archiveUrl,
-                  )}&location=${encodeURI(thumbnail)}`;
-                },
-              );
-
-              if (elMetadata.created) {
-                elMetadata.created = UtilsService.getDateString(
-                  new Date(elMetadata.created),
-                );
-              }
-              elMetadata.modified = elMetadata.modified.map(
-                (date: string): string => {
-                  return UtilsService.getDateString(new Date(date));
-                },
-              );
-              elMetadata.modified.sort();
-              elMetadata.modified.reverse();
-
-              return elMetadata;
-            },
-          );
 
           const visualizationsUriIdMap: { [uri: string]: string } = {};
           for (const visualization of visualizations) {
@@ -798,15 +780,8 @@ export class ViewComponent implements OnInit, OnDestroy {
           }
 
           return {
-            archive: elMetadatas.filter(
-              (elMetadata: CombineArchiveElementMetadata): boolean => {
-                return elMetadata.uri === '.';
-              },
-            )?.[0],
-            other: elMetadatas
-              .filter((elMetadata: CombineArchiveElementMetadata): boolean => {
-                return elMetadata.uri !== '.';
-              })
+            archive: elMetadatas.archive,
+            other: elMetadatas.other
               .map(
                 (
                   elMetadata: CombineArchiveElementMetadata,
@@ -845,7 +820,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       ),
       shareReplay(1),
     );
-
+    
     this.metadataLoaded$ = this.metadata$.pipe(
       map((): boolean => {
         return true;
@@ -899,7 +874,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   getArchiveUrl(): string {
-    return `${urls.dispatchApi}run/${this.uuid}/download`;
+    return `${urls.dispatchApi}run/${this.uuid}/download`
   }
 
   public ngOnDestroy(): void {
@@ -1244,8 +1219,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.plotlyVizDataLayout.next(null);
 
     const sub = this.visualizationService
-      .getCombineResults(this.uuid) // TODO: replace with the following line when #2683 is fixed
-      // .getCombineResults(this.uuid, visualization.uri as string)
+       .getCombineResults(this.uuid, visualization.uri as string)
       .subscribe((results: SedDatasetResultsMap | undefined): void => {
         if (results) {
           const traces: Trace[] = [];

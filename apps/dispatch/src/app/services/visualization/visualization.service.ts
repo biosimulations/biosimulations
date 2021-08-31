@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError, timer } from 'rxjs';
 import { map, catchError, retryWhen, mergeMap } from 'rxjs/operators';
-import { urls } from '@biosimulations/config/common';
+import { Endpoints } from '@biosimulations/config/common';
 import {
   CombineResults,
   SedDocumentResults,
@@ -27,8 +27,8 @@ import { CombineService } from '../combine/combine.service';
   providedIn: 'root',
 })
 export class VisualizationService {
-  private combineArchiveEndpoint = `${urls.dispatchApi}run/`;
-  private resultsEndpoint = `${urls.dispatchApi}results`;
+  private combineArchiveEndpoint = `${Endpoints.simulationRuns}`;
+  private resultsEndpoint = `${Endpoints.simulationRunResults}`;
 
   public constructor(
     private http: HttpClient,
@@ -217,7 +217,7 @@ export class VisualizationService {
   public getSpecsOfSedDocsInCombineArchive(
     runId: string,
   ): Observable<CombineArchive | undefined> {
-    const archiveUrl = `${this.combineArchiveEndpoint}${runId}/download`;
+    const archiveUrl = `${this.combineArchiveEndpoint}/${runId}/download`;
     return this.combineService
       .getSpecsOfSedDocsInCombineArchive(archiveUrl)
       .pipe(
