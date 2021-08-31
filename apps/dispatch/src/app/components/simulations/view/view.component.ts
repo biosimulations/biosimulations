@@ -80,9 +80,7 @@ import {
   Metadata,
   FigureTableMetadata,
 } from '../../../datamodel/metadata.interface';
-import {
-  ValidationMessage,
-} from '../../../datamodel/validation-report.interface';
+import { ValidationMessage } from '../../../datamodel/validation-report.interface';
 import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
 import user2DHeatmapVegaTemplate from './viz-vega-templates/2d-heatmap.json';
 import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.json';
@@ -695,47 +693,45 @@ export class ViewComponent implements OnInit, OnDestroy {
   private initSimulationProjectMetadata(): void {
     const archiveUrl = this.getArchiveUrl();
 
-    this.metadata$ = this.metadataService
-      .getMetadata(this.uuid)
-      .pipe(map(this.service.formatMetadata, this.service),
-      map((metadata)=>{
-
-         
-       const thumbnails = metadata.archive?.thumbnails?.map(thumbnail=>{
-        return `${urls.combineApi}combine/file?url=${encodeURI(
-          archiveUrl,
-        )}&location=${encodeURI(thumbnail)}`
+    this.metadata$ = this.metadataService.getMetadata(this.uuid).pipe(
+      map(this.service.formatMetadata, this.service),
+      map((metadata) => {
+        const thumbnails = metadata.archive?.thumbnails?.map((thumbnail) => {
+          return `${urls.combineApi}combine/file?url=${encodeURI(
+            archiveUrl,
+          )}&location=${encodeURI(thumbnail)}`;
         });
-        if(metadata.archive){
+        if (metadata.archive) {
           metadata.archive.thumbnails = thumbnails || [];
         }
-        
-        const allmetadata=metadata?.archive ? [metadata.archive, ...metadata.other]: metadata.other
-        allmetadata.map(elMetadata =>{
-          if(elMetadata){
-          if (elMetadata?.created) {
-            elMetadata.created = UtilsService.getDateString(
-              new Date(elMetadata.created),
+
+        const allmetadata = metadata?.archive
+          ? [metadata.archive, ...metadata.other]
+          : metadata.other;
+        allmetadata.map((elMetadata) => {
+          if (elMetadata) {
+            if (elMetadata?.created) {
+              elMetadata.created = UtilsService.getDateString(
+                new Date(elMetadata.created),
+              );
+            }
+            elMetadata.modified = elMetadata.modified.map(
+              (date: string): string => {
+                return UtilsService.getDateString(new Date(date));
+              },
             );
+            elMetadata.modified.sort();
+            elMetadata.modified.reverse();
           }
-          elMetadata.modified = elMetadata.modified.map(
-            (date: string): string => {
-              return UtilsService.getDateString(new Date(date));
-            },
-          );
-          elMetadata.modified.sort();
-          elMetadata.modified.reverse();
-          
-        }
-        return elMetadata
-      })
-      metadata.archive=allmetadata[0]
-      metadata.other=allmetadata.slice(1)
-    
-      return metadata
-      }));
-        
-        
+          return elMetadata;
+        });
+        metadata.archive = allmetadata[0];
+        metadata.other = allmetadata.slice(1);
+
+        return metadata;
+      }),
+    );
+
     this.metadata$ = combineLatest(
       this.metadata$,
       this.visualizations$,
@@ -756,7 +752,6 @@ export class ViewComponent implements OnInit, OnDestroy {
           if (elMetadatas === undefined) {
             return undefined;
           }
-
 
           const visualizationsUriIdMap: { [uri: string]: string } = {};
           for (const visualization of visualizations) {
@@ -781,46 +776,43 @@ export class ViewComponent implements OnInit, OnDestroy {
 
           return {
             archive: elMetadatas.archive,
-            other: elMetadatas.other
-              .map(
-                (
-                  elMetadata: CombineArchiveElementMetadata,
-                ): CombineArchiveElementMetadata => {
-                  if (elMetadata != null && elMetadata.uri != null) {
-                    const uriPrefix = this.uuid + '/';
-                    if (elMetadata.uri?.startsWith(this.uuid + '/')) {
-                      elMetadata.uri = elMetadata.uri.substring(
-                        uriPrefix.length,
-                      );
-                    }
-
-                    if (elMetadata?.uri in visualizationsUriIdMap) {
-                      elMetadata.click = (): void => {
-                        const vizFormControl = this.visualizationFormGroup
-                          .controls.visualization as FormControl;
-                        vizFormControl.setValue(
-                          visualizationsUriIdMap[elMetadata.uri || ''],
-                        );
-                        this.selectVisualization();
-                        this.selectedTabIndex = this.iViewChartTab;
-                      };
-                    } else if (sedUris.has(elMetadata.uri)) {
-                      elMetadata.click = (): void => {
-                        this.selectedTabIndex = this.iSelectChartTab;
-                      };
-                    }
+            other: elMetadatas.other.map(
+              (
+                elMetadata: CombineArchiveElementMetadata,
+              ): CombineArchiveElementMetadata => {
+                if (elMetadata != null && elMetadata.uri != null) {
+                  const uriPrefix = this.uuid + '/';
+                  if (elMetadata.uri?.startsWith(this.uuid + '/')) {
+                    elMetadata.uri = elMetadata.uri.substring(uriPrefix.length);
                   }
 
-                  return elMetadata;
-                },
-              ),
+                  if (elMetadata?.uri in visualizationsUriIdMap) {
+                    elMetadata.click = (): void => {
+                      const vizFormControl = this.visualizationFormGroup
+                        .controls.visualization as FormControl;
+                      vizFormControl.setValue(
+                        visualizationsUriIdMap[elMetadata.uri || ''],
+                      );
+                      this.selectVisualization();
+                      this.selectedTabIndex = this.iViewChartTab;
+                    };
+                  } else if (sedUris.has(elMetadata.uri)) {
+                    elMetadata.click = (): void => {
+                      this.selectedTabIndex = this.iSelectChartTab;
+                    };
+                  }
+                }
+
+                return elMetadata;
+              },
+            ),
             validationReport: null,
           };
         },
       ),
       shareReplay(1),
     );
-    
+
     this.metadataLoaded$ = this.metadata$.pipe(
       map((): boolean => {
         return true;
@@ -874,7 +866,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   getArchiveUrl(): string {
-    return `${urls.dispatchApi}run/${this.uuid}/download`
+    return `${urls.dispatchApi}run/${this.uuid}/download`;
   }
 
   public ngOnDestroy(): void {
@@ -1219,7 +1211,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.plotlyVizDataLayout.next(null);
 
     const sub = this.visualizationService
-       .getCombineResults(this.uuid, visualization.uri as string)
+      .getCombineResults(this.uuid, visualization.uri as string)
       .subscribe((results: SedDatasetResultsMap | undefined): void => {
         if (results) {
           const traces: Trace[] = [];
