@@ -4148,7 +4148,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: feross@feross.org
 │  ├─ url: https://feross.org
 │  └─ licenseFile: run-parallel/LICENSE
-├─ rxjs@7.2.0
+├─ rxjs@7.3.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/reactivex/rxjs
 │  ├─ publisher: Ben Lesh
