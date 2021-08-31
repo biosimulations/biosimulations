@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 
+from unittest import mock
 import argparse
+import enum
 import json
-import time
 import natsort
 import os
 import requests
 import shutil
 import subprocess
 import tempfile
+import time
 import webbrowser
 
 GET_SIMULATORS_ENDPOINT = 'https://api.biosimulators.{}/simulators/latest'
@@ -23,8 +25,7 @@ EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  'simulations', 'browse', 'example-simulations.{}.json')
 
 
-
-class bcolors:
+class BColors(str, enum.Enum):
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKCYAN = '\033[96m'
@@ -37,15 +38,16 @@ class bcolors:
 
 
 def getSubmitEndpoint(runbiosimulations_api):
-    
-    if(runbiosimulations_api=='local'):
+
+    if(runbiosimulations_api == 'local'):
         return 'http://localhost:3333/runs'
-    
+
     return 'https://run.api.biosimulations.{}/runs'.format(runbiosimulations_api)
+
 
 def main(runbiosimulations_api='dev', biosimulators_api='org',
          biosimulators_test_suite_branch='deploy', simulation_names=None,
-         test_mode=False, browser=False):
+         test_mode=False, browser=False, dry_run=False):
     """ Submit example simulations from the BioSimulators test suite to the runBioSimulations API and
     record their runs to ``example-simulations.json`` within the browse simulations module of the
     dispatch app so that users can load runs of these simulations as examples.
@@ -55,9 +57,10 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
         biosimulators_api (:obj:`str`): which deployment of the BioSimulators API to use (``dev`` or ``org``)
         biosimulators_test_suite_branch (:obj:`str`): branch of the BioSimulators test suite to use (e.g., ``deploy`` or ``dev``).
         simulation_names (:obj:`list` of :obj:`str`): filenames of example simulations to execute. Default: execute all examples.
+        test_mode (:obj:`bool`, optional): whether to run this program in test mode
+        browser (:obj:`bool`, optional): whether to open the simulations in a browser
+        dry_run (:obj:`bool`, optional): If :obj:`True`, do not submit simulations to runBioSimulations
     """
-
-        
 
     # get latest version of each simulator
     response = requests.get(GET_SIMULATORS_ENDPOINT.format(biosimulators_api))
@@ -103,8 +106,8 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
 
     else:
         simulation_runs = {}
-    
-    print(bcolors.HEADER + "Submitting Simulations" + bcolors.ENDC)
+
+    print(BColors.HEADER + "Submitting Simulations" + BColors.ENDC)
     for simulation in simulations:
         name = simulation['name']
         simulator = simulation['simulator']
@@ -114,46 +117,54 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
         # get COMBINE archive
         response = requests.get(url)
         response.raise_for_status()
-        
+
         archive_filename = os.path.join(
             temp_dir, os.path.basename(simulation['filename']))
         combine_archive = response.content
-        
+
         with open(archive_filename, 'wb') as file:
             file.write(combine_archive)
         project_size = len(combine_archive)
-        
+
         # submit simulation
-        submit_endpoint=getSubmitEndpoint(runbiosimulations_api)
-        process = subprocess.run(['curl',
-                                  '-X', 'POST', submit_endpoint,
-                                  '-H', "accept: application/json",
-                                  '-H', "Content-Type: application/json",
-                                  '-d', json.dumps({
-                                      "name": name,
-                                      'simulator': simulator,
-                                      "simulatorVersion": simulator_version,
-                                      "cpus": 1,
-                                      "memory": 8,
-                                      "maxTime": 20,
-                                      "envVars": [],
-                                      "email": None,
-                                      "public": False,
-                                      "url": url,
-                                  }),
-                                  ], capture_output=True)
-     
+        submit_endpoint = getSubmitEndpoint(runbiosimulations_api)
+        if not dry_run:
+            process = subprocess.run(['curl',
+                                      '-X', 'POST', submit_endpoint,
+                                      '-H', "accept: application/json",
+                                      '-H', "Content-Type: application/json",
+                                      '-d', json.dumps({
+                                          "name": name,
+                                          'simulator': simulator,
+                                          "simulatorVersion": simulator_version,
+                                          "cpus": 1,
+                                          "memory": 8,
+                                          "maxTime": 20,
+                                          "envVars": [],
+                                          "email": None,
+                                          "public": False,
+                                          "url": url,
+                                      }),
+                                      ], capture_output=True)
+        else:
+            process = mock.Mock(stdout=mock.Mock(decode=lambda: json.dumps({
+                'id': 'XXXXXXXXX',
+                'submitted': 'XXXXXXXXX',
+                'updated': 'XXXXXXXXX',
+            })))
+
         simulation_run = json.loads(process.stdout.decode())
         if 'id' in simulation_run:
             print("Submitted simulation: " + simulation_run['id'])
-            sim_url= "https://run.biosimulations.{}/simulations/{}".format(runbiosimulations_api if not runbiosimulations_api=="local" else "dev", simulation_run['id'])
-            print("View:" + sim_url)
+            sim_url = "https://run.biosimulations.{}/simulations/{}".format(
+                runbiosimulations_api if not runbiosimulations_api == "local" else "dev", simulation_run['id'])
+            print("View: " + sim_url)
             if browser:
                 webbrowser.open(sim_url)
         else:
-            print(bcolors.FAIL + "Failed to submit simulation: " + name + bcolors.ENDC)
+            print(BColors.FAIL + "Failed to submit simulation: " + name + BColors.ENDC)
             raise RuntimeError('Simulation could not be run on {}: {}'.format(
-               submit_endpoint,
+                submit_endpoint,
                 simulation_run['error']))
 
         # log run
@@ -188,22 +199,22 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
 
 
 def monitor_runs(simulation_runs, runbiosimulations_api, timeout=240):
-    total=len(simulation_runs)
+    total = len(simulation_runs)
     pending_runs = simulation_runs
     failed_runs = []
     passed_runs = []
     timed_out_runs = []
-    start_time= time.time()
-    current_time=time.time()
-    timeout_occurred=False
-    print(bcolors.HEADER + "Monitoring Simulation Runs with timeout" + bcolors.BOLD + str(timeout)  + bcolors.ENDC)
+    start_time = time.time()
+    current_time = time.time()
+    timeout_occurred = False
+    print(BColors.HEADER + "Monitoring Simulation Runs with timeout" + BColors.BOLD + str(timeout) + BColors.ENDC)
     while(not timeout_occurred):
-        print(bcolors.HEADER + "Getting Runs from API"+ bcolors.ENDC)
-        if len(pending_runs)==0:
+        print(BColors.HEADER + "Getting Runs from API" + BColors.ENDC)
+        if len(pending_runs) == 0:
             break
         for run in pending_runs[:]:
-            
-            api_host=getSubmitEndpoint(runbiosimulations_api)
+
+            api_host = getSubmitEndpoint(runbiosimulations_api)
             print("Checking status of {}".format(run['name']))
             response = requests.get(api_host + "/" + run['id'])
             try:
@@ -211,70 +222,65 @@ def monitor_runs(simulation_runs, runbiosimulations_api, timeout=240):
             except requests.exceptions.HTTPError as e:
                 pending_runs.remove(run)
                 failed_runs.append(run)
-            
+
             sim = response.json()
-            if sim['status']=='SUCCEEDED':
-                print(bcolors.OKGREEN + "SUCCEEDED " + bcolors.ENDC + run['name'])
+            if sim['status'] == 'SUCCEEDED':
+                print(BColors.OKGREEN + "SUCCEEDED " + BColors.ENDC + run['name'])
                 pending_runs.remove(run)
                 passed_runs.append(run)
-            elif sim['status']=='FAILED':
-                print(bcolors.FAIL + "FAILED " + bcolors.ENDC +  run['name'])
+            elif sim['status'] == 'FAILED':
+                print(BColors.FAIL + "FAILED " + BColors.ENDC + run['name'])
                 pending_runs.remove(run)
                 failed_runs.append(run)
-            elif sim['status']=='RUNNING':
-                print(bcolors.OKCYAN + "RUNNING " + bcolors.ENDC + run['name'])
-                
-            elif sim['status']=='PROCESSING':
-                print(bcolors.OKCYAN + "PROCESSING " + bcolors.ENDC + run['name'])
-                
-            elif sim['status']=='CREATED':
-                print(bcolors.OKBLUE + " CREATED " + bcolors.ENDC + run['name'])
+            elif sim['status'] == 'RUNNING':
+                print(BColors.OKCYAN + "RUNNING " + BColors.ENDC + run['name'])
 
-            elif sim['status']=='QUEUED':
-                print(bcolors.WARNING + "QUEUED " + bcolors.ENDC + run['name'])
+            elif sim['status'] == 'PROCESSING':
+                print(BColors.OKCYAN + "PROCESSING " + BColors.ENDC + run['name'])
+
+            elif sim['status'] == 'CREATED':
+                print(BColors.OKBLUE + " CREATED " + BColors.ENDC + run['name'])
+
+            elif sim['status'] == 'QUEUED':
+                print(BColors.WARNING + "QUEUED " + BColors.ENDC + run['name'])
             else:
-                print(bcolors.WARNING + "UNKNOWN " + bcolors.ENDC + run['name'])
-        
-        current_time=time.time()
-        if(len(pending_runs)==0):
+                print(BColors.WARNING + "UNKNOWN " + BColors.ENDC + run['name'])
+
+        current_time = time.time()
+        if(len(pending_runs) == 0):
             break
-        if(current_time-start_time>timeout):
-            timeout_occurred=True
+        if(current_time-start_time > timeout):
+            timeout_occurred = True
             for run in pending_runs:
                 timed_out_runs.append(run)
-        total_failed_runs=len(failed_runs)
-        total_passed= len(passed_runs)
-        total_timedout= len(timed_out_runs)
+        total_failed_runs = len(failed_runs)
+        total_passed = len(passed_runs)
+        total_timedout = len(timed_out_runs)
         total_pending = len(pending_runs)
         print()
-        print(bcolors.HEADER + "Total Number of runs: " + str(total) + bcolors.ENDC)
-        print(bcolors.OKBLUE + "Total Number of pending runs: " + str(total_pending) + bcolors.ENDC)
-        print(bcolors.OKGREEN + "Total Number of passed runs: " + str(total_passed) + bcolors.ENDC)
-        print(bcolors.WARNING + "Total Number of timed out runs: " + str(total_timedout) + bcolors.ENDC)
-        print(bcolors.FAIL + "Total Number of failed runs: " + str(total_failed_runs) + bcolors.ENDC)
+        print(BColors.HEADER + "Total Number of runs: " + str(total) + BColors.ENDC)
+        print(BColors.OKBLUE + "Total Number of pending runs: " + str(total_pending) + BColors.ENDC)
+        print(BColors.OKGREEN + "Total Number of passed runs: " + str(total_passed) + BColors.ENDC)
+        print(BColors.WARNING + "Total Number of timed out runs: " + str(total_timedout) + BColors.ENDC)
+        print(BColors.FAIL + "Total Number of failed runs: " + str(total_failed_runs) + BColors.ENDC)
         print()
         time.sleep(5)
-    passed=True
-    if len(failed_runs)>0 :
-        print(bcolors.FAIL + "One or more simulations failed" + bcolors.ENDC)
-        passed=False
+    passed = True
+    if len(failed_runs) > 0:
+        print(BColors.FAIL + "One or more simulations failed" + BColors.ENDC)
+        passed = False
         for run in failed_runs:
-            print(bcolors.FAIL + "FAILED {} --- {}".format(run['id'], run['name']) + bcolors.ENDC)
-    if len(timed_out_runs)>0 :
-        print(bcolors.WARNING + "One or more simulations timed-out" + bcolors.ENDC)
-        passed=False
+            print(BColors.FAIL + "FAILED {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
+    if len(timed_out_runs) > 0:
+        print(BColors.WARNING + "One or more simulations timed-out" + BColors.ENDC)
+        passed = False
         for run in timed_out_runs:
-            print(bcolors.WARNING + "TIMEOUT {} --- {}".format(run['id'], run['name']) + bcolors.ENDC)
+            print(BColors.WARNING + "TIMEOUT {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
     if(passed):
-        print(bcolors.OKGREEN + "All runs passed" + bcolors.ENDC)
-        #Todo check logs, results, metadata
-    
+        print(BColors.OKGREEN + "All runs passed" + BColors.ENDC)
+        # Todo check logs, results, metadata
+
     return passed
-
-        
-
-                
-                
 
 
 if __name__ == '__main__':
@@ -299,14 +305,20 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         '--test', type=bool,
-        help='If the script should run in test mode to test API functionality',
+        help='If set, run the script in test mode to test API functionality',
         default=False, dest='test_mode',
 
     )
     parser.add_argument(
-    '--web', type=bool,
-    help='If the script should open a browser window with simulations',
-    default=False, dest='browser',
+        '--web', type=bool,
+        help='If set, open a browser window with simulation runs',
+        default=False, dest='browser',
+
+    )
+    parser.add_argument(
+        '--dry-run',
+        help='If set, do not submit simulations to runBioSimulations',
+        action='store_true',
 
     )
     args = parser.parse_args()
@@ -316,4 +328,5 @@ if __name__ == '__main__':
          biosimulators_test_suite_branch=args.biosimulators_test_suite_branch,
          simulation_names=args.simulation_names,
          test_mode=args.test_mode,
-         browser=args.browser)
+         browser=args.browser,
+         dry_run=args.dry_run)
