@@ -291,7 +291,10 @@ export const columns: Column[] = [
     rightAction: ColumnActionType.href,
     centerHref: (element: TableSimulator): string | null => {
       if (element?.pythonApi) {
-        if (element?.pythonApi.startsWith('http://') || element?.pythonApi.startsWith('https://')) {
+        if (
+          element?.pythonApi.startsWith('http://') ||
+          element?.pythonApi.startsWith('https://')
+        ) {
           return element?.pythonApi;
         } else {
           return 'https://pypi.org/project/' + element?.pythonApi;
@@ -302,7 +305,10 @@ export const columns: Column[] = [
     },
     rightHref: (element: TableSimulator): string | null => {
       if (element?.pythonApi) {
-        if (element?.pythonApi.startsWith('http://') || element?.pythonApi?.startsWith('https://')) {
+        if (
+          element?.pythonApi.startsWith('http://') ||
+          element?.pythonApi?.startsWith('https://')
+        ) {
           return element?.pythonApi;
         } else {
           return 'https://pypi.org/project/' + element?.pythonApi;

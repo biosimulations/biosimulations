@@ -1,6 +1,4 @@
-import {
-  IPythonApi,
-} from '@biosimulations/datamodel/common';
+import { IPythonApi } from '@biosimulations/datamodel/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({
@@ -27,7 +25,11 @@ export class PythonApi implements IPythonApi {
             return false;
           }
 
-          return value.match(/^[a-zA-Z_][a-zA-Z_0-9]*(\.[a-zA-Z_][a-zA-Z_0-9]*)*$/) !== null;
+          return (
+            value.match(
+              /^[a-zA-Z_][a-zA-Z_0-9]*(\.[a-zA-Z_][a-zA-Z_0-9]*)*$/,
+            ) !== null
+          );
         },
         message: (props: any): string =>
           `${props.value} is not a valid URL for a Docker image (e.g., 'ghcr.io/biosimulators/tellurium:2.1.6')`,

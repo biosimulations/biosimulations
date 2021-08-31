@@ -113,7 +113,7 @@ import {
   faCreativeCommonsShare,
   faOsi,
   faGoogleDrive,
-  faYoutube,  
+  faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 import {
   faFileAlt as farFileAlt,

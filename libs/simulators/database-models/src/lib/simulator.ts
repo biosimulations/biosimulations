@@ -57,7 +57,7 @@ export class Simulator extends Document {
   image!: IImage | null;
 
   @Prop({ type: PythonApiSchema, required: false, default: undefined })
-  pythonApi!: IPythonApi| null;
+  pythonApi!: IPythonApi | null;
 
   @Prop({ type: [PersonSchema], required: true, default: undefined })
   authors!: Person[];
