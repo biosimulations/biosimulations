@@ -18,7 +18,7 @@ stringcase = "*"
 natsort = "*"
 rdflib = "*"
 numpy = "*"
-requests-cache = "<0.7" # to resolve conflict in required version of itsdangerous dependency with flask
+requests-cache = "<0.8" # to resolve conflict in required version of itsdangerous dependency with flask
 # AMICI
 biosimulators-amici = ">=0.1.17"
 # BioNetGen
