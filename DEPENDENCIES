@@ -274,6 +274,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/openapi-contrib/openapi-schema-to-json-schema
 │  ├─ publisher: OpenAPI Contrib
 │  └─ licenseFile: @openapi-contrib/openapi-schema-to-json-schema/README.md
+├─ @panva/asn1.js@1.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/panva/asn1.js
+│  ├─ publisher: Fedor Indutny
+│  └─ licenseFile: @panva/asn1.js/LICENSE
 ├─ @semantic-release/commit-analyzer@8.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/commit-analyzer
@@ -747,7 +752,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 ├─ biosimulations@3.17.0
 │  ├─ licenses: UNLICENSED
 │  ├─ private: true
-│  └─ licenseFile: /home/runner/work/Biosimulations/Biosimulations/License.md
+│  └─ licenseFile: /home/runner/work/biosimulations/biosimulations/License.md
 ├─ bl@2.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rvagg/bl
@@ -2490,6 +2495,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: js@jamesls.com
 │  ├─ url: http://jamesls.com/
 │  └─ licenseFile: jmespath/LICENSE
+├─ jose@2.0.5
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/panva/jose
+│  ├─ publisher: Filip Skokan
+│  ├─ email: panva.ip@gmail.com
+│  └─ licenseFile: jose/LICENSE.md
 ├─ js-tokens@4.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/lydell/js-tokens
@@ -2591,6 +2602,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: brianloveswords@gmail.com
 │  └─ licenseFile: jwa/LICENSE
 ├─ jwks-rsa@1.12.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/auth0/node-jwks-rsa
+│  ├─ publisher: Auth0
+│  └─ licenseFile: auth0/node_modules/jwks-rsa/LICENSE
+├─ jwks-rsa@2.0.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-jwks-rsa
 │  ├─ publisher: Auth0
