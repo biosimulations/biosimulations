@@ -5,6 +5,7 @@ import importlib
 import multiprocessing
 import os
 import sys
+import time
 import types  # noqa: F401
 import yaml
 
@@ -78,50 +79,25 @@ def get_simulator_metadata(id):
     }
 
 
-def use_simulator_api_to_exec_sedml_docs_in_combine_archive(api_name,
-                                                            archive_filename, out_dir,
-                                                            return_results=False,
-                                                            report_formats=None,
-                                                            plot_formats=None,
-                                                            bundle_outputs=None,
-                                                            keep_individual_outputs=None,
-                                                            raise_exceptions=True,
-                                                            **kwargs):
+def use_simulator_api_to_exec_sedml_docs_in_combine_archive(api_name, *args, **kwargs):
     """ Execute the SED tasks defined in a COMBINE/OMEX archive and save the outputs
 
     Args:
         api (:obj:`str`): module which implements the API for the simulator
-        archive_filename (:obj:`str`): path to COMBINE/OMEX archive
-        out_dir (:obj:`str`): path to store the outputs of the archive
-
-            * CSV: directory in which to save outputs to files
-              ``{ out_dir }/{ relative-path-to-SED-ML-file-within-archive }/{ report.id }.csv``
-            * HDF5: directory in which to save a single HDF5 file (``{ out_dir }/reports.h5``),
-              with reports at keys ``{ relative-path-to-SED-ML-file-within-archive }/{ report.id }`` within the HDF5 file
-
-        return_results (:obj:`bool`, optional): whether to return the result of each output of each SED-ML file
-        report_formats (:obj:`list` of :obj:`ReportFormat`, optional): report format (e.g., csv or h5)
-        plot_formats (:obj:`list` of :obj:`VizFormat`, optional): report format (e.g., pdf)
-        bundle_outputs (:obj:`bool`, optional): if :obj:`True`, bundle outputs into archives for reports and plots
-        keep_individual_outputs (:obj:`bool`, optional): if :obj:`True`, keep individual output files
-        raise_exceptions (:obj:`bool`, optional): whether to raise exceptions):
+        *args (:obj:`list`): positional arguments to ``exec_sedml_docs_in_combine_archive``
+        **kwargs (:obj:`dict`): keyword arguments to ``exec_sedml_docs_in_combine_archive``
 
     Returns:
         : obj: `tuple`:
 
-            *: obj: `SedDocumentResults`: results
-            *: obj: `CombineArchiveLog`: log
+            *: obj:`SedDocumentResults`: results
+            *: obj:`dict` in the ``#/components/schemas/SimulationRunResults`` schema: log
     """
     api = get_simulator_api(api_name)
-    results, log = api.exec_sedml_docs_in_combine_archive(archive_filename, out_dir,
-                                                          return_results=return_results,
-                                                          report_formats=report_formats,
-                                                          plot_formats=plot_formats,
-                                                          bundle_outputs=bundle_outputs,
-                                                          keep_individual_outputs=keep_individual_outputs,
-                                                          raise_exceptions=raise_exceptions,
-                                                          **kwargs)
-    return results, log.to_json()
+    results, log = api.exec_sedml_docs_in_combine_archive(*args, **kwargs)
+    if log:
+        log = log.to_json()
+    return results, log
 
 
 class Process(multiprocessing.context.ForkProcess):
@@ -144,7 +120,7 @@ class Process(multiprocessing.context.ForkProcess):
         """ Run the process """
         try:
             super(multiprocessing.context.ForkProcess, self).run()
-            self._child_conn.send(None)
+            self._child_conn.send(False)
         except Exception as exception:
             self._child_conn.send(exception.with_traceback(sys.exc_info()[2]))
 
@@ -160,13 +136,15 @@ class Process(multiprocessing.context.ForkProcess):
         return self._exception
 
 
-def exec_in_subprocess(func, *args, **kwargs):
+def exec_in_subprocess(func, *args, poll_interval=0.01, timeout=None, **kwargs):
     """ Execute a function in a fork
 
     Args:
         func (:obj:`types.FunctionType`): function
-        args (:obj:`list`): list of positional arguments for the function
-        kwargs (:obj:`dict`): dictionary of keyword arguments for the function
+        * args (:obj:`list`): list of positional arguments for the function
+        poll_interval (:obj:`float`, optional): interval to poll the status of the subprocess
+        timeout (:obj:`float`, optional): maximum execution time in seconds 
+        **kwargs (:obj:`dict`, optional): dictionary of keyword arguments for the function
 
     Returns:
         :obj:`object`: result of the function
@@ -175,10 +153,11 @@ def exec_in_subprocess(func, *args, **kwargs):
     queue = context_instance.Queue()
     process = Process(target=subprocess_target, args=[queue, func] + list(args), kwargs=kwargs)
     process.start()
+    while process.exception is None:
+        time.sleep(poll_interval)
     if process.exception:
         raise process.exception
     results = queue.get()
-    process.join()
     return results
 
 

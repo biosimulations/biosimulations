@@ -7,6 +7,7 @@ from biosimulators_utils.sedml.data_model import Report, Plot2D, Plot3D
 from biosimulators_utils.sedml.exec import get_report_for_plot2d, get_report_for_plot3d
 from biosimulators_utils.sedml.io import SedmlSimulationReader
 from biosimulators_utils.viz.data_model import VizFormat
+from dotenv import dotenv_values
 from unittest import mock
 import connexion
 import flask
@@ -15,6 +16,13 @@ import requests
 import requests.exceptions
 import werkzeug.wrappers.response  # noqa: F401
 import zipfile
+
+config = {
+    **dotenv_values("secret/secret.env"),
+    **dotenv_values("config/config.env"),
+}
+
+RUN_COMBINE_ARCHIVE_TIMEOUT = float(config.get('RUN_COMBINE_ARCHIVE_TIMEOUT', 30.))
 
 IGNORED_ENV_VARS = [
     'H5_REPORTS_PATH',
@@ -53,41 +61,47 @@ def handler(body, archiveFile=None):
     if 'REPORT_FORMATS' not in env:
         env['REPORT_FORMATS'] = 'h5'
 
+    with mock.patch.dict('os.environ', env):
+        config = get_config()
+
     # process requested return type
     accept = connexion.request.headers.get('Accept', 'application/json')
     if accept in ['application/json']:
-        return_results = True
-        report_formats = []
-        viz_formats = []
-        bundle_outputs = False
-        keep_individual_outputs = True
-        env['LOG_PATH'] = ''
+        config.COLLECT_COMBINE_ARCHIVE_RESULTS = True
+        config.COLLECT_SED_DOCUMENT_RESULTS = True
+        config.REPORT_FORMATS = []
+        config.VIZ_FORMATS = []
+        config.BUNDLE_OUTPUTS = False
+        config.KEEP_INDIVIDUAL_OUTPUTS = True
+        config.LOG_PATH = ''
         return_type = 'json'
 
     elif accept in ['application/x-hdf', 'application/x-hdf5']:
-        return_results = False
-        report_formats = [
-            ReportFormat[format.strip().lower()]
+        config.COLLECT_COMBINE_ARCHIVE_RESULTS = False
+        config.COLLECT_SED_DOCUMENT_RESULTS = False
+        config.REPORT_FORMATS = [
+            ReportFormat[format.strip().lower()].name
             for format in env.get('REPORT_FORMATS', 'h5').split(',')
         ]
-        viz_formats = []
-        bundle_outputs = False
-        keep_individual_outputs = True
-        env['LOG_PATH'] = ''
+        config.VIZ_FORMATS = []
+        config.BUNDLE_OUTPUTS = False
+        config.KEEP_INDIVIDUAL_OUTPUTS = True
+        config.LOG_PATH = ''
         return_type = 'h5'
 
     elif accept in ['application/zip']:
-        return_results = False
-        report_formats = [
-            ReportFormat[format.strip().lower()]
+        config.COLLECT_COMBINE_ARCHIVE_RESULTS = False
+        config.COLLECT_SED_DOCUMENT_RESULTS = False
+        config.REPORT_FORMATS = [
+            ReportFormat[format.strip().lower()].name
             for format in env.get('REPORT_FORMATS', 'h5').split(',')
         ]
-        viz_formats = [
-            VizFormat[format.strip().lower()]
+        config.VIZ_FORMATS = [
+            VizFormat[format.strip().lower()].name
             for format in env.get('VIZ_FORMATS', 'pdf').split(',')
         ]
-        bundle_outputs = False
-        keep_individual_outputs = True
+        config.BUNDLE_OUTPUTS = False
+        config.KEEP_INDIVIDUAL_OUTPUTS = True
         return_type = 'zip'
 
     else:
@@ -140,12 +154,8 @@ def handler(body, archiveFile=None):
         results, log = exec_in_subprocess(use_simulator_api_to_exec_sedml_docs_in_combine_archive,
                                           simulator['api']['module'],
                                           archive_filename, out_dir,
-                                          return_results=return_results,
-                                          report_formats=report_formats,
-                                          plot_formats=viz_formats,
-                                          bundle_outputs=bundle_outputs,
-                                          keep_individual_outputs=keep_individual_outputs,
-                                          raise_exceptions=False)
+                                          timeout=RUN_COMBINE_ARCHIVE_TIMEOUT,
+                                          config=config)
 
     # transform the results
     if return_type == 'json':
