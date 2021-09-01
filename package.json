@@ -73,7 +73,7 @@
     "form-data": "4.0.0",
     "is-url": "1.2.4",
     "jwks-rsa": "2.0.4",
-    "mongoose": "5.12.11",
+    "mongoose": "6.0.4",
     "nats": "2.2.0",
     "nestjs-s3": "1.0.1",
     "nestjs-typegoose": "7.1.38",
