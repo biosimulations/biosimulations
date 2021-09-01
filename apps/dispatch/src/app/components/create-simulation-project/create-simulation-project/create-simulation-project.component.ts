@@ -1073,6 +1073,20 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           'SBO_0000292',
           'SBO_0000294',
           'SBO_0000547',
+          'SBO_0000675',
+          'SBO_0000676',
+          'SBO_0000677',
+          'SBO_0000678',
+          'SBO_0000679',
+          'SBO_0000680',
+          'SBO_0000684',
+          'SBO_0000685',
+          'SBO_0000686',
+          'SBO_0000687',
+          'SBO_0000688',
+          'SBO_0000689',
+          'SBO_0000690',
+          'SBO_0000691',
         ].includes(frameworkSboId)
       ) {
         simulationTypeIds.add(SimulationType.SedUniformTimeCourseSimulation);
