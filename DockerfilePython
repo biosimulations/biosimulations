@@ -281,6 +281,11 @@ ENV XVFB_RES="1920x1080x24" \
     XVFB_ARGS=""
 
 ###################################
+# fonts for matplotlib
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends libfreetype6 \
+    && rm -rf /var/lib/apt/lists/*
+
 # configure matplotlib cache and config to avoid warnings
 RUN mkdir -p /.cache/matplotlib \
     && mkdir -p /.config/matplotlib \
