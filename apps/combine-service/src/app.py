@@ -1,18 +1,19 @@
 from . import exceptions
+from dotenv import dotenv_values
 from flask_cors import CORS
 import connexion
 import os
 import tempfile
 import yaml
-from dotenv import dotenv_values
-spec_dirname = 'spec'
-spec_filename = 'spec.yml'
 
 config = {
     **dotenv_values("secret/secret.env"),
     **dotenv_values("config/config.env"),
 }
 env = config.get("ENV", 'dev') or 'dev'
+
+spec_dirname = 'spec'
+spec_filename = 'spec.yml'
 
 # disable ``/run`` endpoints from production
 if env.lower() == 'prod':
