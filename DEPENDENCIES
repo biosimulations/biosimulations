@@ -744,7 +744,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: npm/node_modules/binary-extensions/license
-├─ biosimulations@3.16.0
+├─ biosimulations@3.17.0
 │  ├─ licenses: UNLICENSED
 │  ├─ private: true
 │  └─ licenseFile: /home/runner/work/Biosimulations/Biosimulations/License.md
@@ -1193,6 +1193,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: David Clark
 │  ├─ email: david.dave.clark@gmail.com
 │  └─ licenseFile: cosmiconfig/LICENSE
+├─ cpu-features@0.0.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/mscdex/cpu-features
+│  ├─ publisher: Brian White
+│  ├─ email: mscdex@mscdex.net
+│  └─ licenseFile: cpu-features/LICENSE
 ├─ crc-32@1.2.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/SheetJS/js-crc32
@@ -1758,6 +1764,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ url: http://debuggable.com/
 │  └─ licenseFile: npm/node_modules/request/node_modules/form-data/License
 ├─ form-data@3.0.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/form-data/form-data
+│  ├─ publisher: Felix Geisendörfer
+│  ├─ email: felix@debuggable.com
+│  ├─ url: http://debuggable.com/
+│  └─ licenseFile: auth0/node_modules/form-data/License
+├─ form-data@4.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/form-data/form-data
 │  ├─ publisher: Felix Geisendörfer
@@ -3212,6 +3225,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: npm/node_modules/mute-stream/LICENSE
+├─ nan@2.15.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/nodejs/nan
+│  └─ licenseFile: nan/LICENSE.md
 ├─ nats@2.2.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/nats-io/nats.js
@@ -4421,13 +4438,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: dominic.tarr@gmail.com
 │  ├─ url: http://bit.ly/dominictarr
 │  └─ licenseFile: split/LICENCE
-├─ ssh2-streams@0.4.10
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/mscdex/ssh2-streams
-│  ├─ publisher: Brian White
-│  ├─ email: mscdex@mscdex.net
-│  └─ licenseFile: ssh2-streams/LICENSE
-├─ ssh2@0.8.9
+├─ ssh2@1.3.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mscdex/ssh2
 │  ├─ publisher: Brian White
