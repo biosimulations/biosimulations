@@ -1,3 +1,16 @@
+# [3.17.0](https://github.com/biosimulations/Biosimulations/compare/v3.16.0...v3.17.0) (2021-09-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency aws-sdk to v2.980.0 ([#2906](https://github.com/biosimulations/Biosimulations/issues/2906)) ([163191d](https://github.com/biosimulations/Biosimulations/commit/163191d5cc1e24dbeb0440681761e175b633a759))
+
+
+### Features
+
+* add shared config file support ([976e578](https://github.com/biosimulations/Biosimulations/commit/976e57846a8c43fa10f8be4e70a8a1989bde683c))
+* **dispatch:** call the metadata endpoint to get simulation metadata ([ae1054f](https://github.com/biosimulations/Biosimulations/commit/ae1054f6f101b170cb1408d13ffdcbb39f0b25a1)), closes [#2866](https://github.com/biosimulations/Biosimulations/issues/2866)
+
 # [3.16.0](https://github.com/biosimulations/Biosimulations/compare/v3.15.0...v3.16.0) (2021-08-31)
 
 
