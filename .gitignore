@@ -121,3 +121,6 @@ site/*
 
 # temporary PySCeS files
 _pystmptmp*_parsetab.py
+
+# temporary subprocess files
+temp*.tmp
