@@ -1,3 +1,4 @@
+from biosimulators_utils.config import get_config
 from src import app
 from src.handlers.run.utils import get_simulator_api, get_simulators, exec_in_subprocess
 from unittest import mock
@@ -131,11 +132,13 @@ class SimulatorsHaveValidApisTestCase(unittest.TestCase):
         with open(archive_filename, 'wb') as file:
             file.write(response.content)
         out_dir = os.path.join(tmp_dirname, 'out')
-        results, log = api.exec_sedml_docs_in_combine_archive(archive_filename, out_dir,
-                                                              return_results=True,
-                                                              report_formats=None, plot_formats=None,
-                                                              bundle_outputs=None, keep_individual_outputs=None,
-                                                              raise_exceptions=True)
+
+        config = get_config()
+        config.COLLECT_COMBINE_ARCHIVE_RESULTS = True
+        config.COLLECT_SED_DOCUMENT_RESULTS = True
+        config.DEBUG = True
+
+        results, log = api.exec_sedml_docs_in_combine_archive(archive_filename, out_dir, config=config)
 
         # exec_sed_task
         if not hasattr(api, 'exec_sed_task'):

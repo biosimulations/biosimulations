@@ -24,3 +24,20 @@ class CombineUtilsTestCase(unittest.TestCase):
         import biosimulators_copasi
         api = utils.get_simulator_api('biosimulators_copasi')
         assert api is biosimulators_copasi
+
+    def test_exec_in_subprocess_success(self):
+        def func(a, b=None):
+            return 2 * b + 1
+        self.assertEqual(utils.exec_in_subprocess(func, 1, b=2), 5)
+
+        def func(a, b=None):
+            import time
+            time.sleep(1.)
+            return 2 * b + 1
+        self.assertEqual(utils.exec_in_subprocess(func, 1, b=3), 7)
+
+    def test_exec_in_subprocess_error_handling(self):
+        def func(a, b=None):
+            raise ValueError('here')
+        with self.assertRaisesRegex(ValueError, 'here'):
+            utils.exec_in_subprocess(func, 1, b=2)
