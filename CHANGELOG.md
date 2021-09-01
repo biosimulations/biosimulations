@@ -1,3 +1,18 @@
+# [3.18.0](https://github.com/biosimulations/biosimulations/compare/v3.17.0...v3.18.0) (2021-09-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency form-data to v4 ([#2925](https://github.com/biosimulations/biosimulations/issues/2925)) ([36a79ba](https://github.com/biosimulations/biosimulations/commit/36a79baccabb13e181e9ca5ee0cd2d0bff629697))
+* **deps:** update dependency jwks-rsa to v2 ([#2928](https://github.com/biosimulations/biosimulations/issues/2928)) ([f4a3f10](https://github.com/biosimulations/biosimulations/commit/f4a3f107f5e43831e4cf72ffc63fcaf67a0026e3))
+* **deps:** update dependency ssh2 to v1 ([#2930](https://github.com/biosimulations/biosimulations/issues/2930)) ([11111c7](https://github.com/biosimulations/biosimulations/commit/11111c76a5c943741397d3110189ac0d5ee53a86))
+
+
+### Features
+
+* **combine-service:** fixed error handling for run sim, simplified run sim options ([5e63d49](https://github.com/biosimulations/biosimulations/commit/5e63d49eb5a1ad5c27ac09dc970093f04ff79980))
+* **dispatch:** added support for new SBO modeling framework terms ([80ee759](https://github.com/biosimulations/biosimulations/commit/80ee759d6be92545b01f999c1a7c0630fa43f43d))
+
 # [3.17.0](https://github.com/biosimulations/Biosimulations/compare/v3.16.0...v3.17.0) (2021-09-01)
 
 
