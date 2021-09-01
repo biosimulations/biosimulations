@@ -29,12 +29,9 @@ import dataConfig from './biosimulations-data-config';
         dataConfig,
       ],
       envFilePath: [
+        './shared/shared.env',
         './config/config.env',
         './secret/secret.env',
-        './config/config.dev.env',
-        './secret/secret.dev.env',
-        './config.env',
-        './secret.env',
       ],
     }),
   ],
