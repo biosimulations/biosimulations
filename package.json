@@ -134,7 +134,7 @@
     "@nrwl/nx-cloud": "12.3.10",
     "@nrwl/tao": "12.8.0",
     "@nrwl/workspace": "12.8.0",
-    "@nx-python/nx-python": "0.1.7",
+    "@nx-python/nx-python": "1.0.3",
     "@scullyio/init": "1.1.4",
     "@scullyio/ng-lib": "1.1.1",
     "@scullyio/scully": "1.1.1",
