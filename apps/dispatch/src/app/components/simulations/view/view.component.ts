@@ -691,19 +691,10 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   private initSimulationProjectMetadata(): void {
-    const archiveUrl = this.getArchiveUrl();
 
     this.metadata$ = this.metadataService.getMetadata(this.uuid).pipe(
       map(this.service.formatMetadata, this.service),
       map((metadata) => {
-        const thumbnails = metadata.archive?.thumbnails?.map((thumbnail) => {
-          return `${urls.combineApi}combine/file?url=${encodeURI(
-            archiveUrl,
-          )}&location=${encodeURI(thumbnail)}`;
-        });
-        if (metadata.archive) {
-          metadata.archive.thumbnails = thumbnails || [];
-        }
 
         const allmetadata = metadata?.archive
           ? [metadata.archive, ...metadata.other]
@@ -783,8 +774,10 @@ export class ViewComponent implements OnInit, OnDestroy {
                 if (elMetadata != null && elMetadata.uri != null) {
                   const uriPrefix = this.uuid + '/';
                   if (elMetadata.uri?.startsWith(this.uuid + '/')) {
-                    elMetadata.uri = elMetadata.uri.substring(uriPrefix.length);
+                    elMetadata.uri =   elMetadata.uri.substring(uriPrefix.length +1);
+                    
                   }
+                  
 
                   if (elMetadata?.uri in visualizationsUriIdMap) {
                     elMetadata.click = (): void => {
