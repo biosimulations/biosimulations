@@ -80,7 +80,7 @@ def handler(body, archiveFile=None):
         config.COLLECT_COMBINE_ARCHIVE_RESULTS = False
         config.COLLECT_SED_DOCUMENT_RESULTS = False
         config.REPORT_FORMATS = [
-            ReportFormat[format.strip().lower()].name
+            ReportFormat[format.strip().lower()]
             for format in env.get('REPORT_FORMATS', 'h5').split(',')
         ]
         config.VIZ_FORMATS = []
@@ -93,11 +93,11 @@ def handler(body, archiveFile=None):
         config.COLLECT_COMBINE_ARCHIVE_RESULTS = False
         config.COLLECT_SED_DOCUMENT_RESULTS = False
         config.REPORT_FORMATS = [
-            ReportFormat[format.strip().lower()].name
+            ReportFormat[format.strip().lower()]
             for format in env.get('REPORT_FORMATS', 'h5').split(',')
         ]
         config.VIZ_FORMATS = [
-            VizFormat[format.strip().lower()].name
+            VizFormat[format.strip().lower()]
             for format in env.get('VIZ_FORMATS', 'pdf').split(',')
         ]
         config.BUNDLE_OUTPUTS = False
