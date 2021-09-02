@@ -70,7 +70,7 @@ export class ResultsService {
     const sedShapes = dataset.attributes.sedmlDataSetShapes as string[];
     const sedTypes = dataset.attributes.sedmlDataSetDataTypes as string[];
     const sedNames = dataset.attributes.sedmlDataSetNames as string[];
-    
+
     const values = includeValues
       ? (await this.getValues(simId, dataset.id)) || []
       : [];

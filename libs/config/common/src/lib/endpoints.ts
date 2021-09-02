@@ -20,5 +20,5 @@ export const Endpoints: endpointMap = {
   simulationRunLogs: `${baseUrl}/logs`,
   simulationRunMetadata: `${baseUrl}/metadata`,
   simulators: `${baseUrl}/simulators`,
-  files: `${baseUrl}/files`
+  files: `${baseUrl}/files`,
 };
