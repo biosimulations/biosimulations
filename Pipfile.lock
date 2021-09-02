@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2107786a72ebc2ef4386e8f9dfafc9d0593a823054992785ff280db4229bc54a"
+            "sha256": "71832213a6b406877d391ac007a41ed8108a03fb69fc3e6e7dfbd7abf00a9b4f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -138,11 +138,11 @@
         },
         "biosimulators-amici": {
             "hashes": [
-                "sha256:434e8e02441a62cf34e6332bc61b40b438006a32ae0bcf549bdc8f20dedd15fa",
-                "sha256:8c4d55a7e8d843217dc90e475411257bafbfe6eec2d26205240b0d6ee5c14d3f"
+                "sha256:2aa8bde8f9bc85877fe7f46fef2433551c612d0c8fe1b0547ee4cb37d6fc6d59",
+                "sha256:8a8a0d1cb2ba9030c8a5be67100d8b03ca41691927fff52d47b8bead4a6d0cf2"
             ],
             "index": "pypi",
-            "version": "==0.1.17"
+            "version": "==0.1.18"
         },
         "biosimulators-bionetgen": {
             "hashes": [
@@ -255,11 +255,11 @@
                 "smoldyn"
             ],
             "hashes": [
-                "sha256:68a78212d199bf7a56a8ed9b4cec4de58438c015c1147243b0ca4f3b8b416d97",
-                "sha256:95a98ec14ccb9792f80e34553d0de0e43137f88330ee293464bed405c2ac3b03"
+                "sha256:2dd7d9a5fae249c67b5d4da360d2dfce761849fd98e5da8b5ced318622642f23",
+                "sha256:eef5a8c8b0e1825d5a97d9923b7166b1ff24750b4d25cb623975ab805ed4f7fb"
             ],
             "index": "pypi",
-            "version": "==0.1.114"
+            "version": "==0.1.115"
         },
         "biosimulators-xpp": {
             "hashes": [
@@ -1480,7 +1480,7 @@
                 "sha256:d20023bbeb42ee6d428a0fac6e0904631f545985a10cdd71a20aa58bc47a4209",
                 "sha256:deb4163ef11f75b520d822d9505c1f462761b4309b1bb713d08689759ea8b899"
             ],
-            "markers": "python_version >= '3.3' and python_version < '4'",
+            "markers": "python_version >= '3.3' and python_version < '4.0'",
             "version": "==1.5.5"
         },
         "plotly": {
@@ -2026,7 +2026,7 @@
                 "sha256:2c84d9b3459c16bf413fe0f9644c7ae1791971e0bb944dfae56e7c7634b187ab",
                 "sha256:ba285f1c519519490034284e6a9d2e6e3f16dc7690f2de3d9140737d81304d22"
             ],
-            "markers": "python_version >= '3.6' and python_version < '4'",
+            "markers": "python_version >= '3.6' and python_version < '4.0'",
             "version": "==10.9.0"
         },
         "rpy2": {
@@ -2451,7 +2451,7 @@
                 "sha256:39fb8672126159acb139a7718dd10806104dec1e2f0f6c88aab05d17df10c8d4",
                 "sha256:f57b4c16c62fa2760b7e3d97c35b255512fb6b59a259730f36ba32ce9f8e342f"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
             "version": "==1.26.6"
         },
         "validators": {
@@ -2829,7 +2829,7 @@
                 "sha256:39fb8672126159acb139a7718dd10806104dec1e2f0f6c88aab05d17df10c8d4",
                 "sha256:f57b4c16c62fa2760b7e3d97c35b255512fb6b59a259730f36ba32ce9f8e342f"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
             "version": "==1.26.6"
         },
         "werkzeug": {
