@@ -7,7 +7,7 @@ name = "pypi"
 flask = {version = "<2"}
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
 requests = "*"
-biosimulators-utils = {version = ">=0.1.114", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
+biosimulators-utils = {version = ">=0.1.115", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
 python-dateutil = "*"
 gunicorn = "*"
 flask-cors = "*"
@@ -20,7 +20,7 @@ rdflib = "*"
 numpy = "*"
 requests-cache = "<0.7" # to resolve conflict in required version of itsdangerous dependency with flask
 # AMICI
-biosimulators-amici = ">=0.1.17"
+biosimulators-amici = ">=0.1.18"
 # BioNetGen
 biosimulators-bionetgen = ">=0.1.12"
 # BoolNet
