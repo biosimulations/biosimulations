@@ -12,7 +12,7 @@ import { Process, Processor } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bull';
 import { HttpService } from '@nestjs/axios';
-import { firstValueFrom, Observer } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import {
   ArchiveMetadata,
   LabeledIdentifier,
