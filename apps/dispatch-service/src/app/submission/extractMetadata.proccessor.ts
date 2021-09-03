@@ -38,7 +38,8 @@ export class MetadataProcessor {
     const metadataURL = new Endpoints().getMetadataEndpoint();
 
     const url = new Endpoints().getRunDownloadEndpoint(id, true);
-
+    this.logger.debug(`Fetching metadata for archive at url: ${url}`);
+    this.logger.debug(`Using metadata endpoint at ${metadataURL}`);
     const res = await firstValueFrom(
       this.service.srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
         undefined,
