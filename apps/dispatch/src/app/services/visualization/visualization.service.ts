@@ -27,8 +27,7 @@ import { CombineService } from '../combine/combine.service';
   providedIn: 'root',
 })
 export class VisualizationService {
-  private combineArchiveEndpoint = `${Endpoints.simulationRuns}`;
-  private resultsEndpoint = `${Endpoints.simulationRunResults}`;
+  private endpoints = new Endpoints()  
 
   public constructor(
     private http: HttpClient,
@@ -40,13 +39,8 @@ export class VisualizationService {
     outputId = '',
     sparse = true,
   ): Observable<CombineResults | undefined> {
-    const retryStrategy = new RetryStrategy();
-    // TODO Remove hardcoded string. Caused #2635
-    const url = outputId
-      ? `${this.resultsEndpoint}/${uuid}/${encodeURIComponent(
-          outputId,
-        )}?includeData=${!sparse}`
-      : `${this.resultsEndpoint}/${uuid}?includeData=${!sparse}`;
+    const retryStrategy = new RetryStrategy();    
+    const url = this.endpoints.getRunResultsEndpoint(uuid,outputId,!sparse);
     return this.http.get<SimulationRunOutput | SimulationRunResults>(url).pipe(
       retryWhen(retryStrategy.handler.bind(retryStrategy)),
       map(
@@ -129,16 +123,12 @@ export class VisualizationService {
 
   public getCombineResults(
     uuid: string,
-    outputId = '',
+    outputId? :string,
     sparse = false,
   ): Observable<SedDatasetResultsMap | undefined> {
     const retryStrategy = new RetryStrategy();
-    // TODO Remove hardcoded string. Caused #2635
-    const url = outputId
-      ? `${this.resultsEndpoint}/${uuid}/${encodeURIComponent(
-          outputId,
-        )}?includeData=${!sparse}`
-      : `${this.resultsEndpoint}/${uuid}?includeData=${!sparse}`;
+    
+    const url = this.endpoints.getRunResultsEndpoint(uuid,outputId,!sparse);
     return this.http.get<SimulationRunOutput | SimulationRunResults>(url).pipe(
       retryWhen(retryStrategy.handler.bind(retryStrategy)),
       map(
@@ -199,25 +189,11 @@ export class VisualizationService {
     return location.split('/').reverse()[0];
   }
 
-  public getRunResultsUrl(
-    runId: string,
-    outputId = '',
-    sparse = false,
-  ): string {
-    // TODO Remove hardcoded string. Caused #2635
-    if (outputId) {
-      return `${this.resultsEndpoint}/${runId}/${encodeURIComponent(
-        outputId,
-      )}?includeData=${!sparse}`;
-    } else {
-      return `${this.resultsEndpoint}/${runId}?includeData=${!sparse}`;
-    }
-  }
 
   public getSpecsOfSedDocsInCombineArchive(
     runId: string,
   ): Observable<CombineArchive | undefined> {
-    const archiveUrl = `${this.combineArchiveEndpoint}/${runId}/download`;
+    const archiveUrl = this.endpoints.getRunDownloadEndpoint(runId,true)
     return this.combineService
       .getSpecsOfSedDocsInCombineArchive(archiveUrl)
       .pipe(
@@ -239,8 +215,9 @@ export class VisualizationService {
   }
 }
 
+
 class RetryStrategy {
-  constructor(
+  public constructor(
     private maxAttempts = 7,
     private initialDelayMs = 1000,
     private scalingFactor = 2,
@@ -251,7 +228,7 @@ class RetryStrategy {
     ) => true,
   ) {}
 
-  handler(attempts: Observable<any>) {
+  public handler(attempts: Observable<any>): Observable<any> {
     return attempts.pipe(
       mergeMap(
         (
@@ -259,22 +236,22 @@ class RetryStrategy {
           iRetryAttempt: number,
         ): Observable<number> => {
           if (iRetryAttempt + 1 >= this.maxAttempts) {
-            return throwError(error);
+            return throwError(() => error);
           }
 
           if (
             this.includedStatusCodes.length &&
             !this.includedStatusCodes.includes(error.status)
           ) {
-            return throwError(error);
+            return throwError(() => error);
           }
 
           if (this.excludedStatusCodes.includes(error.status)) {
-            return throwError(error);
+            return throwError(() => error);
           }
 
           if (!this.shouldErrorBeRetried(error)) {
-            return throwError(error);
+            return throwError(() => error);
           }
 
           const delay =

@@ -9,7 +9,7 @@ import { Model } from 'mongoose';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { SimulationRunMetadataModel } from './metadata.model';
 import { Endpoints } from '@biosimulations/config/common';
-const commonProjection = { id: 0, __v: 0 };
+
 @Injectable()
 export class MetadataService {
   private logger: Logger = new Logger(MetadataService.name);
@@ -56,10 +56,11 @@ export class MetadataService {
         if (thumbnails.length > 0) {
           archiveMetadata.thumbnails = thumbnails.map((thumbnail: string) => {
             if (thumbnail.startsWith('./')) {
-              // TODO change url of file on S3, dont use manual string
-              return `https://combine.api.biosimulations.org/combine/file?url=${encodeURI(
-                `${Endpoints.api}/runs/${data.id}/download`,
-              )}&location=${encodeURI(thumbnail)}`;
+              // TODO change url of file on S3
+              return new Endpoints().getCombineFilesEndpoint(
+                new Endpoints().getRunDownloadEndpoint(data.id, true),
+                thumbnail,
+              );
             }
             return thumbnail;
           });
