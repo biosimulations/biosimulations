@@ -12,6 +12,7 @@ import { Endpoints } from '@biosimulations/config/common';
 
 @Injectable()
 export class MetadataService {
+  private endpoints;
   private logger: Logger = new Logger(MetadataService.name);
   public constructor(
     @InjectModel(SimulationRunMetadataModel.name)
@@ -19,7 +20,10 @@ export class MetadataService {
     @InjectModel(SimulationRunModel.name)
     private simulationModel: Model<SimulationRunModel>,
     private config: ConfigService,
-  ) {}
+  ) {
+    const env = config.get('server.env');
+    this.endpoints = new Endpoints(env);
+  }
   public async getAllMetadata() {
     const metadta = await this.metadataModel.find({}).exec();
 
@@ -57,10 +61,12 @@ export class MetadataService {
           archiveMetadata.thumbnails = thumbnails.map((thumbnail: string) => {
             if (thumbnail.startsWith('./')) {
               // TODO change url of file on S3
-              return new Endpoints().getCombineFilesEndpoint(
-                new Endpoints().getRunDownloadEndpoint(data.id, true),
+              const endpoint = this.endpoints.getCombineFilesEndpoint(
+                this.endpoints.getRunDownloadEndpoint(data.id, true),
                 thumbnail,
               );
+
+              return endpoint;
             }
             return thumbnail;
           });

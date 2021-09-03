@@ -25,19 +25,23 @@ import { ConfigService } from '@nestjs/config';
 @Processor(JobQueue.metadata)
 export class MetadataProcessor {
   private readonly logger = new Logger(MetadataProcessor.name);
+  private endpoints: Endpoints;
   public constructor(
     private service: COMBINEService,
     private httpService: HttpService,
-    private configService: ConfigService,
-  ) {}
+    private config: ConfigService,
+  ) {
+    const env = config.get('server.env');
+    this.endpoints = new Endpoints(env);
+  }
 
   @Process()
   private async extractMetadata(job: Job<extractMetadataJob>): Promise<void> {
     const id = job.data.simId;
 
-    const metadataURL = new Endpoints().getMetadataEndpoint();
+    const metadataURL = this.endpoints.getMetadataEndpoint();
 
-    const url = new Endpoints().getRunDownloadEndpoint(id, true);
+    const url = this.endpoints.getRunDownloadEndpoint(id, true);
     this.logger.debug(`Fetching metadata for archive at url: ${url}`);
     this.logger.debug(`Using metadata endpoint at ${metadataURL}`);
     const res = await firstValueFrom(
