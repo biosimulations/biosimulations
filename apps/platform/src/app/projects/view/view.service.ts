@@ -27,7 +27,7 @@ export class ViewService {
         // Only call the HTTP service once
         shareReplay(1),
         map((data: SimulationRunMetadata) => {
-          console.assert(environment.production, data);
+          
           return data.metadata.map((metaData: APIMetadata) => {
             return {
               ...metaData,

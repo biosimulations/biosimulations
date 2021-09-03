@@ -1,5 +1,17 @@
 <h1>Projects</h1>
-<p>
-  See the layout for project page
-  <a [routerLink]="['test']" routerLinkActive="router-link-active">here</a>
-</p>
+
+<div *ngIf="projects$ | async as projects" fxLayout="row wrap" class="projects">
+  <mat-card
+    class="project"
+    *ngFor="let project of projects"
+    routerLink="./{{ project.id }}"
+  >
+    <h2>{{ project.title }}</h2>
+    <img mat-card-image class="thumbnail" [src]="project.thumbnails[0]" />
+    <mat-card-actions>
+      <button color="primary" mat-icon-button>
+        <mat-icon>launch</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

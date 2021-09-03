@@ -1,0 +1,11 @@
+.project {
+  margin: 2rem;
+  max-width: 15%;
+  cursor: pointer;
+}
+.project:hover {
+  transform: scale(1.1);
+}
+.thumbnail {
+  width: 100%;
+}
