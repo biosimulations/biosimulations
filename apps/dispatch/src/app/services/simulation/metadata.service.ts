@@ -7,10 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MetadataService {
+  private endpoints = new Endpoints();
   public constructor(private http: HttpClient) {}
   public getMetadata(simulationId: string): Observable<SimulationRunMetadata> {
     return this.http.get<SimulationRunMetadata>(
-      `${Endpoints.simulationRunMetadata}/${simulationId}`,
+      this.endpoints.getMetadataEndpoint(simulationId)
     );
   }
 }

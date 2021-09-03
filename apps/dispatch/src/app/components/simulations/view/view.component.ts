@@ -73,7 +73,7 @@ import { ViewService } from './view.service';
 import { Spec as VegaSpec, Format as VegaDataFormat } from 'vega';
 import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { urls } from '@biosimulations/config/common';
+import { Endpoints, urls } from '@biosimulations/config/common';
 import {
   CombineArchiveElementMetadata,
   MetadataValue,
@@ -217,6 +217,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   // tabs
   selectedTabIndex = 0;
+  private endpoints= new Endpoints()
 
   constructor(
     private config: ConfigService,
@@ -972,10 +973,7 @@ export class ViewComponent implements OnInit, OnDestroy {
                       this.getSedReport(anyData.sedmlUri) &&
                       !Array.isArray(this.getSedReport(anyData.sedmlUri)))
                   ) {
-                    anyData.url = this.visualizationService.getRunResultsUrl(
-                      this.uuid,
-                      anyData.sedmlUri.join('/'),
-                    );
+                    anyData.url = this.endpoints.getRunResultsEndpoint(this.uuid,anyData.sedmlUri.join('/'))
                     anyData.format = {
                       type: 'json',
                       property:
@@ -1202,7 +1200,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.plotlyVizDataLayout.next(null);
 
     const sub = this.visualizationService
-      .getCombineResults(this.uuid, visualization.uri as string)
+      .getCombineResults(this.uuid, visualization.uri)
       .subscribe((results: SedDatasetResultsMap | undefined): void => {
         if (results) {
           const traces: Trace[] = [];

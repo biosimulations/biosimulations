@@ -12,29 +12,32 @@ import { Process, Processor } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bull';
 import { HttpService } from '@nestjs/axios';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observer } from 'rxjs';
 import {
   ArchiveMetadata,
   LabeledIdentifier,
   SimulationRunMetadataInput,
 } from '@biosimulations/datamodel/api';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
+import { Endpoints } from '@biosimulations/config/common';
+import { ConfigService } from '@nestjs/config';
+
 @Processor(JobQueue.metadata)
 export class MetadataProcessor {
   private readonly logger = new Logger(MetadataProcessor.name);
   public constructor(
     private service: COMBINEService,
     private httpService: HttpService,
+    private configService: ConfigService,
   ) {}
 
   @Process()
   private async extractMetadata(job: Job<extractMetadataJob>): Promise<void> {
     const id = job.data.simId;
 
-    // TODO Remove hardcoded URLS
-    const url = `https://run.api.biosimulations.dev/runs/${id}/download`;
-    //const metadataURL= 'https://run.api.biosimulations.dev/metadata/';
-    const metadataURL = 'https://run.api.biosimulations.dev/metadata';
+    const metadataURL = new Endpoints().getMetadataEndpoint();
+
+    const url = new Endpoints().getRunDownloadEndpoint(id, true);
 
     const res = await firstValueFrom(
       this.service.srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
@@ -60,28 +63,28 @@ export class MetadataProcessor {
     const postMetadata: SimulationRunMetadataInput = {
       id: id,
       metadata,
-    };
+    };  
+    const metadtaPostObserver = 
+    {next:   (res:AxiosResponse<any>) => {
+        if (res.status === 201) {
+          this.logger.log(`Posted metadata for ${id}`);
+        }
+        job.progress(100);
+      },
+      error: (err: AxiosError) => {
+        this.logger.error(`Failed to post metadata for ${id}`);
+        this.logger.error(err?.response?.data);
+      }
 
+    }  
     const postedMetadata = this.httpService
       .post(metadataURL, postMetadata)
-      .subscribe(
-        (res) => {
-          if (res.status === 201) {
-            this.logger.log(`Posted metadata for ${id}`);
-          }
-          job.progress(100);
-        },
-        (err: AxiosError) => {
-          this.logger.error(`Failed to post metadata for ${id}`);
-          this.logger.error(err?.response?.data);
-        },
-      );
+      .subscribe(metadtaPostObserver);
   }
 
   private convertMetadataValue(
     data: BioSimulationsMetadataValue,
   ): LabeledIdentifier {
-    this.logger.log(`convert element value for ${JSON.stringify(data)}`);
     if (data) {
       return {
         label: data.label || '',
@@ -94,10 +97,6 @@ export class MetadataProcessor {
   private convertMetadata(
     combineMetadata: BioSimulationsCombineArchiveElementMetadata,
   ): ArchiveMetadata {
-    this.logger.log(
-      `to convert metadata for ${JSON.stringify(combineMetadata)}`,
-    );
-
     const metadata: ArchiveMetadata = {
       uri: combineMetadata.uri,
       title: combineMetadata.title,
