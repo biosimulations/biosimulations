@@ -1,0 +1,4 @@
+biopython
+biosimulators_cobrapy
+biosimulators_utils
+requests_cache
