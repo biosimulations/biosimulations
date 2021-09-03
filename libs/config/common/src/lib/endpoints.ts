@@ -128,21 +128,31 @@ export class Endpoints {
    * Effectively, if true, then any localhost urls will be replaced with the dev deployment urls
    * @param id The id of the simulation run
    * @param output The id of the result output
-   * @param includeData How the includeData param should be set on the url 
+   * @param includeData How the includeData param should be set on the url
    * @param external A boolean flag on whether the url returned should be accessible from outside the current system.
    *
    * @returns A url to retrieve the results of a simulation run
    */
-  public getRunResultsEndpoint(id?: string, outputId?: string, includeData=false, external = false): string {
+  public getRunResultsEndpoint(
+    id?: string,
+    outputId?: string,
+    includeData = false,
+    external = false,
+  ): string {
     id ? (id = `/${id}`) : (id = '');
     outputId ? (outputId = `/${outputId}`) : (outputId = '');
-    if(outputId && !id){
+    if (outputId && !id) {
       throw new Error('Cannot get results of an output without an id');
     }
 
     if (external) {
       if (this.env == 'local') {
-        return new Endpoints('dev').getRunResultsEndpoint(id, outputId, includeData, external);
+        return new Endpoints('dev').getRunResultsEndpoint(
+          id,
+          outputId,
+          includeData,
+          external,
+        );
       }
     }
     return `${this.simulationRunResults}${id}${outputId}?includeData=${includeData}`;

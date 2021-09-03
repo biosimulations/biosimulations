@@ -11,7 +11,7 @@ export class MetadataService {
   public constructor(private http: HttpClient) {}
   public getMetadata(simulationId: string): Observable<SimulationRunMetadata> {
     return this.http.get<SimulationRunMetadata>(
-      this.endpoints.getMetadataEndpoint(simulationId)
+      this.endpoints.getMetadataEndpoint(simulationId),
     );
   }
 }

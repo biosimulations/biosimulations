@@ -217,7 +217,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   // tabs
   selectedTabIndex = 0;
-  private endpoints= new Endpoints()
+  private endpoints = new Endpoints();
 
   constructor(
     private config: ConfigService,
@@ -973,7 +973,10 @@ export class ViewComponent implements OnInit, OnDestroy {
                       this.getSedReport(anyData.sedmlUri) &&
                       !Array.isArray(this.getSedReport(anyData.sedmlUri)))
                   ) {
-                    anyData.url = this.endpoints.getRunResultsEndpoint(this.uuid,anyData.sedmlUri.join('/'))
+                    anyData.url = this.endpoints.getRunResultsEndpoint(
+                      this.uuid,
+                      anyData.sedmlUri.join('/'),
+                    );
                     anyData.format = {
                       type: 'json',
                       property:

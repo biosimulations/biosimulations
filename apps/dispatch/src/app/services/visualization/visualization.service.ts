@@ -27,7 +27,7 @@ import { CombineService } from '../combine/combine.service';
   providedIn: 'root',
 })
 export class VisualizationService {
-  private endpoints = new Endpoints()  
+  private endpoints = new Endpoints();
 
   public constructor(
     private http: HttpClient,
@@ -39,8 +39,8 @@ export class VisualizationService {
     outputId = '',
     sparse = true,
   ): Observable<CombineResults | undefined> {
-    const retryStrategy = new RetryStrategy();    
-    const url = this.endpoints.getRunResultsEndpoint(uuid,outputId,!sparse);
+    const retryStrategy = new RetryStrategy();
+    const url = this.endpoints.getRunResultsEndpoint(uuid, outputId, !sparse);
     return this.http.get<SimulationRunOutput | SimulationRunResults>(url).pipe(
       retryWhen(retryStrategy.handler.bind(retryStrategy)),
       map(
@@ -123,12 +123,12 @@ export class VisualizationService {
 
   public getCombineResults(
     uuid: string,
-    outputId? :string,
+    outputId?: string,
     sparse = false,
   ): Observable<SedDatasetResultsMap | undefined> {
     const retryStrategy = new RetryStrategy();
-    
-    const url = this.endpoints.getRunResultsEndpoint(uuid,outputId,!sparse);
+
+    const url = this.endpoints.getRunResultsEndpoint(uuid, outputId, !sparse);
     return this.http.get<SimulationRunOutput | SimulationRunResults>(url).pipe(
       retryWhen(retryStrategy.handler.bind(retryStrategy)),
       map(
@@ -189,11 +189,10 @@ export class VisualizationService {
     return location.split('/').reverse()[0];
   }
 
-
   public getSpecsOfSedDocsInCombineArchive(
     runId: string,
   ): Observable<CombineArchive | undefined> {
-    const archiveUrl = this.endpoints.getRunDownloadEndpoint(runId,true)
+    const archiveUrl = this.endpoints.getRunDownloadEndpoint(runId, true);
     return this.combineService
       .getSpecsOfSedDocsInCombineArchive(archiveUrl)
       .pipe(
@@ -214,7 +213,6 @@ export class VisualizationService {
       );
   }
 }
-
 
 class RetryStrategy {
   public constructor(

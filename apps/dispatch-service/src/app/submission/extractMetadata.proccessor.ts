@@ -63,9 +63,9 @@ export class MetadataProcessor {
     const postMetadata: SimulationRunMetadataInput = {
       id: id,
       metadata,
-    };  
-    const metadtaPostObserver = 
-    {next:   (res:AxiosResponse<any>) => {
+    };
+    const metadtaPostObserver = {
+      next: (res: AxiosResponse<any>) => {
         if (res.status === 201) {
           this.logger.log(`Posted metadata for ${id}`);
         }
@@ -74,9 +74,8 @@ export class MetadataProcessor {
       error: (err: AxiosError) => {
         this.logger.error(`Failed to post metadata for ${id}`);
         this.logger.error(err?.response?.data);
-      }
-
-    }  
+      },
+    };
     const postedMetadata = this.httpService
       .post(metadataURL, postMetadata)
       .subscribe(metadtaPostObserver);
