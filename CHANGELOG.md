@@ -1,3 +1,24 @@
+# [3.20.0](https://github.com/biosimulations/biosimulations/compare/v3.19.0...v3.20.0) (2021-09-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency aws-sdk to v2.983.0 ([#2947](https://github.com/biosimulations/biosimulations/issues/2947)) ([39a60b1](https://github.com/biosimulations/biosimulations/commit/39a60b17d640b62639f6594024f4ba4c66baedc5))
+* **dispatch-service:** correct the determination of the environment ([ce46d3b](https://github.com/biosimulations/biosimulations/commit/ce46d3bddb05195dd29408d05c00de53186336ae))
+* fix default environment to dev ([c970ccd](https://github.com/biosimulations/biosimulations/commit/c970ccde7a533bb0db3f0ec8334308d3a1ee237d))
+* new endpoint implementation ([ed42b6b](https://github.com/biosimulations/biosimulations/commit/ed42b6b27fbba4a97b8a931d6d9771b1563eddb9)), closes [#2943](https://github.com/biosimulations/biosimulations/issues/2943) [#2861](https://github.com/biosimulations/biosimulations/issues/2861) [#2859](https://github.com/biosimulations/biosimulations/issues/2859)
+
+
+### Features
+
+* **dispatch,dispatch-api:** move thumbnail processing to backend ([4495d6d](https://github.com/biosimulations/biosimulations/commit/4495d6d70e8fcb168fd5b4a38f70850171908d7b))
+* **platform:** add page to view projects on platform ([e568d0c](https://github.com/biosimulations/biosimulations/commit/e568d0c16a5e67198e921d8705e45f137c680df2))
+
+
+### Reverts
+
+* revert commit 5dad745d1df0ffc3fb2fba8fc3b99b21b69b0521 ([f8cdd5b](https://github.com/biosimulations/biosimulations/commit/f8cdd5b338ec3fd7f8b7faf607ce893a9d343075))
+
 # [3.19.0](https://github.com/biosimulations/biosimulations/compare/v3.18.0...v3.19.0) (2021-09-02)
 
 
