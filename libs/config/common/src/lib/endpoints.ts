@@ -155,7 +155,9 @@ export class Endpoints {
         );
       }
     }
-    return `${this.simulationRunResults}${id}${outputId}?includeData=${includeData}`;
+    return `${this.simulationRunResults}${encodeURI(id)}${encodeURI(
+      outputId,
+    )}?includeData=${includeData}`;
   }
   /**
    *
