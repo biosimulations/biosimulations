@@ -3,7 +3,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
 import { of } from 'rxjs';
 

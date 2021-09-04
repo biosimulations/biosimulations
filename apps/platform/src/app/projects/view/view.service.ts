@@ -6,7 +6,6 @@ import {
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { ProjectsService } from '../projects.service';
-import { environment } from '@biosimulations/shared/environments';
 @Injectable({
   providedIn: 'root',
 })
