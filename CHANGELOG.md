@@ -1,3 +1,20 @@
+# [4.0.0](https://github.com/biosimulations/biosimulations/compare/v3.20.0...v4.0.0) (2021-09-04)
+
+
+### Bug Fixes
+
+* **dispatch:** properly encode uri to allow for fetching results ([dcbf044](https://github.com/biosimulations/biosimulations/commit/dcbf04433f7e105a01f501f3aa7172c82807ea41))
+
+
+### Features
+
+* update example simulation runs ([395f513](https://github.com/biosimulations/biosimulations/commit/395f513657c662d2b26b3d3b0de95cdd860ea326)), closes [#2951](https://github.com/biosimulations/biosimulations/issues/2951)
+
+
+### BREAKING CHANGES
+
+* simulation runs sumbitted prior to the update will not display on the dispatch app
+
 # [3.20.0](https://github.com/biosimulations/biosimulations/compare/v3.19.0...v3.20.0) (2021-09-04)
 
 
