@@ -1,4 +1,8 @@
 biopython
 biosimulators_cobrapy
-biosimulators_utils
+biosimulators_utils >= 0.1.117
+lxml
+pyyaml
+python_dateutil
+requests
 requests_cache

@@ -124,3 +124,6 @@ _pystmptmp*_parsetab.py
 
 # temporary subprocess files
 temp*.tmp
+
+# Bio.Entrez temp file
+esummary_assembly.dtd
