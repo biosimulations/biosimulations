@@ -1,485 +1,552 @@
 STM_v1_0:
-  created: '2021-09-04 04:37:54.247131'
-  duration: 48.767542
+  created: '2021-09-05 02:41:34.440106'
+  duration: 49.461002
   objective: 0.47783366076071954
-  updated: '2021-09-04 04:37:54.247131'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.440106'
 e_coli_core:
-  created: '2021-09-04 04:37:54.249253'
-  duration: 1.739006
+  created: '2021-09-05 02:41:34.442590'
+  duration: 1.701066
   objective: 0.8739215069684303
-  updated: '2021-09-04 04:37:54.249253'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.442590'
 iAB_RBC_283:
-  created: '2021-09-04 04:37:54.251339'
-  duration: 6.760416
+  created: '2021-09-05 02:41:34.444610'
+  duration: 6.879809
   objective: 2.9355614666667216
-  updated: '2021-09-04 04:37:54.251339'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.444610'
 iAF1260:
-  created: '2021-09-04 04:37:54.254893'
-  duration: 46.224184
+  created: '2021-09-05 02:41:34.447950'
+  duration: 46.292374
   objective: 0.7367009388623597
-  updated: '2021-09-04 04:37:54.254893'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.447950'
 iAF1260b:
-  created: '2021-09-04 04:37:54.257555'
-  duration: 45.951373
+  created: '2021-09-05 02:41:34.454148'
+  duration: 48.235522
   objective: 0.7367009388648791
-  updated: '2021-09-04 04:37:54.257555'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.454148'
 iAF692:
-  created: '2021-09-04 04:37:54.259919'
-  duration: 10.306907
+  created: '2021-09-05 02:41:34.456293'
+  duration: 10.781687
   objective: 0.026780467547181067
-  updated: '2021-09-04 04:37:54.259919'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.456293'
 iAF987:
-  created: '2021-09-04 04:37:54.262175'
-  duration: 20.96477
+  created: '2021-09-05 02:41:34.458265'
+  duration: 21.588498
   objective: 0.04732237605613248
-  updated: '2021-09-04 04:37:54.262175'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.458265'
 iAM_Pb448:
-  created: '2021-09-04 04:37:54.264329'
-  duration: 16.355315
+  created: '2021-09-05 02:41:34.460163'
+  duration: 16.770334
   objective: 0.6586991858988221
-  updated: '2021-09-04 04:37:54.264329'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.460163'
 iAM_Pc455:
-  created: '2021-09-04 04:37:54.266442'
-  duration: 16.170587
+  created: '2021-09-05 02:41:34.462149'
+  duration: 16.673885
   objective: 0.6587010614860831
-  updated: '2021-09-04 04:37:54.266442'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.462149'
 iAM_Pf480:
-  created: '2021-09-04 04:37:54.270083'
-  duration: 16.786115
+  created: '2021-09-05 02:41:34.465855'
+  duration: 17.563712
   objective: 0.6871751707722257
-  updated: '2021-09-04 04:37:54.270083'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.465855'
 iAM_Pk459:
-  created: '2021-09-04 04:37:54.272628'
-  duration: 15.947125
+  created: '2021-09-05 02:41:34.468365'
+  duration: 16.586165
   objective: 0.6871751707722252
-  updated: '2021-09-04 04:37:54.272628'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.468365'
 iAM_Pv461:
-  created: '2021-09-04 04:37:54.274928'
-  duration: 16.309538
+  created: '2021-09-05 02:41:34.470801'
+  duration: 16.116632
   objective: 0.6871751707722258
-  updated: '2021-09-04 04:37:54.274928'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.470801'
 iAPECO1_1312:
-  created: '2021-09-04 04:37:54.277026'
-  duration: 54.128255
+  created: '2021-09-05 02:41:34.472871'
+  duration: 53.854322
   objective: 0.9824784386660063
-  updated: '2021-09-04 04:37:54.277026'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.472871'
 iB21_1397:
-  created: '2021-09-04 04:56:15.588308'
-  duration: 56.962698
+  created: '2021-09-05 02:41:34.476827'
+  duration: 55.558386
   objective: 0.9756145115851372
-  updated: '2021-09-04 04:56:15.588308'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.476827'
 iBWG_1329:
-  created: '2021-09-04 04:56:15.590470'
-  duration: 55.488554
+  created: '2021-09-05 02:41:34.478836'
+  duration: 54.087694
   objective: 0.9824784386659988
-  updated: '2021-09-04 04:56:15.590470'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.478836'
+iCHOv1_DG44:
+  created: '2021-09-05 02:41:34.483373'
+  duration: 91.31895
+  objective: 0.010689973084939866
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.483373'
 iE2348C_1286:
-  created: '2021-09-04 05:35:27.462222'
-  duration: 53.273978
+  created: '2021-09-05 02:41:34.489380'
+  duration: 53.158316
   objective: 0.9824784386660057
-  updated: '2021-09-04 05:35:27.462222'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.489380'
 iEC042_1314:
-  created: '2021-09-04 05:35:27.464221'
-  duration: 54.839361
+  created: '2021-09-05 02:41:34.492389'
+  duration: 54.185983
   objective: 0.9824784386660057
-  updated: '2021-09-04 05:35:27.464221'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.492389'
 iEC1344_C:
-  created: '2021-09-04 05:35:27.466280'
-  duration: 53.560695
+  created: '2021-09-05 02:41:34.494376'
+  duration: 53.279404
   objective: 0.9823963461342967
-  updated: '2021-09-04 05:35:27.466280'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.494376'
 iEC1349_Crooks:
-  created: '2021-09-04 05:35:27.468299'
-  duration: 54.714689
+  created: '2021-09-05 02:41:34.496325'
+  duration: 54.489316
   objective: 0.9865789307459482
-  updated: '2021-09-04 05:35:27.468299'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.496325'
 iEC1356_Bl21DE3:
-  created: '2021-09-04 05:35:27.475133'
-  duration: 54.133758
+  created: '2021-09-05 02:41:34.498561'
+  duration: 53.860054
   objective: 0.9767013604875463
-  updated: '2021-09-04 05:35:27.475133'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.498561'
 iEC1364_W:
-  created: '2021-09-04 05:35:27.479523'
-  duration: 55.200338
+  created: '2021-09-05 02:41:34.500556'
+  duration: 54.667485
   objective: 0.9853648657315356
-  updated: '2021-09-04 05:35:27.479523'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.500556'
 iEC1368_DH5a:
-  created: '2021-09-04 05:35:27.482798'
-  duration: 55.193239
+  created: '2021-09-05 02:41:34.503005'
+  duration: 54.73072
   objective: 0.982396346134302
-  updated: '2021-09-04 05:35:27.482798'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.503005'
 iEC1372_W3110:
-  created: '2021-09-04 05:35:27.484855'
-  duration: 55.076203
+  created: '2021-09-05 02:41:34.504925'
+  duration: 54.840028
   objective: 0.9823963461342998
-  updated: '2021-09-04 05:35:27.484855'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.504925'
 iEC55989_1330:
-  created: '2021-09-04 05:35:27.486923'
-  duration: 56.648966
+  created: '2021-09-05 02:41:34.506942'
+  duration: 55.875345
   objective: 0.9824784386660169
-  updated: '2021-09-04 05:35:27.486923'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.506942'
 iECABU_c1320:
-  created: '2021-09-04 05:35:27.488906'
-  duration: 54.41389
+  created: '2021-09-05 02:41:34.509004'
+  duration: 54.117012
   objective: 0.982478438666008
-  updated: '2021-09-04 05:35:27.488906'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.509004'
 iECBD_1354:
-  created: '2021-09-04 05:35:27.490989'
-  duration: 55.116301
+  created: '2021-09-05 02:41:34.510963'
+  duration: 54.767612
   objective: 0.9756145115851256
-  updated: '2021-09-04 05:35:27.490989'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.510963'
 iECB_1328:
-  created: '2021-09-04 05:35:27.493070'
-  duration: 54.922096
+  created: '2021-09-05 02:41:34.512886'
+  duration: 54.575158
   objective: 0.9824784386660156
-  updated: '2021-09-04 05:35:27.493070'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.512886'
 iECDH10B_1368:
-  created: '2021-09-04 05:35:27.495071'
-  duration: 55.079936
+  created: '2021-09-05 02:41:34.514886'
+  duration: 54.613038
   objective: 1.0374775435499868
-  updated: '2021-09-04 05:35:27.495071'
+  runbiosimulationsId: null
+  updated: '2021-09-05 02:41:34.514886'
 iECDH1ME8569_1439:
-  created: '2021-09-04 05:35:27.497133'
-  duration: 55.740966
+  created: '2021-09-05 03:55:35.410797'
+  duration: 54.971389
   objective: 0.9824784386660047
-  updated: '2021-09-04 05:35:27.497133'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.410797'
 iECD_1391:
-  created: '2021-09-04 05:35:27.499241'
-  duration: 54.638933
+  created: '2021-09-05 03:55:35.412991'
+  duration: 53.986752
   objective: 0.9756145115851269
-  updated: '2021-09-04 05:35:27.499241'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.412991'
 iECED1_1282:
-  created: '2021-09-04 05:35:27.503730'
-  duration: 54.838537
+  created: '2021-09-05 03:55:35.415058'
+  duration: 53.664676
   objective: 0.9824634433767987
-  updated: '2021-09-04 05:35:27.503730'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.415058'
 iECH74115_1262:
-  created: '2021-09-04 05:35:27.508565'
-  duration: 53.260274
+  created: '2021-09-05 03:55:35.417519'
+  duration: 52.725666
   objective: 0.9824784386660085
-  updated: '2021-09-04 05:35:27.508565'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.417519'
 iECIAI1_1343:
-  created: '2021-09-04 05:35:27.511302'
-  duration: 56.520652
+  created: '2021-09-05 03:55:35.421932'
+  duration: 55.572569
   objective: 20.52222562979408
-  updated: '2021-09-04 05:35:27.511302'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.421932'
 iECIAI39_1322:
-  created: '2021-09-04 05:35:27.513861'
-  duration: 55.149028
+  created: '2021-09-05 03:55:35.424882'
+  duration: 54.161897
   objective: 0.9828409640719176
-  updated: '2021-09-04 05:35:27.513861'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.424882'
 iECNA114_1301:
-  created: '2021-09-04 05:35:27.516055'
-  duration: 53.987914
+  created: '2021-09-05 03:55:35.427350'
+  duration: 53.058945
   objective: 0.9824784386660028
-  updated: '2021-09-04 05:35:27.516055'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.427350'
 iECO103_1326:
-  created: '2021-09-04 05:35:27.518240'
-  duration: 55.129451
+  created: '2021-09-05 03:55:35.429770'
+  duration: 54.173951
   objective: 0.9824784386660116
-  updated: '2021-09-04 05:35:27.518240'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.429770'
 iECO111_1330:
-  created: '2021-09-04 05:35:27.520300'
-  duration: 55.508399
+  created: '2021-09-05 03:55:35.432009'
+  duration: 54.210625
   objective: 0.9824784386660066
-  updated: '2021-09-04 05:35:27.520300'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.432009'
 iECO26_1355:
-  created: '2021-09-04 05:35:27.522388'
-  duration: 56.307632
+  created: '2021-09-05 03:55:35.434336'
+  duration: 55.335778
   objective: 0.9824784386660026
-  updated: '2021-09-04 05:35:27.522388'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.434336'
 iECOK1_1307:
-  created: '2021-09-04 05:35:27.524422'
-  duration: 54.282191
+  created: '2021-09-05 03:55:35.436509'
+  duration: 53.732951
   objective: 0.9824784386660044
-  updated: '2021-09-04 05:35:27.524422'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.436509'
 iECP_1309:
-  created: '2021-09-04 05:35:27.526566'
-  duration: 54.416703
+  created: '2021-09-05 03:55:35.438652'
+  duration: 53.756209
   objective: 0.9824784386660069
-  updated: '2021-09-04 05:35:27.526566'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.438652'
 iECS88_1305:
-  created: '2021-09-04 05:35:27.528563'
-  duration: 55.270407
+  created: '2021-09-05 03:55:35.440937'
+  duration: 54.773423
   objective: 0.9824784386660042
-  updated: '2021-09-04 05:35:27.528563'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.440937'
 iECSE_1348:
-  created: '2021-09-04 05:35:27.533474'
-  duration: 55.385945
+  created: '2021-09-05 03:55:35.443153'
+  duration: 54.730861
   objective: 0.9824784386660079
-  updated: '2021-09-04 05:35:27.533474'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.443153'
 iECSF_1327:
-  created: '2021-09-04 05:35:27.535738'
-  duration: 54.868578
+  created: '2021-09-05 03:55:35.445413'
+  duration: 53.837439
   objective: 0.9824784386660061
-  updated: '2021-09-04 05:35:27.535738'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.445413'
 iECSP_1301:
-  created: '2021-09-04 05:35:27.545684'
-  duration: 53.909261
+  created: '2021-09-05 03:55:35.448167'
+  duration: 53.529063
   objective: 0.9824784386660048
-  updated: '2021-09-04 05:35:27.545684'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.448167'
 iECUMN_1333:
-  created: '2021-09-04 05:35:27.548039'
-  duration: 55.866323
+  created: '2021-09-05 03:55:35.450829'
+  duration: 55.26454
   objective: 0.9826920127837668
-  updated: '2021-09-04 05:35:27.548039'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.450829'
 iECW_1372:
-  created: '2021-09-04 05:35:27.550547'
-  duration: 55.989838
+  created: '2021-09-05 03:55:35.454209'
+  duration: 55.519457
   objective: 0.9824784386660042
-  updated: '2021-09-04 05:35:27.550547'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.454209'
 iECs_1301:
-  created: '2021-09-04 05:35:27.552714'
-  duration: 54.043402
+  created: '2021-09-05 03:55:35.456632'
+  duration: 53.628949
   objective: 0.9824784386660019
-  updated: '2021-09-04 05:35:27.552714'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.456632'
 iEK1008:
-  created: '2021-09-04 05:35:27.554851'
-  duration: 25.58688
+  created: '2021-09-05 03:55:35.458937'
+  duration: 25.531359
   objective: 0.058173872989698415
-  updated: '2021-09-04 05:35:27.554851'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.458937'
 iEKO11_1354:
-  created: '2021-09-04 05:35:27.556904'
-  duration: 56.152275
+  created: '2021-09-05 03:55:35.460946'
+  duration: 56.033174
   objective: 0.9824784386660077
-  updated: '2021-09-04 05:35:27.556904'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.460946'
 iETEC_1333:
-  created: '2021-09-04 05:35:27.559176'
-  duration: 56.473281
+  created: '2021-09-05 03:55:35.462991'
+  duration: 55.686768
   objective: 0.9824784386660037
-  updated: '2021-09-04 05:35:27.559176'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.462991'
 iEcDH1_1363:
-  created: '2021-09-04 05:35:27.565819'
-  duration: 55.580997
+  created: '2021-09-05 03:55:35.465036'
+  duration: 55.063324
   objective: 0.9824784386659973
-  updated: '2021-09-04 05:35:27.565819'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.465036'
 iEcE24377_1341:
-  created: '2021-09-04 05:35:27.570252'
-  duration: 55.581254
+  created: '2021-09-05 03:55:35.467702'
+  duration: 54.826814
   objective: 0.9824784386694726
-  updated: '2021-09-04 05:35:27.570252'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.467702'
 iEcHS_1320:
-  created: '2021-09-04 05:35:27.572877'
-  duration: 55.614934
+  created: '2021-09-05 03:55:35.470065'
+  duration: 55.077668
   objective: 0.9824784386660025
-  updated: '2021-09-04 05:35:27.572877'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.470065'
 iEcSMS35_1347:
-  created: '2021-09-04 05:35:27.575051'
-  duration: 55.07373
+  created: '2021-09-05 03:55:35.472167'
+  duration: 54.560089
   objective: 0.9824784386660084
-  updated: '2021-09-04 05:35:27.575051'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.472167'
 iEcolC_1368:
-  created: '2021-09-04 05:35:27.577239'
-  duration: 56.139692
+  created: '2021-09-05 03:55:35.474292'
+  duration: 55.602482
   objective: 0.9824784386660097
-  updated: '2021-09-04 05:35:27.577239'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.474292'
 iG2583_1286:
-  created: '2021-09-04 05:35:27.579399'
-  duration: 53.781649
+  created: '2021-09-05 03:55:35.476331'
+  duration: 53.181736
   objective: 0.9824784386660096
-  updated: '2021-09-04 05:35:27.579399'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.476331'
 iHN637:
-  created: '2021-09-04 05:35:27.581517'
-  duration: 12.096471
+  created: '2021-09-05 03:55:35.478568'
+  duration: 11.854443
   objective: 0.22445454211988486
-  updated: '2021-09-04 05:35:27.581517'
-iIS312:
-  created: '2021-09-04 05:35:27.583501'
-  duration: 7.890301
-  objective: 50.67807261154245
-  updated: '2021-09-04 05:35:27.583501'
-iIS312_Amastigote:
-  created: '2021-09-04 05:35:27.585508'
-  duration: 7.876273
-  objective: 25.339036305771277
-  updated: '2021-09-04 05:35:27.585508'
-iIS312_Epimastigote:
-  created: '2021-09-04 05:35:27.587479'
-  duration: 7.871707
-  objective: 50.67807261154241
-  updated: '2021-09-04 05:35:27.587479'
-iIS312_Trypomastigote:
-  created: '2021-09-04 05:35:27.589537'
-  duration: 7.855027
-  objective: 53.036329885971874
-  updated: '2021-09-04 05:35:27.589537'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.478568'
 iIT341:
-  created: '2021-09-04 05:35:27.591514'
-  duration: 8.229994
+  created: '2021-09-05 03:55:35.493117'
+  duration: 7.979016
   objective: 0.6928126934734464
-  updated: '2021-09-04 05:35:27.591514'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.493117'
 iJB785:
-  created: '2021-09-04 05:35:27.593880'
-  duration: 13.069033
+  created: '2021-09-05 03:55:35.495337'
+  duration: 13.021821
   objective: 0.05390186774578612
-  updated: '2021-09-04 05:35:27.593880'
-iJN1463:
-  created: '2021-09-04 05:35:27.596256'
-  duration: 61.012894
-  objective: 0.58611754484798
-  updated: '2021-09-04 05:35:27.596256'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.495337'
 iJN678:
-  created: '2021-09-04 05:35:27.598553'
-  duration: 13.580643
+  created: '2021-09-05 03:55:35.499715'
+  duration: 13.508809
   objective: 0.06314983713171121
-  updated: '2021-09-04 05:35:27.598553'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.499715'
 iJN746:
-  created: '2021-09-04 05:35:27.601513'
-  duration: 16.762377
+  created: '2021-09-05 03:55:35.501841'
+  duration: 16.593921
   objective: 1.4
-  updated: '2021-09-04 05:35:27.601513'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.501841'
 iJO1366:
-  created: '2021-09-04 05:35:27.604327'
-  duration: 51.878962
+  created: '2021-09-05 03:55:35.503866'
+  duration: 51.797497
   objective: 0.9823718127269835
-  updated: '2021-09-04 05:35:27.604327'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.503866'
 iJR904:
-  created: '2021-09-04 15:26:52.149954'
-  duration: 17.621339
+  created: '2021-09-05 03:55:35.506158'
+  duration: 17.317017
   objective: 0.9219480950504655
-  updated: '2021-09-04 15:26:52.149954'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.506158'
 iLF82_1304:
-  created: '2021-09-04 15:39:24.362805'
-  duration: 55.760376
+  created: '2021-09-05 03:55:35.510723'
+  duration: 54.725817
   objective: 0.9824784386660054
-  updated: '2021-09-04 15:39:24.362805'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.510723'
 iLJ478:
-  created: '2021-09-04 15:39:24.364735'
-  duration: 9.708
+  created: '2021-09-05 03:55:35.514083'
+  duration: 9.647239
   objective: 0.22840679202946793
-  updated: '2021-09-04 15:39:24.364735'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.514083'
 iML1515:
-  created: '2021-09-04 16:05:15.281190'
-  duration: 57.136747
+  created: '2021-09-05 03:55:35.517823'
+  duration: 54.919441
   objective: 0.8769972144269748
-  updated: '2021-09-04 16:05:15.281190'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.517823'
 iMM904:
-  created: '2021-09-04 16:20:27.633021'
-  duration: 26.951955
+  created: '2021-09-05 03:55:35.522360'
+  duration: 26.961813
   objective: 0.28786570370401793
-  updated: '2021-09-04 16:20:27.633021'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.522360'
 iND750:
-  created: '2021-09-04 16:20:27.635187'
-  duration: 20.918697
+  created: '2021-09-05 03:55:35.524734'
+  duration: 20.764344
   objective: 0.0973233759037678
-  updated: '2021-09-04 16:20:27.635187'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.524734'
 iNF517:
-  created: '2021-09-04 16:20:27.637234'
-  duration: 10.90106
+  created: '2021-09-05 03:55:35.530558'
+  duration: 10.99083
   objective: 0.0426346054433733
-  updated: '2021-09-04 16:20:27.637234'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.530558'
 iNJ661:
-  created: '2021-09-04 16:20:27.639244'
-  duration: 15.452838
+  created: '2021-09-05 03:55:35.532992'
+  duration: 15.729229
   objective: 0.052549801008500305
-  updated: '2021-09-04 16:20:27.639244'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.532992'
 iNRG857_1313:
-  created: '2021-09-04 16:20:27.641312'
-  duration: 57.003177
+  created: '2021-09-05 03:55:35.535204'
+  duration: 54.420977
   objective: 0.9824784386660126
-  updated: '2021-09-04 16:20:27.641312'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.535204'
 iPC815:
-  created: '2021-09-04 16:20:27.643384'
-  duration: 37.137767
+  created: '2021-09-05 03:55:35.537309'
+  duration: 34.77939
   objective: 0.2835583812148244
-  updated: '2021-09-04 16:20:27.643384'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.537309'
 iSB619:
-  created: '2021-09-04 16:32:57.748092'
-  duration: 11.895474
+  created: '2021-09-05 03:55:35.541519'
+  duration: 11.593374
   objective: 0.15805029160278705
-  updated: '2021-09-04 16:32:57.748092'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.541519'
 iSBO_1134:
-  created: '2021-09-04 16:32:57.750137'
-  duration: 52.480611
+  created: '2021-09-05 03:55:35.545669'
+  duration: 50.090471
   objective: 0.39988012494534053
-  updated: '2021-09-04 16:32:57.750137'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.545669'
 iSDY_1059:
-  created: '2021-09-04 16:32:57.752169'
-  duration: 51.77053
+  created: '2021-09-05 03:55:35.548682'
+  duration: 48.71995
   objective: 0.9378903140618764
-  updated: '2021-09-04 16:32:57.752169'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.548682'
 iSFV_1184:
-  created: '2021-09-04 16:32:57.754353'
-  duration: 52.716006
+  created: '2021-09-05 03:55:35.552849'
+  duration: 51.233275
   objective: 0.8938577495747843
-  updated: '2021-09-04 16:32:57.754353'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.552849'
 iSF_1195:
-  created: '2021-09-04 16:32:57.756320'
-  duration: 53.649148
+  created: '2021-09-05 03:55:35.555541'
+  duration: 51.438349
   objective: 0.9145918468942452
-  updated: '2021-09-04 16:32:57.756320'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.555541'
 iSFxv_1172:
-  created: '2021-09-04 16:32:57.758446'
-  duration: 53.327688
+  created: '2021-09-05 03:55:35.557832'
+  duration: 51.419899
   objective: 0.8940890261581892
-  updated: '2021-09-04 16:32:57.758446'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.557832'
 iSSON_1240:
-  created: '2021-09-04 16:32:57.760411'
-  duration: 54.837348
+  created: '2021-09-05 03:55:35.560079'
+  duration: 53.085026
   objective: 0.9826450753012028
-  updated: '2021-09-04 16:32:57.760411'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.560079'
 iS_1188:
-  created: '2021-09-04 16:32:57.762393'
-  duration: 52.767678
+  created: '2021-09-05 03:55:35.562370'
+  duration: 51.037822
   objective: 0.8570768327332383
-  updated: '2021-09-04 16:32:57.762393'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.562370'
 iSbBS512_1146:
-  created: '2021-09-04 16:32:57.764352'
-  duration: 51.80064
+  created: '2021-09-05 03:55:35.564423'
+  duration: 50.384788
   objective: 0.9828118163906598
-  updated: '2021-09-04 16:32:57.764352'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.564423'
 iUMN146_1321:
-  created: '2021-09-04 16:50:12.531637'
-  duration: 58.621032
+  created: '2021-09-05 03:55:35.568675'
+  duration: 54.280367
   objective: 0.9824784386660005
-  updated: '2021-09-04 16:50:12.531637'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.568675'
 iUMNK88_1353:
-  created: '2021-09-04 16:50:12.533634'
-  duration: 59.313787
+  created: '2021-09-05 03:55:35.570726'
+  duration: 55.589605
   objective: 0.982478438666002
-  updated: '2021-09-04 16:50:12.533634'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.570726'
 iUTI89_1310:
-  created: '2021-09-04 16:50:12.535678'
-  duration: 57.004553
+  created: '2021-09-05 03:55:35.573307'
+  duration: 54.019731
   objective: 0.9824784386659983
-  updated: '2021-09-04 16:50:12.535678'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.573307'
 iWFL_1372:
-  created: '2021-09-04 16:50:12.537774'
-  duration: 58.763932
+  created: '2021-09-05 03:55:35.577923'
+  duration: 55.697243
   objective: 0.9824784386660106
-  updated: '2021-09-04 16:50:12.537774'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.577923'
 iY75_1357:
-  created: '2021-09-04 16:50:12.539706'
-  duration: 58.891605
+  created: '2021-09-05 03:55:35.580392'
+  duration: 55.483623
   objective: 0.9824784386660079
-  updated: '2021-09-04 16:50:12.539706'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.580392'
 iYL1228:
-  created: '2021-09-04 16:50:12.541688'
-  duration: 44.577586
+  created: '2021-09-05 03:55:35.582611'
+  duration: 42.315244
   objective: 1.0426374979773791
-  updated: '2021-09-04 16:50:12.541688'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.582611'
 iYO844:
-  created: '2021-09-04 16:50:12.543646'
-  duration: 21.428372
+  created: '2021-09-05 03:55:35.584815'
+  duration: 20.777087
   objective: 0.1179663893223982
-  updated: '2021-09-04 16:50:12.543646'
-iYS1720:
-  created: '2021-09-04 17:07:05.398037'
-  duration: 73.344736
-  objective: 0.4884545868920551
-  updated: '2021-09-04 17:07:05.398037'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.584815'
 iYS854:
-  created: '2021-09-04 17:09:40.192133'
-  duration: 31.477932
+  created: '2021-09-05 03:55:35.589976'
+  duration: 31.66513
   objective: 1.360224986987768
-  updated: '2021-09-04 17:09:40.192133'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.589976'
 iZ_1308:
-  created: '2021-09-04 17:09:40.194163'
-  duration: 57.242591
+  created: '2021-09-05 03:55:35.592253'
+  duration: 53.894862
   objective: 0.9824784386660081
-  updated: '2021-09-04 17:09:40.194163'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.592253'
 ic_1306:
-  created: '2021-09-04 17:09:40.196189'
-  duration: 55.713614
+  created: '2021-09-05 03:55:35.594468'
+  duration: 53.854888
   objective: 1.0319222801126817
-  updated: '2021-09-04 17:09:40.196189'
+  runbiosimulationsId: null
+  updated: '2021-09-05 03:55:35.594468'

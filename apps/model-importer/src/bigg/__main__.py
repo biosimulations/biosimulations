@@ -1,9 +1,14 @@
-from src.utils import get_reference, get_citation, get_pubmed_central_open_access_images, submit_combine_archive_to_biosimulations
+#!/usr/bin/env python3
 from Bio import Entrez
+from biosimulators_utils.biosimulations.utils import submit_project_to_runbiosimulations
 from biosimulators_utils.combine.data_model import CombineArchive, CombineArchiveContent, CombineArchiveContentFormat
 from biosimulators_utils.combine.io import CombineArchiveWriter
 from biosimulators_utils.config import Config
+# from biosimulators_utils.omex_meta.data_model import OmexMetaOutputFormat
 from biosimulators_utils.omex_meta.io import BiosimulationsOmexMetaWriter, BiosimulationsOmexMetaReader
+# from biosimulators_utils.omex_meta.utils import build_omex_meta_file_for_model
+from biosimulators_utils.ref.data_model import Reference, PubMedCentralOpenAccesGraphic  # noqa: F401
+from biosimulators_utils.ref.utils import get_reference, get_pubmed_central_open_access_graphics
 from biosimulators_utils.sedml.data_model import (
     SedDocument, Model, ModelLanguage, SteadyStateSimulation,
     Task, DataGenerator, Report, DataSet)
@@ -11,6 +16,7 @@ from biosimulators_utils.sedml.io import SedmlSimulationWriter
 from biosimulators_utils.sedml.model_utils import get_parameters_variables_for_simulation
 from biosimulators_utils.viz.vega.escher import escher_to_vega
 from biosimulators_utils.warnings import BioSimulatorsWarning
+import argparse
 import biosimulators_cobrapy
 import datetime
 import dateutil.parser
@@ -34,7 +40,6 @@ FINAL_METADATA_DIRNAME = os.path.join(FINAL_DIRNAME, 'metadata')
 FINAL_PROJECTS_DIRNAME = os.path.join(FINAL_DIRNAME, 'projects')
 FINAL_SIMULATION_RESULTS_DIRNAME = os.path.join(FINAL_DIRNAME, 'simulation-results')
 
-MAX_MODELS = None
 STATUS_FILENAME = os.path.join(os.path.dirname(__file__), 'status.yml')
 ISSUES_FILENAME = os.path.join(os.path.dirname(__file__), 'issues.yml')
 SOURCE_API_ENDPOINT = 'http://bigg.ucsd.edu/api/v2'
@@ -111,7 +116,6 @@ def get_metadata_for_model(model_detail):
 
     * NCBI Taxonomy id of the organism
     * PubMed id, PubMed Central id and DOI for the reference
-    * Human-readable citation for the reference
     * Open access figures for the reference
 
     Args:
@@ -121,9 +125,8 @@ def get_metadata_for_model(model_detail):
         :obj:`tuple`:
 
             * :obj:`dict`: NCBI taxonomy identifier and name
-            * :obj:`dict`: structured information about the reference
-            * :obj:`str`: human-readable citation for the reference
-            * :obj:`list` of :obj:`dict`: figures of the reference
+            * :obj:`Reference`: structured information about the reference
+            * :obj:`list` of :obj:`PubMedCentralOpenAccesGraphic`: figures of the reference
     """
     # delay to prevent overloading NCBI servers
     time.sleep(0.5)
@@ -176,33 +179,31 @@ def get_metadata_for_model(model_detail):
         model_detail['reference_id'] or None if model_detail['reference_type'] == 'doi' else None,
         cross_ref_session=CROSS_REF_SESSION,
     )
-    citation = get_citation(reference)
 
     # Figures for the associated publication from open-access subset of PubMed Central
-    if reference and reference['pubmed_central_id']:
-        thumbnails = get_pubmed_central_open_access_images(
-            reference['pubmed_central_id'],
-            os.path.join(SOURCE_THUMBNAILS_DIRNAME, reference['pubmed_central_id']),
+    if reference and reference.pubmed_central_id:
+        thumbnails = get_pubmed_central_open_access_graphics(
+            reference.pubmed_central_id,
+            os.path.join(SOURCE_THUMBNAILS_DIRNAME, reference.pubmed_central_id),
             session=PUBMED_CENTRAL_OPEN_ACESS_SESSION,
         )
     else:
         thumbnails = []
 
-    return (taxon, reference, citation, thumbnails)
+    return (taxon, reference, thumbnails)
 
 
-def export_metadata_for_model_to_omex_metadata(model_detail, taxon, reference, citation, thumbnails, metadata_filename):
+def export_project_metadata_for_model_to_omex_metadata(model_detail, taxon, reference, thumbnails, metadata_filename):
     """ Export metadata about a model to an OMEX metadata RDF-XML file
 
     Args:
         model_detail (:obj:`str`): information about the model
         taxon (:obj:`dict`): NCBI taxonomy identifier and name
-        reference (:obj:`dict`): structured information about the reference
-        citation (:obj:`str`): human-readable citation for the reference
-        thumbnails (:obj:`list` of :obj:`dict`): figures of the reference
+        reference (:obj:`Reference`): structured information about the reference
+        thumbnails (:obj:`list` of :obj:`PubMedCentralOpenAccesGraphic`): figures of the reference
         metadata_filename (:obj:`str`): path to save metadata
     """
-    created = reference.get('date', None)
+    created = reference.date
     last_updated = dateutil.parser.parse(model_detail['last_updated'])
     metadata = [{
         "uri": '.',
@@ -225,7 +226,7 @@ def export_metadata_for_model_to_omex_metadata(model_detail, taxon, reference, c
                 'label': 'metabolic process',
             },
         ],
-        'thumbnails': [reference['pubmed_central_id'] + '-' + thumbnail['id'] + '.jpg' for thumbnail in thumbnails],
+        'thumbnails': [reference.pubmed_central_id + '-' + os.path.basename(thumbnail.id) + '.jpg' for thumbnail in thumbnails],
         'sources': [],
         'predecessors': [],
         'successors': [],
@@ -234,7 +235,7 @@ def export_metadata_for_model_to_omex_metadata(model_detail, taxon, reference, c
             {
                 'uri': None,
                 'label': author,
-            } for author in reference.get('authors', [])
+            } for author in reference.authors
         ],
         'contributors': CURATORS,
         'identifiers': [
@@ -246,11 +247,11 @@ def export_metadata_for_model_to_omex_metadata(model_detail, taxon, reference, c
         'citations': [
             {
                 'uri': (
-                    'http://identifiers.org/doi:' + reference['doi']
-                    if reference['doi'] else
-                    'http://identifiers.org/pubmed:' + reference['pubmed_id']
+                    'http://identifiers.org/doi:' + reference.doi
+                    if reference.doi else
+                    'http://identifiers.org/pubmed:' + reference.pubmed_id
                 ),
-                'label': citation,
+                'label': reference.get_citation(),
             },
         ],
         'license': {
@@ -372,7 +373,7 @@ def build_combine_archive_for_model(model_filename, archive_filename, extra_cont
     shutil.rmtree(archive_dirname)
 
 
-def run(max_models=MAX_MODELS, dry_run=False):
+def run(max_models=None, dry_run=False):
     """ Download the source database, convert into COMBINE/OMEX archives, simulate the archives, and submit them to BioSimulations
 
     Args:
@@ -452,6 +453,8 @@ def run(max_models=MAX_MODELS, dry_run=False):
 
     # download models, convert them to COMBINE/OMEX archives, simulate them, and deposit them to the BioSimulations database
     for i_model, model in enumerate(models):
+        model_filename = os.path.join(SOURCE_MODELS_DIRNAME, model['model_bigg_id'] + '.xml')
+
         # convert Escher map to Vega
         for escher_map in model['escher_maps']:
             escher_filename = os.path.join(SOURCE_VISUALIZATIONS_DIRNAME, escher_map['map_name'] + '.json')
@@ -464,23 +467,31 @@ def run(max_models=MAX_MODELS, dry_run=False):
 
         # get additional metadata about the model
         print('Getting metadata for {} of {}: {}'.format(i_model + 1, len(models), model['model_bigg_id']))
-        taxon, reference, citation, thumbnails = get_metadata_for_model(model)
+        taxon, reference, thumbnails = get_metadata_for_model(model)
 
         # export metadata to RDF
-        metadata_filename = os.path.join(FINAL_METADATA_DIRNAME, model['model_bigg_id'] + '.rdf')
-        export_metadata_for_model_to_omex_metadata(model, taxon, reference, citation, thumbnails, metadata_filename)
+        print('Exporting project metadata for {} of {}: {}'.format(i_model + 1, len(models), model['model_bigg_id']))
+        project_metadata_filename = os.path.join(FINAL_METADATA_DIRNAME, model['model_bigg_id'] + '.rdf')
+        export_project_metadata_for_model_to_omex_metadata(model, taxon, reference, thumbnails, project_metadata_filename)
+
+        # print('Exporting model metadata for {} of {}: {}'.format(i_model + 1, len(models), model['model_bigg_id']))
+        # model_metadata_filename = os.path.join(FINAL_METADATA_DIRNAME, model['model_bigg_id'] + '-omex-metadata.rdf')
+        # build_omex_meta_file_for_model(model_filename, model_metadata_filename, metadata_format=OmexMetaOutputFormat.rdfxml_abbrev)
 
         # package model into COMBINE/OMEX archive
         print('Converting model {} of {}: {} ...'.format(i_model + 1, len(models), model['model_bigg_id']))
 
-        model_filename = os.path.join(SOURCE_MODELS_DIRNAME, model['model_bigg_id'] + '.xml')
         project_filename = os.path.join(FINAL_PROJECTS_DIRNAME, model['model_bigg_id'] + '.omex')
 
         extra_contents = {}
-        extra_contents[metadata_filename] = CombineArchiveContent(
+        extra_contents[project_metadata_filename] = CombineArchiveContent(
             location='metadata.rdf',
             format=CombineArchiveContentFormat.OMEX_METADATA,
         )
+        # extra_contents[model_metadata_filename] = CombineArchiveContent(
+        #     location=model['model_bigg_id'] + '.rdf',
+        #     format=CombineArchiveContentFormat.OMEX_METADATA,
+        # )
         extra_contents[SOURCE_LICENSE_FILENAME] = CombineArchiveContent(
             location='LICENSE',
             format=CombineArchiveContentFormat.TEXT,
@@ -497,8 +508,8 @@ def run(max_models=MAX_MODELS, dry_run=False):
                 format=CombineArchiveContentFormat.Vega,
             )
         for thumbnail in thumbnails:
-            extra_contents[thumbnail['filename']] = CombineArchiveContent(
-                location=reference['pubmed_central_id'] + '-' + thumbnail['id'] + '.jpg',
+            extra_contents[thumbnail.filename] = CombineArchiveContent(
+                location=reference.pubmed_central_id + '-' + os.path.basename(thumbnail.id) + '.jpg',
                 format=CombineArchiveContentFormat.JPEG,
             )
 
@@ -521,7 +532,11 @@ def run(max_models=MAX_MODELS, dry_run=False):
         duration = log.duration
 
         # submit COMBINE/OMEX archive to BioSimulations
-        submit_combine_archive_to_biosimulations(project_filename)
+        if not dry_run:
+            name = model['model_bigg_id']
+            runbiosimulations_id = submit_project_to_runbiosimulations(name, project_filename, 'cobrapy')
+        else:
+            runbiosimulations_id = None
 
         # output status
         status[model['model_bigg_id']] = {
@@ -529,10 +544,23 @@ def run(max_models=MAX_MODELS, dry_run=False):
             'updated': str(update_times[model['model_bigg_id']]),
             'objective': objective,
             'duration': duration,
+            'runbiosimulationsId': runbiosimulations_id,
         }
         with open(STATUS_FILENAME, 'w') as file:
             file.write(yaml.dump(status))
 
 
+def main():
+    parser = argparse.ArgumentParser(description='Import models from BiGG into BioSimulations')
+    parser.add_argument('--max-models', type=int, default=None,
+                        help='Maximum number of models to import.')
+    parser.add_argument('--dry-run', action='store_true',
+                        help='If set, do not submit projects to runBioSimulations.')
+
+    args = parser.parse_args()
+
+    run(max_models=args.max_models, dry_run=args.dry_run)
+
+
 if __name__ == "__main__":
-    run()
+    main()
