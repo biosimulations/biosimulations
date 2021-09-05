@@ -1,8 +1,0 @@
-biopython
-biosimulators_cobrapy
-biosimulators_utils[escher] >= 0.1.117
-lxml
-pyyaml
-python_dateutil
-requests
-requests_cache
