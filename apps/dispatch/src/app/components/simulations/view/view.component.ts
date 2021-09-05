@@ -975,7 +975,7 @@ export class ViewComponent implements OnInit, OnDestroy {
                   ) {
                     anyData.url = this.endpoints.getRunResultsEndpoint(
                       this.uuid,
-                      anyData.sedmlUri.join('/'),
+                      encodeURIComponent(anyData.sedmlUri.join('/')),
                       true,
                     );
                     anyData.format = {
