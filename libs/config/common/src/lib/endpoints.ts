@@ -81,7 +81,7 @@ export class Endpoints {
    * @returns A url that resolves to a specific file within a combine archive
    */
   public getCombineFilesEndpoint(url: string, location: string): string {
-    return `${this.combineFile}?url=${encodeURI(url)}&location=${encodeURI(
+    return `${this.combineFile}?url=${encodeURIComponent(url)}&location=${encodeURIComponent(
       location,
     )}`;
   }
@@ -155,7 +155,7 @@ export class Endpoints {
         );
       }
     }
-    return `${this.simulationRunResults}${encodeURI(id)}${encodeURI(
+    return `${this.simulationRunResults}${encodeURIComponent(id)}${encodeURIComponent(
       outputId,
     )}?includeData=${includeData}`;
   }
