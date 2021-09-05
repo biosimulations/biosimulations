@@ -9875,7 +9875,7 @@
     } ],
     "owl:versionInfo" : {
       "@type" : "xsd:decimal",
-      "@value" : "2.27"
+      "@value" : "2.28"
     },
     "http://www.w3.org/2004/02/skos/core#definition" : "The Kinetic Simulation Algorithm Ontology (KiSAO) classifies algorithms available for the simulation and analysis of models in biology, and their characteristics and the parameters required for their use."
   }, {
