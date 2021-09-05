@@ -13,7 +13,7 @@ jobs:
     steps:
       # Please look up the latest version from
       # https://github.com/amannn/action-semantic-pull-request/releases
-      - uses: amannn/action-semantic-pull-request@3.4.2
+      - uses: amannn/action-semantic-pull-request@v3.4.2
         with:
           validateSingleCommit: true
           
