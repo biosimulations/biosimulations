@@ -32,7 +32,7 @@
 /simulators/cobrapy
 /simulators/cobrapy/0.22.1
 /simulators/cobratoolbox
-/simulators/cobratoolbox/3.1
+/simulators/cobratoolbox/3.2
 /simulators/copasi
 /simulators/copasi/4.34.251
 /simulators/ecell4
@@ -62,7 +62,7 @@
 /simulators/jwsonline
 /simulators/jwsonline/2.0
 /simulators/kasim
-/simulators/kasim/4.1
+/simulators/kasim/4.1.2
 /simulators/latticemicrobes
 /simulators/latticemicrobes/2.3
 /simulators/libsbmlsim
@@ -80,7 +80,7 @@
 /simulators/mlxr
 /simulators/mlxr/4.1.3
 /simulators/morpheus
-/simulators/morpheus/2.2.3
+/simulators/morpheus/2.2.4
 /simulators/netpyne
 /simulators/netpyne/1.0.0.2
 /simulators/neuron
