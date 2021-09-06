@@ -14,4 +14,9 @@ ignore$
 \.mp[34]$
 \.png$
 \.wav$
+\.json$
 ^\.github/
+# Ignore the action's configuration data
+^\.github/action/spelling/
+# Ignore all GitHub workflow files
+^\.github/workflows/
