@@ -1,3 +1,15 @@
+## [4.0.1](https://github.com/biosimulations/biosimulations/compare/v4.0.0...v4.0.1) (2021-09-06)
+
+
+### Bug Fixes
+
+* **dispatch:** simulation results URLs for data visualizations ([9b7b879](https://github.com/biosimulations/biosimulations/commit/9b7b8795ac2b524b9089fad5a2c7916e3d1214f4))
+
+
+### Reverts
+
+* 39a60b17d640b62639f6594024f4ba4c66baedc5 ([f804cce](https://github.com/biosimulations/biosimulations/commit/f804cce9e3b3787a11b2989743e86407a4c014dd)), closes [#2959](https://github.com/biosimulations/biosimulations/issues/2959)
+
 # [4.0.0](https://github.com/biosimulations/biosimulations/compare/v3.20.0...v4.0.0) (2021-09-04)
 
 
