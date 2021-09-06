@@ -1,5 +1,6 @@
-BioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using license-checker (https://github.com/davglass/license-checker).
+BioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker).
 
+```
 ├─ @angular/animations@12.2.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
@@ -690,7 +691,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.980.0
+├─ aws-sdk@2.983.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services
@@ -752,7 +753,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 ├─ biosimulations@4.0.1
 │  ├─ licenses: UNLICENSED
 │  ├─ private: true
-│  └─ licenseFile: /home/runner/work/biosimulations/biosimulations/License.md
+│  └─ licenseFile: /home/bilal/Projects/work/Biosimulations/License.md
 ├─ bl@2.2.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rvagg/bl
@@ -5198,3 +5199,4 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
    ├─ repository: https://github.com/angular/angular
    ├─ publisher: Brian Ford
    └─ licenseFile: zone.js/LICENSE
+```

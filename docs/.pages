@@ -1,6 +1,7 @@
 nav:
   - Home: README.md
-  - License: ./License.md
+  - License: License.md
+  - Dependencies: Dependencies.md
   - users
   #- concepts
   - dev

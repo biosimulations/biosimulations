@@ -32,7 +32,7 @@ We welcome contributions to BioSimulations, runBioSimulations, and BioSimulation
 
 ## License
 
-This package is released under the [MIT license](./License.md). This package uses a number of open-source third-party packages. Their licenses are summarized in [DEPENDENCIES](../DEPENDENCIES/).
+This package is released under the [MIT license](./License.md). This package uses a number of open-source third-party packages. Their licenses are summarized in [Dependencies](./Dependencies).
 
 ## Development team
 
