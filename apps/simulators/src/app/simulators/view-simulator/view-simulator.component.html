@@ -186,7 +186,11 @@
               <li *ngIf="simulator?.pythonApi?.installationInstructions">
                 <biosimulations-icon icon="help"></biosimulations-icon>
                 <div>
-                  <a [href]="simulator?.pythonApi?.installationInstructions" target="_blank">Installation instructions</a>
+                  <a
+                    [href]="simulator?.pythonApi?.installationInstructions"
+                    target="_blank"
+                    >Installation instructions</a
+                  >
                 </div>
               </li>
             </ul>
