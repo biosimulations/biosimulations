@@ -750,8 +750,8 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: npm/node_modules/binary-extensions/license
-├─ biosimulations@4.0.1
-│  ├─ licenses: UNLICENSED
+├─ biosimulations@4.1.0
+│  ├─ licenses: [1m[31mUNLICENSED[39m[22m
 │  ├─ private: true
 │  └─ licenseFile: /home/bilal/Projects/work/Biosimulations/License.md
 ├─ bl@2.2.1
