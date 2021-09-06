@@ -12,7 +12,7 @@ The dispatch-service assumes a SLURM based job scheduler. The dispatch-service m
 
 - SLURM based HPCs at other instiutions: The file paths to the service-users home directory and the location of the simulation file inputs and outputs must be modified. This is done simply by setting the appropriate environment variables through the application config.
 
-??? todo "TODO: Link to the config section of docs" 
+??? info "TODO: Link to the config section of docs" 
     Still see this todo and want an update? Open an [issue](https://github.com/biosimulations/biosimulations/issues/new) on GitHub.
 
 - Other Job Schedulers: The generation of the SBATCH script and submission of the job must be modified to support the relevant job scheduler. The dispatch-service maintains a queue of the simulations to be run and orchestrates a series of steps to submit, monitor, and process the outputs. At two of the steps, submission and monitoring, the code must be modified to support another job scheduler. The following files contain the relevant code:
