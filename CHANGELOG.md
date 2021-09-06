@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/biosimulations/biosimulations/compare/v4.0.1...v4.1.0) (2021-09-06)
+
+
+### Features
+
+* **simulators:** added attribute to track installation instructions for Python APIs ([cb2b415](https://github.com/biosimulations/biosimulations/commit/cb2b415b4513170bbb09140e6cd9bff4b970d3ed))
+
 ## [4.0.1](https://github.com/biosimulations/biosimulations/compare/v4.0.0...v4.0.1) (2021-09-06)
 
 
