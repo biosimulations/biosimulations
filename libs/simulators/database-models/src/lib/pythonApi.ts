@@ -1,5 +1,6 @@
 import { IPythonApi } from '@biosimulations/datamodel/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import isUrl from 'is-url';
 
 @Schema({
   _id: false,
@@ -38,6 +39,19 @@ export class PythonApi implements IPythonApi {
     default: undefined,
   })
   module!: string;
+
+  @Prop({
+    type: String,
+    required: false,
+    validate: [
+      {
+        validator: isUrl,
+        message: (props: any): string => `${props.value} is not a valid URL`,
+      },
+    ],
+    default: undefined,
+  })
+  installationInstructions!: string | null;
 }
 
 export const PythonApiSchema = SchemaFactory.createForClass(PythonApi);

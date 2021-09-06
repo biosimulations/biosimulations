@@ -154,7 +154,7 @@
           <div class="section-content copy-image">
             <ul class="icon-list">
               <li>
-                <biosimulations-icon icon="logs"></biosimulations-icon>
+                <biosimulations-icon icon="download"></biosimulations-icon>
                 <div class="code">
                   pip install {{ simulator?.pythonApi?.package }}
                 </div>
@@ -182,6 +182,12 @@
                   <biosimulations-icon icon="copy"></biosimulations-icon>
                 </button>
                 <div class="clear-float"></div>
+              </li>
+              <li *ngIf="simulator?.pythonApi?.installationInstructions">
+                <biosimulations-icon icon="help"></biosimulations-icon>
+                <div>
+                  <a [href]="simulator?.pythonApi?.installationInstructions" target="_blank">Installation instructions</a>
+                </div>
               </li>
             </ul>
           </div>
