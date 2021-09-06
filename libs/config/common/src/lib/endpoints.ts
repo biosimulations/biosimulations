@@ -140,7 +140,9 @@ export class Endpoints {
     external = false,
   ): string {
     id ? (id = `/${encodeURIComponent(id)}`) : (id = '');
-    outputId ? (outputId = `/${encodeURIComponent(outputId)}`) : (outputId = '');
+    outputId
+      ? (outputId = `/${encodeURIComponent(outputId)}`)
+      : (outputId = '');
     if (outputId && !id) {
       throw new Error('Cannot get results of an output without an id');
     }
@@ -155,9 +157,7 @@ export class Endpoints {
         );
       }
     }
-    return `${this.simulationRunResults}${
-      id
-    }${outputId}?includeData=${includeData}`;
+    return `${this.simulationRunResults}${id}${outputId}?includeData=${includeData}`;
   }
   /**
    *
