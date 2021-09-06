@@ -25,10 +25,15 @@ theme:
     - navigation.sections
     - navigation.top
     - search.suggest
- 
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
 plugins:
   - git-revision-date
   - search
+  - awesome-pages
 extra_css:
   - stylesheets/theme.css
 extra:
@@ -42,20 +47,4 @@ extra:
       link: https://github.com/BioSimulations/Biosimulations
       name: BioSimulations on Github      
 copyright: Copyright &copy; 2019 - 2021 BioSimulations Team
-nav:
-  - Home: README.md
-    
-  - "About":
-    - License: License.md
-    - "Privacy Policy": PRIVACY_POLICY.md
-    - "Terms of Service": TERMS_OF_SERVICE.md
-      
-  - "User Guide":
-      - FAQ: FAQ.md
-      - Help: Help.md
-        
-  - "Development Guide": 
-    - Contributing: CONTRIBUTING.md
-    - Code of Conduct: CODE_OF_CONDUCT.md
-      
-    
+
