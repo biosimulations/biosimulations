@@ -21,6 +21,6 @@ The dispatch-service assumes a Slurm based job scheduler. The dispatch-service m
     - [hpc.service.ts](https://github.com/biosimulations/biosimulations/blob/dev/apps/dispatch-service/src/app/services/hpc/hpc.service.ts)
 
 - Cloud based compute: 
-Using a cloud based compute environment will likey involve some changes to the monitoring of the runs, and the copying of the outputs. The following files contain the relevant code:
+Using a cloud based compute environment will likely involve some changes to the monitoring of the runs, and the copying of the outputs. The following files contain the relevant code:
     - [monitor.processor.ts](https://github.com/biosimulations/biosimulations/blob/dev/apps/dispatch-service/src/app/submission/monitor.processor.ts)
     - [complete.processor.ts](https://github.com/biosimulations/biosimulations/blob/dev/apps/dispatch-service/src/app/submission/complete.processor.ts)

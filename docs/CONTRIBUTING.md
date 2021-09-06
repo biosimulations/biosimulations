@@ -9,7 +9,7 @@ Before getting started, please contact the lead developers at [info@biosimulatio
 ## Repository Conventions
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-The repository uses conventional commits to enable changelog generation and versioning. Commitizen allows developers to easily create compliant commit messages. To use Commitizen, simply run `npm run commit` insteead of ` git commit` in your workflow.
+The repository uses conventional commits to enable changelog generation and versioning. Commitizen allows developers to easily create compliant commit messages. To use Commitizen, simply run `npm run commit` instead of ` git commit` in your workflow.
 
 ## Repository organization
 

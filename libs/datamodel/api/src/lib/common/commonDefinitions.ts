@@ -80,7 +80,7 @@ export const LICENCE = {
 
 export const KEYWORDS = {
   type: [LabeledIdentifier],
-  description: 'Keywords likey to be used in search queries',
+  description: 'Keywords likely to be used in search queries',
   externalDocs: {
     description: 'Prism Standard Keyword',
     url: 'http://www.prismstandard.org/specifications/3.0/PRISM_Basic_Metadata_3.0.htm#_Toc336960532',
