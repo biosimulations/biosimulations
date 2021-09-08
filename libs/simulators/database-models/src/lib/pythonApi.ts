@@ -45,7 +45,9 @@ export class PythonApi implements IPythonApi {
     required: false,
     validate: [
       {
-        validator: isUrl,
+        validator: (value: any): boolean => {
+          return value === null || isUrl(value);
+        },
         message: (props: any): string => `${props.value} is not a valid URL`,
       },
     ],
