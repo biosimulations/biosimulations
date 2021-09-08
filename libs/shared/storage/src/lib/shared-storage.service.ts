@@ -75,7 +75,9 @@ export class SharedStorageService {
     let timer: NodeJS.Timeout;
     return Promise.race([
       prom,
-      new Promise((_r, rej) => (timer = setTimeout(rej, time, exception))),
-    ]).finally(() => clearTimeout(timer)) as Promise<Type>;
+      new Promise(
+        (_r, rej) => (timer = global.setTimeout(rej, time, exception)),
+      ),
+    ]).finally(() => clearTimeout(Number(timer))) as Promise<Type>;
   }
 }
