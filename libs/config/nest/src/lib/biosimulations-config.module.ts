@@ -11,6 +11,7 @@ import urlsConfig from './biosimulations-urls-config';
 import storageConfig from './biosimulations-storage-config';
 import queueConfig from './biosimulations-queue-config';
 import dataConfig from './biosimulations-data-config';
+import singularityConfig from './singularity-config';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import dataConfig from './biosimulations-data-config';
         storageConfig,
         queueConfig,
         dataConfig,
+        singularityConfig,
       ],
       envFilePath: [
         './shared/shared.env',

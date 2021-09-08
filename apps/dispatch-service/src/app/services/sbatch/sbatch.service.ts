@@ -41,24 +41,16 @@ export class SbatchService {
       apiDomain = 'https://run.api.biosimulations.dev/';
     }
 
-    const singularityRunEnvVars: EnvironmentVariable[] = Object.entries(process.env as {[key: string]: string})
-      .filter((keyVal: [string, string]): boolean => {
-        return keyVal[0].startsWith('SINGULARITY_RUN_ENV_VAR_');
-      })
-      .map((keyVal: [string, string]): EnvironmentVariable => {
-        return {
-          key: keyVal[0].substr('SINGULARITY_RUN_ENV_VAR_'.length),
-          value: keyVal[1],
-        };
-      });
+    const singularityRunEnvVars = this.configService.get('singularity.envVars');
+
     const allEnvVars = envVars.concat(singularityRunEnvVars);
     const allEnvVarsString = allEnvVars
-          .map((envVar: EnvironmentVariable): string => {
-            const key = envVar.key.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
-            const val = envVar.value.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
-            return `${key}=${val}`;
-          })
-          .join(',');
+      .map((envVar: EnvironmentVariable): string => {
+        const key = envVar.key.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
+        const val = envVar.value.replace(/([^a-zA-Z0-9,._+@%/-])/, '\\$&');
+        return `${key}=${val}`;
+      })
+      .join(',');
 
     const template = `#!/bin/bash
 #SBATCH --job-name=${simId}_Biosimulations
