@@ -16,4 +16,4 @@ jobs:
       - run: pip install mkdocs-git-revision-date-plugin
       - run: pip install mkdocs-awesome-pages-plugin
       - run: pip install mkdocs-redirects
-      - run: mkdocs gh-deploy
+      - run: mkdocs gh-deploy --force
