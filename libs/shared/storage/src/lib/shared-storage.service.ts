@@ -7,6 +7,7 @@ import * as AWS from 'aws-sdk';
 export class SharedStorageService {
   private BUCKET: string;
   private PUBLIC_ENDPOINT: string;
+  private S3_UPLOAD_TIMEOUT_TIME = 30000;
   public constructor(
     @InjectS3() private readonly s3: S3,
     private configService: ConfigService,
@@ -46,8 +47,35 @@ export class SharedStorageService {
 
     const public_url = this.PUBLIC_ENDPOINT + id;
     const call = this.s3.upload(request);
-    const res = await call.promise();
-    res.Location = public_url;
-    return res;
+    const timeoutErr = Symbol();
+
+    try {
+      const res = await this.timeout(
+        call.promise(),
+        this.S3_UPLOAD_TIMEOUT_TIME,
+        timeoutErr,
+      );
+      res.Location = public_url;
+      return res;
+    } catch (err) {
+      if (err === timeoutErr) {
+        throw new Error('Timeout when uploading file to storage');
+      } else {
+        const message = err?.message || 'Error when uploading file to storage';
+        throw new Error(message);
+      }
+    }
+  }
+
+  private timeout<Type>(
+    prom: Promise<Type>,
+    time: number,
+    exception: symbol,
+  ): Promise<Type> {
+    let timer: NodeJS.Timeout;
+    return Promise.race([
+      prom,
+      new Promise((_r, rej) => (timer = setTimeout(rej, time, exception))),
+    ]).finally(() => clearTimeout(timer)) as Promise<Type>;
   }
 }
