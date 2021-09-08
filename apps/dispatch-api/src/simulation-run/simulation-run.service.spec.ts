@@ -9,6 +9,7 @@ import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import {
   SharedStorageModule,
   SharedStorageService,
+  SimulationStorageService,
 } from '@biosimulations/shared/storage';
 import { HttpModule } from '@nestjs/axios';
 import { getModelToken } from '@nestjs/mongoose';
@@ -48,6 +49,7 @@ describe('SimulationRunService', () => {
           useClass: mockFile,
         },
         { provide: SharedStorageService, useClass: mockStorage },
+        { provide: SimulationStorageService, useClass: mockStorage },
       ],
     }).compile();
 
