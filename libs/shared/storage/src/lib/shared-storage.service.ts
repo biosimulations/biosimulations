@@ -7,6 +7,7 @@ import * as AWS from 'aws-sdk';
 export class SharedStorageService {
   private BUCKET: string;
   private PUBLIC_ENDPOINT: string;
+  private S3_UPLOAD_TIMEOUT_TIME = 30000;
   public constructor(
     @InjectS3() private readonly s3: S3,
     private configService: ConfigService,

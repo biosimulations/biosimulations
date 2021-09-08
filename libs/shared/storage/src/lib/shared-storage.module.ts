@@ -5,6 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 
 import * as https from 'https';
+import { SimulationStorageService } from './simulation-storage.service';
 @Global()
 @Module({
   controllers: [],
@@ -30,7 +31,7 @@ import * as https from 'https';
       }),
     }),
   ],
-  providers: [SharedStorageService],
-  exports: [SharedStorageService],
+  providers: [SharedStorageService, SimulationStorageService],
+  exports: [SharedStorageService, SimulationStorageService],
 })
 export class SharedStorageModule {}
