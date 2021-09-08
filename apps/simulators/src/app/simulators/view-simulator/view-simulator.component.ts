@@ -290,6 +290,18 @@ export class ViewSimulatorComponent implements OnInit {
     );
   }
 
+  public copyDockerRunCmd(image = '{ image }'): void {
+    const cmd = 'docker run ' + image;
+    navigator.clipboard.writeText(cmd);
+    this.snackBar.open(
+      'The command to run the Docker image was copied to your clipboard.',
+      undefined,
+      {
+        duration: snackBarDuration,
+      },
+    );
+  }
+
   public copyPipInstallCmd(pythonPackage = '{ package }'): void {
     const cmd = 'pip install ' + pythonPackage;
     navigator.clipboard.writeText(cmd);

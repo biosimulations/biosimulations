@@ -102,17 +102,44 @@
         <div class="section" *ngIf="simulator.image">
           <h3>Run simulations with Docker</h3>
           <div class="section-content copy-image">
-            <biosimulations-icon icon="logs"></biosimulations-icon>
-            <div class="code">docker pull {{ simulator.image.url }}</div>
-            <button
-              mat-icon-button
-              class="biosimulations-button primary"
-              title="Copy to clipboard"
-              (click)="copyDockerPullCmd(simulator.image.url)"
-            >
-              <biosimulations-icon icon="copy"></biosimulations-icon>
-            </button>
-            <div class="clear-float"></div>
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon icon="download"></biosimulations-icon>
+                <div class="code">docker pull {{ simulator.image.url }}</div>
+                <button
+                  mat-icon-button
+                  class="biosimulations-button primary"
+                  title="Copy to clipboard"
+                  (click)="copyDockerPullCmd(simulator.image.url)"
+                >
+                  <biosimulations-icon icon="copy"></biosimulations-icon>
+                </button>
+                <div class="clear-float"></div>
+              </li>
+              <li>
+                <biosimulations-icon icon="logs"></biosimulations-icon>
+                <div class="code">docker run {{ simulator.image.url }}</div>
+                <button
+                  mat-icon-button
+                  class="biosimulations-button primary"
+                  title="Copy to clipboard"
+                  (click)="copyDockerRunCmd(simulator.image.url)"
+                >
+                  <biosimulations-icon icon="copy"></biosimulations-icon>
+                </button>
+                <div class="clear-float"></div>
+              </li>
+              <li>
+                <biosimulations-icon icon="help"></biosimulations-icon>
+                <div>
+                  <a
+                    [routerLink]="['/help']"
+                    target="_blank"
+                    >Usage instructions</a
+                  >
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -190,6 +217,16 @@
                     [href]="simulator?.pythonApi?.installationInstructions"
                     target="_blank"
                     >Installation instructions</a
+                  >
+                </div>
+              </li>
+              <li>
+                <biosimulations-icon icon="help"></biosimulations-icon>
+                <div>
+                  <a
+                    [routerLink]="['/help']"
+                    target="_blank"
+                    >Usage instructions</a
                   >
                 </div>
               </li>
@@ -874,18 +911,6 @@
   </biosimulations-tab-page-tab>
 
   <biosimulations-tab-page-tab
-    urlHashFragment="specifications"
-    heading="Specifications (JSON)"
-    icon="code"
-    [partialWidth]="false"
-  >
-    <pre
-      *ngIf="simulator | async as simulator"
-      class="json"
-    ><code [languages]="['json']" [highlight]="simulator._json"></code></pre>
-  </biosimulations-tab-page-tab>
-
-  <biosimulations-tab-page-tab
     urlHashFragment="validation"
     heading="Validation test results"
     icon="task"
@@ -1073,5 +1098,17 @@
         </ng-template>
       </ng-template>
     </ng-container>
+  </biosimulations-tab-page-tab>
+
+  <biosimulations-tab-page-tab
+    urlHashFragment="specifications"
+    heading="Specifications (JSON)"
+    icon="code"
+    [partialWidth]="false"
+  >
+    <pre
+      *ngIf="simulator | async as simulator"
+      class="json"
+    ><code [languages]="['json']" [highlight]="simulator._json"></code></pre>
   </biosimulations-tab-page-tab>
 </biosimulations-tab-page>
