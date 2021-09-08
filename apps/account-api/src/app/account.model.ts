@@ -1,4 +1,4 @@
-import { prop } from '@typegoose/typegoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsString, IsBoolean, IsUrl } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
@@ -61,29 +61,30 @@ export interface AccountDTO {
   termsAccepted: number;
   profile: Profile | null;
 }
+@Schema({ collection: 'Accounts' })
 export class Account {
   @ApiProperty({ type: String })
   @IsString()
-  @prop({ type: String, required: true })
+  @Prop({ type: String, required: true })
   _id: string;
 
   @ApiProperty({ type: String })
   @IsString()
-  @prop({ type: String, required: true, unique: true })
+  @Prop({ type: String, required: true, unique: true })
   username: string;
 
   @ApiProperty({ type: () => Profile, nullable: true })
-  @prop({ required: false, _id: false })
+  @Prop({ required: false, _id: false })
   profile?: Profile;
 
   // The date that the terms were accepted in seconds from epoch
   @ApiProperty({ type: Number })
   @IsString()
-  @prop({ type: Number, required: true })
+  @Prop({ type: Number, required: true })
   termsAcceptedOn: number;
 
   @IsBoolean()
-  @prop({ type: Boolean, required: true })
+  @Prop({ type: Boolean, required: true })
   admin: boolean;
 
   constructor(account: AccountDTO) {
@@ -96,3 +97,4 @@ export class Account {
     }
   }
 }
+export const accountSchema = SchemaFactory.createForClass(Account);
