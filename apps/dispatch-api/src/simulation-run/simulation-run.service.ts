@@ -28,13 +28,17 @@ import {
   UploadSimulationRunUrl,
 } from '@biosimulations/dispatch/api-models';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import { SharedStorageService } from '@biosimulations/shared/storage';
+import {
+  SharedStorageService,
+  SimulationStorageService,
+} from '@biosimulations/shared/storage';
 import {
   DispatchFailedPayload,
   DispatchMessage,
   DispatchProcessedPayload,
 } from '@biosimulations/messages/messages';
 import { ClientProxy } from '@nestjs/microservices';
+import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 // 1gb in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
 const toApi = <T extends SimulationRunModelType>(
@@ -54,6 +58,7 @@ export class SimulationRunService {
     @InjectModel(SimulationRunModel.name)
     private simulationRunModel: Model<SimulationRunModel>,
     private storageService: SharedStorageService,
+    private simulationStorageService: SimulationStorageService,
     private http: HttpService,
     @Inject('NATS_CLIENT') private client: ClientProxy,
   ) {}
@@ -197,28 +202,36 @@ export class SimulationRunService {
   ): Promise<SimulationRunModelReturnType> {
     const simId = String(new mongo.ObjectId());
     const fileId = 'simulations/' + String(simId) + '/' + file.originalname;
-    // TODO account for network failure
-    const s3file = await this.storageService.putObject(fileId, file.buffer);
-    const url = encodeURI(s3file.Location);
+    try {
+      const s3file =
+        await this.simulationStorageService.uploadSimulationArchive(
+          simId,
+          file,
+        );
+      const url = encodeURI(s3file.Location);
 
-    const fileParsed = {
-      originalname: file.originalname,
-      encoding: file.encoding,
-      mimetype: file.mimetype,
-      url: url,
-      size: file.size,
-    };
+      const fileParsed = {
+        originalname: file.originalname,
+        encoding: file.encoding,
+        mimetype: file.mimetype,
+        url: url,
+        size: file.size,
+      };
 
-    const newFile = new this.fileModel(fileParsed);
+      const newFile = new this.fileModel(fileParsed);
 
-    return this.createRun(run, newFile, simId);
+      return this.createRun(run, newFile, simId);
+    } catch (err) {
+      const message = err?.message || 'Error Uploading File';
+      throw new BiosimulationsException(500, message, undefined,undefined, undefined, undefined, undefined, {err: err});
+    }
   }
   public async createRunWithURL(
     body: UploadSimulationRunUrl,
   ): Promise<SimulationRunModelReturnType> {
     const url = body.url;
     // If the url provides the following information, grab it and store it in the database
-    //! This does not adress the security issues of downloading user provided urls.
+    //! This does not address the security issues of downloading user provided urls.
     //! The content size may not be present or accurate. The backend must check the size. See #2536
     let size = undefined;
     let mimetype = undefined;
@@ -239,7 +252,7 @@ export class SimulationRunService {
           String(size),
       );
     }
-
+    // TODO save file to s3, extract contents
     const file = new this.fileModel({ url, size, mimetype, originalname });
     const simId = String(new mongo.ObjectId());
     return this.createRun(body, file, simId);
