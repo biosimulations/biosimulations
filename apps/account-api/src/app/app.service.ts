@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { Account } from './account.model';
-import { ReturnModelType } from '@typegoose/typegoose';
-import { InjectModel } from 'nestjs-typegoose';
 import { ManagementService } from '@biosimulations/account/management';
 import { UserMetadata, AppMetadata } from '@biosimulations/auth/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class AppService {
   constructor(
-    @InjectModel(Account)
-    private readonly accountModel: ReturnModelType<typeof Account>,
+    @InjectModel(Account.name)
+    private readonly accountModel: Model<Account>,
     private authz: ManagementService,
   ) {}
 
@@ -31,27 +31,18 @@ export class AppService {
     ).toObject();
 
     const userMetadata: UserMetadata = {
-      // !!! THIS IS BAD, Should be fixed when file is worked on
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
       username: createdAccount.username,
     };
 
     // TODO Determine admin status dynamically
     const appMetadata: AppMetadata = {
       registered: true,
-      // !!! THIS IS BAD, Should be fixed when file is worked on
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
       termsAcceptedOn: createdAccount.termsAcceptedOn,
       roles: [],
       permissions: [],
     };
     this.authz.updateUserMetadata(createdAccount._id, userMetadata);
     this.authz.updateAppMetadata(createdAccount._id, appMetadata);
-    // !!! THIS IS BAD, Should be fixed when file is worked on
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
     return createdAccount;
   }
 
