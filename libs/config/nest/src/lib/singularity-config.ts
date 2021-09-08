@@ -1,5 +1,9 @@
 import { registerAs } from '@nestjs/config';
-import { EnvironmentVariable } from '@biosimulations/datamodel/common';
+
+interface EnvironmentVariable {
+  key: string;
+  value: string;
+}
 
 export default registerAs('singularity', () => {
   const singularityRunEnvVars: EnvironmentVariable[] = Object.entries(
