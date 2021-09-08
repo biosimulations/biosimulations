@@ -223,7 +223,16 @@ export class SimulationRunService {
       return this.createRun(run, newFile, simId);
     } catch (err) {
       const message = err?.message || 'Error Uploading File';
-      throw new BiosimulationsException(500, message, undefined,undefined, undefined, undefined, undefined, {err: err});
+      throw new BiosimulationsException(
+        500,
+        message,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        { err: err },
+      );
     }
   }
   public async createRunWithURL(
