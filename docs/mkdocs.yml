@@ -1,6 +1,6 @@
 site_name: BioSimulations Documentation
 site_url: https://docs.biosimulations.org/
-docs_dir: docs
+docs_dir: .
 repo_url: https://github.com/BioSimulations/Biosimulations
 edit_uri: blob/dev/docs/
 theme:
@@ -29,11 +29,14 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  
 
 plugins:
   - git-revision-date
+  - same-dir
   - search
   - awesome-pages
+  - mkdocstrings
   - redirects:
       redirect_maps:
         'repositories/bigg.md': 'https://biosimulations.github.io/biosimulations-bigg'
