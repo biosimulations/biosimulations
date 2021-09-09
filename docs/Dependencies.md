@@ -1,35 +1,35 @@
 BioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker).
 
 ```
-├─ @angular/animations@12.2.3
+├─ @angular/animations@12.2.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/animations/README.md
-├─ @angular/cdk@12.2.3
+├─ @angular/cdk@12.2.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/cdk/LICENSE
-├─ @angular/common@12.2.3
+├─ @angular/common@12.2.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/core@12.2.3
+├─ @angular/core@12.2.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/core/README.md
-├─ @angular/forms@12.2.3
+├─ @angular/forms@12.2.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/forms/README.md
-├─ @angular/material@12.2.3
+├─ @angular/material@12.2.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
-├─ @angular/platform-browser@12.2.3
+├─ @angular/platform-browser@12.2.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -710,6 +710,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ url: https://github.com/mhart
 │  └─ licenseFile: npm/node_modules/aws4/LICENSE
 ├─ axios@0.21.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/axios/axios
+│  ├─ publisher: Matt Zabriskie
+│  └─ licenseFile: @nestjs/axios/node_modules/axios/LICENSE
+├─ axios@0.21.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
@@ -4354,7 +4359,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: dominic.tarr@gmail.com
 │  ├─ url: http://bit.ly/dominictarr
 │  └─ licenseFile: split/LICENCE
-├─ ssh2@1.3.0
+├─ ssh2@1.4.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mscdex/ssh2
 │  ├─ publisher: Brian White
