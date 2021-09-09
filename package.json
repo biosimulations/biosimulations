@@ -153,7 +153,7 @@
     "@typescript-eslint/eslint-plugin": "4.30.0",
     "@typescript-eslint/parser": "4.30.0",
     "angular-plotly.js": "4.0.4",
-    "anser": "2.0.1",
+    "anser": "2.0.2",
     "canvas": "2.8.0",
     "codelyzer": "6.0.2",
     "commitizen": "4.2.4",
