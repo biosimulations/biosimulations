@@ -2,8 +2,8 @@
   <span
     *ngFor="let part of appNameParts; let iPart = index"
     [ngClass]="{
-      accent: (appNameParts.length - iPart) % 2 === 1,
-      primary: (appNameParts.length - iPart) % 2 === 0
+      accent: (appNameParts.length - iPart) % 2 === 0,
+      primary: (appNameParts.length - iPart) % 2 === 1
     }"
     >{{ part }}</span
   >
