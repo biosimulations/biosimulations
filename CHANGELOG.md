@@ -1,3 +1,22 @@
+# [4.2.0](https://github.com/biosimulations/biosimulations/compare/v4.1.0...v4.2.0) (2021-09-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v0.21.4 ([#2952](https://github.com/biosimulations/biosimulations/issues/2952)) ([c24c0e2](https://github.com/biosimulations/biosimulations/commit/c24c0e2eb96d6ff5c1a77f9408dee9c80e02c0f1))
+* **deps:** update dependency ssh2 to v1.4.0 ([#2953](https://github.com/biosimulations/biosimulations/issues/2953)) ([a3afb2b](https://github.com/biosimulations/biosimulations/commit/a3afb2b7c862b7cf4bb86a451dce7380a64afa39))
+* specify global setTimeout instead of window ([432b90a](https://github.com/biosimulations/biosimulations/commit/432b90a00f34c604bc5f2fd7038a925c52ea4fec))
+* **dispatch-service:** restore check for empty env variables ([3f714ba](https://github.com/biosimulations/biosimulations/commit/3f714baf82ab04673fb33a28cc9f7daa9899c39b))
+* restore mkdocs file location ([41a269e](https://github.com/biosimulations/biosimulations/commit/41a269e37f9c3e704baa614b4ab8de30d8ed6546))
+
+
+### Features
+
+* **account-api:** replace typegoose with mongoose ([69911a3](https://github.com/biosimulations/biosimulations/commit/69911a35ab0ca6c324ba53a097c814d53730d491))
+* **dispatch-api:** handle errors and timeouts on uploa> ([dad35ea](https://github.com/biosimulations/biosimulations/commit/dad35ea5718abac450c682970e332ee4292890f3)), closes [#2860](https://github.com/biosimulations/biosimulations/issues/2860)
+* **dispatch-service:** added passing software licenses from deployment secrets to Singularity run ([cc19999](https://github.com/biosimulations/biosimulations/commit/cc199990c6255b6b70bc436a9d16051602c4d0c5))
+* **storage:** add simulation storage service and timeout for s3 uploads ([0c24173](https://github.com/biosimulations/biosimulations/commit/0c241737989289f79b13ebc8efa265cc7c6fc91f))
+
 # [4.1.0](https://github.com/biosimulations/biosimulations/compare/v4.0.1...v4.1.0) (2021-09-06)
 
 
