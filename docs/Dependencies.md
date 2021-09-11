@@ -341,7 +341,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/mail/LICENSE
-├─ @stoplight/json-ref-resolver@3.1.2
+├─ @stoplight/json-ref-resolver@3.1.3
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/stoplightio/json-ref-resolver
 │  ├─ publisher: Stoplight
@@ -365,18 +365,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Stoplight
 │  ├─ email: support@stoplight.io
 │  └─ licenseFile: @stoplight/path/LICENSE
-├─ @stoplight/types@11.10.0
-│  ├─ licenses: Apache-2.0
-│  ├─ repository: https://github.com/stoplightio/types
-│  ├─ publisher: Stoplight
-│  ├─ email: support@stoplight.io
-│  └─ licenseFile: @stoplight/types/LICENSE
 ├─ @stoplight/types@12.3.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/stoplightio/types
 │  ├─ publisher: Stoplight
 │  ├─ email: support@stoplight.io
-│  └─ licenseFile: @stoplight/json/node_modules/@stoplight/types/LICENSE
+│  └─ licenseFile: @stoplight/types/LICENSE
 ├─ @tootallnate/once@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/TooTallNate/once
@@ -752,7 +746,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: npm/node_modules/binary-extensions/license
-├─ biosimulations@4.1.0
+├─ biosimulations@4.2.0
 │  ├─ licenses: UNLICENSED
 │  ├─ private: true
 │  └─ licenseFile: /home/runner/work/biosimulations/biosimulations/License.md
@@ -832,7 +826,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/builtins
 │  └─ licenseFile: npm/node_modules/builtins/License
-├─ bull@3.29.1
+├─ bull@3.29.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/OptimalBits/bull
 │  ├─ publisher: OptimalBits
@@ -1377,7 +1371,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Douglas Christopher Wilson
 │  ├─ email: doug@somethingdoug.com
 │  └─ licenseFile: depd/LICENSE
-├─ dependency-graph@0.10.0
+├─ dependency-graph@0.11.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jriecken/dependency-graph
 │  ├─ publisher: Jim Riecken
@@ -2106,7 +2100,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/kaelzhang/node-ignore
 │  ├─ publisher: kael
 │  └─ licenseFile: ignore/LICENSE-MIT
-├─ immer@8.0.4
+├─ immer@9.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/immerjs/immer
 │  ├─ publisher: Michel Weststrate
