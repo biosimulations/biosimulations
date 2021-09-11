@@ -89,9 +89,9 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "12.2.5",
-    "@angular-eslint/eslint-plugin": "12.3.1",
-    "@angular-eslint/eslint-plugin-template": "12.3.1",
-    "@angular-eslint/template-parser": "12.3.1",
+    "@angular-eslint/eslint-plugin": "12.4.1",
+    "@angular-eslint/eslint-plugin-template": "12.4.1",
+    "@angular-eslint/template-parser": "12.4.1",
     "@angular-material-components/file-input": "6.0.0",
     "@angular/animations": "12.2.5",
     "@angular/cdk": "12.2.5",
