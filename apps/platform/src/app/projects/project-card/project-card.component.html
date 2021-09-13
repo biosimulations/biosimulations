@@ -1,0 +1,13 @@
+<mat-card class="project-card" routerLink="./{{ project.id }}">
+  <mat-card-title class="project-title-container">
+    <div class="project-title">{{ project.title }}</div>
+  </mat-card-title>
+
+  <img class="thumbnail" [src]="project.thumbnails[0]" />
+
+  <mat-card-actions class="project-buttons-container">
+    <button color="primary" mat-icon-button>
+      <mat-icon>launch</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

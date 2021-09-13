@@ -1,10 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProjectsComponent } from './projects.component';
+import { ProjectsCardsBrowseComponent } from './projects-cards-browse/projects-cards-browse.component';
+
 import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
-  { path: '', component: ProjectsComponent, data: { breadcrumb: 'Overview' } },
+  {
+    path: '',
+    component: ProjectsCardsBrowseComponent,
+    data: { breadcrumb: 'Browse' },
+  },
+  {
+    path: 'browse',
+    component: ProjectsCardsBrowseComponent,
+    data: { breadcrumb: 'Browse' },
+  },
   { path: ':id', component: ViewComponent },
 ];
 

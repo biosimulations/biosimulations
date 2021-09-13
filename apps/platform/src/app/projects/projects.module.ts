@@ -19,11 +19,18 @@ import { ProjectsRoutingModule } from './projects-routing.module';
 import { ProjectsComponent } from './projects.component';
 import { ViewComponent } from './view/view.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ProjectCardComponent } from './project-card/project-card.component';
+import { ProjectsCardsBrowseComponent } from './projects-cards-browse/projects-cards-browse.component';
 
 const routes: Routes = [{ path: '', component: ProjectsComponent }];
 
 @NgModule({
-  declarations: [ProjectsComponent, ViewComponent],
+  declarations: [
+    ProjectsComponent,
+    ViewComponent,
+    ProjectCardComponent,
+    ProjectsCardsBrowseComponent,
+  ],
   imports: [
     CommonModule,
     ProjectsRoutingModule,
