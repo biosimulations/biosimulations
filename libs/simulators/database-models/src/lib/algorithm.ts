@@ -1,14 +1,18 @@
 import {
+  IModelChangePattern,
   IAlgorithm,
-  IDependentVariableTargetPattern,
+  IOutputVariablePattern,
   IEdamOntologyIdVersion,
   IKisaoOntologyId,
   ISboOntologyId,
   ISioOntologyId,
   SoftwareInterfaceType,
+  ModelChangeType,
+  SimulationType,
 } from '@biosimulations/datamodel/common';
 import { Citation } from '@biosimulations/datamodel/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 import {
   EdamOntologyIdVersionSchema,
@@ -32,18 +36,79 @@ import { CitationSchema } from './common';
   strict: 'throw',
   useNestedStrict: true,
 })
-export class DependentVariableTargetPattern
-  implements IDependentVariableTargetPattern
+export class ModelChangePattern
+  implements IModelChangePattern
 {
   @Prop({ type: String, required: true, default: undefined })
-  variables!: string;
+  name!: string;
 
-  @Prop({ type: String, required: true, default: undefined })
-  targetPattern!: string;
+  @Prop({
+    type: String,
+    enum: Object.entries(ModelChangeType).map(
+      (keyVal: [string, string]): string => {
+        return keyVal[1];
+      },
+    ),
+    required: true,
+    default: undefined,
+  })
+  type!: ModelChangeType;
+
+  @Prop({ type: String, required: false, default: null })
+  target!: string | null;
+
+  @Prop({ type: String, required: false, default: null })
+  symbol!: string | null;
 }
 
-export const DependentVariableTargetPatternSchema =
-  SchemaFactory.createForClass(DependentVariableTargetPattern);
+export const ModelChangePatternSchema =
+  SchemaFactory.createForClass(ModelChangePattern);
+
+ModelChangePatternSchema.post('validate', function (doc: Document, next): void {
+  const target: string | null = doc.get('target');
+  const symbol: string | null = doc.get('symbol');
+
+  if (target === null && symbol === null) {
+    doc.invalidate('target', `Model changes must specify at least one of a 'target' or 'symbol'.`);
+    doc.invalidate('symbol', `Model changes must specify at least one of a 'target' or 'symbol'.`);
+  }
+
+  next();
+});
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
+export class OutputVariablePattern
+  implements IOutputVariablePattern
+{
+  @Prop({ type: String, required: true, default: undefined })
+  name!: string;
+
+  @Prop({ type: String, required: false, default: null })
+  target!: string | null;
+
+  @Prop({ type: String, required: false, default: null })
+  symbol!: string | null;
+}
+
+export const OutputVariablePatternSchema =
+  SchemaFactory.createForClass(OutputVariablePattern);
+
+OutputVariablePatternSchema.post('validate', function (doc: Document, next): void {
+  const target: string | null = doc.get('target');
+  const symbol: string | null = doc.get('symbol');
+
+  if (target === null && symbol === null) {
+    doc.invalidate('target', `Output variables must specify at least one of a 'target' or 'symbol'.`);
+    doc.invalidate('symbol', `Output variables must specify at least one of a 'target' or 'symbol'.`);
+  }
+
+  next();
+});
 
 @Schema({
   _id: false,
@@ -84,14 +149,14 @@ export class Algorithm implements IAlgorithm {
   parameters!: AlgorithmParameter[] | null;
 
   @Prop({ type: [SioOntologyIdSchema], required: false, default: undefined })
-  dependentDimensions!: ISioOntologyId[] | null;
+  outputDimensions!: ISioOntologyId[] | null;
 
   @Prop({
-    type: [DependentVariableTargetPatternSchema],
+    type: [OutputVariablePatternSchema],
     required: true,
     default: undefined,
   })
-  dependentVariableTargetPatterns!: DependentVariableTargetPattern[];
+  outputVariablePatterns!: OutputVariablePattern[];
 
   @Prop({
     type: String,
@@ -124,12 +189,31 @@ export class Algorithm implements IAlgorithm {
   modelFormats!: IEdamOntologyIdVersion[];
 
   @Prop({
+    type: [ModelChangePatternSchema],
+    required: true,
+    default: undefined,
+  })
+  modelChangePatterns!: ModelChangePattern[];
+
+  @Prop({
     type: [EdamOntologyIdVersionSchema],
     _id: false,
     required: true,
     default: undefined,
   })
   simulationFormats!: IEdamOntologyIdVersion[];
+
+  @Prop({
+    type: [String],
+    enum: Object.entries(SimulationType).map(
+      (keyVal: [string, string]): string => {
+        return keyVal[1];
+      },
+    ),
+    required: true,
+    default: undefined,
+  })
+  simulationTypes!: SimulationType[];
 
   @Prop({
     type: [EdamOntologyIdVersionSchema],

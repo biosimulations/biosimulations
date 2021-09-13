@@ -8,6 +8,43 @@ import {
   ISioOntologyId,
 } from '../common';
 
+export enum ModelChangeType {
+  SedAttributeModelChange: 'SedAttributeModelChange',
+  SedAddXmlModelChange: 'SedAddXmlModelChange',
+  SedRemoveXmlModelChange: 'SedRemoveXmlModelChange',
+  SedChangeXmlModelChange: 'SedChangeXmlModelChange',
+  SedComputeAttributeChangeModelChange: 'SedComputeAttributeChangeModelChange',
+  SedSetValueAttributeModelChange: 'SedSetValueAttributeModelChange',
+}
+
+export enum ModelChangeTypeName {
+  SedAttributeModelChange: 'SED attribute model change',
+  SedAddXmlModelChange: 'SED add XML model change',
+  SedRemoveXmlModelChange: 'SED remove XML model change',
+  SedChangeXmlModelChange: 'SED change XML model change',
+  SedComputeAttributeChangeModelChange: 'SED compute attribute model change',
+  SedSetValueAttributeModelChange: 'SED set value attribute model change',
+}
+
+export interface IModelChangePattern {
+  name: string;
+  type: ModelChangeType;
+  target: string | null;
+  symbol: string | null;
+}
+
+export enum SimulationType {
+  SedOneStep = 'SedOneStep',
+  SedSteadyState = 'SedSteadyState',
+  SedUniformTimeCourse = 'SedUniformTimeCourse',
+}
+
+export enum SimulationTypeName {
+  SedOneStep = 'SED one step',
+  SedSteadyState = 'SED steady state',
+  SedUniformTimeCourse = 'SED uniform time course',
+}
+
 /**
  * Represents a parameter in a particular simulation algorith or method.
  * id refers to the identifier used by some software package to reference parameter
@@ -25,9 +62,10 @@ export interface AlgorithmParameter {
   kisaoId: IKisaoOntologyId;
 }
 
-export interface IDependentVariableTargetPattern {
-  variables: string;
-  targetPattern: string;
+export interface IOutputVariablePattern {
+  name: string;
+  target: string | null;
+  symbol: string | null;
 }
 
 export interface IAlgorithm {
@@ -36,10 +74,12 @@ export interface IAlgorithm {
   kisaoId: IKisaoOntologyId;
   modelingFrameworks: ISboOntologyId[];
   modelFormats: IEdamOntologyId[];
+  modelChangePatterns: IModelChangePattern[];
   parameters: AlgorithmParameter[] | null;
-  dependentDimensions: ISioOntologyId[] | null;
-  dependentVariableTargetPatterns: IDependentVariableTargetPattern[];
+  outputDimensions: ISioOntologyId[] | null;
+  outputVariablePatterns: IOutputVariablePattern[];
   simulationFormats: IEdamOntologyId[];
+  simulationTypes: SimulationType[];
   archiveFormats: IEdamOntologyId[];
   availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
   citations: Citation[];

@@ -5,10 +5,21 @@ import {
   IPythonApi,
   DependentPackage,
   ILinguistOntologyId,
-  IDependentVariableTargetPattern,
+  IOutputVariablePattern,
   ITestCase,
   ITestCaseException,
+  ModelChangeType,
+  SimulationType,
+  SimulationTypeName,
 } from '@biosimulations/datamodel/common';
+
+export interface ViewModelChangePattern {
+  name: string;
+  type: SimulationType;
+  typeName: SimulationTypeName;
+  target: string | null;
+  symbol: string | null;
+}
 
 export interface ViewAlgorithm {
   kisaoId: string;
@@ -16,13 +27,15 @@ export interface ViewAlgorithm {
   name: string;
   description: DescriptionFragment[] | null;
   kisaoUrl: string;
-  modelingFrameworks: ViewFramework[];
+  modelingFrameworks: ViewFramework[];  
   modelFormats: ViewFormat[];
+  modelChangePatterns: ViewModelChangePattern[];
   simulationFormats: ViewFormat[];
+  simulationTypes: SimulationType[];
   archiveFormats: ViewFormat[];
   parameters: ViewParameter[] | null;
-  dependentDimensions: ViewSioId[] | null;
-  dependentVariableTargetPatterns: IDependentVariableTargetPattern[];
+  outputDimensions: ViewSioId[] | null;
+  outputVariablePatterns: IOutputVariablePattern[];
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
   dependencies: DependentPackage[] | null;
@@ -34,13 +47,15 @@ export interface ViewAlgorithmObservable {
   name: Observable<string>;
   description: Observable<DescriptionFragment[] | null>;
   kisaoUrl: Observable<string>;
-  modelingFrameworks: Observable<ViewFramework>[];
+  modelingFrameworks: Observable<ViewFramework>[];  
   modelFormats: ViewFormatObservable[];
+  modelChangePatterns: ViewModelChangePattern[];
   simulationFormats: ViewFormatObservable[];
+  simulationTypes: SimulationType[];
   archiveFormats: ViewFormatObservable[];
   parameters: ViewParameterObservable[] | null;
-  dependentDimensions: Observable<ViewSioId>[] | null;
-  dependentVariableTargetPatterns: IDependentVariableTargetPattern[];
+  outputDimensions: Observable<ViewSioId>[] | null;
+  outputVariablePatterns: IOutputVariablePattern[];
   citations: ViewCitation[];
   availableSoftwareInterfaceTypes: string[];
   dependencies: DependentPackage[] | null;

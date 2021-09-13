@@ -20,6 +20,7 @@ import {
   DescriptionFragmentType,
   ViewValidationTests,
   ViewTestCaseResult,
+  ViewModelChangePattern,
 } from './view-simulator.interface';
 import { OntologyService } from '../ontology.service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -41,6 +42,10 @@ import {
   IValidationTests,
   ITestCaseResult,
   TestCaseResultType,
+  IModelChangePattern,
+  ModelChangeTypeName,
+  SimulationType,
+  SimulationTypeName,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
@@ -71,7 +76,7 @@ export class ViewSimulatorService {
     return sim.pipe(map(this.apiToView.bind(this, simulatorId, version)));
   }
 
-  public apiToView(
+  private apiToView(
     simulatorId: string,
     version: string | undefined,
     sim: Simulator | undefined,
@@ -343,7 +348,7 @@ export class ViewSimulatorService {
     return viewSim;
   }
 
-  public mapAlgorithms(value: Algorithm): ViewAlgorithmObservable {
+  private mapAlgorithms(value: Algorithm): ViewAlgorithmObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(value.kisaoId.id);
     const kisaoName = kisaoTerm.pipe(pluck('name'));
 
@@ -360,23 +365,27 @@ export class ViewSimulatorService {
       ),
       kisaoUrl: kisaoTerm.pipe(pluck('url')),
       modelingFrameworks: value.modelingFrameworks.map(
-        this.getFrameworks,
+        this.getFramework,
         this,
       ),
-      modelFormats: value.modelFormats.map(this.getFormats, this),
-      simulationFormats: value.simulationFormats.map(this.getFormats, this),
-      archiveFormats: value.archiveFormats.map(this.getFormats, this),
+      modelFormats: value.modelFormats.map(this.getFormat, this),
+      modelChangePatterns: value?.modelChangePatterns?.map(this.getModelChangePattern, this) || [],
+      simulationFormats: value.simulationFormats.map(this.getFormat, this),
+      simulationTypes: value.simulationTypes.map(
+        this.getSimulationTypeName,
+      ),      
+      archiveFormats: value.archiveFormats.map(this.getFormat, this),
       parameters: value.parameters
-        ? value.parameters.map(this.getParameters, this)
+        ? value.parameters.map(this.getParameter, this)
         : null,
-      dependentDimensions: value?.dependentDimensions
-        ? (value?.dependentDimensions?.map(
-            this.getDependentDimensions,
+      outputDimensions: value?.outputDimensions
+        ? (value?.outputDimensions?.map(
+            this.getOutputDimensions,
             this,
           ) as Observable<ViewSioId>[])
         : null,
-      dependentVariableTargetPatterns:
-        value?.dependentVariableTargetPatterns || [],
+      outputVariablePatterns:
+        value?.outputVariablePatterns || [],
       availableSoftwareInterfaceTypes: value.availableSoftwareInterfaceTypes
         .map((interfaceType: SoftwareInterfaceType): string => {
           return (
@@ -400,7 +409,7 @@ export class ViewSimulatorService {
     };
   }
 
-  public getParameters(parameter: AlgorithmParameter): ViewParameterObservable {
+  private getParameter(parameter: AlgorithmParameter): ViewParameterObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(parameter.kisaoId.id);
 
     const getKisaoTermName = (id: string): Observable<string> => {
@@ -443,15 +452,19 @@ export class ViewSimulatorService {
     };
   }
 
-  public getDependentDimensions(value: ISioOntologyId): Observable<ViewSioId> {
+  private getOutputDimensions(value: ISioOntologyId): Observable<ViewSioId> {
     return this.ontService.getSioTerm(value.id);
   }
 
-  public getFrameworks(value: ISboOntologyId): Observable<ViewFramework> {
+  private getFramework(value: ISboOntologyId): Observable<ViewFramework> {
     return this.ontService.getSboTerm(value.id);
   }
 
-  public getFormats(value: IEdamOntologyIdVersion): ViewFormatObservable {
+  private getSimulationTypeName(value: SimulationType): SimulationTypeName {
+    return SimulationTypeName[value as string];
+  }
+
+  private getFormat(value: IEdamOntologyIdVersion): ViewFormatObservable {
     return {
       term: this.ontService.getEdamTerm(value.id),
       version: value.version,
@@ -463,7 +476,17 @@ export class ViewSimulatorService {
     };
   }
 
-  public setVersionDate(value: Version): ViewVersion {
+  private getModelChangePattern(value: IModelChangePattern): ViewModelChangePattern {
+    return {
+      name: value.name,
+      type: value.type,
+      typeName: ModelChangeTypeName[value.type],
+      target: value.target,
+      symbol: value.symbol,
+    }
+  }
+
+  private setVersionDate(value: Version): ViewVersion {
     return {
       label: value.version,
       created: this.getDateStr(new Date(value.created as Date)),
@@ -473,7 +496,7 @@ export class ViewSimulatorService {
     };
   }
 
-  public getAuthors(simulator: Simulator): ViewAuthor[] {
+  private getAuthors(simulator: Simulator): ViewAuthor[] {
     return simulator?.authors?.map((author: Person): ViewAuthor => {
       let name = author.lastName;
       if (author.middleName) {
@@ -494,7 +517,7 @@ export class ViewSimulatorService {
     });
   }
 
-  public formatKisaoDescription(
+  private formatKisaoDescription(
     value: string | null,
   ): DescriptionFragment[] | null {
     if (value == null) {
@@ -528,14 +551,14 @@ export class ViewSimulatorService {
     return formattedValue;
   }
 
-  public makeIdentifier(identifier: Identifier): ViewIdentifier {
+  private makeIdentifier(identifier: Identifier): ViewIdentifier {
     return {
       text: identifier.namespace + ':' + identifier.id,
       url: this.getIdentifierUrl(identifier),
     };
   }
 
-  public makeCitation(citation: Citation): ViewCitation {
+  private makeCitation(citation: Citation): ViewCitation {
     let text = citation.authors + '. ' + citation.title;
     if (citation.journal) {
       text += '. <i>' + citation.journal + '</i>';
@@ -563,14 +586,15 @@ export class ViewSimulatorService {
     };
   }
 
-  public getIdentifierUrl(identifier: Identifier): string {
+  private getIdentifierUrl(identifier: Identifier): string {
     return identifier.url;
   }
 
-  public getDateStr(date: Date): string {
+  private getDateStr(date: Date): string {
     return UtilsService.getDateString(date);
   }
-  public getFunding(funding: Funding): ViewFunding {
+
+  private getFunding(funding: Funding): ViewFunding {
     return {
       funderName: this.ontService
         .getFunderRegistryTerm(funding.funder.id)

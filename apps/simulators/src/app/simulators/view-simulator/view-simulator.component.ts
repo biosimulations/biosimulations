@@ -10,7 +10,7 @@ import {
   ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
-import { IDependentVariableTargetPattern } from '@biosimulations/datamodel/common';
+import { IOutputVariablePattern } from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
 import { snackBarDuration } from '@biosimulations/config/common';
@@ -186,22 +186,6 @@ export class ViewSimulatorComponent implements OnInit {
     version: ViewVersion,
   ): string[] {
     return ['/simulators', this.id, version.label];
-  }
-
-  public getParameterStackedHeading(parameter: ViewParameter): string {
-    return parameter.name;
-  }
-
-  public getParameterStackedHeadingMoreInfoRouterLink(
-    parameter: ViewParameter,
-  ): string {
-    return parameter.kisaoUrl;
-  }
-
-  public getDependentVariablesStackedHeading(
-    dependentVariableTargetPattern: IDependentVariableTargetPattern,
-  ): string {
-    return dependentVariableTargetPattern.variables;
   }
 
   public ngOnInit(): void {

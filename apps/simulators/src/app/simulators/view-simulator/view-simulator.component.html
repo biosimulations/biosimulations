@@ -509,6 +509,36 @@
                 </ng-template>
 
                 <p class="subsection-heading no-bottom-margin">
+                  Model changes
+                </p>
+                <ul
+                  class="icon-list icon-list-format"
+                  *ngIf="
+                    algorithm?.modelChangePatterns?.length;
+                    else noCuratedModelChangePatternsMessage
+                  "
+                >
+                  <li
+                    *ngFor="
+                      let modelChangePattern of algorithm.modelChangePatterns
+                    "
+                  >
+                    <biosimulations-icon icon="write"></biosimulations-icon>
+                    {{ modelChangePattern.name }}:
+                    <ul class="comma-separated">
+                      <li>type: {{ modelChangePattern.typeName}} (<code>{{ modelChangePattern.type }}</code>)</li>
+                      <li *ngIf="modelChangePattern.target">target: <code>{{ modelChangePattern.target }}</code></li>
+                      <li *ngIf="modelChangePattern.symbol">symbol: <code>{{ modelChangePattern.target }}</code></li>
+                    </ul>
+                  </li>
+                </ul>
+                <ng-template #noCuratedModelChangePatternsMessage>
+                  <p class="info-message">
+                    The implementation of this algorithm does not support any standard model changes.
+                  </p>
+                </ng-template>
+
+                <p class="subsection-heading no-bottom-margin">
                   Simulation formats
                 </p>
                 <ul
@@ -549,6 +579,26 @@
                   <p class="info-message">
                     This implementation of this algorithm does not support any
                     standard simulation formats.
+                  </p>
+                </ng-template>
+
+                <p class="subsection-heading no-bottom-margin">
+                  Simulation types
+                </p>
+                <ul
+                  *ngIf="
+                    algorithm?.simulationTypes?.length;
+                    else noSimulationTypesMessage
+                  "
+                >
+                  <li *ngFor="let simulationType of algorithm.simulationTypes">
+                    {{ simulationType }}
+                  </li>
+                </ul>
+                <ng-template #noSimulationTypesMessage>
+                  <p class="info-message">
+                    This implementation of this algorithm does not support any
+                    standard simulation types.
                   </p>
                 </ng-template>
 
@@ -703,37 +753,37 @@
                 </ng-template>
 
                 <p class="subsection-heading no-bottom-margin">
-                  Dependent dimensions
+                  Output dimensions
                 </p>
                 <ul
                   *ngIf="
-                    algorithm?.dependentDimensions?.length;
-                    else noDependentDimensionsMessage
+                    algorithm?.outputDimensions?.length;
+                    else noOutputDimensionsMessage
                   "
                 >
                   <li
                     *ngFor="
-                      let dependentDimension of algorithm.dependentDimensions
+                      let outputDimension of algorithm.outputDimensions
                     "
                   >
-                    {{ dependentDimension.name }} (<a
-                      [href]="dependentDimension.url"
+                    {{ outputDimension.name }} (<a
+                      [href]="outputDimension.url"
                       target="_blank"
-                      >{{ dependentDimension.id }}</a
+                      >{{ outputDimension.id }}</a
                     >)
                   </li>
                 </ul>
-                <ng-template #noDependentDimensionsMessage>
+                <ng-template #noOutputDimensionsMessage>
                   <p
                     class="info-message"
                     *ngIf="
-                      algorithm?.dependentDimensions?.length === 0;
-                      else dependentDimensionsNotCurated
+                      algorithm?.outputDimensions?.length === 0;
+                      else outputDimensionsNotCurated
                     "
                   >
                     The outputs of {{ algorithm.name }} have no dimensionality.
                   </p>
-                  <ng-template #dependentDimensionsNotCurated>
+                  <ng-template #outputDimensionsNotCurated>
                     <p class="info-message">
                       The dimensions of this implementation of
                       {{ algorithm.name }} have not been curated.
@@ -742,26 +792,29 @@
                 </ng-template>
 
                 <p class="subsection-heading no-bottom-margin">
-                  Dependent variables
+                  Output variables
                 </p>
                 <ul
                   *ngIf="
-                    algorithm?.dependentVariableTargetPatterns?.length;
-                    else noCuratedDependentVariablesMessage
+                    algorithm?.outputVariablePatterns?.length;
+                    else noCuratedOutputVariablesMessage
                   "
                 >
                   <li
                     *ngFor="
-                      let varTargetPattern of algorithm.dependentVariableTargetPatterns
+                      let varPattern of algorithm.outputVariablePatterns
                     "
                   >
-                    {{ varTargetPattern.variables }}:
-                    <code>{{ varTargetPattern.targetPattern }}</code>
+                    {{ varPattern.name }}:
+                    <ul class="comma-separated">
+                      <li *ngIf="varPattern.target">target: <code>{{ varPattern.target }}</code></li>
+                      <li *ngIf="varPattern.symbol">symbol: <code>{{ varPattern.target }}</code></li>
+                    </ul>
                   </li>
                 </ul>
-                <ng-template #noCuratedDependentVariablesMessage>
+                <ng-template #noCuratedOutputVariablesMessage>
                   <p class="info-message">
-                    The dependent variables for this implementation of
+                    The output variables for this implementation of
                     {{ algorithm.name }} have not been curated.
                   </p>
                 </ng-template>

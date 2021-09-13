@@ -1,7 +1,10 @@
 import {
+  IModelChangePattern,
   IAlgorithm,
-  IDependentVariableTargetPattern,
+  IOutputVariablePattern,
   SoftwareInterfaceType,
+  ModelChangeType,
+  SimulationType,
 } from '@biosimulations/datamodel/common';
 import {
   Citation,
@@ -15,14 +18,37 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
 
-export class DependentVariableTargetPattern
-  implements IDependentVariableTargetPattern
+export class ModelChangePattern
+  implements IModelChangePattern
 {
   @ApiProperty({ type: String, required: true })
-  variables!: string;
+  name!: string;
 
+  @ApiProperty({
+    type: String,
+    enum: ModelChangeType,
+    required: true,
+  })
+  type!: ModelChangeType;
+
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
+  target!: string | null;
+
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
+  symbol!: string | null;
+}
+
+export class OutputVariablePattern
+  implements IOutputVariablePattern
+{
   @ApiProperty({ type: String, required: true })
-  targetPattern!: string;
+  name!: string;
+
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
+  target!: string | null;
+
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
+  symbol!: string | null;
 }
 
 export class Algorithm implements IAlgorithm {
@@ -33,10 +59,10 @@ export class Algorithm implements IAlgorithm {
   parameters!: AlgorithmParameter[] | null;
 
   @ApiProperty({ type: [SioOntologyId], nullable: true })
-  dependentDimensions!: SioOntologyId[] | null;
+  outputDimensions!: SioOntologyId[] | null;
 
-  @ApiProperty({ type: [DependentVariableTargetPattern], required: true })
-  dependentVariableTargetPatterns!: DependentVariableTargetPattern[];
+  @ApiProperty({ type: [OutputVariablePattern], required: true })
+  outputVariablePatterns!: OutputVariablePattern[];
 
   @ApiProperty({
     description:
@@ -64,8 +90,17 @@ export class Algorithm implements IAlgorithm {
   @ApiProperty({ type: [EdamOntologyIdVersion] })
   modelFormats!: EdamOntologyIdVersion[];
 
+  @ApiProperty({ type: [ModelChangePattern], required: true })
+  modelChangePatterns!: ModelChangePattern[];
+
   @ApiProperty({ type: [EdamOntologyIdVersion] })
   simulationFormats!: EdamOntologyIdVersion[];
+
+  @ApiProperty({
+    type: [String],
+    enum: SimulationType,
+  })
+  simulationTypes: SimulationType[];
 
   @ApiProperty({ type: [EdamOntologyIdVersion] })
   archiveFormats!: EdamOntologyIdVersion[];

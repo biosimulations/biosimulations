@@ -1673,10 +1673,11 @@ components:
           description: Task.
         target:
           $ref: '#/components/schemas/SedTarget'
-          description: "Target within a model (e.g., of a dependent variable such\
-            \ as the concentration of a species)."
+          description: "Target within a model (e.g., of a variable explicitly defined\
+            \ in the specification of a model, such as the concentration of a species)."
         symbol:
-          description: "Symbol (e.g., for an independent variable such as time)."
+          description: "Symbol (e.g., for an implicit variable that is not explicitly\
+            \ defined in the specification of a model, such as time)."
           type: string
         _type:
           description: Type.
@@ -2780,9 +2781,9 @@ components:
         - _type: BioSimulationsMetadataValue
           uri: https://en.wikipedia.org/wiki/Semantic_triple
           label: More information
-        created: 2018-01-17
+        created: 2018-01-17T00:00:00.000Z
         modified:
-        - 2018-01-17
+        - 2018-01-17T00:00:00.000Z
         other:
         - _type: BioSimulationsCustomMetadata
           attribute:

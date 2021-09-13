@@ -227,7 +227,7 @@
           "namespace": "SBO",
           "id": "SBO_0000293"
         }
-      ],
+      ],      
       "modelFormats": [
         {
           "namespace": "EDAM",
@@ -235,6 +235,38 @@
           "version": "L3V2",
           "supportedFeatures": []
         }
+      ],
+      "modelChangePatterns": [
+        {
+          "name": "Change component attributes",
+          "type": "SedAttributeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Change component attributes via calculations",
+          "type": "SedComputeAttributeChangeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Change component attributes via calculations in repeated tasks",
+          "type": "SedSetValueAttributeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Add components",
+          "type": "SedAddXmlModelChange",
+          "target": "//*"
+        },
+        {
+          "name": "Remove components",
+          "type": "SedRemoveXmlModelChange",
+          "target": "//*"
+        },
+        {
+          "name": "Change components",
+          "type": "SedChangeXmlModelChange",
+          "target": "//*"
+        }        
       ],
       "simulationFormats": [
         {
@@ -244,6 +276,7 @@
           "supportedFeatures": []
         }
       ],
+      "simulationTypes": ["SedUniformTimeCourse"],
       "archiveFormats": [
         {
           "namespace": "EDAM",
@@ -425,20 +458,24 @@
           ]
         }
       ],
-      "dependentDimensions": [
+      "outputDimensions": [
         {
           "namespace": "SIO",
           "id": "SIO_000418"
         }
       ],
-      "dependentVariableTargetPatterns": [
+      "outputVariablePatterns": [
         {
-          "variables": "species concentrations",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+          "name": "time",
+          "symbol": "urn:sedml:symbol:time"
         },
         {
-          "variables": "parameter values",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
+          "name": "species concentrations",
+          "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+        },
+        {
+          "name": "parameter values",
+          "target": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
         }
       ],
       "availableSoftwareInterfaceTypes": [
@@ -485,6 +522,38 @@
           "supportedFeatures": []
         }
       ],
+      "modelChangePatterns": [
+        {
+          "name": "Change component attributes",
+          "type": "SedAttributeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Change component attributes via calculations",
+          "type": "SedComputeAttributeChangeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Change component attributes via calculations in repeated tasks",
+          "type": "SedSetValueAttributeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Add components",
+          "type": "SedAddXmlModelChange",
+          "target": "//*"
+        },
+        {
+          "name": "Remove components",
+          "type": "SedRemoveXmlModelChange",
+          "target": "//*"
+        },
+        {
+          "name": "Change components",
+          "type": "SedChangeXmlModelChange",
+          "target": "//*"
+        }        
+      ],
       "simulationFormats": [
         {
           "namespace": "EDAM",
@@ -493,6 +562,7 @@
           "supportedFeatures": []
         }
       ],
+      "simulationTypes": ["SedUniformTimeCourse"],
       "archiveFormats": [
         {
           "namespace": "EDAM",
@@ -502,20 +572,24 @@
         }
       ],
       "parameters": [],
-      "dependentDimensions": [
+      "outputDimensions": [
         {
           "namespace": "SIO",
           "id": "SIO_000418"
         }
       ],
-      "dependentVariableTargetPatterns": [
+      "outputVariablePatterns": [
         {
-          "variables": "species concentrations",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+          "name": "time",
+          "symbol": "urn:sedml:symbol:time"
         },
         {
-          "variables": "parameter values",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
+          "name": "species concentrations",
+          "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+        },
+        {
+          "name": "parameter values",
+          "target": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
         }
       ],
       "availableSoftwareInterfaceTypes": [
@@ -556,6 +630,38 @@
           "supportedFeatures": []
         }
       ],
+      "modelChangePatterns": [
+        {
+          "name": "Change component attributes",
+          "type": "SedAttributeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Change component attributes via calculations",
+          "type": "SedComputeAttributeChangeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Change component attributes via calculations in repeated tasks",
+          "type": "SedSetValueAttributeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Add components",
+          "type": "SedAddXmlModelChange",
+          "target": "//*"
+        },
+        {
+          "name": "Remove components",
+          "type": "SedRemoveXmlModelChange",
+          "target": "//*"
+        },
+        {
+          "name": "Change components",
+          "type": "SedChangeXmlModelChange",
+          "target": "//*"
+        }        
+      ],
       "simulationFormats": [
         {
           "namespace": "EDAM",
@@ -564,6 +670,7 @@
           "supportedFeatures": []
         }
       ],
+      "simulationTypes": ["SedUniformTimeCourse"],
       "archiveFormats": [
         {
           "namespace": "EDAM",
@@ -622,20 +729,24 @@
           ]
         }
       ],
-      "dependentDimensions": [
+      "outputDimensions": [
         {
           "namespace": "SIO",
           "id": "SIO_000418"
         }
       ],
-      "dependentVariableTargetPatterns": [
+      "outputVariablePatterns": [
         {
-          "variables": "species concentrations",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+          "name": "time",
+          "symbol": "urn:sedml:symbol:time"
         },
         {
-          "variables": "parameter values",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
+          "name": "species concentrations",
+          "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+        },
+        {
+          "name": "parameter values",
+          "target": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
         }
       ],
       "availableSoftwareInterfaceTypes": [
@@ -676,6 +787,38 @@
           "supportedFeatures": []
         }
       ],
+      "modelChangePatterns": [
+        {
+          "name": "Change component attributes",
+          "type": "SedAttributeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Change component attributes via calculations",
+          "type": "SedComputeAttributeChangeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Change component attributes via calculations in repeated tasks",
+          "type": "SedSetValueAttributeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Add components",
+          "type": "SedAddXmlModelChange",
+          "target": "//*"
+        },
+        {
+          "name": "Remove components",
+          "type": "SedRemoveXmlModelChange",
+          "target": "//*"
+        },
+        {
+          "name": "Change components",
+          "type": "SedChangeXmlModelChange",
+          "target": "//*"
+        }        
+      ],
       "simulationFormats": [
         {
           "namespace": "EDAM",
@@ -684,6 +827,7 @@
           "supportedFeatures": []
         }
       ],
+      "simulationTypes": ["SedUniformTimeCourse"],
       "archiveFormats": [
         {
           "namespace": "EDAM",
@@ -792,20 +936,24 @@
           ]
         }
       ],
-      "dependentDimensions": [
+      "outputDimensions": [
         {
           "namespace": "SIO",
           "id": "SIO_000418"
         }
       ],
-      "dependentVariableTargetPatterns": [
+      "outputVariablePatterns": [
         {
-          "variables": "species counts",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+          "name": "time",
+          "symbol": "urn:sedml:symbol:time"
         },
         {
-          "variables": "parameter values",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
+          "name": "species counts",
+          "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+        },
+        {
+          "name": "parameter values",
+          "target": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
         }
       ],
       "availableSoftwareInterfaceTypes": [
@@ -845,6 +993,38 @@
           "supportedFeatures": []
         }
       ],
+      "modelChangePatterns": [
+        {
+          "name": "Change component attributes",
+          "type": "SedAttributeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Change component attributes via calculations",
+          "type": "SedComputeAttributeChangeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Change component attributes via calculations in repeated tasks",
+          "type": "SedSetValueAttributeModelChange",
+          "target": "//*/@*"
+        },
+        {
+          "name": "Add components",
+          "type": "SedAddXmlModelChange",
+          "target": "//*"
+        },
+        {
+          "name": "Remove components",
+          "type": "SedRemoveXmlModelChange",
+          "target": "//*"
+        },
+        {
+          "name": "Change components",
+          "type": "SedChangeXmlModelChange",
+          "target": "//*"
+        }        
+      ],
       "simulationFormats": [
         {
           "namespace": "EDAM",
@@ -853,6 +1033,7 @@
           "supportedFeatures": []
         }
       ],
+      "simulationTypes": ["SedSteadyState"],
       "archiveFormats": [
         {
           "namespace": "EDAM",
@@ -940,15 +1121,15 @@
           ]
         }
       ],
-      "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [
+      "outputDimensions": [],
+      "outputVariablePatterns": [
         {
-          "variables": "species concentrations",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
+          "name": "species concentrations",
+          "target": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
         },
         {
-          "variables": "parameter values",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
+          "name": "parameter values",
+          "target": "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter/@value"
         }
       ],
       "availableSoftwareInterfaceTypes": [
