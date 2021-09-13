@@ -61,7 +61,7 @@ import {
   Subscription,
   combineLatest,
 } from 'rxjs';
-import { concatAll, map, shareReplay, withLatestFrom } from 'rxjs/operators';
+import { catchError, concatAll, map, shareReplay, withLatestFrom } from 'rxjs/operators';
 import {
   AxisLabelType,
   AXIS_LABEL_TYPES,
@@ -719,6 +719,19 @@ export class ViewComponent implements OnInit, OnDestroy {
         metadata.other = allmetadata.slice(1);
 
         return metadata;
+      }),
+      catchError((error: Error) => {
+        this.snackBar.open(
+          'Sorry! We were unable to get the metadata for this project.',
+          undefined,
+          {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          },
+        );
+        console.error(error);
+        return of(undefined);
       }),
     );
 
