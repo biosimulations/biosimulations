@@ -61,7 +61,13 @@ import {
   Subscription,
   combineLatest,
 } from 'rxjs';
-import { catchError, concatAll, map, shareReplay, withLatestFrom } from 'rxjs/operators';
+import {
+  catchError,
+  concatAll,
+  map,
+  shareReplay,
+  withLatestFrom,
+} from 'rxjs/operators';
 import {
   AxisLabelType,
   AXIS_LABEL_TYPES,
