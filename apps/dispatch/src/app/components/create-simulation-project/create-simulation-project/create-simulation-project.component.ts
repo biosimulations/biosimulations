@@ -827,7 +827,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         }
 
         let msg =
-          'Sorry! We were unable to get the dependent parameters and independent variables of your model. ' +
+          'Sorry! We were unable to get the input parameters and output variables of your model. ' +
           'This feature is only currently available for models encoded in BNGL, CellML, SBML, SBML-fbc, ' +
           'SBML-qual, and Smoldyn.';
         if (modelLocationType === LocationType.url) {

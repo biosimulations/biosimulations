@@ -27,7 +27,7 @@ export interface SedVariable {
   task: SedTask;
   target?: SedTarget;
   /**
-   * Symbol (e.g., for an independent variable such as time).
+   * Symbol (e.g., for an implicit variable not explicitly defined in the specification of a model such as time).
    */
   symbol?: string;
   /**
