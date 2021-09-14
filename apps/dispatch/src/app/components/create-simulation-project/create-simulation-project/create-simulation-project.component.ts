@@ -9,7 +9,7 @@ import {
   Validators,
   ValidationErrors,
 } from '@angular/forms';
-import { ValueType } from '@biosimulations/datamodel/common';
+import { ValueType, SimulationType, SimulationTypeName, ModelFormat, MODEL_FORMATS  } from '@biosimulations/datamodel/common';
 import {
   DispatchService,
   SimulatorsData,
@@ -46,148 +46,10 @@ interface OntologyTerm {
   name: string;
 }
 
-const modelFormatMetaData: {
-  [id: string]: {
-    name: string;
-    sedUrn: string | null;
-    combineSpecUrl: string;
-    extension: string;
-    enabled: boolean;
-  };
-} = {
-  format_3972: {
-    name: 'BNGL',
-    sedUrn: 'urn:sedml:language:bngl',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/text/bngl+plain',
-    extension: 'bngl',
-    enabled: true,
-  },
-  format_3240: {
-    name: 'CellML',
-    sedUrn: 'urn:sedml:language:cellml',
-    combineSpecUrl: 'http://identifiers.org/combine.specifications/cellml',
-    extension: 'cellml',
-    enabled: true,
-  },
-  format_9003: {
-    name: 'CopasiML',
-    sedUrn: 'urn:sedml:language:copasiml',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/x-copasi',
-    extension: 'cps',
-    enabled: false,
-  },
-  format_9009: {
-    name: 'GINML',
-    sedUrn: 'urn:sedml:language:ginml',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/ginml+xml',
-    extension: 'ginml',
-    enabled: false,
-  },
-  format_9005: {
-    name: 'HOC',
-    sedUrn: 'urn:sedml:language:hoc',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/text/x-hoc',
-    extension: 'hoc',
-    enabled: false,
-  },
-  format_9006: {
-    name: 'Kappa',
-    sedUrn: 'urn:sedml:language:kappa',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/text/x-kappa',
-    extension: 'ka',
-    enabled: true,
-  },
-  format_9004: {
-    name: 'LEMS',
-    sedUrn: 'urn:sedml:language:lems',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/lems+xml',
-    extension: 'xml',
-    enabled: true,
-  },
-  format_9011: {
-    name: 'MASS',
-    sedUrn: 'urn:sedml:language:mass',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/mass+json',
-    extension: 'json',
-    enabled: false,
-  },
-  format_9002: {
-    name: 'MorpheusML',
-    sedUrn: 'urn:sedml:language:morpheusml',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/morpheusml+xml',
-    extension: 'xml',
-    enabled: false,
-  },
-  format_3971: {
-    name: 'NeuroML',
-    sedUrn: 'urn:sedml:language:neuroml',
-    combineSpecUrl: 'http://identifiers.org/combine.specifications/neuroml',
-    extension: 'nml',
-    enabled: false,
-  },
-  format_9007: {
-    name: 'pharmML',
-    sedUrn: 'urn:sedml:language:pharmml',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/pharmml+xml',
-    extension: 'xml',
-    enabled: true,
-  },
-  format_9012: {
-    name: 'RBA models',
-    sedUrn: 'urn:sedml:language:rba',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/rba+zip',
-    extension: 'zip',
-    enabled: false,
-  },
-  format_2585: {
-    name: 'SBML',
-    sedUrn: 'urn:sedml:language:sbml',
-    combineSpecUrl: 'http://identifiers.org/combine.specifications/sbml',
-    extension: 'xml',
-    enabled: true,
-  },
-  format_3685: {
-    name: 'SED-ML',
-    sedUrn: null,
-    combineSpecUrl: 'http://identifiers.org/combine.specifications/sed-ml',
-    extension: 'sedml',
-    enabled: true,
-  },
-  format_9001: {
-    name: 'Smoldyn',
-    sedUrn: 'urn:sedml:language:smoldyn',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/text/smoldyn+plain',
-    extension: 'txt',
-    enabled: true,
-  },
-  format_9000: {
-    name: 'VCML',
-    sedUrn: 'urn:sedml:language:vcml',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/vcml+xml',
-    extension: 'vcml',
-    enabled: false,
-  },
-  format_9010: {
-    name: 'XPP',
-    sedUrn: 'urn:sedml:language:xpp',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/text/x-xpp',
-    extension: 'ode',
-    enabled: true,
-  },
-  format_9008: {
-    name: 'ZGINML',
-    sedUrn: 'urn:sedml:language:zginml',
-    combineSpecUrl: 'http://purl.org/NET/mediatypes/application/zginml+zip',
-    extension: 'zginml',
-    enabled: true,
-  },
-};
-
-enum SimulationType {
-  SedOneStepSimulation = 'SedOneStepSimulation',
-  SedSteadyStateSimulation = 'SedSteadyStateSimulation',
-  SedUniformTimeCourseSimulation = 'SedUniformTimeCourseSimulation',
-}
+const MODEL_FORMAT_EDAM_ID_MAP: {[id: string]: ModelFormat} = {};
+MODEL_FORMATS.forEach((modelFormat: ModelFormat): void => {
+  MODEL_FORMAT_EDAM_ID_MAP[modelFormat.edamId] = modelFormat;
+});
 
 enum ModelVariableType {
   symbol = 'symbol',
@@ -241,15 +103,15 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   private allSimulationTypes = [
     {
       id: SimulationType.SedOneStepSimulation,
-      name: 'One step',
+      name: SimulationTypeName.SedOneStepSimulation.substr(4),
     },
     {
       id: SimulationType.SedSteadyStateSimulation,
-      name: 'Steady state',
+      name: SimulationTypeName.SedSteadyStateSimulation.substr(4),
     },
     {
       id: SimulationType.SedUniformTimeCourseSimulation,
-      name: 'Time course',
+      name: SimulationTypeName.SedUniformTimeCourseSimulation.substr(4),
     },
   ] as OntologyTerm[];
   private allSimulationAlgorithms?: OntologyTerm[];
@@ -269,60 +131,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   ] as OntologyTerm[];
   compatibleSimulators?: CompatibleSimulator[];
 
-  modelFileTypeSpecifiers = [
-    // BNGL
-    '.bngl',
-    'text/plain',
-    'text/bngl+plain',
-    'text/x-bngl',
-    'application/x-bngl',
-
-    // CellML
-    '.cellml',
-    '.xml',
-    'application/cellml+xml',
-    'application/x-cellml',
-    'application/xml',
-
-    // LEMS
-    '.xml',
-    'application/lems+xml',
-    'application/x-lems',
-    'application/xml',
-
-    // RBA
-    '.zip',
-    'application/rba+zip',
-    'application/zip',
-
-    //sbml
-    '.sbml',
-    '.xml',
-    'application/sbml+xml',
-    'application/x-sbml',
-    'application/xml',
-
-    // smoldyn
-    '.txt',
-    'text/plain',
-    'text/smoldyn+plain',
-    'text/x-smoldyn',
-    'application/x-smoldyn',
-
-    // XPP
-    '.ode',
-    '.xpp',
-    'text/plain',
-    'text/xpp+plain',
-    'text/x-xpp',
-    'application/x-xpp',
-
-    // ZGINML
-    '.zginml',
-    'application/zginml+zip',
-    'application/x-zginml',
-    'application/zip',
-  ].join(',');
+  modelFileTypeSpecifiers!: string;  
   private static INIT_MODEL_NAMESPACES = 1;
   private static INIT_MODEL_CHANGES = 3;
   private static INIT_MODEL_VARIABLES = 5;
@@ -345,6 +154,21 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private snackBar: MatSnackBar,
   ) {
+    const modelFileTypeSpecifiers = new Set<string>();
+    MODEL_FORMATS
+      .filter((modelFormat: ModelFormat): boolean => {
+        return modelFormat.enabled;
+      })
+      .forEach((modelFormat: ModelFormat): void => {
+        modelFormat.extensions.forEach((extension: string): void => {
+          modelFileTypeSpecifiers.add('.' + extension);
+        });
+        modelFormat.mediaTypes.forEach((mediaType: string): void => {
+          modelFileTypeSpecifiers.add(mediaType);
+        });
+      });
+    this.modelFileTypeSpecifiers = Array.from(modelFileTypeSpecifiers).join(',');
+
     this.formGroup = this.formBuilder.group(
       {
         modelLocationType: [LocationType.file, Validators.required],
@@ -813,7 +637,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     }
     formData.append(
       'modelLanguage',
-      modelFormatMetaData[modelFormat].sedUrn as string,
+      MODEL_FORMAT_EDAM_ID_MAP[modelFormat].sedUrn,
     );
     formData.append('modelingFramework', modelingFramework);
     formData.append('simulationType', simulationType);
@@ -1036,75 +860,42 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       frameworkSboId &&
       this.simulatorSpecs
     ) {
-      const simulationTypeIds = new Set<string>();
-      const simulationTypes: OntologyTerm[] = [];
-      if (
-        ['format_2585', 'format_9012'].includes(formatEdamId) &&
-        ['SBO_0000293', 'SBO_0000547', 'SBO_0000624', 'SBO_0000692'].includes(
-          frameworkSboId,
-        )
-      ) {
-        simulationTypeIds.add(SimulationType.SedSteadyStateSimulation);
-        simulationTypes.push({
-          id: SimulationType.SedSteadyStateSimulation,
-          name: 'Steady state',
-        });
-      }
-      if (
-        [
-          'format_2585',
-          'format_3240',
-          'format_3971',
-          'format_3972',
-          'format_9000',
-          'format_9001',
-          'format_9002',
-          'format_9003',
-          'format_9004',
-          'format_9005',
-          'format_9006',
-          'format_9008',
-          'format_9009',
-          'format_9010',
-        ].includes(formatEdamId) &&
-        [
-          'SBO_0000293',
-          'SBO_0000295',
-          'SBO_0000292',
-          'SBO_0000294',
-          'SBO_0000547',
-          'SBO_0000675',
-          'SBO_0000676',
-          'SBO_0000677',
-          'SBO_0000678',
-          'SBO_0000679',
-          'SBO_0000680',
-          'SBO_0000684',
-          'SBO_0000685',
-          'SBO_0000686',
-          'SBO_0000687',
-          'SBO_0000688',
-          'SBO_0000689',
-          'SBO_0000690',
-          'SBO_0000691',
-        ].includes(frameworkSboId)
-      ) {
-        simulationTypeIds.add(SimulationType.SedUniformTimeCourseSimulation);
-        simulationTypes.push({
-          id: SimulationType.SedUniformTimeCourseSimulation,
-          name: 'Time course',
-        });
-      }
-      this.simulationTypes = simulationTypes;
+      const simulationTypes = new Set<SimulationType>();
+      
+      this.simulatorSpecs.forEach((simulator: SimulatorSpecs): void => {
+        simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
+          (modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat): void => {
+            if (
+              modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(formatEdamId)
+              && modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(frameworkSboId)
+            ) {
+              modelingFrameworksAlgorithmsForModelFormat.simulationTypes.forEach((simulationType: SimulationType): void => {
+                simulationTypes.add(simulationType);
+              });
+            }
+          });
+      });
+
+      this.simulationTypes = Array.from(simulationTypes)
+        .map((simulationType: SimulationType): OntologyTerm => {
+          return {
+            id: simulationType,
+            name: SimulationTypeName[simulationType].substr(4),
+          };
+        })
+        .sort((a: OntologyTerm, b: OntologyTerm): number => {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          }
+        );
 
       if (this.simulationTypes.length === 1) {
         simulationTypeControl.setValue(this.simulationTypes[0].id);
-      } else if (!simulationTypeIds.has(simulationTypeControl.value)) {
+      } else if (!simulationTypes.has(simulationTypeControl.value)) {
         simulationTypeControl.setValue(null);
       }
 
       simulationTypeControl.enable();
-      if (simulationTypeIds.size === 0) {
+      if (this.simulationTypes.length === 0) {
         modelingFrameworkControl.setValue(null);
       }
     } else if (!formatEdamId && frameworkSboId) {
@@ -1183,6 +974,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
               modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(
                 frameworkSboId,
               )
+               &&
+              modelingFrameworksAlgorithmsForModelFormat.simulationTypes.includes(
+                simulationType,
+              )
             ) {
               modelingFrameworksAlgorithmsForModelFormat.algorithmKisaoIds.forEach(
                 (kisaoId: string): void => {
@@ -1193,41 +988,6 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           },
         );
       });
-
-      const possibleSteadyStateKisaoIds: string[] = [
-        'KISAO_0000408',
-        'KISAO_0000659',
-        'KISAO_0000662',
-        'KISAO_0000663',
-      ];
-      if (['format_2585'].includes(formatEdamId)) {
-        if (
-          ['SBO_0000293', 'SBO_0000295', 'SBO_0000547'].includes(frameworkSboId)
-        ) {
-          if (
-            simulationType === SimulationType.SedUniformTimeCourseSimulation
-          ) {
-            for (const kisaoId of possibleSteadyStateKisaoIds) {
-              if (kisaoIds.has(kisaoId)) {
-                kisaoIds.delete(kisaoId);
-              }
-            }
-          } else if (
-            simulationType === SimulationType.SedSteadyStateSimulation
-          ) {
-            const implementedKisaoIds = new Set<string>();
-            for (const kisaoId of possibleSteadyStateKisaoIds) {
-              if (kisaoIds.has(kisaoId)) {
-                implementedKisaoIds.add(kisaoId);
-              }
-            }
-            kisaoIds.clear();
-            for (const kisaoId of implementedKisaoIds) {
-              kisaoIds.add(kisaoId);
-            }
-          }
-        }
-      }
 
       this.simulationAlgorithms = this.allSimulationAlgorithms.filter(
         (algorithm: OntologyTerm): boolean => {
@@ -1531,12 +1291,6 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           };
         });
 
-        this.allModelingFrameworks = this.allModelingFrameworks.filter(
-          (framework: OntologyTerm): boolean => {
-            return framework.id !== 'SBO_0000292';
-          },
-        );
-
         this.simulatorSpecs?.sort(
           (a: SimulatorSpecs, b: SimulatorSpecs): number => {
             return a.name.localeCompare(b.name, undefined, { numeric: true });
@@ -1577,7 +1331,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           (format: OntologyTerm): boolean => {
             return (
               formatEdamIds.has(format.id) &&
-              modelFormatMetaData[format.id].enabled
+              MODEL_FORMAT_EDAM_ID_MAP[format.id].enabled
             );
           },
         );
@@ -1735,9 +1489,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const model: any = {
       _type: 'SedModel',
       id: 'model',
-      language: modelFormatMetaData[modelFormatControl.value].sedUrn,
+      language: MODEL_FORMAT_EDAM_ID_MAP[modelFormatControl.value].sedUrn,
       source:
-        'model.' + modelFormatMetaData[modelFormatControl.value].extension,
+        'model.' + MODEL_FORMAT_EDAM_ID_MAP[modelFormatControl.value].extensions?.[0],
       changes: [],
     };
 
@@ -1911,7 +1665,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       contents: [
         {
           _type: 'CombineArchiveContent',
-          format: modelFormatMetaData[modelFormatControl.value].combineSpecUrl,
+          format: MODEL_FORMAT_EDAM_ID_MAP[modelFormatControl.value].combineUri,
           master: false,
           location: {
             _type: 'CombineArchiveLocation',
@@ -1921,7 +1675,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         },
         {
           _type: 'CombineArchiveContent',
-          format: modelFormatMetaData['format_3685'].combineSpecUrl,
+          format: 'http://identifiers.org/combine.specifications/sed-ml',
           master: true,
           location: {
             _type: 'CombineArchiveLocation',

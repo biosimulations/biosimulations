@@ -21,6 +21,7 @@ import {
   KisaoTerm,
   SboTerm,
   ValueType,
+  SimulationType,
 } from '@biosimulations/datamodel/common';
 import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
 import { environment } from '@biosimulations/shared/environments';
@@ -40,6 +41,7 @@ export interface AlgorithmParameter {
 export interface ModelingFrameworksAlgorithmsForModelFormat {
   formatEdamIds: string[];
   frameworkSboIds: string[];
+  simulationTypes: SimulationType[];
   algorithmKisaoIds: string[];
   parameters: AlgorithmParameter[];
 }
@@ -203,6 +205,7 @@ export class DispatchService {
                     return framework.id;
                   },
                 ),
+                simulationTypes: algorithm.simulationTypes,
                 algorithmKisaoIds: [algorithm.kisaoId.id],
                 parameters: algorithm.parameters.map(
                   (param: any): AlgorithmParameter => {
