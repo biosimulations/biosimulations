@@ -9,40 +9,50 @@ import {
 } from '../common';
 
 export enum ModelChangeType {
-  SedAttributeModelChange: 'SedAttributeModelChange',
-  SedAddXmlModelChange: 'SedAddXmlModelChange',
-  SedRemoveXmlModelChange: 'SedRemoveXmlModelChange',
-  SedChangeXmlModelChange: 'SedChangeXmlModelChange',
-  SedComputeAttributeChangeModelChange: 'SedComputeAttributeChangeModelChange',
-  SedSetValueAttributeModelChange: 'SedSetValueAttributeModelChange',
+  SedAttributeModelChange = 'SedAttributeModelChange',
+  SedAddXmlModelChange = 'SedAddXmlModelChange',
+  SedRemoveXmlModelChange = 'SedRemoveXmlModelChange',
+  SedChangeXmlModelChange = 'SedChangeXmlModelChange',
+  SedComputeAttributeChangeModelChange = 'SedComputeAttributeChangeModelChange',
+  SedSetValueAttributeModelChange = 'SedSetValueAttributeModelChange',
 }
 
 export enum ModelChangeTypeName {
-  SedAttributeModelChange: 'SED attribute model change',
-  SedAddXmlModelChange: 'SED add XML model change',
-  SedRemoveXmlModelChange: 'SED remove XML model change',
-  SedChangeXmlModelChange: 'SED change XML model change',
-  SedComputeAttributeChangeModelChange: 'SED compute attribute model change',
-  SedSetValueAttributeModelChange: 'SED set value attribute model change',
+  SedAttributeModelChange = 'SED attribute model change',
+  SedAddXmlModelChange = 'SED add XML model change',
+  SedRemoveXmlModelChange = 'SED remove XML model change',
+  SedChangeXmlModelChange = 'SED change XML model change',
+  SedComputeAttributeChangeModelChange = 'SED statically compute attribute model change',
+  SedSetValueAttributeModelChange = 'SED dynamically compute attribute model change',
+}
+
+export interface IModelTarget {
+  value: string;
+  grammar: string;
+}
+
+export interface IModelSymbol {
+  value: string;
+  namespace: string;
 }
 
 export interface IModelChangePattern {
   name: string;
-  type: ModelChangeType;
-  target: string | null;
-  symbol: string | null;
+  types: ModelChangeType[];
+  target: IModelTarget | null;
+  symbol: IModelSymbol | null;
 }
 
 export enum SimulationType {
-  SedOneStep = 'SedOneStep',
-  SedSteadyState = 'SedSteadyState',
-  SedUniformTimeCourse = 'SedUniformTimeCourse',
+  SedOneStepSimulation = 'SedOneStepSimulation',
+  SedSteadyStateSimulation = 'SedSteadyStateSimulation',
+  SedUniformTimeCourseSimulation = 'SedUniformTimeCourseSimulation',
 }
 
 export enum SimulationTypeName {
-  SedOneStep = 'SED one step',
-  SedSteadyState = 'SED steady state',
-  SedUniformTimeCourse = 'SED uniform time course',
+  SedOneStepSimulation = 'SED one step simulation',
+  SedSteadyStateSimulation = 'SED steady state simulation',
+  SedUniformTimeCourseSimulation = 'SED uniform time course simulation',
 }
 
 /**
@@ -64,8 +74,8 @@ export interface AlgorithmParameter {
 
 export interface IOutputVariablePattern {
   name: string;
-  target: string | null;
-  symbol: string | null;
+  target: IModelTarget | null;
+  symbol: IModelSymbol | null;
 }
 
 export interface IAlgorithm {

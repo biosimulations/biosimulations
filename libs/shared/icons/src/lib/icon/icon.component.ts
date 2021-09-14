@@ -33,11 +33,13 @@ export type BiosimulationsIcon =
   | 'logout'
   | 'project'
   | 'model'
+  | 'parameter'
   | 'simulation'
   | 'logicalSimulation'
   | 'experiment'
   | 'task'
   | 'chart'
+  | 'axes'
   | 'visualization'
   | 'browse'
   | 'new'
@@ -182,11 +184,13 @@ export class IconComponent {
     error: { type: 'fas', name: 'exclamation' },
     project: { type: 'fas', name: 'folder-open' },
     model: { type: 'fas', name: 'project-diagram' },
+    parameter: { type: 'fas', name: 'sliders-h' },
     simulation: { type: 'mat', name: 'timeline' as IconName },
     logicalSimulation: { type: 'fas', name: 'wave-square' },
     experiment: { type: 'fas', name: 'flask' },
     task: { type: 'fas', name: 'tasks' },
     chart: { type: 'fas', name: 'chart-bar' },
+    axes: { type: 'fab', name: 'uncharted' },
     visualization: { type: 'fas', name: 'paint-brush' },
     browse: { type: 'fas', name: 'list' },
     new: { type: 'fas', name: 'plus-circle' },

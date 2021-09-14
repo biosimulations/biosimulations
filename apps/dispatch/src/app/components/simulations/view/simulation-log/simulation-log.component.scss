@@ -60,3 +60,12 @@ biosimulations-structured-simulation-log-element {
     }
   }
 }
+
+ul.icon-list {
+  a {
+    color: $dark-primary-text;
+    &:hover {
+      color: mat-color($theme-primary);
+    }
+  }
+}

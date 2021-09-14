@@ -41,15 +41,7 @@ biosimulations-tab-page ::ng-deep {
   }
 }
 
-.icon-list {
-  biosimulations-icon {
-  }
-
-  li {
-    margin-left: calc(16px + 0.25rem);
-    text-indent: calc(-1 * (16px + 0.25rem));
-  }
-
+.summary .icon-list {
   a {
     color: $dark-primary-text;
     &:hover {
@@ -105,7 +97,7 @@ biosimulations-tab-page ::ng-deep {
   }
 }
 
-.icon-list.icon-list-format li {
+.icon-list.icon-list-format > li {
   margin-left: calc(8px + 0.25rem);
   text-indent: calc(-1 * (8px + 0.25rem));
 

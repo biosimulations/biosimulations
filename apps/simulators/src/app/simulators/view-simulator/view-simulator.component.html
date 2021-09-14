@@ -25,16 +25,15 @@
               <td>
                 <ul class="comma-separated ampersand-separator">
                   <li *ngFor="let author of simulator.authors">
-                    <a
-                      *ngIf="author.orcidUrl; else noOrcidUrl"
+                    {{ author.name }}<span *ngIf="author.orcidUrl">{{ ' '}}<a                      
                       [href]="author.orcidUrl"
                       target="_blank"
                       title="ORCID profile"
-                      >{{ author.name }}
+                      >
                       <biosimulations-icon
                         icon="orcid"
                       ></biosimulations-icon></a
-                    ><ng-template #noOrcidUrl>{{ author.name }}</ng-template>
+                    ></span>
                   </li>
                 </ul>
               </td>
@@ -47,21 +46,16 @@
                 <biosimulations-icon icon="tutorial"></biosimulations-icon>
               </th>
               <td>
-                <a
+                <span [innerHTML]="citation.text"></span><span *ngIf="citation.url">{{' '}}<a
                   [href]="citation.url"
-                  target="_blank"
-                  [innerHTML]="citation.text"
-                  *ngIf="citation.url; else plainCitation"
-                ></a>
-                <ng-template #plainCitation>
-                  <span [innerHTML]="citation.text"></span>
-                </ng-template>
+                  target="_blank"                  
+                ><biosimulations-icon icon="link"></biosimulations-icon></a></span>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="column border">
+      <div class="column border summary">
         <div class="section" *ngIf="simulator.image && simulator.validated">
           <h3>Run simulations online with runBioSimulations</h3>
           <div class="section-content">
@@ -512,25 +506,40 @@
                   Model changes
                 </p>
                 <ul
-                  class="icon-list icon-list-format"
+                  class="icon-list icon-list-format half-vertically-spaced"
                   *ngIf="
                     algorithm?.modelChangePatterns?.length;
                     else noCuratedModelChangePatternsMessage
                   "
                 >
-                  <li
+                  <ng-container
                     *ngFor="
                       let modelChangePattern of algorithm.modelChangePatterns
                     "
                   >
-                    <biosimulations-icon icon="write"></biosimulations-icon>
-                    {{ modelChangePattern.name }}:
-                    <ul class="comma-separated">
-                      <li>type: {{ modelChangePattern.typeName}} (<code>{{ modelChangePattern.type }}</code>)</li>
-                      <li *ngIf="modelChangePattern.target">target: <code>{{ modelChangePattern.target }}</code></li>
-                      <li *ngIf="modelChangePattern.symbol">symbol: <code>{{ modelChangePattern.target }}</code></li>
-                    </ul>
-                  </li>
+
+                    <li
+                      *ngFor="
+                        let type of modelChangePattern.types
+                      "
+                    >
+                      <biosimulations-icon icon="parameter"></biosimulations-icon>
+                      {{ modelChangePattern.name }}:
+                      <ul>
+                        <li>type: {{ type.name }} (<code>{{ type.value }}</code>)</li>
+                        <li *ngIf="modelChangePattern.target">
+                          target: 
+                          <code>{{ modelChangePattern.target.grammar }}</code>:
+                          <code>{{ modelChangePattern.target.value }}</code>
+                        </li>
+                        <li *ngIf="modelChangePattern.symbol">
+                          symbol: 
+                          <code>{{ modelChangePattern.symbol.namespace }}</code>: 
+                          <code>{{ modelChangePattern.symbol.value }}</code>
+                        </li>
+                      </ul>
+                    </li>
+                  </ng-container>
                 </ul>
                 <ng-template #noCuratedModelChangePatternsMessage>
                   <p class="info-message">
@@ -586,13 +595,15 @@
                   Simulation types
                 </p>
                 <ul
+                  class="icon-list icon-list-format"
                   *ngIf="
                     algorithm?.simulationTypes?.length;
                     else noSimulationTypesMessage
                   "
                 >
                   <li *ngFor="let simulationType of algorithm.simulationTypes">
-                    {{ simulationType }}
+                    <biosimulations-icon icon="format"></biosimulations-icon>
+                    {{ simulationType.name }} (<code>{{ simulationType.value }}</code>)
                   </li>
                 </ul>
                 <ng-template #noSimulationTypesMessage>
@@ -652,10 +663,11 @@
                     algorithm?.parameters?.length;
                     else noCuratedParametersMessage
                   "
-                  class="half-vertically-spaced"
+                  class="icon-list half-vertically-spaced"
                 >
                   <li *ngFor="let parameter of algorithm?.parameters">
                     <div>
+                      <biosimulations-icon icon="parameter"></biosimulations-icon>
                       {{ parameter.name }} (<a
                         [href]="parameter.kisaoUrl"
                         target="_blank"
@@ -756,6 +768,7 @@
                   Output dimensions
                 </p>
                 <ul
+                  class="icon-list"
                   *ngIf="
                     algorithm?.outputDimensions?.length;
                     else noOutputDimensionsMessage
@@ -766,6 +779,7 @@
                       let outputDimension of algorithm.outputDimensions
                     "
                   >
+                    <biosimulations-icon icon="axes"></biosimulations-icon>
                     {{ outputDimension.name }} (<a
                       [href]="outputDimension.url"
                       target="_blank"
@@ -795,6 +809,7 @@
                   Output variables
                 </p>
                 <ul
+                  class="icon-list half-vertically-spaced"
                   *ngIf="
                     algorithm?.outputVariablePatterns?.length;
                     else noCuratedOutputVariablesMessage
@@ -805,10 +820,19 @@
                       let varPattern of algorithm.outputVariablePatterns
                     "
                   >
+                    <biosimulations-icon icon="chart"></biosimulations-icon>
                     {{ varPattern.name }}:
-                    <ul class="comma-separated">
-                      <li *ngIf="varPattern.target">target: <code>{{ varPattern.target }}</code></li>
-                      <li *ngIf="varPattern.symbol">symbol: <code>{{ varPattern.target }}</code></li>
+                    <ul>
+                      <li *ngIf="varPattern.target">
+                        target: 
+                        <code>{{ varPattern.target.grammar }}</code>:
+                        <code>{{ varPattern.target.value }}</code>
+                      </li>
+                      <li *ngIf="varPattern.symbol">
+                        symbol: 
+                        <code>{{ varPattern.symbol.namespace }}</code>: 
+                        <code>{{ varPattern.symbol.value }}</code>
+                      </li>
                     </ul>
                   </li>
                 </ul>
@@ -894,16 +918,13 @@
                     <li *ngFor="let citation of algorithm.citations">
                       <biosimulations-icon
                         icon="tutorial"
-                      ></biosimulations-icon>
-                      <a
+                      ></biosimulations-icon>                     
+                      <span [innerHTML]="citation.text"></span><span *ngIf="citation.url">{{ ' ' }}<a
                         [href]="citation.url"
                         target="_blank"
-                        [innerHTML]="citation.text"
-                        *ngIf="citation.url; else plainCitation"
-                      ></a>
-                      <ng-template #plainCitation>
-                        <span [innerHTML]="citation.text"></span>
-                      </ng-template>
+                      ><biosimulations-icon
+                        icon="link"
+                      ></biosimulations-icon></a></span>
                     </li>
                   </ul>
                 </ng-container>

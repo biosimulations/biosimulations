@@ -131,15 +131,16 @@ ul.icon-list {
     margin-block-end: 0;
   }
 
-  li {
+  > li {
     margin-left: calc(12px + 0.25rem);
     text-indent: calc(-1 * (12px + 0.25rem));
   }
 
-  a {
-    color: $dark-primary-text;
-    &:hover {
-      color: mat-color($theme-primary);
+  ul {
+    list-style-type: initial;
+    li {
+      margin-left: 0.75rem;
+      text-indent: initial;
     }
   }
 

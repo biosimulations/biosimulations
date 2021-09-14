@@ -21,6 +21,8 @@ import {
   ViewValidationTests,
   ViewTestCaseResult,
   ViewModelChangePattern,
+  ViewModelChangeTypeValueName,
+  ViewSimulationTypeValueName,
 } from './view-simulator.interface';
 import { OntologyService } from '../ontology.service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -43,6 +45,7 @@ import {
   ITestCaseResult,
   TestCaseResultType,
   IModelChangePattern,
+  ModelChangeType,
   ModelChangeTypeName,
   SimulationType,
   SimulationTypeName,
@@ -372,7 +375,7 @@ export class ViewSimulatorService {
       modelChangePatterns: value?.modelChangePatterns?.map(this.getModelChangePattern, this) || [],
       simulationFormats: value.simulationFormats.map(this.getFormat, this),
       simulationTypes: value.simulationTypes.map(
-        this.getSimulationTypeName,
+        this.getSimulationType,
       ),      
       archiveFormats: value.archiveFormats.map(this.getFormat, this),
       parameters: value.parameters
@@ -460,8 +463,11 @@ export class ViewSimulatorService {
     return this.ontService.getSboTerm(value.id);
   }
 
-  private getSimulationTypeName(value: SimulationType): SimulationTypeName {
-    return SimulationTypeName[value as string];
+  private getSimulationType(value: SimulationType): ViewSimulationTypeValueName {
+    return {
+      value: value,
+      name: SimulationTypeName[value as keyof typeof SimulationTypeName],
+    };
   }
 
   private getFormat(value: IEdamOntologyIdVersion): ViewFormatObservable {
@@ -479,10 +485,14 @@ export class ViewSimulatorService {
   private getModelChangePattern(value: IModelChangePattern): ViewModelChangePattern {
     return {
       name: value.name,
-      type: value.type,
-      typeName: ModelChangeTypeName[value.type],
-      target: value.target,
-      symbol: value.symbol,
+      types: value.types.map((value: ModelChangeType): ViewModelChangeTypeValueName => { 
+        return {
+          value: value,
+          name: ModelChangeTypeName[value as keyof typeof ModelChangeTypeName],
+        };
+      }),
+      target: value?.target || null,
+      symbol: value?.symbol || null,
     }
   }
 

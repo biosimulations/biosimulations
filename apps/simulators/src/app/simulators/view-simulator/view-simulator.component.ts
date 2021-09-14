@@ -10,14 +10,12 @@ import {
   ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
-import { IOutputVariablePattern } from '@biosimulations/datamodel/common';
 import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
 import { snackBarDuration } from '@biosimulations/config/common';
 
 import {
   ViewSimulator,
-  ViewParameter,
   ViewVersion,
 } from './view-simulator.interface';
 
