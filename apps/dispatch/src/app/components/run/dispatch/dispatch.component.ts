@@ -35,6 +35,7 @@ import {
 import {
   SimulationRunStatus,
   EnvironmentVariable,
+  MODEL_FORMATS,
 } from '@biosimulations/datamodel/common';
 import { Observable, Subscription } from 'rxjs';
 import { map, concatAll, withLatestFrom } from 'rxjs/operators';
@@ -577,64 +578,15 @@ export class DispatchComponent implements OnInit, OnDestroy {
                 const sedDoc = content.location.value as SedDocument;
 
                 sedDoc.models.forEach((model: SedModel): void => {
-                  if (model.language.startsWith('urn:sedml:language:bngl')) {
-                    modelFormats.add('format_3972');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:cellml')
-                  ) {
-                    modelFormats.add('format_3240');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:copasiml')
-                  ) {
-                    modelFormats.add('format_9003');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:ginml')
-                  ) {
-                    modelFormats.add('format_9009');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:hoc')
-                  ) {
-                    modelFormats.add('format_9005');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:lems')
-                  ) {
-                    modelFormats.add('format_9004');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:mass')
-                  ) {
-                    modelFormats.add('format_9011');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:morpheusml')
-                  ) {
-                    modelFormats.add('format_9002');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:neuroml')
-                  ) {
-                    modelFormats.add('format_3971');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:rba')
-                  ) {
-                    modelFormats.add('format_9012');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:sbml')
-                  ) {
-                    modelFormats.add('format_2585');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:smoldyn')
-                  ) {
-                    modelFormats.add('format_9001');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:vcml')
-                  ) {
-                    modelFormats.add('format_9000');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:xpp')
-                  ) {
-                    modelFormats.add('format_9010');
-                  } else if (
-                    model.language.startsWith('urn:sedml:language:zginml')
-                  ) {
-                    modelFormats.add('format_9008');
+                  let edamId: string | null = null;
+                  for (const modelFormat of MODEL_FORMATS) {
+                    if (model.language.startsWith(modelFormat.sedUrn)) {
+                      edamId = modelFormat.edamId;
+                      break;
+                    }
+                  }
+                  if (edamId) {
+                    modelFormats.add(edamId);
                   } else {
                     unsupportedModelFormats.add(model.language);
                   }
