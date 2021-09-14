@@ -1,4 +1,6 @@
 import {
+  IModelTarget,
+  IModelSymbol,
   IModelChangePattern,
   IAlgorithm,
   IOutputVariablePattern,
@@ -18,6 +20,26 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
 
+export class ModelTarget
+  implements IModelTarget
+{
+  @ApiProperty({ type: String, required: true })
+  value!: string;
+
+  @ApiProperty({ type: String, required: true })
+  grammar!: string;
+}
+
+export class ModelSymbol
+  implements IModelSymbol
+{
+  @ApiProperty({ type: String, required: true })
+  value!: string;
+
+  @ApiProperty({ type: String, required: true })
+  namespace!: string;
+}
+
 export class ModelChangePattern
   implements IModelChangePattern
 {
@@ -25,17 +47,17 @@ export class ModelChangePattern
   name!: string;
 
   @ApiProperty({
-    type: String,
+    type: [String],
     enum: ModelChangeType,
     required: true,
   })
-  type!: ModelChangeType;
+  types!: ModelChangeType[];
 
-  @ApiProperty({ type: String, nullable: true, required: false, default: null })
-  target!: string | null;
+  @ApiProperty({ type: ModelTarget, nullable: true, required: false, default: null })
+  target!: ModelTarget | null;
 
-  @ApiProperty({ type: String, nullable: true, required: false, default: null })
-  symbol!: string | null;
+  @ApiProperty({ type: ModelSymbol, nullable: true, required: false, default: null })
+  symbol!: ModelSymbol | null;
 }
 
 export class OutputVariablePattern
@@ -44,11 +66,11 @@ export class OutputVariablePattern
   @ApiProperty({ type: String, required: true })
   name!: string;
 
-  @ApiProperty({ type: String, nullable: true, required: false, default: null })
-  target!: string | null;
+  @ApiProperty({ type: ModelTarget, nullable: true, required: false, default: null })
+  target!: ModelTarget | null;
 
-  @ApiProperty({ type: String, nullable: true, required: false, default: null })
-  symbol!: string | null;
+  @ApiProperty({ type: ModelSymbol, nullable: true, required: false, default: null })
+  symbol!: ModelSymbol | null;
 }
 
 export class Algorithm implements IAlgorithm {
@@ -100,7 +122,7 @@ export class Algorithm implements IAlgorithm {
     type: [String],
     enum: SimulationType,
   })
-  simulationTypes: SimulationType[];
+  simulationTypes!: SimulationType[];
 
   @ApiProperty({ type: [EdamOntologyIdVersion] })
   archiveFormats!: EdamOntologyIdVersion[];

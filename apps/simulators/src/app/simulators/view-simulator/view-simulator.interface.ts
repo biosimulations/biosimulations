@@ -8,17 +8,29 @@ import {
   IOutputVariablePattern,
   ITestCase,
   ITestCaseException,
+  IModelTarget,
+  IModelSymbol,
   ModelChangeType,
+  ModelChangeTypeName,
   SimulationType,
   SimulationTypeName,
 } from '@biosimulations/datamodel/common';
 
+export interface ViewModelChangeTypeValueName {
+  value: ModelChangeType;
+  name: ModelChangeTypeName;
+}
+
 export interface ViewModelChangePattern {
   name: string;
-  type: SimulationType;
-  typeName: SimulationTypeName;
-  target: string | null;
-  symbol: string | null;
+  types: ViewModelChangeTypeValueName[];
+  target: IModelTarget | null;
+  symbol: IModelSymbol | null;
+}
+
+export interface ViewSimulationTypeValueName {
+  value: SimulationType;
+  name: SimulationTypeName;
 }
 
 export interface ViewAlgorithm {
@@ -31,7 +43,7 @@ export interface ViewAlgorithm {
   modelFormats: ViewFormat[];
   modelChangePatterns: ViewModelChangePattern[];
   simulationFormats: ViewFormat[];
-  simulationTypes: SimulationType[];
+  simulationTypes: ViewSimulationTypeValueName[];
   archiveFormats: ViewFormat[];
   parameters: ViewParameter[] | null;
   outputDimensions: ViewSioId[] | null;
@@ -51,7 +63,7 @@ export interface ViewAlgorithmObservable {
   modelFormats: ViewFormatObservable[];
   modelChangePatterns: ViewModelChangePattern[];
   simulationFormats: ViewFormatObservable[];
-  simulationTypes: SimulationType[];
+  simulationTypes: ViewSimulationTypeValueName[];
   archiveFormats: ViewFormatObservable[];
   parameters: ViewParameterObservable[] | null;
   outputDimensions: Observable<ViewSioId>[] | null;

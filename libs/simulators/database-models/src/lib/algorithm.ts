@@ -1,4 +1,6 @@
 import {
+  IModelTarget,
+  IModelSymbol,
   IModelChangePattern,
   IAlgorithm,
   IOutputVariablePattern,
@@ -36,6 +38,44 @@ import { CitationSchema } from './common';
   strict: 'throw',
   useNestedStrict: true,
 })
+export class ModelTarget
+  implements IModelTarget
+{
+  @Prop({ type: String, required: true, default: undefined })
+  value!: string;
+
+  @Prop({ type: String, required: true, default: undefined })
+  grammar!: string;
+}
+
+export const ModelTargetSchema =
+  SchemaFactory.createForClass(ModelTarget);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
+export class ModelSymbol
+  implements IModelSymbol
+{
+  @Prop({ type: String, required: true, default: undefined })
+  value!: string;
+
+  @Prop({ type: String, required: true, default: undefined })
+  namespace!: string;
+}
+
+export const ModelSymbolSchema =
+  SchemaFactory.createForClass(ModelSymbol);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+  useNestedStrict: true,
+})
 export class ModelChangePattern
   implements IModelChangePattern
 {
@@ -43,7 +83,7 @@ export class ModelChangePattern
   name!: string;
 
   @Prop({
-    type: String,
+    type: [String],
     enum: Object.entries(ModelChangeType).map(
       (keyVal: [string, string]): string => {
         return keyVal[1];
@@ -52,21 +92,21 @@ export class ModelChangePattern
     required: true,
     default: undefined,
   })
-  type!: ModelChangeType;
+  types!: ModelChangeType[];
 
-  @Prop({ type: String, required: false, default: null })
-  target!: string | null;
+  @Prop({ type: ModelTargetSchema, required: false, default: null })
+  target!: ModelTarget | null;
 
-  @Prop({ type: String, required: false, default: null })
-  symbol!: string | null;
+  @Prop({ type: ModelSymbolSchema, required: false, default: null })
+  symbol!: ModelSymbol | null;
 }
 
 export const ModelChangePatternSchema =
   SchemaFactory.createForClass(ModelChangePattern);
 
 ModelChangePatternSchema.post('validate', function (doc: Document, next): void {
-  const target: string | null = doc.get('target');
-  const symbol: string | null = doc.get('symbol');
+  const target: ModelTarget | null = doc.get('target');
+  const symbol: ModelSymbol | null = doc.get('symbol');
 
   if (target === null && symbol === null) {
     doc.invalidate('target', `Model changes must specify at least one of a 'target' or 'symbol'.`);
@@ -88,19 +128,19 @@ export class OutputVariablePattern
   @Prop({ type: String, required: true, default: undefined })
   name!: string;
 
-  @Prop({ type: String, required: false, default: null })
-  target!: string | null;
+  @Prop({ type: ModelTargetSchema, required: false, default: null })
+  target!: ModelTarget | null;
 
-  @Prop({ type: String, required: false, default: null })
-  symbol!: string | null;
+  @Prop({ type: ModelSymbolSchema, required: false, default: null })
+  symbol!: ModelSymbol | null;
 }
 
 export const OutputVariablePatternSchema =
   SchemaFactory.createForClass(OutputVariablePattern);
 
 OutputVariablePatternSchema.post('validate', function (doc: Document, next): void {
-  const target: string | null = doc.get('target');
-  const symbol: string | null = doc.get('symbol');
+  const target: ModelTarget | null = doc.get('target');
+  const symbol: ModelSymbol | null = doc.get('symbol');
 
   if (target === null && symbol === null) {
     doc.invalidate('target', `Output variables must specify at least one of a 'target' or 'symbol'.`);
