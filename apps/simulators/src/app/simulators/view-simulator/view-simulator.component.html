@@ -543,36 +543,30 @@
                     else noCuratedModelChangePatternsMessage
                   "
                 >
-                  <ng-container
-                    *ngFor="
-                      let modelChangePattern of algorithm.modelChangePatterns
-                    "
-                  >
-                    <li *ngFor="let type of modelChangePattern.types">
-                      <biosimulations-icon
-                        icon="parameter"
-                      ></biosimulations-icon>
-                      {{ modelChangePattern.name }}:
-                      <ul>
-                        <li>
-                          type: {{ type.name }} (<code>{{ type.value }}</code
-                          >)
-                        </li>
-                        <li *ngIf="modelChangePattern.target">
-                          target:
-                          <code>{{ modelChangePattern.target.grammar }}</code
-                          >:
-                          <code>{{ modelChangePattern.target.value }}</code>
-                        </li>
-                        <li *ngIf="modelChangePattern.symbol">
-                          symbol:
-                          <code>{{ modelChangePattern.symbol.namespace }}</code
-                          >:
-                          <code>{{ modelChangePattern.symbol.value }}</code>
-                        </li>
-                      </ul>
-                    </li>
-                  </ng-container>
+                  <li *ngFor="let modelChangePattern of algorithm.modelChangePatterns">
+                    <biosimulations-icon
+                      icon="parameter"
+                    ></biosimulations-icon>
+                    {{ modelChangePattern.name }}:
+                    <ul>
+                      <li *ngFor="let type of modelChangePattern.types">
+                        type: {{ type.name }} (<code>{{ type.value }}</code
+                        >)
+                      </li>
+                      <li *ngIf="modelChangePattern.target">
+                        target:
+                        <code>{{ modelChangePattern.target.grammar }}</code
+                        >:
+                        <code>{{ modelChangePattern.target.value }}</code>
+                      </li>
+                      <li *ngIf="modelChangePattern.symbol">
+                        symbol:
+                        <code>{{ modelChangePattern.symbol.namespace }}</code
+                        >:
+                        <code>{{ modelChangePattern.symbol.value }}</code>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
                 <ng-template #noCuratedModelChangePatternsMessage>
                   <p class="info-message">
