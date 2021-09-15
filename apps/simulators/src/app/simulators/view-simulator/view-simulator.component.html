@@ -418,7 +418,6 @@
                 [scrollToTopOffset]="0"
               >
                 <ng-container *ngIf="algorithm.description as description">
-                  <p class="subsection-heading no-bottom-margin">Description</p>
                   <p>
                     <ng-template ngFor let-fragment [ngForOf]="description">
                       <span
@@ -436,6 +435,35 @@
                     </ng-template>
                   </p>
                 </ng-container>
+
+                <ng-container *ngIf="algorithm?.citations?.length">
+                  <p class="subsection-heading no-bottom-margin">Citations</p>
+                  <ul class="icon-list">
+                    <li *ngFor="let citation of algorithm.citations">
+                      <biosimulations-icon
+                        icon="tutorial"
+                      ></biosimulations-icon>
+                      <span [innerHTML]="citation.text"></span
+                      ><span *ngIf="citation.url"
+                        >{{ ' '
+                        }}<a [href]="citation.url" target="_blank"
+                          ><biosimulations-icon
+                            icon="link"
+                          ></biosimulations-icon></a
+                      ></span>
+                    </li>
+                  </ul>
+                </ng-container>
+
+                <p class="subsection-heading no-bottom-margin">More info</p>
+                <ul class="icon-list">
+                  <li>
+                    <biosimulations-icon icon="link"></biosimulations-icon>
+                    <a [href]="algorithm?.kisaoUrl" target="_blank">{{
+                      algorithm?.kisaoId
+                    }}</a>
+                  </li>
+                </ul>
 
                 <p class="subsection-heading no-bottom-margin">
                   Modeling frameworks
@@ -619,50 +647,6 @@
                   <p class="info-message">
                     This implementation of this algorithm does not support any
                     standard simulation types.
-                  </p>
-                </ng-template>
-
-                <p class="subsection-heading no-bottom-margin">
-                  Archive formats
-                </p>
-                <ul
-                  class="icon-list icon-list-format"
-                  *ngIf="
-                    algorithm?.archiveFormats?.length;
-                    else noArchiveFormatsMessage
-                  "
-                >
-                  <li *ngFor="let format of algorithm.archiveFormats">
-                    <ng-container *ngIf="format as format">
-                      <biosimulations-icon icon="format"></biosimulations-icon>
-                      <a [href]="format.term.url" target="_blank"
-                        >{{ format.term.name
-                        }}{{ format.version ? ' ' + format.version : '' }}</a
-                      >:
-                      <ul
-                        *ngIf="
-                          format.supportedFeatures?.length;
-                          else noSuportedArchiveFormatFeatures
-                        "
-                        class="comma-separated and-separator"
-                      >
-                        <li *ngFor="let feature of format.supportedFeatures">
-                          {{ feature }}
-                        </li>
-                      </ul>
-                      <ng-template #noSuportedArchiveFormatFeatures>
-                        <span class="info-message"
-                          >Information about which features this algorithm
-                          supports is not available.</span
-                        >
-                      </ng-template>
-                    </ng-container>
-                  </li>
-                </ul>
-                <ng-template #noArchiveFormatsMessage>
-                  <p class="info-message">
-                    This implementation of this algorithm does not support any
-                    standard archive formats.
                   </p>
                 </ng-template>
 
@@ -852,6 +836,50 @@
                   </p>
                 </ng-template>
 
+                <p class="subsection-heading no-bottom-margin">
+                  Archive formats
+                </p>
+                <ul
+                  class="icon-list icon-list-format"
+                  *ngIf="
+                    algorithm?.archiveFormats?.length;
+                    else noArchiveFormatsMessage
+                  "
+                >
+                  <li *ngFor="let format of algorithm.archiveFormats">
+                    <ng-container *ngIf="format as format">
+                      <biosimulations-icon icon="format"></biosimulations-icon>
+                      <a [href]="format.term.url" target="_blank"
+                        >{{ format.term.name
+                        }}{{ format.version ? ' ' + format.version : '' }}</a
+                      >:
+                      <ul
+                        *ngIf="
+                          format.supportedFeatures?.length;
+                          else noSuportedArchiveFormatFeatures
+                        "
+                        class="comma-separated and-separator"
+                      >
+                        <li *ngFor="let feature of format.supportedFeatures">
+                          {{ feature }}
+                        </li>
+                      </ul>
+                      <ng-template #noSuportedArchiveFormatFeatures>
+                        <span class="info-message"
+                          >Information about which features this algorithm
+                          supports is not available.</span
+                        >
+                      </ng-template>
+                    </ng-container>
+                  </li>
+                </ul>
+                <ng-template #noArchiveFormatsMessage>
+                  <p class="info-message">
+                    This implementation of this algorithm does not support any
+                    standard archive formats.
+                  </p>
+                </ng-template>
+
                 <p class="subsection-heading no-bottom-margin">Availability</p>
                 <ul
                   *ngIf="
@@ -920,35 +948,6 @@
                     this algorithm is not available.
                   </p>
                 </ng-template>
-
-                <ng-container *ngIf="algorithm?.citations?.length">
-                  <p class="subsection-heading no-bottom-margin">Citations</p>
-                  <ul class="icon-list">
-                    <li *ngFor="let citation of algorithm.citations">
-                      <biosimulations-icon
-                        icon="tutorial"
-                      ></biosimulations-icon>
-                      <span [innerHTML]="citation.text"></span
-                      ><span *ngIf="citation.url"
-                        >{{ ' '
-                        }}<a [href]="citation.url" target="_blank"
-                          ><biosimulations-icon
-                            icon="link"
-                          ></biosimulations-icon></a
-                      ></span>
-                    </li>
-                  </ul>
-                </ng-container>
-
-                <p class="subsection-heading no-bottom-margin">More info</p>
-                <ul class="icon-list">
-                  <li>
-                    <biosimulations-icon icon="link"></biosimulations-icon>
-                    <a [href]="algorithm?.kisaoUrl" target="_blank">{{
-                      algorithm?.kisaoId
-                    }}</a>
-                  </li>
-                </ul>
               </biosimulations-text-page-content-section>
             </ng-container>
           </biosimulations-text-page>
