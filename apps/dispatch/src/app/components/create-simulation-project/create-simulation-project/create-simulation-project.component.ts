@@ -9,7 +9,13 @@ import {
   Validators,
   ValidationErrors,
 } from '@angular/forms';
-import { ValueType, SimulationType, SimulationTypeName, ModelFormat, MODEL_FORMATS  } from '@biosimulations/datamodel/common';
+import {
+  ValueType,
+  SimulationType,
+  SimulationTypeName,
+  ModelFormat,
+  MODEL_FORMATS,
+} from '@biosimulations/datamodel/common';
 import {
   DispatchService,
   SimulatorsData,
@@ -46,7 +52,7 @@ interface OntologyTerm {
   name: string;
 }
 
-const MODEL_FORMAT_EDAM_ID_MAP: {[id: string]: ModelFormat} = {};
+const MODEL_FORMAT_EDAM_ID_MAP: { [id: string]: ModelFormat } = {};
 MODEL_FORMATS.forEach((modelFormat: ModelFormat): void => {
   MODEL_FORMAT_EDAM_ID_MAP[modelFormat.edamId] = modelFormat;
 });
@@ -131,7 +137,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   ] as OntologyTerm[];
   compatibleSimulators?: CompatibleSimulator[];
 
-  modelFileTypeSpecifiers!: string;  
+  modelFileTypeSpecifiers!: string;
   private static INIT_MODEL_NAMESPACES = 1;
   private static INIT_MODEL_CHANGES = 3;
   private static INIT_MODEL_VARIABLES = 5;
@@ -155,19 +161,19 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
   ) {
     const modelFileTypeSpecifiers = new Set<string>();
-    MODEL_FORMATS
-      .filter((modelFormat: ModelFormat): boolean => {
-        return modelFormat.enabled;
-      })
-      .forEach((modelFormat: ModelFormat): void => {
-        modelFormat.extensions.forEach((extension: string): void => {
-          modelFileTypeSpecifiers.add('.' + extension);
-        });
-        modelFormat.mediaTypes.forEach((mediaType: string): void => {
-          modelFileTypeSpecifiers.add(mediaType);
-        });
+    MODEL_FORMATS.filter((modelFormat: ModelFormat): boolean => {
+      return modelFormat.enabled;
+    }).forEach((modelFormat: ModelFormat): void => {
+      modelFormat.extensions.forEach((extension: string): void => {
+        modelFileTypeSpecifiers.add('.' + extension);
       });
-    this.modelFileTypeSpecifiers = Array.from(modelFileTypeSpecifiers).join(',');
+      modelFormat.mediaTypes.forEach((mediaType: string): void => {
+        modelFileTypeSpecifiers.add(mediaType);
+      });
+    });
+    this.modelFileTypeSpecifiers = Array.from(modelFileTypeSpecifiers).join(
+      ',',
+    );
 
     this.formGroup = this.formBuilder.group(
       {
@@ -861,19 +867,28 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       this.simulatorSpecs
     ) {
       const simulationTypes = new Set<SimulationType>();
-      
+
       this.simulatorSpecs.forEach((simulator: SimulatorSpecs): void => {
         simulator.modelingFrameworksAlgorithmsForModelFormats.forEach(
-          (modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat): void => {
+          (
+            modelingFrameworksAlgorithmsForModelFormat: ModelingFrameworksAlgorithmsForModelFormat,
+          ): void => {
             if (
-              modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(formatEdamId)
-              && modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(frameworkSboId)
+              modelingFrameworksAlgorithmsForModelFormat.formatEdamIds.includes(
+                formatEdamId,
+              ) &&
+              modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(
+                frameworkSboId,
+              )
             ) {
-              modelingFrameworksAlgorithmsForModelFormat.simulationTypes.forEach((simulationType: SimulationType): void => {
-                simulationTypes.add(simulationType);
-              });
+              modelingFrameworksAlgorithmsForModelFormat.simulationTypes.forEach(
+                (simulationType: SimulationType): void => {
+                  simulationTypes.add(simulationType);
+                },
+              );
             }
-          });
+          },
+        );
       });
 
       this.simulationTypes = Array.from(simulationTypes)
@@ -884,9 +899,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           };
         })
         .sort((a: OntologyTerm, b: OntologyTerm): number => {
-            return a.name.localeCompare(b.name, undefined, { numeric: true });
-          }
-        );
+          return a.name.localeCompare(b.name, undefined, { numeric: true });
+        });
 
       if (this.simulationTypes.length === 1) {
         simulationTypeControl.setValue(this.simulationTypes[0].id);
@@ -973,8 +987,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
               ) &&
               modelingFrameworksAlgorithmsForModelFormat.frameworkSboIds.includes(
                 frameworkSboId,
-              )
-               &&
+              ) &&
               modelingFrameworksAlgorithmsForModelFormat.simulationTypes.includes(
                 simulationType,
               )
@@ -1491,7 +1504,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       id: 'model',
       language: MODEL_FORMAT_EDAM_ID_MAP[modelFormatControl.value].sedUrn,
       source:
-        'model.' + MODEL_FORMAT_EDAM_ID_MAP[modelFormatControl.value].extensions?.[0],
+        'model.' +
+        MODEL_FORMAT_EDAM_ID_MAP[modelFormatControl.value].extensions?.[0],
       changes: [],
     };
 

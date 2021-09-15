@@ -38,9 +38,7 @@ import { CitationSchema } from './common';
   strict: 'throw',
   useNestedStrict: true,
 })
-export class ModelTarget
-  implements IModelTarget
-{
+export class ModelTarget implements IModelTarget {
   @Prop({ type: String, required: true, default: undefined })
   value!: string;
 
@@ -48,8 +46,7 @@ export class ModelTarget
   grammar!: string;
 }
 
-export const ModelTargetSchema =
-  SchemaFactory.createForClass(ModelTarget);
+export const ModelTargetSchema = SchemaFactory.createForClass(ModelTarget);
 
 @Schema({
   _id: false,
@@ -57,9 +54,7 @@ export const ModelTargetSchema =
   strict: 'throw',
   useNestedStrict: true,
 })
-export class ModelSymbol
-  implements IModelSymbol
-{
+export class ModelSymbol implements IModelSymbol {
   @Prop({ type: String, required: true, default: undefined })
   value!: string;
 
@@ -67,8 +62,7 @@ export class ModelSymbol
   namespace!: string;
 }
 
-export const ModelSymbolSchema =
-  SchemaFactory.createForClass(ModelSymbol);
+export const ModelSymbolSchema = SchemaFactory.createForClass(ModelSymbol);
 
 @Schema({
   _id: false,
@@ -76,9 +70,7 @@ export const ModelSymbolSchema =
   strict: 'throw',
   useNestedStrict: true,
 })
-export class ModelChangePattern
-  implements IModelChangePattern
-{
+export class ModelChangePattern implements IModelChangePattern {
   @Prop({ type: String, required: true, default: undefined })
   name!: string;
 
@@ -109,8 +101,14 @@ ModelChangePatternSchema.post('validate', function (doc: Document, next): void {
   const symbol: ModelSymbol | null = doc.get('symbol');
 
   if (target === null && symbol === null) {
-    doc.invalidate('target', `Model changes must specify at least one of a 'target' or 'symbol'.`);
-    doc.invalidate('symbol', `Model changes must specify at least one of a 'target' or 'symbol'.`);
+    doc.invalidate(
+      'target',
+      `Model changes must specify at least one of a 'target' or 'symbol'.`,
+    );
+    doc.invalidate(
+      'symbol',
+      `Model changes must specify at least one of a 'target' or 'symbol'.`,
+    );
   }
 
   next();
@@ -122,9 +120,7 @@ ModelChangePatternSchema.post('validate', function (doc: Document, next): void {
   strict: 'throw',
   useNestedStrict: true,
 })
-export class OutputVariablePattern
-  implements IOutputVariablePattern
-{
+export class OutputVariablePattern implements IOutputVariablePattern {
   @Prop({ type: String, required: true, default: undefined })
   name!: string;
 
@@ -135,20 +131,30 @@ export class OutputVariablePattern
   symbol!: ModelSymbol | null;
 }
 
-export const OutputVariablePatternSchema =
-  SchemaFactory.createForClass(OutputVariablePattern);
+export const OutputVariablePatternSchema = SchemaFactory.createForClass(
+  OutputVariablePattern,
+);
 
-OutputVariablePatternSchema.post('validate', function (doc: Document, next): void {
-  const target: ModelTarget | null = doc.get('target');
-  const symbol: ModelSymbol | null = doc.get('symbol');
+OutputVariablePatternSchema.post(
+  'validate',
+  function (doc: Document, next): void {
+    const target: ModelTarget | null = doc.get('target');
+    const symbol: ModelSymbol | null = doc.get('symbol');
 
-  if (target === null && symbol === null) {
-    doc.invalidate('target', `Output variables must specify at least one of a 'target' or 'symbol'.`);
-    doc.invalidate('symbol', `Output variables must specify at least one of a 'target' or 'symbol'.`);
-  }
+    if (target === null && symbol === null) {
+      doc.invalidate(
+        'target',
+        `Output variables must specify at least one of a 'target' or 'symbol'.`,
+      );
+      doc.invalidate(
+        'symbol',
+        `Output variables must specify at least one of a 'target' or 'symbol'.`,
+      );
+    }
 
-  next();
-});
+    next();
+  },
+);
 
 @Schema({
   _id: false,

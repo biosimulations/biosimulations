@@ -367,16 +367,12 @@ export class ViewSimulatorService {
         map(this.formatKisaoDescription),
       ),
       kisaoUrl: kisaoTerm.pipe(pluck('url')),
-      modelingFrameworks: value.modelingFrameworks.map(
-        this.getFramework,
-        this,
-      ),
+      modelingFrameworks: value.modelingFrameworks.map(this.getFramework, this),
       modelFormats: value.modelFormats.map(this.getFormat, this),
-      modelChangePatterns: value?.modelChangePatterns?.map(this.getModelChangePattern, this) || [],
+      modelChangePatterns:
+        value?.modelChangePatterns?.map(this.getModelChangePattern, this) || [],
       simulationFormats: value.simulationFormats.map(this.getFormat, this),
-      simulationTypes: value.simulationTypes.map(
-        this.getSimulationType,
-      ),      
+      simulationTypes: value.simulationTypes.map(this.getSimulationType),
       archiveFormats: value.archiveFormats.map(this.getFormat, this),
       parameters: value.parameters
         ? value.parameters.map(this.getParameter, this)
@@ -387,8 +383,7 @@ export class ViewSimulatorService {
             this,
           ) as Observable<ViewSioId>[])
         : null,
-      outputVariablePatterns:
-        value?.outputVariablePatterns || [],
+      outputVariablePatterns: value?.outputVariablePatterns || [],
       availableSoftwareInterfaceTypes: value.availableSoftwareInterfaceTypes
         .map((interfaceType: SoftwareInterfaceType): string => {
           return (
@@ -463,7 +458,9 @@ export class ViewSimulatorService {
     return this.ontService.getSboTerm(value.id);
   }
 
-  private getSimulationType(value: SimulationType): ViewSimulationTypeValueName {
+  private getSimulationType(
+    value: SimulationType,
+  ): ViewSimulationTypeValueName {
     return {
       value: value,
       name: SimulationTypeName[value as keyof typeof SimulationTypeName],
@@ -482,18 +479,24 @@ export class ViewSimulatorService {
     };
   }
 
-  private getModelChangePattern(value: IModelChangePattern): ViewModelChangePattern {
+  private getModelChangePattern(
+    value: IModelChangePattern,
+  ): ViewModelChangePattern {
     return {
       name: value.name,
-      types: value.types.map((value: ModelChangeType): ViewModelChangeTypeValueName => { 
-        return {
-          value: value,
-          name: ModelChangeTypeName[value as keyof typeof ModelChangeTypeName],
-        };
-      }),
+      types: value.types.map(
+        (value: ModelChangeType): ViewModelChangeTypeValueName => {
+          return {
+            value: value,
+            name: ModelChangeTypeName[
+              value as keyof typeof ModelChangeTypeName
+            ],
+          };
+        },
+      ),
       target: value?.target || null,
       symbol: value?.symbol || null,
-    }
+    };
   }
 
   private setVersionDate(value: Version): ViewVersion {

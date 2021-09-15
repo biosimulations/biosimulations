@@ -20,9 +20,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
 
-export class ModelTarget
-  implements IModelTarget
-{
+export class ModelTarget implements IModelTarget {
   @ApiProperty({ type: String, required: true })
   value!: string;
 
@@ -30,9 +28,7 @@ export class ModelTarget
   grammar!: string;
 }
 
-export class ModelSymbol
-  implements IModelSymbol
-{
+export class ModelSymbol implements IModelSymbol {
   @ApiProperty({ type: String, required: true })
   value!: string;
 
@@ -40,9 +36,7 @@ export class ModelSymbol
   namespace!: string;
 }
 
-export class ModelChangePattern
-  implements IModelChangePattern
-{
+export class ModelChangePattern implements IModelChangePattern {
   @ApiProperty({ type: String, required: true })
   name!: string;
 
@@ -53,23 +47,41 @@ export class ModelChangePattern
   })
   types!: ModelChangeType[];
 
-  @ApiProperty({ type: ModelTarget, nullable: true, required: false, default: null })
+  @ApiProperty({
+    type: ModelTarget,
+    nullable: true,
+    required: false,
+    default: null,
+  })
   target!: ModelTarget | null;
 
-  @ApiProperty({ type: ModelSymbol, nullable: true, required: false, default: null })
+  @ApiProperty({
+    type: ModelSymbol,
+    nullable: true,
+    required: false,
+    default: null,
+  })
   symbol!: ModelSymbol | null;
 }
 
-export class OutputVariablePattern
-  implements IOutputVariablePattern
-{
+export class OutputVariablePattern implements IOutputVariablePattern {
   @ApiProperty({ type: String, required: true })
   name!: string;
 
-  @ApiProperty({ type: ModelTarget, nullable: true, required: false, default: null })
+  @ApiProperty({
+    type: ModelTarget,
+    nullable: true,
+    required: false,
+    default: null,
+  })
   target!: ModelTarget | null;
 
-  @ApiProperty({ type: ModelSymbol, nullable: true, required: false, default: null })
+  @ApiProperty({
+    type: ModelSymbol,
+    nullable: true,
+    required: false,
+    default: null,
+  })
   symbol!: ModelSymbol | null;
 }
 

@@ -5,18 +5,23 @@ export interface ModelFormat {
   sedUrn: string;
   combineUri: string;
   mediaTypes: string[];
-  extensions: string[];  
+  extensions: string[];
   enabled: boolean;
 }
 
 export const MODEL_FORMATS: ModelFormat[] = [
-  {    
+  {
     name: 'BNGL',
     acronym: 'BNGL',
     edamId: 'format_3972',
     sedUrn: 'urn:sedml:language:bngl',
     combineUri: 'http://purl.org/NET/mediatypes/text/bngl+plain',
-    mediaTypes: ['text/bngl+plain', 'text/plain', 'text/x-bngl', 'application/x-bngl'],
+    mediaTypes: [
+      'text/bngl+plain',
+      'text/plain',
+      'text/x-bngl',
+      'application/x-bngl',
+    ],
     extensions: ['bngl'],
     enabled: true,
   },
@@ -29,7 +34,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     mediaTypes: [
       'application/cellml+xml',
       'application/x-cellml',
-      'application/xml'
+      'application/xml',
     ],
     extensions: ['cellml', 'xml'],
     enabled: true,
@@ -40,7 +45,11 @@ export const MODEL_FORMATS: ModelFormat[] = [
     edamId: 'format_9003',
     sedUrn: 'urn:sedml:language:copasiml',
     combineUri: 'http://purl.org/NET/mediatypes/application/x-copasi',
-    mediaTypes: ['application/x-copasi', 'application/copasiml+xml', 'application/xml'],
+    mediaTypes: [
+      'application/x-copasi',
+      'application/copasiml+xml',
+      'application/xml',
+    ],
     extensions: ['cps'],
     enabled: false,
   },
@@ -80,7 +89,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     edamId: 'format_9004',
     sedUrn: 'urn:sedml:language:lems',
     combineUri: 'http://purl.org/NET/mediatypes/application/lems+xml',
-    mediaTypes: [    
+    mediaTypes: [
       'application/lems+xml',
       'application/x-lems',
       'application/xml',
@@ -134,10 +143,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     edamId: 'format_9012',
     sedUrn: 'urn:sedml:language:rba',
     combineUri: 'http://purl.org/NET/mediatypes/application/rba+zip',
-    mediaTypes: [
-      'application/rba+zip',
-      'application/zip',
-    ],
+    mediaTypes: ['application/rba+zip', 'application/zip'],
     extensions: ['zip'],
     enabled: false,
   },
@@ -163,7 +169,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     combineUri: 'http://purl.org/NET/mediatypes/text/smoldyn+plain',
     mediaTypes: [
       'text/smoldyn+plain',
-      'text/plain',    
+      'text/plain',
       'text/x-smoldyn',
       'application/x-smoldyn',
     ],
@@ -189,7 +195,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     mediaTypes: [
       'text/x-xpp',
       'text/plain',
-      'text/xpp+plain',    
+      'text/xpp+plain',
       'application/x-xpp',
     ],
     extensions: ['ode', 'xpp'],

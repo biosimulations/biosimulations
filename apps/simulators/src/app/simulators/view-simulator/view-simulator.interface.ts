@@ -39,7 +39,7 @@ export interface ViewAlgorithm {
   name: string;
   description: DescriptionFragment[] | null;
   kisaoUrl: string;
-  modelingFrameworks: ViewFramework[];  
+  modelingFrameworks: ViewFramework[];
   modelFormats: ViewFormat[];
   modelChangePatterns: ViewModelChangePattern[];
   simulationFormats: ViewFormat[];
@@ -59,7 +59,7 @@ export interface ViewAlgorithmObservable {
   name: Observable<string>;
   description: Observable<DescriptionFragment[] | null>;
   kisaoUrl: Observable<string>;
-  modelingFrameworks: Observable<ViewFramework>[];  
+  modelingFrameworks: Observable<ViewFramework>[];
   modelFormats: ViewFormatObservable[];
   modelChangePatterns: ViewModelChangePattern[];
   simulationFormats: ViewFormatObservable[];

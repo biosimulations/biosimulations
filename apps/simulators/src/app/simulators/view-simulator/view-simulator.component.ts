@@ -14,10 +14,7 @@ import { ViewSimulatorService } from './view-simulator.service';
 import { ConfigService } from '@biosimulations/shared/services';
 import { snackBarDuration } from '@biosimulations/config/common';
 
-import {
-  ViewSimulator,
-  ViewVersion,
-} from './view-simulator.interface';
+import { ViewSimulator, ViewVersion } from './view-simulator.interface';
 
 @Component({
   selector: 'biosimulations-view-simulator',
