@@ -543,10 +543,12 @@
                     else noCuratedModelChangePatternsMessage
                   "
                 >
-                  <li *ngFor="let modelChangePattern of algorithm.modelChangePatterns">
-                    <biosimulations-icon
-                      icon="parameter"
-                    ></biosimulations-icon>
+                  <li
+                    *ngFor="
+                      let modelChangePattern of algorithm.modelChangePatterns
+                    "
+                  >
+                    <biosimulations-icon icon="parameter"></biosimulations-icon>
                     {{ modelChangePattern.name }}:
                     <ul>
                       <li *ngFor="let type of modelChangePattern.types">
