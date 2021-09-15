@@ -1,3 +1,18 @@
+# [4.3.0](https://github.com/biosimulations/biosimulations/compare/v4.2.0...v4.3.0) (2021-09-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @stoplight/json-ref-resolver to v3.1.3 ([#2986](https://github.com/biosimulations/biosimulations/issues/2986)) ([fe9c5f3](https://github.com/biosimulations/biosimulations/commit/fe9c5f372c69c2f8a11d0d401a312ecdb7bf3338))
+* **deps:** update dependency bull to v3.29.2 ([#2987](https://github.com/biosimulations/biosimulations/issues/2987)) ([98cbebf](https://github.com/biosimulations/biosimulations/commit/98cbebf7752e6fd6b034e0a459b6abc9de106247))
+* **dispatch:** proceed if metadata is missing ([#2998](https://github.com/biosimulations/biosimulations/issues/2998)) ([f09c633](https://github.com/biosimulations/biosimulations/commit/f09c633a4b69b096c5bd07a1377c451ea3ae3aa1)), closes [#2994](https://github.com/biosimulations/biosimulations/issues/2994)
+
+
+### Features
+
+* **simulators:** expanded specs for simulators ([32b100b](https://github.com/biosimulations/biosimulations/commit/32b100be3f5856bc8131427155031dc5abe1013a))
+* expanded simulator specs ([f281cd3](https://github.com/biosimulations/biosimulations/commit/f281cd31b7c3c7c08dfc47162944dcfdbb7c4761))
+
 # [4.2.0](https://github.com/biosimulations/biosimulations/compare/v4.1.0...v4.2.0) (2021-09-11)
 
 
