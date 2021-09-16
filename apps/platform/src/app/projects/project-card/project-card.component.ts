@@ -5,9 +5,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './project-card.component.html',
   styleUrls: ['./project-card.component.scss'],
 })
-export class ProjectCardComponent{
+export class ProjectCardComponent {
   @Input() project: any;
   constructor() {}
-
-  
 }
