@@ -10,7 +10,6 @@ import { MarkdownModule } from 'ngx-markdown';
 import { IonicStorageModule } from '@ionic/storage';
 import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
-import { AuthEnvironment, AuthService } from '@biosimulations/auth/angular';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -18,16 +17,6 @@ import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
 import config from '../assets/config.json';
 
-// TODO: make parameterizable based on environment (deployment, test, dev)
-const env = {
-  authDomain: 'auth.biosimulations.org',
-  apiDomain: 'https://api.biosimulations.dev',
-  clientId: '0NKMjbZuexkCgfWY3BG9C3808YsdLUrb',
-  redirectUri: `${window.location.origin}`,
-  logoutUri: `${window.location.origin}`,
-  audience: 'api.biosimulations.org',
-  scope: '',
-};
 
 const routes: Routes = [
   {
@@ -85,8 +74,6 @@ routes.forEach((route: Route): void => {
     }),
   ],
   providers: [
-    AuthService,
-    { provide: AuthEnvironment, useValue: env },
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
