@@ -32,6 +32,7 @@ module.exports = {
         'exceptions',
         'nats-client',
         'deps',
+        'ui',
       ],
     ],
   },
