@@ -21,6 +21,7 @@ import { ViewComponent } from './view/view.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProjectCardComponent } from './project-card/project-card.component';
 import { ProjectsCardsBrowseComponent } from './projects-cards-browse/projects-cards-browse.component';
+import { ProjectOverviewComponent } from './project-overview/project-overview.component';
 
 const routes: Routes = [{ path: '', component: ProjectsComponent }];
 
@@ -30,6 +31,7 @@ const routes: Routes = [{ path: '', component: ProjectsComponent }];
     ViewComponent,
     ProjectCardComponent,
     ProjectsCardsBrowseComponent,
+    ProjectOverviewComponent,
   ],
   imports: [
     CommonModule,
