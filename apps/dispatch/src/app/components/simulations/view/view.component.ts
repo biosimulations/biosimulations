@@ -226,7 +226,6 @@ export class ViewComponent implements OnInit, OnDestroy {
   private endpoints = new Endpoints();
 
   constructor(
-    private config: ConfigService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private service: ViewService,
@@ -322,7 +321,8 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   private initVisualizations(): void {
-    const archiveUrl = `${urls.dispatchApi}run/${this.uuid}/download`;
+    const archiveUrl = this.endpoints.getRunDownloadEndpoint(this.uuid);
+    
 
     const archiveManifest = this.statusSucceeded$.pipe(
       map((succeeded: boolean): Observable<CombineArchive | undefined> => {

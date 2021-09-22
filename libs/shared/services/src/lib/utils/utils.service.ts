@@ -147,6 +147,10 @@ export class UtilsService {
     );
   }
 
+  /**
+   *
+   * @deprecated use built in angular date pipe instead
+   */
   static getDateString(value: Date): string {
     return (
       value.getFullYear() +
@@ -157,6 +161,9 @@ export class UtilsService {
     );
   }
 
+  /***
+   * @deprecated use built in angular date pipe instead
+   */
   static getDateTimeString(value: Date): string {
     return (
       value.getFullYear().toString() +
