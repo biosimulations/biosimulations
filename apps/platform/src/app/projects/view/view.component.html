@@ -3,17 +3,57 @@
     <biosimulations-spinner> </biosimulations-spinner>
   </div>
 
+  <!-- The overview tab for the entire project-->
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
-    <ng-container *ngIf="metadata | async as metadata ">
+    <ng-container *ngIf="metadata$ | async as metadata">
       <biosimulations-project-overview [metadata]="metadata">
       </biosimulations-project-overview>
     </ng-container>
   </biosimulations-tab-page-tab>
+  <!-- End overview tab-->
 
-  <biosimulations-tab-page-tab heading="Visualizations" icon="chart">
-    <ng-container *ngIf="metadata | async as metadata ">
-      <biosimulations-project-overview [metadata]="metadata">
-      </biosimulations-project-overview>
+  <!-- Information about the simulation run -->
+  <ng-container *ngIf="simulationInfo$ | async as simInfo">
+    <biosimulations-tab-page-tab
+      heading="Simulation"
+      icon="simulation"
+      urlHashFragment="simulation"
+    >
+      <biosimulations-project-simulation
+        [simulationRun]="simInfo"
+      ></biosimulations-project-simulation>
+    </biosimulations-tab-page-tab>
+  </ng-container>
+  <!-- End information about the simulation run -->
+
+  <!--Information about files in project-->
+  <ng-container *ngIf="vegaFiles$ | async as specs">
+    <biosimulations-tab-page-tab
+      heading="Files"
+      icon="file"
+      urlHashFragment="files"
+    >
+      <pre *ngFor="let file of specs">
+      {{ file | json }}
+      {{ file | async | json }}
+    </pre
+      >
+    </biosimulations-tab-page-tab>
+  </ng-container>
+
+  <!--A tab for each vega spec present in the project-->
+  <ng-container *ngIf="vegaSpecs$ | async as specs">
+    <ng-container *ngFor="let spec of specs; let i = index">
+      <biosimulations-tab-page-tab
+        [urlHashFragment]="spec.path"
+        heading="{{ spec.path || 'Figure ' + (i + 1) + '/' + specs.length }}"
+        icon="chart"
+      >
+        <biosimulations-vega-visualization [spec]="spec.spec">
+        </biosimulations-vega-visualization>
+        <biosimulations-project-figure> </biosimulations-project-figure>
+      </biosimulations-tab-page-tab>
     </ng-container>
-  </biosimulations-tab-page-tab>
+  </ng-container>
+  <!-- End visualizations of figures-->
 </biosimulations-tab-page>

@@ -22,6 +22,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ProjectCardComponent } from './project-card/project-card.component';
 import { ProjectsCardsBrowseComponent } from './projects-cards-browse/projects-cards-browse.component';
 import { ProjectOverviewComponent } from './project-overview/project-overview.component';
+import { ProjectFigureComponent } from './project-figure/project-figure.component';
+import { ProjectSimulationComponent } from './project-simulation/project-simulation.component';
+import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
 
 const routes: Routes = [{ path: '', component: ProjectsComponent }];
 
@@ -32,6 +35,8 @@ const routes: Routes = [{ path: '', component: ProjectsComponent }];
     ProjectCardComponent,
     ProjectsCardsBrowseComponent,
     ProjectOverviewComponent,
+    ProjectFigureComponent,
+    ProjectSimulationComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +56,7 @@ const routes: Routes = [{ path: '', component: ProjectsComponent }];
     MatCheckboxModule,
     DragDropModule,
     ResourceViewModule,
+    SharedErrorComponentsModule,
   ],
 })
 export class ProjectsModule {}

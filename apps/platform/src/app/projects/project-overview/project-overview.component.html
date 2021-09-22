@@ -1,263 +1,253 @@
+<h1>{{ title }}</h1>
+<h2>{{ abstract }}</h2>
 
-  <h1>{{ title }}</h1>
-  <h2>{{ abstract }}</h2>
-
-  <!-- Begin authors/contributers-->
-  <!-- TODO create ORCID people list component -->
-  <div *ngIf="creators  as contributors">
-    <h3>
-      <ng-container *ngFor="let contributer of contributors; let i = index">
-        <ng-container *ngIf="i < contributors.length - 1; else last">
-          <ng-container *ngTemplateOutlet="personDisplay"></ng-container>,
-        </ng-container>
-        <ng-template #last>
-          <ng-container *ngTemplateOutlet="personDisplay"></ng-container>
-        </ng-template>
-
-        <ng-template #personDisplay>
-          {{ contributer.label }} {{ contributer.uri ? ' ' : ''
-          }}<a
-            [href]="contributer.uri"
-            target="_blank"
-            *ngIf="contributer.uri"
-          >
-            <biosimulations-icon icon="orcid"></biosimulations-icon>
-          </a>
-        </ng-template>
+<!-- Begin authors/contributers-->
+<!-- TODO create ORCID people list component -->
+<div *ngIf="creators as contributors">
+  <h3>
+    <ng-container *ngFor="let contributer of contributors; let i = index">
+      <ng-container *ngIf="i < contributors.length - 1; else last">
+        <ng-container *ngTemplateOutlet="personDisplay"></ng-container>,
       </ng-container>
-    </h3>
-  </div>
-  <!-- End authors-->
-  <!--Begin two column-->
-  <div
-    class="metadata"
-    fxLayout="row"
-    fxLayout.lt-md="column"
-    fxLayoutAlign="space-between"
-    fxLayoutGap="2rem"
-    fxLayoutGap.lt-md="1rem"
-  >
-    <!-- Begin images -->
-    <div
-      *ngIf="thumbnails as images"
-      class="thumbnails"
-      style.height="auto"
-      fxFlex="30"
-    >
-      <ng-container *ngIf="showImage | async">
-        <mat-carousel
-          timings="250ms ease-in"
-          [autoplay]="true"
-          [interval]="5000"
-          color="accent"
-          maxWidth="100%"
-          [proportion]="100"
-          [loop]="true"
-          [hideArrows]="true"
-          [hideIndicators]="true"
-          [useKeyboard]="true"
-          [useMouseWheel]="true"
-        >
-          <mat-carousel-slide
-            [hideOverlay]="true"
-            *ngFor="let image of images; let i = index"
-            image="{{ image }}"
-          >
-          </mat-carousel-slide>
-        </mat-carousel>
-      </ng-container>
-    </div>
-    <!-- End images-->
-
-    <!-- Begin summarry/text data-->
-    <div fxFlex>
-      <mat-card>
-        <mat-card-title> {{ title }} </mat-card-title>
-        <p *ngIf="description as description_text">
-          {{ description_text }}
-        </p>
-
-        <ng-container
-          *ngTemplateOutlet="
-            list;
-            context: {
-              heading: 'Taxa',
-              icon: 'cell',
-              els: taxa 
-            }
-          "
-        ></ng-container>
-
-        <ng-container
-          *ngTemplateOutlet="
-            inlineList;
-            context: {
-              heading: 'Tags',
-              icon: 'tags',
-              els: keywords 
-            }
-          "
-        ></ng-container>
-
-        <ng-container
-          *ngTemplateOutlet="
-            list;
-            context: {
-              heading: 'Source',
-              icon: 'code',
-              els: sources 
-            }
-          "
-        ></ng-container>
-        <ng-container
-          *ngTemplateOutlet="
-            list;
-            context: {
-              heading: 'Predecessor',
-              icon: 'backward',
-              els: predecessors 
-            }
-          "
-        ></ng-container>
-        <ng-container
-          *ngTemplateOutlet="
-            list;
-            context: {
-              heading: 'Successor',
-              icon: 'forward',
-              els: successors 
-            }
-          "
-        ></ng-container>
-        <ng-container
-          *ngTemplateOutlet="
-            list;
-            context: {
-              heading: 'Citation',
-              icon: 'file',
-              els: predecessors
-            }
-          "
-        ></ng-container>
-        <ng-container
-          *ngTemplateOutlet="
-            list;
-            context: {
-              heading: 'Cross ref',
-              icon: 'id',
-              els: identifiers
-            }
-          "
-        ></ng-container>
-        <ng-container
-          *ngTemplateOutlet="
-            list;
-            context: {
-              heading: 'More information',
-              icon: 'info',
-              els: seeAlso
-            }
-          "
-        ></ng-container>
-        <ng-container
-          *ngTemplateOutlet="
-            list;
-            context: {
-              heading: 'License',
-              icon: 'license',
-              els: [license ]
-            }
-          "
-        ></ng-container>
-        <ng-container
-          *ngTemplateOutlet="
-            list;
-            context: {
-              heading: 'Funding',
-              icon: 'funding',
-              els: funders 
-            }
-          "
-        ></ng-container>
-        <ng-container
-          *ngTemplateOutlet="
-            list;
-            context: {
-              heading: 'Curator',
-              icon: 'author',
-              els: contributors
-            }
-          "
-        ></ng-container>
-        <ng-container
-          *ngTemplateOutlet="
-            list;
-            context: {
-              heading: 'Created',
-              icon: 'date',
-              els: [{ label: created }]
-            }
-          "
-        ></ng-container>
-        <ng-container *ngIf="(modified)?.length">
-          <ng-container
-            *ngTemplateOutlet="
-              list;
-              context: {
-                heading: 'Last modified',
-                icon: 'date',
-                els: [{ label: modified }]
-              }
-            "
-          ></ng-container>
-        </ng-container>
-      </mat-card>
-    </div>
-    <!-- End summary/text data-->
-  </div>
-  <!-- End two column-->
-
-  <!--List of attributes template-->
-  <ng-template #list let-heading="heading" let-icon="icon" let-els="els">
-    <tr *ngFor="let el of els">
-      <th>
-        <biosimulations-icon [icon]="icon"></biosimulations-icon>
-      </th>
-      <td>
-        <span class="heading">{{ heading }}:</span>{{ ' ' }}
-        <a [href]="el.uri" target="_blank" *ngIf="el?.uri; else noUri">{{
-          el?.label || el?.uri
-        }}</a>
-        <ng-template #noUri>{{ el?.label }}</ng-template>
-      </td>
-    </tr>
-  </ng-template>
-  <!--End of list of attributes template-->
-
-  <!-- List element-->
-  <!-- TODO move this to its own component, have "PersonList" be wrapper. Component takes in ng-content-->
-  <ng-template
-    #inlineList
-    let-heading="heading"
-    let-icon="icon"
-    let-els="els"
-  >
-    <biosimulations-icon [icon]="icon"></biosimulations-icon>
-    {{ heading + ': ' }}
-    <ng-container *ngFor="let el of els; let i = index">
-      <a [href]="el.uri" target="_blank" *ngIf="el?.uri; else noUri">
-        {{ el?.label || el?.uri }}</a
-      >
-
-      <ng-template #noUri>
-        {{ el?.label }}
+      <ng-template #last>
+        <ng-container *ngTemplateOutlet="personDisplay"></ng-container>
       </ng-template>
-      <ng-container *ngIf="i < els.length - 1">
-        {{ ', ' }}
-      </ng-container>
-    </ng-container>
-  </ng-template>
 
-  <!-- Inline list of attributes template -->
-  
-  <!-- Emnd Inline list of attributes template -->
+      <ng-template #personDisplay>
+        {{ contributer.label }} {{ contributer.uri ? ' ' : ''
+        }}<a [href]="contributer.uri" target="_blank" *ngIf="contributer.uri">
+          <biosimulations-icon icon="orcid"></biosimulations-icon>
+        </a>
+      </ng-template>
+    </ng-container>
+  </h3>
+</div>
+<!-- End authors-->
+<!--Begin two column-->
+<div
+  class="metadata"
+  fxLayout="row"
+  fxLayout.lt-md="column"
+  fxLayoutAlign="space-between"
+  fxLayoutGap="2rem"
+  fxLayoutGap.lt-md="1rem"
+>
+  <!-- Begin images -->
+  <div
+    *ngIf="thumbnails as images"
+    class="thumbnails"
+    style.height="auto"
+    fxFlex="30"
+  >
+    <ng-container *ngIf="showImage | async">
+      <mat-carousel
+        timings="250ms ease-in"
+        [autoplay]="true"
+        [interval]="5000"
+        color="accent"
+        maxWidth="100%"
+        [proportion]="100"
+        [loop]="true"
+        [hideArrows]="true"
+        [hideIndicators]="true"
+        [useKeyboard]="true"
+        [useMouseWheel]="true"
+      >
+        <mat-carousel-slide
+          [hideOverlay]="true"
+          *ngFor="let image of images; let i = index"
+          image="{{ image }}"
+        >
+        </mat-carousel-slide>
+      </mat-carousel>
+    </ng-container>
+  </div>
+  <!-- End images-->
+
+  <!-- Begin summarry/text data-->
+  <div fxFlex>
+    <mat-card>
+      <mat-card-title> {{ title }} </mat-card-title>
+      <p *ngIf="description as description_text">
+        {{ description_text }}
+      </p>
+
+      <ng-container
+        *ngTemplateOutlet="
+          list;
+          context: {
+            heading: 'Taxa',
+            icon: 'cell',
+            els: taxa
+          }
+        "
+      ></ng-container>
+
+      <ng-container
+        *ngTemplateOutlet="
+          inlineList;
+          context: {
+            heading: 'Tags',
+            icon: 'tags',
+            els: keywords
+          }
+        "
+      ></ng-container>
+
+      <ng-container
+        *ngTemplateOutlet="
+          list;
+          context: {
+            heading: 'Source',
+            icon: 'code',
+            els: sources
+          }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          list;
+          context: {
+            heading: 'Predecessor',
+            icon: 'backward',
+            els: predecessors
+          }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          list;
+          context: {
+            heading: 'Successor',
+            icon: 'forward',
+            els: successors
+          }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          list;
+          context: {
+            heading: 'Citation',
+            icon: 'file',
+            els: predecessors
+          }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          list;
+          context: {
+            heading: 'Cross ref',
+            icon: 'id',
+            els: identifiers
+          }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          list;
+          context: {
+            heading: 'More information',
+            icon: 'info',
+            els: seeAlso
+          }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          list;
+          context: {
+            heading: 'License',
+            icon: 'license',
+            els: [license]
+          }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          list;
+          context: {
+            heading: 'Funding',
+            icon: 'funding',
+            els: funders
+          }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          list;
+          context: {
+            heading: 'Curator',
+            icon: 'author',
+            els: contributors
+          }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          list;
+          context: {
+            heading: 'Created',
+            icon: 'date',
+            els: [{ label: created }]
+          }
+        "
+      ></ng-container>
+      <ng-container *ngIf="modified?.length">
+        <ng-container
+          *ngTemplateOutlet="
+            list;
+            context: {
+              heading: 'Last modified',
+              icon: 'date',
+              els: [{ label: modified }]
+            }
+          "
+        ></ng-container>
+      </ng-container>
+    </mat-card>
+  </div>
+  <!-- End summary/text data-->
+</div>
+<!-- End two column-->
+
+<!--List of attributes template-->
+<ng-template #list let-heading="heading" let-icon="icon" let-els="els">
+  <tr *ngFor="let el of els">
+    <th>
+      <biosimulations-icon [icon]="icon"></biosimulations-icon>
+    </th>
+    <td>
+      <span class="heading">{{ heading }}:</span>{{ ' ' }}
+      <a [href]="el.uri" target="_blank" *ngIf="el?.uri; else noUri">{{
+        el?.label || el?.uri
+      }}</a>
+      <ng-template #noUri>{{ el?.label }}</ng-template>
+    </td>
+  </tr>
+</ng-template>
+<!--End of list of attributes template-->
+
+<!-- List element-->
+<!-- TODO move this to its own component, have "PersonList" be wrapper. Component takes in ng-content-->
+<ng-template #inlineList let-heading="heading" let-icon="icon" let-els="els">
+  <biosimulations-icon [icon]="icon"></biosimulations-icon>
+  {{ heading + ': ' }}
+  <ng-container *ngFor="let el of els; let i = index">
+    <a [href]="el.uri" target="_blank" *ngIf="el?.uri; else noUri">
+      {{ el?.label || el?.uri }}</a
+    >
+
+    <ng-template #noUri>
+      {{ el?.label }}
+    </ng-template>
+    <ng-container *ngIf="i < els.length - 1">
+      {{ ', ' }}
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<!-- Inline list of attributes template -->
+
+<!-- Emnd Inline list of attributes template -->
