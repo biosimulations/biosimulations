@@ -1,3 +1,10 @@
+## [4.4.1](https://github.com/biosimulations/biosimulations/compare/v4.4.0...v4.4.1) (2021-09-22)
+
+
+### Bug Fixes
+
+* fixed sorting of simulator versions with > 4 points ([e0b60ce](https://github.com/biosimulations/biosimulations/commit/e0b60ce7e857a949d73f4daed4cf51e9e2b0ca91))
+
 # [4.4.0](https://github.com/biosimulations/biosimulations/compare/v4.3.0...v4.4.0) (2021-09-22)
 
 
