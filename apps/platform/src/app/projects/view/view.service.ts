@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, shareReplay } from 'rxjs';
+import { map, Observable, pluck, shareReplay } from 'rxjs';
 import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 import {
   ArchiveMetadata as APIMetadata,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { ProjectsService } from '../projects.service';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,6 +19,18 @@ export class ViewService {
     ).pipe(map((metadata) => metadata[0]));
 
     return metaData;
+  }
+
+  public getOtherMetdata(id: string): Observable<ArchiveMetadata[]> {
+    const metadata: Observable<ArchiveMetadata[]> = this.getProjectMetadata(
+      id,
+    ).pipe(
+      map((data: ArchiveMetadata[]) => {
+        return data.slice(1);
+      }),
+      //tap((data) => console.log(data))
+    );
+    return metadata;
   }
   public getProjectMetadata(id: string): Observable<ArchiveMetadata[]> {
     const response: Observable<ArchiveMetadata[]> = this.service
@@ -39,5 +52,50 @@ export class ViewService {
       );
 
     return response;
+  }
+
+  public getSimulationRunMetadata(id: string) {
+    return this.service.getProjectSimulation(id);
+  }
+
+  public getVegaFilesMetadata(id: string) {
+    return this.service.getArchiveContents(id).pipe(
+      pluck('contents'),
+      // Get the information for the files that have vega format
+      map((data) =>
+        data.filter((item: any) =>
+          item.format.endsWith(
+            'http://purl.org/NET/mediatypes/application/vega+json',
+          ),
+        ),
+      ),
+    );
+  }
+  public getVegaVisualizations(
+    id: string,
+  ): Observable<[{ path: string; spec: Observable<{ $schema: string }> }]> {
+    return this.getVegaFilesMetadata(id).pipe(
+      // Just need the information about the path of the file within the archive
+      map((data) => data.map((item: any) => item.location.path)),
+      map((paths) =>
+        paths.map((path: string) => {
+          return {
+            path: path,
+            spec: this.service.getProjectFile(id, path).pipe(
+              map((spec) => {
+                return { $schema: spec };
+              }),
+            ),
+          };
+        }),
+      ),
+    );
+  }
+  public getSedmlVisualizations(id: string): Observable<string[]> {
+    return this.service.getProjectSedmlContents(id);
+  }
+
+  public getProjectSedmlContent(id: string): Observable<string> {
+    return this.service.getProjectSedmlContents(id).pipe(pluck('contents'));
   }
 }

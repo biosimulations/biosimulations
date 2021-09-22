@@ -13,6 +13,30 @@ export class ProjectsService {
   private endpoints = new Endpoints();
   constructor(private http: HttpClient) {}
 
+  public getProjectFile(id: string, file: string) {
+    const archiveUrl = this.endpoints.getRunDownloadEndpoint(id, true);
+    const url = this.endpoints.getCombineFilesEndpoint(archiveUrl, file);
+    return this.http.get(url);
+  }
+  public getArchiveContents(id: string): Observable<any> {
+    const url = this.endpoints.getArchiveContentsEndpoint();
+    const omex = this.endpoints.getRunDownloadEndpoint(id, true);
+    const body = new FormData();
+    body.append('url', omex);
+
+    const response = this.http.post<any>(url, body).pipe();
+    return response;
+  }
+
+  public getProjectSedmlContents(id: string): Observable<any> {
+    const url = this.endpoints.getArchiveSedmlContentsEndpoint();
+    const omex = this.endpoints.getRunDownloadEndpoint(id, true);
+    const body = new FormData();
+    body.append('url', omex);
+
+    const response = this.http.post<any>(url, body).pipe();
+    return response;
+  }
   public getArchiveMetadata(id: string): Observable<ArchiveMetadata> {
     const metaData: Observable<ArchiveMetadata> = this.getProject(id).pipe(
       map((project) => project.metadata[0]),
@@ -21,16 +45,16 @@ export class ProjectsService {
     return metaData;
   }
   public getProject(id: string): Observable<SimulationRunMetadata> {
-    // TODO remove hardcoded url, use correct deployments
-    const response = this.http
-      .get<SimulationRunMetadata>(
-        'https://run.api.biosimulations.dev/metadata/' + id,
-      )
-      .pipe();
+    const url = this.endpoints.getMetadataEndpoint(id);
+    const response = this.http.get<SimulationRunMetadata>(url).pipe();
 
     return response;
   }
-
+  public getProjectSimulation(id: string): Observable<any> {
+    const url = this.endpoints.getSimulationRunEndpoint(id);
+    const response = this.http.get<string>(url).pipe();
+    return response;
+  }
   public getProjects(): Observable<
     { id: string; thumbnails: string[]; title: string }[]
   > {

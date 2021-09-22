@@ -28,7 +28,7 @@ export class Endpoints {
     switch (env) {
       case 'local':
         this.api = 'http://localhost:3333';
-        this.combine_api = 'https://combine.api.biosimulations.dev';
+        this.combine_api = '/combine-api';
         break;
 
       case 'dev':
@@ -66,6 +66,30 @@ export class Endpoints {
   public getBaseUrl(): string {
     return this.api;
   }
+  /**
+   *
+   * @returns The url to get the content of a combine archive
+   */
+  public getArchiveContentsEndpoint(): string {
+    return `${this.combine_api}/combine/manifest`;
+  }
+
+  /**
+   *
+   * @returns The url to get the contents of a sedml file in a combine archive
+   */
+  public getArchiveSedmlContentsEndpoint(): string {
+    return `${this.combine_api}/combine/sedml-specs`;
+  }
+
+  /**
+   *
+   * @param id The id of the simulation run
+   * @returns The url to get the simulation run
+   */
+  public getSimulationRunEndpoint(id?: string): string {
+    return this.api + '/runs/' + id;
+  }
 
   /**
    *
@@ -74,6 +98,7 @@ export class Endpoints {
   public getCombineEndpoint(): string {
     return this.combine_api;
   }
+
   /**
    * Create a url to download a file from an omex file using the combine service
    * @param url The url of a combine archive
