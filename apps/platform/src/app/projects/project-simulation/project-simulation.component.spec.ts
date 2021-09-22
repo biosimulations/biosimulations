@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectOverviewComponent } from './project-overview.component';
+import { ProjectSimulationComponent } from './project-simulation.component';
 
-describe('ProjectOverviewComponent', () => {
-  let component: ProjectOverviewComponent;
-  let fixture: ComponentFixture<ProjectOverviewComponent>;
+describe('ProjectSimulationComponent', () => {
+  let component: ProjectSimulationComponent;
+  let fixture: ComponentFixture<ProjectSimulationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectOverviewComponent],
+      declarations: [ProjectSimulationComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectOverviewComponent);
+    fixture = TestBed.createComponent(ProjectSimulationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

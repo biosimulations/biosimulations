@@ -6,10 +6,11 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./project-card.component.scss'],
 })
 export class ProjectCardComponent implements OnInit {
-  @Input() public project: {id:string, title:string, thumbnails:string[]} = {id:'', title:'', thumbnails:[]};
-  public url= "";
+  @Input() public project: { id: string; title: string; thumbnails: string[] } =
+    { id: '', title: '', thumbnails: [] };
+  public url = '';
   public constructor() {}
-  public ngOnInit(): void {     
-    this.url = `/projects/${this.project.id}`
+  public ngOnInit(): void {
+    this.url = `/projects/${this.project.id}`;
   }
 }

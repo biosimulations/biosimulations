@@ -3,16 +3,14 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Input,
-} from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { ArchiveMetadata } from "@biosimulations/datamodel/common";
-import { BehaviorSubject } from "rxjs";
-import { MetadataValue } from "../view/view.model";
-import { ViewService } from "../view/view.service";
+} from '@angular/core';
+import { ArchiveMetadata } from '@biosimulations/datamodel/common';
+import { BehaviorSubject } from 'rxjs';
+import { MetadataValue } from '../view/view.model';
 @Component({
-  selector: "biosimulations-project-overview",
-  templateUrl: "./project-overview.component.html",
-  styleUrls: ["./project-overview.component.scss"],
+  selector: 'biosimulations-project-overview',
+  templateUrl: './project-overview.component.html',
+  styleUrls: ['./project-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectOverviewComponent implements OnInit {
