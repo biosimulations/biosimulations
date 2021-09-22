@@ -1,3 +1,16 @@
+# [4.4.0](https://github.com/biosimulations/biosimulations/compare/v4.3.0...v4.4.0) (2021-09-22)
+
+
+### Features
+
+* **ontology:** updated to KiSAO 2.29 ([31e7d7b](https://github.com/biosimulations/biosimulations/commit/31e7d7ba7115c9f381b636113221edca9010397b))
+* **platform:** improve styling of platform browse ([28e8e1d](https://github.com/biosimulations/biosimulations/commit/28e8e1d6858363325ae29ae3d71e1dea2a1b19c9))
+
+
+### Reverts
+
+* remove ui commit scope [skip ci] ([5051250](https://github.com/biosimulations/biosimulations/commit/50512504bd98cf55f2111ad0bf074ae5837260ea))
+
 # [4.3.0](https://github.com/biosimulations/biosimulations/compare/v4.2.0...v4.3.0) (2021-09-15)
 
 
