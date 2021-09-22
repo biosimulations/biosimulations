@@ -47,7 +47,14 @@ export const errorRoutes: Routes = [
     BiosimulationsIconsModule,
     SharedUiModule,
   ],
-  exports: [RouterModule],
+  exports: [
+    RouterModule,
+    ErrorComponent,
+    Error404Component,
+    Error500Component,
+    UnderConstructionComponent,
+    UnderMaintainenceComponent,
+  ],
   providers: [],
 })
 export class SharedErrorComponentsModule {}

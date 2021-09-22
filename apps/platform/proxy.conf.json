@@ -1,6 +1,38 @@
 {
-  "/platform-api": {
-    "target": "http://localhost:3333",
-    "secure": false
+  "/dispatch-api-local": {
+    "target": "http://localhost:3333/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dispatch-api": ""
+    }
+  },
+  "/dispatch-api": {
+    "target": "https://run.api.biosimulations.dev/",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/dispatch-api": "/"
+    }
+  },
+  "/ontology-api": {
+    "target": "https://ontology.api.biosimulations.dev",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/ontology-api": ""
+    }
+  },
+  "/combine-api": {
+    "target": "https://combine.api.biosimulations.dev",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/combine-api": ""
+    }
   }
 }

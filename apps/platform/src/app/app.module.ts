@@ -8,7 +8,10 @@ import { environment } from '@biosimulations/shared/environments';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MarkdownModule } from 'ngx-markdown';
 import { IonicStorageModule } from '@ionic/storage';
-import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
+import {
+  SharedErrorComponentsModule,
+  //SharedErrorHandlerModule,
+} from '@biosimulations/shared/error-handler';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -16,7 +19,6 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
 import config from '../assets/config.json';
-
 
 const routes: Routes = [
   {
@@ -77,6 +79,7 @@ routes.forEach((route: Route): void => {
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
+    
   ],
   bootstrap: [AppComponent],
 })
