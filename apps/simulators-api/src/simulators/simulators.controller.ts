@@ -40,7 +40,6 @@ import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import compareVersions from 'compare-versions';
 import compareVersionsWithAdditionalPoints from 'tiny-version-compare';
 
-
 @ApiTags('Simulators')
 @Controller('simulators')
 export class SimulatorsController {
@@ -105,11 +104,18 @@ export class SimulatorsController {
           }
         } catch {
           try {
-            if (compareVersionsWithAdditionalPoints(latestVersion, currentVersion) == -1) {
+            if (
+              compareVersionsWithAdditionalPoints(
+                latestVersion,
+                currentVersion,
+              ) == -1
+            ) {
               latest.set(element.id, element);
             }
           } catch {
-            if (element.biosimulators.created > latestSim.biosimulators.created) {
+            if (
+              element.biosimulators.created > latestSim.biosimulators.created
+            ) {
               latest.set(element.id, element);
             }
           }
