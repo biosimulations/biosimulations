@@ -38,6 +38,7 @@ import { Simulator } from '@biosimulations/simulators/api-models';
 import { SimulatorsService } from './simulators.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import compareVersions from 'compare-versions';
+import compareVersionsWithAdditionalPoints from 'tiny-version-compare';
 
 @ApiTags('Simulators')
 @Controller('simulators')
@@ -93,12 +94,31 @@ export class SimulatorsController {
     const allSims = await this.service.findAll(includeBool);
     const latest = new Map<string, Simulator>();
     allSims.forEach((element) => {
-      const latestSim = latest.get(element.id);
+      const latestSim = latest.get(element.id) as Simulator;
       if (latestSim) {
         const latestVersion = latestSim.version.replace(/-/g, '.');
         const currentVersion = element.version.replace(/-/g, '.');
-        if (compareVersions(latestVersion, currentVersion) == -1) {
-          latest.set(element.id, element);
+        try {
+          if (compareVersions(latestVersion, currentVersion) == -1) {
+            latest.set(element.id, element);
+          }
+        } catch {
+          try {
+            if (
+              compareVersionsWithAdditionalPoints(
+                latestVersion,
+                currentVersion,
+              ) == -1
+            ) {
+              latest.set(element.id, element);
+            }
+          } catch {
+            if (
+              element.biosimulators.created > latestSim.biosimulators.created
+            ) {
+              latest.set(element.id, element);
+            }
+          }
         }
       } else {
         latest.set(element.id, element);
