@@ -1,3 +1,15 @@
+## [4.4.2](https://github.com/biosimulations/biosimulations/compare/v4.4.1...v4.4.2) (2021-09-23)
+
+
+### Bug Fixes
+
+* **simulators-api:** fixed sorting of simulator versions with > 4 points ([020073a](https://github.com/biosimulations/biosimulations/commit/020073ab0a9e8eb0344d7ab4ffee287a323caaed)), closes [#3008](https://github.com/biosimulations/biosimulations/issues/3008)
+
+
+### Reverts
+
+* **simulators-api:** revert [#3009](https://github.com/biosimulations/biosimulations/issues/3009) to prevent container crashing ([c7ff2cc](https://github.com/biosimulations/biosimulations/commit/c7ff2cc018e28dad55f771c6e778193082e9c2ff)), closes [#3008](https://github.com/biosimulations/biosimulations/issues/3008)
+
 ## [4.4.1](https://github.com/biosimulations/biosimulations/compare/v4.4.0...v4.4.1) (2021-09-22)
 
 
