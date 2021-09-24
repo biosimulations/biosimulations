@@ -1,21 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import {
-  CombineArchive,
-  CombineArchiveContent,
-  CombineArchiveContentFile,
   SedDocument,
-  SedModel,
   SedSimulation,
-  SedAbstractTask,
-  SedDataGenerator,
-  SedOutput,
-  SedOutputType,
-  SedPlot2D,
   SedReport,
-  SedDataSet,
 } from '../datamodel';
-import { Spec as VegaSpec, Format as VegaDataFormat } from 'vega';
+import { Spec as VegaSpec } from 'vega';
 import { Endpoints } from '@biosimulations/config/common';
 @Component({
   selector: 'biosimulations-project-figure',

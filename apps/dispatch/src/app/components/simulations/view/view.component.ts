@@ -53,7 +53,6 @@ import {
   SedDataSet,
 } from '../../../combine-sedml.interface';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
-import { ConfigService } from '@biosimulations/shared/services';
 import {
   BehaviorSubject,
   Observable,

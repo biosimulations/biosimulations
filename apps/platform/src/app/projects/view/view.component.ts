@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArchiveMetadata } from '@biosimulations/datamodel/common';
-import { BehaviorSubject, Observable, shareReplay, tap } from 'rxjs';
-import { Spec as VegaSpec, Format as VegaDataFormat } from 'vega';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Spec as VegaSpec } from 'vega';
 import { ViewService } from './view.service';
 
 @Component({
