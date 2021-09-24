@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 import { BehaviorSubject, Observable, shareReplay, tap } from 'rxjs';
-
+import { Spec as VegaSpec, Format as VegaDataFormat } from 'vega';
 import { ViewService } from './view.service';
 
 @Component({
@@ -25,9 +25,10 @@ export class ViewComponent implements OnInit {
     }[]
   >;
   public vegaSpecs$?: Observable<
-    { path: string; spec: Observable<{ $schema: string }> }[]
+    { id: string; path: string; spec: Observable<VegaSpec> }[]
   >;
   public vegaFiles$?: Observable<any>;
+  public files$?: Observable<any>;
   constructor(private service: ViewService, private route: ActivatedRoute) {}
   public showImage = new BehaviorSubject(false);
   public ngOnInit(): void {
@@ -36,19 +37,20 @@ export class ViewComponent implements OnInit {
       tap((_) => {
         this.loading$.next(false);
       }),
-      shareReplay(1),
     );
+
     this.figureMetadata$ = this.service.getOtherMetdata(id).pipe(
       tap((_) => {
         this.loadingFigures$.next(false);
-        console.log(_);
       }),
-      shareReplay(1),
     );
+
     this.simulationInfo$ = this.service.getSimulationRunMetadata(id);
+
     this.vegaFiles$ = this.service.getVegaFilesMetadata(id);
-    this.vegaSpecs$ = this.service
-      .getVegaVisualizations(id)
-      .pipe(tap((_) => console.error(_)));
+
+    this.files$ = this.service.getFilesMetadata(id);
+
+    this.vegaSpecs$ = this.service.getVegaVisualizations(id);
   }
 }

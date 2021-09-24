@@ -11,7 +11,7 @@ import { ProjectsService } from '../projects.service';
   providedIn: 'root',
 })
 export class ViewService {
-  constructor(private service: ProjectsService) {}
+  public constructor(private service: ProjectsService) {}
 
   public getArchiveMetadata(id: string): Observable<ArchiveMetadata> {
     const metaData: Observable<ArchiveMetadata> = this.getProjectMetadata(
@@ -58,6 +58,9 @@ export class ViewService {
     return this.service.getProjectSimulation(id);
   }
 
+  public getFilesMetadata(id: string) {
+    return this.service.getArchiveContents(id);
+  }
   public getVegaFilesMetadata(id: string) {
     return this.service.getArchiveContents(id).pipe(
       pluck('contents'),
@@ -73,7 +76,9 @@ export class ViewService {
   }
   public getVegaVisualizations(
     id: string,
-  ): Observable<[{ path: string; spec: Observable<{ $schema: string }> }]> {
+  ): Observable<
+    [{ id: string; path: string; spec: Observable<{ $schema: string }> }]
+  > {
     return this.getVegaFilesMetadata(id).pipe(
       // Just need the information about the path of the file within the archive
       map((data) => data.map((item: any) => item.location.path)),
@@ -81,11 +86,8 @@ export class ViewService {
         paths.map((path: string) => {
           return {
             path: path,
-            spec: this.service.getProjectFile(id, path).pipe(
-              map((spec) => {
-                return { $schema: spec };
-              }),
-            ),
+            id: id,
+            spec: this.service.getProjectFile(id, path),
           };
         }),
       ),
@@ -96,6 +98,6 @@ export class ViewService {
   }
 
   public getProjectSedmlContent(id: string): Observable<string> {
-    return this.service.getProjectSedmlContents(id).pipe(pluck('contents'));
+    return this.service.getProjectSedmlContents(id);
   }
 }
