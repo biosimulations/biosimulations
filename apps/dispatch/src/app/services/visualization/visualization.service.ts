@@ -13,7 +13,7 @@ import {
 import {
   CombineArchive,
   CombineArchiveContent,
-} from '../../combine-sedml.interface';
+} from '@biosimulations/datamodel/common';
 
 import {
   SimulationRunOutput,

@@ -24,7 +24,7 @@ import {
   SedDocument,
   SedModel,
   SedSimulation,
-} from '../../../combine-sedml.interface';
+} from '@biosimulations/datamodel/common';
 import {
   AlgorithmSubstitutionPolicyLevels,
   ALGORITHM_SUBSTITUTION_POLICIES,
