@@ -42,16 +42,13 @@ import {
   CombineArchiveContent,
   CombineArchiveContentFile,
   SedDocument,
-  SedModel,
   SedSimulation,
-  SedAbstractTask,
-  SedDataGenerator,
   SedOutput,
   SedOutputType,
   SedPlot2D,
   SedReport,
   SedDataSet,
-} from '../../../combine-sedml.interface';
+} from '@biosimulations/datamodel/common';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 import {
   BehaviorSubject,
@@ -91,6 +88,7 @@ import user2DHeatmapVegaTemplate from './viz-vega-templates/2d-heatmap.json';
 import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.json';
 import { UtilsService } from '@biosimulations/shared/services';
 import { MetadataService } from '../../../services/simulation/metadata.service';
+import { SedDocumentReportsCombineArchiveContent } from '@biosimulations/datamodel/common';
 
 enum VisualizationSource {
   sedml = 'sedml',
@@ -130,30 +128,6 @@ interface VegaDataSet {
   url: string | undefined;
   values: any[] | undefined;
   format: VegaDataFormat | undefined;
-}
-
-export interface SedDocumentReports {
-  _type: 'SedDocument';
-  level: number;
-  version: number;
-  models: SedModel[];
-  simulations: SedSimulation[];
-  tasks: SedAbstractTask[];
-  dataGenerators: SedDataGenerator[];
-  outputs: SedReport[];
-}
-
-export interface SedDocumentReportsCombineArchiveLocation {
-  _type: 'CombineArchiveLocation';
-  path: string;
-  value: SedDocumentReports;
-}
-
-interface SedDocumentReportsCombineArchiveContent {
-  _type: 'CombineArchiveContent';
-  location: SedDocumentReportsCombineArchiveLocation;
-  format: string;
-  master: boolean;
 }
 
 @Component({
@@ -321,7 +295,6 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   private initVisualizations(): void {
     const archiveUrl = this.endpoints.getRunDownloadEndpoint(this.uuid);
-    
 
     const archiveManifest = this.statusSucceeded$.pipe(
       map((succeeded: boolean): Observable<CombineArchive | undefined> => {
