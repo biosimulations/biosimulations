@@ -4,9 +4,10 @@ from biosimulators_utils.sedml.data_model import (
     OneStepSimulation,
     SteadyStateSimulation,
     UniformTimeCourseSimulation,
+    Plot2D,
 )
 from biosimulators_utils.sedml.exceptions import UnsupportedModelLanguageError
-from biosimulators_utils.sedml.model_utils import get_parameters_variables_for_simulation
+from biosimulators_utils.sedml.model_utils import get_parameters_variables_outputs_for_simulation
 import os
 import requests
 import requests.exceptions
@@ -77,7 +78,7 @@ def handler(body, modelFile=None):
         )  # pragma: no cover: unreachable due to schema validation
 
     try:
-        params, sims, vars = get_parameters_variables_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
+        params, sims, vars, plots = get_parameters_variables_outputs_for_simulation(model_filename, model_lang, sim_cls, alg_kisao_id)
     except UnsupportedModelLanguageError as exception:
         raise BadRequestException(
             title='Models of language `{}` are not supported with simulations of type `{}` and algorithm `{}`'.format(
@@ -129,6 +130,11 @@ def handler(body, modelFile=None):
     data_generators = []
     outputs = []
     for i_sim, sim in enumerate(sims):
+        if len(sims) > 1:
+            sim_suffix = '_' + str(i_sim)
+        else:
+            sim_suffix = ''
+
         if isinstance(sim, OneStepSimulation):
             sim_type = 'SedOneStepSimulation'
         elif isinstance(sim, SteadyStateSimulation):
@@ -140,7 +146,7 @@ def handler(body, modelFile=None):
 
         simulation = {
             "_type": sim_type,
-            "id": "simulation_{}".format(i_sim),
+            "id": "simulation{}".format(sim_suffix),
             "algorithm": {
                 "_type": "SedAlgorithm",
                 "kisaoId": sim.algorithm.kisao_id,
@@ -168,7 +174,7 @@ def handler(body, modelFile=None):
 
         task = {
             "_type": "SedTask",
-            "id": "task_{}".format(i_sim),
+            "id": "task{}".format(sim_suffix),
             "model": model,
             "simulation": simulation,
         }
@@ -176,15 +182,17 @@ def handler(body, modelFile=None):
 
         report = {
             "_type": "SedReport",
-            "id": "report_{}".format(i_sim),
+            "id": "report{}".format(sim_suffix),
             'dataSets': [],
         }
         outputs.append(report)
 
+        var_data_gen_map = {}
+
         for var in vars:
             response_var = {
                 "_type": "SedVariable",
-                "id": '{}_{}'.format(var.id, i_sim),
+                "id": '{}{}'.format(var.id, sim_suffix),
                 "task": task,
             }
 
@@ -210,7 +218,7 @@ def handler(body, modelFile=None):
 
             data_generator = {
                 "_type": "SedDataGenerator",
-                "id": "data_generator_{}_{}".format(i_sim, var.id),
+                "id": "data_generator{}_{}".format(sim_suffix, var.id),
                 "variables": [response_var],
                 "math": response_var['id'],
             }
@@ -219,15 +227,71 @@ def handler(body, modelFile=None):
 
             data_generators.append(data_generator)
 
+            var_data_gen_map[var] = data_generator
+
             data_set = {
                 '_type': 'SedDataSet',
-                'id': 'data_set_{}_{}'.format(i_sim, var.id),
+                'id': 'data_set{}_{}'.format(sim_suffix, var.id),
                 'label': var.name or var.id,
                 'name': var.name,
                 'dataGenerator': data_generator,
             }
 
             report['dataSets'].append(data_set)
+
+        for plot in plots:
+            if isinstance(plot, Plot2D):
+                output = {
+                    '_type': "SedPlot2D",
+                    "id": '{}{}'.format(plot.id, sim_suffix),
+                    "name": plot.name,
+                    'curves': [],
+                }
+
+                for curve in plot.curves:
+                    assert len(curve.x_data_generator.variables) == 1
+                    assert len(curve.y_data_generator.variables) == 1
+                    assert curve.x_data_generator.math == curve.x_data_generator.variables[0].id
+                    assert curve.y_data_generator.math == curve.y_data_generator.variables[0].id
+
+                    output['curves'].append({
+                        "_type": "SedCurve",
+                        "id": '{}{}'.format(curve.id, sim_suffix),
+                        "name": curve.name,
+                        "xDataGenerator": var_data_gen_map[curve.x_data_generator.variables[0]],
+                        "yDataGenerator": var_data_gen_map[curve.y_data_generator.variables[0]],
+                        "xScale": curve.x_scale.value,
+                        "yScale": curve.y_scale.value,
+                    })
+            else:
+                output = {
+                    '_type': "SedPlot3D",
+                    "name": plot.name,
+                    "id": '{}{}'.format(plot.id, sim_suffix),
+                    'surfaces': [],
+                }
+
+                for surface in plot.surfaces:
+                    assert len(curve.x_data_generator.variables) == 1
+                    assert len(curve.y_data_generator.variables) == 1
+                    assert len(curve.z_data_generator.variables) == 1
+                    assert curve.x_data_generator.math == curve.x_data_generator.variables[0].id
+                    assert curve.y_data_generator.math == curve.y_data_generator.variables[0].id
+                    assert curve.z_data_generator.math == curve.z_data_generator.variables[0].id
+
+                    output['surfaces'].append({
+                        "_type": "SedSurface",
+                        "id": '{}{}'.format(curve.id, sim_suffix),
+                        "name": curve.name,
+                        "xDataGenerator": var_data_gen_map[curve.x_data_generator.variables[0]],
+                        "yDataGenerator": var_data_gen_map[curve.y_data_generator.variables[0]],
+                        "zDataGenerator": var_data_gen_map[curve.z_data_generator.variables[0]],
+                        "xScale": curve.x_scale.value,
+                        "yScale": curve.y_scale.value,
+                        "zScale": curve.z_scale.value,
+                    })
+
+            outputs.append(output)
 
     doc = {
         "_type": "SedDocument",

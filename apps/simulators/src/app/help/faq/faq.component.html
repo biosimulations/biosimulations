@@ -150,71 +150,61 @@
       </biosimulations-q-a>
 
       <biosimulations-q-a
-        heading="How can I submit a simulation tool to BioSimulators?"
-      >
-        Please submit an issue
-        <a [href]="config.newIssueUrl" target="_blank"
-          ><biosimulations-icon icon="link"></biosimulations-icon
-        ></a>
-        to register an additional simulation tool.
-      </biosimulations-q-a>
-
-      <biosimulations-q-a
-        heading="How does BioSimulators manage ownership of BioSimulators entries for simulation tools?"
-      >
-        <p>
-          BioSimulators uses GitHub teams to manage ownership of simulation
-          tools.
-        </p>
-
-        <p>
-          When a simulator is first submitted to BioSimulators, BioSimulators
-          creates a GitHub Team to own the simulator and Biosimulators adds the
-          submitter as a maintainer of that team. The team will have the name
-          <code>@biosimulators/{{ '{' }} simulator-id {{ '}' }}</code
-          >. Once the team is created, the submitter will be able to manage the
-          team and add collaborators through GitHub
-          <a
-            href="https://github.com/orgs/biosimulators/teams/simulator-developers/teams"
-            target="_blank"
-            ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >.
-        </p>
-
-        <p>
-          Only members of these teams can submit issues to edit the
-          specifications of tools and post new versions of tools. If you are not
-          a member of the team for your simulator, you will need to request
-          access from the maintainers of the GitHub team for your tool.
-        </p>
-      </biosimulations-q-a>
-
-      <biosimulations-q-a
         heading="Do all of the simulators provide consistent Docker images?"
       >
-        No, only the simulators that have a curation status of 5 stars provide
-        Docker images that support the BioSimulators standards. Going forward,
+        Only the simulators that have a curation status of 5 stars provide
+        Docker images that support the BioSimulators conventions. Going forward,
         we aim to encourage the community to provide additional standardized
         Docker images.
       </biosimulations-q-a>
 
       <biosimulations-q-a
-        heading="Can I submit a simulation tool to the BioSimulators registry for which there is no Docker image, or for which there is a Docker image that is not consistent with the BioSimulators standards?"
+        heading="Do all of the simulators provide consistent Python APIs?"
+      >
+        Only the simulators that have a curation status of 5 stars provide
+        Python APIs images that support the BioSimulators conventions. Going forward,
+        we aim to encourage the community to provide additional standardized
+        Docker images.
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How can I use a simulator Docker image to execute a simulation?"
       >
         <p>
-          Yes! We encourage the community to submit all simulation tools, even
-          if they do not support the BioSimulators interface and Docker image
-          structure standards.
+          Instructions for using simulator Docker images to execute simulations are available <a [routerLink]="['/help']">here</a>.
         </p>
+      </biosimulations-q-a>
 
+      <biosimulations-q-a
+        heading="How can I use a command-line interface image to execute a simulation?"
+      >
         <p>
-          Note, BioSimulators can only validate simulation tools that support
-          these standards. Consequently, when creating GitHub issues to submit
-          simulation tools that do not support the BioSimulators standards, set
-          <code>validateImage</code> to <code>false</code> to decline validation
-          of the Docker image (or lack thereof) for your simulation tool. The
-          validation status of your simulation tool (passed or skipped) will be
-          communicated to BioSimulators users.
+          Instructions for using command-line interfaces to execute simulations are available <a [routerLink]="['/help']">here</a>.
+        </p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How can I use a Python API to execute a simulation?"
+      >
+        <p>
+          Instructions for using simulator Python APIs to execute simulations are available <a [routerLink]="['/help']">here</a>.
+        </p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="Is a Docker image available with all of the Python APIs available?"
+      >
+        <p>
+          Yes! The <code>ghcr.io/biosimulators/biosimulators</code> image contains most of the Python APIs (90% as of 2021-09-23). More information about the image is available <a href="https://github.com/biosimulators/Biosimulators/pkgs/container/biosimulators" target="_blank">here</a>.
+        </p>
+        <p>
+          The Dockerfile for this image is available <a href="https://github.com/biosimulators/Biosimulators/blob/dev/Dockerfile" target="_blank">here</a>. To the extent possible, this Docker image uses Pipenv to manage the Python environment inside the image. The <code>Pipfile</code> and <code>Pipfile.lock</code> files for this environment are available <a href="https://github.com/biosimulators/Biosimulators/tree/dev/Dockerfile-assets" target="_blank">here</a>.
+        </p>        
+        <p>
+          The goal of this image is to provide the latest mutually-compatible versions of the Python APIs for simulation tools. When simulation tools require conflicting versions of dependencies, this image may not have the latest version of each simulation tool. In such cases, individual simulation tools can be updated by running <code>pipenv install --selective-upgrade ...</code> or <code>pipenv run pip install --upgrade ...</code>. Note, such upgrading may break the functionality of other tools.
+        </p>
+        <p>
+          In addition, the <code>ghcr.io/biosimulators/biosimulators-base</code> image contains the non-Python dependencies for these the Python APIs. More information about the image is available <a href="https://github.com/biosimulators/Biosimulators/pkgs/container/biosimulators-base" target="_blank">here</a>.
         </p>
       </biosimulations-q-a>
 
@@ -245,6 +235,75 @@
       </biosimulations-q-a>
 
       <biosimulations-q-a
+        heading="How can I submit a simulation tool to BioSimulators?"
+      >
+        Please submit an issue
+        <a [href]="config.newIssueUrl" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon
+        ></a>
+        to register an additional simulation tool.
+      </biosimulations-q-a>      
+
+      <biosimulations-q-a
+        heading="Can I submit a simulation tool to the BioSimulators registry for which there is no Docker image, or for which there is a Docker image that is not consistent with the BioSimulators conventions?"
+      >
+        <p>
+          Yes! We encourage the community to submit all simulation tools, even
+          if they do not support the BioSimulators interface and Docker image
+          structure conventions.
+        </p>
+
+        <p>
+          Note, BioSimulators can only validate simulation tools that support
+          these conventions. Consequently, when creating GitHub issues to submit
+          simulation tools that do not support the BioSimulators conventions, set
+          <code>validateImage</code> to <code>false</code> to decline validation
+          of the Docker image (or lack thereof) for your simulation tool. The
+          validation status of your simulation tool (passed or skipped) will be
+          communicated to BioSimulators users.
+        </p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="Can I submit a simulation tool to the BioSimulators registry for which there is no Python API, or for which there is a Python API image that is not consistent with the BioSimulators conventions?"
+      >
+        <p>
+          Yes! We encourage the community to submit all simulation tools, even
+          if they do not support the BioSimulators conventions.
+        </p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How does BioSimulators manage ownership of BioSimulators entries for simulation tools?"
+      >
+        <p>
+          BioSimulators uses GitHub teams to manage ownership of simulation
+          tools.
+        </p>
+
+        <p>
+          When a simulator is first submitted to BioSimulators, BioSimulators
+          creates a GitHub Team to own the simulator and Biosimulators adds the
+          submitter as a maintainer of that team. The team will have the name
+          <code>@biosimulators/{{ '{' }} simulator-id {{ '}' }}</code
+          >. Once the team is created, the submitter will be able to manage the
+          team and add collaborators through GitHub
+          <a
+            href="https://github.com/orgs/biosimulators/teams/simulator-developers/teams"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >.
+        </p>
+
+        <p>
+          Only members of these teams can submit issues to edit the
+          specifications of tools and post new versions of tools. If you are not
+          a member of the team for your simulator, you will need to request
+          access from the maintainers of the GitHub team for your tool.
+        </p>
+      </biosimulations-q-a>      
+
+      <biosimulations-q-a
         heading="How can I create a shield for a simulation tool to embed into my website?"
       >
         <p>
@@ -258,19 +317,17 @@
             <code
               >https://img.shields.io/badge/BioSimulators-registered-green</code
             >
-            to generate the badge below. <br /><a [routerLink]="['/run']"
-              ><img
+            to generate the badge below. <br /><img
                 src="https://img.shields.io/badge/BioSimulators-registered-green"
-            /></a>
+            />
           </li>
           <li>
             <b>Indicate that a simulator is valid:</b>
             <br />Use
             <code>https://img.shields.io/badge/BioSimulators-valid-green</code>
-            to generate the badge below. <br /><a [routerLink]="['/run']"
-              ><img
+            to generate the badge below. <br /><img
                 src="https://img.shields.io/badge/BioSimulators-valid-green"
-            /></a>
+            />
           </li>
           <li>
             <b>Indicate the latest registered version of a simulator:</b>
@@ -281,10 +338,9 @@
               }}
               latest-version {{ '}' }}-green</code
             >
-            to generate the badge below. <br /><a [routerLink]="['/run']"
-              ><img
+            to generate the badge below. <br /><img
                 src="https://img.shields.io/badge/BioSimulators-2.2.0-green"
-            /></a>
+            />
           </li>
         </ul>
       </biosimulations-q-a>
