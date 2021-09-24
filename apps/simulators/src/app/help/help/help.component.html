@@ -59,7 +59,11 @@
         </li>
       </ul>
 
-      <p>The next live tutorial will be presented on 10/13/2022 during the COMBINE meeting. Videos and slides for past tutorials are available below.</p>
+      <p>
+        The next live tutorial will be presented on 10/13/2022 during the
+        COMBINE meeting. Videos and slides for past tutorials are available
+        below.
+      </p>
       <ul class="no-bottom-margin">
         <li>
           Video
@@ -83,12 +87,12 @@
       tocSection="Creating modeling projects"
     >
       <p>
-        The simulation tools in the BioSimulators registry
-        require modeling projects (one or more simulations of one or more
-        models) to be encapsulated into a COMBINE/OMEX
-        archive. Please follow these steps to create COMBINE/OMEX archives.
-        Alternatively, COMBINE/OMEX archives that describe modeling projects can be
-        obtained from the BioSimulations repository of modeling projects
+        The simulation tools in the BioSimulators registry require modeling
+        projects (one or more simulations of one or more models) to be
+        encapsulated into a COMBINE/OMEX archive. Please follow these steps to
+        create COMBINE/OMEX archives. Alternatively, COMBINE/OMEX archives that
+        describe modeling projects can be obtained from the BioSimulations
+        repository of modeling projects
         <a href="https://biosimulations.org" target="_blank"
           ><biosimulations-icon icon="link"></biosimulations-icon></a
         >.
@@ -101,21 +105,28 @@
         <li>
           <b>Create one or more models:</b>
           Create files that describe the models that you would like to simulate
-          and save these files to the directory for the project.
-          Currently, the simulation tools in the BioSimulators collection
-          support several languages, including the BioNetGen Language
+          and save these files to the directory for the project. Currently, the
+          simulation tools in the BioSimulators collection support several
+          languages, including the BioNetGen Language
           <a href="https://bionetgen.org" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon
           ></a>
-          (BNGL), CellML, the GINsim Markup Language (GINML, ZGINML), NeuroML/LEMS, the RBApy format, the Smoldyn format, the Systems Biology Markup Language
+          (BNGL), CellML, the GINsim Markup Language (GINML, ZGINML),
+          NeuroML/LEMS, the RBApy format, the Smoldyn format, the Systems
+          Biology Markup Language
           <a href="http://sbml.org" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon
           ></a>
-          (SBML), the SBML flux balance constraints (SBML-fbc) and SBML qualititative (SBML-qual) models packages, the SBML Mass Action Stoichiometric Simulation (MASS) schema, and the XPP ODE format. More information about BNGL and SBML is available from
-          their websites. Alternatively, models can be obtained from model repositiories such as BioModels
+          (SBML), the SBML flux balance constraints (SBML-fbc) and SBML
+          qualititative (SBML-qual) models packages, the SBML Mass Action
+          Stoichiometric Simulation (MASS) schema, and the XPP ODE format. More
+          information about BNGL and SBML is available from their websites.
+          Alternatively, models can be obtained from model repositiories such as
+          BioModels
           <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"
-            ><biosimulations-icon icon="link"></biosimulations-icon></a
-          > and BioSimulations
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          and BioSimulations
           <a href="https://biosimulations.org" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >.
@@ -138,35 +149,35 @@
           and algorithm parameters (<code>sedml:algorithmParameter</code>), data
           generators for individual variables (<code>sedml:dataGenerator</code>,
           <code>sedml:variable</code>), data generators for mathematical
-          expressions (<code>sedml:dataGenerator/@math</code>), and report and plot outputs
-          (<code>sedml:report</code>, <code>sedml:plot2D</code> and <code>sedml:plot3D</code>). Some of the simulation tools support the
-          full SED-ML specification, including more complex model changes and repeated tasks
-          (<code>sedml:repeatedTask</code>). Save this
-          file to the directory for your modeling project. More information
-          about SED-ML is available from the SED-ML website. Alternatively,
-          simulations can be obtained from the BioSimulations repository of
-          modeling projects
+          expressions (<code>sedml:dataGenerator/@math</code>), and report and
+          plot outputs (<code>sedml:report</code>, <code>sedml:plot2D</code> and
+          <code>sedml:plot3D</code>). Some of the simulation tools support the
+          full SED-ML specification, including more complex model changes and
+          repeated tasks (<code>sedml:repeatedTask</code>). Save this file to
+          the directory for your modeling project. More information about SED-ML
+          is available from the SED-ML website. Alternatively, simulations can
+          be obtained from the BioSimulations repository of modeling projects
           <a href="https://biosimulations.org" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >.
         </li>
         <li>
           <b
-            >Create an OMEX manifest file which describes your model and simulation files:</b
+            >Create an OMEX manifest file which describes your model and
+            simulation files:</b
           >
-          OMEX manifest is a format for describing a collection of files, including the format (e.g., CellML, SBML) of each file. Several example
-          COMBINE archives are available here. More information about the OMEX manifest format is available at
-          the COMBINE website
+          OMEX manifest is a format for describing a collection of files,
+          including the format (e.g., CellML, SBML) of each file. Several
+          example COMBINE archives are available here. More information about
+          the OMEX manifest format is available at the COMBINE website
           <a href="https://combinearchive.org/" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >.
         </li>
         <li>
-          <b
-            >Package your project into a COMBINE archive:</b
-          >
-          A COMBINE archive is a zip file which contains an OMEX manifest file and all of
-          the other files which comprise a project. Several example
+          <b>Package your project into a COMBINE archive:</b>
+          A COMBINE archive is a zip file which contains an OMEX manifest file
+          and all of the other files which comprise a project. Several example
           COMBINE archives are available here
           <a
             href="https://github.com/biosimulators/Biosimulators_test_suite"
@@ -195,9 +206,15 @@
     >
       <p>
         The simulation tools in the BioSimulators collection support different
-        model formats, modeling frameworks, simulation types, simulation algorithms, and observables. First, determine the format and framework of your model and the simulation type and algorithm which you would like to execute. Second, browse the
-        <a [routerLink]="['/simulators']">simulators</a> to identify a tool which can execute your project.
-        In addition, RunBioSimulations provides a tool which can recommend simulators for specific combinations of model formats, modeling frameworks, simulation types, and simulation algorithms.
+        model formats, modeling frameworks, simulation types, simulation
+        algorithms, and observables. First, determine the format and framework
+        of your model and the simulation type and algorithm which you would like
+        to execute. Second, browse the
+        <a [routerLink]="['/simulators']">simulators</a> to identify a tool
+        which can execute your project. In addition, RunBioSimulations provides
+        a tool which can recommend simulators for specific combinations of model
+        formats, modeling frameworks, simulation types, and simulation
+        algorithms.
       </p>
     </biosimulations-text-page-content-section>
 
@@ -211,7 +228,8 @@
           ><biosimulations-icon icon="link"></biosimulations-icon
         ></a>
         is a simple application that uses BioSimulators to execute modeling
-        studies. runBioSimulations also provides a REST API for programmatically executing simulations.
+        studies. runBioSimulations also provides a REST API for programmatically
+        executing simulations.
       </p>
     </biosimulations-text-page-content-section>
 
@@ -370,13 +388,15 @@
       tocSection="Executing simulations via CLIs"
     >
       <p>
-        The command-line interfaces for simulation tools can also be installed and run locally. 
-        Note, this typically requires additional effort beyond using the Docker images because it 
-        requires installing the dependencies for simulation tools.
+        The command-line interfaces for simulation tools can also be installed
+        and run locally. Note, this typically requires additional effort beyond
+        using the Docker images because it requires installing the dependencies
+        for simulation tools.
       </p>
 
       <p>
-        Please follow these steps to use a command-line interface for a simulation tool to execute a modeling study.
+        Please follow these steps to use a command-line interface for a
+        simulation tool to execute a modeling study.
       </p>
 
       <ol class="vertically-spaced">
@@ -393,16 +413,16 @@
         </li>
         <li>
           <b>Install the command-line application for the simulation tool.</b>
-          From your console, use pip to install the Python package which provides
-          the command-line application. The names of the Python packages which provide
-          the command-line applications are available from the pages for
-          each simulation tool.
+          From your console, use pip to install the Python package which
+          provides the command-line application. The names of the Python
+          packages which provide the command-line applications are available
+          from the pages for each simulation tool.
         </li>
         <li>
           <p>
             <b
-              >Use the command-line program to execute a simulation project and save
-              its results:</b
+              >Use the command-line program to execute a simulation project and
+              save its results:</b
             >
             Execute the following from your console:
           </p>
@@ -412,10 +432,9 @@
     --out-dir {{ '{' }} /path/to/save/outputs {{ '}' }}</code></pre>
 
           <p>
-            In the above example, the simulation project is located at 
-            <code
-              >/path/to/COMBINE-archive.omex</code
-            > and the results will be saved to <code>/path/to/save/outputs</code>.
+            In the above example, the simulation project is located at
+            <code>/path/to/COMBINE-archive.omex</code> and the results will be
+            saved to <code>/path/to/save/outputs</code>.
           </p>
         </li>
       </ol>
@@ -426,13 +445,17 @@
       tocSection="Executing simulations with Python"
     >
       <p>
-        The Python APIs for simulation tools provide additional flexibility beyond their Docker images and command-line interaces. 
-        However, using these APIs typically requires additional effort beyond using the Docker images because it 
-        requires installing the dependencies for simulation tools, as well as some knowledge of the data structures used by BioSimulators.
+        The Python APIs for simulation tools provide additional flexibility
+        beyond their Docker images and command-line interaces. However, using
+        these APIs typically requires additional effort beyond using the Docker
+        images because it requires installing the dependencies for simulation
+        tools, as well as some knowledge of the data structures used by
+        BioSimulators.
       </p>
 
       <p>
-        Please follow these steps to use a Python API for a simulation tool to execute a modeling study.
+        Please follow these steps to use a Python API for a simulation tool to
+        execute a modeling study.
       </p>
 
       <ol class="vertically-spaced">
@@ -449,26 +472,25 @@
         </li>
         <li>
           <b>Install the Python API for the simulation tool.</b>
-          From your console, use pip to install the Python package which provides
-          the Python API. The names of the Python packages which provide
-          the Python APIs are available from the pages for
-          each simulation tool.
+          From your console, use pip to install the Python package which
+          provides the Python API. The names of the Python packages which
+          provide the Python APIs are available from the pages for each
+          simulation tool.
         </li>
         <li>
-          <b>Open a Python shell.</b>          
+          <b>Open a Python shell.</b>
         </li>
         <li>
           <b>Import the Python API for the simulation tool.</b>
-          Import the Python module which provides
-          the Python API. The names of the Python modules which provide
-          the Python APIs are available from the pages for
-          each simulation tool.
+          Import the Python module which provides the Python API. The names of
+          the Python modules which provide the Python APIs are available from
+          the pages for each simulation tool.
         </li>
         <li>
           <p>
             <b
-              >Use the Python API to execute a simulation project and save
-              its results:</b
+              >Use the Python API to execute a simulation project and save its
+              results:</b
             >
             Execute the following from your Python shell:
           </p>
@@ -479,13 +501,17 @@ output_dirname = '{ /path/to/save/outputs }'
 { simulator_module }.exec_sedml_docs_in_combine_archive(archive_filename, output_dirname)"></code></pre>
 
           <p>
-            In the above example, the simulation project is located at 
-            <code
-              >/path/to/COMBINE-archive.omex</code
-            > and the results will be saved to <code>/path/to/save/outputs</code>.
+            In the above example, the simulation project is located at
+            <code>/path/to/COMBINE-archive.omex</code> and the results will be
+            saved to <code>/path/to/save/outputs</code>.
           </p>
 
-          <p>The <code>ghcr.io/biosimulators/biosimulators</code> Docker image contains most of the available Python APIs inside a single Pipenv environment. An ipython shell to this environment can be launched by executing the following from your console:</p>
+          <p>
+            The <code>ghcr.io/biosimulators/biosimulators</code> Docker image
+            contains most of the available Python APIs inside a single Pipenv
+            environment. An ipython shell to this environment can be launched by
+            executing the following from your console:
+          </p>
 
           <pre><code>docker pull ghcr.io/biosimulators/biosimulators
 docker run -it --rm ghcr.io/biosimulators/biosimulators
@@ -680,7 +706,27 @@ docker run -it --rm ghcr.io/biosimulators/biosimulators
             </li>
           </ul>
 
-          <p>The easiest way to create a BioSimulators-compliant command-line interface is to create a BioSimulators-compliant Python API and then use methods in BioSimulators-utils <a href="https://github.com/biosimulators/Biosimulators_utils" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to build a command-line interface from this API. Implementing a BioSimulators-compliant Python API primarily entails implementing a single method for executing a single simulation of a single model. Additional information about creating BioSimulators-compliant Python APIs, command-line interfaces, and Docker images, including templates, is available <a href="https://github.com/biosimulators/Biosimulators_simulator_template" target="_blank">here</a>.</p>
+          <p>
+            The easiest way to create a BioSimulators-compliant command-line
+            interface is to create a BioSimulators-compliant Python API and then
+            use methods in BioSimulators-utils
+            <a
+              href="https://github.com/biosimulators/Biosimulators_utils"
+              target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon
+            ></a>
+            to build a command-line interface from this API. Implementing a
+            BioSimulators-compliant Python API primarily entails implementing a
+            single method for executing a single simulation of a single model.
+            Additional information about creating BioSimulators-compliant Python
+            APIs, command-line interfaces, and Docker images, including
+            templates, is available
+            <a
+              href="https://github.com/biosimulators/Biosimulators_simulator_template"
+              target="_blank"
+              >here</a
+            >.
+          </p>
         </li>
         <li>
           <b
@@ -957,7 +1003,17 @@ docker run -it --rm ghcr.io/biosimulators/biosimulators
           <pre><code>pip install biosimulators-test-suite
 biosimulators-test-suite validate {{ '{' }} dockerhub-user-id {{ '}' }}/{{ '{' }} image-id {{ '}' }} {{ '{' }} path-to-specifications.json {{ '}' }}</code></pre>
 
-          <p>The command-line program for the test suite provides several helpful options such as for executing tasks directly through command-line interfaces and for executing individual test cases. More information is available <a href="https://github.com/biosimulators/Biosimulators_test_suite" target="_blank">here</a></p>
+          <p>
+            The command-line program for the test suite provides several helpful
+            options such as for executing tasks directly through command-line
+            interfaces and for executing individual test cases. More information
+            is available
+            <a
+              href="https://github.com/biosimulators/Biosimulators_test_suite"
+              target="_blank"
+              >here</a
+            >
+          </p>
         </li>
       </ol>
     </biosimulations-text-page-content-section>

@@ -162,16 +162,17 @@
         heading="Do all of the simulators provide consistent Python APIs?"
       >
         Only the simulators that have a curation status of 5 stars provide
-        Python APIs images that support the BioSimulators conventions. Going forward,
-        we aim to encourage the community to provide additional standardized
-        Docker images.
+        Python APIs images that support the BioSimulators conventions. Going
+        forward, we aim to encourage the community to provide additional
+        standardized Docker images.
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="How can I use a simulator Docker image to execute a simulation?"
       >
         <p>
-          Instructions for using simulator Docker images to execute simulations are available <a [routerLink]="['/help']">here</a>.
+          Instructions for using simulator Docker images to execute simulations
+          are available <a [routerLink]="['/help']">here</a>.
         </p>
       </biosimulations-q-a>
 
@@ -179,7 +180,8 @@
         heading="How can I use a command-line interface image to execute a simulation?"
       >
         <p>
-          Instructions for using command-line interfaces to execute simulations are available <a [routerLink]="['/help']">here</a>.
+          Instructions for using command-line interfaces to execute simulations
+          are available <a [routerLink]="['/help']">here</a>.
         </p>
       </biosimulations-q-a>
 
@@ -187,7 +189,8 @@
         heading="How can I use a Python API to execute a simulation?"
       >
         <p>
-          Instructions for using simulator Python APIs to execute simulations are available <a [routerLink]="['/help']">here</a>.
+          Instructions for using simulator Python APIs to execute simulations
+          are available <a [routerLink]="['/help']">here</a>.
         </p>
       </biosimulations-q-a>
 
@@ -195,16 +198,50 @@
         heading="Is a Docker image available with all of the Python APIs available?"
       >
         <p>
-          Yes! The <code>ghcr.io/biosimulators/biosimulators</code> image contains most of the Python APIs (90% as of 2021-09-23). More information about the image is available <a href="https://github.com/biosimulators/Biosimulators/pkgs/container/biosimulators" target="_blank">here</a>.
+          Yes! The <code>ghcr.io/biosimulators/biosimulators</code> image
+          contains most of the Python APIs (90% as of 2021-09-23). More
+          information about the image is available
+          <a
+            href="https://github.com/biosimulators/Biosimulators/pkgs/container/biosimulators"
+            target="_blank"
+            >here</a
+          >.
         </p>
         <p>
-          The Dockerfile for this image is available <a href="https://github.com/biosimulators/Biosimulators/blob/dev/Dockerfile" target="_blank">here</a>. To the extent possible, this Docker image uses Pipenv to manage the Python environment inside the image. The <code>Pipfile</code> and <code>Pipfile.lock</code> files for this environment are available <a href="https://github.com/biosimulators/Biosimulators/tree/dev/Dockerfile-assets" target="_blank">here</a>.
-        </p>        
-        <p>
-          The goal of this image is to provide the latest mutually-compatible versions of the Python APIs for simulation tools. When simulation tools require conflicting versions of dependencies, this image may not have the latest version of each simulation tool. In such cases, individual simulation tools can be updated by running <code>pipenv install --selective-upgrade ...</code> or <code>pipenv run pip install --upgrade ...</code>. Note, such upgrading may break the functionality of other tools.
+          The Dockerfile for this image is available
+          <a
+            href="https://github.com/biosimulators/Biosimulators/blob/dev/Dockerfile"
+            target="_blank"
+            >here</a
+          >. To the extent possible, this Docker image uses Pipenv to manage the
+          Python environment inside the image. The <code>Pipfile</code> and
+          <code>Pipfile.lock</code> files for this environment are available
+          <a
+            href="https://github.com/biosimulators/Biosimulators/tree/dev/Dockerfile-assets"
+            target="_blank"
+            >here</a
+          >.
         </p>
         <p>
-          In addition, the <code>ghcr.io/biosimulators/biosimulators-base</code> image contains the non-Python dependencies for these the Python APIs. More information about the image is available <a href="https://github.com/biosimulators/Biosimulators/pkgs/container/biosimulators-base" target="_blank">here</a>.
+          The goal of this image is to provide the latest mutually-compatible
+          versions of the Python APIs for simulation tools. When simulation
+          tools require conflicting versions of dependencies, this image may not
+          have the latest version of each simulation tool. In such cases,
+          individual simulation tools can be updated by running
+          <code>pipenv install --selective-upgrade ...</code> or
+          <code>pipenv run pip install --upgrade ...</code>. Note, such
+          upgrading may break the functionality of other tools.
+        </p>
+        <p>
+          In addition, the
+          <code>ghcr.io/biosimulators/biosimulators-base</code> image contains
+          the non-Python dependencies for these the Python APIs. More
+          information about the image is available
+          <a
+            href="https://github.com/biosimulators/Biosimulators/pkgs/container/biosimulators-base"
+            target="_blank"
+            >here</a
+          >.
         </p>
       </biosimulations-q-a>
 
@@ -238,14 +275,24 @@
         heading="Do any of the simulation tools need commercial licenses?"
       >
         <p>
-          No! Currently, no validated simulation tool requires a commercial license. However, some tools can execute simulations more quickly with commercial libraries such as Gurobi <a href="https://www.gurobi.com/products/gurobi-optimizer/" target="_blank"
-            ><biosimulations-icon icon="link"></biosimulations-icon></a
-          > and IBM CPLEX <a href="https://www.ibm.com/analytics/cplex-optimizer" target="_blank"
+          No! Currently, no validated simulation tool requires a commercial
+          license. However, some tools can execute simulations more quickly with
+          commercial libraries such as Gurobi
+          <a
+            href="https://www.gurobi.com/products/gurobi-optimizer/"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          and IBM CPLEX
+          <a
+            href="https://www.ibm.com/analytics/cplex-optimizer"
+            target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >. Gurobi and IBM both provide free licenses for academic research.
         </p>
         <p>
-          Currently, runBioSimulations can execute COBRApy and RBApy with Gurobi.
+          Currently, runBioSimulations can execute COBRApy and RBApy with
+          Gurobi.
         </p>
       </biosimulations-q-a>
 
@@ -253,7 +300,11 @@
         heading="How can I use a commercial license with a simulation tool on my own machine?"
       >
         <p>
-          Currently, COBRApy and RBApy can read license keys for Gurobi through environment variables which start with the prefix <code>GRB_</code>. For example, COBRApy and RBApy can use Gurobi (using keys for Gurobi's Web License Service for Container Environments Only <a href="https://www.gurobi.com/web-license-service/" target="_blank"
+          Currently, COBRApy and RBApy can read license keys for Gurobi through
+          environment variables which start with the prefix <code>GRB_</code>.
+          For example, COBRApy and RBApy can use Gurobi (using keys for Gurobi's
+          Web License Service for Container Environments Only
+          <a href="https://www.gurobi.com/web-license-service/" target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >) inside Docker containers as illustrated below.
         </p>
@@ -273,7 +324,7 @@
           ><biosimulations-icon icon="link"></biosimulations-icon
         ></a>
         to register an additional simulation tool.
-      </biosimulations-q-a>      
+      </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="Can I submit a simulation tool to the BioSimulators registry for which there is no Docker image, or for which there is a Docker image that is not consistent with the BioSimulators conventions?"
@@ -287,7 +338,8 @@
         <p>
           Note, BioSimulators can only validate simulation tools that support
           these conventions. Consequently, when creating GitHub issues to submit
-          simulation tools that do not support the BioSimulators conventions, set
+          simulation tools that do not support the BioSimulators conventions,
+          set
           <code>validateImage</code> to <code>false</code> to decline validation
           of the Docker image (or lack thereof) for your simulation tool. The
           validation status of your simulation tool (passed or skipped) will be
@@ -332,7 +384,7 @@
           a member of the team for your simulator, you will need to request
           access from the maintainers of the GitHub team for your tool.
         </p>
-      </biosimulations-q-a>      
+      </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="How can I create a shield for a simulation tool to embed into my website?"
@@ -349,7 +401,7 @@
               >https://img.shields.io/badge/BioSimulators-registered-green</code
             >
             to generate the badge below. <br /><img
-                src="https://img.shields.io/badge/BioSimulators-registered-green"
+              src="https://img.shields.io/badge/BioSimulators-registered-green"
             />
           </li>
           <li>
@@ -357,7 +409,7 @@
             <br />Use
             <code>https://img.shields.io/badge/BioSimulators-valid-green</code>
             to generate the badge below. <br /><img
-                src="https://img.shields.io/badge/BioSimulators-valid-green"
+              src="https://img.shields.io/badge/BioSimulators-valid-green"
             />
           </li>
           <li>
@@ -370,7 +422,7 @@
               latest-version {{ '}' }}-green</code
             >
             to generate the badge below. <br /><img
-                src="https://img.shields.io/badge/BioSimulators-2.2.0-green"
+              src="https://img.shields.io/badge/BioSimulators-2.2.0-green"
             />
           </li>
         </ul>

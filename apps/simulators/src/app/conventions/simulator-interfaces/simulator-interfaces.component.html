@@ -72,8 +72,8 @@
           (e.g., to use different programming languages and dependencies), make
           it easy for BioSimulators to archive each version of each tool, and
           make it easy for investigators to use tools to execute COMBINE/OMEX
-          archives. However, these entrypoints are not optimally efficient for all use cases,
-          and they provide investigators limited flexibility.
+          archives. However, these entrypoints are not optimally efficient for
+          all use cases, and they provide investigators limited flexibility.
         </li>
         <li>
           <b>Python APIs:</b> APIs provide investigators additional flexibility,
@@ -92,7 +92,15 @@
         BioSimulators-compliant interfaces in three steps:
       </p>
       <ol>
-        <li>Use BioSimulators-utils <a href="https://github.com/biosimulators/Biosimulators_utils" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> to develop a compliant Python API.</li>
+        <li>
+          Use BioSimulators-utils
+          <a
+            href="https://github.com/biosimulators/Biosimulators_utils"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          to develop a compliant Python API.
+        </li>
         <li>
           Use <code>biosimulators_utils.simulator.cli.build_cli</code> to
           construct a command-line application from their Python API.
@@ -186,22 +194,27 @@ optional arguments:
         <li>
           <b><code>preprocess_sed_task</code></b> (<code
             >(task: Task, variables: list[Variable]) -> Any</code
-          >): Preprocess the information required to execute a SED-ML task. This method enables users to efficiently execute multiple simulation steps (using <code>exec_sed_task</code>) without unnecessary duplicate computations, such as to import models from files, validate models, and identify suitable algorithms.
+          >): Preprocess the information required to execute a SED-ML task. This
+          method enables users to efficiently execute multiple simulation steps
+          (using <code>exec_sed_task</code>) without unnecessary duplicate
+          computations, such as to import models from files, validate models,
+          and identify suitable algorithms.
         </li>
         <li>
           <b><code>exec_sed_task</code></b> (<code
-            >(task: Task, variables: list[Variable], preprocessed_task:Any=None) -> Tuple[VariableResults,
-            TaskLog]</code
+            >(task: Task, variables: list[Variable], preprocessed_task:Any=None)
+            -> Tuple[VariableResults, TaskLog]</code
           >): Execute a single SED-ML task involving a single simulation of a
           single model and return the predicted value of each requested output
           variable and a log of the execution of the simulation.
         </li>
         <li>
           <b><code>exec_sed_doc</code></b> (<code
-            >(doc: SedDocument, variables: list[Variable]) -> Tuple[ReportResults,
-            SedDocumentLog]</code
-          >): Execute a single SED-ML document involving one or more simulations of one
-          or more models and return data for each SED-ML report and plot and a log of the execution of the simulations, reports, and plots.
+            >(doc: SedDocument, variables: list[Variable]) ->
+            Tuple[ReportResults, SedDocumentLog]</code
+          >): Execute a single SED-ML document involving one or more simulations
+          of one or more models and return data for each SED-ML report and plot
+          and a log of the execution of the simulations, reports, and plots.
         </li>
         <li>
           <b><code>exec_sedml_docs_in_combine_archive</code></b> (<code
