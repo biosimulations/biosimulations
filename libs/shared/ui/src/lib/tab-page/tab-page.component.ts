@@ -8,7 +8,6 @@ import {
   ViewChild,
   ContentChildren,
   QueryList,
-  DoCheck,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { MatTab, MatTabGroup, MatTabChangeEvent } from '@angular/material/tabs';
