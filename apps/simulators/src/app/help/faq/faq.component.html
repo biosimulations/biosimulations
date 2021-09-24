@@ -235,6 +235,37 @@
       </biosimulations-q-a>
 
       <biosimulations-q-a
+        heading="Do any of the simulation tools need commercial licenses?"
+      >
+        <p>
+          No! Currently, no validated simulation tool requires a commercial license. However, some tools can execute simulations more quickly with commercial libraries such as Gurobi <a href="https://www.gurobi.com/products/gurobi-optimizer/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          > and IBM CPLEX <a href="https://www.ibm.com/analytics/cplex-optimizer" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >. Gurobi and IBM both provide free licenses for academic research.
+        </p>
+        <p>
+          Currently, runBioSimulations can execute COBRApy and RBApy with Gurobi.
+        </p>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
+        heading="How can I use a commercial license with a simulation tool on my own machine?"
+      >
+        <p>
+          Currently, COBRApy and RBApy can read license keys for Gurobi through environment variables which start with the prefix <code>GRB_</code>. For example, COBRApy and RBApy can use Gurobi (using keys for Gurobi's Web License Service for Container Environments Only <a href="https://www.gurobi.com/web-license-service/" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >) inside Docker containers as illustrated below.
+        </p>
+        <pre><code>docker run -it --rm \
+  --env \
+    GRB_WLSACCESSID=********-****-****-****-************ \
+    GRB_WLSSECRET=********-****-****-****-************ \
+    GRB_LICENSEID=****** \
+  ghcr.io/biosimulators/cobrapy</code></pre>
+      </biosimulations-q-a>
+
+      <biosimulations-q-a
         heading="How can I submit a simulation tool to BioSimulators?"
       >
         Please submit an issue
