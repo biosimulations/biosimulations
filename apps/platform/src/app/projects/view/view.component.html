@@ -4,6 +4,7 @@
   </div>
 
   <!-- The overview tab for the entire project-->
+
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
     <ng-container *ngIf="metadata$ | async as metadata">
       <biosimulations-project-overview [metadata]="metadata">
@@ -27,15 +28,15 @@
   <!-- End information about the simulation run -->
 
   <!--Information about files in project-->
-  <ng-container *ngIf="vegaFiles$ | async as specs">
+  <ng-container *ngIf="files$ | async as files">
     <biosimulations-tab-page-tab
       heading="Files"
       icon="file"
       urlHashFragment="files"
     >
-      <pre *ngFor="let file of specs">
-      {{ file | json }}
-      {{ file | async | json }}
+      <pre>
+      {{ files | json }}
+      
     </pre
       >
     </biosimulations-tab-page-tab>
@@ -49,9 +50,11 @@
         heading="{{ spec.path || 'Figure ' + (i + 1) + '/' + specs.length }}"
         icon="chart"
       >
-        <biosimulations-vega-visualization [spec]="spec.spec">
-        </biosimulations-vega-visualization>
-        <biosimulations-project-figure> </biosimulations-project-figure>
+        <biosimulations-project-figure
+          [figure]="spec"
+          [sedDocumentsConfiguration]="files$ | async"
+        >
+        </biosimulations-project-figure>
       </biosimulations-tab-page-tab>
     </ng-container>
   </ng-container>
