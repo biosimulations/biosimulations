@@ -755,7 +755,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
           this.addModelVariable();
           const varVal = {
-            id: modelVar.id.substring(0, modelVar.id.lastIndexOf('_')),
+            id: modelVar.id,
             name: modelVar?.name || null,
             type: modelVar?.symbol
               ? ModelVariableType.symbol

@@ -211,15 +211,15 @@
           <biosimulations-icon icon="logicalSimulation"></biosimulations-icon>
         </div>
         <div class="form-section-head-title-subtitle">
-          <div class="form-section-title">Simulation *</div>
+          <div class="form-section-title">Modeling and simulation methods *</div>
           <div class="form-section-subtitle">
-            Select a type of simulation and configure its parameters.
+            Select a type of model framework, a type of simulation, and an algorithm for executing the simulation.
           </div>
         </div>
       </div>
       <div class="form-section-body">
         <div class="form-field-group">
-          <div class="columns two-columns">
+          <div class="columns three-columns">
             <mat-form-field appearance="fill">
               <biosimulations-icon icon="math" matPrefix></biosimulations-icon>
               <mat-label>Select a modeling framework</mat-label>
@@ -254,9 +254,28 @@
                 >
               </mat-select>
             </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon
+                icon="construction"
+                matPrefix
+              ></biosimulations-icon>
+              <mat-label>Select a simulation algorithm</mat-label>
+              <mat-select
+                formControlName="simulationAlgorithm"
+                (ngModelChange)="changeSimulationAlgorithm()"
+                required
+              >
+                <mat-option
+                  *ngFor="let simulationAlgorithm of simulationAlgorithms"
+                  [value]="simulationAlgorithm.id"
+                  >{{ simulationAlgorithm.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
           </div>
           <mat-hint
-            >Select a modeling framework and a type of simulation.</mat-hint
+            >Select a modeling framework, a type of simulation, and an algorithm for executing the simulation.</mat-hint
           >
           <mat-error
             *ngIf="
@@ -272,8 +291,30 @@
             "
             >Please select a type of simulation.</mat-error
           >
+          <mat-error
+            *ngIf="
+              (formGroup.get('simulationAlgorithm')?.touched || submitPushed) &&
+              formGroup.hasError('required', 'simulationAlgorithm')
+            "
+            >Please select a simulation algorithm.</mat-error
+          >
         </div>
+      </div>
+    </div>
 
+    <div class="form-section" *ngIf="['SedOneStepSimulation', 'SedUniformTimeCourseSimulation'].includes(formGroup.value.simulationType)">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="logicalSimulation"></biosimulations-icon>
+        </div>
+        <div class="form-section-head-title-subtitle">
+          <div class="form-section-title">Simulation *</div>
+          <div class="form-section-subtitle">
+            Configure a simulation.
+          </div>
+        </div>
+      </div>
+      <div class="form-section-body">
         <div
           class="form-field-group"
           *ngIf="formGroup.value.simulationType === 'SedOneStepSimulation'"
@@ -481,50 +522,6 @@
             "
             >The output end time must be at least the output start
             time.</mat-error
-          >
-        </div>
-      </div>
-    </div>
-
-    <div class="form-section">
-      <div class="form-section-head">
-        <div class="mat-form-field-prefix">
-          <biosimulations-icon icon="construction"></biosimulations-icon>
-        </div>
-        <div class="form-section-head-title-subtitle">
-          <div class="form-section-title">Simulation algorithm *</div>
-          <div class="form-section-subtitle">
-            Select a simulation algorithm.
-          </div>
-        </div>
-      </div>
-      <div class="form-section-body">
-        <div class="form-field-group">
-          <mat-form-field appearance="fill">
-            <biosimulations-icon
-              icon="construction"
-              matPrefix
-            ></biosimulations-icon>
-            <mat-label>Select a simulation algorithm</mat-label>
-            <mat-select
-              formControlName="simulationAlgorithm"
-              (ngModelChange)="changeSimulationAlgorithm()"
-              required
-            >
-              <mat-option
-                *ngFor="let simulationAlgorithm of simulationAlgorithms"
-                [value]="simulationAlgorithm.id"
-                >{{ simulationAlgorithm.name }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-          <mat-hint>Select a simulation algorithm.</mat-hint>
-          <mat-error
-            *ngIf="
-              (formGroup.get('simulationAlgorithm')?.touched || submitPushed) &&
-              formGroup.hasError('required', 'simulationAlgorithm')
-            "
-            >Please select a simulation algorithm.</mat-error
           >
         </div>
       </div>
