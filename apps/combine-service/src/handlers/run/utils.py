@@ -143,7 +143,7 @@ def exec_in_subprocess(func, *args, poll_interval=0.01, timeout=None, **kwargs):
         func (:obj:`types.FunctionType`): function
         * args (:obj:`list`): list of positional arguments for the function
         poll_interval (:obj:`float`, optional): interval to poll the status of the subprocess
-        timeout (:obj:`float`, optional): maximum execution time in seconds 
+        timeout (:obj:`float`, optional): maximum execution time in seconds
         **kwargs (:obj:`dict`, optional): dictionary of keyword arguments for the function
 
     Returns:

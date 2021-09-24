@@ -140,9 +140,23 @@ class SimulatorsHaveValidApisTestCase(unittest.TestCase):
 
         results, log = api.exec_sedml_docs_in_combine_archive(archive_filename, out_dir, config=config)
 
+        # exec_sed_doc
+        if not hasattr(api, 'exec_sed_doc'):
+            raise NotImplementedError('API must have a `exec_sed_doc` callable')
+        if not callable(api.exec_sed_doc):
+            raise ValueError('`exec_sed_doc` must be a callable, not `{}`'.format(
+                api.exec_sed_doc.__class__.__name__))
+
         # exec_sed_task
         if not hasattr(api, 'exec_sed_task'):
             raise NotImplementedError('API must have a `exec_sed_task` callable')
         if not callable(api.exec_sed_task):
             raise ValueError('`exec_sed_task` must be a callable, not `{}`'.format(
                 api.exec_sed_task.__class__.__name__))
+
+        # preprocess_sed_task
+        if not hasattr(api, 'preprocess_sed_task'):
+            raise NotImplementedError('API must have a `preprocess_sed_task` callable')
+        if not callable(api.preprocess_sed_task):
+            raise ValueError('`preprocess_sed_task` must be a callable, not `{}`'.format(
+                api.preprocess_sed_task.__class__.__name__))

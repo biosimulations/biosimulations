@@ -103,6 +103,13 @@
     package: biosimulators_pysces
   exampleCombineArchive: sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex
 
+- id: rbapy
+  name: RBApy
+  api:
+    module: biosimulators_rbapy
+    package: biosimulators_rbapy
+  exampleCombineArchive: rba/Escherichia-coli-K12-WT.omex
+
 - id: smoldyn
   name: Smoldyn
   api:
