@@ -281,7 +281,40 @@ export class ViewSimulatorComponent implements OnInit {
     );
   }
 
-  public copyPipInstallCmd(pythonPackage = '{ package }'): void {
+  public copyCliInstallCmd(cmd: string): void {
+    navigator.clipboard.writeText(cmd);
+    this.snackBar.open(
+      'The command to install the command-line application was copied to your clipboard.',
+      undefined,
+      {
+        duration: snackBarDuration,
+      },
+    );
+  }
+
+  public copyRunCliCmd(cmd: string): void {
+    navigator.clipboard.writeText(cmd);
+    this.snackBar.open(
+      'The command to run the command-line application was copied to your clipboard.',
+      undefined,
+      {
+        duration: snackBarDuration,
+      },
+    );
+  }
+
+  public copyCliHelpCmd(cmd: string): void {
+    navigator.clipboard.writeText(cmd + ' --help');
+    this.snackBar.open(
+      'The command to get help about the command-line application was copied to your clipboard.',
+      undefined,
+      {
+        duration: snackBarDuration,
+      },
+    );
+  }
+
+  public copyPythonApiInstallCmd(pythonPackage = '{ package }'): void {
     const cmd = 'pip install ' + pythonPackage;
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(

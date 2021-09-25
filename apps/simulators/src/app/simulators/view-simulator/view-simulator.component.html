@@ -75,12 +75,12 @@
           </div>
         </div>
 
-        <div class="section" *ngIf="simulator.image">
-          <h3>BioSimulators-compliant Docker image</h3>
-          <div class="section-content">
+        <div class="section" *ngIf="simulator.image && simulator.validated">
+          <h3>Run simulations with standardized Docker image</h3>
+          <div class="section-content copy-image">
             <ul class="icon-list">
               <li>
-                <biosimulations-icon icon="docker"></biosimulations-icon>
+                <biosimulations-icon icon="info"></biosimulations-icon>
                 <a
                   [href]="
                     'https://github.com/orgs/biosimulators/packages/container/package/' +
@@ -89,19 +89,13 @@
                   target="_blank"
                   class="text"
                 >
-                  ghcr.io/biosimulators/{{ simulator.id }} </a
-                ><ng-container *ngIf="simulator.image.operatingSystemType">
-                  ({{ simulator.image.operatingSystemType }})</ng-container
+                  GHCR:biosimulators/{{ simulator.id }} </a
                 >
               </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="section" *ngIf="simulator.image">
-          <h3>Run simulations with Docker</h3>
-          <div class="section-content copy-image">
-            <ul class="icon-list">
+              <li *ngIf="simulator.image.operatingSystemType">
+                <biosimulations-icon icon="info"></biosimulations-icon>                
+                OS: {{ simulator.image.operatingSystemType }}
+              </li>
               <li>
                 <biosimulations-icon icon="download"></biosimulations-icon>
                 <div class="code">docker pull {{ simulator.image.url }}</div>
@@ -131,19 +125,113 @@
               <li>
                 <biosimulations-icon icon="help"></biosimulations-icon>
                 <div>
-                  <a [routerLink]="['/help']">Usage instructions</a>
+                  <a [routerLink]="['/help']">Instructions</a>
                 </div>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="section" *ngIf="simulator?.pythonApi">
-          <h3>BioSimulators-compliant Python API</h3>
-          <div class="section-content">
+        <div class="section" *ngIf="simulator.image && simulator?.pythonApi && simulator.validated">
+          <h3>Run simulations with standardized CLI</h3>
+          <div class="section-content copy-image">
             <ul class="icon-list">
               <li>
-                <biosimulations-icon icon="python"></biosimulations-icon>
+                <biosimulations-icon icon="info"></biosimulations-icon>
+                <a
+                  [href]="
+                    simulator?.pythonApi?.package?.startsWith('http://') ||
+                    simulator?.pythonApi?.package?.startsWith('https://')
+                      ? simulator?.pythonApi?.package
+                      : 'https://pypi.org/project/' +
+                        simulator?.pythonApi?.package +
+                        '/'
+                  "
+                  target="_blank"
+                  class="text"
+                >
+                  <span
+                    *ngIf="
+                      !(
+                        simulator?.pythonApi?.package?.startsWith('http://') ||
+                        simulator?.pythonApi?.package?.startsWith('https://')
+                      )
+                    "
+                    >PyPI:</span
+                  >{{ simulator?.pythonApi?.package }}
+                </a>
+              </li>            
+              <li>
+                <biosimulations-icon icon="download"></biosimulations-icon>
+                <div class="code">
+                  pip install {{ simulator?.pythonApi?.package }}
+                </div>
+                <button
+                  mat-icon-button
+                  class="biosimulations-button primary"
+                  title="Copy to clipboard"
+                  (click)="copyCliInstallCmd('pip install ' + simulator?.pythonApi?.package)"
+                >
+                  <biosimulations-icon icon="copy"></biosimulations-icon>
+                </button>
+                <div class="clear-float"></div>
+              </li>
+              <li>
+                <biosimulations-icon icon="logs"></biosimulations-icon>
+                <div class="code">
+                  biosimulators-{{ simulator.id }} ...
+                </div>
+                <button
+                  mat-icon-button
+                  class="biosimulations-button primary"
+                  title="Copy to clipboard"
+                  (click)="copyRunCliCmd('biosimulators-' + simulator.id)"
+                >
+                  <biosimulations-icon icon="copy"></biosimulations-icon>
+                </button>
+                <div class="clear-float"></div>
+              </li>
+              <li>
+                <biosimulations-icon icon="help"></biosimulations-icon>
+                <div class="code">
+                  biosimulators-{{ simulator.id }} --help
+                </div>
+                <button
+                  mat-icon-button
+                  class="biosimulations-button primary"
+                  title="Copy to clipboard"
+                  (click)="copyCliHelpCmd('biosimulators-' + simulator.id)"
+                >
+                  <biosimulations-icon icon="copy"></biosimulations-icon>
+                </button>
+                <div class="clear-float"></div>
+              </li>
+              <li *ngIf="simulator?.pythonApi?.installationInstructions">
+                <biosimulations-icon icon="help"></biosimulations-icon>
+                <div>
+                  <a
+                    [href]="simulator?.pythonApi?.installationInstructions"
+                    target="_blank"
+                    >Installation instructions</a
+                  >
+                </div>
+              </li>
+              <li>
+                <biosimulations-icon icon="help"></biosimulations-icon>
+                <div>
+                  <a [routerLink]="['/help']">Getting started guide</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section" *ngIf="simulator?.pythonApi && simulator.validated">
+          <h3>Run simulations with standardized Python API</h3>
+          <div class="section-content copy-image">
+            <ul class="icon-list">
+              <li>
+                <biosimulations-icon icon="info"></biosimulations-icon>
                 <a
                   [href]="
                     simulator?.pythonApi?.package?.startsWith('http://') ||
@@ -167,14 +255,6 @@
                   >{{ simulator?.pythonApi?.package }}
                 </a>
               </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="section" *ngIf="simulator?.pythonApi">
-          <h3>Run simulations with Python API</h3>
-          <div class="section-content copy-image">
-            <ul class="icon-list">
               <li>
                 <biosimulations-icon icon="download"></biosimulations-icon>
                 <div class="code">
@@ -184,7 +264,7 @@
                   mat-icon-button
                   class="biosimulations-button primary"
                   title="Copy to clipboard"
-                  (click)="copyPipInstallCmd(simulator?.pythonApi?.package)"
+                  (click)="copyPythonApiInstallCmd(simulator?.pythonApi?.package)"
                 >
                   <biosimulations-icon icon="copy"></biosimulations-icon>
                 </button>
@@ -218,18 +298,24 @@
               <li>
                 <biosimulations-icon icon="help"></biosimulations-icon>
                 <div>
-                  <a [routerLink]="['/help']">Usage instructions</a>
+                  <a [routerLink]="['/help']">Getting started guide</a>
+                </div>
+              </li>
+              <li>
+                <biosimulations-icon icon="tutorial"></biosimulations-icon>
+                <div>
+                  <a href="https://mybinder.org/v2/gh/biosimulators/Biosimulators_tutorials/HEAD" target="_blank">Tutorials</a>
                 </div>
               </li>
             </ul>
           </div>
         </div>
 
-        <div class="section" *ngIf="simulator.interfaceTypes?.length">
-          <h3>Interfaces</h3>
+        <div class="section" *ngIf="simulator.otherInterfaceTypes?.length">
+          <h3>Other interfaces</h3>
           <div class="section-content">
             <ul class="icon-list">
-              <li *ngFor="let interfaceType of simulator.interfaceTypes">
+              <li *ngFor="let interfaceType of simulator.otherInterfaceTypes">
                 <biosimulations-icon
                   icon="softwareInterface"
                 ></biosimulations-icon>
@@ -357,7 +443,7 @@
         </div>
 
         <div class="section">
-          <h3>Dates</h3>
+          <h3>Registration</h3>
           <div class="section-content">
             <ul class="icon-list">
               <li>

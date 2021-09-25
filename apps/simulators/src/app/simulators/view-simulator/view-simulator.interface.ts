@@ -225,7 +225,7 @@ export interface ViewSimulator {
   identifiers: ViewIdentifier[];
   citations: ViewCitation[];
   algorithms: Observable<ViewAlgorithm[]>;
-  interfaceTypes: string[];
+  otherInterfaceTypes: string[];
   supportedOperatingSystemTypes: string[];
   supportedProgrammingLanguages: ILinguistOntologyId[];
   versions: Observable<ViewVersion[]>;
