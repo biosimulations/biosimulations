@@ -6,6 +6,7 @@
   "appUrl": "https://biosimulations.org/",
   "apiUrl": "https://api.biosimulations.org/",
   "email": "info@biosimulations.org",
+  "tutorialsUrl": null,
   "privacyPolicyVersion": 1,
   "newIssueUrl": "https://github.com/biosimulations/Biosimulations/issues/new/choose",
   "newPullUrl": "https://github.com/biosimulations/Biosimulations/compare",

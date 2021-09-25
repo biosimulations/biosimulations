@@ -6,6 +6,7 @@
   "appUrl": "https://biosimulators.org/",
   "apiUrl": "https://api.biosimulators.org/",
   "email": "info@biosimulators.org",
+  "tutorialsUrl": "https://mybinder.org/v2/gh/biosimulators/Biosimulators_tutorials/HEAD",
   "privacyPolicyVersion": 1,
   "newIssueUrl": "https://github.com/biosimulators/Biosimulators/issues/new/choose",
   "newPullUrl": "https://github.com/biosimulators/Biosimulators/compare",

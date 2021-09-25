@@ -9,6 +9,7 @@ export class ConfigService {
   appUrl!: string;
   apiUrl!: string;
   email!: string;
+  tutorialsUrl!: string | null;
   privacyPolicyVersion = 1;
   newIssueUrl!: string;
   newPullUrl!: string;

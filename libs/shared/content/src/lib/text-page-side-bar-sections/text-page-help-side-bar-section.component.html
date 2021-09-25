@@ -2,7 +2,19 @@
   <div class="hanging-indent">
     <a [routerLink]="['/help']">
       <biosimulations-icon icon="help"></biosimulations-icon>
-      View the Help Page
+      View the help
+    </a>
+  </div>
+  <div class="hanging-indent" *ngIf="tutorialsUrl">
+    <a [href]="tutorialsUrl" target="_blank">
+      <biosimulations-icon icon="tutorial"></biosimulations-icon>
+      View the tutorials
+    </a>
+  </div>
+  <div class="hanging-indent">
+    <a [routerLink]="['/help/faqs']">
+      <biosimulations-icon icon="info"></biosimulations-icon>
+      View the FAQs
     </a>
   </div>
   <div class="hanging-indent">
