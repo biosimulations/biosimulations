@@ -222,7 +222,22 @@ export class ViewSimulatorService {
         .getVersions(sim.id)
         .pipe(map((value: Version[]) => value.map(this.setVersionDate, this))),
       algorithms: viewSimAlgorithms.asObservable(),
-      interfaceTypes: sim.interfaceTypes
+      otherInterfaceTypes: sim.interfaceTypes
+        .filter((interfaceType: SoftwareInterfaceType): boolean => {
+          if (sim?.biosimulators?.validated === true) {
+            if (interfaceType === SoftwareInterfaceType.bioSimulatorsDockerImage && sim?.image) {
+              return false;
+            }
+            if (interfaceType === SoftwareInterfaceType.commandLine && sim?.image) {
+              return false;
+            }
+            if (interfaceType === SoftwareInterfaceType.library && sim?.pythonApi) {
+              return false;
+            }
+          }
+
+          return true;
+        })
         .map((interfaceType: SoftwareInterfaceType): string => {
           return (
             interfaceType.substring(0, 1).toUpperCase() +
