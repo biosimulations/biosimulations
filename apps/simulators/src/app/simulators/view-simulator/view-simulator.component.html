@@ -89,11 +89,11 @@
                   target="_blank"
                   class="text"
                 >
-                  GHCR:biosimulators/{{ simulator.id }} </a
-                >
+                  GHCR:biosimulators/{{ simulator.id }}
+                </a>
               </li>
               <li *ngIf="simulator.image.operatingSystemType">
-                <biosimulations-icon icon="info"></biosimulations-icon>                
+                <biosimulations-icon icon="info"></biosimulations-icon>
                 OS: {{ simulator.image.operatingSystemType }}
               </li>
               <li>
@@ -132,7 +132,10 @@
           </div>
         </div>
 
-        <div class="section" *ngIf="simulator.image && simulator?.pythonApi && simulator.validated">
+        <div
+          class="section"
+          *ngIf="simulator.image && simulator?.pythonApi && simulator.validated"
+        >
           <h3>Run simulations with standardized CLI</h3>
           <div class="section-content copy-image">
             <ul class="icon-list">
@@ -160,7 +163,7 @@
                     >PyPI:</span
                   >{{ simulator?.pythonApi?.package }}
                 </a>
-              </li>            
+              </li>
               <li>
                 <biosimulations-icon icon="download"></biosimulations-icon>
                 <div class="code">
@@ -170,7 +173,11 @@
                   mat-icon-button
                   class="biosimulations-button primary"
                   title="Copy to clipboard"
-                  (click)="copyCliInstallCmd('pip install ' + simulator?.pythonApi?.package)"
+                  (click)="
+                    copyCliInstallCmd(
+                      'pip install ' + simulator?.pythonApi?.package
+                    )
+                  "
                 >
                   <biosimulations-icon icon="copy"></biosimulations-icon>
                 </button>
@@ -178,9 +185,7 @@
               </li>
               <li>
                 <biosimulations-icon icon="logs"></biosimulations-icon>
-                <div class="code">
-                  biosimulators-{{ simulator.id }} ...
-                </div>
+                <div class="code">biosimulators-{{ simulator.id }} ...</div>
                 <button
                   mat-icon-button
                   class="biosimulations-button primary"
@@ -193,9 +198,7 @@
               </li>
               <li>
                 <biosimulations-icon icon="help"></biosimulations-icon>
-                <div class="code">
-                  biosimulators-{{ simulator.id }} --help
-                </div>
+                <div class="code">biosimulators-{{ simulator.id }} --help</div>
                 <button
                   mat-icon-button
                   class="biosimulations-button primary"
@@ -226,7 +229,10 @@
           </div>
         </div>
 
-        <div class="section" *ngIf="simulator?.pythonApi && simulator.validated">
+        <div
+          class="section"
+          *ngIf="simulator?.pythonApi && simulator.validated"
+        >
           <h3>Run simulations with standardized Python API</h3>
           <div class="section-content copy-image">
             <ul class="icon-list">
@@ -264,7 +270,9 @@
                   mat-icon-button
                   class="biosimulations-button primary"
                   title="Copy to clipboard"
-                  (click)="copyPythonApiInstallCmd(simulator?.pythonApi?.package)"
+                  (click)="
+                    copyPythonApiInstallCmd(simulator?.pythonApi?.package)
+                  "
                 >
                   <biosimulations-icon icon="copy"></biosimulations-icon>
                 </button>
@@ -304,7 +312,11 @@
               <li>
                 <biosimulations-icon icon="tutorial"></biosimulations-icon>
                 <div>
-                  <a href="https://mybinder.org/v2/gh/biosimulators/Biosimulators_tutorials/HEAD" target="_blank">Tutorials</a>
+                  <a
+                    href="https://mybinder.org/v2/gh/biosimulators/Biosimulators_tutorials/HEAD"
+                    target="_blank"
+                    >Tutorials</a
+                  >
                 </div>
               </li>
             </ul>

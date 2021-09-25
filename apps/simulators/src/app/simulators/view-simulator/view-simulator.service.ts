@@ -225,13 +225,23 @@ export class ViewSimulatorService {
       otherInterfaceTypes: sim.interfaceTypes
         .filter((interfaceType: SoftwareInterfaceType): boolean => {
           if (sim?.biosimulators?.validated === true) {
-            if (interfaceType === SoftwareInterfaceType.bioSimulatorsDockerImage && sim?.image) {
+            if (
+              interfaceType ===
+                SoftwareInterfaceType.bioSimulatorsDockerImage &&
+              sim?.image
+            ) {
               return false;
             }
-            if (interfaceType === SoftwareInterfaceType.commandLine && sim?.image) {
+            if (
+              interfaceType === SoftwareInterfaceType.commandLine &&
+              sim?.image
+            ) {
               return false;
             }
-            if (interfaceType === SoftwareInterfaceType.library && sim?.pythonApi) {
+            if (
+              interfaceType === SoftwareInterfaceType.library &&
+              sim?.pythonApi
+            ) {
               return false;
             }
           }
