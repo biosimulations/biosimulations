@@ -1,3 +1,10 @@
+# [4.5.0](https://github.com/biosimulations/biosimulations/compare/v4.4.2...v4.5.0) (2021-09-26)
+
+
+### Features
+
+* **simulators:** improved simulator usage examples; closes [#3016](https://github.com/biosimulations/biosimulations/issues/3016) ([a56dea2](https://github.com/biosimulations/biosimulations/commit/a56dea24e33e33b7db215a0cc1f62f4bc94dac7d))
+
 ## [4.4.2](https://github.com/biosimulations/biosimulations/compare/v4.4.1...v4.4.2) (2021-09-23)
 
 
