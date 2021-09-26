@@ -64,7 +64,7 @@
         </div>
         <div class="form-section-head-title-subtitle">
           <div class="form-section-title">License*</div>
-          <div class="form-section-subtitle">Grant BioSimulations to distribute this project.</div>
+          <div class="form-section-subtitle">Grant BioSimulations to store and distribute this project and its simulation results.</div>
         </div>
       </div>
       <div class="form-section-body">
@@ -73,9 +73,9 @@
             formControlName="grantedLicense"
             required
             color="primary"
-          >I grant BioSimulations, free of charge, to distribute this project.</mat-checkbox>
+          >I grant BioSimulations, free of charge, to store and distribute this project and its simulation results.</mat-checkbox>
           <mat-error *ngIf="(formGroup.get('grantedLicense')?.touched || submitPushed) && formGroup.hasError('required', 'grantedLicense')"
-          >Please grant BioSimulations to distribute this project.</mat-error
+          >Please grant BioSimulations to store and distribute this project and its simulation results.</mat-error
           >
         </div>
       </div>
