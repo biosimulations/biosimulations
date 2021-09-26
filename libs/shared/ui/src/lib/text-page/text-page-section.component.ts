@@ -21,7 +21,7 @@ export class TextPageSectionComponent {
   iconHref!: string | null;
 
   @Input()
-  iconClick!: () => void | null;
+  iconClick!: (() => void) | null;
 
   @Input()
   highlight = false;

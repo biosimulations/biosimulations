@@ -170,6 +170,7 @@ export class StackedTableComponent {
           );
         } else if (column.centerAction === ColumnActionType.click) {
           derivedDatum[column.id]['centerClick'] = RowService.getElementClick(
+            datum,
             column,
             Side.center,
           );
@@ -191,6 +192,7 @@ export class StackedTableComponent {
           );
         } else if (column.rightAction === ColumnActionType.click) {
           derivedDatum[column.id]['rightClick'] = RowService.getElementClick(
+            datum,
             column,
             Side.right,
           );

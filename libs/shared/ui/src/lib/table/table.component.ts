@@ -201,6 +201,7 @@ export class TableComponent implements OnInit, AfterViewInit {
           );
         } else if (column.leftAction === ColumnActionType.click) {
           cache[column.id].left['click'] = RowService.getElementClick(
+            datum,
             column,
             Side.left,
           );
@@ -232,6 +233,7 @@ export class TableComponent implements OnInit, AfterViewInit {
           );
         } else if (column.centerAction === ColumnActionType.click) {
           cache[column.id].center['click'] = RowService.getElementClick(
+            datum,
             column,
             Side.center,
           );
@@ -255,6 +257,7 @@ export class TableComponent implements OnInit, AfterViewInit {
           );
         } else if (column.rightAction === ColumnActionType.click) {
           cache[column.id].right['click'] = RowService.getElementClick(
+            datum,
             column,
             Side.right,
           );
@@ -712,7 +715,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     for (const datum of data) {
       const value = RowService.getElementFilterValue(datum, column);
-      if (value == null || value === undefined) {
+      if (value == null || value === undefined || isNaN(value)) {
         continue;
       }
 
@@ -924,6 +927,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       if (
         value == null ||
         value === undefined ||
+        isNaN(value) ||
         (filterValue[0] != null && value < filterValue[0]) ||
         (filterValue[1] != null && value > filterValue[1])
       ) {
