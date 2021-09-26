@@ -33,6 +33,7 @@
 
         <ng-template #noRouterHref>
           <a
+            *ngIf="iconClick"
             mat-icon-button
             class="icon-container biosimulations-button"
             (click)="iconClick()"

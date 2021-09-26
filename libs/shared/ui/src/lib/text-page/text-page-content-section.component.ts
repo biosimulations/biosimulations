@@ -54,7 +54,7 @@ export class TextPageContentSectionComponent {
 
   iconRouterLink: any = null;
   iconHref: string | null = null;
-  iconClick: () => void = this.scrollService.scrollToTop.bind(
+  iconClick: (() => void) | null = this.scrollService.scrollToTop.bind(
     this.scrollService,
     this.scrollToTopOffset,
   );
@@ -70,11 +70,11 @@ export class TextPageContentSectionComponent {
     } else if (this._iconActionType === 'routerLink') {
       this.iconRouterLink = this._iconAction;
       this.iconHref = null;
-      this.iconClick = () => {};
+      this.iconClick = null;
     } else if (this._iconActionType === 'href') {
       this.iconRouterLink = null;
       this.iconHref = this._iconAction;
-      this.iconClick = () => {};
+      this.iconClick = null;
     } else if (this._iconActionType === 'toggle') {
       this.icon = 'open';
       this.closed = true;

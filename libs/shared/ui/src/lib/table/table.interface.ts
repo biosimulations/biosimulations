@@ -41,9 +41,9 @@ export interface Column {
   leftHref?: (rowData: any) => string | null;
   centerHref?: (rowData: any) => string | null;
   rightHref?: (rowData: any) => string | null;
-  leftClick?: (rowData: any) => void;
-  centerClick?: (rowData: any) => void;
-  rightClick?: (rowData: any) => void;
+  leftClick?: (rowData: any) => ((rowData: any) => void) | null;
+  centerClick?: (rowData: any) => ((rowData: any) => void) | null;
+  rightClick?: (rowData: any) => ((rowData: any) => void) | null;
   minWidth?: number;
   maxWidth?: number;
   center?: boolean;
@@ -167,6 +167,7 @@ export class RowService {
   }
 
   static getElementClick(
+    element: any,
     column: Column,
     side: Side,
   ): ((element: any) => void) | null {
@@ -175,19 +176,19 @@ export class RowService {
       column.leftAction === ColumnActionType.click &&
       column.leftClick !== undefined
     ) {
-      return column.leftClick;
+      return column.leftClick(element);
     } else if (
       side == Side.center &&
       column.centerAction === ColumnActionType.click &&
       column.centerClick !== undefined
     ) {
-      return column.centerClick;
+      return column.centerClick(element);
     } else if (
       side == Side.right &&
       column.rightAction === ColumnActionType.click &&
       column.rightClick !== undefined
     ) {
-      return column.rightClick;
+      return column.rightClick(element);
     }
     return null;
   }

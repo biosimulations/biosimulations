@@ -36,8 +36,12 @@ export class BrowseComponent implements OnInit {
       heading: 'Id',
       key: 'id',
       centerAction: ColumnActionType.routerLink,
-      centerRouterLink: (simulation: Simulation): string[] => {
-        return ['/simulations', simulation.id];
+      centerRouterLink: (simulation: Simulation): string[] | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return ['/simulations', simulation.id];
+        }
       },
       minWidth: 205,
       maxWidth: 205,
@@ -49,16 +53,27 @@ export class BrowseComponent implements OnInit {
       heading: 'Name',
       key: 'name',
       minWidth: 34,
+      getter: (simulation: Simulation): string => {
+        return simulation.name || 'N/A';
+      },
     },
     {
       id: 'simulator',
       heading: 'Simulator',
       getter: (simulation: Simulation): string => {
-        return simulation.simulator + ' ' + simulation.simulatorVersion;
+        if (simulation.simulator) {
+          return simulation.simulator + ' ' + simulation.simulatorVersion;
+        } else {
+          return 'N/A';
+        }
       },
       centerAction: ColumnActionType.href,
-      centerHref: (simulation: Simulation): string => {
-        return `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
+      centerHref: (simulation: Simulation): string | null => {
+        if (simulation.simulator) {
+          return `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
+        } else {
+          return null;
+        }
       },
       minWidth: 34,
       show: false,
@@ -66,8 +81,26 @@ export class BrowseComponent implements OnInit {
     {
       id: 'cpus',
       heading: 'CPUs',
-      getter: (simulation: Simulation): number => {
-        return simulation.cpus || 1;
+      getter: (simulation: Simulation): number | string => {
+        if (simulation.cpus) {
+          return simulation.cpus;
+        } else {
+          return NaN;
+        }
+      },
+      formatter: (value: number): string => {
+        if (value) {
+          return value.toString();
+        } else {
+          return 'N/A';
+        }
+      },
+      stackedFormatter: (value: number): string => {
+        if (value) {
+          return value.toString();
+        } else {
+          return 'N/A';
+        }
       },
       filterType: ColumnFilterType.number,
       minWidth: 34,
@@ -77,13 +110,25 @@ export class BrowseComponent implements OnInit {
       id: 'memory',
       heading: 'RAM',
       getter: (simulation: Simulation): number => {
-        return simulation.memory || 8;
+        if (simulation.memory) {
+          return simulation.memory;
+        } else {
+          return NaN;
+        }
       },
       formatter: (valueGB: number): string => {
-        return valueGB.toFixed(2) + ' GB';
+        if (valueGB) {
+          return valueGB.toFixed(2) + ' GB';
+        } else {
+          return 'N/A';
+        }
       },
       stackedFormatter: (valueGB: number): string => {
-        return valueGB.toFixed(2) + ' GB';
+        if (valueGB) {
+          return valueGB.toFixed(2) + ' GB';
+        } else {
+          return 'N/A';
+        }
       },
       filterType: ColumnFilterType.number,
       minWidth: 34,
@@ -93,19 +138,31 @@ export class BrowseComponent implements OnInit {
       id: 'maxTime',
       heading: 'Max time',
       getter: (simulation: Simulation): number => {
-        return simulation.maxTime || 20;
+        if (simulation.maxTime) {
+          return simulation.maxTime;
+        } else {
+          return NaN;
+        }
       },
       formatter: (valueMin: number): string => {
-        return SimulationStatusService.formatTime(
-          null,
-          valueMin * 60,
-        ) as string;
+        if (valueMin) {
+          return SimulationStatusService.formatTime(
+            null,
+            valueMin * 60,
+          ) as string;
+        } else {
+          return 'N/A';
+        }
       },
       stackedFormatter: (valueMin: number): string => {
-        return SimulationStatusService.formatTime(
-          'N/A',
-          valueMin * 60,
-        ) as string;
+        if (valueMin) {
+          return SimulationStatusService.formatTime(
+            'N/A',
+            valueMin * 60,
+          ) as string;
+        } else {
+          return 'N/A';
+        }
       },
       filterType: ColumnFilterType.number,
       minWidth: 34,
@@ -171,11 +228,19 @@ export class BrowseComponent implements OnInit {
       id: 'submitted',
       heading: 'Submitted',
       key: 'submitted',
-      formatter: (value: Date): string => {
-        return UtilsService.getDateString(value);
+      formatter: (value: Date | undefined  | null): string => {
+        if (value) {
+          return UtilsService.getDateString(value);
+        } else {
+          return 'N/A';
+        }
       },
-      toolTipFormatter: (value: Date): string => {
-        return UtilsService.getDateTimeString(value);
+      toolTipFormatter: (value: Date | undefined | null): string => {
+        if (value) {
+          return UtilsService.getDateString(value);
+        } else {
+          return 'N/A';
+        }
       },
       filterType: ColumnFilterType.date,
       minWidth: 78,
@@ -185,11 +250,19 @@ export class BrowseComponent implements OnInit {
       id: 'updated',
       heading: 'Last updated',
       key: 'updated',
-      formatter: (value: Date): string => {
-        return UtilsService.getDateString(value);
+      formatter: (value: Date | undefined | undefined): string => {
+        if (value) {
+          return UtilsService.getDateString(value);
+        } else {
+          return 'N/A';
+        }
       },
-      toolTipFormatter: (value: Date): string => {
-        return UtilsService.getDateTimeString(value);
+      toolTipFormatter: (value: Date | undefined | null): string => {
+        if (value) {
+          return UtilsService.getDateString(value);
+        } else {
+          return 'N/A';
+        }
       },
       filterType: ColumnFilterType.date,
       minWidth: 78,
@@ -200,8 +273,12 @@ export class BrowseComponent implements OnInit {
       id: 'submittedLocally',
       heading: 'Submitted locally',
       key: 'submittedLocally',
-      formatter: (value: boolean): string => {
-        return value ? 'Yes' : 'No';
+      formatter: (value: boolean | undefined | null): string => {
+        if (value === undefined || value === null) {
+          return 'N/A';
+        } else {
+          return value ? 'Yes' : 'No';
+        }
       },
       minWidth: 134,
       center: true,
@@ -211,17 +288,25 @@ export class BrowseComponent implements OnInit {
       id: 'visualize',
       heading: 'Viz',
       key: 'status',
-      getter: (simulation: Simulation): boolean => {
+      getter: (simulation: Simulation): boolean | null => {
         return (
           SimulationStatusService.isSimulationStatusSucceeded(
             simulation.status,
           ) &&
           simulation.resultsSize !== undefined &&
+          simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         );
       },
       center: true,
       leftIcon: 'chart',
+      leftIconTitle: (simulation: Simulation): string | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return 'Viz';
+        }
+      },
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
         if (
@@ -229,6 +314,7 @@ export class BrowseComponent implements OnInit {
             simulation.status,
           ) &&
           simulation.resultsSize !== undefined &&
+          simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         ) {
           return ['/simulations', simulation.id, '#tab=design-viz'];
@@ -243,6 +329,7 @@ export class BrowseComponent implements OnInit {
             simulation.status,
           ) &&
           simulation.resultsSize !== undefined &&
+          simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         ) {
           return ['/simulations', simulation.id, '#tab=design-viz'];
@@ -280,11 +367,19 @@ export class BrowseComponent implements OnInit {
             simulation.status,
           ) &&
           simulation.resultsSize !== undefined &&
+          simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         );
       },
       center: true,
       leftIcon: 'download',
+      leftIconTitle: (simulation: Simulation): string | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return 'Export';
+        }
+      },
       leftAction: ColumnActionType.href,
       leftHref: (simulation: Simulation): string | null => {
         if (
@@ -292,6 +387,7 @@ export class BrowseComponent implements OnInit {
             simulation.status,
           ) &&
           simulation.resultsSize !== undefined &&
+          simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         ) {
           return `${urls.dispatchApi}download/result/${simulation.id}`;
@@ -306,6 +402,7 @@ export class BrowseComponent implements OnInit {
             simulation.status,
           ) &&
           simulation.resultsSize !== undefined &&
+          simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         ) {
           return `${urls.dispatchApi}download/result/${simulation.id}`;
@@ -339,10 +436,17 @@ export class BrowseComponent implements OnInit {
       key: 'status',
       center: true,
       leftIcon: 'logs',
+      leftIconTitle: (simulation: Simulation): string | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return 'Log';
+        }
+      },
       leftAction: ColumnActionType.routerLink,
       leftRouterLink: (simulation: Simulation): string[] | null => {
         if (
-          !SimulationStatusService.isSimulationStatusRunning(simulation.status)
+          SimulationStatusService.isSimulationStatusCompleted(simulation.status)
         ) {
           return ['/simulations', simulation.id, '#tab=log'];
         } else {
@@ -352,7 +456,7 @@ export class BrowseComponent implements OnInit {
       centerAction: ColumnActionType.routerLink,
       centerRouterLink: (simulation: Simulation): string[] | null => {
         if (
-          !SimulationStatusService.isSimulationStatusRunning(simulation.status)
+          SimulationStatusService.isSimulationStatusCompleted(simulation.status)
         ) {
           return ['/simulations', simulation.id, '#tab=log'];
         } else {
@@ -363,7 +467,7 @@ export class BrowseComponent implements OnInit {
         return null;
       },
       stackedFormatter: (status: SimulationRunStatus): string | null => {
-        if (!SimulationStatusService.isSimulationStatusRunning(status)) {
+        if (SimulationStatusService.isSimulationStatusCompleted(status)) {
           return 'View logs';
         } else {
           return 'N/A';
@@ -378,10 +482,10 @@ export class BrowseComponent implements OnInit {
         b: SimulationRunStatus,
         sign: number,
       ): number => {
-        const aVal = !SimulationStatusService.isSimulationStatusRunning(a)
+        const aVal = SimulationStatusService.isSimulationStatusCompleted(a)
           ? 0
           : 1;
-        const bVal = !SimulationStatusService.isSimulationStatusRunning(b)
+        const bVal = SimulationStatusService.isSimulationStatusCompleted(b)
           ? 0
           : 1;
         if (aVal > bVal) return 1;
@@ -392,34 +496,57 @@ export class BrowseComponent implements OnInit {
     {
       id: 'rerun',
       heading: 'Rerun',
-      key: 'id',
+      key: 'status',
       center: true,
       leftIcon: 'redo',
+      leftIconTitle: (simulation: Simulation): string | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return 'Rerun';
+        }
+      },
       leftAction: ColumnActionType.click,
-      leftClick: (simulation: Simulation): void => {
-        const queryParams: any = {
-          projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-          simulator: simulation.simulator,
-          simulatorVersion: simulation.simulatorVersion,
-          runName: simulation.name + ' (rerun)',
-        };
-        this.router.navigate(['/run'], { queryParams: queryParams });
+      leftClick: (simulation: Simulation): ((simulation: Simulation) => void) | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return (simulation: Simulation): void => {
+            const queryParams: any = {
+              projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+              simulator: simulation.simulator,
+              simulatorVersion: simulation.simulatorVersion,
+              runName: simulation.name + ' (rerun)',
+            };
+            this.router.navigate(['/run'], { queryParams: queryParams });
+          };
+        }
       },
       centerAction: ColumnActionType.click,
-      centerClick: (simulation: Simulation): void => {
-        const queryParams: any = {
-          projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-          simulator: simulation.simulator,
-          simulatorVersion: simulation.simulatorVersion,
-          runName: simulation.name + ' (rerun)',
-        };
-        this.router.navigate(['/run'], { queryParams: queryParams });
+      centerClick: (simulation: Simulation): ((simulation: Simulation) => void) | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return (simulation: Simulation): void => {
+            const queryParams: any = {
+              projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+              simulator: simulation.simulator,
+              simulatorVersion: simulation.simulatorVersion,
+              runName: simulation.name + ' (rerun)',
+            };
+            this.router.navigate(['/run'], { queryParams: queryParams });
+          };
+        }
       },
-      formatter: (id: string): null => {
+      formatter: (status: SimulationRunStatus): null => {
         return null;
       },
-      stackedFormatter: (id: string): string => {
-        return 'Rerun project (e.g., with another simulation tool)';
+      stackedFormatter: (status: SimulationRunStatus): string => {
+        if (status === undefined || status === null) {
+          return 'N/A';
+        } else {
+          return 'Rerun project (e.g., with another simulation tool)';
+        }
       },
       minWidth: 38,
       maxWidth: 38,
@@ -432,43 +559,79 @@ export class BrowseComponent implements OnInit {
       id: 'share',
       heading: 'Share',
       key: 'id',
+      getter: (simulation: Simulation): Simulation => {
+        return simulation;
+      },
       center: true,
       leftIcon: 'share',
+      leftIconTitle: (simulation: Simulation): string | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return 'Click to copy URL to clipboard';
+        }
+      },
       leftAction: ColumnActionType.click,
-      leftClick: (simulation: Simulation): void => {
-        navigator.clipboard.writeText(
-          window.location.protocol +
+      leftClick: (simulation: Simulation): ((simulation: Simulation) => void) | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return (simulation: Simulation): void => {
+            navigator.clipboard.writeText(
+              window.location.protocol +
+                '//' +
+                window.location.host +
+                '/simulations/' +
+                simulation.id,
+            );
+            this.snackBar.open(
+              'The URL for sharing the simulation was copied to your clipboard.',
+              undefined,
+              {
+                duration: snackBarDuration,
+              },
+            );
+          };
+        }
+      },
+      centerAction: ColumnActionType.click,
+      centerClick: (simulation: Simulation): ((simulation: Simulation) => void) | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return (simulation: Simulation): void => {
+            navigator.clipboard.writeText(
+              window.location.protocol +
+                '//' +
+                window.location.host +
+                '/simulations/' +
+                simulation.id,
+            );
+            this.snackBar.open(
+              'The URL for sharing the simulation was copied to your clipboard.',
+              undefined,
+              {
+                duration: snackBarDuration,
+              },
+            );
+          };
+        }
+      },
+      formatter: (simulation: Simulation): null => {
+        return null;
+      },
+      stackedFormatter: (simulation: Simulation): string => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return 'N/A';
+        } else {
+          return (
+            window.location.protocol +
             '//' +
             window.location.host +
             '/simulations/' +
-            simulation.id,
-        );
-        this.snackBar.open(
-          'The URL for sharing the simulation was copied to your clipboard.',
-          undefined,
-          {
-            duration: snackBarDuration,
-          },
-        );
-      },
-      centerAction: ColumnActionType.routerLink,
-      centerRouterLink: (simulation: Simulation): string[] => {
-        return ['/simulations', simulation.id];
-      },
-      formatter: (id: string): null => {
-        return null;
-      },
-      stackedFormatter: (id: string): string => {
-        return (
-          window.location.protocol +
-          '//' +
-          window.location.host +
-          '/simulations/' +
-          id
-        );
-      },
-      leftIconTitle: (simulation: Simulation): string => {
-        return 'Click to copy URL to clipboard';
+            simulation.id
+          );
+        }
       },
       minWidth: 38,
       maxWidth: 38,
@@ -480,22 +643,41 @@ export class BrowseComponent implements OnInit {
     {
       id: 'publish',
       heading: 'Pub',
-      key: 'id',
+      key: 'status',
       center: true,
       leftIcon: 'publish',
+      leftIconTitle: (simulation: Simulation): string | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return 'Click to copy URL to clipboard';
+        }
+      },
       leftAction: ColumnActionType.routerLink,
-      leftRouterLink: (simulation: Simulation): string[] => {
-        return ['/simulations', simulation.id, 'publish'];
+      leftRouterLink: (simulation: Simulation): string[] | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return ['/simulations', simulation.id, 'publish'];
+        }
       },
       centerAction: ColumnActionType.routerLink,
-      centerRouterLink: (simulation: Simulation): string[] => {
-        return ['/simulations', simulation.id, 'publish'];
+      centerRouterLink: (simulation: Simulation): string[] | null => {
+        if (simulation.status === undefined || simulation.status === null) {
+          return null;
+        } else {
+          return ['/simulations', simulation.id, 'publish'];
+        }
       },
-      formatter: (id: string): null => {
+      formatter: (status: SimulationRunStatus): null => {
         return null;
       },
-      stackedFormatter: (id: string): string => {
-        return 'Publish simulation (e.g., with another simulation tool)';
+      stackedFormatter: (status: SimulationRunStatus): string => {
+        if (status === undefined || status === null) {
+          return 'N/A';
+        } else {
+          return 'Publish simulation (e.g., with another simulation tool)';
+        }
       },
       minWidth: 38,
       maxWidth: 38,
@@ -511,12 +693,16 @@ export class BrowseComponent implements OnInit {
       center: true,
       leftIcon: 'trash',
       leftAction: ColumnActionType.click,
-      leftClick: (simulation: Simulation): void => {
-        this.removeSimulations(simulation);
+      leftClick: (simulation: Simulation): ((simulation: Simulation) => void) => {
+        return (simulation: Simulation): void => {
+          this.removeSimulations(simulation);
+        }
       },
       centerAction: ColumnActionType.click,
-      centerClick: (simulation: Simulation): void => {
-        this.removeSimulations(simulation);
+      centerClick: (simulation: Simulation): ((simulation: Simulation) => void) => {
+        return (simulation: Simulation): void => {
+          this.removeSimulations(simulation);
+        }
       },
       formatter: (id: string): null => {
         return null;
@@ -569,11 +755,15 @@ export class BrowseComponent implements OnInit {
   }
 
   getStackedHeading(simulation: Simulation): string {
-    return simulation.name + ' (' + simulation.id + ')';
+    return (simulation.name || 'N/A') + ' (' + simulation.id + ')';
   }
 
-  getStackedHeadingMoreInfoRouterLink(simulation: Simulation): string[] {
-    return ['/simulations', simulation.id];
+  getStackedHeadingMoreInfoRouterLink(simulation: Simulation): string[] | null {
+    if (simulation.status === undefined || simulation.status === null) {
+      return null;
+    } else {
+      return ['/simulations', simulation.id];
+    }
   }
 
   exportSimulations(): void {

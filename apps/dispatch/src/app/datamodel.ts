@@ -5,21 +5,21 @@ import {
 
 export interface Simulation {
   id: string;
-  name: string;
-  email?: string;
-  submittedLocally?: boolean;
-  simulator: string;
-  simulatorVersion: string;
-  cpus: number;
-  memory: number; // GB
-  maxTime: number; // min
-  envVars: EnvironmentVariable[];
-  status: SimulationRunStatus;
-  runtime?: number;
-  submitted: Date;
-  updated: Date;
-  resultsSize?: number;
-  projectSize?: number;
+  name?: string | null;
+  email?: string | null;
+  submittedLocally?: boolean | null;
+  simulator?: string | null;
+  simulatorVersion?: string | null;
+  cpus?: number | null;
+  memory?: number | null; // GB
+  maxTime?: number | null; // min
+  envVars?: EnvironmentVariable[] | null;
+  status?: SimulationRunStatus | null;
+  runtime?: number | null;
+  submitted?: Date | null;
+  updated?: Date | null;
+  resultsSize?: number | null;
+  projectSize?: number | null;
 }
 
 export interface SedDatasetResults {

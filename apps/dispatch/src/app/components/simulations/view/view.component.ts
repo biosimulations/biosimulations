@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -228,6 +228,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   constructor(
     private config: ConfigService,
     private route: ActivatedRoute,
+    private router: Router,
     private formBuilder: FormBuilder,
     private service: ViewService,
     private combineService: CombineService,
@@ -299,8 +300,14 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   private initSimulationRun(): void {
     this.Simulation$ = this.simulationService
-      .getSimulation(this.uuid)
+      .getSimulation(this.uuid)      
       .pipe(shareReplay(1));
+
+    this.Simulation$.subscribe((simulation: Simulation): void => {
+      if (simulation.status === undefined || simulation.status === null) {
+        this.router.navigate(['/error', '404']);
+      }
+    });
 
     this.formattedSimulation$ = this.Simulation$.pipe(
       map<Simulation, FormattedSimulation>(this.service.formatSimulation),

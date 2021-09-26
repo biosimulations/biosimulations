@@ -12,6 +12,9 @@ import {
   CombineArchiveElementMetadata,
   Metadata,
 } from '../../../datamodel/metadata.interface';
+import {
+  SimulationRunStatus,
+} from '@biosimulations/datamodel/common';
 
 @Injectable({
   providedIn: 'root',
@@ -84,14 +87,14 @@ export class ViewService {
     );
     return {
       id: simulation.id,
-      name: simulation.name,
-      simulator: simulation.simulator,
-      simulatorVersion: simulation.simulatorVersion,
-      cpus: simulation.cpus || 1,
-      memory: simulation.memory || 8,
-      maxTime: simulation.maxTime || 20,
-      envVars: simulation.envVars || [],
-      status: simulation.status,
+      name: simulation?.name as string,
+      simulator: simulation?.simulator as string,
+      simulatorVersion: simulation?.simulatorVersion as string,
+      cpus: simulation?.cpus || 1,
+      memory: simulation?.memory || 8,
+      maxTime: simulation?.maxTime || 20,
+      envVars: simulation?.envVars || [],
+      status: simulation?.status as SimulationRunStatus,
       statusRunning: statusRunning,
       statusSucceeded: statusSucceeded,
       statusLabel: SimulationStatusService.getSimulationStatusMessage(
@@ -102,18 +105,18 @@ export class ViewService {
       //   simulation.runtime !== undefined
       //     ? Math.round(simulation.runtime / 1000).toString() + ' s'
       //     : 'N/A',
-      submitted: UtilsService.getDateTimeString(new Date(simulation.submitted)),
-      updated: UtilsService.getDateTimeString(new Date(simulation.updated)),
+      submitted: UtilsService.getDateTimeString(new Date(simulation?.submitted as Date)),
+      updated: UtilsService.getDateTimeString(new Date(simulation?.updated as Date)),
       projectSize:
-        simulation.projectSize !== undefined
+        simulation.projectSize !== undefined && simulation.projectSize !== null
           ? (simulation.projectSize / 1024).toFixed(2) + ' KB'
           : '',
       resultsSize:
-        simulation.resultsSize !== undefined
+        simulation.resultsSize !== undefined && simulation.resultsSize !== null
           ? (simulation.resultsSize / 1024).toFixed(2) + ' KB'
           : 'N/A',
       projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-      simulatorUrl: `${urls.simulators}/simulators/${simulation.simulator}/${simulation.simulatorVersion}`,
+      simulatorUrl: `${urls.simulators}/simulators/${simulation?.simulator as string}/${simulation?.simulatorVersion as string}`,
       resultsUrl: `${urls.dispatchApi}results/${simulation.id}/download`,
     };
   }
