@@ -305,7 +305,9 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   public copyRunCliCmd(cmd: string): void {
-    navigator.clipboard.writeText(`${cmd} -i /path/to/project.omex -o /path/to/outputs`);
+    navigator.clipboard.writeText(
+      `${cmd} -i /path/to/project.omex -o /path/to/outputs`,
+    );
     this.snackBar.open(
       'The command to run the command-line application was copied to your clipboard.',
       undefined,
