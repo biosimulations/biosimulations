@@ -270,10 +270,22 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   public copyDockerRunCmd(image = '{ image }'): void {
-    const cmd = 'docker run ' + image;
+    const cmd = `docker run ${image} -i /path/to/project.omex -o /path/to/outputs`;
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
       'The command to run the Docker image was copied to your clipboard.',
+      undefined,
+      {
+        duration: snackBarDuration,
+      },
+    );
+  }
+
+  public copyDockerHelpCmd(image = '{ image }'): void {
+    const cmd = 'docker run ' + image + ' --help';
+    navigator.clipboard.writeText(cmd);
+    this.snackBar.open(
+      'The command to get help with the Docker image was copied to your clipboard.',
       undefined,
       {
         duration: snackBarDuration,
@@ -293,7 +305,7 @@ export class ViewSimulatorComponent implements OnInit {
   }
 
   public copyRunCliCmd(cmd: string): void {
-    navigator.clipboard.writeText(cmd);
+    navigator.clipboard.writeText(`${cmd} -i /path/to/project.omex -o /path/to/outputs`);
     this.snackBar.open(
       'The command to run the command-line application was copied to your clipboard.',
       undefined,
@@ -326,8 +338,8 @@ export class ViewSimulatorComponent implements OnInit {
     );
   }
 
-  public copyPythonImportCmd(module = '{ module }'): void {
-    const cmd = 'import ' + module;
+  public copyRunPythonCmd(module = '{ module }'): void {
+    const cmd = `import ${module} as simulator\nsimulator.exec_sedml_docs_in_combine_archive(\n    '/path/to/project.omex', '/path/to/outputs')`;
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
       'The command to import the Python module was copied to your clipboard.',

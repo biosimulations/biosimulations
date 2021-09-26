@@ -98,10 +98,11 @@
               </li>
               <li>
                 <biosimulations-icon icon="download"></biosimulations-icon>
-                <div class="code">docker pull {{ simulator.image.url }}</div>
+                <pre><code>docker pull \
+  {{ simulator.image.url }}</code></pre>
                 <button
                   mat-icon-button
-                  class="biosimulations-button primary"
+                  class="biosimulations-button"
                   title="Copy to clipboard"
                   (click)="copyDockerPullCmd(simulator.image.url)"
                 >
@@ -111,12 +112,30 @@
               </li>
               <li>
                 <biosimulations-icon icon="logs"></biosimulations-icon>
-                <div class="code">docker run {{ simulator.image.url }}</div>
+                <pre><code>docker run \
+  {{ simulator.image.url }} \
+  -i /path/to/project.omex \
+  -o /path/to/outputs</code></pre>
                 <button
                   mat-icon-button
-                  class="biosimulations-button primary"
+                  class="biosimulations-button"
                   title="Copy to clipboard"
                   (click)="copyDockerRunCmd(simulator.image.url)"
+                >
+                  <biosimulations-icon icon="copy"></biosimulations-icon>
+                </button>
+                <div class="clear-float"></div>
+              </li>
+              <li>
+                <biosimulations-icon icon="help"></biosimulations-icon>
+                <pre><code>docker run \
+  {{ simulator.image.url }} \
+  --help</code></pre>
+                <button
+                  mat-icon-button
+                  class="biosimulations-button"
+                  title="Copy to clipboard"
+                  (click)="copyDockerHelpCmd(simulator.image.url)"
                 >
                   <biosimulations-icon icon="copy"></biosimulations-icon>
                 </button>
@@ -166,12 +185,10 @@
               </li>
               <li>
                 <biosimulations-icon icon="download"></biosimulations-icon>
-                <div class="code">
-                  pip install {{ simulator?.pythonApi?.package }}
-                </div>
+                <pre><code>pip install {{ simulator?.pythonApi?.package }}</code></pre>
                 <button
                   mat-icon-button
-                  class="biosimulations-button primary"
+                  class="biosimulations-button"
                   title="Copy to clipboard"
                   (click)="
                     copyCliInstallCmd(
@@ -185,10 +202,12 @@
               </li>
               <li>
                 <biosimulations-icon icon="logs"></biosimulations-icon>
-                <div class="code">biosimulators-{{ simulator.id }} ...</div>
+                <pre><code>biosimulators-{{ simulator.id }} \
+  -i /path/to/project.omex \
+  -o /path/to/outputs</code></pre>
                 <button
                   mat-icon-button
-                  class="biosimulations-button primary"
+                  class="biosimulations-button"
                   title="Copy to clipboard"
                   (click)="copyRunCliCmd('biosimulators-' + simulator.id)"
                 >
@@ -198,10 +217,10 @@
               </li>
               <li>
                 <biosimulations-icon icon="help"></biosimulations-icon>
-                <div class="code">biosimulators-{{ simulator.id }} --help</div>
+                <pre><code>biosimulators-{{ simulator.id }} --help</code></pre>
                 <button
                   mat-icon-button
-                  class="biosimulations-button primary"
+                  class="biosimulations-button"
                   title="Copy to clipboard"
                   (click)="copyCliHelpCmd('biosimulators-' + simulator.id)"
                 >
@@ -263,12 +282,10 @@
               </li>
               <li>
                 <biosimulations-icon icon="download"></biosimulations-icon>
-                <div class="code">
-                  pip install {{ simulator?.pythonApi?.package }}
-                </div>
+                <pre><code>pip install {{ simulator?.pythonApi?.package }}</code></pre>
                 <button
                   mat-icon-button
-                  class="biosimulations-button primary"
+                  class="biosimulations-button"
                   title="Copy to clipboard"
                   (click)="
                     copyPythonApiInstallCmd(simulator?.pythonApi?.package)
@@ -280,19 +297,19 @@
               </li>
               <li>
                 <biosimulations-icon icon="logs"></biosimulations-icon>
-                <div class="code">
-                  import {{ simulator?.pythonApi?.module }}
-                </div>
+                <pre><code>import {{ simulator?.pythonApi?.module }} as simulator
+simulator.exec_sedml_docs_in_combine_archive(
+  '/path/to/project.omex', '/path/to/outputs')</code></pre>
                 <button
                   mat-icon-button
-                  class="biosimulations-button primary"
+                  class="biosimulations-button"
                   title="Copy to clipboard"
-                  (click)="copyPythonImportCmd(simulator?.pythonApi?.module)"
+                  (click)="copyRunPythonCmd(simulator?.pythonApi?.module)"
                 >
                   <biosimulations-icon icon="copy"></biosimulations-icon>
                 </button>
                 <div class="clear-float"></div>
-              </li>
+              </li>              
               <li *ngIf="simulator?.pythonApi?.installationInstructions">
                 <biosimulations-icon icon="help"></biosimulations-icon>
                 <div>

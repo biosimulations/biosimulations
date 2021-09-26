@@ -68,10 +68,17 @@ biosimulations-tab-page ::ng-deep {
   .icon-list li {
     margin-left: 0;
     text-indent: 0;
+    position: relative;
+
+    &:hover {
+      .biosimulations-button {
+        display: block;
+      }
+    }
   }
 
   biosimulations-icon,
-  .code {
+  pre {
     float: left;
   }
 
@@ -80,20 +87,31 @@ biosimulations-tab-page ::ng-deep {
     margin-right: 0.25rem;
   }
 
-  .code {
-    white-space: nowrap;
+  pre {
+    width: calc(100% - 2 * 0.25rem - 16px - 0.25rem);
+    padding: 0 0.25rem 0 0.25rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: calc(100% - 2 * 0.25rem - 16px - 20px);
     margin: 0;
+    margin-top: 0.125rem;
+    margin-bottom: 0.125rem;
   }
 
   .biosimulations-button {
-    position: relative;
-    top: -0.15rem;
-    float: right;
-    margin-left: 0.25rem;
-    font-size: 125%;
+    position: absolute;
+    top: 0.0625rem;
+    right: -0.1875rem;
+    font-size: 110%;
+    color: rgba($dark-primary-text, 0.38);
+    display: none;
+
+    &:hover {
+      color: rgba($dark-primary-text, 0.48);
+    }
+
+    &:active {
+      color: rgba($dark-primary-text, 0.58);
+    }
   }
 }
 
