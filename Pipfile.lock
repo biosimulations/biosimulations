@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1fcfd01cc28cddd182aa1a87bd3f510cf4beaaa0318c208a983d23de9c2e1a4b"
+            "sha256": "2a9ca0b153ea183371c568c0e4e025b3c17d9f15d58c07019c5d338cd2dd2392"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -38,11 +38,11 @@
         },
         "anyio": {
             "hashes": [
-                "sha256:85913b4e2fec030e8c72a8f9f98092eeb9e25847a6e00d567751b77e34f856fe",
-                "sha256:d7c604dd491eca70e19c78664d685d5e4337612d574419d503e76f5d7d1590bd"
+                "sha256:0b993a2ef6c1dc456815c2b5ca2819f382f20af98087cc2090a4afed3a501436",
+                "sha256:c32da314c510b34a862f5afeaf8a446ffed2c2fde21583e654bd71ecfb5b744b"
             ],
             "markers": "python_full_version >= '3.6.2'",
-            "version": "==3.3.1"
+            "version": "==3.3.2"
         },
         "appdirs": {
             "hashes": [
@@ -146,11 +146,11 @@
         },
         "biosimulators-bionetgen": {
             "hashes": [
-                "sha256:582b9135bd88895a3123889a4a74f1221cf5238c425995a4b27fc444c96ae8c2",
-                "sha256:a557981a9856d06fa149d780dfd41607c1aa56c67414e3c86b5922b036271fca"
+                "sha256:1ed3b4f5213bb89ca4695e73d7792705eb9004823191b6cb04b05f6e82269634",
+                "sha256:cd88348eb8f2c4998e2a737899883a26da3a9904551058a31a06ec00441250d8"
             ],
             "index": "pypi",
-            "version": "==0.1.16"
+            "version": "==0.1.17"
         },
         "biosimulators-boolnet": {
             "hashes": [
@@ -263,11 +263,11 @@
                 "smoldyn"
             ],
             "hashes": [
-                "sha256:d8337736604c0d888c03b41a44ad08f8924ce96dd8b77176be94800527e95a01",
-                "sha256:e9688e6043ef25dc1f5937a7eda875db7be0457304f689a6429501e62933cf6e"
+                "sha256:2e37fc47f4ac08d4a7a0f17590ad9c277775229dc5d98bf6cad9fc19beb431be",
+                "sha256:7d0fcd7e9e09e62ea4a2088fb450253d6239ae7237c8a68768a4494ed20cd944"
             ],
             "index": "pypi",
-            "version": "==0.1.125"
+            "version": "==0.1.126"
         },
         "biosimulators-xpp": {
             "hashes": [
@@ -302,19 +302,19 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:07260ec42a21c31a13b07ffbf219811a79be60d2eb9a99cedfec65c2a5f2155d",
-                "sha256:52d87c94511226ccacd9e94335eb8f8f980b97964f63db92b97148b5486330a7"
+                "sha256:7b45b224442c479de4bc6e6e9cb0557b642fc7a77edc8702e393ccaa2e0aa128",
+                "sha256:c388da7dc1a596755f39de990a72e05cee558d098e81de63de55bd9598cc5134"
             ],
             "index": "pypi",
-            "version": "==1.18.47"
+            "version": "==1.18.48"
         },
         "botocore": {
             "hashes": [
-                "sha256:282951e8cde2c93fa436e5a7acfeb02f815de823bc3dac745ea51f971a1052e4",
-                "sha256:57637772b837da290239b1a9a6676ae2dd8a64833ab7770dc67d169d09bc80b3"
+                "sha256:2c25a76f09223b2f00ad578df34492b7b84cd4828fc90c08ccbdd1d70abbd7eb",
+                "sha256:9d5b70be2f417d0aa30788049fd20473ad27218eccd05e71f545b4b4e09c79a0"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==1.21.47"
+            "version": "==1.21.48"
         },
         "cachetools": {
             "hashes": [
@@ -797,11 +797,11 @@
         },
         "ipython": {
             "hashes": [
-                "sha256:58b55ebfdfa260dad10d509702dc2857cb25ad82609506b070cf2d7b7df5af13",
-                "sha256:75b5e060a3417cf64f138e0bb78e58512742c57dc29db5a5058a2b1f0c10df02"
+                "sha256:2097be5c814d1b974aea57673176a924c4c8c9583890e7a5f082f547b9975b11",
+                "sha256:f16148f9163e1e526f1008d7c8d966d9c15600ca20d1a754287cf96d00ba6f1d"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==7.27.0"
+            "version": "==7.28.0"
         },
         "ipython-genutils": {
             "hashes": [
@@ -1162,11 +1162,11 @@
         },
         "nbconvert": {
             "hashes": [
-                "sha256:2008c84576ead7da63618e6c37b8c93608dadfc016d99b1adc2cdc278ba54b8f",
-                "sha256:95b3097ad142c70b8dd8cbc993320a1a5011b014b4382eb77142a14662194f02"
+                "sha256:16ceecd0afaa8fd26c245fa32e2c52066c02f13aa73387fffafd84750baea863",
+                "sha256:b1b9dc4f1ff6cafae0e6d91f42fb9046fdc32e6beb6d7e2fa2cd7191ad535240"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==6.2.0rc2"
+            "version": "==6.2.0"
         },
         "nbformat": {
             "hashes": [
@@ -2036,11 +2036,11 @@
         },
         "rich": {
             "hashes": [
-                "sha256:0b8cbcb0b8d476a7f002feaed9f35e51615f673c6c291d76ddf0c555574fd3c7",
-                "sha256:bacf58b25fea6b920446fe4e7abdc6c7664c4530c4098e7a1bc79b16b8551dfa"
+                "sha256:016fa105f34b69c434e7f908bb5bd7fefa9616efdb218a2917117683a6394ce5",
+                "sha256:44bb3f9553d00b3c8938abf89828df870322b9ba43caf3b12bb7758debdc6dec"
             ],
             "markers": "python_version >= '3.6' and python_version < '4.0'",
-            "version": "==10.10.0"
+            "version": "==10.11.0"
         },
         "rpy2": {
             "hashes": [
@@ -2437,11 +2437,11 @@
         },
         "tzlocal": {
             "hashes": [
-                "sha256:64490e77df84e17c1d009e598484741bc94fa95395328ee869d45c05af26317f",
-                "sha256:7b51a9a357713a74b32cadf08a51a9c9e66b02f55f62db1cceac9c7fc88b6482"
+                "sha256:24cc3b3a20f633717fca333165a0ce368b0e3a4267cbfcce6b9e30f4f67f4fde",
+                "sha256:d5c57e7ed826974a2870579432f277764e869ae6da6df74f7ad810329a97d3fb"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==4.0b1"
+            "version": "==4.0b2"
         },
         "url-normalize": {
             "hashes": [
