@@ -2,33 +2,90 @@
   <form
     *ngIf="(metadataValid$ | async) === true; else invalidErrorLoading"
     [formGroup]="formGroup"
-    (ngSubmit)="onFormSubmit()"
+    (ngSubmit)="publishSimulation()"
   >
-    <mat-form-field appearance="fill">
-      <mat-label>Id</mat-label>
-      <input
-        matInput
-        formControlName="id"
-        placeholder="Pathway-Doe-PLoS-Comput-Biol-2021"
-        required
-      />
-      <biosimulations-icon icon="id" matPrefix></biosimulations-icon>
-      <mat-hint> Enter a unique id for your modeling project. </mat-hint>
-      <mat-error *ngIf="formGroup.hasError('required', 'id')"
-        >Please enter an id for your project.</mat-error
-      >
-      <mat-error *ngIf="formGroup.hasError('unique', 'id')"
-        >The id has already been claimed. Please enter a unique id for your
-        project.</mat-error
-      >
-    </mat-form-field>
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="id"></biosimulations-icon>
+        </div>
+        <div class="form-section-head-title-subtitle">
+          <div class="form-section-title">Id*</div>
+          <div class="form-section-subtitle">Enter a unique id for this modeling project</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <mat-form-field appearance="fill">
+          <input
+            matInput
+            formControlName="id"
+            placeholder="System-Author-Journal-Year"
+            required
+          />
+          <mat-error *ngIf="formGroup.hasError('required', 'id')"
+            >Please enter an id for this project.</mat-error
+          >
+          <mat-error *ngIf="formGroup.hasError('unique', 'id')"
+            >The id has already been claimed. Please enter a unique id for this
+            project.</mat-error
+          >
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="valid"></biosimulations-icon>
+        </div>
+        <div class="form-section-head-title-subtitle">
+          <div class="form-section-title">Confirmation of validity*</div>
+          <div class="form-section-subtitle">Confirm that BioSimulations presents the expected results of this project.</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <mat-checkbox
+            formControlName="isValid"
+            required
+            color="primary"
+          >I confirm that BioSimulations presents the expected results of this project.</mat-checkbox>
+          <mat-error *ngIf="(formGroup.get('isValid')?.touched || submitPushed) && formGroup.hasError('required', 'isValid')"
+          >Please confirm that BioSimulations presents the expected results of this project.</mat-error
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="license"></biosimulations-icon>
+        </div>
+        <div class="form-section-head-title-subtitle">
+          <div class="form-section-title">License*</div>
+          <div class="form-section-subtitle">Grant BioSimulations to distribute this project.</div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <mat-checkbox
+            formControlName="grantedLicense"
+            required
+            color="primary"
+          >I grant BioSimulations, free of charge, to distribute this project.</mat-checkbox>
+          <mat-error *ngIf="(formGroup.get('grantedLicense')?.touched || submitPushed) && formGroup.hasError('required', 'grantedLicense')"
+          >Please grant BioSimulations to distribute this project.</mat-error
+          >
+        </div>
+      </div>
+    </div>
 
     <div class="button-container">
       <button
         mat-flat-button
         type="submit"
-        class="biosimulations-button text"
-        [disabled]="formGroup.invalid"
+        [class]="{'biosimulations-button': true, 'text': true, 'mat-button-disabled': formGroup.invalid}"
       >
         Publish
       </button>

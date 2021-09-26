@@ -27,6 +27,7 @@ export class PublishComponent implements OnInit {
   metadataValid$!: Observable<boolean | undefined | null>;
 
   formGroup: FormGroup;
+  submitPushed = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +37,8 @@ export class PublishComponent implements OnInit {
   ) {
     this.formGroup = formBuilder.group({
       id: [null, [Validators.required], [this.uniqueIdValidator()]],
+      isValid: [false, [Validators.required]],
+      grantedLicense: [false, [Validators.required]],
     });
   }
 
@@ -100,10 +103,11 @@ export class PublishComponent implements OnInit {
     return `${urls.dispatchApi}run/${this.uuid}/download`;
   }
 
-  onFormSubmit(): void {
+  publishSimulation(): void {
+    this.submitPushed = true;
     this.formGroup.updateValueAndValidity();
 
-    if (!this.formGroup.valid) {
+    if (this.formGroup.invalid) {
       return;
     }
 
