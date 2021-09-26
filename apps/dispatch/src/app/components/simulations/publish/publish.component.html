@@ -11,7 +11,9 @@
         </div>
         <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Id*</div>
-          <div class="form-section-subtitle">Enter a unique id for this modeling project</div>
+          <div class="form-section-subtitle">
+            Enter a unique id for this modeling project
+          </div>
         </div>
       </div>
       <div class="form-section-body">
@@ -40,18 +42,25 @@
         </div>
         <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Confirmation of validity*</div>
-          <div class="form-section-subtitle">Confirm that BioSimulations presents the expected results of this project.</div>
+          <div class="form-section-subtitle">
+            Confirm that BioSimulations presents the expected results of this
+            project.
+          </div>
         </div>
       </div>
       <div class="form-section-body">
         <div class="form-field-group">
-          <mat-checkbox
-            formControlName="isValid"
-            required
-            color="primary"
-          >I confirm that BioSimulations presents the expected results of this project.</mat-checkbox>
-          <mat-error *ngIf="(formGroup.get('isValid')?.touched || submitPushed) && formGroup.hasError('required', 'isValid')"
-          >Please confirm that BioSimulations presents the expected results of this project.</mat-error
+          <mat-checkbox formControlName="isValid" required color="primary"
+            >I confirm that BioSimulations presents the expected results of this
+            project.</mat-checkbox
+          >
+          <mat-error
+            *ngIf="
+              (formGroup.get('isValid')?.touched || submitPushed) &&
+              formGroup.hasError('required', 'isValid')
+            "
+            >Please confirm that BioSimulations presents the expected results of
+            this project.</mat-error
           >
         </div>
       </div>
@@ -64,7 +73,10 @@
         </div>
         <div class="form-section-head-title-subtitle">
           <div class="form-section-title">License*</div>
-          <div class="form-section-subtitle">Grant BioSimulations to store and distribute this project and its simulation results.</div>
+          <div class="form-section-subtitle">
+            Grant BioSimulations to store and distribute this project and its
+            simulation results.
+          </div>
         </div>
       </div>
       <div class="form-section-body">
@@ -73,9 +85,16 @@
             formControlName="grantedLicense"
             required
             color="primary"
-          >I grant BioSimulations, free of charge, to store and distribute this project and its simulation results.</mat-checkbox>
-          <mat-error *ngIf="(formGroup.get('grantedLicense')?.touched || submitPushed) && formGroup.hasError('required', 'grantedLicense')"
-          >Please grant BioSimulations to store and distribute this project and its simulation results.</mat-error
+            >I grant BioSimulations, free of charge, to store and distribute
+            this project and its simulation results.</mat-checkbox
+          >
+          <mat-error
+            *ngIf="
+              (formGroup.get('grantedLicense')?.touched || submitPushed) &&
+              formGroup.hasError('required', 'grantedLicense')
+            "
+            >Please grant BioSimulations to store and distribute this project
+            and its simulation results.</mat-error
           >
         </div>
       </div>
@@ -85,7 +104,11 @@
       <button
         mat-flat-button
         type="submit"
-        [class]="{'biosimulations-button': true, 'text': true, 'mat-button-disabled': formGroup.invalid}"
+        [class]="{
+          'biosimulations-button': true,
+          text: true,
+          'mat-button-disabled': formGroup.invalid
+        }"
       >
         Publish
       </button>
