@@ -5,6 +5,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 import { ImageSchema } from './image';
+import { CliSchema } from './cli';
 import { PythonApiSchema } from './pythonApi';
 import { AlgorithmSchema } from './algorithm';
 import { LinguistOntologyIdSchema, SpdxOntologyIdSchema } from './ontologyId';
@@ -12,6 +13,7 @@ import { Algorithm } from './algorithm';
 import { FundingSchema } from './funding';
 import {
   IImage,
+  ICli,
   IPythonApi,
   ILinguistOntologyId,
   ISpdxOntologyId,
@@ -55,6 +57,9 @@ export class Simulator extends Document {
 
   @Prop({ type: ImageSchema, required: false, default: undefined })
   image!: IImage | null;
+
+  @Prop({ type: CliSchema, required: false, default: undefined })
+  cli!: ICli | null;
 
   @Prop({ type: PythonApiSchema, required: false, default: undefined })
   pythonApi!: IPythonApi | null;

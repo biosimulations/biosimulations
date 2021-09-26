@@ -196,6 +196,7 @@ export class ViewSimulatorService {
       version: sim.version,
       name: sim.name,
       image: sim.image,
+      cli: sim?.cli,
       pythonApi: sim?.pythonApi,
       description: sim.description,
       urls: sim.urls.sort(sortUrls),
@@ -234,7 +235,7 @@ export class ViewSimulatorService {
             }
             if (
               interfaceType === SoftwareInterfaceType.commandLine &&
-              sim?.image
+              sim?.cli
             ) {
               return false;
             }

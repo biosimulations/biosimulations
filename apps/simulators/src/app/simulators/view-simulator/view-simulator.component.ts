@@ -304,9 +304,9 @@ export class ViewSimulatorComponent implements OnInit {
     );
   }
 
-  public copyRunCliCmd(cmd: string): void {
+  public copyRunCliCmd(cmd?: string): void {
     navigator.clipboard.writeText(
-      `${cmd} -i /path/to/project.omex -o /path/to/outputs`,
+      `${cmd as string} -i /path/to/project.omex -o /path/to/outputs`,
     );
     this.snackBar.open(
       'The command to run the command-line application was copied to your clipboard.',
@@ -317,8 +317,8 @@ export class ViewSimulatorComponent implements OnInit {
     );
   }
 
-  public copyCliHelpCmd(cmd: string): void {
-    navigator.clipboard.writeText(cmd + ' --help');
+  public copyCliHelpCmd(cmd?: string): void {
+    navigator.clipboard.writeText((cmd as string) + ' --help');
     this.snackBar.open(
       'The command to get help about the command-line application was copied to your clipboard.',
       undefined,

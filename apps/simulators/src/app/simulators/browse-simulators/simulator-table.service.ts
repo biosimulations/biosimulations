@@ -151,6 +151,7 @@ export class SimulatorTableService {
                             });
                           }),
                       image: simulator.image?.url || undefined,
+                      cli: simulator?.cli?.package || undefined,
                       pythonApi: simulator?.pythonApi?.package || undefined,
                       curationStatus: curationStatus,
                       license:

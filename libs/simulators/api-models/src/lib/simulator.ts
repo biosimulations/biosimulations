@@ -11,6 +11,7 @@ import {
   SpdxOntologyId,
 } from '@biosimulations/datamodel/api';
 import { Image } from './image';
+import { Cli } from './cli';
 import { PythonApi } from './pythonApi';
 import { Algorithm } from './algorithm';
 import { BiosimulatorsMeta } from './biosimulatorsMeta';
@@ -52,6 +53,12 @@ export class Simulator {
     type: Image,
   })
   image!: Image | null;
+
+  @ApiProperty({
+    nullable: true,
+    type: Cli,
+  })
+  cli!: Cli | null;
 
   @ApiProperty({
     nullable: true,
