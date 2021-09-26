@@ -272,6 +272,68 @@ export const columns: Column[] = [
     rightShowStacked: false,
   },
   {
+    id: 'cli',
+    heading: 'CLI',
+    key: 'cli',
+    formatter: (): null => {
+      return null;
+    },
+    stackedFormatter: (value: string | undefined): string => {
+      return value ? value : 'Not available';
+    },
+    filterGetter: (element: TableSimulator): boolean => {
+      return !!element?.cli;
+    },
+    filterFormatter: (value: string | undefined): string => {
+      return value ? 'Yes' : 'No';
+    },
+    centerAction: ColumnActionType.href,
+    rightAction: ColumnActionType.href,
+    centerHref: (element: TableSimulator): string | null => {
+      if (element?.cli) {
+        if (
+          element?.cli.startsWith('http://') ||
+          element?.cli.startsWith('https://')
+        ) {
+          return element?.cli;
+        } else {
+          return 'https://pypi.org/project/' + element?.cli;
+        }
+      } else {
+        return null;
+      }
+    },
+    rightHref: (element: TableSimulator): string | null => {
+      if (element?.cli) {
+        if (
+          element?.cli.startsWith('http://') ||
+          element?.cli?.startsWith('https://')
+        ) {
+          return element?.cli;
+        } else {
+          return 'https://pypi.org/project/' + element?.cli;
+        }
+      } else {
+        return null;
+      }
+    },
+    rightIcon: 'logs',
+    rightIconTitle: (element: TableSimulator): string | null => {
+      if (element?.cli) {
+        return 'BioSimulators-compliant command-line application';
+      } else {
+        return null;
+      }
+    },
+    filterable: true,
+    filterSortDirection: ColumnSortDirection.desc,
+    show: false,
+    minWidth: 60,
+    maxWidth: 60,
+    center: true,
+    rightShowStacked: false,
+  },
+  {
     id: 'pythonApi',
     heading: 'API',
     key: 'pythonApi',

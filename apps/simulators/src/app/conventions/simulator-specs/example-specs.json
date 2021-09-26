@@ -55,6 +55,11 @@
     },
     "operatingSystemType": "Linux"
   },
+  "cli": {
+    "packageRepository": "PyPI",
+    "package": "biosimulators-tellurium",
+    "command": "biosimulators-tellurium"
+  },
   "pythonApi": {
     "package": "biosimulators-tellurium",
     "module": "biosimulators_tellurium"

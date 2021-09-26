@@ -153,7 +153,7 @@
 
         <div
           class="section"
-          *ngIf="simulator.image && simulator?.pythonApi && simulator.validated"
+          *ngIf="simulator.image && simulator?.cli && simulator.validated"
         >
           <h3>Run simulations with standardized CLI</h3>
           <div class="section-content copy-image">
@@ -162,11 +162,11 @@
                 <biosimulations-icon icon="info"></biosimulations-icon>
                 <a
                   [href]="
-                    simulator?.pythonApi?.package?.startsWith('http://') ||
-                    simulator?.pythonApi?.package?.startsWith('https://')
-                      ? simulator?.pythonApi?.package
+                    simulator?.cli?.package?.startsWith('http://') ||
+                    simulator?.cli?.package?.startsWith('https://')
+                      ? simulator?.cli?.package
                       : 'https://pypi.org/project/' +
-                        simulator?.pythonApi?.package +
+                        simulator?.cli?.package +
                         '/'
                   "
                   target="_blank"
@@ -175,24 +175,24 @@
                   <span
                     *ngIf="
                       !(
-                        simulator?.pythonApi?.package?.startsWith('http://') ||
-                        simulator?.pythonApi?.package?.startsWith('https://')
+                        simulator?.cli?.package?.startsWith('http://') ||
+                        simulator?.cli?.package?.startsWith('https://')
                       )
                     "
-                    >PyPI:</span
-                  >{{ simulator?.pythonApi?.package }}
+                    >{{ simulator?.cli?.packageRepository }}:</span
+                  >{{ simulator?.cli?.package }}
                 </a>
               </li>
               <li>
                 <biosimulations-icon icon="download"></biosimulations-icon>
-                <pre><code>pip install {{ simulator?.pythonApi?.package }}</code></pre>
+                <pre><code>pip install {{ simulator?.cli?.package }}</code></pre>
                 <button
                   mat-icon-button
                   class="biosimulations-button"
                   title="Copy to clipboard"
                   (click)="
                     copyCliInstallCmd(
-                      'pip install ' + simulator?.pythonApi?.package
+                      'pip install ' + simulator?.cli?.package
                     )
                   "
                 >
@@ -202,14 +202,14 @@
               </li>
               <li>
                 <biosimulations-icon icon="logs"></biosimulations-icon>
-                <pre><code>biosimulators-{{ simulator.id }} \
+                <pre><code>{{ simulator?.cli?.command }} \
   -i /path/to/project.omex \
   -o /path/to/outputs</code></pre>
                 <button
                   mat-icon-button
                   class="biosimulations-button"
                   title="Copy to clipboard"
-                  (click)="copyRunCliCmd('biosimulators-' + simulator.id)"
+                  (click)="copyRunCliCmd(simulator?.cli?.command)"
                 >
                   <biosimulations-icon icon="copy"></biosimulations-icon>
                 </button>
@@ -217,22 +217,22 @@
               </li>
               <li>
                 <biosimulations-icon icon="help"></biosimulations-icon>
-                <pre><code>biosimulators-{{ simulator.id }} --help</code></pre>
+                <pre><code>{{ simulator?.cli?.command }} --help</code></pre>
                 <button
                   mat-icon-button
                   class="biosimulations-button"
                   title="Copy to clipboard"
-                  (click)="copyCliHelpCmd('biosimulators-' + simulator.id)"
+                  (click)="copyCliHelpCmd(simulator?.cli?.command)"
                 >
                   <biosimulations-icon icon="copy"></biosimulations-icon>
                 </button>
                 <div class="clear-float"></div>
               </li>
-              <li *ngIf="simulator?.pythonApi?.installationInstructions">
+              <li *ngIf="simulator?.cli?.installationInstructions">
                 <biosimulations-icon icon="help"></biosimulations-icon>
                 <div>
                   <a
-                    [href]="simulator?.pythonApi?.installationInstructions"
+                    [href]="simulator?.cli?.installationInstructions"
                     target="_blank"
                     >Installation instructions</a
                   >

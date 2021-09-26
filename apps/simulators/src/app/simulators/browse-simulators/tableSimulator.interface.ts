@@ -5,6 +5,7 @@ export interface TableSimulator {
   name: string;
   description: string;
   image?: string;
+  cli?: string;
   pythonApi?: string;
   frameworks: string[];
   frameworkIds: string[];
