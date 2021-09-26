@@ -5,6 +5,12 @@
   text-align: right;
 }
 
-.error {
-  color: mat.get-color-from-palette($theme-warn);
+mat-form-field {
+  ::ng-deep .mat-form-field-subscript-wrapper {
+    font-size: 93.75%;
+  }
+}
+
+.form-section .form-field-group mat-error {
+  padding-top: 0;
 }
