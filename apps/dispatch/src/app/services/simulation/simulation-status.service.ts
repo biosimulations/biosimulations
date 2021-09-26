@@ -27,11 +27,15 @@ export class SimulationStatusService {
     return status === SimulationRunStatus.SUCCEEDED;
   }
 
-  public static isSimulationStatusFailed(status: SimulationRunStatus | undefined | null): boolean {
+  public static isSimulationStatusFailed(
+    status: SimulationRunStatus | undefined | null,
+  ): boolean {
     return status === SimulationRunStatus.FAILED;
   }
 
-  public static getSimulationStatusOrder(status: SimulationRunStatus | undefined | null): number {
+  public static getSimulationStatusOrder(
+    status: SimulationRunStatus | undefined | null,
+  ): number {
     switch (status) {
       case SimulationRunStatus.SUCCEEDED:
         return 0;
@@ -58,12 +62,10 @@ export class SimulationStatusService {
   ): string {
     if (status === undefined || status === null) {
       return 'N/A';
-
     } else if (upperCaseFirstLetter) {
       return (
         status.substring(0, 1).toUpperCase() + status.substring(1).toLowerCase()
       );
-
     } else {
       return status.toLowerCase();
     }

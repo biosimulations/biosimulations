@@ -248,7 +248,8 @@
                   mat-icon-button
                   class="biosimulations-button primary"
                   *ngIf="
-                    element._cache[column.id].left.routerLink as routerLink; else noRouterLink
+                    element._cache[column.id].left.routerLink as routerLink;
+                    else noRouterLink
                   "
                   [routerLink]="routerLink"
                   [fragment]="element._cache[column.id].left.fragment"
@@ -299,7 +300,10 @@
                 <button
                   mat-icon-button
                   class="biosimulations-button primary"
-                  *ngIf="element._cache[column.id].left.click as click; else noClick"
+                  *ngIf="
+                    element._cache[column.id].left.click as click;
+                    else noClick
+                  "
                   (click)="click(element)"
                 >
                   <ng-container
@@ -346,7 +350,8 @@
                   mat-icon-button
                   class="biosimulations-button primary"
                   *ngIf="
-                    element._cache[column.id].center.routerLink as routerLink; else noRouterLink
+                    element._cache[column.id].center.routerLink as routerLink;
+                    else noRouterLink
                   "
                   [routerLink]="routerLink"
                   [fragment]="element._cache[column.id].center.fragment"
@@ -366,7 +371,10 @@
                 <a
                   mat-icon-button
                   class="biosimulations-button primary"
-                  *ngIf="element._cache[column.id].center.href as href; else noHref"
+                  *ngIf="
+                    element._cache[column.id].center.href as href;
+                    else noHref
+                  "
                   [href]="href"
                   target="_blank"
                 >
@@ -385,7 +393,10 @@
                 <button
                   mat-icon-button
                   class="biosimulations-button primary"
-                  *ngIf="element._cache[column.id].center.click as click; else noClick"
+                  *ngIf="
+                    element._cache[column.id].center.click as click;
+                    else noClick
+                  "
                   (click)="click(element)"
                 >
                   <ng-container
@@ -421,7 +432,8 @@
                   mat-icon-button
                   class="biosimulations-button primary"
                   *ngIf="
-                    element._cache[column.id].right.routerLink as routerLink; else noRouterLink
+                    element._cache[column.id].right.routerLink as routerLink;
+                    else noRouterLink
                   "
                   [routerLink]="routerLink"
                   [fragment]="element._cache[column.id].right.fragment"
@@ -447,7 +459,10 @@
                 <a
                   mat-icon-button
                   class="biosimulations-button primary"
-                  *ngIf="element._cache[column.id].right.href as href; else noHref"
+                  *ngIf="
+                    element._cache[column.id].right.href as href;
+                    else noHref
+                  "
                   [href]="href"
                   target="_blank"
                 >
@@ -472,7 +487,10 @@
                 <button
                   mat-icon-button
                   class="biosimulations-button primary"
-                  *ngIf="element._cache[column.id].right.click as click; else noClick"
+                  *ngIf="
+                    element._cache[column.id].right.click as click;
+                    else noClick
+                  "
                   (click)="click(element)"
                 >
                   <ng-container

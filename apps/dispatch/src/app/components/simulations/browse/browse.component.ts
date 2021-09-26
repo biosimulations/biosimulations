@@ -228,7 +228,7 @@ export class BrowseComponent implements OnInit {
       id: 'submitted',
       heading: 'Submitted',
       key: 'submitted',
-      formatter: (value: Date | undefined  | null): string => {
+      formatter: (value: Date | undefined | null): string => {
         if (value) {
           return UtilsService.getDateString(value);
         } else {
@@ -507,7 +507,9 @@ export class BrowseComponent implements OnInit {
         }
       },
       leftAction: ColumnActionType.click,
-      leftClick: (simulation: Simulation): ((simulation: Simulation) => void) | null => {
+      leftClick: (
+        simulation: Simulation,
+      ): ((simulation: Simulation) => void) | null => {
         if (simulation.status === undefined || simulation.status === null) {
           return null;
         } else {
@@ -523,7 +525,9 @@ export class BrowseComponent implements OnInit {
         }
       },
       centerAction: ColumnActionType.click,
-      centerClick: (simulation: Simulation): ((simulation: Simulation) => void) | null => {
+      centerClick: (
+        simulation: Simulation,
+      ): ((simulation: Simulation) => void) | null => {
         if (simulation.status === undefined || simulation.status === null) {
           return null;
         } else {
@@ -572,7 +576,9 @@ export class BrowseComponent implements OnInit {
         }
       },
       leftAction: ColumnActionType.click,
-      leftClick: (simulation: Simulation): ((simulation: Simulation) => void) | null => {
+      leftClick: (
+        simulation: Simulation,
+      ): ((simulation: Simulation) => void) | null => {
         if (simulation.status === undefined || simulation.status === null) {
           return null;
         } else {
@@ -595,7 +601,9 @@ export class BrowseComponent implements OnInit {
         }
       },
       centerAction: ColumnActionType.click,
-      centerClick: (simulation: Simulation): ((simulation: Simulation) => void) | null => {
+      centerClick: (
+        simulation: Simulation,
+      ): ((simulation: Simulation) => void) | null => {
         if (simulation.status === undefined || simulation.status === null) {
           return null;
         } else {
@@ -693,16 +701,20 @@ export class BrowseComponent implements OnInit {
       center: true,
       leftIcon: 'trash',
       leftAction: ColumnActionType.click,
-      leftClick: (simulation: Simulation): ((simulation: Simulation) => void) => {
+      leftClick: (
+        simulation: Simulation,
+      ): ((simulation: Simulation) => void) => {
         return (simulation: Simulation): void => {
           this.removeSimulations(simulation);
-        }
+        };
       },
       centerAction: ColumnActionType.click,
-      centerClick: (simulation: Simulation): ((simulation: Simulation) => void) => {
+      centerClick: (
+        simulation: Simulation,
+      ): ((simulation: Simulation) => void) => {
         return (simulation: Simulation): void => {
           this.removeSimulations(simulation);
-        }
+        };
       },
       formatter: (id: string): null => {
         return null;

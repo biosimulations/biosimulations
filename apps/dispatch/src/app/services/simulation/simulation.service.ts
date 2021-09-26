@@ -4,10 +4,22 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, BehaviorSubject, combineLatest, throwError, of } from 'rxjs';
+import {
+  Observable,
+  BehaviorSubject,
+  combineLatest,
+  throwError,
+  of,
+} from 'rxjs';
 import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/services';
-import { concatAll, debounceTime, shareReplay, map, catchError } from 'rxjs/operators';
+import {
+  concatAll,
+  debounceTime,
+  shareReplay,
+  map,
+  catchError,
+} from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 
 @Injectable({
@@ -218,7 +230,8 @@ export class SimulationService {
               email: dispatchSimulation.email || undefined,
               id: dispatchSimulation.id,
               runtime: dispatchSimulation?.runtime || undefined,
-              status: dispatchSimulation.status as unknown as SimulationRunStatus,
+              status:
+                dispatchSimulation.status as unknown as SimulationRunStatus,
               submitted: new Date(dispatchSimulation.submitted),
               submittedLocally: false,
               simulator: dispatchSimulation.simulator,

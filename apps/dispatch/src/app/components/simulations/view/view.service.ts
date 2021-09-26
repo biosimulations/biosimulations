@@ -12,9 +12,7 @@ import {
   CombineArchiveElementMetadata,
   Metadata,
 } from '../../../datamodel/metadata.interface';
-import {
-  SimulationRunStatus,
-} from '@biosimulations/datamodel/common';
+import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 
 @Injectable({
   providedIn: 'root',
@@ -105,8 +103,12 @@ export class ViewService {
       //   simulation.runtime !== undefined
       //     ? Math.round(simulation.runtime / 1000).toString() + ' s'
       //     : 'N/A',
-      submitted: UtilsService.getDateTimeString(new Date(simulation?.submitted as Date)),
-      updated: UtilsService.getDateTimeString(new Date(simulation?.updated as Date)),
+      submitted: UtilsService.getDateTimeString(
+        new Date(simulation?.submitted as Date),
+      ),
+      updated: UtilsService.getDateTimeString(
+        new Date(simulation?.updated as Date),
+      ),
       projectSize:
         simulation.projectSize !== undefined && simulation.projectSize !== null
           ? (simulation.projectSize / 1024).toFixed(2) + ' KB'
@@ -116,7 +118,9 @@ export class ViewService {
           ? (simulation.resultsSize / 1024).toFixed(2) + ' KB'
           : 'N/A',
       projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-      simulatorUrl: `${urls.simulators}/simulators/${simulation?.simulator as string}/${simulation?.simulatorVersion as string}`,
+      simulatorUrl: `${urls.simulators}/simulators/${
+        simulation?.simulator as string
+      }/${simulation?.simulatorVersion as string}`,
       resultsUrl: `${urls.dispatchApi}results/${simulation.id}/download`,
     };
   }

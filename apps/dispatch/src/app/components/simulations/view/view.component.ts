@@ -300,7 +300,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   private initSimulationRun(): void {
     this.Simulation$ = this.simulationService
-      .getSimulation(this.uuid)      
+      .getSimulation(this.uuid)
       .pipe(shareReplay(1));
 
     this.Simulation$.subscribe((simulation: Simulation): void => {
