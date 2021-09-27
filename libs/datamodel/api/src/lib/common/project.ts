@@ -11,6 +11,8 @@ import { ArchiveMetadata, ArchiveMetadataContainer } from './archiveMetadata';
 export class SimulationRunMetadata {
   @ApiProperty({ example: '609aeb11d70ea3752d097015' })
   public id!: string;
+  @ApiProperty({ name: 'public', example: true })
+  public isPublic!: boolean;
   @ApiProperty({ type: [ArchiveMetadata] })
   public metadata!: ArchiveMetadata[];
 
@@ -23,10 +25,12 @@ export class SimulationRunMetadata {
   public constructor(
     simulationRun: string,
     metadata: ArchiveMetadata[],
+    isPublic: boolean,
     created: string,
     modified: string,
   ) {
     this.id = simulationRun;
+    this.isPublic = isPublic;
     this.metadata = metadata;
     this.created = created;
     this.modified = modified;

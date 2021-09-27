@@ -138,7 +138,8 @@ export class SimulationRunMetadataModel extends Document {
   public simulationRun!: string;
   @Prop({ type: [MetadataModelSchema], minimize: false, required: false })
   public metadata!: [MetadataModel];
-
+  @Prop({ type: Boolean, required: false, default: false })
+  public isPublic!: boolean;
   public created!: string;
   public updated!: string;
 }

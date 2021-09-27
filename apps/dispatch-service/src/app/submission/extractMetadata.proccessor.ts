@@ -38,7 +38,7 @@ export class MetadataProcessor {
   @Process()
   private async extractMetadata(job: Job<extractMetadataJob>): Promise<void> {
     const id = job.data.simId;
-
+    const isPublic = job.data.isPublic;
     const metadataURL = this.endpoints.getMetadataEndpoint();
 
     const url = this.endpoints.getRunDownloadEndpoint(id, true);
@@ -68,6 +68,7 @@ export class MetadataProcessor {
     const postMetadata: SimulationRunMetadataInput = {
       id: id,
       metadata,
+      isPublic,
     };
     const metadtaPostObserver = {
       next: (res: AxiosResponse<any>) => {

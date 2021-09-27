@@ -11,6 +11,7 @@ export enum JobQueue {
 }
 export class extractMetadataJob {
   simId!: string;
+  isPublic!: boolean;
 }
 export class MonitorJob {
   slurmJobId!: string;
@@ -26,6 +27,7 @@ export class DispatchJob {
   memory!: number;
   maxTime!: number;
   envVars!: EnvironmentVariable[];
+  isPublic!: boolean;
 }
 
 export class CompleteJob {
