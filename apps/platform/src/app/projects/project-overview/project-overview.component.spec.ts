@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material/card';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { MatCarouselModule } from '@ngbmodule/material-carousel';
 
 import { ProjectOverviewComponent } from './project-overview.component';
 
@@ -9,6 +12,11 @@ describe('ProjectOverviewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProjectOverviewComponent],
+      imports: [
+        BiosimulationsIconsModule,
+        MatCarouselModule.forRoot(),
+        MatCardModule,
+      ],
     }).compileComponents();
   });
 

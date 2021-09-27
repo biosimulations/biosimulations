@@ -8,7 +8,7 @@ import {
   SimpleChanges,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Spec } from 'vega';
 import vegaEmbed from 'vega-embed';
 import { environment } from '@biosimulations/shared/environments';
@@ -68,7 +68,7 @@ export class VegaEmbedComponent implements OnDestroy {
     this.spec = changes.spec.currentValue;
   }
 
-  private isVisible: boolean = false;
+  private isVisible = false;
   ngAfterContentChecked(): void {
     if (
       this.isVisible == false &&
