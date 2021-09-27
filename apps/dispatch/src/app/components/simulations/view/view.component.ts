@@ -289,12 +289,12 @@ export class ViewComponent implements OnInit, OnDestroy {
       }),
     );
 
-    this.status$ = this.simulation$.pipe(
-      pluck('status'),
-    );
+    this.status$ = this.simulation$.pipe(pluck('status'));
 
     this.formattedSimulation$ = this.simulation$.pipe(
-      map<Simulation, FormattedSimulation>(this.service.formatSimulation.bind(this.service)),
+      map<Simulation, FormattedSimulation>(
+        this.service.formatSimulation.bind(this.service),
+      ),
     );
 
     this.statusRunning$ = this.status$.pipe(
@@ -305,9 +305,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     this.statusSucceeded$ = this.status$.pipe(
       map((value: SimulationRunStatus): boolean => {
-        return SimulationStatusService.isSimulationStatusSucceeded(
-          value,
-        );
+        return SimulationStatusService.isSimulationStatusSucceeded(value);
       }),
     );
   }
