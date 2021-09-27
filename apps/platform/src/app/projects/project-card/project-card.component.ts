@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ProjectSummary } from '../datamodel';
 
 @Component({
   selector: 'biosimulations-project-card',
@@ -6,11 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./project-card.component.scss'],
 })
 export class ProjectCardComponent implements OnInit {
-  @Input() public project: { id: string; title: string; thumbnails: string[] } =
-    { id: '', title: '', thumbnails: [] };
-  public url = '';
+  @Input() public project!: ProjectSummary;
+  
+  public route = '';
+  
   public constructor() {}
+  
   public ngOnInit(): void {
-    this.url = `/projects/${this.project.id}`;
+    this.route = `/projects/${this.project.id}`;
   }
 }

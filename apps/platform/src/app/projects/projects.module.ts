@@ -23,6 +23,7 @@ import { ProjectOverviewComponent } from './project-overview/project-overview.co
 import { ProjectFigureComponent } from './project-figure/project-figure.component';
 import { ProjectSimulationComponent } from './project-simulation/project-simulation.component';
 import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handle
     DragDropModule,
     ResourceViewModule,
     SharedErrorComponentsModule,
+    LazyLoadImageModule,
   ],
 })
 export class ProjectsModule {}

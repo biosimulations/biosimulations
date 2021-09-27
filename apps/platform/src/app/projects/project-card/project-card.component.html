@@ -1,13 +1,49 @@
-<mat-card class="project-card" routerLink="{{ url }}">
-  <mat-card-title class="project-title-container">
-    <div class="project-title">{{ project.title }}</div>
+<mat-card class="container" routerLink="{{ route }}" *ngIf="project.metadata as metadata">
+  <mat-card-title class="title-container">
+    <div class="title">{{ metadata.title }}</div>
   </mat-card-title>
 
-  <img class="thumbnail" [src]="project.thumbnails[0]" />
+  <img class="thumbnail" [lazyLoad]="metadata.thumbnail" defaultImage="./assets/images/loading.svg" />
 
-  <mat-card-actions class="project-buttons-container">
-    <button color="primary" mat-icon-button>
-      <mat-icon>launch</mat-icon>
-    </button>
-  </mat-card-actions>
+  <div class="details-overlay">
+    <div class="details-overlay-inner">
+      <table class="icon-list">
+        <ng-container *ngFor="let encode of metadata.encodes">
+          <tr *ngIf="encode.label">
+            <td>
+              <biosimulations-icon icon="cell"></biosimulations-icon>
+            </td>
+            <td>{{ encode.label }}</td>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngFor="let taxon of metadata.taxa">
+          <tr *ngIf="taxon.label">
+            <td>
+              <biosimulations-icon icon="taxon"></biosimulations-icon>
+            </td>
+            <td>{{ taxon.label }}</td>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngFor="let citation of metadata.citations">
+          <tr *ngIf="citation.label">
+            <td>
+              <biosimulations-icon icon="file"></biosimulations-icon>
+            </td>
+            <td class="multiline">{{ citation.label }}</td>
+          </tr>
+        </ng-container>
+
+        <tr *ngIf="metadata.created">
+          <td>
+            <biosimulations-icon icon="date"></biosimulations-icon>
+          </td>
+          <td>{{ metadata.created.formattedValue }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="active-overlay"></div>
 </mat-card>

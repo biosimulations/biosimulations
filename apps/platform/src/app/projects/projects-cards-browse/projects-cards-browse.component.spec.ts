@@ -5,13 +5,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { ProjectCardComponent } from '../project-card/project-card.component';
 import { ProjectsService } from '../projects.service';
-
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ProjectsCardsBrowseComponent } from './projects-cards-browse.component';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+
 class mockProjectsService {
   getProjects() {
     return of([]);
   }
 }
+
 describe('ProjectsCardsBrowseComponent', () => {
   let component: ProjectsCardsBrowseComponent;
   let fixture: ComponentFixture<ProjectsCardsBrowseComponent>;
@@ -20,7 +23,7 @@ describe('ProjectsCardsBrowseComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ProjectsCardsBrowseComponent, ProjectCardComponent],
       providers: [{ provide: ProjectsService, useClass: mockProjectsService }],
-      imports: [RouterTestingModule, MatIconModule, MatCardModule],
+      imports: [RouterTestingModule, MatIconModule, MatCardModule, BiosimulationsIconsModule, LazyLoadImageModule],
     }).compileComponents();
   });
 
