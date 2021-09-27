@@ -19,7 +19,7 @@ describe('ProjectCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProjectCardComponent);
     component = fixture.componentInstance;
-    component.project = { id: 1, thumbnails: [''], title: 'example title' };
+    component.project = { id: '1', thumbnails: [''], title: 'example title' };
     fixture.detectChanges();
   });
 

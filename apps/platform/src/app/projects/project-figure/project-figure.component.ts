@@ -1,10 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import {
-  SedDocument,
-  SedSimulation,
-  SedReport,
-} from '../datamodel';
+import { SedDocument, SedSimulation, SedReport } from '../datamodel';
 import { Spec as VegaSpec } from 'vega';
 import { Endpoints } from '@biosimulations/config/common';
 @Component({
@@ -30,7 +26,7 @@ export class ProjectFigureComponent implements OnInit {
   }
 
   private setupVega() {
-    this.spec = this.figure.spec.pipe(
+    this.spec = this.figure?.spec.pipe(
       map((spec: VegaSpec) => {
         if (Array.isArray(spec?.signals)) {
           for (const signal of spec?.signals) {
@@ -77,7 +73,7 @@ export class ProjectFigureComponent implements OnInit {
               console.error(this.getSedReport(anyData.sedmlUri));
 
               if (
-                // TODO This test fails, even though it should work
+                // TODO This test fails since the sed doc is not loaded yet
                 // eslint-disable-next-line no-constant-condition
                 true ||
                 anyData.sedmlUri?.length == 0 ||
