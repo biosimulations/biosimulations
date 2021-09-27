@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -32,6 +32,7 @@ import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import {
   Simulation,
   UnknownSimulation,
+  isUnknownSimulation,
   SedDatasetResultsMap,
   CombineResults,
   SedDocumentResults,
@@ -49,6 +50,7 @@ import {
   SedPlot2D,
   SedReport,
   SedDataSet,
+  SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 import {
@@ -62,6 +64,7 @@ import {
   catchError,
   concatAll,
   map,
+  pluck,
   shareReplay,
   withLatestFrom,
 } from 'rxjs/operators';
@@ -141,10 +144,11 @@ export class ViewComponent implements OnInit, OnDestroy {
   private uuid = '';
 
   // simulation run
+  status$!: Observable<SimulationRunStatus>;
   statusRunning$!: Observable<boolean>;
   statusSucceeded$!: Observable<boolean>;
   runTime$!: Observable<string>;
-  private Simulation$!: Observable<Simulation | UnknownSimulation>;
+  private simulation$!: Observable<Simulation>;
   formattedSimulation$?: Observable<FormattedSimulation>;
 
   // metadata about COMBINE/OMEX archive of simulation run
@@ -200,6 +204,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   private endpoints = new Endpoints();
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private service: ViewService,
@@ -271,24 +276,37 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   private initSimulationRun(): void {
-    this.Simulation$ = this.simulationService
+    const iSimulation = this.simulationService
       .getSimulation(this.uuid)
       .pipe(shareReplay(1));
 
-    this.formattedSimulation$ = this.Simulation$.pipe(
-      map<Simulation | UnknownSimulation, FormattedSimulation>(this.service.formatSimulation.bind(this.service)),
-    );
-
-    this.statusRunning$ = this.formattedSimulation$.pipe(
-      map((value: FormattedSimulation): boolean => {
-        return SimulationStatusService.isSimulationStatusRunning(value.status);
+    this.simulation$ = iSimulation.pipe(
+      map((simulation: Simulation | UnknownSimulation): Simulation => {
+        if (isUnknownSimulation(simulation)) {
+          this.router.navigate(['/error', '404']);
+        }
+        return simulation as Simulation;
       }),
     );
 
-    this.statusSucceeded$ = this.formattedSimulation$.pipe(
-      map((value: FormattedSimulation): boolean => {
+    this.status$ = this.simulation$.pipe(
+      pluck('status'),
+    );
+
+    this.formattedSimulation$ = this.simulation$.pipe(
+      map<Simulation, FormattedSimulation>(this.service.formatSimulation.bind(this.service)),
+    );
+
+    this.statusRunning$ = this.status$.pipe(
+      map((value: SimulationRunStatus): boolean => {
+        return SimulationStatusService.isSimulationStatusRunning(value);
+      }),
+    );
+
+    this.statusSucceeded$ = this.status$.pipe(
+      map((value: SimulationRunStatus): boolean => {
         return SimulationStatusService.isSimulationStatusSucceeded(
-          value.status,
+          value,
         );
       }),
     );
@@ -671,47 +689,56 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   private initSimulationProjectMetadata(): void {
-    this.metadata$ = this.metadataService.getMetadata(this.uuid).pipe(
-      map(this.service.formatMetadata, this.service),
-      map((metadata) => {
-        const allmetadata = metadata?.archive
-          ? [metadata.archive, ...metadata.other]
-          : metadata.other;
-        allmetadata.map((elMetadata) => {
-          if (elMetadata) {
-            if (elMetadata?.created) {
-              elMetadata.created = UtilsService.getDateString(
-                new Date(elMetadata.created),
-              );
-            }
-            elMetadata.modified = elMetadata.modified.map(
-              (date: string): string => {
-                return UtilsService.getDateString(new Date(date));
+    this.metadata$ = this.status$.pipe(
+      map((status: SimulationRunStatus): Observable<Metadata | undefined> => {
+        if (status !== SimulationRunStatus.SUCCEEDED) {
+          return of<undefined>(undefined);
+        }
+        return this.metadataService.getMetadata(this.uuid).pipe(
+          map(this.service.formatMetadata, this.service),
+          map((metadata) => {
+            const allmetadata = metadata?.archive
+              ? [metadata.archive, ...metadata.other]
+              : metadata.other;
+            allmetadata.map((elMetadata) => {
+              if (elMetadata) {
+                if (elMetadata?.created) {
+                  elMetadata.created = UtilsService.getDateString(
+                    new Date(elMetadata.created),
+                  );
+                }
+                elMetadata.modified = elMetadata.modified.map(
+                  (date: string): string => {
+                    return UtilsService.getDateString(new Date(date));
+                  },
+                );
+                elMetadata.modified.sort();
+                elMetadata.modified.reverse();
+              }
+              return elMetadata;
+            });
+            metadata.archive = allmetadata[0];
+            metadata.other = allmetadata.slice(1);
+
+            return metadata;
+          }),
+          catchError((error: Error) => {
+            this.snackBar.open(
+              'Sorry! We were unable to get the metadata for this project.',
+              undefined,
+              {
+                duration: 5000,
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom',
               },
             );
-            elMetadata.modified.sort();
-            elMetadata.modified.reverse();
-          }
-          return elMetadata;
-        });
-        metadata.archive = allmetadata[0];
-        metadata.other = allmetadata.slice(1);
-
-        return metadata;
-      }),
-      catchError((error: Error) => {
-        this.snackBar.open(
-          'Sorry! We were unable to get the metadata for this project.',
-          undefined,
-          {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-          },
+            console.error(error);
+            return of(undefined);
+          }),
         );
-        console.error(error);
-        return of(undefined);
       }),
+      concatAll(),
+      shareReplay(1),
     );
 
     this.metadata$ = combineLatest(
@@ -798,11 +825,13 @@ export class ViewComponent implements OnInit, OnDestroy {
     );
 
     this.metadataLoaded$ = this.metadata$.pipe(
-      map((): boolean => {
-        return true;
+      withLatestFrom(this.statusRunning$),
+      map((metadataStatusRunning: [Metadata | undefined, boolean]): boolean => {
+        return !metadataStatusRunning[1];
       }),
       shareReplay(1),
     );
+
     this.figuresTablesMetadata$ = this.metadata$.pipe(
       map(
         (metadata: Metadata | undefined): FigureTableMetadata[] | undefined => {
