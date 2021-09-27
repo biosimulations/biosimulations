@@ -133,6 +133,7 @@
     heading="Simulation project"
     icon="code"
     urlHashFragment="project"
+    [disabled]="(statusSucceeded$ | async) === false"
   >
     <ng-container *ngIf="metadataLoaded$ | async; else loading">
       <ng-container *ngIf="metadata$ | async as metadata; else error">
