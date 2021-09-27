@@ -40,6 +40,7 @@ import {
   ApiTags,
   ApiUnsupportedMediaTypeResponse,
   getSchemaPath,
+  ApiParam,
 } from '@nestjs/swagger';
 import { Response, Request } from 'express';
 import {
@@ -234,8 +235,14 @@ export class SimulationRunController {
     summary: 'Get a simulation run',
     description: 'Get information about a simulation run',
   })
+  @ApiParam({
+    name: 'id',
+    description: 'Id of a simulation run',
+    required: true,
+    type: String,
+  })
   @ApiOkResponse({ type: SimulationRun })
-  @Get(':id')
+  @Get(':id')  
   @OptionalAuth()
   public async getRun(
     @Param('id') id: string,
@@ -260,6 +267,12 @@ export class SimulationRunController {
     summary: 'Modify a simulation run',
     description: 'Change the status or information of a simulation run',
   })
+  @ApiParam({
+    name: 'id',
+    description: 'Id of a simulation run',
+    required: true,
+    type: String,
+  })
   @permissions('write:SimulationRuns')
   @Patch(':id')
   public async modfiyRun(
@@ -274,6 +287,12 @@ export class SimulationRunController {
   @ApiOperation({
     summary: 'Delete a simulation run',
     description: 'Delete a simulation run',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Id of a simulation run',
+    required: true,
+    type: String,
   })
   @permissions('delete:SimulationRuns')
   @Delete(':id')
@@ -303,6 +322,12 @@ export class SimulationRunController {
     summary: 'Download the COMBINE/OMEX archive for the simulation run',
     description:
       'Download the COMBINE/OMEX archive for the simulation run',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Id of a simulation run',
+    required: true,
+    type: String,
   })
   @Get(':id/download')
   @ApiTags('Downloads')

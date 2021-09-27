@@ -9,7 +9,7 @@ import {
   VERSION_NEUTRAL,
 } from '@nestjs/common';
 
-import { ApiBody, ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiBody, ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { permissions } from '@biosimulations/auth/nest';
 
 import {
@@ -73,6 +73,12 @@ export class MetadataController {
     summary: 'Get metadata about the simulation project of a simulation run',
     description:
       'Returns metadata about the simulation project of a simulation run',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Id of a simulation run',
+    required: true,
+    type: String,
   })
   @Get(':id')
   public async getMetadata(
