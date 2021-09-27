@@ -3,23 +3,48 @@ import {
   EnvironmentVariable,
 } from '@biosimulations/datamodel/common';
 
+export interface UnknownSimulation {
+  id: string;
+  name?: null;
+  email?: null;
+  submittedLocally?: null;
+  simulator?: null;
+  simulatorVersion?: null;
+  cpus?: null;
+  memory?: null; // GB
+  maxTime?: null; // min
+  envVars?: null;
+  status?: null;
+  runtime?: null;
+  submitted?: null;
+  updated?: null;
+  resultsSize?: null;
+  projectSize?: null;
+}
+
 export interface Simulation {
   id: string;
-  name?: string | null;
-  email?: string | null;
-  submittedLocally?: boolean | null;
-  simulator?: string | null;
-  simulatorVersion?: string | null;
-  cpus?: number | null;
-  memory?: number | null; // GB
-  maxTime?: number | null; // min
-  envVars?: EnvironmentVariable[] | null;
-  status?: SimulationRunStatus | null;
-  runtime?: number | null;
-  submitted?: Date | null;
-  updated?: Date | null;
-  resultsSize?: number | null;
-  projectSize?: number | null;
+  name: string;
+  email?: string;
+  submittedLocally?: boolean;
+  simulator: string;
+  simulatorVersion: string;
+  cpus: number;
+  memory: number; // GB
+  maxTime: number; // min
+  envVars: EnvironmentVariable[];
+  status: SimulationRunStatus;
+  runtime?: number;
+  submitted: Date;
+  updated: Date;
+  resultsSize?: number;
+  projectSize?: number;
+}
+
+export type ISimulation = Simulation | UnknownSimulation;
+
+export function isUnknownSimulation(simulation: Simulation | UnknownSimulation): boolean {
+  return simulation.status === undefined || simulation.status === null;
 }
 
 export interface SedDatasetResults {

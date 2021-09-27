@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { urls } from '@biosimulations/config/common';
-import { Simulation } from '../../../datamodel';
+import { Simulation, UnknownSimulation, isUnknownSimulation } from '../../../datamodel';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { FormattedSimulation } from './view.model';
 import { UtilsService } from '@biosimulations/shared/services';
@@ -12,13 +12,13 @@ import {
   CombineArchiveElementMetadata,
   Metadata,
 } from '../../../datamodel/metadata.interface';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ViewService {
-  constructor() {}
+  constructor(private router: Router) {}
 
   private formatElementMetadata(
     elementMetadata: ArchiveMetadata | undefined,
@@ -76,7 +76,12 @@ export class ViewService {
     return metadata as Metadata;
   }
 
-  public formatSimulation(simulation: Simulation): FormattedSimulation {
+  public formatSimulation(simulation: Simulation | UnknownSimulation): FormattedSimulation {
+    if (isUnknownSimulation(simulation)) {
+      this.router.navigate(['/error', '404']);
+    }
+
+    simulation = simulation as Simulation;
     const statusRunning = SimulationStatusService.isSimulationStatusRunning(
       simulation.status,
     );
@@ -85,14 +90,14 @@ export class ViewService {
     );
     return {
       id: simulation.id,
-      name: simulation?.name as string,
-      simulator: simulation?.simulator as string,
-      simulatorVersion: simulation?.simulatorVersion as string,
-      cpus: simulation?.cpus || 1,
-      memory: simulation?.memory || 8,
-      maxTime: simulation?.maxTime || 20,
-      envVars: simulation?.envVars || [],
-      status: simulation?.status as SimulationRunStatus,
+      name: simulation.name,
+      simulator: simulation.simulator,
+      simulatorVersion: simulation.simulatorVersion,
+      cpus: simulation.cpus || 1,
+      memory: simulation.memory || 8,
+      maxTime: simulation.maxTime || 20,
+      envVars: simulation.envVars || [],
+      status: simulation.status,
       statusRunning: statusRunning,
       statusSucceeded: statusSucceeded,
       statusLabel: SimulationStatusService.getSimulationStatusMessage(
@@ -104,10 +109,10 @@ export class ViewService {
       //     ? Math.round(simulation.runtime / 1000).toString() + ' s'
       //     : 'N/A',
       submitted: UtilsService.getDateTimeString(
-        new Date(simulation?.submitted as Date),
+        new Date(simulation.submitted),
       ),
       updated: UtilsService.getDateTimeString(
-        new Date(simulation?.updated as Date),
+        new Date(simulation.updated),
       ),
       projectSize:
         simulation.projectSize !== undefined && simulation.projectSize !== null
@@ -119,8 +124,8 @@ export class ViewService {
           : 'N/A',
       projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
       simulatorUrl: `${urls.simulators}/simulators/${
-        simulation?.simulator as string
-      }/${simulation?.simulatorVersion as string}`,
+        simulation.simulator
+      }/${simulation.simulatorVersion}`,
       resultsUrl: `${urls.dispatchApi}results/${simulation.id}/download`,
     };
   }
