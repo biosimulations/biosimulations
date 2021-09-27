@@ -39,6 +39,8 @@ import {
 } from '@biosimulations/messages/messages';
 import { ClientProxy } from '@nestjs/microservices';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
+import { Readable } from 'stream';
+import { firstValueFrom } from 'rxjs';
 // 1gb in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
 const toApi = <T extends SimulationRunModelType>(
@@ -198,16 +200,17 @@ export class SimulationRunService {
 
   public async createRunWithFile(
     run: UploadSimulationRun,
-    file: any,
+    file: Express.Multer.File,
   ): Promise<SimulationRunModelReturnType> {
     const simId = String(new mongo.ObjectId());
-    const fileId = 'simulations/' + String(simId) + '/' + file.originalname;
+
     try {
       const s3file =
         await this.simulationStorageService.uploadSimulationArchive(
           simId,
           file,
         );
+      await this.simulationStorageService.extractSimulationArchive(s3file.Key);
       const url = encodeURI(s3file.Location);
 
       const fileParsed = {
@@ -245,26 +248,46 @@ export class SimulationRunService {
     let size = undefined;
     let mimetype = undefined;
     let originalname = undefined;
-    try {
-      const file_headers = await this.http.head(url).toPromise();
-      size = file_headers?.headers['content-length'];
-      mimetype = file_headers?.headers['content-type'];
-      originalname =
-        file_headers?.headers['content-disposition']?.split('filename=')[1];
-    } catch (e) {
-      this.logger.warn(e);
-    }
+    let encoding = undefined;
 
-    if (size && size > ONE_GIGABYTE) {
-      throw new PayloadTooLargeException(
-        'The maximum allowed size of the file is 1GB. The provided file was ' +
-          String(size),
-      );
+    this.logger.debug(`Downloading file from ${url}`);
+    const file = await firstValueFrom(
+      this.http.get(url, {
+        responseType: 'arraybuffer',
+      }),
+    );
+
+    if (file) {
+      const file_headers = file?.headers;
+      size = file_headers['content-length'];
+      mimetype = file_headers['content-type'];
+      originalname = file_headers['content-disposition']?.split('filename=')[1];
+      encoding = file_headers['content-transfer-encoding'];
+      if (size && size > ONE_GIGABYTE) {
+        throw new PayloadTooLargeException(
+          'The maximum allowed size of the file is 1GB. The provided file was ' +
+            String(size),
+        );
+      }
+      const fileObj: Express.Multer.File = {
+        buffer: file.data,
+        originalname,
+        mimetype,
+        size,
+        encoding,
+        // Fields below are just to satisfy the interface and are not used
+        fieldname: 'file',
+        filename: originalname,
+        stream: Readable.from(file.data),
+        destination: '',
+        path: '',
+      };
+
+      this.logger.debug(`Downloaded file from ${url}`);
+      return this.createRunWithFile(body, fileObj);
+    } else {
+      throw new Error('Unable to proccess file');
     }
-    // TODO save file to s3, extract contents
-    const file = new this.fileModel({ url, size, mimetype, originalname });
-    const simId = String(new mongo.ObjectId());
-    return this.createRun(body, file, simId);
   }
   /**
    *

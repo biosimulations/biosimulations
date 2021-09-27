@@ -146,6 +146,7 @@
     "@types/jest": "27.0.1",
     "@types/lunr": "2.3.4",
     "@types/mongoose": "5.11.96",
+    "@types/multer": "^1.4.7",
     "@types/node": "14.17.15",
     "@types/passport-jwt": "3.0.6",
     "@types/plotly.js": "1.54.16",
