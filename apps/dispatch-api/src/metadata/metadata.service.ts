@@ -24,8 +24,9 @@ export class MetadataService {
     const env = config.get('server.env');
     this.endpoints = new Endpoints(env);
   }
-  public async getAllMetadata() {
-    const metadta = await this.metadataModel.find({}).exec();
+  public async getAllMetadata(includePrivate = false) {
+    const query = includePrivate ? {} : { isPublic: true };
+    const metadta = await this.metadataModel.find(query).exec();
 
     return metadta;
   }

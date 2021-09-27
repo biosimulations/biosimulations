@@ -58,7 +58,10 @@ export class DispatchProcessor {
         slurmJobId: slurmjobId.toString(),
         simId: data.simId,
       };
-      const metadataJob: extractMetadataJob = { simId: data.simId };
+      const metadataJob: extractMetadataJob = {
+        simId: data.simId,
+        isPublic: data.isPublic,
+      };
       this.monitorQueue.add(monitorData);
       this.metadataQueue.add(metadataJob);
     }

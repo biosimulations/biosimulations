@@ -177,6 +177,7 @@ export class SimulationRunController {
       memory: run.memory,
       maxTime: run.maxTime,
       envVars: run.envVars,
+      isPublic: run.public,
     };
     const sim = await this.dispatchQueue.add(message);
 

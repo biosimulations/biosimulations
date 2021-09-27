@@ -6,9 +6,10 @@ import {
   NotFoundException,
   Param,
   Post,
+  Req,
   VERSION_NEUTRAL,
 } from '@nestjs/common';
-
+import { Request } from 'express';
 import { ApiBody, ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
 
 import {
@@ -17,6 +18,8 @@ import {
 } from '@biosimulations/datamodel/api';
 import { MetadataService } from './metadata.service';
 import { SimulationRunMetadataModel } from './metadata.model';
+import { OptionalAuth } from '@biosimulations/auth/nest';
+import { AuthToken } from '@biosimulations/auth/common';
 
 @ApiTags('Metadata')
 @Controller({ path: 'metadata', version: VERSION_NEUTRAL })
@@ -40,6 +43,7 @@ export class MetadataController {
     return new SimulationRunMetadata(
       metadata.simulationRun,
       data,
+      metadata.isPublic,
       metadata.created,
       metadata.updated,
     );
@@ -51,15 +55,25 @@ export class MetadataController {
     description:
       'Returns metadata about the simulation projects of all simulation runs',
   })
+  @OptionalAuth()
   @Get()
-  public async getAllMetadata(): Promise<SimulationRunMetadata[]> {
-    const metadatas = await this.service.getAllMetadata();
+  public async getAllMetadata(
+    @Req() req: Request,
+  ): Promise<SimulationRunMetadata[]> {
+    const user = req?.user as AuthToken;
+    let permission = false;
+    if (user) {
+      user.permissions = user.permissions || [];
+      permission = user.permissions.includes('read:Metadata');
+    }
+    const metadatas = await this.service.getAllMetadata(permission);
     const ret = metadatas.map((metadata: SimulationRunMetadataModel) => {
       const data = metadata.metadata;
 
       return new SimulationRunMetadata(
         metadata.simulationRun,
         data,
+        metadata.isPublic,
         metadata.created,
         metadata.updated,
       );
@@ -94,6 +108,7 @@ export class MetadataController {
     return new SimulationRunMetadata(
       simid,
       data,
+      metadata.isPublic,
       metadata.created,
       metadata.updated,
     );
