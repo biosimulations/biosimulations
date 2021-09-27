@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
@@ -16,7 +16,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { ProjectsRoutingModule } from './projects-routing.module';
-import { ProjectsComponent } from './projects.component';
 import { ViewComponent } from './view/view.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProjectCardComponent } from './project-card/project-card.component';
@@ -26,11 +25,8 @@ import { ProjectFigureComponent } from './project-figure/project-figure.componen
 import { ProjectSimulationComponent } from './project-simulation/project-simulation.component';
 import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
 
-const routes: Routes = [{ path: '', component: ProjectsComponent }];
-
 @NgModule({
   declarations: [
-    ProjectsComponent,
     ViewComponent,
     ProjectCardComponent,
     ProjectsCardsBrowseComponent,
@@ -41,7 +37,6 @@ const routes: Routes = [{ path: '', component: ProjectsComponent }];
   imports: [
     CommonModule,
     ProjectsRoutingModule,
-    RouterModule.forChild(routes),
     MatButtonModule,
     MatTableModule,
     MatStepperModule,
