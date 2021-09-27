@@ -65,6 +65,7 @@ export class MetadataService {
               const endpoint = this.endpoints.getCombineFilesEndpoint(
                 this.endpoints.getRunDownloadEndpoint(data.id, true),
                 thumbnail,
+                true,
               );
 
               return endpoint;
