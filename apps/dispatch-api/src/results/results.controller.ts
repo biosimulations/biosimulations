@@ -15,7 +15,7 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
-import { ApiQuery, ApiResponse, ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiQuery, ApiResponse, ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { ResultsService } from './results.service';
 import {
@@ -36,6 +36,12 @@ export class ResultsController {
     description: 'Get the results of each report and plot of each SED-ML file for the simulation run',
   })
   @Get(':simId')
+  @ApiParam({
+    name: 'simId',
+    description: 'Id of a simulation run',
+    required: true,
+    type: String,
+  })
   @ApiQuery({ name: 'includeData', type: Boolean })
   @ApiResponse({ status: 200, description: 'ok', type: SimulationRunResults })
   public async getResults(
@@ -59,6 +65,12 @@ export class ResultsController {
     description: 'Download a zip file that contains each report (HDF5 format) and plot (PDF format) of each SED-ML file for the simulation run, as well as the log (YAML format) of the simulation run',
   })
   @Get(':simId/download')
+  @ApiParam({
+    name: 'simId',
+    description: 'Id of a simulation run',
+    required: true,
+    type: String,
+  })
   @ApiTags('Downloads')
   public async downloadResultReport(
     @Param('simId') simId: string,
@@ -76,6 +88,18 @@ export class ResultsController {
     description: 'Get the results of a single output (SED plot or report of a SED-ML file) of a simulation run',
   })
   @Get(':simId/:outputId')
+  @ApiParam({
+    name: 'simId',
+    description: 'Id of a simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'outputId',
+    description: 'Forward slash-separated tuple of the location of the SED-ML file and the id of the SED output (e.g., `path/to/simulation.sedm/Table1`)',
+    required: true,
+    type: String,
+  })
   @ApiResponse({ status: 200, type: SimulationRunOutput, description: 'ok' })
   @ApiQuery({ name: 'includeData', type: Boolean })
   public async getResultReport(
