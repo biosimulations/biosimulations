@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Simulation, UnknownSimulation, ISimulation, isUnknownSimulation } from '../../datamodel';
+import {
+  Simulation,
+  UnknownSimulation,
+  ISimulation,
+  isUnknownSimulation,
+} from '../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
@@ -51,12 +56,14 @@ export class SimulationService {
     this.storage.ready().then(() => {
       this.storage.keys().then((keys: string[]): void => {
         if (keys.includes(this.key)) {
-          this.storage.get(this.key).then((simulations: ISimulation[]): void => {
-            // type case dates to `Date` -- necessary for WebSQL which converts dates to strings
-            simulations = this.parseDates(simulations);
+          this.storage
+            .get(this.key)
+            .then((simulations: ISimulation[]): void => {
+              // type case dates to `Date` -- necessary for WebSQL which converts dates to strings
+              simulations = this.parseDates(simulations);
 
-            this.initSimulations(simulations);
-          });
+              this.initSimulations(simulations);
+            });
         } else {
           this.initSimulations([]);
         }
@@ -330,7 +337,6 @@ export class SimulationService {
         map((value: ISimulation) => {
           if (isUnknownSimulation(value)) {
             return of(value);
-
           } else {
             // LOCAL Storage
             this.storeSimulations([value]);
