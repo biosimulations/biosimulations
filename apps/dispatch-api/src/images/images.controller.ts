@@ -21,7 +21,8 @@ export class ImagesController {
   constructor(@Inject('NATS_CLIENT') private client: ClientProxy) {}
 
   @ApiOperation({
-    summary: 'Trigger the building a Singularity image for a version of a simulation tool',
+    summary:
+      'Trigger the building a Singularity image for a version of a simulation tool',
     description:
       'Trigger the simulation service to build (or rebuild) a Singularity image for a version of a simulation tool',
   })

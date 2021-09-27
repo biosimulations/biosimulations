@@ -31,13 +31,14 @@ export class AuthTestController {
   @ApiOAuth2([])
   @ApiOperation({
     summary: 'Get information about the current user of the API',
-    description: 'Returns information about the current user of the API, including their authentication token. This information may be helpful for debugging.',
+    description:
+      'Returns information about the current user of the API, including their authentication token. This information may be helpful for debugging.',
   })
   @Get('/loggedIn')
   loggedping(@Req() req: any) {
     return req.user;
   }
-  
+
   @UseGuards(JwtGuard, AdminGuard)
   @ApiOAuth2([])
   @ApiOperation({
@@ -53,8 +54,10 @@ export class AuthTestController {
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiOperation({
-    summary: 'Check whether the user has privileges to use the secured parts of API',
-    description: 'Check whether the user has privileges to use the secured parts of API',
+    summary:
+      'Check whether the user has privileges to use the secured parts of API',
+    description:
+      'Check whether the user has privileges to use the secured parts of API',
   })
   @Get('/permissions')
   testping(@Req() req: any) {

@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 
 import { ApiBody, ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
-import { permissions } from '@biosimulations/auth/nest';
 
 import {
   SimulationRunMetadata,
@@ -47,11 +46,11 @@ export class MetadataController {
   }
 
   @ApiOperation({
-    summary: 'Get metadata about the simulation projects of all simulation runs',
+    summary:
+      'Get metadata about the simulation projects of all simulation runs',
     description:
       'Returns metadata about the simulation projects of all simulation runs',
   })
-  @permissions('read:SimulationRuns')
   @Get()
   public async getAllMetadata(): Promise<SimulationRunMetadata[]> {
     const metadatas = await this.service.getAllMetadata();
