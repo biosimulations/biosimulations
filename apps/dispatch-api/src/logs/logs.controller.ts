@@ -17,7 +17,7 @@ import {
   Post,
   // Put,
 } from '@nestjs/common';
-import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiExtraModels, ApiResponse, ApiTags, ApiOperation } from '@nestjs/swagger';
 import {
   CombineArchiveLog,
   SedPlot2DLog,
@@ -38,15 +38,29 @@ export class LogsController {
   public constructor(private service: LogsService) {}
 
   /*
+  @ApiOperation({
+    summary: 'Get the logs of all simulation runs',
+    description: 'Get the logs of all simulation runs',
+  })
   @Get()
   public getAllLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
+  
+  @ApiOperation({
+    summary: 'Delete the logs of all simulation runs',
+    description: 'Delete the logs of all simulation runs',
+  })
   @Delete()
   public deleteAllLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
   */
+
+  @ApiOperation({
+    summary: 'Get the log a simulation run',
+    description: 'Get the log a simulation run',
+  })
   @ApiResponse({
     status: 200,
     type: CombineArchiveLog,
@@ -63,6 +77,10 @@ export class LogsController {
   }
 
   /*
+  @ApiOperation({
+    summary: 'Download the log a simulation run',
+    description: 'Download the log a simulation run',
+  })
   @Get(':id/download')
   @ApiTags('Downloads')
   public downloadLogs(@Param() id: string): void {
@@ -70,6 +88,10 @@ export class LogsController {
   }
   */
 
+  @ApiOperation({
+    summary: 'Upload the log a simulation run',
+    description: 'Upload the log a simulation run',
+  })
   @Post()
   @ApiResponse({
     status: 201,
@@ -83,16 +105,28 @@ export class LogsController {
   }
 
   /*
+  @ApiOperation({
+    summary: 'Delete the log a simulation run',
+    description: 'Delete the log a simulation run',
+  })
   @Delete(':id')
   public deleteLogs(@Param() id: string): void {
     throw new NotImplementedException('Not Implemented');
   }
 
+  @ApiOperation({
+    summary: 'Modify the log a simulation run',
+    description: 'Modify the log a simulation run',
+  })
   @Patch(':id')
   public editLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
 
+  @ApiOperation({
+    summary: 'Replace the log a simulation run',
+    description: 'Replace the log a simulation run',
+  })
   @Put(':id')
   public replaceLogs(): void {
     throw new NotImplementedException('Not Implemented');

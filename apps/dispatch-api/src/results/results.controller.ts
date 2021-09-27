@@ -15,7 +15,7 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
-import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiResponse, ApiTags, ApiOperation } from '@nestjs/swagger';
 import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { ResultsService } from './results.service';
 import {
@@ -31,6 +31,10 @@ export class ResultsController {
     private dataSetService: SimulationHDFService,
   ) {}
 
+  @ApiOperation({
+    summary: 'Get the results of all of the outputs of a simulation run',
+    description: 'Get the results of each report and plot of each SED-ML file for the simulation run',
+  })
   @Get(':simId')
   @ApiQuery({ name: 'includeData', type: Boolean })
   @ApiResponse({ status: 200, description: 'ok', type: SimulationRunResults })
@@ -50,6 +54,10 @@ export class ResultsController {
     return returnValue;
   }
 
+  @ApiOperation({
+    summary: 'Download all of the outputs of a simulation run',
+    description: 'Download a zip file that contains each report (HDF5 format) and plot (PDF format) of each SED-ML file for the simulation run, as well as the log (YAML format) of the simulation run',
+  })
   @Get(':simId/download')
   @ApiTags('Downloads')
   public async downloadResultReport(
@@ -63,6 +71,10 @@ export class ResultsController {
     res.send();
   }
 
+  @ApiOperation({
+    summary: 'Get the results of an output (plot or report) of a simulation run',
+    description: 'Get the results of a single output (SED plot or report of a SED-ML file) of a simulation run',
+  })
   @Get(':simId/:outputId')
   @ApiResponse({ status: 200, type: SimulationRunOutput, description: 'ok' })
   @ApiQuery({ name: 'includeData', type: Boolean })

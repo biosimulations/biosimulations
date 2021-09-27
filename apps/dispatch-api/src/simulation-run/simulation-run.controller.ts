@@ -300,8 +300,9 @@ export class SimulationRunController {
   }
 
   @ApiOperation({
+    summary: 'Download the COMBINE/OMEX archive for the simulation run',
     description:
-      'Download the COMBINE/OMEX archive file for the simulation run',
+      'Download the COMBINE/OMEX archive for the simulation run',
   })
   @Get(':id/download')
   @ApiTags('Downloads')

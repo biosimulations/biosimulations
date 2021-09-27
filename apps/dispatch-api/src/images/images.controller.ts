@@ -19,10 +19,11 @@ import { refreshImageBody } from './image.dto';
 @ApiTags('Internal management')
 export class ImagesController {
   constructor(@Inject('NATS_CLIENT') private client: ClientProxy) {}
+
   @ApiOperation({
-    summary: 'Refresh Container Image',
+    summary: 'Trigger the building a Singularity image for a version of a simulation tool',
     description:
-      'Trigger a rebuild of the Singularity image of a particular container',
+      'Trigger the simulation service to build (or rebuild) a Singularity image for a version of a simulation tool',
   })
   @ApiBody({ type: refreshImageBody })
   @permissions('refresh:Images')

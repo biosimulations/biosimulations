@@ -9,7 +9,7 @@ import {
   VERSION_NEUTRAL,
 } from '@nestjs/common';
 
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags, ApiOperation } from '@nestjs/swagger';
 import { permissions } from '@biosimulations/auth/nest';
 
 import {
@@ -25,6 +25,11 @@ export class MetadataController {
   private logger = new Logger(MetadataController.name);
   public constructor(private service: MetadataService) {}
 
+  @ApiOperation({
+    summary: 'Post metadata about the simulation project of a simulation run',
+    description:
+      'Upload metadata about the simulation project of a simulation run',
+  })
   @ApiBody({ type: SimulationRunMetadataInput })
   @Post()
   public async makeMetadata(
@@ -41,6 +46,11 @@ export class MetadataController {
     );
   }
 
+  @ApiOperation({
+    summary: 'Get metadata about the simulation projects of all simulation runs',
+    description:
+      'Returns metadata about the simulation projects of all simulation runs',
+  })
   @permissions('read:SimulationRuns')
   @Get()
   public async getAllMetadata(): Promise<SimulationRunMetadata[]> {
@@ -59,6 +69,11 @@ export class MetadataController {
     return ret;
   }
 
+  @ApiOperation({
+    summary: 'Get metadata about the simulation project of a simulation run',
+    description:
+      'Returns metadata about the simulation project of a simulation run',
+  })
   @Get(':id')
   public async getMetadata(
     @Param('id') id: string,
