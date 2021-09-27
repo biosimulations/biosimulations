@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { urls } from '@biosimulations/config/common';
-import {
-  Simulation,
-  UnknownSimulation,
-  isUnknownSimulation,
-} from '../../../datamodel';
+import { Simulation } from '../../../datamodel';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { FormattedSimulation } from './view.model';
 import { UtilsService } from '@biosimulations/shared/services';
@@ -16,13 +12,12 @@ import {
   CombineArchiveElementMetadata,
   Metadata,
 } from '../../../datamodel/metadata.interface';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ViewService {
-  constructor(private router: Router) {}
+  constructor() {}
 
   private formatElementMetadata(
     elementMetadata: ArchiveMetadata | undefined,
@@ -80,13 +75,7 @@ export class ViewService {
     return metadata as Metadata;
   }
 
-  public formatSimulation(
-    simulation: Simulation | UnknownSimulation,
-  ): FormattedSimulation {
-    if (isUnknownSimulation(simulation)) {
-      this.router.navigate(['/error', '404']);
-    }
-
+  public formatSimulation(simulation: Simulation): FormattedSimulation {
     simulation = simulation as Simulation;
     const statusRunning = SimulationStatusService.isSimulationStatusRunning(
       simulation.status,
