@@ -73,8 +73,8 @@ function setupOpenApi(
   };
   const customOptions: SwaggerCustomOptions = {
     customSiteTitle: 'BioSimulations API documentation',
-
     swaggerOptions: uiOptions,
+    customfavIcon: 'https://github.com/biosimulations/Biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png',
     customCss: ' .swagger-ui .topbar { display: none }',
   };
   SwaggerModule.setup(uiPath, app, document, customOptions);
