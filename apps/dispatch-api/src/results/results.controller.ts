@@ -15,7 +15,13 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
-import { ApiQuery, ApiResponse, ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
+import {
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+  ApiOperation,
+  ApiParam,
+} from '@nestjs/swagger';
 import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { ResultsService } from './results.service';
 import {
@@ -33,7 +39,8 @@ export class ResultsController {
 
   @ApiOperation({
     summary: 'Get the results of all of the outputs of a simulation run',
-    description: 'Get the results of each report and plot of each SED-ML file for the simulation run',
+    description:
+      'Get the results of each report and plot of each SED-ML file for the simulation run',
   })
   @Get(':simId')
   @ApiParam({
@@ -62,7 +69,8 @@ export class ResultsController {
 
   @ApiOperation({
     summary: 'Download all of the outputs of a simulation run',
-    description: 'Download a zip file that contains each report (HDF5 format) and plot (PDF format) of each SED-ML file for the simulation run, as well as the log (YAML format) of the simulation run',
+    description:
+      'Download a zip file that contains each report (HDF5 format) and plot (PDF format) of each SED-ML file for the simulation run, as well as the log (YAML format) of the simulation run',
   })
   @Get(':simId/download')
   @ApiParam({
@@ -84,8 +92,10 @@ export class ResultsController {
   }
 
   @ApiOperation({
-    summary: 'Get the results of an output (plot or report) of a simulation run',
-    description: 'Get the results of a single output (SED plot or report of a SED-ML file) of a simulation run',
+    summary:
+      'Get the results of an output (plot or report) of a simulation run',
+    description:
+      'Get the results of a single output (SED plot or report of a SED-ML file) of a simulation run',
   })
   @Get(':simId/:outputId')
   @ApiParam({
@@ -96,7 +106,8 @@ export class ResultsController {
   })
   @ApiParam({
     name: 'outputId',
-    description: 'Forward slash-separated tuple of the location of the SED-ML file and the id of the SED output (e.g., `path/to/simulation.sedm/Table1`)',
+    description:
+      'Forward slash-separated tuple of the location of the SED-ML file and the id of the SED output (e.g., `path/to/simulation.sedm/Table1`)',
     required: true,
     type: String,
   })

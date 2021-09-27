@@ -47,7 +47,8 @@ export class MetadataController {
   }
 
   @ApiOperation({
-    summary: 'Get metadata about the simulation projects of all simulation runs',
+    summary:
+      'Get metadata about the simulation projects of all simulation runs',
     description:
       'Returns metadata about the simulation projects of all simulation runs',
   })

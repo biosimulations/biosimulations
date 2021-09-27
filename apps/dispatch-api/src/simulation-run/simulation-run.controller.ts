@@ -242,7 +242,7 @@ export class SimulationRunController {
     type: String,
   })
   @ApiOkResponse({ type: SimulationRun })
-  @Get(':id')  
+  @Get(':id')
   @OptionalAuth()
   public async getRun(
     @Param('id') id: string,
@@ -320,8 +320,7 @@ export class SimulationRunController {
 
   @ApiOperation({
     summary: 'Download the COMBINE/OMEX archive for the simulation run',
-    description:
-      'Download the COMBINE/OMEX archive for the simulation run',
+    description: 'Download the COMBINE/OMEX archive for the simulation run',
   })
   @ApiParam({
     name: 'id',

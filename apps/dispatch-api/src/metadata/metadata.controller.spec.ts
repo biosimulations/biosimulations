@@ -12,10 +12,7 @@ describe('MetadataController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MetadataController],
-      imports: [
-        BiosimulationsAuthModule,
-        BiosimulationsConfigModule,
-      ],
+      imports: [BiosimulationsAuthModule, BiosimulationsConfigModule],
       providers: [{ provide: MetadataService, useClass: MockMetadataService }],
     }).compile();
 
