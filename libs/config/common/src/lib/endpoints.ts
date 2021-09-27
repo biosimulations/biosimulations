@@ -105,7 +105,20 @@ export class Endpoints {
    * @param location The location of the file within the archive
    * @returns A url that resolves to a specific file within a combine archive
    */
-  public getCombineFilesEndpoint(url: string, location: string): string {
+  public getCombineFilesEndpoint(
+    url: string,
+    location: string,
+    external = false,
+  ): string {
+    if (external) {
+      if (this.env == 'local') {
+        return new Endpoints('dev').getCombineFilesEndpoint(
+          url,
+          location,
+          true,
+        );
+      }
+    }
     return `${this.combineFile}?url=${encodeURIComponent(
       url,
     )}&location=${encodeURIComponent(location)}`;
