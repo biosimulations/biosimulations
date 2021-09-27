@@ -195,14 +195,14 @@
 
                 <div class="section">
                   <b>Metadata</b>
-                  <table class="icon-list metadata">
+                  <table class="icon-list metadata">                    
                     <ng-container
                       *ngTemplateOutlet="
                         list;
                         context: {
-                          heading: 'Taxa',
+                          heading: 'Biology',
                           icon: 'cell',
-                          els: archiveMetadata.taxa
+                          els: archiveMetadata.encodes
                         }
                       "
                     ></ng-container>
@@ -210,9 +210,9 @@
                       *ngTemplateOutlet="
                         list;
                         context: {
-                          heading: 'Biology',
+                          heading: 'Taxa',
                           icon: 'taxon',
-                          els: archiveMetadata.encodes
+                          els: archiveMetadata.taxa
                         }
                       "
                     ></ng-container>

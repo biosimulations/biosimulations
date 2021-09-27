@@ -1,25 +1,21 @@
-<div class="content">
-  <h1>Projects</h1>
-  <ng-container *ngIf="projects$ | async as projects">
-    <div
-      class="projects-container"
-      fxLayout="row wrap"
-      fxLayoutGap="16px grid"
-      fxLayoutAlign="space-around stretch"
-    >
-      <div
-        class="project"
-        fxFlex.xl="20%"
-        fxFlex.lg="25%"
-        fxFlex.md="33%"
-        fxFlex.sm="50%"
-        fxFlex.xs="100%"
-        *ngFor="let project of projects"
-      >
-        <biosimulations-project-card
-          [project]="project"
-        ></biosimulations-project-card>
-      </div>
-    </div>
-  </ng-container>
+<div
+  class="container"
+  fxLayout="row wrap"
+  fxLayoutGap="1rem grid"
+  fxLayoutAlign="space-around stretch"
+  *ngIf="projects$ | async as projects"
+>
+  <div
+    class="project"
+    fxFlex.xl="20%"
+    fxFlex.lg="25%"
+    fxFlex.md="33%"
+    fxFlex.sm="50%"
+    fxFlex.xs="100%"
+    *ngFor="let project of projects"
+  >
+    <biosimulations-project-card
+      [project]="project"
+    ></biosimulations-project-card>
+  </div>
 </div>
