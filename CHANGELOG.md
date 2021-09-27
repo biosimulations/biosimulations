@@ -1,3 +1,29 @@
+# [4.6.0](https://github.com/biosimulations/biosimulations/compare/v4.5.0...v4.6.0) (2021-09-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency aws-sdk to v2.995.0 ([19b509a](https://github.com/biosimulations/biosimulations/commit/19b509a7100e59dbcdf3c2674262ec2bf4333f77))
+* **dispatch:** improved handling of undefined simulations in simulations browse view; closes [#2999](https://github.com/biosimulations/biosimulations/issues/2999) ([bf47994](https://github.com/biosimulations/biosimulations/commit/bf4799404320d07437797804973e933d7f147c7e))
+* **platform:** handle cases when metadata is missing ([f738a74](https://github.com/biosimulations/biosimulations/commit/f738a741caba0da783e522c8d74e86c04b9e4aa8))
+
+
+### Features
+
+* **simulators:** improved specification of simulator CLIs; closes [#3015](https://github.com/biosimulations/biosimulations/issues/3015) ([c396bfa](https://github.com/biosimulations/biosimulations/commit/c396bfa79a7f9abbc0a3e6b374f96d726fe5eaa7))
+* create alternate vega view component ([453a109](https://github.com/biosimulations/biosimulations/commit/453a1094677a18ccc2019bd953d618e4e81c6e2f))
+* **dispatch:** added license confirmation to publish run form ([1889e1e](https://github.com/biosimulations/biosimulations/commit/1889e1ec4f50579c51838494f7d693fdb5a87415))
+* **dispatch,platform:** updated terms about granting BioSimulations to distribute projects ([6ee2bb1](https://github.com/biosimulations/biosimulations/commit/6ee2bb1779e3f02df9dee82bde75e11fa5dc5f9d))
+* **platform:** add code to get metadata and specs of visualiazations ([0cdc472](https://github.com/biosimulations/biosimulations/commit/0cdc4727b201858adec4cb40565bb643c01c2905))
+* **platform:** add support for showing vega figures ([f011480](https://github.com/biosimulations/biosimulations/commit/f011480096ee29f42e8aab833dbaec89a1bc1596))
+* **ui:** allow for conditional loading of tabs ([1b4779f](https://github.com/biosimulations/biosimulations/commit/1b4779f177748922805e8aaad196d0ef412a5239))
+* updated biosimulators-utils, biosimulators-bionetgen ([ce75ea6](https://github.com/biosimulations/biosimulations/commit/ce75ea6a46e880b1c021a336992d7acc311f200d))
+
+
+### Performance Improvements
+
+* **platform:** fix tests ([a8f6d0e](https://github.com/biosimulations/biosimulations/commit/a8f6d0ed968a9ccccd45249db4b71313ef7a5f5b))
+
 # [4.5.0](https://github.com/biosimulations/biosimulations/compare/v4.4.2...v4.5.0) (2021-09-26)
 
 
