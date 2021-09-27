@@ -191,9 +191,7 @@
                   class="biosimulations-button"
                   title="Copy to clipboard"
                   (click)="
-                    copyCliInstallCmd(
-                      'pip install ' + simulator?.cli?.package
-                    )
+                    copyCliInstallCmd('pip install ' + simulator?.cli?.package)
                   "
                 >
                   <biosimulations-icon icon="copy"></biosimulations-icon>

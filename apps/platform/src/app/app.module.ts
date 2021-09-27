@@ -79,7 +79,6 @@ routes.forEach((route: Route): void => {
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
-    
   ],
   bootstrap: [AppComponent],
 })

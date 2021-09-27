@@ -11,7 +11,9 @@ import isUrl from 'is-url';
 export class Cli implements ICli {
   @Prop({
     type: String,
-    enum: Object.keys(PackageRepository).map((k) => PackageRepository[k as PackageRepository]),
+    enum: Object.keys(PackageRepository).map(
+      (k) => PackageRepository[k as PackageRepository],
+    ),
     required: true,
     default: undefined,
   })

@@ -9,21 +9,23 @@ export class Cli implements ICli {
   })
   packageRepository!: PackageRepository;
 
-  @ApiProperty({ 
-    type: String 
+  @ApiProperty({
+    type: String,
   })
   package!: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     type: String,
-    description: 'Command for running the command-line application, e.g., `biosimulators-tellurium`.',
+    description:
+      'Command for running the command-line application, e.g., `biosimulators-tellurium`.',
   })
   command!: string;
 
   @ApiProperty({
     type: String,
     nullable: true,
-    description: 'URL for instructions for installing the command-line application',
+    description:
+      'URL for instructions for installing the command-line application',
     example:
       'https://docs.biosimulators.org/Biosimulators_XPP/installation.html',
   })

@@ -1,7 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 
-
 @Component({
   selector: 'biosimulations-root',
   templateUrl: './app.component.html',
@@ -12,12 +11,9 @@ export class AppComponent implements AfterViewInit {
   constructor(
     public config: ConfigService,
     private scrollService: ScrollService,
-    
   ) {}
 
   ngAfterViewInit(): void {
     this.scrollService.init();
   }
-
-
 }
