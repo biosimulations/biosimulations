@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -31,6 +31,7 @@ import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import {
   Simulation,
+  UnknownSimulation,
   SedDatasetResultsMap,
   CombineResults,
   SedDocumentResults,
@@ -143,7 +144,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   statusRunning$!: Observable<boolean>;
   statusSucceeded$!: Observable<boolean>;
   runTime$!: Observable<string>;
-  private Simulation$!: Observable<Simulation>;
+  private Simulation$!: Observable<Simulation | UnknownSimulation>;
   formattedSimulation$?: Observable<FormattedSimulation>;
 
   // metadata about COMBINE/OMEX archive of simulation run
@@ -200,7 +201,6 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private formBuilder: FormBuilder,
     private service: ViewService,
     private combineService: CombineService,
@@ -275,14 +275,8 @@ export class ViewComponent implements OnInit, OnDestroy {
       .getSimulation(this.uuid)
       .pipe(shareReplay(1));
 
-    this.Simulation$.subscribe((simulation: Simulation): void => {
-      if (simulation.status === undefined || simulation.status === null) {
-        this.router.navigate(['/error', '404']);
-      }
-    });
-
     this.formattedSimulation$ = this.Simulation$.pipe(
-      map<Simulation, FormattedSimulation>(this.service.formatSimulation),
+      map<Simulation | UnknownSimulation, FormattedSimulation>(this.service.formatSimulation.bind(this.service)),
     );
 
     this.statusRunning$ = this.formattedSimulation$.pipe(

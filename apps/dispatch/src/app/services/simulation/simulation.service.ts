@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Simulation } from '../../datamodel';
+import { Simulation, UnknownSimulation, ISimulation, isUnknownSimulation } from '../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage';
@@ -27,21 +27,21 @@ import { SimulationRun } from '@biosimulations/dispatch/api-models';
 })
 export class SimulationService {
   private key = 'simulations';
-  private simulations: Simulation[] = [];
+  private simulations: ISimulation[] = [];
 
   // Memory/HTTP cache
-  private simulationsMap$: { [key: string]: BehaviorSubject<Simulation> } = {};
+  private simulationsMap$: { [key: string]: BehaviorSubject<ISimulation> } = {};
   private simulationsMapSubject = new BehaviorSubject(this.simulationsMap$);
-  private simulationsArrSubject = new BehaviorSubject<Simulation[]>([]);
+  private simulationsArrSubject = new BehaviorSubject<ISimulation[]>([]);
   // Local Storage Map
-  private simulationsMap: { [key: string]: Simulation } = {};
-  private simulationsSubject = new BehaviorSubject<Simulation[]>(
+  private simulationsMap: { [key: string]: ISimulation } = {};
+  private simulationsSubject = new BehaviorSubject<ISimulation[]>(
     this.simulations,
   );
-  public simulations$: Observable<Simulation[]> =
+  public simulations$: Observable<ISimulation[]> =
     this.simulationsSubject.asObservable();
   private storageInitialized = false;
-  private simulationsAddedBeforeStorageInitialized: Simulation[] = [];
+  private simulationsAddedBeforeStorageInitialized: ISimulation[] = [];
 
   public constructor(
     private config: ConfigService,
@@ -51,7 +51,7 @@ export class SimulationService {
     this.storage.ready().then(() => {
       this.storage.keys().then((keys: string[]): void => {
         if (keys.includes(this.key)) {
-          this.storage.get(this.key).then((simulations: Simulation[]): void => {
+          this.storage.get(this.key).then((simulations: ISimulation[]): void => {
             // type case dates to `Date` -- necessary for WebSQL which converts dates to strings
             simulations = this.parseDates(simulations);
 
@@ -65,8 +65,8 @@ export class SimulationService {
     this.createSimulationsArray();
   }
 
-  private parseDates(simulations: Simulation[]) {
-    simulations.forEach((simulation: Simulation): void => {
+  private parseDates(simulations: ISimulation[]) {
+    simulations.forEach((simulation: ISimulation): void => {
       if (typeof simulation.submitted === 'string') {
         simulation.submitted = new Date(simulation.submitted);
       }
@@ -95,11 +95,11 @@ export class SimulationService {
         }
       });
   }
-  private initSimulations(storedSimulations: Simulation[]): void {
+  private initSimulations(storedSimulations: ISimulation[]): void {
     const simulations = storedSimulations.concat(
       this.simulationsAddedBeforeStorageInitialized,
     );
-    simulations.forEach((simulation: Simulation): void => {
+    simulations.forEach((simulation: ISimulation): void => {
       // Save to local storage map
       if (!(simulation.id in this.simulationsMap)) {
         this.simulations.push(simulation);
@@ -129,7 +129,7 @@ export class SimulationService {
     this.addSimulation(simulation);
   }
 
-  public storeExistingExternalSimulations(simulations: Simulation[]): void {
+  public storeExistingExternalSimulations(simulations: ISimulation[]): void {
     simulations = this.parseDates(simulations);
     simulations.forEach((simulation) => {
       simulation.submittedLocally = false;
@@ -140,14 +140,14 @@ export class SimulationService {
   }
 
   /**
-   * @Author Jonathan
+   * @Author Jonathan Karr
    * @param newSimulations An array of Simulations
    *
    * Store to LOCAL storage
    */
-  private storeSimulations(newSimulations: Simulation[]): void {
+  private storeSimulations(newSimulations: ISimulation[]): void {
     if (this.storageInitialized) {
-      newSimulations.forEach((newSimulation: Simulation): void => {
+      newSimulations.forEach((newSimulation: ISimulation): void => {
         if (newSimulation.id in this.simulationsMap) {
           const submittedLocally =
             this.simulationsMap[newSimulation.id]?.submittedLocally;
@@ -162,13 +162,13 @@ export class SimulationService {
       this.simulationsSubject.next(this.simulations);
       this.storage.set(this.key, this.simulations);
     } else {
-      newSimulations.forEach((newSimulation: Simulation): void => {
+      newSimulations.forEach((newSimulation: ISimulation): void => {
         this.simulationsAddedBeforeStorageInitialized.push(newSimulation);
       });
     }
   }
 
-  private updateSimulations(newSimulations: Simulation[] = []): void {
+  private updateSimulations(newSimulations: ISimulation[] = []): void {
     for (const sim of newSimulations) {
       this.updateSimulation(sim.id);
     }
@@ -181,7 +181,7 @@ export class SimulationService {
    * Delete a simulation
    */
   public removeSimulation(id: string): void {
-    const simulation: Simulation = this.simulationsMap[id];
+    const simulation: ISimulation = this.simulationsMap[id];
     const iSimulation = this.simulations.indexOf(simulation);
     this.simulations.splice(iSimulation, 1);
     delete this.simulationsMap[id];
@@ -196,7 +196,7 @@ export class SimulationService {
    */
   public removeSimulations(): void {
     while (this.simulations.length) {
-      const simulation: Simulation = this.simulations.pop() as Simulation;
+      const simulation: ISimulation = this.simulations.pop() as ISimulation;
       delete this.simulationsMap[simulation.id];
       delete this.simulationsMap$[simulation.id];
     }
@@ -204,7 +204,7 @@ export class SimulationService {
     this.storeSimulations([]);
   }
 
-  public getSimulations(): Observable<Simulation[]> {
+  public getSimulations(): Observable<ISimulation[]> {
     return this.simulationsArrSubject.asObservable().pipe(shareReplay(1));
   }
 
@@ -212,7 +212,7 @@ export class SimulationService {
    * @author Bilal
    * @param uuid The id of the simulation
    */
-  private getSimulationHttp(uuid: string): Observable<Simulation> {
+  private getSimulationHttp(uuid: string): Observable<ISimulation> {
     return this.httpClient
       .get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`)
       .pipe(
@@ -223,7 +223,7 @@ export class SimulationService {
             return throwError(error);
           }
         }),
-        map((dispatchSimulation: SimulationRun | undefined): Simulation => {
+        map((dispatchSimulation: SimulationRun | undefined): ISimulation => {
           if (dispatchSimulation) {
             return {
               name: dispatchSimulation.name,
@@ -243,11 +243,11 @@ export class SimulationService {
               updated: new Date(dispatchSimulation.updated),
               resultsSize: dispatchSimulation.resultsSize,
               projectSize: dispatchSimulation.projectSize,
-            };
+            } as Simulation;
           } else {
             return {
               id: uuid,
-            };
+            } as UnknownSimulation;
           }
         }),
       );
@@ -282,7 +282,7 @@ export class SimulationService {
       }
     });
   }
-  private cacheSimulation(newSim: Simulation): void {
+  private cacheSimulation(newSim: ISimulation): void {
     if (this.simulationsMap$[newSim.id]) {
       this.simulationsMap$[newSim.id].next(newSim);
       this.simulationsMapSubject.next(this.simulationsMap$);
@@ -294,7 +294,7 @@ export class SimulationService {
    * @param uuid The id of the simulation
    * Just a simple wrapper to hide the private behaviorsubjects
    */
-  private getSimulationFromCache(uuid: string): Observable<Simulation> {
+  private getSimulationFromCache(uuid: string): Observable<ISimulation> {
     return this.simulationsMap$[uuid].asObservable().pipe(shareReplay(1));
   }
 
@@ -302,7 +302,7 @@ export class SimulationService {
    * Add a simulation to the http cache
    * @param simulation
    */
-  public addSimulation(simulation: Simulation): boolean {
+  private addSimulation(simulation: ISimulation): boolean {
     if (!(simulation.id in this.simulationsMap$)) {
       const simSubject = new BehaviorSubject(simulation);
       this.simulationsMap$[simulation.id] = simSubject;
@@ -322,17 +322,21 @@ export class SimulationService {
    * In both cases we want to return from cache. This is because the cache contains behavior subjects already configured to poll the api
    * The recieving method can simply pipe or subscribe to have the latest data
    */
-  public getSimulation(uuid: string): Observable<Simulation> {
+  public getSimulation(uuid: string): Observable<ISimulation> {
     if (uuid in this.simulationsMap$) {
       return this.getSimulationFromCache(uuid);
     } else {
       const sim = this.getSimulationHttp(uuid).pipe(
-        map((value: Simulation) => {
-          // LOCAL Storage
-          this.storeSimulations([value]);
-          this.addSimulation(value);
+        map((value: ISimulation) => {
+          if (isUnknownSimulation(value)) {
+            return of(value);
 
-          return this.getSimulationFromCache(uuid);
+          } else {
+            // LOCAL Storage
+            this.storeSimulations([value]);
+            this.addSimulation(value);
+            return this.getSimulationFromCache(uuid);
+          }
         }),
         concatAll(),
         shareReplay(1),

@@ -1,6 +1,6 @@
 import { urls } from '@biosimulations/config/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Simulation } from '../../../datamodel';
+import { ISimulation, isUnknownSimulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
@@ -36,8 +36,8 @@ export class BrowseComponent implements OnInit {
       heading: 'Id',
       key: 'id',
       centerAction: ColumnActionType.routerLink,
-      centerRouterLink: (simulation: Simulation): string[] | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+      centerRouterLink: (simulation: ISimulation): string[] | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
           return ['/simulations', simulation.id];
@@ -53,14 +53,14 @@ export class BrowseComponent implements OnInit {
       heading: 'Name',
       key: 'name',
       minWidth: 34,
-      getter: (simulation: Simulation): string => {
+      getter: (simulation: ISimulation): string => {
         return simulation.name || 'N/A';
       },
     },
     {
       id: 'simulator',
       heading: 'Simulator',
-      getter: (simulation: Simulation): string => {
+      getter: (simulation: ISimulation): string => {
         if (simulation.simulator) {
           return simulation.simulator + ' ' + simulation.simulatorVersion;
         } else {
@@ -68,7 +68,7 @@ export class BrowseComponent implements OnInit {
         }
       },
       centerAction: ColumnActionType.href,
-      centerHref: (simulation: Simulation): string | null => {
+      centerHref: (simulation: ISimulation): string | null => {
         if (simulation.simulator) {
           return `${this.config.simulatorsAppUrl}simulators/${simulation.simulator}/${simulation.simulatorVersion}`;
         } else {
@@ -81,7 +81,7 @@ export class BrowseComponent implements OnInit {
     {
       id: 'cpus',
       heading: 'CPUs',
-      getter: (simulation: Simulation): number | string => {
+      getter: (simulation: ISimulation): number | string => {
         if (simulation.cpus) {
           return simulation.cpus;
         } else {
@@ -109,7 +109,7 @@ export class BrowseComponent implements OnInit {
     {
       id: 'memory',
       heading: 'RAM',
-      getter: (simulation: Simulation): number => {
+      getter: (simulation: ISimulation): number => {
         if (simulation.memory) {
           return simulation.memory;
         } else {
@@ -137,7 +137,7 @@ export class BrowseComponent implements OnInit {
     {
       id: 'maxTime',
       heading: 'Max time',
-      getter: (simulation: Simulation): number => {
+      getter: (simulation: ISimulation): number => {
         if (simulation.maxTime) {
           return simulation.maxTime;
         } else {
@@ -178,7 +178,7 @@ export class BrowseComponent implements OnInit {
       filterFormatter: (value: SimulationRunStatus): string => {
         return SimulationStatusService.getSimulationStatusMessage(value, true);
       },
-      rightIcon: (simulation: Simulation): string | null => {
+      rightIcon: (simulation: ISimulation): string | null => {
         if (
           SimulationStatusService.isSimulationStatusRunning(simulation.status)
         ) {
@@ -207,7 +207,7 @@ export class BrowseComponent implements OnInit {
       heading: 'Runtime',
       key: 'runtime',
       //formatter: SimulationStatusService.formatRuntime.bind(null),
-      getter: (simulation: Simulation): number | null => {
+      getter: (simulation: ISimulation): number | null => {
         if (simulation.runtime == null || simulation.runtime === undefined) {
           return null;
         } else {
@@ -288,7 +288,7 @@ export class BrowseComponent implements OnInit {
       id: 'visualize',
       heading: 'Viz',
       key: 'status',
-      getter: (simulation: Simulation): boolean | null => {
+      getter: (simulation: ISimulation): boolean | null => {
         return (
           SimulationStatusService.isSimulationStatusSucceeded(
             simulation.status,
@@ -300,15 +300,15 @@ export class BrowseComponent implements OnInit {
       },
       center: true,
       leftIcon: 'chart',
-      leftIconTitle: (simulation: Simulation): string | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+      leftIconTitle: (simulation: ISimulation): string | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
           return 'Viz';
         }
       },
       leftAction: ColumnActionType.routerLink,
-      leftRouterLink: (simulation: Simulation): string[] | null => {
+      leftRouterLink: (simulation: ISimulation): string[] | null => {
         if (
           SimulationStatusService.isSimulationStatusSucceeded(
             simulation.status,
@@ -323,7 +323,7 @@ export class BrowseComponent implements OnInit {
         }
       },
       centerAction: ColumnActionType.routerLink,
-      centerRouterLink: (simulation: Simulation): string[] | null => {
+      centerRouterLink: (simulation: ISimulation): string[] | null => {
         if (
           SimulationStatusService.isSimulationStatusSucceeded(
             simulation.status,
@@ -361,7 +361,7 @@ export class BrowseComponent implements OnInit {
       id: 'download',
       heading: 'Export',
       key: 'status',
-      getter: (simulation: Simulation): boolean => {
+      getter: (simulation: ISimulation): boolean => {
         return (
           SimulationStatusService.isSimulationStatusSucceeded(
             simulation.status,
@@ -373,15 +373,15 @@ export class BrowseComponent implements OnInit {
       },
       center: true,
       leftIcon: 'download',
-      leftIconTitle: (simulation: Simulation): string | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+      leftIconTitle: (simulation: ISimulation): string | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
           return 'Export';
         }
       },
       leftAction: ColumnActionType.href,
-      leftHref: (simulation: Simulation): string | null => {
+      leftHref: (simulation: ISimulation): string | null => {
         if (
           SimulationStatusService.isSimulationStatusSucceeded(
             simulation.status,
@@ -396,7 +396,7 @@ export class BrowseComponent implements OnInit {
         }
       },
       centerAction: ColumnActionType.href,
-      centerHref: (simulation: Simulation): string | null => {
+      centerHref: (simulation: ISimulation): string | null => {
         if (
           SimulationStatusService.isSimulationStatusSucceeded(
             simulation.status,
@@ -436,15 +436,15 @@ export class BrowseComponent implements OnInit {
       key: 'status',
       center: true,
       leftIcon: 'logs',
-      leftIconTitle: (simulation: Simulation): string | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+      leftIconTitle: (simulation: ISimulation): string | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
           return 'Log';
         }
       },
       leftAction: ColumnActionType.routerLink,
-      leftRouterLink: (simulation: Simulation): string[] | null => {
+      leftRouterLink: (simulation: ISimulation): string[] | null => {
         if (
           SimulationStatusService.isSimulationStatusCompleted(simulation.status)
         ) {
@@ -454,7 +454,7 @@ export class BrowseComponent implements OnInit {
         }
       },
       centerAction: ColumnActionType.routerLink,
-      centerRouterLink: (simulation: Simulation): string[] | null => {
+      centerRouterLink: (simulation: ISimulation): string[] | null => {
         if (
           SimulationStatusService.isSimulationStatusCompleted(simulation.status)
         ) {
@@ -499,8 +499,8 @@ export class BrowseComponent implements OnInit {
       key: 'status',
       center: true,
       leftIcon: 'redo',
-      leftIconTitle: (simulation: Simulation): string | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+      leftIconTitle: (simulation: ISimulation): string | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
           return 'Rerun';
@@ -508,12 +508,12 @@ export class BrowseComponent implements OnInit {
       },
       leftAction: ColumnActionType.click,
       leftClick: (
-        simulation: Simulation,
-      ): ((simulation: Simulation) => void) | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+        simulation: ISimulation,
+      ): ((simulation: ISimulation) => void) | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
-          return (simulation: Simulation): void => {
+          return (simulation: ISimulation): void => {
             const queryParams: any = {
               projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
               simulator: simulation.simulator,
@@ -526,12 +526,12 @@ export class BrowseComponent implements OnInit {
       },
       centerAction: ColumnActionType.click,
       centerClick: (
-        simulation: Simulation,
-      ): ((simulation: Simulation) => void) | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+        simulation: ISimulation,
+      ): ((simulation: ISimulation) => void) | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
-          return (simulation: Simulation): void => {
+          return (simulation: ISimulation): void => {
             const queryParams: any = {
               projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
               simulator: simulation.simulator,
@@ -563,13 +563,13 @@ export class BrowseComponent implements OnInit {
       id: 'share',
       heading: 'Share',
       key: 'id',
-      getter: (simulation: Simulation): Simulation => {
+      getter: (simulation: ISimulation): ISimulation => {
         return simulation;
       },
       center: true,
       leftIcon: 'share',
-      leftIconTitle: (simulation: Simulation): string | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+      leftIconTitle: (simulation: ISimulation): string | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
           return 'Click to copy URL to clipboard';
@@ -577,12 +577,12 @@ export class BrowseComponent implements OnInit {
       },
       leftAction: ColumnActionType.click,
       leftClick: (
-        simulation: Simulation,
-      ): ((simulation: Simulation) => void) | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+        simulation: ISimulation,
+      ): ((simulation: ISimulation) => void) | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
-          return (simulation: Simulation): void => {
+          return (simulation: ISimulation): void => {
             navigator.clipboard.writeText(
               window.location.protocol +
                 '//' +
@@ -602,12 +602,12 @@ export class BrowseComponent implements OnInit {
       },
       centerAction: ColumnActionType.click,
       centerClick: (
-        simulation: Simulation,
-      ): ((simulation: Simulation) => void) | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+        simulation: ISimulation,
+      ): ((simulation: ISimulation) => void) | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
-          return (simulation: Simulation): void => {
+          return (simulation: ISimulation): void => {
             navigator.clipboard.writeText(
               window.location.protocol +
                 '//' +
@@ -625,11 +625,11 @@ export class BrowseComponent implements OnInit {
           };
         }
       },
-      formatter: (simulation: Simulation): null => {
+      formatter: (simulation: ISimulation): null => {
         return null;
       },
-      stackedFormatter: (simulation: Simulation): string => {
-        if (simulation.status === undefined || simulation.status === null) {
+      stackedFormatter: (simulation: ISimulation): string => {
+        if (isUnknownSimulation(simulation)) {
           return 'N/A';
         } else {
           return (
@@ -654,24 +654,24 @@ export class BrowseComponent implements OnInit {
       key: 'status',
       center: true,
       leftIcon: 'publish',
-      leftIconTitle: (simulation: Simulation): string | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+      leftIconTitle: (simulation: ISimulation): string | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
           return 'Click to copy URL to clipboard';
         }
       },
       leftAction: ColumnActionType.routerLink,
-      leftRouterLink: (simulation: Simulation): string[] | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+      leftRouterLink: (simulation: ISimulation): string[] | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
           return ['/simulations', simulation.id, 'publish'];
         }
       },
       centerAction: ColumnActionType.routerLink,
-      centerRouterLink: (simulation: Simulation): string[] | null => {
-        if (simulation.status === undefined || simulation.status === null) {
+      centerRouterLink: (simulation: ISimulation): string[] | null => {
+        if (isUnknownSimulation(simulation)) {
           return null;
         } else {
           return ['/simulations', simulation.id, 'publish'];
@@ -702,17 +702,17 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'trash',
       leftAction: ColumnActionType.click,
       leftClick: (
-        simulation: Simulation,
-      ): ((simulation: Simulation) => void) => {
-        return (simulation: Simulation): void => {
+        simulation: ISimulation,
+      ): ((simulation: ISimulation) => void) => {
+        return (simulation: ISimulation): void => {
           this.removeSimulations(simulation);
         };
       },
       centerAction: ColumnActionType.click,
       centerClick: (
-        simulation: Simulation,
-      ): ((simulation: Simulation) => void) => {
-        return (simulation: Simulation): void => {
+        simulation: ISimulation,
+      ): ((simulation: ISimulation) => void) => {
+        return (simulation: ISimulation): void => {
           this.removeSimulations(simulation);
         };
       },
@@ -730,7 +730,7 @@ export class BrowseComponent implements OnInit {
       showStacked: false,
     },
   ];
-  simulations!: Observable<Simulation[]>;
+  simulations!: Observable<ISimulation[]>;
 
   constructor(
     private config: ConfigService,
@@ -766,12 +766,12 @@ export class BrowseComponent implements OnInit {
       .pipe(debounceTime(16));
   }
 
-  getStackedHeading(simulation: Simulation): string {
+  getStackedHeading(simulation: ISimulation): string {
     return (simulation.name || 'N/A') + ' (' + simulation.id + ')';
   }
 
-  getStackedHeadingMoreInfoRouterLink(simulation: Simulation): string[] | null {
-    if (simulation.status === undefined || simulation.status === null) {
+  getStackedHeadingMoreInfoRouterLink(simulation: ISimulation): string[] | null {
+    if (isUnknownSimulation(simulation)) {
       return null;
     } else {
       return ['/simulations', simulation.id];
@@ -781,7 +781,7 @@ export class BrowseComponent implements OnInit {
   exportSimulations(): void {
     const simulations = this.simulationService.getSimulations();
     // Use the take operator to make sure that we don't download every time the observable emits
-    simulations.pipe(take(1)).subscribe((sims: Simulation[]) => {
+    simulations.pipe(take(1)).subscribe((sims: ISimulation[]) => {
       const blob = new Blob([JSON.stringify(sims, null, 2)], {
         type: 'application/json',
       });
@@ -815,7 +815,7 @@ export class BrowseComponent implements OnInit {
     input.click();
   }
 
-  removeSimulations(simulation?: Simulation): void {
+  removeSimulations(simulation?: ISimulation): void {
     const dialogRef = this.dialog.open(DeleteSimulationsDialogComponent, {
       width: '350px',
       data: simulation,
@@ -839,7 +839,7 @@ export class BrowseComponent implements OnInit {
         : exampleSimulationsDevJson;
 
     const exampleSimulations =
-      exampleSimulationsJson as unknown[] as Simulation[];
+      exampleSimulationsJson as unknown[] as ISimulation[];
     this.simulationService.storeExistingExternalSimulations(exampleSimulations);
     return exampleSimulations.length;
   }
