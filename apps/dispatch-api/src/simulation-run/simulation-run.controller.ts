@@ -55,7 +55,9 @@ import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
-
+// hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
+// eslint-disable-next-line unused-imports/no-unused-imports-ts
+import multer from 'multer';
 type multipartSimulationRunBody = { simulationRun: string };
 // 1gb in bytes plus a buffer to be used as file size limits
 const ONE_GIGABYTE = 1100000000;
@@ -146,7 +148,7 @@ export class SimulationRunController {
   @Post()
   public async createRun(
     @Body() body: multipartSimulationRunBody | UploadSimulationRunUrl,
-    @UploadedFile() file: any,
+    @UploadedFile() file: Express.Multer.File,
     @Req() req: Request,
   ): Promise<SimulationRun> {
     const contentType = req.header('Content-Type');
@@ -186,7 +188,7 @@ export class SimulationRunController {
 
   private async createRunWithFile(
     body: multipartSimulationRunBody | UploadSimulationRunUrl,
-    file: any,
+    file: Express.Multer.File,
   ): Promise<SimulationRunModelReturnType> {
     let parsedRun: UploadSimulationRun;
 
