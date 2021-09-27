@@ -62,7 +62,7 @@ export class ProjectsService {
     const response = this.http.get<SimulationRunMetadata[]>(url).pipe(
       map((projects) => {
         return projects.map((project) => {
-          const thumbnails = project.metadata[0].thumbnails;
+          const thumbnails = project.metadata[0]?.thumbnails || [];
           if (thumbnails.length == 0) {
             thumbnails.push(
               './assets/images/default-resource-images/model.svg',
@@ -70,7 +70,7 @@ export class ProjectsService {
           }
           return {
             id: project.id,
-            title: project.metadata[0].title || project.id,
+            title: project.metadata[0]?.title || project.id,
             thumbnails: thumbnails,
           };
         });
