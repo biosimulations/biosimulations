@@ -770,7 +770,9 @@ export class BrowseComponent implements OnInit {
     return (simulation.name || 'N/A') + ' (' + simulation.id + ')';
   }
 
-  getStackedHeadingMoreInfoRouterLink(simulation: ISimulation): string[] | null {
+  getStackedHeadingMoreInfoRouterLink(
+    simulation: ISimulation,
+  ): string[] | null {
     if (isUnknownSimulation(simulation)) {
       return null;
     } else {

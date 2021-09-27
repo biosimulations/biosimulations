@@ -276,7 +276,9 @@ export class ViewComponent implements OnInit, OnDestroy {
       .pipe(shareReplay(1));
 
     this.formattedSimulation$ = this.Simulation$.pipe(
-      map<Simulation | UnknownSimulation, FormattedSimulation>(this.service.formatSimulation.bind(this.service)),
+      map<Simulation | UnknownSimulation, FormattedSimulation>(
+        this.service.formatSimulation.bind(this.service),
+      ),
     );
 
     this.statusRunning$ = this.formattedSimulation$.pipe(

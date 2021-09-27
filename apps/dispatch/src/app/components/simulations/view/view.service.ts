@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { urls } from '@biosimulations/config/common';
-import { Simulation, UnknownSimulation, isUnknownSimulation } from '../../../datamodel';
+import {
+  Simulation,
+  UnknownSimulation,
+  isUnknownSimulation,
+} from '../../../datamodel';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { FormattedSimulation } from './view.model';
 import { UtilsService } from '@biosimulations/shared/services';
@@ -76,7 +80,9 @@ export class ViewService {
     return metadata as Metadata;
   }
 
-  public formatSimulation(simulation: Simulation | UnknownSimulation): FormattedSimulation {
+  public formatSimulation(
+    simulation: Simulation | UnknownSimulation,
+  ): FormattedSimulation {
     if (isUnknownSimulation(simulation)) {
       this.router.navigate(['/error', '404']);
     }
@@ -108,12 +114,8 @@ export class ViewService {
       //   simulation.runtime !== undefined
       //     ? Math.round(simulation.runtime / 1000).toString() + ' s'
       //     : 'N/A',
-      submitted: UtilsService.getDateTimeString(
-        new Date(simulation.submitted),
-      ),
-      updated: UtilsService.getDateTimeString(
-        new Date(simulation.updated),
-      ),
+      submitted: UtilsService.getDateTimeString(new Date(simulation.submitted)),
+      updated: UtilsService.getDateTimeString(new Date(simulation.updated)),
       projectSize:
         simulation.projectSize !== undefined && simulation.projectSize !== null
           ? (simulation.projectSize / 1024).toFixed(2) + ' KB'
@@ -123,9 +125,7 @@ export class ViewService {
           ? (simulation.resultsSize / 1024).toFixed(2) + ' KB'
           : 'N/A',
       projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
-      simulatorUrl: `${urls.simulators}/simulators/${
-        simulation.simulator
-      }/${simulation.simulatorVersion}`,
+      simulatorUrl: `${urls.simulators}/simulators/${simulation.simulator}/${simulation.simulatorVersion}`,
       resultsUrl: `${urls.dispatchApi}results/${simulation.id}/download`,
     };
   }
