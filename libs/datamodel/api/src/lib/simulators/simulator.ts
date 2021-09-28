@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { ExternalReferences, Person, Url } from '@biosimulations/datamodel/api';
+import {
+  ExternalReferences,
+  Person,
+  Url,
+  Funding,
+  LinguistOntologyId,
+  SpdxOntologyId,
+} from '../common';
 import {
   SoftwareInterfaceType,
   OperatingSystemType,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  Funding,
-  LinguistOntologyId,
-  SpdxOntologyId,
-} from '@biosimulations/datamodel/api';
+
 import { Image } from './image';
 import { Cli } from './cli';
 import { PythonApi } from './pythonApi';

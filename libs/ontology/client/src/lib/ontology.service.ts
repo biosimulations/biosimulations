@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Endpoints, urls } from '@biosimulations/config/common';
+import { Endpoints } from '@biosimulations/config/common';
 import { Observable, shareReplay, map, catchError, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import {
