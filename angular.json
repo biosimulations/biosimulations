@@ -1174,56 +1174,6 @@
         }
       }
     },
-    "platform-api": {
-      "root": "apps/platform-api",
-      "sourceRoot": "apps/platform-api/src",
-      "projectType": "application",
-      "prefix": "platform-api",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/platform-api",
-            "main": "apps/platform-api/src/main.ts",
-            "tsConfig": "apps/platform-api/tsconfig.app.json",
-            "assets": ["apps/platform-api/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "libs/shared/environments/src/lib/environment.ts",
-                  "with": "libs/shared/environments/src/lib/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "platform-api:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/platform-api/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/platform-api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "platform-api-models": {
       "root": "libs/platform/api-models",
       "sourceRoot": "libs/platform/api-models/src",
