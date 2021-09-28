@@ -47,13 +47,13 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     {
       name: 'Internal management',
       description:
-        'Operations for the management of runBioSimulations by the runBioSimulations Team.',
+        'Operations for the management of BioSimulations by the BioSimulations Team.',
     },
   ];
   const builder = new DocumentBuilder()
-    .setTitle('runBioSimulations API')
+    .setTitle('BioSimulations API')
     .setDescription(
-      'API for submiting and managing simulation jobs to the runBioSimulations simulation service.',
+      'API for submiting and managing simulation jobs to the BioSimulations simulation service.',
     )
     .setVersion('0.1')
     .setLicense(
@@ -66,7 +66,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
       'https://run.api.biosimulations.org/openapi.json',
     )
     .setContact(
-      'runBioSimulations Team',
+      'BioSimulations Team',
       'https://run.biosimulations.org/help/about',
       'info@biosimulations.org',
     );
@@ -88,6 +88,9 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     'read:Metadata': 'Get the metadata for a run',
     'write:Metadata': 'Modify the metadata for a run',
     'delete:Metadata': 'Delete the metadata for a run',
+    'read:Projects': 'Get information about a published projects',
+    'write:Projects': 'Modify projects, including making them public',
+    'delete:Projects': 'Delete projects from the database',
   };
   const authorizationUrl =
     'https://auth.biosimulations.org/authorize?audience=dispatch.biosimulations.org';
@@ -132,7 +135,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
 
   SwaggerModule.setup('', app, document, {
     customfavIcon: favIcon,
-    customSiteTitle: 'runBioSimulations API',
+    customSiteTitle: 'BioSimulations API',
     customCss: removeIcon,
     swaggerOptions: {
       oauth: {

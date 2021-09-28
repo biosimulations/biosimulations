@@ -3,7 +3,7 @@ module.exports = {
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
   },
-  coverageDirectory: '../../coverage/apps/dispatch-api',
+  coverageDirectory: '../../coverage/apps/api',
   testEnvironment: 'node',
-  displayName: 'dispatch-api',
+  displayName: 'api',
 };

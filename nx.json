@@ -73,6 +73,16 @@
         "platform:server"
       ]
     },
+    "api": {
+      "tags": [
+        "scope:dispatch",
+        "type:api",
+        "platform:server"
+      ],
+      "implicitDependencies": [
+        "hdf5-api-client"
+      ]
+    },
     "auth-angular": {
       "tags": [
         "scope:auth",
@@ -177,16 +187,6 @@
       "implicitDependencies": [
         "shared-assets",
         "shared-styles"
-      ]
-    },
-    "dispatch-api": {
-      "tags": [
-        "scope:dispatch",
-        "type:api",
-        "platform:server"
-      ],
-      "implicitDependencies": [
-        "hdf5-api-client"
       ]
     },
     "dispatch-api-models": {
