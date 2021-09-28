@@ -2,7 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import {
   MatDialogModule,
   MAT_DIALOG_DATA,
@@ -27,7 +28,7 @@ describe('BrowseComponent', () => {
         SharedUiModule,
         BiosimulationsIconsModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage'],
+          driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
         MatDialogModule,
       ],

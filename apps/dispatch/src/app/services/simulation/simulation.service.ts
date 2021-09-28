@@ -7,7 +7,7 @@ import {
 } from '../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {
   Observable,
@@ -48,27 +48,28 @@ export class SimulationService {
   private storageInitialized = false;
   private simulationsAddedBeforeStorageInitialized: ISimulation[] = [];
 
+  private _storage: Storage | null = null;
+
   public constructor(
     private config: ConfigService,
     private storage: Storage,
     private httpClient: HttpClient,
   ) {
-    this.storage.ready().then(() => {
-      this.storage.keys().then((keys: string[]): void => {
-        if (keys.includes(this.key)) {
-          this.storage
-            .get(this.key)
-            .then((simulations: ISimulation[]): void => {
-              // type case dates to `Date` -- necessary for WebSQL which converts dates to strings
-              simulations = this.parseDates(simulations);
+    this.initStorage();
+  }
 
-              this.initSimulations(simulations);
-            });
-        } else {
-          this.initSimulations([]);
-        }
-      });
-    });
+  async initStorage() {
+    this._storage = await this.storage.create();
+
+    if ((await this._storage.keys()).includes(this.key)) {
+      let simulations: ISimulation[] = await this._storage.get(this.key);
+      simulations = this.parseDates(simulations);
+      this.initSimulations(simulations);
+
+    } else {
+      this.initSimulations([]);
+    }
+
     this.createSimulationsArray();
   }
 
@@ -127,7 +128,7 @@ export class SimulationService {
 
     this.storageInitialized = true;
     if (this.simulationsAddedBeforeStorageInitialized.length) {
-      this.storage.set(this.key, this.simulations);
+      (this._storage as Storage).set(this.key, this.simulations);
     }
   }
 
@@ -153,7 +154,7 @@ export class SimulationService {
    * Store to LOCAL storage
    */
   private storeSimulations(newSimulations: ISimulation[]): void {
-    if (this.storageInitialized) {
+    if (this._storage && this.storageInitialized) {
       newSimulations.forEach((newSimulation: ISimulation): void => {
         if (newSimulation.id in this.simulationsMap) {
           const submittedLocally =
@@ -167,7 +168,7 @@ export class SimulationService {
         }
       });
       this.simulationsSubject.next(this.simulations);
-      this.storage.set(this.key, this.simulations);
+      this._storage.set(this.key, this.simulations);
     } else {
       newSimulations.forEach((newSimulation: ISimulation): void => {
         this.simulationsAddedBeforeStorageInitialized.push(newSimulation);

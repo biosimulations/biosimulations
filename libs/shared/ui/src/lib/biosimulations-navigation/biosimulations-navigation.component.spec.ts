@@ -13,7 +13,8 @@ import { TopbarComponent } from '../topbar/topbar.component';
 import { LogoImageComponent } from '../logo-image/logo-image.component';
 import { LogoTextComponent } from '../logo-text/logo-text.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import { NoticeComponent } from '../notice/notice.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
@@ -41,7 +42,7 @@ describe('BiosimulationsNavigationComponent', () => {
         BreadCrumbsModule,
         RouterTestingModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage'],
+          driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
         BiosimulationsIconsModule,
       ],

@@ -4,7 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { RouterModule, Route, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import { environment } from '@biosimulations/shared/environments';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
@@ -104,7 +105,7 @@ routes.forEach((route: Route): void => {
       enabled: environment.production,
     }),
     IonicStorageModule.forRoot({
-      driverOrder: ['indexeddb', 'websql', 'localstorage'],
+      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
     }),
     HighlightModule,
   ],

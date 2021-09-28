@@ -5,7 +5,8 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { AuthService, AuthEnvironment } from '@biosimulations/auth/angular';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -16,7 +17,7 @@ describe('AppComponent', () => {
         HttpClientTestingModule,
         NoopAnimationsModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage'],
+          driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
       ],
       providers: [AuthService, AuthEnvironment, ConfigService, ScrollService],

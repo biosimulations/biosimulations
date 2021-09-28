@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'biosimulations-notice',
@@ -45,10 +45,11 @@ export class NoticeComponent {
 
   open = true;
   storageKey?: string;
+  private _storage: Storage | null = null;
 
   constructor(private storage: Storage) {}
 
-  initStorage(): void {
+  async initStorage() {
     if (
       this._appName === undefined ||
       this._type === undefined ||
@@ -57,33 +58,29 @@ export class NoticeComponent {
       return;
     }
 
-    this.storage.ready().then((): void => {
-      this.storageKey = [
-        'notice',
-        this._appName as string,
-        this._type as string,
-        (this._version as number).toString(),
-        'dismissed',
-      ].join('-');
+    this._storage = await this.storage.create();
 
-      if (this.open) {
-        this.storage
-          .get(this.storageKey)
-          .then((value: boolean | null): void => {
-            if (value === true) {
-              this.open = false;
-            }
-          });
-      } else {
-        this.storage.set(this.storageKey, true);
+    this.storageKey = [
+      'notice',
+      this._appName as string,
+      this._type as string,
+      (this._version as number).toString(),
+      'dismissed',
+    ].join('-');
+
+    if (this.open) {
+      if(await this._storage.get(this.storageKey) === true) {
+        this.open = false;
       }
-    });
+    } else {
+      this._storage.set(this.storageKey, true);
+    }
   }
 
   close(): void {
     this.open = false;
-    if (this.storageKey !== undefined) {
-      this.storage.set(this.storageKey, true);
+    if (this._storage && this.storageKey !== undefined) {
+      this._storage.set(this.storageKey, true);
     }
   }
 }
