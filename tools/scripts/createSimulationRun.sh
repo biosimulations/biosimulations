@@ -11,6 +11,7 @@
   "memory": 8,
   "maxTime": 20,
   "envVars": [],
+  "academicUse": true,
   "email": "info@biosimulations.org",
   "public": false,
   "url": "https://github.com/biosimulators/Biosimulators_test_suite/raw/dev/examples/sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"

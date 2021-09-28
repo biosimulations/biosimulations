@@ -84,6 +84,14 @@ export class SimulationRun {
   envVars: EnvironmentVariable[];
 
   @ApiPropertyOptional({
+    type: Boolean,
+    description: 'Whether use of commercial solvers is permitted because the purpose of the simulation is academic research or education',
+    required: false,
+    default: false,
+  })
+  academicUse: boolean;
+
+  @ApiPropertyOptional({
     type: String,
     format: 'email',
     example: 'info@biosimulations.org',
@@ -123,6 +131,7 @@ export class SimulationRun {
     memory: number,
     maxTime: number,
     envVars: EnvironmentVariable[],
+    academicUse: boolean,
     submitted: Date,
     updated: Date,
     isPublic?: boolean,
@@ -141,6 +150,7 @@ export class SimulationRun {
     this.memory = memory || 8;
     this.maxTime = maxTime || 20;
     this.envVars = envVars || [];
+    this.academicUse = academicUse || false;
     this.status = status || SimulationRunStatus.CREATED;
     this.public = isPublic || false;
     this.submitted = submitted;
@@ -163,6 +173,7 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
   'memory',
   'maxTime',
   'envVars',
+  'academicUse',
   'public',
 ]) {}
 

@@ -14,6 +14,7 @@ export interface UnknownSimulation {
   memory?: null; // GB
   maxTime?: null; // min
   envVars?: null;
+  academicUse?: null;
   status?: null;
   runtime?: null;
   submitted?: null;
@@ -33,6 +34,7 @@ export interface Simulation {
   memory: number; // GB
   maxTime: number; // min
   envVars: EnvironmentVariable[];
+  academicUse: boolean;
   status: SimulationRunStatus;
   runtime?: number;
   submitted: Date;

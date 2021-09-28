@@ -91,6 +91,7 @@ export class ViewService {
       memory: simulation.memory || 8,
       maxTime: simulation.maxTime || 20,
       envVars: simulation.envVars || [],
+      academicUse: simulation.academicUse || false,
       status: simulation.status,
       statusRunning: statusRunning,
       statusSucceeded: statusSucceeded,

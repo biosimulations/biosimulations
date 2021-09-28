@@ -49,6 +49,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
   memory: number;
   maxTime: number;
   envVars: EnvironmentVariable[];
+  academicUse: boolean;
 
   constructor(
     id: string,
@@ -59,6 +60,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
     memory: number,
     maxTime: number,
     envVars: EnvironmentVariable[],
+    academicUse: boolean,
   ) {
     super(id);
     this.fileName = fileName;
@@ -68,6 +70,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
     this.memory = memory;
     this.maxTime = maxTime;
     this.envVars = envVars;
+    this.academicUse = academicUse;
   }
 }
 

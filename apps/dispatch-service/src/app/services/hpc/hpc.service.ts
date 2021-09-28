@@ -32,6 +32,7 @@ export class HpcService {
     memory: number,
     maxTime: number,
     envVars: EnvironmentVariable[],
+    academicUse: boolean,
     fileName: string,
   ): Promise<{
     stdout: string;
@@ -49,6 +50,7 @@ export class HpcService {
       memory,
       maxTime,
       envVars,
+      academicUse,
       fileName,
       endpoint,
       id,

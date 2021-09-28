@@ -27,6 +27,7 @@ export class DispatchJob {
   memory!: number;
   maxTime!: number;
   envVars!: EnvironmentVariable[];
+  academicUse!: boolean;
   isPublic!: boolean;
 }
 

@@ -148,6 +148,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         ],
         simulator: ['', [Validators.required]],
         simulatorVersion: ['', [Validators.required]],
+        academicUse: [false],
         cpus: [
           1,
           [
@@ -732,6 +733,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const memory: number = this.formGroup.value.memory; // in GB
     const maxTime: number = this.formGroup.value.maxTime; // in min
     const envVars: EnvironmentVariable[] = [];
+    const academicUse: boolean = this.formGroup.value.academicUse;
     const name: string = this.formGroup.value.name;
     const email: string | null = this.formGroup.value.email || null;
 
@@ -747,6 +749,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         memory,
         maxTime,
         envVars,
+        academicUse,
         name,
         email,
       );
@@ -760,6 +763,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         memory,
         maxTime,
         envVars,
+        academicUse,
         name,
         email,
       );
@@ -774,6 +778,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         memory,
         maxTime,
         envVars,
+        academicUse,
         email,
       ),
     );
@@ -789,6 +794,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     memory: number, // in GB
     maxTime: number, // min min
     envVars: EnvironmentVariable[],
+    academicUse: boolean,
     email: string | null,
   ): void {
     const simulationId = data['id'];
@@ -803,6 +809,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       memory: memory,
       maxTime: maxTime,
       envVars: envVars,
+      academicUse: academicUse,
       submittedLocally: true,
       status: SimulationRunStatus.QUEUED,
       runtime: undefined,
