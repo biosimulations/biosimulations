@@ -70,7 +70,7 @@ export class MetadataProcessor {
       metadata,
       isPublic,
     };
-    const metadtaPostObserver = {
+    const metadataPostObserver = {
       next: (res: AxiosResponse<any>) => {
         if (res.status === 201) {
           this.logger.log(`Posted metadata for ${id}`);
@@ -84,7 +84,7 @@ export class MetadataProcessor {
     };
     const postedMetadata = this.httpService
       .post(metadataURL, postMetadata)
-      .subscribe(metadtaPostObserver);
+      .subscribe(metadataPostObserver);
   }
 
   private convertMetadataValue(
