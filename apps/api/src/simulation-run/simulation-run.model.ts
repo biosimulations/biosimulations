@@ -150,6 +150,9 @@ export class SimulationRunModel extends Document {
   })
   envVars!: EnvironmentVariable[];
 
+  @Prop({ type: Boolean, required: false, default: false })
+  academicUse!: boolean;
+
   @Prop()
   submitted!: Date;
 
@@ -178,6 +181,7 @@ export type SimulationRunModelType = Pick<
   | 'memory'
   | 'maxTime'
   | 'envVars'
+  | 'academicUse'
   | 'refreshCount'
   | 'submitted'
   | 'updated'

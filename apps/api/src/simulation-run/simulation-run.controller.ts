@@ -179,6 +179,7 @@ export class SimulationRunController {
       memory: run.memory,
       maxTime: run.maxTime,
       envVars: run.envVars,
+      academicUse: run.academicUse,
       isPublic: run.public,
     };
     const sim = await this.dispatchQueue.add(message);
@@ -223,6 +224,7 @@ export class SimulationRunController {
       run.memory,
       run.maxTime,
       run.envVars,
+      run.academicUse,
       run.submitted,
       run.updated,
       run.public,

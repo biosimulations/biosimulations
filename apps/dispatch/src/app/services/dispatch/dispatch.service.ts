@@ -93,6 +93,7 @@ export class DispatchService {
     memory: number, // in GB
     maxTime: number, // in minutes
     envVars: EnvironmentVariable[],
+    academicUse: boolean,
     name: string,
     email: string | null,
   ): Observable<SimulationRun> {
@@ -106,6 +107,7 @@ export class DispatchService {
       memory,
       maxTime,
       envVars,
+      academicUse,
       public: false,
     };
     return this.http.post<SimulationRun>(this.endpoint, body, {
@@ -121,6 +123,7 @@ export class DispatchService {
     memory: number, // in GB
     maxTime: number, // in minutes
     envVars: EnvironmentVariable[],
+    academicUse: boolean,
     name: string,
     email: string | null,
   ): Observable<SimulationRun> {
@@ -135,6 +138,7 @@ export class DispatchService {
       memory,
       maxTime,
       envVars,
+      academicUse,
       public: false,
     };
     formData.append('file', fileToUpload, fileToUpload.name);

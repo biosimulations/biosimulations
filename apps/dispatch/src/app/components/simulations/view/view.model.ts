@@ -16,6 +16,7 @@ export interface FormattedSimulation {
   memory: number; // GB
   maxTime: number; // min
   envVars: EnvironmentVariable[];
+  academicUse: boolean;
   status: SimulationRunStatus;
   statusRunning: boolean;
   statusSucceeded: boolean;
