@@ -14,8 +14,7 @@ export class ProjectsService {
   constructor(private http: HttpClient) {}
 
   public getProjectFile(id: string, file: string) {
-    const archiveUrl = this.endpoints.getRunDownloadEndpoint(id, true);
-    const url = this.endpoints.getCombineFilesEndpoint(archiveUrl, file);
+    const url = this.endpoints.getSimulationRunFileEndpoint(id, file);
     return this.http.get(url);
   }
   public getArchiveContents(id: string): Observable<any> {

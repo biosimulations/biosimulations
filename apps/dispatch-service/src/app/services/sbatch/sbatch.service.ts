@@ -81,7 +81,9 @@ export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 cd ${tempSimDir}
 echo -e '${cyan}=============Downloading Combine Archive=============${nc}'
 ( ulimit -f 1048576; srun wget --progress=bar:force ${apiDomain}run/${simId}/download -O '${omexName}')
-echo -e '${cyan}=============Running docker image for simulator=============${nc}'
+echo -e '${cyan}=============Extracting Combine Archive==============${nc}'
+unzip -o ${omexName} -d contents
+echo -e '${cyan}=================Running simulation==================${nc}'
 srun singularity run --tmpdir /local --bind ${tempSimDir}:/root "${allEnvVarsString}" ${simulator} -i '/root/${omexName}' -o '/root'
 echo -e '${cyan}=============Uploading results to data-service=============${nc}'
 srun hsload -v reports.h5 '/results/${simId}'

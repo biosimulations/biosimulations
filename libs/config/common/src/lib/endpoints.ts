@@ -18,7 +18,7 @@ export class Endpoints {
   private files: string;
   private env: string;
   private combineFile: string;
-
+  private storage_endpoint: string;
   public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
     // We can read the env that is provided in the shared env file as the default
     if (env == undefined) {
@@ -29,26 +29,26 @@ export class Endpoints {
       case 'local':
         this.api = 'http://localhost:3333';
         this.combine_api = '/combine-api';
+        this.storage_endpoint = 'https://files-dev.biosimulations.org/s3';
         break;
 
       case 'dev':
         this.api = 'https://api.biosimulations.dev';
         this.combine_api = 'https://combine.api.biosimulations.dev';
+        this.storage_endpoint = 'https://files-dev.biosimulations.org/s3';
         break;
 
       case 'stage':
         this.api = 'https://api.biosimulations.dev';
         this.combine_api = 'https://combine.api.biosimulations.dev';
+        this.storage_endpoint = 'https://files-dev.biosimulations.org/s3';
         break;
 
       case 'prod':
         this.api = 'https://api.biosimulations.org';
         this.combine_api = 'https://combine.api.biosimulations.org';
+        this.storage_endpoint = 'https://files.biosimulations.org/s3';
         break;
-
-      default:
-        this.api = 'https://api.biosimulations.dev';
-        this.combine_api = 'https://combine.api.biosimulations.dev';
     }
 
     this.simulationRunLogs = `${this.api}/logs`;
@@ -98,12 +98,39 @@ export class Endpoints {
   public getCombineEndpoint(): string {
     return this.combine_api;
   }
+  /**
+   * Get the url for a file object.
+   * This url points to the file object in the database, and is not a direct link to download the file
+   * In some cases, the API may be configured to automatically forward to the file download url, but this is not guaranteed
+   *
+   * @param id The id of the file
+   * @returns Returns a url that returns the file object from the databse
+   */
+  public getFilesEndpoint(id?: string): string {
+    id ? (id = `/${id}`) : (id = '');
+    return `${this.files}${id}`;
+  }
+  /**
+   * Get the url for downloading a file from within a combine archive.
+   * The combine archive is extracted to the s3 bucket. Returns a url to the file in the s3 bucket
+   * @param id The id of the simulation run
+   * @param path The path of the file within combine archive relative to its root. Should not include './'
+   * @returns A url to download the file from within the combine archive
+   */
+  public getSimulationRunFileEndpoint(id: string, path: string): string {
+    if (path.startsWith('./')) {
+      path = path.substring(2);
+    }
+    return `${this.storage_endpoint}/simulations/${id}/contents/${path}`;
+  }
 
   /**
    * Create a url to download a file from an omex file using the combine service
    * @param url The url of a combine archive
    * @param location The location of the file within the archive
    * @returns A url that resolves to a specific file within a combine archive
+   * @deprecated use getSimulationRunFileEndpoint instead if the simulation run has been submitted
+   * @see getSimulationRunFileEndpoint
    */
   public getCombineFilesEndpoint(
     url: string,
@@ -237,17 +264,5 @@ export class Endpoints {
     }
 
     return `${this.simulators}${id}${version}`;
-  }
-  /**
-   * Get the url for a file object.
-   * This url points to the file object in the database, and is not a direct link to download the file
-   * In some cases, the API may be configured to automatically forward to the file download url, but this is not guaranteed
-   *
-   * @param id The id of the file
-   * @returns Returns a url that returns the file object from the databse
-   */
-  public getFilesEndpoint(id?: string): string {
-    id ? (id = `/${id}`) : (id = '');
-    return `${this.files}${id}`;
   }
 }
