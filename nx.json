@@ -154,10 +154,6 @@
       "tags": ["scope:platform", "type:frontend", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
     },
-    "platform-api": {
-      "tags": ["scope:platform", "type:api", "platform:server"],
-      "implicitDependencies": []
-    },
     "platform-api-models": {
       "tags": ["scope:platform", "type:datamodel", "platform:any"]
     },
