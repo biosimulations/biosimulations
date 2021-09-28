@@ -142,7 +142,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
                                           "maxTime": 20,
                                           "envVars": [],
                                           "email": None,
-                                          "public": False,
+                                          "public": True,
                                           "url": url,
                                       }),
                                       ], capture_output=True)
