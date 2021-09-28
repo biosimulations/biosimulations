@@ -420,7 +420,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/mongodb/LICENSE
-├─ @types/node@14.17.15
+├─ @types/node@14.17.19
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/node/LICENSE
@@ -753,7 +753,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: npm/node_modules/binary-extensions/license
-├─ biosimulations@4.6.0
+├─ biosimulations@5.0.0
 │  ├─ licenses: UNLICENSED
 │  ├─ private: true
 │  └─ licenseFile: /home/runner/work/biosimulations/biosimulations/License.md
