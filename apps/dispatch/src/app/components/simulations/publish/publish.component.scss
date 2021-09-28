@@ -14,3 +14,19 @@ mat-form-field {
 .form-section .form-field-group mat-error {
   padding-top: 0;
 }
+
+.metadata-validation-report {
+  .metadata-validation-report-section {
+    margin-top: 0.5rem;
+  }
+
+  ul {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 30px;
+  }
+}
+
+.error {
+  color: mat.get-color-from-palette($theme-warn);
+}
