@@ -44,7 +44,7 @@ jobs:
           fi
 
       - name: Install dependencies
-        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
@@ -111,7 +111,7 @@ jobs:
 
       # TypeScript
       - name: Install dependencies
-        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
@@ -167,7 +167,7 @@ jobs:
           fi
 
       - name: Install dependencies
-        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
@@ -237,7 +237,7 @@ jobs:
       ############################
       ## TypeScript apps
       - name: Install dependencies
-        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
@@ -348,7 +348,7 @@ jobs:
 
       # TypeScript libraries
       - name: Install dependencies
-        run: sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
