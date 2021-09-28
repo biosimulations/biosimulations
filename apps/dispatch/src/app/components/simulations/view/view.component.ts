@@ -86,13 +86,13 @@ import {
   Metadata,
   FigureTableMetadata,
 } from '../../../datamodel/metadata.interface';
-import { ValidationMessage } from '../../../datamodel/validation-report.interface';
 import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
 import user2DHeatmapVegaTemplate from './viz-vega-templates/2d-heatmap.json';
 import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.json';
 import { UtilsService } from '@biosimulations/shared/services';
 import { MetadataService } from '../../../services/simulation/metadata.service';
 import { SedDocumentReportsCombineArchiveContent } from '@biosimulations/datamodel/common';
+import { environment } from '@biosimulations/shared/environments';
 
 enum VisualizationSource {
   sedml = 'sedml',
@@ -721,16 +721,9 @@ export class ViewComponent implements OnInit, OnDestroy {
             return metadata;
           }),
           catchError((error: Error) => {
-            this.snackBar.open(
-              'Sorry! We were unable to get the metadata for this project.',
-              undefined,
-              {
-                duration: 5000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom',
-              },
-            );
-            console.error(error);
+            if (!environment.production) {
+              console.error(error);
+            }
             return of(undefined);
           }),
         );
@@ -815,7 +808,6 @@ export class ViewComponent implements OnInit, OnDestroy {
                 return elMetadata;
               },
             ),
-            validationReport: null,
           };
         },
       ),
@@ -854,26 +846,6 @@ export class ViewComponent implements OnInit, OnDestroy {
       ),
       shareReplay(1),
     );
-  }
-
-  private convertValidationMessagesToList(
-    messages: ValidationMessage[],
-  ): string {
-    return messages
-      .map((message: ValidationMessage): string => {
-        let details = '';
-        if (message?.details?.length) {
-          details =
-            '<ul>' +
-            this.convertValidationMessagesToList(
-              message?.details as ValidationMessage[],
-            ) +
-            '</ul>';
-        }
-
-        return '<li>' + message.summary + details + '</li>';
-      })
-      .join('\n');
   }
 
   getArchiveUrl(): string {

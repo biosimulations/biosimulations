@@ -70,7 +70,6 @@ export class ViewService {
     const metadata: Metadata = {
       archive: archiveMetadata,
       other: otherMetadata,
-      validationReport: null,
     };
     return metadata as Metadata;
   }
