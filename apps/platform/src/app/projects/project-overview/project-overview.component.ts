@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import {
   Component,
   OnInit,
@@ -21,19 +22,19 @@ export class ProjectOverviewComponent implements OnInit {
   created?: string;
   modified?: string;
   description?: string;
-  creators?: MetadataValue[] | undefined;
-  contributors?: MetadataValue[] | undefined;
-  citations?: MetadataValue[] | undefined;
-  license?: MetadataValue[] | undefined;
-  keywords?: MetadataValue[] | undefined;
-  predecessors?: MetadataValue[] | undefined;
+  creators?: MetadataValue[];
+  contributors?: MetadataValue[];
+  citations?: MetadataValue[];
+  license?: MetadataValue[];
+  keywords?: MetadataValue[];
+  predecessors?: MetadataValue[];
   taxa?: MetadataValue[];
-  seeAlso?: MetadataValue[] | undefined;
-  successors?: MetadataValue[] | undefined;
-  thumbnails?: string[] | undefined;
-  sources?: MetadataValue[] | undefined;
-  funders?: MetadataValue[] | undefined;
-  identifiers?: MetadataValue[] | undefined;
+  seeAlso?: MetadataValue[];
+  successors?: MetadataValue[];
+  thumbnails?: string[];
+  sources?: MetadataValue[];
+  funders?: MetadataValue[];
+  identifiers?: MetadataValue[];
 
   constructor() {}
   public showImage = new BehaviorSubject(false);
