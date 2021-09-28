@@ -8,7 +8,5 @@ import { ConfigService } from '@biosimulations/shared/services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
-  constructor(
-    public config: ConfigService,
-  ) {}
+  constructor(public config: ConfigService) {}
 }
