@@ -978,56 +978,6 @@
         }
       }
     },
-    "ontology-api": {
-      "root": "apps/ontology-api",
-      "sourceRoot": "apps/ontology-api/src",
-      "projectType": "application",
-      "prefix": "ontology-api",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/ontology-api",
-            "main": "apps/ontology-api/src/main.ts",
-            "tsConfig": "apps/ontology-api/tsconfig.app.json",
-            "assets": ["apps/ontology-api/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/ontology-api/src/environments/environment.ts",
-                  "with": "apps/ontology-api/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "ontology-api:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/ontology-api/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/ontology-api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "ontology-client": {
       "projectType": "library",
       "root": "libs/ontology/client",

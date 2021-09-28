@@ -131,9 +131,6 @@
         "shared:true"
       ]
     },
-    "ontology-api": {
-      "tags": ["scope:ontology", "type:api", "platform:server"]
-    },
     "ontology-client": {
       "tags": ["scope:ontology", "platform:web", "shared:true", "type:client"]
     },
