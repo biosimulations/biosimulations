@@ -15,7 +15,7 @@ import {
   SboOntologyId,
   SioOntologyId,
   DependentPackage,
-} from '@biosimulations/datamodel/api';
+} from '../common';
 
 import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';

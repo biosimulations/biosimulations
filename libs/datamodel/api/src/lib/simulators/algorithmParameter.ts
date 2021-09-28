@@ -1,4 +1,4 @@
-import { KisaoOntologyId } from '@biosimulations/datamodel/api';
+import { KisaoOntologyId } from '../common';
 import {
   AlgorithmParameter as IAlgorithmParameter,
   ValueType,

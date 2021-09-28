@@ -1,5 +1,5 @@
 import { IImage, OperatingSystemType } from '@biosimulations/datamodel/common';
-import { EdamOntologyIdVersion } from '@biosimulations/datamodel/api';
+import { EdamOntologyIdVersion } from '../common';
 
 import { ApiProperty } from '@nestjs/swagger';
 
