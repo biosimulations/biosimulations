@@ -51,7 +51,7 @@ export class MetadataService {
         const currentUri = archiveMetadata.uri;
         if (currentUri.startsWith('./')) {
           archiveMetadata.uri = `${data.id}/${encodeURI(
-            currentUri.substring(1),
+            currentUri.substring(2),
           )}`;
         } else if (currentUri == '.') {
           archiveMetadata.uri = `${data.id}`;
