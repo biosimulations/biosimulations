@@ -34,7 +34,7 @@ export interface CombineArchiveElementMetadata {
   contributors: MetadataValue[];
   identifiers: MetadataValue[];
   citations: MetadataValue[];
-  license: MetadataValue | null;
+  license: MetadataValue[];
   funders: MetadataValue[];
   created: string | null;
   modified: string[];

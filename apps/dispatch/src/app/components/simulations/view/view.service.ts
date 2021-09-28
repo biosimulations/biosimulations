@@ -37,7 +37,7 @@ export class ViewService {
       successors: elementMetadata?.successors || [],
       creators: elementMetadata?.creators || [],
       contributors: elementMetadata?.contributors || [],
-      license: elementMetadata?.license || null,
+      license: elementMetadata?.license || [],
       funders: elementMetadata?.funders || [],
       seeAlso: elementMetadata?.seeAlso || [],
       identifiers: elementMetadata?.identifiers || [],

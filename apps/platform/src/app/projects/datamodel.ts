@@ -16,7 +16,7 @@ export interface ProjectMetadataSummary {
   citations: LabeledIdentifier[];
   creators: LabeledIdentifier[];
   contributors: LabeledIdentifier[];
-  license?: LabeledIdentifier;
+  license?: LabeledIdentifier[];
   funders: LabeledIdentifier[];
   created: FormattedDate;
   modified: FormattedDate[];
