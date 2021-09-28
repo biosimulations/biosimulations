@@ -1,3 +1,37 @@
+# [5.0.0](https://github.com/biosimulations/biosimulations/compare/v4.6.0...v5.0.0) (2021-09-28)
+
+
+### Bug Fixes
+
+* **dispatch-service:** fix type error when processing metadata ([a646c98](https://github.com/biosimulations/biosimulations/commit/a646c98ef2433b5b20b754fd637f326513aa57e1))
+* make datamodel consistent for license ([4b95e4d](https://github.com/biosimulations/biosimulations/commit/4b95e4d89af83b69334602f53ffacaa0744e5aff)), closes [#3050](https://github.com/biosimulations/biosimulations/issues/3050)
+* **dispatch-api:** remove extra slash for metadata uris ([b627e74](https://github.com/biosimulations/biosimulations/commit/b627e7491995ae1c1e70feea93b1e7f4cc53902a)), closes [#3052](https://github.com/biosimulations/biosimulations/issues/3052)
+* ensure external url is used for combine api ([2d98aba](https://github.com/biosimulations/biosimulations/commit/2d98aba10be03163e9b43aa67da69a95910eb763))
+* **dispatch:** corrected when metadata about simulation projects is retrieved ([1682d83](https://github.com/biosimulations/biosimulations/commit/1682d83d6870e4bcfa1d4b895d3a88d2cee60285))
+
+
+### Code Refactoring
+
+* consolidate backend apis ([b27bd0e](https://github.com/biosimulations/biosimulations/commit/b27bd0e260336df3553b1b3a7e3447c0e26ac716)), closes [#2724](https://github.com/biosimulations/biosimulations/issues/2724)
+
+
+### Features
+
+* **dispatch-api:** ensure only public models are shown for platform ([#3045](https://github.com/biosimulations/biosimulations/issues/3045)) ([5619c03](https://github.com/biosimulations/biosimulations/commit/5619c03d7fc088d0b3be33136935c80e7cb9c862)), closes [#3044](https://github.com/biosimulations/biosimulations/issues/3044)
+* **dispatch-api:** extract files to s3 and replace combine archive file extraction endpoint ([56f8413](https://github.com/biosimulations/biosimulations/commit/56f84133b193c4d54f77c33ba2c01105df6162e3)), closes [#2945](https://github.com/biosimulations/biosimulations/issues/2945)
+* **dispatch-api:** upload omex files to s3 from url ([4d8f780](https://github.com/biosimulations/biosimulations/commit/4d8f78058d3ea7050d913ad651c907c0a631a3f4))
+
+
+### Reverts
+
+* **dispatch-api:** revert permissions change in 3175c6378160f34e8389b6e501ea2534eb9d4c12 ([5ab7d08](https://github.com/biosimulations/biosimulations/commit/5ab7d08cc922778436646dca0331aad7bafef0d3))
+
+
+### BREAKING CHANGES
+
+* The ontology, dispatch, and platform apis are consolidated into one main backend
+api for biosimulations. There is a seperate api for biosimulators. The combine-service also provides a rest api that is mostly intended for internal use.
+
 # [4.6.0](https://github.com/biosimulations/biosimulations/compare/v4.5.0...v4.6.0) (2021-09-27)
 
 
