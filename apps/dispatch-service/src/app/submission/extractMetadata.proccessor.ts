@@ -135,7 +135,7 @@ export class MetadataProcessor {
       contributors:
         combineMetadata.contributors?.map(this.convertMetadataValue, this) ||
         [],
-      license: this.convertMetadataValue(combineMetadata.license),
+      license: [this.convertMetadataValue(combineMetadata.license)],
       created: combineMetadata.created || '',
       modified: combineMetadata.modified || [],
       other:
