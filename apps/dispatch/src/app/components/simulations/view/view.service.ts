@@ -8,6 +8,7 @@ import {
   ArchiveMetadata,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
+import { Purpose } from '@biosimulations/datamodel/common';
 import {
   CombineArchiveElementMetadata,
   Metadata,
@@ -91,7 +92,7 @@ export class ViewService {
       memory: simulation.memory || 8,
       maxTime: simulation.maxTime || 20,
       envVars: simulation.envVars || [],
-      academicUse: simulation.academicUse || false,
+      purpose: simulation.purpose || Purpose.other,
       status: simulation.status,
       statusRunning: statusRunning,
       statusSucceeded: statusSucceeded,

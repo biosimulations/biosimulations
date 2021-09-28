@@ -1,4 +1,4 @@
-import { EnvironmentVariable } from '@biosimulations/datamodel/common';
+import { EnvironmentVariable, Purpose } from '@biosimulations/datamodel/common';
 
 export enum DispatchMessage {
   // Job created on the database
@@ -49,7 +49,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
   memory: number;
   maxTime: number;
   envVars: EnvironmentVariable[];
-  academicUse: boolean;
+  purpose: Purpose;
 
   constructor(
     id: string,
@@ -60,7 +60,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
     memory: number,
     maxTime: number,
     envVars: EnvironmentVariable[],
-    academicUse: boolean,
+    purpose: Purpose,
   ) {
     super(id);
     this.fileName = fileName;
@@ -70,7 +70,7 @@ export class DispatchCreatedPayload extends DispatchPayload {
     this.memory = memory;
     this.maxTime = maxTime;
     this.envVars = envVars;
-    this.academicUse = academicUse;
+    this.purpose = purpose;
   }
 }
 

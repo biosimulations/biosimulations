@@ -18,6 +18,7 @@ import {
 import {
   Ontologies,
   SimulationRunLogStatus,
+  Purpose,
 } from '@biosimulations/datamodel/common';
 import { OntologyService } from '@biosimulations/ontology/client';
 import {
@@ -93,7 +94,7 @@ export class DispatchService {
     memory: number, // in GB
     maxTime: number, // in minutes
     envVars: EnvironmentVariable[],
-    academicUse: boolean,
+    purpose: Purpose,
     name: string,
     email: string | null,
   ): Observable<SimulationRun> {
@@ -107,7 +108,7 @@ export class DispatchService {
       memory,
       maxTime,
       envVars,
-      academicUse,
+      purpose,
       public: false,
     };
     return this.http.post<SimulationRun>(this.endpoint, body, {
@@ -123,7 +124,7 @@ export class DispatchService {
     memory: number, // in GB
     maxTime: number, // in minutes
     envVars: EnvironmentVariable[],
-    academicUse: boolean,
+    purpose: Purpose,
     name: string,
     email: string | null,
   ): Observable<SimulationRun> {
@@ -138,7 +139,7 @@ export class DispatchService {
       memory,
       maxTime,
       envVars,
-      academicUse,
+      purpose,
       public: false,
     };
     formData.append('file', fileToUpload, fileToUpload.name);

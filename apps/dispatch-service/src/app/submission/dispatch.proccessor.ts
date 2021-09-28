@@ -36,7 +36,7 @@ export class DispatchProcessor {
       data.memory,
       data.maxTime,
       data.envVars,
-      data.academicUse,
+      data.purpose,
       data.fileName,
     );
 

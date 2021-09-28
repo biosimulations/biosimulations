@@ -8,7 +8,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Types } from 'mongoose';
 import { SimulationFile } from './file.model';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, Purpose } from '@biosimulations/datamodel/common';
 import { omitPrivate } from '@biosimulations/datamodel/common';
 import { isEmail, isUrl } from '@biosimulations/datamodel-database';
 
@@ -150,8 +150,15 @@ export class SimulationRunModel extends Document {
   })
   envVars!: EnvironmentVariable[];
 
-  @Prop({ type: Boolean, required: false, default: false })
-  academicUse!: boolean;
+  @Prop({ 
+    type: String, 
+    enum: Object.keys(Purpose).map(
+      (key) => Purpose[key as Purpose],
+    ),    
+    required: false, 
+    default: Purpose.other,
+  })
+  purpose!: Purpose;
 
   @Prop()
   submitted!: Date;
@@ -181,7 +188,7 @@ export type SimulationRunModelType = Pick<
   | 'memory'
   | 'maxTime'
   | 'envVars'
-  | 'academicUse'
+  | 'purpose'
   | 'refreshCount'
   | 'submitted'
   | 'updated'

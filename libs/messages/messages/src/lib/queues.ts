@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
-import { EnvironmentVariable } from '@biosimulations/datamodel/common';
+import { EnvironmentVariable, Purpose } from '@biosimulations/datamodel/common';
 
 export enum JobQueue {
   dispatch = 'dispatch',
@@ -27,7 +27,7 @@ export class DispatchJob {
   memory!: number;
   maxTime!: number;
   envVars!: EnvironmentVariable[];
-  academicUse!: boolean;
+  purpose!: Purpose;
   isPublic!: boolean;
 }
 

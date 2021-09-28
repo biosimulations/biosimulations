@@ -1,6 +1,7 @@
 import {
   SimulationRunStatus,
   EnvironmentVariable,
+  Purpose,
 } from '@biosimulations/datamodel/common';
 
 export interface UnknownSimulation {
@@ -14,7 +15,7 @@ export interface UnknownSimulation {
   memory?: null; // GB
   maxTime?: null; // min
   envVars?: null;
-  academicUse?: null;
+  purpose?: null;
   status?: null;
   runtime?: null;
   submitted?: null;
@@ -34,7 +35,7 @@ export interface Simulation {
   memory: number; // GB
   maxTime: number; // min
   envVars: EnvironmentVariable[];
-  academicUse: boolean;
+  purpose: Purpose;
   status: SimulationRunStatus;
   runtime?: number;
   submitted: Date;
