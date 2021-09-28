@@ -120,16 +120,21 @@
       *ngIf="(metadataValid$ | async) === false; else metadataLoading"
     >
       <div
-        *ngIf="isMetadataValidationReport(metadataValidationReport$ | async); else errorLoading"
+        *ngIf="
+          isMetadataValidationReport(metadataValidationReport$ | async);
+          else errorLoading
+        "
         class="metadata-validation-report error"
       >
-        The simulation project does not contain valid metadata for publication to BioSimulations. More information about the metadata requirements for BioSimulations is available <a href="https://biosimulators.org/conventions/metadata" target="_blank">here</a>.
+        The simulation project does not contain valid metadata for publication
+        to BioSimulations. More information about the metadata requirements for
+        BioSimulations is available
+        <a href="https://biosimulators.org/conventions/metadata" target="_blank"
+          >here</a
+        >.
 
-        <ng-container *ngIf="(metadataValidationReport$ | async) as report">
-          <div
-            class="metadata-validation-report-section"
-            *ngIf="report.errors"
-          >
+        <ng-container *ngIf="metadataValidationReport$ | async as report">
+          <div class="metadata-validation-report-section" *ngIf="report.errors">
             Errors:
             <ul [innerHTML]="report.errors"></ul>
           </div>
@@ -149,9 +154,12 @@
           *ngIf="(metadataValidationReport$ | async) === false; else loading"
           class="error"
         >
-          Sorry! The metadata for the project could not be validated. The metadata
-          must be valid for publication. Please try again later. If this error persists,
-          please contact the BioSimulations Team <a [href]="newIssueUrl" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          Sorry! The metadata for the project could not be validated. The
+          metadata must be valid for publication. Please try again later. If
+          this error persists, please contact the BioSimulations Team
+          <a [href]="newIssueUrl" target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >.
         </div>
 
         <ng-template #loading>

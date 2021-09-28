@@ -356,10 +356,7 @@ export class DispatchService {
     );
   }
 
-  public updateSimulationRun(
-    uuid: string,
-    update: UpdateSimulationRun,
-  ) {
+  public updateSimulationRun(uuid: string, update: UpdateSimulationRun) {
     return this.http.patch(`${urls.dispatchApi}runs/${uuid}`, update, {
       headers: { 'Content-Type': 'application/json' },
     });

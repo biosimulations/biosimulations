@@ -8,14 +8,17 @@ import { MetadataService } from '../../../services/simulation/metadata.service';
 import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { ConfigService } from '@biosimulations/shared/services';
-import { SimulationRunMetadata } from '@biosimulations/datamodel/api'
+import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
 import {
   Simulation,
   UnknownSimulation,
   isUnknownSimulation,
 } from '../../../datamodel';
 import { CombineArchiveElementMetadata } from '../../../datamodel/metadata.interface';
-import { ValidationReport, ValidationMessage } from '../../../datamodel/validation-report.interface';
+import {
+  ValidationReport,
+  ValidationMessage,
+} from '../../../datamodel/validation-report.interface';
 import {
   FormBuilder,
   FormGroup,
@@ -43,7 +46,9 @@ export class PublishComponent implements OnInit {
 
   private simulation!: Simulation;
   metadataValid$!: Observable<boolean>;
-  metadataValidationReport$!: Observable<FormattedValidationReport | false | undefined>;
+  metadataValidationReport$!: Observable<
+    FormattedValidationReport | false | undefined
+  >;
 
   formGroup: FormGroup;
   submitPushed = false;
@@ -100,47 +105,48 @@ export class PublishComponent implements OnInit {
 
     this.uuid = this.route.snapshot.params['uuid'];
 
-    const simulation$ = this.simulationService
-      .getSimulation(this.uuid)
-      .pipe(
-        shareReplay(1),
-        map((simulation: Simulation | UnknownSimulation): Simulation => {
-          if (isUnknownSimulation(simulation)) {
-            this.router.navigate(['/error', '404']);
-          }
-          return simulation as Simulation;
-        }),
-      );
+    const simulation$ = this.simulationService.getSimulation(this.uuid).pipe(
+      shareReplay(1),
+      map((simulation: Simulation | UnknownSimulation): Simulation => {
+        if (isUnknownSimulation(simulation)) {
+          this.router.navigate(['/error', '404']);
+        }
+        return simulation as Simulation;
+      }),
+    );
 
     this.metadataValid$ = simulation$.pipe(
       map((simulation: Simulation): Observable<boolean> => {
         this.simulation = simulation;
-        return this.metadataService.getMetadata(this.uuid)
-          .pipe(
-            map((metadata: SimulationRunMetadata): true => {
-              return true;
-            }),
-            catchError((error: Error) => {
-              return of(false);
-            }),
-          );
+        return this.metadataService.getMetadata(this.uuid).pipe(
+          map((metadata: SimulationRunMetadata): true => {
+            return true;
+          }),
+          catchError((error: Error) => {
+            return of(false);
+          }),
+        );
       }),
       concatAll(),
     );
 
     this.metadataValidationReport$ = this.metadataValid$.pipe(
-      map((valid: boolean): Observable<FormattedValidationReport | false | undefined> => {
-        if (valid) {
-          return of(undefined);
-        }
+      map(
+        (
+          valid: boolean,
+        ): Observable<FormattedValidationReport | false | undefined> => {
+          if (valid) {
+            return of(undefined);
+          }
 
-        const archiveUrl = this.getArchiveUrl();
-        return this.combineService
-          .getCombineArchiveMetadata(archiveUrl)
-          .pipe(
+          const archiveUrl = this.getArchiveUrl();
+          return this.combineService.getCombineArchiveMetadata(archiveUrl).pipe(
             map(
               (
-                arg: CombineArchiveElementMetadata[] | ValidationReport | undefined,
+                arg:
+                  | CombineArchiveElementMetadata[]
+                  | ValidationReport
+                  | undefined,
               ): FormattedValidationReport | false => {
                 if (arg === undefined) {
                   return false;
@@ -148,7 +154,7 @@ export class PublishComponent implements OnInit {
 
                 if (!Array.isArray(arg)) {
                   return {
-                    errors: arg?.errors?.length 
+                    errors: arg?.errors?.length
                       ? this.convertValidationMessagesToList(arg.errors)
                       : null,
                     warnings: arg?.warnings?.length
@@ -161,7 +167,8 @@ export class PublishComponent implements OnInit {
               },
             ),
           );
-      }),
+        },
+      ),
       concatAll(),
     );
   }
@@ -186,7 +193,9 @@ export class PublishComponent implements OnInit {
       .join('\n');
   }
 
-  isMetadataValidationReport(report: FormattedValidationReport | false | undefined | null): boolean {
+  isMetadataValidationReport(
+    report: FormattedValidationReport | false | undefined | null,
+  ): boolean {
     return !(report === false || report === undefined || report === null);
   }
 
@@ -203,29 +212,31 @@ export class PublishComponent implements OnInit {
     }
 
     /* TODO: implement publishing project */
-    this.dispatchService.updateSimulationRun(this.uuid, {
-      public: true,
-      status: this.simulation.status,
-      statusReason: 'Publish run',
-      resultsSize: this.simulation.resultsSize,
-    }).pipe(
-      catchError((error: HttpErrorResponse): Observable<undefined> => {
-        if (!environment.production) {
-          console.log(error);
-        }
-
-        this.snackBar.open(
-          'Sorry! We were unable to publish your project. Please try again later.',
-          undefined,
-          {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-          },
-        );
-
-        return of<undefined>(undefined);
+    this.dispatchService
+      .updateSimulationRun(this.uuid, {
+        public: true,
+        status: this.simulation.status,
+        statusReason: 'Publish run',
+        resultsSize: this.simulation.resultsSize,
       })
-    );
+      .pipe(
+        catchError((error: HttpErrorResponse): Observable<undefined> => {
+          if (!environment.production) {
+            console.log(error);
+          }
+
+          this.snackBar.open(
+            'Sorry! We were unable to publish your project. Please try again later.',
+            undefined,
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            },
+          );
+
+          return of<undefined>(undefined);
+        }),
+      );
   }
 }
