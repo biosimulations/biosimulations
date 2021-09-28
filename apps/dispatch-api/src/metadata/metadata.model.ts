@@ -106,7 +106,7 @@ export class MetadataModel implements ArchiveMetadata {
   contributors: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  license?: LabeledIdentifierModel;
+  license?: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
   funders: LabeledIdentifierModel[] = [];

@@ -24,7 +24,7 @@ export class ProjectOverviewComponent implements OnInit {
   creators?: MetadataValue[] | undefined;
   contributors?: MetadataValue[] | undefined;
   citations?: MetadataValue[] | undefined;
-  license?: MetadataValue | undefined;
+  license?: MetadataValue[] | undefined;
   keywords?: MetadataValue[] | undefined;
   predecessors?: MetadataValue[] | undefined;
   taxa?: MetadataValue[];
@@ -50,7 +50,7 @@ export class ProjectOverviewComponent implements OnInit {
     this.creators = this.metadata?.creators || [];
     this.contributors = this.metadata?.contributors || [];
     this.citations = this.metadata?.citations || [];
-    this.license = this.metadata?.license;
+    this.license = this.metadata?.license || [];
     this.keywords = this.metadata?.keywords || [];
     this.predecessors = this.metadata?.predecessors || [];
     this.taxa = this.metadata?.taxa || [];

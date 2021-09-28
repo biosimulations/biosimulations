@@ -66,7 +66,7 @@ export const CONTRIBUTORS = {
 };
 
 export const LICENCE = {
-  type: LabeledIdentifier,
+  type: [LabeledIdentifier],
   description: 'The licence under which the resource is available',
   externalDocs: {
     description: 'Dublin Core Metadata Terms Licence',

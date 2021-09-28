@@ -64,7 +64,7 @@ export class ArchiveMetadata implements IArchiveMetadataType {
   @ApiProperty(CONTRIBUTORS)
   contributors: LabeledIdentifier[] = [];
   @ApiPropertyOptional(LICENCE)
-  license?: LabeledIdentifier;
+  license?: LabeledIdentifier[];
   @ApiProperty(FUNDERS)
   funders: LabeledIdentifier[] = [];
   @ApiProperty(CREATED)
