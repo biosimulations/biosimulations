@@ -3,10 +3,10 @@
   <div class="heading-separator"></div>
   <div
     class="subsections"
-    fxLayout="row"
-    fxLayout.lt-md="column"
-    fxLayoutAlign="space-between"
-    fxLayoutGap="32px"
+    gdAuto="row"
+    gdGap="24px"
+    [gdColumns]="'repeat(' + columns.toString() + ', 1fr)'"
+    gdColumns.lt-md="1fr"
   >
     <ng-content select="#subsection"></ng-content>
   </div>

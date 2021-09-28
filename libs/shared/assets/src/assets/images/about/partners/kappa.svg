@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   viewBox="389 280 132.00001 116.2666"
+   width="11.000001pc"
+   height="9.6888838pc"
+   id="svg5034"
+   sodipodi:docname="kappa.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="952"
+     id="namedview5036"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="3.6083333"
+     inkscape:cx="166.00002"
+     inkscape:cy="74.378917"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5034" />
+  <metadata
+     id="metadata4929"> Produced by OmniGraffle 6.1.3 <dc:date>2015-02-16 10:49:04 +0000</dc:date>
+<rdf:RDF>
+  <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:title></dc:title>
+  </cc:Work>
+</rdf:RDF>
+</metadata>
+  <defs
+     id="defs4958">
+    <linearGradient
+       x1="0"
+       x2="1"
+       id="Gradient"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="white"
+         id="stop4931" />
+      <stop
+         offset="1"
+         stop-color="#54afff"
+         id="stop4933" />
+    </linearGradient>
+    <linearGradient
+       id="Obj_Gradient"
+       xlink:href="#Gradient"
+       gradientTransform="matrix(0,90,-90,0,439.50002,294.48241)" />
+    <font-face
+       font-family="Chalkduster"
+       font-size="40"
+       panose-1="3 5 6 2 4 2 2 2 2 5"
+       units-per-em="1000"
+       underline-position="-146.96133"
+       underline-thickness="22.099448"
+       slope="0"
+       x-height="523.7569"
+       cap-height="713.81215"
+       ascent="980.1178"
+       descent="-282.86743"
+       font-weight="500"
+       id="font-face4937"
+       stemv="0"
+       stemh="0"
+       accent-height="0"
+       ideographic="0"
+       alphabetic="0"
+       mathematical="0"
+       hanging="0"
+       v-ideographic="0"
+       v-alphabetic="0"
+       v-mathematical="0"
+       v-hanging="0"
+       strikethrough-position="0"
+       strikethrough-thickness="0"
+       overline-position="0"
+       overline-thickness="0">
+      <font-face-src>
+        <font-face-name
+           name="Chalkduster" />
+      </font-face-src>
+    </font-face>
+    <radialGradient
+       cx="0"
+       cy="0"
+       r="1"
+       id="Gradient_2"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="white"
+         id="stop4939" />
+      <stop
+         offset="1"
+         stop-color="white"
+         id="stop4941" />
+    </radialGradient>
+    <radialGradient
+       id="Obj_Gradient_2"
+       xlink:href="#Gradient_2"
+       gradientTransform="matrix(25.455844,0,0,25.455844,466.50002,366.48241)" />
+    <font-face
+       font-family="Chalkduster"
+       font-size="23"
+       panose-1="3 5 6 2 4 2 2 2 2 5"
+       units-per-em="1000"
+       underline-position="-146.96133"
+       underline-thickness="22.099448"
+       slope="0"
+       x-height="523.7569"
+       cap-height="713.81215"
+       ascent="980.1178"
+       descent="-282.86743"
+       font-weight="500"
+       id="font-face4945"
+       stemv="0"
+       stemh="0"
+       accent-height="0"
+       ideographic="0"
+       alphabetic="0"
+       mathematical="0"
+       hanging="0"
+       v-ideographic="0"
+       v-alphabetic="0"
+       v-mathematical="0"
+       v-hanging="0"
+       strikethrough-position="0"
+       strikethrough-thickness="0"
+       overline-position="0"
+       overline-thickness="0">
+      <font-face-src>
+        <font-face-name
+           name="Chalkduster" />
+      </font-face-src>
+    </font-face>
+    <linearGradient
+       id="Obj_Gradient_3"
+       xlink:href="#Gradient"
+       gradientTransform="matrix(0,90,-90,0,561.50001,294.48241)" />
+    <radialGradient
+       id="Obj_Gradient_4"
+       xlink:href="#Gradient_2"
+       gradientTransform="matrix(25.455844,0,0,25.455844,596.50001,366.48241)" />
+    <radialGradient
+       cx="0"
+       cy="0"
+       r="1"
+       id="Gradient_3"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="white"
+         id="stop4949" />
+      <stop
+         offset="1"
+         stop-color="#333"
+         id="stop4951" />
+    </radialGradient>
+    <radialGradient
+       id="Obj_Gradient_5"
+       xlink:href="#Gradient_3"
+       gradientTransform="matrix(6.363961,0,0,6.363961,462.00002,298.98241)" />
+    <radialGradient
+       id="Obj_Gradient_6"
+       xlink:href="#Gradient_3"
+       gradientTransform="matrix(6.363961,0,0,6.363961,516.00002,334.98241)" />
+    <radialGradient
+       id="Obj_Gradient_7"
+       xlink:href="#Gradient_3"
+       gradientTransform="matrix(6.363961,0,0,6.363961,561.00001,292.98241)" />
+    <radialGradient
+       id="Obj_Gradient_8"
+       xlink:href="#Gradient_3"
+       gradientTransform="matrix(6.363961,0,0,6.363961,394.00002,347.98241)" />
+  </defs>
+  <circle
+     cx="439.5"
+     cy="339.48242"
+     r="45.000072"
+     id="circle4964"
+     style="fill:url(#Obj_Gradient);fill-opacity:1;stroke:none;stroke-dasharray:none;stroke-opacity:1" />
+  <circle
+     cx="439.5"
+     cy="339.48242"
+     r="45.000072"
+     id="circle4966"
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" />
+  <text
+     id="text4970"
+     style="fill:#000000;fill-opacity:1;stroke:none;stroke-dasharray:none;stroke-opacity:1"
+     x="408.5"
+     y="313.98242">
+    <tspan
+       font-size="40"
+       font-weight="500"
+       x="426.39505"
+       y="352.98242"
+       id="tspan4968"
+       style="font-weight:500;font-size:40px;font-family:Chalkduster;fill:#000000">K</tspan>
+  </text>
+  <circle
+     cx="466.5"
+     cy="366.48242"
+     r="18.000029"
+     id="circle4972"
+     style="fill:url(#Obj_Gradient_2);fill-opacity:1;stroke:none;stroke-dasharray:none;stroke-opacity:1" />
+  <circle
+     cx="466.5"
+     cy="366.48242"
+     r="18.000029"
+     id="circle4974"
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" />
+  <text
+     id="text4978"
+     style="fill:#000000;fill-opacity:1;stroke:none;stroke-dasharray:none;stroke-opacity:1"
+     x="452.10001"
+     y="348.48242">
+    <tspan
+       font-size="23"
+       font-weight="500"
+       x="458.57074"
+       y="377.48242"
+       id="tspan4976"
+       style="font-weight:500;font-size:23px;font-family:Chalkduster">a</tspan>
+  </text>
+  <text
+     id="text4990"
+     style="fill:#000000;fill-opacity:1;stroke:none;stroke-dasharray:none;stroke-opacity:1"
+     x="478.5"
+     y="362.48242">
+    <tspan
+       font-size="23"
+       font-weight="500"
+       x="478.8967"
+       y="391.48242"
+       id="tspan4988"
+       style="font-weight:500;font-size:23px;font-family:Chalkduster">p</tspan>
+  </text>
+  <text
+     id="text5006"
+     style="fill:#000000;fill-opacity:1;stroke:none;stroke-dasharray:none;stroke-opacity:1"
+     x="491.5"
+     y="362.48242">
+    <tspan
+       font-size="23"
+       font-weight="500"
+       x="491.8967"
+       y="391.48242"
+       id="tspan5004"
+       style="font-weight:500;font-size:23px;font-family:Chalkduster">p</tspan>
+  </text>
+  <text
+     id="text5010"
+     style="fill:#000000;fill-opacity:1;stroke:none;stroke-dasharray:none;stroke-opacity:1"
+     x="505"
+     y="362.48242">
+    <tspan
+       font-size="23"
+       font-weight="500"
+       x="505.07074"
+       y="391.48242"
+       id="tspan5008"
+       style="font-weight:500;font-size:23px;font-family:Chalkduster">a</tspan>
+  </text>
+  <circle
+     cx="462"
+     cy="298.98242"
+     r="4.5000072"
+     id="circle5012"
+     style="fill:url(#Obj_Gradient_5);fill-opacity:1;stroke:none;stroke-dasharray:none;stroke-opacity:1" />
+  <circle
+     cx="462"
+     cy="298.98242"
+     r="4.5000072"
+     id="circle5014"
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" />
+  <circle
+     cx="516"
+     cy="334.98242"
+     r="4.5000072"
+     id="circle5016"
+     style="fill:url(#Obj_Gradient_6);fill-opacity:1;stroke:none;stroke-dasharray:none;stroke-opacity:1" />
+  <circle
+     cx="516"
+     cy="334.98242"
+     r="4.5000072"
+     id="circle5018"
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" />
+  <circle
+     cx="394"
+     cy="347.98242"
+     r="4.5000072"
+     id="circle5024"
+     style="fill:url(#Obj_Gradient_8);fill-opacity:1;stroke:none;stroke-dasharray:none;stroke-opacity:1" />
+  <circle
+     cx="394"
+     cy="347.98242"
+     r="4.5000072"
+     id="circle5026"
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" />
+  <path
+     d="m 464.17635,295.04235 c 4.1962,-7.05202 13.58581,-20.148 20.32367,-9.55994 8.9241,14.0236 0.0759,48.9764 9,63 6.73786,10.58806 16.12747,-2.50792 20.32367,-9.55995"
+     id="path5028"
+     inkscape:connector-curvature="0"
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" />
+</svg>
