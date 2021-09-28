@@ -4,4 +4,3 @@ mkdocs-awesome-pages-plugin
 mkdocs-redirects
 mkdocstrings
 mkdocs-same-dir
-biosimulators_utils
