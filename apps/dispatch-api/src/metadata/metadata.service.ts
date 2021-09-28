@@ -26,9 +26,9 @@ export class MetadataService {
   }
   public async getAllMetadata(includePrivate = false) {
     const query = includePrivate ? {} : { isPublic: true };
-    const metadta = await this.metadataModel.find(query).exec();
+    const metadata = await this.metadataModel.find(query).exec();
 
-    return metadta;
+    return metadata;
   }
 
   public async getMetadata(id: string) {

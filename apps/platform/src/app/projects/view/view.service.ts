@@ -21,7 +21,7 @@ export class ViewService {
     return metaData;
   }
 
-  public getOtherMetdata(id: string): Observable<ArchiveMetadata[]> {
+  public getOtherMetadata(id: string): Observable<ArchiveMetadata[]> {
     const metadata: Observable<ArchiveMetadata[]> = this.getProjectMetadata(
       id,
     ).pipe(

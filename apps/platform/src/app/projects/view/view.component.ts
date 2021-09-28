@@ -39,7 +39,7 @@ export class ViewComponent implements OnInit {
       }),
     );
 
-    this.figureMetadata$ = this.service.getOtherMetdata(id).pipe(
+    this.figureMetadata$ = this.service.getOtherMetadata(id).pipe(
       tap((_) => {
         this.loadingFigures$.next(false);
       }),

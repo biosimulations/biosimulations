@@ -58,13 +58,13 @@ export class ViewService {
   }
 
   public formatMetadata(simulationMetadata: SimulationRunMetadata): Metadata {
-    const allMetadta = simulationMetadata.metadata;
+    const allMetadata = simulationMetadata.metadata;
     const archiveMetadata = this.formatElementMetadata(
-      allMetadta.find((m) => (m.uri = simulationMetadata.id)),
+      allMetadata.find((m) => (m.uri = simulationMetadata.id)),
     );
 
     const otherMetadata = (
-      allMetadta.filter((m) => m.uri !== simulationMetadata.id) || []
+      allMetadata.filter((m) => m.uri !== simulationMetadata.id) || []
     ).map(this.formatElementMetadata);
 
     const metadata: Metadata = {
