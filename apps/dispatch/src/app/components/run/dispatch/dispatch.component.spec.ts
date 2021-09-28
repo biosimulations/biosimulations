@@ -9,7 +9,8 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import { ConfigService } from '@biosimulations/shared/services';
 import config from '../../../../assets/config.json';
 
@@ -30,7 +31,7 @@ describe('DispatchComponent', () => {
         NgxMatFileInputModule,
         NoopAnimationsModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage'],
+          driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
       ],
       declarations: [DispatchComponent],

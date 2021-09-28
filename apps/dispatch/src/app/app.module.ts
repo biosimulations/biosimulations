@@ -8,7 +8,8 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { PwaModule } from '@biosimulations/shared/pwa';
 import {
@@ -116,7 +117,7 @@ routes.forEach((route: Route): void => {
       relativeLinkResolution: 'legacy',
     }),
     IonicStorageModule.forRoot({
-      driverOrder: ['indexeddb', 'websql', 'localstorage'],
+      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

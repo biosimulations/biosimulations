@@ -2,7 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NoticeComponent } from './notice.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import { MaterialWrapperModule } from '../material-wrapper.module';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
@@ -16,7 +17,7 @@ describe('NoticeComponent', () => {
       imports: [
         RouterTestingModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage'],
+          driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
         MaterialWrapperModule,
         BiosimulationsIconsModule,

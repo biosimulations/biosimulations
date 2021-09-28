@@ -12,7 +12,8 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 describe('ViewComponent', () => {
@@ -32,7 +33,7 @@ describe('ViewComponent', () => {
         SharedUiModule,
         BiosimulationsIconsModule,
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage'],
+          driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
         SimulationLogModule,
         NoopAnimationsModule,

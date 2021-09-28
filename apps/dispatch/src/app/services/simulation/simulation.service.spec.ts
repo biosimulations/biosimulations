@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import { SimulationService } from './simulation.service';
 import { ConfigService } from '@biosimulations/shared/services';
 
@@ -12,7 +13,7 @@ describe('SimulationService', () => {
       providers: [HttpClient, HttpHandler, ConfigService],
       imports: [
         IonicStorageModule.forRoot({
-          driverOrder: ['indexeddb', 'websql', 'localstorage'],
+          driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
       ],
     });

@@ -7,7 +7,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { MarkdownModule } from 'ngx-markdown';
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import {
   SharedErrorComponentsModule,
   //SharedErrorHandlerModule,
@@ -72,7 +73,7 @@ routes.forEach((route: Route): void => {
       enabled: environment.production,
     }),
     IonicStorageModule.forRoot({
-      driverOrder: ['indexeddb', 'websql', 'localstorage'],
+      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
     }),
   ],
   providers: [
