@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, catchError, concatAll } from 'rxjs/operators';
+import { map, catchError, concatAll, shareReplay } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
+import { SimulationService } from '../../../services/simulation/simulation.service';
 import { MetadataService } from '../../../services/simulation/metadata.service';
 import { CombineService } from '../../../services/combine/combine.service';
+import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { ConfigService } from '@biosimulations/shared/services';
 import { SimulationRunMetadata } from '@biosimulations/datamodel/api'
+import {
+  Simulation,
+  UnknownSimulation,
+  isUnknownSimulation,
+} from '../../../datamodel';
 import { CombineArchiveElementMetadata } from '../../../datamodel/metadata.interface';
 import { ValidationReport, ValidationMessage } from '../../../datamodel/validation-report.interface';
 import {
@@ -19,6 +26,8 @@ import {
 } from '@angular/forms';
 import { environment } from '@biosimulations/shared/environments';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
 
 interface FormattedValidationReport {
   errors: string | null;
@@ -32,6 +41,7 @@ interface FormattedValidationReport {
 export class PublishComponent implements OnInit {
   uuid!: string;
 
+  private simulation!: Simulation;
   metadataValid$!: Observable<boolean>;
   metadataValidationReport$!: Observable<FormattedValidationReport | false | undefined>;
 
@@ -42,10 +52,13 @@ export class PublishComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private simulationService: SimulationService,
     private metadataService: MetadataService,
     private combineService: CombineService,
+    private dispatchService: DispatchService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private snackBar: MatSnackBar,
     private config: ConfigService,
   ) {
     this.formGroup = formBuilder.group({
@@ -87,17 +100,33 @@ export class PublishComponent implements OnInit {
 
     this.uuid = this.route.snapshot.params['uuid'];
 
-    const archiveUrl = this.getArchiveUrl();
-
-    this.metadataValid$ = this.metadataService.getMetadata(this.uuid)
+    const simulation$ = this.simulationService
+      .getSimulation(this.uuid)
       .pipe(
-        map((metadata: SimulationRunMetadata): true => {
-          return true;
+        shareReplay(1),
+        map((simulation: Simulation | UnknownSimulation): Simulation => {
+          if (isUnknownSimulation(simulation)) {
+            this.router.navigate(['/error', '404']);
+          }
+          return simulation as Simulation;
         }),
-        catchError((error: Error) => {            
-          return of(false);
-        }),        
       );
+
+    this.metadataValid$ = simulation$.pipe(
+      map((simulation: Simulation): Observable<boolean> => {
+        this.simulation = simulation;
+        return this.metadataService.getMetadata(this.uuid)
+          .pipe(
+            map((metadata: SimulationRunMetadata): true => {
+              return true;
+            }),
+            catchError((error: Error) => {
+              return of(false);
+            }),
+          );
+      }),
+      concatAll(),
+    );
 
     this.metadataValidationReport$ = this.metadataValid$.pipe(
       map((valid: boolean): Observable<FormattedValidationReport | false | undefined> => {
@@ -105,6 +134,7 @@ export class PublishComponent implements OnInit {
           return of(undefined);
         }
 
+        const archiveUrl = this.getArchiveUrl();
         return this.combineService
           .getCombineArchiveMetadata(archiveUrl)
           .pipe(
@@ -173,5 +203,29 @@ export class PublishComponent implements OnInit {
     }
 
     /* TODO: implement publishing project */
+    this.dispatchService.updateSimulationRun(this.uuid, {
+      public: true,
+      status: this.simulation.status,
+      statusReason: 'Publish run',
+      resultsSize: this.simulation.resultsSize,
+    }).pipe(
+      catchError((error: HttpErrorResponse): Observable<undefined> => {
+        if (!environment.production) {
+          console.log(error);
+        }
+
+        this.snackBar.open(
+          'Sorry! We were unable to publish your project. Please try again later.',
+          undefined,
+          {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          },
+        );
+
+        return of<undefined>(undefined);
+      })
+    );
   }
 }

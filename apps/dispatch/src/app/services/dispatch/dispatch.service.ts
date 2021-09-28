@@ -8,6 +8,7 @@ import {
   SimulationRun,
   UploadSimulationRun,
   UploadSimulationRunUrl,
+  UpdateSimulationRun,
   EnvironmentVariable,
 } from '@biosimulations/dispatch/api-models';
 import {
@@ -353,6 +354,15 @@ export class DispatchService {
         return of<undefined>(undefined);
       }),
     );
+  }
+
+  public updateSimulationRun(
+    uuid: string,
+    update: UpdateSimulationRun,
+  ) {
+    return this.http.patch(`${urls.dispatchApi}runs/${uuid}`, update, {
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   public constructor(
