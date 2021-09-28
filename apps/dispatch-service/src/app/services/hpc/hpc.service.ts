@@ -3,6 +3,7 @@ import { SshService } from '../ssh/ssh.service';
 import {
   SimulationRunStatus,
   EnvironmentVariable,
+  Purpose,
 } from '@biosimulations/datamodel/common';
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
@@ -32,7 +33,7 @@ export class HpcService {
     memory: number,
     maxTime: number,
     envVars: EnvironmentVariable[],
-    academicUse: boolean,
+    purpose: Purpose,
     fileName: string,
   ): Promise<{
     stdout: string;
@@ -50,7 +51,7 @@ export class HpcService {
       memory,
       maxTime,
       envVars,
-      academicUse,
+      purpose,
       fileName,
       endpoint,
       id,

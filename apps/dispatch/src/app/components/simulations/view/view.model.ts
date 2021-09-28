@@ -1,6 +1,7 @@
 import {
   SimulationRunStatus,
   EnvironmentVariable,
+  Purpose,
 } from '@biosimulations/datamodel/common';
 import {
   AxisType,
@@ -16,7 +17,7 @@ export interface FormattedSimulation {
   memory: number; // GB
   maxTime: number; // min
   envVars: EnvironmentVariable[];
-  academicUse: boolean;
+  purpose: Purpose;
   status: SimulationRunStatus;
   statusRunning: boolean;
   statusSucceeded: boolean;

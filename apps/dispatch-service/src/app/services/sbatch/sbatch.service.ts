@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { EnvironmentVariable } from '@biosimulations/datamodel/common';
+import { EnvironmentVariable, Purpose } from '@biosimulations/datamodel/common';
 
 @Injectable()
 export class SbatchService {
@@ -13,7 +13,7 @@ export class SbatchService {
     memory: number,
     maxTime: number,
     envVars: EnvironmentVariable[],
-    academicUse: boolean,
+    purpose: Purpose,
     omexName: string,
     apiDomain: string,
     simId: string,
@@ -43,7 +43,7 @@ export class SbatchService {
     }
 
     let singularityRunEnvVars = this.configService.get('singularity.runEnvVarAll');
-    if (academicUse) {
+    if (purpose === Purpose.academic) {
       singularityRunEnvVars = singularityRunEnvVars.concat(this.configService.get('singularity.runEnvVarAcademic'));
     }
 

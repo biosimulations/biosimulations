@@ -14,7 +14,7 @@ import {
   PartialType,
   PickType,
 } from '@nestjs/swagger';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, Purpose } from '@biosimulations/datamodel/common';
 
 export class EnvironmentVariable {
   @ApiProperty({ type: String, example: 'VERBOSE' })
@@ -84,12 +84,13 @@ export class SimulationRun {
   envVars: EnvironmentVariable[];
 
   @ApiPropertyOptional({
-    type: Boolean,
+    type: String,
+    enum: Purpose,
     description: 'Whether use of commercial solvers is permitted because the purpose of the simulation is academic research or education',
     required: false,
-    default: false,
+    default: Purpose.other,
   })
-  academicUse: boolean;
+  purpose: Purpose;
 
   @ApiPropertyOptional({
     type: String,
@@ -131,7 +132,7 @@ export class SimulationRun {
     memory: number,
     maxTime: number,
     envVars: EnvironmentVariable[],
-    academicUse: boolean,
+    purpose: Purpose,
     submitted: Date,
     updated: Date,
     isPublic?: boolean,
@@ -150,7 +151,7 @@ export class SimulationRun {
     this.memory = memory || 8;
     this.maxTime = maxTime || 20;
     this.envVars = envVars || [];
-    this.academicUse = academicUse || false;
+    this.purpose = purpose || Purpose.other;
     this.status = status || SimulationRunStatus.CREATED;
     this.public = isPublic || false;
     this.submitted = submitted;
@@ -173,7 +174,7 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
   'memory',
   'maxTime',
   'envVars',
-  'academicUse',
+  'purpose',
   'public',
 ]) {}
 

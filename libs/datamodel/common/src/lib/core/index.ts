@@ -11,3 +11,4 @@ export * from './user';
 export * from './simulator';
 export * from './dependent-package';
 export * from './archiveMetadata';
+export * from './purpose';

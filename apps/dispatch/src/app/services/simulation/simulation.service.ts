@@ -247,7 +247,7 @@ export class SimulationService {
               memory: dispatchSimulation.memory,
               maxTime: dispatchSimulation.maxTime,
               envVars: dispatchSimulation.envVars,
-              academicUse: dispatchSimulation.academicUse,
+              purpose: dispatchSimulation.purpose,
               updated: new Date(dispatchSimulation.updated),
               resultsSize: dispatchSimulation.resultsSize,
               projectSize: dispatchSimulation.projectSize,
