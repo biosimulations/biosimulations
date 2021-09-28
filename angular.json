@@ -1918,27 +1918,6 @@
         }
       }
     },
-    "simulators-api-models": {
-      "root": "libs/simulators/api-models",
-      "sourceRoot": "libs/simulators/api-models/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/simulators/api-models/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/simulators/api-models/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "simulators-database-models": {
       "root": "libs/simulators/database-models",
       "sourceRoot": "libs/simulators/database-models/src",
