@@ -8,11 +8,11 @@ import { ProjectSummary } from '../datamodel';
 })
 export class ProjectCardComponent implements OnInit {
   @Input() public project!: ProjectSummary;
-  
+
   public route = '';
-  
+
   public constructor() {}
-  
+
   public ngOnInit(): void {
     this.route = `/projects/${this.project.id}`;
   }

@@ -1,9 +1,17 @@
-<mat-card class="container" routerLink="{{ route }}" *ngIf="project.metadata as metadata">
+<mat-card
+  class="container"
+  routerLink="{{ route }}"
+  *ngIf="project.metadata as metadata"
+>
   <mat-card-title class="title-container">
     <div class="title">{{ metadata.title }}</div>
   </mat-card-title>
 
-  <img class="thumbnail" [lazyLoad]="metadata.thumbnail" defaultImage="./assets/images/loading.svg" />
+  <img
+    class="thumbnail"
+    [lazyLoad]="metadata.thumbnail"
+    defaultImage="./assets/images/loading.svg"
+  />
 
   <div class="details-overlay">
     <div class="details-overlay-inner">

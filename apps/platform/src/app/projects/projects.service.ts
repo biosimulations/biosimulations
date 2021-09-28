@@ -13,10 +13,11 @@ import { UtilsService } from '@biosimulations/shared/services';
   providedIn: 'root',
 })
 export class ProjectsService {
-  public DEFAULT_THUMBNAIL = './assets/images/default-resource-images/model-padded.svg';
+  public DEFAULT_THUMBNAIL =
+    './assets/images/default-resource-images/model-padded.svg';
 
   private endpoints = new Endpoints();
-  
+
   constructor(private http: HttpClient) {}
 
   public getProjectFile(id: string, file: string) {
@@ -78,41 +79,46 @@ export class ProjectsService {
     const url = this.endpoints.getMetadataEndpoint();
     const response = this.http.get<SimulationRunMetadata[]>(url).pipe(
       map((projects: SimulationRunMetadata[]) => {
-        return projects.map((project: SimulationRunMetadata) => {
-          let metadata!: ArchiveMetadata;
-          for (metadata of project.metadata) {
-            if (metadata.uri.search('/') === -1) {
-              break;
+        return projects
+          .map((project: SimulationRunMetadata) => {
+            let metadata!: ArchiveMetadata;
+            for (metadata of project.metadata) {
+              if (metadata.uri.search('/') === -1) {
+                break;
+              }
             }
-          }
 
-          const thumbnail = metadata?.thumbnails?.length
-            ? metadata?.thumbnails[0]
-            : this.DEFAULT_THUMBNAIL;
+            const thumbnail = metadata?.thumbnails?.length
+              ? metadata?.thumbnails[0]
+              : this.DEFAULT_THUMBNAIL;
 
-          return {
-            id: project.id,            
-            metadata: {
-              title: metadata?.title || project.id,
-              thumbnail: thumbnail,
-              abstract: metadata?.abstract,
-              keywords: metadata.keywords,
-              taxa: metadata.taxa,
-              encodes: metadata.encodes,
-              identifiers: metadata.identifiers,
-              citations: metadata.citations,
-              creators: metadata.creators,
-              contributors: metadata.contributors,
-              license: metadata?.license,
-              funders: metadata.funders,
-              created: this.formatDate(metadata.created),
-              modified: metadata.modified.map((date: string): FormattedDate => this.formatDate(date)),
-            },
-          };
-        })
-        .sort((a: ProjectSummary, b: ProjectSummary): number => {
-          return a.metadata.title.localeCompare(b.metadata.title, undefined, { numeric: true });
-        });
+            return {
+              id: project.id,
+              metadata: {
+                title: metadata?.title || project.id,
+                thumbnail: thumbnail,
+                abstract: metadata?.abstract,
+                keywords: metadata.keywords,
+                taxa: metadata.taxa,
+                encodes: metadata.encodes,
+                identifiers: metadata.identifiers,
+                citations: metadata.citations,
+                creators: metadata.creators,
+                contributors: metadata.contributors,
+                license: metadata?.license,
+                funders: metadata.funders,
+                created: this.formatDate(metadata.created),
+                modified: metadata.modified.map(
+                  (date: string): FormattedDate => this.formatDate(date),
+                ),
+              },
+            };
+          })
+          .sort((a: ProjectSummary, b: ProjectSummary): number => {
+            return a.metadata.title.localeCompare(b.metadata.title, undefined, {
+              numeric: true,
+            });
+          });
       }),
     );
     return response;
@@ -123,6 +129,6 @@ export class ProjectsService {
     return {
       value: value,
       formattedValue: UtilsService.getDateString(value),
-    }
-  } 
+    };
+  }
 }

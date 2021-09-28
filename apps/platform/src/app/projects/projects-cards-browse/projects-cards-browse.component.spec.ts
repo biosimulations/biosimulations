@@ -23,7 +23,13 @@ describe('ProjectsCardsBrowseComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ProjectsCardsBrowseComponent, ProjectCardComponent],
       providers: [{ provide: ProjectsService, useClass: mockProjectsService }],
-      imports: [RouterTestingModule, MatIconModule, MatCardModule, BiosimulationsIconsModule, LazyLoadImageModule],
+      imports: [
+        RouterTestingModule,
+        MatIconModule,
+        MatCardModule,
+        BiosimulationsIconsModule,
+        LazyLoadImageModule,
+      ],
     }).compileComponents();
   });
 

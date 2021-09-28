@@ -14,17 +14,23 @@ describe('ProjectCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProjectCardComponent],
-      imports: [RouterTestingModule, MatCardModule, MatIconModule, LazyLoadImageModule, BiosimulationsIconsModule],
+      imports: [
+        RouterTestingModule,
+        MatCardModule,
+        MatIconModule,
+        LazyLoadImageModule,
+        BiosimulationsIconsModule,
+      ],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProjectCardComponent);
     component = fixture.componentInstance;
-    component.project = { 
-      id: '1',       
+    component.project = {
+      id: '1',
       metadata: {
-        title: 'example title' ,
+        title: 'example title',
         thumbnail: '',
         abstract: undefined,
         keywords: [],

@@ -17,7 +17,7 @@ $border-radius: 4px;
   transition: 0.5s linear;
 
   position: relative;
-  
+
   &:hover {
     filter: drop-shadow(2px 2px 2px rgb(0, 0, 0, 30%));
     transform: scale(1.02);
@@ -93,12 +93,12 @@ $border-radius: 4px;
 
   tr:not(:first-child) td {
     padding-top: 0.4rem;
-    line-height: 1.20;
+    line-height: 1.2;
   }
 
   td:first-child {
     padding-right: 0.25rem;
-    vertical-align: top;    
+    vertical-align: top;
   }
 
   td:last-child {

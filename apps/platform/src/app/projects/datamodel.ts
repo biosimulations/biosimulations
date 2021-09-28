@@ -1,13 +1,11 @@
-import {
-  LabeledIdentifier,
-} from '@biosimulations/datamodel/api';
+import { LabeledIdentifier } from '@biosimulations/datamodel/api';
 
 export interface FormattedDate {
   value: Date;
   formattedValue: string;
 }
 
-export interface ProjectMetadataSummary { 
+export interface ProjectMetadataSummary {
   title: string;
   abstract?: string;
   thumbnail: string;
@@ -24,8 +22,8 @@ export interface ProjectMetadataSummary {
   modified: FormattedDate[];
 }
 
-export interface ProjectSummary { 
-  id: string;   
+export interface ProjectSummary {
+  id: string;
   metadata: ProjectMetadataSummary;
 }
 
