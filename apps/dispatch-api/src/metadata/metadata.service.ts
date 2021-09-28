@@ -61,11 +61,9 @@ export class MetadataService {
         if (thumbnails.length > 0) {
           archiveMetadata.thumbnails = thumbnails.map((thumbnail: string) => {
             if (thumbnail.startsWith('./')) {
-              // TODO change url of file on S3
-              const endpoint = this.endpoints.getCombineFilesEndpoint(
-                this.endpoints.getRunDownloadEndpoint(data.id, true),
+              const endpoint = this.endpoints.getSimulationRunFileEndpoint(
+                data.id,
                 thumbnail,
-                true,
               );
 
               return endpoint;
@@ -80,7 +78,6 @@ export class MetadataService {
     data.metadata = transformData;
 
     const metadata = new this.metadataModel(data);
-
     return await metadata.save();
   }
 }
