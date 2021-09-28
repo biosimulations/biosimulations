@@ -1,4 +1,4 @@
 export enum Purpose {
-    academic = 'academic',
-    other = 'other',
+  academic = 'academic',
+  other = 'other',
 }

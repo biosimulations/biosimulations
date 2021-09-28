@@ -734,7 +734,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
     const memory: number = this.formGroup.value.memory; // in GB
     const maxTime: number = this.formGroup.value.maxTime; // in min
     const envVars: EnvironmentVariable[] = [];
-    const purpose: Purpose = this.formGroup.value.academicPurpose ? Purpose.academic : Purpose.other;
+    const purpose: Purpose = this.formGroup.value.academicPurpose
+      ? Purpose.academic
+      : Purpose.other;
     const name: string = this.formGroup.value.name;
     const email: string | null = this.formGroup.value.email || null;
 

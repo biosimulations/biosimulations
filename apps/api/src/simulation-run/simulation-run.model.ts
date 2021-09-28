@@ -150,12 +150,10 @@ export class SimulationRunModel extends Document {
   })
   envVars!: EnvironmentVariable[];
 
-  @Prop({ 
-    type: String, 
-    enum: Object.keys(Purpose).map(
-      (key) => Purpose[key as Purpose],
-    ),    
-    required: false, 
+  @Prop({
+    type: String,
+    enum: Object.keys(Purpose).map((key) => Purpose[key as Purpose]),
+    required: false,
     default: Purpose.other,
   })
   purpose!: Purpose;

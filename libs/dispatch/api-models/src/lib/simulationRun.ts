@@ -86,7 +86,8 @@ export class SimulationRun {
   @ApiPropertyOptional({
     type: String,
     enum: Purpose,
-    description: 'Whether use of commercial solvers is permitted because the purpose of the simulation is academic research or education',
+    description:
+      'Whether use of commercial solvers is permitted because the purpose of the simulation is academic research or education',
     required: false,
     default: Purpose.other,
   })
