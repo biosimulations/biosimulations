@@ -34,7 +34,7 @@ import {
   ApiNoContentResponse,
   ApiConflictResponse,
 } from '@nestjs/swagger';
-import { Simulator } from '@biosimulations/simulators/api-models';
+import { Simulator } from '@biosimulations/datamodel/api';
 import { SimulatorsService } from './simulators.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import compareVersions from 'compare-versions';

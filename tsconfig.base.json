@@ -104,9 +104,6 @@
       "@biosimulations/shared/utils/routes": [
         "libs/shared/utils/routes/src/index.ts"
       ],
-      "@biosimulations/simulators/api-models": [
-        "libs/simulators/api-models/src/index.ts"
-      ],
       "@biosimulations/simulators/database-models": [
         "libs/simulators/database-models/src/index.ts"
       ]

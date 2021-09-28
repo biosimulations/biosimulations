@@ -234,9 +234,6 @@
     "simulators-api": {
       "tags": ["scope:simulators", "type:api", "platform:server"]
     },
-    "simulators-api-models": {
-      "tags": ["scope:simulators", "type:datamodel", "platform:any"]
-    },
     "simulators-database-models": {
       "tags": ["scope:simulators", "type:datamodel", "platform:server"]
     },

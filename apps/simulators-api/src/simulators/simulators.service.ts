@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Simulator } from '@biosimulations/simulators/database-models';
-import { Simulator as APISimulator } from '@biosimulations/simulators/api-models';
+import { Simulator as APISimulator } from '@biosimulations/datamodel/api';
 import { LeanDocument, Model } from 'mongoose';
 
 @Injectable()

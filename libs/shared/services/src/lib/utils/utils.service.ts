@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable, forkJoin, of } from 'rxjs';
 import { SimulatorCurationStatus } from '@biosimulations/datamodel/common';
-// import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
+// import { Simulator, Algorithm } from '@biosimulations/datamodel/api';
 
 export class UtilsService {
   static recursiveForkJoin(unresolvedData: any): Observable<any> {
