@@ -15,11 +15,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/compiler@12.2.5
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/angular/angular
-│  ├─ publisher: angular
-│  └─ licenseFile: @angular/compiler/README.md
 ├─ @angular/core@12.2.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
@@ -34,21 +29,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
-├─ @angular/platform-browser-dynamic@12.2.5
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/angular/angular
-│  ├─ publisher: angular
-│  └─ licenseFile: @angular/platform-browser-dynamic/README.md
 ├─ @angular/platform-browser@12.2.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/platform-browser/README.md
-├─ @angular/router@12.2.5
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/angular/angular
-│  ├─ publisher: angular
-│  └─ licenseFile: @angular/router/README.md
 ├─ @babel/code-frame@7.14.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
