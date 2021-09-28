@@ -24,9 +24,9 @@ import {
   ViewModelChangeTypeValueName,
   ViewSimulationTypeValueName,
 } from './view-simulator.interface';
-import { OntologyService } from '../ontology.service';
+import { OntologyService } from '@biosimulations/ontology/client';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Simulator, Algorithm } from '@biosimulations/simulators/api-models';
+import { Simulator, Algorithm } from '@biosimulations/datamodel/api';
 import { map, pluck } from 'rxjs/operators';
 import {
   IEdamOntologyIdVersion,
