@@ -62,7 +62,7 @@ export class PublishComponent implements OnInit {
     private config: ConfigService,
   ) {
     this.formGroup = formBuilder.group({
-      //id: [null, [Validators.required], [this.uniqueIdValidator()]], // TODO: enable
+      id: [null, [Validators.required], [this.uniqueIdValidator()]],
       isValid: [false, [Validators.required]],
       grantedLicense: [false, [Validators.required]],
     });
