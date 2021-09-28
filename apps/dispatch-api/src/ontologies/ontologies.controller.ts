@@ -26,7 +26,7 @@ import {
 export class OntologiesController {
   constructor(private service: OntologiesService) {}
 
-  @Get('')
+  @Get()
   @ApiOperation({
     summary: 'Get the ontologies used by BioSimulations and BioSimulators',
     description:

@@ -68,6 +68,13 @@ export class Endpoints {
   }
   /**
    *
+   * @returns The endpoint prefix for the ontologies
+   */
+  public getOntologyEndpoint(): string {
+    return `${this.getBaseUrl()}/ontologies`;
+  }
+  /**
+   *
    * @returns The url to get the content of a combine archive
    */
   public getArchiveContentsEndpoint(): string {
@@ -88,7 +95,7 @@ export class Endpoints {
    * @returns The url to get the simulation run
    */
   public getSimulationRunEndpoint(id?: string): string {
-    return this.api + '/runs/' + id;
+    return this.getBaseUrl() + '/runs/' + id;
   }
 
   /**

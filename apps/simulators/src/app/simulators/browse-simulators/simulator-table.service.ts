@@ -3,12 +3,12 @@ import { SimulatorService } from '../simulator.service';
 import { forkJoin, from, Observable, of } from 'rxjs';
 import { map, mergeAll, toArray, mergeMap, pluck } from 'rxjs/operators';
 import { TableSimulator } from './tableSimulator.interface';
-import { OntologyService } from '../ontology.service';
+import { OntologyService } from '@biosimulations/ontology/client';
 import {
   sortUrls,
   ILinguistOntologyId,
 } from '@biosimulations/datamodel/common';
-import { Simulator } from '@biosimulations/simulators/api-models';
+import { Simulator } from '@biosimulations/datamodel/api';
 import { UtilsService } from '@biosimulations/shared/services';
 
 @Injectable()

@@ -9,8 +9,7 @@ export type appName =
   | 'platform'
   | 'account'
   | 'dispatch'
-  | 'simulators'
-  | 'ontologyApi';
+  | 'simulators';
 
 export type envs = 'prod' | 'dev' | 'local' | 'stage';
 
@@ -22,7 +21,6 @@ const envUrls: { [key in envs]: urlMap } = {
     accountApi: 'https://account.biosimulations.dev/', // NEED TO FIX LOGIN FLOW BEFORE UPDATING
     dispatchApi: 'https://run.api.biosimulations.org/',
     combineApi: 'https://combine.api.biosimulations.org/',
-    ontologyApi: 'https://ontology.api.biosimulations.org/',
     simulatorsApi: 'https://api.biosimulators.org/',
     platform: 'https://biosimulations.org',
     account: 'https://login.biosimulations.dev',
@@ -39,7 +37,6 @@ const envUrls: { [key in envs]: urlMap } = {
     dispatchApi: 'https://run.api.biosimulations.dev/',
     combineApi: '/combine-api',
     simulatorsApi: '/simulators-api',
-    ontologyApi: '/ontology-api',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
@@ -51,7 +48,6 @@ const envUrls: { [key in envs]: urlMap } = {
     dispatchApi: 'https://run.api.biosimulations.dev/',
     combineApi: 'https://combine.api.biosimulations.dev/',
     simulatorsApi: 'https://api.biosimulators.dev/',
-    ontologyApi: 'https://ontology.api.biosimulations.dev/',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
@@ -63,7 +59,6 @@ const envUrls: { [key in envs]: urlMap } = {
     dispatchApi: '/dispatch-api/',
     combineApi: '/combine-api/',
     simulatorsApi: '/simulators-api/',
-    ontologyApi: '/ontology-api/',
     platform: 'https://biosimulations.dev',
     account: 'https://login.biosimulations.dev',
     dispatch: 'https://run.biosimulations.dev',
@@ -95,4 +90,7 @@ export const staticUrls: staticUrlMap = {
   dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
   simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
 };
+/**
+ * @deprecated use the Endpoints class instead
+ */
 export const urls: urlMap = envUrls[environment.env as envs];

@@ -13,7 +13,8 @@ import * as Anser from 'anser';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
-import { OntologyService } from '../../../../services/ontology/ontology.service';
+import { OntologyService } from '@biosimulations/ontology/client';
+import { StructuredSimulationLogElementService } from './structured-simulation-log-element.service';
 import {
   KisaoTerm,
   SimulationRunLogStatus,
@@ -42,6 +43,7 @@ export class StructuredSimulationLogElementComponent {
   constructor(
     private sanitizer: DomSanitizer,
     private ontologyService: OntologyService,
+    private structuredLogService: StructuredSimulationLogElementService,
   ) {}
 
   @Input()
@@ -93,7 +95,7 @@ export class StructuredSimulationLogElementComponent {
       );
       this.algorithmKisaoTermDescription = this.algorithmKisaoTerm.pipe(
         pluck('description'),
-        map(this.ontologyService.formatKisaoDescription),
+        map(this.structuredLogService.formatKisaoDescription),
       );
     } else {
       this.algorithmKisaoTerm = undefined;

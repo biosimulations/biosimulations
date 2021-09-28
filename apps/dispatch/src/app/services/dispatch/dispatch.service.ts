@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, forkJoin, of, ObservableInput } from 'rxjs';
 import { map, catchError, shareReplay } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
-// import { Simulator } from '@biosimulations/simulators/api-models';
+
 import {
   SimulationRun,
   UploadSimulationRun,
@@ -14,8 +14,11 @@ import {
   SimulationLogs,
   CombineArchiveLog,
 } from '../../simulation-logs-datamodel';
-import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
-import { OntologyService } from '../ontology/ontology.service';
+import {
+  Ontologies,
+  SimulationRunLogStatus,
+} from '@biosimulations/datamodel/common';
+import { OntologyService } from '@biosimulations/ontology/client';
 import {
   EdamTerm,
   KisaoTerm,
@@ -25,7 +28,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
 import { environment } from '@biosimulations/shared/environments';
-
+import { Simulator } from '@biosimulations/datamodel/api';
 export interface AlgorithmParameter {
   id: string;
   name: string;
@@ -156,20 +159,24 @@ export class DispatchService {
 
   public getSimulatorsFromDb(): Observable<SimulatorsData> {
     const endpoint = `${urls.simulatorsApi}simulators`;
-    const promises = [
-      this.http.get(endpoint),
-      this.ontologyService.edamTerms,
-      this.ontologyService.kisaoTerms,
-      this.ontologyService.sboTerms,
-    ];
+    const promises: {
+      simulatorSpecs: ObservableInput<Simulator[]>;
+      edamTerms: ObservableInput<{ [id: string]: EdamTerm }>;
+      kisaoTerms: ObservableInput<{ [id: string]: KisaoTerm }>;
+      sboTerms: ObservableInput<{ [id: string]: SboTerm }>;
+    } = {
+      simulatorSpecs: this.http.get<Simulator[]>(endpoint),
+      edamTerms: this.ontologyService.getTerms(Ontologies.EDAM),
+      kisaoTerms: this.ontologyService.getTerms(Ontologies.KISAO),
+      sboTerms: this.ontologyService.getTerms(Ontologies.SBO),
+    };
 
     return forkJoin(promises).pipe(
       map((resolvedPromises): SimulatorsData => {
-        const simulatorSpecs = resolvedPromises[0] as any[]; // Simulator[]
-        const edamTerms = resolvedPromises[1] as { [id: string]: EdamTerm };
-        const kisaoTerms = resolvedPromises[2] as { [id: string]: KisaoTerm };
-        const sboTerms = resolvedPromises[3] as { [id: string]: SboTerm };
-
+        const simulatorSpecs = resolvedPromises.simulatorSpecs; // Simulator[]
+        const edamTerms = resolvedPromises.edamTerms;
+        const kisaoTerms = resolvedPromises.kisaoTerms;
+        const sboTerms = resolvedPromises.sboTerms;
         const getKisaoTermName = (id: string): string => {
           return kisaoTerms[id].name;
         };

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { OntologyClientModule } from '@biosimulations/ontology/client';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedDebugModule } from '@biosimulations/shared/debug';
@@ -18,6 +18,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     SimulatorsRoutingModule,
     SharedDebugModule,
     HighlightModule,
+    OntologyClientModule,
   ],
   providers: [],
 })

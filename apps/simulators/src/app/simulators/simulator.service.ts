@@ -5,7 +5,7 @@ import { urls } from '@biosimulations/config/common';
 import { map, shareReplay } from 'rxjs/operators';
 //TODO set the api interface type
 import { IImage } from '@biosimulations/datamodel/common';
-import { Simulator } from '@biosimulations/simulators/api-models';
+import { Simulator } from '@biosimulations/datamodel/api';
 import { UtilsService } from '@biosimulations/shared/services';
 
 export interface Version {
