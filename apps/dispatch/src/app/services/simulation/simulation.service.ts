@@ -65,7 +65,6 @@ export class SimulationService {
       let simulations: ISimulation[] = await this._storage.get(this.key);
       simulations = this.parseDates(simulations);
       this.initSimulations(simulations);
-
     } else {
       this.initSimulations([]);
     }

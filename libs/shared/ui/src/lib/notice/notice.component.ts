@@ -69,7 +69,7 @@ export class NoticeComponent {
     ].join('-');
 
     if (this.open) {
-      if(await this._storage.get(this.storageKey) === true) {
+      if ((await this._storage.get(this.storageKey)) === true) {
         this.open = false;
       }
     } else {
