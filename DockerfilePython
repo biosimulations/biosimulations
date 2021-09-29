@@ -10,10 +10,6 @@ WORKDIR /app
 RUN apt-get update -y
 
 ###################################
-# install pipenv
-RUN pip install pipenv
-
-###################################
 # install AMICI
 RUN apt-get install --no-install-recommends -y \
         g++ \
@@ -115,7 +111,7 @@ RUN apt-get install --no-install-recommends -y \
         swig \
         libbz2-dev \
     \
-    && PY_EXEC_PATH=$(pipenv run which python) \
+    && PY_EXEC_PATH=$(which python) \
     && PY_PREFIX=$(echo ${PY_EXEC_PATH} | rev | cut -d "/" -f 3- | rev) \
     && cd /tmp \
     && wget https://github.com/libsbmlsim/libsbmlsim/archive/refs/tags/v${LSBMLSIM_VERSION}.tar.gz \
@@ -190,9 +186,7 @@ RUN apt-get install -y --no-install-recommends \
     && rm -r sundials-${SUNDIALS_VERSION}
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
-# install Python requirements for assimulo
-# RUN pipenv install cython numpy scipy matplotlib
-
+# install requirements for Assimulo
 ARG ASSIMULO_VERSION=3.2.5
 RUN apt-get install -y --no-install-recommends \
         g++ \
@@ -201,7 +195,7 @@ RUN apt-get install -y --no-install-recommends \
         liblapack-dev \
         git
 
-# install PySCeS
+# install requirements for PySCeS
 RUN apt-get install -y --no-install-recommends \
         git \
         gcc \
@@ -290,26 +284,29 @@ ENV ALGORITHM_SUBSTITUTION_POLICY=SIMILAR_VARIABLES \
     PLOTTING_ENGINE=matplotlib
 
 ###################################
-# setup pipenv, ports
+# setup python, ports
+
+# install pipenv
+RUN pip install pipenv
 
 # Copy over dependency list
 COPY Pipfile /app/Pipfile
 COPY Pipfile.lock /app/Pipfile.lock
 
 # install environment
-RUN pipenv install
+RUN pipenv install --system --deploy
 
 # force reinstall of matplotlib due to inconsistent version
-RUN pipenv run pip uninstall -y matplotlib \
-    && pipenv run pip install "matplotlib==3.2.0" \
-    && pipenv run python -c "import matplotlib.font_manager"
+RUN pip uninstall -y matplotlib \
+    && pip install "matplotlib==3.2.0" \
+    && python -c "import matplotlib.font_manager"
 
 # install assimulo because pipenv fails to install it
 ARG ASSIMULO_VERSION=3.2.5
-RUN pipenv run pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-${ASSIMULO_VERSION}
+RUN pip install git+https://github.com/modelon-community/Assimulo.git@Assimulo-${ASSIMULO_VERSION}
 
 EXPOSE 3333
-CMD /bin/bash /xvfb-startup.sh pipenv run gunicorn -b 0.0.0.0:3333  src.app:app
+CMD /bin/bash /xvfb-startup.sh gunicorn -b 0.0.0.0:3333  src.app:app
 
 #############
 ### build ###
@@ -322,10 +319,10 @@ ENV APP=$app
 RUN echo building ${app}
 
 COPY apps/${app}/src/ /app/src/
-RUN pipenv run python -m compileall /app/src/ \
-    && PY_EXEC_PATH=$(pipenv run which python) \
+RUN python -m compileall /app/src/ \
+    && PY_EXEC_PATH=$(which python) \
     && PY_PREFIX=$(echo ${PY_EXEC_PATH} | rev | cut -d "/" -f 3- | rev) \
-    && pipenv run python -m compileall ${PY_PREFIX}/lib/python3.9/site-packages \
+    && python -m compileall ${PY_PREFIX}/lib/python3.9/site-packages \
     || exit 0
  
 LABEL \
