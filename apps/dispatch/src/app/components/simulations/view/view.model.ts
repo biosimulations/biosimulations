@@ -14,8 +14,8 @@ export interface FormattedSimulation {
   simulatorVersion: string;
   simulatorUrl: string;
   cpus: number;
-  memory: number; // GB
-  maxTime: number; // min
+  memory: string;
+  maxTime: string;
   envVars: EnvironmentVariable[];
   purpose: Purpose;
   status: SimulationRunStatus;

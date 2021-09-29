@@ -5,6 +5,7 @@ import {
   ArchiveMetadata as APIMetadata,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
+// import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { ProjectsService } from '../projects.service';
 
 @Injectable({
@@ -54,7 +55,7 @@ export class ViewService {
     return response;
   }
 
-  public getSimulationRunMetadata(id: string) {
+  public getSimulationRunMetadata(id: string): Observable<any> { // SimulationRun
     return this.service.getProjectSimulation(id);
   }
 

@@ -147,10 +147,6 @@ export class UtilsService {
     );
   }
 
-  /**
-   *
-   * @deprecated use built in angular date pipe instead
-   */
   static getDateString(value: Date): string {
     return (
       value.getFullYear() +
@@ -161,9 +157,6 @@ export class UtilsService {
     );
   }
 
-  /***
-   * @deprecated use built in angular date pipe instead
-   */
   static getDateTimeString(value: Date): string {
     return (
       value.getFullYear().toString() +
@@ -180,5 +173,80 @@ export class UtilsService {
       ' ' +
       (value.getHours() <= 11 ? 'AM' : 'PM')
     );
+  }
+
+  static formatNumberOfOrderUnity(value: number, digits=2): string {
+    if (value === Math.round(value)) {
+      return Math.round(value).toString();
+    } else {
+      return value.toFixed(digits);
+    }
+  }
+
+  static formatDuration(
+    valueSec: number | null | undefined,
+    nullFormattedValue: string | null = null,
+  ): string | null {
+    if (valueSec == null || valueSec === undefined) {
+      return nullFormattedValue;
+    }
+
+    if (valueSec >= 7 * 24 * 60 * 60) {
+      return (valueSec / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
+    } else if (valueSec >= 24 * 60 * 60) {
+      return (valueSec / (24 * 60 * 60)).toFixed(1) + ' d';
+    } else if (valueSec >= 60 * 60) {
+      return (valueSec / (60 * 60)).toFixed(1) + ' h';
+    } else if (valueSec >= 60) {
+      return (valueSec / 60).toFixed(1) + ' m';
+    } else if (valueSec >= 1) {
+      return valueSec.toFixed(1) + ' s';
+    } else {
+      return (valueSec * 1000).toFixed(1) + ' ms';
+    }
+  }
+
+  static formatDigitalSize(valueBytes: number): string {
+    let quantity!: number;
+    let suffix!: string;
+
+    if (valueBytes >= 1e15) {
+      quantity = valueBytes * 1e-15;
+      suffix = 'PB';
+
+    } else if (valueBytes >= 1e12) {
+      quantity = valueBytes * 1e-12;
+      suffix = 'TB';
+
+    } else if (valueBytes >= 1e9) {
+      quantity = valueBytes * 1e-9;
+      suffix = 'GB';
+
+    } else if (valueBytes >= 1e6) {
+      quantity = valueBytes * 1e-6;
+      suffix = 'MB';
+      
+    } else if (valueBytes >= 1e3) {
+      quantity = valueBytes * 1e-3;
+      suffix = 'KB';
+
+    } else {
+      quantity = valueBytes * 1e-15;
+      suffix = 'B';
+    }
+
+    let quantityStr!: string;
+
+    if (quantity === Math.round(quantity)) {
+      quantityStr = Math.round(quantity).toString();
+    } else if (quantity >= 100) {
+      quantityStr = quantity.toFixed(1);
+    } else if (quantity >= 10) {
+      quantityStr = quantity.toFixed(2);
+    } else {
+      quantityStr = quantity.toFixed(3);
+    }
+
+    return quantityStr + ' ' + suffix;
   }
 }

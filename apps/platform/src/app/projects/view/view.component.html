@@ -13,20 +13,6 @@
   </biosimulations-tab-page-tab>
   <!-- End overview tab-->
 
-  <!-- Information about the simulation run -->
-  <ng-container *ngIf="simulationInfo$ | async as simInfo">
-    <biosimulations-tab-page-tab
-      heading="Simulation"
-      icon="simulation"
-      urlHashFragment="simulation"
-    >
-      <biosimulations-project-simulation
-        [simulationRun]="simInfo"
-      ></biosimulations-project-simulation>
-    </biosimulations-tab-page-tab>
-  </ng-container>
-  <!-- End information about the simulation run -->
-
   <!--Information about files in project-->
   <ng-container *ngIf="files$ | async as files">
     <biosimulations-tab-page-tab
@@ -41,6 +27,20 @@
       >
     </biosimulations-tab-page-tab>
   </ng-container>
+
+  <!-- Information about the simulation run -->
+  <ng-container *ngIf="simulationInfo$ | async as simInfo">
+    <biosimulations-tab-page-tab
+      heading="Simulation"
+      icon="simulation"
+      urlHashFragment="simulation"
+    >
+      <biosimulations-project-simulation
+        [simulationRun]="simInfo"
+      ></biosimulations-project-simulation>
+    </biosimulations-tab-page-tab>
+  </ng-container>
+  <!-- End information about the simulation run -->
 
   <!--A tab for each vega spec present in the project-->
   <ng-container *ngIf="vegaSpecs$ | async as specs">

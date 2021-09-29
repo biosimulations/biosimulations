@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, shareReplay } from 'rxjs';
 import {
   ArchiveMetadata,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
+// import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
-import { ProjectSummary, FormattedDate } from './datamodel';
+import { ProjectSummary, FormattedDate, SimulatorIdNameMap } from './datamodel';
 import { UtilsService } from '@biosimulations/shared/services';
+import { urls } from '@biosimulations/config/common';
 
 @Injectable({
   providedIn: 'root',
@@ -68,10 +70,15 @@ export class ProjectsService {
     return response;
   }
 
-  public getProjectSimulation(id: string): Observable<any> {
+  public getProjectSimulation(id: string): Observable<any> { // SimulationRun
     const url = this.endpoints.getSimulationRunEndpoint(id);
-    const response = this.http.get<string>(url).pipe();
+    const response = this.http.get<any>(url).pipe(); // SimulationRun
     return response;
+  }
+
+  public getProjectSimulationLog(id: string): Observable<any> {
+    const endpoint = `${urls.dispatchApi}logs/${id}`;
+    return this.http.get(endpoint);
   }
 
   public getProjects(): Observable<ProjectSummary[]> {
@@ -129,5 +136,19 @@ export class ProjectsService {
       value: value,
       formattedValue: UtilsService.getDateString(value),
     };
+  }
+
+  public getSimulatorIdNameMap(): Observable<SimulatorIdNameMap> {
+    const endpoint = `${urls.simulatorsApi}simulators/latest`;
+    return this.http.get(endpoint).pipe(
+      shareReplay(1),
+      map((simulators: any): SimulatorIdNameMap => {
+        const idNameMap: SimulatorIdNameMap = {};
+        simulators.forEach((simulator: any): void => {
+          idNameMap[simulator.id] = simulator.name;
+        })
+        return idNameMap;
+      }),
+    );
   }
 }

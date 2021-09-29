@@ -89,8 +89,8 @@ export class ViewService {
       simulator: simulation.simulator,
       simulatorVersion: simulation.simulatorVersion,
       cpus: simulation.cpus || 1,
-      memory: simulation.memory || 8,
-      maxTime: simulation.maxTime || 20,
+      memory: UtilsService.formatDigitalSize((simulation.memory || 8) * 1e9),
+      maxTime: UtilsService.formatDuration((simulation.maxTime || 20) * 60),
       envVars: simulation.envVars || [],
       purpose: simulation.purpose || Purpose.other,
       status: simulation.status,
@@ -108,11 +108,11 @@ export class ViewService {
       updated: UtilsService.getDateTimeString(new Date(simulation.updated)),
       projectSize:
         simulation.projectSize !== undefined && simulation.projectSize !== null
-          ? (simulation.projectSize / 1024).toFixed(2) + ' KB'
-          : '',
+          ? UtilsService.formatDigitalSize(simulation.projectSize)
+          : 'N/A',
       resultsSize:
         simulation.resultsSize !== undefined && simulation.resultsSize !== null
-          ? (simulation.resultsSize / 1024).toFixed(2) + ' KB'
+          ? UtilsService.formatDigitalSize(simulation.resultsSize)
           : 'N/A',
       projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
       simulatorUrl: `${urls.simulators}/simulators/${simulation.simulator}/${simulation.simulatorVersion}`,

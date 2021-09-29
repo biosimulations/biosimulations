@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArchiveMetadata } from '@biosimulations/datamodel/common';
+// import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
 import { ViewService } from './view.service';
@@ -16,7 +17,7 @@ export class ViewComponent implements OnInit {
   public metadata$?: Observable<ArchiveMetadata | undefined> = undefined;
   public figureMetadata$?: Observable<ArchiveMetadata[] | undefined> =
     undefined;
-  public simulationInfo$?: Observable<any>;
+  public simulationInfo$?: Observable<any>; // SimulationRun
   public figures$?: Observable<
     {
       path: string;

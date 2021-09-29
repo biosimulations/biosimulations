@@ -1,0 +1,17 @@
+@use '~@angular/material' as mat;
+@import 'biosimulations-colors';
+@import 'biosimulations-typography';
+
+.section {
+  &:not(:first-child) {
+    margin-top: 0.75rem;
+  }
+
+  > .title {
+    @include mat.typography-level($fontConfig, subheading-2);
+    font-weight: 500;
+    color: mat.get-color-from-palette($theme-accent);
+    line-height: normal;
+    margin-bottom: 0.25;
+  }
+}

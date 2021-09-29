@@ -227,3 +227,5 @@ export interface CombineArchive {
   _type: 'CombineArchive';
   contents: CombineArchiveContent[];
 }
+
+export type SimulatorIdNameMap = {[id: string]: string};

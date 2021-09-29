@@ -119,6 +119,7 @@ export type BiosimulationsIcon =
   | 'location'
   | 'memory'
   | 'processor'
+  | 'disk'
   | 'server'
   | 'redo'
   | 'backward'
@@ -274,6 +275,7 @@ export class IconComponent {
     location: { type: 'fas', name: 'location-arrow' },
     memory: { type: 'fas', name: 'memory' },
     processor: { type: 'fas', name: 'microchip' },
+    disk: { type: 'fas', name: 'save' },
     server: { type: 'fas', name: 'server' },
     redo: { type: 'fas', name: 'redo-alt' },
     backward: { type: 'fas', name: 'backward' },

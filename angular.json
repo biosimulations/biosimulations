@@ -685,8 +685,7 @@
               },
               "apps/dispatch/src/manifest.webmanifest",
               "apps/dispatch/src/browserconfig.xml",
-              "apps/dispatch/src/sitemap.xml",
-              "apps/dispatch/src/manifest.webmanifest"
+              "apps/dispatch/src/sitemap.xml"
             ],
             "styles": [
               "libs/shared/styles/src/index.scss"
@@ -1194,7 +1193,8 @@
               "libs/shared/styles/src/index.scss"
             ],
             "scripts": [
-              "node_modules/marked/lib/marked.js"
+              "node_modules/marked/lib/marked.js",
+              "node_modules/plotly.js/dist/plotly.min.js"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

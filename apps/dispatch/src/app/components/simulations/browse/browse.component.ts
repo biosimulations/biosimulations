@@ -146,9 +146,9 @@ export class BrowseComponent implements OnInit {
       },
       formatter: (valueMin: number): string => {
         if (valueMin) {
-          return SimulationStatusService.formatTime(
-            null,
+          return UtilsService.formatDuration(            
             valueMin * 60,
+            null,
           ) as string;
         } else {
           return 'N/A';
@@ -156,9 +156,9 @@ export class BrowseComponent implements OnInit {
       },
       stackedFormatter: (valueMin: number): string => {
         if (valueMin) {
-          return SimulationStatusService.formatTime(
-            'N/A',
+          return UtilsService.formatDuration(            
             valueMin * 60,
+            'N/A',
           ) as string;
         } else {
           return 'N/A';
@@ -215,10 +215,10 @@ export class BrowseComponent implements OnInit {
         }
       },
       formatter: (valueSec: number | null): string | null => {
-        return SimulationStatusService.formatTime(null, valueSec);
+        return SimulationStatusService.UtilsService.formatDuration(valueSec, null);
       },
       stackedFormatter: (valueSec: number | null): string => {
-        return SimulationStatusService.formatTime('N/A', valueSec) as string;
+        return SimulationStatusService.UtilsService.formatDuration(valueSec, 'N/A') as string;
       },
       filterType: ColumnFilterType.number,
       show: false,
