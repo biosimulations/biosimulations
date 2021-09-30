@@ -9,7 +9,7 @@ import { List } from '../datamodel';
 })
 export class ProjectSimulationComponent {
   @Input()
-  simulationInfo!: List[];
+  simulationRun!: List[];
 
   constructor() {}
 }

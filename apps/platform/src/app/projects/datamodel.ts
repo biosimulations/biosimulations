@@ -42,6 +42,14 @@ export interface List {
   items: ListItem[];
 }
 
+export interface Download {
+  title: string;
+  format: string;
+  size: string | null;
+  icon: BiosimulationsIcon;
+  href: string;
+}
+
 export enum FigureType {
   vega = 'vega',
   sedml = 'sedml',

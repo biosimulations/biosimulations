@@ -7,8 +7,9 @@ import {
 } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { ProjectsService } from '../projects.service';
-import { SimulatorIdNameMap, List, ListItem } from '../datamodel';
+import { SimulatorIdNameMap, List, ListItem, Download } from '../datamodel';
 import { UtilsService } from '@biosimulations/shared/services';
+import { urls } from '@biosimulations/config/common';
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +58,7 @@ export class ViewService {
     return response;
   }
 
-  public getSimulationRunMetadata(id: string): Observable<List[]> {
+  public getSimulationRun(id: string): Observable<List[]> {
     return this.service.getProjectSimulation(id).pipe(
       map((simulationRun: any): List[] => { // SimulationRun
         const methods: ListItem[] = [];
@@ -160,7 +161,7 @@ export class ViewService {
           title: 'Id',
           value: of(simulationRun.id),
           icon: 'id',
-          href: `https://run.biosimulations.org/simulations/${simulationRun.id}`,
+          href: `${urls.dispatch}/simulations/${id}`,
         });
 
         run.push({
@@ -175,13 +176,6 @@ export class ViewService {
           value: of(UtilsService.getDateTimeString(new Date(simulationRun.updated))),
           icon: 'date',
           href: null,
-        });
-
-        run.push({
-          title: 'Log',
-          value: of('Log'),
-          icon: 'logs',
-          href: 'https://run.biosimulations.org/simulations/${simulationRun.id}#tab=log',
         });
 
         // return sections
@@ -200,6 +194,7 @@ export class ViewService {
   public getFilesMetadata(id: string) {
     return this.service.getArchiveContents(id);
   }
+
   public getVegaFilesMetadata(id: string) {
     return this.service.getArchiveContents(id).pipe(
       pluck('contents'),
@@ -240,5 +235,35 @@ export class ViewService {
 
   public getProjectSedmlContent(id: string): Observable<string> {
     return this.service.getProjectSedmlContents(id);
+  }
+
+  public getDownloads(id: string): Observable<Download[]> {
+    return this.service.getProjectSimulation(id).pipe(
+      map((simulationRun: any): Download[] => { // SimulationRun
+        return [
+          {
+            title: 'Project specification',
+            format: 'COMBINE/OMEX',
+            size: UtilsService.formatDigitalSize(simulationRun.projectSize),
+            icon: 'project',
+            href: `${urls.dispatchApi}/runs/${id}/download`,
+          },
+          {
+            title: 'Project outputs',
+            format: 'Zip of HDF5/PDF',
+            size: UtilsService.formatDigitalSize(simulationRun.resultsSize),
+            icon: 'report',
+            href: `${urls.dispatchApi}/results/${id}/download`,
+          },
+          {
+            title: 'Project execution log',
+            format: 'YAML',
+            size: null,
+            icon: 'logs',
+            href: `${urls.dispatchApi}/logs/${id}`,
+          }
+        ];
+      })
+    );
   }
 }

@@ -4,7 +4,7 @@
 
 .section {
   &:not(:first-child) {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
   }
 
   > .title {
@@ -12,6 +12,11 @@
     font-weight: 500;
     color: mat.get-color-from-palette($theme-primary);
     line-height: normal;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.25;
+  }
+
+  a {
+    color: $dark-primary-text;
+    text-decoration: underline;
   }
 }

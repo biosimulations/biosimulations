@@ -14,32 +14,30 @@
   <!-- End overview tab-->
 
   <!--Information about files in project-->
-  <ng-container *ngIf="files$ | async as files">
-    <biosimulations-tab-page-tab
-      heading="Files"
-      icon="file"
-      urlHashFragment="files"
+  <biosimulations-tab-page-tab
+    heading="Files"
+    icon="file"
+    urlHashFragment="files"
+    *ngIf="files$ | async as files"
+  >
+    <pre>
+    {{ files | json }}
+    
+  </pre
     >
-      <pre>
-      {{ files | json }}
-      
-    </pre
-      >
-    </biosimulations-tab-page-tab>
-  </ng-container>
+  </biosimulations-tab-page-tab>
 
   <!-- Information about the simulation run -->
-  <ng-container *ngIf="simulationInfo$ | async as simulationInfo">
-    <biosimulations-tab-page-tab
-      heading="Simulation run"
-      icon="simulation"
-      urlHashFragment="run"
-    >
-      <biosimulations-project-simulation
-        [simulationInfo]="simulationInfo"
-      ></biosimulations-project-simulation>
-    </biosimulations-tab-page-tab>
-  </ng-container>
+  <biosimulations-tab-page-tab
+    heading="Simulation run"
+    icon="simulation"
+    urlHashFragment="run"
+    *ngIf="simulationRun$ | async as simulationRun"
+  >
+    <biosimulations-project-simulation
+      [simulationRun]="simulationRun"
+    ></biosimulations-project-simulation>
+  </biosimulations-tab-page-tab>
   <!-- End information about the simulation run -->
 
   <!--A tab for each vega spec present in the project-->
@@ -59,4 +57,17 @@
     </ng-container>
   </ng-container>
   <!-- End visualizations of figures-->
+
+  <!--Information about files in project-->
+  <biosimulations-tab-page-tab
+    heading="Downloads"
+    icon="download"
+    urlHashFragment="download"
+    *ngIf="downloads$ | async as downloads"
+  >
+    <biosimulations-project-downloads
+      [downloads]="downloads"
+    >
+    </biosimulations-project-downloads>
+  </biosimulations-tab-page-tab>
 </biosimulations-tab-page>

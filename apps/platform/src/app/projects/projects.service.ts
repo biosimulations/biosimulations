@@ -72,7 +72,7 @@ export class ProjectsService {
 
   public getProjectSimulation(id: string): Observable<any> { // SimulationRun
     const url = this.endpoints.getSimulationRunEndpoint(id);
-    const response = this.http.get<any>(url).pipe(); // SimulationRun
+    const response = this.http.get<any>(url).pipe(shareReplay(1)); // SimulationRun
     return response;
   }
 

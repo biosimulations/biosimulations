@@ -4,7 +4,7 @@ import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
-import { List } from '../datamodel';
+import { List, Download } from '../datamodel';
 import { ViewService } from './view.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class ViewComponent implements OnInit {
   public metadata$?: Observable<ArchiveMetadata | undefined> = undefined;
   public figureMetadata$?: Observable<ArchiveMetadata[] | undefined> =
     undefined;
-  public simulationInfo$?: Observable<List[]>;
+  public simulationRun$?: Observable<List[]>;
   public figures$?: Observable<
     {
       path: string;
@@ -31,6 +31,7 @@ export class ViewComponent implements OnInit {
   >;
   public vegaFiles$?: Observable<any>;
   public files$?: Observable<any>;
+  public downloads$?: Observable<Download[]>;
   
   constructor(private service: ViewService, private route: ActivatedRoute) {}
   
@@ -50,12 +51,14 @@ export class ViewComponent implements OnInit {
       }),
     );
 
-    this.simulationInfo$ = this.service.getSimulationRunMetadata(id);
+    this.simulationRun$ = this.service.getSimulationRun(id);
 
     this.vegaFiles$ = this.service.getVegaFilesMetadata(id);
 
     this.files$ = this.service.getFilesMetadata(id);
 
     this.vegaSpecs$ = this.service.getVegaVisualizations(id);
+
+    this.downloads$ = this.service.getDownloads(id);
   }
 }
