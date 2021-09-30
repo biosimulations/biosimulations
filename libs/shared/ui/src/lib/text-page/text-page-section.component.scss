@@ -3,8 +3,7 @@
 @import 'biosimulations-typography';
 
 .container {
-  margin-top: 2rem;
-  overflow-x: hidden;
+  margin-top: 2rem;  
 }
 
 @media screen and (max-width: 959px) {
@@ -13,11 +12,28 @@
   }
 }
 
-h2 {
+:host-context(.compact-sections) {
+  .container {
+    margin-top: 1rem;  
+  }
+
+  @media screen and (max-width: 959px) {
+    .container {
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+.container {
+  overflow-x: hidden;
+}
+
+h3 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin: 0;
   border-radius: 4px;
+  font-weight: 500;
 
   .heading {
     float: left;
@@ -51,7 +67,7 @@ h2 {
 }
 
 .content ::ng-deep biosimulations-text-page-section {
-  h2 {
+  h3 {
     background: $light-bg-darker-5;
     color: $dark-primary-text;
   }
@@ -69,7 +85,7 @@ h2 {
   border: 1px solid mat.get-color-from-palette($theme-primary);
   border-radius: 4px;
 
-  h2 {
+  h3 {
     background: mat.get-color-from-palette($theme-primary);
     color: $light-text;
     border-radius: 0;
@@ -104,7 +120,7 @@ h2 {
     border-bottom-left-radius: 4px;
   }
 
-  h2 {
+  h3 {
     border-radius: 0;
     @include mat.typography-level($fontConfig, body-2);
     font-weight: 500;
@@ -114,7 +130,7 @@ h2 {
     padding: 0.5rem;
 
     ::ng-deep {
-      h3 {
+      h4 {
         margin-block-start: 0;
         margin-bottom: 0.25rem;
         padding: 0;

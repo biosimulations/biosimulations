@@ -13,17 +13,34 @@
   </biosimulations-tab-page-tab>
   <!-- End overview tab-->
 
-  <!--Information about files in project-->
+  <!--Information about files in project and generated from the project-->
   <biosimulations-tab-page-tab
     heading="Files"
     icon="project"
-    urlHashFragment="files"
-    *ngIf="files$ | async as files"
+    urlHashFragment="files"    
   >
-    <biosimulations-project-files
-      [files]="files"
-    >
-    </biosimulations-project-files>
+    <div class="partial-width">
+      <biosimulations-text-page-content-section heading="Project" *ngIf="projectFiles$ | async as files">
+        <biosimulations-project-files id="content"
+          [files]="files"
+        >
+        </biosimulations-project-files>
+      </biosimulations-text-page-content-section>
+
+      <biosimulations-text-page-content-section heading="Project contents" *ngIf="files$ | async as files">
+        <biosimulations-project-files id="content"
+          [files]="files"
+        >
+        </biosimulations-project-files>
+      </biosimulations-text-page-content-section>
+
+      <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">
+        <biosimulations-project-files id="content"
+          [files]="files"
+        >
+        </biosimulations-project-files>
+      </biosimulations-text-page-content-section>
+    </div>
   </biosimulations-tab-page-tab>
 
   <!-- Information about the simulation run -->
@@ -56,17 +73,4 @@
     </ng-container>
   </ng-container>
   <!-- End visualizations of figures-->
-
-  <!--Information about files in project-->
-  <biosimulations-tab-page-tab
-    heading="Downloads"
-    icon="download"
-    urlHashFragment="download"
-    *ngIf="downloads$ | async as downloads"
-  >
-    <biosimulations-project-downloads
-      [downloads]="downloads"
-    >
-    </biosimulations-project-downloads>
-  </biosimulations-tab-page-tab>
 </biosimulations-tab-page>

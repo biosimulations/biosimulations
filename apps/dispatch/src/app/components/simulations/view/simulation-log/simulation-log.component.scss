@@ -28,7 +28,7 @@ biosimulations-text-page-side-bar-section ::ng-deep {
   }
 }
 
-h2 {
+h3 {
   color: $dark-primary-text;
   background: $light-bg-darker-10;
 
@@ -45,7 +45,7 @@ h2 {
 }
 
 @media screen and (max-width: 959px) {
-  h2 {
+  h3 {
     &:not(:first-child) {
       margin-top: 1rem;
     }

@@ -41,6 +41,7 @@ import { TocSectionDirective } from './toc/toc-section.directive';
 import { TocSectionsContainerDirective } from './toc/toc-sections-container.directive';
 import { VegaVisualizationComponent } from './vega-visualization/vega-visualization.component';
 import { VegaEmbedComponent } from './vega-embed/vega-embed.component';
+import { ColumnsComponent } from './columns/columns.component';
 
 @NgModule({
   imports: [
@@ -89,6 +90,7 @@ import { VegaEmbedComponent } from './vega-embed/vega-embed.component';
     TocSectionsContainerDirective,
     VegaVisualizationComponent,
     VegaEmbedComponent,
+    ColumnsComponent,
   ],
   declarations: [
     TopbarComponent,
@@ -128,6 +130,7 @@ import { VegaEmbedComponent } from './vega-embed/vega-embed.component';
     TocSectionsContainerDirective,
     VegaVisualizationComponent,
     VegaEmbedComponent,
+    ColumnsComponent,
   ],
 })
 export class SharedUiModule {}

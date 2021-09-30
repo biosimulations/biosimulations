@@ -1,31 +1,27 @@
-<table class="biosimulations-table">
-  <thead>
-    <tr>
-      <th>Location</th>
-      <th>Format</th>
-      <!-- TODO: display file size -->
-      <!--<th>Size</th>-->
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let path of files">
-      <ng-container *ngIf="path._type === 'Directory'">
-        <td class="basename" [ngStyle]="{'padding-left.rem': 0.25 + 1.3 * path.level}">
-          <div class="icon-container"><biosimulations-icon icon="project"></biosimulations-icon></div>
-          {{ path.basename }}
-        </td>
-        <td class="format">Directory</td>
-        <!--<td class="size"></td>-->
-      </ng-container>
+<div class="clean-table">
+  <div class="head cell title">Name</div>
+  <div class="head cell format">Format</div>
+  <div class="head cell size">Size</div>
 
-      <ng-container *ngIf="path._type === 'File'">
-        <td class="basename" [ngStyle]="{'padding-left.rem': 0.25 + 1.3 * path.level}">
-          <div class="icon-container"><biosimulations-icon [icon]="path.formatIcon"></biosimulations-icon></div>
-          <a [href]="path.url" target="_blank" *ngIf="path.url">{{ path.basename }}</a>
-        </td>
-        <td class="format"><a [href]="path.formatUrl" target="_blank" *ngIf="path.formatUrl">{{ path.format }}</a></td>
-        <!--<td class="size">{{ path.size }}</td>-->
-      </ng-container>
-    </tr>
-  </tbody>
-</table>
+  <ng-container *ngFor="let path of files">
+    <ng-container *ngIf="path._type === 'Directory'">
+      <div class="cell title" [ngStyle]="{'padding-left.rem': 0.25 + 1.3 * path.level}">
+        <div class="icon-container"><biosimulations-icon icon="project"></biosimulations-icon></div>
+        {{ path.title }}
+      </div>
+      <div class="cell format">Directory</div>
+      <div class="cell size"></div>
+    </ng-container>
+
+    <ng-container *ngIf="path._type === 'File'">
+      <div class="cell title" [ngStyle]="{'padding-left.rem': 0.25 + 1.3 * path.level}">
+        <div class="icon-container"><biosimulations-icon [icon]="path.icon"></biosimulations-icon></div>
+        <a [href]="path.url" target="_blank" *ngIf="path.url" [download]="path.basename">{{ path.title }}</a>
+      </div>
+      <div class="cell format"><a [href]="path.formatUrl" target="_blank" *ngIf="path.formatUrl">{{ path.format }}</a></div>
+      <div class="cell size">
+        <div *ngIf="path.size">{{ path.size }}</div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

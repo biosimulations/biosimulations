@@ -245,6 +245,18 @@ export const SEDML_FORMAT = {
   mediaTypes: ['application/sedml+xml', 'application/xml'],
   extensions: ['sedml'],
   url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3685',
+  icon: 'simulation' as BiosimulationsIcon,
+};
+
+export const COMBINE_OMEX_FORMAT = {
+  name: 'Open Modeling and Exchange',
+  acronym: 'OMEX',
+  edamId: 'format_3686',
+  combineUri: 'http://identifiers.org/combine.specifications/omex',
+  mediaTypes: ['application/omex+zip', 'application/zip'],
+  extensions: ['omex', 'zip'],
+  url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686',
+  icon: 'archive' as BiosimulationsIcon,
 };
 
 export interface CombineArchiveContentFormat {
@@ -271,7 +283,14 @@ export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS
       name: SEDML_FORMAT.name,
       acronym: SEDML_FORMAT.acronym,
       url: SEDML_FORMAT.url,
-      icon: 'simulation',
+      icon: SEDML_FORMAT.icon,
+    },
+    {
+      combineUri: COMBINE_OMEX_FORMAT.combineUri,
+      name: COMBINE_OMEX_FORMAT.name,
+      acronym: COMBINE_OMEX_FORMAT.acronym,
+      url: COMBINE_OMEX_FORMAT.url,
+      icon: COMBINE_OMEX_FORMAT.icon,
     },
   ] as CombineArchiveContentFormat[])
   .concat([
@@ -292,7 +311,6 @@ export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS
     {name: 'Mass Action Stoichiometric Simulation', acronym: 'MASS', combineUri: 'http://purl.org/NET/mediatypes/application/mass+json', url: 'https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html', icon: 'model'},
     {name: 'MATLAB', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/text/x-matlab', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_4007', icon: 'code'},
     {name: 'MATLAB data', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-matlab-data', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3626', icon: 'report'},
-    {name: 'Open Modeling and Exchange', acronym: 'OMEX', combineUri: 'http://identifiers.org/combine.specifications/omex', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686', icon: 'archive'},
     {name: 'OMEX Manifest', acronym: null, combineUri: 'http://identifiers.org/combine.specifications/omex-manifest', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686', icon: 'file'},
     {name: 'OMEX Metadata', acronym: null, combineUri: 'http://identifiers.org/combine.specifications/omex-metadata', url: 'https://co.mbine.org/standards/omex-metadata', icon: 'file'},
     {name: 'Web Ontology Language', acronym: 'OWL', combineUri: 'http://purl.org/NET/mediatypes/application/rdf+xml', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2197', icon: 'file'},

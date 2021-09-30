@@ -34,20 +34,21 @@ export interface Directory {
   _type: 'Directory';
   location: string;
   level: number;
-  basename: string;
+  title: string;
 }
 
 export interface File {
   _type: 'File';
   location: string;
   level: number;
+  title: string;
   basename: string;
   format: string;
   formatUrl: string | null;
-  formatIcon: BiosimulationsIcon;
+  icon: BiosimulationsIcon;
   master: boolean;
   url: string;
-  size: string;
+  size: string | null;
 }
 
 export interface ListItem {
@@ -60,15 +61,6 @@ export interface ListItem {
 export interface List {
   title: string;  
   items: ListItem[];
-}
-
-export interface Download {
-  title: string;
-  format: string;
-  size: string | null;
-  icon: BiosimulationsIcon;
-  url: string;
-  filename: string;
 }
 
 export enum FigureType {

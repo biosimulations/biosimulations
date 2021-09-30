@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, pluck, shareReplay, of } from 'rxjs';
-import { ArchiveMetadata, CombineArchiveContentFormat, FORMATS } from '@biosimulations/datamodel/common';
+import { ArchiveMetadata, CombineArchiveContentFormat, FORMATS, COMBINE_OMEX_FORMAT } from '@biosimulations/datamodel/common';
 import {
   ArchiveMetadata as APIMetadata,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { ProjectsService } from '../projects.service';
-import { SimulatorIdNameMap, Directory, File, List, ListItem, Download } from '../datamodel';
+import { SimulatorIdNameMap, Directory, File, List, ListItem } from '../datamodel';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
 
@@ -15,7 +15,14 @@ import { urls } from '@biosimulations/config/common';
   providedIn: 'root',
 })
 export class ViewService {
-  public constructor(private service: ProjectsService) {}
+  formatMap!: {[uri: string]: CombineArchiveContentFormat};
+
+  public constructor(private service: ProjectsService) {
+    this.formatMap = {};
+    FORMATS.forEach((format: CombineArchiveContentFormat): void => {
+      this.formatMap[format.combineUri] = format;
+    })
+  }
 
   public getArchiveMetadata(id: string): Observable<ArchiveMetadata> {
     const metaData: Observable<ArchiveMetadata> = this.getProjectMetadata(
@@ -191,14 +198,31 @@ export class ViewService {
     );
   }
 
+  public getProjectFiles(id: string): Observable<File[]> {
+    return this.service.getProjectSimulation(id).pipe(
+      map((simulationRun: any): File[] => { // SimulationRun
+        return [
+          {
+            _type: 'File',
+            level: 0,
+            location: '',
+            title: 'Project',
+            format: `${COMBINE_OMEX_FORMAT.name} (${COMBINE_OMEX_FORMAT.acronym})`,
+            formatUrl: COMBINE_OMEX_FORMAT.url,
+            master: false,
+            size: UtilsService.formatDigitalSize(simulationRun.projectSize),
+            icon: COMBINE_OMEX_FORMAT.icon,
+            url: `${urls.dispatchApi}runs/${id}/download`,
+            basename: 'project.omex',
+          },
+        ]
+      })
+    );
+  }
+
   public getFiles(id: string): Observable<(Directory | File)[]> {
     return this.service.getArchiveContents(id).pipe(
       map((archive: any): (Directory | File)[] => {
-        const formatMap: {[uri: string]: CombineArchiveContentFormat} = {};
-        FORMATS.forEach((format: CombineArchiveContentFormat): void => {
-          formatMap[format.combineUri] = format;
-        })
-
         const root: {[path: string]: Directory | File} = {};
 
         archive.contents
@@ -224,14 +248,14 @@ export class ViewService {
                   _type: 'Directory',
                   level: level,
                   location: parentPath.substring(1),
-                  basename: parentBasename,
+                  title: parentBasename,
                 }
               }
             });
 
             let format!: string;
-            if (content.format in formatMap) {
-              const formatObj = formatMap[content.format]
+            if (content.format in this.formatMap) {
+              const formatObj = this.formatMap[content.format]
               format = formatObj.name;
               if (formatObj.acronym) {
                 format += ' (' + formatObj.acronym + ')';
@@ -242,17 +266,20 @@ export class ViewService {
               format = content.format;
             }
 
+            console.log(format)
+
             root[location] = {
               _type: 'File',
               level: parentBasenames.length,
               location: location,
+              title: basename,
               basename: basename,
               format: format,
               master: content.master,
-              url: `https://files.biosimulations.org/${id}/${location}`, // TODO: correct file URLss
-              size: UtilsService.formatDigitalSize(100), // TODO: incorporate and display file size
-              formatUrl: formatMap?.[content.format]?.url,
-              formatIcon: formatMap?.[content.format]?.icon || 'file',
+              url: `https://files.biosimulations.org/${id}/${location}`, // TODO: correct file URLs
+              size: null, // UtilsService.formatDigitalSize(100), // TODO: incorporate and display file size
+              formatUrl: this.formatMap?.[content.format]?.url,
+              icon: this.formatMap?.[content.format]?.icon || 'file',
             };
           });
 
@@ -314,33 +341,48 @@ export class ViewService {
     return this.service.getProjectSedmlContents(id);
   }
 
-  public getDownloads(id: string): Observable<Download[]> {
+  public getOutputs(id: string): Observable<File[]> {
     return this.service.getProjectSimulation(id).pipe(
-      map((simulationRun: any): Download[] => { // SimulationRun
-        return [
+      map((simulationRun: any): File[] => { // SimulationRun
+        return [          
           {
-            title: 'Project specification',
-            format: 'COMBINE/OMEX',
-            size: UtilsService.formatDigitalSize(simulationRun.projectSize),
-            icon: 'project',
-            url: `${urls.dispatchApi}runs/${id}/download`,
-            filename: 'project.omex',
+            _type: 'File',
+            level: 0,
+            location: '',
+            title: 'Outputs',
+            format: 'JavaScript Object Notation (JSON) in BioSimulators schema',
+            formatUrl: 'https://api.biosimulations.org/',
+            master: false,
+            size: null,
+            icon: 'report',
+            url: `${urls.dispatchApi}results/${id}`,
+            basename: 'outputs.json',
           },
           {
-            title: 'Project outputs',
-            format: 'Zip of HDF5/PDF',
+            _type: 'File',
+            level: 0,
+            location: '',
+            title: 'Outputs',
+            format: 'Zip of HDF5 and PDF files',
+            formatUrl: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987',
+            master: false,
             size: UtilsService.formatDigitalSize(simulationRun.resultsSize),
             icon: 'report',
             url: `${urls.dispatchApi}results/${id}/download`,
-            filename: 'outputs.zip',
+            basename: 'outputs.zip',
           },
           {
-            title: 'Project execution log',
-            format: 'YAML',
+            _type: 'File',
+            level: 0,
+            location: '',
+            title: 'Log',
+            format: 'YAML in BioSimulators log schema',
+            formatUrl: 'https://biosimulators.org/conventions/simulation-logs',
+            master: false,
             size: null,
             icon: 'logs',
             url: `${urls.dispatchApi}logs/${id}`,
-            filename: 'log.yml',
+            basename: 'log.yml',
           }
         ];
       })

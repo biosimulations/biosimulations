@@ -1,7 +1,7 @@
 @use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
-biosimulations-text-page-section ::ng-deep h2 {
+biosimulations-text-page-section ::ng-deep h3 {
   color: mat.get-color-from-palette($theme-primary);
   background: $theme-primary-lightest;
 
@@ -16,7 +16,7 @@ biosimulations-text-page-section ::ng-deep h2 {
   }
 }
 
-biosimulations-text-page-section ::ng-deep h3 {
+biosimulations-text-page-section ::ng-deep h4 {
   font-weight: bold;
   margin-bottom: 0.5rem;
   padding: 0 0.5rem;

@@ -1,0 +1,15 @@
+.container {
+  margin-top: -2rem;
+  & > *:last-child {
+    padding: 0.5rem 0.5rem 0;
+  }
+}
+
+@media screen and (max-width: 959px) {
+  .container {
+    margin-top: -1rem;
+    & > *:last-child {
+      margin-top: 1rem;
+    }
+  }
+}

@@ -13,6 +13,10 @@ biosimulations-tab-page ::ng-deep {
     padding-right: 0.5rem;
     border-radius: 4px;
     background: $light-bg-darker-10;
+
+    .heading {
+      max-width: 100% !important;
+    }
   }
 }
 
@@ -24,29 +28,10 @@ biosimulations-tab-page ::ng-deep {
   font-weight: bold;
 }
 
-.columns-container > *:last-child {
-  padding: 0.5rem 0.5rem 0;
-}
-
-@media screen and (max-width: 959px) {
-  .columns-container > *:last-child {
-    margin-top: 1rem;
-  }
-}
-
 .citations tr:first-child {
   th,
   td {
     padding-top: 0.5rem;
-  }
-}
-
-.summary .icon-list {
-  a {
-    color: $dark-primary-text;
-    &:hover {
-      color: mat.get-color-from-palette($theme-primary);
-    }
   }
 }
 
@@ -64,8 +49,8 @@ biosimulations-tab-page ::ng-deep {
   text-indent: -1rem;
 }
 
-.copy-image {
-  .icon-list li {
+.copy-image.icon-list {
+  li {
     margin-left: 0;
     text-indent: 0;
     position: relative;

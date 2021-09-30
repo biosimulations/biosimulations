@@ -1,5 +1,9 @@
 @import 'biosimulations-colors';
 
+.wide-side-bar {
+    width: 17rem;
+}
+
 biosimulations-tab-page ::ng-deep .icon-list {
   & > li:not(:first-child) {
     margin-top: 0.125rem; 
@@ -7,6 +11,9 @@ biosimulations-tab-page ::ng-deep .icon-list {
 
   a {
     color: $dark-primary-text;
-    text-decoration: underline;
+    &:hover {
+      color: $dark-primary-text;
+      text-decoration: underline;
+    }
   }
 }
