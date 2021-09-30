@@ -323,21 +323,21 @@ export class ViewService {
             format: 'COMBINE/OMEX',
             size: UtilsService.formatDigitalSize(simulationRun.projectSize),
             icon: 'project',
-            url: `${urls.dispatchApi}/runs/${id}/download`,
+            url: `${urls.dispatchApi}runs/${id}/download`,
           },
           {
             title: 'Project outputs',
             format: 'Zip of HDF5/PDF',
             size: UtilsService.formatDigitalSize(simulationRun.resultsSize),
             icon: 'report',
-            url: `${urls.dispatchApi}/results/${id}/download`,
+            url: `${urls.dispatchApi}results/${id}/download`,
           },
           {
             title: 'Project execution log',
             format: 'YAML',
             size: null,
             icon: 'logs',
-            url: `${urls.dispatchApi}/logs/${id}`,
+            url: `${urls.dispatchApi}logs/${id}`,
           }
         ];
       })
