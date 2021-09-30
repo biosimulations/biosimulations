@@ -299,6 +299,8 @@ jobs:
             ghcr.io/biosimulations/${{matrix.libOrApp}}:${{ env.BRANCH_NAME }} \
             -c "
               pipenv install --dev --system --deploy
+              pip pip uninstall -y matplotlib
+              pip install matplotlib==3.2.0
               mv src src-ignore
               export PYTHONPATH=apps/${{ matrix.libOrApp }}
               /bin/bash /xvfb-startup.sh python -m pytest --verbose --cov apps/${{ matrix.libOrApp }}/src/ --cov-report=xml apps/${{ matrix.libOrApp }}/tests/
@@ -408,6 +410,8 @@ jobs:
             ghcr.io/biosimulations/${{matrix.libOrApp}}:${{ env.BRANCH_NAME }} \
             -c "
               pipenv install --dev --system --deploy
+              pip pip uninstall -y matplotlib
+              pip install matplotlib==3.2.0
               mv src src-ignore
               export PYTHONPATH=libs/${{ matrix.libOrApp }}
               /bin/bash /xvfb-startup.sh python -m pytest --verbose --cov libs/${{ matrix.libOrApp }}/src/ --cov-report=xml libs/${{ matrix.libOrApp }}/tests/
