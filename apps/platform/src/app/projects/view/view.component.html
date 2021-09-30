@@ -29,14 +29,14 @@
   </ng-container>
 
   <!-- Information about the simulation run -->
-  <ng-container *ngIf="simulationInfo$ | async as simInfo">
+  <ng-container *ngIf="simulationInfo$ | async as simulationInfo">
     <biosimulations-tab-page-tab
-      heading="Simulation"
+      heading="Simulation run"
       icon="simulation"
-      urlHashFragment="simulation"
+      urlHashFragment="run"
     >
       <biosimulations-project-simulation
-        [simulationRun]="simInfo"
+        [simulationInfo]="simulationInfo"
       ></biosimulations-project-simulation>
     </biosimulations-tab-page-tab>
   </ng-container>

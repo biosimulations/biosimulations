@@ -1,4 +1,7 @@
 import { LabeledIdentifier } from '@biosimulations/datamodel/api';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
+import { Observable } from 'rxjs';
+
 
 export interface FormattedDate {
   value: Date;
@@ -25,6 +28,18 @@ export interface ProjectMetadataSummary {
 export interface ProjectSummary {
   id: string;
   metadata: ProjectMetadataSummary;
+}
+
+export interface ListItem {
+  title: string;  
+  value: Observable<string>;
+  icon: BiosimulationsIcon;
+  href: string | null;
+}
+
+export interface List {
+  title: string;  
+  items: ListItem[];
 }
 
 export enum FigureType {
