@@ -183,14 +183,7 @@ export class UtilsService {
     }
   }
 
-  static formatDuration(
-    valueSec: number | null | undefined,
-    nullFormattedValue: string | null = null,
-  ): string | null {
-    if (valueSec == null || valueSec === undefined) {
-      return nullFormattedValue;
-    }
-
+  static formatDuration(valueSec: number): string {
     if (valueSec >= 7 * 24 * 60 * 60) {
       return (valueSec / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
     } else if (valueSec >= 24 * 60 * 60) {

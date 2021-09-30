@@ -145,21 +145,15 @@ export class BrowseComponent implements OnInit {
         }
       },
       formatter: (valueMin: number): string => {
-        if (valueMin) {
-          return UtilsService.formatDuration(            
-            valueMin * 60,
-            null,
-          ) as string;
+        if (valueMin !== null && valueMin !== undefined) {
+          return UtilsService.formatDuration(valueMin * 60);
         } else {
           return 'N/A';
         }
       },
       stackedFormatter: (valueMin: number): string => {
-        if (valueMin) {
-          return UtilsService.formatDuration(            
-            valueMin * 60,
-            'N/A',
-          ) as string;
+        if (valueMin !== null && valueMin !== undefined) {
+          return UtilsService.formatDuration(valueMin * 60);
         } else {
           return 'N/A';
         }
@@ -215,10 +209,10 @@ export class BrowseComponent implements OnInit {
         }
       },
       formatter: (valueSec: number | null): string | null => {
-        return SimulationStatusService.UtilsService.formatDuration(valueSec, null);
+        return valueSec !== null ? SimulationStatusService.UtilsService.formatDuration(valueSec) : null;
       },
       stackedFormatter: (valueSec: number | null): string => {
-        return SimulationStatusService.UtilsService.formatDuration(valueSec, 'N/A') as string;
+        return valueSec !== null ? SimulationStatusService.UtilsService.formatDuration(valueSec) : 'N/A';
       },
       filterType: ColumnFilterType.number,
       show: false,

@@ -106,7 +106,7 @@ export class ProjectSimulationComponent {
     const durationSec = this.projectsService.getProjectSimulationLog(simulationRun.id)
       .pipe(
         pluck('duration'),
-        map((durationSec: number): string => UtilsService.formatDuration(durationSec) as string),
+        map((durationSec: number): string => UtilsService.formatDuration(durationSec)),
       );
     compResources.push({
       title: 'Duration',
