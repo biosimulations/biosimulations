@@ -219,7 +219,7 @@ a {
   transform: scale(1.08);
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .hanging-indent {
