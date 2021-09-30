@@ -2,7 +2,7 @@
   <li *ngFor="let download of downloads">
     <biosimulations-icon [icon]="download.icon"></biosimulations-icon>
     <b>{{ download.title }}:</b>{{ ' ' }}
-    <a [href]="download.url" target="_blank" *ngIf="download.url">
+    <a [href]="download.url" *ngIf="download.url" target="_blank" [download]="download.filename">
       {{ download.format }}<span *ngIf="download.size"> ({{ download.size }})</span>
     </a>
   </li>

@@ -324,6 +324,7 @@ export class ViewService {
             size: UtilsService.formatDigitalSize(simulationRun.projectSize),
             icon: 'project',
             url: `${urls.dispatchApi}runs/${id}/download`,
+            filename: 'project.omex',
           },
           {
             title: 'Project outputs',
@@ -331,6 +332,7 @@ export class ViewService {
             size: UtilsService.formatDigitalSize(simulationRun.resultsSize),
             icon: 'report',
             url: `${urls.dispatchApi}results/${id}/download`,
+            filename: 'outputs.zip',
           },
           {
             title: 'Project execution log',
@@ -338,6 +340,7 @@ export class ViewService {
             size: null,
             icon: 'logs',
             url: `${urls.dispatchApi}logs/${id}`,
+            filename: 'log.yml',
           }
         ];
       })

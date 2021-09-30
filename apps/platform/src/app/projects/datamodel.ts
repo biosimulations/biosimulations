@@ -68,6 +68,7 @@ export interface Download {
   size: string | null;
   icon: BiosimulationsIcon;
   url: string;
+  filename: string;
 }
 
 export enum FigureType {
