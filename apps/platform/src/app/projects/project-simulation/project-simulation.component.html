@@ -5,7 +5,7 @@
       <li *ngFor="let item of section.items">
         <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
         <b>{{ item.title }}:</b>{{ ' ' }}
-        <a [href]="item.href" target="_blank" *ngIf="item.href; else noHref">{{ item.value | async }}</a>
+        <a [href]="item.url" target="_blank" *ngIf="item.url; else noHref">{{ item.value | async }}</a>
         <ng-template #noHref>{{ item.value | async }}</ng-template>
       </li>
     </ul>

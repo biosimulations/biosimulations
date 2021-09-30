@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, pluck, shareReplay, of } from 'rxjs';
-import { ArchiveMetadata } from '@biosimulations/datamodel/common';
+import { ArchiveMetadata, CombineArchiveContentFormat, FORMATS } from '@biosimulations/datamodel/common';
 import {
   ArchiveMetadata as APIMetadata,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { ProjectsService } from '../projects.service';
-import { SimulatorIdNameMap, List, ListItem, Download } from '../datamodel';
+import { SimulatorIdNameMap, Directory, File, List, ListItem, Download } from '../datamodel';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
 
@@ -69,7 +69,7 @@ export class ViewService {
             title: 'Tasks',
             value: of('SED-ML'),
             icon: 'code',
-            href: 'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' + id
+            url: 'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' + id
           });
         }
         */
@@ -79,7 +79,7 @@ export class ViewService {
           title: 'Project',
           value: of('COMBINE/OMEX'),
           icon: 'format',
-          href: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686'
+          url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686'
         });
 
         /* TODO: add model format(s)
@@ -88,7 +88,7 @@ export class ViewService {
             title: 'Model',
             value: of('SBML'),
             icon: 'format',
-            href: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686'
+            url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686'
           });
         }
         */
@@ -97,7 +97,7 @@ export class ViewService {
           title: 'Simulation',
           value: of('SED-ML'),
           icon: 'format',
-          href: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3685'
+          url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3685'
         });
 
         const tools: ListItem[] = [];
@@ -110,7 +110,7 @@ export class ViewService {
           title: 'Simulator',
           value: simulator,
           icon: 'simulator',
-          href: `https://biosimulators.org/simulators/${simulationRun.simulator}/${simulationRun.simulatorVersion}`,
+          url: `https://biosimulators.org/simulators/${simulationRun.simulator}/${simulationRun.simulatorVersion}`,
         });
 
         const compResources: ListItem[] = [];
@@ -119,14 +119,14 @@ export class ViewService {
           title: 'Project',
           value: of(UtilsService.formatDigitalSize(simulationRun.projectSize)),
           icon: 'disk',
-          href: null,
+          url: null,
         });
 
         compResources.push({
           title: 'Results',
           value: of(UtilsService.formatDigitalSize(simulationRun.resultsSize)),
           icon: 'disk',
-          href: null,
+          url: null,
         });
 
         const durationSec = this.service.getProjectSimulationLog(simulationRun.id)
@@ -138,21 +138,21 @@ export class ViewService {
           title: 'Duration',
           value: durationSec,
           icon: 'duration',
-          href: null,
+          url: null,
         });
 
         compResources.push({
           title: 'CPUs',
           value: of(simulationRun.cpus.toString()),
           icon: 'processor',
-          href: null,
+          url: null,
         });
 
         compResources.push({
           title: 'Memory',
           value: of(UtilsService.formatDigitalSize(simulationRun.memory * 1e9)),
           icon: 'memory',
-          href: null,
+          url: null,
         });
 
         const run: ListItem[] = [];
@@ -161,21 +161,21 @@ export class ViewService {
           title: 'Id',
           value: of(simulationRun.id),
           icon: 'id',
-          href: `${urls.dispatch}/simulations/${id}`,
+          url: `${urls.dispatch}/simulations/${id}`,
         });
 
         run.push({
           title: 'Submitted',
           value: of(UtilsService.getDateTimeString(new Date(simulationRun.submitted))),
           icon: 'date',
-          href: null,
+          url: null,
         });
 
         run.push({
           title: 'Completed',
           value: of(UtilsService.getDateTimeString(new Date(simulationRun.updated))),
           icon: 'date',
-          href: null,
+          url: null,
         });
 
         // return sections
@@ -191,8 +191,85 @@ export class ViewService {
     );
   }
 
-  public getFilesMetadata(id: string) {
-    return this.service.getArchiveContents(id);
+  public getFiles(id: string): Observable<(Directory | File)[]> {
+    return this.service.getArchiveContents(id).pipe(
+      map((archive: any): (Directory | File)[] => {
+        const formatMap: {[uri: string]: CombineArchiveContentFormat} = {};
+        FORMATS.forEach((format: CombineArchiveContentFormat): void => {
+          formatMap[format.combineUri] = format;
+        })
+
+        const root: {[path: string]: Directory | File} = {};
+
+        archive.contents
+          .filter((content: any): boolean => {
+            return content.location.value.filename != '.';
+          })
+          .forEach((content: any): void => {
+            let location = content.location.value.filename;
+            if (location.substring(0, 2) === './') {
+              location = location.substring(2);
+            }
+
+            const parentBasenames = location.split('/')
+            const basename = parentBasenames.pop();
+
+            let parentPath = '';
+            let level = -1;
+            parentBasenames.forEach((parentBasename: string): void => {
+              level++;
+              parentPath += '/' + parentBasename;            
+              if (!(parentPath.substring(1) in root)) {
+                root[parentPath.substring(1)] = {
+                  _type: 'Directory',
+                  level: level,
+                  location: parentPath.substring(1),
+                  basename: parentBasename,
+                }
+              }
+            });
+
+            let format!: string;
+            if (content.format in formatMap) {
+              const formatObj = formatMap[content.format]
+              format = formatObj.name;
+              if (formatObj.acronym) {
+                format += ' (' + formatObj.acronym + ')';
+              }              
+            } else if (content.format.startsWith('http://purl.org/NET/mediatypes/')) {
+              format = content.format.substring('http://purl.org/NET/mediatypes/'.length);
+            } else {
+              format = content.format;
+            }
+
+            root[location] = {
+              _type: 'File',
+              level: parentBasenames.length,
+              location: location,
+              basename: basename,
+              format: format,
+              master: content.master,
+              url: `https://files.biosimulations.org/${id}/${location}`, // TODO: correct file URLss
+              size: UtilsService.formatDigitalSize(100), // TODO: incorporate and display file size
+              formatUrl: formatMap?.[content.format]?.url,
+              formatIcon: formatMap?.[content.format]?.icon || 'file',
+            };
+          });
+
+        return Object.values(root)
+          .sort((a: Directory | File, b: Directory | File): number => {
+            if (a._type == 'Directory' && b._type === 'File') {
+              return -1;
+            }
+            
+            if (a._type == 'File' && b._type === 'Directory') {
+              return 1;
+            }
+
+            return a.location.localeCompare(b.location, undefined, { numeric: true });
+          });
+      })
+    );
   }
 
   public getVegaFilesMetadata(id: string) {
@@ -246,21 +323,21 @@ export class ViewService {
             format: 'COMBINE/OMEX',
             size: UtilsService.formatDigitalSize(simulationRun.projectSize),
             icon: 'project',
-            href: `${urls.dispatchApi}/runs/${id}/download`,
+            url: `${urls.dispatchApi}/runs/${id}/download`,
           },
           {
             title: 'Project outputs',
             format: 'Zip of HDF5/PDF',
             size: UtilsService.formatDigitalSize(simulationRun.resultsSize),
             icon: 'report',
-            href: `${urls.dispatchApi}/results/${id}/download`,
+            url: `${urls.dispatchApi}/results/${id}/download`,
           },
           {
             title: 'Project execution log',
             format: 'YAML',
             size: null,
             icon: 'logs',
-            href: `${urls.dispatchApi}/logs/${id}`,
+            url: `${urls.dispatchApi}/logs/${id}`,
           }
         ];
       })

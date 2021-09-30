@@ -1,0 +1,38 @@
+@use '~@angular/material' as mat;
+@import 'biosimulations-colors';
+
+table {
+  width: auto;
+  max-width: 100%;
+}
+
+.biosimulations-table thead tr, .biosimulations-table tbody td {
+  height: 26px;
+  vertical-align: middle;
+}
+
+.biosimulations-table th, .biosimulations-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;  
+}
+
+.icon-container {
+  width: 16px;
+  margin-right: 0.25rem;
+  display: inline-flex;
+  justify-content: center;
+}
+
+biosimulations-icon ::ng-deep .mat-icon {
+  font-size: 112%;
+}
+
+a {
+  color: $dark-primary-text;
+  &:hover {
+    text-decoration: underline;
+  }
+}

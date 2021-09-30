@@ -30,11 +30,31 @@ export interface ProjectSummary {
   metadata: ProjectMetadataSummary;
 }
 
+export interface Directory {
+  _type: 'Directory';
+  location: string;
+  level: number;
+  basename: string;
+}
+
+export interface File {
+  _type: 'File';
+  location: string;
+  level: number;
+  basename: string;
+  format: string;
+  formatUrl: string | null;
+  formatIcon: BiosimulationsIcon;
+  master: boolean;
+  url: string;
+  size: string;
+}
+
 export interface ListItem {
   title: string;  
   value: Observable<string>;
   icon: BiosimulationsIcon;
-  href: string | null;
+  url: string | null;
 }
 
 export interface List {
@@ -47,7 +67,7 @@ export interface Download {
   format: string;
   size: string | null;
   icon: BiosimulationsIcon;
-  href: string;
+  url: string;
 }
 
 export enum FigureType {

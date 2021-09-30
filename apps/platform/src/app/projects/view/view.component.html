@@ -16,15 +16,14 @@
   <!--Information about files in project-->
   <biosimulations-tab-page-tab
     heading="Files"
-    icon="file"
+    icon="project"
     urlHashFragment="files"
     *ngIf="files$ | async as files"
   >
-    <pre>
-    {{ files | json }}
-    
-  </pre
+    <biosimulations-project-files
+      [files]="files"
     >
+    </biosimulations-project-files>
   </biosimulations-tab-page-tab>
 
   <!-- Information about the simulation run -->

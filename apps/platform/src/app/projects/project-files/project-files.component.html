@@ -1,0 +1,31 @@
+<table class="biosimulations-table">
+  <thead>
+    <tr>
+      <th>Location</th>
+      <th>Format</th>
+      <!-- TODO: display file size -->
+      <!--<th>Size</th>-->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let path of files">
+      <ng-container *ngIf="path._type === 'Directory'">
+        <td class="basename" [ngStyle]="{'padding-left.rem': 0.25 + 1.3 * path.level}">
+          <div class="icon-container"><biosimulations-icon icon="project"></biosimulations-icon></div>
+          {{ path.basename }}
+        </td>
+        <td class="format">Directory</td>
+        <!--<td class="size"></td>-->
+      </ng-container>
+
+      <ng-container *ngIf="path._type === 'File'">
+        <td class="basename" [ngStyle]="{'padding-left.rem': 0.25 + 1.3 * path.level}">
+          <div class="icon-container"><biosimulations-icon [icon]="path.formatIcon"></biosimulations-icon></div>
+          <a [href]="path.url" target="_blank" *ngIf="path.url">{{ path.basename }}</a>
+        </td>
+        <td class="format"><a [href]="path.formatUrl" target="_blank" *ngIf="path.formatUrl">{{ path.format }}</a></td>
+        <!--<td class="size">{{ path.size }}</td>-->
+      </ng-container>
+    </tr>
+  </tbody>
+</table>

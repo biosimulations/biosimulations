@@ -99,6 +99,8 @@ import {
   faExchangeAlt,
   faBullhorn,
   faSlidersH,
+  faFileArchive,
+  faImage,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -117,6 +119,7 @@ import {
   faGoogleDrive,
   faYoutube,
   faUncharted,
+  faRProject,
 } from '@fortawesome/free-brands-svg-icons';
 import {
   faFileAlt as farFileAlt,
@@ -168,6 +171,7 @@ export class BiosimulationsIconsModule {
       faProjectDiagram,
       faChartBar,
       faUncharted,
+      faRProject,
       faUncharted,
       faPaintBrush,
       faList,
@@ -248,6 +252,8 @@ export class BiosimulationsIconsModule {
       faExchangeAlt,
       faBullhorn,
       faSlidersH,
+      faFileArchive,
+      faImage,
     );
   }
 }
