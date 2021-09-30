@@ -8,6 +8,16 @@ import {
 import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 import { BehaviorSubject } from 'rxjs';
 import { MetadataValue } from '../view/view.model';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
+import { UtilsService } from '@biosimulations/shared/services';
+
+interface Attribute {
+  icon: BiosimulationsIcon;
+  title: string;
+  label: string;
+  url: string | null;
+}
+
 @Component({
   selector: 'biosimulations-project-overview',
   templateUrl: './project-overview.component.html',
@@ -17,52 +27,72 @@ import { MetadataValue } from '../view/view.model';
 export class ProjectOverviewComponent implements OnInit {
   @Input() public loading: boolean | null = true;
   @Input() public metadata?: ArchiveMetadata | undefined;
+  
+  thumbnails?: string[];
+  
   title?: string;
   abstract?: string;
-  created?: string;
-  modified?: string;
-  description?: string;
   creators?: MetadataValue[];
-  contributors?: MetadataValue[];
-  citations?: MetadataValue[];
-  license?: MetadataValue[];
-  keywords?: MetadataValue[];
-  predecessors?: MetadataValue[];
-  taxa?: MetadataValue[];
-  seeAlso?: MetadataValue[];
-  successors?: MetadataValue[];
-  thumbnails?: string[];
-  sources?: MetadataValue[];
-  funders?: MetadataValue[];
-  identifiers?: MetadataValue[];
+  description?: string;
+
+  attributes?: Attribute[];
 
   constructor() {}
-  public showImage = new BehaviorSubject(false);
+  public showThumbnails = new BehaviorSubject(false);
+
   public ngOnInit(): void {
-    this.title = this.metadata?.title;
-    this.abstract = this.metadata?.abstract;
-    this.created = this.metadata?.created?.toLocaleString
-      ? this.metadata?.created.toLocaleString()
-      : JSON.stringify(this.metadata?.created);
-    this.modified = this.metadata?.modified?.toLocaleString
-      ? this.metadata?.modified.toLocaleString()
-      : JSON.stringify(this.metadata?.modified);
-    this.description = this.metadata?.description;
-    this.creators = this.metadata?.creators || [];
-    this.contributors = this.metadata?.contributors || [];
-    this.citations = this.metadata?.citations || [];
-    this.license = this.metadata?.license || [];
-    this.keywords = this.metadata?.keywords || [];
-    this.predecessors = this.metadata?.predecessors || [];
-    this.taxa = this.metadata?.taxa || [];
-    this.seeAlso = this.metadata?.seeAlso || [];
-    this.successors = this.metadata?.successors || [];
-    this.sources = this.metadata?.sources || [];
-    this.funders = this.metadata?.funders || [];
-    this.identifiers = this.metadata?.identifiers || [];
     this.thumbnails = this.metadata?.thumbnails || [];
     if (this.thumbnails && this.thumbnails.length) {
-      this.showImage.next(true);
+      this.showThumbnails.next(true);
     }
+
+    this.title = this.metadata?.title;
+    this.abstract = this.metadata?.abstract;    
+    this.creators = this.metadata?.creators || [];
+    this.description = this.metadata?.description;
+    
+    this.attributes = [];
+
+    this.addAttributes(this.metadata?.encodes, 'cell', 'Biology');
+    this.addAttributes(this.metadata?.taxa, 'taxon', 'Taxon');
+    this.addAttributes(this.metadata?.keywords, 'tags', 'Keyword');    
+    this.addAttributes(this.metadata?.citations, 'file', 'Citation');
+    this.addAttributes(this.metadata?.sources, 'file', 'Source');
+    this.addAttributes(this.metadata?.seeAlso, 'info', 'More info');
+    this.addAttributes(this.metadata?.identifiers, 'id', 'Cross reference');
+    this.addAttributes(this.metadata?.predecessors, 'backward', 'Predecessor');
+    this.addAttributes(this.metadata?.successors, 'forward', 'Successor');
+    this.addAttributes(this.metadata?.license, 'license', 'License');
+    this.addAttributes(this.metadata?.contributors, 'author', 'Curator');
+    this.addAttributes(this.metadata?.funders, 'funding', 'Funder');
+
+    if (this.metadata?.created) {
+      this.attributes.push({
+        icon: 'date',
+        title: 'Created',
+        label: UtilsService.formatDate(new Date(this.metadata?.created)),
+        url: null,
+      });
+    }
+
+    if (this.metadata?.modified.length) {
+      this.attributes.push({
+        icon: 'date',
+        title: 'Last modified',
+        label: UtilsService.formatDate(new Date(this.metadata?.modified[0])),
+        url: null,
+      });
+    }
+  }
+
+  addAttributes(values: MetadataValue[] | undefined, icon: BiosimulationsIcon, title: string): void {
+    values?.forEach((value: MetadataValue): void => {
+      this?.attributes?.push({      
+        icon: icon,
+        title: title,
+        label: (value.label || value.uri) as string,
+        url: value.uri || null,
+      });
+    });
   }
 }

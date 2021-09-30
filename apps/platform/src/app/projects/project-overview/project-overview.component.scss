@@ -1,0 +1,45 @@
+@import 'biosimulations-colors';
+
+.thumbnails ::ng-deep .carousel-slide {
+  border: 1px solid $light-bg-darker-20;
+  border-radius: 4px;
+}
+
+h2 {
+  margin: 0;
+  line-height: 1;
+  margin-block-end: 0.5em;
+}
+
+.abstract {
+  margin-block-start: 0.5em;
+  margin-block-end: 0;
+}
+
+.creators {
+  font-style: italic;
+  margin-block-end: 0.5em;
+}
+
+.description {
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+}
+
+.attributes {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: 0.25rem;
+  grid-row-gap: 0.125rem;
+  margin-block-start: 0.5em;
+
+  div:nth-child(odd) {
+    display: flex;
+    justify-content: center;
+  }
+
+  a {
+    color: $dark-primary-text;
+    text-decoration: underline;
+  }
+}

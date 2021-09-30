@@ -104,8 +104,8 @@ export class ViewService {
       //   simulation.runtime !== undefined
       //     ? Math.round(simulation.runtime / 1000).toString() + ' s'
       //     : 'N/A',
-      submitted: UtilsService.getDateTimeString(new Date(simulation.submitted)),
-      updated: UtilsService.getDateTimeString(new Date(simulation.updated)),
+      submitted: UtilsService.formatTime(new Date(simulation.submitted)),
+      updated: UtilsService.formatTime(new Date(simulation.updated)),
       projectSize:
         simulation.projectSize !== undefined && simulation.projectSize !== null
           ? UtilsService.formatDigitalSize(simulation.projectSize)

@@ -134,7 +134,7 @@ export class ProjectsService {
     const value = new Date(date);
     return {
       value: value,
-      formattedValue: UtilsService.getDateString(value),
+      formattedValue: UtilsService.formatDate(value),
     };
   }
 

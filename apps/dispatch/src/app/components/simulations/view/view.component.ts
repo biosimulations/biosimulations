@@ -701,13 +701,13 @@ export class ViewComponent implements OnInit, OnDestroy {
             allmetadata.map((elMetadata) => {
               if (elMetadata) {
                 if (elMetadata?.created) {
-                  elMetadata.created = UtilsService.getDateString(
+                  elMetadata.created = UtilsService.formatDate(
                     new Date(elMetadata.created),
                   );
                 }
                 elMetadata.modified = elMetadata.modified.map(
                   (date: string): string => {
-                    return UtilsService.getDateString(new Date(date));
+                    return UtilsService.formatDate(new Date(date));
                   },
                 );
                 elMetadata.modified.sort();

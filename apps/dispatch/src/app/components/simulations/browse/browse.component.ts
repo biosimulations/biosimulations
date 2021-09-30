@@ -224,14 +224,14 @@ export class BrowseComponent implements OnInit {
       key: 'submitted',
       formatter: (value: Date | undefined | null): string => {
         if (value) {
-          return UtilsService.getDateString(value);
+          return UtilsService.formatDate(value);
         } else {
           return 'N/A';
         }
       },
       toolTipFormatter: (value: Date | undefined | null): string => {
         if (value) {
-          return UtilsService.getDateString(value);
+          return UtilsService.formatDate(value);
         } else {
           return 'N/A';
         }
@@ -246,14 +246,14 @@ export class BrowseComponent implements OnInit {
       key: 'updated',
       formatter: (value: Date | undefined | undefined): string => {
         if (value) {
-          return UtilsService.getDateString(value);
+          return UtilsService.formatDate(value);
         } else {
           return 'N/A';
         }
       },
       toolTipFormatter: (value: Date | undefined | null): string => {
         if (value) {
-          return UtilsService.getDateString(value);
+          return UtilsService.formatDate(value);
         } else {
           return 'N/A';
         }

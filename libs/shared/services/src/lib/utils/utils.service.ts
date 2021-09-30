@@ -147,7 +147,7 @@ export class UtilsService {
     );
   }
 
-  static getDateString(value: Date): string {
+  static formatDate(value: Date): string {
     return (
       value.getFullYear() +
       '-' +
@@ -157,7 +157,7 @@ export class UtilsService {
     );
   }
 
-  static getDateTimeString(value: Date): string {
+  static formatTime(value: Date): string {
     return (
       value.getFullYear().toString() +
       '-' +

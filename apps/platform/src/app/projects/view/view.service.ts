@@ -173,14 +173,14 @@ export class ViewService {
 
         run.push({
           title: 'Submitted',
-          value: of(UtilsService.getDateTimeString(new Date(simulationRun.submitted))),
+          value: of(UtilsService.formatTime(new Date(simulationRun.submitted))),
           icon: 'date',
           url: null,
         });
 
         run.push({
           title: 'Completed',
-          value: of(UtilsService.getDateTimeString(new Date(simulationRun.updated))),
+          value: of(UtilsService.formatTime(new Date(simulationRun.updated))),
           icon: 'date',
           url: null,
         });
@@ -265,8 +265,6 @@ export class ViewService {
             } else {
               format = content.format;
             }
-
-            console.log(format)
 
             root[location] = {
               _type: 'File',
