@@ -1,3 +1,16 @@
+# [5.1.0](https://github.com/biosimulations/biosimulations/compare/v5.0.0...v5.1.0) (2021-09-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency auth0 to v2.36.2 ([#3076](https://github.com/biosimulations/biosimulations/issues/3076)) [skip ci] ([a696fbc](https://github.com/biosimulations/biosimulations/commit/a696fbcc9f495fef5b20fba7235a8fb7d590b4d9))
+* **dispatch-api:** fix cors for biosimulators ([22439d2](https://github.com/biosimulations/biosimulations/commit/22439d2d6d2c16ce71dc652e5353a9f902a29c6a))
+
+
+### Features
+
+* **dispatch:** require configuration of academic use for commercial solvers ([6c5307c](https://github.com/biosimulations/biosimulations/commit/6c5307c31dad3f59b2e7c01b07ea1b83218a7ff0))
+
 # [5.0.0](https://github.com/biosimulations/biosimulations/compare/v4.6.0...v5.0.0) (2021-09-28)
 
 

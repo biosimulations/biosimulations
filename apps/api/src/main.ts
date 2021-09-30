@@ -42,6 +42,8 @@ async function bootstrap() {
       'https://biosimulations.org',
       'https://run.biosimulations.dev',
       'https://run.biosimulations.org',
+      'https://biosimulators.org',
+      'https://biosimulators.dev',
       'https://bio.libretexts.org', // Libre text collaboration
       'https://vega.github.io', // Vega editor
       'http://idl.cs.washington.edu', // Lyra Vega visual editor
