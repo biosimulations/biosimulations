@@ -14,10 +14,10 @@
     fxFlex="20rem"
     fxFlex.lt-sm="100%"
   >
-    <div class="thumbnails-container"
-      [class.single-thumbnail]="projectMetadata.thumbnails.length === 1"
+    <div class="thumbnails-container"      
       fxFlex="20rem"
       fxFlex.lt-sm="100%"
+      [class.single-thumbnail]="projectMetadata.thumbnails.length === 1"
     >
       <mat-carousel
         timings="1000ms ease-in"
@@ -34,6 +34,7 @@
         lazyLoad="true"
         slideHeight="100%"
         [maintainAspectRatio]="false"
+        *ngIf="projectMetadata.thumbnails.length > 1; else singleThumbnail"
       >
         <mat-carousel-slide
           [hideOverlay]="true"
@@ -42,7 +43,11 @@
         >
         </mat-carousel-slide>
       </mat-carousel>
+      <ng-template #singleThumbnail>
+        <img [src]="projectMetadata.thumbnails[0]" />
+      </ng-template>
     </div>
+
   </div>
   <!-- End thumbnails-->
 

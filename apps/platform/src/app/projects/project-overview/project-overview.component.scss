@@ -9,7 +9,11 @@
 .thumbnails-container {      
   border: 1px solid $light-bg-darker-20;
   border-radius: 4px;
-  aspect-ratio: 1;  
+  overflow: hidden;  
+
+  &:not(.single-thumbnail) {
+    aspect-ratio: 1;
+  }    
 
   ::ng-deep {
     .carousel {
@@ -18,6 +22,10 @@
 
     .carousel-slide {
       background-size: contain;
+    }
+
+    .carousel-list {
+      height: calc(100% - 25px - 0.5rem) !important;
     }
 
     .carousel-indicators {
@@ -39,12 +47,9 @@
     }
   }
 
-  &.single-thumbnail ::ng-deep .carousel-indicators {
-    display: none;
-  }
-
-  &:not(.single-thumbnail) ::ng-deep .carousel-list {
-    height: calc(100% - 25px - 0.5rem) !important;
+  &.single-thumbnail img {
+    width: 100%;
+    height: auto;
   }
 }
 
