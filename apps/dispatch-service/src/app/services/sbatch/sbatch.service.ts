@@ -43,20 +43,24 @@ export class SbatchService {
     }
 
     const allEnvVars = [...envVars];
-    this.configService.get('singularity').forEach((envVarPurpose: any): void => {
-      if (envVarPurpose.purpose === 'ALL') {
-        allEnvVars.push({
-          key: envVarPurpose.key,
-          value: envVarPurpose.value,
-        });
-
-      } else if (envVarPurpose.purpose == 'ACADEMIC' && purpose === Purpose.academic) {
-        allEnvVars.push({
-          key: envVarPurpose.key,
-          value: envVarPurpose.value,
-        });
-      }
-    });
+    this.configService
+      .get('singularity')
+      .forEach((envVarPurpose: any): void => {
+        if (envVarPurpose.purpose === 'ALL') {
+          allEnvVars.push({
+            key: envVarPurpose.key,
+            value: envVarPurpose.value,
+          });
+        } else if (
+          envVarPurpose.purpose == 'ACADEMIC' &&
+          purpose === Purpose.academic
+        ) {
+          allEnvVars.push({
+            key: envVarPurpose.key,
+            value: envVarPurpose.value,
+          });
+        }
+      });
 
     const allEnvVarsString =
       allEnvVars.length > 0
