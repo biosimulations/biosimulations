@@ -953,13 +953,15 @@ table {
 .clean-table {
   width: 100%;
   display: grid;
-  grid-gap: 0.5rem;
+  grid-gap: 0;
 
   .head {
     font-weight: bold;
   }
 
   .cell {
+    padding-top: 3px;
+    padding-bottom: 3px;
     height: 18px;
     vertical-align: middle;
   }

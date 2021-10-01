@@ -27,6 +27,7 @@
       <biosimulations-text-page-content-section heading="Project" *ngIf="projectFiles$ | async as files">
         <biosimulations-project-files id="content"
           [files]="files"
+          [usesMaster]="false"
         >
         </biosimulations-project-files>
       </biosimulations-text-page-content-section>
@@ -34,6 +35,7 @@
       <biosimulations-text-page-content-section heading="Project contents" *ngIf="files$ | async as files">
         <biosimulations-project-files id="content"
           [files]="files"
+          [usesMaster]="true"
         >
         </biosimulations-project-files>
       </biosimulations-text-page-content-section>
@@ -41,6 +43,7 @@
       <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">
         <biosimulations-project-files id="content"
           [files]="files"
+          [usesMaster]="false"
         >
         </biosimulations-project-files>
       </biosimulations-text-page-content-section>

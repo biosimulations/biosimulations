@@ -1,9 +1,13 @@
 .clean-table {
-  grid-template-columns: 1fr 1fr 70px;
+  grid-template-columns: 1fr 1fr 70px 70px;
 }
 
 .cell {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.master-file {
+  /* background: #efefef; */
 }

@@ -6,6 +6,7 @@ import {
   DescribedIdentifier,
   CombineArchiveContentFormat,
   FORMATS,
+  SEDML_FORMAT,
   COMBINE_OMEX_FORMAT,
 } from '@biosimulations/datamodel/common';
 import {
@@ -356,6 +357,14 @@ export class ViewService {
       map((archive: any): (Directory | File)[] => {
         const root: {[path: string]: Directory | File} = {};
 
+        let hasMaster = false;
+        for (const content of archive.contents) {
+          if (content.master) {
+            hasMaster = true;
+            break;
+          }
+        }
+
         archive.contents
           .filter((content: any): boolean => {
             return content.location.value.filename != '.';
@@ -414,7 +423,7 @@ export class ViewService {
               title: basename,
               basename: basename,
               format: formatName,
-              master: content.master,
+              master: content.master || (!hasMaster && format === SEDML_FORMAT.combineUri),
               url: `https://files.biosimulations.org/${id}/${location}`, // TODO: correct file URLs
               size: null, // UtilsService.formatDigitalSize(100), // TODO: incorporate and display file size
               formatUrl: this.formatMap?.[format]?.url,

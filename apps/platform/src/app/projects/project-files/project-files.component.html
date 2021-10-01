@@ -1,6 +1,7 @@
 <div class="clean-table">
   <div class="head cell title">Name</div>
   <div class="head cell format">Format</div>
+  <div class="head cell main">{{ usesMaster ? 'Main' : ''}}</div>
   <div class="head cell size">Size</div>
 
   <ng-container *ngFor="let path of files">
@@ -10,16 +11,20 @@
         {{ path.title }}
       </div>
       <div class="cell format">Directory</div>
+      <div class="cell main"></div>
       <div class="cell size"></div>
     </ng-container>
 
     <ng-container *ngIf="path._type === 'File'">
-      <div class="cell title" [ngStyle]="{'padding-left.rem': 0.25 + 1.3 * path.level}">
+      <div class="cell title" [class.master-file]="path.master" [ngStyle]="{'padding-left.rem': 0.25 + 1.3 * path.level}">
         <div class="icon-container"><biosimulations-icon [icon]="path.icon"></biosimulations-icon></div>
         <a [href]="path.url" target="_blank" *ngIf="path.url" [download]="path.basename">{{ path.title }}</a>
       </div>
-      <div class="cell format"><a [href]="path.formatUrl" target="_blank" *ngIf="path.formatUrl">{{ path.format }}</a></div>
-      <div class="cell size">
+      <div class="cell format" [class.master-file]="path.master"><a [href]="path.formatUrl" target="_blank" *ngIf="path.formatUrl">{{ path.format }}</a></div>
+      <div class="cell main" [class.master-file]="path.master">
+        {{ path.master ? '&#10003;' : ''}}
+      </div>
+      <div class="cell size" [class.master-file]="path.master">
         <div *ngIf="path.size">{{ path.size }}</div>
       </div>
     </ng-container>

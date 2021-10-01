@@ -11,5 +11,8 @@ export class ProjectFilesComponent {
   @Input()
   files!: (Directory | File)[];
 
+  @Input()
+  usesMaster = false;
+
   constructor() {}
 }
