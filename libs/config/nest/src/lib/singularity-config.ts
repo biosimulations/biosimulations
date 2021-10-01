@@ -20,7 +20,7 @@ export default registerAs('singularity', () => {
       return {
         key: keyParts.slice(1).join('_'),
         value: keyVal[1],
-        purpose: keyParts.split('_')[0],
+        purpose: keyParts[0],
       };
     });
 
