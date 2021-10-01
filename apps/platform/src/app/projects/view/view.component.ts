@@ -3,8 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
-import { Directory, File, List } from '../datamodel';
+import { ProjectOverview, Directory, File, List } from '../datamodel';
 import { ViewService } from './view.service';
 
 @Component({
@@ -15,7 +16,7 @@ import { ViewService } from './view.service';
 export class ViewComponent implements OnInit {
   public loading$ = new BehaviorSubject(true);
   public loadingFigures$ = new BehaviorSubject(true);
-  public metadata$?: Observable<ArchiveMetadata | undefined> = undefined;
+  public overview$?: Observable<ProjectOverview | undefined> = undefined;
   public figureMetadata$?: Observable<ArchiveMetadata[] | undefined> =
     undefined;
   public simulationRun$?: Observable<List[]>;
@@ -40,7 +41,8 @@ export class ViewComponent implements OnInit {
   
   public ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
-    this.metadata$ = this.service.getArchiveMetadata(id).pipe(
+    
+    this.overview$ = this.service.getOverview(id).pipe(
       tap((_) => {
         this.loading$.next(false);
       }),

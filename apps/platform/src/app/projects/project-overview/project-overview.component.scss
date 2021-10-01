@@ -1,8 +1,49 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
-.thumbnails ::ng-deep .carousel-slide {
+.thumbnails {      
   border: 1px solid $light-bg-darker-20;
   border-radius: 4px;
+  aspect-ratio: 1;
+
+  ::ng-deep {
+    .carousel {
+      border-radius: 4px;
+    }
+
+    .carousel-list {
+      height: calc(100% - 25px - 0.5rem) !important;
+    }
+
+    .carousel-slide {
+      background-size: contain;
+    }
+
+    .carousel-indicators {
+      transform: none;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #00000011;
+      justify-content: center;
+    }
+
+    .mat-mini-fab.mat-accent {
+      background-color: mat.get-color-from-palette($theme-primary);
+    }
+    .mat-mini-fab.mat-accent:not(.mat-button-disabled) {
+      background-color: #cccccc;
+      box-shadow: none;
+    }
+  }
+}
+
+@media screen and (max-width: 959px) {
+  .thumbnails {
+    ::ng-deep {
+      height: 10px;
+    }
+  }
 }
 
 h2 {

@@ -30,6 +30,21 @@ export interface ProjectSummary {
   metadata: ProjectMetadataSummary;
 }
 
+interface Attribute {
+  icon: BiosimulationsIcon;
+  title: string;
+  values?: LabeledIdentifier[];
+}
+
+export interface ProjectOverview {
+  thumbnails: string[];
+  title?: string;
+  abstract?: string;
+  creators: LabeledIdentifier[];
+  description?: string;
+  attributes: Attribute[];
+}
+
 export interface Directory {
   _type: 'Directory';
   location: string;

@@ -5,32 +5,34 @@
   fxLayoutAlign="space-between"
   fxLayoutGap="2rem"
   fxLayoutGap.lt-md="1rem"
+  *ngIf="overview"
 >
   <!-- Begin thumbnails -->
   <div
-    *ngIf="showThumbnails | async"
-    class="thumbnails"
-    style.height="auto"
+    *ngIf="overview.thumbnails.length"      
+    class="thumbnails ragged-column"
     fxFlex="30"
   >
     <mat-carousel
-      *ngIf="thumbnails as images"
-      timings="250ms ease-in"
+      timings="1000ms ease-in"
       [autoplay]="true"
-      [interval]="5000"
+      [interval]="2500"
       color="accent"
       maxWidth="100%"
       [proportion]="100"
       [loop]="true"
       [hideArrows]="true"
-      [hideIndicators]="true"
+      [hideIndicators]="false"
       [useKeyboard]="true"
       [useMouseWheel]="true"
+      lazyLoad="true"
+      slideHeight="100%"
+      [maintainAspectRatio]="false"
     >
       <mat-carousel-slide
         [hideOverlay]="true"
-        *ngFor="let image of images"
-        image="{{ image }}"
+        *ngFor="let thumbnail of overview.thumbnails"
+        [image]="thumbnail"
       >
       </mat-carousel-slide>
     </mat-carousel>
@@ -38,14 +40,14 @@
   <!-- End thumbnails-->
 
   <!-- Begin summary/text data-->
-  <div fxFlex>
-    <h2>{{ title }}</h2>
-    <div class="abstract" *ngIf="abstract">{{ abstract }}</div>
+  <div fxFlex class="ragged-column">
+    <h2>{{ overview.title }}</h2>
+    <div class="abstract" *ngIf="overview.abstract">{{ overview.abstract }}</div>
 
     <!-- Begin creators/contributers-->
     <!-- TODO create ORCID people list component -->
-    <ul class="creators comma-separated ampersand-separator" *ngIf="creators?.length">
-      <li *ngFor="let creator of creators">
+    <ul class="creators comma-separated ampersand-separator" *ngIf="overview.creators.length">
+      <li *ngFor="let creator of overview.creators">
         {{ creator.label }}{{ creator.uri ? ' ' : ''
         }}<a [href]="creator.uri" target="_blank" *ngIf="creator.uri">
           <biosimulations-icon icon="orcid"></biosimulations-icon>
@@ -54,21 +56,23 @@
     </ul>
 
     <!-- description -->
-    <div class="description" *ngIf="description">{{ description }}</div>
+    <div class="description" *ngIf="overview.description">{{ overview.description }}</div>
 
     <!-- attributes -->
-    <div class="attributes" *ngIf="attributes?.length">
-      <ng-container *ngFor="let attribute of attributes">
-        <div>
-          <biosimulations-icon [icon]="attribute.icon"></biosimulations-icon>
-        </div>
-        <div>
-          <b>{{ attribute.title }}:</b>{{ ' ' }}
-          <a *ngIf="attribute.url; else noUrl" [href]="attribute.url" target="_blank">{{ attribute.label }}</a>
-          <ng-template #noUrl>
-            {{ attribute.label }}
-          </ng-template>
-        </div>
+    <div class="attributes" *ngIf="overview?.attributes?.length">
+      <ng-container *ngFor="let attribute of overview?.attributes">
+        <ng-container *ngFor="let value of attribute.values">
+          <div>
+            <biosimulations-icon [icon]="attribute.icon"></biosimulations-icon>
+          </div>
+          <div>
+            <b>{{ attribute.title }}:</b>{{ ' ' }}
+            <a *ngIf="value.uri; else noUrl" [href]="value.uri" target="_blank">{{ value.label }}</a>
+            <ng-template #noUrl>
+              {{ value.label }}
+            </ng-template>
+          </div>
+        </ng-container>
       </ng-container>
     </div>
   </div>

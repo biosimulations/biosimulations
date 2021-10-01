@@ -7,9 +7,11 @@ import {
 } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { ProjectsService } from '../projects.service';
-import { SimulatorIdNameMap, Directory, File, List, ListItem } from '../datamodel';
+import { SimulatorIdNameMap, ProjectOverview, Directory, File, List, ListItem } from '../datamodel';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
+import { MetadataValue } from './view.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,12 +26,113 @@ export class ViewService {
     })
   }
 
-  public getArchiveMetadata(id: string): Observable<ArchiveMetadata> {
-    const metaData: Observable<ArchiveMetadata> = this.getProjectMetadata(
+  public getOverview(id: string): Observable<ProjectOverview> {
+    return this.getProjectMetadata(
       id,
-    ).pipe(map((metadata) => metadata[0]));
+    ).pipe(
+      map((metadatas: ArchiveMetadata[]): ProjectOverview => {
+        let metadata!: ArchiveMetadata;
+        for (metadata of metadatas) {
+          if (metadata.uri.search('/') === -1) {
+            break;
+          }
+        }
 
-    return metaData;
+        const overview = {
+          thumbnails: metadata.thumbnails,
+          title: metadata?.title,
+          abstract: metadata?.abstract,
+          creators: metadata.creators,
+          description: metadata?.description,
+          attributes: [
+            {
+              values: metadata.encodes,
+              icon: 'cell' as BiosimulationsIcon,
+              title: 'Biology'          
+            },
+            {
+              values: metadata.taxa, 
+              icon: 'taxon' as BiosimulationsIcon, 
+              title: 'Taxon',
+            },
+            {
+              values: metadata.keywords, 
+              icon: 'tags' as BiosimulationsIcon, 
+              title: 'Keyword',
+            },
+            {
+              values: metadata.citations,
+              icon: 'file' as BiosimulationsIcon, 
+              title: 'Citation',
+            },
+            {
+              values: metadata.sources,
+              icon: 'file' as BiosimulationsIcon,
+              title: 'Source',
+            },
+            {
+              values: metadata.seeAlso,
+              icon: 'info' as BiosimulationsIcon, 
+              title: 'More info',
+            },
+            {
+              values: metadata.identifiers,
+              icon: 'id' as BiosimulationsIcon, 
+              title: 'Cross reference',
+            },
+            {
+              values: metadata.predecessors,
+              icon: 'backward' as BiosimulationsIcon, 
+              title: 'Predecessor',
+            },
+            {
+              values: metadata.successors,
+              icon: 'forward' as BiosimulationsIcon, 
+              title: 'Successor',
+            },
+            {
+              values: metadata.license,
+              icon: 'license' as BiosimulationsIcon, 
+              title: 'License',
+            },
+            {
+              values: metadata.contributors,
+              icon: 'author' as BiosimulationsIcon, 
+              title: 'Curator',
+            },
+            {
+              values: metadata.funders,
+              icon: 'funding' as BiosimulationsIcon, 
+              title: 'Funder',
+            },
+          ],
+        };        
+
+        if (metadata?.created) {
+          overview.attributes.push({
+            icon: 'date' as BiosimulationsIcon,
+            title: 'Created',
+            values: [{
+              label: UtilsService.formatDate(new Date(metadata?.created)),
+              uri: null,
+            }],
+          });
+        }
+
+        if (metadata?.modified.length) {
+          overview.attributes.push({
+            icon: 'date' as BiosimulationsIcon,
+            title: 'Last modified',
+            values: [{
+              label: UtilsService.formatDate(new Date(metadata?.modified[0])),
+              uri: null,
+            }],
+          });
+        }
+
+        return overview;
+      })
+    );
   }
 
   public getOtherMetadata(id: string): Observable<ArchiveMetadata[]> {
@@ -43,6 +146,7 @@ export class ViewService {
     );
     return metadata;
   }
+
   public getProjectMetadata(id: string): Observable<ArchiveMetadata[]> {
     const response: Observable<ArchiveMetadata[]> = this.service
       .getProject(id)

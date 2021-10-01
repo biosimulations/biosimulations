@@ -960,7 +960,7 @@ table {
   }
 
   .cell {
-    height: 26px;
+    height: 18px;
     vertical-align: middle;
   }
 
@@ -982,8 +982,11 @@ table {
     justify-content: center;
   }
 
-  biosimulations-icon ::ng-deep .mat-icon {
+  biosimulations-icon .mat-icon {
     font-size: 112%;
+    line-height: normal;
+    position: relative;
+    top: 2px;
   }
 
   a {

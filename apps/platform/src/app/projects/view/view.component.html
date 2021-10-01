@@ -1,13 +1,12 @@
 <biosimulations-tab-page>
-  <div class="tab-spinner-container" *ngIf="loading$ | async">
-    <biosimulations-spinner> </biosimulations-spinner>
-  </div>
-
   <!-- The overview tab for the entire project-->
-
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
-    <ng-container *ngIf="metadata$ | async as metadata">
-      <biosimulations-project-overview [metadata]="metadata">
+    <div class="tab-spinner-container" *ngIf="loading$ | async">
+      <biosimulations-spinner></biosimulations-spinner>
+    </div>
+
+    <ng-container *ngIf="overview$ | async as overview">
+      <biosimulations-project-overview [overview]="overview">
       </biosimulations-project-overview>
     </ng-container>
   </biosimulations-tab-page-tab>
