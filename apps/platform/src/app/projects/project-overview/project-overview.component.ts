@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   Input,
 } from '@angular/core';
-import { ProjectMetadata, List } from '../datamodel';
+import { ProjectMetadata, List } from '../view/view.model';
 
 @Component({
   selector: 'biosimulations-project-overview',

@@ -14,7 +14,8 @@ import {
 } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { ProjectsService } from '../projects.service';
-import { SimulatorIdNameMap, ProjectMetadata, Creator, Directory, File, List, ListItem } from '../datamodel';
+import { SimulatorIdNameMap } from '../datamodel';
+import { ProjectMetadata, Creator, Directory, File, List, ListItem } from './view.model';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';

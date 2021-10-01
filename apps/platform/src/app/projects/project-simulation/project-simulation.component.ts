@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { List } from '../datamodel';
+import { List } from '../view/view.model';
 
 @Component({
   selector: 'biosimulations-project-simulation',

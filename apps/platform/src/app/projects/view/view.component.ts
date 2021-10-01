@@ -4,7 +4,7 @@ import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { BehaviorSubject, Observable, tap, combineLatest, map } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
-import { ProjectMetadata, Directory, File, List } from '../datamodel';
+import { ProjectMetadata, Directory, File, List } from './view.model';
 import { ViewService } from './view.service';
 
 @Component({
