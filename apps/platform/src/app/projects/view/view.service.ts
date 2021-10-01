@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, pluck, shareReplay, of } from 'rxjs';
 import {
   ArchiveMetadata, 
+  LabeledIdentifier,
   DescribedIdentifier,
   CombineArchiveContentFormat,
   FORMATS,
@@ -13,11 +14,10 @@ import {
 } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { ProjectsService } from '../projects.service';
-import { SimulatorIdNameMap, ProjectMetadata, Directory, File, List, ListItem } from '../datamodel';
+import { SimulatorIdNameMap, ProjectMetadata, Creator, Directory, File, List, ListItem } from '../datamodel';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
-import { MetadataValue } from './view.model';
 
 @Injectable({
   providedIn: 'root',
@@ -48,7 +48,32 @@ export class ViewService {
           thumbnails: metadata.thumbnails,
           title: metadata?.title || id,
           abstract: metadata?.abstract,
-          creators: metadata.creators,
+          creators: metadata.creators.map(
+            (creator: LabeledIdentifier): Creator => {
+              let icon: BiosimulationsIcon = 'link';
+              if (creator.uri) {
+                if (creator.uri.match(/^https?:\/\/(wwww\.)?(identifiers\.org\/orcid[:/]|orcid\.org\/)/i)) {
+                  icon = 'orcid';
+                } else if (creator.uri.match(/^https?:\/\/(wwww\.)?(identifiers\.org\/github[:/]|github\.com\/)/i)) {
+                  icon = 'github';
+                } else if (creator.uri.match(/^https?:\/\/(wwww\.)?(linkedin\.com\/)/i)) {
+                  icon = 'linkedin';
+                } else if (creator.uri.match(/^https?:\/\/(wwww\.)?(twitter\.com\/)/i)) {
+                  icon = 'twitter';
+                } else if (creator.uri.match(/^https?:\/\/(wwww\.)?(facebook\.com\/)/i)) {
+                  icon = 'facebook';
+                } else if (creator.uri.match(/^mailto:/i)) {
+                  icon = 'email';
+                }
+              }
+
+              return {
+                label: creator.label,
+                uri: creator.uri,
+                icon: icon,
+              }
+            }
+          ),
           description: metadata?.description,
           attributes: [],
         };

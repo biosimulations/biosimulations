@@ -56,7 +56,7 @@
         <li *ngFor="let creator of projectMetadata.creators">
           {{ creator.label }}{{ creator.uri ? ' ' : ''
           }}<a [href]="creator.uri" target="_blank" *ngIf="creator.uri">
-            <biosimulations-icon icon="orcid"></biosimulations-icon>
+            <biosimulations-icon [icon]="creator.icon"></biosimulations-icon>
           </a>
         </li>
       </ul>

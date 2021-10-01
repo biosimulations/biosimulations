@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { BehaviorSubject, Observable, tap, combineLatest, map } from 'rxjs';
-import { delay } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
 import { ProjectMetadata, Directory, File, List } from '../datamodel';
 import { ViewService } from './view.service';

@@ -29,12 +29,16 @@
       left: 0;
       right: 0;
       bottom: 0;
+      padding-top: 1.5px;
+      padding-bottom: 1.5px;
       background: #00000011;
       justify-content: center;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
     }
 
     .mat-mini-fab.mat-accent {
-      background-color: mat.get-color-from-palette($theme-primary);
+      background-color: #aaa;
       box-shadow: none;
     }
   }
@@ -96,7 +100,7 @@
 
 .simulation-column {
   margin-top: -1rem;
-  
+
   ::ng-deep biosimulations-text-page-section {
     .container {
       margin-top: 1rem;

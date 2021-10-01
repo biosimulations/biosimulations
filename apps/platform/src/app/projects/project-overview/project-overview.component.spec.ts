@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material/card';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { MatCarouselModule } from '@ngbmodule/material-carousel';
 
 import { ProjectOverviewComponent } from './project-overview.component';
 
@@ -14,7 +14,7 @@ describe('ProjectOverviewComponent', () => {
       declarations: [ProjectOverviewComponent],
       imports: [
         BiosimulationsIconsModule,
-        IvyCarouselModule,
+        MatCarouselModule,
         MatCardModule,
       ],
     }).compileComponents();

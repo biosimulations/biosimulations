@@ -94,6 +94,8 @@ export type BiosimulationsIcon =
   | 'docker'
   | 'python'
   | 'linkedin'
+  | 'facebook'
+  | 'twitter'
   | 'orcid'
   | 'toTop'
   | 'more'
@@ -167,6 +169,8 @@ export class IconComponent {
     docker: { type: 'fab', name: 'docker' },
     python: { type: 'fab', name: 'python' },
     linkedin: { type: 'fab', name: 'linkedin' },
+    facebook: { type: 'fab', name: 'facebook' },
+    twitter: { type: 'fab', name: 'twitter' },
     orcid: { type: 'fab', name: 'orcid' },
     file: { type: 'fas', name: 'file-alt' },
     user: { type: 'fas', name: 'user' },

@@ -30,7 +30,13 @@ export interface ProjectSummary {
   metadata: ProjectMetadataSummary;
 }
 
-interface Attribute {
+export interface Creator {
+  label: string | null;
+  uri: string | null;
+  icon: BiosimulationsIcon;
+}
+
+export interface Attribute {
   icon: BiosimulationsIcon;
   title: string;
   values?: LabeledIdentifier[];
@@ -40,7 +46,7 @@ export interface ProjectMetadata {
   thumbnails: string[];
   title: string;
   abstract?: string;
-  creators: LabeledIdentifier[];
+  creators: Creator[];
   description?: string;
   attributes: Attribute[];
 }
