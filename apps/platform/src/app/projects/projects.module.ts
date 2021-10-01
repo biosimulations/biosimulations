@@ -21,7 +21,6 @@ import { ProjectCardComponent } from './project-card/project-card.component';
 import { ProjectsCardsBrowseComponent } from './projects-cards-browse/projects-cards-browse.component';
 import { ProjectOverviewComponent } from './project-overview/project-overview.component';
 import { ProjectFigureComponent } from './project-figure/project-figure.component';
-import { ProjectSimulationComponent } from './project-simulation/project-simulation.component';
 import { ProjectFilesComponent } from './project-files/project-files.component';
 import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
@@ -33,7 +32,6 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     ProjectsCardsBrowseComponent,
     ProjectOverviewComponent,
     ProjectFigureComponent,
-    ProjectSimulationComponent,
     ProjectFilesComponent,
   ],
   imports: [
