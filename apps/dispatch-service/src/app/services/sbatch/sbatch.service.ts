@@ -42,16 +42,21 @@ export class SbatchService {
       apiDomain = 'https://run.api.biosimulations.dev/';
     }
 
-    let singularityRunEnvVars = this.configService.get(
-      'singularity.runEnvVarAll',
-    );
-    if (purpose === Purpose.academic) {
-      singularityRunEnvVars = singularityRunEnvVars.concat(
-        this.configService.get('singularity.runEnvVarAcademic'),
-      );
-    }
+    const allEnvVars = [...envVars];
+    this.configService.get('singularity').forEach((envVarPurpose: any): void => {
+      if (envVarPurpose.purpose === 'ALL') {
+        allEnvVars.push({
+          key: envVarPurpose.key,
+          value: envVarPurpose.value,
+        });
 
-    const allEnvVars = envVars.concat(singularityRunEnvVars);
+      } else if (envVarPurpose.purpose == 'ACADEMIC' && purpose === Purpose.academic) {
+        allEnvVars.push({
+          key: envVarPurpose.key,
+          value: envVarPurpose.value,
+        });
+      }
+    });
 
     const allEnvVarsString =
       allEnvVars.length > 0
