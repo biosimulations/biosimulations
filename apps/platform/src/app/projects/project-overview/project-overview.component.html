@@ -9,12 +9,13 @@
 >
   <!-- Begin thumbnails -->
   <div
-    *ngIf="projectMetadata.thumbnails.length"      
-    class="thumbnails-column ragged-column"
+    *ngIf="projectMetadata.thumbnails.length"
+    class="thumbnails-column ragged-column"    
     fxFlex="20rem"
     fxFlex.lt-sm="100%"
   >
-    <div class="thumbnails-container" 
+    <div class="thumbnails-container"
+      [class.single-thumbnail]="projectMetadata.thumbnails.length === 1"
       fxFlex="20rem"
       fxFlex.lt-sm="100%"
     >
