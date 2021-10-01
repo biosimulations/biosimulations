@@ -384,17 +384,27 @@ export class ViewService {
               }
             });
 
-            let format!: string;
-            if (content.format in this.formatMap) {
-              const formatObj = this.formatMap[content.format]
-              format = formatObj.name;
+            let format = content.format;            
+            if (!(format in this.formatMap)) {
+              for (const uri of Object.keys(this.formatMap)) { 
+                if (format.startsWith(uri)) {
+                  format = uri;
+                  break;
+                }
+              }
+            }
+
+            let formatName!: string;
+            if (format in this.formatMap) {
+              const formatObj = this.formatMap[format]
+              formatName = formatObj.name;
               if (formatObj.acronym) {
-                format += ' (' + formatObj.acronym + ')';
-              }              
-            } else if (content.format.startsWith('http://purl.org/NET/mediatypes/')) {
-              format = content.format.substring('http://purl.org/NET/mediatypes/'.length);
+                formatName += ' (' + formatObj.acronym + ')';
+              }            
+            } else if (format.startsWith('http://purl.org/NET/mediatypes/')) {
+              formatName = format.substring('http://purl.org/NET/mediatypes/'.length);
             } else {
-              format = content.format;
+              formatName = format;
             }
 
             root[location] = {
@@ -403,12 +413,12 @@ export class ViewService {
               location: location,
               title: basename,
               basename: basename,
-              format: format,
+              format: formatName,
               master: content.master,
               url: `https://files.biosimulations.org/${id}/${location}`, // TODO: correct file URLs
               size: null, // UtilsService.formatDigitalSize(100), // TODO: incorporate and display file size
-              formatUrl: this.formatMap?.[content.format]?.url,
-              icon: this.formatMap?.[content.format]?.icon || 'file',
+              formatUrl: this.formatMap?.[format]?.url,
+              icon: this.formatMap?.[format]?.icon || 'file',
             };
           });
 
