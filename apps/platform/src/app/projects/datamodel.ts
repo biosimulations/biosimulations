@@ -36,9 +36,9 @@ interface Attribute {
   values?: LabeledIdentifier[];
 }
 
-export interface ProjectOverview {
+export interface ProjectMetadata {
   thumbnails: string[];
-  title?: string;
+  title: string;
   abstract?: string;
   creators: LabeledIdentifier[];
   description?: string;

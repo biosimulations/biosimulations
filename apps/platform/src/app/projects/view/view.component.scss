@@ -1,5 +1,11 @@
 @import 'biosimulations-colors';
 
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .wide-side-bar {
     width: 17rem;
 }

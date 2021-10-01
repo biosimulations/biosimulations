@@ -1,13 +1,18 @@
-<biosimulations-tab-page>
+<div class="spinner-container full-height has-breadcrumbs" *ngIf="(loaded$ | async) !== true">
+  <biosimulations-spinner></biosimulations-spinner>
+</div>
+
+<biosimulations-tab-page *ngIf="(loaded$ | async) === true">
   <!-- The overview tab for the entire project-->
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
-    <div class="tab-spinner-container" *ngIf="loading$ | async">
-      <biosimulations-spinner></biosimulations-spinner>
-    </div>
-
-    <ng-container *ngIf="overview$ | async as overview">
-      <biosimulations-project-overview [overview]="overview">
-      </biosimulations-project-overview>
+    <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
+      <ng-container *ngIf="simulationRun$ | async as simulationRun">
+        <biosimulations-project-overview 
+          [projectMetadata]="projectMetadata"
+          [simulationRun]="simulationRun"
+        >
+        </biosimulations-project-overview>
+      </ng-container>
     </ng-container>
   </biosimulations-tab-page-tab>
   <!-- End overview tab-->
@@ -41,19 +46,6 @@
       </biosimulations-text-page-content-section>
     </div>
   </biosimulations-tab-page-tab>
-
-  <!-- Information about the simulation run -->
-  <biosimulations-tab-page-tab
-    heading="Simulation run"
-    icon="simulation"
-    urlHashFragment="run"
-    *ngIf="simulationRun$ | async as simulationRun"
-  >
-    <biosimulations-project-simulation
-      [simulationRun]="simulationRun"
-    ></biosimulations-project-simulation>
-  </biosimulations-tab-page-tab>
-  <!-- End information about the simulation run -->
 
   <!--A tab for each vega spec present in the project-->
   <ng-container *ngIf="vegaSpecs$ | async as specs">

@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { ViewComponent } from './view.component';
 
 describe('ViewComponent', () => {
@@ -16,7 +16,7 @@ describe('ViewComponent', () => {
       declarations: [ViewComponent],
       imports: [
         BiosimulationsIconsModule,
-        IvyCarouselModule,
+        MatCarouselModule,
         HttpClientTestingModule,
         SharedUiModule,
         RouterTestingModule,

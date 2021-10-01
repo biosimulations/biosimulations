@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArchiveMetadata } from '@biosimulations/datamodel/common';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, combineLatest, map } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
-import { ProjectOverview, Directory, File, List } from '../datamodel';
+import { ProjectMetadata, Directory, File, List } from '../datamodel';
 import { ViewService } from './view.service';
 
 @Component({
@@ -14,9 +14,9 @@ import { ViewService } from './view.service';
   styleUrls: ['./view.component.scss'],
 })
 export class ViewComponent implements OnInit {
-  public loading$ = new BehaviorSubject(true);
+  public loaded$!: Observable<true>;
   public loadingFigures$ = new BehaviorSubject(true);
-  public overview$?: Observable<ProjectOverview | undefined> = undefined;
+  public projectMetadata$?: Observable<ProjectMetadata | undefined> = undefined;
   public figureMetadata$?: Observable<ArchiveMetadata[] | undefined> =
     undefined;
   public simulationRun$?: Observable<List[]>;
@@ -42,11 +42,12 @@ export class ViewComponent implements OnInit {
   public ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
     
-    this.overview$ = this.service.getOverview(id).pipe(
-      tap((_) => {
-        this.loading$.next(false);
-      }),
-    );
+    this.projectMetadata$ = this.service.getFormattedProjectMetadata(id);
+    this.simulationRun$ = this.service.getFormattedSimulationRun(id);
+
+    this.projectFiles$ = this.service.getFormattedProjectFiles(id);
+    this.files$ = this.service.getFormattedFiles(id);
+    this.outputs$ = this.service.getFormattedOutputs(id);
 
     this.figureMetadata$ = this.service.getOtherMetadata(id).pipe(
       tap((_) => {
@@ -54,16 +55,19 @@ export class ViewComponent implements OnInit {
       }),
     );
 
-    this.simulationRun$ = this.service.getSimulationRun(id);
-
     this.vegaFiles$ = this.service.getVegaFilesMetadata(id);
+    this.vegaSpecs$ = this.service.getVegaVisualizations(id);    
 
-    this.projectFiles$ = this.service.getProjectFiles(id);
-
-    this.files$ = this.service.getFiles(id);
-
-    this.vegaSpecs$ = this.service.getVegaVisualizations(id);
-
-    this.outputs$ = this.service.getOutputs(id);
+    this.loaded$ = combineLatest(
+      this.projectMetadata$,
+      this.simulationRun$, 
+      this.projectFiles$,
+      this.files$,
+      this.outputs$,
+    ).pipe(
+      map((observables: any) => {
+        return true;
+      }),
+    );
   }
 }

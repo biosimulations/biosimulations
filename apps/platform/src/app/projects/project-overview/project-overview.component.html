@@ -5,76 +5,98 @@
   fxLayoutAlign="space-between"
   fxLayoutGap="2rem"
   fxLayoutGap.lt-md="1rem"
-  *ngIf="overview"
+  *ngIf="projectMetadata && simulationRun"
 >
   <!-- Begin thumbnails -->
   <div
-    *ngIf="overview.thumbnails.length"      
-    class="thumbnails ragged-column"
-    fxFlex="400px"
+    *ngIf="projectMetadata.thumbnails.length"      
+    class="thumbnails-column ragged-column"
+    fxFlex="20rem"
+    fxFlex.lt-sm="100%"
   >
-    <mat-carousel
-      timings="1000ms ease-in"
-      [autoplay]="true"
-      [interval]="2500"
-      color="accent"
-      maxWidth="100%"
-      [proportion]="100"
-      [loop]="true"
-      [hideArrows]="true"
-      [hideIndicators]="false"
-      [useKeyboard]="true"
-      [useMouseWheel]="true"
-      lazyLoad="true"
-      slideHeight="100%"
-      [maintainAspectRatio]="false"
+    <div class="thumbnails-container" 
+      fxFlex="20rem"
+      fxFlex.lt-sm="100%"
     >
-      <mat-carousel-slide
-        [hideOverlay]="true"
-        *ngFor="let thumbnail of overview.thumbnails"
-        [image]="thumbnail"
+      <mat-carousel
+        timings="1000ms ease-in"
+        [autoplay]="true"
+        [interval]="2500"
+        color="accent"
+        maxWidth="100%"
+        [proportion]="100"
+        [loop]="true"
+        [hideArrows]="true"
+        [hideIndicators]="false"
+        [useKeyboard]="true"
+        [useMouseWheel]="true"
+        lazyLoad="true"
+        slideHeight="100%"
+        [maintainAspectRatio]="false"
       >
-      </mat-carousel-slide>
-    </mat-carousel>
+        <mat-carousel-slide
+          [hideOverlay]="true"
+          *ngFor="let thumbnail of projectMetadata.thumbnails"
+          [image]="thumbnail"
+        >
+        </mat-carousel-slide>
+      </mat-carousel>
+    </div>
   </div>
   <!-- End thumbnails-->
 
   <!-- Begin summary/text data-->
-  <div fxFlex class="ragged-column">
-    <h2>{{ overview.title }}</h2>
-    <div class="abstract" *ngIf="overview.abstract">{{ overview.abstract }}</div>
+  <div fxFlex class="metadata-column ragged-column">
+    <biosimulations-text-page-content-section [heading]="projectMetadata.title" [iconActionType]="null">
+      <div class="abstract" *ngIf="projectMetadata.abstract">{{ projectMetadata.abstract }}</div>
 
-    <!-- Begin creators/contributers-->
-    <!-- TODO create ORCID people list component -->
-    <ul class="creators comma-separated ampersand-separator" *ngIf="overview.creators.length">
-      <li *ngFor="let creator of overview.creators">
-        {{ creator.label }}{{ creator.uri ? ' ' : ''
-        }}<a [href]="creator.uri" target="_blank" *ngIf="creator.uri">
-          <biosimulations-icon icon="orcid"></biosimulations-icon>
-        </a>
-      </li>
-    </ul>
+      <!-- Begin creators/contributers-->
+      <!-- TODO create ORCID people list component -->
+      <ul class="creators comma-separated ampersand-separator" *ngIf="projectMetadata.creators.length">
+        <li *ngFor="let creator of projectMetadata.creators">
+          {{ creator.label }}{{ creator.uri ? ' ' : ''
+          }}<a [href]="creator.uri" target="_blank" *ngIf="creator.uri">
+            <biosimulations-icon icon="orcid"></biosimulations-icon>
+          </a>
+        </li>
+      </ul>
 
-    <!-- description -->
-    <div class="description" *ngIf="overview.description">{{ overview.description }}</div>
+      <!-- description -->
+      <div class="description" *ngIf="projectMetadata.description">{{ projectMetadata.description }}</div>
 
-    <!-- attributes -->
-    <div class="attributes" *ngIf="overview?.attributes?.length">
-      <ng-container *ngFor="let attribute of overview?.attributes">
-        <ng-container *ngFor="let value of attribute.values">
-          <div>
-            <biosimulations-icon [icon]="attribute.icon"></biosimulations-icon>
-          </div>
-          <div>
-            <b>{{ attribute.title }}:</b>{{ ' ' }}
-            <a *ngIf="value.uri; else noUrl" [href]="value.uri" target="_blank">{{ value.label }}</a>
-            <ng-template #noUrl>
-              {{ value.label }}
-            </ng-template>
-          </div>
+      <!-- attributes -->
+      <div class="attributes" *ngIf="projectMetadata?.attributes?.length">
+        <ng-container *ngFor="let attribute of projectMetadata?.attributes">
+          <ng-container *ngFor="let value of attribute.values">
+            <div>
+              <biosimulations-icon [icon]="attribute.icon"></biosimulations-icon>
+            </div>
+            <div>
+              <b>{{ attribute.title }}:</b>{{ ' ' }}
+              <a *ngIf="value.uri; else noUrl" [href]="value.uri" target="_blank">{{ value.label }}</a>
+              <ng-template #noUrl>
+                {{ value.label }}
+              </ng-template>
+            </div>
+          </ng-container>
         </ng-container>
-      </ng-container>
-    </div>
+      </div>
+    </biosimulations-text-page-content-section>
   </div>
   <!-- End summary/text data-->
+
+  <!-- Simulation information -->
+  <div fxFlex="20rem" fxFlex.lt-sm="100%" class="simulation-column ragged-column">
+    <biosimulations-text-page-side-bar-section *ngFor="let section of simulationRun" [heading]="section.title">
+      <ul class="icon-list">
+        <li *ngFor="let item of section.items">
+          <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
+          <b>{{ item.title }}:</b>{{ ' ' }}
+          <a [href]="item.url" target="_blank" *ngIf="item.url; else noHref">{{ item.value | async }}</a>
+          <ng-template #noHref>{{ item.value | async }}</ng-template>
+        </li>
+      </ul>
+    </biosimulations-text-page-side-bar-section>
+  </div>
+  <!-- End simulation information -->
 </div>

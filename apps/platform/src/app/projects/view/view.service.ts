@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, pluck, shareReplay, of } from 'rxjs';
-import { ArchiveMetadata, CombineArchiveContentFormat, FORMATS, COMBINE_OMEX_FORMAT } from '@biosimulations/datamodel/common';
+import {
+  ArchiveMetadata, 
+  DescribedIdentifier,
+  CombineArchiveContentFormat,
+  FORMATS,
+  COMBINE_OMEX_FORMAT,
+} from '@biosimulations/datamodel/common';
 import {
   ArchiveMetadata as APIMetadata,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { ProjectsService } from '../projects.service';
-import { SimulatorIdNameMap, ProjectOverview, Directory, File, List, ListItem } from '../datamodel';
+import { SimulatorIdNameMap, ProjectMetadata, Directory, File, List, ListItem } from '../datamodel';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
@@ -26,11 +32,11 @@ export class ViewService {
     })
   }
 
-  public getOverview(id: string): Observable<ProjectOverview> {
+  public getFormattedProjectMetadata(id: string): Observable<ProjectMetadata> {
     return this.getProjectMetadata(
       id,
     ).pipe(
-      map((metadatas: ArchiveMetadata[]): ProjectOverview => {
+      map((metadatas: ArchiveMetadata[]): ProjectMetadata => {
         let metadata!: ArchiveMetadata;
         for (metadata of metadatas) {
           if (metadata.uri.search('/') === -1) {
@@ -38,78 +44,88 @@ export class ViewService {
           }
         }
 
-        const overview = {
+        const formattedMetadata: ProjectMetadata = {
           thumbnails: metadata.thumbnails,
-          title: metadata?.title,
+          title: metadata?.title || id,
           abstract: metadata?.abstract,
           creators: metadata.creators,
           description: metadata?.description,
-          attributes: [
-            {
-              values: metadata.encodes,
-              icon: 'cell' as BiosimulationsIcon,
-              title: 'Biology'          
-            },
-            {
-              values: metadata.taxa, 
-              icon: 'taxon' as BiosimulationsIcon, 
-              title: 'Taxon',
-            },
-            {
-              values: metadata.keywords, 
-              icon: 'tags' as BiosimulationsIcon, 
-              title: 'Keyword',
-            },
-            {
-              values: metadata.citations,
-              icon: 'file' as BiosimulationsIcon, 
-              title: 'Citation',
-            },
-            {
-              values: metadata.sources,
-              icon: 'file' as BiosimulationsIcon,
-              title: 'Source',
-            },
-            {
-              values: metadata.seeAlso,
-              icon: 'info' as BiosimulationsIcon, 
-              title: 'More info',
-            },
-            {
-              values: metadata.identifiers,
-              icon: 'id' as BiosimulationsIcon, 
-              title: 'Cross reference',
-            },
-            {
-              values: metadata.predecessors,
-              icon: 'backward' as BiosimulationsIcon, 
-              title: 'Predecessor',
-            },
-            {
-              values: metadata.successors,
-              icon: 'forward' as BiosimulationsIcon, 
-              title: 'Successor',
-            },
-            {
-              values: metadata.license,
-              icon: 'license' as BiosimulationsIcon, 
-              title: 'License',
-            },
-            {
-              values: metadata.contributors,
-              icon: 'author' as BiosimulationsIcon, 
-              title: 'Curator',
-            },
-            {
-              values: metadata.funders,
-              icon: 'funding' as BiosimulationsIcon, 
-              title: 'Funder',
-            },
-          ],
-        };        
+          attributes: [],
+        };
+
+        formattedMetadata.attributes.push({
+          values: metadata.encodes,
+          icon: 'cell' as BiosimulationsIcon,
+          title: 'Biology'          
+        });
+        formattedMetadata.attributes.push({
+          values: metadata.taxa, 
+          icon: 'taxon' as BiosimulationsIcon, 
+          title: 'Taxon',
+        });
+        formattedMetadata.attributes.push({
+          values: metadata.keywords, 
+          icon: 'tags' as BiosimulationsIcon, 
+          title: 'Keyword',
+        });
+        metadata.other.forEach((other: DescribedIdentifier): void => {
+          formattedMetadata.attributes.push({
+            icon: 'info' as BiosimulationsIcon,
+            title: (other.attribute_label || other.attribute_uri) as string,
+            values: [{
+              label: (other.label || other.uri) as string,
+              uri: other.uri,
+            }],
+          });
+        });
+        formattedMetadata.attributes.push({
+          values: metadata.seeAlso,
+          icon: 'link' as BiosimulationsIcon, 
+          title: 'More info',
+        });
+        formattedMetadata.attributes.push({
+          values: metadata.citations,
+          icon: 'file' as BiosimulationsIcon, 
+          title: 'Citation',
+        });
+        formattedMetadata.attributes.push({
+          values: metadata.sources,
+          icon: 'code' as BiosimulationsIcon,
+          title: 'Source',
+        });
+        formattedMetadata.attributes.push({
+          values: metadata.identifiers,
+          icon: 'id' as BiosimulationsIcon, 
+          title: 'Cross reference',
+        });
+        formattedMetadata.attributes.push({
+          values: metadata.predecessors,
+          icon: 'backward' as BiosimulationsIcon, 
+          title: 'Predecessor',
+        });
+        formattedMetadata.attributes.push({
+          values: metadata.successors,
+          icon: 'forward' as BiosimulationsIcon, 
+          title: 'Successor',
+        });
+        formattedMetadata.attributes.push({
+          values: metadata.license,
+          icon: 'license' as BiosimulationsIcon, 
+          title: 'License',
+        });
+        formattedMetadata.attributes.push({
+          values: metadata.contributors,
+          icon: 'author' as BiosimulationsIcon, 
+          title: 'Curator',
+        });
+        formattedMetadata.attributes.push({
+          values: metadata.funders,
+          icon: 'funding' as BiosimulationsIcon, 
+          title: 'Funder',
+        });
 
         if (metadata?.created) {
-          overview.attributes.push({
+          formattedMetadata.attributes.push({
             icon: 'date' as BiosimulationsIcon,
             title: 'Created',
             values: [{
@@ -120,7 +136,7 @@ export class ViewService {
         }
 
         if (metadata?.modified.length) {
-          overview.attributes.push({
+          formattedMetadata.attributes.push({
             icon: 'date' as BiosimulationsIcon,
             title: 'Last modified',
             values: [{
@@ -130,7 +146,7 @@ export class ViewService {
           });
         }
 
-        return overview;
+        return formattedMetadata;
       })
     );
   }
@@ -147,7 +163,7 @@ export class ViewService {
     return metadata;
   }
 
-  public getProjectMetadata(id: string): Observable<ArchiveMetadata[]> {
+  private getProjectMetadata(id: string): Observable<ArchiveMetadata[]> {
     const response: Observable<ArchiveMetadata[]> = this.service
       .getProject(id)
       .pipe(
@@ -169,7 +185,7 @@ export class ViewService {
     return response;
   }
 
-  public getSimulationRun(id: string): Observable<List[]> {
+  public getFormattedSimulationRun(id: string): Observable<List[]> {
     return this.service.getProjectSimulation(id).pipe(
       map((simulationRun: any): List[] => { // SimulationRun
         const methods: ListItem[] = [];
@@ -224,48 +240,6 @@ export class ViewService {
           url: `https://biosimulators.org/simulators/${simulationRun.simulator}/${simulationRun.simulatorVersion}`,
         });
 
-        const compResources: ListItem[] = [];
-
-        compResources.push({
-          title: 'Project',
-          value: of(UtilsService.formatDigitalSize(simulationRun.projectSize)),
-          icon: 'disk',
-          url: null,
-        });
-
-        compResources.push({
-          title: 'Results',
-          value: of(UtilsService.formatDigitalSize(simulationRun.resultsSize)),
-          icon: 'disk',
-          url: null,
-        });
-
-        const durationSec = this.service.getProjectSimulationLog(simulationRun.id)
-          .pipe(
-            pluck('duration'),
-            map((durationSec: number): string => UtilsService.formatDuration(durationSec)),
-          );
-        compResources.push({
-          title: 'Duration',
-          value: durationSec,
-          icon: 'duration',
-          url: null,
-        });
-
-        compResources.push({
-          title: 'CPUs',
-          value: of(simulationRun.cpus.toString()),
-          icon: 'processor',
-          url: null,
-        });
-
-        compResources.push({
-          title: 'Memory',
-          value: of(UtilsService.formatDigitalSize(simulationRun.memory * 1e9)),
-          icon: 'memory',
-          url: null,
-        });
-
         const run: ListItem[] = [];
 
         run.push({
@@ -273,6 +247,32 @@ export class ViewService {
           value: of(simulationRun.id),
           icon: 'id',
           url: `${urls.dispatch}/simulations/${id}`,
+        });
+
+        const durationSec = this.service.getProjectSimulationLog(simulationRun.id)
+          .pipe(
+            pluck('duration'),
+            map((durationSec: number): string => UtilsService.formatDuration(durationSec)),
+          );
+        run.push({
+          title: 'Duration',
+          value: durationSec,
+          icon: 'duration',
+          url: null,
+        });
+
+        run.push({
+          title: 'CPUs',
+          value: of(simulationRun.cpus.toString()),
+          icon: 'processor',
+          url: null,
+        });
+
+        run.push({
+          title: 'Memory',
+          value: of(UtilsService.formatDigitalSize(simulationRun.memory * 1e9)),
+          icon: 'memory',
+          url: null,
         });
 
         run.push({
@@ -291,18 +291,19 @@ export class ViewService {
 
         // return sections
         const sections = [
-          {title: 'Methods', items: methods},
-          {title: 'Formats', items: formats},
-          {title: 'Tools', items: tools},
-          {title: 'Computational resources', items: compResources},
+          {title: 'Simulation methods', items: methods},
+          {title: 'Modeling formats', items: formats},
+          {title: 'Simulation tools', items: tools},
           {title: 'Simulation run', items: run},
         ];
-        return sections;
+        return sections.filter((section: List): boolean => {
+          return section.items.length > 0;
+        });
       }),
     );
   }
 
-  public getProjectFiles(id: string): Observable<File[]> {
+  public getFormattedProjectFiles(id: string): Observable<File[]> {
     return this.service.getProjectSimulation(id).pipe(
       map((simulationRun: any): File[] => { // SimulationRun
         return [
@@ -324,7 +325,7 @@ export class ViewService {
     );
   }
 
-  public getFiles(id: string): Observable<(Directory | File)[]> {
+  public getFormattedFiles(id: string): Observable<(Directory | File)[]> {
     return this.service.getArchiveContents(id).pipe(
       map((archive: any): (Directory | File)[] => {
         const root: {[path: string]: Directory | File} = {};
@@ -443,7 +444,7 @@ export class ViewService {
     return this.service.getProjectSedmlContents(id);
   }
 
-  public getOutputs(id: string): Observable<File[]> {
+  public getFormattedOutputs(id: string): Observable<File[]> {
     return this.service.getProjectSimulation(id).pipe(
       map((simulationRun: any): File[] => { // SimulationRun
         return [          
