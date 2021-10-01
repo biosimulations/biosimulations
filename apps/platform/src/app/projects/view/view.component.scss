@@ -17,3 +17,12 @@ biosimulations-tab-page ::ng-deep .icon-list {
     }
   }
 }
+
+.files {
+  margin-top: -2rem;
+  ::ng-deep {
+    h3 .icon-container {
+      display: none;
+    }
+  }
+}

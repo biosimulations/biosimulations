@@ -18,7 +18,7 @@
     icon="project"
     urlHashFragment="files"    
   >
-    <div class="partial-width">
+    <div class="partial-width files">
       <biosimulations-text-page-content-section heading="Project" *ngIf="projectFiles$ | async as files">
         <biosimulations-project-files id="content"
           [files]="files"
