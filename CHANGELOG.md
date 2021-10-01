@@ -1,3 +1,11 @@
+## [5.1.1](https://github.com/biosimulations/biosimulations/compare/v5.1.0...v5.1.1) (2021-10-01)
+
+
+### Bug Fixes
+
+* **platform:** corrected handling of software license keys for simulation ([84bef20](https://github.com/biosimulations/biosimulations/commit/84bef20d9c035168d7d74fcffdeafae97091af8f))
+* **platform:** corrected handling of software license keys for simulation ([aba13fe](https://github.com/biosimulations/biosimulations/commit/aba13fe9c30c2355d6d63a9a3546fa78062b82d6))
+
 # [5.1.0](https://github.com/biosimulations/biosimulations/compare/v5.0.0...v5.1.0) (2021-09-29)
 
 
