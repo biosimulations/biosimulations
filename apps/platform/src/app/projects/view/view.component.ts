@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ArchiveMetadata } from '@biosimulations/datamodel/common';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { BehaviorSubject, Observable, tap, combineLatest, map } from 'rxjs';
-import { Spec as VegaSpec } from 'vega';
-import { ProjectMetadata, Directory, File, List } from './view.model';
+import { ProjectMetadata, Directory, File, List, VisualizationList, Visualization } from './view.model';
 import { ViewService } from './view.service';
+import { ProjectVisualizationComponent } from '../project-visualization/project-visualization.component';
 
 @Component({
   selector: 'biosimulations-view',
@@ -14,32 +14,26 @@ import { ViewService } from './view.service';
 })
 export class ViewComponent implements OnInit {
   public loaded$!: Observable<true>;
-  public loadingFigures$ = new BehaviorSubject(true);
+  
+  public id!: string;
+
   public projectMetadata$?: Observable<ProjectMetadata | undefined> = undefined;
-  public figureMetadata$?: Observable<ArchiveMetadata[] | undefined> =
-    undefined;
   public simulationRun$?: Observable<List[]>;
-  public figures$?: Observable<
-    {
-      path: string;
-      spec: Observable<string>;
-      metadata: Observable<ArchiveMetadata>;
-    }[]
-  >;
-  public vegaSpecs$?: Observable<
-    { id: string; path: string; spec: Observable<VegaSpec> }[]
-  >;
-  public vegaFiles$?: Observable<any>;
+  
   public projectFiles$?: Observable<(Directory | File)[]>;
   public files$?: Observable<(Directory | File)[]>;
   public outputs$?: Observable<File[]>;
+
+  public visualizations$?: Observable<VisualizationList[]>;
+  public visualization: Visualization | null = null;
+
+  @ViewChild(ProjectVisualizationComponent)
+  private visualizationComponent!: ProjectVisualizationComponent;
   
   constructor(private service: ViewService, private route: ActivatedRoute) {}
   
-  public showImage = new BehaviorSubject(false);
-  
   public ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
+    const id = this.id = this.route.snapshot.params['id'];
     
     this.projectMetadata$ = this.service.getFormattedProjectMetadata(id);
     this.simulationRun$ = this.service.getFormattedSimulationRun(id);
@@ -48,14 +42,7 @@ export class ViewComponent implements OnInit {
     this.files$ = this.service.getFormattedFiles(id);
     this.outputs$ = this.service.getFormattedOutputs(id);
 
-    this.figureMetadata$ = this.service.getOtherMetadata(id).pipe(
-      tap((_) => {
-        this.loadingFigures$.next(false);
-      }),
-    );
-
-    this.vegaFiles$ = this.service.getVegaFilesMetadata(id);
-    this.vegaSpecs$ = this.service.getVegaVisualizations(id);    
+    this.visualizations$ = this.service.getVisualizations(id);
 
     this.loaded$ = combineLatest(
       this.projectMetadata$,
@@ -63,10 +50,30 @@ export class ViewComponent implements OnInit {
       this.projectFiles$,
       this.files$,
       this.outputs$,
+      this.visualizations$,
     ).pipe(
       map((observables: any) => {
         return true;
       }),
     );
+  }
+
+  selectedTabIndex = 0;
+  viewVisualizationTabDisabled = true;
+  selectVisualizationTabIndex = 2;
+  visualizationTabIndex = 3;
+
+  public renderVisualization(visualization: Visualization): void {
+    this.selectedTabIndex = this.visualizationTabIndex;
+    this.viewVisualizationTabDisabled = false;
+    this.visualization = visualization;    
+  }
+
+  public selectedTabChange($event: MatTabChangeEvent): void {
+    if ($event.index == this.visualizationTabIndex) {
+      if (this.viewVisualizationTabDisabled) {
+        this.selectedTabIndex = this.selectVisualizationTabIndex;
+      }
+    }
   }
 }

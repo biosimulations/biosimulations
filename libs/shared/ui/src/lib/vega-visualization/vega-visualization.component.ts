@@ -3,8 +3,8 @@ import {
   ViewChild,
   ElementRef,
   Input,
-  HostListener,
   OnDestroy,
+  HostListener,
 } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Spec } from 'vega';
@@ -26,7 +26,7 @@ export class VegaVisualizationComponent implements OnDestroy {
     this.builtInConsoleWarn = console.warn;
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     console.warn = this.builtInConsoleWarn;
   }
 
@@ -49,62 +49,75 @@ export class VegaVisualizationComponent implements OnDestroy {
     });
   }
 
+  // TODO: make private once dispatch app refactored to new visualization component
   render(): void {
-    if (this.hostElement) {
-      if (this._spec) {
-        const rect =
-          this.hostElement.nativeElement.parentElement?.getBoundingClientRect();
-        const options = {
-          width: Math.max(rect?.width || 0, 10),
-          height: Math.max(rect?.height || 0, 10),
-          padding: 0,
-        };
-
-        const dataUrls: string[] = [];
-        this._spec?.data?.forEach((data: any): void => {
-          const url = data?.url;
-          if (url) {
-            dataUrls.push(url as string);
-          }
-        });
-
-        console.warn = function (
-          this: VegaVisualizationComponent,
-          ...args: any[]
-        ): void {
-          if (
-            args.length === 4 &&
-            args[1] == 'Loading failed' &&
-            dataUrls.includes(args[2]) &&
-            args[3].constructor.name === 'Error' &&
-            args[3].message === '500'
-          ) {
-            this.error.next(
-              'The data for the visualization could not be loaded.',
-            );
-          } else {
-            this.builtInConsoleWarn(...args);
-          }
-        }.bind(this);
-
-        vegaEmbed(
-          this.vegaContainer.nativeElement,
-          this._spec as Spec,
-          options,
-        ).catch((error: Error): void => {
-          if (!environment.production) {
-            console.error(error);
-          }
-          this.error.next(`The visualization is invalid: ${error.message}.`);
-        });
-      } else {
-        this.error.next('Visualization could not be loaded.');
-      }
+    if (!this.hostElement) {
+      return;
     }
+
+    if (!this._spec) {
+      this.error.next('Visualization could not be loaded.');
+      return;
+    }
+
+    const rect =
+      this.hostElement.nativeElement.parentElement?.getBoundingClientRect();    
+    if (rect?.width === null || rect?.width === 0 || rect?.height === null || rect?.height === 0) {
+      return;
+    }
+    const options = {
+      width: Math.max(rect?.width, 10),
+      height: Math.max(rect?.height, 10),
+      padding: 0,
+    };
+
+    const dataUrls: string[] = [];
+    (this._spec as Spec).data?.forEach((data: any): void => {
+      const url = data?.url;
+      if (url) {
+        dataUrls.push(url as string);
+      }
+    });
+
+    console.warn = function (
+      this: VegaVisualizationComponent,
+      ...args: any[]
+    ): void {
+      if (
+        args.length === 4 &&
+        args[1] == 'Loading failed' &&
+        dataUrls.includes(args[2]) &&
+        args[3].constructor.name === 'Error' &&
+        args[3].message === '500'
+      ) {
+        this.error.next(
+          'The data for the visualization could not be loaded.',
+        );
+      } else {
+        this.builtInConsoleWarn(...args);
+      }
+    }.bind(this);
+
+    vegaEmbed(
+      this.vegaContainer.nativeElement,
+      this._spec as Spec,
+      options,
+    ).catch((error: Error): void => {
+      if (!environment.production) {
+        console.error(error);
+      }
+      this.error.next(`The visualization is invalid: ${error.message}.`);
+    });
   }
 
   @HostListener('window:resize')
   onResize() {
-    this.render();
+    const rect = this.hostElement.nativeElement.parentElement?.getBoundingClientRect();
+    if (
+      !(rect?.width === null || rect?.width === 0) &&
+      !(rect?.height === null || rect?.height === 0)
+    ) {
+      this.render();
+    }
   }
 }

@@ -9,12 +9,14 @@ import {
   MODEL_FORMATS,
   SEDML_FORMAT,
   COMBINE_OMEX_FORMAT,
+  VEGA_FORMAT,
   CombineArchive,
   CombineArchiveContent,
   SedDocumentReportsCombineArchiveContent,
   SedDocument,
   SedAbstractTask,
   SedTask,
+  SedOutput,
   Ontologies,
   KisaoTerm,
   SimulationTypeBriefName,
@@ -26,7 +28,15 @@ import {
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { ProjectsService } from '../projects.service';
 import { SimulatorIdNameMap } from '../datamodel';
-import { ProjectMetadata, Creator, Directory, File, List, ListItem } from './view.model';
+import { ProjectMetadata, Creator, Directory, File, List, ListItem, 
+  VisualizationList,
+  Visualization,
+  SedPlot2DVisualization,
+  VegaVisualization, 
+  Histogram1DVisualization, 
+  Heatmap2DVisualization,
+  Line2DVisualization,
+} from './view.model';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
@@ -452,10 +462,10 @@ export class ViewService {
 
         archive.contents
           .filter((content: any): boolean => {
-            return content.location.value.filename != '.';
+            return content.location.path != '.';
           })
           .forEach((content: any): void => {
-            let location = content.location.value.filename;
+            let location = content.location.path;
             if (location.substring(0, 2) === './') {
               location = location.substring(2);
             }
@@ -532,48 +542,6 @@ export class ViewService {
     );
   }
 
-  public getVegaFilesMetadata(id: string) {
-    return this.service.getArchiveContents(id).pipe(
-      pluck('contents'),
-      // Get the information for the files that have vega format
-      map((data) =>
-        data.filter((item: any) =>
-          item.format.endsWith(
-            'http://purl.org/NET/mediatypes/application/vega+json',
-          ),
-        ),
-      ),
-    );
-  }
-
-  public getVegaVisualizations(
-    id: string,
-  ): Observable<
-    [{ id: string; path: string; spec: Observable<{ $schema: string }> }]
-  > {
-    return this.getVegaFilesMetadata(id).pipe(
-      // Just need the information about the path of the file within the archive
-      map((data) => data.map((item: any) => item.location.path)),
-      map((paths) =>
-        paths.map((path: string) => {
-          return {
-            path: path,
-            id: id,
-            spec: this.service.getProjectFile(id, path),
-          };
-        }),
-      ),
-    );
-  }
-  
-  public getSedmlVisualizations(id: string): Observable<string[]> {
-    return this.service.getProjectSedmlContents(id);
-  }
-
-  public getProjectSedmlContent(id: string): Observable<string> {
-    return this.service.getProjectSedmlContents(id);
-  }
-
   public getFormattedOutputs(id: string): Observable<File[]> {
     return this.service.getSimulationRun(id).pipe(
       map((simulationRun: any): File[] => { // SimulationRun
@@ -619,6 +587,127 @@ export class ViewService {
           }
         ];
       })
+    );
+  }
+
+  public getVisualizations(id: string): Observable<VisualizationList[]> {
+    return combineLatest(
+      this.service.getArchiveContents(id),
+      this.service.getProjectSedmlContents(id),
+    ).pipe(
+      map((args: [any, CombineArchive]): VisualizationList[] => {
+        const archive = args[0];
+        const sedmlArchive = args[1];        
+        
+        const vegaVisualizations: VegaVisualization[] = [];
+        archive.contents.forEach((content: any): void => {
+          if (content.format === VEGA_FORMAT.combineUri) {
+            let location = content.location.path;
+            if (location.startsWith('./')) {
+              location = location.substring(2);
+            }
+
+            let name = location;
+            if (name.endsWith('.json')) {
+              name = name.substring(0, name.length - 5);
+            }
+            if (name.endsWith('.vega')) {
+              name = name.substring(0, name.length - 5);
+            }
+
+            vegaVisualizations.push({
+              _type: 'VegaVisualization',
+              id: location,
+              name: name,
+              simulationId: id,
+              sedDocumentConfigurations: sedmlArchive,
+              vegaSpec: this.service.getProjectFile(id, content.location.path),
+            });
+          }
+        });
+        vegaVisualizations.sort((a: VegaVisualization, b: VegaVisualization): number => {
+          return a.name.localeCompare(b.name, undefined, { numeric: true });
+        });
+
+        const sedmlVisualizations = sedmlArchive.contents.map((sedmlContent: CombineArchiveContent): VisualizationList => {
+          const sedDoc: SedDocument = (sedmlContent as SedDocumentReportsCombineArchiveContent).location.value;
+          let location = sedmlContent.location.path;
+          if (location.startsWith('./')) {
+            location = location.substring(2);
+          }
+          let name = location;
+          if (name.endsWith('.sedml')) {
+            name = name.substring(0, name.length - 6);
+          }
+          return {
+            title: name + ' (SED-ML)',
+            visualizations: sedDoc.outputs
+              .filter((output: SedOutput): boolean => {
+                return output._type === 'SedPlot2D';
+              })
+              .map((output: SedOutput): SedPlot2DVisualization => {
+                return {
+                  _type: 'SedPlot2DVisualization',
+                  id: `${location}/${output.id}`,
+                  name: `${output.name || output.id}`,
+                  location: location,
+                  outputId: output.id,
+                };
+              })
+              .sort((a: Visualization, b: Visualization): number => {
+                return a.name.localeCompare(b.name, undefined, { numeric: true });
+              }),
+            };
+        });
+        sedmlVisualizations.sort((a: VisualizationList, b: VisualizationList): number => {
+          return a.title.localeCompare(b.title, undefined, { numeric: true });
+        });
+
+        return ([
+          {
+            title: 'Vega charts',
+            visualizations: vegaVisualizations,
+          }
+        ] as VisualizationList[]
+        )
+        .concat(sedmlVisualizations)
+        .concat([
+          {
+            title: 'Design a chart',
+            visualizations: [
+              {
+                _type: 'Histogram1DVisualization',
+                id: 'Histogram1DVisualization',
+                name: '1D histogram',
+              },
+              {
+                _type: 'Heatmap2DVisualization',
+                id: 'Heatmap2DVisualization',
+                name: '2D heatmap',
+              },
+              {
+                _type: 'SedPlot2DVisualization',
+                id: 'SedPlot2DVisualization',
+                name: '2D line plot',
+              },
+            ] as Visualization[],
+          }
+        ] as VisualizationList[]);
+      })
+    );
+  }
+
+  public getVegaFilesMetadata(id: string) {
+    return this.service.getArchiveContents(id).pipe(
+      pluck('contents'),
+      // Get the information for the files that have vega format
+      map((data) =>
+        data.filter((item: any) =>
+          item.format.endsWith(
+            'http://purl.org/NET/mediatypes/application/vega+json',
+          ),
+        ),
+      ),
     );
   }
 }

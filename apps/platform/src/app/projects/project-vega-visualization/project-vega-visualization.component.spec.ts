@@ -2,21 +2,21 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { of } from 'rxjs';
 
-import { ProjectFigureComponent } from './project-figure.component';
+import { ProjectVegaVisualizationComponent } from './project-figure.component';
 
-describe('ProjectFiguresComponent', () => {
-  let component: ProjectFigureComponent;
-  let fixture: ComponentFixture<ProjectFigureComponent>;
+describe('ProjectVegaVisualizationComponent', () => {
+  let component: ProjectVegaVisualizationComponent;
+  let fixture: ComponentFixture<ProjectVegaVisualizationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectFigureComponent],
+      declarations: [ProjectVegaVisualizationComponent],
       imports: [SharedUiModule],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectFigureComponent);
+    fixture = TestBed.createComponent(ProjectVegaVisualizationComponent);
     component = fixture.componentInstance;
     component.figure = { id: '', path: '', spec: of({}) };
     fixture.detectChanges();

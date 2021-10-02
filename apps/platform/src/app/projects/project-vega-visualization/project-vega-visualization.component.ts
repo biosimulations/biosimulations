@@ -1,32 +1,45 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { SedDocument, SedSimulation, SedReport } from '../datamodel';
+import {  
+  CombineArchive,
+  SedDocumentReportsCombineArchiveContent,
+  SedDocument,
+  SedSimulation,
+  SedReport,
+} from '@biosimulations/datamodel/common';
 import { Spec as VegaSpec } from 'vega';
 import { Endpoints } from '@biosimulations/config/common';
+import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
+
 @Component({
-  selector: 'biosimulations-project-figure',
-  templateUrl: './project-figure.component.html',
-  styleUrls: ['./project-figure.component.scss'],
+  selector: 'biosimulations-project-vega-visualization',
+  templateUrl: './project-vega-visualization.component.html',
+  styleUrls: ['./project-vega-visualization.component.scss'],
 })
-export class ProjectFigureComponent implements OnInit {
+export class ProjectVegaVisualizationComponent implements OnInit {
   @Input()
-  figure!: { id: string; path: string; spec: Observable<VegaSpec> };
+  simulationId!: string;
 
   @Input()
-  sedDocumentsConfiguration: any;
+  sedDocumentConfigurations!: CombineArchive;
+
+  @Input()
+  vegaSpec!: Observable<VegaSpec>;
 
   spec!: Observable<false | undefined | VegaSpec>;
   private endpoints = new Endpoints();
+
+  @ViewChild(VegaVisualizationComponent)
+  private vegaComponent!: VegaVisualizationComponent;
+
   constructor() {}
 
   ngOnInit(): void {
-    console.error('here');
-
     this.setupVega();
   }
 
-  private setupVega() {
-    this.spec = this.figure?.spec.pipe(
+  private setupVega(): void {
+    this.spec = this.vegaSpec.pipe(
       map((spec: VegaSpec) => {
         if (Array.isArray(spec?.signals)) {
           for (const signal of spec?.signals) {
@@ -70,19 +83,14 @@ export class ProjectFigureComponent implements OnInit {
             const anyData = data as any;
             const name = anyData?.name;
             if ('sedmlUri' in anyData) {
-              console.error(this.getSedReport(anyData.sedmlUri));
-
               if (
-                // TODO This test fails since the sed doc is not loaded yet
-                // eslint-disable-next-line no-constant-condition
-                true ||
                 anyData.sedmlUri?.length == 0 ||
                 (anyData.sedmlUri?.length == 2 &&
                   this.getSedReport(anyData.sedmlUri) &&
                   !Array.isArray(this.getSedReport(anyData.sedmlUri)))
               ) {
                 anyData.url = this.endpoints.getRunResultsEndpoint(
-                  this.figure.id,
+                  this.simulationId,
                   anyData.sedmlUri.join('/'),
                   true,
                 );
@@ -110,8 +118,8 @@ export class ProjectFigureComponent implements OnInit {
       return undefined;
     }
 
-    if (!this.sedDocumentsConfiguration) {
-      console.error('No sedDocumentsConfiguration');
+    if (!this.sedDocumentConfigurations) {
+      console.error('No sedDocumentConfigurations');
       return undefined;
     }
 
@@ -139,10 +147,10 @@ export class ProjectFigureComponent implements OnInit {
 
     for (
       let iContent = 0;
-      iContent < this.sedDocumentsConfiguration.contents.length;
+      iContent < this.sedDocumentConfigurations.contents.length;
       iContent++
     ) {
-      const content = this.sedDocumentsConfiguration.contents[iContent];
+      const content = this.sedDocumentConfigurations.contents[iContent] as SedDocumentReportsCombineArchiveContent;
       let thisContentUri = content.location.path;
       if (thisContentUri.startsWith('./')) {
         thisContentUri = thisContentUri.substring(2);

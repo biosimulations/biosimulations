@@ -17,11 +17,16 @@ import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { ProjectsRoutingModule } from './projects-routing.module';
 import { ViewComponent } from './view/view.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { ProjectCardComponent } from './project-card/project-card.component';
 import { ProjectsCardsBrowseComponent } from './projects-cards-browse/projects-cards-browse.component';
 import { ProjectOverviewComponent } from './project-overview/project-overview.component';
-import { ProjectFigureComponent } from './project-figure/project-figure.component';
 import { ProjectFilesComponent } from './project-files/project-files.component';
+import { ProjectSelectVisualizationComponent } from './project-select-visualization/project-select-visualization.component';
+import { ProjectVisualizationComponent } from './project-visualization/project-visualization.component';
+import { ProjectVegaVisualizationComponent } from './project-vega-visualization/project-vega-visualization.component';
 import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
@@ -31,8 +36,10 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     ProjectCardComponent,
     ProjectsCardsBrowseComponent,
     ProjectOverviewComponent,
-    ProjectFigureComponent,
     ProjectFilesComponent,
+    ProjectSelectVisualizationComponent,
+    ProjectVisualizationComponent,
+    ProjectVegaVisualizationComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +49,10 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     MatStepperModule,
     MatSortModule,
     MatTabsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
     MatCarouselModule.forRoot(),
     SharedUiModule,
     BiosimulationsIconsModule,

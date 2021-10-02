@@ -1,0 +1,19 @@
+.user-2d-line-scatter-curves {
+  .input {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  mat-hint {
+    padding-top: 0.4rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.42);
+    font-size: 93.75%;
+    display: block;
+  }
+}
+
+.button-container {
+  text-align: right;
+  button:not(:last-child) {
+    margin-right: 1rem;
+  }
+}

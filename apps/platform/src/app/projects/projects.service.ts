@@ -22,7 +22,10 @@ export class ProjectsService {
   constructor(private http: HttpClient) {}
 
   public getProjectFile(id: string, file: string) {
-    const url = this.endpoints.getSimulationRunFileEndpoint(id, file);
+    // Todo: uncomment and remove below
+    // const url = this.endpoints.getSimulationRunFileEndpoint(id, file);
+    const omexUrl = this.endpoints.getRunDownloadEndpoint(id);
+    const url = this.endpoints.getCombineFilesEndpoint(omexUrl, file);
     return this.http.get(url);
   }
 
@@ -145,8 +148,7 @@ export class ProjectsService {
         const idNameMap: SimulatorIdNameMap = {};
         simulators.forEach((simulator: any): void => {
           idNameMap[simulator.id] = simulator.name;
-        })
-        console.log(idNameMap)
+        });
         return idNameMap;
       }),
     );

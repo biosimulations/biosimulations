@@ -259,6 +259,17 @@ export const COMBINE_OMEX_FORMAT = {
   icon: 'archive' as BiosimulationsIcon,
 };
 
+export const VEGA_FORMAT = {
+  name: 'Vega',
+  acronym: null,
+  edamId: 'format_3969',
+  combineUri: 'http://purl.org/NET/mediatypes/application/vega+json',
+  mediaTypes: ['application/vega+json', 'application/json'],
+  extensions: ['json'],
+  url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3969',
+  icon: 'chart' as BiosimulationsIcon,
+};
+
 export interface CombineArchiveContentFormat {
   combineUri: string;  
   name: string;
@@ -291,6 +302,13 @@ export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS
       acronym: COMBINE_OMEX_FORMAT.acronym,
       url: COMBINE_OMEX_FORMAT.url,
       icon: COMBINE_OMEX_FORMAT.icon,
+    },
+    {
+      combineUri: VEGA_FORMAT.combineUri,
+      name: VEGA_FORMAT.name,
+      acronym: VEGA_FORMAT.acronym,
+      url: VEGA_FORMAT.url,
+      icon: VEGA_FORMAT.icon,
     },
   ] as CombineArchiveContentFormat[])
   .concat([
@@ -326,8 +344,7 @@ export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS
     {name: 'SimBiology project', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-sbproj', url: 'https://www.mathworks.com/help/simbio/ref/sbioloadproject.html', icon: 'archive'},
     {name: 'Scalable Vector Graphics', acronym: 'SVG', combineUri: 'http://purl.org/NET/mediatypes/image/svg+xml', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3604', icon: 'image'},
     {name: 'TEXT', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/text/plain', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3591', icon: 'file'},
-    {name: 'Tag Image File Format', acronym: 'TIFF', combineUri: 'http://purl.org/NET/mediatypes/image/tiff', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3591', icon: 'image'},
-    {name: 'Vega', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/vega+json', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3969', icon: 'chart'},
+    {name: 'Tag Image File Format', acronym: 'TIFF', combineUri: 'http://purl.org/NET/mediatypes/image/tiff', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3591', icon: 'image'},    
     {name: 'Vega-Lite', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/vega-lite+json', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3970', icon: 'chart'},
     {name: 'WEBP', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/image/webp', url: 'https://developers.google.com/speed/webp', icon: 'image'},
     {name: 'Extensible Markup Language', acronym: 'XML', combineUri: 'http://purl.org/NET/mediatypes/application/xml', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2332', icon: 'code'},
