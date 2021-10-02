@@ -1,7 +1,15 @@
-<biosimulations-project-vega-visualization
-  *ngIf="visualization._type === 'VegaVisualization'"
-  [simulationId]="visualization.simulationId"
-  [sedDocumentConfigurations]="visualization.sedDocumentConfigurations"
-  [vegaSpec]="visualization.vegaSpec"
->
-</biosimulations-project-vega-visualization>
+<div class="container">
+  <biosimulations-project-vega-visualization
+    *ngIf="visualization.renderer === 'Vega'"
+    [simulationId]="visualization.simulationId"
+    [sedDocumentConfigurations]="visualization.sedDocumentConfigurations"
+    [vegaSpec]="visualization.vegaSpec"
+  >
+  </biosimulations-project-vega-visualization>
+
+  <biosimulations-plotly-visualization
+    *ngIf="visualization.renderer === 'Plotly'"
+    [dataLayout]="visualization.dataLayout | async"
+  >
+  </biosimulations-plotly-visualization>
+</div>

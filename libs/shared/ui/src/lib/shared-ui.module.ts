@@ -42,6 +42,8 @@ import { TocSectionsContainerDirective } from './toc/toc-sections-container.dire
 import { VegaVisualizationComponent } from './vega-visualization/vega-visualization.component';
 import { VegaEmbedComponent } from './vega-embed/vega-embed.component';
 import { ColumnsComponent } from './columns/columns.component';
+import { PlotlyVisualizationComponent } from './plotly-visualization/plotly-visualization.component';
+import { PlotlyViaWindowModule } from 'angular-plotly.js';
 
 @NgModule({
   imports: [
@@ -50,6 +52,7 @@ import { ColumnsComponent } from './columns/columns.component';
     RouterModule,
     BiosimulationsIconsModule,
     BreadCrumbsModule,
+    PlotlyViaWindowModule,
   ],
   exports: [
     MaterialWrapperModule,
@@ -91,6 +94,7 @@ import { ColumnsComponent } from './columns/columns.component';
     VegaVisualizationComponent,
     VegaEmbedComponent,
     ColumnsComponent,
+    PlotlyVisualizationComponent,
   ],
   declarations: [
     TopbarComponent,
@@ -131,6 +135,7 @@ import { ColumnsComponent } from './columns/columns.component';
     VegaVisualizationComponent,
     VegaEmbedComponent,
     ColumnsComponent,
+    PlotlyVisualizationComponent,
   ],
 })
 export class SharedUiModule {}

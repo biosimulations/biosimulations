@@ -19,14 +19,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { VisualizationService } from '../../../services/visualization/visualization.service';
-import {
-  PlotlyVisualizationComponent,
-  AxisType,
-  TraceType,
-  TraceMode,
-  Trace,
-  DataLayout,
-} from './plotly-visualization/plotly-visualization.component';
+import { PlotlyVisualizationComponent } from '@biosimulations/shared/ui';
 import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import {
@@ -51,6 +44,11 @@ import {
   SedReport,
   SedDataSet,
   SimulationRunStatus,
+  PlotlyAxisType as AxisType,
+  PlotlyTraceType as TraceType,
+  PlotlyTraceMode as TraceMode,
+  PlotlyTrace as Trace,
+  PlotlyDataLayout as DataLayout,
 } from '@biosimulations/datamodel/common';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 import {

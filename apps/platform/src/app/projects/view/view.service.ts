@@ -17,15 +17,27 @@ import {
   SedAbstractTask,
   SedTask,
   SedOutput,
+  SedPlot2D,
   Ontologies,
   KisaoTerm,
   SimulationTypeBriefName,
+  PlotlyDataLayout,
+  PlotlyTrace,
+  PlotlyTraceMode,
+  PlotlyTraceType,
 } from '@biosimulations/datamodel/common';
 import {
   ArchiveMetadata as APIMetadata,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
-// import { SimulationRun } from '@biosimulations/dispatch/api-models';
+/*
+import {
+  SimulationRun,
+  SimulationRunOutput,
+  SimulationRunResults,
+  SimulationRunOutputDatum,
+} from '@biosimulations/dispatch/api-models';
+*/
 import { ProjectsService } from '../projects.service';
 import { SimulatorIdNameMap } from '../datamodel';
 import { ProjectMetadata, Creator, Directory, File, List, ListItem, 
@@ -33,9 +45,7 @@ import { ProjectMetadata, Creator, Directory, File, List, ListItem,
   Visualization,
   SedPlot2DVisualization,
   VegaVisualization, 
-  Histogram1DVisualization, 
-  Heatmap2DVisualization,
-  Line2DVisualization,
+  SedDatasetResultsMap,
 } from './view.model';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
@@ -313,7 +323,7 @@ export class ViewService {
             methods.push(simulationAlgorithm as ListItem);
           });
 
-        let formats: ListItem[] = [];
+        const formats: ListItem[] = [];
         formats.push({
           title: 'Project',
           value: of('COMBINE/OMEX'),
@@ -619,9 +629,10 @@ export class ViewService {
               _type: 'VegaVisualization',
               id: location,
               name: name,
+              renderer: 'Vega',
               simulationId: id,
               sedDocumentConfigurations: sedmlArchive,
-              vegaSpec: this.service.getProjectFile(id, content.location.path),
+              vegaSpec: this.service.getProjectFile(id, content.location.path),              
             });
           }
         });
@@ -650,8 +661,8 @@ export class ViewService {
                   _type: 'SedPlot2DVisualization',
                   id: `${location}/${output.id}`,
                   name: `${output.name || output.id}`,
-                  location: location,
-                  outputId: output.id,
+                  renderer: 'Plotly',
+                  dataLayout: this.getSedPlot2dDataLayout(id, location, output as SedPlot2D),                  
                 };
               })
               .sort((a: Visualization, b: Visualization): number => {
@@ -686,8 +697,8 @@ export class ViewService {
                 name: '2D heatmap',
               },
               {
-                _type: 'SedPlot2DVisualization',
-                id: 'SedPlot2DVisualization',
+                _type: 'Line2DVisualization',
+                id: 'Line2DVisualization',
                 name: '2D line plot',
               },
             ] as Visualization[],
@@ -697,17 +708,142 @@ export class ViewService {
     );
   }
 
-  public getVegaFilesMetadata(id: string) {
-    return this.service.getArchiveContents(id).pipe(
-      pluck('contents'),
-      // Get the information for the files that have vega format
-      map((data) =>
-        data.filter((item: any) =>
-          item.format.endsWith(
-            'http://purl.org/NET/mediatypes/application/vega+json',
-          ),
-        ),
+  private getSedPlot2dDataLayout(simulationRunId: string, sedDocLocation: string, plot: SedPlot2D): Observable<PlotlyDataLayout> {
+    return this.getSimulationRunResults(simulationRunId, `${sedDocLocation}/${plot.id}`, true)
+      .pipe(
+        map((results: SedDatasetResultsMap | undefined): PlotlyDataLayout => {
+          const traces: PlotlyTrace[] = [];
+          const xAxisTitlesSet = new Set<string>();
+          const yAxisTitlesSet = new Set<string>();
+          let missingData = false;
+          for (const curve of plot.curves) {
+            const xId = curve.xDataGenerator._resultsDataSetId;
+            const yId = curve.yDataGenerator._resultsDataSetId;
+            xAxisTitlesSet.add(
+              curve.xDataGenerator.name || curve.xDataGenerator.id,
+            );
+            yAxisTitlesSet.add(
+              curve.yDataGenerator.name || curve.yDataGenerator.id,
+            );
+            const trace = {
+              name: curve.name || curve.id,
+              x: results?.[xId]?.values,
+              y: results?.[yId]?.values,
+              xaxis: 'x1',
+              yaxis: 'y1',
+              type: PlotlyTraceType.scatter,
+              mode: PlotlyTraceMode.lines,
+            };
+            if (trace.x && trace.y) {
+              traces.push(trace as PlotlyTrace);
+            } else {
+              missingData = true;
+            }
+          }
+
+          const xAxisTitlesArr = Array.from(xAxisTitlesSet);
+          const yAxisTitlesArr = Array.from(yAxisTitlesSet);
+          let xAxisTitle: string | undefined = undefined;
+          let yAxisTitle: string | undefined = undefined;
+          let showLegend = false;
+
+          if (xAxisTitlesArr.length == 1) {
+            xAxisTitle = xAxisTitlesArr[0];
+          } else if (xAxisTitlesArr.length > 1) {
+            xAxisTitle = 'Multiple';
+            showLegend = true;
+          }
+
+          if (yAxisTitlesArr.length == 1) {
+            yAxisTitle = yAxisTitlesArr[0];
+          } else if (yAxisTitlesArr.length > 1) {
+            yAxisTitle = 'Multiple';
+            showLegend = true;
+          }
+
+          if (missingData) {
+            // TODO: handle error
+          }
+
+          const dataLayout: PlotlyDataLayout = {
+            data: traces,
+            layout: {
+              xaxis1: {
+                anchor: 'x1',
+                title: xAxisTitle,
+                type: plot.xScale,
+              },
+              yaxis1: {
+                anchor: 'y1',
+                title: yAxisTitle,
+                type: plot.yScale,
+              },
+              grid: {
+                rows: 1,
+                columns: 1,
+                pattern: 'independent',
+              },
+              showlegend: showLegend,
+              width: undefined,
+              height: undefined,
+            },
+          };
+
+          return dataLayout;
+        })
+      );
+  }
+
+  private getSimulationRunResults(simulationRunId: string, outputId?: string, includeData = false): Observable<SedDatasetResultsMap> {
+    return this.service.getSimulationRunResults(simulationRunId, outputId, includeData).pipe(
+      map(
+        (
+          result: any,
+        ): SedDatasetResultsMap => {
+          const outputs = outputId
+            ? [result as any] // SimulationRunOutput
+            : (result as any).outputs; // SimulationRunResults
+
+          const datasetResultsMap: SedDatasetResultsMap = {};
+
+          outputs.forEach((output: any): void => { // SimulationRunOutput
+            const sedmlLocationOutputId = output.outputId;
+
+            const sedmlLocation = this.getLocationFromSedmLocationId(
+              sedmlLocationOutputId,
+            );
+
+            const outputId = this.getOutputIdFromSedmlLocationId(
+              sedmlLocationOutputId,
+            );
+
+            output.data.forEach((datum: any): void => { // SimulationRunOutputDatum
+              const uri = sedmlLocation + '/' + outputId + '/' + datum.id;
+              datasetResultsMap[uri] = {
+                uri: uri,
+                id: datum.id,
+                location: sedmlLocation,
+                outputId: outputId,
+                label: datum.label,
+                values: datum.values,
+              };
+            });
+          });
+
+          return datasetResultsMap;
+        },
       ),
     );
+  }
+
+  private getLocationFromSedmLocationId(locationId: string): string {
+    // Remove the last "/" and the text after the last "/"
+    // EG simulation_1.sedml/subfolder1/Figure_3b" => simulation_1.sedml/subfolder1
+    // TODO write tests
+    return locationId.split('/').reverse().slice(1).reverse().join('/');
+  }
+
+  private getOutputIdFromSedmlLocationId(location: string): string {
+    return location.split('/').reverse()[0];
   }
 }

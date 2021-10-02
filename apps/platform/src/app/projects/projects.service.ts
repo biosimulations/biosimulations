@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
+import { retryWhen } from 'rxjs/operators';
 import {
   ArchiveMetadata,
   SimulationRunMetadata,
@@ -8,6 +9,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
 import { ProjectSummary, FormattedDate, SimulatorIdNameMap } from './datamodel';
+import { RetryStrategy } from '@biosimulations/shared/services';
 import { UtilsService } from '@biosimulations/shared/services';
 
 @Injectable({
@@ -75,6 +77,16 @@ export class ProjectsService {
   public getSimulationRun(id: string): Observable<any> { // SimulationRun
     const url = this.endpoints.getSimulationRunEndpoint(id);
     const response = this.http.get<any>(url).pipe(shareReplay(1)); // SimulationRun
+    return response;
+  }
+
+  public getSimulationRunResults(id: string, outputId?: string, includeData = false): Observable<any> {
+    const url = this.endpoints.getRunResultsEndpoint(id, outputId, includeData);
+    const retryStrategy = new RetryStrategy();
+    const response = this.http.get<any>(url).pipe(
+      shareReplay(1),
+      retryWhen(retryStrategy.handler.bind(retryStrategy)),
+    );
     return response;
   }
 

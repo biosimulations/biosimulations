@@ -1,57 +1,9 @@
 import { Component, Input, HostListener, ElementRef } from '@angular/core';
-
-export enum AxisType {
-  linear = 'linear',
-  log = 'log',
-}
-
-export enum TraceMode {
-  lines = 'lines',
-  markers = 'markers',
-}
-
-export enum TraceType {
-  scatter = 'scatter',
-  histogram = 'histogram',
-  heatmap = 'heatmap',
-}
-
-export interface Trace {
-  name?: string;
-  x?: any[];
-  y?: any[];
-  z?: any[];
-  xaxis?: string;
-  yaxis?: string;
-  type: TraceType;
-  mode?: TraceMode;
-  hoverongaps?: boolean;
-}
-
-export interface Axis {
-  anchor: string;
-  title: string | undefined;
-  type: AxisType;
-}
-
-export interface Grid {
-  rows: number;
-  columns: number;
-  pattern: 'independent';
-}
-
-export interface Layout {
-  grid: Grid;
-  showlegend: boolean;
-  width: number | undefined;
-  height: number | undefined;
-  [axisId: string]: any; // compiler complains about using type Axis here
-}
-
-export interface DataLayout {
-  data: Trace[];
-  layout: Layout;
-}
+import { 
+  PlotlyTrace,
+  PlotlyLayout,
+  PlotlyDataLayout,
+} from '@biosimulations/datamodel/common';
 
 @Component({
   selector: 'biosimulations-plotly-visualization',
@@ -60,8 +12,8 @@ export interface DataLayout {
 })
 export class PlotlyVisualizationComponent {
   loading = false;
-  data: Trace[] | undefined = undefined;
-  layout: Layout | undefined = undefined;
+  data: PlotlyTrace[] | undefined = undefined;
+  layout: PlotlyLayout | undefined = undefined;
   config: any = {
     scrollZoom: true,
     editable: false,
@@ -80,7 +32,7 @@ export class PlotlyVisualizationComponent {
   error = false;
 
   @Input()
-  set dataLayout(value: DataLayout | null | false) {
+  set dataLayout(value: PlotlyDataLayout | null | false) {
     if (value) {
       this.loading = false;
       this.data = value.data;

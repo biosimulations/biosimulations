@@ -2,11 +2,9 @@ import {
   SimulationRunStatus,
   EnvironmentVariable,
   Purpose,
+  PlotlyAxisType as AxisType,
+  PlotlyTraceMode as TraceMode,
 } from '@biosimulations/datamodel/common';
-import {
-  AxisType,
-  TraceMode,
-} from './plotly-visualization/plotly-visualization.component';
 export interface FormattedSimulation {
   id: string;
   name: string;

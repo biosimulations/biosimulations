@@ -2,22 +2,21 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
 import {
   FormBuilder,
   FormGroup,
-  FormArray,
+  // FormArray,
   FormControl,
   Validators,
-  ValidationErrors,
+  // ValidationErrors,
 } from '@angular/forms';
 import { Visualization, VisualizationList } from '../view/view.model';
 
 /*
 import {
-  PlotlyVisualizationComponent,
-  AxisType,
-  TraceType,
-  TraceMode,
-  Trace,
-  DataLayout,
-} from './plotly-visualization/plotly-visualization.component';
+  PlotlyAxisType,
+  PlotlyTraceType,
+  PlotlyTraceMode,
+  PlotlyTrace,
+  PlotlyDataLayout,
+} from '@biosimulations/datamodel/common';
 */
 
 @Component({
@@ -60,9 +59,9 @@ export class ProjectSelectVisualizationComponent {
           [Validators.required, Validators.min(1), this.integerValidator],
         ],
         curves: formBuilder.array([], Validators.minLength(1)),
-        xAxisType: [AxisType.linear, [Validators.required]],
-        yAxisType: [AxisType.linear, [Validators.required]],
-        traceMode: [TraceMode.lines, [Validators.required]],
+        xAxisType: [PlotlyAxisType.linear, [Validators.required]],
+        yAxisType: [PlotlyAxisType.linear, [Validators.required]],
+        traceMode: [PlotlyTraceMode.lines, [Validators.required]],
       }),
       */
     });

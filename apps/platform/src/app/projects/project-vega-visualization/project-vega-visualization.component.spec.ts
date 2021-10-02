@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { of } from 'rxjs';
 
-import { ProjectVegaVisualizationComponent } from './project-figure.component';
+import { ProjectVegaVisualizationComponent } from './project-vega-visualization.component';
 
 describe('ProjectVegaVisualizationComponent', () => {
   let component: ProjectVegaVisualizationComponent;
@@ -18,7 +18,8 @@ describe('ProjectVegaVisualizationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProjectVegaVisualizationComponent);
     component = fixture.componentInstance;
-    component.figure = { id: '', path: '', spec: of({}) };
+    component.simulationId = '';
+    component.vegaSpec = of({});
     fixture.detectChanges();
   });
 

@@ -1,7 +1,5 @@
-import { Component, ChangeDetectionStrategy, Input, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Visualization } from '../view/view.model';
-import { CombineArchive } from '@biosimulations/datamodel/common';
-import { ProjectVegaVisualizationComponent } from '../project-vega-visualization/project-vega-visualization.component';
 
 @Component({
   selector: 'biosimulations-project-visualization',
@@ -13,16 +11,5 @@ export class ProjectVisualizationComponent {
   @Input()
   visualization!: Visualization;
 
-  @ViewChild(ProjectVegaVisualizationComponent)
-  private vegaComponent!: ProjectVegaVisualizationComponent;
-
   constructor() {}
-
-  public render(): void {
-    /*
-    if (this.plotlyVisualization) {
-      this.plotlyVisualization.setLayout();
-    }    
-    */
-  }
 }

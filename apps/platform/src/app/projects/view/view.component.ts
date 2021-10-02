@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
-import { BehaviorSubject, Observable, tap, combineLatest, map } from 'rxjs';
+import { Observable, combineLatest, map } from 'rxjs';
 import { ProjectMetadata, Directory, File, List, VisualizationList, Visualization } from './view.model';
 import { ViewService } from './view.service';
 import { ProjectVisualizationComponent } from '../project-visualization/project-visualization.component';
@@ -63,17 +63,19 @@ export class ViewComponent implements OnInit {
   selectVisualizationTabIndex = 2;
   visualizationTabIndex = 3;
 
-  public renderVisualization(visualization: Visualization): void {
-    this.selectedTabIndex = this.visualizationTabIndex;
+  public renderVisualization(visualization: Visualization): void {    
+    this.visualization = visualization;
     this.viewVisualizationTabDisabled = false;
-    this.visualization = visualization;    
+    this.selectedTabIndex = this.visualizationTabIndex;    
   }
 
   public selectedTabChange($event: MatTabChangeEvent): void {
     if ($event.index == this.visualizationTabIndex) {
       if (this.viewVisualizationTabDisabled) {
         this.selectedTabIndex = this.selectVisualizationTabIndex;
+        return;
       }
     }
+    this.selectedTabIndex = $event.index;
   }
 }

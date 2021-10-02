@@ -1,4 +1,4 @@
-import { CombineArchive } from '@biosimulations/datamodel/common';
+import { CombineArchive, PlotlyDataLayout } from '@biosimulations/datamodel/common';
 import { LabeledIdentifier } from '@biosimulations/datamodel/api';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { Observable } from 'rxjs';
@@ -58,44 +58,51 @@ export interface List {
   items: ListItem[];
 }
 
-export interface SedPlot2DVisualization {
-  _type: 'SedPlot2DVisualization';
-  id: string;
-  name: string;
-  location: string;
-  outputId: string;
-}
-
 export interface VegaVisualization {
   _type: 'VegaVisualization';
   id: string;
   name: string;
+  renderer: 'Vega';
   simulationId: string;
-  sedDocumentConfigurations: CombineArchive;  
+  sedDocumentConfigurations: CombineArchive;    
   vegaSpec: Observable<VegaSpec>;
+}
+
+export interface SedPlot2DVisualization {
+  _type: 'SedPlot2DVisualization';
+  id: string;
+  name: string;
+  renderer: 'Plotly';
+  dataLayout: Observable<PlotlyDataLayout>;
 }
 
 export interface Histogram1DVisualization {
   _type: 'Histogram1DVisualization';
   id: string;
-  name: string;
+  name: string;  
+  renderer: 'Plotly';
+  dataLayout: Observable<PlotlyDataLayout>;
 }
 
 export interface Heatmap2DVisualization {
   _type: 'Heatmap2DVisualization';
   id: string;
   name: string;
+  renderer: 'Plotly';
+  dataLayout: Observable<PlotlyDataLayout>;
 }
 
 export interface Line2DVisualization {
   _type: 'Line2DVisualization';
   id: string;
   name: string;
+  renderer: 'Plotly';
+  dataLayout: Observable<PlotlyDataLayout>;
 }
 
-export type Visualization = (
-  SedPlot2DVisualization 
-  | VegaVisualization 
+export type Visualization = (  
+  VegaVisualization 
+  | SedPlot2DVisualization
   | Histogram1DVisualization 
   | Heatmap2DVisualization 
   | Line2DVisualization
@@ -104,4 +111,31 @@ export type Visualization = (
 export interface VisualizationList {
   title: string;
   visualizations: Visualization[];
+}
+
+export interface SedDatasetResults {
+  uri: string;
+  id: string;
+  location: string;
+  outputId: string;
+  label: string;
+  values: (number | boolean | string)[];
+}
+
+export interface SedOutputResults {
+  uri: string;
+  id: string;
+  datasets: SedDatasetResults[];
+}
+
+export interface SedDocumentResults {
+  uri: string;
+  location: string;
+  outputs: SedOutputResults[];
+}
+
+export type CombineResults = SedDocumentResults[];
+
+export interface SedDatasetResultsMap {
+  [uri: string]: SedDatasetResults;
 }
