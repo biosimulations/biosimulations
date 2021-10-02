@@ -159,7 +159,15 @@ table.icon-list {
 
   th:first-child {
     vertical-align: top;
-    padding-right: 0.25rem;
+    padding-right: 0.125rem;
+    text-align: center;
+
+    biosimulations-icon .mat-icon {
+      font-size: 112%;
+      line-height: normal;
+      position: relative;
+      top: 2px;
+    }
   }
 
   a {

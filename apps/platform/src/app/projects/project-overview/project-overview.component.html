@@ -11,11 +11,11 @@
   <div
     *ngIf="projectMetadata.thumbnails.length"
     class="thumbnails-column ragged-column"    
-    fxFlex="20rem"
+    fxFlex="22rem"
     fxFlex.lt-sm="100%"
   >
     <div class="thumbnails-container"      
-      fxFlex="20rem"
+      fxFlex="22rem"
       fxFlex.lt-sm="100%"
       [class.single-thumbnail]="projectMetadata.thumbnails.length === 1"
     >
@@ -92,16 +92,18 @@
   <!-- End summary/text data-->
 
   <!-- Simulation information -->
-  <div fxFlex="20rem" fxFlex.lt-sm="100%" class="simulation-column ragged-column">
+  <div fxFlex="22rem" fxFlex.lt-sm="100%" class="simulation-column ragged-column">
     <biosimulations-text-page-side-bar-section *ngFor="let section of simulationRun" [heading]="section.title">
-      <ul class="icon-list">
-        <li *ngFor="let item of section.items">
-          <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
-          <b>{{ item.title }}:</b>{{ ' ' }}
-          <a [href]="item.url" target="_blank" *ngIf="item.url; else noHref">{{ item.value | async }}</a>
-          <ng-template #noHref>{{ item.value | async }}</ng-template>
-        </li>
-      </ul>
+      <table class="icon-list">
+        <tr *ngFor="let item of section.items">
+          <th><biosimulations-icon [icon]="item.icon"></biosimulations-icon></th>
+          <td>
+            <b>{{ item.title }}:</b>{{ ' ' }}
+            <a [href]="item.url" target="_blank" *ngIf="item.url; else noHref">{{ item.value | async }}</a>
+            <ng-template #noHref>{{ item.value | async }}</ng-template>
+          </td>
+        </tr>
+      </table>
     </biosimulations-text-page-side-bar-section>
   </div>
   <!-- End simulation information -->

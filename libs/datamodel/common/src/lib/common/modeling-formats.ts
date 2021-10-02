@@ -14,7 +14,7 @@ export interface ModelFormat {
 
 export const MODEL_FORMATS: ModelFormat[] = [
   {
-    name: 'BNGL',
+    name: 'BioNetGen Language',
     acronym: 'BNGL',
     edamId: 'format_3972',
     sedUrn: 'urn:sedml:language:bngl',

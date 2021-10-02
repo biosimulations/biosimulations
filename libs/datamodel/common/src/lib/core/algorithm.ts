@@ -55,6 +55,12 @@ export enum SimulationTypeName {
   SedUniformTimeCourseSimulation = 'SED uniform time course simulation',
 }
 
+export enum SimulationTypeBriefName {
+  SedOneStepSimulation = 'One step',
+  SedSteadyStateSimulation = 'Steady state',
+  SedUniformTimeCourseSimulation = 'Uniform time course',
+}
+
 /**
  * Represents a parameter in a particular simulation algorith or method.
  * id refers to the identifier used by some software package to reference parameter

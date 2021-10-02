@@ -1,13 +1,23 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, pluck, shareReplay, of } from 'rxjs';
+import { map, Observable, pluck, shareReplay, of, combineLatest } from 'rxjs';
 import {
   ArchiveMetadata, 
   LabeledIdentifier,
   DescribedIdentifier,
   CombineArchiveContentFormat,
   FORMATS,
+  MODEL_FORMATS,
   SEDML_FORMAT,
   COMBINE_OMEX_FORMAT,
+  CombineArchive,
+  CombineArchiveContent,
+  SedDocumentReportsCombineArchiveContent,
+  SedDocument,
+  SedAbstractTask,
+  SedTask,
+  Ontologies,
+  KisaoTerm,
+  SimulationTypeBriefName,
 } from '@biosimulations/datamodel/common';
 import {
   ArchiveMetadata as APIMetadata,
@@ -20,6 +30,7 @@ import { ProjectMetadata, Creator, Directory, File, List, ListItem } from './vie
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
+import { OntologyService } from '@biosimulations/ontology/client';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +38,10 @@ import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 export class ViewService {
   formatMap!: {[uri: string]: CombineArchiveContentFormat};
 
-  public constructor(private service: ProjectsService) {
+  public constructor(
+    private service: ProjectsService,
+    private ontologyService: OntologyService,
+  ) {
     this.formatMap = {};
     FORMATS.forEach((format: CombineArchiveContentFormat): void => {
       this.formatMap[format.combineUri] = format;
@@ -213,44 +227,115 @@ export class ViewService {
   }
 
   public getFormattedSimulationRun(id: string): Observable<List[]> {
-    return this.service.getProjectSimulation(id).pipe(
-      map((simulationRun: any): List[] => { // SimulationRun
+    return combineLatest(      
+      this.service.getSimulationRun(id),
+      this.service.getProjectSedmlContents(id),
+      this.service.getSimulationRunLog(id),
+      this.ontologyService.getTerms<KisaoTerm>(Ontologies.KISAO),
+    ).pipe(
+      map((args: [any, CombineArchive, any, {[id: string]: KisaoTerm}]): List[] => { // SimulationRun
+        const simulationRun = args[0];
+        const sedmlArchive = args[1];
+        const log = args[2];
+        const kisaoIdTermMap = args[3];
+
+        const modelLanguageSedUrns = new Set<string>();
+        const simulationTypes = new Set<string>();
+        let simulationAlgorithms = new Set<string>();
+        sedmlArchive.contents.forEach((sedmlContent: CombineArchiveContent): void => {
+          const sedDoc: SedDocument = (sedmlContent as SedDocumentReportsCombineArchiveContent).location.value;
+          sedDoc.tasks.forEach((abstractTask: SedAbstractTask): void => {
+            if (abstractTask._type === 'SedTask') {
+              const task = abstractTask as SedTask;
+              modelLanguageSedUrns.add(task.model.language);
+              simulationTypes.add(task.simulation._type);
+              simulationAlgorithms.add(task.simulation.algorithm.kisaoId);
+            }
+          })
+        });
+
+        const loggedSimulationAlgorithms = new Set<string>();
+        log.sedDocuments?.forEach((sedDoc: any): void => {
+          sedDoc.tasks?.forEach((task: any): void => {
+            if (task?.algorithm && task?.algorithm in kisaoIdTermMap) {
+              loggedSimulationAlgorithms.add(task?.algorithm as string);
+            }
+          });
+        });
+
+        if (loggedSimulationAlgorithms.size) {
+          simulationAlgorithms = loggedSimulationAlgorithms;
+        }
+
         const methods: ListItem[] = [];
 
-        /* TODO: add tasks: simulation type, simulation algorithm
-        for () {
-          methods.push({
-            title: 'Tasks',
-            value: of('SED-ML'),
-            icon: 'code',
-            url: 'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' + id
+        Array.from(simulationTypes)
+          .map((simulationType: string): any => {
+            return {
+              title: 'Simulation',
+              value: SimulationTypeBriefName[simulationType as keyof typeof SimulationTypeBriefName],
+              icon: 'simulator',
+              url: 'https://sed-ml.org/',
+            };
+          })
+          .sort((a: any, b: any): number => {
+            return a.value.localeCompare(b.value, undefined, { numeric: true });
+          })
+          .forEach((simulationType: any): void => {
+            simulationType.value = of(simulationType.value);
+            methods.push(simulationType as ListItem);
           });
-        }
-        */
 
-        const formats: ListItem[] = [];
+        Array.from(simulationAlgorithms)
+          .map((kisaoId: string): any => {
+            return {
+              title: 'Algorithm',
+              value: kisaoIdTermMap[kisaoId].name,
+              icon: 'code',
+              url: 'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' + kisaoId,
+            };
+          })
+          .sort((a: any, b: any): number => {
+            return a.value.localeCompare(b.value, undefined, { numeric: true });
+          })
+          .forEach((simulationAlgorithm: any): void => {
+            simulationAlgorithm.value = of(simulationAlgorithm.value);
+            methods.push(simulationAlgorithm as ListItem);
+          });
+
+        let formats: ListItem[] = [];
         formats.push({
           title: 'Project',
           value: of('COMBINE/OMEX'),
-          icon: 'format',
+          icon: 'archive',
           url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686'
         });
 
-        /* TODO: add model format(s)
-        for () {
-          formats.push({
-            title: 'Model',
-            value: of('SBML'),
-            icon: 'format',
-            url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686'
-          });
-        }
-        */
+        Array.from(modelLanguageSedUrns)
+          .map((modelLanguageSedUrn: any): any => {
+            for (const modelFormat of MODEL_FORMATS) {
+              if (modelLanguageSedUrn.startsWith(modelFormat.sedUrn)) {
+                return {
+                  title: 'Model',
+                  value: modelFormat.acronym || modelFormat.name,
+                  icon: 'model',
+                  url: modelFormat.url,
+                };
+              }
+            }
+          })
+          .sort((a: any, b: any): number => {
+            return a.value.localeCompare(b.value, undefined, { numeric: true });
+          })
+          .forEach((modelLanguage: any): void => {
+            modelLanguage.value = of(modelLanguage.value);
+            formats.push(modelLanguage as ListItem);
+          });        
 
         formats.push({
           title: 'Simulation',
           value: of('SED-ML'),
-          icon: 'format',
+          icon: 'simulation',
           url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3685'
         });
 
@@ -276,7 +361,7 @@ export class ViewService {
           url: `${urls.dispatch}/simulations/${id}`,
         });
 
-        const durationSec = this.service.getProjectSimulationLog(simulationRun.id)
+        const durationSec = this.service.getSimulationRunLog(simulationRun.id)
           .pipe(
             pluck('duration'),
             map((durationSec: number): string => UtilsService.formatDuration(durationSec)),
@@ -318,7 +403,7 @@ export class ViewService {
 
         // return sections
         const sections = [
-          {title: 'Simulation methods', items: methods},
+          {title: 'Modeling methods', items: methods},
           {title: 'Modeling formats', items: formats},
           {title: 'Simulation tools', items: tools},
           {title: 'Simulation run', items: run},
@@ -331,7 +416,7 @@ export class ViewService {
   }
 
   public getFormattedProjectFiles(id: string): Observable<File[]> {
-    return this.service.getProjectSimulation(id).pipe(
+    return this.service.getSimulationRun(id).pipe(
       map((simulationRun: any): File[] => { // SimulationRun
         return [
           {
@@ -490,7 +575,7 @@ export class ViewService {
   }
 
   public getFormattedOutputs(id: string): Observable<File[]> {
-    return this.service.getProjectSimulation(id).pipe(
+    return this.service.getSimulationRun(id).pipe(
       map((simulationRun: any): File[] => { // SimulationRun
         return [          
           {

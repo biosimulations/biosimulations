@@ -9,6 +9,7 @@ import { environment } from '@biosimulations/shared/environments';
 
 export class Endpoints {
   private api: string;
+  private simulators_api: string;
   private combine_api: string;
   private simulationRuns: string;
   private simulationRunResults: string;
@@ -28,24 +29,28 @@ export class Endpoints {
     switch (env) {
       case 'local':
         this.api = 'http://localhost:3333';
+        this.simulators_api = '/simulators-api';
         this.combine_api = '/combine-api';
         this.storage_endpoint = 'https://files-dev.biosimulations.org/s3';
         break;
 
       case 'dev':
         this.api = 'https://api.biosimulations.dev';
+        this.simulators_api = 'https://api.biosimulators.dev';
         this.combine_api = 'https://combine.api.biosimulations.dev';
         this.storage_endpoint = 'https://files-dev.biosimulations.org/s3';
         break;
 
       case 'stage':
         this.api = 'https://api.biosimulations.dev';
+        this.simulators_api = 'https://api.biosimulators.dev';
         this.combine_api = 'https://combine.api.biosimulations.dev';
         this.storage_endpoint = 'https://files-dev.biosimulations.org/s3';
         break;
 
       case 'prod':
         this.api = 'https://api.biosimulations.org';
+        this.simulators_api = 'https://api.biosimulators.org';
         this.combine_api = 'https://combine.api.biosimulations.org';
         this.storage_endpoint = 'https://files.biosimulations.org/s3';
         break;
@@ -55,7 +60,7 @@ export class Endpoints {
     this.simulationRunResults = `${this.api}/results`;
     this.simulationRunMetadata = `${this.api}/metadata`;
     this.simulationRuns = `${this.api}/runs`;
-    this.simulators = `${this.api}/simulators`;
+    this.simulators = `${this.simulators_api}/simulators`;
     this.files = `${this.api}/files`;
     this.combineFile = `${this.combine_api}/combine/file`;
   }
@@ -263,13 +268,6 @@ export class Endpoints {
   public getSimulatorsEndpoint(id?: string, version?: string): string {
     id ? (id = `/${id}`) : (id = '');
     version ? (version = `/${version}`) : (version = '');
-
-    if (version && !id) {
-      throw new Error(
-        'Cannot get a specific version of a simulator without an id',
-      );
-    }
-
     return `${this.simulators}${id}${version}`;
   }
 }
