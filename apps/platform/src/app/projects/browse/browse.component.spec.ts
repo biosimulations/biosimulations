@@ -4,25 +4,25 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { ProjectCardComponent } from '../project-card/project-card.component';
-import { ProjectsService } from '../projects.service';
+import { BrowseService } from './browse.service';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { ProjectsCardsBrowseComponent } from './projects-cards-browse.component';
+import { BrowseComponent } from './browse.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
-class mockProjectsService {
+class mockBrowseService {
   getProjects() {
     return of([]);
   }
 }
 
-describe('ProjectsCardsBrowseComponent', () => {
-  let component: ProjectsCardsBrowseComponent;
-  let fixture: ComponentFixture<ProjectsCardsBrowseComponent>;
+describe('BrowseComponent', () => {
+  let component: BrowseComponent;
+  let fixture: ComponentFixture<BrowseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectsCardsBrowseComponent, ProjectCardComponent],
-      providers: [{ provide: ProjectsService, useClass: mockProjectsService }],
+      declarations: [BrowseComponent, ProjectCardComponent],
+      providers: [{ provide: BrowseService, useClass: mockBrowseService }],
       imports: [
         RouterTestingModule,
         MatIconModule,
@@ -34,7 +34,7 @@ describe('ProjectsCardsBrowseComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectsCardsBrowseComponent);
+    fixture = TestBed.createComponent(BrowseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
