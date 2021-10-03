@@ -35,6 +35,11 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
         'Operations for creating and retriving the metadata associated with a simulation run',
     },
     {
+      name: 'Files',
+      description:
+        'Operations for creating and retrieving metadata about the files in a simulation run',
+    },
+    {
       name: 'Downloads',
       description:
         'Operations for downloading the files and results of a simulation run.',
