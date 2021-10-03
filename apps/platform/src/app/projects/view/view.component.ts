@@ -4,12 +4,13 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { Observable, combineLatest, map } from 'rxjs';
 import { 
+  ProjectMetadata,
+  SimulationRunMetadata,
   Path,
   File,
   VisualizationList,
   Visualization,
 } from '@biosimulations/datamodel/view-simulation';
-import { ProjectMetadata, List } from './view.model';
 import { ViewService } from './view.service';
 
 @Component({
@@ -23,7 +24,7 @@ export class ViewComponent implements OnInit {
   public id!: string;
 
   public projectMetadata$?: Observable<ProjectMetadata | undefined> = undefined;
-  public simulationRun$?: Observable<List[]>;
+  public simulationRun$?: Observable<SimulationRunMetadata>;
   
   public projectFiles$?: Observable<Path[]>;
   public files$?: Observable<Path[]>;

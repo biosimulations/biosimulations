@@ -10,11 +10,11 @@
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
     <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
       <ng-container *ngIf="simulationRun$ | async as simulationRun">
-        <biosimulations-project-overview 
-          [projectMetadata]="projectMetadata"
+        <biosimulations-project-metadata 
+          [project]="projectMetadata"
           [simulationRun]="simulationRun"
         >
-        </biosimulations-project-overview>
+        </biosimulations-project-metadata>
       </ng-container>
     </ng-container>
   </biosimulations-tab-page-tab>

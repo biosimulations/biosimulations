@@ -42,8 +42,13 @@ import {
 */
 import { ProjectsService } from '../projects.service';
 import { SimulatorIdNameMap } from '../datamodel';
-import { ProjectMetadata, Creator, List, ListItem, SedDatasetResultsMap } from './view.model';
+import { SedDatasetResultsMap } from './view.model';
 import { 
+  ProjectMetadata,
+  Creator,
+  SimulationRunMetadata as FormattedSimulationRunMetadata,
+  List,
+  ListItem, 
   Path,
   File,
   VisualizationList,
@@ -255,14 +260,14 @@ export class ViewService {
     return response;
   }
 
-  public getFormattedSimulationRun(id: string): Observable<List[]> {
+  public getFormattedSimulationRun(id: string): Observable<FormattedSimulationRunMetadata> {
     return combineLatest(      
       this.service.getSimulationRun(id),
       this.service.getProjectSedmlContents(id),
       this.service.getSimulationRunLog(id),
       this.ontologyService.getTerms<KisaoTerm>(Ontologies.KISAO),
     ).pipe(
-      map((args: [any, CombineArchive, any, {[id: string]: KisaoTerm}]): List[] => { // SimulationRun
+      map((args: [any, CombineArchive, any, {[id: string]: KisaoTerm}]): FormattedSimulationRunMetadata => { // SimulationRun
         const simulationRun = args[0];
         const sedmlArchive = args[1];
         const log = args[2];

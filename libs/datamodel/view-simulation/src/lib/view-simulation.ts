@@ -1,7 +1,43 @@
+import { LabeledIdentifier } from '@biosimulations/datamodel/api';
 import { PlotlyDataLayout } from '@biosimulations/datamodel/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { Observable } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
+
+export interface Creator {
+  label: string | null;
+  uri: string | null;
+  icon: BiosimulationsIcon;
+}
+
+export interface Attribute {
+  icon: BiosimulationsIcon;
+  title: string;
+  values?: LabeledIdentifier[];
+}
+
+export interface ProjectMetadata {
+  thumbnails: string[];
+  title: string;
+  abstract?: string;
+  creators: Creator[];
+  description?: string;
+  attributes: Attribute[];
+}
+
+export interface ListItem {
+  title: string;  
+  value: Observable<string>;
+  icon: BiosimulationsIcon;
+  url: string | null;
+}
+
+export interface List {
+  title: string;  
+  items: ListItem[];
+}
+
+export type SimulationRunMetadata = List[];
 
 export interface VegaVisualization {
   _type: 'VegaVisualization';

@@ -10,7 +10,6 @@ import { ViewComponent } from './view/view.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProjectCardComponent } from './project-card/project-card.component';
 import { BrowseComponent } from './browse/browse.component';
-import { ProjectOverviewComponent } from './project-overview/project-overview.component';
 import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
@@ -19,7 +18,6 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     ViewComponent,
     ProjectCardComponent,
     BrowseComponent,
-    ProjectOverviewComponent,
   ],
   imports: [
     CommonModule,
