@@ -141,6 +141,9 @@
       "@biosimulations/shared/services": [
         "libs/shared/services/src/index.ts"
       ],
+      "@biosimulations/shared/project-service": [
+        "libs/shared/project-service/src/index.ts"
+      ],
       "@biosimulations/shared/storage": [
         "libs/shared/storage/src/index.ts"
       ],

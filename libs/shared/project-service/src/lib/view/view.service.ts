@@ -41,7 +41,7 @@ import {
   SimulationRunOutputDatum,
 } from '@biosimulations/dispatch/api-models';
 */
-import { ProjectsService } from '../projects.service';
+import { ProjectsService } from '../projects/projects.service';
 import { 
   ProjectMetadata,
   Creator,

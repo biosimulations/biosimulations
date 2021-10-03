@@ -50,6 +50,15 @@
                 "onlyDependOnLibsWithTags": ["scope:shared"]
               },
               {
+                "sourceTag": "scope:simulations",
+                "onlyDependOnLibsWithTags": [
+                  "scope:simulations",
+                  "scope:shared",
+                  "scope:config",
+                  "scope:ontology"
+                ]
+              },
+              {
                 "sourceTag": "scope:config",
                 "onlyDependOnLibsWithTags": [
                   "scope:config",
@@ -80,7 +89,8 @@
                 "sourceTag": "scope:platform",
                 "onlyDependOnLibsWithTags": [
                   "scope:platform",
-                  "scope:shared",
+                  "scope:simulations",
+                  "scope:shared",                  
                   "shared:true"
                 ]
               },
@@ -88,6 +98,7 @@
                 "sourceTag": "scope:dispatch",
                 "onlyDependOnLibsWithTags": [
                   "scope:dispatch",
+                  "scope:simulations",
                   "scope:shared",
                   "shared:true"
                 ]

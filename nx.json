@@ -173,7 +173,7 @@
     },
     "datamodel-view-simulation": {
       "tags": [
-        "scope:shared",
+        "scope:simulations",
         "type:datamodel",
         "platform:web"
       ]
@@ -399,6 +399,14 @@
       ],
       "implicitDependencies": []
     },
+    "shared-project-service": {
+      "tags": [
+        "scope:simulations",
+        "type:service",
+        "platform:any"
+      ],
+      "implicitDependencies": []
+    },
     "shared-storage": {
       "tags": [
         "scope:files",
@@ -437,7 +445,7 @@
     },
     "shared-view-simulation": {
       "tags": [
-        "scope:shared",
+        "scope:simulations",
         "type:ui",
         "platform:web"
       ],

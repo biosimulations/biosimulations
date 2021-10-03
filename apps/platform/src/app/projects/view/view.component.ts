@@ -11,7 +11,7 @@ import {
   VisualizationList,
   Visualization,
 } from '@biosimulations/datamodel/view-simulation';
-import { ViewService } from './view.service';
+import { ViewService } from '@biosimulations/shared/project-service';
 
 @Component({
   selector: 'biosimulations-view',
