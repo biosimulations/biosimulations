@@ -1,8 +1,16 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import path from 'path';
 import { Client as SSHClient } from 'ssh2';
-import { SshConnectionConfig } from '../../types/ssh-connection-config/ssh-connection-config';
 
+export class SshConnectionConfig {
+  constructor(
+    public host: string,
+    public port: number,
+    public username: string,
+    public privateKey: string,
+  ) {}
+}
 @Injectable()
 export class SshService {
   private sshConfig: SshConnectionConfig =
@@ -10,14 +18,17 @@ export class SshService {
       'hpc.ssh',
       new SshConnectionConfig('', 0, '', ''),
     );
-  private sftpConfig: SshConnectionConfig =
-    this.configService.get('hpc.sftp') ||
-    new SshConnectionConfig('', 0, '', '');
 
   private logger = new Logger('SshService');
 
+  private hpcBase: string = this.configService.get<string>(
+    'hpc.hpcBaseDir',
+    '',
+  );
   constructor(private configService: ConfigService) {}
-
+  public getSSHResultsDirectory(id: string): string {
+    return path.join(this.hpcBase, id);
+  }
   public execStringCommand(
     cmd: string,
   ): Promise<{ stdout: string; stderr: string }> {
