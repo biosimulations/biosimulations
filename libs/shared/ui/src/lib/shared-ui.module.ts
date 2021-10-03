@@ -40,6 +40,8 @@ import { HomeLogoComponent } from './home/home-logo.component';
 import { TocSectionDirective } from './toc/toc-section.directive';
 import { TocSectionsContainerDirective } from './toc/toc-sections-container.directive';
 import { ColumnsComponent } from './columns/columns.component';
+import { MatCarouselModule } from '@ngbmodule/material-carousel';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   imports: [
@@ -48,6 +50,7 @@ import { ColumnsComponent } from './columns/columns.component';
     RouterModule,
     BiosimulationsIconsModule,
     BreadCrumbsModule,
+    MatCarouselModule.forRoot(),
   ],
   exports: [
     MaterialWrapperModule,
@@ -87,6 +90,7 @@ import { ColumnsComponent } from './columns/columns.component';
     TocSectionDirective,
     TocSectionsContainerDirective,
     ColumnsComponent,
+    CarouselComponent,
   ],
   declarations: [
     TopbarComponent,
@@ -125,6 +129,7 @@ import { ColumnsComponent } from './columns/columns.component';
     TocSectionDirective,
     TocSectionsContainerDirective,
     ColumnsComponent,
+    CarouselComponent,
   ],
 })
 export class SharedUiModule {}

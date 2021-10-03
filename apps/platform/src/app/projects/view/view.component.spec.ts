@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { PlotlyVisualizationComponent } from '@biosimulations/shared/viz-ui';
-import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { ViewComponent } from './view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
@@ -18,7 +17,6 @@ describe('ViewComponent', () => {
       declarations: [ViewComponent, PlotlyVisualizationComponent],
       imports: [
         BiosimulationsIconsModule,
-        MatCarouselModule,
         HttpClientTestingModule,
         SharedUiModule,
         RouterTestingModule,

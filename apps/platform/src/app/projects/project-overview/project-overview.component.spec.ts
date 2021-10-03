@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule } from '@angular/material/card';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { MatCarouselModule } from '@ngbmodule/material-carousel';
+import { SharedUiModule } from '@biosimulations/shared/ui';
 
 import { ProjectOverviewComponent } from './project-overview.component';
 
@@ -14,8 +13,7 @@ describe('ProjectOverviewComponent', () => {
       declarations: [ProjectOverviewComponent],
       imports: [
         BiosimulationsIconsModule,
-        MatCarouselModule,
-        MatCardModule,
+        SharedUiModule,
       ],
     }).compileComponents();
   });

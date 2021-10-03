@@ -1,0 +1,31 @@
+<div class="container"
+  [class.single-thumbnail]="images.length === 1"
+>
+  <mat-carousel
+    timings="1000ms ease-in"
+    [autoplay]="true"
+    [interval]="2500"
+    color="accent"
+    maxWidth="100%"
+    [proportion]="100"
+    [loop]="true"
+    [hideArrows]="true"
+    [hideIndicators]="false"
+    [useKeyboard]="true"
+    [useMouseWheel]="true"
+    lazyLoad="true"
+    slideHeight="100%"
+    [maintainAspectRatio]="false"
+    *ngIf="images.length > 1; else singleThumbnail"
+  >
+    <mat-carousel-slide
+      [hideOverlay]="true"
+      *ngFor="let thumbnail of images"
+      [image]="thumbnail"
+    >
+    </mat-carousel-slide>
+  </mat-carousel>
+  <ng-template #singleThumbnail>
+    <img [src]="images[0]" />
+  </ng-template>
+</div>

@@ -14,40 +14,8 @@
     fxFlex="22rem"
     fxFlex.lt-sm="100%"
   >
-    <div class="thumbnails-container"      
-      fxFlex="22rem"
-      fxFlex.lt-sm="100%"
-      [class.single-thumbnail]="projectMetadata.thumbnails.length === 1"
-    >
-      <mat-carousel
-        timings="1000ms ease-in"
-        [autoplay]="true"
-        [interval]="2500"
-        color="accent"
-        maxWidth="100%"
-        [proportion]="100"
-        [loop]="true"
-        [hideArrows]="true"
-        [hideIndicators]="false"
-        [useKeyboard]="true"
-        [useMouseWheel]="true"
-        lazyLoad="true"
-        slideHeight="100%"
-        [maintainAspectRatio]="false"
-        *ngIf="projectMetadata.thumbnails.length > 1; else singleThumbnail"
-      >
-        <mat-carousel-slide
-          [hideOverlay]="true"
-          *ngFor="let thumbnail of projectMetadata.thumbnails"
-          [image]="thumbnail"
-        >
-        </mat-carousel-slide>
-      </mat-carousel>
-      <ng-template #singleThumbnail>
-        <img [src]="projectMetadata.thumbnails[0]" />
-      </ng-template>
-    </div>
-
+    <biosimulations-carousel [images]="projectMetadata.thumbnails">
+    </biosimulations-carousel>
   </div>
   <!-- End thumbnails-->
 
@@ -92,7 +60,7 @@
   <!-- End summary/text data-->
 
   <!-- Simulation information -->
-  <div fxFlex="22rem" fxFlex.lt-sm="100%" class="simulation-column ragged-column">
+  <div class="simulation-column ragged-column" *ngIf="simulationRun">
     <biosimulations-text-page-side-bar-section *ngFor="let section of simulationRun" [heading]="section.title">
       <table class="icon-list">
         <tr *ngFor="let item of section.items">
