@@ -9,6 +9,8 @@ import { LogService } from '../results/log.service';
 import { MetadataService } from '../../metadata/metadata.service';
 
 import { SimulationStatusService } from '../services/simulationStatus.service';
+import { FileService } from '../../file/file.service';
+import { SedmlService } from '../../sedml/sedml.service';
 
 @Processor(JobQueue.complete)
 export class CompleteProccessor {
@@ -18,6 +20,8 @@ export class CompleteProccessor {
     private simStatusService: SimulationStatusService,
     private logService: LogService,
     private metadataService: MetadataService,
+    private fileService: FileService,
+    private sedmlService: SedmlService,
   ) {}
 
   @Process()
@@ -33,6 +37,8 @@ export class CompleteProccessor {
       await Promise.allSettled([
         this.archiverService.updateResultsSize(id),
         this.logService.createLog(id),
+        this.fileService.processFiles(id),
+        this.sedmlService.processSedml(id),
       ]);
 
     const additional_processed: PromiseSettledResult<void>[] =
