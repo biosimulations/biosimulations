@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { VegaEmbedComponent } from './vega-embed.component';
+import { SharedUiModule } from '@biosimulations/shared/ui';
 
 describe('VegaEmbedComponent', () => {
   let component: VegaEmbedComponent;
@@ -8,7 +9,7 @@ describe('VegaEmbedComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [VegaEmbedComponent],
-      imports: [],
+      imports: [SharedUiModule],
     }).compileComponents();
   }));
 

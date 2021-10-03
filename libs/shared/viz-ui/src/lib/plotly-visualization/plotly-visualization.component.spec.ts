@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { PlotlyVisualizationComponent } from './plotly-visualization.component';
+import { SharedUiModule } from '@biosimulations/shared/ui';
 
 describe('PlotlyVisualizationComponent', () => {
   let component: PlotlyVisualizationComponent;
@@ -9,7 +10,7 @@ describe('PlotlyVisualizationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PlotlyVisualizationComponent],
-      imports: [],
+      imports: [SharedUiModule],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));

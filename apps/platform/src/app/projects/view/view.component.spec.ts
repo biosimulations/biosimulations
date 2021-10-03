@@ -1,12 +1,13 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
+import { PlotlyVisualizationComponent } from '@biosimulations/shared/viz-ui';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { ViewComponent } from './view.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
 
 describe('ViewComponent', () => {
   let component: ViewComponent;
@@ -14,16 +15,15 @@ describe('ViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ViewComponent],
+      declarations: [ViewComponent, PlotlyVisualizationComponent],
       imports: [
         BiosimulationsIconsModule,
         MatCarouselModule,
         HttpClientTestingModule,
         SharedUiModule,
-        SharedVizUiModule,
         RouterTestingModule,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA], // Fopr so
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
