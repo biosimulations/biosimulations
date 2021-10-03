@@ -27,6 +27,7 @@ export class MonitorProcessor {
   private async handleMonitoring(job: Job): Promise<void> {
     const data = job.data;
     const slurmJobId = data.slurmJobId;
+    const isPublic = data.isPublic;
     const simId = data.simId;
     const DELAY = 5000;
     const jobStatus: SimulationRunStatus | null =
@@ -40,19 +41,19 @@ export class MonitorProcessor {
     }
 
     if (jobStatus == SimulationRunStatus.PROCESSING) {
-      this.completeQueue.add({ simId });
+      this.completeQueue.add({ simId, isPublic: data.isPublic });
     } else if (jobStatus == SimulationRunStatus.FAILED) {
       this.failQueue.add({ simId, reason: message });
     } else if (
       jobStatus == SimulationRunStatus.QUEUED ||
       jobStatus == SimulationRunStatus.RUNNING
     ) {
-      this.monitorQueue.add({ slurmJobId, simId }, { delay: DELAY });
+      this.monitorQueue.add({ slurmJobId, simId, isPublic }, { delay: DELAY });
     } else {
       this.logger.warn(
         `${simId} skipped update, due to unknown status of ${jobStatus}`,
       );
-      this.monitorQueue.add({ slurmJobId, simId }, { delay: DELAY });
+      this.monitorQueue.add({ slurmJobId, simId, isPublic }, { delay: DELAY });
     }
   }
 }
