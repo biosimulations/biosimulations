@@ -84,7 +84,7 @@ export class SbatchService {
             })
             .join(',')
         : '';
-
+    // TODO Remove the no check flag
     const template = `#!/bin/bash
 #SBATCH --job-name=${simId}_Biosimulations
 #SBATCH --time=${maxTimeFormatted}
@@ -105,7 +105,7 @@ export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 cd ${tempSimDir}
 echo -e '${cyan}=============Downloading Combine Archive=============${nc}'
-( ulimit -f 1048576; srun wget --progress=bar:force ${apiDomain}runs/${simId}/download -O '${omexName}')
+( ulimit -f 1048576; srun wget --no-check-certificate --progress=bar:force ${apiDomain}runs/${simId}/download -O '${omexName}')
 echo -e '${cyan}=============Extracting Combine Archive==============${nc}'
 unzip -o ${omexName} -d contents
 echo -e '${cyan}=================Running simulation==================${nc}'
