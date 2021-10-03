@@ -39,11 +39,7 @@ import { HomeTeaserButtonComponent } from './home/home-teaser-button.component';
 import { HomeLogoComponent } from './home/home-logo.component';
 import { TocSectionDirective } from './toc/toc-section.directive';
 import { TocSectionsContainerDirective } from './toc/toc-sections-container.directive';
-import { VegaVisualizationComponent } from './vega-visualization/vega-visualization.component';
-import { VegaEmbedComponent } from './vega-embed/vega-embed.component';
 import { ColumnsComponent } from './columns/columns.component';
-import { PlotlyVisualizationComponent } from './plotly-visualization/plotly-visualization.component';
-import { PlotlyViaWindowModule } from 'angular-plotly.js';
 
 @NgModule({
   imports: [
@@ -52,7 +48,6 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
     RouterModule,
     BiosimulationsIconsModule,
     BreadCrumbsModule,
-    PlotlyViaWindowModule,
   ],
   exports: [
     MaterialWrapperModule,
@@ -91,10 +86,7 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
     HomeLogoComponent,
     TocSectionDirective,
     TocSectionsContainerDirective,
-    VegaVisualizationComponent,
-    VegaEmbedComponent,
     ColumnsComponent,
-    PlotlyVisualizationComponent,
   ],
   declarations: [
     TopbarComponent,
@@ -132,10 +124,7 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
     HomeLogoComponent,
     TocSectionDirective,
     TocSectionsContainerDirective,
-    VegaVisualizationComponent,
-    VegaEmbedComponent,
     ColumnsComponent,
-    PlotlyVisualizationComponent,
   ],
 })
 export class SharedUiModule {}

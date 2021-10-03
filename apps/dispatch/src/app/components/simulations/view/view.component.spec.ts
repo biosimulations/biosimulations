@@ -7,8 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { IonicStorageModule } from '@ionic/storage-angular';
@@ -30,6 +30,7 @@ describe('ViewComponent', () => {
         MatFormFieldModule,
         MatSelectModule,
         SharedUiModule,
+        SharedVizUiModule,
         BiosimulationsIconsModule,
         IonicStorageModule.forRoot({
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
@@ -38,7 +39,7 @@ describe('ViewComponent', () => {
         NoopAnimationsModule,
       ],
       providers: [ConfigService, ScrollService],
-      schemas: [NO_ERRORS_SCHEMA],
+      schemas: [],
     }).compileComponents();
   }));
 

@@ -9,7 +9,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { Spec as VegaSpec } from 'vega';
 import { Endpoints } from '@biosimulations/config/common';
-import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
+import { VegaVisualizationComponent } from '@biosimulations/shared/viz-ui';
 
 @Component({
   selector: 'biosimulations-project-vega-visualization',

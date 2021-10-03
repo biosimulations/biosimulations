@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { MatDialogModule } from '@angular/material/dialog';
 
@@ -30,6 +31,7 @@ import { PublishComponent } from './publish/publish.component';
     MatFormFieldModule,
     MatSelectModule,
     SharedUiModule,
+    SharedVizUiModule,
     BiosimulationsIconsModule,
     MatDialogModule,
     SimulationLogModule,

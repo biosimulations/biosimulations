@@ -617,18 +617,10 @@ export class ViewService {
               location = location.substring(2);
             }
 
-            let name = location;
-            if (name.endsWith('.json')) {
-              name = name.substring(0, name.length - 5);
-            }
-            if (name.endsWith('.vega')) {
-              name = name.substring(0, name.length - 5);
-            }
-
             vegaVisualizations.push({
               _type: 'VegaVisualization',
               id: location,
-              name: name,
+              name: location,
               renderer: 'Vega',
               simulationId: id,
               sedDocumentConfigurations: sedmlArchive,
@@ -646,12 +638,8 @@ export class ViewService {
           if (location.startsWith('./')) {
             location = location.substring(2);
           }
-          let name = location;
-          if (name.endsWith('.sedml')) {
-            name = name.substring(0, name.length - 6);
-          }
           return {
-            title: name + ' (SED-ML)',
+            title: 'SED-ML charts for ' + location,
             visualizations: sedDoc.outputs
               .filter((output: SedOutput): boolean => {
                 return output._type === 'SedPlot2D';

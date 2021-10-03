@@ -19,7 +19,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { VisualizationService } from '../../../services/visualization/visualization.service';
-import { PlotlyVisualizationComponent } from '@biosimulations/shared/ui';
+import { PlotlyVisualizationComponent } from '@biosimulations/shared/viz-ui';
 import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import {
@@ -75,7 +75,7 @@ import {
 } from './view.model';
 import { ViewService } from './view.service';
 import { Spec as VegaSpec, Format as VegaDataFormat } from 'vega';
-import { VegaVisualizationComponent } from '@biosimulations/shared/ui';
+import { VegaVisualizationComponent } from '@biosimulations/shared/viz-ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Endpoints, urls } from '@biosimulations/config/common';
 import {

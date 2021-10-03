@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { ViewComponent } from './view.component';
 
@@ -19,6 +20,7 @@ describe('ViewComponent', () => {
         MatCarouselModule,
         HttpClientTestingModule,
         SharedUiModule,
+        SharedVizUiModule,
         RouterTestingModule,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA], // Fopr so

@@ -310,13 +310,6 @@
         "platform"
       ]
     },
-    "platform-view": {
-      "tags": [
-        "scope:platform",
-        "type:ui",
-        "platform:web"
-      ]
-    },
     "shared-assets": {
       "tags": [
         "scope:shared",
@@ -422,6 +415,16 @@
       ],
       "implicitDependencies": [
         "shared-assets",
+        "shared-styles"
+      ]
+    },
+    "shared-viz-ui": {
+      "tags": [
+        "scope:shared",
+        "type:ui",
+        "platform:web"
+      ],
+      "implicitDependencies": [
         "shared-styles"
       ]
     },

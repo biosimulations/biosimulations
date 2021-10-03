@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
 import { of } from 'rxjs';
 
 import { ProjectVegaVisualizationComponent } from './project-vega-visualization.component';
@@ -11,7 +12,7 @@ describe('ProjectVegaVisualizationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProjectVegaVisualizationComponent],
-      imports: [SharedUiModule],
+      imports: [SharedUiModule, SharedVizUiModule],
     }).compileComponents();
   });
 

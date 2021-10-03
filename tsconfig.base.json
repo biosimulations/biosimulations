@@ -105,9 +105,6 @@
       "@biosimulations/platform/database-models": [
         "libs/platform/database-models/src/index.ts"
       ],
-      "@biosimulations/platform/view": [
-        "libs/platform/view/src/index.ts"
-      ],
       "@biosimulations/shared/assets": [
         "libs/shared/assets/src/index.ts"
       ],
@@ -149,6 +146,9 @@
       ],
       "@biosimulations/shared/ui": [
         "libs/shared/ui/src/index.ts"
+      ],
+      "@biosimulations/shared/viz-ui": [
+        "libs/shared/viz-ui/src/index.ts"
       ],
       "@biosimulations/shared/utils/routes": [
         "libs/shared/utils/routes/src/index.ts"

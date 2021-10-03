@@ -6,10 +6,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSortModule } from '@angular/material/sort';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { SharedDebugModule } from '@biosimulations/shared/debug';
-import { ResourceViewModule } from '@biosimulations/platform/view';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
@@ -55,13 +55,13 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     MatSelectModule,
     MatCarouselModule.forRoot(),
     SharedUiModule,
+    SharedVizUiModule,
     BiosimulationsIconsModule,
     MatPaginatorModule,
     MatExpansionModule,
     SharedDebugModule,
     MatCheckboxModule,
     DragDropModule,
-    ResourceViewModule,
     SharedErrorComponentsModule,
     LazyLoadImageModule,
   ],
