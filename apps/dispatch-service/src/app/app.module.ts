@@ -29,6 +29,8 @@ import {
 import { JobQueue } from '@biosimulations/messages/messages';
 import { MetadataService } from '../metadata/metadata.service';
 import { CombineWrapperService } from '../combineWrapper.service';
+import { FileService } from '../file/file.service';
+import { SedmlService } from '../sedml/sedml.service';
 @Module({
   imports: [
     HttpModule,
@@ -84,6 +86,8 @@ import { CombineWrapperService } from '../combineWrapper.service';
     MetadataService,
     SimulationStatusService,
     CombineWrapperService,
+    FileService,
+    SedmlService,
   ],
 })
 export class AppModule {}

@@ -128,6 +128,9 @@ export class Endpoints {
     if (path.startsWith('./')) {
       path = path.substring(2);
     }
+    if (path == '.') {
+      path = 'input.omex';
+    }
     return `${this.storage_endpoint}/simulations/${id}/contents/${path}`;
   }
 
