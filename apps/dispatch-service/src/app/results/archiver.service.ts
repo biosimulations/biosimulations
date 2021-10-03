@@ -14,7 +14,7 @@ export class ArchiverService {
     private sshService: SshService,
     private service: SimulationRunService,
   ) {}
-
+  // TODO get this from AWS along with other files info
   public async updateResultsSize(id: string): Promise<void> {
     const path = this.sshService.getSSHResultsDirectory(id);
     const archive = `${path}/${id}.zip`;

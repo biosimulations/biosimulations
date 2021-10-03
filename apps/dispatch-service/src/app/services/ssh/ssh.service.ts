@@ -37,7 +37,7 @@ export class SshService {
         const conn = new SSHClient();
         conn
           .on('ready', () => {
-            this.logger.log('Connection ready');
+            this.logger.debug('Connection ready');
             let stdout = '';
             let stderr = '';
             conn.exec(cmd, (err, stream) => {
@@ -47,7 +47,7 @@ export class SshService {
               }
               stream
                 .on('close', (code: any, signal: any) => {
-                  this.logger.log(
+                  this.logger.debug(
                     'Stream :: close :: code: ' + code + ', signal: ' + signal,
                   );
                   resolve({ stdout, stderr });
