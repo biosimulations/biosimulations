@@ -21,12 +21,14 @@ import { FailProcessor } from './submission/fail.processor';
 import { CompleteProccessor } from './submission/complete.proccessor';
 import { MonitorProcessor } from './submission/monitor.processor';
 import { SimulationStatusService } from './services/simulationStatus.service';
-import { MetadataProcessor } from './submission/extractMetadata.proccessor';
+
 import {
   ApiModule as CombineApiModule,
   Configuration as combineConfig,
 } from '@biosimulations/combine-api-client';
 import { JobQueue } from '@biosimulations/messages/messages';
+import { MetadataService } from '../metadata/metadata.service';
+import { CombineWrapperService } from '../combineWrapper.service';
 @Module({
   imports: [
     HttpModule,
@@ -55,10 +57,6 @@ import { JobQueue } from '@biosimulations/messages/messages';
       prefix: '{dispatch}',
     }),
     BullModule.registerQueue({
-      name: JobQueue.metadata,
-      prefix: '{extractMetadata}',
-    }),
-    BullModule.registerQueue({
       name: JobQueue.monitor,
       prefix: '{monitor}',
     }),
@@ -84,8 +82,9 @@ import { JobQueue } from '@biosimulations/messages/messages';
     FailProcessor,
     CompleteProccessor,
     MonitorProcessor,
-    MetadataProcessor,
+    MetadataService,
     SimulationStatusService,
+    CombineWrapperService,
   ],
 })
 export class AppModule {}

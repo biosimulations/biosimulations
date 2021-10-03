@@ -1,33 +1,27 @@
+import { Endpoints } from '@biosimulations/config/common';
 import {
-  BioSimulationsCombineArchiveElementMetadata,
-  BioSimulationsCustomMetadata,
-  BioSimulationsMetadataValue,
-  COMBINEService,
-} from '@biosimulations/combine-api-client';
-import {
-  extractMetadataJob,
-  JobQueue,
-} from '@biosimulations/messages/messages';
-import { Process, Processor } from '@nestjs/bull';
-import { Logger } from '@nestjs/common';
-import { Job } from 'bull';
-import { HttpService } from '@nestjs/axios';
-import { firstValueFrom } from 'rxjs';
-import {
+  SimulationRunMetadataInput,
   ArchiveMetadata,
   LabeledIdentifier,
-  SimulationRunMetadataInput,
 } from '@biosimulations/datamodel/api';
-import { AxiosError, AxiosResponse } from 'axios';
-import { Endpoints } from '@biosimulations/config/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { AxiosResponse, AxiosError } from 'axios';
 
-@Processor(JobQueue.metadata)
-export class MetadataProcessor {
-  private readonly logger = new Logger(MetadataProcessor.name);
+import {
+  BioSimulationsCombineArchiveElementMetadata,
+  BioSimulationsMetadataValue,
+  BioSimulationsCustomMetadata,
+} from '@biosimulations/combine-api-client';
+import { firstValueFrom } from 'rxjs';
+import { HttpService } from '@nestjs/axios';
+import { CombineWrapperService } from '../combineWrapper.service';
+@Injectable()
+export class MetadataService {
+  private readonly logger = new Logger(MetadataService.name);
   private endpoints: Endpoints;
   public constructor(
-    private service: COMBINEService,
+    private service: CombineWrapperService,
     private httpService: HttpService,
     private config: ConfigService,
   ) {
@@ -35,20 +29,14 @@ export class MetadataProcessor {
     this.endpoints = new Endpoints(env);
   }
 
-  @Process()
-  private async extractMetadata(job: Job<extractMetadataJob>): Promise<void> {
-    const id = job.data.simId;
-    const isPublic = job.data.isPublic;
+  public async createMetadata(id: string, isPublic: boolean): Promise<void> {
     const metadataURL = this.endpoints.getMetadataEndpoint();
 
     const url = this.endpoints.getRunDownloadEndpoint(id, true);
     this.logger.debug(`Fetching metadata for archive at url: ${url}`);
     this.logger.debug(`Using metadata endpoint at ${metadataURL}`);
     const res = await firstValueFrom(
-      this.service.srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
-        undefined,
-        url,
-      ),
+      this.service.getArchiveMetadata(undefined, url),
     );
 
     // TODO handle errors/timeouts
@@ -58,7 +46,6 @@ export class MetadataProcessor {
 
     this.logger.log(`Extracted metadata for ${id}`);
     //this.logger.error(JSON.stringify(combineMetadata))
-    job.progress(50);
 
     const metadata: ArchiveMetadata[] = combineMetadata.map(
       this.convertMetadata,
@@ -75,11 +62,11 @@ export class MetadataProcessor {
         if (res.status === 201) {
           this.logger.log(`Posted metadata for ${id}`);
         }
-        job.progress(100);
       },
       error: (err: AxiosError) => {
         this.logger.error(`Failed to post metadata for ${id}`);
         this.logger.error(err?.response?.data);
+        throw err;
       },
     };
     const postedMetadata = this.httpService

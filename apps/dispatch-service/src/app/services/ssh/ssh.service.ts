@@ -16,10 +16,7 @@ export class SshService {
 
   private logger = new Logger('SshService');
 
-  constructor(private configService: ConfigService) {
-    this.logger.log('SSH config host: ' + this.sshConfig.host);
-    this.logger.log('SFTP config host: ' + this.sftpConfig.host);
-  }
+  constructor(private configService: ConfigService) {}
 
   public execStringCommand(
     cmd: string,

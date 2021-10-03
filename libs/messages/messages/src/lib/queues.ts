@@ -9,13 +9,11 @@ export enum JobQueue {
   fail = 'fail',
   metadata = 'metadata',
 }
-export class extractMetadataJob {
-  simId!: string;
-  isPublic!: boolean;
-}
+
 export class MonitorJob {
   slurmJobId!: string;
   simId!: string;
+  isPublic!: boolean;
 }
 
 export class DispatchJob {
@@ -33,6 +31,7 @@ export class DispatchJob {
 
 export class CompleteJob {
   simId!: string;
+  isPublic!: boolean;
 }
 
 export class FailJob {

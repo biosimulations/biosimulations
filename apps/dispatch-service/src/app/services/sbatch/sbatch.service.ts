@@ -47,7 +47,7 @@ export class SbatchService {
 
     let allEnvVars = [...envVars];
     const vars = this.configService.get('singularity').envVars;
-    this.logger.error(vars);
+
     try {
       vars.forEach((envVarPurpose: any): void => {
         if (envVarPurpose.purpose === 'ALL') {
