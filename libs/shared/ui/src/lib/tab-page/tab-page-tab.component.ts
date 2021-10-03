@@ -21,6 +21,9 @@ export class TabPageTabComponent {
   partialWidth = false;
 
   @Input()
+  fullWidth = false;
+
+  @Input()
   fullHeight = false;
 
   @Input()
