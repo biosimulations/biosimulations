@@ -12,7 +12,7 @@ import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { AuthClientModule } from '@biosimulations/auth/client';
 import { DispatchNestClientModule } from '@biosimulations/dispatch/nest-client';
 import { ImagesModule } from '../images/images.module';
-import { FileService } from './results/file.service';
+
 import { LogService } from './results/log.service';
 
 import { ConfigService } from '@nestjs/config';
@@ -76,7 +76,6 @@ import { CombineWrapperService } from '../combineWrapper.service';
     SbatchService,
     SshService,
     ArchiverService,
-    FileService,
     LogService,
     DispatchProcessor,
     FailProcessor,

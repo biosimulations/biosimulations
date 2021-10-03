@@ -19,12 +19,6 @@ export class HpcService {
     private sbatchService: SbatchService,
   ) {}
 
-  /**
-   *
-   * @param id
-   * @param sbatchString
-   */
-
   public async submitJob(
     id: string,
     simulator: string,
