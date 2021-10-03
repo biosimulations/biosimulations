@@ -5,7 +5,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
 import { ProjectSelectVisualizationComponent } from './project-select-visualization.component';
 
 describe('ProjectSelectVisualizationComponent', () => {
@@ -23,7 +22,6 @@ describe('ProjectSelectVisualizationComponent', () => {
         NoopAnimationsModule,
         BiosimulationsIconsModule,
         SharedUiModule,
-        SharedErrorComponentsModule,
       ],
     }).compileComponents();
   });

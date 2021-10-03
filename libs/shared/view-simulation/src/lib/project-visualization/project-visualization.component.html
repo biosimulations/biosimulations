@@ -1,11 +1,9 @@
 <div class="container">
-  <biosimulations-project-vega-visualization
+  <biosimulations-vega-visualization
     *ngIf="visualization.renderer === 'Vega'"
-    [simulationId]="visualization.simulationId"
-    [sedDocumentConfigurations]="visualization.sedDocumentConfigurations"
-    [vegaSpec]="visualization.vegaSpec"
+    [spec]="visualization.vegaSpec"
   >
-  </biosimulations-project-vega-visualization>
+  </biosimulations-vega-visualization>
 
   <biosimulations-plotly-visualization
     *ngIf="visualization.renderer === 'Plotly'"

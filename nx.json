@@ -171,6 +171,13 @@
         "platform:server"
       ]
     },
+    "datamodel-view-simulation": {
+      "tags": [
+        "scope:shared",
+        "type:datamodel",
+        "platform:web"
+      ]
+    },
     "datamodel-utils": {
       "tags": [
         "scope:shared",
@@ -425,6 +432,17 @@
         "platform:web"
       ],
       "implicitDependencies": [
+        "shared-styles"
+      ]
+    },
+    "shared-view-simulation": {
+      "tags": [
+        "scope:shared",
+        "type:ui",
+        "platform:web"
+      ],
+      "implicitDependencies": [
+        "shared-assets",
         "shared-styles"
       ]
     },

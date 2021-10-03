@@ -1,11 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { Observable, combineLatest, map } from 'rxjs';
-import { ProjectMetadata, Directory, File, List, VisualizationList, Visualization } from './view.model';
+import { 
+  Path,
+  File,
+  VisualizationList,
+  Visualization,
+} from '@biosimulations/datamodel/view-simulation';
+import { ProjectMetadata, List } from './view.model';
 import { ViewService } from './view.service';
-import { ProjectVisualizationComponent } from '../project-visualization/project-visualization.component';
 
 @Component({
   selector: 'biosimulations-view',
@@ -20,15 +25,12 @@ export class ViewComponent implements OnInit {
   public projectMetadata$?: Observable<ProjectMetadata | undefined> = undefined;
   public simulationRun$?: Observable<List[]>;
   
-  public projectFiles$?: Observable<(Directory | File)[]>;
-  public files$?: Observable<(Directory | File)[]>;
+  public projectFiles$?: Observable<Path[]>;
+  public files$?: Observable<Path[]>;
   public outputs$?: Observable<File[]>;
 
   public visualizations$?: Observable<VisualizationList[]>;
   public visualization: Visualization | null = null;
-
-  @ViewChild(ProjectVisualizationComponent)
-  private visualizationComponent!: ProjectVisualizationComponent;
   
   constructor(private service: ViewService, private route: ActivatedRoute) {}
   

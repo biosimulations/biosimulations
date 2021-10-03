@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
-import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
 import { ProjectVisualizationComponent } from './project-visualization.component';
 
 describe('ProjectVisualizationComponent', () => {
@@ -16,7 +15,6 @@ describe('ProjectVisualizationComponent', () => {
         BiosimulationsIconsModule,
         SharedUiModule,
         SharedVizUiModule,
-        SharedErrorComponentsModule,
       ],
     }).compileComponents();
   });

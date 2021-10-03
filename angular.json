@@ -613,6 +613,35 @@
         }
       }
     },
+    "datamodel-view-simulation": {
+      "root": "libs/datamodel/view-simulation",
+      "sourceRoot": "libs/datamodel/view-simulation/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/datamodel/view-simulation/tsconfig.lib.json",
+              "libs/datamodel/view-simulation/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/datamodel/view-simulation/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/datamodel/view-simulation/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "datamodel-utils": {
       "root": "libs/datamodel/utils",
       "sourceRoot": "libs/datamodel/utils/src",
@@ -1740,6 +1769,34 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/viz-ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-view-simulation": {
+      "projectType": "library",
+      "root": "libs/shared/view-simulation",
+      "sourceRoot": "libs/shared/view-simulation/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/view-simulation/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/view-simulation/jest.config.js",
             "passWithNoTests": true
           }
         }

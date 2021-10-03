@@ -59,6 +59,9 @@
       "@biosimulations/datamodel-database": [
         "libs/datamodel/database/src/index.ts"
       ],
+      "@biosimulations/datamodel/view-simulation": [
+        "libs/datamodel/view-simulation/src/index.ts"
+      ],
       "@biosimulations/datamodel/api": [
         "libs/datamodel/api/src/index.ts"
       ],
@@ -149,6 +152,9 @@
       ],
       "@biosimulations/shared/viz-ui": [
         "libs/shared/viz-ui/src/index.ts"
+      ],
+      "@biosimulations/shared/view-simulation": [
+        "libs/shared/view-simulation/src/index.ts"
       ],
       "@biosimulations/shared/utils/routes": [
         "libs/shared/utils/routes/src/index.ts"

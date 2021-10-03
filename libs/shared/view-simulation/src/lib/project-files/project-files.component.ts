@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Directory, File } from '../view/view.model';
+import { Path } from '@biosimulations/datamodel/view-simulation';
 
 @Component({
   selector: 'biosimulations-project-files',
@@ -9,7 +9,7 @@ import { Directory, File } from '../view/view.model';
 })
 export class ProjectFilesComponent {
   @Input()
-  files!: (Directory | File)[];
+  files!: Path[];
 
   @Input()
   usesMaster = false;
