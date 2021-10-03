@@ -5,7 +5,7 @@ import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
-import { SimulatorIdNameMap } from './datamodel';
+import { SimulatorIdNameMap } from '@biosimulations/datamodel/common';
 import { RetryStrategy } from '@biosimulations/shared/services';
 
 

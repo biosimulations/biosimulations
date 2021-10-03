@@ -27,6 +27,7 @@ import {
   PlotlyTrace,
   PlotlyTraceMode,
   PlotlyTraceType,
+  SimulatorIdNameMap,
 } from '@biosimulations/datamodel/common';
 import {
   ArchiveMetadata as APIMetadata,
@@ -41,8 +42,6 @@ import {
 } from '@biosimulations/dispatch/api-models';
 */
 import { ProjectsService } from '../projects.service';
-import { SimulatorIdNameMap } from '../datamodel';
-import { SedDatasetResultsMap } from './view.model';
 import { 
   ProjectMetadata,
   Creator,
@@ -54,7 +53,7 @@ import {
   VisualizationList,
   Visualization,
   SedPlot2DVisualization,
-  VegaVisualization, 
+  VegaVisualization,
 } from '@biosimulations/datamodel/view-simulation';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
@@ -63,6 +62,32 @@ import { OntologyService } from '@biosimulations/ontology/client';
 import { Spec as VegaSpec } from 'vega';
 import { Endpoints } from '@biosimulations/config/common';
 
+interface SedDatasetResults {
+  uri: string;
+  id: string;
+  location: string;
+  outputId: string;
+  label: string;
+  values: (number | boolean | string)[];
+}
+
+interface SedOutputResults {
+  uri: string;
+  id: string;
+  datasets: SedDatasetResults[];
+}
+
+interface SedDocumentResults {
+  uri: string;
+  location: string;
+  outputs: SedOutputResults[];
+}
+
+type CombineResults = SedDocumentResults[];
+
+interface SedDatasetResultsMap {
+  [uri: string]: SedDatasetResults;
+}
 
 @Injectable({
   providedIn: 'root',
