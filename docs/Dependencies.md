@@ -434,7 +434,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/mongodb/LICENSE
-├─ @types/node@14.17.19
+├─ @types/node@14.17.20
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/node/LICENSE
@@ -703,7 +703,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.995.0
+├─ aws-sdk@2.999.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services
@@ -725,6 +725,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ url: https://github.com/mhart
 │  └─ licenseFile: npm/node_modules/aws4/LICENSE
 ├─ axios@0.21.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/axios/axios
+│  ├─ publisher: Matt Zabriskie
+│  └─ licenseFile: @nestjs/axios/node_modules/axios/LICENSE
+├─ axios@0.22.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
@@ -1194,12 +1199,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: David Clark
 │  ├─ email: david.dave.clark@gmail.com
 │  └─ licenseFile: cosmiconfig/LICENSE
-├─ cpu-features@0.0.2
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/mscdex/cpu-features
-│  ├─ publisher: Brian White
-│  ├─ email: mscdex@mscdex.net
-│  └─ licenseFile: cpu-features/LICENSE
 ├─ crc-32@1.2.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/SheetJS/js-crc32
@@ -1729,6 +1728,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: ruben@verborgh.org
 │  ├─ url: https://ruben.verborgh.org/
 │  └─ licenseFile: follow-redirects/LICENSE
+├─ follow-redirects@1.14.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/follow-redirects/follow-redirects
+│  ├─ publisher: Ruben Verborgh
+│  ├─ email: ruben@verborgh.org
+│  ├─ url: https://ruben.verborgh.org/
+│  └─ licenseFile: axios/node_modules/follow-redirects/LICENSE
 ├─ for-each@0.3.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Raynos/for-each
@@ -3646,7 +3652,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: jaredhanson@gmail.com
 │  ├─ url: http://www.jaredhanson.net/
 │  └─ licenseFile: passport-strategy/LICENSE
-├─ passport@0.4.1
+├─ passport@0.5.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jaredhanson/passport
 │  ├─ publisher: Jared Hanson
