@@ -26,8 +26,8 @@ export class EnvironmentVariable {
 
 export class SimulationRun {
   // Explicitly make sure not to send out file id from database
-  file: never;
-  fileUrl: never;
+  file!: never;
+  fileUrl!: never;
 
   @ApiResponseProperty({ type: String, example: '5fab1cf714f9dd3dfbcfe51b' })
   id!: string;
