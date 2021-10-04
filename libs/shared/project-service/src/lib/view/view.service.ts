@@ -521,7 +521,7 @@ export class ViewService {
               basename: basename,
               format: formatName,
               master: content?.master || (!hasMaster && format === SEDML_FORMAT.combineUri),
-              url: `https://files.biosimulations.org/${id}/${location}`, // TODO: correct file URLs
+              url: content.url,
               size: UtilsService.formatDigitalSize(content.size),
               formatUrl: this.formatMap?.[format]?.url,
               icon: this.formatMap?.[format]?.icon || 'file',
@@ -554,7 +554,7 @@ export class ViewService {
             location: '',
             title: 'Outputs',
             format: 'JavaScript Object Notation (JSON) in BioSimulators schema',
-            formatUrl: 'https://api.biosimulations.org/',
+            formatUrl: urls.dispatchApi,
             master: false,
             size: null,
             icon: 'report',
