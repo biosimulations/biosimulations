@@ -3,7 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CombineWrapperService } from '../combineWrapper.service';
 import { HttpService } from '@nestjs/axios';
-import { map, pluck } from 'rxjs';
+import { map, mergeMap, pluck } from 'rxjs';
 import {
   CombineArchiveContent,
   SedDocument,
@@ -13,6 +13,8 @@ import {
   SedSimulation,
   SedOutput,
 } from '@biosimulations/combine-api-client';
+import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
 
 // TODO move to api lib
 interface SedMLSpecs {
@@ -32,6 +34,7 @@ export class SedmlService {
     private config: ConfigService,
     private combine: CombineWrapperService,
     private httpService: HttpService,
+    private submit: SimulationRunService,
   ) {
     const env = config.get('server.env');
     this.endpoints = new Endpoints(env);
@@ -41,14 +44,27 @@ export class SedmlService {
     this.logger.log(`Processing SED-ML file for  ${id}`);
     const url = this.endpoints.getRunDownloadEndpoint(id, true);
     const req = this.combine.getSedMlSpecs(undefined, url);
-
     const sedml = req.pipe(
       pluck('data'),
       pluck('contents'),
       map(this.getSpecsFromArchiveContent),
-      map((sedmlSpecs: SedMLSpecs[]) => {
-        // TODO send to api
-        return sedmlSpecs;
+      mergeMap((sedmlSpecs: SedMLSpecs[]) => {
+        const apiSpecs = sedmlSpecs.map(
+          (sedmlSpec: SedMLSpecs): SimulationRunSpecifications => {
+            return {
+              id: sedmlSpec.id,
+              dataGenerators: sedmlSpec.dataGenerators,
+              models: sedmlSpec.models,
+              outputs: sedmlSpec.outputs,
+              tasks: sedmlSpec.tasks,
+              simulations: sedmlSpec.simulations,
+              simulationRun: id,
+              created: '',
+              updated: '',
+            };
+          },
+        );
+        return this.submit.postSpecs(id, apiSpecs);
       }),
     );
 
@@ -60,7 +76,7 @@ export class SedmlService {
   ): SedMLSpecs[] {
     const sedmlSpecs: SedMLSpecs[] = [];
     contents.forEach((content: CombineArchiveContent) => {
-      const id: string = content.location.path;
+      const id: string = content.location.path.replace('./', '');
       const spec: SedDocument = content.location.value as SedDocument;
 
       sedmlSpecs.push({
