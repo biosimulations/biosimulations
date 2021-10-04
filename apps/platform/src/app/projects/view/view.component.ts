@@ -10,7 +10,7 @@ import {
   File,
   VisualizationList,
   Visualization,
-} from '@biosimulations/datamodel/view-simulation';
+} from '@biosimulations/datamodel/project';
 import { ViewService } from '@biosimulations/shared/project-service';
 
 @Component({
@@ -42,8 +42,8 @@ export class ViewComponent implements OnInit {
     this.simulationRun$ = this.service.getFormattedSimulationRun(id);
 
     this.projectFiles$ = this.service.getFormattedProjectFiles(id);
-    this.files$ = this.service.getFormattedFiles(id);
-    this.outputs$ = this.service.getFormattedOutputs(id);
+    this.files$ = this.service.getFormattedProjectContentFiles(id);
+    this.outputs$ = this.service.getFormattedOutputFiles(id);
 
     this.visualizations$ = this.service.getVisualizations(id);
 

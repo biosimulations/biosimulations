@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Visualization, VisualizationList } from '@biosimulations/datamodel/view-simulation';
+import { Visualization, VisualizationList } from '@biosimulations/datamodel/project';
 // import { urls } from '@biosimulations/config/common';
 import { DesignHistogram1DVisualizationComponent } from '../design-histogram-1d-viz/design-histogram-1d-viz.component';
 import { DesignHeatmap2DVisualizationComponent } from '../design-heatmap-2d-viz/design-heatmap-2d-viz.component';

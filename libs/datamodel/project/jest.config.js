@@ -7,6 +7,6 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../coverage/libs/datamodel/view-simulation',
-  displayName: 'datamodel-view-simulation',
+  coverageDirectory: '../../../coverage/libs/datamodel/project',
+  displayName: 'datamodel-project',
 };

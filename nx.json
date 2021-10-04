@@ -171,7 +171,7 @@
         "platform:server"
       ]
     },
-    "datamodel-view-simulation": {
+    "datamodel-project": {
       "tags": [
         "scope:simulations",
         "type:datamodel",
@@ -443,7 +443,7 @@
         "shared-styles"
       ]
     },
-    "shared-view-simulation": {
+    "shared-project-ui": {
       "tags": [
         "scope:simulations",
         "type:ui",

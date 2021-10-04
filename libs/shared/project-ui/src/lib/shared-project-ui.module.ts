@@ -48,4 +48,4 @@ import { RenderVisualizationComponent } from './render-viz/render-viz.component'
     RenderVisualizationComponent,
   ],
 })
-export class SharedViewSimulationModule {}
+export class SharedProjectUiModule {}

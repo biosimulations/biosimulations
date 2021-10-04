@@ -29,6 +29,7 @@ describe('RenderVisualizationComponent', () => {
       _type: 'VegaVisualization',
       id: '',
       name: '',
+      userDesigned: false,
       renderer: 'Vega',
       vegaSpec: of(false),
     };

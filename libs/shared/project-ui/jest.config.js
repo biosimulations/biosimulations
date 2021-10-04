@@ -8,9 +8,9 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  coverageDirectory: '../../../coverage/libs/shared/view-simulation',
+  coverageDirectory: '../../../coverage/libs/shared/project-ui',
 
-  displayName: 'shared-view-simulation',
+  displayName: 'shared-project-ui',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

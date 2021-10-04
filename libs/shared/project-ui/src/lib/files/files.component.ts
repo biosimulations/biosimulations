@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Path } from '@biosimulations/datamodel/view-simulation';
+import { Path } from '@biosimulations/datamodel/project';
 
 @Component({
   selector: 'biosimulations-project-files',

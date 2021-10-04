@@ -13,7 +13,7 @@ import {
   PlotlyTraceType,
 } from '@biosimulations/datamodel/common';
 import { ProjectsService } from '@biosimulations/shared/project-service';
-import { UriSedDataSetMap, Histogram1DVisualization } from '@biosimulations/datamodel/view-simulation';
+import { UriSedDataSetMap, Histogram1DVisualization } from '@biosimulations/datamodel/project';
 import { Observable, combineLatest, map } from 'rxjs';
 
 @Component({

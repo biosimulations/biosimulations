@@ -7,7 +7,7 @@ import {
   Validators,
   // ValidationErrors,
 } from '@angular/forms';
-import { Visualization, VisualizationList } from '@biosimulations/datamodel/view-simulation';
+import { Visualization, VisualizationList } from '@biosimulations/datamodel/project';
 
 /*
 import {

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
-import { SharedViewSimulationModule } from '@biosimulations/shared/view-simulation';
+import { SharedProjectUiModule } from '@biosimulations/shared/project-ui';
 import { SharedDebugModule } from '@biosimulations/shared/debug';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { ProjectsRoutingModule } from './projects-routing.module';
@@ -25,7 +25,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     MatTabsModule,
     SharedUiModule,
     SharedVizUiModule,
-    SharedViewSimulationModule,
+    SharedProjectUiModule,
     BiosimulationsIconsModule,
     SharedDebugModule,
     SharedErrorComponentsModule,

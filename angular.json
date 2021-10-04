@@ -613,9 +613,9 @@
         }
       }
     },
-    "datamodel-view-simulation": {
-      "root": "libs/datamodel/view-simulation",
-      "sourceRoot": "libs/datamodel/view-simulation/src",
+    "datamodel-project": {
+      "root": "libs/datamodel/project",
+      "sourceRoot": "libs/datamodel/project/src",
       "projectType": "library",
       "schematics": {},
       "architect": {
@@ -624,19 +624,19 @@
           "options": {
             "linter": "eslint",
             "tsConfig": [
-              "libs/datamodel/view-simulation/tsconfig.lib.json",
-              "libs/datamodel/view-simulation/tsconfig.spec.json"
+              "libs/datamodel/project/tsconfig.lib.json",
+              "libs/datamodel/project/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/datamodel/view-simulation/**/*"
+              "!libs/datamodel/project/**/*"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/datamodel/view-simulation/jest.config.js",
+            "jestConfig": "libs/datamodel/project/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -1803,24 +1803,24 @@
         }
       }
     },
-    "shared-view-simulation": {
+    "shared-project-ui": {
       "projectType": "library",
-      "root": "libs/shared/view-simulation",
-      "sourceRoot": "libs/shared/view-simulation/src",
+      "root": "libs/shared/project-ui",
+      "sourceRoot": "libs/shared/project-ui/src",
       "prefix": "biosimulations",
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/shared/view-simulation/**/*.ts"
+              "libs/shared/project-ui/**/*.ts"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/shared/view-simulation/jest.config.js",
+            "jestConfig": "libs/shared/project-ui/jest.config.js",
             "passWithNoTests": true
           }
         }
