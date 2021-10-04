@@ -692,9 +692,9 @@ export class ViewService {
 
         const designVisualizations: Visualization[] = [];
 
-        let behaviorSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>;
+        let behaviorSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | null>>;
 
-        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>(of(undefined));
+        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | false | null>>(of(null));
         designVisualizations.push({
           _type: 'Histogram1DVisualization',
           id: 'Histogram1DVisualization',
@@ -708,7 +708,7 @@ export class ViewService {
           plotlyDataLayout: behaviorSubject.asObservable(),
         });
 
-        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>(of(undefined));
+        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | false | null>>(of(null));
         designVisualizations.push({
           _type: 'Heatmap2DVisualization',
           id: 'Heatmap2DVisualization',
@@ -722,7 +722,7 @@ export class ViewService {
           plotlyDataLayout: behaviorSubject.asObservable(),
         });
         
-        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>(of(undefined));
+        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | false | null>>(of(null));
         designVisualizations.push({
           _type: 'Line2DVisualization',
           id: 'Line2DVisualization',

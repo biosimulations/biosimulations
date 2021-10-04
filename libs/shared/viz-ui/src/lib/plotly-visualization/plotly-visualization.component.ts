@@ -32,14 +32,14 @@ export class PlotlyVisualizationComponent {
   error = false;
 
   @Input()
-  set dataLayout(value: PlotlyDataLayout | null | false) {
+  set dataLayout(value: PlotlyDataLayout | null | undefined | false) {
     if (value) {
       this.loading = false;
       this.data = value.data;
       this.layout = value.layout;
       this.error = false;
       this.setLayout();
-    } else if (value == null) {
+    } else if (value == null || value === undefined) {
       this.loading = true;
       this.error = false;
     } else {

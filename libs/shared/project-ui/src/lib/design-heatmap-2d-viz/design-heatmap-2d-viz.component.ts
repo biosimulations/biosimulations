@@ -14,7 +14,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { UriSedDataSetMap, UriSetDataSetResultsMap, Heatmap2DVisualization } from '@biosimulations/datamodel/project';
 import { ViewService } from '@biosimulations/shared/project-service';
-import { Observable, of, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
 import vegaTemplate from './vega-template.json';
 import { Endpoints } from '@biosimulations/config/common';
@@ -167,7 +167,9 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
     const selectedXUri = xFormControl.value;
 
     const dataSetUris = [...selectedYUris];
-    dataSetUris.push(selectedXUri);
+    if (selectedXUri) {
+      dataSetUris.push(selectedXUri);
+    }
 
     return this.viewService.getReportResults(this.simulationRunId, dataSetUris).pipe(
       map((uriResultsMap: UriSetDataSetResultsMap): PlotlyDataLayout | false => {
@@ -253,6 +255,184 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
   }
 
   public exportToVega(): Observable<VegaSpec> {
-    return of({});
+    const formGroup = this.formGroup;
+    const yFormControl = formGroup.controls.yDataSets as FormControl;
+    const xFormControl = formGroup.controls.xDataSet as FormControl;
+    const selectedYUris = yFormControl.value;
+    let selectedXUri = xFormControl.value;
+
+    const dataSetUris = [...selectedYUris];
+    if (selectedXUri) {
+      dataSetUris.push(selectedXUri);
+    }
+
+    return this.viewService.getReportResults(this.simulationRunId, dataSetUris).pipe(
+      map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
+        let vegaDataSets: {
+          templateNames: string[];
+          sourceName: (iDataSet: number) => string;
+          filteredName: (iDataSet: number) => string;
+          joinedName?: string;
+          joinedTransforms?: any[];
+          data: { [outputUri: string]: string[] };
+        }[] = [];
+        const vega = JSON.parse(JSON.stringify(vegaTemplate)) as any;
+
+        // y axis
+        const selectedYDataSets: { [outputUri: string]: string[] } = {};
+        for (let selectedUri of selectedYUris) {
+          if (selectedUri.startsWith('./')) {
+            selectedUri = selectedUri.substring(2);
+          }
+
+          const selectedDataSet =
+            this.uriSedDataSetMap?.[selectedUri];
+          if (selectedDataSet) {
+            const data = uriResultsMap?.[
+              selectedUri
+            ];
+            if (data) {
+              const uriParts = selectedUri.split('/');
+              uriParts.pop();
+              const outputUri = uriParts.join('/');
+
+              if (!(outputUri in selectedYDataSets)) {
+                selectedYDataSets[outputUri] = [];
+              }
+              selectedYDataSets[outputUri].push(data.id);
+            }
+          }
+        }
+
+        // x axis
+        let xAxisTitle: string;
+        let selectedXOutputUri: string;
+        let selectedXDataSetId: string;
+        if (selectedXUri) {
+          if (selectedXUri.startsWith('./')) {
+            selectedXUri = selectedXUri.substring(2);
+          }
+          const data = uriResultsMap?.[
+            selectedXUri
+          ];
+
+          const uriParts = selectedXUri.split('/');
+          uriParts.pop();
+          selectedXOutputUri = uriParts.join('/');
+
+          selectedXDataSetId = data.id;
+          xAxisTitle = data.label;
+        } else {
+          selectedXOutputUri = Object.keys(selectedYDataSets)[0];
+          selectedXDataSetId = selectedYDataSets[selectedXOutputUri][0];
+          xAxisTitle = 'Index';
+        }
+        const selectedXDataSet: { [outputUri: string]: string[] } = {};
+        selectedXDataSet[selectedXOutputUri] = [selectedXDataSetId];
+
+        vegaDataSets = [
+          {
+            templateNames: [
+              'rawHeatmapData0',
+              'rawHeatmapData0_filtered',
+              'rawHeatmapData_joined',
+            ],
+            sourceName: (iDataSet: number): string =>
+              `rawHeatmapData${iDataSet}`,
+            filteredName: (iDataSet: number): string =>
+              `rawHeatmapData${iDataSet}_filtered`,
+            joinedName: 'rawHeatmapData_joined',
+            data: selectedYDataSets,
+          },
+          {
+            templateNames: ['rawXData', 'rawXData_filtered'],
+            sourceName: (iDataSet: number): string => `rawXData`,
+            filteredName: (iDataSet: number): string => `rawXData_filtered`,
+            data: selectedXDataSet,
+          },
+        ];
+
+        // signals
+        const vegaSignals: { [name: string]: any } = {
+          ordinalXScale: !selectedXUri,
+          xAxisTitle: xAxisTitle,
+        };
+
+        // signals
+        vega.signals.forEach((signalTemplate: any): void => {
+          if (signalTemplate.name in vegaSignals) {
+            signalTemplate.value = vegaSignals[signalTemplate.name];
+          }
+        });
+
+        // data
+        vegaDataSets.forEach((vegaDataSet: any): void => {
+          // remove template data sets
+          for (let iData = vega.data.length - 1; iData >= 0; iData--) {
+            if (vegaDataSet.templateNames.includes(vega.data[iData].name)) {
+              vega.data.splice(iData, 1);
+            }
+          }
+
+          // add concrete data sets
+          const concreteDataSets: any[] = [];
+          const filteredVegaDataSetNames: string[] = [];
+          Object.entries(vegaDataSet.data).forEach(
+            (outputUriDataSetIds: [string, any], iDataSet: number): void => {
+              const outputUri = outputUriDataSetIds[0];
+              const outputUriParts = outputUri.split('/');
+              const outputId = outputUriParts.pop();
+              const sedDocumentLocation = outputUriParts.join('/');
+              const dataSetIds = outputUriDataSetIds[1] as string[];
+
+              concreteDataSets.push({
+                name: vegaDataSet.sourceName(iDataSet),
+                sedmlUri: [sedDocumentLocation, outputId],
+                url: this.endpoints.getRunResultsEndpoint(this.simulationRunId, `${sedDocumentLocation}/${outputId}`, true),
+                format: {
+                  type: 'json',
+                  property: 'data',
+                },
+              });
+
+              concreteDataSets.push({
+                name: vegaDataSet.filteredName(iDataSet),
+                source: concreteDataSets[concreteDataSets.length - 1].name,
+                transform: [
+                  {
+                    type: 'filter',
+                    expr: `indexof(['${dataSetIds.join(
+                      "', '",
+                    )}'], datum.id) !== -1`,
+                  },
+                  {
+                    type: 'formula',
+                    expr: `'${outputUri}'`,
+                    as: 'outputUri',
+                  },
+                ],
+              });
+
+              filteredVegaDataSetNames.push(
+                concreteDataSets[concreteDataSets.length - 1].name,
+              );
+            },
+          );
+
+          if (vegaDataSet.joinedName) {
+            concreteDataSets.push({
+              name: vegaDataSet.joinedName,
+              source: filteredVegaDataSetNames,
+              transform: vegaDataSet.joinedTransforms || [],
+            });
+          }
+
+          vega.data = concreteDataSets.concat(vega.data);
+        });
+
+        // return Vega spec
+        return vega;
+      })
+    );
   }
 }

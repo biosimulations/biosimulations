@@ -23,7 +23,6 @@ export class VegaVisualizationService {
         const anySignal = signal as any;
 
         if ('sedmlUri' in signal) {
-          console.error(anySignal);
           const sedmlSimulationAttributePath = anySignal.sedmlUri as any;
           anySignal.value = this.getValueOfSedmlObjectAttribute(
             sedmlSimulationAttributePath,

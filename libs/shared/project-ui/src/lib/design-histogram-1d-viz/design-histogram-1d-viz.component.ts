@@ -239,10 +239,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
           joinedName?: string;
           joinedTransforms?: any[];
           data: { [outputUri: string]: string[] };
-        }[] = [];
-        let vegaSignals: { [name: string]: any } = {};
-        const vegaScales: { name: string; attributes: { [key: string]: any } }[] = [];
-        
+        }[] = [];        
         const selectedUris = this.dataSetsFormControl.value;
         const vega: any = JSON.parse(JSON.stringify(vegaTemplate)) as any;
 
@@ -296,7 +293,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
         } else if (xAxisTitles.length > 1) {
           xAxisTitle = 'Multiple';
         }
-        vegaSignals = {
+        const vegaSignals: { [name: string]: any } = {
           histogramExtent: [
             isNaN(histogramExtent[0]) ? null : histogramExtent[0],
             isNaN(histogramExtent[1]) ? null : histogramExtent[1],
@@ -374,20 +371,6 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
           }
 
           vega.data = concreteDataSets.concat(vega.data);
-        });
-
-        // scales
-        vegaScales.forEach((vegaScale): void => {
-          for (const scale of vega.scales) {
-            if (scale.name === vegaScale.name) {
-              Object.entries(vegaScale.attributes).forEach(
-                (keyVal: [string, any]): void => {
-                  scale[keyVal[0]] = keyVal[1];
-                },
-              );
-              break;
-            }
-          }
         });
 
         // return Vega spec

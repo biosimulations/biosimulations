@@ -69,8 +69,8 @@ export interface Histogram1DVisualization {
   combineArchiveSedDocs: CombineArchive;
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>;
-  plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | undefined>>;
+  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | null>>;
+  plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | null>>;
 }
 
 export interface Heatmap2DVisualization {
@@ -82,8 +82,8 @@ export interface Heatmap2DVisualization {
   combineArchiveSedDocs: CombineArchive;
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>;
-  plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | undefined>>;
+  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | null>>;
+  plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | null>>;
 }
 
 export interface Line2DVisualization {
@@ -95,8 +95,8 @@ export interface Line2DVisualization {
   combineArchiveSedDocs: CombineArchive;
   renderer: 'Plotly';  
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>;
-  plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | undefined>>;
+  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | null>>;
+  plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | null>>;
 }
 
 export type DesignVisualization = (  
