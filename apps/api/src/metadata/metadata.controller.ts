@@ -18,7 +18,7 @@ import {
 } from '@biosimulations/datamodel/api';
 import { MetadataService } from './metadata.service';
 import { SimulationRunMetadataModel } from './metadata.model';
-import { OptionalAuth } from '@biosimulations/auth/nest';
+import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
 import { AuthToken } from '@biosimulations/auth/common';
 
 @ApiTags('Metadata')
@@ -34,6 +34,7 @@ export class MetadataController {
   })
   @ApiBody({ type: SimulationRunMetadataInput })
   @Post()
+  @permissions('write:Metadata')
   public async makeMetadata(
     @Body() body: SimulationRunMetadataInput,
   ): Promise<SimulationRunMetadata> {

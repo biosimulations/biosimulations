@@ -3,10 +3,11 @@ import {
   SimulationRunMetadataInput,
   ArchiveMetadata,
   LabeledIdentifier,
+  SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AxiosResponse, AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 
 import {
   BioSimulationsCombineArchiveElementMetadata,
@@ -14,27 +15,26 @@ import {
   BioSimulationsCustomMetadata,
 } from '@biosimulations/combine-api-client';
 import { firstValueFrom } from 'rxjs';
-import { HttpService } from '@nestjs/axios';
+
 import { CombineWrapperService } from '../combineWrapper.service';
+import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 @Injectable()
 export class MetadataService {
   private readonly logger = new Logger(MetadataService.name);
   private endpoints: Endpoints;
   public constructor(
     private service: CombineWrapperService,
-    private httpService: HttpService,
     private config: ConfigService,
+    private submit: SimulationRunService,
   ) {
     const env = config.get('server.env');
     this.endpoints = new Endpoints(env);
   }
 
   public async createMetadata(id: string, isPublic: boolean): Promise<void> {
-    const metadataURL = this.endpoints.getMetadataEndpoint();
-
     const url = this.endpoints.getRunDownloadEndpoint(id, true);
     this.logger.debug(`Fetching metadata for archive at url: ${url}`);
-    this.logger.debug(`Using metadata endpoint at ${metadataURL}`);
+
     const res = await firstValueFrom(
       this.service.getArchiveMetadata(undefined, url),
     );
@@ -57,21 +57,21 @@ export class MetadataService {
       metadata,
       isPublic,
     };
+
+    const metadataReq = this.submit.postMetadata(postMetadata);
+
     const metadataPostObserver = {
-      next: (res: AxiosResponse<any>) => {
-        if (res.status === 201) {
-          this.logger.log(`Posted metadata for ${id}`);
-        }
+      next: (res: SimulationRunMetadata) => {
+        this.logger.log(`Posted metadata for ${id}`);
       },
       error: (err: AxiosError) => {
         this.logger.error(`Failed to post metadata for ${id}`);
         this.logger.error(err?.response?.data);
+        // Its important to throw this error so that the calling service is aware posting metadata failed
         throw err;
       },
     };
-    const postedMetadata = this.httpService
-      .post(metadataURL, postMetadata)
-      .subscribe(metadataPostObserver);
+    metadataReq.subscribe(metadataPostObserver);
   }
 
   private convertMetadataValue(
