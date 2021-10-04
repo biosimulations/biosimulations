@@ -62,7 +62,7 @@ export class ProjectsService {
   }
 
   public getProject(id: string): Observable<SimulationRunMetadata> {
-    const url = this.endpoints.getMetadataEndpoint(id);
+    const url = this.endpoints.getSimulationRunMetadataEndpoint(id);
     const response = this.http.get<SimulationRunMetadata>(url).pipe();
 
     return response;
@@ -75,7 +75,7 @@ export class ProjectsService {
   }
 
   public getProjects(): Observable<ProjectSummary[]> {
-    const url = this.endpoints.getMetadataEndpoint();
+    const url = this.endpoints.getSimulationRunMetadataEndpoint();
     const response = this.http.get<SimulationRunMetadata[]>(url).pipe(
       map((projects: SimulationRunMetadata[]) => {
         return projects
