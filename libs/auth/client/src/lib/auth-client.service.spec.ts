@@ -4,11 +4,11 @@ import { AuthClientService } from './auth-client.service';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { of } from 'rxjs';
-import { AxiosResponse } from 'axios';
+
 describe('AuthClientService', () => {
   let service: AuthClientService;
   let httpService: HttpService;
-  const MockConfigSerivce = {
+  const MockConfigService = {
     get: (key: string, def: any) => {
       return {
         client_id: 'id',
@@ -24,7 +24,7 @@ describe('AuthClientService', () => {
       imports: [HttpModule],
       providers: [
         AuthClientService,
-        { provide: ConfigService, useValue: MockConfigSerivce },
+        { provide: ConfigService, useValue: MockConfigService },
       ],
     }).compile();
 
@@ -37,20 +37,20 @@ describe('AuthClientService', () => {
   });
   it('should set config', () => {
     expect((service as any).auth0_domain).toBe(
-      MockConfigSerivce.get('', '').auth0_domain,
+      MockConfigService.get('', '').auth0_domain,
     );
     expect((service as any).client_secret).toBe(
-      MockConfigSerivce.get('', '').client_secret,
+      MockConfigService.get('', '').client_secret,
     );
     expect((service as any).client_id).toBe(
-      MockConfigSerivce.get('', '').client_id,
+      MockConfigService.get('', '').client_id,
     );
     expect((service as any).api_audience).toBe(
-      MockConfigSerivce.get('', '').api_audience,
+      MockConfigService.get('', '').api_audience,
     );
   });
   it('should call client_credentials Endpoint', async () => {
-    const result: AxiosResponse = {
+    const result: any = {
       data: {
         access_token: 'test_token',
       },
@@ -66,14 +66,14 @@ describe('AuthClientService', () => {
     expect(token).toBe(result.data.access_token);
     expect(spy).toHaveBeenCalled();
     expect(spy).toHaveBeenCalledWith('domain/oauth/token', {
-      audience: MockConfigSerivce.get('', '').api_audience,
-      client_id: MockConfigSerivce.get('', '').client_id,
-      client_secret: MockConfigSerivce.get('', '').client_secret,
+      audience: MockConfigService.get('', '').api_audience,
+      client_id: MockConfigService.get('', '').client_id,
+      client_secret: MockConfigService.get('', '').client_secret,
       grant_type: 'client_credentials',
     });
   });
   it('should override auidence', async () => {
-    const result: AxiosResponse = {
+    const result: any = {
       data: {
         access_token: 'test_token',
       },
@@ -90,13 +90,13 @@ describe('AuthClientService', () => {
     expect(token).toBeTruthy();
     expect(spy).toHaveBeenCalledWith('domain/oauth/token', {
       audience: testAudience,
-      client_id: MockConfigSerivce.get('', '').client_id,
-      client_secret: MockConfigSerivce.get('', '').client_secret,
+      client_id: MockConfigService.get('', '').client_id,
+      client_secret: MockConfigService.get('', '').client_secret,
       grant_type: 'client_credentials',
     });
   });
   it('should return token', async () => {
-    const result: AxiosResponse = {
+    const result: any = {
       data: {
         access_token: 'test_token',
       },
