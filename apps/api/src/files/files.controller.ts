@@ -77,6 +77,7 @@ export class FilesController {
       file.location,
       file.size,
       file.format,
+      file.master,
       file.url,
       file.created,
       file.updated,

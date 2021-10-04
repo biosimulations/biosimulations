@@ -64,6 +64,7 @@ export class FileService {
                     file.location.path.replace('./', ''),
                     size,
                     file.format,
+                    file.master,
                     fileUrl,
                     '',
                     '',

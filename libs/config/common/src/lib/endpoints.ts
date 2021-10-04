@@ -82,10 +82,23 @@ export class Endpoints {
   }
   /**
    *
+   * @param simId The id of the simulation run
+   * @param fileId The location of the file within the COMBINE/OMEX archive for the simulation run
    * @returns The URL to get the content of a combine archive
    */
-  public getArchiveContentsEndpoint(): string {
-    return `${this.combine_api}/combine/manifest`;
+  public getArchiveContentsEndpoint(simId?: string, fileId?: string): string {
+    if (simId) {
+      simId = '/' + simId;
+      if (fileId) {
+        fileId = '/' + fileId;
+      } else {
+        fileId = '';
+      }
+    } else {
+      simId = '';
+      fileId = '';
+    }
+    return `${this.files}${simId}${fileId}`;
   }
 
   /**

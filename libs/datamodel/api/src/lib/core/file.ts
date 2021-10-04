@@ -33,6 +33,12 @@ export class ProjectFile implements IFile {
   })
   public format: string;
 
+  @ApiProperty({
+    description: 'Whether the file is a primary file for the project',
+    type: Boolean,
+  })
+  public master: boolean;
+
   @ApiProperty({})
   public url: string;
 
@@ -57,6 +63,7 @@ export class ProjectFile implements IFile {
     location: string,
     size: number,
     format: string,
+    master: boolean,
     url: string,
     created: string,
     updated: string,
@@ -66,6 +73,7 @@ export class ProjectFile implements IFile {
     this.simulationRun = simulationRun;
     this.size = size;
     this.format = format;
+    this.master = master;
     this.url = url;
     this.location = location;
     this.created = created;

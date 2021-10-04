@@ -32,12 +32,8 @@ export class ProjectsService {
   }
 
   public getArchiveContents(id: string): Observable<any> {
-    const url = this.endpoints.getArchiveContentsEndpoint();
-    const omex = this.endpoints.getRunDownloadEndpoint(id, true);
-    const body = new FormData();
-    body.append('url', omex);
-
-    const response = this.http.post<any>(url, body).pipe();
+    const url = this.endpoints.getArchiveContentsEndpoint(id);    
+    const response = this.http.get<any>(url).pipe();
     return response;
   }
 
