@@ -326,7 +326,7 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: getAffectedLibrariesApps
-    if: ${{ needs.getAffectedLibrariesApps.outputs.runLib == 'true' }}
+    if: ${{ needs.getAffectedLibrariesApps.outputs.runLibs == 'true' }}
     strategy:
       fail-fast: false
       matrix:
@@ -360,8 +360,7 @@ jobs:
       - name: Install Nrwl CLI
         run: npm install -g @nrwl/cli      
 
-      - name: Test library (TypeScript)
-        if: matrix.libOrApp != 'combine-service'
+      - name: Test library
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
@@ -373,54 +372,6 @@ jobs:
           MANAGEMENT_ID: ${{ secrets.MANAGEMENT_ID }}
           MANAGEMENT_SECRET: ${{ secrets.MANAGEMENT_SECRET }}
         run: nx run ${{ matrix.libOrApp }}:test --coverage
-
-      # Python libraries
-      - name: Get branch name (merge)
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
-
-      - name: Get branch name (pull request)
-        if: github.event_name == 'pull_request'
-        shell: bash
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
-
-      - if: matrix.libOrApp == 'combine-service'
-        name: Build Image
-        uses: whoan/docker-build-with-cache-action@v5
-        with:
-          username: "${{ secrets.GHCR_USERNAME }}"
-          password: "${{ secrets.GHCR_TOKEN }}"
-          image_name: biosimulations/${{matrix.libOrApp}}
-          image_tag: ${{ env.BRANCH_NAME }}
-          push_image_and_stages: ${{github.event_name == 'pull_request'}}
-          registry: ghcr.io
-          context: .
-          dockerfile: DockerfilePython
-          build_extra_args: "--build-arg app=${{matrix.libOrApp}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
-
-      - name: Install dev dependencies and execute tests (Python)
-        if: matrix.libOrApp == 'combine-service'
-        run: |
-          cwd=$(pwd)
-          docker run \
-            --rm \
-            --entrypoint bash \
-            --mount type=bind,source=${cwd}/libs/${{ matrix.libOrApp }},target=/app/libs/${{ matrix.libOrApp }} \
-            ghcr.io/biosimulations/${{matrix.libOrApp}}:${{ env.BRANCH_NAME }} \
-            -c "
-              pipenv install --dev --system --deploy
-              pip pip uninstall -y matplotlib
-              pip install matplotlib==3.2.0
-              mv src src-ignore
-              export PYTHONPATH=libs/${{ matrix.libOrApp }}
-              /bin/bash /xvfb-startup.sh python -m pytest --verbose --cov libs/${{ matrix.libOrApp }}/src/ --cov-report=xml libs/${{ matrix.libOrApp }}/tests/
-            "
-
-      - name: Validate OpenAPI specification for library or app (Python)
-        if: matrix.libOrApp == 'combine-service'
-        run: |
-          # ./node_modules/.bin/openapi-examples-validator libs/${{ matrix.libOrApp }}/src/spec/spec.yml
 
       # Upload coverage data
       - name: Upload coverage data to Codecov
