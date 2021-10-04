@@ -533,9 +533,9 @@
       <ng-container
         *ngIf="
           selectedVisualization &&
-          selectedVisualization.type === 'user1DHistogram'
+          selectedVisualization.type === 'userHistogram1D'
         "
-        formGroupName="user1DHistogram"
+        formGroupName="userHistogram1D"
       >
         <div class="form-section">
           <div class="form-section-head">
@@ -570,7 +570,7 @@
                       [value]="sedDocument.location.path"
                       (click)="
                         setSelectedDataSets(
-                          user1DHistogramDataSetsFormControl,
+                          userHistogram1DDataSetsFormControl,
                           'SedDocument',
                           sedDocument,
                           sedDocument.location.path
@@ -588,7 +588,7 @@
                         [value]="sedDocument.location.path + '/' + output.id"
                         (click)="
                           setSelectedDataSets(
-                            user1DHistogramDataSetsFormControl,
+                            userHistogram1DDataSetsFormControl,
                             'SedReport',
                             sedDocument,
                             sedDocument.location.path,
@@ -612,7 +612,7 @@
                           "
                           (click)="
                             setSelectedDataSets(
-                              user1DHistogramDataSetsFormControl,
+                              userHistogram1DDataSetsFormControl,
                               'SedDataSet',
                               sedDocument,
                               sedDocument.location.path,
@@ -669,9 +669,9 @@
       <ng-container
         *ngIf="
           selectedVisualization &&
-          selectedVisualization.type === 'user2DHeatmap'
+          selectedVisualization.type === 'userHeatmap2D'
         "
-        formGroupName="user2DHeatmap"
+        formGroupName="userHeatmap2D"
       >
         <div class="form-section">
           <div class="form-section-head">
@@ -706,7 +706,7 @@
                       [value]="sedDocument.location.path"
                       (click)="
                         setSelectedDataSets(
-                          user2DHeatmapYDataSetsFormControl,
+                          userHeatmap2DYDataSetsFormControl,
                           'SedDocument',
                           sedDocument,
                           sedDocument.location.path
@@ -724,7 +724,7 @@
                         [value]="sedDocument.location.path + '/' + output.id"
                         (click)="
                           setSelectedDataSets(
-                            user2DHeatmapYDataSetsFormControl,
+                            userHeatmap2DYDataSetsFormControl,
                             'SedReport',
                             sedDocument,
                             sedDocument.location.path,
@@ -748,7 +748,7 @@
                           "
                           (click)="
                             setSelectedDataSets(
-                              user2DHeatmapYDataSetsFormControl,
+                              userHeatmap2DYDataSetsFormControl,
                               'SedDataSet',
                               sedDocument,
                               sedDocument.location.path,
@@ -869,9 +869,9 @@
       <ng-container
         *ngIf="
           selectedVisualization &&
-          selectedVisualization.type === 'user2DLineScatter'
+          selectedVisualization.type === 'userLine2D'
         "
-        formGroupName="user2DLineScatter"
+        formGroupName="userLine2D"
       >
         <div class="form-section">
           <div class="form-section-head">
@@ -897,7 +897,7 @@
                   min="1"
                   step="1"
                   required
-                  (ngModelChange)="setNum2DLineScatterCurves()"
+                  (ngModelChange)="setNumLine2DCurves()"
                 />
                 <biosimulations-icon
                   icon="report"
@@ -912,7 +912,7 @@
             </div>
 
             <div
-              class="form-field-group user-2d-line-scatter-curves"
+              class="form-field-group user-line-2d-curves"
               formArrayName="curves"
             >
               <div class="icon-label-input">
@@ -928,7 +928,7 @@
                     <div class="input-heading">Name</div>
                     <ng-container
                       *ngFor="
-                        let curve of user2DLineScatterCurvesFormGroups;
+                        let curve of userLine2DCurvesFormGroups;
                         index as iCurve
                       "
                       [formGroupName]="iCurve"

@@ -84,9 +84,9 @@ import {
   Metadata,
   FigureTableMetadata,
 } from '../../../datamodel/metadata.interface';
-import user1DHistogramVegaTemplate from './viz-vega-templates/1d-histogram.json';
-import user2DHeatmapVegaTemplate from './viz-vega-templates/2d-heatmap.json';
-import user2DLineScatterVegaTemplate from './viz-vega-templates/2d-line-scatter.json';
+import userHistogram1DVegaTemplate from './viz-vega-templates/histogram-1d.json';
+import userHeatmap2DVegaTemplate from './viz-vega-templates/heatmap-2d.json';
+import userLine2DVegaTemplate from './viz-vega-templates/line-2d.json';
 import { UtilsService } from '@biosimulations/shared/services';
 import { MetadataService } from '../../../services/simulation/metadata.service';
 import { SedDocumentReportsCombineArchiveContent } from '@biosimulations/datamodel/common';
@@ -101,9 +101,9 @@ enum VisualizationSource {
 enum VisualizationType {
   sedml = 'sedml',
   vega = 'vega',
-  user1DHistogram = 'user1DHistogram',
-  user2DHeatmap = 'user2DHeatmap',
-  user2DLineScatter = 'user2DLineScatter',
+  userHistogram1D = 'userHistogram1D',
+  userHeatmap2D = 'userHeatmap2D',
+  userLine2D = 'userLine2D',
 }
 
 enum VisualizationRenderer {
@@ -179,9 +179,9 @@ export class ViewComponent implements OnInit, OnDestroy {
   );
   plotlyVizDataLayout$ = this.plotlyVizDataLayout.asObservable();
 
-  user1DHistogramDataSetsFormControl: FormControl;
-  user2DHeatmapYDataSetsFormControl: FormControl;
-  user2DLineScatterCurvesFormGroups: FormGroup[];
+  userHistogram1DDataSetsFormControl: FormControl;
+  userHeatmap2DYDataSetsFormControl: FormControl;
+  userLine2DCurvesFormGroups: FormGroup[];
 
   axisLabelTypes: AxisLabelType[] = AXIS_LABEL_TYPES;
   traceModeLabels: TraceModeLabel[] = TRACE_MODE_LABELS;
@@ -216,14 +216,14 @@ export class ViewComponent implements OnInit, OnDestroy {
   ) {
     this.visualizationFormGroup = formBuilder.group({
       visualization: [null, [Validators.required]],
-      user1DHistogram: formBuilder.group({
+      userHistogram1D: formBuilder.group({
         dataSets: [[], Validators.minLength(1)],
       }),
-      user2DHeatmap: formBuilder.group({
+      userHeatmap2D: formBuilder.group({
         yDataSets: [[], Validators.minLength(1)],
         xDataSet: [null],
       }),
-      user2DLineScatter: formBuilder.group({
+      userLine2D: formBuilder.group({
         numCurves: [
           1,
           [Validators.required, Validators.min(1), this.integerValidator],
@@ -235,23 +235,23 @@ export class ViewComponent implements OnInit, OnDestroy {
       }),
     });
 
-    const user1DHistogramFormGroup = this.visualizationFormGroup.controls
-      .user1DHistogram as FormGroup;
-    const user2DHeatmapFormGroup = this.visualizationFormGroup.controls
-      .user2DHeatmap as FormGroup;
-    const user2DLineScatterFormGroup = this.visualizationFormGroup.controls
-      .user2DLineScatter as FormGroup;
+    const userHistogram1DFormGroup = this.visualizationFormGroup.controls
+      .userHistogram1D as FormGroup;
+    const userHeatmap2DFormGroup = this.visualizationFormGroup.controls
+      .userHeatmap2D as FormGroup;
+    const userLine2DFormGroup = this.visualizationFormGroup.controls
+      .userLine2D as FormGroup;
 
-    user1DHistogramFormGroup.disable();
-    user2DHeatmapFormGroup.disable();
-    user2DLineScatterFormGroup.disable();
+    userHistogram1DFormGroup.disable();
+    userHeatmap2DFormGroup.disable();
+    userLine2DFormGroup.disable();
 
-    this.user1DHistogramDataSetsFormControl = user1DHistogramFormGroup.controls
+    this.userHistogram1DDataSetsFormControl = userHistogram1DFormGroup.controls
       .dataSets as FormControl;
-    this.user2DHeatmapYDataSetsFormControl = user2DHeatmapFormGroup.controls
+    this.userHeatmap2DYDataSetsFormControl = userHeatmap2DFormGroup.controls
       .yDataSets as FormControl;
-    this.user2DLineScatterCurvesFormGroups = (
-      user2DLineScatterFormGroup.controls.curves as FormArray
+    this.userLine2DCurvesFormGroups = (
+      userLine2DFormGroup.controls.curves as FormArray
     ).controls as FormGroup[];
   }
 
@@ -555,9 +555,9 @@ export class ViewComponent implements OnInit, OnDestroy {
             }
 
             visualizations.push({
-              id: `user1DHistogram`,
+              id: `userHistogram1D`,
               source: VisualizationSource.user,
-              type: VisualizationType.user1DHistogram,
+              type: VisualizationType.userHistogram1D,
               renderer: VisualizationRenderer.plotly,
               uri: undefined,
               label: 'Design a 1D histogram',
@@ -566,9 +566,9 @@ export class ViewComponent implements OnInit, OnDestroy {
             });
 
             visualizations.push({
-              id: `user2DHeatmap`,
+              id: `userHeatmap2D`,
               source: VisualizationSource.user,
-              type: VisualizationType.user2DHeatmap,
+              type: VisualizationType.userHeatmap2D,
               renderer: VisualizationRenderer.plotly,
               uri: undefined,
               label: 'Design a 2D heatmap',
@@ -577,9 +577,9 @@ export class ViewComponent implements OnInit, OnDestroy {
             });
 
             visualizations.push({
-              id: `user2DLineScatter`,
+              id: `userLine2D`,
               source: VisualizationSource.user,
-              type: VisualizationType.user2DLineScatter,
+              type: VisualizationType.userLine2D,
               renderer: VisualizationRenderer.plotly,
               uri: undefined,
               label: 'Design a 2D line or scatter plot',
@@ -856,11 +856,11 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   public selectVisualization(): void {
     (
-      this.visualizationFormGroup.controls.user1DHistogram as FormGroup
+      this.visualizationFormGroup.controls.userHistogram1D as FormGroup
     ).disable();
-    (this.visualizationFormGroup.controls.user2DHeatmap as FormGroup).disable();
+    (this.visualizationFormGroup.controls.userHeatmap2D as FormGroup).disable();
     (
-      this.visualizationFormGroup.controls.user2DLineScatter as FormGroup
+      this.visualizationFormGroup.controls.userLine2D as FormGroup
     ).disable();
 
     this.selectedVisualization =
@@ -877,25 +877,25 @@ export class ViewComponent implements OnInit, OnDestroy {
           this.setUpSedmlVisualization();
           break;
         }
-        case VisualizationType.user1DHistogram: {
+        case VisualizationType.userHistogram1D: {
           (
-            this.visualizationFormGroup.controls.user1DHistogram as FormGroup
+            this.visualizationFormGroup.controls.userHistogram1D as FormGroup
           ).enable();
-          this.setUpUser1DHistogramVisualization();
+          this.setUpUserHistogram1DVisualization();
           break;
         }
-        case VisualizationType.user2DHeatmap: {
+        case VisualizationType.userHeatmap2D: {
           (
-            this.visualizationFormGroup.controls.user2DHeatmap as FormGroup
+            this.visualizationFormGroup.controls.userHeatmap2D as FormGroup
           ).enable();
-          this.setUpUser2DHeatmapVisualization();
+          this.setUpUserHeatmap2DVisualization();
           break;
         }
-        case VisualizationType.user2DLineScatter: {
+        case VisualizationType.userLine2D: {
           (
-            this.visualizationFormGroup.controls.user2DLineScatter as FormGroup
+            this.visualizationFormGroup.controls.userLine2D as FormGroup
           ).enable();
-          this.setUpUser2DLineScatterVisualization();
+          this.setUpUserLine2DVisualization();
           break;
         }
       }
@@ -1282,20 +1282,20 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   /* User-defined visualization */
-  private setUpUser1DHistogramVisualization() {
+  private setUpUserHistogram1DVisualization() {
     this.getUserSimulationResults();
-    this.displayUser1DHistogram();
+    this.displayUserHistogram1D();
   }
 
-  private setUpUser2DHeatmapVisualization() {
+  private setUpUserHeatmap2DVisualization() {
     this.getUserSimulationResults();
-    this.displayUser2DHeatmap();
+    this.displayUserHeatmap2D();
   }
 
-  private setUpUser2DLineScatterVisualization() {
+  private setUpUserLine2DVisualization() {
     this.getUserSimulationResults();
-    this.setNum2DLineScatterCurves();
-    this.displayUser2DLineScatterViz();
+    this.setNumLine2DCurves();
+    this.displayUserLine2DViz();
   }
 
   private getUserSimulationResults(): void {
@@ -1323,7 +1323,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     dataSet?: SedDataSet,
     dataSetId?: string,
   ): void {
-    // const formGroup = this.visualizationFormGroup.controls.user1DHistogram as FormGroup;
+    // const formGroup = this.visualizationFormGroup.controls.userHistogram1D as FormGroup;
     // const formControl = formGroup.controls.dataSets as FormControl;
     const selectedUris = new Set(formControl.value);
 
@@ -1412,9 +1412,9 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.displayUserViz();
   }
 
-  public setNum2DLineScatterCurves(): void {
+  public setNumLine2DCurves(): void {
     const formGroup = this.visualizationFormGroup.controls
-      .user2DLineScatter as FormGroup;
+      .userLine2D as FormGroup;
     const numCurves = Math.round(formGroup.value.numCurves);
     const curvesFormArray = formGroup.controls.curves as FormArray;
 
@@ -1434,25 +1434,25 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   public displayUserViz(): void {
     switch (this.selectedVisualization.type) {
-      case VisualizationType.user1DHistogram: {
-        this.displayUser1DHistogram();
+      case VisualizationType.userHistogram1D: {
+        this.displayUserHistogram1D();
         break;
       }
-      case VisualizationType.user2DHeatmap: {
-        this.displayUser2DHeatmap();
+      case VisualizationType.userHeatmap2D: {
+        this.displayUserHeatmap2D();
         break;
       }
-      case VisualizationType.user2DLineScatter: {
-        this.displayUser2DLineScatterViz();
+      case VisualizationType.userLine2D: {
+        this.displayUserLine2DViz();
         break;
       }
     }
   }
 
-  private displayUser1DHistogram(): void {
+  private displayUserHistogram1D(): void {
     if (this.userSimulationResults) {
       const formGroup = this.visualizationFormGroup.controls
-        .user1DHistogram as FormGroup;
+        .userHistogram1D as FormGroup;
       const formControl = formGroup.controls.dataSets as FormControl;
       const selectedUris = formControl.value;
 
@@ -1541,10 +1541,10 @@ export class ViewComponent implements OnInit, OnDestroy {
     return flattenedArray;
   }
 
-  private displayUser2DHeatmap(): void {
+  private displayUserHeatmap2D(): void {
     if (this.userSimulationResults) {
       const formGroup = this.visualizationFormGroup.controls
-        .user2DHeatmap as FormGroup;
+        .userHeatmap2D as FormGroup;
       const yFormControl = formGroup.controls.yDataSets as FormControl;
       const xFormControl = formGroup.controls.xDataSet as FormControl;
       const selectedYUris = yFormControl.value;
@@ -1634,10 +1634,10 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  private displayUser2DLineScatterViz(): void {
+  private displayUserLine2DViz(): void {
     if (this.userSimulationResults) {
       const formGroup = this.visualizationFormGroup.controls
-        .user2DLineScatter as FormGroup;
+        .userLine2D as FormGroup;
       const traceMode = (formGroup.controls.traceMode as FormControl).value;
 
       const traces = [];
@@ -1645,7 +1645,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       const yAxisTitlesSet = new Set<string>();
       let missingData = false;
 
-      for (const curve of this.user2DLineScatterCurvesFormGroups) {
+      for (const curve of this.userLine2DCurvesFormGroups) {
         for (const xDataUri of (curve.controls.xData as FormControl).value) {
           for (const yDataUri of (curve.controls.yData as FormControl).value) {
             const xDataSet = this.sedDataSetConfigurationMap[xDataUri];
@@ -1761,12 +1761,12 @@ export class ViewComponent implements OnInit, OnDestroy {
     let vegaSignals: { [name: string]: any } = {};
     let vegaScales: { name: string; attributes: { [key: string]: any } }[] = [];
     switch (this.selectedVisualization.type) {
-      case VisualizationType.user1DHistogram: {
+      case VisualizationType.userHistogram1D: {
         const formGroup = this.visualizationFormGroup.controls
-          .user1DHistogram as FormGroup;
+          .userHistogram1D as FormGroup;
         const formControl = formGroup.controls.dataSets as FormControl;
         const selectedUris = formControl.value;
-        vega = JSON.parse(JSON.stringify(user1DHistogramVegaTemplate)) as any;
+        vega = JSON.parse(JSON.stringify(userHistogram1DVegaTemplate)) as any;
 
         const selectedDataSets: { [outputUri: string]: string[] } = {};
         const histogramExtent = [NaN, NaN];
@@ -1828,14 +1828,14 @@ export class ViewComponent implements OnInit, OnDestroy {
         break;
       }
 
-      case VisualizationType.user2DHeatmap: {
+      case VisualizationType.userHeatmap2D: {
         const formGroup = this.visualizationFormGroup.controls
-          .user2DHeatmap as FormGroup;
+          .userHeatmap2D as FormGroup;
         const yFormControl = formGroup.controls.yDataSets as FormControl;
         const xFormControl = formGroup.controls.xDataSet as FormControl;
         const selectedYUris = yFormControl.value;
         let selectedXUri = xFormControl.value;
-        vega = JSON.parse(JSON.stringify(user2DHeatmapVegaTemplate)) as any;
+        vega = JSON.parse(JSON.stringify(userHeatmap2DVegaTemplate)) as any;
 
         // y axis
         const selectedYDataSets: { [outputUri: string]: string[] } = {};
@@ -1912,10 +1912,10 @@ export class ViewComponent implements OnInit, OnDestroy {
         break;
       }
 
-      case VisualizationType.user2DLineScatter: {
+      case VisualizationType.userLine2D: {
         const formGroup = this.visualizationFormGroup.controls
-          .user2DLineScatter as FormGroup;
-        vega = JSON.parse(JSON.stringify(user2DLineScatterVegaTemplate)) as any;
+          .userLine2D as FormGroup;
+        vega = JSON.parse(JSON.stringify(userLine2DVegaTemplate)) as any;
 
         // data sets
         const selectedDataSets: { [outputUri: string]: any[] } = {};
@@ -1923,7 +1923,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         const xAxisTitlesSet = new Set<string>();
         const yAxisTitlesSet = new Set<string>();
 
-        for (const curve of this.user2DLineScatterCurvesFormGroups) {
+        for (const curve of this.userLine2DCurvesFormGroups) {
           for (const xDataUri of (curve.controls.xData as FormControl).value) {
             for (const yDataUri of (curve.controls.yData as FormControl)
               .value) {

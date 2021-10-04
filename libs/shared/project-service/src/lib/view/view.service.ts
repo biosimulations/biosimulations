@@ -20,6 +20,7 @@ import {
   SedOutput,
   SedReport,
   SedPlot2D,
+  SedDataSet,
   Ontologies,
   KisaoTerm,
   SimulationTypeBriefName,
@@ -51,9 +52,10 @@ import {
   Path,
   File,
   VisualizationList,
-  Visualization,
+  Visualization,  
   SedPlot2DVisualization,
   VegaVisualization,
+  UriSedDataSetMap,
 } from '@biosimulations/datamodel/view-simulation';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
@@ -646,7 +648,37 @@ export class ViewService {
     ).pipe(
       map((args: [any, CombineArchive]): VisualizationList[] => {
         const archive = args[0];
-        const sedmlArchive = args[1];        
+        const sedmlArchive = args[1];
+
+        const sedmlReportArchive = JSON.parse(JSON.stringify(sedmlArchive));
+        sedmlReportArchive.contents.forEach((sedDocContent: CombineArchiveContent): void => {
+          if (sedDocContent.location.path.startsWith('./')) {
+            sedDocContent.location.path = sedDocContent.location.path.substring(2);
+          }
+          const sedDoc = sedDocContent.location.value as SedDocument;
+          sedDoc.outputs = sedDoc.outputs
+            .filter((output: SedOutput): boolean => {
+              return output._type === 'SedReport';
+            });
+        })
+
+        const uriSedDataSetMap: UriSedDataSetMap = {};
+        sedmlArchive.contents.forEach(
+          (sedDocContent: CombineArchiveContent): void => {
+            (sedDocContent.location.value as SedDocument).outputs.forEach((output: SedOutput): void => {
+              if (output._type === 'SedReport') {
+                output.dataSets.forEach((dataSet: SedDataSet): void => {
+                  let location = sedDocContent.location.path;
+                  if (location.startsWith('./')) {
+                    location = location.substring(2);
+                  }
+                  const uri = location + '/' + output.id + '/' + dataSet.id;
+                  uriSedDataSetMap[uri] = dataSet;
+                });
+              }
+            });
+          },
+        );     
         
         const vegaVisualizations: VegaVisualization[] = [];
         archive.contents.forEach((content: any): void => {
@@ -660,6 +692,7 @@ export class ViewService {
               _type: 'VegaVisualization',
               id: location,
               name: location,
+              userDesigned: false,
               renderer: 'Vega',
               vegaSpec: this.service.getProjectFile(id, content.location.path)
                 .pipe(map((spec: VegaSpec): VegaSpec | false => {
@@ -689,6 +722,7 @@ export class ViewService {
                   _type: 'SedPlot2DVisualization',
                   id: `${location}/${output.id}`,
                   name: `${output.name || output.id}`,
+                  userDesigned: false,
                   renderer: 'Plotly',
                   dataLayout: this.getSedPlot2dDataLayout(id, location, output as SedPlot2D),                  
                 };
@@ -718,16 +752,31 @@ export class ViewService {
                 _type: 'Histogram1DVisualization',
                 id: 'Histogram1DVisualization',
                 name: '1D histogram',
+                userDesigned: true,
+                simulationRunId: id,
+                combineArchiveSedDocs: sedmlReportArchive,
+                uriSedDataSetMap: uriSedDataSetMap,
+                renderer: 'Plotly',
               },
               {
                 _type: 'Heatmap2DVisualization',
                 id: 'Heatmap2DVisualization',
                 name: '2D heatmap',
+                userDesigned: true,
+                simulationRunId: id,
+                combineArchiveSedDocs: sedmlReportArchive,
+                uriSedDataSetMap: uriSedDataSetMap,
+                renderer: 'Plotly',
               },
               {
                 _type: 'Line2DVisualization',
                 id: 'Line2DVisualization',
                 name: '2D line plot',
+                userDesigned: true,
+                simulationRunId: id,
+                combineArchiveSedDocs: sedmlReportArchive,
+                uriSedDataSetMap: uriSedDataSetMap,
+                renderer: 'Plotly',
               },
             ] as Visualization[],
           }

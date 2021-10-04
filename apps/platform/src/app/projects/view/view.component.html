@@ -58,6 +58,7 @@
     urlHashFragment="select-viz"
     heading="Select chart"
     icon="write"
+    [partialWidth]="true"
     >
     <ng-container *ngIf="visualizations$ | async as visualizations">
       <biosimulations-project-select-visualization

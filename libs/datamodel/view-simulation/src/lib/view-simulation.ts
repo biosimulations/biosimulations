@@ -1,5 +1,5 @@
 import { LabeledIdentifier } from '@biosimulations/datamodel/api';
-import { PlotlyDataLayout } from '@biosimulations/datamodel/common';
+import { CombineArchive, SedDataSet, PlotlyDataLayout } from '@biosimulations/datamodel/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { Observable } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
@@ -39,10 +39,13 @@ export interface List {
 
 export type SimulationRunMetadata = List[];
 
+export type UriSedDataSetMap = {[uri: string]: SedDataSet};
+
 export interface VegaVisualization {
   _type: 'VegaVisualization';
   id: string;
   name: string;
+  userDesigned: false;
   renderer: 'Vega';
   vegaSpec: Observable<VegaSpec | false>;
 }
@@ -51,6 +54,7 @@ export interface SedPlot2DVisualization {
   _type: 'SedPlot2DVisualization';
   id: string;
   name: string;
+  userDesigned: false;
   renderer: 'Plotly';
   dataLayout: Observable<PlotlyDataLayout>;
 }
@@ -58,25 +62,37 @@ export interface SedPlot2DVisualization {
 export interface Histogram1DVisualization {
   _type: 'Histogram1DVisualization';
   id: string;
-  name: string;  
+  name: string; 
+  userDesigned: true; 
+  simulationRunId: string;
+  combineArchiveSedDocs: CombineArchive;
   renderer: 'Plotly';
-  dataLayout: Observable<PlotlyDataLayout>;
+  uriSedDataSetMap: UriSedDataSetMap;
+  dataLayout?: Observable<PlotlyDataLayout | false>;
 }
 
 export interface Heatmap2DVisualization {
   _type: 'Heatmap2DVisualization';
   id: string;
   name: string;
+  userDesigned: true;
+  simulationRunId: string;
+  combineArchiveSedDocs: CombineArchive;
   renderer: 'Plotly';
-  dataLayout: Observable<PlotlyDataLayout>;
+  uriSedDataSetMap: UriSedDataSetMap;
+  dataLayout?: Observable<PlotlyDataLayout | false>;
 }
 
 export interface Line2DVisualization {
   _type: 'Line2DVisualization';
   id: string;
   name: string;
-  renderer: 'Plotly';
-  dataLayout: Observable<PlotlyDataLayout>;
+  userDesigned: true;
+  simulationRunId: string;
+  combineArchiveSedDocs: CombineArchive;
+  renderer: 'Plotly';  
+  uriSedDataSetMap: UriSedDataSetMap;
+  dataLayout?: Observable<PlotlyDataLayout | false>;
 }
 
 export type Visualization = (  
