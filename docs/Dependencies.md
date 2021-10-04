@@ -728,6 +728,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
+│  └─ licenseFile: @nestjs/axios/node_modules/axios/LICENSE
+├─ axios@0.22.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/axios/axios
+│  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: axios/LICENSE
 ├─ balanced-match@1.0.2
 │  ├─ licenses: MIT
@@ -1729,6 +1734,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: ruben@verborgh.org
 │  ├─ url: https://ruben.verborgh.org/
 │  └─ licenseFile: follow-redirects/LICENSE
+├─ follow-redirects@1.14.4
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/follow-redirects/follow-redirects
+│  ├─ publisher: Ruben Verborgh
+│  ├─ email: ruben@verborgh.org
+│  ├─ url: https://ruben.verborgh.org/
+│  └─ licenseFile: axios/node_modules/follow-redirects/LICENSE
 ├─ for-each@0.3.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Raynos/for-each
