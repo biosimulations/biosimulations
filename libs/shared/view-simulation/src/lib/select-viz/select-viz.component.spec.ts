@@ -5,15 +5,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { ProjectSelectVisualizationComponent } from './project-select-visualization.component';
+import { SelectVisualizationComponent } from './select-viz.component';
 
-describe('ProjectSelectVisualizationComponent', () => {
-  let component: ProjectSelectVisualizationComponent;
-  let fixture: ComponentFixture<ProjectSelectVisualizationComponent>;
+describe('SelectVisualizationComponent', () => {
+  let component: SelectVisualizationComponent;
+  let fixture: ComponentFixture<SelectVisualizationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectSelectVisualizationComponent],
+      declarations: [SelectVisualizationComponent],
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -27,7 +27,7 @@ describe('ProjectSelectVisualizationComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectSelectVisualizationComponent);
+    fixture = TestBed.createComponent(SelectVisualizationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

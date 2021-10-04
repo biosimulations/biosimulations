@@ -21,11 +21,11 @@ import {
 
 @Component({
   selector: 'biosimulations-project-select-visualization',
-  templateUrl: './project-select-visualization.component.html',
-  styleUrls: ['./project-select-visualization.component.scss'],
+  templateUrl: './select-viz.component.html',
+  styleUrls: ['./select-viz.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProjectSelectVisualizationComponent {
+export class SelectVisualizationComponent {
   @Input()
   visualizations!: VisualizationList[];
 

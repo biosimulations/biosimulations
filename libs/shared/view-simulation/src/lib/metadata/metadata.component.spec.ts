@@ -2,15 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 
-import { ProjectMetadataComponent } from './project-metadata.component';
+import { MetadataComponent } from './metadata.component';
 
-describe('ProjectMetadataComponent', () => {
-  let component: ProjectMetadataComponent;
-  let fixture: ComponentFixture<ProjectMetadataComponent>;
+describe('MetadataComponent', () => {
+  let component: MetadataComponent;
+  let fixture: ComponentFixture<MetadataComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectMetadataComponent],
+      declarations: [MetadataComponent],
       imports: [
         BiosimulationsIconsModule,
         SharedUiModule,
@@ -19,7 +19,7 @@ describe('ProjectMetadataComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectMetadataComponent);
+    fixture = TestBed.createComponent(MetadataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

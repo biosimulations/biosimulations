@@ -3,11 +3,11 @@ import { Visualization } from '@biosimulations/datamodel/view-simulation';
 
 @Component({
   selector: 'biosimulations-project-visualization',
-  templateUrl: './project-visualization.component.html',
-  styleUrls: ['./project-visualization.component.scss'],
+  templateUrl: './render-viz.component.html',
+  styleUrls: ['./render-viz.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProjectVisualizationComponent {
+export class RenderVisualizationComponent {
   @Input()
   visualization!: Visualization;
 

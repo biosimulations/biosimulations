@@ -2,18 +2,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
-import { ProjectVisualizationComponent } from './project-visualization.component';
+import { RenderVisualizationComponent } from './render-viz.component';
 import { PlotlyVisualizationComponent } from '@biosimulations/shared/viz-ui';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 
-describe('ProjectVisualizationComponent', () => {
-  let component: ProjectVisualizationComponent;
-  let fixture: ComponentFixture<ProjectVisualizationComponent>;
+describe('RenderVisualizationComponent', () => {
+  let component: RenderVisualizationComponent;
+  let fixture: ComponentFixture<RenderVisualizationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectVisualizationComponent, PlotlyVisualizationComponent],
+      declarations: [RenderVisualizationComponent, PlotlyVisualizationComponent],
       imports: [
         BiosimulationsIconsModule,
         SharedUiModule,
@@ -23,7 +23,7 @@ describe('ProjectVisualizationComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectVisualizationComponent);
+    fixture = TestBed.createComponent(RenderVisualizationComponent);
     component = fixture.componentInstance;
     component.visualization = {
       _type: 'VegaVisualization',

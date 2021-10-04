@@ -2,15 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatListModule } from '@angular/material/list';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { ProjectFilesComponent } from './project-files.component';
+import { FilesComponent } from './files.component';
 
-describe('ProjectFilesComponent', () => {
-  let component: ProjectFilesComponent;
-  let fixture: ComponentFixture<ProjectFilesComponent>;
+describe('FilesComponent', () => {
+  let component: FilesComponent;
+  let fixture: ComponentFixture<FilesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectFilesComponent],
+      declarations: [FilesComponent],
       imports: [
         BiosimulationsIconsModule,
         MatListModule,
@@ -20,7 +20,7 @@ describe('ProjectFilesComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectFilesComponent);
+    fixture = TestBed.createComponent(FilesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

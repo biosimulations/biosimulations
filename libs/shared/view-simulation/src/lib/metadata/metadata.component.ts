@@ -8,11 +8,11 @@ import { ProjectMetadata, SimulationRunMetadata } from '@biosimulations/datamode
 
 @Component({
   selector: 'biosimulations-project-metadata',
-  templateUrl: './project-metadata.component.html',
-  styleUrls: ['./project-metadata.component.scss'],
+  templateUrl: './metadata.component.html',
+  styleUrls: ['./metadata.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProjectMetadataComponent {
+export class MetadataComponent {
   @Input()
   public project?: ProjectMetadata;
 

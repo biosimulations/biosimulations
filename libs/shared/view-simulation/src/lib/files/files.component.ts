@@ -3,11 +3,11 @@ import { Path } from '@biosimulations/datamodel/view-simulation';
 
 @Component({
   selector: 'biosimulations-project-files',
-  templateUrl: './project-files.component.html',
-  styleUrls: ['./project-files.component.scss'],
+  templateUrl: './files.component.html',
+  styleUrls: ['./files.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProjectFilesComponent {
+export class FilesComponent {
   @Input()
   files!: Path[];
 
