@@ -656,7 +656,14 @@ export class ViewService {
           return a.name.localeCompare(b.name, undefined, { numeric: true });
         });
 
-        const sedmlVisualizations = sedmlArchive.contents.map((sedmlContent: CombineArchiveContent): VisualizationList => {
+        const vegaVisualizationsList: VisualizationList[] = vegaVisualizations.length 
+        ? [{
+            title: 'Vega charts',
+            visualizations: vegaVisualizations,
+          }]
+        : [];
+
+        const sedmlVisualizationsList = sedmlArchive.contents.map((sedmlContent: CombineArchiveContent): VisualizationList => {
           const sedDoc: SedDocument = (sedmlContent as SedDocumentReportsCombineArchiveContent).location.value;
           let location = sedmlContent.location.path;
           if (location.startsWith('./')) {
@@ -685,8 +692,11 @@ export class ViewService {
                 return a.name.localeCompare(b.name, undefined, { numeric: true });
               }),
             };
-        });
-        sedmlVisualizations.sort((a: VisualizationList, b: VisualizationList): number => {
+        })
+        .filter((a: VisualizationList): boolean => {
+          return a.visualizations.length > 0;
+        })
+        .sort((a: VisualizationList, b: VisualizationList): number => {
           return a.title.localeCompare(b.title, undefined, { numeric: true });
         });
 
@@ -736,20 +746,14 @@ export class ViewService {
           plotlyDataLayout: behaviorSubject.asObservable(),
         });
 
-        return ([
-          {
-            title: 'Vega charts',
-            visualizations: vegaVisualizations,
-          }
-        ] as VisualizationList[]
-        )
-        .concat(sedmlVisualizations)
-        .concat([
-          {
-            title: 'Design a chart',
-            visualizations: designVisualizations,
-          },
-        ] as VisualizationList[]);
+        const designVisualizationsList: VisualizationList[] = [{
+          title: 'Design a chart',
+          visualizations: designVisualizations,
+        }];
+        
+        return vegaVisualizationsList
+          .concat(sedmlVisualizationsList)
+          .concat(designVisualizationsList);
       })
     );
   }
