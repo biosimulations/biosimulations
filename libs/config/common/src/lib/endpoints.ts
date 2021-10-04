@@ -168,7 +168,7 @@ export class Endpoints {
    * @param id The id of the simulation run
    * @returns A url to get the metadata of the simulation run
    */
-  public getMetadataEndpoint(id?: string): string {
+  public getSimulationRunMetadataEndpoint(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
     return `${this.simulationRunMetadata}${id}`;
   }
@@ -294,5 +294,10 @@ export class Endpoints {
     }
 
     return `${this.specifications}${simId}${id}`;
+  }
+
+  public getSimulationRunLogsEndpoint(id?: string): string {
+    id ? (id = `/${id}`) : (id = '');
+    return `${this.simulationRunLogs}${id}`;
   }
 }

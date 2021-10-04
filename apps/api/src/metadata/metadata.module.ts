@@ -10,11 +10,13 @@ import {
   SimulationRunModel,
   SimulationRunModelSchema,
 } from '../simulation-run/simulation-run.model';
+import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 
 @Module({
   providers: [MetadataService],
   controllers: [MetadataController],
   imports: [
+    BiosimulationsAuthModule,
     MongooseModule.forFeature([
       {
         name: SimulationRunMetadataModel.name,
