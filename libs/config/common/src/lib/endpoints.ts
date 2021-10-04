@@ -19,6 +19,7 @@ export class Endpoints {
   private env: string;
   private combineFile: string;
   private storage_endpoint: string;
+  private specifications: string;
   public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
     // We can read the env that is provided in the shared env file as the default
     if (env == undefined) {
@@ -58,6 +59,7 @@ export class Endpoints {
     this.simulators = `${this.api}/simulators`;
     this.files = `${this.api}/files`;
     this.combineFile = `${this.combine_api}/combine/file`;
+    this.specifications = `${this.api}/specifications`;
   }
   /**
    *
@@ -274,5 +276,23 @@ export class Endpoints {
     }
 
     return `${this.simulators}${id}${version}`;
+  }
+
+  /**
+   *
+   * @param simId The id of the simulation run
+   * @param id The id of the particular simulation spec (sedml file )
+   * @returns The url to the specified simulation spec
+   */
+  public getSpecificationsEndpoint(simId?: string, id?: string): string {
+    simId ? (simId = `/${simId}`) : (simId = '');
+    id ? (id = `/${id}`) : (id = '');
+    if (id && !simId) {
+      throw new Error(
+        'Cannot get a specific specification without an simulation id',
+      );
+    }
+
+    return `${this.specifications}${simId}${id}`;
   }
 }
