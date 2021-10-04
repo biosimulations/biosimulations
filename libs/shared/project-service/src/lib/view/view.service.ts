@@ -451,23 +451,23 @@ export class ViewService {
 
   public getFormattedProjectContentFiles(id: string): Observable<Path[]> {
     return this.service.getArchiveContents(id).pipe(
-      map((archive: any): Path[] => {
+      map((contents: any): Path[] => {
         const root: {[path: string]: Path} = {};
 
         let hasMaster = false;
-        for (const content of archive.contents) {
-          if (content.master) {
+        for (const content of contents) {
+          if (content?.master === true) {
             hasMaster = true;
             break;
           }
         }
 
-        archive.contents
+        contents
           .filter((content: any): boolean => {
-            return content.location.path != '.';
+            return content.location != '.';
           })
           .forEach((content: any): void => {
-            let location = content.location.path;
+            let location = content.location;
             if (location.substring(0, 2) === './') {
               location = location.substring(2);
             }
@@ -520,9 +520,9 @@ export class ViewService {
               title: basename,
               basename: basename,
               format: formatName,
-              master: content.master || (!hasMaster && format === SEDML_FORMAT.combineUri),
+              master: content?.master || (!hasMaster && format === SEDML_FORMAT.combineUri),
               url: `https://files.biosimulations.org/${id}/${location}`, // TODO: correct file URLs
-              size: null, // UtilsService.formatDigitalSize(100), // TODO: incorporate and display file size
+              size: UtilsService.formatDigitalSize(content.size),
               formatUrl: this.formatMap?.[format]?.url,
               icon: this.formatMap?.[format]?.icon || 'file',
             };
@@ -597,8 +597,8 @@ export class ViewService {
       this.service.getArchiveContents(id),
       this.service.getProjectSedmlContents(id),
     ).pipe(
-      map((args: [any, CombineArchive]): VisualizationList[] => {
-        const archive = args[0];
+      map((args: [any[], CombineArchive]): VisualizationList[] => {
+        const contents = args[0];
         const sedmlArchive = args[1];
 
         const sedmlReportArchive = JSON.parse(JSON.stringify(sedmlArchive));
@@ -632,9 +632,9 @@ export class ViewService {
         );     
         
         const vegaVisualizations: VegaVisualization[] = [];
-        archive.contents.forEach((content: any): void => {
+        contents.forEach((content: any): void => {
           if (content.format === VEGA_FORMAT.combineUri) {
-            let location = content.location.path;
+            let location = content.location;
             if (location.startsWith('./')) {
               location = location.substring(2);
             }
@@ -645,7 +645,7 @@ export class ViewService {
               name: location,
               userDesigned: false,
               renderer: 'Vega',
-              vegaSpec: this.service.getProjectFile(id, content.location.path)
+              vegaSpec: this.service.getProjectFile(id, content.location)
                 .pipe(map((spec: VegaSpec): VegaSpec | false => {
                   return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(id, sedmlArchive, spec);
                 })),
