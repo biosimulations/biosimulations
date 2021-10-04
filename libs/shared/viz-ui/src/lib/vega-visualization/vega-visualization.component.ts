@@ -43,6 +43,7 @@ export class VegaVisualizationComponent implements OnDestroy {
     this._spec = undefined;
     this.loading.next(true);
     value.subscribe((value: Spec | undefined | false): void => {
+      this.error.next('');
       this._spec = value;
       this.loading.next(false);
       this.render();

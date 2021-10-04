@@ -12,6 +12,6 @@
 <div
   #vegaContainer
   [ngStyle]="{
-    display: (loading$ | async) && !(error$ | async) ? 'none' : 'block'
+    display: (loading$ | async) || (error$ | async) ? 'none' : 'block'
   }"
 ></div>
