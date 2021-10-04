@@ -279,6 +279,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
         const vega = JSON.parse(JSON.stringify(vegaTemplate)) as any;
 
         // y axis
+        let isDataScalar = true;
         const selectedYDataSets: { [outputUri: string]: string[] } = {};
         for (let selectedUri of selectedYUris) {
           if (selectedUri.startsWith('./')) {
@@ -300,6 +301,10 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
                 selectedYDataSets[outputUri] = [];
               }
               selectedYDataSets[outputUri].push(data.id);
+
+              if (data.values.length > 1) {
+                isDataScalar = false;
+              }
             }
           }
         }
@@ -358,7 +363,6 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
           xAxisTitle: xAxisTitle,
         };
 
-        // signals
         vega.signals.forEach((signalTemplate: any): void => {
           if (signalTemplate.name in vegaSignals) {
             signalTemplate.value = vegaSignals[signalTemplate.name];
@@ -429,6 +433,25 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
 
           vega.data = concreteDataSets.concat(vega.data);
         });
+
+        // scales
+        if (isDataScalar) {
+          for(const scale of vega.scales) {          
+            if (scale.name === 'xScale') {
+              scale.type = 'quantize';
+              break
+            }
+          }
+
+          for(const data of vega.data) {          
+            if (data.name === 'rawXData_diffed') {
+              data.transform[0].filter = 'true';
+              data.transform[2].expr += ' - 1';
+              data.transform[3].expr += ' + 1';
+              break
+            }
+          }
+        }
 
         // return Vega spec
         return vega;
