@@ -28,9 +28,7 @@ import {
   UploadSimulationRunUrl,
 } from '@biosimulations/dispatch/api-models';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import {
-  SimulationStorageService,
-} from '@biosimulations/shared/storage';
+import { SimulationStorageService } from '@biosimulations/shared/storage';
 import {
   DispatchFailedPayload,
   DispatchMessage,

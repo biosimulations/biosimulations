@@ -57,7 +57,7 @@ import { SpecificationsModule } from '../specifications/specifications.module';
     SharedNatsClientModule,
     SharedStorageModule,
     FilesModule,
-    SpecificationsModule
+    SpecificationsModule,
   ],
   controllers: [AppController],
   providers: [],
