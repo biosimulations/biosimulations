@@ -36,4 +36,10 @@
     }
   ],
   "prConcurrentLimit": 5
+  "patch": {
+  "automerge": true
+},
+"pin": {
+  "automerge": true
+}
 }
