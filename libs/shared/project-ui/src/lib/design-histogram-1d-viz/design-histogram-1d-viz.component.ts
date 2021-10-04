@@ -12,14 +12,12 @@ import {
   PlotlyDataLayout,
   PlotlyTraceType,
 } from '@biosimulations/datamodel/common';
-import { ProjectsService } from '@biosimulations/shared/project-service';
-import { UriSedDataSetMap, Histogram1DVisualization } from '@biosimulations/datamodel/project';
-import { Observable, combineLatest, map } from 'rxjs';
+import { UriSedDataSetMap, UriSetDataSetResultsMap, Histogram1DVisualization } from '@biosimulations/datamodel/project';
+import { ViewService } from '@biosimulations/shared/project-service';
+import { Observable, map } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
 import vegaTemplate from './vega-template.json';
 import { Endpoints } from '@biosimulations/config/common';
-
-type UriResultsMap = {[uri: string]: any};
 
 @Component({
   selector: 'biosimulations-project-design-histogram-1d-visualization',
@@ -43,13 +41,13 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
   @Input()
   formGroup!: FormGroup;
 
-  dataSetsFormControl!: FormControl;
+  private dataSetsFormControl!: FormControl;
 
   private endpoints = new Endpoints();
 
   constructor(
     private formBuilder: FormBuilder,
-    private projectsService: ProjectsService,
+    private viewService: ViewService,
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +60,6 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
   }
 
   public setSelectedDataSets(
-    formControl: FormControl,
     type: 'SedDocument' | 'SedReport' | 'SedDataSet',
     sedDocument: SedDocumentReportsCombineArchiveContent,
     sedDocumentId: string,
@@ -71,7 +68,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
     dataSet?: SedDataSet,
     dataSetId?: string,
   ): void {
-    // const formControl = this.formGroup.controls.dataSets as FormControl;
+    const formControl = this.dataSetsFormControl;
     sedDocument = sedDocument as SedDocumentReportsCombineArchiveContent;
 
     const selectedUris = new Set(formControl.value);
@@ -161,8 +158,8 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
   }
 
   public getPlotlyDataLayout(): Observable<PlotlyDataLayout | false> {
-    return this.getReportResults().pipe(
-      map((uriResultsMap: UriResultsMap): PlotlyDataLayout | false => {      
+    return this.viewService.getReportResults(this.simulationRunId, this.dataSetsFormControl.value).pipe(
+      map((uriResultsMap: UriSetDataSetResultsMap): PlotlyDataLayout | false => {
         const selectedUris = this.dataSetsFormControl.value;
         let allData: any = [];
         let missingData = false;
@@ -176,7 +173,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
           if (selectedDataSet) {
             const data = uriResultsMap?.[selectedUri];
             if (data) {
-              allData = allData.concat(this.flattenArray(data.values));
+              allData = allData.concat(this.viewService.flattenArray(data.values));
               xAxisTitles.push(data.label);
             } else {
               missingData = true;
@@ -233,8 +230,8 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
   }
 
   public exportToVega(): Observable<VegaSpec> {
-    return this.getReportResults().pipe(
-      map((uriResultsMap: UriResultsMap): VegaSpec => {
+    return this.viewService.getReportResults(this.simulationRunId, this.dataSetsFormControl.value).pipe(
+      map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
         let vegaDataSets: {
           templateNames: string[];
           sourceName: (iDataSet: number) => string;
@@ -270,7 +267,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
               }
               selectedDataSets[outputUri].push(data.id);
 
-              const flatData = this.flattenArray(data.values);
+              const flatData = this.viewService.flattenArray(data.values);
               histogramExtent[0] = isNaN(histogramExtent[0])
                 ? Math.min(...flatData)
                 : Math.min(histogramExtent[0], Math.min(...flatData));
@@ -397,54 +394,5 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
         return vega;
       })
     );
-  }
-
-  private getReportResults(): Observable<UriResultsMap> {
-    const selectedUris = this.dataSetsFormControl.value;  
-
-    const reportUris = new Set<string>();
-    const reportObs: Observable<any>[] = [];
-    for (let selectedUri of selectedUris) {
-      if (selectedUri.startsWith('./')) {
-        selectedUri = selectedUri.substring(2);
-      }
-      const uriParts = selectedUri.split('/');
-      uriParts.pop();
-      const reportUri = uriParts.join('/');
-      if (!reportUris.has(reportUri)) {
-        reportUris.add(reportUri);
-        reportObs.push(this.projectsService.getSimulationRunResults(this.simulationRunId, reportUri, true));
-      }
-    }
-
-    return combineLatest(...reportObs).pipe(
-      map((reportResults: any[]): UriResultsMap => {
-        const uriResultsMap: UriResultsMap = {};
-        reportResults.forEach((reportResult: any): void => {
-          reportResult.data.forEach((datum: any): void => {
-            let outputId = reportResult.outputId;
-            if (outputId.startsWith('./')) {
-              outputId = outputId.substring(2);
-            }
-            uriResultsMap[`${outputId}/${datum.id}`] = datum;
-          });
-        });
-        return uriResultsMap;
-      })
-    );
-  }
-
-  private flattenArray(nestedArray: any[]): any[] {
-    const flattenedArray: any[] = [];
-    const toFlatten = [...nestedArray];
-    while (toFlatten.length) {
-      const el = toFlatten.pop();
-      if (Array.isArray(el)) {
-        toFlatten.push(el);
-      } else {
-        flattenedArray.push(el);
-      }
-    }
-    return flattenedArray;
-  }
+  }  
 }

@@ -1,7 +1,7 @@
 import { LabeledIdentifier } from '@biosimulations/datamodel/api';
 import { CombineArchive, SedDataSet, PlotlyDataLayout } from '@biosimulations/datamodel/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
 
 export interface Creator {
@@ -40,6 +40,7 @@ export interface List {
 export type SimulationRunMetadata = List[];
 
 export type UriSedDataSetMap = {[uri: string]: SedDataSet};
+export type UriSetDataSetResultsMap = {[uri: string]: any};
 
 export interface VegaVisualization {
   _type: 'VegaVisualization';
@@ -56,7 +57,7 @@ export interface SedPlot2DVisualization {
   name: string;
   userDesigned: false;
   renderer: 'Plotly';
-  plotlyDataLayout: Observable<PlotlyDataLayout>;
+  plotlyDataLayout: Observable<Observable<PlotlyDataLayout>>;
 }
 
 export interface Histogram1DVisualization {
@@ -68,7 +69,8 @@ export interface Histogram1DVisualization {
   combineArchiveSedDocs: CombineArchive;
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayout?: Observable<PlotlyDataLayout | false>;
+  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>;
+  plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | undefined>>;
 }
 
 export interface Heatmap2DVisualization {
@@ -80,7 +82,8 @@ export interface Heatmap2DVisualization {
   combineArchiveSedDocs: CombineArchive;
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayout?: Observable<PlotlyDataLayout | false>;
+  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>;
+  plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | undefined>>;
 }
 
 export interface Line2DVisualization {
@@ -92,7 +95,8 @@ export interface Line2DVisualization {
   combineArchiveSedDocs: CombineArchive;
   renderer: 'Plotly';  
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayout?: Observable<PlotlyDataLayout | false>;
+  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>;
+  plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | undefined>>;
 }
 
 export type DesignVisualization = (  

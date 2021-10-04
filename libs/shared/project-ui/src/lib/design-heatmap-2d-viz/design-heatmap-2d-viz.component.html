@@ -1,4 +1,160 @@
-<form
-  [formGroup]="formGroup"
->
-</form>
+<div class="form-section" [formGroup]="formGroup">
+  <div class="form-section-head">
+    <div class="mat-form-field-prefix">
+      <biosimulations-icon icon="report"></biosimulations-icon>
+    </div>
+    <div class="form-section-head-title-subtitle">
+      <div class="form-section-title">Configure chart *</div>
+      <div class="form-section-subtitle">
+        Configure the data to plot.
+      </div>
+    </div>
+  </div>
+  <div class="form-section-body">
+    <div class="form-field-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Select the data sets to plot</mat-label>
+
+        <mat-select
+          formControlName="yDataSets"
+          required
+          disableOptionCentering
+          multiple
+        >
+          <ng-container
+            *ngFor="
+              let sedDocument of combineArchiveSedDocs
+            "
+          >
+            <mat-option
+              [value]="sedDocument.location.path"
+              (click)="
+                setSelectedDataSets(
+                  'SedDocument',
+                  sedDocument,
+                  sedDocument.location.path
+                )
+              "
+            >
+              {{ sedDocument.location.path }}
+            </mat-option>
+
+            <div
+              *ngFor="let output of sedDocument.location.value.outputs"
+              class="multi-select-opt-group"
+            >
+              <mat-option
+                [value]="sedDocument.location.path + '/' + output.id"
+                (click)="
+                  setSelectedDataSets(
+                    'SedReport',
+                    sedDocument,
+                    sedDocument.location.path,
+                    output,
+                    output.id
+                  )
+                "
+              >
+                {{ output.id }}
+              </mat-option>
+
+              <div class="multi-select-opt-group">
+                <mat-option
+                  *ngFor="let dataset of output.dataSets"
+                  [value]="
+                    sedDocument.location.path +
+                    '/' +
+                    output.id +
+                    '/' +
+                    dataset.id
+                  "
+                  (click)="
+                    setSelectedDataSets(
+                      'SedDataSet',
+                      sedDocument,
+                      sedDocument.location.path,
+                      output,
+                      output.id,
+                      dataset,
+                      dataset.id
+                    )
+                  "
+                >
+                  {{ dataset.label }}
+                </mat-option>
+              </div>
+            </div>
+          </ng-container>
+        </mat-select>
+
+        <biosimulations-icon
+          icon="report"
+          matPrefix
+        ></biosimulations-icon>
+      </mat-form-field>
+      <mat-hint>Select the SED-ML data sets to plot.</mat-hint>
+    </div>
+
+    <div class="form-field-group">
+      <mat-form-field appearance="fill">
+        <mat-label
+          >Select the x labels for the selected data sets</mat-label
+        >
+
+        <mat-select
+          formControlName="xDataSet"
+          disableOptionCentering
+        >
+          <ng-container
+            *ngFor="
+              let sedDocument of combineArchiveSedDocs
+            "
+          >
+            <mat-option
+              [value]="sedDocument.location.path"
+              [disabled]="true"
+            >
+              {{ sedDocument.location.path }}
+            </mat-option>
+
+            <div
+              *ngFor="let output of sedDocument.location.value.outputs"
+              class="multi-select-opt-group"
+            >
+              <mat-option
+                [value]="sedDocument.location.path + '/' + output.id"
+                [disabled]="true"
+              >
+                {{ output.id }}
+              </mat-option>
+
+              <div class="multi-select-opt-group">
+                <mat-option
+                  *ngFor="let dataset of output.dataSets"
+                  [value]="
+                    sedDocument.location.path +
+                    '/' +
+                    output.id +
+                    '/' +
+                    dataset.id
+                  "
+                >
+                  {{ dataset.label }}
+                </mat-option>
+              </div>
+            </div>
+          </ng-container>
+        </mat-select>
+
+        <biosimulations-icon
+          icon="report"
+          matPrefix
+        ></biosimulations-icon>
+      </mat-form-field>
+      <mat-hint
+        >Select the SED-ML data set that contains the labels for each
+        element of the selected data sets.</mat-hint
+      >
+    </div>
+  </div>
+</div>

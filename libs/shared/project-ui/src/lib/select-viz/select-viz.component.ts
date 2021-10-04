@@ -105,7 +105,7 @@ export class SelectVisualizationComponent implements OnDestroy {
     const visualization = this.getSelectedVisualization();
     const designVisualizationComponent = this.getDesignVisualizationComponent();
     if (designVisualizationComponent) {
-      (visualization as DesignVisualization).plotlyDataLayout = designVisualizationComponent.getPlotlyDataLayout();
+      (visualization as DesignVisualization).plotlyDataLayoutSubject.next(designVisualizationComponent.getPlotlyDataLayout());
     }
     this.renderVisualization.emit(visualization);
   }

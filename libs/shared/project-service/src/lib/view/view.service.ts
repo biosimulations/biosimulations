@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, pluck, shareReplay, of, combineLatest } from 'rxjs';
+import { map, Observable, BehaviorSubject, pluck, shareReplay, of, combineLatest } from 'rxjs';
 import {
   ArchiveMetadata, 
   LabeledIdentifier,
@@ -46,6 +46,7 @@ import {
   SedPlot2DVisualization,
   VegaVisualization,
   UriSedDataSetMap,
+  UriSetDataSetResultsMap,
 } from '@biosimulations/datamodel/project';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
@@ -674,10 +675,10 @@ export class ViewService {
                   name: `${output.name || output.id}`,
                   userDesigned: false,
                   renderer: 'Plotly',
-                  plotlyDataLayout: this.service.getSimulationRunResults(id, `${location}/${output.id}`, true).pipe(
+                  plotlyDataLayout: of(this.service.getSimulationRunResults(id, `${location}/${output.id}`, true).pipe(
                     map((result: any): PlotlyDataLayout => {
                       return this.sedPlot2DVisualizationService.getPlotlyDataLayout(id, location, output as SedPlot2D, result);
-                    })),
+                    }))),
                 };
               })
               .sort((a: Visualization, b: Visualization): number => {
@@ -687,6 +688,52 @@ export class ViewService {
         });
         sedmlVisualizations.sort((a: VisualizationList, b: VisualizationList): number => {
           return a.title.localeCompare(b.title, undefined, { numeric: true });
+        });
+
+        const designVisualizations: Visualization[] = [];
+
+        let behaviorSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>;
+
+        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>(of(undefined));
+        designVisualizations.push({
+          _type: 'Histogram1DVisualization',
+          id: 'Histogram1DVisualization',
+          name: '1D histogram',
+          userDesigned: true,
+          simulationRunId: id,
+          combineArchiveSedDocs: sedmlReportArchive,
+          uriSedDataSetMap: uriSedDataSetMap,
+          renderer: 'Plotly',
+          plotlyDataLayoutSubject: behaviorSubject,
+          plotlyDataLayout: behaviorSubject.asObservable(),
+        });
+
+        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>(of(undefined));
+        designVisualizations.push({
+          _type: 'Heatmap2DVisualization',
+          id: 'Heatmap2DVisualization',
+          name: '2D heatmap',
+          userDesigned: true,
+          simulationRunId: id,
+          combineArchiveSedDocs: sedmlReportArchive,
+          uriSedDataSetMap: uriSedDataSetMap,
+          renderer: 'Plotly',
+          plotlyDataLayoutSubject: behaviorSubject,
+          plotlyDataLayout: behaviorSubject.asObservable(),
+        });
+        
+        behaviorSubject = new BehaviorSubject<Observable<PlotlyDataLayout | false | undefined>>(of(undefined));
+        designVisualizations.push({
+          _type: 'Line2DVisualization',
+          id: 'Line2DVisualization',
+          name: '2D line plot',
+          userDesigned: true,
+          simulationRunId: id,
+          combineArchiveSedDocs: sedmlReportArchive,
+          uriSedDataSetMap: uriSedDataSetMap,
+          renderer: 'Plotly',
+          plotlyDataLayoutSubject: behaviorSubject,
+          plotlyDataLayout: behaviorSubject.asObservable(),
         });
 
         return ([
@@ -700,41 +747,57 @@ export class ViewService {
         .concat([
           {
             title: 'Design a chart',
-            visualizations: [
-              {
-                _type: 'Histogram1DVisualization',
-                id: 'Histogram1DVisualization',
-                name: '1D histogram',
-                userDesigned: true,
-                simulationRunId: id,
-                combineArchiveSedDocs: sedmlReportArchive,
-                uriSedDataSetMap: uriSedDataSetMap,
-                renderer: 'Plotly',
-              },
-              {
-                _type: 'Heatmap2DVisualization',
-                id: 'Heatmap2DVisualization',
-                name: '2D heatmap',
-                userDesigned: true,
-                simulationRunId: id,
-                combineArchiveSedDocs: sedmlReportArchive,
-                uriSedDataSetMap: uriSedDataSetMap,
-                renderer: 'Plotly',
-              },
-              {
-                _type: 'Line2DVisualization',
-                id: 'Line2DVisualization',
-                name: '2D line plot',
-                userDesigned: true,
-                simulationRunId: id,
-                combineArchiveSedDocs: sedmlReportArchive,
-                uriSedDataSetMap: uriSedDataSetMap,
-                renderer: 'Plotly',
-              },
-            ] as Visualization[],
-          }
+            visualizations: designVisualizations,
+          },
         ] as VisualizationList[]);
       })
     );
+  }
+
+  public getReportResults(simulationRunId: string, selectedUris: string[]): Observable<UriSetDataSetResultsMap> {
+    const reportUris = new Set<string>();
+    const reportObs: Observable<any>[] = [];
+    for (let selectedUri of selectedUris) {
+      if (selectedUri.startsWith('./')) {
+        selectedUri = selectedUri.substring(2);
+      }
+      const uriParts = selectedUri.split('/');
+      uriParts.pop();
+      const reportUri = uriParts.join('/');
+      if (!reportUris.has(reportUri)) {
+        reportUris.add(reportUri);
+        reportObs.push(this.service.getSimulationRunResults(simulationRunId, reportUri, true));
+      }
+    }
+
+    return combineLatest(...reportObs).pipe(
+      map((reportResults: any[]): UriSetDataSetResultsMap => {
+        const uriResultsMap: UriSetDataSetResultsMap = {};
+        reportResults.forEach((reportResult: any): void => {
+          reportResult.data.forEach((datum: any): void => {
+            let outputId = reportResult.outputId;
+            if (outputId.startsWith('./')) {
+              outputId = outputId.substring(2);
+            }
+            uriResultsMap[`${outputId}/${datum.id}`] = datum;
+          });
+        });
+        return uriResultsMap;
+      })
+    );
+  }
+
+  public flattenArray(nestedArray: any[]): any[] {
+    const flattenedArray: any[] = [];
+    const toFlatten = [...nestedArray];
+    while (toFlatten.length) {
+      const el = toFlatten.pop();
+      if (Array.isArray(el)) {
+        toFlatten.push(el);
+      } else {
+        flattenedArray.push(el);
+      }
+    }
+    return flattenedArray;
   }
 }

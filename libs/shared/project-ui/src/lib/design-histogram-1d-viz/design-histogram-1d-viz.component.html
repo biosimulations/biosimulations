@@ -30,7 +30,6 @@
               [value]="sedDocument.location.path"
               (click)="
                 setSelectedDataSets(
-                  dataSetsFormControl,
                   'SedDocument',
                   sedDocument,
                   sedDocument.location.path
@@ -48,7 +47,6 @@
                 [value]="sedDocument.location.path + '/' + output.id"
                 (click)="
                   setSelectedDataSets(
-                    dataSetsFormControl,
                     'SedReport',
                     sedDocument,
                     sedDocument.location.path,
@@ -72,7 +70,6 @@
                   "
                   (click)="
                     setSelectedDataSets(
-                      dataSetsFormControl,
                       'SedDataSet',
                       sedDocument,
                       sedDocument.location.path,

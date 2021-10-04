@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -16,6 +17,7 @@ describe('DesignLine2DVisualizationComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [DesignLine2DVisualizationComponent],
       imports: [
+        HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
