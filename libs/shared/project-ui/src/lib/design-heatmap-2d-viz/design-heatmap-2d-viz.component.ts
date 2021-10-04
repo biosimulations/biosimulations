@@ -3,21 +3,16 @@ import {
   FormBuilder,
   FormGroup,
   // FormArray,
-  FormControl,
+  // FormControl,
   Validators,
   // ValidationErrors,
 } from '@angular/forms';
 import { Visualization, VisualizationList } from '@biosimulations/datamodel/project';
-
-/*
-import {
-  PlotlyAxisType,
-  PlotlyTraceType,
-  PlotlyTraceMode,
-  PlotlyTrace,
-  PlotlyDataLayout,
-} from '@biosimulations/datamodel/common';
-*/
+import { PlotlyDataLayout } from '@biosimulations/datamodel/common';
+import { Observable, of } from 'rxjs';
+import { Spec as VegaSpec } from 'vega';
+// import vegaTemplate from './vega-template.json';
+import { Endpoints } from '@biosimulations/config/common';
 
 @Component({
   selector: 'biosimulations-project-design-heatmap-2d-visualization',
@@ -42,6 +37,8 @@ export class DesignHeatmap2DVisualizationComponent {
   userHeatmap2DYDataSetsFormControl: FormControl;
   userLineCurves2DFormGroups: : FormGroup[];
   */
+
+  private endpoints = new Endpoints();
 
   constructor(private formBuilder: FormBuilder) {
     this.formGroup = formBuilder.group({
@@ -89,11 +86,11 @@ export class DesignHeatmap2DVisualizationComponent {
     */
   }
 
-  selectVisualization(): void {
+  public getPlotlyDataLayout(): Observable<PlotlyDataLayout | false> {
+    return of(false);
   }
 
-  viewVisualization(): void {
-    const visualization = (this.formGroup.controls.visualization as FormControl).value;
-    this.renderVisualization.emit(visualization);
+  public exportToVega(): Observable<VegaSpec> {
+    return of({});
   }
 }

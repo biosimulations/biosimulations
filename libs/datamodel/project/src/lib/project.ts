@@ -56,7 +56,7 @@ export interface SedPlot2DVisualization {
   name: string;
   userDesigned: false;
   renderer: 'Plotly';
-  dataLayout: Observable<PlotlyDataLayout>;
+  plotlyDataLayout: Observable<PlotlyDataLayout>;
 }
 
 export interface Histogram1DVisualization {
@@ -68,7 +68,7 @@ export interface Histogram1DVisualization {
   combineArchiveSedDocs: CombineArchive;
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  dataLayout?: Observable<PlotlyDataLayout | false>;
+  plotlyDataLayout?: Observable<PlotlyDataLayout | false>;
 }
 
 export interface Heatmap2DVisualization {
@@ -80,7 +80,7 @@ export interface Heatmap2DVisualization {
   combineArchiveSedDocs: CombineArchive;
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  dataLayout?: Observable<PlotlyDataLayout | false>;
+  plotlyDataLayout?: Observable<PlotlyDataLayout | false>;
 }
 
 export interface Line2DVisualization {
@@ -92,15 +92,19 @@ export interface Line2DVisualization {
   combineArchiveSedDocs: CombineArchive;
   renderer: 'Plotly';  
   uriSedDataSetMap: UriSedDataSetMap;
-  dataLayout?: Observable<PlotlyDataLayout | false>;
+  plotlyDataLayout?: Observable<PlotlyDataLayout | false>;
 }
+
+export type DesignVisualization = (  
+  Histogram1DVisualization 
+  | Heatmap2DVisualization 
+  | Line2DVisualization
+);
 
 export type Visualization = (  
   VegaVisualization 
   | SedPlot2DVisualization
-  | Histogram1DVisualization 
-  | Heatmap2DVisualization 
-  | Line2DVisualization
+  | DesignVisualization
 );
 
 export interface VisualizationList {

@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { SelectVisualizationComponent } from './select-viz.component';
@@ -20,6 +21,7 @@ describe('SelectVisualizationComponent', () => {
         MatFormFieldModule,
         MatSelectModule,
         NoopAnimationsModule,
+        HttpClientTestingModule,
         BiosimulationsIconsModule,
         SharedUiModule,
       ],

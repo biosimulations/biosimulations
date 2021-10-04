@@ -674,7 +674,7 @@ export class ViewService {
                   name: `${output.name || output.id}`,
                   userDesigned: false,
                   renderer: 'Plotly',
-                  dataLayout: this.service.getSimulationRunResults(id, `${location}/${output.id}`, true).pipe(
+                  plotlyDataLayout: this.service.getSimulationRunResults(id, `${location}/${output.id}`, true).pipe(
                     map((result: any): PlotlyDataLayout => {
                       return this.sedPlot2DVisualizationService.getPlotlyDataLayout(id, location, output as SedPlot2D, result);
                     })),

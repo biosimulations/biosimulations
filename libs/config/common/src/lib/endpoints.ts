@@ -68,7 +68,7 @@ export class Endpoints {
   }
   /**
    *
-   * @returns The url of the api
+   * @returns The URL of the api
    */
   public getBaseUrl(): string {
     return this.api;
@@ -82,7 +82,7 @@ export class Endpoints {
   }
   /**
    *
-   * @returns The url to get the content of a combine archive
+   * @returns The URL to get the content of a combine archive
    */
   public getArchiveContentsEndpoint(): string {
     return `${this.combine_api}/combine/manifest`;
@@ -90,7 +90,7 @@ export class Endpoints {
 
   /**
    *
-   * @returns The url to get the contents of a sedml file in a combine archive
+   * @returns The URL to get the contents of a sedml file in a combine archive
    */
   public getArchiveSedmlContentsEndpoint(): string {
     return `${this.combine_api}/combine/sedml-specs`;
@@ -99,7 +99,7 @@ export class Endpoints {
   /**
    *
    * @param id The id of the simulation run
-   * @returns The url to get the simulation run
+   * @returns The URL to get the simulation run
    */
   public getSimulationRunEndpoint(id?: string): string {
     return this.getBaseUrl() + '/runs/' + id;
@@ -107,29 +107,29 @@ export class Endpoints {
 
   /**
    *
-   * @returns The base url of the combine api
+   * @returns The base URL of the combine api
    */
   public getCombineEndpoint(): string {
     return this.combine_api;
   }
   /**
-   * Get the url for a file object.
-   * This url points to the file object in the database, and is not a direct link to download the file
-   * In some cases, the API may be configured to automatically forward to the file download url, but this is not guaranteed
+   * Get the URL for a file object.
+   * This URL points to the file object in the database, and is not a direct link to download the file
+   * In some cases, the API may be configured to automatically forward to the file download URL, but this is not guaranteed
    *
    * @param id The id of the file
-   * @returns Returns a url that returns the file object from the databse
+   * @returns Returns a URL that returns the file object from the databse
    */
   public getFilesEndpoint(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
     return `${this.files}${id}`;
   }
   /**
-   * Get the url for downloading a file from within a combine archive.
-   * The combine archive is extracted to the s3 bucket. Returns a url to the file in the s3 bucket
+   * Get the URL for downloading a file from within a combine archive.
+   * The combine archive is extracted to the s3 bucket. Returns a URL to the file in the s3 bucket
    * @param id The id of the simulation run
    * @param path The path of the file within combine archive relative to its root. Should not include './'
-   * @returns A url to download the file from within the combine archive
+   * @returns A URL to download the file from within the combine archive
    */
   public getSimulationRunFileEndpoint(id: string, path: string): string {
     if (path.startsWith('./')) {
@@ -142,10 +142,10 @@ export class Endpoints {
   }
 
   /**
-   * Create a url to download a file from an omex file using the combine service
-   * @param url The url of a combine archive
+   * Create a URL to download a file from an omex file using the combine service
+   * @param URL The URL of a combine archive
    * @param location The location of the file within the archive
-   * @returns A url that resolves to a specific file within a combine archive
+   * @returns A URL that resolves to a specific file within a combine archive
    * @deprecated use getSimulationRunFileEndpoint instead if the simulation run has been submitted
    * @see getSimulationRunFileEndpoint
    */
@@ -169,9 +169,26 @@ export class Endpoints {
   }
 
   /**
+   * Create a URL to add a file to an OMEX file using the combine service
+   * @returns A URL for POST endpoint for adding a file to an OMEX file using the combine service
+   */
+  public getAddFileToCombineArchiveEndpoint(
+    external = false,
+  ): string {
+    if (external) {
+      if (this.env == 'local') {
+        return new Endpoints('dev').getAddFileToCombineArchiveEndpoint(
+          true,
+        );
+      }
+    }
+    return this.combineFile;
+  }
+
+  /**
    *
    * @param id The id of the simulation run
-   * @returns A url to get the metadata of the simulation run
+   * @returns A URL to get the metadata of the simulation run
    */
   public getSimulationRunMetadataEndpoint(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
@@ -180,20 +197,20 @@ export class Endpoints {
   /**
    *
    * @param id The id of the simulation run
-   * @returns A url to get the simulation run
+   * @returns A URL to get the simulation run
    */
   public getRunsEndpoint(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
     return `${this.simulationRuns}${id}`;
   }
   /**
-   * Returns the url to download the omex file of a simulation run. The external parameter is used to determine if the
-   * returned url is accessible from outside the current environment.
+   * Returns the URL to download the omex file of a simulation run. The external parameter is used to determine if the
+   * returned URL is accessible from outside the current environment.
    * Effectively, if true, then any localhost urls will be replaced with the dev deployment urls
    * @param id The id of the simulation run
-   * @param external A boolean flag on whether the url returned should be accessible from outside the current system.
+   * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    *
-   * @returns A url to download the omex file of a simulation run
+   * @returns A URL to download the omex file of a simulation run
    */
   public getRunDownloadEndpoint(id: string, external = false): string {
     if (external) {
@@ -205,15 +222,15 @@ export class Endpoints {
     return `${this.simulationRuns}/${id}/download`;
   }
   /**
-   * Returns the url to get the results of  a simulation run. The external parameter is used to determine if the
-   * returned url is accessible from outside the current environment.
+   * Returns the URL to get the results of  a simulation run. The external parameter is used to determine if the
+   * returned URL is accessible from outside the current environment.
    * Effectively, if true, then any localhost urls will be replaced with the dev deployment urls
    * @param id The id of the simulation run
    * @param output The id of the result output
-   * @param includeData How the includeData param should be set on the url
-   * @param external A boolean flag on whether the url returned should be accessible from outside the current system.
+   * @param includeData How the includeData param should be set on the URL
+   * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    *
-   * @returns A url to retrieve the results of a simulation run
+   * @returns A URL to retrieve the results of a simulation run
    */
   public getRunResultsEndpoint(
     id?: string,
@@ -244,8 +261,8 @@ export class Endpoints {
   /**
    *
    * @param id The id of the simulation run
-   * @param external A boolean flag on whether the url returned should be accessible from outside the current system.
-   * @returns A url to download the output of a simulation
+   * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
+   * @returns A URL to download the output of a simulation
    */
   public getRunResultsDownloadEndpoint(id: string, external = false): string {
     if (external) {
@@ -258,7 +275,7 @@ export class Endpoints {
   /**
    *
    * @param id The id of the simulation run
-   * @returns A url to get the logs of the simulation run
+   * @returns A URL to get the logs of the simulation run
    */
   public getRunLogsEndpoint(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
@@ -268,7 +285,7 @@ export class Endpoints {
    *
    * @param id The id of the simulator
    * @params version The version of the simulator
-   * @returns  A url to get the simulators, and specific simulator, or a specific version of a simulator
+   * @returns  A URL to get the simulators, and specific simulator, or a specific version of a simulator
    */
   public getSimulatorsEndpoint(id?: string, version?: string): string {
     id ? (id = `/${id}`) : (id = '');
@@ -280,7 +297,7 @@ export class Endpoints {
    *
    * @param simId The id of the simulation run
    * @param id The id of the particular simulation spec (sedml file )
-   * @returns The url to the specified simulation spec
+   * @returns The URL to the specified simulation spec
    */
   public getSpecificationsEndpoint(simId?: string, id?: string): string {
     simId ? (simId = `/${simId}`) : (simId = '');

@@ -92,4 +92,53 @@ export class ProjectsService {
       }),
     );
   }
+
+  public addFileToCombineArchive(
+    archiveFileOrUrl: File | string,
+    newContentLocation: string,
+    newContentFormat: string,
+    newContentMaster: boolean,
+    newContentFile: Blob,
+    overwriteLocations = false,
+    download = false,
+  ): Observable<ArrayBuffer | string> {
+    const formData = new FormData();
+
+    if (typeof archiveFileOrUrl === 'object') {
+      formData.append('files', archiveFileOrUrl);
+      formData.append(
+        'archive',
+        JSON.stringify({ filename: archiveFileOrUrl.name }),
+      );
+    } else {
+      formData.append('archive', JSON.stringify({ url: archiveFileOrUrl }));
+    }
+
+    const newContentFilename = '__new_content__';
+    formData.append('files', newContentFile, newContentFilename);
+
+    formData.append(
+      'newContent',
+      JSON.stringify({
+        _type: 'CombineArchiveContent',
+        location: newContentLocation,
+        format: newContentFormat,
+        master: newContentMaster,
+        filename: newContentFilename,
+      }),
+    );
+
+    formData.append('overwriteLocations', JSON.stringify(overwriteLocations));
+    formData.append('download', JSON.stringify(download));
+
+    const headers = {
+      Accept: 'application/zip',
+    };
+
+    return this.http
+      .post<string>(this.endpoints.getAddFileToCombineArchiveEndpoint(), formData, {
+        headers: headers,
+        responseType: 'json',
+      });
+  }
 }

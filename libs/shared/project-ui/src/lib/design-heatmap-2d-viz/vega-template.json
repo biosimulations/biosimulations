@@ -1,0 +1,328 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Heatmap",
+  "width": 400,
+  "height": 200,
+  "padding": 0,
+  "signals": [{
+      "name": "xScaleTickCount",
+      "value": 5
+    },
+    {
+      "name": "xAxisTitle",
+      "value": "X axis title"
+    },
+    {
+      "name": "maxYTickLabelWidth",
+      "value": 100
+    },
+    {
+      "name": "axesWidth",
+      "value": 170
+    },
+    {
+      "name": "axesHeight",
+      "value": 32
+    },
+    {
+      "name": "legendPadding",
+      "value": 10
+    },
+    {
+      "name": "chartWidth",
+      "update": "width - axesWidth"
+    },
+    {
+      "name": "chartHeight",
+      "update": "height - axesHeight"
+    },
+    {
+      "name": "clip",
+      "update": "'M1,0 h' + chartWidth +  ' v' + chartHeight + ' h-' + chartWidth + ' z'"
+    },
+    {
+      "name": "ordinalXScale",
+      "value": false
+    },
+    {
+      "name": "hover",
+      "value": null,
+      "on": [{
+          "events": "rect:mouseover",
+          "update": "datum"
+        },
+        {
+          "events": "rect:mouseout",
+          "update": "null"
+        }
+      ]
+    }
+  ],
+  "data": [{
+      "name": "rawHeatmapData0",
+      "sedmlUri": ["location/of/simulation.sedml", "idOfReport"]
+    },
+    {
+      "name": "rawHeatmapData0_filtered",
+      "source": "rawHeatmapData0",
+      "transform": [{
+        "type": "filter",
+        "expr": "indexof(['y_1_data_set_id', 'y_2_data_set_id'], datum.id) !== -1"
+      }]
+    },
+    {
+      "name": "rawHeatmapData_joined",
+      "source": ["rawHeatmapData0_filtered"]
+    },
+    {
+      "name": "rawHeatmapData_filtered",
+      "source": "rawHeatmapData_joined",
+      "transform": [{
+          "type": "collect",
+          "sort": {
+            "field": "label"
+          }
+        },
+        {
+          "type": "identifier",
+          "as": "row"
+        }
+      ]
+    },
+    {
+      "name": "rawXData",
+      "sedmlUri": ["location/of/simulation.sedml", "idOfReport"]
+    },
+    {
+      "name": "rawXData_filtered",
+      "source": "rawXData",
+      "transform": [{
+        "type": "filter",
+        "expr": "indexof(['x_data_set_id'], datum.id) !== -1"
+      }]
+    },
+    {
+      "name": "rawXData_flattened",
+      "source": "rawXData_filtered",
+      "transform": [{
+          "type": "flatten",
+          "fields": ["values"],
+          "index": "column"
+        },
+        {
+          "type": "formula",
+          "expr": "ordinalXScale ? datum.column : datum.values",
+          "as": "values"
+        }
+      ]
+    },
+    {
+      "name": "rawXData_diffed",
+      "source": "rawXData_flattened",
+      "transform": [{
+          "type": "cross",
+          "as": ["prev", "next"],
+          "filter": "datum.prev.column === datum.next.column - 1"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.prev.column",
+          "as": "column"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.prev.values",
+          "as": "x0"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.next.values",
+          "as": "x1"
+        },
+        {
+          "type": "collect",
+          "sort": {
+            "field": "x0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "rawHeatmapData_flattened",
+      "source": "rawHeatmapData_filtered",
+      "transform": [{
+        "type": "flatten",
+        "fields": ["values"],
+        "index": "column"
+      }]
+    },
+    {
+      "name": "HeatmapData",
+      "source": ["rawHeatmapData_flattened", "rawXData_diffed"],
+      "transform": [{
+          "type": "cross",
+          "as": ["Heatmap", "X"],
+          "filter": "('row' in datum.Heatmap) && ('x0' in datum.X) && datum.Heatmap.column == datum.X.column"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.Heatmap.row",
+          "as": "row"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.X.x0",
+          "as": "x0"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.X.x1",
+          "as": "x1"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.Heatmap.column",
+          "as": "column"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.Heatmap.values",
+          "as": "value"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.Heatmap.id",
+          "as": "id"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.Heatmap.label",
+          "as": "label"
+        }
+      ]
+    }
+  ],
+  "scales": [{
+      "name": "xScale",
+      "type": "linear",
+      "domain": {
+        "data": "rawXData_flattened",
+        "field": "values"
+      },
+      "zero": false,
+      "range": [0, {
+        "signal": "width - axesWidth"
+      }]
+    },
+    {
+      "name": "yScaleId",
+      "type": "band",
+      "domain": {
+        "data": "rawHeatmapData_filtered",
+        "field": "id"
+      },
+      "range": [{
+        "signal": "height - axesHeight"
+      }, 0],
+      "reverse": true
+    },
+    {
+      "name": "yScaleLabel",
+      "type": "band",
+      "domain": {
+        "data": "rawHeatmapData_filtered",
+        "field": "label"
+      },
+      "range": [{
+        "signal": "height - axesHeight"
+      }, 0],
+      "reverse": true
+    },
+    {
+      "name": "colorScale",
+      "type": "quantize",
+      "domain": {
+        "data": "rawHeatmapData_flattened",
+        "field": "values"
+      },
+      "range": {
+        "scheme": "viridis",
+        "count": 200
+      },
+      "reverse": true
+    }
+  ],
+  "axes": [{
+      "orient": "bottom",
+      "scale": "xScale",
+      "tickCount": {
+        "signal": "xScaleTickCount"
+      },
+      "title": {
+        "signal": "ordinalXScale ? 'Index': xAxisTitle"
+      },
+      "offset": {
+        "signal": "-axesHeight"
+      }
+    },
+    {
+      "orient": "left",
+      "scale": "yScaleLabel",
+      "offset": {
+        "signal": "0"
+      },
+      "labelLimit": {
+        "signal": "maxYTickLabelWidth"
+      }
+    }
+  ],
+  "legends": [{
+    "fill": "colorScale",
+    "gradientLength": {
+      "signal": "height - axesHeight"
+    },
+    "offset": {
+      "signal": "-axesWidth + legendPadding"
+    },
+    "direction": "vertical"
+  }],
+  "marks": [{
+    "type": "rect",
+    "clip": {
+      "path": {
+        "signal": "clip"
+      }
+    },
+    "from": {
+      "data": "HeatmapData"
+    },
+    "encode": {
+      "enter": {
+        "x": {
+          "scale": "xScale",
+          "field": "x0"
+        },
+        "y": {
+          "scale": "yScaleId",
+          "field": "id"
+        },
+        "x2": {
+          "signal": "scale('xScale', datum.x1) + 1"
+        },
+        "height": {
+          "scale": "yScaleId",
+          "band": 1
+        }
+      },
+      "update": {
+        "fill": {
+          "scale": "colorScale",
+          "field": "value"
+        },
+        "fillOpacity": {
+          "signal": "hover == null ? 1 : hover.x0 == datum.x0 || hover.row == datum.row ? 1 : 0.1"
+        }
+      }
+    }
+  }]
+}
