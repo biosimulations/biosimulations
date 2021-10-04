@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Logger, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
 import { SpecificationsService } from './specifications.service';
@@ -15,6 +23,34 @@ export class SpecificationsController {
     const specs = await this.service.getSpecifications();
     return specs.map(this.returnSpec);
   }
+
+  @Get(':simId')
+  public async getSpecificationsBySimulation(
+    @Param('simId') simId: string,
+  ): Promise<SimulationRunSpecifications[]> {
+    const specs = await this.service.getSpecificationsBySimulation(simId);
+    if (specs.length === 0) {
+      throw new NotFoundException(
+        `No specifications found for simulation ${simId}`,
+      );
+    }
+    return specs.map(this.returnSpec);
+  }
+
+  @Get(':simId/:specId')
+  public async getSpecification(
+    @Param('simId') simId: string,
+    @Param('specId') specId: string,
+  ): Promise<SimulationRunSpecifications> {
+    const spec = await this.service.getSpecification(simId, specId);
+    if (!spec) {
+      throw new NotFoundException(
+        `Specification with id ${specId} for simulation ${simId} not found`,
+      );
+    }
+    return this.returnSpec(spec);
+  }
+
   @Post()
   public async createSpecification(
     @Body() specifications: SimulationRunSpecifications[],

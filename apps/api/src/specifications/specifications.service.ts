@@ -7,23 +7,24 @@ import { SpecificationsModel } from './specifications.model';
 @Injectable()
 export class SpecificationsService {
   private logger = new Logger(SpecificationsModel.name);
-  constructor(
+  public constructor(
     @InjectModel(SpecificationsModel.name)
     private model: Model<SpecificationsModel>,
   ) {}
 
-  public async getSpecifications() {
-    return this.model.find({}).exec();
+  public async getSpecification(
+    simId: string,
+    specId: string,
+  ): Promise<SpecificationsModel | null> {
+    return this.model.findOne({ simulationRun: simId, id: specId }).exec();
   }
-
-  /**
-   *
-   * @param id The id of the simulation run
-   * @returns An array of specs for the simualtion run
-   */
-  public async getSimulationSpecs(id: string): Promise<SpecificationsModel[]> {
-    const specs = await this.model.find({ simulationId: id }).exec();
-    return specs;
+  public async getSpecificationsBySimulation(
+    simId: string,
+  ): Promise<SpecificationsModel[]> {
+    return this.model.find({ simulationRun: simId }).exec();
+  }
+  public async getSpecifications(): Promise<SpecificationsModel[]> {
+    return this.model.find({}).exec();
   }
 
   public async createSpecs(
