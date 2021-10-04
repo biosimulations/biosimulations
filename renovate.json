@@ -6,6 +6,12 @@
   "pip_requirements": {
     "fileMatch": ["Pipfile", "Pipfile.lock"]
   },
+  "patch": {
+    "automerge": true
+  },
+  "pin": {
+    "automerge": true
+  },
   "labels": ["dependencies"],
   "packageRules": [
     {
@@ -36,10 +42,4 @@
     }
   ],
   "prConcurrentLimit": 5
-  "patch": {
-  "automerge": true
-},
-"pin": {
-  "automerge": true
-}
 }
