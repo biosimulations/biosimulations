@@ -20,6 +20,7 @@ import { BullModule } from '@nestjs/bull';
 import { MetadataModule } from '../metadata/metadata.module';
 import { OntologiesModule } from '../ontologies/ontologies.module';
 import { FilesModule } from '../files/files.module';
+import { SpecificationsModule } from '../specifications/specifications.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { FilesModule } from '../files/files.module';
     SharedNatsClientModule,
     SharedStorageModule,
     FilesModule,
+    SpecificationsModule
   ],
   controllers: [AppController],
   providers: [],

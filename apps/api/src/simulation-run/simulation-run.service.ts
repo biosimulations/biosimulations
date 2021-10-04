@@ -29,7 +29,6 @@ import {
 } from '@biosimulations/dispatch/api-models';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
-  SharedStorageService,
   SimulationStorageService,
 } from '@biosimulations/shared/storage';
 import {
@@ -59,7 +58,6 @@ export class SimulationRunService {
     @InjectModel(SimulationFile.name) private fileModel: Model<SimulationFile>,
     @InjectModel(SimulationRunModel.name)
     private simulationRunModel: Model<SimulationRunModel>,
-    private storageService: SharedStorageService,
     private simulationStorageService: SimulationStorageService,
     private http: HttpService,
     @Inject('NATS_CLIENT') private client: ClientProxy,
@@ -387,6 +385,10 @@ export class SimulationRunService {
     return model;
   }
 
+  // TODO Use this method to publish simulation runs.
+  // Add validation to check that the simulation run is in the correct state
+  // Check that the logs, results, metadata, specs are present and valid
+  // Determine how to incorporate unique id.
   private updateModelPublic(
     model: SimulationRunModel,
     isPublic: boolean | undefined | null,
