@@ -103,10 +103,11 @@ export class Endpoints {
 
   /**
    *
+   * @param id The id of the simulation run
    * @returns The URL to get the contents of a sedml file in a combine archive
    */
-  public getArchiveSedmlContentsEndpoint(): string {
-    return `${this.combine_api}/combine/sedml-specs`;
+  public getArchiveSedmlContentsEndpoint(id?: string): string {
+    return `${this.specifications}` + (id ? '/' + id : '');
   }
 
   /**
@@ -122,7 +123,7 @@ export class Endpoints {
    *
    * @returns The base URL of the combine api
    */
-  public getCombineEndpoint(): string {
+  private getCombineEndpoint(): string {
     return this.combine_api;
   }
   /**

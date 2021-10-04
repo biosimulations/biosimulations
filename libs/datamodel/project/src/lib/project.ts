@@ -1,5 +1,5 @@
 import { LabeledIdentifier } from '@biosimulations/datamodel/api';
-import { CombineArchive, SedDataSet, PlotlyDataLayout } from '@biosimulations/datamodel/common';
+import { SedDataSet, SedDocumentSpecifications, PlotlyDataLayout } from '@biosimulations/datamodel/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
@@ -66,7 +66,7 @@ export interface Histogram1DVisualization {
   name: string; 
   userDesigned: true; 
   simulationRunId: string;
-  combineArchiveSedDocs: CombineArchive;
+  sedDocs: SedDocumentSpecifications[];
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
   plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | null>>;
@@ -79,7 +79,7 @@ export interface Heatmap2DVisualization {
   name: string;
   userDesigned: true;
   simulationRunId: string;
-  combineArchiveSedDocs: CombineArchive;
+  sedDocs: SedDocumentSpecifications[];
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
   plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | null>>;
@@ -92,7 +92,7 @@ export interface Line2DVisualization {
   name: string;
   userDesigned: true;
   simulationRunId: string;
-  combineArchiveSedDocs: CombineArchive;
+  sedDocs: SedDocumentSpecifications[];
   renderer: 'Plotly';  
   uriSedDataSetMap: UriSedDataSetMap;
   plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | null>>;

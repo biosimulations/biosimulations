@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  CombineArchive,
-  SedDocumentReportsCombineArchiveContent,
   SedDocument,
   SedSimulation,
   SedReport,
+  SedDocumentSpecifications,
 } from '@biosimulations/datamodel/common';
 import { Spec as VegaSpec } from 'vega';
 import { Endpoints } from '@biosimulations/config/common';
@@ -16,7 +15,7 @@ export class VegaVisualizationService {
   private endpoints = new Endpoints();
 
   public linkSignalsAndDataSetsToSimulationsAndResults(
-    simulationRunId: string, sedDocumentConfigurations: CombineArchive, spec: VegaSpec
+    simulationRunId: string, sedDocumentConfigurations: SedDocumentSpecifications[], spec: VegaSpec
   ): VegaSpec | false {
     if (Array.isArray(spec?.signals)) {
       for (const signal of spec?.signals) {
@@ -89,7 +88,7 @@ export class VegaVisualizationService {
     return spec;
   }
 
-  private getSedDocument(path: any, sedDocumentConfigurations: CombineArchive): SedDocument | SedDocument[] | undefined {
+  private getSedDocument(path: any, sedDocumentConfigurations: SedDocumentSpecifications[]): SedDocument | SedDocument[] | undefined {
     if (!Array.isArray(path)) {
       return undefined;
     }
@@ -123,11 +122,11 @@ export class VegaVisualizationService {
 
     for (
       let iContent = 0;
-      iContent < sedDocumentConfigurations.contents.length;
+      iContent < sedDocumentConfigurations.length;
       iContent++
     ) {
-      const content = sedDocumentConfigurations.contents[iContent] as SedDocumentReportsCombineArchiveContent;
-      let thisContentUri = content.location.path;
+      const content = sedDocumentConfigurations[iContent];
+      let thisContentUri = content.id;
       if (thisContentUri.startsWith('./')) {
         thisContentUri = thisContentUri.substring(2);
       }
@@ -136,7 +135,7 @@ export class VegaVisualizationService {
         (['*', thisContentUri].includes(contentUri) ||
           contentUri === `[${iContent}]`)
       ) {
-        contents.push(content.location.value as SedDocument);
+        contents.push(content as SedDocument);
       }
     }
 
@@ -149,7 +148,7 @@ export class VegaVisualizationService {
     }
   }
 
-  private getSedReport(path: any, sedDocumentConfigurations: CombineArchive): SedReport | SedReport[] | undefined {
+  private getSedReport(path: any, sedDocumentConfigurations: SedDocumentSpecifications[]): SedReport | SedReport[] | undefined {
     const sedDocument: SedDocument | SedDocument[] | undefined =
       this.getSedDocument(path, sedDocumentConfigurations);
     if (!sedDocument || Array.isArray(sedDocument)) {
@@ -197,7 +196,7 @@ export class VegaVisualizationService {
     return undefined;
   }
 
-  private getValueOfSedmlObjectAttribute(path: any, sedDocumentConfigurations: CombineArchive): any {
+  private getValueOfSedmlObjectAttribute(path: any, sedDocumentConfigurations: SedDocumentSpecifications[]): any {
     const sedDocument: SedDocument | SedDocument[] | undefined =
       this.getSedDocument(path, sedDocumentConfigurations);
     if (!sedDocument) {

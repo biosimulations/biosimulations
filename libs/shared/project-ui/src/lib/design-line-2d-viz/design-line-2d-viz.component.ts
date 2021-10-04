@@ -8,7 +8,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import {
-  SedDocumentReportsCombineArchiveContent,
+  SedDocumentSpecifications,
   PlotlyDataLayout,
   PlotlyTraceType,
   PlotlyAxisType,
@@ -67,7 +67,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
   simulationRunId!: string;
   
   @Input()
-  combineArchiveSedDocs!: SedDocumentReportsCombineArchiveContent[];
+  sedDocs!: SedDocumentSpecifications[];
 
   @Input()
   uriSedDataSetMap!: UriSedDataSetMap;

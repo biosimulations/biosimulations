@@ -24,10 +24,7 @@ export class ProjectsService {
   }
 
   public getProjectFile(id: string, file: string) {
-    // Todo: uncomment and remove below
-    // const url = this.endpoints.getSimulationRunFileEndpoint(id, file);
-    const omexUrl = this.endpoints.getRunDownloadEndpoint(id);
-    const url = this.endpoints.getCombineFilesEndpoint(omexUrl, file);
+    const url = this.endpoints.getSimulationRunFileEndpoint(id, file);
     return this.http.get(url);
   }
 
@@ -38,12 +35,8 @@ export class ProjectsService {
   }
 
   public getProjectSedmlContents(id: string): Observable<any> {
-    const url = this.endpoints.getArchiveSedmlContentsEndpoint();
-    const omex = this.endpoints.getRunDownloadEndpoint(id, true);
-    const body = new FormData();
-    body.append('url', omex);
-
-    const response = this.http.post<any>(url, body).pipe();
+    const url = this.endpoints.getArchiveSedmlContentsEndpoint(id);
+    const response = this.http.get<any>(url).pipe();
     return response;
   }
 

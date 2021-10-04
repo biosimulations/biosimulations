@@ -67,20 +67,20 @@
                 >
                   <mat-optgroup
                     *ngFor="
-                      let sedDocument of combineArchiveSedDocs
+                      let sedDocument of sedDocs
                     "
-                    [label]="sedDocument.location.path"
+                    [label]="sedDocument.id"
                   >
                     <mat-optgroup
                       *ngFor="
-                        let output of sedDocument.location.value.outputs
+                        let output of sedDocument.outputs
                       "
                       [label]="output.name || output.id"
                     >
                       <mat-option
                         *ngFor="let dataset of output.dataSets"
                         [value]="
-                          sedDocument.location.path +
+                          sedDocument.id +
                           '/' +
                           output.id +
                           '/' +
@@ -102,20 +102,20 @@
                 >
                   <mat-optgroup
                     *ngFor="
-                      let sedDocument of combineArchiveSedDocs
+                      let sedDocument of sedDocs
                     "
-                    [label]="sedDocument.location.path"
+                    [label]="sedDocument.id"
                   >
                     <mat-optgroup
                       *ngFor="
-                        let output of sedDocument.location.value.outputs
+                        let output of sedDocument.outputs
                       "
                       [label]="output.name || output.id"
                     >
                       <mat-option
                         *ngFor="let dataset of output.dataSets"
                         [value]="
-                          sedDocument.location.path +
+                          sedDocument.id +
                           '/' +
                           output.id +
                           '/' +

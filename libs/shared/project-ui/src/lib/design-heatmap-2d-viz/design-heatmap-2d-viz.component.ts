@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  SedDocumentReportsCombineArchiveContent,
+  SedDocumentSpecifications,
   SedReport,
   SedDataSet,
   PlotlyDataLayout,
@@ -33,7 +33,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
   simulationRunId!: string;
   
   @Input()
-  combineArchiveSedDocs!: SedDocumentReportsCombineArchiveContent[];
+  sedDocs!: SedDocumentSpecifications[];
 
   @Input()
   uriSedDataSetMap!: UriSedDataSetMap;
@@ -63,7 +63,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
 
   public setSelectedDataSets(
     type: 'SedDocument' | 'SedReport' | 'SedDataSet',
-    sedDocument: SedDocumentReportsCombineArchiveContent,
+    sedDocument: SedDocumentSpecifications,
     sedDocumentId: string,
     report?: SedReport,
     reportId?: string,
@@ -71,7 +71,6 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
     dataSetId?: string,
   ): void {
     const formControl = this.yDataSetsFormControl;
-    sedDocument = sedDocument as SedDocumentReportsCombineArchiveContent;
 
     const selectedUris = new Set(formControl.value);
 
@@ -82,7 +81,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
     const selected = selectedUris.has(uri);
 
     if (type === 'SedDocument') {
-      sedDocument.location.value.outputs.forEach((report: SedReport): void => {
+      sedDocument.outputs.forEach((report: SedReport): void => {
         const reportUri = uri + '/' + report.id;
         if (selected) {
           selectedUris.add(reportUri);
@@ -114,7 +113,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
       });
 
       let hasAllReports = true;
-      for (const report of sedDocument.location.value.outputs) {
+      for (const report of sedDocument.outputs) {
         const reportUri = sedDocumentId + '/' + (report as SedReport).id;
         if (!selectedUris.has(reportUri)) {
           hasAllReports = false;
@@ -140,7 +139,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
         }
 
         let hasAllReports = true;
-        for (const report of sedDocument.location.value.outputs) {
+        for (const report of sedDocument.outputs) {
           const reportUri = sedDocumentId + '/' + (report as SedReport).id;
           if (!selectedUris.has(reportUri)) {
             hasAllReports = false;

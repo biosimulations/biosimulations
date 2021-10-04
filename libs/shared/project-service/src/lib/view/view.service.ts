@@ -10,9 +10,7 @@ import {
   SEDML_FORMAT,
   COMBINE_OMEX_FORMAT,
   VEGA_FORMAT,
-  CombineArchive,
-  CombineArchiveContent,
-  SedDocumentReportsCombineArchiveContent,
+  SedDocumentSpecifications,
   SedDocument,
   SedAbstractTask,
   SedTask,
@@ -42,7 +40,7 @@ import {
   Path,
   File,
   VisualizationList,
-  Visualization,  
+  Visualization,
   SedPlot2DVisualization,
   VegaVisualization,
   UriSedDataSetMap,
@@ -245,17 +243,16 @@ export class ViewService {
       this.service.getSimulationRunLog(id),
       this.ontologyService.getTerms<KisaoTerm>(Ontologies.KISAO),
     ).pipe(
-      map((args: [any, CombineArchive, any, {[id: string]: KisaoTerm}]): FormattedSimulationRunMetadata => { // SimulationRun
+      map((args: [any, SedDocumentSpecifications[], any, {[id: string]: KisaoTerm}]): FormattedSimulationRunMetadata => { // SimulationRun
         const simulationRun = args[0];
-        const sedmlArchive = args[1];
+        const sedmlArchiveContents = args[1];
         const log = args[2];
         const kisaoIdTermMap = args[3];
 
         const modelLanguageSedUrns = new Set<string>();
         const simulationTypes = new Set<string>();
         let simulationAlgorithms = new Set<string>();
-        sedmlArchive.contents.forEach((sedmlContent: CombineArchiveContent): void => {
-          const sedDoc: SedDocument = (sedmlContent as SedDocumentReportsCombineArchiveContent).location.value;
+        sedmlArchiveContents.forEach((sedDoc: SedDocumentSpecifications): void => {
           sedDoc.tasks.forEach((abstractTask: SedAbstractTask): void => {
             if (abstractTask._type === 'SedTask') {
               const task = abstractTask as SedTask;
@@ -597,16 +594,16 @@ export class ViewService {
       this.service.getArchiveContents(id),
       this.service.getProjectSedmlContents(id),
     ).pipe(
-      map((args: [any[], CombineArchive]): VisualizationList[] => {
+      map((args: [any[], SedDocumentSpecifications[]]): VisualizationList[] => {
         const contents = args[0];
-        const sedmlArchive = args[1];
+        const sedmlArchiveContents = args[1];
 
-        const sedmlReportArchive = JSON.parse(JSON.stringify(sedmlArchive));
-        sedmlReportArchive.contents.forEach((sedDocContent: CombineArchiveContent): void => {
-          if (sedDocContent.location.path.startsWith('./')) {
-            sedDocContent.location.path = sedDocContent.location.path.substring(2);
+        const sedmlReportArchiveContents = JSON.parse(JSON.stringify(sedmlArchiveContents));
+        sedmlReportArchiveContents.forEach((sedDocLocation: SedDocumentSpecifications): void => {
+          if (sedDocLocation.id.startsWith('./')) {
+            sedDocLocation.id = sedDocLocation.id.substring(2);
           }
-          const sedDoc = sedDocContent.location.value as SedDocument;
+          const sedDoc = sedDocLocation as SedDocument;
           sedDoc.outputs = sedDoc.outputs
             .filter((output: SedOutput): boolean => {
               return output._type === 'SedReport';
@@ -614,12 +611,12 @@ export class ViewService {
         })
 
         const uriSedDataSetMap: UriSedDataSetMap = {};
-        sedmlArchive.contents.forEach(
-          (sedDocContent: CombineArchiveContent): void => {
-            (sedDocContent.location.value as SedDocument).outputs.forEach((output: SedOutput): void => {
+        sedmlArchiveContents.forEach(
+          (sedDocLocation: SedDocumentSpecifications): void => {
+            sedDocLocation.outputs.forEach((output: SedOutput): void => {
               if (output._type === 'SedReport') {
                 output.dataSets.forEach((dataSet: SedDataSet): void => {
-                  let location = sedDocContent.location.path;
+                  let location = sedDocLocation.id;
                   if (location.startsWith('./')) {
                     location = location.substring(2);
                   }
@@ -647,7 +644,7 @@ export class ViewService {
               renderer: 'Vega',
               vegaSpec: this.service.getProjectFile(id, content.location)
                 .pipe(map((spec: VegaSpec): VegaSpec | false => {
-                  return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(id, sedmlArchive, spec);
+                  return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(id, sedmlArchiveContents, spec);
                 })),
             });
           }
@@ -663,9 +660,9 @@ export class ViewService {
           }]
         : [];
 
-        const sedmlVisualizationsList = sedmlArchive.contents.map((sedmlContent: CombineArchiveContent): VisualizationList => {
-          const sedDoc: SedDocument = (sedmlContent as SedDocumentReportsCombineArchiveContent).location.value;
-          let location = sedmlContent.location.path;
+        const sedmlVisualizationsList = sedmlArchiveContents.map((sedDocLocation: SedDocumentSpecifications): VisualizationList => {
+          const sedDoc = sedDocLocation as SedDocument;
+          let location = sedDocLocation.id;
           if (location.startsWith('./')) {
             location = location.substring(2);
           }
@@ -711,7 +708,7 @@ export class ViewService {
           name: '1D histogram',
           userDesigned: true,
           simulationRunId: id,
-          combineArchiveSedDocs: sedmlReportArchive,
+          sedDocs: sedmlReportArchiveContents,
           uriSedDataSetMap: uriSedDataSetMap,
           renderer: 'Plotly',
           plotlyDataLayoutSubject: behaviorSubject,
@@ -725,7 +722,7 @@ export class ViewService {
           name: '2D heatmap',
           userDesigned: true,
           simulationRunId: id,
-          combineArchiveSedDocs: sedmlReportArchive,
+          sedDocs: sedmlReportArchiveContents,
           uriSedDataSetMap: uriSedDataSetMap,
           renderer: 'Plotly',
           plotlyDataLayoutSubject: behaviorSubject,
@@ -739,7 +736,7 @@ export class ViewService {
           name: '2D line plot',
           userDesigned: true,
           simulationRunId: id,
-          combineArchiveSedDocs: sedmlReportArchive,
+          sedDocs: sedmlReportArchiveContents,
           uriSedDataSetMap: uriSedDataSetMap,
           renderer: 'Plotly',
           plotlyDataLayoutSubject: behaviorSubject,

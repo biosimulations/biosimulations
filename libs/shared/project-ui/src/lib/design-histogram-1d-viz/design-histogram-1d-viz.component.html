@@ -23,33 +23,33 @@
         >
           <ng-container
             *ngFor="
-              let sedDocument of combineArchiveSedDocs
+              let sedDocument of sedDocs
             "
           >
             <mat-option
-              [value]="sedDocument.location.path"
+              [value]="sedDocument.id"
               (click)="
                 setSelectedDataSets(
                   'SedDocument',
                   sedDocument,
-                  sedDocument.location.path
+                  sedDocument.id
                 )
               "
             >
-              {{ sedDocument.location.path }}
+              {{ sedDocument.id }}
             </mat-option>
 
             <div
-              *ngFor="let output of sedDocument.location.value.outputs"
+              *ngFor="let output of sedDocument.outputs"
               class="multi-select-opt-group"
             >
               <mat-option
-                [value]="sedDocument.location.path + '/' + output.id"
+                [value]="sedDocument.id + '/' + output.id"
                 (click)="
                   setSelectedDataSets(
                     'SedReport',
                     sedDocument,
-                    sedDocument.location.path,
+                    sedDocument.id,
                     output,
                     output.id
                   )
@@ -62,7 +62,7 @@
                 <mat-option
                   *ngFor="let dataset of output.dataSets"
                   [value]="
-                    sedDocument.location.path +
+                    sedDocument.id +
                     '/' +
                     output.id +
                     '/' +
@@ -72,7 +72,7 @@
                     setSelectedDataSets(
                       'SedDataSet',
                       sedDocument,
-                      sedDocument.location.path,
+                      sedDocument.id,
                       output,
                       output.id,
                       dataset,

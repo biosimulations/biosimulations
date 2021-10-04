@@ -57,7 +57,7 @@
       *ngSwitchCase="'Histogram1DVisualization'"
       [visualization]="formGroup.value.visualization"      
       [simulationRunId]="formGroup.value.visualization.simulationRunId"
-      [combineArchiveSedDocs]="formGroup.value.visualization.combineArchiveSedDocs.contents"
+      [sedDocs]="formGroup.value.visualization.sedDocs"
       [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
       [formGroup]="userHistogram1DFormGroup"
     >
@@ -67,7 +67,7 @@
       *ngSwitchCase="'Heatmap2DVisualization'"
       [visualization]="formGroup.value.visualization"      
       [simulationRunId]="formGroup.value.visualization.simulationRunId"
-      [combineArchiveSedDocs]="formGroup.value.visualization.combineArchiveSedDocs.contents"
+      [sedDocs]="formGroup.value.visualization.sedDocs"
       [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
       [formGroup]="userHeatmap2DFormGroup"
     >
@@ -77,7 +77,7 @@
       *ngSwitchCase="'Line2DVisualization'"
       [visualization]="formGroup.value.visualization"      
       [simulationRunId]="formGroup.value.visualization.simulationRunId"
-      [combineArchiveSedDocs]="formGroup.value.visualization.combineArchiveSedDocs.contents"
+      [sedDocs]="formGroup.value.visualization.sedDocs"
       [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
       [formGroup]="userLine2DFormGroup"
     >
