@@ -3,17 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import SendGrid from '@sendgrid/mail';
 @Injectable()
 export class MailClientService {
-  constructor(private config: ConfigService) {}
-  logger = new Logger(MailClientService.name);
+  private logger = new Logger(MailClientService.name);
 
-  successTemplate = this.config.get('email').successTemplate as string;
-  failureTemplate = this.config.get('email').failureTemplate as string;
-  private sendEmail(message: SendGrid.MailDataRequired) {
-    SendGrid.setApiKey(this.config.get('email').token as string);
-    SendGrid.send(message).then(() =>
-      this.logger.log(`Sent email to ${message.to}`),
-    );
-  }
+  private successTemplate = this.config.get('email').successTemplate as string;
+  private failureTemplate = this.config.get('email').failureTemplate as string;
+  public constructor(private config: ConfigService) {}
   /**
    * Sends a notification email to the submitter of a simulation when the simulation has succeeded. Uses a sendgrid template
    * @param to The email address of the user
@@ -21,7 +15,12 @@ export class MailClientService {
    * @param name The name of the simulation run
    * @param date  The date that the simulation run was submitted
    */
-  public sendSuccessEmail(to: string, id: string, name: string, date: Date) {
+  public sendSuccessEmail(
+    to: string,
+    id: string,
+    name: string,
+    date: Date,
+  ): void {
     const message: MailData = {
       to,
       templateId: this.successTemplate,
@@ -48,7 +47,12 @@ export class MailClientService {
    * @param name The name of the simulation run
    * @param date The date the simulation run was submitted
    */
-  public sendFailureEmail(to: string, id: string, name: string, date: Date) {
+  public sendFailureEmail(
+    to: string,
+    id: string,
+    name: string,
+    date: Date,
+  ): void {
     const message: MailData = {
       to,
       templateId: this.failureTemplate,
@@ -66,6 +70,12 @@ export class MailClientService {
       },
     };
     this.sendEmail(message);
+  }
+  private sendEmail(message: SendGrid.MailDataRequired): void {
+    SendGrid.setApiKey(this.config.get('email').token as string);
+    SendGrid.send(message).then(() =>
+      this.logger.log(`Sent email to ${message.to}`),
+    );
   }
 }
 

@@ -18,7 +18,7 @@ export class ProjectsService {
   constructor(private http: HttpClient) {}
 
   public getSimulationRunMetadatas(): Observable<SimulationRunMetadata[]> {
-    const url = this.endpoints.getMetadataEndpoint();
+    const url = this.endpoints.getSimulationRunMetadataEndpoint();
     const response = this.http.get<SimulationRunMetadata[]>(url);
     return response;
   }
@@ -52,7 +52,7 @@ export class ProjectsService {
   }
 
   public getProject(id: string): Observable<SimulationRunMetadata> {
-    const url = this.endpoints.getMetadataEndpoint(id);
+    const url = this.endpoints.getSimulationRunMetadataEndpoint(id);
     const response = this.http.get<SimulationRunMetadata>(url).pipe();
 
     return response;

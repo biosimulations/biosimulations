@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { EnvironmentVariable, Purpose } from '@biosimulations/datamodel/common';
 
 @Injectable()
 export class SbatchService {
   public constructor(private configService: ConfigService) {}
-
+  private logger = new Logger(SbatchService.name);
   public generateSbatch(
     tempSimDir: string,
     simulator: string,
@@ -20,7 +20,7 @@ export class SbatchService {
   ): string {
     const homeDir = this.configService.get('hpc.homeDir');
     const bucket = this.configService.get('storage.bucket');
-    const endpoint = this.configService.get('storage.endpoint');
+    let endpoint = this.configService.get('storage.endpoint');
 
     const memoryFormatted = Math.ceil(memory * 1000);
 
@@ -39,19 +39,36 @@ export class SbatchService {
     const cyan = '\\033[0;36m';
 
     if (apiDomain.startsWith('http://localhost')) {
-      apiDomain = 'https://run.api.biosimulations.dev/';
+      apiDomain = 'https://api.biosimulations.dev/';
+    }
+    if (endpoint.startsWith('https://localhost')) {
+      endpoint = 'http://s3low.scality.uchc.edu';
     }
 
-    let singularityRunEnvVars = this.configService.get(
-      'singularity.runEnvVarAll',
-    );
-    if (purpose === Purpose.academic) {
-      singularityRunEnvVars = singularityRunEnvVars.concat(
-        this.configService.get('singularity.runEnvVarAcademic'),
-      );
-    }
+    let allEnvVars = [...envVars];
+    const vars = this.configService.get('singularity').envVars;
 
-    const allEnvVars = envVars.concat(singularityRunEnvVars);
+    try {
+      vars.forEach((envVarPurpose: any): void => {
+        if (envVarPurpose.purpose === 'ALL') {
+          allEnvVars.push({
+            key: envVarPurpose.key,
+            value: envVarPurpose.value,
+          });
+        } else if (
+          envVarPurpose.purpose == 'ACADEMIC' &&
+          purpose === Purpose.academic
+        ) {
+          allEnvVars.push({
+            key: envVarPurpose.key,
+            value: envVarPurpose.value,
+          });
+        }
+      });
+    } catch (e) {
+      this.logger.error(e);
+      allEnvVars = [...envVars];
+    }
 
     const allEnvVarsString =
       allEnvVars.length > 0
@@ -67,7 +84,7 @@ export class SbatchService {
             })
             .join(',')
         : '';
-
+    // TODO Remove the no check flag
     const template = `#!/bin/bash
 #SBATCH --job-name=${simId}_Biosimulations
 #SBATCH --time=${maxTimeFormatted}
@@ -88,7 +105,7 @@ export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 cd ${tempSimDir}
 echo -e '${cyan}=============Downloading Combine Archive=============${nc}'
-( ulimit -f 1048576; srun wget --progress=bar:force ${apiDomain}run/${simId}/download -O '${omexName}')
+( ulimit -f 1048576; srun wget --no-check-certificate --progress=bar:force ${apiDomain}runs/${simId}/download -O '${omexName}')
 echo -e '${cyan}=============Extracting Combine Archive==============${nc}'
 unzip -o ${omexName} -d contents
 echo -e '${cyan}=================Running simulation==================${nc}'

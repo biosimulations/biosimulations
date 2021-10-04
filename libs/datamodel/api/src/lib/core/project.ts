@@ -5,7 +5,10 @@ import {
   IntersectionType,
   OmitType,
 } from '@nestjs/swagger';
-import { ArchiveMetadata, ArchiveMetadataContainer } from './archiveMetadata';
+import {
+  ArchiveMetadata,
+  ArchiveMetadataContainer,
+} from '../common/archiveMetadata';
 
 @ApiExtraModels(ArchiveMetadata)
 export class SimulationRunMetadata {

@@ -19,6 +19,8 @@ import { SharedStorageModule } from '@biosimulations/shared/storage';
 import { BullModule } from '@nestjs/bull';
 import { MetadataModule } from '../metadata/metadata.module';
 import { OntologiesModule } from '../ontologies/ontologies.module';
+import { FilesModule } from '../files/files.module';
+import { SpecificationsModule } from '../specifications/specifications.module';
 
 @Module({
   imports: [
@@ -54,6 +56,8 @@ import { OntologiesModule } from '../ontologies/ontologies.module';
     AuthTestModule,
     SharedNatsClientModule,
     SharedStorageModule,
+    FilesModule,
+    SpecificationsModule,
   ],
   controllers: [AppController],
   providers: [],

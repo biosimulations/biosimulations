@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { FileService } from './file.service';
+
 import YAML from 'yaml';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
@@ -9,13 +9,12 @@ import { SshService } from '../services/ssh/ssh.service';
 export class LogService {
   private logger = new Logger(LogService.name);
   public constructor(
-    private fileService: FileService,
     private submit: SimulationRunService,
     private sshService: SshService,
   ) {}
 
   public async createLog(id: string): Promise<void> {
-    const path = this.fileService.getSSHResultsDirectory(id);
+    const path = this.sshService.getSSHResultsDirectory(id);
     return this.makeLog(path).then((value) => this.uploadLog(id, value));
   }
 

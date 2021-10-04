@@ -1,14 +1,14 @@
 **What new features does this PR implement?**
 Please summarize the features that this PR implements. As relevant, please indicate the issues that the PR closes.
 
-* Adds ABC (closes #1)
-* Adds XYZ (closes #2)
+* Adds ABC (closes #X)
+* Adds XYZ (closes #X)
 
 **What bugs does this PR fix?**
 Please summarize the bugs that this PR fixes. As relevant, please indicate the issues that the PR closes.
 
-* Fixes ABC (closes #3)
-* Fixes XYZ (closes #4)
+* Fixes ABC (closes #X)
+* Fixes XYZ (closes #X)
 
 **Does this PR introduce any additional changes?**
 Please summarize any additional changes that this PR introduces.

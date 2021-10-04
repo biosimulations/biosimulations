@@ -12,7 +12,7 @@ import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { AuthClientModule } from '@biosimulations/auth/client';
 import { DispatchNestClientModule } from '@biosimulations/dispatch/nest-client';
 import { ImagesModule } from '../images/images.module';
-import { FileService } from './results/file.service';
+
 import { LogService } from './results/log.service';
 
 import { ConfigService } from '@nestjs/config';
@@ -21,12 +21,16 @@ import { FailProcessor } from './submission/fail.processor';
 import { CompleteProccessor } from './submission/complete.proccessor';
 import { MonitorProcessor } from './submission/monitor.processor';
 import { SimulationStatusService } from './services/simulationStatus.service';
-import { MetadataProcessor } from './submission/extractMetadata.proccessor';
+
 import {
   ApiModule as CombineApiModule,
   Configuration as combineConfig,
 } from '@biosimulations/combine-api-client';
 import { JobQueue } from '@biosimulations/messages/messages';
+import { MetadataService } from '../metadata/metadata.service';
+import { CombineWrapperService } from '../combineWrapper.service';
+import { FileService } from '../file/file.service';
+import { SedmlService } from '../sedml/sedml.service';
 @Module({
   imports: [
     HttpModule,
@@ -55,10 +59,6 @@ import { JobQueue } from '@biosimulations/messages/messages';
       prefix: '{dispatch}',
     }),
     BullModule.registerQueue({
-      name: JobQueue.metadata,
-      prefix: '{extractMetadata}',
-    }),
-    BullModule.registerQueue({
       name: JobQueue.monitor,
       prefix: '{monitor}',
     }),
@@ -78,14 +78,16 @@ import { JobQueue } from '@biosimulations/messages/messages';
     SbatchService,
     SshService,
     ArchiverService,
-    FileService,
     LogService,
     DispatchProcessor,
     FailProcessor,
     CompleteProccessor,
     MonitorProcessor,
-    MetadataProcessor,
+    MetadataService,
     SimulationStatusService,
+    CombineWrapperService,
+    FileService,
+    SedmlService,
   ],
 })
 export class AppModule {}

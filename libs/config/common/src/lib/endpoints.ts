@@ -20,6 +20,7 @@ export class Endpoints {
   private env: string;
   private combineFile: string;
   private storage_endpoint: string;
+  private specifications: string;
   public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
     // We can read the env that is provided in the shared env file as the default
     if (env == undefined) {
@@ -63,6 +64,7 @@ export class Endpoints {
     this.simulators = `${this.simulators_api}/simulators`;
     this.files = `${this.api}/files`;
     this.combineFile = `${this.combine_api}/combine/file`;
+    this.specifications = `${this.api}/specifications`;
   }
   /**
    *
@@ -133,6 +135,9 @@ export class Endpoints {
     if (path.startsWith('./')) {
       path = path.substring(2);
     }
+    if (path == '.') {
+      path = 'input.omex';
+    }
     return `${this.storage_endpoint}/simulations/${id}/contents/${path}`;
   }
 
@@ -168,7 +173,7 @@ export class Endpoints {
    * @param id The id of the simulation run
    * @returns A url to get the metadata of the simulation run
    */
-  public getMetadataEndpoint(id?: string): string {
+  public getSimulationRunMetadataEndpoint(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
     return `${this.simulationRunMetadata}${id}`;
   }
@@ -269,5 +274,28 @@ export class Endpoints {
     id ? (id = `/${id}`) : (id = '');
     version ? (version = `/${version}`) : (version = '');
     return `${this.simulators}${id}${version}`;
+  }
+
+  /**
+   *
+   * @param simId The id of the simulation run
+   * @param id The id of the particular simulation spec (sedml file )
+   * @returns The url to the specified simulation spec
+   */
+  public getSpecificationsEndpoint(simId?: string, id?: string): string {
+    simId ? (simId = `/${simId}`) : (simId = '');
+    id ? (id = `/${id}`) : (id = '');
+    if (id && !simId) {
+      throw new Error(
+        'Cannot get a specific specification without an simulation id',
+      );
+    }
+
+    return `${this.specifications}${simId}${id}`;
+  }
+
+  public getSimulationRunLogsEndpoint(id?: string): string {
+    id ? (id = `/${id}`) : (id = '');
+    return `${this.simulationRunLogs}${id}`;
   }
 }

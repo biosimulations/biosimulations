@@ -1,8 +1,16 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import path from 'path';
 import { Client as SSHClient } from 'ssh2';
-import { SshConnectionConfig } from '../../types/ssh-connection-config/ssh-connection-config';
 
+export class SshConnectionConfig {
+  constructor(
+    public host: string,
+    public port: number,
+    public username: string,
+    public privateKey: string,
+  ) {}
+}
 @Injectable()
 export class SshService {
   private sshConfig: SshConnectionConfig =
@@ -10,17 +18,17 @@ export class SshService {
       'hpc.ssh',
       new SshConnectionConfig('', 0, '', ''),
     );
-  private sftpConfig: SshConnectionConfig =
-    this.configService.get('hpc.sftp') ||
-    new SshConnectionConfig('', 0, '', '');
 
   private logger = new Logger('SshService');
 
-  constructor(private configService: ConfigService) {
-    this.logger.log('SSH config host: ' + this.sshConfig.host);
-    this.logger.log('SFTP config host: ' + this.sftpConfig.host);
+  private hpcBase: string = this.configService.get<string>(
+    'hpc.hpcBaseDir',
+    '',
+  );
+  constructor(private configService: ConfigService) {}
+  public getSSHResultsDirectory(id: string): string {
+    return path.join(this.hpcBase, id);
   }
-
   public execStringCommand(
     cmd: string,
   ): Promise<{ stdout: string; stderr: string }> {
@@ -29,7 +37,7 @@ export class SshService {
         const conn = new SSHClient();
         conn
           .on('ready', () => {
-            this.logger.log('Connection ready');
+            this.logger.debug('Connection ready');
             let stdout = '';
             let stderr = '';
             conn.exec(cmd, (err, stream) => {
@@ -39,7 +47,7 @@ export class SshService {
               }
               stream
                 .on('close', (code: any, signal: any) => {
-                  this.logger.log(
+                  this.logger.debug(
                     'Stream :: close :: code: ' + code + ', signal: ' + signal,
                   );
                   resolve({ stdout, stderr });
