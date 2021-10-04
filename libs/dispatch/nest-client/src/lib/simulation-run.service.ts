@@ -11,11 +11,18 @@ import { AuthClientService } from '@biosimulations/auth/client';
 import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-import { SubmitProjectFile, ProjectFile } from '@biosimulations/datamodel/api';
+import {
+  SubmitProjectFile,
+  ProjectFile,
+  SimulationRunSpecifications,
+  SimulationRunMetadataInput,
+  SimulationRunMetadata,
+} from '@biosimulations/datamodel/api';
 @Injectable({})
 export class SimulationRunService {
   private endpoint = this.configService.get('urls').dispatchApi;
   private endpoints = new Endpoints();
+  private logger = new Logger(SimulationRunService.name);
   public constructor(
     private auth: AuthClientService,
     private http: HttpService,
@@ -24,11 +31,26 @@ export class SimulationRunService {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
   }
-  private logger = new Logger(SimulationRunService.name);
 
-  // TODO implement and remvoe direct calls in other code
-  public postMetadata() {
-    throw new Error('Method not implemented.');
+  public postMetadata(
+    metadata: SimulationRunMetadataInput,
+  ): Observable<SimulationRunMetadata> {
+    const endpoint = this.endpoints.getSimulationRunMetadataEndpoint();
+    return this.postAuthenticated<
+      SimulationRunMetadataInput,
+      SimulationRunMetadata
+    >(endpoint, metadata);
+  }
+
+  public postSpecs(
+    id: string,
+    specs: SimulationRunSpecifications[],
+  ): Observable<SimulationRunSpecifications[]> {
+    const endpoint = this.endpoints.getSpecificationsEndpoint(id);
+    return this.postAuthenticated<
+      SimulationRunSpecifications[],
+      SimulationRunSpecifications[]
+    >(endpoint, specs);
   }
 
   public postFiles(
@@ -37,21 +59,10 @@ export class SimulationRunService {
   ): Observable<ProjectFile[]> {
     const body: SubmitProjectFile[] = files;
     const endpoint = this.endpoints.getFilesEndpoint();
-
-    const response = from(this.auth.getToken()).pipe(
-      map((token) => {
-        return this.http
-          .post<ProjectFile[]>(`${endpoint}`, body, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .pipe(pluck('data'));
-      }),
-      mergeMap((value) => value),
+    return this.postAuthenticated<SubmitProjectFile[], ProjectFile[]>(
+      endpoint,
+      body,
     );
-
-    return response;
   }
   public updateSimulationRunStatus(
     id: string,
@@ -110,6 +121,7 @@ export class SimulationRunService {
       mergeMap((value) => value),
     );
   }
+  // TODO convert to observable
   public async getJob(simId: string): Promise<SimulationRun> {
     const token = await this.auth.getToken();
     const res: Promise<SimulationRun> = this.http
@@ -132,11 +144,18 @@ export class SimulationRunService {
       simId: simId,
       log: log,
     };
+    const endpoint = this.endpoints.getSimulationRunLogsEndpoint();
+    return this.postAuthenticated<
+      CreateSimulationRunLogBody,
+      CombineArchiveLog
+    >(endpoint, body);
+  }
 
+  private postAuthenticated<T, U>(url: string, body: T): Observable<U> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
-          .post(`${this.endpoint}logs/`, body, {
+          .post<U>(url, body, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
