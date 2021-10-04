@@ -10,6 +10,4 @@ export * from './url';
 export * from './dependentPackage';
 export * from './funding';
 export * from './archiveMetadata';
-export * from './project';
 export * from './commonDefinitions';
-export * from './file';
