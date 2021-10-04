@@ -1,11 +1,15 @@
 .clean-table {
-  grid-template-columns: 1fr 1fr 70px 70px;
+  grid-template-columns: 1fr 1fr 75px 75px;
 }
 
 .cell {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.main {
+  text-align: center;
 }
 
 .master-file {

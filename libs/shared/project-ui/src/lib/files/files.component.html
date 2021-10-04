@@ -16,15 +16,15 @@
     </ng-container>
 
     <ng-container *ngIf="path._type === 'File'">
-      <div class="cell title" [class.master-file]="path.master" [ngStyle]="{'padding-left.rem': 0.25 + 1.3 * path.level}">
+      <div class="cell title" [class.main-file]="path.master" [ngStyle]="{'padding-left.rem': 0.25 + 1.3 * path.level}">
         <div class="icon-container"><biosimulations-icon [icon]="path.icon"></biosimulations-icon></div>
         <a [href]="path.url" target="_blank" *ngIf="path.url" [download]="path.basename">{{ path.title }}</a>
       </div>
-      <div class="cell format" [class.master-file]="path.master"><a [href]="path.formatUrl" target="_blank" *ngIf="path.formatUrl">{{ path.format }}</a></div>
-      <div class="cell main" [class.master-file]="path.master">
+      <div class="cell format" [class.main-file]="path.master"><a [href]="path.formatUrl" target="_blank" *ngIf="path.formatUrl">{{ path.format }}</a></div>
+      <div class="cell main" [class.main-file]="path.master">
         {{ path.master ? '&#10003;' : ''}}
       </div>
-      <div class="cell size" [class.master-file]="path.master">
+      <div class="cell size" [class.main-file]="path.master">
         <div *ngIf="path.size">{{ path.size }}</div>
       </div>
     </ng-container>
