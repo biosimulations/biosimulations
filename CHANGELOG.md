@@ -1,3 +1,22 @@
+# [5.2.0](https://github.com/biosimulations/biosimulations/compare/v5.1.1...v5.2.0) (2021-10-04)
+
+
+### Bug Fixes
+
+* **api:** add authentication to post metadata ([999e2b9](https://github.com/biosimulations/biosimulations/commit/999e2b9e11ddaa26e001d89ccbbeb26541cc3f5a)), closes [#2865](https://github.com/biosimulations/biosimulations/issues/2865)
+* **deps:** update dependency @sendgrid/mail to v7.4.7 ([bae8e96](https://github.com/biosimulations/biosimulations/commit/bae8e968c0062da5f477ca514e3ed3c08e6686e3))
+* **dispatch-service:** fix processing of environment variables ([cb0aa04](https://github.com/biosimulations/biosimulations/commit/cb0aa04cbdc7bd8f2a3e7cf818c541470d7c4519))
+* **dispatch-service:** process metadata with other processing ([7f8f44a](https://github.com/biosimulations/biosimulations/commit/7f8f44aecc741dcd746e0de71489bcd5a9c68319)), closes [#3046](https://github.com/biosimulations/biosimulations/issues/3046)
+
+
+### Features
+
+* **api:** add endpoints to get particular specifications for simulation runs ([87eede1](https://github.com/biosimulations/biosimulations/commit/87eede1c0283bdc3a4a5b6614dba06354a96ddf6))
+* **api:** add file object ([39f25f3](https://github.com/biosimulations/biosimulations/commit/39f25f3668d7e249ae1b9834b6ef66cb58350208)), closes [#2914](https://github.com/biosimulations/biosimulations/issues/2914)
+* **api:** create specifications object and endpoints ([aca4786](https://github.com/biosimulations/biosimulations/commit/aca4786282526813eab3280c87d495617c7a2ef8))
+* **dispatch-service:** process files and sedml specs ([fb37624](https://github.com/biosimulations/biosimulations/commit/fb376243c33043d4945a2849d0df50a54332fcda))
+* **dispatch-service:** send sedml specifications to the api ([7d6a8c7](https://github.com/biosimulations/biosimulations/commit/7d6a8c7baec360f985459534f9fd5d67e4342260))
+
 ## [5.1.1](https://github.com/biosimulations/biosimulations/compare/v5.1.0...v5.1.1) (2021-10-01)
 
 
