@@ -63,7 +63,7 @@ jobs:
           appsArr[-1]=$(echo "${appsArr[-1]}" | xargs)
           run=true
           runApps=true
-          runLubs=true
+          runLibs=true
 
           if [ -z "${libsArr[0]}" ]; then
             unset libsArr[-1]
