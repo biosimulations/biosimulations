@@ -3658,7 +3658,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: jaredhanson@gmail.com
 │  ├─ url: http://www.jaredhanson.net/
 │  └─ licenseFile: passport-strategy/LICENSE
-├─ passport@0.4.1
+├─ passport@0.5.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jaredhanson/passport
 │  ├─ publisher: Jared Hanson
