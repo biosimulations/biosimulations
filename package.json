@@ -132,7 +132,7 @@
     "@nrwl/tao": "12.9.0",
     "@nrwl/workspace": "12.9.0",
     "@nx-python/nx-python": "0.1.7",
-    "@scullyio/init": "1.1.4",
+    "@scullyio/init": "2.0.0",
     "@scullyio/ng-lib": "1.1.1",
     "@scullyio/scully": "1.1.1",
     "@semantic-release/changelog": "6.0.0",
