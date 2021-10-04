@@ -1,4 +1,8 @@
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { HttpModule } from '@nestjs/axios';
 import { Test, TestingModule } from '@nestjs/testing';
+import { CombineWrapperService } from '../combineWrapper.service';
 import { SedmlService } from './sedml.service';
 
 describe('SedmlService', () => {
@@ -6,7 +10,12 @@ describe('SedmlService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SedmlService],
+      imports: [BiosimulationsConfigModule, HttpModule],
+      providers: [
+        SedmlService,
+        { provide: CombineWrapperService, useValue: {} },
+        { provide: SimulationRunService, useValue: {} },
+      ],
     }).compile();
 
     service = module.get<SedmlService>(SedmlService);
