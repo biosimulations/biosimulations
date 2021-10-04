@@ -8,8 +8,10 @@ describe('SpecificationsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SpecificationsService,
-      {provide: getModelToken(SpecificationsModel.name), useValue: {}}],
+      providers: [
+        SpecificationsService,
+        { provide: getModelToken(SpecificationsModel.name), useValue: {} },
+      ],
     }).compile();
 
     service = module.get<SpecificationsService>(SpecificationsService);

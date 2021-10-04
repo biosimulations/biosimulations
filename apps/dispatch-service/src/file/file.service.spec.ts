@@ -15,7 +15,7 @@ describe('FileService', () => {
       providers: [
         FileService,
         { provide: CombineWrapperService, useValue: {} },
-      {provide: SimulationRunService, useValue:{}}
+        { provide: SimulationRunService, useValue: {} },
       ],
     }).compile();
 

@@ -31,7 +31,7 @@ export class CompleteProccessor {
     const id = data.simId;
     const isPublic = data.isPublic;
 
-    this.logger.log(`Simulation ${id} Finished. Creating logs and output`);
+    this.logger.debug(`Simulation ${id} Finished. Creating logs and output`);
 
     const required_processed: PromiseSettledResult<void>[] =
       await Promise.allSettled([
@@ -62,6 +62,8 @@ export class CompleteProccessor {
         this.logger.warn(val.reason);
       }
     }
+
+    // TODO keep track of which processing step failed and report it
     const errorMessage = `Updating Simulation ${id} to failed due to processing error: ${reason}`;
     if (completed) {
       this.simStatusService

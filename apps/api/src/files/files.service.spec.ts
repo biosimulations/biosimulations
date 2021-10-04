@@ -8,8 +8,10 @@ describe('FilesService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [FilesService,
-      {provide: getModelToken(FileModel.name), useValue: {}}],
+      providers: [
+        FilesService,
+        { provide: getModelToken(FileModel.name), useValue: {} },
+      ],
     }).compile();
 
     service = module.get<FilesService>(FilesService);
