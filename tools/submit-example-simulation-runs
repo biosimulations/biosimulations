@@ -36,7 +36,7 @@ class BColors(str, enum.Enum):
     UNDERLINE = '\033[4m'
 
 
-def getSubmitEndpoint(runbiosimulations_api):
+def get_submit_endpoint(runbiosimulations_api):
 
     if(runbiosimulations_api == 'local'):
         return 'http://localhost:3333/runs'
@@ -126,7 +126,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
         project_size = len(combine_archive)
 
         # submit simulation
-        submit_endpoint = getSubmitEndpoint(runbiosimulations_api)
+        submit_endpoint = get_submit_endpoint(runbiosimulations_api)
         if not dry_run:
             process = subprocess.run(['curl',
                                       '-X', 'POST', submit_endpoint,
@@ -142,7 +142,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
                                           "envVars": [],
                                           "purpose": "academic",
                                           "email": None,
-                                          "public": True,
+                                          "public": simulation['publishToBioSimulations'],
                                           "url": url,
                                       }),
                                       ], capture_output=True)
@@ -215,7 +215,7 @@ def monitor_runs(simulation_runs, runbiosimulations_api, timeout=240):
             break
         for run in pending_runs[:]:
 
-            api_host = getSubmitEndpoint(runbiosimulations_api)
+            api_host = get_submit_endpoint(runbiosimulations_api)
             print("Checking status of {}".format(run['name']))
             response = requests.get(api_host + "/" + run['id'])
             try:
@@ -277,9 +277,8 @@ def monitor_runs(simulation_runs, runbiosimulations_api, timeout=240):
         passed = False
         for run in timed_out_runs:
             print(BColors.WARNING + "TIMEOUT {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
-    if(passed):
+    if passed:
         print(BColors.OKGREEN + "All runs passed" + BColors.ENDC)
-        # Todo check logs, results, metadata
 
     return passed
 
