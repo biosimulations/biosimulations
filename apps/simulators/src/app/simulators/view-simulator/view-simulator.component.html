@@ -5,7 +5,11 @@
     [partialWidth]="true"
   >
     <biosimulations-columns *ngIf="simulator | async as simulator">
-      <biosimulations-text-page-content-section [heading]="simulator.name + ' (' + simulator.id + ' / ' + simulator.version + ')'">
+      <biosimulations-text-page-content-section
+        [heading]="
+          simulator.name + ' (' + simulator.id + ' / ' + simulator.version + ')'
+        "
+      >
         <p>
           {{ simulator.description }}
         </p>
@@ -54,7 +58,10 @@
       </biosimulations-text-page-content-section>
 
       <div class="wide-side-bar compact-sections">
-        <biosimulations-text-page-side-bar-section *ngIf="simulator.image && simulator.validated" heading="Run simulations online with runBioSimulations">
+        <biosimulations-text-page-side-bar-section
+          *ngIf="simulator.image && simulator.validated"
+          heading="Run simulations online with runBioSimulations"
+        >
           <ul class="icon-list">
             <li>
               <biosimulations-icon icon="simulator"></biosimulations-icon>
@@ -65,8 +72,9 @@
           </ul>
         </biosimulations-text-page-side-bar-section>
 
-        <biosimulations-text-page-side-bar-section 
-          *ngIf="simulator.image && simulator.validated" heading="Run simulations with standardized Docker image"
+        <biosimulations-text-page-side-bar-section
+          *ngIf="simulator.image && simulator.validated"
+          heading="Run simulations with standardized Docker image"
         >
           <ul class="icon-list copy-image">
             <li>
@@ -140,7 +148,7 @@
           </ul>
         </biosimulations-text-page-side-bar-section>
 
-        <biosimulations-text-page-side-bar-section 
+        <biosimulations-text-page-side-bar-section
           *ngIf="simulator.image && simulator?.cli && simulator.validated"
           heading="Run simulations with standardized CLI"
         >
@@ -269,9 +277,7 @@
                 mat-icon-button
                 class="biosimulations-button"
                 title="Copy to clipboard"
-                (click)="
-                  copyPythonApiInstallCmd(simulator?.pythonApi?.package)
-                "
+                (click)="copyPythonApiInstallCmd(simulator?.pythonApi?.package)"
               >
                 <biosimulations-icon icon="copy"></biosimulations-icon>
               </button>
@@ -321,7 +327,10 @@ simulator.exec_sedml_docs_in_combine_archive(
           </ul>
         </biosimulations-text-page-side-bar-section>
 
-        <biosimulations-text-page-side-bar-section *ngIf="simulator.otherInterfaceTypes?.length" heading="Other interfaces">
+        <biosimulations-text-page-side-bar-section
+          *ngIf="simulator.otherInterfaceTypes?.length"
+          heading="Other interfaces"
+        >
           <ul class="icon-list">
             <li *ngFor="let interfaceType of simulator.otherInterfaceTypes">
               <biosimulations-icon
@@ -332,22 +341,26 @@ simulator.exec_sedml_docs_in_combine_archive(
           </ul>
         </biosimulations-text-page-side-bar-section>
 
-        <biosimulations-text-page-side-bar-section *ngIf="simulator.supportedOperatingSystemTypes?.length" heading="Supported operating systems">
+        <biosimulations-text-page-side-bar-section
+          *ngIf="simulator.supportedOperatingSystemTypes?.length"
+          heading="Supported operating systems"
+        >
           <ul class="icon-list">
             <li
               *ngFor="
                 let supportedOperatingSystemType of simulator.supportedOperatingSystemTypes
               "
             >
-              <biosimulations-icon
-                icon="operatingSystem"
-              ></biosimulations-icon>
+              <biosimulations-icon icon="operatingSystem"></biosimulations-icon>
               {{ supportedOperatingSystemType }}
             </li>
           </ul>
         </biosimulations-text-page-side-bar-section>
 
-        <biosimulations-text-page-side-bar-section *ngIf="simulator.supportedProgrammingLanguages?.length" heading="Supported programming languages">
+        <biosimulations-text-page-side-bar-section
+          *ngIf="simulator.supportedProgrammingLanguages?.length"
+          heading="Supported programming languages"
+        >
           <ul class="icon-list">
             <li
               *ngFor="
@@ -364,7 +377,10 @@ simulator.exec_sedml_docs_in_combine_archive(
           {{ simulator.curationStatus }}
         </biosimulations-text-page-side-bar-section>
 
-        <biosimulations-text-page-side-bar-section *ngIf="simulator.licenseName" heading="License">
+        <biosimulations-text-page-side-bar-section
+          *ngIf="simulator.licenseName"
+          heading="License"
+        >
           <ul class="icon-list">
             <li>
               <biosimulations-icon icon="license"></biosimulations-icon>
@@ -379,7 +395,10 @@ simulator.exec_sedml_docs_in_combine_archive(
           </ul>
         </biosimulations-text-page-side-bar-section>
 
-        <biosimulations-text-page-side-bar-section *ngIf="simulator?.urls?.length" heading="More info">
+        <biosimulations-text-page-side-bar-section
+          *ngIf="simulator?.urls?.length"
+          heading="More info"
+        >
           <ul class="icon-list">
             <li *ngFor="let url of simulator.urls">
               <biosimulations-icon icon="link"></biosimulations-icon>
@@ -390,7 +409,10 @@ simulator.exec_sedml_docs_in_combine_archive(
           </ul>
         </biosimulations-text-page-side-bar-section>
 
-        <biosimulations-text-page-side-bar-section *ngIf="simulator.identifiers?.length" heading="Cross references">
+        <biosimulations-text-page-side-bar-section
+          *ngIf="simulator.identifiers?.length"
+          heading="Cross references"
+        >
           <ul class="identifiers icon-list">
             <li *ngFor="let identifier of simulator.identifiers">
               <biosimulations-icon icon="id"></biosimulations-icon>
@@ -401,7 +423,10 @@ simulator.exec_sedml_docs_in_combine_archive(
           </ul>
         </biosimulations-text-page-side-bar-section>
 
-        <biosimulations-text-page-side-bar-section *ngIf="simulator.funding?.length" heading="Funding">
+        <biosimulations-text-page-side-bar-section
+          *ngIf="simulator.funding?.length"
+          heading="Funding"
+        >
           <ul class="funding icon-list">
             <li *ngFor="let funding of simulator.funding">
               <biosimulations-icon icon="funding"></biosimulations-icon>

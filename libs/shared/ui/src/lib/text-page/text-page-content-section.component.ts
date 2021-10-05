@@ -2,7 +2,12 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { ScrollService } from '@biosimulations/shared/services';
 
-export type IconActionType = 'scrollToTop' | 'routerLink' | 'href' | 'toggle' | null;
+export type IconActionType =
+  | 'scrollToTop'
+  | 'routerLink'
+  | 'href'
+  | 'toggle'
+  | null;
 
 @Component({
   selector: 'biosimulations-text-page-content-section',

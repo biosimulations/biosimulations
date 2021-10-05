@@ -9,7 +9,7 @@
   <!-- Begin thumbnails -->
   <div
     *ngIf="project && project.thumbnails.length"
-    class="thumbnails-column ragged-column"    
+    class="thumbnails-column ragged-column"
     fxFlex="22rem"
     fxFlex.lt-sm="100%"
   >
@@ -20,12 +20,20 @@
 
   <!-- Begin summary/text data-->
   <div *ngIf="project" fxFlex class="metadata-column ragged-column">
-    <biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">
-      <div class="abstract" *ngIf="project.abstract">{{ project.abstract }}</div>
+    <biosimulations-text-page-content-section
+      [heading]="project.title"
+      [iconActionType]="null"
+    >
+      <div class="abstract" *ngIf="project.abstract">
+        {{ project.abstract }}
+      </div>
 
       <!-- Begin creators/contributers-->
       <!-- TODO create ORCID people list component -->
-      <ul class="creators comma-separated ampersand-separator" *ngIf="project.creators.length">
+      <ul
+        class="creators comma-separated ampersand-separator"
+        *ngIf="project.creators.length"
+      >
         <li *ngFor="let creator of project.creators">
           {{ creator.label }}{{ creator.uri ? ' ' : ''
           }}<a [href]="creator.uri" target="_blank" *ngIf="creator.uri">
@@ -35,18 +43,27 @@
       </ul>
 
       <!-- description -->
-      <div class="description" *ngIf="project.description">{{ project.description }}</div>
+      <div class="description" *ngIf="project.description">
+        {{ project.description }}
+      </div>
 
       <!-- attributes -->
       <div class="attributes" *ngIf="project?.attributes?.length">
         <ng-container *ngFor="let attribute of project?.attributes">
           <ng-container *ngFor="let value of attribute.values">
             <div>
-              <biosimulations-icon [icon]="attribute.icon"></biosimulations-icon>
+              <biosimulations-icon
+                [icon]="attribute.icon"
+              ></biosimulations-icon>
             </div>
             <div>
               <b>{{ attribute.title }}:</b>{{ ' ' }}
-              <a *ngIf="value.uri; else noUrl" [href]="value.uri" target="_blank">{{ value.label }}</a>
+              <a
+                *ngIf="value.uri; else noUrl"
+                [href]="value.uri"
+                target="_blank"
+                >{{ value.label }}</a
+              >
               <ng-template #noUrl>
                 {{ value.label }}
               </ng-template>
@@ -60,13 +77,23 @@
 
   <!-- Simulation information -->
   <div class="simulation-column ragged-column" *ngIf="simulationRun">
-    <biosimulations-text-page-side-bar-section *ngFor="let section of simulationRun" [heading]="section.title">
+    <biosimulations-text-page-side-bar-section
+      *ngFor="let section of simulationRun"
+      [heading]="section.title"
+    >
       <table class="icon-list">
         <tr *ngFor="let item of section.items">
-          <th><biosimulations-icon [icon]="item.icon"></biosimulations-icon></th>
+          <th>
+            <biosimulations-icon [icon]="item.icon"></biosimulations-icon>
+          </th>
           <td>
             <b>{{ item.title }}:</b>{{ ' ' }}
-            <a [href]="item.url" target="_blank" *ngIf="item.url; else noHref">{{ item.value | async }}</a>
+            <a
+              [href]="item.url"
+              target="_blank"
+              *ngIf="item.url; else noHref"
+              >{{ item.value | async }}</a
+            >
             <ng-template #noHref>{{ item.value | async }}</ng-template>
           </td>
         </tr>

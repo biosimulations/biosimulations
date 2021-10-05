@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  OnInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,7 +17,11 @@ import {
   PlotlyDataLayout,
   PlotlyTraceType,
 } from '@biosimulations/datamodel/common';
-import { UriSedDataSetMap, UriSetDataSetResultsMap, Histogram1DVisualization } from '@biosimulations/datamodel/project';
+import {
+  UriSedDataSetMap,
+  UriSetDataSetResultsMap,
+  Histogram1DVisualization,
+} from '@biosimulations/datamodel/project';
 import { ViewService } from '@biosimulations/shared/project-service';
 import { Observable, map } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
@@ -31,7 +40,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
 
   @Input()
   simulationRunId!: string;
-  
+
   @Input()
   sedDocs!: SedDocumentSpecifications[];
 
@@ -55,8 +64,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
       'dataSets',
       this.formBuilder.control('', [Validators.minLength(1)]),
     );
-    this.dataSetsFormControl = this.formGroup.controls
-      .dataSets as FormControl;
+    this.dataSetsFormControl = this.formGroup.controls.dataSets as FormControl;
   }
 
   public setSelectedDataSets(
@@ -157,224 +165,241 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
   }
 
   public getPlotlyDataLayout(): Observable<PlotlyDataLayout | false> {
-    return this.viewService.getReportResults(this.simulationRunId, this.dataSetsFormControl.value).pipe(
-      map((uriResultsMap: UriSetDataSetResultsMap): PlotlyDataLayout | false => {
-        const selectedUris = this.dataSetsFormControl.value;
-        let allData: any = [];
-        let missingData = false;
-        const xAxisTitles: string[] = [];
-        for (let selectedUri of selectedUris) {
-          if (selectedUri.startsWith('./')) {
-            selectedUri = selectedUri.substring(2);
-          }
+    return this.viewService
+      .getReportResults(this.simulationRunId, this.dataSetsFormControl.value)
+      .pipe(
+        map(
+          (
+            uriResultsMap: UriSetDataSetResultsMap,
+          ): PlotlyDataLayout | false => {
+            const selectedUris = this.dataSetsFormControl.value;
+            let allData: any = [];
+            let missingData = false;
+            const xAxisTitles: string[] = [];
+            for (let selectedUri of selectedUris) {
+              if (selectedUri.startsWith('./')) {
+                selectedUri = selectedUri.substring(2);
+              }
 
-          const selectedDataSet = this.uriSedDataSetMap?.[selectedUri];
-          if (selectedDataSet) {
-            const data = uriResultsMap?.[selectedUri];
-            if (data) {
-              allData = allData.concat(this.viewService.flattenArray(data.values));
-              xAxisTitles.push(data.label);
-            } else {
-              missingData = true;
-              break;
+              const selectedDataSet = this.uriSedDataSetMap?.[selectedUri];
+              if (selectedDataSet) {
+                const data = uriResultsMap?.[selectedUri];
+                if (data) {
+                  allData = allData.concat(
+                    this.viewService.flattenArray(data.values),
+                  );
+                  xAxisTitles.push(data.label);
+                } else {
+                  missingData = true;
+                  break;
+                }
+              }
             }
-          }
-        }
 
-        const trace = {
-          x: allData,
-          xaxis: 'x1',
-          yaxis: 'y1',
-          type: PlotlyTraceType.histogram,
-        };
+            const trace = {
+              x: allData,
+              xaxis: 'x1',
+              yaxis: 'y1',
+              type: PlotlyTraceType.histogram,
+            };
 
-        let xAxisTitle: string | undefined = undefined;
-        if (xAxisTitles.length === 1) {
-          xAxisTitle = xAxisTitles[0];
-        } else if (xAxisTitles.length > 1) {
-          xAxisTitle = 'Multiple';
-        }
+            let xAxisTitle: string | undefined = undefined;
+            if (xAxisTitles.length === 1) {
+              xAxisTitle = xAxisTitles[0];
+            } else if (xAxisTitles.length > 1) {
+              xAxisTitle = 'Multiple';
+            }
 
-        const dataLayout = {
-          data: [trace],
-          layout: {
-            xaxis1: {
-              anchor: 'x1',
-              title: xAxisTitle,
-              type: 'linear',
-            },
-            yaxis1: {
-              anchor: 'y1',
-              title: 'Frequency',
-              type: 'linear',
-            },
-            grid: {
-              rows: 1,
-              columns: 1,
-              pattern: 'independent',
-            },
-            showlegend: false,
-            width: undefined,
-            height: undefined,
+            const dataLayout = {
+              data: [trace],
+              layout: {
+                xaxis1: {
+                  anchor: 'x1',
+                  title: xAxisTitle,
+                  type: 'linear',
+                },
+                yaxis1: {
+                  anchor: 'y1',
+                  title: 'Frequency',
+                  type: 'linear',
+                },
+                grid: {
+                  rows: 1,
+                  columns: 1,
+                  pattern: 'independent',
+                },
+                showlegend: false,
+                width: undefined,
+                height: undefined,
+              },
+            } as PlotlyDataLayout;
+
+            if (missingData) {
+              return false;
+            } else {
+              return dataLayout;
+            }
           },
-        } as PlotlyDataLayout;
-
-        if (missingData) {
-          return false;
-        } else {
-          return dataLayout;
-        }
-      })
-    );
+        ),
+      );
   }
 
   public exportToVega(): Observable<VegaSpec> {
-    return this.viewService.getReportResults(this.simulationRunId, this.dataSetsFormControl.value).pipe(
-      map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
-        let vegaDataSets: {
-          templateNames: string[];
-          sourceName: (iDataSet: number) => string;
-          filteredName: (iDataSet: number) => string;
-          joinedName?: string;
-          joinedTransforms?: any[];
-          data: { [outputUri: string]: string[] };
-        }[] = [];        
-        const selectedUris = this.dataSetsFormControl.value;
-        const vega: any = JSON.parse(JSON.stringify(vegaTemplate)) as any;
+    return this.viewService
+      .getReportResults(this.simulationRunId, this.dataSetsFormControl.value)
+      .pipe(
+        map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
+          let vegaDataSets: {
+            templateNames: string[];
+            sourceName: (iDataSet: number) => string;
+            filteredName: (iDataSet: number) => string;
+            joinedName?: string;
+            joinedTransforms?: any[];
+            data: { [outputUri: string]: string[] };
+          }[] = [];
+          const selectedUris = this.dataSetsFormControl.value;
+          const vega: any = JSON.parse(JSON.stringify(vegaTemplate)) as any;
 
-        const selectedDataSets: { [outputUri: string]: string[] } = {};
-        const histogramExtent = [NaN, NaN];
-        const xAxisTitles: string[] = [];
-        for (let selectedUri of selectedUris) {
-          if (selectedUri.startsWith('./')) {
-            selectedUri = selectedUri.substring(2);
-          }
+          const selectedDataSets: { [outputUri: string]: string[] } = {};
+          const histogramExtent = [NaN, NaN];
+          const xAxisTitles: string[] = [];
+          for (let selectedUri of selectedUris) {
+            if (selectedUri.startsWith('./')) {
+              selectedUri = selectedUri.substring(2);
+            }
 
-          const selectedDataSet =
-            this.uriSedDataSetMap?.[selectedUri];
-          if (selectedDataSet) {
-            const data = uriResultsMap?.[selectedUri];
-            if (data) {
-              const uriParts = selectedUri.split('/');
-              uriParts.pop();
-              const outputUri = uriParts.join('/');
-              if (!(outputUri in selectedDataSets)) {
-                selectedDataSets[outputUri] = [];
+            const selectedDataSet = this.uriSedDataSetMap?.[selectedUri];
+            if (selectedDataSet) {
+              const data = uriResultsMap?.[selectedUri];
+              if (data) {
+                const uriParts = selectedUri.split('/');
+                uriParts.pop();
+                const outputUri = uriParts.join('/');
+                if (!(outputUri in selectedDataSets)) {
+                  selectedDataSets[outputUri] = [];
+                }
+                selectedDataSets[outputUri].push(data.id);
+
+                const flatData = this.viewService.flattenArray(data.values);
+                histogramExtent[0] = isNaN(histogramExtent[0])
+                  ? Math.min(...flatData)
+                  : Math.min(histogramExtent[0], Math.min(...flatData));
+                histogramExtent[1] = isNaN(histogramExtent[1])
+                  ? Math.max(...flatData)
+                  : Math.max(histogramExtent[1], Math.max(...flatData));
+
+                xAxisTitles.push(data.label);
               }
-              selectedDataSets[outputUri].push(data.id);
-
-              const flatData = this.viewService.flattenArray(data.values);
-              histogramExtent[0] = isNaN(histogramExtent[0])
-                ? Math.min(...flatData)
-                : Math.min(histogramExtent[0], Math.min(...flatData));
-              histogramExtent[1] = isNaN(histogramExtent[1])
-                ? Math.max(...flatData)
-                : Math.max(histogramExtent[1], Math.max(...flatData));
-
-              xAxisTitles.push(data.label);
             }
           }
-        }
-        vegaDataSets = [
-          {
-            templateNames: ['rawData0', 'rawData0_filtered', 'rawData_joined'],
-            sourceName: (iDataSet: number): string => `rawData${iDataSet}`,
-            filteredName: (iDataSet: number): string =>
-              `rawData${iDataSet}_filtered`,
-            joinedName: 'rawData_joined',
-            data: selectedDataSets,
-          },
-        ];
-
-        let xAxisTitle: string | undefined = undefined;
-        if (xAxisTitles.length === 1) {
-          xAxisTitle = xAxisTitles[0];
-        } else if (xAxisTitles.length > 1) {
-          xAxisTitle = 'Multiple';
-        }
-        const vegaSignals: { [name: string]: any } = {
-          histogramExtent: [
-            isNaN(histogramExtent[0]) ? null : histogramExtent[0],
-            isNaN(histogramExtent[1]) ? null : histogramExtent[1],
-          ],
-          xAxisTitle: xAxisTitle,
-        };
-
-        // signals
-        vega.signals.forEach((signalTemplate: any): void => {
-          if (signalTemplate.name in vegaSignals) {
-            signalTemplate.value = vegaSignals[signalTemplate.name];
-          }
-        });
-
-        // data
-        vegaDataSets.forEach((vegaDataSet: any): void => {
-          // remove template data sets
-          for (let iData = vega.data.length - 1; iData >= 0; iData--) {
-            if (vegaDataSet.templateNames.includes(vega.data[iData].name)) {
-              vega.data.splice(iData, 1);
-            }
-          }
-
-          // add concrete data sets
-          const concreteDataSets: any[] = [];
-          const filteredVegaDataSetNames: string[] = [];
-          Object.entries(vegaDataSet.data).forEach(
-            (outputUriDataSetIds: [string, any], iDataSet: number): void => {
-              const outputUri = outputUriDataSetIds[0];
-              const outputUriParts = outputUri.split('/');
-              const outputId = outputUriParts.pop();
-              const sedDocumentLocation = outputUriParts.join('/');
-              const dataSetIds = outputUriDataSetIds[1] as string[];
-
-              concreteDataSets.push({
-                name: vegaDataSet.sourceName(iDataSet),
-                sedmlUri: [sedDocumentLocation, outputId],
-                url: this.endpoints.getRunResultsEndpoint(this.simulationRunId, `${sedDocumentLocation}/${outputId}`, true),
-                format: {
-                  type: 'json',
-                  property: 'data',
-                },
-              });
-
-              concreteDataSets.push({
-                name: vegaDataSet.filteredName(iDataSet),
-                source: concreteDataSets[concreteDataSets.length - 1].name,
-                transform: [
-                  {
-                    type: 'filter',
-                    expr: `indexof(['${dataSetIds.join(
-                      "', '",
-                    )}'], datum.id) !== -1`,
-                  },
-                  {
-                    type: 'formula',
-                    expr: `'${outputUri}'`,
-                    as: 'outputUri',
-                  },
-                ],
-              });
-
-              filteredVegaDataSetNames.push(
-                concreteDataSets[concreteDataSets.length - 1].name,
-              );
+          vegaDataSets = [
+            {
+              templateNames: [
+                'rawData0',
+                'rawData0_filtered',
+                'rawData_joined',
+              ],
+              sourceName: (iDataSet: number): string => `rawData${iDataSet}`,
+              filteredName: (iDataSet: number): string =>
+                `rawData${iDataSet}_filtered`,
+              joinedName: 'rawData_joined',
+              data: selectedDataSets,
             },
-          );
+          ];
 
-          if (vegaDataSet.joinedName) {
-            concreteDataSets.push({
-              name: vegaDataSet.joinedName,
-              source: filteredVegaDataSetNames,
-              transform: vegaDataSet.joinedTransforms || [],
-            });
+          let xAxisTitle: string | undefined = undefined;
+          if (xAxisTitles.length === 1) {
+            xAxisTitle = xAxisTitles[0];
+          } else if (xAxisTitles.length > 1) {
+            xAxisTitle = 'Multiple';
           }
+          const vegaSignals: { [name: string]: any } = {
+            histogramExtent: [
+              isNaN(histogramExtent[0]) ? null : histogramExtent[0],
+              isNaN(histogramExtent[1]) ? null : histogramExtent[1],
+            ],
+            xAxisTitle: xAxisTitle,
+          };
 
-          vega.data = concreteDataSets.concat(vega.data);
-        });
+          // signals
+          vega.signals.forEach((signalTemplate: any): void => {
+            if (signalTemplate.name in vegaSignals) {
+              signalTemplate.value = vegaSignals[signalTemplate.name];
+            }
+          });
 
-        // return Vega spec
-        return vega;
-      })
-    );
-  }  
+          // data
+          vegaDataSets.forEach((vegaDataSet: any): void => {
+            // remove template data sets
+            for (let iData = vega.data.length - 1; iData >= 0; iData--) {
+              if (vegaDataSet.templateNames.includes(vega.data[iData].name)) {
+                vega.data.splice(iData, 1);
+              }
+            }
+
+            // add concrete data sets
+            const concreteDataSets: any[] = [];
+            const filteredVegaDataSetNames: string[] = [];
+            Object.entries(vegaDataSet.data).forEach(
+              (outputUriDataSetIds: [string, any], iDataSet: number): void => {
+                const outputUri = outputUriDataSetIds[0];
+                const outputUriParts = outputUri.split('/');
+                const outputId = outputUriParts.pop();
+                const sedDocumentLocation = outputUriParts.join('/');
+                const dataSetIds = outputUriDataSetIds[1] as string[];
+
+                concreteDataSets.push({
+                  name: vegaDataSet.sourceName(iDataSet),
+                  sedmlUri: [sedDocumentLocation, outputId],
+                  url: this.endpoints.getRunResultsEndpoint(
+                    this.simulationRunId,
+                    `${sedDocumentLocation}/${outputId}`,
+                    true,
+                  ),
+                  format: {
+                    type: 'json',
+                    property: 'data',
+                  },
+                });
+
+                concreteDataSets.push({
+                  name: vegaDataSet.filteredName(iDataSet),
+                  source: concreteDataSets[concreteDataSets.length - 1].name,
+                  transform: [
+                    {
+                      type: 'filter',
+                      expr: `indexof(['${dataSetIds.join(
+                        "', '",
+                      )}'], datum.id) !== -1`,
+                    },
+                    {
+                      type: 'formula',
+                      expr: `'${outputUri}'`,
+                      as: 'outputUri',
+                    },
+                  ],
+                });
+
+                filteredVegaDataSetNames.push(
+                  concreteDataSets[concreteDataSets.length - 1].name,
+                );
+              },
+            );
+
+            if (vegaDataSet.joinedName) {
+              concreteDataSets.push({
+                name: vegaDataSet.joinedName,
+                source: filteredVegaDataSetNames,
+                transform: vegaDataSet.joinedTransforms || [],
+              });
+            }
+
+            vega.data = concreteDataSets.concat(vega.data);
+          });
+
+          // return Vega spec
+          return vega;
+        }),
+      );
+  }
 }

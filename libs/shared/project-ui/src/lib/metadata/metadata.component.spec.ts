@@ -11,10 +11,7 @@ describe('MetadataComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MetadataComponent],
-      imports: [
-        BiosimulationsIconsModule,
-        SharedUiModule,
-      ],
+      imports: [BiosimulationsIconsModule, SharedUiModule],
     }).compileComponents();
   });
 

@@ -1,28 +1,34 @@
-<div class="spinner-container full-height has-breadcrumbs" *ngIf="(loaded$ | async) !== true">
+<div
+  class="spinner-container full-height has-breadcrumbs"
+  *ngIf="(loaded$ | async) !== true"
+>
   <biosimulations-spinner></biosimulations-spinner>
 </div>
 
-<biosimulations-tab-page *ngIf="(loaded$ | async) === true"
+<biosimulations-tab-page
+  *ngIf="(loaded$ | async) === true"
   [selectedTabIndex]="selectedTabIndex"
   (selectedTabChange)="selectedTabChange($event)"
 >
   <!-- Begin summary of the run -->
   <biosimulations-tab-page-tab heading="Simulation run" icon="overview">
     <ng-container *ngIf="formattedSimulation$ | async as formattedSimulation">
-      <biosimulations-simulation-run-overview [simulation]="formattedSimulation">
+      <biosimulations-simulation-run-overview
+        [simulation]="formattedSimulation"
+      >
       </biosimulations-simulation-run-overview>
     </ng-container>
   </biosimulations-tab-page-tab>
   <!-- End summary of the run -->
 
   <!-- The overview tab for the entire project-->
-  <biosimulations-tab-page-tab heading="Simulation project" icon="model"
+  <biosimulations-tab-page-tab
+    heading="Simulation project"
+    icon="model"
     [disabled]="(resultsLoaded$ | async) !== true"
   >
-    <ng-container *ngIf="(projectMetadata$ | async) as projectMetadata">
-      <biosimulations-project-metadata 
-        [project]="projectMetadata"
-      >
+    <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
+      <biosimulations-project-metadata [project]="projectMetadata">
       </biosimulations-project-metadata>
     </ng-container>
   </biosimulations-tab-page-tab>
@@ -35,24 +41,36 @@
     urlHashFragment="files"
   >
     <div class="partial-width files">
-      <biosimulations-text-page-content-section heading="Project" *ngIf="(projectFiles$ | async) as files">
-        <biosimulations-project-files id="content"
+      <biosimulations-text-page-content-section
+        heading="Project"
+        *ngIf="projectFiles$ | async as files"
+      >
+        <biosimulations-project-files
+          id="content"
           [files]="files"
           [usesMaster]="false"
         >
         </biosimulations-project-files>
       </biosimulations-text-page-content-section>
 
-      <biosimulations-text-page-content-section heading="Project contents" *ngIf="(files$ | async) as files">
-        <biosimulations-project-files id="content"
+      <biosimulations-text-page-content-section
+        heading="Project contents"
+        *ngIf="files$ | async as files"
+      >
+        <biosimulations-project-files
+          id="content"
           [files]="files"
           [usesMaster]="true"
         >
         </biosimulations-project-files>
       </biosimulations-text-page-content-section>
 
-      <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="(outputs$ | async) as files">
-        <biosimulations-project-files id="content"
+      <biosimulations-text-page-content-section
+        heading="Simulation outputs"
+        *ngIf="outputs$ | async as files"
+      >
+        <biosimulations-project-files
+          id="content"
           [files]="files"
           [usesMaster]="false"
         >
@@ -61,15 +79,15 @@
     </div>
   </biosimulations-tab-page-tab>
 
-  <!-- Visualizations -->  
+  <!-- Visualizations -->
   <biosimulations-tab-page-tab
     urlHashFragment="select-viz"
     heading="Select chart"
     icon="write"
     [partialWidth]="true"
     [disabled]="(resultsLoaded$ | async) !== true"
-    >
-    <ng-container *ngIf="(visualizations$ | async) as visualizations">
+  >
+    <ng-container *ngIf="visualizations$ | async as visualizations">
       <biosimulations-project-select-visualization
         [visualizations]="visualizations"
         (renderVisualization)="renderVisualization($event)"
@@ -85,7 +103,7 @@
     [disabled]="viewVisualizationTabDisabled"
     [fullHeight]="true"
     [fullWidth]="true"
-    >
+  >
     <biosimulations-project-visualization
       *ngIf="visualization"
       [visualization]="visualization"
@@ -101,8 +119,8 @@
     urlHashFragment="log"
     [disabled]="(resultsLoaded$ | async) !== true"
   >
-    <ng-container *ngIf="(logs$ | async) as logs">
-      <ng-container *ngIf="(formattedSimulation$ | async) as sim">
+    <ng-container *ngIf="logs$ | async as logs">
+      <ng-container *ngIf="formattedSimulation$ | async as sim">
         <biosimulations-simulation-log
           [status]="sim.status"
           [rawLog]="logs.raw"

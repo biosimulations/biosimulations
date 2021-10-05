@@ -59,14 +59,14 @@
       "@biosimulations/datamodel-database": [
         "libs/datamodel/database/src/index.ts"
       ],
-      "@biosimulations/datamodel/project": [
-        "libs/datamodel/project/src/index.ts"
-      ],
       "@biosimulations/datamodel/api": [
         "libs/datamodel/api/src/index.ts"
       ],
       "@biosimulations/datamodel/common": [
         "libs/datamodel/common/src/index.ts"
+      ],
+      "@biosimulations/datamodel/project": [
+        "libs/datamodel/project/src/index.ts"
       ],
       "@biosimulations/datamodel/utils": [
         "libs/datamodel/utils/src/index.ts"
@@ -135,14 +135,17 @@
       "@biosimulations/shared/nats-client": [
         "libs/shared/nats-client/src/index.ts"
       ],
+      "@biosimulations/shared/project-service": [
+        "libs/shared/project-service/src/index.ts"
+      ],
+      "@biosimulations/shared/project-ui": [
+        "libs/shared/project-ui/src/index.ts"
+      ],
       "@biosimulations/shared/pwa": [
         "libs/shared/pwa/src/index.ts"
       ],
       "@biosimulations/shared/services": [
         "libs/shared/services/src/index.ts"
-      ],
-      "@biosimulations/shared/project-service": [
-        "libs/shared/project-service/src/index.ts"
       ],
       "@biosimulations/shared/storage": [
         "libs/shared/storage/src/index.ts"
@@ -153,14 +156,11 @@
       "@biosimulations/shared/ui": [
         "libs/shared/ui/src/index.ts"
       ],
-      "@biosimulations/shared/viz-ui": [
-        "libs/shared/viz-ui/src/index.ts"
-      ],
-      "@biosimulations/shared/project-ui": [
-        "libs/shared/project-ui/src/index.ts"
-      ],
       "@biosimulations/shared/utils/routes": [
         "libs/shared/utils/routes/src/index.ts"
+      ],
+      "@biosimulations/shared/viz-ui": [
+        "libs/shared/viz-ui/src/index.ts"
       ],
       "@biosimulations/simulators/database-models": [
         "libs/simulators/database-models/src/index.ts"

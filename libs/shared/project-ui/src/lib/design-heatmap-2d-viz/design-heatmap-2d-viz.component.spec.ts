@@ -9,7 +9,6 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { DesignHeatmap2DVisualizationComponent } from './design-heatmap-2d-viz.component';
 import { FormBuilder } from '@angular/forms';
 
-
 describe('DesignHeatmap2DVisualizationComponent', () => {
   let component: DesignHeatmap2DVisualizationComponent;
   let fixture: ComponentFixture<DesignHeatmap2DVisualizationComponent>;

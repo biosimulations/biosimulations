@@ -384,6 +384,25 @@
         "shared:true"
       ]
     },
+    "shared-project-service": {
+      "tags": [
+        "scope:simulations",
+        "type:service",
+        "platform:any"
+      ],
+      "implicitDependencies": []
+    },
+    "shared-project-ui": {
+      "tags": [
+        "scope:simulations",
+        "type:ui",
+        "platform:web"
+      ],
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]
+    },
     "shared-pwa": {
       "tags": [
         "scope:shared",
@@ -396,14 +415,6 @@
         "scope:shared",
         "type:service",
         "platform:web"
-      ],
-      "implicitDependencies": []
-    },
-    "shared-project-service": {
-      "tags": [
-        "scope:simulations",
-        "type:service",
-        "platform:any"
       ],
       "implicitDependencies": []
     },
@@ -433,6 +444,13 @@
         "shared-styles"
       ]
     },
+    "shared-utils-routes": {
+      "tags": [
+        "scope:shared",
+        "type:utils",
+        "platform:web"
+      ]
+    },
     "shared-viz-ui": {
       "tags": [
         "scope:shared",
@@ -441,24 +459,6 @@
       ],
       "implicitDependencies": [
         "shared-styles"
-      ]
-    },
-    "shared-project-ui": {
-      "tags": [
-        "scope:simulations",
-        "type:ui",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
-    },
-    "shared-utils-routes": {
-      "tags": [
-        "scope:shared",
-        "type:utils",
-        "platform:web"
       ]
     },
     "simulators": {

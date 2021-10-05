@@ -8,9 +8,7 @@ describe('OverviewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [OverviewComponent],
-      imports: [
-        BiosimulationsIconsModule,
-      ],
+      imports: [BiosimulationsIconsModule],
     }).compileComponents();
   }));
 

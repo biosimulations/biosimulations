@@ -288,7 +288,7 @@ export class IconComponent {
     backward: { type: 'fas', name: 'backward' },
     forward: { type: 'fas', name: 'forward' },
     convert: { type: 'fas', name: 'exchange-alt' },
-    
+
     archive: { type: 'fas', name: 'file-archive' },
     r: { type: 'fab', name: 'r-project' },
     image: { type: 'fas', name: 'image' },

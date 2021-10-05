@@ -13,11 +13,7 @@ import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handle
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
-  declarations: [
-    ViewComponent,
-    ProjectCardComponent,
-    BrowseComponent,
-  ],
+  declarations: [ViewComponent, ProjectCardComponent, BrowseComponent],
   imports: [
     CommonModule,
     ProjectsRoutingModule,

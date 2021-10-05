@@ -62,8 +62,13 @@ export class VegaVisualizationComponent implements OnDestroy {
     }
 
     const rect =
-      this.hostElement.nativeElement.parentElement?.getBoundingClientRect();    
-    if (rect?.width === null || rect?.width === 0 || rect?.height === null || rect?.height === 0) {
+      this.hostElement.nativeElement.parentElement?.getBoundingClientRect();
+    if (
+      rect?.width === null ||
+      rect?.width === 0 ||
+      rect?.height === null ||
+      rect?.height === 0
+    ) {
       return;
     }
     const options = {
@@ -91,9 +96,7 @@ export class VegaVisualizationComponent implements OnDestroy {
         args[3].constructor.name === 'Error' &&
         args[3].message === '500'
       ) {
-        this.error.next(
-          'The data for the visualization could not be loaded.',
-        );
+        this.error.next('The data for the visualization could not be loaded.');
       } else {
         this.builtInConsoleWarn(...args);
       }
@@ -113,7 +116,8 @@ export class VegaVisualizationComponent implements OnDestroy {
 
   @HostListener('window:resize')
   onResize() {
-    const rect = this.hostElement.nativeElement.parentElement?.getBoundingClientRect();
+    const rect =
+      this.hostElement.nativeElement.parentElement?.getBoundingClientRect();
     if (
       !(rect?.width === null || rect?.width === 0) &&
       !(rect?.height === null || rect?.height === 0)

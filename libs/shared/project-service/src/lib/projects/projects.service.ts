@@ -8,7 +8,6 @@ import { Endpoints } from '@biosimulations/config/common';
 import { SimulatorIdNameMap } from '@biosimulations/datamodel/common';
 import { RetryStrategy } from '@biosimulations/shared/services';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -29,7 +28,7 @@ export class ProjectsService {
   }
 
   public getArchiveContents(id: string): Observable<any> {
-    const url = this.endpoints.getArchiveContentsEndpoint(id);    
+    const url = this.endpoints.getArchiveContentsEndpoint(id);
     const response = this.http.get<any>(url).pipe();
     return response;
   }
@@ -47,19 +46,26 @@ export class ProjectsService {
     return response;
   }
 
-  public getSimulationRun(id: string): Observable<any> { // SimulationRun
+  public getSimulationRun(id: string): Observable<any> {
+    // SimulationRun
     const url = this.endpoints.getSimulationRunEndpoint(id);
     const response = this.http.get<any>(url).pipe(shareReplay(1)); // SimulationRun
     return response;
   }
 
-  public getSimulationRunResults(id: string, outputId?: string, includeData = false): Observable<any> {
+  public getSimulationRunResults(
+    id: string,
+    outputId?: string,
+    includeData = false,
+  ): Observable<any> {
     const url = this.endpoints.getRunResultsEndpoint(id, outputId, includeData);
     const retryStrategy = new RetryStrategy();
-    const response = this.http.get<any>(url).pipe(
-      shareReplay(1),
-      retryWhen(retryStrategy.handler.bind(retryStrategy)),
-    );
+    const response = this.http
+      .get<any>(url)
+      .pipe(
+        shareReplay(1),
+        retryWhen(retryStrategy.handler.bind(retryStrategy)),
+      );
     return response;
   }
 
@@ -124,10 +130,13 @@ export class ProjectsService {
       Accept: 'application/zip',
     };
 
-    return this.http
-      .post<string>(this.endpoints.getAddFileToCombineArchiveEndpoint(), formData, {
+    return this.http.post<string>(
+      this.endpoints.getAddFileToCombineArchiveEndpoint(),
+      formData,
+      {
         headers: headers,
         responseType: 'json',
-      });
+      },
+    );
   }
 }

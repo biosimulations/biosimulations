@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 // import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { Observable, combineLatest, map } from 'rxjs';
-import { 
+import {
   ProjectMetadata,
   SimulationRunMetadata,
   Path,
@@ -20,24 +20,24 @@ import { ViewService } from '@biosimulations/shared/project-service';
 })
 export class ViewComponent implements OnInit {
   public loaded$!: Observable<boolean>;
-  
+
   public id!: string;
 
   public projectMetadata$!: Observable<ProjectMetadata | undefined>;
   public simulationRun$!: Observable<SimulationRunMetadata>;
-  
+
   public projectFiles$!: Observable<Path[]>;
   public files$!: Observable<Path[]>;
   public outputs$!: Observable<File[]>;
 
   public visualizations$!: Observable<VisualizationList[]>;
   public visualization: Visualization | null = null;
-  
+
   constructor(private service: ViewService, private route: ActivatedRoute) {}
-  
+
   public ngOnInit(): void {
-    const id = this.id = this.route.snapshot.params['id'];
-    
+    const id = (this.id = this.route.snapshot.params['id']);
+
     this.projectMetadata$ = this.service.getFormattedProjectMetadata(id);
     this.simulationRun$ = this.service.getFormattedSimulationRun(id);
 
@@ -49,16 +49,18 @@ export class ViewComponent implements OnInit {
 
     this.loaded$ = combineLatest(
       this.projectMetadata$,
-      this.simulationRun$, 
+      this.simulationRun$,
       this.projectFiles$,
       this.files$,
       this.outputs$,
       this.visualizations$,
     ).pipe(
       map((observables: (any | undefined)[]): boolean => {
-        return observables.filter((observable: any | undefined): boolean => {
-          return observable === undefined;
-        }).length === 0;
+        return (
+          observables.filter((observable: any | undefined): boolean => {
+            return observable === undefined;
+          }).length === 0
+        );
       }),
     );
   }
@@ -68,10 +70,10 @@ export class ViewComponent implements OnInit {
   selectVisualizationTabIndex = 2;
   visualizationTabIndex = 3;
 
-  public renderVisualization(visualization: Visualization): void {    
+  public renderVisualization(visualization: Visualization): void {
     this.visualization = visualization;
     this.viewVisualizationTabDisabled = false;
-    this.selectedTabIndex = this.visualizationTabIndex;    
+    this.selectedTabIndex = this.visualizationTabIndex;
   }
 
   public selectedTabChange($event: MatTabChangeEvent): void {

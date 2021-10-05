@@ -271,15 +271,15 @@ export const VEGA_FORMAT = {
 };
 
 export interface CombineArchiveContentFormat {
-  combineUri: string;  
+  combineUri: string;
   name: string;
   acronym: string | null;
   url: string;
   icon: BiosimulationsIcon;
 }
 
-export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS
-  .map((modelFormat: ModelFormat): CombineArchiveContentFormat => {
+export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS.map(
+  (modelFormat: ModelFormat): CombineArchiveContentFormat => {
     return {
       combineUri: modelFormat.combineUri,
       name: modelFormat.name,
@@ -287,7 +287,8 @@ export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS
       url: modelFormat.url,
       icon: 'model',
     };
-  })
+  },
+)
   .concat([
     {
       combineUri: SEDML_FORMAT.combineUri,
@@ -314,41 +315,233 @@ export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS
   .concat([
     {
       name: 'Bitmap Image File',
-      acronym: 'BMP', 
+      acronym: 'BMP',
       combineUri: 'http://purl.org/NET/mediatypes/image/bmp',
       url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3592',
       icon: 'image',
     },
-    {name: 'BioPAX', acronym: null, combineUri: 'http://identifiers.org/combine.specifications/biopax', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3156', icon: 'file'},
-    {name: 'Escher', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/escher+json', url: 'https://escher.github.io/', icon: 'chart'},
-    {name: 'Graphics Interchange Format', acronym: 'GIF', combineUri: 'http://purl.org/NET/mediatypes/image/gif', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3467', icon: 'image'},
-    {name: 'Hierarchical Data Format 5', acronym: 'HDF5', combineUri: 'http://purl.org/NET/mediatypes/application/x-hdf', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3590', icon: 'report'},
-    {name: 'IPython Notebook', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-ipynb+json', url: 'https://ipython.org/notebook.html', icon: 'python'},
-    {name: 'Joint Photographic Experts Group', acronym: 'JPEG', combineUri: 'http://purl.org/NET/mediatypes/image/jpeg', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3579', icon: 'image'},
-    {name: 'JavaScript Object Notation', acronym: 'JSON', combineUri: 'http://purl.org/NET/mediatypes/application/json', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3464', icon: 'code'},
-    {name: 'Mass Action Stoichiometric Simulation', acronym: 'MASS', combineUri: 'http://purl.org/NET/mediatypes/application/mass+json', url: 'https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html', icon: 'model'},
-    {name: 'MATLAB', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/text/x-matlab', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_4007', icon: 'code'},
-    {name: 'MATLAB data', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-matlab-data', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3626', icon: 'report'},
-    {name: 'OMEX Manifest', acronym: null, combineUri: 'http://identifiers.org/combine.specifications/omex-manifest', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686', icon: 'file'},
-    {name: 'OMEX Metadata', acronym: null, combineUri: 'http://identifiers.org/combine.specifications/omex-metadata', url: 'https://co.mbine.org/standards/omex-metadata', icon: 'file'},
-    {name: 'Web Ontology Language', acronym: 'OWL', combineUri: 'http://purl.org/NET/mediatypes/application/rdf+xml', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2197', icon: 'file'},
-    {name: 'Portable Document Format', acronym: 'PDF', combineUri: 'http://purl.org/NET/mediatypes/application/PDF', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3508', icon: 'pdf'},
-    {name: 'Portable Network Graphics', acronym: 'PNG', combineUri: 'http://purl.org/NET/mediatypes/image/png', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3603', icon: 'image'},
-    {name: 'Python', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-python-code', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3603', icon: 'python'},
-    {name: 'R', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/text/x-r', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3999', icon: 'r'},
-    {name: 'R project', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-r-project', url: 'https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects', icon: 'r'},
-    {name: 'Systems Biology Graphical Notation', acronym: 'SBGN', combineUri: 'http://identifiers.org/combine.specifications/sbgn', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692', icon: 'chart'},
-    {name: 'Synthetic Biology Open Language', acronym: 'SBOL', combineUri: 'http://identifiers.org/combine.specifications/sbol', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692', icon: 'file'},
-    {name: 'SBOL Visual', acronym: null, combineUri: 'http://identifiers.org/combine.specifications/sbol-visual', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692', icon: 'file'},
-    {name: 'Scilab', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-scilab', url: 'https://www.scilab.org/', icon: 'code'},
-    {name: 'SimBiology project', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-sbproj', url: 'https://www.mathworks.com/help/simbio/ref/sbioloadproject.html', icon: 'archive'},
-    {name: 'Scalable Vector Graphics', acronym: 'SVG', combineUri: 'http://purl.org/NET/mediatypes/image/svg+xml', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3604', icon: 'image'},
-    {name: 'TEXT', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/text/plain', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3591', icon: 'file'},
-    {name: 'Tag Image File Format', acronym: 'TIFF', combineUri: 'http://purl.org/NET/mediatypes/image/tiff', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3591', icon: 'image'},    
-    {name: 'Vega-Lite', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/vega-lite+json', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3970', icon: 'chart'},
-    {name: 'WEBP', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/image/webp', url: 'https://developers.google.com/speed/webp', icon: 'image'},
-    {name: 'Extensible Markup Language', acronym: 'XML', combineUri: 'http://purl.org/NET/mediatypes/application/xml', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2332', icon: 'code'},
-    {name: 'Yet Another Markup Language', acronym: 'YAML', combineUri: 'http://purl.org/NET/mediatypes/application/x-yaml', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3750', icon: 'code'},
-    {name: 'Zip', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/zip', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987', icon: 'archive'},
-    {name: 'Octet stream', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/octet-stream', url: 'https://www.iana.org/assignments/media-types/application/octet-stream', icon: 'file'},
+    {
+      name: 'BioPAX',
+      acronym: null,
+      combineUri: 'http://identifiers.org/combine.specifications/biopax',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3156',
+      icon: 'file',
+    },
+    {
+      name: 'Escher',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/application/escher+json',
+      url: 'https://escher.github.io/',
+      icon: 'chart',
+    },
+    {
+      name: 'Graphics Interchange Format',
+      acronym: 'GIF',
+      combineUri: 'http://purl.org/NET/mediatypes/image/gif',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3467',
+      icon: 'image',
+    },
+    {
+      name: 'Hierarchical Data Format 5',
+      acronym: 'HDF5',
+      combineUri: 'http://purl.org/NET/mediatypes/application/x-hdf',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3590',
+      icon: 'report',
+    },
+    {
+      name: 'IPython Notebook',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/application/x-ipynb+json',
+      url: 'https://ipython.org/notebook.html',
+      icon: 'python',
+    },
+    {
+      name: 'Joint Photographic Experts Group',
+      acronym: 'JPEG',
+      combineUri: 'http://purl.org/NET/mediatypes/image/jpeg',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3579',
+      icon: 'image',
+    },
+    {
+      name: 'JavaScript Object Notation',
+      acronym: 'JSON',
+      combineUri: 'http://purl.org/NET/mediatypes/application/json',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3464',
+      icon: 'code',
+    },
+    {
+      name: 'Mass Action Stoichiometric Simulation',
+      acronym: 'MASS',
+      combineUri: 'http://purl.org/NET/mediatypes/application/mass+json',
+      url: 'https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html',
+      icon: 'model',
+    },
+    {
+      name: 'MATLAB',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/text/x-matlab',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_4007',
+      icon: 'code',
+    },
+    {
+      name: 'MATLAB data',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/application/x-matlab-data',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3626',
+      icon: 'report',
+    },
+    {
+      name: 'OMEX Manifest',
+      acronym: null,
+      combineUri: 'http://identifiers.org/combine.specifications/omex-manifest',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686',
+      icon: 'file',
+    },
+    {
+      name: 'OMEX Metadata',
+      acronym: null,
+      combineUri: 'http://identifiers.org/combine.specifications/omex-metadata',
+      url: 'https://co.mbine.org/standards/omex-metadata',
+      icon: 'file',
+    },
+    {
+      name: 'Web Ontology Language',
+      acronym: 'OWL',
+      combineUri: 'http://purl.org/NET/mediatypes/application/rdf+xml',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2197',
+      icon: 'file',
+    },
+    {
+      name: 'Portable Document Format',
+      acronym: 'PDF',
+      combineUri: 'http://purl.org/NET/mediatypes/application/PDF',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3508',
+      icon: 'pdf',
+    },
+    {
+      name: 'Portable Network Graphics',
+      acronym: 'PNG',
+      combineUri: 'http://purl.org/NET/mediatypes/image/png',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3603',
+      icon: 'image',
+    },
+    {
+      name: 'Python',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/application/x-python-code',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3603',
+      icon: 'python',
+    },
+    {
+      name: 'R',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/text/x-r',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3999',
+      icon: 'r',
+    },
+    {
+      name: 'R project',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/application/x-r-project',
+      url: 'https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects',
+      icon: 'r',
+    },
+    {
+      name: 'Systems Biology Graphical Notation',
+      acronym: 'SBGN',
+      combineUri: 'http://identifiers.org/combine.specifications/sbgn',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692',
+      icon: 'chart',
+    },
+    {
+      name: 'Synthetic Biology Open Language',
+      acronym: 'SBOL',
+      combineUri: 'http://identifiers.org/combine.specifications/sbol',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692',
+      icon: 'file',
+    },
+    {
+      name: 'SBOL Visual',
+      acronym: null,
+      combineUri: 'http://identifiers.org/combine.specifications/sbol-visual',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692',
+      icon: 'file',
+    },
+    {
+      name: 'Scilab',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/application/x-scilab',
+      url: 'https://www.scilab.org/',
+      icon: 'code',
+    },
+    {
+      name: 'SimBiology project',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/application/x-sbproj',
+      url: 'https://www.mathworks.com/help/simbio/ref/sbioloadproject.html',
+      icon: 'archive',
+    },
+    {
+      name: 'Scalable Vector Graphics',
+      acronym: 'SVG',
+      combineUri: 'http://purl.org/NET/mediatypes/image/svg+xml',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3604',
+      icon: 'image',
+    },
+    {
+      name: 'TEXT',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/text/plain',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3591',
+      icon: 'file',
+    },
+    {
+      name: 'Tag Image File Format',
+      acronym: 'TIFF',
+      combineUri: 'http://purl.org/NET/mediatypes/image/tiff',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3591',
+      icon: 'image',
+    },
+    {
+      name: 'Vega-Lite',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/application/vega-lite+json',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3970',
+      icon: 'chart',
+    },
+    {
+      name: 'WEBP',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/image/webp',
+      url: 'https://developers.google.com/speed/webp',
+      icon: 'image',
+    },
+    {
+      name: 'Extensible Markup Language',
+      acronym: 'XML',
+      combineUri: 'http://purl.org/NET/mediatypes/application/xml',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2332',
+      icon: 'code',
+    },
+    {
+      name: 'Yet Another Markup Language',
+      acronym: 'YAML',
+      combineUri: 'http://purl.org/NET/mediatypes/application/x-yaml',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3750',
+      icon: 'code',
+    },
+    {
+      name: 'Zip',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/application/zip',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987',
+      icon: 'archive',
+    },
+    {
+      name: 'Octet stream',
+      acronym: null,
+      combineUri: 'http://purl.org/NET/mediatypes/application/octet-stream',
+      url: 'https://www.iana.org/assignments/media-types/application/octet-stream',
+      icon: 'file',
+    },
   ] as CombineArchiveContentFormat[]);

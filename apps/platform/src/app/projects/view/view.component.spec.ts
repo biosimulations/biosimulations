@@ -7,7 +7,6 @@ import { PlotlyVisualizationComponent } from '@biosimulations/shared/viz-ui';
 import { ViewComponent } from './view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-
 describe('ViewComponent', () => {
   let component: ViewComponent;
   let fixture: ComponentFixture<ViewComponent>;

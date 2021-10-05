@@ -1,4 +1,12 @@
-import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,7 +16,11 @@ import {
 import { Observable, of, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Visualization, DesignVisualization, VisualizationList } from '@biosimulations/datamodel/project';
+import {
+  Visualization,
+  DesignVisualization,
+  VisualizationList,
+} from '@biosimulations/datamodel/project';
 // import { urls } from '@biosimulations/config/common';
 import { DesignHistogram1DVisualizationComponent } from '../design-histogram-1d-viz/design-histogram-1d-viz.component';
 import { DesignHeatmap2DVisualizationComponent } from '../design-heatmap-2d-viz/design-heatmap-2d-viz.component';
@@ -20,11 +32,10 @@ import { environment } from '@biosimulations/shared/environments';
 import { Endpoints } from '@biosimulations/config/common';
 import { VEGA_FORMAT } from '@biosimulations/datamodel/common';
 
-type DesignVisualizationComponent = (
-  DesignHistogram1DVisualizationComponent 
-  | DesignHeatmap2DVisualizationComponent 
-  | DesignLine2DVisualizationComponent
-);
+type DesignVisualizationComponent =
+  | DesignHistogram1DVisualizationComponent
+  | DesignHeatmap2DVisualizationComponent
+  | DesignLine2DVisualizationComponent;
 
 @Component({
   selector: 'biosimulations-project-select-visualization',
@@ -45,7 +56,7 @@ export class SelectVisualizationComponent implements OnDestroy {
   userLine2DFormGroup: FormGroup;
 
   private endpoints = new Endpoints();
-  
+
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -60,9 +71,12 @@ export class SelectVisualizationComponent implements OnDestroy {
       userLine2DFormGroup: formBuilder.group({}),
     });
 
-    this.userHistogram1DFormGroup = this.formGroup.controls.userHistogram1DFormGroup as FormGroup;
-    this.userHeatmap2DFormGroup = this.formGroup.controls.userHeatmap2DFormGroup as FormGroup;
-    this.userLine2DFormGroup = this.formGroup.controls.userLine2DFormGroup as FormGroup;
+    this.userHistogram1DFormGroup = this.formGroup.controls
+      .userHistogram1DFormGroup as FormGroup;
+    this.userHeatmap2DFormGroup = this.formGroup.controls
+      .userHeatmap2DFormGroup as FormGroup;
+    this.userLine2DFormGroup = this.formGroup.controls
+      .userLine2DFormGroup as FormGroup;
 
     this.userHistogram1DFormGroup.disable();
     this.userHeatmap2DFormGroup.disable();
@@ -105,16 +119,22 @@ export class SelectVisualizationComponent implements OnDestroy {
     const visualization = this.getSelectedVisualization();
     const designVisualizationComponent = this.getDesignVisualizationComponent();
     if (designVisualizationComponent) {
-      (visualization as DesignVisualization).plotlyDataLayoutSubject.next(designVisualizationComponent.getPlotlyDataLayout());
+      (visualization as DesignVisualization).plotlyDataLayoutSubject.next(
+        designVisualizationComponent.getPlotlyDataLayout(),
+      );
     }
     this.renderVisualization.emit(visualization);
   }
 
   exportVisualization(format: 'vega' | 'archive'): void {
-    const vegaSpecSub = (this.getDesignVisualizationComponent() as DesignVisualizationComponent)
+    const vegaSpecSub = (
+      this.getDesignVisualizationComponent() as DesignVisualizationComponent
+    )
       .exportToVega()
       .subscribe((vegaSpec: VegaSpec): void => {
-        const simulationRunId = (this.getSelectedVisualization() as DesignVisualization).simulationRunId;
+        const simulationRunId = (
+          this.getSelectedVisualization() as DesignVisualization
+        ).simulationRunId;
 
         // download
         const blob = new Blob([JSON.stringify(vegaSpec, null, 2)], {
@@ -164,19 +184,22 @@ export class SelectVisualizationComponent implements OnDestroy {
               }
             });
           this.subscriptions.push(sub);
-        }    
+        }
       });
     this.subscriptions.push(vegaSpecSub);
-  }  
+  }
 
   private getDesignVisualizationComponent(): DesignVisualizationComponent | null {
     const visualization = this.getSelectedVisualization();
     if (visualization._type === 'Histogram1DVisualization') {
-      return this.designHistogram1DVisualization as DesignHistogram1DVisualizationComponent;
+      return this
+        .designHistogram1DVisualization as DesignHistogram1DVisualizationComponent;
     } else if (visualization._type === 'Heatmap2DVisualization') {
-      return this.designHeatmap2DVisualizationComponent as DesignHeatmap2DVisualizationComponent;
+      return this
+        .designHeatmap2DVisualizationComponent as DesignHeatmap2DVisualizationComponent;
     } else if (visualization._type === 'Line2DVisualization') {
-      return this.designLine2DVisualizationComponent as DesignLine2DVisualizationComponent;
+      return this
+        .designLine2DVisualizationComponent as DesignLine2DVisualizationComponent;
     } else {
       return null;
     }

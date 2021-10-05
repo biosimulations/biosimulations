@@ -175,7 +175,7 @@ export class UtilsService {
     );
   }
 
-  static formatNumberOfOrderUnity(value: number, digits=2): string {
+  static formatNumberOfOrderUnity(value: number, digits = 2): string {
     if (value === Math.round(value)) {
       return Math.round(value).toString();
     } else {
@@ -206,23 +206,18 @@ export class UtilsService {
     if (valueBytes >= 1e15) {
       quantity = valueBytes * 1e-15;
       suffix = 'PB';
-
     } else if (valueBytes >= 1e12) {
       quantity = valueBytes * 1e-12;
       suffix = 'TB';
-
     } else if (valueBytes >= 1e9) {
       quantity = valueBytes * 1e-9;
       suffix = 'GB';
-
     } else if (valueBytes >= 1e6) {
       quantity = valueBytes * 1e-6;
       suffix = 'MB';
-      
     } else if (valueBytes >= 1e3) {
       quantity = valueBytes * 1e-3;
       suffix = 'KB';
-
     } else {
       quantity = valueBytes * 1e-15;
       suffix = 'B';

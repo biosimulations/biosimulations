@@ -1,5 +1,9 @@
 import { LabeledIdentifier } from '@biosimulations/datamodel/api';
-import { SedDataSet, SedDocumentSpecifications, PlotlyDataLayout } from '@biosimulations/datamodel/common';
+import {
+  SedDataSet,
+  SedDocumentSpecifications,
+  PlotlyDataLayout,
+} from '@biosimulations/datamodel/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
@@ -26,21 +30,21 @@ export interface ProjectMetadata {
 }
 
 export interface ListItem {
-  title: string;  
+  title: string;
   value: Observable<string>;
   icon: BiosimulationsIcon;
   url: string | null;
 }
 
 export interface List {
-  title: string;  
+  title: string;
   items: ListItem[];
 }
 
 export type SimulationRunMetadata = List[];
 
-export type UriSedDataSetMap = {[uri: string]: SedDataSet};
-export type UriSetDataSetResultsMap = {[uri: string]: any};
+export type UriSedDataSetMap = { [uri: string]: SedDataSet };
+export type UriSetDataSetResultsMap = { [uri: string]: any };
 
 export interface VegaVisualization {
   _type: 'VegaVisualization';
@@ -63,13 +67,15 @@ export interface SedPlot2DVisualization {
 export interface Histogram1DVisualization {
   _type: 'Histogram1DVisualization';
   id: string;
-  name: string; 
-  userDesigned: true; 
+  name: string;
+  userDesigned: true;
   simulationRunId: string;
   sedDocs: SedDocumentSpecifications[];
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | null>>;
+  plotlyDataLayoutSubject: BehaviorSubject<
+    Observable<PlotlyDataLayout | false | null>
+  >;
   plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | null>>;
 }
 
@@ -82,7 +88,9 @@ export interface Heatmap2DVisualization {
   sedDocs: SedDocumentSpecifications[];
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | null>>;
+  plotlyDataLayoutSubject: BehaviorSubject<
+    Observable<PlotlyDataLayout | false | null>
+  >;
   plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | null>>;
 }
 
@@ -93,23 +101,23 @@ export interface Line2DVisualization {
   userDesigned: true;
   simulationRunId: string;
   sedDocs: SedDocumentSpecifications[];
-  renderer: 'Plotly';  
+  renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | false | null>>;
+  plotlyDataLayoutSubject: BehaviorSubject<
+    Observable<PlotlyDataLayout | false | null>
+  >;
   plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false | null>>;
 }
 
-export type DesignVisualization = (  
-  Histogram1DVisualization 
-  | Heatmap2DVisualization 
-  | Line2DVisualization
-);
+export type DesignVisualization =
+  | Histogram1DVisualization
+  | Heatmap2DVisualization
+  | Line2DVisualization;
 
-export type Visualization = (  
-  VegaVisualization 
+export type Visualization =
+  | VegaVisualization
   | SedPlot2DVisualization
-  | DesignVisualization
-);
+  | DesignVisualization;
 
 export interface VisualizationList {
   title: string;

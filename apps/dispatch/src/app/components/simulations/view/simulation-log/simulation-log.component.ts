@@ -197,7 +197,7 @@ export class SimulationLogComponent {
             }
           }
         }
-      }      
+      }
     }
 
     if (level >= StructuredLogLevel.SedTaskOutput) {
@@ -246,7 +246,10 @@ export class SimulationLogComponent {
 
     this.structuredLogLevel = level;
 
-    this.duration = (log === undefined || log.duration === null) ? 'N/A' : UtilsService.formatDuration(log.duration);
+    this.duration =
+      log === undefined || log.duration === null
+        ? 'N/A'
+        : UtilsService.formatDuration(log.duration);
   }
 
   private initStatusCountsMap(): StatusCountsMap {

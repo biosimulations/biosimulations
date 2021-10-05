@@ -1,8 +1,12 @@
-<div class="spinner-container full-height has-breadcrumbs" *ngIf="(loaded$ | async) !== true">
+<div
+  class="spinner-container full-height has-breadcrumbs"
+  *ngIf="(loaded$ | async) !== true"
+>
   <biosimulations-spinner></biosimulations-spinner>
 </div>
 
-<biosimulations-tab-page *ngIf="(loaded$ | async) === true"
+<biosimulations-tab-page
+  *ngIf="(loaded$ | async) === true"
   [selectedTabIndex]="selectedTabIndex"
   (selectedTabChange)="selectedTabChange($event)"
 >
@@ -10,7 +14,7 @@
   <biosimulations-tab-page-tab heading="Overview" icon="overview">
     <ng-container *ngIf="projectMetadata$ | async as projectMetadata">
       <ng-container *ngIf="simulationRun$ | async as simulationRun">
-        <biosimulations-project-metadata 
+        <biosimulations-project-metadata
           [project]="projectMetadata"
           [simulationRun]="simulationRun"
         >
@@ -24,27 +28,39 @@
   <biosimulations-tab-page-tab
     heading="Files"
     icon="project"
-    urlHashFragment="files"    
+    urlHashFragment="files"
   >
     <div class="partial-width files">
-      <biosimulations-text-page-content-section heading="Project" *ngIf="projectFiles$ | async as files">
-        <biosimulations-project-files id="content"
+      <biosimulations-text-page-content-section
+        heading="Project"
+        *ngIf="projectFiles$ | async as files"
+      >
+        <biosimulations-project-files
+          id="content"
           [files]="files"
           [usesMaster]="false"
         >
         </biosimulations-project-files>
       </biosimulations-text-page-content-section>
 
-      <biosimulations-text-page-content-section heading="Project contents" *ngIf="files$ | async as files">
-        <biosimulations-project-files id="content"
+      <biosimulations-text-page-content-section
+        heading="Project contents"
+        *ngIf="files$ | async as files"
+      >
+        <biosimulations-project-files
+          id="content"
           [files]="files"
           [usesMaster]="true"
         >
         </biosimulations-project-files>
       </biosimulations-text-page-content-section>
 
-      <biosimulations-text-page-content-section heading="Simulation outputs" *ngIf="outputs$ | async as files">
-        <biosimulations-project-files id="content"
+      <biosimulations-text-page-content-section
+        heading="Simulation outputs"
+        *ngIf="outputs$ | async as files"
+      >
+        <biosimulations-project-files
+          id="content"
           [files]="files"
           [usesMaster]="false"
         >
@@ -53,13 +69,13 @@
     </div>
   </biosimulations-tab-page-tab>
 
-  <!-- Visualizations -->  
+  <!-- Visualizations -->
   <biosimulations-tab-page-tab
     urlHashFragment="select-viz"
     heading="Select chart"
     icon="write"
     [partialWidth]="true"
-    >
+  >
     <ng-container *ngIf="visualizations$ | async as visualizations">
       <biosimulations-project-select-visualization
         [visualizations]="visualizations"
@@ -76,7 +92,7 @@
     [disabled]="viewVisualizationTabDisabled"
     [fullHeight]="true"
     [fullWidth]="true"
-    >
+  >
     <biosimulations-project-visualization
       *ngIf="visualization"
       [visualization]="visualization"

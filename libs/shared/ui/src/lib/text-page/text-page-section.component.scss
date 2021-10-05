@@ -3,7 +3,7 @@
 @import 'biosimulations-typography';
 
 .container {
-  margin-top: 2rem;  
+  margin-top: 2rem;
 }
 
 @media screen and (max-width: 959px) {
@@ -14,7 +14,7 @@
 
 :host-context(.compact-sections) {
   .container {
-    margin-top: 1rem;  
+    margin-top: 1rem;
   }
 
   @media screen and (max-width: 959px) {

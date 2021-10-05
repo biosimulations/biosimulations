@@ -8,15 +8,10 @@ import { PlotlyViaWindowModule } from 'angular-plotly.js';
 import { PlotlyVisualizationComponent } from './plotly-visualization/plotly-visualization.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    SharedUiModule,
-    PlotlyViaWindowModule,
-  ],
+  imports: [CommonModule, RouterModule, SharedUiModule, PlotlyViaWindowModule],
   exports: [
     VegaEmbedComponent,
-    VegaVisualizationComponent,    
+    VegaVisualizationComponent,
     PlotlyVisualizationComponent,
   ],
   declarations: [

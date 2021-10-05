@@ -1,1 +1,1 @@
-export type SimulatorIdNameMap = {[id: string]: string};
+export type SimulatorIdNameMap = { [id: string]: string };

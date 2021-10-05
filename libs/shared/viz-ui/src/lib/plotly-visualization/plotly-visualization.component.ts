@@ -1,5 +1,5 @@
 import { Component, Input, HostListener, ElementRef } from '@angular/core';
-import { 
+import {
   PlotlyTrace,
   PlotlyLayout,
   PlotlyDataLayout,

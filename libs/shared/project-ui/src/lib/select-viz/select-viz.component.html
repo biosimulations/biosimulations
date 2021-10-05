@@ -10,9 +10,7 @@
             (ngModelChange)="selectVisualization()"
             disableOptionCentering
           >
-            <mat-optgroup
-              *ngFor="let visualizationList of visualizations"
-            >
+            <mat-optgroup *ngFor="let visualizationList of visualizations">
               {{ visualizationList.title }}
               <mat-option
                 *ngFor="let visualization of visualizationList.visualizations"
@@ -35,9 +33,9 @@
           </p>
 
           <p>
-            SED-ML L1V3 provides basic capabilities for 2D line plots.
-            SED-ML L1V4 will provide capabilities for several additional
-            types of plots. We aim to support L1V4 once it is approved.
+            SED-ML L1V3 provides basic capabilities for 2D line plots. SED-ML
+            L1V4 will provide capabilities for several additional types of
+            plots. We aim to support L1V4 once it is approved.
           </p>
 
           <p>
@@ -55,7 +53,7 @@
   <ng-container [ngSwitch]="formGroup.value.visualization?._type">
     <biosimulations-project-design-histogram-1d-visualization
       *ngSwitchCase="'Histogram1DVisualization'"
-      [visualization]="formGroup.value.visualization"      
+      [visualization]="formGroup.value.visualization"
       [simulationRunId]="formGroup.value.visualization.simulationRunId"
       [sedDocs]="formGroup.value.visualization.sedDocs"
       [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
@@ -65,7 +63,7 @@
 
     <biosimulations-project-design-heatmap-2d-visualization
       *ngSwitchCase="'Heatmap2DVisualization'"
-      [visualization]="formGroup.value.visualization"      
+      [visualization]="formGroup.value.visualization"
       [simulationRunId]="formGroup.value.visualization.simulationRunId"
       [sedDocs]="formGroup.value.visualization.sedDocs"
       [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
@@ -75,7 +73,7 @@
 
     <biosimulations-project-design-line-2d-visualization
       *ngSwitchCase="'Line2DVisualization'"
-      [visualization]="formGroup.value.visualization"      
+      [visualization]="formGroup.value.visualization"
       [simulationRunId]="formGroup.value.visualization.simulationRunId"
       [sedDocs]="formGroup.value.visualization.sedDocs"
       [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
@@ -91,7 +89,9 @@
       class="biosimulations-button text"
       [disabled]="!formGroup.valid"
       (click)="viewVisualization()"
-    >View</button>
+    >
+      View
+    </button>
 
     <button
       *ngIf="formGroup.value.visualization?.userDesigned"
@@ -100,7 +100,9 @@
       class="biosimulations-button text"
       [disabled]="!formGroup.valid"
       (click)="exportVisualization('vega')"
-    >Export to Vega</button>
+    >
+      Export to Vega
+    </button>
 
     <button
       *ngIf="formGroup.value.visualization?.userDesigned"
@@ -109,6 +111,8 @@
       class="biosimulations-button text"
       [disabled]="!formGroup.valid"
       (click)="exportVisualization('archive')"
-    >Export in archive</button> 
+    >
+      Export in archive
+    </button>
   </div>
 </form>

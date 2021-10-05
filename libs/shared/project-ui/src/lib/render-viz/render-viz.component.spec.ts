@@ -13,11 +13,11 @@ describe('RenderVisualizationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RenderVisualizationComponent, PlotlyVisualizationComponent],
-      imports: [
-        BiosimulationsIconsModule,
-        SharedUiModule,
+      declarations: [
+        RenderVisualizationComponent,
+        PlotlyVisualizationComponent,
       ],
+      imports: [BiosimulationsIconsModule, SharedUiModule],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });

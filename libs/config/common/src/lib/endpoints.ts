@@ -186,14 +186,10 @@ export class Endpoints {
    * Create a URL to add a file to an OMEX file using the combine service
    * @returns A URL for POST endpoint for adding a file to an OMEX file using the combine service
    */
-  public getAddFileToCombineArchiveEndpoint(
-    external = false,
-  ): string {
+  public getAddFileToCombineArchiveEndpoint(external = false): string {
     if (external) {
       if (this.env == 'local') {
-        return new Endpoints('dev').getAddFileToCombineArchiveEndpoint(
-          true,
-        );
+        return new Endpoints('dev').getAddFileToCombineArchiveEndpoint(true);
       }
     }
     return this.combineFile;

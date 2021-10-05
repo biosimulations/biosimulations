@@ -5,9 +5,7 @@
     </div>
     <div class="form-section-head-title-subtitle">
       <div class="form-section-title">Configure chart *</div>
-      <div class="form-section-subtitle">
-        Configure the data to plot.
-      </div>
+      <div class="form-section-subtitle">Configure the data to plot.</div>
     </div>
   </div>
   <div class="form-section-body">
@@ -21,19 +19,11 @@
           disableOptionCentering
           multiple
         >
-          <ng-container
-            *ngFor="
-              let sedDocument of sedDocs
-            "
-          >
+          <ng-container *ngFor="let sedDocument of sedDocs">
             <mat-option
               [value]="sedDocument.id"
               (click)="
-                setSelectedDataSets(
-                  'SedDocument',
-                  sedDocument,
-                  sedDocument.id
-                )
+                setSelectedDataSets('SedDocument', sedDocument, sedDocument.id)
               "
             >
               {{ sedDocument.id }}
@@ -61,13 +51,7 @@
               <div class="multi-select-opt-group">
                 <mat-option
                   *ngFor="let dataset of output.dataSets"
-                  [value]="
-                    sedDocument.id +
-                    '/' +
-                    output.id +
-                    '/' +
-                    dataset.id
-                  "
+                  [value]="sedDocument.id + '/' + output.id + '/' + dataset.id"
                   (click)="
                     setSelectedDataSets(
                       'SedDataSet',
@@ -87,33 +71,18 @@
           </ng-container>
         </mat-select>
 
-        <biosimulations-icon
-          icon="report"
-          matPrefix
-        ></biosimulations-icon>
+        <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
       </mat-form-field>
       <mat-hint>Select the SED-ML data sets to plot.</mat-hint>
     </div>
 
     <div class="form-field-group">
       <mat-form-field appearance="fill">
-        <mat-label
-          >Select the x labels for the selected data sets</mat-label
-        >
+        <mat-label>Select the x labels for the selected data sets</mat-label>
 
-        <mat-select
-          formControlName="xDataSet"
-          disableOptionCentering
-        >
-          <ng-container
-            *ngFor="
-              let sedDocument of sedDocs
-            "
-          >
-            <mat-option
-              [value]="sedDocument.id"
-              [disabled]="true"
-            >
+        <mat-select formControlName="xDataSet" disableOptionCentering>
+          <ng-container *ngFor="let sedDocument of sedDocs">
+            <mat-option [value]="sedDocument.id" [disabled]="true">
               {{ sedDocument.id }}
             </mat-option>
 
@@ -131,13 +100,7 @@
               <div class="multi-select-opt-group">
                 <mat-option
                   *ngFor="let dataset of output.dataSets"
-                  [value]="
-                    sedDocument.id +
-                    '/' +
-                    output.id +
-                    '/' +
-                    dataset.id
-                  "
+                  [value]="sedDocument.id + '/' + output.id + '/' + dataset.id"
                 >
                   {{ dataset.label }}
                 </mat-option>
@@ -146,14 +109,11 @@
           </ng-container>
         </mat-select>
 
-        <biosimulations-icon
-          icon="report"
-          matPrefix
-        ></biosimulations-icon>
+        <biosimulations-icon icon="report" matPrefix></biosimulations-icon>
       </mat-form-field>
       <mat-hint
-        >Select the SED-ML data set that contains the labels for each
-        element of the selected data sets.</mat-hint
+        >Select the SED-ML data set that contains the labels for each element of
+        the selected data sets.</mat-hint
       >
     </div>
   </div>
