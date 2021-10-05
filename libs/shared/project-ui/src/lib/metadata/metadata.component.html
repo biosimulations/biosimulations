@@ -5,11 +5,10 @@
   fxLayoutAlign="space-between"
   fxLayoutGap="2rem"
   fxLayoutGap.lt-md="1rem"
-  *ngIf="project && simulationRun"
 >
   <!-- Begin thumbnails -->
   <div
-    *ngIf="project.thumbnails.length"
+    *ngIf="project && project.thumbnails.length"
     class="thumbnails-column ragged-column"    
     fxFlex="22rem"
     fxFlex.lt-sm="100%"
@@ -20,7 +19,7 @@
   <!-- End thumbnails-->
 
   <!-- Begin summary/text data-->
-  <div fxFlex class="metadata-column ragged-column">
+  <div *ngIf="project" fxFlex class="metadata-column ragged-column">
     <biosimulations-text-page-content-section [heading]="project.title" [iconActionType]="null">
       <div class="abstract" *ngIf="project.abstract">{{ project.abstract }}</div>
 

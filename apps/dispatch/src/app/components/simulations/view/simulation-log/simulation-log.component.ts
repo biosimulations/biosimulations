@@ -19,6 +19,7 @@ import {
   TocSectionsContainerDirective,
 } from '@biosimulations/shared/ui';
 import { ScrollService } from '@biosimulations/shared/services';
+import { UtilsService } from '@biosimulations/shared/services';
 import { Observable } from 'rxjs';
 
 interface StatusCount {
@@ -70,6 +71,8 @@ export class SimulationLogComponent {
   taskLogs: { doc: SedDocumentLog; task: SedTaskLog }[] = [];
   reportLogs: { doc: SedDocumentLog; report: SedReportLog }[] = [];
   plotLogs: { doc: SedDocumentLog; plot: SedPlot2DLog | SedPlot3DLog }[] = [];
+
+  duration = 'N/A';
 
   @Input()
   set structuredLog(value: CombineArchiveLog | undefined) {
@@ -194,7 +197,7 @@ export class SimulationLogComponent {
             }
           }
         }
-      }
+      }      
     }
 
     if (level >= StructuredLogLevel.SedTaskOutput) {
@@ -242,6 +245,8 @@ export class SimulationLogComponent {
       this.convertStatusCountsMapToArray(plotStatusCountsMap);
 
     this.structuredLogLevel = level;
+
+    this.duration = (log === undefined || log.duration === null) ? 'N/A' : UtilsService.formatDuration(log.duration);
   }
 
   private initStatusCountsMap(): StatusCountsMap {

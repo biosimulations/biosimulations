@@ -28,7 +28,7 @@
         fxShow
         fxHide.lt-md
       >
-        <ul class="vertically-spaced">
+        <ul>
           <li>
             <a (click)="scrollToElement('log')"
               >Combined standard output and error for the COMBINE/OMEX
@@ -76,7 +76,7 @@
         fxShow
         fxHide.lt-md
       >
-        <ul class="vertically-spaced">
+        <ul>
           <li>
             Status:
             <span [class]="['status-label', status]">{{
@@ -120,7 +120,7 @@
         fxShow
         fxHide.lt-md
       >
-        <ul class="vertically-spaced">
+        <ul>
           <li>
             Status:
             <span [class]="['status-label', status]">{{
@@ -186,6 +186,10 @@
               <span class="info-message">: N/A</span>
             </ng-template>
           </li>
+
+          <li>
+            Duration: {{ duration }}
+          </li>
         </ul>
       </biosimulations-text-page-side-bar-section>
 
@@ -194,7 +198,7 @@
         fxShow
         fxHide.lt-md
       >
-        <ul class="vertically-spaced">
+        <ul>
           <li *ngIf="numTasks > 0 || !logHasTasks">
             <ng-container *ngIf="logHasTasks; else logNotAvailable">
               <a (click)="scrollToElement('section=tasks')"

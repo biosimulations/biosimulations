@@ -1,0 +1,14 @@
+@use '~@angular/material' as mat;
+@import 'biosimulations-colors';
+@import 'biosimulations-typography';
+
+h3 {
+  color: mat.get-color-from-palette($theme-primary);
+  line-height: normal;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+.name {
+  margin-bottom: 0.5rem;
+}

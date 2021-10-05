@@ -19,18 +19,18 @@ import { ViewService } from '@biosimulations/shared/project-service';
   styleUrls: ['./view.component.scss'],
 })
 export class ViewComponent implements OnInit {
-  public loaded$!: Observable<true>;
+  public loaded$!: Observable<boolean>;
   
   public id!: string;
 
-  public projectMetadata$?: Observable<ProjectMetadata | undefined> = undefined;
-  public simulationRun$?: Observable<SimulationRunMetadata>;
+  public projectMetadata$!: Observable<ProjectMetadata | undefined>;
+  public simulationRun$!: Observable<SimulationRunMetadata>;
   
-  public projectFiles$?: Observable<Path[]>;
-  public files$?: Observable<Path[]>;
-  public outputs$?: Observable<File[]>;
+  public projectFiles$!: Observable<Path[]>;
+  public files$!: Observable<Path[]>;
+  public outputs$!: Observable<File[]>;
 
-  public visualizations$?: Observable<VisualizationList[]>;
+  public visualizations$!: Observable<VisualizationList[]>;
   public visualization: Visualization | null = null;
   
   constructor(private service: ViewService, private route: ActivatedRoute) {}
@@ -55,8 +55,10 @@ export class ViewComponent implements OnInit {
       this.outputs$,
       this.visualizations$,
     ).pipe(
-      map((observables: any) => {
-        return true;
+      map((observables: (any | undefined)[]): boolean => {
+        return observables.filter((observable: any | undefined): boolean => {
+          return observable === undefined;
+        }).length === 0;
       }),
     );
   }

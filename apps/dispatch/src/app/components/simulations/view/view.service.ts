@@ -4,76 +4,13 @@ import { Simulation } from '../../../datamodel';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { FormattedSimulation } from './view.model';
 import { UtilsService } from '@biosimulations/shared/services';
-import {
-  ArchiveMetadata,
-  SimulationRunMetadata,
-} from '@biosimulations/datamodel/api';
 import { Purpose } from '@biosimulations/datamodel/common';
-import {
-  CombineArchiveElementMetadata,
-  Metadata,
-} from '../../../datamodel/metadata.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ViewService {
   constructor() {}
-
-  private formatElementMetadata(
-    elementMetadata: ArchiveMetadata | undefined,
-  ): CombineArchiveElementMetadata {
-    return {
-      ...elementMetadata,
-      sources: elementMetadata?.sources || [],
-      encodes: elementMetadata?.encodes || [],
-      taxa: elementMetadata?.taxa || [],
-      thumbnails: elementMetadata?.thumbnails || [],
-      description: elementMetadata?.description || null,
-      keywords: elementMetadata?.keywords?.map((k) => k.label || '') || [],
-      abstract: elementMetadata?.abstract ? elementMetadata.abstract : null,
-      uri: elementMetadata?.uri ? elementMetadata.uri : null,
-      title: elementMetadata?.title ? elementMetadata.title : null,
-      predecessors: elementMetadata?.predecessors || [],
-      successors: elementMetadata?.successors || [],
-      creators: elementMetadata?.creators || [],
-      contributors: elementMetadata?.contributors || [],
-      license: elementMetadata?.license || [],
-      funders: elementMetadata?.funders || [],
-      seeAlso: elementMetadata?.seeAlso || [],
-      identifiers: elementMetadata?.identifiers || [],
-      citations: elementMetadata?.citations || [],
-      created: elementMetadata?.created || null,
-      modified: elementMetadata?.modified || [],
-      other:
-        elementMetadata?.other?.map((value) => {
-          return {
-            attribute: {
-              uri: value.attribute_uri || null,
-              label: value.attribute_label || null,
-            },
-            value: { uri: value.uri, label: value.label },
-          };
-        }) || [],
-    };
-  }
-
-  public formatMetadata(simulationMetadata: SimulationRunMetadata): Metadata {
-    const allMetadata = simulationMetadata.metadata;
-    const archiveMetadata = this.formatElementMetadata(
-      allMetadata.find((m) => (m.uri = simulationMetadata.id)),
-    );
-
-    const otherMetadata = (
-      allMetadata.filter((m) => m.uri !== simulationMetadata.id) || []
-    ).map(this.formatElementMetadata);
-
-    const metadata: Metadata = {
-      archive: archiveMetadata,
-      other: otherMetadata,
-    };
-    return metadata as Metadata;
-  }
 
   public formatSimulation(simulation: Simulation): FormattedSimulation {
     simulation = simulation as Simulation;
@@ -106,17 +43,7 @@ export class ViewService {
       //     : 'N/A',
       submitted: UtilsService.formatTime(new Date(simulation.submitted)),
       updated: UtilsService.formatTime(new Date(simulation.updated)),
-      projectSize:
-        simulation.projectSize !== undefined && simulation.projectSize !== null
-          ? UtilsService.formatDigitalSize(simulation.projectSize)
-          : 'N/A',
-      resultsSize:
-        simulation.resultsSize !== undefined && simulation.resultsSize !== null
-          ? UtilsService.formatDigitalSize(simulation.resultsSize)
-          : 'N/A',
-      projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
       simulatorUrl: `${urls.simulators}/simulators/${simulation.simulator}/${simulation.simulatorVersion}`,
-      resultsUrl: `${urls.dispatchApi}results/${simulation.id}/download`,
     };
   }
 }

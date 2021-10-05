@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, BehaviorSubject, pluck, shareReplay, of, combineLatest } from 'rxjs';
+import { map, Observable, BehaviorSubject, pluck, shareReplay, of, combineLatest, forkJoin} from 'rxjs';
 import {
   ArchiveMetadata, 
   LabeledIdentifier,
@@ -237,7 +237,7 @@ export class ViewService {
   }
 
   public getFormattedSimulationRun(id: string): Observable<FormattedSimulationRunMetadata> {
-    return combineLatest(      
+    return forkJoin(      
       this.service.getSimulationRun(id),
       this.service.getProjectSedmlContents(id),
       this.service.getSimulationRunLog(id),
@@ -590,7 +590,7 @@ export class ViewService {
   }
 
   public getVisualizations(id: string): Observable<VisualizationList[]> {
-    return combineLatest(
+    return forkJoin(
       this.service.getArchiveContents(id),
       this.service.getProjectSedmlContents(id),
     ).pipe(
@@ -771,7 +771,7 @@ export class ViewService {
       }
     }
 
-    return combineLatest(...reportObs).pipe(
+    return forkJoin(...reportObs).pipe(
       map((reportResults: any[]): UriSetDataSetResultsMap => {
         const uriResultsMap: UriSetDataSetResultsMap = {};
         reportResults.forEach((reportResult: any): void => {
