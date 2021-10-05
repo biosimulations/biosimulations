@@ -11,6 +11,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
 import { SpecificationsService } from './specifications.service';
 import { SpecificationsModel } from './specifications.model';
+import { permissions } from '@biosimulations/auth/nest';
 @ApiTags('Specifications')
 @Controller('specifications')
 export class SpecificationsController {
@@ -19,6 +20,7 @@ export class SpecificationsController {
   public constructor(private service: SpecificationsService) {}
 
   @Get()
+  @permissions('read:Specifications')
   public async getSpecifications(): Promise<SimulationRunSpecifications[]> {
     const specs = await this.service.getSpecifications();
     return specs.map(this.returnSpec);
