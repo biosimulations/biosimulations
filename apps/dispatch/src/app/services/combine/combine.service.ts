@@ -86,6 +86,11 @@ export class CombineService {
 
   public validateCombineArchive(
     archiveFileOrUrl: File | string,
+    validateOmexManifest = true,
+    validateSedml = true,
+    validateSedmlModels = true,
+    validateOmexMetadata = true,
+    validateImages = true,
   ): Observable<ValidationReport | undefined> {
     const formData = new FormData();
     if (typeof archiveFileOrUrl === 'object') {
@@ -94,8 +99,16 @@ export class CombineService {
       formData.append('url', archiveFileOrUrl);
     }
 
+    const params = new HttpParams().appendAll({ 
+      validateOmexManifest,
+      validateSedml,
+      validateSedmlModels,
+      validateOmexMetadata,
+      validateImages,
+    });
+
     return this.http
-      .post<ValidationReport>(this.validateEndpoint, formData)
+      .post<ValidationReport>(this.validateEndpoint, formData, {params: params})
       .pipe(
         catchError((error: HttpErrorResponse): Observable<undefined> => {
           if (!environment.production) {
