@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # map of the URL of the latest version of each ontology in OWL format
 # http://edamontology.org/EDAM.owl is not uptodate for 1.25 yet (2020 11 09)
 declare -A ONTOLOGY_URLS=( \

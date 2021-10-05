@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 DEP_LICENSES_PATH=./docs/Dependencies.md
 license-checker --production --excludePackages biosimulations@0.0.0 --out ${DEP_LICENSES_PATH}
 
