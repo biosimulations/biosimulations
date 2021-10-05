@@ -416,7 +416,7 @@
     "projectSize": 195455
   },
   {
-    "id": "615b562c2f1add0daafd6d2e",
+    "id": "615c64d0aeeb6a11badeaf25",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; tellurium)",
     "simulator": "tellurium",
     "simulatorVersion": "2.2.0",
@@ -427,8 +427,8 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-10-04T19:29:48.967Z",
-    "updated": "2021-10-04T19:29:48.967Z",
+    "submitted": "2021-10-05T14:44:33.891Z",
+    "updated": "2021-10-05T14:44:33.891Z",
     "projectSize": 216849
   },
   {

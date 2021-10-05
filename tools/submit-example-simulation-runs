@@ -19,7 +19,6 @@ EXAMPLE_COMBINE_ARCHIVES_BASE_URL = 'https://github.com/biosimulators/Biosimulat
 
 EXAMPLE_SIMULATIONS_FILENAME = __file__ + '.json'
 
-#SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://run.api.biosimulations.{}/runs'
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  '..', 'apps', 'dispatch', 'src', 'app', 'components',
                                                  'simulations', 'browse', 'example-simulations.{}.json')
@@ -42,7 +41,7 @@ def getSubmitEndpoint(runbiosimulations_api):
     if(runbiosimulations_api == 'local'):
         return 'http://localhost:3333/runs'
 
-    return 'https://run.api.biosimulations.{}/runs'.format(runbiosimulations_api)
+    return 'https://api.biosimulations.{}/runs'.format(runbiosimulations_api)
 
 
 def main(runbiosimulations_api='dev', biosimulators_api='org',
