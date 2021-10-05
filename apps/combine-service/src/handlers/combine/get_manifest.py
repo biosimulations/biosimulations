@@ -69,7 +69,7 @@ def handler(body, file=None):
 
     manifest_filename = os.path.join(temp_dirname, 'manifest.xml')
     reader = CombineArchiveReader()
-    contents = reader.read_manifest(manifest_filename)
+    contents = reader.read_manifest(manifest_filename, archive_filename)
     if reader.errors:
         raise BadRequestException(
             title='COMBINE/OMEX archive does not contain a valid manifest.\n  {}'.format(

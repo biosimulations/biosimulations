@@ -1410,6 +1410,69 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(validation_report['status'], "invalid")
         self.assertIn('is not a valid COMBINE/OMEX archive', json.dumps(validation_report['errors']))
 
+    def test_validate_omex_manifest_option(self):
+        # no manifest
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, 'no-manifest.omex')
+
+        fid = open(archive_filename, 'rb')
+        data = MultiDict([
+            ('file', fid),
+        ])
+        endpoint = '/combine/validate'
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        fid.close()
+        self.assertEqual(response.status_code, 200, response.json)
+        validation_report = response.json
+
+        self.assertEqual(validation_report['status'], "invalid")
+        self.assertIn('is not a valid COMBINE/OMEX archive', json.dumps(validation_report['errors']))
+
+        fid = open(archive_filename, 'rb')
+        data = MultiDict([
+            ('file', fid),
+        ])
+        endpoint = '/combine/validate?validateOmexManifest=false'
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        fid.close()
+        self.assertEqual(response.status_code, 200, response.json)
+        validation_report = response.json
+
+        self.assertEqual(validation_report['status'], "warnings")
+
+        # bad manifest
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, 'bad-manifest.omex')
+
+        fid = open(archive_filename, 'rb')
+        data = MultiDict([
+            ('file', fid),
+        ])
+        endpoint = '/combine/validate'
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        fid.close()
+        self.assertEqual(response.status_code, 200, response.json)
+        validation_report = response.json
+
+        self.assertEqual(validation_report['status'], "invalid")
+        self.assertIn('is not a valid COMBINE/OMEX archive', json.dumps(validation_report['errors']))
+
+        fid = open(archive_filename, 'rb')
+        data = MultiDict([
+            ('file', fid),
+        ])
+        endpoint = '/combine/validate?validateOmexManifest=false'
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        fid.close()
+        self.assertEqual(response.status_code, 200, response.json)
+        validation_report = response.json
+
+        self.assertEqual(validation_report['status'], "warnings")
+
     def test_get_similar_algorithms(self):
         endpoint = '/kisao/get-similar-algorithms?algorithms=KISAO_0000088'
         with app.app.app.test_client() as client:

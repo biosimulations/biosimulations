@@ -155,6 +155,64 @@ paths:
         required: true
       tags:
       - COMBINE
+      parameters:
+      - examples:
+          "True":
+            value: "true"
+        name: validateOmexManifest
+        description: |-
+          Whether to validate the OMEX manifest file in the archive.
+
+          Default: `true`.
+        schema:
+          type: boolean
+        in: query
+        required: false
+      - examples:
+          "True":
+            value: "true"
+        name: validateSedml
+        description: |-
+          Whether to validate the SED-ML files in the archive.
+
+          Default: `true`.
+        schema:
+          type: boolean
+        in: query
+      - examples:
+          "True":
+            value: "true"
+        name: validateSedmlModels
+        description: |-
+          Whether to validate the source (e.g., CellML, SBML file) of each model of each SED-ML file in the archive.
+
+          Default: `true`.
+        schema:
+          type: boolean
+        in: query
+      - examples:
+          "True":
+            value: "true"
+        name: validateOmexMetadata
+        description: |-
+          Whether to validate the OMEX Metadata files in the archive according to [BioSimulators' conventions](https://biosimulators.org/conventions/metadata).
+
+          Default: `true`.
+        schema:
+          type: boolean
+        in: query
+        required: false
+      - examples:
+          "True":
+            value: "true"
+        name: validateImages
+        description: |-
+          Whether to validate the image (BMP, GIF, PNG, JPEG, TIFF, WEBP) files in the archive.
+
+          Default: `true`.
+        schema:
+          type: boolean
+        in: query
       responses:
         "200":
           content:
