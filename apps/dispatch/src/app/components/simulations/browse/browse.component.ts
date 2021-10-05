@@ -145,21 +145,15 @@ export class BrowseComponent implements OnInit {
         }
       },
       formatter: (valueMin: number): string => {
-        if (valueMin) {
-          return SimulationStatusService.formatTime(
-            null,
-            valueMin * 60,
-          ) as string;
+        if (valueMin !== null && valueMin !== undefined) {
+          return UtilsService.formatDuration(valueMin * 60);
         } else {
           return 'N/A';
         }
       },
       stackedFormatter: (valueMin: number): string => {
-        if (valueMin) {
-          return SimulationStatusService.formatTime(
-            'N/A',
-            valueMin * 60,
-          ) as string;
+        if (valueMin !== null && valueMin !== undefined) {
+          return UtilsService.formatDuration(valueMin * 60);
         } else {
           return 'N/A';
         }
@@ -215,10 +209,10 @@ export class BrowseComponent implements OnInit {
         }
       },
       formatter: (valueSec: number | null): string | null => {
-        return SimulationStatusService.formatTime(null, valueSec);
+        return valueSec !== null ? SimulationStatusService.UtilsService.formatDuration(valueSec) : null;
       },
       stackedFormatter: (valueSec: number | null): string => {
-        return SimulationStatusService.formatTime('N/A', valueSec) as string;
+        return valueSec !== null ? SimulationStatusService.UtilsService.formatDuration(valueSec) : 'N/A';
       },
       filterType: ColumnFilterType.number,
       show: false,
@@ -230,14 +224,14 @@ export class BrowseComponent implements OnInit {
       key: 'submitted',
       formatter: (value: Date | undefined | null): string => {
         if (value) {
-          return UtilsService.getDateString(value);
+          return UtilsService.formatDate(value);
         } else {
           return 'N/A';
         }
       },
       toolTipFormatter: (value: Date | undefined | null): string => {
         if (value) {
-          return UtilsService.getDateString(value);
+          return UtilsService.formatDate(value);
         } else {
           return 'N/A';
         }
@@ -252,14 +246,14 @@ export class BrowseComponent implements OnInit {
       key: 'updated',
       formatter: (value: Date | undefined | undefined): string => {
         if (value) {
-          return UtilsService.getDateString(value);
+          return UtilsService.formatDate(value);
         } else {
           return 'N/A';
         }
       },
       toolTipFormatter: (value: Date | undefined | null): string => {
         if (value) {
-          return UtilsService.getDateString(value);
+          return UtilsService.formatDate(value);
         } else {
           return 'N/A';
         }

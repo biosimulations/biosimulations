@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { ScrollService } from '@biosimulations/shared/services';
 
-export type IconActionType = 'scrollToTop' | 'routerLink' | 'href' | 'toggle';
+export type IconActionType = 'scrollToTop' | 'routerLink' | 'href' | 'toggle' | null;
 
 @Component({
   selector: 'biosimulations-text-page-content-section',
@@ -86,6 +86,10 @@ export class TextPageContentSectionComponent {
         // TODO: make the toggle icon change; this seems like a change detection issue
         this.icon = this.closed ? 'closed' : 'open';
       };
+    } else {
+      this.iconRouterLink = null;
+      this.iconHref = null;
+      this.iconClick = null;
     }
   }
 

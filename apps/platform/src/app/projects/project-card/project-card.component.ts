@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ProjectSummary } from '../datamodel';
+import { ProjectSummary } from '../browse/browse.model';
 
 @Component({
   selector: 'biosimulations-project-card',

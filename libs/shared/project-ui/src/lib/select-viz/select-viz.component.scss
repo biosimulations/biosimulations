@@ -1,0 +1,7 @@
+.button-container {
+  margin-top: 2rem;
+  text-align: right;
+  button:not(:last-child) {
+    margin-right: 1rem;
+  }
+}

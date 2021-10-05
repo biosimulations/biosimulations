@@ -88,6 +88,7 @@ import {
   faEye,
   faLocationArrow,
   faMicrochip,
+  faSave,
   faMemory,
   faServer,
   faWaveSquare,
@@ -98,6 +99,8 @@ import {
   faExchangeAlt,
   faBullhorn,
   faSlidersH,
+  faFileArchive,
+  faImage,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -105,6 +108,8 @@ import {
   faDocker,
   faPython,
   faLinkedin,
+  faFacebook,
+  faTwitter,
   faOrcid,
   faCreativeCommons,
   faCreativeCommonsBy,
@@ -116,6 +121,7 @@ import {
   faGoogleDrive,
   faYoutube,
   faUncharted,
+  faRProject,
 } from '@fortawesome/free-brands-svg-icons';
 import {
   faFileAlt as farFileAlt,
@@ -167,6 +173,7 @@ export class BiosimulationsIconsModule {
       faProjectDiagram,
       faChartBar,
       faUncharted,
+      faRProject,
       faUncharted,
       faPaintBrush,
       faList,
@@ -218,6 +225,8 @@ export class BiosimulationsIconsModule {
       faDocker,
       faPython,
       faLinkedin,
+      faFacebook,
+      faTwitter,
       faOrcid,
       faCreativeCommons,
       faCreativeCommonsBy,
@@ -234,6 +243,7 @@ export class BiosimulationsIconsModule {
       faEye,
       faLocationArrow,
       faMicrochip,
+      faSave,
       faMemory,
       faServer,
       faGoogleDrive,
@@ -246,6 +256,8 @@ export class BiosimulationsIconsModule {
       faExchangeAlt,
       faBullhorn,
       faSlidersH,
+      faFileArchive,
+      faImage,
     );
   }
 }

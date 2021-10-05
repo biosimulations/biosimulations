@@ -3,10 +3,7 @@ import {
   EnvironmentVariable,
   Purpose,
 } from '@biosimulations/datamodel/common';
-import {
-  AxisType,
-  TraceMode,
-} from './plotly-visualization/plotly-visualization.component';
+
 export interface FormattedSimulation {
   id: string;
   name: string;
@@ -14,8 +11,8 @@ export interface FormattedSimulation {
   simulatorVersion: string;
   simulatorUrl: string;
   cpus: number;
-  memory: number; // GB
-  maxTime: number; // min
+  memory: string;
+  maxTime: string;
   envVars: EnvironmentVariable[];
   purpose: Purpose;
   status: SimulationRunStatus;
@@ -25,40 +22,4 @@ export interface FormattedSimulation {
   submitted: string;
   updated: string;
   // runtime: string;
-  projectUrl: string;
-  projectSize: string;
-  resultsUrl: string;
-  resultsSize: string;
 }
-
-export interface AxisLabelType {
-  label: string;
-  type: AxisType;
-}
-
-export const AXIS_LABEL_TYPES: AxisLabelType[] = [
-  {
-    label: 'Linear',
-    type: AxisType.linear,
-  },
-  {
-    label: 'Logarithmic',
-    type: AxisType.log,
-  },
-];
-
-export interface TraceModeLabel {
-  label: string;
-  mode: TraceMode;
-}
-
-export const TRACE_MODE_LABELS: TraceModeLabel[] = [
-  {
-    label: 'Line',
-    mode: TraceMode.lines,
-  },
-  {
-    label: 'Scatter',
-    mode: TraceMode.markers,
-  },
-];

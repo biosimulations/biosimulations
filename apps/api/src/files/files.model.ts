@@ -41,6 +41,9 @@ export class FileModel extends Document implements File {
   public format: string;
 
   @Prop({})
+  public master: boolean;
+
+  @Prop({})
   public url: string;
 
   @Prop({})
@@ -49,6 +52,7 @@ export class FileModel extends Document implements File {
     id: string,
     name: string,
     format: string,
+    master: boolean,
     size: number,
     simulationRun: string,
     url: string,
@@ -58,6 +62,7 @@ export class FileModel extends Document implements File {
     this.url = url;
     this.name = name;
     this.format = format;
+    this.master = master;
     this.simulationRun = simulationRun;
     this.size = size;
   }

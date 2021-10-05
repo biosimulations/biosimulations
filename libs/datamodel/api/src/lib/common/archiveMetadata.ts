@@ -54,7 +54,7 @@ export class ArchiveMetadata implements IArchiveMetadataType {
   @ApiProperty(SUCCESSORS)
   successors: LabeledIdentifier[] = [];
   @ApiProperty(SEEALSO)
-  seeAlso: DescribedIdentifier[] = [];
+  seeAlso: LabeledIdentifier[] = [];
   @ApiProperty(IDENTIFIERS)
   identifiers: LabeledIdentifier[] = [];
   @ApiProperty(CITATIONS)

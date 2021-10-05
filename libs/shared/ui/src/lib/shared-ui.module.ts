@@ -39,8 +39,9 @@ import { HomeTeaserButtonComponent } from './home/home-teaser-button.component';
 import { HomeLogoComponent } from './home/home-logo.component';
 import { TocSectionDirective } from './toc/toc-section.directive';
 import { TocSectionsContainerDirective } from './toc/toc-sections-container.directive';
-import { VegaVisualizationComponent } from './vega-visualization/vega-visualization.component';
-import { VegaEmbedComponent } from './vega-embed/vega-embed.component';
+import { ColumnsComponent } from './columns/columns.component';
+import { MatCarouselModule } from '@ngbmodule/material-carousel';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import { VegaEmbedComponent } from './vega-embed/vega-embed.component';
     RouterModule,
     BiosimulationsIconsModule,
     BreadCrumbsModule,
+    MatCarouselModule.forRoot(),
   ],
   exports: [
     MaterialWrapperModule,
@@ -87,8 +89,8 @@ import { VegaEmbedComponent } from './vega-embed/vega-embed.component';
     HomeLogoComponent,
     TocSectionDirective,
     TocSectionsContainerDirective,
-    VegaVisualizationComponent,
-    VegaEmbedComponent,
+    ColumnsComponent,
+    CarouselComponent,
   ],
   declarations: [
     TopbarComponent,
@@ -126,8 +128,8 @@ import { VegaEmbedComponent } from './vega-embed/vega-embed.component';
     HomeLogoComponent,
     TocSectionDirective,
     TocSectionsContainerDirective,
-    VegaVisualizationComponent,
-    VegaEmbedComponent,
+    ColumnsComponent,
+    CarouselComponent,
   ],
 })
 export class SharedUiModule {}

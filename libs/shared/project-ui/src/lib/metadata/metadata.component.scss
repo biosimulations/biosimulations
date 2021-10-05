@@ -1,0 +1,69 @@
+@use '~@angular/material' as mat;
+@import 'biosimulations-colors';
+
+.thumbnails-column {
+  display: flex;
+  justify-content: center;
+}
+
+biosimulations-carousel {
+  width: calc(min(22rem, 100%));
+}
+
+.metadata-column {
+  margin-top: -2rem;
+}
+
+@media screen and (max-width: 959px) {
+  .metadata-column {
+    margin-top: -1rem;
+  }
+}
+
+.metadata-column {
+  .abstract {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+
+  .creators {
+    font-style: italic;
+    margin-block-start: 0;
+    margin-block-end: 0.5em;
+  }
+
+  .description {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+  }
+
+  .attributes {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 0.25rem;
+    grid-row-gap: 0.125rem;
+    margin-block-start: 0.5em;
+
+    div:nth-child(odd) {
+      display: flex;
+      justify-content: center;
+    }
+
+    a {
+      color: $dark-primary-text;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.simulation-column {
+  margin-top: -1rem;
+
+  ::ng-deep biosimulations-text-page-section {
+    .container {
+      margin-top: 1rem;
+    }
+  }
+}

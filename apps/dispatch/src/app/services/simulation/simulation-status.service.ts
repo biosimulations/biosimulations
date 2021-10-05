@@ -70,27 +70,4 @@ export class SimulationStatusService {
       return status.toLowerCase();
     }
   }
-
-  public static formatTime(
-    nullFormattedValue: string | null,
-    valueSec: number | null | undefined,
-  ): string | null {
-    if (valueSec == null || valueSec === undefined) {
-      return nullFormattedValue;
-    }
-
-    if (valueSec > 7 * 24 * 60 * 60) {
-      return (valueSec / (7 * 24 * 60 * 60)).toFixed(1) + ' w';
-    } else if (valueSec > 24 * 60 * 60) {
-      return (valueSec / (24 * 60 * 60)).toFixed(1) + ' d';
-    } else if (valueSec > 60 * 60) {
-      return (valueSec / (60 * 60)).toFixed(1) + ' h';
-    } else if (valueSec > 60) {
-      return (valueSec / 60).toFixed(1) + ' m';
-    } else if (valueSec > 1) {
-      return valueSec.toFixed(1) + ' s';
-    } else {
-      return (valueSec * 1000).toFixed(1) + ' ms';
-    }
-  }
 }

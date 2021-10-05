@@ -167,6 +167,8 @@ export interface SedDocument {
   outputs: SedOutput[];
 }
 
+export type SedDocumentSpecifications = any;
+
 export interface CombineArchiveContentFile {
   _type: 'CombineArchiveContentFile';
   filename: string;

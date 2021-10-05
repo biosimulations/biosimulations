@@ -1,0 +1,13 @@
+<div class="container">
+  <biosimulations-vega-visualization
+    *ngIf="visualization.renderer === 'Vega'"
+    [spec]="visualization.vegaSpec"
+  >
+  </biosimulations-vega-visualization>
+
+  <biosimulations-plotly-visualization
+    *ngIf="visualization.renderer === 'Plotly'"
+    [dataLayout]="(visualization.plotlyDataLayout | async) | async"
+  >
+  </biosimulations-plotly-visualization>
+</div>

@@ -630,7 +630,7 @@ export class ViewSimulatorService {
   }
 
   private getDateStr(date: Date): string {
-    return UtilsService.getDateString(date);
+    return UtilsService.formatDate(date);
   }
 
   private getFunding(funding: Funding): ViewFunding {

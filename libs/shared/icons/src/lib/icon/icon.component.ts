@@ -94,6 +94,8 @@ export type BiosimulationsIcon =
   | 'docker'
   | 'python'
   | 'linkedin'
+  | 'facebook'
+  | 'twitter'
   | 'orcid'
   | 'toTop'
   | 'more'
@@ -119,11 +121,15 @@ export type BiosimulationsIcon =
   | 'location'
   | 'memory'
   | 'processor'
+  | 'disk'
   | 'server'
   | 'redo'
   | 'backward'
   | 'forward'
-  | 'convert';
+  | 'convert'
+  | 'archive'
+  | 'r'
+  | 'image';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -163,6 +169,8 @@ export class IconComponent {
     docker: { type: 'fab', name: 'docker' },
     python: { type: 'fab', name: 'python' },
     linkedin: { type: 'fab', name: 'linkedin' },
+    facebook: { type: 'fab', name: 'facebook' },
+    twitter: { type: 'fab', name: 'twitter' },
     orcid: { type: 'fab', name: 'orcid' },
     file: { type: 'fas', name: 'file-alt' },
     user: { type: 'fas', name: 'user' },
@@ -274,11 +282,16 @@ export class IconComponent {
     location: { type: 'fas', name: 'location-arrow' },
     memory: { type: 'fas', name: 'memory' },
     processor: { type: 'fas', name: 'microchip' },
+    disk: { type: 'fas', name: 'save' },
     server: { type: 'fas', name: 'server' },
     redo: { type: 'fas', name: 'redo-alt' },
     backward: { type: 'fas', name: 'backward' },
     forward: { type: 'fas', name: 'forward' },
     convert: { type: 'fas', name: 'exchange-alt' },
+    
+    archive: { type: 'fas', name: 'file-archive' },
+    r: { type: 'fab', name: 'r-project' },
+    image: { type: 'fas', name: 'image' },
   };
 
   constructor() {

@@ -1,0 +1,30 @@
+@import 'biosimulations-colors';
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+biosimulations-tab-page ::ng-deep .icon-list {
+  & > li:not(:first-child) {
+    margin-top: 0.125rem; 
+  }
+
+  a {
+    color: $dark-primary-text;
+    &:hover {
+      color: $dark-primary-text;
+      text-decoration: underline;
+    }
+  }
+}
+
+.files {
+  margin-top: -2rem;
+  ::ng-deep {
+    h3 .icon-container {
+      display: none;
+    }
+  }
+}

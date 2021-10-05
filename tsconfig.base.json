@@ -59,6 +59,9 @@
       "@biosimulations/datamodel-database": [
         "libs/datamodel/database/src/index.ts"
       ],
+      "@biosimulations/datamodel/project": [
+        "libs/datamodel/project/src/index.ts"
+      ],
       "@biosimulations/datamodel/api": [
         "libs/datamodel/api/src/index.ts"
       ],
@@ -105,9 +108,6 @@
       "@biosimulations/platform/database-models": [
         "libs/platform/database-models/src/index.ts"
       ],
-      "@biosimulations/platform/view": [
-        "libs/platform/view/src/index.ts"
-      ],
       "@biosimulations/shared/assets": [
         "libs/shared/assets/src/index.ts"
       ],
@@ -141,6 +141,9 @@
       "@biosimulations/shared/services": [
         "libs/shared/services/src/index.ts"
       ],
+      "@biosimulations/shared/project-service": [
+        "libs/shared/project-service/src/index.ts"
+      ],
       "@biosimulations/shared/storage": [
         "libs/shared/storage/src/index.ts"
       ],
@@ -149,6 +152,12 @@
       ],
       "@biosimulations/shared/ui": [
         "libs/shared/ui/src/index.ts"
+      ],
+      "@biosimulations/shared/viz-ui": [
+        "libs/shared/viz-ui/src/index.ts"
+      ],
+      "@biosimulations/shared/project-ui": [
+        "libs/shared/project-ui/src/index.ts"
       ],
       "@biosimulations/shared/utils/routes": [
         "libs/shared/utils/routes/src/index.ts"

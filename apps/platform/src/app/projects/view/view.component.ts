@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ArchiveMetadata } from '@biosimulations/datamodel/common';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { Spec as VegaSpec } from 'vega';
-import { ViewService } from './view.service';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+// import { SimulationRun } from '@biosimulations/dispatch/api-models';
+import { Observable, combineLatest, map } from 'rxjs';
+import { 
+  ProjectMetadata,
+  SimulationRunMetadata,
+  Path,
+  File,
+  VisualizationList,
+  Visualization,
+} from '@biosimulations/datamodel/project';
+import { ViewService } from '@biosimulations/shared/project-service';
 
 @Component({
   selector: 'biosimulations-view',
@@ -11,46 +19,68 @@ import { ViewService } from './view.service';
   styleUrls: ['./view.component.scss'],
 })
 export class ViewComponent implements OnInit {
-  public loading$ = new BehaviorSubject(true);
-  public loadingFigures$ = new BehaviorSubject(true);
-  public metadata$?: Observable<ArchiveMetadata | undefined> = undefined;
-  public figureMetadata$?: Observable<ArchiveMetadata[] | undefined> =
-    undefined;
-  public simulationInfo$?: Observable<any>;
-  public figures$?: Observable<
-    {
-      path: string;
-      spec: Observable<string>;
-      metadata: Observable<ArchiveMetadata>;
-    }[]
-  >;
-  public vegaSpecs$?: Observable<
-    { id: string; path: string; spec: Observable<VegaSpec> }[]
-  >;
-  public vegaFiles$?: Observable<any>;
-  public files$?: Observable<any>;
+  public loaded$!: Observable<boolean>;
+  
+  public id!: string;
+
+  public projectMetadata$!: Observable<ProjectMetadata | undefined>;
+  public simulationRun$!: Observable<SimulationRunMetadata>;
+  
+  public projectFiles$!: Observable<Path[]>;
+  public files$!: Observable<Path[]>;
+  public outputs$!: Observable<File[]>;
+
+  public visualizations$!: Observable<VisualizationList[]>;
+  public visualization: Visualization | null = null;
+  
   constructor(private service: ViewService, private route: ActivatedRoute) {}
-  public showImage = new BehaviorSubject(false);
+  
   public ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    this.metadata$ = this.service.getArchiveMetadata(id).pipe(
-      tap((_) => {
-        this.loading$.next(false);
+    const id = this.id = this.route.snapshot.params['id'];
+    
+    this.projectMetadata$ = this.service.getFormattedProjectMetadata(id);
+    this.simulationRun$ = this.service.getFormattedSimulationRun(id);
+
+    this.projectFiles$ = this.service.getFormattedProjectFiles(id);
+    this.files$ = this.service.getFormattedProjectContentFiles(id);
+    this.outputs$ = this.service.getFormattedOutputFiles(id);
+
+    this.visualizations$ = this.service.getVisualizations(id);
+
+    this.loaded$ = combineLatest(
+      this.projectMetadata$,
+      this.simulationRun$, 
+      this.projectFiles$,
+      this.files$,
+      this.outputs$,
+      this.visualizations$,
+    ).pipe(
+      map((observables: (any | undefined)[]): boolean => {
+        return observables.filter((observable: any | undefined): boolean => {
+          return observable === undefined;
+        }).length === 0;
       }),
     );
+  }
 
-    this.figureMetadata$ = this.service.getOtherMetadata(id).pipe(
-      tap((_) => {
-        this.loadingFigures$.next(false);
-      }),
-    );
+  selectedTabIndex = 0;
+  viewVisualizationTabDisabled = true;
+  selectVisualizationTabIndex = 2;
+  visualizationTabIndex = 3;
 
-    this.simulationInfo$ = this.service.getSimulationRunMetadata(id);
+  public renderVisualization(visualization: Visualization): void {    
+    this.visualization = visualization;
+    this.viewVisualizationTabDisabled = false;
+    this.selectedTabIndex = this.visualizationTabIndex;    
+  }
 
-    this.vegaFiles$ = this.service.getVegaFilesMetadata(id);
-
-    this.files$ = this.service.getFilesMetadata(id);
-
-    this.vegaSpecs$ = this.service.getVegaVisualizations(id);
+  public selectedTabChange($event: MatTabChangeEvent): void {
+    if ($event.index == this.visualizationTabIndex) {
+      if (this.viewVisualizationTabDisabled) {
+        this.selectedTabIndex = this.selectVisualizationTabIndex;
+        return;
+      }
+    }
+    this.selectedTabIndex = $event.index;
   }
 }

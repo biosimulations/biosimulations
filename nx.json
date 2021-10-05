@@ -171,6 +171,13 @@
         "platform:server"
       ]
     },
+    "datamodel-project": {
+      "tags": [
+        "scope:simulations",
+        "type:datamodel",
+        "platform:web"
+      ]
+    },
     "datamodel-utils": {
       "tags": [
         "scope:shared",
@@ -310,13 +317,6 @@
         "platform"
       ]
     },
-    "platform-view": {
-      "tags": [
-        "scope:platform",
-        "type:ui",
-        "platform:web"
-      ]
-    },
     "shared-assets": {
       "tags": [
         "scope:shared",
@@ -399,6 +399,14 @@
       ],
       "implicitDependencies": []
     },
+    "shared-project-service": {
+      "tags": [
+        "scope:simulations",
+        "type:service",
+        "platform:any"
+      ],
+      "implicitDependencies": []
+    },
     "shared-storage": {
       "tags": [
         "scope:files",
@@ -417,6 +425,27 @@
     "shared-ui": {
       "tags": [
         "scope:shared",
+        "type:ui",
+        "platform:web"
+      ],
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]
+    },
+    "shared-viz-ui": {
+      "tags": [
+        "scope:shared",
+        "type:ui",
+        "platform:web"
+      ],
+      "implicitDependencies": [
+        "shared-styles"
+      ]
+    },
+    "shared-project-ui": {
+      "tags": [
+        "scope:simulations",
         "type:ui",
         "platform:web"
       ],

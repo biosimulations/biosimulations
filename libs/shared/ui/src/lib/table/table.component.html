@@ -8,10 +8,9 @@
   [gdGap]="controlsOpen ? '2rem' : 0"
   gdRows.lt-md="1fr"
   gdGap.lt-md="1rem"
-  class="ragged-columns"
   [ngClass]="{ hidden: isLoading | async, 'controls-closed': !controlsOpen }"
 >
-  <div *ngIf="controls" class="controls-container column">
+  <div *ngIf="controls" class="controls-container ragged-column">
     <div class="title" (click)="toggleControls()">
       <div class="title-inner">Controls</div>
       <biosimulations-icon icon="controls"></biosimulations-icon>

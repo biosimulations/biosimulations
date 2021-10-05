@@ -613,6 +613,35 @@
         }
       }
     },
+    "datamodel-project": {
+      "root": "libs/datamodel/project",
+      "sourceRoot": "libs/datamodel/project/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/datamodel/project/tsconfig.lib.json",
+              "libs/datamodel/project/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/datamodel/project/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/datamodel/project/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "datamodel-utils": {
       "root": "libs/datamodel/utils",
       "sourceRoot": "libs/datamodel/utils/src",
@@ -685,8 +714,7 @@
               },
               "apps/dispatch/src/manifest.webmanifest",
               "apps/dispatch/src/browserconfig.xml",
-              "apps/dispatch/src/sitemap.xml",
-              "apps/dispatch/src/manifest.webmanifest"
+              "apps/dispatch/src/sitemap.xml"
             ],
             "styles": [
               "libs/shared/styles/src/index.scss"
@@ -1194,7 +1222,8 @@
               "libs/shared/styles/src/index.scss"
             ],
             "scripts": [
-              "node_modules/marked/lib/marked.js"
+              "node_modules/marked/lib/marked.js",
+              "node_modules/plotly.js/dist/plotly.min.js"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -1227,7 +1256,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumError": "7mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -1345,34 +1374,6 @@
               "apps/platform-e2e/**/*.ts"
             ]
           }
-        }
-      }
-    },
-    "platform-view": {
-      "projectType": "library",
-      "root": "libs/platform/view",
-      "sourceRoot": "libs/platform/view/src",
-      "prefix": "biosimulations",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/platform/view/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/platform/view/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
         }
       }
     },
@@ -1669,6 +1670,30 @@
       },
       "schematics": {}
     },
+    "shared-project-service": {
+      "projectType": "library",
+      "root": "libs/shared/project-service",
+      "sourceRoot": "libs/shared/project-service/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/project-service/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/project-service/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
     "shared-storage": {
       "root": "libs/shared/storage",
       "sourceRoot": "libs/shared/storage/src",
@@ -1740,6 +1765,62 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-viz-ui": {
+      "projectType": "library",
+      "root": "libs/shared/viz-ui",
+      "sourceRoot": "libs/shared/viz-ui/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/viz-ui/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/viz-ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-project-ui": {
+      "projectType": "library",
+      "root": "libs/shared/project-ui",
+      "sourceRoot": "libs/shared/project-ui/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/project-ui/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/project-ui/jest.config.js",
             "passWithNoTests": true
           }
         }

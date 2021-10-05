@@ -1,3 +1,5 @@
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
+
 export interface ModelFormat {
   name: string;
   acronym: string | null;
@@ -7,11 +9,12 @@ export interface ModelFormat {
   mediaTypes: string[];
   extensions: string[];
   enabled: boolean;
+  url: string;
 }
 
 export const MODEL_FORMATS: ModelFormat[] = [
   {
-    name: 'BNGL',
+    name: 'BioNetGen Language',
     acronym: 'BNGL',
     edamId: 'format_3972',
     sedUrn: 'urn:sedml:language:bngl',
@@ -24,6 +27,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     ],
     extensions: ['bngl'],
     enabled: true,
+    url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3972',
   },
   {
     name: 'CellML',
@@ -38,6 +42,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     ],
     extensions: ['cellml', 'xml'],
     enabled: true,
+    url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3240',
   },
   {
     name: 'COPASI Markup Language',
@@ -52,6 +57,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     ],
     extensions: ['cps'],
     enabled: false,
+    url: 'http://copasi.org',
   },
   {
     name: 'GINsim Markup Language',
@@ -62,6 +68,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     mediaTypes: ['application/ginml+xml', 'application/xml'],
     extensions: ['ginml'],
     enabled: false,
+    url: 'http://ginsim.org',
   },
   {
     name: 'High Order Calculator',
@@ -72,6 +79,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     mediaTypes: ['text/x-hoc', 'text/plain'],
     extensions: ['hoc'],
     enabled: false,
+    url: 'https://en.wikipedia.org/wiki/Hoc_(programming_language)',
   },
   {
     name: 'Kappa',
@@ -82,6 +90,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     mediaTypes: ['text/x-kappa', 'text/plain'],
     extensions: ['ka'],
     enabled: true,
+    url: 'https://kappalanguage.org/',
   },
   {
     name: 'Low Entropy Model Specification',
@@ -96,6 +105,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     ],
     extensions: ['xml'],
     enabled: true,
+    url: 'https://lems.github.io/LEMS/',
   },
   {
     name: 'Mass Action Stoichiometric Simulation',
@@ -106,6 +116,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     mediaTypes: ['application/mass+json', 'application/json'],
     extensions: ['json'],
     enabled: false,
+    url: 'https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html',
   },
   {
     name: 'Morpheus Markup Language',
@@ -116,6 +127,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     mediaTypes: ['application/morpheusml+xml', 'application/xml'],
     extensions: ['xml'],
     enabled: false,
+    url: 'https://gitlab.com/morpheus.lab/morpheus/-/wikis/morpheusml',
   },
   {
     name: 'NeuroML',
@@ -126,6 +138,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     mediaTypes: ['application/neuroml+xml', 'application/xml'],
     extensions: ['nml'],
     enabled: false,
+    url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3971',
   },
   {
     name: 'Pharmacometrics Markup Language ',
@@ -136,6 +149,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     mediaTypes: ['application/pharmml+xml', 'application/xml'],
     extensions: ['xml'],
     enabled: true,
+    url: 'http://www.pharmml.org/',
   },
   {
     name: 'RBA models',
@@ -146,6 +160,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     mediaTypes: ['application/rba+zip', 'application/zip'],
     extensions: ['zip'],
     enabled: false,
+    url: 'https://sysbioinra.github.io/RBApy/usage.html',
   },
   {
     name: 'Systems Biology Markup Language',
@@ -160,6 +175,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     ],
     extensions: ['xml', 'sbml'],
     enabled: true,
+    url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3972',
   },
   {
     name: 'Smoldyn',
@@ -175,6 +191,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     ],
     extensions: ['txt'],
     enabled: true,
+    url: 'http://www.smoldyn.org/',
   },
   {
     name: 'Virtual Cell Markup Language',
@@ -185,6 +202,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     mediaTypes: ['application/vcml+xml', 'application/xml'],
     extensions: ['vcml'],
     enabled: false,
+    url: 'https://vcell.org/',
   },
   {
     name: 'XPP',
@@ -200,6 +218,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     ],
     extensions: ['ode', 'xpp'],
     enabled: true,
+    url: 'http://www.math.pitt.edu/~bard/xpp/xpp.html',
   },
   {
     name: 'GINsim Markup Language, Zipped',
@@ -214,6 +233,7 @@ export const MODEL_FORMATS: ModelFormat[] = [
     ],
     extensions: ['zginml', 'zip'],
     enabled: true,
+    url: 'http://ginsim.org',
   },
 ];
 
@@ -224,4 +244,111 @@ export const SEDML_FORMAT = {
   combineUri: 'http://identifiers.org/combine.specifications/sed-ml',
   mediaTypes: ['application/sedml+xml', 'application/xml'],
   extensions: ['sedml'],
+  url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3685',
+  icon: 'simulation' as BiosimulationsIcon,
 };
+
+export const COMBINE_OMEX_FORMAT = {
+  name: 'Open Modeling and Exchange',
+  acronym: 'OMEX',
+  edamId: 'format_3686',
+  combineUri: 'http://identifiers.org/combine.specifications/omex',
+  mediaTypes: ['application/omex+zip', 'application/zip'],
+  extensions: ['omex', 'zip'],
+  url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686',
+  icon: 'archive' as BiosimulationsIcon,
+};
+
+export const VEGA_FORMAT = {
+  name: 'Vega',
+  acronym: null,
+  edamId: 'format_3969',
+  combineUri: 'http://purl.org/NET/mediatypes/application/vega+json',
+  mediaTypes: ['application/vega+json', 'application/json'],
+  extensions: ['json'],
+  url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3969',
+  icon: 'chart' as BiosimulationsIcon,
+};
+
+export interface CombineArchiveContentFormat {
+  combineUri: string;  
+  name: string;
+  acronym: string | null;
+  url: string;
+  icon: BiosimulationsIcon;
+}
+
+export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS
+  .map((modelFormat: ModelFormat): CombineArchiveContentFormat => {
+    return {
+      combineUri: modelFormat.combineUri,
+      name: modelFormat.name,
+      acronym: modelFormat.acronym,
+      url: modelFormat.url,
+      icon: 'model',
+    };
+  })
+  .concat([
+    {
+      combineUri: SEDML_FORMAT.combineUri,
+      name: SEDML_FORMAT.name,
+      acronym: SEDML_FORMAT.acronym,
+      url: SEDML_FORMAT.url,
+      icon: SEDML_FORMAT.icon,
+    },
+    {
+      combineUri: COMBINE_OMEX_FORMAT.combineUri,
+      name: COMBINE_OMEX_FORMAT.name,
+      acronym: COMBINE_OMEX_FORMAT.acronym,
+      url: COMBINE_OMEX_FORMAT.url,
+      icon: COMBINE_OMEX_FORMAT.icon,
+    },
+    {
+      combineUri: VEGA_FORMAT.combineUri,
+      name: VEGA_FORMAT.name,
+      acronym: VEGA_FORMAT.acronym,
+      url: VEGA_FORMAT.url,
+      icon: VEGA_FORMAT.icon,
+    },
+  ] as CombineArchiveContentFormat[])
+  .concat([
+    {
+      name: 'Bitmap Image File',
+      acronym: 'BMP', 
+      combineUri: 'http://purl.org/NET/mediatypes/image/bmp',
+      url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3592',
+      icon: 'image',
+    },
+    {name: 'BioPAX', acronym: null, combineUri: 'http://identifiers.org/combine.specifications/biopax', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3156', icon: 'file'},
+    {name: 'Escher', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/escher+json', url: 'https://escher.github.io/', icon: 'chart'},
+    {name: 'Graphics Interchange Format', acronym: 'GIF', combineUri: 'http://purl.org/NET/mediatypes/image/gif', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3467', icon: 'image'},
+    {name: 'Hierarchical Data Format 5', acronym: 'HDF5', combineUri: 'http://purl.org/NET/mediatypes/application/x-hdf', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3590', icon: 'report'},
+    {name: 'IPython Notebook', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-ipynb+json', url: 'https://ipython.org/notebook.html', icon: 'python'},
+    {name: 'Joint Photographic Experts Group', acronym: 'JPEG', combineUri: 'http://purl.org/NET/mediatypes/image/jpeg', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3579', icon: 'image'},
+    {name: 'JavaScript Object Notation', acronym: 'JSON', combineUri: 'http://purl.org/NET/mediatypes/application/json', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3464', icon: 'code'},
+    {name: 'Mass Action Stoichiometric Simulation', acronym: 'MASS', combineUri: 'http://purl.org/NET/mediatypes/application/mass+json', url: 'https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html', icon: 'model'},
+    {name: 'MATLAB', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/text/x-matlab', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_4007', icon: 'code'},
+    {name: 'MATLAB data', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-matlab-data', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3626', icon: 'report'},
+    {name: 'OMEX Manifest', acronym: null, combineUri: 'http://identifiers.org/combine.specifications/omex-manifest', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686', icon: 'file'},
+    {name: 'OMEX Metadata', acronym: null, combineUri: 'http://identifiers.org/combine.specifications/omex-metadata', url: 'https://co.mbine.org/standards/omex-metadata', icon: 'file'},
+    {name: 'Web Ontology Language', acronym: 'OWL', combineUri: 'http://purl.org/NET/mediatypes/application/rdf+xml', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2197', icon: 'file'},
+    {name: 'Portable Document Format', acronym: 'PDF', combineUri: 'http://purl.org/NET/mediatypes/application/PDF', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3508', icon: 'pdf'},
+    {name: 'Portable Network Graphics', acronym: 'PNG', combineUri: 'http://purl.org/NET/mediatypes/image/png', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3603', icon: 'image'},
+    {name: 'Python', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-python-code', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3603', icon: 'python'},
+    {name: 'R', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/text/x-r', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3999', icon: 'r'},
+    {name: 'R project', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-r-project', url: 'https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects', icon: 'r'},
+    {name: 'Systems Biology Graphical Notation', acronym: 'SBGN', combineUri: 'http://identifiers.org/combine.specifications/sbgn', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692', icon: 'chart'},
+    {name: 'Synthetic Biology Open Language', acronym: 'SBOL', combineUri: 'http://identifiers.org/combine.specifications/sbol', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692', icon: 'file'},
+    {name: 'SBOL Visual', acronym: null, combineUri: 'http://identifiers.org/combine.specifications/sbol-visual', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692', icon: 'file'},
+    {name: 'Scilab', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-scilab', url: 'https://www.scilab.org/', icon: 'code'},
+    {name: 'SimBiology project', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/x-sbproj', url: 'https://www.mathworks.com/help/simbio/ref/sbioloadproject.html', icon: 'archive'},
+    {name: 'Scalable Vector Graphics', acronym: 'SVG', combineUri: 'http://purl.org/NET/mediatypes/image/svg+xml', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3604', icon: 'image'},
+    {name: 'TEXT', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/text/plain', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3591', icon: 'file'},
+    {name: 'Tag Image File Format', acronym: 'TIFF', combineUri: 'http://purl.org/NET/mediatypes/image/tiff', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3591', icon: 'image'},    
+    {name: 'Vega-Lite', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/vega-lite+json', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3970', icon: 'chart'},
+    {name: 'WEBP', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/image/webp', url: 'https://developers.google.com/speed/webp', icon: 'image'},
+    {name: 'Extensible Markup Language', acronym: 'XML', combineUri: 'http://purl.org/NET/mediatypes/application/xml', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2332', icon: 'code'},
+    {name: 'Yet Another Markup Language', acronym: 'YAML', combineUri: 'http://purl.org/NET/mediatypes/application/x-yaml', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3750', icon: 'code'},
+    {name: 'Zip', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/zip', url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987', icon: 'archive'},
+    {name: 'Octet stream', acronym: null, combineUri: 'http://purl.org/NET/mediatypes/application/octet-stream', url: 'https://www.iana.org/assignments/media-types/application/octet-stream', icon: 'file'},
+  ] as CombineArchiveContentFormat[]);

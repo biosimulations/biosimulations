@@ -159,7 +159,15 @@ table.icon-list {
 
   th:first-child {
     vertical-align: top;
-    padding-right: 0.25rem;
+    padding-right: 0.125rem;
+    text-align: center;
+
+    biosimulations-icon .mat-icon {
+      font-size: 112%;
+      line-height: normal;
+      position: relative;
+      top: 2px;
+    }
   }
 
   a {
@@ -219,7 +227,7 @@ a {
   transform: scale(1.08);
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .hanging-indent {
@@ -950,11 +958,56 @@ table {
   }
 }
 
-/* section */
-.section-content {
-  padding: 0.5rem 0;
+.clean-table {
+  width: 100%;
+  display: grid;
+  grid-gap: 0;
+
+  .head {
+    font-weight: bold;
+  }
+
+  .cell {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    height: 18px;
+    vertical-align: middle;
+  }
+
+  .cell {
+    border-bottom: 1px dotted $light-bg-darker-20;
+
+    &:not(:first-child) {
+      padding-left: 0.25rem;
+    }
+    &:not(:last-child) {
+      padding-right: 0.25rem;  
+    }
+  }
+
+  .icon-container {
+    width: 16px;
+    margin-right: 0.25rem;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  biosimulations-icon .mat-icon {
+    font-size: 112%;
+    line-height: normal;
+    position: relative;
+    top: 2px;
+  }
+
+  a {
+    color: $dark-primary-text;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
+/* section */
 .border {
   border: 1px solid $light-bg-darker-20;
   border-radius: 4px;
@@ -962,6 +1015,14 @@ table {
 
 .clear-float {
   clear: both;
+}
+
+.wide-side-bar {
+  width: 25rem;
+}
+
+.compact-sections {
+  margin-top: 1rem;
 }
 
 /* content */
@@ -983,10 +1044,8 @@ table {
 }
 
 /* columns */
-.ragged-columns {
-  .column {
-    height: max-content;
-  }
+.ragged-column {
+  height: max-content;
 }
 
 /* status colors */
@@ -1067,7 +1126,7 @@ a.status-label {
   &.CREATED,
   &.QUEUED,
   &.Warned {
-    h2 {
+    h3 {
       color: mat-color($theme-primary);
       background: $theme-primary-lightest;
 
@@ -1085,7 +1144,7 @@ a.status-label {
   &.RUNNING,
   &.PROCESSING,
   &.Passed {
-    h2 {
+    h3 {
       color: mat-color($theme-tertiary);
       background: $theme-tertiary-lightest;
 
@@ -1102,7 +1161,7 @@ a.status-label {
 
   &.SUCCEEDED,
   &.Skipped {
-    h2 {
+    h3 {
       color: $dark-primary-text;
       background: $light-bg-darker-10;
 
@@ -1118,7 +1177,7 @@ a.status-label {
   }
 
   &.SKIPPED {
-    h2 {
+    h3 {
       color: mat-color($theme-accent);
       background: $theme-accent-lightest;
 
@@ -1135,7 +1194,7 @@ a.status-label {
 
   &.FAILED,
   &.Failed {
-    h2 {
+    h3 {
       color: mat-color($theme-warn);
       background: $theme-warn-lightest;
 

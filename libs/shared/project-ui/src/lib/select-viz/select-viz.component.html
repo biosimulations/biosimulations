@@ -1,0 +1,114 @@
+<form [formGroup]="formGroup">
+  <div class="form-section">
+    <div class="form-section-body">
+      <div class="form-field-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Select a chart</mat-label>
+          <mat-select
+            formControlName="visualization"
+            required
+            (ngModelChange)="selectVisualization()"
+            disableOptionCentering
+          >
+            <mat-optgroup
+              *ngFor="let visualizationList of visualizations"
+            >
+              {{ visualizationList.title }}
+              <mat-option
+                *ngFor="let visualization of visualizationList.visualizations"
+                [value]="visualization"
+              >
+                {{ visualization.name }}
+              </mat-option>
+            </mat-optgroup>
+          </mat-select>
+          <biosimulations-icon icon="write" matPrefix></biosimulations-icon>
+        </mat-form-field>
+        <mat-hint>
+          <p>
+            Select a plot defined in a SED-ML or Vega
+            <a href="https://vega.github.io/vega/" target="_blank"
+              ><biosimulations-icon icon="link"></biosimulations-icon
+            ></a>
+            document in the simulation project, or design a custom grid of
+            plots.
+          </p>
+
+          <p>
+            SED-ML L1V3 provides basic capabilities for 2D line plots.
+            SED-ML L1V4 will provide capabilities for several additional
+            types of plots. We aim to support L1V4 once it is approved.
+          </p>
+
+          <p>
+            Vega is a powerful format for describing data visualizations. By
+            capturing how data should be used to paint visual elements, Vega
+            enables reusable visualizations that can be re-painted with data
+            from multiple simulations. Vega can also capture interactive and
+            publication-quality graphics.
+          </p>
+        </mat-hint>
+      </div>
+    </div>
+  </div>
+
+  <ng-container [ngSwitch]="formGroup.value.visualization?._type">
+    <biosimulations-project-design-histogram-1d-visualization
+      *ngSwitchCase="'Histogram1DVisualization'"
+      [visualization]="formGroup.value.visualization"      
+      [simulationRunId]="formGroup.value.visualization.simulationRunId"
+      [sedDocs]="formGroup.value.visualization.sedDocs"
+      [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
+      [formGroup]="userHistogram1DFormGroup"
+    >
+    </biosimulations-project-design-histogram-1d-visualization>
+
+    <biosimulations-project-design-heatmap-2d-visualization
+      *ngSwitchCase="'Heatmap2DVisualization'"
+      [visualization]="formGroup.value.visualization"      
+      [simulationRunId]="formGroup.value.visualization.simulationRunId"
+      [sedDocs]="formGroup.value.visualization.sedDocs"
+      [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
+      [formGroup]="userHeatmap2DFormGroup"
+    >
+    </biosimulations-project-design-heatmap-2d-visualization>
+
+    <biosimulations-project-design-line-2d-visualization
+      *ngSwitchCase="'Line2DVisualization'"
+      [visualization]="formGroup.value.visualization"      
+      [simulationRunId]="formGroup.value.visualization.simulationRunId"
+      [sedDocs]="formGroup.value.visualization.sedDocs"
+      [uriSedDataSetMap]="formGroup.value.visualization.uriSedDataSetMap"
+      [formGroup]="userLine2DFormGroup"
+    >
+    </biosimulations-project-design-line-2d-visualization>
+  </ng-container>
+
+  <div class="button-container">
+    <button
+      type="button"
+      mat-flat-button
+      class="biosimulations-button text"
+      [disabled]="!formGroup.valid"
+      (click)="viewVisualization()"
+    >View</button>
+
+    <button
+      *ngIf="formGroup.value.visualization?.userDesigned"
+      type="button"
+      mat-flat-button
+      class="biosimulations-button text"
+      [disabled]="!formGroup.valid"
+      (click)="exportVisualization('vega')"
+    >Export to Vega</button>
+
+    <button
+      *ngIf="formGroup.value.visualization?.userDesigned"
+      type="button"
+      mat-flat-button
+      class="biosimulations-button text"
+      [disabled]="!formGroup.valid"
+      (click)="exportVisualization('archive')"
+    >Export in archive</button> 
+  </div>
+</form>

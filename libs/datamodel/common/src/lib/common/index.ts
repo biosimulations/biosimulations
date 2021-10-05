@@ -17,3 +17,4 @@ export * from './package-repository';
 export * from './url';
 export * from './funding';
 export * from './modeling-formats';
+export * from './simulator-id-name-map';

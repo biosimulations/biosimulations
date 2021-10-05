@@ -488,7 +488,7 @@ export const columns: Column[] = [
     heading: 'Updated',
     key: 'updated',
     formatter: (value: Date): string => {
-      return UtilsService.getDateString(value);
+      return UtilsService.formatDate(value);
     },
     filterType: ColumnFilterType.date,
     show: false,

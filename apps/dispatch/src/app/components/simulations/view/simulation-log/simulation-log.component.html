@@ -28,7 +28,7 @@
         fxShow
         fxHide.lt-md
       >
-        <ul class="vertically-spaced">
+        <ul>
           <li>
             <a (click)="scrollToElement('log')"
               >Combined standard output and error for the COMBINE/OMEX
@@ -76,7 +76,7 @@
         fxShow
         fxHide.lt-md
       >
-        <ul class="vertically-spaced">
+        <ul>
           <li>
             Status:
             <span [class]="['status-label', status]">{{
@@ -120,7 +120,7 @@
         fxShow
         fxHide.lt-md
       >
-        <ul class="vertically-spaced">
+        <ul>
           <li>
             Status:
             <span [class]="['status-label', status]">{{
@@ -186,6 +186,10 @@
               <span class="info-message">: N/A</span>
             </ng-template>
           </li>
+
+          <li>
+            Duration: {{ duration }}
+          </li>
         </ul>
       </biosimulations-text-page-side-bar-section>
 
@@ -194,7 +198,7 @@
         fxShow
         fxHide.lt-md
       >
-        <ul class="vertically-spaced">
+        <ul>
           <li *ngIf="numTasks > 0 || !logHasTasks">
             <ng-container *ngIf="logHasTasks; else logNotAvailable">
               <a (click)="scrollToElement('section=tasks')"
@@ -348,7 +352,7 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.SedDocument">
-      <h2 id="section=sed-documents">Simulation experiments (SED documents)</h2>
+      <h3 id="section=sed-documents">Simulation experiments (SED documents)</h3>
       <biosimulations-structured-simulation-log-element
         *ngFor="let docLog of _structuredLog.sedDocuments; let iDoc = index"
         [elementId]="docLog.location"
@@ -362,9 +366,9 @@
       >
       </biosimulations-structured-simulation-log-element>
 
-      <h2 id="section=combined-stdout-stderr">
+      <h3 id="section=combined-stdout-stderr">
         Combined standard output and error for the COMBINE/OMEX archive
-      </h2>
+      </h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="COMBINE/OMEX archive"
@@ -389,7 +393,7 @@
 
     <ng-container *ngSwitchDefault>
       <ng-container *ngIf="numTasks > 0">
-        <h2 id="section=tasks">Tasks</h2>
+        <h3 id="section=tasks">Tasks</h3>
         <biosimulations-structured-simulation-log-element
           *ngFor="let docTaskLog of taskLogs; let iTask = index"
           [elementId]="docTaskLog.doc.location + ' :: ' + docTaskLog.task.id"
@@ -407,7 +411,7 @@
       </ng-container>
 
       <ng-container *ngIf="numReports > 0">
-        <h2 id="section=reports">Reports</h2>
+        <h3 id="section=reports">Reports</h3>
         <biosimulations-structured-simulation-log-element
           *ngFor="let docOutputLog of reportLogs; let iReport = index"
           [elementId]="
@@ -430,7 +434,7 @@
       </ng-container>
 
       <ng-container *ngIf="numPlots > 0">
-        <h2 id="section=plots">Plots</h2>
+        <h3 id="section=plots">Plots</h3>
         <biosimulations-structured-simulation-log-element
           *ngFor="let docOutputLog of plotLogs; let iPlot = index"
           [elementId]="
@@ -452,9 +456,9 @@
         </biosimulations-structured-simulation-log-element>
       </ng-container>
 
-      <h2 id="section=combined-stdout-stderr">
+      <h3 id="section=combined-stdout-stderr">
         Combined standard output and error for the COMBINE/OMEX archive
-      </h2>
+      </h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="COMBINE/OMEX archive"

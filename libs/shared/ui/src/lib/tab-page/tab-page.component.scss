@@ -38,6 +38,11 @@
       margin-right: 0.25rem;
       margin-top: -0.125rem;
       font-size: 125%;
+
+      .mat-icon {
+        position: relative;
+        top: 4px;
+      }
     }
   }
 
@@ -57,6 +62,10 @@
       min-height: calc(100vh - 56px - 32px - 2 * 1rem);
       z-index: 0;
     }
+  }
+
+  .mat-tab-body.mat-tab-body-active, .mat-tab-body-content {
+    overflow: visible;
   }
 }
 

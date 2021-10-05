@@ -1,0 +1,222 @@
+<div class="form-section" [formGroup]="formGroup">
+  <div class="form-section-head">
+    <div class="mat-form-field-prefix">
+      <biosimulations-icon icon="report"></biosimulations-icon>
+    </div>
+    <div class="form-section-head-title-subtitle">
+      <div class="form-section-title">Configure chart *</div>
+      <div class="form-section-subtitle">
+        Configure the data to plot, the axes, and visual style of the
+        plot.
+      </div>
+    </div>
+  </div>
+  <div class="form-section-body">
+    <div class="form-field-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Select the number of curves to display</mat-label>
+        <input
+          matInput
+          formControlName="numCurves"
+          type="number"
+          min="1"
+          step="1"
+          required
+          (ngModelChange)="setNumCurves()"
+        />
+        <biosimulations-icon
+          icon="report"
+          matPrefix
+        ></biosimulations-icon>
+      </mat-form-field>
+      <mat-hint
+        >runBioSimulations can display one or more curves per subplots.
+        Select the number of curves that you would like to
+        display.</mat-hint
+      >
+    </div>
+
+    <div
+      class="form-field-group user-line-2d-curves"
+      formArrayName="curves"
+    >
+      <div class="icon-label-input">
+        <biosimulations-icon
+          icon="report"
+          matPrefix
+        ></biosimulations-icon>
+        <div class="label-input">
+          <mat-label>Select the data for each curve *</mat-label>
+          <div class="input">
+            <div class="input-heading">X data set *</div>
+            <div class="input-heading">Y data set *</div>
+            <div class="input-heading">Name</div>
+            <ng-container
+              *ngFor="
+                let curve of curvesFormGroups;
+                index as iCurve
+              "
+              [formGroupName]="iCurve"
+            >
+              <div class="input-row">
+                <mat-select
+                  formControlName="xData"
+                  required
+                  disableOptionCentering
+                  multiple
+                >
+                  <mat-optgroup
+                    *ngFor="
+                      let sedDocument of sedDocs
+                    "
+                    [label]="sedDocument.id"
+                  >
+                    <mat-optgroup
+                      *ngFor="
+                        let output of sedDocument.outputs
+                      "
+                      [label]="output.name || output.id"
+                    >
+                      <mat-option
+                        *ngFor="let dataset of output.dataSets"
+                        [value]="
+                          sedDocument.id +
+                          '/' +
+                          output.id +
+                          '/' +
+                          dataset.id
+                        "
+                      >
+                        {{ dataset.label }}
+                      </mat-option>
+                    </mat-optgroup>
+                  </mat-optgroup>
+                </mat-select>
+              </div>
+              <div class="input-row">
+                <mat-select
+                  formControlName="yData"
+                  required
+                  disableOptionCentering
+                  multiple
+                >
+                  <mat-optgroup
+                    *ngFor="
+                      let sedDocument of sedDocs
+                    "
+                    [label]="sedDocument.id"
+                  >
+                    <mat-optgroup
+                      *ngFor="
+                        let output of sedDocument.outputs
+                      "
+                      [label]="output.name || output.id"
+                    >
+                      <mat-option
+                        *ngFor="let dataset of output.dataSets"
+                        [value]="
+                          sedDocument.id +
+                          '/' +
+                          output.id +
+                          '/' +
+                          dataset.id
+                        "
+                      >
+                        {{ dataset.label }}
+                      </mat-option>
+                    </mat-optgroup>
+                  </mat-optgroup>
+                </mat-select>
+              </div>
+              <div class="input-row">
+                <input
+                  matInput
+                  formControlName="name"
+                />
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <mat-hint
+        >Select the SED data sets for the X and Y data of each
+        curve.</mat-hint
+      >
+    </div>
+
+    <div class="form-field-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Select a scale for the x-axis</mat-label>
+        <mat-select
+          formControlName="xAxisType"
+          required
+          disableOptionCentering
+        >
+          <mat-option
+            *ngFor="let axisLabelType of axisLabelTypes"
+            [value]="axisLabelType.type"
+          >
+            {{ axisLabelType.label }}
+          </mat-option>
+        </mat-select>
+        <biosimulations-icon
+          icon="visualization"
+          matPrefix
+        ></biosimulations-icon>
+      </mat-form-field>
+      <mat-hint
+        >Select a scale such as "linear" or "logarithmic".</mat-hint
+      >
+    </div>
+
+    <div class="form-field-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Select a scale for the y-axis</mat-label>
+        <mat-select
+          formControlName="yAxisType"
+          required
+          disableOptionCentering
+        >
+          <mat-option
+            *ngFor="let axisLabelType of axisLabelTypes"
+            [value]="axisLabelType.type"
+          >
+            {{ axisLabelType.label }}
+          </mat-option>
+        </mat-select>
+        <biosimulations-icon
+          icon="visualization"
+          matPrefix
+        ></biosimulations-icon>
+      </mat-form-field>
+      <mat-hint
+        >Select a scale such as "linear" or "logarithmic".</mat-hint
+      >
+    </div>
+
+    <div class="form-field-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Select a type of plot</mat-label>
+        <mat-select
+          formControlName="traceMode"
+          required
+          disableOptionCentering
+        >
+          <mat-option
+            *ngFor="let traceModeLabel of traceModeLabels"
+            [value]="traceModeLabel.mode"
+          >
+            {{ traceModeLabel.label }}
+          </mat-option>
+        </mat-select>
+        <biosimulations-icon
+          icon="visualization"
+          matPrefix
+        ></biosimulations-icon>
+      </mat-form-field>
+      <mat-hint
+        >Select a type of plot such as "line" or "scatter".</mat-hint
+      >
+    </div>
+  </div>
+</div>

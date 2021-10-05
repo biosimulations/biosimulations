@@ -4,7 +4,11 @@
     {{ heading }}
   </ng-template>
 
-  <div [ngClass]="{ 'partial-width': partialWidth, 'full-height': fullHeight }">
+  <div [ngClass]="{ 
+    'full-width': fullWidth, 
+    'partial-width': partialWidth, 
+    'full-height': fullHeight 
+  }">
     <ng-content></ng-content>
   </div>
 </mat-tab>

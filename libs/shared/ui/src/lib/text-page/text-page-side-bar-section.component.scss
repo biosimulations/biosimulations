@@ -1,7 +1,7 @@
 @use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
-biosimulations-text-page-section ::ng-deep h2 {
+biosimulations-text-page-section ::ng-deep h3 {
   color: $dark-primary-text;
   background: $light-bg-darker-10;
 
