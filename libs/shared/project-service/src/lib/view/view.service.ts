@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, BehaviorSubject, pluck, shareReplay, of, combineLatest, forkJoin} from 'rxjs';
+import { map, Observable, BehaviorSubject, pluck, shareReplay, of, forkJoin} from 'rxjs';
 import {
   ArchiveMetadata, 
   LabeledIdentifier,
