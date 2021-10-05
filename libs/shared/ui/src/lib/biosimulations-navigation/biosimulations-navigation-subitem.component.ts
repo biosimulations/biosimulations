@@ -21,5 +21,8 @@ export class BiosimulationsNavigationSubitemComponent {
   queryParams: { [key: string]: string } = {};
 
   @Input()
+  href?: string;
+
+  @Input()
   disabled = false;
 }

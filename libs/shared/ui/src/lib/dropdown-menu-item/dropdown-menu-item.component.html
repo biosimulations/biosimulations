@@ -1,4 +1,5 @@
 <button mat-menu-item [disabled]="disabled">
   <biosimulations-icon [icon]="icon"></biosimulations-icon>
-  {{ heading }}
+  <a *ngIf="href; else noHref" [href]="href" target="_blank">{{ heading }}</a>
+  <ng-template #noHref>{{ heading }}</ng-template>
 </button>

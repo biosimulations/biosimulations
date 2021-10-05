@@ -16,4 +16,7 @@ export class DropdownMenuItemComponent {
 
   @Input()
   disabled = false;
+
+  @Input()
+  href?: string;
 }
