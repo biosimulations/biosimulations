@@ -1433,7 +1433,7 @@ class HandlersTestCase(unittest.TestCase):
         data = MultiDict([
             ('file', fid),
         ])
-        endpoint = '/combine/validate?validateOmexManifest=false'
+        endpoint = '/combine/validate?validateOmexManifest=false&validateOmexMetadata=false'
         with app.app.app.test_client() as client:
             response = client.post(endpoint, data=data, content_type="multipart/form-data")
         fid.close()
@@ -1464,7 +1464,7 @@ class HandlersTestCase(unittest.TestCase):
         data = MultiDict([
             ('file', fid),
         ])
-        endpoint = '/combine/validate?validateOmexManifest=false'
+        endpoint = '/combine/validate?validateOmexManifest=false&validateOmexMetadata=false'
         with app.app.app.test_client() as client:
             response = client.post(endpoint, data=data, content_type="multipart/form-data")
         fid.close()
@@ -1622,7 +1622,7 @@ class HandlersTestCase(unittest.TestCase):
             '_type': 'RdfTriple',
             'subject': {
                 '_type': 'RdfUriNode',
-                'value': 'http://omex-libary.org/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex',
+                'value': 'http://omex-library.org/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex',
             },
             'predicate': {
                 '_type': 'RdfUriNode',
