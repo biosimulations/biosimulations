@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+set -e
+
 COMMIT=$(git rev-parse HEAD)
 #COMMIT= $(git branch --show-current)
 BRANCH=$(echo "${GITHUB_REF/refs\/heads\//}")
