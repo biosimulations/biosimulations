@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { Transport, NatsOptions } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
   const natsUrl = configService.get('nats.url');
@@ -17,7 +17,7 @@ async function bootstrap() {
     },
   };
   app.connectMicroservice(natsConfig);
-  await app.startAllMicroservicesAsync();
+  await app.startAllMicroservices();
 }
 
 bootstrap();

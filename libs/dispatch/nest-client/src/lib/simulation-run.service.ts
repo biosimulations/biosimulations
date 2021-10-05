@@ -121,19 +121,20 @@ export class SimulationRunService {
       mergeMap((value) => value),
     );
   }
-  // TODO convert to observable
-  public async getJob(simId: string): Promise<SimulationRun> {
-    const token = await this.auth.getToken();
-    const res: Promise<SimulationRun> = this.http
-      .get<SimulationRun>(`${this.endpoint}/run/${simId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .pipe(pluck('data'))
-      .toPromise() as Promise<SimulationRun>;
 
-    return res;
+  public getJob(simId: string): Observable<SimulationRun> {
+    return from(this.auth.getToken()).pipe(
+      map((token) => {
+        return this.http
+          .get<SimulationRun>(`${this.endpoint}run/${simId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .pipe(pluck('data'));
+      }),
+      mergeMap((value) => value),
+    );
   }
 
   public sendLog(

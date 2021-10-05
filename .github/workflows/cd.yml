@@ -272,10 +272,11 @@ jobs:
           git config --global user.name 'Biosimulations-Daemon'
           git config --global user.email 'biosimulationsdaemon@gmail.com'
 
-      - uses: actions/setup-node@v2.4.1
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
         with:
-          node-version: "12"
-      - run: npm ci
+          useRollingCache: true
+          
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
         with:
