@@ -2527,7 +2527,7 @@ components:
         _type: RdfTriple
         subject:
           _type: uri
-          value: http://omex-libary.org/MyCombineArchive.omex
+          value: http://omex-library.org/MyCombineArchive.omex
         predictate:
           _type: uri
           value: https://dublincore.org/specifications/dublin-core/dcmi-terms/title
