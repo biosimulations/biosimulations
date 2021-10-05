@@ -1,17 +1,30 @@
 @use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
-.button-container {
-  display: flex;
-  align-items: center;
+.options {
+  & > div:not(:first-child) {
+    margin-top: 0.25rem;
+  }
 
-  .status-summary {
-    flex-grow: 1;
+  ::ng-deep {
+    .mat-checkbox-background {
+      background: none;
+    }
+    .mat-checkbox-frame {
+      border-width: 1px;
+    }
+    .mat-checkbox-checkmark-path {
+      stroke: rgba(0, 0, 0, 0.54) !important; 
+    }
   }
 }
 
+.button-container {
+  text-align: right;
+}
+
 .validation-report {
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   .validation-report-section:not(:first-child) {
     margin-top: 1rem;

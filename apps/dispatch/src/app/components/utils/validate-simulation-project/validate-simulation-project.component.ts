@@ -58,6 +58,11 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
         submitMethod: [SubmitMethod.file],
         projectFile: ['', [Validators.required, this.maxFileSizeValidator]],
         projectUrl: ['', [this.urlValidator]],
+        validateOmexManifest: [true],
+        validateSedml: [true],
+        validateSedmlModels: [true],
+        validateOmexMetadata: [true],
+        validateImages: [true],
       },
       //{
       //  validators: this.formValidator,
@@ -170,6 +175,8 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
       return;
     }
 
+    console.log('jree')
+
     // clear previous report
     this.status = undefined;
     this.errors = undefined;
@@ -188,7 +195,14 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
 
     // call API to validate archive
     const validationSub = this.combineService
-      .validateCombineArchive(archive)
+      .validateCombineArchive(
+        archive,
+        this.formGroup.controls.validateOmexManifest.value,
+        this.formGroup.controls.validateSedml.value,
+        this.formGroup.controls.validateSedmlModels.value,
+        this.formGroup.controls.validateOmexMetadata.value,
+        this.formGroup.controls.validateImages.value,
+      )
       .subscribe((report: ValidationReport | undefined): void => {
         if (report) {
           this.status = report.status;
