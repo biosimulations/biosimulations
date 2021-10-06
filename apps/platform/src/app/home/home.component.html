@@ -5,25 +5,56 @@
   <ng-container id="buttons">
     <biosimulations-home-teaser-button
       [href]="config.simulatorsAppUrl"
-      width="160px"
+      width="180px"
       color="accent"
     >
-      <ng-container id="title">Simulation tools</ng-container>
+      <ng-container id="title">Find simulation tools</ng-container>
       <ng-container id="text">
-        <p>Share or find simulation tools</p>
         <p>@BioSimulators</p>
       </ng-container>
     </biosimulations-home-teaser-button>
 
     <biosimulations-home-teaser-button
       [route]="['/projects']"
-      width="160px"
+      width="180px"
       color="primary"
     >
-      <ng-container id="title">Simulation Projects</ng-container>
+      <ng-container id="title">Find simulations</ng-container>
       <ng-container id="text">
-        <p>Share or reuse simulation studies</p>
         <p>@BioSimulations</p>
+      </ng-container>
+    </biosimulations-home-teaser-button>
+
+    <biosimulations-home-teaser-button
+      [href]="config.dispatchAppUrl"
+      width="180px"
+      color="primary"
+    >
+      <ng-container id="title">Run simulations</ng-container>
+      <ng-container id="text">
+        <p>@runBioSimulations</p>
+      </ng-container>
+    </biosimulations-home-teaser-button>
+
+    <biosimulations-home-teaser-button
+      [href]="config.dispatchAppUrl"
+      width="180px"
+      color="primary"
+    >
+      <ng-container id="title">Viz simulation results</ng-container>
+      <ng-container id="text">
+        <p>@runBioSimulations</p>
+      </ng-container>
+    </biosimulations-home-teaser-button>
+
+    <biosimulations-home-teaser-button
+      href="https://vivarium-collective.github.io/"
+      width="180px"
+      color="accent"
+    >
+      <ng-container id="title">Combine simulations</ng-container>
+      <ng-container id="text">
+        <p>@Vivarium</p>
       </ng-container>
     </biosimulations-home-teaser-button>
   </ng-container>
