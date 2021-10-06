@@ -39,7 +39,7 @@ export class ProjectsService {
     return response;
   }
 
-  public getProject(id: string): Observable<SimulationRunMetadata> {
+  public getMetadata(id: string): Observable<SimulationRunMetadata> {
     const url = this.endpoints.getSimulationRunMetadataEndpoint(id);
     const response = this.http.get<SimulationRunMetadata>(url).pipe();
 
