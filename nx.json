@@ -191,10 +191,6 @@
         "shared:true"
       ]
     },
-    "shared-project-service": {
-      "tags": ["scope:simulations", "type:service", "platform:any"],
-      "implicitDependencies": []
-    },
     "shared-pwa": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
@@ -232,6 +228,10 @@
     "view-projects": {
       "tags": ["scope:simulations", "type:ui", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
+    },
+    "view-service": {
+      "tags": ["scope:simulations", "type:service", "platform:any"],
+      "implicitDependencies": []
     },
     "view-visualizations": {
       "tags": ["scope:shared", "type:ui", "platform:web"],

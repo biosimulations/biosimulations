@@ -26,7 +26,7 @@ import { DesignHistogram1DVisualizationComponent } from '../design-histogram-1d-
 import { DesignHeatmap2DVisualizationComponent } from '../design-heatmap-2d-viz/design-heatmap-2d-viz.component';
 import { DesignLine2DVisualizationComponent } from '../design-line-2d-viz/design-line-2d-viz.component';
 import { Spec as VegaSpec } from 'vega';
-import { ProjectsService } from '@biosimulations/shared/project-service';
+import { ProjectsService } from '@biosimulations/view-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '@biosimulations/shared/environments';
 import { Endpoints } from '@biosimulations/config/common';

@@ -5,7 +5,7 @@ import {
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { ProjectSummary, FormattedDate } from './browse.model';
-import { ProjectsService } from '@biosimulations/shared/project-service';
+import { ProjectsService } from '@biosimulations/view-service';
 import { UtilsService } from '@biosimulations/shared/services';
 
 @Injectable({

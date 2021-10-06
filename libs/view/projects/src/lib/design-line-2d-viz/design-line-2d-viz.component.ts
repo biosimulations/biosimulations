@@ -24,7 +24,7 @@ import {
   UriSetDataSetResultsMap,
   Line2DVisualization,
 } from '@biosimulations/datamodel-view';
-import { ViewService } from '@biosimulations/shared/project-service';
+import { ViewService } from '@biosimulations/view-service';
 import { Observable, map } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';
 import vegaTemplate from './vega-template.json';

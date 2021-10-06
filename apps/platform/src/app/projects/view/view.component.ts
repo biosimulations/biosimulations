@@ -10,7 +10,7 @@ import {
   VisualizationList,
   Visualization,
 } from '@biosimulations/datamodel-view';
-import { ViewService } from '@biosimulations/shared/project-service';
+import { ViewService } from '@biosimulations/view-service';
 
 @Component({
   selector: 'biosimulations-view',
