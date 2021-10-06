@@ -79,12 +79,12 @@ def handler(body, file=None):
     contents_specs = []
     for content in contents:
         content_specs = {
-            '_type': 'CombineArchiveContent',
+            '_type': 'CombineArchiveManifestContent',
             'location': {
-                '_type': 'CombineArchiveLocation',
+                '_type': 'CombineArchiveManifestLocation',
                 'path': content.location,
                 'value': {
-                    '_type': 'CombineArchiveContentFile',
+                    '_type': 'CombineArchiveManifestContentFile',
                     'filename': os.path.relpath(content.location, '.'),
                 },
             },
@@ -95,7 +95,7 @@ def handler(body, file=None):
 
     # format response
     response = {
-        '_type': 'CombineArchive',
+        '_type': 'CombineArchiveManifest',
         'contents': contents_specs
     }
 

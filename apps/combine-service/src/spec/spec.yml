@@ -95,28 +95,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CombineArchive'
+                $ref: '#/components/schemas/CombineArchiveSedDocSpecs'
               examples:
                 Example specifications of a COMBINE archive:
                   value:
-                    _type: CombineArchive
+                    _type: CombineArchiveSedDocSpecs
                     contents:
-                    - _type: CombineArchiveContent
+                    - _type: CombineArchiveSedDocSpecsContent
                       location:
-                        _type: CombineArchiveLocation
-                        path: experiment1/model.xml
-                        value:
-                          _type: CombineArchiveContentFile
-                          filename: model.xml
-                      format: http://identifiers.org/combine.specifications/sbml
-                      master: false
-                    - _type: CombineArchiveContent
-                      location:
-                        _type: CombineArchiveLocation
+                        _type: CombineArchiveSedDocSpecsLocation
                         path: experiment1/simulation.sedml
                         value:
-                          _type: CombineArchiveContentUrl
-                          url: https://simulation.org/simulation.sedml
+                          _type: SedDocument
+                          level: 1
+                          version: 3
+                          models: []
+                          simulations: []
+                          tasks: []
+                          dataGenerators: []
+                          outputs: []
                       format: http://identifiers.org/combine.specifications/sed-ml
                       master: true
           description: Specifications of the SED-ML files in the COMBINE/OMEX archive.
@@ -498,30 +495,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CombineArchive'
+                $ref: '#/components/schemas/CombineArchiveManifest'
               examples:
                 Example specifications of a COMBINE archive:
                   value:
-                    _type: CombineArchive
+                    _type: CombineArchiveManifest
                     contents:
-                    - _type: CombineArchiveContent
+                    - _type: CombineArchiveManifestContent
                       location:
-                        _type: CombineArchiveLocation
+                        _type: CombineArchiveManifestLocation
                         path: experiment1/model.xml
                         value:
-                          _type: CombineArchiveContentFile
+                          _type: CombineArchiveManifestContentFile
                           filename: model.xml
                       format: http://identifiers.org/combine.specifications/sbml
                       master: false
-                    - _type: CombineArchiveContent
-                      location:
-                        _type: CombineArchiveLocation
-                        path: experiment1/simulation.sedml
-                        value:
-                          _type: CombineArchiveContentUrl
-                          url: https://simulation.org/simulation.sedml
-                      format: http://identifiers.org/combine.specifications/sed-ml
-                      master: true
           description: Specifications of the SED-ML files in the COMBINE/OMEX archive.
         "400":
           content:
@@ -1501,6 +1489,226 @@ components:
         value:
           _type: CombineArchiveContentFile
           filename: model.xml
+    CombineArchiveManifest:
+      description: A COMBINE/OMEX archive.
+      required:
+      - contents
+      - _type
+      type: object
+      properties:
+        contents:
+          description: The content of the archive
+          type: array
+          items:
+            $ref: '#/components/schemas/CombineArchiveManifestContent'
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveManifest
+          type: string
+      example:
+        _type: CombineArchiveManifest
+        contents:
+        - _type: CombineArchiveManifestContent
+          location:
+            _type: CombineArchiveManifestLocation
+            path: experiment1/model.xml
+            value:
+              _type: CombineArchiveManifestContentFile
+              filename: model.xml
+          format: http://identifiers.org/combine.specifications/sbml
+          master: false
+        - _type: CombineArchiveManifestContent
+          location:
+            _type: CombineArchiveManifestLocation
+            path: experiment1/simulation.sedml
+            value:
+              _type: CombineArchiveManifestContentUrl
+              url: https://simulation.org/simulation.sedml
+          format: http://identifiers.org/combine.specifications/sed-ml
+          master: true
+    CombineArchiveManifestContent:
+      description: Content item of a COMBINE/OMEX archive.
+      required:
+      - location
+      - format
+      - master
+      - _type
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/CombineArchiveManifestLocation'
+          description: Location within its parent COMBINE/OMEX archive.
+        format:
+          description: URI for a format.
+          type: string
+        master:
+          description: ""
+          type: boolean
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveManifestContent
+          type: string
+      example:
+        _type: CombineArchiveManifestContent
+        location:
+          _type: CombineArchiveManifestLocation
+          path: experiment1/model.xml
+          value:
+            _type: CombineArchiveManifestContentFile
+            filename: model.xml
+        format: http://identifiers.org/combine.specifications/sbml
+        master: true
+    CombineArchiveManifestLocation:
+      description: Location of an item in a COMBINE/OMEX archive and its value.
+      required:
+      - path
+      - value
+      - _type
+      type: object
+      properties:
+        path:
+          description: Path within a COMBINE/OMEX archive.
+          type: string
+        value:
+          $ref: '#/components/schemas/CombineArchiveManifestContentFile'
+          description: Value of the content item of the COMBINE/OMEX archive.
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveManifestLocation
+          type: string
+      example:
+        _type: CombineArchiveManifestLocation
+        path: experiment1/model.xml
+        value:
+          _type: CombineArchiveManifestContentFile
+          filename: model.xml
+    CombineArchiveManifestContentFile:
+      description: File
+      required:
+      - _type
+      - filename
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveManifestContentFile
+          type: string
+        filename:
+          description: Location where the file should be placed inside the COMBINE/OMEX
+            archive
+          type: string
+      example:
+        _type: CombineArchiveManifestContentFile
+        filename: model.xml
+    CombineArchiveSedDocSpecs:
+      description: The specifications of the SED-ML files in a COMBINE/OMEX archive.
+      required:
+      - contents
+      - _type
+      type: object
+      properties:
+        contents:
+          description: The content of the archive
+          type: array
+          items:
+            $ref: '#/components/schemas/CombineArchiveSedDocSpecsContent'
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveSedDocSpecs
+          type: string
+      example:
+        _type: CombineArchiveSedDocSpecs
+        contents:
+        - _type: CombineArchiveSedDocSpecsContent
+          location:
+            _type: CombineArchiveSedDocSpecsLocation
+            path: experiment1/simulation.sedml
+            value:
+              _type: SedDocument
+              level: 1
+              version: 3
+              models: []
+              simulations: []
+              tasks: []
+              dataGenerators: []
+              outputs: []
+          format: http://identifiers.org/combine.specifications/sed-ml
+          master: true
+    CombineArchiveSedDocSpecsContent:
+      description: Content item of a COMBINE/OMEX archive.
+      required:
+      - location
+      - format
+      - master
+      - _type
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/CombineArchiveSedDocSpecsLocation'
+          description: Location within its parent COMBINE/OMEX archive.
+        format:
+          description: URI for a format.
+          type: string
+        master:
+          description: ""
+          type: boolean
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveSedDocSpecsContent
+          type: string
+      example:
+        _type: CombineArchiveSedDocSpecsContent
+        location:
+          _type: CombineArchiveSedDocSpecsLocation
+          path: experiment1/simulation.sedml
+          value:
+            _type: SedDocument
+            level: 1
+            version: 3
+            models: []
+            simulations: []
+            tasks: []
+            dataGenerators: []
+            outputs: []
+        format: http://identifiers.org/combine.specifications/sed-ml
+        master: true
+    CombineArchiveSedDocSpecsLocation:
+      description: Location of an item in a COMBINE/OMEX archive and its value.
+      required:
+      - path
+      - value
+      - _type
+      type: object
+      properties:
+        path:
+          description: Path within a COMBINE/OMEX archive.
+          type: string
+        value:
+          $ref: '#/components/schemas/SedDocument'
+          description: Specifications of the SED document.
+        _type:
+          description: Type.
+          enum:
+          - CombineArchiveSedDocSpecsLocation
+          type: string
+      example:
+        _type: CombineArchiveSedDocSpecsLocation
+        path: experiment1/model.xml
+        value:
+          _type: SedDocument
+          level: 1
+          version: 3
+          models: []
+          simulations: []
+          tasks: []
+          dataGenerators: []
+          outputs: []
     SedModel:
       description: A SED model.
       required:
