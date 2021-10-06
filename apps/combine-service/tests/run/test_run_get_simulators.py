@@ -74,6 +74,8 @@ EXAMPLES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/r
 
 
 class SimulatorsHaveValidApisTestCase(unittest.TestCase):
+    TIMEOUT = 5 * 60  # maximum execution time per test in seconds
+
     def setUp(self):
         self.tmp_dirname = tempfile.mkdtemp()
 
@@ -89,7 +91,8 @@ class SimulatorsHaveValidApisTestCase(unittest.TestCase):
         )
     )
     def test(self, id, simulator):
-        exec_in_subprocess(self._test, simulator['api']['module'], simulator['exampleCombineArchive'], self.tmp_dirname)
+        exec_in_subprocess(self._test, simulator['api']['module'], simulator['exampleCombineArchive'], self.tmp_dirname,
+                           timeout=self.TIMEOUT)
 
     @staticmethod
     def _test(simulator_module, example_combine_archive, tmp_dirname):
