@@ -40,6 +40,10 @@
      {
       "matchPackagePrefixes": [ "@angular" ],
       "groupName": "angular"
+    },
+    {
+      "matchPackagePrefixes": ['aws-sdk'],
+      "automerge":true
     }
   ],
   "prConcurrentLimit": 5
