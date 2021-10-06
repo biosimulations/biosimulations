@@ -8,11 +8,11 @@ BioSimulations addresses these challenges by making it easier for researchers to
 
 ## Supported modeling frameworks, algorithms, formats and software tools
 
-BioSimulations supports all modeling frameworks and model formats. However, currrently BioSimulations can only simulate logical, Flux Balance Analysis (FBA), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) models that are described in using the [BioNetGen Language (BNGL)](https://bionetgen.org)  or the [Systems Biology Markup Language (SBML)](https://sbml.org) .
+BioSimulations supports all modeling frameworks and model formats. However, currently BioSimulations can only simulate logical, Flux Balance Analysis (FBA), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) models that are described in using the [BioNetGen Language (BNGL)](https://bionetgen.org)  or the [Systems Biology Markup Language (SBML)](https://sbml.org) .
 
 BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Through BioSimulators, BioSimulations supports a numerous algorithms for simulating logical, FBA, and kinetic models. BioSimulators builds upon [Docker](https://docker.com)  and [BioContainers](https://biocontainers.pro) . Please see [BioSimulators](https://biosimulators.org)  for more information about supported modeling frameworks, simulation algorithms, model formats, and simulation software tools.
 
-## Soure Model Repositories
+## Source Model Repositories
 
 In addition to models, simulations, and visualizations contributed by investigators, BioSimulations contains models, simulations, and visualizations imported from BiGG , BioModels , and Cell Collective . BioSimulations provides a central place to find and reuse these models.
 
