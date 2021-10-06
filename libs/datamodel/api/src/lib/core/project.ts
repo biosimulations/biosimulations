@@ -1,47 +1,16 @@
-import {
-  ApiExtraModels,
-  ApiProperty,
-  ApiResponseProperty,
-  IntersectionType,
-  OmitType,
-} from '@nestjs/swagger';
-import {
-  ArchiveMetadata,
-  ArchiveMetadataContainer,
-} from '../common/archiveMetadata';
+import { ApiProperty, ApiResponseProperty, OmitType } from '@nestjs/swagger';
 
-@ApiExtraModels(ArchiveMetadata)
-export class SimulationRunMetadata {
-  @ApiProperty({ example: '609aeb11d70ea3752d097015' })
+export class Project {
+  @ApiProperty({ type: String, description: 'Project id' })
   public id!: string;
-  @ApiProperty({ name: 'public', example: true })
-  public isPublic!: boolean;
-  @ApiProperty({ type: [ArchiveMetadata] })
-  public metadata!: ArchiveMetadata[];
+  @ApiProperty({ type: String, description: 'Simulation Run id' })
+  public simulationRun!: string;
 
-  @ApiResponseProperty()
-  public created: string;
+  @ApiResponseProperty({})
+  public created!: string;
 
-  @ApiResponseProperty()
-  public modified: string;
-
-  public constructor(
-    simulationRun: string,
-    metadata: ArchiveMetadata[],
-    isPublic: boolean,
-    created: string,
-    modified: string,
-  ) {
-    this.id = simulationRun;
-    this.isPublic = isPublic;
-    this.metadata = metadata;
-    this.created = created;
-    this.modified = modified;
-  }
+  @ApiResponseProperty({})
+  public updated!: string;
 }
 
-// eslint-disable-next-line max-len
-export class SimulationRunMetadataInput extends IntersectionType(
-  OmitType(SimulationRunMetadata, ['metadata', 'created', 'modified'] as const),
-  ArchiveMetadataContainer,
-) {}
+export class ProjectInput extends OmitType(Project, ['created', 'updated']) {}
