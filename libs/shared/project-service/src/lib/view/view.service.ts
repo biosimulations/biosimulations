@@ -244,7 +244,7 @@ export class ViewService {
 
   private getProjectMetadata(id: string): Observable<ArchiveMetadata[]> {
     const response: Observable<ArchiveMetadata[]> = this.service
-      .getProject(id)
+      .getMetadata(id)
       .pipe(
         // Only call the HTTP service once
         shareReplay(1),
