@@ -21,6 +21,7 @@ import { MetadataModule } from '../metadata/metadata.module';
 import { OntologiesModule } from '../ontologies/ontologies.module';
 import { FilesModule } from '../files/files.module';
 import { SpecificationsModule } from '../specifications/specifications.module';
+import { ProjectsModule } from '../projects/projects.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { SpecificationsModule } from '../specifications/specifications.module';
     SharedStorageModule,
     FilesModule,
     SpecificationsModule,
+    ProjectsModule,
   ],
   controllers: [AppController],
   providers: [],
