@@ -1,5 +1,5 @@
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
-import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { SimulationRunService } from '@biosimulations/backend-api-client';
 import { HttpModule } from '@nestjs/axios';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CombineWrapperService } from '../combineWrapper.service';

@@ -1,4 +1,4 @@
-import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { SimulationRunService } from '@biosimulations/backend-api-client';
 import { MailClientService } from '@biosimulations/mail-service/client';
 import { Test, TestingModule } from '@nestjs/testing';
 

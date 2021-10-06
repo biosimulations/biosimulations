@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { SimulationRunService } from '@biosimulations/backend-api-client';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 

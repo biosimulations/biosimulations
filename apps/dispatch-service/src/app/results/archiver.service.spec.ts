@@ -3,7 +3,7 @@ import { ArchiverService } from './archiver.service';
 import { ConfigService } from '@nestjs/config';
 
 import { HttpService } from '@nestjs/axios';
-import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { SimulationRunService } from '@biosimulations/backend-api-client';
 import { SshService } from '../services/ssh/ssh.service';
 
 class MockSimulationService {

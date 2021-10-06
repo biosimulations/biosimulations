@@ -3,7 +3,7 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MailServiceClientModule } from '@biosimulations/mail-service/client';
-import { DispatchNestClientModule } from '@biosimulations/dispatch/nest-client';
+import { DispatchNestClientModule } from '@biosimulations/backend-api-client';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 @Module({
   imports: [

@@ -18,7 +18,7 @@ import {
 } from '@biosimulations/combine-api-client';
 import {} from '@biosimulations/datamodel/common';
 import { ProjectFile, SubmitProjectFile } from '@biosimulations/datamodel/api';
-import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { SimulationRunService } from '@biosimulations/backend-api-client';
 
 @Injectable()
 export class FileService {
