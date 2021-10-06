@@ -704,7 +704,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.999.0
+├─ aws-sdk@2.1001.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services
