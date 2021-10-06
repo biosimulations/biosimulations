@@ -3,4 +3,4 @@ mkdocs-git-revision-date-plugin
 mkdocs-awesome-pages-plugin
 mkdocs-redirects
 mkdocstrings
-mkdocs-same-dir
+git+git://github.com/oprypin/mkdocs-same-dir@9256b0d96b15080c6f73c47f6e76ba33997baaf9#egg=mkdocs-same-dir
