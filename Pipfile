@@ -63,6 +63,7 @@ pytest-cov = "*"
 openapi-spec-validator = "*"
 parameterized = "*"
 requests = "*"
+pytest-timeout = "*"
 
 [requires]
 python_version = "3.9"
