@@ -8,7 +8,7 @@
 import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, Document } from 'mongoose';
-import { ObjectIdValidator } from '@biosimulations/datamodel/common';
+import { ObjectIdValidator } from '@biosimulations/datamodel-database';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 
 @Schema({ collection: 'Simulation Run Logs', minimize: false })

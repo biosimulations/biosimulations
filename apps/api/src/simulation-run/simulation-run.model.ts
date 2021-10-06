@@ -9,7 +9,7 @@ import { Document } from 'mongoose';
 import { Types } from 'mongoose';
 import { SimulationFile } from './file.model';
 import { SimulationRunStatus, Purpose } from '@biosimulations/datamodel/common';
-import { omitPrivate } from '@biosimulations/datamodel/common';
+import { omitPrivate } from '@biosimulations/datamodel-database';
 import { isEmail, isUrl } from '@biosimulations/datamodel-database';
 
 @Schema({ collection: 'Simulation Runs', id: false })

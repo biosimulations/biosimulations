@@ -31,3 +31,27 @@ export interface Url {
   title: string | null;
   type: UrlType;
 }
+
+export function sortUrls(a: Url, b: Url): number {
+  if (a.type === b.type) {
+    return 0;
+  }
+
+  let aVal = 0;
+  let bVal = 0;
+  for (const [val, label] of Object.entries(UrlType)) {
+    if (label === a.type) {
+      aVal = parseInt(val.substring(5));
+    }
+
+    if (label === b.type) {
+      bVal = parseInt(val.substring(5));
+    }
+  }
+
+  if (aVal < bVal) {
+    return -1;
+  } else {
+    return 1;
+  }
+}

@@ -6,10 +6,9 @@ import {
   ArchiveMetadata,
   DescribedIdentifier,
   LabeledIdentifier,
-  ObjectIdValidator,
 } from '@biosimulations/datamodel/common';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
-
+import { ObjectIdValidator } from '@biosimulations/datamodel-database';
 @Schema({
   _id: false,
   storeSubdocValidationError: false,

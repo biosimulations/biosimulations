@@ -1,4 +1,4 @@
-import { ObjectIdValidator } from '@biosimulations/datamodel/common';
+import { ObjectIdValidator } from '@biosimulations/datamodel-database';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { Document } from 'mongoose';
