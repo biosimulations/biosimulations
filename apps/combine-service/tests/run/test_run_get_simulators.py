@@ -4,6 +4,7 @@ from src.handlers.run.utils import get_simulator_api, get_simulators, exec_in_su
 from unittest import mock
 import os
 import parameterized
+import pytest
 import requests
 import shutil
 import tempfile
@@ -72,10 +73,10 @@ if SKIPPED_SIMULATORS is not None:
 
 EXAMPLES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/raw/deploy/examples'
 
+TIMEOUT = 5 * 60  # maximum execution time per test in seconds
+
 
 class SimulatorsHaveValidApisTestCase(unittest.TestCase):
-    TIMEOUT = 5 * 60  # maximum execution time per test in seconds
-
     def setUp(self):
         self.tmp_dirname = tempfile.mkdtemp()
 
@@ -90,9 +91,10 @@ class SimulatorsHaveValidApisTestCase(unittest.TestCase):
             and (SKIPPED_SIMULATORS is None or simulator['id'] not in SKIPPED_SIMULATORS)
         )
     )
+    @pytest.mark.timeout(TIMEOUT * 1.25)
     def test(self, id, simulator):
         exec_in_subprocess(self._test, simulator['api']['module'], simulator['exampleCombineArchive'], self.tmp_dirname,
-                           timeout=self.TIMEOUT)
+                           timeout=TIMEOUT)
 
     @staticmethod
     def _test(simulator_module, example_combine_archive, tmp_dirname):
