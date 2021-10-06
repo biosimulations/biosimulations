@@ -198,55 +198,55 @@ class HandlersTestCase(unittest.TestCase):
         manifest = response.json
 
         expected_manifest = {
-            '_type': 'CombineArchive',
+            '_type': 'CombineArchiveManifest',
             'contents': [
                 {
-                    '_type': 'CombineArchiveContent',
+                    '_type': 'CombineArchiveManifestContent',
                     'format': 'http://identifiers.org/combine.specifications/sbml',
                     'location': {
-                        '_type': 'CombineArchiveLocation',
+                        '_type': 'CombineArchiveManifestLocation',
                         'path': './Caravagna2010.xml',
                         'value': {
-                            '_type': 'CombineArchiveContentFile',
+                            '_type': 'CombineArchiveManifestContentFile',
                             'filename': 'Caravagna2010.xml',
                         },
                     },
                     'master': False
                 },
                 {
-                    '_type': 'CombineArchiveContent',
+                    '_type': 'CombineArchiveManifestContent',
                     'format': 'http://identifiers.org/combine.specifications/sed-ml',
                     'location': {
-                        '_type': 'CombineArchiveLocation',
+                        '_type': 'CombineArchiveManifestLocation',
                         'path': './BIOMD0000000912_sim.sedml',
                         'value': {
-                            '_type': 'CombineArchiveContentFile',
+                            '_type': 'CombineArchiveManifestContentFile',
                             'filename': 'BIOMD0000000912_sim.sedml',
                         },
                     },
                     'master': True
                 },
                 {
-                    '_type': 'CombineArchiveContent',
+                    '_type': 'CombineArchiveManifestContent',
                     'format': 'http://identifiers.org/combine.specifications/omex',
                     'location': {
-                        '_type': 'CombineArchiveLocation',
+                        '_type': 'CombineArchiveManifestLocation',
                         'path': '.',
                         'value': {
-                            '_type': 'CombineArchiveContentFile',
+                            '_type': 'CombineArchiveManifestContentFile',
                             'filename': '.',
                         },
                     },
                     'master': False
                 },
                 {
-                    '_type': 'CombineArchiveContent',
+                    '_type': 'CombineArchiveManifestContent',
                     'format': 'http://identifiers.org/combine.specifications/omex-metadata',
                     'location': {
-                        '_type': 'CombineArchiveLocation',
+                        '_type': 'CombineArchiveManifestLocation',
                         'path': 'metadata.rdf',
                         'value': {
-                            '_type': 'CombineArchiveContentFile',
+                            '_type': 'CombineArchiveManifestContentFile',
                             'filename': 'metadata.rdf',
                         },
                     },
@@ -291,55 +291,55 @@ class HandlersTestCase(unittest.TestCase):
         manifest = response.json
 
         expected_manifest = {
-            '_type': 'CombineArchive',
+            '_type': 'CombineArchiveManifest',
             'contents': [
                 {
-                    '_type': 'CombineArchiveContent',
+                    '_type': 'CombineArchiveManifestContent',
                     'format': 'http://identifiers.org/combine.specifications/sbml',
                     'location': {
-                        '_type': 'CombineArchiveLocation',
+                        '_type': 'CombineArchiveManifestLocation',
                         'path': './Caravagna2010.xml',
                         'value': {
-                            '_type': 'CombineArchiveContentFile',
+                            '_type': 'CombineArchiveManifestContentFile',
                             'filename': 'Caravagna2010.xml',
                         },
                     },
                     'master': False
                 },
                 {
-                    '_type': 'CombineArchiveContent',
+                    '_type': 'CombineArchiveManifestContent',
                     'format': 'http://identifiers.org/combine.specifications/sed-ml',
                     'location': {
-                        '_type': 'CombineArchiveLocation',
+                        '_type': 'CombineArchiveManifestLocation',
                         'path': './BIOMD0000000912_sim.sedml',
                         'value': {
-                            '_type': 'CombineArchiveContentFile',
+                            '_type': 'CombineArchiveManifestContentFile',
                             'filename': 'BIOMD0000000912_sim.sedml',
                         },
                     },
                     'master': True
                 },
                 {
-                    '_type': 'CombineArchiveContent',
+                    '_type': 'CombineArchiveManifestContent',
                     'format': 'http://identifiers.org/combine.specifications/omex',
                     'location': {
-                        '_type': 'CombineArchiveLocation',
+                        '_type': 'CombineArchiveManifestLocation',
                         'path': '.',
                         'value': {
-                            '_type': 'CombineArchiveContentFile',
+                            '_type': 'CombineArchiveManifestContentFile',
                             'filename': '.',
                         },
                     },
                     'master': False
                 },
                 {
-                    '_type': 'CombineArchiveContent',
+                    '_type': 'CombineArchiveManifestContent',
                     'format': 'http://identifiers.org/combine.specifications/omex-metadata',
                     'location': {
-                        '_type': 'CombineArchiveLocation',
+                        '_type': 'CombineArchiveManifestLocation',
                         'path': 'metadata.rdf',
                         'value': {
-                            '_type': 'CombineArchiveContentFile',
+                            '_type': 'CombineArchiveManifestContentFile',
                             'filename': 'metadata.rdf',
                         },
                     },

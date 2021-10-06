@@ -391,9 +391,9 @@ def handler(body, file=None):
         }
 
         content_specs = {
-            '_type': 'CombineArchiveContent',
+            '_type': 'CombineArchiveSedDocSpecsContent',
             'location': {
-                '_type': 'CombineArchiveLocation',
+                '_type': 'CombineArchiveSedDocSpecsLocation',
                 'path': content.location,
                 'value': sed_doc_specs,
             },
@@ -404,7 +404,7 @@ def handler(body, file=None):
 
     # format response
     response = {
-        '_type': 'CombineArchive',
+        '_type': 'CombineArchiveSedDocSpecs',
         'contents': contents_specs
     }
 

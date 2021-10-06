@@ -1,10 +1,10 @@
 {
-  "_type": "CombineArchive",
+  "_type": "CombineArchiveSedDocSpecs",
   "contents": [
     {
-      "_type": "CombineArchiveContent",
+      "_type": "CombineArchiveSedDocSpecsContent",
       "location": {
-        "_type": "CombineArchiveLocation",
+        "_type": "CombineArchiveSedDocSpecsLocation",
         "path": "./BIOMD0000000912_sim.sedml",
         "value": {
           "_type": "SedDocument",
