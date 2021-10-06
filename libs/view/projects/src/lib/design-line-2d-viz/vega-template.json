@@ -3,7 +3,8 @@
   "width": 600,
   "height": 400,
   "padding": 0,
-  "signals": [{
+  "signals": [
+    {
       "name": "xScaleType",
       "value": "log"
     },
@@ -74,39 +75,47 @@
     {
       "name": "clear",
       "value": true,
-      "on": [{
-        "events": "mouseup[!event.item]",
-        "update": "true",
-        "force": true
-      }]
+      "on": [
+        {
+          "events": "mouseup[!event.item]",
+          "update": "true",
+          "force": true
+        }
+      ]
     },
     {
       "name": "shift",
       "value": false,
-      "on": [{
-        "events": "@legendSymbol:click, @legendLabel:click",
-        "update": "event.shiftKey",
-        "force": true
-      }]
+      "on": [
+        {
+          "events": "@legendSymbol:click, @legendLabel:click",
+          "update": "event.shiftKey",
+          "force": true
+        }
+      ]
     },
     {
       "name": "clicked",
       "value": null,
-      "on": [{
-        "events": "@legendSymbol:click, @legendLabel:click",
-        "update": "{value: datum.value}",
-        "force": true
-      }]
+      "on": [
+        {
+          "events": "@legendSymbol:click, @legendLabel:click",
+          "update": "{value: datum.value}",
+          "force": true
+        }
+      ]
     }
   ],
-  "data": [{
+  "data": [
+    {
       "name": "rawData0",
       "sedmlUri": ["location/of/simulation.sedml", "idOfReport"]
     },
     {
       "name": "rawData0_filtered",
       "source": "rawData0",
-      "transform": [{
+      "transform": [
+        {
           "type": "filter",
           "expr": "indexof(['data_set_1_id', 'data_set_2_id'], datum.id) !== -1"
         },
@@ -120,16 +129,19 @@
     {
       "name": "rawData_joined",
       "source": ["rawData0_filtered"],
-      "transform": [{
-        "type": "cross",
-        "as": ["X", "Y"],
-        "filter": "(datum.X.reportUri === 'simulation_1.sedml/report' && datum.X.id == 'data_set_time' && datum.Y.reportUri === 'simulation_1.sedml/report' && datum.Y.id == 'data_set_Sic') || (datum.X.reportUri === 'simulation_1.sedml/report' && datum.X.id == 'data_set_time' && datum.Y.reportUri === 'simulation_1.sedml/report' && datum.Y.id == 'data_set_Cdc20a')"
-      }]
+      "transform": [
+        {
+          "type": "cross",
+          "as": ["X", "Y"],
+          "filter": "(datum.X.reportUri === 'simulation_1.sedml/report' && datum.X.id == 'data_set_time' && datum.Y.reportUri === 'simulation_1.sedml/report' && datum.Y.id == 'data_set_Sic') || (datum.X.reportUri === 'simulation_1.sedml/report' && datum.X.id == 'data_set_time' && datum.Y.reportUri === 'simulation_1.sedml/report' && datum.Y.id == 'data_set_Cdc20a')"
+        }
+      ]
     },
     {
       "name": "xyData",
       "source": "rawData_joined",
-      "transform": [{
+      "transform": [
+        {
           "type": "formula",
           "expr": "datum.X.values",
           "as": "x"
@@ -171,7 +183,8 @@
     },
     {
       "name": "selected",
-      "on": [{
+      "on": [
+        {
           "trigger": "clear",
           "remove": true
         },
@@ -190,7 +203,8 @@
       ]
     }
   ],
-  "scales": [{
+  "scales": [
+    {
       "name": "xScale",
       "type": "linear",
       "range": [
@@ -207,7 +221,8 @@
     {
       "name": "yScale",
       "type": "linear",
-      "range": [{
+      "range": [
+        {
           "signal": "axesPadding"
         },
         {
@@ -230,7 +245,8 @@
       }
     }
   ],
-  "axes": [{
+  "axes": [
+    {
       "orient": "bottom",
       "offset": {
         "signal": "axesPadding - axesHeight"
@@ -257,158 +273,167 @@
       }
     }
   ],
-  "marks": [{
-    "type": "group",
-    "from": {
-      "facet": {
-        "name": "series",
-        "data": "xyData",
-        "groupby": "label"
-      }
-    },
-    "marks": [{
-        "type": "symbol",
-        "from": {
-          "data": "series"
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "xyData",
+          "groupby": "label"
+        }
+      },
+      "marks": [
+        {
+          "type": "symbol",
+          "from": {
+            "data": "series"
+          },
+          "encode": {
+            "enter": {
+              "x": {
+                "scale": "xScale",
+                "field": "x"
+              },
+              "y": {
+                "scale": "yScale",
+                "field": "y"
+              },
+              "fill": {
+                "scale": "colorScale",
+                "field": "label"
+              },
+              "tooltip": {
+                "field": "label"
+              }
+            },
+            "update": {
+              "size": {
+                "signal": "style == 'markers' ? symbolSize : 0"
+              },
+              "strokeOpacity": [
+                {
+                  "test": "(!length(data('selected')) || indata('selected', 'value', datum.label))",
+                  "value": 1
+                },
+                {
+                  "value": 0.15
+                }
+              ]
+            },
+            "hover": {
+              "strokeOpacity": {
+                "value": 0.5
+              }
+            }
+          }
         },
-        "encode": {
-          "enter": {
-            "x": {
-              "scale": "xScale",
-              "field": "x"
+        {
+          "type": "line",
+          "from": {
+            "data": "series"
+          },
+          "encode": {
+            "enter": {
+              "x": {
+                "scale": "xScale",
+                "field": "x"
+              },
+              "y": {
+                "scale": "yScale",
+                "field": "y"
+              },
+              "stroke": {
+                "scale": "colorScale",
+                "field": "label"
+              },
+              "tooltip": {
+                "field": "label"
+              }
             },
-            "y": {
-              "scale": "yScale",
-              "field": "y"
+            "update": {
+              "strokeWidth": {
+                "signal": "style === 'lines' ? lineWidth : 0"
+              },
+              "strokeOpacity": [
+                {
+                  "test": "(!length(data('selected')) || indata('selected', 'value', datum.label))",
+                  "value": 1
+                },
+                {
+                  "value": 0.15
+                }
+              ]
             },
+            "hover": {
+              "strokeOpacity": {
+                "value": 0.5
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "legends": [
+    {
+      "stroke": "colorScale",
+      "orient": "none",
+      "legendX": {
+        "signal": "0"
+      },
+      "legendY": {
+        "signal": "legendYOffset"
+      },
+      "encode": {
+        "symbols": {
+          "name": "legendSymbol",
+          "interactive": true,
+          "update": {
             "fill": {
-              "scale": "colorScale",
-              "field": "label"
+              "value": "transparent"
             },
-            "tooltip": {
-              "field": "label"
-            }
-          },
-          "update": {
-            "size": {
-              "signal": "style == 'markers' ? symbolSize : 0"
-            },
-            "strokeOpacity": [{
-                "test": "(!length(data('selected')) || indata('selected', 'value', datum.label))",
-                "value": 1
-              },
-              {
-                "value": 0.15
-              }
-            ]
-          },
-          "hover": {
-            "strokeOpacity": {
-              "value": 0.5
-            }
-          }
-        }
-      },
-      {
-        "type": "line",
-        "from": {
-          "data": "series"
-        },
-        "encode": {
-          "enter": {
-            "x": {
-              "scale": "xScale",
-              "field": "x"
-            },
-            "y": {
-              "scale": "yScale",
-              "field": "y"
-            },
-            "stroke": {
-              "scale": "colorScale",
-              "field": "label"
-            },
-            "tooltip": {
-              "field": "label"
-            }
-          },
-          "update": {
             "strokeWidth": {
-              "signal": "style === 'lines' ? lineWidth : 0"
+              "value": 2
             },
-            "strokeOpacity": [{
-                "test": "(!length(data('selected')) || indata('selected', 'value', datum.label))",
-                "value": 1
+            "opacity": [
+              {
+                "test": "length(data('rawData_joined')) <= 1",
+                "value": 0
+              },
+              {
+                "test": "!length(data('selected')) || indata('selected', 'value', datum.value)",
+                "value": 0.7
               },
               {
                 "value": 0.15
               }
+            ],
+            "size": {
+              "value": 64
+            }
+          }
+        },
+        "labels": {
+          "name": "legendLabel",
+          "interactive": true,
+          "update": {
+            "opacity": [
+              {
+                "test": "length(data('rawData_joined')) <= 1",
+                "value": 0
+              },
+              {
+                "test": "!length(data('selected')) || indata('selected', 'value', datum.value)",
+                "value": 1
+              },
+              {
+                "value": 0.25
+              }
             ]
-          },
-          "hover": {
-            "strokeOpacity": {
-              "value": 0.5
-            }
           }
-        }
-      }
-    ]
-  }],
-  "legends": [{
-    "stroke": "colorScale",
-    "orient": "none",
-    "legendX": {
-      "signal": "0"
-    },
-    "legendY": {
-      "signal": "legendYOffset"
-    },
-    "encode": {
-      "symbols": {
-        "name": "legendSymbol",
-        "interactive": true,
-        "update": {
-          "fill": {
-            "value": "transparent"
-          },
-          "strokeWidth": {
-            "value": 2
-          },
-          "opacity": [{
-              "test": "length(data('rawData_joined')) <= 1",
-              "value": 0
-            },
-            {
-              "test": "!length(data('selected')) || indata('selected', 'value', datum.value)",
-              "value": 0.7
-            },
-            {
-              "value": 0.15
-            }
-          ],
-          "size": {
-            "value": 64
-          }
-        }
-      },
-      "labels": {
-        "name": "legendLabel",
-        "interactive": true,
-        "update": {
-          "opacity": [{
-              "test": "length(data('rawData_joined')) <= 1",
-              "value": 0
-            },
-            {
-              "test": "!length(data('selected')) || indata('selected', 'value', datum.value)",
-              "value": 1
-            },
-            {
-              "value": 0.25
-            }
-          ]
         }
       }
     }
-  }]
+  ]
 }

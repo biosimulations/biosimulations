@@ -4,7 +4,8 @@
   "width": 400,
   "height": 200,
   "padding": 0,
-  "signals": [{
+  "signals": [
+    {
       "name": "histogramExtent",
       "value": [null, null]
     },
@@ -59,7 +60,8 @@
     {
       "name": "binsHover",
       "value": null,
-      "on": [{
+      "on": [
+        {
           "events": "rect:mouseover",
           "update": "datum"
         },
@@ -72,7 +74,8 @@
     {
       "name": "kdeHover",
       "value": null,
-      "on": [{
+      "on": [
+        {
           "events": "symbol:mouseover",
           "update": "datum"
         },
@@ -83,17 +86,20 @@
       ]
     }
   ],
-  "data": [{
+  "data": [
+    {
       "name": "rawData0",
       "sedmlUri": ["location/of/simulation.sedml", "idOfReport"]
     },
     {
       "name": "rawData0_filtered",
       "source": "rawData0",
-      "transform": [{
-        "type": "filter",
-        "expr": "indexof(['data_set_1_id', 'data_set_2_id'], datum.id) !== -1"
-      }]
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "indexof(['data_set_1_id', 'data_set_2_id'], datum.id) !== -1"
+        }
+      ]
     },
     {
       "name": "rawData_joined",
@@ -103,25 +109,30 @@
     {
       "name": "rawData_flattened",
       "source": "rawData_joined",
-      "transform": [{
-        "type": "flatten",
-        "fields": ["values"]
-      }]
+      "transform": [
+        {
+          "type": "flatten",
+          "fields": ["values"]
+        }
+      ]
     },
     {
       "name": "rawData_extrema",
       "source": "rawData_flattened",
-      "transform": [{
-        "type": "aggregate",
-        "fields": ["values", "values", "values"],
-        "ops": ["min", "max", "count"],
-        "as": ["min", "max", "count"]
-      }]
+      "transform": [
+        {
+          "type": "aggregate",
+          "fields": ["values", "values", "values"],
+          "ops": ["min", "max", "count"],
+          "as": ["min", "max", "count"]
+        }
+      ]
     },
     {
       "name": "bins",
       "source": "rawData_flattened",
-      "transform": [{
+      "transform": [
+        {
           "type": "bin",
           "field": "values",
           "extent": {
@@ -153,27 +164,30 @@
     {
       "name": "kde",
       "source": "rawData_flattened",
-      "transform": [{
-        "type": "kde",
-        "field": "values",
-        "extent": {
-          "signal": "KdeExtent"
-        },
-        "counts": true,
-        "bandwidth": {
-          "signal": "KdeBandwidth"
-        },
-        "minsteps": {
-          "signal": "MinKdeSteps"
-        },
-        "maxsteps": {
-          "signal": "MaxKdeSteps"
-        },
-        "as": ["value", "freq"]
-      }]
+      "transform": [
+        {
+          "type": "kde",
+          "field": "values",
+          "extent": {
+            "signal": "KdeExtent"
+          },
+          "counts": true,
+          "bandwidth": {
+            "signal": "KdeBandwidth"
+          },
+          "minsteps": {
+            "signal": "MinKdeSteps"
+          },
+          "maxsteps": {
+            "signal": "MaxKdeSteps"
+          },
+          "as": ["value", "freq"]
+        }
+      ]
     }
   ],
-  "scales": [{
+  "scales": [
+    {
       "name": "xScale",
       "type": "linear",
       "domain": {
@@ -183,9 +197,12 @@
       "zero": {
         "signal": "xScaleZero"
       },
-      "range": [0, {
-        "signal": "width - axesWidth"
-      }]
+      "range": [
+        0,
+        {
+          "signal": "width - axesWidth"
+        }
+      ]
     },
     {
       "name": "yScaleBins",
@@ -197,9 +214,12 @@
       "zero": {
         "signal": "yScaleZero"
       },
-      "range": [{
-        "signal": "height - axesHeight"
-      }, 0]
+      "range": [
+        {
+          "signal": "height - axesHeight"
+        },
+        0
+      ]
     },
     {
       "name": "yScaleKde",
@@ -211,12 +231,16 @@
       "zero": {
         "signal": "yScaleZero"
       },
-      "range": [{
-        "signal": "height - axesHeight"
-      }, 0]
+      "range": [
+        {
+          "signal": "height - axesHeight"
+        },
+        0
+      ]
     }
   ],
-  "axes": [{
+  "axes": [
+    {
       "orient": "bottom",
       "scale": "xScale",
       "tickCount": {
@@ -256,7 +280,8 @@
       }
     }
   ],
-  "marks": [{
+  "marks": [
+    {
       "type": "rect",
       "from": {
         "data": "bins"
