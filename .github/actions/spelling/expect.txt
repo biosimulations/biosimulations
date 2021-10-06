@@ -58,6 +58,7 @@ OMEX
 ORCID
 plugins
 Rdt
+readme
 reproduciblebiomodels
 Sauro
 sbatch
@@ -68,7 +69,6 @@ Slurm
 socio
 src
 SSH
-standalone
 Stoch
 svg
 todo
