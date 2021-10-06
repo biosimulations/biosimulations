@@ -10,7 +10,7 @@ import {
   File,
   VisualizationList,
   Visualization,
-} from '@biosimulations/datamodel/project';
+} from '@biosimulations/datamodel-view';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { ViewService as SharedViewService } from '@biosimulations/shared/project-service';

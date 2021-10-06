@@ -93,11 +93,11 @@
     "datamodel-database": {
       "tags": ["scope:shared", "type:datamodel", "platform:server"]
     },
-    "datamodel-project": {
-      "tags": ["scope:simulations", "type:datamodel", "platform:web"]
-    },
     "datamodel-utils": {
       "tags": ["scope:shared", "type:util", "platform:any"]
+    },
+    "datamodel-view": {
+      "tags": ["scope:simulations", "type:datamodel", "platform:web"]
     },
     "dispatch": {
       "tags": ["scope:dispatch", "type:frontend", "platform:web"],

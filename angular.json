@@ -582,32 +582,6 @@
         }
       }
     },
-    "datamodel-project": {
-      "root": "libs/datamodel/project",
-      "sourceRoot": "libs/datamodel/project/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "libs/datamodel/project/tsconfig.lib.json",
-              "libs/datamodel/project/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/datamodel/project/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/datamodel/project/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "datamodel-utils": {
       "root": "libs/datamodel/utils",
       "sourceRoot": "libs/datamodel/utils/src",
@@ -624,6 +598,32 @@
           "outputs": ["coverage/libs/datamodel/utils"],
           "options": {
             "jestConfig": "libs/datamodel/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "datamodel-view": {
+      "root": "libs/datamodel/view",
+      "sourceRoot": "libs/datamodel/view/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/datamodel/view/tsconfig.lib.json",
+              "libs/datamodel/view/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/datamodel/view/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/datamodel/view/jest.config.js",
             "passWithNoTests": true
           }
         }
