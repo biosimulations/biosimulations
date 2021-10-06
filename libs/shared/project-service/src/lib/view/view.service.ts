@@ -35,7 +35,6 @@ import {
   ArchiveMetadata as APIMetadata,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
-// import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { ProjectsService } from '../projects/projects.service';
 import { VegaVisualizationService } from '../vega-visualization/vega-visualization.service';
 import { SedPlot2DVisualizationService } from '../sed-plot-2d-visualization/sed-plot-2d-visualization.service';
@@ -240,28 +239,6 @@ export class ViewService {
         return formattedMetadata;
       }),
     );
-  }
-
-  private getProjectMetadata(id: string): Observable<ArchiveMetadata[]> {
-    const response: Observable<ArchiveMetadata[]> = this.service
-      .getMetadata(id)
-      .pipe(
-        // Only call the HTTP service once
-        shareReplay(1),
-        map((data: SimulationRunMetadata) => {
-          return data.metadata.map((metaData: APIMetadata) => {
-            return {
-              ...metaData,
-              created: new Date(metaData.created),
-              modified: metaData.modified.map((modified) => new Date(modified)),
-            };
-          });
-        }),
-        // Only do the above mapping once
-        shareReplay(1),
-      );
-
-    return response;
   }
 
   public getFormattedSimulationRun(
@@ -896,7 +873,7 @@ export class ViewService {
       }
     }
 
-    return forkJoin(...reportObs).pipe(
+    return forkJoin(reportObs).pipe(
       map((reportResults: any[]): UriSetDataSetResultsMap => {
         const uriResultsMap: UriSetDataSetResultsMap = {};
         reportResults.forEach((reportResult: any): void => {
@@ -925,5 +902,26 @@ export class ViewService {
       }
     }
     return flattenedArray;
+  }
+  private getProjectMetadata(id: string): Observable<ArchiveMetadata[]> {
+    const response: Observable<ArchiveMetadata[]> = this.service
+      .getMetadata(id)
+      .pipe(
+        // Only call the HTTP service once
+        shareReplay(1),
+        map((data: SimulationRunMetadata) => {
+          return data.metadata.map((metaData: APIMetadata) => {
+            return {
+              ...metaData,
+              created: new Date(metaData.created),
+              modified: metaData.modified.map((modified) => new Date(modified)),
+            };
+          });
+        }),
+        // Only do the above mapping once
+        shareReplay(1),
+      );
+
+    return response;
   }
 }

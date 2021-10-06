@@ -29,7 +29,7 @@ import {
   SedPlot3DLog,
   SedReportLog,
   CreateSimulationRunLogBody,
-} from '@biosimulations/dispatch/api-models';
+} from '@biosimulations/datamodel/api';
 
 import { LogsService } from './logs.service';
 

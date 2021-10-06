@@ -10,7 +10,7 @@ import {
   UploadSimulationRunUrl,
   UpdateSimulationRun,
   EnvironmentVariable,
-} from '@biosimulations/dispatch/api-models';
+} from '@biosimulations/datamodel/api';
 import {
   SimulationLogs,
   CombineArchiveLog,

@@ -49,7 +49,7 @@ import {
   UpdateSimulationRun,
   UploadSimulationRun,
   UploadSimulationRunUrl,
-} from '@biosimulations/dispatch/api-models';
+} from '@biosimulations/datamodel/api';
 import { SimulationRunService } from './simulation-run.service';
 import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';

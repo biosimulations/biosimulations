@@ -10,7 +10,7 @@ import {
   ObjectIdValidator,
 } from '@biosimulations/datamodel-database';
 
-import { SimulationRun } from '@biosimulations/dispatch/api-models';
+import { SimulationRun } from '@biosimulations/datamodel/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 

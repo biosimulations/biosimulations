@@ -27,7 +27,7 @@ import { ResultsService } from './results.service';
 import {
   SimulationRunOutput,
   SimulationRunResults,
-} from '@biosimulations/dispatch/api-models';
+} from '@biosimulations/datamodel/api';
 import { Response } from 'express';
 @Controller('results')
 @ApiTags('Results')

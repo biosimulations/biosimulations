@@ -11,7 +11,7 @@ import {
   SimulationRunOutput,
   SimulationRunResults,
   SimulationRunOutputDatum,
-} from '@biosimulations/dispatch/api-models';
+} from '@biosimulations/datamodel/api';
 */
 
 interface SedDatasetResults {

@@ -4,7 +4,7 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
-import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
+import { CombineArchiveLog } from '@biosimulations/datamodel/api';
 
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';

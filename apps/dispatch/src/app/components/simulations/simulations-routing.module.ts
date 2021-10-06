@@ -7,7 +7,7 @@ import { PublishComponent } from './publish/publish.component';
 import { urls } from '@biosimulations/config/common';
 
 import { HttpClient, HttpXhrBackend } from '@angular/common/http';
-import { SimulationRun } from '@biosimulations/dispatch/api-models';
+import { SimulationRun } from '@biosimulations/datamodel/api';
 
 function viewProject(url: string, router: Router): undefined {
   const parts = url.split('/');

@@ -7,7 +7,7 @@ import {
   DispatchMessage,
   DispatchProcessedPayload,
 } from '@biosimulations/messages/messages';
-import { SimulationRun } from '@biosimulations/dispatch/api-models';
+import { SimulationRun } from '@biosimulations/datamodel/api';
 import { firstValueFrom } from 'rxjs';
 
 @Controller()

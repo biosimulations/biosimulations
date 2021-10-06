@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-// import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { Observable, combineLatest, map } from 'rxjs';
 import {
   ProjectMetadata,
