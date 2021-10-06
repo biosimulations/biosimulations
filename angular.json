@@ -272,6 +272,27 @@
         }
       }
     },
+    "api-nest-client": {
+      "root": "libs/api/nest-client",
+      "sourceRoot": "libs/api/nest-client/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/nest-client/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/nest-client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "auth-angular": {
       "projectType": "library",
       "root": "libs/auth/angular",
@@ -760,27 +781,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/dispatch-e2e/**/*.ts"]
-          }
-        }
-      }
-    },
-    "dispatch-nest-client": {
-      "root": "libs/dispatch/nest-client",
-      "sourceRoot": "libs/dispatch/nest-client/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/dispatch/nest-client/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/dispatch/nest-client/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }

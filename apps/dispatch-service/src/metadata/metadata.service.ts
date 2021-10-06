@@ -17,7 +17,7 @@ import {
 import { firstValueFrom } from 'rxjs';
 
 import { CombineWrapperService } from '../combineWrapper.service';
-import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { SimulationRunService } from '@biosimulations/backend-api-client';
 @Injectable()
 export class MetadataService {
   private readonly logger = new Logger(MetadataService.name);

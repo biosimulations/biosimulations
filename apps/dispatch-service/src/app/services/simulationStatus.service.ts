@@ -1,6 +1,6 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { Injectable, Logger } from '@nestjs/common';
-import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { SimulationRunService } from '@biosimulations/backend-api-client';
 
 @Injectable()
 export class SimulationStatusService {

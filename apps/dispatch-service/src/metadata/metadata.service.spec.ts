@@ -7,7 +7,7 @@ import {
   CombineWrapperService,
   MockCombineWrapperService,
 } from '../combineWrapper.service';
-import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { SimulationRunService } from '@biosimulations/backend-api-client';
 
 describe('MetadataService', () => {
   let service: MetadataService;

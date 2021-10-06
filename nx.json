@@ -49,6 +49,14 @@
       "tags": ["scope:dispatch", "type:api", "platform:server"],
       "implicitDependencies": ["hdf5-api-client"]
     },
+    "api-nest-client": {
+      "tags": [
+        "scope:dispatch",
+        "type:client",
+        "platform:server",
+        "shared:true"
+      ]
+    },
     "auth-angular": {
       "tags": ["scope:auth", "type:util", "platform:web", "shared:true"]
     },
@@ -98,14 +106,6 @@
     "dispatch-e2e": {
       "tags": [],
       "implicitDependencies": ["dispatch"]
-    },
-    "dispatch-nest-client": {
-      "tags": [
-        "scope:dispatch",
-        "type:client",
-        "platform:server",
-        "shared:true"
-      ]
     },
     "dispatch-service": {
       "tags": ["scope:dispatch", "type:service", "platform:server"],

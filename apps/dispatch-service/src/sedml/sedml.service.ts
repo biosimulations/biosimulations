@@ -13,7 +13,7 @@ import {
   SedOutput,
   CombineArchiveSedDocSpecsContent,
 } from '@biosimulations/combine-api-client';
-import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
+import { SimulationRunService } from '@biosimulations/backend-api-client';
 import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
 
 // TODO move to api lib
