@@ -52,7 +52,7 @@ import {
   VegaVisualization,
   UriSedDataSetMap,
   UriSetDataSetResultsMap,
-} from '@biosimulations/datamodel/project';
+} from '@biosimulations/datamodel-view';
 import { UtilsService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';

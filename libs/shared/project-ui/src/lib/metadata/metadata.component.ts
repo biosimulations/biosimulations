@@ -3,7 +3,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import {
   ProjectMetadata,
   SimulationRunMetadata,
-} from '@biosimulations/datamodel/project';
+} from '@biosimulations/datamodel-view';
 
 @Component({
   selector: 'biosimulations-project-metadata',

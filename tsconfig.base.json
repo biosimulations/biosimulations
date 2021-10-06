@@ -43,12 +43,10 @@
       "@biosimulations/datamodel-database": [
         "libs/datamodel/database/src/index.ts"
       ],
+      "@biosimulations/datamodel-view": ["libs/datamodel/view/src/index.ts"],
       "@biosimulations/datamodel/api": ["libs/datamodel/api/src/index.ts"],
       "@biosimulations/datamodel/common": [
         "libs/datamodel/common/src/index.ts"
-      ],
-      "@biosimulations/datamodel/project": [
-        "libs/datamodel/project/src/index.ts"
       ],
       "@biosimulations/datamodel/utils": ["libs/datamodel/utils/src/index.ts"],
       "@biosimulations/hdf5/api-client": ["libs/hdf5/api-client/src/index.ts"],

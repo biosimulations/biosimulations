@@ -9,7 +9,7 @@ import {
   File,
   VisualizationList,
   Visualization,
-} from '@biosimulations/datamodel/project';
+} from '@biosimulations/datamodel-view';
 import { ViewService } from '@biosimulations/shared/project-service';
 
 @Component({
