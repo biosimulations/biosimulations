@@ -1,5 +1,5 @@
 import { isValidObjectId, Schema, SchemaType } from 'mongoose';
-import { Url, UrlType } from './common/url';
+import { Url, UrlType } from '@biosimulations/datamodel/common';
 
 interface PathOptions {
   readOnly: boolean;

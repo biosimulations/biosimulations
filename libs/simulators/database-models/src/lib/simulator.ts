@@ -19,10 +19,9 @@ import {
   ISpdxOntologyId,
   SoftwareInterfaceType,
   OperatingSystemType,
-  addValidationForNullableAttributes,
   Funding,
 } from '@biosimulations/datamodel/common';
-
+import { addValidationForNullableAttributes } from '@biosimulations/datamodel-database';
 import { ExternalReferencesSchema, PersonSchema, UrlSchema } from './common';
 import {
   BiosimulatorsMeta,

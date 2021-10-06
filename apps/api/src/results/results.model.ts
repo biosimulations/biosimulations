@@ -8,7 +8,7 @@
 import {
   omitPrivate,
   ObjectIdValidator,
-} from '@biosimulations/datamodel/common';
+} from '@biosimulations/datamodel-database';
 
 import { SimulationRun } from '@biosimulations/dispatch/api-models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
