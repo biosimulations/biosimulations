@@ -1181,48 +1181,6 @@
         }
       }
     },
-    "platform-api-models": {
-      "root": "libs/platform/api-models",
-      "sourceRoot": "libs/platform/api-models/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/platform/api-models/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/platform/api-models/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "platform-database-models": {
-      "root": "libs/platform/database-models",
-      "sourceRoot": "libs/platform/database-models/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/platform/database-models/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/platform/database-models/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "platform-e2e": {
       "root": "apps/platform-e2e",
       "sourceRoot": "apps/platform-e2e/src",

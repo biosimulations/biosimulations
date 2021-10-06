@@ -13,11 +13,13 @@ import {
 } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Image } from './image';
-import { Cli } from './cli';
-import { PythonApi } from './pythonApi';
-import { Algorithm } from './algorithm';
-import { BiosimulatorsMeta } from './biosimulatorsMeta';
+import {
+  Image,
+  Cli,
+  PythonApi,
+  Algorithm,
+  BiosimulatorsMeta,
+} from '../simulators';
 
 export class Simulator {
   @ApiProperty({ type: BiosimulatorsMeta })
