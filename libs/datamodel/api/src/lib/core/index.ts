@@ -1,3 +1,4 @@
 export * from './file';
-export * from './project';
+export * from './metadata';
 export * from './specifications';
+export * from './project';
