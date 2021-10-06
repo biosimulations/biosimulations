@@ -266,9 +266,13 @@ export const VEGA_FORMAT = {
   combineUris: [
     'http://purl.org/NET/mediatypes/application/vnd.vega.v5+json',
     'http://purl.org/NET/mediatypes/application/vnd.vega+json',
-    'http://purl.org/NET/mediatypes/application/vega+json'
+    'http://purl.org/NET/mediatypes/application/vega+json',
   ],
-  mediaTypes: ['application/vnd.vega.v5+json', 'application/vega+json', 'application/json'],
+  mediaTypes: [
+    'application/vnd.vega.v5+json',
+    'application/vega+json',
+    'application/json',
+  ],
   extensions: ['vg.json', 'vg', 'json'],
   url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3969',
   icon: 'chart' as BiosimulationsIcon,
@@ -397,14 +401,18 @@ export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS.map(
     {
       name: 'OMEX Manifest',
       acronym: null,
-      combineUris: ['http://identifiers.org/combine.specifications/omex-manifest'],
+      combineUris: [
+        'http://identifiers.org/combine.specifications/omex-manifest',
+      ],
       url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686',
       icon: 'file',
     },
     {
       name: 'OMEX Metadata',
       acronym: null,
-      combineUris: ['http://identifiers.org/combine.specifications/omex-metadata'],
+      combineUris: [
+        'http://identifiers.org/combine.specifications/omex-metadata',
+      ],
       url: 'https://co.mbine.org/standards/omex-metadata',
       icon: 'file',
     },
@@ -467,7 +475,9 @@ export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS.map(
     {
       name: 'SBOL Visual',
       acronym: null,
-      combineUris: ['http://identifiers.org/combine.specifications/sbol-visual'],
+      combineUris: [
+        'http://identifiers.org/combine.specifications/sbol-visual',
+      ],
       url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692',
       icon: 'file',
     },
@@ -512,7 +522,7 @@ export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS.map(
       combineUris: [
         'http://purl.org/NET/mediatypes/application/vnd.vegalite.v3+json',
         'http://purl.org/NET/mediatypes/application/vnd.vegalite+json',
-        'http://purl.org/NET/mediatypes/application/vega-lite+json'
+        'http://purl.org/NET/mediatypes/application/vega-lite+json',
       ],
       url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3970',
       icon: 'chart',

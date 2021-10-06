@@ -1679,7 +1679,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       contents: [
         {
           _type: 'CombineArchiveContent',
-          format: MODEL_FORMAT_EDAM_ID_MAP[modelFormatControl.value].combineUris[0],
+          format:
+            MODEL_FORMAT_EDAM_ID_MAP[modelFormatControl.value].combineUris[0],
           master: false,
           location: {
             _type: 'CombineArchiveLocation',
