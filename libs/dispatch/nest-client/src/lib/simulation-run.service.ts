@@ -2,7 +2,7 @@ import {
   CombineArchiveLog,
   CreateSimulationRunLogBody,
   SimulationRun,
-} from '@biosimulations/dispatch/api-models';
+} from '@biosimulations/datamodel/api';
 import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';

@@ -41,7 +41,7 @@ import {
 import { Observable, Subscription } from 'rxjs';
 import { map, concatAll, withLatestFrom } from 'rxjs/operators';
 import { ConfigService } from '@biosimulations/shared/services';
-import { SimulationRun } from '@biosimulations/dispatch/api-models';
+import { SimulationRun } from '@biosimulations/datamodel/api';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 

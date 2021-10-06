@@ -2,12 +2,23 @@ import { Injectable } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
 import { retryWhen } from 'rxjs/operators';
 import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
-// import { SimulationRun } from '@biosimulations/dispatch/api-models';
+// import { SimulationRun } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulatorIdNameMap } from '@biosimulations/datamodel/common';
 import { RetryStrategy } from '@biosimulations/shared/services';
 
+// TODO refactor
+/**
+ * project service is restricted to platform- uses the projects endpoint
+ * simulationRun service - get simulations runs
+ * metadata service - get metadata
+ * files service - get files
+ * specs service - get specs
+ * rename libary to angualar-api-client
+ *
+ *
+ */
 @Injectable({
   providedIn: 'root',
 })

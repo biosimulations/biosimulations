@@ -5,7 +5,7 @@
  * @license MIT
  */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { CombineArchiveLog } from '@biosimulations/dispatch/api-models';
+import { CombineArchiveLog } from '@biosimulations/datamodel/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, Document } from 'mongoose';
 import { ObjectIdValidator } from '@biosimulations/datamodel-database';

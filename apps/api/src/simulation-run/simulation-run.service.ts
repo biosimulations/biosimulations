@@ -26,7 +26,7 @@ import {
   UpdateSimulationRun,
   UploadSimulationRun,
   UploadSimulationRunUrl,
-} from '@biosimulations/dispatch/api-models';
+} from '@biosimulations/datamodel/api';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import {

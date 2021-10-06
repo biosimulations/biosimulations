@@ -25,7 +25,7 @@ import {
   map,
   catchError,
 } from 'rxjs/operators';
-import { SimulationRun } from '@biosimulations/dispatch/api-models';
+import { SimulationRun } from '@biosimulations/datamodel/api';
 
 @Injectable({
   providedIn: 'root',
