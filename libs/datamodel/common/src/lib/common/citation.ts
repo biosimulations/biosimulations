@@ -10,3 +10,7 @@ export interface Citation {
   year: number;
   identifiers: Identifier[];
 }
+export interface ExternalReferences {
+  identifiers: Identifier[];
+  citations: Citation[];
+}

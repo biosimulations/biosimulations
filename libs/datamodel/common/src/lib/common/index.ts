@@ -1,4 +1,3 @@
-export * from './alias';
 export * from './format';
 export * from './citation';
 export * from './license';

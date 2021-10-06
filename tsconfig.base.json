@@ -70,12 +70,6 @@
       "@biosimulations/ontology/sources": [
         "libs/ontology/sources/src/index.ts"
       ],
-      "@biosimulations/platform/api-models": [
-        "libs/platform/api-models/src/index.ts"
-      ],
-      "@biosimulations/platform/database-models": [
-        "libs/platform/database-models/src/index.ts"
-      ],
       "@biosimulations/shared/assets": ["libs/shared/assets/src/index.ts"],
       "@biosimulations/shared/content": ["libs/shared/content/src/index.ts"],
       "@biosimulations/shared/debug": ["libs/shared/debug/src/index.ts"],
