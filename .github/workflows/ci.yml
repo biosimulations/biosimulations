@@ -299,7 +299,7 @@ jobs:
             ghcr.io/biosimulations/${{matrix.libOrApp}}:${{ env.BRANCH_NAME }} \
             -c "
               pipenv install --dev --system --deploy
-              pip pip uninstall -y matplotlib
+              pip uninstall -y matplotlib
               pip install matplotlib==3.2.0
               mv src src-ignore
               export PYTHONPATH=apps/${{ matrix.libOrApp }}
