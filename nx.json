@@ -195,10 +195,6 @@
       "tags": ["scope:simulations", "type:service", "platform:any"],
       "implicitDependencies": []
     },
-    "shared-project-ui": {
-      "tags": ["scope:simulations", "type:ui", "platform:web"],
-      "implicitDependencies": ["shared-assets", "shared-styles"]
-    },
     "shared-pwa": {
       "tags": ["scope:shared", "type:util", "platform:web"]
     },
@@ -232,6 +228,10 @@
     "simulators-e2e": {
       "tags": [],
       "implicitDependencies": ["simulators"]
+    },
+    "view-projects": {
+      "tags": ["scope:simulations", "type:ui", "platform:web"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
     },
     "view-visualizations": {
       "tags": ["scope:shared", "type:ui", "platform:web"],

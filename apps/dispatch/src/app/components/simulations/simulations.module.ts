@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { SharedVizUiModule } from '@biosimulations/view-visualizations';
-import { SharedProjectUiModule } from '@biosimulations/shared/project-ui';
+import { SharedProjectUiModule } from '@biosimulations/view-projects';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { MatDialogModule } from '@angular/material/dialog';
 

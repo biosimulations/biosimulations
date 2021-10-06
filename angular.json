@@ -1455,32 +1455,6 @@
       },
       "schematics": {}
     },
-    "shared-project-ui": {
-      "projectType": "library",
-      "root": "libs/shared/project-ui",
-      "sourceRoot": "libs/shared/project-ui/src",
-      "prefix": "biosimulations",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/project-ui/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/project-ui/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
     "shared-pwa": {
       "projectType": "library",
       "root": "libs/shared/pwa",
@@ -1857,6 +1831,32 @@
           "options": {
             "lintFilePatterns": ["apps/simulators-e2e/**/*.ts"]
           }
+        }
+      }
+    },
+    "view-projects": {
+      "projectType": "library",
+      "root": "libs/view/projects",
+      "sourceRoot": "libs/view/projects/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/view/projects/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/view/projects/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
       }
     },
