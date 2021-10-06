@@ -4,7 +4,7 @@ import {
   TocSection,
   TocSectionsContainerDirective,
 } from '@biosimulations/shared/ui';
-import exampleVega from './example-vega.json';
+import exampleVega from './example-vg.json';
 import exampleSedmlData from './example-sedml-data.json';
 
 @Component({
