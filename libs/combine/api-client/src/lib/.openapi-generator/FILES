@@ -21,6 +21,12 @@ model/combineArchiveFileContent.ts
 model/combineArchiveLocation.ts
 model/combineArchiveLocationValue.ts
 model/combineArchiveLog.ts
+model/combineArchiveManifest.ts
+model/combineArchiveManifestContent.ts
+model/combineArchiveManifestLocation.ts
+model/combineArchiveSedDocSpecs.ts
+model/combineArchiveSedDocSpecsContent.ts
+model/combineArchiveSedDocSpecsLocation.ts
 model/combineArchiveSpecsAndFiles.ts
 model/environment.ts
 model/environmentVariable.ts

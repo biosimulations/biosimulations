@@ -18,6 +18,8 @@ import { Observable } from 'rxjs';
 import { BioSimulationsCombineArchiveElementMetadata } from '../model/bioSimulationsCombineArchiveElementMetadata';
 import { CombineArchive } from '../model/combineArchive';
 import { CombineArchiveFileContent } from '../model/combineArchiveFileContent';
+import { CombineArchiveManifest } from '../model/combineArchiveManifest';
+import { CombineArchiveSedDocSpecs } from '../model/combineArchiveSedDocSpecs';
 import { FilenameOrUrl } from '../model/filenameOrUrl';
 import { RdfTriple } from '../model/rdfTriple';
 import { ValidationReport } from '../model/validationReport';
@@ -292,7 +294,7 @@ export class COMBINEService {
   public srcHandlersCombineGetManifestHandler(
     file?: Blob,
     url?: string,
-  ): Observable<AxiosResponse<CombineArchive>>;
+  ): Observable<AxiosResponse<CombineArchiveManifest>>;
   public srcHandlersCombineGetManifestHandler(
     file?: Blob,
     url?: string,
@@ -334,7 +336,7 @@ export class COMBINEService {
       formParams.append('url', <any>url);
     }
 
-    return this.httpClient.post<CombineArchive>(
+    return this.httpClient.post<CombineArchiveManifest>(
       `${this.basePath}/combine/manifest`,
       convertFormParamsToString ? formParams.toString() : formParams,
       {
@@ -482,7 +484,7 @@ export class COMBINEService {
   public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
     file?: Blob,
     url?: string,
-  ): Observable<AxiosResponse<CombineArchive>>;
+  ): Observable<AxiosResponse<CombineArchiveSedDocSpecs>>;
   public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
     file?: Blob,
     url?: string,
@@ -524,7 +526,7 @@ export class COMBINEService {
       formParams.append('url', <any>url);
     }
 
-    return this.httpClient.post<CombineArchive>(
+    return this.httpClient.post<CombineArchiveSedDocSpecs>(
       `${this.basePath}/combine/sedml-specs`,
       convertFormParamsToString ? formParams.toString() : formParams,
       {
@@ -536,19 +538,51 @@ export class COMBINEService {
   /**
    * Validate a COMBINE archive and the simulation experiments and models inside it.
    * Validate a COMBINE archive and the simulation experiments (SED-ML files) and models (e.g., SBML files) inside it.
+   * @param validateOmexManifest Whether to validate the OMEX manifest file in the archive.  Default: &#x60;true&#x60;.
+   * @param validateSedml Whether to validate the SED-ML files in the archive.  Default: &#x60;true&#x60;.
+   * @param validateSedmlModels Whether to validate the source (e.g., CellML, SBML file) of each model of each SED-ML file in the archive.  Default: &#x60;true&#x60;.
+   * @param validateOmexMetadata Whether to validate the OMEX Metadata files in the archive according to [BioSimulators\&#39; conventions](https://biosimulators.org/conventions/metadata).  Default: &#x60;true&#x60;.
+   * @param validateImages Whether to validate the image (BMP, GIF, PNG, JPEG, TIFF, WEBP) files in the archive.  Default: &#x60;true&#x60;.
    * @param file The two files uploaded in creating a combine archive
    * @param url URL
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public srcHandlersCombineValidateHandler(
+    validateOmexManifest?: boolean,
+    validateSedml?: boolean,
+    validateSedmlModels?: boolean,
+    validateOmexMetadata?: boolean,
+    validateImages?: boolean,
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<ValidationReport>>;
   public srcHandlersCombineValidateHandler(
+    validateOmexManifest?: boolean,
+    validateSedml?: boolean,
+    validateSedmlModels?: boolean,
+    validateOmexMetadata?: boolean,
+    validateImages?: boolean,
     file?: Blob,
     url?: string,
   ): Observable<any> {
+    let queryParameters = {};
+    if (validateOmexManifest !== undefined && validateOmexManifest !== null) {
+      queryParameters['validateOmexManifest'] = <any>validateOmexManifest;
+    }
+    if (validateSedml !== undefined && validateSedml !== null) {
+      queryParameters['validateSedml'] = <any>validateSedml;
+    }
+    if (validateSedmlModels !== undefined && validateSedmlModels !== null) {
+      queryParameters['validateSedmlModels'] = <any>validateSedmlModels;
+    }
+    if (validateOmexMetadata !== undefined && validateOmexMetadata !== null) {
+      queryParameters['validateOmexMetadata'] = <any>validateOmexMetadata;
+    }
+    if (validateImages !== undefined && validateImages !== null) {
+      queryParameters['validateImages'] = <any>validateImages;
+    }
+
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
@@ -590,6 +624,7 @@ export class COMBINEService {
       `${this.basePath}/combine/validate`,
       convertFormParamsToString ? formParams.toString() : formParams,
       {
+        params: queryParameters,
         withCredentials: this.configuration.withCredentials,
         headers: headers,
       },

@@ -5,13 +5,13 @@ import { CombineWrapperService } from '../combineWrapper.service';
 import { HttpService } from '@nestjs/axios';
 import { map, mergeMap, pluck } from 'rxjs';
 import {
-  CombineArchiveContent,
   SedDocument,
   SedDataGenerator,
   SedModel,
   SedTask,
   SedSimulation,
   SedOutput,
+  CombineArchiveSedDocSpecsContent,
 } from '@biosimulations/combine-api-client';
 import { SimulationRunService } from '@biosimulations/dispatch/nest-client';
 import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
@@ -72,10 +72,10 @@ export class SedmlService {
   }
 
   private getSpecsFromArchiveContent(
-    contents: CombineArchiveContent[],
+    contents: CombineArchiveSedDocSpecsContent[],
   ): SedMLSpecs[] {
     const sedmlSpecs: SedMLSpecs[] = [];
-    contents.forEach((content: CombineArchiveContent) => {
+    contents.forEach((content: CombineArchiveSedDocSpecsContent) => {
       const id: string = content.location.path.replace('./', '');
       const spec: SedDocument = content.location.value as SedDocument;
 

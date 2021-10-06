@@ -1,5 +1,7 @@
 import {
-  CombineArchive,
+  BioSimulationsCombineArchiveElementMetadata,
+  CombineArchiveManifest,
+  CombineArchiveSedDocSpecs,
   COMBINEService,
 } from '@biosimulations/combine-api-client';
 import { Injectable } from '@nestjs/common';
@@ -10,7 +12,10 @@ import { Observable } from 'rxjs';
 export class CombineWrapperService {
   public constructor(private service: COMBINEService) {}
 
-  public getArchiveMetadata(file?: Blob, url?: string) {
+  public getArchiveMetadata(
+    file?: Blob,
+    url?: string,
+  ): Observable<AxiosResponse<BioSimulationsCombineArchiveElementMetadata[]>> {
     return this.service.srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
       file,
       url,
@@ -20,14 +25,14 @@ export class CombineWrapperService {
   public getManifest(
     file?: Blob,
     url?: string,
-  ): Observable<AxiosResponse<CombineArchive>> {
+  ): Observable<AxiosResponse<CombineArchiveManifest>> {
     return this.service.srcHandlersCombineGetManifestHandler(file, url);
   }
 
   public getSedMlSpecs(
     file?: Blob,
     url?: string,
-  ): Observable<AxiosResponse<CombineArchive>> {
+  ): Observable<AxiosResponse<CombineArchiveSedDocSpecs>> {
     return this.service.srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
       file,
       url,
