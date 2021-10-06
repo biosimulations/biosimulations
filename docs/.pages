@@ -2,6 +2,8 @@ nav:
   - Home: README.md
   - License: License.md
   - Dependencies: Dependencies.md
+  - Privacy Policy: PRIVACY_POLICY.md
+  - Terms of Service: TERMS_OF_SERVICE.md
   - users
   #- concepts
   - dev
