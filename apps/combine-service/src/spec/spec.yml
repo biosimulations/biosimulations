@@ -506,7 +506,7 @@ paths:
                         _type: CombineArchiveManifestLocation
                         path: experiment1/model.xml
                         value:
-                          _type: CombineArchiveManifestContentFile
+                          _type: CombineArchiveContentFile
                           filename: model.xml
                       format: http://identifiers.org/combine.specifications/sbml
                       master: false
@@ -1514,7 +1514,7 @@ components:
             _type: CombineArchiveManifestLocation
             path: experiment1/model.xml
             value:
-              _type: CombineArchiveManifestContentFile
+              _type: CombineArchiveContentFile
               filename: model.xml
           format: http://identifiers.org/combine.specifications/sbml
           master: false
@@ -1556,7 +1556,7 @@ components:
           _type: CombineArchiveManifestLocation
           path: experiment1/model.xml
           value:
-            _type: CombineArchiveManifestContentFile
+            _type: CombineArchiveContentFile
             filename: model.xml
         format: http://identifiers.org/combine.specifications/sbml
         master: true
@@ -1572,7 +1572,7 @@ components:
           description: Path within a COMBINE/OMEX archive.
           type: string
         value:
-          $ref: '#/components/schemas/CombineArchiveManifestContentFile'
+          $ref: '#/components/schemas/CombineArchiveContentFile'
           description: Value of the content item of the COMBINE/OMEX archive.
         _type:
           description: Type.
@@ -1583,27 +1583,8 @@ components:
         _type: CombineArchiveManifestLocation
         path: experiment1/model.xml
         value:
-          _type: CombineArchiveManifestContentFile
+          _type: CombineArchiveContentFile
           filename: model.xml
-    CombineArchiveManifestContentFile:
-      description: File
-      required:
-      - _type
-      - filename
-      type: object
-      properties:
-        _type:
-          description: Type.
-          enum:
-          - CombineArchiveManifestContentFile
-          type: string
-        filename:
-          description: Location where the file should be placed inside the COMBINE/OMEX
-            archive
-          type: string
-      example:
-        _type: CombineArchiveManifestContentFile
-        filename: model.xml
     CombineArchiveSedDocSpecs:
       description: The specifications of the SED-ML files in a COMBINE/OMEX archive.
       required:

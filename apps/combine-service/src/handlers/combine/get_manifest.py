@@ -84,7 +84,7 @@ def handler(body, file=None):
                 '_type': 'CombineArchiveManifestLocation',
                 'path': content.location,
                 'value': {
-                    '_type': 'CombineArchiveManifestContentFile',
+                    '_type': 'CombineArchiveContentFile',
                     'filename': os.path.relpath(content.location, '.'),
                 },
             },

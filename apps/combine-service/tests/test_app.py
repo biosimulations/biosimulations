@@ -207,7 +207,7 @@ class HandlersTestCase(unittest.TestCase):
                         '_type': 'CombineArchiveManifestLocation',
                         'path': './Caravagna2010.xml',
                         'value': {
-                            '_type': 'CombineArchiveManifestContentFile',
+                            '_type': 'CombineArchiveContentFile',
                             'filename': 'Caravagna2010.xml',
                         },
                     },
@@ -220,7 +220,7 @@ class HandlersTestCase(unittest.TestCase):
                         '_type': 'CombineArchiveManifestLocation',
                         'path': './BIOMD0000000912_sim.sedml',
                         'value': {
-                            '_type': 'CombineArchiveManifestContentFile',
+                            '_type': 'CombineArchiveContentFile',
                             'filename': 'BIOMD0000000912_sim.sedml',
                         },
                     },
@@ -233,7 +233,7 @@ class HandlersTestCase(unittest.TestCase):
                         '_type': 'CombineArchiveManifestLocation',
                         'path': '.',
                         'value': {
-                            '_type': 'CombineArchiveManifestContentFile',
+                            '_type': 'CombineArchiveContentFile',
                             'filename': '.',
                         },
                     },
@@ -246,7 +246,7 @@ class HandlersTestCase(unittest.TestCase):
                         '_type': 'CombineArchiveManifestLocation',
                         'path': 'metadata.rdf',
                         'value': {
-                            '_type': 'CombineArchiveManifestContentFile',
+                            '_type': 'CombineArchiveContentFile',
                             'filename': 'metadata.rdf',
                         },
                     },
@@ -300,7 +300,7 @@ class HandlersTestCase(unittest.TestCase):
                         '_type': 'CombineArchiveManifestLocation',
                         'path': './Caravagna2010.xml',
                         'value': {
-                            '_type': 'CombineArchiveManifestContentFile',
+                            '_type': 'CombineArchiveContentFile',
                             'filename': 'Caravagna2010.xml',
                         },
                     },
@@ -313,7 +313,7 @@ class HandlersTestCase(unittest.TestCase):
                         '_type': 'CombineArchiveManifestLocation',
                         'path': './BIOMD0000000912_sim.sedml',
                         'value': {
-                            '_type': 'CombineArchiveManifestContentFile',
+                            '_type': 'CombineArchiveContentFile',
                             'filename': 'BIOMD0000000912_sim.sedml',
                         },
                     },
@@ -326,7 +326,7 @@ class HandlersTestCase(unittest.TestCase):
                         '_type': 'CombineArchiveManifestLocation',
                         'path': '.',
                         'value': {
-                            '_type': 'CombineArchiveManifestContentFile',
+                            '_type': 'CombineArchiveContentFile',
                             'filename': '.',
                         },
                     },
@@ -339,7 +339,7 @@ class HandlersTestCase(unittest.TestCase):
                         '_type': 'CombineArchiveManifestLocation',
                         'path': 'metadata.rdf',
                         'value': {
-                            '_type': 'CombineArchiveManifestContentFile',
+                            '_type': 'CombineArchiveContentFile',
                             'filename': 'metadata.rdf',
                         },
                     },
