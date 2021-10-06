@@ -15,6 +15,7 @@ biomodels
 bionetgen
 biosimulations
 biosimulators
+blinov
 BNGL
 brightgreen
 bshaikh
@@ -27,6 +28,7 @@ cobrapy
 combinearchive
 commitizen
 config
+copasi
 coreinfrastructure
 crbm
 DOI
@@ -50,10 +52,12 @@ href
 html
 http
 ibiosim
+icahn
 img
 inrae
 jestjs
 jjj
+jws
 karr
 karrlab
 kisao
@@ -87,6 +91,7 @@ npm
 nrwl
 nsf
 Nsim
+omex
 openapi
 opencobra
 ORCID
@@ -126,6 +131,7 @@ uconn
 ucsd
 umbc
 URL
+vcell
 versioning
 website
 wiki
