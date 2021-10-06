@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { PlotlyVisualizationComponent } from '@biosimulations/shared/viz-ui';
+import { PlotlyVisualizationComponent } from '@biosimulations/view-visualizations';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

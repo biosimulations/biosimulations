@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
+import { SharedVizUiModule } from '@biosimulations/view-visualizations';
 import { RenderVisualizationComponent } from './render-viz.component';
-import { PlotlyVisualizationComponent } from '@biosimulations/shared/viz-ui';
+import { PlotlyVisualizationComponent } from '@biosimulations/view-visualizations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 

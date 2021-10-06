@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { PlotlyVisualizationComponent } from '@biosimulations/shared/viz-ui';
+import { PlotlyVisualizationComponent } from '@biosimulations/view-visualizations';
 import { ViewComponent } from './view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 

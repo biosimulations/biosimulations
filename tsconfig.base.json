@@ -101,9 +101,11 @@
       "@biosimulations/shared/utils/routes": [
         "libs/shared/utils/routes/src/index.ts"
       ],
-      "@biosimulations/shared/viz-ui": ["libs/shared/viz-ui/src/index.ts"],
       "@biosimulations/simulators/database-models": [
         "libs/simulators/database-models/src/index.ts"
+      ],
+      "@biosimulations/view-visualizations": [
+        "libs/view/visualizations/src/index.ts"
       ]
     }
   },

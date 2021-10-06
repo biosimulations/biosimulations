@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
+import { SharedVizUiModule } from '@biosimulations/view-visualizations';
 import { SharedProjectUiModule } from '@biosimulations/shared/project-ui';
 import { SharedDebugModule } from '@biosimulations/shared/debug';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
