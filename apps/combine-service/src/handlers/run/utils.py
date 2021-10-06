@@ -153,8 +153,11 @@ def exec_in_subprocess(func, *args, poll_interval=0.01, timeout=None, **kwargs):
     queue = context_instance.Queue()
     process = Process(target=subprocess_target, args=[queue, func] + list(args), kwargs=kwargs)
     process.start()
+    start_time = time.time()
     while process.exception is None:
         time.sleep(poll_interval)
+        if timeout is not None and (time.time() - start_time) > timeout:
+            raise TimeoutError('Execution did not complete in {} s.'.format(timeout))
     if process.exception:
         raise process.exception
     results = queue.get()

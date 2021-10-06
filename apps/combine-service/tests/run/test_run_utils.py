@@ -1,4 +1,5 @@
 from src.handlers.run import utils
+import time
 import unittest
 
 
@@ -35,6 +36,16 @@ class CombineUtilsTestCase(unittest.TestCase):
             time.sleep(1.)
             return 2 * b + 1
         self.assertEqual(utils.exec_in_subprocess(func, 1, b=3), 7)
+
+    def test_exec_in_subprocess_timeout(self):
+        def func():
+            time.sleep(1)
+
+        utils.exec_in_subprocess(func, timeout=None)
+        utils.exec_in_subprocess(func, timeout=5)
+
+        with self.assertRaisesRegex(TimeoutError, 'did not complete in'):
+            utils.exec_in_subprocess(func, timeout=0.1)
 
     def test_exec_in_subprocess_error_handling(self):
         def func(a, b=None):
