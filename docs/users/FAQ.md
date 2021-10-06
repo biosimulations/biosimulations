@@ -46,7 +46,7 @@ To ensure the provenance of simulation results, simulation results can only be g
 
 **Can I execute simulations without creating an account?**
 
-To credit authors for their contributions, this web application requires an account to execute simulations. Please use our standalone web application at https://run.biosimulations.org/ or standalone web service at https://run.api.biosimulations.org/ to execute COMBINE archives without an account. This web application and this web service provide the same simulation capabilities (programs and algorithms) as this web application through simpler interfaces. These simpler interface don't require accounts, and they only have the capability to execute simulations and visualize their results.
+To credit authors for their contributions, this web application requires an account to execute simulations. Please use our stand-alone web application at https://run.biosimulations.org/ or stand-alone web service at https://run.api.biosimulations.org/ to execute COMBINE archives without an account. This web application and this web service provide the same simulation capabilities (programs and algorithms) as this web application through simpler interfaces. These simpler interface don't require accounts, and they only have the capability to execute simulations and visualize their results.
 
 ## Simulation software tools
 
