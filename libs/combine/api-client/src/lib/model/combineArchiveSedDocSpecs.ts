@@ -9,32 +9,21 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedTask } from './sedTask';
-import { SedTarget } from './sedTarget';
+import { CombineArchiveSedDocSpecsContent } from './combineArchiveSedDocSpecsContent';
 
 /**
- * A SED variable.
+ * The specifications of the SED-ML files in a COMBINE/OMEX archive.
  */
-export interface SedVariable {
+export interface CombineArchiveSedDocSpecs {
   /**
-   * Unique identifier within its parent SED document.
+   * The content of the archive
    */
-  id: string;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  task: SedTask;
-  target?: SedTarget;
-  /**
-   * Symbol (e.g., for an implicit variable that is not explicitly defined in the specification of a model, such as time).
-   */
-  symbol?: string;
+  contents: Array<CombineArchiveSedDocSpecsContent>;
   /**
    * Type.
    */
-  _type: SedVariableType;
+  _type: CombineArchiveSedDocSpecsType;
 }
-export enum SedVariableType {
-  SedVariable = 'SedVariable',
+export enum CombineArchiveSedDocSpecsType {
+  CombineArchiveSedDocSpecs = 'CombineArchiveSedDocSpecs',
 }

@@ -13,8 +13,8 @@ import {
   pluck,
 } from 'rxjs';
 import {
-  CombineArchiveContent,
   CombineArchiveContentFile,
+  CombineArchiveManifestContent,
 } from '@biosimulations/combine-api-client';
 import {} from '@biosimulations/datamodel/common';
 import { ProjectFile, SubmitProjectFile } from '@biosimulations/datamodel/api';
@@ -44,10 +44,13 @@ export class FileService {
       .pipe(
         pluck('data'),
         pluck('contents'),
-        map((combineFiles: CombineArchiveContent[]) => {
+        map((combineFiles: CombineArchiveManifestContent[]) => {
           const apiFiles: Observable<SubmitProjectFile>[] = combineFiles
-            .filter((file: CombineArchiveContent) => file.location.path != '.')
-            .map((file: CombineArchiveContent) => {
+            .filter(
+              (file: CombineArchiveManifestContent) =>
+                file.location.path != '.',
+            )
+            .map((file: CombineArchiveManifestContent) => {
               const fileUrl = this.endpoints.getSimulationRunFileEndpoint(
                 id,
                 file.location.path,
