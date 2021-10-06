@@ -8,8 +8,8 @@
         <div class="form-section-head-title-subtitle">
           <div class="form-section-title">SED-ML and associated files*</div>
           <div class="form-section-subtitle">
-            Select a local file or enter a URL for a COMBINE/OMEX or zip archive that
-            contains SED-ML files and associated model and metadata files
+            Select a local file or enter a URL for a COMBINE/OMEX or zip archive
+            that contains SED-ML files and associated model and metadata files
           </div>
         </div>
       </div>
@@ -44,7 +44,8 @@
                 matPrefix
               ></biosimulations-icon>
               <mat-label
-                >Select a simulation project (COMBINE/OMEX or zip archive file)</mat-label
+                >Select a simulation project (COMBINE/OMEX or zip archive
+                file)</mat-label
               >
               <ngx-mat-file-input
                 formControlName="projectFile"
@@ -59,7 +60,9 @@
               *ngIf="formGroup.value.submitMethod === 'url'"
             >
               <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
-              <mat-label>Enter a URL for a COMBINE/OMEX or zip archive</mat-label>
+              <mat-label
+                >Enter a URL for a COMBINE/OMEX or zip archive</mat-label
+              >
               <input
                 [required]="true"
                 matInput
@@ -73,8 +76,8 @@
             <p>
               Select a method for providing a COMBINE/OMEX or zip archive which
               describes one or more simulations (in SED-ML format) of one or
-              more models (e.g., in BNGL, SBML formats). Archives can
-              either be uploaded from your local computer or loaded from a
+              more models (e.g., in BNGL, SBML formats). Archives can either be
+              uploaded from your local computer or loaded from a
               publicly-accessible URL.
             </p>
 
@@ -119,45 +122,58 @@
         <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Options</div>
           <div class="form-section-subtitle">
-            Optionally, disable validation of aspects of simulation project archives.
+            Optionally, disable validation of aspects of simulation project
+            archives.
           </div>
         </div>
       </div>
       <div class="form-section-body">
         <div class="form-field-group options">
           <div>
-            <mat-checkbox
-              formControlName="validateOmexManifest"
-              >
-              Validate the OMEX manifest <a href="https://combinearchive.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> file in the archive.
+            <mat-checkbox formControlName="validateOmexManifest">
+              Validate the OMEX manifest
+              <a href="https://combinearchive.org/" target="_blank"
+                ><biosimulations-icon icon="link"></biosimulations-icon
+              ></a>
+              file in the archive.
             </mat-checkbox>
           </div>
           <div>
-            <mat-checkbox
-              formControlName="validateSedml"
-              >
-              Validate the SED-ML <a href="https://sed-ml.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> files in the archive.
+            <mat-checkbox formControlName="validateSedml">
+              Validate the SED-ML
+              <a href="https://sed-ml.org/" target="_blank"
+                ><biosimulations-icon icon="link"></biosimulations-icon
+              ></a>
+              files in the archive.
             </mat-checkbox>
           </div>
           <div>
-            <mat-checkbox
-              formControlName="validateSedmlModels"
-              >
-              Validate the sources of the models (e.g., CellML <a href="https://www.cellml.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, SBML <a href="http://sbml.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> files) in the SED-ML files in the archive.
+            <mat-checkbox formControlName="validateSedmlModels">
+              Validate the sources of the models (e.g., CellML
+              <a href="https://www.cellml.org/" target="_blank"
+                ><biosimulations-icon icon="link"></biosimulations-icon></a
+              >, SBML
+              <a href="http://sbml.org/" target="_blank"
+                ><biosimulations-icon icon="link"></biosimulations-icon
+              ></a>
+              files) in the SED-ML files in the archive.
             </mat-checkbox>
           </div>
           <div>
-            <mat-checkbox
-              formControlName="validateOmexMetadata"
-              >
-              Validate the OMEX Metadata <a href="https://sys-bio.github.io/libOmexMeta/docs-build/index.html" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> files in the archive.
+            <mat-checkbox formControlName="validateOmexMetadata">
+              Validate the OMEX Metadata
+              <a
+                href="https://sys-bio.github.io/libOmexMeta/docs-build/index.html"
+                target="_blank"
+                ><biosimulations-icon icon="link"></biosimulations-icon
+              ></a>
+              files in the archive.
             </mat-checkbox>
           </div>
           <div>
-            <mat-checkbox
-              formControlName="validateImages"
-              >
-              Validate the image (BMP, GIF, JPEG, PNG, TIFF, WEBP) files in the archive.
+            <mat-checkbox formControlName="validateImages">
+              Validate the image (BMP, GIF, JPEG, PNG, TIFF, WEBP) files in the
+              archive.
             </mat-checkbox>
           </div>
         </div>
@@ -172,7 +188,8 @@
 
     <div class="status-summary" *ngIf="status !== undefined">
       <div class="valid" *ngIf="status === 'valid'">
-        The aspects of your simulation project that you chose to validate are likely valid!
+        The aspects of your simulation project that you chose to validate are
+        likely valid!
       </div>
       <div class="errors" *ngIf="status === 'invalid'">
         Your simulation project is invalid.

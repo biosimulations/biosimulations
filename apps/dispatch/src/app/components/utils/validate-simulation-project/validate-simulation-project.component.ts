@@ -175,7 +175,7 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.log('jree')
+    console.log('jree');
 
     // clear previous report
     this.status = undefined;

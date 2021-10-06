@@ -99,7 +99,7 @@ export class CombineService {
       formData.append('url', archiveFileOrUrl);
     }
 
-    const params = new HttpParams().appendAll({ 
+    const params = new HttpParams().appendAll({
       validateOmexManifest,
       validateSedml,
       validateSedmlModels,
@@ -108,7 +108,9 @@ export class CombineService {
     });
 
     return this.http
-      .post<ValidationReport>(this.validateEndpoint, formData, {params: params})
+      .post<ValidationReport>(this.validateEndpoint, formData, {
+        params: params,
+      })
       .pipe(
         catchError((error: HttpErrorResponse): Observable<undefined> => {
           if (!environment.production) {
