@@ -219,10 +219,6 @@
     "shared-utils-routes": {
       "tags": ["scope:shared", "type:utils", "platform:web"]
     },
-    "shared-viz-ui": {
-      "tags": ["scope:shared", "type:ui", "platform:web"],
-      "implicitDependencies": ["shared-styles"]
-    },
     "simulators": {
       "tags": ["scope:simulators", "type:frontend", "platform:web"],
       "implicitDependencies": ["shared-assets", "shared-styles"]
@@ -236,6 +232,10 @@
     "simulators-e2e": {
       "tags": [],
       "implicitDependencies": ["simulators"]
+    },
+    "view-visualizations": {
+      "tags": ["scope:shared", "type:ui", "platform:web"],
+      "implicitDependencies": ["shared-styles"]
     }
   },
   "targetDependencies": {

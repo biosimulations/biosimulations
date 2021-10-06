@@ -1627,32 +1627,6 @@
         }
       }
     },
-    "shared-viz-ui": {
-      "projectType": "library",
-      "root": "libs/shared/viz-ui",
-      "sourceRoot": "libs/shared/viz-ui/src",
-      "prefix": "biosimulations",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/viz-ui/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/viz-ui/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
     "simulators": {
       "projectType": "application",
       "schematics": {
@@ -1883,6 +1857,32 @@
           "options": {
             "lintFilePatterns": ["apps/simulators-e2e/**/*.ts"]
           }
+        }
+      }
+    },
+    "view-visualizations": {
+      "projectType": "library",
+      "root": "libs/view/visualizations",
+      "sourceRoot": "libs/view/visualizations/src",
+      "prefix": "biosimulations",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/view/visualizations/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/view/visualizations/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
       }
     }

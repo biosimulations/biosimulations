@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { SharedVizUiModule } from '@biosimulations/shared/viz-ui';
+import { SharedVizUiModule } from '@biosimulations/view-visualizations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
