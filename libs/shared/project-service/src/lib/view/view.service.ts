@@ -74,7 +74,9 @@ export class ViewService {
   ) {
     this.formatMap = {};
     FORMATS.forEach((format: CombineArchiveContentFormat): void => {
-      this.formatMap[format.combineUri] = format;
+      format.combineUris.forEach((combineUri: string): void => {
+        this.formatMap[combineUri] = format;
+      });
     });
   }
 
@@ -584,7 +586,7 @@ export class ViewService {
               format: formatName,
               master:
                 content?.master ||
-                (!hasMaster && format === SEDML_FORMAT.combineUri),
+                (!hasMaster && format.startsWith(SEDML_FORMAT.combineUris[0])),
               url: content.url,
               size: UtilsService.formatDigitalSize(content.size),
               formatUrl: this.formatMap?.[format]?.url,
@@ -705,7 +707,7 @@ export class ViewService {
 
         const vegaVisualizations: VegaVisualization[] = [];
         contents.forEach((content: any): void => {
-          if (content.format === VEGA_FORMAT.combineUri) {
+          if (VEGA_FORMAT.combineUris.includes(content.format)) {
             let location = content.location;
             if (location.startsWith('./')) {
               location = location.substring(2);

@@ -150,8 +150,8 @@ export class SelectVisualizationComponent implements OnDestroy {
           const sub = this.projectsService
             .addFileToCombineArchive(
               this.endpoints.getRunDownloadEndpoint(simulationRunId),
-              'plot.vega.json',
-              VEGA_FORMAT.combineUri,
+              'plot.vg.json',
+              VEGA_FORMAT.combineUris[0],
               false,
               blob,
               false,
