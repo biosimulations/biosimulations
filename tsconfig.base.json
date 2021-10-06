@@ -87,9 +87,6 @@
       "@biosimulations/shared/nats-client": [
         "libs/shared/nats-client/src/index.ts"
       ],
-      "@biosimulations/shared/project-service": [
-        "libs/shared/project-service/src/index.ts"
-      ],
       "@biosimulations/shared/pwa": ["libs/shared/pwa/src/index.ts"],
       "@biosimulations/shared/services": ["libs/shared/services/src/index.ts"],
       "@biosimulations/shared/storage": ["libs/shared/storage/src/index.ts"],
@@ -102,6 +99,7 @@
         "libs/simulators/database-models/src/index.ts"
       ],
       "@biosimulations/view-projects": ["libs/view/projects/src/index.ts"],
+      "@biosimulations/view-service": ["libs/view/service/src/index.ts"],
       "@biosimulations/view-visualizations": [
         "libs/view/visualizations/src/index.ts"
       ]
