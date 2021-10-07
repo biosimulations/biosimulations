@@ -165,18 +165,18 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
   }
 
   public getPlotlyDataLayout(): Observable<PlotlyDataLayout | false> {
+    const selectedDataSetUris = this.getSelectedDataSetUris();
     return this.viewService
-      .getReportResults(this.simulationRunId, this.dataSetsFormControl.value)
+      .getReportResults(this.simulationRunId, selectedDataSetUris)
       .pipe(
         map(
           (
             uriResultsMap: UriSetDataSetResultsMap,
           ): PlotlyDataLayout | false => {
-            const selectedUris = this.dataSetsFormControl.value;
             let allData: any = [];
             let missingData = false;
             const xAxisTitles: string[] = [];
-            for (let selectedUri of selectedUris) {
+            for (let selectedUri of selectedDataSetUris) {
               if (selectedUri.startsWith('./')) {
                 selectedUri = selectedUri.substring(2);
               }
@@ -245,8 +245,9 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
   }
 
   public exportToVega(): Observable<VegaSpec> {
+    const selectedDataSetUris = this.getSelectedDataSetUris();
     return this.viewService
-      .getReportResults(this.simulationRunId, this.dataSetsFormControl.value)
+      .getReportResults(this.simulationRunId, selectedDataSetUris)
       .pipe(
         map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
           let vegaDataSets: {
@@ -257,13 +258,12 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
             joinedTransforms?: any[];
             data: { [outputUri: string]: string[] };
           }[] = [];
-          const selectedUris = this.dataSetsFormControl.value;
           const vega: any = JSON.parse(JSON.stringify(vegaTemplate)) as any;
 
           const selectedDataSets: { [outputUri: string]: string[] } = {};
           const histogramExtent = [NaN, NaN];
           const xAxisTitles: string[] = [];
-          for (let selectedUri of selectedUris) {
+          for (let selectedUri of selectedDataSetUris) {
             if (selectedUri.startsWith('./')) {
               selectedUri = selectedUri.substring(2);
             }
@@ -401,5 +401,11 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
           return vega;
         }),
       );
+  }
+
+  private getSelectedDataSetUris(): string[] {
+    return this.dataSetsFormControl.value.filter((uri: string): boolean => {
+      return uri in this.uriSedDataSetMap;
+    });
   }
 }
