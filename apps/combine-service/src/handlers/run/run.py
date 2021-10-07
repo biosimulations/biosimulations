@@ -38,13 +38,13 @@ def handler(body, archiveFile=None):
     """ Execute the SED-ML files in a COMBINE/OMEX archive.
 
     Args:
-        body (:obj:`dict`): dictionary with schema ``#/components/schemas/SimulationRun`` with the
+        body (:obj:`dict`): dictionary with schema ``SimulationRun`` with the
             specifications of the COMBINE/OMEX archive to execute and the simulator to execute it with
         archiveFile (:obj:`werkzeug.datastructures.FileStorage`, optional): COMBINE/OMEX file
 
     Returns:
         :obj:`werkzeug.wrappers.response.Response`: response with the results and log of the run in the
-            ``#/components/schemas/SimulationRunResults`` schema
+            ``SimulationRunResults`` schema
     """
     archive_file = archiveFile
     archive_url = body.get('archiveUrl', None)

@@ -22,12 +22,12 @@ def handler(body, modelFile=None):
         body (:obj:`dict`): dictionary with keys
 
             * ``task`` whose value
-            has schema ``#/components/schemas/SedTask`` with the
+            has schema ``SedTask`` with the
             specifications of the desired SED task
         modelFile (:obj:`werkzeug.datastructures.FileStorage`): model file (e.g., SBML file)
 
     Returns:
-        :obj:``#/components/schemas/SedDocument``
+        :obj:``SedDocument``
     """
     model_url = body.get('modelUrl', None)
     model_lang = body['modelLanguage']

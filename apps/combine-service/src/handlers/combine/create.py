@@ -44,7 +44,7 @@ def handler(body, files=None):
     ''' Create a COMBINE/OMEX archive.
 
     Args:
-        body (:obj:`dict`): dictionary with schema ``#/components/schemas/CombineArchiveSpecsAndFiles`` with the
+        body (:obj:`dict`): dictionary with schema ``CombineArchiveSpecsAndFiles`` with the
             specifications of the COMBINE/OMEX archive to create
         files (:obj:`list` of :obj:`werkzeug.datastructures.FileStorage`, optional): files (e.g., SBML
             file)
@@ -163,7 +163,7 @@ def export_sed_doc(sed_doc_specs):
     """ Export the specifications of SED document to SED-ML
 
     Args:
-        sed_doc_specs (``#/components/schemas/SedDocument``)
+        sed_doc_specs (``SedDocument``)
 
     Returns:
         :obj:`SedDocument`

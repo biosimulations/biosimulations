@@ -9,7 +9,7 @@ class BadRequestException(connexion.ProblemException, werkzeug.exceptions.BadReq
     Attributes:
         title (:obj:`str`): title
         instance (:obj:`Exception`): exception
-        validation_report (``#/components/schemas/ValidationReport``): validation report
+        validation_report (``ValidationReport``): validation report
         status (:obj:`int`): status code
     '''
 
@@ -18,7 +18,7 @@ class BadRequestException(connexion.ProblemException, werkzeug.exceptions.BadReq
         Args:
             title (:obj:`str`): title
             instance (:obj:`Exception`): exception
-            validation_report (``#/components/schemas/ValidationReport``, optional): validation report
+            validation_report (``ValidationReport``, optional): validation report
             status (:obj:`int`, optional): status code
         """
         super(BadRequestException, self).__init__(title=title, instance=instance, status=status)

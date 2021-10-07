@@ -16,7 +16,7 @@ def handler(body, files=None):
     ''' Add one or more files to a COMBINE/OMEX archive
 
     Args:
-        body (:obj:`dict`): dictionary with schema ``#/components/schemas/CombineArchiveAndAdditionalContent`` with the
+        body (:obj:`dict`): dictionary with schema ``CombineArchiveAndAdditionalContent`` with the
             specifications of the desired additions to the COMBINE/OMEX archive
         files (:obj:`list` of :obj:`werkzeug.datastructures.FileStorage`, optional): files (e.g., SBML
             file)

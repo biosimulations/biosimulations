@@ -9,7 +9,7 @@ def handler():
 
     Returns:
         :obj:`werkzeug.wrappers.response.Response`: response which contains a list of
-            elements encoded in schema ``#/components/schemas/Simulator``
+            elements encoded in schema ``Simulator``
     '''
     simulators = []
 

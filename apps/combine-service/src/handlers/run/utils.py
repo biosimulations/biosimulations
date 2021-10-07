@@ -91,7 +91,7 @@ def use_simulator_api_to_exec_sedml_docs_in_combine_archive(api_name, *args, **k
         : obj: `tuple`:
 
             *: obj:`SedDocumentResults`: results
-            *: obj:`dict` in the ``#/components/schemas/SimulationRunResults`` schema: log
+            *: obj:`dict` in the ``SimulationRunResults`` schema: log
     """
     api = get_simulator_api(api_name)
     results, log = api.exec_sedml_docs_in_combine_archive(*args, **kwargs)
