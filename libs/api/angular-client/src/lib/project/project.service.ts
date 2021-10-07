@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
 import { retryWhen } from 'rxjs/operators';
-import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
+import { Project } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
@@ -18,6 +18,17 @@ export class ProjectService {
   private endpoints = new Endpoints();
 
   constructor(private http: HttpClient) {}
+
+  public getAllProjects(): Observable<Project[]> {
+    const url = this.endpoints.getProjectsEndpoint();
+    const response = this.http.get<Project[]>(url).pipe(shareReplay(1));
+    return response;
+  }
+  public getProject(projectId: string): Observable<Project> {
+    const url = this.endpoints.getProjectsEndpoint(projectId);
+    const response = this.http.get<Project>(url).pipe(shareReplay(1));
+    return response;
+  }
 
   public getProjectFile(id: string, file: string) {
     const url = this.endpoints.getSimulationRunFileEndpoint(id, file);

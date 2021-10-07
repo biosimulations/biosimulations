@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Observable, combineLatest, map } from 'rxjs';
+import { Observable, combineLatest, map, shareReplay, mergeMap } from 'rxjs';
 import {
   ProjectMetadata,
   SimulationRunMetadata,
@@ -11,6 +11,7 @@ import {
   Visualization,
 } from '@biosimulations/datamodel-view';
 import { ViewService } from '@biosimulations/view-service';
+import { ProjectService } from '@biosimulations/angular-api-client';
 
 @Component({
   selector: 'biosimulations-view',
@@ -21,7 +22,7 @@ export class ViewComponent implements OnInit {
   public loaded$!: Observable<boolean>;
 
   public id!: string;
-
+  public simulationRunId$!: Observable<string>;
   public projectMetadata$!: Observable<ProjectMetadata | undefined>;
   public simulationRun$!: Observable<SimulationRunMetadata>;
 
@@ -32,28 +33,65 @@ export class ViewComponent implements OnInit {
   public visualizations$!: Observable<VisualizationList[]>;
   public visualization: Visualization | null = null;
 
-  constructor(private service: ViewService, private route: ActivatedRoute) {}
+  public constructor(
+    private service: ViewService,
+    private projService: ProjectService,
+    private route: ActivatedRoute,
+  ) {}
+
+  public selectedTabIndex = 0;
+  public viewVisualizationTabDisabled = true;
+  public selectVisualizationTabIndex = 2;
+  public visualizationTabIndex = 3;
 
   public ngOnInit(): void {
     const id = (this.id = this.route.snapshot.params['id']);
+    this.simulationRunId$ = this.projService.getProject(id).pipe(
+      shareReplay(1),
+      map((project) => project.simulationRun),
+    );
+    this.projectMetadata$ = this.simulationRunId$.pipe(
+      mergeMap((simulationRun) =>
+        this.service.getFormattedProjectMetadata(simulationRun),
+      ),
+    );
+    this.simulationRun$ = this.simulationRunId$.pipe(
+      mergeMap((simulationRun) =>
+        this.service.getFormattedSimulationRun(simulationRun),
+      ),
+    );
 
-    this.projectMetadata$ = this.service.getFormattedProjectMetadata(id);
-    this.simulationRun$ = this.service.getFormattedSimulationRun(id);
+    this.projectFiles$ = this.simulationRunId$.pipe(
+      mergeMap((simulationRun) =>
+        this.service.getFormattedProjectFiles(simulationRun),
+      ),
+    );
+    this.files$ = this.simulationRunId$.pipe(
+      mergeMap((simulationRun) =>
+        this.service.getFormattedProjectContentFiles(simulationRun),
+      ),
+    );
 
-    this.projectFiles$ = this.service.getFormattedProjectFiles(id);
-    this.files$ = this.service.getFormattedProjectContentFiles(id);
-    this.outputs$ = this.service.getFormattedOutputFiles(id);
+    this.outputs$ = this.simulationRunId$.pipe(
+      mergeMap((simulationRun) =>
+        this.service.getFormattedOutputFiles(simulationRun),
+      ),
+    );
 
-    this.visualizations$ = this.service.getVisualizations(id);
+    this.visualizations$ = this.simulationRunId$.pipe(
+      mergeMap((simulationRun) =>
+        this.service.getVisualizations(simulationRun),
+      ),
+    );
 
-    this.loaded$ = combineLatest(
+    this.loaded$ = combineLatest([
       this.projectMetadata$,
       this.simulationRun$,
       this.projectFiles$,
       this.files$,
       this.outputs$,
       this.visualizations$,
-    ).pipe(
+    ]).pipe(
       map((observables: (any | undefined)[]): boolean => {
         return (
           observables.filter((observable: any | undefined): boolean => {
@@ -63,11 +101,6 @@ export class ViewComponent implements OnInit {
       }),
     );
   }
-
-  selectedTabIndex = 0;
-  viewVisualizationTabDisabled = true;
-  selectVisualizationTabIndex = 2;
-  visualizationTabIndex = 3;
 
   public renderVisualization(visualization: Visualization): void {
     this.visualization = visualization;

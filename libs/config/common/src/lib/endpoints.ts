@@ -21,6 +21,7 @@ export class Endpoints {
   private combineFile: string;
   private storage_endpoint: string;
   private specifications: string;
+  private projects: string;
   public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
     // We can read the env that is provided in the shared env file as the default
     if (env == undefined) {
@@ -65,6 +66,7 @@ export class Endpoints {
     this.files = `${this.api}/files`;
     this.combineFile = `${this.combine_api}/combine/file`;
     this.specifications = `${this.api}/specifications`;
+    this.projects = `${this.api}/projects`;
   }
   /**
    *
@@ -120,13 +122,6 @@ export class Endpoints {
   }
 
   /**
-   *
-   * @returns The base URL of the combine api
-   */
-  private getCombineEndpoint(): string {
-    return this.combine_api;
-  }
-  /**
    * Get the URL for a file object.
    * This URL points to the file object in the database, and is not a direct link to download the file
    * In some cases, the API may be configured to automatically forward to the file download URL, but this is not guaranteed
@@ -155,6 +150,9 @@ export class Endpoints {
     return `${this.storage_endpoint}/simulations/${id}/contents/${path}`;
   }
 
+  public getProjectsEndpoint(projectId?: string): string {
+    return this.projects + (projectId ? `/${projectId}` : '');
+  }
   /**
    * Create a URL to download a file from an omex file using the combine service
    * @param URL The URL of a combine archive
@@ -324,5 +322,13 @@ export class Endpoints {
   public getSimulationRunLogsEndpoint(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
     return `${this.simulationRunLogs}${id}`;
+  }
+
+  /**
+   *
+   * @returns The base URL of the combine api
+   */
+  private getCombineEndpoint(): string {
+    return this.combine_api;
   }
 }
