@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@biosimulations/shared/environments';
-import { map, Observable, shareReplay } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
 import { retryWhen } from 'rxjs/operators';
 import {
   SimulationRun,
@@ -9,7 +9,6 @@ import {
 // import { SimulationRun } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
-import { SimulatorIdNameMap } from '@biosimulations/datamodel/common';
 import { RetryStrategy } from '@biosimulations/shared/services';
 
 @Injectable({

@@ -29,6 +29,7 @@ describe('ProjectCardComponent', () => {
     component = fixture.componentInstance;
     component.project = {
       id: '1',
+      simulationRun: '615e7eb6e857da40033c7eb3',
       metadata: {
         title: 'example title',
         thumbnail: '',

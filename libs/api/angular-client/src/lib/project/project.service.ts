@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
-import { retryWhen } from 'rxjs/operators';
 import { Project } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +8,6 @@ import {
   CombineArchiveContent,
   SimulatorIdNameMap,
 } from '@biosimulations/datamodel/common';
-import { RetryStrategy } from '@biosimulations/shared/services';
 
 @Injectable({
   providedIn: 'root',
