@@ -23,6 +23,9 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "paths": {
+      "@biosimulations/angular-api-client": [
+        "libs/api/angular-client/src/index.ts"
+      ],
       "@biosimulations/account/management": [
         "libs/account/management/src/index.ts"
       ],

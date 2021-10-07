@@ -5,7 +5,10 @@ import {
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { ProjectSummary, FormattedDate } from './browse.model';
-import { ProjectsService } from '@biosimulations/view-service';
+import {
+  ProjectService,
+  SimulationService,
+} from '@biosimulations/angular-api-client';
 import { UtilsService } from '@biosimulations/shared/services';
 
 @Injectable({
@@ -15,10 +18,13 @@ export class BrowseService {
   public DEFAULT_THUMBNAIL =
     './assets/images/default-resource-images/model-padded.svg';
 
-  constructor(private service: ProjectsService) {}
+  constructor(
+    private projService: ProjectService,
+    private simService: SimulationService,
+  ) {}
 
   public getProjects(): Observable<ProjectSummary[]> {
-    const response = this.service.getSimulationRunMetadatas().pipe(
+    const response = this.simService.getAllSimulationRunMetadata().pipe(
       map((projects: SimulationRunMetadata[]) => {
         return projects
           .map((project: SimulationRunMetadata) => {

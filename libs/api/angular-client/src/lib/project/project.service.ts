@@ -5,42 +5,28 @@ import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
-import { SimulatorIdNameMap } from '@biosimulations/datamodel/common';
+import {
+  CombineArchiveContent,
+  SimulatorIdNameMap,
+} from '@biosimulations/datamodel/common';
 import { RetryStrategy } from '@biosimulations/shared/services';
 
-// TODO refactor
-/**
- * project service is restricted to platform- uses the projects endpoint
- * simulationRun service - get simulations runs
- * metadata service - get metadata
- * files service - get files
- * specs service - get specs
- * rename libary to angualar-api-client
- *
- *
- */
 @Injectable({
   providedIn: 'root',
 })
-export class ProjectsService {
+export class ProjectService {
   private endpoints = new Endpoints();
 
   constructor(private http: HttpClient) {}
-
-  public getSimulationRunMetadatas(): Observable<SimulationRunMetadata[]> {
-    const url = this.endpoints.getSimulationRunMetadataEndpoint();
-    const response = this.http.get<SimulationRunMetadata[]>(url);
-    return response;
-  }
 
   public getProjectFile(id: string, file: string) {
     const url = this.endpoints.getSimulationRunFileEndpoint(id, file);
     return this.http.get(url);
   }
 
-  public getArchiveContents(id: string): Observable<any> {
+  public getArchiveContents(id: string): Observable<CombineArchiveContent[]> {
     const url = this.endpoints.getArchiveContentsEndpoint(id);
-    const response = this.http.get<any>(url).pipe();
+    const response = this.http.get<CombineArchiveContent[]>(url).pipe();
     return response;
   }
 
@@ -48,41 +34,6 @@ export class ProjectsService {
     const url = this.endpoints.getArchiveSedmlContentsEndpoint(id);
     const response = this.http.get<any>(url).pipe();
     return response;
-  }
-
-  public getMetadata(id: string): Observable<SimulationRunMetadata> {
-    const url = this.endpoints.getSimulationRunMetadataEndpoint(id);
-    const response = this.http.get<SimulationRunMetadata>(url).pipe();
-
-    return response;
-  }
-
-  public getSimulationRun(id: string): Observable<any> {
-    // SimulationRun
-    const url = this.endpoints.getSimulationRunEndpoint(id);
-    const response = this.http.get<any>(url).pipe(shareReplay(1)); // SimulationRun
-    return response;
-  }
-
-  public getSimulationRunResults(
-    id: string,
-    outputId?: string,
-    includeData = false,
-  ): Observable<any> {
-    const url = this.endpoints.getRunResultsEndpoint(id, outputId, includeData);
-    const retryStrategy = new RetryStrategy();
-    const response = this.http
-      .get<any>(url)
-      .pipe(
-        shareReplay(1),
-        retryWhen(retryStrategy.handler.bind(retryStrategy)),
-      );
-    return response;
-  }
-
-  public getSimulationRunLog(id: string): Observable<any> {
-    const endpoint = this.endpoints.getRunLogsEndpoint(id);
-    return this.http.get(endpoint);
   }
 
   public getSimulatorIdNameMap(): Observable<SimulatorIdNameMap> {
