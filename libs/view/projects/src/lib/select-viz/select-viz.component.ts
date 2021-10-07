@@ -26,7 +26,10 @@ import { DesignHistogram1DVisualizationComponent } from '../design-histogram-1d-
 import { DesignHeatmap2DVisualizationComponent } from '../design-heatmap-2d-viz/design-heatmap-2d-viz.component';
 import { DesignLine2DVisualizationComponent } from '../design-line-2d-viz/design-line-2d-viz.component';
 import { Spec as VegaSpec } from 'vega';
-import { ProjectsService } from '@biosimulations/view-service';
+import {
+  ProjectService,
+  SimulationService,
+} from '@biosimulations/angular-api-client';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '@biosimulations/shared/environments';
 import { Endpoints } from '@biosimulations/config/common';
@@ -61,7 +64,8 @@ export class SelectVisualizationComponent implements OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private projectsService: ProjectsService,
+    private projService: ProjectService,
+    private simService: SimulationService,
     private snackBar: MatSnackBar,
   ) {
     this.formGroup = formBuilder.group({
@@ -147,7 +151,7 @@ export class SelectVisualizationComponent implements OnDestroy {
           a.download = 'visualization.json';
           a.click();
         } else {
-          const sub = this.projectsService
+          const sub = this.projService
             .addFileToCombineArchive(
               this.endpoints.getRunDownloadEndpoint(simulationRunId),
               'plot.vg.json',

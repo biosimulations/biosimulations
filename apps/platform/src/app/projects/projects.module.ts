@@ -11,7 +11,7 @@ import { ProjectCardComponent } from './project-card/project-card.component';
 import { BrowseComponent } from './browse/browse.component';
 import { SharedErrorComponentsModule } from '@biosimulations/shared/error-handler';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-
+import { ApiClientModule } from '@biosimulations/angular-api-client';
 @NgModule({
   declarations: [ViewComponent, ProjectCardComponent, BrowseComponent],
   imports: [
@@ -24,6 +24,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     SharedDebugModule,
     SharedErrorComponentsModule,
     LazyLoadImageModule,
+    ApiClientModule,
   ],
 })
 export class ProjectsModule {}

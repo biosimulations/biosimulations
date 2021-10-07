@@ -36,7 +36,6 @@ import {
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { ProjectService } from '@biosimulations/angular-api-client';
-import { SimulationService } from '@biosimulations/angular-api-client';
 import { VegaVisualizationService } from '../vega-visualization/vega-visualization.service';
 import { SedPlot2DVisualizationService } from '../sed-plot-2d-visualization/sed-plot-2d-visualization.service';
 import {
@@ -67,17 +66,14 @@ export class ViewService {
   formatMap!: { [uri: string]: CombineArchiveContentFormat };
 
   public constructor(
-    private projService: ProjectService,
-    private simService: SimulationService,
+    private service: ProjectService,
     private vegaVisualizationService: VegaVisualizationService,
     private sedPlot2DVisualizationService: SedPlot2DVisualizationService,
     private ontologyService: OntologyService,
   ) {
     this.formatMap = {};
     FORMATS.forEach((format: CombineArchiveContentFormat): void => {
-      format.combineUris.forEach((combineUri: string): void => {
-        this.formatMap[combineUri] = format;
-      });
+      this.formatMap[format.combineUri] = format;
     });
   }
 
@@ -246,12 +242,12 @@ export class ViewService {
   public getFormattedSimulationRun(
     id: string,
   ): Observable<FormattedSimulationRunMetadata> {
-    return forkJoin([
-      this.simService.getSimulationRun(id),
-      this.projService.getProjectSedmlContents(id),
-      this.simService.getSimulationRunLog(id),
+    return forkJoin(
+      this.service.getSimulationRun(id),
+      this.service.getProjectSedmlContents(id),
+      this.service.getSimulationRunLog(id),
       this.ontologyService.getTerms<KisaoTerm>(Ontologies.KISAO),
-    ]).pipe(
+    ).pipe(
       map(
         (
           args: [
@@ -380,7 +376,7 @@ export class ViewService {
           });
 
           const tools: ListItem[] = [];
-          const simulator = this.projService.getSimulatorIdNameMap().pipe(
+          const simulator = this.service.getSimulatorIdNameMap().pipe(
             map((simulatorIdNameMap: SimulatorIdNameMap): string => {
               return (
                 simulatorIdNameMap[simulationRun.simulator] +
@@ -405,7 +401,7 @@ export class ViewService {
             url: `${urls.dispatch}/simulations/${id}`,
           });
 
-          const durationSec = this.simService
+          const durationSec = this.service
             .getSimulationRunLog(simulationRun.id)
             .pipe(
               pluck('duration'),
@@ -468,7 +464,7 @@ export class ViewService {
   }
 
   public getFormattedProjectFiles(id: string): Observable<File[]> {
-    return this.simService.getSimulationRun(id).pipe(
+    return this.service.getSimulationRun(id).pipe(
       map((simulationRun: any): File[] => {
         // SimulationRun
         return [
@@ -491,7 +487,7 @@ export class ViewService {
   }
 
   public getFormattedProjectContentFiles(id: string): Observable<Path[]> {
-    return this.projService.getArchiveContents(id).pipe(
+    return this.service.getArchiveContents(id).pipe(
       map((contents: any): Path[] => {
         const root: { [path: string]: Path } = {};
 
@@ -565,7 +561,7 @@ export class ViewService {
               format: formatName,
               master:
                 content?.master ||
-                (!hasMaster && format.startsWith(SEDML_FORMAT.combineUris[0])),
+                (!hasMaster && format === SEDML_FORMAT.combineUri),
               url: content.url,
               size: UtilsService.formatDigitalSize(content.size),
               formatUrl: this.formatMap?.[format]?.url,
@@ -591,7 +587,7 @@ export class ViewService {
   }
 
   public getFormattedOutputFiles(id: string): Observable<File[]> {
-    return this.simService.getSimulationRun(id).pipe(
+    return this.service.getSimulationRun(id).pipe(
       map((simulationRun: any): File[] => {
         // SimulationRun
         return [
@@ -641,10 +637,10 @@ export class ViewService {
   }
 
   public getVisualizations(id: string): Observable<VisualizationList[]> {
-    return forkJoin([
-      this.projService.getArchiveContents(id),
-      this.projService.getProjectSedmlContents(id),
-    ]).pipe(
+    return forkJoin(
+      this.service.getArchiveContents(id),
+      this.service.getProjectSedmlContents(id),
+    ).pipe(
       map((args: [any[], SedDocumentSpecifications[]]): VisualizationList[] => {
         const contents = args[0];
         const sedmlArchiveContents = args[1];
@@ -686,7 +682,7 @@ export class ViewService {
 
         const vegaVisualizations: VegaVisualization[] = [];
         contents.forEach((content: any): void => {
-          if (VEGA_FORMAT.combineUris.includes(content.format)) {
+          if (content.format === VEGA_FORMAT.combineUri) {
             let location = content.location;
             if (location.startsWith('./')) {
               location = location.substring(2);
@@ -698,17 +694,15 @@ export class ViewService {
               name: location,
               userDesigned: false,
               renderer: 'Vega',
-              vegaSpec: this.projService
-                .getProjectFile(id, content.location)
-                .pipe(
-                  map((spec: VegaSpec): VegaSpec | false => {
-                    return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(
-                      id,
-                      sedmlArchiveContents,
-                      spec,
-                    );
-                  }),
-                ),
+              vegaSpec: this.service.getProjectFile(id, content.location).pipe(
+                map((spec: VegaSpec): VegaSpec | false => {
+                  return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(
+                    id,
+                    sedmlArchiveContents,
+                    spec,
+                  );
+                }),
+              ),
             });
           }
         });
@@ -750,7 +744,7 @@ export class ViewService {
                       userDesigned: false,
                       renderer: 'Plotly',
                       plotlyDataLayout: of(
-                        this.simService
+                        this.service
                           .getSimulationRunResults(
                             id,
                             `${location}/${output.id}`,
@@ -868,7 +862,7 @@ export class ViewService {
       if (!reportUris.has(reportUri)) {
         reportUris.add(reportUri);
         reportObs.push(
-          this.simService.getSimulationRunResults(
+          this.service.getSimulationRunResults(
             simulationRunId,
             reportUri,
             true,
@@ -908,8 +902,8 @@ export class ViewService {
     return flattenedArray;
   }
   private getProjectMetadata(id: string): Observable<ArchiveMetadata[]> {
-    const response: Observable<ArchiveMetadata[]> = this.simService
-      .getSimulationRunMetadata(id)
+    const response: Observable<ArchiveMetadata[]> = this.service
+      .getMetadata(id)
       .pipe(
         // Only call the HTTP service once
         shareReplay(1),
