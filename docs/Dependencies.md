@@ -704,7 +704,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.1001.0
+├─ aws-sdk@2.1003.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services
@@ -768,7 +768,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: npm/node_modules/binary-extensions/license
-├─ biosimulations@5.2.0
+├─ biosimulations@5.3.0
 │  ├─ licenses: UNLICENSED
 │  ├─ private: true
 │  └─ licenseFile: /home/runner/work/biosimulations/biosimulations/License.md
