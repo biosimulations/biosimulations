@@ -161,7 +161,7 @@ export class Endpoints {
    * @deprecated use getSimulationRunFileEndpoint instead if the simulation run has been submitted
    * @see getSimulationRunFileEndpoint
    */
-  public getCombineFilesEndpoint(
+  private getCombineFilesEndpoint(
     url: string,
     location: string,
     external = false,

@@ -1,6 +1,11 @@
 @use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 
+.form-section .form-field-group mat-form-field mat-hint {
+  font-size: 125%;
+  padding-top: 0.4em;
+}
+
 .options {
   & > div:not(:first-child) {
     margin-top: 0.25rem;
