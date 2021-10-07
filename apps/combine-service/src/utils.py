@@ -117,7 +117,7 @@ def make_validation_report(errors, warnings, filenames=None):
         filenames (:obj:`list` of :obj:`str`, optional): filenames to strip from the message
 
     Returns:
-        ``#/components/schemas/ValidationReport``: information about the validity or
+        ``ValidationReport``: information about the validity or
             lack thereof of a COMBINE/OMEX archive
     """
     report = {
@@ -144,7 +144,7 @@ def convert_nested_list_to_validation_messages(nested, filenames=None):
         filenames (:obj:`list` of :obj:`str`, optional): filenames to strip from the message
 
     Returns:
-        :obj:`list` of ``#/components/schemas/ValidationMessage``: validation message
+        :obj:`list` of ``ValidationMessage``: validation message
     """
     msgs = []
     for el in nested:

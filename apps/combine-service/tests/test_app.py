@@ -1,4 +1,5 @@
 from biosimulators_utils.combine.io import CombineArchiveReader
+from biosimulators_utils.omex_meta.data_model import OmexMetadataInputFormat, OmexMetadataSchema
 from biosimulators_utils.sedml.data_model import ModelLanguage, Symbol
 from biosimulators_utils.sedml.io import SedmlSimulationReader
 from openapi_core.contrib.requests import RequestsOpenAPIRequestFactory
@@ -1336,6 +1337,8 @@ class HandlersTestCase(unittest.TestCase):
 
         data = MultiDict([
             ('file', fid),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
+            ('omexMetadataSchema', OmexMetadataSchema.biosimulations.value),
         ])
         endpoint = '/combine/validate'
         with app.app.app.test_client() as client:
@@ -1360,6 +1363,8 @@ class HandlersTestCase(unittest.TestCase):
                 method='post',
                 body={
                     'file': file_content,
+                    'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
+                    'omexMetadataSchema': OmexMetadataSchema.biosimulations.value,
                 },
                 mimetype='multipart/form-data',
                 parameters=RequestParameters(),
@@ -1374,6 +1379,33 @@ class HandlersTestCase(unittest.TestCase):
             result = self.response_validator.validate(request, response)
             result.raise_for_errors()
 
+    def test_validate_is_valid_from_url(self):
+        archive_filename = os.path.join(
+            self.FIXTURES_DIR, self.TEST_CASE + '.omex')
+
+        data = MultiDict([
+            ('url', 'https://archive.combine.org'),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
+            ('omexMetadataSchema', OmexMetadataSchema.biosimulations.value),
+        ])
+        endpoint = '/combine/validate'
+        with open(archive_filename, 'rb') as file:
+            response = response = mock.Mock(
+                raise_for_status=lambda: None,
+                content=file.read(),
+            )
+        with mock.patch('requests.get', return_value=response):
+            with app.app.app.test_client() as client:
+                response = client.post(endpoint, data=data, content_type='multipart/form-data')
+        self.assertEqual(response.status_code, 200, response.json)
+        validation_report = response.json
+
+        validation_report.pop('warnings')
+        self.assertEqual(validation_report, {
+            "_type": "ValidationReport",
+            "status": "warnings"
+        })
+
     def test_validate_is_invalid(self):
         archive_filename = os.path.join(
             self.FIXTURES_DIR, 'invalid-SED-ML.omex')
@@ -1381,6 +1413,8 @@ class HandlersTestCase(unittest.TestCase):
 
         data = MultiDict([
             ('file', fid),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
+            ('omexMetadataSchema', OmexMetadataSchema.biosimulations.value),
         ])
         endpoint = '/combine/validate'
         with app.app.app.test_client() as client:
@@ -1399,6 +1433,8 @@ class HandlersTestCase(unittest.TestCase):
 
         data = MultiDict([
             ('file', fid),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
+            ('omexMetadataSchema', OmexMetadataSchema.biosimulations.value),
         ])
         endpoint = '/combine/validate'
         with app.app.app.test_client() as client:
@@ -1418,6 +1454,8 @@ class HandlersTestCase(unittest.TestCase):
         fid = open(archive_filename, 'rb')
         data = MultiDict([
             ('file', fid),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
+            ('omexMetadataSchema', OmexMetadataSchema.biosimulations.value),
         ])
         endpoint = '/combine/validate'
         with app.app.app.test_client() as client:
@@ -1432,8 +1470,12 @@ class HandlersTestCase(unittest.TestCase):
         fid = open(archive_filename, 'rb')
         data = MultiDict([
             ('file', fid),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
+            ('omexMetadataSchema', OmexMetadataSchema.biosimulations.value),
+            ('validateOmexManifest', False),
+            ('validateOmexMetadata', False),
         ])
-        endpoint = '/combine/validate?validateOmexManifest=false&validateOmexMetadata=false'
+        endpoint = '/combine/validate'
         with app.app.app.test_client() as client:
             response = client.post(endpoint, data=data, content_type="multipart/form-data")
         fid.close()
@@ -1449,6 +1491,8 @@ class HandlersTestCase(unittest.TestCase):
         fid = open(archive_filename, 'rb')
         data = MultiDict([
             ('file', fid),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
+            ('omexMetadataSchema', OmexMetadataSchema.biosimulations.value),
         ])
         endpoint = '/combine/validate'
         with app.app.app.test_client() as client:
@@ -1463,8 +1507,12 @@ class HandlersTestCase(unittest.TestCase):
         fid = open(archive_filename, 'rb')
         data = MultiDict([
             ('file', fid),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
+            ('omexMetadataSchema', OmexMetadataSchema.biosimulations.value),
+            ('validateOmexManifest', False),
+            ('validateOmexMetadata', False),
         ])
-        endpoint = '/combine/validate?validateOmexManifest=false&validateOmexMetadata=false'
+        endpoint = '/combine/validate'
         with app.app.app.test_client() as client:
             response = client.post(endpoint, data=data, content_type="multipart/form-data")
         fid.close()
@@ -1519,6 +1567,7 @@ class HandlersTestCase(unittest.TestCase):
         archive_url = 'https://archive.combine.org'
         data = MultiDict([
             ('url', archive_url),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
         ])
         response = mock.Mock(
             raise_for_status=lambda: None,
@@ -1527,7 +1576,7 @@ class HandlersTestCase(unittest.TestCase):
         endpoint = '/combine/metadata/biosimulations'
         with mock.patch('requests.get', return_value=response):
             with app.app.app.test_client() as client:
-                response = client.post(endpoint, data=data, content_type="multipart/form-data")
+                response = client.post(endpoint, data=data, content_type='multipart/form-data')
         self.assertEqual(response.status_code, 200, response.json)
         metadata = response.json
 
@@ -1545,6 +1594,7 @@ class HandlersTestCase(unittest.TestCase):
                 method='post',
                 body={
                     'url': archive_url,
+                    'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
                 },
                 mimetype='multipart/form-data',
                 parameters=RequestParameters(),
@@ -1565,8 +1615,9 @@ class HandlersTestCase(unittest.TestCase):
 
         data = MultiDict([
             ('file', fid),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
         ])
-        endpoint = '/combine/metadata/biosimulations'
+        endpoint = '/combine/metadata/biosimulations' 
         with app.app.app.test_client() as client:
             response = client.post(endpoint, data=data, content_type="multipart/form-data")
         self.assertEqual(response.status_code, 200, response.json)
@@ -1590,6 +1641,7 @@ class HandlersTestCase(unittest.TestCase):
                 method='post',
                 body={
                     'file': file_content,
+                    'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
                 },
                 mimetype='multipart/form-data',
                 parameters=RequestParameters(),
@@ -1611,6 +1663,7 @@ class HandlersTestCase(unittest.TestCase):
 
         data = MultiDict([
             ('file', fid),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
         ])
         endpoint = '/combine/metadata/rdf'
         with app.app.app.test_client() as client:
@@ -1646,6 +1699,7 @@ class HandlersTestCase(unittest.TestCase):
                 method='post',
                 body={
                     'file': file_content,
+                    'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
                 },
                 mimetype='multipart/form-data',
                 parameters=RequestParameters(),
@@ -1663,13 +1717,12 @@ class HandlersTestCase(unittest.TestCase):
     def test_get_metadata_for_combine_archive_error_handling(self):
         endpoint = '/combine/metadata/biosimulations'
         data = MultiDict([
-            ('url', 'x'),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
         ])
         with app.app.app.test_client() as client:
-            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+            response = client.post(endpoint, data=data, content_type='multipart/form-data')
         self.assertEqual(response.status_code, 400, response.json)
-        self.assertTrue(response.json['title'].startswith(
-            'COMBINE/OMEX archive could not be loaded'))
+        self.assertIn('must be used', response.json['title'])
 
         if hasattr(self, "response_validator"):
             request = OpenAPIRequest(
@@ -1677,6 +1730,7 @@ class HandlersTestCase(unittest.TestCase):
                 method='post',
                 body={
                     'url': 'x',
+                    'omexMetadataFormat': OmexMetadataInputFormat.rdfxml.value,
                 },
                 mimetype=None,
                 parameters=RequestParameters(),
@@ -1693,6 +1747,7 @@ class HandlersTestCase(unittest.TestCase):
         fid = open(archive_filename, 'rb')
         data = MultiDict([
             ('file', fid),
+            ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
         ])
         with app.app.app.test_client() as client:
             response = client.post(endpoint, data=data, content_type="multipart/form-data")

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sedML xmlns="http://sed-ml.org/sed-ml/level1/version3" metaid="_00000001" level="1" version="3"
+  xmlns:sbml="http://www.sbml.org/sbml/level2/version4">
+  <listOfModels>
+    <model id="Ciliberto2003_Morphogenesis" name="Ciliberto2003_Morphogenesis_Checkpoint" language="urn:sedml:language:sbml" source="BIOMD0000000297_url.xml">
+      <listOfChanges>
+        <changeAttribute target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='kswe_prime']/@value" newValue="2.001"/>
+      </listOfChanges>
+    </model>
+  </listOfModels>
+  <listOfSimulations>
+    <uniformTimeCourse id="simulation_1" name="simulation 1" initialTime="0" outputStartTime="0" outputEndTime="140" numberOfPoints="200">
+      <algorithm metaid="_00000002" kisaoID="KISAO:0000019">
+      </algorithm>
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfTasks>
+    <task id="task_1" name="simulation 1" modelReference="Ciliberto2003_Morphogenesis" simulationReference="simulation_1"/>
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="data_gen_time" name="time">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_time </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_time" name="time" symbol="urn:sedml:symbol:time" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Trim" name="Trim">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_Trim </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_Trim" name="Trim" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Trim&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Clb" name="Clb">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_Clb </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_Clb" name="Clb" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Clb&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Sic" name="Sic">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_Sic </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_Sic" name="Sic" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Sic&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_PTrim" name="PTrim">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_PTrim </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_PTrim" name="PTrim" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;PTrim&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_PClb" name="PClb">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_PClb </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_PClb" name="PClb" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;PClb&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_SBF" name="SBF">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_SBF </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_SBF" name="SBF" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;SBF&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_IE" name="IE">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_IE </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_IE" name="IE" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;IE&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Cdc20a" name="Cdc20a">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_Cdc20a </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_Cdc20a" name="Cdc20a" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Cdc20a&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Cdc20" name="Cdc20">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_Cdc20 </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_Cdc20" name="Cdc20" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Cdc20&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Cdh1" name="Cdh1">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_Cdh1 </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_Cdh1" name="Cdh1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Cdh1&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Swe1" name="Swe1">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_Swe1 </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_Swe1" name="Swe1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Swe1&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Swe1M" name="Swe1M">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_Swe1M </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_Swe1M" name="Swe1M" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Swe1M&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_PSwe1" name="PSwe1">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_PSwe1 </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_PSwe1" name="PSwe1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;PSwe1&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_PSwe1M" name="PSwe1M">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_PSwe1M </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_PSwe1M" name="PSwe1M" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;PSwe1M&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Mih1a" name="Mih1a">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_Mih1a </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_Mih1a" name="Mih1a" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Mih1a&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Mcm" name="Mcm">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_Mcm </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_Mcm" name="Mcm" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Mcm&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_BE" name="BE">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_BE </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_BE" name="BE" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;BE&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Cln" name="Cln">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_Cln </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_Cln" name="Cln" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Cln&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_mass" name="mass">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> var_mass </ci>
+      </math>
+      <listOfVariables>
+        <variable id="var_mass" name="mass" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;mass&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+    <dataGenerator id="data_gen_Swe1T" name="Swe1T">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <plus/>
+          <ci> var_Swe1T_Swe1 </ci>
+          <ci> var_Swe1T_Swe1M </ci>
+          <ci> var_Swe1T_PSwe1 </ci>
+          <ci> var_Swe1T_PSwe1M </ci>
+        </apply>
+      </math>
+      <listOfVariables>
+        <variable id="var_Swe1T_Swe1" name="Swe1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Swe1&apos;]" taskReference="task_1"/>
+        <variable id="var_Swe1T_PSwe1" name="PSwe1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;PSwe1&apos;]" taskReference="task_1"/>
+        <variable id="var_Swe1T_Swe1M" name="Swe1M" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;Swe1M&apos;]" taskReference="task_1"/>
+        <variable id="var_Swe1T_PSwe1M" name="PSwe1M" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id=&apos;PSwe1M&apos;]" taskReference="task_1"/>
+      </listOfVariables>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <report id="report">
+      <listOfDataSets>
+        <dataSet id="data_set_time" label="Time (min)" dataReference="data_gen_time"/>
+        <dataSet id="data_set_Cdc20a" label="Activated Cdc20" dataReference="data_gen_Cdc20a"/>
+        <dataSet id="data_set_BE" label="BE" dataReference="data_gen_BE"/>
+        <dataSet id="data_set_Cdc20" label="Cdc20" dataReference="data_gen_Cdc20"/>
+        <dataSet id="data_set_Trim" label="CDC28-Clb2-Sic1" dataReference="data_gen_Trim"/>
+        <dataSet id="data_set_Cdh1" label="Cdh1" dataReference="data_gen_Cdh1"/>
+        <dataSet id="data_set_Clb" label="Clb2" dataReference="data_gen_Clb"/>
+        <dataSet id="data_set_Cln" label="Cln" dataReference="data_gen_Cln"/>
+        <dataSet id="data_set_IE" label="Intermediary enzyme" dataReference="data_gen_IE"/>
+        <dataSet id="data_set_mass" label="Mass" dataReference="data_gen_mass"/>
+        <dataSet id="data_set_Mcm" label="Mcm" dataReference="data_gen_Mcm"/>
+        <dataSet id="data_set_Mih1a" label="Mih1a" dataReference="data_gen_Mih1a"/>
+        <dataSet id="data_set_Swe1M" label="Modified Swe1" dataReference="data_gen_Swe1M"/>
+        <dataSet id="data_set_PTrim" label="Phosphorylated Cdc28-Clb2-Sic1" dataReference="data_gen_PTrim"/>
+        <dataSet id="data_set_PClb" label="Phosphorylated Clb2" dataReference="data_gen_PClb"/>
+        <dataSet id="data_set_PSwe1" label="Phosphorylated Swe1" dataReference="data_gen_PSwe1"/>
+        <dataSet id="data_set_PSwe1M" label="Phosphorylated, modified Swe1" dataReference="data_gen_PSwe1M"/>
+        <dataSet id="data_set_SBF" label="SBF" dataReference="data_gen_SBF"/>
+        <dataSet id="data_set_Sic" label="Sic1" dataReference="data_gen_Sic"/>
+        <dataSet id="data_set_Swe1" label="Swe1" dataReference="data_gen_Swe1"/>
+        <dataSet id="data_set_Swe1T" label="Total Swe1" dataReference="data_gen_Swe1T"/>
+      </listOfDataSets>
+    </report>
+
+    <plot2D id="Figure_3a" name="Figure 3a">
+      <listOfCurves>
+        <curve id="curve_Figure_3a_Sic" name="Sic1" xDataReference="data_gen_time" yDataReference="data_gen_Sic"/>
+        <curve id="curve_Figure_3a_SBF" name="SBF" xDataReference="data_gen_time" yDataReference="data_gen_SBF"/>
+        <curve id="curve_Figure_3a_Clb" name="Clb2" xDataReference="data_gen_time" yDataReference="data_gen_Clb"/>
+        <curve id="curve_Figure_3a_Cln" name="Cln" xDataReference="data_gen_time" yDataReference="data_gen_Cln"/>
+      </listOfCurves>
+    </plot2D>
+
+    <plot2D id="Figure_3b" name="Figure 3b">
+      <listOfCurves>
+        <curve id="curve_Figure_3b_Cdc20a" name="Activated Cdc20" xDataReference="data_gen_time" yDataReference="data_gen_Cdc20a"/>
+        <curve id="curve_Figure_3b_Cdh1" name="Cdh1" xDataReference="data_gen_time" yDataReference="data_gen_Cdh1"/>
+        <curve id="curve_Figure_3b_Clb" name="Clb2" xDataReference="data_gen_time" yDataReference="data_gen_Clb"/>
+        <curve id="curve_Figure_3b_IE" name="Intermediary enzyme" xDataReference="data_gen_time" yDataReference="data_gen_IE"/>
+       </listOfCurves>
+    </plot2D>
+
+    <plot2D id="Figure_3c" name="Figure 3c">
+      <listOfCurves>
+        <curve id="curve_Figure_3c_Swe1" name="Swe1" xDataReference="data_gen_time" yDataReference="data_gen_Swe1"/>
+        <curve id="curve_Figure_3c_Swe1M" name="Modified Swe1" xDataReference="data_gen_time" yDataReference="data_gen_Swe1M"/>
+        <curve id="curve_Figure_3c_Swe1T" name="Total Swe1" xDataReference="data_gen_time" yDataReference="data_gen_Swe1T"/>
+        <curve id="curve_Figure_3c_PSwe1M" name="Phosphorylated, modified Swe1" xDataReference="data_gen_time" yDataReference="data_gen_PSwe1M"/>
+       </listOfCurves>
+    </plot2D>
+
+    <plot2D id="Figure_3d" name="Figure 3d">
+      <listOfCurves>
+        <curve id="curve_Figure_3d_mass" name="Mass" xDataReference="data_gen_time" yDataReference="data_gen_mass"/>
+       </listOfCurves>
+    </plot2D>
+  </listOfOutputs>
+</sedML>

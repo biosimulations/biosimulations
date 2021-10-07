@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rdf:RDF 
+  xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"
+  xmlns:bqmodel="http://biomodels.net/model-qualifiers/"
+  xmlns:collex="http://www.collex.org/schema#"
+  xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/"
+  xmlns:dcterms='http://purl.org/dc/terms/'
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/"
+  xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  >
+  <rdf:Description rdf:about='http://omex-library.org/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex'>
+    <dc:title>Morphogenesis checkpoint in budding yeast (continuous) (Ciliberto et al., Journal Cell Biology, 2003)</dc:title>
+
+    <dc:abstract>Continuous kinetic model of the molecular network that controls Swe1 and the regulation of cyclin-dependent kinase.</dc:abstract>
+
+    <prism:keyword>cell cycle</prism:keyword>
+    <prism:keyword>cell division</prism:keyword>
+    <prism:keyword>cyclin-dependent kinase</prism:keyword>
+    <prism:keyword>morphogenesis</prism:keyword>
+    <prism:keyword>signal transduction</prism:keyword>
+
+    <dc:description>Set of ordinary differential equations that model the molecular network that controls Swe1 and the regulation of cyclin-dependent kinase. The model is based on published observations of budding yeast and analogous control signals in fission yeast. Simulations of the model accurately reproduce the phenotypes of a dozen checkpoint mutants. Among other predictions, the model attributes a new role to Hsl1, a kinase known to play a role in Swe1 degradation: Hsl1 must also be indirectly responsible for potent inhibition of Swe1 activity. The model supports the idea that the morphogenesis checkpoint, like other checkpoints, raises the cell size threshold for progression from one phase of the cell cycle to the next.</dc:description>
+
+    <collex:thumbnail rdf:resource="http://omex-library.org/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex/Figure1.jpg"/>
+    <collex:thumbnail rdf:resource="http://omex-library.org/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex/Figure2.jpg"/>
+
+    <!-- taxon -->
+    <bqbiol:hasTaxon>
+      <rdf:Description>
+        <dc:identifier rdf:resource="https://identifiers.org/taxonomy/4896"/>
+        <rdfs:label>Schizosaccharomyces pombe</rdfs:label>
+      </rdf:Description>
+    </bqbiol:hasTaxon>
+
+    <!-- ancestor(s) of this work -->
+    <bqmodel:isDerivedFrom>
+      <rdf:Description>
+        <dc:identifier rdf:resource="https://identifiers.org/doi:10.1006/jtbi.2001.2293"/>
+        <rdfs:label>John J. Tyson &amp; Bela Novak. Regulation of the eukaryotic cell cycle: molecular antagonism, hysteresis, and irreversible transitions. Journal of Theoretical Biology 210 (2001): 249-263.</rdfs:label>
+      </rdf:Description>
+    </bqmodel:isDerivedFrom>
+
+    <bqmodel:isDerivedFrom>
+      <rdf:Description>
+        <dc:identifier rdf:resource="https://identifiers.org/doi:10.1091/mbc.11.1.369"/>
+        <rdfs:label>Katherine C. Chen, Attila Csikasz-Nagy, Bela Gyorffy, John Val, Bela Novak &amp; John J. Tyson. Kinetic analysis of a molecular model of the budding yeast cell cycle. Mololecular Biology of the Cell 11 (2000): 369-391.</rdfs:label>
+      </rdf:Description>
+    </bqmodel:isDerivedFrom>
+
+    <!-- other identifiers -->
+    <bqmodel:is>
+      <rdf:Description>
+        <dc:identifier rdf:resource="https://identifiers.org/biomodels.db:BIOMD0000000297"/>
+        <rdfs:label>biomodels.db:BIOMD0000000297</rdfs:label>
+      </rdf:Description>
+    </bqmodel:is>
+
+    <!-- authors -->
+    <dc:creator>
+      <rdf:Description>
+        <foaf:name>Andrea Ciliberto</foaf:name>
+        <rdfs:label>Andrea Ciliberto</rdfs:label>
+      </rdf:Description>
+    </dc:creator>
+
+    <dc:creator>
+      <rdf:Description>
+        <foaf:accountName rdf:resource="https://orcid.org/0000-0002-6961-1366"/>
+        <foaf:name>Bela Novak</foaf:name>
+
+        <dc:identifier rdf:resource="https://identifiers.org/orcid:0000-0002-6961-1366"/>        
+        <rdfs:label>Bela Novak</rdfs:label>
+      </rdf:Description>
+    </dc:creator>
+
+    <dc:creator>
+      <rdf:Description>
+        <foaf:accountName rdf:resource="https://orcid.org/0000-0001-7560-6013"/>
+        <foaf:name>John J. Tyson</foaf:name>
+
+        <dc:identifier rdf:resource="https://identifiers.org/orcid:0000-0001-7560-6013"/>        
+        <rdfs:label>John J. Tyson</rdfs:label>
+      </rdf:Description>
+    </dc:creator>
+
+    <!-- contributors (e.g., curators) -->
+    <dc:contributor>
+      <rdf:Description>
+        <foaf:name>Harish Dharuri</foaf:name>
+
+        <rdfs:label>Harish Dharuri</rdfs:label>
+      </rdf:Description>
+    </dc:contributor>
+
+    <dc:contributor>
+      <rdf:Description>
+        <foaf:accountName rdf:resource="https://orcid.org/0000-0002-2605-5080"/>
+        <foaf:name>Jonathan Karr</foaf:name>
+
+        <dc:identifier rdf:resource="https://identifiers.org/orcid:0000-0002-2605-5080"/>
+        <rdfs:label>Jonathan Karr</rdfs:label>
+      </rdf:Description>
+    </dc:contributor>
+
+     <!-- citations -->
+    <bqmodel:isDescribedBy>
+      <rdf:Description>
+        <dc:identifier rdf:resource="https://identifiers.org/doi:10.1083/jcb.200306139"/>
+        <rdfs:label>Andrea Ciliberto, Bela Novak &amp; John J. Tyson. Cell Biology 163, 3 (2003): 1243-1254.</rdfs:label>
+      </rdf:Description>
+    </bqmodel:isDescribedBy>
+
+    <!-- license -->
+    <dc:license>
+      <rdf:Description>
+        <dc:identifier rdf:resource="https://identifiers.org/spdx:CC0-1.0"/>
+        <rdfs:label>CC0-1.0</rdfs:label>
+      </rdf:Description>
+    </dc:license>
+
+    <!-- created -->
+    <dc:created>
+      <rdf:Description>
+        <dc:W3CDTF>2003-12-22</dc:W3CDTF>
+      </rdf:Description>
+    </dc:created>
+
+    <!-- modified -->
+    <dc:modified>
+      <dcterms:W3CDTF>
+        <rdf:value>2021-06-26</rdf:value>
+      </dcterms:W3CDTF>
+    </dc:modified>
+  </rdf:Description>
+
+  <!-- links from SED-ML plots to figures of articles -->
+  <rdf:Description rdf:about="http://omex-library.org/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex/simulation_1.sedml">
+    <bqmodel:is>
+      <rdf:Description>
+        <dc:identifier rdf:resource="https://identifiers.org/doi:10.1083/jcb.200306139"/>
+        <rdfs:label>Figure 3</rdfs:label>
+      </rdf:Description>
+    </bqmodel:is>
+  </rdf:Description>
+
+</rdf:RDF>

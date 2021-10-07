@@ -1,7 +1,8 @@
 from ...exceptions import BadRequestException
 from ...utils import get_temp_dir, make_validation_report
 from biosimulators_utils.combine.io import CombineArchiveReader
-from biosimulators_utils.omex_meta.data_model import OmexMetaSchema, BIOSIMULATIONS_PREDICATE_TYPES
+from biosimulators_utils.config import Config
+from biosimulators_utils.omex_meta.data_model import OmexMetadataInputFormat, OmexMetadataSchema, BIOSIMULATIONS_PREDICATE_TYPES
 from biosimulators_utils.omex_meta.io import read_omex_meta_files_for_archive
 import os
 import rdflib.term
@@ -14,18 +15,17 @@ def handler_biosimulations(body, file=None):
     ''' Get the metadata about a COMBINE/OMEX archive and its contents in BioSimulations' schema
 
     Args:
-        body (:obj:`dict`): dictionary with keys
+        body (:obj:`dict`): dictionary in schema ``GetCombineArchiveMetadataFileOrUrl`` with keys
 
-            * ``url`` whose value has schema ``#/components/schemas/Url``
+            * ``url`` whose value has schema ``Url``
               with the URL for a COMBINE/OMEX archive
-
-        file (:obj:`werkzeug.datastructures.FileStorage`, optional): COMBINE/OMEX archive file
+            * ``omexMetadataFormat` whose value is a value of :obj:`OmexMetadataInputFormat`
 
     Returns:
-        :obj:`list` of ``#/components/schemas/BioSimulationsCombineArchiveLocationMetadata``:
+        :obj:`list` of ``BioSimulationsCombineArchiveLocationMetadata``:
             metadata about a COMBINE/OMEX archive and its contents
     '''
-    el_metadatas = handler(body, file=file, schema=OmexMetaSchema.biosimulations)
+    el_metadatas = handler(body, file=file, omexMetadataSchema=OmexMetadataSchema.biosimulations.value)
 
     for el_metadata in el_metadatas:
         el_metadata['_type'] = 'BioSimulationsCombineArchiveElementMetadata'
@@ -57,18 +57,20 @@ def handler_rdf_triples(body, file=None):
     ''' Get the metadata about a COMBINE/OMEX archive and its contents as a list of RDF triples
 
     Args:
-        body (:obj:`dict`): dictionary with keys
+        body (:obj:`dict`): dictionary in schema ``GetCombineArchiveMetadataFileOrUrl`` with keys
 
-            * ``url`` whose value has schema ``#/components/schemas/Url``
+            * ``url`` whose value has schema ``Url``
               with the URL for a COMBINE/OMEX archive
+            * ``omexMetadataFormat` whose value is a value of :obj:`OmexMetadataInputFormat`
 
         file (:obj:`werkzeug.datastructures.FileStorage`, optional): COMBINE/OMEX archive file
 
     Returns:
-        :obj:`list` of ``#/components/schemas/RdfTriple``: metadata about a COMBINE/OMEX archive
+        :obj:`list` of ``RdfTriple``: metadata about a COMBINE/OMEX archive
             and its contents
     '''
-    triples = handler(body, file=file, schema=OmexMetaSchema.rdf_triples)
+    triples = handler(body, file=file,
+                      omexMetadataSchema=OmexMetadataSchema.rdf_triples.value)
 
     triples_json = []
     for triple in triples:
@@ -82,28 +84,45 @@ def handler_rdf_triples(body, file=None):
     return triples_json
 
 
-def handler(body, file=None, schema=OmexMetaSchema.biosimulations):
+def handler(body, file=None,
+            omexMetadataSchema=OmexMetadataSchema.biosimulations.value):
     ''' Get the metadata about a COMBINE/OMEX archive and its contents
 
     Args:
-        body (:obj:`dict`): dictionary with keys
+        dictionary in schema ``GetCombineArchiveMetadataFileOrUrl`` with keys
 
-            * ``url`` whose value has schema ``#/components/schemas/Url``
+            * ``url`` whose value has schema ``Url``
               with the URL for a COMBINE/OMEX archive
+            * ``omexMetadataFormat` whose value is a value of :obj:`OmexMetadataInputFormat`
 
         file (:obj:`werkzeug.datastructures.FileStorage`, optional): COMBINE/OMEX archive file
-        schema (:obj:`OmexMetaSchema`, optional): schema to encode the metadata
+        omexMetadataSchema (:obj:`str`, optional): schema for validating the OMEX Metadata files
 
     Returns:
-        :obj:`list` of ``#/components/schemas/BioSimulationsCombineArchiveLocationMetadata``
-            or ``#/components/schemas/RdfTriple``: metadata about a COMBINE/OMEX archive
+        :obj:`list` of ``BioSimulationsCombineArchiveLocationMetadata``
+            or ``RdfTriple``: metadata about a COMBINE/OMEX archive
             and its contents
     '''
+    try:
+        omexMetadataInputFormat = OmexMetadataInputFormat(body.get('omexMetadataFormat', 'rdfxml'))
+    except ValueError as exception:
+        raise BadRequestException(title='`omexMetadataFormat` must be a recognized format.', exception=exception)
+
+    try:
+        omexMetadataSchema = OmexMetadataSchema(omexMetadataSchema)
+    except ValueError as exception:
+        raise BadRequestException(title='`omexMetadataSchema` must be a recognized schema.', exception=exception)
+
     archive_file = file
     archive_url = body.get('url', None)
     if archive_url and archive_file:
         raise BadRequestException(
             title='Only one of `file` or `url` can be used at a time.',
+            instance=ValueError(),
+        )
+    if not archive_url and not archive_file:
+        raise BadRequestException(
+            title='One of `file` or `url` must be used.',
             instance=ValueError(),
         )
 
@@ -142,7 +161,12 @@ def handler(body, file=None, schema=OmexMetaSchema.biosimulations):
             instance=exception,
         )
 
-    metadata, errors, warnings = read_omex_meta_files_for_archive(archive, archive_dirname, schema=schema)
+    config = Config(
+        OMEX_METADATA_INPUT_FORMAT=omexMetadataInputFormat,
+        OMEX_METADATA_SCHEMA=omexMetadataSchema,
+    )
+
+    metadata, errors, warnings = read_omex_meta_files_for_archive(archive, archive_dirname, config=config)
     shutil.rmtree(archive_dirname)
 
     if errors:
@@ -157,13 +181,13 @@ def handler(body, file=None, schema=OmexMetaSchema.biosimulations):
 
 
 def _convert_rdf_node_to_json(node):
-    """ Convert an RDF node to the ``#/components/schemas/RdfNode`` schema
+    """ Convert an RDF node to the ``RdfNode`` schema
 
     Args:
         node (:obj:`rdflib.term.BNode`, :obj:`rdflib.term.Literal`, or :obj:`rdflib.term.URIRef`): RDF triple
 
     Returns:
-        :obj:`dict` in ``#/components/schemas/RdfNode`` schema
+        :obj:`dict` in ``RdfNode`` schema
     """
     if isinstance(node, rdflib.term.BNode):
         _type = 'RdfBlankNode'

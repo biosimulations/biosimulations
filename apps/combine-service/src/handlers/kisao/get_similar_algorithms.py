@@ -13,7 +13,7 @@ def handler(algorithms):
         algorithms (:obj:`list` of :obj:`str`): KiSAO id of an algorithm
 
     Returns:
-        :obj:`list` of ``#/components/schemas/KisaoAlgorithmSubstitution``
+        :obj:`list` of ``KisaoAlgorithmSubstitution``
     """
     kisao = Kisao()
 

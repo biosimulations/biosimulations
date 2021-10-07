@@ -14,19 +14,24 @@ def handler(body, file=None):
     Args:
         body (:obj:`dict`): dictionary with keys
 
-            * ``url`` whose value has schema ``#/components/schemas/Url`` with the
+            * ``url`` whose value has schema ``Url`` with the
               URL for a COMBINE/OMEX archive
 
         file (:obj:`werkzeug.datastructures.FileStorage`, optional): COMBINE/OMEX archive file
 
     Returns:
-        ``#/components/schemas/CombineArchive``: manifest of the COMBINE/OMEX archive
+        ``CombineArchive``: manifest of the COMBINE/OMEX archive
     '''
     archive_file = file
     archive_url = body.get('url', None)
     if archive_url and archive_file:
         raise BadRequestException(
             title='Only one of `file` or `url` can be used at a time.',
+            instance=ValueError(),
+        )
+    if not archive_url and not archive_file:
+        raise BadRequestException(
+            title='One of `file` or `url` must be used.',
             instance=ValueError(),
         )
 
