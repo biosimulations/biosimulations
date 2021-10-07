@@ -171,7 +171,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
     const formGroup = this.formGroup;
     const yFormControl = formGroup.controls.yDataSets as FormControl;
     const xFormControl = formGroup.controls.xDataSet as FormControl;
-    const selectedYUris = yFormControl.value;
+    const selectedYUris = this.getSelectedYDataSetUris();
     const selectedXUri = xFormControl.value;
 
     const dataSetUris = [...selectedYUris];
@@ -274,7 +274,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
     const formGroup = this.formGroup;
     const yFormControl = formGroup.controls.yDataSets as FormControl;
     const xFormControl = formGroup.controls.xDataSet as FormControl;
-    const selectedYUris = yFormControl.value;
+    const selectedYUris = this.getSelectedYDataSetUris();
     let selectedXUri = xFormControl.value;
 
     const dataSetUris = [...selectedYUris];
@@ -474,5 +474,11 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
           return vega;
         }),
       );
+  }
+
+  private getSelectedYDataSetUris(): string[] {
+    return this.yDataSetsFormControl.value.filter((uri: string): boolean => {
+      return uri in this.uriSedDataSetMap;
+    });
   }
 }
