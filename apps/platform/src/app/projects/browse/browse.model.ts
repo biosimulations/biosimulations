@@ -24,5 +24,6 @@ export interface ProjectMetadataSummary {
 
 export interface ProjectSummary {
   id: string;
+  simulationRun: string;
   metadata: ProjectMetadataSummary;
 }
