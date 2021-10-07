@@ -8,7 +8,7 @@ import { MetadataService } from '../../../services/simulation/metadata.service';
 import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { ConfigService } from '@biosimulations/shared/services';
-import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
+import { SimulationRunMetadata, ArchiveMetadata } from '@biosimulations/datamodel/api';
 import {
   Simulation,
   UnknownSimulation,
@@ -19,6 +19,7 @@ import {
   ValidationReport,
   ValidationMessage,
 } from '../../../datamodel/validation-report.interface';
+import { OmexMetadataInputFormat } from '@biosimulations/datamodel/common';
 import {
   FormBuilder,
   FormGroup,
@@ -119,8 +120,12 @@ export class PublishComponent implements OnInit {
       map((simulation: Simulation): Observable<boolean> => {
         this.simulation = simulation;
         return this.metadataService.getMetadata(this.uuid).pipe(
-          map((metadata: SimulationRunMetadata): true => {
-            return true;
+          map((runMetadata: SimulationRunMetadata): boolean => {
+            const metdataDocs = runMetadata.metadata
+              .filter((metadata: ArchiveMetadata): boolean => {
+                return metadata.uri.search('/') === -1;
+              });
+            return metdataDocs.length >= 1;
           }),
           catchError((error: Error) => {
             return of(false);
@@ -140,7 +145,7 @@ export class PublishComponent implements OnInit {
           }
 
           const archiveUrl = this.getArchiveUrl();
-          return this.combineService.getCombineArchiveMetadata(archiveUrl).pipe(
+          return this.combineService.getCombineArchiveMetadata(archiveUrl, OmexMetadataInputFormat.rdfxml).pipe(
             map(
               (
                 arg:

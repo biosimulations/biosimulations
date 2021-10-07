@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, timeout } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 import { environment } from '@biosimulations/shared/environments';
-import { CombineArchive } from '@biosimulations/datamodel/common';
+import { CombineArchive, OmexMetadataInputFormat, OmexMetadataSchema } from '@biosimulations/datamodel/common';
 import { CombineArchiveElementMetadata } from '../../datamodel/metadata.interface';
 import { ValidationReport } from '../../datamodel/validation-report.interface';
 import { AlgorithmSubstitution } from '../../kisao.interface';
@@ -48,6 +48,7 @@ export class CombineService {
 
   public getCombineArchiveMetadata(
     archiveFileOrUrl: File | string,
+    omexMetadataFormat: OmexMetadataInputFormat = OmexMetadataInputFormat.rdfxml,
   ): Observable<
     CombineArchiveElementMetadata[] | ValidationReport | undefined
   > {
@@ -57,6 +58,7 @@ export class CombineService {
     } else {
       formData.append('url', archiveFileOrUrl);
     }
+    formData.append('omexMetadataFormat', omexMetadataFormat);
 
     return this.http
       .post<CombineArchiveElementMetadata[]>(
@@ -86,6 +88,8 @@ export class CombineService {
 
   public validateCombineArchive(
     archiveFileOrUrl: File | string,
+    omexMetadataFormat: OmexMetadataInputFormat = OmexMetadataInputFormat.rdfxml,
+    omexMetadataSchema: OmexMetadataSchema = OmexMetadataSchema.BioSimulations,
     validateOmexManifest = true,
     validateSedml = true,
     validateSedmlModels = true,
@@ -99,18 +103,16 @@ export class CombineService {
       formData.append('url', archiveFileOrUrl);
     }
 
-    const params = new HttpParams().appendAll({
-      validateOmexManifest,
-      validateSedml,
-      validateSedmlModels,
-      validateOmexMetadata,
-      validateImages,
-    });
+    formData.append('omexMetadataFormat', omexMetadataFormat);
+    formData.append('omexMetadataSchema', omexMetadataSchema);
+    formData.append('validateOmexManifest', validateOmexManifest ? 'true' : 'false');
+    formData.append('validateSedml', validateSedml ? 'true' : 'false');
+    formData.append('validateSedmlModels', validateSedmlModels ? 'true' : 'false');
+    formData.append('validateOmexMetadata', validateOmexMetadata ? 'true' : 'false');
+    formData.append('validateImages', validateImages ? 'true' : 'false');
 
     return this.http
-      .post<ValidationReport>(this.validateEndpoint, formData, {
-        params: params,
-      })
+      .post<ValidationReport>(this.validateEndpoint, formData)
       .pipe(
         catchError((error: HttpErrorResponse): Observable<undefined> => {
           if (!environment.production) {

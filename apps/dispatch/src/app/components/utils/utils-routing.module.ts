@@ -7,7 +7,7 @@ import { ConvertComponent } from './convert/convert.component';
 
 const routes: Routes = [
   {
-    path: 'validate',
+    path: 'validate-project',
     component: ValidateSimulationProjectComponent,
     data: {
       breadcrumb: 'Validate a simulation project',
@@ -27,7 +27,7 @@ const routes: Routes = [
       breadcrumb: 'Suggest a simulator',
       contextButtons: [
         {
-          route: ['/utils', 'validate'],
+          route: ['/utils', 'validate-project'],
           icon: 'bug',
           label: 'Validate a simulation project',
         },

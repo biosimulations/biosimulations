@@ -24,6 +24,7 @@ import { FilenameOrUrl } from '../model/filenameOrUrl';
 import { RdfTriple } from '../model/rdfTriple';
 import { ValidationReport } from '../model/validationReport';
 import { Configuration } from '../configuration';
+import { OmexMetadataInputFormat, OmexMetadataSchema } from '@biosimulations/datamodel/common';
 
 @Injectable()
 export class COMBINEService {
@@ -400,6 +401,8 @@ export class COMBINEService {
       formParams.append('url', <any>url);
     }
 
+    formParams.append('omexMetadataFormat', OmexMetadataInputFormat.rdfxml);
+
     return this.httpClient.post<
       Array<BioSimulationsCombineArchiveElementMetadata>
     >(
@@ -463,6 +466,8 @@ export class COMBINEService {
     if (url !== undefined) {
       formParams.append('url', <any>url);
     }
+
+    formParams.append('omexMetadataFormat', OmexMetadataInputFormat.rdfxml);
 
     return this.httpClient.post<Array<RdfTriple>>(
       `${this.basePath}/combine/metadata/rdf`,
@@ -619,6 +624,9 @@ export class COMBINEService {
     if (url !== undefined) {
       formParams.append('url', <any>url);
     }
+
+    formParams.append('omexMetadataFormat', OmexMetadataInputFormat.rdfxml);
+    formParams.append('omexMetadataSchema', OmexMetadataSchema.BioSimulations);
 
     return this.httpClient.post<ValidationReport>(
       `${this.basePath}/combine/validate`,

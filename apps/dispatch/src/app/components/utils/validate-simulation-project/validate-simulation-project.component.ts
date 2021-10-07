@@ -12,7 +12,8 @@ import {
   ValidationMessage,
   ValidationStatus,
 } from '../../../datamodel/validation-report.interface';
-import { Subscription } from 'rxjs';
+import { OmexMetadataInputFormat, OmexMetadataSchema } from '@biosimulations/datamodel/common';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -34,6 +35,18 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
   submitMethodControl: FormControl;
   projectFileControl: FormControl;
   projectUrlControl: FormControl;
+
+  omexMetadataFormats = Object.keys(OmexMetadataInputFormat).sort();
+  omexMetadataSchemas = [
+    {
+      label: 'BioSimulations',
+      value: 'BioSimulations',
+    },
+    {
+      label: 'None (OMEX Metadata)',
+      value: 'rdf_triples',
+    }
+  ];
 
   exampleCombineArchiveUrl: string;
   exampleCombineArchivesUrl: string;
@@ -58,6 +71,8 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
         submitMethod: [SubmitMethod.file],
         projectFile: ['', [Validators.required, this.maxFileSizeValidator]],
         projectUrl: ['', [this.urlValidator]],
+        omexMetadataFormat: [OmexMetadataInputFormat.rdfxml],
+        omexMetadataSchema: [OmexMetadataSchema.BioSimulations],
         validateOmexManifest: [true],
         validateSedml: [true],
         validateSedmlModels: [true],
@@ -197,6 +212,8 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
     const validationSub = this.combineService
       .validateCombineArchive(
         archive,
+        this.formGroup.controls.omexMetadataFormat.value,
+        this.formGroup.controls.omexMetadataSchema.value,
         this.formGroup.controls.validateOmexManifest.value,
         this.formGroup.controls.validateSedml.value,
         this.formGroup.controls.validateSedmlModels.value,
@@ -251,5 +268,21 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
         return '<li>' + message.summary + details + '</li>';
       })
       .join('\n');
+  }
+
+  private formSectionOpen = {
+    metadataOptions: new BehaviorSubject<boolean>(false),
+    validationOptions: new BehaviorSubject<boolean>(false),
+  };
+  formSectionOpen$ = {
+    metadataOptions: this.formSectionOpen.metadataOptions.asObservable(),
+    validationOptions: this.formSectionOpen.validationOptions.asObservable(),
+  };
+  toggleFormSection(
+    name:
+      | 'metadataOptions'
+      | 'validationOptions'
+  ): void {
+    this.formSectionOpen[name].next(!this.formSectionOpen[name].value);
   }
 }

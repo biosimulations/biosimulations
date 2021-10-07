@@ -114,7 +114,90 @@
       </div>
     </div>
 
-    <div class="form-section">
+    <div class="form-section"
+      [ngClass]="{
+        'form-section-closed':
+          (formSectionOpen$.metadataOptions | async) === false
+      }"
+    >
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="project"></biosimulations-icon>
+        </div>
+        <div class="form-section-head-title-subtitle">
+          <div class="form-section-title">Metadata format and information convention</div>
+          <div class="form-section-subtitle">
+            Indicate the format of the OMEX Metadata <a href="https://sys-bio.github.io/libOmexMeta/"><biosimulations-icon icon="link"></biosimulations-icon></a> files in the archive and the information convention that should be used to validate them.
+          </div>
+        </div>
+        <div class="mat-form-field-suffix">
+          <button
+            mat-icon-button
+            class="biosimulations-button text"
+            [title]="
+              (formSectionOpen$.metadataOptions | async) ? 'Close' : 'Open'
+            "
+            (click)="toggleFormSection('metadataOptions')"
+          >
+            <biosimulations-icon
+              [icon]="
+                (formSectionOpen$.metadataOptions | async) ? 'open' : 'closed'
+              "
+            ></biosimulations-icon>
+          </button>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <div class="columns two-columns">
+            <mat-form-field appearance="fill">
+              <biosimulations-icon
+                icon="format"
+                matPrefix
+              ></biosimulations-icon>
+              <mat-label
+                >Select the format of the OMEX Metadata files</mat-label
+              >
+              <mat-select
+                  required
+                  formControlName="omexMetadataFormat"
+                >
+                <mat-option *ngFor="let omexMetadataFormat of omexMetadataFormats" [value]="omexMetadataFormat">{{ omexMetadataFormat }}</mat-option>
+              </mat-select>
+              <mat-hint>
+                Select the format of the OMEX Metadata <a href="https://sys-bio.github.io/libOmexMeta/"><biosimulations-icon icon="link"></biosimulations-icon></a> files in the archive. Note, the RDF-XML format is currently required to publish archives to BioSimulations.
+              </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <biosimulations-icon
+                icon="review"
+                matPrefix
+              ></biosimulations-icon>
+              <mat-label
+                >Select a minimum information convention to use to validate the metadata in the archive</mat-label
+              >
+              <mat-select
+                  required
+                  formControlName="omexMetadataSchema"
+                >
+                <mat-option *ngFor="let omexMetadataSchema of omexMetadataSchemas" [value]="omexMetadataSchema.value">{{ omexMetadataSchema.label }}</mat-option>
+              </mat-select>
+              <mat-hint>
+                Select a minimum information convention to use to validate the OMEX Metadata <a href="https://sys-bio.github.io/libOmexMeta/"><biosimulations-icon icon="link"></biosimulations-icon></a> files in the archive. Note, the BioSimulations convention <a href="https://biosimulators.org/conventions/metadata"><biosimulations-icon icon="link"></biosimulations-icon></a> is required to publish archives to BioSimulations.
+              </mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section"
+      [ngClass]="{
+        'form-section-closed':
+          (formSectionOpen$.validationOptions | async) === false
+      }"
+    >
       <div class="form-section-head">
         <div class="mat-form-field-prefix">
           <biosimulations-icon icon="project"></biosimulations-icon>
@@ -122,9 +205,25 @@
         <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Options</div>
           <div class="form-section-subtitle">
-            Optionally, disable validation of aspects of simulation project
+            Optionally, tune and disable validation of aspects of simulation project
             archives.
           </div>
+        </div>
+        <div class="mat-form-field-suffix">
+          <button
+            mat-icon-button
+            class="biosimulations-button text"
+            [title]="
+              (formSectionOpen$.validationOptions | async) ? 'Close' : 'Open'
+            "
+            (click)="toggleFormSection('validationOptions')"
+          >
+            <biosimulations-icon
+              [icon]="
+                (formSectionOpen$.validationOptions | async) ? 'open' : 'closed'
+              "
+            ></biosimulations-icon>
+          </button>
         </div>
       </div>
       <div class="form-section-body">
@@ -140,11 +239,11 @@
           </div>
           <div>
             <mat-checkbox formControlName="validateSedml">
-              Validate the SED-ML
+              Validate the simulation experiments (SED-ML
               <a href="https://sed-ml.org/" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon
               ></a>
-              files in the archive.
+              files) in the archive.
             </mat-checkbox>
           </div>
           <div>
@@ -156,26 +255,39 @@
               <a href="http://sbml.org/" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon
               ></a>
-              files) in the SED-ML files in the archive.
+              files) in the simulation experiments (SED-ML files) in the archive.
             </mat-checkbox>
           </div>
           <div>
             <mat-checkbox formControlName="validateOmexMetadata">
-              Validate the OMEX Metadata
+              Validate the metadata (OMEX Metadata
               <a
                 href="https://sys-bio.github.io/libOmexMeta/docs-build/index.html"
                 target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon
               ></a>
-              files in the archive.
+              files) in the archive.
             </mat-checkbox>
           </div>
+
           <div>
             <mat-checkbox formControlName="validateImages">
-              Validate the image (BMP, GIF, JPEG, PNG, TIFF, WEBP) files in the
+              Validate the images (BMP, GIF, JPEG, PNG, TIFF, WEBP files) in the
               archive.
             </mat-checkbox>
           </div>
+
+          <mat-hint>Note, all of the above validation checks are required to publish projects to BioSimulations.</mat-hint>
+
+          <mat-hint>Note, SED-ML validation is required to validate models.</mat-hint>
+
+          <mat-hint>Note, model validation is required to comprehensively validate SED-ML files, including validating the targets to models for model changes and simulation observables.</mat-hint>
+
+          <mat-hint>Note, BioSimulations validates models using community-contributed validation tools for each model language. The thoroughness of these tools varies. In addition, some tools currently provide limited diagnostic information. We welcome contributions of improved validation tools.</mat-hint>
+
+          <mat-hint>Note, an OMEX manifest file is required to validate metadata files. As a result, OMEX Metadata validation should generally be disabled when OMEX manifest validation is disabled.</mat-hint>
+
+          <mat-hint>Note, image validation is required to comprehensively validate thumbnail images described in OMEX Metadata files.</mat-hint>
         </div>
       </div>
     </div>
