@@ -42,7 +42,7 @@
       "groupName": "angular"
     },
     {
-      "matchPackagePrefixes": ['aws-sdk'],
+      "matchPackagePrefixes": ["aws-sdk"],
       "automerge":true
     }
   ],
