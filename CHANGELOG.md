@@ -1,3 +1,45 @@
+# [5.3.0](https://github.com/biosimulations/biosimulations/compare/v5.2.0...v5.3.0) (2021-10-07)
+
+
+### Bug Fixes
+
+* added 'master' attribute to file object ([5f4f722](https://github.com/biosimulations/biosimulations/commit/5f4f722d848e1e0a37802119b860b945677417a6))
+* **api,mail-service:** update api client to return observable ([d26ce89](https://github.com/biosimulations/biosimulations/commit/d26ce8906de9275f40790ea4afbe6a97e404dd0d)), closes [#3102](https://github.com/biosimulations/biosimulations/issues/3102)
+* **api:** add permissions to get all specs ([dbce421](https://github.com/biosimulations/biosimulations/commit/dbce4210625bc6ed6bb64eb7e3a170e385c88e55)), closes [#3136](https://github.com/biosimulations/biosimulations/issues/3136)
+* **deps:** update dependency rxjs to v7.3.1 ([8cb2d32](https://github.com/biosimulations/biosimulations/commit/8cb2d3209fbcdc58771c4d5517aa5095376e87b5))
+* **deps:** update nest ([f7a97e6](https://github.com/biosimulations/biosimulations/commit/f7a97e60127d9e66103dd331ce51038431398433))
+* **dispatch:** fixed lint issue ([660bcb8](https://github.com/biosimulations/biosimulations/commit/660bcb8dcb6957bdcfc0d7469fcafb21f29f84c9))
+* fixed lint issue ([e82e6fc](https://github.com/biosimulations/biosimulations/commit/e82e6fc06df38cc330dd7539e0cc7e18c45caab1))
+* **platform,dispatch:** fixed plotly tests ([f2d8353](https://github.com/biosimulations/biosimulations/commit/f2d83535195d6d1716f2c3e9c3dc5d74aa310852))
+* **simulators-api:** allow cors for biosimulatiors.dev ([1d93452](https://github.com/biosimulations/biosimulations/commit/1d93452b12174b444c5d53417521660dde72be56))
+* **ui:** fixed display of errors with Vega visualizations ([1270955](https://github.com/biosimulations/biosimulations/commit/12709555792627db191d6794477f72ca6d81c7c4))
+* **ui:** fixed Vega export for 1-d heatmaps ([cd5713d](https://github.com/biosimulations/biosimulations/commit/cd5713d73f14cddac1febaeb977ebb77a5fa0dff))
+
+
+### Features
+
+* **api:** create project endpoints ([d1b9fe7](https://github.com/biosimulations/biosimulations/commit/d1b9fe73c719358ace007c9d67a43c4a1d1c6810)), closes [#3067](https://github.com/biosimulations/biosimulations/issues/3067)
+* **combine-service:** added options for validation of COMBINE archives ([42febbe](https://github.com/biosimulations/biosimulations/commit/42febbedc289d76f41bd1655014e1c9a172ff643))
+* **combine-service:** added options to control COMBINE archive validation ([b4c0c12](https://github.com/biosimulations/biosimulations/commit/b4c0c123ea6ac776cc912e4eed964f773477d403))
+* **combine-service:** added timeout for simulation execution ([8eb8deb](https://github.com/biosimulations/biosimulations/commit/8eb8debcab97b215260b9e6646751850b1a47593))
+* **combine-service:** update combine-api client ([77c2f6d](https://github.com/biosimulations/biosimulations/commit/77c2f6df36cc59be74d4271938c34b5f074608a1))
+* **datamodel:** add project datamodel ([57cf45c](https://github.com/biosimulations/biosimulations/commit/57cf45ceda0ba7d32f909e5d07fb7200e8dbbdee))
+* **dispatch,platform,simulators:** improve recognition of Vega files by media type ([5f0051b](https://github.com/biosimulations/biosimulations/commit/5f0051bbfbd4e2ab6cd51d98a4352487ea94d640))
+* **dispatch:** added options for validating COMBINE archives ([7d0a815](https://github.com/biosimulations/biosimulations/commit/7d0a8159798132fd65d93d7c91881a834b389c83))
+* **platform:** added export of visualizations to Vega and COMBINE archives ([fce6731](https://github.com/biosimulations/biosimulations/commit/fce67312fa9432ed33ee0714a30d81d1496de111))
+* **platform:** added heatmap, line plots ([84898db](https://github.com/biosimulations/biosimulations/commit/84898db3682a5b9321132a8a3058a6663c56113a))
+* **platform:** added histogram visualization ([7a6abfa](https://github.com/biosimulations/biosimulations/commit/7a6abfafe6fad3dcebccff2977fec994839cdcbc))
+* **platform:** added SED-ML visualizations ([2ac40b3](https://github.com/biosimulations/biosimulations/commit/2ac40b37cf40c713fd798c92fa761aa080586077))
+* **platform:** added simulation types and algorithms to simulaton overview ([4c768e5](https://github.com/biosimulations/biosimulations/commit/4c768e594caee33d7cee79f157eaa70ba6703a3c))
+* **platform:** added vega export for heatmaps and line plots ([a8c9ad4](https://github.com/biosimulations/biosimulations/commit/a8c9ad418407d7ec7d7f42e21ddf6a0d0dd5d966))
+* **platform:** front end displays projects from api ([9ecfa80](https://github.com/biosimulations/biosimulations/commit/9ecfa80ce7f70a45762563b88c82c0bf0e0cf3a0)), closes [#3149](https://github.com/biosimulations/biosimulations/issues/3149)
+* **ui:** added ability to attach hyperlinks to menu items ([7ca3d10](https://github.com/biosimulations/biosimulations/commit/7ca3d10209fa04d77cbc220664f0d1870c542c12))
+
+
+### Reverts
+
+* **deps:** revert 235c9db3e9649cdb8b42e6575517aa651f9e1c2d ([05cb6f3](https://github.com/biosimulations/biosimulations/commit/05cb6f39142d576e4d9c866a6ee2177589aadbd3))
+
 # [5.2.0](https://github.com/biosimulations/biosimulations/compare/v5.1.1...v5.2.0) (2021-10-04)
 
 
