@@ -81,21 +81,27 @@ export class ViewService {
     });
   }
 
-  public getFormattedProjectMetadata(id: string): Observable<ProjectMetadata> {
+  public getFormattedProjectMetadata(id: string): Observable<ProjectMetadata | undefined> {
     return this.getProjectMetadata(id).pipe(
-      map((metadatas: ArchiveMetadata[]): ProjectMetadata => {
-        let metadata!: ArchiveMetadata;
-        for (metadata of metadatas) {
-          if (metadata.uri.search('/') === -1) {
-            break;
-          }
-        }
+      map((metadatas: ArchiveMetadata[]): ProjectMetadata | undefined => {
+        // only select the metadata for the root object
+        const rootMetadata = metadatas.filter(
+          (metadata: ArchiveMetadata): boolean => {
+            return metadata.uri == id;
+          },
+        );
 
+        // If no root metadata, set as undefined
+        const metadata = rootMetadata.length > 0 ? rootMetadata[0] : undefined;
+        if(!metadata) {
+          return undefined;
+        }
+        // Check for undefiend metadata for all fields
         const formattedMetadata: ProjectMetadata = {
-          thumbnails: metadata.thumbnails,
+          thumbnails: metadata?.thumbnails || [],
           title: metadata?.title || id,
           abstract: metadata?.abstract,
-          creators: metadata.creators.map(
+          creators: (metadata?.creators || []).map(
             (creator: LabeledIdentifier): Creator => {
               let icon: BiosimulationsIcon = 'link';
               if (creator.uri) {
@@ -140,21 +146,21 @@ export class ViewService {
         };
 
         formattedMetadata.attributes.push({
-          values: metadata.encodes,
+          values: metadata?.encodes,
           icon: 'cell' as BiosimulationsIcon,
           title: 'Biology',
         });
         formattedMetadata.attributes.push({
-          values: metadata.taxa,
+          values: metadata?.taxa,
           icon: 'taxon' as BiosimulationsIcon,
           title: 'Taxon',
         });
         formattedMetadata.attributes.push({
-          values: metadata.keywords,
+          values: metadata?.keywords,
           icon: 'tags' as BiosimulationsIcon,
           title: 'Keyword',
         });
-        metadata.other.forEach((other: DescribedIdentifier): void => {
+        (metadata?.other || []).forEach((other: DescribedIdentifier): void => {
           formattedMetadata.attributes.push({
             icon: 'info' as BiosimulationsIcon,
             title: (other.attribute_label || other.attribute_uri) as string,
@@ -167,47 +173,47 @@ export class ViewService {
           });
         });
         formattedMetadata.attributes.push({
-          values: metadata.seeAlso,
+          values: metadata?.seeAlso,
           icon: 'link' as BiosimulationsIcon,
           title: 'More info',
         });
         formattedMetadata.attributes.push({
-          values: metadata.citations,
+          values: metadata?.citations,
           icon: 'file' as BiosimulationsIcon,
           title: 'Citation',
         });
         formattedMetadata.attributes.push({
-          values: metadata.sources,
+          values: metadata?.sources,
           icon: 'code' as BiosimulationsIcon,
           title: 'Source',
         });
         formattedMetadata.attributes.push({
-          values: metadata.identifiers,
+          values: metadata?.identifiers,
           icon: 'id' as BiosimulationsIcon,
           title: 'Cross reference',
         });
         formattedMetadata.attributes.push({
-          values: metadata.predecessors,
+          values: metadata?.predecessors,
           icon: 'backward' as BiosimulationsIcon,
           title: 'Predecessor',
         });
         formattedMetadata.attributes.push({
-          values: metadata.successors,
+          values: metadata?.successors,
           icon: 'forward' as BiosimulationsIcon,
           title: 'Successor',
         });
         formattedMetadata.attributes.push({
-          values: metadata.license,
+          values: metadata?.license,
           icon: 'license' as BiosimulationsIcon,
           title: 'License',
         });
         formattedMetadata.attributes.push({
-          values: metadata.contributors,
+          values: metadata?.contributors,
           icon: 'author' as BiosimulationsIcon,
           title: 'Curator',
         });
         formattedMetadata.attributes.push({
-          values: metadata.funders,
+          values: metadata?.funders,
           icon: 'funding' as BiosimulationsIcon,
           title: 'Funder',
         });
