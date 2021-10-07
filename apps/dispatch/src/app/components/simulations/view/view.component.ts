@@ -52,7 +52,16 @@ export class ViewComponent implements OnInit {
 
   public logs$!: Observable<SimulationLogs | undefined>;
 
-  constructor(
+  public noMetadataFoundMessage =
+    'This simulation run has no additional metadata';
+  public noFilesMessage =
+    'Sorry, we could not load the files in this simulation run';
+  public noVisualizationsMessage =
+    'Sorry, we were unable to load the visualizations for this simulation run';
+  public noLogsMessage =
+    'Sorry, we were unable to load the logs for this simulation run';
+
+  public constructor(
     private simulationService: SimulationService,
     private dispatchService: DispatchService,
     private sharedViewService: SharedViewService,
@@ -128,21 +137,13 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
-    this.resultsLoaded$ = combineLatest(
+    this.resultsLoaded$ = combineLatest([
       this.projectMetadata$,
       this.files$,
       this.outputs$,
       this.visualizations$,
       this.logs$,
-    ).pipe(
-      map((observables: (any | undefined)[]): boolean => {
-        return (
-          observables.filter((observable: any | undefined): boolean => {
-            return observable === undefined;
-          }).length === 0
-        );
-      }),
-    );
+    ]).pipe(map((_) => true));
   }
 
   private initSimulationRun(): void {
@@ -150,7 +151,7 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
       map((simulation: Simulation | UnknownSimulation): Simulation => {
         if (isUnknownSimulation(simulation)) {
-          this.router.navigate(['/error', '404']);
+          this.router.navigate(['/error', '404'], { skipLocationChange: true });
         }
         return simulation as Simulation;
       }),

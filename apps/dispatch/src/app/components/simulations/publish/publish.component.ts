@@ -113,7 +113,7 @@ export class PublishComponent implements OnInit {
       shareReplay(1),
       map((simulation: Simulation | UnknownSimulation): Simulation => {
         if (isUnknownSimulation(simulation)) {
-          this.router.navigate(['/error', '404']);
+          this.router.navigate(['/error', '404'], { skipLocationChange: true });
         }
         return simulation as Simulation;
       }),
