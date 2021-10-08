@@ -23,7 +23,10 @@ import {
   ValidationReport,
   ValidationMessage,
 } from '../../../datamodel/validation-report.interface';
-import { OmexMetadataInputFormat, SimulationRunStatus } from '@biosimulations/datamodel/common';
+import {
+  OmexMetadataInputFormat,
+  SimulationRunStatus,
+} from '@biosimulations/datamodel/common';
 import { Project } from '@biosimulations/datamodel/api';
 import {
   FormBuilder,
@@ -37,7 +40,6 @@ import { environment } from '@biosimulations/shared/environments';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
-
 
 interface FormattedValidationReport {
   errors: string | null;
@@ -77,7 +79,11 @@ export class PublishComponent implements OnInit, OnDestroy {
     private config: ConfigService,
   ) {
     this.formGroup = formBuilder.group({
-      id: [null, [Validators.required, Validators.pattern(/^[a-z0-9_-]{3,}$/i)], [this.idAvailableValidator()]],
+      id: [
+        null,
+        [Validators.required, Validators.pattern(/^[a-z0-9_-]{3,}$/i)],
+        [this.idAvailableValidator()],
+      ],
       succeeded: [false, [Validators.requiredTrue]],
       isValid: [false, [Validators.required]],
       grantedLicense: [false, [Validators.required]],
@@ -87,7 +93,9 @@ export class PublishComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    this.subscriptions.forEach((subscription: Subscription) =>
+      subscription.unsubscribe(),
+    );
   }
 
   idAvailableValidator(): AsyncValidatorFn {
@@ -95,8 +103,8 @@ export class PublishComponent implements OnInit, OnDestroy {
       return this.isIdAvailable(control.value).pipe(
         map((available: boolean): ValidationErrors | null => {
           if (available) {
-            return null; 
-          } else {            
+            return null;
+          } else {
             return { available: true };
           }
         }),
@@ -105,14 +113,13 @@ export class PublishComponent implements OnInit, OnDestroy {
   }
 
   isIdAvailable(id: string): Observable<boolean> {
-    return this.projectService.getProject(id)
-      .pipe(
-        map((_): false => false),
-        catchError((error: HttpErrorResponse): Observable<boolean> => {
-          console.log(error)
-          return of(true);
-        }),
-      );
+    return this.projectService.getProject(id).pipe(
+      map((_): false => false),
+      catchError((error: HttpErrorResponse): Observable<boolean> => {
+        console.log(error);
+        return of(true);
+      }),
+    );
   }
 
   public ngOnInit(): void {
@@ -140,7 +147,8 @@ export class PublishComponent implements OnInit, OnDestroy {
       map((simulation: Simulation): Observable<boolean> => {
         this.simulation = simulation;
 
-        this.formGroup.value.succeeded = simulation.status === SimulationRunStatus.SUCCEEDED;
+        this.formGroup.value.succeeded =
+          simulation.status === SimulationRunStatus.SUCCEEDED;
 
         return this.metadataService.getMetadata(this.uuid).pipe(
           map((runMetadata: SimulationRunMetadata): boolean => {
@@ -244,7 +252,7 @@ export class PublishComponent implements OnInit, OnDestroy {
     if (this.formGroup.invalid) {
       return;
     }
-    
+
     const pubSub = this.projectService
       .publishProject({
         id: this.formGroup.controls.id.value,
@@ -268,9 +276,10 @@ export class PublishComponent implements OnInit, OnDestroy {
 
           return of<undefined>(undefined);
         }),
-      ).subscribe((project: Project | undefined): void => {
+      )
+      .subscribe((project: Project | undefined): void => {
         if (project) {
-          const url = `${urls.platform}/projects/${project.id}`; 
+          const url = `${urls.platform}/projects/${project.id}`;
           const tabWindowId = window.open('about:blank', '_blank');
           if (tabWindowId) {
             tabWindowId.location.href = url;

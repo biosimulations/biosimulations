@@ -25,13 +25,16 @@
             required
           />
           <mat-error *ngIf="formGroup.hasError('requiredTrue', 'succeeded')"
-            >This run cannot be published because it wasn't successful.</mat-error
+            >This run cannot be published because it wasn't
+            successful.</mat-error
           >
           <mat-error *ngIf="formGroup.hasError('required', 'id')"
             >Please enter an id for this project.</mat-error
           >
           <mat-error *ngIf="formGroup.hasError('pattern', 'id')"
-            >Ids must consist of at least three letters, numbers, underscores, and dashes ({{ '^[a-z0-9_-]{3,}$' }}). Please enter a valid id.</mat-error
+            >Ids must consist of at least three letters, numbers, underscores,
+            and dashes ({{ '^[a-z0-9_-]{3,}$' }}). Please enter a valid
+            id.</mat-error
           >
           <mat-error *ngIf="formGroup.hasError('available', 'id')"
             >The id has already been claimed. Please enter a unique id for this

@@ -19,7 +19,8 @@ export class ProjectService {
 
   public publishProject(projectInput: ProjectInput): Observable<Project> {
     const url = this.endpoints.getProjectsEndpoint();
-    const response = this.http.post<Project>(url, projectInput, {
+    const response = this.http
+      .post<Project>(url, projectInput, {
         headers: { 'Content-Type': 'application/json' },
       })
       .pipe(shareReplay(1));
