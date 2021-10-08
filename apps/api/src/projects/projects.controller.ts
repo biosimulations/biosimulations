@@ -10,7 +10,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiNoContentResponse, ApiTags } from '@nestjs/swagger';
+import { ApiNoContentResponse, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ProjectId, ProjectIdParam } from './id.decorator';
 import { ProjectModel } from './project.model';
 import { ProjectsService } from './projects.service';
 
@@ -29,7 +30,8 @@ export class ProjectsController {
   }
 
   @Get(':id')
-  public async getProject(@Param('id') id: string): Promise<Project> {
+  @ProjectIdParam()
+  public async getProject(@ProjectId('id') id: string): Promise<Project> {
     const proj = await this.service.getProject(id);
 
     if (proj) {
@@ -47,8 +49,9 @@ export class ProjectsController {
 
   @Put(':id')
   @permissions('update:Projects')
+  @ProjectIdParam()
   public async updateProject(
-    @Param('id') projectId: string,
+    @ProjectId('id') projectId: string,
     @Body() project: ProjectInput,
   ): Promise<Project> {
     const proj = await this.service.updateProject(projectId, project);
@@ -68,7 +71,8 @@ export class ProjectsController {
   @ApiNoContentResponse()
   @Delete(':id')
   @permissions('delete:Projects')
-  public async deleteProject(@Param('id') id: string): Promise<void> {
+  @ProjectIdParam()
+  public async deleteProject(@ProjectId('id') id: string): Promise<void> {
     const res = await this.service.deleteProject(id);
     return res;
   }
