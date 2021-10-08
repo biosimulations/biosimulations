@@ -11,22 +11,18 @@
  */
 import { RdfNode } from './rdfNode';
 
-
 /**
  * An RDF triple (subject, predicate, object).
  */
-export interface RdfTriple { 
-    /**
-     * Type
-     */
-    _type: RdfTripleType;
-    subject: RdfNode;
-    predictate: RdfNode;
-    object: RdfNode;
+export interface RdfTriple {
+  /**
+   * Type
+   */
+  _type: RdfTripleType;
+  subject: RdfNode;
+  predictate: RdfNode;
+  object: RdfNode;
 }
 export enum RdfTripleType {
-    RdfTriple = 'RdfTriple'
-};
-
-
-
+  RdfTriple = 'RdfTriple',
+}

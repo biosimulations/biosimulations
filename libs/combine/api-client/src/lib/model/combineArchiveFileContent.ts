@@ -10,32 +10,28 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A file for a COMBINE/OMEX archive
  */
-export interface CombineArchiveFileContent { 
-    /**
-     * Location within its parent COMBINE/OMEX archive.
-     */
-    location: string;
-    /**
-     * URI for a format.
-     */
-    format: string;
-    master: boolean;
-    /**
-     * Type.
-     */
-    _type: CombineArchiveFileContentType;
-    /**
-     * Uploaded filename
-     */
-    filename: string;
+export interface CombineArchiveFileContent {
+  /**
+   * Location within its parent COMBINE/OMEX archive.
+   */
+  location: string;
+  /**
+   * URI for a format.
+   */
+  format: string;
+  master: boolean;
+  /**
+   * Type.
+   */
+  _type: CombineArchiveFileContentType;
+  /**
+   * Uploaded filename
+   */
+  filename: string;
 }
 export enum CombineArchiveFileContentType {
-    CombineArchiveContent = 'CombineArchiveContent'
-};
-
-
-
+  CombineArchiveContent = 'CombineArchiveContent',
+}

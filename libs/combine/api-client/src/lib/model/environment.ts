@@ -11,23 +11,19 @@
  */
 import { EnvironmentVariable } from './environmentVariable';
 
-
 /**
  * Set of environment variables.
  */
-export interface Environment { 
-    /**
-     * Type
-     */
-    _type: EnvironmentType;
-    /**
-     * Values of environment variables.
-     */
-    variables?: Array<EnvironmentVariable>;
+export interface Environment {
+  /**
+   * Type
+   */
+  _type: EnvironmentType;
+  /**
+   * Values of environment variables.
+   */
+  variables?: Array<EnvironmentVariable>;
 }
 export enum EnvironmentType {
-    Environment = 'Environment'
-};
-
-
-
+  Environment = 'Environment',
+}

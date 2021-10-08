@@ -12,7 +12,6 @@
 import { SedTarget } from './sedTarget';
 import { SedModelAttributeChange } from './sedModelAttributeChange';
 
-
 /**
  * A SED model change.
  */
@@ -22,4 +21,3 @@ import { SedModelAttributeChange } from './sedModelAttributeChange';
  * @export
  */
 export type SedModelChange = SedModelAttributeChange;
-

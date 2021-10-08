@@ -1,4 +1,10 @@
-import { DynamicModule, HttpService, HttpModule, Module, Global } from '@nestjs/common';
+import {
+  DynamicModule,
+  HttpService,
+  HttpModule,
+  Module,
+  Global,
+} from '@nestjs/common';
 import { Configuration } from './configuration';
 
 import { MetadataOMEXMetadataService } from './api/metadataOMEXMetadata.service';
@@ -11,15 +17,15 @@ import { ValidationService } from './api/validation.service';
 
 @Global()
 @Module({
-  imports:      [ HttpModule ],
-  exports:      [
+  imports: [HttpModule],
+  exports: [
     MetadataOMEXMetadataService,
     ModelService,
     SimulationAlgorithmsKiSAOService,
     SimulationExecutionService,
     SimulationExperimentsSEDMLService,
     SimulationProjectsCOMBINEOMEXArchivesService,
-    ValidationService
+    ValidationService,
   ],
   providers: [
     MetadataOMEXMetadataService,
@@ -28,16 +34,18 @@ import { ValidationService } from './api/validation.service';
     SimulationExecutionService,
     SimulationExperimentsSEDMLService,
     SimulationProjectsCOMBINEOMEXArchivesService,
-    ValidationService
-  ]
+    ValidationService,
+  ],
 })
 export class ApiModule {
-    public static forRoot(configurationFactory: () => Configuration): DynamicModule {
-        return {
-            module: ApiModule,
-            providers: [ { provide: Configuration, useFactory: configurationFactory } ]
-        };
-    }
+  public static forRoot(
+    configurationFactory: () => Configuration,
+  ): DynamicModule {
+    return {
+      module: ApiModule,
+      providers: [{ provide: Configuration, useFactory: configurationFactory }],
+    };
+  }
 
-    constructor( httpService: HttpService) { }
+  constructor(httpService: HttpService) {}
 }

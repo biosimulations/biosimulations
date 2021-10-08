@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 /* tslint:disable:no-unused-variable member-ordering */
-import  FormData from "form-data"
+import FormData from 'form-data';
 
 import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
@@ -25,602 +25,656 @@ import { RdfTriple } from '../model/rdfTriple';
 import { ValidationReport } from '../model/validationReport';
 import { Configuration } from '../configuration';
 
-
 @Injectable()
 export class SimulationProjectsCOMBINEOMEXArchivesService {
+  protected basePath = 'https://combine.api.biosimulations.dev';
+  public defaultHeaders = new Map();
+  public configuration = new Configuration();
 
-    protected basePath = 'https://combine.api.biosimulations.dev';
-    public defaultHeaders = new Map()
-    public configuration = new Configuration();
+  constructor(
+    protected httpClient: HttpService,
+    @Optional() configuration: Configuration,
+  ) {
+    this.configuration = configuration || this.configuration;
+    this.basePath = configuration?.basePath || this.basePath;
+  }
 
-    constructor(protected httpClient: HttpService, @Optional() configuration: Configuration) {
-        this.configuration = configuration || this.configuration;
-        this.basePath = configuration?.basePath || this.basePath;
+  /**
+   * @param consumes string[] mime-types
+   * @return true: consumes contains 'multipart/form-data', false: otherwise
+   */
+  private canConsumeForm(consumes: string[]): boolean {
+    const form = 'multipart/form-data';
+    return consumes.includes(form);
+  }
+
+  /**
+   * Add content items to a COMBINE/OMEX archive
+   * Add content items to a COMBINE/OMEX archive.
+   * @param archive
+   * @param files Files to add to the COMBINE/OMEX archive and, optionally, the archive.
+   * @param newContent
+   * @param overwriteLocations Whether to overwrite the location if it already exists, or to add the content at an alternative location (indicated location plus a unique integer).  Default: true
+   * @param download Whether to download the modified COMBINE/OMEX archive or return a URL where it can be retrieved.  Default: false
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public srcHandlersCombineAddFileHandler(
+    archive: FilenameOrUrl,
+    files: Array<Blob>,
+    newContent: CombineArchiveFileContent,
+    overwriteLocations?: boolean,
+    download?: boolean,
+  ): Observable<AxiosResponse<Blob>>;
+  public srcHandlersCombineAddFileHandler(
+    archive: FilenameOrUrl,
+    files: Array<Blob>,
+    newContent: CombineArchiveFileContent,
+    overwriteLocations?: boolean,
+    download?: boolean,
+  ): Observable<any> {
+    if (archive === null || archive === undefined) {
+      throw new Error(
+        'Required parameter archive was null or undefined when calling srcHandlersCombineAddFileHandler.',
+      );
     }
 
-    /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        return consumes.includes(form);
+    if (files === null || files === undefined) {
+      throw new Error(
+        'Required parameter files was null or undefined when calling srcHandlersCombineAddFileHandler.',
+      );
     }
 
-    /**
-     * Add content items to a COMBINE/OMEX archive
-     * Add content items to a COMBINE/OMEX archive.
-     * @param archive 
-     * @param files Files to add to the COMBINE/OMEX archive and, optionally, the archive.
-     * @param newContent 
-     * @param overwriteLocations Whether to overwrite the location if it already exists, or to add the content at an alternative location (indicated location plus a unique integer).  Default: true
-     * @param download Whether to download the modified COMBINE/OMEX archive or return a URL where it can be retrieved.  Default: false
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public srcHandlersCombineAddFileHandler(archive: FilenameOrUrl, files: Array<Blob>, newContent: CombineArchiveFileContent, overwriteLocations?: boolean, download?: boolean, ): Observable<AxiosResponse<Blob>>;
-    public srcHandlersCombineAddFileHandler(archive: FilenameOrUrl, files: Array<Blob>, newContent: CombineArchiveFileContent, overwriteLocations?: boolean, download?: boolean, ): Observable<any> {
-
-        if (archive === null || archive === undefined) {
-            throw new Error('Required parameter archive was null or undefined when calling srcHandlersCombineAddFileHandler.');
-        }
-
-        if (files === null || files === undefined) {
-            throw new Error('Required parameter files was null or undefined when calling srcHandlersCombineAddFileHandler.');
-        }
-
-        if (newContent === null || newContent === undefined) {
-            throw new Error('Required parameter newContent was null or undefined when calling srcHandlersCombineAddFileHandler.');
-        }
-
-
-
-            let headers:any = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/zip',
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers['Accept'] = httpHeaderAcceptSelected;
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: FormData = new FormData(); 
-        let useForm = false;
-        let convertFormParamsToString = false;
-
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (archive !== undefined) {
-            formParams.append('archive', <any>archive);
-        }
-
-        if (overwriteLocations !== undefined) {
-            formParams.append('overwriteLocations', <any>overwriteLocations);
-        }
-
-        if (download !== undefined) {
-            formParams.append('download', <any>download);
-        }
-
-        if (files !== undefined) {
-            formParams.append('files', <any>files);
-        }
-
-        if (newContent !== undefined) {
-            formParams.append('newContent', <any>newContent);
-        }
-
-        return this.httpClient.post(`${this.basePath}/combine/file`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                responseType: "blob",
-                withCredentials: this.configuration.withCredentials,
-                headers: headers
-            }
-        );
+    if (newContent === null || newContent === undefined) {
+      throw new Error(
+        'Required parameter newContent was null or undefined when calling srcHandlersCombineAddFileHandler.',
+      );
     }
-    /**
-     * Assemble a COMBINE/OMEX archive from model files and specifications of a SED-ML document.
-     * Assemble a COMBINE/OMEX archive from model files and specifications of a SED-ML document.
-     * @param specs 
-     * @param files File (e.g., model) to place into the COMBINE/OMEX archive.
-     * @param download Whether to download the archive or return a URL where the archive can be downloaded.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public srcHandlersCombineCreateHandler(specs: CombineArchive, files?: Array<Blob>, download?: boolean, ): Observable<AxiosResponse<string>>;
-    public srcHandlersCombineCreateHandler(specs: CombineArchive, files?: Array<Blob>, download?: boolean, ): Observable<any> {
 
-        if (specs === null || specs === undefined) {
-            throw new Error('Required parameter specs was null or undefined when calling srcHandlersCombineCreateHandler.');
-        }
+    let headers: any = this.defaultHeaders;
 
-
-
-            let headers:any = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json',
-            'application/zip'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers['Accept'] = httpHeaderAcceptSelected;
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: FormData = new FormData(); 
-        let useForm = false;
-        let convertFormParamsToString = false;
-
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (specs !== undefined) {
-            formParams.append('specs', <any>specs);
-        }
-
-        if (files !== undefined) {
-            formParams.append('files', <any>files);
-        }
-
-        if (download !== undefined) {
-            formParams.append('download', <any>download);
-        }
-
-        return this.httpClient.post<string>(`${this.basePath}/combine/create`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers
-            }
-        );
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/zip', 'application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers['Accept'] = httpHeaderAcceptSelected;
     }
-    /**
-     * Get a file in a COMBINE/OMEX archive
-     * Get a file at a location in a COMBINE/OMEX archive.
-     * @param url URL for the COMBINE/OMEX archive.
-     * @param location Location in the COMBINE/OMEX archive.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public srcHandlersCombineGetFileHandler(url: string, location: string, ): Observable<AxiosResponse<Blob>>;
-    public srcHandlersCombineGetFileHandler(url: string, location: string, ): Observable<any> {
 
-        if (url === null || url === undefined) {
-            throw new Error('Required parameter url was null or undefined when calling srcHandlersCombineGetFileHandler.');
-        }
+    // to determine the Content-Type header
+    const consumes: string[] = ['multipart/form-data'];
 
-        if (location === null || location === undefined) {
-            throw new Error('Required parameter location was null or undefined when calling srcHandlersCombineGetFileHandler.');
-        }
+    const canConsumeForm = this.canConsumeForm(consumes);
 
-        let queryParameters: any = {};   
-        if (url !== undefined && url !== null) {
-            queryParameters['url'] = <any>url;
-        }
-        if (location !== undefined && location !== null) {
-            queryParameters['location'] = <any>location;
-        }
+    let formParams: FormData = new FormData();
+    let useForm = false;
+    let convertFormParamsToString = false;
 
-            let headers:any = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/octet-stream',
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers['Accept'] = httpHeaderAcceptSelected;
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-        return this.httpClient.get(`${this.basePath}/combine/file`,
-            {
-                params: queryParameters,
-                responseType: "blob",
-                withCredentials: this.configuration.withCredentials,
-                headers: headers
-            }
-        );
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    useForm = canConsumeForm;
+    if (useForm) {
+      formParams = new FormData();
+    } else {
+      // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
-    /**
-     * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
-     * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
-     * @param file The two files uploaded in creating a combine archive
-     * @param url URL
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public srcHandlersCombineGetManifestHandler(file?: Blob, url?: string, ): Observable<AxiosResponse<CombineArchiveManifest>>;
-    public srcHandlersCombineGetManifestHandler(file?: Blob, url?: string, ): Observable<any> {
 
-
-
-            let headers:any = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers['Accept'] = httpHeaderAcceptSelected;
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: FormData = new FormData(); 
-        let useForm = false;
-        let convertFormParamsToString = false;
-
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (file !== undefined) {
-            formParams.append('file', <any>file);
-        }
-
-        if (url !== undefined) {
-            formParams.append('url', <any>url);
-        }
-
-        return this.httpClient.post<CombineArchiveManifest>(`${this.basePath}/combine/manifest`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers
-            }
-        );
+    if (archive !== undefined) {
+      formParams.append('archive', <any>archive);
     }
-    /**
-     * Get the metadata about a COMBINE/OMEX archive
-     * Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata files in the archive encoded in BioSimulations\&#39; schema.
-     * @param omexMetadataFormat OMEX Metadata format  Default: &#x60;rdfxml&#x60;
-     * @param file The two files uploaded in creating a combine archive
-     * @param url URL
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(omexMetadataFormat: string, file?: Blob, url?: string, ): Observable<AxiosResponse<Array<BioSimulationsCombineArchiveElementMetadata>>>;
-    public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(omexMetadataFormat: string, file?: Blob, url?: string, ): Observable<any> {
 
-        if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
-            throw new Error('Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations.');
-        }
-
-
-
-            let headers:any = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers['Accept'] = httpHeaderAcceptSelected;
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: FormData = new FormData(); 
-        let useForm = false;
-        let convertFormParamsToString = false;
-
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (file !== undefined) {
-            formParams.append('file', <any>file);
-        }
-
-        if (url !== undefined) {
-            formParams.append('url', <any>url);
-        }
-
-        if (omexMetadataFormat !== undefined) {
-            formParams.append('omexMetadataFormat', <any>omexMetadataFormat);
-        }
-
-        return this.httpClient.post<Array<BioSimulationsCombineArchiveElementMetadata>>(`${this.basePath}/combine/metadata/biosimulations`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers
-            }
-        );
+    if (overwriteLocations !== undefined) {
+      formParams.append('overwriteLocations', <any>overwriteLocations);
     }
-    /**
-     * Get the metadata about a COMBINE/OMEX archive
-     * Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata files as a list of RDF triples.
-     * @param omexMetadataFormat OMEX Metadata format  Default: &#x60;rdfxml&#x60;
-     * @param file The two files uploaded in creating a combine archive
-     * @param url URL
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(omexMetadataFormat: string, file?: Blob, url?: string, ): Observable<AxiosResponse<Array<RdfTriple>>>;
-    public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(omexMetadataFormat: string, file?: Blob, url?: string, ): Observable<any> {
 
-        if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
-            throw new Error('Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples.');
-        }
-
-
-
-            let headers:any = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers['Accept'] = httpHeaderAcceptSelected;
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: FormData = new FormData(); 
-        let useForm = false;
-        let convertFormParamsToString = false;
-
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (file !== undefined) {
-            formParams.append('file', <any>file);
-        }
-
-        if (url !== undefined) {
-            formParams.append('url', <any>url);
-        }
-
-        if (omexMetadataFormat !== undefined) {
-            formParams.append('omexMetadataFormat', <any>omexMetadataFormat);
-        }
-
-        return this.httpClient.post<Array<RdfTriple>>(`${this.basePath}/combine/metadata/rdf`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers
-            }
-        );
+    if (download !== undefined) {
+      formParams.append('download', <any>download);
     }
-    /**
-     * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
-     * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
-     * @param file The two files uploaded in creating a combine archive
-     * @param url URL
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file?: Blob, url?: string, ): Observable<AxiosResponse<CombineArchiveSedDocSpecs>>;
-    public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file?: Blob, url?: string, ): Observable<any> {
 
-
-
-            let headers:any = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers['Accept'] = httpHeaderAcceptSelected;
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: FormData = new FormData(); 
-        let useForm = false;
-        let convertFormParamsToString = false;
-
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (file !== undefined) {
-            formParams.append('file', <any>file);
-        }
-
-        if (url !== undefined) {
-            formParams.append('url', <any>url);
-        }
-
-        return this.httpClient.post<CombineArchiveSedDocSpecs>(`${this.basePath}/combine/sedml-specs`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers
-            }
-        );
+    if (files !== undefined) {
+      formParams.append('files', <any>files);
     }
-    /**
-     * Validate a COMBINE archive and the simulation experiments and models inside it.
-     * Validate a COMBINE archive and the simulation experiments (SED-ML files) and models (e.g., SBML files) inside it.  Notes: * An OMEX Manifest file is required to validate OMEX Metadata files. As a result, the &#x60;validateOmexManifest&#x3D;false&#x60; option should often also be used with the &#x60;validateOmexMetadata&#x3D;false&#x60; option. * Currently, submission to BioSimulations requires metadata to be in RDF-XML format. * COMBINE/OMEX archives must pass all validation checks for publication to BioSimulations.
-     * @param omexMetadataFormat OMEX Metadata format
-     * @param omexMetadataSchema OMEX Metadata schema
-     * @param file The two files uploaded in creating a combine archive
-     * @param url URL
-     * @param validateOmexManifest Whether to validate the manifest of the archive.  Default: &#x60;true&#x60;.
-     * @param validateSedml Whether to validate the SED-ML files in the archive.  Default: &#x60;true&#x60;.
-     * @param validateSedmlModels Whether to validate the source (e.g., CellML, SBML file) of each model of each SED-ML file in the archive.  Default: &#x60;true&#x60;.
-     * @param validateOmexMetadata Whether to validate the OMEX Metadata files in the archive according to [BioSimulators\\\&#39; conventions](https://biosimulators.org/conventions/metadata).  Default: &#x60;true&#x60;.
-     * @param validateImages Whether to validate the image (BMP, GIF, PNG, JPEG, TIFF, WEBP) files in the archive.  Default: &#x60;true&#x60;.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public srcHandlersCombineValidateHandler(omexMetadataFormat: string, omexMetadataSchema: string, file?: Blob, url?: string, validateOmexManifest?: boolean, validateSedml?: boolean, validateSedmlModels?: boolean, validateOmexMetadata?: boolean, validateImages?: boolean, ): Observable<AxiosResponse<ValidationReport>>;
-    public srcHandlersCombineValidateHandler(omexMetadataFormat: string, omexMetadataSchema: string, file?: Blob, url?: string, validateOmexManifest?: boolean, validateSedml?: boolean, validateSedmlModels?: boolean, validateOmexMetadata?: boolean, validateImages?: boolean, ): Observable<any> {
 
-        if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
-            throw new Error('Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineValidateHandler.');
-        }
-
-        if (omexMetadataSchema === null || omexMetadataSchema === undefined) {
-            throw new Error('Required parameter omexMetadataSchema was null or undefined when calling srcHandlersCombineValidateHandler.');
-        }
-
-
-
-
-
-
-
-
-            let headers:any = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers['Accept'] = httpHeaderAcceptSelected;
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: FormData = new FormData(); 
-        let useForm = false;
-        let convertFormParamsToString = false;
-
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (file !== undefined) {
-            formParams.append('file', <any>file);
-        }
-
-        if (url !== undefined) {
-            formParams.append('url', <any>url);
-        }
-
-        if (omexMetadataFormat !== undefined) {
-            formParams.append('omexMetadataFormat', <any>omexMetadataFormat);
-        }
-
-        if (validateOmexManifest !== undefined) {
-            formParams.append('validateOmexManifest', <any>validateOmexManifest);
-        }
-
-        if (omexMetadataSchema !== undefined) {
-            formParams.append('omexMetadataSchema', <any>omexMetadataSchema);
-        }
-
-        if (validateSedml !== undefined) {
-            formParams.append('validateSedml', <any>validateSedml);
-        }
-
-        if (validateSedmlModels !== undefined) {
-            formParams.append('validateSedmlModels', <any>validateSedmlModels);
-        }
-
-        if (validateOmexMetadata !== undefined) {
-            formParams.append('validateOmexMetadata', <any>validateOmexMetadata);
-        }
-
-        if (validateImages !== undefined) {
-            formParams.append('validateImages', <any>validateImages);
-        }
-
-        return this.httpClient.post<ValidationReport>(`${this.basePath}/combine/validate`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers
-            }
-        );
+    if (newContent !== undefined) {
+      formParams.append('newContent', <any>newContent);
     }
+
+    return this.httpClient.post(
+      `${this.basePath}/combine/file`,
+      convertFormParamsToString ? formParams.toString() : formParams,
+      {
+        responseType: 'blob',
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+      },
+    );
+  }
+  /**
+   * Assemble a COMBINE/OMEX archive from model files and specifications of a SED-ML document.
+   * Assemble a COMBINE/OMEX archive from model files and specifications of a SED-ML document.
+   * @param specs
+   * @param files File (e.g., model) to place into the COMBINE/OMEX archive.
+   * @param download Whether to download the archive or return a URL where the archive can be downloaded.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public srcHandlersCombineCreateHandler(
+    specs: CombineArchive,
+    files?: Array<Blob>,
+    download?: boolean,
+  ): Observable<AxiosResponse<string>>;
+  public srcHandlersCombineCreateHandler(
+    specs: CombineArchive,
+    files?: Array<Blob>,
+    download?: boolean,
+  ): Observable<any> {
+    if (specs === null || specs === undefined) {
+      throw new Error(
+        'Required parameter specs was null or undefined when calling srcHandlersCombineCreateHandler.',
+      );
+    }
+
+    let headers: any = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json', 'application/zip'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers['Accept'] = httpHeaderAcceptSelected;
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['multipart/form-data'];
+
+    const canConsumeForm = this.canConsumeForm(consumes);
+
+    let formParams: FormData = new FormData();
+    let useForm = false;
+    let convertFormParamsToString = false;
+
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    useForm = canConsumeForm;
+    if (useForm) {
+      formParams = new FormData();
+    } else {
+      // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    }
+
+    if (specs !== undefined) {
+      formParams.append('specs', <any>specs);
+    }
+
+    if (files !== undefined) {
+      formParams.append('files', <any>files);
+    }
+
+    if (download !== undefined) {
+      formParams.append('download', <any>download);
+    }
+
+    return this.httpClient.post<string>(
+      `${this.basePath}/combine/create`,
+      convertFormParamsToString ? formParams.toString() : formParams,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+      },
+    );
+  }
+  /**
+   * Get a file in a COMBINE/OMEX archive
+   * Get a file at a location in a COMBINE/OMEX archive.
+   * @param url URL for the COMBINE/OMEX archive.
+   * @param location Location in the COMBINE/OMEX archive.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public srcHandlersCombineGetFileHandler(
+    url: string,
+    location: string,
+  ): Observable<AxiosResponse<Blob>>;
+  public srcHandlersCombineGetFileHandler(
+    url: string,
+    location: string,
+  ): Observable<any> {
+    if (url === null || url === undefined) {
+      throw new Error(
+        'Required parameter url was null or undefined when calling srcHandlersCombineGetFileHandler.',
+      );
+    }
+
+    if (location === null || location === undefined) {
+      throw new Error(
+        'Required parameter location was null or undefined when calling srcHandlersCombineGetFileHandler.',
+      );
+    }
+
+    let queryParameters: any = {};
+    if (url !== undefined && url !== null) {
+      queryParameters['url'] = <any>url;
+    }
+    if (location !== undefined && location !== null) {
+      queryParameters['location'] = <any>location;
+    }
+
+    let headers: any = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = [
+      'application/octet-stream',
+      'application/json',
+    ];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers['Accept'] = httpHeaderAcceptSelected;
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = [];
+    return this.httpClient.get(`${this.basePath}/combine/file`, {
+      params: queryParameters,
+      responseType: 'blob',
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
+  }
+  /**
+   * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+   * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+   * @param file The two files uploaded in creating a combine archive
+   * @param url URL
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public srcHandlersCombineGetManifestHandler(
+    file?: Blob,
+    url?: string,
+  ): Observable<AxiosResponse<CombineArchiveManifest>>;
+  public srcHandlersCombineGetManifestHandler(
+    file?: Blob,
+    url?: string,
+  ): Observable<any> {
+    let headers: any = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers['Accept'] = httpHeaderAcceptSelected;
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['multipart/form-data'];
+
+    const canConsumeForm = this.canConsumeForm(consumes);
+
+    let formParams: FormData = new FormData();
+    let useForm = false;
+    let convertFormParamsToString = false;
+
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    useForm = canConsumeForm;
+    if (useForm) {
+      formParams = new FormData();
+    } else {
+      // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    }
+
+    if (file !== undefined) {
+      formParams.append('file', <any>file);
+    }
+
+    if (url !== undefined) {
+      formParams.append('url', <any>url);
+    }
+
+    return this.httpClient.post<CombineArchiveManifest>(
+      `${this.basePath}/combine/manifest`,
+      convertFormParamsToString ? formParams.toString() : formParams,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+      },
+    );
+  }
+  /**
+   * Get the metadata about a COMBINE/OMEX archive
+   * Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata files in the archive encoded in BioSimulations\&#39; schema.
+   * @param omexMetadataFormat OMEX Metadata format  Default: &#x60;rdfxml&#x60;
+   * @param file The two files uploaded in creating a combine archive
+   * @param url URL
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+    omexMetadataFormat: string,
+    file?: Blob,
+    url?: string,
+  ): Observable<
+    AxiosResponse<Array<BioSimulationsCombineArchiveElementMetadata>>
+  >;
+  public srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+    omexMetadataFormat: string,
+    file?: Blob,
+    url?: string,
+  ): Observable<any> {
+    if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
+      throw new Error(
+        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations.',
+      );
+    }
+
+    let headers: any = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers['Accept'] = httpHeaderAcceptSelected;
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['multipart/form-data'];
+
+    const canConsumeForm = this.canConsumeForm(consumes);
+
+    let formParams: FormData = new FormData();
+    let useForm = false;
+    let convertFormParamsToString = false;
+
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    useForm = canConsumeForm;
+    if (useForm) {
+      formParams = new FormData();
+    } else {
+      // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    }
+
+    if (file !== undefined) {
+      formParams.append('file', <any>file);
+    }
+
+    if (url !== undefined) {
+      formParams.append('url', <any>url);
+    }
+
+    if (omexMetadataFormat !== undefined) {
+      formParams.append('omexMetadataFormat', <any>omexMetadataFormat);
+    }
+
+    return this.httpClient.post<
+      Array<BioSimulationsCombineArchiveElementMetadata>
+    >(
+      `${this.basePath}/combine/metadata/biosimulations`,
+      convertFormParamsToString ? formParams.toString() : formParams,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+      },
+    );
+  }
+  /**
+   * Get the metadata about a COMBINE/OMEX archive
+   * Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata files as a list of RDF triples.
+   * @param omexMetadataFormat OMEX Metadata format  Default: &#x60;rdfxml&#x60;
+   * @param file The two files uploaded in creating a combine archive
+   * @param url URL
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+    omexMetadataFormat: string,
+    file?: Blob,
+    url?: string,
+  ): Observable<AxiosResponse<Array<RdfTriple>>>;
+  public srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples(
+    omexMetadataFormat: string,
+    file?: Blob,
+    url?: string,
+  ): Observable<any> {
+    if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
+      throw new Error(
+        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineGetMetadataForCombineArchiveHandlerRdfTriples.',
+      );
+    }
+
+    let headers: any = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers['Accept'] = httpHeaderAcceptSelected;
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['multipart/form-data'];
+
+    const canConsumeForm = this.canConsumeForm(consumes);
+
+    let formParams: FormData = new FormData();
+    let useForm = false;
+    let convertFormParamsToString = false;
+
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    useForm = canConsumeForm;
+    if (useForm) {
+      formParams = new FormData();
+    } else {
+      // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    }
+
+    if (file !== undefined) {
+      formParams.append('file', <any>file);
+    }
+
+    if (url !== undefined) {
+      formParams.append('url', <any>url);
+    }
+
+    if (omexMetadataFormat !== undefined) {
+      formParams.append('omexMetadataFormat', <any>omexMetadataFormat);
+    }
+
+    return this.httpClient.post<Array<RdfTriple>>(
+      `${this.basePath}/combine/metadata/rdf`,
+      convertFormParamsToString ? formParams.toString() : formParams,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+      },
+    );
+  }
+  /**
+   * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+   * Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+   * @param file The two files uploaded in creating a combine archive
+   * @param url URL
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
+    file?: Blob,
+    url?: string,
+  ): Observable<AxiosResponse<CombineArchiveSedDocSpecs>>;
+  public srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
+    file?: Blob,
+    url?: string,
+  ): Observable<any> {
+    let headers: any = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers['Accept'] = httpHeaderAcceptSelected;
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['multipart/form-data'];
+
+    const canConsumeForm = this.canConsumeForm(consumes);
+
+    let formParams: FormData = new FormData();
+    let useForm = false;
+    let convertFormParamsToString = false;
+
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    useForm = canConsumeForm;
+    if (useForm) {
+      formParams = new FormData();
+    } else {
+      // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    }
+
+    if (file !== undefined) {
+      formParams.append('file', <any>file);
+    }
+
+    if (url !== undefined) {
+      formParams.append('url', <any>url);
+    }
+
+    return this.httpClient.post<CombineArchiveSedDocSpecs>(
+      `${this.basePath}/combine/sedml-specs`,
+      convertFormParamsToString ? formParams.toString() : formParams,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+      },
+    );
+  }
+  /**
+   * Validate a COMBINE archive and the simulation experiments and models inside it.
+   * Validate a COMBINE archive and the simulation experiments (SED-ML files) and models (e.g., SBML files) inside it.  Notes: * An OMEX Manifest file is required to validate OMEX Metadata files. As a result, the &#x60;validateOmexManifest&#x3D;false&#x60; option should often also be used with the &#x60;validateOmexMetadata&#x3D;false&#x60; option. * Currently, submission to BioSimulations requires metadata to be in RDF-XML format. * COMBINE/OMEX archives must pass all validation checks for publication to BioSimulations.
+   * @param omexMetadataFormat OMEX Metadata format
+   * @param omexMetadataSchema OMEX Metadata schema
+   * @param file The two files uploaded in creating a combine archive
+   * @param url URL
+   * @param validateOmexManifest Whether to validate the manifest of the archive.  Default: &#x60;true&#x60;.
+   * @param validateSedml Whether to validate the SED-ML files in the archive.  Default: &#x60;true&#x60;.
+   * @param validateSedmlModels Whether to validate the source (e.g., CellML, SBML file) of each model of each SED-ML file in the archive.  Default: &#x60;true&#x60;.
+   * @param validateOmexMetadata Whether to validate the OMEX Metadata files in the archive according to [BioSimulators\\\&#39; conventions](https://biosimulators.org/conventions/metadata).  Default: &#x60;true&#x60;.
+   * @param validateImages Whether to validate the image (BMP, GIF, PNG, JPEG, TIFF, WEBP) files in the archive.  Default: &#x60;true&#x60;.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public srcHandlersCombineValidateHandler(
+    omexMetadataFormat: string,
+    omexMetadataSchema: string,
+    file?: Blob,
+    url?: string,
+    validateOmexManifest?: boolean,
+    validateSedml?: boolean,
+    validateSedmlModels?: boolean,
+    validateOmexMetadata?: boolean,
+    validateImages?: boolean,
+  ): Observable<AxiosResponse<ValidationReport>>;
+  public srcHandlersCombineValidateHandler(
+    omexMetadataFormat: string,
+    omexMetadataSchema: string,
+    file?: Blob,
+    url?: string,
+    validateOmexManifest?: boolean,
+    validateSedml?: boolean,
+    validateSedmlModels?: boolean,
+    validateOmexMetadata?: boolean,
+    validateImages?: boolean,
+  ): Observable<any> {
+    if (omexMetadataFormat === null || omexMetadataFormat === undefined) {
+      throw new Error(
+        'Required parameter omexMetadataFormat was null or undefined when calling srcHandlersCombineValidateHandler.',
+      );
+    }
+
+    if (omexMetadataSchema === null || omexMetadataSchema === undefined) {
+      throw new Error(
+        'Required parameter omexMetadataSchema was null or undefined when calling srcHandlersCombineValidateHandler.',
+      );
+    }
+
+    let headers: any = this.defaultHeaders;
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    const httpHeaderAcceptSelected: string | undefined =
+      this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    if (httpHeaderAcceptSelected != undefined) {
+      headers['Accept'] = httpHeaderAcceptSelected;
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['multipart/form-data'];
+
+    const canConsumeForm = this.canConsumeForm(consumes);
+
+    let formParams: FormData = new FormData();
+    let useForm = false;
+    let convertFormParamsToString = false;
+
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    useForm = canConsumeForm;
+    if (useForm) {
+      formParams = new FormData();
+    } else {
+      // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+    }
+
+    if (file !== undefined) {
+      formParams.append('file', <any>file);
+    }
+
+    if (url !== undefined) {
+      formParams.append('url', <any>url);
+    }
+
+    if (omexMetadataFormat !== undefined) {
+      formParams.append('omexMetadataFormat', <any>omexMetadataFormat);
+    }
+
+    if (validateOmexManifest !== undefined) {
+      formParams.append('validateOmexManifest', <any>validateOmexManifest);
+    }
+
+    if (omexMetadataSchema !== undefined) {
+      formParams.append('omexMetadataSchema', <any>omexMetadataSchema);
+    }
+
+    if (validateSedml !== undefined) {
+      formParams.append('validateSedml', <any>validateSedml);
+    }
+
+    if (validateSedmlModels !== undefined) {
+      formParams.append('validateSedmlModels', <any>validateSedmlModels);
+    }
+
+    if (validateOmexMetadata !== undefined) {
+      formParams.append('validateOmexMetadata', <any>validateOmexMetadata);
+    }
+
+    if (validateImages !== undefined) {
+      formParams.append('validateImages', <any>validateImages);
+    }
+
+    return this.httpClient.post<ValidationReport>(
+      `${this.basePath}/combine/validate`,
+      convertFormParamsToString ? formParams.toString() : formParams,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+      },
+    );
+  }
 }

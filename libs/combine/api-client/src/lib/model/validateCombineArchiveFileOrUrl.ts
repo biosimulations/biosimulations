@@ -10,59 +10,55 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * File or a URL for getting the metadata in a COMBINE/OMEX archive.
  */
-export interface ValidateCombineArchiveFileOrUrl { 
-    /**
-     * The two files uploaded in creating a combine archive
-     */
-    file?: Blob;
-    /**
-     * URL
-     */
-    url?: string;
-    /**
-     * OMEX Metadata format
-     */
-    omexMetadataFormat: ValidateCombineArchiveFileOrUrlOmexMetadataFormat;
-    /**
-     * Whether to validate the manifest of the archive.  Default: `true`.
-     */
-    validateOmexManifest?: boolean;
-    /**
-     * OMEX Metadata schema
-     */
-    omexMetadataSchema: ValidateCombineArchiveFileOrUrlOmexMetadataSchema;
-    /**
-     * Whether to validate the SED-ML files in the archive.  Default: `true`.
-     */
-    validateSedml?: boolean;
-    /**
-     * Whether to validate the source (e.g., CellML, SBML file) of each model of each SED-ML file in the archive.  Default: `true`.
-     */
-    validateSedmlModels?: boolean;
-    /**
-     * Whether to validate the OMEX Metadata files in the archive according to [BioSimulators\' conventions](https://biosimulators.org/conventions/metadata).  Default: `true`.
-     */
-    validateOmexMetadata?: boolean;
-    /**
-     * Whether to validate the image (BMP, GIF, PNG, JPEG, TIFF, WEBP) files in the archive.  Default: `true`.
-     */
-    validateImages?: boolean;
+export interface ValidateCombineArchiveFileOrUrl {
+  /**
+   * The two files uploaded in creating a combine archive
+   */
+  file?: Blob;
+  /**
+   * URL
+   */
+  url?: string;
+  /**
+   * OMEX Metadata format
+   */
+  omexMetadataFormat: ValidateCombineArchiveFileOrUrlOmexMetadataFormat;
+  /**
+   * Whether to validate the manifest of the archive.  Default: `true`.
+   */
+  validateOmexManifest?: boolean;
+  /**
+   * OMEX Metadata schema
+   */
+  omexMetadataSchema: ValidateCombineArchiveFileOrUrlOmexMetadataSchema;
+  /**
+   * Whether to validate the SED-ML files in the archive.  Default: `true`.
+   */
+  validateSedml?: boolean;
+  /**
+   * Whether to validate the source (e.g., CellML, SBML file) of each model of each SED-ML file in the archive.  Default: `true`.
+   */
+  validateSedmlModels?: boolean;
+  /**
+   * Whether to validate the OMEX Metadata files in the archive according to [BioSimulators\' conventions](https://biosimulators.org/conventions/metadata).  Default: `true`.
+   */
+  validateOmexMetadata?: boolean;
+  /**
+   * Whether to validate the image (BMP, GIF, PNG, JPEG, TIFF, WEBP) files in the archive.  Default: `true`.
+   */
+  validateImages?: boolean;
 }
 export enum ValidateCombineArchiveFileOrUrlOmexMetadataFormat {
-    Ntriples = 'ntriples',
-    Nquads = 'nquads',
-    Rdfa = 'rdfa',
-    Rdfxml = 'rdfxml',
-    Turtle = 'turtle'
-};
+  Ntriples = 'ntriples',
+  Nquads = 'nquads',
+  Rdfa = 'rdfa',
+  Rdfxml = 'rdfxml',
+  Turtle = 'turtle',
+}
 export enum ValidateCombineArchiveFileOrUrlOmexMetadataSchema {
-    BioSimulations = 'BioSimulations',
-    RdfTriples = 'rdf_triples'
-};
-
-
-
+  BioSimulations = 'BioSimulations',
+  RdfTriples = 'rdf_triples',
+}

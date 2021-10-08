@@ -8,7 +8,10 @@ import { MetadataService } from '../../../services/simulation/metadata.service';
 import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { ConfigService } from '@biosimulations/shared/services';
-import { SimulationRunMetadata, ArchiveMetadata } from '@biosimulations/datamodel/api';
+import {
+  SimulationRunMetadata,
+  ArchiveMetadata,
+} from '@biosimulations/datamodel/api';
 import {
   Simulation,
   UnknownSimulation,
@@ -121,10 +124,11 @@ export class PublishComponent implements OnInit {
         this.simulation = simulation;
         return this.metadataService.getMetadata(this.uuid).pipe(
           map((runMetadata: SimulationRunMetadata): boolean => {
-            const metdataDocs = runMetadata.metadata
-              .filter((metadata: ArchiveMetadata): boolean => {
+            const metdataDocs = runMetadata.metadata.filter(
+              (metadata: ArchiveMetadata): boolean => {
                 return metadata.uri.search('/') === -1;
-              });
+              },
+            );
             return metdataDocs.length >= 1;
           }),
           catchError((error: Error) => {
@@ -145,33 +149,38 @@ export class PublishComponent implements OnInit {
           }
 
           const archiveUrl = this.getArchiveUrl();
-          return this.combineService.getCombineArchiveMetadata(archiveUrl, OmexMetadataInputFormat.rdfxml).pipe(
-            map(
-              (
-                arg:
-                  | CombineArchiveElementMetadata[]
-                  | ValidationReport
-                  | undefined,
-              ): FormattedValidationReport | false => {
-                if (arg === undefined) {
+          return this.combineService
+            .getCombineArchiveMetadata(
+              archiveUrl,
+              OmexMetadataInputFormat.rdfxml,
+            )
+            .pipe(
+              map(
+                (
+                  arg:
+                    | CombineArchiveElementMetadata[]
+                    | ValidationReport
+                    | undefined,
+                ): FormattedValidationReport | false => {
+                  if (arg === undefined) {
+                    return false;
+                  }
+
+                  if (!Array.isArray(arg)) {
+                    return {
+                      errors: arg?.errors?.length
+                        ? this.convertValidationMessagesToList(arg.errors)
+                        : null,
+                      warnings: arg?.warnings?.length
+                        ? this.convertValidationMessagesToList(arg.warnings)
+                        : null,
+                    };
+                  }
+
                   return false;
-                }
-
-                if (!Array.isArray(arg)) {
-                  return {
-                    errors: arg?.errors?.length
-                      ? this.convertValidationMessagesToList(arg.errors)
-                      : null,
-                    warnings: arg?.warnings?.length
-                      ? this.convertValidationMessagesToList(arg.warnings)
-                      : null,
-                  };
-                }
-
-                return false;
-              },
-            ),
-          );
+                },
+              ),
+            );
         },
       ),
       concatAll(),

@@ -10,39 +10,35 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * File or a URL for validating an OMEX Metadata document.
  */
-export interface ValidateOmexMetadataFileOrUrl { 
-    /**
-     * The two files uploaded in creating a combine archive
-     */
-    file?: Blob;
-    /**
-     * URL
-     */
-    url?: string;
-    /**
-     * Format of the document
-     */
-    format: ValidateOmexMetadataFileOrUrlFormat;
-    /**
-     * Schema for validating OMEX Metadata files. The RDF schema, allows all semantic triples. The [BioSimulations schema](https://biosimulators.org/conventions/metadata) imposes additional requirements for minimal metadata about simulation projects. The BioSimulations schema is required for publishing projects to BioSimulations.
-     */
-    schema: ValidateOmexMetadataFileOrUrlSchema;
+export interface ValidateOmexMetadataFileOrUrl {
+  /**
+   * The two files uploaded in creating a combine archive
+   */
+  file?: Blob;
+  /**
+   * URL
+   */
+  url?: string;
+  /**
+   * Format of the document
+   */
+  format: ValidateOmexMetadataFileOrUrlFormat;
+  /**
+   * Schema for validating OMEX Metadata files. The RDF schema, allows all semantic triples. The [BioSimulations schema](https://biosimulators.org/conventions/metadata) imposes additional requirements for minimal metadata about simulation projects. The BioSimulations schema is required for publishing projects to BioSimulations.
+   */
+  schema: ValidateOmexMetadataFileOrUrlSchema;
 }
 export enum ValidateOmexMetadataFileOrUrlFormat {
-    Ntriples = 'ntriples',
-    Nquads = 'nquads',
-    Rdfa = 'rdfa',
-    Rdfxml = 'rdfxml',
-    Turtle = 'turtle'
-};
+  Ntriples = 'ntriples',
+  Nquads = 'nquads',
+  Rdfa = 'rdfa',
+  Rdfxml = 'rdfxml',
+  Turtle = 'turtle',
+}
 export enum ValidateOmexMetadataFileOrUrlSchema {
-    RdfTriples = 'rdf_triples',
-    BioSimulations = 'BioSimulations'
-};
-
-
-
+  RdfTriples = 'rdf_triples',
+  BioSimulations = 'BioSimulations',
+}

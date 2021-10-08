@@ -11,25 +11,21 @@
  */
 import { CombineArchiveManifestLocation } from './combineArchiveManifestLocation';
 
-
 /**
  * Content item of a COMBINE/OMEX archive.
  */
-export interface CombineArchiveManifestContent { 
-    location: CombineArchiveManifestLocation;
-    /**
-     * URI for a format.
-     */
-    format: string;
-    master: boolean;
-    /**
-     * Type.
-     */
-    _type: CombineArchiveManifestContentType;
+export interface CombineArchiveManifestContent {
+  location: CombineArchiveManifestLocation;
+  /**
+   * URI for a format.
+   */
+  format: string;
+  master: boolean;
+  /**
+   * Type.
+   */
+  _type: CombineArchiveManifestContentType;
 }
 export enum CombineArchiveManifestContentType {
-    CombineArchiveManifestContent = 'CombineArchiveManifestContent'
-};
-
-
-
+  CombineArchiveManifestContent = 'CombineArchiveManifestContent',
+}

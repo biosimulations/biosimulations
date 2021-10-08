@@ -12,24 +12,22 @@
 import { CombineArchiveFileContent } from './combineArchiveFileContent';
 import { FilenameOrUrl } from './filenameOrUrl';
 
-
 /**
  * A COMBINE/OMEX archive and an additional content items that should be added to the archive.
  */
-export interface CombineArchiveAndAdditionalContent { 
-    archive: FilenameOrUrl;
-    /**
-     * Whether to overwrite the location if it already exists, or to add the content at an alternative location (indicated location plus a unique integer).  Default: true
-     */
-    overwriteLocations?: boolean;
-    /**
-     * Whether to download the modified COMBINE/OMEX archive or return a URL where it can be retrieved.  Default: false
-     */
-    download?: boolean;
-    /**
-     * Files to add to the COMBINE/OMEX archive and, optionally, the archive.
-     */
-    files: Array<Blob>;
-    newContent: CombineArchiveFileContent;
+export interface CombineArchiveAndAdditionalContent {
+  archive: FilenameOrUrl;
+  /**
+   * Whether to overwrite the location if it already exists, or to add the content at an alternative location (indicated location plus a unique integer).  Default: true
+   */
+  overwriteLocations?: boolean;
+  /**
+   * Whether to download the modified COMBINE/OMEX archive or return a URL where it can be retrieved.  Default: false
+   */
+  download?: boolean;
+  /**
+   * Files to add to the COMBINE/OMEX archive and, optionally, the archive.
+   */
+  files: Array<Blob>;
+  newContent: CombineArchiveFileContent;
 }
-

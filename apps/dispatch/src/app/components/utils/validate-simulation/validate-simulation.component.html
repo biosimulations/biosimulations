@@ -6,9 +6,12 @@
           <biosimulations-icon icon="simulation"></biosimulations-icon>
         </div>
         <div class="form-section-head-title-subtitle">
-          <div class="form-section-title">Simulation experiment (SED-ML file)*</div>
+          <div class="form-section-title">
+            Simulation experiment (SED-ML file)*
+          </div>
           <div class="form-section-subtitle">
-            Select a local file or enter a URL for a simulation experiment (SED-ML) file.
+            Select a local file or enter a URL for a simulation experiment
+            (SED-ML) file.
           </div>
         </div>
       </div>
@@ -21,7 +24,8 @@
                 matPrefix
               ></biosimulations-icon>
               <mat-label
-                >Select a method for providing a simulation experiment (SED-ML file)</mat-label
+                >Select a method for providing a simulation experiment (SED-ML
+                file)</mat-label
               >
               <mat-select
                 required
@@ -37,10 +41,7 @@
               appearance="fill"
               *ngIf="formGroup.value.submitMethod === 'file'"
             >
-              <biosimulations-icon
-                icon="file"
-                matPrefix
-              ></biosimulations-icon>
+              <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
               <mat-label
                 >Select a simulation experiment (SED-ML file)</mat-label
               >
@@ -58,7 +59,8 @@
             >
               <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
               <mat-label
-                >Enter a URL for a simulation experiment (SED-ML file)</mat-label
+                >Enter a URL for a simulation experiment (SED-ML
+                file)</mat-label
               >
               <input
                 [required]="true"
@@ -71,19 +73,34 @@
 
           <mat-hint>
             <p>
-              Select a method for providing a simulation experiment in the Simulation Experiment Description Markup Language (SED-ML) <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Experiments can either be uploaded from your local computer or loaded from a
-              publicly-accessible URL.
+              Select a method for providing a simulation experiment in the
+              Simulation Experiment Description Markup Language (SED-ML)
+              <a href="https://sed-ml.org" target="_blank"
+                ><biosimulations-icon icon="link"></biosimulations-icon></a
+              >. Experiments can either be uploaded from your local computer or
+              loaded from a publicly-accessible URL.
             </p>
 
             <p>
-              Several example simulations are available from the
-              BioSimulators test suite
+              Several example simulations are available from the BioSimulators
+              test suite
               <a [href]="exampleSimulationsUrl" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon></a
               >.
             </p>
 
-            <p>Note, this form only validates the content directly in SED-ML files. This form cannot validate the sources of models used by SED-ML file or targets to those models for model changes and observables of simulation results. More comprehensive validation, which encompasses validation of model sources and targets to model sources, is available through the validation of simulation projects (COMBINE/OMEX archives or zip files which contain model and simulation files). Click <a [routerLink]="['/utils', 'validate-project']">here</a> to more comprehensively validate SED-ML files.</p>
+            <p>
+              Note, this form only validates the content directly in SED-ML
+              files. This form cannot validate the sources of models used by
+              SED-ML file or targets to those models for model changes and
+              observables of simulation results. More comprehensive validation,
+              which encompasses validation of model sources and targets to model
+              sources, is available through the validation of simulation
+              projects (COMBINE/OMEX archives or zip files which contain model
+              and simulation files). Click
+              <a [routerLink]="['/utils', 'validate-project']">here</a> to more
+              comprehensively validate SED-ML files.
+            </p>
           </mat-hint>
           <mat-error
             *ngIf="

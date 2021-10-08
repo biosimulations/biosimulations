@@ -8,7 +8,12 @@ import { Observable, of } from 'rxjs';
 import { catchError, timeout } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 import { environment } from '@biosimulations/shared/environments';
-import { CombineArchive, OmexMetadataInputFormat, OmexMetadataSchema, ModelLanguage } from '@biosimulations/datamodel/common';
+import {
+  CombineArchive,
+  OmexMetadataInputFormat,
+  OmexMetadataSchema,
+  ModelLanguage,
+} from '@biosimulations/datamodel/common';
 import { CombineArchiveElementMetadata } from '../../datamodel/metadata.interface';
 import { ValidationReport } from '../../datamodel/validation-report.interface';
 import { AlgorithmSubstitution } from '../../kisao.interface';
@@ -91,7 +96,7 @@ export class CombineService {
 
   public validateModel(
     fileOrUrl: File | string,
-    language: ModelLanguage,    
+    language: ModelLanguage,
   ): Observable<ValidationReport | undefined> {
     const formData = new FormData();
     if (typeof fileOrUrl === 'object') {
@@ -182,10 +187,19 @@ export class CombineService {
 
     formData.append('omexMetadataFormat', omexMetadataFormat);
     formData.append('omexMetadataSchema', omexMetadataSchema);
-    formData.append('validateOmexManifest', validateOmexManifest ? 'true' : 'false');
+    formData.append(
+      'validateOmexManifest',
+      validateOmexManifest ? 'true' : 'false',
+    );
     formData.append('validateSedml', validateSedml ? 'true' : 'false');
-    formData.append('validateSedmlModels', validateSedmlModels ? 'true' : 'false');
-    formData.append('validateOmexMetadata', validateOmexMetadata ? 'true' : 'false');
+    formData.append(
+      'validateSedmlModels',
+      validateSedmlModels ? 'true' : 'false',
+    );
+    formData.append(
+      'validateOmexMetadata',
+      validateOmexMetadata ? 'true' : 'false',
+    );
     formData.append('validateImages', validateImages ? 'true' : 'false');
 
     return this.http

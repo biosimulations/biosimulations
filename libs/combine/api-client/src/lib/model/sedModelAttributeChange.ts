@@ -11,32 +11,28 @@
  */
 import { SedTarget } from './sedTarget';
 
-
 /**
  * A SED model attribute change.
  */
-export interface SedModelAttributeChange { 
-    /**
-     * Type.
-     */
-    _type: SedModelAttributeChangeType;
-    /**
-     * New value.
-     */
-    newValue: string;
-    target: SedTarget;
-    /**
-     * Unique identifier within its parents SED document.
-     */
-    id: string;
-    /**
-     * Brief description
-     */
-    name?: string;
+export interface SedModelAttributeChange {
+  /**
+   * Type.
+   */
+  _type: SedModelAttributeChangeType;
+  /**
+   * New value.
+   */
+  newValue: string;
+  target: SedTarget;
+  /**
+   * Unique identifier within its parents SED document.
+   */
+  id: string;
+  /**
+   * Brief description
+   */
+  name?: string;
 }
 export enum SedModelAttributeChangeType {
-    SedModelAttributeChange = 'SedModelAttributeChange'
-};
-
-
-
+  SedModelAttributeChange = 'SedModelAttributeChange',
+}

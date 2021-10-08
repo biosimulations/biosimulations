@@ -10,27 +10,23 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A URI and a human-readable label for the URI
  */
-export interface BioSimulationsMetadataValue { 
-    /**
-     * Type
-     */
-    _type: BioSimulationsMetadataValueType;
-    /**
-     * Uniform Resource Identifier (URI)
-     */
-    uri: string;
-    /**
-     * Human-readable label.
-     */
-    label?: string;
+export interface BioSimulationsMetadataValue {
+  /**
+   * Type
+   */
+  _type: BioSimulationsMetadataValueType;
+  /**
+   * Uniform Resource Identifier (URI)
+   */
+  uri: string;
+  /**
+   * Human-readable label.
+   */
+  label?: string;
 }
 export enum BioSimulationsMetadataValueType {
-    BioSimulationsMetadataValue = 'BioSimulationsMetadataValue'
-};
-
-
-
+  BioSimulationsMetadataValue = 'BioSimulationsMetadataValue',
+}

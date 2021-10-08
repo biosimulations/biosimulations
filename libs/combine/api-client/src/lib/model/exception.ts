@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface Exception { 
-    category: string;
-    message: string;
+export interface Exception {
+  category: string;
+  message: string;
 }
-

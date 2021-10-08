@@ -12,7 +12,10 @@ import {
   ValidationMessage,
   ValidationStatus,
 } from '../../../datamodel/validation-report.interface';
-import { OmexMetadataInputFormat, OmexMetadataSchema } from '@biosimulations/datamodel/common';
+import {
+  OmexMetadataInputFormat,
+  OmexMetadataSchema,
+} from '@biosimulations/datamodel/common';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -45,7 +48,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     {
       label: 'None (OMEX Metadata)',
       value: 'rdf_triples',
-    }
+    },
   ];
 
   exampleCombineArchiveUrl: string;
@@ -276,11 +279,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     metadataOptions: this.formSectionOpen.metadataOptions.asObservable(),
     validationOptions: this.formSectionOpen.validationOptions.asObservable(),
   };
-  toggleFormSection(
-    name:
-      | 'metadataOptions'
-      | 'validationOptions'
-  ): void {
+  toggleFormSection(name: 'metadataOptions' | 'validationOptions'): void {
     this.formSectionOpen[name].next(!this.formSectionOpen[name].value);
   }
 }

@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * File or a URL for a file.
  */
-export interface FileOrUrl { 
-    /**
-     * The two files uploaded in creating a combine archive
-     */
-    file?: Blob;
-    /**
-     * URL
-     */
-    url?: string;
+export interface FileOrUrl {
+  /**
+   * The two files uploaded in creating a combine archive
+   */
+  file?: Blob;
+  /**
+   * URL
+   */
+  url?: string;
 }
-

@@ -11,31 +11,27 @@
  */
 import { SedDataSet } from './sedDataSet';
 
-
 /**
  * A SED report.
  */
-export interface SedReport { 
-    /**
-     * Unique identifier within its parent SED document.
-     */
-    id: string;
-    /**
-     * Type of the output.
-     */
-    _type: SedReportType;
-    /**
-     * Brief description.
-     */
-    name?: string;
-    /**
-     * List of the data sets of the report (rows of the report).
-     */
-    dataSets: Array<SedDataSet>;
+export interface SedReport {
+  /**
+   * Unique identifier within its parent SED document.
+   */
+  id: string;
+  /**
+   * Type of the output.
+   */
+  _type: SedReportType;
+  /**
+   * Brief description.
+   */
+  name?: string;
+  /**
+   * List of the data sets of the report (rows of the report).
+   */
+  dataSets: Array<SedDataSet>;
 }
 export enum SedReportType {
-    SedReport = 'SedReport'
-};
-
-
-
+  SedReport = 'SedReport',
+}

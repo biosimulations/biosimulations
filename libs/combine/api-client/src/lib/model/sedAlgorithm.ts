@@ -11,27 +11,23 @@
  */
 import { SedAlgorithmParameterChange } from './sedAlgorithmParameterChange';
 
-
 /**
  * A SED algorithm.
  */
-export interface SedAlgorithm { 
-    /**
-     * Type.
-     */
-    _type: SedAlgorithmType;
-    /**
-     * KiSAO id
-     */
-    kisaoId: string;
-    /**
-     * Changes to the default values of the parameters.
-     */
-    changes: Array<SedAlgorithmParameterChange>;
+export interface SedAlgorithm {
+  /**
+   * Type.
+   */
+  _type: SedAlgorithmType;
+  /**
+   * KiSAO id
+   */
+  kisaoId: string;
+  /**
+   * Changes to the default values of the parameters.
+   */
+  changes: Array<SedAlgorithmParameterChange>;
 }
 export enum SedAlgorithmType {
-    SedAlgorithm = 'SedAlgorithm'
-};
-
-
-
+  SedAlgorithm = 'SedAlgorithm',
+}

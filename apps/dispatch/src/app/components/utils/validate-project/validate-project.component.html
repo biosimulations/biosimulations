@@ -39,10 +39,7 @@
               appearance="fill"
               *ngIf="formGroup.value.submitMethod === 'file'"
             >
-              <biosimulations-icon
-                icon="file"
-                matPrefix
-              ></biosimulations-icon>
+              <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
               <mat-label
                 >Select a simulation project (COMBINE/OMEX or zip archive
                 file)</mat-label
@@ -114,7 +111,8 @@
       </div>
     </div>
 
-    <div class="form-section"
+    <div
+      class="form-section"
       [ngClass]="{
         'form-section-closed':
           (formSectionOpen$.metadataOptions | async) === false
@@ -125,9 +123,16 @@
           <biosimulations-icon icon="format"></biosimulations-icon>
         </div>
         <div class="form-section-head-title-subtitle">
-          <div class="form-section-title">Metadata format and minimum information convention</div>
+          <div class="form-section-title">
+            Metadata format and minimum information convention
+          </div>
           <div class="form-section-subtitle">
-            Indicate the format of the OMEX Metadata <a href="https://sys-bio.github.io/libOmexMeta/"><biosimulations-icon icon="link"></biosimulations-icon></a> files in the archive and the information convention that should be used to validate them.
+            Indicate the format of the OMEX Metadata
+            <a href="https://sys-bio.github.io/libOmexMeta/"
+              ><biosimulations-icon icon="link"></biosimulations-icon
+            ></a>
+            files in the archive and the information convention that should be
+            used to validate them.
           </div>
         </div>
         <div class="mat-form-field-suffix">
@@ -158,14 +163,20 @@
               <mat-label
                 >Select the format of the OMEX Metadata files</mat-label
               >
-              <mat-select
-                  required
-                  formControlName="omexMetadataFormat"
+              <mat-select required formControlName="omexMetadataFormat">
+                <mat-option
+                  *ngFor="let omexMetadataFormat of omexMetadataFormats"
+                  [value]="omexMetadataFormat"
+                  >{{ omexMetadataFormat }}</mat-option
                 >
-                <mat-option *ngFor="let omexMetadataFormat of omexMetadataFormats" [value]="omexMetadataFormat">{{ omexMetadataFormat }}</mat-option>
               </mat-select>
               <mat-hint>
-                Select the format of the OMEX Metadata <a href="https://sys-bio.github.io/libOmexMeta/"><biosimulations-icon icon="link"></biosimulations-icon></a> files in the archive. Note, the RDF-XML format is currently required to publish archives to BioSimulations.
+                Select the format of the OMEX Metadata
+                <a href="https://sys-bio.github.io/libOmexMeta/"
+                  ><biosimulations-icon icon="link"></biosimulations-icon
+                ></a>
+                files in the archive. Note, the RDF-XML format is currently
+                required to publish archives to BioSimulations.
               </mat-hint>
             </mat-form-field>
 
@@ -175,16 +186,27 @@
                 matPrefix
               ></biosimulations-icon>
               <mat-label
-                >Select a minimum information convention to use to validate the metadata in the archive</mat-label
+                >Select a minimum information convention to use to validate the
+                metadata in the archive</mat-label
               >
-              <mat-select
-                  required
-                  formControlName="omexMetadataSchema"
+              <mat-select required formControlName="omexMetadataSchema">
+                <mat-option
+                  *ngFor="let omexMetadataSchema of omexMetadataSchemas"
+                  [value]="omexMetadataSchema.value"
+                  >{{ omexMetadataSchema.label }}</mat-option
                 >
-                <mat-option *ngFor="let omexMetadataSchema of omexMetadataSchemas" [value]="omexMetadataSchema.value">{{ omexMetadataSchema.label }}</mat-option>
               </mat-select>
               <mat-hint>
-                Select a minimum information convention to use to validate the OMEX Metadata <a href="https://sys-bio.github.io/libOmexMeta/"><biosimulations-icon icon="link"></biosimulations-icon></a> files in the archive. Note, the BioSimulations convention <a href="https://biosimulators.org/conventions/metadata"><biosimulations-icon icon="link"></biosimulations-icon></a> is required to publish archives to BioSimulations.
+                Select a minimum information convention to use to validate the
+                OMEX Metadata
+                <a href="https://sys-bio.github.io/libOmexMeta/"
+                  ><biosimulations-icon icon="link"></biosimulations-icon
+                ></a>
+                files in the archive. Note, the BioSimulations convention
+                <a href="https://biosimulators.org/conventions/metadata"
+                  ><biosimulations-icon icon="link"></biosimulations-icon
+                ></a>
+                is required to publish archives to BioSimulations.
               </mat-hint>
             </mat-form-field>
           </div>
@@ -192,7 +214,8 @@
       </div>
     </div>
 
-    <div class="form-section"
+    <div
+      class="form-section"
       [ngClass]="{
         'form-section-closed':
           (formSectionOpen$.validationOptions | async) === false
@@ -205,8 +228,8 @@
         <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Options</div>
           <div class="form-section-subtitle">
-            Optionally, tune and disable validation of aspects of simulation project
-            archives.
+            Optionally, tune and disable validation of aspects of simulation
+            project archives.
           </div>
         </div>
         <div class="mat-form-field-suffix">
@@ -255,7 +278,8 @@
               <a href="http://sbml.org/" target="_blank"
                 ><biosimulations-icon icon="link"></biosimulations-icon
               ></a>
-              files) in the simulation experiments (SED-ML files) in the archive.
+              files) in the simulation experiments (SED-ML files) in the
+              archive.
             </mat-checkbox>
           </div>
           <div>
@@ -277,19 +301,45 @@
             </mat-checkbox>
           </div>
 
-          <mat-hint>Note, plain zip archives can be validated by disabled validation of OMEX Manifests.</mat-hint>          
+          <mat-hint
+            >Note, plain zip archives can be validated by disabled validation of
+            OMEX Manifests.</mat-hint
+          >
 
-          <mat-hint>Note, SED-ML validation is required to validate models.</mat-hint>
+          <mat-hint
+            >Note, SED-ML validation is required to validate models.</mat-hint
+          >
 
-          <mat-hint>Note, model validation is required to comprehensively validate SED-ML files, including validating the targets to models for model changes and simulation observables.</mat-hint>
+          <mat-hint
+            >Note, model validation is required to comprehensively validate
+            SED-ML files, including validating the targets to models for model
+            changes and simulation observables.</mat-hint
+          >
 
-          <mat-hint>Note, BioSimulations validates models using community-contributed validation tools for each model language. The thoroughness of these tools varies. In addition, some tools currently provide limited diagnostic information. We welcome contributions of improved validation tools.</mat-hint>
+          <mat-hint
+            >Note, BioSimulations validates models using community-contributed
+            validation tools for each model language. The thoroughness of these
+            tools varies. In addition, some tools currently provide limited
+            diagnostic information. We welcome contributions of improved
+            validation tools.</mat-hint
+          >
 
-          <mat-hint>Note, projects published to BioSimulations must contain valid metadata that meets BioSimulations minimum metadata conventions.</mat-hint>
+          <mat-hint
+            >Note, projects published to BioSimulations must contain valid
+            metadata that meets BioSimulations minimum metadata
+            conventions.</mat-hint
+          >
 
-          <mat-hint>Note, an OMEX manifest file is required to validate metadata files. As a result, OMEX Metadata validation should generally be disabled when OMEX manifest validation is disabled.</mat-hint>
+          <mat-hint
+            >Note, an OMEX manifest file is required to validate metadata files.
+            As a result, OMEX Metadata validation should generally be disabled
+            when OMEX manifest validation is disabled.</mat-hint
+          >
 
-          <mat-hint>Note, image validation is required to comprehensively validate thumbnail images described in OMEX Metadata files.</mat-hint>
+          <mat-hint
+            >Note, image validation is required to comprehensively validate
+            thumbnail images described in OMEX Metadata files.</mat-hint
+          >
         </div>
       </div>
     </div>

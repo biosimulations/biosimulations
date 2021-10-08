@@ -12,4 +12,12 @@ export * from './simulationProjectsCOMBINEOMEXArchives.service';
 import { SimulationProjectsCOMBINEOMEXArchivesService } from './simulationProjectsCOMBINEOMEXArchives.service';
 export * from './validation.service';
 import { ValidationService } from './validation.service';
-export const APIS = [MetadataOMEXMetadataService, ModelService, SimulationAlgorithmsKiSAOService, SimulationExecutionService, SimulationExperimentsSEDMLService, SimulationProjectsCOMBINEOMEXArchivesService, ValidationService];
+export const APIS = [
+  MetadataOMEXMetadataService,
+  ModelService,
+  SimulationAlgorithmsKiSAOService,
+  SimulationExecutionService,
+  SimulationExperimentsSEDMLService,
+  SimulationProjectsCOMBINEOMEXArchivesService,
+  ValidationService,
+];

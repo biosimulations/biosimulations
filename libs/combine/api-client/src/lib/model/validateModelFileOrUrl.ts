@@ -10,34 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * File or a URL for validating a model.
  */
-export interface ValidateModelFileOrUrl { 
-    /**
-     * The two files uploaded in creating a combine archive
-     */
-    file?: Blob;
-    /**
-     * URL
-     */
-    url?: string;
-    /**
-     * Language of the model
-     */
-    language: ValidateModelFileOrUrlLanguage;
+export interface ValidateModelFileOrUrl {
+  /**
+   * The two files uploaded in creating a combine archive
+   */
+  file?: Blob;
+  /**
+   * URL
+   */
+  url?: string;
+  /**
+   * Language of the model
+   */
+  language: ValidateModelFileOrUrlLanguage;
 }
 export enum ValidateModelFileOrUrlLanguage {
-    Bngl = 'BNGL',
-    CellMl = 'CellML',
-    Lems = 'LEMS',
-    NeuroMl = 'NeuroML',
-    Rba = 'RBA',
-    Sbml = 'SBML',
-    Smoldyn = 'Smoldyn',
-    Xpp = 'XPP'
-};
-
-
-
+  Bngl = 'BNGL',
+  CellMl = 'CellML',
+  Lems = 'LEMS',
+  NeuroMl = 'NeuroML',
+  Rba = 'RBA',
+  Sbml = 'SBML',
+  Smoldyn = 'Smoldyn',
+  Xpp = 'XPP',
+}

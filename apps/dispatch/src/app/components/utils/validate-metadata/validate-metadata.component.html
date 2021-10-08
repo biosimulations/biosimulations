@@ -21,7 +21,8 @@
                 matPrefix
               ></biosimulations-icon>
               <mat-label
-                >Select a method for providing metadata (OMEX Metadata file)</mat-label
+                >Select a method for providing metadata (OMEX Metadata
+                file)</mat-label
               >
               <mat-select
                 required
@@ -37,13 +38,8 @@
               appearance="fill"
               *ngIf="formGroup.value.submitMethod === 'file'"
             >
-              <biosimulations-icon
-                icon="file"
-                matPrefix
-              ></biosimulations-icon>
-              <mat-label
-                >Select an OMEX Metadata file</mat-label
-              >
+              <biosimulations-icon icon="file" matPrefix></biosimulations-icon>
+              <mat-label>Select an OMEX Metadata file</mat-label>
               <ngx-mat-file-input
                 formControlName="metadataFile"
                 accept=".omex,.sedx,.zip,application/zip"
@@ -57,9 +53,7 @@
               *ngIf="formGroup.value.submitMethod === 'url'"
             >
               <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
-              <mat-label
-                >Enter a URL for an OMEX Metadata file</mat-label
-              >
+              <mat-label>Enter a URL for an OMEX Metadata file</mat-label>
               <input
                 [required]="true"
                 matInput
@@ -71,11 +65,12 @@
 
           <mat-hint>
             <p>
-              Select a method for providing an OMEX Metadata <a href="https://sys-bio.github.io/libOmexMeta/" target="_blank"
-                ><biosimulations-icon icon="link"></biosimulations-icon></a
-              > file. Files can either be
-              uploaded from your local computer or loaded from a
-              publicly-accessible URL.
+              Select a method for providing an OMEX Metadata
+              <a href="https://sys-bio.github.io/libOmexMeta/" target="_blank"
+                ><biosimulations-icon icon="link"></biosimulations-icon
+              ></a>
+              file. Files can either be uploaded from your local computer or
+              loaded from a publicly-accessible URL.
             </p>
 
             <p>
@@ -87,7 +82,12 @@
             </p>
 
             <p>
-              Note, this form cannot validate thumbnail images described in OMEX Metadata files. More comprehensive validation, including of linked image files, is available through the validation of simulation projects. Click <a [routerLink]="['/utils', 'validate-project']">here</a> to more comprehensively validate OMEX Metadata files.
+              Note, this form cannot validate thumbnail images described in OMEX
+              Metadata files. More comprehensive validation, including of linked
+              image files, is available through the validation of simulation
+              projects. Click
+              <a [routerLink]="['/utils', 'validate-project']">here</a> to more
+              comprehensively validate OMEX Metadata files.
             </p>
           </mat-hint>
           <mat-error
@@ -121,9 +121,16 @@
           <biosimulations-icon icon="format"></biosimulations-icon>
         </div>
         <div class="form-section-head-title-subtitle">
-          <div class="form-section-title">Format and minimum information convention</div>
+          <div class="form-section-title">
+            Format and minimum information convention
+          </div>
           <div class="form-section-subtitle">
-            Indicate the format of the OMEX Metadata <a href="https://sys-bio.github.io/libOmexMeta/"><biosimulations-icon icon="link"></biosimulations-icon></a> file and the information convention that should be used to validate it.
+            Indicate the format of the OMEX Metadata
+            <a href="https://sys-bio.github.io/libOmexMeta/"
+              ><biosimulations-icon icon="link"></biosimulations-icon
+            ></a>
+            file and the information convention that should be used to validate
+            it.
           </div>
         </div>
       </div>
@@ -135,17 +142,18 @@
                 icon="format"
                 matPrefix
               ></biosimulations-icon>
-              <mat-label
-                >Select the format of the OMEX Metadata file</mat-label
-              >
-              <mat-select
-                  required
-                  formControlName="omexMetadataFormat"
+              <mat-label>Select the format of the OMEX Metadata file</mat-label>
+              <mat-select required formControlName="omexMetadataFormat">
+                <mat-option
+                  *ngFor="let omexMetadataFormat of omexMetadataFormats"
+                  [value]="omexMetadataFormat"
+                  >{{ omexMetadataFormat }}</mat-option
                 >
-                <mat-option *ngFor="let omexMetadataFormat of omexMetadataFormats" [value]="omexMetadataFormat">{{ omexMetadataFormat }}</mat-option>
               </mat-select>
               <mat-hint>
-                Select the format of the OMEX Metadata file. Note, the RDF-XML format is currently required to publish projects to BioSimulations.
+                Select the format of the OMEX Metadata file. Note, the RDF-XML
+                format is currently required to publish projects to
+                BioSimulations.
               </mat-hint>
             </mat-form-field>
 
@@ -155,16 +163,23 @@
                 matPrefix
               ></biosimulations-icon>
               <mat-label
-                >Select a minimum information convention to use to validate the metadata in the archive</mat-label
+                >Select a minimum information convention to use to validate the
+                metadata in the archive</mat-label
               >
-              <mat-select
-                  required
-                  formControlName="omexMetadataSchema"
+              <mat-select required formControlName="omexMetadataSchema">
+                <mat-option
+                  *ngFor="let omexMetadataSchema of omexMetadataSchemas"
+                  [value]="omexMetadataSchema.value"
+                  >{{ omexMetadataSchema.label }}</mat-option
                 >
-                <mat-option *ngFor="let omexMetadataSchema of omexMetadataSchemas" [value]="omexMetadataSchema.value">{{ omexMetadataSchema.label }}</mat-option>
               </mat-select>
               <mat-hint>
-                Select a minimum information convention to use to validate the OMEX Metadata file. Note, the BioSimulations convention <a href="https://biosimulators.org/conventions/metadata"><biosimulations-icon icon="link"></biosimulations-icon></a> is required to publish projects to BioSimulations.
+                Select a minimum information convention to use to validate the
+                OMEX Metadata file. Note, the BioSimulations convention
+                <a href="https://biosimulators.org/conventions/metadata"
+                  ><biosimulations-icon icon="link"></biosimulations-icon
+                ></a>
+                is required to publish projects to BioSimulations.
               </mat-hint>
             </mat-form-field>
           </div>

@@ -14,7 +14,6 @@ import { SedSimulation } from './sedSimulation';
 import { SedModel } from './sedModel';
 import { SedRepeatedTask } from './sedRepeatedTask';
 
-
 /**
  * A SED abstract task.
  */
@@ -24,4 +23,3 @@ import { SedRepeatedTask } from './sedRepeatedTask';
  * @export
  */
 export type SedAbstractTask = SedRepeatedTask | SedTask;
-

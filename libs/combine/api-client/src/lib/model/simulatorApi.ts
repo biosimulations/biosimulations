@@ -10,28 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * BioSimulators API for a simulation tool.
  */
-export interface SimulatorApi { 
-    _type: SimulatorApiType;
-    /**
-     * Python package which implements the BioSimulators API for the simulation tool (e.g., PyPI: biosimulators_tellurium, git+https://github.com/biosimulators/biosimulators_tellurium.git).
-     */
-    _package: string;
-    /**
-     * Python module which implements the BioSimulators API for the simulation tool.
-     */
-    module: string;
-    /**
-     * Version of the API of the simulation tool.
-     */
-    version: string;
+export interface SimulatorApi {
+  _type: SimulatorApiType;
+  /**
+   * Python package which implements the BioSimulators API for the simulation tool (e.g., PyPI: biosimulators_tellurium, git+https://github.com/biosimulators/biosimulators_tellurium.git).
+   */
+  _package: string;
+  /**
+   * Python module which implements the BioSimulators API for the simulation tool.
+   */
+  module: string;
+  /**
+   * Version of the API of the simulation tool.
+   */
+  version: string;
 }
 export enum SimulatorApiType {
-    SimulatorApi = 'SimulatorApi'
-};
-
-
-
+  SimulatorApi = 'SimulatorApi',
+}

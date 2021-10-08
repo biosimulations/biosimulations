@@ -37,7 +37,11 @@ export class MetadataService {
     this.logger.debug(`Fetching metadata for archive at url: ${url}`);
 
     const res = await firstValueFrom(
-      this.service.getArchiveMetadata(OmexMetadataInputFormat.rdfxml, undefined, url),
+      this.service.getArchiveMetadata(
+        OmexMetadataInputFormat.rdfxml,
+        undefined,
+        url,
+      ),
     );
 
     // TODO handle errors/timeouts

@@ -12,29 +12,25 @@
 import { SedSimulation } from './sedSimulation';
 import { SedModel } from './sedModel';
 
-
 /**
  * A SED task.
  */
-export interface SedTask { 
-    /**
-     * Unique identifier within is parent SED document.
-     */
-    id: string;
-    /**
-     * Brief description.
-     */
-    name?: string;
-    model: SedModel;
-    simulation: SedSimulation;
-    /**
-     * Type.
-     */
-    _type: SedTaskType;
+export interface SedTask {
+  /**
+   * Unique identifier within is parent SED document.
+   */
+  id: string;
+  /**
+   * Brief description.
+   */
+  name?: string;
+  model: SedModel;
+  simulation: SedSimulation;
+  /**
+   * Type.
+   */
+  _type: SedTaskType;
 }
 export enum SedTaskType {
-    SedTask = 'SedTask'
-};
-
-
-
+  SedTask = 'SedTask',
+}

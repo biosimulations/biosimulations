@@ -11,27 +11,25 @@
  */
 import { ValidationReport } from './validationReport';
 
-
 /**
  * Error.
  */
-export interface ModelError { 
-    /**
-     * Status code.
-     */
-    status: number;
-    /**
-     * Brief summary.
-     */
-    title: string;
-    /**
-     * Type
-     */
-    type: string;
-    /**
-     * Description.
-     */
-    detail: string;
-    validationReport?: ValidationReport;
+export interface ModelError {
+  /**
+   * Status code.
+   */
+  status: number;
+  /**
+   * Brief summary.
+   */
+  title: string;
+  /**
+   * Type
+   */
+  type: string;
+  /**
+   * Description.
+   */
+  detail: string;
+  validationReport?: ValidationReport;
 }
-

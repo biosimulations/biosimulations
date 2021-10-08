@@ -68,7 +68,8 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
       .submitMethod as FormControl;
     this.simulationFileControl = this.formGroup.controls
       .simulationFile as FormControl;
-    this.simulationUrlControl = this.formGroup.controls.simulationUrl as FormControl;
+    this.simulationUrlControl = this.formGroup.controls
+      .simulationUrl as FormControl;
 
     this.simulationUrlControl.disable();
 
@@ -188,9 +189,7 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
 
     // call API to validate simulation
     const validationSub = this.combineService
-      .validateSimulation(
-        simulation,
-      )
+      .validateSimulation(simulation)
       .subscribe((report: ValidationReport | undefined): void => {
         if (report) {
           this.status = report.status;

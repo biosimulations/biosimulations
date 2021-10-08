@@ -12,34 +12,30 @@
 import { SedAxisScale } from './sedAxisScale';
 import { SedSurface } from './sedSurface';
 
-
 /**
  * Specifications for a 3D surface plot.
  */
-export interface SedPlot3D { 
-    /**
-     * Unique id within its parent SED document.
-     */
-    id: string;
-    /**
-     * Brief description.
-     */
-    name?: string;
-    /**
-     * List of surfaces (tuples of x, y, and z data).
-     */
-    surfaces: Array<SedSurface>;
-    xScale: SedAxisScale;
-    yScale: SedAxisScale;
-    zScale: SedAxisScale;
-    /**
-     * Type of the output.
-     */
-    _type: SedPlot3DType;
+export interface SedPlot3D {
+  /**
+   * Unique id within its parent SED document.
+   */
+  id: string;
+  /**
+   * Brief description.
+   */
+  name?: string;
+  /**
+   * List of surfaces (tuples of x, y, and z data).
+   */
+  surfaces: Array<SedSurface>;
+  xScale: SedAxisScale;
+  yScale: SedAxisScale;
+  zScale: SedAxisScale;
+  /**
+   * Type of the output.
+   */
+  _type: SedPlot3DType;
 }
 export enum SedPlot3DType {
-    SedPlot3D = 'SedPlot3D'
-};
-
-
-
+  SedPlot3D = 'SedPlot3D',
+}

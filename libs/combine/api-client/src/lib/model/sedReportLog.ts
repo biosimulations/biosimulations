@@ -12,24 +12,20 @@
 import { SedOutputElementLog } from './sedOutputElementLog';
 import { Exception } from './exception';
 
-
-export interface SedReportLog { 
-    id: string;
-    status: SedReportLogStatus;
-    exception: Exception | null;
-    skipReason: Exception | null;
-    output: string | null;
-    duration: number | null;
-    dataSets: Array<SedOutputElementLog> | null;
+export interface SedReportLog {
+  id: string;
+  status: SedReportLogStatus;
+  exception: Exception | null;
+  skipReason: Exception | null;
+  output: string | null;
+  duration: number | null;
+  dataSets: Array<SedOutputElementLog> | null;
 }
 export enum SedReportLogStatus {
-    Queued = 'QUEUED',
-    Running = 'RUNNING',
-    Skipped = 'SKIPPED',
-    Succeeded = 'SUCCEEDED',
-    Failed = 'FAILED',
-    Unknown = 'UNKNOWN'
-};
-
-
-
+  Queued = 'QUEUED',
+  Running = 'RUNNING',
+  Skipped = 'SKIPPED',
+  Succeeded = 'SUCCEEDED',
+  Failed = 'FAILED',
+  Unknown = 'UNKNOWN',
+}

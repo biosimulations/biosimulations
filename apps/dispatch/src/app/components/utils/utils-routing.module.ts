@@ -82,7 +82,7 @@ const routes: Routes = [
     component: ValidateSimulationComponent,
     data: {
       breadcrumb: 'Validate a simulation experiment (SED-ML)',
-      contextButtons: [        
+      contextButtons: [
         {
           route: ['/utils', 'convert'],
           icon: 'convert',
@@ -178,13 +178,13 @@ const routes: Routes = [
         },
       ],
     },
-  },  
+  },
   {
     path: 'suggest-simulator',
     component: SuggestSimulatorComponent,
     data: {
       breadcrumb: 'Suggest a simulation tool',
-      contextButtons: [        
+      contextButtons: [
         {
           route: ['/utils', 'convert'],
           icon: 'convert',
@@ -212,7 +212,7 @@ const routes: Routes = [
         },
       ],
     },
-  },  
+  },
 ];
 
 @NgModule({

@@ -17,7 +17,6 @@ import { SedPlot3D } from './sedPlot3D';
 import { SedSurface } from './sedSurface';
 import { SedCurve } from './sedCurve';
 
-
 /**
  * An output of a SED document.
  */
@@ -27,4 +26,3 @@ import { SedCurve } from './sedCurve';
  * @export
  */
 export type SedOutput = SedPlot2D | SedPlot3D | SedReport;
-

@@ -11,27 +11,23 @@
  */
 import { Namespace } from './namespace';
 
-
 /**
  * Target of a variable.
  */
-export interface SedTarget { 
-    /**
-     * Type.
-     */
-    _type: SedTargetType;
-    /**
-     * Value.
-     */
-    value: string;
-    /**
-     * Namespaces
-     */
-    namespaces?: Array<Namespace>;
+export interface SedTarget {
+  /**
+   * Type.
+   */
+  _type: SedTargetType;
+  /**
+   * Value.
+   */
+  value: string;
+  /**
+   * Namespaces
+   */
+  namespaces?: Array<Namespace>;
 }
 export enum SedTargetType {
-    SedTarget = 'SedTarget'
-};
-
-
-
+  SedTarget = 'SedTarget',
+}

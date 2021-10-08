@@ -12,7 +12,10 @@ import {
   ValidationMessage,
   ValidationStatus,
 } from '../../../datamodel/validation-report.interface';
-import { OmexMetadataInputFormat, OmexMetadataSchema } from '@biosimulations/datamodel/common';
+import {
+  OmexMetadataInputFormat,
+  OmexMetadataSchema,
+} from '@biosimulations/datamodel/common';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -45,7 +48,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     {
       label: 'None (OMEX Metadata)',
       value: 'rdf_triples',
-    }
+    },
   ];
 
   exampleMetadataUrl: string;
@@ -83,7 +86,8 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
       .submitMethod as FormControl;
     this.metadataFileControl = this.formGroup.controls
       .metadataFile as FormControl;
-    this.metadataUrlControl = this.formGroup.controls.metadataUrl as FormControl;
+    this.metadataUrlControl = this.formGroup.controls
+      .metadataUrl as FormControl;
 
     this.metadataUrlControl.disable();
 

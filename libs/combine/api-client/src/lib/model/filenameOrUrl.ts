@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Filename or URL
  */
-export interface FilenameOrUrl { 
-    /**
-     * Filename.
-     */
-    filename?: string;
-    /**
-     * URL
-     */
-    url?: string;
+export interface FilenameOrUrl {
+  /**
+   * Filename.
+   */
+  filename?: string;
+  /**
+   * URL
+   */
+  url?: string;
 }
-

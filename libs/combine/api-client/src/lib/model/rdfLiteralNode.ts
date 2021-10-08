@@ -10,23 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Literal RDF node.
  */
-export interface RdfLiteralNode { 
-    /**
-     * Type
-     */
-    _type: RdfLiteralNodeType;
-    /**
-     * Value
-     */
-    value: string;
+export interface RdfLiteralNode {
+  /**
+   * Type
+   */
+  _type: RdfLiteralNodeType;
+  /**
+   * Value
+   */
+  value: string;
 }
 export enum RdfLiteralNodeType {
-    RdfLiteralNode = 'RdfLiteralNode'
-};
-
-
-
+  RdfLiteralNode = 'RdfLiteralNode',
+}

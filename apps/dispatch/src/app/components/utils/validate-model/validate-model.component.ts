@@ -12,7 +12,11 @@ import {
   ValidationMessage,
   ValidationStatus,
 } from '../../../datamodel/validation-report.interface';
-import { ModelLanguage, MODEL_FORMATS, ModelFormat } from '@biosimulations/datamodel/common';
+import {
+  ModelLanguage,
+  MODEL_FORMATS,
+  ModelFormat,
+} from '@biosimulations/datamodel/common';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -59,18 +63,16 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
   ) {
     const modelFileFormats: string[] = [];
-    MODEL_FORMATS
-      .filter((modelFormat: ModelFormat): boolean => {
-        return modelFormat.validationAvailable;
-      })
-      .forEach((modelFormat: ModelFormat): void => {
-        modelFormat.extensions.forEach((extension: string): void => {
-          modelFileFormats.push('.' + extension);
-        });
-        modelFormat.mediaTypes.forEach((mediaType: string): void => {
-          modelFileFormats.push(mediaType);
-        });
+    MODEL_FORMATS.filter((modelFormat: ModelFormat): boolean => {
+      return modelFormat.validationAvailable;
+    }).forEach((modelFormat: ModelFormat): void => {
+      modelFormat.extensions.forEach((extension: string): void => {
+        modelFileFormats.push('.' + extension);
       });
+      modelFormat.mediaTypes.forEach((mediaType: string): void => {
+        modelFileFormats.push(mediaType);
+      });
+    });
     this.modelFileFormats = modelFileFormats.join(',');
 
     this.formGroup = this.formBuilder.group(
@@ -87,8 +89,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
 
     this.submitMethodControl = this.formGroup.controls
       .submitMethod as FormControl;
-    this.modelFileControl = this.formGroup.controls
-      .modelFile as FormControl;
+    this.modelFileControl = this.formGroup.controls.modelFile as FormControl;
     this.modelUrlControl = this.formGroup.controls.modelUrl as FormControl;
 
     this.modelUrlControl.disable();
@@ -118,8 +119,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
       if (modelUrl) {
         const submitMethodControl = this.formGroup.controls
           .submitMethod as FormControl;
-        const modelUrlControl = this.formGroup.controls
-          .modelUrl as FormControl;
+        const modelUrlControl = this.formGroup.controls.modelUrl as FormControl;
         submitMethodControl.setValue(SubmitMethod.url);
         modelUrlControl.setValue(modelUrl);
         this.changeSubmitMethod();
@@ -209,10 +209,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
 
     // call API to validate model
     const validationSub = this.combineService
-      .validateModel(
-        model,
-        this.formGroup.controls.modelLanguage.value,
-      )
+      .validateModel(model, this.formGroup.controls.modelLanguage.value)
       .subscribe((report: ValidationReport | undefined): void => {
         if (report) {
           this.status = report.status;

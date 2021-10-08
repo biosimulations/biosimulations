@@ -15,47 +15,43 @@ import { SedOutput } from './sedOutput';
 import { SedDataGenerator } from './sedDataGenerator';
 import { SedModel } from './sedModel';
 
-
 /**
  * A SED document.
  */
-export interface SedDocument { 
-    /**
-     * Outputs.
-     */
-    outputs: Array<SedOutput>;
-    /**
-     * Level.
-     */
-    level: number;
-    /**
-     * Version.
-     */
-    version: number;
-    /**
-     * Models.
-     */
-    models: Array<SedModel>;
-    /**
-     * Simulations.
-     */
-    simulations: Array<SedSimulation>;
-    /**
-     * Tasks.
-     */
-    tasks: Array<SedTask>;
-    /**
-     * Data generators.
-     */
-    dataGenerators: Array<SedDataGenerator>;
-    /**
-     * Type.
-     */
-    _type: SedDocumentType;
+export interface SedDocument {
+  /**
+   * Outputs.
+   */
+  outputs: Array<SedOutput>;
+  /**
+   * Level.
+   */
+  level: number;
+  /**
+   * Version.
+   */
+  version: number;
+  /**
+   * Models.
+   */
+  models: Array<SedModel>;
+  /**
+   * Simulations.
+   */
+  simulations: Array<SedSimulation>;
+  /**
+   * Tasks.
+   */
+  tasks: Array<SedTask>;
+  /**
+   * Data generators.
+   */
+  dataGenerators: Array<SedDataGenerator>;
+  /**
+   * Type.
+   */
+  _type: SedDocumentType;
 }
 export enum SedDocumentType {
-    SedDocument = 'SedDocument'
-};
-
-
-
+  SedDocument = 'SedDocument',
+}

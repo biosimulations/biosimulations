@@ -11,7 +11,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class CombineWrapperService {
-  public constructor(private service: SimulationProjectsCOMBINEOMEXArchivesService) {}
+  public constructor(
+    private service: SimulationProjectsCOMBINEOMEXArchivesService,
+  ) {}
 
   public getArchiveMetadata(
     omexMetadataFormat: string,
@@ -44,7 +46,11 @@ export class CombineWrapperService {
 }
 
 export class MockCombineWrapperService {
-  public getArchiveMetadata(omexMetadataFormat: OmexMetadataInputFormat, file?: Blob, url?: string) {
+  public getArchiveMetadata(
+    omexMetadataFormat: OmexMetadataInputFormat,
+    file?: Blob,
+    url?: string,
+  ) {
     return 'Metadata';
   }
 }

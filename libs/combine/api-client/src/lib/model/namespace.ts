@@ -10,27 +10,23 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Namespace
  */
-export interface Namespace { 
-    /**
-     * Prefix.
-     */
-    prefix?: string;
-    /**
-     * URI.
-     */
-    uri: string;
-    /**
-     * Type.
-     */
-    _type: NamespaceType;
+export interface Namespace {
+  /**
+   * Prefix.
+   */
+  prefix?: string;
+  /**
+   * URI.
+   */
+  uri: string;
+  /**
+   * Type.
+   */
+  _type: NamespaceType;
 }
 export enum NamespaceType {
-    Namespace = 'Namespace'
-};
-
-
-
+  Namespace = 'Namespace',
+}

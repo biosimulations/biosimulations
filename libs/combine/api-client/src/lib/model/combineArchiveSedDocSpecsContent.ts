@@ -11,25 +11,21 @@
  */
 import { CombineArchiveSedDocSpecsLocation } from './combineArchiveSedDocSpecsLocation';
 
-
 /**
  * Content item of a COMBINE/OMEX archive.
  */
-export interface CombineArchiveSedDocSpecsContent { 
-    location: CombineArchiveSedDocSpecsLocation;
-    /**
-     * URI for a format.
-     */
-    format: string;
-    master: boolean;
-    /**
-     * Type.
-     */
-    _type: CombineArchiveSedDocSpecsContentType;
+export interface CombineArchiveSedDocSpecsContent {
+  location: CombineArchiveSedDocSpecsLocation;
+  /**
+   * URI for a format.
+   */
+  format: string;
+  master: boolean;
+  /**
+   * Type.
+   */
+  _type: CombineArchiveSedDocSpecsContentType;
 }
 export enum CombineArchiveSedDocSpecsContentType {
-    CombineArchiveSedDocSpecsContent = 'CombineArchiveSedDocSpecsContent'
-};
-
-
-
+  CombineArchiveSedDocSpecsContent = 'CombineArchiveSedDocSpecsContent',
+}

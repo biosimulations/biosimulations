@@ -11,39 +11,35 @@
  */
 import { SedVariable } from './sedVariable';
 
-
 /**
  * Data generator for SED report or plot.
  */
-export interface SedDataGenerator { 
-    /**
-     * Unique identifier within its parent SED document.
-     */
-    id: string;
-    /**
-     * Brief description.
-     */
-    name?: string;
-    /**
-     * Variables.
-     */
-    variables: Array<SedVariable>;
-    /**
-     * Mathematical expression for its value.
-     */
-    math: string;
-    /**
-     * Id of the results of a data set.
-     */
-    _resultsDataSetId?: string;
-    /**
-     * Type.
-     */
-    _type: SedDataGeneratorType;
+export interface SedDataGenerator {
+  /**
+   * Unique identifier within its parent SED document.
+   */
+  id: string;
+  /**
+   * Brief description.
+   */
+  name?: string;
+  /**
+   * Variables.
+   */
+  variables: Array<SedVariable>;
+  /**
+   * Mathematical expression for its value.
+   */
+  math: string;
+  /**
+   * Id of the results of a data set.
+   */
+  _resultsDataSetId?: string;
+  /**
+   * Type.
+   */
+  _type: SedDataGeneratorType;
 }
 export enum SedDataGeneratorType {
-    SedDataGenerator = 'SedDataGenerator'
-};
-
-
-
+  SedDataGenerator = 'SedDataGenerator',
+}

@@ -10,27 +10,23 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A SED algorithm parameter
  */
-export interface SedAlgorithmParameterChange { 
-    /**
-     * KiSAO id
-     */
-    kisaoId: string;
-    /**
-     * Type.
-     */
-    _type: SedAlgorithmParameterChangeType;
-    /**
-     * New value
-     */
-    newValue: string;
+export interface SedAlgorithmParameterChange {
+  /**
+   * KiSAO id
+   */
+  kisaoId: string;
+  /**
+   * Type.
+   */
+  _type: SedAlgorithmParameterChangeType;
+  /**
+   * New value
+   */
+  newValue: string;
 }
 export enum SedAlgorithmParameterChangeType {
-    SedAlgorithmParameterChange = 'SedAlgorithmParameterChange'
-};
-
-
-
+  SedAlgorithmParameterChange = 'SedAlgorithmParameterChange',
+}

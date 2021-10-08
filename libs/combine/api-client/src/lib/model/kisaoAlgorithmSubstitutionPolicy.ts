@@ -10,55 +10,51 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Algorithm substitution policy, the degree to switch algorithms can be substituted for each other.
  */
-export interface KisaoAlgorithmSubstitutionPolicy { 
-    /**
-     * Id of the policy
-     */
-    id: KisaoAlgorithmSubstitutionPolicyId;
-    /**
-     * Level of the policy (0: most restrictive to 9: least restrictive)
-     */
-    level: number;
-    /**
-     * Name of the policy
-     */
-    name: KisaoAlgorithmSubstitutionPolicyName;
-    /**
-     * Type
-     */
-    _type: KisaoAlgorithmSubstitutionPolicyType;
+export interface KisaoAlgorithmSubstitutionPolicy {
+  /**
+   * Id of the policy
+   */
+  id: KisaoAlgorithmSubstitutionPolicyId;
+  /**
+   * Level of the policy (0: most restrictive to 9: least restrictive)
+   */
+  level: number;
+  /**
+   * Name of the policy
+   */
+  name: KisaoAlgorithmSubstitutionPolicyName;
+  /**
+   * Type
+   */
+  _type: KisaoAlgorithmSubstitutionPolicyType;
 }
 export enum KisaoAlgorithmSubstitutionPolicyId {
-    None = 'NONE',
-    SameMethod = 'SAME_METHOD',
-    SameMath = 'SAME_MATH',
-    SimilarApproximations = 'SIMILAR_APPROXIMATIONS',
-    DistinctApproximations = 'DISTINCT_APPROXIMATIONS',
-    DistinctScales = 'DISTINCT_SCALES',
-    SameVariables = 'SAME_VARIABLES',
-    SimilarVariables = 'SIMILAR_VARIABLES',
-    SameFramework = 'SAME_FRAMEWORK',
-    Any = 'ANY'
-};
+  None = 'NONE',
+  SameMethod = 'SAME_METHOD',
+  SameMath = 'SAME_MATH',
+  SimilarApproximations = 'SIMILAR_APPROXIMATIONS',
+  DistinctApproximations = 'DISTINCT_APPROXIMATIONS',
+  DistinctScales = 'DISTINCT_SCALES',
+  SameVariables = 'SAME_VARIABLES',
+  SimilarVariables = 'SIMILAR_VARIABLES',
+  SameFramework = 'SAME_FRAMEWORK',
+  Any = 'ANY',
+}
 export enum KisaoAlgorithmSubstitutionPolicyName {
-    None = 'None',
-    SameMethod = 'Same method',
-    SameMath = 'Same math',
-    SimilarApproximations = 'Similar approximations',
-    DistinctApproximations = 'Distinct approximations',
-    DistinctScales = 'Distinct scales',
-    SameVariables = 'Same variables',
-    SimilarVariables = 'Similar variables',
-    SameFramework = 'Same framework',
-    Any = 'Any'
-};
+  None = 'None',
+  SameMethod = 'Same method',
+  SameMath = 'Same math',
+  SimilarApproximations = 'Similar approximations',
+  DistinctApproximations = 'Distinct approximations',
+  DistinctScales = 'Distinct scales',
+  SameVariables = 'Same variables',
+  SimilarVariables = 'Similar variables',
+  SameFramework = 'Same framework',
+  Any = 'Any',
+}
 export enum KisaoAlgorithmSubstitutionPolicyType {
-    KisaoAlgorithmSubstitutionPolicy = 'KisaoAlgorithmSubstitutionPolicy'
-};
-
-
-
+  KisaoAlgorithmSubstitutionPolicy = 'KisaoAlgorithmSubstitutionPolicy',
+}

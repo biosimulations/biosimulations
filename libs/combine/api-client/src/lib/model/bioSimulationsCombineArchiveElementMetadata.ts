@@ -12,100 +12,96 @@
 import { BioSimulationsCustomMetadata } from './bioSimulationsCustomMetadata';
 import { BioSimulationsMetadataValue } from './bioSimulationsMetadataValue';
 
-
 /**
  * Metadata about a COMBINE/OMEX archive or an entity in the archive such as a SED-ML document or a report of a SED-ML document.
  */
-export interface BioSimulationsCombineArchiveElementMetadata { 
-    /**
-     * Type
-     */
-    _type: BioSimulationsCombineArchiveElementMetadataType;
-    /**
-     * Title
-     */
-    title: string;
-    /**
-     * Short summary
-     */
-    abstract: string;
-    /**
-     * Keywords
-     */
-    keywords?: Array<string>;
-    /**
-     * Long summary
-     */
-    description?: string;
-    /**
-     * Locations of summary images within the COMBINE/OMEX archive.
-     */
-    thumbnails?: Array<string>;
-    /**
-     * Taxa represented by the COMBINE/OMEX archive.
-     */
-    taxa?: Array<BioSimulationsMetadataValue>;
-    /**
-     * Biology represented by the COMBINE/OMEX archive such as molecules, cell types, and organs.
-     */
-    encodes?: Array<BioSimulationsMetadataValue>;
-    /**
-     * Locations of the source code or materials for the COMBINE/OMEX archive such as a GitHub repository.
-     */
-    sources?: Array<BioSimulationsMetadataValue>;
-    /**
-     * Predecessors from which the content of the COMBINE/OMEX archive was derived from such as a prior version of a model.
-     */
-    predecessors?: Array<BioSimulationsMetadataValue>;
-    /**
-     * Successors of the content of the COMBINE/OMEX archive such as an improved version of a model.
-     */
-    successors?: Array<BioSimulationsMetadataValue>;
-    /**
-     * Other identifiers for the COMBINE/OME archive or its contents such as an identifier for an entry in BioModels.
-     */
-    identifiers?: Array<BioSimulationsMetadataValue>;
-    /**
-     * Citations such as journal articlces and books for the COMBINE/OMEX archive.
-     */
-    citations?: Array<BioSimulationsMetadataValue>;
-    /**
-     * Authors of the COMBINE/OMEX archive and its contents.
-     */
-    creators?: Array<BioSimulationsMetadataValue>;
-    /**
-     * Other people who contributed to the COMBINE/OMEX archive such as curators.
-     */
-    contributors?: Array<BioSimulationsMetadataValue>;
-    license: BioSimulationsMetadataValue;
-    /**
-     * Agencies which funded the work which produced the COMBINE/OMEX archive.
-     */
-    funders?: Array<BioSimulationsMetadataValue>;
-    /**
-     * Other resources relevant to a COMBINE/OMEX archive such as a software tool that was used to build a model in the archive.
-     */
-    seeAlso?: Array<BioSimulationsMetadataValue>;
-    /**
-     * Date when the COMBINE/OMEX archive or its key content was created.
-     */
-    created: string;
-    /**
-     * Dates when the COMBINE/OMEX archive or its key content was modified.
-     */
-    modified?: Array<string>;
-    /**
-     * Additional custom metadata about the COMBINE/OMEX archive.
-     */
-    other?: Array<BioSimulationsCustomMetadata>;
-    /**
-     * Uniform Resource Identifier (URI)
-     */
-    uri: string;
+export interface BioSimulationsCombineArchiveElementMetadata {
+  /**
+   * Type
+   */
+  _type: BioSimulationsCombineArchiveElementMetadataType;
+  /**
+   * Title
+   */
+  title: string;
+  /**
+   * Short summary
+   */
+  abstract: string;
+  /**
+   * Keywords
+   */
+  keywords?: Array<string>;
+  /**
+   * Long summary
+   */
+  description?: string;
+  /**
+   * Locations of summary images within the COMBINE/OMEX archive.
+   */
+  thumbnails?: Array<string>;
+  /**
+   * Taxa represented by the COMBINE/OMEX archive.
+   */
+  taxa?: Array<BioSimulationsMetadataValue>;
+  /**
+   * Biology represented by the COMBINE/OMEX archive such as molecules, cell types, and organs.
+   */
+  encodes?: Array<BioSimulationsMetadataValue>;
+  /**
+   * Locations of the source code or materials for the COMBINE/OMEX archive such as a GitHub repository.
+   */
+  sources?: Array<BioSimulationsMetadataValue>;
+  /**
+   * Predecessors from which the content of the COMBINE/OMEX archive was derived from such as a prior version of a model.
+   */
+  predecessors?: Array<BioSimulationsMetadataValue>;
+  /**
+   * Successors of the content of the COMBINE/OMEX archive such as an improved version of a model.
+   */
+  successors?: Array<BioSimulationsMetadataValue>;
+  /**
+   * Other identifiers for the COMBINE/OME archive or its contents such as an identifier for an entry in BioModels.
+   */
+  identifiers?: Array<BioSimulationsMetadataValue>;
+  /**
+   * Citations such as journal articlces and books for the COMBINE/OMEX archive.
+   */
+  citations?: Array<BioSimulationsMetadataValue>;
+  /**
+   * Authors of the COMBINE/OMEX archive and its contents.
+   */
+  creators?: Array<BioSimulationsMetadataValue>;
+  /**
+   * Other people who contributed to the COMBINE/OMEX archive such as curators.
+   */
+  contributors?: Array<BioSimulationsMetadataValue>;
+  license: BioSimulationsMetadataValue;
+  /**
+   * Agencies which funded the work which produced the COMBINE/OMEX archive.
+   */
+  funders?: Array<BioSimulationsMetadataValue>;
+  /**
+   * Other resources relevant to a COMBINE/OMEX archive such as a software tool that was used to build a model in the archive.
+   */
+  seeAlso?: Array<BioSimulationsMetadataValue>;
+  /**
+   * Date when the COMBINE/OMEX archive or its key content was created.
+   */
+  created: string;
+  /**
+   * Dates when the COMBINE/OMEX archive or its key content was modified.
+   */
+  modified?: Array<string>;
+  /**
+   * Additional custom metadata about the COMBINE/OMEX archive.
+   */
+  other?: Array<BioSimulationsCustomMetadata>;
+  /**
+   * Uniform Resource Identifier (URI)
+   */
+  uri: string;
 }
 export enum BioSimulationsCombineArchiveElementMetadataType {
-    BioSimulationsCombineArchiveElementMetadata = 'BioSimulationsCombineArchiveElementMetadata'
-};
-
-
-
+  BioSimulationsCombineArchiveElementMetadata = 'BioSimulationsCombineArchiveElementMetadata',
+}

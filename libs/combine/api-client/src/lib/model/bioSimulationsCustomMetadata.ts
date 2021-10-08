@@ -11,18 +11,14 @@
  */
 import { BioSimulationsMetadataValue } from './bioSimulationsMetadataValue';
 
-
-export interface BioSimulationsCustomMetadata { 
-    /**
-     * Type
-     */
-    _type: BioSimulationsCustomMetadataType;
-    attribute: BioSimulationsMetadataValue;
-    value: BioSimulationsMetadataValue;
+export interface BioSimulationsCustomMetadata {
+  /**
+   * Type
+   */
+  _type: BioSimulationsCustomMetadataType;
+  attribute: BioSimulationsMetadataValue;
+  value: BioSimulationsMetadataValue;
 }
 export enum BioSimulationsCustomMetadataType {
-    BioSimulationsCustomMetadata = 'BioSimulationsCustomMetadata'
-};
-
-
-
+  BioSimulationsCustomMetadata = 'BioSimulationsCustomMetadata',
+}

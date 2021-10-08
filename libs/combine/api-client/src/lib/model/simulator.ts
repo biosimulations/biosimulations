@@ -11,36 +11,32 @@
  */
 import { SimulatorApi } from './simulatorApi';
 
-
 /**
  * Simulation tool
  */
-export interface Simulator { 
-    /**
-     * Type
-     */
-    _type: SimulatorType;
-    /**
-     * Id of a simulation tool registered with BioSimulators.
-     */
-    id: string;
-    /**
-     * Version of the simulation tool
-     */
-    version: string;
-    /**
-     * URL
-     */
-    specs: string;
-    api: SimulatorApi;
-    /**
-     * Name
-     */
-    name: string;
+export interface Simulator {
+  /**
+   * Type
+   */
+  _type: SimulatorType;
+  /**
+   * Id of a simulation tool registered with BioSimulators.
+   */
+  id: string;
+  /**
+   * Version of the simulation tool
+   */
+  version: string;
+  /**
+   * URL
+   */
+  specs: string;
+  api: SimulatorApi;
+  /**
+   * Name
+   */
+  name: string;
 }
 export enum SimulatorType {
-    Simulator = 'Simulator'
-};
-
-
-
+  Simulator = 'Simulator',
+}

@@ -11,32 +11,28 @@
  */
 import { Environment } from './environment';
 
-
 /**
  * Request for the execution of a COMBINE/OMEX archive
  */
-export interface SimulationRun { 
-    /**
-     * Id of a simulation tool registered with BioSimulators.
-     */
-    simulator: string;
-    /**
-     * URL
-     */
-    archiveUrl?: string;
-    /**
-     * The two files uploaded in creating a combine archive
-     */
-    archiveFile?: Blob;
-    /**
-     * Type
-     */
-    _type: SimulationRunType;
-    environment?: Environment;
+export interface SimulationRun {
+  /**
+   * Id of a simulation tool registered with BioSimulators.
+   */
+  simulator: string;
+  /**
+   * URL
+   */
+  archiveUrl?: string;
+  /**
+   * The two files uploaded in creating a combine archive
+   */
+  archiveFile?: Blob;
+  /**
+   * Type
+   */
+  _type: SimulationRunType;
+  environment?: Environment;
 }
 export enum SimulationRunType {
-    SimulationRun = 'SimulationRun'
-};
-
-
-
+  SimulationRun = 'SimulationRun',
+}

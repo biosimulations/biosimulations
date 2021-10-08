@@ -14,7 +14,6 @@ import { SedOneStepSimulation } from './sedOneStepSimulation';
 import { SedSteadyStateSimulation } from './sedSteadyStateSimulation';
 import { SedAlgorithm } from './sedAlgorithm';
 
-
 /**
  * A SED simulation.
  */
@@ -23,5 +22,7 @@ import { SedAlgorithm } from './sedAlgorithm';
  * A SED simulation.
  * @export
  */
-export type SedSimulation = SedOneStepSimulation | SedSteadyStateSimulation | SedUniformTimeCourseSimulation;
-
+export type SedSimulation =
+  | SedOneStepSimulation
+  | SedSteadyStateSimulation
+  | SedUniformTimeCourseSimulation;

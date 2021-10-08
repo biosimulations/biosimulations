@@ -12,23 +12,19 @@
 import { SedDocumentLog } from './sedDocumentLog';
 import { Exception } from './exception';
 
-
-export interface CombineArchiveLog { 
-    status: CombineArchiveLogStatus;
-    exception: Exception | null;
-    skipReason: Exception | null;
-    output: string | null;
-    duration: number | null;
-    sedDocuments: Array<SedDocumentLog> | null;
+export interface CombineArchiveLog {
+  status: CombineArchiveLogStatus;
+  exception: Exception | null;
+  skipReason: Exception | null;
+  output: string | null;
+  duration: number | null;
+  sedDocuments: Array<SedDocumentLog> | null;
 }
 export enum CombineArchiveLogStatus {
-    Queued = 'QUEUED',
-    Running = 'RUNNING',
-    Skipped = 'SKIPPED',
-    Succeeded = 'SUCCEEDED',
-    Failed = 'FAILED',
-    Unknown = 'UNKNOWN'
-};
-
-
-
+  Queued = 'QUEUED',
+  Running = 'RUNNING',
+  Skipped = 'SKIPPED',
+  Succeeded = 'SUCCEEDED',
+  Failed = 'FAILED',
+  Unknown = 'UNKNOWN',
+}

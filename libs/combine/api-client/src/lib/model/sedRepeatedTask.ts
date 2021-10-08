@@ -10,27 +10,23 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A SED repeated task.
  */
-export interface SedRepeatedTask { 
-    /**
-     * Unique identifiers with its parent SED document.
-     */
-    id: string;
-    /**
-     * Brief description.
-     */
-    name?: string;
-    /**
-     * Type.
-     */
-    _type: SedRepeatedTaskType;
+export interface SedRepeatedTask {
+  /**
+   * Unique identifiers with its parent SED document.
+   */
+  id: string;
+  /**
+   * Brief description.
+   */
+  name?: string;
+  /**
+   * Type.
+   */
+  _type: SedRepeatedTaskType;
 }
 export enum SedRepeatedTaskType {
-    SedRepeatedTask = 'SedRepeatedTask'
-};
-
-
-
+  SedRepeatedTask = 'SedRepeatedTask',
+}

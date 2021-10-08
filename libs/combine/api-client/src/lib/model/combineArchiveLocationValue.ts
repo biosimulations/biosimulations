@@ -18,7 +18,6 @@ import { SedModel } from './sedModel';
 import { CombineArchiveContentFile } from './combineArchiveContentFile';
 import { SedDocument } from './sedDocument';
 
-
 /**
  * The value of a location of a COMBINE/OMEX archive.
  */
@@ -27,5 +26,7 @@ import { SedDocument } from './sedDocument';
  * The value of a location of a COMBINE/OMEX archive.
  * @export
  */
-export type CombineArchiveLocationValue = CombineArchiveContentFile | CombineArchiveContentUrl | SedDocument;
-
+export type CombineArchiveLocationValue =
+  | CombineArchiveContentFile
+  | CombineArchiveContentUrl
+  | SedDocument;

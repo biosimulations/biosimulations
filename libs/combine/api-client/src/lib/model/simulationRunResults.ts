@@ -12,24 +12,20 @@
 import { CombineArchiveLog } from './combineArchiveLog';
 import { SimulationRunOutput } from './simulationRunOutput';
 
-
 /**
  * Results of the execution of a COMBINE/OMEX archive
  */
-export interface SimulationRunResults { 
-    /**
-     * Results of each SED-ML output
-     */
-    outputs: Array<SimulationRunOutput>;
-    log: CombineArchiveLog;
-    /**
-     * Type
-     */
-    _type: SimulationRunResultsType;
+export interface SimulationRunResults {
+  /**
+   * Results of each SED-ML output
+   */
+  outputs: Array<SimulationRunOutput>;
+  log: CombineArchiveLog;
+  /**
+   * Type
+   */
+  _type: SimulationRunResultsType;
 }
 export enum SimulationRunResultsType {
-    SimulationRunResults = 'SimulationRunResults'
-};
-
-
-
+  SimulationRunResults = 'SimulationRunResults',
+}

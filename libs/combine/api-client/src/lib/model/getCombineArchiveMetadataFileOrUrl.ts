@@ -10,31 +10,27 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * File or a URL for getting the information in an [OMEX Metadata](https://sys-bio.github.io/libOmexMeta/) document
  */
-export interface GetCombineArchiveMetadataFileOrUrl { 
-    /**
-     * The two files uploaded in creating a combine archive
-     */
-    file?: Blob;
-    /**
-     * URL
-     */
-    url?: string;
-    /**
-     * OMEX Metadata format  Default: `rdfxml`
-     */
-    omexMetadataFormat: GetCombineArchiveMetadataFileOrUrlOmexMetadataFormat;
+export interface GetCombineArchiveMetadataFileOrUrl {
+  /**
+   * The two files uploaded in creating a combine archive
+   */
+  file?: Blob;
+  /**
+   * URL
+   */
+  url?: string;
+  /**
+   * OMEX Metadata format  Default: `rdfxml`
+   */
+  omexMetadataFormat: GetCombineArchiveMetadataFileOrUrlOmexMetadataFormat;
 }
 export enum GetCombineArchiveMetadataFileOrUrlOmexMetadataFormat {
-    Ntriples = 'ntriples',
-    Nquads = 'nquads',
-    Rdfa = 'rdfa',
-    Rdfxml = 'rdfxml',
-    Turtle = 'turtle'
-};
-
-
-
+  Ntriples = 'ntriples',
+  Nquads = 'nquads',
+  Rdfa = 'rdfa',
+  Rdfxml = 'rdfxml',
+  Turtle = 'turtle',
+}

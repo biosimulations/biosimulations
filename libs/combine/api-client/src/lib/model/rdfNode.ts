@@ -13,23 +13,19 @@ import { RdfUriNode } from './rdfUriNode';
 import { RdfLiteralNode } from './rdfLiteralNode';
 import { RdfBlankNode } from './rdfBlankNode';
 
-
 /**
  * A node of an RDF triple.
  */
-export interface RdfNode { 
-    /**
-     * Type
-     */
-    _type: RdfNodeType;
-    /**
-     * Uniform Resource Identifier (URI)
-     */
-    value: string;
+export interface RdfNode {
+  /**
+   * Type
+   */
+  _type: RdfNodeType;
+  /**
+   * Uniform Resource Identifier (URI)
+   */
+  value: string;
 }
 export enum RdfNodeType {
-    RdfUriNode = 'RdfUriNode'
-};
-
-
-
+  RdfUriNode = 'RdfUriNode',
+}
