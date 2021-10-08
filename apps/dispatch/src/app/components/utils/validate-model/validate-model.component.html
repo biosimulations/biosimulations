@@ -1,0 +1,181 @@
+<biosimulations-page heading="Validate a model (e.g., CellML, SBML file)">
+  <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="model"></biosimulations-icon>
+        </div>
+        <div class="form-section-head-title-subtitle">
+          <div class="form-section-title">File*</div>
+          <div class="form-section-subtitle">
+            Select a local file or enter a URL for a model (e.g., CellML, SBML file).
+          </div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <div class="columns two-columns">
+            <mat-form-field appearance="fill">
+              <biosimulations-icon
+                icon="location"
+                matPrefix
+              ></biosimulations-icon>
+              <mat-label
+                >Select a method for providing a model</mat-label
+              >
+              <mat-select
+                required
+                formControlName="submitMethod"
+                (ngModelChange)="changeSubmitMethod()"
+              >
+                <mat-option value="file">Upload a local file</mat-option>
+                <mat-option value="url">Enter a URL for a file</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="fill"
+              *ngIf="formGroup.value.submitMethod === 'file'"
+            >
+              <biosimulations-icon
+                icon="file"
+                matPrefix
+              ></biosimulations-icon>
+              <mat-label
+                >Select a model file</mat-label
+              >
+              <ngx-mat-file-input
+                formControlName="modelFile"
+                [accept]="modelFileFormats"
+                [multiple]="false"
+                [required]="true"
+              ></ngx-mat-file-input>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="fill"
+              *ngIf="formGroup.value.submitMethod === 'url'"
+            >
+              <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
+              <mat-label
+                >Enter a URL for a model file</mat-label
+              >
+              <input
+                [required]="true"
+                matInput
+                formControlName="modelUrl"
+                [placeholder]="exampleModelUrl"
+              />
+            </mat-form-field>
+          </div>
+
+          <mat-hint>
+            <p>
+              Select a method for providing a model. Models can either be
+              uploaded from your local computer or loaded from a
+              publicly-accessible URL.
+            </p>
+
+            <p>
+              Several example models are available from the
+              BioSimulators test suite
+              <a [href]="exampleModelsUrl" target="_blank"
+                ><biosimulations-icon icon="link"></biosimulations-icon></a
+              >.
+            </p>
+          </mat-hint>
+          <mat-error
+            *ngIf="
+              (submitPushed || modelFileControl.touched) &&
+              formGroup.hasError('required', 'modelFile')
+            "
+            >Please select a model file.</mat-error
+          >
+          <mat-error
+            *ngIf="
+              (submitPushed || modelFileControl.touched) &&
+              formGroup.hasError('maxSize', 'modelFile')
+            "
+            >Currently, models are limited to 16 MB.</mat-error
+          >
+          <mat-error
+            *ngIf="
+              (submitPushed || modelUrlControl.touched) &&
+              formGroup.hasError('url', 'modelUrl')
+            "
+            >Please enter a URL for a model file.</mat-error
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix">
+          <biosimulations-icon icon="format"></biosimulations-icon>
+        </div>
+        <div class="form-section-head-title-subtitle">
+          <div class="form-section-title">Language</div>
+          <div class="form-section-subtitle">
+            Indicate the language of the model file (e.g., CellML, SBML).
+          </div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+        <mat-form-field appearance="fill">
+          <biosimulations-icon
+            icon="format"
+            matPrefix
+          ></biosimulations-icon>
+          <mat-label
+            >Select the format of the model</mat-label
+          >
+          <mat-select
+              required
+              formControlName="modelLanguage"
+            >
+            <mat-option *ngFor="let modelLanguage of modelLanguages" [value]="modelLanguage">{{ modelLanguage }}</mat-option>
+          </mat-select>
+          <mat-hint>
+            BioSimulations validates models using community-contributed validation tools for each model language. The thoroughness of these tools varies. In addition, some tools currently provide limited diagnostic information. We welcome contributions of improved validation tools.
+          </mat-hint>
+        </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button mat-flat-button type="submit" class="biosimulations-button text">
+        Validate
+      </button>
+    </div>
+
+    <div class="status-summary" *ngIf="status !== undefined">
+      <div class="valid" *ngIf="status === 'valid'">
+        Your model is likely valid!
+      </div>
+      <div class="errors" *ngIf="status === 'invalid'">
+        Your model is invalid.
+      </div>
+      <div class="warnings" *ngIf="status === 'warnings'">
+        Your model may be invalid.
+      </div>
+    </div>
+
+    <div
+      class="validation-report"
+      *ngIf="status === 'invalid' || status === 'warnings'"
+    >
+      <div class="validation-report-section errors" *ngIf="errors">
+        Errors:
+        <ul [innerHTML]="errors"></ul>
+      </div>
+
+      <div class="validation-report-section warnings" *ngIf="warnings">
+        Warnings:
+        <ul [innerHTML]="warnings"></ul>
+      </div>
+    </div>
+  </form>
+</biosimulations-page>

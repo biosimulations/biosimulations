@@ -46,6 +46,34 @@
 
       <ng-container id="items">
         <biosimulations-dropdown-menu-item
+          heading="Convert a file"
+          icon="convert"
+          [routerLink]="['/utils', 'convert']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a model"
+          icon="bug"
+          [routerLink]="['/utils', 'validate-model']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulation"
+          icon="bug"
+          [routerLink]="['/utils', 'validate-simulation']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate metadata"
+          icon="bug"
+          [routerLink]="['/utils', 'validate-metadata']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
           heading="Validate a project"
           icon="bug"
           [routerLink]="['/utils', 'validate-project']"
@@ -56,13 +84,6 @@
           heading="Suggest a simulator"
           icon="simulator"
           [routerLink]="['/utils', 'suggest-simulator']"
-        >
-        </biosimulations-dropdown-menu-item>
-
-        <biosimulations-dropdown-menu-item
-          heading="Convert a file"
-          icon="convert"
-          [routerLink]="['/utils', 'convert']"
         >
         </biosimulations-dropdown-menu-item>
       </ng-container>
@@ -143,6 +164,34 @@
 
     <biosimulations-navigation-item heading="Utilities" icon="construction">
       <biosimulations-navigation-subitem
+        heading="Convert a file"
+        icon="convert"
+        [route]="['/utils', 'convert']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Validate a model"
+        icon="bug"
+        [route]="['/utils', 'validate-model']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Validate a simulation"
+        icon="bug"
+        [route]="['/utils', 'validate-simulation']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Validate metadata"
+        icon="bug"
+        [route]="['/utils', 'validate-metadata']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
         heading="Validate a project"
         icon="bug"
         [route]="['/utils', 'validate-project']"
@@ -153,13 +202,6 @@
         heading="Suggest simulator"
         icon="simulator"
         [route]="['/utils', 'suggest-simulator']"
-      >
-      </biosimulations-navigation-subitem>
-
-      <biosimulations-navigation-subitem
-        heading="Convert a file"
-        icon="convert"
-        [route]="['/utils', 'convert']"
       >
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>

@@ -1,0 +1,146 @@
+<biosimulations-page heading="Validate a simulation experiment (SED-ML file)">
+  <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+    <div class="form-section">
+      <div class="form-section-head">
+        <div class="mat-form-field-prefix simulation-icon-container">
+          <biosimulations-icon icon="simulation"></biosimulations-icon>
+        </div>
+        <div class="form-section-head-title-subtitle">
+          <div class="form-section-title">Simulation experiment (SED-ML file)*</div>
+          <div class="form-section-subtitle">
+            Select a local file or enter a URL for a simulation experiment (SED-ML) file.
+          </div>
+        </div>
+      </div>
+      <div class="form-section-body">
+        <div class="form-field-group">
+          <div class="columns two-columns">
+            <mat-form-field appearance="fill">
+              <biosimulations-icon
+                icon="location"
+                matPrefix
+              ></biosimulations-icon>
+              <mat-label
+                >Select a method for providing a simulation experiment (SED-ML file)</mat-label
+              >
+              <mat-select
+                required
+                formControlName="submitMethod"
+                (ngModelChange)="changeSubmitMethod()"
+              >
+                <mat-option value="file">Upload a local file</mat-option>
+                <mat-option value="url">Enter a URL for a file</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="fill"
+              *ngIf="formGroup.value.submitMethod === 'file'"
+            >
+              <biosimulations-icon
+                icon="file"
+                matPrefix
+              ></biosimulations-icon>
+              <mat-label
+                >Select a simulation experiment (SED-ML file)</mat-label
+              >
+              <ngx-mat-file-input
+                formControlName="simulationFile"
+                accept=".sedml,.xml,application/sedml+xml,application/xml"
+                [multiple]="false"
+                [required]="true"
+              ></ngx-mat-file-input>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="fill"
+              *ngIf="formGroup.value.submitMethod === 'url'"
+            >
+              <biosimulations-icon icon="url" matPrefix></biosimulations-icon>
+              <mat-label
+                >Enter a URL for a simulation experiment (SED-ML file)</mat-label
+              >
+              <input
+                [required]="true"
+                matInput
+                formControlName="simulationUrl"
+                [placeholder]="exampleSimulationUrl"
+              />
+            </mat-form-field>
+          </div>
+
+          <mat-hint>
+            <p>
+              Select a method for providing a simulation experiment in the Simulation Experiment Description Markup Language (SED-ML) <a href="https://sed-ml.org" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>. Experiments can either be uploaded from your local computer or loaded from a
+              publicly-accessible URL.
+            </p>
+
+            <p>
+              Several example simulations are available from the
+              BioSimulators test suite
+              <a [href]="exampleSimulationsUrl" target="_blank"
+                ><biosimulations-icon icon="link"></biosimulations-icon></a
+              >.
+            </p>
+
+            <p>Note, this form only validates the content directly in SED-ML files. This form cannot validate the sources of models used by SED-ML file or targets to those models for model changes and observables of simulation results. More comprehensive validation, which encompasses validation of model sources and targets to model sources, is available through the validation of simulation projects (COMBINE/OMEX archives or zip files which contain model and simulation files). Click <a [routerLink]="['/utils', 'validate-project']">here</a> to more comprehensively validate SED-ML files.</p>
+          </mat-hint>
+          <mat-error
+            *ngIf="
+              (submitPushed || simulationFileControl.touched) &&
+              formGroup.hasError('required', 'simulationFile')
+            "
+            >Please select a simulation experiment.</mat-error
+          >
+          <mat-error
+            *ngIf="
+              (submitPushed || simulationFileControl.touched) &&
+              formGroup.hasError('maxSize', 'simulationFile')
+            "
+            >Currently, simulations are limited to 16 MB.</mat-error
+          >
+          <mat-error
+            *ngIf="
+              (submitPushed || simulationUrlControl.touched) &&
+              formGroup.hasError('url', 'simulationUrl')
+            "
+            >Please enter a URL for a simulation experiment.</mat-error
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button mat-flat-button type="submit" class="biosimulations-button text">
+        Validate
+      </button>
+    </div>
+
+    <div class="status-summary" *ngIf="status !== undefined">
+      <div class="valid" *ngIf="status === 'valid'">
+        Your simulation experiments is likely valid!
+      </div>
+      <div class="errors" *ngIf="status === 'invalid'">
+        Your simulation is invalid.
+      </div>
+      <div class="warnings" *ngIf="status === 'warnings'">
+        Your simulation may be invalid.
+      </div>
+    </div>
+
+    <div
+      class="validation-report"
+      *ngIf="status === 'invalid' || status === 'warnings'"
+    >
+      <div class="validation-report-section errors" *ngIf="errors">
+        Errors:
+        <ul [innerHTML]="errors"></ul>
+      </div>
+
+      <div class="validation-report-section warnings" *ngIf="warnings">
+        Warnings:
+        <ul [innerHTML]="warnings"></ul>
+      </div>
+    </div>
+  </form>
+</biosimulations-page>

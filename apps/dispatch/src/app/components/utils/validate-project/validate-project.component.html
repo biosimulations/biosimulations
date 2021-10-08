@@ -40,7 +40,7 @@
               *ngIf="formGroup.value.submitMethod === 'file'"
             >
               <biosimulations-icon
-                icon="project"
+                icon="file"
                 matPrefix
               ></biosimulations-icon>
               <mat-label
@@ -122,10 +122,10 @@
     >
       <div class="form-section-head">
         <div class="mat-form-field-prefix">
-          <biosimulations-icon icon="project"></biosimulations-icon>
+          <biosimulations-icon icon="format"></biosimulations-icon>
         </div>
         <div class="form-section-head-title-subtitle">
-          <div class="form-section-title">Metadata format and information convention</div>
+          <div class="form-section-title">Metadata format and minimum information convention</div>
           <div class="form-section-subtitle">
             Indicate the format of the OMEX Metadata <a href="https://sys-bio.github.io/libOmexMeta/"><biosimulations-icon icon="link"></biosimulations-icon></a> files in the archive and the information convention that should be used to validate them.
           </div>
@@ -200,7 +200,7 @@
     >
       <div class="form-section-head">
         <div class="mat-form-field-prefix">
-          <biosimulations-icon icon="project"></biosimulations-icon>
+          <biosimulations-icon icon="review"></biosimulations-icon>
         </div>
         <div class="form-section-head-title-subtitle">
           <div class="form-section-title">Options</div>
@@ -277,13 +277,15 @@
             </mat-checkbox>
           </div>
 
-          <mat-hint>Note, all of the above validation checks are required to publish projects to BioSimulations.</mat-hint>
+          <mat-hint>Note, plain zip archives can be validated by disabled validation of OMEX Manifests.</mat-hint>          
 
           <mat-hint>Note, SED-ML validation is required to validate models.</mat-hint>
 
           <mat-hint>Note, model validation is required to comprehensively validate SED-ML files, including validating the targets to models for model changes and simulation observables.</mat-hint>
 
           <mat-hint>Note, BioSimulations validates models using community-contributed validation tools for each model language. The thoroughness of these tools varies. In addition, some tools currently provide limited diagnostic information. We welcome contributions of improved validation tools.</mat-hint>
+
+          <mat-hint>Note, projects published to BioSimulations must contain valid metadata that meets BioSimulations minimum metadata conventions.</mat-hint>
 
           <mat-hint>Note, an OMEX manifest file is required to validate metadata files. As a result, OMEX Metadata validation should generally be disabled when OMEX manifest validation is disabled.</mat-hint>
 

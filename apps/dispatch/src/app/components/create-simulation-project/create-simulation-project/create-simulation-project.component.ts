@@ -162,7 +162,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   ) {
     const modelFileTypeSpecifiers = new Set<string>();
     MODEL_FORMATS.filter((modelFormat: ModelFormat): boolean => {
-      return modelFormat.enabled;
+      return modelFormat.introspectionAvailable;
     }).forEach((modelFormat: ModelFormat): void => {
       modelFormat.extensions.forEach((extension: string): void => {
         modelFileTypeSpecifiers.add('.' + extension);
@@ -1344,7 +1344,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           (format: OntologyTerm): boolean => {
             return (
               formatEdamIds.has(format.id) &&
-              MODEL_FORMAT_EDAM_ID_MAP[format.id].enabled
+              MODEL_FORMAT_EDAM_ID_MAP[format.id].introspectionAvailable
             );
           },
         );
