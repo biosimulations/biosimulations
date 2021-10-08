@@ -11,26 +11,30 @@
  */
 import { SedDataGenerator } from './sedDataGenerator';
 
+
 /**
  * A surface a 3D plot.
  */
-export interface SedSurface {
-  /**
-   * Unique identifier within its parent SED document.
-   */
-  id: string;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  xDataGenerator: SedDataGenerator;
-  yDataGenerator: SedDataGenerator;
-  zDataGenerator: SedDataGenerator;
-  /**
-   * Type.
-   */
-  _type: SedSurfaceType;
+export interface SedSurface { 
+    /**
+     * Unique identifier within its parent SED document.
+     */
+    id: string;
+    /**
+     * Brief description.
+     */
+    name?: string;
+    xDataGenerator: SedDataGenerator;
+    yDataGenerator: SedDataGenerator;
+    zDataGenerator: SedDataGenerator;
+    /**
+     * Type.
+     */
+    _type: SedSurfaceType;
 }
 export enum SedSurfaceType {
-  SedSurface = 'SedSurface',
-}
+    SedSurface = 'SedSurface'
+};
+
+
+

@@ -11,28 +11,32 @@
  */
 import { SedAlgorithm } from './sedAlgorithm';
 
+
 /**
  * A SED one step simulation.
  */
-export interface SedOneStepSimulation {
-  /**
-   * Unique identifier within its parent SED document.
-   */
-  id: string;
-  /**
-   * Type of the simulation.
-   */
-  _type: SedOneStepSimulationType;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  /**
-   * Step size.
-   */
-  step?: number;
-  algorithm: SedAlgorithm;
+export interface SedOneStepSimulation { 
+    /**
+     * Unique identifier within its parent SED document.
+     */
+    id: string;
+    /**
+     * Type of the simulation.
+     */
+    _type: SedOneStepSimulationType;
+    /**
+     * Brief description.
+     */
+    name?: string;
+    /**
+     * Step size.
+     */
+    step?: number;
+    algorithm: SedAlgorithm;
 }
 export enum SedOneStepSimulationType {
-  SedOneStepSimulation = 'SedOneStepSimulation',
-}
+    SedOneStepSimulation = 'SedOneStepSimulation'
+};
+
+
+

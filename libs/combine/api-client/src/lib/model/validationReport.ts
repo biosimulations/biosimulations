@@ -11,32 +11,36 @@
  */
 import { ValidationMessage } from './validationMessage';
 
+
 /**
  * Information about whether a COMBINE archive is valid, potentially invalid (1 or more warnings), or invalid (1 or more errors).
  */
-export interface ValidationReport {
-  /**
-   * Errors with the archive.
-   */
-  errors?: Array<ValidationMessage>;
-  /**
-   * Overall status of the archive.
-   */
-  status: ValidationReportStatus;
-  /**
-   * Warnings for the archive.
-   */
-  warnings?: Array<ValidationMessage>;
-  /**
-   * Type
-   */
-  _type: ValidationReportType;
+export interface ValidationReport { 
+    /**
+     * Errors with the archive.
+     */
+    errors?: Array<ValidationMessage>;
+    /**
+     * Overall status of the archive.
+     */
+    status: ValidationReportStatus;
+    /**
+     * Warnings for the archive.
+     */
+    warnings?: Array<ValidationMessage>;
+    /**
+     * Type
+     */
+    _type: ValidationReportType;
 }
 export enum ValidationReportStatus {
-  Valid = 'valid',
-  Invalid = 'invalid',
-  Warnings = 'warnings',
-}
+    Valid = 'valid',
+    Invalid = 'invalid',
+    Warnings = 'warnings'
+};
 export enum ValidationReportType {
-  ValidationReport = 'ValidationReport',
-}
+    ValidationReport = 'ValidationReport'
+};
+
+
+

@@ -12,29 +12,33 @@
 import { SedAxisScale } from './sedAxisScale';
 import { SedCurve } from './sedCurve';
 
+
 /**
  * Specifications for a 2D SED plot.
  */
-export interface SedPlot2D {
-  /**
-   * Unique identifier within its parent SED document.
-   */
-  id: string;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  /**
-   * List of the curves of the plot (tuples of x and y data).
-   */
-  curves: Array<SedCurve>;
-  xScale: SedAxisScale;
-  yScale: SedAxisScale;
-  /**
-   * Type of the plot.
-   */
-  _type: SedPlot2DType;
+export interface SedPlot2D { 
+    /**
+     * Unique identifier within its parent SED document.
+     */
+    id: string;
+    /**
+     * Brief description.
+     */
+    name?: string;
+    /**
+     * List of the curves of the plot (tuples of x and y data).
+     */
+    curves: Array<SedCurve>;
+    xScale: SedAxisScale;
+    yScale: SedAxisScale;
+    /**
+     * Type of the plot.
+     */
+    _type: SedPlot2DType;
 }
 export enum SedPlot2DType {
-  SedPlot2D = 'SedPlot2D',
-}
+    SedPlot2D = 'SedPlot2D'
+};
+
+
+

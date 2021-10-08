@@ -10,19 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Blank RDF node
  */
-export interface RdfBlankNode {
-  /**
-   * Type
-   */
-  _type: RdfBlankNodeType;
-  /**
-   * Value
-   */
-  value: string;
+export interface RdfBlankNode { 
+    /**
+     * Type
+     */
+    _type: RdfBlankNodeType;
+    /**
+     * Value
+     */
+    value: string;
 }
 export enum RdfBlankNodeType {
-  RdfBlankNode = 'RdfBlankNode',
-}
+    RdfBlankNode = 'RdfBlankNode'
+};
+
+
+

@@ -1,4 +1,5 @@
 import { Endpoints } from '@biosimulations/config/common';
+import { OmexMetadataInputFormat } from '@biosimulations/datamodel/common';
 import {
   SimulationRunMetadataInput,
   ArchiveMetadata,
@@ -36,7 +37,7 @@ export class MetadataService {
     this.logger.debug(`Fetching metadata for archive at url: ${url}`);
 
     const res = await firstValueFrom(
-      this.service.getArchiveMetadata(undefined, url),
+      this.service.getArchiveMetadata(OmexMetadataInputFormat.rdfxml, undefined, url),
     );
 
     // TODO handle errors/timeouts

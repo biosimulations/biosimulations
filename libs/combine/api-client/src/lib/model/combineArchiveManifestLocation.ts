@@ -11,20 +11,24 @@
  */
 import { CombineArchiveContentFile } from './combineArchiveContentFile';
 
+
 /**
  * Location of an item in a COMBINE/OMEX archive and its value.
  */
-export interface CombineArchiveManifestLocation {
-  /**
-   * Path within a COMBINE/OMEX archive.
-   */
-  path: string;
-  value: CombineArchiveContentFile;
-  /**
-   * Type.
-   */
-  _type: CombineArchiveManifestLocationType;
+export interface CombineArchiveManifestLocation { 
+    /**
+     * Path within a COMBINE/OMEX archive.
+     */
+    path: string;
+    value: CombineArchiveContentFile;
+    /**
+     * Type.
+     */
+    _type: CombineArchiveManifestLocationType;
 }
 export enum CombineArchiveManifestLocationType {
-  CombineArchiveManifestLocation = 'CombineArchiveManifestLocation',
-}
+    CombineArchiveManifestLocation = 'CombineArchiveManifestLocation'
+};
+
+
+

@@ -10,19 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * File
  */
-export interface CombineArchiveContentFile {
-  /**
-   * Type.
-   */
-  _type: CombineArchiveContentFileType;
-  /**
-   * Location where the file should be placed inside the COMBINE/OMEX archive
-   */
-  filename: string;
+export interface CombineArchiveContentFile { 
+    /**
+     * Type.
+     */
+    _type: CombineArchiveContentFileType;
+    /**
+     * Location where the file should be placed inside the COMBINE/OMEX archive
+     */
+    filename: string;
 }
 export enum CombineArchiveContentFileType {
-  CombineArchiveContentFile = 'CombineArchiveContentFile',
-}
+    CombineArchiveContentFile = 'CombineArchiveContentFile'
+};
+
+
+

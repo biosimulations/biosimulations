@@ -15,21 +15,25 @@ import { SedPlot3DLog } from './sedPlot3DLog';
 import { SedReportLog } from './sedReportLog';
 import { Exception } from './exception';
 
-export interface SedDocumentLog {
-  location: string;
-  status: SedDocumentLogStatus;
-  exception: Exception | null;
-  skipReason: Exception | null;
-  output: string | null;
-  duration: number | null;
-  tasks: Array<SedTaskLog> | null;
-  outputs: Array<SedReportLog | SedPlot2DLog | SedPlot3DLog> | null;
+
+export interface SedDocumentLog { 
+    location: string;
+    status: SedDocumentLogStatus;
+    exception: Exception | null;
+    skipReason: Exception | null;
+    output: string | null;
+    duration: number | null;
+    tasks: Array<SedTaskLog> | null;
+    outputs: Array<SedReportLog | SedPlot2DLog | SedPlot3DLog> | null;
 }
 export enum SedDocumentLogStatus {
-  Queued = 'QUEUED',
-  Running = 'RUNNING',
-  Skipped = 'SKIPPED',
-  Succeeded = 'SUCCEEDED',
-  Failed = 'FAILED',
-  Unknown = 'UNKNOWN',
-}
+    Queued = 'QUEUED',
+    Running = 'RUNNING',
+    Skipped = 'SKIPPED',
+    Succeeded = 'SUCCEEDED',
+    Failed = 'FAILED',
+    Unknown = 'UNKNOWN'
+};
+
+
+

@@ -11,25 +11,29 @@
  */
 import { SedDataGenerator } from './sedDataGenerator';
 
+
 /**
  * Curve of a 2D SED plot
  */
-export interface SedCurve {
-  /**
-   * Unique identifier with its parent SED document.
-   */
-  id: string;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  xDataGenerator: SedDataGenerator;
-  yDataGenerator: SedDataGenerator;
-  /**
-   * Type.
-   */
-  _type: SedCurveType;
+export interface SedCurve { 
+    /**
+     * Unique identifier with its parent SED document.
+     */
+    id: string;
+    /**
+     * Brief description.
+     */
+    name?: string;
+    xDataGenerator: SedDataGenerator;
+    yDataGenerator: SedDataGenerator;
+    /**
+     * Type.
+     */
+    _type: SedCurveType;
 }
 export enum SedCurveType {
-  SedCurve = 'SedCurve',
-}
+    SedCurve = 'SedCurve'
+};
+
+
+

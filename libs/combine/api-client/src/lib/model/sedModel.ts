@@ -11,35 +11,39 @@
  */
 import { SedModelChange } from './sedModelChange';
 
+
 /**
  * A SED model.
  */
-export interface SedModel {
-  /**
-   * Unique identifier within its parent SED document.
-   */
-  id: string;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  /**
-   * A SED URN for a model language.  The full list of recognized values is available at http://sed-ml.org/urns.html.
-   */
-  language: string;
-  /**
-   * Location of the file for the model.
-   */
-  source: string;
-  /**
-   * Type.
-   */
-  _type: SedModelType;
-  /**
-   * Changes to the model.
-   */
-  changes: Array<SedModelChange>;
+export interface SedModel { 
+    /**
+     * Unique identifier within its parent SED document.
+     */
+    id: string;
+    /**
+     * Brief description.
+     */
+    name?: string;
+    /**
+     * A SED URN for a model language.  The full list of recognized values is available at http://sed-ml.org/urns.html.
+     */
+    language: string;
+    /**
+     * Location of the file for the model.
+     */
+    source: string;
+    /**
+     * Type.
+     */
+    _type: SedModelType;
+    /**
+     * Changes to the model.
+     */
+    changes: Array<SedModelChange>;
 }
 export enum SedModelType {
-  SedModel = 'SedModel',
-}
+    SedModel = 'SedModel'
+};
+
+
+

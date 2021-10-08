@@ -11,19 +11,23 @@
  */
 import { CombineArchiveManifestContent } from './combineArchiveManifestContent';
 
+
 /**
  * A COMBINE/OMEX archive.
  */
-export interface CombineArchiveManifest {
-  /**
-   * The content of the archive
-   */
-  contents: Array<CombineArchiveManifestContent>;
-  /**
-   * Type.
-   */
-  _type: CombineArchiveManifestType;
+export interface CombineArchiveManifest { 
+    /**
+     * The content of the archive
+     */
+    contents: Array<CombineArchiveManifestContent>;
+    /**
+     * Type.
+     */
+    _type: CombineArchiveManifestType;
 }
 export enum CombineArchiveManifestType {
-  CombineArchiveManifest = 'CombineArchiveManifest',
-}
+    CombineArchiveManifest = 'CombineArchiveManifest'
+};
+
+
+

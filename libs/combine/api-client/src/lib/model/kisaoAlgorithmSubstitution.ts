@@ -12,20 +12,24 @@
 import { KisaoTerm } from './kisaoTerm';
 import { KisaoAlgorithmSubstitutionPolicy } from './kisaoAlgorithmSubstitutionPolicy';
 
+
 /**
  * The most restrictive substition policy at which at algorithm can be substituted for another.
  */
-export interface KisaoAlgorithmSubstitution {
-  maxPolicy: KisaoAlgorithmSubstitutionPolicy;
-  /**
-   * Type
-   */
-  _type: KisaoAlgorithmSubstitutionType;
-  /**
-   * Pair of algorithms that can be substituted (up to a degree of similarity).
-   */
-  algorithms: Array<KisaoTerm>;
+export interface KisaoAlgorithmSubstitution { 
+    maxPolicy: KisaoAlgorithmSubstitutionPolicy;
+    /**
+     * Type
+     */
+    _type: KisaoAlgorithmSubstitutionType;
+    /**
+     * Pair of algorithms that can be substituted (up to a degree of similarity).
+     */
+    algorithms: Array<KisaoTerm>;
 }
 export enum KisaoAlgorithmSubstitutionType {
-  KisaoAlgorithmSubstitution = 'KisaoAlgorithmSubstitution',
-}
+    KisaoAlgorithmSubstitution = 'KisaoAlgorithmSubstitution'
+};
+
+
+

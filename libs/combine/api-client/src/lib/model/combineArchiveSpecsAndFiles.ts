@@ -11,17 +11,19 @@
  */
 import { CombineArchive } from './combineArchive';
 
+
 /**
  * Specifications of a COMBINE/OMEX archive (including its SED-ML files) and the other (non-SED-ML) files that it should contain.
  */
-export interface CombineArchiveSpecsAndFiles {
-  specs: CombineArchive;
-  /**
-   * File (e.g., model) to place into the COMBINE/OMEX archive.
-   */
-  files?: Array<Blob>;
-  /**
-   * Whether to download the archive or return a URL where the archive can be downloaded.
-   */
-  download?: boolean;
+export interface CombineArchiveSpecsAndFiles { 
+    specs: CombineArchive;
+    /**
+     * File (e.g., model) to place into the COMBINE/OMEX archive.
+     */
+    files?: Array<Blob>;
+    /**
+     * Whether to download the archive or return a URL where the archive can be downloaded.
+     */
+    download?: boolean;
 }
+

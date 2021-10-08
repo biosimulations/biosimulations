@@ -10,15 +10,19 @@
  * Do not edit the class manually.
  */
 
-export interface SedOutputElementLog {
-  id: string;
-  status: SedOutputElementLogStatus;
+
+export interface SedOutputElementLog { 
+    id: string;
+    status: SedOutputElementLogStatus;
 }
 export enum SedOutputElementLogStatus {
-  Queued = 'QUEUED',
-  Running = 'RUNNING',
-  Skipped = 'SKIPPED',
-  Succeeded = 'SUCCEEDED',
-  Failed = 'FAILED',
-  Unknown = 'UNKNOWN',
-}
+    Queued = 'QUEUED',
+    Running = 'RUNNING',
+    Skipped = 'SKIPPED',
+    Succeeded = 'SUCCEEDED',
+    Failed = 'FAILED',
+    Unknown = 'UNKNOWN'
+};
+
+
+
