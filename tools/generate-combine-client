@@ -25,3 +25,5 @@ perl -0777 -i -p -e 's/if \(useForm\) {\n\s*formParams = new FormData\(\);/ if \
 
 # Format the files
 nx format --projects combine-api-client
+#build the library
+nx build combine-api-client --skip-cache
