@@ -115,6 +115,7 @@ export class SimulationProjectsCOMBINEOMEXArchivesService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -198,6 +199,7 @@ export class SimulationProjectsCOMBINEOMEXArchivesService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -251,7 +253,7 @@ export class SimulationProjectsCOMBINEOMEXArchivesService {
       );
     }
 
-    let queryParameters: any = {};
+    let queryParameters = {};
     if (url !== undefined && url !== null) {
       queryParameters['url'] = <any>url;
     }
@@ -321,6 +323,7 @@ export class SimulationProjectsCOMBINEOMEXArchivesService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -393,6 +396,7 @@ export class SimulationProjectsCOMBINEOMEXArchivesService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -469,6 +473,7 @@ export class SimulationProjectsCOMBINEOMEXArchivesService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -534,6 +539,7 @@ export class SimulationProjectsCOMBINEOMEXArchivesService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
@@ -628,6 +634,7 @@ export class SimulationProjectsCOMBINEOMEXArchivesService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }

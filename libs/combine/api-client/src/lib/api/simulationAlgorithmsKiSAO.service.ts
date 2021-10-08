@@ -60,7 +60,7 @@ export class SimulationAlgorithmsKiSAOService {
       );
     }
 
-    let queryParameters: any = {};
+    let queryParameters = {};
     if (algorithms !== undefined && algorithms !== null) {
       queryParameters['algorithms'] = <any>algorithms;
     }
