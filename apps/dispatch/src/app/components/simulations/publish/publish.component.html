@@ -24,6 +24,9 @@
             placeholder="System-Author-Journal-Year"
             required
           />
+          <mat-error *ngIf="formGroup.hasError('requiredTrue', 'succeeded')"
+            >This run cannot be published because it wasn't successful.</mat-error
+          >
           <mat-error *ngIf="formGroup.hasError('required', 'id')"
             >Please enter an id for this project.</mat-error
           >
