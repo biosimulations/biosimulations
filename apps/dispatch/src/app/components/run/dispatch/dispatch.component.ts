@@ -225,7 +225,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       this.config.appConfig.exampleCombineArchives.repoRef +
       '/' +
       this.config.appConfig.exampleCombineArchives.repoPath +
-      this.config.appConfig.exampleCombineArchives.examplePath;
+      this.config.appConfig.exampleCombineArchives.exampleProjectPath;
     this.emailUrl = 'mailto:' + config.email;
   }
 

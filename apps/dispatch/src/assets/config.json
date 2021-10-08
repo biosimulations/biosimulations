@@ -28,7 +28,10 @@
       "repoOwnerName": "biosimulators/Biosimulators_test_suite",
       "repoRef": "deploy",
       "repoPath": "examples/",
-      "examplePath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
+      "exampleModelPath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock/model_ODE_deterministic.xml",
+      "exampleSimulationPath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock/simulation.sedml",
+      "exampleMetadataPath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock/metadata.rdf",
+      "exampleProjectPath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
     }
   }
 }

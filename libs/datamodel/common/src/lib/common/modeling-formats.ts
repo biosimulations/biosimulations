@@ -8,7 +8,8 @@ export interface ModelFormat {
   combineUris: string[];
   mediaTypes: string[];
   extensions: string[];
-  enabled: boolean;
+  validationAvailable: boolean;
+  introspectionAvailable: boolean;
   url: string;
 }
 
@@ -26,7 +27,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
       'application/x-bngl',
     ],
     extensions: ['bngl'],
-    enabled: true,
+    validationAvailable: true,
+    introspectionAvailable: true,
     url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3972',
   },
   {
@@ -41,7 +43,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
       'application/xml',
     ],
     extensions: ['cellml', 'xml'],
-    enabled: true,
+    validationAvailable: true,
+    introspectionAvailable: true,
     url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3240',
   },
   {
@@ -56,7 +59,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
       'application/xml',
     ],
     extensions: ['cps'],
-    enabled: false,
+    validationAvailable: false,
+    introspectionAvailable: false,
     url: 'http://copasi.org',
   },
   {
@@ -67,7 +71,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
     combineUris: ['http://purl.org/NET/mediatypes/application/ginml+xml'],
     mediaTypes: ['application/ginml+xml', 'application/xml'],
     extensions: ['ginml'],
-    enabled: false,
+    validationAvailable: false,
+    introspectionAvailable: false,
     url: 'http://ginsim.org',
   },
   {
@@ -78,7 +83,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
     combineUris: ['http://purl.org/NET/mediatypes/text/x-hoc'],
     mediaTypes: ['text/x-hoc', 'text/plain'],
     extensions: ['hoc'],
-    enabled: false,
+    validationAvailable: false,
+    introspectionAvailable: false,
     url: 'https://en.wikipedia.org/wiki/Hoc_(programming_language)',
   },
   {
@@ -89,7 +95,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
     combineUris: ['http://purl.org/NET/mediatypes/text/x-kappa'],
     mediaTypes: ['text/x-kappa', 'text/plain'],
     extensions: ['ka'],
-    enabled: true,
+    validationAvailable: false,
+    introspectionAvailable: false,
     url: 'https://kappalanguage.org/',
   },
   {
@@ -104,7 +111,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
       'application/xml',
     ],
     extensions: ['xml'],
-    enabled: true,
+    validationAvailable: true,
+    introspectionAvailable: false,
     url: 'https://lems.github.io/LEMS/',
   },
   {
@@ -115,7 +123,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
     combineUris: ['http://purl.org/NET/mediatypes/application/mass+json'],
     mediaTypes: ['application/mass+json', 'application/json'],
     extensions: ['json'],
-    enabled: false,
+    validationAvailable: false,
+    introspectionAvailable: false,
     url: 'https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html',
   },
   {
@@ -126,7 +135,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
     combineUris: ['http://purl.org/NET/mediatypes/application/morpheusml+xml'],
     mediaTypes: ['application/morpheusml+xml', 'application/xml'],
     extensions: ['xml'],
-    enabled: false,
+    validationAvailable: false,
+    introspectionAvailable: false,
     url: 'https://gitlab.com/morpheus.lab/morpheus/-/wikis/morpheusml',
   },
   {
@@ -137,7 +147,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
     combineUris: ['http://identifiers.org/combine.specifications/neuroml'],
     mediaTypes: ['application/neuroml+xml', 'application/xml'],
     extensions: ['nml'],
-    enabled: false,
+    validationAvailable: true,
+    introspectionAvailable: false,
     url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3971',
   },
   {
@@ -148,7 +159,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
     combineUris: ['http://purl.org/NET/mediatypes/application/pharmml+xml'],
     mediaTypes: ['application/pharmml+xml', 'application/xml'],
     extensions: ['xml'],
-    enabled: true,
+    validationAvailable: false,
+    introspectionAvailable: false,
     url: 'http://www.pharmml.org/',
   },
   {
@@ -159,7 +171,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
     combineUris: ['http://purl.org/NET/mediatypes/application/rba+zip'],
     mediaTypes: ['application/rba+zip', 'application/zip'],
     extensions: ['zip'],
-    enabled: false,
+    validationAvailable: true,
+    introspectionAvailable: true,
     url: 'https://sysbioinra.github.io/RBApy/usage.html',
   },
   {
@@ -174,7 +187,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
       'application/xml',
     ],
     extensions: ['xml', 'sbml'],
-    enabled: true,
+    validationAvailable: true,
+    introspectionAvailable: true,
     url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3972',
   },
   {
@@ -190,7 +204,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
       'application/x-smoldyn',
     ],
     extensions: ['txt'],
-    enabled: true,
+    validationAvailable: true,
+    introspectionAvailable: true,
     url: 'http://www.smoldyn.org/',
   },
   {
@@ -201,7 +216,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
     combineUris: ['http://purl.org/NET/mediatypes/application/vcml+xml'],
     mediaTypes: ['application/vcml+xml', 'application/xml'],
     extensions: ['vcml'],
-    enabled: false,
+    validationAvailable: false,
+    introspectionAvailable: false,
     url: 'https://vcell.org/',
   },
   {
@@ -217,7 +233,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
       'application/x-xpp',
     ],
     extensions: ['ode', 'xpp'],
-    enabled: true,
+    validationAvailable: true,
+    introspectionAvailable: true,
     url: 'http://www.math.pitt.edu/~bard/xpp/xpp.html',
   },
   {
@@ -232,7 +249,8 @@ export const MODEL_FORMATS: ModelFormat[] = [
       'application/zip',
     ],
     extensions: ['zginml', 'zip'],
-    enabled: true,
+    validationAvailable: false,
+    introspectionAvailable: false,
     url: 'http://ginsim.org',
   },
 ];

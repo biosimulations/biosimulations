@@ -12,8 +12,8 @@ import {
   ValidationMessage,
   ValidationStatus,
 } from '../../../datamodel/validation-report.interface';
-import { OmexMetadataInputFormat, OmexMetadataSchema } from '@biosimulations/datamodel/common';
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { ModelLanguage, MODEL_FORMATS, ModelFormat } from '@biosimulations/datamodel/common';
+import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -25,31 +25,23 @@ enum SubmitMethod {
 }
 
 @Component({
-  selector: 'biosimulations-validate-simulation-project',
-  templateUrl: './validate-simulation-project.component.html',
-  styleUrls: ['./validate-simulation-project.component.scss'],
+  selector: 'biosimulations-validate-model',
+  templateUrl: './validate-model.component.html',
+  styleUrls: ['./validate-model.component.scss'],
 })
-export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
+export class ValidateModelComponent implements OnInit, OnDestroy {
   submitMethod: SubmitMethod = SubmitMethod.file;
   formGroup: FormGroup;
   submitMethodControl: FormControl;
-  projectFileControl: FormControl;
-  projectUrlControl: FormControl;
+  modelFileControl: FormControl;
+  modelUrlControl: FormControl;
 
-  omexMetadataFormats = Object.keys(OmexMetadataInputFormat).sort();
-  omexMetadataSchemas = [
-    {
-      label: 'BioSimulations',
-      value: 'BioSimulations',
-    },
-    {
-      label: 'None (OMEX Metadata)',
-      value: 'rdf_triples',
-    }
-  ];
+  modelLanguages = Object.keys(ModelLanguage).sort();
 
-  exampleCombineArchiveUrl: string;
-  exampleCombineArchivesUrl: string;
+  modelFileFormats: string;
+
+  exampleModelUrl: string;
+  exampleModelsUrl: string;
 
   submitPushed = false;
 
@@ -66,18 +58,27 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
   ) {
+    const modelFileFormats: string[] = [];
+    MODEL_FORMATS
+      .filter((modelFormat: ModelFormat): boolean => {
+        return modelFormat.validationAvailable;
+      })
+      .forEach((modelFormat: ModelFormat): void => {
+        modelFormat.extensions.forEach((extension: string): void => {
+          modelFileFormats.push('.' + extension);
+        });
+        modelFormat.mediaTypes.forEach((mediaType: string): void => {
+          modelFileFormats.push(mediaType);
+        });
+      });
+    this.modelFileFormats = modelFileFormats.join(',');
+
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        projectFile: ['', [Validators.required, this.maxFileSizeValidator]],
-        projectUrl: ['', [this.urlValidator]],
-        omexMetadataFormat: [OmexMetadataInputFormat.rdfxml],
-        omexMetadataSchema: [OmexMetadataSchema.BioSimulations],
-        validateOmexManifest: [true],
-        validateSedml: [true],
-        validateSedmlModels: [true],
-        validateOmexMetadata: [true],
-        validateImages: [true],
+        modelFile: ['', [Validators.required, this.maxFileSizeValidator]],
+        modelUrl: ['', [this.urlValidator]],
+        modelLanguage: [null],
       },
       //{
       //  validators: this.formValidator,
@@ -86,13 +87,13 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
 
     this.submitMethodControl = this.formGroup.controls
       .submitMethod as FormControl;
-    this.projectFileControl = this.formGroup.controls
-      .projectFile as FormControl;
-    this.projectUrlControl = this.formGroup.controls.projectUrl as FormControl;
+    this.modelFileControl = this.formGroup.controls
+      .modelFile as FormControl;
+    this.modelUrlControl = this.formGroup.controls.modelUrl as FormControl;
 
-    this.projectUrlControl.disable();
+    this.modelUrlControl.disable();
 
-    this.exampleCombineArchivesUrl =
+    this.exampleModelsUrl =
       'https://github.com/' +
       this.config.appConfig.exampleCombineArchives.repoOwnerName +
       '/tree' +
@@ -100,7 +101,7 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
       this.config.appConfig.exampleCombineArchives.repoRef +
       '/' +
       config.appConfig.exampleCombineArchives.repoPath;
-    this.exampleCombineArchiveUrl =
+    this.exampleModelUrl =
       'https://github.com/' +
       this.config.appConfig.exampleCombineArchives.repoOwnerName +
       '/raw' +
@@ -108,19 +109,19 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
       this.config.appConfig.exampleCombineArchives.repoRef +
       '/' +
       this.config.appConfig.exampleCombineArchives.repoPath +
-      this.config.appConfig.exampleCombineArchives.examplePath;
+      this.config.appConfig.exampleCombineArchives.exampleModelPath;
   }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params: Params): void => {
-      const archiveUrl = params?.archiveUrl;
-      if (archiveUrl) {
+      const modelUrl = params?.modelUrl;
+      if (modelUrl) {
         const submitMethodControl = this.formGroup.controls
           .submitMethod as FormControl;
-        const projectUrlControl = this.formGroup.controls
-          .projectUrl as FormControl;
+        const modelUrlControl = this.formGroup.controls
+          .modelUrl as FormControl;
         submitMethodControl.setValue(SubmitMethod.url);
-        projectUrlControl.setValue(archiveUrl);
+        modelUrlControl.setValue(modelUrl);
         this.changeSubmitMethod();
       }
     });
@@ -151,12 +152,12 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
     const errors: ValidationErrors = {};
 
     if (formGroup.value.submitMethod == SubmitMethod.file) {
-      if (!formGroup.value.projectFile) {
-        errors['noProjectFile'] = true;
+      if (!formGroup.value.modelFile) {
+        errors['noModelFile'] = true;
       }
     } else {
-      if (!formGroup.value.projectUrl) {
-        errors['noProjectUrl'] = true;
+      if (!formGroup.value.modelUrl) {
+        errors['noModelUrl'] = true;
       }
     }
 
@@ -175,11 +176,11 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
     const submitMethodControl = this.formGroup.controls
       .submitMethod as FormControl;
     if (submitMethodControl.value === SubmitMethod.file) {
-      this.formGroup.controls.projectFile.enable();
-      this.formGroup.controls.projectUrl.disable();
+      this.formGroup.controls.modelFile.enable();
+      this.formGroup.controls.modelUrl.disable();
     } else {
-      this.formGroup.controls.projectFile.disable();
-      this.formGroup.controls.projectUrl.enable();
+      this.formGroup.controls.modelFile.disable();
+      this.formGroup.controls.modelUrl.enable();
     }
   }
 
@@ -190,8 +191,6 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.log('jree');
-
     // clear previous report
     this.status = undefined;
     this.errors = undefined;
@@ -201,24 +200,18 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
     const submitMethodControl = this.formGroup.controls
       .submitMethod as FormControl;
 
-    let archive: File | string = '';
+    let model: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {
-      archive = this.formGroup.controls.projectFile.value;
+      model = this.formGroup.controls.modelFile.value;
     } else {
-      archive = this.formGroup.controls.projectUrl.value;
+      model = this.formGroup.controls.modelUrl.value;
     }
 
-    // call API to validate archive
+    // call API to validate model
     const validationSub = this.combineService
-      .validateCombineArchive(
-        archive,
-        this.formGroup.controls.omexMetadataFormat.value,
-        this.formGroup.controls.omexMetadataSchema.value,
-        this.formGroup.controls.validateOmexManifest.value,
-        this.formGroup.controls.validateSedml.value,
-        this.formGroup.controls.validateSedmlModels.value,
-        this.formGroup.controls.validateOmexMetadata.value,
-        this.formGroup.controls.validateImages.value,
+      .validateModel(
+        model,
+        this.formGroup.controls.modelLanguage.value,
       )
       .subscribe((report: ValidationReport | undefined): void => {
         if (report) {
@@ -235,9 +228,9 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
             );
           }
         } else {
-          let msg = 'Sorry! We were unable to validate your archive.';
+          let msg = 'Sorry! We were unable to validate your model.';
           if (submitMethodControl.value == SubmitMethod.url) {
-            msg += ` Please check that ${archive} is an accessible URL.`;
+            msg += ` Please check that ${model} is an accessible URL.`;
           }
 
           this.snackBar.open(msg, undefined, {
@@ -268,21 +261,5 @@ export class ValidateSimulationProjectComponent implements OnInit, OnDestroy {
         return '<li>' + message.summary + details + '</li>';
       })
       .join('\n');
-  }
-
-  private formSectionOpen = {
-    metadataOptions: new BehaviorSubject<boolean>(false),
-    validationOptions: new BehaviorSubject<boolean>(false),
-  };
-  formSectionOpen$ = {
-    metadataOptions: this.formSectionOpen.metadataOptions.asObservable(),
-    validationOptions: this.formSectionOpen.validationOptions.asObservable(),
-  };
-  toggleFormSection(
-    name:
-      | 'metadataOptions'
-      | 'validationOptions'
-  ): void {
-    this.formSectionOpen[name].next(!this.formSectionOpen[name].value);
   }
 }

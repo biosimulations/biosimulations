@@ -8,13 +8,19 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
 import { UtilsRoutingModule } from './utils-routing.module';
-import { ValidateSimulationProjectComponent } from './validate-simulation-project/validate-simulation-project.component';
+import { ValidateModelComponent } from './validate-model/validate-model.component';
+import { ValidateSimulationComponent } from './validate-simulation/validate-simulation.component';
+import { ValidateMetadataComponent } from './validate-metadata/validate-metadata.component';
+import { ValidateProjectComponent } from './validate-project/validate-project.component';
 import { SuggestSimulatorComponent } from './suggest-simulator/suggest-simulator.component';
 import { ConvertComponent } from './convert/convert.component';
 
 @NgModule({
   declarations: [
-    ValidateSimulationProjectComponent,
+    ValidateModelComponent,
+    ValidateSimulationComponent,
+    ValidateMetadataComponent,
+    ValidateProjectComponent,
     SuggestSimulatorComponent,
     ConvertComponent,
   ],

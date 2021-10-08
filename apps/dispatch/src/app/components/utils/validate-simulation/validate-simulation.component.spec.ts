@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
-import { ValidateSimulationProjectComponent } from './validate-simulation-project.component';
+import { ValidateSimulationComponent } from './validate-simulation.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { SharedUiModule } from '@biosimulations/shared/ui';
@@ -14,9 +14,9 @@ import { Drivers } from '@ionic/storage';
 import { ConfigService } from '@biosimulations/shared/services';
 import config from '../../../../assets/config.json';
 
-describe('ValidateSimulationProjectComponent', () => {
-  let component: ValidateSimulationProjectComponent;
-  let fixture: ComponentFixture<ValidateSimulationProjectComponent>;
+describe('ValidateSimulationComponent', () => {
+  let component: ValidateSimulationComponent;
+  let fixture: ComponentFixture<ValidateSimulationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -34,7 +34,7 @@ describe('ValidateSimulationProjectComponent', () => {
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
       ],
-      declarations: [ValidateSimulationProjectComponent],
+      declarations: [ValidateSimulationComponent],
       providers: [
         HttpClient,
         HttpHandler,
@@ -44,7 +44,7 @@ describe('ValidateSimulationProjectComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ValidateSimulationProjectComponent);
+    fixture = TestBed.createComponent(ValidateSimulationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

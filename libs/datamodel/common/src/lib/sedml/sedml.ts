@@ -8,6 +8,17 @@ export interface SedModelAttributeChange {
 
 type SedModelChange = SedModelAttributeChange;
 
+export enum ModelLanguage {
+  BNGL = 'BNGL',
+  CellML = 'CellML',
+  LEMS = 'LEMS',
+  NeuroML = 'NeuroML',
+  RBA = 'RBA',
+  SBML = 'SBML',
+  Smoldyn = 'Smoldyn',
+  XPP = 'XPP',
+}
+
 export interface SedModel {
   _type: 'SedModel';
   id: string;
