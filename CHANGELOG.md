@@ -1,3 +1,26 @@
+# [5.4.0](https://github.com/biosimulations/biosimulations/compare/v5.3.0...v5.4.0) (2021-10-08)
+
+
+### Bug Fixes
+
+* **combine-service:** update combine-service client to latest api changes ([74a70d8](https://github.com/biosimulations/biosimulations/commit/74a70d8fa73086277318b363dc58d1ebfa7d1970))
+* **dispatch,platform:** fixed visualization rendering when groups of datasets are selected ([f205ab4](https://github.com/biosimulations/biosimulations/commit/f205ab457eab7712133d859e6ae4cfeb8dd16d63))
+* **dispatch:** handle cases when metadata is empty without throwing error ([57a16c5](https://github.com/biosimulations/biosimulations/commit/57a16c54e496929a482fc69edc9bf1b2ca165e9d))
+
+
+### Features
+
+* **combine-service:** added endpoints for validation ([f602e65](https://github.com/biosimulations/biosimulations/commit/f602e651107f7efd195bb05ef41650bfe64009cd))
+* **combine-service:** updated to biosimulators-utils 0.1.130 ([e46d13e](https://github.com/biosimulations/biosimulations/commit/e46d13ecc28e0e86ff2377068f8e11872276d327))
+* **dispatch:** add some error handling ([6cc7f62](https://github.com/biosimulations/biosimulations/commit/6cc7f625451306c04e53884ab675d33ffd1fd5b8)), closes [#3088](https://github.com/biosimulations/biosimulations/issues/3088)
+* **dispatch:** added forms for validating models, simulations and metadata ([d7991ed](https://github.com/biosimulations/biosimulations/commit/d7991ed6ce4d5cc14e35fbd70143ebb1d21705ca))
+* **dispatch:** added options to project validation ([eebd16f](https://github.com/biosimulations/biosimulations/commit/eebd16fb26a66515952708e1f8e11638f234e93e))
+
+
+### Reverts
+
+* **combine-service:** reverted URL for COMBINE API ([d1dd8b5](https://github.com/biosimulations/biosimulations/commit/d1dd8b595ae1777c4e73b1e90d83f6a33603730c))
+
 # [5.3.0](https://github.com/biosimulations/biosimulations/compare/v5.2.0...v5.3.0) (2021-10-07)
 
 
