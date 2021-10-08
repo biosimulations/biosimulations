@@ -337,7 +337,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
                 name: keyVal[1].name,
               };
               return {
-                _type: 'AlgorithmSubstitution',
+                _type: 'KisaoAlgorithmSubstitution',
                 algorithms: [alg, alg],
                 maxPolicy:
                   ALGORITHM_SUBSTITUTION_POLICIES[
