@@ -4,7 +4,6 @@ import {
   CombineArchiveSedDocSpecs,
   SimulationProjectsCOMBINEOMEXArchivesService,
 } from '@biosimulations/combine-api-client';
-import { OmexMetadataInputFormat } from '@biosimulations/datamodel/common';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
@@ -47,7 +46,7 @@ export class CombineWrapperService {
 
 export class MockCombineWrapperService {
   public getArchiveMetadata(
-    omexMetadataFormat: OmexMetadataInputFormat,
+    omexMetadataFormat: string,
     file?: Blob,
     url?: string,
   ) {

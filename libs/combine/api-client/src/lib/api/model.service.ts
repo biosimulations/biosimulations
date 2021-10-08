@@ -90,6 +90,7 @@ export class ModelService {
     useForm = canConsumeForm;
     if (useForm) {
       formParams = new FormData();
+      headers = formParams.getHeaders();
     } else {
       // formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
     }
