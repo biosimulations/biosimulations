@@ -23,7 +23,7 @@ import {
   ValidationReport,
   ValidationMessage,
 } from '../../../datamodel/validation-report.interface';
-import { OmexMetadataInputFormat } from '@biosimulations/datamodel/common';
+import { OmexMetadataInputFormat, SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { Project } from '@biosimulations/datamodel/api';
 import {
   FormBuilder,
@@ -78,6 +78,7 @@ export class PublishComponent implements OnInit, OnDestroy {
   ) {
     this.formGroup = formBuilder.group({
       id: [null, [Validators.required, Validators.pattern(/^[a-z0-9_-]{3,}$/i)], [this.idAvailableValidator()]],
+      succeeded: [false, [Validators.requiredTrue]],
       isValid: [false, [Validators.required]],
       grantedLicense: [false, [Validators.required]],
     });
@@ -138,6 +139,9 @@ export class PublishComponent implements OnInit, OnDestroy {
     this.metadataValid$ = simulation$.pipe(
       map((simulation: Simulation): Observable<boolean> => {
         this.simulation = simulation;
+
+        this.formGroup.value.succeeded = simulation.status === SimulationRunStatus.SUCCEEDED;
+
         return this.metadataService.getMetadata(this.uuid).pipe(
           map((runMetadata: SimulationRunMetadata): boolean => {
             const metdataDocs = runMetadata.metadata.filter(
