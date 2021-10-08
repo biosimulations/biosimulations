@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as SchemaType } from 'mongoose';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
+import { projectIdRegExp } from './id.regex';
 
 @Schema({
   strict: 'throw',
@@ -17,7 +18,10 @@ export class ProjectModel extends Document {
     validate: [
       {
         validator: (value: any): boolean => {
-          return (typeof value === 'string' || value instanceof String) && (value.match(/^[a-z0-9_-]{3,}$/i) !== null);
+          return (
+            (typeof value === 'string' || value instanceof String) &&
+            value.match(projectIdRegExp) !== null
+          );
         },
         message: (props: any): string =>
           `'${props.value}' is not a valid project id. Project ids must be a combination of at least three letters, numbers, underscores, and dashes (^[a-zA-Z0-9_-]{3,}$).`,
