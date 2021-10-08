@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, shareReplay } from 'rxjs';
-import { Project } from '@biosimulations/datamodel/api';
+import { map, Observable, shareReplay, of } from 'rxjs';
+import { Project, ProjectInput } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
@@ -17,11 +17,21 @@ export class ProjectService {
 
   constructor(private http: HttpClient) {}
 
+  public publishProject(projectInput: ProjectInput): Observable<Project> {
+    const url = this.endpoints.getProjectsEndpoint();
+    const response = this.http.post<Project>(url, projectInput, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .pipe(shareReplay(1));
+    return response;
+  }
+
   public getAllProjects(): Observable<Project[]> {
     const url = this.endpoints.getProjectsEndpoint();
     const response = this.http.get<Project[]>(url).pipe(shareReplay(1));
     return response;
   }
+
   public getProject(projectId: string): Observable<Project> {
     const url = this.endpoints.getProjectsEndpoint(projectId);
     const response = this.http.get<Project>(url).pipe(shareReplay(1));
