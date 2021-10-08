@@ -14,6 +14,15 @@ export class ProjectModel extends Document {
     unique: true,
     index: true,
     immutable: true,
+    validate: [
+      {
+        validator: (value: any): boolean => {
+          return (typeof value === 'string' || value instanceof String) && (value.match(/^[a-z0-9_-]{3,}$/i) !== null);
+        },
+        message: (props: any): string =>
+          `'${props.value}' is not a valid project id. Project ids must be a combination of at least three letters, numbers, underscores, and dashes (^[a-zA-Z0-9_-]{3,}$).`,
+      },
+    ],
   })
   public id!: string;
 
