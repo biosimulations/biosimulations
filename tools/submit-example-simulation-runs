@@ -17,7 +17,7 @@ GET_SIMULATORS_ENDPOINT = 'https://api.biosimulators.{}/simulators/latest'
 
 EXAMPLE_COMBINE_ARCHIVES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/raw/{}/examples/'
 
-EXAMPLE_SIMULATIONS_FILENAME = __file__ + '.json'
+EXAMPLE_SIMULATIONS_FILENAME = os.path.join(os.path.dirname(__file__), 'example-projects.json')
 
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  '..', 'apps', 'dispatch', 'src', 'app', 'components',
@@ -45,17 +45,17 @@ def get_submit_endpoint(runbiosimulations_api):
 
 
 def main(runbiosimulations_api='dev', biosimulators_api='org',
-         biosimulators_test_suite_branch='deploy', simulation_names=None,
+         biosimulators_test_suite_branch='deploy', example_names=None,
          test_mode=False, browser=False, dry_run=False):
     """ Submit example simulations from the BioSimulators test suite to the runBioSimulations API and
     record their runs to ``example-simulations.json`` within the browse simulations module of the
     dispatch app so that users can load runs of these simulations as examples.
 
     Args:
-        runbiosimulations_api (:obj:`str`): which deployment of the runBioSimulations API to use (``dev`` or ``org``)
+        runbiosimulations_api (:obj:`str`): which deployment of the runBioSimulations API to use (``dev``, ``org``, or ``local``)
         biosimulators_api (:obj:`str`): which deployment of the BioSimulators API to use (``dev`` or ``org``)
         biosimulators_test_suite_branch (:obj:`str`): branch of the BioSimulators test suite to use (e.g., ``deploy`` or ``dev``).
-        simulation_names (:obj:`list` of :obj:`str`): filenames of example simulations to execute. Default: execute all examples.
+        example_names (:obj:`list` of :obj:`str`): names of example simulations to execute. Default: execute all examples.
         test_mode (:obj:`bool`, optional): whether to run this program in test mode
         browser (:obj:`bool`, optional): whether to open the simulations in a browser
         dry_run (:obj:`bool`, optional): If :obj:`True`, do not submit simulations to runBioSimulations
@@ -86,20 +86,20 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
         simulations))
 
     # filter to selected simulations
-    if simulation_names:
+    if example_names:
         simulations = list(
-            filter(lambda simulation: simulation['name'] in simulation_names, simulations))
+            filter(lambda simulation: simulation['name'] in example_names, simulations))
 
-        missing_simulation_names = set(simulation_names).difference(
+        missing_example_names = set(example_names).difference(
             set(simulation['name'] for simulation in simulations))
-        if missing_simulation_names:
-            raise ValueError('No example simulations have the following names:\n  - {}'.format(
-                '\n  - '.join(sorted(missing_simulation_names))))
+        if missing_example_names:
+            raise ValueError('No examples have the following names:\n  - {}'.format(
+                '\n  - '.join(sorted(missing_example_names))))
 
     # execution simulations
     temp_dir = tempfile.mkdtemp()
     new_simulation_runs = []
-    if simulation_names:
+    if example_names:
         with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(runbiosimulations_api), 'r') as file:
             simulation_runs = {run['name']: run for run in json.load(file)}
 
@@ -288,7 +288,7 @@ if __name__ == '__main__':
         description='Submit the example simulations to the runBioSimulations API and save their runs to the dispatch app.')
     parser.add_argument(
         '--runbiosimulations-api', type=str, default='dev',
-        help='runBioSimulations API which simulations should be submitted to (`dev`, `org`). Default: `dev`.')
+        help='runBioSimulations API which simulations should be submitted to (`dev`, `org`, `local`). Default: `dev`.')
     parser.add_argument(
         '--biosimulators-api', type=str, default='org',
         help=('BioSimulators API which should be used to select the version of each simulation tool used '
@@ -298,9 +298,9 @@ if __name__ == '__main__':
         help=('Branch of the BioSimulators test suite from which the example COMBINE/OMEX archives should be obtained. '
               'Default: `deploy`.'))
     parser.add_argument(
-        '--simulation', type=str, nargs='*',
+        '--example', type=str, nargs='*',
         help='Names of the example simulations to execute. Default: execute all simulations.',
-        default=None, dest='simulation_names',
+        default=None, dest='example_names',
 
     )
     parser.add_argument(
@@ -326,7 +326,7 @@ if __name__ == '__main__':
     main(runbiosimulations_api=args.runbiosimulations_api,
          biosimulators_api=args.biosimulators_api,
          biosimulators_test_suite_branch=args.biosimulators_test_suite_branch,
-         simulation_names=args.simulation_names,
+         example_names=args.example_names,
          test_mode=args.test_mode,
          browser=args.browser,
          dry_run=args.dry_run)

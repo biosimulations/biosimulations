@@ -60,7 +60,7 @@
     "filename": "rba/Escherichia-coli-K12-WT.omex",
     "disabled": false,
     "publishToBioSimulations": true,
-    "bioSimulationsId": ""
+    "bioSimulationsId": "Escherichia-coli-resource-allocation-Bulovic-Metab-Eng-2019"
   },
   {
     "name": "Heat shock protein synthesis (Szymanska et al., J Theor Biol, 2009; SBML; CVODES; AMICI)",
