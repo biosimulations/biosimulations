@@ -5,7 +5,7 @@ export interface Algorithm {
 }
 
 export interface AlgorithmSubstitutionPolicy {
-  _type: 'AlgorithmSubstitutionPolicy';
+  _type: 'KisaoAlgorithmSubstitutionPolicy';
   id: string;
   name: string;
   level: number;
@@ -26,61 +26,61 @@ export enum AlgorithmSubstitutionPolicyLevels {
 
 export const ALGORITHM_SUBSTITUTION_POLICIES: AlgorithmSubstitutionPolicy[] = [
   {
-    _type: 'AlgorithmSubstitutionPolicy',
+    _type: 'KisaoAlgorithmSubstitutionPolicy',
     level: 0,
     id: 'NONE',
     name: 'None',
   },
   {
-    _type: 'AlgorithmSubstitutionPolicy',
+    _type: 'KisaoAlgorithmSubstitutionPolicy',
     level: 1,
     id: 'SAME_METHOD',
     name: 'Same method',
   },
   {
-    _type: 'AlgorithmSubstitutionPolicy',
+    _type: 'KisaoAlgorithmSubstitutionPolicy',
     level: 2,
     id: 'SAME_MATH',
     name: 'Same math',
   },
   {
-    _type: 'AlgorithmSubstitutionPolicy',
+    _type: 'KisaoAlgorithmSubstitutionPolicy',
     level: 3,
     id: 'SIMILAR_APPROXIMATIONS',
     name: 'Similar approximations',
   },
   {
-    _type: 'AlgorithmSubstitutionPolicy',
+    _type: 'KisaoAlgorithmSubstitutionPolicy',
     level: 4,
     id: 'DISTINCT_APPROXIMATIONS',
     name: 'Distinct approximations',
   },
   {
-    _type: 'AlgorithmSubstitutionPolicy',
+    _type: 'KisaoAlgorithmSubstitutionPolicy',
     level: 5,
     id: 'DISTINCT_SCALES',
     name: 'Distinct scales',
   },
   {
-    _type: 'AlgorithmSubstitutionPolicy',
+    _type: 'KisaoAlgorithmSubstitutionPolicy',
     level: 6,
     id: 'SAME_VARIABLES',
     name: 'Same variables',
   },
   {
-    _type: 'AlgorithmSubstitutionPolicy',
+    _type: 'KisaoAlgorithmSubstitutionPolicy',
     level: 7,
     id: 'SIMILAR_VARIABLES',
     name: 'Similar variables',
   },
   {
-    _type: 'AlgorithmSubstitutionPolicy',
+    _type: 'KisaoAlgorithmSubstitutionPolicy',
     level: 8,
     id: 'SAME_FRAMEWORK',
     name: 'Same framework',
   },
   {
-    _type: 'AlgorithmSubstitutionPolicy',
+    _type: 'KisaoAlgorithmSubstitutionPolicy',
     level: 9,
     id: 'ANY',
     name: 'Any',
@@ -88,7 +88,7 @@ export const ALGORITHM_SUBSTITUTION_POLICIES: AlgorithmSubstitutionPolicy[] = [
 ];
 
 export interface AlgorithmSubstitution {
-  _type: 'AlgorithmSubstitution';
+  _type: 'KisaoAlgorithmSubstitution';
   algorithms: Algorithm[];
   maxPolicy: AlgorithmSubstitutionPolicy;
 }
