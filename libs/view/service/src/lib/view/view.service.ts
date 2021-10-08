@@ -81,7 +81,9 @@ export class ViewService {
     });
   }
 
-  public getFormattedProjectMetadata(id: string): Observable<ProjectMetadata | undefined> {
+  public getFormattedProjectMetadata(
+    id: string,
+  ): Observable<ProjectMetadata | undefined> {
     return this.getProjectMetadata(id).pipe(
       map((metadatas: ArchiveMetadata[]): ProjectMetadata | undefined => {
         // only select the metadata for the root object
@@ -93,7 +95,7 @@ export class ViewService {
 
         // If no root metadata, set as undefined
         const metadata = rootMetadata.length > 0 ? rootMetadata[0] : undefined;
-        if(!metadata) {
+        if (!metadata) {
           return undefined;
         }
         // Check for undefiend metadata for all fields
