@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { map, catchError, concatAll, shareReplay } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { MetadataService } from '../../../services/simulation/metadata.service';
 import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
+import { ProjectService } from '@biosimulations/angular-api-client';
 import { ConfigService } from '@biosimulations/shared/services';
 import {
   SimulationRunMetadata,
@@ -23,6 +24,7 @@ import {
   ValidationMessage,
 } from '../../../datamodel/validation-report.interface';
 import { OmexMetadataInputFormat } from '@biosimulations/datamodel/common';
+import { Project } from '@biosimulations/datamodel/api';
 import {
   FormBuilder,
   FormGroup,
@@ -36,6 +38,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 
+
 interface FormattedValidationReport {
   errors: string | null;
   warnings: string | null;
@@ -45,7 +48,7 @@ interface FormattedValidationReport {
   templateUrl: './publish.component.html',
   styleUrls: ['./publish.component.scss'],
 })
-export class PublishComponent implements OnInit {
+export class PublishComponent implements OnInit, OnDestroy {
   uuid!: string;
 
   private simulation!: Simulation;
@@ -59,19 +62,22 @@ export class PublishComponent implements OnInit {
 
   newIssueUrl!: string;
 
+  private subscriptions: Subscription[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private simulationService: SimulationService,
     private metadataService: MetadataService,
     private combineService: CombineService,
     private dispatchService: DispatchService,
+    private projectService: ProjectService,
     private formBuilder: FormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
     private config: ConfigService,
   ) {
     this.formGroup = formBuilder.group({
-      id: [null, [Validators.required], [this.uniqueIdValidator()]],
+      id: [null, [Validators.required, Validators.pattern(/^[a-z0-9_-]{3,}$/i)], [this.idAvailableValidator()]],
       isValid: [false, [Validators.required]],
       grantedLicense: [false, [Validators.required]],
     });
@@ -79,23 +85,33 @@ export class PublishComponent implements OnInit {
     this.newIssueUrl = config.newIssueUrl;
   }
 
-  uniqueIdValidator(): AsyncValidatorFn {
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
+
+  idAvailableValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      return this.checkIdExists(control.value).pipe(
-        map((exists: boolean): ValidationErrors | null => {
-          if (exists) {
-            return { unique: true };
-          } else {
-            return null;
+      return this.isIdAvailable(control.value).pipe(
+        map((available: boolean): ValidationErrors | null => {
+          if (available) {
+            return null; 
+          } else {            
+            return { available: true };
           }
         }),
       );
     };
   }
 
-  checkIdExists(id: string): Observable<boolean> {
-    /* TODO: check if id already taken */
-    return of(false);
+  isIdAvailable(id: string): Observable<boolean> {
+    return this.projectService.getProject(id)
+      .pipe(
+        map((_): false => false),
+        catchError((error: HttpErrorResponse): Observable<boolean> => {
+          console.log(error)
+          return of(true);
+        }),
+      );
   }
 
   public ngOnInit(): void {
@@ -224,14 +240,11 @@ export class PublishComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
-
-    /* TODO: implement publishing project */
-    this.dispatchService
-      .updateSimulationRun(this.uuid, {
-        public: true,
-        status: this.simulation.status,
-        statusReason: 'Publish run',
-        resultsSize: this.simulation.resultsSize,
+    
+    const pubSub = this.projectService
+      .publishProject({
+        id: this.formGroup.controls.id.value,
+        simulationRun: this.uuid,
       })
       .pipe(
         catchError((error: HttpErrorResponse): Observable<undefined> => {
@@ -251,6 +264,15 @@ export class PublishComponent implements OnInit {
 
           return of<undefined>(undefined);
         }),
-      );
+      ).subscribe((project: Project | undefined): void => {
+        if (project) {
+          const url = `${urls.platform}/projects/${project.id}`; 
+          const tabWindowId = window.open('about:blank', '_blank');
+          if (tabWindowId) {
+            tabWindowId.location.href = url;
+          }
+        }
+      });
+    this.subscriptions.push(pubSub);
   }
 }
