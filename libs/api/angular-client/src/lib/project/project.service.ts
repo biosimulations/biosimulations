@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, shareReplay, of } from 'rxjs';
+import { map, Observable, shareReplay } from 'rxjs';
 import { Project, ProjectInput } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
