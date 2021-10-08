@@ -1,282 +1,320 @@
-[
-  {
+[{
     "name": "Budding yeast cell cycle (Irons, J Theor Biol, 2009; SBML-qual; BoolNet; synchronous)",
     "simulator": "boolnet",
     "filename": "sbml-qual/Irons-J-Theor-Biol-2009-yeast-cell-cycle.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Budding yeast cell cycle (Irons, J Theor Biol, 2009; SBML-qual; GINsim; synchronous)",
     "simulator": "ginsim",
     "filename": "sbml-qual/Irons-J-Theor-Biol-2009-yeast-cell-cycle.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Yeast-cell-cycle-Irons-J-Theor-Biol-2009"
   },
   {
     "name": "Circadian clock (Vilar et al., PNAS, 2002; SBML; NRM; VCell)",
     "simulator": "vcell",
-    "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock-discrete-NRM.omex",
+    "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Minimal-circardian-clock-Vilar-PNAS-2002"
   },
   {
     "name": "EGF and TNFα signaling (Chaouiya et al., BMC Syst Biol, 2013; SBML-qual; synchronous updating; BoolNet)",
     "simulator": "boolnet",
     "filename": "sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "EGF and TNFα signaling (Chaouiya et al., BMC Syst Biol, 2013; SBML-qual; synchronous updating; GINsim)",
     "simulator": "ginsim",
     "filename": "sbml-qual/Chaouiya-BMC-Syst-Biol-2013-EGF-TNFa-signaling.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "EGF-TNFa-signaling-Chaouiya-BMC-Syst-Biol-2013"
   },
   {
     "name": "Escherichia coli core metabolism (COBRApy Team; SBML-fbc; FBA; CBMPy)",
     "simulator": "cbmpy",
     "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Escherichia coli core metabolism (COBRApy Team; SBML-fbc; FBA; COBRApy)",
     "simulator": "cobrapy",
     "filename": "sbml-fbc/Escherichia-coli-core-metabolism.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Escherichia-coli-core-metabolism-textbook"
   },
   {
     "name": "Escherichia coli resource allocation (Bulović et al., Metab Eng, 2019; RBA TSV/XML; RBA; RBApy)",
     "simulator": "rbapy",
     "filename": "rba/Escherichia-coli-K12-WT.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": ""
   },
   {
     "name": "Heat shock protein synthesis (Szymanska et al., J Theor Biol, 2009; SBML; CVODES; AMICI)",
     "simulator": "amici",
     "filename": "sbml-core/Szymanska-J-Theor-Biol-2009-HSP-synthesis.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "HSP-synthesis-Szymanska-J-Theor-Biol-2009"
   },
   {
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; NetPyNe)",
     "simulator": "netpyne",
     "filename": "neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; CVODE; Neuron)",
     "simulator": "neuron",
     "filename": "neuroml-lems/Hodgkin-Huxley-cell-CVODE.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Hodgkin-Huxley cell (Gleeson; NeuroML/LEMS; Euler; pyNeuroML)",
     "simulator": "pyneuroml",
     "filename": "neuroml-lems/Hodgkin-Huxley-cell-Euler.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Hodgkin-Huxley-cell-Gleeson"
   },
   {
     "name": "Iron distribution (Parmar et al., BMC Syst Biol, 2017; SBML; CVODE; PySCeS)",
     "simulator": "pysces",
     "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Iron distribution (Parmar et al., BMC Syst Biol, 2017; SBML; CVODE; VCell)",
     "simulator": "vcell",
     "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Iron distribution (Parmar et al., BMC Syst Biol, 2017; SBML; CVODE; tellurium)",
     "simulator": "tellurium",
     "filename": "sbml-core/Parmar-BMC-Syst-Biol-2017-iron-distribution.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Iron-distribution-Parmar-BMC-Syst-Biol-2017"
   },
   {
     "name": "Lorenz system (Garny; CellML; CVODE; OpenCOR)",
     "simulator": "opencor",
     "filename": "cellml/Lorenz-system.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Lorenz-system-Garny"
   },
   {
     "name": "Lotka-Volterra model (Andrews; Smoldyn; Smoluchowski method)",
     "simulator": "smoldyn",
     "filename": "smoldyn/Lotka-Volterra.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Lotka-Volterra-Andrews"
   },
   {
     "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; CVODE; PySCeS)",
     "simulator": "pysces",
     "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; CVODE; VCell)",
     "simulator": "vcell",
     "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false
   },
   {
     "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; CVODE; tellurium)",
     "simulator": "tellurium",
     "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Morphogenesis-checkpoint-continuous-Ciliberto-J-Cell-Biol-2003"
   },
   {
     "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; Fehlberg; LibSBMLSim)",
     "simulator": "libsbmlsim",
     "filename": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-Fehlberg.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "mTOR signaling (Varusai & Nguyen, Sci Rep, 2018; SBML; LSODA/LSODAR; COPASI)",
     "simulator": "copasi",
     "filename": "sbml-core/Varusai-Sci-Rep-2018-mTOR-signaling-LSODA-LSODAR-SBML.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "mTOR-signaling-Varusai-Sci-Rep-2018"
   },
   {
     "name": "NFAT translocation (Tomida et al., EMBO J, 2003; SBML; LSODA/LSODAR; COPASI)",
     "simulator": "copasi",
     "filename": "sbml-core/Tomida-EMBO-J-2003-NFAT-translocation.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "NFAT-translocation-Tomida-EMBO-J-2003"
   },
   {
     "name": "Nicotinic excitatory post-synaptic potential (Edelstein et al., Biological Cybernetics, 1996; SBML; LSODA; GillesPy2)",
     "simulator": "gillespy2",
     "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Nicotinic-excitation-Edelstein-Biol-Cybern-1996"
   },
   {
     "name": "Nicotinic excitatory post-synaptic potential (Edelstein et al., Biological Cybernetics, 1996; SBML; LSODA; PySCeS)",
     "simulator": "pysces",
     "filename": "sbml-core/Edelstein-Biol-Cybern-1996-Nicotinic-excitation.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Non-homologous end joining (Dolan et al., PLoS Comput Biol, 2020; BNGL; NFSim; BioNetGen)",
     "simulator": "bionetgen",
     "filename": "bngl/Dolan-PLoS-Comput-Biol-2015-NHEJ.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "NHEJ-Dolan-PLoS-Comput-Biol-2015"
   },
   {
     "name": "Pituitary GH(3) cells (Wu & Chang, Biochem Pharmacol, 2006; XPP; CVODE; XPP)",
     "simulator": "xpp",
     "filename": "xpp/Wu-Biochem-Pharmacol-2006-pituitary-GH3-cells.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Pituitary-GH3-cells-Wu-Biochem-Pharmacol-2006"
   },
   {
     "name": "RBC metabolism (Bordbar et al., Cell Syst, 2015; SBML-MASS; CVODE; MASSpy)",
     "simulator": "masspy",
     "filename": "mass/Bordbar-Cell-Syst-2015-RBC-metabolism.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "RBC-metabolism-Bordbar-Cell-Syst-2015"
   },
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; CellML; CVODE; OpenCOR)",
     "simulator": "opencor",
     "filename": "cellml/Elowitz-Nature-2000-Repressilator.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; PySCeS)",
     "simulator": "pysces",
     "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex",
     "disabled": "PySCeS' results aren't consistent with other tools",
-    "publishToBioSimulations": true
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; tellurium)",
     "simulator": "tellurium",
     "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; VCell)",
     "simulator": "vcell",
     "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODES; AMICI)",
     "simulator": "amici",
     "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; LSODA; GillesPy2)",
     "simulator": "gillespy2",
     "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex",
-    "publishToBioSimulations": true,
-    "disabled": "Cannot handle ln function"
+    "disabled": "Cannot handle ln function",
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; LSODA/LSODAR; COPASI)",
     "simulator": "copasi",
     "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Repressilator-Elowitz-Nature-2000"
   },
   {
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; substituted; LibSBMLSim)",
     "simulator": "libsbmlsim",
     "filename": "sbml-core/Elowitz-Nature-2000-Repressilator.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Toy gene regulatory network (Saglam, 2020; BNGL; CVODE; BioNetGen)",
     "simulator": "bionetgen",
     "filename": "bngl/test-bngl.omex",
+    "disabled": false,
     "publishToBioSimulations": false,
-    "disabled": false
+    "bioSimulationsId": ""
   },
   {
     "name": "Tumor-suppressive oscillations (Caravagna et al., J Theor Biol, 2010; SBML; CVODE; PySCeS)",
     "simulator": "pysces",
     "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Tumor-suppressive oscillations (Caravagna et al., J Theor Biol, 2010; SBML; CVODE; VCell)",
     "simulator": "vcell",
     "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex",
-    "publishToBioSimulations": true,
-    "disabled": false
+    "disabled": false,
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Tumor-suppressive oscillations (Caravagna et al., J Theor Biol, 2010; SBML; CVODE; tellurium)",
     "simulator": "tellurium",
     "filename": "sbml-core/Caravagna-J-Theor-Biol-2010-tumor-suppressive-oscillations.omex",
+    "disabled": false,
     "publishToBioSimulations": true,
-    "disabled": false
+    "bioSimulationsId": "Tumor-suppressive-oscillations-Caravagna-J-Theor-Biol-2010"
   }
 ]
