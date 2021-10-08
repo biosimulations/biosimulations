@@ -11,20 +11,24 @@
  */
 import { SedDocument } from './sedDocument';
 
+
 /**
  * Location of an item in a COMBINE/OMEX archive and its value.
  */
-export interface CombineArchiveSedDocSpecsLocation {
-  /**
-   * Path within a COMBINE/OMEX archive.
-   */
-  path: string;
-  value: SedDocument;
-  /**
-   * Type.
-   */
-  _type: CombineArchiveSedDocSpecsLocationType;
+export interface CombineArchiveSedDocSpecsLocation { 
+    /**
+     * Path within a COMBINE/OMEX archive.
+     */
+    path: string;
+    value: SedDocument;
+    /**
+     * Type.
+     */
+    _type: CombineArchiveSedDocSpecsLocationType;
 }
 export enum CombineArchiveSedDocSpecsLocationType {
-  CombineArchiveSedDocSpecsLocation = 'CombineArchiveSedDocSpecsLocation',
-}
+    CombineArchiveSedDocSpecsLocation = 'CombineArchiveSedDocSpecsLocation'
+};
+
+
+

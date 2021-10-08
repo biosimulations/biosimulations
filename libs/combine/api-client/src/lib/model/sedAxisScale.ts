@@ -10,7 +10,9 @@
  * Do not edit the class manually.
  */
 
+
 export enum SedAxisScale {
-  Log = 'log',
-  Linear = 'linear',
-}
+    Log = 'log',
+    Linear = 'linear'
+};
+

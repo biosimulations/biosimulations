@@ -2,21 +2,24 @@ import {
   BioSimulationsCombineArchiveElementMetadata,
   CombineArchiveManifest,
   CombineArchiveSedDocSpecs,
-  COMBINEService,
+  SimulationProjectsCOMBINEOMEXArchivesService,
 } from '@biosimulations/combine-api-client';
+import { OmexMetadataInputFormat } from '@biosimulations/datamodel/common';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class CombineWrapperService {
-  public constructor(private service: COMBINEService) {}
+  public constructor(private service: SimulationProjectsCOMBINEOMEXArchivesService) {}
 
   public getArchiveMetadata(
+    omexMetadataFormat: string,
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<BioSimulationsCombineArchiveElementMetadata[]>> {
     return this.service.srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+      omexMetadataFormat,
       file,
       url,
     );
@@ -41,7 +44,7 @@ export class CombineWrapperService {
 }
 
 export class MockCombineWrapperService {
-  public getArchiveMetadata(file?: Blob, url?: string) {
+  public getArchiveMetadata(omexMetadataFormat: OmexMetadataInputFormat, file?: Blob, url?: string) {
     return 'Metadata';
   }
 }

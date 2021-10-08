@@ -10,19 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * File to be resolved from a URL
  */
-export interface CombineArchiveContentUrl {
-  /**
-   * Type.
-   */
-  _type: CombineArchiveContentUrlType;
-  /**
-   * URL where file should resolved from
-   */
-  url: string;
+export interface CombineArchiveContentUrl { 
+    /**
+     * Type.
+     */
+    _type: CombineArchiveContentUrlType;
+    /**
+     * URL where file should resolved from
+     */
+    url: string;
 }
 export enum CombineArchiveContentUrlType {
-  CombineArchiveContentUrl = 'CombineArchiveContentUrl',
-}
+    CombineArchiveContentUrl = 'CombineArchiveContentUrl'
+};
+
+
+

@@ -10,23 +10,27 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * A value of an environment variable
  */
-export interface EnvironmentVariable {
-  /**
-   * Type
-   */
-  _type: EnvironmentVariableType;
-  /**
-   * Name of the environment variable
-   */
-  key: string;
-  /**
-   * Value of the environment variable
-   */
-  value: string;
+export interface EnvironmentVariable { 
+    /**
+     * Type
+     */
+    _type: EnvironmentVariableType;
+    /**
+     * Name of the environment variable
+     */
+    key: string;
+    /**
+     * Value of the environment variable
+     */
+    value: string;
 }
 export enum EnvironmentVariableType {
-  EnvironmentVariable = 'EnvironmentVariable',
-}
+    EnvironmentVariable = 'EnvironmentVariable'
+};
+
+
+

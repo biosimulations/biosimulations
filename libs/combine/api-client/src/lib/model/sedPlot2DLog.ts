@@ -12,20 +12,24 @@
 import { SedOutputElementLog } from './sedOutputElementLog';
 import { Exception } from './exception';
 
-export interface SedPlot2DLog {
-  id: string;
-  status: SedPlot2DLogStatus;
-  exception: Exception | null;
-  skipReason: Exception | null;
-  output: string | null;
-  duration: number | null;
-  curves: Array<SedOutputElementLog> | null;
+
+export interface SedPlot2DLog { 
+    id: string;
+    status: SedPlot2DLogStatus;
+    exception: Exception | null;
+    skipReason: Exception | null;
+    output: string | null;
+    duration: number | null;
+    curves: Array<SedOutputElementLog> | null;
 }
 export enum SedPlot2DLogStatus {
-  Queued = 'QUEUED',
-  Running = 'RUNNING',
-  Skipped = 'SKIPPED',
-  Succeeded = 'SUCCEEDED',
-  Failed = 'FAILED',
-  Unknown = 'UNKNOWN',
-}
+    Queued = 'QUEUED',
+    Running = 'RUNNING',
+    Skipped = 'SKIPPED',
+    Succeeded = 'SUCCEEDED',
+    Failed = 'FAILED',
+    Unknown = 'UNKNOWN'
+};
+
+
+

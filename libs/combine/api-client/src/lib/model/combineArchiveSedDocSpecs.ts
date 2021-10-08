@@ -11,19 +11,23 @@
  */
 import { CombineArchiveSedDocSpecsContent } from './combineArchiveSedDocSpecsContent';
 
+
 /**
  * The specifications of the SED-ML files in a COMBINE/OMEX archive.
  */
-export interface CombineArchiveSedDocSpecs {
-  /**
-   * The content of the archive
-   */
-  contents: Array<CombineArchiveSedDocSpecsContent>;
-  /**
-   * Type.
-   */
-  _type: CombineArchiveSedDocSpecsType;
+export interface CombineArchiveSedDocSpecs { 
+    /**
+     * The content of the archive
+     */
+    contents: Array<CombineArchiveSedDocSpecsContent>;
+    /**
+     * Type.
+     */
+    _type: CombineArchiveSedDocSpecsType;
 }
 export enum CombineArchiveSedDocSpecsType {
-  CombineArchiveSedDocSpecs = 'CombineArchiveSedDocSpecs',
-}
+    CombineArchiveSedDocSpecs = 'CombineArchiveSedDocSpecs'
+};
+
+
+

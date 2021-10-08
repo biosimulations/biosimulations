@@ -1,11 +1,15 @@
 .gitignore
+.openapi-generator-ignore
 README.md
 api.module.ts
 api/api.ts
-api/cOMBINE.service.ts
-api/kiSAO.service.ts
-api/run.service.ts
-api/sEDML.service.ts
+api/metadataOMEXMetadata.service.ts
+api/model.service.ts
+api/simulationAlgorithmsKiSAO.service.ts
+api/simulationExecution.service.ts
+api/simulationExperimentsSEDML.service.ts
+api/simulationProjectsCOMBINEOMEXArchives.service.ts
+api/validation.service.ts
 configuration.ts
 git_push.sh
 index.ts
@@ -34,6 +38,7 @@ model/error.ts
 model/exception.ts
 model/fileOrUrl.ts
 model/filenameOrUrl.ts
+model/getCombineArchiveMetadataFileOrUrl.ts
 model/kisaoAlgorithmSubstitution.ts
 model/kisaoAlgorithmSubstitutionPolicy.ts
 model/kisaoTerm.ts
@@ -82,6 +87,9 @@ model/simulationRunResults.ts
 model/simulator.ts
 model/simulatorApi.ts
 model/simulatorDetail.ts
+model/validateCombineArchiveFileOrUrl.ts
+model/validateModelFileOrUrl.ts
+model/validateOmexMetadataFileOrUrl.ts
 model/validationMessage.ts
 model/validationReport.ts
 variables.ts

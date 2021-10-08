@@ -11,24 +11,28 @@
  */
 import { SedAlgorithm } from './sedAlgorithm';
 
+
 /**
  * A SED steady state simulation.
  */
-export interface SedSteadyStateSimulation {
-  /**
-   * Unique identifier within its parent SED document.
-   */
-  id: string;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  /**
-   * Type of the simulation.
-   */
-  _type: SedSteadyStateSimulationType;
-  algorithm: SedAlgorithm;
+export interface SedSteadyStateSimulation { 
+    /**
+     * Unique identifier within its parent SED document.
+     */
+    id: string;
+    /**
+     * Brief description.
+     */
+    name?: string;
+    /**
+     * Type of the simulation.
+     */
+    _type: SedSteadyStateSimulationType;
+    algorithm: SedAlgorithm;
 }
 export enum SedSteadyStateSimulationType {
-  SedSteadyStateSimulation = 'SedSteadyStateSimulation',
-}
+    SedSteadyStateSimulation = 'SedSteadyStateSimulation'
+};
+
+
+

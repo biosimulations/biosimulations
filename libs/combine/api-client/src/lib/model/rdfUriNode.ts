@@ -10,19 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * URI RDF node.
  */
-export interface RdfUriNode {
-  /**
-   * Type
-   */
-  _type: RdfUriNodeType;
-  /**
-   * Uniform Resource Identifier (URI)
-   */
-  value: string;
+export interface RdfUriNode { 
+    /**
+     * Type
+     */
+    _type: RdfUriNodeType;
+    /**
+     * Uniform Resource Identifier (URI)
+     */
+    value: string;
 }
 export enum RdfUriNodeType {
-  RdfUriNode = 'RdfUriNode',
-}
+    RdfUriNode = 'RdfUriNode'
+};
+
+
+

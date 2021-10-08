@@ -11,36 +11,40 @@
  */
 import { SimulationRunOutputDatum } from './simulationRunOutputDatum';
 
+
 /**
  * Results of a SED-ML output (e.g, report, plot).
  */
-export interface SimulationRunOutput {
-  /**
-   * Type
-   */
-  _type?: SimulationRunOutputType;
-  /**
-   * Forward slash-separated tuple of the location of the parent SED-ML document and the id of the output (e.g, `simulation.sedml/report`).
-   */
-  outputId: string;
-  /**
-   * Name of the output.
-   */
-  name?: string;
-  /**
-   * Type of the output.
-   */
-  type: SimulationRunOutputType;
-  /**
-   * Results of the output.
-   */
-  data: Array<SimulationRunOutputDatum>;
+export interface SimulationRunOutput { 
+    /**
+     * Type
+     */
+    _type?: SimulationRunOutputType;
+    /**
+     * Forward slash-separated tuple of the location of the parent SED-ML document and the id of the output (e.g, `simulation.sedml/report`).
+     */
+    outputId: string;
+    /**
+     * Name of the output.
+     */
+    name?: string;
+    /**
+     * Type of the output.
+     */
+    type: SimulationRunOutputType;
+    /**
+     * Results of the output.
+     */
+    data: Array<SimulationRunOutputDatum>;
 }
 export enum SimulationRunOutputType {
-  SimulationRunOutput = 'SimulationRunOutput',
-}
+    SimulationRunOutput = 'SimulationRunOutput'
+};
 export enum SimulationRunOutputType {
-  SedReport = 'SedReport',
-  SedPlot2D = 'SedPlot2D',
-  SedPlot3d = 'SedPlot3d',
-}
+    SedReport = 'SedReport',
+    SedPlot2D = 'SedPlot2D',
+    SedPlot3d = 'SedPlot3d'
+};
+
+
+

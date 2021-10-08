@@ -10,23 +10,27 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Error or warning message about validity (e.g., of a COMBINE/OMEX archive).
  */
-export interface ValidationMessage {
-  /**
-   * Child messages with more detailed information.
-   */
-  details?: Array<ValidationMessage>;
-  /**
-   * Type.
-   */
-  _type: ValidationMessageType;
-  /**
-   * Information about validity or lack thereof.
-   */
-  summary: string;
+export interface ValidationMessage { 
+    /**
+     * Child messages with more detailed information.
+     */
+    details?: Array<ValidationMessage>;
+    /**
+     * Type.
+     */
+    _type: ValidationMessageType;
+    /**
+     * Information about validity or lack thereof.
+     */
+    summary: string;
 }
 export enum ValidationMessageType {
-  ValidationMessage = 'ValidationMessage',
-}
+    ValidationMessage = 'ValidationMessage'
+};
+
+
+

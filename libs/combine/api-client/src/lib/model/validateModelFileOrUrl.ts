@@ -9,32 +9,34 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedDataSet } from './sedDataSet';
 
 
 /**
- * A SED report.
+ * File or a URL for validating a model.
  */
-export interface SedReport { 
+export interface ValidateModelFileOrUrl { 
     /**
-     * Unique identifier within its parent SED document.
+     * The two files uploaded in creating a combine archive
      */
-    id: string;
+    file?: Blob;
     /**
-     * Type of the output.
+     * URL
      */
-    _type: SedReportType;
+    url?: string;
     /**
-     * Brief description.
+     * Language of the model
      */
-    name?: string;
-    /**
-     * List of the data sets of the report (rows of the report).
-     */
-    dataSets: Array<SedDataSet>;
+    language: ValidateModelFileOrUrlLanguage;
 }
-export enum SedReportType {
-    SedReport = 'SedReport'
+export enum ValidateModelFileOrUrlLanguage {
+    Bngl = 'BNGL',
+    CellMl = 'CellML',
+    Lems = 'LEMS',
+    NeuroMl = 'NeuroML',
+    Rba = 'RBA',
+    Sbml = 'SBML',
+    Smoldyn = 'Smoldyn',
+    Xpp = 'XPP'
 };
 
 

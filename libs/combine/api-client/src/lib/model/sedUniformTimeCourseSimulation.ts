@@ -11,40 +11,44 @@
  */
 import { SedAlgorithm } from './sedAlgorithm';
 
+
 /**
  * A SED uniform time course simulation.
  */
-export interface SedUniformTimeCourseSimulation {
-  /**
-   * Unique identifier within its parent SED document.
-   */
-  id: string;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  /**
-   * Type of the simulation.
-   */
-  _type: SedUniformTimeCourseSimulationType;
-  /**
-   * Initial time.
-   */
-  initialTime: number;
-  /**
-   * Output start time.
-   */
-  outputStartTime: number;
-  /**
-   * Output end time.
-   */
-  outputEndTime: number;
-  /**
-   * Number of steps.
-   */
-  numberOfSteps: number;
-  algorithm: SedAlgorithm;
+export interface SedUniformTimeCourseSimulation { 
+    /**
+     * Unique identifier within its parent SED document.
+     */
+    id: string;
+    /**
+     * Brief description.
+     */
+    name?: string;
+    /**
+     * Type of the simulation.
+     */
+    _type: SedUniformTimeCourseSimulationType;
+    /**
+     * Initial time.
+     */
+    initialTime: number;
+    /**
+     * Output start time.
+     */
+    outputStartTime: number;
+    /**
+     * Output end time.
+     */
+    outputEndTime: number;
+    /**
+     * Number of steps.
+     */
+    numberOfSteps: number;
+    algorithm: SedAlgorithm;
 }
 export enum SedUniformTimeCourseSimulationType {
-  SedUniformTimeCourseSimulation = 'SedUniformTimeCourseSimulation',
-}
+    SedUniformTimeCourseSimulation = 'SedUniformTimeCourseSimulation'
+};
+
+
+

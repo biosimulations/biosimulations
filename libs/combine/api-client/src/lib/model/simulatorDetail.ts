@@ -10,7 +10,9 @@
  * Do not edit the class manually.
  */
 
-export interface SimulatorDetail {
-  key: string;
-  value: object;
+
+export interface SimulatorDetail { 
+    key: string;
+    value: object;
 }
+

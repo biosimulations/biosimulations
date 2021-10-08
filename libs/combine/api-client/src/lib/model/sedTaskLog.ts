@@ -12,21 +12,25 @@
 import { SimulatorDetail } from './simulatorDetail';
 import { Exception } from './exception';
 
-export interface SedTaskLog {
-  id: string;
-  status: SedTaskLogStatus;
-  exception: Exception | null;
-  skipReason: Exception | null;
-  output: string | null;
-  duration: number | null;
-  algorithm: string | null;
-  simulatorDetails: Array<SimulatorDetail> | null;
+
+export interface SedTaskLog { 
+    id: string;
+    status: SedTaskLogStatus;
+    exception: Exception | null;
+    skipReason: Exception | null;
+    output: string | null;
+    duration: number | null;
+    algorithm: string | null;
+    simulatorDetails: Array<SimulatorDetail> | null;
 }
 export enum SedTaskLogStatus {
-  Queued = 'QUEUED',
-  Running = 'RUNNING',
-  Skipped = 'SKIPPED',
-  Succeeded = 'SUCCEEDED',
-  Failed = 'FAILED',
-  Unknown = 'UNKNOWN',
-}
+    Queued = 'QUEUED',
+    Running = 'RUNNING',
+    Skipped = 'SKIPPED',
+    Succeeded = 'SUCCEEDED',
+    Failed = 'FAILED',
+    Unknown = 'UNKNOWN'
+};
+
+
+

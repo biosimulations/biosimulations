@@ -11,28 +11,32 @@
  */
 import { SedDataGenerator } from './sedDataGenerator';
 
+
 /**
  * A SED data set
  */
-export interface SedDataSet {
-  /**
-   * Unique identifier within its parent SED document.
-   */
-  id: string;
-  /**
-   * Brief description
-   */
-  label: string;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  dataGenerator: SedDataGenerator;
-  /**
-   * Type.
-   */
-  _type: SedDataSetType;
+export interface SedDataSet { 
+    /**
+     * Unique identifier within its parent SED document.
+     */
+    id: string;
+    /**
+     * Brief description
+     */
+    label: string;
+    /**
+     * Brief description.
+     */
+    name?: string;
+    dataGenerator: SedDataGenerator;
+    /**
+     * Type.
+     */
+    _type: SedDataSetType;
 }
 export enum SedDataSetType {
-  SedDataSet = 'SedDataSet',
-}
+    SedDataSet = 'SedDataSet'
+};
+
+
+

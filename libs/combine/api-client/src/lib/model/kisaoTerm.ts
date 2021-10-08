@@ -10,23 +10,27 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Term in the KiSAO ontology.
  */
-export interface KisaoTerm {
-  /**
-   * Type
-   */
-  _type: KisaoTermType;
-  /**
-   * Id of the term
-   */
-  id: string;
-  /**
-   * Name of the term.
-   */
-  name: string;
+export interface KisaoTerm { 
+    /**
+     * Type
+     */
+    _type: KisaoTermType;
+    /**
+     * Id of the term
+     */
+    id: string;
+    /**
+     * Name of the term.
+     */
+    name: string;
 }
 export enum KisaoTermType {
-  KisaoTerm = 'KisaoTerm',
-}
+    KisaoTerm = 'KisaoTerm'
+};
+
+
+
