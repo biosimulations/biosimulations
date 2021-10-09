@@ -18,11 +18,11 @@ export const ProjectId = createParamDecorator(
     }
     if (!projectIdRegExp.test(id)) {
       throw new BadRequestException(
-        'Project id must only contain letters, numbers, "_" or "-"',
+        "Project id must only contain letters, numbers, '_', or '-'",
       );
     }
 
-    return id.toLowerCase();
+    return id;
   },
 );
 

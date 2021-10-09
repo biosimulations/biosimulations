@@ -12,8 +12,7 @@ export class ProjectModel extends Document {
   @Prop({
     required: true,
     type: String,
-    unique: true,
-    index: true,
+    //add case insensitive index below
     immutable: true,
     validate: [
       {
@@ -50,3 +49,13 @@ ProjectModelSchema.set('timestamps', {
   createdAt: 'created',
   updatedAt: 'updated',
 });
+
+export const ProjectIdCollation = {
+  locale: 'en',
+  strength: 1,
+  numericOrdering: true,
+};
+ProjectModelSchema.index(
+  { id: 1 },
+  { collation: ProjectIdCollation, unique: true },
+);
