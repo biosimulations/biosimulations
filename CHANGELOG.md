@@ -1,3 +1,18 @@
+# [5.5.0](https://github.com/biosimulations/biosimulations/compare/v5.4.0...v5.5.0) (2021-10-09)
+
+
+### Bug Fixes
+
+* **simulators-api:** add biosimulations.org to cors ([c2eea89](https://github.com/biosimulations/biosimulations/commit/c2eea89c81f266a00235bd1338102bbee7274dae))
+
+
+### Features
+
+* **api:** add case-insenstive unique index for project ids ([5f96f91](https://github.com/biosimulations/biosimulations/commit/5f96f91d83ae8835a313d6273eafab5e544f4e77)), closes [#3160](https://github.com/biosimulations/biosimulations/issues/3160)
+* **api:** add controller level validation for project ids ([cdba9ce](https://github.com/biosimulations/biosimulations/commit/cdba9ce007fa92515f64147527824ca3df225808))
+* **dispatch:** added check that simulation run was successful ([b4ade32](https://github.com/biosimulations/biosimulations/commit/b4ade32f2c3443d182f92ced5d12bf80341a260a))
+* **platform:** added validation for project ids; closes [#3183](https://github.com/biosimulations/biosimulations/issues/3183) ([01b6178](https://github.com/biosimulations/biosimulations/commit/01b61788565e3c42c1b11acf1e2f02b349321cfc))
+
 # [5.4.0](https://github.com/biosimulations/biosimulations/compare/v5.3.0...v5.4.0) (2021-10-08)
 
 
