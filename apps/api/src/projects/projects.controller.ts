@@ -6,11 +6,10 @@ import {
   Delete,
   Get,
   NotFoundException,
-  Param,
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiNoContentResponse, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiNoContentResponse, ApiTags } from '@nestjs/swagger';
 import { ProjectId, ProjectIdParam } from './id.decorator';
 import { ProjectModel } from './project.model';
 import { ProjectsService } from './projects.service';
