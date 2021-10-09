@@ -3,7 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
-import { ProjectModel } from './project.model';
+import { ProjectIdCollation, ProjectModel } from './project.model';
 
 @Injectable()
 export class ProjectsService {
@@ -20,7 +20,8 @@ export class ProjectsService {
 
   public async getProject(id: string): Promise<ProjectModel | null> {
     this.logger.log(`Fetching project ${id}`);
-    const proj = await this.model.findOne({ id });
+
+    const proj = await this.model.findOne({ id }).collation(ProjectIdCollation);
     return proj;
   }
 
@@ -33,7 +34,9 @@ export class ProjectsService {
     projectId: string,
     project: ProjectInput,
   ): Promise<ProjectModel | null> {
-    const res = await this.model.findOne({ id: projectId });
+    const res = await this.model
+      .findOne({ id: projectId })
+      .collation(ProjectIdCollation);
 
     if (res) {
       res.set(project);
@@ -52,7 +55,9 @@ export class ProjectsService {
   }
 
   public async deleteProject(projectId: string): Promise<void> {
-    const res = await this.model.deleteOne({ id: projectId });
+    const res = await this.model
+      .deleteOne({ id: projectId })
+      .collation(ProjectIdCollation);
     if (res.ok) {
       return;
     }
