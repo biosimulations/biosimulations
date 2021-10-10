@@ -24,4 +24,6 @@ jobs:
         run: python -m pip install -r ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded.requirements.txt
 
       - name: Check example simulation runs succeeded
-        run: python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded
+        run: |
+          python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api org
+          python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api dev

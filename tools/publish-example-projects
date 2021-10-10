@@ -16,8 +16,13 @@ EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
 
 BIOSIMULATIONS_API_AUTH_ENDPOINT = 'https://auth.biosimulations.org/oauth/token'
 BIOSIMULATIONS_API_AUDIENCE = 'dispatch.biosimulations.org'
-BIOSIMULATIONS_API_CLIENT_ID = os.getenv('CLIENT_ID')
-BIOSIMULATIONS_API_CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+BIOSIMULATIONS_API_CLIENT_ID = os.environ.get('CLIENT_ID', None)
+BIOSIMULATIONS_API_CLIENT_SECRET = os.environ.get('CLIENT_SECRET', None)
+
+if not BIOSIMULATIONS_API_CLIENT_ID:
+    raise ValueError('A BioSimulations API client id (`CLIENT_ID`) must be provided')
+if not BIOSIMULATIONS_API_CLIENT_SECRET:
+    raise ValueError('A BioSimulations API client secret (`CLIENT_SECRET`) must be provided')
 
 
 def get_status_endpoint(biosimulations_api):
