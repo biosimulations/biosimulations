@@ -336,7 +336,7 @@
     "projectSize": 280129
   },
   {
-    "id": "615b56213b2a0d8fa466501e",
+    "id": "6162535e9ee7ba5f7b8e56f0",
     "name": "Nicotinic excitatory post-synaptic potential (Edelstein et al., Biological Cybernetics, 1996; SBML; LSODA; PySCeS)",
     "simulator": "pysces",
     "simulatorVersion": "1.0.0",
@@ -347,9 +347,9 @@
     "purpose": "academic",
     "submittedLocally": false,
     "status": "CREATED",
-    "submitted": "2021-10-04T19:29:37.653Z",
-    "updated": "2021-10-04T19:29:37.653Z",
-    "projectSize": 280129
+    "submitted": "2021-10-10T02:43:43.203Z",
+    "updated": "2021-10-10T02:43:43.203Z",
+    "projectSize": 280132
   },
   {
     "id": "615b56222f1addfacafd6d23",
