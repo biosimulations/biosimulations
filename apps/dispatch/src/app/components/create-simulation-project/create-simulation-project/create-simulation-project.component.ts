@@ -1220,7 +1220,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const simulatorsDataObs = this.dispatchService.getSimulatorsFromDb();
+    const simulatorsDataObs = this.dispatchService.getSimulatorsFromDb(false);
     const algorithmSubObs = simulatorsDataObs.pipe(
       map(
         (

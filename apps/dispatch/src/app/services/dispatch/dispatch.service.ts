@@ -163,7 +163,7 @@ export class DispatchService {
     >;
   }
 
-  public getSimulatorsFromDb(): Observable<SimulatorsData> {
+  public getSimulatorsFromDb(includeTests=true): Observable<SimulatorsData> {
     const endpoint = `${urls.simulatorsApi}simulators`;
     const promises: {
       simulatorSpecs: ObservableInput<Simulator[]>;
@@ -171,7 +171,8 @@ export class DispatchService {
       kisaoTerms: ObservableInput<{ [id: string]: KisaoTerm }>;
       sboTerms: ObservableInput<{ [id: string]: SboTerm }>;
     } = {
-      simulatorSpecs: this.http.get<Simulator[]>(endpoint),
+      
+      simulatorSpecs: this.http.get<Simulator[]>(endpoint+`?includeTests=${includeTests}`),
       edamTerms: this.ontologyService.getTerms(Ontologies.EDAM),
       kisaoTerms: this.ontologyService.getTerms(Ontologies.KISAO),
       sboTerms: this.ontologyService.getTerms(Ontologies.SBO),
