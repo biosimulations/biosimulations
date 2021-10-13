@@ -33,7 +33,14 @@ markdown_extensions:
   - pymdownx.superfences
   - attr_list
   
-
+nav:
+  - Overview: 
+    - Home: README.md
+    - About: about.md
+    - Privacy Policy: PRIVACY_POLICY.md
+    - Terms of Service: TERMS_OF_SERVICE.md
+    - License: License.md
+    - Dependencies: Dependencies.md
 plugins:
   - git-revision-date
   - same-dir
