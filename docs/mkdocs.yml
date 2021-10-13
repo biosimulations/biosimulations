@@ -41,6 +41,7 @@ nav:
     - Terms of Service: TERMS_OF_SERVICE.md
     - License: License.md
     - Dependencies: Dependencies.md
+  ...
 plugins:
   - git-revision-date
   - same-dir
