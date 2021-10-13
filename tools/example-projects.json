@@ -3,16 +3,16 @@
     "simulator": "boolnet",
     "filename": "sbml-qual/Irons-J-Theor-Biol-2009-yeast-cell-cycle.omex",
     "disabled": false,
-    "publishToBioSimulations": false,
-    "bioSimulationsId": ""
+    "publishToBioSimulations": true,
+    "bioSimulationsId": "Yeast-cell-cycle-Irons-J-Theor-Biol-2009"
   },
   {
     "name": "Budding yeast cell cycle (Irons, J Theor Biol, 2009; SBML-qual; GINsim; synchronous)",
     "simulator": "ginsim",
     "filename": "sbml-qual/Irons-J-Theor-Biol-2009-yeast-cell-cycle.omex",
     "disabled": false,
-    "publishToBioSimulations": true,
-    "bioSimulationsId": "Yeast-cell-cycle-Irons-J-Theor-Biol-2009"
+    "publishToBioSimulations": false,
+    "bioSimulationsId": ""
   },
   {
     "name": "Circadian clock (Vilar et al., PNAS, 2002; SBML; NRM; VCell)",
