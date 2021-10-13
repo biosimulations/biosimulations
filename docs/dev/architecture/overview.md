@@ -5,7 +5,18 @@ The BioSimulations/BioSimulators platform (BioSimulations) is a distributed comp
 The components of the BioSimulations platform can be roughly organized as follows:
 
 - Front-end applications
+    - runBiosimulations
+    - BioSimulations
+    - BioSimulators 
 - Public APIs
+    - BioSimulations API
+    - BioSimulators API
 - Back-end services
+    - Dispatch Service
+    - COMBINE API  
 - Data storage
+    - Mongo Database
+    - S3 Buckets 
 - Computing infrastructure
+    - GKE Kubernetes Cluster
+    - Uconn HPC 
