@@ -1,6 +1,6 @@
 nav:
   - Overview: 
-      -Home: README.md
+      - Home: README.md
       - About: about.md
       - Privacy Policy: PRIVACY_POLICY.md
       - Terms of Service: TERMS_OF_SERVICE.md
