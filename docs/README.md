@@ -45,7 +45,11 @@ Various people have contributed to this package, including:
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-
+<table>
+  <tr>
+    <td align="center"><a href="https://hpc.uchc.edu"><img src="https://avatars.githubusercontent.com/u/400595?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mike Wilson</b></sub></a><br /><a href="#infra-mpw6" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+  </tr>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
