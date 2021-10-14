@@ -51,6 +51,7 @@ Various people have contributed to this package, including:
     <td align="center"><a href="https://www.karrlab.org"><img src="https://avatars.githubusercontent.com/u/2848297?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Karr</b></sub></a><br /><a href="https://github.com/biosimulations/biosimulations/commits?author=jonrkarr" title="Code">💻</a> <a href="https://github.com/biosimulations/biosimulations/commits?author=jonrkarr" title="Documentation">📖</a></td>
     <td align="center"><a href="https://hpc.uchc.edu"><img src="https://avatars.githubusercontent.com/u/400595?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mike Wilson</b></sub></a><br /><a href="#infra-mpw6" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
     <td align="center"><a href="http://gmarupilla.com"><img src="https://avatars.githubusercontent.com/u/53095348?v=4?s=100" width="100px;" alt=""/><br /><sub><b>GMarupilla</b></sub></a><br /><a href="https://github.com/biosimulations/biosimulations/commits?author=gmarupilla" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/moraru"><img src="https://avatars.githubusercontent.com/u/7397814?v=4?s=100" width="100px;" alt=""/><br /><sub><b>moraru</b></sub></a><br /><a href="#infra-moraru" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
   </tr>
 </table>
 
