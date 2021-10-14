@@ -1,0 +1,8 @@
+title: Community
+nav:
+  - Privacy Policy: privacy.md
+  - Terms of Service: terms.md
+  - Governance: governance.md
+  - License: license.md
+  - Dependencies: dependencies.md
+  - ...

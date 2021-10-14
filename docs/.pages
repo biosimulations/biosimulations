@@ -1,4 +1,9 @@
+title: Overview
+
 nav:
+  - What's New?: CHANGELOG.md
+  #- about
   - users
+  - developers
+  - community
   #- concepts
-  - dev

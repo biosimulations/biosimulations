@@ -30,22 +30,29 @@ Please use the hosted versions of BioSimulations, runBioSimulations, and BioSimu
 
 ### Developers
 
-We welcome contributions to BioSimulations, runBioSimulations, and BioSimulations! Please see the [Guide to Contributing](./CONTRIBUTING.md) for information about how to get started including how to install this package and how to run BioSimulations, runBioSimulations, and BioSimulators locally.
+We welcome contributions to BioSimulations, runBioSimulations, and BioSimulations! Please see the [developers guide](https://docs.biosimulations.org/developers) for information about how to get started including how to install this package and how to run BioSimulations, runBioSimulations, and BioSimulators locally.
 
 ## License
 
-This package is released under the [MIT license](./License.md). This package uses a number of open-source third-party packages. Their licenses are summarized in [Dependencies](./Dependencies).
+This package is released under the [MIT license](./License.md). This package uses a number of open-source third-party packages. Their licenses are summarized in [Dependencies](./about/Dependencies).
 
-## Development team
+## Contributors ✨
 
 This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York and the [Center for Cell Analysis and Modeling](https://health.uconn.edu/cell-analysis-modeling/) at UConn Health as part of the [Center for Reproducible Biomodeling Modeling](https://reproduciblebiomodels.org).
 
-- [Bilal Shaikh](https://bshaikh.com)
-- [Jonathan Karr](https://www.karrlab.org)
-- Akhil Marupilla
-- [Mike Wilson](https://www.linkedin.com/in/mike-wilson-08b3324/)
-- [Ion Moraru](https://facultydirectory.uchc.edu/profile?profileId=Moraru-Ion)
+Various people have contributed to this package, including:     
 
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+A key for the contributions can be found here: ([emoji key](https://allcontributors.org/docs/en/emoji-key)).
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 ## Funding
 
 This package was developed with support from the National Institute for Bioimaging and Bioengineering (award P41EB023912).

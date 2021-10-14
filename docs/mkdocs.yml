@@ -8,12 +8,12 @@ theme:
   logo: assets/images/safari-pinned-tab.svg
   favicon: assets/icons/favicon.ico
   palette:
-    - media: "(prefers-color-scheme: light)"
+    - media: '(prefers-color-scheme: light)'
       scheme: default
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
-    - media: "(prefers-color-scheme: biosimulations-dark)"
+    - media: '(prefers-color-scheme: biosimulations-dark)'
       scheme: slate
       toggle:
         icon: material/weather-night
@@ -21,6 +21,7 @@ theme:
   icon:
     repo: fontawesome/brands/github
   features:
+    - navigation.indexes
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.instant
@@ -32,25 +33,16 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
   - attr_list
-  
-nav:
-  - Overview: 
-    - Home: README.md
-    - About: about.md
-    - Privacy Policy: PRIVACY_POLICY.md
-    - Terms of Service: TERMS_OF_SERVICE.md
-    - License: License.md
-    - Dependencies: Dependencies.md
-  - ...
+
 plugins:
-  - git-revision-date
-  - same-dir
   - search
-  - awesome-pages
-  - mkdocstrings
   - redirects:
       redirect_maps:
         'repositories/bigg.md': 'https://biosimulations.github.io/biosimulations-bigg'
+        'privacy.md': 'about/privacy.md'
+  - git-revision-date
+  - same-dir
+  - awesome-pages
 
 extra_css:
   - stylesheets/theme.css
@@ -63,6 +55,5 @@ extra:
       name: BioSimulations on Twitter
     - icon: fontawesome/brands/github
       link: https://github.com/BioSimulations/Biosimulations
-      name: BioSimulations on Github      
+      name: BioSimulations on Github
 copyright: Copyright &copy; 2019 - 2021 BioSimulations Team
-

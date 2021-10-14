@@ -1,6 +1,6 @@
 # Project governance
 
-The project is governed by a committee of maintainers who collectively decide the direction of the project with input from the community. A list of the current maintainers is available in the [README](README.md).
+The project is governed by a committee of maintainers who collectively decide the direction of the project with input from the community. A list of the current maintainers is available in the [README](/README.md).
 
 ## Maintainer responsibilities
 
