@@ -53,6 +53,7 @@ Various people have contributed to this package, including:
     <td align="center"><a href="http://gmarupilla.com"><img src="https://avatars.githubusercontent.com/u/53095348?v=4?s=100" width="100px;" alt=""/><br /><sub><b>GMarupilla</b></sub></a><br /><a href="https://github.com/biosimulations/biosimulations/commits?author=gmarupilla" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/moraru"><img src="https://avatars.githubusercontent.com/u/7397814?v=4?s=100" width="100px;" alt=""/><br /><sub><b>moraru</b></sub></a><br /><a href="#infra-moraru" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
     <td align="center"><a href="https://github.com/DeepaMahm"><img src="https://avatars.githubusercontent.com/u/29662579?v=4?s=100" width="100px;" alt=""/><br /><sub><b>DeepaMahm</b></sub></a><br /><a href="https://github.com/biosimulations/biosimulations/issues?q=author%3ADeepaMahm" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/vcellmike"><img src="https://avatars.githubusercontent.com/u/29076280?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michael Blinov</b></sub></a><br /><a href="#ideas-vcellmike" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
