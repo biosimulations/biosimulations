@@ -4,7 +4,17 @@
   ],
   "imageSize": 100,
   "commit": false,
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "mpw6",
+      "name": "Mike Wilson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/400595?v=4",
+      "profile": "https://hpc.uchc.edu",
+      "contributions": [
+        "infra"
+      ]
+    }
+  ],
   "contributorsPerLine": 7,
   "projectName": "biosimulations",
   "projectOwner": "biosimulations",
