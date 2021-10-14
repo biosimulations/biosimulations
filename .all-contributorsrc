@@ -4,7 +4,17 @@
   ],
   "imageSize": 100,
   "commit": false,
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "gmarupilla",
+      "name": "GMarupilla",
+      "avatar_url": "https://avatars.githubusercontent.com/u/53095348?v=4",
+      "profile": "http://gmarupilla.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
   "contributorsPerLine": 7,
   "projectName": "biosimulations",
   "projectOwner": "biosimulations",
