@@ -4,7 +4,19 @@
   ],
   "imageSize": 100,
   "commit": false,
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "bilalshaikh42",
+      "name": "Bilal Shaikh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32490144?v=4",
+      "profile": "http://bshaikh.com",
+      "contributions": [
+        "code",
+        "doc",
+        "infra"
+      ]
+    }
+  ],
   "contributorsPerLine": 7,
   "projectName": "biosimulations",
   "projectOwner": "biosimulations",
