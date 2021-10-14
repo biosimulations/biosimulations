@@ -15,6 +15,16 @@
         "doc",
         "infra"
       ]
+    },
+    {
+      "login": "jonrkarr",
+      "name": "Jonathan Karr",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2848297?v=4",
+      "profile": "https://www.karrlab.org",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
