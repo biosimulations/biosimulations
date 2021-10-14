@@ -21,3 +21,5 @@ ignore$
 # Ignore all GitHub workflow files
 ^\.github/workflows/
 ^docs/Dependencies.md$
+# ignore the changelog
+^docs/CHANGELOG.md$
