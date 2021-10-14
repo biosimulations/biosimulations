@@ -43,6 +43,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "moraru",
+      "name": "moraru",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7397814?v=4",
+      "profile": "https://github.com/moraru",
+      "contributions": [
+        "infra"
+      ]
     }
   ],
   "contributorsPerLine": 7,
