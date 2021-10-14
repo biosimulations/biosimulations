@@ -53,6 +53,15 @@
       "contributions": [
         "infra"
       ]
+    },
+    {
+      "login": "DeepaMahm",
+      "name": "DeepaMahm",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29662579?v=4",
+      "profile": "https://github.com/DeepaMahm",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
