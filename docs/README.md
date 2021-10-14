@@ -26,7 +26,9 @@ This package provides the code for the BioSimulations, runBioSimulations, and Bi
 
 ### Users
 
-Please use the hosted versions of BioSimulations, runBioSimulations, and BioSimulators at https://biosimulations.org, https://run.biosimulations.org, and https://biosimulators.org.
+Please use the hosted versions of BioSimulations, runBioSimulations, and BioSimulators at [https://biosimulations.org](https://biosimulations.org), [https://run.biosimulations.org](https://run.biosimulations.org), and [https://biosimulators.org](https://biosimulators.org).
+
+Tutorials, help and information can be found at [https://docs.biosimulations.org](https://docs.biosimulations.org)
 
 ### Developers
 
