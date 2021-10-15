@@ -10,7 +10,9 @@ import { INestApplication } from '@nestjs/common';
 export async function setupOpenApi(app: INestApplication): Promise<void> {
   const favIcon =
     'https://github.com/biosimulations/Biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png';
-  const removeIcon = ' .swagger-ui .topbar { display: none }';
+
+  const cssUrl =
+    'https://static.biosimulations.org/stylesheets/biosimulations_swagger.css';
   // Swagger doc
   const tags = [
     {
@@ -146,7 +148,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
   SwaggerModule.setup('', app, document, {
     customfavIcon: favIcon,
     customSiteTitle: 'BioSimulations API',
-    customCss: removeIcon,
+    customCssUrl: cssUrl,
     swaggerOptions: {
       oauth: {
         clientId: clientId,
