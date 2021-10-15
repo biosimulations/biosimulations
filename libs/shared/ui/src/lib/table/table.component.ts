@@ -869,12 +869,15 @@ export class TableComponent implements OnInit, AfterViewInit {
   setDataSourceFilter(): void {
     // conduct full text search
     this.fullTextMatches = {};
-    if (this.searchQuery) {
-      this.fullTextIndex
-        .search(this.searchQuery)
-        .forEach((match: any): void => {
-          this.fullTextMatches[parseInt(match.ref)] = true;
-        });
+    if (this.searchQuery && this.fullTextIndex) {
+      try {
+        this.fullTextIndex
+          .search(this.searchQuery)
+          .forEach((match: any): void => {
+            this.fullTextMatches[parseInt(match.ref)] = true;
+          });
+      } finally { // eslint-disable-next-line no-empty
+      }
     }
 
     // trigger table to filter data via calling the filterData method for each entry

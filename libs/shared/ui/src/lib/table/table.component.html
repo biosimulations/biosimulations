@@ -32,14 +32,16 @@
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
           <mat-list>
-            <mat-list-item *ngFor="let column of columns">
-              <mat-checkbox
-                [checked]="showColumns[column.id]"
-                (change)="toggleColumn(column)"
-              >
-                {{ column.heading }}
-              </mat-checkbox>
-            </mat-list-item>
+            <ng-container *ngFor="let column of columns">
+              <mat-list-item *ngIf="column?.hidden !== true">
+                <mat-checkbox
+                  [checked]="showColumns[column.id]"
+                  (change)="toggleColumn(column)"
+                >
+                  {{ column.heading }}
+                </mat-checkbox>
+              </mat-list-item>
+            </ng-container>
           </mat-list>
         </ng-template>
       </mat-expansion-panel>

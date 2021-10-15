@@ -56,6 +56,7 @@ export interface Column {
   filterSortDirection?: ColumnSortDirection;
   showFilterItemToolTips?: boolean;
   numericFilterStep?: number;
+  hidden?: boolean;
   show?: boolean;
   showStacked?: boolean;
   centerShowStacked?: boolean;

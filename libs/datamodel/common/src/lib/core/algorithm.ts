@@ -8,6 +8,8 @@ import {
   ISioOntologyId,
 } from '../common';
 
+import { DependentPackage } from './dependent-package';
+
 export enum ModelChangeType {
   SedAttributeModelChange = 'SedAttributeModelChange',
   SedAddXmlModelChange = 'SedAddXmlModelChange',
@@ -98,6 +100,7 @@ export interface IAlgorithm {
   simulationTypes: SimulationType[];
   archiveFormats: IEdamOntologyId[];
   availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
+  dependencies: DependentPackage[] | null;
   citations: Citation[];
 }
 

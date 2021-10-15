@@ -26,4 +26,10 @@ export interface TableSimulator {
   license: string | null;
   licenseId: string | null;
   updated: Date;
+  algorithmParameters: string;
+  dependencies: string;
+  authors: string;
+  citations: string;
+  identifiers: string;
+  funding: string;
 }
