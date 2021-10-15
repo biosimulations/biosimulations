@@ -89,8 +89,8 @@
               >.
             </p>
 
-            <p>
-              Note, this form only validates the content directly in SED-ML
+            <p class="alert">
+              This form only validates the content directly in SED-ML
               files. This form cannot validate the sources of models used by
               SED-ML file or targets to those models for model changes and
               observables of simulation results. More comprehensive validation,
@@ -127,7 +127,7 @@
       </div>
     </div>
 
-    <div class="button-container">
+    <div class="form-button-container">
       <button mat-flat-button type="submit" class="biosimulations-button text">
         Validate
       </button>
@@ -137,10 +137,10 @@
       <div class="valid" *ngIf="status === 'valid'">
         Your simulation experiments is likely valid!
       </div>
-      <div class="errors" *ngIf="status === 'invalid'">
+      <div class="error" *ngIf="status === 'invalid'">
         Your simulation is invalid.
       </div>
-      <div class="warnings" *ngIf="status === 'warnings'">
+      <div class="warning" *ngIf="status === 'warnings'">
         Your simulation may be invalid.
       </div>
     </div>
@@ -149,12 +149,12 @@
       class="validation-report"
       *ngIf="status === 'invalid' || status === 'warnings'"
     >
-      <div class="validation-report-section errors" *ngIf="errors">
+      <div class="validation-report-section error" *ngIf="errors">
         Errors:
         <ul [innerHTML]="errors"></ul>
       </div>
 
-      <div class="validation-report-section warnings" *ngIf="warnings">
+      <div class="validation-report-section warning" *ngIf="warnings">
         Warnings:
         <ul [innerHTML]="warnings"></ul>
       </div>

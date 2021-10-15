@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import 'biosimulations-colors';
 @import 'biosimulations-typography';
 
@@ -573,7 +574,7 @@ biosimulations-root {
         background: $light-bg-darker-20;
       }
 
-      &.error {
+      &.error-border {
         border-bottom-color: $theme-warn-main;
       }
     }
@@ -611,6 +612,10 @@ biosimulations-root {
       padding: 0.15rem;
     }
   }
+}
+
+.form-button-container {
+  text-align: right;
 }
 
 .cdk-overlay-container {
@@ -1241,4 +1246,23 @@ sub {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* alerts, errors */
+.valid {
+  color: mat.get-color-from-palette($theme-primary);
+}
+
+.error {
+  color: mat.get-color-from-palette($theme-warn);
+}
+
+.warning {
+  color: mat.get-color-from-palette($theme-accent);
+}
+
+.alert {
+  background: $theme-accent-lightest; 
+  padding: 0.25rem;
+  border-radius: 4px;
 }
