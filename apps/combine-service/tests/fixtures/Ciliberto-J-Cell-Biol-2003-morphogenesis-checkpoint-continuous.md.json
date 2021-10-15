@@ -1,6 +1,7 @@
 [{
     "_type": "BioSimulationsCombineArchiveElementMetadata",
     "uri": ".",
+    "combineArchiveUri": "http://omex-library.org/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex",
     "title": "Morphogenesis checkpoint in budding yeast (continuous) (Ciliberto et al., Journal Cell Biology, 2003)",
     "abstract": "Continuous kinetic model of the molecular network that controls Swe1 and the regulation of cyclin-dependent kinase.",
     "keywords": ["cell cycle", "cell division", "cyclin-dependent kinase", "morphogenesis", "signal transduction"],
@@ -23,7 +24,7 @@
         "uri": "https://identifiers.org/doi:10.1091/mbc.11.1.369"
     }],
     "successors": [],
-    "see_also": [],
+    "seeAlso": [],
     "other": [],
     "creators": [{
         "_type": "BioSimulationsMetadataValue",
@@ -85,11 +86,12 @@
     "modified": [],
     "other": [],
     "predecessors": [],
-    "see_also": [],
+    "seeAlso": [],
     "sources": [],
     "successors": [],
     "taxa": [],
     "thumbnails": [],
     "title": null,
-    "uri": "./simulation_1.sedml"
+    "uri": "./simulation_1.sedml",
+    "combineArchiveUri": "http://omex-library.org/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
 }]

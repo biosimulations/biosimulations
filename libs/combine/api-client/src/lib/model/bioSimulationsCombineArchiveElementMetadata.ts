@@ -101,6 +101,10 @@ export interface BioSimulationsCombineArchiveElementMetadata {
    * Uniform Resource Identifier (URI)
    */
   uri: string;
+  /**
+   * URI of the parent COMBINE/OMEX archive of the content element for the metadata.
+   */
+  combineArchiveUri?: string;
 }
 export enum BioSimulationsCombineArchiveElementMetadataType {
   BioSimulationsCombineArchiveElementMetadata = 'BioSimulationsCombineArchiveElementMetadata',

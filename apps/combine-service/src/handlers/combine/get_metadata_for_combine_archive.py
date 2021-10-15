@@ -50,6 +50,9 @@ def handler_biosimulations(body, file=None):
             if other.get('value', None):
                 other['value']['_type'] = 'BioSimulationsMetadataValue'
 
+        el_metadata['combineArchiveUri'] = el_metadata.pop('combine_archive_uri')
+        el_metadata['seeAlso'] = el_metadata.pop('see_also')
+
     return el_metadatas
 
 
