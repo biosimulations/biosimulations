@@ -44,7 +44,9 @@ export class SimulatorTableService {
             );
             const archiveFormats = this.getFormats(simulator, 'archiveFormats');
             const license = this.getLicense(simulator);
-            const algorithmParameters = this.getAlgorithmParameters(simulator.algorithms);
+            const algorithmParameters = this.getAlgorithmParameters(
+              simulator.algorithms,
+            );
             const funding = this.getFunding(simulator.funding);
 
             // These are all observables of string[] that need to be collapsed
@@ -172,8 +174,12 @@ export class SimulatorTableService {
                       algorithmParameters: value.algorithmParameters,
                       dependencies: this.getDependencies(simulator.algorithms),
                       authors: this.getAuthors(simulator.authors),
-                      citations: this.getCitations(simulator.references.citations),
-                      identifiers: this.getIdentifiers(simulator.references.identifiers),
+                      citations: this.getCitations(
+                        simulator.references.citations,
+                      ),
+                      identifiers: this.getIdentifiers(
+                        simulator.references.identifiers,
+                      ),
                       funding: value.funding,
                     };
                   }),
@@ -298,19 +304,21 @@ export class SimulatorTableService {
     algorithms.forEach((algorithm: IAlgorithm): void => {
       algorithm?.parameters?.forEach((parameter: AlgorithmParameter): void => {
         kisaoIds.add(parameter.kisaoId.id);
-      })
+      });
     });
 
     const kisaoNames: Observable<string>[] = [];
     for (const kisaoId of kisaoIds) {
-      kisaoNames.push(this.ontologyService.getKisaoTerm(kisaoId).pipe(pluck('name')));
+      kisaoNames.push(
+        this.ontologyService.getKisaoTerm(kisaoId).pipe(pluck('name')),
+      );
     }
     const obs = from(kisaoNames).pipe(
       mergeAll(),
       toArray(),
       map((kisaoNames: string[]): string => {
         return kisaoNames.join(' ') + ' ' + Array.from(kisaoIds).join(' ');
-      })
+      }),
     );
     return obs;
   }
@@ -320,7 +328,7 @@ export class SimulatorTableService {
     algorithms.forEach((algorithm: IAlgorithm): void => {
       algorithm?.dependencies?.forEach((dependency: DependentPackage): void => {
         text.push(dependency.name);
-      })
+      });
     });
     return text.join(' ');
   }
@@ -329,13 +337,13 @@ export class SimulatorTableService {
     const text: string[] = [];
     authors.forEach((author: Person): void => {
       if (author?.firstName) {
-        text.push(author?.firstName)
+        text.push(author?.firstName);
       }
       if (author?.middleName) {
-        text.push(author?.middleName)
+        text.push(author?.middleName);
       }
       if (author?.lastName) {
-        text.push(author?.lastName)
+        text.push(author?.lastName);
       }
       author.identifiers.forEach((identifier: Identifier): void => {
         text.push(identifier.namespace);
@@ -399,14 +407,24 @@ export class SimulatorTableService {
 
     const funderNames: Observable<string>[] = [];
     for (const funderId of funderIds) {
-      funderNames.push(this.ontologyService.getFunderRegistryTerm(funderId).pipe(pluck('name')));
+      funderNames.push(
+        this.ontologyService
+          .getFunderRegistryTerm(funderId)
+          .pipe(pluck('name')),
+      );
     }
     const obs = from(funderNames).pipe(
       mergeAll(),
       toArray(),
       map((funderNames: string[]): string => {
-        return funderNames.join(' ') + ' ' + Array.from(funderIds).join(' ') + ' ' + grants.join(' ');
-      })
+        return (
+          funderNames.join(' ') +
+          ' ' +
+          Array.from(funderIds).join(' ') +
+          ' ' +
+          grants.join(' ')
+        );
+      }),
     );
     return obs;
   }

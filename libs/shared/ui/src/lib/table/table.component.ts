@@ -876,7 +876,8 @@ export class TableComponent implements OnInit, AfterViewInit {
           .forEach((match: any): void => {
             this.fullTextMatches[parseInt(match.ref)] = true;
           });
-      } finally { // eslint-disable-next-line no-empty
+      } finally {
+        // eslint-disable-next-line no-empty
       }
     }
 
