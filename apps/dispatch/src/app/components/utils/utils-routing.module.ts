@@ -16,11 +16,6 @@ const routes: Routes = [
       breadcrumb: 'Convert a file',
       contextButtons: [
         {
-          route: ['/utils', 'suggest-simulator'],
-          icon: 'simulator',
-          label: 'Suggest a simulator',
-        },
-        {
           route: ['/utils', 'validate-model'],
           icon: 'bug',
           label: 'Validate a model',
@@ -39,6 +34,11 @@ const routes: Routes = [
           route: ['/utils', 'validate-project'],
           icon: 'bug',
           label: 'Validate a project',
+        },
+        {
+          route: ['/utils', 'suggest-simulator'],
+          icon: 'simulator',
+          label: 'Suggest a simulator',
         },
       ],
     },
