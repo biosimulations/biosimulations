@@ -630,8 +630,8 @@
                       matInput
                       formControlName="newValue"
                       [class.error-border]="
-                          (param.get('newValue')?.touched || submitPushed) &&
-                          param.hasError('invalid')
+                        (param.get('newValue')?.touched || submitPushed) &&
+                        param.hasError('invalid')
                       "
                     />
                   </div>
@@ -723,8 +723,8 @@
                       matInput
                       formControlName="prefix"
                       [class.error-border]="
-                          (ns.get('prefix')?.touched || submitPushed) &&
-                          ns.hasError('validNamespacePrefix', 'prefix')
+                        (ns.get('prefix')?.touched || submitPushed) &&
+                        ns.hasError('validNamespacePrefix', 'prefix')
                       "
                     />
                   </div>
@@ -733,8 +733,8 @@
                       matInput
                       formControlName="uri"
                       [class.error-border]="
-                          (ns.get('uri')?.touched || submitPushed) &&
-                          ns.hasError('url', 'uri')
+                        (ns.get('uri')?.touched || submitPushed) &&
+                        ns.hasError('url', 'uri')
                       "
                       required
                     />
@@ -852,8 +852,8 @@
                       matInput
                       formControlName="id"
                       [class.error-border]="
-                          (change.get('id')?.touched || submitPushed) &&
-                          change.hasError('validSedmlId', 'id')
+                        (change.get('id')?.touched || submitPushed) &&
+                        change.hasError('validSedmlId', 'id')
                       "
                     />
                   </div>
@@ -865,8 +865,8 @@
                       matInput
                       formControlName="target"
                       [class.error-border]="
-                          (change.get('target')?.touched || submitPushed) &&
-                          change.hasError('required', 'target')
+                        (change.get('target')?.touched || submitPushed) &&
+                        change.hasError('required', 'target')
                       "
                     />
                   </div>
@@ -901,15 +901,15 @@
               such as SBML, targets should be XPaths to XML attributes.
             </p>
             <p class="alert">
-              The ids and names data will not be exported to SED-ML
-              because these attributes are not supported by SED-ML L1V3. Once
-              simulation tools update to SED-ML L1V4, we will export this
-              information to SED-ML.
+              The ids and names data will not be exported to SED-ML because
+              these attributes are not supported by SED-ML L1V3. Once simulation
+              tools update to SED-ML L1V4, we will export this information to
+              SED-ML.
             </p>
             <p class="alert">
-              The default value of each attribute is provided as a
-              reference. This information will not be encoded into the generated
-              SED-ML document.
+              The default value of each attribute is provided as a reference.
+              This information will not be encoded into the generated SED-ML
+              document.
             </p>
           </mat-hint>
           <mat-error
@@ -1001,8 +1001,8 @@
                       matInput
                       formControlName="id"
                       [class.error-border]="
-                          (param.get('id')?.touched || submitPushed) &&
-                          param.hasError('validSedmlId', 'id')
+                        (param.get('id')?.touched || submitPushed) &&
+                        param.hasError('validSedmlId', 'id')
                       "
                       required
                     />
@@ -1131,13 +1131,14 @@
             </div>
           </div>
           <mat-hint *ngIf="formGroup.valid"
-            ><p class="alert">Not all simulation tools have the capabilities to execute all
-            possible simulations because most simulation tools do not support
-            every aspect of modeling standards such as SBML and SED-ML. We are
-            working to encourage developers to more fully support these
-            standards and to catalog which features each tool supports so that
-            we are better able to recommend simulation tools going
-            forward.</p></mat-hint
+            ><p class="alert">
+              Not all simulation tools have the capabilities to execute all
+              possible simulations because most simulation tools do not support
+              every aspect of modeling standards such as SBML and SED-ML. We are
+              working to encourage developers to more fully support these
+              standards and to catalog which features each tool supports so that
+              we are better able to recommend simulation tools going forward.
+            </p></mat-hint
           >
           <mat-error *ngIf="formGroup.hasError('hasCompatibleSimulator')"
             >No single simulation tool supports the selected combination of

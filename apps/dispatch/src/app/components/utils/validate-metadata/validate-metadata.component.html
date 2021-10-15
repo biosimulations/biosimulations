@@ -83,15 +83,18 @@
 
             <p class="alert">
               Although metadata can be described across multiple OMEX Metadata
-              files, this form is limited to validating a single OMEX Metadata file.
-              As a result, individual files which only contain part of the metadata
-              about a COMBINE/OMEX archive may fail this validation when not validated
-              together with additional metadata files that together meet BioSimulations'
-              minimal metadata conventions. In contrast, the validation of simulation
-              projects, evaluates BioSimulations' minimal metadata conventions considering
-              metadata in all OMEX Metadata files in the COMBINE/OMEX archive for the project.
-              Click <a [routerLink]="['/utils', 'validate-project']">here</a> to holistically 
-              validate mutliple OMEX Metadata files in a COMBINE/OMEX archive.
+              files, this form is limited to validating a single OMEX Metadata
+              file. As a result, individual files which only contain part of the
+              metadata about a COMBINE/OMEX archive may fail this validation
+              when not validated together with additional metadata files that
+              together meet BioSimulations' minimal metadata conventions. In
+              contrast, the validation of simulation projects, evaluates
+              BioSimulations' minimal metadata conventions considering metadata
+              in all OMEX Metadata files in the COMBINE/OMEX archive for the
+              project. Click
+              <a [routerLink]="['/utils', 'validate-project']">here</a> to
+              holistically validate mutliple OMEX Metadata files in a
+              COMBINE/OMEX archive.
             </p>
 
             <p class="alert">
@@ -166,9 +169,10 @@
               <mat-hint>
                 <p>Select the format of the OMEX Metadata file.</p>
 
-                <p class="alert">The RDF-XML
-                format is currently required to publish projects to
-                BioSimulations.</p>
+                <p class="alert">
+                  The RDF-XML format is currently required to publish projects
+                  to BioSimulations.
+                </p>
               </mat-hint>
             </mat-form-field>
 
@@ -189,14 +193,18 @@
                 >
               </mat-select>
               <mat-hint>
-                <p>Select a minimum information convention to use to validate the
-                OMEX Metadata file.</p>
+                <p>
+                  Select a minimum information convention to use to validate the
+                  OMEX Metadata file.
+                </p>
 
-                <p class="alert">The BioSimulations convention
-                <a href="https://biosimulators.org/conventions/metadata"
-                  ><biosimulations-icon icon="link"></biosimulations-icon
-                ></a>
-                is required to publish projects to BioSimulations.</p>
+                <p class="alert">
+                  The BioSimulations convention
+                  <a href="https://biosimulators.org/conventions/metadata"
+                    ><biosimulations-icon icon="link"></biosimulations-icon
+                  ></a>
+                  is required to publish projects to BioSimulations.
+                </p>
               </mat-hint>
             </mat-form-field>
           </div>

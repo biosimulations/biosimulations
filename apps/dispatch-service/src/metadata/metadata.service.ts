@@ -53,17 +53,16 @@ export class MetadataService {
     //this.logger.error(JSON.stringify(combineMetadata))
 
     const metadata: ArchiveMetadata[] = combineMetadata
-      .filter((metadata: BioSimulationsCombineArchiveElementMetadata): boolean => {
-        return (
-          metadata?.combineArchiveUri !== null 
-          && metadata?.combineArchiveUri !== undefined 
-          && metadata?.combineArchiveUri !== ''
-        );
-      })
-      .map(
-        this.convertMetadata,
-        this,
-      );
+      .filter(
+        (metadata: BioSimulationsCombineArchiveElementMetadata): boolean => {
+          return (
+            metadata?.combineArchiveUri !== null &&
+            metadata?.combineArchiveUri !== undefined &&
+            metadata?.combineArchiveUri !== ''
+          );
+        },
+      )
+      .map(this.convertMetadata, this);
     this.logger.log(`Converted metadata for ${id}`);
     const postMetadata: SimulationRunMetadataInput = {
       id: id,
