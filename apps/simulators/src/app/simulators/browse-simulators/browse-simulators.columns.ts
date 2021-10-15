@@ -396,7 +396,7 @@ export const columns: Column[] = [
     rightShowStacked: false,
   },
   {
-    id: 'interfaceTypes',
+    id: 'interfaces',
     heading: 'Interfaces',
     key: 'interfaceTypes',
     formatter: (value: string[] | string): string => {
@@ -415,7 +415,7 @@ export const columns: Column[] = [
     minWidth: 180,
   },
   {
-    id: 'supportedOperatingSystemTypes',
+    id: 'operatingSystems',
     heading: 'OSes',
     key: 'supportedOperatingSystemTypes',
     formatter: (value: string[] | string): string => {
@@ -431,7 +431,7 @@ export const columns: Column[] = [
     minWidth: 92,
   },
   {
-    id: 'supportedProgrammingLanguages',
+    id: 'programmingLanguages',
     heading: 'Languages',
     key: 'supportedProgrammingLanguages',
     formatter: (value: string[] | string): string => {
@@ -560,7 +560,7 @@ export const columns: Column[] = [
     sortable: false,
   },
   {
-    id: 'moreInfo',
+    id: 'moreInfoUrl',
     heading: 'Docs',
     key: 'url',
     formatter: (): null => {
