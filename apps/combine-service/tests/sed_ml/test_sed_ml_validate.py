@@ -11,6 +11,8 @@ import unittest
 class ValidateSedMlHandlerTestCase(unittest.TestCase):
     FIXTURE_FILENAME = os.path.join(os.path.dirname(__file__), '..', 'fixtures',
                                     'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.sedml')
+    NO_CHANGES_FIXTURE_FILENAME = os.path.join(os.path.dirname(__file__), '..', 'fixtures',
+                                               'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous-no-changes.sedml')
 
     def test_file_is_valid(self):
         fid = open(self.FIXTURE_FILENAME, 'rb')
@@ -25,9 +27,29 @@ class ValidateSedMlHandlerTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200, response.json)
         validation_report = response.json
 
+        validation_report.pop('warnings')
         self.assertEqual(validation_report, {
             "_type": "ValidationReport",
-            "status": "valid"
+            "status": "warnings"
+        })
+
+    def test_file_is_valid_without_changes(self):
+        fid = open(self.NO_CHANGES_FIXTURE_FILENAME, 'rb')
+
+        data = MultiDict([
+            ('file', fid),
+        ])
+        endpoint = '/sed-ml/validate'
+        with app.app.app.test_client() as client:
+            response = client.post(endpoint, data=data, content_type="multipart/form-data")
+        fid.close()
+        self.assertEqual(response.status_code, 200, response.json)
+        validation_report = response.json
+
+        validation_report.pop('warnings')
+        self.assertEqual(validation_report, {
+            "_type": "ValidationReport",
+            "status": "warnings"
         })
 
     def test_url_is_valid(self):
@@ -43,9 +65,10 @@ class ValidateSedMlHandlerTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200, response.json)
         validation_report = response.json
 
+        validation_report.pop('warnings')
         self.assertEqual(validation_report, {
             "_type": "ValidationReport",
-            "status": "valid"
+            "status": "warnings"
         })
 
     def test_is_invalid(self):
