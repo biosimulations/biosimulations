@@ -7,6 +7,13 @@ import { OntologyService } from '@biosimulations/ontology/client';
 import {
   sortUrls,
   ILinguistOntologyId,
+  IAlgorithm,
+  AlgorithmParameter,
+  Person,  
+  DependentPackage,
+  Identifier,
+  Citation,
+  Funding,
 } from '@biosimulations/datamodel/common';
 import { Simulator } from '@biosimulations/datamodel/api';
 import { UtilsService } from '@biosimulations/shared/services';
@@ -37,6 +44,8 @@ export class SimulatorTableService {
             );
             const archiveFormats = this.getFormats(simulator, 'archiveFormats');
             const license = this.getLicense(simulator);
+            const algorithmParameters = this.getAlgorithmParameters(simulator.algorithms);
+            const funding = this.getFunding(simulator.funding);
 
             // These are all observables of string[] that need to be collapsed
             const innerObservables: any = {
@@ -45,6 +54,8 @@ export class SimulatorTableService {
               modelFormats: modelFormats.names,
               simulationFormats: simulationFormats.names,
               archiveFormats: archiveFormats.names,
+              algorithmParameters: algorithmParameters,
+              funding: funding,
             };
             if (license instanceof Observable) {
               innerObservables['license'] = license;
@@ -85,6 +96,8 @@ export class SimulatorTableService {
                   modelFormats: sourceValue.modelFormats,
                   simulationFormats: sourceValue.simulationFormats,
                   archiveFormats: sourceValue.archiveFormats,
+                  algorithmParameters: sourceValue.algorithmParameters,
+                  funding: sourceValue.funding,
                 };
                 if (license instanceof Observable) {
                   innerInnerObservables['license'] = license;
@@ -156,6 +169,12 @@ export class SimulatorTableService {
                       curationStatus: curationStatus,
                       license:
                         license instanceof Observable ? value.license : license,
+                      algorithmParameters: value.algorithmParameters,
+                      dependencies: this.getDependencies(simulator.algorithms),
+                      authors: this.getAuthors(simulator.authors),
+                      citations: this.getCitations(simulator.references.citations),
+                      identifiers: this.getIdentifiers(simulator.references.identifiers),
+                      funding: value.funding,
                     };
                   }),
                 );
@@ -272,5 +291,123 @@ export class SimulatorTableService {
     } else {
       return '';
     }
+  }
+
+  getAlgorithmParameters(algorithms: IAlgorithm[]): Observable<string> {
+    const kisaoIds = new Set<string>();
+    algorithms.forEach((algorithm: IAlgorithm): void => {
+      algorithm?.parameters?.forEach((parameter: AlgorithmParameter): void => {
+        kisaoIds.add(parameter.kisaoId.id);
+      })      
+    });
+
+    const kisaoNames: Observable<string>[] = [];
+    for (const kisaoId of kisaoIds) {
+      kisaoNames.push(this.ontologyService.getKisaoTerm(kisaoId).pipe(pluck('name')));
+    }
+    const obs = from(kisaoNames).pipe(
+      mergeAll(),
+      toArray(),
+      map((kisaoNames: string[]): string => {
+        return kisaoNames.join(' ') + ' ' + Array.from(kisaoIds).join(' ');
+      })
+    );
+    return obs;
+  }
+
+  getDependencies(algorithms: IAlgorithm[]): string {
+    const text: string[] = [];
+    algorithms.forEach((algorithm: IAlgorithm): void => {
+      algorithm?.dependencies?.forEach((dependency: DependentPackage): void => {
+        text.push(dependency.name);
+      })
+    });
+    return text.join(' ');
+  }
+
+  getAuthors(authors: Person[]): string {
+    const text: string[] = [];
+    authors.forEach((author: Person): void => {
+      if (author?.firstName) {
+        text.push(author?.firstName)
+      }
+      if (author?.middleName) {
+        text.push(author?.middleName)
+      }
+      if (author?.lastName) {
+        text.push(author?.lastName)
+      }
+      author.identifiers.forEach((identifier: Identifier): void => {
+        text.push(identifier.namespace);
+        text.push(identifier.id);
+      });
+    });
+    return text.join(' ');
+  }
+
+  getCitations(citations: Citation[]): string {
+    const text: string[] = [];
+    citations.forEach((citation: Citation): void => {
+      if (citation?.authors) {
+        text.push(citation.authors);
+      }
+      if (citation?.title) {
+        text.push(citation.title);
+      }
+      if (citation?.journal) {
+        text.push(citation.journal);
+      }
+      if (citation?.volume) {
+        text.push(citation.volume);
+      }
+      if (citation?.issue) {
+        text.push(citation.issue);
+      }
+      if (citation?.pages) {
+        text.push(citation.pages);
+      }
+      if (citation?.year) {
+        text.push(citation.year.toString());
+      }
+
+      citation.identifiers.forEach((identifier: Identifier): void => {
+        text.push(identifier.namespace);
+        text.push(identifier.id);
+      });
+    });
+    return text.join(' ');
+  }
+
+  getIdentifiers(identifiers: Identifier[]): string {
+    const text: string[] = [];
+    identifiers.forEach((identifier: Identifier): void => {
+      text.push(identifier.namespace);
+      text.push(identifier.id);
+    });
+    return text.join(' ');
+  }
+
+  getFunding(funding: Funding[]): Observable<string> {
+    const funderIds = new Set<string>();
+    const grants: string[] = [];
+    funding.forEach((funding: Funding): void => {
+      funderIds.add(funding.funder.id);
+      if (funding?.grant) {
+        grants.push(funding.grant);
+      }
+    });
+
+    const funderNames: Observable<string>[] = [];
+    for (const funderId of funderIds) {
+      funderNames.push(this.ontologyService.getFunderRegistryTerm(funderId).pipe(pluck('name')));
+    }
+    const obs = from(funderNames).pipe(
+      mergeAll(),
+      toArray(),
+      map((funderNames: string[]): string => {
+        return funderNames.join(' ') + ' ' + Array.from(funderIds).join(' ') + ' ' + grants.join(' ');
+      })
+    );
+    return obs;
   }
 }
