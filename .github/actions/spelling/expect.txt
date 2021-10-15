@@ -1,4 +1,6 @@
+ADeepa
 Akhil
+allcontributors
 analogmachine
 api
 apps
@@ -7,6 +9,7 @@ architected
 backend
 bestpractices
 Bilal
+bilalshaikh
 biochem
 biocontainers
 Bioimaging
@@ -31,9 +34,11 @@ config
 copasi
 coreinfrastructure
 crbm
+Deepa
 DOI
 ebi
 edu
+emoji
 escher
 eslintrc
 facultydirectory
@@ -44,6 +49,8 @@ gillespy
 ginsim
 github
 githubusercontent
+GKE
+gmarupilla
 Google
 gravatar
 homepage
@@ -57,6 +64,7 @@ img
 inrae
 jestjs
 jjj
+jonrkarr
 jws
 karr
 karrlab
@@ -67,7 +75,9 @@ libroadrunner
 linkedin
 linting
 localhost
+Mahm
 mailto
+markdownlint
 Marupilla
 masspy
 materialtheme
@@ -75,7 +85,7 @@ mbine
 Memoization
 mongodb
 monorepo
-Moraru
+mpw
 mssm
 mylib
 nestjs
@@ -132,6 +142,7 @@ ucsd
 umbc
 URL
 vcell
+vcellmike
 versioning
 website
 wiki
