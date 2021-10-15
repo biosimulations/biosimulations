@@ -1339,6 +1339,7 @@ class HandlersTestCase(unittest.TestCase):
             ('file', fid),
             ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
             ('omexMetadataSchema', OmexMetadataSchema.biosimulations.value),
+            ('validateSedmlModels', False),
         ])
         endpoint = '/combine/validate'
         with app.app.app.test_client() as client:
@@ -1381,12 +1382,13 @@ class HandlersTestCase(unittest.TestCase):
 
     def test_validate_is_valid_from_url(self):
         archive_filename = os.path.join(
-            self.FIXTURES_DIR, self.TEST_CASE + '.omex')
+            self.FIXTURES_DIR, 'Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous-no-changes.omex')
 
         data = MultiDict([
             ('url', 'https://archive.combine.org'),
             ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
             ('omexMetadataSchema', OmexMetadataSchema.biosimulations.value),
+            ('validateSedmlModels', False),
         ])
         endpoint = '/combine/validate'
         with open(archive_filename, 'rb') as file:
@@ -1400,10 +1402,9 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200, response.json)
         validation_report = response.json
 
-        validation_report.pop('warnings')
         self.assertEqual(validation_report, {
             "_type": "ValidationReport",
-            "status": "warnings"
+            "status": "valid"
         })
 
     def test_validate_is_invalid(self):
@@ -1617,7 +1618,7 @@ class HandlersTestCase(unittest.TestCase):
             ('file', fid),
             ('omexMetadataFormat', OmexMetadataInputFormat.rdfxml.value),
         ])
-        endpoint = '/combine/metadata/biosimulations' 
+        endpoint = '/combine/metadata/biosimulations'
         with app.app.app.test_client() as client:
             response = client.post(endpoint, data=data, content_type="multipart/form-data")
         self.assertEqual(response.status_code, 200, response.json)
