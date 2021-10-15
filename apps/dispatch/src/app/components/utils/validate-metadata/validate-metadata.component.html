@@ -82,6 +82,19 @@
             </p>
 
             <p>
+              Note, although metadata can be described across multiple OMEX Metadata
+              files, this form is limited to validating a single OMEX Metadata file.
+              As a result, individual files which only contain part of the metadata
+              about a COMBINE/OMEX archive may fail this validation when not validated
+              together with additional metadata files that together meet BioSimulations'
+              minimal metadata conventions. In contrast, the validation of simulation
+              projects, evaluates BioSimulations' minimal metadata conventions considering
+              metadata in all OMEX Metadata files in the COMBINE/OMEX archive for the project.
+              Click <a [routerLink]="['/utils', 'validate-project']">here</a> to holistically 
+              validate mutliple OMEX Metadata files in a COMBINE/OMEX archive.
+            </p>
+
+            <p>
               Note, this form cannot validate thumbnail images described in OMEX
               Metadata files. More comprehensive validation, including of linked
               image files, is available through the validation of simulation
