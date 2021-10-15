@@ -81,8 +81,8 @@
               >.
             </p>
 
-            <p>
-              Note, although metadata can be described across multiple OMEX Metadata
+            <p class="alert">
+              Although metadata can be described across multiple OMEX Metadata
               files, this form is limited to validating a single OMEX Metadata file.
               As a result, individual files which only contain part of the metadata
               about a COMBINE/OMEX archive may fail this validation when not validated
@@ -94,8 +94,8 @@
               validate mutliple OMEX Metadata files in a COMBINE/OMEX archive.
             </p>
 
-            <p>
-              Note, this form cannot validate thumbnail images described in OMEX
+            <p class="alert">
+              This form cannot validate thumbnail images described in OMEX
               Metadata files. More comprehensive validation, including of linked
               image files, is available through the validation of simulation
               projects. Click
@@ -164,9 +164,11 @@
                 >
               </mat-select>
               <mat-hint>
-                Select the format of the OMEX Metadata file. Note, the RDF-XML
+                <p>Select the format of the OMEX Metadata file.</p>
+
+                <p class="alert">The RDF-XML
                 format is currently required to publish projects to
-                BioSimulations.
+                BioSimulations.</p>
               </mat-hint>
             </mat-form-field>
 
@@ -187,12 +189,14 @@
                 >
               </mat-select>
               <mat-hint>
-                Select a minimum information convention to use to validate the
-                OMEX Metadata file. Note, the BioSimulations convention
+                <p>Select a minimum information convention to use to validate the
+                OMEX Metadata file.</p>
+
+                <p class="alert">The BioSimulations convention
                 <a href="https://biosimulators.org/conventions/metadata"
                   ><biosimulations-icon icon="link"></biosimulations-icon
                 ></a>
-                is required to publish projects to BioSimulations.
+                is required to publish projects to BioSimulations.</p>
               </mat-hint>
             </mat-form-field>
           </div>
@@ -200,7 +204,7 @@
       </div>
     </div>
 
-    <div class="button-container">
+    <div class="form-button-container">
       <button mat-flat-button type="submit" class="biosimulations-button text">
         Validate
       </button>
@@ -210,10 +214,10 @@
       <div class="valid" *ngIf="status === 'valid'">
         Your metadata is likely valid!
       </div>
-      <div class="errors" *ngIf="status === 'invalid'">
+      <div class="error" *ngIf="status === 'invalid'">
         Your metadata is invalid.
       </div>
-      <div class="warnings" *ngIf="status === 'warnings'">
+      <div class="warning" *ngIf="status === 'warnings'">
         Your metadata may be invalid.
       </div>
     </div>
@@ -222,12 +226,12 @@
       class="validation-report"
       *ngIf="status === 'invalid' || status === 'warnings'"
     >
-      <div class="validation-report-section errors" *ngIf="errors">
+      <div class="validation-report-section error" *ngIf="errors">
         Errors:
         <ul [innerHTML]="errors"></ul>
       </div>
 
-      <div class="validation-report-section warnings" *ngIf="warnings">
+      <div class="validation-report-section warning" *ngIf="warnings">
         Warnings:
         <ul [innerHTML]="warnings"></ul>
       </div>

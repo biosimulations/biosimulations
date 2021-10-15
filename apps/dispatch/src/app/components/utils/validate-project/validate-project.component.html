@@ -171,12 +171,16 @@
                 >
               </mat-select>
               <mat-hint>
-                Select the format of the OMEX Metadata
-                <a href="https://sys-bio.github.io/libOmexMeta/"
-                  ><biosimulations-icon icon="link"></biosimulations-icon
-                ></a>
-                files in the archive. Note, the RDF-XML format is currently
-                required to publish archives to BioSimulations.
+                <p>
+                    Select the format of the OMEX Metadata
+                  <a href="https://sys-bio.github.io/libOmexMeta/"
+                    ><biosimulations-icon icon="link"></biosimulations-icon
+                  ></a>
+                  files in the archive.
+                </p>
+
+                <p class="alert">The RDF-XML format is currently
+                required to publish archives to BioSimulations.</p>
               </mat-hint>
             </mat-form-field>
 
@@ -197,16 +201,18 @@
                 >
               </mat-select>
               <mat-hint>
-                Select a minimum information convention to use to validate the
+                <p>Select a minimum information convention to use to validate the
                 OMEX Metadata
                 <a href="https://sys-bio.github.io/libOmexMeta/"
                   ><biosimulations-icon icon="link"></biosimulations-icon
                 ></a>
-                files in the archive. Note, the BioSimulations convention
+                files in the archive.</p>
+
+                <p>The BioSimulations convention
                 <a href="https://biosimulators.org/conventions/metadata"
                   ><biosimulations-icon icon="link"></biosimulations-icon
                 ></a>
-                is required to publish archives to BioSimulations.
+                is required to publish archives to BioSimulations.</p>
               </mat-hint>
             </mat-form-field>
           </div>
@@ -302,49 +308,49 @@
           </div>
 
           <mat-hint
-            >Note, plain zip archives can be validated by disabled validation of
-            OMEX Manifests.</mat-hint
+            ><p class="alert">Plain zip archives can be validated by disabled validation of
+            OMEX Manifests.</p></mat-hint
           >
 
           <mat-hint
-            >Note, SED-ML validation is required to validate models.</mat-hint
+            ><p class="alert">SED-ML validation is required to validate models.</p></mat-hint
           >
 
           <mat-hint
-            >Note, model validation is required to comprehensively validate
+            ><p class="alert">Model validation is required to comprehensively validate
             SED-ML files, including validating the targets to models for model
-            changes and simulation observables.</mat-hint
+            changes and simulation observables.</p></mat-hint
           >
 
           <mat-hint
-            >Note, BioSimulations validates models using community-contributed
+            ><p class="alert">BioSimulations validates models using community-contributed
             validation tools for each model language. The thoroughness of these
             tools varies. In addition, some tools currently provide limited
             diagnostic information. We welcome contributions of improved
-            validation tools.</mat-hint
+            validation tools.</p></mat-hint
           >
 
           <mat-hint
-            >Note, projects published to BioSimulations must contain valid
+            ><p class="alert">Projects published to BioSimulations must contain valid
             metadata that meets BioSimulations minimum metadata
-            conventions.</mat-hint
+            conventions.</p></mat-hint
           >
 
           <mat-hint
-            >Note, an OMEX manifest file is required to validate metadata files.
+            ><p class="alert">An OMEX manifest file is required to validate metadata files.
             As a result, OMEX Metadata validation should generally be disabled
-            when OMEX manifest validation is disabled.</mat-hint
+            when OMEX manifest validation is disabled.</p></mat-hint
           >
 
           <mat-hint
-            >Note, image validation is required to comprehensively validate
-            thumbnail images described in OMEX Metadata files.</mat-hint
+            ><p class="alert">Image validation is required to comprehensively validate
+            thumbnail images described in OMEX Metadata files.</p></mat-hint
           >
         </div>
       </div>
     </div>
 
-    <div class="button-container">
+    <div class="form-button-container">
       <button mat-flat-button type="submit" class="biosimulations-button text">
         Validate
       </button>
@@ -355,10 +361,10 @@
         The aspects of your simulation project that you chose to validate are
         likely valid!
       </div>
-      <div class="errors" *ngIf="status === 'invalid'">
+      <div class="error" *ngIf="status === 'invalid'">
         Your simulation project is invalid.
       </div>
-      <div class="warnings" *ngIf="status === 'warnings'">
+      <div class="warning" *ngIf="status === 'warnings'">
         Your simulation project may be invalid.
       </div>
     </div>
@@ -367,12 +373,12 @@
       class="validation-report"
       *ngIf="status === 'invalid' || status === 'warnings'"
     >
-      <div class="validation-report-section errors" *ngIf="errors">
+      <div class="validation-report-section error" *ngIf="errors">
         Errors:
         <ul [innerHTML]="errors"></ul>
       </div>
 
-      <div class="validation-report-section warnings" *ngIf="warnings">
+      <div class="validation-report-section warning" *ngIf="warnings">
         Warnings:
         <ul [innerHTML]="warnings"></ul>
       </div>

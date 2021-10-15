@@ -1,12 +1,5 @@
-@use '~@angular/material' as mat;
-@import 'biosimulations-colors';
-
 .simulation-icon-container biosimulations-icon ::ng-deep .mat-icon {
   line-height: normal;
-}
-
-.button-container {
-  text-align: right;
 }
 
 .validation-report {
@@ -21,16 +14,4 @@
     margin-block-end: 0;
     padding-inline-start: 30px;
   }
-}
-
-.valid {
-  color: mat.get-color-from-palette($theme-primary);
-}
-
-.errors {
-  color: mat.get-color-from-palette($theme-warn);
-}
-
-.warnings {
-  color: mat.get-color-from-palette($theme-accent);
 }

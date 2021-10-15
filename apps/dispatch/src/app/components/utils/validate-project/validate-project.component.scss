@@ -1,6 +1,3 @@
-@use '~@angular/material' as mat;
-@import 'biosimulations-colors';
-
 .form-section .form-field-group mat-form-field mat-hint {
   font-size: 125%;
   padding-top: 0.4em;
@@ -24,10 +21,6 @@
   }
 }
 
-.button-container {
-  text-align: right;
-}
-
 .validation-report {
   margin-top: 1rem;
 
@@ -40,16 +33,4 @@
     margin-block-end: 0;
     padding-inline-start: 30px;
   }
-}
-
-.valid {
-  color: mat.get-color-from-palette($theme-primary);
-}
-
-.errors {
-  color: mat.get-color-from-palette($theme-warn);
-}
-
-.warnings {
-  color: mat.get-color-from-palette($theme-accent);
 }

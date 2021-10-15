@@ -1,10 +1,3 @@
-@use '~@angular/material' as mat;
-@import 'biosimulations-colors';
-
-.button-container {
-  text-align: right;
-}
-
 mat-form-field {
   ::ng-deep .mat-form-field-subscript-wrapper {
     font-size: 93.75%;
@@ -27,6 +20,4 @@ mat-form-field {
   }
 }
 
-.error {
-  color: mat.get-color-from-palette($theme-warn);
-}
+

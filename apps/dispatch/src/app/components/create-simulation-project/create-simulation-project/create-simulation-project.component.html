@@ -629,11 +629,10 @@
                     <input
                       matInput
                       formControlName="newValue"
-                      [ngClass]="{
-                        error:
+                      [class.error-border]="
                           (param.get('newValue')?.touched || submitPushed) &&
                           param.hasError('invalid')
-                      }"
+                      "
                     />
                   </div>
                 </ng-container>
@@ -723,22 +722,20 @@
                     <input
                       matInput
                       formControlName="prefix"
-                      [ngClass]="{
-                        error:
+                      [class.error-border]="
                           (ns.get('prefix')?.touched || submitPushed) &&
                           ns.hasError('validNamespacePrefix', 'prefix')
-                      }"
+                      "
                     />
                   </div>
                   <div class="input-row">
                     <input
                       matInput
                       formControlName="uri"
-                      [ngClass]="{
-                        error:
+                      [class.error-border]="
                           (ns.get('uri')?.touched || submitPushed) &&
                           ns.hasError('url', 'uri')
-                      }"
+                      "
                       required
                     />
                   </div>
@@ -854,11 +851,10 @@
                     <input
                       matInput
                       formControlName="id"
-                      [ngClass]="{
-                        error:
+                      [class.error-border]="
                           (change.get('id')?.touched || submitPushed) &&
                           change.hasError('validSedmlId', 'id')
-                      }"
+                      "
                     />
                   </div>
                   <div class="input-row">
@@ -868,11 +864,10 @@
                     <input
                       matInput
                       formControlName="target"
-                      [ngClass]="{
-                        error:
+                      [class.error-border]="
                           (change.get('target')?.touched || submitPushed) &&
                           change.hasError('required', 'target')
-                      }"
+                      "
                     />
                   </div>
                   <div class="input-row">
@@ -905,14 +900,14 @@
               to the new value <code>2.1</code>). For XML-based model languages
               such as SBML, targets should be XPaths to XML attributes.
             </p>
-            <p>
-              Note, the ids and names data will not be exported to SED-ML
+            <p class="alert">
+              The ids and names data will not be exported to SED-ML
               because these attributes are not supported by SED-ML L1V3. Once
               simulation tools update to SED-ML L1V4, we will export this
               information to SED-ML.
             </p>
-            <p>
-              Note, the default value of each attribute is provided as a
+            <p class="alert">
+              The default value of each attribute is provided as a
               reference. This information will not be encoded into the generated
               SED-ML document.
             </p>
@@ -1005,11 +1000,10 @@
                     <input
                       matInput
                       formControlName="id"
-                      [ngClass]="{
-                        error:
+                      [class.error-border]="
                           (param.get('id')?.touched || submitPushed) &&
                           param.hasError('validSedmlId', 'id')
-                      }"
+                      "
                       required
                     />
                   </div>
@@ -1137,13 +1131,13 @@
             </div>
           </div>
           <mat-hint *ngIf="formGroup.valid"
-            >Note, not all simulation tools have the capabilities to execute all
+            ><p class="alert">Not all simulation tools have the capabilities to execute all
             possible simulations because most simulation tools do not support
             every aspect of modeling standards such as SBML and SED-ML. We are
             working to encourage developers to more fully support these
             standards and to catalog which features each tool supports so that
             we are better able to recommend simulation tools going
-            forward.</mat-hint
+            forward.</p></mat-hint
           >
           <mat-error *ngIf="formGroup.hasError('hasCompatibleSimulator')"
             >No single simulation tool supports the selected combination of
