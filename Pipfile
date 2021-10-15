@@ -7,7 +7,7 @@ name = "pypi"
 flask = {version = "<2"}
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
 requests = "*"
-biosimulators-utils = {version = ">=0.1.131", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
+biosimulators-utils = {version = ">=0.1.137", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
 python-dateutil = "*"
 gunicorn = "*"
 flask-cors = "*"
@@ -51,7 +51,7 @@ biosimulators-rbapy = ">=0.0.3"
 # Smoldyn
 smoldyn = ">=2.67.dev202109232145"
 # tellurium
-biosimulators-tellurium = ">=0.1.21"
+biosimulators-tellurium = ">=0.1.24"
 # XPP
 biosimulators-xpp = ">=0.0.8"
 
