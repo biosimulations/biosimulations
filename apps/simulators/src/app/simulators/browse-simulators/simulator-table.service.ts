@@ -9,7 +9,7 @@ import {
   ILinguistOntologyId,
   IAlgorithm,
   AlgorithmParameter,
-  Person,  
+  Person,
   DependentPackage,
   Identifier,
   Citation,
@@ -298,7 +298,7 @@ export class SimulatorTableService {
     algorithms.forEach((algorithm: IAlgorithm): void => {
       algorithm?.parameters?.forEach((parameter: AlgorithmParameter): void => {
         kisaoIds.add(parameter.kisaoId.id);
-      })      
+      })
     });
 
     const kisaoNames: Observable<string>[] = [];

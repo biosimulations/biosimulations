@@ -47,7 +47,7 @@ export const columns: Column[] = [
     filterable: false,
     show: false,
     minWidth: 110,
-  },  
+  },
   {
     id: 'frameworks',
     heading: 'Frameworks',
