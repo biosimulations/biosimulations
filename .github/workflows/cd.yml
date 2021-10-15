@@ -2,7 +2,9 @@ name: Continuous Deployment
 on:
   push:
     branches: [dev]
-    paths: ["!docs/**"]
+    paths-ignore:
+      - "docs/**"
+      - "tools/**"
 jobs:
   listApps:
     name: Get a list of all apps
