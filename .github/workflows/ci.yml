@@ -4,7 +4,9 @@ on:
     branches: 
       - dev
     paths:
+      - '/**'
       - "!docs/**"
+      - "!tools/**"
   pull_request:
 jobs:
   getAffectedLibrariesApps:
