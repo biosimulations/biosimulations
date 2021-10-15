@@ -272,8 +272,8 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
   }
 
   private formSectionOpen = {
-    metadataOptions: new BehaviorSubject<boolean>(false),
-    validationOptions: new BehaviorSubject<boolean>(false),
+    metadataOptions: new BehaviorSubject<boolean>(true),
+    validationOptions: new BehaviorSubject<boolean>(true),
   };
   formSectionOpen$ = {
     metadataOptions: this.formSectionOpen.metadataOptions.asObservable(),

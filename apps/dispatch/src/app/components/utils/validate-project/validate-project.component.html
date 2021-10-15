@@ -317,9 +317,8 @@
           >
 
           <mat-hint
-            ><p class="alert">Model validation is required to comprehensively validate
-            SED-ML files, including validating the targets to models for model
-            changes and simulation observables.</p></mat-hint
+            ><p class="alert">Model validation is required to more comprehensively validate
+            SED-ML files.</p></mat-hint
           >
 
           <mat-hint
@@ -328,6 +327,15 @@
             tools varies. In addition, some tools currently provide limited
             diagnostic information. We welcome contributions of improved
             validation tools.</p></mat-hint
+          >
+
+          <mat-hint
+            ><p class="alert">This application can only validate targets for simulation observables
+              for unchanged models. Targets for modified models cannot be validated statically, independently from
+              executing the associated SED-ML document. Simulation tools validate such targets
+              when they execute their parent SED-ML document. For the same reason, this application cannot validate
+              targets for model changes. Simulation tools validate such model change targets during
+              their execution.</p></mat-hint
           >
 
           <mat-hint
