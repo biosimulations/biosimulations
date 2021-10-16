@@ -7,7 +7,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
-import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService, SystemStatusService } from '@biosimulations/shared/services';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,7 +20,7 @@ describe('AppComponent', () => {
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
       ],
-      providers: [AuthService, AuthEnvironment, ConfigService, ScrollService],
+      providers: [AuthService, AuthEnvironment, ConfigService, ScrollService, SystemStatusService],
       declarations: [AppComponent],
     }).compileComponents();
   }));

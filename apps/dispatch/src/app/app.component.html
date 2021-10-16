@@ -5,6 +5,7 @@
   [privacyPolicyVersion]="config.privacyPolicyVersion"
   [newsVersion]="1"
   [showNews]="false"
+  [status]="status$ | async"
 >
   <biosimulations-topbar-menu>
     <biosimulations-topbar-menu-item
@@ -253,7 +254,7 @@
     </biosimulations-navigation-item>
   </ng-container>
 
-  <ng-container id="news"> </ng-container>
+  <ng-container id="news"></ng-container>
 
   <router-outlet></router-outlet>
 </biosimulations-navigation>

@@ -43,6 +43,9 @@ export class NoticeComponent {
     return this._version;
   }
 
+  @Input()
+  isError!: boolean;
+
   open = true;
   storageKey?: string;
   private _storage: Storage | null = null;

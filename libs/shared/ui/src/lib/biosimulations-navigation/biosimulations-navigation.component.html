@@ -61,24 +61,34 @@
     </div>
     <div class="content">
       <ng-content select="router-outlet"></ng-content>
-    </div>
-    <biosimulations-notice
-      *ngIf="showNews"
-      [appName]="appName"
-      type="news"
-      [version]="newsVersion"
-    >
-      <ng-content select="#news"></ng-content>
-    </biosimulations-notice>
+    </div>        
     <biosimulations-notice
       [appName]="appName"
       type="privacy"
       [version]="privacyPolicyVersion"
+      [isError]="false"
     >
       {{ appName }} collects limited personal data to credit authors and improve
       the platform. By using this site, you agree to our
       <a [routerLink]="['/help', 'terms']">terms of service</a> and
       <a [routerLink]="['/help', 'privacy']">privacy policy</a>.
+    </biosimulations-notice>
+    <biosimulations-notice
+      *ngIf="showNews"
+      [appName]="appName"
+      type="news"
+      [version]="newsVersion"
+      [isError]="false"
+    >
+      <ng-content select="#news"></ng-content>
+    </biosimulations-notice>
+    <biosimulations-notice
+      *ngIf="status === false"
+      [appName]="appName"
+      type="status"
+      [isError]="true"
+    >
+      {{ appName }} is currently down. We are working to restore service. Please check back soon.
     </biosimulations-notice>
   </mat-sidenav-content>
 </mat-sidenav-container>

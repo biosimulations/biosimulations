@@ -5,7 +5,14 @@
   position: sticky;
   bottom: 0;
   width: 100%;
-  background: mat.get-color-from-palette($theme-accent, lighter);
+
+  &:not(.error) {
+    background: mat.get-color-from-palette($theme-accent, lighter);
+  }
+
+  &.error {
+    background: $theme-warn-lightest;
+  }
 }
 
 .message {

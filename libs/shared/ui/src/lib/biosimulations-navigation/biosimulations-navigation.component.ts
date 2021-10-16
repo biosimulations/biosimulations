@@ -28,6 +28,9 @@ export class BiosimulationsNavigationComponent {
   showNews!: boolean;
 
   @Input()
+  status!: boolean | null;
+
+  @Input()
   darkMode = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
