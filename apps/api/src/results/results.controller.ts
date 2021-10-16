@@ -18,6 +18,7 @@ import {
 import {
   ApiQuery,
   ApiOkResponse,
+  ApiNoContentResponse,
   ApiTags,
   ApiOperation,
   ApiParam,
@@ -87,9 +88,8 @@ export class ResultsController {
     required: true,
     type: String,
   })
-  @ApiOkResponse({ 
+  @ApiNoContentResponse({ 
     description: 'The simulation results were successfully downloaded', 
-    type: SimulationRunResults
   })
   @ApiTags('Downloads')
   public async downloadResultReport(
