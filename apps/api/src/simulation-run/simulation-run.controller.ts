@@ -147,7 +147,7 @@ export class SimulationRunController {
   @ApiCreatedResponse({
     type: SimulationRun,
     description: 'Simulation run was successfully submitted',
-  })  
+  })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description: 'The simulation run request does not adhere to the expected schema. Please see https://api.biosimulations.org for more information.',
@@ -316,7 +316,7 @@ export class SimulationRunController {
     description: 'This account does not have permission to save simulation runs',
   })
   @Patch(':id')
-  @ApiOkResponse({    
+  @ApiOkResponse({
     description: 'The simulation run was successfully updated',
     type: SimulationRun,
   })
@@ -338,7 +338,7 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
-  })  
+  })
   @ApiNotFoundResponse({
     description: 'No simulation run has the requested id',
     type: ErrorResponseDocument,
@@ -351,7 +351,7 @@ export class SimulationRunController {
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
     description: 'This account does not have permission to delete simulation runs',
-  })  
+  })
   @Delete(':id')
   @ApiOkResponse({
     type: SimulationRun,

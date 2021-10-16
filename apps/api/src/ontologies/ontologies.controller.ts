@@ -32,7 +32,7 @@ export class OntologiesController {
       'Get a list of the ids of the ontologies used by BioSimulations and BioSimulators',
   })
   @ApiOkResponse({
-    description: 'The ids of the ontologies used by BioSimulations and BioSimulators were successfully retrieved', 
+    description: 'The ids of the ontologies used by BioSimulations and BioSimulators were successfully retrieved',
     type: [String],
   })
   getList(): string[] {
@@ -58,7 +58,7 @@ export class OntologiesController {
       .map((idOntology: [string, Ontologies]): string => idOntology[1])
       .sort(),
   })
-  @ApiOkResponse({ 
+  @ApiOkResponse({
     description: 'Information about the ontology was successfully retrieved',
     type: OntologyInfo,
   })
@@ -87,7 +87,7 @@ export class OntologiesController {
       .map((idOntology: [string, Ontologies]): string => idOntology[1])
       .sort(),
   })
-  @ApiOkResponse({ 
+  @ApiOkResponse({
     description: 'The terms of the ontology were successfully retrieved',
     type: [OntologyTerm],
   })
@@ -123,7 +123,7 @@ export class OntologiesController {
     required: true,
     type: String,
   })
-  @ApiOkResponse({ 
+  @ApiOkResponse({
     description: 'Information about the term was successfully retrieved',
     type: OntologyTerm,
   })

@@ -57,8 +57,8 @@ export class SimulatorsController {
     required: false,
     type: Boolean,
   })
-  @ApiOkResponse({ 
-    description: 'The specifications of the simulation tools were successfully retrieved', 
+  @ApiOkResponse({
+    description: 'The specifications of the simulation tools were successfully retrieved',
     type: [Simulator],
   })
   public getSimulators(@Query('includeTests') includeTests = 'false') {
@@ -68,8 +68,8 @@ export class SimulatorsController {
   }
 
   @Get('latest')
-  @ApiOkResponse({ 
-    description: 'The requested simulation tool specifications were successfully retrieved', 
+  @ApiOkResponse({
+    description: 'The requested simulation tool specifications were successfully retrieved',
     type: [Simulator],
   })
   @ApiNotFoundResponse({
@@ -159,9 +159,9 @@ export class SimulatorsController {
     required: false,
     type: Boolean,
   })
-  @ApiOkResponse({ 
+  @ApiOkResponse({
     description: 'The specifications of the requested simulation toool were successfully retrieved',
-    type: [Simulator] 
+    type: [Simulator]
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
@@ -172,7 +172,7 @@ export class SimulatorsController {
     @Query('includeTests') includeTests = 'false',
   ) {
     const includeBool = includeTests == 'true';
-    return await this.getSimulatorById(id, includeBool);
+    return this.getSimulatorById(id, includeBool);
   }
 
   @Get(':id/:version')
@@ -198,8 +198,8 @@ export class SimulatorsController {
     required: false,
     type: Boolean,
   })
-  @ApiOkResponse({ 
-    description: 'The specifications of the requested version of the requested simulation tool were successfully retrieved', 
+  @ApiOkResponse({
+    description: 'The specifications of the requested version of the requested simulation tool were successfully retrieved',
     type: Simulator,
   })
   @ApiNotFoundResponse({
@@ -284,11 +284,11 @@ export class SimulatorsController {
     description: 'Specifications of the version of the simulation tool',
     type: Simulator,
   })
-  @ApiBadRequestResponse({ 
+  @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description: 'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
   })
-  @ApiNoContentResponse({ 
+  @ApiNoContentResponse({
     description: 'The specifications of teh simulation tool are valid'
   })
   @HttpCode(204)
@@ -314,7 +314,7 @@ export class SimulatorsController {
   })
   @ApiOkResponse({
     type: Simulator,
-    description: 'The specifications of the version of the simulation tool were successfully modified', 
+    description: 'The specifications of the version of the simulation tool were successfully modified',
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,

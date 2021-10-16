@@ -35,7 +35,7 @@ export class AuthTestController {
     description:
       'Returns information about the current user of the API, including their authentication token. This information may be helpful for debugging.',
   })
-  @ApiOkResponse({ 
+  @ApiOkResponse({
     description: 'Information of the current user was successfully retrieved',
   })
   @ApiUnauthorizedResponse({
@@ -52,7 +52,7 @@ export class AuthTestController {
     summary: 'Check whether the user has administrative privileges',
     description: 'Check whether the user has administrative privileges',
   })
-  @ApiOkResponse({ 
+  @ApiOkResponse({
     description: 'The users privileges were successfully checked',
   })
   @ApiUnauthorizedResponse({
@@ -72,7 +72,7 @@ export class AuthTestController {
     description:
       'Check whether the user has privileges to use the secured parts of API',
   })
-  @ApiOkResponse({ 
+  @ApiOkResponse({
     description: 'The users privileges were successfully checked',
   })
   @ApiUnauthorizedResponse({
