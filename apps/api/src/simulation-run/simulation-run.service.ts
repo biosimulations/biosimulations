@@ -21,6 +21,7 @@ import {
   SimulationRunModel,
   SimulationRunModelReturnType,
   SimulationRunModelType,
+  SimulationRunField,
 } from './simulation-run.model';
 import {
   UpdateSimulationRun,
@@ -161,7 +162,7 @@ export class SimulationRunService {
 
   public async getAll(
     fields: string[] = [],
-  ): Promise<{ id: string; status: string }[]> {
+  ): Promise<SimulationRunField[]> {
     const projection: { [key: string]: number } = {
       id: 1,
       _id: 0,

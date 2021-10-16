@@ -33,7 +33,7 @@ export class OntologiesController {
   })
   @ApiOkResponse({
     description: 'The ids of the ontologies used by BioSimulations and BioSimulators were successfully retrieved', 
-    type: [string],
+    type: [String],
   })
   getList(): string[] {
     const ontologiesIds = new Set<string>();
