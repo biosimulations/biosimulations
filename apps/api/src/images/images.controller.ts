@@ -12,7 +12,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiBody, ApiOperation, ApiTags, ApiCreatedResponse, ApiInternalServerErrorResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiUnauthorizedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
 import { refreshImageBody } from './image.dto';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
@@ -33,11 +33,19 @@ export class ImagesController {
   })
   @ApiCreatedResponse({ 
     description: 'The building/rebuilding of the Singularity image was successfully triggered', 
-    type: string,
+    type: String,
   })
   @ApiInternalServerErrorResponse({
     description: 'An error occurred in triggering the building/rebuilding of the Singularity image',
     type: ErrorResponseDocument,
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to trigger the building/rebuilding of images',
   })
   @permissions('refresh:Images')
   @Post('refresh')
