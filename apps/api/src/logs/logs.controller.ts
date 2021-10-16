@@ -19,9 +19,12 @@ import {
 } from '@nestjs/common';
 import {
   ApiExtraModels,
-  ApiResponse,
   ApiTags,
   ApiOperation,
+  ApiParam,
+  ApiOkResponse,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
 } from '@nestjs/swagger';
 import {
   CombineArchiveLog,
@@ -30,6 +33,7 @@ import {
   SedReportLog,
   CreateSimulationRunLogBody,
 } from '@biosimulations/datamodel/api';
+import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
 import { LogsService } from './logs.service';
 
@@ -66,9 +70,19 @@ export class LogsController {
     summary: 'Get the log a simulation run',
     description: 'Get the log a simulation run',
   })
-  @ApiResponse({
-    status: 200,
+  @ApiParam({
+    name: 'id',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiOkResponse({
+    description: 'The log for a simulation run was sucessfully retrieved',
     type: CombineArchiveLog,
+  })
+  @ApiNotFoundResponse({
+    description: 'No log exists for the requested simulation run id',
+    type: ErrorResponseDocument,
   })
   @Get(':id')
   public async getLogs(@Param('id') id: string): Promise<CombineArchiveLog> {
@@ -94,12 +108,12 @@ export class LogsController {
   */
 
   @ApiOperation({
-    summary: 'Upload the log a simulation run',
-    description: 'Upload the log a simulation run',
+    summary: 'Save the log for a simulation run to the database',
+    description: 'Save the log for a simulation run to the database',
   })
   @Post()
-  @ApiResponse({
-    status: 201,
+  @ApiCreatedResponse({
+    description: 'The logs for the simulation run were sucessfully saved',
     type: CombineArchiveLog,
   })
   public async createLogs(
