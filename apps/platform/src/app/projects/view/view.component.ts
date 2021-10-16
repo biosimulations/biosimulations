@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Observable, combineLatest, map, shareReplay, mergeMap, throwError } from 'rxjs';
+import {
+  Observable,
+  combineLatest,
+  map,
+  shareReplay,
+  mergeMap,
+  throwError,
+} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
