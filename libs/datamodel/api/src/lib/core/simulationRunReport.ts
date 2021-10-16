@@ -26,15 +26,20 @@ export const SimulationRunOutputDataSchema: Omit<SchemaObject, 'required'> = {
 export class SimulationRunOutputDatum {
   @ApiProperty({ type: String })
   public id!: string;
+
   @ApiProperty({ type: String })
   public label!: string;
+
   @ApiProperty({ type: String })
   public name?: string;
+
   @ApiProperty({ type: String })
   public shape!: string;
+
   @ApiProperty({ type: String })
   // "float64", "int" etc. Not the same as seddatatype
   public type!: string;
+
   @ApiProperty(SimulationRunOutputDataSchema)
   public values: (number | boolean | string)[] = [];
 }

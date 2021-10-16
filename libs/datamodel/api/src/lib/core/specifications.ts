@@ -1,22 +1,38 @@
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 
 export class SimulationRunSpecifications {
-  @ApiProperty()
+  @ApiProperty({type: String})
   public id!: string;
-  @ApiProperty()
+
+  @ApiProperty({type: String})
   public simulationRun!: string;
-  @ApiProperty()
+
+  @ApiProperty({type: [Object]})
   public models!: any[];
-  @ApiProperty()
+
+  @ApiProperty({type: [Object]})
   public simulations!: any[];
-  @ApiProperty()
+
+  @ApiProperty({type: [Object]})
   public dataGenerators!: any[];
-  @ApiProperty()
+
+  @ApiProperty({type: [Object]})
   public outputs!: any[];
-  @ApiProperty()
+
+  @ApiProperty({type: [Object]})
   public tasks!: any[];
-  @ApiResponseProperty()
+
+  @ApiResponseProperty({
+    type: String,
+    format: 'date-time',
+    // description: 'Timestamp when the specifications were created',
+  })
   public created!: string;
-  @ApiResponseProperty()
+
+  @ApiResponseProperty({
+    type: String,
+    format: 'date-time',
+    // description: 'Timestamp when the specifications were last updated',
+  })
   public updated!: string;
 }
