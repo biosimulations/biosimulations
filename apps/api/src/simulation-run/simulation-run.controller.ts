@@ -44,6 +44,7 @@ import {
   ApiUnsupportedMediaTypeResponse,
   getSchemaPath,
   ApiParam,
+  ApiBody,
   ApiUnauthorizedResponse,
   ApiForbiddenResponse,
 } from '@nestjs/swagger';
@@ -262,7 +263,7 @@ export class SimulationRunController {
     description: 'Get information about a simulation run',
   })
   @ApiParam({
-    name: 'id',
+    name: 'runId',
     description: 'Id of a simulation run',
     required: true,
     type: String,
@@ -275,10 +276,10 @@ export class SimulationRunController {
     description: 'No simulation run has the requested id',
     type: ErrorResponseDocument,
   })
-  @Get(':id')
+  @Get(':runId')
   @OptionalAuth()
   public async getRun(
-    @Param('id') id: string,
+    @Param('runId') id: string,
     @Req() req: Request,
   ): Promise<SimulationRun> {
     const user = req?.user as AuthToken;
@@ -301,10 +302,14 @@ export class SimulationRunController {
     description: 'Change the status or information of a simulation run',
   })
   @ApiParam({
-    name: 'id',
+    name: 'runId',
     description: 'Id of a simulation run',
     required: true,
     type: String,
+  })
+  @ApiBody({
+    description: 'Specifications of the simulation run',
+    type: UpdateSimulationRun,
   })
   @permissions('write:SimulationRuns')
   @ApiUnauthorizedResponse({
@@ -315,13 +320,13 @@ export class SimulationRunController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to save simulation runs',
   })
-  @Patch(':id')
+  @Patch(':runId')
   @ApiOkResponse({
     description: 'The simulation run was successfully updated',
     type: SimulationRun,
   })
   public async modfiyRun(
-    @Param('id') id: string,
+    @Param('runId') id: string,
     @Body() body: UpdateSimulationRun,
   ): Promise<SimulationRun> {
     this.logger.log(`Patch called for ${id} with ${JSON.stringify(body)}`);
@@ -334,7 +339,7 @@ export class SimulationRunController {
     description: 'Delete a simulation run',
   })
   @ApiParam({
-    name: 'id',
+    name: 'runId',
     description: 'Id of a simulation run',
     required: true,
     type: String,
@@ -352,13 +357,13 @@ export class SimulationRunController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to delete simulation runs',
   })
-  @Delete(':id')
+  @Delete(':runId')
   @ApiOkResponse({
     type: SimulationRun,
     description: 'The simulation run was successfully deleted',
   })
   public async deleteRun(
-    @Param('id') id: string,
+    @Param('runId') id: string,
   ): Promise<SimulationRun> {
     const res = await this.service.delete(id);
 
@@ -395,7 +400,7 @@ export class SimulationRunController {
     description: 'Download the COMBINE/OMEX archive for the simulation run',
   })
   @ApiParam({
-    name: 'id',
+    name: 'runId',
     description: 'Id of a simulation run',
     required: true,
     type: String,
@@ -404,13 +409,13 @@ export class SimulationRunController {
     description: 'No COMBINE/OMEX archive is available for the requested simulation run id',
     type: ErrorResponseDocument,
   })
-  @Get(':id/download')
+  @Get(':runId/download')
   @ApiNoContentResponse({
     description: 'The COMBINE/OMEX archive for the run was successfully downloaded',
   })
-  @ApiTags('Downloads')
+  @ApiTags('Simulation run downloads')
   public async download(
-    @Param('id') id: string,
+    @Param('runId') id: string,
     @Res({ passthrough: true }) response: Response,
   ): Promise<void> {
     const file = await this.service.download(id);

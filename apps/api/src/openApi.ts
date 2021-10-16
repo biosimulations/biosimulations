@@ -16,38 +16,43 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
   // Swagger doc
   const tags = [
     {
+      name: 'Published projects',
+      description:
+        'Operations for publishing simulation runs and modifying, getting, and deleting published projects.',
+    },
+    {
       name: 'Simulation runs',
       description:
         'Operations for submitting a simulation run, checking the status of a run, modifying the details of a run, and deleting a run.',
     },
     {
-      name: 'Results',
+      name: 'Simulation run results',
       description:
         'Operations for viewing and retrieving the results of a simulation run.',
     },
 
     {
-      name: 'Logs',
+      name: 'Logs of simulation runs',
       description:
         'Operations for submitting and retrieving a log of the execution of a simulation run.',
     },
     {
-      name: 'Metadata',
+      name: 'Metadata for projects (COMBINE/OMEX archive) of simulation runs',
       description:
         'Operations for creating and retriving the metadata associated with a simulation run',
     },
     {
-      name: 'Files',
+      name: 'Files (contents of COMBINE/OMEX archive) of simulation runs',
       description:
         'Operations for creating and retrieving metadata about the files in a simulation run',
     },
     {
-      name: 'Specifications',
+      name: 'Simulation experiments (specifications of SED-ML files in COMBINE/OMEX archives) of simulation runs',
       description:
         'Operations for creating and retrieving the specifications of a simulation run',
     },
     {
-      name: 'Downloads',
+      name: 'Simulation run downloads',
       description:
         'Operations for downloading the files and results of a simulation run.',
     },

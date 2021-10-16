@@ -312,6 +312,10 @@ export class SimulatorsController {
     required: true,
     type: String,
   })
+  @ApiBody({
+    description: 'Specifications of the simulation tool',
+    type: Simulator,
+  })
   @ApiOkResponse({
     type: Simulator,
     description: 'The specifications of the version of the simulation tool were successfully modified',

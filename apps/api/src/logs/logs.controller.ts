@@ -25,6 +25,8 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 import {
   CombineArchiveLog,
@@ -34,12 +36,12 @@ import {
   CreateSimulationRunLogBody,
 } from '@biosimulations/datamodel/api';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-
+// import { permissions } from '@biosimulations/auth/nest';
 import { LogsService } from './logs.service';
 
 @ApiExtraModels(SedReportLog, SedPlot2DLog, SedPlot3DLog)
 @Controller('logs')
-@ApiTags('Logs')
+@ApiTags('Logs of simulation runs')
 export class LogsController {
   private logger = new Logger(LogsController.name);
 
@@ -71,7 +73,7 @@ export class LogsController {
     description: 'Get the log a simulation run',
   })
   @ApiParam({
-    name: 'id',
+    name: 'runId',
     description: 'Id of the simulation run',
     required: true,
     type: String,
@@ -84,8 +86,8 @@ export class LogsController {
     description: 'No log exists for the requested simulation run id',
     type: ErrorResponseDocument,
   })
-  @Get(':id')
-  public async getLogs(@Param('id') id: string): Promise<CombineArchiveLog> {
+  @Get(':runId')
+  public async getLogs(@Param('runId') id: string): Promise<CombineArchiveLog> {
     const structLogs = await this.service.getLog(id);
 
     if (!structLogs) {
@@ -100,9 +102,15 @@ export class LogsController {
     summary: 'Download the log a simulation run',
     description: 'Download the log a simulation run',
   })
-  @Get(':id/download')
-  @ApiTags('Downloads')
-  public downloadLogs(@Param() id: string): void {
+  @Get(':runId/download')
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiTags('Simulation run downloads')
+  public downloadLogs(@Param() runId: string): void {
     throw new NotImplementedException('Not Implemented');
   }
   */
@@ -112,6 +120,15 @@ export class LogsController {
     description: 'Save the log for a simulation run to the database',
   })
   @Post()
+  // @permissions('write:Logs')
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to save the specifications of simulation experiments',
+  })
   @ApiCreatedResponse({
     description: 'The logs for the simulation run were sucessfully saved',
     type: CombineArchiveLog,

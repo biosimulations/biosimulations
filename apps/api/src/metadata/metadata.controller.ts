@@ -22,7 +22,7 @@ import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
 import { AuthToken } from '@biosimulations/auth/common';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
-@ApiTags('Metadata')
+@ApiTags('Metadata for projects (COMBINE/OMEX archive) of simulation runs')
 @Controller({ path: 'metadata', version: VERSION_NEUTRAL })
 export class MetadataController {
   private logger = new Logger(MetadataController.name);
@@ -109,7 +109,7 @@ export class MetadataController {
       'Returns metadata about the simulation project of a simulation run',
   })
   @ApiParam({
-    name: 'id',
+    name: 'runId',
     description: 'Id of the simulation run',
     required: true,
     type: String,
@@ -122,9 +122,9 @@ export class MetadataController {
     description: 'Metadata is not available for the requested simulation run id',
     type: ErrorResponseDocument,
   })
-  @Get(':id')
+  @Get(':runId')
   public async getMetadata(
-    @Param('id') id: string,
+    @Param('runId') id: string,
   ): Promise<SimulationRunMetadata> {
     const metadata = await this.service.getMetadata(id);
 
