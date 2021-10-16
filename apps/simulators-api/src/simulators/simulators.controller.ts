@@ -47,16 +47,20 @@ export class SimulatorsController {
 
   @Get()
   @ApiOperation({
-    summary: 'Get all simulators and all of their versions',
+    summary: 'Get all simulation tools and all of their versions',
     description:
-      'Returns a list of the specifications of each available version of each simulators.',
+      'Get a list of the specifications of each available version of each simulation tool.',
   })
   @ApiQuery({
     name: 'includeTests',
+    description: 'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
     required: false,
     type: Boolean,
   })
-  @ApiOkResponse({ description: 'OK', type: [Simulator] })
+  @ApiOkResponse({ 
+    description: 'The specifications of the simulation tools were successfully retrieved', 
+    type: [Simulator],
+  })
   public getSimulators(@Query('includeTests') includeTests = 'false') {
     const includeBool = includeTests == 'true';
 
@@ -64,25 +68,30 @@ export class SimulatorsController {
   }
 
   @Get('latest')
-  @ApiOkResponse({ description: 'OK', type: [Simulator] })
+  @ApiOkResponse({ 
+    description: 'The requested simulation tool specifications were successfully retrieved', 
+    type: [Simulator],
+  })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description: 'Not Found',
+    description: 'No simulation tool has the requested id',
   })
   @ApiOperation({
     summary:
-      'Get the latest version of each simulator, or of a particular simulator',
+      'Get the latest version of each simulation tool, or of a particular simulation tool',
     description:
-      'Returns a list of the specifications of the latest version of each simulator, ' +
-      'or a list with one element which is the specifications of the latest version of a particular simulator.',
+      'Get a list of the specifications of the latest version of each simulation tool, ' +
+      'or a list with one element which is the specifications of the latest version of a particular simulation tool.',
   })
   @ApiQuery({
     name: 'id',
+    description: 'Id of the simulation tool',
     required: false,
     type: String,
   })
   @ApiQuery({
     name: 'includeTests',
+    description: 'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
     required: false,
     type: Boolean,
   })
@@ -134,24 +143,29 @@ export class SimulatorsController {
 
   @Get(':id')
   @ApiOperation({
-    summary: 'Get the versions of a simulator',
+    summary: 'Get the versions of a simulation tool',
     description:
-      'Get a list of the specifications of each version of a simulator',
+      'Get a list of the specifications of each version of a simulation tool',
   })
   @ApiParam({
     name: 'id',
+    description: 'Id of the simulation tool',
     required: true,
     type: String,
   })
   @ApiQuery({
     name: 'includeTests',
+    description: 'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
     required: false,
     type: Boolean,
   })
-  @ApiOkResponse({ type: [Simulator] })
+  @ApiOkResponse({ 
+    description: 'The specifications of the requested simulation toool were successfully retrieved',
+    type: [Simulator] 
+  })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description: 'Simulator not found',
+    description: 'No simulation tool has the requested id',
   })
   public async getSimulator(
     @Param('id') id: string,
@@ -163,28 +177,34 @@ export class SimulatorsController {
 
   @Get(':id/:version')
   @ApiOperation({
-    summary: 'Get a version of a simulator',
-    description: 'Get the specifications of a version of a simulator',
+    summary: 'Get a version of a simulation tool',
+    description: 'Get the specifications of a version of a simulation tool',
   })
   @ApiParam({
     name: 'id',
+    description: 'Id of the simulation tool',
     required: true,
     type: String,
   })
   @ApiParam({
     name: 'version',
+    description: 'Version of the simulation tool',
     required: true,
     type: String,
   })
   @ApiQuery({
     name: 'includeTests',
+    description: 'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
     required: false,
     type: Boolean,
   })
-  @ApiOkResponse({ type: Simulator })
+  @ApiOkResponse({ 
+    description: 'The specifications of the requested version of the requested simulation tool were successfully retrieved', 
+    type: Simulator,
+  })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description: 'Simulator not found',
+    description: 'No simulation tool has the requested id',
   })
   async getSimulatorVersion(
     @Param('id') id: string,
@@ -225,21 +245,21 @@ export class SimulatorsController {
   @permissions('write:Simulators')
   @Post()
   @ApiOperation({
-    summary: 'Add a version of a simulator to the database',
+    summary: 'Add a version of a simulation tool to the database',
     description:
-      'Add the specifications of a version of a simulator to the database.',
+      'Add the specifications of a version of a simulation tool to the database.',
   })
   @ApiBody({
     type: Simulator,
   })
-  @ApiCreatedResponse({ description: 'Simulator Created', type: Simulator })
+  @ApiCreatedResponse({ description: 'The version of the simulation tool was successfully saved to the database', type: Simulator })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'Request body does not match schema',
+    description: 'The request does not match the expected schema. See https://api.biosimulators.org for examples and documentation.',
   })
   @ApiConflictResponse({
     type: ErrorResponseDocument,
-    description: 'Conflict with existing entry',
+    description: 'The version of the simulation tool could not be saved because the database already includes this version of this tool. Please use the `PUT` method to modify versions of simulation tools. Please see https://api.biosimulators.org for more information.',
   })
   async create(@Body() doc: Simulator): Promise<Simulator> {
     return this.service.new(doc);
@@ -247,15 +267,20 @@ export class SimulatorsController {
 
   @Post('validate')
   @ApiOperation({
-    summary: 'Validate the specification of a simulator',
+    summary: 'Validate the specification of a simulation tool',
     description:
-      'Returns 204 (No Content) for a correct specification, or a 400 (Bad Input) for an incorrect specification.',
+      'Validate the specification of a version of a simulation tool. Returns 204 (No Content) for a correct specification, or a 400 (Bad Input) for an incorrect specification. 400 errors include diagnostic information which describe why the specification is invalid.',
   })
   @ApiBody({
     type: Simulator,
   })
-  @ApiBadRequestResponse({ type: ErrorResponseDocument })
-  @ApiNoContentResponse({ description: 'No Content' })
+  @ApiBadRequestResponse({ 
+    type: ErrorResponseDocument,
+    description: 'The request does not match the expected schema. See https://api.biosimulators.org for examples and documentation.',
+  })
+  @ApiNoContentResponse({ 
+    description: 'No Content' 
+  })
   @HttpCode(204)
   async validateSimulator(@Body() doc: Simulator) {
     await this.service.validate(doc);
@@ -267,30 +292,32 @@ export class SimulatorsController {
   @ApiOAuth2([])
   @ApiParam({
     name: 'id',
+    description: 'Id of the simulation tool',
     required: true,
     type: String,
   })
   @ApiParam({
     name: 'version',
+    description: 'Version of the simulation tool',
     required: true,
     type: String,
   })
   @ApiOkResponse({
     type: Simulator,
-    description: 'Ok',
+    description: 'The specifications of the version of the simulation tool were successfully modified', 
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description: 'No such simulator',
+    description: 'No simulation tool has the requested id',
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'Request body does not match schema',
+    description: 'The request does not match the expected schema. See https://api.biosimulators.org for examples and documentation.',
   })
   @Put(':id/:version')
   @ApiOperation({
-    summary: 'Update a version of a simulator',
-    description: 'Update the specifications of a version of a simulator.',
+    summary: 'Update a version of a simulation tool',
+    description: 'Update the specifications of a version of a simulation tool.',
   })
   async update(
     @Body() doc: Simulator,
@@ -305,34 +332,36 @@ export class SimulatorsController {
   @ApiOAuth2([])
   @ApiParam({
     name: 'id',
+    description: 'Id of the simulation tool',
     required: true,
     type: String,
   })
   @ApiParam({
     name: 'version',
+    description: 'Version of the simulation tool',
     required: true,
     type: String,
   })
   @ApiOkResponse({
     type: Simulator,
-    description: 'Ok',
+    description: 'The version of the simulation tool was successfully deleted',
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description: 'No such simulator',
+    description: 'No simulation tool has the requested id',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
-    description: 'Invalid Authorization Provided',
+    description: 'A valid authorization was not provided',
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'No permission to edit simulator',
+    description: 'This account does not have permission to delete simulation tools',
   })
   @Delete(':id/:version')
   @ApiOperation({
-    summary: 'Delete a version of a simulator',
-    description: 'Delete the specifications of a version of a simulator.',
+    summary: 'Delete a version of a simulation tool',
+    description: 'Delete the specifications of a version of a simulation tool.',
   })
   async deleteSimulatorVersion(
     @Param('id') id: string,
@@ -346,28 +375,29 @@ export class SimulatorsController {
   @ApiOAuth2([])
   @ApiParam({
     name: 'id',
+    description: 'Id of the simulation tool',
     required: true,
     type: String,
   })
   @ApiNoContentResponse({
-    description: 'Simulator Deleted',
+    description: 'The simulation tool was successfully deleted',
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description: 'No such simulator',
+    description: 'No simulation tool has the requested id',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
-    description: 'Invalid Authorization Provided',
+    description: 'A valid authorization was not provided',
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'No permission to delete simulator',
+    description: 'This account does not have permission to delete simulation tools',
   })
   @Delete(':id')
   @ApiOperation({
-    summary: 'Delete all versions of a simulator',
-    description: 'Delete the specifications of  a simulator.',
+    summary: 'Delete all versions of a simulation tool',
+    description: 'Delete the specifications of all versions of a simulation tool.',
   })
   @HttpCode(204)
   async deleteSimulator(@Param('id') id: string) {
@@ -378,19 +408,19 @@ export class SimulatorsController {
   @UseGuards(JwtGuard, AdminGuard)
   @ApiOAuth2([])
   @ApiNoContentResponse({
-    description: 'Simulators Deleted',
+    description: 'All simulation tools were successfully deleted',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
-    description: 'Invalid Authorization Provided',
+    description: 'A valid authorization was not provided',
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'No permission to delete data',
+    description: 'This account does not have permission to delete simulation tools',
   })
   @Delete()
   @ApiOperation({
-    summary: 'Delete all simulators',
+    summary: 'Delete all simulation tools',
     description: 'Clear the database. Use with extreme caution',
   })
   @HttpCode(204)
