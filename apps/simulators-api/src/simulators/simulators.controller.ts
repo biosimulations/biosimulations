@@ -250,6 +250,7 @@ export class SimulatorsController {
       'Add the specifications of a version of a simulation tool to the database.',
   })
   @ApiBody({
+    description: 'Specifications of the version of the simulation tool',
     type: Simulator,
   })
   @ApiCreatedResponse({ description: 'The version of the simulation tool was successfully saved to the database', type: Simulator })
@@ -260,6 +261,14 @@ export class SimulatorsController {
   @ApiConflictResponse({
     type: ErrorResponseDocument,
     description: 'The version of the simulation tool could not be saved because the database already includes this version of this tool. Please use the `PUT` method to modify versions of simulation tools. Please see https://api.biosimulators.org for more information.',
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to save specifications of simulation tools',
   })
   async create(@Body() doc: Simulator): Promise<Simulator> {
     return this.service.new(doc);
@@ -272,6 +281,7 @@ export class SimulatorsController {
       'Validate the specification of a version of a simulation tool. Returns 204 (No Content) for a correct specification, or a 400 (Bad Input) for an incorrect specification. 400 errors include diagnostic information which describe why the specification is invalid.',
   })
   @ApiBody({
+    description: 'Specifications of the version of the simulation tool',
     type: Simulator,
   })
   @ApiBadRequestResponse({ 
@@ -313,6 +323,14 @@ export class SimulatorsController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description: 'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to update specifications of simulation tools',
   })
   @Put(':id/:version')
   @ApiOperation({
