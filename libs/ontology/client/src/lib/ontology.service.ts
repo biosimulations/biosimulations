@@ -169,7 +169,7 @@ export class OntologyService {
     if (!id.startsWith('SBO')) {
       id = 'SBO_' + id;
     }
-    id = id.replace(':', '_')
+    id = id.replace(':', '_');
     const match = id.match(/^SBO_(\d{1,6})$/);
     if (match !== null) {
       id = 'SBO_' + '0'.repeat(7 - match[1].length) + match[1];
@@ -182,7 +182,7 @@ export class OntologyService {
     if (!id.startsWith('SIO')) {
       id = 'SIO_' + id;
     }
-    id = id.replace(':', '_')
+    id = id.replace(':', '_');
     const match = id.match(/^SIO_(\d{1,5})$/);
     if (match !== null) {
       id = 'SIO_' + '0'.repeat(6 - match[1].length) + match[1];
