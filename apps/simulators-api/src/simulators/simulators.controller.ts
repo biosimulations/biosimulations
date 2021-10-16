@@ -255,7 +255,7 @@ export class SimulatorsController {
   @ApiCreatedResponse({ description: 'The version of the simulation tool was successfully saved to the database', type: Simulator })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'The request does not match the expected schema. See https://api.biosimulators.org for examples and documentation.',
+    description: 'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
   })
   @ApiConflictResponse({
     type: ErrorResponseDocument,
@@ -276,10 +276,10 @@ export class SimulatorsController {
   })
   @ApiBadRequestResponse({ 
     type: ErrorResponseDocument,
-    description: 'The request does not match the expected schema. See https://api.biosimulators.org for examples and documentation.',
+    description: 'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
   })
   @ApiNoContentResponse({ 
-    description: 'No Content' 
+    description: 'The specifications of teh simulation tool are valid'
   })
   @HttpCode(204)
   async validateSimulator(@Body() doc: Simulator) {
@@ -312,7 +312,7 @@ export class SimulatorsController {
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'The request does not match the expected schema. See https://api.biosimulators.org for examples and documentation.',
+    description: 'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
   })
   @Put(':id/:version')
   @ApiOperation({
