@@ -31,7 +31,7 @@ import {
 } from '@biosimulations/datamodel/api';
 import { Response } from 'express';
 @Controller('results')
-@ApiTags('Results')
+@ApiTags('Simulation run results')
 export class ResultsController {
   public constructor(
     private service: ResultsService,
@@ -43,9 +43,9 @@ export class ResultsController {
     description:
       'Get the results of each report and plot of each SED-ML file for the simulation run',
   })
-  @Get(':simId')
+  @Get(':runId')
   @ApiParam({
-    name: 'simId',
+    name: 'runId',
     description: 'Id of a simulation run',
     required: true,
     type: String,
@@ -61,7 +61,7 @@ export class ResultsController {
     type: SimulationRunResults
   })
   public async getResults(
-    @Param('simId') id: string,
+    @Param('runId') id: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunResults> {
     const results = await this.service.getResults(id, includeData);
@@ -81,9 +81,9 @@ export class ResultsController {
     description:
       'Download a zip file that contains each report (HDF5 format) and plot (PDF format) of each SED-ML file for the simulation run, as well as the log (YAML format) of the simulation run',
   })
-  @Get(':simId/download')
+  @Get(':runId/download')
   @ApiParam({
-    name: 'simId',
+    name: 'runId',
     description: 'Id of a simulation run',
     required: true,
     type: String,
@@ -91,9 +91,9 @@ export class ResultsController {
   @ApiNoContentResponse({
     description: 'The simulation results were successfully downloaded',
   })
-  @ApiTags('Downloads')
+  @ApiTags('Simulation run downloads')
   public async downloadResultReport(
-    @Param('simId') simId: string,
+    @Param('runId') simId: string,
     @Res() res: Response,
   ): Promise<void> {
     const file = await this.service.download(simId);
@@ -109,9 +109,9 @@ export class ResultsController {
     description:
       'Get the results of a single output (SED plot or report of a SED-ML file) of a simulation run',
   })
-  @Get(':simId/:outputId')
+  @Get(':runId/:outputId')
   @ApiParam({
-    name: 'simId',
+    name: 'runId',
     description: 'Id of a simulation run',
     required: true,
     type: String,
@@ -134,7 +134,7 @@ export class ResultsController {
     type: SimulationRunOutput,
   })
   public async getResultReport(
-    @Param('simId') simId: string,
+    @Param('runId') simId: string,
     @Param('outputId') outputId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunOutput> {

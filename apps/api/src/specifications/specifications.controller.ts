@@ -7,12 +7,14 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiParam, ApiBody, ApiOkResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiUnauthorizedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
 import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
 import { SpecificationsService } from './specifications.service';
 import { SpecificationsModel } from './specifications.model';
 import { permissions } from '@biosimulations/auth/nest';
-@ApiTags('Specifications')
+import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+
+@ApiTags('Simulation experiments (specifications of SED-ML files in COMBINE/OMEX archives) of simulation runs')
 @Controller('specifications')
 export class SpecificationsController {
   private logger = new Logger(SpecificationsController.name);
@@ -20,15 +22,49 @@ export class SpecificationsController {
   public constructor(private service: SpecificationsService) {}
 
   @Get()
+  @ApiOperation({
+    summary: 'Get the simulation experiments of all simulation runs',
+    description: 'Get a list of the specifications of all simulation experiments (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
+  })
+  @ApiOkResponse({
+    description: 'List of the specifications of all simulation experiments (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
+    type: [SimulationRunSpecifications],
+  })
   @permissions('read:Specifications')
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to get the specifications of all simulation experiments',
+  })
   public async getSpecifications(): Promise<SimulationRunSpecifications[]> {
     const specs = await this.service.getSpecifications();
     return specs.map(this.returnSpec);
   }
 
-  @Get(':simId')
+  @Get(':runId')
+  @ApiOperation({
+    summary: 'Get the simulation experiments of a simulation run',
+    description: 'Get a list of the specifications of the simulation experiments (SED-ML files in COMBINE/OMEX archive) of a simulation run',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiOkResponse({
+    description: 'List of the specifications of the simulation experiments (SED-ML files in COMBINE/OMEX archive) of the simulation run',
+    type: [SimulationRunSpecifications],
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No simulation run has the requested id',
+  })
   public async getSpecificationsBySimulation(
-    @Param('simId') simId: string,
+    @Param('runId') simId: string,
   ): Promise<SimulationRunSpecifications[]> {
     const specs = await this.service.getSpecificationsBySimulation(simId);
     if (specs.length === 0) {
@@ -39,10 +75,34 @@ export class SpecificationsController {
     return specs.map(this.returnSpec);
   }
 
-  @Get(':simId/:specId')
+  @Get(':runId/:experimentLocation')
+  @ApiOperation({
+    summary: 'Get a simulation experiment of a simulation run',
+    description: 'Get the specification of a simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'experimentLocation',
+    description: 'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiOkResponse({
+    description: 'Specifications of the simulation experiment (SED-ML file in COMBINE/OMEX archive) of the simulation run',
+    type: SimulationRunSpecifications,
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No SED-ML document has the requested simulation run id and location',
+  })
   public async getSpecification(
-    @Param('simId') simId: string,
-    @Param('specId') specId: string,
+    @Param('runId') simId: string,
+    @Param('experimentLocation') specId: string,
   ): Promise<SimulationRunSpecifications> {
     const spec = await this.service.getSpecification(simId, specId);
     if (!spec) {
@@ -54,6 +114,27 @@ export class SpecificationsController {
   }
 
   @Post()
+  @ApiOperation({
+    summary: 'Save the simulation experiments of a simulation run',
+    description: 'Save the specifications of the simulation experiments (SED-ML files in the COMBINE/OMEX archive) of a simulation run',
+  })
+  @ApiBody({
+    description: 'Specifications of the simulation experiment of the simulation run',
+    type: [SimulationRunSpecifications],
+  })
+  @ApiCreatedResponse({
+    description: 'The simulation experiments were succcessfully saved',
+    type: [SimulationRunSpecifications],
+  })
+  // @permissions('write:Specifications')
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to save the specifications of simulation experiments',
+  })
   public async createSpecification(
     @Body() specifications: SimulationRunSpecifications[],
   ): Promise<SimulationRunSpecifications[]> {
@@ -61,9 +142,36 @@ export class SpecificationsController {
     return specs.map(this.returnSpec);
   }
 
-  @Post(':simId')
+  @Post(':runId')
+  @ApiOperation({
+    summary: 'Save the simulation experiments of a simulation run',
+    description: 'Save the specifications of the simulation experiments (SED-ML files in the COMBINE/OMEX archive) of a simulation run',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiBody({
+    description: 'Specifications of the simulation experiment of the simulation run',
+    type: [SimulationRunSpecifications],
+  })
+  @ApiCreatedResponse({
+    description: 'The simulation experiments were succcessfully saved',
+    type: [SimulationRunSpecifications],
+  })
+  // @permissions('write:Specifications')
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to save the specifications of simulation experiments',
+  })
   public async createSimulationSpecification(
-    @Param('simId') simId: string,
+    @Param('runId') simId: string,
     @Body() specifications: SimulationRunSpecifications[],
   ): Promise<SimulationRunSpecifications[]> {
     const specs = await this.service.createSpecs(specifications);
