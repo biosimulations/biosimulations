@@ -17,7 +17,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiQuery,
-  ApiResponse,
+  ApiOkResponse,
   ApiTags,
   ApiOperation,
   ApiParam,
@@ -49,8 +49,16 @@ export class ResultsController {
     required: true,
     type: String,
   })
-  @ApiQuery({ name: 'includeData', type: Boolean })
-  @ApiResponse({ status: 200, description: 'ok', type: SimulationRunResults })
+  @ApiQuery({
+    name: 'includeData',
+    description: 'Whether to include the simulation results or to only return the structurre of the results (e.g., ids, names of the avaialable reports and data sets).',
+    type: Boolean,
+    required: false,
+  })
+  @ApiOkResponse({ 
+    description: 'The simulation results were successfully retrieved', 
+    type: SimulationRunResults
+  })
   public async getResults(
     @Param('simId') id: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
@@ -78,6 +86,10 @@ export class ResultsController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
+  })
+  @ApiOkResponse({ 
+    description: 'The simulation results were successfully downloaded', 
+    type: SimulationRunResults
   })
   @ApiTags('Downloads')
   public async downloadResultReport(
@@ -110,9 +122,17 @@ export class ResultsController {
       'Forward slash-separated tuple of the location of the SED-ML file and the id of the SED output (e.g., `path/to/simulation.sedm/Table1`)',
     required: true,
     type: String,
+  })  
+  @ApiQuery({
+    name: 'includeData',
+    description: 'Whether to include the simulation results or to only return the structurre of the results (e.g., ids, names of the avaialable reports and data sets).',
+    type: Boolean,
+    required: false,
   })
-  @ApiResponse({ status: 200, type: SimulationRunOutput, description: 'ok' })
-  @ApiQuery({ name: 'includeData', type: Boolean })
+  @ApiOkResponse({
+    description: 'The simulation results were successfully retrieved',
+    type: SimulationRunOutput,
+  })
   public async getResultReport(
     @Param('simId') simId: string,
     @Param('outputId') outputId: string,
