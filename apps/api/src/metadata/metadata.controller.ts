@@ -35,7 +35,7 @@ export class MetadataController {
   })
   @ApiBody({
     description: 'Metadata about the simulation project of a simulation run',
-    type: SimulationRunMetadataInput 
+    type: SimulationRunMetadataInput
   })
   @ApiCreatedResponse({
     description: 'The metadata was successfully saved to the database',

@@ -56,8 +56,8 @@ export class ResultsController {
     type: Boolean,
     required: false,
   })
-  @ApiOkResponse({ 
-    description: 'The simulation results were successfully retrieved', 
+  @ApiOkResponse({
+    description: 'The simulation results were successfully retrieved',
     type: SimulationRunResults
   })
   public async getResults(
@@ -88,8 +88,8 @@ export class ResultsController {
     required: true,
     type: String,
   })
-  @ApiNoContentResponse({ 
-    description: 'The simulation results were successfully downloaded', 
+  @ApiNoContentResponse({
+    description: 'The simulation results were successfully downloaded',
   })
   @ApiTags('Downloads')
   public async downloadResultReport(
@@ -122,7 +122,7 @@ export class ResultsController {
       'Forward slash-separated tuple of the location of the SED-ML file and the id of the SED output (e.g., `path/to/simulation.sedm/Table1`)',
     required: true,
     type: String,
-  })  
+  })
   @ApiQuery({
     name: 'includeData',
     description: 'Whether to include the simulation results or to only return the structurre of the results (e.g., ids, names of the avaialable reports and data sets).',

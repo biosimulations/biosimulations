@@ -27,12 +27,12 @@ export class ImagesController {
     description:
       'Trigger the simulation service to build (or rebuild) a Singularity image for a version of a simulation tool',
   })
-  @ApiBody({ 
+  @ApiBody({
     description: 'Version of a simulation tool to build (or rebuild) a Singularity image for',
     type: refreshImageBody,
   })
-  @ApiCreatedResponse({ 
-    description: 'The building/rebuilding of the Singularity image was successfully triggered', 
+  @ApiCreatedResponse({
+    description: 'The building/rebuilding of the Singularity image was successfully triggered',
     type: String,
   })
   @ApiInternalServerErrorResponse({
