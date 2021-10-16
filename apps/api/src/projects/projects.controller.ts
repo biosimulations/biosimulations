@@ -107,7 +107,7 @@ export class ProjectsController {
     description: 'Id of the project',
     required: true,
     type: String,
-  })  
+  })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
     description: 'No project has the requested id',
@@ -160,7 +160,7 @@ export class ProjectsController {
     description: 'This account does not have permission to delete projects',
   })
   public async deleteProjects(): Promise<void> {
-    return await this.service.deleteProjects();
+    return this.service.deleteProjects();
   }
 
   @ApiNoContentResponse()

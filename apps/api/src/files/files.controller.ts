@@ -21,7 +21,7 @@ export class FilesController {
   public constructor(private service: FilesService) {}
 
   /*
-  @Get()  
+  @Get()
   @ApiOperation({
     summary: '',
     description: '',
