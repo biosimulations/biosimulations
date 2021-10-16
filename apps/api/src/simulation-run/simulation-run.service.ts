@@ -160,9 +160,7 @@ export class SimulationRunService {
     return toApi(await model.save());
   }
 
-  public async getAll(
-    fields: string[] = [],
-  ): Promise<SimulationRunField[]> {
+  public async getAll(fields: string[] = []): Promise<SimulationRunField[]> {
     const projection: { [key: string]: number } = {
       id: 1,
       _id: 0,

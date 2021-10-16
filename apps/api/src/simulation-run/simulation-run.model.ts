@@ -208,7 +208,6 @@ SimulationRunModelSchema.set('timestamps', {
 SimulationRunModelSchema.set('toObject', { transform: omitPrivate });
 SimulationRunModelSchema.set('toJSON', { transform: omitPrivate });
 
-
 export interface SimulationRunField {
   id: string;
 

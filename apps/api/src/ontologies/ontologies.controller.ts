@@ -1,9 +1,4 @@
-import {
-  Controller,
-  Get,
-  NotFoundException,
-  Param,
-} from '@nestjs/common';
+import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 
 import { Ontologies } from '@biosimulations/datamodel/common';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
@@ -32,7 +27,8 @@ export class OntologiesController {
       'Get a list of the ids of the ontologies used by BioSimulations and BioSimulators',
   })
   @ApiOkResponse({
-    description: 'The ids of the ontologies used by BioSimulations and BioSimulators were successfully retrieved',
+    description:
+      'The ids of the ontologies used by BioSimulations and BioSimulators were successfully retrieved',
     type: [String],
   })
   getList(): string[] {
@@ -119,7 +115,8 @@ export class OntologiesController {
   })
   @ApiParam({
     name: 'termId',
-    description: 'Id of the term (e.g., `KISAO_0000019` for the KiSAO ontology).',
+    description:
+      'Id of the term (e.g., `KISAO_0000019` for the KiSAO ontology).',
     required: true,
     type: String,
   })

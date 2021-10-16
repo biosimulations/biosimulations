@@ -57,7 +57,10 @@ import {
   UploadSimulationRunUrl,
 } from '@biosimulations/datamodel/api';
 import { SimulationRunService } from './simulation-run.service';
-import { SimulationRunModelReturnType, SimulationRunField } from './simulation-run.model';
+import {
+  SimulationRunModelReturnType,
+  SimulationRunField,
+} from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
@@ -115,7 +118,8 @@ export class SimulationRunController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to get all simulation runs. Access to all runs is limited to the administrators.',
+    description:
+      'This account does not have permission to get all simulation runs. Access to all runs is limited to the administrators.',
   })
   @Get()
   public async getRuns(
@@ -151,7 +155,8 @@ export class SimulationRunController {
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'The simulation run request does not adhere to the expected schema. Please see https://api.biosimulations.org for more information.',
+    description:
+      'The simulation run request does not adhere to the expected schema. Please see https://api.biosimulations.org for more information.',
   })
   @ApiUnsupportedMediaTypeResponse({
     type: ErrorResponseDocument,
@@ -269,7 +274,8 @@ export class SimulationRunController {
     type: String,
   })
   @ApiOkResponse({
-    description: 'Information about the simulation run was successfully retrieved',
+    description:
+      'Information about the simulation run was successfully retrieved',
     type: SimulationRun,
   })
   @ApiNotFoundResponse({
@@ -318,7 +324,8 @@ export class SimulationRunController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to save simulation runs',
+    description:
+      'This account does not have permission to save simulation runs',
   })
   @Patch(':runId')
   @ApiOkResponse({
@@ -355,16 +362,15 @@ export class SimulationRunController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to delete simulation runs',
+    description:
+      'This account does not have permission to delete simulation runs',
   })
   @Delete(':runId')
   @ApiOkResponse({
     type: SimulationRun,
     description: 'The simulation run was successfully deleted',
   })
-  public async deleteRun(
-    @Param('runId') id: string,
-  ): Promise<SimulationRun> {
+  public async deleteRun(@Param('runId') id: string): Promise<SimulationRun> {
     const res = await this.service.delete(id);
 
     if (!res) {
@@ -385,7 +391,8 @@ export class SimulationRunController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to delete simulation runs',
+    description:
+      'This account does not have permission to delete simulation runs',
   })
   @Delete()
   @ApiNoContentResponse({
@@ -406,12 +413,14 @@ export class SimulationRunController {
     type: String,
   })
   @ApiNotFoundResponse({
-    description: 'No COMBINE/OMEX archive is available for the requested simulation run id',
+    description:
+      'No COMBINE/OMEX archive is available for the requested simulation run id',
     type: ErrorResponseDocument,
   })
   @Get(':runId/download')
   @ApiNoContentResponse({
-    description: 'The COMBINE/OMEX archive for the run was successfully downloaded',
+    description:
+      'The COMBINE/OMEX archive for the run was successfully downloaded',
   })
   @ApiTags('Simulation run downloads')
   public async download(

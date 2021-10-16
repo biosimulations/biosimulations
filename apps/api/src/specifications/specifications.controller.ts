@@ -7,14 +7,26 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiParam, ApiBody, ApiOkResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiUnauthorizedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiParam,
+  ApiBody,
+  ApiOkResponse,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+} from '@nestjs/swagger';
 import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
 import { SpecificationsService } from './specifications.service';
 import { SpecificationsModel } from './specifications.model';
 import { permissions } from '@biosimulations/auth/nest';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
-@ApiTags('Simulation experiments (specifications of SED-ML files in COMBINE/OMEX archives) of simulation runs')
+@ApiTags(
+  'Simulation experiments (specifications of SED-ML files in COMBINE/OMEX archives) of simulation runs',
+)
 @Controller('specifications')
 export class SpecificationsController {
   private logger = new Logger(SpecificationsController.name);
@@ -24,10 +36,12 @@ export class SpecificationsController {
   @Get()
   @ApiOperation({
     summary: 'Get the simulation experiments of all simulation runs',
-    description: 'Get a list of the specifications of all simulation experiments (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
+    description:
+      'Get a list of the specifications of all simulation experiments (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
   })
   @ApiOkResponse({
-    description: 'List of the specifications of all simulation experiments (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
+    description:
+      'List of the specifications of all simulation experiments (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
     type: [SimulationRunSpecifications],
   })
   @permissions('read:Specifications')
@@ -37,7 +51,8 @@ export class SpecificationsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to get the specifications of all simulation experiments',
+    description:
+      'This account does not have permission to get the specifications of all simulation experiments',
   })
   public async getSpecifications(): Promise<SimulationRunSpecifications[]> {
     const specs = await this.service.getSpecifications();
@@ -47,7 +62,8 @@ export class SpecificationsController {
   @Get(':runId')
   @ApiOperation({
     summary: 'Get the simulation experiments of a simulation run',
-    description: 'Get a list of the specifications of the simulation experiments (SED-ML files in COMBINE/OMEX archive) of a simulation run',
+    description:
+      'Get a list of the specifications of the simulation experiments (SED-ML files in COMBINE/OMEX archive) of a simulation run',
   })
   @ApiParam({
     name: 'runId',
@@ -56,7 +72,8 @@ export class SpecificationsController {
     type: String,
   })
   @ApiOkResponse({
-    description: 'List of the specifications of the simulation experiments (SED-ML files in COMBINE/OMEX archive) of the simulation run',
+    description:
+      'List of the specifications of the simulation experiments (SED-ML files in COMBINE/OMEX archive) of the simulation run',
     type: [SimulationRunSpecifications],
   })
   @ApiNotFoundResponse({
@@ -78,7 +95,8 @@ export class SpecificationsController {
   @Get(':runId/:experimentLocation')
   @ApiOperation({
     summary: 'Get a simulation experiment of a simulation run',
-    description: 'Get the specification of a simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    description:
+      'Get the specification of a simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
   })
   @ApiParam({
     name: 'runId',
@@ -88,17 +106,20 @@ export class SpecificationsController {
   })
   @ApiParam({
     name: 'experimentLocation',
-    description: 'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    description:
+      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
     required: true,
     type: String,
   })
   @ApiOkResponse({
-    description: 'Specifications of the simulation experiment (SED-ML file in COMBINE/OMEX archive) of the simulation run',
+    description:
+      'Specifications of the simulation experiment (SED-ML file in COMBINE/OMEX archive) of the simulation run',
     type: SimulationRunSpecifications,
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
-    description: 'No SED-ML document has the requested simulation run id and location',
+    description:
+      'No SED-ML document has the requested simulation run id and location',
   })
   public async getSpecification(
     @Param('runId') simId: string,
@@ -116,10 +137,12 @@ export class SpecificationsController {
   @Post()
   @ApiOperation({
     summary: 'Save the simulation experiments of a simulation run',
-    description: 'Save the specifications of the simulation experiments (SED-ML files in the COMBINE/OMEX archive) of a simulation run',
+    description:
+      'Save the specifications of the simulation experiments (SED-ML files in the COMBINE/OMEX archive) of a simulation run',
   })
   @ApiBody({
-    description: 'Specifications of the simulation experiment of the simulation run',
+    description:
+      'Specifications of the simulation experiment of the simulation run',
     type: [SimulationRunSpecifications],
   })
   @ApiCreatedResponse({
@@ -133,7 +156,8 @@ export class SpecificationsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to save the specifications of simulation experiments',
+    description:
+      'This account does not have permission to save the specifications of simulation experiments',
   })
   public async createSpecification(
     @Body() specifications: SimulationRunSpecifications[],
@@ -145,7 +169,8 @@ export class SpecificationsController {
   @Post(':runId')
   @ApiOperation({
     summary: 'Save the simulation experiments of a simulation run',
-    description: 'Save the specifications of the simulation experiments (SED-ML files in the COMBINE/OMEX archive) of a simulation run',
+    description:
+      'Save the specifications of the simulation experiments (SED-ML files in the COMBINE/OMEX archive) of a simulation run',
   })
   @ApiParam({
     name: 'runId',
@@ -154,7 +179,8 @@ export class SpecificationsController {
     type: String,
   })
   @ApiBody({
-    description: 'Specifications of the simulation experiment of the simulation run',
+    description:
+      'Specifications of the simulation experiment of the simulation run',
     type: [SimulationRunSpecifications],
   })
   @ApiCreatedResponse({
@@ -168,7 +194,8 @@ export class SpecificationsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to save the specifications of simulation experiments',
+    description:
+      'This account does not have permission to save the specifications of simulation experiments',
   })
   public async createSimulationSpecification(
     @Param('runId') simId: string,

@@ -12,7 +12,15 @@ import {
   Post,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiBody, ApiOperation, ApiTags, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiUnauthorizedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiTags,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+} from '@nestjs/swagger';
 import { refreshImageBody } from './image.dto';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
@@ -28,15 +36,18 @@ export class ImagesController {
       'Trigger the simulation service to build (or rebuild) a Singularity image for a version of a simulation tool',
   })
   @ApiBody({
-    description: 'Version of a simulation tool to build (or rebuild) a Singularity image for',
+    description:
+      'Version of a simulation tool to build (or rebuild) a Singularity image for',
     type: refreshImageBody,
   })
   @ApiCreatedResponse({
-    description: 'The building/rebuilding of the Singularity image was successfully triggered',
+    description:
+      'The building/rebuilding of the Singularity image was successfully triggered',
     type: String,
   })
   @ApiInternalServerErrorResponse({
-    description: 'An error occurred in triggering the building/rebuilding of the Singularity image',
+    description:
+      'An error occurred in triggering the building/rebuilding of the Singularity image',
     type: ErrorResponseDocument,
   })
   @ApiUnauthorizedResponse({
@@ -45,7 +56,8 @@ export class ImagesController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to trigger the building/rebuilding of images',
+    description:
+      'This account does not have permission to trigger the building/rebuilding of images',
   })
   @permissions('refresh:Images')
   @Post('refresh')

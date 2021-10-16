@@ -52,13 +52,14 @@ export class ResultsController {
   })
   @ApiQuery({
     name: 'includeData',
-    description: 'Whether to include the simulation results or to only return the structurre of the results (e.g., ids, names of the avaialable reports and data sets).',
+    description:
+      'Whether to include the simulation results or to only return the structurre of the results (e.g., ids, names of the avaialable reports and data sets).',
     type: Boolean,
     required: false,
   })
   @ApiOkResponse({
     description: 'The simulation results were successfully retrieved',
-    type: SimulationRunResults
+    type: SimulationRunResults,
   })
   public async getResults(
     @Param('runId') id: string,
@@ -125,7 +126,8 @@ export class ResultsController {
   })
   @ApiQuery({
     name: 'includeData',
-    description: 'Whether to include the simulation results or to only return the structurre of the results (e.g., ids, names of the avaialable reports and data sets).',
+    description:
+      'Whether to include the simulation results or to only return the structurre of the results (e.g., ids, names of the avaialable reports and data sets).',
     type: Boolean,
     required: false,
   })

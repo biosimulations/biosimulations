@@ -9,7 +9,18 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiNoContentResponse, ApiTags, ApiOperation, ApiParam, ApiBody, ApiOkResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiUnauthorizedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
+import {
+  ApiNoContentResponse,
+  ApiTags,
+  ApiOperation,
+  ApiParam,
+  ApiBody,
+  ApiOkResponse,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+} from '@nestjs/swagger';
 import { ProjectId, ProjectIdParam } from './id.decorator';
 import { ProjectModel } from './project.model';
 import { ProjectsService } from './projects.service';
@@ -61,7 +72,9 @@ export class ProjectsController {
     description: 'No project has the requested id',
   })
   @ProjectIdParam()
-  public async getProject(@ProjectId('projectId') id: string): Promise<Project> {
+  public async getProject(
+    @ProjectId('projectId') id: string,
+  ): Promise<Project> {
     const proj = await this.service.getProject(id);
 
     if (proj) {
@@ -113,11 +126,13 @@ export class ProjectsController {
     description: 'No project has the requested id',
   })
   @ApiBody({
-    description: 'Updated information about the publication of the simulation run',
+    description:
+      'Updated information about the publication of the simulation run',
     type: ProjectInput,
   })
   @ApiOkResponse({
-    description: 'The information about the publication of the simulation run was successfully updated',
+    description:
+      'The information about the publication of the simulation run was successfully updated',
     type: Project,
   })
   @permissions('update:Projects')
@@ -188,7 +203,9 @@ export class ProjectsController {
     description: 'This account does not have permission to delete projects',
   })
   @ProjectIdParam()
-  public async deleteProject(@ProjectId('projectId') id: string): Promise<void> {
+  public async deleteProject(
+    @ProjectId('projectId') id: string,
+  ): Promise<void> {
     const res = await this.service.deleteProject(id);
     return res;
   }

@@ -10,7 +10,17 @@ import {
   VERSION_NEUTRAL,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { ApiBody, ApiTags, ApiOperation, ApiParam, ApiOkResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiUnauthorizedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiTags,
+  ApiOperation,
+  ApiParam,
+  ApiOkResponse,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+} from '@nestjs/swagger';
 
 import {
   SimulationRunMetadata,
@@ -35,7 +45,7 @@ export class MetadataController {
   })
   @ApiBody({
     description: 'Metadata about the simulation project of a simulation run',
-    type: SimulationRunMetadataInput
+    type: SimulationRunMetadataInput,
   })
   @ApiCreatedResponse({
     description: 'The metadata was successfully saved to the database',
@@ -47,7 +57,8 @@ export class MetadataController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to save metadata about simulation projects',
+    description:
+      'This account does not have permission to save metadata about simulation projects',
   })
   @Post()
   @permissions('write:Metadata')
@@ -73,7 +84,8 @@ export class MetadataController {
       'Get metadata about the simulation projects of all simulation runs. Regular users are limited to metadata about projects of published runs.',
   })
   @ApiOkResponse({
-    description: 'Metadata about the simulation projects were successfully retrieved',
+    description:
+      'Metadata about the simulation projects were successfully retrieved',
     type: [SimulationRunMetadata],
   })
   @OptionalAuth()
@@ -115,11 +127,13 @@ export class MetadataController {
     type: String,
   })
   @ApiOkResponse({
-    description: 'Metadata about the simulation project was successfully retrieved',
+    description:
+      'Metadata about the simulation project was successfully retrieved',
     type: SimulationRunMetadata,
   })
   @ApiNotFoundResponse({
-    description: 'Metadata is not available for the requested simulation run id',
+    description:
+      'Metadata is not available for the requested simulation run id',
     type: ErrorResponseDocument,
   })
   @Get(':runId')

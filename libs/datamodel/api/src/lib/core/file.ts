@@ -44,14 +44,14 @@ export class ProjectFile implements IFile {
 
   @ApiProperty({
     type: String,
-    description: 'URL where the file can be retrieved'
+    description: 'URL where the file can be retrieved',
   })
   public url: string;
 
   @ApiProperty({
     description: 'Path of the file in the simulation run',
     example: 'simulation-1.sedml',
-    type: String
+    type: String,
   })
   public location: string;
 

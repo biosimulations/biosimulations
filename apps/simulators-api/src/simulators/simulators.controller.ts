@@ -53,12 +53,14 @@ export class SimulatorsController {
   })
   @ApiQuery({
     name: 'includeTests',
-    description: 'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
+    description:
+      'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
     required: false,
     type: Boolean,
   })
   @ApiOkResponse({
-    description: 'The specifications of the simulation tools were successfully retrieved',
+    description:
+      'The specifications of the simulation tools were successfully retrieved',
     type: [Simulator],
   })
   public getSimulators(@Query('includeTests') includeTests = 'false') {
@@ -69,7 +71,8 @@ export class SimulatorsController {
 
   @Get('latest')
   @ApiOkResponse({
-    description: 'The requested simulation tool specifications were successfully retrieved',
+    description:
+      'The requested simulation tool specifications were successfully retrieved',
     type: [Simulator],
   })
   @ApiNotFoundResponse({
@@ -91,7 +94,8 @@ export class SimulatorsController {
   })
   @ApiQuery({
     name: 'includeTests',
-    description: 'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
+    description:
+      'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
     required: false,
     type: Boolean,
   })
@@ -155,13 +159,15 @@ export class SimulatorsController {
   })
   @ApiQuery({
     name: 'includeTests',
-    description: 'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
+    description:
+      'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
     required: false,
     type: Boolean,
   })
   @ApiOkResponse({
-    description: 'The specifications of the requested simulation toool were successfully retrieved',
-    type: [Simulator]
+    description:
+      'The specifications of the requested simulation toool were successfully retrieved',
+    type: [Simulator],
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
@@ -194,12 +200,14 @@ export class SimulatorsController {
   })
   @ApiQuery({
     name: 'includeTests',
-    description: 'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
+    description:
+      'Whether to include the results of the validation tests of the simulation tool (`Simulator.biosimulators.validationTests`) or exclude this attribute.',
     required: false,
     type: Boolean,
   })
   @ApiOkResponse({
-    description: 'The specifications of the requested version of the requested simulation tool were successfully retrieved',
+    description:
+      'The specifications of the requested version of the requested simulation tool were successfully retrieved',
     type: Simulator,
   })
   @ApiNotFoundResponse({
@@ -253,14 +261,20 @@ export class SimulatorsController {
     description: 'Specifications of the version of the simulation tool',
     type: Simulator,
   })
-  @ApiCreatedResponse({ description: 'The version of the simulation tool was successfully saved to the database', type: Simulator })
+  @ApiCreatedResponse({
+    description:
+      'The version of the simulation tool was successfully saved to the database',
+    type: Simulator,
+  })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
+    description:
+      'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
   })
   @ApiConflictResponse({
     type: ErrorResponseDocument,
-    description: 'The version of the simulation tool could not be saved because the database already includes this version of this tool. Please use the `PUT` method to modify versions of simulation tools. Please see https://api.biosimulators.org for more information.',
+    description:
+      'The version of the simulation tool could not be saved because the database already includes this version of this tool. Please use the `PUT` method to modify versions of simulation tools. Please see https://api.biosimulators.org for more information.',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
@@ -268,7 +282,8 @@ export class SimulatorsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to save specifications of simulation tools',
+    description:
+      'This account does not have permission to save specifications of simulation tools',
   })
   async create(@Body() doc: Simulator): Promise<Simulator> {
     return this.service.new(doc);
@@ -286,10 +301,11 @@ export class SimulatorsController {
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
+    description:
+      'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
   })
   @ApiNoContentResponse({
-    description: 'The specifications of teh simulation tool are valid'
+    description: 'The specifications of teh simulation tool are valid',
   })
   @HttpCode(204)
   async validateSimulator(@Body() doc: Simulator) {
@@ -318,7 +334,8 @@ export class SimulatorsController {
   })
   @ApiOkResponse({
     type: Simulator,
-    description: 'The specifications of the version of the simulation tool were successfully modified',
+    description:
+      'The specifications of the version of the simulation tool were successfully modified',
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
@@ -326,7 +343,8 @@ export class SimulatorsController {
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
+    description:
+      'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
@@ -334,7 +352,8 @@ export class SimulatorsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to update specifications of simulation tools',
+    description:
+      'This account does not have permission to update specifications of simulation tools',
   })
   @Put(':id/:version')
   @ApiOperation({
@@ -378,7 +397,8 @@ export class SimulatorsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to delete simulation tools',
+    description:
+      'This account does not have permission to delete simulation tools',
   })
   @Delete(':id/:version')
   @ApiOperation({
@@ -414,12 +434,14 @@ export class SimulatorsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to delete simulation tools',
+    description:
+      'This account does not have permission to delete simulation tools',
   })
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete all versions of a simulation tool',
-    description: 'Delete the specifications of all versions of a simulation tool.',
+    description:
+      'Delete the specifications of all versions of a simulation tool.',
   })
   @HttpCode(204)
   async deleteSimulator(@Param('id') id: string) {
@@ -438,7 +460,8 @@ export class SimulatorsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to delete simulation tools',
+    description:
+      'This account does not have permission to delete simulation tools',
   })
   @Delete()
   @ApiOperation({

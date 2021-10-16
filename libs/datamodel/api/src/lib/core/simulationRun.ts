@@ -20,7 +20,7 @@ export class EnvironmentVariable {
   @ApiProperty({
     description: 'Name of the variable',
     type: String,
-    example: 'VERBOSE'
+    example: 'VERBOSE',
   })
   key!: string;
 
@@ -40,14 +40,14 @@ export class SimulationRun {
   @ApiResponseProperty({
     // description: 'Id of the simulation run',
     type: String,
-    example: '5fab1cf714f9dd3dfbcfe51b'
+    example: '5fab1cf714f9dd3dfbcfe51b',
   })
   id!: string;
 
   @ApiProperty({
     description: 'Name of the simulation run',
     type: String,
-    example: 'Kockout of gene A'
+    example: 'Kockout of gene A',
   })
   name!: string;
 
@@ -65,7 +65,7 @@ export class SimulationRun {
   @ApiProperty({
     description: 'Version of the simulation tool to execute the simulation',
     type: String,
-    example: '2.2.0'
+    example: '2.2.0',
   })
   simulatorVersion!: string;
 
@@ -114,7 +114,8 @@ export class SimulationRun {
   purpose: Purpose;
 
   @ApiPropertyOptional({
-    description: 'Email to receive notification about completion of the simulation run',
+    description:
+      'Email to receive notification about completion of the simulation run',
     type: String,
     format: 'email',
     example: 'info@biosimulations.org',
@@ -137,19 +138,19 @@ export class SimulationRun {
   @ApiResponseProperty({
     // description: 'Status of the simulation run',
     type: String,
-    enum: SimulationRunStatus
+    enum: SimulationRunStatus,
   })
   status: SimulationRunStatus;
 
   @ApiResponseProperty({
     // description: 'Runtime of the simulation run in seconds',
     type: Number,
-    example: 55
+    example: 55,
   })
   runtime?: number;
 
   @ApiResponseProperty({
-     // description: 'Size of the project (COMBINE/OMEX archive) for the simulation run',
+    // description: 'Size of the project (COMBINE/OMEX archive) for the simulation run',
     type: Number,
     example: 1123,
   })
@@ -158,21 +159,21 @@ export class SimulationRun {
   @ApiResponseProperty({
     // description: 'Size of the results (zip of reports and plots) for the simulation run',
     type: Number,
-    example: 11234
+    example: 11234,
   })
   resultsSize?: number;
 
   @ApiResponseProperty({
     // description: 'Timestamp when the simulation run was submitted',
     type: String,
-    format: 'date-time'
+    format: 'date-time',
   })
   submitted!: Date;
 
   @ApiResponseProperty({
     // description: 'Timestamp when the status of the simulation run was last updated',
     type: String,
-    format: 'date-time'
+    format: 'date-time',
   })
   updated!: Date;
 
@@ -247,13 +248,14 @@ export class SimulationUpload {
   @ApiProperty({
     description: 'Project (COMBINE/OMEX archive file) to execute',
     type: String,
-    format: 'binary'
+    format: 'binary',
   })
   file!: string;
 
   @ApiProperty({
-    description: 'Details about how to execute the project (COMBINE/OMEX archive)',
-    type: UploadSimulationRun
+    description:
+      'Details about how to execute the project (COMBINE/OMEX archive)',
+    type: UploadSimulationRun,
   })
   simulationRun!: UploadSimulationRun;
 }
@@ -261,28 +263,29 @@ export class SimulationUpload {
 export class PatchSimulationRun {
   @ApiPropertyOptional({
     description: 'Whether to publish (or unpublish) the simulation run',
-    type: Boolean
+    type: Boolean,
   })
   public?: boolean;
 
   @ApiPropertyOptional({
     description: 'Status of the simulation run',
     type: String,
-    enum: SimulationRunStatus
+    enum: SimulationRunStatus,
   })
   status?: SimulationRunStatus;
 
   @ApiPropertyOptional({
-    description: 'Size of the results (zip of reports and plots) for the simulation run',
+    description:
+      'Size of the results (zip of reports and plots) for the simulation run',
     type: Number,
-    example: 11234
+    example: 11234,
   })
   resultsSize?: number;
 
   @ApiPropertyOptional({
     description: 'Detail about the status of the simulation run',
     type: Number,
-    example: 11234
+    example: 11234,
   })
   statusReason?: string;
 }

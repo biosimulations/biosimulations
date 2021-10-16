@@ -9,7 +9,17 @@ import {
   Param,
   NotFoundException,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiParam, ApiBody, ApiOkResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiUnauthorizedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiParam,
+  ApiBody,
+  ApiOkResponse,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+} from '@nestjs/swagger';
 import { FileModel } from './files.model';
 import { FilesService } from './files.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
@@ -41,7 +51,8 @@ export class FilesController {
   @Get(':runId')
   @ApiOperation({
     summary: 'Get the files of a simulation run',
-    description: 'Get a list of metadata about each file (contents of the COMBINE/OMEX archive) of a simulation run',
+    description:
+      'Get a list of metadata about each file (contents of the COMBINE/OMEX archive) of a simulation run',
   })
   @ApiParam({
     name: 'runId',
@@ -63,7 +74,8 @@ export class FilesController {
   @Get(':runId/:fileLocation')
   @ApiOperation({
     summary: 'Get metadata about a file of a simulation run',
-    description: 'Get metadata about a file (location in the COMBINE/OMEX archive) of a simulation run',
+    description:
+      'Get metadata about a file (location in the COMBINE/OMEX archive) of a simulation run',
   })
   @ApiParam({
     name: 'runId',
@@ -73,7 +85,8 @@ export class FilesController {
   })
   @ApiParam({
     name: 'fileLocation',
-    description: 'Location of the file within the COMBINE/OMEX archive for the simulation run',
+    description:
+      'Location of the file within the COMBINE/OMEX archive for the simulation run',
     required: true,
     type: String,
   })
@@ -99,8 +112,10 @@ export class FilesController {
 
   @Post()
   @ApiOperation({
-    summary: 'Save metadata about the files for a simulation run to the database',
-    description: 'Save metadata about each file (contents of the COMBINE/OMEX archive) for a simulation run to the database',
+    summary:
+      'Save metadata about the files for a simulation run to the database',
+    description:
+      'Save metadata about each file (contents of the COMBINE/OMEX archive) for a simulation run to the database',
   })
   @ApiBody({
     description: 'Metadata about the files for the simulation run',
@@ -113,10 +128,12 @@ export class FilesController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to save metadata about files',
+    description:
+      'This account does not have permission to save metadata about files',
   })
   @ApiCreatedResponse({
-    description: 'The metadata for the files for the simulation were successfully saved to the database',
+    description:
+      'The metadata for the files for the simulation were successfully saved to the database',
     type: [SubmitProjectFile],
   })
   public async createFiles(@Body() files: SubmitProjectFile[]) {

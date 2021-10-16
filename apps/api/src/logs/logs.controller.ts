@@ -127,7 +127,8 @@ export class LogsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to save the specifications of simulation experiments',
+    description:
+      'This account does not have permission to save the specifications of simulation experiments',
   })
   @ApiCreatedResponse({
     description: 'The logs for the simulation run were sucessfully saved',
