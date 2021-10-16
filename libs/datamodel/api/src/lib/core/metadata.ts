@@ -12,7 +12,7 @@ import {
 
 @ApiExtraModels(ArchiveMetadata)
 export class SimulationRunMetadata {
-  @ApiProperty({ 
+  @ApiProperty({
     type: String,
     description: 'Id of the metadata',
     example: '609aeb11d70ea3752d097015'
@@ -20,7 +20,7 @@ export class SimulationRunMetadata {
   public id!: string;
 
   @ApiProperty({
-    name: 'public', 
+    name: 'public',
     type: Boolean,
     description: 'Whether the simulation run has been published',
     example: true
@@ -29,7 +29,7 @@ export class SimulationRunMetadata {
 
   @ApiProperty({
     description: 'Metadata about the COMBINE/OMEX archive of the simulation run or files in the archive',
-    type: [ArchiveMetadata] 
+    type: [ArchiveMetadata]
   })
   public metadata!: ArchiveMetadata[];
 
