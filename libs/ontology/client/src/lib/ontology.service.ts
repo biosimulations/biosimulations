@@ -152,14 +152,41 @@ export class OntologyService {
   }
 
   public getKisaoTerm(id: string): Observable<KisaoTerm> {
+    id = id.toUpperCase();
+    if (!id.startsWith('KISAO')) {
+      id = 'KISAO_' + id;
+    }
+    id = id.replace(':', '_');
+    const match = id.match(/^KISAO_(\d{1,6})$/);
+    if (match !== null) {
+      id = 'KISAO_' + '0'.repeat(7 - match[1].length) + match[1];
+    }
     return this.getTerm<KisaoTerm>(Ontologies.KISAO, id);
   }
 
   public getSboTerm(id: string): Observable<SboTerm> {
+    id = id.toUpperCase();
+    if (!id.startsWith('SBO')) {
+      id = 'SBO_' + id;
+    }
+    id = id.replace(':', '_')
+    const match = id.match(/^SBO_(\d{1,6})$/);
+    if (match !== null) {
+      id = 'SBO_' + '0'.repeat(7 - match[1].length) + match[1];
+    }
     return this.getTerm<SboTerm>(Ontologies.SBO, id);
   }
 
   public getSioTerm(id: string): Observable<SioTerm> {
+    id = id.toUpperCase();
+    if (!id.startsWith('SIO')) {
+      id = 'SIO_' + id;
+    }
+    id = id.replace(':', '_')
+    const match = id.match(/^SIO_(\d{1,5})$/);
+    if (match !== null) {
+      id = 'SIO_' + '0'.repeat(6 - match[1].length) + match[1];
+    }
     return this.getTerm<SioTerm>(Ontologies.SIO, id);
   }
 
