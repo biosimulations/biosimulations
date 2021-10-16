@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Observable, combineLatest, map, shareReplay, mergeMap } from 'rxjs';
+import { Observable, combineLatest, map, shareReplay, mergeMap, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   ProjectMetadata,
   SimulationRunMetadata,
@@ -37,6 +39,7 @@ export class ViewComponent implements OnInit {
     private service: ViewService,
     private projService: ProjectService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   public selectedTabIndex = 0;
@@ -48,6 +51,14 @@ export class ViewComponent implements OnInit {
     const id = (this.id = this.route.snapshot.params['id']);
     this.simulationRunId$ = this.projService.getProject(id).pipe(
       shareReplay(1),
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 400) {
+          this.router.navigate(['/error', '404'], { skipLocationChange: true });
+        } else {
+          this.router.navigate(['/error', '500'], { skipLocationChange: true });
+        }
+        return throwError(error);
+      }),
       map((project) => project.simulationRun),
     );
     this.projectMetadata$ = this.simulationRunId$.pipe(
