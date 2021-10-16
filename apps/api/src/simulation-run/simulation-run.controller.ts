@@ -35,12 +35,17 @@ import {
   ApiCreatedResponse,
   ApiExtraModels,
   ApiOkResponse,
+  ApiNoContentResponse,
   ApiOperation,
+  ApiQuery,
   ApiPayloadTooLargeResponse,
   ApiTags,
+  ApiNotFoundResponse,
   ApiUnsupportedMediaTypeResponse,
   getSchemaPath,
   ApiParam,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 import { Response, Request } from 'express';
 import {
@@ -51,7 +56,7 @@ import {
   UploadSimulationRunUrl,
 } from '@biosimulations/datamodel/api';
 import { SimulationRunService } from './simulation-run.service';
-import { SimulationRunModelReturnType } from './simulation-run.model';
+import { SimulationRunModelReturnType, SimulationRunField } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
@@ -90,14 +95,31 @@ export class SimulationRunController {
   @ApiOperation({
     summary: 'Get all of the simulation runs',
     description:
-      'Returns an array of all the simulation run objects in the database',
+      'Returns an array of all the simulation run objects in the database. Access is restricted to administrators.',
   })
-  @ApiOkResponse({ description: 'OK', type: [SimulationRun] })
+  @ApiQuery({
+    name: 'fields',
+    description: 'List of fields to retrieve for each simulation run.',
+    required: true,
+    type: [String],
+  })
+  @ApiOkResponse({
+    description: 'The simulation runs were successfully retrieved',
+    // type: [SimulationRunField],
+  })
   @permissions('read:SimulationRuns')
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to get all simulation runs. Access to all runs is limited to the administrators.',
+  })
   @Get()
   public async getRuns(
     @Query() queryparams: FieldsQueryParameters,
-  ): Promise<{ id: string; status: string }[]> {
+  ): Promise<SimulationRunField[]> {
     const res = await this.service.getAll(queryparams.fields);
     return res;
   }
@@ -124,27 +146,26 @@ export class SimulationRunController {
   })
   @ApiCreatedResponse({
     type: SimulationRun,
-    description: 'Simulation run submitted',
-  })
-  @ApiPayloadTooLargeResponse({
-    type: ErrorResponseDocument,
-    description:
-      'COMBINE/OMEX file is too large. Files must be less than 1 GB.',
-  })
+    description: 'Simulation run was successfully submitted',
+  })  
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'Request did not adhere to schema',
+    description: 'The simulation run request does not adhere to the expected schema. Please see https://api.biosimulations.org for more information.',
   })
   @ApiUnsupportedMediaTypeResponse({
     type: ErrorResponseDocument,
     description:
-      'The mediatype is unsupported. Mediatype must be application/json or multipart/form-data',
+      'The submitted mediatype is unsupported. The mediatype must be `application/json` or `multipart/form-data`.',
   })
-
   // Set a file size limit of 1GB
   @UseInterceptors(
     FileInterceptor('file', { limits: { fileSize: ONE_GIGABYTE } }),
   )
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The submitted COMBINE/OMEX archive file is too large. Uploaded archives must be less than 1 GB. Larger archives up to 5 TB may be submitted via URLs.',
+  })
   @Post()
   public async createRun(
     @Body() body: multipartSimulationRunBody | UploadSimulationRunUrl,
@@ -246,7 +267,14 @@ export class SimulationRunController {
     required: true,
     type: String,
   })
-  @ApiOkResponse({ type: SimulationRun })
+  @ApiOkResponse({
+    description: 'Information about the simulation run was successfully retrieved',
+    type: SimulationRun,
+  })
+  @ApiNotFoundResponse({
+    description: 'No simulation run has the requested id',
+    type: ErrorResponseDocument,
+  })
   @Get(':id')
   @OptionalAuth()
   public async getRun(
@@ -279,7 +307,19 @@ export class SimulationRunController {
     type: String,
   })
   @permissions('write:SimulationRuns')
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to save simulation runs',
+  })
   @Patch(':id')
+  @ApiOkResponse({    
+    description: 'The simulation run was successfully updated',
+    type: SimulationRun,
+  })
   public async modfiyRun(
     @Param('id') id: string,
     @Body() body: UpdateSimulationRun,
@@ -298,12 +338,28 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
+  })  
+  @ApiNotFoundResponse({
+    description: 'No simulation run has the requested id',
+    type: ErrorResponseDocument,
   })
   @permissions('delete:SimulationRuns')
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to delete simulation runs',
+  })  
   @Delete(':id')
+  @ApiOkResponse({
+    type: SimulationRun,
+    description: 'The simulation run was successfully deleted',
+  })
   public async deleteRun(
     @Param('id') id: string,
-  ): Promise<SimulationRun | null> {
+  ): Promise<SimulationRun> {
     const res = await this.service.delete(id);
 
     if (!res) {
@@ -318,7 +374,18 @@ export class SimulationRunController {
     description: 'Delete all simulation runs',
   })
   @permissions('delete:SimulationRuns')
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to delete simulation runs',
+  })
   @Delete()
+  @ApiNoContentResponse({
+    description: 'The simulation runs were successfully deleted',
+  })
   public deleteAll(): Promise<void> {
     return this.service.deleteAll();
   }
@@ -333,7 +400,14 @@ export class SimulationRunController {
     required: true,
     type: String,
   })
+  @ApiNotFoundResponse({
+    description: 'No COMBINE/OMEX archive is available for the requested simulation run id',
+    type: ErrorResponseDocument,
+  })
   @Get(':id/download')
+  @ApiNoContentResponse({
+    description: 'The COMBINE/OMEX archive for the run was successfully downloaded',
+  })
   @ApiTags('Downloads')
   public async download(
     @Param('id') id: string,
