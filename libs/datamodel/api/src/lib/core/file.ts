@@ -2,25 +2,28 @@ import { ApiProperty, ApiResponseProperty, OmitType } from '@nestjs/swagger';
 import { File as IFile } from '@biosimulations/datamodel/common';
 
 export class ProjectFile implements IFile {
-  @ApiProperty({})
+  @ApiProperty({
+    type: String,
+    description: 'Id of the file',
+  })
   public id: string;
 
   @ApiProperty({
-    description: 'File name',
+    description: 'Name of the file',
     type: String,
     example: 'file.txt',
   })
   public name: string;
 
   @ApiProperty({
-    description: 'Associated SimulationRun ID',
+    description: 'Id of the associated simulation run',
     type: String,
     example: '609aeb11d70ea3752d097015',
   })
   public simulationRun: string;
 
   @ApiProperty({
-    description: 'File size in bytes',
+    description: 'Size of the file in bytes',
     type: Number,
     example: 1024,
   })
@@ -39,19 +42,31 @@ export class ProjectFile implements IFile {
   })
   public master: boolean;
 
-  @ApiProperty({})
+  @ApiProperty({
+    type: String,
+    description: 'URL where the file can be retrieved'
+  })
   public url: string;
 
   @ApiProperty({
     description: 'Path of the file in the simulation run',
     example: 'simulation-1.sedml',
+    type: String
   })
   public location: string;
 
-  @ApiResponseProperty({})
+  @ApiResponseProperty({
+    type: String,
+    format: 'date-time',
+    // description: 'Timestamp when the file was created',
+  })
   public created!: string;
 
-  @ApiResponseProperty({})
+  @ApiResponseProperty({
+    type: String,
+    format: 'date-time',
+    // description: 'Timestamp when the file was lasted updated',
+  })
   public updated!: string;
 
   public _id!: never;

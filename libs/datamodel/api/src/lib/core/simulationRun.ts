@@ -17,10 +17,18 @@ import {
 import { SimulationRunStatus, Purpose } from '@biosimulations/datamodel/common';
 
 export class EnvironmentVariable {
-  @ApiProperty({ type: String, example: 'VERBOSE' })
+  @ApiProperty({ 
+    description: 'Name of the variable',
+    type: String,
+    example: 'VERBOSE'
+  })
   key!: string;
 
-  @ApiProperty({ type: String, example: '1' })
+  @ApiProperty({
+    description: 'Value of the variable',
+    type: String,
+    example: '1',
+  })
   value!: string;
 }
 
@@ -29,10 +37,18 @@ export class SimulationRun {
   file!: never;
   fileUrl!: never;
 
-  @ApiResponseProperty({ type: String, example: '5fab1cf714f9dd3dfbcfe51b' })
+  @ApiResponseProperty({ 
+    // description: 'Id of the simulation run',
+    type: String, 
+    example: '5fab1cf714f9dd3dfbcfe51b'
+  })
   id!: string;
 
-  @ApiProperty({ type: String, example: 'Kockout of gene A' })
+  @ApiProperty({ 
+    description: 'Name of the simulation run',
+    type: String, 
+    example: 'Kockout of gene A'
+  })
   name!: string;
 
   @ApiProperty({
@@ -46,7 +62,11 @@ export class SimulationRun {
   })
   simulator!: string;
 
-  @ApiProperty({ type: String, example: '2.2.0' })
+  @ApiProperty({ 
+    description: 'Version of the simulation tool to execute the simulation',
+    type: String, 
+    example: '2.2.0' 
+  })
   simulatorVersion!: string;
 
   // The optional properities cannot contain the '!' assertion since they are not garunteed!! Must be set in the constructor
@@ -94,34 +114,66 @@ export class SimulationRun {
   purpose: Purpose;
 
   @ApiPropertyOptional({
+    description: 'Email to receive notification about completion of the simulation run',
     type: String,
     format: 'email',
     example: 'info@biosimulations.org',
   })
   email: string | null;
 
-  @ApiProperty({ type: Boolean, default: false })
+  @ApiProperty({ 
+    description: 'Whether the simulation run should be or has been published',
+    type: Boolean, 
+    default: false,
+  })
   public: boolean;
 
-  @ApiPropertyOptional({ type: String })
+  @ApiPropertyOptional({ 
+    description: 'Detail about the status of the simulation run',
+    type: String,
+  })
   statusReason?: string;
 
-  @ApiResponseProperty({ type: String, enum: SimulationRunStatus })
+  @ApiResponseProperty({ 
+    // description: 'Status of the simulation run',
+    type: String,
+    enum: SimulationRunStatus 
+  })
   status: SimulationRunStatus;
 
-  @ApiResponseProperty({ type: Number, example: 55 })
+  @ApiResponseProperty({ 
+    // description: 'Runtime of the simulation run in seconds',
+    type: Number, 
+    example: 55 
+  })
   runtime?: number;
 
-  @ApiResponseProperty({ type: Number, example: 1123 })
+  @ApiResponseProperty({ 
+     // description: 'Size of the project (COMBINE/OMEX archive) for the simulation run',
+    type: Number, 
+    example: 1123,
+  })
   projectSize?: number;
 
-  @ApiResponseProperty({ type: Number, example: 11234 })
+  @ApiResponseProperty({ 
+    // description: 'Size of the results (zip of reports and plots) for the simulation run',
+    type: Number, 
+    example: 11234 
+  })
   resultsSize?: number;
 
-  @ApiResponseProperty({ type: String, format: 'date-time' })
+  @ApiResponseProperty({ 
+    // description: 'Timestamp when the simulation run was submitted',
+    type: String, 
+    format: 'date-time' 
+  })
   submitted!: Date;
 
-  @ApiResponseProperty({ type: String, format: 'date-time' })
+  @ApiResponseProperty({ 
+    // description: 'Timestamp when the status of the simulation run was last updated',
+    type: String, 
+    format: 'date-time'
+  })
   updated!: Date;
 
   constructor(
@@ -181,6 +233,7 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
 
 export class UploadSimulationRunUrl extends UploadSimulationRun {
   @ApiProperty({
+    description: 'URL for the project (COMBINE/OMEX archive) to execute',
     type: String,
     format: 'url',
     example:
@@ -191,24 +244,46 @@ export class UploadSimulationRunUrl extends UploadSimulationRun {
 }
 
 export class SimulationUpload {
-  @ApiProperty({ type: String, format: 'binary' })
+  @ApiProperty({ 
+    description: 'Project (COMBINE/OMEX archive file) to execute',
+    type: String, 
+    format: 'binary'
+  })
   file!: string;
 
-  @ApiProperty({ type: UploadSimulationRun })
+  @ApiProperty({ 
+    description: 'Details about how to execute the project (COMBINE/OMEX archive)',
+    type: UploadSimulationRun 
+  })
   simulationRun!: UploadSimulationRun;
 }
 
 export class PatchSimulationRun {
-  @ApiPropertyOptional({ type: Boolean })
+  @ApiPropertyOptional({ 
+    description: 'Whether to publish (or unpublish) the simulation run',
+    type: Boolean 
+  })
   public?: boolean;
 
-  @ApiPropertyOptional({ type: String, enum: SimulationRunStatus })
+  @ApiPropertyOptional({ 
+    description: 'Status of the simulation run',
+    type: String, 
+    enum: SimulationRunStatus
+  })
   status?: SimulationRunStatus;
 
-  @ApiPropertyOptional({ type: Number, example: 11234 })
+  @ApiPropertyOptional({ 
+    description: 'Size of the results (zip of reports and plots) for the simulation run',
+    type: Number, 
+    example: 11234
+  })
   resultsSize?: number;
 
-  @ApiPropertyOptional({ type: Number, example: 11234 })
+  @ApiPropertyOptional({ 
+    description: 'Detail about the status of the simulation run',
+    type: Number, 
+    example: 11234 
+  })
   statusReason?: string;
 }
 
