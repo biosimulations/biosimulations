@@ -12,8 +12,9 @@ import {
   Post,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags, ApiCreatedResponse, ApiInternalServerErrorResponse } from '@nestjs/swagger';
 import { refreshImageBody } from './image.dto';
+import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
 @Controller('images')
 @ApiTags('Internal management')
@@ -26,7 +27,18 @@ export class ImagesController {
     description:
       'Trigger the simulation service to build (or rebuild) a Singularity image for a version of a simulation tool',
   })
-  @ApiBody({ type: refreshImageBody })
+  @ApiBody({ 
+    description: 'Version of a simulation tool to build (or rebuild) a Singularity image for',
+    type: refreshImageBody,
+  })
+  @ApiCreatedResponse({ 
+    description: 'The building/rebuilding of the Singularity image was successfully triggered', 
+    type: string,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'An error occurred in triggering the building/rebuilding of the Singularity image',
+    type: ErrorResponseDocument,
+  })
   @permissions('refresh:Images')
   @Post('refresh')
   async refreshImage(@Body() data: refreshImageBody) {
