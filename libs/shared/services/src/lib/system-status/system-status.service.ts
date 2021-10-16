@@ -35,7 +35,7 @@ export class SystemStatusService {
 
         return status;
       })
-    );    
+    );
   }
 
   getAppStatus(services?: SystemService[]): Observable<boolean> {
@@ -49,6 +49,6 @@ export class SystemStatusService {
 
         return true;
       })
-    );    
+    );
   }
 }
