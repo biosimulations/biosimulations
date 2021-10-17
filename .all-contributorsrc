@@ -287,6 +287,5 @@
   "projectOwner": "biosimulations",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": false,
-  "commitConvention": "none"
+  "skipCi": true
 }
