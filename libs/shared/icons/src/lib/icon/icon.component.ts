@@ -129,7 +129,8 @@ export type BiosimulationsIcon =
   | 'convert'
   | 'archive'
   | 'r'
-  | 'image';
+  | 'image'
+  | 'idea';
 @Component({
   selector: 'biosimulations-icon',
   templateUrl: './icon.component.html',
@@ -292,6 +293,7 @@ export class IconComponent {
     archive: { type: 'fas', name: 'file-archive' },
     r: { type: 'fab', name: 'r-project' },
     image: { type: 'fas', name: 'image' },
+    idea: { type: 'fas', name: 'lightbulb' },
   };
 
   constructor() {

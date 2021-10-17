@@ -101,6 +101,7 @@ import {
   faSlidersH,
   faFileArchive,
   faImage,
+  faLightbulb,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faGitAlt,
@@ -258,6 +259,7 @@ export class BiosimulationsIconsModule {
       faSlidersH,
       faFileArchive,
       faImage,
+      faLightbulb,
     );
   }
 }
