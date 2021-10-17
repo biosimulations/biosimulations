@@ -72,11 +72,11 @@ function setupOpenApi(
     operationsSorter: 'alpha',
   };
   const customOptions: SwaggerCustomOptions = {
-    customSiteTitle: 'BioSimulations API documentation',
+    customSiteTitle: 'BioSimulators API documentation',
     swaggerOptions: uiOptions,
     customfavIcon:
       'https://github.com/biosimulations/Biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png',
-    customCss: ' .swagger-ui .topbar { display: none }',
+    customCssUrl: 'https://static.biosimulations.org/stylesheets/biosimulators_swagger.css',
   };
   SwaggerModule.setup(uiPath, app, document, customOptions);
 
