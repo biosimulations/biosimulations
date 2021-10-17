@@ -34,7 +34,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/platform-browser/README.md
-├─ @babel/code-frame@7.14.5
+├─ @babel/code-frame@7.15.8
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/babel/babel
 │  ├─ publisher: The Babel Team
@@ -252,13 +252,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/graphql.js
 │  └─ licenseFile: @octokit/graphql/LICENSE
-├─ @octokit/openapi-types@10.6.4
+├─ @octokit/openapi-types@11.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/openapi-types.ts
 │  ├─ publisher: Gregor Martynus
 │  ├─ url: https://twitter.com/gr2m
 │  └─ licenseFile: @octokit/openapi-types/LICENSE
-├─ @octokit/plugin-paginate-rest@2.16.7
+├─ @octokit/plugin-paginate-rest@2.17.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/plugin-paginate-rest.js
 │  └─ licenseFile: @octokit/plugin-paginate-rest/LICENSE
@@ -266,7 +266,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/plugin-request-log.js
 │  └─ licenseFile: @octokit/plugin-request-log/LICENSE
-├─ @octokit/plugin-rest-endpoint-methods@5.11.4
+├─ @octokit/plugin-rest-endpoint-methods@5.13.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/plugin-rest-endpoint-methods.js
 │  └─ licenseFile: @octokit/plugin-rest-endpoint-methods/LICENSE
@@ -278,11 +278,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/request.js
 │  └─ licenseFile: @octokit/request/LICENSE
-├─ @octokit/rest@18.11.4
+├─ @octokit/rest@18.12.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/rest.js
 │  └─ licenseFile: @octokit/rest/LICENSE
-├─ @octokit/types@6.31.3
+├─ @octokit/types@6.34.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/octokit/types.ts
 │  └─ licenseFile: @octokit/types/LICENSE
@@ -434,11 +434,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/minimist/LICENSE
-├─ @types/node@14.17.21
+├─ @types/node@14.17.27
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
-│  └─ licenseFile: @types/node/LICENSE
-├─ @types/node@16.10.2
+│  └─ licenseFile: nkeys.js/node_modules/@types/node/LICENSE
+├─ @types/node@16.11.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/connect/node_modules/@types/node/LICENSE
@@ -2128,7 +2128,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: https://sindresorhus.com
 │  └─ licenseFile: into-stream/license
-├─ ioredis@4.27.10
+├─ ioredis@4.28.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/luin/ioredis
 │  ├─ publisher: luin
@@ -2190,6 +2190,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Jordan Harband
 │  ├─ email: ljharb@gmail.com
 │  └─ licenseFile: npm/node_modules/is-core-module/LICENSE
+├─ is-core-module@2.8.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/inspect-js/is-core-module
+│  ├─ publisher: Jordan Harband
+│  ├─ email: ljharb@gmail.com
+│  └─ licenseFile: is-core-module/LICENSE
 ├─ is-date-object@1.0.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/is-date-object
@@ -2611,7 +2617,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/libnpmversion/LICENSE
-├─ libphonenumber-js@1.9.36
+├─ libphonenumber-js@1.9.38
 │  ├─ licenses: MIT
 │  ├─ repository: git+https://gitlab.com/catamphetamine/libphonenumber-js
 │  ├─ publisher: catamphetamine
@@ -4448,7 +4454,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: james@talmage.io
 │  ├─ url: github.com/jamestalmage
 │  └─ licenseFile: supports-hyperlinks/license
-├─ swagger-ui-dist@3.52.3
+├─ swagger-ui-dist@3.52.5
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/swagger-api/swagger-ui
 │  └─ licenseFile: swagger-ui-dist/README.md
