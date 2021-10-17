@@ -4,11 +4,13 @@ set -e
 
 # location of this script
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
-java -jar ${script_dir}/openapi-generator-cli.jar generate -g typescript-nestjs -i https://raw.githubusercontent.com/biosimulations/data-service-api/master/openapi.yaml -o ${script_dir}/../libs/hdf5/api-client/src/lib/
+## Unfortunately, I updated the api spec to 3.1.0 without checking if this was supported by the generator, so we need to disable the validation
+npx @openapitools/openapi-generator-cli generate -g typescript-nestjs -i ${script_dir}/openapi.yml -o ${script_dir}/../libs/hdf5/api-client/src/lib/ --skip-validate-spec
 
 # Correct a bug in the generation code that caused mismatched variable names
 sed -i 's/obj_uuid/objUuid/'  ${script_dir}/../libs/hdf5/api-client/src/lib/api/*.service.ts
 
+echo ${script_dir}
+sed -i 's/public defaultHeaders = new Map()/public defaultHeaders: Record<string,string>= {};/' ${script_dir}/../libs/hdf5/api-client/src/lib/api/*.service.ts
 # Format the files
 nx format --projects hdf5-api-client
