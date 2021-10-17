@@ -1,5 +1,6 @@
 title: Community
 nav:
+  - Contributors: CONTRIBUTORS.md
   - Privacy Policy: privacy.md
   - Terms of Service: terms.md
   - Governance: governance.md
