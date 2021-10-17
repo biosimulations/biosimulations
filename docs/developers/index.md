@@ -1,6 +1,6 @@
 # Guide to contributing to the BioSimulations and BioSimulators platforms
 
-We enthusiastically welcome contributions to BioSimulations and BioSimulators! This document describes how developers can contribute the BioSimulations and BioSimulators platforms (e.g., web applications, REST APIs, databases, and simulation services). Modelers can contributing models, simulations, and visualizations to BioSimulations via the web application at https://biosimulations.org. Information for simulation software tool developers about contributing containerized simulation tools to BioSimulators is available at https://biosimulators.org/help.
+We enthusiastically welcome contributions to BioSimulations and BioSimulators! This document describes how developers can contribute the BioSimulations and BioSimulators platforms (e.g., web applications, REST APIs, databases, and simulation services). Modelers can contributing models, simulations, and visualizations to BioSimulations via the web application at [https://biosimulations.org](https://biosimulations.org). Information for simulation software tool developers about contributing containerized simulation tools to BioSimulators is available at [https://biosimulators.org/help](https://biosimulators.org/help).
 
 ## Coordinating contributions
 
@@ -84,7 +84,7 @@ Libraries are sharable across libraries and applications. They can be imported f
 
 ##### Development server
 
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `ng serve my-app` for a dev server. Navigate to [http://localhost:4200/](http://localhost:4200/). The app will automatically reload if you change any of the source files.
 
 ##### Code scaffolding
 

@@ -32,4 +32,4 @@ The runBioSimulations Team is not liable to you or third parties claiming throug
 We reserve the right to update this policy at any time. The date of the most recent revision of this policy is at the bottom of this page.
 
 ## Contact
-If you have any questions about this policy, please contact Jonathan Karr and Ion Moraru at info@biosimulations.org or at 263 Farmington Avenue, Farmington, CT 06030-6406, USA.
+If you have any questions about this policy, please contact Jonathan Karr and Ion Moraru at [info@biosimulations.org](mailto:info@biosimulations.org) or at 263 Farmington Avenue, Farmington, CT 06030-6406, USA.
