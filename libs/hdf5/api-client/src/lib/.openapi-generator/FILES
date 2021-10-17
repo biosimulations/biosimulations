@@ -14,7 +14,6 @@ git_push.sh
 index.ts
 model/aCL.ts
 model/aCLS.ts
-model/datasetsLink.ts
 model/datatypesType.ts
 model/datatypesTypeFields.ts
 model/groupsLink.ts
@@ -26,7 +25,6 @@ model/inlineObject4.ts
 model/inlineObject5.ts
 model/inlineObject6.ts
 model/inlineObject7.ts
-model/inlineObject8.ts
 model/inlineResponse200.ts
 model/inlineResponse2001.ts
 model/inlineResponse20010.ts
@@ -39,8 +37,7 @@ model/inlineResponse20015.ts
 model/inlineResponse20016.ts
 model/inlineResponse20017.ts
 model/inlineResponse20018.ts
-model/inlineResponse20019.ts
-model/inlineResponse20019Hrefs.ts
+model/inlineResponse20018Hrefs.ts
 model/inlineResponse2002.ts
 model/inlineResponse2002Hrefs.ts
 model/inlineResponse2003.ts

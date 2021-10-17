@@ -10,6 +10,13 @@
  * Do not edit the class manually.
  */
 
-export interface InlineObject3 {
-  shape: Array<number>;
+export interface InlineResponse20018Hrefs {
+  /**
+   * URL of resource
+   */
+  href?: string;
+  /**
+   * Relation to `href`.
+   */
+  rel?: string;
 }

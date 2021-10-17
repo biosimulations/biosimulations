@@ -9,11 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { InlineObject8 } from './inlineObject8';
+import { InlineObject7 } from './inlineObject7';
 
 /**
  * Access Control List for a single user.
  */
 export interface ACL {
-  username?: InlineObject8;
+  username?: InlineObject7;
 }

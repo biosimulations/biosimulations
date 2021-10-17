@@ -19,6 +19,6 @@ export interface InlineResponse20015 {
   lastModified?: number;
   name?: string;
   shape?: object;
-  value?: any | null;
+  value?: string;
   hrefs?: Array<InlineResponse2008Hrefs>;
 }
