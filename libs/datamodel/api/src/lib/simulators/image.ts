@@ -14,8 +14,9 @@ export class Image implements IImage {
   @ApiProperty({
     type: String,
     description: 'Repository digest for the image',
-    example: 'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
-    pattern: '^sha256:[a-z0-9]{64,64}$'
+    example:
+      'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
+    pattern: '^sha256:[a-z0-9]{64,64}$',
   })
   digest!: string;
 

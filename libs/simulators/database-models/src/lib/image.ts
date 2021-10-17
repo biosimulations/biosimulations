@@ -35,7 +35,10 @@ export class Image implements IImage {
     validate: [
       {
         validator: (value: any): boolean => {
-          return typeof value === 'string' && value.match(/^sha256:[a-z0-9]{64,64}$/) !== null;
+          return (
+            typeof value === 'string' &&
+            value.match(/^sha256:[a-z0-9]{64,64}$/) !== null
+          );
         },
         message: (props: any): string =>
           `${props.value} is not a valid Docker repository digest`,
