@@ -1,9 +1,9 @@
 title: Community
 nav:
   - Contributors: CONTRIBUTORS.md
+  - Governance: governance.md
   - Privacy Policy: privacy.md
   - Terms of Service: terms.md
-  - Governance: governance.md
   - License: license.md
   - Dependencies: dependencies.md
   - ...
