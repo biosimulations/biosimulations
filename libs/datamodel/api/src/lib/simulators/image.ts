@@ -19,15 +19,15 @@ export class Image implements IImage {
   })
   digest!: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     type: EdamOntologyIdVersion,
     description: 'Format of the image',
   })
   format!: EdamOntologyIdVersion;
 
-  @ApiProperty({ 
-    type: String, 
-    enum: OperatingSystemType, 
+  @ApiProperty({
+    type: String,
+    enum: OperatingSystemType,
     nullable: true,
     description: 'Operating system in the image',
   })
