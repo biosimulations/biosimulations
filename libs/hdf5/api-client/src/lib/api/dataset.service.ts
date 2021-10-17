@@ -14,10 +14,10 @@
 import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
+import { InlineObject2 } from '../model/inlineObject2';
 import { InlineObject3 } from '../model/inlineObject3';
 import { InlineObject4 } from '../model/inlineObject4';
 import { InlineObject5 } from '../model/inlineObject5';
-import { InlineObject6 } from '../model/inlineObject6';
 import { InlineResponse20010 } from '../model/inlineResponse20010';
 import { InlineResponse20011 } from '../model/inlineResponse20011';
 import { InlineResponse20014 } from '../model/inlineResponse20014';
@@ -34,7 +34,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class DatasetService {
   protected basePath = 'https://data.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(
@@ -57,7 +57,6 @@ export class DatasetService {
   /**
    * Get information about an Attribute.
    *
-   * @param accept Accept header
    * @param collection Collection of object (Group, Dataset, or Datatype).
    * @param objUuid UUID of object.
    * @param attr Name of attribute.
@@ -67,7 +66,6 @@ export class DatasetService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesAttrGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -75,19 +73,12 @@ export class DatasetService {
     domain?: string,
   ): Observable<AxiosResponse<InlineResponse20015>>;
   public collectionObjUuidAttributesAttrGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
     authorization?: string,
     domain?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesAttrGet.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesAttrGet.',
@@ -112,9 +103,6 @@ export class DatasetService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -145,7 +133,6 @@ export class DatasetService {
   /**
    * Create an attribute with name &#x60;attr&#x60; and assign it to HDF5 object &#x60;obj_uudi&#x60;.
    *
-   * @param accept Accept header
    * @param collection The collection of the HDF5 object (&#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).
    * @param objUuid HDF5 object\&#39;s UUID.
    * @param attr Name of attribute.
@@ -156,7 +143,6 @@ export class DatasetService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesAttrPut(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -165,7 +151,6 @@ export class DatasetService {
     domain?: string,
   ): Observable<AxiosResponse<object>>;
   public collectionObjUuidAttributesAttrPut(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -173,12 +158,6 @@ export class DatasetService {
     authorization?: string,
     domain?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesAttrPut.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesAttrPut.',
@@ -209,9 +188,6 @@ export class DatasetService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -248,7 +224,6 @@ export class DatasetService {
   /**
    * List all Attributes attached to the HDF5 object &#x60;objUuid&#x60;.
    * Attributes sorted alphanumerically by name.
-   * @param accept Accept header
    * @param collection The collection of the HDF5 object (one of: &#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).
    * @param objUuid UUID of object.
    * @param authorization
@@ -259,7 +234,6 @@ export class DatasetService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     authorization?: string,
@@ -268,7 +242,6 @@ export class DatasetService {
     marker?: string,
   ): Observable<AxiosResponse<InlineResponse20014>>;
   public collectionObjUuidAttributesGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     authorization?: string,
@@ -276,12 +249,6 @@ export class DatasetService {
     limit?: number,
     marker?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesGet.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesGet.',
@@ -306,9 +273,6 @@ export class DatasetService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -336,38 +300,23 @@ export class DatasetService {
   }
   /**
    * List Datasets.
-   * Only includes Datasets that are part of the tree linked to the root Group in the Domain.
-   * @param accept Accept header
+   * Only includes Datasets that are part of the tree linked to the root  Group in the Domain.
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public datasetsGet(
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2006>>;
-  public datasetsGet(
-    accept: 'application/json',
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling datasetsGet.',
-      );
-    }
-
+  public datasetsGet(domain?: string, authorization?: string): Observable<any> {
     let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -395,7 +344,6 @@ export class DatasetService {
    * Get access lists on Dataset.
    *
    * @param id UUID of the Dataset.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -403,13 +351,11 @@ export class DatasetService {
    */
   public datasetsIdAclsGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20016>>;
   public datasetsIdAclsGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -419,21 +365,12 @@ export class DatasetService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling datasetsIdAclsGet.',
-      );
-    }
-
     let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -461,7 +398,6 @@ export class DatasetService {
    * Delete a Dataset.
    * Links to this Dataset are not deleted. TODO: Attributes and commited types are not deleted.
    * @param id UUID of the Dataset.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -469,13 +405,11 @@ export class DatasetService {
    */
   public datasetsIdDelete(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<object>>;
   public datasetsIdDelete(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -485,21 +419,12 @@ export class DatasetService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling datasetsIdDelete.',
-      );
-    }
-
     let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -527,7 +452,6 @@ export class DatasetService {
    * Get information about a Dataset.
    *
    * @param id UUID of the Dataset.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -535,13 +459,11 @@ export class DatasetService {
    */
   public datasetsIdGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2007>>;
   public datasetsIdGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -551,21 +473,12 @@ export class DatasetService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling datasetsIdGet.',
-      );
-    }
-
     let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -593,7 +506,6 @@ export class DatasetService {
    * Get information about a Dataset\&#39;s shape.
    *
    * @param id UUID of the Dataset.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -601,13 +513,11 @@ export class DatasetService {
    */
   public datasetsIdShapeGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2008>>;
   public datasetsIdShapeGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -617,21 +527,12 @@ export class DatasetService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling datasetsIdShapeGet.',
-      );
-    }
-
     let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -659,8 +560,7 @@ export class DatasetService {
    * Modify a Dataset\&#39;s dimensions.
    * Only datasets with &#x60;maxdims&#x60; may be resized. Dataset may not shrink (TODO).
    * @param id UUID of the Dataset.
-   * @param accept Accept header
-   * @param inlineObject4
+   * @param inlineObject3
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -668,15 +568,13 @@ export class DatasetService {
    */
   public datasetsIdShapePut(
     id: string,
-    accept: 'application/json',
-    inlineObject4: InlineObject4,
+    inlineObject3: InlineObject3,
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2013>>;
   public datasetsIdShapePut(
     id: string,
-    accept: 'application/json',
-    inlineObject4: InlineObject4,
+    inlineObject3: InlineObject3,
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -686,15 +584,9 @@ export class DatasetService {
       );
     }
 
-    if (accept === null || accept === undefined) {
+    if (inlineObject3 === null || inlineObject3 === undefined) {
       throw new Error(
-        'Required parameter accept was null or undefined when calling datasetsIdShapePut.',
-      );
-    }
-
-    if (inlineObject4 === null || inlineObject4 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject4 was null or undefined when calling datasetsIdShapePut.',
+        'Required parameter inlineObject3 was null or undefined when calling datasetsIdShapePut.',
       );
     }
 
@@ -704,9 +596,6 @@ export class DatasetService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -728,7 +617,7 @@ export class DatasetService {
     }
     return this.httpClient.put<InlineResponse2013>(
       `${this.basePath}/datasets/${encodeURIComponent(String(id))}/shape`,
-      inlineObject4,
+      inlineObject3,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
@@ -740,7 +629,6 @@ export class DatasetService {
    * Get information about a Dataset\&#39;s type.
    *
    * @param id UUID of the Dataset.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -748,13 +636,11 @@ export class DatasetService {
    */
   public datasetsIdTypeGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2009>>;
   public datasetsIdTypeGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -764,21 +650,12 @@ export class DatasetService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling datasetsIdTypeGet.',
-      );
-    }
-
     let queryParameters = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -809,8 +686,7 @@ export class DatasetService {
    * @param domain
    * @param select URL-encoded string representing a selection array. _Example_: &#x60;[3:9,0:5:2]&#x60; gets values from two-dimensional dataset: [[3,0], [4,0], ..., [8,0], [3,2], [4,2], ..., [8,4]] (18 data points total: &#x60;6*3&#x60;) In EBNF plaintext: &#x60;SELECT&#x60; :&#x3D; &#x60;\&#39;[\&#39; SLICE { \&#39;,\&#39; SLICE } \&#39;]\&#39;&#x60; &#x60;SLICE&#x60; :&#x3D; &#x60;START \&#39;:\&#39; STOP [ \&#39;:\&#39; STEP ]&#x60; &#x60;START&#x60; :&#x3D; non-negative integer less than the dimension\&#39;s extent. &#x60;STOP&#x60; :&#x3D; non-negaive integer greater than &#x60;START&#x60; and less than or equal to the dimension\&#39;s extent. Is the first index _not_ included in the selection hyperslab. &#x60;STEP&#x60; :&#x3D; non-negative integer greater than zero; is the increment of index in dimension between each value. If omitted, defaults to &#x60;1&#x60; (contiguous indices).
    * @param query URL-encoded string of conditional expression to filter selection. E.g., the condition &#x60;(temp &gt; 32.0) &amp; (dir &#x3D;&#x3D; \&#39;N\&#39;)&#x60; would return elements of the dataset where the &#x60;temp&#x60; field was greater than &#x60;32.0&#x60; _and_ the &#x60;dir&#x60; field was equal to &#x60;N&#x60;. TODO: query syntax description _Must_ be URL-encoded. Can be used in conjunction with &#x60;select&#x60; parameter to filter a hyberslab selection. Can be used in conjunction with &#x60;Limit&#x60; parameter to restrict number of values returned. Only applicable to one-dimensional compound datasets. TODO: verify
-   * @param limit Integer greater than zero. If present, specifies maximum number of values to return. Apples only to the &#x60;query&#x60; parameter.
-   * @param accept If expecting a binary data response, use &#x60;application/octet-stream&#x60; in place of the usual &#x60;application/json&#x60; Binary data responses are only supported for datasets with fixed-length type. Binary response will consist of the equivalent binary data of the &#x60;data&#x60; item in the JSON response -- no data representing &#x60;hrefs&#x60; is returned. Verify return type with the &#x60;Content-Type&#x60; response header.
+   * @param limit Integer greater than zero. If present, specifies maximum number of values to return. Applies only to the &#x60;query&#x60; parameter.
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
@@ -821,7 +697,6 @@ export class DatasetService {
     select?: string,
     query?: string,
     limit?: number,
-    accept?: 'application/json' | 'application/octet-stream',
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20010>>;
   public datasetsIdValueGet(
@@ -830,7 +705,6 @@ export class DatasetService {
     select?: string,
     query?: string,
     limit?: number,
-    accept?: 'application/json' | 'application/octet-stream',
     authorization?: string,
   ): Observable<any> {
     if (id === null || id === undefined) {
@@ -854,15 +728,15 @@ export class DatasetService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
 
     // to determine the Accept header
-    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAccepts: string[] = [
+      'application/json',
+      'application/octet-stream',
+    ];
     const httpHeaderAcceptSelected: string | undefined =
       this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
@@ -884,8 +758,7 @@ export class DatasetService {
    * Get specific data points from Dataset.
    *
    * @param id UUID of the Dataset.
-   * @param accept Accept header
-   * @param inlineObject6
+   * @param inlineObject5
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -893,15 +766,13 @@ export class DatasetService {
    */
   public datasetsIdValuePost(
     id: string,
-    accept: 'application/json',
-    inlineObject6: InlineObject6,
+    inlineObject5: InlineObject5,
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20011>>;
   public datasetsIdValuePost(
     id: string,
-    accept: 'application/json',
-    inlineObject6: InlineObject6,
+    inlineObject5: InlineObject5,
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -911,15 +782,9 @@ export class DatasetService {
       );
     }
 
-    if (accept === null || accept === undefined) {
+    if (inlineObject5 === null || inlineObject5 === undefined) {
       throw new Error(
-        'Required parameter accept was null or undefined when calling datasetsIdValuePost.',
-      );
-    }
-
-    if (inlineObject6 === null || inlineObject6 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject6 was null or undefined when calling datasetsIdValuePost.',
+        'Required parameter inlineObject5 was null or undefined when calling datasetsIdValuePost.',
       );
     }
 
@@ -929,9 +794,6 @@ export class DatasetService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -953,7 +815,7 @@ export class DatasetService {
     }
     return this.httpClient.post<InlineResponse20011>(
       `${this.basePath}/datasets/${encodeURIComponent(String(id))}/value`,
-      inlineObject6,
+      inlineObject5,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
@@ -965,29 +827,23 @@ export class DatasetService {
    * Write values to Dataset.
    * Overwrites any existing data in update region.
    * @param id UUID of the Dataset.
-   * @param accept Accept header
-   * @param inlineObject5
+   * @param inlineObject4
    * @param domain
    * @param authorization
-   * @param contentType
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public datasetsIdValuePut(
     id: string,
-    accept: 'application/json',
-    inlineObject5: InlineObject5,
+    inlineObject4: InlineObject4,
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
   ): Observable<AxiosResponse<any>>;
   public datasetsIdValuePut(
     id: string,
-    accept: 'application/json',
-    inlineObject5: InlineObject5,
+    inlineObject4: InlineObject4,
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -995,15 +851,9 @@ export class DatasetService {
       );
     }
 
-    if (accept === null || accept === undefined) {
+    if (inlineObject4 === null || inlineObject4 === undefined) {
       throw new Error(
-        'Required parameter accept was null or undefined when calling datasetsIdValuePut.',
-      );
-    }
-
-    if (inlineObject5 === null || inlineObject5 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject5 was null or undefined when calling datasetsIdValuePut.',
+        'Required parameter inlineObject4 was null or undefined when calling datasetsIdValuePut.',
       );
     }
 
@@ -1013,14 +863,8 @@ export class DatasetService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
-    }
-    if (contentType !== undefined && contentType !== null) {
-      headers['Content-Type'] = String(contentType);
     }
 
     // to determine the Accept header
@@ -1040,7 +884,7 @@ export class DatasetService {
     }
     return this.httpClient.put<any>(
       `${this.basePath}/datasets/${encodeURIComponent(String(id))}/value`,
-      inlineObject5,
+      inlineObject4,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,
@@ -1051,37 +895,25 @@ export class DatasetService {
   /**
    * Create a Dataset.
    * Create a new Dataset object in the Domain. New object is not linked to or by any other object upon creation; will not appear in &#x60;datasets&#x60; listing until linked to tree originating at the Domain\&#39;s root Group.
-   * @param accept Accept header
-   * @param inlineObject3
+   * @param inlineObject2
    * @param domain
    * @param authorization
-   * @param contentType
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public datasetsPost(
-    accept: 'application/json',
-    inlineObject3: InlineObject3,
+    inlineObject2: InlineObject2,
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
   ): Observable<AxiosResponse<InlineResponse2012>>;
   public datasetsPost(
-    accept: 'application/json',
-    inlineObject3: InlineObject3,
+    inlineObject2: InlineObject2,
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
+    if (inlineObject2 === null || inlineObject2 === undefined) {
       throw new Error(
-        'Required parameter accept was null or undefined when calling datasetsPost.',
-      );
-    }
-
-    if (inlineObject3 === null || inlineObject3 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject3 was null or undefined when calling datasetsPost.',
+        'Required parameter inlineObject2 was null or undefined when calling datasetsPost.',
       );
     }
 
@@ -1091,14 +923,8 @@ export class DatasetService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
-    }
-    if (contentType !== undefined && contentType !== null) {
-      headers['Content-Type'] = String(contentType);
     }
 
     // to determine the Accept header
@@ -1118,7 +944,7 @@ export class DatasetService {
     }
     return this.httpClient.post<InlineResponse2012>(
       `${this.basePath}/datasets`,
-      inlineObject3,
+      inlineObject2,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,

@@ -9,7 +9,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { GroupsLink } from './groupsLink';
 
 export interface InlineObject {
-  folder?: boolean;
+  link?: GroupsLink;
 }
