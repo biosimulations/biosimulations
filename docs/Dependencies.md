@@ -402,9 +402,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/body-parser/LICENSE
-├─ @types/bson@4.2.0
-│  ├─ licenses: MIT
-│  └─ licenseFile: @types/bson/LICENSE
 ├─ @types/connect@3.4.35
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -437,10 +434,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/minimist/LICENSE
-├─ @types/mongodb@3.6.20
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
-│  └─ licenseFile: @types/mongodb/LICENSE
 ├─ @types/node@14.17.21
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -481,6 +474,14 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/validator/LICENSE
+├─ @types/webidl-conversions@6.1.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+│  └─ licenseFile: @types/webidl-conversions/LICENSE
+├─ @types/whatwg-url@8.2.1
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+│  └─ licenseFile: @types/whatwg-url/LICENSE
 ├─ JSONStream@1.3.5
 │  ├─ licenses: (MIT OR Apache-2.0)
 │  ├─ repository: https://github.com/dominictarr/JSONStream
@@ -772,21 +773,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: UNLICENSED
 │  ├─ private: true
 │  └─ licenseFile: /home/runner/work/biosimulations/biosimulations/License.md
-├─ bl@2.2.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/rvagg/bl
-│  └─ licenseFile: mongodb/node_modules/bl/LICENSE.md
 ├─ bl@4.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/rvagg/bl
 │  └─ licenseFile: bl/LICENSE.md
-├─ bluebird@3.5.1
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/petkaantonov/bluebird
-│  ├─ publisher: Petka Antonov
-│  ├─ email: petka_antonov@hotmail.com
-│  ├─ url: http://github.com/petkaantonov/
-│  └─ licenseFile: bluebird/LICENSE
 ├─ body-parser@1.19.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/expressjs/body-parser
@@ -809,11 +799,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Jon Schlinkert
 │  ├─ url: https://github.com/jonschlinkert
 │  └─ licenseFile: braces/LICENSE
-├─ bson@1.1.6
+├─ bson@4.5.3
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mongodb/js-bson
-│  ├─ publisher: Christian Amor Kvalheim
-│  ├─ email: christkv@gmail.com
+│  ├─ publisher: The MongoDB NodeJS Team
+│  ├─ email: dbx-node@mongodb.com
 │  └─ licenseFile: bson/LICENSE.md
 ├─ buffer-crc32@0.2.13
 │  ├─ licenses: MIT
@@ -1267,12 +1257,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
 │  └─ licenseFile: debug/LICENSE
-├─ debug@3.1.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/visionmedia/debug
-│  ├─ publisher: TJ Holowaychuk
-│  ├─ email: tj@vision-media.ca
-│  └─ licenseFile: mquery/node_modules/debug/LICENSE
 ├─ debug@4.3.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/visionmedia/debug
@@ -1349,6 +1333,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: oss@invertase.io
 │  ├─ url: http://github.com/invertase/
 │  └─ licenseFile: denque/LICENSE
+├─ denque@2.0.1
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com/invertase/denque
+│  ├─ publisher: Invertase
+│  ├─ email: oss@invertase.io
+│  ├─ url: http://github.com/invertase/
+│  └─ licenseFile: mongodb/node_modules/denque/LICENSE
 ├─ depd@1.1.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/dougwilson/nodejs-depd
@@ -3063,29 +3054,29 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: iskren.chernev@gmail.com
 │  ├─ url: https://github.com/ichernev
 │  └─ licenseFile: moment/LICENSE
-├─ mongodb@3.6.8
+├─ mongodb-connection-string-url@2.1.0
+│  ├─ licenses: Apache-2.0
+│  ├─ repository: https://github.com/mongodb-js/mongodb-connection-string-url
+│  └─ licenseFile: mongodb-connection-string-url/LICENSE
+├─ mongodb@4.1.2
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mongodb/node-mongodb-native
+│  ├─ publisher: The MongoDB NodeJS Team
+│  ├─ email: dbx-node@mongodb.com
 │  └─ licenseFile: mongodb/LICENSE.md
-├─ mongoose-legacy-pluralize@1.0.2
-│  ├─ licenses: Apache-2.0
-│  ├─ repository: https://github.com/vkarpov15/mongoose-legacy-pluralize
-│  ├─ publisher: Valeri Karpov
-│  ├─ email: val@karpov.io
-│  └─ licenseFile: mongoose-legacy-pluralize/LICENSE
-├─ mongoose@5.12.11
+├─ mongoose@6.0.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Automattic/mongoose
 │  ├─ publisher: Guillermo Rauch
 │  ├─ email: guillermo@learnboost.com
 │  └─ licenseFile: mongoose/LICENSE.md
-├─ mpath@0.8.3
+├─ mpath@0.8.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/aheckmann/mpath
 │  ├─ publisher: Aaron Heckmann
 │  ├─ email: aaron.heckmann+github@gmail.com
 │  └─ licenseFile: mpath/LICENSE
-├─ mquery@3.2.5
+├─ mquery@4.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/aheckmann/mquery
 │  ├─ publisher: Aaron Heckmann
@@ -3369,11 +3360,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: d@domenic.me
 │  ├─ url: https://domenic.me/
 │  └─ licenseFile: npm/node_modules/opener/LICENSE.txt
-├─ optional-require@1.1.8
-│  ├─ licenses: Apache-2.0
-│  ├─ repository: https://github.com/jchip/optional-require
-│  ├─ publisher: Joel Chen
-│  └─ licenseFile: optional-require/README.md
 ├─ p-each-series@2.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/p-each-series
@@ -3932,11 +3918,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Mikeal Rogers
 │  ├─ email: mikeal.rogers@gmail.com
 │  └─ licenseFile: npm/node_modules/request/LICENSE
-├─ require-at@1.0.6
-│  ├─ licenses: Apache-2.0
-│  ├─ repository: https://github.com/jchip/require-at
-│  ├─ publisher: Joel Chen
-│  └─ licenseFile: require-at/README.md
 ├─ require-directory@2.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/troygoode/node-require-directory
@@ -4585,6 +4566,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/Sebmaster/tr46.js
 │  ├─ publisher: Sebastian Mayr
 │  └─ email: npm@smayr.name
+├─ tr46@2.1.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/jsdom/tr46
+│  ├─ publisher: Sebastian Mayr
+│  ├─ email: npm@smayr.name
+│  └─ licenseFile: mongodb-connection-string-url/node_modules/tr46/LICENSE.md
 ├─ traverse@0.6.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/substack/js-traverse
@@ -4859,12 +4846,25 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: d@domenic.me
 │  ├─ url: https://domenic.me/
 │  └─ licenseFile: webidl-conversions/LICENSE.md
+├─ webidl-conversions@6.1.0
+│  ├─ licenses: BSD-2-Clause
+│  ├─ repository: https://github.com/jsdom/webidl-conversions
+│  ├─ publisher: Domenic Denicola
+│  ├─ email: d@domenic.me
+│  ├─ url: https://domenic.me/
+│  └─ licenseFile: mongodb-connection-string-url/node_modules/webidl-conversions/LICENSE.md
 ├─ whatwg-url@5.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jsdom/whatwg-url
 │  ├─ publisher: Sebastian Mayr
 │  ├─ email: github@smayr.name
 │  └─ licenseFile: whatwg-url/LICENSE.txt
+├─ whatwg-url@9.1.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/jsdom/whatwg-url
+│  ├─ publisher: Sebastian Mayr
+│  ├─ email: github@smayr.name
+│  └─ licenseFile: mongodb-connection-string-url/node_modules/whatwg-url/LICENSE.txt
 ├─ which-boxed-primitive@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/which-boxed-primitive
