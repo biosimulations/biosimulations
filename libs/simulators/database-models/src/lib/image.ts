@@ -30,6 +30,22 @@ export class Image implements IImage {
   url!: string;
 
   @Prop({
+    type: String,
+    required: true,
+    validate: [
+      {
+        validator: (value: any): boolean => {
+          return typeof value === 'string' && value.match(/^sha256:[a-z0-9]{64,64}$/) !== null;
+        },
+        message: (props: any): string =>
+          `${props.value} is not a valid Docker repository digest`,
+      },
+    ],
+    default: undefined,
+  })
+  digest!: string;
+
+  @Prop({
     type: EdamOntologyIdVersionSchema,
     required: true,
     validate: [
