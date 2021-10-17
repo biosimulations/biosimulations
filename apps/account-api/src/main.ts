@@ -6,7 +6,7 @@
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { SwaggerModule, DocumentBuilder, SwaggerCustomOptions } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
