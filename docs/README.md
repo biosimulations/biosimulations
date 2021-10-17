@@ -10,6 +10,8 @@
 
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5204/badge)](https://bestpractices.coreinfrastructure.org/projects/5204)
 
+[![All Contributors](https://img.shields.io/github/all-contributors/biosimulations/biosimulations/HEAD)](#contributors-)
+
 # BioSimulations
 
 More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as [COMBINE/OMEX](https://combinearchive.org/), [SBML](http://sbml.org), and [SED-ML](https://sed-ml.org), it remains difficult to reuse many models and simulations. One challenge to reusing models and simulations is the diverse array of incompatible modeling formats and simulation tools.
@@ -38,11 +40,11 @@ We welcome contributions to BioSimulations, runBioSimulations, and BioSimulation
 
 This package is released under the [MIT license](./License.md). This package uses a number of open-source third-party packages. Their licenses are summarized in [Dependencies](./about/Dependencies).
 
-## Contributors ✨
+## Contributors
 
 This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York and the [Center for Cell Analysis and Modeling](https://health.uconn.edu/cell-analysis-modeling/) at UConn Health as part of the [Center for Reproducible Biomodeling Modeling](https://reproduciblebiomodels.org).
 
-Various people have contributed to this package, including:     
+Numerous individuals and groups have contributed to BioSimulations, including:     
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -94,8 +96,12 @@ Various people have contributed to this package, including:
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-A key for the contributions can be found here: ([emoji key](https://allcontributors.org/docs/en/emoji-key)).
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+A key to the above emojis is available [here](https://allcontributors.org/docs/en/emoji-key).
+
+
+## Contributing to BioSimulations
+We enthusiastically welcome contributions to BioSimulations! Please see the [guide to contributing](docs/CONTRIBUTING.md) and the [developer's code of conduct](docs/CODE_OF_CONDUCT.md).
+
 ## Funding
 
 This package was developed with support from the National Institute for Bioimaging and Bioengineering (award P41EB023912).
