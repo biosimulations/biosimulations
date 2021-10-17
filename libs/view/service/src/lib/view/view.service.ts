@@ -613,7 +613,7 @@ export class ViewService {
             master: false,
             size: null,
             icon: 'report',
-            url: `${urls.dispatchApi}results/${id}`,
+            url: `${urls.dispatchApi}results/${id}?includeData=true`,
             basename: 'outputs.json',
           },
           {
