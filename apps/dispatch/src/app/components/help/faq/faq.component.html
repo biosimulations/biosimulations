@@ -65,7 +65,8 @@
       >
         Information about how to use SED-ML and the COMBINE archive format with
         specific model languages and simulation tools is available
-        <a [href]="modelLanguageDocsUrl" target="_blank">here</a> and <a href="https://biosimulators.org" target="_blank">here</a>.
+        <a [href]="modelLanguageDocsUrl" target="_blank">here</a> and
+        <a href="https://biosimulators.org" target="_blank">here</a>.
       </biosimulations-q-a>
 
       <biosimulations-q-a
@@ -79,14 +80,20 @@
           ><biosimulations-icon icon="link"></biosimulations-icon></a
         >. These examples are verified to work with runBioSimulations. This page
         lists that simulation tools that are compatible with each COMBINE/OMEX
-        archive. Numerous additional archives with SED-ML files are available from BioSimulations <a href="https://biosimulations.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        archive. Numerous additional archives with SED-ML files are available
+        from BioSimulations
+        <a href="https://biosimulations.org/" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >.
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="Where can I obtain COMBINE/OMEX archives for simulation projects?"
       >
-        COMBINE/OMEX archives can be obtained from BioSimulations <a href="https://biosimulations.org/" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>, as well as some model repositories such as
-        BioModels
+        COMBINE/OMEX archives can be obtained from BioSimulations
+        <a href="https://biosimulations.org/" target="_blank"
+          ><biosimulations-icon icon="link"></biosimulations-icon></a
+        >, as well as some model repositories such as BioModels
         <a href="https://www.ebi.ac.uk/biomodels/" target="_blank"
           ><biosimulations-icon icon="link"></biosimulations-icon></a
         >. Note, most of the COMBINE/OMEX files currently available from
@@ -98,11 +105,24 @@
         heading="Which tools can I use to create COMBINE/OMEX archives that contain simulation experiments in SED-ML format?"
       >
         <p class="no-bottom-margin">
-          runBioSimulations provides a web application <a [routerLink]="['/create']"><biosimulations-icon icon="link"></biosimulations-icon></a> for building SED-ML files and COMBINE archives from model files. BioSimulators-utils <a href="https://github.com/biosimulators/biosimulators_utils" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> provides a command-line program and Python API for building SED-ML files and COMBINE archives from model files. The Python API provides significant additional flexibility to design SED-ML files and COMBINE archives.
+          runBioSimulations provides a web application
+          <a [routerLink]="['/create']"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          for building SED-ML files and COMBINE archives from model files.
+          BioSimulators-utils
+          <a
+            href="https://github.com/biosimulators/biosimulators_utils"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          provides a command-line program and Python API for building SED-ML
+          files and COMBINE archives from model files. The Python API provides
+          significant additional flexibility to design SED-ML files and COMBINE
+          archives.
         </p>
 
-        <p>runBioSimulations also recommends the following tools:
-        </p>
+        <p>runBioSimulations also recommends the following tools:</p>
         <ul>
           <li>
             COPASI
@@ -233,7 +253,22 @@
         </ul>
 
         <p>
-          runBioSimulations provides two web applications for validating SED-ML files <a [routerLink]="['/utils/validate-simulation']"><biosimulations-icon icon="link"></biosimulations-icon></a> and COMBINE archives <a [routerLink]="['/utils/validate-project']"><biosimulations-icon icon="link"></biosimulations-icon></a>. BioSimulators-utils <a href="https://github.com/biosimulators/biosimulators_utils" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a> provides a command-line program and Python API for validating SED-ML files and COMBINE archives.
+          runBioSimulations provides two web applications for validating SED-ML
+          files
+          <a [routerLink]="['/utils/validate-simulation']"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          and COMBINE archives
+          <a [routerLink]="['/utils/validate-project']"
+            ><biosimulations-icon icon="link"></biosimulations-icon></a
+          >. BioSimulators-utils
+          <a
+            href="https://github.com/biosimulators/biosimulators_utils"
+            target="_blank"
+            ><biosimulations-icon icon="link"></biosimulations-icon
+          ></a>
+          provides a command-line program and Python API for validating SED-ML
+          files and COMBINE archives.
         </p>
 
         <p>
@@ -369,11 +404,17 @@
           amounts of resources for each simulation project:
         </p>
         <ul>
-          <li>Projects: 5 TB (Note, uploaded COMBINE/OMEX archives are limited to 1 GB. Larger COMBINE/OMEX archives must be loaded via URLs)</li>
+          <li>
+            Projects: 5 TB (Note, uploaded COMBINE/OMEX archives are limited to
+            1 GB. Larger COMBINE/OMEX archives must be loaded via URLs)
+          </li>
           <li>Cores: 24</li>
           <li>RAM: 192 GB</li>
           <li>Time: 20 days</li>
-          <li>Results: 5 TB (The produced HDF5 file and zip archive with HDF5 and plots each must be less than 5 TB)</li>
+          <li>
+            Results: 5 TB (The produced HDF5 file and zip archive with HDF5 and
+            plots each must be less than 5 TB)
+          </li>
         </ul>
 
         <p>
@@ -783,41 +824,94 @@
         heading="Does runBioSimulations provide an additional service for lower-latent simulation?"
       >
         <p>
-          Yes! An endpoint for lower-latent simulation is available <a href="https://combine.api.biosimulations.org" target="_blank">here</a>. This endpoint is intended for interactive execution of computationally-cheap simulations.</p>
-
-        <p>This endpoint runs simulations more quickly by executing simulations in an active Python environment rather than submitting jobs to an HPC queue that use Singularity images to execute simulations.</p>
+          Yes! An endpoint for lower-latent simulation is available
+          <a href="https://combine.api.biosimulations.org" target="_blank"
+            >here</a
+          >. This endpoint is intended for interactive execution of
+          computationally-cheap simulations.
+        </p>
 
         <p>
-          This endpoint returns simulation results rather than returning an id for later retrieving simulation results. This endpoint can return the outputs of projects in three ways:
+          This endpoint runs simulations more quickly by executing simulations
+          in an active Python environment rather than submitting jobs to an HPC
+          queue that use Singularity images to execute simulations.
+        </p>
+
+        <p>
+          This endpoint returns simulation results rather than returning an id
+          for later retrieving simulation results. This endpoint can return the
+          outputs of projects in three ways:
         </p>
         <ul>
-          <li>JSON document: includes the results of each SED-ML report and plot</li>
+          <li>
+            JSON document: includes the results of each SED-ML report and plot
+          </li>
           <li>HDF file: includes the results of each SED-ML report and plot</li>
-          <li>Zip file: by default, includes an HDF5 file with the data for each SED-ML report and plot, a PDF file for each plot, a YAML-formatted log of the simulation run, and any additional files produced by the simulation tool</li>
+          <li>
+            Zip file: by default, includes an HDF5 file with the data for each
+            SED-ML report and plot, a PDF file for each plot, a YAML-formatted
+            log of the simulation run, and any additional files produced by the
+            simulation tool
+          </li>
         </ul>
 
-        <p>
-          Note, this endpoint has several limitations:
-        </p>
+        <p>Note, this endpoint has several limitations:</p>
         <ul>
-          <li>This endpoint has not been tested as extensively as the main runBioSimulations queue. Please contact the runBioSimulations Team <a [href]="emailUrl"
-            ><biosimulations-icon icon="email"></biosimulations-icon
-          ></a> if you experience issues using this endpoint.</li>
-          <li>Currently, only a limited amount of computational resources are dedicated to this endpoint. As a result, this endpoint may be overloaded by frequent simulation.</li>
-          <li>This endpoint has access to a limited amount of CPU, memory, and disk.</li>
-          <li>Runs are limited to 30 seconds. Longer runs are terminedated with timeout errors.</li>
-          <li>Only one version of each simulation tool is available. We aim to provide the latest version of each simulation tool possible within a shared Python environment. In cases of conflicting dependencies, this endpoint will be behind the latest version of one or more tools. We aim to avoid this problem by encouraging simulation software developers to update their tools to use recent versions of common dependencies.</li>
-          <li>Some validated simulation tools are not available. Because the endpoint is executed within a single Python environment, simulation tools which cannot be installed into a mutual Python environment cannot be executed through this endpoint. Currently, 90% of validated tools are available through the endpoint.</li>
-          <li>The endpoint cannot save simulation runs to the runBioSimulations database for later retrieval or sharing.</li>
+          <li>
+            This endpoint has not been tested as extensively as the main
+            runBioSimulations queue. Please contact the runBioSimulations Team
+            <a [href]="emailUrl"
+              ><biosimulations-icon icon="email"></biosimulations-icon
+            ></a>
+            if you experience issues using this endpoint.
+          </li>
+          <li>
+            Currently, only a limited amount of computational resources are
+            dedicated to this endpoint. As a result, this endpoint may be
+            overloaded by frequent simulation.
+          </li>
+          <li>
+            This endpoint has access to a limited amount of CPU, memory, and
+            disk.
+          </li>
+          <li>
+            Runs are limited to 30 seconds. Longer runs are terminedated with
+            timeout errors.
+          </li>
+          <li>
+            Only one version of each simulation tool is available. We aim to
+            provide the latest version of each simulation tool possible within a
+            shared Python environment. In cases of conflicting dependencies,
+            this endpoint will be behind the latest version of one or more
+            tools. We aim to avoid this problem by encouraging simulation
+            software developers to update their tools to use recent versions of
+            common dependencies.
+          </li>
+          <li>
+            Some validated simulation tools are not available. Because the
+            endpoint is executed within a single Python environment, simulation
+            tools which cannot be installed into a mutual Python environment
+            cannot be executed through this endpoint. Currently, 90% of
+            validated tools are available through the endpoint.
+          </li>
+          <li>
+            The endpoint cannot save simulation runs to the runBioSimulations
+            database for later retrieval or sharing.
+          </li>
         </ul>
       </biosimulations-q-a>
 
       <biosimulations-q-a
         heading="Can I use the runBioSimulations API to develop an interactive web application for running simulations?"
       >
-        Yes! The low-latent simulation endpoint described above is designed to support interactive web applications. Please contact the runBioSimulations Team <a [href]="emailUrl"
-            ><biosimulations-icon icon="email"></biosimulations-icon
-          ></a> to enable CORS access for your application and discuss the computational resources needed for your application.
+        Yes! The low-latent simulation endpoint described above is designed to
+        support interactive web applications. Please contact the
+        runBioSimulations Team
+        <a [href]="emailUrl"
+          ><biosimulations-icon icon="email"></biosimulations-icon
+        ></a>
+        to enable CORS access for your application and discuss the computational
+        resources needed for your application.
       </biosimulations-q-a>
     </biosimulations-text-page-content-section>
 
