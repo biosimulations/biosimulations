@@ -51,7 +51,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/7397814?v=4",
       "profile": "https://github.com/moraru",
       "contributions": [
-        "infra"
+        "infra",
+        "ideas"
       ]
     },
     {
@@ -71,6 +72,214 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "hsauro",
+      "name": "Herbert Sauro",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1054990?v=4",
+      "profile": "http://www.sys-bio.org/",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "luciansmith",
+      "name": "Lucian Smith",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1736150?v=4",
+      "profile": "https://github.com/luciansmith",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "fbergmann",
+      "name": "Frank Bergmann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/949059?v=4",
+      "profile": "https://github.com/fbergmann",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "cjmyers",
+      "name": "cjmyers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3507191?v=4",
+      "profile": "https://github.com/cjmyers",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "jhgennari",
+      "name": "John Gennari",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2684850?v=4",
+      "profile": "https://github.com/jhgennari",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "matthiaskoenig",
+      "name": "Matthias König",
+      "avatar_url": "https://avatars.githubusercontent.com/u/900538?v=4",
+      "profile": "https://livermetabolism.com/",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "nickerso",
+      "name": "David Nickerson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/811244?v=4",
+      "profile": "http://about.me/david.nickerson",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "agarny",
+      "name": "Alan Garny",
+      "avatar_url": "https://avatars.githubusercontent.com/u/602265?v=4",
+      "profile": "https://hellix.com/Alan/",
+      "contributions": [
+        "ideas",
+        "data"
+      ]
+    },
+    {
+      "login": "SBRG",
+      "name": "Systems Biology Research Group",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4237829?v=4",
+      "profile": "http://systemsbiology.ucsd.edu/",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "ssandrews",
+      "name": "Steve Andrews",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33039297?v=4",
+      "profile": "http://www.smoldyn.org/",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "ASinanSaglam",
+      "name": "Ali Sinan Saglam",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11724447?v=4",
+      "profile": "https://github.com/ASinanSaglam",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "chaouiya",
+      "name": "Claudine Chaouiya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40125033?v=4",
+      "profile": "https://claudine-chaouiya.pedaweb.univ-amu.fr/index.html",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "ModelDBRepository",
+      "name": "ModelDB",
+      "avatar_url": "https://avatars.githubusercontent.com/u/38667483?v=4",
+      "profile": "http://modeldb.yale.edu/",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "abulovic",
+      "name": "abulovic",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1510530?v=4",
+      "profile": "https://github.com/abulovic",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "AnneGoelzer",
+      "name": "AnneGoelzer",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32333634?v=4",
+      "profile": "https://github.com/AnneGoelzer",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "pgleeson",
+      "name": "Padraig Gleeson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1556687?v=4",
+      "profile": "http://www.opensourcebrain.org/",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "joncison",
+      "name": "Jon Ison",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1506863?v=4",
+      "profile": "https://github.com/joncison",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "annazhukova",
+      "name": "Anna Zhukova",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10465838?v=4",
+      "profile": "https://research.pasteur.fr/en/member/anna-zhukova",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "matuskalas",
+      "name": "Matúš Kalaš",
+      "avatar_url": "https://avatars.githubusercontent.com/u/992660?v=4",
+      "profile": "https://orcid.org/0000-0002-1509-4981",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "micheldumontier",
+      "name": "Michel Dumontier",
+      "avatar_url": "https://avatars.githubusercontent.com/u/993852?v=4",
+      "profile": "http://dumontierlab.com/",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "mbdebian",
+      "name": "Manuel Bernal Llinares",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8855107?v=4",
+      "profile": "https://uk.linkedin.com/in/manuelbernal",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "pauleve",
+      "name": "Loïc Paulevé",
+      "avatar_url": "https://avatars.githubusercontent.com/u/228657?v=4",
+      "profile": "http://loicpauleve.name/",
+      "contributions": [
+        "data"
+      ]
+    },
+    {
+      "login": "aurelien-naldi",
+      "name": "Aurélien Naldi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/250984?v=4",
+      "profile": "http://aurelien.naldi.info/",
+      "contributions": [
+        "data"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -78,5 +287,6 @@
   "projectOwner": "biosimulations",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "none"
 }
