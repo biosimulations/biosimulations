@@ -4,7 +4,7 @@ info:
   title: BioSimulations COMBINE service
   version: "0.1"
   description: |-
-    Endpoints for working with COMBINE/OMEX archives and model (e.g., SBML) and simulation (e.g., SED-ML) files that they typically contain.
+    Endpoints for working with models (e.g., [CellML](http://cellml.org/), [SBML](http://sbml.org/)), simulation experiments (e.g., [Simulation Experiment Description Language (SED-ML)](http://sed-ml.org/)), metadata ([OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)), and simulation projects ([COMBINE/OMEX archives](https://combinearchive.org/)).
 
     Note, this API may change significantly in the future.
   contact:
@@ -34,7 +34,7 @@ paths:
                   file: <FILE>
         required: true
       tags:
-      - Model
+      - Models
       - Validation
       responses:
         "200":
@@ -92,7 +92,7 @@ paths:
                   modelingFramework: SBO_0000293
         required: true
       tags:
-      - Simulation experiments (SED-ML)
+      - Simulation experiments
       responses:
         "200":
           content:
@@ -140,7 +140,7 @@ paths:
                   file: <FILE>
         required: true
       tags:
-      - Simulation experiments (SED-ML)
+      - Simulation experiments
       - Validation
       responses:
         "200":
@@ -255,8 +255,8 @@ paths:
                   url: https://models.org/archive.omex
         required: true
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
-      - Simulation experiments (SED-ML)
+      - Simulation projects
+      - Simulation experiments
       responses:
         "200":
           content:
@@ -315,7 +315,7 @@ paths:
                   file: <FILE>
         required: true
       tags:
-      - Metadata (OMEX Metadata)
+      - Metadata
       - Validation
       responses:
         "200":
@@ -372,7 +372,7 @@ paths:
                   file: <FILE>
         required: true
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
+      - Simulation projects
       - Validation
       responses:
         "200":
@@ -463,7 +463,7 @@ paths:
                 contentType: application/json
         required: true
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
+      - Simulation projects
       responses:
         "200":
           content:
@@ -500,7 +500,7 @@ paths:
   /combine/file:
     get:
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
+      - Simulation projects
       parameters:
       - name: url
         description: URL for the COMBINE/OMEX archive.
@@ -569,7 +569,7 @@ paths:
                 contentType: application/json
         required: true
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
+      - Simulation projects
       responses:
         "200":
           content:
@@ -619,7 +619,7 @@ paths:
                   url: https://models.org/archive.omex
         required: true
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
+      - Simulation projects
       responses:
         "200":
           content:
@@ -675,8 +675,8 @@ paths:
                   url: https://models.org/archive.omex
         required: true
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
-      - Metadata (OMEX Metadata)
+      - Simulation projects
+      - Metadata
       responses:
         "200":
           content:
@@ -720,8 +720,8 @@ paths:
                   url: https://models.org/archive.omex
         required: true
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
-      - Metadata (OMEX Metadata)
+      - Simulation projects
+      - Metadata
       responses:
         "200":
           content:
@@ -786,6 +786,7 @@ paths:
         required: true
       tags:
       - Simulation execution
+      - Simulation projects
       responses:
         "200":
           content:
@@ -836,7 +837,7 @@ paths:
   /run/simulators:
     get:
       tags:
-      - Simulation Execution
+      - Simulation execution
       responses:
         "200":
           content:
@@ -3085,6 +3086,10 @@ components:
             \ archive such as \n\n\".\": COMBINE/OMEX archive\n\"./path/to/sim.sedml\"\
             : SED-ML document\n\"./path/to/sim.sedml/Table1\": Report in a SED-ML\
             \ document"
+        combineArchiveUri:
+          description: URI of the parent COMBINE/OMEX archive of the content element
+            for the metadata.
+          type: string
       example:
         _type: BioSimulationsMetadata
         title: Title
@@ -4006,3 +4011,21 @@ components:
       content:
         application/json: {}
       description: The selected resource was not found
+tags:
+- name: Simulation projects
+  description: "Operations on [COMBINE/OMEX archives](https://combinearchive.org/)"
+- name: Models
+  description: "Operations on model files (e.g., [CellML](http://cellml.org/), [SBML](http://sbml.org/))"
+- name: Simulation experiments
+  description: "Operations on [Simulation Experiment Description Language (SED-ML)](http://sed-ml.org/)\
+    \ files"
+- name: Simulation algorithms
+  description: "Operations on the [Kinetic Simulation Algorithm Ontology (KiSAO)](https://github.com/SED-ML/KiSAO)"
+- name: Metadata
+  description: "Operations on [OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)\
+    \ files"
+- name: Validation
+  description: "Operations for validating models, simulation experiments, metadata,\
+    \ and simulation projects"
+- name: Simulation execution
+  description: Operations for executing simulation projects
