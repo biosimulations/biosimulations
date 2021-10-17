@@ -7,7 +7,7 @@ import { Document } from 'mongoose';
   storeSubdocValidationError: false,
   collection: 'Specifications',
   strict: false,
-  useNestedStrict: false,
+
   id: false,
 })
 export class SpecificationsModel extends Document {

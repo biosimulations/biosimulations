@@ -5,7 +5,6 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class DependentPackage implements IDependentPackage {
   @Prop({

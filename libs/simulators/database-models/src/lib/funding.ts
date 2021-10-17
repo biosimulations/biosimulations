@@ -10,7 +10,6 @@ import isUrl from 'is-url';
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class Funding implements IFunding {
   @Prop({
