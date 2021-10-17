@@ -7,4 +7,4 @@ BioSimulations and BioSimulators are updated on a rolling release. Only the late
 
 ## Reporting a Vulnerability
 
-To report a security vulnerability, please send us an email at info@biosimulations.org
+To report a security vulnerability, please send us an email at [info@biosimulations.org](mailto:info@biosimulations.org).
