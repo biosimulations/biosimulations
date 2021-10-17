@@ -6,7 +6,11 @@
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-import { SwaggerModule, DocumentBuilder, SwaggerCustomOptions } from '@nestjs/swagger';
+import {
+  SwaggerModule,
+  DocumentBuilder,
+  SwaggerCustomOptions,
+} from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
@@ -74,7 +78,8 @@ function setupOpenApi(app: INestApplication) {
     },
     customfavIcon:
       'https://github.com/biosimulations/Biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png',
-    customCssUrl: 'https://static.biosimulations.org/stylesheets/biosimulations_swagger.css',
+    customCssUrl:
+      'https://static.biosimulations.org/stylesheets/biosimulations_swagger.css',
   };
 
   SwaggerModule.setup('', app, document, customOptions);

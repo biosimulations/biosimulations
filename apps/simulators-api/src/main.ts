@@ -76,7 +76,8 @@ function setupOpenApi(
     swaggerOptions: uiOptions,
     customfavIcon:
       'https://github.com/biosimulations/Biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png',
-    customCssUrl: 'https://static.biosimulations.org/stylesheets/biosimulators_swagger.css',
+    customCssUrl:
+      'https://static.biosimulations.org/stylesheets/biosimulators_swagger.css',
   };
   SwaggerModule.setup(uiPath, app, document, customOptions);
 
