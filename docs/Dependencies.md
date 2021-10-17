@@ -1,35 +1,35 @@
 BioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker).
 
 ```
-├─ @angular/animations@12.2.9
+├─ @angular/animations@12.2.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/animations/README.md
-├─ @angular/cdk@12.2.9
+├─ @angular/cdk@12.2.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/cdk/LICENSE
-├─ @angular/common@12.2.9
+├─ @angular/common@12.2.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/core@12.2.9
+├─ @angular/core@12.2.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/core/README.md
-├─ @angular/forms@12.2.9
+├─ @angular/forms@12.2.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/forms/README.md
-├─ @angular/material@12.2.9
+├─ @angular/material@12.2.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
-├─ @angular/platform-browser@12.2.9
+├─ @angular/platform-browser@12.2.10
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -98,7 +98,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/microservices/LICENSE
-├─ @nestjs/mongoose@8.0.1
+├─ @nestjs/mongoose@9.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/mongoose
 │  ├─ publisher: Kamil Mysliwiec
