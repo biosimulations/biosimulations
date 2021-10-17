@@ -140,8 +140,6 @@ export const SimulatorSchema = SchemaFactory.createForClass(Simulator);
 // Can not be set in the decorator for compund schemas.
 SimulatorSchema.index({ id: 1, version: 1 }, { unique: true });
 SimulatorSchema.set('strict', 'throw');
-// This should be kept true so that subdocuments can override the strict mode requirement
-SimulatorSchema.set('useNestedStrict', true);
 //SimulatorSchema.set('id', false);
 
 /* handle nullable attributes */

@@ -36,7 +36,6 @@ import { CitationSchema } from './common';
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class ModelTarget implements IModelTarget {
   @Prop({ type: String, required: true, default: undefined })
@@ -52,7 +51,6 @@ export const ModelTargetSchema = SchemaFactory.createForClass(ModelTarget);
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class ModelSymbol implements IModelSymbol {
   @Prop({ type: String, required: true, default: undefined })
@@ -68,7 +66,6 @@ export const ModelSymbolSchema = SchemaFactory.createForClass(ModelSymbol);
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class ModelChangePattern implements IModelChangePattern {
   @Prop({ type: String, required: true, default: undefined })
@@ -118,7 +115,6 @@ ModelChangePatternSchema.post('validate', function (doc: Document, next): void {
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class OutputVariablePattern implements IOutputVariablePattern {
   @Prop({ type: String, required: true, default: undefined })
@@ -160,7 +156,6 @@ OutputVariablePatternSchema.post(
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class Algorithm implements IAlgorithm {
   @Prop({ type: KisaoOntologyIdSchema, required: true, default: undefined })

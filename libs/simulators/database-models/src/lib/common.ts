@@ -13,7 +13,6 @@ import isUrl from 'is-url';
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class Citation implements ICitation {
   @Prop({ type: String, required: true, default: undefined })
@@ -65,7 +64,6 @@ export const CitationSchema = SchemaFactory.createForClass(Citation);
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class ExternalReferences implements IExternalReferences {
   @Prop({ type: [IdentifierSchema], required: true, default: undefined })
@@ -82,7 +80,6 @@ export const ExternalReferencesSchema =
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class Person {
   @Prop({ type: String, required: false, default: null })
@@ -104,7 +101,6 @@ export const PersonSchema = SchemaFactory.createForClass(Person);
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class Url {
   @Prop({

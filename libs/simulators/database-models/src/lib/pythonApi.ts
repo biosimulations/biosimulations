@@ -6,7 +6,6 @@ import isUrl from 'is-url';
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class PythonApi implements IPythonApi {
   @Prop({

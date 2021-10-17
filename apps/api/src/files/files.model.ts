@@ -7,7 +7,6 @@ import { File } from '@biosimulations/datamodel/common';
   storeSubdocValidationError: false,
   collection: 'Files',
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class FileModel extends Document implements File {
   public created!: string;

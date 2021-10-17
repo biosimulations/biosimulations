@@ -128,27 +128,10 @@ export class SimulatorsService {
 
   public async deleteMany(id: string): Promise<void> {
     const sims = await this.simulator.deleteMany({ id: id }).exec();
-    if (sims.n == 0) {
-      throw new NotFoundException(`No simulator with id ${id}`);
-    } else {
-      if (sims.deletedCount != sims.n) {
-        throw new InternalServerErrorException(
-          `Could only delete ${sims.deletedCount} out of ${sims.n} documents. Please try again`,
-        );
-      }
-      if (!sims.ok) {
-        throw new InternalServerErrorException('Operation Failed');
-      }
-    }
   }
   public async deleteAll(): Promise<void> {
     const sims = await this.simulator.deleteMany({});
-    if (sims.deletedCount != sims.n) {
-      throw new InternalServerErrorException(
-        `Could only delete ${sims.deletedCount} out of ${sims.n} documents. Please try again`,
-      );
-    }
-    if (!sims.ok) {
+    if (!sims.acknowledged) {
       throw new InternalServerErrorException('Operation Failed');
     }
   }

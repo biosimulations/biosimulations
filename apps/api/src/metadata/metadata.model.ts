@@ -13,7 +13,6 @@ import { ObjectIdValidator } from '@biosimulations/datamodel-database';
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class LabeledIdentifierModel implements LabeledIdentifier {
   @Prop({ type: String, required: false, index: true })
@@ -29,7 +28,6 @@ const LabeledIdentifierSchema = SchemaFactory.createForClass(
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class DescribedIdentifierModel
   extends LabeledIdentifierModel
@@ -51,7 +49,6 @@ const DescribedIdentifierSchema = SchemaFactory.createForClass(
 @Schema({
   _id: false,
   strict: 'throw',
-  useNestedStrict: true,
   storeSubdocValidationError: false,
   minimize: false,
 })

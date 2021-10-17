@@ -39,6 +39,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { Readable } from 'stream';
 import { firstValueFrom } from 'rxjs';
+import { DeleteResult } from 'mongodb';
 // 1gb in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
 const toApi = <T extends SimulationRunModelType>(
@@ -124,10 +125,12 @@ export class SimulationRunService {
   }
 
   public async deleteAll(): Promise<void> {
-    const res = await this.simulationRunModel.deleteMany({}).exec();
-    if (!res.ok) {
+    const res: DeleteResult = await this.simulationRunModel
+      .deleteMany({})
+      .exec();
+    if (!res.acknowledged) {
       throw new InternalServerErrorException(
-        `There was an error. Deleted ${res.deletedCount} out of ${res.n} documents`,
+        `There was an error. Unable to delete all documents`,
       );
     }
   }
