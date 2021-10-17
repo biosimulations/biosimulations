@@ -12,7 +12,7 @@
 
 [![All Contributors](https://img.shields.io/github/all-contributors/biosimulations/biosimulations/HEAD)](#contributors-)
 
-# BioSimulations
+# BioSimulations 🧬
 
 More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as [COMBINE/OMEX](https://combinearchive.org/), [SBML](http://sbml.org), and [SED-ML](https://sed-ml.org), it remains difficult to reuse many models and simulations. One challenge to reusing models and simulations is the diverse array of incompatible modeling formats and simulation tools.
 
@@ -24,23 +24,23 @@ This package provides three tools which address this challenge:
 
 This package provides the code for the BioSimulations, runBioSimulations, and BioSimulations websites, as well as the code for the backend services for all three applications. The package is implemented in TypeScript using Angular, NestJS, MongoDB, and Mongoose.
 
-## Getting started
+## Getting started ▶️ :
 
-### Users
+### Users 💻
 
 Please use the hosted versions of BioSimulations, runBioSimulations, and BioSimulators at [https://biosimulations.org](https://biosimulations.org), [https://run.biosimulations.org](https://run.biosimulations.org), and [https://biosimulators.org](https://biosimulators.org).
 
 Tutorials, help and information can be found at [https://docs.biosimulations.org](https://docs.biosimulations.org)
 
-### Developers
+### Developers 🖥️
 
 We welcome contributions to BioSimulations, runBioSimulations, and BioSimulations! Please see the [developers guide](https://docs.biosimulations.org/developers) for information about how to get started including how to install this package and how to run BioSimulations, runBioSimulations, and BioSimulators locally.
 
-## License
+## License ⚖️
 
 This package is released under the [MIT license](./License.md). This package uses a number of open-source third-party packages. Their licenses are summarized in [Dependencies](./about/Dependencies).
 
-## Contributors
+## Contributors 🧑‍🤝‍🧑
 
 This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York and the [Center for Cell Analysis and Modeling](https://health.uconn.edu/cell-analysis-modeling/) at UConn Health as part of the [Center for Reproducible Biomodeling Modeling](https://reproduciblebiomodels.org).
 
@@ -99,13 +99,13 @@ Numerous individuals and groups have contributed to BioSimulations, including:
 A key to the above emojis is available [here](https://allcontributors.org/docs/en/emoji-key).
 
 
-## Contributing to BioSimulations
+## Contributing to BioSimulations 🛠️
 We enthusiastically welcome contributions to BioSimulations! Please see the [guide to contributing](docs/CONTRIBUTING.md) and the [developer's code of conduct](docs/CODE_OF_CONDUCT.md).
 
-## Funding
+## Funding 💰
 
 This package was developed with support from the National Institute for Bioimaging and Bioengineering (award P41EB023912).
 
-## Questions and comments
+## Questions and comments ❓
 
 Please contact us at [info@biosimulations.org](mailto:info@biosimulations.org) with any questions or comments.
