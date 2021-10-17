@@ -24,7 +24,7 @@ This package provides three tools which address this challenge:
 
 This package provides the code for the BioSimulations, runBioSimulations, and BioSimulations websites, as well as the code for the backend services for all three applications. The package is implemented in TypeScript using Angular, NestJS, MongoDB, and Mongoose.
 
-## Getting started ▶️ :
+## Getting started ▶️
 
 ### Users 💻
 
