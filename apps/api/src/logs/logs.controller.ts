@@ -25,8 +25,6 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
-  ApiUnauthorizedResponse,
-  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 import {
   CombineArchiveLog,
@@ -38,6 +36,7 @@ import {
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 // import { permissions } from '@biosimulations/auth/nest';
 import { LogsService } from './logs.service';
+import { permissions } from '@biosimulations/auth/nest';
 
 @ApiExtraModels(SedReportLog, SedPlot2DLog, SedPlot3DLog)
 @Controller('logs')
@@ -120,18 +119,9 @@ export class LogsController {
     description: 'Save the log for a simulation run to the database',
   })
   @Post()
-  // @permissions('write:Logs')
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to save the specifications of simulation experiments',
-  })
+  @permissions('write:Logs')
   @ApiCreatedResponse({
-    description: 'The logs for the simulation run were sucessfully saved',
+    description: 'The logs for the simulation run were successfully saved',
     type: CombineArchiveLog,
   })
   public async createLogs(

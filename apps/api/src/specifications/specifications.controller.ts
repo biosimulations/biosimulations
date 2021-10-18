@@ -135,6 +135,7 @@ export class SpecificationsController {
   }
 
   @Post()
+  @permissions('write:Specifications')
   @ApiOperation({
     summary: 'Save the simulation experiments of a simulation run',
     description:
@@ -149,16 +150,6 @@ export class SpecificationsController {
     description: 'The simulation experiments were succcessfully saved',
     type: [SimulationRunSpecifications],
   })
-  // @permissions('write:Specifications')
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to save the specifications of simulation experiments',
-  })
   public async createSpecification(
     @Body() specifications: SimulationRunSpecifications[],
   ): Promise<SimulationRunSpecifications[]> {
@@ -167,6 +158,7 @@ export class SpecificationsController {
   }
 
   @Post(':runId')
+  @permissions('write:Specifications')
   @ApiOperation({
     summary: 'Save the simulation experiments of a simulation run',
     description:
@@ -186,16 +178,6 @@ export class SpecificationsController {
   @ApiCreatedResponse({
     description: 'The simulation experiments were succcessfully saved',
     type: [SimulationRunSpecifications],
-  })
-  // @permissions('write:Specifications')
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to save the specifications of simulation experiments',
   })
   public async createSimulationSpecification(
     @Param('runId') simId: string,

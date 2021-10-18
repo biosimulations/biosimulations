@@ -1,6 +1,6 @@
 import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
 import { ApiOAuth2, ApiResponse } from '@nestjs/swagger';
-//import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { JwtGuard, PermissionsGuard } from '../..';
 
 export const permissions = (...args: string[]) => {
@@ -8,10 +8,15 @@ export const permissions = (...args: string[]) => {
     SetMetadata('permissions', args),
     ApiOAuth2(args),
     UseGuards(JwtGuard, PermissionsGuard),
-    ApiResponse({ status: 401, description: 'You are not logged in' }),
     ApiResponse({
+      type: ErrorResponseDocument,
+      status: 401,
+      description: 'No authorization was provided',
+    }),
+    ApiResponse({
+      type: ErrorResponseDocument,
       status: 403,
-      description: `You do not have the ${args} permissions`,
+      description: `The provided account does not have the ${args} permissions`,
     }),
   );
 };
