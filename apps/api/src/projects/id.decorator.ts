@@ -8,9 +8,12 @@ import { ApiParam } from '@nestjs/swagger';
 import { projectIdRegExp } from './id.regex';
 
 export const ProjectId = createParamDecorator(
-  (data: unknown, ctx: ExecutionContext) => {
+  (paramName: string, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
-    const id = request.params.id;
+    const id = request.params[paramName];
+    if (!paramName) {
+      throw new BadRequestException('Project Id is required');
+    }
     if (id.length < 3) {
       throw new BadRequestException(
         'Project id must be at least 3 characters long',
