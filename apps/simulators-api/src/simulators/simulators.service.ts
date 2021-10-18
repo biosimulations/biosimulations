@@ -101,10 +101,9 @@ export class SimulatorsService {
         `No simulator with id ${id} and version ${version}`,
       );
     }
-    const created = sim.biosimulators.created;
-    sim.overwrite(doc);
     // Preserve the original date
-    sim.biosimulators.created = created;
+    doc.biosimulators.created = sim.biosimulators.created;
+    sim.overwrite(doc);
     const res = sim.save();
     return res;
   }
