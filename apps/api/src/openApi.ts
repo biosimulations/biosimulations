@@ -73,7 +73,8 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
       'The BioSimulations API is a RESTful API for interacting with the BioSimulations web service and database.\
       It provides endpoints for submitting simulation projects to be executed on the BioSimulations backend, as well as\
       endpoints for retrieving the associated metadata, files, logs, results, and specifications of these projects.\
-      It it also used for the publishing, sharing and retrieving projects from the BioSimulations database')
+      It it also used for the publishing, sharing and retrieving projects from the BioSimulations database',
+    )
     .setVersion('0.1')
     .setLicense(
       'MIT License',
@@ -84,7 +85,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
       'API specifications (Open API JSON)',
       'https://run.api.biosimulations.org/openapi.json',
     )
-    .setExternalDoc("Documentation","https://docs.biosimulations.org")
+    .setExternalDoc('Documentation', 'https://docs.biosimulations.org')
     .setContact(
       'BioSimulations Team',
       'https://run.biosimulations.org/help/about',
