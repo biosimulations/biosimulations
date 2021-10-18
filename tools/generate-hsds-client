@@ -12,5 +12,7 @@ sed -i 's/obj_uuid/objUuid/'  ${script_dir}/../libs/hdf5/api-client/src/lib/api/
 
 echo ${script_dir}
 sed -i 's/public defaultHeaders = new Map()/public defaultHeaders: Record<string,string>= {};/' ${script_dir}/../libs/hdf5/api-client/src/lib/api/*.service.ts
+
+sed -i 's/let queryParameters = {};/let queryParameters: any = {};/' ${script_dir}/../libs/hdf5/api-client/src/lib/api/*.service.ts
 # Format the files
 nx format --projects hdf5-api-client

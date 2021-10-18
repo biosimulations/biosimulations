@@ -89,7 +89,7 @@ export class DatatypeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -174,7 +174,7 @@ export class DatatypeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -253,7 +253,7 @@ export class DatatypeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -315,7 +315,7 @@ export class DatatypeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -369,7 +369,7 @@ export class DatatypeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -423,7 +423,7 @@ export class DatatypeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -477,7 +477,7 @@ export class DatatypeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }

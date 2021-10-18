@@ -56,7 +56,7 @@ export class ACLSService {
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20016>>;
   public aclsGet(domain?: string, authorization?: string): Observable<any> {
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -107,7 +107,7 @@ export class ACLSService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -170,7 +170,7 @@ export class ACLSService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -230,7 +230,7 @@ export class ACLSService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -284,7 +284,7 @@ export class ACLSService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -338,7 +338,7 @@ export class ACLSService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -401,7 +401,7 @@ export class ACLSService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }

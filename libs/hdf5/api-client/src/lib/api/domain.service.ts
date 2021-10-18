@@ -66,7 +66,7 @@ export class DomainService {
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20016>>;
   public aclsGet(domain?: string, authorization?: string): Observable<any> {
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -117,7 +117,7 @@ export class DomainService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -180,7 +180,7 @@ export class DomainService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -228,7 +228,7 @@ export class DomainService {
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2006>>;
   public datasetsGet(domain?: string, authorization?: string): Observable<any> {
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -282,7 +282,7 @@ export class DomainService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -342,7 +342,7 @@ export class DomainService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -390,7 +390,7 @@ export class DomainService {
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2002>>;
   public groupsGet(domain?: string, authorization?: string): Observable<any> {
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -435,7 +435,7 @@ export class DomainService {
     authorization?: string,
     inlineObject?: InlineObject,
   ): Observable<any> {
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -483,7 +483,7 @@ export class DomainService {
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2001>>;
   public rootDelete(domain?: string, authorization?: string): Observable<any> {
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -522,7 +522,7 @@ export class DomainService {
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse200>>;
   public rootGet(domain?: string, authorization?: string): Observable<any> {
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -570,7 +570,7 @@ export class DomainService {
     authorization?: string,
     body?: object,
   ): Observable<any> {
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
