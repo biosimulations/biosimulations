@@ -309,6 +309,17 @@
       "contributions": [
         "financial"
       ]
+    },
+    {
+      "login": "reproducible-biomedical-modeling",
+      "name": "Center for Reproducible Biomedical Modeling",
+      "avatar_url": "https://avatars.githubusercontent.com/u/70044163?v=4",
+      "profile": "https://reproduciblebiomodels.org",
+      "contributions": [
+        "financial",
+        "fundingFinding",
+        "projectManagement"
+      ]
     }
   ],
   "contributorsPerLine": 7,
