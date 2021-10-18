@@ -1,3 +1,11 @@
+## [5.6.2](https://github.com/biosimulations/biosimulations/compare/v5.6.1...v5.6.2) (2021-10-18)
+
+
+### Bug Fixes
+
+* **api:** fix module import ([d47c376](https://github.com/biosimulations/biosimulations/commit/d47c376915713fbc2ae97b296318061374b4bc10))
+* **dispatch:** corrected file types for validate OMEX metadata form ([98794cd](https://github.com/biosimulations/biosimulations/commit/98794cd1397cb1ee921fad02b09d83ca82e7bd3f))
+
 ## [5.6.1](https://github.com/biosimulations/biosimulations/compare/v5.6.0...v5.6.1) (2021-10-18)
 
 
