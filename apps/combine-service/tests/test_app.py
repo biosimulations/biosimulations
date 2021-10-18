@@ -44,7 +44,7 @@ class HandlersTestCase(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.temp_dirname)
 
-    # @ classmethod
+    # @classmethod
     # def setUpClass(cls):
     #     with open(cls.API_SPECS_FILENAME, 'rb') as specs_file:
     #         cls.api_specs_dict = yaml.load(specs_file, Loader=yaml.Loader)
