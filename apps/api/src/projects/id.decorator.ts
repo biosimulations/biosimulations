@@ -10,9 +10,10 @@ import { projectIdRegExp } from './id.regex';
 export const ProjectId = createParamDecorator(
   (paramName: string, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
+
     const id = request.params[paramName];
-    if (!paramName) {
-      throw new BadRequestException('Project Id is required');
+    if (!id) {
+      throw new BadRequestException('Project id is required');
     }
     if (id.length < 3) {
       throw new BadRequestException(
