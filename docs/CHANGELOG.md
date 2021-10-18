@@ -1,3 +1,18 @@
+# [5.7.0](https://github.com/biosimulations/biosimulations/compare/v5.6.2...v5.7.0) (2021-10-18)
+
+
+### Bug Fixes
+
+* **api:** fix docs and typing of open api definition ([#3307](https://github.com/biosimulations/biosimulations/issues/3307)) ([0640c6a](https://github.com/biosimulations/biosimulations/commit/0640c6aff0dd6a2d558d44be620d042b6e7ba49d)), closes [#3304](https://github.com/biosimulations/biosimulations/issues/3304)
+* **api:** fix param name parsing for projectId ([af3c406](https://github.com/biosimulations/biosimulations/commit/af3c4069f352839a33696e3cf7c5dbb45d20c210))
+* **combine-service:** added missing Swagger templates to Docker image ([f27b8c8](https://github.com/biosimulations/biosimulations/commit/f27b8c8831b11fffedd3355bc9668f78ad2e080c))
+
+
+### Features
+
+* **combine-service:** added health endpoint ([0d356d3](https://github.com/biosimulations/biosimulations/commit/0d356d347f11c3377f14ddbb66af8823198eaa30))
+* **combine-service:** increased file upload limit, clarified error message ([5dfa25c](https://github.com/biosimulations/biosimulations/commit/5dfa25cca9fe73e2ef4b1af881f646bf9b022d5e))
+
 ## [5.6.2](https://github.com/biosimulations/biosimulations/compare/v5.6.1...v5.6.2) (2021-10-18)
 
 
