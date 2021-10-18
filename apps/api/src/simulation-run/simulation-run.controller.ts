@@ -285,7 +285,7 @@ export class SimulationRunController {
   @Get(':runId')
   @OptionalAuth()
   public async getRun(
-    @Param('runId') id: string,
+    @Param('runId') runId: string,
     @Req() req: Request,
   ): Promise<SimulationRun> {
     const user = req?.user as AuthToken;
@@ -294,12 +294,12 @@ export class SimulationRunController {
       user.permissions = user.permissions || [];
       permission = user.permissions.includes('read:Email');
     }
-    const run = await this.service.get(id);
+    const run = await this.service.get(runId);
     if (run) {
       permission ? null : (run.email = null);
       return this.makeSimulationRun(run);
     } else {
-      throw new NotFoundException(`No simulation run with id ${id}`);
+      throw new NotFoundException(`No simulation run with id ${runId}`);
     }
   }
 
@@ -333,11 +333,11 @@ export class SimulationRunController {
     type: SimulationRun,
   })
   public async modfiyRun(
-    @Param('runId') id: string,
+    @Param('runId') runId: string,
     @Body() body: UpdateSimulationRun,
   ): Promise<SimulationRun> {
-    this.logger.log(`Patch called for ${id} with ${JSON.stringify(body)}`);
-    const run = await this.service.update(id, body);
+    this.logger.log(`Patch called for ${runId} with ${JSON.stringify(body)}`);
+    const run = await this.service.update(runId, body);
     return this.makeSimulationRun(run);
   }
 
@@ -370,11 +370,11 @@ export class SimulationRunController {
     type: SimulationRun,
     description: 'The simulation run was successfully deleted',
   })
-  public async deleteRun(@Param('runId') id: string): Promise<SimulationRun> {
-    const res = await this.service.delete(id);
+  public async deleteRun(@Param('runId') runId: string): Promise<SimulationRun> {
+    const res = await this.service.delete(runId);
 
     if (!res) {
-      throw new NotFoundException(`No simulation run with id ${id} found`);
+      throw new NotFoundException(`No simulation run with id ${runId} found`);
     }
 
     return this.makeSimulationRun(res);
@@ -424,10 +424,10 @@ export class SimulationRunController {
   })
   @ApiTags('Downloads')
   public async download(
-    @Param('runId') id: string,
+    @Param('runId') runId: string,
     @Res({ passthrough: true }) response: Response,
   ): Promise<void> {
-    const file = await this.service.download(id);
+    const file = await this.service.download(runId);
     if (file.mimetype) {
       response.setHeader('Content-Type', file.mimetype);
     }

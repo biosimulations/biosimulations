@@ -133,18 +133,18 @@ export class MetadataController {
   })
   @Get(':runId')
   public async getMetadata(
-    @Param('runId') id: string,
+    @Param('runId') runId: string,
   ): Promise<SimulationRunMetadata> {
-    const metadata = await this.service.getMetadata(id);
+    const metadata = await this.service.getMetadata(runId);
 
     if (!metadata) {
-      throw new NotFoundException(`Metadata with id ${id} not found`);
+      throw new NotFoundException(`Metadata with id ${runId} not found`);
     }
-    const simid = metadata.simulationRun;
+    const simId = metadata.simulationRun;
     const data = metadata.metadata;
 
     return new SimulationRunMetadata(
-      simid,
+      simId,
       data,
       metadata.isPublic,
       metadata.created,

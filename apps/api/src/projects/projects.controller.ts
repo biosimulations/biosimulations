@@ -64,14 +64,14 @@ export class ProjectsController {
   })
   @ProjectIdParam()
   public async getProject(
-    @ProjectId('projectId') id: string,
+    @ProjectId('projectId') projectId: string,
   ): Promise<Project> {
-    const proj = await this.service.getProject(id);
+    const proj = await this.service.getProject(projectId);
 
     if (proj) {
       return this.returnProject(proj);
     }
-    throw new NotFoundException(`Project with id ${id} not found`);
+    throw new NotFoundException(`Project with id ${projectId} not found`);
   }
 
   @Post()
@@ -115,14 +115,14 @@ export class ProjectsController {
   @permissions('update:Projects')
   @ProjectIdParam()
   public async updateProject(
-    @ProjectId('projectId') id: string,
+    @ProjectId('projectId') projectId: string,
     @Body() project: ProjectInput,
   ): Promise<Project> {
-    const proj = await this.service.updateProject(id, project);
+    const proj = await this.service.updateProject(projectId, project);
     if (proj) {
       return this.returnProject(proj);
     }
-    throw new NotFoundException(`Project with id ${id} not found`);
+    throw new NotFoundException(`Project with id ${projectId} not found`);
   }
 
   @ApiNoContentResponse({ description: 'Projects deleted' })
@@ -150,9 +150,9 @@ export class ProjectsController {
   @permissions('delete:Projects')
   @ProjectIdParam()
   public async deleteProject(
-    @ProjectId('projectId') id: string,
+    @ProjectId('projectId') projectId: string,
   ): Promise<void> {
-    const res = await this.service.deleteProject(id);
+    const res = await this.service.deleteProject(projectId);
     return res;
   }
 
