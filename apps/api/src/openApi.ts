@@ -114,7 +114,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
   const openIdConnectUrl =
     'https://auth.biosimulations.org/.well-known/openid-configuration';
 
-  const clientId = 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a';
+  const clientId = 'WEPUMb2Jo28NdEt1Z7fhUx54Bff8MnKF';
 
   const oauthSchema: SecuritySchemeObject = {
     type: 'oauth2',

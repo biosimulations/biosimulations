@@ -163,7 +163,7 @@ async function bootstrap() {
     doc,
     'https://auth.biosimulations.org/authorize?audience=api.biosimulators.org',
     'https://auth.biosimulations.org/.well-known/openid-configuration',
-    'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT',
+    'WEPUMb2Jo28NdEt1Z7fhUx54Bff8MnKF',
   );
 
   const httpAdapter = app.getHttpAdapter();
