@@ -90,7 +90,7 @@ export class GroupService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -175,7 +175,7 @@ export class GroupService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -254,7 +254,7 @@ export class GroupService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -304,7 +304,7 @@ export class GroupService {
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2002>>;
   public groupsGet(domain?: string, authorization?: string): Observable<any> {
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -355,7 +355,7 @@ export class GroupService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -418,7 +418,7 @@ export class GroupService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -474,7 +474,7 @@ export class GroupService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -531,7 +531,7 @@ export class GroupService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -582,7 +582,7 @@ export class GroupService {
     authorization?: string,
     inlineObject?: InlineObject,
   ): Observable<any> {
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }

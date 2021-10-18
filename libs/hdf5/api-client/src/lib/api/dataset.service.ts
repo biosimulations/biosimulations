@@ -97,7 +97,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -182,7 +182,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -261,7 +261,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -311,7 +311,7 @@ export class DatasetService {
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2006>>;
   public datasetsGet(domain?: string, authorization?: string): Observable<any> {
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -365,7 +365,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -419,7 +419,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -473,7 +473,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -527,7 +527,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -590,7 +590,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -650,7 +650,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -713,7 +713,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -788,7 +788,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -857,7 +857,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -917,7 +917,7 @@ export class DatasetService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
