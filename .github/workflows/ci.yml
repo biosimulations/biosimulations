@@ -6,6 +6,7 @@ on:
     paths-ignore:
       - "docs/**"
       - "tools/**"
+      - ".all-contributorsrc"
   pull_request:
 jobs:
   getAffectedLibrariesApps:
