@@ -62,10 +62,10 @@ export class ResultsController {
     type: SimulationRunResults,
   })
   public async getResults(
-    @Param('runId') id: string,
+    @Param('runId') runId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunResults> {
-    const results = await this.service.getResults(id, includeData);
+    const results = await this.service.getResults(runId, includeData);
 
     const returnValue: SimulationRunResults = {
       simId: results.simId,
@@ -94,10 +94,10 @@ export class ResultsController {
   })
   @ApiTags('Downloads')
   public async downloadResultReport(
-    @Param('runId') simId: string,
+    @Param('runId') runId: string,
     @Res() res: Response,
   ): Promise<void> {
-    const file = await this.service.download(simId);
+    const file = await this.service.download(runId);
     res.contentType('application/zip');
     res.setHeader('Content-Disposition', 'attachment; filename="outputs.zip"');
     res.write(file);
@@ -136,12 +136,12 @@ export class ResultsController {
     type: SimulationRunOutput,
   })
   public async getResultReport(
-    @Param('runId') simId: string,
+    @Param('runId') runId: string,
     @Param('outputId') outputId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunOutput> {
     const resultModel = await this.service.getOutput(
-      simId,
+      runId,
       outputId,
       includeData,
     );

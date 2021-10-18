@@ -86,8 +86,8 @@ export class LogsController {
     type: ErrorResponseDocument,
   })
   @Get(':runId')
-  public async getLogs(@Param('runId') id: string): Promise<CombineArchiveLog> {
-    const structLogs = await this.service.getLog(id);
+  public async getLogs(@Param('runId') runId: string): Promise<CombineArchiveLog> {
+    const structLogs = await this.service.getLog(runId);
 
     if (!structLogs) {
       throw new NotFoundException('The logs were not found');
@@ -136,8 +136,8 @@ export class LogsController {
     summary: 'Delete the log a simulation run',
     description: 'Delete the log a simulation run',
   })
-  @Delete(':id')
-  public deleteLogs(@Param() id: string): void {
+  @Delete(':runId')
+  public deleteLogs(@Param() runId: string): void {
     throw new NotImplementedException('Not Implemented');
   }
 
@@ -145,7 +145,7 @@ export class LogsController {
     summary: 'Modify the log a simulation run',
     description: 'Modify the log a simulation run',
   })
-  @Patch(':id')
+  @Patch(':runId')
   public editLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
@@ -154,7 +154,7 @@ export class LogsController {
     summary: 'Replace the log a simulation run',
     description: 'Replace the log a simulation run',
   })
-  @Put(':id')
+  @Put(':runId')
   public replaceLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }

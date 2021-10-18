@@ -68,12 +68,12 @@ export class SpecificationsController {
     description: 'No simulation run has the requested id',
   })
   public async getSpecificationsBySimulation(
-    @Param('runId') simId: string,
+    @Param('runId') runId: string,
   ): Promise<SimulationRunSpecifications[]> {
-    const specs = await this.service.getSpecificationsBySimulation(simId);
+    const specs = await this.service.getSpecificationsBySimulation(runId);
     if (specs.length === 0) {
       throw new NotFoundException(
-        `No specifications found for simulation ${simId}`,
+        `No specifications found for simulation ${runId}`,
       );
     }
     return specs.map(this.returnSpec);
@@ -109,13 +109,13 @@ export class SpecificationsController {
       'No SED-ML document has the requested simulation run id and location',
   })
   public async getSpecification(
-    @Param('runId') simId: string,
-    @Param('experimentLocation') specId: string,
+    @Param('runId') runId: string,
+    @Param('experimentLocation') experimentLocation: string,
   ): Promise<SimulationRunSpecifications> {
-    const spec = await this.service.getSpecification(simId, specId);
+    const spec = await this.service.getSpecification(runId, experimentLocation);
     if (!spec) {
       throw new NotFoundException(
-        `Specification with id ${specId} for simulation ${simId} not found`,
+        `Specification with id ${experimentLocation} for simulation ${runId} not found`,
       );
     }
     return this.returnSpec(spec);
@@ -167,7 +167,7 @@ export class SpecificationsController {
     type: [SimulationRunSpecifications],
   })
   public async createSimulationSpecification(
-    @Param('runId') simId: string,
+    @Param('runId') runId: string,
     @Body() specifications: SimulationRunSpecifications[],
   ): Promise<SimulationRunSpecifications[]> {
     const specs = await this.service.createSpecs(specifications);
