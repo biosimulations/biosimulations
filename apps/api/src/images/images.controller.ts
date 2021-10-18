@@ -7,6 +7,7 @@ import {
 import {
   Body,
   Controller,
+  HttpCode,
   Inject,
   InternalServerErrorException,
   Post,
@@ -16,18 +17,16 @@ import {
   ApiBody,
   ApiOperation,
   ApiTags,
-  ApiCreatedResponse,
   ApiInternalServerErrorResponse,
-  ApiUnauthorizedResponse,
-  ApiForbiddenResponse,
+  ApiOkResponse,
 } from '@nestjs/swagger';
 import { refreshImageBody } from './image.dto';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
 @Controller('images')
-@ApiTags('Internal management')
+@ApiTags('Internal')
 export class ImagesController {
-  constructor(@Inject('NATS_CLIENT') private client: ClientProxy) {}
+  public constructor(@Inject('NATS_CLIENT') private client: ClientProxy) {}
 
   @ApiOperation({
     summary:
@@ -40,28 +39,22 @@ export class ImagesController {
       'Version of a simulation tool to build (or rebuild) a Singularity image for',
     type: refreshImageBody,
   })
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description:
       'The building/rebuilding of the Singularity image was successfully triggered',
     type: String,
   })
+  @HttpCode(200)
   @ApiInternalServerErrorResponse({
     description:
       'An error occurred in triggering the building/rebuilding of the Singularity image',
     type: ErrorResponseDocument,
   })
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to trigger the building/rebuilding of images',
-  })
   @permissions('refresh:Images')
   @Post('refresh')
-  async refreshImage(@Body() data: refreshImageBody) {
+  public async refreshImage(
+    @Body() data: refreshImageBody,
+  ): Promise<string | undefined> {
     const message = new ImageMessagePayload(data.simulator, data.version);
     // !Replace with wrapper to allow typing
     const success = await this.client

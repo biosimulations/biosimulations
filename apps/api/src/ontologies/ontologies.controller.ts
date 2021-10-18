@@ -18,7 +18,7 @@ import {
 @Controller('ontologies')
 @ApiTags('Ontologies')
 export class OntologiesController {
-  constructor(private service: OntologiesService) {}
+  public constructor(private service: OntologiesService) {}
 
   @Get()
   @ApiOperation({
@@ -31,7 +31,7 @@ export class OntologiesController {
       'The ids of the ontologies used by BioSimulations and BioSimulators were successfully retrieved',
     type: [String],
   })
-  getList(): string[] {
+  public getList(): string[] {
     const ontologiesIds = new Set<string>();
     for (const [key, val] of Object.entries(Ontologies)) {
       ontologiesIds.add(key);
@@ -62,7 +62,7 @@ export class OntologiesController {
     description: 'No ontology has the requested id',
     type: ErrorResponseDocument,
   })
-  getInfo(@Param('ontologyId') ontologyId: Ontologies): OntologyInfo {
+  public getInfo(@Param('ontologyId') ontologyId: Ontologies): OntologyInfo {
     const info = this.service.getInfo(ontologyId);
     if (!info) {
       throw new NotFoundException(`No ontology with id ${ontologyId} exists`);
@@ -91,7 +91,7 @@ export class OntologiesController {
     description: 'No ontology has the requested id',
     type: ErrorResponseDocument,
   })
-  getTerms(@Param('ontologyId') ontologyId: Ontologies) {
+  public getTerms(@Param('ontologyId') ontologyId: Ontologies): OntologyTerm[] {
     const terms = this.service.getTerms(ontologyId);
     if (!terms) {
       throw new NotFoundException(`No ontology with id ${ontologyId} exists`);
@@ -128,7 +128,7 @@ export class OntologiesController {
     description: 'No term has the requested ontology and term ids',
     type: ErrorResponseDocument,
   })
-  getTerm(
+  public getTerm(
     @Param('ontologyId') ontologyId: Ontologies,
     @Param('termId') termId: string,
   ): OntologyTerm {

@@ -31,7 +31,7 @@ import {
 } from '@biosimulations/datamodel/api';
 import { Response } from 'express';
 @Controller('results')
-@ApiTags('Simulation run results')
+@ApiTags('Results')
 export class ResultsController {
   public constructor(
     private service: ResultsService,
@@ -92,7 +92,7 @@ export class ResultsController {
   @ApiNoContentResponse({
     description: 'The simulation results were successfully downloaded',
   })
-  @ApiTags('Simulation run downloads')
+  @ApiTags('Downloads')
   public async downloadResultReport(
     @Param('runId') simId: string,
     @Res() res: Response,

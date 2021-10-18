@@ -70,7 +70,7 @@ import multer from 'multer';
 type multipartSimulationRunBody = { simulationRun: string };
 // 1gb in bytes plus a buffer to be used as file size limits
 const ONE_GIGABYTE = 1100000000;
-@ApiTags('Simulation runs')
+@ApiTags('Simulations')
 @Controller(['runs', 'run'])
 @ApiExtraModels(UploadSimulationRun, UploadSimulationRunUrl, SimulationUpload)
 export class SimulationRunController {
@@ -422,7 +422,7 @@ export class SimulationRunController {
     description:
       'The COMBINE/OMEX archive for the run was successfully downloaded',
   })
-  @ApiTags('Simulation run downloads')
+  @ApiTags('Downloads')
   public async download(
     @Param('runId') id: string,
     @Res({ passthrough: true }) response: Response,
