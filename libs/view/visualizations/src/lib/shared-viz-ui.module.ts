@@ -8,13 +8,7 @@ import { PlotlyVisualizationComponent } from './plotly-visualization/plotly-visu
 
 @NgModule({
   imports: [CommonModule, RouterModule, SharedUiModule, PlotlyViaWindowModule],
-  exports: [
-    VegaVisualizationComponent,
-    PlotlyVisualizationComponent,
-  ],
-  declarations: [
-    VegaVisualizationComponent,
-    PlotlyVisualizationComponent,
-  ],
+  exports: [VegaVisualizationComponent, PlotlyVisualizationComponent],
+  declarations: [VegaVisualizationComponent, PlotlyVisualizationComponent],
 })
 export class SharedVizUiModule {}

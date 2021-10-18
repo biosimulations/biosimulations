@@ -86,7 +86,9 @@ export class LogsController {
     type: ErrorResponseDocument,
   })
   @Get(':runId')
-  public async getLogs(@Param('runId') runId: string): Promise<CombineArchiveLog> {
+  public async getLogs(
+    @Param('runId') runId: string,
+  ): Promise<CombineArchiveLog> {
     const structLogs = await this.service.getLog(runId);
 
     if (!structLogs) {

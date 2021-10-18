@@ -370,7 +370,9 @@ export class SimulationRunController {
     type: SimulationRun,
     description: 'The simulation run was successfully deleted',
   })
-  public async deleteRun(@Param('runId') runId: string): Promise<SimulationRun> {
+  public async deleteRun(
+    @Param('runId') runId: string,
+  ): Promise<SimulationRun> {
     const res = await this.service.delete(runId);
 
     if (!res) {
