@@ -128,9 +128,7 @@ export class VegaEmbedComponent implements OnDestroy {
           this._spec as Spec,
           options,
         ).catch((error: Error): void => {
-          if (!environment.production) {
-            console.error(error);
-          }
+          console.error(error);
           this.error.next(`The visualization is invalid: ${error.message}.`);
         });
       } else {
