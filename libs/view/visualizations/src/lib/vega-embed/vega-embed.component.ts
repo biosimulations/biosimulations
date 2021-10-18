@@ -11,7 +11,6 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { Spec } from 'vega';
 import vegaEmbed from 'vega-embed';
-import { environment } from '@biosimulations/shared/environments';
 
 @Component({
   selector: 'biosimulations-vega-embed',
