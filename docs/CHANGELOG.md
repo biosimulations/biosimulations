@@ -1,3 +1,11 @@
+## [5.6.1](https://github.com/biosimulations/biosimulations/compare/v5.6.0...v5.6.1) (2021-10-18)
+
+
+### Bug Fixes
+
+* **api:** fix permissions for endpoints ([f00f6d1](https://github.com/biosimulations/biosimulations/commit/f00f6d116cc64525656f4b36030ee0109f9ff3b0)), closes [#3242](https://github.com/biosimulations/biosimulations/issues/3242)
+* update client ids for api docs ([1ec36bb](https://github.com/biosimulations/biosimulations/commit/1ec36bb377ab939062da27455d199dbc3e4ada25))
+
 # [5.5.0](https://github.com/biosimulations/biosimulations/compare/v5.4.0...v5.5.0) (2021-10-09)
 
 
