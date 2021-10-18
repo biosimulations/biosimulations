@@ -319,6 +319,7 @@ ENV APP=$app
 RUN echo building ${app}
 
 COPY apps/${app}/src/ /app/src/
+COPY apps/${app}/vendor/ /app/vendor/
 RUN python -m compileall /app/src/ \
     && PY_EXEC_PATH=$(which python) \
     && PY_PREFIX=$(echo ${PY_EXEC_PATH} | rev | cut -d "/" -f 3- | rev) \
