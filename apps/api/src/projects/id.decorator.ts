@@ -33,7 +33,7 @@ export const ProjectId = createParamDecorator(
 export function ProjectIdParam() {
   return applyDecorators(
     ApiParam({
-      name: 'id',
+      name: 'projectId',
       description: 'Project id',
       type: 'string',
       required: true,
