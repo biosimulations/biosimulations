@@ -131,6 +131,24 @@ paths:
       summary: Get the simulators available to execute COMBINE/OMEX archives
       description: "Get the ids, vesions, and properties of simulators available to\
         \ execute COMBINE/OMEX archives."
+  /health:
+    get:
+      tags:
+      - Health
+      responses:
+        "200":
+          description: The service is operational.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+        "503":
+          description: The service is unavailable.
+      operationId: src.handlers.health.handler
+      summary: Get information about the status of the service.
+      description: Get information about whether the service is up or down.
   /combine/create:
     post:
       requestBody:
@@ -4078,6 +4096,21 @@ components:
         file: <FILE>
         format: rdfxml
         schema: BioSimulations
+    Health:
+      title: Root Type for Health
+      description: Information about the status of the service
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          description: Summary of the status of the service
+          enum:
+          - ok
+          type: string
+          example: ok
+      example:
+        status: ok
   responses:
     "404":
       content:
@@ -4101,3 +4134,5 @@ tags:
     \ and simulation projects"
 - name: Simulation execution
   description: Operations for executing simulation projects
+- name: Health
+  description: Get information about whether the service is up or down.
