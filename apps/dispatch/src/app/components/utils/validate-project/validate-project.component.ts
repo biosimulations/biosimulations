@@ -130,7 +130,10 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
   }
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
-    if (control.value && control.value.size > this.config.appConfig.maxUploadFileSize) {
+    if (
+      control.value &&
+      control.value.size > this.config.appConfig.maxUploadFileSize
+    ) {
       return {
         maxSize: true,
       };
