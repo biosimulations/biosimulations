@@ -41,6 +41,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@biosimulations/shared/environments';
 import { validateValue } from '@biosimulations/datamodel/utils';
+import { ConfigService } from '@biosimulations/shared/services';
 
 enum LocationType {
   file = 'file',
@@ -159,6 +160,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     private combineService: CombineService,
     private http: HttpClient,
     private snackBar: MatSnackBar,
+    private config: ConfigService,
   ) {
     const modelFileTypeSpecifiers = new Set<string>();
     MODEL_FORMATS.filter((modelFormat: ModelFormat): boolean => {
@@ -264,7 +266,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   }
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
-    if (control.value && control.value.size > 16000000) {
+    if (control.value && control.value.size > this.config.appConfig.maxUploadFileSize) {
       return {
         maxSize: true,
       };

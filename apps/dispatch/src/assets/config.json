@@ -32,6 +32,7 @@
       "exampleSimulationPath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock/simulation.sedml",
       "exampleMetadataPath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock/metadata.rdf",
       "exampleProjectPath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
-    }
+    },
+    "maxUploadFileSize": 256000000
   }
 }

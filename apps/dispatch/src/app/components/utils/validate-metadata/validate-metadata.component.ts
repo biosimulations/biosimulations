@@ -126,7 +126,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
   }
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
-    if (control.value && control.value.size > 16000000) {
+    if (control.value && control.value.size > this.config.appConfig.maxUploadFileSize) {
       return {
         maxSize: true,
       };
