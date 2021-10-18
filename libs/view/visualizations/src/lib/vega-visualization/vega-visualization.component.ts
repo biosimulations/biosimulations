@@ -49,8 +49,7 @@ export class VegaVisualizationComponent implements OnDestroy {
     });
   }
 
-  // TODO: make private once dispatch app refactored to new visualization component
-  render(): void {
+  private render(): void {
     if (!this.hostElement) {
       return;
     }
