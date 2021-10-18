@@ -90,6 +90,7 @@ Numerous individuals and groups have contributed to BioSimulations, including:
     <td align="center"><a href="http://loicpauleve.name/"><img src="https://avatars.githubusercontent.com/u/228657?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Loïc Paulevé</b></sub></a><br /><a href="#data-pauleve" title="Data">🔣</a></td>
     <td align="center"><a href="http://aurelien.naldi.info/"><img src="https://avatars.githubusercontent.com/u/250984?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aurélien Naldi</b></sub></a><br /><a href="#data-aurelien-naldi" title="Data">🔣</a></td>
     <td align="center"><a href="https://nih.gov/"><img src="https://avatars.githubusercontent.com/u/52710462?v=4?s=100" width="100px;" alt=""/><br /><sub><b>National Institutes of Health</b></sub></a><br /><a href="#financial-NIHGOV" title="Financial">💵</a></td>
+    <td align="center"><a href="https://nsf.gov/"><img src="https://avatars.githubusercontent.com/u/23663503?v=4?s=100" width="100px;" alt=""/><br /><sub><b>National Science Foundation</b></sub></a><br /><a href="#financial-NSF-open" title="Financial">💵</a></td>
   </tr>
 </table>
 
