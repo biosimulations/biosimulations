@@ -13,20 +13,17 @@ import {
   ApiNoContentResponse,
   ApiTags,
   ApiOperation,
-  ApiParam,
   ApiBody,
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
-  ApiUnauthorizedResponse,
-  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 import { ProjectId, ProjectIdParam } from './id.decorator';
 import { ProjectModel } from './project.model';
 import { ProjectsService } from './projects.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
-@ApiTags('Published projects')
+@ApiTags('Projects')
 @Controller('projects')
 export class ProjectsController {
   public constructor(private service: ProjectsService) {}
@@ -57,14 +54,8 @@ export class ProjectsController {
     summary: 'Get a published project',
     description: 'Get information about a published project',
   })
-  @ApiParam({
-    name: 'projectId',
-    description: 'Id of the project',
-    required: true,
-    type: String,
-  })
   @ApiOkResponse({
-    description: 'Onformation about the project',
+    description: 'Information about the project',
     type: Project,
   })
   @ApiNotFoundResponse({
@@ -97,14 +88,6 @@ export class ProjectsController {
     type: Project,
   })
   @permissions('create:Projects')
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description: 'This account does not have permission to publish projects',
-  })
   public async createProject(@Body() project: ProjectInput): Promise<Project> {
     const proj = await this.service.createProject(project);
     return this.returnProject(proj);
@@ -114,12 +97,6 @@ export class ProjectsController {
   @ApiOperation({
     summary: 'Update a published simulation run',
     description: 'Update a published simulation run',
-  })
-  @ApiParam({
-    name: 'projectId',
-    description: 'Id of the project',
-    required: true,
-    type: String,
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
@@ -136,14 +113,6 @@ export class ProjectsController {
     type: Project,
   })
   @permissions('update:Projects')
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description: 'This account does not have permission to modify projects',
-  })
   @ProjectIdParam()
   public async updateProject(
     @ProjectId('projectId') id: string,
@@ -166,42 +135,19 @@ export class ProjectsController {
     description: 'All published projects were successfully deleted',
   })
   @permissions('delete:Projects')
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description: 'This account does not have permission to delete projects',
-  })
   public async deleteProjects(): Promise<void> {
     return this.service.deleteProjects();
   }
 
-  @ApiNoContentResponse()
   @Delete(':projectId')
   @ApiOperation({
     summary: 'Delete a published project',
     description: 'Delete a published project',
   })
-  @ApiParam({
-    name: 'projectId',
-    description: 'Id of the project',
-    required: true,
-    type: String,
-  })
   @ApiNoContentResponse({
     description: 'The project was successfully deleted',
   })
   @permissions('delete:Projects')
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description: 'This account does not have permission to delete projects',
-  })
   @ProjectIdParam()
   public async deleteProject(
     @ProjectId('projectId') id: string,

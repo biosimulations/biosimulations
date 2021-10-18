@@ -40,7 +40,7 @@ import { permissions } from '@biosimulations/auth/nest';
 
 @ApiExtraModels(SedReportLog, SedPlot2DLog, SedPlot3DLog)
 @Controller('logs')
-@ApiTags('Logs of simulation runs')
+@ApiTags('Logs')
 export class LogsController {
   private logger = new Logger(LogsController.name);
 
@@ -108,7 +108,7 @@ export class LogsController {
     required: true,
     type: String,
   })
-  @ApiTags('Simulation run downloads')
+  @ApiTags('Downloads')
   public downloadLogs(@Param() runId: string): void {
     throw new NotImplementedException('Not Implemented');
   }

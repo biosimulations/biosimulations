@@ -18,8 +18,6 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
-  ApiUnauthorizedResponse,
-  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 
 import {
@@ -28,18 +26,18 @@ import {
 } from '@biosimulations/datamodel/api';
 import { MetadataService } from './metadata.service';
 import { SimulationRunMetadataModel } from './metadata.model';
-import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
+import { permissions } from '@biosimulations/auth/nest';
 import { AuthToken } from '@biosimulations/auth/common';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
-@ApiTags('Metadata for projects (COMBINE/OMEX archive) of simulation runs')
+@ApiTags('Metadata')
 @Controller({ path: 'metadata', version: VERSION_NEUTRAL })
 export class MetadataController {
   private logger = new Logger(MetadataController.name);
   public constructor(private service: MetadataService) {}
 
   @ApiOperation({
-    summary: 'Post metadata about the simulation project of a simulation run',
+    summary: 'Create Metadata for SimulationRun',
     description:
       'Upload metadata about the simulation project of a simulation run',
   })
@@ -50,15 +48,6 @@ export class MetadataController {
   @ApiCreatedResponse({
     description: 'The metadata was successfully saved to the database',
     type: SimulationRunMetadata,
-  })
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to save metadata about simulation projects',
   })
   @Post()
   @permissions('write:Metadata')
@@ -78,8 +67,7 @@ export class MetadataController {
   }
 
   @ApiOperation({
-    summary:
-      'Get metadata about the simulation projects of all simulation runs. ',
+    summary: 'Get metadata for all simulation runs.',
     description:
       'Get metadata about the simulation projects of all simulation runs. Regular users are limited to metadata about projects of published runs.',
   })
@@ -88,7 +76,11 @@ export class MetadataController {
       'Metadata about the simulation projects were successfully retrieved',
     type: [SimulationRunMetadata],
   })
-  @OptionalAuth()
+  @ApiNotFoundResponse({
+    description: 'No metadata found',
+    type: ErrorResponseDocument,
+  })
+  @permissions('read:Metadata')
   @Get()
   public async getAllMetadata(
     @Req() req: Request,
@@ -100,6 +92,9 @@ export class MetadataController {
       permission = user.permissions.includes('read:Metadata');
     }
     const metadatas = await this.service.getAllMetadata(permission);
+    if (!metadatas) {
+      throw new NotFoundException('No metadata found');
+    }
     const ret = metadatas.map((metadata: SimulationRunMetadataModel) => {
       const data = metadata.metadata;
 
@@ -116,7 +111,7 @@ export class MetadataController {
   }
 
   @ApiOperation({
-    summary: 'Get metadata about the simulation project of a simulation run',
+    summary: 'Get metadata for a simulation run',
     description:
       'Returns metadata about the simulation project of a simulation run',
   })

@@ -17,14 +17,12 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
-  ApiUnauthorizedResponse,
-  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 import { FileModel } from './files.model';
 import { FilesService } from './files.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
-@ApiTags('Files (contents of COMBINE/OMEX archive) of simulation runs')
+@ApiTags('Files')
 @Controller('files')
 export class FilesController {
   private logger = new Logger(FilesController.name);
@@ -73,7 +71,7 @@ export class FilesController {
 
   @Get(':runId/:fileLocation')
   @ApiOperation({
-    summary: 'Get metadata about a file of a simulation run',
+    summary: 'Get metadata about a file',
     description:
       'Get metadata about a file (location in the COMBINE/OMEX archive) of a simulation run',
   })
@@ -112,8 +110,7 @@ export class FilesController {
 
   @Post()
   @ApiOperation({
-    summary:
-      'Save metadata about the files for a simulation run to the database',
+    summary: 'Save metadata about files',
     description:
       'Save metadata about each file (contents of the COMBINE/OMEX archive) for a simulation run to the database',
   })
@@ -122,44 +119,44 @@ export class FilesController {
     type: [SubmitProjectFile],
   })
   @permissions('write:Files')
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to save metadata about files',
-  })
   @ApiCreatedResponse({
     description:
       'The metadata for the files for the simulation were successfully saved to the database',
     type: [SubmitProjectFile],
   })
-  public async createFiles(@Body() files: SubmitProjectFile[]) {
+  public async createFiles(@Body() files: SubmitProjectFile[]): Promise<void> {
     await this.service.createFiles(files);
   }
 
   //@Post(':runId')
   @permissions('write:Files')
-  public createSimulationFiles(@Param() runId: string, @Body() files: any[]) {}
+  public async createSimulationFiles(
+    @Param() runId: string,
+    @Body() files: any[],
+  ): Promise<void> {}
 
   //@Post(':runId/:fileId')
   @permissions('write:Files')
-  public createFile(runId: string, fileId: string, file: any) {}
+  public async createFile(
+    runId: string,
+    fileId: string,
+    file: any,
+  ): Promise<void> {}
 
   //@Delete()
   @permissions('delete:Files')
-  public async deleteAllFiles(@Param('fileId') fileId: string) {}
+  public async deleteAllFiles(@Param('fileId') fileId: string): Promise<void> {}
 
   //@Delete(':runId')
   @permissions('delete:Files')
-  public async deleteSimulationFile(@Param('fileId') fileId: string) {}
+  public async deleteSimulationFile(
+    @Param('fileId') fileId: string,
+  ): Promise<void> {}
 
   //@Delete(':runId/:fileId')
   @permissions('delete:Files')
-  public async deleteFile(@Param('fileId') fileId: string) {}
-  private createReturnFile(file: FileModel) {
+  public async deleteFile(@Param('fileId') fileId: string): Promise<void> {}
+  private createReturnFile(file: FileModel): ProjectFile {
     return new ProjectFile(
       file.id,
       file.name,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /**
  * @file Contains the mongoose model definition for a simulation run. The COMBINE/OMEX archive file is stored as a ObjectId refrence to the file also stored in the database.
  * @author Bilal Shaikh

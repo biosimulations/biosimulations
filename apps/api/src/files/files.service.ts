@@ -9,14 +9,14 @@ export class FilesService {
     @InjectModel(FileModel.name) private model: Model<FileModel>,
   ) {}
 
-  public async getSimulationFiles(simId: string) {
+  public async getSimulationFiles(simId: string): Promise<FileModel[]> {
     return await this.model.find({ simulationRun: simId }).exec();
   }
 
-  public async getFile(fileId: string) {
+  public async getFile(fileId: string): Promise<FileModel | null> {
     return await this.model.findOne({ id: fileId });
   }
-  public async createFiles(files: SubmitProjectFile[]) {
+  public async createFiles(files: SubmitProjectFile[]): Promise<FileModel[]> {
     const createdFiles = [];
     for (const file of files) {
       const fileModel = new this.model(file);

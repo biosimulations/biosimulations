@@ -15,8 +15,6 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
-  ApiUnauthorizedResponse,
-  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
 import { SpecificationsService } from './specifications.service';
@@ -24,9 +22,7 @@ import { SpecificationsModel } from './specifications.model';
 import { permissions } from '@biosimulations/auth/nest';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
-@ApiTags(
-  'Simulation experiments (specifications of SED-ML files in COMBINE/OMEX archives) of simulation runs',
-)
+@ApiTags('Specifications')
 @Controller('specifications')
 export class SpecificationsController {
   private logger = new Logger(SpecificationsController.name);
@@ -45,15 +41,6 @@ export class SpecificationsController {
     type: [SimulationRunSpecifications],
   })
   @permissions('read:Specifications')
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to get the specifications of all simulation experiments',
-  })
   public async getSpecifications(): Promise<SimulationRunSpecifications[]> {
     const specs = await this.service.getSpecifications();
     return specs.map(this.returnSpec);
