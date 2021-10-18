@@ -2,6 +2,7 @@ from . import exceptions
 from dotenv import dotenv_values
 from flask_cors import CORS
 import connexion
+import functools
 import os
 import tempfile
 import yaml
@@ -47,6 +48,9 @@ app.add_api(spec_filename,
 if env.lower() == 'prod':
     os.remove(temp_spec_filename)
 
+# set maximum file upload size
+app.app.config['MAX_CONTENT_LENGTH'] = float(config.get('MAX_CONTENT_LENGTH', '256e6'))  # bytes
+
 # Validate_response = True will give error when API returns something that
 # does not match the schema. If you want to send a response even if invalid,
 # set to false. Set to false in production if optimistic that client can
@@ -55,7 +59,13 @@ if env.lower() == 'prod':
 # :obj:`validate_responses` is set to obj:`False` because responses are
 # validated by the unit tests using openapi-core.
 
-app.add_error_handler(500, exceptions._render_exception)
+app.add_error_handler(413, functools.partial(
+    exceptions._render_exception,
+    title='Request too large',
+    detail='Request was larger than the {} MB limit.'.format(round(app.app.config['MAX_CONTENT_LENGTH'] * 1e-6))))
+app.add_error_handler(500, functools.partial(
+    exceptions._render_exception,
+    title='Server error'))
 app.add_error_handler(exceptions.BadRequestException, exceptions._render_exception)
 
 # cross-origin resource sharing

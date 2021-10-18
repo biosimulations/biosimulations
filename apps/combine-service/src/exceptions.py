@@ -41,11 +41,13 @@ class BadRequestException(connexion.ProblemException, werkzeug.exceptions.BadReq
         return flask.jsonify(data), self.status
 
 
-def _render_exception(exception):
+def _render_exception(exception, title=None, detail=None):
     """ Render an exception
 
     Args:
         exception (:obj:`Exception`): exception
+        title (:obj:`str`, optional): title
+        detail (:obj:`str`, optional): detail
 
     Returns:
         :obj:`werkzeug.wrappers.response.Response`: response
@@ -54,9 +56,9 @@ def _render_exception(exception):
         return exception.get_response()
     else:
         data = {
-            'status': 500,
-            'title': 'Server error',
-            'detail': str(exception),
+            'status': exception.code,
+            'title': title,
+            'detail': detail or str(exception),
             'type': exception.__class__.__name__,
         }
         return flask.jsonify(data), 500
