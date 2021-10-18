@@ -137,6 +137,14 @@ paths:
       - Health
       responses:
         "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+              examples:
+                Healthy:
+                  value:
+                    status: ok
           description: The service is operational.
         "500":
           content:
