@@ -11,6 +11,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
+import { NgxJsonLdModule } from '@ngx-lite/json-ld';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SharedContentModule } from '@biosimulations/shared/content';
     SharedUiModule,
     BiosimulationsIconsModule,
     SharedContentModule,
+    NgxJsonLdModule,
   ],
 })
 export class HelpModule {}

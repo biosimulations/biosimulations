@@ -12,6 +12,7 @@ import { HelpComponent } from './help/help.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { HighlightModule } from 'ngx-highlightjs';
+import { NgxJsonLdModule } from '@ngx-lite/json-ld';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     SharedContentModule,
     HelpRoutingModule,
     HighlightModule,
+    NgxJsonLdModule,
   ],
 })
 export class HelpModule {}
