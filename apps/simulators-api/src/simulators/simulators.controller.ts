@@ -109,29 +109,8 @@ export class SimulatorsController {
     allSims.forEach((element) => {
       const latestSim = latest.get(element.id) as Simulator;
       if (latestSim) {
-        const latestVersion = latestSim.version.replace(/-/g, '.');
-        const currentVersion = element.version.replace(/-/g, '.');
-        try {
-          if (compareVersions(latestVersion, currentVersion) == -1) {
-            latest.set(element.id, element);
-          }
-        } catch {
-          try {
-            if (
-              compareVersionsWithAdditionalPoints(
-                latestVersion,
-                currentVersion,
-              ) == -1
-            ) {
-              latest.set(element.id, element);
-            }
-          } catch {
-            if (
-              element.biosimulators.created > latestSim.biosimulators.created
-            ) {
-              latest.set(element.id, element);
-            }
-          }
+        if (this.compareSimulatorVersions(latestSim, element) === -1) {
+          latest.set(element.id, element);
         }
       } else {
         latest.set(element.id, element);
@@ -142,6 +121,26 @@ export class SimulatorsController {
       return results.filter((value) => value.id === id);
     } else {
       return results;
+    }
+  }
+
+  compareSimulatorVersions(a: Simulator, b: Simulator): number {
+    const aVersion = a.version.replace(/-/g, '.');
+    const bVersion = b.version.replace(/-/g, '.');
+    try {
+      return compareVersions(aVersion, bVersion);
+    } catch {
+      try {
+        return compareVersionsWithAdditionalPoints(aVersion, bVersion);
+      } catch {
+        if (b.biosimulators.created > a.biosimulators.created) {
+          return -1;
+        } else if (b.biosimulators.created < a.biosimulators.created) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
     }
   }
 
@@ -189,12 +188,14 @@ export class SimulatorsController {
   @ApiParam({
     name: 'id',
     description: 'Id of the simulation tool',
+    example: 'tellurium',
     required: true,
     type: String,
   })
   @ApiParam({
     name: 'version',
     description: 'Version of the simulation tool',
+    example: '2.2.1',
     required: true,
     type: String,
   })
