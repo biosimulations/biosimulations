@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { AppController } from './app.controller';
 import { ConfigService } from '@nestjs/config';
@@ -22,7 +22,7 @@ import { OntologiesModule } from '../ontologies/ontologies.module';
 import { FilesModule } from '../files/files.module';
 import { SpecificationsModule } from '../specifications/specifications.module';
 import { ProjectsModule } from '../projects/projects.module';
-
+import * as redisStore from 'cache-manager-redis-store';
 @Module({
   imports: [
     BiosimulationsConfigModule,
@@ -30,6 +30,16 @@ import { ProjectsModule } from '../projects/projects.module';
     ImagesModule,
     HttpModule,
     LogsModule,
+    CacheModule.registerAsync({
+      isGlobal: true,
+      imports: [BiosimulationsConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        store: redisStore,
+        host: configService.get('cache.host'),
+        port: configService.get('cache.port'),
+      }),
+      inject: [ConfigService],
+    }),
     MongooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
       useFactory: async (configService: ConfigService) => ({
