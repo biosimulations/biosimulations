@@ -289,6 +289,7 @@ export class Endpoints {
     id ? (id = `/${id}`) : (id = '');
     return `${this.simulationRunLogs}${id}`;
   }
+
   /**
    *
    * @param id The id of the simulator
@@ -299,6 +300,16 @@ export class Endpoints {
     id ? (id = `/${id}`) : (id = '');
     version ? (version = `/${version}`) : (version = '');
     return `${this.simulators}${id}${version}`;
+  }
+
+  /**
+   *
+   * @param id The id of the simulator
+   * @returns  A URL to get the latest version of each simulator, or the latest version of a specific simulator
+   */
+  public getLatestSimulatorsEndpoint(id?: string): string {
+    id ? (id = `?id=${id}`) : (id = '');
+    return `${this.simulators}/latest${id}`;
   }
 
   /**
