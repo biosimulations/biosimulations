@@ -20,6 +20,7 @@ import {
   SoftwareInterfaceType,
   OperatingSystemType,
   Funding,
+  ISimulator,
 } from '@biosimulations/datamodel/common';
 import { addValidationForNullableAttributes } from '@biosimulations/datamodel-database';
 import { ExternalReferencesSchema, PersonSchema, UrlSchema } from './common';
@@ -29,7 +30,7 @@ import {
 } from './biosimulatorsMeta';
 
 @Schema({})
-export class Simulator extends Document {
+export class Simulator extends Document implements ISimulator {
   @Prop({ type: BiosimulatorsMetaSchema, required: true, default: undefined })
   biosimulators!: BiosimulatorsMeta;
 

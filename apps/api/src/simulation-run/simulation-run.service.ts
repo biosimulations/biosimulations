@@ -12,6 +12,7 @@ import {
   Logger,
   NotFoundException,
   PayloadTooLargeException,
+  BadRequestException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -28,7 +29,7 @@ import {
   UploadSimulationRun,
   UploadSimulationRunUrl,
 } from '@biosimulations/datamodel/api';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, ISimulator } from '@biosimulations/datamodel/common';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import {
   DispatchFailedPayload,
@@ -40,6 +41,8 @@ import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { Readable } from 'stream';
 import { firstValueFrom } from 'rxjs';
 import { DeleteResult } from 'mongodb';
+import { Endpoints } from '@biosimulations/config/common';
+
 // 1gb in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
 const toApi = <T extends SimulationRunModelType>(
@@ -52,6 +55,7 @@ const toApi = <T extends SimulationRunModelType>(
 
 @Injectable()
 export class SimulationRunService {
+  private endpoints = new Endpoints();
   private logger = new Logger(SimulationRunService.name);
 
   public constructor(
@@ -236,6 +240,7 @@ export class SimulationRunService {
       );
     }
   }
+
   public async createRunWithURL(
     body: UploadSimulationRunUrl,
   ): Promise<SimulationRunModelReturnType> {
@@ -298,6 +303,15 @@ export class SimulationRunService {
     id: string,
   ): Promise<SimulationRunModelReturnType> {
     const newSimulationRun = new this.simulationRunModel(run);
+
+    const url = this.endpoints.getSimulatorsEndpoint(run.simulator, run.simulatorVersion);
+    const simulatorResponse = await firstValueFrom(this.http.get<ISimulator | null>(url));
+    if (simulatorResponse && simulatorResponse.data && simulatorResponse.data.image) {
+      newSimulationRun.simulatorVersion = simulatorResponse.data.version;
+      newSimulationRun.simulatorDigest = simulatorResponse.data.image.digest;
+    } else {
+      throw new BadRequestException(`No image for ${run.simulator}:{run.simulatorDigest} is registered with BioSimulators.`);
+    }
 
     const session = await this.simulationRunModel.startSession();
     // If any of the code within the transaction fails, then mongo will abort and revert any changes

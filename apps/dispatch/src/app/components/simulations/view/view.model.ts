@@ -9,6 +9,7 @@ export interface FormattedSimulation {
   name: string;
   simulator: string;
   simulatorVersion: string;
+  simulatorDigest: string;
   simulatorUrl: string;
   cpus: number;
   memory: string;

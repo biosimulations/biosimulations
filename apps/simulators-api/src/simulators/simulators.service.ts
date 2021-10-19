@@ -50,6 +50,7 @@ export class SimulatorsService {
     }
     return this.simulator.find({ id: id }, projection).lean().exec();
   }
+  
   public async findByVersion(
     id: string,
     version: string,

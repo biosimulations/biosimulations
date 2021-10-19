@@ -172,6 +172,10 @@ export class SimulationRunController {
     description:
       'The submitted COMBINE/OMEX archive file is too large. Uploaded archives must be less than 1 GB. Larger archives up to 5 TB may be submitted via URLs.',
   })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description: 'No image for the simulator/version is registered with BioSimulators',
+  })
   @Post()
   public async createRun(
     @Body() body: multipartSimulationRunBody | UploadSimulationRunUrl,
@@ -247,6 +251,7 @@ export class SimulationRunController {
       run.name,
       run.simulator,
       run.simulatorVersion,
+      run.simulatorDigest,
       run.cpus,
       run.memory,
       run.maxTime,

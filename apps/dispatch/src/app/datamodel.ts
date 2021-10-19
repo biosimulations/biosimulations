@@ -11,6 +11,7 @@ export interface UnknownSimulation {
   submittedLocally?: null;
   simulator?: null;
   simulatorVersion?: null;
+  simulatorDigest?: null;
   cpus?: null;
   memory?: null; // GB
   maxTime?: null; // min
@@ -31,6 +32,7 @@ export interface Simulation {
   submittedLocally?: boolean;
   simulator: string;
   simulatorVersion: string;
+  simulatorDigest: string;
   cpus: number;
   memory: number; // GB
   maxTime: number; // min

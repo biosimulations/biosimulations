@@ -25,6 +25,7 @@ export class ViewService {
       name: simulation.name,
       simulator: simulation.simulator,
       simulatorVersion: simulation.simulatorVersion,
+      simulatorDigest: simulation.simulatorDigest,
       cpus: simulation.cpus || 1,
       memory: UtilsService.formatDigitalSize((simulation.memory || 8) * 1e9),
       maxTime: UtilsService.formatDuration((simulation.maxTime || 20) * 60),

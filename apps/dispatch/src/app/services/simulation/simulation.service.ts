@@ -243,6 +243,7 @@ export class SimulationService {
               submittedLocally: false,
               simulator: dispatchSimulation.simulator,
               simulatorVersion: dispatchSimulation.simulatorVersion,
+              simulatorDigest: dispatchSimulation.simulatorDigest,
               cpus: dispatchSimulation.cpus,
               memory: dispatchSimulation.memory,
               maxTime: dispatchSimulation.maxTime,
