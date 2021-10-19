@@ -44,6 +44,7 @@ import { catchError } from 'rxjs/operators';
 import { DeleteResult } from 'mongodb';
 import { Endpoints } from '@biosimulations/config/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ConfigService } from '@nestjs/config';
 
 // 1gb in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
@@ -57,7 +58,7 @@ const toApi = <T extends SimulationRunModelType>(
 
 @Injectable()
 export class SimulationRunService {
-  private endpoints = new Endpoints();
+  private endpoints: Endpoints;
   private logger = new Logger(SimulationRunService.name);
 
   public constructor(
@@ -67,7 +68,11 @@ export class SimulationRunService {
     private simulationStorageService: SimulationStorageService,
     private http: HttpService,
     @Inject('NATS_CLIENT') private client: ClientProxy,
-  ) {}
+    private configService: ConfigService,
+  ) {
+    const env = this.configService.get('server.env');
+    this.endpoints = new Endpoints(env);
+  }
 
   public async setStatus(
     id: string,
