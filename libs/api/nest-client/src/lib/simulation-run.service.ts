@@ -20,9 +20,9 @@ import {
 } from '@biosimulations/datamodel/api';
 @Injectable({})
 export class SimulationRunService {
-  private endpoint = this.configService.get('urls').dispatchApi;
-  private endpoints = new Endpoints();
+  private endpoints: Endpoints;
   private logger = new Logger(SimulationRunService.name);
+  
   public constructor(
     private auth: AuthClientService,
     private http: HttpService,
@@ -73,7 +73,7 @@ export class SimulationRunService {
       map((token) => {
         const httpRes = this.http
           .patch<SimulationRun>(
-            `${this.endpoint}run/${id}`,
+            this.endpoints.getSimulationRunEndpoint(id),
             {
               status,
               statusReason,
@@ -101,7 +101,7 @@ export class SimulationRunService {
       map((token) => {
         return this.http
           .patch<SimulationRun>(
-            `${this.endpoint}run/${id}`,
+            this.endpoints.getSimulationRunEndpoint(id),
             { resultsSize: size },
             {
               headers: {
@@ -122,11 +122,13 @@ export class SimulationRunService {
     );
   }
 
-  public getJob(simId: string): Observable<SimulationRun> {
+  public getJob(id: string): Observable<SimulationRun> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
-          .get<SimulationRun>(`${this.endpoint}run/${simId}`, {
+          .get<SimulationRun>(
+            this.endpoints.getSimulationRunEndpoint(id), 
+            {
             headers: {
               Authorization: `Bearer ${token}`,
             },
