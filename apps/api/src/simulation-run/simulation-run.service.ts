@@ -29,7 +29,10 @@ import {
   UploadSimulationRun,
   UploadSimulationRunUrl,
 } from '@biosimulations/datamodel/api';
-import { SimulationRunStatus, ISimulator } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunStatus,
+  ISimulator,
+} from '@biosimulations/datamodel/common';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import {
   DispatchFailedPayload,
@@ -310,15 +313,22 @@ export class SimulationRunService {
     id: string,
   ): Promise<SimulationRunModelReturnType> {
     const newSimulationRun = new this.simulationRunModel(run);
-    const simulator = await this.getSimulator(run.simulator, run.simulatorVersion);
-    
+    const simulator = await this.getSimulator(
+      run.simulator,
+      run.simulatorVersion,
+    );
+
     if (simulator && simulator.image) {
       newSimulationRun.simulatorVersion = simulator.version;
       newSimulationRun.simulatorDigest = simulator.image.digest;
     } else if (simulator === null) {
-      throw new BadRequestException(`No image for ${run.simulator}:{run.simulatorDigest} is registered with BioSimulators.`);
+      throw new BadRequestException(
+        `No image for ${run.simulator}:${run.simulatorVersion} is registered with BioSimulators.`,
+      );
     } else {
-      throw new InternalServerErrorException(`An error occurred in retrieving ${run.simulator}:{run.simulatorDigest}.`);
+      throw new InternalServerErrorException(
+        `An error occurred in retrieving ${run.simulator}:${run.simulatorVersion}.`,
+      );
     }
 
     const session = await this.simulationRunModel.startSession();
@@ -339,48 +349,56 @@ export class SimulationRunService {
     return toApi(newSimulationRun);
   }
 
-  private getSimulator(simulator: string, simulatorVersion: string): Promise<ISimulator | null | false> {
+  private getSimulator(
+    simulator: string,
+    simulatorVersion: string,
+  ): Promise<ISimulator | null | false> {
     if (simulatorVersion === 'latest') {
-      const url = this.endpoints.getSimulatorsEndpoint(simulator, simulatorVersion);
+      const url = this.endpoints.getLatestSimulatorsEndpoint(simulator);
+
       return firstValueFrom(
-        this.http.get<ISimulator>(url)
-          .pipe(
-            catchError((error: HttpErrorResponse): Observable<null | false> => {
-              if (error.status === 404) {
-                return of(null);
-              } else {
-                return of(false);
-              }
-            }),
-            map((response): ISimulator | null | false => {
-              if (response === null || response === false) {
-                return response;
-              } else {
-                return response.data;
-              }
-            }),
-          )
+        this.http.get<ISimulator[]>(url).pipe(
+          catchError((error: HttpErrorResponse): Observable<null | false> => {
+            this.logger.error(error.message);
+            if (error.status === 404) {
+              return of(null);
+            } else {
+              return of(false);
+            }
+          }),
+          map((response): ISimulator | null | false => {
+            if (response === null || response === false) {
+              return response;
+            } else {
+              return response.data[0];
+            }
+          }),
+        ),
       );
     } else {
-      const url = this.endpoints.getLatestSimulatorsEndpoint(simulator);
+      const url = this.endpoints.getSimulatorsEndpoint(
+        simulator,
+        simulatorVersion,
+      );
+
       return firstValueFrom(
-        this.http.get<ISimulator[]>(url)
-          .pipe(
-            catchError((error: HttpErrorResponse): Observable<null | false> => {
-              if (error.status === 404) {
-                return of(null);
-              } else {
-                return of(false);
-              }
-            }),
-            map((response): ISimulator | null | false => {
-              if (response === null || response === false) {
-                return response;
-              } else {
-                return response.data[0];
-              }
-            }),
-          )
+        this.http.get<ISimulator>(url).pipe(
+          catchError((error: HttpErrorResponse): Observable<null | false> => {
+            this.logger.error(error.message);
+            if (error.status === 404) {
+              return of(null);
+            } else {
+              return of(false);
+            }
+          }),
+          map((response): ISimulator | null | false => {
+            if (response === null || response === false) {
+              return response;
+            } else {
+              return response.data;
+            }
+          }),
+        ),
       );
     }
   }
