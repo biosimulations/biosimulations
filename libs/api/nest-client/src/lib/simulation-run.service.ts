@@ -127,7 +127,7 @@ export class SimulationRunService {
       map((token) => {
         return this.http
           .get<SimulationRun>(
-            this.endpoints.getSimulationRunEndpoint(id), 
+            this.endpoints.getSimulationRunEndpoint(id),
             {
             headers: {
               Authorization: `Bearer ${token}`,
