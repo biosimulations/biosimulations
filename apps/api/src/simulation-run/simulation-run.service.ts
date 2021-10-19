@@ -39,7 +39,7 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { Readable } from 'stream';
-import { firstValueFrom, of } from 'rxjs';
+import { firstValueFrom, Observable, of, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DeleteResult } from 'mongodb';
 import { Endpoints } from '@biosimulations/config/common';
@@ -310,24 +310,12 @@ export class SimulationRunService {
     id: string,
   ): Promise<SimulationRunModelReturnType> {
     const newSimulationRun = new this.simulationRunModel(run);
-
-    const url = this.endpoints.getSimulatorsEndpoint(run.simulator, run.simulatorVersion);
-    const simulatorResponse = await firstValueFrom(
-      this.http.get<ISimulator>(url)
-        .pipe(
-          catchError((error: HttpErrorResponse): Observable<null | false> => {
-            if (error.status === 404) {
-              return of(null);
-            } else {
-              return of(false);
-            }
-          }),
-        )
-    );
-    if (simulatorResponse && simulatorResponse.data && simulatorResponse.data.image) {
-      newSimulationRun.simulatorVersion = simulatorResponse.data.version;
-      newSimulationRun.simulatorDigest = simulatorResponse.data.image.digest;
-    } else if (simulatorResponse === null) {
+    const simulator = await this.getSimulator(run.simulator, run.simulatorVersion);
+    
+    if (simulator && simulator.image) {
+      newSimulationRun.simulatorVersion = simulator.version;
+      newSimulationRun.simulatorDigest = simulator.image.digest;
+    } else if (simulator === null) {
       throw new BadRequestException(`No image for ${run.simulator}:{run.simulatorDigest} is registered with BioSimulators.`);
     } else {
       throw new InternalServerErrorException(`An error occurred in retrieving ${run.simulator}:{run.simulatorDigest}.`);
@@ -349,6 +337,52 @@ export class SimulationRunService {
     });
     session.endSession();
     return toApi(newSimulationRun);
+  }
+
+  private getSimulator(simulator: string, simulatorVersion: string): Promise<ISimulator | null | false> {
+    if (simulatorVersion === 'latest') {
+      const url = this.endpoints.getSimulatorsEndpoint(simulator, simulatorVersion);
+      return firstValueFrom(
+        this.http.get<ISimulator>(url)
+          .pipe(
+            catchError((error: HttpErrorResponse): Observable<null | false> => {
+              if (error.status === 404) {
+                return of(null);
+              } else {
+                return of(false);
+              }
+            }),
+            map((response): ISimulator | null | false => {
+              if (response === null || response === false) {
+                return response;
+              } else {
+                return response.data;
+              }
+            }),
+          )
+      );
+    } else {
+      const url = this.endpoints.getLatestSimulatorsEndpoint(simulator);
+      return firstValueFrom(
+        this.http.get<ISimulator[]>(url)
+          .pipe(
+            catchError((error: HttpErrorResponse): Observable<null | false> => {
+              if (error.status === 404) {
+                return of(null);
+              } else {
+                return of(false);
+              }
+            }),
+            map((response): ISimulator | null | false => {
+              if (response === null || response === false) {
+                return response;
+              } else {
+                return response.data[0];
+              }
+            }),
+          )
+      );
+    }
   }
 
   private updateModelRunTime(model: SimulationRunModel): SimulationRunModel {
