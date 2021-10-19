@@ -42,7 +42,7 @@ export class FaqComponent {
                 allowedTags: [ 'b', 'i', 'em', 'strong', 'sub', 'sup', 'ul', 'ol', 'li', 'p', 'pre', 'code', 'a'],
                 allowedAttributes: {
                   'a': [ 'href' ]
-                },              
+                },
                 exclusiveFilter: function(frame) {
                   return frame.tag === 'a' && !frame.text.trim();
                 },
