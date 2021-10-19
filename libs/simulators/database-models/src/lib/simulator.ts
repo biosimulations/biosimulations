@@ -46,7 +46,20 @@ export class Simulator extends Document implements ISimulator {
   @Prop({ type: String, required: true, default: undefined })
   name!: string;
 
-  @Prop({ type: String, required: true, default: undefined })
+  @Prop({
+    type: String,
+    required: true,
+    default: undefined,
+    validate: [
+      {
+        validator: (value: string): boolean => {
+          return value !== 'latest';
+        },
+        message: (props: any): string =>
+          '"latest" is not a valid version. "latest" is reserved to automatically refer to the latest version.',
+      },
+    ],
+  })
   version!: string;
 
   @Prop({ type: String, text: true, required: true, default: undefined })
