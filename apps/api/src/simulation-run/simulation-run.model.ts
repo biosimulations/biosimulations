@@ -9,7 +9,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Types } from 'mongoose';
 import { SimulationFile } from './file.model';
-import { SimulationRun, SimulationRunStatus, Purpose } from '@biosimulations/datamodel/common';
+import {
+  SimulationRun,
+  SimulationRunStatus,
+  Purpose,
+} from '@biosimulations/datamodel/common';
 import { omitPrivate } from '@biosimulations/datamodel-database';
 import { isEmail, isUrl } from '@biosimulations/datamodel-database';
 

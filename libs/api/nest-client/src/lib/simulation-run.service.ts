@@ -22,7 +22,7 @@ import {
 export class SimulationRunService {
   private endpoints: Endpoints;
   private logger = new Logger(SimulationRunService.name);
-  
+
   public constructor(
     private auth: AuthClientService,
     private http: HttpService,
@@ -126,9 +126,7 @@ export class SimulationRunService {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
-          .get<SimulationRun>(
-            this.endpoints.getSimulationRunEndpoint(id),
-            {
+          .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(id), {
             headers: {
               Authorization: `Bearer ${token}`,
             },

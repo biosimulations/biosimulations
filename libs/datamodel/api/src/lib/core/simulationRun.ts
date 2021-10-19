@@ -14,7 +14,11 @@ import {
   PartialType,
   PickType,
 } from '@nestjs/swagger';
-import { SimulationRun as ISimulationRun, SimulationRunStatus, Purpose } from '@biosimulations/datamodel/common';
+import {
+  SimulationRun as ISimulationRun,
+  SimulationRunStatus,
+  Purpose,
+} from '@biosimulations/datamodel/common';
 
 export class EnvironmentVariable {
   @ApiProperty({
@@ -73,7 +77,8 @@ export class SimulationRun implements ISimulationRun {
     // description: 'Digest of the simulation tool for the simulation run',
     type: String,
     // pattern: '^sha256:[a-z0-9]{64,64}$',
-    example: 'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
+    example:
+      'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
   })
   simulatorDigest!: string;
 

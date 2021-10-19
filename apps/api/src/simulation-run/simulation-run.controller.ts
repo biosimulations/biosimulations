@@ -175,7 +175,8 @@ export class SimulationRunController {
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'No image for the simulator/version is registered with BioSimulators',
+    description:
+      'No image for the simulator/version is registered with BioSimulators',
   })
   @ApiInternalServerErrorResponse({
     description: 'An error occurred in retrieving the simulator/version',
