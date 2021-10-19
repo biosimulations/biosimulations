@@ -14,7 +14,7 @@ import {
   PartialType,
   PickType,
 } from '@nestjs/swagger';
-import { SimulationRunStatus, Purpose } from '@biosimulations/datamodel/common';
+import { SimulationRun as ISimulationRun, SimulationRunStatus, Purpose } from '@biosimulations/datamodel/common';
 
 export class EnvironmentVariable {
   @ApiProperty({
@@ -32,7 +32,7 @@ export class EnvironmentVariable {
   value!: string;
 }
 
-export class SimulationRun {
+export class SimulationRun implements ISimulationRun {
   // Explicitly make sure not to send out file id from database
   file!: never;
   fileUrl!: never;
@@ -68,6 +68,14 @@ export class SimulationRun {
     example: '2.2.0',
   })
   simulatorVersion!: string;
+
+  @ApiResponseProperty({
+    // description: 'Digest of the simulation tool for the simulation run',
+    type: String,
+    // pattern: '^sha256:[a-z0-9]{64,64}$',
+    example: 'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
+  })
+  simulatorDigest!: string;
 
   // The optional properities cannot contain the '!' assertion since they are not garunteed!! Must be set in the constructor
   @ApiPropertyOptional({
@@ -182,6 +190,7 @@ export class SimulationRun {
     name: string,
     simulator: string,
     simulatorVersion: string,
+    simulatorDigest: string,
     cpus: number,
     memory: number,
     maxTime: number,
@@ -201,6 +210,7 @@ export class SimulationRun {
     this.name = name;
     this.simulator = simulator;
     this.simulatorVersion = simulatorVersion;
+    this.simulatorDigest = simulatorDigest;
     this.cpus = cpus || 1;
     this.memory = memory || 8;
     this.maxTime = maxTime || 20;
@@ -266,6 +276,14 @@ export class PatchSimulationRun {
     type: Boolean,
   })
   public?: boolean;
+
+  @ApiPropertyOptional({
+    description: 'Digest of the simulation tool for the simulation run',
+    type: String,
+    pattern: '^sha256:[a-z0-9]{64,64}$',
+    example: 'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
+  })
+  simulatorDigest?: string;
 
   @ApiPropertyOptional({
     description: 'Status of the simulation run',

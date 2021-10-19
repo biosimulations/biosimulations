@@ -37,11 +37,11 @@ import {
   SimulationRunStatus,
   EnvironmentVariable,
   MODEL_FORMATS,
+  SimulationRun,
 } from '@biosimulations/datamodel/common';
 import { Observable, Subscription } from 'rxjs';
 import { map, concatAll, withLatestFrom } from 'rxjs/operators';
 import { ConfigService } from '@biosimulations/shared/services';
-import { SimulationRun } from '@biosimulations/datamodel/api';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
@@ -789,7 +789,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   private processSimulationResponse(
-    data: any,
+    data: SimulationRun,
     name: string,
     simulator: string,
     simulatorVersion: string,
@@ -800,7 +800,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
     purpose: Purpose,
     email: string | null,
   ): void {
-    const simulationId = data['id'];
+    const simulationId = data.id;
+    const simulatorDigest = data.simulatorDigest;
+    const submitted = new Date(data.submitted);
+    const updated = new Date(data.submitted);
 
     const simulation: Simulation = {
       id: simulationId,
@@ -808,6 +811,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       email: email || undefined,
       simulator: simulator,
       simulatorVersion: simulatorVersion,
+      simulatorDigest: simulatorDigest,
       cpus: cpus,
       memory: memory,
       maxTime: maxTime,
@@ -816,8 +820,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
       submittedLocally: true,
       status: SimulationRunStatus.QUEUED,
       runtime: undefined,
-      submitted: new Date(),
-      updated: new Date(),
+      submitted: submitted,
+      updated: updated,
     };
     this.simulationService.storeNewLocalSimulation(simulation);
 
