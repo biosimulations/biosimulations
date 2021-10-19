@@ -11,6 +11,7 @@ import {
   SimulationHDFService,
 } from '@biosimulations/hsds/client';
 import { SharedStorageService } from '@biosimulations/shared/storage';
+import { CacheModule } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsController } from './results.controller';
@@ -39,7 +40,11 @@ describe('ResultsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ResultsController],
-      imports: [BiosimulationsAuthModule, BiosimulationsConfigModule],
+      imports: [
+        BiosimulationsAuthModule,
+        BiosimulationsConfigModule,
+        CacheModule.register(),
+      ],
       providers: [
         ResultsService,
         {
