@@ -1,3 +1,11 @@
+## [5.7.3](https://github.com/biosimulations/biosimulations/compare/v5.7.2...v5.7.3) (2021-10-19)
+
+
+### Bug Fixes
+
+* **api:** correct field name to get values from dataservice ([53a6bbc](https://github.com/biosimulations/biosimulations/commit/53a6bbc5d2ccab9ea086f405656bf26d0cb2bacb)), closes [#3313](https://github.com/biosimulations/biosimulations/issues/3313)
+* **api:** fix typo with checks ([caada0a](https://github.com/biosimulations/biosimulations/commit/caada0ab6e0f806508ee4d29966e5bcb0ca85109))
+
 ## [5.7.2](https://github.com/biosimulations/biosimulations/compare/v5.7.1...v5.7.2) (2021-10-19)
 
 
