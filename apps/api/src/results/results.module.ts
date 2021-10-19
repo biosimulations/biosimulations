@@ -4,9 +4,8 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
-import { Module, CacheModule, CacheInterceptor } from '@nestjs/common';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import * as redisStore from 'cache-manager-redis-store';
+import { Module } from '@nestjs/common';
+
 import { ResultsService } from './results.service';
 import { ResultsController } from './results.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -17,8 +16,6 @@ import {
 } from '../simulation-run/simulation-run.model';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { HSDSClientModule } from '@biosimulations/hsds/client';
-import { ConfigService } from '@nestjs/config';
-import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 
 @Module({
   imports: [
@@ -28,23 +25,8 @@ import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
       { name: ResultsModel.name, schema: ResultsSchema },
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
     ]),
-    CacheModule.registerAsync({
-      imports: [BiosimulationsConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        store: redisStore,
-        host: configService.get('cache.host'),
-        port: configService.get('cache.port'),
-      }),
-      inject: [ConfigService],
-    }),
   ],
-  providers: [
-    ResultsService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor,
-    },
-  ],
+  providers: [ResultsService],
   controllers: [ResultsController],
 })
 export class ResultsModule {}

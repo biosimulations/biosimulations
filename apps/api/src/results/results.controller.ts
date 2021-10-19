@@ -8,17 +8,19 @@
  */
 
 import {
+  CacheInterceptor,
+  CacheTTL,
   Controller,
   Get,
   Param,
   ParseBoolPipe,
   Query,
   Res,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiQuery,
   ApiOkResponse,
-  ApiNoContentResponse,
   ApiTags,
   ApiOperation,
   ApiParam,
@@ -62,6 +64,8 @@ export class ResultsController {
     description: 'The simulation results were successfully retrieved',
     type: SimulationRunResults,
   })
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(0)
   public async getResults(
     @Param('runId') runId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
@@ -90,13 +94,13 @@ export class ResultsController {
     required: true,
     type: String,
   })
-  @ApiNoContentResponse({
+  @ApiOkResponse({
     description: 'The simulation results were successfully downloaded',
   })
   @ApiTags('Downloads')
   public async downloadResultReport(
     @Param('runId') runId: string,
-    @Res() res: Response,
+    @Res({ passthrough: true }) res: Response,
   ): Promise<void> {
     const file = await this.service.download(runId);
     res.contentType('application/zip');
@@ -136,6 +140,8 @@ export class ResultsController {
     description: 'The simulation results were successfully retrieved',
     type: SimulationRunOutput,
   })
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(0)
   public async getResultReport(
     @Param('runId') runId: string,
     @Param('experimentLocationAndOutputId')
