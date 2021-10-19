@@ -8,3 +8,4 @@ declare module 'highlight.js/lib/languages/yaml';
 declare module 'highlight.js/lib/core';
 declare module '@openapi-contrib/openapi-schema-to-json-schema';
 declare module 'anser';
+declare module 'cache-manager-redis-store';

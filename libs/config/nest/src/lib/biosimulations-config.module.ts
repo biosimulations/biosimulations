@@ -11,6 +11,7 @@ import urlsConfig from './biosimulations-urls-config';
 import storageConfig from './biosimulations-storage-config';
 import queueConfig from './biosimulations-queue-config';
 import dataConfig from './biosimulations-data-config';
+import cacheConfig from './biosimulations-cache-config';
 import singularityConfig from './singularity-config';
 
 @Module({
@@ -28,6 +29,7 @@ import singularityConfig from './singularity-config';
         storageConfig,
         queueConfig,
         dataConfig,
+        cacheConfig,
         singularityConfig,
       ],
       envFilePath: [
