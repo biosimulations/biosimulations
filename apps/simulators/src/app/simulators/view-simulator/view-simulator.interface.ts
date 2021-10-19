@@ -16,6 +16,7 @@ import {
   SimulationType,
   SimulationTypeName,
 } from '@biosimulations/datamodel/common';
+import { SoftwareApplication, WithContext } from 'schema-dts';
 
 export interface ViewModelChangeTypeValueName {
   value: ModelChangeType;
@@ -237,4 +238,5 @@ export interface ViewSimulator {
   updated: string;
   validated: boolean;
   validationTests: Observable<ViewValidationTests | null>;
+  jsonLdData: WithContext<SoftwareApplication>;
 }

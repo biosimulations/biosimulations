@@ -49,11 +49,13 @@ import {
   ModelChangeTypeName,
   SimulationType,
   SimulationTypeName,
+  Url,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
 import { Citation } from '@biosimulations/datamodel/api';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
+import { SoftwareApplication, WithContext } from 'schema-dts';
 
 @Injectable({ providedIn: 'root' })
 export class ViewSimulatorService {
@@ -190,6 +192,148 @@ export class ViewSimulatorService {
         }),
       );
 
+    const jsonLdData: WithContext<SoftwareApplication> = {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: sim.name,
+      softwareVersion: sim.version,
+      applicationSuite: 'BioSimulators',
+      applicationCategory: 'Science',
+      applicationSubCategory: 'Simulation',      
+      abstract: sim.description,      
+      datePublished: this.getDateStr(new Date(sim.biosimulators.created)),
+      dateModified: this.getDateStr(new Date(sim.biosimulators.updated)),
+      educationalLevel: 'advanced',
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        'ratingValue': UtilsService.getSimulatorCurationStatus(sim),
+        'ratingCount': 1,
+        'author': {
+          '@type': 'Organization',
+          'name': 'BioSimulators Team',
+        },
+      },
+      offers: {
+        '@type': 'Offer',
+        price: 0,
+        priceCurrency: 'USD',
+      }
+    };
+
+    if (sim.authors.length) {
+      const author = sim.authors[0];
+      const names = [];            
+      if (author.firstName) {
+        names.push(author.firstName);
+      }
+      if (author.middleName) {
+        names.push(author.middleName);
+      }
+      if (author.lastName) {
+        names.push(author.lastName);
+      }      
+
+      jsonLdData.creator = {
+        '@type': 'Person',
+        name: names.join(' '),
+      };
+
+      if (author.identifiers.length) {
+        jsonLdData.creator.url = author.identifiers[0].url;
+      }
+    }
+
+    if (sim.license) {
+      jsonLdData.license = 'https://identifiers.org/spdx:' + sim.license.id;
+    } else {
+      const licenseUrl = sim.urls.filter((url: Url): boolean => url.type === 'License');
+      if (licenseUrl.length) {
+        jsonLdData.license = licenseUrl[0].url;
+      }
+    }
+
+    const url = sim.urls.filter((url: Url): boolean => url.type === 'Home page');
+    if (url.length) {
+      jsonLdData.url = url[0].url;
+    }
+
+    const downloadUrl = sim.urls.filter((url: Url): boolean => url.type === 'Software catalogue');
+    if (downloadUrl.length) {
+      jsonLdData.downloadUrl = downloadUrl[0].url;
+    } else {
+      const sourceUrl = sim.urls.filter((url: Url): boolean => url.type === 'Source repository');
+      if (sourceUrl.length) {
+        jsonLdData.downloadUrl = sourceUrl[0].url;
+      } 
+    }
+
+    const installUrl = sim.urls.filter((url: Url): boolean => url.type === 'Installation instructions');
+    if (installUrl.length) {
+      jsonLdData.installUrl = installUrl[0].url;
+    }
+
+    const helpUrl = sim.urls.filter((url: Url): boolean => url.type === 'Tutorial');
+    if (helpUrl.length) {
+      jsonLdData.softwareHelp = {
+        '@type': 'WebPage',
+        url: helpUrl[0].url,
+      }
+    } else {
+      const documentationUrl = sim.urls.filter((url: Url): boolean => url.type === 'Documentation');
+      if (documentationUrl.length) {
+        jsonLdData.softwareHelp = {
+          '@type': 'WebPage',
+          url: documentationUrl[0].url,
+        }
+      }
+    }
+
+    const discussionUrl = sim.urls.filter((url: Url): boolean => url.type === 'Discussion forum');
+    if (discussionUrl.length) {
+      jsonLdData.discussionUrl = discussionUrl[0].url;
+    }    
+
+    const releaseNotes = sim.urls.filter((url: Url): boolean => url.type === 'Release notes');
+    if (releaseNotes.length) {
+      jsonLdData.releaseNotes = releaseNotes[0].url;
+    }
+
+    if (sim.supportedOperatingSystemTypes.length) {
+      jsonLdData.operatingSystem = sim.supportedOperatingSystemTypes.join(', ');
+    }
+
+    if (sim.references.citations.length) {
+      const citation = sim.references.citations[0];
+      const formattedCitation = this.makeCitation(citation);
+      jsonLdData.citation = {
+        '@type': 'Article',
+        abstract: formattedCitation.text,
+      }
+      if (citation.authors.length) {
+        const author = citation.authors[0];
+        jsonLdData.citation.author = {
+          '@type': 'Person',
+          name: author,
+        };
+      }
+      if (citation.title) {
+        jsonLdData.citation.headline = citation.title;
+      }
+      if (formattedCitation.url) {
+        jsonLdData.citation.url = formattedCitation.url;
+      }
+    }
+
+    if (sim.funding.length) {
+      jsonLdData.funder = {
+        '@type': 'Organization',
+        // name: this.ontService
+        //  .getFunderRegistryTerm(sim.funding[0].funder.id)
+        //  .pipe(pluck('name')),
+        url: 'http://data.crossref.org/fundingdata/funder/' + sim.funding[0].funder.id,
+      };
+    }
+    
     const viewSim: ViewSimulator = {
       _json: JSON.stringify(sim, null, 2),
       id: sim.id,
@@ -276,6 +420,7 @@ export class ViewSimulatorService {
       funding: sim.funding.map(this.getFunding, this),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),
+      jsonLdData: jsonLdData,
     };
 
     const unresolvedAlgorithms = sim.algorithms
