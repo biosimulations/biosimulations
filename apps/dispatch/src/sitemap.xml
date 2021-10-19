@@ -8,13 +8,13 @@
   </url>
    
   <url>
-    <loc>https://run.biosimulators.org/help</loc>
+    <loc>https://run.biosimulators.org/create</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
-    <loc>https://run.biosimulators.org/help/faq</loc>
+    <loc>https://run.biosimulators.org/help</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
@@ -26,13 +26,19 @@
   </url>
    
   <url>
-    <loc>https://run.biosimulators.org/help/terms</loc>
+    <loc>https://run.biosimulators.org/help/faq</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
    
   <url>
     <loc>https://run.biosimulators.org/help/privacy</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/help/terms</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>
@@ -45,6 +51,42 @@
    
   <url>
     <loc>https://run.biosimulators.org/simulations</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/utils/convert</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/utils/suggest-simulator</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/utils/validate-metadata</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/utils/validate-model</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/utils/validate-project</loc>
+    <lastmod>2020-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+   
+  <url>
+    <loc>https://run.biosimulators.org/utils/validate-simulation</loc>
     <lastmod>2020-12-23</lastmod>
     <changefreq>monthly</changefreq>
   </url>

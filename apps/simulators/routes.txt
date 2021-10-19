@@ -1,7 +1,10 @@
 /
 /conventions
+/conventions/data-viz
+/conventions/metadata
 /conventions/simulation-experiments
-/conventions/simulations-reports
+/conventions/simulation-logs
+/conventions/simulation-reports
 /conventions/simulator-images
 /conventions/simulator-interfaces
 /conventions/simulator-specs
@@ -14,6 +17,7 @@
 /simulators/amici/0.11.18
 /simulators/bionetgen
 /simulators/bionetgen/2.6.0
+/simulators/bionetgen/2.7.0
 /simulators/biouml
 /simulators/biouml/2019.4
 /simulators/boolnet
@@ -49,6 +53,7 @@
 /simulators/genysis/3.0
 /simulators/gillespy2
 /simulators/gillespy2/1.6.2
+/simulators/gillespy2/1.6.4
 /simulators/ginsim
 /simulators/ginsim/3.0.0b
 /simulators/gna
@@ -88,6 +93,8 @@
 /simulators/opencor
 /simulators/opencor/2021-07-09
 /simulators/opencor/2021-08-19
+/simulators/opencor/2021-09-14
+/simulators/opencor/2021-10-05
 /simulators/openknee
 /simulators/openknee/1.0
 /simulators/opensim
@@ -100,6 +107,7 @@
 /simulators/pysb/1.13.0
 /simulators/pysces
 /simulators/pysces/0.9.9
+/simulators/pysces/1.0.0
 /simulators/raven
 /simulators/raven/2.4.0
 /simulators/raven/2.4.3
@@ -115,8 +123,9 @@
 /simulators/smoldyn/2.67
 /simulators/tellurium
 /simulators/tellurium/2.2.0
+/simulators/tellurium/2.2.1
 /simulators/vcell
-/simulators/vcell/7.4.0.14
+/simulators/vcell/7.4.0.23
 /simulators/winbestkit
 /simulators/winbestkit/2.0.9
 /simulators/xpp
