@@ -39,9 +39,11 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { Readable } from 'stream';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { DeleteResult } from 'mongodb';
 import { Endpoints } from '@biosimulations/config/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 // 1gb in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
@@ -305,12 +307,25 @@ export class SimulationRunService {
     const newSimulationRun = new this.simulationRunModel(run);
 
     const url = this.endpoints.getSimulatorsEndpoint(run.simulator, run.simulatorVersion);
-    const simulatorResponse = await firstValueFrom(this.http.get<ISimulator | null>(url));
+    const simulatorResponse = await firstValueFrom(
+      this.http.get<ISimulator>(url)
+        .pipe(
+          catchError((error: HttpErrorResponse): Observable<null | false> => {
+            if (error.status === 404) {
+              return of(null);
+            } else {
+              return of(false);
+            }
+          }),
+        )
+    );
     if (simulatorResponse && simulatorResponse.data && simulatorResponse.data.image) {
       newSimulationRun.simulatorVersion = simulatorResponse.data.version;
       newSimulationRun.simulatorDigest = simulatorResponse.data.image.digest;
-    } else {
+    } else if (simulatorResponse === null) {
       throw new BadRequestException(`No image for ${run.simulator}:{run.simulatorDigest} is registered with BioSimulators.`);
+    } else {
+      throw new InternalServerErrorException(`An error occurred in retrieving ${run.simulator}:{run.simulatorDigest}.`);
     }
 
     const session = await this.simulationRunModel.startSession();

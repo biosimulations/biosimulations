@@ -47,6 +47,7 @@ import {
   ApiBody,
   ApiUnauthorizedResponse,
   ApiForbiddenResponse,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import { Response, Request } from 'express';
 import {
@@ -175,6 +176,10 @@ export class SimulationRunController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description: 'No image for the simulator/version is registered with BioSimulators',
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'An error occurred in retrieving the simulator/version',
+    type: ErrorResponseDocument,
   })
   @Post()
   public async createRun(
