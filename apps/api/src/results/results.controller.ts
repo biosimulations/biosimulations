@@ -137,7 +137,8 @@ export class ResultsController {
   })
   public async getResultReport(
     @Param('runId') runId: string,
-    @Param('experimentLocationAndOutputId') experimentLocationAndOutputId: string,
+    @Param('experimentLocationAndOutputId')
+    experimentLocationAndOutputId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunOutput> {
     const resultModel = await this.service.getOutput(
