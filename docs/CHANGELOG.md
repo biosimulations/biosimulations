@@ -1,3 +1,11 @@
+## [5.7.2](https://github.com/biosimulations/biosimulations/compare/v5.7.1...v5.7.2) (2021-10-19)
+
+
+### Bug Fixes
+
+* **api:** aligned parameter name in documentation ([0100a27](https://github.com/biosimulations/biosimulations/commit/0100a274725e22654ce4cc4534e5b0ff64a42de1))
+* **simulators-api:** corrected put method; closes [#3305](https://github.com/biosimulations/biosimulations/issues/3305) ([57c34be](https://github.com/biosimulations/biosimulations/commit/57c34bef1f1370fdcd0a235020e4e7b5f20f5d54))
+
 ## [5.7.1](https://github.com/biosimulations/biosimulations/compare/v5.7.0...v5.7.1) (2021-10-18)
 
 
