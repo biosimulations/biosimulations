@@ -81,8 +81,8 @@ export class ResultsService {
       sedIds.length == sedLabels.length &&
       sedIds.length == sedShapes.length &&
       sedIds.length == sedTypes.length &&
-      sedIds.length == sedNames.length;
-    (includeValues && sedIds.length == values.length) || !includeValues;
+      sedIds.length == sedNames.length &&
+      ((includeValues && sedIds.length == values.length) || !includeValues);
 
     if (!consistent) {
       this.logger.error(
