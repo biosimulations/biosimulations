@@ -199,8 +199,8 @@ export class ViewSimulatorService {
       softwareVersion: sim.version,
       applicationSuite: 'BioSimulators',
       applicationCategory: 'Science',
-      applicationSubCategory: 'Simulation',      
-      abstract: sim.description,      
+      applicationSubCategory: 'Simulation',
+      abstract: sim.description,
       datePublished: this.getDateStr(new Date(sim.biosimulators.created)),
       dateModified: this.getDateStr(new Date(sim.biosimulators.updated)),
       educationalLevel: 'advanced',
@@ -222,7 +222,7 @@ export class ViewSimulatorService {
 
     if (sim.authors.length) {
       const author = sim.authors[0];
-      const names = [];            
+      const names = [];
       if (author.firstName) {
         names.push(author.firstName);
       }
@@ -231,7 +231,7 @@ export class ViewSimulatorService {
       }
       if (author.lastName) {
         names.push(author.lastName);
-      }      
+      }
 
       jsonLdData.creator = {
         '@type': 'Person',
@@ -264,7 +264,7 @@ export class ViewSimulatorService {
       const sourceUrl = sim.urls.filter((url: Url): boolean => url.type === 'Source repository');
       if (sourceUrl.length) {
         jsonLdData.downloadUrl = sourceUrl[0].url;
-      } 
+      }
     }
 
     const installUrl = sim.urls.filter((url: Url): boolean => url.type === 'Installation instructions');
@@ -291,7 +291,7 @@ export class ViewSimulatorService {
     const discussionUrl = sim.urls.filter((url: Url): boolean => url.type === 'Discussion forum');
     if (discussionUrl.length) {
       jsonLdData.discussionUrl = discussionUrl[0].url;
-    }    
+    }
 
     const releaseNotes = sim.urls.filter((url: Url): boolean => url.type === 'Release notes');
     if (releaseNotes.length) {
