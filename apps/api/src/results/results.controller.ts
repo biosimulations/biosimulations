@@ -110,7 +110,7 @@ export class ResultsController {
     description:
       'Get the results of a single output (SED plot or report of a SED-ML file) of a simulation run',
   })
-  @Get(':runId/:outputId')
+  @Get(':runId/:experimentLocationAndOutputId')
   @ApiParam({
     name: 'runId',
     description: 'Id of a simulation run',
@@ -118,9 +118,9 @@ export class ResultsController {
     type: String,
   })
   @ApiParam({
-    name: 'outputId',
+    name: 'experimentLocationAndOutputId',
     description:
-      'Forward slash-separated tuple of the location of the SED-ML file and the id of the SED output (e.g., `path/to/simulation.sedm/Table1`)',
+      'Forward slash-separated tuple of the location of the SED-ML file and the id of the SED output (e.g., `path/to/simulation.sedml/Table1`)',
     required: true,
     type: String,
   })
@@ -137,12 +137,12 @@ export class ResultsController {
   })
   public async getResultReport(
     @Param('runId') runId: string,
-    @Param('outputId') outputId: string,
+    @Param('experimentLocationAndOutputId') experimentLocationAndOutputId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunOutput> {
     const resultModel = await this.service.getOutput(
       runId,
-      outputId,
+      experimentLocationAndOutputId,
       includeData,
     );
 
