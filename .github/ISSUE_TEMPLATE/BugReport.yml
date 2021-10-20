@@ -2,8 +2,6 @@ name: Bug Report
 description: File a bug report
 title: "[Bug]: "
 labels: ["bug", "triage"]
-assignees:
-  - octocat
 body:
   - type: markdown
     attributes:
@@ -17,6 +15,20 @@ body:
       placeholder: ex. email@example.com
     validations:
       required: false
+  - type: dropdown
+    id: software
+    attributes:
+      label: Location
+      description: Where did ypu experience the bug?
+      multiple: true
+      required: true
+      options:
+        - runBiosimulations
+        - BioSimulations
+        - BioSimulators
+        - BioSimulations API
+        - BioSimulators API 
+        - Other (please describe below)
   - type: textarea
     id: what-happened
     attributes:
@@ -32,8 +44,8 @@ body:
       label: Version
       description: What version of our software are you running?
       options:
-        - 1.0.2 (Default)
-        - 1.0.3 (Edge)
+        - Production (Deployed on a .org domain)
+        - Development (Deployed on a .dev domain)
     validations:
       required: true
   - type: dropdown
@@ -56,7 +68,7 @@ body:
     id: terms
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://docs.biosimulations.org/developers/conduct/)
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
