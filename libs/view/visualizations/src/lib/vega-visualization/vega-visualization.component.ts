@@ -114,10 +114,10 @@ export class VegaVisualizationComponent implements OnDestroy {
       console.error(error);
       this.error.next(`The visualization is invalid: ${error.message}.`);
     });
-  }  
+  }
 
   @HostListener('window:resize')
-  onResize() {    
+  onResize() {
     this.resizeDebounce();
   }
 
