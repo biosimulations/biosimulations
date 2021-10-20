@@ -1,4 +1,10 @@
-import { Component, Input, HostListener, ElementRef, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  HostListener,
+  ElementRef,
+  OnDestroy,
+} from '@angular/core';
 import {
   PlotlyTrace,
   PlotlyLayout,
