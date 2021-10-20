@@ -23,6 +23,8 @@ import { FilesModule } from '../files/files.module';
 import { SpecificationsModule } from '../specifications/specifications.module';
 import { ProjectsModule } from '../projects/projects.module';
 import * as redisStore from 'cache-manager-redis-store';
+import { HealthModule } from '../health/health.module';
+
 @Module({
   imports: [
     BiosimulationsConfigModule,
@@ -40,6 +42,7 @@ import * as redisStore from 'cache-manager-redis-store';
       }),
       inject: [ConfigService],
     }),
+    HealthModule,
     MongooseModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
       useFactory: async (configService: ConfigService) => ({

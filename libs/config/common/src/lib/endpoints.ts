@@ -108,7 +108,10 @@ export class Endpoints {
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
    * @returns The URL to get the content of a combine archive
    */
-  public getArchiveContentsEndpoint(runId?: string, fileLocation?: string): string {
+  public getArchiveContentsEndpoint(
+    runId?: string,
+    fileLocation?: string,
+  ): string {
     if (runId) {
       runId = '/' + runId;
       if (fileLocation) {
@@ -156,7 +159,10 @@ export class Endpoints {
    * @param fileLocation The path of the file within combine archive relative to its root. Should not include './'
    * @returns A URL to download the file from within the combine archive
    */
-  public getSimulationRunFileEndpoint(runId: string, fileLocation: string): string {
+  public getSimulationRunFileEndpoint(
+    runId: string,
+    fileLocation: string,
+  ): string {
     if (fileLocation.startsWith('./')) {
       fileLocation = fileLocation.substring(2);
     }
@@ -168,33 +174,6 @@ export class Endpoints {
 
   public getProjectsEndpoint(projectId?: string): string {
     return this.projects + (projectId ? `/${projectId}` : '');
-  }
-
-  /**
-   * Create a URL to download a file from an omex file using the combine service
-   * @param archiveUrl The URL of a combine archive
-   * @param fileLocation The location of the file within the archive
-   * @returns A URL that resolves to a specific file within a combine archive
-   * @deprecated use getSimulationRunFileEndpoint instead if the simulation run has been submitted
-   * @see getSimulationRunFileEndpoint
-   */
-  private getCombineFilesEndpoint(
-    archiveUrl: string,
-    fileLocation: string,
-    external = false,
-  ): string {
-    if (external) {
-      if (this.env == 'local') {
-        return new Endpoints('dev').getCombineFilesEndpoint(
-          archiveUrl,
-          fileLocation,
-          true,
-        );
-      }
-    }
-    return `${this.combineFile}?url=${encodeURIComponent(
-      archiveUrl,
-    )}&location=${encodeURIComponent(fileLocation)}`;
   }
 
   /**
@@ -258,7 +237,9 @@ export class Endpoints {
   ): string {
     runId ? (runId = `/${encodeURIComponent(runId)}`) : (runId = '');
     experimentLocationAndOutputId
-      ? (experimentLocationAndOutputId = `/${encodeURIComponent(experimentLocationAndOutputId)}`)
+      ? (experimentLocationAndOutputId = `/${encodeURIComponent(
+          experimentLocationAndOutputId,
+        )}`)
       : (experimentLocationAndOutputId = '');
     if (experimentLocationAndOutputId && !runId) {
       throw new Error('Cannot get results of an output without an id');
@@ -283,10 +264,16 @@ export class Endpoints {
    * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    * @returns A URL to download the output of a simulation
    */
-  public getRunResultsDownloadEndpoint(runId: string, external = false): string {
+  public getRunResultsDownloadEndpoint(
+    runId: string,
+    external = false,
+  ): string {
     if (external) {
       if (this.env == 'local') {
-        return new Endpoints('dev').getRunResultsDownloadEndpoint(runId, external);
+        return new Endpoints('dev').getRunResultsDownloadEndpoint(
+          runId,
+          external,
+        );
       }
     }
     return `${this.simulationRunResults}/${runId}/download`;
@@ -320,13 +307,16 @@ export class Endpoints {
    * @param experimentLocation The local of the particular simulation spec (SED-ML file )
    * @returns The URL to the specified simulation spec
    */
-  public getSpecificationsEndpoint(runId?: string, experimentLocation?: string): string {
+  public getSpecificationsEndpoint(
+    runId?: string,
+    experimentLocation?: string,
+  ): string {
     runId ? (runId = `/${runId}`) : (runId = '');
-    experimentLocation ? (experimentLocation = `/${experimentLocation}`) : (experimentLocation = '');
+    experimentLocation
+      ? (experimentLocation = `/${experimentLocation}`)
+      : (experimentLocation = '');
     if (experimentLocation && !runId) {
-      throw new Error(
-        'Cannot get a specific specification without a run id',
-      );
+      throw new Error('Cannot get a specific specification without a run id');
     }
 
     return `${this.specifications}${runId}${experimentLocation}`;
@@ -337,11 +327,49 @@ export class Endpoints {
     return `${this.simulationRunLogs}${runId}`;
   }
 
+  public getApiHealthEndpoint(): string {
+    return `${this.api}/health/status`;
+  }
+  public getSimulatorApiHealthEndpoint(): string {
+    return `${this.simulators}/health`;
+  }
+  public getCombineHealthEndpoint(): string {
+    return `${this.getCombineEndpoint}/health`;
+  }
+  public getStorageHealthEndpoint(): string {
+    return `${this.storage_endpoint}/helloWorld.txt`;
+  }
   /**
    *
    * @returns The base URL of the COMBINE API
    */
   private getCombineEndpoint(): string {
     return this.combine_api;
+  }
+  /**
+   * Create a URL to download a file from an omex file using the combine service
+   * @param archiveUrl The URL of a combine archive
+   * @param fileLocation The location of the file within the archive
+   * @returns A URL that resolves to a specific file within a combine archive
+   * @deprecated use getSimulationRunFileEndpoint instead if the simulation run has been submitted
+   * @see getSimulationRunFileEndpoint
+   */
+  private getCombineFilesEndpoint(
+    archiveUrl: string,
+    fileLocation: string,
+    external = false,
+  ): string {
+    if (external) {
+      if (this.env == 'local') {
+        return new Endpoints('dev').getCombineFilesEndpoint(
+          archiveUrl,
+          fileLocation,
+          true,
+        );
+      }
+    }
+    return `${this.combineFile}?url=${encodeURIComponent(
+      archiveUrl,
+    )}&location=${encodeURIComponent(fileLocation)}`;
   }
 }
