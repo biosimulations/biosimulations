@@ -1,5 +1,5 @@
 name: Bug Report
-description: File a bug report
+description: File a bug report to help us improve
 title: "[Bug]: "
 labels: ["bug", "triage"]
 body:
@@ -39,6 +39,17 @@ body:
       value: "A bug happened!"
     validations:
       required: true
+
+  - type: textarea
+    id: how-to-make-it-happen
+    attributes:
+      label: What made it happen?
+      description: What steps can cause the bug?
+      placeholder: Tell us what you did that casued the bug
+      value: "I loaded the page!"
+    validations:
+      required: true
+   
   - type: dropdown
     id: version
     attributes:
