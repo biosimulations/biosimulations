@@ -201,6 +201,7 @@ export class ViewSimulatorService {
       applicationCategory: 'Science',
       applicationSubCategory: 'Simulation',
       abstract: sim.description,
+      creativeWorkStatus: 'Published',
       datePublished: this.getDateStr(new Date(sim.biosimulators.created)),
       dateModified: this.getDateStr(new Date(sim.biosimulators.updated)),
       educationalLevel: 'advanced',

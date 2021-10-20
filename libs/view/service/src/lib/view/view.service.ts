@@ -60,12 +60,15 @@ import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { OntologyService } from '@biosimulations/ontology/client';
 import { Spec as VegaSpec } from 'vega';
 import { Dataset, DataCatalog, WithContext } from 'schema-dts';
+import { Endpoints } from '@biosimulations/config/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ViewService {
   formatMap!: { [uri: string]: CombineArchiveContentFormat };
+
+  private endpoints = new Endpoints();
 
   public constructor(
     private projService: ProjectService,
@@ -402,7 +405,7 @@ export class ViewService {
             title: 'Simulator',
             value: simulator,
             icon: 'simulator',
-            url: `https://biosimulators.org/simulators/${simulationRun.simulator}/${simulationRun.simulatorVersion}`,
+            url: `${urls.simulators}/simulators/${simulationRun.simulator}/${simulationRun.simulatorVersion}`,
           });
 
           const run: ListItem[] = [];
@@ -491,7 +494,7 @@ export class ViewService {
             master: false,
             size: UtilsService.formatDigitalSize(simulationRun.projectSize),
             icon: COMBINE_OMEX_FORMAT.icon,
-            url: `${urls.dispatchApi}runs/${id}/download`,
+            url: this.endpoints.getRunDownloadEndpoint(id),
             basename: 'project.omex',
           },
         ];
@@ -610,11 +613,11 @@ export class ViewService {
             location: '',
             title: 'Outputs',
             format: 'JavaScript Object Notation (JSON) in BioSimulators schema',
-            formatUrl: urls.dispatchApi,
+            formatUrl: this.endpoints.getBaseUrl(),
             master: false,
             size: null,
             icon: 'report',
-            url: `${urls.dispatchApi}results/${id}?includeData=true`,
+            url: this.endpoints.getRunResultsEndpoint(id, undefined, true),
             basename: 'outputs.json',
           },
           {
@@ -628,7 +631,7 @@ export class ViewService {
             master: false,
             size: UtilsService.formatDigitalSize(simulationRun.resultsSize),
             icon: 'report',
-            url: `${urls.dispatchApi}results/${id}/download`,
+            url: this.endpoints.getRunResultsDownloadEndpoint(id),
             basename: 'outputs.zip',
           },
           {
@@ -637,11 +640,11 @@ export class ViewService {
             location: '',
             title: 'Log',
             format: 'YAML in BioSimulators log schema',
-            formatUrl: 'https://biosimulators.org/conventions/simulation-logs',
+            formatUrl: `${urls.simulators}/conventions/simulation-logs`,
             master: false,
             size: null,
             icon: 'logs',
-            url: `${urls.dispatchApi}logs/${id}`,
+            url: this.endpoints.getRunLogsEndpoint(id),
             basename: 'log.yml',
           },
         ];
@@ -953,29 +956,26 @@ export class ViewService {
           (meta: any) => meta.uri.search('/') === -1,
         )[0];
 
-        const dataSet: WithContext<Dataset> = {
-          '@context': 'https://schema.org',
+        const runDataSet: Dataset = {
           '@type': 'Dataset',
-          includedInDataCatalog: [
-            {
-              '@type': 'DataCatalog',
-              name: 'runBioSimulations',
-              description:
-                'Database of runs of biosimulations, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
-              url: 'https://run.biosimulations.org',
-            },
-          ],
+          includedInDataCatalog: {
+            '@type': 'DataCatalog',
+            name: 'runBioSimulations',
+            description:
+              'Database of runs of biosimulations, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
+            url: urls.dispatch,
+          },
           name: simulationRun.name,
-          url: `https://run.biosimulations/simulations/${runId}`,
+          url: `${urls.dispatch}/simulations/${runId}`,
           identifier: [
-            `http://run.biosimulations/simulations/${runId}`,
+            `${urls.dispatch}/simulations/${runId}`.replace('https://', 'http://'),
             `http://identifiers.org/runbiosimulations/${runId}`,
           ],
           distribution: [
             {
               '@type': 'DataDownload',
               description: 'Project',
-              contentUrl: `${urls.dispatchApi}runs/${runId}/download`,
+              contentUrl: this.endpoints.getRunDownloadEndpoint(runId),
               encodingFormat: 'application/zip',
               contentSize: UtilsService.formatDigitalSize(
                 simulationRun.projectSize,
@@ -984,13 +984,13 @@ export class ViewService {
             {
               '@type': 'DataDownload',
               description: 'Simulation results',
-              contentUrl: `${urls.dispatchApi}results/${runId}?includeData=true`,
+              contentUrl: this.endpoints.getRunResultsEndpoint(runId, undefined, true),
               encodingFormat: 'application/json',
             },
             {
               '@type': 'DataDownload',
               description: 'Simulation outputs',
-              contentUrl: `${urls.dispatchApi}results/${runId}/download`,
+              contentUrl: this.endpoints.getRunResultsDownloadEndpoint(runId),
               encodingFormat: 'application/zip',
               contentSize: UtilsService.formatDigitalSize(
                 simulationRun.resultsSize,
@@ -999,7 +999,7 @@ export class ViewService {
             {
               '@type': 'DataDownload',
               description: 'Simulation log',
-              contentUrl: `${urls.dispatchApi}logs/${runId}`,
+              contentUrl: this.endpoints.getRunLogsEndpoint(runId),
               encodingFormat: 'application/json',
             },
           ],
@@ -1022,25 +1022,18 @@ export class ViewService {
         };
 
         if (projectMeta) {
-          (dataSet.includedInDataCatalog as DataCatalog[]).push({
-            '@type': 'DataCatalog',
-            name: 'BioSimulations',
-            description:
-              'Open registry of biosimulation projects, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
-            url: 'https://biosimulations.org',
-          });
           if (projectMeta?.title) {
-            dataSet.name = projectMeta?.title;
-          }
-          if (projectMeta?.description) {
-            dataSet.description = projectMeta?.description;
+            runDataSet.headline = projectMeta?.title;
           }
           if (projectMeta?.abstract) {
-            dataSet.abstract = projectMeta?.abstract;
+            runDataSet.description = projectMeta?.abstract;
           }
-          dataSet.thumbnailUrl = projectMeta.thumbnails;
-          dataSet.keywords = projectMeta.keywords;
-          dataSet.creator = projectMeta?.creators?.map(
+          if (projectMeta?.description) {
+            runDataSet.abstract = projectMeta?.description;
+          }
+          runDataSet.thumbnailUrl = projectMeta.thumbnails;
+          runDataSet.keywords = projectMeta.keywords;
+          runDataSet.creator = projectMeta?.creators?.map(
             (creator: LabeledIdentifier) => {
               return {
                 '@type': 'Person',
@@ -1049,7 +1042,7 @@ export class ViewService {
               };
             },
           );
-          dataSet.contributor = projectMeta?.contributors?.map(
+          runDataSet.contributor = projectMeta?.contributors?.map(
             (contributor: LabeledIdentifier) => {
               return {
                 '@type': 'Person',
@@ -1058,24 +1051,15 @@ export class ViewService {
               };
             },
           );
-          if (project?.id) {
-            dataSet.url = `https://biosimulations.org/projects/${project?.id}`;
-            (dataSet.identifier as string[]).push(
-              `http://biosimulations.org/projects/${project?.id}`,
-            );
-            (dataSet.identifier as string[]).push(
-              `http://identifiers.org/biosimulations/${project?.id}`,
-            );
-          }
           projectMeta?.identifiers
             ?.filter(
               (identifier: LabeledIdentifier) =>
                 !!identifier && !!identifier?.uri,
             )
             ?.forEach((identifier: LabeledIdentifier): void => {
-              (dataSet.identifier as string[]).push(identifier.uri as string);
+              (runDataSet.identifier as string[]).push(identifier.uri as string);
             });
-          dataSet.citation = projectMeta?.citation?.map(
+          runDataSet.citation = projectMeta?.citation?.map(
             (citation: LabeledIdentifier) => {
               return {
                 '@type': 'Article',
@@ -1085,11 +1069,11 @@ export class ViewService {
             },
           );
           if (projectMeta?.license) {
-            dataSet.license = projectMeta?.license
+            runDataSet.license = projectMeta?.license
               ?.filter((license: LabeledIdentifier) => !!license.uri)
               ?.map((license: LabeledIdentifier) => license.uri);
           }
-          dataSet.funder = projectMeta?.funders?.map(
+          runDataSet.funder = projectMeta?.funders?.map(
             (funder: LabeledIdentifier) => {
               return {
                 '@type': 'Organization',
@@ -1098,15 +1082,52 @@ export class ViewService {
               };
             },
           );
+        }
+
+        if (false && project) {
+          const dataSet: WithContext<Dataset> = {
+            "@context": "https://schema.org",
+            '@type': 'Dataset',
+          };
+          Object.assign(dataSet, runDataSet);
+
+          dataSet.includedInDataCatalog = {
+            '@type': 'DataCatalog',
+            name: 'BioSimulations',
+            description:
+              'Open registry of biosimulation projects, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
+            url: urls.platform,
+          };
+          dataSet.url = `${urls.platform}/projects/${project?.id}`;
+          dataSet.identifier = [...(dataSet.identifier as string[])];
+          (dataSet.identifier as string[])[0] = `${urls.platform}/projects/${project?.id}`.replace('https://', 'http://');
+          (dataSet.identifier as string[])[1] = `http://identifiers.org/biosimulations/${project?.id}`;
+          dataSet.creativeWorkStatus = 'Published';
+          dataSet.hasPart = runDataSet;
+          dataSet.distribution = [
+            {
+              '@type': 'DataDownload',
+              description: 'Project',
+              contentUrl: this.endpoints.getProjectsEndpoint(project?.id),
+              encodingFormat: 'application/json',
+            },
+          ]
           dataSet.datePublished = UtilsService.formatDate(
             new Date(project.created),
           );
           dataSet.dateModified = UtilsService.formatDate(
             new Date(project.updated),
           );
-        }
 
-        return dataSet;
+          return dataSet;
+        } else {
+          const dataSet: WithContext<Dataset> = {
+            "@context": "https://schema.org",
+            '@type': 'Dataset',
+          };
+          Object.assign(dataSet, runDataSet);
+          return dataSet;
+        }
       }),
     );
   }
