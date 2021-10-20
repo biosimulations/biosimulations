@@ -115,7 +115,6 @@ micheldumontier
 modeldb
 mongodb
 monorepo
-Moraru
 moraru
 mpw
 mssm
@@ -131,6 +130,7 @@ nickerso
 nickerson
 nigms
 nih
+NIHGOV
 noninfringement
 npm
 nrwl
@@ -140,8 +140,8 @@ omex
 openapi
 opencobra
 opensourcebrain
-orcid
 ORCID
+orcid
 Paulev
 pauleve
 pedaweb
