@@ -206,24 +206,24 @@ export class ViewSimulatorService {
       educationalLevel: 'advanced',
       contentRating: {
         '@type': 'Rating',
-        'ratingValue': UtilsService.getSimulatorCurationStatus(sim),
-        'ratingExplanation': UtilsService.getSimulatorCurationStatusMessage(
+        ratingValue: UtilsService.getSimulatorCurationStatus(sim),
+        ratingExplanation: UtilsService.getSimulatorCurationStatusMessage(
           UtilsService.getSimulatorCurationStatus(sim),
         ),
-        'worstRating': 1,
-        'bestRating': 5,
-        'author': {
+        worstRating: 1,
+        bestRating: 5,
+        author: {
           '@type': 'Organization',
-          'name': 'BioSimulators',
-          'email': 'info@biosimulators.org',
-          'url': 'https://biosimulators.org',
+          name: 'BioSimulators',
+          email: 'info@biosimulators.org',
+          url: 'https://biosimulators.org',
         },
       },
       offers: {
         '@type': 'Offer',
         price: 0,
         priceCurrency: 'USD',
-      }
+      },
     };
 
     jsonLdData.creator = sim.authors.map((author) => {
@@ -248,23 +248,41 @@ export class ViewSimulatorService {
     if (sim.license) {
       jsonLdData.license = 'https://identifiers.org/spdx:' + sim.license.id;
     } else {
-      jsonLdData.license = sim.urls.filter((url: Url): boolean => url.type === 'License').map((url) => url.url);
+      jsonLdData.license = sim.urls
+        .filter((url: Url): boolean => url.type === 'License')
+        .map((url) => url.url);
     }
 
-    jsonLdData.url = sim.urls.filter((url: Url): boolean => url.type === 'Home page').map((url) => url.url);
-    jsonLdData.downloadUrl = sim.urls.filter((url: Url): boolean => ['Software catalogue', 'Source repository'].includes(url.type)).map((url) => url.url);
-    jsonLdData.installUrl = sim.urls.filter((url: Url): boolean => url.type === 'Installation instructions').map((url) => url.url);
-    jsonLdData.softwareHelp = sim.urls.filter((url: Url): boolean => ['Tutorial', 'Documentation'].includes(url.type)).map((url) => {
+    jsonLdData.url = sim.urls
+      .filter((url: Url): boolean => url.type === 'Home page')
+      .map((url) => url.url);
+    jsonLdData.downloadUrl = sim.urls
+      .filter((url: Url): boolean =>
+        ['Software catalogue', 'Source repository'].includes(url.type),
+      )
+      .map((url) => url.url);
+    jsonLdData.installUrl = sim.urls
+      .filter((url: Url): boolean => url.type === 'Installation instructions')
+      .map((url) => url.url);
+    jsonLdData.softwareHelp = sim.urls
+      .filter((url: Url): boolean =>
+        ['Tutorial', 'Documentation'].includes(url.type),
+      )
+      .map((url) => {
         return {
           '@type': 'WebPage',
           name: url.type,
           url: url.url,
         };
       });
-    jsonLdData.discussionUrl = sim.urls.filter((url: Url): boolean => url.type === 'Discussion forum').map((url) => url.url);
-    jsonLdData.releaseNotes = sim.urls.filter((url: Url): boolean => url.type === 'Release notes').map((url) => url.url);
+    jsonLdData.discussionUrl = sim.urls
+      .filter((url: Url): boolean => url.type === 'Discussion forum')
+      .map((url) => url.url);
+    jsonLdData.releaseNotes = sim.urls
+      .filter((url: Url): boolean => url.type === 'Release notes')
+      .map((url) => url.url);
     jsonLdData.operatingSystem = sim.supportedOperatingSystemTypes;
-    
+
     jsonLdData.citation = sim.references.citations.map((citation) => {
       const formattedCitation = this.makeCitation(citation);
       return {
@@ -288,7 +306,7 @@ export class ViewSimulatorService {
         url: 'http://data.crossref.org/fundingdata/funder/' + funding.funder.id,
       };
     });
-    
+
     const viewSim: ViewSimulator = {
       _json: JSON.stringify(sim, null, 2),
       id: sim.id,

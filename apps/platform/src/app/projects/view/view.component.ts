@@ -112,9 +112,7 @@ export class ViewComponent implements OnInit {
     );
 
     this.jsonLdData$ = combineLatest([project$, this.simulationRunId$]).pipe(
-      mergeMap((args) =>
-        this.service.getJsonLdData(args[1], args[0]),
-      ),
+      mergeMap((args) => this.service.getJsonLdData(args[1], args[0])),
     );
 
     this.loaded$ = combineLatest([

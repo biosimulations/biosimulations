@@ -27,7 +27,8 @@ export class HelpComponent {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
     name: 'How to build and execute simulation projects',
-    abstract: 'Guide to building simulation projects with the Simulation Experiment Description Markup Language (SED-ML) and COMBINE/OMEX archive format, finding simulation tools capable of executing specific projects, and using those tools to execute simulations.',
+    abstract:
+      'Guide to building simulation projects with the Simulation Experiment Description Markup Language (SED-ML) and COMBINE/OMEX archive format, finding simulation tools capable of executing specific projects, and using those tools to execute simulations.',
     keywords: [
       'computational biology',
       'systems biology',
@@ -48,21 +49,21 @@ export class HelpComponent {
     tool: [
       {
         '@type': 'HowToTool',
-        'name': 'BioSimulations',
-        'description': 'Open registry of biological simulation projecs.',
-        'url': 'https://biosimulations.org',
+        name: 'BioSimulations',
+        description: 'Open registry of biological simulation projecs.',
+        url: 'https://biosimulations.org',
       },
       {
         '@type': 'HowToTool',
-        'name': 'BioSimulators',
-        'description': 'Open registry of biological simulation software tools.',
-        'url': 'https://biosimulators.org',
+        name: 'BioSimulators',
+        description: 'Open registry of biological simulation software tools.',
+        url: 'https://biosimulators.org',
       },
       {
         '@type': 'HowToTool',
-        'name': 'runBioSimulations',
-        'description': 'Web application for executing biological simulations.',
-        'url': 'https://run.biosimulations.org',
+        name: 'runBioSimulations',
+        description: 'Web application for executing biological simulations.',
+        url: 'https://run.biosimulations.org',
       },
     ],
     step: [
@@ -95,8 +96,8 @@ export class HelpComponent {
     educationalLevel: 'advanced',
     estimatedCost: {
       '@type': 'MonetaryAmount',
-      value: 0.,
+      value: 0,
       currency: 'USD',
-    }
+    },
   };
 }
