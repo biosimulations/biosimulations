@@ -204,13 +204,19 @@ export class ViewSimulatorService {
       datePublished: this.getDateStr(new Date(sim.biosimulators.created)),
       dateModified: this.getDateStr(new Date(sim.biosimulators.updated)),
       educationalLevel: 'advanced',
-      aggregateRating: {
-        '@type': 'AggregateRating',
+      contentRating: {
+        '@type': 'Rating',        
         'ratingValue': UtilsService.getSimulatorCurationStatus(sim),
-        'ratingCount': 1,
+        'ratingExplanation': UtilsService.getSimulatorCurationStatusMessage(
+          UtilsService.getSimulatorCurationStatus(sim),
+        ),
+        'worstRating': 1,
+        'bestRating': 5,
         'author': {
           '@type': 'Organization',
-          'name': 'BioSimulators Team',
+          'name': 'BioSimulators',
+          'email': 'info@biosimulators.org',
+          'url': 'https://biosimulators.org',
         },
       },
       offers: {
@@ -220,9 +226,8 @@ export class ViewSimulatorService {
       }
     };
 
-    if (sim.authors.length) {
-      const author = sim.authors[0];
-      const names = [];
+    jsonLdData.creator = sim.authors.map((author) => {
+      const names = [];            
       if (author.firstName) {
         names.push(author.firstName);
       }
@@ -233,106 +238,56 @@ export class ViewSimulatorService {
         names.push(author.lastName);
       }
 
-      jsonLdData.creator = {
+      return {
         '@type': 'Person',
         name: names.join(' '),
+        url: author.identifiers.map((identifier) => identifier.url),
       };
-
-      if (author.identifiers.length) {
-        jsonLdData.creator.url = author.identifiers[0].url;
-      }
-    }
+    });
 
     if (sim.license) {
       jsonLdData.license = 'https://identifiers.org/spdx:' + sim.license.id;
     } else {
-      const licenseUrl = sim.urls.filter((url: Url): boolean => url.type === 'License');
-      if (licenseUrl.length) {
-        jsonLdData.license = licenseUrl[0].url;
-      }
+      jsonLdData.license = sim.urls.filter((url: Url): boolean => url.type === 'License').map((url) => url.url);
     }
 
-    const url = sim.urls.filter((url: Url): boolean => url.type === 'Home page');
-    if (url.length) {
-      jsonLdData.url = url[0].url;
-    }
-
-    const downloadUrl = sim.urls.filter((url: Url): boolean => url.type === 'Software catalogue');
-    if (downloadUrl.length) {
-      jsonLdData.downloadUrl = downloadUrl[0].url;
-    } else {
-      const sourceUrl = sim.urls.filter((url: Url): boolean => url.type === 'Source repository');
-      if (sourceUrl.length) {
-        jsonLdData.downloadUrl = sourceUrl[0].url;
-      }
-    }
-
-    const installUrl = sim.urls.filter((url: Url): boolean => url.type === 'Installation instructions');
-    if (installUrl.length) {
-      jsonLdData.installUrl = installUrl[0].url;
-    }
-
-    const helpUrl = sim.urls.filter((url: Url): boolean => url.type === 'Tutorial');
-    if (helpUrl.length) {
-      jsonLdData.softwareHelp = {
-        '@type': 'WebPage',
-        url: helpUrl[0].url,
-      }
-    } else {
-      const documentationUrl = sim.urls.filter((url: Url): boolean => url.type === 'Documentation');
-      if (documentationUrl.length) {
-        jsonLdData.softwareHelp = {
+    jsonLdData.url = sim.urls.filter((url: Url): boolean => url.type === 'Home page').map((url) => url.url);
+    jsonLdData.downloadUrl = sim.urls.filter((url: Url): boolean => ['Software catalogue', 'Source repository'].includes(url.type)).map((url) => url.url);
+    jsonLdData.installUrl = sim.urls.filter((url: Url): boolean => url.type === 'Installation instructions').map((url) => url.url);
+    jsonLdData.softwareHelp = sim.urls.filter((url: Url): boolean => ['Tutorial', 'Documentation'].includes(url.type)).map((url) => {
+        return {
           '@type': 'WebPage',
-          url: documentationUrl[0].url,
-        }
-      }
-    }
-
-    const discussionUrl = sim.urls.filter((url: Url): boolean => url.type === 'Discussion forum');
-    if (discussionUrl.length) {
-      jsonLdData.discussionUrl = discussionUrl[0].url;
-    }
-
-    const releaseNotes = sim.urls.filter((url: Url): boolean => url.type === 'Release notes');
-    if (releaseNotes.length) {
-      jsonLdData.releaseNotes = releaseNotes[0].url;
-    }
-
-    if (sim.supportedOperatingSystemTypes.length) {
-      jsonLdData.operatingSystem = sim.supportedOperatingSystemTypes.join(', ');
-    }
-
-    if (sim.references.citations.length) {
-      const citation = sim.references.citations[0];
-      const formattedCitation = this.makeCitation(citation);
-      jsonLdData.citation = {
-        '@type': 'Article',
-        abstract: formattedCitation.text,
-      }
-      if (citation.authors.length) {
-        const author = citation.authors[0];
-        jsonLdData.citation.author = {
-          '@type': 'Person',
-          name: author,
+          name: url.type,
+          url: url.url,
         };
-      }
-      if (citation.title) {
-        jsonLdData.citation.headline = citation.title;
-      }
-      if (formattedCitation.url) {
-        jsonLdData.citation.url = formattedCitation.url;
-      }
-    }
+      });
+    jsonLdData.discussionUrl = sim.urls.filter((url: Url): boolean => url.type === 'Discussion forum').map((url) => url.url);
+    jsonLdData.releaseNotes = sim.urls.filter((url: Url): boolean => url.type === 'Release notes').map((url) => url.url);
+    jsonLdData.operatingSystem = sim.supportedOperatingSystemTypes;
+    
+    jsonLdData.citation = sim.references.citations.map((citation) => {
+      const formattedCitation = this.makeCitation(citation);
+      return {
+        '@type': 'Article',
+        headline: citation.title,
+        abstract: formattedCitation.text,
+        author: {
+          '@type': 'Person',
+          name: citation.authors,
+        },
+        url: citation.identifiers.map((identifier) => identifier.url),
+      };
+    });
 
-    if (sim.funding.length) {
-      jsonLdData.funder = {
+    jsonLdData.funder = sim.funding.map((funding) => {
+      return {
         '@type': 'Organization',
         // name: this.ontService
-        //  .getFunderRegistryTerm(sim.funding[0].funder.id)
+        //  .getFunderRegistryTerm(funding.funder.id)
         //  .pipe(pluck('name')),
-        url: 'http://data.crossref.org/fundingdata/funder/' + sim.funding[0].funder.id,
+        url: 'http://data.crossref.org/fundingdata/funder/' + funding.funder.id,
       };
-    }
+    });
     
     const viewSim: ViewSimulator = {
       _json: JSON.stringify(sim, null, 2),
