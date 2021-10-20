@@ -2523,7 +2523,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/auth0/node-jwks-rsa
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/node_modules/jwks-rsa/LICENSE
-├─ jwks-rsa@2.0.4
+├─ jwks-rsa@2.0.5
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/auth0/node-jwks-rsa
 │  ├─ publisher: Auth0
