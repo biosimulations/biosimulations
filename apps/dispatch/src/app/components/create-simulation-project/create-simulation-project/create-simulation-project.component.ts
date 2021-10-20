@@ -523,7 +523,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           simulator: {
             id: simId,
             name: this.simulatorSpecsMap?.[simId]?.name as string,
-            url: 'https://biosimulators.org/simulators/' + simId,
+            url: `${urls.simulators}/simulators/${simId}`,
           },
           maxPolicy: compatability.algorithm,
           parametersCompatibility: compatability.parameters,
