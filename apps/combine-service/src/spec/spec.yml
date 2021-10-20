@@ -23,7 +23,7 @@ paths:
   /kisao/get-similar-algorithms:
     get:
       tags:
-      - Simulation algorithms (KiSAO)
+      - Simulation algorithms
       parameters:
       - examples:
           CVODE:
