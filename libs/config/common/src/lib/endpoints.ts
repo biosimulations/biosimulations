@@ -160,33 +160,6 @@ export class Endpoints {
   }
 
   /**
-   * Create a URL to download a file from an omex file using the combine service
-   * @param archiveUrl The URL of a combine archive
-   * @param fileLocation The location of the file within the archive
-   * @returns A URL that resolves to a specific file within a combine archive
-   * @deprecated use getSimulationRunFileEndpoint instead if the simulation run has been submitted
-   * @see getSimulationRunFileEndpoint
-   */
-  private getCombineFilesEndpoint(
-    archiveUrl: string,
-    fileLocation: string,
-    external = false,
-  ): string {
-    if (external) {
-      if (this.env == 'local') {
-        return new Endpoints('dev').getCombineFilesEndpoint(
-          archiveUrl,
-          fileLocation,
-          true,
-        );
-      }
-    }
-    return `${this.combineFile}?url=${encodeURIComponent(
-      archiveUrl,
-    )}&location=${encodeURIComponent(fileLocation)}`;
-  }
-
-  /**
    * Create a URL to add a file to an OMEX file using the combine service
    * @returns A URL for POST endpoint for adding a file to an OMEX file using the combine service
    */
@@ -337,11 +310,49 @@ export class Endpoints {
     return `${this.simulationRunLogs}${runId}`;
   }
 
+  public getApiHealthEndpoint(): string {
+    return `${this.api}/health/status`;
+  }
+  public getSimulatorApiHealthEndpoint(): string {
+    return `${this.simulators}/health`;
+  }
+  public getCombineHealthEndpoint(): string {
+    return `${this.getCombineEndpoint}/health`;
+  }
+  public getStorageHealthEndpoint(): string {
+    return `${this.storage_endpoint}/helloWorld.txt`;
+  }
   /**
    *
    * @returns The base URL of the combine api
    */
   private getCombineEndpoint(): string {
     return this.combine_api;
+  }
+  /**
+   * Create a URL to download a file from an omex file using the combine service
+   * @param archiveUrl The URL of a combine archive
+   * @param fileLocation The location of the file within the archive
+   * @returns A URL that resolves to a specific file within a combine archive
+   * @deprecated use getSimulationRunFileEndpoint instead if the simulation run has been submitted
+   * @see getSimulationRunFileEndpoint
+   */
+  private getCombineFilesEndpoint(
+    archiveUrl: string,
+    fileLocation: string,
+    external = false,
+  ): string {
+    if (external) {
+      if (this.env == 'local') {
+        return new Endpoints('dev').getCombineFilesEndpoint(
+          archiveUrl,
+          fileLocation,
+          true,
+        );
+      }
+    }
+    return `${this.combineFile}?url=${encodeURIComponent(
+      archiveUrl,
+    )}&location=${encodeURIComponent(fileLocation)}`;
   }
 }

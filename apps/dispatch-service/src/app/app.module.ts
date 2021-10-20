@@ -71,6 +71,10 @@ import { SedmlService } from '../sedml/sedml.service';
       name: JobQueue.fail,
       prefix: '{fail}',
     }),
+    BullModule.registerQueue({
+      name: JobQueue.health,
+      prefix: '{health}',
+    }),
   ],
   controllers: [],
   providers: [
