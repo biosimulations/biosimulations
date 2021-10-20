@@ -75,6 +75,9 @@ export class Endpoints {
   public getBaseUrl(): string {
     return this.api;
   }
+  public getIsHealthyEndpoint(app: string): string {
+    return 'https://raw.githubusercontent.com/biosimulations/status-monitor/master/history/summary.json';
+  }
   /**
    *
    * @returns The endpoint prefix for the ontologies

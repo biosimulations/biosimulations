@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
-import { ConfigService, ScrollService, SystemStatusService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService, HealthService } from '@biosimulations/shared/services';
 import { PwaModule } from '@biosimulations/shared/pwa';
 import {
   SharedErrorComponentsModule,
@@ -129,7 +129,7 @@ routes.forEach((route: Route): void => {
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
-    SystemStatusService,
+    HealthService,
   ],
   bootstrap: [AppComponent],
   schemas: [],

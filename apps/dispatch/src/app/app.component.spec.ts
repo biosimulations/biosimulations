@@ -6,7 +6,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
-import { ConfigService, ScrollService, SystemStatusService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService, HealthService } from '@biosimulations/shared/services';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -22,7 +22,7 @@ describe('AppComponent', () => {
         }),
       ],
       declarations: [AppComponent],
-      providers: [ConfigService, ScrollService, SystemStatusService],
+      providers: [ConfigService, ScrollService, HealthService],
     }).compileComponents();
   }));
 

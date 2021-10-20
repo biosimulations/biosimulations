@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ConfigService, ScrollService, SystemStatusService } from '@biosimulations/shared/services';
-import { SystemService } from '@biosimulations/datamodel/common';
+import { ConfigService, ScrollService, HealthService } from '@biosimulations/shared/services';
 import { Observable } from 'rxjs';
+import { Endpoints } from '@biosimulations/config/common';
 
 @Component({
   selector: 'biosimulations-root',
@@ -9,23 +9,21 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
+  private endpoints = new Endpoints();
+  
   title = 'platform';
   
-  status$!: Observable<boolean>;
+  healthy$!: Observable<boolean>;
 
   constructor(
     public config: ConfigService,
     private scrollService: ScrollService,
-    private systemStatusService: SystemStatusService,
+    private healthService: HealthService,
   ) {}
 
   ngOnInit(): void {
-    this.status$ = this.systemStatusService.getAppStatus([
-      'biosimulations-api',
-      'bio-simulators-api',
-      'ingress-loadbalancer',
-      'storage-buckets',
-      ] as SystemService[]);
+    const isHealthyEndpoint = this.endpoints.getIsHealthyEndpoint('platform');
+    this.healthy$ = this.healthService.isHealthy(isHealthyEndpoint);
   }
 
   ngAfterViewInit(): void {

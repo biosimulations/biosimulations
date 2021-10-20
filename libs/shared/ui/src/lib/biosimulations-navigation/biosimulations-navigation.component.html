@@ -83,9 +83,9 @@
       <ng-content select="#news"></ng-content>
     </biosimulations-notice>
     <biosimulations-notice
-      *ngIf="status === false"
+      *ngIf="healthy === false"
       [appName]="appName"
-      type="status"
+      type="health"
       [isError]="true"
     >
       Sorry! {{ appName }} is currently down. We are working to restore service. Please check back soon. Additional status information is available at <a href="https://status.biosimulations.org" target="_blank">https://status.biosimulations.org</a>.

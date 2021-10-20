@@ -28,7 +28,7 @@ export class BiosimulationsNavigationComponent {
   showNews!: boolean;
 
   @Input()
-  status!: boolean | null;
+  healthy!: boolean | null;
 
   @Input()
   darkMode = false;
