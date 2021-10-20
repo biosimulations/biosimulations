@@ -644,7 +644,7 @@ export class ViewService {
             master: false,
             size: null,
             icon: 'logs',
-            url: this.endpoints.getRunLogsEndpoint(id),
+            url: this.endpoints.getSimulationRunLogsEndpoint(id),
             basename: 'log.yml',
           },
         ];
@@ -1006,7 +1006,7 @@ export class ViewService {
             {
               '@type': 'DataDownload',
               description: 'Simulation log',
-              contentUrl: this.endpoints.getRunLogsEndpoint(runId),
+              contentUrl: this.endpoints.getSimulationRunLogsEndpoint(runId),
               encodingFormat: 'application/json',
             },
           ],
