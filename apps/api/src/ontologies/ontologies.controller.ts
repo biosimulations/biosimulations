@@ -1,4 +1,12 @@
-import { CacheInterceptor, CacheTTL, Controller, Get, NotFoundException, Param, UseInterceptors } from '@nestjs/common';
+import {
+  CacheInterceptor,
+  CacheTTL,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  UseInterceptors,
+} from '@nestjs/common';
 
 import { Ontologies } from '@biosimulations/datamodel/common';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
@@ -18,7 +26,7 @@ import {
 @Controller('ontologies')
 @ApiTags('Ontologies')
 @UseInterceptors(CacheInterceptor)
-@CacheTTL(60*24*7) // 1 week
+@CacheTTL(60 * 24 * 7) // 1 week
 export class OntologiesController {
   public constructor(private service: OntologiesService) {}
 
