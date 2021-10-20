@@ -19,9 +19,12 @@ import {
 } from '@nestjs/common';
 import {
   ApiExtraModels,
-  ApiResponse,
   ApiTags,
   ApiOperation,
+  ApiParam,
+  ApiOkResponse,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
 } from '@nestjs/swagger';
 import {
   CombineArchiveLog,
@@ -30,8 +33,10 @@ import {
   SedReportLog,
   CreateSimulationRunLogBody,
 } from '@biosimulations/datamodel/api';
-
+import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+// import { permissions } from '@biosimulations/auth/nest';
 import { LogsService } from './logs.service';
+import { permissions } from '@biosimulations/auth/nest';
 
 @ApiExtraModels(SedReportLog, SedPlot2DLog, SedPlot3DLog)
 @Controller('logs')
@@ -66,13 +71,25 @@ export class LogsController {
     summary: 'Get the log a simulation run',
     description: 'Get the log a simulation run',
   })
-  @ApiResponse({
-    status: 200,
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiOkResponse({
+    description: 'The log for a simulation run was sucessfully retrieved',
     type: CombineArchiveLog,
   })
-  @Get(':id')
-  public async getLogs(@Param('id') id: string): Promise<CombineArchiveLog> {
-    const structLogs = await this.service.getLog(id);
+  @ApiNotFoundResponse({
+    description: 'No log exists for the requested simulation run id',
+    type: ErrorResponseDocument,
+  })
+  @Get(':runId')
+  public async getLogs(
+    @Param('runId') runId: string,
+  ): Promise<CombineArchiveLog> {
+    const structLogs = await this.service.getLog(runId);
 
     if (!structLogs) {
       throw new NotFoundException('The logs were not found');
@@ -86,20 +103,27 @@ export class LogsController {
     summary: 'Download the log a simulation run',
     description: 'Download the log a simulation run',
   })
-  @Get(':id/download')
+  @Get(':runId/download')
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+  })
   @ApiTags('Downloads')
-  public downloadLogs(@Param() id: string): void {
+  public downloadLogs(@Param() runId: string): void {
     throw new NotImplementedException('Not Implemented');
   }
   */
 
   @ApiOperation({
-    summary: 'Upload the log a simulation run',
-    description: 'Upload the log a simulation run',
+    summary: 'Save the log for a simulation run to the database',
+    description: 'Save the log for a simulation run to the database',
   })
   @Post()
-  @ApiResponse({
-    status: 201,
+  @permissions('write:Logs')
+  @ApiCreatedResponse({
+    description: 'The logs for the simulation run were successfully saved',
     type: CombineArchiveLog,
   })
   public async createLogs(
@@ -114,8 +138,8 @@ export class LogsController {
     summary: 'Delete the log a simulation run',
     description: 'Delete the log a simulation run',
   })
-  @Delete(':id')
-  public deleteLogs(@Param() id: string): void {
+  @Delete(':runId')
+  public deleteLogs(@Param() runId: string): void {
     throw new NotImplementedException('Not Implemented');
   }
 
@@ -123,7 +147,7 @@ export class LogsController {
     summary: 'Modify the log a simulation run',
     description: 'Modify the log a simulation run',
   })
-  @Patch(':id')
+  @Patch(':runId')
   public editLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
@@ -132,7 +156,7 @@ export class LogsController {
     summary: 'Replace the log a simulation run',
     description: 'Replace the log a simulation run',
   })
-  @Put(':id')
+  @Put(':runId')
   public replaceLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }

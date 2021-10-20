@@ -12,6 +12,7 @@ import {
   Logger,
   NotFoundException,
   PayloadTooLargeException,
+  BadRequestException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -27,7 +28,10 @@ import {
   UploadSimulationRun,
   UploadSimulationRunUrl,
 } from '@biosimulations/datamodel/api';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunStatus,
+  ISimulator,
+} from '@biosimulations/datamodel/common';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import {
   DispatchFailedPayload,
@@ -37,7 +41,13 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { Readable } from 'stream';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable, of, map } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { DeleteResult } from 'mongodb';
+import { Endpoints } from '@biosimulations/config/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ConfigService } from '@nestjs/config';
+
 // 1gb in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
 const toApi = <T extends SimulationRunModelType>(
@@ -50,6 +60,7 @@ const toApi = <T extends SimulationRunModelType>(
 
 @Injectable()
 export class SimulationRunService {
+  private endpoints: Endpoints;
   private logger = new Logger(SimulationRunService.name);
 
   public constructor(
@@ -59,7 +70,11 @@ export class SimulationRunService {
     private simulationStorageService: SimulationStorageService,
     private http: HttpService,
     @Inject('NATS_CLIENT') private client: ClientProxy,
-  ) {}
+    private configService: ConfigService,
+  ) {
+    const env = this.configService.get('server.env');
+    this.endpoints = new Endpoints(env);
+  }
 
   public async setStatus(
     id: string,
@@ -123,10 +138,12 @@ export class SimulationRunService {
   }
 
   public async deleteAll(): Promise<void> {
-    const res = await this.simulationRunModel.deleteMany({}).exec();
-    if (!res.ok) {
+    const res: DeleteResult = await this.simulationRunModel
+      .deleteMany({})
+      .exec();
+    if (!res.acknowledged) {
       throw new InternalServerErrorException(
-        `There was an error. Deleted ${res.deletedCount} out of ${res.n} documents`,
+        `There was an error. Unable to delete all documents`,
       );
     }
   }
@@ -159,21 +176,9 @@ export class SimulationRunService {
     return toApi(await model.save());
   }
 
-  public async getAll(
-    fields: string[] = [],
-  ): Promise<{ id: string; status: string }[]> {
-    const projection: { [key: string]: number } = {
-      id: 1,
-      _id: 0,
-    };
-
-    for (const field of fields) {
-      projection[field] = 1;
-    }
-
-    const res = await this.simulationRunModel.find({}, projection).lean();
-
-    return res;
+  public async getAll(): Promise<SimulationRunModelReturnType[]> {
+    const runs = await this.simulationRunModel.find({}).exec();
+    return runs.map((run) => toApi({ ...run, id: run._id }));
   }
 
   public async get(id: string): Promise<SimulationRunModelReturnType | null> {
@@ -234,6 +239,7 @@ export class SimulationRunService {
       );
     }
   }
+
   public async createRunWithURL(
     body: UploadSimulationRunUrl,
   ): Promise<SimulationRunModelReturnType> {
@@ -296,6 +302,23 @@ export class SimulationRunService {
     id: string,
   ): Promise<SimulationRunModelReturnType> {
     const newSimulationRun = new this.simulationRunModel(run);
+    const simulator = await this.getSimulator(
+      run.simulator,
+      run.simulatorVersion,
+    );
+
+    if (simulator && simulator.image) {
+      newSimulationRun.simulatorVersion = simulator.version;
+      newSimulationRun.simulatorDigest = simulator.image.digest;
+    } else if (simulator === null) {
+      throw new BadRequestException(
+        `No image for ${run.simulator}:${run.simulatorVersion} is registered with BioSimulators.`,
+      );
+    } else {
+      throw new InternalServerErrorException(
+        `An error occurred in retrieving ${run.simulator}:${run.simulatorVersion}.`,
+      );
+    }
 
     const session = await this.simulationRunModel.startSession();
     // If any of the code within the transaction fails, then mongo will abort and revert any changes
@@ -313,6 +336,60 @@ export class SimulationRunService {
     });
     session.endSession();
     return toApi(newSimulationRun);
+  }
+
+  private getSimulator(
+    simulator: string,
+    simulatorVersion: string,
+  ): Promise<ISimulator | null | false> {
+    if (simulatorVersion === 'latest') {
+      const url = this.endpoints.getLatestSimulatorsEndpoint(simulator);
+
+      return firstValueFrom(
+        this.http.get<ISimulator[]>(url).pipe(
+          catchError((error: HttpErrorResponse): Observable<null | false> => {
+            this.logger.error(error.message);
+            if (error.status === 404) {
+              return of(null);
+            } else {
+              return of(false);
+            }
+          }),
+          map((response): ISimulator | null | false => {
+            if (response === null || response === false) {
+              return response;
+            } else {
+              return response.data[0];
+            }
+          }),
+        ),
+      );
+    } else {
+      const url = this.endpoints.getSimulatorsEndpoint(
+        simulator,
+        simulatorVersion,
+      );
+
+      return firstValueFrom(
+        this.http.get<ISimulator>(url).pipe(
+          catchError((error: HttpErrorResponse): Observable<null | false> => {
+            this.logger.error(error.message);
+            if (error.status === 404) {
+              return of(null);
+            } else {
+              return of(false);
+            }
+          }),
+          map((response): ISimulator | null | false => {
+            if (response === null || response === false) {
+              return response;
+            } else {
+              return response.data;
+            }
+          }),
+        ),
+      );
+    }
   }
 
   private updateModelRunTime(model: SimulationRunModel): SimulationRunModel {

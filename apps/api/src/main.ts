@@ -17,7 +17,7 @@ import { json } from 'body-parser';
 import { setupOpenApi } from './openApi';
 import { BiosimulationsValidationExceptionFactory } from '@biosimulations/shared/exceptions';
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('bootstrap');
   const port = process.env.PORT || 3333;

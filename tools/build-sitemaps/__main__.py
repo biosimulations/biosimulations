@@ -41,103 +41,170 @@ class Url(object):
         self.change_freq = change_freq
 
 
-def get_common_static_urls():
-    help_route = [Url(
-        loc="",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.weekly
-    ),
-
+def get_root_static_urls():
+    return [
         Url(
-        loc="help",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
-    ),
-        Url(
-        loc="help/faq",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
-    ),
-        Url(
-        loc="help/about",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
-    ),
-        Url(
-        loc="help/terms",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
-    ),
-        Url(
-        loc="help/privacy",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
-    ),
+            loc="",
+            last_mod=datetime.datetime(2020, 12, 23),
+            change_freq=ChangeFreq.weekly
+        ),
     ]
 
-    return help_route
+
+def get_help_static_urls():
+    return [
+        Url(
+            loc="help",
+            last_mod=datetime.datetime(2020, 12, 23),
+            change_freq=ChangeFreq.monthly
+        ),
+        Url(
+            loc="help/faq",
+            last_mod=datetime.datetime(2020, 12, 23),
+            change_freq=ChangeFreq.monthly
+        ),
+        Url(
+            loc="help/about",
+            last_mod=datetime.datetime(2020, 12, 23),
+            change_freq=ChangeFreq.monthly
+        ),
+        Url(
+            loc="help/terms",
+            last_mod=datetime.datetime(2020, 12, 23),
+            change_freq=ChangeFreq.monthly
+        ),
+        Url(
+            loc="help/privacy",
+            last_mod=datetime.datetime(2020, 12, 23),
+            change_freq=ChangeFreq.monthly
+        ),
+    ]
 
 
 def get_biosimulations_static_urls():
-    landings = [Url(loc="models",
-                    last_mod=datetime.datetime(2020, 12, 23),
-                    change_freq=ChangeFreq.monthly)]
-    return get_common_static_urls() + landings
+    return (
+        get_root_static_urls()
+        + [
+            Url(
+                loc="projects",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly,
+            ),
+        ]
+    )
 
 
 def get_runbiosimulations_static_urls():
-    simulators = [
-        Url(loc="run",
-            last_mod=datetime.datetime(2020, 12, 23),
-            change_freq=ChangeFreq.monthly
+    return (
+        get_root_static_urls()
+        + get_help_static_urls()
+        + [
+            Url(
+                loc="create",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
             ),
-        Url(loc="simulations",
-            last_mod=datetime.datetime(2020, 12, 23),
-            change_freq=ChangeFreq.monthly
-            )
-    ]
-    return get_common_static_urls() + simulators
+            Url(
+                loc="run",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="simulations",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/convert",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/validate-model",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/validate-simulation",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/validate-metadata",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/validate-project",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="utils/suggest-simulator",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+        ]
+    )
 
 
 def get_simulator_static_urls():
-    help_route = get_common_static_urls()
-    conventions = [Url(
-        loc="conventions",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
-    ),
-        Url(
-        loc="conventions/simulator-specs",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
-    ),
-        Url(
-        loc="conventions/simulator-interfaces",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
-    ),
-        Url(
-        loc="conventions/simulator-images",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
-    ),
-        Url(
-        loc="conventions/simulation-experiments",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
-    ),
-        Url(
-        loc="conventions/simulations-reports",
-        last_mod=datetime.datetime(2020, 12, 23),
-        change_freq=ChangeFreq.monthly
+    return (
+        get_root_static_urls()
+        + get_help_static_urls()
+        + [
+            Url(
+                loc="conventions",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="conventions/simulator-specs",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="conventions/simulator-interfaces",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="conventions/simulator-images",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="conventions/simulation-experiments",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="conventions/simulation-reports",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="conventions/data-viz",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="conventions/metadata",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+            Url(
+                loc="conventions/simulation-logs",
+                last_mod=datetime.datetime(2020, 12, 23),
+                change_freq=ChangeFreq.monthly
+            ),
+        ]
     )
-    ]
-
-    return help_route + conventions
 
 
 def render_url_list(app_name, urls):
     """ Render sitemap to URL list for use in prerendering 
+
     Args:
         app_name (:obj:`str`): application name (e.g., `simulators`
         urls (:obj:`list` of obj:`Url`): list of URLs
@@ -171,7 +238,8 @@ def render_sitemap(app_name, base_url, urls):
 
 
 def build_biosimulators_sitemap():
-    urls = []
+    urls = get_simulator_static_urls()
+
     response = requests.get('https://api.biosimulators.org/simulators')
     response.raise_for_status()
     simulators = response.json()
@@ -195,9 +263,8 @@ def build_biosimulators_sitemap():
         urls.append(Url(
             loc='simulators' + '/' + id,
             last_mod=val['last_mod'],
-            change_freq=ChangeFreq.monthly),
-        )
-    urls = urls + get_simulator_static_urls()
+            change_freq=ChangeFreq.monthly,
+        ))
 
     urls.sort(key=lambda url: (url.loc))
 
@@ -206,15 +273,26 @@ def build_biosimulators_sitemap():
 
 
 def build_runbiosimulations_sitemap():
-    urls = []
-    urls = urls + get_runbiosimulations_static_urls()
+    urls = get_runbiosimulations_static_urls()
+    urls.sort(key=lambda url: (url.loc))
     render_sitemap('dispatch', 'https://run.biosimulators.org/', urls)
     render_url_list('dispatch', urls)
 
 
 def build_biosimulations_sitemap():
-    urls = []
-    urls = urls + get_biosimulations_static_urls()
+    urls = get_biosimulations_static_urls()
+
+    response = requests.get('https://api.biosimulations.org/projects')
+    response.raise_for_status()
+    projects = response.json()
+    for project in projects:
+        urls.append(Url(
+            loc='projects' + '/' + project['id'],
+            last_mod=dateutil.parser.parse(project['updated']).date(),
+            change_freq=ChangeFreq.monthly,
+        ))
+
+    urls.sort(key=lambda url: (url.loc))
     render_sitemap('platform', 'https://biosimulations.org/', urls)
     render_url_list('platform', urls)
 

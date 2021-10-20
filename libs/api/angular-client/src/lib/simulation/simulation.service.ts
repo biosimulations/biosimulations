@@ -55,7 +55,7 @@ export class SimulationService {
   }
 
   public getSimulationRunLog(id: string): Observable<any> {
-    const endpoint = this.endpoints.getRunLogsEndpoint(id);
+    const endpoint = this.endpoints.getSimulationRunLogsEndpoint(id);
     return this.http.get(endpoint);
   }
 }

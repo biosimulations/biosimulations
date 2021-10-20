@@ -1,4 +1,5 @@
 import { SimulationRunLogStatus } from './simulationRunLog';
+import { Purpose } from './purpose';
 
 export enum SimulationRunStatus {
   // The api has created the entry
@@ -43,4 +44,26 @@ export const SimulationStatusToSimulationLogStatus = (
 export interface EnvironmentVariable {
   key: string;
   value: string;
+}
+
+export interface SimulationRun {
+  id: string;
+  name: string;
+  simulator: string;
+  simulatorVersion: string;
+  simulatorDigest: string;
+  cpus: number;
+  memory: number;
+  maxTime: number;
+  envVars: EnvironmentVariable[];
+  purpose: Purpose;
+  email: string | null;
+  public: boolean;
+  status: SimulationRunStatus;
+  statusReason?: string;
+  runtime?: number;
+  projectSize?: number;
+  resultsSize?: number;
+  submitted: Date;
+  updated: Date;
 }

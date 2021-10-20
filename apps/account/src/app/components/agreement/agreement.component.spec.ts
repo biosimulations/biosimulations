@@ -70,7 +70,7 @@ describe('AgreementComponent', () => {
     selector: `host-component`,
     template: `
       <biosimulations-login-agreement
-        agreementUrl="https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/docs/CODE_OF_CONDUCT.md"
+        agreementUrl="https://raw.githubusercontent.com/biosimulations/biosimulations/dev/docs/developers/conduct.md"
       ></biosimulations-login-agreement>
     `,
   })

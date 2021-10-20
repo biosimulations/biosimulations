@@ -9,7 +9,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { DatatypesType } from './datatypesType';
 
 export interface InlineObject6 {
-  points?: Array<Array<number>>;
+  name?: string;
+  type?: DatatypesType;
 }

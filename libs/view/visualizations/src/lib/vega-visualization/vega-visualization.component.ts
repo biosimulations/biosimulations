@@ -9,7 +9,6 @@ import {
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Spec } from 'vega';
 import vegaEmbed from 'vega-embed';
-import { environment } from '@biosimulations/shared/environments';
 
 @Component({
   selector: 'biosimulations-vega-visualization',
@@ -50,8 +49,7 @@ export class VegaVisualizationComponent implements OnDestroy {
     });
   }
 
-  // TODO: make private once dispatch app refactored to new visualization component
-  render(): void {
+  private render(): void {
     if (!this.hostElement) {
       return;
     }
@@ -107,9 +105,7 @@ export class VegaVisualizationComponent implements OnDestroy {
       this._spec as Spec,
       options,
     ).catch((error: Error): void => {
-      if (!environment.production) {
-        console.error(error);
-      }
+      console.error(error);
       this.error.next(`The visualization is invalid: ${error.message}.`);
     });
   }

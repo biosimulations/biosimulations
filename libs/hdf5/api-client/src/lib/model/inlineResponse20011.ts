@@ -11,5 +11,5 @@
  */
 
 export interface InlineResponse20011 {
-  value?: Array<string>;
+  value?: Array<any>;
 }

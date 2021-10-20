@@ -9,9 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DatatypesType } from './datatypesType';
 
 export interface InlineObject7 {
-  name?: string;
-  type?: DatatypesType;
+  create?: boolean;
+  update?: boolean;
+  _delete?: boolean;
+  updateACL?: boolean;
+  read?: boolean;
+  readACL?: boolean;
 }

@@ -3,6 +3,12 @@
   height: 32px;
   padding: 0 0.5rem;
 
+  .icon-container {
+    width: 19px;
+    display: inline-flex;
+    justify-content: center;
+  }
+
   ::ng-deep mat-icon {
     line-height: 2;
   }

@@ -6,7 +6,11 @@
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import {
+  SwaggerModule,
+  DocumentBuilder,
+  SwaggerCustomOptions,
+} from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
 import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
@@ -63,7 +67,22 @@ function setupOpenApi(app: INestApplication) {
     components.schemas = schemas;
   }
 
-  SwaggerModule.setup('', app, document);
+  const customOptions: SwaggerCustomOptions = {
+    customSiteTitle: 'BioSimulations accounts API documentation',
+    swaggerOptions: {
+      // oauth: {
+      //   clientId: clientId,
+      // },
+      //tagsSorter: 'alpha',
+      operationsSorter: 'alpha',
+    },
+    customfavIcon:
+      'https://github.com/biosimulations/Biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png',
+    customCssUrl:
+      'https://static.biosimulations.org/stylesheets/biosimulations_swagger.css',
+  };
+
+  SwaggerModule.setup('', app, document, customOptions);
 
   return document;
 }

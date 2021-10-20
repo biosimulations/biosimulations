@@ -21,7 +21,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class AttributeService {
   protected basePath = 'https://data.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(
@@ -44,7 +44,6 @@ export class AttributeService {
   /**
    * Get information about an Attribute.
    *
-   * @param accept Accept header
    * @param collection Collection of object (Group, Dataset, or Datatype).
    * @param objUuid UUID of object.
    * @param attr Name of attribute.
@@ -54,7 +53,6 @@ export class AttributeService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesAttrGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -62,19 +60,12 @@ export class AttributeService {
     domain?: string,
   ): Observable<AxiosResponse<InlineResponse20015>>;
   public collectionObjUuidAttributesAttrGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
     authorization?: string,
     domain?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesAttrGet.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesAttrGet.',
@@ -93,15 +84,12 @@ export class AttributeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -132,7 +120,6 @@ export class AttributeService {
   /**
    * Create an attribute with name &#x60;attr&#x60; and assign it to HDF5 object &#x60;obj_uudi&#x60;.
    *
-   * @param accept Accept header
    * @param collection The collection of the HDF5 object (&#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).
    * @param objUuid HDF5 object\&#39;s UUID.
    * @param attr Name of attribute.
@@ -143,7 +130,6 @@ export class AttributeService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesAttrPut(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -152,7 +138,6 @@ export class AttributeService {
     domain?: string,
   ): Observable<AxiosResponse<object>>;
   public collectionObjUuidAttributesAttrPut(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -160,12 +145,6 @@ export class AttributeService {
     authorization?: string,
     domain?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesAttrPut.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesAttrPut.',
@@ -190,15 +169,12 @@ export class AttributeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -235,7 +211,6 @@ export class AttributeService {
   /**
    * List all Attributes attached to the HDF5 object &#x60;objUuid&#x60;.
    * Attributes sorted alphanumerically by name.
-   * @param accept Accept header
    * @param collection The collection of the HDF5 object (one of: &#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).
    * @param objUuid UUID of object.
    * @param authorization
@@ -246,7 +221,6 @@ export class AttributeService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     authorization?: string,
@@ -255,7 +229,6 @@ export class AttributeService {
     marker?: string,
   ): Observable<AxiosResponse<InlineResponse20014>>;
   public collectionObjUuidAttributesGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     authorization?: string,
@@ -263,12 +236,6 @@ export class AttributeService {
     limit?: number,
     marker?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesGet.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesGet.',
@@ -281,7 +248,7 @@ export class AttributeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -293,9 +260,6 @@ export class AttributeService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }

@@ -42,7 +42,7 @@
               <mat-label>Select an OMEX Metadata file</mat-label>
               <ngx-mat-file-input
                 formControlName="metadataFile"
-                accept=".omex,.sedx,.zip,application/zip"
+                accept=".rdf,.xhtml,.xht,.xml,.html,.htm.nq,.nt,.ttl,application/rdf+xml,application/xhtml+xml,application/n-quads,application/n-triples,text/turtle"
                 [multiple]="false"
                 [required]="true"
               ></ngx-mat-file-input>
@@ -118,7 +118,8 @@
               (submitPushed || metadataFileControl.touched) &&
               formGroup.hasError('maxSize', 'metadataFile')
             "
-            >Currently, OMEX Metadata files are limited to 16 MB.</mat-error
+            >Currently, OMEX Metadata file uploads are limited to 256 MB. Larger
+            files must be validated via URLs.</mat-error
           >
           <mat-error
             *ngIf="

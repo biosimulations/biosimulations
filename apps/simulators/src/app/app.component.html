@@ -8,19 +8,112 @@
   [healthy]="healthy$ | async"
 >
   <biosimulations-topbar-menu>
-    <biosimulations-topbar-menu-item
-      heading="Browse"
-      icon="simulator"
-      [route]="['/simulators']"
-    >
-    </biosimulations-topbar-menu-item>
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item
+        heading="Tools"
+        icon="simulator"
+        id="trigger"
+        [route]="['/simulators']"
+      >
+      </biosimulations-topbar-menu-item>
 
-    <biosimulations-topbar-menu-item
-      heading="Submit"
-      icon="upload"
-      href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=validate-submit-a-simulator.md&title="
-    >
-    </biosimulations-topbar-menu-item>
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Browse"
+          icon="browse"
+          [routerLink]="['/simulators']"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Submit"
+          icon="upload"
+          href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=validate-submit-a-simulator.md&title="
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Suggest"
+          icon="idea"
+          href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=enhancement&template=request-a-model-framework-algorithm-format-or-simulator.md&title="
+        >
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item
+        heading="Utilities"
+        icon="construction"
+        id="trigger"
+      >
+      </biosimulations-topbar-menu-item>
+
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Convert a file"
+          icon="convert"
+          href="https://run.biosimulations.org/utils/convert"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Create a project"
+          icon="construction"
+          href="https://run.biosimulations.org/create"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a model"
+          icon="review"
+          href="https://run.biosimulations.org/utils/validate-model"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulation"
+          icon="review"
+          href="https://run.biosimulations.org/utils/validate-simulation"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate metadata"
+          icon="review"
+          href="https://run.biosimulations.org/utils/validate-metadata"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a project"
+          icon="review"
+          href="https://run.biosimulations.org/utils/validate-project"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Validate a simulator"
+          icon="review"
+          href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=validate-submit-a-simulator.md&title="
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Suggest a simulator"
+          icon="idea"
+          href="https://run.biosimulations.org/utils/suggest-simulator"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Execute a project"
+          icon="simulator"
+          href="https://run.biosimulations.org/run"
+        >
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
 
     <biosimulations-hover-open-menu>
       <biosimulations-topbar-menu-item
@@ -155,18 +248,92 @@
   </biosimulations-topbar-menu>
 
   <ng-container id="sidenav-menu">
-    <biosimulations-navigation-item
-      heading="Browse"
-      icon="simulator"
-      [route]="['/simulators']"
-    >
+    <biosimulations-navigation-item heading="Tools" icon="simulator">
+      <biosimulations-navigation-subitem
+        heading="Browse"
+        icon="browse"
+        [route]="['/simulators']"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Submit"
+        icon="upload"
+        href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=validate-submit-a-simulator.md&title="
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Suggest"
+        icon="idea"
+        href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=enhancement&template=request-a-model-framework-algorithm-format-or-simulator.md&title="
+      >
+      </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
-    <biosimulations-navigation-item
-      heading="Submit"
-      icon="upload"
-      href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=validate-submit-a-simulator.md&title="
-    >
+    <biosimulations-navigation-item heading="Utilities" icon="construction">
+      <biosimulations-navigation-subitem
+        heading="Convert a file"
+        icon="convert"
+        href="https://run.biosimulations.org/utils/convert"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Create a project"
+        icon="construction"
+        href="https://run.biosimulations.org/create"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Validate a model"
+        icon="review"
+        href="https://run.biosimulations.org/utils/validate-model"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Validate a simulation"
+        icon="review"
+        href="https://run.biosimulations.org/utils/validate-simulation"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Validate metadata"
+        icon="review"
+        href="https://run.biosimulations.org/utils/validate-metadata"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Validate a project"
+        icon="review"
+        href="https://run.biosimulations.org/utils/validate-project"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Validate a project"
+        icon="review"
+        href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=validate-submit-a-simulator.md&title="
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Suggest a simulator"
+        icon="idea"
+        href="https://run.biosimulations.org/utils/suggest-simulator"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Execute a project"
+        icon="simulator"
+        href="https://run.biosimulations.org/run"
+      >
+      </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>
 
     <biosimulations-navigation-item heading="Conventions" icon="standard">

@@ -14,7 +14,7 @@
 import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
-import { InlineObject2 } from '../model/inlineObject2';
+import { InlineObject1 } from '../model/inlineObject1';
 import { InlineResponse2004 } from '../model/inlineResponse2004';
 import { InlineResponse2005 } from '../model/inlineResponse2005';
 import { Configuration } from '../configuration';
@@ -22,7 +22,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class LinkService {
   protected basePath = 'https://data.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(
@@ -46,7 +46,6 @@ export class LinkService {
    * List all Links in a Group.
    * Items in the \&quot;list\&quot; array are sorted alphanumerically by title.
    * @param id UUID of the Group, e.g. &#x60;g-37aa76f6-2c86-11e8-9391-0242ac110009&#x60;.
-   * @param accept Accept header
    * @param domain
    * @param limit Cap the number of Links returned in list. Must be an integer &#x60;N &gt;&#x3D; 0&#x60;. May be greater than or equal to the number of Links; has no effect in that case. May be used in conjunction with query parameter &#x60;Marker&#x60;.
    * @param marker Title of a Link; the first Link name to list. If no Link exists with that title, causes an error. May be used with query parameter &#x60;Limit&#x60;.
@@ -56,7 +55,6 @@ export class LinkService {
    */
   public groupsIdLinksGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     limit?: number,
     marker?: string,
@@ -64,7 +62,6 @@ export class LinkService {
   ): Observable<AxiosResponse<InlineResponse2004>>;
   public groupsIdLinksGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     limit?: number,
     marker?: string,
@@ -76,13 +73,7 @@ export class LinkService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling groupsIdLinksGet.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -94,9 +85,6 @@ export class LinkService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -125,28 +113,22 @@ export class LinkService {
    * Will _not_ delete the target object.
    * @param id UUID of the Group, e.g. &#x60;g-37aa76f6-2c86-11e8-9391-0242ac110009&#x60;.
    * @param linkname
-   * @param accept Accept header
    * @param domain
    * @param authorization
-   * @param contentType
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public groupsIdLinksLinknameDelete(
     id: string,
     linkname: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
   ): Observable<AxiosResponse<object>>;
   public groupsIdLinksLinknameDelete(
     id: string,
     linkname: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -160,26 +142,14 @@ export class LinkService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling groupsIdLinksLinknameDelete.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
-    }
-    if (contentType !== undefined && contentType !== null) {
-      headers['Content-Type'] = String(contentType);
     }
 
     // to determine the Accept header
@@ -208,28 +178,22 @@ export class LinkService {
    * Get information about a given Link.
    * @param id UUID of the Group, e.g. &#x60;g-37aa76f6-2c86-11e8-9391-0242ac110009&#x60;.
    * @param linkname
-   * @param accept Accept header
    * @param domain
    * @param authorization
-   * @param contentType
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public groupsIdLinksLinknameGet(
     id: string,
     linkname: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
   ): Observable<AxiosResponse<InlineResponse2005>>;
   public groupsIdLinksLinknameGet(
     id: string,
     linkname: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -243,26 +207,14 @@ export class LinkService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling groupsIdLinksLinknameGet.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
-    }
-    if (contentType !== undefined && contentType !== null) {
-      headers['Content-Type'] = String(contentType);
     }
 
     // to determine the Accept header
@@ -291,31 +243,25 @@ export class LinkService {
    * Link will be \&#39;hard\&#39;, \&#39;soft\&#39;, or \&#39;external\&#39; depending on request elements. If &#x60;id&#x60; is provided, it will override other properties and attempt to create a hard Link to the object with that UUID. If &#x60;h5path&#x60; is provided, will create a symbolic link to object (if any) at the given path -- either a soft Link within this domain if no domain is specified, or an external Link. If &#x60;h5domain&#x60; is provided, will create an external Link, pointing to the object (if any) at &#x60;h5path&#x60; in domain &#x60;h5domain&#x60;.
    * @param id UUID of the Group, e.g. &#x60;g-37aa76f6-2c86-11e8-9391-0242ac110009&#x60;.
    * @param linkname
-   * @param accept Accept header
-   * @param inlineObject2
+   * @param inlineObject1
    * @param domain
    * @param authorization
-   * @param contentType
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public groupsIdLinksLinknamePut(
     id: string,
     linkname: string,
-    accept: 'application/json',
-    inlineObject2: InlineObject2,
+    inlineObject1: InlineObject1,
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
   ): Observable<AxiosResponse<object>>;
   public groupsIdLinksLinknamePut(
     id: string,
     linkname: string,
-    accept: 'application/json',
-    inlineObject2: InlineObject2,
+    inlineObject1: InlineObject1,
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
   ): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error(
@@ -329,32 +275,20 @@ export class LinkService {
       );
     }
 
-    if (accept === null || accept === undefined) {
+    if (inlineObject1 === null || inlineObject1 === undefined) {
       throw new Error(
-        'Required parameter accept was null or undefined when calling groupsIdLinksLinknamePut.',
+        'Required parameter inlineObject1 was null or undefined when calling groupsIdLinksLinknamePut.',
       );
     }
 
-    if (inlineObject2 === null || inlineObject2 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject2 was null or undefined when calling groupsIdLinksLinknamePut.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
-    }
-    if (contentType !== undefined && contentType !== null) {
-      headers['Content-Type'] = String(contentType);
     }
 
     // to determine the Accept header
@@ -376,7 +310,7 @@ export class LinkService {
       `${this.basePath}/groups/${encodeURIComponent(
         String(id),
       )}/links/${encodeURIComponent(String(linkname))}`,
-      inlineObject2,
+      inlineObject1,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,

@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           fetch-depth: 1
           token: ${{ secrets.GH_ACCESS_TOKEN}}
@@ -26,4 +26,4 @@ jobs:
       - name: Check example simulation runs succeeded
         run: |
           python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api org
-          python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api dev
+          # python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api dev

@@ -8,6 +8,10 @@
   </ng-container>
 
   <ng-container id="content" tocSectionsContainer>
+    <ng-container *ngIf="faqsJsonLd$ | async as faqsJsonLd">
+      <ngx-json-ld [json]="faqsJsonLd"></ngx-json-ld>
+    </ng-container>
+
     <biosimulations-text-page-content-section
       heading="Models"
       tocSection="Models"

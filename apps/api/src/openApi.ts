@@ -16,7 +16,12 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
   // Swagger doc
   const tags = [
     {
-      name: 'Simulation runs',
+      name: 'Projects',
+      description:
+        'Operations for publishing simulation runs and modifying, getting, and deleting published projects.',
+    },
+    {
+      name: 'Simulations',
       description:
         'Operations for submitting a simulation run, checking the status of a run, modifying the details of a run, and deleting a run.',
     },
@@ -34,7 +39,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     {
       name: 'Metadata',
       description:
-        'Operations for creating and retriving the metadata associated with a simulation run',
+        'Operations for creating and retrieving the metadata associated with a simulation run',
     },
     {
       name: 'Files',
@@ -44,7 +49,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     {
       name: 'Specifications',
       description:
-        'Operations for creating and retrieving the specifications of a simulation run',
+        'Operations for creating and retrieving simulation experiments (specifications of SED-ML files in COMBINE/OMEX archives) of simulation runs',
     },
     {
       name: 'Downloads',
@@ -57,7 +62,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
         'Operations for getting a list of the supported ontologies, getting entire ontologies, and getting individual terms.',
     },
     {
-      name: 'Internal management',
+      name: 'Internal',
       description:
         'Operations for the management of BioSimulations by the BioSimulations Team.',
     },
@@ -65,7 +70,10 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
   const builder = new DocumentBuilder()
     .setTitle('BioSimulations API')
     .setDescription(
-      'API for submiting and managing simulation jobs to the BioSimulations simulation service.',
+      'The BioSimulations API is a RESTful API for interacting with the BioSimulations web service and database.\
+      It provides endpoints for submitting simulation projects to be executed on the BioSimulations backend, as well as\
+      endpoints for retrieving the associated metadata, files, logs, results, and specifications of these projects.\
+      It it also used for the publishing, sharing and retrieving projects from the BioSimulations database',
     )
     .setVersion('0.1')
     .setLicense(
@@ -77,6 +85,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
       'API specifications (Open API JSON)',
       'https://run.api.biosimulations.org/openapi.json',
     )
+    .setExternalDoc('Documentation', 'https://docs.biosimulations.org')
     .setContact(
       'BioSimulations Team',
       'https://run.biosimulations.org/help/about',
@@ -109,7 +118,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
   const openIdConnectUrl =
     'https://auth.biosimulations.org/.well-known/openid-configuration';
 
-  const clientId = 'pMatIe0TqLPbnXBn6gcDjdjnpIrlKG3a';
+  const clientId = 'WEPUMb2Jo28NdEt1Z7fhUx54Bff8MnKF';
 
   const oauthSchema: SecuritySchemeObject = {
     type: 'oauth2',

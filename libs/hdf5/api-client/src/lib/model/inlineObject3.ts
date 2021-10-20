@@ -9,24 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DatasetsLink } from './datasetsLink';
 
 export interface InlineObject3 {
-  /**
-   * Predefined data Type, UUID of a commtted type, or JSON object description of a Type. Must be present. Predefined types are: `H5T_STD_U8BE`, (integer types of various sizes and `H5T_STD_U8LE`,  endainness) `H5T_STD_I8BE`, `H5T_STD_I8LE`, `H5T_STD_U16BE`, `H5T_STD_U16LE`, `H5T_STD_I16BE`, `H5T_STD_I16LE`, `H5T_STD_U32BE`, `H5T_STD_U32LE`, `H5T_STD_I32BE`, `H5T_STD_I32LE`, `H5T_STD_U64BE`, `H5T_STD_U64LE`, `H5T_STD_I64BE`, `H5T_STD_I64LE`, `H5T_IEEE_F32BE`, (floating-point types) `H5T_IEEE_F32LE`, `H5T_IEEE_F64BE`, `H5T_IEEE_F64LE` TODO: Type description objects. For now, see: http://h5serv.readthedocs.io/en/latest/Types/index.html
-   */
-  type?: string;
-  /**
-   * Either an integer array giving the initial dimensions of the dataset or `\"H5S_NULL\"`. If an array, each integer value must be non-negative; if `maxdims` is supplied, the integer must also be less than the `maxdims` value for that dimension. If shape is `H5S_NULL`, a dataset will be created which can have a type and attributes, but unable to hold any data. If `shape` is omitted or empty (`[]`), will create a scalar dataset -- dataset comprised of a single entity.
-   */
-  shape?: string;
-  /**
-   * Integer array diving the maximum allowed extent for each dimension. If a dimension\'s maxdim is `0`, the maximum extent is unlimited.
-   */
-  maxdims?: Array<number>;
-  /**
-   * TODO
-   */
-  creationProperties?: object;
-  link?: DatasetsLink;
+  shape: Array<number>;
 }

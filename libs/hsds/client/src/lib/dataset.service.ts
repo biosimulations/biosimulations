@@ -17,7 +17,6 @@ import {
   isStringAttribute,
 } from './datamodel';
 
-const ACCEPT = 'application/json';
 const DATASET = 'datasets';
 const AUTH = undefined;
 const GROUP = 'groups';
@@ -45,7 +44,7 @@ export class SimulationHDFService {
         undefined,
         undefined,
         undefined,
-        ACCEPT,
+        AUTH,
       )
       .toPromise();
     const data: InlineResponse20010 | undefined = dataResponse?.data;
@@ -73,16 +72,13 @@ export class SimulationHDFService {
     reportId: string,
   ): Promise<Dataset | undefined> {
     const datasets = await this.getDatasets(simId);
-    this.logger.error(datasets[0]);
     const filtered = datasets.filter((value) => value.uri == reportId);
     return filtered[0];
   }
   public async getDatasets(simId: string): Promise<Dataset[]> {
     const domain = this.getDomainName(simId);
 
-    const response = await this.domainService
-      .datasetsGet('application/json', domain)
-      .toPromise();
+    const response = await this.domainService.datasetsGet(domain).toPromise();
 
     const datasetIds = response?.data.datasets || [];
 
@@ -157,7 +153,7 @@ export class SimulationHDFService {
     id: string,
   ): Promise<HDF5Group | undefined> {
     const response = await this.groupService
-      .groupsIdGet(id, ACCEPT, domain)
+      .groupsIdGet(id, domain)
       .toPromise();
     const data = response?.data;
     return data;
@@ -168,7 +164,7 @@ export class SimulationHDFService {
     id: string,
   ): Promise<HDF5Dataset | undefined> {
     const response = await this.datasetService
-      .datasetsIdGet(id, ACCEPT, domain)
+      .datasetsIdGet(id, domain)
       .toPromise();
     return response?.data;
   }
@@ -178,7 +174,7 @@ export class SimulationHDFService {
     domain: string,
   ): Promise<HDF5Links[]> {
     const linksResponse = await this.linkService
-      .groupsIdLinksGet(groupId, ACCEPT, domain)
+      .groupsIdLinksGet(groupId, domain)
       .toPromise();
     return linksResponse?.data.links || [];
   }
@@ -188,7 +184,7 @@ export class SimulationHDFService {
     datasetId: string,
   ): Promise<(keyof BiosimulationsDataAtributes)[]> {
     const response = await this.attrbuteService
-      .collectionObjUuidAttributesGet(ACCEPT, DATASET, datasetId, AUTH, domain)
+      .collectionObjUuidAttributesGet(DATASET, datasetId, AUTH, domain)
       .toPromise();
     const attributes = response?.data.attributes || [];
     return attributes.map(
@@ -204,7 +200,6 @@ export class SimulationHDFService {
     try {
       const uriResponse = await this.attrbuteService
         .collectionObjUuidAttributesAttrGet(
-          ACCEPT,
           DATASET,
           datasetId,
           attribute,
@@ -219,9 +214,7 @@ export class SimulationHDFService {
     }
   }
   private async getRootGroupId(domain: string): Promise<string | undefined> {
-    const domainResponse = await this.domainService
-      .rootGet(ACCEPT, domain)
-      .toPromise();
+    const domainResponse = await this.domainService.rootGet(domain).toPromise();
 
     const domainInfo = domainResponse?.data;
 

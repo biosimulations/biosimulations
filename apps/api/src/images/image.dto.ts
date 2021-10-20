@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class refreshImageBody {
   @ApiProperty()
-  simulator!: string;
+  public simulator!: string;
   @ApiProperty()
-  version!: string;
+  public version!: string;
 }

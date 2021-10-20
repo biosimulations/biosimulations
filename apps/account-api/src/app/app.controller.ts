@@ -62,27 +62,27 @@ export class AppController {
     return account?._id === userId;
   }
 
-  @Get('valid/:username')
-  async checkUsername(@Param('username') username: string) {
-    username = username.toLowerCase().trim();
+  @Get('valid/:userName')
+  async checkUsername(@Param('userName') userName: string) {
+    userName = userName.toLowerCase().trim();
 
     let valid = true;
 
-    let message = `${username} is available`;
+    let message = `${userName} is available`;
 
     // TODO make this common somewhere to also use in other resources
     const regEx = new RegExp('^[a-z_][a-z0-9_]{2,32}$');
 
-    if (!regEx.test(username)) {
+    if (!regEx.test(userName)) {
       valid = false;
       message =
         "Usernames must consist of numbers, letters and underscores '_'  only";
     } else {
-      const taken = await this.accountService.find(username);
+      const taken = await this.accountService.find(userName);
 
       if (taken) {
         valid = false;
-        message = `${username} is already taken`;
+        message = `${userName} is already taken`;
       }
     }
 

@@ -21,6 +21,7 @@ import {
 } from '@biosimulations/datamodel-view';
 import { ViewService } from '@biosimulations/view-service';
 import { ProjectService } from '@biosimulations/angular-api-client';
+import { Dataset, WithContext } from 'schema-dts';
 
 @Component({
   selector: 'biosimulations-view',
@@ -42,6 +43,8 @@ export class ViewComponent implements OnInit {
   public visualizations$!: Observable<VisualizationList[]>;
   public visualization: Visualization | null = null;
 
+  jsonLdData$!: Observable<WithContext<Dataset>>;
+
   public constructor(
     private service: ViewService,
     private projService: ProjectService,
@@ -56,7 +59,7 @@ export class ViewComponent implements OnInit {
 
   public ngOnInit(): void {
     const id = (this.id = this.route.snapshot.params['id']);
-    this.simulationRunId$ = this.projService.getProject(id).pipe(
+    const project$ = this.projService.getProject(id).pipe(
       shareReplay(1),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 400) {
@@ -66,13 +69,18 @@ export class ViewComponent implements OnInit {
         }
         return throwError(error);
       }),
+    );
+
+    this.simulationRunId$ = project$.pipe(
       map((project) => project.simulationRun),
     );
+
     this.projectMetadata$ = this.simulationRunId$.pipe(
       mergeMap((simulationRun) =>
         this.service.getFormattedProjectMetadata(simulationRun),
       ),
     );
+
     this.simulationRun$ = this.simulationRunId$.pipe(
       mergeMap((simulationRun) =>
         this.service.getFormattedSimulationRun(simulationRun),
@@ -84,6 +92,7 @@ export class ViewComponent implements OnInit {
         this.service.getFormattedProjectFiles(simulationRun),
       ),
     );
+
     this.files$ = this.simulationRunId$.pipe(
       mergeMap((simulationRun) =>
         this.service.getFormattedProjectContentFiles(simulationRun),
@@ -100,6 +109,10 @@ export class ViewComponent implements OnInit {
       mergeMap((simulationRun) =>
         this.service.getVisualizations(simulationRun),
       ),
+    );
+
+    this.jsonLdData$ = combineLatest([project$, this.simulationRunId$]).pipe(
+      mergeMap((args) => this.service.getJsonLdData(args[1], args[0])),
     );
 
     this.loaded$ = combineLatest([

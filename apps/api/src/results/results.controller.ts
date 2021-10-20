@@ -8,16 +8,19 @@
  */
 
 import {
+  CacheInterceptor,
+  CacheTTL,
   Controller,
   Get,
   Param,
   ParseBoolPipe,
   Query,
   Res,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiQuery,
-  ApiResponse,
+  ApiOkResponse,
   ApiTags,
   ApiOperation,
   ApiParam,
@@ -29,6 +32,7 @@ import {
   SimulationRunResults,
 } from '@biosimulations/datamodel/api';
 import { Response } from 'express';
+
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
@@ -42,20 +46,31 @@ export class ResultsController {
     description:
       'Get the results of each report and plot of each SED-ML file for the simulation run',
   })
-  @Get(':simId')
+  @Get(':runId')
   @ApiParam({
-    name: 'simId',
+    name: 'runId',
     description: 'Id of a simulation run',
     required: true,
     type: String,
   })
-  @ApiQuery({ name: 'includeData', type: Boolean })
-  @ApiResponse({ status: 200, description: 'ok', type: SimulationRunResults })
+  @ApiQuery({
+    name: 'includeData',
+    description:
+      'Whether to include the simulation results or to only return the structurre of the results (e.g., ids, names of the avaialable reports and data sets).',
+    type: Boolean,
+    required: false,
+  })
+  @ApiOkResponse({
+    description: 'The simulation results were successfully retrieved',
+    type: SimulationRunResults,
+  })
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(0)
   public async getResults(
-    @Param('simId') id: string,
+    @Param('runId') runId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunResults> {
-    const results = await this.service.getResults(id, includeData);
+    const results = await this.service.getResults(runId, includeData);
 
     const returnValue: SimulationRunResults = {
       simId: results.simId,
@@ -72,19 +87,22 @@ export class ResultsController {
     description:
       'Download a zip file that contains each report (HDF5 format) and plot (PDF format) of each SED-ML file for the simulation run, as well as the log (YAML format) of the simulation run',
   })
-  @Get(':simId/download')
+  @Get(':runId/download')
   @ApiParam({
-    name: 'simId',
+    name: 'runId',
     description: 'Id of a simulation run',
     required: true,
     type: String,
   })
+  @ApiOkResponse({
+    description: 'The simulation results were successfully downloaded',
+  })
   @ApiTags('Downloads')
   public async downloadResultReport(
-    @Param('simId') simId: string,
-    @Res() res: Response,
+    @Param('runId') runId: string,
+    @Res({ passthrough: true }) res: Response,
   ): Promise<void> {
-    const file = await this.service.download(simId);
+    const file = await this.service.download(runId);
     res.contentType('application/zip');
     res.setHeader('Content-Disposition', 'attachment; filename="outputs.zip"');
     res.write(file);
@@ -97,30 +115,42 @@ export class ResultsController {
     description:
       'Get the results of a single output (SED plot or report of a SED-ML file) of a simulation run',
   })
-  @Get(':simId/:outputId')
+  @Get(':runId/:experimentLocationAndOutputId')
   @ApiParam({
-    name: 'simId',
+    name: 'runId',
     description: 'Id of a simulation run',
     required: true,
     type: String,
   })
   @ApiParam({
-    name: 'outputId',
+    name: 'experimentLocationAndOutputId',
     description:
-      'Forward slash-separated tuple of the location of the SED-ML file and the id of the SED output (e.g., `path/to/simulation.sedm/Table1`)',
+      'Forward slash-separated tuple of the location of the SED-ML file and the id of the SED output (e.g., `path/to/simulation.sedml/Table1`)',
     required: true,
     type: String,
   })
-  @ApiResponse({ status: 200, type: SimulationRunOutput, description: 'ok' })
-  @ApiQuery({ name: 'includeData', type: Boolean })
+  @ApiQuery({
+    name: 'includeData',
+    description:
+      'Whether to include the simulation results or to only return the structurre of the results (e.g., ids, names of the avaialable reports and data sets).',
+    type: Boolean,
+    required: false,
+  })
+  @ApiOkResponse({
+    description: 'The simulation results were successfully retrieved',
+    type: SimulationRunOutput,
+  })
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(0)
   public async getResultReport(
-    @Param('simId') simId: string,
-    @Param('outputId') outputId: string,
+    @Param('runId') runId: string,
+    @Param('experimentLocationAndOutputId')
+    experimentLocationAndOutputId: string,
     @Query('includeData', ParseBoolPipe) includeData = false,
   ): Promise<SimulationRunOutput> {
     const resultModel = await this.service.getOutput(
-      simId,
-      outputId,
+      runId,
+      experimentLocationAndOutputId,
       includeData,
     );
 

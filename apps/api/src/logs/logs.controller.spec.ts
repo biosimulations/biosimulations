@@ -2,6 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { LogsController } from './logs.controller';
 import { LogsService } from './logs.service';
 import { of } from 'rxjs';
+import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
+import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 describe('LogsController', () => {
   let controller: LogsController;
   let mockService: any;
@@ -22,6 +24,7 @@ describe('LogsController', () => {
     };
 
     const module: TestingModule = await Test.createTestingModule({
+      imports: [BiosimulationsConfigModule, BiosimulationsAuthModule],
       controllers: [LogsController],
       providers: [{ provide: LogsService, useValue: mockService }],
     }).compile();

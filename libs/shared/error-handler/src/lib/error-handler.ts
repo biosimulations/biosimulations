@@ -23,9 +23,7 @@ export class ErrorHandler implements BaseErrorHandler {
   }
 
   handleError(error: any): void {
-    if (!environment.production) {
-      console.error(error);
-    }
+    console.error(error);
 
     let errorTemplate = '500';
     const errorState: {

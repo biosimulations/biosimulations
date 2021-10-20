@@ -49,11 +49,13 @@ import {
   ModelChangeTypeName,
   SimulationType,
   SimulationTypeName,
+  Url,
 } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/services';
 import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
 import { Citation } from '@biosimulations/datamodel/api';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
+import { SoftwareApplication, WithContext } from 'schema-dts';
 
 @Injectable({ providedIn: 'root' })
 export class ViewSimulatorService {
@@ -190,6 +192,122 @@ export class ViewSimulatorService {
         }),
       );
 
+    const jsonLdData: WithContext<SoftwareApplication> = {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: sim.name,
+      softwareVersion: sim.version,
+      applicationSuite: 'BioSimulators',
+      applicationCategory: 'Science',
+      applicationSubCategory: 'Simulation',
+      abstract: sim.description,
+      creativeWorkStatus: 'Published',
+      datePublished: this.getDateStr(new Date(sim.biosimulators.created)),
+      dateModified: this.getDateStr(new Date(sim.biosimulators.updated)),
+      educationalLevel: 'advanced',
+      contentRating: {
+        '@type': 'Rating',
+        ratingValue: UtilsService.getSimulatorCurationStatus(sim),
+        ratingExplanation: UtilsService.getSimulatorCurationStatusMessage(
+          UtilsService.getSimulatorCurationStatus(sim),
+        ),
+        worstRating: 1,
+        bestRating: 5,
+        author: {
+          '@type': 'Organization',
+          name: 'BioSimulators',
+          email: 'info@biosimulators.org',
+          url: 'https://biosimulators.org',
+        },
+      },
+      offers: {
+        '@type': 'Offer',
+        price: 0,
+        priceCurrency: 'USD',
+      },
+    };
+
+    jsonLdData.creator = sim.authors.map((author) => {
+      const names = [];
+      if (author.firstName) {
+        names.push(author.firstName);
+      }
+      if (author.middleName) {
+        names.push(author.middleName);
+      }
+      if (author.lastName) {
+        names.push(author.lastName);
+      }
+
+      return {
+        '@type': 'Person',
+        name: names.join(' '),
+        url: author.identifiers.map((identifier) => identifier.url),
+      };
+    });
+
+    if (sim.license) {
+      jsonLdData.license = 'https://identifiers.org/spdx:' + sim.license.id;
+    } else {
+      jsonLdData.license = sim.urls
+        .filter((url: Url): boolean => url.type === 'License')
+        .map((url) => url.url);
+    }
+
+    jsonLdData.url = sim.urls
+      .filter((url: Url): boolean => url.type === 'Home page')
+      .map((url) => url.url);
+    jsonLdData.downloadUrl = sim.urls
+      .filter((url: Url): boolean =>
+        ['Software catalogue', 'Source repository'].includes(url.type),
+      )
+      .map((url) => url.url);
+    jsonLdData.installUrl = sim.urls
+      .filter((url: Url): boolean => url.type === 'Installation instructions')
+      .map((url) => url.url);
+    jsonLdData.softwareHelp = sim.urls
+      .filter((url: Url): boolean =>
+        ['Tutorial', 'Documentation'].includes(url.type),
+      )
+      .map((url) => {
+        return {
+          '@type': 'WebPage',
+          name: url.type,
+          url: url.url,
+        };
+      });
+    jsonLdData.discussionUrl = sim.urls
+      .filter((url: Url): boolean => url.type === 'Discussion forum')
+      .map((url) => url.url);
+    jsonLdData.releaseNotes = sim.urls
+      .filter((url: Url): boolean => url.type === 'Release notes')
+      .map((url) => url.url);
+    jsonLdData.operatingSystem = sim.supportedOperatingSystemTypes;
+
+    jsonLdData.citation = sim.references.citations.map((citation) => {
+      const formattedCitation = this.makeCitation(citation);
+      return {
+        '@type': 'Article',
+        headline: citation.title,
+        abstract: formattedCitation.text,
+        author: {
+          '@type': 'Person',
+          name: citation.authors,
+        },
+        url: citation.identifiers.map((identifier) => identifier.url),
+      };
+    });
+
+    jsonLdData.funder = sim.funding.map((funding) => {
+      return {
+        '@type': 'Organization',
+        // name: this.ontService
+        //  .getFunderRegistryTerm(funding.funder.id)
+        //  .pipe(pluck('name')),
+        url: 'http://data.crossref.org/fundingdata/funder/' + funding.funder.id,
+      };
+    });
+
     const viewSim: ViewSimulator = {
       _json: JSON.stringify(sim, null, 2),
       id: sim.id,
@@ -276,6 +394,7 @@ export class ViewSimulatorService {
       funding: sim.funding.map(this.getFunding, this),
       created: this.getDateStr(new Date(sim.biosimulators.created)),
       updated: this.getDateStr(new Date(sim.biosimulators.updated)),
+      jsonLdData: jsonLdData,
     };
 
     const unresolvedAlgorithms = sim.algorithms

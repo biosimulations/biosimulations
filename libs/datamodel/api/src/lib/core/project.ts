@@ -14,10 +14,18 @@ export class Project {
   })
   public simulationRun!: string;
 
-  @ApiResponseProperty({})
+  @ApiResponseProperty({
+    type: String,
+    format: 'date-time',
+    // description: 'Timestamp when the project was published'
+  })
   public created!: string;
 
-  @ApiResponseProperty({})
+  @ApiResponseProperty({
+    type: String,
+    format: 'date-time',
+    // description: 'Timestamp when the project was last updated'
+  })
   public updated!: string;
 }
 

@@ -55,36 +55,111 @@
 
         <biosimulations-dropdown-menu-item
           heading="Validate a model"
-          icon="bug"
+          icon="review"
           [routerLink]="['/utils', 'validate-model']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate a simulation"
-          icon="bug"
+          icon="review"
           [routerLink]="['/utils', 'validate-simulation']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate metadata"
-          icon="bug"
+          icon="review"
           [routerLink]="['/utils', 'validate-metadata']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
           heading="Validate a project"
-          icon="bug"
+          icon="review"
           [routerLink]="['/utils', 'validate-project']"
         >
         </biosimulations-dropdown-menu-item>
 
         <biosimulations-dropdown-menu-item
+          heading="Validate a simulator"
+          icon="review"
+          href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=validate-submit-a-simulator.md&title="
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
           heading="Suggest a simulator"
-          icon="simulator"
+          icon="idea"
           [routerLink]="['/utils', 'suggest-simulator']"
+        >
+        </biosimulations-dropdown-menu-item>
+      </ng-container>
+    </biosimulations-hover-open-menu>
+
+    <biosimulations-hover-open-menu>
+      <biosimulations-topbar-menu-item
+        heading="Conventions"
+        icon="standard"
+        id="trigger"
+        href="https://biosimulators.org/conventions"
+      >
+      </biosimulations-topbar-menu-item>
+
+      <ng-container id="items">
+        <biosimulations-dropdown-menu-item
+          heading="Simulator specs"
+          icon="browse"
+          href="https://biosimulators.org/conventions/simulator-specs"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Simulator interfaces"
+          icon="logs"
+          href="https://biosimulators.org/conventions/simulator-interfaces"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Simulator images"
+          icon="docker"
+          href="https://biosimulators.org/conventions/simulator-images"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Simulation experiments"
+          icon="experiment"
+          href="https://biosimulators.org/conventions/simulation-experiments"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Simulation reports"
+          icon="report"
+          href="https://biosimulators.org/conventions/simulation-reports"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Data visualizations"
+          icon="chart"
+          href="https://biosimulators.org/conventions/data-viz"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Metadata"
+          icon="tags"
+          href="https://biosimulators.org/conventions/metadata"
+        >
+        </biosimulations-dropdown-menu-item>
+
+        <biosimulations-dropdown-menu-item
+          heading="Simulation logs"
+          icon="progress"
+          href="https://biosimulators.org/conventions/simulation-logs"
         >
         </biosimulations-dropdown-menu-item>
       </ng-container>
@@ -180,36 +255,108 @@
 
       <biosimulations-navigation-subitem
         heading="Validate a model"
-        icon="bug"
+        icon="review"
         [route]="['/utils', 'validate-model']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Validate a simulation"
-        icon="bug"
+        icon="review"
         [route]="['/utils', 'validate-simulation']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Validate metadata"
-        icon="bug"
+        icon="review"
         [route]="['/utils', 'validate-metadata']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
         heading="Validate a project"
-        icon="bug"
+        icon="review"
         [route]="['/utils', 'validate-project']"
       >
       </biosimulations-navigation-subitem>
 
       <biosimulations-navigation-subitem
-        heading="Suggest simulator"
-        icon="simulator"
+        heading="Validate a project"
+        icon="review"
+        href="https://github.com/biosimulators/Biosimulators/issues/new?assignees=&labels=Validate%2Fsubmit+simulator&template=validate-submit-a-simulator.md&title="
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Suggest a simulator"
+        icon="idea"
         [route]="['/utils', 'suggest-simulator']"
+      >
+      </biosimulations-navigation-subitem>
+    </biosimulations-navigation-item>
+
+    <biosimulations-navigation-item heading="Conventions" icon="standard">
+      <biosimulations-navigation-subitem
+        heading="Overview"
+        icon="standard"
+        href="https://biosimulators.org/conventions"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulator specs"
+        icon="browse"
+        href="https://biosimulators.org/conventions/simulator-specs"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulator interfaces"
+        icon="logs"
+        href="https://biosimulators.org/conventions/simulator-interfaces"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulator images"
+        icon="docker"
+        href="https://biosimulators.org/conventions/simulator-images"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulation expts"
+        icon="experiment"
+        href="https://biosimulators.org/conventions/simulation-experiments"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulation reports"
+        icon="report"
+        href="https://biosimulators.org/conventions/simulation-reports"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Data visualizations"
+        icon="chart"
+        href="https://biosimulators.org/conventions/data-viz"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Metadata"
+        icon="tags"
+        href="https://biosimulators.org/conventions/metadata"
+      >
+      </biosimulations-navigation-subitem>
+
+      <biosimulations-navigation-subitem
+        heading="Simulation logs"
+        icon="progress"
+        href="https://biosimulators.org/conventions/simulation-logs"
       >
       </biosimulations-navigation-subitem>
     </biosimulations-navigation-item>

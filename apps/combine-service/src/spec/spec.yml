@@ -4,7 +4,7 @@ info:
   title: BioSimulations COMBINE service
   version: "0.1"
   description: |-
-    Endpoints for working with COMBINE/OMEX archives and model (e.g., SBML) and simulation (e.g., SED-ML) files that they typically contain.
+    Endpoints for working with models (e.g., [CellML](http://cellml.org/), [SBML](http://sbml.org/)), simulation experiments (e.g., [Simulation Experiment Description Language (SED-ML)](http://sed-ml.org/)), metadata ([OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)), and simulation projects ([COMBINE/OMEX archives](https://combinearchive.org/)).
 
     Note, this API may change significantly in the future.
   contact:
@@ -20,168 +20,6 @@ servers:
 - url: https://combine.api.biosimulations.org
   description: Production server
 paths:
-  /model/validate:
-    post:
-      requestBody:
-        description: Model file.
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ValidateModelFileOrUrl'
-            examples:
-              File:
-                value:
-                  file: <FILE>
-        required: true
-      tags:
-      - Model
-      - Validation
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationReport'
-              examples:
-                Valid model:
-                  value:
-                    _type: ValidationReport
-                    status: valid
-                Invalid model:
-                  value:
-                    _type: ValidationReport
-                    errors:
-                    - - _type: ValidationMessage
-                        summary: Model is invalid
-                    status: invalid
-          description: Overall validity of the model file and errors and warnings
-            about how it isn't or may not be valid.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unable to determine if a model file is valid.
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Server error.
-      operationId: src.handlers.model.validate.handler
-      summary: Validate a model
-      description: |-
-        Validate a model file such as a [CellML](https://cellml.org) or [Systems Biology Markup Language (SBML)](http://sbml.org) file.
-
-        Note, this endpoint is limited to models that are can be captured by a single file. Models that are described via multiple files can be validated using the COMBINE/OMEX archive validation endpoint (`/combine/validate`).
-  /sed-ml/get-parameters-variables-for-simulation:
-    post:
-      requestBody:
-        description: Model file and specifications of a simulation task of the model.
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ModelAndSimulation'
-            examples:
-              Example CVODE simulation of a SBML-encoded model located at a URL:
-                value:
-                  modelUrl: https://website.com/model.xml
-                  modelLanguage: urn:sedml:language:sbml
-                  simulationType: SedUniformTimeCourseSimulation
-                  simulationAlgorithm: KISAO_0000019
-                  modelingFramework: SBO_0000293
-        required: true
-      tags:
-      - Simulation experiments (SED-ML)
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SedDocument'
-              examples:
-                Example SED document:
-                  value:
-                    _type: SedDocument
-                    level: 1
-                    version: 3
-                    models: []
-                    simulations: []
-                    tasks: []
-                    dataGenerators: []
-                    outputs: []
-          description: Possible observables of a SED task as a list of SED data generators.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unable to get the variables of a model because the model file
-            is invalid.
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Server error.
-      operationId: src.handlers.sed_ml.get_parameters_variables_for_simulation.handler
-      summary: Get the possible observables of a simulation as a list of SED variables.
-  /sed-ml/validate:
-    post:
-      requestBody:
-        description: SED-ML file.
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/FileOrUrl'
-            examples:
-              FIle:
-                value:
-                  file: <FILE>
-        required: true
-      tags:
-      - Simulation experiments (SED-ML)
-      - Validation
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationReport'
-              examples:
-                Valid SED-ML file:
-                  value:
-                    _type: ValidationReport
-                    status: valid
-                Invalid SED-ML file:
-                  value:
-                    _type: ValidationReport
-                    errors:
-                    - - _type: ValidationMessage
-                        summary: SED-ML file is invalid
-                    status: invalid
-          description: Overall validity of the SED-ML file and errors and warnings
-            about how it isn't or may not be valid.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unable to determine if a SED-ML file is valid.
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Server error.
-      operationId: src.handlers.sed_ml.validate.handler
-      summary: Validate a SED-ML file
-      description: "Validate a [Simulation Experiment Description Markup Language\
-        \ (SED-ML)](http://sed-ml.org/) file. Note, this method does not validate\
-        \ the sources of the models of SED-ML files or targets to models. Models files\
-        \ are required for more comprehensive validation. The `/combine/validate`\
-        \ endpoint provides more comprehensive validation that encompasses validation\
-        \ of model sources and targets to models."
   /kisao/get-similar-algorithms:
     get:
       tags:
@@ -238,52 +76,43 @@ paths:
           description: Server error.
       operationId: src.handlers.kisao.get_similar_algorithms.handler
       summary: Get a list of algorithms similar to an algorithm
-  /combine/sedml-specs:
-    post:
-      requestBody:
-        description: COMBINE/OMEX archive file or URL for a COMBINE/OMEX archive file.
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/FileOrUrl'
-            examples:
-              File:
-                value:
-                  file: <FILE>
-              URL:
-                value:
-                  url: https://models.org/archive.omex
-        required: true
+  /run/simulators:
+    get:
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
-      - Simulation experiments (SED-ML)
+      - Simulation execution
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CombineArchiveSedDocSpecs'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Simulator'
               examples:
-                Example specifications of a COMBINE archive:
+                COPASI and tellurium:
                   value:
-                    _type: CombineArchiveSedDocSpecs
-                    contents:
-                    - _type: CombineArchiveSedDocSpecsContent
-                      location:
-                        _type: CombineArchiveSedDocSpecsLocation
-                        path: experiment1/simulation.sedml
-                        value:
-                          _type: SedDocument
-                          level: 1
-                          version: 3
-                          models: []
-                          simulations: []
-                          tasks: []
-                          dataGenerators: []
-                          outputs: []
-                      format: http://identifiers.org/combine.specifications/sed-ml
-                      master: true
-          description: Specifications of the SED-ML files in the COMBINE/OMEX archive.
+                  - _type: Simulator
+                    id: copasi
+                    name: COPASI
+                    version: 4.33.246
+                    api:
+                      _type: SimulatorApi
+                      package: biosimulators_copasi
+                      module: biosimulators_copasi
+                      version: 0.1.0
+                    specs: https://api.biosimulators.org/simulators/copasi/4.33.246
+                  - _type: Simulator
+                    id: tellurium
+                    name: tellurium
+                    version: 2.2.0
+                    api:
+                      _type: SimulatorApi
+                      package: biosimulators_tellurium
+                      module: biosimulators_tellurium
+                      version: 0.1.0
+                    specs: https://api.biosimulators.org/simulators/tellurium/2.2.0
+          description: "Ids, vesions, and properties of simulators available to execute\
+            \ COMBINE/OMEX archives."
         "400":
           content:
             application/json:
@@ -298,131 +127,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.combine.get_sedml_specs_for_combine_archive.handler
-      summary: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
-      description: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
-  /omex-metadata/validate:
-    post:
-      requestBody:
-        description: OMEX Metadata file.
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ValidateOmexMetadataFileOrUrl'
-            examples:
-              File:
-                value:
-                  file: <FILE>
-        required: true
+      operationId: src.handlers.run.get_simulators.handler
+      summary: Get the simulators available to execute COMBINE/OMEX archives
+      description: "Get the ids, vesions, and properties of simulators available to\
+        \ execute COMBINE/OMEX archives."
+  /health:
+    get:
       tags:
-      - Metadata (OMEX Metadata)
-      - Validation
+      - Health
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ValidationReport'
+                $ref: '#/components/schemas/Health'
               examples:
-                Valid OMEX Metadata file:
+                Healthy:
                   value:
-                    _type: ValidationReport
-                    status: valid
-                Invalid OMEX Metadata file:
-                  value:
-                    _type: ValidationReport
-                    errors:
-                    - - _type: ValidationMessage
-                        summary: OMEX Metadata file is invalid
-                    status: invalid
-          description: Overall validity of the OMEX Metadata file and errors and warnings
-            about how it isn't or may not be valid.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unable to determine if an OMEX metadata file is valid.
+                    status: ok
+          description: The service is operational.
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.omex_metadata.validate.handler
-      summary: Validate metadata about a simulation project or a component of a simulation
-        project
-      description: |-
-        Validate an [OMEX Metadata](https://sys-bio.github.io/libOmexMeta/) file with metadata about a simulation project or a component of a simulation project.
-
-        Notes
-        * Thumbnails described in OMEX Metadata files cannot be validated without the source images. As a result, such metadata files must be validated as part of the validation of COMBINE/OMEX archives (`/combine/validate`) which include the thumbnail files.
-        * Currently, submission to BioSimulations requires metadata to be in RDF-XML format.
-  /combine/validate:
-    post:
-      requestBody:
-        description: COMBINE/OMEX archive file or URL for a COMBINE/OMEX archive file.
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ValidateCombineArchiveFileOrUrl'
-            examples:
-              FIle:
-                value:
-                  file: <FILE>
-        required: true
-      tags:
-      - Simulation projects (COMBINE/OMEX archives)
-      - Validation
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationReport'
-              examples:
-                Valid archive:
-                  value:
-                    _type: ValidationReport
-                    status: valid
-                Invalid archive:
-                  value:
-                    _type: ValidationReport
-                    errors:
-                    - - _type: ValidationMessage
-                        summary: Archive is invalid
-                    status: invalid
-                Potentially invalid archive:
-                  value:
-                    _type: ValidationReport
-                    warnings:
-                    - - _type: ValidationMessage
-                        summary: Archive may be invalid
-                    status: warnings
-          description: Overall validity of COMBINE archive and errors and warnings
-            about how it isn't or may not be valid.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unable to determine if a COMBINE/OMEX archive is valid.
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Server error.
-      operationId: src.handlers.combine.validate.handler
-      summary: Validate a COMBINE archive and the simulation experiments and models
-        inside it.
-      description: |-
-        Validate a COMBINE archive and the simulation experiments (SED-ML files) and models (e.g., SBML files) inside it.
-
-        Notes:
-        * An OMEX Manifest file is required to validate OMEX Metadata files. As a result, the `validateOmexManifest=false` option should often also be used with the `validateOmexMetadata=false` option.
-        * Currently, submission to BioSimulations requires metadata to be in RDF-XML format.
-        * COMBINE/OMEX archives must pass all validation checks for publication to BioSimulations.
+        "503":
+          description: The service is unavailable.
+      operationId: src.handlers.health.handler
+      summary: Get information about the status of the service.
+      description: Get information about whether the service is up or down.
   /combine/create:
     post:
       requestBody:
@@ -463,7 +197,7 @@ paths:
                 contentType: application/json
         required: true
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
+      - Simulation projects
       responses:
         "200":
           content:
@@ -486,6 +220,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Specifications for COMBINE archive are invalid.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
         "500":
           content:
             application/json:
@@ -497,10 +237,386 @@ paths:
         of a SED-ML document.
       description: Assemble a COMBINE/OMEX archive from model files and specifications
         of a SED-ML document.
+  /combine/validate:
+    post:
+      requestBody:
+        description: COMBINE/OMEX archive file or URL for a COMBINE/OMEX archive file.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ValidateCombineArchiveFileOrUrl'
+            examples:
+              FIle:
+                value:
+                  file: <FILE>
+        required: true
+      tags:
+      - Simulation projects
+      - Validation
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationReport'
+              examples:
+                Valid archive:
+                  value:
+                    _type: ValidationReport
+                    status: valid
+                Invalid archive:
+                  value:
+                    _type: ValidationReport
+                    errors:
+                    - - _type: ValidationMessage
+                        summary: Archive is invalid
+                    status: invalid
+                Potentially invalid archive:
+                  value:
+                    _type: ValidationReport
+                    warnings:
+                    - - _type: ValidationMessage
+                        summary: Archive may be invalid
+                    status: warnings
+          description: Overall validity of COMBINE archive and errors and warnings
+            about how it isn't or may not be valid.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to determine if a COMBINE/OMEX archive is valid.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.validate.handler
+      summary: Validate a COMBINE archive and the simulation experiments and models
+        inside it.
+      description: |-
+        Validate a COMBINE archive and the simulation experiments (SED-ML files) and models (e.g., SBML files) inside it.
+
+        Notes:
+        * An OMEX Manifest file is required to validate OMEX Metadata files. As a result, the `validateOmexManifest=false` option should often also be used with the `validateOmexMetadata=false` option.
+        * Currently, submission to BioSimulations requires metadata to be in RDF-XML format.
+        * COMBINE/OMEX archives must pass all validation checks for publication to BioSimulations.
+  /combine/sedml-specs:
+    post:
+      requestBody:
+        description: COMBINE/OMEX archive file or URL for a COMBINE/OMEX archive file.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileOrUrl'
+            examples:
+              File:
+                value:
+                  file: <FILE>
+              URL:
+                value:
+                  url: https://models.org/archive.omex
+        required: true
+      tags:
+      - Simulation projects
+      - Simulation experiments
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CombineArchiveSedDocSpecs'
+              examples:
+                Example specifications of a COMBINE archive:
+                  value:
+                    _type: CombineArchiveSedDocSpecs
+                    contents:
+                    - _type: CombineArchiveSedDocSpecsContent
+                      location:
+                        _type: CombineArchiveSedDocSpecsLocation
+                        path: experiment1/simulation.sedml
+                        value:
+                          _type: SedDocument
+                          level: 1
+                          version: 3
+                          models: []
+                          simulations: []
+                          tasks: []
+                          dataGenerators: []
+                          outputs: []
+                      format: http://identifiers.org/combine.specifications/sed-ml
+                      master: true
+          description: Specifications of the SED-ML files in the COMBINE/OMEX archive.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
+            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
+            archive.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.get_sedml_specs_for_combine_archive.handler
+      summary: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+      description: Get the specifications of the SED-ML files in a COMBINE/OMEX archive
+  /combine/metadata/rdf:
+    post:
+      requestBody:
+        description: COMBINE/OMEX archive file or URL for a COMBINE/OMEX archive file.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GetCombineArchiveMetadataFileOrUrl'
+            examples:
+              File:
+                value:
+                  file: <FILE>
+              URL:
+                value:
+                  url: https://models.org/archive.omex
+        required: true
+      tags:
+      - Simulation projects
+      - Metadata
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RdfTriple'
+          description: Metadata about the the COMBINE/OMEX archive.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to get the metadata about the COMBINE/OMEX archive because
+            the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.combine.get_metadata_for_combine_archive.handler_rdf_triples
+      summary: Get the metadata about a COMBINE/OMEX archive
+      description: Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata
+        files as a list of RDF triples.
+  /sed-ml/validate:
+    post:
+      requestBody:
+        description: SED-ML file.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileOrUrl'
+            examples:
+              FIle:
+                value:
+                  file: <FILE>
+        required: true
+      tags:
+      - Simulation experiments
+      - Validation
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationReport'
+              examples:
+                Valid SED-ML file:
+                  value:
+                    _type: ValidationReport
+                    status: valid
+                Invalid SED-ML file:
+                  value:
+                    _type: ValidationReport
+                    errors:
+                    - - _type: ValidationMessage
+                        summary: SED-ML file is invalid
+                    status: invalid
+          description: Overall validity of the SED-ML file and errors and warnings
+            about how it isn't or may not be valid.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to determine if a SED-ML file is valid.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.sed_ml.validate.handler
+      summary: Validate a SED-ML file
+      description: "Validate a [Simulation Experiment Description Markup Language\
+        \ (SED-ML)](http://sed-ml.org/) file. Note, this method does not validate\
+        \ the sources of the models of SED-ML files or targets to models. Models files\
+        \ are required for more comprehensive validation. The `/combine/validate`\
+        \ endpoint provides more comprehensive validation that encompasses validation\
+        \ of model sources and targets to models."
+  /omex-metadata/validate:
+    post:
+      requestBody:
+        description: OMEX Metadata file.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ValidateOmexMetadataFileOrUrl'
+            examples:
+              File:
+                value:
+                  file: <FILE>
+        required: true
+      tags:
+      - Metadata
+      - Validation
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationReport'
+              examples:
+                Valid OMEX Metadata file:
+                  value:
+                    _type: ValidationReport
+                    status: valid
+                Invalid OMEX Metadata file:
+                  value:
+                    _type: ValidationReport
+                    errors:
+                    - - _type: ValidationMessage
+                        summary: OMEX Metadata file is invalid
+                    status: invalid
+          description: Overall validity of the OMEX Metadata file and errors and warnings
+            about how it isn't or may not be valid.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to determine if an OMEX metadata file is valid.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.omex_metadata.validate.handler
+      summary: Validate metadata about a simulation project or a component of a simulation
+        project
+      description: |-
+        Validate an [OMEX Metadata](https://sys-bio.github.io/libOmexMeta/) file with metadata about a simulation project or a component of a simulation project.
+
+        Notes
+        * Thumbnails described in OMEX Metadata files cannot be validated without the source images. As a result, such metadata files must be validated as part of the validation of COMBINE/OMEX archives (`/combine/validate`) which include the thumbnail files.
+        * Currently, submission to BioSimulations requires metadata to be in RDF-XML format.
+  /model/validate:
+    post:
+      requestBody:
+        description: Model file.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ValidateModelFileOrUrl'
+            examples:
+              File:
+                value:
+                  file: <FILE>
+        required: true
+      tags:
+      - Models
+      - Validation
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationReport'
+              examples:
+                Valid model:
+                  value:
+                    _type: ValidationReport
+                    status: valid
+                Invalid model:
+                  value:
+                    _type: ValidationReport
+                    errors:
+                    - - _type: ValidationMessage
+                        summary: Model is invalid
+                    status: invalid
+          description: Overall validity of the model file and errors and warnings
+            about how it isn't or may not be valid.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unable to determine if a model file is valid.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Server error.
+      operationId: src.handlers.model.validate.handler
+      summary: Validate a model
+      description: |-
+        Validate a model file such as a [CellML](https://cellml.org) or [Systems Biology Markup Language (SBML)](http://sbml.org) file.
+
+        Note, this endpoint is limited to models that are can be captured by a single file. Models that are described via multiple files can be validated using the COMBINE/OMEX archive validation endpoint (`/combine/validate`).
   /combine/file:
     get:
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
+      - Simulation projects
       parameters:
       - name: url
         description: URL for the COMBINE/OMEX archive.
@@ -569,7 +685,7 @@ paths:
                 contentType: application/json
         required: true
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
+      - Simulation projects
       responses:
         "200":
           content:
@@ -593,6 +709,12 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unable to get the file in the COMBINE/OMEX archive because
             the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
         "500":
           content:
             application/json:
@@ -619,7 +741,7 @@ paths:
                   url: https://models.org/archive.omex
         required: true
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
+      - Simulation projects
       responses:
         "200":
           content:
@@ -649,6 +771,12 @@ paths:
           description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
             archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
             archive.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
         "500":
           content:
             application/json:
@@ -675,8 +803,8 @@ paths:
                   url: https://models.org/archive.omex
         required: true
       tags:
-      - Simulation projects (COMBINE/OMEX archives)
-      - Metadata (OMEX Metadata)
+      - Simulation projects
+      - Metadata
       responses:
         "200":
           content:
@@ -693,6 +821,12 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Unable to get the metadata about the COMBINE/OMEX archive because
             the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
         "500":
           content:
             application/json:
@@ -703,51 +837,6 @@ paths:
       summary: Get the metadata about a COMBINE/OMEX archive
       description: Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata
         files in the archive encoded in BioSimulations' schema.
-  /combine/metadata/rdf:
-    post:
-      requestBody:
-        description: COMBINE/OMEX archive file or URL for a COMBINE/OMEX archive file.
-        content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/GetCombineArchiveMetadataFileOrUrl'
-            examples:
-              File:
-                value:
-                  file: <FILE>
-              URL:
-                value:
-                  url: https://models.org/archive.omex
-        required: true
-      tags:
-      - Simulation projects (COMBINE/OMEX archives)
-      - Metadata (OMEX Metadata)
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RdfTriple'
-          description: Metadata about the the COMBINE/OMEX archive.
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unable to get the metadata about the COMBINE/OMEX archive because
-            the URL is unavailable or the URL is not a valid COMBINE/OMEX archive.
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Server error.
-      operationId: src.handlers.combine.get_metadata_for_combine_archive.handler_rdf_triples
-      summary: Get the metadata about a COMBINE/OMEX archive
-      description: Get the metadata about a COMBINE/OMEX archive from the OMEX Metadata
-        files as a list of RDF triples.
   /run/run:
     description: ""
     post:
@@ -786,6 +875,7 @@ paths:
         required: true
       tags:
       - Simulation execution
+      - Simulation projects
       responses:
         "200":
           content:
@@ -823,6 +913,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: The COMBINE/OMEX archive could not be executed.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
         "500":
           content:
             application/json:
@@ -833,61 +929,64 @@ paths:
       summary: Execute a COMBINE/OMEX archive
       description: Execute the simulations defined in SED-ML format in a COMBINE/OMEX
         archive and return the result of each report and plot.
-  /run/simulators:
-    get:
+  /sed-ml/get-parameters-variables-for-simulation:
+    post:
+      requestBody:
+        description: Model file and specifications of a simulation task of the model.
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ModelAndSimulation'
+            examples:
+              Example CVODE simulation of a SBML-encoded model located at a URL:
+                value:
+                  modelUrl: https://website.com/model.xml
+                  modelLanguage: urn:sedml:language:sbml
+                  simulationType: SedUniformTimeCourseSimulation
+                  simulationAlgorithm: KISAO_0000019
+                  modelingFramework: SBO_0000293
+        required: true
       tags:
-      - Simulation Execution
+      - Simulation experiments
       responses:
         "200":
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Simulator'
+                $ref: '#/components/schemas/SedDocument'
               examples:
-                COPASI and tellurium:
+                Example SED document:
                   value:
-                  - _type: Simulator
-                    id: copasi
-                    name: COPASI
-                    version: 4.33.246
-                    api:
-                      _type: SimulatorApi
-                      package: biosimulators_copasi
-                      module: biosimulators_copasi
-                      version: 0.1.0
-                    specs: https://api.biosimulators.org/simulators/copasi/4.33.246
-                  - _type: Simulator
-                    id: tellurium
-                    name: tellurium
-                    version: 2.2.0
-                    api:
-                      _type: SimulatorApi
-                      package: biosimulators_tellurium
-                      module: biosimulators_tellurium
-                      version: 0.1.0
-                    specs: https://api.biosimulators.org/simulators/tellurium/2.2.0
-          description: "Ids, vesions, and properties of simulators available to execute\
-            \ COMBINE/OMEX archives."
+                    _type: SedDocument
+                    level: 1
+                    version: 3
+                    models: []
+                    simulations: []
+                    tasks: []
+                    dataGenerators: []
+                    outputs: []
+          description: Possible observables of a SED task as a list of SED data generators.
         "400":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Unable to get the specifications of the SED outputs for COMBINE/OMEX
-            archive because the URL is unavailable or the URL is not a valid COMBINE/OMEX
-            archive.
+          description: Unable to get the variables of a model because the model file
+            is invalid.
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Uploaded content is larger than the limit for this service.
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Server error.
-      operationId: src.handlers.run.get_simulators.handler
-      summary: Get the simulators available to execute COMBINE/OMEX archives
-      description: "Get the ids, vesions, and properties of simulators available to\
-        \ execute COMBINE/OMEX archives."
+      operationId: src.handlers.sed_ml.get_parameters_variables_for_simulation.handler
+      summary: Get the possible observables of a simulation as a list of SED variables.
 components:
   schemas:
     SedPlot2D:
@@ -3085,6 +3184,10 @@ components:
             \ archive such as \n\n\".\": COMBINE/OMEX archive\n\"./path/to/sim.sedml\"\
             : SED-ML document\n\"./path/to/sim.sedml/Table1\": Report in a SED-ML\
             \ document"
+        combineArchiveUri:
+          description: URI of the parent COMBINE/OMEX archive of the content element
+            for the metadata.
+          type: string
       example:
         _type: BioSimulationsMetadata
         title: Title
@@ -4001,8 +4104,43 @@ components:
         file: <FILE>
         format: rdfxml
         schema: BioSimulations
+    Health:
+      title: Root Type for Health
+      description: Information about the status of the service
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          description: Summary of the status of the service
+          enum:
+          - ok
+          type: string
+          example: ok
+      example:
+        status: ok
   responses:
     "404":
       content:
         application/json: {}
       description: The selected resource was not found
+tags:
+- name: Simulation projects
+  description: "Operations on [COMBINE/OMEX archives](https://combinearchive.org/)"
+- name: Models
+  description: "Operations on model files (e.g., [CellML](http://cellml.org/), [SBML](http://sbml.org/))"
+- name: Simulation experiments
+  description: "Operations on [Simulation Experiment Description Language (SED-ML)](http://sed-ml.org/)\
+    \ files"
+- name: Simulation algorithms
+  description: "Operations on the [Kinetic Simulation Algorithm Ontology (KiSAO)](https://github.com/SED-ML/KiSAO)"
+- name: Metadata
+  description: "Operations on [OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)\
+    \ files"
+- name: Validation
+  description: "Operations for validating models, simulation experiments, metadata,\
+    \ and simulation projects"
+- name: Simulation execution
+  description: Operations for executing simulation projects
+- name: Health
+  description: Get information about whether the service is up or down.

@@ -1,3 +1,93 @@
+# [5.8.0](https://github.com/biosimulations/biosimulations/compare/v5.7.3...v5.8.0) (2021-10-20)
+
+
+### Features
+
+* **api:** enabling simulation run requests with latest version of a simulator ([2b7c2d9](https://github.com/biosimulations/biosimulations/commit/2b7c2d92ed10825bfce1a6c35a5a1b4908ceeebe))
+* **config:** added endpoint for latest versions of simulators ([2a582ee](https://github.com/biosimulations/biosimulations/commit/2a582ee364a6308f42ae632b2487edd050964c87))
+* **dispatch:** recorded simulator versions and digests for simulation runs ([f2abb39](https://github.com/biosimulations/biosimulations/commit/f2abb39790aa24c582c42521aca38f3dfbecaa56))
+* **simulators:** added validation that version isn't reserved word 'latest' ([47843a8](https://github.com/biosimulations/biosimulations/commit/47843a8b687ff2ad001de286a07aa813735ca0c2))
+
+## [5.7.3](https://github.com/biosimulations/biosimulations/compare/v5.7.2...v5.7.3) (2021-10-19)
+
+
+### Bug Fixes
+
+* **api:** correct field name to get values from dataservice ([53a6bbc](https://github.com/biosimulations/biosimulations/commit/53a6bbc5d2ccab9ea086f405656bf26d0cb2bacb)), closes [#3313](https://github.com/biosimulations/biosimulations/issues/3313)
+* **api:** fix typo with checks ([caada0a](https://github.com/biosimulations/biosimulations/commit/caada0ab6e0f806508ee4d29966e5bcb0ca85109))
+
+## [5.7.2](https://github.com/biosimulations/biosimulations/compare/v5.7.1...v5.7.2) (2021-10-19)
+
+
+### Bug Fixes
+
+* **api:** aligned parameter name in documentation ([0100a27](https://github.com/biosimulations/biosimulations/commit/0100a274725e22654ce4cc4534e5b0ff64a42de1))
+* **simulators-api:** corrected put method; closes [#3305](https://github.com/biosimulations/biosimulations/issues/3305) ([57c34be](https://github.com/biosimulations/biosimulations/commit/57c34bef1f1370fdcd0a235020e4e7b5f20f5d54))
+
+## [5.7.1](https://github.com/biosimulations/biosimulations/compare/v5.7.0...v5.7.1) (2021-10-18)
+
+
+### Bug Fixes
+
+* **account-api:** fixed route parameter names ([c7d8712](https://github.com/biosimulations/biosimulations/commit/c7d8712b0614d325bc1bf7fcc9145effcb6f2e60))
+* **api:** fixed route parameter names ([1496f0f](https://github.com/biosimulations/biosimulations/commit/1496f0fc1c9ca0d63a620f73c216d9ab0752cce2))
+
+# [5.7.0](https://github.com/biosimulations/biosimulations/compare/v5.6.2...v5.7.0) (2021-10-18)
+
+
+### Bug Fixes
+
+* **api:** fix docs and typing of open api definition ([#3307](https://github.com/biosimulations/biosimulations/issues/3307)) ([0640c6a](https://github.com/biosimulations/biosimulations/commit/0640c6aff0dd6a2d558d44be620d042b6e7ba49d)), closes [#3304](https://github.com/biosimulations/biosimulations/issues/3304)
+* **api:** fix param name parsing for projectId ([af3c406](https://github.com/biosimulations/biosimulations/commit/af3c4069f352839a33696e3cf7c5dbb45d20c210))
+* **combine-service:** added missing Swagger templates to Docker image ([f27b8c8](https://github.com/biosimulations/biosimulations/commit/f27b8c8831b11fffedd3355bc9668f78ad2e080c))
+
+
+### Features
+
+* **combine-service:** added health endpoint ([0d356d3](https://github.com/biosimulations/biosimulations/commit/0d356d347f11c3377f14ddbb66af8823198eaa30))
+* **combine-service:** increased file upload limit, clarified error message ([5dfa25c](https://github.com/biosimulations/biosimulations/commit/5dfa25cca9fe73e2ef4b1af881f646bf9b022d5e))
+
+## [5.6.2](https://github.com/biosimulations/biosimulations/compare/v5.6.1...v5.6.2) (2021-10-18)
+
+
+### Bug Fixes
+
+* **api:** fix module import ([d47c376](https://github.com/biosimulations/biosimulations/commit/d47c376915713fbc2ae97b296318061374b4bc10))
+* **dispatch:** corrected file types for validate OMEX metadata form ([98794cd](https://github.com/biosimulations/biosimulations/commit/98794cd1397cb1ee921fad02b09d83ca82e7bd3f))
+
+## [5.6.1](https://github.com/biosimulations/biosimulations/compare/v5.6.0...v5.6.1) (2021-10-18)
+
+
+### Bug Fixes
+
+* **api:** fix permissions for endpoints ([f00f6d1](https://github.com/biosimulations/biosimulations/commit/f00f6d116cc64525656f4b36030ee0109f9ff3b0)), closes [#3242](https://github.com/biosimulations/biosimulations/issues/3242)
+* update client ids for api docs ([1ec36bb](https://github.com/biosimulations/biosimulations/commit/1ec36bb377ab939062da27455d199dbc3e4ada25))
+# [5.6.0](https://github.com/biosimulations/biosimulations/compare/v5.5.0...v5.6.0) (2021-10-17)
+
+
+### Bug Fixes
+
+* **api:** update api to use updated hsds client ([e7832aa](https://github.com/biosimulations/biosimulations/commit/e7832aaf2c6d34c78903227dfc7e7db254b5b73d))
+* **dispatch:** add flag to skip downloading test results to simulators service ([cbd63cc](https://github.com/biosimulations/biosimulations/commit/cbd63ccc6ecf757dec0da6cf000c200f2e8ebc4c)), closes [#3197](https://github.com/biosimulations/biosimulations/issues/3197)
+* **dispatch:** fix alg list to empty list to prevent crashing ([338be99](https://github.com/biosimulations/biosimulations/commit/338be997320e053b054137a44546a82a21c13e34))
+* make changes to update mongoose ([4653155](https://github.com/biosimulations/biosimulations/commit/46531556323e5d84cc96afbd87f4a58aa335be23))
+* **platform,dispatch:** corrected link to simulation results in files tab ([00aa363](https://github.com/biosimulations/biosimulations/commit/00aa363a059fc9b0f0f95d316c1313efadb890b7))
+* **platform:** redirect to 404 for non-existent projects; closes [#3234](https://github.com/biosimulations/biosimulations/issues/3234) ([173439a](https://github.com/biosimulations/biosimulations/commit/173439a2c322d933dc2ad4f5f1b3bcbeee666e80))
+* **simulators:** fix json-ld metadata on index.html ([95b3d98](https://github.com/biosimulations/biosimulations/commit/95b3d983c1be2ddf633570214f8d35a920d98f1e))
+
+
+### Features
+
+* **api:** add custom styling to swagger ui ([90830c0](https://github.com/biosimulations/biosimulations/commit/90830c02f53df0fc9f86c7211b2fa3359a1b8807))
+* **hsds:** update client library ([5746832](https://github.com/biosimulations/biosimulations/commit/574683246e7abb8a338d35d2a7a98ba25ce96d41))
+* **simulators:** added repository digest to image model; closes [#3194](https://github.com/biosimulations/biosimulations/issues/3194) ([1293410](https://github.com/biosimulations/biosimulations/commit/129341077889888b41397cf471389d8921c8c2f8))
+* **simulators:** expanded full text search; closes [#3209](https://github.com/biosimulations/biosimulations/issues/3209) ([c877189](https://github.com/biosimulations/biosimulations/commit/c877189fc5ece4943f3577602ff770660cdf01c0))
+
+
+### Reverts
+
+* **deps:** revert update dependency eslint to v8 ([0fdb3d8](https://github.com/biosimulations/biosimulations/commit/0fdb3d81a59710e4667974ecf0e42c8ec65ffd34))
+
 # [5.5.0](https://github.com/biosimulations/biosimulations/compare/v5.4.0...v5.5.0) (2021-10-09)
 
 

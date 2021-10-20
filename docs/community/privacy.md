@@ -14,4 +14,4 @@ The author profiles are publicly accessible. The user behavior data is only acce
 ## Your rights regarding your personal data
 You have the right to view, edit, or delete your author profile at any time. You also have the right to request at reasonable intervals, and without excessive delay or expense, information about the user behavior data processed about you.
 ## How to contact us
-If you have any questions about this policy, please contact Jonathan Karr and Ion Moraru at info@biosimulations.org or at 263 Farmington Avenue, Farmington, CT 06030-6406, USA.
+If you have any questions about this policy, please contact Jonathan Karr and Ion Moraru at [info@biosimulations.org](mailto:info@biosimulations.org) or at 263 Farmington Avenue, Farmington, CT 06030-6406, USA.

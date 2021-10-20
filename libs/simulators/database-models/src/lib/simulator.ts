@@ -20,6 +20,7 @@ import {
   SoftwareInterfaceType,
   OperatingSystemType,
   Funding,
+  ISimulator,
 } from '@biosimulations/datamodel/common';
 import { addValidationForNullableAttributes } from '@biosimulations/datamodel-database';
 import { ExternalReferencesSchema, PersonSchema, UrlSchema } from './common';
@@ -29,7 +30,7 @@ import {
 } from './biosimulatorsMeta';
 
 @Schema({})
-export class Simulator extends Document {
+export class Simulator extends Document implements ISimulator {
   @Prop({ type: BiosimulatorsMetaSchema, required: true, default: undefined })
   biosimulators!: BiosimulatorsMeta;
 
@@ -45,7 +46,20 @@ export class Simulator extends Document {
   @Prop({ type: String, required: true, default: undefined })
   name!: string;
 
-  @Prop({ type: String, required: true, default: undefined })
+  @Prop({
+    type: String,
+    required: true,
+    default: undefined,
+    validate: [
+      {
+        validator: (value: string): boolean => {
+          return value !== 'latest';
+        },
+        message: (props: any): string =>
+          '"latest" is not a valid version. "latest" is reserved to automatically refer to the latest version.',
+      },
+    ],
+  })
   version!: string;
 
   @Prop({ type: String, text: true, required: true, default: undefined })
@@ -140,8 +154,6 @@ export const SimulatorSchema = SchemaFactory.createForClass(Simulator);
 // Can not be set in the decorator for compund schemas.
 SimulatorSchema.index({ id: 1, version: 1 }, { unique: true });
 SimulatorSchema.set('strict', 'throw');
-// This should be kept true so that subdocuments can override the strict mode requirement
-SimulatorSchema.set('useNestedStrict', true);
 //SimulatorSchema.set('id', false);
 
 /* handle nullable attributes */

@@ -29,13 +29,6 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
-    path: 'help',
-    loadChildren: () => import('./help/help.module').then((m) => m.HelpModule),
-    data: {
-      breadcrumb: 'Help',
-    },
-  },
-  {
     path: 'error',
     loadChildren: () => SharedErrorComponentsModule,
   },

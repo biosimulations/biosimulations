@@ -15,7 +15,6 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class TestCase implements ITestCase {
   @Prop({ type: String, required: true, default: undefined })
@@ -31,7 +30,6 @@ export const TestCaseSchema = SchemaFactory.createForClass(TestCase);
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class TestCaseException implements ITestCaseException {
   @Prop({ type: String, required: true, default: undefined })
@@ -48,7 +46,6 @@ export const TestCaseExceptionSchema =
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class TestCaseResult implements ITestCaseResult {
   @Prop({ type: TestCaseSchema, required: true, default: undefined })
@@ -87,7 +84,6 @@ export const TestCaseResultSchema =
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class ValidationTests implements IValidationTests {
   @Prop({ type: String, required: true, default: undefined })
@@ -110,7 +106,6 @@ export const ValidationTestsSchema =
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   @Prop({

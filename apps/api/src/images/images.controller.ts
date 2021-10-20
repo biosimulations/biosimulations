@@ -7,18 +7,26 @@ import {
 import {
   Body,
   Controller,
+  HttpCode,
   Inject,
   InternalServerErrorException,
   Post,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiTags,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { refreshImageBody } from './image.dto';
+import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
 @Controller('images')
-@ApiTags('Internal management')
+@ApiTags('Internal')
 export class ImagesController {
-  constructor(@Inject('NATS_CLIENT') private client: ClientProxy) {}
+  public constructor(@Inject('NATS_CLIENT') private client: ClientProxy) {}
 
   @ApiOperation({
     summary:
@@ -26,10 +34,27 @@ export class ImagesController {
     description:
       'Trigger the simulation service to build (or rebuild) a Singularity image for a version of a simulation tool',
   })
-  @ApiBody({ type: refreshImageBody })
+  @ApiBody({
+    description:
+      'Version of a simulation tool to build (or rebuild) a Singularity image for',
+    type: refreshImageBody,
+  })
+  @ApiOkResponse({
+    description:
+      'The building/rebuilding of the Singularity image was successfully triggered',
+    type: String,
+  })
+  @HttpCode(200)
+  @ApiInternalServerErrorResponse({
+    description:
+      'An error occurred in triggering the building/rebuilding of the Singularity image',
+    type: ErrorResponseDocument,
+  })
   @permissions('refresh:Images')
   @Post('refresh')
-  async refreshImage(@Body() data: refreshImageBody) {
+  public async refreshImage(
+    @Body() data: refreshImageBody,
+  ): Promise<string | undefined> {
     const message = new ImageMessagePayload(data.simulator, data.version);
     // !Replace with wrapper to allow typing
     const success = await this.client

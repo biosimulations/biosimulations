@@ -24,26 +24,31 @@ export class MetadataService {
     const env = config.get('server.env');
     this.endpoints = new Endpoints(env);
   }
-  public async getAllMetadata(includePrivate = false) {
+  public async getAllMetadata(
+    includePrivate = false,
+  ): Promise<(SimulationRunMetadataModel & { _id: any })[] | null> {
     const query = includePrivate ? {} : { isPublic: true };
     const metadata = await this.metadataModel.find(query).exec();
 
     return metadata;
   }
 
-  public async getMetadata(id: string) {
+  public async getMetadata(
+    id: string,
+  ): Promise<(SimulationRunMetadataModel & { _id: any }) | null> {
     const metadata = await this.metadataModel
       .findOne({ simulationRun: id }, { id: 0, __v: 0 })
-      .lean()
       .exec();
 
     return metadata;
   }
 
-  public async createMetadata(data: SimulationRunMetadataInput) {
+  public async createMetadata(
+    data: SimulationRunMetadataInput,
+  ): Promise<SimulationRunMetadataModel & { _id: any }> {
     const sim = await this.simulationModel.findById(data.id);
     if (!sim) {
-      //throw new Error('Simulation not found');
+      throw new Error('Simulation not found');
     }
 
     const transformData = data.metadata.map(

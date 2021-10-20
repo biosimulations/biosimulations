@@ -72,11 +72,12 @@ function setupOpenApi(
     operationsSorter: 'alpha',
   };
   const customOptions: SwaggerCustomOptions = {
-    customSiteTitle: 'BioSimulations API documentation',
+    customSiteTitle: 'BioSimulators API documentation',
     swaggerOptions: uiOptions,
     customfavIcon:
       'https://github.com/biosimulations/Biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png',
-    customCss: ' .swagger-ui .topbar { display: none }',
+    customCssUrl:
+      'https://static.biosimulations.org/stylesheets/biosimulators_swagger.css',
   };
   SwaggerModule.setup(uiPath, app, document, customOptions);
 
@@ -162,7 +163,7 @@ async function bootstrap() {
     doc,
     'https://auth.biosimulations.org/authorize?audience=api.biosimulators.org',
     'https://auth.biosimulations.org/.well-known/openid-configuration',
-    'mfZoukkw1NCTdltQ0KhWMn9KXVNq7gfT',
+    'WEPUMb2Jo28NdEt1Z7fhUx54Bff8MnKF',
   );
 
   const httpAdapter = app.getHttpAdapter();

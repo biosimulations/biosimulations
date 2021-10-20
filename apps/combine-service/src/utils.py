@@ -56,6 +56,18 @@ def get_temp_file(suffix=None):
     return file_name
 
 
+def get_s3_bucket():
+    """ Get S3 bucket
+
+    Returns:
+        :obj:`S3Bucket`: S3 bucket
+    """
+    global s3_bucket
+    if s3_bucket is None:
+        s3_bucket = S3Bucket()
+    return s3_bucket
+
+
 def save_file_to_s3_bucket(filename, public=False, id=None):
     """ Save a file to the BioSimulations S3 bucket
 
@@ -65,9 +77,7 @@ def save_file_to_s3_bucket(filename, public=False, id=None):
     Returns:
         :obj:`str`: URL for saved file
     """
-    global s3_bucket
-    if s3_bucket is None:
-        s3_bucket = S3Bucket()
+    s3_bucket = get_s3_bucket()
 
     if id is None:
         id = str(uuid.uuid4())

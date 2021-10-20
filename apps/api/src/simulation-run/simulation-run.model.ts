@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /**
  * @file Contains the mongoose model definition for a simulation run. The COMBINE/OMEX archive file is stored as a ObjectId refrence to the file also stored in the database.
  * @author Bilal Shaikh
@@ -8,7 +9,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Types } from 'mongoose';
 import { SimulationFile } from './file.model';
-import { SimulationRunStatus, Purpose } from '@biosimulations/datamodel/common';
+import {
+  SimulationRun,
+  SimulationRunStatus,
+  Purpose,
+} from '@biosimulations/datamodel/common';
 import { omitPrivate } from '@biosimulations/datamodel-database';
 import { isEmail, isUrl } from '@biosimulations/datamodel-database';
 
@@ -24,7 +29,7 @@ export const EnvironmentVariableSchema =
   SchemaFactory.createForClass(EnvironmentVariable);
 
 @Schema({ collection: 'Simulation Runs', id: false })
-export class SimulationRunModel extends Document {
+export class SimulationRunModel extends Document implements SimulationRun {
   @Prop({ required: true, unique: true, index: true })
   id!: string;
 
@@ -79,6 +84,25 @@ export class SimulationRunModel extends Document {
 
   @Prop({ type: String, required: true })
   simulatorVersion!: string;
+
+  @Prop({
+    type: String,
+    required: true,
+    validate: [
+      {
+        validator: (value: any): boolean => {
+          return (
+            typeof value === 'string' &&
+            value.match(/^sha256:[a-z0-9]{64,64}$/) !== null
+          );
+        },
+        message: (props: any): string =>
+          `${props.value} is not a valid Docker repository digest`,
+      },
+    ],
+    default: undefined,
+  })
+  simulatorDigest!: string;
 
   @Prop({
     type: Number,
@@ -182,6 +206,7 @@ export type SimulationRunModelType = Pick<
   | 'resultsSize'
   | 'simulator'
   | 'simulatorVersion'
+  | 'simulatorDigest'
   | 'cpus'
   | 'memory'
   | 'maxTime'
@@ -207,3 +232,11 @@ SimulationRunModelSchema.set('timestamps', {
 });
 SimulationRunModelSchema.set('toObject', { transform: omitPrivate });
 SimulationRunModelSchema.set('toJSON', { transform: omitPrivate });
+
+/*
+export interface SimulationRunField {
+  id: string;
+
+  [key: string]: any;
+}
+*/

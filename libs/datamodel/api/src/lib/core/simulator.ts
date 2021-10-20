@@ -10,6 +10,7 @@ import {
 import {
   SoftwareInterfaceType,
   OperatingSystemType,
+  ISimulator,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -21,7 +22,7 @@ import {
   BiosimulatorsMeta,
 } from '../simulators';
 
-export class Simulator {
+export class Simulator implements ISimulator {
   @ApiProperty({ type: BiosimulatorsMeta })
   biosimulators!: BiosimulatorsMeta;
 

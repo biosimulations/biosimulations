@@ -14,19 +14,19 @@
 import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
-import { InlineObject7 } from '../model/inlineObject7';
+import { InlineObject6 } from '../model/inlineObject6';
 import { InlineResponse20012 } from '../model/inlineResponse20012';
 import { InlineResponse20013 } from '../model/inlineResponse20013';
 import { InlineResponse20014 } from '../model/inlineResponse20014';
 import { InlineResponse20015 } from '../model/inlineResponse20015';
-import { InlineResponse20019 } from '../model/inlineResponse20019';
+import { InlineResponse20018 } from '../model/inlineResponse20018';
 import { InlineResponse2014 } from '../model/inlineResponse2014';
 import { Configuration } from '../configuration';
 
 @Injectable()
 export class DatatypeService {
   protected basePath = 'https://data.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(
@@ -49,7 +49,6 @@ export class DatatypeService {
   /**
    * Get information about an Attribute.
    *
-   * @param accept Accept header
    * @param collection Collection of object (Group, Dataset, or Datatype).
    * @param objUuid UUID of object.
    * @param attr Name of attribute.
@@ -59,7 +58,6 @@ export class DatatypeService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesAttrGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -67,19 +65,12 @@ export class DatatypeService {
     domain?: string,
   ): Observable<AxiosResponse<InlineResponse20015>>;
   public collectionObjUuidAttributesAttrGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
     authorization?: string,
     domain?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesAttrGet.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesAttrGet.',
@@ -98,15 +89,12 @@ export class DatatypeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -137,7 +125,6 @@ export class DatatypeService {
   /**
    * Create an attribute with name &#x60;attr&#x60; and assign it to HDF5 object &#x60;obj_uudi&#x60;.
    *
-   * @param accept Accept header
    * @param collection The collection of the HDF5 object (&#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).
    * @param objUuid HDF5 object\&#39;s UUID.
    * @param attr Name of attribute.
@@ -148,7 +135,6 @@ export class DatatypeService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesAttrPut(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -157,7 +143,6 @@ export class DatatypeService {
     domain?: string,
   ): Observable<AxiosResponse<object>>;
   public collectionObjUuidAttributesAttrPut(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -165,12 +150,6 @@ export class DatatypeService {
     authorization?: string,
     domain?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesAttrPut.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesAttrPut.',
@@ -195,15 +174,12 @@ export class DatatypeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -240,7 +216,6 @@ export class DatatypeService {
   /**
    * List all Attributes attached to the HDF5 object &#x60;objUuid&#x60;.
    * Attributes sorted alphanumerically by name.
-   * @param accept Accept header
    * @param collection The collection of the HDF5 object (one of: &#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).
    * @param objUuid UUID of object.
    * @param authorization
@@ -251,7 +226,6 @@ export class DatatypeService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     authorization?: string,
@@ -260,7 +234,6 @@ export class DatatypeService {
     marker?: string,
   ): Observable<AxiosResponse<InlineResponse20014>>;
   public collectionObjUuidAttributesGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     authorization?: string,
@@ -268,12 +241,6 @@ export class DatatypeService {
     limit?: number,
     marker?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesGet.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesGet.',
@@ -286,7 +253,7 @@ export class DatatypeService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -298,9 +265,6 @@ export class DatatypeService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -330,7 +294,6 @@ export class DatatypeService {
    * List access lists on Datatype.
    *
    * @param id UUID of the committed datatype.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -338,13 +301,11 @@ export class DatatypeService {
    */
   public datatypesIdAclsGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
-  ): Observable<AxiosResponse<InlineResponse20019>>;
+  ): Observable<AxiosResponse<InlineResponse20018>>;
   public datatypesIdAclsGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -354,21 +315,12 @@ export class DatatypeService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling datatypesIdAclsGet.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -383,7 +335,7 @@ export class DatatypeService {
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<InlineResponse20019>(
+    return this.httpClient.get<InlineResponse20018>(
       `${this.basePath}/datatypes/${encodeURIComponent(String(id))}/acls`,
       {
         params: queryParameters,
@@ -396,7 +348,6 @@ export class DatatypeService {
    * Delete a committed Datatype.
    *
    * @param id UUID of the committed datatype.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -404,13 +355,11 @@ export class DatatypeService {
    */
   public datatypesIdDelete(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20013>>;
   public datatypesIdDelete(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -420,21 +369,12 @@ export class DatatypeService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling datatypesIdDelete.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -462,7 +402,6 @@ export class DatatypeService {
    * Get information about a committed Datatype
    *
    * @param id UUID of the committed datatype.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -470,13 +409,11 @@ export class DatatypeService {
    */
   public datatypesIdGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20012>>;
   public datatypesIdGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -486,21 +423,12 @@ export class DatatypeService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling datatypesIdGet.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -527,46 +455,34 @@ export class DatatypeService {
   /**
    * Commit a Datatype to the Domain.
    *
-   * @param accept Accept header
-   * @param inlineObject7
+   * @param inlineObject6
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public datatypesPost(
-    accept: 'application/json',
-    inlineObject7: InlineObject7,
+    inlineObject6: InlineObject6,
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2014>>;
   public datatypesPost(
-    accept: 'application/json',
-    inlineObject7: InlineObject7,
+    inlineObject6: InlineObject6,
     domain?: string,
     authorization?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
+    if (inlineObject6 === null || inlineObject6 === undefined) {
       throw new Error(
-        'Required parameter accept was null or undefined when calling datatypesPost.',
+        'Required parameter inlineObject6 was null or undefined when calling datatypesPost.',
       );
     }
 
-    if (inlineObject7 === null || inlineObject7 === undefined) {
-      throw new Error(
-        'Required parameter inlineObject7 was null or undefined when calling datatypesPost.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -588,7 +504,7 @@ export class DatatypeService {
     }
     return this.httpClient.post<InlineResponse2014>(
       `${this.basePath}/datatypes`,
-      inlineObject7,
+      inlineObject6,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,

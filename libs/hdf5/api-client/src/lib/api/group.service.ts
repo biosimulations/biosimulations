@@ -14,7 +14,7 @@
 import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
-import { InlineObject1 } from '../model/inlineObject1';
+import { InlineObject } from '../model/inlineObject';
 import { InlineResponse20014 } from '../model/inlineResponse20014';
 import { InlineResponse20015 } from '../model/inlineResponse20015';
 import { InlineResponse20016 } from '../model/inlineResponse20016';
@@ -27,7 +27,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class GroupService {
   protected basePath = 'https://data.biosimulations.dev';
-  public defaultHeaders = new Map();
+  public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
   constructor(
@@ -50,7 +50,6 @@ export class GroupService {
   /**
    * Get information about an Attribute.
    *
-   * @param accept Accept header
    * @param collection Collection of object (Group, Dataset, or Datatype).
    * @param objUuid UUID of object.
    * @param attr Name of attribute.
@@ -60,7 +59,6 @@ export class GroupService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesAttrGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -68,19 +66,12 @@ export class GroupService {
     domain?: string,
   ): Observable<AxiosResponse<InlineResponse20015>>;
   public collectionObjUuidAttributesAttrGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
     authorization?: string,
     domain?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesAttrGet.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesAttrGet.',
@@ -99,15 +90,12 @@ export class GroupService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -138,7 +126,6 @@ export class GroupService {
   /**
    * Create an attribute with name &#x60;attr&#x60; and assign it to HDF5 object &#x60;obj_uudi&#x60;.
    *
-   * @param accept Accept header
    * @param collection The collection of the HDF5 object (&#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).
    * @param objUuid HDF5 object\&#39;s UUID.
    * @param attr Name of attribute.
@@ -149,7 +136,6 @@ export class GroupService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesAttrPut(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -158,7 +144,6 @@ export class GroupService {
     domain?: string,
   ): Observable<AxiosResponse<object>>;
   public collectionObjUuidAttributesAttrPut(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     attr: string,
@@ -166,12 +151,6 @@ export class GroupService {
     authorization?: string,
     domain?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesAttrPut.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesAttrPut.',
@@ -196,15 +175,12 @@ export class GroupService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -241,7 +217,6 @@ export class GroupService {
   /**
    * List all Attributes attached to the HDF5 object &#x60;objUuid&#x60;.
    * Attributes sorted alphanumerically by name.
-   * @param accept Accept header
    * @param collection The collection of the HDF5 object (one of: &#x60;groups&#x60;, &#x60;datasets&#x60;, or &#x60;datatypes&#x60;).
    * @param objUuid UUID of object.
    * @param authorization
@@ -252,7 +227,6 @@ export class GroupService {
    * @param reportProgress flag to report request and response progress.
    */
   public collectionObjUuidAttributesGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     authorization?: string,
@@ -261,7 +235,6 @@ export class GroupService {
     marker?: string,
   ): Observable<AxiosResponse<InlineResponse20014>>;
   public collectionObjUuidAttributesGet(
-    accept: 'application/json',
     collection: 'groups' | 'datasets' | 'datatypes',
     objUuid: string,
     authorization?: string,
@@ -269,12 +242,6 @@ export class GroupService {
     limit?: number,
     marker?: string,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling collectionObjUuidAttributesGet.',
-      );
-    }
-
     if (collection === null || collection === undefined) {
       throw new Error(
         'Required parameter collection was null or undefined when calling collectionObjUuidAttributesGet.',
@@ -287,7 +254,7 @@ export class GroupService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -299,9 +266,6 @@ export class GroupService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -330,37 +294,22 @@ export class GroupService {
   /**
    * Get UUIDs for all non-root Groups in Domain.
    * Listed Group(s) must be reachable via hard Link from root Group, either directly or indirectly. If Groups exist which are unlinked or not reachable by tree originating at root, they will not be included in the list. If there is any hard Link in the tree to a Group which has been deleted, the request will fail with error 410 (GONE).
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public groupsGet(
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse2002>>;
-  public groupsGet(
-    accept: 'application/json',
-    domain?: string,
-    authorization?: string,
-  ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling groupsGet.',
-      );
-    }
-
-    let queryParameters = {};
+  public groupsGet(domain?: string, authorization?: string): Observable<any> {
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -385,7 +334,6 @@ export class GroupService {
    * List access lists on Group.
    *
    * @param id UUID of the Group, e.g. &#x60;g-37aa76f6-2c86-11e8-9391-0242ac110009&#x60;.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -393,13 +341,11 @@ export class GroupService {
    */
   public groupsIdAclsGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20016>>;
   public groupsIdAclsGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -409,21 +355,12 @@ export class GroupService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling groupsIdAclsGet.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -452,7 +389,6 @@ export class GroupService {
    *
    * @param id UUID of the Group, e.g. &#x60;g-37aa76f6-2c86-11e8-9391-0242ac110009&#x60;.
    * @param user Identifier/name of a user.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -461,14 +397,12 @@ export class GroupService {
   public groupsIdAclsUserGet(
     id: string,
     user: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<InlineResponse20017>>;
   public groupsIdAclsUserGet(
     id: string,
     user: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -484,21 +418,12 @@ export class GroupService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling groupsIdAclsUserGet.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -528,7 +453,6 @@ export class GroupService {
    * Delete a Group.
    * TODO: Will delete attributes of the Group. Will _not_ delete: (TODO: extensive tests to verify) + Objects (Groups, Types, Datasets) this object linked to + Links to this Group If a group is deleted while still hard-Linked, it will result in all &#x60;GET /groups&#x60; requests to fail with error 410 (GONE) until all Links to the deleted Group are also deleted.
    * @param id UUID of the Group, e.g. &#x60;g-37aa76f6-2c86-11e8-9391-0242ac110009&#x60;.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -536,13 +460,11 @@ export class GroupService {
    */
   public groupsIdDelete(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<AxiosResponse<object>>;
   public groupsIdDelete(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
   ): Observable<any> {
@@ -552,21 +474,12 @@ export class GroupService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling groupsIdDelete.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -594,7 +507,6 @@ export class GroupService {
    * Get information about a Group.
    *
    * @param id UUID of the Group, e.g. &#x60;g-37aa76f6-2c86-11e8-9391-0242ac110009&#x60;.
-   * @param accept Accept header
    * @param domain
    * @param authorization
    * @param getalias
@@ -603,14 +515,12 @@ export class GroupService {
    */
   public groupsIdGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
     getalias?: 0 | 1,
   ): Observable<AxiosResponse<InlineResponse2003>>;
   public groupsIdGet(
     id: string,
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
     getalias?: 0 | 1,
@@ -621,13 +531,7 @@ export class GroupService {
       );
     }
 
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling groupsIdGet.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
@@ -636,9 +540,6 @@ export class GroupService {
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
     }
@@ -665,48 +566,30 @@ export class GroupService {
   /**
    * Create a new Group.
    * Create a new Group in the given Domain. By default, the new Group it not attached to any other object in the Domain; it is left to the user or application to appropriately attach the new Group, i.e., Link to. A link description may be supplied in the request body as structured JSON, which will immediately link the new Group. If supplying link info, the header &#x60;Content-Type: application/json&#x60; should also be supplied as a matter of course. Note that this link will be a hard link -- it refers directly to the object.
-   * @param accept Accept header
    * @param domain
    * @param authorization
-   * @param contentType
-   * @param inlineObject1
+   * @param inlineObject
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public groupsPost(
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
-    inlineObject1?: InlineObject1,
+    inlineObject?: InlineObject,
   ): Observable<AxiosResponse<InlineResponse2011>>;
   public groupsPost(
-    accept: 'application/json',
     domain?: string,
     authorization?: string,
-    contentType?: 'application/json',
-    inlineObject1?: InlineObject1,
+    inlineObject?: InlineObject,
   ): Observable<any> {
-    if (accept === null || accept === undefined) {
-      throw new Error(
-        'Required parameter accept was null or undefined when calling groupsPost.',
-      );
-    }
-
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (domain !== undefined && domain !== null) {
       queryParameters['domain'] = <any>domain;
     }
 
     let headers = this.defaultHeaders;
-    if (accept !== undefined && accept !== null) {
-      headers['Accept'] = String(accept);
-    }
     if (authorization !== undefined && authorization !== null) {
       headers['Authorization'] = String(authorization);
-    }
-    if (contentType !== undefined && contentType !== null) {
-      headers['Content-Type'] = String(contentType);
     }
 
     // to determine the Accept header
@@ -726,7 +609,7 @@ export class GroupService {
     }
     return this.httpClient.post<InlineResponse2011>(
       `${this.basePath}/groups`,
-      inlineObject1,
+      inlineObject,
       {
         params: queryParameters,
         withCredentials: this.configuration.withCredentials,

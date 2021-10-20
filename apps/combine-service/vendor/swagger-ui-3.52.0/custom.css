@@ -1,0 +1,11 @@
+.topbar-wrapper img {
+  content: url(https://static.biosimulations.org/biosimulations-logo/logo.svg);
+}
+
+.swagger-ui .topbar .download-url-wrapper {
+  display: none;
+}
+
+.scheme-container {
+  display: none;
+}

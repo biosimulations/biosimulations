@@ -1,8 +1,15 @@
 /
+/create
 /help
-/help/faq
 /help/about
-/help/terms
+/help/faq
 /help/privacy
+/help/terms
 /run
 /simulations
+/utils/convert
+/utils/suggest-simulator
+/utils/validate-metadata
+/utils/validate-model
+/utils/validate-project
+/utils/validate-simulation

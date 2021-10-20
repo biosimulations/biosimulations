@@ -1,3 +1,4 @@
+import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import {
@@ -12,6 +13,7 @@ import { LogsService } from './logs.service';
 @Module({
   controllers: [LogsController],
   imports: [
+    BiosimulationsAuthModule,
     MongooseModule.forFeature([
       { name: SimulationRunLog.name, schema: SimulationRunLogSchema },
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },

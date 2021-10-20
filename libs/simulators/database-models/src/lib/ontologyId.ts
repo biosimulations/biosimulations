@@ -23,7 +23,6 @@ import isUrl from 'is-url';
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class Identifier implements IIdentifier {
   @Prop({ type: String, required: true, default: undefined })
@@ -51,7 +50,6 @@ export const IdentifierSchema = SchemaFactory.createForClass(Identifier);
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class OntologyId implements IOntologyId {
   @Prop({
@@ -71,7 +69,6 @@ export const OntologyIdSchema = SchemaFactory.createForClass(OntologyId);
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class EdamOntologyId implements IEdamOntologyId {
   @Prop({
@@ -110,7 +107,6 @@ export const EdamOntologyIdSchema =
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
   @Prop({
@@ -156,7 +152,6 @@ export const EdamOntologyIdVersionSchema = SchemaFactory.createForClass(
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class FunderRegistryOntologyId implements IFunderRegistryOntologyId {
   @Prop({
@@ -191,7 +186,6 @@ export const FunderRegistryOntologyIdSchema = SchemaFactory.createForClass(
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class LinguistOntologyId implements ILinguistOntologyId {
   @Prop({
@@ -225,7 +219,6 @@ export const LinguistOntologyIdSchema =
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class KisaoOntologyId implements IKisaoOntologyId {
   @Prop({
@@ -263,7 +256,6 @@ export const KisaoOntologyIdSchema =
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class SboOntologyId implements ISboOntologyId {
   @Prop({
@@ -300,7 +292,6 @@ export const SboOntologyIdSchema = SchemaFactory.createForClass(SboOntologyId);
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class SioOntologyId implements ISioOntologyId {
   @Prop({
@@ -337,7 +328,6 @@ export const SioOntologyIdSchema = SchemaFactory.createForClass(SioOntologyId);
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
-  useNestedStrict: true,
 })
 class SpdxOntologyId implements ISpdxOntologyId {
   @Prop({

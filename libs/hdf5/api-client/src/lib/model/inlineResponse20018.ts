@@ -9,13 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { InlineResponse2008Hrefs } from './inlineResponse2008Hrefs';
-import { ACL } from './aCL';
+import { ACLS } from './aCLS';
+import { InlineResponse20018Hrefs } from './inlineResponse20018Hrefs';
 
 /**
  * TODO
  */
 export interface InlineResponse20018 {
-  acl?: ACL;
-  hrefs?: Array<InlineResponse2008Hrefs>;
+  acls?: ACLS;
+  hrefs?: Array<InlineResponse20018Hrefs>;
 }

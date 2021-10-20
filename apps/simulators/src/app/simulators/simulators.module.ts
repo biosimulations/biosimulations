@@ -8,6 +8,7 @@ import { SimulatorsRoutingModule } from './simulators-routing.module';
 import { BrowseSimulatorsComponent } from './browse-simulators/browse-simulators.component';
 import { ViewSimulatorComponent } from './view-simulator/view-simulator.component';
 import { HighlightModule } from 'ngx-highlightjs';
+import { NgxJsonLdModule } from '@ngx-lite/json-ld';
 
 @NgModule({
   declarations: [BrowseSimulatorsComponent, ViewSimulatorComponent],
@@ -19,6 +20,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     SharedDebugModule,
     HighlightModule,
     OntologyClientModule,
+    NgxJsonLdModule,
   ],
   providers: [],
 })
