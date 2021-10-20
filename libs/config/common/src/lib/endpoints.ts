@@ -11,13 +11,11 @@ export class Endpoints {
   private api: string;
   private simulators_api: string;
   private combine_api: string;
-  private health: string;
   private simulationRuns: string;
   private simulationRunResults: string;
   private simulationRunLogs: string;
   private simulationRunMetadata: string;
   private simulators: string;
-  private simulatorsHealth: string;
   private files: string;
   private env: string;
   private combineFile: string;
@@ -60,13 +58,11 @@ export class Endpoints {
         break;
     }
 
-    this.health = `${this.api}/health`;
     this.simulationRunLogs = `${this.api}/logs`;
     this.simulationRunResults = `${this.api}/results`;
     this.simulationRunMetadata = `${this.api}/metadata`;
     this.simulationRuns = `${this.api}/runs`;
     this.simulators = `${this.simulators_api}/simulators`;
-    this.simulatorsHealth = `${this.simulators_api}/health`;
     this.files = `${this.api}/files`;
     this.combineFile = `${this.combine_api}/combine/file`;
     this.specifications = `${this.api}/specifications`;
@@ -79,19 +75,6 @@ export class Endpoints {
    */
   public getBaseUrl(): string {
     return this.api;
-  }
-
-  /**
-   *
-   * @param api The API to check the health of
-   * @returns The URL to get the health of the API
-   */
-  public getIsHealthyEndpoint(api: 'api' | 'simulators-api'): string {
-    if (api === 'api') {
-      return this.health;
-    } else {
-      return this.simulatorsHealth;
-    }
   }
 
   /**
@@ -330,12 +313,15 @@ export class Endpoints {
   public getApiHealthEndpoint(): string {
     return `${this.api}/health/status`;
   }
+
   public getSimulatorApiHealthEndpoint(): string {
-    return `${this.simulators}/health`;
+    return `${this.simulators_api}/health`;
   }
+
   public getCombineHealthEndpoint(): string {
     return `${this.getCombineEndpoint}/health`;
   }
+
   public getStorageHealthEndpoint(): string {
     return `${this.storage_endpoint}/helloWorld.txt`;
   }
