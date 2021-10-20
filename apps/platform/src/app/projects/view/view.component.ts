@@ -71,7 +71,7 @@ export class ViewComponent implements OnInit {
       }),
     );
 
-    this.simulationRunId$ = project$.pipe(      
+    this.simulationRunId$ = project$.pipe(
       map((project) => project.simulationRun),
     );
 
