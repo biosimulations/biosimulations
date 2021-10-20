@@ -865,6 +865,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/npm/cacache
 │  └─ licenseFile: npm/node_modules/cacache/LICENSE.md
+├─ cache-manager-redis-store@2.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/dabroek/node-cache-manager-redis-store
+│  ├─ publisher: Matthijs Dabroek
+│  ├─ email: dabroek@gmail.com
+│  └─ licenseFile: cache-manager-redis-store/LICENSE
 ├─ cache-manager@3.4.4
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/BryanDonovan/node-cache-manager
@@ -3904,6 +3910,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/NodeRedis/node-redis-parser
 │  ├─ publisher: Ruben Bridgewater
 │  └─ licenseFile: redis-parser/LICENSE
+├─ redis@3.1.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/NodeRedis/node-redis
+│  ├─ publisher: Matt Ranney
+│  ├─ email: mjr@ranney.com
+│  └─ licenseFile: redis/LICENSE
 ├─ reflect-metadata@0.1.13
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/rbuckton/reflect-metadata
