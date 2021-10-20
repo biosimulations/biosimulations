@@ -23,6 +23,7 @@ import {
 import { FormattedSimulation } from './view.model';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
+import { Dataset, WithContext } from 'schema-dts';
 
 @Component({
   templateUrl: './view.component.html',
@@ -51,6 +52,8 @@ export class ViewComponent implements OnInit {
   public visualization: Visualization | null = null;
 
   public logs$!: Observable<SimulationLogs | undefined>;
+
+  jsonLdData$!: Observable<WithContext<Dataset>>;
 
   public noMetadataFoundMessage =
     'This simulation run has no additional metadata';
@@ -136,6 +139,8 @@ export class ViewComponent implements OnInit {
       concatAll(),
       shareReplay(1),
     );
+
+    this.jsonLdData$ = this.sharedViewService.getJsonLdData(id);
 
     this.resultsLoaded$ = combineLatest([
       this.projectMetadata$,

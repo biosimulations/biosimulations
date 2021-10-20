@@ -59,6 +59,7 @@ import { urls } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { OntologyService } from '@biosimulations/ontology/client';
 import { Spec as VegaSpec } from 'vega';
+import { Dataset, DataCatalog, WithContext } from 'schema-dts';
 
 @Injectable({
   providedIn: 'root',
@@ -915,6 +916,7 @@ export class ViewService {
     }
     return flattenedArray;
   }
+
   private getProjectMetadata(id: string): Observable<ArchiveMetadata[]> {
     const response: Observable<ArchiveMetadata[]> = this.simService
       .getSimulationRunMetadata(id)
@@ -935,5 +937,144 @@ export class ViewService {
       );
 
     return response;
+  }
+
+  public getJsonLdData(runId: string, project?: any): Observable<WithContext<Dataset>> {
+    return forkJoin([
+      this.simService.getSimulationRun(runId),
+      this.getProjectMetadata(runId),
+    ]).pipe(
+      map(
+        (args: [any, any | undefined]): WithContext<Dataset> => {
+          const simulationRun = args[0];
+          const projectMeta = args[1].filter((meta: any) => meta.uri.search('/') === -1)[0];
+
+          const dataSet: WithContext<Dataset> = {
+            '@context': 'https://schema.org',
+            '@type': 'Dataset',
+            includedInDataCatalog: [{
+              '@type': 'DataCatalog',
+              name: 'runBioSimulations',
+              description: 'Database of runs of biosimulations, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
+              url: 'https://run.biosimulations.org',
+            }],
+            name: simulationRun.name,
+            url: `https://run.biosimulations/simulations/${runId}`,
+            identifier: [
+              `http://run.biosimulations/simulations/${runId}`,
+              `http://identifiers.org/runbiosimulations/${runId}`,
+            ],
+            distribution: [
+              {
+                '@type': 'DataDownload',
+                description: 'Project',
+                contentUrl: `${urls.dispatchApi}runs/${runId}/download`,
+                encodingFormat: "application/zip",
+                contentSize: UtilsService.formatDigitalSize(simulationRun.projectSize),
+              },
+              {
+                '@type': 'DataDownload',
+                description: 'Simulation results',
+                contentUrl: `${urls.dispatchApi}results/${runId}?includeData=true`,
+                encodingFormat: "application/json",
+              },
+              {
+                '@type': 'DataDownload',
+                description: 'Simulation outputs',
+                contentUrl: `${urls.dispatchApi}results/${runId}/download`,
+                encodingFormat: "application/zip",
+                contentSize: UtilsService.formatDigitalSize(simulationRun.resultsSize),
+              },
+              {
+                '@type': 'DataDownload',
+                description: 'Simulation log',
+                contentUrl: `${urls.dispatchApi}logs/${runId}`,
+                encodingFormat: "application/json",
+              },
+            ],
+            dateCreated: UtilsService.formatDate(new Date(simulationRun.submitted)),
+            dateModified: UtilsService.formatDate(new Date(simulationRun.updated)),
+            keywords: [
+              'mathematical model',
+              'numerical simulation',
+              'COMBINE',
+              'OMEX',
+              'Simulation Experiment Description Markup Language',
+              'SED-ML',
+              simulationRun.simulator,
+            ],
+            educationalLevel: 'advanced',
+          };
+
+          if (projectMeta) {
+            (dataSet.includedInDataCatalog as DataCatalog[]).push({
+              '@type': 'DataCatalog',
+              name: 'BioSimulations',
+              description: 'Open registry of biosimulation projects, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
+              url: 'https://biosimulations.org',
+            });
+            if (projectMeta?.title) {
+              dataSet.name = projectMeta?.title;
+            }
+            if (projectMeta?.description) {
+              dataSet.description = projectMeta?.description;
+            }
+            if (projectMeta?.abstract) {
+              dataSet.abstract = projectMeta?.abstract;
+            }
+            dataSet.thumbnailUrl = projectMeta.thumbnails;
+            dataSet.keywords = projectMeta.keywords;
+            dataSet.creator = projectMeta?.creators?.map((creator: LabeledIdentifier) => {
+              return {
+                '@type': 'Person',
+                'name': creator.label,
+                'identifier': creator.uri,
+              };
+            });
+            dataSet.contributor = projectMeta?.contributors?.map((contributor: LabeledIdentifier) => {
+              return {
+                '@type': 'Person',
+                'name': contributor.label,
+                'identifier': contributor.uri,
+              };
+            });
+            if (project?.id) {
+              dataSet.url = `https://biosimulations.org/projects/${project?.id}`;
+              (dataSet.identifier as string[]).push(`http://biosimulations.org/projects/${project?.id}`);
+              (dataSet.identifier as string[]).push(`http://identifiers.org/biosimulations/${project?.id}`);
+            }
+            projectMeta?.identifiers
+              ?.filter((identifier: LabeledIdentifier) => !!identifier && !!identifier?.uri)
+              ?.forEach((identifier: LabeledIdentifier): void => {
+                (dataSet.identifier as string[]).push(identifier.uri as string);
+              });
+            dataSet.citation = projectMeta?.citation
+              ?.map((citation: LabeledIdentifier) => {
+                return {
+                  '@type': 'Article',
+                  'description': citation.label,
+                  'identifier': citation.uri,
+                };
+              });
+            if (projectMeta?.license) {
+              dataSet.license = projectMeta?.license
+                ?.filter((license: LabeledIdentifier) => !!license.uri)
+                ?.map((license: LabeledIdentifier) => license.uri);
+            }
+            dataSet.funder = projectMeta?.funders?.map((funder: LabeledIdentifier) => {
+              return {
+                '@type': 'Organization',
+                'name': funder.label,
+                'identifier': funder.uri,
+              };
+            });
+            dataSet.datePublished = UtilsService.formatDate(new Date(project.created));
+            dataSet.dateModified = UtilsService.formatDate(new Date(project.updated));
+          }
+
+          return dataSet;
+        }
+      )
+    );
   }
 }
