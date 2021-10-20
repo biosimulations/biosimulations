@@ -17,6 +17,7 @@ export class Endpoints {
   private simulationRunLogs: string;
   private simulationRunMetadata: string;
   private simulators: string;
+  private simulatorsHealth: string;
   private files: string;
   private env: string;
   private combineFile: string;
@@ -65,6 +66,7 @@ export class Endpoints {
     this.simulationRunMetadata = `${this.api}/metadata`;
     this.simulationRuns = `${this.api}/runs`;
     this.simulators = `${this.simulators_api}/simulators`;
+    this.simulatorsHealth = `${this.simulators_api}/health`;
     this.files = `${this.api}/files`;
     this.combineFile = `${this.combine_api}/combine/file`;
     this.specifications = `${this.api}/specifications`;
@@ -81,10 +83,15 @@ export class Endpoints {
 
   /**
    *
+   * @param api The API to check the health of
    * @returns The URL to get the health of the API
    */
-  public getIsHealthyEndpoint(): string {
-    return this.health;
+  public getIsHealthyEndpoint(api: 'api' | 'simulators-api'): string {
+    if (api === 'api') {
+      return this.health;
+    } else {
+      return this.simulatorsHealth;
+    }
   }
 
   /**

@@ -7,7 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
-import { HealthService } from '@biosimulations/angular-api-client';
+import { HealthService } from './services/health/health.service';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({

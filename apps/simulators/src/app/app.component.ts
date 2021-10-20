@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
-import { HealthService } from '@biosimulations/angular-api-client';
+import { HealthService } from './services/health/health.service';
 import { UpdateService } from '@biosimulations/shared/pwa';
 import { Observable } from 'rxjs';
 

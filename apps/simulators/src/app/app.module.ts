@@ -10,7 +10,7 @@ import { environment } from '@biosimulations/shared/environments';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { ConfigService, ScrollService } from '@biosimulations/shared/services';
-import { HealthService } from '@biosimulations/angular-api-client';
+import { HealthService } from './services/health/health.service';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { PwaModule } from '@biosimulations/shared/pwa';
 

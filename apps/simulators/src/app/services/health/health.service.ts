@@ -16,7 +16,7 @@ export class HealthService {
     return of(true);
 
     /*
-    const url = this.endpoints.getIsHealthyEndpoint('api');
+    const url = this.endpoints.getIsHealthyEndpoint('simulators-api');
     return this.http.get<any[]>(url).pipe(
       map((response: any): boolean => {
         return true;
