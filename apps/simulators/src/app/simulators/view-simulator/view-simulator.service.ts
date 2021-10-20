@@ -205,7 +205,7 @@ export class ViewSimulatorService {
       dateModified: this.getDateStr(new Date(sim.biosimulators.updated)),
       educationalLevel: 'advanced',
       contentRating: {
-        '@type': 'Rating',        
+        '@type': 'Rating',
         'ratingValue': UtilsService.getSimulatorCurationStatus(sim),
         'ratingExplanation': UtilsService.getSimulatorCurationStatusMessage(
           UtilsService.getSimulatorCurationStatus(sim),
@@ -227,7 +227,7 @@ export class ViewSimulatorService {
     };
 
     jsonLdData.creator = sim.authors.map((author) => {
-      const names = [];            
+      const names = [];
       if (author.firstName) {
         names.push(author.firstName);
       }
