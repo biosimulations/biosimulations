@@ -1,3 +1,13 @@
+# [5.8.0](https://github.com/biosimulations/biosimulations/compare/v5.7.3...v5.8.0) (2021-10-20)
+
+
+### Features
+
+* **api:** enabling simulation run requests with latest version of a simulator ([2b7c2d9](https://github.com/biosimulations/biosimulations/commit/2b7c2d92ed10825bfce1a6c35a5a1b4908ceeebe))
+* **config:** added endpoint for latest versions of simulators ([2a582ee](https://github.com/biosimulations/biosimulations/commit/2a582ee364a6308f42ae632b2487edd050964c87))
+* **dispatch:** recorded simulator versions and digests for simulation runs ([f2abb39](https://github.com/biosimulations/biosimulations/commit/f2abb39790aa24c582c42521aca38f3dfbecaa56))
+* **simulators:** added validation that version isn't reserved word 'latest' ([47843a8](https://github.com/biosimulations/biosimulations/commit/47843a8b687ff2ad001de286a07aa813735ca0c2))
+
 ## [5.7.3](https://github.com/biosimulations/biosimulations/compare/v5.7.2...v5.7.3) (2021-10-19)
 
 
