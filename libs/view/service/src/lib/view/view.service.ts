@@ -968,7 +968,10 @@ export class ViewService {
           name: simulationRun.name,
           url: `${urls.dispatch}/simulations/${runId}`,
           identifier: [
-            `${urls.dispatch}/simulations/${runId}`.replace('https://', 'http://'),
+            `${urls.dispatch}/simulations/${runId}`.replace(
+              'https://',
+              'http://',
+            ),
             `http://identifiers.org/runbiosimulations/${runId}`,
           ],
           distribution: [
@@ -984,7 +987,11 @@ export class ViewService {
             {
               '@type': 'DataDownload',
               description: 'Simulation results',
-              contentUrl: this.endpoints.getRunResultsEndpoint(runId, undefined, true),
+              contentUrl: this.endpoints.getRunResultsEndpoint(
+                runId,
+                undefined,
+                true,
+              ),
               encodingFormat: 'application/json',
             },
             {
@@ -1057,7 +1064,9 @@ export class ViewService {
                 !!identifier && !!identifier?.uri,
             )
             ?.forEach((identifier: LabeledIdentifier): void => {
-              (runDataSet.identifier as string[]).push(identifier.uri as string);
+              (runDataSet.identifier as string[]).push(
+                identifier.uri as string,
+              );
             });
           runDataSet.citation = projectMeta?.citation?.map(
             (citation: LabeledIdentifier) => {
@@ -1086,7 +1095,7 @@ export class ViewService {
 
         if (project) {
           const dataSet: WithContext<Dataset> = {
-            "@context": "https://schema.org",
+            '@context': 'https://schema.org',
             '@type': 'Dataset',
           };
           Object.assign(dataSet, runDataSet);
@@ -1100,8 +1109,14 @@ export class ViewService {
           };
           dataSet.url = `${urls.platform}/projects/${project?.id}`;
           dataSet.identifier = [...(dataSet.identifier as string[])];
-          (dataSet.identifier as string[])[0] = `${urls.platform}/projects/${project?.id}`.replace('https://', 'http://');
-          (dataSet.identifier as string[])[1] = `http://identifiers.org/biosimulations/${project?.id}`;
+          (dataSet.identifier as string[])[0] =
+            `${urls.platform}/projects/${project?.id}`.replace(
+              'https://',
+              'http://',
+            );
+          (
+            dataSet.identifier as string[]
+          )[1] = `http://identifiers.org/biosimulations/${project?.id}`;
           dataSet.creativeWorkStatus = 'Published';
           dataSet.hasPart = runDataSet;
           dataSet.distribution = [
@@ -1111,7 +1126,7 @@ export class ViewService {
               contentUrl: this.endpoints.getProjectsEndpoint(project?.id),
               encodingFormat: 'application/json',
             },
-          ]
+          ];
           dataSet.datePublished = UtilsService.formatDate(
             new Date(project.created),
           );
@@ -1122,7 +1137,7 @@ export class ViewService {
           return dataSet;
         } else {
           const dataSet: WithContext<Dataset> = {
-            "@context": "https://schema.org",
+            '@context': 'https://schema.org',
             '@type': 'Dataset',
           };
           Object.assign(dataSet, runDataSet);
