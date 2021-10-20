@@ -1,35 +1,35 @@
 BioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker).
 
 ```
-├─ @angular/animations@12.2.10
+├─ @angular/animations@12.2.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/animations/README.md
-├─ @angular/cdk@12.2.10
+├─ @angular/cdk@12.2.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/cdk/LICENSE
-├─ @angular/common@12.2.10
+├─ @angular/common@12.2.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/core@12.2.10
+├─ @angular/core@12.2.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/core/README.md
-├─ @angular/forms@12.2.10
+├─ @angular/forms@12.2.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/forms/README.md
-├─ @angular/material@12.2.10
+├─ @angular/material@12.2.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
-├─ @angular/platform-browser@12.2.10
+├─ @angular/platform-browser@12.2.11
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -320,14 +320,14 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Stephan Bönnemann
 │  ├─ email: stephan@boennemann.me
 │  ├─ url: http://boennemann.me
-│  └─ licenseFile: semantic-release/node_modules/@semantic-release/error/LICENSE
+│  └─ licenseFile: @semantic-release/npm/node_modules/@semantic-release/error/LICENSE
 ├─ @semantic-release/github@8.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/github
 │  ├─ publisher: Pierre Vanduynslager
 │  ├─ url: https://twitter.com/@pvdlg_
 │  └─ licenseFile: @semantic-release/github/LICENSE
-├─ @semantic-release/npm@8.0.0
+├─ @semantic-release/npm@8.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/npm
 │  ├─ publisher: Pierre Vanduynslager
