@@ -59,7 +59,7 @@ import { urls } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { OntologyService } from '@biosimulations/ontology/client';
 import { Spec as VegaSpec } from 'vega';
-import { Dataset, DataCatalog, WithContext } from 'schema-dts';
+import { Dataset, WithContext } from 'schema-dts';
 import { Endpoints } from '@biosimulations/config/common';
 
 @Injectable({
@@ -1084,7 +1084,7 @@ export class ViewService {
           );
         }
 
-        if (false && project) {
+        if (project) {
           const dataSet: WithContext<Dataset> = {
             "@context": "https://schema.org",
             '@type': 'Dataset',
