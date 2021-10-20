@@ -6,7 +6,8 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
-import { ConfigService, ScrollService, HealthService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import { HealthService } from '@biosimulations/angular-api-client';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -15,7 +16,6 @@ describe('AppComponent', () => {
         RouterTestingModule,
         SharedUiModule,
         BiosimulationsIconsModule,
-        RouterTestingModule,
         NoopAnimationsModule,
         IonicStorageModule.forRoot({
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],

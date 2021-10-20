@@ -11,6 +11,7 @@ export class Endpoints {
   private api: string;
   private simulators_api: string;
   private combine_api: string;
+  private health: string;
   private simulationRuns: string;
   private simulationRunResults: string;
   private simulationRunLogs: string;
@@ -58,6 +59,7 @@ export class Endpoints {
         break;
     }
 
+    this.health = `${this.api}/health`;
     this.simulationRunLogs = `${this.api}/logs`;
     this.simulationRunResults = `${this.api}/results`;
     this.simulationRunMetadata = `${this.api}/metadata`;
@@ -75,8 +77,8 @@ export class Endpoints {
   public getBaseUrl(): string {
     return this.api;
   }
-  public getIsHealthyEndpoint(app: string): string {
-    return 'https://raw.githubusercontent.com/biosimulations/status-monitor/master/history/summary.json';
+  public getIsHealthyEndpoint(): string {
+    return this.health;
   }
   /**
    *

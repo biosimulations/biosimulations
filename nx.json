@@ -86,6 +86,7 @@
     "api-angular-client": {
       "tags": [
         "scope:simulations",
+        "scope:simulators",
         "type:client",
         "platform:web"
       ]

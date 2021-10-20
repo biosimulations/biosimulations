@@ -9,7 +9,7 @@ import { environment } from '@biosimulations/shared/environments';
 export class UpdateService {
   constructor(private updates: SwUpdate, private appRef: ApplicationRef) {
     if (environment.production) {
-      // Alert the user to rleload if there is a major error
+      // Alert the user to reload if there is a major error
       updates.unrecoverable.subscribe((event) => {
         alert(
           `An error occurred that we cannot recover from:\n${event.reason}\n\n` +
