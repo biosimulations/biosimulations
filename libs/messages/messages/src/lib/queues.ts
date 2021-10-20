@@ -8,6 +8,7 @@ export enum JobQueue {
   complete = 'complete',
   fail = 'fail',
   metadata = 'metadata',
+  health = 'health',
 }
 
 export class MonitorJob {
