@@ -38,7 +38,7 @@ export class Endpoints {
 
       case 'dev':
         this.api = 'https://api.biosimulations.dev';
-        this.simulators_api = 'https://api.biosimulators.dev';
+        this.simulators_api = 'http://localhost:3333';
         this.combine_api = 'https://combine.api.biosimulations.dev';
         this.storage_endpoint = 'https://files-dev.biosimulations.org/s3';
         break;

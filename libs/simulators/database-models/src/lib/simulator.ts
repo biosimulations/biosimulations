@@ -36,10 +36,20 @@ export class Simulator extends Document implements ISimulator {
 
   @Prop({
     type: String,
+    required: true,
+    default: undefined,
+    unique: true,
+    index: true,
+  })
+  idVersion!: string;
+
+  @Prop({
+    type: String,
     lowercase: true,
     trim: true,
     required: true,
     default: undefined,
+    index: true,
   })
   id!: string;
 
@@ -48,6 +58,7 @@ export class Simulator extends Document implements ISimulator {
 
   @Prop({
     type: String,
+    trim: true,
     required: true,
     default: undefined,
     validate: [
@@ -152,7 +163,7 @@ export class Simulator extends Document implements ISimulator {
 export const SimulatorSchema = SchemaFactory.createForClass(Simulator);
 
 // Can not be set in the decorator for compund schemas.
-SimulatorSchema.index({ id: 1, version: 1 }, { unique: true });
+SimulatorSchema.index({ id: 1, version: 1 }, { unique: false });
 SimulatorSchema.set('strict', 'throw');
 //SimulatorSchema.set('id', false);
 

@@ -65,6 +65,7 @@ export interface IBiosimulatorsMeta {
 
 export interface ISimulator {
   biosimulators: IBiosimulatorsMeta;
+  idVersion: string;
   id: string;
   name: string;
   version: string;

@@ -12,9 +12,11 @@ import { LeanDocument, Model } from 'mongoose';
 @Injectable()
 export class SimulatorsService {
   validate(doc: APISimulator) {
+    doc = this.setIdVersion(doc);
     const sim = new this.simulator(doc);
     return sim.validate();
   }
+
   constructor(
     @InjectModel(Simulator.name) private simulator: Model<Simulator>,
   ) {}
@@ -65,11 +67,12 @@ export class SimulatorsService {
       projection = { _id: 0, __v: 0 };
     }
     return this.simulator
-      .findOne({ id: id, version: version }, projection)
+      .findOne({ idVersion: this.getIdVersion(id, version) }, projection)
       .exec();
   }
 
   public async new(doc: APISimulator): Promise<Simulator> {
+    doc = this.setIdVersion(doc);
     const sim = new this.simulator(doc);
     let res: Simulator;
     try {
@@ -93,8 +96,9 @@ export class SimulatorsService {
     version: string,
     doc: APISimulator,
   ): Promise<Simulator> {
+    doc = this.setIdVersion(doc);
     const sim = await this.simulator
-      .findOne({ id: id, version: version })
+      .findOne({ idVersion: this.getIdVersion(id, version) })
       .exec();
 
     if (!sim) {
@@ -111,7 +115,7 @@ export class SimulatorsService {
 
   public async deleteOne(id: string, version: string): Promise<Simulator> {
     const sim = await this.simulator
-      .findOne({ id: id, version: version }, { _id: 0, __v: 0 })
+      .findOne({ idVersion: this.getIdVersion(id, version) }, { _id: 0, __v: 0 })
       .exec();
 
     if (!sim) {
@@ -120,7 +124,7 @@ export class SimulatorsService {
       );
     }
     const deleted = await this.simulator
-      .findOneAndDelete({ id: id, version: version })
+      .findOneAndDelete({ idVersion: this.getIdVersion(id, version) })
       .exec();
 
     return sim;
@@ -129,10 +133,20 @@ export class SimulatorsService {
   public async deleteMany(id: string): Promise<void> {
     const sims = await this.simulator.deleteMany({ id: id }).exec();
   }
+
   public async deleteAll(): Promise<void> {
     const sims = await this.simulator.deleteMany({});
     if (!sims.acknowledged) {
       throw new InternalServerErrorException('Operation Failed');
     }
+  }
+
+  private getIdVersion(id: string, version: string): string {
+    return id + ':' + version;
+  }
+
+  private setIdVersion(doc: APISimulator): APISimulator {
+    doc.idVersion = this.getIdVersion(doc.id, doc.version);
+    return doc;
   }
 }
