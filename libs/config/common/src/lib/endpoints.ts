@@ -106,15 +106,6 @@ export class Endpoints {
   /**
    *
    * @param id The id of the simulation run
-   * @returns The URL to get the contents of a sedml file in a combine archive
-   */
-  public getArchiveSedmlContentsEndpoint(id?: string): string {
-    return `${this.specifications}` + (id ? '/' + id : '');
-  }
-
-  /**
-   *
-   * @param id The id of the simulation run
    * @returns The URL to get the simulation run
    */
   public getSimulationRunEndpoint(id?: string): string {
@@ -273,15 +264,6 @@ export class Endpoints {
     }
     return `${this.simulationRunResults}/${id}/download`;
   }
-  /**
-   *
-   * @param id The id of the simulation run
-   * @returns A URL to get the logs of the simulation run
-   */
-  public getRunLogsEndpoint(id?: string): string {
-    id ? (id = `/${id}`) : (id = '');
-    return `${this.simulationRunLogs}${id}`;
-  }
 
   /**
    *
@@ -316,7 +298,7 @@ export class Endpoints {
     id ? (id = `/${id}`) : (id = '');
     if (id && !simId) {
       throw new Error(
-        'Cannot get a specific specification without an simulation id',
+        'Cannot get a specific specification without a simulation id',
       );
     }
 

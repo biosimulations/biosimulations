@@ -51,7 +51,7 @@ export class ProjectService {
   }
 
   public getProjectSedmlContents(id: string): Observable<any> {
-    const url = this.endpoints.getArchiveSedmlContentsEndpoint(id);
+    const url = this.endpoints.getSpecificationsEndpoint(id);
     const response = this.http.get<any>(url).pipe();
     return response;
   }
