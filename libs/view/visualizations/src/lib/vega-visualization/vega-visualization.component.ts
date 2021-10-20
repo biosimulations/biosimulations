@@ -9,6 +9,7 @@ import {
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Spec } from 'vega';
 import vegaEmbed from 'vega-embed';
+import { debounce } from 'throttle-debounce';
 
 @Component({
   selector: 'biosimulations-vega-visualization',
@@ -21,12 +22,17 @@ export class VegaVisualizationComponent implements OnDestroy {
 
   private builtInConsoleWarn!: any;
 
+  private resizeDebounce!: debounce<() => void>;
+
   constructor(private hostElement: ElementRef) {
     this.builtInConsoleWarn = console.warn;
+
+    this.resizeDebounce = debounce(200, false, this.doOnResize.bind(this));
   }
 
   ngOnDestroy() {
     console.warn = this.builtInConsoleWarn;
+    this.resizeDebounce?.cancel();
   }
 
   private loading = new BehaviorSubject<boolean>(true);
@@ -108,10 +114,14 @@ export class VegaVisualizationComponent implements OnDestroy {
       console.error(error);
       this.error.next(`The visualization is invalid: ${error.message}.`);
     });
-  }
+  }  
 
   @HostListener('window:resize')
-  onResize() {
+  onResize() {    
+    this.resizeDebounce();
+  }
+
+  doOnResize(): void {
     const rect =
       this.hostElement.nativeElement.parentElement?.getBoundingClientRect();
     if (

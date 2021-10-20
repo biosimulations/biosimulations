@@ -9,6 +9,9 @@ import {
   forkJoin,
 } from 'rxjs';
 import {
+  debounceTime
+} from 'rxjs/operators';
+import {
   ArchiveMetadata,
   LabeledIdentifier,
   DescribedIdentifier,
@@ -713,6 +716,7 @@ export class ViewService {
               vegaSpec: this.projService
                 .getProjectFile(id, content.location)
                 .pipe(
+                  shareReplay(1),
                   map((spec: VegaSpec): VegaSpec | false => {
                     return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(
                       id,
@@ -720,6 +724,7 @@ export class ViewService {
                       spec,
                     );
                   }),
+                  shareReplay(1),
                 ),
             });
           }
