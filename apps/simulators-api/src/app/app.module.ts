@@ -8,8 +8,8 @@ import { ConfigService } from '@nestjs/config';
 import { SimulatorsModule } from '../simulators/simulators.module';
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { SharedExceptionsFiltersModule } from '@biosimulations/shared/exceptions/filters';
-// TODO create seperate auth environment for simulators-api
 import * as mongoose from 'mongoose';
+import { HealthModule } from '../health/health.module';
 mongoose.set('strict', 'throw');
 @Module({
   imports: [
@@ -26,6 +26,7 @@ mongoose.set('strict', 'throw');
     }),
     SimulatorsModule,
     SharedExceptionsFiltersModule,
+    HealthModule,
   ],
 })
 export class AppModule {}
