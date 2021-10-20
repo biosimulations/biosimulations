@@ -5,6 +5,10 @@
   <biosimulations-spinner></biosimulations-spinner>
 </div>
 
+<ng-container *ngIf="jsonLdData$ | async as jsonLdData">
+  <ngx-json-ld [json]="jsonLdData"></ngx-json-ld>
+</ng-container>
+
 <biosimulations-tab-page
   *ngIf="(loaded$ | async) === true"
   [selectedTabIndex]="selectedTabIndex"
