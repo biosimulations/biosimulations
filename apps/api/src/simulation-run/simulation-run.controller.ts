@@ -9,7 +9,6 @@ import { DispatchJob } from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
 import {
   ErrorResponseDocument,
-  // FieldsQueryParameters,
 } from '@biosimulations/datamodel/api';
 import {
   BadRequestException,
@@ -27,7 +26,6 @@ import {
   UploadedFile,
   UseInterceptors,
   UnsupportedMediaTypeException,
-  // Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -37,7 +35,6 @@ import {
   ApiOkResponse,
   ApiNoContentResponse,
   ApiOperation,
-  // ApiQuery,
   ApiPayloadTooLargeResponse,
   ApiTags,
   ApiNotFoundResponse,
@@ -60,7 +57,6 @@ import {
 import { SimulationRunService } from './simulation-run.service';
 import {
   SimulationRunModelReturnType,
-  // SimulationRunField,
 } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
 import { InjectQueue } from '@nestjs/bull';
@@ -98,21 +94,14 @@ export class SimulationRunController {
     return (<UploadSimulationRunUrl>body).url != undefined;
   }
 
-  /*
   @ApiOperation({
     summary: 'Get all of the simulation runs',
     description:
       'Returns an array of all the simulation run objects in the database. Access is restricted to administrators.',
   })
-  @ApiQuery({
-    name: 'fields',
-    description: 'List of fields to retrieve for each simulation run.',
-    required: true,
-    type: [String],
-  })
   @ApiOkResponse({
     description: 'The simulation runs were successfully retrieved',
-    // type: [SimulationRunField],
+    type: [SimulationRun],
   })
   @permissions('read:SimulationRuns')
   @ApiUnauthorizedResponse({
@@ -122,16 +111,13 @@ export class SimulationRunController {
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
     description:
-      'This account does not have permission to get all simulation runs. Access to all runs is limited to the administrators.',
+      'This account does not have permission to get all simulation runs. Access to all runs is limited to administrators.',
   })
   @Get()
-  public async getRuns(
-    @Query() queryparams: FieldsQueryParameters,
-  ): Promise<SimulationRunField[]> {
-    const res = await this.service.getAll(queryparams.fields);
-    return res;
+  public async getRuns(): Promise<SimulationRun[]> {
+    const res = await this.service.getAll();
+    return res.map(this.makeSimulationRun);
   }
-  */
 
   @ApiOperation({
     summary: 'Submit a simulation to run',

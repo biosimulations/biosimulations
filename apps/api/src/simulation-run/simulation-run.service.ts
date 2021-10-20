@@ -22,7 +22,6 @@ import {
   SimulationRunModel,
   SimulationRunModelReturnType,
   SimulationRunModelType,
-  // SimulationRunField,
 } from './simulation-run.model';
 import {
   UpdateSimulationRun,
@@ -177,22 +176,10 @@ export class SimulationRunService {
     return toApi(await model.save());
   }
 
-  /*
-  public async getAll(fields: string[] = []): Promise<SimulationRunField[]> {
-    const projection: { [key: string]: number } = {
-      id: 1,
-      _id: 0,
-    };
-
-    for (const field of fields) {
-      projection[field] = 1;
-    }
-
-    const res = await this.simulationRunModel.find({}, projection).lean();
-
-    return res;
+  public async getAll(): Promise<SimulationRunModelReturnType[]> {
+    const runs = await this.simulationRunModel.find({}).exec();
+    return runs.map((run) => toApi({ ...run, id: run._id }));
   }
-  */
 
   public async get(id: string): Promise<SimulationRunModelReturnType | null> {
     const run = await this.simulationRunModel
