@@ -21,7 +21,6 @@ body:
       label: Location
       description: Where did ypu experience the bug?
       multiple: true
-      required: true
       options:
         - runBiosimulations
         - BioSimulations
@@ -29,6 +28,8 @@ body:
         - BioSimulations API
         - BioSimulators API 
         - Other (please describe below)
+    validations:
+      required: true
   - type: textarea
     id: what-happened
     attributes:
