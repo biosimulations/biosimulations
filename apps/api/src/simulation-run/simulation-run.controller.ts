@@ -9,7 +9,7 @@ import { DispatchJob } from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
 import {
   ErrorResponseDocument,
-  FieldsQueryParameters,
+  // FieldsQueryParameters,
 } from '@biosimulations/datamodel/api';
 import {
   BadRequestException,
@@ -27,7 +27,7 @@ import {
   UploadedFile,
   UseInterceptors,
   UnsupportedMediaTypeException,
-  Query,
+  // Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -37,7 +37,7 @@ import {
   ApiOkResponse,
   ApiNoContentResponse,
   ApiOperation,
-  ApiQuery,
+  // ApiQuery,
   ApiPayloadTooLargeResponse,
   ApiTags,
   ApiNotFoundResponse,
@@ -60,7 +60,7 @@ import {
 import { SimulationRunService } from './simulation-run.service';
 import {
   SimulationRunModelReturnType,
-  SimulationRunField,
+  // SimulationRunField,
 } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
 import { InjectQueue } from '@nestjs/bull';
@@ -91,12 +91,14 @@ export class SimulationRunController {
   ): body is multipartSimulationRunBody {
     return (<multipartSimulationRunBody>body).simulationRun != undefined;
   }
+
   private isUrlBody(
     body: multipartSimulationRunBody | UploadSimulationRunUrl,
   ): body is UploadSimulationRunUrl {
     return (<UploadSimulationRunUrl>body).url != undefined;
   }
 
+  /*
   @ApiOperation({
     summary: 'Get all of the simulation runs',
     description:
@@ -129,6 +131,7 @@ export class SimulationRunController {
     const res = await this.service.getAll(queryparams.fields);
     return res;
   }
+  */
 
   @ApiOperation({
     summary: 'Submit a simulation to run',
