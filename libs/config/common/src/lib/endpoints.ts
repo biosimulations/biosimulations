@@ -91,7 +91,10 @@ export class Endpoints {
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
    * @returns The URL to get the content of a combine archive
    */
-  public getArchiveContentsEndpoint(runId?: string, fileLocation?: string): string {
+  public getArchiveContentsEndpoint(
+    runId?: string,
+    fileLocation?: string,
+  ): string {
     if (runId) {
       runId = '/' + runId;
       if (fileLocation) {
@@ -139,7 +142,10 @@ export class Endpoints {
    * @param fileLocation The path of the file within combine archive relative to its root. Should not include './'
    * @returns A URL to download the file from within the combine archive
    */
-  public getSimulationRunFileEndpoint(runId: string, fileLocation: string): string {
+  public getSimulationRunFileEndpoint(
+    runId: string,
+    fileLocation: string,
+  ): string {
     if (fileLocation.startsWith('./')) {
       fileLocation = fileLocation.substring(2);
     }
@@ -241,7 +247,9 @@ export class Endpoints {
   ): string {
     runId ? (runId = `/${encodeURIComponent(runId)}`) : (runId = '');
     experimentLocationAndOutputId
-      ? (experimentLocationAndOutputId = `/${encodeURIComponent(experimentLocationAndOutputId)}`)
+      ? (experimentLocationAndOutputId = `/${encodeURIComponent(
+          experimentLocationAndOutputId,
+        )}`)
       : (experimentLocationAndOutputId = '');
     if (experimentLocationAndOutputId && !runId) {
       throw new Error('Cannot get results of an output without an id');
@@ -266,10 +274,16 @@ export class Endpoints {
    * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    * @returns A URL to download the output of a simulation
    */
-  public getRunResultsDownloadEndpoint(runId: string, external = false): string {
+  public getRunResultsDownloadEndpoint(
+    runId: string,
+    external = false,
+  ): string {
     if (external) {
       if (this.env == 'local') {
-        return new Endpoints('dev').getRunResultsDownloadEndpoint(runId, external);
+        return new Endpoints('dev').getRunResultsDownloadEndpoint(
+          runId,
+          external,
+        );
       }
     }
     return `${this.simulationRunResults}/${runId}/download`;
@@ -303,13 +317,16 @@ export class Endpoints {
    * @param experimentLocation The local of the particular simulation spec (SED-ML file )
    * @returns The URL to the specified simulation spec
    */
-  public getSpecificationsEndpoint(runId?: string, experimentLocation?: string): string {
+  public getSpecificationsEndpoint(
+    runId?: string,
+    experimentLocation?: string,
+  ): string {
     runId ? (runId = `/${runId}`) : (runId = '');
-    experimentLocation ? (experimentLocation = `/${experimentLocation}`) : (experimentLocation = '');
+    experimentLocation
+      ? (experimentLocation = `/${experimentLocation}`)
+      : (experimentLocation = '');
     if (experimentLocation && !runId) {
-      throw new Error(
-        'Cannot get a specific specification without a run id',
-      );
+      throw new Error('Cannot get a specific specification without a run id');
     }
 
     return `${this.specifications}${runId}${experimentLocation}`;

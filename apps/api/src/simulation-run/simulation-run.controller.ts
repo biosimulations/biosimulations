@@ -7,9 +7,7 @@
  */
 import { DispatchJob } from '@biosimulations/messages/messages';
 import { OptionalAuth, permissions } from '@biosimulations/auth/nest';
-import {
-  ErrorResponseDocument,
-} from '@biosimulations/datamodel/api';
+import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import {
   BadRequestException,
   Body,
@@ -55,9 +53,7 @@ import {
   UploadSimulationRunUrl,
 } from '@biosimulations/datamodel/api';
 import { SimulationRunService } from './simulation-run.service';
-import {
-  SimulationRunModelReturnType,
-} from './simulation-run.model';
+import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
