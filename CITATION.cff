@@ -91,6 +91,9 @@ identifiers:
     value: fairsharing:FAIRsharing.pweima
     description: FAIRSharing entry for BioSimulators
   - type: other
+    value: biosimulations
+    description: Identifiers.org entry for BioSimulations
+  - type: other
     value: runbiosimulations
     description: Identifiers.org entry for runBioSimulations
   - type: other
