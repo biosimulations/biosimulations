@@ -118,7 +118,8 @@ export class Endpoints {
    * @returns The URL to get the simulation run
    */
   public getSimulationRunEndpoint(id?: string): string {
-    return this.getBaseUrl() + '/runs/' + id;
+    id ? (id = `/${id}`) : (id = '');
+    return `${this.simulationRuns}${id}`;
   }
 
   /**
@@ -202,15 +203,7 @@ export class Endpoints {
     id ? (id = `/${id}`) : (id = '');
     return `${this.simulationRunMetadata}${id}`;
   }
-  /**
-   *
-   * @param id The id of the simulation run
-   * @returns A URL to get the simulation run
-   */
-  public getRunsEndpoint(id?: string): string {
-    id ? (id = `/${id}`) : (id = '');
-    return `${this.simulationRuns}${id}`;
-  }
+
   /**
    * Returns the URL to download the omex file of a simulation run. The external parameter is used to determine if the
    * returned URL is accessible from outside the current environment.
