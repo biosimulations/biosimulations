@@ -9,7 +9,7 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    ".github/workflows/ci.yml": "*",
+    ".github/workflows/nxCi.yml": "*",
     "Pipfile": [
       "combine-service"
     ],
