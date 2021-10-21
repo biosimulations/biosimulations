@@ -11,7 +11,7 @@ import {
   TocSectionsContainerDirective,
   QAComponent,
 } from '@biosimulations/shared/ui';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService } from '@biosimulations/shared/angular';
 import { FAQPage, Question, WithContext } from 'schema-dts';
 import sanitizeHtml from 'sanitize-html';
 

@@ -10,7 +10,7 @@ import {
   ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService } from '@biosimulations/shared/angular';
 import { Observable } from 'rxjs';
 import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
@@ -21,7 +21,7 @@ import { snackBarDuration } from '@biosimulations/config/common';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteSimulationsDialogComponent } from './delete-simulations-dialog.component';
-import { UtilsService } from '@biosimulations/shared/services';
+import { FormatService } from '@biosimulations/shared/services';
 
 @Component({
   templateUrl: './browse.component.html',
@@ -146,14 +146,14 @@ export class BrowseComponent implements OnInit {
       },
       formatter: (valueMin: number): string => {
         if (valueMin !== null && valueMin !== undefined) {
-          return UtilsService.formatDuration(valueMin * 60);
+          return FormatService.formatDuration(valueMin * 60);
         } else {
           return 'N/A';
         }
       },
       stackedFormatter: (valueMin: number): string => {
         if (valueMin !== null && valueMin !== undefined) {
-          return UtilsService.formatDuration(valueMin * 60);
+          return FormatService.formatDuration(valueMin * 60);
         } else {
           return 'N/A';
         }
@@ -209,10 +209,10 @@ export class BrowseComponent implements OnInit {
         }
       },
       formatter: (valueSec: number | null): string | null => {
-        return valueSec !== null ? SimulationStatusService.UtilsService.formatDuration(valueSec) : null;
+        return valueSec !== null ? SimulationStatusService.FormatService.formatDuration(valueSec) : null;
       },
       stackedFormatter: (valueSec: number | null): string => {
-        return valueSec !== null ? SimulationStatusService.UtilsService.formatDuration(valueSec) : 'N/A';
+        return valueSec !== null ? SimulationStatusService.FormatService.formatDuration(valueSec) : 'N/A';
       },
       filterType: ColumnFilterType.number,
       show: false,
@@ -224,14 +224,14 @@ export class BrowseComponent implements OnInit {
       key: 'submitted',
       formatter: (value: Date | undefined | null): string => {
         if (value) {
-          return UtilsService.formatDate(value);
+          return FormatService.formatDate(value);
         } else {
           return 'N/A';
         }
       },
       toolTipFormatter: (value: Date | undefined | null): string => {
         if (value) {
-          return UtilsService.formatDate(value);
+          return FormatService.formatDate(value);
         } else {
           return 'N/A';
         }
@@ -246,14 +246,14 @@ export class BrowseComponent implements OnInit {
       key: 'updated',
       formatter: (value: Date | undefined | undefined): string => {
         if (value) {
-          return UtilsService.formatDate(value);
+          return FormatService.formatDate(value);
         } else {
           return 'N/A';
         }
       },
       toolTipFormatter: (value: Date | undefined | null): string => {
         if (value) {
-          return UtilsService.formatDate(value);
+          return FormatService.formatDate(value);
         } else {
           return 'N/A';
         }

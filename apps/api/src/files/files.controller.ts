@@ -17,6 +17,7 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
+  ApiPayloadTooLargeResponse,
 } from '@nestjs/swagger';
 import { FileModel } from './files.model';
 import { FilesService } from './files.service';
@@ -117,6 +118,10 @@ export class FilesController {
   @ApiBody({
     description: 'Metadata about the files for the simulation run',
     type: [SubmitProjectFile],
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description: 'The payload is too large. The payload must be less than the server limit.',
   })
   @permissions('write:Files')
   @ApiCreatedResponse({

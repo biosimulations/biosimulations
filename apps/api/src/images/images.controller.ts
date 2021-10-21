@@ -19,6 +19,7 @@ import {
   ApiTags,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
+  ApiPayloadTooLargeResponse,
 } from '@nestjs/swagger';
 import { refreshImageBody } from './image.dto';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
@@ -38,6 +39,10 @@ export class ImagesController {
     description:
       'Version of a simulation tool to build (or rebuild) a Singularity image for',
     type: refreshImageBody,
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description: 'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiOkResponse({
     description:

@@ -1,11 +1,18 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { MetaObject } from './meta';
+import { 
+  AboutLinksObject as IAboutLinksObject,
+  ErrorSourceObject as IErrorSourceObject,
+  ErrorObject as IErrorObject,
+  ErrorResponseDocument as IErrorResponseDocument,
+  MetaObject as IMetaObject,
+} from '@biosimulations/datamodel/common';
 
-export class AboutLinksObject {
+export class AboutLinksObject implements IAboutLinksObject {
   @ApiPropertyOptional({ type: String })
   about!: string;
 }
-export class ErrorSourceObject {
+
+export class ErrorSourceObject implements IErrorSourceObject {
   @ApiPropertyOptional({ type: String })
   pointer?: string;
 
@@ -13,7 +20,7 @@ export class ErrorSourceObject {
   parameter?: string;
 }
 
-export class ErrorObject {
+export class ErrorObject implements IErrorObject {
   @ApiPropertyOptional({ type: String })
   id?: string;
 
@@ -36,13 +43,13 @@ export class ErrorObject {
   source?: ErrorSourceObject;
 
   @ApiPropertyOptional({ type: Object })
-  meta?: MetaObject;
+  meta?: IMetaObject;
 }
 
-export class ErrorResponseDocument {
+export class ErrorResponseDocument implements IErrorResponseDocument {
   @ApiProperty({ type: [ErrorObject] })
   error!: ErrorObject[];
 
   @ApiProperty({ type: Object })
-  meta?: MetaObject;
+  meta?: IMetaObject;
 }

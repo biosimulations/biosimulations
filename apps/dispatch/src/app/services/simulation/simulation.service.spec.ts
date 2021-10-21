@@ -3,7 +3,7 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { SimulationService } from './simulation.service';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService } from '@biosimulations/shared/angular';
 
 describe('SimulationService', () => {
   let service: SimulationService;

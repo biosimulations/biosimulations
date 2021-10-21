@@ -51,7 +51,8 @@ import {
   SimulationTypeName,
   Url,
 } from '@biosimulations/datamodel/common';
-import { UtilsService } from '@biosimulations/shared/services';
+import { UtilsService } from '@biosimulations/shared/angular';
+import { FormatService } from '@biosimulations/shared/services';
 import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
 import { Citation } from '@biosimulations/datamodel/api';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
@@ -749,7 +750,7 @@ export class ViewSimulatorService {
   }
 
   private getDateStr(date: Date): string {
-    return UtilsService.formatDate(date);
+    return FormatService.formatDate(date);
   }
 
   private getFunding(funding: Funding): ViewFunding {

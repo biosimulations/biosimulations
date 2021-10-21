@@ -18,8 +18,8 @@ import {
   TocSection,
   TocSectionsContainerDirective,
 } from '@biosimulations/shared/ui';
-import { ScrollService } from '@biosimulations/shared/services';
-import { UtilsService } from '@biosimulations/shared/services';
+import { ScrollService } from '@biosimulations/shared/angular';
+import { FormatService } from '@biosimulations/shared/services';
 import { Observable } from 'rxjs';
 
 interface StatusCount {
@@ -249,7 +249,7 @@ export class SimulationLogComponent {
     this.duration =
       log === undefined || log.duration === null
         ? 'N/A'
-        : UtilsService.formatDuration(log.duration);
+        : FormatService.formatDuration(log.duration);
   }
 
   private initStatusCountsMap(): StatusCountsMap {

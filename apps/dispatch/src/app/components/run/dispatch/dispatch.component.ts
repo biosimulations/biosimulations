@@ -41,7 +41,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { Observable, Subscription } from 'rxjs';
 import { map, concatAll, withLatestFrom } from 'rxjs/operators';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService } from '@biosimulations/shared/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 

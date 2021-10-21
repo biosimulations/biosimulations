@@ -380,7 +380,24 @@
     "shared-services": {
       "tags": [
         "scope:shared",
-        "type:service",
+        "type:util",
+        "platform:any"
+      ],
+      "implicitDependencies": []
+    },
+    "shared-nestjs-api": {
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:server",
+        "shared:true"
+      ],
+      "implicitDependencies": []
+    },
+    "shared-angular": {
+      "tags": [
+        "scope:shared",
+        "type:util",
         "platform:web"
       ],
       "implicitDependencies": []

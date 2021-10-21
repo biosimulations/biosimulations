@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { ScrollService } from '@biosimulations/shared/services';
+import { ScrollService } from '@biosimulations/shared/angular';
 
 @Component({
   selector: 'biosimulations-root',
