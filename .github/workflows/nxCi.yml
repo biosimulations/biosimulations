@@ -27,20 +27,25 @@ jobs:
           node-version: '14'
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+          architecture: "x64"
 
+      - name: Install Flake8
+        run: |
+          python -m pip install flake8
+          
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
       - run: npx nx-cloud start-ci-run    
-      - run: npx nx affected --target lint --parallel --max-parallel=9
-        if: always()
       - run: npx nx affected --target=build --parallel --max-parallel=9
-        if: always()
       - run: npx nx affected --target=test --parallel --max-parallel=9
-        if: always()
+      - run: npx nx affected --target lint --parallel --max-parallel=9
       - run: npx nx-cloud stop-all-agents
-        if: always()
   pr:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
@@ -58,20 +63,25 @@ jobs:
           node-version: '14'
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+          architecture: "x64"
 
+      - name: Install Flake8
+        run: |
+          python -m pip install flake8
+          
       - name: Install npm dependencies
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-      - run: npx nx-cloud start-ci-run
-      - run: npx nx affected --target lint --parallel --max-parallel=9
-        if: always()
+      - run: npx nx-cloud start-ci-run    
       - run: npx nx affected --target=build --parallel --max-parallel=9
-        if: always()
       - run: npx nx affected --target=test --parallel --max-parallel=9
-        if: always()
+      - run: npx nx affected --target lint --parallel --max-parallel=9
       - run: npx nx-cloud stop-all-agents
-        if: always()
   agents:
     runs-on: ubuntu-latest
     name: Agent 1
