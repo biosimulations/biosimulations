@@ -44,6 +44,10 @@ jobs:
       - run: npx nx-cloud start-ci-run    
       - run: npx nx affected --target=build --parallel --max-parallel=9
       - run: npx nx affected --target=test --parallel --max-parallel=9
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        
       - run: npx nx affected --target lint --parallel --max-parallel=9
       - run: npx nx-cloud stop-all-agents
   pr:
@@ -80,6 +84,9 @@ jobs:
       - run: npx nx-cloud start-ci-run    
       - run: npx nx affected --target=build --parallel --max-parallel=9
       - run: npx nx affected --target=test --parallel --max-parallel=9
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
       - run: npx nx affected --target lint --parallel --max-parallel=9
       - run: npx nx-cloud stop-all-agents
   agents:
