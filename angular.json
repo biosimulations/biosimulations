@@ -128,7 +128,16 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:account",
+        "platform:web",
+        "type:frontend"
+      ],
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]
     },
     "account-api": {
       "root": "apps/account-api",
@@ -182,7 +191,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:account",
+        "platform:server",
+        "type:api"
+      ],
+      "implicitDependencies": []
     },
     "account-e2e": {
       "root": "apps/account-e2e",
@@ -210,7 +225,11 @@
             ]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": [
+        "account"
+      ]
     },
     "account-management": {
       "root": "libs/account/management",
@@ -235,7 +254,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:account",
+        "type:util",
+        "platform:server"
+      ]
     },
     "api": {
       "root": "apps/api",
@@ -291,7 +315,15 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:dispatch",
+        "type:api",
+        "platform:server"
+      ],
+      "implicitDependencies": [
+        "hdf5-api-client"
+      ]
     },
     "api-angular-client": {
       "projectType": "library",
@@ -318,7 +350,12 @@
             ]
           }
         }
-      }
+      },
+      "tags": [
+        "scope:simulations",
+        "type:client",
+        "platform:web"
+      ]
     },
     "api-nest-client": {
       "root": "libs/api/nest-client",
@@ -341,7 +378,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:dispatch",
+        "type:client",
+        "platform:server",
+        "shared:true"
+      ]
     },
     "auth-angular": {
       "projectType": "library",
@@ -369,7 +412,13 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:auth",
+        "type:util",
+        "platform:web",
+        "shared:true"
+      ]
     },
     "auth-client": {
       "root": "libs/auth/client",
@@ -394,7 +443,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:auth",
+        "type:util",
+        "shared:true",
+        "platform:server"
+      ]
     },
     "auth-common": {
       "root": "libs/auth/common",
@@ -417,7 +472,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:auth",
+        "platform:any",
+        "type:datamodel",
+        "shared:true"
+      ]
     },
     "auth-nest": {
       "root": "libs/auth/nest",
@@ -440,7 +501,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:auth",
+        "type:util",
+        "platform:server",
+        "shared:true"
+      ]
     },
     "combine-api-client": {
       "root": "libs/combine/api-client",
@@ -480,7 +547,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:combine",
+        "platform:server",
+        "shared:true",
+        "type:client"
+      ]
     },
     "combine-service": {
       "projectType": "application",
@@ -512,7 +585,8 @@
           "builder": "@nx-python/nx-python:lint",
           "options": {}
         }
-      }
+      },
+      "tags": []
     },
     "config-angular": {
       "projectType": "library",
@@ -540,7 +614,13 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:config",
+        "type:config",
+        "shared:true",
+        "platform:web"
+      ]
     },
     "config-common": {
       "root": "libs/config/common",
@@ -563,7 +643,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:config",
+        "type:datamodel",
+        "platform:any",
+        "shared:true"
+      ]
     },
     "config-nest": {
       "root": "libs/config/nest",
@@ -586,7 +672,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:config",
+        "type:config",
+        "platform:server",
+        "shared:true"
+      ]
     },
     "datamodel-api": {
       "root": "libs/datamodel/api",
@@ -609,7 +701,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:datamodel",
+        "platform:any"
+      ]
     },
     "datamodel-common": {
       "root": "libs/datamodel/common",
@@ -632,7 +729,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:datamodel",
+        "platform:any"
+      ]
     },
     "datamodel-database": {
       "root": "libs/datamodel/database",
@@ -661,7 +763,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:datamodel",
+        "platform:server"
+      ]
     },
     "datamodel-utils": {
       "root": "libs/datamodel/utils",
@@ -686,7 +793,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:any"
+      ]
     },
     "datamodel-view": {
       "root": "libs/datamodel/view",
@@ -715,7 +827,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:simulations",
+        "type:datamodel",
+        "platform:web"
+      ]
     },
     "dispatch": {
       "projectType": "application",
@@ -849,7 +966,16 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:dispatch",
+        "type:frontend",
+        "platform:web"
+      ],
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]
     },
     "dispatch-e2e": {
       "root": "apps/dispatch-e2e",
@@ -877,7 +1003,11 @@
             ]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": [
+        "dispatch"
+      ]
     },
     "dispatch-service": {
       "root": "apps/dispatch-service",
@@ -933,7 +1063,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:dispatch",
+        "type:service",
+        "platform:server"
+      ],
+      "implicitDependencies": []
     },
     "hdf5-api-client": {
       "root": "libs/hdf5/api-client",
@@ -973,7 +1109,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:hsds",
+        "type:client",
+        "platform:server"
+      ]
     },
     "hsds-client": {
       "root": "libs/hsds/client",
@@ -998,7 +1139,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:data",
+        "shared:true",
+        "platform:server",
+        "type:client"
+      ]
     },
     "mail-service": {
       "root": "apps/mail-service",
@@ -1052,7 +1199,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:mail",
+        "type:service",
+        "platform:server"
+      ]
     },
     "mail-service-client": {
       "root": "libs/mail-service/client",
@@ -1075,7 +1227,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:mail",
+        "type:client",
+        "platform:server"
+      ]
     },
     "messages-messages": {
       "root": "libs/messages/messages",
@@ -1098,7 +1255,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:mesages",
+        "type:datamodel",
+        "platform:server",
+        "shared:true"
+      ]
     },
     "ontology-client": {
       "projectType": "library",
@@ -1125,7 +1288,13 @@
             ]
           }
         }
-      }
+      },
+      "tags": [
+        "scope:ontology",
+        "platform:web",
+        "shared:true",
+        "type:client"
+      ]
     },
     "ontology-ontologies": {
       "root": "libs/ontology/ontologies",
@@ -1148,7 +1317,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:ontology",
+        "type:service",
+        "platform:server",
+        "shared:true"
+      ]
     },
     "ontology-sources": {
       "root": "libs/ontology/sources",
@@ -1171,7 +1346,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:ontology",
+        "type:datamodel",
+        "platform:server",
+        "shared:false"
+      ]
     },
     "platform": {
       "projectType": "application",
@@ -1305,7 +1486,16 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:platform",
+        "type:frontend",
+        "platform:web"
+      ],
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]
     },
     "platform-e2e": {
       "root": "apps/platform-e2e",
@@ -1333,7 +1523,11 @@
             ]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": [
+        "platform"
+      ]
     },
     "shared-angular": {
       "projectType": "library",
@@ -1357,7 +1551,13 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:web"
+      ],
+      "implicitDependencies": []
     },
     "shared-assets": {
       "projectType": "library",
@@ -1385,7 +1585,11 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:assets"
+      ]
     },
     "shared-content": {
       "projectType": "library",
@@ -1413,7 +1617,16 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:ui",
+        "platform:web"
+      ],
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]
     },
     "shared-debug": {
       "projectType": "library",
@@ -1441,7 +1654,12 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:ui",
+        "platform:web"
+      ]
     },
     "shared-environments": {
       "projectType": "library",
@@ -1469,7 +1687,12 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:environments",
+        "platform:any"
+      ]
     },
     "shared-error-handler": {
       "projectType": "library",
@@ -1496,7 +1719,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "platform:web",
+        "type:UI"
+      ]
     },
     "shared-exceptions-exceptions": {
       "root": "libs/shared/exceptions/exceptions",
@@ -1519,7 +1747,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:server"
+      ]
     },
     "shared-exceptions-filters": {
       "root": "libs/shared/exceptions/filters",
@@ -1548,7 +1781,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:server"
+      ]
     },
     "shared-icons": {
       "projectType": "library",
@@ -1576,7 +1814,12 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:ui",
+        "platform:web"
+      ]
     },
     "shared-nats-client": {
       "root": "libs/shared/nats-client",
@@ -1599,7 +1842,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:messages",
+        "type:client",
+        "platform:server",
+        "shared:true"
+      ]
     },
     "shared-pwa": {
       "projectType": "library",
@@ -1626,7 +1875,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:web"
+      ]
     },
     "shared-services": {
       "projectType": "library",
@@ -1650,7 +1904,13 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:any"
+      ],
+      "implicitDependencies": []
     },
     "shared-storage": {
       "root": "libs/shared/storage",
@@ -1675,7 +1935,13 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:files",
+        "type:util",
+        "platform:server",
+        "shared:true"
+      ]
     },
     "shared-styles": {
       "projectType": "library",
@@ -1703,7 +1969,12 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:styles",
+        "platform:web"
+      ]
     },
     "shared-ui": {
       "projectType": "library",
@@ -1731,7 +2002,16 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:ui",
+        "platform:web"
+      ],
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]
     },
     "shared-utils-routes": {
       "projectType": "library",
@@ -1759,7 +2039,12 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:utils",
+        "platform:web"
+      ]
     },
     "simulators": {
       "projectType": "application",
@@ -1891,7 +2176,16 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:simulators",
+        "type:frontend",
+        "platform:web"
+      ],
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]
     },
     "simulators-api": {
       "root": "apps/simulators-api",
@@ -1945,7 +2239,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:simulators",
+        "type:api",
+        "platform:server"
+      ]
     },
     "simulators-database-models": {
       "root": "libs/simulators/database-models",
@@ -1974,7 +2273,12 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": [
+        "scope:simulators",
+        "type:datamodel",
+        "platform:server"
+      ]
     },
     "simulators-e2e": {
       "root": "apps/simulators-e2e",
@@ -2002,7 +2306,11 @@
             ]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": [
+        "simulators"
+      ]
     },
     "view-projects": {
       "projectType": "library",
@@ -2030,7 +2338,16 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:simulations",
+        "type:ui",
+        "platform:web"
+      ],
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]
     },
     "view-service": {
       "projectType": "library",
@@ -2054,7 +2371,13 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": [
+        "scope:simulations",
+        "type:service",
+        "platform:any"
+      ],
+      "implicitDependencies": []
     },
     "view-visualizations": {
       "projectType": "library",
@@ -2082,64 +2405,15 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": [
+        "scope:shared",
+        "type:ui",
+        "platform:web"
+      ],
+      "implicitDependencies": [
+        "shared-styles"
+      ]
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular",
-    "analytics": false
-  },
-  "schematics": {
-    "@nrwl/workspace": {
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/cypress": {
-      "cypress-project": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/node": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/nest": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/express": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress",
-      "strict": true
-    },
-    "@nrwl/angular:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "strict": true
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
-    }
-  },
-  "defaultProject": "dispatch"
+  }
 }
