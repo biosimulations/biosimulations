@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ScrollService } from '@biosimulations/shared/services';
+import { ScrollService } from '@biosimulations/shared/angular';
 
 import { CommonModule } from '@angular/common';
 

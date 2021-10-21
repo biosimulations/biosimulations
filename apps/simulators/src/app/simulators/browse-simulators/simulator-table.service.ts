@@ -16,7 +16,7 @@ import {
   Funding,
 } from '@biosimulations/datamodel/common';
 import { Simulator } from '@biosimulations/datamodel/api';
-import { UtilsService } from '@biosimulations/shared/services';
+import { UtilsService } from '@biosimulations/shared/angular';
 
 @Injectable()
 export class SimulatorTableService {

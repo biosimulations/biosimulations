@@ -4,7 +4,7 @@ import {
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { ScrollService } from '@biosimulations/shared/services';
+import { ScrollService } from '@biosimulations/shared/angular';
 
 @Component({
   selector: 'biosimulations-text-page-toc-item',

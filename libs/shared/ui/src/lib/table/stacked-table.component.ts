@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { UtilsService } from '@biosimulations/shared/services';
+import { UtilsService } from '@biosimulations/shared/angular';
 import {
   Column,
   ColumnActionType,

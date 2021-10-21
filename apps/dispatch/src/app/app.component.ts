@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
 import { UpdateService } from '@biosimulations/shared/pwa';
 
 @Component({

@@ -4,7 +4,7 @@ import { RawSimulationLogComponent } from './raw-simulation-log.component';
 import { StructuredSimulationLogElementComponent } from './structured-simulation-log-element.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { ScrollService } from '@biosimulations/shared/services';
+import { ScrollService } from '@biosimulations/shared/angular';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 describe('SimulationLogComponent', () => {

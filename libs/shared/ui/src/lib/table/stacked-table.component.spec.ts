@@ -13,7 +13,7 @@ import { StackedTableComponent } from './stacked-table.component';
 import { TocSectionDirective } from '../toc/toc-section.directive';
 import { TocSectionsContainerDirective } from '../toc/toc-sections-container.directive';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ScrollService } from '@biosimulations/shared/services';
+import { ScrollService } from '@biosimulations/shared/angular';
 
 describe('StackedTableComponent', () => {
   let component: StackedTableComponent;

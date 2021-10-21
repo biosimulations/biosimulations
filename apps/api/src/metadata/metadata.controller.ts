@@ -18,6 +18,7 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
+  ApiPayloadTooLargeResponse,
 } from '@nestjs/swagger';
 
 import {
@@ -44,6 +45,10 @@ export class MetadataController {
   @ApiBody({
     description: 'Metadata about the simulation project of a simulation run',
     type: SimulationRunMetadataInput,
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description: 'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiCreatedResponse({
     description: 'The metadata was successfully saved to the database',

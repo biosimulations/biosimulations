@@ -13,7 +13,7 @@ import {
   ValidationStatus,
 } from '../../../datamodel/validation-report.interface';
 import { Subscription } from 'rxjs';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService } from '@biosimulations/shared/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
 import isUrl from 'is-url';

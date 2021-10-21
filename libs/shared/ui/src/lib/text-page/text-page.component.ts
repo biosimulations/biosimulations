@@ -7,7 +7,7 @@ import {
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { TocSection } from '../toc/toc-section';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { ScrollService } from '@biosimulations/shared/services';
+import { ScrollService } from '@biosimulations/shared/angular';
 
 interface SideBarStyle {
   position: string | null;

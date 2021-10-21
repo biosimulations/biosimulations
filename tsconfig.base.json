@@ -135,6 +135,12 @@
       "@biosimulations/shared/services": [
         "libs/shared/services/src/index.ts"
       ],
+      "@biosimulations/shared/nestjs-api": [
+        "libs/shared/nestjs-api/src/index.ts"
+      ],
+      "@biosimulations/shared/angular": [
+        "libs/shared/angular/src/index.ts"
+      ],
       "@biosimulations/shared/storage": [
         "libs/shared/storage/src/index.ts"
       ],

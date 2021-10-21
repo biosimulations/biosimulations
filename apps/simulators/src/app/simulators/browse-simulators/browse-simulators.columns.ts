@@ -8,7 +8,8 @@ import {
 
 import { TableSimulator } from './tableSimulator.interface';
 import { SimulatorCurationStatus } from '@biosimulations/datamodel/common';
-import { UtilsService } from '@biosimulations/shared/services';
+import { UtilsService } from '@biosimulations/shared/angular';
+import { FormatService } from '@biosimulations/shared/services';
 
 export const columns: Column[] = [
   {
@@ -488,7 +489,7 @@ export const columns: Column[] = [
     heading: 'Updated',
     key: 'updated',
     formatter: (value: Date): string => {
-      return UtilsService.formatDate(value);
+      return FormatService.formatDate(value);
     },
     filterType: ColumnFilterType.date,
     show: false,

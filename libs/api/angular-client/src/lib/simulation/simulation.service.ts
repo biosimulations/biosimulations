@@ -9,7 +9,7 @@ import {
 // import { SimulationRun } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
-import { RetryStrategy } from '@biosimulations/shared/services';
+import { RetryStrategy } from '@biosimulations/shared/angular';
 
 @Injectable({
   providedIn: 'root',

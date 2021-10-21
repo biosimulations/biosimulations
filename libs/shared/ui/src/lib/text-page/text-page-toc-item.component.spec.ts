@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TextPageTocItemComponent } from './text-page-toc-item.component';
-import { ScrollService } from '@biosimulations/shared/services';
+import { ScrollService } from '@biosimulations/shared/angular';
 
 describe('TextPageTocItemComponent', () => {
   let component: TextPageTocItemComponent;

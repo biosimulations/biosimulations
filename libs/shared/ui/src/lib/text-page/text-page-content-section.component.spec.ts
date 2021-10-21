@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { TextPageSectionComponent } from './text-page-section.component';
 import { TextPageContentSectionComponent } from './text-page-content-section.component';
-import { ScrollService } from '@biosimulations/shared/services';
+import { ScrollService } from '@biosimulations/shared/angular';
 
 describe('TextPageContentSectionComponent', () => {
   let component: TextPageContentSectionComponent;

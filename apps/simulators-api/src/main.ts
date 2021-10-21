@@ -17,6 +17,8 @@ import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-s
 import { Resolver } from '@stoplight/json-ref-resolver';
 import * as toJsonSchema from '@openapi-contrib/openapi-schema-to-json-schema';
 import { json } from 'body-parser';
+import { HttpExceptionFilter } from '@biosimulations/shared/nestjs-api';
+
 function setupOpenApi(
   app: INestApplication,
   documentBuilder: DocumentBuilder,
@@ -179,6 +181,8 @@ async function bootstrap() {
 
   const limit = configService.get('server.limit');
   app.use(json({ limit }));
+
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/');

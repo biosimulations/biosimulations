@@ -10,7 +10,7 @@ import {
   ProjectService,
   SimulationService,
 } from '@biosimulations/angular-api-client';
-import { UtilsService } from '@biosimulations/shared/services';
+import { FormatService } from '@biosimulations/shared/services';
 
 @Injectable({
   providedIn: 'root',
@@ -95,7 +95,7 @@ export class BrowseService {
     const value = new Date(date);
     return {
       value: value,
-      formattedValue: UtilsService.formatDate(value),
+      formattedValue: FormatService.formatDate(value),
     };
   }
 }

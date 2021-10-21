@@ -17,6 +17,7 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
+  ApiPayloadTooLargeResponse,
 } from '@nestjs/swagger';
 import { ProjectId, ProjectIdParam } from './id.decorator';
 import { ProjectModel } from './project.model';
@@ -83,6 +84,10 @@ export class ProjectsController {
     description: 'Information about the simulation run to publish',
     type: ProjectInput,
   })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description: 'The payload is too large. The payload must be less than the server limit.',
+  })
   @ApiCreatedResponse({
     description: 'The simulation run was successfully published',
     type: Project,
@@ -106,6 +111,10 @@ export class ProjectsController {
     description:
       'Updated information about the publication of the simulation run',
     type: ProjectInput,
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description: 'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiOkResponse({
     description:

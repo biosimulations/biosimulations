@@ -7,7 +7,7 @@ import { TextPageSectionComponent } from './text-page-section.component';
 import { TextPageSideBarSectionComponent } from './text-page-side-bar-section.component';
 import { TextPageTocItemComponent } from './text-page-toc-item.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { ScrollService } from '@biosimulations/shared/services';
+import { ScrollService } from '@biosimulations/shared/angular';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 describe('TextPageComponent', () => {

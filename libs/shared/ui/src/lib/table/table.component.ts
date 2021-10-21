@@ -24,7 +24,7 @@ import {
   ColumnSort,
   ColumnSortDirection,
 } from './table.interface';
-import { UtilsService } from '@biosimulations/shared/services';
+import { UtilsService } from '@biosimulations/shared/angular';
 import lunr from 'lunr';
 import { ActivatedRoute, Router } from '@angular/router';
 
