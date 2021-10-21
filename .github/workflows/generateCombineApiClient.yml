@@ -38,9 +38,7 @@ jobs:
       - name: Commit and push changes
         uses: EndBug/add-and-commit@v7.4.0
         with:
-          add:
-            - libs/combine/api-client/src/lib/api/
-            - libs/combine/api-client/src/lib/model/
+          add: "['libs/combine/api-client/src/lib/api/', 'libs/combine/api-client/src/lib/model/']"
           message: 'refactor(combine-service): update client'
           author_name: Biosimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
