@@ -1,0 +1,50 @@
+name: Update COMBINE API client
+
+on:
+  push:
+    paths:
+      - 'apps/combine-service/src/spec/spec.yml'
+  workflow_dispatch:
+
+jobs:
+  buildClient:
+    name: Build client
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+          sudo apt-get -y install perl
+
+      - name: Install NPM dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+
+      - name: Build client
+        run: tools/generate-combine-client
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v4
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: Commit and push changes
+        uses: EndBug/add-and-commit@v7.4.0
+        with:
+          add:
+            - libs/combine/api-client/src/lib/api/
+            - libs/combine/api-client/src/lib/model/
+          message: 'refactor(combine-service): update client'
+          author_name: Biosimulations-Daemon
+          author_email: biosimulationsdaemon@gmail.com
+          signoff: true
+        env:
+          # This is necessary in order to push a commit to the repo
+          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN}} # Leave this line unchanged
