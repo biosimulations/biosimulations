@@ -124,7 +124,8 @@ export class LogsController {
   @Post()
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description: 'The payload is too large. The payload must be less than the server limit.',
+    description:
+      'The payload is too large. The payload must be less than the server limit.',
   })
   @permissions('write:Logs')
   @ApiCreatedResponse({

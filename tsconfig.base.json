@@ -102,6 +102,9 @@
       "@biosimulations/ontology/sources": [
         "libs/ontology/sources/src/index.ts"
       ],
+      "@biosimulations/shared/angular": [
+        "libs/shared/angular/src/index.ts"
+      ],
       "@biosimulations/shared/assets": [
         "libs/shared/assets/src/index.ts"
       ],
@@ -129,17 +132,14 @@
       "@biosimulations/shared/nats-client": [
         "libs/shared/nats-client/src/index.ts"
       ],
+      "@biosimulations/shared/nestjs-api": [
+        "libs/shared/nestjs-api/src/index.ts"
+      ],
       "@biosimulations/shared/pwa": [
         "libs/shared/pwa/src/index.ts"
       ],
       "@biosimulations/shared/services": [
         "libs/shared/services/src/index.ts"
-      ],
-      "@biosimulations/shared/nestjs-api": [
-        "libs/shared/nestjs-api/src/index.ts"
-      ],
-      "@biosimulations/shared/angular": [
-        "libs/shared/angular/src/index.ts"
       ],
       "@biosimulations/shared/storage": [
         "libs/shared/storage/src/index.ts"

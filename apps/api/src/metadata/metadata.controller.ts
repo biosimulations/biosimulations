@@ -48,7 +48,8 @@ export class MetadataController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description: 'The payload is too large. The payload must be less than the server limit.',
+    description:
+      'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiCreatedResponse({
     description: 'The metadata was successfully saved to the database',

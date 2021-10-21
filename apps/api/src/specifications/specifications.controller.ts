@@ -136,7 +136,8 @@ export class SpecificationsController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description: 'The payload is too large. The payload must be less than the server limit.',
+    description:
+      'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiCreatedResponse({
     description: 'The simulation experiments were succcessfully saved',
@@ -169,7 +170,8 @@ export class SpecificationsController {
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
-    description: 'The payload is too large. The payload must be less than the server limit.',
+    description:
+      'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiCreatedResponse({
     description: 'The simulation experiments were succcessfully saved',

@@ -1,6 +1,15 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus, HttpException } from '@nestjs/common';
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpStatus,
+  HttpException,
+} from '@nestjs/common';
 import { Response } from 'express';
-import { ErrorResponseDocument, ErrorObject } from '@biosimulations/datamodel/common';
+import {
+  ErrorResponseDocument,
+  ErrorObject,
+} from '@biosimulations/datamodel/common';
 import { FormatService } from '@biosimulations/shared/services';
 
 /**
@@ -25,18 +34,26 @@ export class HttpExceptionFilter implements ExceptionFilter {
       const exceptionResponse: any = exception.getResponse();
       errorObj.title = exceptionResponse.error || exceptionResponse.message;
       errorObj.detail = exceptionResponse.message || exceptionResponse.error;
-    
-    } else if ('status' in exception && Number.isInteger(exception.status) && 'message' in exception) {
+    } else if (
+      'status' in exception &&
+      Number.isInteger(exception.status) &&
+      'message' in exception
+    ) {
       status = exception.status;
       errorObj.status = status.toString();
       errorObj.title = exception.message;
 
       if (status === 413) {
-        errorObj.detail = `The submitted ${FormatService.formatDigitalSize(exception.length, 1024)} payload is too large. Payloads are limited to ${FormatService.formatDigitalSize(exception.limit, 1024)}.`;
+        errorObj.detail = `The submitted ${FormatService.formatDigitalSize(
+          exception.length,
+          1024,
+        )} payload is too large. Payloads are limited to ${FormatService.formatDigitalSize(
+          exception.limit,
+          1024,
+        )}.`;
       } else {
         errorObj.detail = errorObj.title;
       }
-    
     } else {
       status = HttpStatus.INTERNAL_SERVER_ERROR;
       errorObj.status = status.toString();

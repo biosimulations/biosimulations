@@ -243,7 +243,9 @@ export class ViewService {
             title: 'Last modified',
             values: [
               {
-                label: FormatService.formatDate(new Date(metadata?.modified[0])),
+                label: FormatService.formatDate(
+                  new Date(metadata?.modified[0]),
+                ),
                 uri: null,
               },
             ],
@@ -459,7 +461,9 @@ export class ViewService {
 
           run.push({
             title: 'Completed',
-            value: of(FormatService.formatTime(new Date(simulationRun.updated))),
+            value: of(
+              FormatService.formatTime(new Date(simulationRun.updated)),
+            ),
             icon: 'date',
             url: null,
           });
