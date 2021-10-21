@@ -25,6 +25,9 @@ jobs:
         with:
           useRollingCache: true
 
+      - name: Install Nrwl CLI
+        run: npm install -g @nrwl/cli
+
       - name: Build client
         run: tools/generate-combine-client
 
