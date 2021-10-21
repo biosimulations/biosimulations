@@ -10,9 +10,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class CombineWrapperService {
-  public constructor(
-    private service: SimulationProjectsService,
-  ) {}
+  public constructor(private service: SimulationProjectsService) {}
 
   public getArchiveMetadata(
     omexMetadataFormat: string,
