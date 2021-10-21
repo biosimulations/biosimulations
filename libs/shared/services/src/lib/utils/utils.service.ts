@@ -199,27 +199,27 @@ export class UtilsService {
     }
   }
 
-  static formatDigitalSize(valueBytes: number): string {
+  static formatDigitalSize(valueBytes: number, base=1e3): string {
     let quantity!: number;
     let suffix!: string;
 
-    if (valueBytes >= 1e15) {
-      quantity = valueBytes * 1e-15;
+    if (valueBytes >= base ** 5) {
+      quantity = valueBytes / (base ** 5);
       suffix = 'PB';
-    } else if (valueBytes >= 1e12) {
-      quantity = valueBytes * 1e-12;
+    } else if (valueBytes >= base ** 4) {
+      quantity = valueBytes / (base ** 4);
       suffix = 'TB';
-    } else if (valueBytes >= 1e9) {
-      quantity = valueBytes * 1e-9;
+    } else if (valueBytes >= base ** 3) {
+      quantity = valueBytes / (base ** 3);
       suffix = 'GB';
-    } else if (valueBytes >= 1e6) {
-      quantity = valueBytes * 1e-6;
+    } else if (valueBytes >= base ** 2) {
+      quantity = valueBytes / (base ** 2);
       suffix = 'MB';
-    } else if (valueBytes >= 1e3) {
-      quantity = valueBytes * 1e-3;
+    } else if (valueBytes >= base) {
+      quantity = valueBytes / base;
       suffix = 'KB';
     } else {
-      quantity = valueBytes * 1e-15;
+      quantity = valueBytes;
       suffix = 'B';
     }
 
