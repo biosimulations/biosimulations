@@ -4,7 +4,7 @@ import {
   TocSection,
   TocSectionsContainerDirective,
 } from '@biosimulations/shared/ui';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService } from '@biosimulations/shared/angular';
 
 @Component({
   templateUrl: './overview.component.html',

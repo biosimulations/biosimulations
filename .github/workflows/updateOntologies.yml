@@ -35,15 +35,15 @@ jobs:
 
       - name: Update ontologies
         run: ${GITHUB_WORKSPACE}/tools/generate-ontologies ${{ github.event.inputs.ontologies }}
-      
+
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           git_user_signingkey: true
           git_commit_gpgsign: true
-          
-      - name: Commit Changes 
+
+      - name: Commit Changes
         uses: EndBug/add-and-commit@v7.4.0
         with:
           author_name: Biosimulations-Daemon
@@ -53,4 +53,4 @@ jobs:
           signoff: true
         env:
           # This is necessary in order to push a commit to the repo
-          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN}} # Leave this line unchanged   
+          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN}} # Leave this line unchanged

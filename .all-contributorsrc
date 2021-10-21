@@ -320,6 +320,15 @@
         "fundingFinding",
         "projectManagement"
       ]
+    },
+    {
+      "login": "artgoldberg",
+      "name": "Arthur P Goldberg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33882?v=4",
+      "profile": "https://www.mountsinai.org/profiles/arthur-p-goldberg",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -327,5 +336,5 @@
   "projectOwner": "biosimulations",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": false
+  "skipCi": true
 }

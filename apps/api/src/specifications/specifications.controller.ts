@@ -15,6 +15,7 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
+  ApiPayloadTooLargeResponse,
 } from '@nestjs/swagger';
 import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
 import { SpecificationsService } from './specifications.service';
@@ -133,6 +134,11 @@ export class SpecificationsController {
       'Specifications of the simulation experiment of the simulation run',
     type: [SimulationRunSpecifications],
   })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The payload is too large. The payload must be less than the server limit.',
+  })
   @ApiCreatedResponse({
     description: 'The simulation experiments were succcessfully saved',
     type: [SimulationRunSpecifications],
@@ -161,6 +167,11 @@ export class SpecificationsController {
     description:
       'Specifications of the simulation experiment of the simulation run',
     type: [SimulationRunSpecifications],
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiCreatedResponse({
     description: 'The simulation experiments were succcessfully saved',

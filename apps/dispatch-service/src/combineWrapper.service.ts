@@ -2,7 +2,7 @@ import {
   BioSimulationsCombineArchiveElementMetadata,
   CombineArchiveManifest,
   CombineArchiveSedDocSpecs,
-  SimulationProjectsCOMBINEOMEXArchivesService,
+  SimulationProjectsService,
 } from '@biosimulations/combine-api-client';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
@@ -10,9 +10,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class CombineWrapperService {
-  public constructor(
-    private service: SimulationProjectsCOMBINEOMEXArchivesService,
-  ) {}
+  public constructor(private service: SimulationProjectsService) {}
 
   public getArchiveMetadata(
     omexMetadataFormat: string,

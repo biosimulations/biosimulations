@@ -17,7 +17,7 @@ import {
   of,
 } from 'rxjs';
 import { urls } from '@biosimulations/config/common';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService } from '@biosimulations/shared/angular';
 import {
   concatAll,
   debounceTime,

@@ -25,6 +25,7 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiNotFoundResponse,
+  ApiPayloadTooLargeResponse,
 } from '@nestjs/swagger';
 import {
   CombineArchiveLog,
@@ -121,6 +122,11 @@ export class LogsController {
     description: 'Save the log for a simulation run to the database',
   })
   @Post()
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The payload is too large. The payload must be less than the server limit.',
+  })
   @permissions('write:Logs')
   @ApiCreatedResponse({
     description: 'The logs for the simulation run were successfully saved',

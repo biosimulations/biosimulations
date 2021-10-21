@@ -6,8 +6,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
-import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
 import { HealthService } from './services/health/health.service';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({

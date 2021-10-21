@@ -9,7 +9,7 @@ import { Drivers } from '@ionic/storage';
 import { environment } from '@biosimulations/shared/environments';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
 import { HealthService } from './services/health/health.service';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { PwaModule } from '@biosimulations/shared/pwa';

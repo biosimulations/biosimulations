@@ -11,7 +11,7 @@ import {
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
 import { ViewSimulatorService } from './view-simulator.service';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService } from '@biosimulations/shared/angular';
 import { snackBarDuration } from '@biosimulations/config/common';
 
 import { ViewSimulator, ViewVersion } from './view-simulator.interface';

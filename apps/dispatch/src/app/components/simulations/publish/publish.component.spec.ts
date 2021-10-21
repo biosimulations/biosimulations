@@ -11,7 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
-import { ConfigService, ScrollService } from '@biosimulations/shared/services';
+import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 describe('PublishComponent', () => {
   let component: PublishComponent;

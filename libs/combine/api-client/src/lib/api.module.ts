@@ -7,33 +7,36 @@ import {
 } from '@nestjs/common';
 import { Configuration } from './configuration';
 
-import { MetadataOMEXMetadataService } from './api/metadataOMEXMetadata.service';
-import { ModelService } from './api/model.service';
-import { SimulationAlgorithmsKiSAOService } from './api/simulationAlgorithmsKiSAO.service';
+import { HealthService } from './api/health.service';
+import { MetadataService } from './api/metadata.service';
+import { ModelsService } from './api/models.service';
+import { SimulationAlgorithmsService } from './api/simulationAlgorithms.service';
 import { SimulationExecutionService } from './api/simulationExecution.service';
-import { SimulationExperimentsSEDMLService } from './api/simulationExperimentsSEDML.service';
-import { SimulationProjectsCOMBINEOMEXArchivesService } from './api/simulationProjectsCOMBINEOMEXArchives.service';
+import { SimulationExperimentsService } from './api/simulationExperiments.service';
+import { SimulationProjectsService } from './api/simulationProjects.service';
 import { ValidationService } from './api/validation.service';
 
 @Global()
 @Module({
   imports: [HttpModule],
   exports: [
-    MetadataOMEXMetadataService,
-    ModelService,
-    SimulationAlgorithmsKiSAOService,
+    HealthService,
+    MetadataService,
+    ModelsService,
+    SimulationAlgorithmsService,
     SimulationExecutionService,
-    SimulationExperimentsSEDMLService,
-    SimulationProjectsCOMBINEOMEXArchivesService,
+    SimulationExperimentsService,
+    SimulationProjectsService,
     ValidationService,
   ],
   providers: [
-    MetadataOMEXMetadataService,
-    ModelService,
-    SimulationAlgorithmsKiSAOService,
+    HealthService,
+    MetadataService,
+    ModelsService,
+    SimulationAlgorithmsService,
     SimulationExecutionService,
-    SimulationExperimentsSEDMLService,
-    SimulationProjectsCOMBINEOMEXArchivesService,
+    SimulationExperimentsService,
+    SimulationProjectsService,
     ValidationService,
   ],
 })

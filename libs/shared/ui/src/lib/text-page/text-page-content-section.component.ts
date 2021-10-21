@@ -1,6 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
-import { ScrollService } from '@biosimulations/shared/services';
+import { ScrollService } from '@biosimulations/shared/angular';
 
 export type IconActionType =
   | 'scrollToTop'

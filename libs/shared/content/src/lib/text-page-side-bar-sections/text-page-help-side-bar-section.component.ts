@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService } from '@biosimulations/shared/angular';
 
 @Component({
   selector: 'biosimulations-text-page-help-side-bar-section',

@@ -23,6 +23,7 @@ export * from './exception';
 export * from './fileOrUrl';
 export * from './filenameOrUrl';
 export * from './getCombineArchiveMetadataFileOrUrl';
+export * from './health';
 export * from './kisaoAlgorithmSubstitution';
 export * from './kisaoAlgorithmSubstitutionPolicy';
 export * from './kisaoTerm';

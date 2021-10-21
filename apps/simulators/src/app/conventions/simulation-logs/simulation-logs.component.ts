@@ -4,7 +4,7 @@ import {
   TocSection,
   TocSectionsContainerDirective,
 } from '@biosimulations/shared/ui';
-import { ConfigService } from '@biosimulations/shared/services';
+import { ConfigService } from '@biosimulations/shared/angular';
 
 import initElementLevelLog from './init-element-level-log.json';
 import finalSucceededElementLevelLog from './final-succeeded-element-level-log.json';

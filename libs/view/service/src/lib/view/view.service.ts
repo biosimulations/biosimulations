@@ -54,7 +54,7 @@ import {
   UriSedDataSetMap,
   UriSetDataSetResultsMap,
 } from '@biosimulations/datamodel-view';
-import { UtilsService } from '@biosimulations/shared/services';
+import { FormatService } from '@biosimulations/shared/services';
 import { urls } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { OntologyService } from '@biosimulations/ontology/client';
@@ -230,7 +230,7 @@ export class ViewService {
             title: 'Created',
             values: [
               {
-                label: UtilsService.formatDate(new Date(metadata?.created)),
+                label: FormatService.formatDate(new Date(metadata?.created)),
                 uri: null,
               },
             ],
@@ -243,7 +243,9 @@ export class ViewService {
             title: 'Last modified',
             values: [
               {
-                label: UtilsService.formatDate(new Date(metadata?.modified[0])),
+                label: FormatService.formatDate(
+                  new Date(metadata?.modified[0]),
+                ),
                 uri: null,
               },
             ],
@@ -422,7 +424,7 @@ export class ViewService {
             .pipe(
               pluck('duration'),
               map((durationSec: number): string =>
-                UtilsService.formatDuration(durationSec),
+                FormatService.formatDuration(durationSec),
               ),
             );
           run.push({
@@ -442,7 +444,7 @@ export class ViewService {
           run.push({
             title: 'Memory',
             value: of(
-              UtilsService.formatDigitalSize(simulationRun.memory * 1e9),
+              FormatService.formatDigitalSize(simulationRun.memory * 1e9),
             ),
             icon: 'memory',
             url: null,
@@ -451,7 +453,7 @@ export class ViewService {
           run.push({
             title: 'Submitted',
             value: of(
-              UtilsService.formatTime(new Date(simulationRun.submitted)),
+              FormatService.formatTime(new Date(simulationRun.submitted)),
             ),
             icon: 'date',
             url: null,
@@ -459,7 +461,9 @@ export class ViewService {
 
           run.push({
             title: 'Completed',
-            value: of(UtilsService.formatTime(new Date(simulationRun.updated))),
+            value: of(
+              FormatService.formatTime(new Date(simulationRun.updated)),
+            ),
             icon: 'date',
             url: null,
           });
@@ -492,7 +496,7 @@ export class ViewService {
             format: `${COMBINE_OMEX_FORMAT.name} (${COMBINE_OMEX_FORMAT.acronym})`,
             formatUrl: COMBINE_OMEX_FORMAT.url,
             master: false,
-            size: UtilsService.formatDigitalSize(simulationRun.projectSize),
+            size: FormatService.formatDigitalSize(simulationRun.projectSize),
             icon: COMBINE_OMEX_FORMAT.icon,
             url: this.endpoints.getRunDownloadEndpoint(id),
             basename: 'project.omex',
@@ -579,7 +583,7 @@ export class ViewService {
                 content?.master ||
                 (!hasMaster && format.startsWith(SEDML_FORMAT.combineUris[0])),
               url: content.url,
-              size: UtilsService.formatDigitalSize(content.size),
+              size: FormatService.formatDigitalSize(content.size),
               formatUrl: this.formatMap?.[format]?.url,
               icon: this.formatMap?.[format]?.icon || 'file',
             };
@@ -629,7 +633,7 @@ export class ViewService {
             formatUrl:
               'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987',
             master: false,
-            size: UtilsService.formatDigitalSize(simulationRun.resultsSize),
+            size: FormatService.formatDigitalSize(simulationRun.resultsSize),
             icon: 'report',
             url: this.endpoints.getRunResultsDownloadEndpoint(id),
             basename: 'outputs.zip',
@@ -982,7 +986,7 @@ export class ViewService {
               description: 'Project',
               contentUrl: this.endpoints.getRunDownloadEndpoint(runId),
               encodingFormat: 'application/zip',
-              contentSize: UtilsService.formatDigitalSize(
+              contentSize: FormatService.formatDigitalSize(
                 simulationRun.projectSize,
               ),
             },
@@ -1001,7 +1005,7 @@ export class ViewService {
               description: 'Simulation outputs',
               contentUrl: this.endpoints.getRunResultsDownloadEndpoint(runId),
               encodingFormat: 'application/zip',
-              contentSize: UtilsService.formatDigitalSize(
+              contentSize: FormatService.formatDigitalSize(
                 simulationRun.resultsSize,
               ),
             },
@@ -1012,10 +1016,10 @@ export class ViewService {
               encodingFormat: 'application/json',
             },
           ],
-          dateCreated: UtilsService.formatDate(
+          dateCreated: FormatService.formatDate(
             new Date(simulationRun.submitted),
           ),
-          dateModified: UtilsService.formatDate(
+          dateModified: FormatService.formatDate(
             new Date(simulationRun.updated),
           ),
           keywords: [
@@ -1129,10 +1133,10 @@ export class ViewService {
               encodingFormat: 'application/json',
             },
           ];
-          dataSet.datePublished = UtilsService.formatDate(
+          dataSet.datePublished = FormatService.formatDate(
             new Date(project.created),
           );
-          dataSet.dateModified = UtilsService.formatDate(
+          dataSet.dateModified = FormatService.formatDate(
             new Date(project.updated),
           );
 

@@ -303,6 +303,14 @@
         "platform"
       ]
     },
+    "shared-angular": {
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:web"
+      ],
+      "implicitDependencies": []
+    },
     "shared-assets": {
       "tags": [
         "scope:shared",
@@ -370,6 +378,15 @@
         "shared:true"
       ]
     },
+    "shared-nestjs-api": {
+      "tags": [
+        "scope:shared",
+        "type:util",
+        "platform:server",
+        "shared:true"
+      ],
+      "implicitDependencies": []
+    },
     "shared-pwa": {
       "tags": [
         "scope:shared",
@@ -380,8 +397,8 @@
     "shared-services": {
       "tags": [
         "scope:shared",
-        "type:service",
-        "platform:web"
+        "type:util",
+        "platform:any"
       ],
       "implicitDependencies": []
     },

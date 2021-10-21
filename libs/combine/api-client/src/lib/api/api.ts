@@ -1,23 +1,26 @@
-export * from './metadataOMEXMetadata.service';
-import { MetadataOMEXMetadataService } from './metadataOMEXMetadata.service';
-export * from './model.service';
-import { ModelService } from './model.service';
-export * from './simulationAlgorithmsKiSAO.service';
-import { SimulationAlgorithmsKiSAOService } from './simulationAlgorithmsKiSAO.service';
+export * from './health.service';
+import { HealthService } from './health.service';
+export * from './metadata.service';
+import { MetadataService } from './metadata.service';
+export * from './models.service';
+import { ModelsService } from './models.service';
+export * from './simulationAlgorithms.service';
+import { SimulationAlgorithmsService } from './simulationAlgorithms.service';
 export * from './simulationExecution.service';
 import { SimulationExecutionService } from './simulationExecution.service';
-export * from './simulationExperimentsSEDML.service';
-import { SimulationExperimentsSEDMLService } from './simulationExperimentsSEDML.service';
-export * from './simulationProjectsCOMBINEOMEXArchives.service';
-import { SimulationProjectsCOMBINEOMEXArchivesService } from './simulationProjectsCOMBINEOMEXArchives.service';
+export * from './simulationExperiments.service';
+import { SimulationExperimentsService } from './simulationExperiments.service';
+export * from './simulationProjects.service';
+import { SimulationProjectsService } from './simulationProjects.service';
 export * from './validation.service';
 import { ValidationService } from './validation.service';
 export const APIS = [
-  MetadataOMEXMetadataService,
-  ModelService,
-  SimulationAlgorithmsKiSAOService,
+  HealthService,
+  MetadataService,
+  ModelsService,
+  SimulationAlgorithmsService,
   SimulationExecutionService,
-  SimulationExperimentsSEDMLService,
-  SimulationProjectsCOMBINEOMEXArchivesService,
+  SimulationExperimentsService,
+  SimulationProjectsService,
   ValidationService,
 ];

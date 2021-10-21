@@ -33,6 +33,7 @@ import {
   ApiBadRequestResponse,
   ApiNoContentResponse,
   ApiConflictResponse,
+  ApiPayloadTooLargeResponse,
 } from '@nestjs/swagger';
 import { Simulator } from '@biosimulations/datamodel/api';
 import { SimulatorsService } from './simulators.service';
@@ -227,7 +228,7 @@ export class SimulatorsController {
   private async getSimulatorById(id: string, includeTests: boolean) {
     const res = await this.service.findById(id, includeTests);
     if (!res?.length) {
-      throw new NotFoundException(`Simulator with id ${id} was not found`);
+      throw new NotFoundException(`Simulator with id '${id}' was not found`);
     }
     return res;
   }
@@ -241,10 +242,10 @@ export class SimulatorsController {
     if (!res) {
       if (version) {
         throw new NotFoundException(
-          `Simulator with id ${id} and version ${version} was not found`,
+          `Simulator with id '${id}' and version '${version}' was not found`,
         );
       } else {
-        throw new NotFoundException(`Simulator with id ${id} was not found`);
+        throw new NotFoundException(`Simulator with id '${id}' was not found`);
       }
     }
 
@@ -261,6 +262,11 @@ export class SimulatorsController {
   @ApiBody({
     description: 'Specifications of the version of the simulation tool',
     type: Simulator,
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The submitted simulator specifications is too large. Specifications must be less than 16 MB.',
   })
   @ApiCreatedResponse({
     description:
@@ -300,6 +306,11 @@ export class SimulatorsController {
     description: 'Specifications of the version of the simulation tool',
     type: Simulator,
   })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The submitted simulator specifications is too large. Specifications must be less than 16 MB.',
+  })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
@@ -332,6 +343,11 @@ export class SimulatorsController {
   @ApiBody({
     description: 'Specifications of the simulation tool',
     type: Simulator,
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The submitted simulator specifications is too large. Specifications must be less than 16 MB.',
   })
   @ApiOkResponse({
     type: Simulator,
