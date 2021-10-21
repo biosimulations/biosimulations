@@ -1,7 +1,7 @@
 name: Continuous Integration
 on:
   push:
-    branches: 
+    branches:
       - dev
     paths-ignore:
       - "docs/**"
@@ -54,9 +54,9 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-      
+
       - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli      
+        run: npm install -g @nrwl/cli
 
       - id: get-affected-libs-apps
         name: Determine affected libraries and apps
@@ -121,9 +121,9 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-      
+
       - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli      
+        run: npm install -g @nrwl/cli
 
       # Python
       - name: Install Python
@@ -177,9 +177,9 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-      
+
       - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli      
+        run: npm install -g @nrwl/cli
       # Python
       - name: Get branch name (merge)
         if: github.event_name != 'pull_request'
@@ -247,9 +247,9 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-      
+
       - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli      
+        run: npm install -g @nrwl/cli
 
       - name: Test app (TypeScript)
         if: matrix.libOrApp != 'combine-service'
@@ -360,9 +360,9 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-      
+
       - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli      
+        run: npm install -g @nrwl/cli
 
       - name: Test library
         env:

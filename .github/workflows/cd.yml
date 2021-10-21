@@ -23,7 +23,7 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-      
+
       - name: Install Nrwl CLI
         run: npm install -g @nrwl/cli
 
@@ -67,10 +67,10 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-      
+
       - name: Install Nrwl CLI
         run: npm install -g @nrwl/cli
-     
+
       - name: Build dev app
 
         run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build ${{matrix.app}} --prod --with-deps
@@ -106,9 +106,9 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-      
+
       - name: Install Nrwl CLI
-        run: npm install -g @nrwl/cli     
+        run: npm install -g @nrwl/cli
 
       - name: Build prod app
 
@@ -279,7 +279,7 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-          
+
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v4
         with:

@@ -26,7 +26,7 @@ body:
         - BioSimulations
         - BioSimulators
         - BioSimulations API
-        - BioSimulators API 
+        - BioSimulators API
         - Other (please describe below)
     validations:
       required: true
@@ -49,7 +49,7 @@ body:
       value: "I loaded the page!"
     validations:
       required: true
-   
+
   - type: dropdown
     id: version
     attributes:
