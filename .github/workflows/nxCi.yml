@@ -25,7 +25,13 @@ jobs:
       - uses: actions/setup-node@v1 
         with: 
           node-version: '14'
-      - run: npm install
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
       - run: npx nx-cloud start-ci-run    
       - run: npx nx affected --target lint --parallel --max-parallel=9
       - run: npx nx affected --target=build --parallel --max-parallel=9
@@ -44,7 +50,13 @@ jobs:
       - uses: actions/setup-node@v1
         with: 
           node-version: '14'
-      - run: npm install
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
       - run: npx nx-cloud start-ci-run
       - run: npx nx affected --target lint --parallel --max-parallel=9
       - run: npx nx affected --target=build --parallel --max-parallel=9
@@ -62,6 +74,12 @@ jobs:
       - uses: actions/setup-node@v1
         with: 
           node-version: '14'
-      - run: npm install
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
       - name: Start Nx Agent ${{ matrix.agent }}
         run: npx nx-cloud start-agent  
