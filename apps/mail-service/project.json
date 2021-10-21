@@ -1,0 +1,51 @@
+{
+  "root": "apps/mail-service",
+  "sourceRoot": "apps/mail-service/src",
+  "projectType": "application",
+  "prefix": "mail-service",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "options": {
+        "outputPath": "dist/apps/mail-service",
+        "main": "apps/mail-service/src/main.ts",
+        "tsConfig": "apps/mail-service/tsconfig.app.json",
+        "assets": ["apps/mail-service/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/mail-service/src/environments/environment.ts",
+              "with": "apps/mail-service/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "mail-service:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/mail-service/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/mail-service/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:mail", "type:service", "platform:server"]
+}

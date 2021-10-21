@@ -1,0 +1,22 @@
+{
+  "root": "libs/account/management",
+  "sourceRoot": "libs/account/management/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/account/management/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/account/management"],
+      "options": {
+        "jestConfig": "libs/account/management/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:account", "type:util", "platform:server"]
+}

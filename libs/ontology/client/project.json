@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/ontology/client",
+  "sourceRoot": "libs/ontology/client/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ontology/client"],
+      "options": {
+        "jestConfig": "libs/ontology/client/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ontology/client/src/**/*.ts",
+          "libs/ontology/client/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:ontology", "platform:web", "shared:true", "type:client"]
+}

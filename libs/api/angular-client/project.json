@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/api/angular-client",
+  "sourceRoot": "libs/api/angular-client/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/api/angular-client"],
+      "options": {
+        "jestConfig": "libs/api/angular-client/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/api/angular-client/src/**/*.ts",
+          "libs/api/angular-client/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:simulations", "type:client", "platform:web"]
+}

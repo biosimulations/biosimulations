@@ -1,0 +1,24 @@
+{
+  "projectType": "library",
+  "root": "libs/view/service",
+  "sourceRoot": "libs/view/service/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/view/service/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/view/service/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {},
+  "tags": ["scope:simulations", "type:service", "platform:any"],
+  "implicitDependencies": []
+}

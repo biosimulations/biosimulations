@@ -1,0 +1,28 @@
+{
+  "root": "apps/simulators-e2e",
+  "sourceRoot": "apps/simulators-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/simulators-e2e/cypress.json",
+        "tsConfig": "apps/simulators-e2e/tsconfig.e2e.json",
+        "devServerTarget": "simulators:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "simulators:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/simulators-e2e/**/*.ts"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["simulators"]
+}

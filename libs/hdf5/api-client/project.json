@@ -1,0 +1,33 @@
+{
+  "root": "libs/hdf5/api-client",
+  "sourceRoot": "libs/hdf5/api-client/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/hdf5/api-client",
+        "tsConfig": "libs/hdf5/api-client/tsconfig.lib.json",
+        "packageJson": "libs/hdf5/api-client/package.json",
+        "main": "libs/hdf5/api-client/src/index.ts",
+        "assets": ["libs/hdf5/api-client/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/hdf5/api-client/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/hdf5/api-client"],
+      "options": {
+        "jestConfig": "libs/hdf5/api-client/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:hsds", "type:client", "platform:server"]
+}

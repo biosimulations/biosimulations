@@ -1,0 +1,54 @@
+{
+  "root": "apps/dispatch-service",
+  "sourceRoot": "apps/dispatch-service/src",
+  "projectType": "application",
+  "prefix": "dispatch-service",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "options": {
+        "outputPath": "dist/apps/dispatch-service",
+        "main": "apps/dispatch-service/src/main.ts",
+        "tsConfig": "apps/dispatch-service/tsconfig.app.json",
+        "assets": ["apps/dispatch-service/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/environments/src/lib/environment.ts",
+              "with": "libs/shared/environments/src/lib/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "dispatch-service:build",
+        "inspect": true,
+        "port": 7777
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/dispatch-service/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/dispatch-service/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:dispatch", "type:service", "platform:server"],
+  "implicitDependencies": []
+}

@@ -1,0 +1,22 @@
+{
+  "root": "libs/datamodel/utils",
+  "sourceRoot": "libs/datamodel/utils/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/datamodel/utils/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/datamodel/utils"],
+      "options": {
+        "jestConfig": "libs/datamodel/utils/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:util", "platform:any"]
+}

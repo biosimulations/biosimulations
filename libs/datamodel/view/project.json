@@ -1,0 +1,27 @@
+{
+  "root": "libs/datamodel/view",
+  "sourceRoot": "libs/datamodel/view/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:lint",
+      "options": {
+        "linter": "eslint",
+        "tsConfig": [
+          "libs/datamodel/view/tsconfig.lib.json",
+          "libs/datamodel/view/tsconfig.spec.json"
+        ],
+        "exclude": ["**/node_modules/**", "!libs/datamodel/view/**/*"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/datamodel/view/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:simulations", "type:datamodel", "platform:web"]
+}
