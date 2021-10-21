@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { 
+import {
   AboutLinksObject as IAboutLinksObject,
   ErrorSourceObject as IErrorSourceObject,
   ErrorObject as IErrorObject,

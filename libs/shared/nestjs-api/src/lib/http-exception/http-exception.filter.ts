@@ -6,7 +6,7 @@ import { FormatService } from '@biosimulations/shared/services';
 /**
  * Filter to provide more informative error messages with NestJS, particularly for payload too large errors.
  * NestJS provides uniformative messages for some errors which it doesn't properly identify as HTTP exceptions.
- * 
+ *
  * This error is discussed in https://github.com/nestjs/nest/issues/5191. https://github.com/nestjs/nest/pull/5990
  * is an open pull request to address the issue.
  */
