@@ -12,7 +12,7 @@ import { HttpExceptionFilter } from './http-exception.filter';
 @Module({
   controllers: [],
   providers: [
-    // ENSURE that the defualt filter is provided first! Filters catch from the bottom up
+    // ENSURE that the default filter is provided first! Filters catch from the bottom up
     {
       provide: APP_FILTER,
       useClass: DefaultFilter,

@@ -1601,30 +1601,6 @@
         }
       }
     },
-    "shared-nestjs-api": {
-      "projectType": "library",
-      "root": "libs/shared/nestjs-api",
-      "sourceRoot": "libs/shared/nestjs-api/src",
-      "prefix": "biosimulations",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/shared/nestjs-api/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/nestjs-api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {}
-    },
     "shared-pwa": {
       "projectType": "library",
       "root": "libs/shared/pwa",

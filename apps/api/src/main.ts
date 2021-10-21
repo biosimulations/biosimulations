@@ -16,7 +16,6 @@ import { ConfigService } from '@nestjs/config';
 import { json } from 'body-parser';
 import { setupOpenApi } from './openApi';
 import { BiosimulationsValidationExceptionFactory } from '@biosimulations/shared/exceptions';
-import { HttpExceptionFilter } from '@biosimulations/shared/nestjs-api';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -58,8 +57,6 @@ async function bootstrap(): Promise<void> {
   const configService = app.get(ConfigService);
   const limit = configService.get('server.limit');
   app.use(json({ limit }));
-
-  app.useGlobalFilters(new HttpExceptionFilter());
 
   setupOpenApi(app);
 
