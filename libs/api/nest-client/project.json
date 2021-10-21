@@ -1,0 +1,22 @@
+{
+  "root": "libs/api/nest-client",
+  "sourceRoot": "libs/api/nest-client/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/api/nest-client/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/api/nest-client/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:dispatch", "type:client", "platform:server", "shared:true"]
+}

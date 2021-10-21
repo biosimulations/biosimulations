@@ -1,0 +1,27 @@
+{
+  "root": "libs/ontology/sources",
+  "sourceRoot": "libs/ontology/sources/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/ontology/sources/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/ontology/sources/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": [
+    "scope:ontology",
+    "type:datamodel",
+    "platform:server",
+    "shared:false"
+  ]
+}

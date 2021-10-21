@@ -1,0 +1,28 @@
+{
+  "root": "apps/dispatch-e2e",
+  "sourceRoot": "apps/dispatch-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/dispatch-e2e/cypress.json",
+        "tsConfig": "apps/dispatch-e2e/tsconfig.e2e.json",
+        "devServerTarget": "dispatch:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "dispatch:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/dispatch-e2e/**/*.ts"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["dispatch"]
+}

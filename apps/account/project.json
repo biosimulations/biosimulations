@@ -1,0 +1,124 @@
+{
+  "projectType": "application",
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "root": "apps/account",
+  "sourceRoot": "apps/account/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/account",
+        "index": "apps/account/src/index.html",
+        "main": "apps/account/src/main.ts",
+        "polyfills": "apps/account/src/polyfills.ts",
+        "tsConfig": "apps/account/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "favicon.svg",
+            "input": "libs/shared/assets/src/assets/icons",
+            "output": "./"
+          },
+          {
+            "glob": "favicon.ico",
+            "input": "libs/shared/assets/src/assets/icons",
+            "output": "./"
+          },
+          {
+            "glob": "safari-pinned-tab.svg",
+            "input": "libs/shared/assets/src/assets/icons",
+            "output": "./"
+          },
+          {
+            "glob": "_redirects",
+            "input": "libs/shared/assets/src",
+            "output": "./"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/shared/assets/src/assets",
+            "output": "assets"
+          }
+        ],
+        "styles": ["libs/shared/styles/src/index.scss"],
+        "scripts": ["node_modules/marked/lib/marked.js"],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/styles/src/lib",
+            "libs/shared/styles/src/lib/biosimulations"
+          ]
+        },
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/environments/src/lib/environment.ts",
+              "with": "libs/shared/environments/src/lib/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "account:build",
+        "proxyConfig": "apps/account/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "account:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "account:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/account/**/*.ts", "apps/account/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/account/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:account", "platform:web", "type:frontend"],
+  "implicitDependencies": ["shared-assets", "shared-styles"]
+}

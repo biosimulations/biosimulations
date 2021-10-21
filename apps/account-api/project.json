@@ -1,0 +1,52 @@
+{
+  "root": "apps/account-api",
+  "sourceRoot": "apps/account-api/src",
+  "projectType": "application",
+  "prefix": "account-api",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "options": {
+        "outputPath": "dist/apps/account-api",
+        "main": "apps/account-api/src/main.ts",
+        "tsConfig": "apps/account-api/tsconfig.app.json",
+        "assets": ["apps/account-api/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/environments/src/lib/environment.ts",
+              "with": "libs/shared/environments/src/lib/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "account-api:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/account-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/account-api/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:account", "platform:server", "type:api"],
+  "implicitDependencies": []
+}

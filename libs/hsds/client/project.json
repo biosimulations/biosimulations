@@ -1,0 +1,22 @@
+{
+  "root": "libs/hsds/client",
+  "sourceRoot": "libs/hsds/client/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/hsds/client/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/hsds/client"],
+      "options": {
+        "jestConfig": "libs/hsds/client/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:data", "shared:true", "platform:server", "type:client"]
+}

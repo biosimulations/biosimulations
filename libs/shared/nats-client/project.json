@@ -1,0 +1,22 @@
+{
+  "root": "libs/shared/nats-client",
+  "sourceRoot": "libs/shared/nats-client/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/shared/nats-client/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/shared/nats-client/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:messages", "type:client", "platform:server", "shared:true"]
+}

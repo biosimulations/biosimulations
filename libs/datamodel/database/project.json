@@ -1,0 +1,27 @@
+{
+  "root": "libs/datamodel/database",
+  "sourceRoot": "libs/datamodel/database/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:lint",
+      "options": {
+        "linter": "eslint",
+        "tsConfig": [
+          "libs/datamodel/database/tsconfig.lib.json",
+          "libs/datamodel/database/tsconfig.spec.json"
+        ],
+        "exclude": ["**/node_modules/**", "!libs/datamodel/database/**/*"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/datamodel/database/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:datamodel", "platform:server"]
+}

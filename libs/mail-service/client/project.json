@@ -1,0 +1,22 @@
+{
+  "root": "libs/mail-service/client",
+  "sourceRoot": "libs/mail-service/client/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/mail-service/client/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/mail-service/client/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:mail", "type:client", "platform:server"]
+}

@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/shared/pwa",
+  "sourceRoot": "libs/shared/pwa/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/pwa/src/**/*.ts",
+          "libs/shared/pwa/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/pwa"],
+      "options": {
+        "jestConfig": "libs/shared/pwa/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:util", "platform:web"]
+}

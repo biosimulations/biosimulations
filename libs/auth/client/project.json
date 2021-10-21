@@ -1,0 +1,22 @@
+{
+  "root": "libs/auth/client",
+  "sourceRoot": "libs/auth/client/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/auth/client/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/auth/client"],
+      "options": {
+        "jestConfig": "libs/auth/client/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:auth", "type:util", "shared:true", "platform:server"]
+}
