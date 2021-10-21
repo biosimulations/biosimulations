@@ -2,12 +2,13 @@
 README.md
 api.module.ts
 api/api.ts
-api/metadataOMEXMetadata.service.ts
-api/model.service.ts
-api/simulationAlgorithmsKiSAO.service.ts
+api/health.service.ts
+api/metadata.service.ts
+api/models.service.ts
+api/simulationAlgorithms.service.ts
 api/simulationExecution.service.ts
-api/simulationExperimentsSEDML.service.ts
-api/simulationProjectsCOMBINEOMEXArchives.service.ts
+api/simulationExperiments.service.ts
+api/simulationProjects.service.ts
 api/validation.service.ts
 configuration.ts
 git_push.sh
@@ -38,6 +39,7 @@ model/exception.ts
 model/fileOrUrl.ts
 model/filenameOrUrl.ts
 model/getCombineArchiveMetadataFileOrUrl.ts
+model/health.ts
 model/kisaoAlgorithmSubstitution.ts
 model/kisaoAlgorithmSubstitutionPolicy.ts
 model/kisaoTerm.ts
