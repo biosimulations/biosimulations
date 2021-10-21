@@ -2,3 +2,12 @@ contact_links:
   - name: Request a model format, framework, algorithm, or simulator
     url: https://github.com/biosimulators/Biosimulators/issues/new/choose
     about: Please direct requests for model formats, frameworks, algorithms, and simulation tools to BioSimulators
+  - name: Ask a question 
+    url: https://github.com/biosimulations/biosimulations/discussions
+    about: Please create a discussion in our dicussion forum in the Q&A category
+  - name: Start a discussion
+    url: https://github.com/biosimulations/biosimulations/discussions
+    about: Please create a discussion in our dicussion forum to initiate a discussion among the community
+  - name: Request a feature 
+    url: https://github.com/biosimulations/biosimulations/discussions
+    about: Please create a post in the ideas dicussion forum to suggest new features, enhancements, or ideas
