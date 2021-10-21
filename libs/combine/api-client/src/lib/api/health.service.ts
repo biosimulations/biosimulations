@@ -1,6 +1,6 @@
 /**
  * BioSimulations COMBINE service
- * Endpoints for working with COMBINE/OMEX archives and model (e.g., SBML) and simulation (e.g., SED-ML) files that they typically contain.  Note, this API may change significantly in the future.
+ * Endpoints for working with models (e.g., [CellML](http://cellml.org/), [SBML](http://sbml.org/)), simulation experiments (e.g., [Simulation Experiment Description Language (SED-ML)](http://sed-ml.org/)), metadata ([OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)), and simulation projects ([COMBINE/OMEX archives](https://combinearchive.org/)).  Note, this API may change significantly in the future.
  *
  * The version of the OpenAPI document: 0.1
  * Contact: info@biosimulations.org
@@ -15,11 +15,11 @@ import FormData from 'form-data';
 import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
-import { KisaoAlgorithmSubstitution } from '../model/kisaoAlgorithmSubstitution';
+import { Health } from '../model/health';
 import { Configuration } from '../configuration';
 
 @Injectable()
-export class SimulationAlgorithmsKiSAOService {
+export class HealthService {
   protected basePath = 'https://combine.api.biosimulations.dev';
   public defaultHeaders = new Map();
   public configuration = new Configuration();
@@ -42,29 +42,13 @@ export class SimulationAlgorithmsKiSAOService {
   }
 
   /**
-   * Get a list of algorithms similar to an algorithm
-   *
-   * @param algorithms KiSOA id of the algorithm to find similar algorithms for.
+   * Get information about the status of the service.
+   * Get information about whether the service is up or down.
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public srcHandlersKisaoGetSimilarAlgorithmsHandler(
-    algorithms: Array<string>,
-  ): Observable<AxiosResponse<Array<KisaoAlgorithmSubstitution>>>;
-  public srcHandlersKisaoGetSimilarAlgorithmsHandler(
-    algorithms: Array<string>,
-  ): Observable<any> {
-    if (algorithms === null || algorithms === undefined) {
-      throw new Error(
-        'Required parameter algorithms was null or undefined when calling srcHandlersKisaoGetSimilarAlgorithmsHandler.',
-      );
-    }
-
-    let queryParameters = {};
-    if (algorithms !== undefined && algorithms !== null) {
-      queryParameters['algorithms'] = <any>algorithms;
-    }
-
+  public srcHandlersHealthHandler(): Observable<AxiosResponse<Health>>;
+  public srcHandlersHealthHandler(): Observable<any> {
     let headers: any = this.defaultHeaders;
 
     // to determine the Accept header
@@ -77,13 +61,9 @@ export class SimulationAlgorithmsKiSAOService {
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<Array<KisaoAlgorithmSubstitution>>(
-      `${this.basePath}/kisao/get-similar-algorithms`,
-      {
-        params: queryParameters,
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-      },
-    );
+    return this.httpClient.get<Health>(`${this.basePath}/health`, {
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+    });
   }
 }

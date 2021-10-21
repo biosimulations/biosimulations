@@ -9,20 +9,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedReport } from './sedReport';
-import { SedDataSet } from './sedDataSet';
-import { SedPlot2D } from './sedPlot2D';
-import { SedAxisScale } from './sedAxisScale';
-import { SedPlot3D } from './sedPlot3D';
-import { SedSurface } from './sedSurface';
-import { SedCurve } from './sedCurve';
 
 /**
- * An output of a SED document.
+ * Information about the status of the service
  */
-/**
- * @type SedOutput
- * An output of a SED document.
- * @export
- */
-export type SedOutput = SedPlot2D | SedPlot3D | SedReport;
+export interface Health {
+  /**
+   * Summary of the status of the service
+   */
+  status: HealthStatus;
+}
+export enum HealthStatus {
+  Ok = 'ok',
+}
