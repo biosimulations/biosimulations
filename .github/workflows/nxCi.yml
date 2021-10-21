@@ -34,9 +34,13 @@ jobs:
           useRollingCache: true
       - run: npx nx-cloud start-ci-run    
       - run: npx nx affected --target lint --parallel --max-parallel=9
+        if: always()
       - run: npx nx affected --target=build --parallel --max-parallel=9
+        if: always()
       - run: npx nx affected --target=test --parallel --max-parallel=9
+        if: always()
       - run: npx nx-cloud stop-all-agents
+        if: always()
   pr:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
@@ -61,9 +65,13 @@ jobs:
           useRollingCache: true
       - run: npx nx-cloud start-ci-run
       - run: npx nx affected --target lint --parallel --max-parallel=9
+        if: always()
       - run: npx nx affected --target=build --parallel --max-parallel=9
+        if: always()
       - run: npx nx affected --target=test --parallel --max-parallel=9
+        if: always()
       - run: npx nx-cloud stop-all-agents
+        if: always()
   agents:
     runs-on: ubuntu-latest
     name: Agent 1
