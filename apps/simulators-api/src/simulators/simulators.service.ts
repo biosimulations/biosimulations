@@ -72,19 +72,7 @@ export class SimulatorsService {
   public async new(doc: APISimulator): Promise<Simulator> {
     const sim = new this.simulator(doc);
     let res: Simulator;
-    try {
-      res = (await sim.save()).toJSON({ versionKey: false }) as Simulator;
-    } catch (e) {
-      if (e.name == 'MongoError' && e.code == 11000) {
-        throw new ConflictException(
-          `Simulator with id: ${e?.keyValue?.id}, version: ${e?.keyValue?.version} already exists`,
-        );
-      } else {
-        // Will be caught by other filters
-        console.log(e);
-        throw e;
-      }
-    }
+    res = (await sim.save()).toJSON({ versionKey: false }) as Simulator;
     return res;
   }
 
