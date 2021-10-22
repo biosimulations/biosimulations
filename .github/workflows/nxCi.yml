@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - dev
-  pull_request:
+  pull_request_target:
 
 env:
   NX_CLOUD_DISTRIBUTED_EXECUTION: true
