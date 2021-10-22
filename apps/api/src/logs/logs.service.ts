@@ -43,19 +43,7 @@ export class LogsService {
     });
 
     let res: SimulationRunLog;
-    try {
-      res = await log.save();
-    } catch (e) {
-      if (e.name == 'MongoError' && e.code == 11000) {
-        throw new ConflictException(
-          `Log with run id: ${runId} already exists`,
-        );
-      } else {
-        // Will be caught by other filters
-        throw e;
-      }
-    }
-
+    res = await log.save();
     return this.dbToApiCombineArchiveLog(res);
   }
 
