@@ -31,6 +31,7 @@ import {
   ApiPayloadTooLargeResponse,
   ApiBadRequestResponse,
   ApiBody,
+  ApiConflictResponse,
 } from '@nestjs/swagger';
 import {
   CombineArchiveLog,
@@ -148,6 +149,11 @@ export class LogsController {
     type: ErrorResponseDocument,
     description:
       'The specifications of the simulation tool are invalid. See https://biosimulators.org/conventions and https://api.biosimulators.org for examples and documentation.',
+  })
+  @ApiConflictResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The log could not be saved because the database already includes a log for the simulation run.',
   })
   public async createLog(
     @Body() body: CreateSimulationRunLogBody,
