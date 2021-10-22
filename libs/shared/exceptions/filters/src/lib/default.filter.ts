@@ -26,8 +26,9 @@ export class DefaultFilter implements ExceptionFilter {
       Number.isInteger(exception.status) &&
       'message' in exception
     ) {
-      status = exception.status.toString();
-      title = exception.message;
+      status = exception.status;
+      title = exception.error || exception.message;
+      detail = exception.message;
 
       if (status === 413) {
         detail = `The submitted ${FormatService.formatDigitalSize(
