@@ -27,7 +27,7 @@ export class MongoErrorFilter implements ExceptionFilter {
       case 11000: {
         const error = makeErrorObject(
           HttpStatus.CONFLICT,
-          'Key Conflcit',
+          'Key Conflict',
           `The value for a unique key was already present in the database`,
           undefined,
           undefined,
