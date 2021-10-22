@@ -7,25 +7,30 @@
 import {
   Body,
   Controller,
-  // Delete,
+  Delete,
   Get,
   Logger,
-  NotFoundException,
   // NotImplementedException,
   Param,
+  Query,
   // Patch,
   Post,
-  // Put,
+  Put,
+  HttpCode,
 } from '@nestjs/common';
 import {
   ApiExtraModels,
   ApiTags,
   ApiOperation,
   ApiParam,
+  ApiQuery,
   ApiOkResponse,
   ApiCreatedResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiPayloadTooLargeResponse,
+  ApiBadRequestResponse,
+  ApiBody,
 } from '@nestjs/swagger';
 import {
   CombineArchiveLog,
@@ -38,6 +43,7 @@ import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 // import { permissions } from '@biosimulations/auth/nest';
 import { LogsService } from './logs.service';
 import { permissions } from '@biosimulations/auth/nest';
+import { LeanDocument } from 'mongoose';
 
 @ApiExtraModels(SedReportLog, SedPlot2DLog, SedPlot3DLog)
 @Controller('logs')
@@ -78,6 +84,12 @@ export class LogsController {
     required: true,
     type: String,
   })
+  @ApiQuery({
+    name: 'includeOutput',
+    description: 'Whether to include the standard output and error',
+    required: false,
+    type: Boolean,
+  })
   @ApiOkResponse({
     description: 'The log for a simulation run was sucessfully retrieved',
     type: CombineArchiveLog,
@@ -87,22 +99,18 @@ export class LogsController {
     type: ErrorResponseDocument,
   })
   @Get(':runId')
-  public async getLogs(
+  public async getLog(
     @Param('runId') runId: string,
-  ): Promise<CombineArchiveLog> {
-    const structLogs = await this.service.getLog(runId);
-
-    if (!structLogs) {
-      throw new NotFoundException('The logs were not found');
-    }
-
+    @Query('includeOutput') includeOutput = 'true',
+  ): Promise<LeanDocument<CombineArchiveLog>> {
+    const structLogs = await this.service.getLog(runId, includeOutput !== 'false');
     return structLogs;
   }
 
   /*
   @ApiOperation({
-    summary: 'Download the log a simulation run',
-    description: 'Download the log a simulation run',
+    summary: 'Download the log of a simulation run',
+    description: 'Download the log of a simulation run',
   })
   @Get(':runId/download')
   @ApiParam({
@@ -112,7 +120,7 @@ export class LogsController {
     type: String,
   })
   @ApiTags('Downloads')
-  public downloadLogs(@Param() runId: string): void {
+  public downloadLog(@Param('runId') runId: string): void {
     throw new NotImplementedException('Not Implemented');
   }
   */
@@ -122,49 +130,135 @@ export class LogsController {
     description: 'Save the log for a simulation run to the database',
   })
   @Post()
+  @ApiBody({
+    description: 'The logs for the simulation run',
+    type: CreateSimulationRunLogBody,
+  })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
     description:
-      'The payload is too large. The payload must be less than the server limit.',
+      'The submitted log is too large. Logs must be less than the server limit.',
   })
   @permissions('write:Logs')
   @ApiCreatedResponse({
     description: 'The logs for the simulation run were successfully saved',
     type: CombineArchiveLog,
   })
-  public async createLogs(
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The specifications of the simulation tool are invalid. See https://biosimulators.org/conventions and https://api.biosimulators.org for examples and documentation.',
+  })
+  public async createLog(
     @Body() body: CreateSimulationRunLogBody,
   ): Promise<CombineArchiveLog> {
-    const logs = await this.service.createLog(body.simId, body.log);
-    return logs.log;
+    const log = await this.service.createLog(body?.simId, body?.log);
+    return log;
+  }
+
+  @ApiOperation({
+    summary: 'Delete the log for a simulation run',
+    description: 'Delete the log for a simulation run',
+  })
+  @Delete(':runId')  
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiOkResponse({
+    type: CombineArchiveLog,
+    description: 'The log was successfully deleted',
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No log has the requested run id',
+  })
+  
+  @permissions('delete:Logs')
+  public deleteLog(@Param('runId') runId: string): Promise<CombineArchiveLog> {
+    return this.service.deleteLog(runId);
   }
 
   /*
   @ApiOperation({
-    summary: 'Delete the log a simulation run',
-    description: 'Delete the log a simulation run',
-  })
-  @Delete(':runId')
-  public deleteLogs(@Param() runId: string): void {
-    throw new NotImplementedException('Not Implemented');
-  }
-
-  @ApiOperation({
-    summary: 'Modify the log a simulation run',
-    description: 'Modify the log a simulation run',
+    summary: 'Modify the log for a simulation run',
+    description: 'Modify the log for a simulation run',
   })
   @Patch(':runId')
-  public editLogs(): void {
-    throw new NotImplementedException('Not Implemented');
-  }
-
-  @ApiOperation({
-    summary: 'Replace the log a simulation run',
-    description: 'Replace the log a simulation run',
-  })
-  @Put(':runId')
-  public replaceLogs(): void {
+  public editLog(): void {
     throw new NotImplementedException('Not Implemented');
   }
   */
+
+  @ApiOperation({
+    summary: 'Replace the log for a simulation run',
+    description: 'Replace the log for a simulation run',
+  })  
+  @Put(':runId')
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiBody({
+    description: 'The logs for the simulation run',
+    type: CombineArchiveLog,
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The submitted log is too large. Logs must be less than the server limit.',
+  })
+  @permissions('write:Logs')
+  @ApiOkResponse({
+    type: CombineArchiveLog,
+    description:
+      'The specifications of the version of the simulation tool were successfully modified',
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No simulation tool has the requested id',
+  })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The specifications of the simulation tool are invalid. See https://biosimulators.org/conventions and https://api.biosimulators.org for examples and documentation.',
+  })
+  public async replaceLog(
+    @Param('runId') runId: string,
+    @Body() body: CombineArchiveLog,
+  ): Promise<CombineArchiveLog> {
+    return this.service.replaceLog(runId, body).then((res) => res);
+  }
+
+  @Post('validate')  
+  @ApiOperation({
+    summary: 'Validate a log for a simulation run',
+    description: 'Validate a log for a simulation run',
+  })
+  @ApiBody({
+    description: 'Log for a simulation run',
+    type: CombineArchiveLog,
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The submitted log is too large. Logs must be less than the server limit.',
+  })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The log for the simulation run is invalid. See https://biosimulators.org/conventions and https://api.biosimulations.org for examples and documentation.',
+  })
+  @ApiNoContentResponse({
+    description: 'The log is valid',
+  })
+  @HttpCode(204)
+  public async validateLog(@Body() doc: CombineArchiveLog): Promise<void> {
+    await this.service.validateLog(doc);
+    return;
+  }
 }
