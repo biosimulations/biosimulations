@@ -7,7 +7,7 @@ import {
 } from '../simulation-run/simulation-run.model';
 import { LogsController } from './logs.controller';
 import {
-  SimulationRunLog, SimulationRunLogSchema, 
+  SimulationRunLog, SimulationRunLogSchema,
   CombineArchiveLog, CombineArchiveLogSchema,
   SedOutputLog, SedOutputLogSchema,
   SedReportLog, SedReportLogSchema,

@@ -5,7 +5,7 @@
  * @license MIT
  */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { 
+import {
   CombineArchiveLog as ICombineArchiveLog,
   SedDocumentLog as ISedDocumentLog,
   SedTaskLog as ISedTaskLog,
@@ -53,8 +53,8 @@ export class SedOutputElementLog implements ISedOutputElementLog{
   @Prop({ type: String, required: true, default: undefined })
   id!: string;
 
-  @Prop({ 
-    type: String, 
+  @Prop({
+    type: String,
     enum: Object.entries(SimulationRunLogStatus).map(
       (keyVal: [string, string]): string => {
         return keyVal[1];
@@ -79,8 +79,8 @@ export class SedReportLog implements ISedReportLog {
   @Prop({ type: String, required: true, default: undefined })
   id!: string;
 
-  @Prop({ 
-    type: String, 
+  @Prop({
+    type: String,
     enum: Object.entries(SimulationRunLogStatus).map(
       (keyVal: [string, string]): string => {
         return keyVal[1];
@@ -120,8 +120,8 @@ export class SedPlot2DLog implements ISedPlot2DLog {
   @Prop({ type: String, required: true, default: undefined })
   id!: string;
 
-  @Prop({ 
-    type: String, 
+  @Prop({
+    type: String,
     enum: Object.entries(SimulationRunLogStatus).map(
       (keyVal: [string, string]): string => {
         return keyVal[1];
@@ -161,8 +161,8 @@ export class SedPlot3DLog implements ISedPlot3DLog {
   @Prop({ type: String, required: true, default: undefined })
   id!: string;
 
-  @Prop({ 
-    type: String, 
+  @Prop({
+    type: String,
     enum: Object.entries(SimulationRunLogStatus).map(
       (keyVal: [string, string]): string => {
         return keyVal[1];
@@ -209,8 +209,8 @@ export class SedOutputLog implements ISedOutputLog {
   @Prop({ type: String, required: true, default: undefined })
   id!: string;
 
-  @Prop({ 
-    type: String, 
+  @Prop({
+    type: String,
     enum: Object.entries(SimulationRunLogStatus).map(
       (keyVal: [string, string]): string => {
         return keyVal[1];
@@ -260,8 +260,8 @@ export class SedTaskLog implements ISedTaskLog {
   @Prop({ type: String, required: true, default: undefined })
   id!: string;
 
-  @Prop({ 
-    type: String, 
+  @Prop({
+    type: String,
     enum: Object.entries(SimulationRunLogStatus).map(
       (keyVal: [string, string]): string => {
         return keyVal[1];
@@ -284,7 +284,7 @@ export class SedTaskLog implements ISedTaskLog {
   @Prop({ type: Number, required: false, default: undefined })
   duration!: number | null;
 
-  @Prop({ 
+  @Prop({
     type: String,
     required: false,
     default: undefined,
@@ -319,8 +319,8 @@ export class SedDocumentLog implements ISedDocumentLog {
   @Prop({ type: String, required: true, default: undefined })
   location!: string;
 
-  @Prop({ 
-    type: String, 
+  @Prop({
+    type: String,
     enum: Object.entries(SimulationRunLogStatus).map(
       (keyVal: [string, string]): string => {
         return keyVal[1];
@@ -367,8 +367,8 @@ outputsArraySchema.discriminator(SedPlot3DLog.name, SedPlot3DLogSchema);
   strict: 'throw',
 })
 export class CombineArchiveLog implements ICombineArchiveLog {
-  @Prop({ 
-    type: String, 
+  @Prop({
+    type: String,
     enum: Object.entries(SimulationRunLogStatus).map(
       (keyVal: [string, string]): string => {
         return keyVal[1];

@@ -1,6 +1,6 @@
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 
-import {  
+import {
   CombineArchiveLog as ICombineArchiveLog,
   SedDocumentLog as ISedDocumentLog,
   SedTaskLog as ISedTaskLog,
@@ -146,9 +146,9 @@ export class SedTaskLog implements ISedTaskLog {
   duration!: number | null;
 
   @ApiProperty({
-    type: String, 
+    type: String,
     description: 'KiSAO id of the simulation algorithm that was executed',
-    example: 'KISAO_0000019', 
+    example: 'KISAO_0000019',
     nullable: true
   })
   algorithm!: string | null;

@@ -12,8 +12,8 @@ import { Injectable, ConflictException, BadRequestException, NotFoundException, 
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import {
-  SimulationRunLog, 
-  CombineArchiveLog as DbCombineArchiveLog, 
+  SimulationRunLog,
+  CombineArchiveLog as DbCombineArchiveLog,
   SedReportLog as DbSedReportLog,
   SedPlot2DLog as DbSedPlot2DLog,
   SedPlot3DLog as DbSedPlot3DLog,
@@ -27,7 +27,7 @@ export class LogsService {
 
   public constructor(
     private configService: ConfigService,
-    @InjectModel(SimulationRunLog.name)    
+    @InjectModel(SimulationRunLog.name)
     private logModel: Model<SimulationRunLog>,
     @InjectModel(DbCombineArchiveLog.name)
     private validateModel: Model<DbCombineArchiveLog>,
@@ -67,7 +67,7 @@ export class LogsService {
       projection['log.output'] = 0;
       projection['log.sedDocuments.output'] = 0;
       projection['log.sedDocuments.tasks.output'] = 0;
-      projection['log.sedDocuments.outputs.output'] = 0;      
+      projection['log.sedDocuments.outputs.output'] = 0;
     }
 
     const log = await this.logModel
@@ -249,7 +249,7 @@ export class LogsService {
       return apiException;
     }
 
-    const dbException:any = {}; 
+    const dbException:any = {};
     Object.assign(dbException, apiException);
     return dbException;
   }

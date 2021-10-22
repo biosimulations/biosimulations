@@ -160,7 +160,7 @@ export class LogsController {
     summary: 'Delete the log for a simulation run',
     description: 'Delete the log for a simulation run',
   })
-  @Delete(':runId')  
+  @Delete(':runId')
   @ApiParam({
     name: 'runId',
     description: 'Id of the simulation run',
@@ -195,7 +195,7 @@ export class LogsController {
   @ApiOperation({
     summary: 'Replace the log for a simulation run',
     description: 'Replace the log for a simulation run',
-  })  
+  })
   @Put(':runId')
   @ApiParam({
     name: 'runId',
@@ -234,7 +234,7 @@ export class LogsController {
     return this.service.replaceLog(runId, body).then((res) => res);
   }
 
-  @Post('validate')  
+  @Post('validate')
   @ApiOperation({
     summary: 'Validate a log for a simulation run',
     description: 'Validate a log for a simulation run',
