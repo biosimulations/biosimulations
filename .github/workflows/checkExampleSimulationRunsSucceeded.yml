@@ -23,7 +23,26 @@ jobs:
       - name: Install required Python packages
         run: python -m pip install -r ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded.requirements.txt
 
-      - name: Check example simulation runs succeeded
+      - id: check-runs
+        name: Check example simulation runs succeeded
         run: |
-          python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api org
+          orgOutput=$(python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api org)
+          echo $orgOutput
           # python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api dev
+          echo "::set-output name=output::$orgOutput"
+
+      - id: create-issue 
+        uses: JasonEtco/create-an-issue@v2
+        if: failure()
+        env:
+          OUTPUT: steps.check-runs.outputs.output
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with: 
+          update_existing: true
+          search_existing: "open"
+          filename: ".github/actions/check-example-simulation-runs-succeeded/issue-template.md"
+
+      - name: Print message
+        if: failure()
+        run: |
+          echo "Created issue ${{ steps.create-issue.outputs.number }} (${{ steps.create-issue.outputs.url }})"

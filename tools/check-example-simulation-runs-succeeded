@@ -49,78 +49,86 @@ def get_failed_runs(examples_api, biosimulations_api):
         runs = json.load(file)
 
     # check the status of each run
-    endpoint = get_api_endpoint(biosimulations_api)
+    base_endpoint = get_api_endpoint(biosimulations_api)
     failures = []
     for run in runs:
         # check status
+        endpoint = '{}/runs/{}'.format(base_endpoint, run['id'])
         try:
-            response = requests.get('{}/runs/{}'.format(endpoint, run['id']))
+            response = requests.get(endpoint)
             response.raise_for_status()
             status = response.json()['status']
             if status != 'SUCCEEDED':
-                failures.append('{}: {}: {}: {}'.format(examples_api, run['id'], status, run['name']))
+                failures.append('`{}`: `{}`: [status]({}) (`{}`): {}'.format(examples_api, run['id'], endpoint, status, run['name']))
                 continue
         except requests.exceptions.RequestException:
-            failures.append('{}: status check: {}'.format(examples_api, run['id'], run['name']))
+            failures.append('`{}`: `{}`: [status check]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
             continue
 
         # check COMBINE/OMEX archive
+        endpoint = '{}/runs/{}/download'.format(base_endpoint, run['id'])
         try:
-            response = requests.get('{}/runs/{}/download'.format(endpoint, run['id']))
+            response = requests.get(endpoint)
             response.raise_for_status()
         except requests.exceptions.RequestException:
-            failures.append('{}: COMBINE download: {}'.format(examples_api, run['id'], run['name']))
+            failures.append('`{}`: `{}`: [COMBINE download]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
             continue
 
         # check files
+        endpoint = '{}/files/{}'.format(base_endpoint, run['id'])
         try:
-            response = requests.get('{}/files/{}'.format(endpoint, run['id']))
+            response = requests.get(endpoint)
             response.raise_for_status()
         except requests.exceptions.RequestException:
-            failures.append('{}: files: {}'.format(examples_api, run['id'], run['name']))
+            failures.append('`{}`: `{}`: [files]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
             continue
 
         # check SED-ML specifications
+        endpoint = '{}/specifications/{}'.format(base_endpoint, run['id'])
         try:
-            response = requests.get('{}/specifications/{}'.format(endpoint, run['id']))
+            response = requests.get(endpoint)
             response.raise_for_status()
         except requests.exceptions.RequestException:
-            failures.append('{}: specifications: {}'.format(examples_api, run['id'], run['name']))
+            failures.append('`{}`: `{}`: [specifications]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
             continue
 
         # check metadata
+        endpoint = '{}/metadata/{}'.format(base_endpoint, run['id'])
         try:
-            response = requests.get('{}/metadata/{}'.format(endpoint, run['id']))
+            response = requests.get(endpoint)
             response.raise_for_status()
         except requests.exceptions.RequestException:
-            failures.append('{}: metadata: {}'.format(examples_api, run['id'], run['name']))
+            failures.append('`{}`: `{}`: [metadata]({}): {}'.format(examples_api, run['id'], endpoint,  run['name']))
             continue
 
         # check results
-        retries = urllib3.util.retry.Retry(total=10, backoff_factor=10)
+        retries = urllib3.util.retry.Retry(total=6, backoff_factor=5)
         retry_session = requests.Session()
         retry_session.mount(endpoint, requests.adapters.HTTPAdapter(max_retries=retries))
 
+        endpoint = '{}/results/{}?includeData=false'.format(base_endpoint, run['id'])
         try:
-            response = retry_session.get('{}/results/{}?includeData=false'.format(endpoint, run['id']))
+            response = retry_session.get(endpoint)
             response.raise_for_status()
         except requests.exceptions.RequestException:
-            failures.append('{}: results: {}'.format(examples_api, run['id'], run['name']))
+            failures.append('`{}`: `{}`: [results]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
             continue
 
+        endpoint = '{}/results/{}/download'.format(base_endpoint, run['id'])
         try:
-            response = requests.get('{}/results/{}/download'.format(endpoint, run['id']))
+            response = requests.get(endpoint)
             response.raise_for_status()
         except requests.exceptions.RequestException:
-            failures.append('{}: results download: {}'.format(examples_api, run['id'], run['name']))
+            failures.append('`{}`: `{}`: [results download]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
             continue
 
         # check logs
+        endpoint = '{}/logs/{}'.format(base_endpoint, run['id'])
         try:
-            response = requests.get('{}/logs/{}'.format(endpoint, run['id']))
+            response = requests.get(endpoint)
             response.raise_for_status()
         except requests.exceptions.RequestException:
-            failures.append('{}: logs: {}'.format(examples_api, run['id'], run['name']))
+            failures.append('`{}`: `{}`: [logs]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
             continue
 
     # return list of failed runs
@@ -145,7 +153,7 @@ if __name__ == '__main__':
     failures = get_failed_runs(examples_api, args.runbiosimulations_api)
 
     if failures:
-        msg = 'The following example simulation runs did not succeed:\n  {}'.format('\n  '.join(failures))
+        msg = 'The following example simulation runs did not succeed:\n  * {}'.format('\n  * '.join(failures))
         raise SystemExit(msg)
     else:
         print('All example simulation runs succeeded!')
