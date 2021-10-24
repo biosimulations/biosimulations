@@ -1,3 +1,35 @@
+# [5.9.0](https://github.com/biosimulations/biosimulations/compare/v5.8.0...v5.9.0) (2021-10-24)
+
+
+### Bug Fixes
+
+* **deps:** update to nx v13 ([48dbf7c](https://github.com/biosimulations/biosimulations/commit/48dbf7cfe4002aed9fcc06237f9bc995539573c2))
+* **exceptions:** handle cases of payload too large errors ([522cec8](https://github.com/biosimulations/biosimulations/commit/522cec85bce117adbd24240ba026f705e782d185)), closes [nestjs/nest#5990](https://github.com/nestjs/nest/issues/5990) [#3349](https://github.com/biosimulations/biosimulations/issues/3349)
+* **exceptions:** improve error handling ([083091e](https://github.com/biosimulations/biosimulations/commit/083091e8103340d6fd80534ec05cbc0d815e81cf))
+
+
+### Features
+
+* **api:** add caching to results and ontology endpoints ([bb2a991](https://github.com/biosimulations/biosimulations/commit/bb2a991c77ee32bb43ae9edb02938ca345700544))
+* **api:** add caching to results endpoints ([ed54363](https://github.com/biosimulations/biosimulations/commit/ed5436370f4a9be2ed253d69417144d0db10e89b))
+* **api:** add health check for job queue ([a05556e](https://github.com/biosimulations/biosimulations/commit/a05556ef33817253b32e52e8519806599e966723))
+* **api:** add health module and endpoints ([da036f5](https://github.com/biosimulations/biosimulations/commit/da036f59d5f2479790a5d4827a2b830432ea35af))
+* **api:** add various health checks and endpoints ([d30c7d2](https://github.com/biosimulations/biosimulations/commit/d30c7d25d62268f675cff1804b38309747c68e0b))
+* **api:** setup results cache with REDIS ([3e40fde](https://github.com/biosimulations/biosimulations/commit/3e40fdebe38ca3e3765823bf7f98fd33895a7c9f))
+* **dispatch-service:** add limit for retries of status for jobs ([f187b03](https://github.com/biosimulations/biosimulations/commit/f187b03024215b0cb2d53858085197b9d45736b9))
+* **dispatch,platform:** added structured data for projects, simulation runs: ([7135ed0](https://github.com/biosimulations/biosimulations/commit/7135ed01f3107407906b81ad5b9ac94846f36f82))
+* **dispatch,simulators:** added structured data tutorials ([5c23e8d](https://github.com/biosimulations/biosimulations/commit/5c23e8da1bcc2e12163f82aebf98c3a90c14bab8))
+* **dispatch,simulators:** encoded FAQs into Schema.org ([936fb44](https://github.com/biosimulations/biosimulations/commit/936fb4499a2b132945b39fc2148428d26a268189))
+* **exceptions:** dont process health check http exceptions ([b75747e](https://github.com/biosimulations/biosimulations/commit/b75747e6e04c511899037322e4829ae12433f3ab))
+* **simulators-api,api:** added clearer payload too large messages ([98fb49d](https://github.com/biosimulations/biosimulations/commit/98fb49d651c01d621d175051cb030621b273034a))
+* **simulators-api:** add health checks for simulators-api ([26d3b63](https://github.com/biosimulations/biosimulations/commit/26d3b63d37b1f271c0fc327b4a8e2c4981565651))
+* **simulators:** added structured data for simulators as software applications ([7618db3](https://github.com/biosimulations/biosimulations/commit/7618db3ee539c31be2167a8d717cb4a5fac2c798))
+
+
+### Reverts
+
+* **simulators-api,api:** revert partially the changes in 98fb49d651c01d621d175051cb030621b273034a ([d88fcea](https://github.com/biosimulations/biosimulations/commit/d88fcead0eebe59f6394c9befca9e6ac7e132c83))
+
 # [5.8.0](https://github.com/biosimulations/biosimulations/compare/v5.7.3...v5.8.0) (2021-10-20)
 
 
