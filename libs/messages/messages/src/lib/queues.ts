@@ -15,6 +15,7 @@ export class MonitorJob {
   slurmJobId!: string;
   simId!: string;
   isPublic!: boolean;
+  retryCount!: number;
 }
 
 export class DispatchJob {
