@@ -7,7 +7,6 @@ import enum
 import jinja2
 import os
 import requests
-import sys
 
 
 class ChangeFreq(str, enum.Enum):
@@ -203,7 +202,7 @@ def get_simulator_static_urls():
 
 
 def render_url_list(app_name, urls):
-    """ Render sitemap to URL list for use in prerendering 
+    """ Render sitemap to URL list for use in prerendering
 
     Args:
         app_name (:obj:`str`): application name (e.g., `simulators`
@@ -298,7 +297,7 @@ def build_biosimulations_sitemap():
 
 
 def main(apps=None, verbose=False):
-    """ 
+    """
     Args:
         main (:obj:`list` of :obj:`str`, optional): list of the ids of apps to build sitemaps for;
             default: build sitemaps for all apps

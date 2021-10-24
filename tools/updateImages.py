@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
-import json
-import os
 import requests
-import shutil
-import subprocess
-import tempfile
 
 
 GET_SIMULATORS_ENDPOINT = 'https://api.biosimulators.org/simulators/'
@@ -31,8 +26,9 @@ def main(runbiosimulations_api='dev', token=None):
         version = simulator[1]
 
         headers = {'Authorization': "Bearer "+token}
-        r = requests.post('http://localhost:3333/images/refresh',
-                          data={"simulator": sim, "version": version}, headers=headers)
+        response = requests.post('http://localhost:3333/images/refresh',
+                                 data={"simulator": sim, "version": version}, headers=headers)
+        response.raise_for_status()
 
 
 if __name__ == '__main__':
