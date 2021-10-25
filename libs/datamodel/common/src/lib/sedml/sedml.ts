@@ -114,7 +114,6 @@ export interface SedDataGenerator {
   name?: string;
   variables: SedVariable[];
   math: string;
-  _resultsDataSetId?: string;
 }
 
 export interface SedDataSet {

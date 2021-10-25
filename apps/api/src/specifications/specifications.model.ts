@@ -419,9 +419,6 @@ export class SedDataGenerator implements ISedDataGenerator {
 
   @Prop({ type: String, required: true, default: undefined })
   public math!: string;
-
-  @Prop({ type: String, required: true, default: undefined })
-  public _resultsDataSetId!: string;
 }
 
 export const SedDataGeneratorSchema =

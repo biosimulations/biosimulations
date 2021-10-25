@@ -19,16 +19,14 @@ npx @openapitools/openapi-generator-cli  generate \
 # Import formdata from form-data to allow use on server side
 sed -i '13s/^/import  FormData from "form-data"\n/' ${script_dir}/../libs/combine/api-client/src/lib/api/*.service.ts
 
-
-
 # Correct a definition in the generated code to play nicer with typescript compiler
 sed -i 's/        let formParams: { append(param: string, value: any): void; };/        let formParams: FormData = new FormData(); /g'  ${script_dir}/../libs/combine/api-client/src/lib/api/*.service.ts
-
 
 # Use the correct headers from the formdata rather than the default headers
 sed -i 's/    let headers = this.defaultHeaders;/        let headers:any = this.defaultHeaders;/' ${script_dir}/../libs/combine/api-client/src/lib/api/*.service.ts
 
-
+# Correct type of `queryParameters`
+sed -i 's/let queryParameters = {};/let queryParameters: any = {};/' ${script_dir}/../libs/combine/api-client/src/lib/api/*.service.ts
 
 perl -0777 -i -p -e 's/if \(useForm\) \{\n\s*formParams = new FormData\(\);/ if \(useForm\) \{formParams = new FormData\(\); headers= formParams.getHeaders\(\);/g' ${script_dir}/../libs/combine/api-client/src/lib/api/*.service.ts
 
