@@ -166,7 +166,7 @@
     "canvas": "2.8.0",
     "codelyzer": "6.0.2",
     "commitizen": "4.2.4",
-    "cypress": "8.5.0",
+    "cypress": "8.7.0",
     "cz-conventional-changelog": "3.3.0",
     "dotenv": "10.0.0",
     "eslint": "7.32.0",
