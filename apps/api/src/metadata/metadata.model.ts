@@ -17,6 +17,7 @@ import { ObjectIdValidator } from '@biosimulations/datamodel-database';
 export class LabeledIdentifierModel implements LabeledIdentifier {
   @Prop({ type: String, required: false, index: true })
   public label!: string;
+
   @Prop({ type: String, required: false, index: true })
   public uri!: string | null;
 }
@@ -35,12 +36,15 @@ export class DescribedIdentifierModel
 {
   @Prop({ type: String, required: true, index: true })
   public label!: string;
+
   @Prop({ type: String, required: false, index: true })
   public uri!: string | null;
+
   @Prop({ type: String, required: false, index: true })
-  attribute_uri?: string;
+  public attribute_uri!: string | null;
+
   @Prop({ type: String, required: false, index: true })
-  attribute_label?: string;
+  public attribute_label!: string | null;
 }
 const DescribedIdentifierSchema = SchemaFactory.createForClass(
   DescribedIdentifierModel,
@@ -54,67 +58,67 @@ const DescribedIdentifierSchema = SchemaFactory.createForClass(
 })
 export class MetadataModel implements ArchiveMetadata {
   @Prop({ type: String })
-  uri!: string;
+  public uri!: string;
 
   @Prop({ type: String, required: false, default: undefined })
-  title?: string;
+  public title?: string;
 
   @Prop({ type: String, required: false, default: undefined })
-  abstract?: string;
+  public abstract?: string;
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  keywords: LabeledIdentifierModel[] = [];
+  public keywords: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [String], required: true })
-  thumbnails: string[] = [];
+  public thumbnails: string[] = [];
 
   @Prop({ type: String, required: false, default: undefined })
-  description?: string;
+  public description?: string;
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  taxa: LabeledIdentifierModel[] = [];
+  public taxa: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  encodes: LabeledIdentifierModel[] = [];
+  public encodes: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  sources: LabeledIdentifierModel[] = [];
+  public sources: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  predecessors: LabeledIdentifierModel[] = [];
+  public predecessors: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  successors: LabeledIdentifierModel[] = [];
+  public successors: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  seeAlso: LabeledIdentifierModel[] = [];
+  public seeAlso: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  identifiers: LabeledIdentifierModel[] = [];
+  public identifiers: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  citations: LabeledIdentifierModel[] = [];
+  public citations: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  creators: LabeledIdentifierModel[] = [];
+  public creators: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  contributors: LabeledIdentifierModel[] = [];
+  public contributors: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  license?: LabeledIdentifierModel[] = [];
+  public license?: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [LabeledIdentifierSchema] })
-  funders: LabeledIdentifierModel[] = [];
+  public funders: LabeledIdentifierModel[] = [];
 
   @Prop({ type: [DescribedIdentifierSchema] })
-  other: DescribedIdentifier[] = [];
+  public other: DescribedIdentifier[] = [];
 
   @Prop({ type: [String], required: true })
-  modified: string[] = [];
+  public modified: string[] = [];
 
   @Prop({ type: String, required: false, default: undefined })
-  created = '';
+  public created = '';
 }
 
 export const MetadataModelSchema = SchemaFactory.createForClass(MetadataModel);
@@ -132,10 +136,13 @@ export class SimulationRunMetadataModel extends Document {
     immutable: true,
   })
   public simulationRun!: string;
+  
   @Prop({ type: [MetadataModelSchema], minimize: false, required: false })
   public metadata!: [MetadataModel];
+  
   @Prop({ type: Boolean, required: false, default: false })
   public isPublic!: boolean;
+  
   public created!: string;
   public updated!: string;
 }
