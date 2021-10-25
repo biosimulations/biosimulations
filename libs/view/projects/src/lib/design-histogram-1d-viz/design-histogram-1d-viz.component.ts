@@ -132,7 +132,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
     } else {
       if (selected) {
         let hasAllDataSets = true;
-        for (const dataSet of (report?.dataSets || [])) {
+        for (const dataSet of report?.dataSets || []) {
           const dataSetUri =
             sedDocumentId + '/' + report?.id + '/' + dataSet.id;
           if (!selectedUris.has(dataSetUri)) {

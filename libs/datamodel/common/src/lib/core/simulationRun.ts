@@ -6,7 +6,7 @@ import {
   SedTask,
   SedDataGenerator,
   SedOutput,
-} from '../sedml'
+} from '../sedml';
 
 export enum SimulationRunStatus {
   // The api has created the entry

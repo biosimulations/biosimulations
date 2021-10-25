@@ -301,7 +301,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
           Params,
         ],
       ): void => {
-        const curatedAlgSubs: AlgorithmSubstitution[] | undefined = observerableValues[0];
+        const curatedAlgSubs: AlgorithmSubstitution[] | undefined =
+          observerableValues[0];
         const simulatorsData: SimulatorsData = observerableValues[1];
         const params: Params = observerableValues[2];
 
@@ -573,35 +574,37 @@ export class DispatchComponent implements OnInit, OnDestroy {
             const simulationAlgorithms = new Set<string>();
             const unsupportedModelFormats = new Set<string>();
             const unsupportedSimulationAlgorithms = new Set<string>();
-            archive.contents.forEach((content: CombineArchiveSedDocSpecsContent): void => {
-              const sedDoc: SedDocument = content.location.value;
+            archive.contents.forEach(
+              (content: CombineArchiveSedDocSpecsContent): void => {
+                const sedDoc: SedDocument = content.location.value;
 
-              sedDoc.models.forEach((model: SedModel): void => {
-                let edamId: string | null = null;
-                for (const modelFormat of MODEL_FORMATS) {
-                  if (model.language.startsWith(modelFormat.sedUrn)) {
-                    edamId = modelFormat.edamId;
-                    break;
+                sedDoc.models.forEach((model: SedModel): void => {
+                  let edamId: string | null = null;
+                  for (const modelFormat of MODEL_FORMATS) {
+                    if (model.language.startsWith(modelFormat.sedUrn)) {
+                      edamId = modelFormat.edamId;
+                      break;
+                    }
                   }
-                }
-                if (edamId) {
-                  modelFormats.add(edamId);
-                } else {
-                  unsupportedModelFormats.add(model.language);
-                }
-              });
+                  if (edamId) {
+                    modelFormats.add(edamId);
+                  } else {
+                    unsupportedModelFormats.add(model.language);
+                  }
+                });
 
-              sedDoc.simulations.forEach((sim: SedSimulation): void => {
-                const kisaoId = sim.algorithm.kisaoId;
-                if (
-                  kisaoId in (this.simulationAlgorithmsMap as AlgorithmsMap)
-                ) {
-                  simulationAlgorithms.add(kisaoId);
-                } else {
-                  unsupportedSimulationAlgorithms.add(kisaoId);
-                }
-              });
-            });
+                sedDoc.simulations.forEach((sim: SedSimulation): void => {
+                  const kisaoId = sim.algorithm.kisaoId;
+                  if (
+                    kisaoId in (this.simulationAlgorithmsMap as AlgorithmsMap)
+                  ) {
+                    simulationAlgorithms.add(kisaoId);
+                  } else {
+                    unsupportedSimulationAlgorithms.add(kisaoId);
+                  }
+                });
+              },
+            );
 
             this.modelFormatsControl.setValue(Array.from(modelFormats));
             this.simulationAlgorithmsControl.setValue(

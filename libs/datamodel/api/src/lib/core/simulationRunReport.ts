@@ -19,7 +19,10 @@ import {
 
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
-export const SimulationRunOutputDatumValuesSchema: Omit<SchemaObject, 'required'> = {
+export const SimulationRunOutputDatumValuesSchema: Omit<
+  SchemaObject,
+  'required'
+> = {
   oneOf: [
     { type: 'array', items: { type: 'number', format: 'float' } },
     { type: 'array', items: { type: 'boolean' } },

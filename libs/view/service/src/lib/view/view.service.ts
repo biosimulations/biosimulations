@@ -68,7 +68,13 @@ import { urls } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { OntologyService } from '@biosimulations/ontology/client';
 import { Spec as VegaSpec } from 'vega';
-import { Dataset, Person, Article, Organization, WithContext } from 'schema-dts';
+import {
+  Dataset,
+  Person,
+  Article,
+  Organization,
+  WithContext,
+} from 'schema-dts';
 import { Endpoints } from '@biosimulations/config/common';
 
 interface ConcreteListItem {
@@ -464,8 +470,8 @@ export class ViewService {
               pluck('duration'),
               map((durationSec: number | null): string =>
                 durationSec === null
-                ? 'N/A'
-                : FormatService.formatDuration(durationSec),
+                  ? 'N/A'
+                  : FormatService.formatDuration(durationSec),
               ),
             );
           run.push({
@@ -537,9 +543,10 @@ export class ViewService {
             format: `${COMBINE_OMEX_FORMAT.name} (${COMBINE_OMEX_FORMAT.acronym})`,
             formatUrl: COMBINE_OMEX_FORMAT.url,
             master: false,
-            size: simulationRun.projectSize === undefined
-              ? 'N/A'
-              : FormatService.formatDigitalSize(simulationRun.projectSize),
+            size:
+              simulationRun.projectSize === undefined
+                ? 'N/A'
+                : FormatService.formatDigitalSize(simulationRun.projectSize),
             icon: COMBINE_OMEX_FORMAT.icon,
             url: this.endpoints.getRunDownloadEndpoint(id),
             basename: 'project.omex',
@@ -626,9 +633,14 @@ export class ViewService {
                 content?.master ||
                 (!hasMaster && format.startsWith(SEDML_FORMAT.combineUris[0])),
               url: content.url,
-              size: content.size === undefined
-                ? 'N/A'
-                : FormatService.formatDigitalSize(typeof content.size === 'string' ? parseFloat(content.size) : content.size),
+              size:
+                content.size === undefined
+                  ? 'N/A'
+                  : FormatService.formatDigitalSize(
+                      typeof content.size === 'string'
+                        ? parseFloat(content.size)
+                        : content.size,
+                    ),
               formatUrl: this.formatMap?.[format]?.url,
               icon: this.formatMap?.[format]?.icon || 'file',
             };
@@ -678,9 +690,10 @@ export class ViewService {
             formatUrl:
               'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987',
             master: false,
-            size: simulationRun.resultsSize === undefined
-              ? 'N/A'
-              : FormatService.formatDigitalSize(simulationRun.resultsSize),
+            size:
+              simulationRun.resultsSize === undefined
+                ? 'N/A'
+                : FormatService.formatDigitalSize(simulationRun.resultsSize),
             icon: 'report',
             url: this.endpoints.getRunResultsDownloadEndpoint(id),
             basename: 'outputs.zip',
@@ -708,204 +721,217 @@ export class ViewService {
       this.projService.getArchiveContents(id),
       this.projService.getProjectSedmlContents(id),
     ]).pipe(
-      map((args: [CombineArchiveFile[], SimulationRunSedDocument[]]): VisualizationList[] => {
-        const contents = args[0];
-        const sedmlArchiveContents = args[1];
+      map(
+        (
+          args: [CombineArchiveFile[], SimulationRunSedDocument[]],
+        ): VisualizationList[] => {
+          const contents = args[0];
+          const sedmlArchiveContents = args[1];
 
-        const sedmlReportArchiveContents = sedmlArchiveContents.map((content: SimulationRunSedDocument): SedDocumentReports => {
-          return {
-            id: content.id,
-            outputs: content.outputs
-              .flatMap((output: SedOutput): SedReport[] => {
-                return output._type === 'SedReport' ? [output] : [];
-              })
-          };
-        });
-
-        const uriSedDataSetMap: UriSedDataSetMap = {};
-        sedmlArchiveContents.forEach(
-          (sedDocLocation: SimulationRunSedDocument): void => {
-            sedDocLocation.outputs.forEach((output: SedOutput): void => {
-              if (output._type === 'SedReport') {
-                output.dataSets.forEach((dataSet: SedDataSet): void => {
-                  let location = sedDocLocation.id;
-                  if (location.startsWith('./')) {
-                    location = location.substring(2);
-                  }
-                  const uri = location + '/' + output.id + '/' + dataSet.id;
-                  uriSedDataSetMap[uri] = dataSet;
-                });
-              }
-            });
-          },
-        );
-
-        const vegaVisualizations: VegaVisualization[] = [];
-        contents.forEach((content: CombineArchiveFile): void => {
-          if (VEGA_FORMAT.combineUris.includes(content.format)) {
-            let location = content.location;
-            if (location.startsWith('./')) {
-              location = location.substring(2);
-            }
-
-            vegaVisualizations.push({
-              _type: 'VegaVisualization',
-              id: location,
-              name: location,
-              userDesigned: false,
-              renderer: 'Vega',
-              vegaSpec: this.projService
-                .getProjectFile(id, content.location)
-                .pipe(
-                  shareReplay(1),
-                  map((spec: VegaSpec): VegaSpec | false => {
-                    return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(
-                      id,
-                      sedmlArchiveContents,
-                      spec,
-                    );
-                  }),
-                  shareReplay(1),
+          const sedmlReportArchiveContents = sedmlArchiveContents.map(
+            (content: SimulationRunSedDocument): SedDocumentReports => {
+              return {
+                id: content.id,
+                outputs: content.outputs.flatMap(
+                  (output: SedOutput): SedReport[] => {
+                    return output._type === 'SedReport' ? [output] : [];
+                  },
                 ),
-            });
-          }
-        });
-        vegaVisualizations.sort(
-          (a: VegaVisualization, b: VegaVisualization): number => {
-            return a.name.localeCompare(b.name, undefined, { numeric: true });
-          },
-        );
+              };
+            },
+          );
 
-        const vegaVisualizationsList: VisualizationList[] =
-          vegaVisualizations.length
-            ? [
-                {
-                  title: 'Vega charts',
-                  visualizations: vegaVisualizations,
-                },
-              ]
-            : [];
+          const uriSedDataSetMap: UriSedDataSetMap = {};
+          sedmlArchiveContents.forEach(
+            (sedDocLocation: SimulationRunSedDocument): void => {
+              sedDocLocation.outputs.forEach((output: SedOutput): void => {
+                if (output._type === 'SedReport') {
+                  output.dataSets.forEach((dataSet: SedDataSet): void => {
+                    let location = sedDocLocation.id;
+                    if (location.startsWith('./')) {
+                      location = location.substring(2);
+                    }
+                    const uri = location + '/' + output.id + '/' + dataSet.id;
+                    uriSedDataSetMap[uri] = dataSet;
+                  });
+                }
+              });
+            },
+          );
 
-        const sedmlVisualizationsList = sedmlArchiveContents
-          .map(
-            (sedDocLocation: SimulationRunSedDocument): VisualizationList => {
-              let location = sedDocLocation.id;
+          const vegaVisualizations: VegaVisualization[] = [];
+          contents.forEach((content: CombineArchiveFile): void => {
+            if (VEGA_FORMAT.combineUris.includes(content.format)) {
+              let location = content.location;
               if (location.startsWith('./')) {
                 location = location.substring(2);
               }
-              return {
-                title: 'SED-ML charts for ' + location,
-                visualizations: sedDocLocation.outputs
-                  .flatMap((output: SedOutput): SedPlot2D[] => {
-                    return output._type === 'SedPlot2D' ? [output] : [];
-                  })
-                  .map((output: SedPlot2D): SedPlot2DVisualization => {
-                    return {
-                      _type: 'SedPlot2DVisualization',
-                      id: `${location}/${output.id}`,
-                      name: `${output.name || output.id}`,
-                      userDesigned: false,
-                      renderer: 'Plotly',
-                      plotlyDataLayout: of(
-                        this.simService
-                          .getSimulationRunOutputResults(
-                            id,
-                            `${location}/${output.id}`,
-                            true,
-                          )
-                          .pipe(
-                            map((result: SimulationRunOutput): PlotlyDataLayout => {
-                              return this.sedPlot2DVisualizationService.getPlotlyDataLayout(
-                                id,
-                                location,
-                                output,
-                                result,
-                              );
-                            }),
-                          ),
-                      ),
-                    };
-                  })
-                  .sort((a: Visualization, b: Visualization): number => {
-                    return a.name.localeCompare(b.name, undefined, {
-                      numeric: true,
-                    });
-                  }),
-              };
+
+              vegaVisualizations.push({
+                _type: 'VegaVisualization',
+                id: location,
+                name: location,
+                userDesigned: false,
+                renderer: 'Vega',
+                vegaSpec: this.projService
+                  .getProjectFile(id, content.location)
+                  .pipe(
+                    shareReplay(1),
+                    map((spec: VegaSpec): VegaSpec | false => {
+                      return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(
+                        id,
+                        sedmlArchiveContents,
+                        spec,
+                      );
+                    }),
+                    shareReplay(1),
+                  ),
+              });
+            }
+          });
+          vegaVisualizations.sort(
+            (a: VegaVisualization, b: VegaVisualization): number => {
+              return a.name.localeCompare(b.name, undefined, { numeric: true });
             },
-          )
-          .filter((a: VisualizationList): boolean => {
-            return a.visualizations.length > 0;
-          })
-          .sort((a: VisualizationList, b: VisualizationList): number => {
-            return a.title.localeCompare(b.title, undefined, { numeric: true });
+          );
+
+          const vegaVisualizationsList: VisualizationList[] =
+            vegaVisualizations.length
+              ? [
+                  {
+                    title: 'Vega charts',
+                    visualizations: vegaVisualizations,
+                  },
+                ]
+              : [];
+
+          const sedmlVisualizationsList = sedmlArchiveContents
+            .map(
+              (sedDocLocation: SimulationRunSedDocument): VisualizationList => {
+                let location = sedDocLocation.id;
+                if (location.startsWith('./')) {
+                  location = location.substring(2);
+                }
+                return {
+                  title: 'SED-ML charts for ' + location,
+                  visualizations: sedDocLocation.outputs
+                    .flatMap((output: SedOutput): SedPlot2D[] => {
+                      return output._type === 'SedPlot2D' ? [output] : [];
+                    })
+                    .map((output: SedPlot2D): SedPlot2DVisualization => {
+                      return {
+                        _type: 'SedPlot2DVisualization',
+                        id: `${location}/${output.id}`,
+                        name: `${output.name || output.id}`,
+                        userDesigned: false,
+                        renderer: 'Plotly',
+                        plotlyDataLayout: of(
+                          this.simService
+                            .getSimulationRunOutputResults(
+                              id,
+                              `${location}/${output.id}`,
+                              true,
+                            )
+                            .pipe(
+                              map(
+                                (
+                                  result: SimulationRunOutput,
+                                ): PlotlyDataLayout => {
+                                  return this.sedPlot2DVisualizationService.getPlotlyDataLayout(
+                                    id,
+                                    location,
+                                    output,
+                                    result,
+                                  );
+                                },
+                              ),
+                            ),
+                        ),
+                      };
+                    })
+                    .sort((a: Visualization, b: Visualization): number => {
+                      return a.name.localeCompare(b.name, undefined, {
+                        numeric: true,
+                      });
+                    }),
+                };
+              },
+            )
+            .filter((a: VisualizationList): boolean => {
+              return a.visualizations.length > 0;
+            })
+            .sort((a: VisualizationList, b: VisualizationList): number => {
+              return a.title.localeCompare(b.title, undefined, {
+                numeric: true,
+              });
+            });
+
+          const designVisualizations: Visualization[] = [];
+
+          let behaviorSubject: BehaviorSubject<
+            Observable<PlotlyDataLayout | false | null>
+          >;
+
+          behaviorSubject = new BehaviorSubject<
+            Observable<PlotlyDataLayout | false | null>
+          >(of(null));
+          designVisualizations.push({
+            _type: 'Histogram1DVisualization',
+            id: 'Histogram1DVisualization',
+            name: '1D histogram',
+            userDesigned: true,
+            simulationRunId: id,
+            sedDocs: sedmlReportArchiveContents,
+            uriSedDataSetMap: uriSedDataSetMap,
+            renderer: 'Plotly',
+            plotlyDataLayoutSubject: behaviorSubject,
+            plotlyDataLayout: behaviorSubject.asObservable(),
           });
 
-        const designVisualizations: Visualization[] = [];
+          behaviorSubject = new BehaviorSubject<
+            Observable<PlotlyDataLayout | false | null>
+          >(of(null));
+          designVisualizations.push({
+            _type: 'Heatmap2DVisualization',
+            id: 'Heatmap2DVisualization',
+            name: '2D heatmap',
+            userDesigned: true,
+            simulationRunId: id,
+            sedDocs: sedmlReportArchiveContents,
+            uriSedDataSetMap: uriSedDataSetMap,
+            renderer: 'Plotly',
+            plotlyDataLayoutSubject: behaviorSubject,
+            plotlyDataLayout: behaviorSubject.asObservable(),
+          });
 
-        let behaviorSubject: BehaviorSubject<
-          Observable<PlotlyDataLayout | false | null>
-        >;
+          behaviorSubject = new BehaviorSubject<
+            Observable<PlotlyDataLayout | false | null>
+          >(of(null));
+          designVisualizations.push({
+            _type: 'Line2DVisualization',
+            id: 'Line2DVisualization',
+            name: '2D line plot',
+            userDesigned: true,
+            simulationRunId: id,
+            sedDocs: sedmlReportArchiveContents,
+            uriSedDataSetMap: uriSedDataSetMap,
+            renderer: 'Plotly',
+            plotlyDataLayoutSubject: behaviorSubject,
+            plotlyDataLayout: behaviorSubject.asObservable(),
+          });
 
-        behaviorSubject = new BehaviorSubject<
-          Observable<PlotlyDataLayout | false | null>
-        >(of(null));
-        designVisualizations.push({
-          _type: 'Histogram1DVisualization',
-          id: 'Histogram1DVisualization',
-          name: '1D histogram',
-          userDesigned: true,
-          simulationRunId: id,
-          sedDocs: sedmlReportArchiveContents,
-          uriSedDataSetMap: uriSedDataSetMap,
-          renderer: 'Plotly',
-          plotlyDataLayoutSubject: behaviorSubject,
-          plotlyDataLayout: behaviorSubject.asObservable(),
-        });
+          const designVisualizationsList: VisualizationList[] = [
+            {
+              title: 'Design a chart',
+              visualizations: designVisualizations,
+            },
+          ];
 
-        behaviorSubject = new BehaviorSubject<
-          Observable<PlotlyDataLayout | false | null>
-        >(of(null));
-        designVisualizations.push({
-          _type: 'Heatmap2DVisualization',
-          id: 'Heatmap2DVisualization',
-          name: '2D heatmap',
-          userDesigned: true,
-          simulationRunId: id,
-          sedDocs: sedmlReportArchiveContents,
-          uriSedDataSetMap: uriSedDataSetMap,
-          renderer: 'Plotly',
-          plotlyDataLayoutSubject: behaviorSubject,
-          plotlyDataLayout: behaviorSubject.asObservable(),
-        });
-
-        behaviorSubject = new BehaviorSubject<
-          Observable<PlotlyDataLayout | false | null>
-        >(of(null));
-        designVisualizations.push({
-          _type: 'Line2DVisualization',
-          id: 'Line2DVisualization',
-          name: '2D line plot',
-          userDesigned: true,
-          simulationRunId: id,
-          sedDocs: sedmlReportArchiveContents,
-          uriSedDataSetMap: uriSedDataSetMap,
-          renderer: 'Plotly',
-          plotlyDataLayoutSubject: behaviorSubject,
-          plotlyDataLayout: behaviorSubject.asObservable(),
-        });
-
-        const designVisualizationsList: VisualizationList[] = [
-          {
-            title: 'Design a chart',
-            visualizations: designVisualizations,
-          },
-        ];
-
-        return vegaVisualizationsList
-          .concat(sedmlVisualizationsList)
-          .concat(designVisualizationsList);
-      }),
+          return vegaVisualizationsList
+            .concat(sedmlVisualizationsList)
+            .concat(designVisualizationsList);
+        },
+      ),
     );
   }
 
@@ -995,224 +1021,237 @@ export class ViewService {
       this.simService.getSimulationRun(runId),
       this.getProjectMetadata(runId),
     ]).pipe(
-      map((args: [SimulationRun, ArchiveMetadata[] | undefined]): WithContext<Dataset> => {
-        const simulationRun = args[0];
-        const projectMeta: ArchiveMetadata | undefined = args[1] === undefined
-          ? undefined
-          : args[1].filter((meta: ArchiveMetadata) => meta.uri.search('/') === -1)[0];
+      map(
+        (
+          args: [SimulationRun, ArchiveMetadata[] | undefined],
+        ): WithContext<Dataset> => {
+          const simulationRun = args[0];
+          const projectMeta: ArchiveMetadata | undefined =
+            args[1] === undefined
+              ? undefined
+              : args[1].filter(
+                  (meta: ArchiveMetadata) => meta.uri.search('/') === -1,
+                )[0];
 
-        const runDataSet: Dataset = {
-          '@type': 'Dataset',
-          includedInDataCatalog: {
-            '@type': 'DataCatalog',
-            name: 'runBioSimulations',
-            description:
-              'Database of runs of biosimulations, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
-            url: urls.dispatch,
-          },
-          name: simulationRun.name,
-          url: `${urls.dispatch}/simulations/${runId}`,
-          identifier: [
-            `${urls.dispatch}/simulations/${runId}`.replace(
-              'https://',
-              'http://',
-            ),
-            `http://identifiers.org/runbiosimulations/${runId}`,
-          ],
-          distribution: [
-            {
-              '@type': 'DataDownload',
-              description: 'Project',
-              contentUrl: this.endpoints.getRunDownloadEndpoint(runId),
-              encodingFormat: 'application/zip',
-              contentSize: simulationRun.projectSize === undefined
-                ? 'N/A'
-                : FormatService.formatDigitalSize(simulationRun.projectSize),
+          const runDataSet: Dataset = {
+            '@type': 'Dataset',
+            includedInDataCatalog: {
+              '@type': 'DataCatalog',
+              name: 'runBioSimulations',
+              description:
+                'Database of runs of biosimulations, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
+              url: urls.dispatch,
             },
-            {
-              '@type': 'DataDownload',
-              description: 'Simulation results',
-              contentUrl: this.endpoints.getRunResultsEndpoint(
-                runId,
-                undefined,
-                true,
+            name: simulationRun.name,
+            url: `${urls.dispatch}/simulations/${runId}`,
+            identifier: [
+              `${urls.dispatch}/simulations/${runId}`.replace(
+                'https://',
+                'http://',
               ),
-              encodingFormat: 'application/json',
-            },
-            {
-              '@type': 'DataDownload',
-              description: 'Simulation outputs',
-              contentUrl: this.endpoints.getRunResultsDownloadEndpoint(runId),
-              encodingFormat: 'application/zip',
-              contentSize: simulationRun.resultsSize === undefined
-                ? 'N/A'
-                : FormatService.formatDigitalSize(simulationRun.resultsSize),
-            },
-            {
-              '@type': 'DataDownload',
-              description: 'Simulation log',
-              contentUrl: this.endpoints.getSimulationRunLogsEndpoint(runId),
-              encodingFormat: 'application/json',
-            },
-          ],
-          dateCreated: FormatService.formatDate(
-            new Date(simulationRun.submitted),
-          ),
-          dateModified: FormatService.formatDate(
-            new Date(simulationRun.updated),
-          ),
-          keywords: [
-            'mathematical model',
-            'numerical simulation',
-            'COMBINE',
-            'OMEX',
-            'Simulation Experiment Description Markup Language',
-            'SED-ML',
-            simulationRun.simulator,
-          ],
-          educationalLevel: 'advanced',
-        };
-
-        if (projectMeta) {
-          if (projectMeta.title) {
-            runDataSet.headline = projectMeta.title;
-          }
-          if (projectMeta.abstract) {
-            runDataSet.description = projectMeta.abstract;
-          }
-          if (projectMeta.description) {
-            runDataSet.abstract = projectMeta.description;
-          }
-          runDataSet.thumbnailUrl = projectMeta.thumbnails;
-          runDataSet.keywords = projectMeta.keywords.map(
-            (keyword: LabeledIdentifier): string => {
-              return keyword.label as string;
-            },
-          );
-          runDataSet.creator = projectMeta.creators.map(
-            (creator: LabeledIdentifier) => {
-              const person: Person = {
-                '@type': 'Person'
-              };
-              if (creator.label) {
-                person.name = creator.label
-              }
-              if (creator.uri) {
-                person.identifier = creator.uri;
-              }
-              return person;
-            },
-          );
-          runDataSet.contributor = projectMeta.contributors.map(
-            (contributor: LabeledIdentifier) => {
-              const person: Person = {
-                '@type': 'Person'
-              };
-              if (contributor.label) {
-                person.name = contributor.label
-              }
-              if (contributor.uri) {
-                person.identifier = contributor.uri;
-              }
-              return person;
-            },
-          );
-          projectMeta.identifiers
-            .filter(
-              (identifier: LabeledIdentifier) =>
-                !!identifier && !!identifier?.uri,
-            )
-            .forEach((identifier: LabeledIdentifier): void => {
-              (runDataSet.identifier as string[]).push(
-                identifier.uri as string,
-              );
-            });
-          runDataSet.citation = projectMeta.citations.map(
-            (citation: LabeledIdentifier) => {
-              const article: Article = {
-                '@type': 'Article'
-              };
-              if (citation.label) {
-                article.description = citation.label
-              }
-              if (citation.uri) {
-                article.identifier = citation.uri;
-              }
-              return article;
-            },
-          );
-          if (projectMeta.license) {
-            runDataSet.license = projectMeta.license
-              ?.filter((license: LabeledIdentifier) => !!license.uri)
-              ?.map((license: LabeledIdentifier) => license.uri) as string[];
-          }
-          runDataSet.funder = projectMeta.funders.map(
-            (funder: LabeledIdentifier) => {
-              const organization: Organization = {
-                '@type': 'Organization'
-              };
-              if (funder.label) {
-                organization.name = funder.label
-              }
-              if (funder.uri) {
-                organization.identifier = funder.uri;
-              }
-              return organization;
-            },
-          );
-        }
-
-        if (project) {
-          const dataSet: WithContext<Dataset> = {
-            '@context': 'https://schema.org',
-            '@type': 'Dataset',
+              `http://identifiers.org/runbiosimulations/${runId}`,
+            ],
+            distribution: [
+              {
+                '@type': 'DataDownload',
+                description: 'Project',
+                contentUrl: this.endpoints.getRunDownloadEndpoint(runId),
+                encodingFormat: 'application/zip',
+                contentSize:
+                  simulationRun.projectSize === undefined
+                    ? 'N/A'
+                    : FormatService.formatDigitalSize(
+                        simulationRun.projectSize,
+                      ),
+              },
+              {
+                '@type': 'DataDownload',
+                description: 'Simulation results',
+                contentUrl: this.endpoints.getRunResultsEndpoint(
+                  runId,
+                  undefined,
+                  true,
+                ),
+                encodingFormat: 'application/json',
+              },
+              {
+                '@type': 'DataDownload',
+                description: 'Simulation outputs',
+                contentUrl: this.endpoints.getRunResultsDownloadEndpoint(runId),
+                encodingFormat: 'application/zip',
+                contentSize:
+                  simulationRun.resultsSize === undefined
+                    ? 'N/A'
+                    : FormatService.formatDigitalSize(
+                        simulationRun.resultsSize,
+                      ),
+              },
+              {
+                '@type': 'DataDownload',
+                description: 'Simulation log',
+                contentUrl: this.endpoints.getSimulationRunLogsEndpoint(runId),
+                encodingFormat: 'application/json',
+              },
+            ],
+            dateCreated: FormatService.formatDate(
+              new Date(simulationRun.submitted),
+            ),
+            dateModified: FormatService.formatDate(
+              new Date(simulationRun.updated),
+            ),
+            keywords: [
+              'mathematical model',
+              'numerical simulation',
+              'COMBINE',
+              'OMEX',
+              'Simulation Experiment Description Markup Language',
+              'SED-ML',
+              simulationRun.simulator,
+            ],
+            educationalLevel: 'advanced',
           };
-          Object.assign(dataSet, runDataSet);
 
-          dataSet.includedInDataCatalog = {
-            '@type': 'DataCatalog',
-            name: 'BioSimulations',
-            description:
-              'Open registry of biosimulation projects, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
-            url: urls.platform,
-          };
-          dataSet.url = `${urls.platform}/projects/${project?.id}`;
-          dataSet.identifier = [...(dataSet.identifier as string[])];
-          (dataSet.identifier as string[])[0] =
-            `${urls.platform}/projects/${project?.id}`.replace(
-              'https://',
-              'http://',
+          if (projectMeta) {
+            if (projectMeta.title) {
+              runDataSet.headline = projectMeta.title;
+            }
+            if (projectMeta.abstract) {
+              runDataSet.description = projectMeta.abstract;
+            }
+            if (projectMeta.description) {
+              runDataSet.abstract = projectMeta.description;
+            }
+            runDataSet.thumbnailUrl = projectMeta.thumbnails;
+            runDataSet.keywords = projectMeta.keywords.map(
+              (keyword: LabeledIdentifier): string => {
+                return keyword.label as string;
+              },
             );
-          (
-            dataSet.identifier as string[]
-          )[1] = `http://identifiers.org/biosimulations/${project?.id}`;
-          dataSet.creativeWorkStatus = 'Published';
-          dataSet.hasPart = runDataSet;
-          dataSet.distribution = [
-            {
-              '@type': 'DataDownload',
-              description: 'Project',
-              contentUrl: this.endpoints.getProjectsEndpoint(project?.id),
-              encodingFormat: 'application/json',
-            },
-          ];
-          dataSet.datePublished = FormatService.formatDate(
-            new Date(project.created),
-          );
-          dataSet.dateModified = FormatService.formatDate(
-            new Date(project.updated),
-          );
+            runDataSet.creator = projectMeta.creators.map(
+              (creator: LabeledIdentifier) => {
+                const person: Person = {
+                  '@type': 'Person',
+                };
+                if (creator.label) {
+                  person.name = creator.label;
+                }
+                if (creator.uri) {
+                  person.identifier = creator.uri;
+                }
+                return person;
+              },
+            );
+            runDataSet.contributor = projectMeta.contributors.map(
+              (contributor: LabeledIdentifier) => {
+                const person: Person = {
+                  '@type': 'Person',
+                };
+                if (contributor.label) {
+                  person.name = contributor.label;
+                }
+                if (contributor.uri) {
+                  person.identifier = contributor.uri;
+                }
+                return person;
+              },
+            );
+            projectMeta.identifiers
+              .filter(
+                (identifier: LabeledIdentifier) =>
+                  !!identifier && !!identifier?.uri,
+              )
+              .forEach((identifier: LabeledIdentifier): void => {
+                (runDataSet.identifier as string[]).push(
+                  identifier.uri as string,
+                );
+              });
+            runDataSet.citation = projectMeta.citations.map(
+              (citation: LabeledIdentifier) => {
+                const article: Article = {
+                  '@type': 'Article',
+                };
+                if (citation.label) {
+                  article.description = citation.label;
+                }
+                if (citation.uri) {
+                  article.identifier = citation.uri;
+                }
+                return article;
+              },
+            );
+            if (projectMeta.license) {
+              runDataSet.license = projectMeta.license
+                ?.filter((license: LabeledIdentifier) => !!license.uri)
+                ?.map((license: LabeledIdentifier) => license.uri) as string[];
+            }
+            runDataSet.funder = projectMeta.funders.map(
+              (funder: LabeledIdentifier) => {
+                const organization: Organization = {
+                  '@type': 'Organization',
+                };
+                if (funder.label) {
+                  organization.name = funder.label;
+                }
+                if (funder.uri) {
+                  organization.identifier = funder.uri;
+                }
+                return organization;
+              },
+            );
+          }
 
-          return dataSet;
-        } else {
-          const dataSet: WithContext<Dataset> = {
-            '@context': 'https://schema.org',
-            '@type': 'Dataset',
-          };
-          Object.assign(dataSet, runDataSet);
-          return dataSet;
-        }
-      }),
+          if (project) {
+            const dataSet: WithContext<Dataset> = {
+              '@context': 'https://schema.org',
+              '@type': 'Dataset',
+            };
+            Object.assign(dataSet, runDataSet);
+
+            dataSet.includedInDataCatalog = {
+              '@type': 'DataCatalog',
+              name: 'BioSimulations',
+              description:
+                'Open registry of biosimulation projects, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
+              url: urls.platform,
+            };
+            dataSet.url = `${urls.platform}/projects/${project?.id}`;
+            dataSet.identifier = [...(dataSet.identifier as string[])];
+            (dataSet.identifier as string[])[0] =
+              `${urls.platform}/projects/${project?.id}`.replace(
+                'https://',
+                'http://',
+              );
+            (
+              dataSet.identifier as string[]
+            )[1] = `http://identifiers.org/biosimulations/${project?.id}`;
+            dataSet.creativeWorkStatus = 'Published';
+            dataSet.hasPart = runDataSet;
+            dataSet.distribution = [
+              {
+                '@type': 'DataDownload',
+                description: 'Project',
+                contentUrl: this.endpoints.getProjectsEndpoint(project?.id),
+                encodingFormat: 'application/json',
+              },
+            ];
+            dataSet.datePublished = FormatService.formatDate(
+              new Date(project.created),
+            );
+            dataSet.dateModified = FormatService.formatDate(
+              new Date(project.updated),
+            );
+
+            return dataSet;
+          } else {
+            const dataSet: WithContext<Dataset> = {
+              '@context': 'https://schema.org',
+              '@type': 'Dataset',
+            };
+            Object.assign(dataSet, runDataSet);
+            return dataSet;
+          }
+        },
+      ),
     );
   }
 }

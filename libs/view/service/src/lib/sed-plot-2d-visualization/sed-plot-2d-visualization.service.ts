@@ -39,9 +39,8 @@ export class SedPlot2DVisualizationService {
     plot: SedPlot2D,
     results: SimulationRunOutput,
   ): PlotlyDataLayout {
-    const resultsMap: SedDatasetResultsMap = this.getSimulationRunResults(
-      results,
-    );
+    const resultsMap: SedDatasetResultsMap =
+      this.getSimulationRunResults(results);
 
     const traces: PlotlyTrace[] = [];
     const xAxisTitlesSet = new Set<string>();
@@ -130,9 +129,7 @@ export class SedPlot2DVisualizationService {
       sedmlLocationOutputId,
     );
 
-    const outputId = this.getOutputIdFromSedmlLocationId(
-      sedmlLocationOutputId,
-    );
+    const outputId = this.getOutputIdFromSedmlLocationId(sedmlLocationOutputId);
 
     result.data.forEach((datum: SimulationRunOutputDatum): void => {
       const uri = sedmlLocation + '/' + outputId + '/' + datum.id;

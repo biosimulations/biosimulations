@@ -52,7 +52,9 @@ export class ProjectService {
     return response;
   }
 
-  public getProjectSedmlContents(id: string): Observable<SimulationRunSedDocument[]> {
+  public getProjectSedmlContents(
+    id: string,
+  ): Observable<SimulationRunSedDocument[]> {
     const url = this.endpoints.getSpecificationsEndpoint(id);
     const response = this.http.get<SimulationRunSedDocument[]>(url).pipe();
     return response;

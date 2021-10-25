@@ -1260,7 +1260,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           );
         }
         // TODO set typing and refactor. TS will not catch the type errors here
-        const algSubstitutions: AlgorithmSubstitution[] = observerableValues[0] === undefined ? [] : observerableValues[0];
+        const algSubstitutions: AlgorithmSubstitution[] =
+          observerableValues[0] === undefined ? [] : observerableValues[0];
         const simulatorsData: SimulatorsData = observerableValues[1];
         const queryParams: Params = observerableValues[2];
 

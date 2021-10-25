@@ -45,7 +45,11 @@ export class SimulationService {
     id: string,
     includeData = false,
   ): Observable<SimulationRunResults> {
-    const url = this.endpoints.getRunResultsEndpoint(id, undefined, includeData);
+    const url = this.endpoints.getRunResultsEndpoint(
+      id,
+      undefined,
+      includeData,
+    );
     const retryStrategy = new RetryStrategy();
     const response = this.http
       .get<SimulationRunResults>(url)

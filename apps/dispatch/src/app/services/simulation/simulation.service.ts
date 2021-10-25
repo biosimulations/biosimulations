@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Simulation,
-  ISimulation,
-  isUnknownSimulation,
-} from '../../datamodel';
+import { Simulation, ISimulation, isUnknownSimulation } from '../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage-angular';

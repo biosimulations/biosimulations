@@ -28,10 +28,8 @@ export function formatValue(
 ): string | null {
   if (value == null) {
     return value;
-
   } else if (type === ValueType.boolean) {
     return value.toString();
-
   } else if (type === ValueType.integer || type === ValueType.float) {
     const numValue = value as number;
     if (numValue === 0) {
@@ -57,7 +55,6 @@ export function formatValue(
     } else {
       return numValue.toString();
     }
-
   } else {
     return value as string;
   }

@@ -158,8 +158,10 @@ export class VegaVisualizationService {
     path: any,
     sedDocumentConfigurations: SimulationRunSedDocument[],
   ): SedReport | SedReport[] | undefined {
-    const sedDocument: SimulationRunSedDocument | SimulationRunSedDocument[] | undefined =
-      this.getSedDocument(path, sedDocumentConfigurations);
+    const sedDocument:
+      | SimulationRunSedDocument
+      | SimulationRunSedDocument[]
+      | undefined = this.getSedDocument(path, sedDocumentConfigurations);
     if (!sedDocument || Array.isArray(sedDocument)) {
       return undefined;
     }
@@ -209,8 +211,10 @@ export class VegaVisualizationService {
     path: any,
     sedDocumentConfigurations: SimulationRunSedDocument[],
   ): any {
-    const sedDocument: SimulationRunSedDocument | SimulationRunSedDocument[] | undefined =
-      this.getSedDocument(path, sedDocumentConfigurations);
+    const sedDocument:
+      | SimulationRunSedDocument
+      | SimulationRunSedDocument[]
+      | undefined = this.getSedDocument(path, sedDocumentConfigurations);
     if (!sedDocument) {
       return undefined;
     }

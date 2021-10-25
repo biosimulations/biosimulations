@@ -1,4 +1,4 @@
-export interface Namespace  {
+export interface Namespace {
   _type: 'Namespace';
   prefix?: string;
   uri: string;
@@ -8,7 +8,7 @@ export interface SedTarget {
   _type: 'SedTarget';
   value: string;
   namespaces?: Namespace[];
-};
+}
 
 export interface SedModelAttributeChange {
   _type: 'SedModelAttributeChange';

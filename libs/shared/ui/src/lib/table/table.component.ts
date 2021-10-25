@@ -611,7 +611,7 @@ export class TableComponent implements OnInit, AfterViewInit {
               id: sort.active,
               start: sort.direction as SortDirection,
               disableClear: false,
-            } as MatSortable
+            } as MatSortable;
             this.sort.sort(matSortable2);
 
             (

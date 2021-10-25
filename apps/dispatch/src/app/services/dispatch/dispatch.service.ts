@@ -145,10 +145,7 @@ export class DispatchService {
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
 
-    const response = this.http.post<SimulationRun>(
-      this.endpoint,
-      formData,
-    );
+    const response = this.http.post<SimulationRun>(this.endpoint, formData);
     return response;
   }
 

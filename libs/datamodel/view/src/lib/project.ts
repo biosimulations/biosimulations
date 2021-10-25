@@ -50,7 +50,9 @@ export interface SedDocumentReports {
 }
 
 export type UriSedDataSetMap = { [uri: string]: SedDataSet };
-export type UriSetDataSetResultsMap = { [uri: string]: SimulationRunOutputDatum };
+export type UriSetDataSetResultsMap = {
+  [uri: string]: SimulationRunOutputDatum;
+};
 
 export interface VegaVisualization {
   _type: 'VegaVisualization';
