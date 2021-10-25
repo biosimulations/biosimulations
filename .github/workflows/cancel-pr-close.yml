@@ -1,3 +1,4 @@
+name: Cancel workflows after PRs closed
 on:
   pull_request:
     types: [closed]
