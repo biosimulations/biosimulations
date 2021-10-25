@@ -13,7 +13,10 @@ import {
 } from '@nestjs/swagger';
 import { CustomOrigin } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ConfigService } from '@nestjs/config';
-import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+import {
+  ScopesObject,
+  SecuritySchemeObject,
+} from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { Resolver } from '@stoplight/json-ref-resolver';
 import * as toJsonSchema from '@openapi-contrib/openapi-schema-to-json-schema';
 import { json } from 'body-parser';
@@ -24,11 +27,11 @@ function setupOpenApi(
   authorizationUrl?: string,
   openIdConnectUrl?: string,
   clientId?: string,
-  scopes?: string[],
+  scopes?: ScopesObject,
   uiPath = '',
 ) {
   if (!scopes) {
-    scopes = [];
+    scopes = {};
   }
   const oauthSchema: SecuritySchemeObject = {
     type: 'oauth2',
@@ -165,6 +168,11 @@ async function bootstrap() {
     'https://auth.biosimulations.org/authorize?audience=api.biosimulators.org',
     'https://auth.biosimulations.org/.well-known/openid-configuration',
     'WEPUMb2Jo28NdEt1Z7fhUx54Bff8MnKF',
+    {
+      'read:Simulators': 'Get information about simulators',
+      'write:Simulators': 'Create or modify simulators',
+      'delete:Simulators': 'Delete simulators',
+    },
   );
 
   const httpAdapter = app.getHttpAdapter();
