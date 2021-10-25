@@ -27,7 +27,7 @@ export class DefaultFilter implements ExceptionFilter {
       'message' in exception
     ) {
       status = exception.status;
-      title = exception.error || exception.message;
+      title = exception.message;
       detail = exception.message;
 
       if (status === 413) {
