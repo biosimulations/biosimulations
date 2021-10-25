@@ -4,8 +4,8 @@ export interface LabeledIdentifier {
 }
 
 export interface DescribedIdentifier extends LabeledIdentifier {
-  attribute_uri?: string | null;
-  attribute_label?: string | null;
+  attribute_uri: string | null;
+  attribute_label: string | null;
 }
 
 export interface ArchiveMetadata {

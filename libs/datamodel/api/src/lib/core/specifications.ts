@@ -1,4 +1,4 @@
-import { ApiProperty, ApiResponseProperty, getSchemaPath } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty, getSchemaPath, ApiExtraModels } from '@nestjs/swagger';
 import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
   SedModel as ISedModel,
@@ -64,6 +64,7 @@ export class SedModelAttributeChange implements ISedModelAttributeChange {
 
 export type SedModelChange = SedModelAttributeChange;
 
+@ApiExtraModels(SedModelAttributeChange)
 export class SedModel implements ISedModel {
   @ApiProperty({ type: String, enum: ['SedModel'] })
   public _type!: 'SedModel';
@@ -172,6 +173,9 @@ export type SedSimulation =
   | SedSteadyStateSimulation
   | SedOneStepSimulation;
 
+@ApiExtraModels(SedUniformTimeCourseSimulation)
+@ApiExtraModels(SedSteadyStateSimulation)
+@ApiExtraModels(SedOneStepSimulation)
 export class SedTask implements ISedTask {
   @ApiProperty({ type: String, enum: ['SedTask'] })
   public _type!: 'SedTask';
@@ -358,6 +362,12 @@ export class SedPlot3D implements ISedPlot3D {
 
 export type SedOutput = SedReport | SedPlot2D | SedPlot3D;
 
+@ApiExtraModels(SedUniformTimeCourseSimulation)
+@ApiExtraModels(SedSteadyStateSimulation)
+@ApiExtraModels(SedOneStepSimulation)
+@ApiExtraModels(SedReport)
+@ApiExtraModels(SedPlot2D)
+@ApiExtraModels(SedPlot3D)
 export class SimulationRunSedDocument implements ISimulationRunSedDocument {
   @ApiProperty({ type: String })
   public id!: string;
