@@ -9,6 +9,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { NgxJsonLdModule } from '@ngx-lite/json-ld';
 
 describe('ViewSimulatorComponent', () => {
   let component: ViewSimulatorComponent;
@@ -24,6 +25,7 @@ describe('ViewSimulatorComponent', () => {
         MatTabsModule,
         NoopAnimationsModule,
         HighlightModule,
+        NgxJsonLdModule,
       ],
       declarations: [ViewSimulatorComponent],
       providers: [

@@ -7,6 +7,7 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
 import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { NgxJsonLdModule } from '@ngx-lite/json-ld';
 
 describe('FaqComponent', () => {
   let component: FaqComponent;
@@ -19,6 +20,7 @@ describe('FaqComponent', () => {
         SharedUiModule,
         BiosimulationsIconsModule,
         SharedContentModule,
+        NgxJsonLdModule,
       ],
       providers: [RouterTestingModule, ConfigService, ScrollService],
       declarations: [FaqComponent],
