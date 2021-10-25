@@ -39,6 +39,10 @@ export class SedPlot2DVisualizationService {
     plot: SedPlot2D,
     results: SimulationRunOutput,
   ): PlotlyDataLayout {
+    if (sedDocLocation.startsWith('./')) {
+      sedDocLocation = sedDocLocation.substring(2);
+    }
+
     const resultsMap: SedDatasetResultsMap =
       this.getSimulationRunResults(results);
 
@@ -47,8 +51,8 @@ export class SedPlot2DVisualizationService {
     const yAxisTitlesSet = new Set<string>();
     let missingData = false;
     for (const curve of plot.curves) {
-      const xId = curve.xDataGenerator._resultsDataSetId as string;
-      const yId = curve.yDataGenerator._resultsDataSetId as string;
+      const xId = sedDocLocation + '/' + plot.id + '/' + curve.xDataGenerator.id;
+      const yId = sedDocLocation + '/' + plot.id + '/' + curve.yDataGenerator.id;
       xAxisTitlesSet.add(curve.xDataGenerator.name || curve.xDataGenerator.id);
       yAxisTitlesSet.add(curve.yDataGenerator.name || curve.yDataGenerator.id);
       const trace = {
@@ -146,11 +150,15 @@ export class SedPlot2DVisualizationService {
     return datasetResultsMap;
   }
 
-  private getLocationFromSedmLocationId(locationId: string): string {
+  private getLocationFromSedmLocationId(outputLocationId: string): string {
     // Remove the last "/" and the text after the last "/"
     // EG simulation_1.sedml/subfolder1/Figure_3b" => simulation_1.sedml/subfolder1
     // TODO write tests
-    return locationId.split('/').reverse().slice(1).reverse().join('/');
+    let docLocation = outputLocationId.split('/').reverse().slice(1).reverse().join('/');
+    if (docLocation.startsWith('./')) {
+      docLocation = docLocation.substring(2);
+    }
+    return docLocation;
   }
 
   private getOutputIdFromSedmlLocationId(location: string): string {

@@ -32,10 +32,6 @@ export interface SedDataGenerator {
    */
   math: string;
   /**
-   * Id of the results of a data set.
-   */
-  _resultsDataSetId?: string;
-  /**
    * Type.
    */
   _type: SedDataGeneratorType;

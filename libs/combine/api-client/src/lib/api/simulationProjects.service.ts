@@ -255,7 +255,7 @@ export class SimulationProjectsService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (url !== undefined && url !== null) {
       queryParameters['url'] = <any>url;
     }

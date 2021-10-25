@@ -243,9 +243,6 @@ export class SedDataGenerator implements ISedDataGenerator {
 
   @ApiProperty({ type: String })
   public math!: string;
-
-  @ApiProperty({ type: String })
-  public _resultsDataSetId!: string;
 }
 
 export class SedDataSet implements ISedDataSet {
