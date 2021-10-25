@@ -17,7 +17,7 @@ import {
 import { omitPrivate } from '@biosimulations/datamodel-database';
 import { isEmail, isUrl } from '@biosimulations/datamodel-database';
 
-@Schema({ 
+@Schema({
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',

@@ -1,8 +1,8 @@
 import { ApiProperty, ApiResponseProperty, getSchemaPath } from '@nestjs/swagger';
-import { 
+import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
   SedModel as ISedModel,
-  SedModelAttributeChange as ISedModelAttributeChange,  
+  SedModelAttributeChange as ISedModelAttributeChange,
   SedOneStepSimulation as ISedOneStepSimulation,
   SedSteadyStateSimulation as ISedSteadyStateSimulation,
   SedUniformTimeCourseSimulation as ISedUniformTimeCourseSimulation,
@@ -185,7 +185,7 @@ export class SedTask implements ISedTask {
   @ApiProperty({ type: SedModel })
   public model!: SedModel;
 
-  @ApiProperty({ 
+  @ApiProperty({
     oneOf: [
       { $ref: getSchemaPath(SedUniformTimeCourseSimulation) },
       { $ref: getSchemaPath(SedSteadyStateSimulation) },
@@ -386,7 +386,7 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
   @ApiProperty({ type: [SedDataGenerator] })
   public dataGenerators!: SedDataGenerator[];
 
-  @ApiProperty({ 
+  @ApiProperty({
     type: 'array',
     items: {
       oneOf: [
