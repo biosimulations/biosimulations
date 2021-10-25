@@ -17,7 +17,7 @@ import {
   ApiNotFoundResponse,
   ApiPayloadTooLargeResponse,
 } from '@nestjs/swagger';
-import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
+import { SimulationRunSedDocument } from '@biosimulations/datamodel/api';
 import { SpecificationsService } from './specifications.service';
 import { SpecificationsModel } from './specifications.model';
 import { permissions } from '@biosimulations/auth/nest';
@@ -39,10 +39,10 @@ export class SpecificationsController {
   @ApiOkResponse({
     description:
       'List of the specifications of all simulation experiments (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
-    type: [SimulationRunSpecifications],
+    type: [SimulationRunSedDocument],
   })
   @permissions('read:Specifications')
-  public async getSpecifications(): Promise<SimulationRunSpecifications[]> {
+  public async getSpecifications(): Promise<SimulationRunSedDocument[]> {
     const specs = await this.service.getSpecifications();
     return specs.map(this.returnSpec);
   }
@@ -62,7 +62,7 @@ export class SpecificationsController {
   @ApiOkResponse({
     description:
       'List of the specifications of the simulation experiments (SED-ML files in COMBINE/OMEX archive) of the simulation run',
-    type: [SimulationRunSpecifications],
+    type: [SimulationRunSedDocument],
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
@@ -70,7 +70,7 @@ export class SpecificationsController {
   })
   public async getSpecificationsBySimulation(
     @Param('runId') runId: string,
-  ): Promise<SimulationRunSpecifications[]> {
+  ): Promise<SimulationRunSedDocument[]> {
     const specs = await this.service.getSpecificationsBySimulation(runId);
     if (specs.length === 0) {
       throw new NotFoundException(
@@ -102,7 +102,7 @@ export class SpecificationsController {
   @ApiOkResponse({
     description:
       'Specifications of the simulation experiment (SED-ML file in COMBINE/OMEX archive) of the simulation run',
-    type: SimulationRunSpecifications,
+    type: SimulationRunSedDocument,
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
@@ -112,7 +112,7 @@ export class SpecificationsController {
   public async getSpecification(
     @Param('runId') runId: string,
     @Param('experimentLocation') experimentLocation: string,
-  ): Promise<SimulationRunSpecifications> {
+  ): Promise<SimulationRunSedDocument> {
     const spec = await this.service.getSpecification(runId, experimentLocation);
     if (!spec) {
       throw new NotFoundException(
@@ -132,7 +132,7 @@ export class SpecificationsController {
   @ApiBody({
     description:
       'Specifications of the simulation experiment of the simulation run',
-    type: [SimulationRunSpecifications],
+    type: [SimulationRunSedDocument],
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
@@ -141,11 +141,11 @@ export class SpecificationsController {
   })
   @ApiCreatedResponse({
     description: 'The simulation experiments were succcessfully saved',
-    type: [SimulationRunSpecifications],
+    type: [SimulationRunSedDocument],
   })
   public async createSpecification(
-    @Body() specifications: SimulationRunSpecifications[],
-  ): Promise<SimulationRunSpecifications[]> {
+    @Body() specifications: SimulationRunSedDocument[],
+  ): Promise<SimulationRunSedDocument[]> {
     const specs = await this.service.createSpecs(specifications);
     return specs.map(this.returnSpec);
   }
@@ -166,7 +166,7 @@ export class SpecificationsController {
   @ApiBody({
     description:
       'Specifications of the simulation experiment of the simulation run',
-    type: [SimulationRunSpecifications],
+    type: [SimulationRunSedDocument],
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
@@ -175,17 +175,17 @@ export class SpecificationsController {
   })
   @ApiCreatedResponse({
     description: 'The simulation experiments were succcessfully saved',
-    type: [SimulationRunSpecifications],
+    type: [SimulationRunSedDocument],
   })
   public async createSimulationSpecification(
     @Param('runId') runId: string,
-    @Body() specifications: SimulationRunSpecifications[],
-  ): Promise<SimulationRunSpecifications[]> {
+    @Body() specifications: SimulationRunSedDocument[],
+  ): Promise<SimulationRunSedDocument[]> {
     const specs = await this.service.createSpecs(specifications);
     return specs.map(this.returnSpec);
   }
 
-  private returnSpec(specs: SpecificationsModel): SimulationRunSpecifications {
+  private returnSpec(specs: SpecificationsModel): SimulationRunSedDocument {
     return {
       id: specs.id,
       models: specs.models,

@@ -13,7 +13,6 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import {
-  SedDocumentSpecifications,
   PlotlyDataLayout,
   PlotlyTraceType,
   PlotlyAxisType,
@@ -23,6 +22,7 @@ import {
   UriSedDataSetMap,
   UriSetDataSetResultsMap,
   Line2DVisualization,
+  SedDocumentReports,
 } from '@biosimulations/datamodel-view';
 import { ViewService } from '@biosimulations/view-service';
 import { Observable, map } from 'rxjs';
@@ -76,7 +76,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
   simulationRunId!: string;
 
   @Input()
-  sedDocs!: SedDocumentSpecifications[];
+  sedDocs!: SedDocumentReports[];
 
   @Input()
   uriSedDataSetMap!: UriSedDataSetMap;
@@ -254,7 +254,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
               yAxisTitle = 'Multiple';
             }
 
-            const dataLayout = {
+            const dataLayout: PlotlyDataLayout = {
               data: traces,
               layout: {
                 xaxis1: {
@@ -276,7 +276,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                 width: undefined,
                 height: undefined,
               },
-            } as PlotlyDataLayout;
+            };
 
             if (missingData) {
               return false;

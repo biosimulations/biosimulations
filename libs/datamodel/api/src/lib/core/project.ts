@@ -1,6 +1,7 @@
 import { ApiProperty, ApiResponseProperty, OmitType } from '@nestjs/swagger';
+import { Project as IProject } from '@biosimulations/datamodel/common';
 
-export class Project {
+export class Project implements IProject {
   @ApiProperty({
     type: String,
     description:

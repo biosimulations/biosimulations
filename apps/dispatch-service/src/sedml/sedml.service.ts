@@ -14,7 +14,7 @@ import {
   CombineArchiveSedDocSpecsContent,
 } from '@biosimulations/combine-api-client';
 import { SimulationRunService } from '@biosimulations/backend-api-client';
-import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
+import { SimulationRunSedDocument } from '@biosimulations/datamodel/api';
 
 // TODO move to api lib
 interface SedMLSpecs {
@@ -50,7 +50,7 @@ export class SedmlService {
       map(this.getSpecsFromArchiveContent),
       mergeMap((sedmlSpecs: SedMLSpecs[]) => {
         const apiSpecs = sedmlSpecs.map(
-          (sedmlSpec: SedMLSpecs): SimulationRunSpecifications => {
+          (sedmlSpec: SedMLSpecs): SimulationRunSedDocument => {
             return {
               id: sedmlSpec.id,
               dataGenerators: sedmlSpec.dataGenerators,
@@ -77,7 +77,7 @@ export class SedmlService {
     const sedmlSpecs: SedMLSpecs[] = [];
     contents.forEach((content: CombineArchiveSedDocSpecsContent) => {
       const id: string = content.location.path.replace('./', '');
-      const spec: SedDocument = content.location.value as SedDocument;
+      const spec: SedDocument = content.location.value;
 
       sedmlSpecs.push({
         id: id,

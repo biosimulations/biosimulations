@@ -1,8 +1,10 @@
 import { LabeledIdentifier } from '@biosimulations/datamodel/api';
 import {
   SedDataSet,
-  SedDocumentSpecifications,
+  SimulationRunSedDocument,
   PlotlyDataLayout,
+  SimulationRunOutputDatum,
+  SedReport,
 } from '@biosimulations/datamodel/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -43,8 +45,13 @@ export interface List {
 
 export type SimulationRunMetadata = List[];
 
+export interface SedDocumentReports {
+  id: string;
+  outputs: SedReport[];
+}
+
 export type UriSedDataSetMap = { [uri: string]: SedDataSet };
-export type UriSetDataSetResultsMap = { [uri: string]: any };
+export type UriSetDataSetResultsMap = { [uri: string]: SimulationRunOutputDatum };
 
 export interface VegaVisualization {
   _type: 'VegaVisualization';
@@ -70,7 +77,7 @@ export interface Histogram1DVisualization {
   name: string;
   userDesigned: true;
   simulationRunId: string;
-  sedDocs: SedDocumentSpecifications[];
+  sedDocs: SedDocumentReports[];
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
   plotlyDataLayoutSubject: BehaviorSubject<
@@ -85,7 +92,7 @@ export interface Heatmap2DVisualization {
   name: string;
   userDesigned: true;
   simulationRunId: string;
-  sedDocs: SedDocumentSpecifications[];
+  sedDocs: SedDocumentReports[];
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
   plotlyDataLayoutSubject: BehaviorSubject<
@@ -100,7 +107,7 @@ export interface Line2DVisualization {
   name: string;
   userDesigned: true;
   simulationRunId: string;
-  sedDocs: SedDocumentSpecifications[];
+  sedDocs: SedDocumentReports[];
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
   plotlyDataLayoutSubject: BehaviorSubject<

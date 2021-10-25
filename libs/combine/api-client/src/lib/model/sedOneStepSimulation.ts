@@ -30,7 +30,7 @@ export interface SedOneStepSimulation {
   /**
    * Step size.
    */
-  step?: number;
+  step: number;
   algorithm: SedAlgorithm;
 }
 export enum SedOneStepSimulationType {

@@ -5,6 +5,8 @@ import {
   PlotlyTrace,
   PlotlyTraceMode,
   PlotlyTraceType,
+  SimulationRunOutput,
+  SimulationRunOutputDatum,
 } from '@biosimulations/datamodel/common';
 /*
 import {
@@ -35,10 +37,9 @@ export class SedPlot2DVisualizationService {
     simulationRunId: string,
     sedDocLocation: string,
     plot: SedPlot2D,
-    results: any,
+    results: SimulationRunOutput,
   ): PlotlyDataLayout {
     const resultsMap: SedDatasetResultsMap = this.getSimulationRunResults(
-      `${sedDocLocation}/{plot.id}`,
       results,
     );
 
@@ -47,8 +48,8 @@ export class SedPlot2DVisualizationService {
     const yAxisTitlesSet = new Set<string>();
     let missingData = false;
     for (const curve of plot.curves) {
-      const xId = curve.xDataGenerator._resultsDataSetId;
-      const yId = curve.yDataGenerator._resultsDataSetId;
+      const xId = curve.xDataGenerator._resultsDataSetId as string;
+      const yId = curve.yDataGenerator._resultsDataSetId as string;
       xAxisTitlesSet.add(curve.xDataGenerator.name || curve.xDataGenerator.id);
       yAxisTitlesSet.add(curve.yDataGenerator.name || curve.yDataGenerator.id);
       const trace = {
@@ -119,39 +120,30 @@ export class SedPlot2DVisualizationService {
   }
 
   private getSimulationRunResults(
-    outputId: string,
-    result: any,
+    result: SimulationRunOutput,
   ): SedDatasetResultsMap {
-    const outputs = outputId
-      ? [result as any] // SimulationRunOutput
-      : (result as any).outputs; // SimulationRunResults
-
     const datasetResultsMap: SedDatasetResultsMap = {};
 
-    outputs.forEach((output: any): void => {
-      // SimulationRunOutput
-      const sedmlLocationOutputId = output.outputId;
+    const sedmlLocationOutputId = result.outputId;
 
-      const sedmlLocation = this.getLocationFromSedmLocationId(
-        sedmlLocationOutputId,
-      );
+    const sedmlLocation = this.getLocationFromSedmLocationId(
+      sedmlLocationOutputId,
+    );
 
-      const outputId = this.getOutputIdFromSedmlLocationId(
-        sedmlLocationOutputId,
-      );
+    const outputId = this.getOutputIdFromSedmlLocationId(
+      sedmlLocationOutputId,
+    );
 
-      output.data.forEach((datum: any): void => {
-        // SimulationRunOutputDatum
-        const uri = sedmlLocation + '/' + outputId + '/' + datum.id;
-        datasetResultsMap[uri] = {
-          uri: uri,
-          id: datum.id,
-          location: sedmlLocation,
-          outputId: outputId,
-          label: datum.label,
-          values: datum.values,
-        };
-      });
+    result.data.forEach((datum: SimulationRunOutputDatum): void => {
+      const uri = sedmlLocation + '/' + outputId + '/' + datum.id;
+      datasetResultsMap[uri] = {
+        uri: uri,
+        id: datum.id,
+        location: sedmlLocation,
+        outputId: outputId,
+        label: datum.label,
+        values: datum.values,
+      };
     });
 
     return datasetResultsMap;

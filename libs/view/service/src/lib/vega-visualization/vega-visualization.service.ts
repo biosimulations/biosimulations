@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
-  SedDocument,
   SedSimulation,
   SedReport,
-  SedDocumentSpecifications,
+  SimulationRunSedDocument,
 } from '@biosimulations/datamodel/common';
 import { Spec as VegaSpec } from 'vega';
 import { Endpoints } from '@biosimulations/config/common';
@@ -16,7 +15,7 @@ export class VegaVisualizationService {
 
   public linkSignalsAndDataSetsToSimulationsAndResults(
     simulationRunId: string,
-    sedDocumentConfigurations: SedDocumentSpecifications[],
+    sedDocumentConfigurations: SimulationRunSedDocument[],
     spec: VegaSpec,
   ): VegaSpec | false {
     if (Array.isArray(spec?.signals)) {
@@ -94,8 +93,8 @@ export class VegaVisualizationService {
 
   private getSedDocument(
     path: any,
-    sedDocumentConfigurations: SedDocumentSpecifications[],
-  ): SedDocument | SedDocument[] | undefined {
+    sedDocumentConfigurations: SimulationRunSedDocument[],
+  ): SimulationRunSedDocument | SimulationRunSedDocument[] | undefined {
     if (!Array.isArray(path)) {
       return undefined;
     }
@@ -124,7 +123,7 @@ export class VegaVisualizationService {
       contentUri = contentUri.substring(2);
     }
 
-    const contents: SedDocument[] = [];
+    const contents: SimulationRunSedDocument[] = [];
     const multipleContents = contentUri === '*';
 
     for (
@@ -142,7 +141,7 @@ export class VegaVisualizationService {
         (['*', thisContentUri].includes(contentUri) ||
           contentUri === `[${iContent}]`)
       ) {
-        contents.push(content as SedDocument);
+        contents.push(content);
       }
     }
 
@@ -157,9 +156,9 @@ export class VegaVisualizationService {
 
   private getSedReport(
     path: any,
-    sedDocumentConfigurations: SedDocumentSpecifications[],
+    sedDocumentConfigurations: SimulationRunSedDocument[],
   ): SedReport | SedReport[] | undefined {
-    const sedDocument: SedDocument | SedDocument[] | undefined =
+    const sedDocument: SimulationRunSedDocument | SimulationRunSedDocument[] | undefined =
       this.getSedDocument(path, sedDocumentConfigurations);
     if (!sedDocument || Array.isArray(sedDocument)) {
       return undefined;
@@ -183,7 +182,7 @@ export class VegaVisualizationService {
 
     let iReport = -1;
     for (const thisOutput of sedDocument.outputs) {
-      if (thisOutput._type == 'SedReport') {
+      if (thisOutput._type === 'SedReport') {
         iReport++;
         if (
           ['', 'Report'].includes(reportType) &&
@@ -208,9 +207,9 @@ export class VegaVisualizationService {
 
   private getValueOfSedmlObjectAttribute(
     path: any,
-    sedDocumentConfigurations: SedDocumentSpecifications[],
+    sedDocumentConfigurations: SimulationRunSedDocument[],
   ): any {
-    const sedDocument: SedDocument | SedDocument[] | undefined =
+    const sedDocument: SimulationRunSedDocument | SimulationRunSedDocument[] | undefined =
       this.getSedDocument(path, sedDocumentConfigurations);
     if (!sedDocument) {
       return undefined;

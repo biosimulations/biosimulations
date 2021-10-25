@@ -145,10 +145,10 @@ export class DispatchService {
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
 
-    const response = this.http.post(
+    const response = this.http.post<SimulationRun>(
       this.endpoint,
       formData,
-    ) as Observable<SimulationRun>;
+    );
     return response;
   }
 
@@ -156,11 +156,9 @@ export class DispatchService {
   public getAllSimulatorInfo(simulatorName?: string): Observable<string[]> {
     const endpoint = `${urls.simulatorsApi}simulators`;
     if (simulatorName === undefined) {
-      return this.http.get(endpoint) as Observable<string[]>;
+      return this.http.get<string[]>(endpoint);
     }
-    return this.http.get(`${endpoint}?name=${simulatorName}`) as Observable<
-      string[]
-    >;
+    return this.http.get<string[]>(`${endpoint}?name=${simulatorName}`);
   }
 
   public getSimulatorsFromDb(includeTests = true): Observable<SimulatorsData> {

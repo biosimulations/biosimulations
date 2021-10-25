@@ -107,7 +107,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   private algSubstitutions?: { [id: string]: AlgorithmSubstitutionPolicy };
   private allModelFormats?: OntologyTerm[];
   private allModelingFrameworks?: OntologyTerm[];
-  private allSimulationTypes = [
+  private allSimulationTypes: OntologyTerm[] = [
     {
       id: SimulationType.SedOneStepSimulation,
       name: SimulationTypeName.SedOneStepSimulation.substr(4),
@@ -120,13 +120,13 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       id: SimulationType.SedUniformTimeCourseSimulation,
       name: SimulationTypeName.SedUniformTimeCourseSimulation.substr(4),
     },
-  ] as OntologyTerm[];
+  ];
   private allSimulationAlgorithms?: OntologyTerm[];
   modelFormats?: OntologyTerm[];
   modelingFrameworks?: OntologyTerm[];
   simulationTypes?: OntologyTerm[];
   simulationAlgorithms?: OntologyTerm[];
-  modelVariableTypes = [
+  modelVariableTypes: OntologyTerm[] = [
     {
       id: ModelVariableType.symbol,
       name: 'Symbol',
@@ -135,7 +135,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       id: ModelVariableType.target,
       name: 'Target',
     },
-  ] as OntologyTerm[];
+  ];
   compatibleSimulators?: CompatibleSimulator[];
 
   modelFileTypeSpecifiers!: string;
@@ -1260,10 +1260,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           );
         }
         // TODO set typing and refactor. TS will not catch the type errors here
-        const algSubstitutions = (observerableValues[0] ||
-          []) as AlgorithmSubstitution[];
-        const simulatorsData = observerableValues[1] as SimulatorsData;
-        const queryParams = observerableValues[2] as Params;
+        const algSubstitutions: AlgorithmSubstitution[] = observerableValues[0] === undefined ? [] : observerableValues[0];
+        const simulatorsData: SimulatorsData = observerableValues[1];
+        const queryParams: Params = observerableValues[2];
 
         this.simulatorSpecsMap = simulatorsData.simulatorSpecs;
         this.simulatorSpecs = Object.values(simulatorsData.simulatorSpecs);

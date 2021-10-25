@@ -1,8 +1,20 @@
+export interface Namespace  {
+  _type: 'Namespace';
+  prefix?: string;
+  uri: string;
+}
+
+export interface SedTarget {
+  _type: 'SedTarget';
+  value: string;
+  namespaces?: Namespace[];
+};
+
 export interface SedModelAttributeChange {
   _type: 'SedModelAttributeChange';
   id: string;
-  name: string | null;
-  target: string;
+  name?: string;
+  target: SedTarget;
   newValue: string;
 }
 
@@ -22,7 +34,7 @@ export enum ModelLanguage {
 export interface SedModel {
   _type: 'SedModel';
   id: string;
-  name: string | null;
+  name?: string;
   language: string;
   source: string;
   changes: SedModelChange[];
@@ -41,7 +53,7 @@ export interface SedAlgorithm {
 export interface SedUniformTimeCourseSimulation {
   _type: 'SedUniformTimeCourseSimulation';
   id: string;
-  name: string | null;
+  name?: string;
   initialTime: number;
   outputStartTime: number;
   outputEndTime: number;
@@ -52,14 +64,14 @@ export interface SedUniformTimeCourseSimulation {
 export interface SedSteadyStateSimulation {
   _type: 'SedSteadyStateSimulation';
   id: string;
-  name: string | null;
+  name?: string;
   algorithm: SedAlgorithm;
 }
 
 export interface SedOneStepSimulation {
   _type: 'SedOneStepSimulation';
   id: string;
-  name: string | null;
+  name?: string;
   step: number;
   algorithm: SedAlgorithm;
 }
@@ -72,7 +84,7 @@ export type SedSimulation =
 export interface SedTask {
   _type: 'SedTask';
   id: string;
-  name: string | null;
+  name?: string;
   model: SedModel;
   simulation: SedSimulation;
 }
@@ -80,7 +92,7 @@ export interface SedTask {
 export interface SedRepeatedTask {
   _type: 'SedRepeatedTask';
   id: string;
-  name: string | null;
+  name?: string;
 }
 
 export type SedAbstractTask = SedTask | SedRepeatedTask;
@@ -88,59 +100,53 @@ export type SedAbstractTask = SedTask | SedRepeatedTask;
 export interface SedVariable {
   _type: 'SedVariable';
   id: string;
-  name: string | null;
-  symbol: string | null;
-  target: string | null;
+  name?: string;
+  symbol?: string;
+  target?: SedTarget;
   task: SedTask;
 }
 
 export interface SedDataGenerator {
   _type: 'SedDataGenerator';
   id: string;
-  name: string | null;
+  name?: string;
   variables: SedVariable[];
   math: string;
-  _resultsDataSetId: string;
+  _resultsDataSetId?: string;
 }
 
 export interface SedDataSet {
   _type: 'SedDataSet';
   id: string;
   dataGenerator?: SedDataGenerator;
-  name: string | null;
-  label: string | null;
-}
-
-export enum SedOutputType {
-  SedReport = 'SedReport',
-  SedPlot2D = 'SedPlot2D',
-  SedPlot3D = 'SedPlot3D',
+  name?: string;
+  label?: string;
 }
 
 export interface SedReport {
-  _type: SedOutputType.SedReport;
+  _type: 'SedReport';
   id: string;
-  name: string | null;
+  name?: string;
   dataSets: SedDataSet[];
 }
 
 export enum SedAxisScale {
-  linear = 'linear',
-  log = 'log',
+  Linear = 'linear',
+  Log = 'log',
 }
 
 export interface SedCurve {
   _type: 'SedCurve';
   id: string;
-  name: string | null;
+  name?: string;
   xDataGenerator: SedDataGenerator;
   yDataGenerator: SedDataGenerator;
 }
 
 export interface SedPlot2D {
-  _type: SedOutputType.SedPlot2D;
+  _type: 'SedPlot2D';
   id: string;
-  name: string | null;
+  name?: string;
   curves: SedCurve[];
   xScale: SedAxisScale;
   yScale: SedAxisScale;
@@ -149,16 +155,16 @@ export interface SedPlot2D {
 export interface SedSurface {
   _type: 'SedSurface';
   id: string;
-  name: string | null;
+  name?: string;
   xDataGenerator: SedDataGenerator;
   yDataGenerator: SedDataGenerator;
   zDataGenerator: SedDataGenerator;
 }
 
 export interface SedPlot3D {
-  _type: SedOutputType.SedPlot3D;
+  _type: 'SedPlot3D';
   id: string;
-  name: string | null;
+  name?: string;
   surfaces: SedSurface[];
   xScale: SedAxisScale;
   yScale: SedAxisScale;
@@ -178,8 +184,6 @@ export interface SedDocument {
   outputs: SedOutput[];
 }
 
-export type SedDocumentSpecifications = any;
-
 export interface CombineArchiveContentFile {
   _type: 'CombineArchiveContentFile';
   filename: string;
@@ -191,6 +195,12 @@ export interface CombineArchiveLocation {
   value: SedDocument | CombineArchiveContentFile;
 }
 
+export interface CombineArchiveSedDocSpecsLocation {
+  _type: 'CombineArchiveSedDocSpecsLocation';
+  path: string;
+  value: SedDocument;
+}
+
 export interface CombineArchiveContent {
   _type: 'CombineArchiveContent';
   location: CombineArchiveLocation;
@@ -198,9 +208,21 @@ export interface CombineArchiveContent {
   master: boolean;
 }
 
+export interface CombineArchiveSedDocSpecsContent {
+  _type: 'CombineArchiveSedDocSpecsContent';
+  location: CombineArchiveSedDocSpecsLocation;
+  format: string;
+  master: boolean;
+}
+
 export interface CombineArchive {
   _type: 'CombineArchive';
   contents: CombineArchiveContent[];
+}
+
+export interface CombineArchiveSedDocSpecs {
+  _type: 'CombineArchiveSedDocSpecs';
+  contents: CombineArchiveSedDocSpecsContent[];
 }
 
 export interface SedDocumentReports {

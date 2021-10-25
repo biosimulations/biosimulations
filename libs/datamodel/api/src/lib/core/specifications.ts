@@ -1,6 +1,14 @@
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
+import { 
+  SimulationRunSedDocument as ISimulationRunSedDocument,
+  SedModel,
+  SedSimulation,
+  SedTask,
+  SedDataGenerator,
+  SedOutput,
+} from '@biosimulations/datamodel/common';
 
-export class SimulationRunSpecifications {
+export class SimulationRunSedDocument implements ISimulationRunSedDocument {
   @ApiProperty({ type: String })
   public id!: string;
 
@@ -8,19 +16,19 @@ export class SimulationRunSpecifications {
   public simulationRun!: string;
 
   @ApiProperty({ type: [Object] })
-  public models!: any[];
+  public models!: SedModel[];
 
   @ApiProperty({ type: [Object] })
-  public simulations!: any[];
+  public simulations!: SedSimulation[];
 
   @ApiProperty({ type: [Object] })
-  public dataGenerators!: any[];
+  public dataGenerators!: SedDataGenerator[];
 
   @ApiProperty({ type: [Object] })
-  public outputs!: any[];
+  public outputs!: SedOutput[];
 
   @ApiProperty({ type: [Object] })
-  public tasks!: any[];
+  public tasks!: SedTask[];
 
   @ApiResponseProperty({
     type: String,
