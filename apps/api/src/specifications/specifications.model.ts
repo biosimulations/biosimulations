@@ -6,10 +6,10 @@ import { ObjectIdValidator } from '@biosimulations/datamodel-database';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { 
+import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
   SedModel as ISedModel,
-  SedModelAttributeChange as ISedModelAttributeChange,  
+  SedModelAttributeChange as ISedModelAttributeChange,
   SedOneStepSimulation as ISedOneStepSimulation,
   SedSteadyStateSimulation as ISedSteadyStateSimulation,
   SedUniformTimeCourseSimulation as ISedUniformTimeCourseSimulation,
@@ -313,7 +313,7 @@ export class SedTask implements ISedTask {
   @Prop({ type: SedModelSchema, required: true, default: undefined })
   public model!: SedModel;
 
-  @Prop({ 
+  @Prop({
     type: SedSimulationSchema,
     required: true,
     default: undefined,
@@ -350,7 +350,7 @@ export type SedAbstractTaskTypes = SedTask | SedRepeatedTask;
   strict: 'throw',
 })
 export class SedAbstractTask {
-  @Prop({ 
+  @Prop({
     type: String,
     enum: [
       SedTask.name,
