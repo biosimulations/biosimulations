@@ -17,7 +17,11 @@ import {
 import { omitPrivate } from '@biosimulations/datamodel-database';
 import { isEmail, isUrl } from '@biosimulations/datamodel-database';
 
-@Schema({ collection: 'Simulation Runs', id: false })
+@Schema({ 
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
 export class EnvironmentVariable {
   @Prop({ type: String, required: true })
   key!: string;

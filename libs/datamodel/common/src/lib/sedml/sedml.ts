@@ -41,11 +41,13 @@ export interface SedModel {
 }
 
 export interface SedAlgorithmParameterChange {
+  _type: 'SedAlgorithmParameterChange';
   kisaoId: string;
   newValue: string;
 }
 
 export interface SedAlgorithm {
+  _type: 'SedAlgorithm';
   kisaoId: string;
   changes: SedAlgorithmParameterChange[];
 }
@@ -118,9 +120,9 @@ export interface SedDataGenerator {
 export interface SedDataSet {
   _type: 'SedDataSet';
   id: string;
-  dataGenerator?: SedDataGenerator;
+  dataGenerator: SedDataGenerator;
   name?: string;
-  label?: string;
+  label: string;
 }
 
 export interface SedReport {
