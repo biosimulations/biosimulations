@@ -1,5 +1,5 @@
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
-import { 
+import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
   SedModel,
   SedSimulation,

@@ -464,7 +464,7 @@ export class ViewService {
               pluck('duration'),
               map((durationSec: number | null): string =>
                 durationSec === null
-                ? 'N/A' 
+                ? 'N/A'
                 : FormatService.formatDuration(durationSec),
               ),
             );
@@ -538,7 +538,7 @@ export class ViewService {
             formatUrl: COMBINE_OMEX_FORMAT.url,
             master: false,
             size: simulationRun.projectSize === undefined
-              ? 'N/A' 
+              ? 'N/A'
               : FormatService.formatDigitalSize(simulationRun.projectSize),
             icon: COMBINE_OMEX_FORMAT.icon,
             url: this.endpoints.getRunDownloadEndpoint(id),
@@ -678,7 +678,7 @@ export class ViewService {
             formatUrl:
               'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987',
             master: false,
-            size: simulationRun.resultsSize === undefined 
+            size: simulationRun.resultsSize === undefined
               ? 'N/A'
               : FormatService.formatDigitalSize(simulationRun.resultsSize),
             icon: 'report',
@@ -997,8 +997,8 @@ export class ViewService {
     ]).pipe(
       map((args: [SimulationRun, ArchiveMetadata[] | undefined]): WithContext<Dataset> => {
         const simulationRun = args[0];
-        const projectMeta: ArchiveMetadata | undefined = args[1] === undefined 
-          ? undefined 
+        const projectMeta: ArchiveMetadata | undefined = args[1] === undefined
+          ? undefined
           : args[1].filter((meta: ArchiveMetadata) => meta.uri.search('/') === -1)[0];
 
         const runDataSet: Dataset = {
@@ -1044,7 +1044,7 @@ export class ViewService {
               description: 'Simulation outputs',
               contentUrl: this.endpoints.getRunResultsDownloadEndpoint(runId),
               encodingFormat: 'application/zip',
-              contentSize: simulationRun.resultsSize === undefined 
+              contentSize: simulationRun.resultsSize === undefined
                 ? 'N/A'
                 : FormatService.formatDigitalSize(simulationRun.resultsSize),
             },
