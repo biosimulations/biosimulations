@@ -2182,10 +2182,6 @@ components:
       - linear
       type: string
       example: linear
-    BioSimulationsDataSetResultsId:
-      description: Id of the results of a data set.
-      type: string
-      example: experiment1/simulation.sedml/report_ntp_dynamics/data_set_atp_dynamics
     SedOutput:
       oneOf:
       - $ref: '#/components/schemas/SedPlot2D'
