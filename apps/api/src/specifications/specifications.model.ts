@@ -2,12 +2,12 @@ import { ObjectIdValidator } from '@biosimulations/datamodel-database';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { Document } from 'mongoose';
+
 // TODO set strict to throw once a datamodel is finalized
 @Schema({
   storeSubdocValidationError: false,
   collection: 'Specifications',
   strict: false,
-
   id: false,
 })
 export class SpecificationsModel extends Document {

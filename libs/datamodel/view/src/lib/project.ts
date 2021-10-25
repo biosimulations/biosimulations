@@ -1,7 +1,6 @@
 import { LabeledIdentifier } from '@biosimulations/datamodel/api';
 import {
   SedDataSet,
-  SimulationRunSedDocument,
   PlotlyDataLayout,
   SimulationRunOutputDatum,
   SedReport,

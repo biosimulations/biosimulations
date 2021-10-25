@@ -8,6 +8,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
 import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
 import config from '../../../../assets/config.json';
+import { NgxJsonLdModule } from '@ngx-lite/json-ld';
 
 describe('HelpComponent', () => {
   let component: HelpComponent;
@@ -20,6 +21,7 @@ describe('HelpComponent', () => {
         SharedUiModule,
         BiosimulationsIconsModule,
         SharedContentModule,
+        NgxJsonLdModule,
       ],
       providers: [
         RouterTestingModule,
