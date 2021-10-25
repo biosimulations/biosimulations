@@ -337,7 +337,7 @@ export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS.map(
       url: VEGA_FORMAT.url,
       icon: VEGA_FORMAT.icon,
     },
-  ] as CombineArchiveContentFormat[])
+  ])
   .concat([
     {
       name: 'Bitmap Image File',
@@ -580,4 +580,4 @@ export const FORMATS: CombineArchiveContentFormat[] = MODEL_FORMATS.map(
       url: 'https://www.iana.org/assignments/media-types/application/octet-stream',
       icon: 'file',
     },
-  ] as CombineArchiveContentFormat[]);
+  ]);

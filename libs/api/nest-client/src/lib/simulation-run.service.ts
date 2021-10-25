@@ -14,7 +14,7 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
   SubmitProjectFile,
   ProjectFile,
-  SimulationRunSpecifications,
+  SimulationRunSedDocument,
   SimulationRunMetadataInput,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
@@ -44,12 +44,12 @@ export class SimulationRunService {
 
   public postSpecs(
     id: string,
-    specs: SimulationRunSpecifications[],
-  ): Observable<SimulationRunSpecifications[]> {
+    specs: SimulationRunSedDocument[],
+  ): Observable<SimulationRunSedDocument[]> {
     const endpoint = this.endpoints.getSpecificationsEndpoint(id);
     return this.postAuthenticated<
-      SimulationRunSpecifications[],
-      SimulationRunSpecifications[]
+      SimulationRunSedDocument[],
+      SimulationRunSedDocument[]
     >(endpoint, specs);
   }
 

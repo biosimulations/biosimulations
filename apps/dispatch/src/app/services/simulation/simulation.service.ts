@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   Simulation,
-  UnknownSimulation,
   ISimulation,
   isUnknownSimulation,
 } from '../../datamodel';
@@ -252,11 +251,11 @@ export class SimulationService {
               updated: new Date(dispatchSimulation.updated),
               resultsSize: dispatchSimulation.resultsSize,
               projectSize: dispatchSimulation.projectSize,
-            } as Simulation;
+            };
           } else {
             return {
               id: uuid,
-            } as UnknownSimulation;
+            };
           }
         }),
       );

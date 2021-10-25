@@ -13,7 +13,6 @@ import {
   pluck,
 } from 'rxjs';
 import {
-  CombineArchiveContentFile,
   CombineArchiveManifestContent,
 } from '@biosimulations/combine-api-client';
 import {} from '@biosimulations/datamodel/common';
@@ -62,7 +61,7 @@ export class FileService {
                 map((size: number) => {
                   const fileObject: SubmitProjectFile = new ProjectFile(
                     id + '/' + file.location.path.replace('./', ''),
-                    (file.location.value as CombineArchiveContentFile).filename,
+                    file.location.value.filename,
                     id,
                     file.location.path.replace('./', ''),
                     size,

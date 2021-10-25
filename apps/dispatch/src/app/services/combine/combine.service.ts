@@ -9,7 +9,7 @@ import { catchError, timeout } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 import { environment } from '@biosimulations/shared/environments';
 import {
-  CombineArchive,
+  CombineArchiveSedDocSpecs,
   OmexMetadataInputFormat,
   OmexMetadataSchema,
   ModelLanguage,
@@ -34,7 +34,7 @@ export class CombineService {
 
   public getSpecsOfSedDocsInCombineArchive(
     fileOrUrl: File | string,
-  ): Observable<CombineArchive | undefined> {
+  ): Observable<CombineArchiveSedDocSpecs | undefined> {
     const formData = new FormData();
     if (typeof fileOrUrl === 'object') {
       formData.append('file', fileOrUrl);
@@ -43,7 +43,7 @@ export class CombineService {
     }
 
     return this.http
-      .post<CombineArchive>(this.sedmlSpecsEndpoint, formData)
+      .post<CombineArchiveSedDocSpecs>(this.sedmlSpecsEndpoint, formData)
       .pipe(
         catchError((error: HttpErrorResponse): Observable<undefined> => {
           if (!environment.production) {

@@ -35,7 +35,7 @@ export class FaqComponent {
   @ViewChildren(QAComponent, { read: ElementRef })
   set faqs(qaComponents: QueryList<ElementRef>) {
     setTimeout(() => {
-      this.faqsJsonLd.next({
+      const faqs: WithContext<FAQPage> = {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
         mainEntity: qaComponents.map((qaComponent: ElementRef): Question => {
@@ -95,7 +95,8 @@ export class FaqComponent {
             },
           };
         }),
-      } as WithContext<FAQPage>);
+      };
+      this.faqsJsonLd.next(faqs);
     });
   }
 
