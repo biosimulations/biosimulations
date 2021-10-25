@@ -1,0 +1,47 @@
+on: 
+  push:
+    paths:
+      - "apps/api/**"
+      - "apps/account-api/**"
+      - "apps/simulators-api/**"
+      - "apps/simulators-api/**"
+      - "apps/combine-service/src/spec/spec.yml"
+      - "libs/datamodel/api/**"
+
+  workflow_dispatch:
+
+jobs:
+  test-apis:
+    runs-on: ubuntu-latest
+    name: Test APIs
+
+    strategy:
+      fail-fast: false
+      matrix:
+        apiSpecs:
+          - https://api.biosimulations.dev/openapi.json
+          - https://api.biosimulators.dev/openapi.json
+          - apps/combine-service/src/spec/spec.yml
+
+    steps:
+      - name: Checkout repository
+        if: "!startsWith(matrix.apiSpecs, 'https://')"
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Download API specifications
+        if: "startsWith(matrix.apiSpecs, 'https://')"
+        run: curl ${{ matrix.apiSpecs }} -o openapi.json --retry 5 --retry-delay 30
+
+      - name: Validate OpenAPI definition
+        uses: char0n/swagger-editor-validate@v1
+        if: "!startsWith(matrix.apiSpecs, 'https://')"
+        with:
+          definition-file: ${{ matrix.apiSpecs }}
+
+      - name: Validate OpenAPI definition
+        uses: char0n/swagger-editor-validate@v1
+        if: "startsWith(matrix.apiSpecs, 'https://')"
+        with:
+          definition-file: openapi.json
