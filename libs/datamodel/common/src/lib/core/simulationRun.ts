@@ -1,6 +1,6 @@
 import { SimulationRunLogStatus } from './simulationRunLog';
 import { Purpose } from './purpose';
-import { 
+import {
   SedModel,
   SedSimulation,
   SedTask,
