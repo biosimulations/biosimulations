@@ -157,12 +157,7 @@ export class PublishComponent implements OnInit, OnDestroy {
 
         return this.metadataService.getMetadata(this.uuid).pipe(
           map((runMetadata: SimulationRunMetadata): boolean => {
-            const metdataDocs = runMetadata.metadata.filter(
-              (metadata: ArchiveMetadata): boolean => {
-                return metadata.uri.search('/') === -1;
-              },
-            );
-            return metdataDocs.length >= 1;
+            return true;
           }),
           catchError((error: Error) => {
             return of(false);
