@@ -16,8 +16,8 @@ import { ProjectService } from '@biosimulations/api-nest-client';
 import { AxiosError } from 'axios';
 
 @Processor(JobQueue.complete)
-export class CompleteProccessor {
-  private readonly logger = new Logger(CompleteProccessor.name);
+export class CompleteProcessor {
+  private readonly logger = new Logger(CompleteProcessor.name);
   public constructor(
     private archiverService: ArchiverService,
     private simStatusService: SimulationStatusService,
