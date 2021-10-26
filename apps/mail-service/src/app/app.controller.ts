@@ -1,6 +1,6 @@
 import { Controller, Logger } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { SimulationRunService } from '@biosimulations/backend-api-client';
+import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { MailClientService } from '@biosimulations/mail-service/client';
 import { AppService } from './app.service';
 import {

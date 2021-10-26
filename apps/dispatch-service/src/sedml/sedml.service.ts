@@ -8,7 +8,7 @@ import {
   SedDocument,
   CombineArchiveSedDocSpecsContent,
 } from '@biosimulations/combine-api-client';
-import { SimulationRunService } from '@biosimulations/backend-api-client';
+import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { SimulationRunSedDocument } from '@biosimulations/datamodel/api';
 
 @Injectable()
