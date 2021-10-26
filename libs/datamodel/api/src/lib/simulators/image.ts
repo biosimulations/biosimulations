@@ -4,7 +4,17 @@ import { EdamOntologyIdVersion } from '../common';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsUrl, ValidateNested } from 'class-validator';
 import { IsImageDigest } from '@biosimulations/datamodel/utils';
+
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  ValidateNested,
+  IsOptional,
+} from 'class-validator';
+
 import { Type } from 'class-transformer';
+import { IsImageDigest } from '@biosimulations/datamodel/utils';
 
 export class Image implements IImage {
   @IsUrl()
@@ -35,6 +45,7 @@ export class Image implements IImage {
   })
   public format!: EdamOntologyIdVersion;
 
+  @IsOptional()
   @IsEnum(OperatingSystemType)
   @ApiProperty({
     type: String,

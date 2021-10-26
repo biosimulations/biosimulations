@@ -21,7 +21,7 @@ export class Exception implements IException {
   message!: string;
 }
 
-export class SedOutputElementLog implements ISedOutputElementLog{
+export class SedOutputElementLog implements ISedOutputElementLog {
   @ApiProperty({ type: String })
   id!: string;
 
@@ -149,7 +149,7 @@ export class SedTaskLog implements ISedTaskLog {
     type: String,
     description: 'KiSAO id of the simulation algorithm that was executed',
     example: 'KISAO_0000019',
-    nullable: true
+    nullable: true,
   })
   algorithm!: string | null;
 
@@ -224,9 +224,9 @@ export class CombineArchiveLog implements ICombineArchiveLog {
 }
 
 export class CreateSimulationRunLogBody {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   simId!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: [CombineArchiveLog] })
   log!: CombineArchiveLog;
 }

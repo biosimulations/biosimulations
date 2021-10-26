@@ -7,12 +7,18 @@ import {
 } from '../simulation-run/simulation-run.model';
 import { LogsController } from './logs.controller';
 import {
-  SimulationRunLog, SimulationRunLogSchema,
-  CombineArchiveLog, CombineArchiveLogSchema,
-  SedOutputLog, SedOutputLogSchema,
-  SedReportLog, SedReportLogSchema,
-  SedPlot2DLog, SedPlot2DLogSchema,
-  SedPlot3DLog, SedPlot3DLogSchema,
+  SimulationRunLog,
+  SimulationRunLogSchema,
+  CombineArchiveLog,
+  CombineArchiveLogSchema,
+  SedOutputLog,
+  SedOutputLogSchema,
+  SedReportLog,
+  SedReportLogSchema,
+  SedPlot2DLog,
+  SedPlot2DLogSchema,
+  SedPlot3DLog,
+  SedPlot3DLogSchema,
 } from './logs.model';
 
 import { LogsService } from './logs.service';

@@ -6,6 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -20,7 +21,7 @@ describe('AppComponent', () => {
         }),
       ],
       declarations: [AppComponent],
-      providers: [ConfigService, ScrollService],
+      providers: [ConfigService, ScrollService, Storage],
     }).compileComponents();
   }));
 

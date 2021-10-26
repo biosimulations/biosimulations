@@ -60,7 +60,7 @@ export class SimulationAlgorithmsService {
       );
     }
 
-    let queryParameters = {};
+    let queryParameters: any = {};
     if (algorithms !== undefined && algorithms !== null) {
       queryParameters['algorithms'] = <any>algorithms;
     }

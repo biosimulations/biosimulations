@@ -21,6 +21,7 @@ import {
   IsNotEmpty,
   IsString,
   ValidateNested,
+  IsOptional,
 } from 'class-validator';
 import {
   Image,
@@ -75,6 +76,7 @@ export class Simulator implements ISimulator {
   })
   urls!: Url[];
 
+  @IsOptional()
   @ValidateNested()
   @Type(() => Image)
   @ApiProperty({
@@ -85,6 +87,7 @@ export class Simulator implements ISimulator {
 
   @ValidateNested()
   @Type(() => Cli)
+
   @ApiProperty({
     nullable: true,
     type: Cli,

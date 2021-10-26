@@ -22,10 +22,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, Document, Schema as MongooseSchema } from 'mongoose';
 import { ObjectIdValidator } from '@biosimulations/datamodel-database';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
-import {
-  Ontologies,
-  KisaoIdRegEx,
-} from '@biosimulations/datamodel/common';
+import { Ontologies, KisaoIdRegEx } from '@biosimulations/datamodel/common';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 // import { addValidationForNullableAttributes } from '@biosimulations/datamodel-database';
 
@@ -41,15 +38,14 @@ export class Exception implements IException {
   @Prop({ type: String, required: true, default: undefined })
   message!: string;
 }
-export const ExceptionSchema =
-  SchemaFactory.createForClass(Exception);
+export const ExceptionSchema = SchemaFactory.createForClass(Exception);
 
 @Schema({
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SedOutputElementLog implements ISedOutputElementLog{
+export class SedOutputElementLog implements ISedOutputElementLog {
   @Prop({ type: String, required: true, default: undefined })
   id!: string;
 
@@ -103,11 +99,14 @@ export class SedReportLog implements ISedReportLog {
   @Prop({ type: Number, required: false, default: undefined })
   duration!: number | null;
 
-  @Prop({ type: [SedOutputElementLogSchema], required: false, default: undefined })
+  @Prop({
+    type: [SedOutputElementLogSchema],
+    required: false,
+    default: undefined,
+  })
   dataSets!: ISedOutputElementLog[] | null;
 }
-export const SedReportLogSchema =
-  SchemaFactory.createForClass(SedReportLog);
+export const SedReportLogSchema = SchemaFactory.createForClass(SedReportLog);
 
 @Schema({
   _id: false,
@@ -144,11 +143,14 @@ export class SedPlot2DLog implements ISedPlot2DLog {
   @Prop({ type: Number, required: false, default: undefined })
   duration!: number | null;
 
-  @Prop({ type: [SedOutputElementLogSchema], required: false, default: undefined })
+  @Prop({
+    type: [SedOutputElementLogSchema],
+    required: false,
+    default: undefined,
+  })
   curves!: ISedOutputElementLog[] | null;
 }
-export const SedPlot2DLogSchema =
-  SchemaFactory.createForClass(SedPlot2DLog);
+export const SedPlot2DLogSchema = SchemaFactory.createForClass(SedPlot2DLog);
 
 @Schema({
   _id: false,
@@ -185,11 +187,14 @@ export class SedPlot3DLog implements ISedPlot3DLog {
   @Prop({ type: Number, required: false, default: undefined })
   duration!: number | null;
 
-  @Prop({ type: [SedOutputElementLogSchema], required: false, default: undefined })
+  @Prop({
+    type: [SedOutputElementLogSchema],
+    required: false,
+    default: undefined,
+  })
   surfaces!: ISedOutputElementLog[] | null;
 }
-export const SedPlot3DLogSchema =
-  SchemaFactory.createForClass(SedPlot3DLog);
+export const SedPlot3DLogSchema = SchemaFactory.createForClass(SedPlot3DLog);
 
 @Schema({
   _id: false,
@@ -233,8 +238,7 @@ export class SedOutputLog implements ISedOutputLog {
   @Prop({ type: Number, required: false, default: undefined })
   duration!: number | null;
 }
-export const SedOutputLogSchema =
-  SchemaFactory.createForClass(SedOutputLog);
+export const SedOutputLogSchema = SchemaFactory.createForClass(SedOutputLog);
 
 @Schema({
   _id: false,
@@ -292,7 +296,10 @@ export class SedTaskLog implements ISedTaskLog {
       {
         validator: (value: any): boolean => {
           if (typeof value === 'string') {
-            return value.match(KisaoIdRegEx) !== null && OntologiesService.isTermId(Ontologies.KISAO, value);
+            return (
+              value.match(KisaoIdRegEx) !== null &&
+              OntologiesService.isTermId(Ontologies.KISAO, value)
+            );
           } else {
             return value === null;
           }
@@ -307,8 +314,7 @@ export class SedTaskLog implements ISedTaskLog {
   @Prop({ type: [SimulatorDetailSchema], required: false, default: undefined })
   simulatorDetails!: ISimulatorDetail[] | null;
 }
-export const SedTaskLogSchema =
-  SchemaFactory.createForClass(SedTaskLog);
+export const SedTaskLogSchema = SchemaFactory.createForClass(SedTaskLog);
 
 @Schema({
   _id: false,
@@ -356,7 +362,9 @@ export class SedDocumentLog implements ISedDocumentLog {
 export const SedDocumentLogSchema =
   SchemaFactory.createForClass(SedDocumentLog);
 
-const outputsArraySchema = SedDocumentLogSchema.path('outputs') as MongooseSchema.Types.DocumentArray;
+const outputsArraySchema = SedDocumentLogSchema.path(
+  'outputs',
+) as MongooseSchema.Types.DocumentArray;
 outputsArraySchema.discriminator(SedReportLog.name, SedReportLogSchema);
 outputsArraySchema.discriminator(SedPlot2DLog.name, SedPlot2DLogSchema);
 outputsArraySchema.discriminator(SedPlot3DLog.name, SedPlot3DLogSchema);
