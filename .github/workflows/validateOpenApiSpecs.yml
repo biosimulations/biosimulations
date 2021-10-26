@@ -1,14 +1,17 @@
 name: Validate OpenAPI specifications
 
-on: 
+on:
   push:
-    paths:
-      - "apps/api/**"
-      - "apps/account-api/**"
-      - "apps/simulators-api/**"
-      - "apps/simulators-api/**"
-      - "apps/combine-service/src/spec/spec.yml"
-      - "libs/datamodel/api/**"
+    # paths:
+      # - "apps/combine-service/src/spec/spec.yml"
+      # - "apps/api/**"
+      # - "apps/account-api/**"
+      # - "apps/simulators-api/**"
+      # - "apps/simulators-api/**"
+      # - "libs/datamodel/api/**"
+
+  schedule:
+    - cron: '0 0 * * 0' # weekly
 
   workflow_dispatch:
 
