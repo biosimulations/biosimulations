@@ -169,7 +169,7 @@ export class SimulationRunService {
       throw new NotFoundException(`Simulation run with id ${id} was not found`);
     }
 
-    this.updateModelPublic(model, run.public);
+    this.updateModelPublic(model, run.isPublic);
     this.updateModelResultSize(model, run.resultsSize);
     this.updateModelStatus(model, run.status, run.statusReason);
 
@@ -469,8 +469,8 @@ export class SimulationRunService {
     isPublic: boolean | undefined | null,
   ): SimulationRunModel {
     if (isPublic != undefined && isPublic != null) {
-      model.public = isPublic;
-      this.logger.debug(`Set ${model.id} public to ${model.public} `);
+      model.isPublic = isPublic;
+      this.logger.debug(`Set ${model.id} public to ${model.isPublic} `);
     }
     return model;
   }
