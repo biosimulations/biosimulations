@@ -23,11 +23,13 @@ export class MongoErrorFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const errors: ErrorObject[] = [];
     const code = err.code;
+    let status = HttpStatus.INTERNAL_SERVER_ERROR;
     switch (code) {
       case 11000: {
+        status = HttpStatus.CONFLICT;
         const error = makeErrorObject(
-          HttpStatus.CONFLICT,
-          'Key Conflcit',
+          status,
+          'Key Conflict',
           `The value for a unique key was already present in the database`,
           undefined,
           undefined,
@@ -41,7 +43,7 @@ export class MongoErrorFilter implements ExceptionFilter {
       }
       default: {
         const error = makeErrorObject(
-          HttpStatus.INTERNAL_SERVER_ERROR,
+          status,
           'Database Error',
           err.message,
           undefined,
@@ -57,6 +59,6 @@ export class MongoErrorFilter implements ExceptionFilter {
 
     const responseError: ErrorResponseDocument = { error: errors };
     this.logger.log(responseError);
-    response.status(HttpStatus.CONFLICT).json(responseError);
+    response.status(status).json(responseError);
   }
 }

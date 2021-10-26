@@ -43,11 +43,11 @@ export class ValidationExceptionFilter implements ExceptionFilter {
 
     const responseError: ErrorResponseDocument = { error: errors };
     this.logger.log(responseError);
-    /* Return a 500 error since this is a validation error at the dataabase level
-     * It is the developers/api responsibility to make sure data sent to the database is valid
+    /* Return a 500 error since this is a validation error at the database level
+     * It is the developers/API responsibility to make sure data sent to the database is valid
      * If the user provides a bad input, this should be caught before trying to save to the database,
-     * in the api validation layer. That layer should return a 400 error.
-     * This is a fallback for when the api validation layer misses something, and should be corrected.
+     * in the API validation layer. That layer should return a 400 error.
+     * This is a fallback for when the API validation layer misses something, and should be corrected.
      * */
 
     response.status(HttpStatus.INTERNAL_SERVER_ERROR).json(responseError);

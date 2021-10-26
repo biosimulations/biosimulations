@@ -137,7 +137,7 @@ export class FilesController {
   //@Post(':runId')
   @permissions('write:Files')
   public async createSimulationFiles(
-    @Param() runId: string,
+    @Param('runId') runId: string,
     @Body() files: any[],
   ): Promise<void> {}
 

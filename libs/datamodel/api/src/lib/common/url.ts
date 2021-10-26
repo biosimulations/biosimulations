@@ -1,14 +1,17 @@
 import { Url as IUrl, UrlType } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
-
+import { IsEnum, IsString, IsUrl, IsOptional } from 'class-validator';
 export class Url implements IUrl {
+  @IsUrl({ require_valid_protocol: true, require_protocol: true })
   @ApiProperty({
     type: String,
     format: 'url',
     example: 'http://tellurium.analogmachine.org/',
   })
-  url!: string;
+  public url!: string;
 
+  @IsOptional()
+  @IsString()
   @ApiProperty({
     type: String,
     nullable: true,
@@ -16,8 +19,9 @@ export class Url implements IUrl {
     default: null,
     example: 'Home page',
   })
-  title!: string | null;
+  public title!: string | null;
 
+  @IsEnum(UrlType)
   @ApiProperty({ type: String, enum: UrlType })
-  type!: UrlType;
+  public type!: UrlType;
 }

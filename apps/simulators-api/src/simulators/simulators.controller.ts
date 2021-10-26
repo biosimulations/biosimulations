@@ -276,12 +276,12 @@ export class SimulatorsController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
-      'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
+      'The specifications of the simulation tool are invalid. See https://biosimulators.org/conventions and https://api.biosimulators.org for examples and documentation.',
   })
   @ApiConflictResponse({
     type: ErrorResponseDocument,
     description:
-      'The version of the simulation tool could not be saved because the database already includes this version of this tool. Please use the `PUT` method to modify versions of simulation tools. Please see https://api.biosimulators.org for more information.',
+      'The version of the simulation tool could not be saved because the database already includes this version of this tool. Please use the `PUT` method to modify versions of simulation tools. Please see https://biosimulators.org/conventions and https://api.biosimulators.org for more information.',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
@@ -314,10 +314,10 @@ export class SimulatorsController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
-      'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
+      'The specifications of the simulation tool are invalid. See https://biosimulators.org/conventions and https://api.biosimulators.org for examples and documentation.',
   })
   @ApiNoContentResponse({
-    description: 'The specifications of teh simulation tool are valid',
+    description: 'The specifications of the simulation tool are valid',
   })
   @HttpCode(204)
   async validateSimulator(@Body() doc: Simulator) {
@@ -361,7 +361,7 @@ export class SimulatorsController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
-      'The specifications of the simulation tool are invalid. See https://api.biosimulators.org for examples and documentation.',
+      'The specifications of the simulation tool are invalid. See https://biosimulators.org/conventions and https://api.biosimulators.org for examples and documentation.',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
