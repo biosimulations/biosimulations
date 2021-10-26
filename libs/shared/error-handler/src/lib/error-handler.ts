@@ -8,6 +8,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '@biosimulations/shared/environments';
 import { BiosimulationsError } from './biosimulations-error';
 import StackdriverErrorReporter from 'stackdriver-errors-js';
+import { MatDialog } from '@angular/material/dialog';
+import { Error500DialogComponent } from './error-500-dialog.component';
+
+interface ErrorState {
+  code: number | undefined;
+  message: string | undefined;
+  details: string | undefined;
+}
+
 @Injectable()
 export class ErrorHandler implements BaseErrorHandler {
   errorHandler = new StackdriverErrorReporter();
@@ -15,6 +24,7 @@ export class ErrorHandler implements BaseErrorHandler {
     private ngZone: NgZone,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog,
   ) {
     this.errorHandler.start({
       key: 'AIzaSyBoUe5xMNiF1_1UmIfMk9LSwAztcOSzRIU',
@@ -26,11 +36,7 @@ export class ErrorHandler implements BaseErrorHandler {
     console.error(error);
 
     let errorTemplate = '500';
-    const errorState: {
-      code: number | string | undefined;
-      message: string | undefined;
-      details: string | undefined;
-    } = {
+    const errorState: ErrorState = {
       code: undefined,
       message: undefined,
       details: undefined,
@@ -91,15 +97,23 @@ export class ErrorHandler implements BaseErrorHandler {
         this.errorHandler.report(error);
       }
 
-      errorState.code = '';
+      errorState.code = undefined;
       errorState.message = 'Runtime error';
     }
 
     this.ngZone.run(() => {
-      this.router.navigate(['/error', errorTemplate], {
-        skipLocationChange: true,
-        state: errorState,
-      });
+      switch (errorTemplate) {
+        case '500': {
+          this.dialog.open(Error500DialogComponent, { data: errorState });
+          break;
+        }
+        default: {
+          this.router.navigate(['/error', errorTemplate], {
+            skipLocationChange: true,
+            state: errorState,
+          });
+        }
+      }
     });
   }
 

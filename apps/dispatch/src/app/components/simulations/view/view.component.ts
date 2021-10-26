@@ -24,6 +24,7 @@ import { FormattedSimulation } from './view.model';
 import { SimulationLogs } from '../../../simulation-logs-datamodel';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { Dataset, WithContext } from 'schema-dts';
+import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 
 @Component({
   templateUrl: './view.component.html',
@@ -156,7 +157,11 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
       map((simulation: Simulation | UnknownSimulation): Simulation => {
         if (isUnknownSimulation(simulation)) {
-          this.router.navigate(['/error', '404'], { skipLocationChange: true });
+          throw new BiosimulationsError(
+            'Simulation run not found',
+            "We're sorry! The run you requested could not be found.",
+            404,
+          );
         }
         return simulation as Simulation;
       }),

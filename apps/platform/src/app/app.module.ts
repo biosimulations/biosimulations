@@ -11,7 +11,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import {
   SharedErrorComponentsModule,
-  //SharedErrorHandlerModule,
+  SharedErrorHandlerModule,
 } from '@biosimulations/shared/error-handler';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
@@ -57,7 +57,7 @@ routes.forEach((route: Route): void => {
     CommonModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    //SharedErrorHandlerModule,
+    SharedErrorHandlerModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
     SharedUiModule,
     RouterModule.forRoot(routes, {

@@ -1,10 +1,6 @@
-<biosimulations-error
-  icon="bug"
-  [code]="code"
-  [pageHasBreadCrumbs]="pageHasBreadCrumbs"
->
-  <ng-container id="message">{{ message }}</ng-container>
-  <ng-container id="details">
+<h2 mat-dialog-title>Something went wrong!</h2>
+<mat-dialog-content class="mat-typography">
+  <p>
     We're sorry! {{ details }} Please try again later. If this error persists,
     please submit an
     <span class="no-wrap"
@@ -15,5 +11,8 @@
     or contact us at
     <a [href]="emailUrl" subject="BioSimulations error">{{ email }}</a
     >.
-  </ng-container>
-</biosimulations-error>
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</mat-dialog-actions>
