@@ -6,6 +6,13 @@ import {
 } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  Allow,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUrl,
+} from 'class-validator';
+import {
   EdamOntologyId,
   FunderRegistryOntologyId,
   LinguistOntologyId,
@@ -17,179 +24,195 @@ import {
 
 export class OntologyInfo implements IOntologyInfo {
   @ApiProperty({ type: String, nullable: true })
-  id!: string | null;
+  public id!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  acronym!: string | null;
+  public acronym!: string | null;
 
   @ApiProperty({ type: String })
-  name!: string;
+  public name!: string;
 
   @ApiProperty({ type: String })
-  description!: string;
+  public description!: string;
 
   @ApiProperty({ type: String, nullable: true })
-  bioportalId!: string | null;
+  public bioportalId!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  olsId!: string | null;
+  public olsId!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  version!: string | null;
+  public version!: string | null;
 
   @ApiProperty({ type: String })
-  source!: string;
+  public source!: string;
 }
 
 export class OntologyTerm implements IOntologyTerm {
   @ApiProperty({ type: String, enum: Ontologies })
-  namespace!: Ontologies;
+  public namespace!: Ontologies;
 
   @ApiProperty({ type: String })
-  id!: string;
+  public id!: string;
 
   @ApiProperty({ type: String, nullable: true })
-  name!: string | null;
+  public name!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  description!: string | null;
+  public description!: string | null;
 
   @ApiProperty({ type: String, nullable: true, format: 'url' })
-  iri!: string | null;
+  public iri!: string | null;
 
   @ApiProperty({ type: String, nullable: true, format: 'url' })
-  url!: string | null;
+  public url!: string | null;
 
   @ApiProperty({ type: String, nullable: true, format: 'url' })
-  moreInfoUrl!: string | null;
+  public moreInfoUrl!: string | null;
 }
 
 export class EdamTerm extends EdamOntologyId {
   @ApiProperty({ type: String })
-  name!: string;
+  public name!: string;
 
   @ApiProperty({ type: String, nullable: true })
-  description!: string | null;
+  public description!: string | null;
 
   @ApiProperty({ type: String, format: 'url' })
-  iri!: string;
+  public iri!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  url!: string;
+  public url!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  moreInfoUrl!: string | null;
+  public moreInfoUrl!: string | null;
 }
 
 export class FunderRegistryTerm extends FunderRegistryOntologyId {
   @ApiProperty({ type: String })
-  name!: string;
+  public name!: string;
 
   @ApiProperty({ type: typeof null, nullable: true })
-  description!: null;
+  public description!: null;
 
   @ApiProperty({ type: typeof null, nullable: true })
-  iri!: null;
+  public iri!: null;
 
   @ApiProperty({ type: String })
-  url!: string;
+  public url!: string;
 
   @ApiProperty({ type: typeof null, nullable: true })
-  moreInfoUrl!: null;
+  public moreInfoUrl!: null;
 }
 
 export class LinguistTerm extends LinguistOntologyId {
   @ApiProperty({ type: typeof null, nullable: true })
-  name!: null;
+  public name!: null;
 
   @ApiProperty({ type: typeof null, nullable: true })
-  description!: null;
+  public description!: null;
 
   @ApiProperty({ type: typeof null, nullable: true })
-  iri!: null;
+  public iri!: null;
 
   @ApiProperty({ type: typeof null, nullable: true })
-  url!: null;
+  public url!: null;
 
   @ApiProperty({ type: typeof null, nullable: true })
-  moreInfoUrl!: null;
+  public moreInfoUrl!: null;
 }
 
 export class KisaoTerm extends KisaoOntologyId {
   @ApiProperty({ type: String })
-  name!: string;
+  public name!: string;
 
   @ApiProperty({ type: String })
-  description!: string | null;
+  public description!: string | null;
 
   @ApiProperty({ type: String, format: 'url' })
-  iri!: string;
+  public iri!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  url!: string;
+  public url!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  moreInfoUrl!: string | null;
+  public moreInfoUrl!: string | null;
 }
 
 export class SboTerm extends SboOntologyId {
   @ApiProperty({ type: String })
-  name!: string;
+  public name!: string;
 
   @ApiProperty({ type: String })
-  description!: string | null;
+  public description!: string | null;
 
   @ApiProperty({ type: String, format: 'url' })
-  iri!: string;
+  public iri!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  url!: string;
+  public url!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  moreInfoUrl!: string | null;
+  public moreInfoUrl!: string | null;
 }
 
 export class SioTerm extends SioOntologyId {
   @ApiProperty({ type: String })
-  name!: string;
+  public name!: string;
 
   @ApiProperty({ type: String })
-  description!: string | null;
+  public description!: string | null;
 
   @ApiProperty({ type: String, format: 'url' })
-  iri!: string;
+  public iri!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  url!: string;
+  public url!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  moreInfoUrl!: string | null;
+  public moreInfoUrl!: string | null;
 }
 
 export class SpdxTerm extends SpdxOntologyId {
+  @IsString()
+  @IsNotEmpty()
   @ApiProperty({ type: String })
-  name!: string;
+  public name!: string;
 
+  @Allow()
   @ApiProperty({ type: typeof null, nullable: true })
-  description!: null;
+  public description!: null;
 
+  @Allow()
   @ApiProperty({ type: typeof null, nullable: true })
-  iri!: null;
+  public iri!: null;
 
+  @IsUrl({ require_protocol: true })
   @ApiProperty({ type: String, format: 'url' })
-  url!: string;
+  public url!: string;
 
+  @IsUrl({
+    require_valid_protocol: true,
+    require_protocol: true,
+  })
+  @IsOptional()
   @ApiProperty({ type: String, format: 'url' })
-  moreInfoUrl!: string | null;
+  public moreInfoUrl!: string | null;
 }
 
 export class Identifier implements IIdentifier {
-  @ApiProperty({ type: String })
-  namespace!: string;
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({ type: String, example: 'DOI' })
+  public namespace!: string;
 
-  @ApiProperty({ type: String })
-  id!: string;
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({ type: String, example: '10.5281/zenodo.5595241' })
+  public id!: string;
 
-  @ApiProperty({ type: String, format: 'url' })
-  url!: string;
+  // TODO verify this level of validation is correct (require protocol, require valid protocol, require host)
+  @IsUrl({ require_protocol: true, require_host: true })
+  @ApiProperty({ type: String, format: 'url', example: 'https://identifiers.org/doi/10.5281/zenodo.5595241' })
+  public url!: string;
 }

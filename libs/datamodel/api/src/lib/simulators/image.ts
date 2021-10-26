@@ -2,6 +2,9 @@ import { IImage, OperatingSystemType } from '@biosimulations/datamodel/common';
 import { EdamOntologyIdVersion } from '../common';
 
 import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum, IsNotEmpty, IsUrl, ValidateNested } from 'class-validator';
+import { IsImageDigest } from '@biosimulations/datamodel/utils';
+
 import {
   IsEnum,
   IsNotEmpty,
@@ -9,11 +12,12 @@ import {
   ValidateNested,
   IsOptional,
 } from 'class-validator';
+
 import { Type } from 'class-transformer';
 import { IsImageDigest } from '@biosimulations/datamodel/utils';
 
 export class Image implements IImage {
-  @IsString()
+  @IsUrl()
   @IsNotEmpty()
   @ApiProperty({
     type: String,

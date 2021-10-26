@@ -1,9 +1,13 @@
 import { Taxon as ITaxon } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class Taxon implements ITaxon {
+  @IsNumber()
   @ApiProperty({ type: Number, example: 9606 })
-  id!: number;
+  public id!: number;
 
   @ApiProperty({ type: String, example: 'Homo sapiens' })
-  name!: string;
+  @IsString()
+  @IsNotEmpty()
+  public name!: string;
 }

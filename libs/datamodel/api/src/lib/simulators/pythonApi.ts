@@ -1,14 +1,20 @@
 import { IPythonApi } from '@biosimulations/datamodel/common';
 
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class PythonApi implements IPythonApi {
+  @IsString()
+  @IsNotEmpty()
   @ApiProperty({ type: String })
-  package!: string;
+  public package!: string;
 
+  @IsString()
+  @IsNotEmpty()
   @ApiProperty({ type: String })
-  module!: string;
+  public module!: string;
 
+  @IsString()
   @ApiProperty({
     type: String,
     nullable: true,
@@ -16,5 +22,5 @@ export class PythonApi implements IPythonApi {
     example:
       'https://docs.biosimulators.org/Biosimulators_XPP/installation.html',
   })
-  installationInstructions!: string | null;
+  public installationInstructions!: string | null;
 }
