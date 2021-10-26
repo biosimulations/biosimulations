@@ -46,7 +46,7 @@
       "@biosimulations/auth/nest": [
         "libs/auth/nest/src/index.ts"
       ],
-      "@biosimulations/backend-api-client": [
+      "@biosimulations/api-nest-client": [
         "libs/api/nest-client/src/index.ts"
       ],
       "@biosimulations/combine-api-client": [

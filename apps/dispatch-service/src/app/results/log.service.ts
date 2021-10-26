@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 
 import YAML from 'yaml';
-import { SimulationRunService } from '@biosimulations/backend-api-client';
+import { SimulationRunService } from '@biosimulations/api-nest-client';
 import { CombineArchiveLog } from '@biosimulations/datamodel/api';
 import { SimulationRunLogStatus } from '@biosimulations/datamodel/common';
 import { SshService } from '../services/ssh/ssh.service';

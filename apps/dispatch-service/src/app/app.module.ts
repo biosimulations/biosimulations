@@ -10,7 +10,7 @@ import { ArchiverService } from './results/archiver.service';
 
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { AuthClientModule } from '@biosimulations/auth/client';
-import { DispatchNestClientModule } from '@biosimulations/backend-api-client';
+import { DispatchNestClientModule } from '@biosimulations/api-nest-client';
 import { ImagesModule } from '../images/images.module';
 
 import { LogService } from './results/log.service';
