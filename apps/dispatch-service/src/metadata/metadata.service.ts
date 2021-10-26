@@ -142,8 +142,8 @@ export class MetadataService {
           return {
             uri: data.value.uri,
             label: data.value.label || null,
-            attribute_label: data.attribute.label,
-            attribute_uri: data.attribute.uri,
+            attribute_label: data.attribute.label || null,
+            attribute_uri: data.attribute.uri || null,
           };
         }, this) || [],
     };
