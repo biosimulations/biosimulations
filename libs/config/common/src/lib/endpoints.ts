@@ -155,8 +155,12 @@ export class Endpoints {
     return `${this.storage_endpoint}/simulations/${runId}/contents/${fileLocation}`;
   }
 
-  public getProjectsEndpoint(projectId?: string): string {
-    return this.projects + (projectId ? `/${projectId}` : '');
+  /** Get the URL for information about a project
+   * @param id The id of the project
+   * @returns URL to get information about the project
+   */
+  public getProjectsEndpoint(id?: string): string {
+    return this.projects + (id ? `/${id}` : '');
   }
 
   /**
