@@ -1,31 +1,47 @@
 import { Format as IFormat } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional, IsString } from 'class-validator';
 
 export class Format implements IFormat {
   @ApiProperty({ type: String })
-  id!: string;
+  @IsString()
+  public id!: string;
 
   @ApiProperty({ type: String })
-  name!: string;
+  @IsString()
+  public name!: string;
 
   @ApiProperty({ type: String })
-  version!: string;
+  @IsString()
+  public version!: string;
 
   @ApiProperty({ type: String, nullable: true })
-  edamId!: string | null;
+  @IsString()
+  @IsOptional()
+  public edamId!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  specUrl!: string | null;
+  @IsString()
+  @IsOptional()
+  public specUrl!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  url!: string | null;
+  @IsString()
+  @IsOptional()
+  public url!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  mimetype!: string | null;
+  @IsString()
+  @IsOptional()
+  public mimetype!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  extension!: string | null;
+  @IsString()
+  @IsOptional()
+  public extension!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
-  sedUrn!: string | null;
+  @IsString()
+  @IsOptional()
+  public sedUrn!: string | null;
 }

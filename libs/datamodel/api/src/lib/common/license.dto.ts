@@ -4,19 +4,27 @@ import {
 } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 
+import { IsEnum, IsNumber, IsString, IsUrl } from 'class-validator';
+
 export class LicenseInfo implements ILicenseInfo {
   @ApiProperty({ type: String, enum: License })
-  value!: License;
+  @IsEnum(License)
+  public value!: License;
 
   @ApiProperty({ type: String })
-  name!: string;
+  @IsString()
+  public name!: string;
 
   @ApiProperty({ type: String })
-  version!: string;
+  @IsString()
+  public version!: string;
 
   @ApiProperty({ type: Number })
-  swoId!: number;
+  @IsNumber()
+  // TODO should this be changed to spdx?
+  public swoId!: number;
 
   @ApiProperty({ type: String, format: 'url' })
-  url!: string;
+  @IsUrl({ require_protocol: true })
+  public url!: string;
 }

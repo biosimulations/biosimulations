@@ -1,9 +1,11 @@
 import { DependentPackage as IDependentPackage } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsOptional, IsString, IsUrl } from 'class-validator';
 
 export class DependentPackage implements IDependentPackage {
   @ApiProperty({ type: String })
-  name!: string;
+  @IsString()
+  public name!: string;
 
   @ApiProperty({
     type: String,
@@ -11,14 +13,20 @@ export class DependentPackage implements IDependentPackage {
     description: 'Required version',
     example: '>= 3.1.1',
   })
-  version!: string | null;
+  @IsString()
+  @IsOptional()
+  public version!: string | null;
 
   @ApiProperty({ type: Boolean })
-  required!: boolean;
+  @IsBoolean()
+  public required!: boolean;
 
   @ApiProperty({ type: Boolean })
-  freeNonCommercialLicense!: boolean;
+  @IsBoolean()
+  public freeNonCommercialLicense!: boolean;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
-  url!: string | null;
+  @IsOptional()
+  @IsUrl({ require_protocol: true })
+  public url!: string | null;
 }

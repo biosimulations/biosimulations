@@ -189,17 +189,20 @@ async function bootstrap() {
 
   const limit = configService.get('server.limit');
   app.use(json({ limit }));
-
   app.useGlobalPipes(
     new ValidationPipe({
-      exceptionFactory: BiosimulationsValidationExceptionFactory,
       transform: true,
+      exceptionFactory: BiosimulationsValidationExceptionFactory,
+      forbidNonWhitelisted: true,
+      whitelist: true,
+      validationError: {
+        target: false,
+      },
       transformOptions: {
         enableImplicitConversion: true,
       },
     }),
   );
-
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/');
   });

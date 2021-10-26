@@ -1,26 +1,33 @@
 import { ICli, PackageRepository } from '@biosimulations/datamodel/common';
 
 import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
 export class Cli implements ICli {
+  @IsEnum(PackageRepository)
   @ApiProperty({
     type: String,
     enum: PackageRepository,
   })
-  packageRepository!: PackageRepository;
+  public packageRepository!: PackageRepository;
 
   @ApiProperty({
     type: String,
   })
-  package!: string;
+  @IsString()
+  @IsNotEmpty()
+  public package!: string;
 
   @ApiProperty({
     type: String,
     description:
       'Command for running the command-line application, e.g., `biosimulators-tellurium`.',
   })
-  command!: string;
+  @IsString()
+  @IsNotEmpty()
+  public command!: string;
 
+  @IsString()
   @ApiProperty({
     type: String,
     nullable: true,
@@ -29,5 +36,5 @@ export class Cli implements ICli {
     example:
       'https://docs.biosimulators.org/Biosimulators_XPP/installation.html',
   })
-  installationInstructions!: string | null;
+  public installationInstructions!: string | null;
 }
