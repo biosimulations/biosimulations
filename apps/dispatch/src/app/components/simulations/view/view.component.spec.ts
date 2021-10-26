@@ -13,6 +13,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -39,7 +40,7 @@ describe('ViewComponent', () => {
         SimulationLogModule,
         NoopAnimationsModule,
       ],
-      providers: [ConfigService, ScrollService],
+      providers: [ConfigService, ScrollService, Storage],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));

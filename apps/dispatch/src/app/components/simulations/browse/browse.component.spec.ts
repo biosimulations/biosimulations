@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import {
   MatDialogModule,
   MAT_DIALOG_DATA,
@@ -39,6 +40,7 @@ describe('BrowseComponent', () => {
           provide: MAT_DIALOG_DATA,
           useValue: undefined,
         },
+        Storage,
       ],
       declarations: [BrowseComponent],
     }).compileComponents();
