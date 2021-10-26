@@ -10,7 +10,7 @@ export const BiosimulationsValidationExceptionFactory = (
   const err = errors[0];
   const message = `Parameter or property '${
     err.property
-  }''  with value ${inspect(err.value)} failed validation`;
+  }' with value ${inspect(err.value)} is invalid`;
 
   const bioSimErr = new BiosimulationsException(
     HttpStatus.BAD_REQUEST,
