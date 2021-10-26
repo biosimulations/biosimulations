@@ -13,10 +13,12 @@ biosimulations-tab-page ::ng-deep {
     padding-right: 0.5rem;
     border-radius: 4px;
     background: $light-bg-darker-10;
+  }
+}
 
-    .heading {
-      max-width: 100% !important;
-    }
+biosimulations-tab-page ::ng-deep biosimulations-text-page-side-bar-section ::ng-deep {
+  .heading {
+    max-width: 100%;
   }
 }
 
