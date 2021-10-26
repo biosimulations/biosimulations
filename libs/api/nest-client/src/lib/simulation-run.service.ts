@@ -46,7 +46,7 @@ export class SimulationRunService {
     id: string,
     specs: SimulationRunSedDocument[],
   ): Observable<SimulationRunSedDocument[]> {
-    const endpoint = this.endpoints.getSpecificationsEndpoint(id);
+    const endpoint = this.endpoints.getSpecificationsEndpoint();
     return this.postAuthenticated<
       SimulationRunSedDocument[],
       SimulationRunSedDocument[]

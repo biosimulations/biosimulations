@@ -150,41 +150,6 @@ export class SpecificationsController {
     return specs.map(this.returnSpec);
   }
 
-  @Post(':runId')
-  @permissions('write:Specifications')
-  @ApiOperation({
-    summary: 'Save the simulation experiments of a simulation run',
-    description:
-      'Save the specifications of the simulation experiments (SED-ML files in the COMBINE/OMEX archive) of a simulation run',
-  })
-  @ApiParam({
-    name: 'runId',
-    description: 'Id of the simulation run',
-    required: true,
-    type: String,
-  })
-  @ApiBody({
-    description:
-      'Specifications of the simulation experiment of the simulation run',
-    type: [SimulationRunSedDocument],
-  })
-  @ApiPayloadTooLargeResponse({
-    type: ErrorResponseDocument,
-    description:
-      'The payload is too large. The payload must be less than the server limit.',
-  })
-  @ApiCreatedResponse({
-    description: 'The simulation experiments were succcessfully saved',
-    type: [SimulationRunSedDocument],
-  })
-  public async createSimulationSpecification(
-    @Param('runId') runId: string,
-    @Body() specifications: SimulationRunSedDocument[],
-  ): Promise<SimulationRunSedDocument[]> {
-    const specs = await this.service.createSpecs(specifications);
-    return specs.map(this.returnSpec);
-  }
-
   private returnSpec(specs: SpecificationsModel): SimulationRunSedDocument {
     return {
       id: specs.id,
