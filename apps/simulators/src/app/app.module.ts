@@ -10,7 +10,9 @@ import { environment } from '@biosimulations/shared/environments';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { HealthService } from './services/health/health.service';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { PwaModule } from '@biosimulations/shared/pwa';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -108,11 +110,13 @@ routes.forEach((route: Route): void => {
       driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
     }),
     HighlightModule,
+    PwaModule,
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
+    HealthService,
 
     {
       // Requires type declarations provided in the highlight.d.ts file in src

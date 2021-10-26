@@ -71,7 +71,7 @@ export class Endpoints {
 
   /**
    *
-   * @returns The URL of the api
+   * @returns The URL of the API
    */
   public getBaseUrl(): string {
     return this.api;
@@ -313,18 +313,21 @@ export class Endpoints {
   public getApiHealthEndpoint(): string {
     return `${this.api}/health/status`;
   }
+
   public getSimulatorApiHealthEndpoint(): string {
-    return `${this.simulators}/health`;
+    return `${this.simulators_api}/health`;
   }
+
   public getCombineHealthEndpoint(): string {
     return `${this.getCombineEndpoint}/health`;
   }
+
   public getStorageHealthEndpoint(): string {
     return `${this.storage_endpoint}/helloWorld.txt`;
   }
   /**
    *
-   * @returns The base URL of the combine api
+   * @returns The base URL of the COMBINE API
    */
   private getCombineEndpoint(): string {
     return this.combine_api;

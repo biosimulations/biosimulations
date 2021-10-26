@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { HealthService } from '@biosimulations/angular-api-client';
 import { PwaModule } from '@biosimulations/shared/pwa';
 import {
   SharedErrorComponentsModule,
@@ -20,6 +21,7 @@ import config from '../assets/config.json';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
 import { ScullyLibModule } from '@scullyio/ng-lib';
+
 
 const routes: Routes = [
   {
@@ -128,6 +130,7 @@ routes.forEach((route: Route): void => {
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
+    HealthService,
   ],
   bootstrap: [AppComponent],
   schemas: [],

@@ -1251,14 +1251,29 @@ sub {
 /* alerts, errors */
 .valid {
   color: mat.get-color-from-palette($theme-primary);
+
+  a {
+    color: mat.get-color-from-palette($theme-primary);
+    text-decoration: underline;
+  }
 }
 
 .error {
   color: mat.get-color-from-palette($theme-warn);
+
+  a {
+    color: mat.get-color-from-palette($theme-warn);
+    text-decoration: underline;
+  }
 }
 
 .warning {
   color: mat.get-color-from-palette($theme-accent);
+
+  a {
+    color: mat.get-color-from-palette($theme-accent);
+    text-decoration: underline;
+  }
 }
 
 .alert {

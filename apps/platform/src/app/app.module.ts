@@ -18,6 +18,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { HealthService } from '@biosimulations/angular-api-client';
+import { PwaModule } from '@biosimulations/shared/pwa';
 
 import config from '../assets/config.json';
 
@@ -68,11 +70,13 @@ routes.forEach((route: Route): void => {
     IonicStorageModule.forRoot({
       driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
     }),
+    PwaModule,
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
+    HealthService,
   ],
   bootstrap: [AppComponent],
 })
