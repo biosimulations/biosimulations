@@ -1,4 +1,5 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+// import { ProjectInput } from '@biosimulations/datamodel/api';
 import { CompleteJob, JobQueue } from '@biosimulations/messages/messages';
 
 import { Processor, Process } from '@nestjs/bull';
@@ -11,6 +12,8 @@ import { MetadataService } from '../../metadata/metadata.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
 import { FileService } from '../../file/file.service';
 import { SedmlService } from '../../sedml/sedml.service';
+// import { ProjectService } from '@biosimulations/backend-api-client';
+// import { AxiosError } from '@nestjs/axios';
 
 @Processor(JobQueue.complete)
 export class CompleteProccessor {
@@ -22,6 +25,7 @@ export class CompleteProccessor {
     private metadataService: MetadataService,
     private fileService: FileService,
     private sedmlService: SedmlService,
+    // private projectService: ProjectService,
   ) {}
 
   @Process()
@@ -31,48 +35,108 @@ export class CompleteProccessor {
     const id = data.simId;
     const isPublic = data.isPublic;
 
-    this.logger.debug(`Simulation ${id} Finished. Creating logs and output`);
+    this.logger.debug(`Simulation ${id} finished. Saving files, specifications, results, logs, metadata ...`);
 
-    const required_processed: PromiseSettledResult<void>[] =
-      await Promise.allSettled([
-        this.archiverService.updateResultsSize(id),
-        this.logService.createLog(id),
-        this.fileService.processFiles(id),
-        this.sedmlService.processSedml(id),
-      ]);
+    const processingSteps = [
+      {
+        name: 'The files of the COMBINE archive',
+        result: this.fileService.processFiles(id),
+        required: true,
+      },
+      {
+        name: 'The specifications of the simulation (SED-ML documents)',
+        result: this.sedmlService.processSedml(id),
+        required: true,
+      },
+      {
+        name: 'The size of the simulation results',
+        result: this.archiverService.updateResultsSize(id),
+        required: true,
+      },
+      {
+        name: 'The log of the simulation',
+        result: this.logService.createLog(id),
+        required: true,
+      },
+      {
+        name: 'The metadata for the COMBINE archive',
+        result: this.metadataService.createMetadata(id, isPublic),
+        required: false,
+      },
+    ];
 
-    const additional_processed: PromiseSettledResult<void>[] =
-      await Promise.allSettled([
-        this.metadataService.createMetadata(id, isPublic),
-      ]);
+    const processingResults: PromiseSettledResult<void>[] =
+      await Promise.allSettled(processingSteps.map((processingStep) => processingStep.result));
 
-    let completed = true;
-    let reason = '';
-    for (const val of required_processed) {
-      if (val.status == 'rejected') {
-        completed = false;
-        reason = val.reason;
-        this.logger.error(val.reason);
+    // Keep track of which processing step(s) failed
+    const errors: string[] = [];
+    const warnings: string[] = [];
+
+    for (let iStep = 0; iStep < processingSteps.length; iStep++) {
+      const processingStep = processingSteps[iStep];
+      const processingResult = processingResults[iStep];
+
+      if (processingResult.status == 'rejected') {
+        const reason = `${processingStep.name} could not be saved: ${processingResult.reason}`;
+        if (processingStep.required) {
+          errors.push(reason);
+          this.logger.error(reason);
+        } else {
+          warnings.push(reason)
+          this.logger.warn(reason);
+        }
       }
     }
 
-    for (const val of additional_processed) {
-      if (val.status == 'rejected') {
-        this.logger.warn('Unable to complete additional processing');
-        this.logger.warn(val.reason);
+    if (errors.length === 0) {
+      let msg = 'The simulation run was successfully proccessed.';
+      if (warnings) {
+        msg += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
       }
-    }
 
-    // TODO keep track of which processing step failed and report it
-    const errorMessage = `Updating Simulation ${id} to failed due to processing error: ${reason}`;
-    if (completed) {
       this.simStatusService
-        .updateStatus(id, SimulationRunStatus.SUCCEEDED, 'Completed')
-        .then((run) => this.logger.log(`Updated Simulation ${id} to complete`));
+        .updateStatus(id, SimulationRunStatus.SUCCEEDED, msg)
+        .then((run) => this.logger.log(`Updated status of simulation ${id} to SUCCEEDED`));
+
+      /*
+      if (isPublic) {
+        const projectInput: ProjectInput = {
+          id: projectId,
+          simulationRun: id,
+        };
+
+        return this.projectService
+          .getProject(projectId)
+          .toPromise()
+          .then((project) => {
+            this.projectService
+              .updateProject(projectId, projectInput)
+              .then((project) => this.logger.log(`Updated project ${projectId} for simulation ${id}`))
+              .catch((err) => this.logger.log(`Project ${projectId} could not be updated with simulation ${id}`));
+          })
+          .catch((err: AxiosError) => {
+            if (e.response.status === 404) {
+              this.projectService
+                .createProject(projectInput)
+                .then((project) => this.logger.log(`Created project ${projectId} for simulation ${id}`))
+                .catch((err) => this.logger.log(`Project ${projectId} could not be created with simulation ${id}`));
+            } else {
+              this.logger.error('Failed to update status');
+              this.logger.error(err);
+            }
+          });
+      }
+      */
     } else {
+      let msg = 'The simulation run was not successfully proccessed.';
+      msg += '\n\nErrors:\n  * ' + errors.join('\n  * ');
+      if (warnings) {
+        msg += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
+      }
+
       this.simStatusService
-        .updateStatus(id, SimulationRunStatus.FAILED, errorMessage)
-        .then((run) => this.logger.error(errorMessage));
+        .updateStatus(id, SimulationRunStatus.FAILED, msg)
+        .then((run) => this.logger.error(`Updated status of simulation ${id} to FAILED due to one or more processing errors:\n  * ${errors.join('\n  * ')}`));
     }
   }
 }
