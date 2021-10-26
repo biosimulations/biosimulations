@@ -15,7 +15,7 @@ interface ErrorState {
   code: number | undefined;
   message: string | undefined;
   details: string | undefined;
-};
+}
 
 @Injectable()
 export class ErrorHandler implements BaseErrorHandler {
@@ -104,7 +104,7 @@ export class ErrorHandler implements BaseErrorHandler {
     this.ngZone.run(() => {
       switch (errorTemplate) {
         case '500': {
-          this.dialog.open(Error500DialogComponent, {data: errorState});
+          this.dialog.open(Error500DialogComponent, { data: errorState });
           break;
         }
         default: {

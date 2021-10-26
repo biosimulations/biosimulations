@@ -140,7 +140,7 @@ export class PublishComponent implements OnInit, OnDestroy {
         if (isUnknownSimulation(simulation)) {
           throw new BiosimulationsError(
             'Simulation run not found',
-            'We\'re sorry! The run you requested could not be found.',
+            "We're sorry! The run you requested could not be found.",
             404,
           );
         }

@@ -6,7 +6,7 @@ interface ErrorState {
   code: number | string | undefined;
   message: string | undefined;
   details: string | undefined;
-};
+}
 
 @Component({
   selector: 'biosimulations-error-500-dialog',
@@ -19,7 +19,10 @@ export class Error500DialogComponent {
   emailUrl: string;
   newIssueUrl: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private state: ErrorState, private config: ConfigService) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private state: ErrorState,
+    private config: ConfigService,
+  ) {
     if (state?.details !== undefined) {
       this.details = state?.details;
     }

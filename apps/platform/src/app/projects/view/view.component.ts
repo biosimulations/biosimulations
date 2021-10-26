@@ -65,15 +65,19 @@ export class ViewComponent implements OnInit {
       catchError((error: HttpErrorResponse) => {
         const appError =
           error.status === 400
-          ? new BiosimulationsError('Project not found', 'We\'re sorry! The project you requested could not be found.', 404)
-          : error;
+            ? new BiosimulationsError(
+                'Project not found',
+                "We're sorry! The project you requested could not be found.",
+                404,
+              )
+            : error;
 
         return throwError(appError);
       }),
     );
     project$.subscribe((project): void => {
-      console.log(project)
-    })
+      console.log(project);
+    });
 
     this.simulationRunId$ = project$.pipe(
       map((project) => project.simulationRun),
