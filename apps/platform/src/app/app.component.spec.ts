@@ -22,7 +22,13 @@ describe('AppComponent', () => {
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
         }),
       ],
-      providers: [AuthService, AuthEnvironment, ConfigService, ScrollService, Storage],
+      providers: [
+        AuthService,
+        AuthEnvironment,
+        ConfigService,
+        ScrollService,
+        Storage,
+      ],
       declarations: [AppComponent],
     }).compileComponents();
   }));

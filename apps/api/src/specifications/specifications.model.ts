@@ -36,18 +36,22 @@ import {
   strict: 'throw',
 })
 export class Namespace implements INamespace {
-  @Prop({ type: String, enum: ['Namespace'], required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: ['Namespace'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'Namespace';
-  
+
   @Prop({ type: String, required: false, default: undefined })
   public prefix?: string;
-  
+
   @Prop({ type: String, required: true, default: undefined })
   public uri!: string;
 }
 
-export const NamespaceSchema =
-  SchemaFactory.createForClass(Namespace);
+export const NamespaceSchema = SchemaFactory.createForClass(Namespace);
 
 @Schema({
   _id: false,
@@ -55,7 +59,12 @@ export const NamespaceSchema =
   strict: 'throw',
 })
 export class SedTarget implements ISedTarget {
-  @Prop({ type: String, enum: ['SedTarget'], required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: ['SedTarget'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'SedTarget';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -63,10 +72,9 @@ export class SedTarget implements ISedTarget {
 
   @Prop({ type: [NamespaceSchema], required: false, default: undefined })
   public namespaces?: Namespace[];
-};
+}
 
-export const SedTargetSchema =
-  SchemaFactory.createForClass(SedTarget);
+export const SedTargetSchema = SchemaFactory.createForClass(SedTarget);
 
 @Schema({
   _id: false,
@@ -89,8 +97,9 @@ export class SedModelAttributeChange implements ISedModelAttributeChange {
   public newValue!: string;
 }
 
-export const SedModelAttributeChangeSchema =
-  SchemaFactory.createForClass(SedModelAttributeChange);
+export const SedModelAttributeChangeSchema = SchemaFactory.createForClass(
+  SedModelAttributeChange,
+);
 
 export type SedModelChangeType = SedModelAttributeChange;
 
@@ -100,7 +109,12 @@ export type SedModelChangeType = SedModelAttributeChange;
   strict: 'throw',
 })
 export class SedModelChange {
-  @Prop({ type: String, enum: [SedModelAttributeChange.name], required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: [SedModelAttributeChange.name],
+    required: true,
+    default: undefined,
+  })
   public _type!: string;
 
   @Prop({ type: String, required: true, default: undefined })
@@ -122,7 +136,12 @@ export const SedModelChangeSchema =
   strict: 'throw',
 })
 export class SedModel implements ISedModel {
-  @Prop({ type: String, enum: ['SedModel'], required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: ['SedModel'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'SedModel';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -141,16 +160,22 @@ export class SedModel implements ISedModel {
   public changes!: SedModelChangeType[];
 }
 
-export const SedModelSchema =
-  SchemaFactory.createForClass(SedModel);
+export const SedModelSchema = SchemaFactory.createForClass(SedModel);
 
 @Schema({
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SedAlgorithmParameterChange implements ISedAlgorithmParameterChange {
-  @Prop({ type: String, enum: ['SedAlgorithmParameterChange'], required: true, default: undefined })
+export class SedAlgorithmParameterChange
+  implements ISedAlgorithmParameterChange
+{
+  @Prop({
+    type: String,
+    enum: ['SedAlgorithmParameterChange'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'SedAlgorithmParameterChange';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -160,8 +185,9 @@ export class SedAlgorithmParameterChange implements ISedAlgorithmParameterChange
   public newValue!: string;
 }
 
-export const SedAlgorithmParameterChangeSchema =
-  SchemaFactory.createForClass(SedAlgorithmParameterChange);
+export const SedAlgorithmParameterChangeSchema = SchemaFactory.createForClass(
+  SedAlgorithmParameterChange,
+);
 
 @Schema({
   _id: false,
@@ -169,25 +195,35 @@ export const SedAlgorithmParameterChangeSchema =
   strict: 'throw',
 })
 export class SedAlgorithm implements ISedAlgorithm {
-  @Prop({ type: String, enum: ['SedAlgorithm'], required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: ['SedAlgorithm'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'SedAlgorithm';
 
   @Prop({ type: String, required: true, default: undefined })
   public kisaoId!: string;
 
-  @Prop({ type: [SedAlgorithmParameterChangeSchema], required: true, default: undefined })
+  @Prop({
+    type: [SedAlgorithmParameterChangeSchema],
+    required: true,
+    default: undefined,
+  })
   public changes!: SedAlgorithmParameterChange[];
 }
 
-export const SedAlgorithmSchema =
-  SchemaFactory.createForClass(SedAlgorithm);
+export const SedAlgorithmSchema = SchemaFactory.createForClass(SedAlgorithm);
 
 @Schema({
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SedUniformTimeCourseSimulation implements ISedUniformTimeCourseSimulation {
+export class SedUniformTimeCourseSimulation
+  implements ISedUniformTimeCourseSimulation
+{
   public _type!: 'SedUniformTimeCourseSimulation';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -233,8 +269,9 @@ export class SedSteadyStateSimulation implements ISedSteadyStateSimulation {
   public algorithm!: SedAlgorithm;
 }
 
-export const SedSteadyStateSimulationSchema =
-  SchemaFactory.createForClass(SedSteadyStateSimulation);
+export const SedSteadyStateSimulationSchema = SchemaFactory.createForClass(
+  SedSteadyStateSimulation,
+);
 
 @Schema({
   _id: false,
@@ -293,8 +330,7 @@ export class SedSimulation {
   public algorithm!: SedAlgorithm;
 }
 
-export const SedSimulationSchema =
-  SchemaFactory.createForClass(SedSimulation);
+export const SedSimulationSchema = SchemaFactory.createForClass(SedSimulation);
 
 @Schema({
   _id: false,
@@ -321,8 +357,7 @@ export class SedTask implements ISedTask {
   public simulation!: SedSimulationTypes;
 }
 
-export const SedTaskSchema =
-  SchemaFactory.createForClass(SedTask);
+export const SedTaskSchema = SchemaFactory.createForClass(SedTask);
 
 @Schema({
   _id: false,
@@ -352,10 +387,7 @@ export type SedAbstractTaskTypes = SedTask | SedRepeatedTask;
 export class SedAbstractTask {
   @Prop({
     type: String,
-    enum: [
-      SedTask.name,
-      SedRepeatedTask.name,
-    ],
+    enum: [SedTask.name, SedRepeatedTask.name],
     required: true,
     default: undefined,
   })
@@ -377,7 +409,12 @@ export const SedAbstractTaskSchema =
   strict: 'throw',
 })
 export class SedVariable implements ISedVariable {
-  @Prop({ type: String, enum: ['SedVariable'], required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: ['SedVariable'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'SedVariable';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -396,8 +433,7 @@ export class SedVariable implements ISedVariable {
   public task!: SedTask;
 }
 
-export const SedVariableSchema =
-  SchemaFactory.createForClass(SedVariable);
+export const SedVariableSchema = SchemaFactory.createForClass(SedVariable);
 
 @Schema({
   _id: false,
@@ -405,7 +441,12 @@ export const SedVariableSchema =
   strict: 'throw',
 })
 export class SedDataGenerator implements ISedDataGenerator {
-  @Prop({ type: String, enum: ['SedDataGenerator'], required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: ['SedDataGenerator'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'SedDataGenerator';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -430,7 +471,12 @@ export const SedDataGeneratorSchema =
   strict: 'throw',
 })
 export class SedDataSet implements ISedDataSet {
-  @Prop({ type: String, enum: ['SedDataSet'], required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: ['SedDataSet'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'SedDataSet';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -446,8 +492,7 @@ export class SedDataSet implements ISedDataSet {
   public label!: string;
 }
 
-export const SedDataSetSchema =
-  SchemaFactory.createForClass(SedDataSet);
+export const SedDataSetSchema = SchemaFactory.createForClass(SedDataSet);
 
 @Schema({
   _id: false,
@@ -467,8 +512,7 @@ export class SedReport implements ISedReport {
   public dataSets!: SedDataSet[];
 }
 
-export const SedReportSchema =
-  SchemaFactory.createForClass(SedReport);
+export const SedReportSchema = SchemaFactory.createForClass(SedReport);
 
 @Schema({
   _id: false,
@@ -476,7 +520,12 @@ export const SedReportSchema =
   strict: 'throw',
 })
 export class SedCurve implements ISedCurve {
-  @Prop({ type: String, enum: ['SedCurve'], required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: ['SedCurve'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'SedCurve';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -492,8 +541,7 @@ export class SedCurve implements ISedCurve {
   public yDataGenerator!: SedDataGenerator;
 }
 
-export const SedCurveSchema =
-  SchemaFactory.createForClass(SedCurve);
+export const SedCurveSchema = SchemaFactory.createForClass(SedCurve);
 
 @Schema({
   _id: false,
@@ -512,15 +560,24 @@ export class SedPlot2D implements ISedPlot2D {
   @Prop({ type: [SedCurveSchema], required: true, default: undefined })
   public curves!: SedCurve[];
 
-  @Prop({ type: String, enum: SedAxisScale, required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: SedAxisScale,
+    required: true,
+    default: undefined,
+  })
   public xScale!: SedAxisScale;
 
-  @Prop({ type: String, enum: SedAxisScale, required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: SedAxisScale,
+    required: true,
+    default: undefined,
+  })
   public yScale!: SedAxisScale;
 }
 
-export const SedPlot2DSchema =
-  SchemaFactory.createForClass(SedPlot2D);
+export const SedPlot2DSchema = SchemaFactory.createForClass(SedPlot2D);
 
 @Schema({
   _id: false,
@@ -528,7 +585,12 @@ export const SedPlot2DSchema =
   strict: 'throw',
 })
 export class SedSurface implements ISedSurface {
-  @Prop({ type: String, enum: ['SedSurface'], required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: ['SedSurface'],
+    required: true,
+    default: undefined,
+  })
   public _type!: 'SedSurface';
 
   @Prop({ type: String, required: true, default: undefined })
@@ -547,8 +609,7 @@ export class SedSurface implements ISedSurface {
   public zDataGenerator!: SedDataGenerator;
 }
 
-export const SedSurfaceSchema =
-  SchemaFactory.createForClass(SedSurface);
+export const SedSurfaceSchema = SchemaFactory.createForClass(SedSurface);
 
 @Schema({
   _id: false,
@@ -567,18 +628,32 @@ export class SedPlot3D implements ISedPlot3D {
   @Prop({ type: [SedSurfaceSchema], required: true, default: undefined })
   public surfaces!: SedSurface[];
 
-  @Prop({ type: String, enum: SedAxisScale, required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: SedAxisScale,
+    required: true,
+    default: undefined,
+  })
   public xScale!: SedAxisScale;
 
-  @Prop({ type: String, enum: SedAxisScale, required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: SedAxisScale,
+    required: true,
+    default: undefined,
+  })
   public yScale!: SedAxisScale;
 
-  @Prop({ type: String, enum: SedAxisScale, required: true, default: undefined })
+  @Prop({
+    type: String,
+    enum: SedAxisScale,
+    required: true,
+    default: undefined,
+  })
   public zScale!: SedAxisScale;
 }
 
-export const SedPlot3DSchema =
-  SchemaFactory.createForClass(SedPlot3D);
+export const SedPlot3DSchema = SchemaFactory.createForClass(SedPlot3D);
 
 export type SedOutputType = SedReport | SedPlot2D | SedPlot3D;
 
@@ -603,8 +678,7 @@ export class SedOutput {
   public name?: string;
 }
 
-export const SedOutputSchema =
-  SchemaFactory.createForClass(SedOutput);
+export const SedOutputSchema = SchemaFactory.createForClass(SedOutput);
 
 @Schema({
   storeSubdocValidationError: false,
@@ -612,7 +686,10 @@ export const SedOutputSchema =
   strict: true,
   id: false,
 })
-export class SpecificationsModel extends Document implements ISimulationRunSedDocument {
+export class SpecificationsModel
+  extends Document
+  implements ISimulationRunSedDocument
+{
   @Prop({
     required: true,
     default: undefined,
@@ -679,12 +756,25 @@ SpecificationsModelSchema.set('timestamps', {
   updatedAt: 'updated',
 });
 
-const sedSimulationsArraySchema = SpecificationsModelSchema.path('simulations') as MongooseSchema.Types.DocumentArray;
-sedSimulationsArraySchema.discriminator(SedOneStepSimulation.name, SedOneStepSimulationSchema);
-sedSimulationsArraySchema.discriminator(SedSteadyStateSimulation.name, SedSteadyStateSimulationSchema);
-sedSimulationsArraySchema.discriminator(SedUniformTimeCourseSimulation.name, SedUniformTimeCourseSimulationSchema);
+const sedSimulationsArraySchema = SpecificationsModelSchema.path(
+  'simulations',
+) as MongooseSchema.Types.DocumentArray;
+sedSimulationsArraySchema.discriminator(
+  SedOneStepSimulation.name,
+  SedOneStepSimulationSchema,
+);
+sedSimulationsArraySchema.discriminator(
+  SedSteadyStateSimulation.name,
+  SedSteadyStateSimulationSchema,
+);
+sedSimulationsArraySchema.discriminator(
+  SedUniformTimeCourseSimulation.name,
+  SedUniformTimeCourseSimulationSchema,
+);
 
-const sedOutputsArraySchema = SpecificationsModelSchema.path('outputs') as MongooseSchema.Types.DocumentArray;
+const sedOutputsArraySchema = SpecificationsModelSchema.path(
+  'outputs',
+) as MongooseSchema.Types.DocumentArray;
 sedOutputsArraySchema.discriminator(SedReport.name, SedReportSchema);
 sedOutputsArraySchema.discriminator(SedPlot2D.name, SedPlot2DSchema);
 sedOutputsArraySchema.discriminator(SedPlot3D.name, SedPlot3DSchema);

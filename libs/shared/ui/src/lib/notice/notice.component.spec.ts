@@ -23,9 +23,7 @@ describe('NoticeComponent', () => {
         MaterialWrapperModule,
         BiosimulationsIconsModule,
       ],
-      providers: [
-        Storage,
-      ],
+      providers: [Storage],
     }).compileComponents();
   }));
 

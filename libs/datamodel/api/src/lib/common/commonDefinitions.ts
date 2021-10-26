@@ -23,10 +23,20 @@ export class DescribedIdentifier
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   label!: string | null;
 
-  @ApiPropertyOptional({ type: String, nullable: true, required: false, default: null })
+  @ApiPropertyOptional({
+    type: String,
+    nullable: true,
+    required: false,
+    default: null,
+  })
   attribute_uri!: string | null;
 
-  @ApiPropertyOptional({ type: String, nullable: true, required: false, default: null })
+  @ApiPropertyOptional({
+    type: String,
+    nullable: true,
+    required: false,
+    default: null,
+  })
   attribute_label!: string | null;
 }
 

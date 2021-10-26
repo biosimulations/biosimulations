@@ -1,4 +1,9 @@
-import { ApiProperty, ApiResponseProperty, getSchemaPath, ApiExtraModels } from '@nestjs/swagger';
+import {
+  ApiProperty,
+  ApiResponseProperty,
+  getSchemaPath,
+  ApiExtraModels,
+} from '@nestjs/swagger';
 import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
   SedModel as ISedModel,
@@ -26,11 +31,19 @@ import {
 export class Namespace implements INamespace {
   @ApiProperty({ type: String, enum: ['Namespace'] })
   public _type!: 'Namespace';
-  
-  @ApiProperty({ type: String, example: 'sbml', required: false, nullable: true })
+
+  @ApiProperty({
+    type: String,
+    example: 'sbml',
+    required: false,
+    nullable: true,
+  })
   public prefix?: string;
-  
-  @ApiProperty({ type: String, example: 'http://www.sbml.org/sbml/level2/version4' })
+
+  @ApiProperty({
+    type: String,
+    example: 'http://www.sbml.org/sbml/level2/version4',
+  })
   public uri!: string;
 }
 
@@ -43,7 +56,7 @@ export class SedTarget implements ISedTarget {
 
   @ApiProperty({ type: [Namespace], required: false, nullable: true })
   public namespaces?: Namespace[];
-};
+}
 
 export class SedModelAttributeChange implements ISedModelAttributeChange {
   @ApiProperty({ type: String, enum: ['SedModelAttributeChange'] })
@@ -82,18 +95,22 @@ export class SedModel implements ISedModel {
   public source!: string;
 
   @ApiProperty({
-    oneOf: [
-      { $ref: getSchemaPath(SedModelAttributeChange) },
-    ],
+    oneOf: [{ $ref: getSchemaPath(SedModelAttributeChange) }],
   })
   public changes!: SedModelChange[];
 }
 
-export class SedAlgorithmParameterChange implements ISedAlgorithmParameterChange {
+export class SedAlgorithmParameterChange
+  implements ISedAlgorithmParameterChange
+{
   @ApiProperty({ type: String, enum: ['SedAlgorithmParameterChange'] })
   public _type!: 'SedAlgorithmParameterChange';
 
-  @ApiProperty({ type: String, example: 'KISAO_0000488', pattern: '^KISAO_\\d{7,7}$' })
+  @ApiProperty({
+    type: String,
+    example: 'KISAO_0000488',
+    pattern: '^KISAO_\\d{7,7}$',
+  })
   public kisaoId!: string;
 
   @ApiProperty({ type: String })
@@ -104,14 +121,20 @@ export class SedAlgorithm implements ISedAlgorithm {
   @ApiProperty({ type: String, enum: ['SedAlgorithm'] })
   public _type!: 'SedAlgorithm';
 
-  @ApiProperty({ type: String, example: 'KISAO_0000019', pattern: '^KISAO_\\d{7,7}$' })
+  @ApiProperty({
+    type: String,
+    example: 'KISAO_0000019',
+    pattern: '^KISAO_\\d{7,7}$',
+  })
   public kisaoId!: string;
 
   @ApiProperty({ type: [SedAlgorithmParameterChange] })
   public changes!: SedAlgorithmParameterChange[];
 }
 
-export class SedUniformTimeCourseSimulation implements ISedUniformTimeCourseSimulation {
+export class SedUniformTimeCourseSimulation
+  implements ISedUniformTimeCourseSimulation
+{
   @ApiProperty({ type: String, enum: ['SedUniformTimeCourseSimulation'] })
   public _type!: 'SedUniformTimeCourseSimulation';
 

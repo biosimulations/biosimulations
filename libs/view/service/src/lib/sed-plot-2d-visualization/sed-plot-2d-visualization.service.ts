@@ -51,8 +51,10 @@ export class SedPlot2DVisualizationService {
     const yAxisTitlesSet = new Set<string>();
     let missingData = false;
     for (const curve of plot.curves) {
-      const xId = sedDocLocation + '/' + plot.id + '/' + curve.xDataGenerator.id;
-      const yId = sedDocLocation + '/' + plot.id + '/' + curve.yDataGenerator.id;
+      const xId =
+        sedDocLocation + '/' + plot.id + '/' + curve.xDataGenerator.id;
+      const yId =
+        sedDocLocation + '/' + plot.id + '/' + curve.yDataGenerator.id;
       xAxisTitlesSet.add(curve.xDataGenerator.name || curve.xDataGenerator.id);
       yAxisTitlesSet.add(curve.yDataGenerator.name || curve.yDataGenerator.id);
       const trace = {
@@ -154,7 +156,12 @@ export class SedPlot2DVisualizationService {
     // Remove the last "/" and the text after the last "/"
     // EG simulation_1.sedml/subfolder1/Figure_3b" => simulation_1.sedml/subfolder1
     // TODO write tests
-    let docLocation = outputLocationId.split('/').reverse().slice(1).reverse().join('/');
+    let docLocation = outputLocationId
+      .split('/')
+      .reverse()
+      .slice(1)
+      .reverse()
+      .join('/');
     if (docLocation.startsWith('./')) {
       docLocation = docLocation.substring(2);
     }
