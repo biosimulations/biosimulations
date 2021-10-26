@@ -209,8 +209,6 @@ def handler(body, file=None):
                         'name': data_set.name,
                         'dataGenerator': {
                             '_type': 'SedDataGenerator',
-                            '_resultsDataSetId': get_results_data_set_id(
-                                content, output, data_set),
                             'id': data_set.data_generator.id,
                             'name': data_set.data_generator.name,
                             'variables': [],
@@ -255,8 +253,6 @@ def handler(body, file=None):
                         'name': curve.name,
                         'xDataGenerator': {
                             '_type': 'SedDataGenerator',
-                            '_resultsDataSetId': get_results_data_set_id(
-                                content, output, curve.x_data_generator),
                             'id': curve.x_data_generator.id,
                             'name': curve.x_data_generator.name,
                             'variables': [],
@@ -264,8 +260,6 @@ def handler(body, file=None):
                         },
                         'yDataGenerator': {
                             '_type': 'SedDataGenerator',
-                            '_resultsDataSetId': get_results_data_set_id(
-                                content, output, curve.y_data_generator),
                             'id': curve.y_data_generator.id,
                             'name': curve.y_data_generator.name,
                             'variables': [],
@@ -324,8 +318,6 @@ def handler(body, file=None):
                         'name': surface.name,
                         'xDataGenerator': {
                             '_type': 'SedDataGenerator',
-                            '_resultsDataSetId': get_results_data_set_id(
-                                content, output, surface.x_data_generator),
                             'id': surface.x_data_generator.id,
                             'name': surface.x_data_generator.name,
                             'variables': [],
@@ -333,8 +325,6 @@ def handler(body, file=None):
                         },
                         'yDataGenerator': {
                             '_type': 'SedDataGenerator',
-                            '_resultsDataSetId': get_results_data_set_id(
-                                content, output, surface.y_data_generator),
                             'id': surface.y_data_generator.id,
                             'name': surface.y_data_generator.name,
                             'variables': [],
@@ -342,8 +332,6 @@ def handler(body, file=None):
                         },
                         'zDataGenerator': {
                             '_type': 'SedDataGenerator',
-                            '_resultsDataSetId': get_results_data_set_id(
-                                content, output, surface.z_data_generator),
                             'id': surface.z_data_generator.id,
                             'name': surface.z_data_generator.name,
                             'variables': [],

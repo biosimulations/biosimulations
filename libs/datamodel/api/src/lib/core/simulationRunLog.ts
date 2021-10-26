@@ -224,9 +224,9 @@ export class CombineArchiveLog implements ICombineArchiveLog {
 }
 
 export class CreateSimulationRunLogBody {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   simId!: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: [CombineArchiveLog] })
   log!: CombineArchiveLog;
 }

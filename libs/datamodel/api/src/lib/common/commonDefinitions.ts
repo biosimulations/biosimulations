@@ -6,9 +6,10 @@ import {
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class LabeledIdentifier implements ILabeledIdentifier {
-  @ApiProperty({ oneOf: [{ type: 'string' }, { type: 'null' }] })
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
   uri!: string | null;
-  @ApiProperty({ type: 'string' })
+
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
   label!: string | null;
 }
 
@@ -16,14 +17,27 @@ export class DescribedIdentifier
   extends LabeledIdentifier
   implements IDescribedIdentifier
 {
-  @ApiProperty()
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
   uri!: string | null;
-  @ApiProperty()
+
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
   label!: string | null;
-  @ApiPropertyOptional()
-  attribute_uri?: string | null;
-  @ApiPropertyOptional()
-  attribute_label?: string | null;
+
+  @ApiPropertyOptional({
+    type: String,
+    nullable: true,
+    required: false,
+    default: null,
+  })
+  attribute_uri!: string | null;
+
+  @ApiPropertyOptional({
+    type: String,
+    nullable: true,
+    required: false,
+    default: null,
+  })
+  attribute_label!: string | null;
 }
 
 export const CREATORS = {
