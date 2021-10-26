@@ -32,7 +32,7 @@ export class ProjectsService {
   }
 
   public async getProjects(): Promise<ProjectModel[]> {
-    return await this.model.find({});
+    return this.model.find({});
   }
 
   public async getProject(id: string): Promise<ProjectModel | null> {
@@ -45,7 +45,7 @@ export class ProjectsService {
   public async createProject(projectInput: ProjectInput): Promise<ProjectModel> {
     await this.validateRunForPublication(projectInput.simulationRun);
     const project = new this.model(projectInput);
-    return await project.save();
+    return project.save();
   }
 
   public async updateProject(
@@ -60,7 +60,7 @@ export class ProjectsService {
 
     if (project) {
       project.set(projectInput);
-      return await project.save();
+      return project.save();
     }
     return project;
   }
@@ -91,16 +91,16 @@ export class ProjectsService {
   }
 
   /* Check that the simulation run is valid for publication
-   *       
+   *
    * * Run: was successful (`SUCCEEDED` state)
    * * Files: valid and accessible
    * * Simulation specifications: valid and accessible
    * * Results: valid and accessible
    * * Logs: valid and accessible
    * * Metatadata: valid and meets minimum requirements
-   * 
+   *
    * @param id id of the simulation run
-   */ 
+   */
   private async validateRunForPublication(
     id: string,
   ): Promise<void> {
@@ -110,14 +110,14 @@ export class ProjectsService {
     } catch {
       throw new BiosimulationsException(
         400,
-        'Simulation run is not valid for publication.', 
+        'Simulation run is not valid for publication.',
         `${id} is not a valid id for a simulation run. Only successful simulation runs can be published.`,
       );
     }
 
     if (!run) {
       throw new BiosimulationsException(400,
-        'Simulation run is not valid for publication.', 
+        'Simulation run is not valid for publication.',
         `A simulation run with id ${id} could not be found. Only successful simulation runs can be published.`
       );
     }
@@ -128,7 +128,7 @@ export class ProjectsService {
      * Check run
      */
 
-    if (run.status !== SimulationRunStatus.SUCCEEDED) {      
+    if (run.status !== SimulationRunStatus.SUCCEEDED) {
       errors.push(`The run did not succeed. The status of the run is ${run.status}. Only successful simulation runs can be published.`);
     }
     
@@ -142,14 +142,14 @@ export class ProjectsService {
 
     if (errors.length) {
       throw new BiosimulationsException(
-        400, 
-        'Simulation run is not valid for publication.', 
+        400,
+        'Simulation run is not valid for publication.',
         errors.join('\n\n')
       );
     }
 
     /**
-     * Check files, SED-ML, results, logs, metadata 
+     * Check files, SED-ML, results, logs, metadata
      */
 
     const checks: PromiseSettledResult<any>[] =
@@ -177,8 +177,8 @@ export class ProjectsService {
 
     if (errors.length) {
       throw new BiosimulationsException(
-        400, 
-        'Simulation run is not valid for publication.', 
+        400,
+        'Simulation run is not valid for publication.',
         errors.join('\n\n')
       );
     }
