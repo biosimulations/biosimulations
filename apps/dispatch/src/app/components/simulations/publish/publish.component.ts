@@ -40,6 +40,7 @@ import { environment } from '@biosimulations/shared/environments';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 
 interface FormattedValidationReport {
   errors: string | null;
@@ -137,7 +138,11 @@ export class PublishComponent implements OnInit, OnDestroy {
       shareReplay(1),
       map((simulation: Simulation | UnknownSimulation): Simulation => {
         if (isUnknownSimulation(simulation)) {
-          this.router.navigate(['/error', '404'], { skipLocationChange: true });
+          throw new BiosimulationsError(
+            'Simulation run not found',
+            'We\'re sorry! The run you requested could not be found.', 
+            404,
+          );
         }
         return simulation as Simulation;
       }),

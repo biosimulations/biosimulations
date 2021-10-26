@@ -22,6 +22,7 @@ import {
 import { ViewService } from '@biosimulations/view-service';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { Dataset, WithContext } from 'schema-dts';
+import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 
 @Component({
   selector: 'biosimulations-view',
@@ -62,14 +63,17 @@ export class ViewComponent implements OnInit {
     const project$ = this.projService.getProject(id).pipe(
       shareReplay(1),
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 400) {
-          this.router.navigate(['/error', '404'], { skipLocationChange: true });
-        } else {
-          this.router.navigate(['/error', '500'], { skipLocationChange: true });
-        }
-        return throwError(error);
+        const appError =
+          error.status === 400
+          ? new BiosimulationsError('Project not found', 'We\'re sorry! The project you requested could not be found.', 404)
+          : error;
+
+        return throwError(appError);
       }),
     );
+    project$.subscribe((project): void => {
+      console.log(project)
+    })
 
     this.simulationRunId$ = project$.pipe(
       map((project) => project.simulationRun),
