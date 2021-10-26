@@ -4,11 +4,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { Error404Component } from './error-404.component';
 import { Error500Component } from './error-500.component';
+import { Error500DialogComponent } from './error-500-dialog.component';
 import { UnderConstructionComponent } from './under-construction.component';
 import { UnderMaintainenceComponent } from './under-maintainence.component';
 import { ErrorComponent } from './error.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { MatDialogModule } from '@angular/material/dialog';
 
 export const errorRoutes: Routes = [
   {
@@ -38,6 +40,7 @@ export const errorRoutes: Routes = [
     ErrorComponent,
     Error404Component,
     Error500Component,
+    Error500DialogComponent,
     UnderConstructionComponent,
     UnderMaintainenceComponent,
   ],
@@ -46,12 +49,14 @@ export const errorRoutes: Routes = [
     RouterModule.forChild(errorRoutes),
     BiosimulationsIconsModule,
     SharedUiModule,
+    MatDialogModule,
   ],
   exports: [
     RouterModule,
     ErrorComponent,
     Error404Component,
     Error500Component,
+    Error500DialogComponent,
     UnderConstructionComponent,
     UnderMaintainenceComponent,
   ],

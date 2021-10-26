@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Something went wrong!</h2>
+<mat-dialog-content class="mat-typography">
+  <p>We're sorry! {{ details }} Please try again later. If this error persists,
+    please submit an
+    <span class="no-wrap"
+      >issue
+      <a [href]="newIssueUrl" target="_blank"
+        ><biosimulations-icon icon="link"></biosimulations-icon></a
+    ></span>
+    or contact us at
+    <a [href]="emailUrl" subject="BioSimulations error">{{ email }}</a
+    >.
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</mat-dialog-actions>
