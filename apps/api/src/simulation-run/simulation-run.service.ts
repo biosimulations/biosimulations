@@ -169,7 +169,6 @@ export class SimulationRunService {
       throw new NotFoundException(`Simulation run with id ${id} was not found`);
     }
 
-    this.updateModelPublic(model, run.isPublic);
     this.updateModelResultSize(model, run.resultsSize);
     this.updateModelStatus(model, run.status, run.statusReason);
 
@@ -456,21 +455,6 @@ export class SimulationRunService {
     if (resultsSize) {
       model.resultsSize = resultsSize;
       this.logger.debug(`Set ${model.id} resultsSize to ${model.resultsSize} `);
-    }
-    return model;
-  }
-
-  // TODO Use this method to publish simulation runs.
-  // Add validation to check that the simulation run is in the correct state
-  // Check that the logs, results, metadata, specs are present and valid
-  // Determine how to incorporate unique id.
-  private updateModelPublic(
-    model: SimulationRunModel,
-    isPublic: boolean | undefined | null,
-  ): SimulationRunModel {
-    if (isPublic != undefined && isPublic != null) {
-      model.isPublic = isPublic;
-      this.logger.debug(`Set ${model.id} public to ${model.isPublic} `);
     }
     return model;
   }

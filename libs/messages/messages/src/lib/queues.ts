@@ -14,7 +14,7 @@ export enum JobQueue {
 export class MonitorJob {
   slurmJobId!: string;
   simId!: string;
-  isPublic!: boolean;
+  projectId?: string;
   retryCount!: number;
 }
 
@@ -28,12 +28,12 @@ export class DispatchJob {
   maxTime!: number;
   envVars!: EnvironmentVariable[];
   purpose!: Purpose;
-  isPublic!: boolean;
+  projectId?: string;
 }
 
 export class CompleteJob {
   simId!: string;
-  isPublic!: boolean;
+  projectId?: string;
 }
 
 export class FailJob {

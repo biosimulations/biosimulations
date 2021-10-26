@@ -1,5 +1,5 @@
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
-// import { ProjectInput } from '@biosimulations/datamodel/api';
+import { ProjectInput } from '@biosimulations/datamodel/api';
 import { CompleteJob, JobQueue } from '@biosimulations/messages/messages';
 
 import { Processor, Process } from '@nestjs/bull';
@@ -12,8 +12,8 @@ import { MetadataService } from '../../metadata/metadata.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
 import { FileService } from '../../file/file.service';
 import { SedmlService } from '../../sedml/sedml.service';
-// import { ProjectService } from '@biosimulations/backend-api-client';
-// import { AxiosError } from '@nestjs/axios';
+import { ProjectService } from '@biosimulations/api-nest-client';
+import { AxiosError } from 'axios';
 
 @Processor(JobQueue.complete)
 export class CompleteProccessor {
@@ -25,7 +25,7 @@ export class CompleteProccessor {
     private metadataService: MetadataService,
     private fileService: FileService,
     private sedmlService: SedmlService,
-    // private projectService: ProjectService,
+    private projectService: ProjectService,
   ) {}
 
   @Process()
@@ -33,7 +33,7 @@ export class CompleteProccessor {
     const data = job.data;
 
     const id = data.simId;
-    const isPublic = data.isPublic;
+    const projectId = data.projectId;
 
     this.logger.debug(`Simulation ${id} finished. Saving files, specifications, results, logs, metadata ...`);
 
@@ -60,7 +60,7 @@ export class CompleteProccessor {
       },
       {
         name: 'The metadata for the COMBINE archive',
-        result: this.metadataService.createMetadata(id, isPublic),
+        result: this.metadataService.createMetadata(id, !!projectId),
         required: false,
       },
     ];
@@ -98,8 +98,7 @@ export class CompleteProccessor {
         .updateStatus(id, SimulationRunStatus.SUCCEEDED, msg)
         .then((run) => this.logger.log(`Updated status of simulation ${id} to SUCCEEDED`));
 
-      /*
-      if (isPublic) {
+      if (projectId) {
         const projectInput: ProjectInput = {
           id: projectId,
           simulationRun: id,
@@ -111,13 +110,15 @@ export class CompleteProccessor {
           .then((project) => {
             this.projectService
               .updateProject(projectId, projectInput)
+              .toPromise()
               .then((project) => this.logger.log(`Updated project ${projectId} for simulation ${id}`))
               .catch((err) => this.logger.log(`Project ${projectId} could not be updated with simulation ${id}`));
           })
           .catch((err: AxiosError) => {
-            if (e.response.status === 404) {
+            if (err?.response?.status === 404) {
               this.projectService
                 .createProject(projectInput)
+                .toPromise()
                 .then((project) => this.logger.log(`Created project ${projectId} for simulation ${id}`))
                 .catch((err) => this.logger.log(`Project ${projectId} could not be created with simulation ${id}`));
             } else {
@@ -126,7 +127,6 @@ export class CompleteProccessor {
             }
           });
       }
-      */
     } else {
       let msg = 'The simulation run was not successfully proccessed.';
       msg += '\n\nErrors:\n  * ' + errors.join('\n  * ');
