@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Injectable()
 export class HealthService {
   private endpoints = new Endpoints();
-  
+
   constructor(private http: HttpClient) {}
 
   isHealthy(): Observable<boolean> {

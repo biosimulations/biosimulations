@@ -22,7 +22,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
 import { ScullyLibModule } from '@scullyio/ng-lib';
 
-
 const routes: Routes = [
   {
     path: '',

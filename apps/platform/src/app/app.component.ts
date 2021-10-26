@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'platform';
-  
+
   healthy$!: Observable<boolean>;
 
   constructor(
