@@ -175,16 +175,20 @@ export class SimulationRunController {
   ): Promise<SimulationRun> {
     const contentType = req.header('Content-Type');
     let run: SimulationRunModelReturnType;
+    let projectId: string | undefined = undefined;
 
     if (!contentType) {
       throw new UnsupportedMediaTypeException(' Must specifiy a Content-Type');
     } else if (contentType?.startsWith('multipart/form-data')) {
-      run = await this.createRunWithFile(body, file);
+      const parsedRun = this.getRunForFile(body);
+      run = await this.createRunWithFile(parsedRun, file);
+      projectId = parsedRun?.projectId;
     } else if (
       contentType?.startsWith('application/json') &&
       this.isUrlBody(body)
     ) {
       run = await this.service.createRunWithURL(body);
+      projectId = body?.projectId;
     } else {
       throw new UnsupportedMediaTypeException(
         'Can only accept application/json or multipart/form-data content',
@@ -202,17 +206,14 @@ export class SimulationRunController {
       maxTime: run.maxTime,
       envVars: run.envVars,
       purpose: run.purpose,
-      isPublic: run.isPublic,
+      projectId: projectId,
     };
     const sim = await this.dispatchQueue.add(message);
 
     return response;
   }
 
-  private async createRunWithFile(
-    body: multipartSimulationRunBody | UploadSimulationRunUrl,
-    file: Express.Multer.File,
-  ): Promise<SimulationRunModelReturnType> {
+  private getRunForFile(body: multipartSimulationRunBody | UploadSimulationRunUrl): UploadSimulationRun {
     let parsedRun: UploadSimulationRun;
 
     try {
@@ -229,8 +230,14 @@ export class SimulationRunController {
       );
     }
 
-    const run = this.service.createRunWithFile(parsedRun, file);
-    return run;
+    return parsedRun;
+  }
+
+  private async createRunWithFile(
+    run: UploadSimulationRun,
+    file: Express.Multer.File,
+  ): Promise<SimulationRunModelReturnType> {
+    return this.service.createRunWithFile(run, file);
   }
   /**
    *  Creates the controllers return type SimulationRun
@@ -250,7 +257,6 @@ export class SimulationRunController {
       run.purpose,
       run.submitted,
       run.updated,
-      run.isPublic,
       run.status,
       run.runtime,
       run.projectSize,
@@ -328,7 +334,7 @@ export class SimulationRunController {
     description: 'The simulation run was successfully updated',
     type: SimulationRun,
   })
-  public async modfiyRun(
+  public async modifyRun(
     @Param('runId') runId: string,
     @Body() body: UpdateSimulationRun,
   ): Promise<SimulationRun> {

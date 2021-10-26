@@ -109,7 +109,7 @@ export class DispatchService {
       maxTime,
       envVars,
       purpose,
-      isPublic: false,
+      projectId: undefined,
     };
     return this.http.post<SimulationRun>(this.endpoint, body, {
       headers: { 'Content-Type': 'application/json' },
@@ -140,7 +140,7 @@ export class DispatchService {
       maxTime,
       envVars,
       purpose,
-      isPublic: false,
+      projectId: undefined,
     };
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));

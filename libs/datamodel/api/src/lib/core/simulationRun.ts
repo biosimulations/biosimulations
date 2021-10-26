@@ -135,13 +135,6 @@ export class SimulationRun implements ISimulationRun {
   })
   email: string | null;
 
-  @ApiProperty({
-    description: 'Whether the simulation run should be or has been published',
-    type: Boolean,
-    default: false,
-  })
-  isPublic: boolean;
-
   @ApiPropertyOptional({
     description: 'Detail about the status of the simulation run',
     type: String,
@@ -203,7 +196,6 @@ export class SimulationRun implements ISimulationRun {
     purpose: Purpose,
     submitted: Date,
     updated: Date,
-    isPublic?: boolean,
     status?: SimulationRunStatus,
     runtime?: number,
     projectSize?: number,
@@ -222,7 +214,6 @@ export class SimulationRun implements ISimulationRun {
     this.envVars = envVars || [];
     this.purpose = purpose || Purpose.other;
     this.status = status || SimulationRunStatus.CREATED;
-    this.isPublic = isPublic || false;
     this.submitted = submitted;
     this.updated = updated;
     this.projectSize = projectSize;
@@ -244,8 +235,14 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
   'maxTime',
   'envVars',
   'purpose',
-  'isPublic',
-]) {}
+]) {
+  @ApiPropertyOptional({
+    type: String,
+    description: 'Unique id of the project that the run should be published to upon successful completion. If the project already exists, the existing run will be overwritten by the new run.',
+    pattern: '^[a-zA-Z0-9_-]{3,}$',
+  })
+  projectId?: string;
+}
 
 export class UploadSimulationRunUrl extends UploadSimulationRun {
   @ApiProperty({
@@ -276,12 +273,6 @@ export class SimulationUpload {
 }
 
 export class PatchSimulationRun {
-  @ApiPropertyOptional({
-    description: 'Whether to publish (or unpublish) the simulation run',
-    type: Boolean,
-  })
-  isPublic?: boolean;
-
   @ApiPropertyOptional({
     description: 'Status of the simulation run',
     type: String,

@@ -31,6 +31,8 @@ import { MetadataService } from '../metadata/metadata.service';
 import { CombineWrapperService } from '../combineWrapper.service';
 import { FileService } from '../file/file.service';
 import { SedmlService } from '../sedml/sedml.service';
+import { ProjectService } from '@biosimulations/api-nest-client';
+
 @Module({
   imports: [
     HttpModule,
@@ -91,6 +93,7 @@ import { SedmlService } from '../sedml/sedml.service';
     CombineWrapperService,
     FileService,
     SedmlService,
+    ProjectService,
   ],
 })
 export class AppModule {}

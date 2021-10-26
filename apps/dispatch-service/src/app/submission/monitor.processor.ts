@@ -27,7 +27,7 @@ export class MonitorProcessor {
   private async handleMonitoring(job: Job<MonitorJob>): Promise<void> {
     const data = job.data;
     const slurmJobId = data.slurmJobId;
-    const isPublic = data.isPublic;
+    const projectId = data.projectId;
     const simId = data.simId;
     let retryCount = data.retryCount;
     const DELAY = 5000;
@@ -42,7 +42,7 @@ export class MonitorProcessor {
     }
 
     if (jobStatus == SimulationRunStatus.PROCESSING) {
-      this.completeQueue.add({ simId, isPublic: data.isPublic });
+      this.completeQueue.add({ simId, projectId: data.projectId });
     } else if (jobStatus == SimulationRunStatus.FAILED) {
       this.failQueue.add({ simId, reason: message });
     } else if (
@@ -50,7 +50,7 @@ export class MonitorProcessor {
       jobStatus == SimulationRunStatus.RUNNING
     ) {
       this.monitorQueue.add(
-        { slurmJobId, simId, isPublic, retryCount },
+        { slurmJobId, simId, projectId, retryCount },
         { delay: DELAY },
       );
     } else {
@@ -61,7 +61,7 @@ export class MonitorProcessor {
       if (retryCount < MAX_MONITOR_RETRY) {
         retryCount = retryCount + 1;
         this.monitorQueue.add(
-          { slurmJobId, simId, isPublic, retryCount },
+          { slurmJobId, simId, projectId, retryCount },
           { delay: DELAY },
         );
       } else {

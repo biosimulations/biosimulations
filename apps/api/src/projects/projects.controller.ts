@@ -18,6 +18,8 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiPayloadTooLargeResponse,
+  ApiBadRequestResponse,
+  ApiConflictResponse,
 } from '@nestjs/swagger';
 import { ProjectId, ProjectIdParam } from './id.decorator';
 import { ProjectModel } from './project.model';
@@ -89,6 +91,16 @@ export class ProjectsController {
     description:
       'The payload is too large. The payload must be less than the server limit.',
   })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The simulation run is not valid for publication (e.g., run didn\'t succeed or metadata doesn\'t meet minimum requirements)',
+  })
+  @ApiConflictResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The project could not be saved because another project already has the same id. The `PUT` method can be used to modify projects.',
+  })
   @ApiCreatedResponse({
     description: 'The simulation run was successfully published',
     type: Project,
@@ -117,6 +129,11 @@ export class ProjectsController {
     type: ErrorResponseDocument,
     description:
       'The payload is too large. The payload must be less than the server limit.',
+  })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The simulation run is not valid for publication (e.g., run didn\'t succeed or metadata doesn\'t meet minimum requirements)',
   })
   @ApiOkResponse({
     description:
@@ -177,5 +194,32 @@ export class ProjectsController {
     };
 
     return project;
+  }
+
+  @Post('validate')
+  @ApiOperation({
+    summary: 'Validate a simulation run for publication',
+    description:
+      'Check whether a simulation is valid for publication (e.g, succeeded and provides the [minimum required metadata](https://biosimulators.org/conventions/metadata). Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. 400 errors include diagnostic information which describe why the run cannot be published.',
+  })
+  @ApiBody({
+    description: 'Information about the simulation run to publish.',
+    type: ProjectInput,
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The payload is too large. The payload must be less than the server limit.',
+  })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description: 'The simulation run cannot be published.',
+  })
+  @ApiNoContentResponse({
+    description: 'The simulation run is valid for publication.',
+  })
+  public async validateProject(@Body() projectInput: ProjectInput): Promise<void> {
+    await this.service.validateProject(projectInput);
+    return;
   }
 }

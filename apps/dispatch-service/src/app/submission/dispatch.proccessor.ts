@@ -55,7 +55,7 @@ export class DispatchProcessor {
       const monitorData: MonitorJob = {
         slurmJobId: slurmjobId.toString(),
         simId: data.simId,
-        isPublic: data.isPublic,
+        projectId: data.projectId,
         retryCount: 0,
       };
 

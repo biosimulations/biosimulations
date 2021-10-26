@@ -192,9 +192,6 @@ export class SimulationRunModel extends Document implements SimulationRun {
   @Prop()
   updated!: Date;
 
-  @Prop({ type: Boolean, default: false })
-  isPublic!: boolean;
-
   @Prop({ type: Number, default: 0 })
   refreshCount!: number;
 }
@@ -219,7 +216,6 @@ export type SimulationRunModelType = Pick<
   | 'refreshCount'
   | 'submitted'
   | 'updated'
-  | 'isPublic'
   | '__v'
   | '_id'
 >;
