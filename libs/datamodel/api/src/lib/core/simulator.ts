@@ -87,7 +87,6 @@ export class Simulator implements ISimulator {
 
   @ValidateNested()
   @Type(() => Cli)
-
   @ApiProperty({
     nullable: true,
     type: Cli,

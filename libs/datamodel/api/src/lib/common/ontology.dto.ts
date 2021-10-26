@@ -213,6 +213,10 @@ export class Identifier implements IIdentifier {
 
   // TODO verify this level of validation is correct (require protocol, require valid protocol, require host)
   @IsUrl({ require_protocol: true, require_host: true })
-  @ApiProperty({ type: String, format: 'url', example: 'https://identifiers.org/doi/10.5281/zenodo.5595241' })
+  @ApiProperty({
+    type: String,
+    format: 'url',
+    example: 'https://identifiers.org/doi/10.5281/zenodo.5595241',
+  })
   public url!: string;
 }
