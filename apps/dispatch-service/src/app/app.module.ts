@@ -38,7 +38,6 @@ import { SedmlService } from '../sedml/sedml.service';
     BiosimulationsConfigModule,
     AuthClientModule,
     SharedNatsClientModule,
-    HttpModule,
     DispatchNestClientModule,
     CombineApiModule.forRoot(() => new combineConfig({})),
     ScheduleModule.forRoot(),
