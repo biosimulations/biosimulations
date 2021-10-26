@@ -9,7 +9,7 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    ".github/workflows/ci.yml": "*",
+    ".github/workflows/nxCi.yml": "*",
     "Pipfile": [
       "combine-service"
     ],
@@ -35,465 +35,9 @@
           "lint",
           "e2e"
         ],
-        "canTrackAnalytics": false,
+        "canTrackAnalytics": true,
         "showUsageWarnings": true
       }
-    }
-  },
-  "projects": {
-    "account": {
-      "tags": [
-        "scope:account",
-        "platform:web",
-        "type:frontend"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
-    },
-    "account-api": {
-      "tags": [
-        "scope:account",
-        "platform:server",
-        "type:api"
-      ],
-      "implicitDependencies": []
-    },
-    "account-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "account"
-      ]
-    },
-    "account-management": {
-      "tags": [
-        "scope:account",
-        "type:util",
-        "platform:server"
-      ]
-    },
-    "api": {
-      "tags": [
-        "scope:dispatch",
-        "type:api",
-        "platform:server"
-      ],
-      "implicitDependencies": [
-        "hdf5-api-client"
-      ]
-    },
-    "api-angular-client": {
-      "tags": [
-        "scope:simulations",
-        "type:client",
-        "platform:web"
-      ]
-    },
-    "api-nest-client": {
-      "tags": [
-        "scope:dispatch",
-        "type:client",
-        "platform:server",
-        "shared:true"
-      ]
-    },
-    "auth-angular": {
-      "tags": [
-        "scope:auth",
-        "type:util",
-        "platform:web",
-        "shared:true"
-      ]
-    },
-    "auth-client": {
-      "tags": [
-        "scope:auth",
-        "type:util",
-        "shared:true",
-        "platform:server"
-      ]
-    },
-    "auth-common": {
-      "tags": [
-        "scope:auth",
-        "platform:any",
-        "type:datamodel",
-        "shared:true"
-      ]
-    },
-    "auth-nest": {
-      "tags": [
-        "scope:auth",
-        "type:util",
-        "platform:server",
-        "shared:true"
-      ]
-    },
-    "combine-api-client": {
-      "tags": [
-        "scope:combine",
-        "platform:server",
-        "shared:true",
-        "type:client"
-      ]
-    },
-    "combine-service": {
-      "tags": []
-    },
-    "config-angular": {
-      "tags": [
-        "scope:config",
-        "type:config",
-        "shared:true",
-        "platform:web"
-      ]
-    },
-    "config-common": {
-      "tags": [
-        "scope:config",
-        "type:datamodel",
-        "platform:any",
-        "shared:true"
-      ]
-    },
-    "config-nest": {
-      "tags": [
-        "scope:config",
-        "type:config",
-        "platform:server",
-        "shared:true"
-      ]
-    },
-    "datamodel-api": {
-      "tags": [
-        "scope:shared",
-        "type:datamodel",
-        "platform:any"
-      ]
-    },
-    "datamodel-common": {
-      "tags": [
-        "scope:shared",
-        "type:datamodel",
-        "platform:any"
-      ]
-    },
-    "datamodel-database": {
-      "tags": [
-        "scope:shared",
-        "type:datamodel",
-        "platform:server"
-      ]
-    },
-    "datamodel-utils": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:any"
-      ]
-    },
-    "datamodel-view": {
-      "tags": [
-        "scope:simulations",
-        "type:datamodel",
-        "platform:web"
-      ]
-    },
-    "dispatch": {
-      "tags": [
-        "scope:dispatch",
-        "type:frontend",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
-    },
-    "dispatch-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "dispatch"
-      ]
-    },
-    "dispatch-service": {
-      "tags": [
-        "scope:dispatch",
-        "type:service",
-        "platform:server"
-      ],
-      "implicitDependencies": []
-    },
-    "hdf5-api-client": {
-      "tags": [
-        "scope:hsds",
-        "type:client",
-        "platform:server"
-      ]
-    },
-    "hsds-client": {
-      "tags": [
-        "scope:data",
-        "shared:true",
-        "platform:server",
-        "type:client"
-      ]
-    },
-    "mail-service": {
-      "tags": [
-        "scope:mail",
-        "type:service",
-        "platform:server"
-      ]
-    },
-    "mail-service-client": {
-      "tags": [
-        "scope:mail",
-        "type:client",
-        "platform:server"
-      ]
-    },
-    "messages-messages": {
-      "tags": [
-        "scope:mesages",
-        "type:datamodel",
-        "platform:server",
-        "shared:true"
-      ]
-    },
-    "ontology-client": {
-      "tags": [
-        "scope:ontology",
-        "platform:web",
-        "shared:true",
-        "type:client"
-      ]
-    },
-    "ontology-ontologies": {
-      "tags": [
-        "scope:ontology",
-        "type:service",
-        "platform:server",
-        "shared:true"
-      ]
-    },
-    "ontology-sources": {
-      "tags": [
-        "scope:ontology",
-        "type:datamodel",
-        "platform:server",
-        "shared:false"
-      ]
-    },
-    "platform": {
-      "tags": [
-        "scope:platform",
-        "type:frontend",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
-    },
-    "platform-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "platform"
-      ]
-    },
-    "shared-angular": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:web"
-      ],
-      "implicitDependencies": []
-    },
-    "shared-assets": {
-      "tags": [
-        "scope:shared",
-        "type:assets"
-      ]
-    },
-    "shared-content": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
-    },
-    "shared-debug": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ]
-    },
-    "shared-environments": {
-      "tags": [
-        "scope:shared",
-        "type:environments",
-        "platform:any"
-      ]
-    },
-    "shared-error-handler": {
-      "tags": [
-        "scope:shared",
-        "platform:web",
-        "type:UI"
-      ]
-    },
-    "shared-exceptions-exceptions": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:server"
-      ]
-    },
-    "shared-exceptions-filters": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:server"
-      ]
-    },
-    "shared-icons": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ]
-    },
-    "shared-nats-client": {
-      "tags": [
-        "scope:messages",
-        "type:client",
-        "platform:server",
-        "shared:true"
-      ]
-    },
-    "shared-nestjs-api": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:server",
-        "shared:true"
-      ],
-      "implicitDependencies": []
-    },
-    "shared-pwa": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:web"
-      ]
-    },
-    "shared-services": {
-      "tags": [
-        "scope:shared",
-        "type:util",
-        "platform:any"
-      ],
-      "implicitDependencies": []
-    },
-    "shared-storage": {
-      "tags": [
-        "scope:files",
-        "type:util",
-        "platform:server",
-        "shared:true"
-      ]
-    },
-    "shared-styles": {
-      "tags": [
-        "scope:shared",
-        "type:styles",
-        "platform:web"
-      ]
-    },
-    "shared-ui": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
-    },
-    "shared-utils-routes": {
-      "tags": [
-        "scope:shared",
-        "type:utils",
-        "platform:web"
-      ]
-    },
-    "simulators": {
-      "tags": [
-        "scope:simulators",
-        "type:frontend",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
-    },
-    "simulators-api": {
-      "tags": [
-        "scope:simulators",
-        "type:api",
-        "platform:server"
-      ]
-    },
-    "simulators-database-models": {
-      "tags": [
-        "scope:simulators",
-        "type:datamodel",
-        "platform:server"
-      ]
-    },
-    "simulators-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "simulators"
-      ]
-    },
-    "view-projects": {
-      "tags": [
-        "scope:simulations",
-        "type:ui",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
-    },
-    "view-service": {
-      "tags": [
-        "scope:simulations",
-        "type:service",
-        "platform:any"
-      ],
-      "implicitDependencies": []
-    },
-    "view-visualizations": {
-      "tags": [
-        "scope:shared",
-        "type:ui",
-        "platform:web"
-      ],
-      "implicitDependencies": [
-        "shared-styles"
-      ]
     }
   },
   "targetDependencies": {
@@ -509,5 +53,62 @@
         "projects": "dependencies"
       }
     ]
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": false
+  },
+  "defaultProject": "dispatch",
+  "generators": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress",
+      "strict": true
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "strict": true
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
   }
 }

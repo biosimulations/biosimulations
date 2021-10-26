@@ -1,0 +1,22 @@
+{
+  "root": "libs/shared/exceptions/exceptions",
+  "sourceRoot": "libs/shared/exceptions/exceptions/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/shared/exceptions/exceptions/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/shared/exceptions/exceptions/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:util", "platform:server"]
+}

@@ -31,11 +31,12 @@ export function formatValue(
   } else if (type === ValueType.boolean) {
     return value.toString();
   } else if (type === ValueType.integer || type === ValueType.float) {
-    if (value === 0) {
+    const numValue = value as number;
+    if (numValue === 0) {
       return '0';
-    } else if (value < 1e-3 || value > 1e3) {
-      const exp = Math.floor(Math.log10(value as number));
-      const val = (value as number) / Math.pow(10, exp);
+    } else if (numValue < 1e-3 || numValue > 1e3) {
+      const exp = Math.floor(Math.log10(numValue));
+      const val = numValue / Math.pow(10, exp);
       let valStr: string;
       if (Math.abs((val * 1 - Math.round(val * 1)) / (val * 1)) < 1e-12) {
         valStr = val.toFixed(0);
@@ -52,7 +53,7 @@ export function formatValue(
       }
       return `${valStr}e${exp}`;
     } else {
-      return value.toString();
+      return numValue.toString();
     }
   } else {
     return value as string;

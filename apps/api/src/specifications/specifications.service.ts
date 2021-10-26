@@ -1,4 +1,4 @@
-import { SimulationRunSpecifications } from '@biosimulations/datamodel/api';
+import { SimulationRunSedDocument } from '@biosimulations/datamodel/api';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -28,7 +28,7 @@ export class SpecificationsService {
   }
 
   public async createSpecs(
-    specs: SimulationRunSpecifications[],
+    specs: SimulationRunSedDocument[],
   ): Promise<SpecificationsModel[]> {
     const createdSpecs = [];
     for (const spec of specs) {

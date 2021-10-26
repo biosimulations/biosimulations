@@ -7,4 +7,5 @@ export interface File {
   url: string;
   // API returns only strings
   size: number | string;
+  master: boolean;
 }

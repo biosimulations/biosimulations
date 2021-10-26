@@ -10,7 +10,7 @@ import { Logger } from '@nestjs/common';
 import { Job, Queue } from 'bull';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
-
+const MAX_MONITOR_RETRY = 20;
 @Processor(JobQueue.monitor)
 export class MonitorProcessor {
   private readonly logger = new Logger(MonitorProcessor.name);
@@ -24,11 +24,12 @@ export class MonitorProcessor {
   ) {}
 
   @Process()
-  private async handleMonitoring(job: Job): Promise<void> {
+  private async handleMonitoring(job: Job<MonitorJob>): Promise<void> {
     const data = job.data;
     const slurmJobId = data.slurmJobId;
     const isPublic = data.isPublic;
     const simId = data.simId;
+    let retryCount = data.retryCount;
     const DELAY = 5000;
     const jobStatus: SimulationRunStatus | null =
       await this.hpcService.getJobStatus(slurmJobId);
@@ -48,12 +49,27 @@ export class MonitorProcessor {
       jobStatus == SimulationRunStatus.QUEUED ||
       jobStatus == SimulationRunStatus.RUNNING
     ) {
-      this.monitorQueue.add({ slurmJobId, simId, isPublic }, { delay: DELAY });
+      this.monitorQueue.add(
+        { slurmJobId, simId, isPublic, retryCount },
+        { delay: DELAY },
+      );
     } else {
       this.logger.warn(
         `${simId} skipped update, due to unknown status of ${jobStatus}`,
       );
-      this.monitorQueue.add({ slurmJobId, simId, isPublic }, { delay: DELAY });
+      // If we keep getting some unknown status that does not resolve, fail the job after some limit of retries
+      if (retryCount < MAX_MONITOR_RETRY) {
+        retryCount = retryCount + 1;
+        this.monitorQueue.add(
+          { slurmJobId, simId, isPublic, retryCount },
+          { delay: DELAY },
+        );
+      } else {
+        this.logger.error(
+          `${simId} failed due to exceeded retry limit of status ${jobStatus}`,
+        );
+        this.failQueue.add({ simId, reason: message });
+      }
     }
   }
 }

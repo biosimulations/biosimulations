@@ -39,7 +39,7 @@ describe('LogsController', () => {
   it(' should get logs from service', async () => {
     const getSpy = jest.spyOn(mockService, 'getLog').mockReturnValue('test');
 
-    const log = await controller.getLogs('testId');
+    const log = await controller.getLog('testId');
     expect(getSpy).toHaveBeenCalled();
     //@ts-ignore
     expect(log).toBe('test');

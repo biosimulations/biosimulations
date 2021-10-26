@@ -5,8 +5,10 @@ import { Project, ProjectInput } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
 import {
-  CombineArchiveContent,
+  File as IFile,
   SimulatorIdNameMap,
+  SimulationRunSedDocument,
+  ISimulator,
 } from '@biosimulations/datamodel/common';
 
 @Injectable({
@@ -44,25 +46,27 @@ export class ProjectService {
     return this.http.get(url);
   }
 
-  public getArchiveContents(id: string): Observable<CombineArchiveContent[]> {
+  public getArchiveContents(id: string): Observable<IFile[]> {
     const url = this.endpoints.getArchiveContentsEndpoint(id);
-    const response = this.http.get<CombineArchiveContent[]>(url).pipe();
+    const response = this.http.get<IFile[]>(url).pipe();
     return response;
   }
 
-  public getProjectSedmlContents(id: string): Observable<any> {
+  public getProjectSedmlContents(
+    id: string,
+  ): Observable<SimulationRunSedDocument[]> {
     const url = this.endpoints.getSpecificationsEndpoint(id);
-    const response = this.http.get<any>(url).pipe();
+    const response = this.http.get<SimulationRunSedDocument[]>(url).pipe();
     return response;
   }
 
   public getSimulatorIdNameMap(): Observable<SimulatorIdNameMap> {
     const endpoint = this.endpoints.getSimulatorsEndpoint(undefined, 'latest');
-    return this.http.get(endpoint).pipe(
+    return this.http.get<ISimulator[]>(endpoint).pipe(
       shareReplay(1),
-      map((simulators: any): SimulatorIdNameMap => {
+      map((simulators: ISimulator[]): SimulatorIdNameMap => {
         const idNameMap: SimulatorIdNameMap = {};
-        simulators.forEach((simulator: any): void => {
+        simulators.forEach((simulator: ISimulator): void => {
           idNameMap[simulator.id] = simulator.name;
         });
         return idNameMap;

@@ -1,0 +1,33 @@
+{
+  "projectType": "application",
+  "root": "apps/combine-service",
+  "sourceRoot": "apps/combine-service/src",
+  "targets": {
+    "build": {
+      "executor": "@nx-python/nx-python:build",
+      "options": {
+        "outputPath": "dist/apps/combine-service",
+        "main": "apps/combine-service/src/__main__.py"
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx-python/nx-python:serve",
+      "options": {
+        "main": "-m src",
+        "cwd": "apps/combine-service"
+      }
+    },
+    "test": {
+      "executor": "@nx-python/nx-python:test",
+      "options": {}
+    },
+    "lint": {
+      "executor": "@nx-python/nx-python:lint",
+      "options": {}
+    }
+  },
+  "tags": []
+}

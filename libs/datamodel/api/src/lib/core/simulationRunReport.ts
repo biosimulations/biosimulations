@@ -7,6 +7,11 @@
  */
 
 import {
+  SimulationRunResults as ISimulationRunResults,
+  SimulationRunOutput as ISimulationRunOutput,
+  SimulationRunOutputDatum as ISimulationRunOutputDatum,
+} from '@biosimulations/datamodel/common';
+import {
   ApiProperty,
   ApiResponseProperty,
   ApiPropertyOptional,
@@ -14,16 +19,17 @@ import {
 
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
-export type SimulationRunOutputData = SimulationRunOutputDatum[];
-
-export const SimulationRunOutputDataSchema: Omit<SchemaObject, 'required'> = {
+export const SimulationRunOutputDatumValuesSchema: Omit<
+  SchemaObject,
+  'required'
+> = {
   oneOf: [
     { type: 'array', items: { type: 'number', format: 'float' } },
     { type: 'array', items: { type: 'boolean' } },
   ],
 };
 
-export class SimulationRunOutputDatum {
+export class SimulationRunOutputDatum implements ISimulationRunOutputDatum {
   @ApiProperty({ type: String })
   public id!: string;
 
@@ -40,11 +46,13 @@ export class SimulationRunOutputDatum {
   // "float64", "int" etc. Not the same as seddatatype
   public type!: string;
 
-  @ApiProperty(SimulationRunOutputDataSchema)
+  @ApiProperty(SimulationRunOutputDatumValuesSchema)
   public values: (number | boolean | string)[] = [];
 }
 
-export class SimulationRunOutput {
+export type SimulationRunOutputData = SimulationRunOutputDatum[];
+
+export class SimulationRunOutput implements ISimulationRunOutput {
   @ApiProperty({ type: String })
   public simId!: string;
 
@@ -69,7 +77,7 @@ export class SimulationRunOutput {
   public data!: SimulationRunOutputData;
 }
 
-export class SimulationRunResults {
+export class SimulationRunResults implements ISimulationRunResults {
   @ApiResponseProperty({ type: String })
   public simId!: string;
 

@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Simulation,
-  UnknownSimulation,
-  ISimulation,
-  isUnknownSimulation,
-} from '../../datamodel';
+import { Simulation, ISimulation, isUnknownSimulation } from '../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage-angular';
@@ -252,11 +247,11 @@ export class SimulationService {
               updated: new Date(dispatchSimulation.updated),
               resultsSize: dispatchSimulation.resultsSize,
               projectSize: dispatchSimulation.projectSize,
-            } as Simulation;
+            };
           } else {
             return {
               id: uuid,
-            } as UnknownSimulation;
+            };
           }
         }),
       );

@@ -600,16 +600,20 @@ export class TableComponent implements OnInit, AfterViewInit {
             sort.active != this.sort.active ||
             sort.direction != this.sort.direction
           ) {
-            this.sort.sort({
+            const matSortable1 = {
               id: '',
               start: sort.direction,
               disableClear: false,
-            } as MatSortable);
-            this.sort.sort({
+            } as MatSortable;
+            this.sort.sort(matSortable1);
+
+            const matSortable2 = {
               id: sort.active,
-              start: sort.direction,
+              start: sort.direction as SortDirection,
               disableClear: false,
-            } as MatSortable);
+            } as MatSortable;
+            this.sort.sort(matSortable2);
+
             (
               this.sort.sortables.get(sort.active) as MatSortHeader
             )._setAnimationTransitionState({
@@ -618,11 +622,12 @@ export class TableComponent implements OnInit, AfterViewInit {
             });
           }
         } else if (this.sort.active) {
-          this.sort.sort({
+          const matSortable3 = {
             id: '',
             start: 'asc',
             disableClear: false,
-          } as MatSortable);
+          } as MatSortable;
+          this.sort.sort(matSortable3);
         }
       }
     });

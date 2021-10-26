@@ -1,0 +1,30 @@
+{
+  "root": "libs/shared/exceptions/filters",
+  "sourceRoot": "libs/shared/exceptions/filters/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:lint",
+      "options": {
+        "linter": "eslint",
+        "tsConfig": [
+          "libs/shared/exceptions/filters/tsconfig.lib.json",
+          "libs/shared/exceptions/filters/tsconfig.spec.json"
+        ],
+        "exclude": [
+          "**/node_modules/**",
+          "!libs/shared/exceptions/filters/**/*"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/shared/exceptions/filters/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:util", "platform:server"]
+}

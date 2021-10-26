@@ -1,0 +1,88 @@
+name: CI
+on:
+  push:
+    branches:
+      - dev
+  pull_request_target:
+
+env:
+  NX_CLOUD_DISTRIBUTED_EXECUTION: true
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' }}
+    steps:
+      - uses: actions/checkout@v2
+        if: ${{ github.event_name != 'pull_request' }}
+        name: Checkout [dev]
+        with:
+          fetch-depth: 0
+          
+      - uses: actions/checkout@v2
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+          
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
+        with:
+          main-branch-name: 'dev'
+
+      - uses: actions/setup-node@v1 
+        with: 
+          node-version: '14'
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+          architecture: "x64"
+
+      - name: Install Flake8
+        run: |
+          python -m pip install flake8
+          
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+      - run: npx nx-cloud start-ci-run    
+      - run: npx nx affected --target=build --parallel --max-parallel=10
+      - run: npx nx affected --target=test --parallel --max-parallel=10      
+      - run: npx nx affected --target lint --parallel --max-parallel=10
+      - run: npx nx-cloud stop-all-agents
+  agents:
+    runs-on: ubuntu-latest
+    name: Worker Node
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        agent: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with: 
+          node-version: '14'
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+          architecture: "x64"
+
+      - name: Install Flake8
+        run: |
+          python -m pip install flake8
+          
+      - name: Install npm dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+          
+      - name: Start Nx Agent ${{ matrix.agent }}
+        run: npx nx-cloud start-agent  

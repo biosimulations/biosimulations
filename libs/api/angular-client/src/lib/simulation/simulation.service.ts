@@ -5,6 +5,9 @@ import { retryWhen } from 'rxjs/operators';
 import {
   SimulationRun,
   SimulationRunMetadata,
+  CombineArchiveLog,
+  SimulationRunResults,
+  SimulationRunOutput,
 } from '@biosimulations/datamodel/api';
 // import { SimulationRun } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
@@ -40,13 +43,16 @@ export class SimulationService {
 
   public getSimulationRunResults(
     id: string,
-    outputId?: string,
     includeData = false,
-  ): Observable<any> {
-    const url = this.endpoints.getRunResultsEndpoint(id, outputId, includeData);
+  ): Observable<SimulationRunResults> {
+    const url = this.endpoints.getRunResultsEndpoint(
+      id,
+      undefined,
+      includeData,
+    );
     const retryStrategy = new RetryStrategy();
     const response = this.http
-      .get<any>(url)
+      .get<SimulationRunResults>(url)
       .pipe(
         shareReplay(1),
         retryWhen(retryStrategy.handler.bind(retryStrategy)),
@@ -54,8 +60,24 @@ export class SimulationService {
     return response;
   }
 
-  public getSimulationRunLog(id: string): Observable<any> {
+  public getSimulationRunOutputResults(
+    id: string,
+    outputId: string,
+    includeData = false,
+  ): Observable<SimulationRunOutput> {
+    const url = this.endpoints.getRunResultsEndpoint(id, outputId, includeData);
+    const retryStrategy = new RetryStrategy();
+    const response = this.http
+      .get<SimulationRunOutput>(url)
+      .pipe(
+        shareReplay(1),
+        retryWhen(retryStrategy.handler.bind(retryStrategy)),
+      );
+    return response;
+  }
+
+  public getSimulationRunLog(id: string): Observable<CombineArchiveLog> {
     const endpoint = this.endpoints.getSimulationRunLogsEndpoint(id);
-    return this.http.get(endpoint);
+    return this.http.get<CombineArchiveLog>(endpoint);
   }
 }

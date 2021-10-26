@@ -1,0 +1,129 @@
+{
+  "projectType": "application",
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "root": "apps/dispatch",
+  "sourceRoot": "apps/dispatch/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/dispatch",
+        "index": "apps/dispatch/src/index.html",
+        "main": "apps/dispatch/src/main.ts",
+        "polyfills": "apps/dispatch/src/polyfills.ts",
+        "tsConfig": "apps/dispatch/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "favicon.svg",
+            "input": "libs/shared/assets/src/assets/icons",
+            "output": "./"
+          },
+          {
+            "glob": "favicon.ico",
+            "input": "libs/shared/assets/src/assets/icons",
+            "output": "./"
+          },
+          {
+            "glob": "safari-pinned-tab.svg",
+            "input": "libs/shared/assets/src/assets/icons",
+            "output": "./"
+          },
+          {
+            "glob": "_redirects",
+            "input": "libs/shared/assets/src",
+            "output": "./"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/shared/assets/src/assets",
+            "output": "assets"
+          },
+          "apps/dispatch/src/manifest.webmanifest",
+          "apps/dispatch/src/browserconfig.xml",
+          "apps/dispatch/src/sitemap.xml"
+        ],
+        "styles": ["libs/shared/styles/src/index.scss"],
+        "scripts": ["node_modules/plotly.js/dist/plotly.min.js"],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/styles/src/lib",
+            "libs/shared/styles/src/lib/biosimulations"
+          ]
+        },
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/environments/src/lib/environment.ts",
+              "with": "libs/shared/environments/src/lib/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "serviceWorker": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "7mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ],
+          "ngswConfigPath": "apps/dispatch/ngsw-config.json"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "dispatch:build",
+        "proxyConfig": "apps/dispatch/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "dispatch:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "dispatch:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/dispatch/**/*.ts", "apps/dispatch/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/dispatch/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:dispatch", "type:frontend", "platform:web"],
+  "implicitDependencies": ["shared-assets", "shared-styles"]
+}

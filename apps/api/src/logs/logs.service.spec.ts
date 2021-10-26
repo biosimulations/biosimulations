@@ -3,15 +3,15 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Server } from 'http';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
-import { SimulationRunLog } from './logs.model';
+import { SimulationRunLog, CombineArchiveLog } from './logs.model';
 import { LogsService } from './logs.service';
 
 describe('LogsService', () => {
   let service: LogsService;
-  class mockLogModel {
+  class mockModel {
     constructor(private data: any) {}
     static save = jest.fn().mockResolvedValue('test');
-    save = mockLogModel.save;
+    save = mockModel.save;
     static find = jest.fn().mockResolvedValue({});
     static findOne = jest.fn().mockResolvedValue({});
     static findOneAndUpdate = jest.fn().mockResolvedValue({});
@@ -24,7 +24,11 @@ describe('LogsService', () => {
         LogsService,
         {
           provide: getModelToken(SimulationRunLog.name),
-          useValue: mockLogModel,
+          useValue: mockModel,
+        },
+        {
+          provide: getModelToken(CombineArchiveLog.name),
+          useValue: mockModel,
         },
       ],
       imports: [BiosimulationsConfigModule],

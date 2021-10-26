@@ -1,0 +1,22 @@
+{
+  "root": "libs/auth/common",
+  "sourceRoot": "libs/auth/common/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/auth/common/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/auth/common/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:auth", "platform:any", "type:datamodel", "shared:true"]
+}

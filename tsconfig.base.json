@@ -132,9 +132,6 @@
       "@biosimulations/shared/nats-client": [
         "libs/shared/nats-client/src/index.ts"
       ],
-      "@biosimulations/shared/nestjs-api": [
-        "libs/shared/nestjs-api/src/index.ts"
-      ],
       "@biosimulations/shared/pwa": [
         "libs/shared/pwa/src/index.ts"
       ],

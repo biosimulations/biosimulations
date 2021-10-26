@@ -1,5 +1,12 @@
 import { SimulationRunLogStatus } from './simulationRunLog';
 import { Purpose } from './purpose';
+import {
+  SedModel,
+  SedSimulation,
+  SedTask,
+  SedDataGenerator,
+  SedOutput,
+} from '../sedml';
 
 export enum SimulationRunStatus {
   // The api has created the entry
@@ -66,4 +73,16 @@ export interface SimulationRun {
   resultsSize?: number;
   submitted: Date;
   updated: Date;
+}
+
+export interface SimulationRunSedDocument {
+  id: string;
+  simulationRun: string;
+  models: SedModel[];
+  simulations: SedSimulation[];
+  dataGenerators: SedDataGenerator[];
+  outputs: SedOutput[];
+  tasks: SedTask[];
+  created: string;
+  updated: string;
 }

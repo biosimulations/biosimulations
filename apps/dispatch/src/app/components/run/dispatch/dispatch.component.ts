@@ -19,8 +19,8 @@ import { SimulationService } from '../../../services/simulation/simulation.servi
 import { CombineService } from '../../../services/combine/combine.service';
 import { Simulation } from '../../../datamodel';
 import {
-  CombineArchive,
-  CombineArchiveContent,
+  CombineArchiveSedDocSpecs,
+  CombineArchiveSedDocSpecsContent,
   SedDocument,
   SedModel,
   SedSimulation,
@@ -301,11 +301,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
           Params,
         ],
       ): void => {
-        const curatedAlgSubs = observerableValues[0] as
-          | AlgorithmSubstitution[]
-          | undefined;
-        const simulatorsData = observerableValues[1] as SimulatorsData;
-        const params = observerableValues[2] as Params;
+        const curatedAlgSubs: AlgorithmSubstitution[] | undefined =
+          observerableValues[0];
+        const simulatorsData: SimulatorsData = observerableValues[1];
+        const params: Params = observerableValues[2];
 
         // Setup options for select menus
         this.modelFormatsMap = simulatorsData.modelFormats;
@@ -569,15 +568,15 @@ export class DispatchComponent implements OnInit, OnDestroy {
     if (archive) {
       const sub = this.combineService
         .getSpecsOfSedDocsInCombineArchive(archive)
-        .subscribe((archive: CombineArchive | undefined): void => {
+        .subscribe((archive: CombineArchiveSedDocSpecs | undefined): void => {
           if (archive) {
             const modelFormats = new Set<string>();
             const simulationAlgorithms = new Set<string>();
             const unsupportedModelFormats = new Set<string>();
             const unsupportedSimulationAlgorithms = new Set<string>();
-            archive.contents.forEach((content: CombineArchiveContent): void => {
-              if (content.location.value._type === 'SedDocument') {
-                const sedDoc = content.location.value as SedDocument;
+            archive.contents.forEach(
+              (content: CombineArchiveSedDocSpecsContent): void => {
+                const sedDoc: SedDocument = content.location.value;
 
                 sedDoc.models.forEach((model: SedModel): void => {
                   let edamId: string | null = null;
@@ -604,8 +603,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
                     unsupportedSimulationAlgorithms.add(kisaoId);
                   }
                 });
-              }
-            });
+              },
+            );
 
             this.modelFormatsControl.setValue(Array.from(modelFormats));
             this.simulationAlgorithmsControl.setValue(

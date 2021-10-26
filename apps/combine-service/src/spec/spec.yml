@@ -1060,7 +1060,6 @@ components:
                     changes: []
               symbol: urn:sedml:symbol:time
             math: time
-            _resultsDataSetId: experiment.sedml/report/data_set_time
           yDataGenerator:
             _type: SedDataGenerator
             id: data_generator_atp
@@ -1098,7 +1097,6 @@ components:
                   prefix: sbml
                   uri: http://www.sbml.org/sbml/level3/version1/core
             math: atp
-            _resultsDataSetId: experiment.sedml/report/data_set_atp
         xScale: linear
         yScale: log
     SedPlot3D:
@@ -1172,7 +1170,6 @@ components:
                     changes: []
               symbol: urn:sedml:symbol:y
             math: "y"
-            _resultsDataSetId: experiment.sedml/report/data_set_y
           zDataGenerator:
             _type: SedDataGenerator
             id: data_generator_atp
@@ -1210,7 +1207,6 @@ components:
                   prefix: sbml
                   uri: http://www.sbml.org/sbml/level3/version1/core
             math: atp
-            _resultsDataSetId: experiment.sedml/report/data_set_atp
         xScale: linear
         yScale: linear
         zScale: log
@@ -1275,7 +1271,6 @@ components:
                   changes: []
             symbol: urn:sedml:symbol:time
           math: time
-          _resultsDataSetId: experiment.sedml/report/data_set_time
         yDataGenerator:
           _type: SedDataGenerator
           id: data_generator_atp
@@ -1313,7 +1308,6 @@ components:
                 prefix: sbml
                 uri: http://www.sbml.org/sbml/level3/version1/core
           math: atp
-          _resultsDataSetId: experiment.sedml/report/data_set_atp
     SedSurface:
       description: A surface a 3D plot.
       required:
@@ -1375,7 +1369,6 @@ components:
                   changes: []
             symbol: urn:sedml:symbol:y
           math: "y"
-          _resultsDataSetId: experiment.sedml/report/data_set_y
         zDataGenerator:
           _type: SedDataGenerator
           id: data_generator_atp
@@ -1413,7 +1406,6 @@ components:
                 prefix: sbml
                 uri: http://www.sbml.org/sbml/level3/version1/core
           math: atp
-          _resultsDataSetId: experiment.sedml/report/data_set_atp
     SedDataGenerator:
       description: Data generator for SED report or plot.
       required:
@@ -1437,10 +1429,6 @@ components:
         math:
           description: Mathematical expression for its value.
           type: string
-        _resultsDataSetId:
-          $ref: '#/components/schemas/BioSimulationsDataSetResultsId'
-          description: Id of the results in the runBioSimulations database of simulation
-            results.
         _type:
           description: Type.
           enum:
@@ -1477,7 +1465,6 @@ components:
                 changes: []
           symbol: urn:sedml:symbol:time
         math: time
-        _resultsDataSetId: experiment.sedml/report/data_set_time
     SedDocument:
       description: A SED document.
       required:
@@ -1606,7 +1593,6 @@ components:
                   prefix: sbml
                   uri: http://www.sbml.org/sbml/level3/version1/core
             math: atp
-            _resultsDataSetId: experiment.sedml/report/data_set_atp
     CombineArchive:
       description: A COMBINE/OMEX archive.
       required:
@@ -2087,6 +2073,7 @@ components:
       - id
       - _type
       - algorithm
+      - step
       type: object
       properties:
         id:
@@ -2195,10 +2182,6 @@ components:
       - linear
       type: string
       example: linear
-    BioSimulationsDataSetResultsId:
-      description: Id of the results of a data set.
-      type: string
-      example: experiment1/simulation.sedml/report_ntp_dynamics/data_set_atp_dynamics
     SedOutput:
       oneOf:
       - $ref: '#/components/schemas/SedPlot2D'
@@ -2254,7 +2237,6 @@ components:
                   prefix: sbml
                   uri: http://www.sbml.org/sbml/level3/version1/core
             math: atp
-            _resultsDataSetId: experiment.sedml/report/data_set_atp
     SedAbstractTask:
       oneOf:
       - $ref: '#/components/schemas/SedTask'
@@ -2392,7 +2374,6 @@ components:
                   changes: []
             symbol: urn:sedml:symbol:time
           math: time
-          _resultsDataSetId: experiment.sedml/report/data_set_time
     SedAlgorithm:
       description: A SED algorithm.
       required:
@@ -3619,6 +3600,176 @@ components:
       example:
         _type: Environment
         variables: []
+    GetCombineArchiveMetadataFileOrUrl:
+      description: "File or a URL for getting the information in an [OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)\
+        \ document"
+      required:
+      - omexMetadataFormat
+      type: object
+      properties:
+        file:
+          $ref: '#/components/schemas/File'
+          description: File.
+        url:
+          $ref: '#/components/schemas/Url'
+          description: URL
+        omexMetadataFormat:
+          description: |-
+            OMEX Metadata format
+
+            Default: `rdfxml`
+          enum:
+          - ntriples
+          - nquads
+          - rdfa
+          - rdfxml
+          - turtle
+          type: string
+      example:
+        file: <FILE>
+        omexMetadataFormat: rdfxml
+    ValidateCombineArchiveFileOrUrl:
+      description: File or a URL for getting the metadata in a COMBINE/OMEX archive.
+      required:
+      - omexMetadataFormat
+      - omexMetadataSchema
+      type: object
+      properties:
+        file:
+          $ref: '#/components/schemas/File'
+          description: File.
+        url:
+          $ref: '#/components/schemas/Url'
+          description: URL
+        omexMetadataFormat:
+          description: OMEX Metadata format
+          enum:
+          - ntriples
+          - nquads
+          - rdfa
+          - rdfxml
+          - turtle
+          type: string
+        validateOmexManifest:
+          description: |-
+            Whether to validate the manifest of the archive.
+
+            Default: `true`.
+          type: boolean
+        omexMetadataSchema:
+          description: OMEX Metadata schema
+          enum:
+          - BioSimulations
+          - rdf_triples
+          type: string
+        validateSedml:
+          description: |-
+            Whether to validate the SED-ML files in the archive.
+
+            Default: `true`.
+          type: boolean
+        validateSedmlModels:
+          description: |-
+            Whether to validate the source (e.g., CellML, SBML file) of each model of each SED-ML file in
+            the archive.
+
+            Default: `true`.
+          type: boolean
+        validateOmexMetadata:
+          description: |-
+            Whether to validate the OMEX Metadata files in the archive according to [BioSimulators'
+            conventions](https://biosimulators.org/conventions/metadata).
+
+            Default: `true`.
+          type: boolean
+        validateImages:
+          description: |-
+            Whether to validate the image (BMP, GIF, PNG, JPEG, TIFF, WEBP) files in the archive.
+
+            Default: `true`.
+          type: boolean
+      example:
+        file: <FILE>
+        omexMetadataFormat: rdfxml
+        omexMetadataSchema: rdf_triples
+    ValidateModelFileOrUrl:
+      description: File or a URL for validating a model.
+      required:
+      - language
+      type: object
+      properties:
+        file:
+          $ref: '#/components/schemas/File'
+          description: File.
+        url:
+          $ref: '#/components/schemas/Url'
+          description: URL
+        language:
+          description: Language of the model
+          enum:
+          - BNGL
+          - CellML
+          - LEMS
+          - NeuroML
+          - RBA
+          - SBML
+          - Smoldyn
+          - XPP
+          type: string
+      example:
+        file: <FILE>
+        language: SBML
+    ValidateOmexMetadataFileOrUrl:
+      description: File or a URL for validating an OMEX Metadata document.
+      required:
+      - format
+      - schema
+      type: object
+      properties:
+        file:
+          $ref: '#/components/schemas/File'
+          description: File.
+        url:
+          $ref: '#/components/schemas/Url'
+          description: URL
+        format:
+          description: Format of the document
+          enum:
+          - ntriples
+          - nquads
+          - rdfa
+          - rdfxml
+          - turtle
+          type: string
+        schema:
+          description: "Schema for validating OMEX Metadata files. The RDF schema,\
+            \ allows all semantic triples. The [BioSimulations schema](https://biosimulators.org/conventions/metadata)\
+            \ imposes additional requirements for minimal metadata about simulation\
+            \ projects. The BioSimulations schema is required for publishing projects\
+            \ to BioSimulations."
+          enum:
+          - rdf_triples
+          - BioSimulations
+          type: string
+      example:
+        file: <FILE>
+        format: rdfxml
+        schema: BioSimulations
+    Health:
+      title: Root Type for Health
+      description: Information about the status of the service
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          description: Summary of the status of the service
+          enum:
+          - ok
+          type: string
+          example: ok
+      example:
+        status: ok
     CombineArchiveLog:
       required:
       - status
@@ -3949,176 +4100,6 @@ components:
           - FAILED
           - UNKNOWN
           type: string
-    GetCombineArchiveMetadataFileOrUrl:
-      description: "File or a URL for getting the information in an [OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)\
-        \ document"
-      required:
-      - omexMetadataFormat
-      type: object
-      properties:
-        file:
-          $ref: '#/components/schemas/File'
-          description: File.
-        url:
-          $ref: '#/components/schemas/Url'
-          description: URL
-        omexMetadataFormat:
-          description: |-
-            OMEX Metadata format
-
-            Default: `rdfxml`
-          enum:
-          - ntriples
-          - nquads
-          - rdfa
-          - rdfxml
-          - turtle
-          type: string
-      example:
-        file: <FILE>
-        omexMetadataFormat: rdfxml
-    ValidateCombineArchiveFileOrUrl:
-      description: File or a URL for getting the metadata in a COMBINE/OMEX archive.
-      required:
-      - omexMetadataFormat
-      - omexMetadataSchema
-      type: object
-      properties:
-        file:
-          $ref: '#/components/schemas/File'
-          description: File.
-        url:
-          $ref: '#/components/schemas/Url'
-          description: URL
-        omexMetadataFormat:
-          description: OMEX Metadata format
-          enum:
-          - ntriples
-          - nquads
-          - rdfa
-          - rdfxml
-          - turtle
-          type: string
-        validateOmexManifest:
-          description: |-
-            Whether to validate the manifest of the archive.
-
-            Default: `true`.
-          type: boolean
-        omexMetadataSchema:
-          description: OMEX Metadata schema
-          enum:
-          - BioSimulations
-          - rdf_triples
-          type: string
-        validateSedml:
-          description: |-
-            Whether to validate the SED-ML files in the archive.
-
-            Default: `true`.
-          type: boolean
-        validateSedmlModels:
-          description: |-
-            Whether to validate the source (e.g., CellML, SBML file) of each model of each SED-ML file in
-            the archive.
-
-            Default: `true`.
-          type: boolean
-        validateOmexMetadata:
-          description: |-
-            Whether to validate the OMEX Metadata files in the archive according to [BioSimulators'
-            conventions](https://biosimulators.org/conventions/metadata).
-
-            Default: `true`.
-          type: boolean
-        validateImages:
-          description: |-
-            Whether to validate the image (BMP, GIF, PNG, JPEG, TIFF, WEBP) files in the archive.
-
-            Default: `true`.
-          type: boolean
-      example:
-        file: <FILE>
-        omexMetadataFormat: rdfxml
-        omexMetadataSchema: rdf_triples
-    ValidateModelFileOrUrl:
-      description: File or a URL for validating a model.
-      required:
-      - language
-      type: object
-      properties:
-        file:
-          $ref: '#/components/schemas/File'
-          description: File.
-        url:
-          $ref: '#/components/schemas/Url'
-          description: URL
-        language:
-          description: Language of the model
-          enum:
-          - BNGL
-          - CellML
-          - LEMS
-          - NeuroML
-          - RBA
-          - SBML
-          - Smoldyn
-          - XPP
-          type: string
-      example:
-        file: <FILE>
-        language: SBML
-    ValidateOmexMetadataFileOrUrl:
-      description: File or a URL for validating an OMEX Metadata document.
-      required:
-      - format
-      - schema
-      type: object
-      properties:
-        file:
-          $ref: '#/components/schemas/File'
-          description: File.
-        url:
-          $ref: '#/components/schemas/Url'
-          description: URL
-        format:
-          description: Format of the document
-          enum:
-          - ntriples
-          - nquads
-          - rdfa
-          - rdfxml
-          - turtle
-          type: string
-        schema:
-          description: "Schema for validating OMEX Metadata files. The RDF schema,\
-            \ allows all semantic triples. The [BioSimulations schema](https://biosimulators.org/conventions/metadata)\
-            \ imposes additional requirements for minimal metadata about simulation\
-            \ projects. The BioSimulations schema is required for publishing projects\
-            \ to BioSimulations."
-          enum:
-          - rdf_triples
-          - BioSimulations
-          type: string
-      example:
-        file: <FILE>
-        format: rdfxml
-        schema: BioSimulations
-    Health:
-      title: Root Type for Health
-      description: Information about the status of the service
-      required:
-      - status
-      type: object
-      properties:
-        status:
-          description: Summary of the status of the service
-          enum:
-          - ok
-          type: string
-          example: ok
-      example:
-        status: ok
   responses:
     "404":
       content:

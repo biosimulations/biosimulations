@@ -1,0 +1,22 @@
+{
+  "root": "libs/messages/messages",
+  "sourceRoot": "libs/messages/messages/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/messages/messages/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/messages/messages/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:mesages", "type:datamodel", "platform:server", "shared:true"]
+}

@@ -56,6 +56,7 @@ export class DispatchProcessor {
         slurmJobId: slurmjobId.toString(),
         simId: data.simId,
         isPublic: data.isPublic,
+        retryCount: 0,
       };
 
       this.monitorQueue.add(monitorData);

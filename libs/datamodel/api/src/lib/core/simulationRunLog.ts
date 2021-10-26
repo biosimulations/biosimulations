@@ -1,7 +1,19 @@
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
-import { SimulationRunLogStatus as Status } from '@biosimulations/datamodel/common';
 
-export class Exception {
+import {
+  CombineArchiveLog as ICombineArchiveLog,
+  SedDocumentLog as ISedDocumentLog,
+  SedTaskLog as ISedTaskLog,
+  SimulatorDetail as ISimulatorDetail,
+  SedReportLog as ISedReportLog,
+  SedPlot2DLog as ISedPlot2DLog,
+  SedPlot3DLog as ISedPlot3DLog,
+  SedOutputElementLog as ISedOutputElementLog,
+  SimulationRunLogStatus,
+  Exception as IException,
+} from '@biosimulations/datamodel/common';
+
+export class Exception implements IException {
   @ApiProperty({ type: String, example: 'FileNotFoundError' })
   category!: string;
 
@@ -9,20 +21,20 @@ export class Exception {
   message!: string;
 }
 
-export class SedOutputElementLog {
+export class SedOutputElementLog implements ISedOutputElementLog{
   @ApiProperty({ type: String })
   id!: string;
 
-  @ApiProperty({ type: String, enum: Status })
-  status!: Status;
+  @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  status!: SimulationRunLogStatus;
 }
 
-export class SedReportLog {
+export class SedReportLog implements ISedReportLog {
   @ApiProperty({ type: String })
   id!: string;
 
-  @ApiProperty({ type: String, enum: Status })
-  status!: Status;
+  @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  status!: SimulationRunLogStatus;
 
   @ApiProperty({ type: Exception, nullable: true })
   exception!: Exception | null;
@@ -45,12 +57,12 @@ export class SedReportLog {
   dataSets!: SedOutputElementLog[] | null;
 }
 
-export class SedPlot2DLog {
+export class SedPlot2DLog implements ISedPlot2DLog {
   @ApiProperty({ type: String })
   id!: string;
 
-  @ApiProperty({ type: String, enum: Status })
-  status!: Status;
+  @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  status!: SimulationRunLogStatus;
 
   @ApiProperty({ type: Exception, nullable: true })
   exception!: Exception | null;
@@ -73,12 +85,12 @@ export class SedPlot2DLog {
   curves!: SedOutputElementLog[] | null;
 }
 
-export class SedPlot3DLog {
+export class SedPlot3DLog implements ISedPlot3DLog {
   @ApiProperty({ type: String })
   id!: string;
 
-  @ApiProperty({ type: String, enum: Status })
-  status!: Status;
+  @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  status!: SimulationRunLogStatus;
 
   @ApiProperty({ type: Exception, nullable: true })
   exception!: Exception | null;
@@ -101,7 +113,7 @@ export class SedPlot3DLog {
   surfaces!: SedOutputElementLog[] | null;
 }
 
-export class SimulatorDetail {
+export class SimulatorDetail implements ISimulatorDetail {
   @ApiProperty({ type: String, example: 'arguments' })
   key!: string;
 
@@ -109,12 +121,12 @@ export class SimulatorDetail {
   value!: any;
 }
 
-export class SedTaskLog {
+export class SedTaskLog implements ISedTaskLog {
   @ApiProperty({ type: String })
   id!: string;
 
-  @ApiProperty({ type: String, enum: Status })
-  status!: Status;
+  @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  status!: SimulationRunLogStatus;
 
   @ApiProperty({ type: Exception, nullable: true })
   exception!: Exception | null;
@@ -133,19 +145,24 @@ export class SedTaskLog {
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
   duration!: number | null;
 
-  @ApiProperty({ type: String, example: 'KISAO_0000019', nullable: true })
+  @ApiProperty({
+    type: String,
+    description: 'KiSAO id of the simulation algorithm that was executed',
+    example: 'KISAO_0000019',
+    nullable: true
+  })
   algorithm!: string | null;
 
   @ApiProperty({ type: [SimulatorDetail], nullable: true })
   simulatorDetails!: SimulatorDetail[] | null;
 }
 
-export class SedDocumentLog {
+export class SedDocumentLog implements ISedDocumentLog {
   @ApiProperty({ type: String })
   location!: string;
 
-  @ApiProperty({ type: String, enum: Status })
-  status!: Status;
+  @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  status!: SimulationRunLogStatus;
 
   @ApiProperty({ type: Exception, nullable: true })
   exception!: Exception | null;
@@ -181,9 +198,9 @@ export class SedDocumentLog {
   outputs!: (SedReportLog | SedPlot2DLog | SedPlot3DLog)[] | null;
 }
 
-export class CombineArchiveLog {
-  @ApiProperty({ type: String, enum: Status })
-  status!: Status;
+export class CombineArchiveLog implements ICombineArchiveLog {
+  @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  status!: SimulationRunLogStatus;
 
   @ApiProperty({ type: Exception, nullable: true })
   exception!: Exception | null;
@@ -207,8 +224,9 @@ export class CombineArchiveLog {
 }
 
 export class CreateSimulationRunLogBody {
-  @ApiProperty()
+  @ApiProperty({ type: String })
   simId!: string;
-  @ApiProperty()
+
+  @ApiProperty({ type: [CombineArchiveLog] })
   log!: CombineArchiveLog;
 }

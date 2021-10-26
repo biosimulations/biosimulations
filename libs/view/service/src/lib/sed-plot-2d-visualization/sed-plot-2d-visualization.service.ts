@@ -5,6 +5,8 @@ import {
   PlotlyTrace,
   PlotlyTraceMode,
   PlotlyTraceType,
+  SimulationRunOutput,
+  SimulationRunOutputDatum,
 } from '@biosimulations/datamodel/common';
 /*
 import {
@@ -35,20 +37,24 @@ export class SedPlot2DVisualizationService {
     simulationRunId: string,
     sedDocLocation: string,
     plot: SedPlot2D,
-    results: any,
+    results: SimulationRunOutput,
   ): PlotlyDataLayout {
-    const resultsMap: SedDatasetResultsMap = this.getSimulationRunResults(
-      `${sedDocLocation}/{plot.id}`,
-      results,
-    );
+    if (sedDocLocation.startsWith('./')) {
+      sedDocLocation = sedDocLocation.substring(2);
+    }
+
+    const resultsMap: SedDatasetResultsMap =
+      this.getSimulationRunResults(results);
 
     const traces: PlotlyTrace[] = [];
     const xAxisTitlesSet = new Set<string>();
     const yAxisTitlesSet = new Set<string>();
     let missingData = false;
     for (const curve of plot.curves) {
-      const xId = curve.xDataGenerator._resultsDataSetId;
-      const yId = curve.yDataGenerator._resultsDataSetId;
+      const xId =
+        sedDocLocation + '/' + plot.id + '/' + curve.xDataGenerator.id;
+      const yId =
+        sedDocLocation + '/' + plot.id + '/' + curve.yDataGenerator.id;
       xAxisTitlesSet.add(curve.xDataGenerator.name || curve.xDataGenerator.id);
       yAxisTitlesSet.add(curve.yDataGenerator.name || curve.yDataGenerator.id);
       const trace = {
@@ -119,49 +125,47 @@ export class SedPlot2DVisualizationService {
   }
 
   private getSimulationRunResults(
-    outputId: string,
-    result: any,
+    result: SimulationRunOutput,
   ): SedDatasetResultsMap {
-    const outputs = outputId
-      ? [result as any] // SimulationRunOutput
-      : (result as any).outputs; // SimulationRunResults
-
     const datasetResultsMap: SedDatasetResultsMap = {};
 
-    outputs.forEach((output: any): void => {
-      // SimulationRunOutput
-      const sedmlLocationOutputId = output.outputId;
+    const sedmlLocationOutputId = result.outputId;
 
-      const sedmlLocation = this.getLocationFromSedmLocationId(
-        sedmlLocationOutputId,
-      );
+    const sedmlLocation = this.getLocationFromSedmLocationId(
+      sedmlLocationOutputId,
+    );
 
-      const outputId = this.getOutputIdFromSedmlLocationId(
-        sedmlLocationOutputId,
-      );
+    const outputId = this.getOutputIdFromSedmlLocationId(sedmlLocationOutputId);
 
-      output.data.forEach((datum: any): void => {
-        // SimulationRunOutputDatum
-        const uri = sedmlLocation + '/' + outputId + '/' + datum.id;
-        datasetResultsMap[uri] = {
-          uri: uri,
-          id: datum.id,
-          location: sedmlLocation,
-          outputId: outputId,
-          label: datum.label,
-          values: datum.values,
-        };
-      });
+    result.data.forEach((datum: SimulationRunOutputDatum): void => {
+      const uri = sedmlLocation + '/' + outputId + '/' + datum.id;
+      datasetResultsMap[uri] = {
+        uri: uri,
+        id: datum.id,
+        location: sedmlLocation,
+        outputId: outputId,
+        label: datum.label,
+        values: datum.values,
+      };
     });
 
     return datasetResultsMap;
   }
 
-  private getLocationFromSedmLocationId(locationId: string): string {
+  private getLocationFromSedmLocationId(outputLocationId: string): string {
     // Remove the last "/" and the text after the last "/"
     // EG simulation_1.sedml/subfolder1/Figure_3b" => simulation_1.sedml/subfolder1
     // TODO write tests
-    return locationId.split('/').reverse().slice(1).reverse().join('/');
+    let docLocation = outputLocationId
+      .split('/')
+      .reverse()
+      .slice(1)
+      .reverse()
+      .join('/');
+    if (docLocation.startsWith('./')) {
+      docLocation = docLocation.substring(2);
+    }
+    return docLocation;
   }
 
   private getOutputIdFromSedmlLocationId(location: string): string {

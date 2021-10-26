@@ -1,0 +1,30 @@
+{
+  "root": "libs/simulators/database-models",
+  "sourceRoot": "libs/simulators/database-models/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:lint",
+      "options": {
+        "linter": "eslint",
+        "tsConfig": [
+          "libs/simulators/database-models/tsconfig.lib.json",
+          "libs/simulators/database-models/tsconfig.spec.json"
+        ],
+        "exclude": [
+          "**/node_modules/**",
+          "!libs/simulators/database-models/**/*"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/simulators/database-models/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:simulators", "type:datamodel", "platform:server"]
+}

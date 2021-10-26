@@ -11,7 +11,6 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  SedDocumentSpecifications,
   SedReport,
   SedDataSet,
   PlotlyDataLayout,
@@ -21,6 +20,7 @@ import {
   UriSedDataSetMap,
   UriSetDataSetResultsMap,
   Histogram1DVisualization,
+  SedDocumentReports,
 } from '@biosimulations/datamodel-view';
 import { ViewService } from '@biosimulations/view-service';
 import { Observable, map } from 'rxjs';
@@ -42,7 +42,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
   simulationRunId!: string;
 
   @Input()
-  sedDocs!: SedDocumentSpecifications[];
+  sedDocs!: SedDocumentReports[];
 
   @Input()
   uriSedDataSetMap!: UriSedDataSetMap;
@@ -69,7 +69,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
 
   public setSelectedDataSets(
     type: 'SedDocument' | 'SedReport' | 'SedDataSet',
-    sedDocument: SedDocumentSpecifications,
+    sedDocument: SedDocumentReports,
     sedDocumentId: string,
     report?: SedReport,
     reportId?: string,
@@ -109,7 +109,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
         selectedUris.delete(sedDocumentId);
       }
 
-      (report as SedReport).dataSets.forEach((dataSet: SedDataSet): void => {
+      report?.dataSets?.forEach((dataSet: SedDataSet): void => {
         const dataSetUri = uri + '/' + dataSet.id;
         if (selected) {
           selectedUris.add(dataSetUri);
@@ -120,7 +120,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
 
       let hasAllReports = true;
       for (const report of sedDocument.outputs) {
-        const reportUri = sedDocumentId + '/' + (report as SedReport).id;
+        const reportUri = sedDocumentId + '/' + report?.id;
         if (!selectedUris.has(reportUri)) {
           hasAllReports = false;
           break;
@@ -132,9 +132,9 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
     } else {
       if (selected) {
         let hasAllDataSets = true;
-        for (const dataSet of (report as SedReport).dataSets) {
+        for (const dataSet of report?.dataSets || []) {
           const dataSetUri =
-            sedDocumentId + '/' + (report as SedReport).id + '/' + dataSet.id;
+            sedDocumentId + '/' + report?.id + '/' + dataSet.id;
           if (!selectedUris.has(dataSetUri)) {
             hasAllDataSets = false;
             break;
@@ -146,7 +146,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
 
         let hasAllReports = true;
         for (const report of sedDocument.outputs) {
-          const reportUri = sedDocumentId + '/' + (report as SedReport).id;
+          const reportUri = sedDocumentId + '/' + report?.id;
           if (!selectedUris.has(reportUri)) {
             hasAllReports = false;
             break;

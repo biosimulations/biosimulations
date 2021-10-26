@@ -6,6 +6,7 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
 import { HealthService } from '@biosimulations/angular-api-client';
 
@@ -22,7 +23,7 @@ describe('AppComponent', () => {
         }),
       ],
       declarations: [AppComponent],
-      providers: [ConfigService, ScrollService, HealthService],
+      providers: [ConfigService, ScrollService, HealthService, Storage],
     }).compileComponents();
   }));
 
