@@ -65,7 +65,7 @@ export interface SimulationRun {
   envVars: EnvironmentVariable[];
   purpose: Purpose;
   email: string | null;
-  public: boolean;
+  isPublic: boolean;
   status: SimulationRunStatus;
   statusReason?: string;
   runtime?: number;

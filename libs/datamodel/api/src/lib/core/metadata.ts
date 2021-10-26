@@ -20,7 +20,7 @@ export class SimulationRunMetadata {
   public id!: string;
 
   @ApiProperty({
-    name: 'public',
+    name: 'isPublic',
     type: Boolean,
     description: 'Whether the simulation run has been published',
     example: true,

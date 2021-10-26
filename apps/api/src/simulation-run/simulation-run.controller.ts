@@ -202,7 +202,7 @@ export class SimulationRunController {
       maxTime: run.maxTime,
       envVars: run.envVars,
       purpose: run.purpose,
-      isPublic: run.public,
+      isPublic: run.isPublic,
     };
     const sim = await this.dispatchQueue.add(message);
 
@@ -250,7 +250,7 @@ export class SimulationRunController {
       run.purpose,
       run.submitted,
       run.updated,
-      run.public,
+      run.isPublic,
       run.status,
       run.runtime,
       run.projectSize,

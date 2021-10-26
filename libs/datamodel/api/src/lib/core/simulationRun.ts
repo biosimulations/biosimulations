@@ -140,7 +140,7 @@ export class SimulationRun implements ISimulationRun {
     type: Boolean,
     default: false,
   })
-  public: boolean;
+  isPublic: boolean;
 
   @ApiPropertyOptional({
     description: 'Detail about the status of the simulation run',
@@ -222,7 +222,7 @@ export class SimulationRun implements ISimulationRun {
     this.envVars = envVars || [];
     this.purpose = purpose || Purpose.other;
     this.status = status || SimulationRunStatus.CREATED;
-    this.public = isPublic || false;
+    this.isPublic = isPublic || false;
     this.submitted = submitted;
     this.updated = updated;
     this.projectSize = projectSize;
@@ -244,7 +244,7 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
   'maxTime',
   'envVars',
   'purpose',
-  'public',
+  'isPublic',
 ]) {}
 
 export class UploadSimulationRunUrl extends UploadSimulationRun {
@@ -280,7 +280,7 @@ export class PatchSimulationRun {
     description: 'Whether to publish (or unpublish) the simulation run',
     type: Boolean,
   })
-  public?: boolean;
+  isPublic?: boolean;
 
   @ApiPropertyOptional({
     description: 'Status of the simulation run',
