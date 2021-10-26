@@ -104,7 +104,10 @@ export class LogsController {
     @Param('runId') runId: string,
     @Query('includeOutput') includeOutput = 'true',
   ): Promise<LeanDocument<CombineArchiveLog>> {
-    const structLogs = await this.service.getLog(runId, includeOutput !== 'false');
+    const structLogs = await this.service.getLog(
+      runId,
+      includeOutput !== 'false',
+    );
     return structLogs;
   }
 
@@ -181,7 +184,6 @@ export class LogsController {
     type: ErrorResponseDocument,
     description: 'No log has the requested run id',
   })
-  
   @permissions('delete:Logs')
   public deleteLog(@Param('runId') runId: string): Promise<CombineArchiveLog> {
     return this.service.deleteLog(runId);

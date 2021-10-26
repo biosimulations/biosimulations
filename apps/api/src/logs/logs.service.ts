@@ -4,11 +4,14 @@
  * @copyright Biosimulations Team, 2020
  * @license MIT
  */
-import {
-  CombineArchiveLog as ApiCombineArchiveLog,
-} from '@biosimulations/datamodel/common';
+import { CombineArchiveLog as ApiCombineArchiveLog } from '@biosimulations/datamodel/common';
 
-import { Injectable, BadRequestException, NotFoundException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+  Logger,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import {
@@ -32,7 +35,7 @@ export class LogsService {
     @InjectModel(DbCombineArchiveLog.name)
     private validateModel: Model<DbCombineArchiveLog>,
   ) {}
-  
+
   public async createLog(
     runId: string,
     apiLog: ApiCombineArchiveLog,
@@ -46,7 +49,10 @@ export class LogsService {
     return this.dbToApiCombineArchiveLog(res);
   }
 
-  public async getLog(runId: string, includeOutput=true): Promise<LeanDocument<ApiCombineArchiveLog>> {
+  public async getLog(
+    runId: string,
+    includeOutput = true,
+  ): Promise<LeanDocument<ApiCombineArchiveLog>> {
     const projection: any = {
       'log.sedDocuments.outputs._type': 0,
     };
@@ -69,7 +75,10 @@ export class LogsService {
     return log.log;
   }
 
-  public async replaceLog(runId: string, apiLog: ApiCombineArchiveLog): Promise<ApiCombineArchiveLog> {
+  public async replaceLog(
+    runId: string,
+    apiLog: ApiCombineArchiveLog,
+  ): Promise<ApiCombineArchiveLog> {
     const log = await this.logModel.findOne({ simId: runId }).exec();
 
     if (!log) {
@@ -118,7 +127,9 @@ export class LogsService {
     dbLog.exception = this.apiToDbException(apiLog.exception);
     dbLog.skipReason = this.apiToDbException(apiLog.skipReason);
     if (Array.isArray(apiLog.sedDocuments)) {
-      dbLog.sedDocuments = apiLog.sedDocuments.map(this.apiToDbSedDocumentLog.bind(this));
+      dbLog.sedDocuments = apiLog.sedDocuments.map(
+        this.apiToDbSedDocumentLog.bind(this),
+      );
     }
     return dbLog;
   }
@@ -138,7 +149,9 @@ export class LogsService {
     }
 
     if (Array.isArray(apiLog.outputs)) {
-      dbLog.outputs = apiLog.outputs.map(this.apiToDbSedOutputLog.bind(this)) as (DbSedReportLog | DbSedPlot2DLog | DbSedPlot3DLog)[];
+      dbLog.outputs = apiLog.outputs.map(
+        this.apiToDbSedOutputLog.bind(this),
+      ) as (DbSedReportLog | DbSedPlot2DLog | DbSedPlot3DLog)[];
     }
 
     return dbLog;
@@ -154,7 +167,9 @@ export class LogsService {
     dbLog.exception = this.apiToDbException(apiLog.exception);
     dbLog.skipReason = this.apiToDbException(apiLog.skipReason);
     if (Array.isArray(apiLog.simulatorDetails)) {
-      dbLog.simulatorDetails = apiLog.simulatorDetails.map(this.apiToDbSimulatorDetail.bind(this));
+      dbLog.simulatorDetails = apiLog.simulatorDetails.map(
+        this.apiToDbSimulatorDetail.bind(this),
+      );
     }
     return dbLog;
   }
@@ -169,8 +184,7 @@ export class LogsService {
     return dbLog;
   }
 
-  private apiToDbSedOutputLog(apiLog: any): any
-  {
+  private apiToDbSedOutputLog(apiLog: any): any {
     if (!(apiLog instanceof Object)) {
       return apiLog;
     }
@@ -193,7 +207,9 @@ export class LogsService {
     dbLog.exception = this.apiToDbException(apiLog.exception);
     dbLog.skipReason = this.apiToDbException(apiLog.skipReason);
     if (Array.isArray(apiLog.dataSets)) {
-      dbLog.dataSets = apiLog.dataSets.map(this.apiToDbSedOutputElementLog.bind(this));
+      dbLog.dataSets = apiLog.dataSets.map(
+        this.apiToDbSedOutputElementLog.bind(this),
+      );
     }
     return dbLog;
   }
@@ -205,8 +221,11 @@ export class LogsService {
     dbLog.exception = this.apiToDbException(apiLog.exception);
     dbLog.skipReason = this.apiToDbException(apiLog.skipReason);
     if (Array.isArray(apiLog.curves)) {
-      dbLog.curves = apiLog.curves.map(this.apiToDbSedOutputElementLog.bind(this));
-    }return dbLog;
+      dbLog.curves = apiLog.curves.map(
+        this.apiToDbSedOutputElementLog.bind(this),
+      );
+    }
+    return dbLog;
   }
 
   private apiToDbSedPlot3DLog(apiLog: any): any {
@@ -216,7 +235,9 @@ export class LogsService {
     dbLog.exception = this.apiToDbException(apiLog.exception);
     dbLog.skipReason = this.apiToDbException(apiLog.skipReason);
     if (Array.isArray(apiLog.surfaces)) {
-      dbLog.surfaces = apiLog.surfaces.map(this.apiToDbSedOutputElementLog.bind(this));
+      dbLog.surfaces = apiLog.surfaces.map(
+        this.apiToDbSedOutputElementLog.bind(this),
+      );
     }
     return dbLog;
   }
@@ -236,12 +257,14 @@ export class LogsService {
       return apiException;
     }
 
-    const dbException:any = {};
+    const dbException: any = {};
     Object.assign(dbException, apiException);
     return dbException;
   }
 
-  private dbToApiCombineArchiveLog(dbRunLog: SimulationRunLog): ApiCombineArchiveLog {
+  private dbToApiCombineArchiveLog(
+    dbRunLog: SimulationRunLog,
+  ): ApiCombineArchiveLog {
     const dbLog = dbRunLog.toObject().log;
 
     dbLog?.sedDocuments?.forEach((sedDocumentLog): void => {
