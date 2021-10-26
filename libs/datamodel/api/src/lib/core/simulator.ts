@@ -19,6 +19,7 @@ import {
   IsNotEmpty,
   IsString,
   ValidateNested,
+  IsOptional,
 } from 'class-validator';
 import {
   Image,
@@ -73,6 +74,7 @@ export class Simulator implements ISimulator {
   })
   urls!: Url[];
 
+  @IsOptional()
   @ValidateNested()
   @Type(() => Image)
   @ApiProperty({
@@ -81,6 +83,7 @@ export class Simulator implements ISimulator {
   })
   image!: Image | null;
 
+  @IsOptional()
   @Allow()
   @ApiProperty({
     nullable: true,
@@ -88,6 +91,7 @@ export class Simulator implements ISimulator {
   })
   cli!: Cli | null;
 
+  @IsOptional()
   @Allow()
   @ApiProperty({
     nullable: true,
@@ -103,6 +107,7 @@ export class Simulator implements ISimulator {
   @ApiProperty({ type: ExternalReferences })
   references!: ExternalReferences;
 
+  @IsOptional()
   @Allow()
   @ApiProperty({ type: SpdxOntologyId, nullable: true })
   license!: SpdxOntologyId | null;

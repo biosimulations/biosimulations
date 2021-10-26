@@ -1,6 +1,5 @@
 import {
   Injectable,
-  ConflictException,
   NotFoundException,
   InternalServerErrorException,
 } from '@nestjs/common';
@@ -71,8 +70,7 @@ export class SimulatorsService {
 
   public async new(doc: APISimulator): Promise<Simulator> {
     const sim = new this.simulator(doc);
-    let res: Simulator;
-    res = (await sim.save()).toJSON({ versionKey: false }) as Simulator;
+    const res: Simulator = (await sim.save()).toJSON({ versionKey: false }) as Simulator;
     return res;
   }
 

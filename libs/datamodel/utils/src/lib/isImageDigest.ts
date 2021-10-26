@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 
 export function IsImageDigest(validationOptions?: ValidationOptions) {
-  return function (object: Object, propertyName: string) {
+  return function (object: object, propertyName: string) {
     registerDecorator({
       name: 'isImageDigest',
       target: object.constructor,

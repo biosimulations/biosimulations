@@ -8,7 +8,7 @@ import {
   CombineArchiveLog as ApiCombineArchiveLog,
 } from '@biosimulations/datamodel/common';
 
-import { Injectable, ConflictException, BadRequestException, NotFoundException, Logger } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import {
@@ -42,8 +42,7 @@ export class LogsService {
       log: this.apiToDbCombineArchiveLog(apiLog),
     });
 
-    let res: SimulationRunLog;
-    res = await log.save();
+    const res: SimulationRunLog = await log.save();
     return this.dbToApiCombineArchiveLog(res);
   }
 
