@@ -16,7 +16,10 @@ biosimulations-tab-page ::ng-deep {
   }
 }
 
-biosimulations-tab-page ::ng-deep biosimulations-text-page-side-bar-section ::ng-deep {
+biosimulations-tab-page
+  ::ng-deep
+  biosimulations-text-page-side-bar-section
+  ::ng-deep {
   .heading {
     max-width: 100%;
   }
