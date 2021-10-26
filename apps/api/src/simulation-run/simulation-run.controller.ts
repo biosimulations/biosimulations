@@ -175,7 +175,7 @@ export class SimulationRunController {
   ): Promise<SimulationRun> {
     const contentType = req.header('Content-Type');
     let run: SimulationRunModelReturnType;
-    let projectId: string | undefined = undefined;
+    let projectId: string | undefined;
 
     if (!contentType) {
       throw new UnsupportedMediaTypeException(' Must specifiy a Content-Type');
