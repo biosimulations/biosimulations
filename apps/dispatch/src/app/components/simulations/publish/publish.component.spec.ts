@@ -11,8 +11,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 describe('PublishComponent', () => {
   let component: PublishComponent;
   let fixture: ComponentFixture<PublishComponent>;
@@ -34,7 +36,7 @@ describe('PublishComponent', () => {
         }),
         NoopAnimationsModule,
       ],
-      providers: [ConfigService, ScrollService],
+      providers: [ConfigService, ScrollService, Storage],
       schemas: [],
     }).compileComponents();
   }));

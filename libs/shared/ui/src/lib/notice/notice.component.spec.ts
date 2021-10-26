@@ -4,6 +4,7 @@ import { NoticeComponent } from './notice.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { MaterialWrapperModule } from '../material-wrapper.module';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
@@ -22,7 +23,9 @@ describe('NoticeComponent', () => {
         MaterialWrapperModule,
         BiosimulationsIconsModule,
       ],
-      providers: [],
+      providers: [
+        Storage,
+      ],
     }).compileComponents();
   }));
 
