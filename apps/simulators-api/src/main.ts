@@ -3,7 +3,7 @@
  * This is only a minimal backend to get started.
  */
 
-import { Logger, INestApplication } from '@nestjs/common';
+import { Logger, INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import {
@@ -17,6 +17,7 @@ import { SecuritySchemeObject } from '@nestjs/swagger/dist/interfaces/open-api-s
 import { Resolver } from '@stoplight/json-ref-resolver';
 import * as toJsonSchema from '@openapi-contrib/openapi-schema-to-json-schema';
 import { json } from 'body-parser';
+import { BiosimulationsValidationExceptionFactory } from '@biosimulations/shared/exceptions';
 
 function setupOpenApi(
   app: INestApplication,
@@ -180,7 +181,20 @@ async function bootstrap() {
 
   const limit = configService.get('server.limit');
   app.use(json({ limit }));
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      exceptionFactory: BiosimulationsValidationExceptionFactory,
+      forbidNonWhitelisted: true,
+      whitelist: true,
+      validationError: {
+        target: false,
+      },
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  );
   await app.listen(port, () => {
     Logger.log('Listening at http://localhost:' + port + '/');
   });

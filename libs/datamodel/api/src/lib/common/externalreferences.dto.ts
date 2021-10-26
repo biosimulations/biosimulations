@@ -2,11 +2,17 @@ import { ExternalReferences as IExternalReferences } from '@biosimulations/datam
 import { Identifier } from './ontology.dto';
 import { Citation } from './citation';
 import { ApiProperty } from '@nestjs/swagger';
+import { ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class ExternalReferences implements IExternalReferences {
+  @ValidateNested({ each: true })
+  @Type(() => Identifier)
   @ApiProperty({ type: [Identifier] })
-  identifiers!: Identifier[];
+  public identifiers!: Identifier[];
 
+  @ValidateNested({ each: true })
+  @Type(() => Citation)
   @ApiProperty({ type: [Citation] })
-  citations!: Citation[];
+  public citations!: Citation[];
 }

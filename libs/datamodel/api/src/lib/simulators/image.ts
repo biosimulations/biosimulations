@@ -2,17 +2,12 @@ import { IImage, OperatingSystemType } from '@biosimulations/datamodel/common';
 import { EdamOntologyIdVersion } from '../common';
 
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsEnum,
-  IsHash,
-  IsNotEmpty,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
+import { IsEnum, IsNotEmpty, IsUrl, ValidateNested } from 'class-validator';
+import { IsImageDigest } from '@biosimulations/datamodel/utils';
 import { Type } from 'class-transformer';
 
 export class Image implements IImage {
-  @IsString()
+  @IsUrl()
   @IsNotEmpty()
   @ApiProperty({
     type: String,
@@ -22,8 +17,7 @@ export class Image implements IImage {
   public url!: string;
 
   @IsNotEmpty()
-  // TODO remove sha256 prefix from hash
-  //@IsHash('sha256')
+  @IsImageDigest()
   @ApiProperty({
     type: String,
     description: 'Repository digest for the image',

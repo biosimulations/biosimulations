@@ -19,33 +19,52 @@ import {
 
 import { ApiProperty } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class ModelTarget implements IModelTarget {
   @ApiProperty({ type: String, required: true })
-  value!: string;
+  @IsString()
+  @IsNotEmpty()
+  public value!: string;
 
   @ApiProperty({ type: String, required: true })
-  grammar!: string;
+  @IsNotEmpty()
+  @IsString()
+  public grammar!: string;
 }
 
 export class ModelSymbol implements IModelSymbol {
   @ApiProperty({ type: String, required: true })
-  value!: string;
+  @IsString()
+  @IsNotEmpty()
+  public value!: string;
 
   @ApiProperty({ type: String, required: true })
-  namespace!: string;
+  @IsString()
+  @IsNotEmpty()
+  public namespace!: string;
 }
 
 export class ModelChangePattern implements IModelChangePattern {
   @ApiProperty({ type: String, required: true })
-  name!: string;
+  @IsString()
+  @IsNotEmpty()
+  public name!: string;
 
   @ApiProperty({
     type: [String],
     enum: ModelChangeType,
     required: true,
   })
-  types!: ModelChangeType[];
+  @IsEnum(ModelChangeType, { each: true })
+  public types!: ModelChangeType[];
 
   @ApiProperty({
     type: ModelTarget,
@@ -53,7 +72,10 @@ export class ModelChangePattern implements IModelChangePattern {
     required: false,
     default: null,
   })
-  target!: ModelTarget | null;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ModelTarget)
+  public target!: ModelTarget | null;
 
   @ApiProperty({
     type: ModelSymbol,
@@ -61,12 +83,17 @@ export class ModelChangePattern implements IModelChangePattern {
     required: false,
     default: null,
   })
-  symbol!: ModelSymbol | null;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ModelSymbol)
+  public symbol!: ModelSymbol | null;
 }
 
 export class OutputVariablePattern implements IOutputVariablePattern {
   @ApiProperty({ type: String, required: true })
-  name!: string;
+  @IsString()
+  @IsNotEmpty()
+  public name!: string;
 
   @ApiProperty({
     type: ModelTarget,
@@ -74,7 +101,10 @@ export class OutputVariablePattern implements IOutputVariablePattern {
     required: false,
     default: null,
   })
-  target!: ModelTarget | null;
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => ModelSymbol)
+  public target!: ModelTarget | null;
 
   @ApiProperty({
     type: ModelSymbol,
@@ -82,21 +112,34 @@ export class OutputVariablePattern implements IOutputVariablePattern {
     required: false,
     default: null,
   })
-  symbol!: ModelSymbol | null;
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => ModelSymbol)
+  public symbol!: ModelSymbol | null;
 }
 
 export class Algorithm implements IAlgorithm {
+  @ValidateNested()
+  @Type(() => KisaoOntologyId)
   @ApiProperty({ type: KisaoOntologyId })
-  kisaoId!: KisaoOntologyId;
+  public kisaoId!: KisaoOntologyId;
 
+  @ValidateNested({ each: true })
+  @Type(() => AlgorithmParameter)
+  @IsOptional()
   @ApiProperty({ type: [AlgorithmParameter], nullable: true })
-  parameters!: AlgorithmParameter[] | null;
+  public parameters!: AlgorithmParameter[] | null;
 
   @ApiProperty({ type: [SioOntologyId], nullable: true })
-  outputDimensions!: SioOntologyId[] | null;
+  @ValidateNested({ each: true })
+  @Type(() => SioOntologyId)
+  @IsOptional()
+  public outputDimensions!: SioOntologyId[] | null;
 
   @ApiProperty({ type: [OutputVariablePattern], required: true })
-  outputVariablePatterns!: OutputVariablePattern[];
+  @ValidateNested({ each: true })
+  @Type(() => OutputVariablePattern)
+  public outputVariablePatterns!: OutputVariablePattern[];
 
   @ApiProperty({
     description:
@@ -106,7 +149,9 @@ export class Algorithm implements IAlgorithm {
     required: false,
     default: null,
   })
-  id!: string | null;
+  @IsString()
+  @IsOptional()
+  public id!: string | null;
 
   @ApiProperty({
     description:
@@ -116,39 +161,58 @@ export class Algorithm implements IAlgorithm {
     required: false,
     default: null,
   })
-  name!: string | null;
+  @IsString()
+  @IsOptional()
+  public name!: string | null;
 
   @ApiProperty({ type: [SboOntologyId] })
-  modelingFrameworks!: SboOntologyId[];
+  @ValidateNested({ each: true })
+  @Type(() => SboOntologyId)
+  public modelingFrameworks!: SboOntologyId[];
 
   @ApiProperty({ type: [EdamOntologyIdVersion] })
-  modelFormats!: EdamOntologyIdVersion[];
+  @ValidateNested({ each: true })
+  @Type(() => EdamOntologyIdVersion)
+  public modelFormats!: EdamOntologyIdVersion[];
 
   @ApiProperty({ type: [ModelChangePattern], required: true })
-  modelChangePatterns!: ModelChangePattern[];
+  @ValidateNested({ each: true })
+  @Type(() => ModelChangePattern)
+  public modelChangePatterns!: ModelChangePattern[];
 
   @ApiProperty({ type: [EdamOntologyIdVersion] })
-  simulationFormats!: EdamOntologyIdVersion[];
+  @ValidateNested({ each: true })
+  @Type(() => EdamOntologyIdVersion)
+  public simulationFormats!: EdamOntologyIdVersion[];
 
   @ApiProperty({
     type: [String],
     enum: SimulationType,
   })
-  simulationTypes!: SimulationType[];
+  @IsEnum(SimulationType, { each: true })
+  public simulationTypes!: SimulationType[];
 
   @ApiProperty({ type: [EdamOntologyIdVersion] })
-  archiveFormats!: EdamOntologyIdVersion[];
+  @ValidateNested({ each: true })
+  @Type(() => EdamOntologyIdVersion)
+  public archiveFormats!: EdamOntologyIdVersion[];
 
   @ApiProperty({
     type: [String],
     enum: SoftwareInterfaceType,
     description: 'List of software interfaces which support the parameter',
   })
-  availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
+  @IsEnum(SoftwareInterfaceType, { each: true })
+  public availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 
   @ApiProperty({ type: [DependentPackage], nullable: true })
-  dependencies!: DependentPackage[] | null;
+  @ValidateNested({ each: true })
+  @Type(() => DependentPackage)
+  @IsOptional()
+  public dependencies!: DependentPackage[] | null;
 
   @ApiProperty({ type: [Citation] })
-  citations!: Citation[];
+  @ValidateNested({ each: true })
+  @Type(() => Citation)
+  public citations!: Citation[];
 }

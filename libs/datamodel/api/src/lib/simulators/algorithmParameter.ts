@@ -6,10 +6,14 @@ import {
 } from '@biosimulations/datamodel/common';
 
 import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class AlgorithmParameter implements IAlgorithmParameter {
   @ApiProperty({ type: KisaoOntologyId })
-  kisaoId!: KisaoOntologyId;
+  @ValidateNested()
+  @Type(() => KisaoOntologyId)
+  public kisaoId!: KisaoOntologyId;
 
   @ApiProperty({
     description:
@@ -19,7 +23,9 @@ export class AlgorithmParameter implements IAlgorithmParameter {
     required: false,
     default: null,
   })
-  id!: string | null;
+  @IsOptional()
+  @IsString()
+  public id!: string | null;
 
   @ApiProperty({
     description:
@@ -29,32 +35,40 @@ export class AlgorithmParameter implements IAlgorithmParameter {
     required: false,
     default: null,
   })
-  name!: string | null;
+  @IsString()
+  @IsOptional()
+  public name!: string | null;
 
   @ApiProperty({
     type: String,
     enum: ValueType,
   })
-  type!: ValueType;
+  @IsEnum(ValueType)
+  public type!: ValueType;
 
   @ApiProperty({
     type: String,
     example: '30.5',
     nullable: true,
   })
-  value!: string | null;
+  @IsOptional()
+  @IsString()
+  public value!: string | null;
 
   @ApiProperty({
     type: [String],
     example: ['22.7', '2270'],
     nullable: true,
   })
-  recommendedRange!: string[] | null;
+  @IsString({ each: true })
+  @IsOptional()
+  public recommendedRange!: string[] | null;
 
   @ApiProperty({
     type: [String],
     enum: SoftwareInterfaceType,
     description: 'List of software interfaces which support the parameter',
   })
-  availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
+  @IsEnum(SoftwareInterfaceType, { each: true })
+  public availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 }

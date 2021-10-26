@@ -16,6 +16,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   Allow,
   IsArray,
+  isEnum,
+  IsEnum,
   IsNotEmpty,
   IsString,
   ValidateNested,
@@ -81,57 +83,65 @@ export class Simulator implements ISimulator {
   })
   image!: Image | null;
 
-  @Allow()
+  @ValidateNested()
+  @Type(() => Cli)
   @ApiProperty({
     nullable: true,
     type: Cli,
   })
   cli!: Cli | null;
 
-  @Allow()
+  @ValidateNested()
+  @Type(() => PythonApi)
   @ApiProperty({
     nullable: true,
     type: PythonApi,
   })
   pythonApi!: PythonApi | null;
 
-  @Allow()
+  @ValidateNested({ each: true })
+  @Type(() => Person)
   @ApiProperty({ type: [Person] })
   authors!: Person[];
 
-  @Allow()
+  @ValidateNested()
+  @Type(() => ExternalReferences)
   @ApiProperty({ type: ExternalReferences })
   references!: ExternalReferences;
 
-  @Allow()
+  @ValidateNested({ each: true })
+  @Type(() => SpdxOntologyId)
   @ApiProperty({ type: SpdxOntologyId, nullable: true })
   license!: SpdxOntologyId | null;
 
-  @Allow()
+  @ValidateNested({ each: true })
+  @Type(() => Algorithm)
   @ApiProperty({ type: [Algorithm] })
   algorithms!: Algorithm[];
 
-  @Allow()
+  @IsEnum(SoftwareInterfaceType, { each: true })
   @ApiProperty({
     type: [String],
     enum: SoftwareInterfaceType,
   })
   interfaceTypes!: SoftwareInterfaceType[];
 
-  @Allow()
+  @IsEnum(OperatingSystemType, { each: true })
   @ApiProperty({
     type: [String],
     enum: OperatingSystemType,
   })
   supportedOperatingSystemTypes!: OperatingSystemType[];
 
-  @Allow()
+  @ValidateNested({ each: true })
+  @Type(() => LinguistOntologyId)
   @ApiProperty({
     type: [LinguistOntologyId],
   })
   supportedProgrammingLanguages!: LinguistOntologyId[];
 
-  @Allow()
+  @ValidateNested({ each: true })
+  @Type(() => Funding)
   @ApiProperty({
     type: [Funding],
   })

@@ -9,26 +9,45 @@ import {
   TestCaseResultType,
   ITestCaseException,
 } from '@biosimulations/datamodel/common';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class TestCase implements ITestCase {
   @ApiProperty({ type: String, required: true })
-  id!: string;
+  @IsString()
+  @IsNotEmpty()
+  public id!: string;
 
   @ApiProperty({ type: String, required: true })
-  description!: string;
+  @IsString()
+  @IsNotEmpty()
+  public description!: string;
 }
 
 export class TestCaseException implements ITestCaseException {
   @ApiProperty({ type: String, required: true })
-  category!: string;
+  @IsString()
+  @IsNotEmpty()
+  public category!: string;
 
   @ApiProperty({ type: String, required: true })
-  message!: string;
+  @IsString()
+  @IsNotEmpty()
+  public message!: string;
 }
 
 export class TestCaseResult implements ITestCaseResult {
   @ApiProperty({ type: TestCase, required: true })
-  case!: TestCase;
+  @ValidateNested()
+  public case!: TestCase;
 
   @ApiProperty({
     type: String,
@@ -36,40 +55,57 @@ export class TestCaseResult implements ITestCaseResult {
     description: 'Result of the execution of the test case',
     enum: TestCaseResultType,
   })
-  resultType!: TestCaseResultType;
+  @IsEnum(TestCaseResultType)
+  public resultType!: TestCaseResultType;
 
   @ApiProperty({ type: Number, required: true })
-  duration!: number;
+  @IsNumber()
+  public duration!: number;
 
   @ApiProperty({ type: TestCaseException, nullable: true, required: true })
-  exception!: TestCaseException | null;
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => TestCaseException)
+  public exception!: TestCaseException | null;
 
   @ApiProperty({ type: [TestCaseException], required: true })
-  warnings!: TestCaseException[];
+  @ValidateNested({ each: true })
+  @Type(() => TestCaseException)
+  public warnings!: TestCaseException[];
 
   @ApiProperty({ type: TestCaseException, nullable: true, required: true })
-  skipReason!: TestCaseException | null;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => TestCaseException)
+  public skipReason!: TestCaseException | null;
 
   @ApiProperty({ type: String, required: true })
-  log!: string;
+  @IsString()
+  @IsNotEmpty()
+  public log!: string;
 }
 
 export class ValidationTests implements IValidationTests {
   @ApiProperty({ type: String, required: true })
-  testSuiteVersion!: string;
+  @IsString()
+  @IsNotEmpty()
+  public testSuiteVersion!: string;
 
   @ApiProperty({ type: [TestCaseResult], required: true })
-  results!: TestCaseResult[];
+  @ValidateNested({ each: true })
+  @Type(() => TestCaseResult)
+  public results!: TestCaseResult[];
 
   @ApiProperty({ type: Number, required: true })
-  ghIssue!: number;
+  @IsNumber()
+  public ghIssue!: number;
 
   @ApiProperty({ type: Number, required: true })
-  ghActionRun!: number;
+  @IsNumber()
+  public ghActionRun!: number;
 }
 
 export class BiosimulatorsMeta implements IBiosimulatorsMeta {
-  meta: any;
   @ApiProperty({
     type: String,
     required: true,
@@ -77,7 +113,8 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
       'The version of the BioSimulators simulator specifications format that the simulator specifications conforms to',
     enum: specificationVersions,
   })
-  specificationVersion!: specificationVersions;
+  @IsEnum(specificationVersions)
+  public specificationVersion!: specificationVersions;
 
   @ApiProperty({
     type: String,
@@ -86,20 +123,25 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
       'The version of the BioSimulators simulator image format (command-line interface and Docker image structure) that the simulator implements',
     enum: imageVersions,
   })
-  imageVersion!: imageVersions;
+  @IsEnum(imageVersions)
+  public imageVersion!: imageVersions;
 
   @ApiProperty({
     type: Boolean,
     description:
       'Whether or not the image for the simulator has passed validation',
   })
-  validated!: boolean;
+  @IsBoolean()
+  public validated!: boolean;
 
   @ApiProperty({
     type: ValidationTests,
     nullable: true,
   })
-  validationTests!: ValidationTests | null;
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => ValidationTests)
+  public validationTests!: ValidationTests | null;
 
   @ApiResponseProperty({
     type: String,
@@ -107,7 +149,7 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
     // description:
     //   'When the version of the simulator was catalogued in the BioSimulators registry',
   })
-  created!: Date;
+  public created!: Date;
 
   @ApiResponseProperty({
     type: String,
@@ -115,5 +157,7 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
     // description:
     //  'When the version of the simulator catalogued in the BioSimulators registry was last updated',
   })
-  updated!: Date;
+  public updated!: Date;
+
+  public meta: any;
 }
