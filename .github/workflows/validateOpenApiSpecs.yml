@@ -2,8 +2,8 @@ name: Validate OpenAPI specifications
 
 on:
   push:
-    # paths:
-      # - "apps/combine-service/src/spec/spec.yml"
+    paths:
+      - "apps/combine-service/src/spec/spec.yml"
       # - "apps/api/**"
       # - "apps/account-api/**"
       # - "apps/simulators-api/**"
