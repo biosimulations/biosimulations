@@ -36,7 +36,7 @@ export class ResultsService {
     simId: string,
     datasetId: string,
   ): Promise<undefined | (string[] | number[] | boolean[])[]> {
-    // The index feild will be needed when we are doing slicing of the data so this will need to change
+    // The index field will be needed when we are doing slicing of the data so this will need to change
     // TODO update the hsds client to use the correct name "value" not "values"
     return ((await this.results.getDatasetValues(simId, datasetId)) as any)
       ?.value;
