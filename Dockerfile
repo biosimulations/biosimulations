@@ -50,7 +50,7 @@ COPY libs /app/libs
 COPY apps /app/apps
 
 # generate build
-# Redifining the env *might* correct cache invalidtion issue
+# Redifining the env *might* correct cache invalidation issue
 ENV APP=${APP}
 ENV node_options=--max_old_space_size=6144
 RUN nx build ${APP} --prod --with-deps
