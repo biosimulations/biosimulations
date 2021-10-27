@@ -777,9 +777,12 @@ sedSimulationsArraySchema.discriminator(
 );
 
 const sedModelChangeArraySchema = SedModelSchema.path(
-  'changes'
+  'changes',
 ) as MongooseSchema.Types.DocumentArray;
-sedModelChangeArraySchema.discriminator(SedModelAttributeChange.name, SedModelAttributeChangeSchema);
+sedModelChangeArraySchema.discriminator(
+  SedModelAttributeChange.name,
+  SedModelAttributeChangeSchema,
+);
 
 const sedTasksArraySchema = SpecificationsModelSchema.path(
   'tasks',
