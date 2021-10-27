@@ -6,6 +6,7 @@ import os
 import requests
 import requests.adapters
 import requests.exceptions
+import simplejson.errors
 import urllib3.util.retry
 
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
@@ -13,29 +14,56 @@ EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  'simulations', 'browse', 'example-simulations.{}.json')
 
 
-def get_api_endpoint(biosimulations_api):
-    """ Get the endpoint for checkin gthe status of each simulation run
+def get_validate_endpoint(biosimulations_api, validate_simulation_results_data=True):
+    """ Get the endpoint for checking the status of each simulation run
+
+    Args:
+        biosimulations_api (:obj:`str`): API to use to check the status of each run
+            (``dev``, ``org``, or ``local``)
+        validate_simulation_results_data (:obj:`bool`, optional): whether to validate
+            the data of the simulation results
+
+    Returns:
+        :obj:`str`: endpoint for checking the status of each simulation run
+    """
+    if biosimulations_api == 'local':
+        endpoint = 'http://localhost:3333'
+    else:
+        endpoint = 'https://api.biosimulations.{}'.format(biosimulations_api)
+
+    endpoint += '/projects/validate'
+
+    if validate_simulation_results_data:
+        endpoint += "?validateSimulationResultsData=true"
+
+    return endpoint
+
+
+def get_run_url(biosimulations_api, id):
+    """ Get the URL for a simulation run
 
     Args:
         biosimulations_api (:obj:`str`): API to use to check the status of each run
             (``dev``, ``org``, or ``local``)
 
     Returns:
-        :obj:`str`: endpoint for checkin gthe status of each simulation run
+        :obj:`str`: URL for a simulation run
     """
     if biosimulations_api == 'local':
-        return 'http://localhost:3333'
+        return 'http://localhost:3333/simulations/{}'.format(id)
 
-    return 'https://api.biosimulations.{}'.format(biosimulations_api)
+    return 'https://biosimulations.{}/simulations/{}'.format(biosimulations_api, id)
 
 
-def get_failed_runs(examples_api, biosimulations_api):
+def get_failed_runs(examples_api, biosimulations_api, validate_simulation_results_data=True):
     """ Get a list of any example simulation runs that didn't succeed
 
     Args:
         examples_api (:obj:`str`): example set to test (``dev`` or ``org``)
         biosimulations_api (:obj:`str`): API to use to check the status of each run
             (``dev``, ``org``, or ``local``)
+        validate_simulation_results_data (:obj:`bool`, optional): whether to validate
+            the data of the simulation results
 
     Returns:
         :obj:`list` of :obj:`str`: ids and names of failed simulation runs
@@ -49,87 +77,25 @@ def get_failed_runs(examples_api, biosimulations_api):
         runs = json.load(file)
 
     # check the status of each run
-    base_endpoint = get_api_endpoint(biosimulations_api)
+    validate_endpoint = get_validate_endpoint(biosimulations_api)
+
     failures = []
     for run in runs:
-        # check status
-        endpoint = '{}/runs/{}'.format(base_endpoint, run['id'])
+        response = requests.post(validate_endpoint, json={
+            'id': 'new-project',
+            'simulationRun': run['id'],
+        })
         try:
-            response = requests.get(endpoint)
-            response.raise_for_status()
-            status = response.json()['status']
-            if status != 'SUCCEEDED':
-                failures.append('`{}`: `{}`: [status]({}) (`{}`): {}'.format(examples_api, run['id'], endpoint, status, run['name']))
-                continue
-        except requests.exceptions.RequestException:
-            failures.append('`{}`: `{}`: [status check]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
-            continue
-
-        # check COMBINE/OMEX archive
-        endpoint = '{}/runs/{}/download'.format(base_endpoint, run['id'])
-        try:
-            response = requests.get(endpoint)
             response.raise_for_status()
         except requests.exceptions.RequestException:
-            failures.append('`{}`: `{}`: [COMBINE download]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
-            continue
+            try:
+                error = response.json()['error'][0]['detail']
+            except simplejson.errors.JSONDecodeError:
+                error = 'Valiation failed'
 
-        # check files
-        endpoint = '{}/files/{}'.format(base_endpoint, run['id'])
-        try:
-            response = requests.get(endpoint)
-            response.raise_for_status()
-        except requests.exceptions.RequestException:
-            failures.append('`{}`: `{}`: [files]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
-            continue
-
-        # check SED-ML specifications
-        endpoint = '{}/specifications/{}'.format(base_endpoint, run['id'])
-        try:
-            response = requests.get(endpoint)
-            response.raise_for_status()
-        except requests.exceptions.RequestException:
-            failures.append('`{}`: `{}`: [specifications]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
-            continue
-
-        # check metadata
-        endpoint = '{}/metadata/{}'.format(base_endpoint, run['id'])
-        try:
-            response = requests.get(endpoint)
-            response.raise_for_status()
-        except requests.exceptions.RequestException:
-            failures.append('`{}`: `{}`: [metadata]({}): {}'.format(examples_api, run['id'], endpoint,  run['name']))
-            continue
-
-        # check results
-        retries = urllib3.util.retry.Retry(total=6, backoff_factor=5)
-        retry_session = requests.Session()
-        retry_session.mount(endpoint, requests.adapters.HTTPAdapter(max_retries=retries))
-
-        endpoint = '{}/results/{}?includeData=false'.format(base_endpoint, run['id'])
-        try:
-            response = retry_session.get(endpoint)
-            response.raise_for_status()
-        except requests.exceptions.RequestException:
-            failures.append('`{}`: `{}`: [results]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
-            continue
-
-        endpoint = '{}/results/{}/download'.format(base_endpoint, run['id'])
-        try:
-            response = requests.get(endpoint)
-            response.raise_for_status()
-        except requests.exceptions.RequestException:
-            failures.append('`{}`: `{}`: [results download]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
-            continue
-
-        # check logs
-        endpoint = '{}/logs/{}'.format(base_endpoint, run['id'])
-        try:
-            response = requests.get(endpoint)
-            response.raise_for_status()
-        except requests.exceptions.RequestException:
-            failures.append('`{}`: `{}`: [logs]({}): {}'.format(examples_api, run['id'], endpoint, run['name']))
-            continue
+            failures.append('<details><summary><b>{} (<a href="{}" target="_blank">{}</a>)</b></summary><br/>\n{}\n</details>'.format(
+                run['name'], get_run_url(biosimulations_api, run['id']), run['id'], error,
+            ))
 
     # return list of failed runs
     return failures
@@ -153,7 +119,7 @@ if __name__ == '__main__':
     failures = get_failed_runs(examples_api, args.runbiosimulations_api)
 
     if failures:
-        msg = 'The following example simulation runs did not succeed:\n  * {}'.format('\n  * '.join(failures))
+        msg = 'The following example simulation runs did not succeed:\n\n{}'.format('\n\n'.join(failures))
         raise SystemExit(msg)
     else:
         print('All example simulation runs succeeded!')
