@@ -98,7 +98,9 @@ export class SimulationRunService {
     url?: string;
   }> {
     // Find the simulation with the id
-    const run = await this.simulationRunModel.findOne({ id }, { file: 1 }).exec();
+    const run = await this.simulationRunModel
+      .findOne({ id }, { file: 1 })
+      .exec();
 
     //Get the id of the file
     const fileId = run?.file as unknown as string;
@@ -139,13 +141,15 @@ export class SimulationRunService {
 
   public async deleteAll(): Promise<void> {
     const res: DeleteResult = await this.simulationRunModel
-      .deleteMany({ })
+      .deleteMany({})
       .exec();
 
     const count = await this.simulationRunModel.count();
-    console.log(count)
+    console.log(count);
     if (count !== 56) {
-      throw new InternalServerErrorException('Some simulation runs could not be deleted');
+      throw new InternalServerErrorException(
+        'Some simulation runs could not be deleted',
+      );
     }
   }
 
@@ -182,10 +186,7 @@ export class SimulationRunService {
   }
 
   public async get(id: string): Promise<SimulationRunModelReturnType | null> {
-    const run = await this.simulationRunModel
-      .findOne({id})
-      .lean()
-      .exec();
+    const run = await this.simulationRunModel.findOne({ id }).lean().exec();
 
     let res = null;
     if (run) {

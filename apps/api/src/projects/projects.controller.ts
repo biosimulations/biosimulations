@@ -235,9 +235,13 @@ export class ProjectsController {
   @HttpCode(204)
   public async validateProject(
     @Body() projectInput: ProjectInput,
-    @Query('validateSimulationResultsData') validateSimulationResultsData = 'false',
+    @Query('validateSimulationResultsData')
+    validateSimulationResultsData = 'false',
   ): Promise<void> {
-    await this.service.validateProject(projectInput, validateSimulationResultsData == 'true');
+    await this.service.validateProject(
+      projectInput,
+      validateSimulationResultsData == 'true',
+    );
     return;
   }
 }

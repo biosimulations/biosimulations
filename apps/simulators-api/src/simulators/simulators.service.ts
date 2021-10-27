@@ -113,27 +113,27 @@ export class SimulatorsService {
       .exec();
 
     if (res.deletedCount !== 1) {
-      throw new InternalServerErrorException('The version of the simulation tool could not be deleted');
+      throw new InternalServerErrorException(
+        'The version of the simulation tool could not be deleted',
+      );
     }
 
     return sim;
   }
 
   public async deleteMany(id: string): Promise<void> {
-    let numVersions = await this.simulator
-      .count({ id })
-      .exec();
+    let numVersions = await this.simulator.count({ id }).exec();
     if (numVersions === 0) {
       throw new NotFoundException(`No simulation tool has id '${id}'`);
     }
 
     const res = await this.simulator.deleteMany({ id: id }).exec();
 
-    numVersions = await this.simulator
-      .count({ id })
-      .exec();
+    numVersions = await this.simulator.count({ id }).exec();
     if (numVersions !== 0) {
-      throw new InternalServerErrorException('Some versions of the simulation tool could not be deleted');
+      throw new InternalServerErrorException(
+        'Some versions of the simulation tool could not be deleted',
+      );
     }
   }
 
@@ -141,7 +141,9 @@ export class SimulatorsService {
     const sims = await this.simulator.deleteMany({});
     const count = await this.simulator.count();
     if (count !== 0) {
-      throw new InternalServerErrorException('Some simulation tools could not be deleted');
+      throw new InternalServerErrorException(
+        'Some simulation tools could not be deleted',
+      );
     }
   }
 }

@@ -1,9 +1,17 @@
 import { ProjectInput } from '@biosimulations/datamodel/api';
-import { Injectable, Logger, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SimulationRunModelReturnType } from '../simulation-run/simulation-run.model';
-import { SimulationRunStatus, SimulationRunLogStatus } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunStatus,
+  SimulationRunLogStatus,
+} from '@biosimulations/datamodel/common';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
 import { FilesService } from '../files/files.service';
 import { SpecificationsService } from '../specifications/specifications.service';
@@ -27,15 +35,18 @@ import {
 } from '../specifications/specifications.model';
 import { Results, Output, OutputData } from '../results/datamodel';
 import { CombineArchiveLog } from '../logs/logs.model';
-import { SimulationRunMetadataIdModel, MetadataModel } from '../metadata/metadata.model';
+import {
+  SimulationRunMetadataIdModel,
+  MetadataModel,
+} from '../metadata/metadata.model';
 
 type CheckResult =
-    | FileModel[]
-    | SpecificationsModel[]
-    | Results
-    | CombineArchiveLog
-    | SimulationRunMetadataIdModel
-    | null;
+  | FileModel[]
+  | SpecificationsModel[]
+  | Results
+  | CombineArchiveLog
+  | SimulationRunMetadataIdModel
+  | null;
 
 interface Check {
   check: Promise<CheckResult>;
@@ -122,7 +133,9 @@ export class ProjectsService {
     const res: DeleteResult = await this.model.deleteMany({});
     const count = await this.model.count();
     if (count !== 0) {
-      throw new InternalServerErrorException('Some projects could not be deleted');
+      throw new InternalServerErrorException(
+        'Some projects could not be deleted',
+      );
     }
     return;
   }
@@ -143,7 +156,9 @@ export class ProjectsService {
       .deleteOne({ id: id })
       .collation(ProjectIdCollation);
     if (res.deletedCount !== 1) {
-      throw new InternalServerErrorException('The project could not be deleted');
+      throw new InternalServerErrorException(
+        'The project could not be deleted',
+      );
     }
     return;
   }
@@ -153,8 +168,14 @@ export class ProjectsService {
    * @param projectInput project
    * @param validateSimulationResultsData whether to validate the data for each SED-ML report and plot of each SED-ML document
    */
-  public async validateProject(projectInput: ProjectInput, validateSimulationResultsData = false): Promise<void> {
-    await this.validateRunForPublication(projectInput.simulationRun, validateSimulationResultsData);
+  public async validateProject(
+    projectInput: ProjectInput,
+    validateSimulationResultsData = false,
+  ): Promise<void> {
+    await this.validateRunForPublication(
+      projectInput.simulationRun,
+      validateSimulationResultsData,
+    );
     const project = new this.model(projectInput);
     await project.validate();
   }
@@ -171,7 +192,10 @@ export class ProjectsService {
    * @param id id of the simulation run
    * @param validateSimulationResultsData whether to validate the data for each SED-ML report and plot of each SED-ML document
    */
-  private async validateRunForPublication(id: string, validateSimulationResultsData = false): Promise<void> {
+  private async validateRunForPublication(
+    id: string,
+    validateSimulationResultsData = false,
+  ): Promise<void> {
     let run!: SimulationRunModelReturnType | null;
     try {
       run = await this.simulationRunService.get(id);
@@ -236,10 +260,14 @@ export class ProjectsService {
       {
         check: this.specificationsService.getSpecificationsBySimulation(id),
         errorMessage: `Simulation specifications (SED-ML documents) could not be found for simulation run ${id}. For publication, simulation experiments must be valid SED-ML documents. Please check that the SED-ML documents in the COMBINE archive are valid. More information is available at https://biosimulators.org/conventions/simulation-experiments and https://run.biosimulations.org/utils/validate-project.`,
-        isValid: (specifications: SpecificationsModel[]): boolean => specifications.length > 0,
+        isValid: (specifications: SpecificationsModel[]): boolean =>
+          specifications.length > 0,
       },
       {
-        check: this.resultsService.getResults(id, validateSimulationResultsData),
+        check: this.resultsService.getResults(
+          id,
+          validateSimulationResultsData,
+        ),
         errorMessage: `Simulation results could not be found for run ${id}. For publication, simulation runs produce at least one SED-ML report or plot.`,
         isValid: (results: Results): boolean => results?.outputs?.length > 0,
       },
@@ -248,8 +276,7 @@ export class ProjectsService {
         errorMessage: `Simulation log could not be found for run ${id}. For publication, simulation runs must have validate logs. More information is available at https://biosimulators.org/conventions/simulation-logs.`,
         isValid: (log: CombineArchiveLog): boolean => {
           return (
-            log.status === SimulationRunLogStatus.SUCCEEDED
-            && !!log.output
+            log.status === SimulationRunLogStatus.SUCCEEDED && !!log.output
           );
         },
       },
@@ -260,16 +287,18 @@ export class ProjectsService {
           if (!metadata) {
             return false;
           }
-          const archiveMetadata = metadata.metadata.filter((metadata: MetadataModel): boolean => {
-            return metadata.uri.search('/') === -1;
-          });
+          const archiveMetadata = metadata.metadata.filter(
+            (metadata: MetadataModel): boolean => {
+              return metadata.uri.search('/') === -1;
+            },
+          );
           return archiveMetadata.length === 1;
         },
       },
     ];
 
     const checkResults: PromiseSettledResult<any>[] = await Promise.allSettled(
-      checks.map((check: Check) => check.check)
+      checks.map((check: Check) => check.check),
     );
 
     const checksAreValid: boolean[] = [];
@@ -280,15 +309,12 @@ export class ProjectsService {
 
       if (result.status !== 'fulfilled') {
         errors.push(check.errorMessage + '\n  ' + result.reason);
-
       } else if (result.value === undefined) {
         checkIsValid = false;
         errors.push(check.errorMessage);
-
       } else if (!check.isValid(result.value)) {
         checkIsValid = false;
         errors.push(check.errorMessage);
-
       } else {
         checkIsValid = true;
       }
@@ -298,10 +324,10 @@ export class ProjectsService {
 
     /* check that there are results for all specified SED-ML reports and plots */
     if (
-      checkResults[1].status === 'fulfilled'
-      && checkResults[2].status === 'fulfilled'
-      && checksAreValid[1]
-      && checksAreValid[2]
+      checkResults[1].status === 'fulfilled' &&
+      checkResults[2].status === 'fulfilled' &&
+      checksAreValid[1] &&
+      checksAreValid[2]
     ) {
       const specs: SpecificationsModel[] = checkResults[1].value;
       const results: Results = checkResults[2].value;
@@ -397,7 +423,7 @@ export class ProjectsService {
           output.type === 'SedReport' ? 'Report DataSet' : 'Plot DataGenerator';
 
         output.data.forEach((data: OutputData): void => {
-          const uri = type + ': `' + docLocationOutputId + '/' + data.id + '`'
+          const uri = type + ': `' + docLocationOutputId + '/' + data.id + '`';
           dataSetUris.add(uri);
           if (validateSimulationResultsData && !Array.isArray(data.values)) {
             unrecordedDatSetUris.add(uri);
@@ -423,8 +449,10 @@ export class ProjectsService {
             unproducedDatSetUris.join('\n  * '),
         );
       } else if (unrecordedDatSetUris.size) {
-        errors.push('Data was not recorded for the following data sets for reports and data generators for plots.\n\n  * ' +
-          Array.from(unrecordedDatSetUris).sort().join('\n  * '));
+        errors.push(
+          'Data was not recorded for the following data sets for reports and data generators for plots.\n\n  * ' +
+            Array.from(unrecordedDatSetUris).sort().join('\n  * '),
+        );
       }
     }
 
