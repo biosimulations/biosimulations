@@ -46,7 +46,7 @@ export class MetadataService {
   public async createMetadata(
     data: SimulationRunMetadataInput,
   ): Promise<SimulationRunMetadataIdModel> {
-    const sim = await this.simulationModel.findById(data.id);
+    const sim = await this.simulationModel.findById(data.id).catch((_) => null);
     if (!sim) {
       throw new Error('Simulation not found');
     }

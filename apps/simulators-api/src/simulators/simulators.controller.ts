@@ -226,7 +226,7 @@ export class SimulatorsController {
   }
 
   private async getSimulatorById(id: string, includeTests: boolean) {
-    const res = await this.service.findById(id, includeTests);
+    const res = await this.service.findById(id, includeTests).catch((_) => null);
     if (!res?.length) {
       throw new NotFoundException(`Simulator with id '${id}' was not found`);
     }

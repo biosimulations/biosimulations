@@ -28,6 +28,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
+  ApiResponse,
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiExtraModels,
@@ -40,7 +41,6 @@ import {
   ApiUnsupportedMediaTypeResponse,
   getSchemaPath,
   ApiParam,
-  ApiBody,
   ApiUnauthorizedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
@@ -311,16 +311,20 @@ export class SimulationRunController {
   @ApiOperation({
     summary: 'Modify a simulation run',
     description: 'Change the status or information of a simulation run',
+    requestBody: {
+      content: {
+        'application/json': {
+          encoding: { body: { contentType: 'application/json' } },
+          schema: { $ref: getSchemaPath(UpdateSimulationRun) },
+        },
+      },
+    },
   })
   @ApiParam({
     name: 'runId',
     description: 'Id of a simulation run',
     required: true,
     type: String,
-  })
-  @ApiBody({
-    description: 'Specifications of the simulation run',
-    type: UpdateSimulationRun,
   })
   @permissions('write:SimulationRuns')
   @ApiUnauthorizedResponse({
@@ -333,6 +337,10 @@ export class SimulationRunController {
       'This account does not have permission to save simulation runs',
   })
   @Patch(':runId')
+  @ApiNotFoundResponse({
+    description: 'No simulation run has the requested id',
+    type: ErrorResponseDocument,
+  })
   @ApiOkResponse({
     description: 'The simulation run was successfully updated',
     type: SimulationRun,
@@ -426,12 +434,12 @@ export class SimulationRunController {
     type: ErrorResponseDocument,
   })
   @Get(':runId/download')
-  @ApiNoContentResponse({
+  @ApiResponse({
+    status: 302,
     description:
-      'The COMBINE/OMEX archive for the run was successfully downloaded',
+      'The request was successfully redirected to download the COMBINE/OMEX archive for the run',
   })
   @ApiTags('Downloads')
-  @HttpCode(204)
   public async download(
     @Param('runId') runId: string,
     @Res({ passthrough: true }) response: Response,
