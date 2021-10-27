@@ -35,7 +35,9 @@ export class CompleteProcessor {
     const id = data.simId;
     const projectId = data.projectId;
 
-    this.logger.debug(`Simulation ${id} finished. Saving files, specifications, results, logs, metadata ...`);
+    this.logger.debug(
+      `Simulation ${id} finished. Saving files, specifications, results, logs, metadata ...`,
+    );
 
     const processingSteps = [
       {
@@ -66,7 +68,9 @@ export class CompleteProcessor {
     ];
 
     const processingResults: PromiseSettledResult<void>[] =
-      await Promise.allSettled(processingSteps.map((processingStep) => processingStep.result));
+      await Promise.allSettled(
+        processingSteps.map((processingStep) => processingStep.result),
+      );
 
     // Keep track of which processing step(s) failed
     const errors: string[] = [];
@@ -82,7 +86,7 @@ export class CompleteProcessor {
           errors.push(reason);
           this.logger.error(reason);
         } else {
-          warnings.push(reason)
+          warnings.push(reason);
           this.logger.warn(reason);
         }
       }
@@ -96,7 +100,9 @@ export class CompleteProcessor {
 
       this.simStatusService
         .updateStatus(id, SimulationRunStatus.SUCCEEDED, msg)
-        .then((run) => this.logger.log(`Updated status of simulation ${id} to SUCCEEDED`));
+        .then((run) =>
+          this.logger.log(`Updated status of simulation ${id} to SUCCEEDED`),
+        );
 
       if (projectId) {
         const projectInput: ProjectInput = {
@@ -111,16 +117,32 @@ export class CompleteProcessor {
             this.projectService
               .updateProject(projectId, projectInput)
               .toPromise()
-              .then((project) => this.logger.log(`Updated project ${projectId} for simulation ${id}`))
-              .catch((err) => this.logger.log(`Project ${projectId} could not be updated with simulation ${id}`));
+              .then((project) =>
+                this.logger.log(
+                  `Updated project ${projectId} for simulation ${id}`,
+                ),
+              )
+              .catch((err) =>
+                this.logger.log(
+                  `Project ${projectId} could not be updated with simulation ${id}`,
+                ),
+              );
           })
           .catch((err: AxiosError) => {
             if (err?.response?.status === 404) {
               this.projectService
                 .createProject(projectInput)
                 .toPromise()
-                .then((project) => this.logger.log(`Created project ${projectId} for simulation ${id}`))
-                .catch((err) => this.logger.log(`Project ${projectId} could not be created with simulation ${id}`));
+                .then((project) =>
+                  this.logger.log(
+                    `Created project ${projectId} for simulation ${id}`,
+                  ),
+                )
+                .catch((err) =>
+                  this.logger.log(
+                    `Project ${projectId} could not be created with simulation ${id}`,
+                  ),
+                );
             } else {
               this.logger.error('Failed to update status');
               this.logger.error(err);
@@ -136,7 +158,13 @@ export class CompleteProcessor {
 
       this.simStatusService
         .updateStatus(id, SimulationRunStatus.FAILED, msg)
-        .then((run) => this.logger.error(`Updated status of simulation ${id} to FAILED due to one or more processing errors:\n  * ${errors.join('\n  * ')}`));
+        .then((run) =>
+          this.logger.error(
+            `Updated status of simulation ${id} to FAILED due to one or more processing errors:\n  * ${errors.join(
+              '\n  * ',
+            )}`,
+          ),
+        );
     }
   }
 }

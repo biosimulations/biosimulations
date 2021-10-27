@@ -9,9 +9,7 @@ import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { ConfigService } from '@biosimulations/shared/angular';
-import {
-  SimulationRunMetadata,
-} from '@biosimulations/datamodel/api';
+import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
 import {
   Simulation,
   UnknownSimulation,

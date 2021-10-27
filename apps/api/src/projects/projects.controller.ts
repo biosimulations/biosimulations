@@ -94,7 +94,7 @@ export class ProjectsController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
-      'The simulation run is not valid for publication (e.g., run didn\'t succeed or metadata doesn\'t meet minimum requirements)',
+      "The simulation run is not valid for publication (e.g., run didn't succeed or metadata doesn't meet minimum requirements)",
   })
   @ApiConflictResponse({
     type: ErrorResponseDocument,
@@ -133,7 +133,7 @@ export class ProjectsController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
-      'The simulation run is not valid for publication (e.g., run didn\'t succeed or metadata doesn\'t meet minimum requirements)',
+      "The simulation run is not valid for publication (e.g., run didn't succeed or metadata doesn't meet minimum requirements)",
   })
   @ApiOkResponse({
     description:
@@ -218,7 +218,9 @@ export class ProjectsController {
   @ApiNoContentResponse({
     description: 'The simulation run is valid for publication.',
   })
-  public async validateProject(@Body() projectInput: ProjectInput): Promise<void> {
+  public async validateProject(
+    @Body() projectInput: ProjectInput,
+  ): Promise<void> {
     await this.service.validateProject(projectInput);
     return;
   }

@@ -10,7 +10,10 @@ import {
   SimulationRunModel,
   SimulationRunModelSchema,
 } from '../simulation-run/simulation-run.model';
-import { SimulationFile, SimulationFileSchema } from '../simulation-run/file.model';
+import {
+  SimulationFile,
+  SimulationFileSchema,
+} from '../simulation-run/file.model';
 import { HttpModule } from '@nestjs/axios';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 
@@ -35,7 +38,10 @@ import { ResultsService } from '../results/results.service';
 import { HSDSClientModule } from '@biosimulations/hsds/client';
 
 import { MetadataService } from '../metadata/metadata.service';
-import { SimulationRunMetadataModel, SimulationRunMetadataSchema } from '../metadata/metadata.model';
+import {
+  SimulationRunMetadataModel,
+  SimulationRunMetadataSchema,
+} from '../metadata/metadata.model';
 
 @Module({
   imports: [
@@ -55,7 +61,7 @@ import { SimulationRunMetadataModel, SimulationRunMetadataSchema } from '../meta
       },
       {
         name: FileModel.name,
-        schema: FileModelSchema
+        schema: FileModelSchema,
       },
       {
         name: SpecificationsModel.name,

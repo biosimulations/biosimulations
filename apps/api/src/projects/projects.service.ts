@@ -16,13 +16,28 @@ import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { FileModel } from '../files/files.model';
-import { SpecificationsModel, SedReport, SedPlot2D, SedPlot3D, SedDataSet, SedCurve, SedSurface } from '../specifications/specifications.model';
+import {
+  SpecificationsModel,
+  SedReport,
+  SedPlot2D,
+  SedPlot3D,
+  SedDataSet,
+  SedCurve,
+  SedSurface,
+} from '../specifications/specifications.model';
 import { Results } from '../results/datamodel';
 import { CombineArchiveLog } from '../logs/logs.model';
 import { SimulationRunMetadataModel } from '../metadata/metadata.model';
 
 interface Check {
-  check: Promise<FileModel[] | SpecificationsModel[] | Results | CombineArchiveLog | (SimulationRunMetadataModel & { _id: any }) | null>;
+  check: Promise<
+    | FileModel[]
+    | SpecificationsModel[]
+    | Results
+    | CombineArchiveLog
+    | (SimulationRunMetadataModel & { _id: any })
+    | null
+  >;
   errorMessage: string;
 }
 
@@ -53,11 +68,15 @@ export class ProjectsService {
   public async getProject(id: string): Promise<ProjectModel | null> {
     this.logger.log(`Fetching project ${id}`);
 
-    const project = await this.model.findOne({ id }).collation(ProjectIdCollation);
+    const project = await this.model
+      .findOne({ id })
+      .collation(ProjectIdCollation);
     return project;
   }
 
-  public async createProject(projectInput: ProjectInput): Promise<ProjectModel> {
+  public async createProject(
+    projectInput: ProjectInput,
+  ): Promise<ProjectModel> {
     await this.validateRunForPublication(projectInput.simulationRun);
     const project = new this.model(projectInput);
     return project.save();
@@ -116,9 +135,7 @@ export class ProjectsService {
    *
    * @param id id of the simulation run
    */
-  private async validateRunForPublication(
-    id: string,
-  ): Promise<void> {
+  private async validateRunForPublication(id: string): Promise<void> {
     let run!: SimulationRunModelReturnType | null;
     try {
       run = await this.simulationRunService.get(id);
@@ -131,9 +148,10 @@ export class ProjectsService {
     }
 
     if (!run) {
-      throw new BiosimulationsException(400,
+      throw new BiosimulationsException(
+        400,
         'Simulation run is not valid for publication.',
-        `A simulation run with id ${id} could not be found. Only successful simulation runs can be published.`
+        `A simulation run with id ${id} could not be found. Only successful simulation runs can be published.`,
       );
     }
 
@@ -144,22 +162,28 @@ export class ProjectsService {
      */
 
     if (run.status !== SimulationRunStatus.SUCCEEDED) {
-      errors.push(`The run did not succeed. The status of the run is ${run.status}. Only successful simulation runs can be published.`);
+      errors.push(
+        `The run did not succeed. The status of the run is ${run.status}. Only successful simulation runs can be published.`,
+      );
     }
-    
+
     if (!run.projectSize) {
-      errors.push(`The run did not succeed. The status of the run is ${run.status}. Only successful simulation runs can be published.`);
+      errors.push(
+        `The run did not succeed. The status of the run is ${run.status}. Only successful simulation runs can be published.`,
+      );
     }
 
     if (!run.resultsSize) {
-      errors.push(`The run did not succeed. The status of the run is ${run.status}. Only successful simulation runs can be published.`);
+      errors.push(
+        `The run did not succeed. The status of the run is ${run.status}. Only successful simulation runs can be published.`,
+      );
     }
 
     if (errors.length) {
       throw new BiosimulationsException(
         400,
         'Simulation run is not valid for publication.',
-        errors.join('\n\n')
+        errors.join('\n\n'),
       );
     }
 
@@ -190,9 +214,10 @@ export class ProjectsService {
       },
     ];
 
-    const checkResults: PromiseSettledResult<any>[] =
-      await Promise.allSettled(checks.map((check: Check) => check.check));
-    
+    const checkResults: PromiseSettledResult<any>[] = await Promise.allSettled(
+      checks.map((check: Check) => check.check),
+    );
+
     for (let iCheck = 0; iCheck < checks.length; iCheck++) {
       const check = checks[iCheck];
       const result = checkResults[iCheck];
@@ -201,10 +226,13 @@ export class ProjectsService {
       }
     }
 
-    if (checkResults[1].status === 'fulfilled' && checkResults[2].status === 'fulfilled') {
+    if (
+      checkResults[1].status === 'fulfilled' &&
+      checkResults[2].status === 'fulfilled'
+    ) {
       const specs: SpecificationsModel[] = checkResults[1].value;
       const results: Results = checkResults[2].value;
-      
+
       const expectedDataSetUris = new Set<string>();
       specs.forEach((spec: SpecificationsModel): void => {
         let docLocation = spec.id;
@@ -214,20 +242,66 @@ export class ProjectsService {
 
         spec.outputs.forEach((output): void => {
           if (output._type === 'SedReport') {
-            (output as SedReport).dataSets.forEach((dataSet: SedDataSet): void => {
-              expectedDataSetUris.add('Report DataSet: ' + docLocation + '/' + output.id + '/' + dataSet.id);
-            })
+            (output as SedReport).dataSets.forEach(
+              (dataSet: SedDataSet): void => {
+                expectedDataSetUris.add(
+                  'Report DataSet: ' +
+                    docLocation +
+                    '/' +
+                    output.id +
+                    '/' +
+                    dataSet.id,
+                );
+              },
+            );
           } else if (output._type === 'SedPlot2D') {
             (output as SedPlot2D).curves.forEach((curve: SedCurve): void => {
-              expectedDataSetUris.add('Plot DataGenerator: ' + docLocation + '/' + output.id + '/' + curve.xDataGenerator.id);
-              expectedDataSetUris.add('Plot DataGenerator: ' + docLocation + '/' + output.id + '/' + curve.yDataGenerator.id);
+              expectedDataSetUris.add(
+                'Plot DataGenerator: ' +
+                  docLocation +
+                  '/' +
+                  output.id +
+                  '/' +
+                  curve.xDataGenerator.id,
+              );
+              expectedDataSetUris.add(
+                'Plot DataGenerator: ' +
+                  docLocation +
+                  '/' +
+                  output.id +
+                  '/' +
+                  curve.yDataGenerator.id,
+              );
             });
           } else {
-            (output as SedPlot3D).surfaces.forEach((surface: SedSurface): void => {
-              expectedDataSetUris.add('Plot DataGenerator: ' + docLocation + '/' + output.id + '/' + surface.xDataGenerator.id);
-              expectedDataSetUris.add('Plot DataGenerator: ' + docLocation + '/' + output.id + '/' + surface.yDataGenerator.id);
-              expectedDataSetUris.add('Plot DataGenerator: ' + docLocation + '/' + output.id + '/' + surface.zDataGenerator.id);
-            });
+            (output as SedPlot3D).surfaces.forEach(
+              (surface: SedSurface): void => {
+                expectedDataSetUris.add(
+                  'Plot DataGenerator: ' +
+                    docLocation +
+                    '/' +
+                    output.id +
+                    '/' +
+                    surface.xDataGenerator.id,
+                );
+                expectedDataSetUris.add(
+                  'Plot DataGenerator: ' +
+                    docLocation +
+                    '/' +
+                    output.id +
+                    '/' +
+                    surface.yDataGenerator.id,
+                );
+                expectedDataSetUris.add(
+                  'Plot DataGenerator: ' +
+                    docLocation +
+                    '/' +
+                    output.id +
+                    '/' +
+                    surface.zDataGenerator.id,
+                );
+              },
+            );
           }
         });
       });
@@ -239,26 +313,31 @@ export class ProjectsService {
           docLocationOutputId = docLocationOutputId.substring(2);
         }
 
-        const type = output.type === 'SedReport' ? 'Report DataSet' : 'Plot DataGenerator';
+        const type =
+          output.type === 'SedReport' ? 'Report DataSet' : 'Plot DataGenerator';
 
         output.data.forEach((data): void => {
-          dataSetUris.add(type + ': ' + docLocationOutputId + '/' + data.id)
+          dataSetUris.add(type + ': ' + docLocationOutputId + '/' + data.id);
         });
       });
 
-      const unproducedDatSetUris = [...expectedDataSetUris].filter(uri => !dataSetUris.has(uri));
+      const unproducedDatSetUris = [...expectedDataSetUris].filter(
+        (uri) => !dataSetUris.has(uri),
+      );
 
       if (expectedDataSetUris.size === 0) {
-        errors.push('Simulation run does not specify any SED reports or plots. For publication, simulation runs must produce data for at least one SED-ML report or plot.');
+        errors.push(
+          'Simulation run does not specify any SED reports or plots. For publication, simulation runs must produce data for at least one SED-ML report or plot.',
+        );
       } else if (unproducedDatSetUris.length) {
         unproducedDatSetUris.sort();
-        errors.push((
-          'One or more data sets of reports or data generators of plots was not recorded. '
-          + 'For publication, there must be simulation results for each data set and data '
-          + 'generator specified in each SED-ML documents in the COMBINE archive. The '
-          + 'following data sets and data generators were not recorded.\n\n  * '
-          + unproducedDatSetUris.join('\n  * ')
-        ));
+        errors.push(
+          'One or more data sets of reports or data generators of plots was not recorded. ' +
+            'For publication, there must be simulation results for each data set and data ' +
+            'generator specified in each SED-ML documents in the COMBINE archive. The ' +
+            'following data sets and data generators were not recorded.\n\n  * ' +
+            unproducedDatSetUris.join('\n  * '),
+        );
       }
     }
 

@@ -238,7 +238,8 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
 ]) {
   @ApiPropertyOptional({
     type: String,
-    description: 'Unique id of the project that the run should be published to upon successful completion. If the project already exists, the existing run will be overwritten by the new run.',
+    description:
+      'Unique id of the project that the run should be published to upon successful completion. If the project already exists, the existing run will be overwritten by the new run.',
     pattern: '^[a-zA-Z0-9_-]{3,}$',
   })
   projectId?: string;

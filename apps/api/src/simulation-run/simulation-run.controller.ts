@@ -213,7 +213,9 @@ export class SimulationRunController {
     return response;
   }
 
-  private getRunForFile(body: multipartSimulationRunBody | UploadSimulationRunUrl): UploadSimulationRun {
+  private getRunForFile(
+    body: multipartSimulationRunBody | UploadSimulationRunUrl,
+  ): UploadSimulationRun {
     let parsedRun: UploadSimulationRun;
 
     try {

@@ -1,13 +1,10 @@
-import {
-  Project,
-  ProjectInput,
-} from '@biosimulations/datamodel/api';
+import { Project, ProjectInput } from '@biosimulations/datamodel/api';
 import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { Endpoints } from '@biosimulations/config/common';
 import { AuthClientService } from '@biosimulations/auth/client';
-import { pluck, map, mergeMap, } from 'rxjs/operators';
+import { pluck, map, mergeMap } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 
 @Injectable({})
@@ -41,28 +38,18 @@ export class ProjectService {
 
   public createProject(project: ProjectInput): Observable<Project> {
     const endpoint = this.endpoints.getProjectsEndpoint();
-    return this.postAuthenticated<
-      ProjectInput,
-      Project
-    >(endpoint, project);
+    return this.postAuthenticated<ProjectInput, Project>(endpoint, project);
   }
-  
-  public updateProject(
-    id: string,
-    project: ProjectInput,
-  ): Observable<Project> {
+
+  public updateProject(id: string, project: ProjectInput): Observable<Project> {
     const response = from(this.auth.getToken()).pipe(
       map((token) => {
         const httpRes = this.http
-          .put<Project>(
-            this.endpoints.getProjectsEndpoint(id),
-            project,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
+          .put<Project>(this.endpoints.getProjectsEndpoint(id), project, {
+            headers: {
+              Authorization: `Bearer ${token}`,
             },
-          )
+          })
           .pipe(pluck('data'));
 
         return httpRes;

@@ -1,11 +1,6 @@
 import { ApiProperty, ApiResponseProperty, OmitType } from '@nestjs/swagger';
 import { Project as IProject } from '@biosimulations/datamodel/common';
-import {
-  IsNotEmpty,
-  IsString,
-  Matches,
-  IsMongoId,
-} from 'class-validator';
+import { IsNotEmpty, IsString, Matches, IsMongoId } from 'class-validator';
 
 export class Project implements IProject {
   @ApiProperty({
@@ -14,18 +9,33 @@ export class Project implements IProject {
       'Unique id of at least three letters, numbers, underscores, and dashes',
     pattern: '^[a-zA-Z0-9_-]{3,}$',
   })
-  @IsString({message: '\'id\' must be a unique combination of at least three letters, numbers, underscores, and dashes'})
-  @IsNotEmpty({message: '\'id\' must be a unique combination of at least three letters, numbers, underscores, and dashes'})
-  @Matches(/^[a-zA-Z0-9_-]{3,}$/, {message: '\'id\' must be a unique combination of at least three letters, numbers, underscores, and dashes'})
+  @IsString({
+    message:
+      "'id' must be a unique combination of at least three letters, numbers, underscores, and dashes",
+  })
+  @IsNotEmpty({
+    message:
+      "'id' must be a unique combination of at least three letters, numbers, underscores, and dashes",
+  })
+  @Matches(/^[a-zA-Z0-9_-]{3,}$/, {
+    message:
+      "'id' must be a unique combination of at least three letters, numbers, underscores, and dashes",
+  })
   public id!: string;
 
   @ApiProperty({
     type: String,
     description: 'Id of the runBioSimulations simulation run for the project',
   })
-  @IsString({ message: '\'simulationRun\' must be the identifier of a simulation run'})
-  @IsNotEmpty({ message: '\'simulationRun\' must be the identifier of a simulation run'})
-  @IsMongoId({ message: '\'simulationRun\' must be the identifier of a simulation run'})
+  @IsString({
+    message: "'simulationRun' must be the identifier of a simulation run",
+  })
+  @IsNotEmpty({
+    message: "'simulationRun' must be the identifier of a simulation run",
+  })
+  @IsMongoId({
+    message: "'simulationRun' must be the identifier of a simulation run",
+  })
   public simulationRun!: string;
 
   @ApiResponseProperty({

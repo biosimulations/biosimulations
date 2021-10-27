@@ -6,11 +6,17 @@ import { ProjectsService } from './projects.service';
 import { FilesService } from '../files/files.service';
 import { SpecificationsService } from '../specifications/specifications.service';
 import { SimulationHDFService } from '@biosimulations/hsds/client';
-import { SimulationFile, SimulationFileSchema } from '../simulation-run/file.model';
+import {
+  SimulationFile,
+  SimulationFileSchema,
+} from '../simulation-run/file.model';
 import { FileModel } from '../files/files.model';
 import { SpecificationsModel } from '../specifications/specifications.model';
 import { SimulationRunLog, CombineArchiveLog } from '../logs/logs.model';
-import { SimulationRunMetadataModel, SimulationRunMetadataSchema } from '../metadata/metadata.model';
+import {
+  SimulationRunMetadataModel,
+  SimulationRunMetadataSchema,
+} from '../metadata/metadata.model';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
 import { ResultsService } from '../results/results.service';
 import { LogsService } from '../logs/logs.service';
@@ -64,7 +70,7 @@ describe('ProjectsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [HttpModule, SharedNatsClientModule, BiosimulationsConfigModule],
       providers: [
-        { provide: getModelToken(ProjectModel.name), useValue: {} },        
+        { provide: getModelToken(ProjectModel.name), useValue: {} },
         {
           provide: getModelToken(SimulationFile.name),
           useClass: mockFile,
@@ -83,7 +89,10 @@ describe('ProjectsService', () => {
           provide: getModelToken(CombineArchiveLog.name),
           useValue: mockModel,
         },
-        { provide: getModelToken(SimulationRunMetadataModel.name), useValue: {} },
+        {
+          provide: getModelToken(SimulationRunMetadataModel.name),
+          useValue: {},
+        },
         { provide: SharedStorageService, useClass: mockStorage },
         { provide: SimulationStorageService, useClass: mockStorage },
         {
