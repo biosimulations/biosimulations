@@ -443,6 +443,10 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: nkeys.js/node_modules/@types/node/LICENSE
+├─ @types/node@14.17.32
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+│  └─ licenseFile: @types/node/LICENSE
 ├─ @types/node@16.11.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -710,7 +714,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.1012.0
+├─ aws-sdk@2.1016.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services
@@ -3087,13 +3091,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mongodb-js/mongodb-connection-string-url
 │  └─ licenseFile: mongodb-connection-string-url/LICENSE
-├─ mongodb@4.1.2
+├─ mongodb@4.1.3
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mongodb/node-mongodb-native
 │  ├─ publisher: The MongoDB NodeJS Team
 │  ├─ email: dbx-node@mongodb.com
 │  └─ licenseFile: mongodb/LICENSE.md
-├─ mongoose@6.0.11
+├─ mongoose@6.0.12
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Automattic/mongoose
 │  ├─ publisher: Guillermo Rauch
@@ -4276,7 +4280,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: dominic.tarr@gmail.com
 │  ├─ url: http://bit.ly/dominictarr
 │  └─ licenseFile: split/LICENCE
-├─ ssh2@1.4.0
+├─ ssh2@1.5.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mscdex/ssh2
 │  ├─ publisher: Brian White
