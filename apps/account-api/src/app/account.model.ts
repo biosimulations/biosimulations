@@ -1,23 +1,27 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { IsString, IsBoolean, IsUrl } from 'class-validator';
+import { IsString, IsBoolean, IsUrl, IsOptional } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
 
 // TODO abstract this to the datamodel library
 export class Profile {
   @ApiProperty({ type: String, nullable: true })
+  @IsOptional()
   @IsString()
   firstName!: string | null;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
+  @IsOptional()
   @IsString()
   middleName!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
+  @IsOptional()
   @IsString()
   lastName!: string | null;
 
   @ApiProperty({ type: String, nullable: true })
+  @IsOptional()
   @IsUrl()
   image!: string | null;
 
@@ -26,25 +30,31 @@ export class Profile {
   userName!: string;
 
   @ApiProperty({ type: String, nullable: true })
+  @IsOptional()
   @IsString()
   organization: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
+  @IsOptional()
   @IsUrl()
   website: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
+  @IsOptional()
   @IsString()
   description: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
+  @IsOptional()
   @IsString()
   summary: string | null = null;
 
   @ApiProperty({ type: Array })
+  @IsOptional()
   externalProfiles: any[] | null = [];
 
   @ApiProperty({ type: [String], nullable: true })
+  @IsOptional()
   emails: string[] | null = null;
 
   constructor(profile: any) {

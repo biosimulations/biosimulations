@@ -11,7 +11,7 @@ import {
   ISpdxOntologyId,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { Equals, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { Equals, IsEnum, IsNotEmpty, IsString, IsOptional } from 'class-validator';
 
 export class OntologyId implements IOntologyId {
   @IsEnum(Ontologies)
@@ -45,6 +45,7 @@ export class EdamOntologyIdVersion
   @ApiProperty({ type: String, example: 'format_3973' })
   public id!: string;
 
+  @IsOptional()
   @IsString()
   @ApiProperty({ type: String, example: 'L3V2', nullable: true })
   public version!: string | null;
