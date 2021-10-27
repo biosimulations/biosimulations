@@ -15,7 +15,6 @@ import { CacheModule } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsController } from './results.controller';
-import { ResultsModel } from './results.model';
 import { ResultsService } from './results.service';
 
 describe('ResultsController', () => {
@@ -50,10 +49,6 @@ describe('ResultsController', () => {
         {
           provide: SimulationHDFService,
           useClass: MockStorageService,
-        },
-        {
-          provide: getModelToken(ResultsModel.name),
-          useClass: mockFile,
         },
         {
           provide: SharedStorageService,

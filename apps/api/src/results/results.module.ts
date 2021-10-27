@@ -9,7 +9,6 @@ import { Module } from '@nestjs/common';
 import { ResultsService } from './results.service';
 import { ResultsController } from './results.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ResultsModel, ResultsSchema } from './results.model';
 import {
   SimulationRunModel,
   SimulationRunModelSchema,
@@ -22,7 +21,6 @@ import { HSDSClientModule } from '@biosimulations/hsds/client';
     BiosimulationsAuthModule,
     HSDSClientModule,
     MongooseModule.forFeature([
-      { name: ResultsModel.name, schema: ResultsSchema },
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
     ]),
   ],

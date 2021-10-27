@@ -8,7 +8,6 @@ import { SharedStorageService } from '@biosimulations/shared/storage';
 import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ResultsModel } from './results.model';
 import { ResultsService } from './results.service';
 
 describe('ResultsService', () => {
@@ -40,10 +39,6 @@ describe('ResultsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ResultsService,
-        {
-          provide: getModelToken(ResultsModel.name),
-          useClass: mockFile,
-        },
         {
           provide: SharedStorageService,
           useClass: MockStorageService,
