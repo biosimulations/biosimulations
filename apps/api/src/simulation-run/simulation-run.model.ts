@@ -144,7 +144,7 @@ export class SimulationRunModel extends Document implements SimulationRun {
           );
         },
         message: (props: any): string =>
-          'Amount of requested RAM (in GB) must be a positive float less than or equal to 192.',
+          'Amount of requested RAM (in GB) must be a positive integer less than or equal to 192.',
       },
     ],
   })
@@ -165,7 +165,7 @@ export class SimulationRunModel extends Document implements SimulationRun {
           );
         },
         message: (props: any): string =>
-          'Amount of requested time (in min) must be a positive float less than or equal to 28800 (20 days).',
+          'Amount of requested time (in min) must be a positive integer less than or equal to 28800 (20 days).',
       },
     ],
   })

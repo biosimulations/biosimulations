@@ -32,7 +32,7 @@ export class PythonApi implements IPythonApi {
           );
         },
         message: (props: any): string =>
-          `${props.value} is not a valid URL for a Docker image (e.g., 'ghcr.io/biosimulators/tellurium:2.1.6')`,
+          `${props.value} is not a valid name for a Python module (e.g., 'biosimulators_tellurium')`,
       },
     ],
     default: undefined,

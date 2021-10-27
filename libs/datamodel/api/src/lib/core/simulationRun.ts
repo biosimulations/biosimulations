@@ -19,6 +19,21 @@ import {
   SimulationRunStatus,
   Purpose,
 } from '@biosimulations/datamodel/common';
+import {
+  IsString,
+  IsNotEmpty,
+  IsEmail,
+  IsInt,
+  IsPositive,
+  Max,
+  Matches,
+  IsMongoId,
+  ValidateNested,
+  IsEnum,
+  IsUrl,
+  IsOptional,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class EnvironmentVariable {
   @ApiProperty({
@@ -26,6 +41,8 @@ export class EnvironmentVariable {
     type: String,
     example: 'VERBOSE',
   })
+  @Matches(/^[a-zA-Z_][a-zA-Z_0-9]*$/)
+  @IsString()
   key!: string;
 
   @ApiProperty({
@@ -33,6 +50,7 @@ export class EnvironmentVariable {
     type: String,
     example: '1',
   })
+  @IsString()
   value!: string;
 }
 
@@ -46,6 +64,7 @@ export class SimulationRun implements ISimulationRun {
     type: String,
     example: '5fab1cf714f9dd3dfbcfe51b',
   })
+  @IsMongoId()
   id!: string;
 
   @ApiProperty({
@@ -53,6 +72,8 @@ export class SimulationRun implements ISimulationRun {
     type: String,
     example: 'Kockout of gene A',
   })
+  @IsNotEmpty()
+  @IsString()
   name!: string;
 
   @ApiProperty({
@@ -64,6 +85,8 @@ export class SimulationRun implements ISimulationRun {
       description: 'Simulators List',
     },
   })
+  @IsNotEmpty()
+  @IsString()
   simulator!: string;
 
   @ApiProperty({
@@ -71,6 +94,8 @@ export class SimulationRun implements ISimulationRun {
     type: String,
     example: '2.2.0',
   })
+  @IsNotEmpty()
+  @IsString()
   simulatorVersion!: string;
 
   @ApiResponseProperty({
@@ -89,6 +114,10 @@ export class SimulationRun implements ISimulationRun {
     required: false,
     default: 1,
   })
+  @IsOptional()
+  @Max(24)
+  @IsPositive()
+  @IsInt()
   cpus: number;
 
   @ApiPropertyOptional({
@@ -97,6 +126,10 @@ export class SimulationRun implements ISimulationRun {
     required: false,
     default: 8,
   })
+  @IsOptional()
+  @Max(192)
+  @IsPositive()
+  @IsInt()
   memory: number;
 
   @ApiPropertyOptional({
@@ -105,6 +138,10 @@ export class SimulationRun implements ISimulationRun {
     required: false,
     default: 20,
   })
+  @IsOptional()
+  @Max(20 * 24 * 60)
+  @IsPositive()
+  @IsInt()
   maxTime: number;
 
   @ApiPropertyOptional({
@@ -114,6 +151,9 @@ export class SimulationRun implements ISimulationRun {
     required: false,
     default: [],
   })
+  @IsOptional()
+  @Type(() => EnvironmentVariable)
+  @ValidateNested({ each: true })  
   envVars: EnvironmentVariable[];
 
   @ApiPropertyOptional({
@@ -124,6 +164,8 @@ export class SimulationRun implements ISimulationRun {
     required: false,
     default: Purpose.other,
   })
+  @IsOptional()
+  @IsEnum(Purpose)
   purpose: Purpose;
 
   @ApiPropertyOptional({
@@ -133,12 +175,17 @@ export class SimulationRun implements ISimulationRun {
     format: 'email',
     example: 'info@biosimulations.org',
   })
+  @IsOptional()
+  @IsEmail()
   email: string | null;
 
   @ApiPropertyOptional({
     description: 'Detail about the status of the simulation run',
     type: String,
   })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
   statusReason?: string;
 
   @ApiResponseProperty({
@@ -242,6 +289,9 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
       'Unique id of the project that the run should be published to upon successful completion. If the project already exists, the existing run will be overwritten by the new run.',
     pattern: '^[a-zA-Z0-9_-]{3,}$',
   })
+  @IsOptional()
+  @Matches(/^[a-zA-Z0-9_-]{3,}$/, {message: "'projectId' must be a unique combination of at least three letters, numbers, underscores, and dashes"})
+  @IsString()
   projectId?: string;
 }
 
@@ -254,6 +304,10 @@ export class UploadSimulationRunUrl extends UploadSimulationRun {
       // eslint-disable-next-line max-len
       'https://github.com/biosimulators/Biosimulators_test_suite/raw/dev/examples/sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex',
   })
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https'],
+  })
   url!: string;
 }
 
@@ -263,6 +317,7 @@ export class SimulationUpload {
     type: String,
     format: 'binary',
   })
+  @IsNotEmpty()
   file!: string;
 
   @ApiProperty({
@@ -270,6 +325,8 @@ export class SimulationUpload {
       'Details about how to execute the project (COMBINE/OMEX archive)',
     type: UploadSimulationRun,
   })
+  @Type(() => UploadSimulationRun)
+  @ValidateNested()
   simulationRun!: UploadSimulationRun;
 }
 
@@ -279,6 +336,8 @@ export class PatchSimulationRun {
     type: String,
     enum: SimulationRunStatus,
   })
+  @IsOptional()
+  @IsEnum(SimulationRunStatus)
   status?: SimulationRunStatus;
 
   @ApiPropertyOptional({
@@ -287,6 +346,9 @@ export class PatchSimulationRun {
     type: Number,
     example: 11234,
   })
+  @IsOptional()
+  @IsPositive()
+  @IsInt()
   resultsSize?: number;
 
   @ApiPropertyOptional({
@@ -294,6 +356,9 @@ export class PatchSimulationRun {
     type: Number,
     example: 11234,
   })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
   statusReason?: string;
 }
 
