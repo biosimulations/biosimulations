@@ -19,6 +19,7 @@ import {
   IsEnum,
   IsNotEmpty,
   IsString,
+  NotEquals,
   ValidateNested,
   IsOptional,
 } from 'class-validator';
@@ -50,6 +51,7 @@ export class Simulator implements ISimulator {
   @ApiProperty({ type: String, example: 'tellurium' })
   name!: string;
 
+  @NotEquals('latest')
   @IsString()
   @IsNotEmpty()
   @ApiProperty({

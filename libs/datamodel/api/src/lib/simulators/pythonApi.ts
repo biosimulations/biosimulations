@@ -1,7 +1,7 @@
 import { IPythonApi } from '@biosimulations/datamodel/common';
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, Matches, IsOptional } from 'class-validator';
 
 export class PythonApi implements IPythonApi {
   @IsString()
@@ -9,6 +9,9 @@ export class PythonApi implements IPythonApi {
   @ApiProperty({ type: String })
   public package!: string;
 
+  @Matches(/^[a-zA-Z_][a-zA-Z_0-9]*(\.[a-zA-Z_][a-zA-Z_0-9]*)*$/, {
+    message: `Value is not not a valid name for a Python module (e.g., 'biosimulators_tellurium')`
+  })
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ type: String })
