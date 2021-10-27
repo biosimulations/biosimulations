@@ -25,9 +25,9 @@ export class ResultsService {
     const dates = await timestamps;
     const results: Results = {
       simId,
+      outputs: outputs,
       created: dates.created ? dates.created.toTimeString() : '',
       updated: dates.updated ? dates.updated.toTimeString() : '',
-      outputs: outputs,
     };
 
     return results;
@@ -113,12 +113,12 @@ export class ResultsService {
 
     const ret: Output = {
       simId,
-      outputId: dataset.attributes.uri,
-      created: dataset.created ? dataset.created.toTimeString() : '',
-      updated: dataset.updated ? dataset.updated.toTimeString() : '',
-      name: dataset.attributes.sedmlName || dataset.attributes.sedmlId,
+      outputId: dataset.attributes.uri,      
+      name: dataset.attributes.sedmlName,
       type: dataset.attributes._type,
       data: data,
+      created: dataset.created ? dataset.created.toTimeString() : '',
+      updated: dataset.updated ? dataset.updated.toTimeString() : '',
     };
 
     return ret;
