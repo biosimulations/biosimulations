@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Simulator } from '@biosimulations/simulators/database-models';
 import { Simulator as APISimulator } from '@biosimulations/datamodel/api';
 import { LeanDocument, Model } from 'mongoose';
+import { DeleteResult } from 'mongodb';
 
 @Injectable()
 export class SimulatorsService {
@@ -87,7 +88,7 @@ export class SimulatorsService {
 
     if (!sim) {
       throw new NotFoundException(
-        `No simulator with id ${id} and version ${version}`,
+        `No simulation tool has id '${id}' and version '${version}'`,
       );
     }
     // Preserve the original date
@@ -104,23 +105,43 @@ export class SimulatorsService {
 
     if (!sim) {
       throw new NotFoundException(
-        `No simulator with id ${id} and version ${version}`,
+        `No simulation tool has id '${id}' and version '${version}'`,
       );
     }
-    const deleted = await this.simulator
-      .findOneAndDelete({ id: id, version: version })
+    const res: DeleteResult = await this.simulator
+      .deleteOne({ id: id, version: version })
       .exec();
+
+    if (res.deletedCount !== 1) {
+      throw new InternalServerErrorException('The version of the simulation tool could not be deleted');
+    }
 
     return sim;
   }
 
   public async deleteMany(id: string): Promise<void> {
-    const sims = await this.simulator.deleteMany({ id: id }).exec();
+    let numVersions = await this.simulator
+      .count({ id })
+      .exec();
+    if (numVersions === 0) {
+      throw new NotFoundException(`No simulation tool has id '${id}'`);
+    }
+
+    const res = await this.simulator.deleteMany({ id: id }).exec();
+
+    numVersions = await this.simulator
+      .count({ id })
+      .exec();
+    if (numVersions !== 0) {
+      throw new InternalServerErrorException('Some versions of the simulation tool could not be deleted');
+    }
   }
+
   public async deleteAll(): Promise<void> {
     const sims = await this.simulator.deleteMany({});
-    if (!sims.acknowledged) {
-      throw new InternalServerErrorException('Operation Failed');
+    const count = await this.simulator.count();
+    if (count !== 0) {
+      throw new InternalServerErrorException('Some simulation tools could not be deleted');
     }
   }
 }
