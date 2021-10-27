@@ -11,7 +11,6 @@ import { ProjectService } from '@biosimulations/angular-api-client';
 import { ConfigService } from '@biosimulations/shared/angular';
 import {
   SimulationRunMetadata,
-  ArchiveMetadata,
 } from '@biosimulations/datamodel/api';
 import {
   Simulation,
