@@ -113,7 +113,7 @@ export class ResultsService {
 
     const ret: Output = {
       simId,
-      outputId: dataset.attributes.uri,      
+      outputId: dataset.attributes.uri,
       name: dataset.attributes.sedmlName,
       type: dataset.attributes._type,
       data: data,
