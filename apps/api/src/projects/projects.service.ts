@@ -118,9 +118,6 @@ export class ProjectsService {
    */
   public async deleteProjects(): Promise<void> {    
     const res: DeleteResult = await this.model.deleteMany({});
-    if (res.deletedCount === 0) {
-      throw new InternalServerErrorException('No projects could be deleted');
-    }
     const count = await this.model.count();
     if (count !== 0) {
       throw new InternalServerErrorException('Some projects could not be deleted');
