@@ -22,7 +22,10 @@ export class Profile {
 
   @ApiProperty({ type: String, nullable: true })
   @IsOptional()
-  @IsUrl()
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https'],
+  })
   image!: string | null;
 
   @ApiProperty({ type: String, nullable: false })
@@ -36,7 +39,10 @@ export class Profile {
 
   @ApiProperty({ type: String, nullable: true })
   @IsOptional()
-  @IsUrl()
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https'],
+  })
   website: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
