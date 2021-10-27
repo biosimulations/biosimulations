@@ -5,7 +5,6 @@ import { projectIdRegExp } from './id.regex';
 
 @Schema({
   strict: 'throw',
-
   collection: 'Projects',
 })
 export class ProjectModel extends Document {
