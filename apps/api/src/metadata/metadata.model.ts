@@ -153,3 +153,5 @@ SimulationRunMetadataSchema.set('timestamps', {
   createdAt: 'created',
   updatedAt: 'updated',
 });
+
+export type SimulationRunMetadataIdModel = SimulationRunMetadataModel & { _id: any };
