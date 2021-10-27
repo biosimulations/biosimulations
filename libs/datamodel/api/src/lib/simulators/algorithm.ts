@@ -103,7 +103,7 @@ export class OutputVariablePattern implements IOutputVariablePattern {
   })
   @ValidateNested()
   @IsOptional()
-  @Type(() => ModelSymbol)
+  @Type(() => ModelTarget)
   public target!: ModelTarget | null;
 
   @ApiProperty({

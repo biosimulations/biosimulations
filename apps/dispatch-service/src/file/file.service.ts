@@ -58,7 +58,6 @@ export class FileService {
                 pluck('content-length'),
                 map((size: string) => {
                   const fileSize = parseInt(size);
-
                   const fileObject: SubmitProjectFile = new ProjectFile(
                     id + '/' + file.location.path.replace('./', ''),
                     file.location.value.filename,

@@ -58,7 +58,7 @@ export class AppController {
   }
   @Get('exists/:userId')
   async doesExist(@Param('userId') userId: string) {
-    const account = await this.accountService.findById(userId);
+    const account = await this.accountService.findById(userId).catch((_) => null);
     return account?._id === userId;
   }
 

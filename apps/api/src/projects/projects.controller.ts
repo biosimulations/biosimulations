@@ -8,11 +8,14 @@ import {
   NotFoundException,
   Post,
   Put,
+  Query,
+  HttpCode,
 } from '@nestjs/common';
 import {
   ApiNoContentResponse,
   ApiTags,
   ApiOperation,
+  ApiQuery,
   ApiBody,
   ApiOkResponse,
   ApiCreatedResponse,
@@ -153,7 +156,6 @@ export class ProjectsController {
     throw new NotFoundException(`Project with id ${projectId} not found`);
   }
 
-  @ApiNoContentResponse({ description: 'Projects deleted' })
   @Delete()
   @ApiOperation({
     summary: 'Delete all published projects',
@@ -163,6 +165,7 @@ export class ProjectsController {
     description: 'All published projects were successfully deleted',
   })
   @permissions('delete:Projects')
+  @HttpCode(204)
   public async deleteProjects(): Promise<void> {
     return this.service.deleteProjects();
   }
@@ -172,11 +175,16 @@ export class ProjectsController {
     summary: 'Delete a published project',
     description: 'Delete a published project',
   })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No project has the requested id',
+  })
   @ApiNoContentResponse({
     description: 'The project was successfully deleted',
   })
   @permissions('delete:Projects')
   @ProjectIdParam()
+  @HttpCode(204)
   public async deleteProject(
     @ProjectId('projectId') projectId: string,
   ): Promise<void> {
@@ -187,7 +195,6 @@ export class ProjectsController {
   private returnProject(projectModel: ProjectModel): Project {
     const project: Project = {
       id: projectModel.id,
-
       simulationRun: projectModel.simulationRun,
       created: projectModel.created,
       updated: projectModel.updated,
@@ -201,6 +208,13 @@ export class ProjectsController {
     summary: 'Validate a simulation run for publication',
     description:
       'Check whether a simulation is valid for publication (e.g, succeeded and provides the [minimum required metadata](https://biosimulators.org/conventions/metadata). Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. 400 errors include diagnostic information which describe why the run cannot be published.',
+  })
+  @ApiQuery({
+    name: 'validateSimulationResultsData',
+    description:
+      'Whether to validate the data (e.g., numerical simulation results) for each SED-ML report and plot for each SED-ML document. Default: false.',
+    required: false,
+    type: Boolean,
   })
   @ApiBody({
     description: 'Information about the simulation run to publish.',
@@ -218,10 +232,12 @@ export class ProjectsController {
   @ApiNoContentResponse({
     description: 'The simulation run is valid for publication.',
   })
+  @HttpCode(204)
   public async validateProject(
     @Body() projectInput: ProjectInput,
+    @Query('validateSimulationResultsData') validateSimulationResultsData = 'false',
   ): Promise<void> {
-    await this.service.validateProject(projectInput);
+    await this.service.validateProject(projectInput, validateSimulationResultsData == 'true');
     return;
   }
 }

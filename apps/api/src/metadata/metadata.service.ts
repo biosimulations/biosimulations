@@ -7,7 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
-import { SimulationRunMetadataModel } from './metadata.model';
+import { SimulationRunMetadataModel, SimulationRunMetadataIdModel } from './metadata.model';
 import { Endpoints } from '@biosimulations/config/common';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class MetadataService {
   }
   public async getAllMetadata(
     includePrivate = false,
-  ): Promise<(SimulationRunMetadataModel & { _id: any })[] | null> {
+  ): Promise<(SimulationRunMetadataIdModel)[] | null> {
     const query = includePrivate ? {} : { isPublic: true };
     const metadata = await this.metadataModel.find(query).exec();
 
@@ -35,7 +35,7 @@ export class MetadataService {
 
   public async getMetadata(
     id: string,
-  ): Promise<(SimulationRunMetadataModel & { _id: any }) | null> {
+  ): Promise<(SimulationRunMetadataIdModel) | null> {
     const metadata = await this.metadataModel
       .findOne({ simulationRun: id }, { id: 0, __v: 0 })
       .exec();
@@ -45,8 +45,8 @@ export class MetadataService {
 
   public async createMetadata(
     data: SimulationRunMetadataInput,
-  ): Promise<SimulationRunMetadataModel & { _id: any }> {
-    const sim = await this.simulationModel.findById(data.id);
+  ): Promise<SimulationRunMetadataIdModel> {
+    const sim = await this.simulationModel.findById(data.id).catch((_) => null);
     if (!sim) {
       throw new Error('Simulation not found');
     }
