@@ -237,7 +237,7 @@ export class ProjectsController {
     @Body() projectInput: ProjectInput,
     @Query('validateSimulationResultsData') validateSimulationResultsData = 'false',
   ): Promise<void> {
-    await this.service.validateProject(projectInput);
+    await this.service.validateProject(projectInput, validateSimulationResultsData == 'true');
     return;
   }
 }

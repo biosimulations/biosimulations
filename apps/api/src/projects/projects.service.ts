@@ -25,7 +25,7 @@ import {
   SedCurve,
   SedSurface,
 } from '../specifications/specifications.model';
-import { Results } from '../results/datamodel';
+import { Results, Output, OutputData } from '../results/datamodel';
 import { CombineArchiveLog } from '../logs/logs.model';
 import { SimulationRunMetadataIdModel, MetadataModel } from '../metadata/metadata.model';
 
@@ -386,7 +386,8 @@ export class ProjectsService {
       });
 
       const dataSetUris = new Set<string>();
-      results.outputs.forEach((output): void => {
+      const unrecordedDatSetUris = new Set<string>();
+      results.outputs.forEach((output: Output): void => {
         let docLocationOutputId = output.outputId;
         if (docLocationOutputId.startsWith('./')) {
           docLocationOutputId = docLocationOutputId.substring(2);
@@ -395,8 +396,12 @@ export class ProjectsService {
         const type =
           output.type === 'SedReport' ? 'Report DataSet' : 'Plot DataGenerator';
 
-        output.data.forEach((data): void => {
-          dataSetUris.add(type + ': `' + docLocationOutputId + '/' + data.id + '`');
+        output.data.forEach((data: OutputData): void => {
+          const uri = type + ': `' + docLocationOutputId + '/' + data.id + '`'
+          dataSetUris.add(uri);
+          if (validateSimulationResultsData && !Array.isArray(data.values)) {
+            unrecordedDatSetUris.add(uri);
+          }
         });
       });
 
@@ -417,6 +422,9 @@ export class ProjectsService {
             'following data sets and data generators were not recorded.\n\n  * ' +
             unproducedDatSetUris.join('\n  * '),
         );
+      } else if (unrecordedDatSetUris.size) {
+        errors.push('Data was not recorded for the following data sets for reports and data generators for plots.\n\n  * ' + 
+          Array.from(unrecordedDatSetUris).sort().join('\n  * '));
       }
     }
 
