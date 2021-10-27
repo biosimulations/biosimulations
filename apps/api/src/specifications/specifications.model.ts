@@ -107,6 +107,7 @@ export type SedModelChangeType = SedModelAttributeChange;
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
+  discriminatorKey: '_type',
 })
 export class SedModelChange {
   @Prop({
@@ -297,7 +298,7 @@ export class SedOneStepSimulation implements ISedOneStepSimulation {
 export const SedOneStepSimulationSchema =
   SchemaFactory.createForClass(SedOneStepSimulation);
 
-export type SedSimulationTypes =
+export type SedSimulationType =
   | SedUniformTimeCourseSimulation
   | SedSteadyStateSimulation
   | SedOneStepSimulation;
@@ -306,6 +307,7 @@ export type SedSimulationTypes =
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
+  discriminatorKey: '_type',
 })
 export class SedSimulation {
   @Prop({
@@ -354,7 +356,7 @@ export class SedTask implements ISedTask {
     required: true,
     default: undefined,
   })
-  public simulation!: SedSimulationTypes;
+  public simulation!: SedSimulationType;
 }
 
 export const SedTaskSchema = SchemaFactory.createForClass(SedTask);
@@ -383,6 +385,7 @@ export type SedAbstractTaskTypes = SedTask | SedRepeatedTask;
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
+  discriminatorKey: '_type',
 })
 export class SedAbstractTask {
   @Prop({
@@ -661,6 +664,7 @@ export type SedOutputType = SedReport | SedPlot2D | SedPlot3D;
   _id: false,
   storeSubdocValidationError: false,
   strict: 'throw',
+  discriminatorKey: '_type',
 })
 export class SedOutput {
   @Prop({
@@ -717,7 +721,7 @@ export class SpecificationsModel
   public outputs!: SedOutputType[];
 
   @Prop({
-    type: [SedTaskSchema],
+    type: [SedAbstractTaskSchema],
     required: true,
     default: undefined,
   })
@@ -742,7 +746,7 @@ export class SpecificationsModel
     required: true,
     default: undefined,
   })
-  public simulations!: SedSimulationTypes[];
+  public simulations!: SedSimulationType[];
 
   public created!: string;
   public updated!: string;
@@ -771,6 +775,17 @@ sedSimulationsArraySchema.discriminator(
   SedUniformTimeCourseSimulation.name,
   SedUniformTimeCourseSimulationSchema,
 );
+
+const sedModelChangeArraySchema = SedModelSchema.path(
+  'changes'
+) as MongooseSchema.Types.DocumentArray;
+sedModelChangeArraySchema.discriminator(SedModelAttributeChange.name, SedModelAttributeChangeSchema);
+
+const sedTasksArraySchema = SpecificationsModelSchema.path(
+  'tasks',
+) as MongooseSchema.Types.DocumentArray;
+sedTasksArraySchema.discriminator(SedTask.name, SedTaskSchema);
+sedTasksArraySchema.discriminator(SedRepeatedTask.name, SedRepeatedTaskSchema);
 
 const sedOutputsArraySchema = SpecificationsModelSchema.path(
   'outputs',
