@@ -97,21 +97,21 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
   }
   // TODO add all scopes/find a way to automate this from auth0 or atleast create a common library to keep consistent
   const scopes: ScopesObject = {
-    'read:SimulationRuns': 'Get information about a submitted run',
-    'write:SimulationRuns': 'Modify a run, including status',
-    'delete:SimulationsRuns': 'Delete runs from the database',
-    'read:Results': 'Get the results of a run',
-    'write:Results': 'Modify the results of a run',
-    'delete:Results': 'Delete the results of a run',
-    'read:Logs': 'Get the log of a run',
-    'write:Logs': 'Modify the log of a run',
-    'delete:Logs': 'Delete the log of a run',
-    'read:Metadata': 'Get the metadata for a run',
-    'write:Metadata': 'Modify the metadata for a run',
-    'delete:Metadata': 'Delete the metadata for a run',
-    'read:Projects': 'Get information about a published projects',
-    'write:Projects': 'Modify projects, including making them public',
-    'delete:Projects': 'Delete projects from the database',
+    'read:SimulationRuns': 'Get information about simulation runs',
+    'write:SimulationRuns': 'Modify simulation runs, including their status',
+    'delete:SimulationRuns': 'Delete simulation runs',
+    'read:Results': 'Get the results of simulation runs',
+    'write:Results': 'Modify the results of simulation runs',
+    'delete:Results': 'Delete the results of simulation runs',
+    'read:Logs': 'Get the logs of simulation runs',
+    'write:Logs': 'Modify the logs of simulation runs',
+    'delete:Logs': 'Delete the logs of simulation runs',
+    'read:Metadata': 'Get the metadata for simulation runs',
+    'write:Metadata': 'Modify the metadata for simulation runs',
+    'delete:Metadata': 'Delete the metadata for simulation runs',
+    'read:Projects': 'Get information about published projects',
+    'write:Projects': 'Modify published projects, including creating projects',
+    'delete:Projects': 'Delete published projects',
   };
   const authorizationUrl =
     'https://auth.biosimulations.org/authorize?audience=dispatch.biosimulations.org';
