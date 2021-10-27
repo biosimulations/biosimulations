@@ -23,6 +23,9 @@ export class Funding implements IFunding {
     default: null,
   })
   @IsOptional()
-  @IsUrl({ require_protocol: true })
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https'],
+  })
   public url!: string | null;
 }

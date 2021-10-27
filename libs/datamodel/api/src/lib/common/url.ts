@@ -2,7 +2,10 @@ import { Url as IUrl, UrlType } from '@biosimulations/datamodel/common';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsString, IsUrl, IsOptional } from 'class-validator';
 export class Url implements IUrl {
-  @IsUrl({ require_valid_protocol: true, require_protocol: true })
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https', 'ftp'],
+  })
   @ApiProperty({
     type: String,
     format: 'url',

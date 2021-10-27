@@ -187,13 +187,16 @@ export class SpdxTerm extends SpdxOntologyId {
   @ApiProperty({ type: typeof null, nullable: true })
   public iri!: null;
 
-  @IsUrl({ require_protocol: true })
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https'],
+  })
   @ApiProperty({ type: String, format: 'url' })
   public url!: string;
 
   @IsUrl({
-    require_valid_protocol: true,
     require_protocol: true,
+    protocols: ['http', 'https'],
   })
   @IsOptional()
   @ApiProperty({ type: String, format: 'url' })
@@ -211,8 +214,11 @@ export class Identifier implements IIdentifier {
   @ApiProperty({ type: String, example: '10.5281/zenodo.5595241' })
   public id!: string;
 
-  // TODO verify this level of validation is correct (require protocol, require valid protocol, require host)
-  @IsUrl({ require_protocol: true, require_host: true })
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https'],
+    allow_underscores: true,
+  })
   @ApiProperty({
     type: String,
     format: 'url',
