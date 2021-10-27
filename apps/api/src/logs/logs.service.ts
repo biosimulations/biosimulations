@@ -52,7 +52,7 @@ export class LogsService {
   public async getLog(
     runId: string,
     includeOutput = true,
-  ): Promise<LeanDocument<ApiCombineArchiveLog>> {
+  ): Promise<LeanDocument<ApiCombineArchiveLog> | ApiCombineArchiveLog> {
     const projection: any = {
       'log.sedDocuments.outputs._type': 0,
     };

@@ -7,6 +7,7 @@ import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
 import { FilesService } from '../files/files.service';
 import { SpecificationsService } from '../specifications/specifications.service';
+import { ResultsService } from '../results/results.service';
 import { LogsService } from '../logs/logs.service';
 import { MetadataService } from '../metadata/metadata.service';
 import { ProjectIdCollation, ProjectModel } from './project.model';
@@ -14,8 +15,16 @@ import { DeleteResult } from 'mongodb';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
+import { FileModel } from '../files/files.model';
 import { SpecificationsModel, SedReport, SedPlot2D, SedPlot3D, SedDataSet, SedCurve, SedSurface } from '../specifications/specifications.model';
 import { Results } from '../results/datamodel';
+import { CombineArchiveLog } from '../logs/logs.model';
+import { SimulationRunMetadataModel } from '../metadata/metadata.model';
+
+interface Check {
+  check: Promise<FileModel[] | SpecificationsModel[] | Results | CombineArchiveLog | (SimulationRunMetadataModel & { _id: any }) | null>;
+  errorMessage: string;
+}
 
 @Injectable()
 export class ProjectsService {
@@ -28,6 +37,7 @@ export class ProjectsService {
     private simulationRunService: SimulationRunService,
     private filesService: FilesService,
     private specificationsService: SpecificationsService,
+    private resultsService: ResultsService,
     private logsService: LogsService,
     private metadataService: MetadataService,
     private config: ConfigService,
@@ -157,7 +167,7 @@ export class ProjectsService {
      * Check files, SED-ML, results, logs, metadata
      */
 
-    const checks = [
+    const checks: Check[] = [
       {
         check: this.filesService.getSimulationFiles(id),
         errorMessage: `Files (contents of COMBINE archive) could not be found for simulation run ${id}.`,        
@@ -171,7 +181,7 @@ export class ProjectsService {
         errorMessage: `Simulation results could not be found for run ${id}. For publication, simulation runs produce at least one SED-ML report or plot.`,
       },
       {
-        check: this.logsService.getLog(id),
+        check: this.logsService.getLog(id) as Promise<CombineArchiveLog>,
         errorMessage: `Simulation log could not be found for run ${id}. For publication, simulation runs must have validate logs. More information is available at https://biosimulators.org/conventions/simulation-logs.`,
       },
       {
@@ -181,7 +191,7 @@ export class ProjectsService {
     ];
 
     const checkResults: PromiseSettledResult<any>[] =
-      await Promise.allSettled(checks.maps((check) => check.check));
+      await Promise.allSettled(checks.map((check: Check) => check.check));
     
     for (let iCheck = 0; iCheck < checks.length; iCheck++) {
       const check = checks[iCheck];
@@ -191,7 +201,7 @@ export class ProjectsService {
       }
     }
 
-    if (checkResults[1] === 'fulfilled' && checkResults[2] === 'fulfilled') {
+    if (checkResults[1].status === 'fulfilled' && checkResults[2].status === 'fulfilled') {
       const specs: SpecificationsModel[] = checkResults[1].value;
       const results: Results = checkResults[2].value;
       
@@ -236,7 +246,7 @@ export class ProjectsService {
         });
       });
 
-      unproducedDatSetUris = [...expectedDataSetUris].filter(uri => !dataSetUris.has(uri));
+      const unproducedDatSetUris = [...expectedDataSetUris].filter(uri => !dataSetUris.has(uri));
 
       if (expectedDataSetUris.size === 0) {
         errors.push('Simulation run does not specify any SED reports or plots. For publication, simulation runs must produce data for at least one SED-ML report or plot.');
@@ -250,6 +260,10 @@ export class ProjectsService {
           + unproducedDatSetUris.join('\n  * ')
         ));
       }
+    }
+
+    if (checkResults[4].status === 'fulfilled' && !checkResults[4].value) {
+      errors.push(checks[4].errorMessage);
     }
 
     if (errors.length) {
