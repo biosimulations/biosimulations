@@ -423,7 +423,7 @@ export class ProjectsService {
             unproducedDatSetUris.join('\n  * '),
         );
       } else if (unrecordedDatSetUris.size) {
-        errors.push('Data was not recorded for the following data sets for reports and data generators for plots.\n\n  * ' + 
+        errors.push('Data was not recorded for the following data sets for reports and data generators for plots.\n\n  * ' +
           Array.from(unrecordedDatSetUris).sort().join('\n  * '));
       }
     }
