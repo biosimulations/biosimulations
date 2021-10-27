@@ -1,5 +1,5 @@
 import { ProjectInput } from '@biosimulations/datamodel/api';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SimulationRunModelReturnType } from '../simulation-run/simulation-run.model';
@@ -61,10 +61,16 @@ export class ProjectsService {
     this.endpoints = new Endpoints(env);
   }
 
+  /** Get all projects
+   */
   public async getProjects(): Promise<ProjectModel[]> {
     return this.model.find({});
   }
 
+  /** Get one project
+   * 
+   * @param id id of the project
+   */
   public async getProject(id: string): Promise<ProjectModel | null> {
     this.logger.log(`Fetching project ${id}`);
 
@@ -74,6 +80,10 @@ export class ProjectsService {
     return project;
   }
 
+  /** Save a project to the database
+   * 
+   * @param projectInput project to save to the database
+   */
   public async createProject(
     projectInput: ProjectInput,
   ): Promise<ProjectModel> {
@@ -82,14 +92,19 @@ export class ProjectsService {
     return project.save();
   }
 
+  /** Modify a project in the database
+   * 
+   * @param id id of the project
+   * @param projectInput new properties of the project
+   */
   public async updateProject(
-    projectId: string,
+    id: string,
     projectInput: ProjectInput,
   ): Promise<ProjectModel | null> {
     await this.validateRunForPublication(projectInput.simulationRun);
 
     const project = await this.model
-      .findOne({ id: projectId })
+      .findOne({ id: id })
       .collation(ProjectIdCollation);
 
     if (project) {
@@ -99,32 +114,45 @@ export class ProjectsService {
     return project;
   }
 
-  public async deleteProjects(): Promise<void> {
-    // delete all projects
+  /** Delete all projects
+   */
+  public async deleteProjects(): Promise<void> {    
     const res: DeleteResult = await this.model.deleteMany({});
-    if (res.acknowledged) {
-      return;
+    if (res.deletedCount === 0) {
+      throw new InternalServerErrorException('No projects could be deleted');
     }
-    throw new Error('Could not delete projects');
+    const count = await this.model.count();
+    if (count !== 0) {
+      throw new InternalServerErrorException('Some projects could not be deleted');
+    }
+    return;
   }
 
-  public async deleteProject(projectId: string): Promise<void> {
-    const res = await this.model
-      .deleteOne({ id: projectId })
+  /** Delete one project
+   * 
+   * @param id id of the project
+   */
+  public async deleteProject(id: string): Promise<void> {
+    const res: DeleteResult = await this.model
+      .deleteOne({ id: id })
       .collation(ProjectIdCollation);
-    if (res.acknowledged) {
-      return;
+    if (res.deletedCount !== 1) {
+      throw new InternalServerErrorException('The project could not be deleted');
     }
-    throw new Error('Could not delete project');
+    return;
   }
 
+  /** Check if a project is valid
+   * 
+   * @param projectInput project
+   */
   public async validateProject(projectInput: ProjectInput): Promise<void> {
     await this.validateRunForPublication(projectInput.simulationRun);
     const project = new this.model(projectInput);
     await project.validate();
   }
 
-  /* Check that the simulation run is valid for publication
+  /** Check that a simulation run is valid for publication
    *
    * * Run: was successful (`SUCCEEDED` state)
    * * Files: valid and accessible
