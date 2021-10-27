@@ -10,7 +10,9 @@ describe('LogsService', () => {
   let service: LogsService;
   class mockModel {
     constructor(private data: any) {}
-    static save = jest.fn().mockResolvedValue('test');
+    static save = jest.fn().mockResolvedValue({
+      toObject: jest.fn().mockResolvedValue({}),
+    });
     save = mockModel.save;
     static find = jest.fn().mockResolvedValue({});
     static findOne = jest.fn().mockResolvedValue({});
