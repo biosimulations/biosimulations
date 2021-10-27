@@ -242,7 +242,7 @@ export class SimulationRunService {
     // If the url provides the following information, grab it and store it in the database
     //! This does not address the security issues of downloading user provided urls.
     //! The content size may not be present or accurate. The backend must check the size. See #2536
-    let size = undefined;
+    let size = 0;
     let mimetype = undefined;
     let originalname = undefined;
     let encoding = undefined;
@@ -256,7 +256,12 @@ export class SimulationRunService {
 
     if (file) {
       const file_headers = file?.headers;
-      size = parseInt(file_headers['content-length']);
+      try {
+        size = Number(file_headers['content-length']);
+      } catch (err) {
+        size = 0;
+        this.logger.warn(err);
+      }
       mimetype = file_headers['content-type'];
       originalname = file_headers['content-disposition']?.split('filename=')[1];
       encoding = file_headers['content-transfer-encoding'];
@@ -283,7 +288,7 @@ export class SimulationRunService {
       this.logger.debug(`Downloaded file from ${url}`);
       return this.createRunWithFile(body, fileObj);
     } else {
-      throw new Error('Unable to proccess file');
+      throw new Error('Unable to process file');
     }
   }
   /**
