@@ -56,13 +56,15 @@ export class FileService {
               const apiFile = this.httpService.head(fileUrl).pipe(
                 pluck('headers'),
                 pluck('content-length'),
-                map((size: number) => {
+                map((size: string) => {
+                  const fileSize = parseInt(size);
+
                   const fileObject: SubmitProjectFile = new ProjectFile(
                     id + '/' + file.location.path.replace('./', ''),
                     file.location.value.filename,
                     id,
                     file.location.path.replace('./', ''),
-                    size,
+                    fileSize,
                     file.format,
                     file.master,
                     fileUrl,
