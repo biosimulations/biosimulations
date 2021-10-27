@@ -260,7 +260,7 @@ export class SimulationRunService {
 
     if (file) {
       const file_headers = file?.headers;
-      size = file_headers['content-length'];
+      size = parseInt(file_headers['content-length']);
       mimetype = file_headers['content-type'];
       originalname = file_headers['content-disposition']?.split('filename=')[1];
       encoding = file_headers['content-transfer-encoding'];
