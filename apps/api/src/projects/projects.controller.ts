@@ -8,12 +8,14 @@ import {
   NotFoundException,
   Post,
   Put,
+  Query,
   HttpCode,
 } from '@nestjs/common';
 import {
   ApiNoContentResponse,
   ApiTags,
   ApiOperation,
+  ApiQuery,
   ApiBody,
   ApiOkResponse,
   ApiCreatedResponse,
@@ -173,6 +175,10 @@ export class ProjectsController {
     summary: 'Delete a published project',
     description: 'Delete a published project',
   })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No project has the requested id',
+  })
   @ApiNoContentResponse({
     description: 'The project was successfully deleted',
   })
@@ -203,6 +209,13 @@ export class ProjectsController {
     description:
       'Check whether a simulation is valid for publication (e.g, succeeded and provides the [minimum required metadata](https://biosimulators.org/conventions/metadata). Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. 400 errors include diagnostic information which describe why the run cannot be published.',
   })
+  @ApiQuery({
+    name: 'validateSimulationResultsData',
+    description:
+      'Whether to validate the data (e.g., numerical simulation results) for each SED-ML report and plot for each SED-ML document. Default: false.',
+    required: false,
+    type: Boolean,
+  })
   @ApiBody({
     description: 'Information about the simulation run to publish.',
     type: ProjectInput,
@@ -222,6 +235,7 @@ export class ProjectsController {
   @HttpCode(204)
   public async validateProject(
     @Body() projectInput: ProjectInput,
+    @Query('validateSimulationResultsData') validateSimulationResultsData = 'false',
   ): Promise<void> {
     await this.service.validateProject(projectInput);
     return;

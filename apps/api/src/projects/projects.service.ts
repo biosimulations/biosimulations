@@ -1,5 +1,5 @@
 import { ProjectInput } from '@biosimulations/datamodel/api';
-import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SimulationRunModelReturnType } from '../simulation-run/simulation-run.model';
@@ -116,7 +116,7 @@ export class ProjectsService {
 
   /** Delete all projects
    */
-  public async deleteProjects(): Promise<void> {    
+  public async deleteProjects(): Promise<void> {
     const res: DeleteResult = await this.model.deleteMany({});
     const count = await this.model.count();
     if (count !== 0) {
@@ -130,6 +130,13 @@ export class ProjectsService {
    * @param id id of the project
    */
   public async deleteProject(id: string): Promise<void> {
+    const project = await this.model
+      .findOne({ id })
+      .collation(ProjectIdCollation);
+    if (!project) {
+      throw new NotFoundException(`Project with id ${id} not found`);
+    }
+
     const res: DeleteResult = await this.model
       .deleteOne({ id: id })
       .collation(ProjectIdCollation);
@@ -142,9 +149,10 @@ export class ProjectsService {
   /** Check if a project is valid
    * 
    * @param projectInput project
+   * @param validateSimulationResultsData whether to validate the data for each SED-ML report and plot of each SED-ML document
    */
-  public async validateProject(projectInput: ProjectInput): Promise<void> {
-    await this.validateRunForPublication(projectInput.simulationRun);
+  public async validateProject(projectInput: ProjectInput, validateSimulationResultsData = false): Promise<void> {
+    await this.validateRunForPublication(projectInput.simulationRun, validateSimulationResultsData);
     const project = new this.model(projectInput);
     await project.validate();
   }
@@ -159,8 +167,9 @@ export class ProjectsService {
    * * Metatadata: valid and meets minimum requirements
    *
    * @param id id of the simulation run
+   * @param validateSimulationResultsData whether to validate the data for each SED-ML report and plot of each SED-ML document
    */
-  private async validateRunForPublication(id: string): Promise<void> {
+  private async validateRunForPublication(id: string, validateSimulationResultsData = false): Promise<void> {
     let run!: SimulationRunModelReturnType | null;
     try {
       run = await this.simulationRunService.get(id);
@@ -226,7 +235,7 @@ export class ProjectsService {
         errorMessage: `Simulation specifications (SED-ML documents) could not be found for simulation run ${id}. For publication, simulation experiments must be valid SED-ML documents. Please check that the SED-ML documents in the COMBINE archive are valid. More information is available at https://biosimulators.org/conventions/simulation-experiments and https://run.biosimulations.org/utils/validate-project.`,
       },
       {
-        check: this.resultsService.getResults(id),
+        check: this.resultsService.getResults(id, validateSimulationResultsData),
         errorMessage: `Simulation results could not be found for run ${id}. For publication, simulation runs produce at least one SED-ML report or plot.`,
       },
       {
