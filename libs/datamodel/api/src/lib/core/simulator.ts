@@ -84,6 +84,7 @@ export class Simulator implements ISimulator {
   })
   image!: Image | null;
 
+  @IsOptional()
   @ValidateNested()
   @Type(() => Cli)
   @ApiProperty({
@@ -92,6 +93,7 @@ export class Simulator implements ISimulator {
   })
   cli!: Cli | null;
 
+  @IsOptional()
   @ValidateNested()
   @Type(() => PythonApi)
   @ApiProperty({
@@ -110,6 +112,7 @@ export class Simulator implements ISimulator {
   @ApiProperty({ type: ExternalReferences })
   references!: ExternalReferences;
 
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => SpdxOntologyId)
   @ApiProperty({ type: SpdxOntologyId, nullable: true })

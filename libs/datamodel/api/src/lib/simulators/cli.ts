@@ -1,7 +1,7 @@
 import { ICli, PackageRepository } from '@biosimulations/datamodel/common';
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, IsOptional } from 'class-validator';
 
 export class Cli implements ICli {
   @IsEnum(PackageRepository)
@@ -27,6 +27,7 @@ export class Cli implements ICli {
   @IsNotEmpty()
   public command!: string;
 
+  @IsOptional()
   @IsString()
   @ApiProperty({
     type: String,
