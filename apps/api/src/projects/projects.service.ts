@@ -170,7 +170,7 @@ export class ProjectsService {
     const checks: Check[] = [
       {
         check: this.filesService.getSimulationFiles(id),
-        errorMessage: `Files (contents of COMBINE archive) could not be found for simulation run ${id}.`,        
+        errorMessage: `Files (contents of COMBINE archive) could not be found for simulation run ${id}.`,
       },
       {
         check: this.specificationsService.getSpecificationsBySimulation(id),

@@ -53,11 +53,11 @@ import { SimulationRunMetadataModel, SimulationRunMetadataSchema } from '../meta
         name: SimulationRunMetadataModel.name,
         schema: SimulationRunMetadataSchema,
       },
-      { 
+      {
         name: FileModel.name,
         schema: FileModelSchema
       },
-      { 
+      {
         name: SpecificationsModel.name,
         schema: SpecificationsModelSchema,
       },
