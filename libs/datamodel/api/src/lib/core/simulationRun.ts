@@ -153,7 +153,7 @@ export class SimulationRun implements ISimulationRun {
   })
   @IsOptional()
   @Type(() => EnvironmentVariable)
-  @ValidateNested({ each: true })  
+  @ValidateNested({ each: true })
   envVars: EnvironmentVariable[];
 
   @ApiPropertyOptional({
