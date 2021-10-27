@@ -24,6 +24,7 @@ import {
   UploadedFile,
   UseInterceptors,
   UnsupportedMediaTypeException,
+  HttpCode,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -404,6 +405,7 @@ export class SimulationRunController {
   @ApiNoContentResponse({
     description: 'The simulation runs were successfully deleted',
   })
+  @HttpCode(204)
   public deleteAll(): Promise<void> {
     return this.service.deleteAll();
   }
@@ -429,6 +431,7 @@ export class SimulationRunController {
       'The COMBINE/OMEX archive for the run was successfully downloaded',
   })
   @ApiTags('Downloads')
+  @HttpCode(204)
   public async download(
     @Param('runId') runId: string,
     @Res({ passthrough: true }) response: Response,

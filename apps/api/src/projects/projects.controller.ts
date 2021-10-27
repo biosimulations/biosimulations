@@ -8,6 +8,7 @@ import {
   NotFoundException,
   Post,
   Put,
+  HttpCode,
 } from '@nestjs/common';
 import {
   ApiNoContentResponse,
@@ -153,7 +154,6 @@ export class ProjectsController {
     throw new NotFoundException(`Project with id ${projectId} not found`);
   }
 
-  @ApiNoContentResponse({ description: 'Projects deleted' })
   @Delete()
   @ApiOperation({
     summary: 'Delete all published projects',
@@ -163,6 +163,7 @@ export class ProjectsController {
     description: 'All published projects were successfully deleted',
   })
   @permissions('delete:Projects')
+  @HttpCode(204)
   public async deleteProjects(): Promise<void> {
     return this.service.deleteProjects();
   }
@@ -177,6 +178,7 @@ export class ProjectsController {
   })
   @permissions('delete:Projects')
   @ProjectIdParam()
+  @HttpCode(204)
   public async deleteProject(
     @ProjectId('projectId') projectId: string,
   ): Promise<void> {
@@ -187,7 +189,6 @@ export class ProjectsController {
   private returnProject(projectModel: ProjectModel): Project {
     const project: Project = {
       id: projectModel.id,
-
       simulationRun: projectModel.simulationRun,
       created: projectModel.created,
       updated: projectModel.updated,
@@ -218,6 +219,7 @@ export class ProjectsController {
   @ApiNoContentResponse({
     description: 'The simulation run is valid for publication.',
   })
+  @HttpCode(204)
   public async validateProject(
     @Body() projectInput: ProjectInput,
   ): Promise<void> {
