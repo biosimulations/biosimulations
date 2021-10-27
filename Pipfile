@@ -25,7 +25,7 @@ biosimulators-bionetgen = ">=0.1.17"
 # BoolNet
 biosimulators-boolnet = ">=0.1.17"
 # CBMPy
-sympy = "<1.9" # avoid versions without microversion numbers because CBMPy can't handle versions with only major and minor numbers
+sympy = "<1.10" # avoid versions without microversion numbers because CBMPy can't handle versions with only major and minor numbers
 biosimulators-cbmpy = ">=0.1.13"
 # COBRApy
 biosimulators-cobrapy = ">=0.1.18"
