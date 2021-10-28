@@ -174,6 +174,7 @@ export class SimulationRun implements ISimulationRun {
     type: String,
     format: 'email',
     example: 'info@biosimulations.org',
+    default: null,
   })
   @IsOptional()
   @IsEmail()

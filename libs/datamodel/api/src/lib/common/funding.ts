@@ -13,7 +13,7 @@ export class Funding implements IFunding {
   @IsOptional()
   @IsString()
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
-  public grant!: string | null;
+  public grant: string | null = null;
 
   @ApiProperty({
     type: String,
@@ -27,5 +27,5 @@ export class Funding implements IFunding {
     require_protocol: true,
     protocols: ['http', 'https'],
   })
-  public url!: string | null;
+  public url: string | null = null;
 }

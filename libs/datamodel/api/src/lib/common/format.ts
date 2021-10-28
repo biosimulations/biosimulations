@@ -18,30 +18,30 @@ export class Format implements IFormat {
   @ApiProperty({ type: String, nullable: true })
   @IsString()
   @IsOptional()
-  public edamId!: string | null;
+  public edamId: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
   @IsString()
   @IsOptional()
-  public specUrl!: string | null;
+  public specUrl: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
   @IsString()
   @IsOptional()
-  public url!: string | null;
+  public url: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
   @IsString()
   @IsOptional()
-  public mimetype!: string | null;
+  public mimetype: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
   @IsString()
   @IsOptional()
-  public extension!: string | null;
+  public extension: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
   @IsString()
   @IsOptional()
-  public sedUrn!: string | null;
+  public sedUrn: string | null = null;
 }

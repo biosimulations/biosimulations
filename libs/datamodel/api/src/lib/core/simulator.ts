@@ -84,7 +84,7 @@ export class Simulator implements ISimulator {
     nullable: true,
     type: Image,
   })
-  image!: Image | null;
+  image: Image | null = null;
 
   @IsOptional()
   @ValidateNested()
@@ -93,7 +93,7 @@ export class Simulator implements ISimulator {
     nullable: true,
     type: Cli,
   })
-  cli!: Cli | null;
+  cli: Cli | null = null;
 
   @IsOptional()
   @ValidateNested()
@@ -102,7 +102,7 @@ export class Simulator implements ISimulator {
     nullable: true,
     type: PythonApi,
   })
-  pythonApi!: PythonApi | null;
+  pythonApi: PythonApi | null = null;
 
   @ValidateNested({ each: true })
   @Type(() => Person)
@@ -118,7 +118,7 @@ export class Simulator implements ISimulator {
   @ValidateNested({ each: true })
   @Type(() => SpdxOntologyId)
   @ApiProperty({ type: SpdxOntologyId, nullable: true })
-  license!: SpdxOntologyId | null;
+  license: SpdxOntologyId | null = null;
 
   @ValidateNested({ each: true })
   @Type(() => Algorithm)

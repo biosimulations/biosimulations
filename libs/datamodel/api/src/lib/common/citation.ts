@@ -35,7 +35,7 @@ export class Citation implements IJournalReference {
   })
   @IsString()
   @IsOptional()
-  public journal!: string | null;
+  public journal: string | null = null;
 
   @ApiProperty({
     type: String,
@@ -46,7 +46,7 @@ export class Citation implements IJournalReference {
   })
   @IsString()
   @IsOptional()
-  public volume!: string | null;
+  public volume: string | null = null;
 
   @ApiProperty({
     type: String,
@@ -57,7 +57,7 @@ export class Citation implements IJournalReference {
   })
   @IsString()
   @IsOptional()
-  public issue!: string | null;
+  public issue: string | null = null;
 
   @ApiProperty({
     type: 'string',
@@ -68,7 +68,7 @@ export class Citation implements IJournalReference {
   })
   @IsString()
   @IsOptional()
-  public pages!: string | null;
+  public pages: string | null = null;
 
   @ApiProperty({ type: Number, example: 2021 })
   @IsNumber()

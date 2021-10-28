@@ -5,63 +5,63 @@ import { ApiProperty } from '@nestjs/swagger';
 
 // TODO abstract this to the datamodel library
 export class Profile {
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  firstName!: string | null;
+  firstName: string | null;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  middleName!: string | null;
+  middleName: string | null;
 
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  lastName!: string | null;
+  lastName: string | null;
 
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsUrl({
     require_protocol: true,
     protocols: ['http', 'https'],
   })
-  image!: string | null;
+  image: string | null;
 
   @ApiProperty({ type: String, nullable: false })
   @IsString()
   userName!: string;
 
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  organization: string | null = null;
+  organization: string | null;
 
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsUrl({
     require_protocol: true,
     protocols: ['http', 'https'],
   })
-  website: string | null = null;
+  website: string | null;
 
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  description: string | null = null;
+  description: string | null;
 
-  @ApiProperty({ type: String, nullable: true })
+  @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  summary: string | null = null;
+  summary: string | null;
 
-  @ApiProperty({ type: Array })
+  @ApiProperty({ type: Array, nullable: true, required: false, default: [] })
   @IsOptional()
-  externalProfiles: any[] | null = [];
+  externalProfiles: string[] = [];
 
-  @ApiProperty({ type: [String], nullable: true })
+  @ApiProperty({ type: [String], nullable: true, required: false, default: [] })
   @IsOptional()
-  emails: string[] | null = null;
+  emails: string[] = [];
 
   constructor(profile: any) {
     Object.assign(this, profile);

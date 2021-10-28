@@ -53,8 +53,8 @@ export class EdamOntologyIdVersion
 
   @IsOptional()
   @IsString()
-  @ApiProperty({ type: String, example: 'L3V2', nullable: true })
-  public version!: string | null;
+  @ApiProperty({ type: String, example: 'L3V2', nullable: true, default: null })
+  public version: string | null = null;
 
   @IsString({ each: true })
   @ApiProperty({
@@ -64,6 +64,33 @@ export class EdamOntologyIdVersion
   })
   public supportedFeatures!: string[];
 }
+
+export class EdamOntologyDockerImageIdVersion
+  extends EdamOntologyIdVersion
+{
+  @IsString()
+  @ApiProperty({ type: String, enum: [Ontologies.EDAM] })
+  public namespace!: Ontologies.EDAM;
+
+  @Equals('format_3973')
+  @IsString()
+  @ApiProperty({ type: String, example: 'format_3973' })
+  public id!: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({ type: String, example: 'L3V2', nullable: true, default: null })
+  public version: string | null = null;
+
+  @IsString({ each: true })
+  @ApiProperty({
+    type: [String],
+    description: 'Supported features of the format',
+    example: 'Plot2D',
+  })
+  public supportedFeatures!: string[];
+}
+
 
 export class FunderRegistryOntologyId
   extends OntologyId

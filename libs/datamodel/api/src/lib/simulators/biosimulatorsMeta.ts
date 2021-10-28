@@ -66,7 +66,7 @@ export class TestCaseResult implements ITestCaseResult {
   @ValidateNested()
   @IsOptional()
   @Type(() => TestCaseException)
-  public exception!: TestCaseException | null;
+  public exception: TestCaseException | null = null;
 
   @ApiProperty({ type: [TestCaseException], required: true })
   @ValidateNested({ each: true })
@@ -77,7 +77,7 @@ export class TestCaseResult implements ITestCaseResult {
   @IsOptional()
   @ValidateNested()
   @Type(() => TestCaseException)
-  public skipReason!: TestCaseException | null;
+  public skipReason: TestCaseException | null = null;
 
   @ApiProperty({ type: String, required: true })
   @IsString()
@@ -141,7 +141,7 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   @ValidateNested()
   @IsOptional()
   @Type(() => ValidationTests)
-  public validationTests!: ValidationTests | null;
+  public validationTests: ValidationTests | null = null;
 
   @ApiResponseProperty({
     type: String,
