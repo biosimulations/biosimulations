@@ -78,7 +78,7 @@ export class SimulationRun implements ISimulationRun {
 
   @ApiProperty({
     type: String,
-    description: 'The name of a BioSimulators compliant simulator',
+    description: 'The id of a BioSimulators simulator',
     example: 'tellurium',
     externalDocs: {
       url: 'https://biosimulators.org/simulators',

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
-import { ProjectInput, SimulationRunMetadata } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
 import {
   Project,
+  ProjectSummary,
+  ProjectInput,
   File as IFile,
   SimulatorIdNameMap,
   SimulationRunSedDocument,
@@ -43,9 +44,9 @@ export class ProjectService {
 
   public getProjectSummary(
     id: string,
-  ): Observable<SimulationRunMetadata> {
+  ): Observable<ProjectSummary> {
     const url = this.endpoints.getProjectSummariesEndpoint(id);
-    const response = this.http.get<SimulationRunMetadata>(url).pipe();
+    const response = this.http.get<ProjectSummary>(url).pipe();
     return response;
   }
 

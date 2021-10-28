@@ -75,9 +75,6 @@ export class ViewComponent implements OnInit {
         return throwError(appError);
       }),
     );
-    project$.subscribe((project): void => {
-      console.log(project);
-    });
 
     this.simulationRunId$ = project$.pipe(
       map((project) => project.simulationRun),

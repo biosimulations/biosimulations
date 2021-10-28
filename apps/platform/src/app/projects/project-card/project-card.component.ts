@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ProjectSummary } from '../browse/browse.model';
+import { FormattedProjectSummary } from '../browse/browse.model';
 
 @Component({
   selector: 'biosimulations-project-card',
@@ -7,7 +7,7 @@ import { ProjectSummary } from '../browse/browse.model';
   styleUrls: ['./project-card.component.scss'],
 })
 export class ProjectCardComponent implements OnInit {
-  @Input() public project!: ProjectSummary;
+  @Input() public project!: FormattedProjectSummary;
 
   public route = '';
 

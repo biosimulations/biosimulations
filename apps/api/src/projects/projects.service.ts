@@ -1,4 +1,12 @@
-import { ProjectInput } from '@biosimulations/datamodel/api';
+import {
+  ProjectInput,
+  ProjectSummary,
+  SimulationTaskSummary,
+  SimulationOutputSummary,
+  SimulationRunSummary,
+  ProjectMetadataSummary,
+  ArchiveMetadata,
+} from '@biosimulations/datamodel/api';
 import {
   Injectable,
   Logger,
@@ -11,6 +19,9 @@ import { SimulationRunModelReturnType } from '../simulation-run/simulation-run.m
 import {
   SimulationRunStatus,
   SimulationRunLogStatus,
+  SimulationType,
+  SimulationOutputType,
+  VEGA_FORMAT,
 } from '@biosimulations/datamodel/common';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
 import { FilesService } from '../files/files.service';
@@ -26,6 +37,7 @@ import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { FileModel } from '../files/files.model';
 import {
   SpecificationsModel,
+  SedTask,
   SedReport,
   SedPlot2D,
   SedPlot3D,
@@ -163,31 +175,147 @@ export class ProjectsService {
     return;
   }
 
-  public async getAllSummaries(): Promise<SimulationRunMetadataIdModel[]> {
-    const projects = await this.getProjects();
-    return (await Promise.allSettled(
-      projects.map((project: ProjectModel): Promise<SimulationRunMetadataIdModel | null> => {
-        const runId = project.simulationRun;
-        return this.metadataService.getMetadata(runId);
-      })
-    ))
-    .map((promiseResult: PromiseSettledResult<SimulationRunMetadataIdModel | null>): SimulationRunMetadataIdModel => {
-      if (promiseResult.status !== 'fulfilled' || !('value' in promiseResult) || promiseResult.value === null) {
-        throw new InternalServerErrorException('Summaries of one or more projects could not be retrieved');
-      }
-      return promiseResult.value;
-    });
-  }
-
-  public async getSummary(
+  public async getProjectSummary(
     id: string,
-  ): Promise<SimulationRunMetadataIdModel | null> {
+  ): Promise<ProjectSummary> {
     const project = await this.getProject(id);
     if (!project) {
-      return null;
+      throw new NotFoundException(`No project could be found with id '${id}'`);
     }
+
+    /* get data */ 
     const runId = project.simulationRun;
-    return this.metadataService.getMetadata(runId);
+    const settledResults = (await Promise.allSettled([
+      this.filesService.getSimulationFiles(runId),
+      this.specificationsService.getSpecificationsBySimulation(runId),
+      this.simulationRunService.get(runId),
+      this.logsService.getLog(runId),
+      this.metadataService.getMetadata(runId),
+    ]))
+    .map((settledResult) => {
+      if (
+        settledResult.status !== 'fulfilled' 
+        || !('value' in settledResult) 
+        || settledResult.value === null
+        || (Array.isArray(settledResult.value) && settledResult.value.length === 0)
+      ) {
+        throw new NotFoundException(`No project could be found with id '${id}'`);
+      }
+      return settledResult.value;
+    });
+
+    const files = settledResults[0] as FileModel[];
+    const simulationExpts = settledResults[1] as SpecificationsModel[];
+    const simulationRun = settledResults[2] as SimulationRunModelReturnType;
+    const log = settledResults[3] as CombineArchiveLog;
+    const metadata = settledResults[4] as SimulationRunMetadataIdModel;
+
+    /* get summary of the simulation experiment */
+    const simulationTasks: SimulationTaskSummary[] = [];
+    const simulationOutputs: SimulationOutputSummary[] = [];
+
+    simulationExpts.forEach((simulationExpt: SpecificationsModel): void => {
+      const docLocation = simulationExpt.id.startsWith('./') ? simulationExpt.id.substring(2) : simulationExpt.id;
+
+      simulationExpt.tasks.forEach((task: SedTask): void => {
+        simulationTasks.push({
+          uri: docLocation + '/' + task.id, 
+          id: task.id,
+          name: task?.name,
+          model: {
+            uri: docLocation + '/' + task.model.id, 
+            id: task.model.id,
+            name: task.model?.name,
+            source: task.model.source,
+            language: task.model.language,
+          },
+          simulation: {
+            _type: SimulationType[task.simulation._type],
+            uri: docLocation + '/' + task.simulation.id, 
+            id: task.simulation.id,
+            name: task.simulation?.name,
+            algorithm: task.simulation.algorithm.kisaoId, // TODO: get actual rather than requested algorithm
+          }
+        })
+      })
+
+      simulationExpt.outputs.forEach((output: SedReport | SedPlot2D | SedPlot3D): void => {
+        simulationOutputs.push({
+          _type: SimulationOutputType[output._type],
+          uri: docLocation + '/' + output.id,
+          name: output?.name,
+        });
+      });
+    });
+
+    files.forEach((file: FileModel): void => {
+      if (VEGA_FORMAT.combineUris.includes(file.format)) {
+        simulationOutputs.push({
+          _type: SimulationOutputType.Vega,
+          uri: file.location.startsWith('./') ? file.location.substring(2) : file.location,
+          name: undefined,
+        });
+      }
+    });
+
+    /* get summary of simulation run */
+    const simulationRunSummary: SimulationRunSummary = {
+      id: simulationRun.id,
+      name: simulationRun.name,
+      simulator: simulationRun.simulator,
+      simulatorVersion: simulationRun.simulatorVersion,
+      simulatorDigest: simulationRun.simulatorDigest,
+      cpus: simulationRun.cpus,
+      memory: simulationRun.memory,
+      envVars: simulationRun.envVars,
+      runtime: log.duration !== null ? log.duration : simulationRun.runtime,
+      projectSize: simulationRun.projectSize as number,
+      resultsSize: simulationRun.resultsSize,
+      submitted: simulationRun.submitted.toString(),
+      updated: simulationRun.updated.toString(),
+    };
+    
+    /* get top-level metadata for the project */
+    let projectMetadata!: ArchiveMetadata;
+    for (projectMetadata of metadata.metadata) {
+      if (projectMetadata.uri.search('/') === -1) {
+        break;
+      }
+    }
+
+    const projectMetadataSummary: ProjectMetadataSummary = {
+      title: projectMetadata?.title,
+      abstract: projectMetadata?.abstract,
+      description: projectMetadata?.description,
+      thumbnails: projectMetadata.thumbnails,
+      sources: projectMetadata.sources,
+      keywords: projectMetadata.keywords,
+      taxa: projectMetadata.taxa,
+      encodes: projectMetadata.encodes,
+      predecessors: projectMetadata.predecessors,
+      successors: projectMetadata.successors,
+      seeAlso: projectMetadata.seeAlso,
+      identifiers: projectMetadata.identifiers,
+      citations: projectMetadata.citations,
+      creators: projectMetadata.creators,
+      contributors: projectMetadata.contributors,
+      license: projectMetadata?.license,
+      funders: projectMetadata.funders,
+      other: projectMetadata.other,
+      created: projectMetadata.created,
+      modified: projectMetadata.modified?.[0] || undefined,
+    };
+
+    /* return summary */
+    return {
+      id: id,
+      simulationTasks: simulationTasks,
+      simulationOutputs: simulationOutputs,
+      simulationRun: simulationRunSummary,
+      projectMetadata: projectMetadataSummary,
+      created: project.created,
+      updated: project.updated,
+    };
   }
 
   /** Check if a project is valid

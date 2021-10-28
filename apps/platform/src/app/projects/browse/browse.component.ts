@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BrowseService } from './browse.service';
-import { ProjectSummary } from './browse.model';
+import { FormattedProjectSummary } from './browse.model';
 
 @Component({
   selector: 'biosimulations-projects-browse',
@@ -9,7 +9,7 @@ import { ProjectSummary } from './browse.model';
   styleUrls: ['./browse.component.scss'],
 })
 export class BrowseComponent implements OnInit {
-  public projects$!: Observable<ProjectSummary[]>;
+  public projects$!: Observable<FormattedProjectSummary[]>;
 
   constructor(private service: BrowseService) {}
 
