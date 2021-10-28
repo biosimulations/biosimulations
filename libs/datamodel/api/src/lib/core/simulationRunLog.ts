@@ -66,7 +66,7 @@ export class SedOutputLog implements ISedOutputLog {
   status!: SimulationRunLogStatus;
 
   @ApiProperty({ type: Exception, nullable: true })
-  @IsOptional()  
+  @IsOptional()
   @ValidateNested()
   @Type(() => Exception)
   exception: Exception | null = null;
@@ -241,7 +241,7 @@ export class SedDocumentLog implements ISedDocumentLog {
     nullable: true,
   })
   @IsOptional()
-  @Transform(({ value }) => {    
+  @Transform(({ value }) => {
     value?.forEach((v: any): void => {
       if (typeof v === 'object' && 'dataSets' in v) {
         v._type = 'SedReportLog';
