@@ -47,6 +47,7 @@ export class TestCaseException implements ITestCaseException {
 export class TestCaseResult implements ITestCaseResult {
   @ApiProperty({ type: TestCase, required: true })
   @ValidateNested()
+  @Type(() => TestCase)
   public case!: TestCase;
 
   @ApiProperty({
