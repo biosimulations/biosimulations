@@ -26,5 +26,5 @@ export class PythonApi implements IPythonApi {
     example:
       'https://docs.biosimulators.org/Biosimulators_XPP/installation.html',
   })
-  public installationInstructions!: string | null;
+  public installationInstructions: string | null = null;
 }

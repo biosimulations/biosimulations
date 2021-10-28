@@ -22,7 +22,7 @@ export class Url implements IUrl {
     default: null,
     example: 'Home page',
   })
-  public title!: string | null;
+  public title: string | null = null;
 
   @IsEnum(UrlType)
   @ApiProperty({ type: String, enum: UrlType })

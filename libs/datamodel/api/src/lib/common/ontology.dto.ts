@@ -24,10 +24,10 @@ import {
 
 export class OntologyInfo implements IOntologyInfo {
   @ApiProperty({ type: String, nullable: true })
-  public id!: string | null;
+  public id: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
-  public acronym!: string | null;
+  public acronym: string | null = null;
 
   @ApiProperty({ type: String })
   public name!: string;
@@ -36,13 +36,13 @@ export class OntologyInfo implements IOntologyInfo {
   public description!: string;
 
   @ApiProperty({ type: String, nullable: true })
-  public bioportalId!: string | null;
+  public bioportalId: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
-  public olsId!: string | null;
+  public olsId: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
-  public version!: string | null;
+  public version: string | null = null;
 
   @ApiProperty({ type: String })
   public source!: string;
@@ -56,19 +56,19 @@ export class OntologyTerm implements IOntologyTerm {
   public id!: string;
 
   @ApiProperty({ type: String, nullable: true })
-  public name!: string | null;
+  public name: string | null = null;
 
   @ApiProperty({ type: String, nullable: true })
-  public description!: string | null;
+  public description: string | null = null;
 
   @ApiProperty({ type: String, nullable: true, format: 'url' })
-  public iri!: string | null;
+  public iri: string | null = null;
 
   @ApiProperty({ type: String, nullable: true, format: 'url' })
-  public url!: string | null;
+  public url: string | null = null;
 
   @ApiProperty({ type: String, nullable: true, format: 'url' })
-  public moreInfoUrl!: string | null;
+  public moreInfoUrl: string | null = null;
 }
 
 export class EdamTerm extends EdamOntologyId {
@@ -76,7 +76,7 @@ export class EdamTerm extends EdamOntologyId {
   public name!: string;
 
   @ApiProperty({ type: String, nullable: true })
-  public description!: string | null;
+  public description: string | null = null;
 
   @ApiProperty({ type: String, format: 'url' })
   public iri!: string;
@@ -85,7 +85,7 @@ export class EdamTerm extends EdamOntologyId {
   public url!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  public moreInfoUrl!: string | null;
+  public moreInfoUrl: string | null = null;
 }
 
 export class FunderRegistryTerm extends FunderRegistryOntologyId {
@@ -127,7 +127,7 @@ export class KisaoTerm extends KisaoOntologyId {
   public name!: string;
 
   @ApiProperty({ type: String })
-  public description!: string | null;
+  public description: string | null = null;
 
   @ApiProperty({ type: String, format: 'url' })
   public iri!: string;
@@ -136,7 +136,7 @@ export class KisaoTerm extends KisaoOntologyId {
   public url!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  public moreInfoUrl!: string | null;
+  public moreInfoUrl: string | null = null;
 }
 
 export class SboTerm extends SboOntologyId {
@@ -144,7 +144,7 @@ export class SboTerm extends SboOntologyId {
   public name!: string;
 
   @ApiProperty({ type: String })
-  public description!: string | null;
+  public description: string | null = null;
 
   @ApiProperty({ type: String, format: 'url' })
   public iri!: string;
@@ -153,7 +153,7 @@ export class SboTerm extends SboOntologyId {
   public url!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  public moreInfoUrl!: string | null;
+  public moreInfoUrl: string | null = null;
 }
 
 export class SioTerm extends SioOntologyId {
@@ -161,7 +161,7 @@ export class SioTerm extends SioOntologyId {
   public name!: string;
 
   @ApiProperty({ type: String })
-  public description!: string | null;
+  public description: string | null = null;
 
   @ApiProperty({ type: String, format: 'url' })
   public iri!: string;
@@ -170,7 +170,7 @@ export class SioTerm extends SioOntologyId {
   public url!: string;
 
   @ApiProperty({ type: String, format: 'url' })
-  public moreInfoUrl!: string | null;
+  public moreInfoUrl: string | null = null;
 }
 
 export class SpdxTerm extends SpdxOntologyId {
@@ -200,7 +200,7 @@ export class SpdxTerm extends SpdxOntologyId {
   })
   @IsOptional()
   @ApiProperty({ type: String, format: 'url' })
-  public moreInfoUrl!: string | null;
+  public moreInfoUrl: string | null = null;
 }
 
 export class Identifier implements IIdentifier {

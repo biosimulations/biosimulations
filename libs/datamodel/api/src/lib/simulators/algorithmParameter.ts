@@ -25,7 +25,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   })
   @IsOptional()
   @IsString()
-  public id!: string | null;
+  public id: string | null = null;
 
   @ApiProperty({
     description:
@@ -37,7 +37,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   })
   @IsString()
   @IsOptional()
-  public name!: string | null;
+  public name: string | null = null;
 
   @ApiProperty({
     type: String,
@@ -53,7 +53,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   })
   @IsOptional()
   @IsString()
-  public value!: string | null;
+  public value: string | null = null;
 
   @ApiProperty({
     type: [String],
@@ -62,7 +62,7 @@ export class AlgorithmParameter implements IAlgorithmParameter {
   })
   @IsString({ each: true })
   @IsOptional()
-  public recommendedRange!: string[] | null;
+  public recommendedRange: string[] | null = null;
 
   @ApiProperty({
     type: [String],

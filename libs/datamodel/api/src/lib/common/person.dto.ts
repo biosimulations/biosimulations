@@ -8,12 +8,12 @@ export class Person implements IPerson {
   @IsString()
   @IsOptional()
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
-  public firstName!: string | null;
+  public firstName: string | null = null;
 
   @IsString()
   @IsOptional()
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
-  public middleName!: string | null;
+  public middleName: string | null = null;
 
   @IsString()
   @ApiProperty({ type: String })

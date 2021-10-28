@@ -15,7 +15,7 @@ export class DependentPackage implements IDependentPackage {
   })
   @IsString()
   @IsOptional()
-  public version!: string | null;
+  public version: string | null = null;
 
   @ApiProperty({ type: Boolean })
   @IsBoolean()
@@ -28,5 +28,5 @@ export class DependentPackage implements IDependentPackage {
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsUrl({ require_protocol: true })
-  public url!: string | null;
+  public url: string | null = null;
 }

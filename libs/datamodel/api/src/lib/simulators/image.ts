@@ -1,5 +1,5 @@
 import { IImage, OperatingSystemType } from '@biosimulations/datamodel/common';
-import { EdamOntologyIdVersion } from '../common';
+import { EdamOntologyIdVersion, EdamOntologyDockerImageIdVersion } from '../common';
 
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -36,7 +36,7 @@ export class Image implements IImage {
   public digest!: string;
 
   @ValidateNested()
-  @Type(() => EdamOntologyIdVersion)
+  @Type(() => EdamOntologyDockerImageIdVersion)
   @ApiProperty({
     type: EdamOntologyIdVersion,
     description: 'Format of the image',
@@ -51,5 +51,5 @@ export class Image implements IImage {
     nullable: true,
     description: 'Operating system in the image',
   })
-  public operatingSystemType!: OperatingSystemType | null;
+  public operatingSystemType: OperatingSystemType | null = null;
 }

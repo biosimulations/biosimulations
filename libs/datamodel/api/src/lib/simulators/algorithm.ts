@@ -75,7 +75,7 @@ export class ModelChangePattern implements IModelChangePattern {
   @IsOptional()
   @ValidateNested()
   @Type(() => ModelTarget)
-  public target!: ModelTarget | null;
+  public target: ModelTarget | null = null;
 
   @ApiProperty({
     type: ModelSymbol,
@@ -86,7 +86,7 @@ export class ModelChangePattern implements IModelChangePattern {
   @IsOptional()
   @ValidateNested()
   @Type(() => ModelSymbol)
-  public symbol!: ModelSymbol | null;
+  public symbol: ModelSymbol | null = null;
 }
 
 export class OutputVariablePattern implements IOutputVariablePattern {
@@ -104,7 +104,7 @@ export class OutputVariablePattern implements IOutputVariablePattern {
   @ValidateNested()
   @IsOptional()
   @Type(() => ModelTarget)
-  public target!: ModelTarget | null;
+  public target: ModelTarget | null = null;
 
   @ApiProperty({
     type: ModelSymbol,
@@ -115,7 +115,7 @@ export class OutputVariablePattern implements IOutputVariablePattern {
   @ValidateNested()
   @IsOptional()
   @Type(() => ModelSymbol)
-  public symbol!: ModelSymbol | null;
+  public symbol: ModelSymbol | null = null;
 }
 
 export class Algorithm implements IAlgorithm {
@@ -128,13 +128,13 @@ export class Algorithm implements IAlgorithm {
   @Type(() => AlgorithmParameter)
   @IsOptional()
   @ApiProperty({ type: [AlgorithmParameter], nullable: true })
-  public parameters!: AlgorithmParameter[] | null;
+  public parameters: AlgorithmParameter[] | null = null;
 
   @ApiProperty({ type: [SioOntologyId], nullable: true })
   @ValidateNested({ each: true })
   @Type(() => SioOntologyId)
   @IsOptional()
-  public outputDimensions!: SioOntologyId[] | null;
+  public outputDimensions: SioOntologyId[] | null = null;
 
   @ApiProperty({ type: [OutputVariablePattern], required: true })
   @ValidateNested({ each: true })
@@ -151,7 +151,7 @@ export class Algorithm implements IAlgorithm {
   })
   @IsString()
   @IsOptional()
-  public id!: string | null;
+  public id: string | null = null;
 
   @ApiProperty({
     description:
@@ -163,7 +163,7 @@ export class Algorithm implements IAlgorithm {
   })
   @IsString()
   @IsOptional()
-  public name!: string | null;
+  public name: string | null = null;
 
   @ApiProperty({ type: [SboOntologyId] })
   @ValidateNested({ each: true })
@@ -209,7 +209,7 @@ export class Algorithm implements IAlgorithm {
   @ValidateNested({ each: true })
   @Type(() => DependentPackage)
   @IsOptional()
-  public dependencies!: DependentPackage[] | null;
+  public dependencies: DependentPackage[] | null = null;
 
   @ApiProperty({ type: [Citation] })
   @ValidateNested({ each: true })

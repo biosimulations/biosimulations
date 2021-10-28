@@ -29,7 +29,7 @@ class FullJsonAPIQueryParameters {
   @Transform((params) => {
     return params.value.split(',');
   })
-  fields!: string[];
+  fields?: string[];
 
   @IsString({ each: true })
   @IsArray()
@@ -38,14 +38,14 @@ class FullJsonAPIQueryParameters {
   @Transform((params) => {
     return params.value.split(',');
   })
-  sort!: string[];
+  sort?: string[];
 
   @IsInt()
   @IsArray()
   @IsOptional()
   @ApiProperty({ type: Number, format: 'int' })
   @Type(() => Number)
-  page!: number;
+  page?: number;
 
   @IsString({ each: true })
   @IsArray()
@@ -54,10 +54,10 @@ class FullJsonAPIQueryParameters {
   @Transform((params) => {
     return params.value.split(',');
   })
-  include!: string[];
+  include?: string[];
 
   @IsOptional()
   //@ApiProperty({ type: [String] })
   // Maybe make this object
-  filter!: string[];
+  filter?: string[];
 }
