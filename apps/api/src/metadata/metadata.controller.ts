@@ -26,7 +26,6 @@ import {
 import { MetadataService } from './metadata.service';
 import { SimulationRunMetadataModel } from './metadata.model';
 import { permissions } from '@biosimulations/auth/nest';
-import { AuthToken } from '@biosimulations/auth/common';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
 @ApiTags('Metadata')
