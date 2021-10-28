@@ -11,7 +11,6 @@ import {
   throwError,
   of,
 } from 'rxjs';
-import { urls } from '@biosimulations/config/common';
 import { ConfigService } from '@biosimulations/shared/angular';
 import {
   concatAll,
@@ -20,7 +19,8 @@ import {
   map,
   catchError,
 } from 'rxjs/operators';
-import { SimulationRun } from '@biosimulations/datamodel/api';
+import { SimulationRun } from '@biosimulations/datamodel/common';
+import { Endpoints } from '@biosimulations/config/common';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +44,8 @@ export class SimulationService {
   private simulationsAddedBeforeStorageInitialized: ISimulation[] = [];
 
   private _storage: Storage | null = null;
+
+  private endpoints = new Endpoints();
 
   public constructor(
     private config: ConfigService,
@@ -216,7 +218,7 @@ export class SimulationService {
    */
   private getSimulationHttp(uuid: string): Observable<ISimulation> {
     return this.httpClient
-      .get<SimulationRun>(`${urls.dispatchApi}run/${uuid}`)
+      .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(uuid))
       .pipe(
         catchError((error: HttpErrorResponse): Observable<undefined> => {
           if (error.status === 404) {
@@ -347,5 +349,27 @@ export class SimulationService {
 
       return sim;
     }
+  }
+
+  public isSimulationValidForPublication(uuid: string): Observable<boolean> {
+    return this.httpClient
+      .post<boolean>(this.endpoints.getValidateProjectEndpoint(), 
+        {
+          id: 'new-project',
+          simulationRun: uuid,
+        },
+        {
+          headers: { 'Content-Type': 'application/json' },
+        },
+      )
+      .pipe(
+        catchError((error: HttpErrorResponse): Observable<boolean> => {
+          if (error.status === 400) {
+            return of(false);
+          } else {
+            return throwError(error);
+          }
+        }),
+      );    
   }
 }

@@ -64,7 +64,7 @@ export class Endpoints {
     this.simulationRuns = `${this.api}/runs`;
     this.simulators = `${this.simulators_api}/simulators`;
     this.files = `${this.api}/files`;
-    this.combineFile = `${this.combine_api}/combine/file`;
+    this.combineFile = `${this.combine_api}/combine/file`;    
     this.specifications = `${this.api}/specifications`;
     this.projects = `${this.api}/projects`;
   }
@@ -163,6 +163,12 @@ export class Endpoints {
     return this.projects + (id ? `/${id}` : '');
   }
 
+  /** Get the URL for validating a project
+   */
+  public getValidateProjectEndpoint(): string {
+    return this.projects + '/validate';
+  }
+
   /**
    * Create a URL to add a file to an OMEX file using the combine service
    * @returns A URL for POST endpoint for adding a file to an OMEX file using the combine service
@@ -174,6 +180,22 @@ export class Endpoints {
       }
     }
     return this.combineFile;
+  }
+
+  /**
+   * Create a URL for extracting the inputs and outputs of models
+   * @returns A URL for extracting the inputs and outputs of models
+   */
+  public getModelIntrospectionEndpoint(): string {
+    return `${this.combine_api}/sed-ml/get-parameters-variables-for-simulation`;
+  }  
+
+  /**
+   * Create a URL for creating COMBINE/OMEX archives
+   * @returns A URL for creating COMBINE/OMEX archives
+   */
+  public getCombineArchiveCreationEndpoint(): string {
+    return `${this.combine_api}/combine/create`;
   }
 
   /**
@@ -269,23 +291,27 @@ export class Endpoints {
   /**
    *
    * @param id The id of the simulator
-   * @params version The version of the simulator
+   * @param version The version of the simulator
+   * @param includeTests Whether to include the results of the validation tests
    * @returns  A URL to get the simulators, and specific simulator, or a specific version of a simulator
    */
-  public getSimulatorsEndpoint(id?: string, version?: string): string {
+  public getSimulatorsEndpoint(id?: string, version?: string, includeTests=false): string {
     id ? (id = `/${id}`) : (id = '');
     version ? (version = `/${version}`) : (version = '');
-    return `${this.simulators}${id}${version}`;
+    const tests = includeTests ? '?includeTests=true' : '';
+    return `${this.simulators}${id}${version}${tests}`;
   }
 
   /**
    *
    * @param id The id of the simulator
+   * @param includeTests Whether to include the results of the validation tests
    * @returns  A URL to get the latest version of each simulator, or the latest version of a specific simulator
    */
-  public getLatestSimulatorsEndpoint(id?: string): string {
+  public getLatestSimulatorsEndpoint(id?: string, includeTests=false): string {
     id ? (id = `?id=${id}`) : (id = '');
-    return `${this.simulators}/latest${id}`;
+    const tests = includeTests ? '?includeTests=true' : '';
+    return `${this.simulators}/latest${id}${tests}`;
   }
 
   /**

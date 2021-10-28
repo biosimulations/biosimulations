@@ -2,15 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, forkJoin, of, ObservableInput } from 'rxjs';
 import { map, catchError, shareReplay } from 'rxjs/operators';
-import { urls } from '@biosimulations/config/common';
+import { Endpoints } from '@biosimulations/config/common';
 
 import {
-  SimulationRun,
   UploadSimulationRun,
   UploadSimulationRunUrl,
-  UpdateSimulationRun,
-  EnvironmentVariable,
-} from '@biosimulations/datamodel/api';
+} from '@biosimulations/datamodel/common';
 import {
   SimulationLogs,
   CombineArchiveLog,
@@ -19,6 +16,8 @@ import {
   Ontologies,
   SimulationRunLogStatus,
   Purpose,
+  EnvironmentVariable,
+  SimulationRun,
 } from '@biosimulations/datamodel/common';
 import { OntologyService } from '@biosimulations/ontology/client';
 import {
@@ -30,7 +29,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
 import { environment } from '@biosimulations/shared/environments';
-import { Simulator } from '@biosimulations/datamodel/api';
+import { ISimulator as Simulator } from '@biosimulations/datamodel/common';
 export interface AlgorithmParameter {
   id: string;
   name: string;
@@ -84,9 +83,9 @@ export interface SimulatorsData {
   providedIn: 'root',
 })
 export class DispatchService {
-  private endpoint = `${urls.dispatchApi}run/`;
+  private endpoints = new Endpoints();
 
-  public sumbitJobURL(
+  public sumbitJobForURL(
     url: string,
     simulator: string,
     simulatorVersion: string,
@@ -111,12 +110,12 @@ export class DispatchService {
       purpose,
       projectId: undefined,
     };
-    return this.http.post<SimulationRun>(this.endpoint, body, {
+    return this.http.post<SimulationRun>(this.endpoints.getSimulationRunEndpoint(), body, {
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
-  public submitJob(
+  public submitJobForFile(
     fileToUpload: File,
     simulator: string,
     simulatorVersion: string,
@@ -145,30 +144,19 @@ export class DispatchService {
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
 
-    const response = this.http.post<SimulationRun>(this.endpoint, formData);
+    const response = this.http.post<SimulationRun>(this.endpoints.getSimulationRunEndpoint(), formData);
     return response;
   }
 
-  // TODO Remove all of these hardcoded paths
-  public getAllSimulatorInfo(simulatorName?: string): Observable<string[]> {
-    const endpoint = `${urls.simulatorsApi}simulators`;
-    if (simulatorName === undefined) {
-      return this.http.get<string[]>(endpoint);
-    }
-    return this.http.get<string[]>(`${endpoint}?name=${simulatorName}`);
-  }
-
   public getSimulatorsFromDb(includeTests = true): Observable<SimulatorsData> {
-    const endpoint = `${urls.simulatorsApi}simulators`;
+    const endpoint = this.endpoints.getSimulatorsEndpoint(undefined, undefined, includeTests);
     const promises: {
       simulatorSpecs: ObservableInput<Simulator[]>;
       edamTerms: ObservableInput<{ [id: string]: EdamTerm }>;
       kisaoTerms: ObservableInput<{ [id: string]: KisaoTerm }>;
       sboTerms: ObservableInput<{ [id: string]: SboTerm }>;
     } = {
-      simulatorSpecs: this.http.get<Simulator[]>(
-        endpoint + `?includeTests=${includeTests}`,
-      ),
+      simulatorSpecs: this.http.get<Simulator[]>(endpoint),
       edamTerms: this.ontologyService.getTerms(Ontologies.EDAM),
       kisaoTerms: this.ontologyService.getTerms(Ontologies.KISAO),
       sboTerms: this.ontologyService.getTerms(Ontologies.SBO),
@@ -331,7 +319,7 @@ export class DispatchService {
   public getSimulationLogs(
     uuid: string,
   ): Observable<SimulationLogs | undefined> {
-    const endpoint = `${urls.dispatchApi}logs/${uuid}?download=false`;
+    const endpoint = this.endpoints.getSimulationRunLogsEndpoint(uuid);
     return this.http.get<CombineArchiveLog>(endpoint).pipe(
       map((response: CombineArchiveLog): SimulationLogs => {
         // get structured log
@@ -356,12 +344,6 @@ export class DispatchService {
         return of<undefined>(undefined);
       }),
     );
-  }
-
-  public updateSimulationRun(uuid: string, update: UpdateSimulationRun) {
-    return this.http.patch(`${urls.dispatchApi}runs/${uuid}`, update, {
-      headers: { 'Content-Type': 'application/json' },
-    });
   }
 
   public constructor(

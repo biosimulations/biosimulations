@@ -36,6 +36,7 @@ import { map, concatAll, withLatestFrom, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import isUrl from 'is-url';
 import { urls } from '@biosimulations/config/common';
+import { Endpoints } from '@biosimulations/config/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -151,6 +152,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private modelParametersAndVariablesSubscription: Subscription | undefined =
     undefined;
+
+  private endpoints = new Endpoints();
 
   constructor(
     private route: ActivatedRoute,
@@ -654,7 +657,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     formData.append('simulationType', simulationType);
     formData.append('simulationAlgorithm', simulationAlgorithm);
 
-    const url = `${urls.combineApi}sed-ml/get-parameters-variables-for-simulation`;
+    const url = this.endpoints.getModelIntrospectionEndpoint();
     const sedDoc = this.http.post<any>(url, formData).pipe(
       catchError((error: HttpErrorResponse): Observable<null> => {
         if (!environment.production) {
@@ -1461,7 +1464,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       formData.append('files', this.formGroup.value.modelLocationDetails);
     }
 
-    const url = `${urls.combineApi}combine/create`;
+    const url = this.endpoints.getCombineArchiveCreationEndpoint();
     const projectOrUrl: Observable<string | any> = this.http
       .post<string>(url, formData, options)
       .pipe(
