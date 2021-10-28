@@ -31,8 +31,8 @@ export class BrowseService {
               .getProjectSummary(project.id)
               .pipe(
                 map((metadata: SimulationRunMetadata) => {
-                  return { 
-                    id: project.id, 
+                  return {
+                    id: project.id,
                     metadata: metadata,
                   };
                 }),
