@@ -75,7 +75,7 @@ export interface ProjectMetadataSummary {
   encodes: LabeledIdentifier[];
   predecessors: LabeledIdentifier[];
   successors: LabeledIdentifier[];
-  seeAlso: LabeledIdentifier[];  
+  seeAlso: LabeledIdentifier[];
   identifiers: LabeledIdentifier[];
   citations: LabeledIdentifier[];
   creators: LabeledIdentifier[];

@@ -26,7 +26,7 @@ export class BrowseService {
           return projects.map((project: Project) => {
             return this.service
               .getProjectSummary(project.id)
-              .pipe(                
+              .pipe(
                 map((project: ProjectSummary): FormattedProjectSummary => {
                   const simulationRun = project.simulationRun;
                   const metadata = project.projectMetadata;
@@ -76,7 +76,7 @@ export class BrowseService {
         }),
         mergeMap((projectSummaries) => combineLatest(projectSummaries)),
         map((projects): FormattedProjectSummary[] => {
-          return projects            
+          return projects
             .sort((a: FormattedProjectSummary, b: FormattedProjectSummary): number => {
               return a.title.localeCompare(
                 b.title,
