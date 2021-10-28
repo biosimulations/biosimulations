@@ -22,7 +22,7 @@ export class Image implements IImage {
           return typeof value === 'string' && isUrl('https://' + value);
         },
         message: (props: any): string =>
-          `${props.value} is not a valid URL for a Docker image (e.g., 'ghcr.io/biosimulators/tellurium:2.1.6')`,
+          `${props.value} is not a valid URL (including tag other than 'latest') for a Docker image (e.g., 'ghcr.io/biosimulators/tellurium:2.1.6')`,
       },
     ],
     default: undefined,
