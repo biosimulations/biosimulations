@@ -5,9 +5,7 @@ import { map, catchError, concatAll, shareReplay } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
-import { MetadataService } from '../../../services/simulation/metadata.service';
 import { CombineService } from '../../../services/combine/combine.service';
-import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { ConfigService } from '@biosimulations/shared/angular';
 import {
@@ -66,9 +64,7 @@ export class PublishComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private simulationService: SimulationService,
-    private metadataService: MetadataService,
     private combineService: CombineService,
-    private dispatchService: DispatchService,
     private projectService: ProjectService,
     private formBuilder: FormBuilder,
     private router: Router,

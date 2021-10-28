@@ -32,6 +32,7 @@ export class SimulationService {
     const response = this.http.get<SimulationRunMetadata[]>(url);
     return response;
   }
+
   public getSimulationRunMetadata(
     id: string,
   ): Observable<SimulationRunMetadata> {

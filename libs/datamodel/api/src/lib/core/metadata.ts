@@ -20,14 +20,6 @@ export class SimulationRunMetadata {
   public id!: string;
 
   @ApiProperty({
-    name: 'isPublic',
-    type: Boolean,
-    description: 'Whether the simulation run has been published',
-    example: true,
-  })
-  public isPublic!: boolean;
-
-  @ApiProperty({
     description:
       'Metadata about the COMBINE/OMEX archive of the simulation run or files in the archive',
     type: [ArchiveMetadata],
@@ -51,12 +43,10 @@ export class SimulationRunMetadata {
   public constructor(
     simulationRun: string,
     metadata: ArchiveMetadata[],
-    isPublic: boolean,
     created: string,
     modified: string,
   ) {
     this.id = simulationRun;
-    this.isPublic = isPublic;
     this.metadata = metadata;
     this.created = created;
     this.modified = modified;

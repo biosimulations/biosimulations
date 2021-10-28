@@ -6,10 +6,8 @@ import {
   NotFoundException,
   Param,
   Post,
-  Req,
   VERSION_NEUTRAL,
 } from '@nestjs/common';
-import { Request } from 'express';
 import {
   ApiBody,
   ApiTags,
@@ -66,7 +64,6 @@ export class MetadataController {
     return new SimulationRunMetadata(
       metadata.simulationRun,
       data,
-      metadata.isPublic,
       metadata.created,
       metadata.updated,
     );
@@ -75,7 +72,7 @@ export class MetadataController {
   @ApiOperation({
     summary: 'Get metadata for all simulation runs.',
     description:
-      'Get metadata about the simulation projects of all simulation runs. Regular users are limited to metadata about projects of published runs.',
+      'Get metadata about the simulation projects of all simulation runs.',
   })
   @ApiOkResponse({
     description:
@@ -88,16 +85,8 @@ export class MetadataController {
   })
   @permissions('read:Metadata')
   @Get()
-  public async getAllMetadata(
-    @Req() req: Request,
-  ): Promise<SimulationRunMetadata[]> {
-    const user = req?.user as AuthToken;
-    let permission = false;
-    if (user) {
-      user.permissions = user.permissions || [];
-      permission = user.permissions.includes('read:Metadata');
-    }
-    const metadatas = await this.service.getAllMetadata(permission);
+  public async getAllMetadata(): Promise<SimulationRunMetadata[]> {
+    const metadatas = await this.service.getAllMetadata();
     if (!metadatas) {
       throw new NotFoundException('No metadata found');
     }
@@ -107,7 +96,6 @@ export class MetadataController {
       return new SimulationRunMetadata(
         metadata.simulationRun,
         data,
-        metadata.isPublic,
         metadata.created,
         metadata.updated,
       );
@@ -152,7 +140,6 @@ export class MetadataController {
     return new SimulationRunMetadata(
       simId,
       data,
-      metadata.isPublic,
       metadata.created,
       metadata.updated,
     );

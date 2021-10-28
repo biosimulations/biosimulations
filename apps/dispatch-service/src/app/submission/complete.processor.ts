@@ -62,7 +62,7 @@ export class CompleteProcessor {
       },
       {
         name: 'The metadata for the COMBINE archive',
-        result: this.metadataService.createMetadata(id, !!projectId),
+        result: this.metadataService.createMetadata(id),
         required: false,
       },
     ];

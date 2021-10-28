@@ -27,12 +27,9 @@ export class MetadataService {
     const env = config.get('server.env');
     this.endpoints = new Endpoints(env);
   }
-  public async getAllMetadata(
-    includePrivate = false,
-  ): Promise<SimulationRunMetadataIdModel[] | null> {
-    const query = includePrivate ? {} : { isPublic: true };
-    const metadata = await this.metadataModel.find(query).exec();
 
+  public async getAllMetadata(): Promise<SimulationRunMetadataIdModel[] | null> {
+    const metadata = await this.metadataModel.find({}).exec();
     return metadata;
   }
 
