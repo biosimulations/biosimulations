@@ -163,6 +163,33 @@ export class ProjectsService {
     return;
   }
 
+  public async getAllSummaries(): Promise<SimulationRunMetadataIdModel[]> {
+    const projects = await this.getProjects();
+    return (await Promise.allSettled(
+      projects.map((project: ProjectModel): Promise<SimulationRunMetadataIdModel | null> => {
+        const runId = project.simulationRun;
+        return this.metadataService.getMetadata(runId);  
+      })
+    ))
+    .map((promiseResult: PromiseSettledResult<SimulationRunMetadataIdModel | null>): SimulationRunMetadataIdModel => {
+      if (promiseResult.status !== 'fulfilled' || !('value' in promiseResult) || promiseResult.value === null) {
+        throw new InternalServerErrorException('Summaries of one or more projects could not be retrieved');
+      }
+      return promiseResult.value;
+    });
+  }
+
+  public async getSummary(
+    id: string,
+  ): Promise<SimulationRunMetadataIdModel | null> {
+    const project = await this.getProject(id);
+    if (!project) {
+      return null;
+    }
+    const runId = project.simulationRun;
+    return await this.metadataService.getMetadata(runId);
+  }
+
   /** Check if a project is valid
    *
    * @param projectInput project

@@ -114,12 +114,12 @@ export class Endpoints {
 
   /**
    *
-   * @param runId The id of the simulation run
+   * @param id The id of the simulation run
    * @returns The URL to get the simulation run
    */
-  public getSimulationRunEndpoint(runId?: string): string {
-    runId ? (runId = `/${runId}`) : (runId = '');
-    return `${this.simulationRuns}${runId}`;
+  public getSimulationRunEndpoint(id?: string): string {
+    id ? (id = `/${id}`) : (id = '');
+    return `${this.simulationRuns}${id}`;
   }
 
   /**
@@ -127,12 +127,12 @@ export class Endpoints {
    * This URL points to the file object in the database, and is not a direct link to download the file
    * In some cases, the API may be configured to automatically forward to the file download URL, but this is not guaranteed
    *
-   * @param runId The id of the file
+   * @param id The id of the file
    * @returns Returns a URL that returns the file object from the databse
    */
-  public getFilesEndpoint(runId?: string): string {
-    runId ? (runId = `/${runId}`) : (runId = '');
-    return `${this.files}${runId}`;
+  public getFilesEndpoint(id?: string): string {
+    id ? (id = `/${id}`) : (id = '');
+    return `${this.files}${id}`;
   }
 
   /**
@@ -169,6 +169,19 @@ export class Endpoints {
     return this.projects + '/validate';
   }
 
+  /** Create a URL for getting a summary of a project or summaries of all projects
+   *
+   * @param id The id of the project
+   * @returns URL for getting a summary of a project or summaries of all projects
+   */
+  public getProjectSummariesEndpoint(id?: string): string {
+    if (id) {
+      return `${this.projects}/${id}/summary`;
+    } else {
+      return `${this.projects}/summary`;
+    }
+  }
+
   /**
    * Create a URL to add a file to an OMEX file using the combine service
    * @returns A URL for POST endpoint for adding a file to an OMEX file using the combine service
@@ -200,31 +213,31 @@ export class Endpoints {
 
   /**
    *
-   * @param runId The id of the simulation run
+   * @param id The id of the simulation run
    * @returns A URL to get the metadata of the simulation run
    */
-  public getSimulationRunMetadataEndpoint(runId?: string): string {
-    runId ? (runId = `/${runId}`) : (runId = '');
-    return `${this.simulationRunMetadata}${runId}`;
+  public getSimulationRunMetadataEndpoint(id?: string): string {
+    id ? (id = `/${id}`) : (id = '');
+    return `${this.simulationRunMetadata}${id}`;
   }
 
   /**
    * Returns the URL to download the omex file of a simulation run. The external parameter is used to determine if the
    * returned URL is accessible from outside the current environment.
    * Effectively, if true, then any localhost urls will be replaced with the dev deployment urls
-   * @param runId The id of the simulation run
+   * @param id The id of the simulation run
    * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    *
    * @returns A URL to download the omex file of a simulation run
    */
-  public getRunDownloadEndpoint(runId: string, external = false): string {
+  public getRunDownloadEndpoint(id: string, external = false): string {
     if (external) {
       if (this.env == 'local') {
-        return new Endpoints('dev').getRunDownloadEndpoint(runId, external);
+        return new Endpoints('dev').getRunDownloadEndpoint(id, external);
       }
     }
 
-    return `${this.simulationRuns}/${runId}/download`;
+    return `${this.simulationRuns}/${id}/download`;
   }
 
   /**
@@ -269,23 +282,23 @@ export class Endpoints {
 
   /**
    *
-   * @param runId The id of the simulation run
+   * @param id The id of the simulation run
    * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    * @returns A URL to download the output of a simulation
    */
   public getRunResultsDownloadEndpoint(
-    runId: string,
+    id: string,
     external = false,
   ): string {
     if (external) {
       if (this.env == 'local') {
         return new Endpoints('dev').getRunResultsDownloadEndpoint(
-          runId,
+          id,
           external,
         );
       }
     }
-    return `${this.simulationRunResults}/${runId}/download`;
+    return `${this.simulationRunResults}/${id}/download`;
   }
 
   /**
@@ -342,9 +355,9 @@ export class Endpoints {
     return `${this.specifications}${runId}${experimentLocation}`;
   }
 
-  public getSimulationRunLogsEndpoint(runId?: string): string {
-    runId ? (runId = `/${runId}`) : (runId = '');
-    return `${this.simulationRunLogs}${runId}`;
+  public getSimulationRunLogsEndpoint(id?: string): string {
+    id ? (id = `/${id}`) : (id = '');
+    return `${this.simulationRunLogs}${id}`;
   }
 
   public getApiHealthEndpoint(): string {

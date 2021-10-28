@@ -8,7 +8,6 @@ import {
 import { ProjectSummary, FormattedDate } from './browse.model';
 import {
   ProjectService,
-  SimulationService,
 } from '@biosimulations/angular-api-client';
 import { FormatService } from '@biosimulations/shared/services';
 
@@ -20,25 +19,27 @@ export class BrowseService {
     './assets/images/default-resource-images/model-padded.svg';
 
   public constructor(
-    private projService: ProjectService,
-    private simService: SimulationService,
+    private service: ProjectService,
   ) {}
   public getProjects(): Observable<ProjectSummary[]> {
-    const metadatas: Observable<ProjectSummary[]> = this.projService
+    const metadatas: Observable<ProjectSummary[]> = this.service
       .getAllProjects()
       .pipe(
-        map((simIds: Project[]) => {
-          return simIds.map((simId: Project) => {
-            return this.simService
-              .getSimulationRunMetadata(simId.simulationRun)
+        map((projects: Project[]) => {
+          return projects.map((project: Project) => {
+            return this.service
+              .getProjectSummary(project.id)
               .pipe(
                 map((metadata: SimulationRunMetadata) => {
-                  return { id: simId.id, metadata: metadata };
+                  return { 
+                    id: project.id, 
+                    metadata: metadata,
+                  };
                 }),
               );
           });
         }),
-        mergeMap((simMetadatas) => combineLatest(simMetadatas)),
+        mergeMap((projectSummaries) => combineLatest(projectSummaries)),
         map((projects) => {
           return projects
             .map((project) => {

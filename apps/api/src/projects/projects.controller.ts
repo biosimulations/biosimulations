@@ -8,6 +8,7 @@ import {
   NotFoundException,
   Post,
   Put,
+  Param,
   Query,
   HttpCode,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ import {
   ApiNoContentResponse,
   ApiTags,
   ApiOperation,
+  ApiParam,
   ApiQuery,
   ApiBody,
   ApiOkResponse,
@@ -28,6 +30,8 @@ import { ProjectId, ProjectIdParam } from './id.decorator';
 import { ProjectModel } from './project.model';
 import { ProjectsService } from './projects.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import { SimulationRunMetadataModel } from '../metadata/metadata.model';
+import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
 
 @ApiTags('Projects')
 @Controller('projects')
@@ -55,6 +59,28 @@ export class ProjectsController {
     throw new NotFoundException('No Projects Found');
   }
 
+  @ApiOperation({
+    summary: 'Get a summary of each project.',
+    description: 'Returns summary information about each project.',
+  })
+  @ApiOkResponse({
+    description: 'Summaries of the projects were successfully retrieved',
+    type: [SimulationRunMetadata],
+  })
+  @Get('summary')
+  public async getAllSummaries(): Promise<SimulationRunMetadata[]> {
+    const summaries = await this.service.getAllSummaries();
+    const ret = summaries.map((summary: SimulationRunMetadataModel) => {
+      return new SimulationRunMetadata(
+        summary.simulationRun,
+        summary.metadata,
+        summary.created,
+        summary.updated,
+      );
+    });
+    return ret;
+  }
+
   @Get(':projectId')
   @ApiOperation({
     summary: 'Get a published project',
@@ -78,6 +104,44 @@ export class ProjectsController {
       return this.returnProject(proj);
     }
     throw new NotFoundException(`Project with id ${projectId} not found`);
+  }
+
+  @ApiOperation({
+    summary: 'Get a summary of a project',
+    description: 'Returns a summary of the project',
+  })
+  @ApiParam({
+    name: 'projectId',
+    description: 'Id of the project',
+    required: true,
+    type: String,
+  })
+  @ApiOkResponse({
+    description: 'A summary of the project was successfully retrieved',
+    type: SimulationRunMetadata,
+  })
+  @ApiNotFoundResponse({
+    description: 'No project could be found with requested id',
+    type: ErrorResponseDocument,
+  })
+  @Get(':projectId/summary')
+  public async getSummary(
+    @Param('projectId') projectId: string,
+  ): Promise<SimulationRunMetadata> {
+    const summary = await this.service.getSummary(projectId);
+
+    if (!summary) {
+      throw new NotFoundException(`No project could be found with id '${projectId}'`);
+    }
+
+    const metadata = new SimulationRunMetadata(
+      summary.simulationRun,
+      summary.metadata,
+      summary.created,
+      summary.updated,
+    );
+    console.log(metadata)
+    return metadata;
   }
 
   @Post()

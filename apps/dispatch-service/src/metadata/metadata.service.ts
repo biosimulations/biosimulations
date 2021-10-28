@@ -32,7 +32,7 @@ export class MetadataService {
     this.endpoints = new Endpoints(env);
   }
 
-  public async createMetadata(id: string, isPublic: boolean): Promise<void> {
+  public async createMetadata(id: string): Promise<void> {
     const url = this.endpoints.getRunDownloadEndpoint(id, true);
     this.logger.debug(`Fetching metadata for archive at url: ${url}`);
 
@@ -67,7 +67,6 @@ export class MetadataService {
     const postMetadata: SimulationRunMetadataInput = {
       id: id,
       metadata,
-      isPublic,
     };
 
     const metadataReq = this.submit.postMetadata(postMetadata);
