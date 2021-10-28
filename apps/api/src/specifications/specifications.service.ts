@@ -7,6 +7,7 @@ import { SpecificationsModel } from './specifications.model';
 @Injectable()
 export class SpecificationsService {
   private logger = new Logger(SpecificationsModel.name);
+
   public constructor(
     @InjectModel(SpecificationsModel.name)
     private model: Model<SpecificationsModel>,
@@ -18,11 +19,13 @@ export class SpecificationsService {
   ): Promise<SpecificationsModel | null> {
     return this.model.findOne({ simulationRun: simId, id: specId }).exec();
   }
+
   public async getSpecificationsBySimulation(
     simId: string,
   ): Promise<SpecificationsModel[]> {
     return this.model.find({ simulationRun: simId }).exec();
   }
+
   public async getSpecifications(): Promise<SpecificationsModel[]> {
     return this.model.find({}).exec();
   }

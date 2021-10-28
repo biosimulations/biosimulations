@@ -1,5 +1,11 @@
 import { permissions } from '@biosimulations/auth/nest';
-import { Project, ProjectInput } from '@biosimulations/datamodel/api';
+import {
+  Project,
+  ProjectInput,
+  ProjectSummary,
+  SimulationRunSummary,
+  ProjectMetadataSummary,
+} from '@biosimulations/datamodel/api';
 import {
   Body,
   Controller,
@@ -59,28 +65,6 @@ export class ProjectsController {
     throw new NotFoundException('No Projects Found');
   }
 
-  @ApiOperation({
-    summary: 'Get a summary of each project.',
-    description: 'Returns summary information about each project.',
-  })
-  @ApiOkResponse({
-    description: 'Summaries of the projects were successfully retrieved',
-    type: [SimulationRunMetadata],
-  })
-  @Get('summary')
-  public async getAllSummaries(): Promise<SimulationRunMetadata[]> {
-    const summaries = await this.service.getAllSummaries();
-    const ret = summaries.map((summary: SimulationRunMetadataModel) => {
-      return new SimulationRunMetadata(
-        summary.simulationRun,
-        summary.metadata,
-        summary.created,
-        summary.updated,
-      );
-    });
-    return ret;
-  }
-
   @Get(':projectId')
   @ApiOperation({
     summary: 'Get a published project',
@@ -118,30 +102,18 @@ export class ProjectsController {
   })
   @ApiOkResponse({
     description: 'A summary of the project was successfully retrieved',
-    type: SimulationRunMetadata,
+    type: ProjectSummary,
   })
   @ApiNotFoundResponse({
     description: 'No project could be found with requested id',
     type: ErrorResponseDocument,
   })
   @Get(':projectId/summary')
-  public async getSummary(
+  public async getProjectSummary(
     @Param('projectId') projectId: string,
-  ): Promise<SimulationRunMetadata> {
-    const summary = await this.service.getSummary(projectId);
-
-    if (!summary) {
-      throw new NotFoundException(`No project could be found with id '${projectId}'`);
-    }
-
-    const metadata = new SimulationRunMetadata(
-      summary.simulationRun,
-      summary.metadata,
-      summary.created,
-      summary.updated,
-    );
-    console.log(metadata)
-    return metadata;
+  ): Promise<ProjectSummary> {
+    const summary = await this.service.getProjectSummary(projectId);
+    return summary;
   }
 
   @Post()
