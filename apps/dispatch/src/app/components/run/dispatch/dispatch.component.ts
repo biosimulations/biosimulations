@@ -743,7 +743,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     if (this.formGroup.value.submitMethod == SubmitMethod.file) {
       const projectFile: File = this.formGroup.value.projectFile;
 
-      simulationResponse = this.dispatchService.submitJob(
+      simulationResponse = this.dispatchService.submitJobForFile(
         projectFile,
         simulator,
         simulatorVersion,
@@ -757,7 +757,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
       );
     } else {
       const projectUrl: string = this.formGroup.value.projectUrl;
-      simulationResponse = this.dispatchService.sumbitJobURL(
+      simulationResponse = this.dispatchService.sumbitJobForURL(
         projectUrl,
         simulator,
         simulatorVersion,

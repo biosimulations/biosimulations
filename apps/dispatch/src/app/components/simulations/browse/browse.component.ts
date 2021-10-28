@@ -1,4 +1,4 @@
-import { urls } from '@biosimulations/config/common';
+import { Endpoints } from '@biosimulations/config/common';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ISimulation, isUnknownSimulation } from '../../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
@@ -28,6 +28,8 @@ import { FormatService } from '@biosimulations/shared/services';
   styleUrls: ['./browse.component.scss'],
 })
 export class BrowseComponent implements OnInit {
+  private endpoints = new Endpoints();
+
   @ViewChild(TableComponent) table!: TableComponent;
 
   columns: Column[] = [
@@ -384,7 +386,7 @@ export class BrowseComponent implements OnInit {
           simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         ) {
-          return `${urls.dispatchApi}download/result/${simulation.id}`;
+          return this.endpoints.getRunResultsDownloadEndpoint(simulation.id);
         } else {
           return null;
         }
@@ -399,7 +401,7 @@ export class BrowseComponent implements OnInit {
           simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         ) {
-          return `${urls.dispatchApi}download/result/${simulation.id}`;
+          return this.endpoints.getRunResultsDownloadEndpoint(simulation.id);
         } else {
           return null;
         }
@@ -509,7 +511,7 @@ export class BrowseComponent implements OnInit {
         } else {
           return (simulation: ISimulation): void => {
             const queryParams: any = {
-              projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+              projectUrl: this.endpoints.getRunDownloadEndpoint(simulation.id),
               simulator: simulation.simulator,
               simulatorVersion: simulation.simulatorVersion,
               runName: simulation.name + ' (rerun)',
@@ -527,7 +529,7 @@ export class BrowseComponent implements OnInit {
         } else {
           return (simulation: ISimulation): void => {
             const queryParams: any = {
-              projectUrl: `${urls.dispatchApi}run/${simulation.id}/download`,
+              projectUrl: this.endpoints.getRunDownloadEndpoint(simulation.id),
               simulator: simulation.simulator,
               simulatorVersion: simulation.simulatorVersion,
               runName: simulation.name + ' (rerun)',

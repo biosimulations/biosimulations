@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { urls } from '@biosimulations/config/common';
+import { Endpoints } from '@biosimulations/config/common';
 import { map, shareReplay } from 'rxjs/operators';
 //TODO set the api interface type
 import { IImage } from '@biosimulations/datamodel/common';
@@ -18,10 +18,11 @@ export interface Version {
 
 @Injectable({ providedIn: 'root' })
 export class SimulatorService {
-  endpoint = urls.simulatorsApi + 'simulators/';
-  allSims = this.http.get<Simulator[]>(this.endpoint).pipe(shareReplay(1));
+  private endpoints = new Endpoints();
+
+  allSims = this.http.get<Simulator[]>(this.endpoints.getSimulatorsEndpoint()).pipe(shareReplay(1));
   latestSims = this.http
-    .get<Simulator[]>(this.endpoint + 'latest')
+    .get<Simulator[]>(this.endpoints.getSimulatorsEndpoint('latest'))
     .pipe(shareReplay(1));
 
   getAll(): Observable<Simulator[]> {
@@ -86,9 +87,7 @@ export class SimulatorService {
     id: string,
     version: string,
   ): Observable<Simulator> {
-    return this.http.get<Simulator>(this.endpoint + id + '/' + version, {
-      params: { includeTests: true },
-    });
+    return this.http.get<Simulator>(this.endpoints.getSimulatorsEndpoint(id, version, true));
   }
 
   constructor(private http: HttpClient) {}

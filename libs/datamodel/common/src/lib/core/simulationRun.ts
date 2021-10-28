@@ -85,3 +85,20 @@ export interface SimulationRunSedDocument {
   created: string;
   updated: string;
 }
+
+export interface UploadSimulationRun {
+  name: string;
+  simulator: string;
+  simulatorVersion: string;
+  cpus: number;
+  memory: number;
+  maxTime: number;
+  envVars: EnvironmentVariable[];
+  purpose: Purpose;
+  email: string | null;
+  projectId?: string;
+}
+
+export interface UploadSimulationRunUrl extends UploadSimulationRun {
+  url: string;
+}

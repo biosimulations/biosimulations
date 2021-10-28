@@ -4,10 +4,10 @@ import { Routes, RouterModule, Router } from '@angular/router';
 import { BrowseComponent } from './browse/browse.component';
 import { ViewComponent } from './view/view.component';
 import { PublishComponent } from './publish/publish.component';
-import { urls } from '@biosimulations/config/common';
+import { Endpoints } from '@biosimulations/config/common';
 
 import { HttpClient, HttpXhrBackend } from '@angular/common/http';
-import { SimulationRun } from '@biosimulations/datamodel/api';
+import { SimulationRun } from '@biosimulations/datamodel/common';
 
 function viewProject(url: string, router: Router): undefined {
   const parts = url.split('/');
@@ -20,11 +20,13 @@ function rerunProject(url: string, router: Router): undefined {
   const parts = url.split('/');
   const id = parts[2].split('#')[0];
 
+  const endpoints = new Endpoints();
+
   new HttpClient(new HttpXhrBackend({ build: () => new XMLHttpRequest() }))
-    .get<SimulationRun>(`${urls.dispatchApi}run/${id}`)
+    .get<SimulationRun>(endpoints.getSimulationRunEndpoint(id))
     .subscribe((simulationRun: SimulationRun): void => {
       const queryParams = {
-        projectUrl: `${urls.dispatchApi}run/${id}/download`,
+        projectUrl: endpoints.getRunDownloadEndpoint(id),
         simulator: simulationRun.simulator,
         simulatorVersion: simulationRun.simulatorVersion,
         runName: simulationRun.name + ' (rerun)',
