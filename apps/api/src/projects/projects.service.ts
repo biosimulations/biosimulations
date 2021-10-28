@@ -168,7 +168,7 @@ export class ProjectsService {
     return (await Promise.allSettled(
       projects.map((project: ProjectModel): Promise<SimulationRunMetadataIdModel | null> => {
         const runId = project.simulationRun;
-        return this.metadataService.getMetadata(runId);  
+        return this.metadataService.getMetadata(runId);
       })
     ))
     .map((promiseResult: PromiseSettledResult<SimulationRunMetadataIdModel | null>): SimulationRunMetadataIdModel => {
@@ -187,7 +187,7 @@ export class ProjectsService {
       return null;
     }
     const runId = project.simulationRun;
-    return await this.metadataService.getMetadata(runId);
+    return this.metadataService.getMetadata(runId);
   }
 
   /** Check if a project is valid
