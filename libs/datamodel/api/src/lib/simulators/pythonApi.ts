@@ -10,7 +10,7 @@ export class PythonApi implements IPythonApi {
   public package!: string;
 
   @Matches(/^[a-zA-Z_][a-zA-Z_0-9]*(\.[a-zA-Z_][a-zA-Z_0-9]*)*$/, {
-    message: `Value is not not a valid name for a Python module (e.g., 'biosimulators_tellurium')`
+    message: `Value is not not a valid name for a Python module (e.g., 'biosimulators_tellurium')`,
   })
   @IsString()
   @IsNotEmpty()

@@ -26,7 +26,11 @@ export class IsImageUrlConstraint implements ValidatorConstraintInterface {
       return false;
     }
 
-    if (!isUrl('https://' + value) || value.startsWith('http://') || value.startsWith('https://')) {
+    if (
+      !isUrl('https://' + value) ||
+      value.startsWith('http://') ||
+      value.startsWith('https://')
+    ) {
       return false;
     }
 

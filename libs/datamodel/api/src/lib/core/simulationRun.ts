@@ -291,7 +291,10 @@ export class UploadSimulationRun extends PickType(SimulationRun, [
     pattern: '^[a-zA-Z0-9_-]{3,}$',
   })
   @IsOptional()
-  @Matches(/^[a-zA-Z0-9_-]{3,}$/, {message: "'projectId' must be a unique combination of at least three letters, numbers, underscores, and dashes"})
+  @Matches(/^[a-zA-Z0-9_-]{3,}$/, {
+    message:
+      "'projectId' must be a unique combination of at least three letters, numbers, underscores, and dashes",
+  })
   @IsString()
   projectId?: string;
 }

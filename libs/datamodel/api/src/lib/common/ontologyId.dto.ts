@@ -65,9 +65,7 @@ export class EdamOntologyIdVersion
   public supportedFeatures!: string[];
 }
 
-export class EdamOntologyDockerImageIdVersion
-  extends EdamOntologyIdVersion
-{
+export class EdamOntologyDockerImageIdVersion extends EdamOntologyIdVersion {
   @IsString()
   @ApiProperty({ type: String, enum: [Ontologies.EDAM] })
   public namespace!: Ontologies.EDAM;
@@ -90,7 +88,6 @@ export class EdamOntologyDockerImageIdVersion
   })
   public supportedFeatures!: string[];
 }
-
 
 export class FunderRegistryOntologyId
   extends OntologyId
