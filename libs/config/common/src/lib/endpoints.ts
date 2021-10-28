@@ -295,7 +295,11 @@ export class Endpoints {
    * @param includeTests Whether to include the results of the validation tests
    * @returns  A URL to get the simulators, and specific simulator, or a specific version of a simulator
    */
-  public getSimulatorsEndpoint(id?: string, version?: string, includeTests=false): string {
+  public getSimulatorsEndpoint(
+    id?: string,
+    version?: string,
+    includeTests = false,
+  ): string {
     id ? (id = `/${id}`) : (id = '');
     version ? (version = `/${version}`) : (version = '');
     const tests = includeTests ? '?includeTests=true' : '';
@@ -308,7 +312,10 @@ export class Endpoints {
    * @param includeTests Whether to include the results of the validation tests
    * @returns  A URL to get the latest version of each simulator, or the latest version of a specific simulator
    */
-  public getLatestSimulatorsEndpoint(id?: string, includeTests=false): string {
+  public getLatestSimulatorsEndpoint(
+    id?: string,
+    includeTests = false,
+  ): string {
     id ? (id = `?id=${id}`) : (id = '');
     const tests = includeTests ? '?includeTests=true' : '';
     return `${this.simulators}/latest${id}${tests}`;

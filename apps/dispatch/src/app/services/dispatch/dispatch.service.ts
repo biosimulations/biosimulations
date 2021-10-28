@@ -110,9 +110,13 @@ export class DispatchService {
       purpose,
       projectId: undefined,
     };
-    return this.http.post<SimulationRun>(this.endpoints.getSimulationRunEndpoint(), body, {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return this.http.post<SimulationRun>(
+      this.endpoints.getSimulationRunEndpoint(),
+      body,
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
   }
 
   public submitJobForFile(
@@ -144,12 +148,19 @@ export class DispatchService {
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('simulationRun', JSON.stringify(run));
 
-    const response = this.http.post<SimulationRun>(this.endpoints.getSimulationRunEndpoint(), formData);
+    const response = this.http.post<SimulationRun>(
+      this.endpoints.getSimulationRunEndpoint(),
+      formData,
+    );
     return response;
   }
 
   public getSimulatorsFromDb(includeTests = true): Observable<SimulatorsData> {
-    const endpoint = this.endpoints.getSimulatorsEndpoint(undefined, undefined, includeTests);
+    const endpoint = this.endpoints.getSimulatorsEndpoint(
+      undefined,
+      undefined,
+      includeTests,
+    );
     const promises: {
       simulatorSpecs: ObservableInput<Simulator[]>;
       edamTerms: ObservableInput<{ [id: string]: EdamTerm }>;

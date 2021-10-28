@@ -125,9 +125,7 @@
   </form>
 
   <ng-template #invalidErrorLoading>
-    <ng-container
-      *ngIf="(valid$ | async) === false; else metadataLoading"
-    >
+    <ng-container *ngIf="(valid$ | async) === false; else metadataLoading">
       <div
         *ngIf="
           isMetadataValidationReport(metadataValidationReport$ | async);

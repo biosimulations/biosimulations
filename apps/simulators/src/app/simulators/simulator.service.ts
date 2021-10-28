@@ -20,7 +20,9 @@ export interface Version {
 export class SimulatorService {
   private endpoints = new Endpoints();
 
-  allSims = this.http.get<Simulator[]>(this.endpoints.getSimulatorsEndpoint()).pipe(shareReplay(1));
+  allSims = this.http
+    .get<Simulator[]>(this.endpoints.getSimulatorsEndpoint())
+    .pipe(shareReplay(1));
   latestSims = this.http
     .get<Simulator[]>(this.endpoints.getSimulatorsEndpoint('latest'))
     .pipe(shareReplay(1));
@@ -87,7 +89,9 @@ export class SimulatorService {
     id: string,
     version: string,
   ): Observable<Simulator> {
-    return this.http.get<Simulator>(this.endpoints.getSimulatorsEndpoint(id, version, true));
+    return this.http.get<Simulator>(
+      this.endpoints.getSimulatorsEndpoint(id, version, true),
+    );
   }
 
   constructor(private http: HttpClient) {}

@@ -20,9 +20,7 @@ import {
   ValidationReport,
   ValidationMessage,
 } from '../../../datamodel/validation-report.interface';
-import {
-  OmexMetadataInputFormat,
-} from '@biosimulations/datamodel/common';
+import { OmexMetadataInputFormat } from '@biosimulations/datamodel/common';
 import { Project } from '@biosimulations/datamodel/common';
 import {
   FormBuilder,
@@ -145,14 +143,15 @@ export class PublishComponent implements OnInit, OnDestroy {
       }),
     );
 
-    this.valid$ = simulation$
-      .pipe(
-        map(() => {
-          return this.simulationService.isSimulationValidForPublication(this.uuid);
-        }),
-        shareReplay(1),
-        concatAll(),
-      );
+    this.valid$ = simulation$.pipe(
+      map(() => {
+        return this.simulationService.isSimulationValidForPublication(
+          this.uuid,
+        );
+      }),
+      shareReplay(1),
+      concatAll(),
+    );
 
     this.metadataValidationReport$ = this.valid$.pipe(
       map(
