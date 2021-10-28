@@ -64,7 +64,7 @@ export class Endpoints {
     this.simulationRuns = `${this.api}/runs`;
     this.simulators = `${this.simulators_api}/simulators`;
     this.files = `${this.api}/files`;
-    this.combineFile = `${this.combine_api}/combine/file`;    
+    this.combineFile = `${this.combine_api}/combine/file`;
     this.specifications = `${this.api}/specifications`;
     this.projects = `${this.api}/projects`;
   }
@@ -188,7 +188,7 @@ export class Endpoints {
    */
   public getModelIntrospectionEndpoint(): string {
     return `${this.combine_api}/sed-ml/get-parameters-variables-for-simulation`;
-  }  
+  }
 
   /**
    * Create a URL for creating COMBINE/OMEX archives
