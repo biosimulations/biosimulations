@@ -105,7 +105,7 @@ export class AppController {
       website: null,
       description: null,
       externalProfiles: [],
-      emails: null,
+      emails: [],
       summary: null,
     };
 
