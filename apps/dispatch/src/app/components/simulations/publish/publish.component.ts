@@ -3,13 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { map, catchError, concatAll, shareReplay } from 'rxjs/operators';
 import { urls } from '@biosimulations/config/common';
+import { Endpoints } from '@biosimulations/config/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { MetadataService } from '../../../services/simulation/metadata.service';
 import { CombineService } from '../../../services/combine/combine.service';
 import { DispatchService } from '../../../services/dispatch/dispatch.service';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { ConfigService } from '@biosimulations/shared/angular';
-import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
 import {
   Simulation,
   UnknownSimulation,
@@ -22,9 +22,8 @@ import {
 } from '../../../datamodel/validation-report.interface';
 import {
   OmexMetadataInputFormat,
-  SimulationRunStatus,
 } from '@biosimulations/datamodel/common';
-import { Project } from '@biosimulations/datamodel/api';
+import { Project } from '@biosimulations/datamodel/common';
 import {
   FormBuilder,
   FormGroup,
@@ -52,7 +51,7 @@ export class PublishComponent implements OnInit, OnDestroy {
   uuid!: string;
 
   private simulation!: Simulation;
-  metadataValid$!: Observable<boolean>;
+  valid$!: Observable<boolean>;
   metadataValidationReport$!: Observable<
     FormattedValidationReport | false | undefined
   >;
@@ -63,6 +62,8 @@ export class PublishComponent implements OnInit, OnDestroy {
   newIssueUrl!: string;
 
   private subscriptions: Subscription[] = [];
+
+  private endpoints = new Endpoints();
 
   constructor(
     private route: ActivatedRoute,
@@ -82,7 +83,6 @@ export class PublishComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.pattern(/^[a-z0-9_-]{3,}$/i)],
         [this.idAvailableValidator()],
       ],
-      succeeded: [false, [Validators.requiredTrue]],
       isValid: [false, [Validators.required]],
       grantedLicense: [false, [Validators.required]],
     });
@@ -145,26 +145,16 @@ export class PublishComponent implements OnInit, OnDestroy {
       }),
     );
 
-    this.metadataValid$ = simulation$.pipe(
-      map((simulation: Simulation): Observable<boolean> => {
-        this.simulation = simulation;
+    this.valid$ = simulation$
+      .pipe(
+        map(() => {
+          return this.simulationService.isSimulationValidForPublication(this.uuid);
+        }),
+        shareReplay(1),
+        concatAll(),
+      );
 
-        this.formGroup.value.succeeded =
-          simulation.status === SimulationRunStatus.SUCCEEDED;
-
-        return this.metadataService.getMetadata(this.uuid).pipe(
-          map((runMetadata: SimulationRunMetadata): boolean => {
-            return true;
-          }),
-          catchError((error: Error) => {
-            return of(false);
-          }),
-        );
-      }),
-      concatAll(),
-    );
-
-    this.metadataValidationReport$ = this.metadataValid$.pipe(
+    this.metadataValidationReport$ = this.valid$.pipe(
       map(
         (
           valid: boolean,
@@ -239,7 +229,7 @@ export class PublishComponent implements OnInit, OnDestroy {
   }
 
   getArchiveUrl(): string {
-    return `${urls.dispatchApi}run/${this.uuid}/download`;
+    return this.endpoints.getRunDownloadEndpoint(this.uuid);
   }
 
   publishSimulation(): void {
