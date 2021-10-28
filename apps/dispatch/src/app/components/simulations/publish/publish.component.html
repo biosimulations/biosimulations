@@ -1,6 +1,6 @@
 <biosimulations-page heading="Publish project">
   <form
-    *ngIf="(metadataValid$ | async) === true; else invalidErrorLoading"
+    *ngIf="(valid$ | async) === true; else invalidErrorLoading"
     [formGroup]="formGroup"
     (ngSubmit)="publishSimulation()"
   >
@@ -126,7 +126,7 @@
 
   <ng-template #invalidErrorLoading>
     <ng-container
-      *ngIf="(metadataValid$ | async) === false; else metadataLoading"
+      *ngIf="(valid$ | async) === false; else metadataLoading"
     >
       <div
         *ngIf="

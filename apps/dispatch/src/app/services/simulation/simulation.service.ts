@@ -353,7 +353,7 @@ export class SimulationService {
 
   public isSimulationValidForPublication(uuid: string): Observable<boolean> {
     return this.httpClient
-      .post<boolean>(this.endpoints.getValidateProjectEndpoint(), 
+      .post<void>(this.endpoints.getValidateProjectEndpoint(), 
         {
           id: 'new-project',
           simulationRun: uuid,
@@ -363,6 +363,7 @@ export class SimulationService {
         },
       )
       .pipe(
+        map(() => true),
         catchError((error: HttpErrorResponse): Observable<boolean> => {
           if (error.status === 400) {
             return of(false);
