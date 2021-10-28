@@ -8,17 +8,17 @@ export class Profile {
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  firstName: string | null;
+  firstName: string | null = null;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  middleName: string | null;
+  middleName: string | null = null;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  lastName: string | null;
+  lastName: string | null = null;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
@@ -26,7 +26,7 @@ export class Profile {
     require_protocol: true,
     protocols: ['http', 'https'],
   })
-  image: string | null;
+  image: string | null = null;
 
   @ApiProperty({ type: String, nullable: false })
   @IsString()
@@ -35,7 +35,7 @@ export class Profile {
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  organization: string | null;
+  organization: string | null = null;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
@@ -43,17 +43,17 @@ export class Profile {
     require_protocol: true,
     protocols: ['http', 'https'],
   })
-  website: string | null;
+  website: string | null = null;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  description: string | null;
+  description: string | null = null;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
   @IsOptional()
   @IsString()
-  summary: string | null;
+  summary: string | null = null;
 
   @ApiProperty({ type: Array, nullable: true, required: false, default: [] })
   @IsOptional()
