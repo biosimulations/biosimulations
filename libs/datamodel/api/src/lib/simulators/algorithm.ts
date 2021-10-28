@@ -127,7 +127,7 @@ export class Algorithm implements IAlgorithm {
 
   @ArrayUnique(
     (parameter: AlgorithmParameter) => parameter?.kisaoId?.id, 
-    { message: 'Multiple parameters have the same KiSAO id. Each parameter must have a unique KiSAO id.' },
+    { message: 'Two or more parameters have the same KiSAO id. Each parameter must have a unique KiSAO id.' },
   )
   @ValidateNested({ each: true })
   @Type(() => AlgorithmParameter)
