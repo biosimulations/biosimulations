@@ -25,6 +25,7 @@ import {
   IsOptional,
   IsString,
   ValidateNested,
+  ArrayUnique,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -124,6 +125,10 @@ export class Algorithm implements IAlgorithm {
   @ApiProperty({ type: KisaoOntologyId })
   public kisaoId!: KisaoOntologyId;
 
+  @ArrayUnique(
+    (parameter: AlgorithmParameter) => parameter?.kisaoId?.id, 
+    { message: 'Multiple parameters have the same KiSAO id. Each parameter must have a unique KiSAO id.' },
+  )
   @ValidateNested({ each: true })
   @Type(() => AlgorithmParameter)
   @IsOptional()
