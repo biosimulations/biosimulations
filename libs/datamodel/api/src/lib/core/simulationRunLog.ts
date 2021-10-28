@@ -5,6 +5,7 @@ import {
   SedDocumentLog as ISedDocumentLog,
   SedTaskLog as ISedTaskLog,
   SimulatorDetail as ISimulatorDetail,
+  SedOutputLog as ISedOutputLog,
   SedReportLog as ISedReportLog,
   SedPlot2DLog as ISedPlot2DLog,
   SedPlot3DLog as ISedPlot3DLog,
@@ -13,34 +14,68 @@ import {
   Exception as IException,
 } from '@biosimulations/datamodel/common';
 
+import {
+  IsString,
+  IsNotEmpty,
+  IsEnum,
+  IsNumber,
+  Min,
+  Matches,
+  NotContains,
+  IsMongoId,
+  ValidateNested,
+  IsOptional,
+} from 'class-validator';
+import { Type, Transform} from 'class-transformer';
+
 export class Exception implements IException {
   @ApiProperty({ type: String, example: 'FileNotFoundError' })
+  @IsNotEmpty()
+  @IsString()
   category!: string;
 
   @ApiProperty({ type: String, example: "File 'model.xml' does not exist." })
+  @IsNotEmpty()
+  @IsString()
   message!: string;
 }
 
 export class SedOutputElementLog implements ISedOutputElementLog {
   @ApiProperty({ type: String })
+  @NotContains('/')
+  @IsNotEmpty()
+  @IsString()
   id!: string;
 
   @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  @IsEnum(SimulationRunLogStatus)
   status!: SimulationRunLogStatus;
 }
 
-export class SedReportLog implements ISedReportLog {
+export class SedOutputLog implements ISedOutputLog {
+  // _type!: string;
+
   @ApiProperty({ type: String })
+  @NotContains('/')
+  @IsNotEmpty()
+  @IsString()
   id!: string;
 
   @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  @IsEnum(SimulationRunLogStatus)
   status!: SimulationRunLogStatus;
 
   @ApiProperty({ type: Exception, nullable: true })
-  exception!: Exception | null;
+  @IsOptional()  
+  @ValidateNested()
+  @Type(() => Exception)
+  exception: Exception | null = null;
 
   @ApiProperty({ type: Exception, nullable: true })
-  skipReason!: Exception | null;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Exception)
+  skipReason: Exception | null = null;
 
   @ApiProperty({
     type: String,
@@ -48,73 +83,45 @@ export class SedReportLog implements ISedReportLog {
       'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
     nullable: true,
   })
-  output!: string | null;
+  @IsOptional()
+  @IsString()
+  output: string | null = null;
 
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
-  duration!: number | null;
-
-  @ApiProperty({ type: [SedOutputElementLog], nullable: true })
-  dataSets!: SedOutputElementLog[] | null;
+  @IsOptional()
+  @Min(0)
+  @IsNumber()
+  duration: number | null = null;
 }
 
-export class SedPlot2DLog implements ISedPlot2DLog {
-  @ApiProperty({ type: String })
-  id!: string;
-
-  @ApiProperty({ type: String, enum: SimulationRunLogStatus })
-  status!: SimulationRunLogStatus;
-
-  @ApiProperty({ type: Exception, nullable: true })
-  exception!: Exception | null;
-
-  @ApiProperty({ type: Exception, nullable: true })
-  skipReason!: Exception | null;
-
-  @ApiProperty({
-    type: String,
-    example:
-      'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
-    nullable: true,
-  })
-  output!: string | null;
-
-  @ApiProperty({ type: Number, example: 10.5, nullable: true })
-  duration!: number | null;
-
+export class SedReportLog extends SedOutputLog implements ISedReportLog {
   @ApiProperty({ type: [SedOutputElementLog], nullable: true })
-  curves!: SedOutputElementLog[] | null;
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => SedOutputElementLog)
+  dataSets: SedOutputElementLog[] | null = null;
 }
 
-export class SedPlot3DLog implements ISedPlot3DLog {
-  @ApiProperty({ type: String })
-  id!: string;
-
-  @ApiProperty({ type: String, enum: SimulationRunLogStatus })
-  status!: SimulationRunLogStatus;
-
-  @ApiProperty({ type: Exception, nullable: true })
-  exception!: Exception | null;
-
-  @ApiProperty({ type: Exception, nullable: true })
-  skipReason!: Exception | null;
-
-  @ApiProperty({
-    type: String,
-    example:
-      'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
-    nullable: true,
-  })
-  output!: string | null;
-
-  @ApiProperty({ type: Number, example: 10.5, nullable: true })
-  duration!: number | null;
-
+export class SedPlot2DLog extends SedOutputLog implements ISedPlot2DLog {
   @ApiProperty({ type: [SedOutputElementLog], nullable: true })
-  surfaces!: SedOutputElementLog[] | null;
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => SedOutputElementLog)
+  curves: SedOutputElementLog[] | null = null;
+}
+
+export class SedPlot3DLog extends SedOutputLog implements ISedPlot3DLog {
+  @ApiProperty({ type: [SedOutputElementLog], nullable: true })
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => SedOutputElementLog)
+  surfaces: SedOutputElementLog[] | null = null;
 }
 
 export class SimulatorDetail implements ISimulatorDetail {
   @ApiProperty({ type: String, example: 'arguments' })
+  @IsNotEmpty()
+  @IsString()
   key!: string;
 
   @ApiProperty({ type: Object, example: { relTol: 1e-6, absTol: 1e-8 } })
@@ -123,16 +130,26 @@ export class SimulatorDetail implements ISimulatorDetail {
 
 export class SedTaskLog implements ISedTaskLog {
   @ApiProperty({ type: String })
+  @NotContains('/')
+  @IsNotEmpty()
+  @IsString()
   id!: string;
 
   @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  @IsEnum(SimulationRunLogStatus)
   status!: SimulationRunLogStatus;
 
   @ApiProperty({ type: Exception, nullable: true })
-  exception!: Exception | null;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Exception)
+  exception: Exception | null = null;
 
   @ApiProperty({ type: Exception, nullable: true })
-  skipReason!: Exception | null;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Exception)
+  skipReason: Exception | null = null;
 
   @ApiProperty({
     type: String,
@@ -140,10 +157,15 @@ export class SedTaskLog implements ISedTaskLog {
       'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
     nullable: true,
   })
-  output!: string | null;
+  @IsOptional()
+  @IsString()
+  output: string | null = null;
 
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
-  duration!: number | null;
+  @IsOptional()
+  @Min(0)
+  @IsNumber()
+  duration: number | null = null;
 
   @ApiProperty({
     type: String,
@@ -151,24 +173,39 @@ export class SedTaskLog implements ISedTaskLog {
     example: 'KISAO_0000019',
     nullable: true,
   })
-  algorithm!: string | null;
+  @IsOptional()
+  @Matches(/^KISAO_\d{7,7}$/)
+  @IsString()
+  algorithm: string | null = null;
 
   @ApiProperty({ type: [SimulatorDetail], nullable: true })
-  simulatorDetails!: SimulatorDetail[] | null;
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => SimulatorDetail)
+  simulatorDetails: SimulatorDetail[] | null = null;
 }
 
 export class SedDocumentLog implements ISedDocumentLog {
   @ApiProperty({ type: String })
+  @IsNotEmpty()
+  @IsString()
   location!: string;
 
   @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  @IsEnum(SimulationRunLogStatus)
   status!: SimulationRunLogStatus;
 
   @ApiProperty({ type: Exception, nullable: true })
-  exception!: Exception | null;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Exception)
+  exception: Exception | null = null;
 
   @ApiProperty({ type: Exception, nullable: true })
-  skipReason!: Exception | null;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Exception)
+  skipReason: Exception | null = null;
 
   @ApiProperty({
     type: String,
@@ -176,13 +213,21 @@ export class SedDocumentLog implements ISedDocumentLog {
       'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
     nullable: true,
   })
-  output!: string | null;
+  @IsOptional()
+  @IsString()
+  output: string | null = null;
 
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
-  duration!: number | null;
+  @IsOptional()
+  @Min(0)
+  @IsNumber()
+  duration: number | null = null;
 
   @ApiProperty({ type: [SedTaskLog], nullable: true })
-  tasks!: SedTaskLog[] | null;
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => { return SedTaskLog; })
+  tasks: SedTaskLog[] | null = null;
 
   @ApiProperty({
     type: 'array',
@@ -195,18 +240,50 @@ export class SedDocumentLog implements ISedDocumentLog {
     },
     nullable: true,
   })
-  outputs!: (SedReportLog | SedPlot2DLog | SedPlot3DLog)[] | null;
+  @IsOptional()
+  @Transform(({ value }) => {    
+    value?.forEach((v: any): void => {
+      if (typeof v === 'object' && 'dataSets' in v) {
+        v._type = 'SedReportLog';
+      }
+      if (typeof v === 'object' && 'curves' in v) {
+        v._type = 'SedPlot2DLog';
+      }
+      if (typeof v === 'object' && 'surfaces' in v) {
+        v._type = 'SedPlot3DLog';
+      }
+    });
+  })
+  @ValidateNested({ each: true })
+  @Type(() => SedOutputLog, {
+    discriminator: {
+      property: '_type',
+      subTypes: [
+        { value: SedReportLog, name: 'SedReportLog' },
+        { value: SedPlot2DLog, name: 'SedPlot2DLog' },
+        { value: SedPlot3DLog, name: 'SedPlot3DLog' },
+      ],
+    },
+  })
+  outputs: (SedReportLog | SedPlot2DLog | SedPlot3DLog)[] | null = null;
 }
 
 export class CombineArchiveLog implements ICombineArchiveLog {
   @ApiProperty({ type: String, enum: SimulationRunLogStatus })
+  @IsEnum(SimulationRunLogStatus)
   status!: SimulationRunLogStatus;
 
   @ApiProperty({ type: Exception, nullable: true })
-  exception!: Exception | null;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Exception)
+  exception: Exception | null = null;
 
   @ApiProperty({ type: Exception, nullable: true })
-  skipReason!: Exception | null;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => Exception)
+  skipReason: Exception | null = null;
 
   @ApiProperty({
     type: String,
@@ -214,19 +291,30 @@ export class CombineArchiveLog implements ICombineArchiveLog {
       'Reading model ... done\nExecuting model ... done\nSaving results ... done\n',
     nullable: true,
   })
-  output!: string | null;
+  @IsOptional()
+  @IsString()
+  output: string | null = null;
 
   @ApiProperty({ type: Number, example: 10.5, nullable: true })
-  duration!: number | null;
+  @IsOptional()
+  @Min(0)
+  @IsNumber()
+  duration: number | null = null;
 
   @ApiProperty({ type: [SedDocumentLog], nullable: true })
-  sedDocuments!: SedDocumentLog[] | null;
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => SedDocumentLog)
+  sedDocuments: SedDocumentLog[] | null = null;
 }
 
 export class CreateSimulationRunLogBody {
   @ApiProperty({ type: String })
+  @IsMongoId()
   simId!: string;
 
-  @ApiProperty({ type: [CombineArchiveLog] })
+  @ApiProperty({ type: CombineArchiveLog })
+  @ValidateNested()
+  @Type(() => CombineArchiveLog)
   log!: CombineArchiveLog;
 }
