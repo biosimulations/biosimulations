@@ -183,7 +183,7 @@ export class ProjectsService {
       throw new NotFoundException(`No project could be found with id '${id}'`);
     }
 
-    /* get data */ 
+    /* get data */
     const runId = project.simulationRun;
     const settledResults = (await Promise.allSettled([
       this.filesService.getSimulationFiles(runId),
@@ -194,8 +194,8 @@ export class ProjectsService {
     ]))
     .map((settledResult) => {
       if (
-        settledResult.status !== 'fulfilled' 
-        || !('value' in settledResult) 
+        settledResult.status !== 'fulfilled'
+        || !('value' in settledResult)
         || settledResult.value === null
         || (Array.isArray(settledResult.value) && settledResult.value.length === 0)
       ) {
@@ -219,11 +219,11 @@ export class ProjectsService {
 
       simulationExpt.tasks.forEach((task: SedTask): void => {
         simulationTasks.push({
-          uri: docLocation + '/' + task.id, 
+          uri: docLocation + '/' + task.id,
           id: task.id,
           name: task?.name,
           model: {
-            uri: docLocation + '/' + task.model.id, 
+            uri: docLocation + '/' + task.model.id,
             id: task.model.id,
             name: task.model?.name,
             source: task.model.source,
@@ -231,7 +231,7 @@ export class ProjectsService {
           },
           simulation: {
             _type: SimulationType[task.simulation._type],
-            uri: docLocation + '/' + task.simulation.id, 
+            uri: docLocation + '/' + task.simulation.id,
             id: task.simulation.id,
             name: task.simulation?.name,
             algorithm: task.simulation.algorithm.kisaoId, // TODO: get actual rather than requested algorithm

@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional, ApiResponseProperty, ApiExtraModels, OmitType } from '@nestjs/swagger';
-import { 
-  Project as IProject, 
+import {
+  Project as IProject,
   ProjectInput as IProjectInput,
   SimulationTaskSummary as ISimulationTaskSummary,
   ModelSummary as IModelSummary,
@@ -13,7 +13,7 @@ import {
   SimulationType,
 } from '@biosimulations/datamodel/common';
 import { IsNotEmpty, IsString, Matches, IsMongoId } from 'class-validator';
-import { 
+import {
   LabeledIdentifier,
   DescribedIdentifier,
   ABSTRACT,
@@ -35,7 +35,7 @@ import {
   TITLE,
   FUNDERS,
 } from '../common';
-import { 
+import {
   EnvironmentVariable
 } from './simulationRun';
 
