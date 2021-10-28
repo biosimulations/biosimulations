@@ -353,7 +353,7 @@ export class SimulationService {
 
   public isSimulationValidForPublication(uuid: string): Observable<boolean> {
     return this.httpClient
-      .post<void>(this.endpoints.getValidateProjectEndpoint(), 
+      .post<void>(this.endpoints.getValidateProjectEndpoint(),
         {
           id: 'new-project',
           simulationRun: uuid,
@@ -371,6 +371,6 @@ export class SimulationService {
             return throwError(error);
           }
         }),
-      );    
+      );
   }
 }
