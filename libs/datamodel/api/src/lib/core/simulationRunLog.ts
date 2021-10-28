@@ -26,7 +26,7 @@ import {
   ValidateNested,
   IsOptional,
 } from 'class-validator';
-import { Type, Transform} from 'class-transformer';
+import { Type, Transform } from 'class-transformer';
 
 export class Exception implements IException {
   @ApiProperty({ type: String, example: 'FileNotFoundError' })
@@ -226,7 +226,9 @@ export class SedDocumentLog implements ISedDocumentLog {
   @ApiProperty({ type: [SedTaskLog], nullable: true })
   @IsOptional()
   @ValidateNested({ each: true })
-  @Type(() => { return SedTaskLog; })
+  @Type(() => {
+    return SedTaskLog;
+  })
   tasks: SedTaskLog[] | null = null;
 
   @ApiProperty({
