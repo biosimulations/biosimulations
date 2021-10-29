@@ -508,7 +508,7 @@ export class SimulationRunController {
   @ApiNotFoundResponse({
     description: 'No run could be found with requested id',
     type: ErrorResponseDocument,
-  })  
+  })
   @Get(':runId/summary')
   public async getRunSummary(
     @Param('runId') runId: string,

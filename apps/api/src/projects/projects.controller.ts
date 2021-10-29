@@ -58,7 +58,7 @@ export class ProjectsController {
     type: [ProjectSummary],
   })
   public async getProjectSummaries(): Promise<ProjectSummary[]> {
-    return await this.service.getProjectSummaries();
+    return this.service.getProjectSummaries();
   }
 
   @Get(':projectId')
@@ -103,7 +103,7 @@ export class ProjectsController {
   public async getProjectSummary(
     @ProjectId('projectId') projectId: string,
   ): Promise<ProjectSummary> {
-    return await this.service.getProjectSummary(projectId);
+    return this.service.getProjectSummary(projectId);
   }
 
   @Post()

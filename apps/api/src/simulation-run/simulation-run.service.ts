@@ -565,9 +565,9 @@ export class SimulationRunService {
 
     const runSettledResult: PromiseSettledResult<SimulationRunModelReturnType | null> = settledResults[0];
     const filesResult: PromiseSettledResult<FileModel[]> = settledResults[1];
-    const simulationExptsResult: PromiseSettledResult<SpecificationsModel[]> = settledResults[2];    
+    const simulationExptsResult: PromiseSettledResult<SpecificationsModel[]> = settledResults[2];
     const logResult: PromiseSettledResult<CombineArchiveLog> = settledResults[3];
-    const rawMetadataResult: PromiseSettledResult<SimulationRunMetadataIdModel | null> = settledResults[4];    
+    const rawMetadataResult: PromiseSettledResult<SimulationRunMetadataIdModel | null> = settledResults[4];
 
     if (runSettledResult.status !== 'fulfilled' || !('value' in runSettledResult) || !runSettledResult.value) {
       throw new NotFoundException(`No run could be found with id '${id}'`);
@@ -612,9 +612,9 @@ export class SimulationRunService {
     if (
       filesResult.status === 'fulfilled'
       && !!filesResult.value
-      && simulationExptsResult.status === 'fulfilled' 
+      && simulationExptsResult.status === 'fulfilled'
       && !!simulationExptsResult.value
-      && logResult.status === 'fulfilled' 
+      && logResult.status === 'fulfilled'
       && !!logResult.value
     ) {
       const files = filesResult.value;
@@ -774,7 +774,7 @@ export class SimulationRunService {
       throw new InternalServerErrorException('Information about the files, simulation experiments, or log could not be retrieved')
     }
 
-    /* return summary */    
+    /* return summary */
     return summary;
   }
 

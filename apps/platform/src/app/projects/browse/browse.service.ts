@@ -27,7 +27,7 @@ export class BrowseService {
             if (!run.metadata) {
               throw new BiosimulationsError(
                 'Project summary not found',
-                `We're sorry! An error occurred while retrieving a summary of project ${project.id}.`, 
+                `We're sorry! An error occurred while retrieving a summary of project ${project.id}.`,
                 500);
             }
             const metadata = run.metadata;
