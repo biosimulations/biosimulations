@@ -27,8 +27,8 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
       let parents!: string[];
       if ('rdfs:subClassOf' in jsonTerm) {
         parents = (
-          Array.isArray(jsonTerm['rdfs:subClassOf']) 
-          ? jsonTerm['rdfs:subClassOf'] 
+          Array.isArray(jsonTerm['rdfs:subClassOf'])
+          ? jsonTerm['rdfs:subClassOf']
           : [jsonTerm['rdfs:subClassOf']]
           )
           .filter((term: string): boolean => {
@@ -48,7 +48,7 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
         url: termUrl,
         moreInfoUrl: null,
         parents: parents,
-        children: [],        
+        children: [],
       };
 
       Terms[termId] = term;
