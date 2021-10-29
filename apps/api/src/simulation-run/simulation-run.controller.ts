@@ -23,9 +23,11 @@ import {
   Req,
   Res,
   UploadedFile,
-  UseInterceptors,
   UnsupportedMediaTypeException,
   HttpCode,
+  UseInterceptors,
+  CacheInterceptor,
+  CacheTTL,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -485,6 +487,8 @@ export class SimulationRunController {
     type: ErrorResponseDocument,
   })
   @Get(':runId/summary')
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(60 * 24 * 7) // 1 week
   public async getRunSummary(
     @Param('runId') runId: string,
   ): Promise<SimulationRunSummary> {
