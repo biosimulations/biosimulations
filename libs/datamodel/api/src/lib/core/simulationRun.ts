@@ -29,7 +29,6 @@ import {
   SimulationRunAlgorithmSummary as ISimulationRunAlgorithmSummary,
   SimulationRunSimulatorSummary as ISimulationRunSimulatorSummary,
   TypeSummary as ITypeSummary,
-  SimulationType,
 } from '@biosimulations/datamodel/common';
 import {
   LabeledIdentifier,
@@ -466,7 +465,7 @@ export class SimulationRunAlgorithmSummary implements ISimulationRunAlgorithmSum
   @ApiProperty({
     type: String,
     description: 'KiSAO id of the algorithm',
-    pattern: '^KISAO_\d{7,7}$',
+    pattern: '^KISAO_\\d{7,7}$',
     example: 'KISAO_0000019',
   })
   kisaoId!: string;

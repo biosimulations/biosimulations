@@ -11,7 +11,6 @@ import {
   NotFoundException,
   Post,
   Put,
-  Param,
   Query,
   HttpCode,
 } from '@nestjs/common';
@@ -19,7 +18,6 @@ import {
   ApiNoContentResponse,
   ApiTags,
   ApiOperation,
-  ApiParam,
   ApiQuery,
   ApiBody,
   ApiOkResponse,
@@ -33,7 +31,6 @@ import { ProjectId, ProjectIdParam } from './id.decorator';
 import { ProjectModel } from './project.model';
 import { ProjectsService } from './projects.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
 
 @ApiTags('Projects')
 @Controller('projects')

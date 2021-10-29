@@ -8,7 +8,6 @@ import {
   SedOutput,
 } from '../sedml';
 import { LabeledIdentifier, DescribedIdentifier } from './archiveMetadata';
-import { SimulationType } from './algorithm';
 
 export enum SimulationRunStatus {
   // The api has created the entry
