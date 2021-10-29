@@ -1,4 +1,7 @@
-import { LabeledIdentifier, EnvironmentVariable } from '@biosimulations/datamodel/common';
+import {
+  LabeledIdentifier,
+  EnvironmentVariable,
+} from '@biosimulations/datamodel/common';
 
 export interface FormattedDate {
   value: Date;

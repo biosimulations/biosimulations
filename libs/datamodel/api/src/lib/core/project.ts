@@ -56,4 +56,6 @@ export class Project implements IProject {
   public updated!: string;
 }
 
-export class ProjectInput extends OmitType(Project, ['created', 'updated']) implements IProjectInput {}
+export class ProjectInput
+  extends OmitType(Project, ['created', 'updated'])
+  implements IProjectInput {}

@@ -1,6 +1,4 @@
-import {
-  ProjectInput,
-} from '@biosimulations/datamodel/api';
+import { ProjectInput } from '@biosimulations/datamodel/api';
 import {
   Injectable,
   Logger,

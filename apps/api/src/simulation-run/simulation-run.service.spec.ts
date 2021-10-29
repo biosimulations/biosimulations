@@ -84,7 +84,7 @@ describe('SimulationRunService', () => {
           provide: getModelToken(SimulationRunModel.name),
           useClass: mockFile,
         },
-         { provide: getModelToken(FileModel.name), useValue: {} },
+        { provide: getModelToken(FileModel.name), useValue: {} },
         { provide: getModelToken(SpecificationsModel.name), useValue: {} },
         {
           provide: getModelToken(SimulationRunLog.name),

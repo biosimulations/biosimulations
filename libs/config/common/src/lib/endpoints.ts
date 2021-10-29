@@ -291,16 +291,10 @@ export class Endpoints {
    * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    * @returns A URL to download the output of a simulation
    */
-  public getRunResultsDownloadEndpoint(
-    id: string,
-    external = false,
-  ): string {
+  public getRunResultsDownloadEndpoint(id: string, external = false): string {
     if (external) {
       if (this.env == 'local') {
-        return new Endpoints('dev').getRunResultsDownloadEndpoint(
-          id,
-          external,
-        );
+        return new Endpoints('dev').getRunResultsDownloadEndpoint(id, external);
       }
     }
     return `${this.simulationRunResults}/${id}/download`;

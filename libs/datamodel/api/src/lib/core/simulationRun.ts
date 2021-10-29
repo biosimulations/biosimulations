@@ -424,7 +424,9 @@ export class TypeSummary implements ITypeSummary {
   url!: string;
 }
 
-export class SimulationRunModelLanguageSummary implements ISimulationRunModelLanguageSummary {
+export class SimulationRunModelLanguageSummary
+  implements ISimulationRunModelLanguageSummary
+{
   @ApiPropertyOptional({
     type: String,
     description: 'Name of the language',
@@ -441,14 +443,16 @@ export class SimulationRunModelLanguageSummary implements ISimulationRunModelLan
 
   @ApiProperty({
     type: String,
-    description: 'SED-ML URN for the language. More information is available at http://sed-ml.org/urns.html.',
+    description:
+      'SED-ML URN for the language. More information is available at http://sed-ml.org/urns.html.',
     example: 'urn:sedml:language:sbml',
   })
   sedmlUrn!: string;
 
   @ApiPropertyOptional({
     type: String,
-    description: 'EDAM id for the language. More information is available at https://www.ebi.ac.uk/ols/ontologies/edam.',
+    description:
+      'EDAM id for the language. More information is available at https://www.ebi.ac.uk/ols/ontologies/edam.',
     example: 'format_2585',
   })
   edamId?: string;
@@ -456,12 +460,15 @@ export class SimulationRunModelLanguageSummary implements ISimulationRunModelLan
   @ApiPropertyOptional({
     type: String,
     description: 'URL with more information about the language',
-    example: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2585',
+    example:
+      'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2585',
   })
   url?: string;
 }
 
-export class SimulationRunAlgorithmSummary implements ISimulationRunAlgorithmSummary {
+export class SimulationRunAlgorithmSummary
+  implements ISimulationRunAlgorithmSummary
+{
   @ApiProperty({
     type: String,
     description: 'KiSAO id of the algorithm',
@@ -480,7 +487,8 @@ export class SimulationRunAlgorithmSummary implements ISimulationRunAlgorithmSum
   @ApiPropertyOptional({
     type: String,
     description: 'URL with more informationa about the algorithm',
-    example: 'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000019',
+    example:
+      'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000019',
   })
   url?: string;
 }
@@ -488,7 +496,8 @@ export class SimulationRunAlgorithmSummary implements ISimulationRunAlgorithmSum
 export class SimulationRunModelSummary implements ISimulationRunModelSummary {
   @ApiProperty({
     type: String,
-    description: 'Id of the model (combination of the location of the parent file of the model within the archive and the id of the model)',
+    description:
+      'Id of the model (combination of the location of the parent file of the model within the archive and the id of the model)',
   })
   uri!: string;
 
@@ -506,7 +515,8 @@ export class SimulationRunModelSummary implements ISimulationRunModelSummary {
 
   @ApiProperty({
     type: String,
-    description: 'Location of the model relative to the location of its parent SED-ML file within its parent COMBINE/OMEX archive',
+    description:
+      'Location of the model relative to the location of its parent SED-ML file within its parent COMBINE/OMEX archive',
     example: './model.xml',
   })
   source!: string;
@@ -518,7 +528,9 @@ export class SimulationRunModelSummary implements ISimulationRunModelSummary {
   language!: SimulationRunModelLanguageSummary;
 }
 
-export class SimulationRunSimulationSummary implements ISimulationRunSimulationSummary {
+export class SimulationRunSimulationSummary
+  implements ISimulationRunSimulationSummary
+{
   @ApiProperty({
     type: String,
     enum: TypeSummary,
@@ -528,7 +540,8 @@ export class SimulationRunSimulationSummary implements ISimulationRunSimulationS
 
   @ApiProperty({
     type: String,
-    description: 'Id of the simulation (combination of the location of the parent file of the simulation within the archive and the id of the simulation)',
+    description:
+      'Id of the simulation (combination of the location of the parent file of the simulation within the archive and the id of the simulation)',
   })
   uri!: string;
 
@@ -546,7 +559,8 @@ export class SimulationRunSimulationSummary implements ISimulationRunSimulationS
 
   @ApiProperty({
     type: SimulationRunAlgorithmSummary,
-    description: 'Algorithm that executed the simulation. Note, this differs from the algorithm stated in the specification of the simulation experiment when the specified simulation tool implements different algorithms.',
+    description:
+      'Algorithm that executed the simulation. Note, this differs from the algorithm stated in the specification of the simulation experiment when the specified simulation tool implements different algorithms.',
   })
   algorithm!: SimulationRunAlgorithmSummary;
 }
@@ -554,7 +568,8 @@ export class SimulationRunSimulationSummary implements ISimulationRunSimulationS
 export class SimulationRunTaskSummary implements ISimulationRunTaskSummary {
   @ApiProperty({
     type: String,
-    description: 'Id of the task (combination of the location of the parent file of the task within the archive and the id of the task)',
+    description:
+      'Id of the task (combination of the location of the parent file of the task within the archive and the id of the task)',
   })
   uri!: string;
 
@@ -593,11 +608,12 @@ export class SimulationRunOutputSummary implements ISimulationRunOutputSummary {
 
   @ApiProperty({
     type: String,
-    description: 'Id of the plot (combination of the location of the parent file of the output within the archive and the id of the output)',
+    description:
+      'Id of the plot (combination of the location of the parent file of the output within the archive and the id of the output)',
     example: 'figure1/simulation.sedml/figure1a',
   })
   uri!: string;
-  
+
   @ApiPropertyOptional({
     type: String,
     description: 'Name of the plot',
@@ -606,30 +622,36 @@ export class SimulationRunOutputSummary implements ISimulationRunOutputSummary {
   name?: string;
 }
 
-export class SimulationRunSimulatorSummary implements ISimulationRunSimulatorSummary {
+export class SimulationRunSimulatorSummary
+  implements ISimulationRunSimulatorSummary
+{
   @ApiProperty({
     type: String,
-    description: 'BioSimulators id of the simulation tool which executed the simulation run',
+    description:
+      'BioSimulators id of the simulation tool which executed the simulation run',
     example: 'tellurium',
   })
   id!: string;
 
   @ApiProperty({
-    description: 'Name of the simulation tool which executed the simulation run',
+    description:
+      'Name of the simulation tool which executed the simulation run',
     type: String,
     example: 'tellurium',
   })
   name!: string;
 
   @ApiProperty({
-    description: 'Version of the simulation tool which executed the simulation run',
+    description:
+      'Version of the simulation tool which executed the simulation run',
     type: String,
     example: '2.2.1',
   })
   version!: string;
 
   @ApiProperty({
-    description: 'Digest of the simulation tool which executed the simulation run',
+    description:
+      'Digest of the simulation tool which executed the simulation run',
     type: String,
     pattern: '^sha256:[a-z0-9]{64,64}$',
     example:
@@ -683,21 +705,25 @@ export class SimulationRunRunSummary implements ISimulationRunRunSummary {
   runtime!: number;
 
   @ApiProperty({
-    description: 'Size of the project (COMBINE/OMEX archive) for the simulation run',
+    description:
+      'Size of the project (COMBINE/OMEX archive) for the simulation run',
     type: Number,
     example: 1123,
   })
   projectSize!: number;
 
   @ApiProperty({
-    description: 'Size of the results (zip of reports and plots) for the simulation run',
+    description:
+      'Size of the results (zip of reports and plots) for the simulation run',
     type: Number,
     example: 11234,
   })
   resultsSize!: number;
 }
 
-export class SimulationRunMetadataSummary implements ISimulationRunMetadataSummary {
+export class SimulationRunMetadataSummary
+  implements ISimulationRunMetadataSummary
+{
   @ApiPropertyOptional(TITLE)
   title?: string;
 
@@ -715,7 +741,7 @@ export class SimulationRunMetadataSummary implements ISimulationRunMetadataSumma
 
   @ApiProperty(KEYWORDS)
   keywords!: LabeledIdentifier[];
-  
+
   @ApiProperty(TAXA)
   taxa!: LabeledIdentifier[];
 
@@ -806,7 +832,8 @@ export class SimulationRunSummary implements ISimulationRunSummary {
   submitted!: string;
 
   @ApiProperty({
-    description: 'Timestamp when the status of the simulation run was last updated',
+    description:
+      'Timestamp when the status of the simulation run was last updated',
     type: String,
     format: 'date-time',
   })

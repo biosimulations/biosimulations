@@ -28,7 +28,9 @@ export class MetadataService {
     this.endpoints = new Endpoints(env);
   }
 
-  public async getAllMetadata(): Promise<SimulationRunMetadataIdModel[] | null> {
+  public async getAllMetadata(): Promise<
+    SimulationRunMetadataIdModel[] | null
+  > {
     const metadata = await this.metadataModel.find({}).exec();
     return metadata;
   }

@@ -522,23 +522,22 @@ export class SimulationRunService {
     return this.simulationRunModel.findById(id).catch((_) => null);
   }
 
-  public async getRunSummary(
-    id: string,
-  ): Promise<SimulationRunSummary> {
+  public async getRunSummary(id: string): Promise<SimulationRunSummary> {
     /* get data */
-    const settledResults = (await Promise.allSettled([
-      this.filesService.getSimulationFiles(id),
-      this.specificationsService.getSpecificationsBySimulation(id),
-      this.get(id),
-      this.logsService.getLog(id),
-      this.metadataService.getMetadata(id),
-    ]))
-    .map((settledResult) => {
+    const settledResults = (
+      await Promise.allSettled([
+        this.filesService.getSimulationFiles(id),
+        this.specificationsService.getSpecificationsBySimulation(id),
+        this.get(id),
+        this.logsService.getLog(id),
+        this.metadataService.getMetadata(id),
+      ])
+    ).map((settledResult) => {
       if (
-        settledResult.status !== 'fulfilled'
-        || !('value' in settledResult)
-        || settledResult.value === null
-        || (Array.isArray(settledResult.value) && settledResult.value.length === 0)
+        settledResult.status !== 'fulfilled' ||
+        !('value' in settledResult) ||
+        settledResult.value === null ||
+        (Array.isArray(settledResult.value) && settledResult.value.length === 0)
       ) {
         throw new NotFoundException(`No run could be found with id '${id}'`);
       }
@@ -561,10 +560,12 @@ export class SimulationRunService {
     const tasks: SimulationRunTaskSummary[] = [];
     const outputs: SimulationRunOutputSummary[] = [];
 
-    const taskAlgorithmMap: {[uri: string]: string | undefined} = {};
+    const taskAlgorithmMap: { [uri: string]: string | undefined } = {};
 
     log?.sedDocuments?.forEach((sedDocument): void => {
-      const location = sedDocument.location.startsWith('./') ? sedDocument.location.substring(2) : sedDocument.location;
+      const location = sedDocument.location.startsWith('./')
+        ? sedDocument.location.substring(2)
+        : sedDocument.location;
       sedDocument?.tasks?.forEach((task): void => {
         const uri = location + '/' + task.id;
         taskAlgorithmMap[uri] = task?.algorithm || undefined;
@@ -572,7 +573,9 @@ export class SimulationRunService {
     });
 
     simulationExpts.forEach((simulationExpt: SpecificationsModel): void => {
-      const docLocation = simulationExpt.id.startsWith('./') ? simulationExpt.id.substring(2) : simulationExpt.id;
+      const docLocation = simulationExpt.id.startsWith('./')
+        ? simulationExpt.id.substring(2)
+        : simulationExpt.id;
 
       simulationExpt.tasks.forEach((task: SedTask): void => {
         const uri = docLocation + '/' + task.simulation.id;
@@ -585,8 +588,12 @@ export class SimulationRunService {
           }
         }
 
-        const algorithmKisaoId = taskAlgorithmMap[uri] || task.simulation.algorithm.kisaoId;
-        const algorithmKisaoTerm = this.ontologiesService.getTerm(Ontologies.KISAO, algorithmKisaoId);
+        const algorithmKisaoId =
+          taskAlgorithmMap[uri] || task.simulation.algorithm.kisaoId;
+        const algorithmKisaoTerm = this.ontologiesService.getTerm(
+          Ontologies.KISAO,
+          algorithmKisaoId,
+        );
 
         tasks.push({
           uri: docLocation + '/' + task.id,
@@ -619,21 +626,23 @@ export class SimulationRunService {
               name: algorithmKisaoTerm?.name || undefined,
               url: algorithmKisaoTerm?.url || undefined,
             },
-          }
-        })
-      })
-
-      simulationExpt.outputs.forEach((output: SedReport | SedPlot2D | SedPlot3D): void => {
-        outputs.push({
-          type: {
-            id: output._type,
-            name: SimulationRunOutputTypeName[output._type],
-            url: 'http://sed-ml.org/',
           },
-          uri: docLocation + '/' + output.id,
-          name: output?.name,
         });
       });
+
+      simulationExpt.outputs.forEach(
+        (output: SedReport | SedPlot2D | SedPlot3D): void => {
+          outputs.push({
+            type: {
+              id: output._type,
+              name: SimulationRunOutputTypeName[output._type],
+              url: 'http://sed-ml.org/',
+            },
+            uri: docLocation + '/' + output.id,
+            name: output?.name,
+          });
+        },
+      );
     });
 
     files.forEach((file: FileModel): void => {
@@ -644,7 +653,9 @@ export class SimulationRunService {
             name: SimulationRunOutputTypeName.Vega,
             url: 'https://vega.github.io/vega/',
           },
-          uri: file.location.startsWith('./') ? file.location.substring(2) : file.location,
+          uri: file.location.startsWith('./')
+            ? file.location.substring(2)
+            : file.location,
           name: undefined,
         });
       }

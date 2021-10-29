@@ -67,7 +67,9 @@ export class BrowseService {
                       license: metadata?.license,
                       funders: metadata.funders,
                       created: this.formatDate(metadata.created),
-                      modified: metadata?.modified ? this.formatDate(metadata?.modified) : undefined,
+                      modified: metadata?.modified
+                        ? this.formatDate(metadata?.modified)
+                        : undefined,
                     },
                     created: this.formatDate(project.created),
                     updated: this.formatDate(project.updated),
@@ -78,16 +80,16 @@ export class BrowseService {
         }),
         mergeMap((projectSummaries) => combineLatest(projectSummaries)),
         map((projects): FormattedProjectSummary[] => {
-          return projects
-            .sort((a: FormattedProjectSummary, b: FormattedProjectSummary): number => {
-              return a.title.localeCompare(
-                b.title,
-                undefined,
-                {
-                  numeric: true,
-                },
-              );
-            });
+          return projects.sort(
+            (
+              a: FormattedProjectSummary,
+              b: FormattedProjectSummary,
+            ): number => {
+              return a.title.localeCompare(b.title, undefined, {
+                numeric: true,
+              });
+            },
+          );
         }),
       );
     return metadatas;

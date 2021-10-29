@@ -40,7 +40,7 @@ describe('ProjectCardComponent', () => {
         envVars: [],
         runtime: 1,
         projectSize: 1,
-        resultsSize: 1, 
+        resultsSize: 1,
         submitted: {
           value: new Date(),
           formattedValue: 'date',
