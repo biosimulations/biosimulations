@@ -24,7 +24,6 @@ import { ObjectIdValidator } from '@biosimulations/datamodel-database';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { Ontologies, KisaoIdRegEx } from '@biosimulations/datamodel/common';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
-// import { addValidationForNullableAttributes } from '@biosimulations/datamodel-database';
 
 @Schema({
   _id: false,
@@ -445,4 +444,3 @@ SedPlot3DLogSchema.set('strict', 'throw');
 SimulatorDetailSchema.set('strict', 'throw');
 SedOutputElementLogSchema.set('strict', 'throw');
 ExceptionSchema.set('strict', 'throw');
-// addValidationForNullableAttributes(SimulationRunLogSchema);
