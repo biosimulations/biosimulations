@@ -4301,7 +4301,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/stacktracejs/stack-generator
 │  └─ licenseFile: stack-generator/LICENSE
-├─ stackdriver-errors-js@0.11.0
+├─ stackdriver-errors-js@0.12.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/GoogleCloudPlatform/stackdriver-errors-js
 │  ├─ publisher: steren@google.com
