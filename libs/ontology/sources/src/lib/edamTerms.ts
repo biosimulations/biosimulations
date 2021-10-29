@@ -50,6 +50,22 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
             'http://www.geneontology.org/formats/oboInOwl#hasDbXref'
           ]?.['@id'];
       }
+
+      let parents!: string[];
+      if ('rdfs:subClassOf' in jsonTerm) {
+        parents = (
+          Array.isArray(jsonTerm['rdfs:subClassOf']) 
+          ? jsonTerm['rdfs:subClassOf'] 
+          : [jsonTerm['rdfs:subClassOf']]
+          )
+          .filter((term: string): boolean => {
+            return term.startsWith('http://edamontology.org/');
+          })
+          .map((term) => term.replace('http://edamontology.org/', ''));
+      } else {
+        parents = [];
+      }
+
       const term: EdamTerm = {
         id: termId,
         name: termName,
@@ -58,6 +74,8 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
         iri: termIRI,
         url: termUrl,
         moreInfoUrl: moreInfoUrl,
+        parents: parents,
+        children: [],
       };
 
       edamTerms[termId] = term;
@@ -68,7 +86,14 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
 
   edamProposedJson.forEach((term: any): void => {
     term.namespace = Ontologies.EDAM;
+    term.children = [];
     edamTerms[term.id] = term;
+  });
+
+  Object.values(edamTerms).forEach((term: EdamTerm): void => {
+    term.parents.forEach((parent: string): void => {
+      edamTerms[parent].children.push(term.id);
+    });
   });
 
   return edamTerms;

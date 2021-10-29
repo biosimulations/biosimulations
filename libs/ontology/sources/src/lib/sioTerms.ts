@@ -40,6 +40,21 @@ function getSioTerms(input: any): { [id: string]: SioTerm } {
         moreInfoUrl = seeAlso?.['@value'];
       }
 
+      let parents!: string[];
+      if ('rdfs:subClassOf' in jsonTerm) {
+        parents = (
+          Array.isArray(jsonTerm['rdfs:subClassOf']) 
+          ? jsonTerm['rdfs:subClassOf'] 
+          : [jsonTerm['rdfs:subClassOf']]
+          )
+          .filter((term: string): boolean => {
+            return term.startsWith('http://semanticscience.org/resource/');
+          })
+          .map((term) => term.replace('http://semanticscience.org/resource/', ''));
+      } else {
+        parents = [];
+      }
+
       const term: SioTerm = {
         id: termId,
         name: termName,
@@ -48,12 +63,20 @@ function getSioTerms(input: any): { [id: string]: SioTerm } {
         iri: termIRI,
         url: termUrl,
         moreInfoUrl: moreInfoUrl,
+        parents: parents,
+        children: [],
       };
 
       Terms[termId] = term;
     } else {
       return;
     }
+  });
+
+  Object.values(Terms).forEach((term: SioTerm): void => {
+    term.parents.forEach((parent: string): void => {
+      Terms[parent].children.push(term.id);
+    });
   });
 
   return Terms;

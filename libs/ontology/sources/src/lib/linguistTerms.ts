@@ -17,6 +17,8 @@ function getLinguistTerms(input: any): { [id: string]: LinguistTerm } {
         url: null,
         moreInfoUrl: null,
         description: null,
+        parents: [],
+        children: [],
       };
     }
   });

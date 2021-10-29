@@ -69,6 +69,18 @@ export class OntologyTerm implements IOntologyTerm {
 
   @ApiProperty({ type: String, nullable: true, format: 'url' })
   public moreInfoUrl: string | null = null;
+
+  @ApiProperty({
+    description: 'Identifiers of parent terms',
+    type: [String],
+  })
+  public parents!: string[];
+
+  @ApiProperty({
+    description: 'Identifiers of child terms',
+    type: [String],
+  })
+  public children!: string[];
 }
 
 export class EdamTerm extends EdamOntologyId {
@@ -86,6 +98,18 @@ export class EdamTerm extends EdamOntologyId {
 
   @ApiProperty({ type: String, format: 'url' })
   public moreInfoUrl: string | null = null;
+
+  @ApiProperty({
+    description: 'Identifiers of parent terms',
+    type: [String],
+  })
+  public parents!: string[];
+
+  @ApiProperty({
+    description: 'Identifiers of child terms',
+    type: [String],
+  })
+  public children!: string[];
 }
 
 export class FunderRegistryTerm extends FunderRegistryOntologyId {
@@ -103,6 +127,18 @@ export class FunderRegistryTerm extends FunderRegistryOntologyId {
 
   @ApiProperty({ type: typeof null, nullable: true })
   public moreInfoUrl!: null;
+
+  @ApiProperty({
+    description: 'Identifiers of parent terms',
+    type: [String],
+  })
+  public parents!: string[];
+
+  @ApiProperty({
+    description: 'Identifiers of child terms',
+    type: [String],
+  })
+  public children!: string[];
 }
 
 export class LinguistTerm extends LinguistOntologyId {
@@ -120,6 +156,18 @@ export class LinguistTerm extends LinguistOntologyId {
 
   @ApiProperty({ type: typeof null, nullable: true })
   public moreInfoUrl!: null;
+
+  @ApiProperty({
+    description: 'Identifiers of parent terms',
+    type: [String],
+  })
+  public parents!: string[];
+
+  @ApiProperty({
+    description: 'Identifiers of child terms',
+    type: [String],
+  })
+  public children!: string[];
 }
 
 export class KisaoTerm extends KisaoOntologyId {
@@ -137,6 +185,18 @@ export class KisaoTerm extends KisaoOntologyId {
 
   @ApiProperty({ type: String, format: 'url' })
   public moreInfoUrl: string | null = null;
+
+  @ApiProperty({
+    description: 'Identifiers of parent terms',
+    type: [String],
+  })
+  public parents!: string[];
+
+  @ApiProperty({
+    description: 'Identifiers of child terms',
+    type: [String],
+  })
+  public children!: string[];
 }
 
 export class SboTerm extends SboOntologyId {
@@ -154,6 +214,18 @@ export class SboTerm extends SboOntologyId {
 
   @ApiProperty({ type: String, format: 'url' })
   public moreInfoUrl: string | null = null;
+
+  @ApiProperty({
+    description: 'Identifiers of parent terms',
+    type: [String],
+  })
+  public parents!: string[];
+
+  @ApiProperty({
+    description: 'Identifiers of child terms',
+    type: [String],
+  })
+  public children!: string[];
 }
 
 export class SioTerm extends SioOntologyId {
@@ -171,6 +243,18 @@ export class SioTerm extends SioOntologyId {
 
   @ApiProperty({ type: String, format: 'url' })
   public moreInfoUrl: string | null = null;
+
+  @ApiProperty({
+    description: 'Identifiers of parent terms',
+    type: [String],
+  })
+  public parents!: string[];
+
+  @ApiProperty({
+    description: 'Identifiers of child terms',
+    type: [String],
+  })
+  public children!: string[];
 }
 
 export class SpdxTerm extends SpdxOntologyId {
@@ -201,6 +285,18 @@ export class SpdxTerm extends SpdxOntologyId {
   @IsOptional()
   @ApiProperty({ type: String, format: 'url' })
   public moreInfoUrl: string | null = null;
+
+  @ApiProperty({
+    description: 'Identifiers of parent terms',
+    type: [String],
+  })
+  public parents!: string[];
+
+  @ApiProperty({
+    description: 'Identifiers of child terms',
+    type: [String],
+  })
+  public children!: string[];
 }
 
 export class Identifier implements IIdentifier {

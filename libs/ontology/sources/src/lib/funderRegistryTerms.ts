@@ -17,6 +17,8 @@ function getTerms(input: any): { [id: string]: FunderRegistryTerm } {
       url: funder.uri,
       moreInfoUrl: null,
       description: null,
+      parents: [],
+      children: [],
     };
   });
   return terms;

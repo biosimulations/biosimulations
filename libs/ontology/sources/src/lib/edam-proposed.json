@@ -5,7 +5,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "https://vcell.org",
-        "moreInfoUrl": "https://vcell.org"
+        "moreInfoUrl": "https://vcell.org",
+        "parents": ["format_2013", "format_2332"]
     },
     {
         "id": "format_9001",
@@ -14,7 +15,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "http://www.smoldyn.org/",
-        "moreInfoUrl": "http://www.smoldyn.org/"
+        "moreInfoUrl": "http://www.smoldyn.org/",
+        "parents": ["format_2013", "format_2330"]
     },
     {
         "id": "format_9002",
@@ -23,7 +25,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "https://morpheus.gitlab.io/courses/getting-started/behind-the-scenes/",
-        "moreInfoUrl": "https://morpheus.gitlab.io/courses/getting-started/behind-the-scenes/"
+        "moreInfoUrl": "https://morpheus.gitlab.io/courses/getting-started/behind-the-scenes/",
+        "parents": ["format_2013", "format_2332"]
     },
     {
         "id": "format_9003",
@@ -32,7 +35,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "http://copasi.org/Support/Technical_Documentation/File_Format/",
-        "moreInfoUrl": "http://copasi.org/Support/Technical_Documentation/File_Format/"
+        "moreInfoUrl": "http://copasi.org/Support/Technical_Documentation/File_Format/",
+        "parents": ["format_2013", "format_2332"]
     },
     {
         "id": "format_9004",
@@ -41,7 +45,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "https://lems.github.io/LEMS/",
-        "moreInfoUrl": "https://lems.github.io/LEMS/"
+        "moreInfoUrl": "https://lems.github.io/LEMS/",
+        "parents": ["format_2013", "format_2332"]
     },
     {
         "id": "format_9005",
@@ -50,7 +55,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "https://www.neuron.yale.edu/neuron/static/new_doc/programming/hoc.html",
-        "moreInfoUrl": "https://www.neuron.yale.edu/neuron/static/new_doc/programming/hoc.html"
+        "moreInfoUrl": "https://www.neuron.yale.edu/neuron/static/new_doc/programming/hoc.html",
+        "parents": ["format_2013", "format_2330"]
     },
     {
         "id": "format_9006",
@@ -59,7 +65,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "https://kappalanguage.org/",
-        "moreInfoUrl": "https://kappalanguage.org/"
+        "moreInfoUrl": "https://kappalanguage.org/",
+        "parents": ["format_2013", "format_2330"]
     },
     {
         "id": "format_9007",
@@ -68,7 +75,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "http://www.pharmml.org/",
-        "moreInfoUrl": "http://www.pharmml.org/"
+        "moreInfoUrl": "http://www.pharmml.org/",
+        "parents": ["format_2013", "format_2332"]
     },
     {
         "id": "format_9008",
@@ -77,7 +85,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "http://ginsim.org/",
-        "moreInfoUrl": "http://ginsim.org/"
+        "moreInfoUrl": "http://ginsim.org/",
+        "parents": ["format_2013", "format_2332", "format_3987"]
     },
     {
         "id": "format_9009",
@@ -86,7 +95,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "http://ginsim.org/",
-        "moreInfoUrl": "http://ginsim.org/"
+        "moreInfoUrl": "http://ginsim.org/",
+        "parents": ["format_2013", "format_2332"]
     },
     {
         "id": "format_9010",
@@ -95,7 +105,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "http://www.math.pitt.edu/~bard/xpp/xpp.html",
-        "moreInfoUrl": "http://www.math.pitt.edu/~bard/xpp/xpp.html"
+        "moreInfoUrl": "http://www.math.pitt.edu/~bard/xpp/xpp.html",
+        "parents": ["format_2013", "format_2330"]
     },
     {
         "id": "format_9011",
@@ -104,7 +115,8 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html",
-        "moreInfoUrl": "https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html"
+        "moreInfoUrl": "https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html",
+        "parents": ["format_2013", "format_3464"]
     },
     {
         "id": "format_9012",
@@ -113,6 +125,7 @@
         "namespace": "EDAM",
         "iri": "",
         "url": "https://rba.inrae.fr/",
-        "moreInfoUrl": "https://rba.inrae.fr/"
+        "moreInfoUrl": "https://rba.inrae.fr/",
+        "parents": ["format_2013", "format_2332"]
     }
 ]

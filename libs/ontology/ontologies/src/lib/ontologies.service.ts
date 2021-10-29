@@ -87,7 +87,7 @@ export class OntologiesService {
     return termsObj[termId] || null;
   }
 
-  static isTermId(ontologyId: Ontologies, termId: string): boolean {
+  static isTermId(ontologyId: Ontologies, termId: string, parentTermId?: string): boolean {
     const termsObj = OntologiesService._getTerms(ontologyId);
     if (termsObj == null) {
       return false;

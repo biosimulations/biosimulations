@@ -23,6 +23,22 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
       const termUrl =
         'https://www.ebi.ac.uk/ols/ontologies/sbo/terms?iri=' +
         encodeURIComponent('http://biomodels.net/SBO/' + termId);
+
+      let parents!: string[];
+      if ('rdfs:subClassOf' in jsonTerm) {
+        parents = (
+          Array.isArray(jsonTerm['rdfs:subClassOf']) 
+          ? jsonTerm['rdfs:subClassOf'] 
+          : [jsonTerm['rdfs:subClassOf']]
+          )
+          .filter((term: string): boolean => {
+            return term.startsWith('http://biomodels.net/SBO/');
+          })
+          .map((term) => term.replace('http://biomodels.net/SBO/', ''));
+      } else {
+        parents = [];
+      }
+
       const term: SboTerm = {
         id: termId,
         name: termName,
@@ -31,12 +47,20 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
         iri: termIRI,
         url: termUrl,
         moreInfoUrl: null,
+        parents: parents,
+        children: [],        
       };
 
       Terms[termId] = term;
     } else {
       return;
     }
+  });
+
+  Object.values(Terms).forEach((term: SboTerm): void => {
+    term.parents.forEach((parent: string): void => {
+      Terms[parent].children.push(term.id);
+    });
   });
 
   return Terms;
