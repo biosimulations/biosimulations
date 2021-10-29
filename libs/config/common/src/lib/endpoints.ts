@@ -356,7 +356,7 @@ export class Endpoints {
   }
 
   public getCombineHealthEndpoint(): string {
-    return `${this.getCombineEndpoint}/health`;
+    return `${this.getCombineEndpoint()}/health`;
   }
 
   public getStorageHealthEndpoint(): string {
