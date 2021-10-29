@@ -619,7 +619,7 @@ export class SimulationRunSimulatorSummary implements ISimulationRunSimulatorSum
     description: 'Name of the simulation tool which executed the simulation run',
     type: String,
     example: 'tellurium',
-  })  
+  })
   name!: string;
 
   @ApiProperty({
