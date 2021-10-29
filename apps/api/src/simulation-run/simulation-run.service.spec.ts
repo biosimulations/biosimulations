@@ -33,6 +33,7 @@ import {
   SimulationRunMetadataSchema,
 } from '../metadata/metadata.model';
 
+import { OntologiesService } from '@biosimulations/ontology/ontologies';
 
 describe('SimulationRunService', () => {
   let service: SimulationRunService;
@@ -108,6 +109,7 @@ describe('SimulationRunService', () => {
         ResultsService,
         LogsService,
         MetadataService,
+        OntologiesService,
       ],
     }).compile();
 

@@ -43,8 +43,8 @@ export class BrowseService {
                     simulationRun: {
                       id: run.id,
                       name: run.name,
-                      simulator: simulationRun.simulator,
-                      simulatorVersion: simulationRun.simulatorVersion,
+                      simulator: simulationRun.simulator.id,
+                      simulatorVersion: simulationRun.simulator.version,
                       cpus: simulationRun.cpus,
                       memory: simulationRun.memory,
                       envVars: simulationRun.envVars,

@@ -38,9 +38,12 @@ import {
   SimulationRunStatus,
   ISimulator,
   SimulationRunLogStatus,
-  SimulationType,
-  SimulationRunOutputType,
+  SimulationTypeName,
+  SimulationRunOutputTypeName,
+  ModelFormat,
+  MODEL_FORMATS,
   VEGA_FORMAT,
+  Ontologies,
 } from '@biosimulations/datamodel/common';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import {
@@ -55,6 +58,7 @@ import { firstValueFrom, Observable, of, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DeleteResult } from 'mongodb';
 import { Endpoints } from '@biosimulations/config/common';
+import { urls } from '@biosimulations/config/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FilesService } from '../files/files.service';
 import { SpecificationsService } from '../specifications/specifications.service';
@@ -79,6 +83,7 @@ import {
   SimulationRunMetadataIdModel,
   MetadataModel,
 } from '../metadata/metadata.model';
+import { OntologiesService } from '@biosimulations/ontology/ontologies';
 
 // 1gb in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
@@ -121,6 +126,7 @@ export class SimulationRunService {
     private resultsService: ResultsService,
     private logsService: LogsService,
     private metadataService: MetadataService,
+    private ontologiesService: OntologiesService,
     private configService: ConfigService,
   ) {
     const env = this.configService.get('server.env');
@@ -392,7 +398,7 @@ export class SimulationRunService {
 
   private getSimulator(
     simulator: string,
-    simulatorVersion: string,
+    simulatorVersion = 'latest',
   ): Promise<ISimulator | null | false> {
     if (simulatorVersion === 'latest') {
       const url = this.endpoints.getLatestSimulatorsEndpoint(simulator);
@@ -545,6 +551,12 @@ export class SimulationRunService {
     const log = settledResults[3] as CombineArchiveLog;
     const rawMetadata = settledResults[4] as SimulationRunMetadataIdModel;
 
+    /* get simulators */
+    const simulator = await this.getSimulator(rawRun.simulator);
+    if (!simulator) {
+      throw new NotFoundException(`Simulator for run could be found`);
+    }
+
     /* get summary of the simulation experiment */
     const tasks: SimulationRunTaskSummary[] = [];
     const outputs: SimulationRunOutputSummary[] = [];
@@ -555,7 +567,7 @@ export class SimulationRunService {
       const location = sedDocument.location.startsWith('./') ? sedDocument.location.substring(2) : sedDocument.location;
       sedDocument?.tasks?.forEach((task): void => {
         const uri = location + '/' + task.id;
-        taskAlgorithmMap[uri] = task?.algorithm;
+        taskAlgorithmMap[uri] = task?.algorithm || undefined;
       });
     });
 
@@ -564,6 +576,18 @@ export class SimulationRunService {
 
       simulationExpt.tasks.forEach((task: SedTask): void => {
         const uri = docLocation + '/' + task.simulation.id;
+
+        let modelFormat: ModelFormat | null = null;
+        for (const format of MODEL_FORMATS) {
+          if (task.model.language.startsWith(format.sedUrn)) {
+            modelFormat = format;
+            break;
+          }
+        }
+
+        const algorithmKisaoId = taskAlgorithmMap[uri] || task.simulation.algorithm.kisaoId;
+        const algorithmKisaoTerm = this.ontologiesService.getTerm(Ontologies.KISAO, algorithmKisaoId);
+
         tasks.push({
           uri: docLocation + '/' + task.id,
           id: task.id,
@@ -573,21 +597,39 @@ export class SimulationRunService {
             id: task.model.id,
             name: task.model?.name,
             source: task.model.source,
-            language: task.model.language,
+            language: {
+              name: modelFormat?.name || undefined,
+              acronym: modelFormat?.acronym || undefined,
+              sedmlUrn: task.model.language,
+              edamId: modelFormat?.edamId || undefined,
+              url: modelFormat?.url || undefined,
+            },
           },
           simulation: {
-            _type: SimulationType[task.simulation._type],
+            type: {
+              id: task.simulation._type,
+              name: SimulationTypeName[task.simulation._type],
+              url: 'http://sed-ml.org/',
+            },
             uri: uri,
             id: task.simulation.id,
             name: task.simulation?.name,
-            algorithm: taskAlgorithmMap[uri] || task.simulation.algorithm.kisaoId,
+            algorithm: {
+              kisaoId: algorithmKisaoId,
+              name: algorithmKisaoTerm?.name || undefined,
+              url: algorithmKisaoTerm?.url || undefined,
+            },
           }
         })
       })
 
       simulationExpt.outputs.forEach((output: SedReport | SedPlot2D | SedPlot3D): void => {
         outputs.push({
-          _type: SimulationRunOutputType[output._type],
+          type: {
+            id: output._type,
+            name: SimulationRunOutputTypeName[output._type],
+            url: 'http://sed-ml.org/',
+          },
           uri: docLocation + '/' + output.id,
           name: output?.name,
         });
@@ -597,7 +639,11 @@ export class SimulationRunService {
     files.forEach((file: FileModel): void => {
       if (VEGA_FORMAT.combineUris.includes(file.format)) {
         outputs.push({
-          _type: SimulationRunOutputType.Vega,
+          type: {
+            id: 'Vega',
+            name: SimulationRunOutputTypeName.Vega,
+            url: 'https://vega.github.io/vega/',
+          },
           uri: file.location.startsWith('./') ? file.location.substring(2) : file.location,
           name: undefined,
         });
@@ -606,9 +652,13 @@ export class SimulationRunService {
 
     /* get summary of simulation run */
     const run: SimulationRunRunSummary = {
-      simulator: rawRun.simulator,
-      simulatorVersion: rawRun.simulatorVersion,
-      simulatorDigest: rawRun.simulatorDigest,
+      simulator: {
+        id: rawRun.simulator,
+        name: simulator.name,
+        version: rawRun.simulatorVersion,
+        digest: rawRun.simulatorDigest,
+        url: `${urls.simulators}/simulators/${rawRun.simulator}`,
+      },
       cpus: rawRun.cpus,
       memory: rawRun.memory,
       envVars: rawRun.envVars,
@@ -616,7 +666,7 @@ export class SimulationRunService {
       projectSize: rawRun.projectSize as number,
       resultsSize: rawRun.resultsSize,
     };
-    
+
     /* get top-level metadata for the project */
     let rawMetadatum!: ArchiveMetadata;
     for (rawMetadatum of rawMetadata.metadata) {

@@ -30,6 +30,8 @@ import {
   SimulationStorageService,
 } from '@biosimulations/shared/storage';
 
+import { OntologiesService } from '@biosimulations/ontology/ontologies';
+
 describe('ProjectsService', () => {
   let service: ProjectsService;
 
@@ -106,6 +108,7 @@ describe('ProjectsService', () => {
         ResultsService,
         LogsService,
         MetadataService,
+        OntologiesService,
       ],
     }).compile();
 
