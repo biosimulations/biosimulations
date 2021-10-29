@@ -56,6 +56,21 @@ function getKisaoTerms(input: any): { [id: string]: KisaoTerm } {
         }
       }
 
+      let parents!: string[];
+      if ('rdfs:subClassOf' in jsonTerm) {
+        parents = (
+          Array.isArray(jsonTerm['rdfs:subClassOf']) 
+          ? jsonTerm['rdfs:subClassOf'] 
+          : [jsonTerm['rdfs:subClassOf']]
+          )
+          .filter((term: string): boolean => {
+            return term.startsWith('http://www.biomodels.net/kisao/KISAO#');
+          })
+          .map((term) => term.replace('http://www.biomodels.net/kisao/KISAO#', ''));
+      } else {
+        parents = [];
+      }
+
       const term: KisaoTerm = {
         id: termId,
         name: termName,
@@ -64,12 +79,20 @@ function getKisaoTerms(input: any): { [id: string]: KisaoTerm } {
         iri: termIRI,
         url: termUrl,
         moreInfoUrl: moreInfoUrl,
+        parents: parents,
+        children: [],
       };
 
       kisaoTerms[termId] = term;
     } else {
       return;
     }
+  });
+
+  Object.values(kisaoTerms).forEach((term: KisaoTerm): void => {
+    term.parents.forEach((parent: string): void => {
+      kisaoTerms[parent].children.push(term.id);
+    });
   });
 
   return kisaoTerms;

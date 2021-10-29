@@ -92,6 +92,8 @@ export interface IOntologyTerm extends IOntologyId {
   moreInfoUrl: string | null;
   name: string | null;
   description: string | null;
+  parents: string[];
+  children: string[];
 }
 
 export interface EdamTerm extends IOntologyTerm {
@@ -102,6 +104,8 @@ export interface EdamTerm extends IOntologyTerm {
   iri: string;
   url: string;
   moreInfoUrl: string | null;
+  parents: string[];
+  children: string[];
 }
 
 export interface FunderRegistryTerm extends IOntologyTerm {
@@ -112,6 +116,8 @@ export interface FunderRegistryTerm extends IOntologyTerm {
   iri: null;
   url: string;
   moreInfoUrl: null;
+  parents: string[];
+  children: string[];
 }
 
 export interface LinguistTerm extends IOntologyTerm {
@@ -122,6 +128,8 @@ export interface LinguistTerm extends IOntologyTerm {
   iri: null;
   url: null;
   moreInfoUrl: null;
+  parents: string[];
+  children: string[];
 }
 
 export interface KisaoTerm extends IOntologyTerm {
@@ -132,6 +140,8 @@ export interface KisaoTerm extends IOntologyTerm {
   iri: string;
   url: string;
   moreInfoUrl: string | null;
+  parents: string[];
+  children: string[];
 }
 
 export interface SboTerm extends IOntologyTerm {
@@ -142,6 +152,8 @@ export interface SboTerm extends IOntologyTerm {
   iri: string;
   url: string;
   moreInfoUrl: null;
+  parents: string[];
+  children: string[];
 }
 
 export interface SioTerm extends IOntologyTerm {
@@ -152,6 +164,8 @@ export interface SioTerm extends IOntologyTerm {
   iri: string;
   url: string;
   moreInfoUrl: string | null;
+  parents: string[];
+  children: string[];
 }
 
 export interface SpdxTerm extends IOntologyTerm {
@@ -162,5 +176,7 @@ export interface SpdxTerm extends IOntologyTerm {
   iri: null;
   url: string;
   moreInfoUrl: string | null;
+  parents: string[];
+  children: string[];
 }
 // Identifiers.org identifier

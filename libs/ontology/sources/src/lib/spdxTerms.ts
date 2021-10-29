@@ -18,6 +18,8 @@ function getSpdxTerms(input: any): { [id: string]: SpdxTerm } {
       url: `https://spdx.org/licenses/${license.licenseId}.html`,
       moreInfoUrl: seeAlso && isUrl(seeAlso) ? seeAlso : null,
       description: null,
+      parents: [],
+      children: [],
     };
   });
   return terms;
