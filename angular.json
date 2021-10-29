@@ -33,6 +33,7 @@
     "ontology-client": "libs/ontology/client",
     "ontology-ontologies": "libs/ontology/ontologies",
     "ontology-sources": "libs/ontology/sources",
+    "ontology-utils": "libs/ontology/utils",
     "platform": "apps/platform",
     "platform-e2e": "apps/platform-e2e",
     "shared-angular": "libs/shared/angular",

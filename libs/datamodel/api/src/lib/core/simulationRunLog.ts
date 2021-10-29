@@ -27,7 +27,7 @@ import {
   ValidateNested,
   IsOptional,
 } from 'class-validator';
-import { IsOntologyTerm } from '@biosimulations/datamodel/utils';
+import { IsOntologyTerm } from '@biosimulations/ontology/utils';
 import { Type, Transform } from 'class-transformer';
 
 export class Exception implements IException {
