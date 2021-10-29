@@ -78,7 +78,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/common/LICENSE
-├─ @nestjs/config@1.0.2
+├─ @nestjs/config@1.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
