@@ -18,5 +18,5 @@
       }
     }
   },
-  "tags": ["scope:ontology", "scope:shared", "type:service", "platform:server", "shared:true"]
+  "tags": ["scope:ontology", "type:service", "platform:server", "shared:true"]
 }
