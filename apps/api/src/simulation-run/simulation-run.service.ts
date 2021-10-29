@@ -203,7 +203,6 @@ export class SimulationRunService {
       .exec();
 
     const count = await this.simulationRunModel.count();
-    console.log(count);
     if (count !== 56) {
       throw new InternalServerErrorException(
         'Some simulation runs could not be deleted',
@@ -532,7 +531,7 @@ export class SimulationRunService {
     ))
     .map((settledResult, iRun: number) => {
       if (settledResult.status !== 'fulfilled' || !('value' in settledResult)) {
-        console.log(runs[iRun].id)
+        console.log('A summary of run \'${runs[iRun].id}\' could not be retrieved.');
         throw new InternalServerErrorException('One or more summaries could not be retrieved.');
       }
       return settledResult.value;
@@ -540,14 +539,14 @@ export class SimulationRunService {
   }
 
   public async getRunSummary(id: string, raiseErrors = false): Promise<SimulationRunSummary> {
-    const cacheKey = 'SimulationRun:summary:' + id;
+    const cacheKey = `SimulationRun:summary:${raiseErrors}:${id}`;
     const cachedValue = await this.cacheManager.get(cacheKey) as (SimulationRunSummary | null);
     if (cachedValue) {
       return cachedValue;
     } else {
       const value = await this._getRunSummary(id);
-      if (raiseErrors && (value.run.status === SimulationRunStatus.SUCCEEDED || SimulationRunStatus.FAILED)) {
-        await this.cacheManager.set(cacheKey, value);
+      if (value.run.status === SimulationRunStatus.SUCCEEDED || SimulationRunStatus.FAILED) {
+        await this.cacheManager.set(cacheKey, value, { ttl: 0 });
       }
       return value;
     }
