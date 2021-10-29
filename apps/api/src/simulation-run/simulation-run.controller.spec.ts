@@ -4,8 +4,9 @@ import { SimulationRunController } from './simulation-run.controller';
 import { SimulationRunService } from './simulation-run.service';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
-
 import { HttpModule } from '@nestjs/axios';
+import { CacheModule } from '@nestjs/common';
+
 /**
  * @file Test file for controller
  * @author Bilal Shaikh
@@ -35,6 +36,7 @@ describe('SimulationRunsController', () => {
         BiosimulationsConfigModule,
         SharedNatsClientModule,
         HttpModule,
+        CacheModule.register(),
       ],
       providers: [
         { provide: SimulationRunService, useClass: mockSimService },
