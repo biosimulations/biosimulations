@@ -9,6 +9,9 @@ import {
   SimulationRunResults,
   SimulationRunOutput,
 } from '@biosimulations/datamodel/api';
+import {
+  SimulationRunSummary,
+} from '@biosimulations/datamodel/common';
 // import { SimulationRun } from '@biosimulations/datamodel/api';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
@@ -80,5 +83,13 @@ export class SimulationService {
   public getSimulationRunLog(id: string): Observable<CombineArchiveLog> {
     const endpoint = this.endpoints.getSimulationRunLogsEndpoint(id);
     return this.http.get<CombineArchiveLog>(endpoint);
+  }
+
+  public getSimulationRunSummary(
+    id: string,
+  ): Observable<SimulationRunSummary> {
+    const url = this.endpoints.getSimulationRunSummariesEndpoint(id);
+    const response = this.http.get<SimulationRunSummary>(url).pipe();
+    return response;
   }
 }

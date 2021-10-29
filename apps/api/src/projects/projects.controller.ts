@@ -2,9 +2,6 @@ import { permissions } from '@biosimulations/auth/nest';
 import {
   Project,
   ProjectInput,
-  ProjectSummary,
-  SimulationRunSummary,
-  ProjectMetadataSummary,
 } from '@biosimulations/datamodel/api';
 import {
   Body,
@@ -36,7 +33,6 @@ import { ProjectId, ProjectIdParam } from './id.decorator';
 import { ProjectModel } from './project.model';
 import { ProjectsService } from './projects.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-import { SimulationRunMetadataModel } from '../metadata/metadata.model';
 import { SimulationRunMetadata } from '@biosimulations/datamodel/api';
 
 @ApiTags('Projects')
@@ -88,32 +84,6 @@ export class ProjectsController {
       return this.returnProject(proj);
     }
     throw new NotFoundException(`Project with id ${projectId} not found`);
-  }
-
-  @ApiOperation({
-    summary: 'Get a summary of a project',
-    description: 'Returns a summary of the project',
-  })
-  @ApiParam({
-    name: 'projectId',
-    description: 'Id of the project',
-    required: true,
-    type: String,
-  })
-  @ApiOkResponse({
-    description: 'A summary of the project was successfully retrieved',
-    type: ProjectSummary,
-  })
-  @ApiNotFoundResponse({
-    description: 'No project could be found with requested id',
-    type: ErrorResponseDocument,
-  })
-  @Get(':projectId/summary')
-  public async getProjectSummary(
-    @Param('projectId') projectId: string,
-  ): Promise<ProjectSummary> {
-    const summary = await this.service.getProjectSummary(projectId);
-    return summary;
   }
 
   @Post()
@@ -241,9 +211,9 @@ export class ProjectsController {
 
   @Post('validate')
   @ApiOperation({
-    summary: 'Validate a simulation run for publication',
+    summary: 'Validate a project for publication',
     description:
-      'Check whether a simulation is valid for publication (e.g, succeeded and provides the [minimum required metadata](https://biosimulators.org/conventions/metadata). Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. 400 errors include diagnostic information which describe why the run cannot be published.',
+      'Check whether a project is valid for publication (e.g, succeeded and provides the [minimum required metadata](https://biosimulators.org/conventions/metadata). Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. 400 errors include diagnostic information which describe why the run cannot be published.',
   })
   @ApiQuery({
     name: 'validateSimulationResultsData',
@@ -253,7 +223,7 @@ export class ProjectsController {
     type: Boolean,
   })
   @ApiBody({
-    description: 'Information about the simulation run to publish.',
+    description: 'Information about the project.',
     type: ProjectInput,
   })
   @ApiPayloadTooLargeResponse({
@@ -263,10 +233,10 @@ export class ProjectsController {
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'The simulation run cannot be published.',
+    description: 'The project is not valid.',
   })
   @ApiNoContentResponse({
-    description: 'The simulation run is valid for publication.',
+    description: 'The project is valid.',
   })
   @HttpCode(204)
   public async validateProject(

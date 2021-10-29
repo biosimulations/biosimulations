@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
 import {
   Project,
-  ProjectSummary,
   ProjectInput,
   File as IFile,
   SimulatorIdNameMap,
@@ -39,14 +38,6 @@ export class ProjectService {
   public getProject(projectId: string): Observable<Project> {
     const url = this.endpoints.getProjectsEndpoint(projectId);
     const response = this.http.get<Project>(url).pipe(shareReplay(1));
-    return response;
-  }
-
-  public getProjectSummary(
-    id: string,
-  ): Observable<ProjectSummary> {
-    const url = this.endpoints.getProjectSummariesEndpoint(id);
-    const response = this.http.get<ProjectSummary>(url).pipe();
     return response;
   }
 

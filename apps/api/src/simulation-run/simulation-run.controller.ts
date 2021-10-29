@@ -17,6 +17,7 @@ import {
   Logger,
   NotFoundException,
   Param,
+  Query,
   Patch,
   Post,
   Req,
@@ -41,6 +42,7 @@ import {
   ApiUnsupportedMediaTypeResponse,
   getSchemaPath,
   ApiParam,
+  ApiQuery,
   ApiUnauthorizedResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
@@ -52,6 +54,7 @@ import {
   UpdateSimulationRun,
   UploadSimulationRun,
   UploadSimulationRunUrl,
+  SimulationRunSummary,
 } from '@biosimulations/datamodel/api';
 import { SimulationRunService } from './simulation-run.service';
 import { SimulationRunModelReturnType } from './simulation-run.model';
@@ -461,5 +464,70 @@ export class SimulationRunController {
       // Should never happen since url is a required property of the file model now
       throw new NotFoundException('Unable to locate the file');
     }
+  }
+
+  @ApiOperation({
+    summary: 'Get a summary of a run',
+    description: 'Returns a summary of the run',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the run',
+    required: true,
+    type: String,
+  })
+  @ApiOkResponse({
+    description: 'A summary of the run was successfully retrieved',
+    type: SimulationRunSummary,
+  })
+  @ApiNotFoundResponse({
+    description: 'No run could be found with requested id',
+    type: ErrorResponseDocument,
+  })
+  @Get(':runId/summary')
+  public async getRunSummary(
+    @Param('runId') runId: string,
+  ): Promise<SimulationRunSummary> {
+    const summary = await this.service.getRunSummary(runId);
+    return summary;
+  }
+
+  @Get(':runId/validate')
+  @ApiOperation({
+    summary: 'Validate a simulation run',
+    description:
+      'Check whether a simulation is valid for publication (e.g, succeeded and provides the [minimum required metadata](https://biosimulators.org/conventions/metadata). Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. 400 errors include diagnostic information which describe why the run cannot be published.',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of a simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiQuery({
+    name: 'validateSimulationResultsData',
+    description:
+      'Whether to validate the data (e.g., numerical simulation results) for each SED-ML report and plot for each SED-ML document. Default: false.',
+    required: false,
+    type: Boolean,
+  })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description: 'The simulation run is not valid.',
+  })
+  @ApiNoContentResponse({
+    description: 'The simulation run is valid.',
+  })
+  @HttpCode(204)
+  public async validateRun(
+    @Param('runId') runId: string,
+    @Query('validateSimulationResultsData')
+    validateSimulationResultsData = 'false',
+  ): Promise<void> {
+    await this.service.validateRun(
+      runId,
+      validateSimulationResultsData == 'true',
+    );
+    return;
   }
 }
