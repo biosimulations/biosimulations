@@ -151,6 +151,82 @@
         </biosimulations-text-page-side-bar-section>
 
         <biosimulations-text-page-side-bar-section
+          *ngIf="simulator.image && simulator.validated"
+          heading="Run simulations with standardized Singularity image"
+        >
+          <ul class="icon-list copy-image">
+            <li>
+              <biosimulations-icon icon="info"></biosimulations-icon>
+              <a
+                [href]="
+                  'https://github.com/orgs/biosimulators/packages/container/package/' +
+                  simulator.id
+                "
+                target="_blank"
+                class="text"
+              >
+                GHCR:biosimulators/{{ simulator.id }}
+              </a>
+            </li>
+            <li *ngIf="simulator.image.operatingSystemType">
+              <biosimulations-icon icon="info"></biosimulations-icon>
+              OS: {{ simulator.image.operatingSystemType }}
+            </li>
+            <li>
+              <biosimulations-icon icon="download"></biosimulations-icon>
+              <pre><code>singularity pull \
+docker://{{ simulator.image.url }}</code></pre>
+              <button
+                mat-icon-button
+                class="biosimulations-button"
+                title="Copy to clipboard"
+                (click)="copySingularityPullCmd(simulator.image.url)"
+              >
+                <biosimulations-icon icon="copy"></biosimulations-icon>
+              </button>
+              <div class="clear-float"></div>
+            </li>
+            <li>
+              <biosimulations-icon icon="logs"></biosimulations-icon>
+              <pre><code>singularity run \
+docker://{{ simulator.image.url }} \
+-i /path/to/project.omex \
+-o /path/to/outputs</code></pre>
+              <button
+                mat-icon-button
+                class="biosimulations-button"
+                title="Copy to clipboard"
+                (click)="copySingularityRunCmd(simulator.image.url)"
+              >
+                <biosimulations-icon icon="copy"></biosimulations-icon>
+              </button>
+              <div class="clear-float"></div>
+            </li>
+            <li>
+              <biosimulations-icon icon="help"></biosimulations-icon>
+              <pre><code>singularity run \
+docker://{{ simulator.image.url }} \
+--help</code></pre>
+              <button
+                mat-icon-button
+                class="biosimulations-button"
+                title="Copy to clipboard"
+                (click)="copySingularityHelpCmd(simulator.image.url)"
+              >
+                <biosimulations-icon icon="copy"></biosimulations-icon>
+              </button>
+              <div class="clear-float"></div>
+            </li>
+            <li>
+              <biosimulations-icon icon="help"></biosimulations-icon>
+              <div>
+                <a [routerLink]="['/help']">Instructions</a>
+              </div>
+            </li>
+          </ul>
+        </biosimulations-text-page-side-bar-section>
+
+        <biosimulations-text-page-side-bar-section
           *ngIf="simulator.image && simulator?.cli && simulator.validated"
           heading="Run simulations with standardized CLI"
         >

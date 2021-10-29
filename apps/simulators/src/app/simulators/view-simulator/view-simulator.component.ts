@@ -293,6 +293,42 @@ export class ViewSimulatorComponent implements OnInit {
     );
   }
 
+  public copySingularityPullCmd(image = '{ image }'): void {
+    const cmd = 'singularity pull docker://' + image;
+    navigator.clipboard.writeText(cmd);
+    this.snackBar.open(
+      'The command to pull the Singularity image was copied to your clipboard.',
+      undefined,
+      {
+        duration: snackBarDuration,
+      },
+    );
+  }
+
+  public copySingularityRunCmd(image = '{ image }'): void {
+    const cmd = `singularity run docker://${image} -i /path/to/project.omex -o /path/to/outputs`;
+    navigator.clipboard.writeText(cmd);
+    this.snackBar.open(
+      'The command to run the Singularity image was copied to your clipboard.',
+      undefined,
+      {
+        duration: snackBarDuration,
+      },
+    );
+  }
+
+  public copySingularityHelpCmd(image = '{ image }'): void {
+    const cmd = 'singularity run docker://' + image + ' --help';
+    navigator.clipboard.writeText(cmd);
+    this.snackBar.open(
+      'The command to get help with the Singularity image was copied to your clipboard.',
+      undefined,
+      {
+        duration: snackBarDuration,
+      },
+    );
+  }
+
   public copyCliInstallCmd(cmd: string): void {
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
