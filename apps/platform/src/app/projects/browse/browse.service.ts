@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { combineLatest, map, mergeMap, Observable } from 'rxjs';
 import {
   Project,
-  ProjectSummary
+  SimulationRunSummary,
 } from '@biosimulations/datamodel/common';
 import { FormattedProjectSummary, FormattedDate } from './browse.model';
 import { ProjectService } from '@biosimulations/angular-api-client';
+import { SimulationService } from '@biosimulations/angular-api-client';
 import { FormatService } from '@biosimulations/shared/services';
 
 @Injectable({
@@ -16,20 +17,21 @@ export class BrowseService {
     './assets/images/default-resource-images/model-padded.svg';
 
   public constructor(
-    private service: ProjectService,
+    private projectService: ProjectService,
+    private simulationService: SimulationService,
   ) {}
   public getProjects(): Observable<FormattedProjectSummary[]> {
-    const metadatas: Observable<FormattedProjectSummary[]> = this.service
+    const metadatas: Observable<FormattedProjectSummary[]> = this.projectService
       .getAllProjects()
       .pipe(
         map((projects: Project[]) => {
           return projects.map((project: Project) => {
-            return this.service
-              .getProjectSummary(project.id)
+            return this.simulationService
+              .getSimulationRunSummary(project.simulationRun)
               .pipe(
-                map((project: ProjectSummary): FormattedProjectSummary => {
-                  const simulationRun = project.simulationRun;
-                  const metadata = project.projectMetadata;
+                map((run: SimulationRunSummary): FormattedProjectSummary => {
+                  const simulationRun = run.run;
+                  const metadata = run.metadata;
 
                   const thumbnail = metadata?.thumbnails?.length
                     ? metadata?.thumbnails[0]
@@ -39,8 +41,8 @@ export class BrowseService {
                     id: project.id,
                     title: metadata.title || project.id,
                     simulationRun: {
-                      id: simulationRun.id,
-                      name: simulationRun.name,
+                      id: run.id,
+                      name: run.name,
                       simulator: simulationRun.simulator,
                       simulatorVersion: simulationRun.simulatorVersion,
                       cpus: simulationRun.cpus,
@@ -49,8 +51,8 @@ export class BrowseService {
                       runtime: simulationRun.runtime,
                       projectSize: simulationRun.projectSize,
                       resultsSize: simulationRun.resultsSize,
-                      submitted: this.formatDate(simulationRun.submitted),
-                      updated: this.formatDate(simulationRun.updated),
+                      submitted: this.formatDate(run.submitted),
+                      updated: this.formatDate(run.updated),
                     },
                     metadata: {
                       abstract: metadata?.abstract,

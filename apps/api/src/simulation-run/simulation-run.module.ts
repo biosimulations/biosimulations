@@ -22,6 +22,32 @@ import {
 import { SimulationRunService } from './simulation-run.service';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 
+import { FilesService } from '../files/files.service';
+import { FileModel, FileModelSchema } from '../files/files.model';
+
+import { SpecificationsService } from '../specifications/specifications.service';
+import {
+  SpecificationsModel,
+  SpecificationsModelSchema,
+} from '../specifications/specifications.model';
+
+import { LogsService } from '../logs/logs.service';
+import {
+  SimulationRunLog,
+  SimulationRunLogSchema,
+  CombineArchiveLog,
+  CombineArchiveLogSchema,
+} from '../logs/logs.model';
+
+import { ResultsService } from '../results/results.service';
+import { HSDSClientModule } from '@biosimulations/hsds/client';
+
+import { MetadataService } from '../metadata/metadata.service';
+import {
+  SimulationRunMetadataModel,
+  SimulationRunMetadataSchema,
+} from '../metadata/metadata.model';
+
 @Module({
   controllers: [SimulationRunController],
   imports: [
@@ -34,6 +60,26 @@ import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
         name: SimulationFile.name,
         schema: SimulationFileSchema,
       },
+      {
+        name: SimulationRunMetadataModel.name,
+        schema: SimulationRunMetadataSchema,
+      },
+      {
+        name: FileModel.name,
+        schema: FileModelSchema,
+      },
+      {
+        name: SpecificationsModel.name,
+        schema: SpecificationsModelSchema,
+      },
+      {
+        name: SimulationRunLog.name,
+        schema: SimulationRunLogSchema,
+      },
+      {
+        name: CombineArchiveLog.name,
+        schema: CombineArchiveLogSchema,
+      },
     ]),
     // Need to provide hash keys to allow use on cluster.
     //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
@@ -41,7 +87,15 @@ import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
       name: 'dispatch',
       prefix: '{dispatch}',
     }),
+    HSDSClientModule,
   ],
-  providers: [SimulationRunService],
+  providers: [
+    SimulationRunService,
+    FilesService,
+    SpecificationsService,
+    LogsService,
+    ResultsService,
+    MetadataService,
+  ],
 })
 export class SimulationRunModule {}

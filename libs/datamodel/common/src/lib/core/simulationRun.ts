@@ -7,6 +7,8 @@ import {
   SedDataGenerator,
   SedOutput,
 } from '../sedml';
+import { LabeledIdentifier, DescribedIdentifier } from './archiveMetadata';
+import { SimulationType } from './algorithm';
 
 export enum SimulationRunStatus {
   // The api has created the entry
@@ -101,4 +103,87 @@ export interface UploadSimulationRun {
 
 export interface UploadSimulationRunUrl extends UploadSimulationRun {
   url: string;
+}
+
+export interface SimulationRunModelSummary {
+  uri: string;
+  id: string;
+  name?: string;
+  source: string;
+  language: string;
+}
+
+export interface SimulationRunSimulationSummary {
+  _type: SimulationType;
+  uri: string;
+  id: string;
+  name?: string;
+  algorithm: string;
+}
+
+export interface SimulationRunTaskSummary {
+  uri: string;
+  id: string;
+  name?: string;
+  model: SimulationRunModelSummary;
+  simulation: SimulationRunSimulationSummary;
+}
+
+export enum SimulationRunOutputType {
+  SedReport = 'SedReport',
+  SedPlot2D = 'SedPlot2D',
+  SedPlot3D = 'SedPlot3D',
+  Vega = 'Vega',
+}
+
+export interface SimulationRunOutputSummary {
+  _type: SimulationRunOutputType;
+  uri: string;
+  name?: string;
+}
+
+export interface SimulationRunRunSummary {  
+  simulator: string;
+  simulatorVersion: string;
+  simulatorDigest: string;
+  cpus: number;
+  memory: number;
+  envVars: EnvironmentVariable[];
+  runtime: number;
+  projectSize: number;
+  resultsSize: number;  
+}
+
+export interface SimulationRunMetadataSummary {
+  title?: string;
+  abstract?: string;
+  description?: string;
+  thumbnails: string[];
+  sources: LabeledIdentifier[];
+  keywords: LabeledIdentifier[];
+  taxa: LabeledIdentifier[];
+  encodes: LabeledIdentifier[];
+  predecessors: LabeledIdentifier[];
+  successors: LabeledIdentifier[];
+  seeAlso: LabeledIdentifier[];
+  identifiers: LabeledIdentifier[];
+  citations: LabeledIdentifier[];
+  creators: LabeledIdentifier[];
+  contributors: LabeledIdentifier[];
+  license?: LabeledIdentifier[];
+  funders: LabeledIdentifier[];
+  other: DescribedIdentifier[];
+  created: string;
+  modified?: string;
+}
+
+export interface SimulationRunSummary {
+  id: string;
+  name: string;  
+  tasks: SimulationRunTaskSummary[];
+  outputs: SimulationRunOutputSummary[];
+  run: SimulationRunRunSummary;
+  metadata: SimulationRunMetadataSummary;
+  submitted: string;
+  updated: string;
 }
