@@ -17,6 +17,7 @@ import {
   IsNotEmpty,
   IsString,
   IsOptional,
+  Matches,
 } from 'class-validator';
 import { IsOntologyTerm } from '@biosimulations/datamodel/utils';
 
@@ -50,6 +51,7 @@ export class EdamOntologyIdVersion
   public namespace!: Ontologies.EDAM;
 
   @IsOntologyTerm(Ontologies.EDAM)
+  @Matches(/^format_\d{4,4}$/, {message: 'Value must be the id of an EDAM format term'})
   @IsString()
   @ApiProperty({ type: String, example: 'format_3973' })
   public id!: string;
