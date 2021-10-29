@@ -549,10 +549,21 @@ export class SimulationRunService {
     const tasks: SimulationRunTaskSummary[] = [];
     const outputs: SimulationRunOutputSummary[] = [];
 
+    const taskAlgorithmMap: {[uri: string]: string | undefined} = {};
+
+    log?.sedDocuments?.forEach((sedDocument): void => {
+      const location = sedDocument.location.startsWith('./') ? sedDocument.location.substring(2) : sedDocument.location;
+      sedDocument?.tasks?.forEach((task): void => {
+        const uri = location + '/' + task.id;
+        taskAlgorithmMap[uri] = task?.algorithm;
+      });
+    });
+
     simulationExpts.forEach((simulationExpt: SpecificationsModel): void => {
       const docLocation = simulationExpt.id.startsWith('./') ? simulationExpt.id.substring(2) : simulationExpt.id;
 
       simulationExpt.tasks.forEach((task: SedTask): void => {
+        const uri = docLocation + '/' + task.simulation.id;
         tasks.push({
           uri: docLocation + '/' + task.id,
           id: task.id,
@@ -566,10 +577,10 @@ export class SimulationRunService {
           },
           simulation: {
             _type: SimulationType[task.simulation._type],
-            uri: docLocation + '/' + task.simulation.id,
+            uri: uri,
             id: task.simulation.id,
             name: task.simulation?.name,
-            algorithm: task.simulation.algorithm.kisaoId, // TODO: get actual rather than requested algorithm
+            algorithm: taskAlgorithmMap[uri] || task.simulation.algorithm.kisaoId,
           }
         })
       })
