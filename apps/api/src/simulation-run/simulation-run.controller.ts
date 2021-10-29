@@ -26,8 +26,6 @@ import {
   UnsupportedMediaTypeException,
   HttpCode,
   UseInterceptors,
-  CacheInterceptor,
-  CacheTTL,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -274,6 +272,31 @@ export class SimulationRunController {
   }
 
   @ApiOperation({
+    summary: 'Get a summary of each run',
+    description: 'Returns a summary of each run',
+  })
+  @permissions('read:SimulationRuns')
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description:
+      'This account does not have permission to get all simulation runs. Access to all runs is limited to administrators.',
+  })
+  @ApiOkResponse({
+    description: 'A summary of each run was successfully retrieved',
+    type: [SimulationRunSummary],
+  })
+  @Get('summary')
+  public async getRunSummaries(
+  ): Promise<SimulationRunSummary[]> {
+    const summary = await this.service.getRunSummaries();
+    return summary;
+  }
+
+  @ApiOperation({
     summary: 'Get a simulation run',
     description: 'Get information about a simulation run',
   })
@@ -485,10 +508,8 @@ export class SimulationRunController {
   @ApiNotFoundResponse({
     description: 'No run could be found with requested id',
     type: ErrorResponseDocument,
-  })
+  })  
   @Get(':runId/summary')
-  @UseInterceptors(CacheInterceptor)
-  @CacheTTL(60 * 24 * 7) // 1 week
   public async getRunSummary(
     @Param('runId') runId: string,
   ): Promise<SimulationRunSummary> {

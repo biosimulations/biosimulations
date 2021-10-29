@@ -155,13 +155,17 @@ export class Endpoints {
     return `${this.storage_endpoint}/simulations/${runId}/contents/${fileLocation}`;
   }
 
-  /** Create a URL for getting a summary of a simulation run
+  /** Create a URL for getting a summary of a simulation run or each run
    *
    * @param id The id of the simulation run
-   * @returns URL for getting a summary of a simulation run
+   * @returns URL for getting a summary of a simulation run or each run
    */
-  public getSimulationRunSummariesEndpoint(id: string): string {
-    return `${this.simulationRuns}/${id}/summary`;
+  public getSimulationRunSummariesEndpoint(id?: string): string {
+    if (id) {
+      return `${this.simulationRuns}/${id}/summary`;
+    } else {
+      return `${this.simulationRuns}/summary`;
+    }
   }
 
   /** Create a URL for validating a simulation run
@@ -173,12 +177,24 @@ export class Endpoints {
     return `${this.simulationRuns}/${id}/validate`;
   }
 
-  /** Get the URL for information about a project
+  /** Get the URL for information about a project or all projects
    * @param id The id of the project
-   * @returns URL to get information about the project
+   * @returns URL for information about a project or all projects
    */
   public getProjectsEndpoint(id?: string): string {
     return this.projects + (id ? `/${id}` : '');
+  }
+
+  /** Get the URL for a summary of a project or summaries of each project
+   * @param id The id of the project
+   * @returns URL for a summary of a project or summaries of each project
+   */
+  public getProjectSummariesEndpoint(id?: string): string {
+    if (id) {
+      return `${this.projects}/${id}/summary`;
+    } else {
+      return `${this.projects}/summary`;
+    }
   }
 
   /** Get the URL for validating a project

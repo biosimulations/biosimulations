@@ -202,6 +202,7 @@ export type SimulationRunModelType = Pick<
   | 'name'
   | 'email'
   | 'status'
+  | 'statusReason'
   | 'runtime'
   | 'projectSize'
   | 'resultsSize'

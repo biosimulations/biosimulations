@@ -34,6 +34,7 @@ import {
 } from '../metadata/metadata.model';
 
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { CacheModule } from '@nestjs/common';
 
 describe('SimulationRunService', () => {
   let service: SimulationRunService;
@@ -73,7 +74,12 @@ describe('SimulationRunService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule, SharedNatsClientModule, BiosimulationsConfigModule],
+      imports: [
+        HttpModule,
+        SharedNatsClientModule,
+        BiosimulationsConfigModule,
+        CacheModule.register(),
+      ],
       providers: [
         SimulationRunService,
         {

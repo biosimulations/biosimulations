@@ -1,3 +1,5 @@
+import { SimulationRunSummary } from './simulationRun';
+
 export interface Project {
   id: string;
   simulationRun: string;
@@ -6,3 +8,10 @@ export interface Project {
 }
 
 export type ProjectInput = Omit<Project, 'created' | 'updated'>;
+
+export interface ProjectSummary {
+  id: string;
+  simulationRun: SimulationRunSummary;
+  created: string;
+  updated: string;
+}

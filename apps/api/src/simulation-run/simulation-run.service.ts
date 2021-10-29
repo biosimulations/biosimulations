@@ -13,6 +13,7 @@ import {
   NotFoundException,
   PayloadTooLargeException,
   BadRequestException,
+  CACHE_MANAGER,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -30,8 +31,6 @@ import {
   SimulationRunSummary,
   SimulationRunTaskSummary,
   SimulationRunOutputSummary,
-  SimulationRunRunSummary,
-  SimulationRunMetadataSummary,
   ArchiveMetadata,
 } from '@biosimulations/datamodel/api';
 import {
@@ -84,6 +83,7 @@ import {
   MetadataModel,
 } from '../metadata/metadata.model';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { Cache } from 'cache-manager';
 
 // 1gb in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
@@ -128,6 +128,7 @@ export class SimulationRunService {
     private metadataService: MetadataService,
     private ontologiesService: OntologiesService,
     private configService: ConfigService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
@@ -522,204 +523,259 @@ export class SimulationRunService {
     return this.simulationRunModel.findById(id).catch((_) => null);
   }
 
-  public async getRunSummary(id: string): Promise<SimulationRunSummary> {
-    /* get data */
-    const settledResults = (
-      await Promise.allSettled([
-        this.filesService.getSimulationFiles(id),
-        this.specificationsService.getSpecificationsBySimulation(id),
-        this.get(id),
-        this.logsService.getLog(id),
-        this.metadataService.getMetadata(id),
-      ])
-    ).map((settledResult) => {
-      if (
-        settledResult.status !== 'fulfilled' ||
-        !('value' in settledResult) ||
-        settledResult.value === null ||
-        (Array.isArray(settledResult.value) && settledResult.value.length === 0)
-      ) {
-        throw new NotFoundException(`No run could be found with id '${id}'`);
+  public async getRunSummaries(raiseErrors = false): Promise<SimulationRunSummary[]> {
+    const runs = await this.simulationRunModel.find({}).select('id status').exec();
+    return (await Promise.allSettled(
+      runs.map((run) => {
+        return this.getRunSummary(run.id, raiseErrors);
+      })
+    ))
+    .map((settledResult, iRun: number) => {
+      if (settledResult.status !== 'fulfilled' || !('value' in settledResult)) {
+        console.log(runs[iRun].id)
+        throw new InternalServerErrorException('One or more summaries could not be retrieved.');
       }
       return settledResult.value;
     });
+  }
 
-    const files = settledResults[0] as FileModel[];
-    const simulationExpts = settledResults[1] as SpecificationsModel[];
-    const rawRun = settledResults[2] as SimulationRunModelReturnType;
-    const log = settledResults[3] as CombineArchiveLog;
-    const rawMetadata = settledResults[4] as SimulationRunMetadataIdModel;
+  public async getRunSummary(id: string, raiseErrors = false): Promise<SimulationRunSummary> {
+    const cacheKey = 'SimulationRun:summary:' + id;
+    const cachedValue = await this.cacheManager.get(cacheKey) as (SimulationRunSummary | null);
+    if (cachedValue) {
+      return cachedValue;
+    } else {
+      const value = await this._getRunSummary(id);
+      if (raiseErrors && (value.run.status === SimulationRunStatus.SUCCEEDED || SimulationRunStatus.FAILED)) {
+        await this.cacheManager.set(cacheKey, value);
+      }
+      return value;
+    }
+  }
 
-    /* get simulators */
+  private async _getRunSummary(id: string, raiseErrors = false): Promise<SimulationRunSummary> {
+    /* get data */
+    const settledResults = await Promise.allSettled([
+        this.get(id),
+        this.filesService.getSimulationFiles(id),
+        this.specificationsService.getSpecificationsBySimulation(id),
+        this.logsService.getLog(id),
+        this.metadataService.getMetadata(id),
+      ]);
+
+    const runSettledResult: PromiseSettledResult<SimulationRunModelReturnType | null> = settledResults[0];
+    const filesResult: PromiseSettledResult<FileModel[]> = settledResults[1];
+    const simulationExptsResult: PromiseSettledResult<SpecificationsModel[]> = settledResults[2];    
+    const logResult: PromiseSettledResult<CombineArchiveLog> = settledResults[3];
+    const rawMetadataResult: PromiseSettledResult<SimulationRunMetadataIdModel | null> = settledResults[4];    
+
+    if (runSettledResult.status !== 'fulfilled' || !('value' in runSettledResult) || !runSettledResult.value) {
+      throw new NotFoundException(`No run could be found with id '${id}'`);
+    }
+
+    /* initialize summary with run information */
+    const rawRun = runSettledResult.value as SimulationRunModelReturnType;
+
     const simulator = await this.getSimulator(rawRun.simulator);
     if (!simulator) {
-      throw new NotFoundException(`Simulator for run could be found`);
+      throw new NotFoundException(`Simulator '${rawRun.simulator}' for run could be found`);
     }
 
-    /* get summary of the simulation experiment */
-    const tasks: SimulationRunTaskSummary[] = [];
-    const outputs: SimulationRunOutputSummary[] = [];
-
-    const taskAlgorithmMap: { [uri: string]: string | undefined } = {};
-
-    log?.sedDocuments?.forEach((sedDocument): void => {
-      const location = sedDocument.location.startsWith('./')
-        ? sedDocument.location.substring(2)
-        : sedDocument.location;
-      sedDocument?.tasks?.forEach((task): void => {
-        const uri = location + '/' + task.id;
-        taskAlgorithmMap[uri] = task?.algorithm || undefined;
-      });
-    });
-
-    simulationExpts.forEach((simulationExpt: SpecificationsModel): void => {
-      const docLocation = simulationExpt.id.startsWith('./')
-        ? simulationExpt.id.substring(2)
-        : simulationExpt.id;
-
-      simulationExpt.tasks.forEach((task: SedTask): void => {
-        const uri = docLocation + '/' + task.simulation.id;
-
-        let modelFormat: ModelFormat | null = null;
-        for (const format of MODEL_FORMATS) {
-          if (task.model.language.startsWith(format.sedUrn)) {
-            modelFormat = format;
-            break;
-          }
-        }
-
-        const algorithmKisaoId =
-          taskAlgorithmMap[uri] || task.simulation.algorithm.kisaoId;
-        const algorithmKisaoTerm = this.ontologiesService.getTerm(
-          Ontologies.KISAO,
-          algorithmKisaoId,
-        );
-
-        tasks.push({
-          uri: docLocation + '/' + task.id,
-          id: task.id,
-          name: task?.name,
-          model: {
-            uri: docLocation + '/' + task.model.id,
-            id: task.model.id,
-            name: task.model?.name,
-            source: task.model.source,
-            language: {
-              name: modelFormat?.name || undefined,
-              acronym: modelFormat?.acronym || undefined,
-              sedmlUrn: task.model.language,
-              edamId: modelFormat?.edamId || undefined,
-              url: modelFormat?.url || undefined,
-            },
-          },
-          simulation: {
-            type: {
-              id: task.simulation._type,
-              name: SimulationTypeName[task.simulation._type],
-              url: 'http://sed-ml.org/',
-            },
-            uri: uri,
-            id: task.simulation.id,
-            name: task.simulation?.name,
-            algorithm: {
-              kisaoId: algorithmKisaoId,
-              name: algorithmKisaoTerm?.name || undefined,
-              url: algorithmKisaoTerm?.url || undefined,
-            },
-          },
-        });
-      });
-
-      simulationExpt.outputs.forEach(
-        (output: SedReport | SedPlot2D | SedPlot3D): void => {
-          outputs.push({
-            type: {
-              id: output._type,
-              name: SimulationRunOutputTypeName[output._type],
-              url: 'http://sed-ml.org/',
-            },
-            uri: docLocation + '/' + output.id,
-            name: output?.name,
-          });
-        },
-      );
-    });
-
-    files.forEach((file: FileModel): void => {
-      if (VEGA_FORMAT.combineUris.includes(file.format)) {
-        outputs.push({
-          type: {
-            id: 'Vega',
-            name: SimulationRunOutputTypeName.Vega,
-            url: 'https://vega.github.io/vega/',
-          },
-          uri: file.location.startsWith('./')
-            ? file.location.substring(2)
-            : file.location,
-          name: undefined,
-        });
-      }
-    });
-
-    /* get summary of simulation run */
-    const run: SimulationRunRunSummary = {
-      simulator: {
-        id: rawRun.simulator,
-        name: simulator.name,
-        version: rawRun.simulatorVersion,
-        digest: rawRun.simulatorDigest,
-        url: `${urls.simulators}/simulators/${rawRun.simulator}`,
-      },
-      cpus: rawRun.cpus,
-      memory: rawRun.memory,
-      envVars: rawRun.envVars,
-      runtime: log.duration !== null ? log.duration : rawRun.runtime,
-      projectSize: rawRun.projectSize as number,
-      resultsSize: rawRun.resultsSize,
-    };
-
-    /* get top-level metadata for the project */
-    let rawMetadatum!: ArchiveMetadata;
-    for (rawMetadatum of rawMetadata.metadata) {
-      if (rawMetadatum.uri.search('/') === -1) {
-        break;
-      }
-    }
-
-    const metadata: SimulationRunMetadataSummary = {
-      title: rawMetadatum?.title,
-      abstract: rawMetadatum?.abstract,
-      description: rawMetadatum?.description,
-      thumbnails: rawMetadatum.thumbnails,
-      sources: rawMetadatum.sources,
-      keywords: rawMetadatum.keywords,
-      taxa: rawMetadatum.taxa,
-      encodes: rawMetadatum.encodes,
-      predecessors: rawMetadatum.predecessors,
-      successors: rawMetadatum.successors,
-      seeAlso: rawMetadatum.seeAlso,
-      identifiers: rawMetadatum.identifiers,
-      citations: rawMetadatum.citations,
-      creators: rawMetadatum.creators,
-      contributors: rawMetadatum.contributors,
-      license: rawMetadatum?.license,
-      funders: rawMetadatum.funders,
-      other: rawMetadatum.other,
-      created: rawMetadatum.created,
-      modified: rawMetadatum.modified?.[0] || undefined,
-    };
-
-    /* return summary */
-    return {
+    const summary: SimulationRunSummary = {
       id: rawRun.id,
       name: rawRun.name,
-      tasks: tasks,
-      outputs: outputs,
-      run: run,
-      metadata: metadata,
+      tasks: undefined,
+      outputs: undefined,
+      run: {
+        simulator: {
+          id: rawRun.simulator,
+          name: simulator.name,
+          version: rawRun.simulatorVersion,
+          digest: rawRun.simulatorDigest,
+          url: `${urls.simulators}/simulators/${rawRun.simulator}`,
+        },
+        cpus: rawRun.cpus,
+        memory: rawRun.memory,
+        maxTime: rawRun.maxTime,
+        envVars: rawRun.envVars,
+        status: rawRun.status,
+        runtime: rawRun.runtime,
+        projectSize: rawRun.projectSize,
+        resultsSize: rawRun.resultsSize,
+      },
+      metadata: undefined,
       submitted: rawRun.submitted.toString(),
       updated: rawRun.updated.toString(),
     };
+
+    /* get summary of the simulation experiment */
+    if (
+      filesResult.status === 'fulfilled'
+      && !!filesResult.value
+      && simulationExptsResult.status === 'fulfilled' 
+      && !!simulationExptsResult.value
+      && logResult.status === 'fulfilled' 
+      && !!logResult.value
+    ) {
+      const files = filesResult.value;
+      const simulationExpts = simulationExptsResult.value;
+      const log = logResult.value;
+
+      const tasks: SimulationRunTaskSummary[] = [];
+      const outputs: SimulationRunOutputSummary[] = [];
+
+      const taskAlgorithmMap: { [uri: string]: string | undefined } = {};
+
+      const summaryTasks: SimulationRunTaskSummary[] = [];
+      const summaryOutputs: SimulationRunOutputSummary[] = [];
+      summary.tasks = summaryTasks;
+      summary.outputs = summaryOutputs;
+
+      if (log.duration !== null) {
+        summary.run.runtime = log.duration;
+      }
+
+      log?.sedDocuments?.forEach((sedDocument): void => {
+        const location = sedDocument.location.startsWith('./')
+          ? sedDocument.location.substring(2)
+          : sedDocument.location;
+        sedDocument?.tasks?.forEach((task): void => {
+          const uri = location + '/' + task.id;
+          taskAlgorithmMap[uri] = task?.algorithm || undefined;
+        });
+      });
+
+      simulationExpts.forEach((simulationExpt: SpecificationsModel): void => {
+        const docLocation = simulationExpt.id.startsWith('./')
+          ? simulationExpt.id.substring(2)
+          : simulationExpt.id;
+
+        simulationExpt.tasks.forEach((task: SedTask): void => {
+          const uri = docLocation + '/' + task.simulation.id;
+
+          let modelFormat: ModelFormat | null = null;
+          for (const format of MODEL_FORMATS) {
+            if (task.model.language.startsWith(format.sedUrn)) {
+              modelFormat = format;
+              break;
+            }
+          }
+
+          const algorithmKisaoId =
+            taskAlgorithmMap[uri] || task.simulation.algorithm.kisaoId;
+          const algorithmKisaoTerm = this.ontologiesService.getTerm(
+            Ontologies.KISAO,
+            algorithmKisaoId,
+          );
+
+          summaryTasks.push({
+            uri: docLocation + '/' + task.id,
+            id: task.id,
+            name: task?.name,
+            model: {
+              uri: docLocation + '/' + task.model.id,
+              id: task.model.id,
+              name: task.model?.name,
+              source: task.model.source,
+              language: {
+                name: modelFormat?.name || undefined,
+                acronym: modelFormat?.acronym || undefined,
+                sedmlUrn: task.model.language,
+                edamId: modelFormat?.edamId || undefined,
+                url: modelFormat?.url || undefined,
+              },
+            },
+            simulation: {
+              type: {
+                id: task.simulation._type,
+                name: SimulationTypeName[task.simulation._type],
+                url: 'http://sed-ml.org/',
+              },
+              uri: uri,
+              id: task.simulation.id,
+              name: task.simulation?.name,
+              algorithm: {
+                kisaoId: algorithmKisaoId,
+                name: algorithmKisaoTerm?.name || undefined,
+                url: algorithmKisaoTerm?.url || undefined,
+              },
+            },
+          });
+        });
+
+        simulationExpt.outputs.forEach(
+          (output: SedReport | SedPlot2D | SedPlot3D): void => {
+            summaryOutputs.push({
+              type: {
+                id: output._type,
+                name: SimulationRunOutputTypeName[output._type],
+                url: 'http://sed-ml.org/',
+              },
+              uri: docLocation + '/' + output.id,
+              name: output?.name,
+            });
+          },
+        );
+      });
+
+      files.forEach((file: FileModel): void => {
+        if (VEGA_FORMAT.combineUris.includes(file.format)) {
+          summaryOutputs.push({
+            type: {
+              id: 'Vega',
+              name: SimulationRunOutputTypeName.Vega,
+              url: 'https://vega.github.io/vega/',
+            },
+            uri: file.location.startsWith('./')
+              ? file.location.substring(2)
+              : file.location,
+            name: undefined,
+          });
+        }
+      });
+    } else if (raiseErrors) {
+      throw new InternalServerErrorException('Information about the files, simulation experiments, or log could not be retrieved')
+    }
+
+    /* get top-level metadata for the project */
+    if (rawMetadataResult.status === 'fulfilled' && !!rawMetadataResult.value) {
+      const rawMetadata = rawMetadataResult.value;
+
+      let rawMetadatum!: ArchiveMetadata;
+      for (rawMetadatum of rawMetadata.metadata) {
+        if (rawMetadatum.uri.search('/') === -1) {
+          break;
+        }
+      }
+
+      summary.metadata = {
+        title: rawMetadatum?.title,
+        abstract: rawMetadatum?.abstract,
+        description: rawMetadatum?.description,
+        thumbnails: rawMetadatum.thumbnails,
+        sources: rawMetadatum.sources,
+        keywords: rawMetadatum.keywords,
+        taxa: rawMetadatum.taxa,
+        encodes: rawMetadatum.encodes,
+        predecessors: rawMetadatum.predecessors,
+        successors: rawMetadatum.successors,
+        seeAlso: rawMetadatum.seeAlso,
+        identifiers: rawMetadatum.identifiers,
+        citations: rawMetadatum.citations,
+        creators: rawMetadatum.creators,
+        contributors: rawMetadatum.contributors,
+        license: rawMetadatum?.license,
+        funders: rawMetadatum.funders,
+        other: rawMetadatum.other,
+        created: rawMetadatum.created,
+        modified: rawMetadatum.modified?.[0] || undefined,
+      };
+    } else if (raiseErrors) {
+      throw new InternalServerErrorException('Information about the files, simulation experiments, or log could not be retrieved')
+    }
+
+    /* return summary */    
+    return summary;
   }
 
   /** Check that a simulation run is valid

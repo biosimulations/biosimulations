@@ -173,10 +173,13 @@ export interface SimulationRunRunSummary {
   simulator: SimulationRunSimulatorSummary;
   cpus: number;
   memory: number;
+  maxTime: number;
   envVars: EnvironmentVariable[];
-  runtime: number;
-  projectSize: number;
-  resultsSize: number;
+  status: SimulationRunStatus;
+  statusReason?: string;
+  runtime?: number;
+  projectSize?: number;
+  resultsSize?: number;
 }
 
 export interface SimulationRunMetadataSummary {
@@ -205,10 +208,10 @@ export interface SimulationRunMetadataSummary {
 export interface SimulationRunSummary {
   id: string;
   name: string;
-  tasks: SimulationRunTaskSummary[];
-  outputs: SimulationRunOutputSummary[];
+  tasks?: SimulationRunTaskSummary[];
+  outputs?: SimulationRunOutputSummary[];
   run: SimulationRunRunSummary;
-  metadata: SimulationRunMetadataSummary;
+  metadata?: SimulationRunMetadataSummary;
   submitted: string;
   updated: string;
 }
