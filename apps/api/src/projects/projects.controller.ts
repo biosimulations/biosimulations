@@ -1,5 +1,9 @@
 import { permissions } from '@biosimulations/auth/nest';
-import { Project, ProjectInput, ProjectSummary } from '@biosimulations/datamodel/api';
+import {
+  Project,
+  ProjectInput,
+  ProjectSummary,
+} from '@biosimulations/datamodel/api';
 import {
   Body,
   Controller,

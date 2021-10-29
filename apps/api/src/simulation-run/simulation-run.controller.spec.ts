@@ -34,7 +34,7 @@ describe('SimulationRunsController', () => {
         BiosimulationsAuthModule,
         BiosimulationsConfigModule,
         SharedNatsClientModule,
-        HttpModule,        
+        HttpModule,
       ],
       providers: [
         { provide: SimulationRunService, useClass: mockSimService },

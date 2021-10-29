@@ -290,8 +290,7 @@ export class SimulationRunController {
     type: [SimulationRunSummary],
   })
   @Get('summary')
-  public async getRunSummaries(
-  ): Promise<SimulationRunSummary[]> {
+  public async getRunSummaries(): Promise<SimulationRunSummary[]> {
     const summary = await this.service.getRunSummaries();
     return summary;
   }

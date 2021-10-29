@@ -522,53 +522,82 @@ export class SimulationRunService {
     return this.simulationRunModel.findById(id).catch((_) => null);
   }
 
-  public async getRunSummaries(raiseErrors = false): Promise<SimulationRunSummary[]> {
-    const runs = await this.simulationRunModel.find({}).select('id status').exec();
-    return (await Promise.allSettled(
-      runs.map((run) => {
-        return this.getRunSummary(run.id, raiseErrors);
-      })
-    ))
-    .map((settledResult, iRun: number) => {
+  public async getRunSummaries(
+    raiseErrors = false,
+  ): Promise<SimulationRunSummary[]> {
+    const runs = await this.simulationRunModel
+      .find({})
+      .select('id status')
+      .exec();
+    return (
+      await Promise.allSettled(
+        runs.map((run) => {
+          return this.getRunSummary(run.id, raiseErrors);
+        }),
+      )
+    ).map((settledResult, iRun: number) => {
       if (settledResult.status !== 'fulfilled' || !('value' in settledResult)) {
-        console.log('A summary of run \'${runs[iRun].id}\' could not be retrieved.');
-        throw new InternalServerErrorException('One or more summaries could not be retrieved.');
+        console.log(
+          "A summary of run '${runs[iRun].id}' could not be retrieved.",
+        );
+        throw new InternalServerErrorException(
+          'One or more summaries could not be retrieved.',
+        );
       }
       return settledResult.value;
     });
   }
 
-  public async getRunSummary(id: string, raiseErrors = false): Promise<SimulationRunSummary> {
+  public async getRunSummary(
+    id: string,
+    raiseErrors = false,
+  ): Promise<SimulationRunSummary> {
     const cacheKey = `SimulationRun:summary:${raiseErrors}:${id}`;
-    const cachedValue = await this.cacheManager.get(cacheKey) as (SimulationRunSummary | null);
+    const cachedValue = (await this.cacheManager.get(
+      cacheKey,
+    )) as SimulationRunSummary | null;
     if (cachedValue) {
       return cachedValue;
     } else {
       const value = await this._getRunSummary(id);
-      if (value.run.status === SimulationRunStatus.SUCCEEDED || SimulationRunStatus.FAILED) {
+      if (
+        value.run.status === SimulationRunStatus.SUCCEEDED ||
+        SimulationRunStatus.FAILED
+      ) {
         await this.cacheManager.set(cacheKey, value, { ttl: 0 });
       }
       return value;
     }
   }
 
-  private async _getRunSummary(id: string, raiseErrors = false): Promise<SimulationRunSummary> {
+  private async _getRunSummary(
+    id: string,
+    raiseErrors = false,
+  ): Promise<SimulationRunSummary> {
     /* get data */
     const settledResults = await Promise.allSettled([
-        this.get(id),
-        this.filesService.getSimulationFiles(id),
-        this.specificationsService.getSpecificationsBySimulation(id),
-        this.logsService.getLog(id),
-        this.metadataService.getMetadata(id),
-      ]);
+      this.get(id),
+      this.filesService.getSimulationFiles(id),
+      this.specificationsService.getSpecificationsBySimulation(id),
+      this.logsService.getLog(id),
+      this.metadataService.getMetadata(id),
+    ]);
 
-    const runSettledResult: PromiseSettledResult<SimulationRunModelReturnType | null> = settledResults[0];
+    const runSettledResult: PromiseSettledResult<SimulationRunModelReturnType | null> =
+      settledResults[0];
     const filesResult: PromiseSettledResult<FileModel[]> = settledResults[1];
-    const simulationExptsResult: PromiseSettledResult<SpecificationsModel[]> = settledResults[2];
-    const logResult: PromiseSettledResult<CombineArchiveLog> = settledResults[3];
-    const rawMetadataResult: PromiseSettledResult<SimulationRunMetadataIdModel | null> = settledResults[4];
+    const simulationExptsResult: PromiseSettledResult<SpecificationsModel[]> =
+      settledResults[2];
+    const logResult: PromiseSettledResult<CombineArchiveLog> =
+      settledResults[3];
+    const rawMetadataResult: PromiseSettledResult<SimulationRunMetadataIdModel | null> =
+      settledResults[4];
 
-    if (runSettledResult.status !== 'fulfilled' || !('value' in runSettledResult) || !runSettledResult.value) {
+    if (
+      runSettledResult.status !== 'fulfilled' ||
+      !('value' in runSettledResult) ||
+      !runSettledResult.value
+    ) {
       throw new NotFoundException(`No run could be found with id '${id}'`);
     }
 
@@ -577,7 +606,9 @@ export class SimulationRunService {
 
     const simulator = await this.getSimulator(rawRun.simulator);
     if (!simulator) {
-      throw new NotFoundException(`Simulator '${rawRun.simulator}' for run could be found`);
+      throw new NotFoundException(
+        `Simulator '${rawRun.simulator}' for run could be found`,
+      );
     }
 
     const summary: SimulationRunSummary = {
@@ -609,12 +640,12 @@ export class SimulationRunService {
 
     /* get summary of the simulation experiment */
     if (
-      filesResult.status === 'fulfilled'
-      && !!filesResult.value
-      && simulationExptsResult.status === 'fulfilled'
-      && !!simulationExptsResult.value
-      && logResult.status === 'fulfilled'
-      && !!logResult.value
+      filesResult.status === 'fulfilled' &&
+      !!filesResult.value &&
+      simulationExptsResult.status === 'fulfilled' &&
+      !!simulationExptsResult.value &&
+      logResult.status === 'fulfilled' &&
+      !!logResult.value
     ) {
       const files = filesResult.value;
       const simulationExpts = simulationExptsResult.value;
@@ -733,7 +764,9 @@ export class SimulationRunService {
         }
       });
     } else if (raiseErrors) {
-      throw new InternalServerErrorException('Information about the files, simulation experiments, or log could not be retrieved')
+      throw new InternalServerErrorException(
+        'Information about the files, simulation experiments, or log could not be retrieved',
+      );
     }
 
     /* get top-level metadata for the project */
@@ -770,7 +803,9 @@ export class SimulationRunService {
         modified: rawMetadatum.modified?.[0] || undefined,
       };
     } else if (raiseErrors) {
-      throw new InternalServerErrorException('Information about the files, simulation experiments, or log could not be retrieved')
+      throw new InternalServerErrorException(
+        'Information about the files, simulation experiments, or log could not be retrieved',
+      );
     }
 
     /* return summary */

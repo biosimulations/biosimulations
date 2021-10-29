@@ -125,13 +125,25 @@ export class ProjectsService {
       return this.getProjectSummary(project.id);
     });
     const settledResults = await Promise.allSettled(promises);
-    return settledResults.map((settledResult: PromiseSettledResult<ProjectSummary>, iProject: number): ProjectSummary => {
-      if (settledResult.status !== 'fulfilled' || !('value' in settledResult)) {
-        this.logger.log(`Error getting summary for project ${projects[iProject].id}`);
-        throw new InternalServerErrorException('Summaries could not be retrieved for one or more projects.')
-      }
-      return settledResult.value;
-    });
+    return settledResults.map(
+      (
+        settledResult: PromiseSettledResult<ProjectSummary>,
+        iProject: number,
+      ): ProjectSummary => {
+        if (
+          settledResult.status !== 'fulfilled' ||
+          !('value' in settledResult)
+        ) {
+          this.logger.log(
+            `Error getting summary for project ${projects[iProject].id}`,
+          );
+          throw new InternalServerErrorException(
+            'Summaries could not be retrieved for one or more projects.',
+          );
+        }
+        return settledResult.value;
+      },
+    );
   }
 
   /** Get a summary of a project
@@ -148,7 +160,10 @@ export class ProjectsService {
 
     return {
       id: id,
-      simulationRun: await this.simulationRunService.getRunSummary(project.simulationRun, true),
+      simulationRun: await this.simulationRunService.getRunSummary(
+        project.simulationRun,
+        true,
+      ),
       created: project.created,
       updated: project.updated,
     };

@@ -62,7 +62,6 @@ export class ProjectInput
   extends OmitType(Project, ['created', 'updated'])
   implements IProjectInput {}
 
-
 export class ProjectSummary implements IProjectSummary {
   @ApiProperty({
     type: String,
@@ -81,14 +80,14 @@ export class ProjectSummary implements IProjectSummary {
   @ApiProperty({
     type: String,
     format: 'date-time',
-    description: 'Timestamp when the project was published'
+    description: 'Timestamp when the project was published',
   })
   public created!: string;
 
   @ApiProperty({
     type: String,
     format: 'date-time',
-    description: 'Timestamp when the project was last updated'
+    description: 'Timestamp when the project was last updated',
   })
   public updated!: string;
 }
