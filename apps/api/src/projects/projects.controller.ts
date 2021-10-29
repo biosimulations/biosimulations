@@ -1,5 +1,5 @@
 import { permissions } from '@biosimulations/auth/nest';
-import { Project, ProjectInput } from '@biosimulations/datamodel/api';
+import { Project, ProjectInput, ProjectSummary } from '@biosimulations/datamodel/api';
 import {
   Body,
   Controller,
@@ -43,16 +43,22 @@ export class ProjectsController {
     description: 'List of information about each published project',
     type: [Project],
   })
-  @ApiNotFoundResponse({
-    type: ErrorResponseDocument,
-    description: 'No projects have been published',
-  })
   public async getProjects(): Promise<Project[]> {
     const projects = await this.service.getProjects();
-    if (projects.length > 0) {
-      return projects.map((proj) => this.returnProject(proj));
-    }
-    throw new NotFoundException('No Projects Found');
+    return projects.map((proj) => this.returnProject(proj));
+  }
+
+  @Get('summary')
+  @ApiOperation({
+    summary: 'Get a summary of each published projects',
+    description: 'Get a list of summaries of each published project',
+  })
+  @ApiOkResponse({
+    description: 'List of information about each published project',
+    type: [ProjectSummary],
+  })
+  public async getProjectSummaries(): Promise<ProjectSummary[]> {
+    return await this.service.getProjectSummaries();
   }
 
   @Get(':projectId')
@@ -78,6 +84,26 @@ export class ProjectsController {
       return this.returnProject(proj);
     }
     throw new NotFoundException(`Project with id ${projectId} not found`);
+  }
+
+  @ApiOperation({
+    summary: 'Get a summary of a project',
+    description: 'Returns a summary of the project',
+  })
+  @ProjectIdParam()
+  @ApiOkResponse({
+    description: 'A summary of the project was successfully retrieved',
+    type: ProjectSummary,
+  })
+  @ApiNotFoundResponse({
+    description: 'No project could be found with requested id',
+    type: ErrorResponseDocument,
+  })
+  @Get(':projectId/summary')
+  public async getProjectSummary(
+    @ProjectId('projectId') projectId: string,
+  ): Promise<ProjectSummary> {
+    return await this.service.getProjectSummary(projectId);
   }
 
   @Post()

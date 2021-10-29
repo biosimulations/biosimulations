@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { ApiParam } from '@nestjs/swagger';
 import { projectIdRegExp } from './id.regex';
+import { projectIdReservedIds } from './id.reservedIds';
 
 export const ProjectId = createParamDecorator(
   (paramName: string, ctx: ExecutionContext) => {
@@ -25,7 +26,11 @@ export const ProjectId = createParamDecorator(
         "Project id must only contain letters, numbers, '_', or '-'",
       );
     }
-
+    if (projectIdReservedIds.includes(id)) {
+      throw new BadRequestException(
+        `Project id cannot be '${id}'. '${id}' is a reserved term.`,
+      );
+    }
     return id;
   },
 );

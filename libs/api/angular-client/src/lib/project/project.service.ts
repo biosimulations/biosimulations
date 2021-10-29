@@ -5,6 +5,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import {
   Project,
   ProjectInput,
+  ProjectSummary,
   File as IFile,
   SimulatorIdNameMap,
   SimulationRunSedDocument,
@@ -38,6 +39,18 @@ export class ProjectService {
   public getProject(projectId: string): Observable<Project> {
     const url = this.endpoints.getProjectsEndpoint(projectId);
     const response = this.http.get<Project>(url).pipe(shareReplay(1));
+    return response;
+  }
+
+  public getProjectSummaries(): Observable<ProjectSummary[]> {
+    const url = this.endpoints.getProjectSummariesEndpoint();
+    const response = this.http.get<ProjectSummary[]>(url).pipe(shareReplay(1));
+    return response;
+  }
+
+  public getProjectSummary(projectId: string): Observable<ProjectSummary> {
+    const url = this.endpoints.getProjectSummariesEndpoint(projectId);
+    const response = this.http.get<ProjectSummary>(url).pipe(shareReplay(1));
     return response;
   }
 

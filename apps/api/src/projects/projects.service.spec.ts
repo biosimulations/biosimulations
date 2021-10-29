@@ -31,6 +31,7 @@ import {
 } from '@biosimulations/shared/storage';
 
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { CacheModule } from '@nestjs/common';
 
 describe('ProjectsService', () => {
   let service: ProjectsService;
@@ -70,7 +71,12 @@ describe('ProjectsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule, SharedNatsClientModule, BiosimulationsConfigModule],
+      imports: [
+        HttpModule,
+        SharedNatsClientModule,
+        BiosimulationsConfigModule,
+        CacheModule.register(),
+      ],
       providers: [
         { provide: getModelToken(ProjectModel.name), useValue: {} },
         {

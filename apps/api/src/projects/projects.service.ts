@@ -1,4 +1,4 @@
-import { ProjectInput } from '@biosimulations/datamodel/api';
+import { ProjectInput, ProjectSummary } from '@biosimulations/datamodel/api';
 import {
   Injectable,
   Logger,
@@ -103,7 +103,7 @@ export class ProjectsService {
       .findOne({ id })
       .collation(ProjectIdCollation);
     if (!project) {
-      throw new NotFoundException(`Project with id ${id} not found`);
+      throw new NotFoundException(`Project with id '${id}' could not be found`);
     }
 
     const res: DeleteResult = await this.model
@@ -115,6 +115,43 @@ export class ProjectsService {
       );
     }
     return;
+  }
+
+  /** Get a summary of each project
+   */
+  public async getProjectSummaries(): Promise<ProjectSummary[]> {
+    const projects = await this.model.find({}).select('id').exec();
+    const promises = projects.map((project): Promise<ProjectSummary> => {
+      return this.getProjectSummary(project.id);
+    });
+    const settledResults = await Promise.allSettled(promises);
+    return settledResults.map((settledResult: PromiseSettledResult<ProjectSummary>, iProject: number): ProjectSummary => {
+      if (settledResult.status !== 'fulfilled' || !('value' in settledResult)) {
+        this.logger.log(`Error getting summary for project ${projects[iProject].id}`);
+        throw new InternalServerErrorException('Summaries could not be retrieved for one or more projects.')
+      }
+      return settledResult.value;
+    });
+  }
+
+  /** Get a summary of a project
+   *
+   * @param id id of the project
+   */
+  public async getProjectSummary(id: string): Promise<ProjectSummary> {
+    const project = await this.model
+      .findOne({ id })
+      .collation(ProjectIdCollation);
+    if (!project) {
+      throw new NotFoundException(`Project with id '${id}' could not be found`);
+    }
+
+    return {
+      id: id,
+      simulationRun: await this.simulationRunService.getRunSummary(project.simulationRun, true),
+      created: project.created,
+      updated: project.updated,
+    };
   }
 
   /** Check if a project is valid

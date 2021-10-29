@@ -691,6 +691,12 @@ export class SimulationRunRunSummary implements ISimulationRunRunSummary {
   memory!: number;
 
   @ApiProperty({
+    type: Number,
+    description: 'Time in minutes needed to execute the simulation run',
+  })
+  maxTime!: number;
+
+  @ApiProperty({
     type: [EnvironmentVariable],
     description:
       'Key-value pairs of environment variables to execute the simulator with',
@@ -698,11 +704,24 @@ export class SimulationRunRunSummary implements ISimulationRunRunSummary {
   envVars!: EnvironmentVariable[];
 
   @ApiProperty({
+    description: 'Status of the simulation run',
+    type: String,
+    enum: SimulationRunStatus,
+  })
+  status!: SimulationRunStatus;
+
+  @ApiProperty({
+    description: 'Detail about the status of the simulation run',
+    type: String,
+  })
+  statusReason?: string;
+
+  @ApiProperty({
     description: 'Runtime of the simulation run in seconds',
     type: Number,
     example: 55,
   })
-  runtime!: number;
+  runtime?: number;
 
   @ApiProperty({
     description:
@@ -710,7 +729,7 @@ export class SimulationRunRunSummary implements ISimulationRunRunSummary {
     type: Number,
     example: 1123,
   })
-  projectSize!: number;
+  projectSize?: number;
 
   @ApiProperty({
     description:
@@ -718,7 +737,7 @@ export class SimulationRunRunSummary implements ISimulationRunRunSummary {
     type: Number,
     example: 11234,
   })
-  resultsSize!: number;
+  resultsSize?: number;
 }
 
 export class SimulationRunMetadataSummary
@@ -800,17 +819,17 @@ export class SimulationRunSummary implements ISimulationRunSummary {
   })
   name!: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     type: [SimulationRunTaskSummary],
     description: 'Summary of the tasks of the run',
   })
-  tasks!: SimulationRunTaskSummary[];
+  tasks?: SimulationRunTaskSummary[];
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     type: [SimulationRunOutputSummary],
     description: 'Summary of the outputs of the run',
   })
-  outputs!: SimulationRunOutputSummary[];
+  outputs?: SimulationRunOutputSummary[];
 
   @ApiProperty({
     type: SimulationRunRunSummary,
@@ -818,11 +837,11 @@ export class SimulationRunSummary implements ISimulationRunSummary {
   })
   run!: SimulationRunRunSummary;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     type: SimulationRunMetadataSummary,
     description: 'Summary of the metadata for the run',
   })
-  metadata!: SimulationRunMetadataSummary;
+  metadata?: SimulationRunMetadataSummary;
 
   @ApiProperty({
     description: 'Timestamp when the simulation run was submitted',

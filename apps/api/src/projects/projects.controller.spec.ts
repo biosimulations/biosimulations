@@ -9,7 +9,10 @@ describe('ProjectsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [BiosimulationsAuthModule, BiosimulationsConfigModule],
+      imports: [
+        BiosimulationsAuthModule,
+        BiosimulationsConfigModule        
+      ],
       providers: [
         {
           provide: ProjectsService,
