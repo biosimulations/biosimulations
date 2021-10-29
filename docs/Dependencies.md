@@ -740,16 +740,16 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: @sendgrid/client/node_modules/axios/LICENSE
-├─ axios@0.22.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/axios/axios
-│  ├─ publisher: Matt Zabriskie
-│  └─ licenseFile: axios/LICENSE
 ├─ axios@0.23.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: @nestjs/axios/node_modules/axios/LICENSE
+├─ axios@0.24.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/axios/axios
+│  ├─ publisher: Matt Zabriskie
+│  └─ licenseFile: axios/LICENSE
 ├─ balanced-match@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/balanced-match
@@ -4024,7 +4024,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: feross@feross.org
 │  ├─ url: https://feross.org
 │  └─ licenseFile: run-parallel/LICENSE
-├─ rxjs@7.3.1
+├─ rxjs@7.4.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/reactivex/rxjs
 │  ├─ publisher: Ben Lesh
