@@ -329,6 +329,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "jcschaff",
+      "name": "Jim Schaff",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20616724?v=4",
+      "profile": "http://vcell.org",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
