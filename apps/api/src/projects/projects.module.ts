@@ -43,6 +43,8 @@ import {
   SimulationRunMetadataSchema,
 } from '../metadata/metadata.model';
 
+import { OntologiesService } from '@biosimulations/ontology/ontologies';
+
 @Module({
   imports: [
     BiosimulationsAuthModule,
@@ -86,6 +88,7 @@ import {
     LogsService,
     ResultsService,
     MetadataService,
+    OntologiesService,
   ],
   controllers: [ProjectsController],
 })

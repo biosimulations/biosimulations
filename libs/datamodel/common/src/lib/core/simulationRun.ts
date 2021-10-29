@@ -105,20 +105,40 @@ export interface UploadSimulationRunUrl extends UploadSimulationRun {
   url: string;
 }
 
+export interface TypeSummary {
+  id: string;
+  name: string;
+  url: string;
+}
+
+export interface SimulationRunModelLanguageSummary {
+  name?: string;
+  acronym?: string;
+  sedmlUrn: string;
+  edamId?: string;
+  url?: string;
+}
+
+export interface SimulationRunAlgorithmSummary {
+  kisaoId: string;
+  name?: string;
+  url?: string;
+}
+
 export interface SimulationRunModelSummary {
   uri: string;
   id: string;
   name?: string;
   source: string;
-  language: string;
+  language: SimulationRunModelLanguageSummary;
 }
 
 export interface SimulationRunSimulationSummary {
-  _type: SimulationType;
+  type: TypeSummary;
   uri: string;
   id: string;
   name?: string;
-  algorithm: string;
+  algorithm: SimulationRunAlgorithmSummary;
 }
 
 export interface SimulationRunTaskSummary {
@@ -129,23 +149,29 @@ export interface SimulationRunTaskSummary {
   simulation: SimulationRunSimulationSummary;
 }
 
-export enum SimulationRunOutputType {
-  SedReport = 'SedReport',
-  SedPlot2D = 'SedPlot2D',
-  SedPlot3D = 'SedPlot3D',
+export enum SimulationRunOutputTypeName {
+  SedReport = 'Report',
+  SedPlot2D = '2D line plot',
+  SedPlot3D = '3D surface plot',
   Vega = 'Vega',
 }
 
 export interface SimulationRunOutputSummary {
-  _type: SimulationRunOutputType;
+  type: TypeSummary;
   uri: string;
   name?: string;
 }
 
+export interface SimulationRunSimulatorSummary {
+  id: string;
+  name: string;
+  version: string;
+  digest: string;
+  url: string;
+}
+
 export interface SimulationRunRunSummary {
-  simulator: string;
-  simulatorVersion: string;
-  simulatorDigest: string;
+  simulator: SimulationRunSimulatorSummary;
   cpus: number;
   memory: number;
   envVars: EnvironmentVariable[];

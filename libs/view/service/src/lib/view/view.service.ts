@@ -124,7 +124,7 @@ export class ViewService {
         if (!metadata) {
           return undefined;
         }
-        // Check for undefiend metadata for all fields
+        // Check for undefined metadata for all fields
         const formattedMetadata: ProjectMetadata = {
           thumbnails: metadata?.thumbnails || [],
           title: metadata?.title || id,

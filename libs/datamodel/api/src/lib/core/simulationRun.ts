@@ -25,7 +25,10 @@ import {
   SimulationRunMetadataSummary as ISimulationRunMetadataSummary,
   SimulationRunModelSummary as ISimulationRunModelSummary,
   SimulationRunSimulationSummary as ISimulationRunSimulationSummary,
-  SimulationRunOutputType,
+  SimulationRunModelLanguageSummary as ISimulationRunModelLanguageSummary,
+  SimulationRunAlgorithmSummary as ISimulationRunAlgorithmSummary,
+  SimulationRunSimulatorSummary as ISimulationRunSimulatorSummary,
+  TypeSummary as ITypeSummary,
   SimulationType,
 } from '@biosimulations/datamodel/common';
 import {
@@ -399,6 +402,90 @@ export class PatchSimulationRun {
 
 export class UpdateSimulationRun extends PartialType(PatchSimulationRun) {}
 
+export class TypeSummary implements ITypeSummary {
+  @ApiProperty({
+    type: String,
+    description: 'Id of the type',
+    example: 'SedReport',
+  })
+  id!: string;
+
+  @ApiProperty({
+    type: String,
+    description: 'Name of the type',
+    example: 'SED-ML report',
+  })
+  name!: string;
+
+  @ApiProperty({
+    type: String,
+    description: 'URL with more information about the type',
+    example: 'http://sed-ml.org/',
+  })
+  url!: string;
+}
+
+export class SimulationRunModelLanguageSummary implements ISimulationRunModelLanguageSummary {
+  @ApiPropertyOptional({
+    type: String,
+    description: 'Name of the language',
+    example: 'Systems Biology Markup Language',
+  })
+  name?: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    description: 'Acronym of the language',
+    example: 'SBML',
+  })
+  acronym?: string;
+
+  @ApiProperty({
+    type: String,
+    description: 'SED-ML URN for the language. More information is available at http://sed-ml.org/urns.html.',
+    example: 'urn:sedml:language:sbml',
+  })
+  sedmlUrn!: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    description: 'EDAM id for the language. More information is available at https://www.ebi.ac.uk/ols/ontologies/edam.',
+    example: 'format_2585',
+  })
+  edamId?: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    description: 'URL with more information about the language',
+    example: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2585',
+  })
+  url?: string;
+}
+
+export class SimulationRunAlgorithmSummary implements ISimulationRunAlgorithmSummary {
+  @ApiProperty({
+    type: String,
+    description: 'KiSAO id of the algorithm',
+    pattern: '^KISAO_\d{7,7}$',
+    example: 'KISAO_0000019',
+  })
+  kisaoId!: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    description: 'Name of the algorithm',
+    example: 'CVODE',
+  })
+  name?: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    description: 'URL with more informationa about the algorithm',
+    example: 'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000019',
+  })
+  url?: string;
+}
+
 export class SimulationRunModelSummary implements ISimulationRunModelSummary {
   @ApiProperty({
     type: String,
@@ -426,20 +513,19 @@ export class SimulationRunModelSummary implements ISimulationRunModelSummary {
   source!: string;
 
   @ApiProperty({
-    type: String,
+    type: SimulationRunModelLanguageSummary,
     description: 'Language of the model',
-    example: 'urn:sedml:language:sbml',
   })
-  language!: string;
+  language!: SimulationRunModelLanguageSummary;
 }
 
 export class SimulationRunSimulationSummary implements ISimulationRunSimulationSummary {
   @ApiProperty({
     type: String,
-    enum: SimulationType,
+    enum: TypeSummary,
     description: 'Type of the simulation',
   })
-  _type!: SimulationType;
+  type!: TypeSummary;
 
   @ApiProperty({
     type: String,
@@ -460,12 +546,10 @@ export class SimulationRunSimulationSummary implements ISimulationRunSimulationS
   name?: string;
 
   @ApiProperty({
-    type: String,
-    description: 'KiSAO id of the algorithm that executed the simulation',
-    pattern: '^KISAO_\d{7,7}$',
-    example: 'KISAO_0000019',
+    type: SimulationRunAlgorithmSummary,
+    description: 'Algorithm that executed the simulation. Note, this differs from the algorithm stated in the specification of the simulation experiment when the specified simulation tool implements different algorithms.',
   })
-  algorithm!: string;
+  algorithm!: SimulationRunAlgorithmSummary;
 }
 
 export class SimulationRunTaskSummary implements ISimulationRunTaskSummary {
@@ -503,10 +587,10 @@ export class SimulationRunTaskSummary implements ISimulationRunTaskSummary {
 export class SimulationRunOutputSummary implements ISimulationRunOutputSummary {
   @ApiProperty({
     type: String,
-    enum: SimulationRunOutputType,
+    enum: TypeSummary,
     description: 'Type of the output',
   })
-  _type!: SimulationRunOutputType;
+  type!: TypeSummary;
 
   @ApiProperty({
     type: String,
@@ -515,7 +599,7 @@ export class SimulationRunOutputSummary implements ISimulationRunOutputSummary {
   })
   uri!: string;
   
-  @ApiProperty({
+  @ApiPropertyOptional({
     type: String,
     description: 'Name of the plot',
     example: 'Figure 1a',
@@ -523,33 +607,55 @@ export class SimulationRunOutputSummary implements ISimulationRunOutputSummary {
   name?: string;
 }
 
-export class SimulationRunRunSummary implements ISimulationRunRunSummary {
+export class SimulationRunSimulatorSummary implements ISimulationRunSimulatorSummary {
   @ApiProperty({
     type: String,
-    description: 'The id of a BioSimulators simulator',
+    description: 'BioSimulators id of the simulation tool which executed the simulation run',
     example: 'tellurium',
-    externalDocs: {
-      url: 'https://biosimulators.org/simulators',
-      description: 'Simulators List',
-    },
   })
-  simulator!: string;
+  id!: string;
 
   @ApiProperty({
-    description: 'Version of the simulation tool to execute the simulation',
+    description: 'Name of the simulation tool which executed the simulation run',
     type: String,
-    example: '2.2.0',
-  })
-  simulatorVersion!: string;
+    example: 'tellurium',
+  })  
+  name!: string;
 
   @ApiProperty({
-    description: 'Digest of the simulation tool for the simulation run',
+    description: 'Version of the simulation tool which executed the simulation run',
+    type: String,
+    example: '2.2.1',
+  })
+  version!: string;
+
+  @ApiProperty({
+    description: 'Digest of the simulation tool which executed the simulation run',
     type: String,
     pattern: '^sha256:[a-z0-9]{64,64}$',
     example:
       'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
   })
-  simulatorDigest!: string;
+  digest!: string;
+
+  @ApiProperty({
+    description: 'URL with more information about the simulation tool',
+    type: String,
+    example: 'https://biosimulators.org/simulators/tellurium',
+  })
+  url!: string;
+}
+
+export class SimulationRunRunSummary implements ISimulationRunRunSummary {
+  @ApiProperty({
+    type: SimulationRunSimulatorSummary,
+    description: 'Simulation tool which executed the simulation run',
+    externalDocs: {
+      url: 'https://biosimulators.org/simulators',
+      description: 'Simulators list',
+    },
+  })
+  simulator!: SimulationRunSimulatorSummary;
 
   @ApiProperty({
     type: Number,
