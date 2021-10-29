@@ -18,6 +18,7 @@ import {
   IsString,
   IsOptional,
 } from 'class-validator';
+import { IsOntologyTerm } from '@biosimulations/datamodel/utils';
 
 export class OntologyId implements IOntologyId {
   @IsEnum(Ontologies)
@@ -36,6 +37,7 @@ export class EdamOntologyId extends OntologyId implements IEdamOntologyId {
   public namespace!: Ontologies.EDAM;
 
   @ApiProperty({ type: String, example: 'format_3973' })
+  @IsOntologyTerm(Ontologies.EDAM)
   public id!: string;
 }
 
@@ -47,6 +49,7 @@ export class EdamOntologyIdVersion
   @ApiProperty({ type: String, enum: [Ontologies.EDAM] })
   public namespace!: Ontologies.EDAM;
 
+  @IsOntologyTerm(Ontologies.EDAM)
   @IsString()
   @ApiProperty({ type: String, example: 'format_3973' })
   public id!: string;
@@ -94,12 +97,14 @@ export class FunderRegistryOntologyId
   implements IFunderRegistryOntologyId
 {
   @ApiProperty({ type: String, enum: [Ontologies.FunderRegistry] })
+  @Equals(Ontologies.FunderRegistry)
   public namespace!: Ontologies.FunderRegistry;
 
   @ApiProperty({
     type: String,
     example: 'http://dx.doi.org/10.13039/100000001',
   })
+  @IsOntologyTerm(Ontologies.FunderRegistry)
   public id!: string;
 }
 
@@ -108,9 +113,11 @@ export class LinguistOntologyId
   implements ILinguistOntologyId
 {
   @ApiProperty({ type: String, enum: [Ontologies.Linguist] })
+  @Equals(Ontologies.Linguist)
   public namespace!: Ontologies.Linguist;
 
   @ApiProperty({ type: String, example: 'Python' })
+  @IsOntologyTerm(Ontologies.Linguist)
   public id!: string;
 }
 
@@ -120,6 +127,7 @@ export class KisaoOntologyId extends OntologyId implements IKisaoOntologyId {
   public namespace!: Ontologies.KISAO;
 
   @ApiProperty({ type: String, example: 'KISAO_0000306' })
+  @IsOntologyTerm(Ontologies.KISAO)
   public id!: string;
 }
 
@@ -129,6 +137,7 @@ export class SboOntologyId extends OntologyId implements ISboOntologyId {
   public namespace!: Ontologies.SBO;
 
   @ApiProperty({ type: String, example: 'SBO_0000004' })
+  @IsOntologyTerm(Ontologies.SBO)
   public id!: string;
 }
 
@@ -138,6 +147,7 @@ export class SioOntologyId extends OntologyId implements ISioOntologyId {
   public namespace!: Ontologies.SIO;
 
   @ApiProperty({ type: String, example: 'SIO_000004' })
+  @IsOntologyTerm(Ontologies.SIO)
   public id!: string;
 }
 
@@ -147,5 +157,6 @@ export class SpdxOntologyId extends OntologyId implements ISpdxOntologyId {
   public namespace!: Ontologies.SPDX;
 
   @ApiProperty({ type: String, example: '0BSD' })
+  @IsOntologyTerm(Ontologies.SPDX)
   public id!: string;
 }

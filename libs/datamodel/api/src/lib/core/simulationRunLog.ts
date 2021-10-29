@@ -12,6 +12,7 @@ import {
   SedOutputElementLog as ISedOutputElementLog,
   SimulationRunLogStatus,
   Exception as IException,
+  Ontologies,
 } from '@biosimulations/datamodel/common';
 
 import {
@@ -26,6 +27,7 @@ import {
   ValidateNested,
   IsOptional,
 } from 'class-validator';
+import { IsOntologyTerm } from '@biosimulations/datamodel/utils';
 import { Type, Transform } from 'class-transformer';
 
 export class Exception implements IException {
@@ -174,6 +176,7 @@ export class SedTaskLog implements ISedTaskLog {
     nullable: true,
   })
   @IsOptional()
+  @IsOntologyTerm(Ontologies.KISAO)
   @Matches(/^KISAO_\d{7,7}$/)
   @IsString()
   algorithm: string | null = null;
