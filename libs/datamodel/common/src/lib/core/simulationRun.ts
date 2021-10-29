@@ -142,7 +142,7 @@ export interface SimulationRunOutputSummary {
   name?: string;
 }
 
-export interface SimulationRunRunSummary {  
+export interface SimulationRunRunSummary {
   simulator: string;
   simulatorVersion: string;
   simulatorDigest: string;
@@ -151,7 +151,7 @@ export interface SimulationRunRunSummary {
   envVars: EnvironmentVariable[];
   runtime: number;
   projectSize: number;
-  resultsSize: number;  
+  resultsSize: number;
 }
 
 export interface SimulationRunMetadataSummary {
@@ -179,7 +179,7 @@ export interface SimulationRunMetadataSummary {
 
 export interface SimulationRunSummary {
   id: string;
-  name: string;  
+  name: string;
   tasks: SimulationRunTaskSummary[];
   outputs: SimulationRunOutputSummary[];
   run: SimulationRunRunSummary;

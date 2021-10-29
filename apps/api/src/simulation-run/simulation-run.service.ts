@@ -295,9 +295,9 @@ export class SimulationRunService {
     //! This does not address the security issues of downloading user provided urls.
     //! The content size may not be present or accurate. The backend must check the size. See #2536
     let size = 0;
-    let mimetype = undefined;
-    let originalname = undefined;
-    let encoding = undefined;
+    let mimetype;
+    let originalname;
+    let encoding;
 
     this.logger.debug(`Downloading file from ${url}`);
     const file = await firstValueFrom(
@@ -594,7 +594,7 @@ export class SimulationRunService {
     });
 
     /* get summary of simulation run */
-    const run: SimulationRunRunSummary = {      
+    const run: SimulationRunRunSummary = {
       simulator: rawRun.simulator,
       simulatorVersion: rawRun.simulatorVersion,
       simulatorDigest: rawRun.simulatorDigest,
@@ -603,7 +603,7 @@ export class SimulationRunService {
       envVars: rawRun.envVars,
       runtime: log.duration !== null ? log.duration : rawRun.runtime,
       projectSize: rawRun.projectSize as number,
-      resultsSize: rawRun.resultsSize,      
+      resultsSize: rawRun.resultsSize,
     };
     
     /* get top-level metadata for the project */

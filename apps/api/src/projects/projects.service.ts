@@ -1,5 +1,5 @@
 import {
-  ProjectInput,  
+  ProjectInput,
 } from '@biosimulations/datamodel/api';
 import {
   Injectable,
@@ -23,7 +23,7 @@ export class ProjectsService {
 
   public constructor(
     @InjectModel(ProjectModel.name) private model: Model<ProjectModel>,
-    private simulationRunService: SimulationRunService,    
+    private simulationRunService: SimulationRunService,
     private config: ConfigService,
   ) {
     const env = config.get('server.env');
