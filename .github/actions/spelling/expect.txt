@@ -82,6 +82,7 @@ icahn
 img
 inrae
 Ison
+jcschaff
 jestjs
 jhgennari
 jjj
@@ -143,7 +144,6 @@ omex
 openapi
 opencobra
 opensourcebrain
-ORCID
 orcid
 Paulev
 pauleve
@@ -169,6 +169,7 @@ sbo
 SBRG
 scalability
 SCe
+Schaff
 sinai
 Slurm
 smoldyn
