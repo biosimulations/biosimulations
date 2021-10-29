@@ -54,8 +54,8 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
       let parents!: string[];
       if ('rdfs:subClassOf' in jsonTerm) {
         parents = (
-          Array.isArray(jsonTerm['rdfs:subClassOf']) 
-          ? jsonTerm['rdfs:subClassOf'] 
+          Array.isArray(jsonTerm['rdfs:subClassOf'])
+          ? jsonTerm['rdfs:subClassOf']
           : [jsonTerm['rdfs:subClassOf']]
           )
           .filter((term: string): boolean => {

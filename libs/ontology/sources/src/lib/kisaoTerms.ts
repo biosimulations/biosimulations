@@ -59,8 +59,8 @@ function getKisaoTerms(input: any): { [id: string]: KisaoTerm } {
       let parents!: string[];
       if ('rdfs:subClassOf' in jsonTerm) {
         parents = (
-          Array.isArray(jsonTerm['rdfs:subClassOf']) 
-          ? jsonTerm['rdfs:subClassOf'] 
+          Array.isArray(jsonTerm['rdfs:subClassOf'])
+          ? jsonTerm['rdfs:subClassOf']
           : [jsonTerm['rdfs:subClassOf']]
           )
           .filter((term: string): boolean => {
