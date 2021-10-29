@@ -102,6 +102,9 @@
       "@biosimulations/ontology/sources": [
         "libs/ontology/sources/src/index.ts"
       ],
+      "@biosimulations/ontology/utils": [
+        "libs/ontology/utils/src/index.ts"
+      ],
       "@biosimulations/shared/angular": [
         "libs/shared/angular/src/index.ts"
       ],

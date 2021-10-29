@@ -19,7 +19,7 @@ import {
   IsOptional,
   Matches,
 } from 'class-validator';
-import { IsOntologyTerm } from '@biosimulations/datamodel/utils';
+import { IsOntologyTerm } from '@biosimulations/ontology/utils';
 
 export class OntologyId implements IOntologyId {
   @IsEnum(Ontologies)
