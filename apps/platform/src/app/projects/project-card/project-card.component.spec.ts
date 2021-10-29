@@ -29,9 +29,28 @@ describe('ProjectCardComponent', () => {
     component = fixture.componentInstance;
     component.project = {
       id: '1',
-      simulationRun: '615e7eb6e857da40033c7eb3',
+      title: 'title',
+      simulationRun: {
+        id: '615e7eb6e857da40033c7eb3',
+        name: '',
+        simulator: 'tellurium',
+        simulatorVersion: '2.2.1',
+        cpus: 1,
+        memory: 8,
+        envVars: [],
+        runtime: 1,
+        projectSize: 1,
+        resultsSize: 1, 
+        submitted: {
+          value: new Date(),
+          formattedValue: 'date',
+        },
+        updated: {
+          value: new Date(),
+          formattedValue: 'date',
+        },
+      },
       metadata: {
-        title: 'example title',
         thumbnail: '',
         abstract: undefined,
         keywords: [],
@@ -47,7 +66,15 @@ describe('ProjectCardComponent', () => {
           value: new Date(),
           formattedValue: 'date',
         },
-        modified: [],
+        modified: undefined,
+      },
+      created: {
+        value: new Date(),
+        formattedValue: 'date',
+      },
+      updated: {
+        value: new Date(),
+        formattedValue: 'date',
       },
     };
     fixture.detectChanges();
