@@ -56,11 +56,40 @@ export interface IValidationTests {
   ghActionRun: number;
 }
 
-export interface IBiosimulatorsMeta {
+export interface IBiosimulatorsMetaInput {
   specificationVersion: specificationVersions;
   imageVersion: imageVersions;
   validated: boolean;
   validationTests: IValidationTests | null;
+}
+
+export interface IBiosimulatorsMeta extends IBiosimulatorsMetaInput {
+  specificationVersion: specificationVersions;
+  imageVersion: imageVersions;
+  validated: boolean;
+  validationTests: IValidationTests | null;
+  created: Date;
+  updated: Date;
+}
+
+export interface ISimulatorInput {
+  biosimulators: IBiosimulatorsMetaInput;
+  id: string;
+  name: string;
+  version: string;
+  description: string;
+  urls: Url[];
+  image: IImage | null;
+  cli: ICli | null;
+  pythonApi: IPythonApi | null;
+  authors: Person[];
+  references: ExternalReferences;
+  license: ISpdxOntologyId | null;
+  algorithms: IAlgorithm[];
+  interfaceTypes: SoftwareInterfaceType[];
+  supportedOperatingSystemTypes: OperatingSystemType[];
+  supportedProgrammingLanguages: ILinguistOntologyId[];
+  funding: Funding[];
 }
 
 export interface ISimulator {

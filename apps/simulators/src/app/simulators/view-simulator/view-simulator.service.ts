@@ -26,9 +26,10 @@ import {
 } from './view-simulator.interface';
 import { OntologyService } from '@biosimulations/ontology/client';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Simulator, Algorithm } from '@biosimulations/datamodel/api';
 import { map, pluck } from 'rxjs/operators';
 import {
+  ISimulator,
+  IAlgorithm,
   IEdamOntologyIdVersion,
   ILinguistOntologyId,
   ISboOntologyId,
@@ -66,7 +67,7 @@ export class ViewSimulatorService {
   ) {}
 
   public getLatest(simulatorId: string): Observable<ViewSimulator> {
-    const sim: Observable<Simulator> =
+    const sim: Observable<ISimulator> =
       this.simService.getLatestById(simulatorId);
     return sim.pipe(map(this.apiToView.bind(this, simulatorId, undefined)));
   }
@@ -75,7 +76,7 @@ export class ViewSimulatorService {
     simulatorId: string,
     version: string,
   ): Observable<ViewSimulator> {
-    const sim: Observable<Simulator> = this.simService.getOneByVersion(
+    const sim: Observable<ISimulator> = this.simService.getOneByVersion(
       simulatorId,
       version,
     );
@@ -85,7 +86,7 @@ export class ViewSimulatorService {
   private apiToView(
     simulatorId: string,
     version: string | undefined,
-    sim: Simulator | undefined,
+    sim: ISimulator | undefined,
   ): ViewSimulator {
     if (sim === undefined) {
       if (version) {
@@ -108,7 +109,7 @@ export class ViewSimulatorService {
     const viewValidationTests = this.simService
       .getValidationTestResultsForOneByVersion(sim.id, sim.version)
       .pipe(
-        map((sim: Simulator): ViewValidationTests | null => {
+        map((sim: ISimulator): ViewValidationTests | null => {
           let viewValidationTests: ViewValidationTests | null = null;
           if (sim?.biosimulators?.validationTests) {
             const validationTests: IValidationTests =
@@ -399,7 +400,7 @@ export class ViewSimulatorService {
     };
 
     const unresolvedAlgorithms = sim.algorithms
-      .filter((alg: Algorithm) => {
+      .filter((alg: IAlgorithm) => {
         return !!alg.kisaoId;
       })
       .map(this.mapAlgorithms, this);
@@ -497,7 +498,7 @@ export class ViewSimulatorService {
     return viewSim;
   }
 
-  private mapAlgorithms(value: Algorithm): ViewAlgorithmObservable {
+  private mapAlgorithms(value: IAlgorithm): ViewAlgorithmObservable {
     const kisaoTerm = this.ontService.getKisaoTerm(value.kisaoId.id);
     const kisaoName = kisaoTerm.pipe(pluck('name'));
 
@@ -655,7 +656,7 @@ export class ViewSimulatorService {
     };
   }
 
-  private getAuthors(simulator: Simulator): ViewAuthor[] {
+  private getAuthors(simulator: ISimulator): ViewAuthor[] {
     return simulator?.authors?.map((author: Person): ViewAuthor => {
       let name = author.lastName;
       if (author.middleName) {

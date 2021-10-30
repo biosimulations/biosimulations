@@ -15,7 +15,7 @@ import {
   Citation,
   Funding,
 } from '@biosimulations/datamodel/common';
-import { Simulator } from '@biosimulations/datamodel/api';
+import { ISimulator } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/angular';
 
 @Injectable()
@@ -28,12 +28,12 @@ export class SimulatorTableService {
   getData(): Observable<TableSimulator[]> {
     const data = this.service.getLatest().pipe(
       //Data from the service is an array of API objects - Convert to array of table objects
-      map((simulators: Simulator[]) => {
+      map((simulators: ISimulator[]) => {
         // Go through the array and convert each api object to a an observable of a table object
         //Array of table object observables
         const tableSimulatorObservables = simulators.map(
-          (simulator: Simulator) => {
-            // Simulator is a api object
+          (simulator: ISimulator) => {
+            // simulator is a API object
             //Use the data to get the definitions for all additional calls
             const frameworks = this.getFrameworks(simulator);
             const algorithms = this.getAlgorithms(simulator);
@@ -201,7 +201,7 @@ export class SimulatorTableService {
     return data;
   }
 
-  getLicense(simulator: Simulator): Observable<string> | null {
+  getLicense(simulator: ISimulator): Observable<string> | null {
     if (simulator.license) {
       return this.ontologyService.getSpdxTerm(simulator.license.id).pipe(
         pluck('name'),
@@ -213,7 +213,7 @@ export class SimulatorTableService {
   }
 
   getFormats(
-    simulator: Simulator,
+    simulator: ISimulator,
     formatType: string,
   ): { names: Observable<string[]>; versions: string[] } {
     const formats: Set<string> = new Set();
@@ -243,7 +243,7 @@ export class SimulatorTableService {
     };
   }
 
-  getFrameworks(simulator: Simulator): Observable<string[]> {
+  getFrameworks(simulator: ISimulator): Observable<string[]> {
     const frameworks: Set<string> = new Set();
     for (const algorithm of simulator.algorithms) {
       for (const framework of algorithm.modelingFrameworks) {
@@ -265,7 +265,7 @@ export class SimulatorTableService {
     return obs;
   }
 
-  getAlgorithms(simulator: Simulator): Observable<string[]> {
+  getAlgorithms(simulator: ISimulator): Observable<string[]> {
     const algorithms: Set<string> = new Set();
     for (const algorithm of simulator.algorithms) {
       if (algorithm.kisaoId) {
