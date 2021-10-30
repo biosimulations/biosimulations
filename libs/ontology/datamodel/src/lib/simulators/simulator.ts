@@ -4,11 +4,11 @@ import {
   Person,
   Url,
   Cli,
-  PythonApi,  
+  PythonApi,
   BiosimulatorsMeta,
 } from '@biosimulations/datamodel/api';
 import { Funding } from './funding';
-import { 
+import {
   LinguistOntologyId,
   SpdxOntologyId,
 } from '../common';
