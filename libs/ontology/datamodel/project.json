@@ -18,5 +18,5 @@
       }
     }
   },
-  "tags": ["scope:shared", "type:datamodel", "platform:any"]
+  "tags": ["scope:ontology", "type:datamodel", "platform:server"]
 }
