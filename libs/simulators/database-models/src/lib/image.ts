@@ -21,14 +21,14 @@ export class Image implements IImage {
 
   @Prop({
     type: String,
-    required: true,    
+    required: true,
     default: undefined,
   })
   digest!: string;
 
   @Prop({
     type: EdamOntologyIdVersionSchema,
-    required: true,  
+    required: true,
     default: undefined,
   })
   format!: IEdamOntologyIdVersion;

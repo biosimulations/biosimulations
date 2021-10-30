@@ -96,7 +96,7 @@ export class SimulationRunModel extends Document implements SimulationRun {
   @Prop({
     type: Number,
     required: false,
-    default: 1,    
+    default: 1,
   })
   cpus!: number;
 

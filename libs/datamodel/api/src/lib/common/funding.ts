@@ -7,7 +7,7 @@ import { FunderRegistryOntologyId } from './ontologyId.dto';
 export class Funding implements IFunding {
   @ValidateNested()
   @Type(() => FunderRegistryOntologyId)
-  @ApiProperty({ 
+  @ApiProperty({
     type: FunderRegistryOntologyId,
     example: {
       namespace: Ontologies.FunderRegistry,

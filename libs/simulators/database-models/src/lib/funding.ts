@@ -23,7 +23,7 @@ class Funding implements IFunding {
 
   @Prop({
     type: String,
-    required: false,   
+    required: false,
     default: null,
   })
   url!: string | null;

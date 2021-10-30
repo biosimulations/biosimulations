@@ -94,7 +94,7 @@ class EdamOntologyIdVersion implements IEdamOntologyIdVersion {
 
   @Prop({
     type: String,
-    required: () => true,    
+    required: () => true,
     default: () => undefined,
   })
   id!: string;

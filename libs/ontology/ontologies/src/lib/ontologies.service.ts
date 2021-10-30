@@ -91,7 +91,7 @@ export class OntologiesService {
     const termsObj = OntologiesService._getTerms(ontologyId);
     if (termsObj == null) {
       return false;
-    } 
+    }
 
     const term = termsObj[termId];
     if (!term) {
