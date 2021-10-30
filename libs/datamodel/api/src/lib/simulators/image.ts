@@ -1,4 +1,4 @@
-import { IImage, OperatingSystemType } from '@biosimulations/datamodel/common';
+import { IImage, OperatingSystemType, Ontologies } from '@biosimulations/datamodel/common';
 import {
   EdamOntologyIdVersion,
   EdamOntologyDockerImageIdVersion,
@@ -43,6 +43,10 @@ export class Image implements IImage {
   @ApiProperty({
     type: EdamOntologyIdVersion,
     description: 'Format of the image',
+    example: {
+      namespace: Ontologies.EDAM,
+      id: 'format_3973',
+    },
   })
   public format!: EdamOntologyIdVersion;
 

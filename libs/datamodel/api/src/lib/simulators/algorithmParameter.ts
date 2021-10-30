@@ -1,8 +1,9 @@
-import { KisaoOntologyId } from '../common';
+import { KisaoOntologyId, KisaoAlgorithmParameterOntologyId } from '../common';
 import {
   AlgorithmParameter as IAlgorithmParameter,
   ValueType,
   SoftwareInterfaceType,
+  Ontologies,
 } from '@biosimulations/datamodel/common';
 
 import { ApiProperty } from '@nestjs/swagger';
@@ -10,9 +11,15 @@ import { IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class AlgorithmParameter implements IAlgorithmParameter {
-  @ApiProperty({ type: KisaoOntologyId })
+  @ApiProperty({
+    type: KisaoOntologyId,
+    example: {
+      namespace: Ontologies.KISAO,
+      id: 'KISAO_0000488',
+    }
+  })
   @ValidateNested()
-  @Type(() => KisaoOntologyId)
+  @Type(() => KisaoAlgorithmParameterOntologyId,)
   public kisaoId!: KisaoOntologyId;
 
   @ApiProperty({

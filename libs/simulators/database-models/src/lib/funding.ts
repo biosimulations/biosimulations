@@ -4,7 +4,6 @@ import {
 } from '@biosimulations/datamodel/common';
 import { FunderRegistryOntologyIdSchema } from './ontologyId';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import isUrl from 'is-url';
 
 @Schema({
   _id: false,
@@ -24,13 +23,7 @@ class Funding implements IFunding {
 
   @Prop({
     type: String,
-    required: false,
-    validate: [
-      {
-        validator: (value: any): boolean => value == null || isUrl(value),
-        message: (props: any): string => `${props.value} is not a valid URL`,
-      },
-    ],
+    required: false,   
     default: null,
   })
   url!: string | null;

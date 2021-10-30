@@ -7,17 +7,22 @@ import {
   SoftwareInterfaceType,
   ModelChangeType,
   SimulationType,
+  Ontologies,
 } from '@biosimulations/datamodel/common';
 import {
   Citation,
   EdamOntologyIdVersion,
+  EdamOntologySedmlIdVersion,
+  EdamOntologyCombineArchiveIdVersion,
   KisaoOntologyId,
+  KisaoAlgorithmOntologyId,  
   SboOntologyId,
+  SboModelingFrameworkOntologyId,
   SioOntologyId,
   DependentPackage,
 } from '../common';
 
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { AlgorithmParameter } from './algorithmParameter';
 import {
   IsEnum,
@@ -30,31 +35,35 @@ import {
 import { Type } from 'class-transformer';
 
 export class ModelTarget implements IModelTarget {
-  @ApiProperty({ type: String, required: true })
+  @ApiProperty({ type: String, required: true, example: '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter' })
   @IsString()
   @IsNotEmpty()
   public value!: string;
 
-  @ApiProperty({ type: String, required: true })
+  @ApiProperty({ type: String, required: true, example: 'XPath' })
   @IsNotEmpty()
   @IsString()
   public grammar!: string;
 }
 
 export class ModelSymbol implements IModelSymbol {
-  @ApiProperty({ type: String, required: true })
+  @ApiProperty({ type: String, required: true, example: 'time' })
   @IsString()
   @IsNotEmpty()
   public value!: string;
 
-  @ApiProperty({ type: String, required: true })
+  @ApiProperty({ type: String, required: true, example: 'urn:sedml:symbol' })
   @IsString()
   @IsNotEmpty()
   public namespace!: string;
 }
 
 export class ModelChangePattern implements IModelChangePattern {
-  @ApiProperty({ type: String, required: true })
+  @ApiProperty({
+    type: String,
+    required: true,
+    example: "Change parameter values",
+  })
   @IsString()
   @IsNotEmpty()
   public name!: string;
@@ -63,26 +72,32 @@ export class ModelChangePattern implements IModelChangePattern {
     type: [String],
     enum: ModelChangeType,
     required: true,
+    example: [ModelChangeType.SedAttributeModelChange],
   })
   @IsEnum(ModelChangeType, { each: true })
   public types!: ModelChangeType[];
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     type: ModelTarget,
     nullable: true,
     required: false,
     default: null,
+    example: {
+      value: '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter',
+      grammar: 'XPath',
+    },
   })
   @IsOptional()
   @ValidateNested()
   @Type(() => ModelTarget)
   public target: ModelTarget | null = null;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     type: ModelSymbol,
     nullable: true,
     required: false,
     default: null,
+    example: null,
   })
   @IsOptional()
   @ValidateNested()
@@ -91,27 +106,36 @@ export class ModelChangePattern implements IModelChangePattern {
 }
 
 export class OutputVariablePattern implements IOutputVariablePattern {
-  @ApiProperty({ type: String, required: true })
+  @ApiProperty({
+    type: String,
+    required: true,
+    example: 'Species concentrations',
+  })
   @IsString()
   @IsNotEmpty()
   public name!: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     type: ModelTarget,
     nullable: true,
     required: false,
     default: null,
+    example: {
+      value: '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter',
+      grammar: 'XPath',
+    },
   })
   @ValidateNested()
   @IsOptional()
   @Type(() => ModelTarget)
   public target: ModelTarget | null = null;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     type: ModelSymbol,
     nullable: true,
     required: false,
     default: null,
+    example: null,
   })
   @ValidateNested()
   @IsOptional()
@@ -121,8 +145,14 @@ export class OutputVariablePattern implements IOutputVariablePattern {
 
 export class Algorithm implements IAlgorithm {
   @ValidateNested()
-  @Type(() => KisaoOntologyId)
-  @ApiProperty({ type: KisaoOntologyId })
+  @Type(() => KisaoAlgorithmOntologyId)
+  @ApiProperty({
+    type: KisaoOntologyId,
+    example: {
+      namespace: Ontologies.KISAO,
+      id: 'KISAO_0000019',
+    }
+  })
   public kisaoId!: KisaoOntologyId;
 
   @ArrayUnique((parameter: AlgorithmParameter) => parameter?.kisaoId?.id, {
@@ -132,10 +162,24 @@ export class Algorithm implements IAlgorithm {
   @ValidateNested({ each: true })
   @Type(() => AlgorithmParameter)
   @IsOptional()
-  @ApiProperty({ type: [AlgorithmParameter], nullable: true })
+  @ApiPropertyOptional({ 
+    type: [AlgorithmParameter], 
+    nullable: true,
+    required: false, 
+    default: null,
+  })
   public parameters: AlgorithmParameter[] | null = null;
 
-  @ApiProperty({ type: [SioOntologyId], nullable: true })
+  @ApiPropertyOptional({
+    type: [SioOntologyId],
+    nullable: true,
+    required: false,
+    default: null,
+    example: [{
+      namespace: Ontologies.SIO,
+      id: 'SIO_000004',
+    }]
+  })
   @ValidateNested({ each: true })
   @Type(() => SioOntologyId)
   @IsOptional()
@@ -146,7 +190,7 @@ export class Algorithm implements IAlgorithm {
   @Type(() => OutputVariablePattern)
   public outputVariablePatterns!: OutputVariablePattern[];
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     description:
       'Id of the algorithm within the simulator such as the name of the function which implements the algorithm. The scope of this id is typically limited to the individual simulator.',
     type: String,
@@ -158,7 +202,7 @@ export class Algorithm implements IAlgorithm {
   @IsOptional()
   public id: string | null = null;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     description:
       'Name of the algorithm within the simulator. The scope of this name is typically limited to the individual simulator.',
     type: String,
@@ -170,24 +214,42 @@ export class Algorithm implements IAlgorithm {
   @IsOptional()
   public name: string | null = null;
 
-  @ApiProperty({ type: [SboOntologyId] })
+  @ApiProperty({
+    type: [SboOntologyId],
+    example: {
+      namespace: Ontologies.SBO,
+      id: 'SBO_0000293',
+    },
+  })
   @ValidateNested({ each: true })
-  @Type(() => SboOntologyId)
+  @Type(() => SboModelingFrameworkOntologyId)
   public modelingFrameworks!: SboOntologyId[];
 
-  @ApiProperty({ type: [EdamOntologyIdVersion] })
+  @ApiProperty({
+    type: [EdamOntologyIdVersion],
+    example: [{
+      namespace: Ontologies.EDAM,
+      id: 'format_2585',
+    }],
+  })
   @ValidateNested({ each: true })
   @Type(() => EdamOntologyIdVersion)
   public modelFormats!: EdamOntologyIdVersion[];
 
-  @ApiProperty({ type: [ModelChangePattern], required: true })
+  @ApiProperty({type: [ModelChangePattern], required: true })
   @ValidateNested({ each: true })
   @Type(() => ModelChangePattern)
   public modelChangePatterns!: ModelChangePattern[];
 
-  @ApiProperty({ type: [EdamOntologyIdVersion] })
+  @ApiProperty({
+    type: [EdamOntologyIdVersion],
+    example: [{
+      namespace: Ontologies.EDAM,
+      id: 'format_3685',
+    }],
+  })
   @ValidateNested({ each: true })
-  @Type(() => EdamOntologyIdVersion)
+  @Type(() => EdamOntologySedmlIdVersion)
   public simulationFormats!: EdamOntologyIdVersion[];
 
   @ApiProperty({
@@ -197,9 +259,15 @@ export class Algorithm implements IAlgorithm {
   @IsEnum(SimulationType, { each: true })
   public simulationTypes!: SimulationType[];
 
-  @ApiProperty({ type: [EdamOntologyIdVersion] })
+  @ApiProperty({
+    type: [EdamOntologyIdVersion],
+    example: [{
+      namespace: Ontologies.EDAM,
+      id: 'format_3686',
+    }],
+  })
   @ValidateNested({ each: true })
-  @Type(() => EdamOntologyIdVersion)
+  @Type(() => EdamOntologyCombineArchiveIdVersion)
   public archiveFormats!: EdamOntologyIdVersion[];
 
   @ApiProperty({
@@ -210,7 +278,7 @@ export class Algorithm implements IAlgorithm {
   @IsEnum(SoftwareInterfaceType, { each: true })
   public availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 
-  @ApiProperty({ type: [DependentPackage], nullable: true })
+  @ApiPropertyOptional({ type: [DependentPackage], nullable: true, required: false, default: null })
   @ValidateNested({ each: true })
   @Type(() => DependentPackage)
   @IsOptional()

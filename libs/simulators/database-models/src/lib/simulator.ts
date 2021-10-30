@@ -50,15 +50,6 @@ export class Simulator extends Document implements ISimulator {
     type: String,
     required: true,
     default: undefined,
-    validate: [
-      {
-        validator: (value: string): boolean => {
-          return value !== 'latest';
-        },
-        message: (props: any): string =>
-          '"latest" is not a valid version. "latest" is reserved to automatically refer to the latest version.',
-      },
-    ],
   })
   version!: string;
 
@@ -91,23 +82,6 @@ export class Simulator extends Document implements ISimulator {
     _id: false,
     required: true,
     default: undefined,
-    validate: [
-      {
-        validator: (value: Algorithm[]): boolean => {
-          const kisaoIds = new Set();
-          for (const algorithm of value) {
-            const kisaoId = algorithm.kisaoId.id;
-            if (kisaoIds.has(kisaoId)) {
-              return false;
-            }
-            kisaoIds.add(kisaoId);
-          }
-          return true;
-        },
-        message: (props: any): string =>
-          'Algorithms must be annotated with unique KiSAO terms',
-      },
-    ],
   })
   algorithms!: Algorithm[];
 

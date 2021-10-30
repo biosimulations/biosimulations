@@ -15,7 +15,6 @@ import {
   Purpose,
 } from '@biosimulations/datamodel/common';
 import { omitPrivate } from '@biosimulations/datamodel-database';
-import { isEmail, isUrl } from '@biosimulations/datamodel-database';
 
 @Schema({
   _id: false,
@@ -43,7 +42,6 @@ export class SimulationRunModel extends Document implements SimulationRun {
   @Prop({
     type: String,
     required: false,
-    validate: [isUrl],
   })
   fileUrl?: string;
 
@@ -54,7 +52,6 @@ export class SimulationRunModel extends Document implements SimulationRun {
     type: String,
     required: false,
     default: null,
-    validate: [isEmail],
   })
   email!: string | null;
 
@@ -92,18 +89,6 @@ export class SimulationRunModel extends Document implements SimulationRun {
   @Prop({
     type: String,
     required: true,
-    validate: [
-      {
-        validator: (value: any): boolean => {
-          return (
-            typeof value === 'string' &&
-            value.match(/^sha256:[a-z0-9]{64,64}$/) !== null
-          );
-        },
-        message: (props: any): string =>
-          `${props.value} is not a valid Docker repository digest`,
-      },
-    ],
     default: undefined,
   })
   simulatorDigest!: string;
@@ -111,21 +96,7 @@ export class SimulationRunModel extends Document implements SimulationRun {
   @Prop({
     type: Number,
     required: false,
-    default: 1,
-    validate: [
-      {
-        validator: (value: any): boolean => {
-          return (
-            !isNaN(value) &&
-            value >= 1 &&
-            value <= 24 &&
-            value == Math.floor(value)
-          );
-        },
-        message: (props: any): string =>
-          'Number of requested CPUs must be a positive integer less than or equal to 24.',
-      },
-    ],
+    default: 1,    
   })
   cpus!: number;
 
@@ -133,20 +104,6 @@ export class SimulationRunModel extends Document implements SimulationRun {
     type: Number,
     required: false,
     default: 8,
-    validate: [
-      {
-        validator: (value: any): boolean => {
-          return (
-            !isNaN(value) &&
-            value > 0 &&
-            value <= 192 &&
-            value == Math.floor(value)
-          );
-        },
-        message: (props: any): string =>
-          'Amount of requested RAM (in GB) must be a positive integer less than or equal to 192.',
-      },
-    ],
   })
   memory!: number;
 
@@ -154,20 +111,6 @@ export class SimulationRunModel extends Document implements SimulationRun {
     type: Number,
     required: false,
     default: 20,
-    validate: [
-      {
-        validator: (value: any): boolean => {
-          return (
-            !isNaN(value) &&
-            value > 0 &&
-            value <= 20 * 24 * 60 &&
-            value == Math.floor(value)
-          );
-        },
-        message: (props: any): string =>
-          'Amount of requested time (in min) must be a positive integer less than or equal to 28800 (20 days).',
-      },
-    ],
   })
   maxTime!: number;
 
