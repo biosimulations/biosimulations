@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 import { Endpoints } from '@biosimulations/config/common';
 import { map, shareReplay } from 'rxjs/operators';
 //TODO set the api interface type
-import { IImage } from '@biosimulations/datamodel/common';
-import { Simulator } from '@biosimulations/datamodel/api';
+import { IImage, ISimulator } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/angular';
 
 export interface Version {
@@ -21,50 +20,50 @@ export class SimulatorService {
   private endpoints = new Endpoints();
 
   allSims = this.http
-    .get<Simulator[]>(this.endpoints.getSimulatorsEndpoint())
+    .get<ISimulator[]>(this.endpoints.getSimulatorsEndpoint())
     .pipe(shareReplay(1));
   latestSims = this.http
-    .get<Simulator[]>(this.endpoints.getSimulatorsEndpoint('latest'))
+    .get<ISimulator[]>(this.endpoints.getSimulatorsEndpoint('latest'))
     .pipe(shareReplay(1));
 
-  getAll(): Observable<Simulator[]> {
+  getAll(): Observable<ISimulator[]> {
     return this.allSims;
   }
 
-  getLatest(): Observable<Simulator[]> {
+  getLatest(): Observable<ISimulator[]> {
     return this.latestSims;
   }
 
-  getLatestById(id: string): Observable<Simulator> {
+  getLatestById(id: string): Observable<ISimulator> {
     return this.getLatest().pipe(
-      map((value: Simulator[]) => {
-        return value.filter((simulator: Simulator) => simulator.id === id)[0];
+      map((value: ISimulator[]) => {
+        return value.filter((simulator: ISimulator) => simulator.id === id)[0];
       }),
     );
   }
 
-  getOneByVersion(id: string, version: string): Observable<Simulator> {
+  getOneByVersion(id: string, version: string): Observable<ISimulator> {
     return this.getAll().pipe(
-      map((value: Simulator[]) => {
+      map((value: ISimulator[]) => {
         return value.filter(
-          (simulator: Simulator) =>
+          (simulator: ISimulator) =>
             simulator.id === id && simulator.version === version,
         )[0];
       }),
     );
   }
 
-  getAllById(id: string): Observable<Simulator[]> {
+  getAllById(id: string): Observable<ISimulator[]> {
     return this.getAll().pipe(
-      map((sims: Simulator[]) => {
-        return sims.filter((simulator: Simulator) => simulator.id == id);
+      map((sims: ISimulator[]) => {
+        return sims.filter((simulator: ISimulator) => simulator.id == id);
       }),
     );
   }
 
   getVersions(simId: string): Observable<Version[]> {
     return this.allSims.pipe(
-      map((sims: Simulator[]) => {
+      map((sims: ISimulator[]) => {
         const versions = [];
         for (const sim of sims) {
           if (sim.id === simId) {
@@ -88,8 +87,8 @@ export class SimulatorService {
   getValidationTestResultsForOneByVersion(
     id: string,
     version: string,
-  ): Observable<Simulator> {
-    return this.http.get<Simulator>(
+  ): Observable<ISimulator> {
+    return this.http.get<ISimulator>(
       this.endpoints.getSimulatorsEndpoint(id, version, true),
     );
   }

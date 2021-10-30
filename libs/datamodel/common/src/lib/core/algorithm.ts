@@ -4,7 +4,7 @@ import { Citation } from '../..';
 import {
   ISboOntologyId,
   IKisaoOntologyId,
-  IEdamOntologyId,
+  IEdamOntologyIdVersion,
   ISioOntologyId,
 } from '../common';
 
@@ -91,14 +91,14 @@ export interface IAlgorithm {
   name: string | null;
   kisaoId: IKisaoOntologyId;
   modelingFrameworks: ISboOntologyId[];
-  modelFormats: IEdamOntologyId[];
+  modelFormats: IEdamOntologyIdVersion[];
   modelChangePatterns: IModelChangePattern[];
   parameters: AlgorithmParameter[] | null;
   outputDimensions: ISioOntologyId[] | null;
   outputVariablePatterns: IOutputVariablePattern[];
-  simulationFormats: IEdamOntologyId[];
+  simulationFormats: IEdamOntologyIdVersion[];
   simulationTypes: SimulationType[];
-  archiveFormats: IEdamOntologyId[];
+  archiveFormats: IEdamOntologyIdVersion[];
   availableSoftwareInterfaceTypes: SoftwareInterfaceType[];
   dependencies: DependentPackage[] | null;
   citations: Citation[];

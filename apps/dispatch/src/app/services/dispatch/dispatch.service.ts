@@ -29,7 +29,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
 import { environment } from '@biosimulations/shared/environments';
-import { ISimulator as Simulator } from '@biosimulations/datamodel/common';
+import { ISimulator } from '@biosimulations/datamodel/common';
 export interface AlgorithmParameter {
   id: string;
   name: string;
@@ -162,12 +162,12 @@ export class DispatchService {
       includeTests,
     );
     const promises: {
-      simulatorSpecs: ObservableInput<Simulator[]>;
+      simulatorSpecs: ObservableInput<ISimulator[]>;
       edamTerms: ObservableInput<{ [id: string]: EdamTerm }>;
       kisaoTerms: ObservableInput<{ [id: string]: KisaoTerm }>;
       sboTerms: ObservableInput<{ [id: string]: SboTerm }>;
     } = {
-      simulatorSpecs: this.http.get<Simulator[]>(endpoint),
+      simulatorSpecs: this.http.get<ISimulator[]>(endpoint),
       edamTerms: this.ontologyService.getTerms(Ontologies.EDAM),
       kisaoTerms: this.ontologyService.getTerms(Ontologies.KISAO),
       sboTerms: this.ontologyService.getTerms(Ontologies.SBO),
@@ -175,7 +175,7 @@ export class DispatchService {
 
     return forkJoin(promises).pipe(
       map((resolvedPromises): SimulatorsData => {
-        const simulatorSpecs = resolvedPromises.simulatorSpecs; // Simulator[]
+        const simulatorSpecs = resolvedPromises.simulatorSpecs; // ISimulator[]
         const edamTerms = resolvedPromises.edamTerms;
         const kisaoTerms = resolvedPromises.kisaoTerms;
         const sboTerms = resolvedPromises.sboTerms;
