@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Simulator } from '@biosimulations/simulators/database-models';
-import { Simulator as APISimulator } from '@biosimulations/datamodel/api';
+import { Simulator as APISimulator } from '@biosimulations/ontology/datamodel';
 import { LeanDocument, Model } from 'mongoose';
 import { DeleteResult } from 'mongodb';
 

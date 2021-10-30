@@ -1,6 +1,7 @@
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 
 import {
+  CreateSimulationRunLogBody as ICreateSimulationRunLogBody,
   CombineArchiveLog as ICombineArchiveLog,
   SedDocumentLog as ISedDocumentLog,
   SedTaskLog as ISedTaskLog,
@@ -313,7 +314,7 @@ export class CombineArchiveLog implements ICombineArchiveLog {
   sedDocuments: SedDocumentLog[] | null = null;
 }
 
-export class CreateSimulationRunLogBody {
+export class CreateSimulationRunLogBody implements ICreateSimulationRunLogBody {
   @ApiProperty({ type: String })
   @IsMongoId()
   simId!: string;

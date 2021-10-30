@@ -2,7 +2,7 @@ import { Funding as IFunding, Ontologies } from '@biosimulations/datamodel/commo
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsOptional, IsString, IsUrl, ValidateNested } from 'class-validator';
-import { FunderRegistryOntologyId } from './ontologyId.dto';
+import { FunderRegistryOntologyId } from '../common';
 
 export class Funding implements IFunding {
   @ValidateNested()

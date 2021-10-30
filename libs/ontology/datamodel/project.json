@@ -1,0 +1,22 @@
+{
+  "root": "libs/ontology/datamodel",
+  "sourceRoot": "libs/ontology/datamodel/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/ontology/datamodel/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/ontology/datamodel/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:datamodel", "platform:any"]
+}

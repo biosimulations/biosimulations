@@ -11,6 +11,9 @@ import {
 } from '@biosimulations/datamodel/common';
 import {
   Citation,
+  DependentPackage,
+} from '@biosimulations/datamodel/api';
+import {
   EdamOntologyIdVersion,
   EdamOntologySedmlIdVersion,
   EdamOntologyCombineArchiveIdVersion,
@@ -19,7 +22,6 @@ import {
   SboOntologyId,
   SboModelingFrameworkOntologyId,
   SioOntologyId,
-  DependentPackage,
 } from '../common';
 
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';

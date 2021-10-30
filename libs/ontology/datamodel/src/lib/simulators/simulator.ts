@@ -3,7 +3,12 @@ import {
   ExternalReferences,
   Person,
   Url,
-  Funding,
+  Cli,
+  PythonApi,  
+  BiosimulatorsMeta,
+} from '@biosimulations/datamodel/api';
+import { Funding } from './funding';
+import { 
   LinguistOntologyId,
   SpdxOntologyId,
 } from '../common';
@@ -27,10 +32,7 @@ import {
 } from 'class-validator';
 import {
   Image,
-  Cli,
-  PythonApi,
   Algorithm,
-  BiosimulatorsMeta,
 } from '../simulators';
 import { Type } from 'class-transformer';
 

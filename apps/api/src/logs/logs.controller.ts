@@ -39,6 +39,8 @@ import {
   SedPlot3DLog,
   SedReportLog,
   CreateSimulationRunLogBody,
+} from '@biosimulations/ontology/datamodel';
+import {
   ErrorResponseDocument,
 } from '@biosimulations/datamodel/api';
 // import { permissions } from '@biosimulations/auth/nest';

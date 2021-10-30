@@ -17,9 +17,9 @@ import {
 } from '@biosimulations/ontology/sources';
 import {
   Ontologies,
-  OntologyInfo,
   IOntologyTerm,
 } from '@biosimulations/datamodel/common';
+import { OntologyInfo } from '@biosimulations/datamodel/api';
 
 @Injectable()
 export class OntologiesService {
