@@ -31,6 +31,7 @@
     "mail-service-client": "libs/mail-service/client",
     "messages-messages": "libs/messages/messages",
     "ontology-client": "libs/ontology/client",
+    "ontology-datamodel": "libs/ontology/datamodel",
     "ontology-ontologies": "libs/ontology/ontologies",
     "ontology-sources": "libs/ontology/sources",
     "ontology-utils": "libs/ontology/utils",

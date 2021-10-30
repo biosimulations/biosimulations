@@ -1,6 +1,8 @@
 import {
   CombineArchiveLog,
   CreateSimulationRunLogBody,
+} from '@biosimulations/datamodel/common';
+import {
   SimulationRun,
 } from '@biosimulations/datamodel/api';
 import { Injectable, Logger } from '@nestjs/common';

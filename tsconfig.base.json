@@ -96,6 +96,9 @@
       "@biosimulations/ontology/client": [
         "libs/ontology/client/src/index.ts"
       ],
+      "@biosimulations/ontology/datamodel": [
+        "libs/ontology/datamodel/src/index.ts"
+      ],
       "@biosimulations/ontology/ontologies": [
         "libs/ontology/ontologies/src/index.ts"
       ],

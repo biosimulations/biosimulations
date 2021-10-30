@@ -35,7 +35,7 @@ import {
   ApiConflictResponse,
   ApiPayloadTooLargeResponse,
 } from '@nestjs/swagger';
-import { Simulator } from '@biosimulations/datamodel/api';
+import { Simulator } from '@biosimulations/ontology/datamodel';
 import { SimulatorsService } from './simulators.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import compareVersions from 'compare-versions';

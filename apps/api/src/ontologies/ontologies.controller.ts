@@ -20,8 +20,8 @@ import {
 import {
   OntologyTerm,
   ErrorResponseDocument,
-  OntologyInfo,
 } from '@biosimulations/datamodel/api';
+import { OntologyInfo } from '@biosimulations/datamodel/api';
 
 @Controller('ontologies')
 @ApiTags('Ontologies')
