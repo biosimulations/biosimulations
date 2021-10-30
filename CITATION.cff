@@ -59,10 +59,10 @@ doi: '10.5281/zenodo.5057108'
 identifiers:
   - type: url
     description: The repository for the software
-    value: https://identifiers.org/github/biosimulations/biosimulations
+    value: http://identifiers.org/github/biosimulations/biosimulations
   - type: url
     description: The Zenodo entry for the software
-    value: https://identifiers.org/doi/10.5281/zenodo.5057108
+    value: http://identifiers.org/doi/10.5281/zenodo.5057108
   - type: doi
     value: 10.5281/zenodo.5057108
     description: The concept DOI of the work.

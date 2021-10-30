@@ -2921,7 +2921,7 @@ components:
     URI:
       description: Uniform Resource Identifier (URI)
       type: string
-      example: https://identifiers.org/doi:10.1083/jcb.200306139
+      example: http://identifiers.org/doi:10.1083/jcb.200306139
     BioSimulationsCustomMetadata:
       description: ""
       required:
@@ -3009,7 +3009,7 @@ components:
           description: 'Value   '
       example:
         _type: RdfUriNode
-        value: https://identifiers.org/pubmed:1234
+        value: http://identifiers.org/pubmed:1234
     RdfBlankNode:
       description: Blank RDF node
       required:
@@ -3181,11 +3181,11 @@ components:
         - ./Figure1.png
         taxa:
         - _type: BioSimulationsMetadataValue
-          uri: https://identifiers.org/taxonomy:9606
+          uri: http://identifiers.org/taxonomy:9606
           label: Homo sapiens
         encodes:
         - _type: BioSimulationsMetadataValue
-          uri: https://identifiers.org/uniprot:P0DP23
+          uri: http://identifiers.org/uniprot:P0DP23
           label: Calmodulin-1
         sources:
         - _type: BioSimulationsMetadataValue
@@ -3193,15 +3193,15 @@ components:
           label: Source code
         predecessors:
         - _type: BioSimulationsMetadataValue
-          uri: https://identifiers.org/biomodels.db:BIOMD0000000048
+          uri: http://identifiers.org/biomodels.db:BIOMD0000000048
           label: BioModels:BIOMD0000000048
         successors:
         - _type: BioSimulationsMetadataValue
-          uri: https://identifiers.org/biomodels.db:BIOMD0000000050
+          uri: http://identifiers.org/biomodels.db:BIOMD0000000050
           label: BioModels:BIOMD0000000050
         identifiers:
         - _type: BioSimulationsMetadataValue
-          uri: https://identifiers.org/biomodels.db:BIOMD0000000049
+          uri: http://identifiers.org/biomodels.db:BIOMD0000000049
           label: BioModels:BIOMD0000000049
         citations:
         - _type: BioSimulationsMetadataValue
@@ -3209,19 +3209,19 @@ components:
           label: "Author. Title. Journal volume, number: pages (year)."
         creators:
         - _type: BioSimulationsMetadataValue
-          uri: https://identifiers.org/orcid:0000-1111-2222-3333
+          uri: http://identifiers.org/orcid:0000-1111-2222-3333
           label: First Last
         contributors:
         - _type: BioSimulationsMetadataValue
-          uri: https://identifiers.org/orcid:0000-1111-2222-3333
+          uri: http://identifiers.org/orcid:0000-1111-2222-3333
           label: First Last
         license:
           _type: BioSimulationsMetadataValue
-          uri: https://identifiers.org/spdx:MIT
+          uri: http://identifiers.org/spdx:MIT
           label: MIT
         funders:
         - _type: BioSimulationsMetadataValue
-          uri: https://identifiers.org/doi:10.13039/100000001
+          uri: http://identifiers.org/FunderRegistry:100000001
           label: National Science Foundation
         seeAlso:
         - _type: BioSimulationsMetadataValue
