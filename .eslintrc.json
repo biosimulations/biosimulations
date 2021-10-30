@@ -73,6 +73,7 @@
                 "sourceTag": "scope:simulators",
                 "onlyDependOnLibsWithTags": [
                   "scope:simulators",
+                  "scope:ontology",
                   "scope:shared",
                   "shared:true"
                 ]
@@ -99,6 +100,7 @@
                 "onlyDependOnLibsWithTags": [
                   "scope:dispatch",
                   "scope:simulations",
+                  "scope:ontology",
                   "scope:shared",
                   "shared:true"
                 ]
