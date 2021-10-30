@@ -91,8 +91,38 @@ export class OntologiesService {
     const termsObj = OntologiesService._getTerms(ontologyId);
     if (termsObj == null) {
       return false;
-    } else {
-      return !!termsObj[termId];
+    } 
+
+    const term = termsObj[termId];
+    if (!term) {
+      return false;
     }
+
+    if (!parentTermId) {
+      return true;
+    }
+
+    if(term.parents.includes(parentTermId)) {
+      return true;
+    }
+
+    let parentIdsToCheck: string[] = [...term.parents];
+    while (parentIdsToCheck.length > 0) {
+      const parentId = parentIdsToCheck.pop();
+      if (!parentId) {
+        continue
+      }
+
+      const parent: IOntologyTerm | null = termsObj?.[parentId];
+      if (!parent) {
+        continue;
+      }
+      if (parent.parents.includes(parentTermId)) {
+        return true;
+      }
+      parentIdsToCheck = parentIdsToCheck.concat(parent.parents);
+    }
+
+    return false;
   }
 }
