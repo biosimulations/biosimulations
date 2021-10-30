@@ -110,7 +110,8 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     'write:Metadata': 'Modify the metadata for simulation runs',
     'delete:Metadata': 'Delete the metadata for simulation runs',
     'read:Projects': 'Get information about published projects',
-    'write:Projects': 'Modify published projects, including creating projects',
+    'create:Projects': 'Create published projects',
+    'update:Projects': 'Modify published projects',
     'delete:Projects': 'Delete published projects',
   };
   const authorizationUrl =
