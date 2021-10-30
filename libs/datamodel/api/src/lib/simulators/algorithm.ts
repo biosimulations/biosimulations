@@ -15,7 +15,7 @@ import {
   EdamOntologySedmlIdVersion,
   EdamOntologyCombineArchiveIdVersion,
   KisaoOntologyId,
-  KisaoAlgorithmOntologyId,  
+  KisaoAlgorithmOntologyId,
   SboOntologyId,
   SboModelingFrameworkOntologyId,
   SioOntologyId,
@@ -162,10 +162,10 @@ export class Algorithm implements IAlgorithm {
   @ValidateNested({ each: true })
   @Type(() => AlgorithmParameter)
   @IsOptional()
-  @ApiPropertyOptional({ 
-    type: [AlgorithmParameter], 
+  @ApiPropertyOptional({
+    type: [AlgorithmParameter],
     nullable: true,
-    required: false, 
+    required: false,
     default: null,
   })
   public parameters: AlgorithmParameter[] | null = null;
