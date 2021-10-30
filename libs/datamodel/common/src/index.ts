@@ -1,1 +1,1 @@
-export * from './lib/shared-datamodel';
+export * from './lib/datamodel-common';
