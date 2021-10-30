@@ -1,4 +1,8 @@
-import { IImage, OperatingSystemType, Ontologies } from '@biosimulations/datamodel/common';
+import {
+  IImage,
+  OperatingSystemType,
+  Ontologies,
+} from '@biosimulations/datamodel/common';
 import {
   EdamOntologyIdVersion,
   EdamOntologyDockerImageIdVersion,

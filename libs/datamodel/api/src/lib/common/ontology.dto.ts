@@ -5,11 +5,7 @@ import {
   OntologyInfo as IOntologyInfo,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsString,
-  IsUrl,
-} from 'class-validator';
+import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
 
 export class OntologyInfo implements IOntologyInfo {
   @ApiPropertyOptional({ type: String, nullable: true })

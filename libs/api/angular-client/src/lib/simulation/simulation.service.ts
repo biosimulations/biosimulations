@@ -8,7 +8,10 @@ import {
   SimulationRunResults,
   SimulationRunOutput,
 } from '@biosimulations/datamodel/api';
-import { SimulationRunSummary, CombineArchiveLog } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunSummary,
+  CombineArchiveLog,
+} from '@biosimulations/datamodel/common';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
 import { RetryStrategy } from '@biosimulations/shared/angular';

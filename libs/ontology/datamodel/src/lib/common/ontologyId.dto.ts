@@ -34,7 +34,11 @@ export class OntologyId implements IOntologyId {
 }
 
 export class EdamOntologyId extends OntologyId implements IEdamOntologyId {
-  @ApiProperty({ type: String, enum: [Ontologies.EDAM], example: Ontologies.EDAM })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.EDAM],
+    example: Ontologies.EDAM,
+  })
   @Equals(Ontologies.EDAM)
   public namespace!: Ontologies.EDAM;
 
@@ -49,11 +53,17 @@ export class EdamOntologyIdVersion
 {
   @Equals(Ontologies.EDAM)
   @IsString()
-  @ApiProperty({ type: String, enum: [Ontologies.EDAM], example: Ontologies.EDAM })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.EDAM],
+    example: Ontologies.EDAM,
+  })
   public namespace!: Ontologies.EDAM;
 
   @IsOntologyTerm(Ontologies.EDAM)
-  @Matches(/^format_\d{4,4}$/, {message: 'Value must be the id of an EDAM format term'})
+  @Matches(/^format_\d{4,4}$/, {
+    message: 'Value must be the id of an EDAM format term',
+  })
   @IsString()
   @ApiProperty({ type: String, example: 'format_3973' })
   public id!: string;
@@ -77,7 +87,11 @@ export class EdamOntologyIdVersion
 export class EdamOntologySedmlIdVersion extends EdamOntologyIdVersion {
   @Equals(Ontologies.EDAM)
   @IsString()
-  @ApiProperty({ type: String, enum: [Ontologies.EDAM], example: Ontologies.EDAM })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.EDAM],
+    example: Ontologies.EDAM,
+  })
   public namespace!: Ontologies.EDAM;
 
   @Equals('format_3685')
@@ -104,7 +118,11 @@ export class EdamOntologySedmlIdVersion extends EdamOntologyIdVersion {
 export class EdamOntologyCombineArchiveIdVersion extends EdamOntologyIdVersion {
   @Equals(Ontologies.EDAM)
   @IsString()
-  @ApiProperty({ type: String, enum: [Ontologies.EDAM], example: Ontologies.EDAM })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.EDAM],
+    example: Ontologies.EDAM,
+  })
   public namespace!: Ontologies.EDAM;
 
   @Equals('format_3686')
@@ -131,7 +149,11 @@ export class EdamOntologyCombineArchiveIdVersion extends EdamOntologyIdVersion {
 export class EdamOntologyDockerImageIdVersion extends EdamOntologyIdVersion {
   @Equals(Ontologies.EDAM)
   @IsString()
-  @ApiProperty({ type: String, enum: [Ontologies.EDAM], example: Ontologies.EDAM })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.EDAM],
+    example: Ontologies.EDAM,
+  })
   public namespace!: Ontologies.EDAM;
 
   @Equals('format_3973')
@@ -179,7 +201,11 @@ export class LinguistOntologyId
   extends OntologyId
   implements ILinguistOntologyId
 {
-  @ApiProperty({ type: String, enum: [Ontologies.Linguist], example: Ontologies.Linguist })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.Linguist],
+    example: Ontologies.Linguist,
+  })
   @Equals(Ontologies.Linguist)
   public namespace!: Ontologies.Linguist;
 
@@ -190,7 +216,11 @@ export class LinguistOntologyId
 
 export class KisaoOntologyId extends OntologyId implements IKisaoOntologyId {
   @Equals(Ontologies.KISAO)
-  @ApiProperty({ type: String, enum: [Ontologies.KISAO], example: Ontologies.KISAO })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.KISAO],
+    example: Ontologies.KISAO,
+  })
   public namespace!: Ontologies.KISAO;
 
   @ApiProperty({ type: String, example: 'KISAO_0000306' })
@@ -200,7 +230,11 @@ export class KisaoOntologyId extends OntologyId implements IKisaoOntologyId {
 
 export class KisaoAlgorithmOntologyId extends KisaoOntologyId {
   @Equals(Ontologies.KISAO)
-  @ApiProperty({ type: String, enum: [Ontologies.KISAO], example: Ontologies.KISAO })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.KISAO],
+    example: Ontologies.KISAO,
+  })
   public namespace!: Ontologies.KISAO;
 
   @ApiProperty({ type: String, example: 'KISAO_0000019' })
@@ -210,7 +244,11 @@ export class KisaoAlgorithmOntologyId extends KisaoOntologyId {
 
 export class KisaoAlgorithmParameterOntologyId extends KisaoOntologyId {
   @Equals(Ontologies.KISAO)
-  @ApiProperty({ type: String, enum: [Ontologies.KISAO], example: Ontologies.KISAO })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.KISAO],
+    example: Ontologies.KISAO,
+  })
   public namespace!: Ontologies.KISAO;
 
   @ApiProperty({ type: String, example: 'KISAO_0000488' })
@@ -219,7 +257,11 @@ export class KisaoAlgorithmParameterOntologyId extends KisaoOntologyId {
 }
 
 export class SboOntologyId extends OntologyId implements ISboOntologyId {
-  @ApiProperty({ type: String, enum: [Ontologies.SBO], example: Ontologies.SBO })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.SBO],
+    example: Ontologies.SBO,
+  })
   @Equals(Ontologies.SBO)
   public namespace!: Ontologies.SBO;
 
@@ -229,7 +271,11 @@ export class SboOntologyId extends OntologyId implements ISboOntologyId {
 }
 
 export class SboModelingFrameworkOntologyId extends SboOntologyId {
-  @ApiProperty({ type: String, enum: [Ontologies.SBO], example: Ontologies.SBO })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.SBO],
+    example: Ontologies.SBO,
+  })
   @Equals(Ontologies.SBO)
   public namespace!: Ontologies.SBO;
 
@@ -239,7 +285,11 @@ export class SboModelingFrameworkOntologyId extends SboOntologyId {
 }
 
 export class SioOntologyId extends OntologyId implements ISioOntologyId {
-  @ApiProperty({ type: String, enum: [Ontologies.SIO], example: Ontologies.SIO })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.SIO],
+    example: Ontologies.SIO,
+  })
   @Equals(Ontologies.SIO)
   public namespace!: Ontologies.SIO;
 
@@ -249,7 +299,11 @@ export class SioOntologyId extends OntologyId implements ISioOntologyId {
 }
 
 export class SpdxOntologyId extends OntologyId implements ISpdxOntologyId {
-  @ApiProperty({ type: String, enum: [Ontologies.SPDX], example: Ontologies.SPDX })
+  @ApiProperty({
+    type: String,
+    enum: [Ontologies.SPDX],
+    example: Ontologies.SPDX,
+  })
   @Equals(Ontologies.SPDX)
   public namespace!: Ontologies.SPDX;
 

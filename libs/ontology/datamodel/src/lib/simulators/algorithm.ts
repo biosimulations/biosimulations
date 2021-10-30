@@ -9,10 +9,7 @@ import {
   SimulationType,
   Ontologies,
 } from '@biosimulations/datamodel/common';
-import {
-  Citation,
-  DependentPackage,
-} from '@biosimulations/datamodel/api';
+import { Citation, DependentPackage } from '@biosimulations/datamodel/api';
 import {
   EdamOntologyIdVersion,
   EdamOntologySedmlIdVersion,
@@ -37,7 +34,11 @@ import {
 import { Type } from 'class-transformer';
 
 export class ModelTarget implements IModelTarget {
-  @ApiProperty({ type: String, required: true, example: '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter' })
+  @ApiProperty({
+    type: String,
+    required: true,
+    example: '/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter',
+  })
   @IsString()
   @IsNotEmpty()
   public value!: string;
@@ -64,7 +65,7 @@ export class ModelChangePattern implements IModelChangePattern {
   @ApiProperty({
     type: String,
     required: true,
-    example: "Change parameter values",
+    example: 'Change parameter values',
   })
   @IsString()
   @IsNotEmpty()
@@ -153,7 +154,7 @@ export class Algorithm implements IAlgorithm {
     example: {
       namespace: Ontologies.KISAO,
       id: 'KISAO_0000019',
-    }
+    },
   })
   public kisaoId!: KisaoOntologyId;
 
@@ -177,10 +178,12 @@ export class Algorithm implements IAlgorithm {
     nullable: true,
     required: false,
     default: null,
-    example: [{
-      namespace: Ontologies.SIO,
-      id: 'SIO_000004',
-    }]
+    example: [
+      {
+        namespace: Ontologies.SIO,
+        id: 'SIO_000004',
+      },
+    ],
   })
   @ValidateNested({ each: true })
   @Type(() => SioOntologyId)
@@ -229,26 +232,30 @@ export class Algorithm implements IAlgorithm {
 
   @ApiProperty({
     type: [EdamOntologyIdVersion],
-    example: [{
-      namespace: Ontologies.EDAM,
-      id: 'format_2585',
-    }],
+    example: [
+      {
+        namespace: Ontologies.EDAM,
+        id: 'format_2585',
+      },
+    ],
   })
   @ValidateNested({ each: true })
   @Type(() => EdamOntologyIdVersion)
   public modelFormats!: EdamOntologyIdVersion[];
 
-  @ApiProperty({type: [ModelChangePattern], required: true })
+  @ApiProperty({ type: [ModelChangePattern], required: true })
   @ValidateNested({ each: true })
   @Type(() => ModelChangePattern)
   public modelChangePatterns!: ModelChangePattern[];
 
   @ApiProperty({
     type: [EdamOntologyIdVersion],
-    example: [{
-      namespace: Ontologies.EDAM,
-      id: 'format_3685',
-    }],
+    example: [
+      {
+        namespace: Ontologies.EDAM,
+        id: 'format_3685',
+      },
+    ],
   })
   @ValidateNested({ each: true })
   @Type(() => EdamOntologySedmlIdVersion)
@@ -263,10 +270,12 @@ export class Algorithm implements IAlgorithm {
 
   @ApiProperty({
     type: [EdamOntologyIdVersion],
-    example: [{
-      namespace: Ontologies.EDAM,
-      id: 'format_3686',
-    }],
+    example: [
+      {
+        namespace: Ontologies.EDAM,
+        id: 'format_3686',
+      },
+    ],
   })
   @ValidateNested({ each: true })
   @Type(() => EdamOntologyCombineArchiveIdVersion)
@@ -280,7 +289,12 @@ export class Algorithm implements IAlgorithm {
   @IsEnum(SoftwareInterfaceType, { each: true })
   public availableSoftwareInterfaceTypes!: SoftwareInterfaceType[];
 
-  @ApiPropertyOptional({ type: [DependentPackage], nullable: true, required: false, default: null })
+  @ApiPropertyOptional({
+    type: [DependentPackage],
+    nullable: true,
+    required: false,
+    default: null,
+  })
   @ValidateNested({ each: true })
   @Type(() => DependentPackage)
   @IsOptional()

@@ -8,7 +8,11 @@ import {
 import { Ontologies } from '@biosimulations/datamodel/common';
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 
-export function IsOntologyTerm(ontology: Ontologies, parentTermId?: string, validationOptions?: ValidationOptions) {
+export function IsOntologyTerm(
+  ontology: Ontologies,
+  parentTermId?: string,
+  validationOptions?: ValidationOptions,
+) {
   return function (object: object, propertyName: string) {
     registerDecorator({
       name: 'isOntologyTerm',

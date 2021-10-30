@@ -60,13 +60,15 @@ function getKisaoTerms(input: any): { [id: string]: KisaoTerm } {
       if ('rdfs:subClassOf' in jsonTerm) {
         parents = (
           Array.isArray(jsonTerm['rdfs:subClassOf'])
-          ? jsonTerm['rdfs:subClassOf']
-          : [jsonTerm['rdfs:subClassOf']]
-          )
+            ? jsonTerm['rdfs:subClassOf']
+            : [jsonTerm['rdfs:subClassOf']]
+        )
           .filter((term: string): boolean => {
             return term.startsWith('http://www.biomodels.net/kisao/KISAO#');
           })
-          .map((term) => term.replace('http://www.biomodels.net/kisao/KISAO#', ''));
+          .map((term) =>
+            term.replace('http://www.biomodels.net/kisao/KISAO#', ''),
+          );
       } else {
         parents = [];
       }

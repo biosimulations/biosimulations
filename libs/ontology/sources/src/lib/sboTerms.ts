@@ -29,9 +29,9 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
       if ('rdfs:subClassOf' in jsonTerm) {
         parents = (
           Array.isArray(jsonTerm['rdfs:subClassOf'])
-          ? jsonTerm['rdfs:subClassOf']
-          : [jsonTerm['rdfs:subClassOf']]
-          )
+            ? jsonTerm['rdfs:subClassOf']
+            : [jsonTerm['rdfs:subClassOf']]
+        )
           .filter((term: string): boolean => {
             return term.startsWith('http://biomodels.net/SBO/');
           })

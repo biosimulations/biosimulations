@@ -1,7 +1,13 @@
 import { IPythonApi } from '@biosimulations/datamodel/common';
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, Matches, IsOptional, IsUrl } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  Matches,
+  IsOptional,
+  IsUrl,
+} from 'class-validator';
 
 export class PythonApi implements IPythonApi {
   @IsString()

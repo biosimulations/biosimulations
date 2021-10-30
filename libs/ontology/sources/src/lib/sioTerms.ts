@@ -44,13 +44,15 @@ function getSioTerms(input: any): { [id: string]: SioTerm } {
       if ('rdfs:subClassOf' in jsonTerm) {
         parents = (
           Array.isArray(jsonTerm['rdfs:subClassOf'])
-          ? jsonTerm['rdfs:subClassOf']
-          : [jsonTerm['rdfs:subClassOf']]
-          )
+            ? jsonTerm['rdfs:subClassOf']
+            : [jsonTerm['rdfs:subClassOf']]
+        )
           .filter((term: string): boolean => {
             return term.startsWith('http://semanticscience.org/resource/');
           })
-          .map((term) => term.replace('http://semanticscience.org/resource/', ''));
+          .map((term) =>
+            term.replace('http://semanticscience.org/resource/', ''),
+          );
       } else {
         parents = [];
       }

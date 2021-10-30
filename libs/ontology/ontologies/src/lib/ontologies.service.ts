@@ -15,10 +15,7 @@ import {
   sioTerms,
   spdxTerms,
 } from '@biosimulations/ontology/sources';
-import {
-  Ontologies,
-  IOntologyTerm,
-} from '@biosimulations/datamodel/common';
+import { Ontologies, IOntologyTerm } from '@biosimulations/datamodel/common';
 import { OntologyInfo } from '@biosimulations/datamodel/api';
 
 @Injectable()
@@ -87,7 +84,11 @@ export class OntologiesService {
     return termsObj[termId] || null;
   }
 
-  static isTermId(ontologyId: Ontologies, termId: string, parentTermId?: string): boolean {
+  static isTermId(
+    ontologyId: Ontologies,
+    termId: string,
+    parentTermId?: string,
+  ): boolean {
     const termsObj = OntologiesService._getTerms(ontologyId);
     if (termsObj == null) {
       return false;
@@ -102,7 +103,7 @@ export class OntologiesService {
       return true;
     }
 
-    if(term.parents.includes(parentTermId)) {
+    if (term.parents.includes(parentTermId)) {
       return true;
     }
 
@@ -110,7 +111,7 @@ export class OntologiesService {
     while (parentIdsToCheck.length > 0) {
       const parentId = parentIdsToCheck.pop();
       if (!parentId) {
-        continue
+        continue;
       }
 
       const parent: IOntologyTerm | null = termsObj?.[parentId];

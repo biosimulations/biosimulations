@@ -10,7 +10,7 @@ describe('isOntologyTerm', () => {
       targetName: '',
       object: {},
       property: 'term',
-    }
+    };
     expect(new IsOntologyTermConstraint().validate(value, args)).toBe(true);
   });
 
@@ -22,7 +22,7 @@ describe('isOntologyTerm', () => {
       targetName: '',
       object: {},
       property: 'term',
-    }
+    };
     expect(new IsOntologyTermConstraint().validate(value, args)).toBe(true);
   });
 
@@ -34,7 +34,7 @@ describe('isOntologyTerm', () => {
       targetName: '',
       object: {},
       property: 'term',
-    }
+    };
     expect(new IsOntologyTermConstraint().validate(value, args)).toBe(true);
   });
 
@@ -46,7 +46,7 @@ describe('isOntologyTerm', () => {
       targetName: '',
       object: {},
       property: 'term',
-    }
+    };
     expect(new IsOntologyTermConstraint().validate(value, args)).toBe(false);
   });
 
@@ -58,7 +58,7 @@ describe('isOntologyTerm', () => {
       targetName: '',
       object: {},
       property: 'term',
-    }
+    };
     expect(new IsOntologyTermConstraint().validate(value, args)).toBe(false);
 
     value = 'KISAO_19';
@@ -79,7 +79,7 @@ describe('isOntologyTerm', () => {
       targetName: '',
       object: {},
       property: 'term',
-    }
+    };
     expect(new IsOntologyTermConstraint().validate(value, args)).toBe(false);
   });
 });

@@ -16,10 +16,10 @@ export class AlgorithmParameter implements IAlgorithmParameter {
     example: {
       namespace: Ontologies.KISAO,
       id: 'KISAO_0000488',
-    }
+    },
   })
   @ValidateNested()
-  @Type(() => KisaoAlgorithmParameterOntologyId,)
+  @Type(() => KisaoAlgorithmParameterOntologyId)
   public kisaoId!: KisaoOntologyId;
 
   @ApiProperty({

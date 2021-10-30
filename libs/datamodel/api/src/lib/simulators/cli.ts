@@ -1,7 +1,13 @@
 import { ICli, PackageRepository } from '@biosimulations/datamodel/common';
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString, IsOptional, IsUrl } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  IsOptional,
+  IsUrl,
+} from 'class-validator';
 
 export class Cli implements ICli {
   @IsEnum(PackageRepository)

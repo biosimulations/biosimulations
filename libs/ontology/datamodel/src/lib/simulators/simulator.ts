@@ -8,10 +8,7 @@ import {
   BiosimulatorsMeta,
 } from '@biosimulations/datamodel/api';
 import { Funding } from './funding';
-import {
-  LinguistOntologyId,
-  SpdxOntologyId,
-} from '../common';
+import { LinguistOntologyId, SpdxOntologyId } from '../common';
 import {
   SoftwareInterfaceType,
   OperatingSystemType,
@@ -30,10 +27,7 @@ import {
   IsOptional,
   ArrayUnique,
 } from 'class-validator';
-import {
-  Image,
-  Algorithm,
-} from '../simulators';
+import { Image, Algorithm } from '../simulators';
 import { Type } from 'class-transformer';
 
 export class Simulator implements ISimulator {
@@ -88,7 +82,7 @@ export class Simulator implements ISimulator {
     nullable: true,
     type: Image,
     required: false,
-    default: null
+    default: null,
   })
   image: Image | null = null;
 
@@ -110,7 +104,7 @@ export class Simulator implements ISimulator {
     nullable: true,
     type: PythonApi,
     required: false,
-    default: null
+    default: null,
   })
   pythonApi: PythonApi | null = null;
 
@@ -135,7 +129,7 @@ export class Simulator implements ISimulator {
     example: {
       namespace: Ontologies.SPDX,
       id: 'MIT',
-    }
+    },
   })
   license: SpdxOntologyId | null = null;
 
@@ -166,10 +160,12 @@ export class Simulator implements ISimulator {
   @Type(() => LinguistOntologyId)
   @ApiProperty({
     type: [LinguistOntologyId],
-    example: [{
-      namespace: Ontologies.Linguist,
-      id: 'Python',
-    }],
+    example: [
+      {
+        namespace: Ontologies.Linguist,
+        id: 'Python',
+      },
+    ],
   })
   supportedProgrammingLanguages!: LinguistOntologyId[];
 

@@ -2,7 +2,10 @@ import { Injectable, Logger } from '@nestjs/common';
 
 import YAML from 'yaml';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
-import { CombineArchiveLog, SimulationRunLogStatus } from '@biosimulations/datamodel/common';
+import {
+  CombineArchiveLog,
+  SimulationRunLogStatus,
+} from '@biosimulations/datamodel/common';
 import { SshService } from '../services/ssh/ssh.service';
 @Injectable()
 export class LogService {
