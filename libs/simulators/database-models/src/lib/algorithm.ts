@@ -165,27 +165,6 @@ export class Algorithm implements IAlgorithm {
     type: [AlgorithmParameterSchema],
     required: false,
     default: undefined,
-    validate: [
-      {
-        validator: (value: AlgorithmParameter[] | null): boolean => {
-          if (value == null) {
-            return true;
-          } else {
-            const kisaoIds = new Set();
-            for (const parameter of value) {
-              const kisaoId = parameter.kisaoId.id;
-              if (kisaoIds.has(kisaoId)) {
-                return false;
-              }
-              kisaoIds.add(kisaoId);
-            }
-            return true;
-          }
-        },
-        message: (props: any): string =>
-          'Parameters must be annotated with unique KiSAO terms',
-      },
-    ],
   })
   parameters!: AlgorithmParameter[] | null;
 

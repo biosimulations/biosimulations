@@ -11,8 +11,9 @@ import {
   SoftwareInterfaceType,
   OperatingSystemType,
   ISimulator,
+  Ontologies,
 } from '@biosimulations/datamodel/common';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   Allow,
   IsArray,
@@ -81,27 +82,33 @@ export class Simulator implements ISimulator {
   @IsOptional()
   @ValidateNested()
   @Type(() => Image)
-  @ApiProperty({
+  @ApiPropertyOptional({
     nullable: true,
     type: Image,
+    required: false,
+    default: null
   })
   image: Image | null = null;
 
   @IsOptional()
   @ValidateNested()
   @Type(() => Cli)
-  @ApiProperty({
+  @ApiPropertyOptional({
     nullable: true,
     type: Cli,
+    required: false,
+    default: null,
   })
   cli: Cli | null = null;
 
   @IsOptional()
   @ValidateNested()
   @Type(() => PythonApi)
-  @ApiProperty({
+  @ApiPropertyOptional({
     nullable: true,
     type: PythonApi,
+    required: false,
+    default: null
   })
   pythonApi: PythonApi | null = null;
 
@@ -118,7 +125,16 @@ export class Simulator implements ISimulator {
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => SpdxOntologyId)
-  @ApiProperty({ type: SpdxOntologyId, nullable: true })
+  @ApiPropertyOptional({
+    type: SpdxOntologyId,
+    nullable: true,
+    required: false,
+    default: null,
+    example: {
+      namespace: Ontologies.SPDX,
+      id: 'MIT',
+    }
+  })
   license: SpdxOntologyId | null = null;
 
   @ArrayUnique((algorithm: Algorithm) => algorithm?.kisaoId?.id, {
@@ -148,6 +164,10 @@ export class Simulator implements ISimulator {
   @Type(() => LinguistOntologyId)
   @ApiProperty({
     type: [LinguistOntologyId],
+    example: [{
+      namespace: Ontologies.Linguist,
+      id: 'Python',
+    }],
   })
   supportedProgrammingLanguages!: LinguistOntologyId[];
 

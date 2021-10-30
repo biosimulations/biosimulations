@@ -176,7 +176,7 @@ export class SedTaskLog implements ISedTaskLog {
     nullable: true,
   })
   @IsOptional()
-  @IsOntologyTerm(Ontologies.KISAO)
+  @IsOntologyTerm(Ontologies.KISAO, 'KISAO_0000000')
   @Matches(/^KISAO_\d{7,7}$/)
   @IsString()
   algorithm: string | null = null;

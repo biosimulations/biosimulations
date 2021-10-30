@@ -22,8 +22,6 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, Document, Schema as MongooseSchema } from 'mongoose';
 import { ObjectIdValidator } from '@biosimulations/datamodel-database';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
-import { Ontologies, KisaoIdRegEx } from '@biosimulations/datamodel/common';
-import { OntologiesService } from '@biosimulations/ontology/ontologies';
 
 @Schema({
   _id: false,
@@ -291,22 +289,6 @@ export class SedTaskLog implements ISedTaskLog {
     type: String,
     required: false,
     default: undefined,
-    validate: [
-      {
-        validator: (value: any): boolean => {
-          if (typeof value === 'string') {
-            return (
-              value.match(KisaoIdRegEx) !== null &&
-              OntologiesService.isTermId(Ontologies.KISAO, value)
-            );
-          } else {
-            return value === null;
-          }
-        },
-        message: (props: any): string =>
-          `${props.value} is not an id of a KiSAO term`,
-      },
-    ],
   })
   algorithm!: string | null;
 

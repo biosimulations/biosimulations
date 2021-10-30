@@ -1,6 +1,5 @@
 import { ICli, PackageRepository } from '@biosimulations/datamodel/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import isUrl from 'is-url';
 
 @Schema({
   _id: false,
@@ -35,14 +34,6 @@ export class Cli implements ICli {
   @Prop({
     type: String,
     required: false,
-    validate: [
-      {
-        validator: (value: any): boolean => {
-          return value === null || isUrl(value);
-        },
-        message: (props: any): string => `${props.value} is not a valid URL`,
-      },
-    ],
     default: undefined,
   })
   installationInstructions!: string | null;

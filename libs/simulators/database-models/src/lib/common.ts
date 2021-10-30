@@ -7,7 +7,6 @@ import {
 
 import { SchemaFactory, Prop, Schema } from '@nestjs/mongoose';
 import { IdentifierSchema } from './ontologyId';
-import isUrl from 'is-url';
 
 @Schema({
   _id: false,
@@ -107,12 +106,6 @@ class Url {
     type: String,
     required: true,
     default: undefined,
-    validate: [
-      {
-        validator: isUrl,
-        message: (props: any): string => `${props.value} is not a valid URL`,
-      },
-    ],
   })
   url!: string;
 

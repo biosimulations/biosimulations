@@ -313,7 +313,6 @@ export class Identifier implements IIdentifier {
   @IsUrl({
     require_protocol: true,
     protocols: ['http', 'https'],
-    allow_underscores: true,
   })
   @ApiProperty({
     type: String,

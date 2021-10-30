@@ -1,7 +1,7 @@
 import { ICli, PackageRepository } from '@biosimulations/datamodel/common';
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, IsOptional, IsUrl } from 'class-validator';
 
 export class Cli implements ICli {
   @IsEnum(PackageRepository)
@@ -28,7 +28,10 @@ export class Cli implements ICli {
   public command!: string;
 
   @IsOptional()
-  @IsString()
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https'],
+  })
   @ApiProperty({
     type: String,
     nullable: true,
