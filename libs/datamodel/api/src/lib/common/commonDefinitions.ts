@@ -50,11 +50,11 @@ export const CREATORS = {
   example: [
     {
       label: 'Bilal Shaikh',
-      uri: 'https://identifiers.org/orcid:0000-0001-5801-5510',
+      uri: 'http://identifiers.org/orcid:0000-0001-5801-5510',
     },
     {
       label: 'Jonathan Karr',
-      uri: 'https://identifiers.org/orcid:0000-0002-2605-5080',
+      uri: 'http://identifiers.org/orcid:0000-0002-2605-5080',
     },
   ],
 };
@@ -70,11 +70,11 @@ export const CONTRIBUTORS = {
   example: [
     {
       label: 'Ion Moraru',
-      uri: 'https://identifiers.org/orcid:0000-0002-3746-9676',
+      uri: 'http://identifiers.org/orcid:0000-0002-3746-9676',
     },
     {
       label: 'Herbert Sauro',
-      uri: 'https://identifiers.org/orcid:0000-0002-3659-6817',
+      uri: 'http://identifiers.org/orcid:0000-0002-3659-6817',
     },
   ],
 };
@@ -165,11 +165,11 @@ export const ENCODES = {
   example: [
     {
       label: 'ATP Binding',
-      uri: 'https://identifiers.org/GO:0005524',
+      uri: 'http://identifiers.org/GO:0005524',
     },
     {
       label: 'Protein Kinase Activity',
-      uri: 'https://identifiers.org/GO:0004672',
+      uri: 'http://identifiers.org/GO:0004672',
     },
   ],
 };
@@ -184,7 +184,7 @@ export const SOURCES = {
   example: [
     {
       label: 'Source code',
-      uri: 'https://identifiers.org/doi:10.5281/zenodo.5057108',
+      uri: 'http://identifiers.org/doi:10.5281/zenodo.5057108',
     },
   ],
 };
@@ -200,7 +200,7 @@ export const PREDECESSORS = {
   example: [
     {
       label: 'Balagaddé2008_E_coli_Predator_Prey',
-      uri: 'https://identifiers.org/biomodels.db:BIOMD0000000296',
+      uri: 'http://identifiers.org/biomodels.db:BIOMD0000000296',
     },
   ],
 };
@@ -244,7 +244,7 @@ export const IDENTIFIERS = {
   example: [
     {
       label: 'BIOMD0000000296',
-      uri: 'https://identifiers.org/biomodels.db:BIOMD0000000296',
+      uri: 'http://identifiers.org/biomodels.db:BIOMD0000000296',
     },
   ],
 };
@@ -259,7 +259,7 @@ export const CITATIONS = {
   example: [
     {
       label: 'J Cell Biol (2003) 163 (6): 1243–1254.',
-      uri: 'https://identifiers.org/doi:10.1083/jcb.200306139',
+      uri: 'http://identifiers.org/doi:10.1083/jcb.200306139',
     },
   ],
 };
@@ -274,7 +274,7 @@ export const FUNDERS = {
   example: [
     {
       label: 'DARPA',
-      uri: 'https://identifiers.org/doi:10.13039/100000185',
+      uri: 'http://identifiers.org/doi:10.13039/100000185',
     },
   ],
 };
