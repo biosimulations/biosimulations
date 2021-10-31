@@ -5,6 +5,7 @@ import { FormattedProjectSummary, FormattedDate } from './browse.model';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { FormatService } from '@biosimulations/shared/services';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,7 @@ export class BrowseService {
                 throw new BiosimulationsError(
                   'Project summary not found',
                   `We're sorry! An error occurred while retrieving a summary of project ${project.id}.`,
-                  500,
+                  HttpStatusCode.InternalServerError,
                 );
               }
               const metadata = run.metadata;

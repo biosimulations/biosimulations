@@ -1,1 +1,1 @@
-export const projectIdReservedIds = ['summary'];
+export const projectIdReservedIds = ['summary', 'validate'];

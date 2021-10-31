@@ -3,7 +3,7 @@ import { ProjectInput } from '@biosimulations/datamodel/api';
 import { CompleteJob, JobQueue } from '@biosimulations/messages/messages';
 
 import { Processor, Process } from '@nestjs/bull';
-import { Logger } from '@nestjs/common';
+import { Logger, HttpStatus } from '@nestjs/common';
 import { Job } from 'bull';
 import { ArchiverService } from '../results/archiver.service';
 import { LogService } from '../results/log.service';
@@ -131,7 +131,7 @@ export class CompleteProcessor {
               );
           })
           .catch((err: AxiosError) => {
-            if (err?.response?.status === 404) {
+            if (err?.response?.status === HttpStatus.NOT_FOUND) {
               this.projectService
                 .createProject(projectInput)
                 .toPromise()

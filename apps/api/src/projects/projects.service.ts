@@ -6,6 +6,7 @@ import {
   InternalServerErrorException,
   ForbiddenException,
   BadRequestException,
+  HttpStatus,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -16,6 +17,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthToken } from '@biosimulations/auth/common';
 import { isAdmin } from '@biosimulations/auth/nest';
+import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 
 @Injectable()
 export class ProjectsService {
@@ -43,7 +45,7 @@ export class ProjectsService {
    * @param id id of the project
    */
   public async getProject(id: string): Promise<ProjectModel | null> {
-    this.logger.log(`Fetching project ${id}`);
+    this.logger.log(`Fetching project '${id}'.`);
 
     const project = await this.model
       .findOne({ id })
@@ -162,7 +164,7 @@ export class ProjectsService {
       .findOne({ id })
       .collation(ProjectIdCollation);
     if (!project) {
-      throw new NotFoundException(`Project with id '${id}' could not be found`);
+      throw new NotFoundException(`Project with id '${id}' could not be found.`);
     }
 
     const res: DeleteResult = await this.model
@@ -194,7 +196,7 @@ export class ProjectsService {
           !('value' in settledResult)
         ) {
           this.logger.log(
-            `Error getting summary for project ${projects[iProject].id}`,
+            `Error getting summary for project '${projects[iProject].id}'.`,
           );
           throw new InternalServerErrorException(
             'Summaries could not be retrieved for one or more projects.',
@@ -214,7 +216,7 @@ export class ProjectsService {
       .findOne({ id })
       .collation(ProjectIdCollation);
     if (!project) {
-      throw new NotFoundException(`Project with id '${id}' could not be found`);
+      throw new NotFoundException(`Project with id '${id}' could not be found.`);
     }
 
     return {
@@ -236,12 +238,53 @@ export class ProjectsService {
   public async validateProject(
     projectInput: ProjectInput,
     validateSimulationResultsData = false,
+    validateIdAvailable = false,
+    validateSimulationRunNotPublished = false,
   ): Promise<void> {
-    await this.simulationRunService.validateRun(
-      projectInput.simulationRun,
-      validateSimulationResultsData,
-    );
+    const errors: string[] = [];
+
+    if (validateIdAvailable) {
+      const numProjects = await this.model
+        .findOne({ id: projectInput.id })
+        .collation(ProjectIdCollation)
+        .count();
+      if (numProjects >= 1) {
+        errors.push(`The id '${projectInput.id}' is already taken by another project. Each project must have a unique id. Please choose another id.`);
+      }
+    }
+
+    if (validateSimulationRunNotPublished) {
+      const project = await this.model
+        .findOne({ simulationRun: projectInput.simulationRun })
+        .select('id')
+        .collation(ProjectIdCollation);
+      if (!!project) {
+        errors.push(`Simulation run '${projectInput.simulationRun}' has already been published as project '${project.id}'. Each run can only be published once.`);
+      }
+    }
+
+    try {
+      await this.simulationRunService.validateRun(
+        projectInput.simulationRun,
+        validateSimulationResultsData,
+      );
+    } catch (error) {
+      errors.push(error.detail);
+    }
+
     const project = new this.model(projectInput);
-    await project.validate();
+    try {
+      await project.validate();
+    } catch (error) {
+      errors.push(error.message);
+    }
+
+    if (errors.length) {
+      throw new BiosimulationsException(
+        HttpStatus.BAD_REQUEST,
+        'Project is invalid',
+        errors.join('\n\n'),
+       );
+    }
   }
 }

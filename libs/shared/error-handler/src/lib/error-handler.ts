@@ -3,7 +3,7 @@ import {
   ErrorHandler as BaseErrorHandler,
   NgZone,
 } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '@biosimulations/shared/environments';
 import { BiosimulationsError } from './biosimulations-error';
@@ -59,7 +59,7 @@ export class ErrorHandler implements BaseErrorHandler {
       const config = this.getConfig(this.activatedRoute);
       const url = error.url;
 
-      errorState.code = httpError.status || 500;
+      errorState.code = httpError.status || HttpStatusCode.InternalServerError;
 
       errorState.message = errorText || 'Error';
 
@@ -72,7 +72,7 @@ export class ErrorHandler implements BaseErrorHandler {
       } else {
         errorState.details = 'Something went wrong.';
       }
-      if (errorState.code == 404) {
+      if (errorState.code == HttpStatusCode.NotFound) {
         errorTemplate = '404';
 
         errorState.message = 'Not Found';
@@ -85,7 +85,7 @@ export class ErrorHandler implements BaseErrorHandler {
         this.errorHandler.report(error);
       }
 
-      if (biosimulationsError.code === 404) {
+      if (biosimulationsError.code === HttpStatusCode.NotFound) {
         errorTemplate = '404';
       }
 

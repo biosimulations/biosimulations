@@ -1,6 +1,6 @@
 <biosimulations-page heading="Publish project">
   <form
-    *ngIf="(valid$ | async) === true; else invalidErrorLoading"
+    *ngIf="(valid$ | async) === true; else invalidLoading"
     [formGroup]="formGroup"
     (ngSubmit)="publishSimulation()"
   >
@@ -124,60 +124,16 @@
     </div>
   </form>
 
-  <ng-template #invalidErrorLoading>
-    <ng-container *ngIf="(valid$ | async) === false; else metadataLoading">
-      <div
-        *ngIf="
-          isMetadataValidationReport(metadataValidationReport$ | async);
-          else errorLoading
-        "
-        class="metadata-validation-report error"
-      >
-        The simulation project does not contain valid metadata for publication
-        to BioSimulations. More information about the metadata requirements for
-        BioSimulations is available
-        <a href="https://biosimulators.org/conventions/metadata" target="_blank"
-          >here</a
-        >.
+  <ng-template #invalidLoading>
+    <ng-container *ngIf="(valid$ | async) as valid; else loading">
+      <p>The simulation run is not valid for publication.</p>
 
-        <ng-container *ngIf="metadataValidationReport$ | async as report">
-          <div class="metadata-validation-report-section" *ngIf="report.errors">
-            Errors:
-            <ul [innerHTML]="report.errors"></ul>
-          </div>
+      <p>Information about the requirements for projects (COMBINE archives), simulation experiments (SED-ML), and metadata (OMEX Metadata) is available at <a href="https://biosimulators.org/conventions/metadata" target="_blank">https://biosimulators.org/conventions</a>. Tools for validating projects, simulation experiments, and metadata are also available from the above menu. These tools provide additional diagnostic information beyond the error summary below.</p>
 
-          <div
-            class="metadata-validation-report-section"
-            *ngIf="report.warnings"
-          >
-            Warnings:
-            <ul [innerHTML]="report.warnings"></ul>
-          </div>
-        </ng-container>
-      </div>
-
-      <ng-template #errorLoading>
-        <div
-          *ngIf="(metadataValidationReport$ | async) === false; else loading"
-          class="error"
-        >
-          Sorry! The metadata for the project could not be validated. The
-          metadata must be valid for publication. Please try again later. If
-          this error persists, please contact the BioSimulations Team
-          <a [href]="newIssueUrl" target="_blank"
-            ><biosimulations-icon icon="link"></biosimulations-icon></a
-          >.
-        </div>
-
-        <ng-template #loading>
-          <div class="headed-page-spinner-container">
-            <biosimulations-spinner></biosimulations-spinner>
-          </div>
-        </ng-template>
-      </ng-template>
+      <p class="error">{{ valid }}</p>
     </ng-container>
 
-    <ng-template #metadataLoading>
+    <ng-template #loading>
       <div class="headed-page-spinner-container">
         <biosimulations-spinner></biosimulations-spinner>
       </div>

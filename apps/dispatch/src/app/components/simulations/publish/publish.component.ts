@@ -19,7 +19,7 @@ import {
   ValidationMessage,
 } from '../../../datamodel/validation-report.interface';
 import { OmexMetadataInputFormat } from '@biosimulations/datamodel/common';
-import { Project } from '@biosimulations/datamodel/common';
+import { Project, ProjectInput } from '@biosimulations/datamodel/common';
 import {
   FormBuilder,
   FormGroup,
@@ -31,7 +31,7 @@ import {
 import { environment } from '@biosimulations/shared/environments';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 
 interface FormattedValidationReport {
@@ -47,10 +47,7 @@ export class PublishComponent implements OnInit, OnDestroy {
   uuid!: string;
 
   private simulation!: Simulation;
-  valid$!: Observable<boolean>;
-  metadataValidationReport$!: Observable<
-    FormattedValidationReport | false | undefined
-  >;
+  valid$!: Observable<true | string>;
 
   formGroup: FormGroup;
   submitPushed = false;
@@ -117,96 +114,31 @@ export class PublishComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
 
-    const simulation$ = this.simulationService.getSimulation(this.uuid).pipe(
-      shareReplay(1),
+    const simulation$ = this.simulationService.getSimulation(this.uuid).pipe(      
       map((simulation: Simulation | UnknownSimulation): Simulation => {
         if (isUnknownSimulation(simulation)) {
           throw new BiosimulationsError(
             'Simulation run not found',
             "We're sorry! The run you requested could not be found.",
-            404,
+            HttpStatusCode.NotFound,
           );
         }
         return simulation as Simulation;
       }),
+      shareReplay(1),
     );
 
     this.valid$ = simulation$.pipe(
       map(() => {
-        return this.simulationService.isSimulationValidForPublication(
-          this.uuid,
-        );
-      }),
+        const projectInput: ProjectInput = {
+          id: 'test',
+          simulationRun: this.uuid,
+        };
+        return this.projectService.isProjectValid(projectInput, false, false, true);
+      }),      
+      concatAll(),
       shareReplay(1),
-      concatAll(),
     );
-
-    this.metadataValidationReport$ = this.valid$.pipe(
-      map(
-        (
-          valid: boolean,
-        ): Observable<FormattedValidationReport | false | undefined> => {
-          if (valid) {
-            return of(undefined);
-          }
-
-          const archiveUrl = this.getArchiveUrl();
-          return this.combineService
-            .getCombineArchiveMetadata(
-              archiveUrl,
-              OmexMetadataInputFormat.rdfxml,
-            )
-            .pipe(
-              map(
-                (
-                  arg:
-                    | CombineArchiveElementMetadata[]
-                    | ValidationReport
-                    | undefined,
-                ): FormattedValidationReport | false => {
-                  if (arg === undefined) {
-                    return false;
-                  }
-
-                  if (!Array.isArray(arg)) {
-                    return {
-                      errors: arg?.errors?.length
-                        ? this.convertValidationMessagesToList(arg.errors)
-                        : null,
-                      warnings: arg?.warnings?.length
-                        ? this.convertValidationMessagesToList(arg.warnings)
-                        : null,
-                    };
-                  }
-
-                  return false;
-                },
-              ),
-            );
-        },
-      ),
-      concatAll(),
-    );
-  }
-
-  private convertValidationMessagesToList(
-    messages: ValidationMessage[],
-  ): string {
-    return messages
-      .map((message: ValidationMessage): string => {
-        let details = '';
-        if (message?.details?.length) {
-          details =
-            '<ul>' +
-            this.convertValidationMessagesToList(
-              message?.details as ValidationMessage[],
-            ) +
-            '</ul>';
-        }
-
-        return '<li>' + message.summary + details + '</li>';
-      })
-      .join('\n');
   }
 
   isMetadataValidationReport(

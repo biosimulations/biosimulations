@@ -10,7 +10,7 @@ import {
   throwError,
 } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import {
   ProjectMetadata,
   SimulationRunMetadata,
@@ -64,11 +64,11 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
       catchError((error: HttpErrorResponse) => {
         const appError =
-          error.status === 400
+          error.status === HttpStatusCode.BadRequest
             ? new BiosimulationsError(
                 'Project not found',
                 "We're sorry! The project you requested could not be found.",
-                404,
+                HttpStatusCode.NotFound,
               )
             : error;
 

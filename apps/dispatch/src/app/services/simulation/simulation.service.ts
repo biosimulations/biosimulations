@@ -3,7 +3,7 @@ import { Simulation, ISimulation, isUnknownSimulation } from '../../datamodel';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import { SimulationStatusService } from './simulation-status.service';
 import { Storage } from '@ionic/storage-angular';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import {
   Observable,
   BehaviorSubject,
@@ -221,7 +221,7 @@ export class SimulationService {
       .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(uuid))
       .pipe(
         catchError((error: HttpErrorResponse): Observable<undefined> => {
-          if (error.status === 404) {
+          if (error.status === HttpStatusCode.NotFound) {
             return of(undefined);
           } else {
             return throwError(error);
@@ -349,29 +349,5 @@ export class SimulationService {
 
       return sim;
     }
-  }
-
-  public isSimulationValidForPublication(uuid: string): Observable<boolean> {
-    return this.httpClient
-      .post<void>(
-        this.endpoints.getValidateProjectEndpoint(),
-        {
-          id: 'new-project',
-          simulationRun: uuid,
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        },
-      )
-      .pipe(
-        map(() => true),
-        catchError((error: HttpErrorResponse): Observable<boolean> => {
-          if (error.status === 400) {
-            return of(false);
-          } else {
-            return throwError(error);
-          }
-        }),
-      );
   }
 }
