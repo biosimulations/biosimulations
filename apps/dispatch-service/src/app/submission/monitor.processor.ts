@@ -28,6 +28,7 @@ export class MonitorProcessor {
     const data = job.data;
     const slurmJobId = data.slurmJobId;
     const projectId = data.projectId;
+    const projectOwner = data.projectOwner;
     const simId = data.simId;
     let retryCount = data.retryCount;
     const DELAY = 5000;
@@ -42,7 +43,7 @@ export class MonitorProcessor {
     }
 
     if (jobStatus == SimulationRunStatus.PROCESSING) {
-      this.completeQueue.add({ simId, projectId: data.projectId });
+      this.completeQueue.add({ simId, projectId, projectOwner });
     } else if (jobStatus == SimulationRunStatus.FAILED) {
       this.failQueue.add({ simId, reason: message });
     } else if (
@@ -50,7 +51,7 @@ export class MonitorProcessor {
       jobStatus == SimulationRunStatus.RUNNING
     ) {
       this.monitorQueue.add(
-        { slurmJobId, simId, projectId, retryCount },
+        { slurmJobId, simId, projectId, projectOwner, retryCount },
         { delay: DELAY },
       );
     } else {
@@ -61,7 +62,7 @@ export class MonitorProcessor {
       if (retryCount < MAX_MONITOR_RETRY) {
         retryCount = retryCount + 1;
         this.monitorQueue.add(
-          { slurmJobId, simId, projectId, retryCount },
+          { slurmJobId, simId, projectId, projectOwner, retryCount },
           { delay: DELAY },
         );
       } else {

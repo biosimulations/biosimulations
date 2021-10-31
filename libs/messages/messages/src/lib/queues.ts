@@ -15,6 +15,7 @@ export class MonitorJob {
   slurmJobId!: string;
   simId!: string;
   projectId?: string;
+  projectOwner?: string;
   retryCount!: number;
 }
 
@@ -29,11 +30,13 @@ export class DispatchJob {
   envVars!: EnvironmentVariable[];
   purpose!: Purpose;
   projectId?: string;
+  projectOwner?: string;
 }
 
 export class CompleteJob {
   simId!: string;
   projectId?: string;
+  projectOwner?: string;
 }
 
 export class FailJob {

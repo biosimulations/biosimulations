@@ -532,8 +532,7 @@ export class SimulationRunSimulationSummary
   implements ISimulationRunSimulationSummary
 {
   @ApiProperty({
-    type: String,
-    enum: TypeSummary,
+    type: TypeSummary,
     description: 'Type of the simulation',
   })
   type!: TypeSummary;
@@ -600,8 +599,7 @@ export class SimulationRunTaskSummary implements ISimulationRunTaskSummary {
 
 export class SimulationRunOutputSummary implements ISimulationRunOutputSummary {
   @ApiProperty({
-    type: String,
-    enum: TypeSummary,
+    type: TypeSummary,
     description: 'Type of the output',
   })
   type!: TypeSummary;

@@ -2,12 +2,13 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as SchemaType } from 'mongoose';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { projectIdRegExp } from './id.regex';
+import { Project } from '@biosimulations/datamodel/common';
 
 @Schema({
   strict: 'throw',
   collection: 'Projects',
 })
-export class ProjectModel extends Document {
+export class ProjectModel extends Document implements Project {
   @Prop({
     required: true,
     type: String,
@@ -38,6 +39,13 @@ export class ProjectModel extends Document {
   })
   public simulationRun!: string;
 
+  @Prop({
+    required: false,
+    type: String,
+    immutable: false,
+  })
+  public owner?: string;
+
   public created!: string;
   public updated!: string;
 }
@@ -58,3 +66,4 @@ ProjectModelSchema.index(
   { id: 1 },
   { collation: ProjectIdCollation, unique: true },
 );
+ProjectModelSchema.index({ simulationRun: 1 }, { unique: true });

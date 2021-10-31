@@ -113,6 +113,7 @@ export class MetadataController {
     description: 'Id of the simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiOkResponse({
     description:

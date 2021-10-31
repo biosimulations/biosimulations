@@ -43,7 +43,10 @@ export function ProjectIdParam() {
       description: 'Project id',
       type: 'string',
       required: true,
-      schema: { minLength: 3 },
+      schema: { 
+        minLength: 3,
+        pattern: '^[a-zA-Z0-9_-]{3,}$',
+      },      
     }),
   );
 }

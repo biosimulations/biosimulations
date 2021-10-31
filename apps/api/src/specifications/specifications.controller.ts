@@ -58,6 +58,7 @@ export class SpecificationsController {
     description: 'Id of the simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiOkResponse({
     description:
@@ -91,6 +92,7 @@ export class SpecificationsController {
     description: 'Id of the simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiParam({
     name: 'experimentLocation',

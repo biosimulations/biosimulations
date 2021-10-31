@@ -34,8 +34,7 @@ export class FilesController {
   @ApiOperation({
     summary: '',
     description: '',
-  })
-  @permissions('read:Files')
+  })  
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -44,6 +43,7 @@ export class FilesController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to get metadata about all files',
   })
+  @permissions('read:Files')
   public getFiles() {}
   */
 
@@ -58,6 +58,7 @@ export class FilesController {
     description: 'Id of the simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiOkResponse({
     description: 'Metadata about the files was successfully retrieved',
@@ -81,6 +82,7 @@ export class FilesController {
     description: 'Id of the simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiParam({
     name: 'fileLocation',

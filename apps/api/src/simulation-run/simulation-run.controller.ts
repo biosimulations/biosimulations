@@ -103,7 +103,6 @@ export class SimulationRunController {
     description: 'The simulation runs were successfully retrieved',
     type: [SimulationRun],
   })
-  @permissions('read:SimulationRuns')
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -113,6 +112,7 @@ export class SimulationRunController {
     description:
       'This account does not have permission to get all simulation runs. Access to all runs is limited to administrators.',
   })
+  @permissions('read:SimulationRuns')
   @Get()
   public async getRuns(): Promise<SimulationRun[]> {
     const res = await this.service.getAll();
@@ -167,6 +167,7 @@ export class SimulationRunController {
     description:
       'No image for the simulator/version is registered with BioSimulators',
   })
+  @OptionalAuth()
   @ApiInternalServerErrorResponse({
     description: 'An error occurred in retrieving the simulator/version',
     type: ErrorResponseDocument,
@@ -200,6 +201,8 @@ export class SimulationRunController {
     }
     const response = this.makeSimulationRun(run);
 
+    const owner = req?.user as AuthToken;
+
     const message: DispatchJob = {
       simId: run.id,
       fileName: file?.originalname || 'input.omex',
@@ -211,6 +214,7 @@ export class SimulationRunController {
       envVars: run.envVars,
       purpose: run.purpose,
       projectId: projectId,
+      projectOwner: owner?.sub,
     };
     const sim = await this.dispatchQueue.add(message);
 
@@ -274,8 +278,7 @@ export class SimulationRunController {
   @ApiOperation({
     summary: 'Get a summary of each run',
     description: 'Returns a summary of each run',
-  })
-  @permissions('read:SimulationRuns')
+  })  
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -285,6 +288,7 @@ export class SimulationRunController {
     description:
       'This account does not have permission to get all simulation runs. Access to all runs is limited to administrators.',
   })
+  @permissions('read:SimulationRuns')
   @ApiOkResponse({
     description: 'A summary of each run was successfully retrieved',
     type: [SimulationRunSummary],
@@ -304,6 +308,7 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiOkResponse({
     description:
@@ -352,8 +357,8 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
-  })
-  @permissions('write:SimulationRuns')
+    format: '^[a-f\d]{24}$',
+  })  
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -363,6 +368,7 @@ export class SimulationRunController {
     description:
       'This account does not have permission to save simulation runs',
   })
+  @permissions('write:SimulationRuns')
   @Patch(':runId')
   @ApiNotFoundResponse({
     description: 'No simulation run has the requested id',
@@ -390,12 +396,12 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiNotFoundResponse({
     description: 'No simulation run has the requested id',
     type: ErrorResponseDocument,
-  })
-  @permissions('delete:SimulationRuns')
+  })  
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -405,6 +411,7 @@ export class SimulationRunController {
     description:
       'This account does not have permission to delete simulation runs',
   })
+  @permissions('delete:SimulationRuns')
   @Delete(':runId')
   @ApiOkResponse({
     type: SimulationRun,
@@ -425,8 +432,7 @@ export class SimulationRunController {
   @ApiOperation({
     summary: 'Delete all simulation runs',
     description: 'Delete all simulation runs',
-  })
-  @permissions('delete:SimulationRuns')
+  })  
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -436,6 +442,7 @@ export class SimulationRunController {
     description:
       'This account does not have permission to delete simulation runs',
   })
+  @permissions('delete:SimulationRuns')
   @Delete()
   @ApiNoContentResponse({
     description: 'The simulation runs were successfully deleted',
@@ -454,6 +461,7 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiNotFoundResponse({
     description:
@@ -499,6 +507,7 @@ export class SimulationRunController {
     description: 'Id of the run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiOkResponse({
     description: 'A summary of the run was successfully retrieved',
@@ -527,6 +536,7 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiQuery({
     name: 'validateSimulationResultsData',
