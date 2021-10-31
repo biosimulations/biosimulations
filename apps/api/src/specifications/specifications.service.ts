@@ -1,7 +1,10 @@
-import { SimulationRunSedDocument } from '@biosimulations/datamodel/api';
+import {
+  SimulationRunSedDocument,
+} from '@biosimulations/datamodel/api';
+import { SedElementType } from '@biosimulations/datamodel/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Document, Query } from 'mongoose';
 import { SpecificationsModel } from './specifications.model';
 
 @Injectable()
@@ -13,17 +16,74 @@ export class SpecificationsService {
     private model: Model<SpecificationsModel>,
   ) {}
 
+  public async getElementSpecification(
+    runId: string,
+    experimentLocation: string,    
+    elementType: SedElementType,
+    elementId: string,
+  ): Promise<any | null> {
+    let attribute!: string;
+    switch (elementType) {
+      case SedElementType.SedModel: {
+        attribute = 'models';
+        break;
+      }
+      case SedElementType.SedSimulation: {
+        attribute = 'simulations';
+        break;
+      }
+      case SedElementType.SedTask: {
+        attribute = 'tasks';
+        break;
+      }
+      case SedElementType.SedDataGenerator: {
+        attribute = 'dataGenerators';
+        break;
+      }
+      case SedElementType.SedOutput: {
+        attribute = 'outputs';
+        break;
+      }
+    }
+
+    const specs = await this.querySpecification(runId, experimentLocation).select(attribute).exec();
+
+    if (specs) {
+      for (const element of specs.get(attribute)) {
+        if (element.id === elementId) {
+          return element;
+        }
+      }
+    }
+    
+    return null;
+  }
+
   public async getSpecification(
-    simId: string,
-    specId: string,
+    runId: string,
+    experimentLocation: string,
   ): Promise<SpecificationsModel | null> {
-    return this.model.findOne({ simulationRun: simId, id: specId }).exec();
+    return this.querySpecification(runId, experimentLocation).exec();
+  }
+
+  private querySpecification(
+    runId: string,
+    experimentLocation: string,
+  ): Query<SpecificationsModel | null, Document<SpecificationsModel>> {
+    experimentLocation = this.normalizeExperimentLocation(experimentLocation);
+    return this.model.findOne({ 
+      simulationRun: runId, 
+      $or: [
+        { id: experimentLocation }, 
+        { id: './' + experimentLocation }
+      ],
+    });
   }
 
   public async getSpecificationsBySimulation(
-    simId: string,
+    runId: string,
   ): Promise<SpecificationsModel[]> {
-    return this.model.find({ simulationRun: simId }).exec();
+    return this.model.find({ simulationRun: runId }).exec();
   }
 
   public async getSpecifications(): Promise<SpecificationsModel[]> {
@@ -40,5 +100,13 @@ export class SpecificationsService {
       createdSpecs.push(newSpec.save());
     }
     return Promise.all(createdSpecs);
+  }
+
+  private normalizeExperimentLocation(location: string): string {
+    if (location.startsWith('./')) {
+      return location.substring(2);
+    } else {
+      return location;
+    }
   }
 }

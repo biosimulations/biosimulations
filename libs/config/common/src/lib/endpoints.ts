@@ -1,4 +1,5 @@
 import { environment } from '@biosimulations/shared/environments';
+// import { SedElementType } from '@biosimulations/datamodel/common';
 
 /**
  * A class that returns various endpoints based on the environment and ids of resources.
@@ -402,16 +403,38 @@ export class Endpoints {
   public getSpecificationsEndpoint(
     runId?: string,
     experimentLocation?: string,
+    elementType?: string, // SedElementType
+    elementId?: string,
   ): string {
     runId ? (runId = `/${runId}`) : (runId = '');
     experimentLocation
       ? (experimentLocation = `/${experimentLocation}`)
       : (experimentLocation = '');
+    
+    let elementTypePath!: string;
+    switch (elementType) {
+      case 'SedModel': elementTypePath = '/models'; break;
+      case 'SedSimulation': elementTypePath = '/simulations'; break;
+      case 'SedTask': elementTypePath = '/tasks'; break;
+      case 'SedDataGenerator': elementTypePath = '/data-generators'; break;
+      case 'SedOutput': elementTypePath = '/outputs'; break;
+      default: elementTypePath = ''; break;
+    }
+    elementId ? (elementId = `/${elementId}`) : (elementId = '');
     if (experimentLocation && !runId) {
       throw new Error('Cannot get a specific specification without a run id');
     }
+    if ((elementType || elementId) && !experimentLocation) {
+      throw new Error('Cannot get a specific element without an experiment location');
+    }
+    if (elementId && !elementType) {
+      throw new Error('Cannot get a specific element without a type');
+    }
+    if (elementType && !elementId) {
+      throw new Error('Cannot get a specific element without an id');
+    }
 
-    return `${this.specifications}${runId}${experimentLocation}`;
+    return `${this.specifications}${runId}${experimentLocation}${elementTypePath}{$elementId}`;
   }
 
   public getSimulationRunLogsEndpoint(id?: string): string {
