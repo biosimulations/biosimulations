@@ -8,9 +8,14 @@ import { environment } from '@biosimulations/shared/environments';
  */
 
 export class Endpoints {
-  private api: string;
-  private simulators_api: string;
-  private combine_api: string;
+  private api: string;  
+  private simulatorsApi: string;
+  private combineApi: string;
+  private storageEndpoint: string;
+  private simulatorsApp: string;
+  private dispatchApp: string;
+  private platformApp: string;
+
   private simulationRuns: string;
   private simulationRunResults: string;
   private simulationRunLogs: string;
@@ -18,8 +23,7 @@ export class Endpoints {
   private simulators: string;
   private files: string;
   private env: string;
-  private combineFile: string;
-  private storage_endpoint: string;
+  private combineFile: string;  
   private specifications: string;
   private projects: string;
   public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
@@ -30,31 +34,43 @@ export class Endpoints {
     this.env = env;
     switch (env) {
       case 'local':
-        this.api = 'http://localhost:3333';
-        this.simulators_api = 'https://api.biosimulators.dev';
-        this.combine_api = '/combine-api';
-        this.storage_endpoint = 'https://files-dev.biosimulations.org/s3';
+        this.api = 'http://localhost:3333';        
+        this.simulatorsApi = 'https://api.biosimulators.dev';
+        this.combineApi = '/combine-api';
+        this.storageEndpoint = 'https://files-dev.biosimulations.org/s3';
+        this.simulatorsApp = 'https://biosimulators.dev';
+        this.dispatchApp = 'https://run.biosimulations.dev';
+        this.platformApp = 'https://biosimulations.dev';
         break;
 
       case 'dev':
         this.api = 'https://api.biosimulations.dev';
-        this.simulators_api = 'https://api.biosimulators.dev';
-        this.combine_api = 'https://combine.api.biosimulations.dev';
-        this.storage_endpoint = 'https://files-dev.biosimulations.org/s3';
+        this.simulatorsApi = 'https://api.biosimulators.dev';
+        this.combineApi = 'https://combine.api.biosimulations.dev';
+        this.storageEndpoint = 'https://files-dev.biosimulations.org/s3';
+        this.simulatorsApp = 'https://biosimulators.dev';
+        this.dispatchApp = 'https://run.biosimulations.dev';
+        this.platformApp = 'https://biosimulations.dev';
         break;
 
       case 'stage':
         this.api = 'https://api.biosimulations.dev';
-        this.simulators_api = 'https://api.biosimulators.dev';
-        this.combine_api = 'https://combine.api.biosimulations.dev';
-        this.storage_endpoint = 'https://files-dev.biosimulations.org/s3';
+        this.simulatorsApi = 'https://api.biosimulators.dev';
+        this.combineApi = 'https://combine.api.biosimulations.dev';
+        this.storageEndpoint = 'https://files-dev.biosimulations.org/s3';
+        this.simulatorsApp = 'https://biosimulators.dev';
+        this.dispatchApp = 'https://run.biosimulations.dev';
+        this.platformApp = 'https://biosimulations.dev';
         break;
 
       case 'prod':
         this.api = 'https://api.biosimulations.org';
-        this.simulators_api = 'https://api.biosimulators.org';
-        this.combine_api = 'https://combine.api.biosimulations.org';
-        this.storage_endpoint = 'https://files.biosimulations.org/s3';
+        this.simulatorsApi = 'https://api.biosimulators.org';
+        this.combineApi = 'https://combine.api.biosimulations.org';
+        this.storageEndpoint = 'https://files.biosimulations.org/s3';
+        this.simulatorsApp = 'https://biosimulators.org';
+        this.dispatchApp = 'https://run.biosimulations.org';
+        this.platformApp = 'https://biosimulations.org';
         break;
     }
 
@@ -62,9 +78,9 @@ export class Endpoints {
     this.simulationRunResults = `${this.api}/results`;
     this.simulationRunMetadata = `${this.api}/metadata`;
     this.simulationRuns = `${this.api}/runs`;
-    this.simulators = `${this.simulators_api}/simulators`;
+    this.simulators = `${this.simulatorsApi}/simulators`;
     this.files = `${this.api}/files`;
-    this.combineFile = `${this.combine_api}/combine/file`;
+    this.combineFile = `${this.combineApi}/combine/file`;
     this.specifications = `${this.api}/specifications`;
     this.projects = `${this.api}/projects`;
   }
@@ -152,7 +168,7 @@ export class Endpoints {
     if (fileLocation == '.') {
       fileLocation = 'input.omex';
     }
-    return `${this.storage_endpoint}/simulations/${runId}/contents/${fileLocation}`;
+    return `${this.storageEndpoint}/simulations/${runId}/contents/${fileLocation}`;
   }
 
   /** Create a URL for getting a summary of a simulation run or each run
@@ -221,7 +237,7 @@ export class Endpoints {
    * @returns A URL for extracting the inputs and outputs of models
    */
   public getModelIntrospectionEndpoint(): string {
-    return `${this.combine_api}/sed-ml/get-parameters-variables-for-simulation`;
+    return `${this.combineApi}/sed-ml/get-parameters-variables-for-simulation`;
   }
 
   /**
@@ -229,7 +245,35 @@ export class Endpoints {
    * @returns A URL for creating COMBINE/OMEX archives
    */
   public getCombineArchiveCreationEndpoint(): string {
-    return `${this.combine_api}/combine/create`;
+    return `${this.combineApi}/combine/create`;
+  }
+
+  public getSedmlSpecificationsEndpoint(): string {
+    return `${this.combineApi}/combine/sedml-specs`;
+  }
+
+  public getCombineArchiveMetadataEndpoint(): string {
+    return `${this.combineApi}/combine/metadata/biosimulations`;
+  }
+
+  public getValidateModelEndpoint(): string {
+    return `${this.combineApi}/model/validate`;
+  }
+
+  public getValidateSedmlEndpoint(): string {
+    return `${this.combineApi}/sed-ml/validate`;
+  }
+
+  public getValidateOmexMetadataEndpoint(): string {
+    return `${this.combineApi}/omex-metadata/validate`;
+  }
+
+  public getValidateCombineArchiveEndpoint(): string {
+    return `${this.combineApi}/combine/validate`;
+  }
+
+  public getSimilarAlgorithmsEndpoint(): string {
+    return `${this.combineApi}/kisao/get-similar-algorithms`;
   }
 
   /**
@@ -380,22 +424,15 @@ export class Endpoints {
   }
 
   public getSimulatorApiHealthEndpoint(): string {
-    return `${this.simulators_api}/health`;
+    return `${this.simulatorsApi}/health`;
   }
 
   public getCombineHealthEndpoint(): string {
-    return `${this.getCombineEndpoint()}/health`;
+    return `${this.combineApi}/health`;
   }
 
   public getStorageHealthEndpoint(): string {
-    return `${this.storage_endpoint}/helloWorld.txt`;
-  }
-  /**
-   *
-   * @returns The base URL of the COMBINE API
-   */
-  private getCombineEndpoint(): string {
-    return this.combine_api;
+    return `${this.storageEndpoint}/helloWorld.txt`;
   }
   /**
    * Create a URL to download a file from an omex file using the combine service
@@ -422,5 +459,65 @@ export class Endpoints {
     return `${this.combineFile}?url=${encodeURIComponent(
       archiveUrl,
     )}&location=${encodeURIComponent(fileLocation)}`;
+  }
+
+  public getSimulatorsAppHome(): string {
+    return this.simulatorsApp;
+  }
+
+  public getDispatchAppHome(): string {
+    return this.dispatchApp;
+  }
+
+  public getPlatformAppHome(): string {
+    return this.platformApp;
+  }
+
+  public getSimulatorsView(id?: string, version?: string): string {
+    id ? (id = `/${id}`) : (id = '');
+    version ? (version = `/${id}`) : (version = '');
+    if (version && !id) {
+      throw new Error('Cannot get a version without a simulator id');
+    }
+    return `${this.simulatorsApp}/simulators${id}${version}`;
+  }
+
+  public getSimulationRunsView(id?: string): string {
+    id ? (id = `/${id}`) : (id = '');
+    return `${this.dispatchApp}/simulations{id}`; 
+  }
+
+  public getProjectsView(id?: string): string {
+    id ? (id = `/${id}`) : (id = '');
+    return `${this.platformApp}/projects{id}`; 
+  }
+
+  public getSimulatorIdentifier(id: string, identifiersOrg=false): string {
+    if (identifiersOrg) {
+      return `http://identifiers.org/biosimulators:${id}`;
+    } else {
+      return this.getSimulatorsView(id).replace('https://', 'http://');
+    }
+  }
+
+  public getSimulatorRunIdentifier(id: string, identifiersOrg=false): string {
+    if (identifiersOrg) {
+      return `http://identifiers.org/runbiosimulations:${id}`;
+    } else {
+      return this.getSimulationRunsView(id).replace('https://', 'http://');
+    }
+  }
+
+  public getProjectIdentifier(id: string, identifiersOrg=false): string {
+    if (identifiersOrg) {
+      return `http://identifiers.org/biosimulations:${id}`;
+    } else {
+      return this.getProjectsView(id).replace('https://', 'http://');
+    }
+  }
+
+  public getConventionsView(page?: string): string {
+    page ? (page = `/${page}`) : (page = '');
+    return `${this.simulatorsApp}/conventions{page}`; 
   }
 }

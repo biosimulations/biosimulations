@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
-import { urls } from '@biosimulations/config/common';
 import { Simulation } from '../../../datamodel';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { FormattedSimulation } from './view.model';
 import { FormatService } from '@biosimulations/shared/services';
 import { Purpose } from '@biosimulations/datamodel/common';
+import { Endpoints } from '@biosimulations/config/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ViewService {
+  private endpoints = new Endpoints();
+
   constructor() {}
 
   public formatSimulation(simulation: Simulation): FormattedSimulation {
@@ -44,7 +46,7 @@ export class ViewService {
       //     : 'N/A',
       submitted: FormatService.formatTime(new Date(simulation.submitted)),
       updated: FormatService.formatTime(new Date(simulation.updated)),
-      simulatorUrl: `${urls.simulators}/simulators/${simulation.simulator}/${simulation.simulatorVersion}`,
+      simulatorUrl: this.endpoints.getSimulatorsView(simulation.simulator, simulation.simulatorVersion),
     };
   }
 }

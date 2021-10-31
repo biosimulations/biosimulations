@@ -64,7 +64,6 @@ import {
   SedDocumentReports,
 } from '@biosimulations/datamodel-view';
 import { FormatService } from '@biosimulations/shared/services';
-import { urls } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { OntologyService } from '@biosimulations/ontology/client';
 import { Spec as VegaSpec } from 'vega';
@@ -452,7 +451,7 @@ export class ViewService {
             title: 'Simulator',
             value: simulator,
             icon: 'simulator',
-            url: `${urls.simulators}/simulators/${simulationRun.simulator}/${simulationRun.simulatorVersion}`,
+            url: this.endpoints.getSimulatorsView(simulationRun.simulator, simulationRun.simulatorVersion),
           });
 
           const run: ListItem[] = [];
@@ -461,7 +460,7 @@ export class ViewService {
             title: 'Id',
             value: of(simulationRun.id),
             icon: 'id',
-            url: `${urls.dispatch}/simulations/${id}`,
+            url: this.endpoints.getSimulationRunsView(id),
           });
 
           const durationSec = this.simService
@@ -704,7 +703,7 @@ export class ViewService {
             location: '',
             title: 'Log',
             format: 'YAML in BioSimulators log schema',
-            formatUrl: `${urls.simulators}/conventions/simulation-logs`,
+            formatUrl: this.endpoints.getConventionsView('simulation-logs'),
             master: false,
             size: null,
             icon: 'logs',
@@ -1040,12 +1039,12 @@ export class ViewService {
               name: 'runBioSimulations',
               description:
                 'Database of runs of biosimulations, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
-              url: urls.dispatch,
+              url: this.endpoints.getDispatchAppHome(),
             },
             name: simulationRun.name,
-            url: `${urls.dispatch}/simulations/${runId}`,
+            url: this.endpoints.getSimulationRunsView(runId),
             identifier: [
-              `${urls.dispatch}/simulations/${runId}`.replace(
+              this.endpoints.getSimulationRunsView(runId).replace(
                 'https://',
                 'http://',
               ),
@@ -1212,12 +1211,12 @@ export class ViewService {
               name: 'BioSimulations',
               description:
                 'Open registry of biosimulation projects, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
-              url: urls.platform,
+              url: this.endpoints.getPlatformAppHome(),
             };
-            dataSet.url = `${urls.platform}/projects/${project?.id}`;
+            dataSet.url = this.endpoints.getProjectsView(project?.id);
             dataSet.identifier = [...(dataSet.identifier as string[])];
             (dataSet.identifier as string[])[0] =
-              `${urls.platform}/projects/${project?.id}`.replace(
+              this.endpoints.getProjectsView(project?.id).replace(
                 'https://',
                 'http://',
               );

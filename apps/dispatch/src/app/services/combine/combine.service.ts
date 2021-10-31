@@ -6,7 +6,6 @@ import {
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, timeout } from 'rxjs/operators';
-import { urls } from '@biosimulations/config/common';
 import { environment } from '@biosimulations/shared/environments';
 import {
   CombineArchiveSedDocSpecs,
@@ -17,18 +16,21 @@ import {
 import { CombineArchiveElementMetadata } from '../../datamodel/metadata.interface';
 import { ValidationReport } from '../../datamodel/validation-report.interface';
 import { AlgorithmSubstitution } from '../../kisao.interface';
+import { Endpoints } from '@biosimulations/config/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CombineService {
-  private sedmlSpecsEndpoint = `${urls.combineApi}combine/sedml-specs`;
-  private archiveMetadataEndpoint = `${urls.combineApi}combine/metadata/biosimulations`;
-  private validateModelEndpoint = `${urls.combineApi}model/validate`;
-  private validateSimulationEndpoint = `${urls.combineApi}sed-ml/validate`;
-  private validateMetadataEndpoint = `${urls.combineApi}omex-metadata/validate`;
-  private validateProjectEndpoint = `${urls.combineApi}combine/validate`;
-  private similarAlgorithmsEndpoint = `${urls.combineApi}kisao/get-similar-algorithms`;
+  private endpoints = new Endpoints();
+
+  private sedmlSpecsEndpoint = this.endpoints.getSedmlSpecificationsEndpoint();
+  private archiveMetadataEndpoint = this.endpoints.getCombineArchiveMetadataEndpoint();
+  private validateModelEndpoint = this.endpoints.getValidateModelEndpoint();
+  private validateSimulationEndpoint = this.endpoints.getValidateSedmlEndpoint();
+  private validateMetadataEndpoint = this.endpoints.getValidateOmexMetadataEndpoint();
+  private validateProjectEndpoint = this.endpoints.getValidateCombineArchiveEndpoint();
+  private similarAlgorithmsEndpoint = this.endpoints.getSimilarAlgorithmsEndpoint();
 
   public constructor(private http: HttpClient) {}
 

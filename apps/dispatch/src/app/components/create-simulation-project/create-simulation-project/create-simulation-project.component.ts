@@ -35,7 +35,6 @@ import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
 import { map, concatAll, withLatestFrom, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import isUrl from 'is-url';
-import { urls } from '@biosimulations/config/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
@@ -526,7 +525,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           simulator: {
             id: simId,
             name: this.simulatorSpecsMap?.[simId]?.name as string,
-            url: `${urls.simulators}/simulators/${simId}`,
+            url: this.endpoints.getSimulatorsView(simId),
           },
           maxPolicy: compatability.algorithm,
           parametersCompatibility: compatability.parameters,
