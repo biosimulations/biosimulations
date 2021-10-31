@@ -115,14 +115,6 @@ export class PublishComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    // TODO: remove routing to construction message
-    if (environment.production) {
-      this.router.navigate(['/error', 'construction'], {
-        skipLocationChange: true,
-      });
-      return;
-    }
-
     this.uuid = this.route.snapshot.params['uuid'];
 
     const simulation$ = this.simulationService.getSimulation(this.uuid).pipe(

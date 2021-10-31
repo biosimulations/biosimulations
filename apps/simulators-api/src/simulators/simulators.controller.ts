@@ -253,8 +253,7 @@ export class SimulatorsController {
 
     return res;
   }
-
-  @permissions('write:Simulators')
+  
   @Post()
   @ApiOperation({
     summary: 'Add a version of a simulation tool to the database',
@@ -294,6 +293,7 @@ export class SimulatorsController {
     description:
       'This account does not have permission to save specifications of simulation tools',
   })
+  @permissions('write:Simulators')
   async create(@Body() doc: Simulator): Promise<Simulator> {
     return this.service.new(doc);
   }
@@ -326,8 +326,7 @@ export class SimulatorsController {
     await this.service.validate(doc);
     return;
   }
-
-  @permissions('write:Simulators')
+  
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiParam({
@@ -374,6 +373,7 @@ export class SimulatorsController {
     description:
       'This account does not have permission to update specifications of simulation tools',
   })
+  @permissions('write:Simulators')
   @Put(':id/:version')
   @ApiOperation({
     summary: 'Update a version of a simulation tool',
@@ -386,8 +386,7 @@ export class SimulatorsController {
   ) {
     return this.service.replace(id, version, doc).then((res) => res);
   }
-
-  @permissions('delete:Simulators')
+  
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiParam({
@@ -419,6 +418,7 @@ export class SimulatorsController {
     description:
       'This account does not have permission to delete simulation tools',
   })
+  @permissions('delete:Simulators')
   @Delete(':id/:version')
   @ApiOperation({
     summary: 'Delete a version of a simulation tool',
@@ -430,8 +430,7 @@ export class SimulatorsController {
   ) {
     return this.service.deleteOne(id, version);
   }
-
-  @permissions('delete:Simulators')
+  
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiParam({
@@ -456,6 +455,7 @@ export class SimulatorsController {
     description:
       'This account does not have permission to delete simulation tools',
   })
+  @permissions('delete:Simulators')
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete all versions of a simulation tool',

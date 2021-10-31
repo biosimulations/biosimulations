@@ -34,6 +34,7 @@ export class CompleteProcessor {
 
     const id = data.simId;
     const projectId = data.projectId;
+    const projectOwner = data.projectOwner;
 
     this.logger.debug(
       `Simulation ${id} finished. Saving files, specifications, results, logs, metadata ...`,
@@ -108,6 +109,7 @@ export class CompleteProcessor {
         const projectInput: ProjectInput = {
           id: projectId,
           simulationRun: id,
+          owner: projectOwner,
         };
 
         return this.projectService

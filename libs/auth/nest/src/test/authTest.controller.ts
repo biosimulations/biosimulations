@@ -18,6 +18,7 @@ import { AdminGuard } from '../lib/admin/admin.guard';
 import { JwtGuard } from '../lib/jwt/jwt.guard';
 import { permissions } from '../lib/permissions/permissions.decorator';
 import { PermissionsGuard } from '../lib/permissions/permissions.guard';
+import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
 @ApiTags('Authentication testing')
 @ApiOAuth2([])
@@ -84,9 +85,11 @@ export class AuthTestController {
     description: 'The users privileges were successfully checked',
   })
   @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
   })
   @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
     description: 'This account does not have permission to test permissions',
   })
   @Get('/permissions')

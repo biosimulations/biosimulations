@@ -56,6 +56,7 @@ export class DispatchProcessor {
         slurmJobId: slurmjobId.toString(),
         simId: data.simId,
         projectId: data.projectId,
+        projectOwner: data.projectOwner,
         retryCount: 0,
       };
 

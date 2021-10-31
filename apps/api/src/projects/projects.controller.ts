@@ -1,4 +1,4 @@
-import { permissions } from '@biosimulations/auth/nest';
+import { permissions, OptionalAuth } from '@biosimulations/auth/nest';
 import {
   Project,
   ProjectInput,
@@ -13,6 +13,7 @@ import {
   Post,
   Put,
   Query,
+  Req,
   HttpCode,
 } from '@nestjs/common';
 import {
@@ -27,11 +28,15 @@ import {
   ApiPayloadTooLargeResponse,
   ApiBadRequestResponse,
   ApiConflictResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 import { ProjectId, ProjectIdParam } from './id.decorator';
 import { ProjectModel } from './project.model';
 import { ProjectsService } from './projects.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import { Request } from 'express';
+import { AuthToken } from '@biosimulations/auth/common';
 
 @ApiTags('Projects')
 @Controller('projects')
@@ -132,15 +137,19 @@ export class ProjectsController {
   @ApiConflictResponse({
     type: ErrorResponseDocument,
     description:
-      'The project could not be saved because another project already has the same id. The `PUT` method can be used to modify projects.',
+      'The project could not be saved because another project already has the same id or simulation run. The `PUT` method can be used to modify projects.',
   })
   @ApiCreatedResponse({
     description: 'The simulation run was successfully published',
     type: Project,
   })
-  @permissions('create:Projects')
-  public async createProject(@Body() project: ProjectInput): Promise<Project> {
-    const proj = await this.service.createProject(project);
+  @OptionalAuth()  
+  public async createProject(
+    @Body() project: ProjectInput,
+    @Req() req: Request,
+  ): Promise<Project> {
+    const user = req?.user as AuthToken;
+    const proj = await this.service.createProject(project, user);
     return this.returnProject(proj);
   }
 
@@ -168,18 +177,33 @@ export class ProjectsController {
     description:
       "The simulation run is not valid for publication (e.g., run didn't succeed or metadata doesn't meet minimum requirements)",
   })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'The account does not have permission to modify the requested project',
+  })
+  @permissions()
+  @ApiConflictResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The project could not be saved because another project already has the same id or simulation run.',
+  })
   @ApiOkResponse({
     description:
       'The information about the publication of the simulation run was successfully updated',
     type: Project,
-  })
-  @permissions('update:Projects')
+  })  
   @ProjectIdParam()
   public async updateProject(
     @ProjectId('projectId') projectId: string,
     @Body() project: ProjectInput,
+    @Req() req: Request,
   ): Promise<Project> {
-    const proj = await this.service.updateProject(projectId, project);
+    const user = req?.user as AuthToken;
+    const proj = await this.service.updateProject(projectId, project, user);
     if (proj) {
       return this.returnProject(proj);
     }
@@ -222,7 +246,7 @@ export class ProjectsController {
     return res;
   }
 
-  private returnProject(projectModel: ProjectModel): Project {
+  private returnProject(projectModel: Project): Project {
     const project: Project = {
       id: projectModel.id,
       simulationRun: projectModel.simulationRun,

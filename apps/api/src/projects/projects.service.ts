@@ -4,6 +4,8 @@ import {
   Logger,
   NotFoundException,
   InternalServerErrorException,
+  ForbiddenException,
+  BadRequestException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -12,6 +14,8 @@ import { ProjectIdCollation, ProjectModel } from './project.model';
 import { DeleteResult } from 'mongodb';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
+import { AuthToken } from '@biosimulations/auth/common';
+import { isAdmin } from '@biosimulations/auth/nest';
 
 @Injectable()
 export class ProjectsService {
@@ -44,18 +48,25 @@ export class ProjectsService {
     const project = await this.model
       .findOne({ id })
       .collation(ProjectIdCollation);
+
     return project;
   }
 
   /** Save a project to the database
    *
    * @param projectInput project to save to the database
+   * @param user User who submitted the project
    */
   public async createProject(
     projectInput: ProjectInput,
+    user: AuthToken,
   ): Promise<ProjectModel> {
     await this.simulationRunService.validateRun(projectInput.simulationRun);
+
+    projectInput.owner = this.getOwner(projectInput, user);
+
     const project = new this.model(projectInput);
+
     return project.save();
   }
 
@@ -63,22 +74,64 @@ export class ProjectsService {
    *
    * @param id id of the project
    * @param projectInput new properties of the project
+   * @param user User attempting to modify the project
    */
   public async updateProject(
     id: string,
     projectInput: ProjectInput,
-  ): Promise<ProjectModel | null> {
-    await this.simulationRunService.validateRun(projectInput.simulationRun);
+    user: AuthToken,
+  ): Promise<ProjectModel | null> {    
+    if (projectInput.id !== id) {
+      throw new BadRequestException(`The project id must be '${id}'. Project ids cannot be changed. Please contact the BioSimulations Team (info@biosimulations.org) for assistance.`);
+    }
 
     const project = await this.model
       .findOne({ id: id })
       .collation(ProjectIdCollation);
 
-    if (project) {
-      project.set(projectInput);
-      return project.save();
+    if (!project) {
+      return null;
     }
-    return project;
+
+    const owner = this.getOwner(projectInput, user);
+    
+    if (
+      !isAdmin(user)
+      && (project?.owner !== owner || !project?.owner)
+    ) {
+      throw new ForbiddenException(`This account does not have permissions to update project '${id}'. Projects can only be updated by the accounts which created them. Anonymously created projects can only be updated by the BioSimulations Team. Please contact the BioSimulations Team (info@biosimulations.org) for assistance.`);
+    }
+
+    if (projectInput.simulationRun !== project.simulationRun) {
+      await this.simulationRunService.validateRun(projectInput.simulationRun);
+    }
+
+    project.set(projectInput);
+    return project.save();
+  }
+
+  private getOwner(projectInput: ProjectInput, user: AuthToken): string | undefined {
+    if (projectInput?.owner) {
+      if (user?.permissions?.includes('proxyOwnership:Projects')) {
+        return projectInput.owner;
+      } else {
+        throw new ForbiddenException('Only administrators can submit projects on behalf of other accounts.')
+      }
+    }
+
+    if (!user?.sub) {
+      return undefined;
+    }
+
+    if (user.sub.search(/\|/) !== -1) {
+      return user.sub;
+    }
+
+    if (!user?.permissions?.includes('proxyOwnership:Projects')) {
+      return user?.sub;
+    }
+
+    return undefined;
   }
 
   /** Delete all projects

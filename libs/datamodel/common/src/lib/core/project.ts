@@ -7,7 +7,9 @@ export interface Project {
   updated: string;
 }
 
-export type ProjectInput = Omit<Project, 'created' | 'updated'>;
+export interface ProjectInput extends Omit<Project, 'created' | 'updated'> {
+  owner?: string;
+}
 
 export interface ProjectSummary {
   id: string;

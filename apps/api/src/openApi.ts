@@ -113,6 +113,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     'create:Projects': 'Create published projects',
     'update:Projects': 'Modify published projects',
     'delete:Projects': 'Delete published projects',
+    'proxyOwnership:Projects': 'Create and modify projects on behalf of other accounts',
   };
   const authorizationUrl =
     'https://auth.biosimulations.org/authorize?audience=dispatch.biosimulations.org';

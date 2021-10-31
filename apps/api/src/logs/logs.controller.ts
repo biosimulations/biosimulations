@@ -84,6 +84,7 @@ export class LogsController {
     description: 'Id of the simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiQuery({
     name: 'includeOutput',
@@ -122,6 +123,7 @@ export class LogsController {
     description: 'Id of the simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiTags('Downloads')
   public downloadLog(@Param('runId') runId: string): void {
@@ -175,6 +177,7 @@ export class LogsController {
     description: 'Id of the simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiOkResponse({
     type: CombineArchiveLog,
@@ -210,6 +213,7 @@ export class LogsController {
     description: 'Id of the simulation run',
     required: true,
     type: String,
+    format: '^[a-f\d]{24}$',
   })
   @ApiBody({
     description: 'The logs for the simulation run',
