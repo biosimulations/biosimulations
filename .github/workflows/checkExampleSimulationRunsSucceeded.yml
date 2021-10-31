@@ -38,7 +38,7 @@ jobs:
         uses: JasonEtco/create-an-issue@v2
         if: failure()
         env:
-          OUTPUT: steps.check-runs.outputs.output
+          OUTPUT: ${{ steps.check-runs.outputs.output }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           update_existing: true
