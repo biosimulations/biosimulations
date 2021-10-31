@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { map, catchError, concatAll, shareReplay } from 'rxjs/operators';
-import { urls } from '@biosimulations/config/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineService } from '../../../services/combine/combine.service';
