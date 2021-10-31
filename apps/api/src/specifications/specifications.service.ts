@@ -18,7 +18,7 @@ export class SpecificationsService {
 
   public async getElementSpecification(
     runId: string,
-    experimentLocation: string,    
+    experimentLocation: string,
     elementType: SedElementType,
     elementId: string,
   ): Promise<any | null> {
@@ -71,10 +71,10 @@ export class SpecificationsService {
     experimentLocation: string,
   ): Query<SpecificationsModel | null, Document<SpecificationsModel>> {
     experimentLocation = this.normalizeExperimentLocation(experimentLocation);
-    return this.model.findOne({ 
-      simulationRun: runId, 
+    return this.model.findOne({
+      simulationRun: runId,
       $or: [
-        { id: experimentLocation }, 
+        { id: experimentLocation },
         { id: './' + experimentLocation }
       ],
     });
