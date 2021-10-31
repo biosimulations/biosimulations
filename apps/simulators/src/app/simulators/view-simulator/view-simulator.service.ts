@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpStatusCode } from '@angular/http/common';
 import { SimulatorService, Version } from '../simulator.service';
 import {
   ViewSimulator,
@@ -93,13 +94,13 @@ export class ViewSimulatorService {
         throw new BiosimulationsError(
           'Simulator version not found',
           `Simulator "${simulatorId}" does not have version "${version}".`,
-          404,
+          HttpStatusCode.NotFound,
         );
       } else {
         throw new BiosimulationsError(
           'Simulator not found',
           `There is no simulator with id "${simulatorId}".`,
-          404,
+          HttpStatusCode.NotFound,
         );
       }
     }

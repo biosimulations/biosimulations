@@ -14,6 +14,7 @@ import {
   PayloadTooLargeException,
   BadRequestException,
   CACHE_MANAGER,
+  HttpStatus,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -193,7 +194,7 @@ export class SimulationRunService {
       }
     } else {
       // The simulator did not give a file id
-      throw new NotFoundException(`No SimulationRun with id ${id} found`);
+      throw new NotFoundException(`No SimulationRun with id '${id}' found.`);
     }
   }
 
@@ -228,7 +229,7 @@ export class SimulationRunService {
     const model = await this.getModel(id);
 
     if (!model) {
-      throw new NotFoundException(`Simulation run with id ${id} was not found`);
+      throw new NotFoundException(`Simulation run with id '${id}' was not found.`);
     }
 
     this.updateModelResultSize(model, run.resultsSize);
@@ -281,7 +282,7 @@ export class SimulationRunService {
     } catch (err) {
       const message = err?.message || 'Error Uploading File';
       throw new BiosimulationsException(
-        500,
+        HttpStatus.INTERNAL_SERVER_ERROR,
         message,
         undefined,
         undefined,
@@ -305,7 +306,7 @@ export class SimulationRunService {
     let originalname;
     let encoding;
 
-    this.logger.debug(`Downloading file from ${url}`);
+    this.logger.debug(`Downloading file from ${url}.`);
     const file = await firstValueFrom(
       this.http.get(url, {
         responseType: 'arraybuffer',
@@ -343,7 +344,7 @@ export class SimulationRunService {
         path: '',
       };
 
-      this.logger.debug(`Downloaded file from ${url}`);
+      this.logger.debug(`Downloaded file from ${url}.`);
       return this.createRunWithFile(body, fileObj);
     } else {
       throw new Error('Unable to process file');
@@ -370,11 +371,11 @@ export class SimulationRunService {
       newSimulationRun.simulatorDigest = simulator.image.digest;
     } else if (simulator === null) {
       throw new BadRequestException(
-        `No image for ${run.simulator}:${run.simulatorVersion} is registered with BioSimulators.`,
+        `No image for '${run.simulator}:${run.simulatorVersion}' is registered with BioSimulators.`,
       );
     } else {
       throw new InternalServerErrorException(
-        `An error occurred in retrieving ${run.simulator}:${run.simulatorVersion}.`,
+        `An error occurred in retrieving '${run.simulator}:${run.simulatorVersion}'.`,
       );
     }
 
@@ -407,7 +408,7 @@ export class SimulationRunService {
         this.http.get<ISimulator[]>(url).pipe(
           catchError((error: HttpErrorResponse): Observable<null | false> => {
             this.logger.error(error.message);
-            if (error.status === 404) {
+            if (error.status === HttpStatus.NOT_FOUND) {
               return of(null);
             } else {
               return of(false);
@@ -432,7 +433,7 @@ export class SimulationRunService {
         this.http.get<ISimulator>(url).pipe(
           catchError((error: HttpErrorResponse): Observable<null | false> => {
             this.logger.error(error.message);
-            if (error.status === 404) {
+            if (error.status === HttpStatus.NOT_FOUND) {
               return of(null);
             } else {
               return of(false);
@@ -452,7 +453,7 @@ export class SimulationRunService {
 
   private updateModelRunTime(model: SimulationRunModel): SimulationRunModel {
     model.runtime = Date.now() - model.submitted.getTime();
-    this.logger.debug(`Set ${model.id} runtime to ${model.runtime} `);
+    this.logger.debug(`Set '${model.id}' runtime to ${model.runtime}.`);
     return model;
   }
 
@@ -493,7 +494,7 @@ export class SimulationRunService {
       model.statusReason = statusReason;
       model.refreshCount = model.refreshCount + 1;
       this.logger.log(
-        `Set ${model.id} status to ${model.status} on update ${model.refreshCount} `,
+        `Set '${model.id}' status to '${model.status}' on update ${model.refreshCount}.`,
       );
       this.updateModelRunTime(model);
       if (status == SimulationRunStatus.FAILED) {
@@ -513,7 +514,7 @@ export class SimulationRunService {
   ): SimulationRunModel {
     if (resultsSize) {
       model.resultsSize = resultsSize;
-      this.logger.debug(`Set ${model.id} resultsSize to ${model.resultsSize} `);
+      this.logger.debug(`Set '${model.id}' resultsSize to ${model.resultsSize}.`);
     }
     return model;
   }
@@ -598,7 +599,7 @@ export class SimulationRunService {
       !('value' in runSettledResult) ||
       !runSettledResult.value
     ) {
-      throw new NotFoundException(`No run could be found with id '${id}'`);
+      throw new NotFoundException(`No run could be found with id '${id}'.`);
     }
 
     /* initialize summary with run information */
@@ -607,7 +608,7 @@ export class SimulationRunService {
     const simulator = await this.getSimulator(rawRun.simulator);
     if (!simulator) {
       throw new NotFoundException(
-        `Simulator '${rawRun.simulator}' for run could be found`,
+        `Simulator '${rawRun.simulator}' for run could be found.`,
       );
     }
 
@@ -833,17 +834,17 @@ export class SimulationRunService {
       run = await this.get(id);
     } catch {
       throw new BiosimulationsException(
-        400,
+        HttpStatus.BAD_REQUEST,
         'Simulation run is not valid for publication.',
-        `${id} is not a valid id for a simulation run. Only successful simulation runs can be published.`,
+        `'${id}' is not a valid id for a simulation run. Only successful simulation runs can be published.`,
       );
     }
 
     if (!run) {
       throw new BiosimulationsException(
-        400,
+        HttpStatus.BAD_REQUEST,
         'Simulation run is not valid for publication.',
-        `A simulation run with id ${id} could not be found. Only successful simulation runs can be published.`,
+        `A simulation run with id '${id}' could not be found. Only successful simulation runs can be published.`,
       );
     }
 
@@ -873,7 +874,7 @@ export class SimulationRunService {
 
     if (errors.length) {
       throw new BiosimulationsException(
-        400,
+        HttpStatus.BAD_REQUEST,
         'Simulation run is not valid for publication.',
         errors.join('\n\n'),
       );
@@ -886,12 +887,12 @@ export class SimulationRunService {
     const checks: Check[] = [
       {
         check: this.filesService.getSimulationFiles(id),
-        errorMessage: `Files (contents of COMBINE archive) could not be found for simulation run ${id}.`,
+        errorMessage: `Files (contents of COMBINE archive) could not be found for simulation run '${id}'.`,
         isValid: (files: FileModel[]): boolean => files.length > 0,
       },
       {
         check: this.specificationsService.getSpecificationsBySimulation(id),
-        errorMessage: `Simulation specifications (SED-ML documents) could not be found for simulation run ${id}. For publication, simulation experiments must be valid SED-ML documents. Please check that the SED-ML documents in the COMBINE archive are valid. More information is available at https://biosimulators.org/conventions/simulation-experiments and https://run.biosimulations.org/utils/validate-project.`,
+        errorMessage: `Simulation specifications (SED-ML documents) could not be found for simulation run '${id}'. For publication, simulation experiments must be valid SED-ML documents. Please check that the SED-ML documents in the COMBINE archive are valid. More information is available at https://biosimulators.org/conventions/simulation-experiments and https://run.biosimulations.org/utils/validate-project.`,
         isValid: (specifications: SpecificationsModel[]): boolean =>
           specifications.length > 0,
       },
@@ -900,12 +901,12 @@ export class SimulationRunService {
           id,
           validateSimulationResultsData,
         ),
-        errorMessage: `Simulation results could not be found for run ${id}. For publication, simulation runs produce at least one SED-ML report or plot.`,
+        errorMessage: `Simulation results could not be found for run '${id}'. For publication, simulation runs produce at least one SED-ML report or plot.`,
         isValid: (results: Results): boolean => results?.outputs?.length > 0,
       },
       {
         check: this.logsService.getLog(id) as Promise<CombineArchiveLog>,
-        errorMessage: `Simulation log could not be found for run ${id}. For publication, simulation runs must have validate logs. More information is available at https://biosimulators.org/conventions/simulation-logs.`,
+        errorMessage: `Simulation log could not be found for run '${id}'. For publication, simulation runs must have validate logs. More information is available at https://biosimulators.org/conventions/simulation-logs.`,
         isValid: (log: CombineArchiveLog): boolean => {
           return (
             log.status === SimulationRunLogStatus.SUCCEEDED && !!log.output
@@ -914,7 +915,7 @@ export class SimulationRunService {
       },
       {
         check: this.metadataService.getMetadata(id),
-        errorMessage: `Metadata could not be found for simulation run ${id}. For publication, simulation runs must meet BioSimulations' minimum metadata requirements. More information is available at https://biosimulators.org/conventions/metadata and https://run.biosimulations.org/utils/validate-project.`,
+        errorMessage: `Metadata could not be found for simulation run '${id}'. For publication, simulation runs must meet BioSimulations' minimum metadata requirements. More information is available at https://biosimulators.org/conventions/metadata and https://run.biosimulations.org/utils/validate-project.`,
         isValid: (metadata: SimulationRunMetadataIdModel | null): boolean => {
           if (!metadata) {
             return false;
@@ -1090,7 +1091,7 @@ export class SimulationRunService {
 
     if (errors.length) {
       throw new BiosimulationsException(
-        400,
+        HttpStatus.BAD_REQUEST,
         'Simulation run is not valid for publication.',
         errors.join('\n\n'),
       );

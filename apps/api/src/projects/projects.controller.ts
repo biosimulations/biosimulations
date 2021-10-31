@@ -271,6 +271,20 @@ export class ProjectsController {
     required: false,
     type: Boolean,
   })
+  @ApiQuery({
+    name: 'validateIdAvailable',
+    description:
+      'Whether to validate that the id is available. Default: false.',
+    required: false,
+    type: Boolean,
+  })
+  @ApiQuery({
+    name: 'validateSimulationRunNotPublished',
+    description:
+      'Whether to validate that the simulation run has not yet been published. Default: false.',
+    required: false,
+    type: Boolean,
+  })
   @ApiBody({
     description: 'Information about the project.',
     type: ProjectInput,
@@ -292,10 +306,16 @@ export class ProjectsController {
     @Body() projectInput: ProjectInput,
     @Query('validateSimulationResultsData')
     validateSimulationResultsData = 'false',
+    @Query('validateIdAvailable')
+    validateIdAvailable = 'false',
+    @Query('validateSimulationRunNotPublished')
+    validateSimulationRunNotPublished = 'false',
   ): Promise<void> {
     await this.service.validateProject(
       projectInput,
       validateSimulationResultsData == 'true',
+      validateIdAvailable == 'true',
+      validateSimulationRunNotPublished == 'true',
     );
     return;
   }

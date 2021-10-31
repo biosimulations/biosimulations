@@ -1,13 +1,13 @@
 import { Observable, throwError, timer } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 
 export class RetryStrategy {
   public constructor(
     private maxAttempts = 7,
     private initialDelayMs = 1000,
     private scalingFactor = 2,
-    private includedStatusCodes: number[] = [500],
+    private includedStatusCodes: number[] = [HttpStatusCode.InternalServerError],
     private excludedStatusCodes: number[] = [],
     private shouldErrorBeRetried: (error: HttpErrorResponse) => boolean = (
       error: HttpErrorResponse,

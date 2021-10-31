@@ -30,7 +30,7 @@ export class DefaultFilter implements ExceptionFilter {
       title = exception.message;
       detail = exception.message;
 
-      if (status === 413) {
+      if (status === HttpStatus.PAYLOAD_TOO_LARGE) {
         detail = `The submitted ${FormatService.formatDigitalSize(
           exception.length,
           1024,

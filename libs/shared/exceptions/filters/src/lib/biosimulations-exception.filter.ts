@@ -1,4 +1,4 @@
-import { ExceptionFilter, Catch, ArgumentsHost, Logger } from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, Logger, HttpStatus } from '@nestjs/common';
 import { Request, Response } from 'express';
 import {
   ErrorObject,
@@ -15,7 +15,7 @@ export class BiosimulationsExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    let status = 500;
+    let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let resbody: ErrorObject = {};
 
     status = exception.getStatus();

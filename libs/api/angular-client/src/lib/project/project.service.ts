@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, shareReplay } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { map, Observable, shareReplay, throwError, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
 import {
   Project,
@@ -19,6 +20,38 @@ export class ProjectService {
   private endpoints = new Endpoints();
 
   constructor(private http: HttpClient) {}
+
+  public isProjectValid(
+    projectInput: ProjectInput,
+    validateSimulationResultsData = false,
+    validateIdAvailable = false,
+    validateSimulationRunNotPublished = false,
+  ): Observable<true | string> {
+    return this.http
+      .post<void>(
+        this.endpoints.getValidateProjectEndpoint(),
+        projectInput,
+        {
+          headers: { 'Content-Type': 'application/json' },
+          params: {
+            validateSimulationResultsData,
+            validateIdAvailable,
+            validateSimulationRunNotPublished,
+          },
+        },
+      )
+      .pipe(
+        map((): true => true),
+        catchError((error: HttpErrorResponse): Observable<string> => {
+          if (error.status === HttpStatusCode.BadRequest) {
+            return of(error.error.error[0].detail);
+          } else {
+            return throwError(error);
+          }
+        }),
+        shareReplay(1),        
+      );
+  }
 
   public publishProject(projectInput: ProjectInput): Observable<Project> {
     const url = this.endpoints.getProjectsEndpoint();
@@ -76,7 +109,6 @@ export class ProjectService {
   public getSimulatorIdNameMap(): Observable<SimulatorIdNameMap> {
     const endpoint = this.endpoints.getSimulatorsEndpoint(undefined, 'latest');
     return this.http.get<ISimulator[]>(endpoint).pipe(
-      shareReplay(1),
       map((simulators: ISimulator[]): SimulatorIdNameMap => {
         const idNameMap: SimulatorIdNameMap = {};
         simulators.forEach((simulator: ISimulator): void => {
@@ -84,6 +116,7 @@ export class ProjectService {
         });
         return idNameMap;
       }),
+      shareReplay(1),
     );
   }
 
