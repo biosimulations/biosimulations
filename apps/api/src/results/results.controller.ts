@@ -52,7 +52,9 @@ export class ResultsController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
-    format: '^[a-f\d]{24}$',
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiQuery({
     name: 'includeData',
@@ -94,7 +96,9 @@ export class ResultsController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
-    format: '^[a-f\d]{24}$',
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiOkResponse({
     description: 'The simulation results were successfully downloaded',
@@ -123,7 +127,9 @@ export class ResultsController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
-    format: '^[a-f\d]{24}$',
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiParam({
     name: 'experimentLocationAndOutputId',

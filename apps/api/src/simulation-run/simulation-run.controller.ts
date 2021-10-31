@@ -308,7 +308,9 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
-    format: '^[a-f\d]{24}$',
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiOkResponse({
     description:
@@ -357,7 +359,9 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
-    format: '^[a-f\d]{24}$',
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
@@ -396,7 +400,9 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
-    format: '^[a-f\d]{24}$',
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiNotFoundResponse({
     description: 'No simulation run has the requested id',
@@ -461,7 +467,9 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
-    format: '^[a-f\d]{24}$',
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiNotFoundResponse({
     description:
@@ -507,7 +515,9 @@ export class SimulationRunController {
     description: 'Id of the run',
     required: true,
     type: String,
-    format: '^[a-f\d]{24}$',
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiOkResponse({
     description: 'A summary of the run was successfully retrieved',
@@ -536,7 +546,9 @@ export class SimulationRunController {
     description: 'Id of a simulation run',
     required: true,
     type: String,
-    format: '^[a-f\d]{24}$',
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiQuery({
     name: 'validateSimulationResultsData',
