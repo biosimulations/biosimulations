@@ -8,7 +8,7 @@ import { environment } from '@biosimulations/shared/environments';
  */
 
 export class Endpoints {
-  private api: string;  
+  private api: string;
   private simulatorsApi: string;
   private combineApi: string;
   private storageEndpoint: string;
@@ -23,7 +23,7 @@ export class Endpoints {
   private simulators: string;
   private files: string;
   private env: string;
-  private combineFile: string;  
+  private combineFile: string;
   private specifications: string;
   private projects: string;
   public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
@@ -34,7 +34,7 @@ export class Endpoints {
     this.env = env;
     switch (env) {
       case 'local':
-        this.api = 'http://localhost:3333';        
+        this.api = 'http://localhost:3333';
         this.simulatorsApi = 'https://api.biosimulators.dev';
         this.combineApi = '/combine-api';
         this.storageEndpoint = 'https://files-dev.biosimulations.org/s3';
@@ -484,12 +484,12 @@ export class Endpoints {
 
   public getSimulationRunsView(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
-    return `${this.dispatchApp}/simulations{id}`; 
+    return `${this.dispatchApp}/simulations{id}`;
   }
 
   public getProjectsView(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
-    return `${this.platformApp}/projects{id}`; 
+    return `${this.platformApp}/projects{id}`;
   }
 
   public getSimulatorIdentifier(id: string, identifiersOrg=false): string {
@@ -518,6 +518,6 @@ export class Endpoints {
 
   public getConventionsView(page?: string): string {
     page ? (page = `/${page}`) : (page = '');
-    return `${this.simulatorsApp}/conventions{page}`; 
+    return `${this.simulatorsApp}/conventions{page}`;
   }
 }
