@@ -26,7 +26,7 @@ jobs:
       - id: check-runs
         name: Check example simulation runs succeeded
         run: |
-          orgOutput=$(python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api org)
+          orgOutput=$(python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api org 2>&1)
           echo $orgOutput
           # python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api dev
           echo "::set-output name=output::$orgOutput"
