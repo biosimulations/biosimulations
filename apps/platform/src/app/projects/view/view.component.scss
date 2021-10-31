@@ -28,3 +28,9 @@ biosimulations-tab-page ::ng-deep .icon-list {
     }
   }
 }
+
+@media screen and (max-width: 959px) {
+  .files {
+    margin-top: -1rem;
+  }
+}
