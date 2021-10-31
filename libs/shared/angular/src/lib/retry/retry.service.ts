@@ -7,10 +7,15 @@ export class RetryStrategy {
     private maxAttempts = 7,
     private initialDelayMs = 1000,
     private scalingFactor = 2,
-    private includedStatusCodes: number[] = [
+    private includedStatusCodes: (number | undefined)[] = [
+      undefined,
+      HttpStatusCode.RequestTimeout,
       HttpStatusCode.InternalServerError,
+      HttpStatusCode.BadGateway,
+      HttpStatusCode.GatewayTimeout,
+      HttpStatusCode.ServiceUnavailable,
     ],
-    private excludedStatusCodes: number[] = [],
+    private excludedStatusCodes: (number | undefined)[] = [],
     private shouldErrorBeRetried: (error: HttpErrorResponse) => boolean = (
       error: HttpErrorResponse,
     ) => true,

@@ -5,7 +5,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, timeout } from 'rxjs/operators';
+import { catchError, timeout, shareReplay, retryWhen } from 'rxjs/operators';
 import { environment } from '@biosimulations/shared/environments';
 import {
   CombineArchiveSedDocSpecs,
@@ -17,6 +17,7 @@ import { CombineArchiveElementMetadata } from '../../datamodel/metadata.interfac
 import { ValidationReport } from '../../datamodel/validation-report.interface';
 import { AlgorithmSubstitution } from '../../kisao.interface';
 import { Endpoints } from '@biosimulations/config/common';
+import { RetryStrategy } from '@biosimulations/shared/angular';
 
 @Injectable({
   providedIn: 'root',
@@ -58,6 +59,7 @@ export class CombineService {
           }
           return of<undefined>(undefined);
         }),
+        shareReplay(1),
       );
   }
 
@@ -98,6 +100,7 @@ export class CombineService {
             return of<undefined>(undefined);
           },
         ),
+        shareReplay(1),
       );
   }
 
@@ -123,6 +126,7 @@ export class CombineService {
           }
           return of<undefined>(undefined);
         }),
+        shareReplay(1),
       );
   }
 
@@ -145,6 +149,7 @@ export class CombineService {
           }
           return of<undefined>(undefined);
         }),
+        shareReplay(1),
       );
   }
 
@@ -172,6 +177,7 @@ export class CombineService {
           }
           return of<undefined>(undefined);
         }),
+        shareReplay(1),
       );
   }
 
@@ -218,6 +224,7 @@ export class CombineService {
           }
           return of<undefined>(undefined);
         }),
+        shareReplay(1),
       );
   }
 
@@ -225,6 +232,7 @@ export class CombineService {
     algorithms: string[],
   ): Observable<AlgorithmSubstitution[] | undefined> {
     const params = new HttpParams().appendAll({ algorithms: algorithms });
+    const retryStrategy = new RetryStrategy(6, 5000);
 
     return this.http
       .get<AlgorithmSubstitution[]>(this.similarAlgorithmsEndpoint, {
@@ -232,12 +240,14 @@ export class CombineService {
       })
       .pipe(
         timeout(2500),
+        retryWhen(retryStrategy.handler.bind(retryStrategy)),
         catchError((error: HttpErrorResponse): Observable<undefined> => {
           if (!environment.production) {
             console.error(error);
           }
           return of<undefined>(undefined);
         }),
+        shareReplay(1),
       );
   }
 }
