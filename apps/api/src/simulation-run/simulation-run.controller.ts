@@ -278,7 +278,7 @@ export class SimulationRunController {
   @ApiOperation({
     summary: 'Get a summary of each run',
     description: 'Returns a summary of each run',
-  })  
+  })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -358,7 +358,7 @@ export class SimulationRunController {
     required: true,
     type: String,
     format: '^[a-f\d]{24}$',
-  })  
+  })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -401,7 +401,7 @@ export class SimulationRunController {
   @ApiNotFoundResponse({
     description: 'No simulation run has the requested id',
     type: ErrorResponseDocument,
-  })  
+  })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -432,7 +432,7 @@ export class SimulationRunController {
   @ApiOperation({
     summary: 'Delete all simulation runs',
     description: 'Delete all simulation runs',
-  })  
+  })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',

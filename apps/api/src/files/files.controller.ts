@@ -34,7 +34,7 @@ export class FilesController {
   @ApiOperation({
     summary: '',
     description: '',
-  })  
+  })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
