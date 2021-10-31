@@ -46,7 +46,10 @@ export class ViewService {
       //     : 'N/A',
       submitted: FormatService.formatTime(new Date(simulation.submitted)),
       updated: FormatService.formatTime(new Date(simulation.updated)),
-      simulatorUrl: this.endpoints.getSimulatorsView(simulation.simulator, simulation.simulatorVersion),
+      simulatorUrl: this.endpoints.getSimulatorsView(
+        simulation.simulator,
+        simulation.simulatorVersion,
+      ),
     };
   }
 }

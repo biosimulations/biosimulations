@@ -492,7 +492,7 @@ export class Endpoints {
     return `${this.platformApp}/projects{id}`;
   }
 
-  public getSimulatorIdentifier(id: string, identifiersOrg=false): string {
+  public getSimulatorIdentifier(id: string, identifiersOrg = false): string {
     if (identifiersOrg) {
       return `http://identifiers.org/biosimulators:${id}`;
     } else {
@@ -500,7 +500,7 @@ export class Endpoints {
     }
   }
 
-  public getSimulatorRunIdentifier(id: string, identifiersOrg=false): string {
+  public getSimulatorRunIdentifier(id: string, identifiersOrg = false): string {
     if (identifiersOrg) {
       return `http://identifiers.org/runbiosimulations:${id}`;
     } else {
@@ -508,7 +508,7 @@ export class Endpoints {
     }
   }
 
-  public getProjectIdentifier(id: string, identifiersOrg=false): string {
+  public getProjectIdentifier(id: string, identifiersOrg = false): string {
     if (identifiersOrg) {
       return `http://identifiers.org/biosimulations:${id}`;
     } else {

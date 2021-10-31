@@ -451,7 +451,10 @@ export class ViewService {
             title: 'Simulator',
             value: simulator,
             icon: 'simulator',
-            url: this.endpoints.getSimulatorsView(simulationRun.simulator, simulationRun.simulatorVersion),
+            url: this.endpoints.getSimulatorsView(
+              simulationRun.simulator,
+              simulationRun.simulatorVersion,
+            ),
           });
 
           const run: ListItem[] = [];
@@ -1044,10 +1047,9 @@ export class ViewService {
             name: simulationRun.name,
             url: this.endpoints.getSimulationRunsView(runId),
             identifier: [
-              this.endpoints.getSimulationRunsView(runId).replace(
-                'https://',
-                'http://',
-              ),
+              this.endpoints
+                .getSimulationRunsView(runId)
+                .replace('https://', 'http://'),
               `http://identifiers.org/runbiosimulations/${runId}`,
             ],
             distribution: [
@@ -1215,11 +1217,9 @@ export class ViewService {
             };
             dataSet.url = this.endpoints.getProjectsView(project?.id);
             dataSet.identifier = [...(dataSet.identifier as string[])];
-            (dataSet.identifier as string[])[0] =
-              this.endpoints.getProjectsView(project?.id).replace(
-                'https://',
-                'http://',
-              );
+            (dataSet.identifier as string[])[0] = this.endpoints
+              .getProjectsView(project?.id)
+              .replace('https://', 'http://');
             (
               dataSet.identifier as string[]
             )[1] = `http://identifiers.org/biosimulations/${project?.id}`;

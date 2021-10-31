@@ -25,12 +25,17 @@ export class CombineService {
   private endpoints = new Endpoints();
 
   private sedmlSpecsEndpoint = this.endpoints.getSedmlSpecificationsEndpoint();
-  private archiveMetadataEndpoint = this.endpoints.getCombineArchiveMetadataEndpoint();
+  private archiveMetadataEndpoint =
+    this.endpoints.getCombineArchiveMetadataEndpoint();
   private validateModelEndpoint = this.endpoints.getValidateModelEndpoint();
-  private validateSimulationEndpoint = this.endpoints.getValidateSedmlEndpoint();
-  private validateMetadataEndpoint = this.endpoints.getValidateOmexMetadataEndpoint();
-  private validateProjectEndpoint = this.endpoints.getValidateCombineArchiveEndpoint();
-  private similarAlgorithmsEndpoint = this.endpoints.getSimilarAlgorithmsEndpoint();
+  private validateSimulationEndpoint =
+    this.endpoints.getValidateSedmlEndpoint();
+  private validateMetadataEndpoint =
+    this.endpoints.getValidateOmexMetadataEndpoint();
+  private validateProjectEndpoint =
+    this.endpoints.getValidateCombineArchiveEndpoint();
+  private similarAlgorithmsEndpoint =
+    this.endpoints.getSimilarAlgorithmsEndpoint();
 
   public constructor(private http: HttpClient) {}
 
