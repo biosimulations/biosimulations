@@ -26,10 +26,13 @@ jobs:
       - id: check-runs
         name: Check example simulation runs succeeded
         run: |
+          set +e
           orgOutput=$(python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api org 2>&1)
-          echo $orgOutput
+          status=$?
+          echo "$orgOutput"
           # python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api dev
           echo "::set-output name=output::$orgOutput"
+          exit $status
 
       - id: create-issue 
         uses: JasonEtco/create-an-issue@v2
