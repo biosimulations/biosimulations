@@ -13,12 +13,6 @@ import {
   UnknownSimulation,
   isUnknownSimulation,
 } from '../../../datamodel';
-import { CombineArchiveElementMetadata } from '../../../datamodel/metadata.interface';
-import {
-  ValidationReport,
-  ValidationMessage,
-} from '../../../datamodel/validation-report.interface';
-import { OmexMetadataInputFormat } from '@biosimulations/datamodel/common';
 import { Project, ProjectInput } from '@biosimulations/datamodel/common';
 import {
   FormBuilder,
@@ -34,25 +28,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 
-interface FormattedValidationReport {
-  errors: string | null;
-  warnings: string | null;
-}
-
 @Component({
   templateUrl: './publish.component.html',
   styleUrls: ['./publish.component.scss'],
 })
 export class PublishComponent implements OnInit, OnDestroy {
-  uuid!: string;
+  private uuid!: string;
 
   private simulation!: Simulation;
   valid$!: Observable<true | string>;
 
   formGroup: FormGroup;
   submitPushed = false;
-
-  newIssueUrl!: string;
 
   private subscriptions: Subscription[] = [];
 
@@ -77,8 +64,6 @@ export class PublishComponent implements OnInit, OnDestroy {
       isValid: [false, [Validators.required]],
       grantedLicense: [false, [Validators.required]],
     });
-
-    this.newIssueUrl = config.newIssueUrl;
   }
 
   ngOnDestroy(): void {
@@ -139,16 +124,6 @@ export class PublishComponent implements OnInit, OnDestroy {
       concatAll(),
       shareReplay(1),
     );
-  }
-
-  isMetadataValidationReport(
-    report: FormattedValidationReport | false | undefined | null,
-  ): boolean {
-    return !(report === false || report === undefined || report === null);
-  }
-
-  getArchiveUrl(): string {
-    return this.endpoints.getRunDownloadEndpoint(this.uuid);
   }
 
   publishSimulation(): void {
