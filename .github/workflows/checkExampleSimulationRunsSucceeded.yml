@@ -42,7 +42,7 @@ jobs:
         uses: JasonEtco/create-an-issue@v2
         if: failure()
         env:
-          OUTPUT: ${{ env.OUTPUT }}
+          OUTPUT: ${{ env.orgOutput }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           update_existing: true
