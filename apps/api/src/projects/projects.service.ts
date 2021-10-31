@@ -80,7 +80,7 @@ export class ProjectsService {
     id: string,
     projectInput: ProjectInput,
     user: AuthToken,
-  ): Promise<ProjectModel | null> {    
+  ): Promise<ProjectModel | null> {
     if (projectInput.id !== id) {
       throw new BadRequestException(`The project id must be '${id}'. Project ids cannot be changed. Please contact the BioSimulations Team (info@biosimulations.org) for assistance.`);
     }

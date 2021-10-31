@@ -143,7 +143,7 @@ export class ProjectsController {
     description: 'The simulation run was successfully published',
     type: Project,
   })
-  @OptionalAuth()  
+  @OptionalAuth()
   public async createProject(
     @Body() project: ProjectInput,
     @Req() req: Request,
@@ -195,7 +195,7 @@ export class ProjectsController {
     description:
       'The information about the publication of the simulation run was successfully updated',
     type: Project,
-  })  
+  })
   @ProjectIdParam()
   public async updateProject(
     @ProjectId('projectId') projectId: string,
