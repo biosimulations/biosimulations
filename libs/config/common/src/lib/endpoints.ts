@@ -410,22 +410,36 @@ export class Endpoints {
     experimentLocation
       ? (experimentLocation = `/${experimentLocation}`)
       : (experimentLocation = '');
-    
+
     let elementTypePath!: string;
     switch (elementType) {
-      case 'SedModel': elementTypePath = '/models'; break;
-      case 'SedSimulation': elementTypePath = '/simulations'; break;
-      case 'SedTask': elementTypePath = '/tasks'; break;
-      case 'SedDataGenerator': elementTypePath = '/data-generators'; break;
-      case 'SedOutput': elementTypePath = '/outputs'; break;
-      default: elementTypePath = ''; break;
+      case 'SedModel':
+        elementTypePath = '/models';
+        break;
+      case 'SedSimulation':
+        elementTypePath = '/simulations';
+        break;
+      case 'SedTask':
+        elementTypePath = '/tasks';
+        break;
+      case 'SedDataGenerator':
+        elementTypePath = '/data-generators';
+        break;
+      case 'SedOutput':
+        elementTypePath = '/outputs';
+        break;
+      default:
+        elementTypePath = '';
+        break;
     }
     elementId ? (elementId = `/${elementId}`) : (elementId = '');
     if (experimentLocation && !runId) {
       throw new Error('Cannot get a specific specification without a run id');
     }
     if ((elementType || elementId) && !experimentLocation) {
-      throw new Error('Cannot get a specific element without an experiment location');
+      throw new Error(
+        'Cannot get a specific element without an experiment location',
+      );
     }
     if (elementId && !elementType) {
       throw new Error('Cannot get a specific element without a type');

@@ -171,8 +171,7 @@ export class SpecificationsController {
     },
   })
   @ApiOkResponse({
-    description:
-      'Specifications of the model',
+    description: 'Specifications of the model',
     type: SedModel,
   })
   @ApiNotFoundResponse({
@@ -185,7 +184,12 @@ export class SpecificationsController {
     @Param('experimentLocation') experimentLocation: string,
     @Param('modelId') modelId: string,
   ): Promise<SedModel> {
-    const spec = await this.service.getElementSpecification(runId, experimentLocation, SedElementType.SedModel, modelId);
+    const spec = await this.service.getElementSpecification(
+      runId,
+      experimentLocation,
+      SedElementType.SedModel,
+      modelId,
+    );
     if (!spec) {
       throw new NotFoundException(
         `Specification with id ${modelId} at location ${experimentLocation} for simulation ${runId} not found`,
@@ -227,8 +231,7 @@ export class SpecificationsController {
     },
   })
   @ApiOkResponse({
-    description:
-      'Specifications of the simulation',
+    description: 'Specifications of the simulation',
     schema: SedSimulationSchema,
   })
   @ApiNotFoundResponse({
@@ -241,7 +244,12 @@ export class SpecificationsController {
     @Param('experimentLocation') experimentLocation: string,
     @Param('simulationId') simulationId: string,
   ): Promise<SedSimulation> {
-    const spec = await this.service.getElementSpecification(runId, experimentLocation, SedElementType.SedSimulation, simulationId);
+    const spec = await this.service.getElementSpecification(
+      runId,
+      experimentLocation,
+      SedElementType.SedSimulation,
+      simulationId,
+    );
     if (!spec) {
       throw new NotFoundException(
         `Specification with id ${simulationId} at location ${experimentLocation} for simulation ${runId} not found`,
@@ -283,8 +291,7 @@ export class SpecificationsController {
     },
   })
   @ApiOkResponse({
-    description:
-      'Specifications of the task',
+    description: 'Specifications of the task',
     type: SedTask,
   })
   @ApiNotFoundResponse({
@@ -297,7 +304,12 @@ export class SpecificationsController {
     @Param('experimentLocation') experimentLocation: string,
     @Param('taskId') taskId: string,
   ): Promise<SedTask> {
-    const spec = await this.service.getElementSpecification(runId, experimentLocation, SedElementType.SedTask, taskId);
+    const spec = await this.service.getElementSpecification(
+      runId,
+      experimentLocation,
+      SedElementType.SedTask,
+      taskId,
+    );
     if (!spec) {
       throw new NotFoundException(
         `Specification with id ${taskId} at location ${experimentLocation} for simulation ${runId} not found`,
@@ -339,8 +351,7 @@ export class SpecificationsController {
     },
   })
   @ApiOkResponse({
-    description:
-      'Specifications of the data generator',
+    description: 'Specifications of the data generator',
     type: SedDataGenerator,
   })
   @ApiNotFoundResponse({
@@ -353,7 +364,12 @@ export class SpecificationsController {
     @Param('experimentLocation') experimentLocation: string,
     @Param('dataGeneratorId') dataGeneratorId: string,
   ): Promise<SedDataGenerator> {
-    const spec = await this.service.getElementSpecification(runId, experimentLocation, SedElementType.SedDataGenerator, dataGeneratorId);
+    const spec = await this.service.getElementSpecification(
+      runId,
+      experimentLocation,
+      SedElementType.SedDataGenerator,
+      dataGeneratorId,
+    );
     if (!spec) {
       throw new NotFoundException(
         `Specification with id ${dataGeneratorId} at location ${experimentLocation} for simulation ${runId} not found`,
@@ -395,8 +411,7 @@ export class SpecificationsController {
     },
   })
   @ApiOkResponse({
-    description:
-      'Specifications of the output',
+    description: 'Specifications of the output',
     schema: SedOutputSchema,
   })
   @ApiNotFoundResponse({
@@ -409,7 +424,12 @@ export class SpecificationsController {
     @Param('experimentLocation') experimentLocation: string,
     @Param('outputId') outputId: string,
   ): Promise<SedOutput> {
-    const spec = await this.service.getElementSpecification(runId, experimentLocation, SedElementType.SedOutput, outputId);
+    const spec = await this.service.getElementSpecification(
+      runId,
+      experimentLocation,
+      SedElementType.SedOutput,
+      outputId,
+    );
     if (!spec) {
       throw new NotFoundException(
         `Specification with id ${outputId} at location ${experimentLocation} for simulation ${runId} not found`,

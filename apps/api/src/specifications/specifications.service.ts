@@ -1,6 +1,4 @@
-import {
-  SimulationRunSedDocument,
-} from '@biosimulations/datamodel/api';
+import { SimulationRunSedDocument } from '@biosimulations/datamodel/api';
 import { SedElementType } from '@biosimulations/datamodel/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -46,7 +44,9 @@ export class SpecificationsService {
       }
     }
 
-    const specs = await this.querySpecification(runId, experimentLocation).select(attribute).exec();
+    const specs = await this.querySpecification(runId, experimentLocation)
+      .select(attribute)
+      .exec();
 
     if (specs) {
       for (const element of specs.get(attribute)) {
@@ -55,7 +55,7 @@ export class SpecificationsService {
         }
       }
     }
-    
+
     return null;
   }
 
@@ -73,10 +73,7 @@ export class SpecificationsService {
     experimentLocation = this.normalizeExperimentLocation(experimentLocation);
     return this.model.findOne({
       simulationRun: runId,
-      $or: [
-        { id: experimentLocation },
-        { id: './' + experimentLocation }
-      ],
+      $or: [{ id: experimentLocation }, { id: './' + experimentLocation }],
     });
   }
 
