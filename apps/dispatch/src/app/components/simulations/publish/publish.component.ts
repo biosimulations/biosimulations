@@ -114,7 +114,7 @@ export class PublishComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.uuid = this.route.snapshot.params['uuid'];
 
-    const simulation$ = this.simulationService.getSimulation(this.uuid).pipe(      
+    const simulation$ = this.simulationService.getSimulation(this.uuid).pipe(
       map((simulation: Simulation | UnknownSimulation): Simulation => {
         if (isUnknownSimulation(simulation)) {
           throw new BiosimulationsError(
@@ -135,7 +135,7 @@ export class PublishComponent implements OnInit, OnDestroy {
           simulationRun: this.uuid,
         };
         return this.projectService.isProjectValid(projectInput, false, false, true);
-      }),      
+      }),
       concatAll(),
       shareReplay(1),
     );
