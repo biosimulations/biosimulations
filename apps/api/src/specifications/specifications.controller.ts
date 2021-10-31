@@ -17,7 +17,17 @@ import {
   ApiNotFoundResponse,
   ApiPayloadTooLargeResponse,
 } from '@nestjs/swagger';
-import { SimulationRunSedDocument } from '@biosimulations/datamodel/api';
+import { 
+  SimulationRunSedDocument,
+  SedModel,
+  SedSimulation,
+  SedSimulationSchema,
+  SedTask,
+  SedDataGenerator,
+  SedOutput,
+  SedOutputSchema,
+} from '@biosimulations/datamodel/api';
+import { SedElementType } from '@biosimulations/datamodel/common';
 import { SpecificationsService } from './specifications.service';
 import { SpecificationsModel } from './specifications.model';
 import { permissions } from '@biosimulations/auth/nest';
@@ -107,13 +117,13 @@ export class SpecificationsController {
   })
   @ApiOkResponse({
     description:
-      'Specifications of the simulation experiment (SED-ML file in COMBINE/OMEX archive) of the simulation run',
+      'Specifications of the simulation experiment (SED-ML file) of the simulation run (of a COMBINE/OMEX archive)',
     type: SimulationRunSedDocument,
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
     description:
-      'No SED-ML document has the requested simulation run id and location',
+      'No simulation experiment has the requested simulation run id and location',
   })
   public async getSpecification(
     @Param('runId') runId: string,
@@ -126,6 +136,286 @@ export class SpecificationsController {
       );
     }
     return this.returnSpec(spec);
+  }
+
+  @Get(':runId/:experimentLocation/models/:modelId')
+  @ApiOperation({
+    summary: 'Get a model of a simulation run',
+    description:
+      'Get the specification of a model (SED-ML model) of a simulation experiment (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
+  @ApiParam({
+    name: 'experimentLocation',
+    description:
+      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'modelId',
+    description:
+      'Id of the model in the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-zA-Z_][a-zA-Z_0-9]*$',
+    },
+  })
+  @ApiOkResponse({
+    description:
+      'Specifications of the model',
+    type: SedModel,
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description:
+      'No model has the requested simulation run id, experiment location, and model id',
+  })
+  public async getModelSpecification(
+    @Param('runId') runId: string,
+    @Param('experimentLocation') experimentLocation: string,
+    @Param('modelId') modelId: string,
+  ): Promise<SedModel> {
+    const spec = await this.service.getElementSpecification(runId, experimentLocation, SedElementType.SedModel, modelId);
+    if (!spec) {
+      throw new NotFoundException(
+        `Specification with id ${modelId} at location ${experimentLocation} for simulation ${runId} not found`,
+      );
+    }
+    return spec;
+  }
+
+  @Get(':runId/:experimentLocation/simulations/:simulationId')
+  @ApiOperation({
+    summary: 'Get a simulation of a simulation run',
+    description:
+      'Get the specification of a simulation (SED-ML simulation) of a simulation experiment (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
+  @ApiParam({
+    name: 'experimentLocation',
+    description:
+      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'simulationId',
+    description:
+      'Id of the simulation in the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-zA-Z_][a-zA-Z_0-9]*$',
+    },
+  })
+  @ApiOkResponse({
+    description:
+      'Specifications of the simulation',
+    schema: SedSimulationSchema,
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description:
+      'No simulation has the requested simulation run id, experiment location, and simulation id',
+  })
+  public async getSimulationSpecification(
+    @Param('runId') runId: string,
+    @Param('experimentLocation') experimentLocation: string,
+    @Param('simulationId') simulationId: string,
+  ): Promise<SedSimulation> {
+    const spec = await this.service.getElementSpecification(runId, experimentLocation, SedElementType.SedSimulation, simulationId);
+    if (!spec) {
+      throw new NotFoundException(
+        `Specification with id ${simulationId} at location ${experimentLocation} for simulation ${runId} not found`,
+      );
+    }
+    return spec;
+  }
+
+  @Get(':runId/:experimentLocation/tasks/:taskId')
+  @ApiOperation({
+    summary: 'Get a task of a simulation run',
+    description:
+      'Get the specification of a task (SED-ML task) of a simulation experiment (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
+  @ApiParam({
+    name: 'experimentLocation',
+    description:
+      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'taskId',
+    description:
+      'Id of the task in the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-zA-Z_][a-zA-Z_0-9]*$',
+    },
+  })
+  @ApiOkResponse({
+    description:
+      'Specifications of the task',
+    type: SedTask,
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description:
+      'No task has the requested simulation run id, experiment location, and task id',
+  })
+  public async getTaskSpecification(
+    @Param('runId') runId: string,
+    @Param('experimentLocation') experimentLocation: string,
+    @Param('taskId') taskId: string,
+  ): Promise<SedTask> {
+    const spec = await this.service.getElementSpecification(runId, experimentLocation, SedElementType.SedTask, taskId);
+    if (!spec) {
+      throw new NotFoundException(
+        `Specification with id ${taskId} at location ${experimentLocation} for simulation ${runId} not found`,
+      );
+    }
+    return spec;
+  }
+
+  @Get(':runId/:experimentLocation/data-generators/:dataGeneratorId')
+  @ApiOperation({
+    summary: 'Get a data generator of a simulation run',
+    description:
+      'Get the specification of a data generator (SED-ML data generator) of a simulation experiment (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
+  @ApiParam({
+    name: 'experimentLocation',
+    description:
+      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'dataGeneratorId',
+    description:
+      'Id of the data generator in the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-zA-Z_][a-zA-Z_0-9]*$',
+    },
+  })
+  @ApiOkResponse({
+    description:
+      'Specifications of the data generator',
+    type: SedDataGenerator,
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description:
+      'No data generator has the requested simulation run id, experiment location, and output id',
+  })
+  public async getDataGeneratorSpecification(
+    @Param('runId') runId: string,
+    @Param('experimentLocation') experimentLocation: string,
+    @Param('dataGeneratorId') dataGeneratorId: string,
+  ): Promise<SedDataGenerator> {
+    const spec = await this.service.getElementSpecification(runId, experimentLocation, SedElementType.SedDataGenerator, dataGeneratorId);
+    if (!spec) {
+      throw new NotFoundException(
+        `Specification with id ${dataGeneratorId} at location ${experimentLocation} for simulation ${runId} not found`,
+      );
+    }
+    return spec;
+  }
+
+  @Get(':runId/:experimentLocation/outputs/:outputId')
+  @ApiOperation({
+    summary: 'Get an output of a simulation run',
+    description:
+      'Get the specification of an output (SED-ML report or plot) of a simulation experiment (SED-ML file) of a simulation run (of a COMBINE/OMEX archive)',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
+  @ApiParam({
+    name: 'experimentLocation',
+    description:
+      'Location of the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiParam({
+    name: 'outputId',
+    description:
+      'Id of the output in the simulation experiment (SED-ML file in the COMBINE/OMEX archive) of a simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-zA-Z_][a-zA-Z_0-9]*$',
+    },
+  })
+  @ApiOkResponse({
+    description:
+      'Specifications of the output',
+    schema: SedOutputSchema,
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description:
+      'No output has the requested simulation run id, experiment location, and output id',
+  })
+  public async getOutputSpecification(
+    @Param('runId') runId: string,
+    @Param('experimentLocation') experimentLocation: string,
+    @Param('outputId') outputId: string,
+  ): Promise<SedOutput> {
+    const spec = await this.service.getElementSpecification(runId, experimentLocation, SedElementType.SedOutput, outputId);
+    if (!spec) {
+      throw new NotFoundException(
+        `Specification with id ${outputId} at location ${experimentLocation} for simulation ${runId} not found`,
+      );
+    }
+    return spec;
   }
 
   @Post()

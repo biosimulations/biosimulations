@@ -249,3 +249,11 @@ export interface SedDocumentReportsCombineArchiveContent {
   format: string;
   master: boolean;
 }
+
+export enum SedElementType {
+  SedModel = 'SedModel',
+  SedSimulation = 'SedSimulation',
+  SedTask = 'SedTask',
+  SedDataGenerator = 'SedDataGenerator',
+  SedOutput = 'SedOutput',
+}

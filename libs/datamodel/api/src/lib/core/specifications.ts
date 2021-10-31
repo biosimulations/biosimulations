@@ -4,6 +4,7 @@ import {
   getSchemaPath,
   ApiExtraModels,
 } from '@nestjs/swagger';
+import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
   SedModel as ISedModel,
@@ -196,6 +197,14 @@ export type SedSimulation =
   | SedSteadyStateSimulation
   | SedOneStepSimulation;
 
+export const SedSimulationSchema: SchemaObject = {
+  oneOf: [
+    { $ref: getSchemaPath(SedUniformTimeCourseSimulation) },
+    { $ref: getSchemaPath(SedSteadyStateSimulation) },
+    { $ref: getSchemaPath(SedOneStepSimulation) },
+  ],
+};
+
 @ApiExtraModels(SedUniformTimeCourseSimulation)
 @ApiExtraModels(SedSteadyStateSimulation)
 @ApiExtraModels(SedOneStepSimulation)
@@ -384,6 +393,14 @@ export class SedPlot3D implements ISedPlot3D {
 }
 
 export type SedOutput = SedReport | SedPlot2D | SedPlot3D;
+
+export const SedOutputSchema: SchemaObject = {
+  oneOf: [
+    { $ref: getSchemaPath(SedReport) },
+    { $ref: getSchemaPath(SedPlot2D) },
+    { $ref: getSchemaPath(SedPlot3D) },
+  ],
+};
 
 @ApiExtraModels(SedUniformTimeCourseSimulation)
 @ApiExtraModels(SedSteadyStateSimulation)
