@@ -58,7 +58,6 @@ import { firstValueFrom, Observable, of, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DeleteResult } from 'mongodb';
 import { Endpoints } from '@biosimulations/config/common';
-import { urls } from '@biosimulations/config/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FilesService } from '../files/files.service';
 import { SpecificationsService } from '../specifications/specifications.service';
@@ -627,7 +626,7 @@ export class SimulationRunService {
           name: simulator.name,
           version: rawRun.simulatorVersion,
           digest: rawRun.simulatorDigest,
-          url: `${urls.simulators}/simulators/${rawRun.simulator}`,
+          url: this.endpoints.getSimulatorsView(rawRun.simulator),
         },
         cpus: rawRun.cpus,
         memory: rawRun.memory,

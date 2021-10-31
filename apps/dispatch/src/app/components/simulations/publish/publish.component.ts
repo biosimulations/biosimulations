@@ -165,7 +165,7 @@ export class PublishComponent implements OnInit, OnDestroy {
       )
       .subscribe((project: Project | undefined): void => {
         if (project) {
-          const url = `${urls.platform}/projects/${project.id}`;
+          const url = this.endpoints.getProjectsView(project.id);
           const tabWindowId = window.open('about:blank', '_blank');
           if (tabWindowId) {
             tabWindowId.location.href = url;
