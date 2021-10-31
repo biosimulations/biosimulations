@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpStatusCode } from '@angular/http/common';
+import { HttpStatusCode } from '@angular/common/http';
 import { SimulatorService, Version } from '../simulator.service';
 import {
   ViewSimulator,
