@@ -58,7 +58,9 @@ export class FilesController {
     description: 'Id of the simulation run',
     required: true,
     type: String,
-    format: '^[a-f\d]{24}$',
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiOkResponse({
     description: 'Metadata about the files was successfully retrieved',
@@ -82,7 +84,9 @@ export class FilesController {
     description: 'Id of the simulation run',
     required: true,
     type: String,
-    format: '^[a-f\d]{24}$',
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiParam({
     name: 'fileLocation',

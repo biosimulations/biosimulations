@@ -246,7 +246,7 @@ export class ProjectsController {
     return res;
   }
 
-  private returnProject(projectModel: Project): Project {
+  private returnProject(projectModel: ProjectModel): Project {
     const project: Project = {
       id: projectModel.id,
       simulationRun: projectModel.simulationRun,
