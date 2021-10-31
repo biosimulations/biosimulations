@@ -164,7 +164,9 @@ export class ProjectsService {
       .findOne({ id })
       .collation(ProjectIdCollation);
     if (!project) {
-      throw new NotFoundException(`Project with id '${id}' could not be found.`);
+      throw new NotFoundException(
+        `Project with id '${id}' could not be found.`,
+      );
     }
 
     const res: DeleteResult = await this.model
@@ -216,7 +218,9 @@ export class ProjectsService {
       .findOne({ id })
       .collation(ProjectIdCollation);
     if (!project) {
-      throw new NotFoundException(`Project with id '${id}' could not be found.`);
+      throw new NotFoundException(
+        `Project with id '${id}' could not be found.`,
+      );
     }
 
     return {
@@ -249,7 +253,9 @@ export class ProjectsService {
         .collation(ProjectIdCollation)
         .count();
       if (numProjects >= 1) {
-        errors.push(`The id '${projectInput.id}' is already taken by another project. Each project must have a unique id. Please choose another id.`);
+        errors.push(
+          `The id '${projectInput.id}' is already taken by another project. Each project must have a unique id. Please choose another id.`,
+        );
       }
     }
 
@@ -259,7 +265,9 @@ export class ProjectsService {
         .select('id')
         .collation(ProjectIdCollation);
       if (project) {
-        errors.push(`Simulation run '${projectInput.simulationRun}' has already been published as project '${project.id}'. Each run can only be published once.`);
+        errors.push(
+          `Simulation run '${projectInput.simulationRun}' has already been published as project '${project.id}'. Each run can only be published once.`,
+        );
       }
     }
 
@@ -284,7 +292,7 @@ export class ProjectsService {
         HttpStatus.BAD_REQUEST,
         'Project is invalid',
         errors.join('\n\n'),
-       );
+      );
     }
   }
 }

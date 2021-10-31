@@ -229,7 +229,9 @@ export class SimulationRunService {
     const model = await this.getModel(id);
 
     if (!model) {
-      throw new NotFoundException(`Simulation run with id '${id}' was not found.`);
+      throw new NotFoundException(
+        `Simulation run with id '${id}' was not found.`,
+      );
     }
 
     this.updateModelResultSize(model, run.resultsSize);
@@ -514,7 +516,9 @@ export class SimulationRunService {
   ): SimulationRunModel {
     if (resultsSize) {
       model.resultsSize = resultsSize;
-      this.logger.debug(`Set '${model.id}' resultsSize to ${model.resultsSize}.`);
+      this.logger.debug(
+        `Set '${model.id}' resultsSize to ${model.resultsSize}.`,
+      );
     }
     return model;
   }

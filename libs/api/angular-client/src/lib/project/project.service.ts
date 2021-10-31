@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, shareReplay, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpStatusCode,
+} from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
 import {
   Project,
@@ -28,18 +32,14 @@ export class ProjectService {
     validateSimulationRunNotPublished = false,
   ): Observable<true | string> {
     return this.http
-      .post<void>(
-        this.endpoints.getValidateProjectEndpoint(),
-        projectInput,
-        {
-          headers: { 'Content-Type': 'application/json' },
-          params: {
-            validateSimulationResultsData,
-            validateIdAvailable,
-            validateSimulationRunNotPublished,
-          },
+      .post<void>(this.endpoints.getValidateProjectEndpoint(), projectInput, {
+        headers: { 'Content-Type': 'application/json' },
+        params: {
+          validateSimulationResultsData,
+          validateIdAvailable,
+          validateSimulationRunNotPublished,
         },
-      )
+      })
       .pipe(
         map((): true => true),
         catchError((error: HttpErrorResponse): Observable<string> => {

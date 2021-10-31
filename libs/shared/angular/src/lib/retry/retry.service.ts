@@ -7,7 +7,9 @@ export class RetryStrategy {
     private maxAttempts = 7,
     private initialDelayMs = 1000,
     private scalingFactor = 2,
-    private includedStatusCodes: number[] = [HttpStatusCode.InternalServerError],
+    private includedStatusCodes: number[] = [
+      HttpStatusCode.InternalServerError,
+    ],
     private excludedStatusCodes: number[] = [],
     private shouldErrorBeRetried: (error: HttpErrorResponse) => boolean = (
       error: HttpErrorResponse,

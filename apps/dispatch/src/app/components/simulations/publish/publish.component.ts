@@ -119,7 +119,12 @@ export class PublishComponent implements OnInit, OnDestroy {
           id: 'test',
           simulationRun: this.uuid,
         };
-        return this.projectService.isProjectValid(projectInput, false, false, true);
+        return this.projectService.isProjectValid(
+          projectInput,
+          false,
+          false,
+          true,
+        );
       }),
       concatAll(),
       shareReplay(1),

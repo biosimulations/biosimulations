@@ -125,10 +125,19 @@
   </form>
 
   <ng-template #invalidLoading>
-    <ng-container *ngIf="(valid$ | async) as valid; else loading">
+    <ng-container *ngIf="valid$ | async as valid; else loading">
       <p>The simulation run is not valid for publication.</p>
 
-      <p>Information about the requirements for projects (COMBINE archives), simulation experiments (SED-ML), and metadata (OMEX Metadata) is available at <a href="https://biosimulators.org/conventions/metadata" target="_blank">https://biosimulators.org/conventions</a>. Tools for validating projects, simulation experiments, and metadata are also available from the above menu. These tools provide additional diagnostic information beyond the error summary below.</p>
+      <p>
+        Information about the requirements for projects (COMBINE archives),
+        simulation experiments (SED-ML), and metadata (OMEX Metadata) is
+        available at
+        <a href="https://biosimulators.org/conventions/metadata" target="_blank"
+          >https://biosimulators.org/conventions</a
+        >. Tools for validating projects, simulation experiments, and metadata
+        are also available from the above menu. These tools provide additional
+        diagnostic information beyond the error summary below.
+      </p>
 
       <p class="error">{{ valid }}</p>
     </ng-container>
