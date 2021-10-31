@@ -258,7 +258,7 @@ export class ProjectsService {
         .findOne({ simulationRun: projectInput.simulationRun })
         .select('id')
         .collation(ProjectIdCollation);
-      if (!!project) {
+      if (project) {
         errors.push(`Simulation run '${projectInput.simulationRun}' has already been published as project '${project.id}'. Each run can only be published once.`);
       }
     }
