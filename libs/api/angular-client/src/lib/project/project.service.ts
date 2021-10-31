@@ -49,7 +49,7 @@ export class ProjectService {
             return throwError(error);
           }
         }),
-        shareReplay(1),        
+        shareReplay(1),
       );
   }
 
