@@ -31,14 +31,18 @@ jobs:
           status=$?
           echo "$orgOutput"
           # python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api dev
-          echo "::set-output name=output::$orgOutput"
+
+          echo "orgOutput<<EOF" >> $GITHUB_ENV
+          echo "$orgOutput" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
           exit $status
 
       - id: create-issue 
         uses: JasonEtco/create-an-issue@v2
         if: failure()
         env:
-          OUTPUT: ${{ steps.check-runs.outputs.output }}
+          OUTPUT: ${{ env.OUTPUT }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           update_existing: true
