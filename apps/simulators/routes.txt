@@ -127,6 +127,7 @@
 /simulators/tellurium/2.2.1
 /simulators/vcell
 /simulators/vcell/7.4.0.23
+/simulators/vcell/7.4.0.24
 /simulators/winbestkit
 /simulators/winbestkit/2.0.9
 /simulators/xpp
