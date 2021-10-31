@@ -1,11 +1,22 @@
-import { ApiProperty, ApiResponseProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
+import {
+  ApiProperty,
+  ApiResponseProperty,
+  ApiPropertyOptional,
+  OmitType,
+} from '@nestjs/swagger';
 import {
   Project as IProject,
   ProjectInput as IProjectInput,
   ProjectSummary as IProjectSummary,
 } from '@biosimulations/datamodel/common';
 import { SimulationRunSummary } from './simulationRun';
-import { IsNotEmpty, IsString, Matches, IsMongoId, IsOptional } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  Matches,
+  IsMongoId,
+  IsOptional,
+} from 'class-validator';
 
 export class Project implements IProject {
   @ApiProperty({
@@ -60,11 +71,12 @@ export class Project implements IProject {
 
 export class ProjectInput
   extends OmitType(Project, ['created', 'updated'])
-  implements IProjectInput {
- 
+  implements IProjectInput
+{
   @ApiPropertyOptional({
     type: String,
-    description: 'Owner of the project. Administrators can use this attribute to submit projects on the behalf of other accounts',
+    description:
+      'Owner of the project. Administrators can use this attribute to submit projects on the behalf of other accounts',
   })
   @IsOptional()
   @IsNotEmpty()

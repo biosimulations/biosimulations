@@ -183,7 +183,8 @@ export class ProjectsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'The account does not have permission to modify the requested project',
+    description:
+      'The account does not have permission to modify the requested project',
   })
   @permissions()
   @ApiConflictResponse({

@@ -253,7 +253,7 @@ export class SimulatorsController {
 
     return res;
   }
-  
+
   @Post()
   @ApiOperation({
     summary: 'Add a version of a simulation tool to the database',
@@ -326,7 +326,7 @@ export class SimulatorsController {
     await this.service.validate(doc);
     return;
   }
-  
+
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiParam({
@@ -386,7 +386,7 @@ export class SimulatorsController {
   ) {
     return this.service.replace(id, version, doc).then((res) => res);
   }
-  
+
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiParam({
@@ -430,7 +430,7 @@ export class SimulatorsController {
   ) {
     return this.service.deleteOne(id, version);
   }
-  
+
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiParam({

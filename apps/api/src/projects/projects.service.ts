@@ -82,7 +82,9 @@ export class ProjectsService {
     user: AuthToken,
   ): Promise<ProjectModel | null> {
     if (projectInput.id !== id) {
-      throw new BadRequestException(`The project id must be '${id}'. Project ids cannot be changed. Please contact the BioSimulations Team (info@biosimulations.org) for assistance.`);
+      throw new BadRequestException(
+        `The project id must be '${id}'. Project ids cannot be changed. Please contact the BioSimulations Team (info@biosimulations.org) for assistance.`,
+      );
     }
 
     const project = await this.model
@@ -94,12 +96,11 @@ export class ProjectsService {
     }
 
     const owner = this.getOwner(projectInput, user);
-    
-    if (
-      !isAdmin(user)
-      && (project?.owner !== owner || !project?.owner)
-    ) {
-      throw new ForbiddenException(`This account does not have permissions to update project '${id}'. Projects can only be updated by the accounts which created them. Anonymously created projects can only be updated by the BioSimulations Team. Please contact the BioSimulations Team (info@biosimulations.org) for assistance.`);
+
+    if (!isAdmin(user) && (project?.owner !== owner || !project?.owner)) {
+      throw new ForbiddenException(
+        `This account does not have permissions to update project '${id}'. Projects can only be updated by the accounts which created them. Anonymously created projects can only be updated by the BioSimulations Team. Please contact the BioSimulations Team (info@biosimulations.org) for assistance.`,
+      );
     }
 
     if (projectInput.simulationRun !== project.simulationRun) {
@@ -110,12 +111,17 @@ export class ProjectsService {
     return project.save();
   }
 
-  private getOwner(projectInput: ProjectInput, user: AuthToken): string | undefined {
+  private getOwner(
+    projectInput: ProjectInput,
+    user: AuthToken,
+  ): string | undefined {
     if (projectInput?.owner) {
       if (user?.permissions?.includes('proxyOwnership:Projects')) {
         return projectInput.owner;
       } else {
-        throw new ForbiddenException('Only administrators can submit projects on behalf of other accounts.')
+        throw new ForbiddenException(
+          'Only administrators can submit projects on behalf of other accounts.',
+        );
       }
     }
 
