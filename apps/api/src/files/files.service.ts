@@ -12,13 +12,13 @@ export class FilesService {
   ) {}
 
   public async getSimulationRunFiles(runId: string): Promise<FileModel[]> {
-    return await this.model.find({ simulationRun: runId }).exec();
+    return this.model.find({ simulationRun: runId }).exec();
   }
 
   public async getFile(runId: string, fileLocation: string): Promise<FileModel | null> {
-    return await this.model.findOne({ 
+    return this.model.findOne({
       $or: [
-        { id: this.getFileId(runId, fileLocation, true) }, 
+        { id: this.getFileId(runId, fileLocation, true) },
         { id: this.getFileId(runId, fileLocation, false) },
       ],
     });
@@ -65,7 +65,7 @@ export class FilesService {
     const file = await this.model
       .findOne({
         $or: [
-          { id: this.getFileId(runId, fileLocation, true) }, 
+          { id: this.getFileId(runId, fileLocation, true) },
           { id: this.getFileId(runId, fileLocation, false) },
         ],
       })
