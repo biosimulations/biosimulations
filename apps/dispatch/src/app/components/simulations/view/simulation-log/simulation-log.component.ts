@@ -38,17 +38,11 @@ type StatusCountsMap = Map<SimulationRunLogStatus, StatusCount>;
 export class SimulationLogComponent {
   constructor(private scrollService: ScrollService) {}
 
-  logStatus!: SimulationRunLogStatus;
-  _status!: SimulationRunStatus;
   @Input()
-  set status(input: SimulationRunStatus) {
-    this._status = input;
+  status!: SimulationRunStatus;
 
-    this.logStatus = statusConverter(input);
-  }
-  get status(): SimulationRunStatus {
-    return this._status;
-  }
+  @Input()
+  statusReason?: string;
   @Input()
   rawLog!: RawSimulationLog;
 
@@ -320,6 +314,34 @@ export class SimulationLogComponent {
 
   idComparator(a: any, b: any): number {
     return a.id.localeCompare(b.id, undefined, { numeric: true });
+  }
+
+  getRunStatus(): SimulationRunLogStatus {
+    if (this.status === SimulationRunStatus.PROCESSING) {
+      return SimulationRunLogStatus.SUCCEEDED;
+    } else if (this.status === SimulationRunStatus.FAILED) {
+      if (this.statusReason && this.statusReason.search('not successfully proccessed') !== -1) {
+        return SimulationRunLogStatus.SUCCEEDED;
+      } else {
+        return SimulationRunLogStatus.FAILED;
+      }
+    } else {
+      return statusConverter(this.status);  
+    }
+  }
+
+  getPostProcessingStatus(): SimulationRunLogStatus {
+    if (this.status === SimulationRunStatus.FAILED) {
+      if (this.statusReason && this.statusReason.search('not successfully proccessed') !== -1) {
+        return SimulationRunLogStatus.FAILED;
+      } else {
+        return SimulationRunLogStatus.SKIPPED;
+      }
+    } else if (this.status === SimulationRunStatus.SUCCEEDED) {
+      return SimulationRunLogStatus.SUCCEEDED;
+    } else {
+      return SimulationRunLogStatus.QUEUED;
+    }
   }
 
   tocSections!: Observable<TocSection[]>;

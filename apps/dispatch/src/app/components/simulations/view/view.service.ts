@@ -34,6 +34,7 @@ export class ViewService {
       envVars: simulation.envVars || [],
       purpose: simulation.purpose || Purpose.other,
       status: simulation.status,
+      statusReason: simulation?.statusReason,
       statusRunning: statusRunning,
       statusSucceeded: statusSucceeded,
       statusLabel: SimulationStatusService.getSimulationStatusMessage(

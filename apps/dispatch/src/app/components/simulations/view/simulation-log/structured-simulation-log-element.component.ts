@@ -74,9 +74,11 @@ export class StructuredSimulationLogElementComponent {
     this.heading = this.getHeading();
 
     switch (value.status) {
-      case SimulationRunLogStatus.QUEUED:
-        this.noOutputMessage = `Output will be available once the ${this.elementType.toLowerCase()} completes.`;
+      case SimulationRunLogStatus.QUEUED: {
+        const elementType = this.elementType.substring(0, 1).toLowerCase() + this.elementType.substring(1);
+        this.noOutputMessage = `Output will be available once the ${elementType} completes.`;
         break;
+      }
       case SimulationRunLogStatus.RUNNING:
         this.noOutputMessage = 'Output is not yet available.';
         break;

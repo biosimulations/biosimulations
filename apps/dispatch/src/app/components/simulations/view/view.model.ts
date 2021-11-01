@@ -17,6 +17,7 @@ export interface FormattedSimulation {
   envVars: EnvironmentVariable[];
   purpose: Purpose;
   status: SimulationRunStatus;
+  statusReason?: string;
   statusRunning: boolean;
   statusSucceeded: boolean;
   statusLabel: string;

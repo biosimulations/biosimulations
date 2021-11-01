@@ -43,7 +43,6 @@ import {
   CreateSimulationRunLogBody,
 } from '@biosimulations/ontology/datamodel';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-// import { permissions } from '@biosimulations/auth/nest';
 import { LogsService } from './logs.service';
 import { permissions } from '@biosimulations/auth/nest';
 import { LeanDocument } from 'mongoose';
