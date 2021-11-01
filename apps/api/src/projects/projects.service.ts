@@ -149,7 +149,7 @@ export class ProjectsService {
     const count = await this.model.count();
     if (count !== 0) {
       throw new InternalServerErrorException(
-        'Some projects could not be deleted',
+        'Some projects could not be deleted.',
       );
     }
     return;
@@ -174,7 +174,7 @@ export class ProjectsService {
       .collation(ProjectIdCollation);
     if (res.deletedCount !== 1) {
       throw new InternalServerErrorException(
-        'The project could not be deleted',
+        'The project could not be deleted.',
       );
     }
     return;

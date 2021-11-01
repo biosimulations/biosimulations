@@ -760,6 +760,11 @@ SpecificationsModelSchema.set('timestamps', {
   updatedAt: 'updated',
 });
 
+SedSimulationSchema.discriminators = {};
+SedSimulationSchema.discriminators[SedOneStepSimulation.name] = SedOneStepSimulationSchema;
+SedSimulationSchema.discriminators[SedSteadyStateSimulation.name] = SedSteadyStateSimulationSchema;
+SedSimulationSchema.discriminators[SedUniformTimeCourseSimulation.name] = SedUniformTimeCourseSimulationSchema;
+
 const sedSimulationsArraySchema = SpecificationsModelSchema.path(
   'simulations',
 ) as MongooseSchema.Types.DocumentArray;
@@ -776,6 +781,9 @@ sedSimulationsArraySchema.discriminator(
   SedUniformTimeCourseSimulationSchema,
 );
 
+SedModelChangeSchema.discriminators = {};
+SedModelChangeSchema.discriminators[SedModelAttributeChange.name] = SedModelAttributeChangeSchema;
+
 const sedModelChangeArraySchema = SedModelSchema.path(
   'changes',
 ) as MongooseSchema.Types.DocumentArray;
@@ -784,11 +792,20 @@ sedModelChangeArraySchema.discriminator(
   SedModelAttributeChangeSchema,
 );
 
+SedAbstractTaskSchema.discriminators = {};
+SedAbstractTaskSchema.discriminators[SedTask.name] = SedTaskSchema;
+SedAbstractTaskSchema.discriminators[SedRepeatedTask.name] = SedRepeatedTaskSchema;
+
 const sedTasksArraySchema = SpecificationsModelSchema.path(
   'tasks',
 ) as MongooseSchema.Types.DocumentArray;
 sedTasksArraySchema.discriminator(SedTask.name, SedTaskSchema);
 sedTasksArraySchema.discriminator(SedRepeatedTask.name, SedRepeatedTaskSchema);
+
+SedOutputSchema.discriminators = {};
+SedOutputSchema.discriminators[SedReport.name] = SedReportSchema;
+SedOutputSchema.discriminators[SedPlot2D.name] = SedPlot2DSchema;
+SedOutputSchema.discriminators[SedPlot3D.name] = SedPlot3DSchema;
 
 const sedOutputsArraySchema = SpecificationsModelSchema.path(
   'outputs',

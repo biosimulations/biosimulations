@@ -33,10 +33,10 @@ export class SimulationHDFService {
   ) {}
 
   public async getDatasetValues(
-    simId: string,
+    runId: string,
     datasetId: string,
   ): Promise<InlineResponse20010 | undefined> {
-    const domain = this.getDomainName(simId);
+    const domain = this.getDomainName(runId);
     const dataResponse = await this.datasetService
       .datasetsIdValueGet(
         datasetId,
@@ -50,10 +50,11 @@ export class SimulationHDFService {
     const data: InlineResponse20010 | undefined = dataResponse?.data;
     return data;
   }
+
   public async getResultsTimestamps(
-    simId: string,
+    runId: string,
   ): Promise<{ created?: Date; updated?: Date }> {
-    const domain = simId + '.results';
+    const domain = runId + '.results';
     const root_id = await this.getRootGroupId(domain);
     if (root_id) {
       const metadata = await this.getGroup(domain, root_id);
@@ -68,15 +69,16 @@ export class SimulationHDFService {
   }
 
   public async getDatasetbyId(
-    simId: string,
+    runId: string,
     reportId: string,
   ): Promise<Dataset | undefined> {
-    const datasets = await this.getDatasets(simId);
+    const datasets = await this.getDatasets(runId);
     const filtered = datasets.filter((value) => value.uri == reportId);
     return filtered[0];
   }
-  public async getDatasets(simId: string): Promise<Dataset[]> {
-    const domain = this.getDomainName(simId);
+
+  public async getDatasets(runId: string): Promise<Dataset[]> {
+    const domain = this.getDomainName(runId);
 
     const response = await this.domainService.datasetsGet(domain).toPromise();
 
@@ -144,8 +146,9 @@ export class SimulationHDFService {
       return undefined;
     }
   }
-  private getDomainName(simId: string): string {
-    return simId + '.results';
+
+  private getDomainName(runId: string): string {
+    return runId + '.results';
   }
 
   private async getGroup(
@@ -213,6 +216,7 @@ export class SimulationHDFService {
       return '';
     }
   }
+
   private async getRootGroupId(domain: string): Promise<string | undefined> {
     const domainResponse = await this.domainService.rootGet(domain).toPromise();
 
@@ -220,5 +224,21 @@ export class SimulationHDFService {
 
     const rootGroup = domainInfo?.root;
     return rootGroup;
+  }
+
+  public async deleteDatasets(runId: string): Promise<void> {
+    const domain = this.getDomainName(runId);
+
+    const response = await this.domainService.datasetsGet(domain).toPromise();
+
+    const datasetIds = response?.data.datasets || [];
+
+    await Promise.all(
+      datasetIds.map((id) => {
+        return this.datasetService
+          .datasetsIdDelete(id, domain, AUTH)
+          .toPromise();
+      }),
+    );
   }
 }

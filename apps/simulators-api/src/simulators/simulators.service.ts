@@ -114,7 +114,7 @@ export class SimulatorsService {
 
     if (res.deletedCount !== 1) {
       throw new InternalServerErrorException(
-        'The version of the simulation tool could not be deleted',
+        'The version of the simulation tool could not be deleted.',
       );
     }
 
@@ -132,7 +132,7 @@ export class SimulatorsService {
     numVersions = await this.simulator.count({ id }).exec();
     if (numVersions !== 0) {
       throw new InternalServerErrorException(
-        'Some versions of the simulation tool could not be deleted',
+        'Some versions of the simulation tool could not be deleted.',
       );
     }
   }
@@ -142,7 +142,7 @@ export class SimulatorsService {
     const count = await this.simulator.count();
     if (count !== 0) {
       throw new InternalServerErrorException(
-        'Some simulation tools could not be deleted',
+        'Some simulation tools could not be deleted.',
       );
     }
   }

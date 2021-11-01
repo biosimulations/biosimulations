@@ -2,10 +2,11 @@ import {
   ArchiveMetadata,
   SimulationRunMetadataInput,
 } from '@biosimulations/datamodel/api';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { DeleteResult } from 'mongodb';
 import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import {
   SimulationRunMetadataModel,
@@ -36,10 +37,10 @@ export class MetadataService {
   }
 
   public async getMetadata(
-    id: string,
+    runId: string,
   ): Promise<SimulationRunMetadataIdModel | null> {
     const metadata = await this.metadataModel
-      .findOne({ simulationRun: id }, { id: 0, __v: 0 })
+      .findOne({ simulationRun: runId }, { id: 0, __v: 0 })
       .exec();
 
     return metadata;
@@ -87,4 +88,37 @@ export class MetadataService {
     const metadata = new this.metadataModel(data);
     return await metadata.save();
   }
+
+  public async deleteSimulationRunMetadata(runId: string): Promise<void> {
+    const metadata = await this.metadataModel
+      .findOne({ simulationRun: runId })
+      .select('simulationRun')
+      .exec();
+    if (!metadata) {
+      throw new NotFoundException(`Metadata could not found for simulation run '${runId}'.`);
+    }
+
+    const res: DeleteResult = await this.metadataModel
+      .deleteOne({ simulationRun: runId })
+      .exec();
+    if (res.deletedCount !== 1) {
+      throw new InternalServerErrorException(
+        'Metadata could not be deleted.',
+      );
+    }
+  }
+
+  /*
+  public async deleteAllMetadata(): Promise<void> {
+    const res: DeleteResult = await this.metadataModel
+      .deleteMany({})
+      .exec();
+    const count = await this.metadataModel.count();
+    if (count !== 0) {
+      throw new InternalServerErrorException(
+        'Some metadata could not be deleted.',
+      );
+    }
+  }
+  */
 }

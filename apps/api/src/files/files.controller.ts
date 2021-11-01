@@ -8,6 +8,8 @@ import {
   Logger,
   Param,
   NotFoundException,
+  // HttpCode,
+  // Delete,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -18,6 +20,9 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiPayloadTooLargeResponse,
+  // ApiNoContentResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 import { FileModel } from './files.model';
 import { FilesService } from './files.service';
@@ -66,10 +71,10 @@ export class FilesController {
     description: 'Metadata about the files was successfully retrieved',
     type: [ProjectFile],
   })
-  public async getSimulationFiles(
+  public async getSimulationRunFiles(
     @Param('runId') runId: string,
   ): Promise<ProjectFile[]> {
-    const files = await this.service.getSimulationFiles(runId);
+    const files = await this.service.getSimulationRunFiles(runId);
     return files.map((file) => this.createReturnFile(file));
   }
 
@@ -107,10 +112,9 @@ export class FilesController {
     @Param('runId') runId: string,
     @Param('fileLocation') fileLocation: string,
   ): Promise<ProjectFile> {
-    const id = runId + '/' + fileLocation;
-    const file = await this.service.getFile(id);
+    const file = await this.service.getFile(runId, fileLocation);
     if (!file) {
-      throw new NotFoundException('File not found');
+      throw new NotFoundException(`A file could not found for simulation run '${runId}' and location '${fileLocation}'.`);
     }
     return this.createReturnFile(file);
   }
@@ -130,6 +134,14 @@ export class FilesController {
     description:
       'The payload is too large. The payload must be less than the server limit.',
   })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to write metadata about all files',
+  })
   @permissions('write:Files')
   @ApiCreatedResponse({
     description:
@@ -141,33 +153,166 @@ export class FilesController {
   }
 
   //@Post(':runId')
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to write metadata about all files',
+  })
   @permissions('write:Files')
   public async createSimulationFiles(
     @Param('runId') runId: string,
     @Body() files: any[],
   ): Promise<void> {}
 
-  //@Post(':runId/:fileId')
+  //@Post(':runId/:fileLocation')
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
+  @ApiParam({
+    name: 'fileLocation',
+    description:
+      'Location of the file within the COMBINE/OMEX archive for the simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description: 'This account does not have permission to write metadata about all files',
+  })
   @permissions('write:Files')
   public async createFile(
-    runId: string,
-    fileId: string,
+    @Param('runId') runId: string,
+    fileLocation: string,
     file: any,
   ): Promise<void> {}
 
-  //@Delete()
+  /*
+  @ApiOperation({
+    summary: 'Delete all files for all simulation runs',
+    description: 'Delete all files for all simulation runs',
+  })
+  @Delete()
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description:
+      'This account does not have permission to delete files',
+  })
   @permissions('delete:Files')
-  public async deleteAllFiles(@Param('fileId') fileId: string): Promise<void> {}
+  @ApiNoContentResponse({
+    description: 'The files were successfully deleted',
+  })
+  @HttpCode(204)
+  public async deleteAllFiles(): Promise<void> {
+    this.service.deleteAllFiles();
+  }
 
-  //@Delete(':runId')
-  @permissions('delete:Files')
-  public async deleteSimulationFile(
-    @Param('fileId') fileId: string,
-  ): Promise<void> {}
+  @ApiOperation({
+    summary: 'Delete all files for a simulation run',
+    description: 'Delete all files for a simulation run',
+  })  
+  @Delete(':runId')
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description:
+      'This account does not have permission to delete files',
+  })
+  @permissions('delete:Files')  
+  @ApiNoContentResponse({
+    description: 'The files for the simulation run were successfully deleted',
+  })  
+  @HttpCode(204)
+  public async deleteSimulationRunFiles(
+    @Param('runId') runId: string,
+  ): Promise<void> {
+    this.service.deleteSimulationRunFiles(runId);
+  }
 
-  //@Delete(':runId/:fileId')
+  @ApiOperation({
+    summary: 'Delete a file',
+    description: 'Delete a file',
+  })
+  @Delete(':runId/:fileLocation')
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
+  @ApiParam({
+    name: 'fileLocation',
+    description:
+      'Location of the file within the COMBINE/OMEX archive for the simulation run',
+    required: true,
+    type: String,
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description:
+      'This account does not have permission to delete files',
+  }) 
   @permissions('delete:Files')
-  public async deleteFile(@Param('fileId') fileId: string): Promise<void> {}
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No file has the requested run id and file location',
+  })
+  @ApiNoContentResponse({
+    description: 'The file was successfully deleted',
+  })
+  @HttpCode(204)
+  public async deleteFile(
+    @Param('runId') runId: string,
+    @Param('fileLocation') fileLocation: string,
+  ): Promise<void> {
+    this.deleteFile(runId, fileLocation);
+  }
+  */
+
   private createReturnFile(file: FileModel): ProjectFile {
     return new ProjectFile(
       file.id,

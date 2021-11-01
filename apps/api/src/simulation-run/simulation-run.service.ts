@@ -25,6 +25,7 @@ import {
   SimulationRunModelReturnType,
   SimulationRunModelType,
 } from './simulation-run.model';
+import { ProjectModel } from '../projects/project.model';
 import {
   UpdateSimulationRun,
   UploadSimulationRun,
@@ -56,7 +57,6 @@ import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { Readable } from 'stream';
 import { firstValueFrom, Observable, of, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { DeleteResult } from 'mongodb';
 import { Endpoints } from '@biosimulations/config/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FilesService } from '../files/files.service';
@@ -118,6 +118,8 @@ export class SimulationRunService {
     @InjectModel(SimulationFile.name) private fileModel: Model<SimulationFile>,
     @InjectModel(SimulationRunModel.name)
     private simulationRunModel: Model<SimulationRunModel>,
+    @InjectModel(ProjectModel.name)
+    private projectModel: Model<ProjectModel>,
     private simulationStorageService: SimulationStorageService,
     private http: HttpService,
     @Inject('NATS_CLIENT') private client: ClientProxy,
@@ -189,7 +191,7 @@ export class SimulationRunService {
         };
       } else {
         // The simulator gave a file id, but not found
-        throw new NotFoundException('File not found');
+        throw new NotFoundException('File not found.');
       }
     } else {
       // The simulator did not give a file id
@@ -198,27 +200,42 @@ export class SimulationRunService {
   }
 
   public async deleteAll(): Promise<void> {
-    const res: DeleteResult = await this.simulationRunModel
-      .deleteMany({})
+    const count = await this.projectModel.count();
+    if (count > 0) {
+      throw new BadRequestException('Some runs cannot be deleted because they have been published as projects.');
+    }
+
+    const runs = await this.simulationRunModel
+      .find({})
+      .select('id')
       .exec();
 
-    const count = await this.simulationRunModel.count();
-    if (count !== 56) {
-      throw new InternalServerErrorException(
-        'Some simulation runs could not be deleted',
-      );
-    }
+    runs.forEach((run): void => {
+      this.delete(run.id);
+    });
   }
 
   public async delete(
     id: string,
   ): Promise<SimulationRunModelReturnType | null> {
-    const res = await this.simulationRunModel.findOneAndDelete({ id });
-    if (res) {
-      return toApi(res);
-    } else {
-      return res;
+    const project = await this.projectModel.findOne({ simulationRun: id }).select('id').exec();
+    if (project) {
+      throw new BadRequestException(`Run '${id}' cannot be deleted because it has been published as project '${project.id}'.`);
     }
+
+    const run = await this.simulationRunModel.findOneAndDelete({ id });
+    if (!run) {
+      return null;
+    }
+
+    await this.simulationStorageService.deleteSimulationArchive(id);
+    await this.filesService.deleteSimulationRunFiles(id);
+    await this.specificationsService.deleteSimulationRunSpecifications(id);
+    await this.resultsService.deleteSimulationRunResults(id);
+    await this.logsService.deleteLog(id);
+    await this.metadataService.deleteSimulationRunMetadata(id);
+
+    return toApi(run);
   }
 
   public async update(
@@ -258,12 +275,12 @@ export class SimulationRunService {
     run: UploadSimulationRun,
     file: Express.Multer.File,
   ): Promise<SimulationRunModelReturnType> {
-    const simId = String(new mongo.ObjectId());
+    const id = String(new mongo.ObjectId());
 
     try {
       const s3file =
         await this.simulationStorageService.uploadSimulationArchive(
-          simId,
+          id,
           file,
         );
       await this.simulationStorageService.extractSimulationArchive(s3file.Key);
@@ -279,7 +296,7 @@ export class SimulationRunService {
 
       const newFile = new this.fileModel(fileParsed);
 
-      return this.createRun(run, newFile, simId);
+      return this.createRun(run, newFile, id);
     } catch (err) {
       const message = err?.message || 'Error Uploading File';
       throw new BiosimulationsException(
@@ -327,8 +344,7 @@ export class SimulationRunService {
       encoding = file_headers['content-transfer-encoding'];
       if (size && size > ONE_GIGABYTE) {
         throw new PayloadTooLargeException(
-          'The maximum allowed size of the file is 1GB. The provided file was ' +
-            String(size),
+          `The maximum allowed size of the file is 1GB. The provided file was ${String(size)}.`,
         );
       }
       const fileObj: Express.Multer.File = {
@@ -348,7 +364,7 @@ export class SimulationRunService {
       this.logger.debug(`Downloaded file from ${url}.`);
       return this.createRunWithFile(body, fileObj);
     } else {
-      throw new Error('Unable to process file');
+      throw new Error('Unable to process file.');
     }
   }
   /**
@@ -581,7 +597,7 @@ export class SimulationRunService {
     /* get data */
     const settledResults = await Promise.allSettled([
       this.get(id),
-      this.filesService.getSimulationFiles(id),
+      this.filesService.getSimulationRunFiles(id),
       this.specificationsService.getSpecificationsBySimulation(id),
       this.logsService.getLog(id),
       this.metadataService.getMetadata(id),
@@ -769,7 +785,7 @@ export class SimulationRunService {
       });
     } else if (raiseErrors) {
       throw new InternalServerErrorException(
-        'Information about the files, simulation experiments, or log could not be retrieved',
+        'Information about the files, simulation experiments, or log could not be retrieved.',
       );
     }
 
@@ -808,7 +824,7 @@ export class SimulationRunService {
       };
     } else if (raiseErrors) {
       throw new InternalServerErrorException(
-        'Information about the files, simulation experiments, or log could not be retrieved',
+        'Information about the files, simulation experiments, or log could not be retrieved.',
       );
     }
 
@@ -889,7 +905,7 @@ export class SimulationRunService {
 
     const checks: Check[] = [
       {
-        check: this.filesService.getSimulationFiles(id),
+        check: this.filesService.getSimulationRunFiles(id),
         errorMessage: `Files (contents of COMBINE archive) could not be found for simulation run '${id}'.`,
         isValid: (files: FileModel[]): boolean => files.length > 0,
       },

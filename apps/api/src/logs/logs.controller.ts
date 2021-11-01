@@ -7,7 +7,7 @@
 import {
   Body,
   Controller,
-  Delete,
+  // Delete,
   Get,
   Logger,
   // NotImplementedException,
@@ -15,7 +15,7 @@ import {
   Query,
   // Patch,
   Post,
-  Put,
+  // Put,
   HttpCode,
 } from '@nestjs/common';
 import {
@@ -32,6 +32,8 @@ import {
   ApiBadRequestResponse,
   ApiBody,
   ApiConflictResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 import {
   CombineArchiveLog,
@@ -64,14 +66,30 @@ export class LogsController {
   public getAllLogs(): void {
     throw new NotImplementedException('Not Implemented');
   }
+  */
   
+  /*
   @ApiOperation({
     summary: 'Delete the logs of all simulation runs',
     description: 'Delete the logs of all simulation runs',
   })
   @Delete()
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description:
+      'This account does not have permission to delete logs',
+  })
+  @permissions('delete:Logs')
+  @ApiNoContentResponse({
+    description: 'The logs were successfully deleted',
+  })
+  @HttpCode(204)
   public deleteAllLogs(): void {
-    throw new NotImplementedException('Not Implemented');
+    this.service.deleteAllLogs();
   }
   */
 
@@ -149,6 +167,15 @@ export class LogsController {
     description:
       'The submitted log is too large. Logs must be less than the server limit.',
   })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description:
+      'This account does not have permission to write logs',
+  })
   @permissions('write:Logs')
   @ApiCreatedResponse({
     description: 'The logs for the simulation run were successfully saved',
@@ -171,6 +198,7 @@ export class LogsController {
     return log;
   }
 
+  /*
   @ApiOperation({
     summary: 'Delete the log for a simulation run',
     description: 'Delete the log for a simulation run',
@@ -185,30 +213,30 @@ export class LogsController {
       pattern: '^[a-f\\d]{24}$',
     },
   })
-  @ApiOkResponse({
-    type: CombineArchiveLog,
+  @ApiNoContentResponse({
     description: 'The log was successfully deleted',
   })
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
     description: 'No log has the requested run id',
   })
-  @permissions('delete:Logs')
-  public deleteLog(@Param('runId') runId: string): Promise<CombineArchiveLog> {
-    return this.service.deleteLog(runId);
-  }
-
-  /*
-  @ApiOperation({
-    summary: 'Modify the log for a simulation run',
-    description: 'Modify the log for a simulation run',
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
   })
-  @Patch(':runId')
-  public editLog(): void {
-    throw new NotImplementedException('Not Implemented');
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description:
+      'This account does not have permission to delete logs',
+  })
+  @permissions('delete:Logs')
+  @HttpCode(204)
+  public deleteLog(@Param('runId') runId: string): Promise<void> {
+    return this.service.deleteLog(runId);
   }
   */
 
+  /*
   @ApiOperation({
     summary: 'Replace the log for a simulation run',
     description: 'Replace the log for a simulation run',
@@ -232,6 +260,15 @@ export class LogsController {
     description:
       'The submitted log is too large. Logs must be less than the server limit.',
   })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description:
+      'This account does not have permission to write logs',
+  })
   @permissions('write:Logs')
   @ApiOkResponse({
     type: CombineArchiveLog,
@@ -253,6 +290,7 @@ export class LogsController {
   ): Promise<CombineArchiveLog> {
     return this.service.replaceLog(runId, body).then((res) => res);
   }
+  */
 
   @Post('validate')
   @ApiOperation({

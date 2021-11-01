@@ -10,21 +10,23 @@ export class ResultsService {
     private storage: SharedStorageService,
     private results: SimulationHDFService,
   ) {}
+
   private logger = new Logger(ResultsService.name);
+
   public async getResults(
-    simId: string,
+    runId: string,
     includeValues = true,
   ): Promise<Results> {
-    const timestamps = this.results.getResultsTimestamps(simId);
-    const datasets = await this.results.getDatasets(simId);
+    const timestamps = this.results.getResultsTimestamps(runId);
+    const datasets = await this.results.getDatasets(runId);
 
     const outputs: Output[] = await Promise.all(
-      datasets.map(this.parseDataset.bind(this, simId, includeValues)),
+      datasets.map(this.parseDataset.bind(this, runId, includeValues)),
     );
 
     const dates = await timestamps;
     const results: Results = {
-      simId,
+      simId: runId,
       outputs: outputs,
       created: dates.created ? dates.created.toTimeString() : '',
       updated: dates.updated ? dates.updated.toTimeString() : '',
@@ -32,37 +34,38 @@ export class ResultsService {
 
     return results;
   }
+
   public async getValues(
-    simId: string,
+    runId: string,
     datasetId: string,
   ): Promise<undefined | (string[] | number[] | boolean[])[]> {
     // The index field will be needed when we are doing slicing of the data so this will need to change
     // TODO update the hsds client to use the correct name "value" not "values"
-    return ((await this.results.getDatasetValues(simId, datasetId)) as any)
+    return ((await this.results.getDatasetValues(runId, datasetId)) as any)
       ?.value;
   }
 
-  public async download(simId: string): Promise<S3.Body | undefined> {
+  public async download(runId: string): Promise<S3.Body | undefined> {
     const file = await this.storage.getObject(
-      'simulations/' + simId + '/' + simId + '.zip',
+      'simulations/' + runId + '/' + runId + '.zip',
     ); // TODO remove harcoded path
     return file.Body;
   }
 
   public async getOutput(
-    simId: string,
+    runId: string,
     reportId: string,
     includeData = false,
   ): Promise<Output> {
-    const dataset = await this.results.getDatasetbyId(simId, reportId);
+    const dataset = await this.results.getDatasetbyId(runId, reportId);
     if (dataset) {
-      return this.parseDataset(simId, includeData, dataset);
+      return this.parseDataset(runId, includeData, dataset);
     }
     throw new Error('Output Not Found');
   }
 
   private async parseDataset(
-    simId: string,
+    runId: string,
     includeValues: boolean,
     dataset: Dataset,
   ): Promise<Output> {
@@ -74,7 +77,7 @@ export class ResultsService {
     const sedNames = dataset.attributes.sedmlDataSetNames as string[];
 
     const values = includeValues
-      ? (await this.getValues(simId, dataset.id)) || []
+      ? (await this.getValues(runId, dataset.id)) || []
       : [];
 
     const consistent =
@@ -112,7 +115,7 @@ export class ResultsService {
     });
 
     const ret: Output = {
-      simId,
+      simId: runId,
       outputId: dataset.attributes.uri,
       name: dataset.attributes.sedmlName,
       type: dataset.attributes._type,
@@ -122,5 +125,10 @@ export class ResultsService {
     };
 
     return ret;
+  }
+
+  public async deleteSimulationRunResults(runId: string): Promise<void> {
+    await this.results.deleteDatasets(runId);
+    await this.storage.deleteObject('simulations/' + runId + '/' + runId + '.zip');
   }
 }

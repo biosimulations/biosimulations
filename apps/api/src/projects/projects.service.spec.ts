@@ -12,7 +12,7 @@ import {
 } from '../simulation-run/file.model';
 import { FileModel } from '../files/files.model';
 import { SpecificationsModel } from '../specifications/specifications.model';
-import { SimulationRunLog, CombineArchiveLog } from '../logs/logs.model';
+import { SimulationRunLog } from '../logs/logs.model';
 import {
   SimulationRunMetadataModel,
   SimulationRunMetadataSchema,
@@ -91,10 +91,6 @@ describe('ProjectsService', () => {
         { provide: getModelToken(SpecificationsModel.name), useValue: {} },
         {
           provide: getModelToken(SimulationRunLog.name),
-          useValue: mockModel,
-        },
-        {
-          provide: getModelToken(CombineArchiveLog.name),
           useValue: mockModel,
         },
         {
