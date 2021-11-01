@@ -235,7 +235,7 @@ export class FilesController {
   @ApiOperation({
     summary: 'Delete all files for a simulation run',
     description: 'Delete all files for a simulation run',
-  })  
+  })
   @Delete(':runId')
   @ApiParam({
     name: 'runId',
@@ -255,10 +255,10 @@ export class FilesController {
     description:
       'This account does not have permission to delete files',
   })
-  @permissions('delete:Files')  
+  @permissions('delete:Files')
   @ApiNoContentResponse({
     description: 'The files for the simulation run were successfully deleted',
-  })  
+  })
   @HttpCode(204)
   public async deleteSimulationRunFiles(
     @Param('runId') runId: string,
@@ -295,7 +295,7 @@ export class FilesController {
     type: ErrorResponseDocument,
     description:
       'This account does not have permission to delete files',
-  }) 
+  })
   @permissions('delete:Files')
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,

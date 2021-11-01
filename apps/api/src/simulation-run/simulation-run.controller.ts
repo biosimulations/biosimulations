@@ -455,7 +455,7 @@ export class SimulationRunController {
     type: ErrorResponseDocument,
     description:
       'This account does not have permission to delete simulation runs',
-  })  
+  })
   @permissions('delete:SimulationRuns')
   @Delete()
   @ApiNoContentResponse({
