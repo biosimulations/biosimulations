@@ -58,7 +58,7 @@ export class MetadataService {
     data.metadata = data.metadata.map(this.transformMetadata.bind(this, data.id));
 
     const metadata = new this.metadataModel(data);
-    return await metadata.save();
+    return metadata.save();
   }
 
   public async modifyMetadata(
@@ -75,7 +75,7 @@ export class MetadataService {
       metadata: metadata.map(this.transformMetadata.bind(this, runId)),
     });
 
-    return await metadataObj.save();
+    return metadataObj.save();
   }
 
   private transformMetadata(runId: string, archiveMetadata: ArchiveMetadata): ArchiveMetadata {
