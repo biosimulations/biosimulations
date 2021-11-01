@@ -259,6 +259,7 @@ export class SedDocumentLog implements ISedDocumentLog {
         v._type = 'SedPlot3DLog';
       }
     });
+    return value;
   })
   @ValidateNested({ each: true })
   @Type(() => SedOutputLog, {

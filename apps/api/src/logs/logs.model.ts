@@ -101,7 +101,7 @@ export class SedReportLog implements ISedReportLog {
     required: false,
     default: undefined,
   })
-  dataSets!: ISedOutputElementLog[] | null;
+  dataSets!: SedOutputElementLog[] | null;
 }
 export const SedReportLogSchema = SchemaFactory.createForClass(SedReportLog);
 
@@ -145,7 +145,7 @@ export class SedPlot2DLog implements ISedPlot2DLog {
     required: false,
     default: undefined,
   })
-  curves!: ISedOutputElementLog[] | null;
+  curves!: SedOutputElementLog[] | null;
 }
 export const SedPlot2DLogSchema = SchemaFactory.createForClass(SedPlot2DLog);
 
@@ -189,7 +189,7 @@ export class SedPlot3DLog implements ISedPlot3DLog {
     required: false,
     default: undefined,
   })
-  surfaces!: ISedOutputElementLog[] | null;
+  surfaces!: SedOutputElementLog[] | null;
 }
 export const SedPlot3DLogSchema = SchemaFactory.createForClass(SedPlot3DLog);
 
@@ -331,7 +331,7 @@ export class SedDocumentLog implements ISedDocumentLog {
   duration!: number | null;
 
   @Prop({ type: [SedTaskLogSchema], required: false, default: undefined })
-  tasks!: ISedTaskLog[] | null;
+  tasks!: SedTaskLog[] | null;
 
   @Prop({
     type: [SedOutputLogSchema],
@@ -386,7 +386,7 @@ export class CombineArchiveLog implements ICombineArchiveLog {
   duration!: number | null;
 
   @Prop({ type: [SedDocumentLogSchema], required: false, default: undefined })
-  sedDocuments!: ISedDocumentLog[] | null;
+  sedDocuments!: SedDocumentLog[] | null;
 }
 export const CombineArchiveLogSchema =
   SchemaFactory.createForClass(CombineArchiveLog);
