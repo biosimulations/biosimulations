@@ -326,7 +326,7 @@ export class SimulationLogComponent {
         return SimulationRunLogStatus.FAILED;
       }
     } else {
-      return statusConverter(this.status);  
+      return statusConverter(this.status);
     }
   }
 
