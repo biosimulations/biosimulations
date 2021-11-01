@@ -448,7 +448,7 @@ export class Endpoints {
       throw new Error('Cannot get a specific element without an id');
     }
 
-    return `${this.specifications}${runId}${experimentLocation}${elementTypePath}{$elementId}`;
+    return `${this.specifications}${runId}${experimentLocation}${elementTypePath}${elementId}`;
   }
 
   public getSimulationRunLogsEndpoint(id?: string): string {
