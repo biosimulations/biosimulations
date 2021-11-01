@@ -11,6 +11,7 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import {
   SimulationRunMetadataModel,
   SimulationRunMetadataIdModel,
+  MetadataModel,
 } from './metadata.model';
 import { Endpoints } from '@biosimulations/config/common';
 
@@ -51,42 +52,57 @@ export class MetadataService {
   ): Promise<SimulationRunMetadataIdModel> {
     const sim = await this.simulationModel.findById(data.id).catch((_) => null);
     if (!sim) {
-      throw new Error('Simulation not found');
+      throw new NotFoundException(`No simulation run could be found with id '${data.id}'.`);
     }
 
-    const transformData = data.metadata.map(
-      (archiveMetadata: ArchiveMetadata): ArchiveMetadata => {
-        const currentUri = archiveMetadata.uri;
-        if (currentUri.startsWith('./')) {
-          archiveMetadata.uri = `${data.id}/${encodeURI(
-            currentUri.substring(2),
-          )}`;
-        } else if (currentUri == '.') {
-          archiveMetadata.uri = `${data.id}`;
-        }
-        const thumbnails = archiveMetadata.thumbnails;
-
-        if (thumbnails.length > 0) {
-          archiveMetadata.thumbnails = thumbnails.map((thumbnail: string) => {
-            if (thumbnail.startsWith('./')) {
-              const endpoint = this.endpoints.getSimulationRunFileEndpoint(
-                data.id,
-                thumbnail,
-              );
-
-              return endpoint;
-            }
-            return thumbnail;
-          });
-        }
-        return archiveMetadata;
-      },
-    );
-
-    data.metadata = transformData;
+    data.metadata = data.metadata.map(this.transformMetadata.bind(this, data.id));
 
     const metadata = new this.metadataModel(data);
     return await metadata.save();
+  }
+
+  public async modifyMetadata(
+    runId: string,
+    metadata: ArchiveMetadata[],
+  ): Promise<SimulationRunMetadataIdModel> {
+    const metadataObj = await this.getMetadata(runId);
+    if (!metadataObj) {
+      throw new NotFoundException(`No simulation run could be found with id '${runId}'.`);
+    }
+
+    metadataObj.overwrite({
+      simulationRun: runId,
+      metadata: metadata.map(this.transformMetadata.bind(this, runId)),
+    });
+
+    return await metadataObj.save();
+  }
+
+  private transformMetadata(runId: string, archiveMetadata: ArchiveMetadata): ArchiveMetadata {
+    const currentUri = archiveMetadata.uri;
+    if (currentUri.startsWith('./')) {
+      archiveMetadata.uri = `${runId}/${encodeURI(
+        currentUri.substring(2),
+      )}`;
+    } else if (currentUri == '.') {
+      archiveMetadata.uri = `${runId}`;
+    }
+    const thumbnails = archiveMetadata.thumbnails;
+
+    if (thumbnails.length > 0) {
+      archiveMetadata.thumbnails = thumbnails.map((thumbnail: string) => {
+        if (thumbnail.startsWith('./')) {
+          const endpoint = this.endpoints.getSimulationRunFileEndpoint(
+            runId,
+            thumbnail,
+          );
+
+          return endpoint;
+        }
+        return thumbnail;
+      });
+    }
+    return archiveMetadata;
   }
 
   public async deleteSimulationRunMetadata(runId: string): Promise<void> {
