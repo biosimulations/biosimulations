@@ -17,7 +17,6 @@ import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   SimulationRunLog,
-  CombineArchiveLog as DbCombineArchiveLog,
   SedReportLog as DbSedReportLog,
   SedPlot2DLog as DbSedPlot2DLog,
   SedPlot3DLog as DbSedPlot3DLog,

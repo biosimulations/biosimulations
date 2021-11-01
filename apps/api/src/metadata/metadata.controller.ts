@@ -6,6 +6,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  // Put,
   VERSION_NEUTRAL,
 } from '@nestjs/common';
 import {
@@ -17,11 +18,14 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiPayloadTooLargeResponse,
+  ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 
 import {
   SimulationRunMetadata,
   SimulationRunMetadataInput,
+  ArchiveMetadata,
 } from '@biosimulations/datamodel/api';
 import { MetadataService } from './metadata.service';
 import { SimulationRunMetadataModel } from './metadata.model';
@@ -33,6 +37,62 @@ import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 export class MetadataController {
   private logger = new Logger(MetadataController.name);
   public constructor(private service: MetadataService) {}
+
+  @ApiOperation({
+    summary: 'Modify metadata for a simulation run',
+    description:
+      'Upload metadata about the simulation project of a simulation run',
+  })
+  // @Put(':runId')
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
+  @ApiBody({
+    description: 'Metadata about the simulation project of a simulation run',
+    type: SimulationRunMetadataInput,
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The payload is too large. The payload must be less than the server limit.',
+  })
+  @ApiNotFoundResponse({
+    description: 'No metadata found could be found for the requested simulation run',
+    type: ErrorResponseDocument,
+  })    
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description:
+      'This account does not have permission to write metadata',
+  })
+  @ApiOkResponse({
+    description: 'The metadata was successfully saved to the database',
+    type: SimulationRunMetadata,
+  })
+  @permissions('write:Metadata')
+  public async modifyMetadata(
+    @Param('runId') runId: string,
+    @Body() body: ArchiveMetadata[],
+  ): Promise<SimulationRunMetadata> {
+    const metadata = await this.service.modifyMetadata(runId, body);
+    const data = metadata.metadata;
+    return new SimulationRunMetadata(
+      metadata.simulationRun,
+      data,
+      metadata.created,
+      metadata.updated,
+    );
+  }
 
   @ApiOperation({
     summary: 'Create Metadata for SimulationRun',
@@ -53,6 +113,15 @@ export class MetadataController {
     type: SimulationRunMetadata,
   })
   @Post()
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description:
+      'This account does not have permission to write metadata',
+  })
   @permissions('write:Metadata')
   public async makeMetadata(
     @Body() body: SimulationRunMetadataInput,
@@ -79,8 +148,17 @@ export class MetadataController {
     type: [SimulationRunMetadata],
   })
   @ApiNotFoundResponse({
-    description: 'No metadata found',
+    description: 'No metadata found could be found for the requested simulation run',
     type: ErrorResponseDocument,
+  })
+  @ApiUnauthorizedResponse({
+    type: ErrorResponseDocument,
+    description: 'A valid authorization was not provided',
+  })
+  @ApiForbiddenResponse({
+    type: ErrorResponseDocument,
+    description:
+      'This account does not have permission to read metadata',
   })
   @permissions('read:Metadata')
   @Get()
@@ -123,8 +201,7 @@ export class MetadataController {
     type: SimulationRunMetadata,
   })
   @ApiNotFoundResponse({
-    description:
-      'Metadata is not available for the requested simulation run id',
+    description: 'No metadata found could be found for the requested simulation run',
     type: ErrorResponseDocument,
   })
   @Get(':runId')
