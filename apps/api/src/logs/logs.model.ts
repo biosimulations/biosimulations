@@ -343,6 +343,11 @@ export class SedDocumentLog implements ISedDocumentLog {
 export const SedDocumentLogSchema =
   SchemaFactory.createForClass(SedDocumentLog);
 
+SedOutputLogSchema.discriminators = {};
+SedOutputLogSchema.discriminators[SedReportLog.name] = SedReportLogSchema;
+SedOutputLogSchema.discriminators[SedPlot2DLog.name] = SedPlot2DLogSchema;
+SedOutputLogSchema.discriminators[SedPlot3DLog.name] = SedPlot3DLogSchema;
+
 const outputsArraySchema = SedDocumentLogSchema.path(
   'outputs',
 ) as MongooseSchema.Types.DocumentArray;
@@ -386,7 +391,11 @@ export class CombineArchiveLog implements ICombineArchiveLog {
 export const CombineArchiveLogSchema =
   SchemaFactory.createForClass(CombineArchiveLog);
 
-@Schema({ collection: 'Simulation Run Logs', minimize: false })
+@Schema({
+  collection: 'Simulation Run Logs',
+  minimize: false,
+  strict: 'throw',
+})
 export class SimulationRunLog extends Document {
   @Prop({
     type: Types.ObjectId,
@@ -416,13 +425,3 @@ SimulationRunLogSchema.set('timestamps', {
 });
 
 SimulationRunLogSchema.set('strict', 'throw');
-CombineArchiveLogSchema.set('strict', 'throw');
-SedDocumentLogSchema.set('strict', 'throw');
-SedTaskLogSchema.set('strict', 'throw');
-SedOutputLogSchema.set('strict', 'throw');
-SedReportLogSchema.set('strict', 'throw');
-SedPlot2DLogSchema.set('strict', 'throw');
-SedPlot3DLogSchema.set('strict', 'throw');
-SimulatorDetailSchema.set('strict', 'throw');
-SedOutputElementLogSchema.set('strict', 'throw');
-ExceptionSchema.set('strict', 'throw');

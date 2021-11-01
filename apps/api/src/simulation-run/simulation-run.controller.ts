@@ -408,6 +408,10 @@ export class SimulationRunController {
     description: 'No simulation run has the requested id',
     type: ErrorResponseDocument,
   })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description: 'Run cannot be deleted because it has been published as a project',
+  })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -439,6 +443,10 @@ export class SimulationRunController {
     summary: 'Delete all simulation runs',
     description: 'Delete all simulation runs',
   })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description: 'Runs cannot be deleted because some have been published as projects',
+  })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -447,7 +455,7 @@ export class SimulationRunController {
     type: ErrorResponseDocument,
     description:
       'This account does not have permission to delete simulation runs',
-  })
+  })  
   @permissions('delete:SimulationRuns')
   @Delete()
   @ApiNoContentResponse({

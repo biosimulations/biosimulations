@@ -30,8 +30,6 @@ import { LogsService } from '../logs/logs.service';
 import {
   SimulationRunLog,
   SimulationRunLogSchema,
-  CombineArchiveLog,
-  CombineArchiveLogSchema,
 } from '../logs/logs.model';
 
 import { ResultsService } from '../results/results.service';
@@ -72,10 +70,6 @@ import { OntologiesService } from '@biosimulations/ontology/ontologies';
       {
         name: SimulationRunLog.name,
         schema: SimulationRunLogSchema,
-      },
-      {
-        name: CombineArchiveLog.name,
-        schema: CombineArchiveLogSchema,
       },
     ]),
     HSDSClientModule,

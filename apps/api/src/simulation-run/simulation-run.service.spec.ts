@@ -26,12 +26,10 @@ import { SpecificationsModel } from '../specifications/specifications.model';
 import { ResultsService } from '../results/results.service';
 import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { LogsService } from '../logs/logs.service';
-import { SimulationRunLog, CombineArchiveLog } from '../logs/logs.model';
+import { SimulationRunLog } from '../logs/logs.model';
 import { MetadataService } from '../metadata/metadata.service';
-import {
-  SimulationRunMetadataModel,
-  SimulationRunMetadataSchema,
-} from '../metadata/metadata.model';
+import { SimulationRunMetadataModel } from '../metadata/metadata.model';
+import { ProjectModel } from '../projects/project.model';
 
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 import { CacheModule } from '@nestjs/common';
@@ -97,13 +95,10 @@ describe('SimulationRunService', () => {
           useValue: mockModel,
         },
         {
-          provide: getModelToken(CombineArchiveLog.name),
-          useValue: mockModel,
-        },
-        {
           provide: getModelToken(SimulationRunMetadataModel.name),
           useValue: {},
         },
+        { provide: getModelToken(ProjectModel.name), useValue: {} },
         { provide: SharedStorageService, useClass: mockStorage },
         { provide: SimulationStorageService, useClass: mockStorage },
         {

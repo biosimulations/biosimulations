@@ -1,9 +1,10 @@
 import { SimulationRunSedDocument } from '@biosimulations/datamodel/api';
 import { SedElementType } from '@biosimulations/datamodel/common';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Document, Query } from 'mongoose';
 import { SpecificationsModel } from './specifications.model';
+import { DeleteResult } from 'mongodb';
 
 @Injectable()
 export class SpecificationsService {
@@ -98,6 +99,32 @@ export class SpecificationsService {
     }
     return Promise.all(createdSpecs);
   }
+
+  public async deleteSimulationRunSpecifications(runId: string): Promise<void> {
+    const res: DeleteResult = await this.model
+      .deleteMany({ simulationRun: runId })
+      .exec();
+    const count = await this.model.find({ simulationRun: runId }).count().exec();
+    if (count !== 0) {
+      throw new InternalServerErrorException(
+        'Some specifications could not be deleted.',
+      );
+    }
+  }
+
+  /*
+  public async deleteAllSpecifications(): Promise<void> {
+    const res: DeleteResult = await this.model
+      .deleteMany({})
+      .exec();
+    const count = await this.model.count();
+    if (count !== 0) {
+      throw new InternalServerErrorException(
+        'Some specifications could not be deleted.',
+      );
+    }
+  }
+  */
 
   private normalizeExperimentLocation(location: string): string {
     if (location.startsWith('./')) {

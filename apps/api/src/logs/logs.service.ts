@@ -10,6 +10,7 @@ import {
   Injectable,
   BadRequestException,
   NotFoundException,
+  InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -22,6 +23,7 @@ import {
   SedPlot3DLog as DbSedPlot3DLog,
 } from './logs.model';
 import { Model, LeanDocument } from 'mongoose';
+import { DeleteResult } from 'mongodb';
 
 @Injectable()
 export class LogsService {
@@ -32,8 +34,6 @@ export class LogsService {
     private configService: ConfigService,
     @InjectModel(SimulationRunLog.name)
     private logModel: Model<SimulationRunLog>,
-    @InjectModel(DbCombineArchiveLog.name)
-    private validateModel: Model<DbCombineArchiveLog>,
   ) {}
 
   public async createLog(
@@ -69,7 +69,7 @@ export class LogsService {
       .exec();
 
     if (!log) {
-      throw new NotFoundException(`No log exists for simulation run ${runId}`);
+      throw new NotFoundException(`No log could be found for simulation run '${runId}'.`);
     }
 
     return log.log;
@@ -82,7 +82,7 @@ export class LogsService {
     const log = await this.logModel.findOne({ simId: runId }).exec();
 
     if (!log) {
-      throw new NotFoundException(`No log exists for simulation run ${runId}`);
+      throw new NotFoundException(`No log could be found for simulation run '${runId}'.`);
     }
 
     log.overwrite({
@@ -93,27 +93,45 @@ export class LogsService {
     return this.dbToApiCombineArchiveLog(res);
   }
 
-  public async deleteLog(runId: string): Promise<ApiCombineArchiveLog> {
-    const projection: any = {
-      'log.sedDocuments.outputs._type': 0,
-    };
+  public async deleteLog(runId: string): Promise<void> {
     const log = await this.logModel
-      .findOne({ simId: runId }, projection)
-      .lean()
+      .findOne({ simId: runId })
+      .select('simId')
       .exec();
 
     if (!log) {
-      throw new NotFoundException(`No log exists for simulation run ${runId}`);
+      throw new NotFoundException(`No log could be found for simulation run '${runId}'.`);
     }
-    const deleted = await this.logModel
-      .findOneAndDelete({ simId: runId })
-      .exec();
 
-    return log.log;
+    const res: DeleteResult = await this.logModel
+      .deleteOne({ simId: runId })
+      .exec();
+    if (res.deletedCount !== 1) {
+      throw new InternalServerErrorException(
+        'The version of the simulation tool could not be deleted.',
+      );
+    }
   }
 
+  /*
+  public async deleteAllLogs(): Promise<void> {
+    const res: DeleteResult = await this.logModel
+      .deleteMany({})
+      .exec();
+    const count = await this.logModel.count();
+    if (count !== 0) {
+      throw new InternalServerErrorException(
+        'Some logs could not be deleted.',
+      );
+    }
+  }
+  */
+
   public validateLog(apiLog: ApiCombineArchiveLog): Promise<void> {
-    const log = new this.validateModel(this.apiToDbCombineArchiveLog(apiLog));
+    const log = new this.logModel({
+      simId: 'a'.repeat(64),
+      log: this.apiToDbCombineArchiveLog(apiLog)
+    });
     return log.validate();
   }
 

@@ -35,8 +35,6 @@ import { LogsService } from '../logs/logs.service';
 import {
   SimulationRunLog,
   SimulationRunLogSchema,
-  CombineArchiveLog,
-  CombineArchiveLogSchema,
 } from '../logs/logs.model';
 
 import { ResultsService } from '../results/results.service';
@@ -47,6 +45,8 @@ import {
   SimulationRunMetadataModel,
   SimulationRunMetadataSchema,
 } from '../metadata/metadata.model';
+
+import { ProjectModel, ProjectModelSchema } from '../projects/project.model';
 
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 
@@ -79,8 +79,8 @@ import { OntologiesService } from '@biosimulations/ontology/ontologies';
         schema: SimulationRunLogSchema,
       },
       {
-        name: CombineArchiveLog.name,
-        schema: CombineArchiveLogSchema,
+        name: ProjectModel.name,
+        schema: ProjectModelSchema,
       },
     ]),
     // Need to provide hash keys to allow use on cluster.

@@ -9,16 +9,6 @@ import { LogsController } from './logs.controller';
 import {
   SimulationRunLog,
   SimulationRunLogSchema,
-  CombineArchiveLog,
-  CombineArchiveLogSchema,
-  SedOutputLog,
-  SedOutputLogSchema,
-  SedReportLog,
-  SedReportLogSchema,
-  SedPlot2DLog,
-  SedPlot2DLogSchema,
-  SedPlot3DLog,
-  SedPlot3DLogSchema,
 } from './logs.model';
 
 import { LogsService } from './logs.service';
@@ -30,16 +20,6 @@ import { LogsService } from './logs.service';
     MongooseModule.forFeature([
       { name: SimulationRunLog.name, schema: SimulationRunLogSchema },
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
-      { name: CombineArchiveLog.name, schema: CombineArchiveLogSchema },
-      {
-        name: SedOutputLog.name,
-        schema: SedOutputLogSchema,
-        discriminators: [
-          { name: SedReportLog.name, schema: SedReportLogSchema },
-          { name: SedPlot2DLog.name, schema: SedPlot2DLogSchema },
-          { name: SedPlot3DLog.name, schema: SedPlot3DLogSchema },
-        ],
-      },
     ]),
   ],
 
