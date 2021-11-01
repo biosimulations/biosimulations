@@ -65,7 +65,7 @@ export class MetadataController {
   @ApiNotFoundResponse({
     description: 'No metadata found could be found for the requested simulation run',
     type: ErrorResponseDocument,
-  })    
+  })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
