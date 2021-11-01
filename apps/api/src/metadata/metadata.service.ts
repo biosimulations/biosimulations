@@ -11,7 +11,6 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import {
   SimulationRunMetadataModel,
   SimulationRunMetadataIdModel,
-  MetadataModel,
 } from './metadata.model';
 import { Endpoints } from '@biosimulations/config/common';
 
