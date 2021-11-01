@@ -66,31 +66,6 @@ export class LogsController {
     throw new NotImplementedException('Not Implemented');
   }
   */
-  
-  /*
-  @ApiOperation({
-    summary: 'Delete the logs of all simulation runs',
-    description: 'Delete the logs of all simulation runs',
-  })
-  @Delete()
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to delete logs',
-  })
-  @permissions('delete:Logs')
-  @ApiNoContentResponse({
-    description: 'The logs were successfully deleted',
-  })
-  @HttpCode(204)
-  public deleteAllLogs(): void {
-    this.service.deleteAllLogs();
-  }
-  */
 
   @ApiOperation({
     summary: 'Get the log a simulation run',
@@ -183,7 +158,7 @@ export class LogsController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
-      'The specifications of the simulation tool are invalid. See https://biosimulators.org/conventions and https://api.biosimulators.org for examples and documentation.',
+      'The log is invalid. See https://biosimulators.org/conventions and https://api.biosimulations.org for examples and documentation.',
   })
   @ApiConflictResponse({
     type: ErrorResponseDocument,
@@ -197,12 +172,11 @@ export class LogsController {
     return log;
   }
 
-  /*
   @ApiOperation({
     summary: 'Delete the log for a simulation run',
     description: 'Delete the log for a simulation run',
   })
-  @Delete(':runId')
+  // @Delete(':runId')
   @ApiParam({
     name: 'runId',
     description: 'Id of the simulation run',
@@ -233,14 +207,12 @@ export class LogsController {
   public deleteLog(@Param('runId') runId: string): Promise<void> {
     return this.service.deleteLog(runId);
   }
-  */
 
-  /*
   @ApiOperation({
     summary: 'Replace the log for a simulation run',
     description: 'Replace the log for a simulation run',
   })
-  @Put(':runId')
+  // @Put(':runId')
   @ApiParam({
     name: 'runId',
     description: 'Id of the simulation run',
@@ -281,7 +253,7 @@ export class LogsController {
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
     description:
-      'The specifications of the simulation tool are invalid. See https://biosimulators.org/conventions and https://api.biosimulators.org for examples and documentation.',
+      'The log is invalid. See https://biosimulators.org/conventions and https://api.biosimulations.org for examples and documentation.',
   })
   public async replaceLog(
     @Param('runId') runId: string,
@@ -289,7 +261,6 @@ export class LogsController {
   ): Promise<CombineArchiveLog> {
     return this.service.replaceLog(runId, body).then((res) => res);
   }
-  */
 
   @Post('validate')
   @ApiOperation({

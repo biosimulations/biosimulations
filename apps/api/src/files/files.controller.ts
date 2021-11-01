@@ -8,7 +8,7 @@ import {
   Logger,
   Param,
   NotFoundException,
-  // HttpCode,
+  HttpCode,
   // Delete,
 } from '@nestjs/common';
 import {
@@ -20,7 +20,7 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiPayloadTooLargeResponse,
-  // ApiNoContentResponse,
+  ApiNoContentResponse,
   ApiUnauthorizedResponse,
   ApiForbiddenResponse,
 } from '@nestjs/swagger';
@@ -208,35 +208,11 @@ export class FilesController {
     file: any,
   ): Promise<void> {}
 
-  /*
-  @ApiOperation({
-    summary: 'Delete all files for all simulation runs',
-    description: 'Delete all files for all simulation runs',
-  })
-  @Delete()
-  @ApiUnauthorizedResponse({
-    type: ErrorResponseDocument,
-    description: 'A valid authorization was not provided',
-  })
-  @ApiForbiddenResponse({
-    type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to delete files',
-  })
-  @permissions('delete:Files')
-  @ApiNoContentResponse({
-    description: 'The files were successfully deleted',
-  })
-  @HttpCode(204)
-  public async deleteAllFiles(): Promise<void> {
-    this.service.deleteAllFiles();
-  }
-
   @ApiOperation({
     summary: 'Delete all files for a simulation run',
     description: 'Delete all files for a simulation run',
   })
-  @Delete(':runId')
+  // @Delete(':runId')
   @ApiParam({
     name: 'runId',
     description: 'Id of the simulation run',
@@ -270,7 +246,7 @@ export class FilesController {
     summary: 'Delete a file',
     description: 'Delete a file',
   })
-  @Delete(':runId/:fileLocation')
+  // @Delete(':runId/:fileLocation')
   @ApiParam({
     name: 'runId',
     description: 'Id of the simulation run',
@@ -311,7 +287,6 @@ export class FilesController {
   ): Promise<void> {
     this.deleteFile(runId, fileLocation);
   }
-  */
 
   private createReturnFile(file: FileModel): ProjectFile {
     return new ProjectFile(

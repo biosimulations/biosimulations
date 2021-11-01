@@ -39,7 +39,7 @@ export class LogsService {
   public async createLog(
     runId: string,
     apiLog: ApiCombineArchiveLog,
-  ): Promise<DbCombineArchiveLog> {
+  ): Promise<ApiCombineArchiveLog> {
     const log = new this.logModel({
       simId: runId,
       log: this.apiToDbCombineArchiveLog(apiLog),
@@ -113,23 +113,9 @@ export class LogsService {
     }
   }
 
-  /*
-  public async deleteAllLogs(): Promise<void> {
-    const res: DeleteResult = await this.logModel
-      .deleteMany({})
-      .exec();
-    const count = await this.logModel.count();
-    if (count !== 0) {
-      throw new InternalServerErrorException(
-        'Some logs could not be deleted.',
-      );
-    }
-  }
-  */
-
   public validateLog(apiLog: ApiCombineArchiveLog): Promise<void> {
     const log = new this.logModel({
-      simId: 'a'.repeat(64),
+      simId: 'a'.repeat(24),
       log: this.apiToDbCombineArchiveLog(apiLog)
     });
     return log.validate();

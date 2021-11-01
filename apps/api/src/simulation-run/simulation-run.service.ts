@@ -77,7 +77,7 @@ import {
   SedSurface,
 } from '../specifications/specifications.model';
 import { Results, Output, OutputData } from '../results/datamodel';
-import { CombineArchiveLog } from '../logs/logs.model';
+import { CombineArchiveLog } from '@biosimulations/ontology/datamodel';
 import {
   SimulationRunMetadataIdModel,
   MetadataModel,
