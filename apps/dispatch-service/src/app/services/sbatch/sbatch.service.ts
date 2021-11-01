@@ -104,19 +104,27 @@ module load singularity/3.7.1-biosim
 export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
 export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 cd ${tempSimDir}
-echo -e '${cyan}=============Downloading Combine Archive=============${nc}'
+echo -e '${cyan}Thank you for using runBioSimulations!${nc}'
+echo -e ''
+echo -e '${cyan}======================== Downloading COMBINE archive ========================${nc}'
 ( ulimit -f 1048576; srun wget --no-check-certificate --progress=bar:force ${apiDomain}runs/${simId}/download -O '${omexName}')
-echo -e '${cyan}=============Extracting Combine Archive==============${nc}'
+echo -e ''
+echo -e '${cyan}========================= Extracting COMBINE archive ========================${nc}'
 unzip -o ${omexName} -d contents
-echo -e '${cyan}=================Running simulation==================${nc}'
+echo -e ''
+echo -e '${cyan}========================= Executing COMBINE archive =========================${nc}'
 srun singularity run --tmpdir /local --bind ${tempSimDir}:/root "${allEnvVarsString}" ${simulator} -i '/root/${omexName}' -o '/root'
-echo -e '${cyan}=============Uploading results to data-service=============${nc}'
+echo -e ''
+echo -e '${cyan}=============================== Saving results ==============================${nc}'
 srun hsload -v reports.h5 '/results/${simId}'
-echo -e '${cyan}=============Creating output archive=============${nc}'
+echo -e ''
+echo -e '${cyan}============================== Zipping outputs ==============================${nc}'
 srun zip ${simId}.zip reports.h5 log.yml plots.zip job.output
-echo -e '${cyan}=============Uploading outputs to storage=============${nc}'
+echo -e ''
+echo -e '${cyan}=============================== Saving outputs ==============================${nc}'
 export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url ${endpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/simulations/${simId}
-echo -e '${cyan}=============Run Complete. Thank you for using BioSimulations!=============${nc}'
+echo -e ''
+echo -e '${cyan}============ Run complete. Thank you for using runBioSimulations! ===========${nc}'
 `;
 
     return template;
