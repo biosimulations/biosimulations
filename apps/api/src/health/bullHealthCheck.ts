@@ -29,7 +29,6 @@ export class BullHealthIndicator extends HealthIndicator {
         { key },
         { timeout: 1000, attempts: 1 },
       );
-      console.log(res);
       const isHealthy = await res.finished();
     } catch (e) {
       throw new HealthCheckError('BullCheck failed', e.message);
