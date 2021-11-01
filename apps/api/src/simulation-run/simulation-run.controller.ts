@@ -272,6 +272,7 @@ export class SimulationRunController {
       run.projectSize,
       run.resultsSize,
       run.email,
+      run.statusReason,
     );
   }
 

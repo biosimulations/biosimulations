@@ -10,7 +10,6 @@
 import {
   ApiProperty,
   ApiPropertyOptional,
-  ApiResponseProperty,
   PartialType,
   PickType,
 } from '@nestjs/swagger';
@@ -92,10 +91,11 @@ export class SimulationRun implements ISimulationRun {
   file!: never;
   fileUrl!: never;
 
-  @ApiResponseProperty({
-    // description: 'Id of the simulation run',
+  @ApiProperty({
+    description: 'Id of the simulation run',
     type: String,
     example: '5fab1cf714f9dd3dfbcfe51b',
+    readOnly: true,
   })
   @IsMongoId()
   id!: string;
@@ -131,12 +131,13 @@ export class SimulationRun implements ISimulationRun {
   @IsString()
   simulatorVersion!: string;
 
-  @ApiResponseProperty({
-    // description: 'Digest of the simulation tool for the simulation run',
+  @ApiProperty({
+    description: 'Digest of the simulation tool for the simulation run',
     type: String,
-    // pattern: '^sha256:[a-z0-9]{64,64}$',
+    pattern: '^sha256:[a-z0-9]{64,64}$',
     example:
       'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
+    readOnly: true,
   })
   simulatorDigest!: string;
 
@@ -213,54 +214,61 @@ export class SimulationRun implements ISimulationRun {
   @IsEmail()
   email: string | null;
 
-  @ApiPropertyOptional({
+  @ApiProperty({
     description: 'Detail about the status of the simulation run',
     type: String,
+    readOnly: true,
   })
   @IsOptional()
   @IsNotEmpty()
   @IsString()
   statusReason?: string;
 
-  @ApiResponseProperty({
-    // description: 'Status of the simulation run',
+  @ApiProperty({
+    description: 'Status of the simulation run',
     type: String,
     enum: SimulationRunStatus,
+    readOnly: true,
   })
   status: SimulationRunStatus;
 
-  @ApiResponseProperty({
-    // description: 'Runtime of the simulation run in seconds',
+  @ApiProperty({
+    description: 'Runtime of the simulation run in seconds',
     type: Number,
     example: 55,
+    readOnly: true,
   })
   runtime?: number;
 
-  @ApiResponseProperty({
-    // description: 'Size of the project (COMBINE/OMEX archive) for the simulation run',
+  @ApiProperty({
+    description: 'Size of the project (COMBINE/OMEX archive) for the simulation run',
     type: Number,
     example: 1123,
+    readOnly: true,
   })
   projectSize?: number;
 
-  @ApiResponseProperty({
-    // description: 'Size of the results (zip of reports and plots) for the simulation run',
+  @ApiProperty({
+    description: 'Size of the results (zip of reports and plots) for the simulation run',
     type: Number,
     example: 11234,
+    readOnly: true,
   })
   resultsSize?: number;
 
-  @ApiResponseProperty({
-    // description: 'Timestamp when the simulation run was submitted',
+  @ApiProperty({
+    description: 'Timestamp when the simulation run was submitted',
     type: String,
     format: 'date-time',
+    readOnly: true,
   })
   submitted!: Date;
 
-  @ApiResponseProperty({
-    // description: 'Timestamp when the status of the simulation run was last updated',
+  @ApiProperty({
+    description: 'Timestamp when the status of the simulation run was last updated',
     type: String,
     format: 'date-time',
+    readOnly: true,
   })
   updated!: Date;
 
