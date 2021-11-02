@@ -484,32 +484,6 @@ export class Endpoints {
   public getStorageHealthEndpoint(): string {
     return `${this.storageEndpoint}/helloWorld.txt`;
   }
-  /**
-   * Create a URL to download a file from an COMBINE/OMEX archive using the COMBINE service
-   * @param archiveUrl The URL of a COMBINE archive
-   * @param fileLocation The location of the file within the archive
-   * @returns A URL that resolves to a specific file within a COMBINE archive
-   * @deprecated use getSimulationRunFileEndpoint instead if the simulation run has been submitted
-   * @see getSimulationRunFileEndpoint
-   */
-  private getCombineFilesEndpoint(
-    archiveUrl: string,
-    fileLocation: string,
-    external = false,
-  ): string {
-    if (external) {
-      if (this.env == 'local') {
-        return new Endpoints('dev').getCombineFilesEndpoint(
-          archiveUrl,
-          fileLocation,
-          true,
-        );
-      }
-    }
-    return `${this.combineFile}?url=${encodeURIComponent(
-      archiveUrl,
-    )}&location=${encodeURIComponent(fileLocation)}`;
-  }
 
   /**
    * Create a path a simulation run in an S3 bucket
