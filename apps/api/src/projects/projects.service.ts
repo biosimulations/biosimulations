@@ -18,6 +18,7 @@ import { ConfigService } from '@nestjs/config';
 import { AuthToken } from '@biosimulations/auth/common';
 import { isAdmin } from '@biosimulations/auth/nest';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
+import { scopes } from '@biosimulations/config/common';
 
 @Injectable()
 export class ProjectsService {
@@ -118,7 +119,7 @@ export class ProjectsService {
     user: AuthToken,
   ): string | undefined {
     if (projectInput?.owner) {
-      if (user?.permissions?.includes('proxyOwnership:Projects')) {
+      if (user?.permissions?.includes(scopes.projects.proxyOwnership.id)) {
         return projectInput.owner;
       } else {
         throw new ForbiddenException(
@@ -135,7 +136,7 @@ export class ProjectsService {
       return user.sub;
     }
 
-    if (!user?.permissions?.includes('proxyOwnership:Projects')) {
+    if (!user?.permissions?.includes(scopes.projects.proxyOwnership.id)) {
       return user?.sub;
     }
 

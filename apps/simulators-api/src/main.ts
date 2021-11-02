@@ -21,6 +21,7 @@ import { Resolver } from '@stoplight/json-ref-resolver';
 import * as toJsonSchema from '@openapi-contrib/openapi-schema-to-json-schema';
 import { json } from 'body-parser';
 import { BiosimulationsValidationExceptionFactory } from '@biosimulations/shared/exceptions';
+import { scopes } from '@biosimulations/config/common';
 
 function setupOpenApi(
   app: INestApplication,
@@ -169,11 +170,7 @@ async function bootstrap() {
     'https://auth.biosimulations.org/authorize?audience=api.biosimulators.org',
     'https://auth.biosimulations.org/.well-known/openid-configuration',
     'WEPUMb2Jo28NdEt1Z7fhUx54Bff8MnKF',
-    {
-      'read:Simulators': 'Get information about simulators',
-      'write:Simulators': 'Create or modify simulators',
-      'delete:Simulators': 'Delete simulators',
-    },
+    getScopesForAudience('api.biosimulators.org'),
   );
 
   const httpAdapter = app.getHttpAdapter();

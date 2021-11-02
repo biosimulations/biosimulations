@@ -32,6 +32,7 @@ import { SpecificationsService } from './specifications.service';
 import { SpecificationsModel } from './specifications.model';
 import { permissions } from '@biosimulations/auth/nest';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import { scopes } from '@biosimulations/config/common';
 
 @ApiTags('Specifications')
 @Controller('specifications')
@@ -51,7 +52,7 @@ export class SpecificationsController {
       'List of the specifications of all simulation experiments (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
     type: [SimulationRunSedDocument],
   })
-  @permissions('read:Specifications')
+  @permissions(scopes.specifications.read.id)
   public async getSpecifications(): Promise<SimulationRunSedDocument[]> {
     const specs = await this.service.getSpecifications();
     return specs.map(this.returnSpec);
@@ -439,7 +440,7 @@ export class SpecificationsController {
   }
 
   @Post()
-  @permissions('write:Specifications')
+  @permissions(scopes.specifications.create.id)
   @ApiOperation({
     summary: 'Save the simulation experiments of a simulation run',
     description:

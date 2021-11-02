@@ -18,6 +18,7 @@ import {
   PermissionsGuard,
 } from '@biosimulations/auth/nest';
 import { getUserId } from '@biosimulations/auth/common';
+import { scopes } from '@biosimulations/config/common';
 
 class CreateAccountDTO {
   @ApiProperty({ type: String })
@@ -35,7 +36,7 @@ export class AppController {
   constructor(private accountService: AppService) {}
 
   @UseGuards(JwtGuard, PermissionsGuard)
-  @permissions('read:accounts')
+  @permissions(scopes.accounts.read.id)
   @ApiOAuth2([])
   @Get('list')
   async getAll() {
@@ -43,7 +44,7 @@ export class AppController {
   }
 
   @UseGuards(JwtGuard, PermissionsGuard)
-  @permissions('delete:accounts')
+  @permissions(scopes.accounts.delete.id)
   @ApiOAuth2([])
   @Delete()
   async deleteAll() {

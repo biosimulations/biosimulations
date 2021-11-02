@@ -31,6 +31,7 @@ import { MetadataService } from './metadata.service';
 import { SimulationRunMetadataModel } from './metadata.model';
 import { permissions } from '@biosimulations/auth/nest';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import { scopes } from '@biosimulations/config/common';
 
 @ApiTags('Metadata')
 @Controller({ path: 'metadata', version: VERSION_NEUTRAL })
@@ -79,7 +80,7 @@ export class MetadataController {
     description: 'The metadata was successfully saved to the database',
     type: SimulationRunMetadata,
   })
-  @permissions('write:Metadata')
+  @permissions(scopes.metadata.update.id)
   public async modifyMetadata(
     @Param('runId') runId: string,
     @Body() body: ArchiveMetadata[],
@@ -121,7 +122,7 @@ export class MetadataController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to write metadata',
   })
-  @permissions('write:Metadata')
+  @permissions(scopes.metadata.create.id)
   public async makeMetadata(
     @Body() body: SimulationRunMetadataInput,
   ): Promise<SimulationRunMetadata> {
@@ -159,7 +160,7 @@ export class MetadataController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to read metadata',
   })
-  @permissions('read:Metadata')
+  @permissions(scopes.metadata.read.id)
   @Get()
   public async getAllMetadata(): Promise<SimulationRunMetadata[]> {
     const metadatas = await this.service.getAllMetadata();
