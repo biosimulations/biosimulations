@@ -95,7 +95,7 @@ export class CompleteProcessor {
 
     if (errors.length === 0) {
       let msg = 'The simulation run was successfully proccessed.';
-      if (warnings) {
+      if (warnings.length) {
         msg += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
       }
 
@@ -154,7 +154,7 @@ export class CompleteProcessor {
     } else {
       let msg = 'The simulation run was not successfully proccessed.';
       msg += '\n\nErrors:\n  * ' + errors.join('\n  * ');
-      if (warnings) {
+      if (warnings.length) {
         msg += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
       }
 
