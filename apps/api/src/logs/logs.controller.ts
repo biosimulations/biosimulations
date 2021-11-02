@@ -15,7 +15,7 @@ import {
   Query,
   // Patch,
   Post,
-  // Put,
+  Put,
   HttpCode,
 } from '@nestjs/common';
 import {
@@ -211,7 +211,7 @@ export class LogsController {
     summary: 'Replace the log for a simulation run',
     description: 'Replace the log for a simulation run',
   })
-  // @Put(':runId')
+  @Put(':runId')
   @ApiParam({
     name: 'runId',
     description: 'Id of the simulation run',

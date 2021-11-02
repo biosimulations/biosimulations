@@ -325,12 +325,15 @@
 
   <ng-container id="content" [ngSwitch]="structuredLogLevel">
     <ng-container *ngSwitchCase="StructuredLogLevel.None">
+      <h3 id="section=raw" class="top-margin">
+        Simulation run
+      </h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
-        elementType="Execution of the COMBINE/OMEX archive"
+        elementType="Raw output of the simulation run"
         [log]="{
           output: rawLog,
-          status: getRunStatus(),
+          status: getStatus(),
           location: 'output',
           exception: null,
           skipReason: null,
@@ -338,37 +341,17 @@
           tasks: null,
           outputs: null
         }"
-        id="log=archive-execution"
+        id="log=raw"
         [compact]="true"
         iconActionType="toggle"
         [first]="true"
-        [last]="false"
-      >
-      </biosimulations-structured-simulation-log-element>
-      <biosimulations-structured-simulation-log-element
-        [isStructuredLog]="false"
-        elementType="Post-processing of the results of the execution of the COMBINE/OMEX archive"
-        [log]="{
-          output: statusReason || null,
-          status: getPostProcessingStatus(),
-          location: 'output',
-          exception: null,
-          skipReason: null,
-          duration: null,
-          tasks: null,
-          outputs: null
-        }"
-        id="log=post-processing"
-        [compact]="true"
-        iconActionType="toggle"
-        [first]="false"
         [last]="true"
       >
-      </biosimulations-structured-simulation-log-element>
+      </biosimulations-structured-simulation-log-element>      
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
-      <h3 id="section=combined-stdout-stderr">
+      <h3 id="section=raw" class="top-margin">
         Simulation project (COMBINE/OMEX archive)
       </h3>
       <biosimulations-structured-simulation-log-element
@@ -377,38 +360,22 @@
         elementId="COMBINE/OMEX archive"
         elementType="Combined log of the"
         id="log"
-      >
-      </biosimulations-structured-simulation-log-element>
-
-      <h3 id="section=combined-stdout-stderr">
-        Raw output of the simulation run
-      </h3>
-      <biosimulations-structured-simulation-log-element
-        [isStructuredLog]="false"
-        elementType="Execution of the COMBINE/OMEX archive"
-        [log]="{
-          output: structuredLog?.output || null,
-          status: getRunStatus(),
-          location: 'output',
-          exception: null,
-          skipReason: null,
-          duration: null,
-          tasks: null,
-          outputs: null
-        }"
-        id="log=archive-execution"
         [compact]="true"
         iconActionType="toggle"
         [first]="true"
-        [last]="false"
+        [last]="true"
       >
       </biosimulations-structured-simulation-log-element>
+
+      <h3 id="section=raw">
+        Simulation run
+      </h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
-        elementType="Post-processing of the results of the execution of the COMBINE/OMEX archive"
+        elementType="Raw output of the simulation run"
         [log]="{
-          output: statusReason || null,
-          status: getPostProcessingStatus(),
+          output: structuredLog?.output || null,
+          status: getStatus(),
           location: 'output',
           exception: null,
           skipReason: null,
@@ -416,10 +383,10 @@
           tasks: null,
           outputs: null
         }"
-        id="log=post-processing"
+        id="log=raw"
         [compact]="true"
         iconActionType="toggle"
-        [first]="false"
+        [first]="true"
         [last]="true"
       >
       </biosimulations-structured-simulation-log-element>
@@ -440,15 +407,15 @@
       >
       </biosimulations-structured-simulation-log-element>
 
-      <h3 id="section=combined-stdout-stderr">
-        Raw output of the simulation run
+      <h3 id="section=raw">
+        Simulation run
       </h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
-        elementType="Execution of the COMBINE/OMEX archive"
+        elementType="Raw output of the simulation run"
         [log]="{
           output: structuredLog?.output || null,
-          status: getRunStatus(),
+          status: getStatus(),
           location: 'output',
           exception: null,
           skipReason: null,
@@ -456,30 +423,10 @@
           tasks: null,
           outputs: null
         }"
-        id="log=archive-execution"
+        id="log=raw"
         [compact]="true"
         iconActionType="toggle"
         [first]="true"
-        [last]="false"
-      >
-      </biosimulations-structured-simulation-log-element>
-      <biosimulations-structured-simulation-log-element
-        [isStructuredLog]="false"
-        elementType="Post-processing of the results of the execution of the COMBINE/OMEX archive"
-        [log]="{
-          output: statusReason || null,
-          status: getPostProcessingStatus(),
-          location: 'output',
-          exception: null,
-          skipReason: null,
-          duration: null,
-          tasks: null,
-          outputs: null
-        }"
-        id="log=post-processing"
-        [compact]="true"
-        iconActionType="toggle"
-        [first]="false"
         [last]="true"
       >
       </biosimulations-structured-simulation-log-element>
@@ -550,15 +497,15 @@
         </biosimulations-structured-simulation-log-element>
       </ng-container>
 
-      <h3 id="section=combined-stdout-stderr">
-        Raw output of the simulation run
+      <h3 id="section=raw">
+        Simulation run
       </h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
-        elementType="Execution of the COMBINE/OMEX archive"
+        elementType="Raw output of the simulation run"
         [log]="{
           output: structuredLog?.output || null,
-          status: getRunStatus(),
+          status: getStatus(),
           location: 'output',
           exception: null,
           skipReason: null,
@@ -566,30 +513,10 @@
           tasks: null,
           outputs: null
         }"
-        id="log=archive-execution"
+        id="log=raw"
         [compact]="true"
         iconActionType="toggle"
         [first]="true"
-        [last]="false"
-      >
-      </biosimulations-structured-simulation-log-element>
-      <biosimulations-structured-simulation-log-element
-        [isStructuredLog]="false"
-        elementType="Post-processing of the results of the execution of the COMBINE/OMEX archive"
-        [log]="{
-          output: statusReason || null,
-          status: getPostProcessingStatus(),
-          location: 'output',
-          exception: null,
-          skipReason: null,
-          duration: null,
-          tasks: null,
-          outputs: null
-        }"
-        id="log=post-processing"
-        [compact]="true"
-        iconActionType="toggle"
-        [first]="false"
         [last]="true"
       >
       </biosimulations-structured-simulation-log-element>
