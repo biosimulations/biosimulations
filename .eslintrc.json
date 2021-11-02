@@ -67,7 +67,7 @@
               },
               {
                 "sourceTag": "scope:auth",
-                "onlyDependOnLibsWithTags": ["scope:auth", "scope:shared", "type:environments"]
+                "onlyDependOnLibsWithTags": ["scope:auth", "scope:config", "scope:shared", "type:environments"]
               },
               {
                 "sourceTag": "scope:simulators",
