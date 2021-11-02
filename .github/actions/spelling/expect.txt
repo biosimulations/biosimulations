@@ -15,6 +15,7 @@ Aur
 aurelien
 backend
 bestpractices
+bibtex
 Bilal
 bilalshaikh
 biochem
@@ -45,7 +46,6 @@ copasi
 coreinfrastructure
 crbm
 Deepa
-DOI
 Dumontier
 dumontierlab
 ebi
@@ -66,6 +66,7 @@ github
 githubusercontent
 GKE
 gmarupilla
+Gnaneswara
 Goelzer
 goldberg
 Google
@@ -190,7 +191,6 @@ uchc
 uconn
 ucsd
 umbc
-URL
 vcell
 vcellmike
 versioning
