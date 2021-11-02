@@ -1,14 +1,14 @@
 import { ScopesObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
 export interface Scope {
-    audience: string;
-    id: string;
-    description: string;
+  audience: string;
+  id: string;
+  description: string;
 }
 
-export type ScopeGroup = {[scope: string]: Scope};
+export type ScopeGroup = { [scope: string]: Scope };
 
-export type Scopes = {[id: string]: ScopeGroup};
+export type Scopes = { [id: string]: ScopeGroup };
 
 export const scopes: Scopes = {
   simulators: {
@@ -66,7 +66,8 @@ export const scopes: Scopes = {
     read: {
       audience: 'dispatch.biosimulations.org',
       id: 'read:Email',
-      description: 'Read contact email addresses for results of simulation runs'
+      description:
+        'Read contact email addresses for results of simulation runs',
     },
   },
   files: {
@@ -95,17 +96,20 @@ export const scopes: Scopes = {
     read: {
       audience: 'dispatch.biosimulations.org',
       id: 'read:Specifications',
-      description: 'Get information about simulation experiments of simulation runs',
+      description:
+        'Get information about simulation experiments of simulation runs',
     },
     create: {
       audience: 'dispatch.biosimulations.org',
       id: 'write:Specifications',
-      description: 'Write and modify simulation experiments for simulation runs',
+      description:
+        'Write and modify simulation experiments for simulation runs',
     },
     update: {
       audience: 'dispatch.biosimulations.org',
       id: 'write:Specifications',
-      description: 'Write and modify simulation experiments for simulation runs',
+      description:
+        'Write and modify simulation experiments for simulation runs',
     },
     delete: {
       audience: 'dispatch.biosimulations.org',
@@ -155,7 +159,7 @@ export const scopes: Scopes = {
       audience: 'dispatch.biosimulations.org',
       id: 'delete:Logs',
       description: 'Delete the logs of simulation runs',
-    }
+    },
   },
   metadata: {
     read: {
@@ -256,7 +260,7 @@ export const scopes: Scopes = {
       id: 'test:permissions',
       description: 'Get information about published projects',
     },
-  }
+  },
 };
 
 export function getScopesForAudience(audience: string): ScopesObject {
