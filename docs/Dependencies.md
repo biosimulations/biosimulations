@@ -714,7 +714,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.1018.0
+├─ aws-sdk@2.1020.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services
@@ -750,6 +750,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/axios/axios
 │  ├─ publisher: Matt Zabriskie
 │  └─ licenseFile: axios/LICENSE
+├─ backoff-rxjs@6.5.7
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/alex-okrushko/backoff-rxjs
+│  ├─ publisher: Alex Okrushko
+│  └─ licenseFile: backoff-rxjs/LICENSE
 ├─ balanced-match@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/juliangruber/balanced-match
