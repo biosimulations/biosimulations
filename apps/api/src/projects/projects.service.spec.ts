@@ -25,7 +25,6 @@ import { HttpModule } from '@nestjs/axios';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import {
-  SharedStorageModule,
   SharedStorageService,
   SimulationStorageService,
 } from '@biosimulations/shared/storage';

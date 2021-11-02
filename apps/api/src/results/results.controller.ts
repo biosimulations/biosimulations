@@ -24,21 +24,21 @@ import {
   ApiTags,
   ApiOperation,
   ApiParam,
+  ApiNotFoundResponse,
 } from '@nestjs/swagger';
-import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { ResultsService } from './results.service';
 import {
   SimulationRunOutput,
   SimulationRunResults,
 } from '@biosimulations/datamodel/api';
 import { Response } from 'express';
+import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
   public constructor(
     private service: ResultsService,
-    private dataSetService: SimulationHDFService,
   ) {}
 
   @ApiOperation({
@@ -99,6 +99,10 @@ export class ResultsController {
     schema: {
       pattern: '^[a-f\\d]{24}$',
     },
+  })
+  @ApiNotFoundResponse({
+    type: ErrorResponseDocument,
+    description: 'No output archive has the requested simulation run id',
   })
   @ApiOkResponse({
     description: 'The simulation results were successfully downloaded',

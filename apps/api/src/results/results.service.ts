@@ -1,15 +1,23 @@
 import { Dataset, SimulationHDFService } from '@biosimulations/hsds/client';
 import { SharedStorageService } from '@biosimulations/shared/storage';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, HttpStatus } from '@nestjs/common';
 import { Output, OutputData, Results } from './datamodel';
 import { S3 } from 'aws-sdk';
+import { Endpoints } from '@biosimulations/config/common';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ResultsService {
+  private endpoints: Endpoints;
+
   public constructor(
     private storage: SharedStorageService,
     private results: SimulationHDFService,
-  ) {}
+    private configService: ConfigService,
+  ) {
+    const env = configService.get('server.env');
+    this.endpoints = new Endpoints(env);
+  }
 
   private logger = new Logger(ResultsService.name);
 
@@ -40,16 +48,28 @@ export class ResultsService {
     datasetId: string,
   ): Promise<undefined | (string[] | number[] | boolean[])[]> {
     // The index field will be needed when we are doing slicing of the data so this will need to change
-    // TODO update the hsds client to use the correct name "value" not "values"
+    // TODO update the HSDS client to use the correct name "value" not "values"
     return ((await this.results.getDatasetValues(runId, datasetId)) as any)
       ?.value;
   }
 
-  public async download(runId: string): Promise<S3.Body | undefined> {
-    const file = await this.storage.getObject(
-      'simulations/' + runId + '/' + runId + '.zip',
-    ); // TODO remove harcoded path
-    return file.Body;
+  public async download(runId: string): Promise<S3.Body> {
+    try {
+      const file = await this.storage.getObject(
+        this.endpoints.getSimulationRunOutputS3Path(runId),
+      );
+      if (file.Body) {
+        return file.Body;
+      } else {
+        throw new NotFoundException(`Results could not be found for run '${runId}'.`);
+      }
+    } catch (error) {
+      if (error.statusCode === HttpStatus.NOT_FOUND) {
+        throw new NotFoundException(`Results could not be found for run '${runId}'.`);
+      } else {
+        throw error;
+      }
+    }
   }
 
   public async getOutput(
@@ -102,7 +122,7 @@ export class ResultsService {
 
     sedIds.forEach((sedId, index) => {
       // These accesses by index should work, but this *feels* unsafe.
-      //The above check should help, but add more checking and error handling here
+      // The above check should help, but add more checking and error handling here
       const output: OutputData = {
         id: sedId,
         label: sedLabels[index],
@@ -129,8 +149,6 @@ export class ResultsService {
 
   public async deleteSimulationRunResults(runId: string): Promise<void> {
     await this.results.deleteDatasets(runId);
-    await this.storage.deleteObject(
-      'simulations/' + runId + '/' + runId + '.zip',
-    );
+    await this.storage.deleteObject(this.endpoints.getSimulationRunOutputS3Path(runId));
   }
 }

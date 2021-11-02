@@ -9,6 +9,7 @@ import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsService } from './results.service';
+import { ConfigService } from '@nestjs/config';
 
 describe('ResultsService', () => {
   let service: ResultsService;
@@ -27,6 +28,7 @@ describe('ResultsService', () => {
       return;
     }
     putObject(id: string, data: Buffer) {}
+    deleteObject() {}
   }
 
   class mockSimService {
@@ -47,6 +49,7 @@ describe('ResultsService', () => {
           provide: SimulationHDFService,
           useClass: mockSimService,
         },
+        ConfigService,
       ],
     }).compile();
 

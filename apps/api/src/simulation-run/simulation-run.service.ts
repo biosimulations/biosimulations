@@ -85,7 +85,7 @@ import {
 import { OntologiesService } from '@biosimulations/ontology/ontologies';
 import { Cache } from 'cache-manager';
 
-// 1gb in bytes to be used as file size limits
+// 1 GB in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
 const toApi = <T extends SimulationRunModelType>(
   obj: T,
