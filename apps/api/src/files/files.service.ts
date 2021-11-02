@@ -73,7 +73,7 @@ export class FilesService {
     await Promise.all(
       files.map((file) => {
         return this.deleteFile(runId, file.location);
-      })
+      }),
     );
   }
 
@@ -93,7 +93,9 @@ export class FilesService {
       );
     }
 
-    await this.storage.deleteObject(this.endpoints.getSimulationRunOutputS3Path(file.id));
+    await this.storage.deleteObject(
+      this.endpoints.getSimulationRunOutputS3Path(file.id),
+    );
 
     const res: DeleteResult = await this.model
       .deleteOne({ id: file.id })

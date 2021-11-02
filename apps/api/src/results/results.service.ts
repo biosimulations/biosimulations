@@ -1,6 +1,11 @@
 import { Dataset, SimulationHDFService } from '@biosimulations/hsds/client';
 import { SharedStorageService } from '@biosimulations/shared/storage';
-import { Injectable, Logger, NotFoundException, HttpStatus } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  HttpStatus,
+} from '@nestjs/common';
 import { Output, OutputData, Results } from './datamodel';
 import { S3 } from 'aws-sdk';
 import { Endpoints } from '@biosimulations/config/common';
@@ -61,11 +66,15 @@ export class ResultsService {
       if (file.Body) {
         return file.Body;
       } else {
-        throw new NotFoundException(`Results could not be found for run '${runId}'.`);
+        throw new NotFoundException(
+          `Results could not be found for run '${runId}'.`,
+        );
       }
     } catch (error) {
       if (error.statusCode === HttpStatus.NOT_FOUND) {
-        throw new NotFoundException(`Results could not be found for run '${runId}'.`);
+        throw new NotFoundException(
+          `Results could not be found for run '${runId}'.`,
+        );
       } else {
         throw error;
       }
@@ -149,6 +158,8 @@ export class ResultsService {
 
   public async deleteSimulationRunResults(runId: string): Promise<void> {
     await this.results.deleteDatasets(runId);
-    await this.storage.deleteObject(this.endpoints.getSimulationRunOutputS3Path(runId));
+    await this.storage.deleteObject(
+      this.endpoints.getSimulationRunOutputS3Path(runId),
+    );
   }
 }

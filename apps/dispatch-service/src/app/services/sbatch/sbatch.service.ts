@@ -6,12 +6,12 @@ import { EnvironmentVariable, Purpose } from '@biosimulations/datamodel/common';
 @Injectable()
 export class SbatchService {
   private endpoints: Endpoints;
-  
+
   public constructor(private configService: ConfigService) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
   }
-  
+
   private logger = new Logger(SbatchService.name);
   public generateSbatch(
     tempSimDir: string,
@@ -89,9 +89,14 @@ export class SbatchService {
         : '';
     const runCombineArchiveUrl = this.endpoints.getRunDownloadEndpoint(runId);
     const simulationRunS3Path = this.endpoints.getSimulationRunS3Path(runId);
-    const simulationRunContentS3Subpath = this.endpoints.getSimulationRunContentS3Subpath();
-    const simulationRunResultsHsdsPath = this.endpoints.getSimulationRunResultsHsdsPath(runId)
-    const outputArchiveS3Subpath = this.endpoints.getSimulationRunOutputS3Path(runId, false);
+    const simulationRunContentS3Subpath =
+      this.endpoints.getSimulationRunContentS3Subpath();
+    const simulationRunResultsHsdsPath =
+      this.endpoints.getSimulationRunResultsHsdsPath(runId);
+    const outputArchiveS3Subpath = this.endpoints.getSimulationRunOutputS3Path(
+      runId,
+      false,
+    );
 
     // TODO Remove the no check flag
     const template = `#!/bin/bash

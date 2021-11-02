@@ -429,9 +429,7 @@ export class SimulationRunController {
     description: 'The simulation run was successfully deleted',
   })
   @HttpCode(204)
-  public async deleteRun(
-    @Param('runId') runId: string,
-  ): Promise<void> {
+  public async deleteRun(@Param('runId') runId: string): Promise<void> {
     await this.service.delete(runId);
   }
 

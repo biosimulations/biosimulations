@@ -175,9 +175,13 @@ export class Endpoints {
       fileLocation = fileLocation.substring(2);
     }
     if (fileLocation == '.') {
-      return `${this.storageEndpoint}/${this.getSimulationRunCombineArchiveS3Path(runId)}`;
+      return `${
+        this.storageEndpoint
+      }/${this.getSimulationRunCombineArchiveS3Path(runId)}`;
     } else {
-      return `${this.storageEndpoint}/${this.getSimulationRunS3Path(runId)}/contents/${fileLocation}`;
+      return `${this.storageEndpoint}/${this.getSimulationRunS3Path(
+        runId,
+      )}/contents/${fileLocation}`;
     }
   }
 
@@ -535,8 +539,13 @@ export class Endpoints {
    * @param runId Id of the simulation run
    * @param fileLocation Location of a file in the COMBINE/OMEX archive for the simulation run
    */
-  public getSimulationRunContentFileS3Path(runId: string, fileLocation: string): string {
-    return `${this.getSimulationRunS3Path(runId)}/${this.simulationRunContentS3Subpath}/${location}`;
+  public getSimulationRunContentFileS3Path(
+    runId: string,
+    fileLocation: string,
+  ): string {
+    return `${this.getSimulationRunS3Path(runId)}/${
+      this.simulationRunContentS3Subpath
+    }/${location}`;
   }
 
   /**
@@ -552,7 +561,7 @@ export class Endpoints {
    * @param runId Id of the simulation run
    * @param absolute Whether to get the absolute path, or the path relative to the S3 path for the simulation run
    */
-  public getSimulationRunOutputS3Path(runId: string, absolute=true): string {
+  public getSimulationRunOutputS3Path(runId: string, absolute = true): string {
     if (absolute) {
       return `${this.getSimulationRunS3Path(runId)}/${runId}.zip`;
     } else {

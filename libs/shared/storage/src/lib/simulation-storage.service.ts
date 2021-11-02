@@ -11,7 +11,10 @@ export class SimulationStorageService {
   private endpoints: Endpoints;
   private logger = new Logger(SimulationStorageService.name);
 
-  public constructor(private storage: SharedStorageService, private configService: ConfigService) {
+  public constructor(
+    private storage: SharedStorageService,
+    private configService: ConfigService,
+  ) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
   }

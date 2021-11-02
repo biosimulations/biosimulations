@@ -37,9 +37,7 @@ import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 @Controller('results')
 @ApiTags('Results')
 export class ResultsController {
-  public constructor(
-    private service: ResultsService,
-  ) {}
+  public constructor(private service: ResultsService) {}
 
   @ApiOperation({
     summary: 'Get the results of all of the outputs of a simulation run',

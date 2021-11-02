@@ -195,26 +195,26 @@ export class SimulationRunService {
       }
     } else {
       // The simulator did not give a file id
-      throw new NotFoundException(`Simulation run with id '${id}' could not be found.`);
+      throw new NotFoundException(
+        `Simulation run with id '${id}' could not be found.`,
+      );
     }
   }
 
   public async deleteAll(): Promise<void> {
     const count = await this.projectModel.count();
     if (count > 0) {
-      throw new BadRequestException(`${count} runs cannot be deleted because they have been published as projects.`);
+      throw new BadRequestException(
+        `${count} runs cannot be deleted because they have been published as projects.`,
+      );
     }
 
     const runs = await this.simulationRunModel.find({}).select('id').exec();
 
-    await Promise.all(
-      runs.map((run) => this.delete(run.id))
-    );
+    await Promise.all(runs.map((run) => this.delete(run.id)));
   }
 
-  public async delete(
-    id: string,
-  ): Promise<void> {
+  public async delete(id: string): Promise<void> {
     const project = await this.projectModel
       .findOne({ simulationRun: id })
       .select('id')
@@ -227,7 +227,9 @@ export class SimulationRunService {
 
     const run = await this.simulationRunModel.findOneAndDelete({ id });
     if (!run) {
-      throw new NotFoundException(`Simulation run with id '${id}' could not be found.`);
+      throw new NotFoundException(
+        `Simulation run with id '${id}' could not be found.`,
+      );
     }
 
     await this.simulationStorageService.deleteSimulationArchive(id);
@@ -617,7 +619,9 @@ export class SimulationRunService {
       !('value' in runSettledResult) ||
       !runSettledResult.value
     ) {
-      throw new NotFoundException(`Simulation run with id '${id}' could not be found.`);
+      throw new NotFoundException(
+        `Simulation run with id '${id}' could not be found.`,
+      );
     }
 
     /* initialize summary with run information */
