@@ -40,7 +40,7 @@ We welcome contributions to BioSimulations, runBioSimulations, and BioSimulation
 
 This package is released under the [MIT license](./License.md). This package uses a number of open-source third-party packages. Their licenses are summarized in [Dependencies](./about/Dependencies).
 
-## Show your support
+## Show your support 🤝
 
 If you find this project interesting or useful, please give our repo a ⭐ and share with others that may benefit. If you use the code and tools in this repository as a part of an academic work, please cite us using the following bibtex entry. 
 
