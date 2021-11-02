@@ -163,22 +163,7 @@ export class SimulationHDFService {
   }
   public async deleteDatasets(runId: string): Promise<void> {
     const domain = this.endpoints.getSimulationRunResultsHsdsDomain(runId);
-
-    const response = this.domainService.datasetsGet(domain).pipe(RetryBackoff);
-
-    const responsePromise = await firstValueFrom(response);
-
-    const datasetIds = responsePromise?.data.datasets || [];
-
-    await Promise.all(
-      datasetIds.map((id: string) => {
-        return firstValueFrom(
-          this.datasetService
-            .datasetsIdDelete(id, domain, this.auth)
-            .pipe(RetryBackoff),
-        );
-      }),
-    );
+    await this.domainService.rootDelete(domain, this.auth);
   }
 
   private createDate(timestamp: number | undefined): Date | undefined {
