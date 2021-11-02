@@ -17,16 +17,28 @@ export class LogService {
     private sshService: SshService,
   ) {}
 
-  public async createLog(id: string, makeStructuredLog=true, extraStdLog?: string, update=false): Promise<void> {
+  public async createLog(
+    id: string,
+    makeStructuredLog = true,
+    extraStdLog?: string,
+    update = false,
+  ): Promise<void> {
     const path = this.sshService.getSSHResultsDirectory(id);
-    return this.makeLog(path, makeStructuredLog, extraStdLog).then((value) => this.uploadLog(id, value, update));
+    return this.makeLog(path, makeStructuredLog, extraStdLog).then((value) =>
+      this.uploadLog(id, value, update),
+    );
   }
 
-  private async makeLog(path: string, makeStructuredLog=true, extraStdLog?: string): Promise<CombineArchiveLog> {
+  private async makeLog(
+    path: string,
+    makeStructuredLog = true,
+    extraStdLog?: string,
+  ): Promise<CombineArchiveLog> {
     const log = makeStructuredLog
       ? await this.readStructuredLog(path)
       : this.initStructureLog();
-    const stdLog = await this.readStdLog(path) + (extraStdLog ? extraStdLog : '');
+    const stdLog =
+      (await this.readStdLog(path)) + (extraStdLog ? extraStdLog : '');
 
     log.output = stdLog;
     return log;
@@ -52,7 +64,8 @@ export class LogService {
       .catch((_: any) => {
         const log = this.initStructureLog();
         log.exception = {
-          message: 'The simulation tool did not produce a valid YAML-formatted log (`log.yml` file).',
+          message:
+            'The simulation tool did not produce a valid YAML-formatted log (`log.yml` file).',
           category: 'Invalid log',
         };
         return log;
@@ -81,7 +94,11 @@ export class LogService {
       });
   }
 
-  private uploadLog(id: string, log: CombineArchiveLog, update=false): Promise<void> {
+  private uploadLog(
+    id: string,
+    log: CombineArchiveLog,
+    update = false,
+  ): Promise<void> {
     return this.submit
       .sendLog(id, log, update)
       .toPromise()

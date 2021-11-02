@@ -325,9 +325,7 @@
 
   <ng-container id="content" [ngSwitch]="structuredLogLevel">
     <ng-container *ngSwitchCase="StructuredLogLevel.None">
-      <h3 id="section=raw" class="top-margin">
-        Simulation run
-      </h3>
+      <h3 id="section=raw" class="top-margin">Simulation run</h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="Raw output of the simulation run"
@@ -347,7 +345,7 @@
         [first]="true"
         [last]="true"
       >
-      </biosimulations-structured-simulation-log-element>      
+      </biosimulations-structured-simulation-log-element>
     </ng-container>
 
     <ng-container *ngSwitchCase="StructuredLogLevel.CombineArchive">
@@ -367,9 +365,7 @@
       >
       </biosimulations-structured-simulation-log-element>
 
-      <h3 id="section=raw">
-        Simulation run
-      </h3>
+      <h3 id="section=raw">Simulation run</h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="Raw output of the simulation run"
@@ -407,9 +403,7 @@
       >
       </biosimulations-structured-simulation-log-element>
 
-      <h3 id="section=raw">
-        Simulation run
-      </h3>
+      <h3 id="section=raw">Simulation run</h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="Raw output of the simulation run"
@@ -497,9 +491,7 @@
         </biosimulations-structured-simulation-log-element>
       </ng-container>
 
-      <h3 id="section=raw">
-        Simulation run
-      </h3>
+      <h3 id="section=raw">Simulation run</h3>
       <biosimulations-structured-simulation-log-element
         [isStructuredLog]="false"
         elementType="Raw output of the simulation run"

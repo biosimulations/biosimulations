@@ -1,7 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
-import { EnvironmentVariable, Purpose, ConsoleFormatting } from '@biosimulations/datamodel/common';
+import {
+  EnvironmentVariable,
+  Purpose,
+  ConsoleFormatting,
+} from '@biosimulations/datamodel/common';
 
 @Injectable()
 export class SbatchService {

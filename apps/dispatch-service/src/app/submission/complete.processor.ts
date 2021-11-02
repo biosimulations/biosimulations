@@ -1,4 +1,7 @@
-import { SimulationRunStatus, ConsoleFormatting } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunStatus,
+  ConsoleFormatting,
+} from '@biosimulations/datamodel/common';
 import { ProjectInput } from '@biosimulations/datamodel/api';
 import { CompleteJob, JobQueue } from '@biosimulations/messages/messages';
 
@@ -94,7 +97,8 @@ export class CompleteProcessor {
     }
 
     const logProcessingResult = processingResults[3];
-    const logPostSucceeded = logProcessingResult.status === 'fulfilled' && logProcessingResult?.value;
+    const logPostSucceeded =
+      logProcessingResult.status === 'fulfilled' && logProcessingResult?.value;
 
     /* update status with post-processing result */
     let status!: SimulationRunStatus;
@@ -117,15 +121,13 @@ export class CompleteProcessor {
       statusReason += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
     }
 
-    this.simStatusService
-      .updateStatus(id, status, statusReason)
-      .then((run) => {
-        if (status === SimulationRunStatus.SUCCEEDED) {
-          return this.logger.log(updateStatusMessage);
-        } else {
-          return this.logger.error(updateStatusMessage);
-        }
-      });
+    this.simStatusService.updateStatus(id, status, statusReason).then((run) => {
+      if (status === SimulationRunStatus.SUCCEEDED) {
+        return this.logger.log(updateStatusMessage);
+      } else {
+        return this.logger.error(updateStatusMessage);
+      }
+    });
 
     /* append post-processing information to log */
     let statusColor!: string;
@@ -141,15 +143,15 @@ export class CompleteProcessor {
       statusEndColor = '';
     }
 
-    const extraStdLog = (
-      ''
-      + '\n'
-      + `\n${ConsoleFormatting.cyan}=========================================== Post-processing simulation run ==========================================${ConsoleFormatting.noColor}`
-      + `\n${statusColor}statusReason${statusEndColor}`
-      + '\n'
-      + `\n${ConsoleFormatting.cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${ConsoleFormatting.noColor}`
-    );
-    this.logService.createLog(id, !logPostSucceeded, extraStdLog, true)
+    const extraStdLog =
+      '' +
+      '\n' +
+      `\n${ConsoleFormatting.cyan}=========================================== Post-processing simulation run ==========================================${ConsoleFormatting.noColor}` +
+      `\n${statusColor}statusReason${statusEndColor}` +
+      '\n' +
+      `\n${ConsoleFormatting.cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${ConsoleFormatting.noColor}`;
+    this.logService
+      .createLog(id, !logPostSucceeded, extraStdLog, true)
       .then((run) =>
         this.logger.error(
           `Log for simulation run '${id}' could not be updated`,

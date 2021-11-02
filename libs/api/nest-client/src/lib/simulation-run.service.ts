@@ -145,10 +145,10 @@ export class SimulationRunService {
     if (update) {
       const endpoint = this.endpoints.getSimulationRunLogsEndpoint(simId);
       const body: CombineArchiveLog = log;
-      return this.putAuthenticated<
-        CombineArchiveLog,
-        CombineArchiveLog
-      >(endpoint, body);
+      return this.putAuthenticated<CombineArchiveLog, CombineArchiveLog>(
+        endpoint,
+        body,
+      );
     } else {
       const endpoint = this.endpoints.getSimulationRunLogsEndpoint();
       const body: CreateSimulationRunLogBody = {
@@ -165,7 +165,8 @@ export class SimulationRunService {
   private postAuthenticated<T, U>(url: string, body: T): Observable<U> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
-        return this.http.post<U>(url, body, {
+        return this.http
+          .post<U>(url, body, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -179,7 +180,8 @@ export class SimulationRunService {
   private putAuthenticated<T, U>(url: string, body: T): Observable<U> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
-        return this.http.put<U>(url, body, {
+        return this.http
+          .put<U>(url, body, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
