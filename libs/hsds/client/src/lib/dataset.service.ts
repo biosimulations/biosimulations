@@ -20,11 +20,11 @@ import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 
 const DATASET = 'datasets';
-const AUTH = undefined;
 const GROUP = 'groups';
 Injectable();
 export class SimulationHDFService {
   private endpoints: Endpoints;
+  private auth: string;
   private logger = new Logger(SimulationHDFService.name);
 
   public constructor(
@@ -37,6 +37,10 @@ export class SimulationHDFService {
   ) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
+
+    const username = this.configService.get('data.username');
+    const password = this.configService.get('data.password');
+    this.auth = 'Basic ' + btoa(`${username}:${password}`);
   }
 
   public async getDatasetValues(
@@ -51,7 +55,7 @@ export class SimulationHDFService {
         undefined,
         undefined,
         undefined,
-        AUTH,
+        this.auth,
       )
       .toPromise();
     const data: InlineResponse20010 | undefined = dataResponse?.data;
@@ -190,7 +194,7 @@ export class SimulationHDFService {
     datasetId: string,
   ): Promise<(keyof BiosimulationsDataAtributes)[]> {
     const response = await this.attrbuteService
-      .collectionObjUuidAttributesGet(DATASET, datasetId, AUTH, domain)
+      .collectionObjUuidAttributesGet(DATASET, datasetId, this.auth, domain)
       .toPromise();
     const attributes = response?.data.attributes || [];
     return attributes.map(
@@ -209,7 +213,7 @@ export class SimulationHDFService {
           DATASET,
           datasetId,
           attribute,
-          AUTH,
+          this.auth,
           domain,
         )
         .toPromise();
@@ -239,7 +243,7 @@ export class SimulationHDFService {
     await Promise.all(
       datasetIds.map((id: string) => {
         return this.datasetService
-          .datasetsIdDelete(id, domain, AUTH)
+          .datasetsIdDelete(id, domain, this.auth)
           .toPromise();
       }),
     );
