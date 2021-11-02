@@ -130,4 +130,6 @@ This package was developed with support from the National Institute for Bioimagi
 
 ## Questions and comments ❓
 
-Please contact us at [info@biosimulations.org](mailto:info@biosimulations.org) with any questions or comments.
+We welcome any comments, questions, or discussion about the project. Please create a discussion or question in our [discussion forum](https://github.com/biosimulations/biosimulations/discussions).
+
+To privately contact the BioSimulations team, you can send us an email at [info@biosimulations.org](mailto:info@biosimulations.org).
