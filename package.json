@@ -92,14 +92,14 @@
     "zone.js": "0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^12.2.12",
+    "@angular-devkit/build-angular": "12.2.12",
     "@angular-eslint/eslint-plugin": "12.6.1",
     "@angular-eslint/eslint-plugin-template": "12.6.1",
     "@angular-eslint/template-parser": "12.6.1",
     "@angular-material-components/file-input": "6.0.0",
     "@angular/animations": "12.2.12",
     "@angular/cdk": "12.2.12",
-    "@angular/cli": "12.2.11",
+    "@angular/cli": "12.2.12",
     "@angular/common": "12.2.12",
     "@angular/compiler": "12.2.12",
     "@angular/compiler-cli": "12.2.12",
