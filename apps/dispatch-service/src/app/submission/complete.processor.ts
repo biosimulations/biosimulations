@@ -103,7 +103,7 @@ export class CompleteProcessor {
     if (errors.length === 0) {
       status = SimulationRunStatus.SUCCEEDED;
       statusReason = 'The simulation run was successfully proccessed.';
-      updateStatusMessage = `Updated status of simulation ${id} to ${status}`;      
+      updateStatusMessage = `Updated status of simulation ${id} to ${status}`;
     } else {
       status = SimulationRunStatus.FAILED;
       statusReason = 'The simulation run was not successfully proccessed.';
