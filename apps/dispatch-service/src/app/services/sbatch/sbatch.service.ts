@@ -119,23 +119,23 @@ export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
 cd ${tempSimDir}
 echo -e '${cyan}Thank you for using runBioSimulations!${nc}'
 echo -e ''
-echo -e '${cyan}======================== Downloading COMBINE archive ========================${nc}'
+echo -e '${cyan}============================================ Downloading COMBINE archive ============================================${nc}'
 ( ulimit -f 1048576; srun wget --no-check-certificate --progress=bar:force ${runCombineArchiveUrl} -O '${omexName}')
 echo -e ''
-echo -e '${cyan}========================= Extracting COMBINE archive ========================${nc}'
-unzip -o ${omexName} -d ${simulationRunContentS3Subpath}
+echo -e '${cyan}============================================= Extracting COMBINE archive ============================================${nc}'
+unzip -o '${omexName}' -d '${simulationRunContentS3Subpath}'
 echo -e ''
-echo -e '${cyan}========================= Executing COMBINE archive =========================${nc}'
+echo -e '${cyan}============================================= Executing COMBINE archive =============================================${nc}'
 srun singularity run --tmpdir /local --bind ${tempSimDir}:/root "${allEnvVarsString}" ${simulator} -i '/root/${omexName}' -o '/root'
 echo -e ''
-echo -e '${cyan}=============================== Saving results ==============================${nc}'
+echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
 srun hsload -v reports.h5 '${simulationRunResultsHsdsPath}'
 echo -e ''
-echo -e '${cyan}============================== Zipping outputs ==============================${nc}'
-srun zip ${outputArchiveS3Subpath} reports.h5 log.yml plots.zip job.output
+echo -e '${cyan}================================================== Zipping outputs ==================================================${nc}'
+srun zip '${outputArchiveS3Subpath}' reports.h5 log.yml plots.zip job.output
 echo -e ''
-echo -e '${cyan}=============================== Saving outputs ==============================${nc}'
-export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url ${endpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/${simulationRunS3Path}
+echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
+export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url ${endpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . 's3://${bucket}/${simulationRunS3Path}'
 `;
 
     return template;
