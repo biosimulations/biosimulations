@@ -8,12 +8,22 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DeleteResult } from 'mongodb';
 import { FileModel } from './files.model';
+import { SharedStorageService } from '@biosimulations/shared/storage';
+import { Endpoints } from '@biosimulations/config/common';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class FilesService {
+  private endpoints: Endpoints;
+
   public constructor(
     @InjectModel(FileModel.name) private model: Model<FileModel>,
-  ) {}
+    private storage: SharedStorageService,
+    private configService: ConfigService,
+  ) {
+    const env = configService.get('server.env');
+    this.endpoints = new Endpoints(env);
+  }
 
   public async getSimulationRunFiles(runId: string): Promise<FileModel[]> {
     return this.model.find({ simulationRun: runId }).exec();
@@ -55,18 +65,16 @@ export class FilesService {
   */
 
   public async deleteSimulationRunFiles(runId: string): Promise<void> {
-    const res: DeleteResult = await this.model
-      .deleteMany({ simulationRun: runId })
-      .exec();
-    const count = await this.model
+    const files = await this.model
       .find({ simulationRun: runId })
-      .count()
+      .select('location')
       .exec();
-    if (count !== 0) {
-      throw new InternalServerErrorException(
-        'Some files could not be deleted.',
-      );
-    }
+
+    await Promise.all(
+      files.map((file) => {
+        return this.deleteFile(runId, file.location);
+      })
+    );
   }
 
   public async deleteFile(runId: string, fileLocation: string): Promise<void> {
@@ -84,6 +92,8 @@ export class FilesService {
         `A file could not found for simulation run '${runId}' and location '${fileLocation}'.`,
       );
     }
+
+    await this.storage.deleteObject(this.endpoints.getSimulationRunOutputS3Path(file.id));
 
     const res: DeleteResult = await this.model
       .deleteOne({ id: file.id })

@@ -13,6 +13,9 @@ export class Endpoints {
   private simulatorsApi: string;
   private combineApi: string;
   private storageEndpoint: string;
+  private simulationRunsS3Path: string;
+  private simulationRunContentS3Subpath: string;
+  private simulationRunResultsHsdsPath: string;
   private simulatorsApp: string;
   private dispatchApp: string;
   private platformApp: string;
@@ -27,8 +30,9 @@ export class Endpoints {
   private combineFile: string;
   private specifications: string;
   private projects: string;
+
   public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
-    // We can read the env that is provided in the shared env file as the default
+    // We can read the env that is provided in the shared environment file as the default
     if (env == undefined) {
       env = environment.env;
     }
@@ -75,6 +79,10 @@ export class Endpoints {
         break;
     }
 
+    this.simulationRunsS3Path = 'simulations';
+    this.simulationRunContentS3Subpath = 'contents';
+    this.simulationRunResultsHsdsPath = 'results';
+
     this.simulationRunLogs = `${this.api}/logs`;
     this.simulationRunResults = `${this.api}/results`;
     this.simulationRunMetadata = `${this.api}/metadata`;
@@ -106,7 +114,7 @@ export class Endpoints {
    *
    * @param runId The id of the simulation run
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
-   * @returns The URL to get the content of a combine archive
+   * @returns The URL to get the content of a COMBINE archive
    */
   public getArchiveContentsEndpoint(
     runId?: string,
@@ -153,11 +161,11 @@ export class Endpoints {
   }
 
   /**
-   * Get the URL for downloading a file from within a combine archive.
-   * The combine archive is extracted to the s3 bucket. Returns a URL to the file in the s3 bucket
+   * Get the URL for downloading a file from within a COMBINE archive.
+   * The COMBINE archive is extracted to the s3 bucket. Returns a URL to the file in the s3 bucket
    * @param runId The id of the simulation run
-   * @param fileLocation The path of the file within combine archive relative to its root. Should not include './'
-   * @returns A URL to download the file from within the combine archive
+   * @param fileLocation The path of the file within COMBINE archive relative to its root. Should not include './'
+   * @returns A URL to download the file from within the COMBINE archive
    */
   public getSimulationRunFileEndpoint(
     runId: string,
@@ -167,9 +175,10 @@ export class Endpoints {
       fileLocation = fileLocation.substring(2);
     }
     if (fileLocation == '.') {
-      fileLocation = 'input.omex';
+      return `${this.storageEndpoint}/${this.getSimulationRunCombineArchiveS3Path(runId)}`;
+    } else {
+      return `${this.storageEndpoint}/${this.getSimulationRunS3Path(runId)}/contents/${fileLocation}`;
     }
-    return `${this.storageEndpoint}/simulations/${runId}/contents/${fileLocation}`;
   }
 
   /** Create a URL for getting a summary of a simulation run or each run
@@ -221,8 +230,8 @@ export class Endpoints {
   }
 
   /**
-   * Create a URL to add a file to an OMEX file using the combine service
-   * @returns A URL for POST endpoint for adding a file to an OMEX file using the combine service
+   * Create a URL to add a file to an OMEX file using the COMBINE service
+   * @returns A URL for POST endpoint for adding a file to an OMEX file using the COMBINE service
    */
   public getAddFileToCombineArchiveEndpoint(external = false): string {
     if (external) {
@@ -288,13 +297,13 @@ export class Endpoints {
   }
 
   /**
-   * Returns the URL to download the omex file of a simulation run. The external parameter is used to determine if the
+   * Returns the URL to download the COMBINE/OMEX archive of a simulation run. The external parameter is used to determine if the
    * returned URL is accessible from outside the current environment.
    * Effectively, if true, then any localhost urls will be replaced with the dev deployment urls
    * @param id The id of the simulation run
    * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    *
-   * @returns A URL to download the omex file of a simulation run
+   * @returns A URL to download the COMBINE/OMEX archive of a simulation run
    */
   public getRunDownloadEndpoint(id: string, external = false): string {
     if (external) {
@@ -472,10 +481,10 @@ export class Endpoints {
     return `${this.storageEndpoint}/helloWorld.txt`;
   }
   /**
-   * Create a URL to download a file from an omex file using the combine service
-   * @param archiveUrl The URL of a combine archive
+   * Create a URL to download a file from an COMBINE/OMEX archive using the COMBINE service
+   * @param archiveUrl The URL of a COMBINE archive
    * @param fileLocation The location of the file within the archive
-   * @returns A URL that resolves to a specific file within a combine archive
+   * @returns A URL that resolves to a specific file within a COMBINE archive
    * @deprecated use getSimulationRunFileEndpoint instead if the simulation run has been submitted
    * @see getSimulationRunFileEndpoint
    */
@@ -496,6 +505,77 @@ export class Endpoints {
     return `${this.combineFile}?url=${encodeURIComponent(
       archiveUrl,
     )}&location=${encodeURIComponent(fileLocation)}`;
+  }
+
+  /**
+   * Create a path a simulation run in an S3 bucket
+   * @param runId Id of the simulation run
+   */
+  public getSimulationRunS3Path(runId: string): string {
+    return `${this.simulationRunsS3Path}/${runId}`;
+  }
+
+  /**
+   * Create a path for the COMBINE/OMEX archive of a simulation run in an S3 bucket
+   * @param runId Id of the simulation run
+   */
+  public getSimulationRunCombineArchiveS3Path(runId: string): string {
+    return `${this.getSimulationRunS3Path(runId)}/archive.omex`;
+  }
+
+  /**
+   * Create a path for the contents of a COMBINE/OMEX archive of a simulation run, relative to the S3 bucket path for the run
+   */
+  public getSimulationRunContentS3Subpath(): string {
+    return this.simulationRunContentS3Subpath;
+  }
+
+  /**
+   * Create a path for a file of a simulation run in an S3 bucket
+   * @param runId Id of the simulation run
+   * @param fileLocation Location of a file in the COMBINE/OMEX archive for the simulation run
+   */
+  public getSimulationRunContentFileS3Path(runId: string, fileLocation: string): string {
+    return `${this.getSimulationRunS3Path(runId)}/${this.simulationRunContentS3Subpath}/${location}`;
+  }
+
+  /**
+   * Create a path for a file of a simulation run in an S3 bucket
+   * @param fileId Id of the file of a simulation run (`${runId}/contents/${fileLocationInCombineArchive}`)
+   */
+  public getSimulationRunFileS3Path(fileId: string): string {
+    return `${this.simulationRunsS3Path}/${fileId}`;
+  }
+
+  /**
+   * Create a path for a zip archive of the results of a simulation run in an S3 bucket
+   * @param runId Id of the simulation run
+   * @param absolute Whether to get the absolute path, or the path relative to the S3 path for the simulation run
+   */
+  public getSimulationRunOutputS3Path(runId: string, absolute=true): string {
+    if (absolute) {
+      return `${this.getSimulationRunS3Path(runId)}/${runId}.zip`;
+    } else {
+      return `${runId}.zip`;
+    }
+  }
+
+  /**
+   * Create a path for the results of a simulation run in a HSDS
+   * @param runId Id of the simulation run
+   */
+  public getSimulationRunResultsHsdsPath(runId?: string): string {
+    runId ? (runId = `/${runId}`) : (runId = '');
+    return `/${this.simulationRunResultsHsdsPath}${runId}`;
+  }
+
+  /**
+   * Create a domain for the results of a simulation run in a HSDS
+   * @param runId Id of the simulation run
+   */
+  public getSimulationRunResultsHsdsDomain(runId?: string): string {
+    runId ? (runId = `${runId}.`) : (runId = '');
+    return `${runId}${this.simulationRunResultsHsdsPath}`;
   }
 
   public getSimulatorsAppHome(): string {

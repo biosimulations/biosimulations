@@ -425,20 +425,14 @@ export class SimulationRunController {
   })
   @permissions('delete:SimulationRuns')
   @Delete(':runId')
-  @ApiOkResponse({
-    type: SimulationRun,
+  @ApiNoContentResponse({
     description: 'The simulation run was successfully deleted',
   })
+  @HttpCode(204)
   public async deleteRun(
     @Param('runId') runId: string,
-  ): Promise<SimulationRun> {
-    const res = await this.service.delete(runId);
-
-    if (!res) {
-      throw new NotFoundException(`No simulation run with id ${runId} found`);
-    }
-
-    return this.makeSimulationRun(res);
+  ): Promise<void> {
+    await this.service.delete(runId);
   }
 
   @ApiOperation({
@@ -460,13 +454,13 @@ export class SimulationRunController {
       'This account does not have permission to delete simulation runs',
   })
   @permissions('delete:SimulationRuns')
-  @Delete()
+  // @Delete()
   @ApiNoContentResponse({
     description: 'The simulation runs were successfully deleted',
   })
   @HttpCode(204)
-  public deleteAll(): Promise<void> {
-    return this.service.deleteAll();
+  public async deleteAll(): Promise<void> {
+    await this.service.deleteAll();
   }
 
   @ApiOperation({

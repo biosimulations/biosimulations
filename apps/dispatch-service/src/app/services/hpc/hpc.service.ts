@@ -36,8 +36,6 @@ export class HpcService {
     const simulatorString = `docker://ghcr.io/biosimulators/${simulator}:${version}`;
     const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
 
-    const endpoint = this.configService.get('urls.dispatchApi');
-
     const sbatchString = this.sbatchService.generateSbatch(
       simDirBase,
       simulatorString,
@@ -47,7 +45,6 @@ export class HpcService {
       envVars,
       purpose,
       fileName,
-      endpoint,
       id,
     );
 
