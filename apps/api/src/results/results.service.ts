@@ -129,6 +129,8 @@ export class ResultsService {
 
   public async deleteSimulationRunResults(runId: string): Promise<void> {
     await this.results.deleteDatasets(runId);
-    await this.storage.deleteObject('simulations/' + runId + '/' + runId + '.zip');
+    await this.storage.deleteObject(
+      'simulations/' + runId + '/' + runId + '.zip',
+    );
   }
 }

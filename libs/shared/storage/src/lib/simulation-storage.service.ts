@@ -28,9 +28,7 @@ export class SimulationStorageService {
   }
 
   public async deleteSimulationArchive(runId: string): Promise<void> {
-    await this.storage.deleteObject(
-      this.getS3FileId(runId),
-    );
+    await this.storage.deleteObject(this.getS3FileId(runId));
   }
 
   private getS3FileId(runId: string): string {

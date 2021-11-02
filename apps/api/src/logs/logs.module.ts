@@ -6,10 +6,7 @@ import {
   SimulationRunModelSchema,
 } from '../simulation-run/simulation-run.model';
 import { LogsController } from './logs.controller';
-import {
-  SimulationRunLog,
-  SimulationRunLogSchema,
-} from './logs.model';
+import { SimulationRunLog, SimulationRunLogSchema } from './logs.model';
 
 import { LogsService } from './logs.service';
 

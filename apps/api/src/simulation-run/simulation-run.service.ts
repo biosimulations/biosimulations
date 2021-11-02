@@ -202,13 +202,12 @@ export class SimulationRunService {
   public async deleteAll(): Promise<void> {
     const count = await this.projectModel.count();
     if (count > 0) {
-      throw new BadRequestException('Some runs cannot be deleted because they have been published as projects.');
+      throw new BadRequestException(
+        'Some runs cannot be deleted because they have been published as projects.',
+      );
     }
 
-    const runs = await this.simulationRunModel
-      .find({})
-      .select('id')
-      .exec();
+    const runs = await this.simulationRunModel.find({}).select('id').exec();
 
     runs.forEach((run): void => {
       this.delete(run.id);
@@ -218,9 +217,14 @@ export class SimulationRunService {
   public async delete(
     id: string,
   ): Promise<SimulationRunModelReturnType | null> {
-    const project = await this.projectModel.findOne({ simulationRun: id }).select('id').exec();
+    const project = await this.projectModel
+      .findOne({ simulationRun: id })
+      .select('id')
+      .exec();
     if (project) {
-      throw new BadRequestException(`Run '${id}' cannot be deleted because it has been published as project '${project.id}'.`);
+      throw new BadRequestException(
+        `Run '${id}' cannot be deleted because it has been published as project '${project.id}'.`,
+      );
     }
 
     const run = await this.simulationRunModel.findOneAndDelete({ id });
@@ -279,10 +283,7 @@ export class SimulationRunService {
 
     try {
       const s3file =
-        await this.simulationStorageService.uploadSimulationArchive(
-          id,
-          file,
-        );
+        await this.simulationStorageService.uploadSimulationArchive(id, file);
       await this.simulationStorageService.extractSimulationArchive(s3file.Key);
       const url = encodeURI(s3file.Location);
 
@@ -344,7 +345,9 @@ export class SimulationRunService {
       encoding = file_headers['content-transfer-encoding'];
       if (size && size > ONE_GIGABYTE) {
         throw new PayloadTooLargeException(
-          `The maximum allowed size of the file is 1GB. The provided file was ${String(size)}.`,
+          `The maximum allowed size of the file is 1GB. The provided file was ${String(
+            size,
+          )}.`,
         );
       }
       const fileObj: Express.Multer.File = {

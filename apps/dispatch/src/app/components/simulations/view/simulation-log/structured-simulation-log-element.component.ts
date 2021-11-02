@@ -75,7 +75,9 @@ export class StructuredSimulationLogElementComponent {
 
     switch (value.status) {
       case SimulationRunLogStatus.QUEUED: {
-        const elementType = this.elementType.substring(0, 1).toLowerCase() + this.elementType.substring(1);
+        const elementType =
+          this.elementType.substring(0, 1).toLowerCase() +
+          this.elementType.substring(1);
         this.noOutputMessage = `Output will be available once the ${elementType} completes.`;
         break;
       }

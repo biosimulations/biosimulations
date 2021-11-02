@@ -68,7 +68,9 @@ export class LogsService {
       .exec();
 
     if (!log) {
-      throw new NotFoundException(`No log could be found for simulation run '${runId}'.`);
+      throw new NotFoundException(
+        `No log could be found for simulation run '${runId}'.`,
+      );
     }
 
     return log.log;
@@ -81,7 +83,9 @@ export class LogsService {
     const log = await this.logModel.findOne({ simId: runId }).exec();
 
     if (!log) {
-      throw new NotFoundException(`No log could be found for simulation run '${runId}'.`);
+      throw new NotFoundException(
+        `No log could be found for simulation run '${runId}'.`,
+      );
     }
 
     log.overwrite({
@@ -99,7 +103,9 @@ export class LogsService {
       .exec();
 
     if (!log) {
-      throw new NotFoundException(`No log could be found for simulation run '${runId}'.`);
+      throw new NotFoundException(
+        `No log could be found for simulation run '${runId}'.`,
+      );
     }
 
     const res: DeleteResult = await this.logModel
@@ -115,7 +121,7 @@ export class LogsService {
   public validateLog(apiLog: ApiCombineArchiveLog): Promise<void> {
     const log = new this.logModel({
       simId: 'a'.repeat(24),
-      log: this.apiToDbCombineArchiveLog(apiLog)
+      log: this.apiToDbCombineArchiveLog(apiLog),
     });
     return log.validate();
   }
