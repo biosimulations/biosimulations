@@ -7,6 +7,8 @@ import {
   SimulationRunLogStatus,
 } from '@biosimulations/datamodel/common';
 import { SshService } from '../services/ssh/ssh.service';
+import { accessSync, constants as fsConstants } from 'fs';
+
 @Injectable()
 export class LogService {
   private logger = new Logger(LogService.name);
@@ -15,21 +17,30 @@ export class LogService {
     private sshService: SshService,
   ) {}
 
-  public async createLog(id: string, extraStdLog?: string, update=false): Promise<void> {
+  public async createLog(id: string, makeStructuredLog=true, extraStdLog?: string, update=false): Promise<void> {
     const path = this.sshService.getSSHResultsDirectory(id);
-    return this.makeLog(path, extraStdLog).then((value) => this.uploadLog(id, value, update));
+    return this.makeLog(path, makeStructuredLog, extraStdLog).then((value) => this.uploadLog(id, value, update));
   }
 
-  private async makeLog(path: string, extraStdLog?: string): Promise<CombineArchiveLog> {
-    const log = await this.readLog(path);
+  private async makeLog(path: string, makeStructuredLog=true, extraStdLog?: string): Promise<CombineArchiveLog> {
+    const log = makeStructuredLog 
+      ? await this.readStructuredLog(path)
+      : this.initStructureLog();
     const stdLog = await this.readStdLog(path) + (extraStdLog ? extraStdLog : '');
 
     log.output = stdLog;
     return log;
   }
 
-  private async readLog(path: string): Promise<CombineArchiveLog> {
+  private async readStructuredLog(path: string): Promise<CombineArchiveLog> {
     const yamlFile = `${path}/log.yml`;
+
+    try {
+      accessSync(yamlFile, fsConstants.R_OK);
+    } catch {
+      return this.initStructureLog();
+    }
+
     return this.sshService
       .execStringCommand('cat ' + yamlFile)
       .then((output) => {
@@ -39,18 +50,24 @@ export class LogService {
         return YAML.parse(output.stdout) as CombineArchiveLog;
       })
       .catch((_: any) => {
-        return {
-          status: SimulationRunLogStatus.UNKNOWN,
-          sedDocuments: null,
-          skipReason: null,
-          exception: {
-            message: 'No log.yml was outputted by the simulator',
-            category: 'Not Found',
-          },
-          output: null,
-          duration: null,
+        const log = this.initStructureLog();
+        log.exception = {
+          message: 'The simulation tool did not produce a valid YAML-formatted log (`log.yml` file).',
+          category: 'Invalid log',
         };
+        return log;
       });
+  }
+
+  private initStructureLog(): CombineArchiveLog {
+    return {
+      status: SimulationRunLogStatus.UNKNOWN,
+      sedDocuments: null,
+      skipReason: null,
+      exception: null,
+      output: null,
+      duration: null,
+    };
   }
 
   private async readStdLog(path: string): Promise<string> {

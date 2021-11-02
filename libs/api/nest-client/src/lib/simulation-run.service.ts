@@ -36,7 +36,7 @@ export class SimulationRunService {
     metadata: SimulationRunMetadataInput,
   ): Observable<SimulationRunMetadata> {
     const endpoint = this.endpoints.getSimulationRunMetadataEndpoint();
-    return this.sendAuthenticated<
+    return this.postAuthenticated<
       SimulationRunMetadataInput,
       SimulationRunMetadata
     >(endpoint, metadata);
@@ -47,7 +47,7 @@ export class SimulationRunService {
     specs: SimulationRunSedDocument[],
   ): Observable<SimulationRunSedDocument[]> {
     const endpoint = this.endpoints.getSpecificationsEndpoint();
-    return this.sendAuthenticated<
+    return this.postAuthenticated<
       SimulationRunSedDocument[],
       SimulationRunSedDocument[]
     >(endpoint, specs);
@@ -59,7 +59,7 @@ export class SimulationRunService {
   ): Observable<ProjectFile[]> {
     const body: SubmitProjectFile[] = files;
     const endpoint = this.endpoints.getFilesEndpoint();
-    return this.sendAuthenticated<SubmitProjectFile[], ProjectFile[]>(
+    return this.postAuthenticated<SubmitProjectFile[], ProjectFile[]>(
       endpoint,
       body,
     );
@@ -142,22 +142,44 @@ export class SimulationRunService {
     log: CombineArchiveLog,
     update = false,
   ): Observable<CombineArchiveLog> {
-    const body: CreateSimulationRunLogBody = {
-      simId: simId,
-      log: log,
-    };
-    const endpoint = this.endpoints.getSimulationRunLogsEndpoint();
-    return this.sendAuthenticated<
-      CreateSimulationRunLogBody,
-      CombineArchiveLog
-    >(endpoint, body, update ? 'put' : 'post');
+    if (update) {
+      const endpoint = this.endpoints.getSimulationRunLogsEndpoint(simId);
+      const body: CombineArchiveLog = log;
+      return this.putAuthenticated<
+        CombineArchiveLog,
+        CombineArchiveLog
+      >(endpoint, body);
+    } else {
+      const endpoint = this.endpoints.getSimulationRunLogsEndpoint();
+      const body: CreateSimulationRunLogBody = {
+        simId: simId,
+        log: log,
+      };
+      return this.postAuthenticated<
+        CreateSimulationRunLogBody,
+        CombineArchiveLog
+      >(endpoint, body);
+    }
   }
 
-  private sendAuthenticated<T, U>(url: string, body: T, mode: 'post' | 'put' = 'post'): Observable<U> {
+  private postAuthenticated<T, U>(url: string, body: T): Observable<U> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
-        const method = mode === 'post' ? this.http.post : this.http.put;
-        return method<U>(url, body, {
+        return this.http.post<U>(url, body, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .pipe(pluck('data'));
+      }),
+      mergeMap((value) => value),
+    );
+  }
+
+  private putAuthenticated<T, U>(url: string, body: T): Observable<U> {
+    return from(this.auth.getToken()).pipe(
+      map((token) => {
+        return this.http.put<U>(url, body, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

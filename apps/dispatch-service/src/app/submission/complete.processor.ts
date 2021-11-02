@@ -93,83 +93,41 @@ export class CompleteProcessor {
       }
     }
 
+    const logProcessingResult = processingResults[3];
+    const logPostSucceeded = logProcessingResult.status === 'fulfilled' && logProcessingResult?.value;
+
+    /* update status with post-processing result */
+    let status!: SimulationRunStatus;
     let statusReason!: string;
+    let updateStatusMessage!: string;
     if (errors.length === 0) {
+      status = SimulationRunStatus.SUCCEEDED;
       statusReason = 'The simulation run was successfully proccessed.';
-      if (warnings.length) {
-        statusReason += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
-      }
-
-      this.simStatusService
-        .updateStatus(id, SimulationRunStatus.SUCCEEDED, statusReason)
-        .then((run) =>
-          this.logger.log(`Updated status of simulation ${id} to SUCCEEDED`),
-        );
-
-      if (projectId) {
-        const projectInput: ProjectInput = {
-          id: projectId,
-          simulationRun: id,
-          owner: projectOwner,
-        };
-
-        return this.projectService
-          .getProject(projectId)
-          .toPromise()
-          .then((project) => {
-            this.projectService
-              .updateProject(projectId, projectInput)
-              .toPromise()
-              .then((project) =>
-                this.logger.log(
-                  `Updated project ${projectId} for simulation ${id}`,
-                ),
-              )
-              .catch((err) =>
-                this.logger.log(
-                  `Project ${projectId} could not be updated with simulation ${id}`,
-                ),
-              );
-          })
-          .catch((err: AxiosError) => {
-            if (err?.response?.status === HttpStatus.NOT_FOUND) {
-              this.projectService
-                .createProject(projectInput)
-                .toPromise()
-                .then((project) =>
-                  this.logger.log(
-                    `Created project ${projectId} for simulation ${id}`,
-                  ),
-                )
-                .catch((err) =>
-                  this.logger.log(
-                    `Project ${projectId} could not be created with simulation ${id}`,
-                  ),
-                );
-            } else {
-              this.logger.error('Failed to update status');
-              this.logger.error(err);
-            }
-          });
-      }
+      updateStatusMessage = `Updated status of simulation ${id} to ${status}`;      
     } else {
+      status = SimulationRunStatus.FAILED;
       statusReason = 'The simulation run was not successfully proccessed.';
       statusReason += '\n\nErrors:\n  * ' + errors.join('\n  * ');
-      if (warnings.length) {
-        statusReason += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
-      }
-
-      this.simStatusService
-        .updateStatus(id, SimulationRunStatus.FAILED, statusReason)
-        .then((run) =>
-          this.logger.error(
-            `Updated status of simulation run '${id}' to FAILED due to one or more processing errors:\n  * ${errors.join(
-              '\n  * ',
-            )}`,
-          ),
-        );
+      updateStatusMessage = `Updated status of simulation run '${id}' to ${status} due to one or more processing errors:\n  * ${errors.join(
+        '\n  * ',
+      )}`;
     }
 
+    if (warnings.length) {
+      statusReason += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
+    }
+
+    this.simStatusService
+      .updateStatus(id, status, statusReason)
+      .then((run) => {
+        if (status === SimulationRunStatus.SUCCEEDED) {
+          return this.logger.log(updateStatusMessage);
+        } else {
+          return this.logger.error(updateStatusMessage);
+        }
+      });
+
+    /* append post-processing information to log */
     let statusColor!: string;
     let statusEndColor!: string;
     if (errors.length > 0) {
@@ -191,11 +149,59 @@ export class CompleteProcessor {
       + '\n'
       + `\n${ConsoleFormatting.cyan}============ Run complete. Thank you for using runBioSimulations! ===========${ConsoleFormatting.noColor}`
     );
-    this.logService.createLog(id, extraStdLog, true)
+    this.logService.createLog(id, !logPostSucceeded, extraStdLog, true)
       .then((run) =>
         this.logger.error(
           `Log for simulation run '${id}' could not be updated`,
         ),
       );
+
+    /* publish run as project */
+    if (projectId && errors.length === 0) {
+      const projectInput: ProjectInput = {
+        id: projectId,
+        simulationRun: id,
+        owner: projectOwner,
+      };
+
+      return this.projectService
+        .getProject(projectId)
+        .toPromise()
+        .then((project) => {
+          this.projectService
+            .updateProject(projectId, projectInput)
+            .toPromise()
+            .then((project) =>
+              this.logger.log(
+                `Updated project ${projectId} for simulation ${id}`,
+              ),
+            )
+            .catch((err) =>
+              this.logger.log(
+                `Project ${projectId} could not be updated with simulation ${id}`,
+              ),
+            );
+        })
+        .catch((err: AxiosError) => {
+          if (err?.response?.status === HttpStatus.NOT_FOUND) {
+            this.projectService
+              .createProject(projectInput)
+              .toPromise()
+              .then((project) =>
+                this.logger.log(
+                  `Created project ${projectId} for simulation ${id}`,
+                ),
+              )
+              .catch((err) =>
+                this.logger.log(
+                  `Project ${projectId} could not be created with simulation ${id}`,
+                ),
+              );
+          } else {
+            this.logger.error('Failed to update status');
+            this.logger.error(err);
+          }
+        });
+    }
   }
 }
