@@ -124,8 +124,8 @@ export const scopes: Scopes = {
       audience: 'dispatch.biosimulations.org',
       id: 'delete:Results',
       description: 'Delete the results of simulation runs',
-    },        
-  },    
+    },
+  },
   logs: {
     read: {
       audience: 'dispatch.biosimulations.org',
@@ -147,7 +147,7 @@ export const scopes: Scopes = {
       id: 'delete:Logs',
       description: 'Delete the logs of simulation runs',
     }
-  },    
+  },
   metadata: {
     read: {
       audience: 'dispatch.biosimulations.org',
@@ -164,12 +164,12 @@ export const scopes: Scopes = {
       id: 'write:Metadata',
       description: 'Modify the metadata for simulation runs',
     },
-    delete: {        
+    delete: {
       audience: 'dispatch.biosimulations.org',
       id: 'delete:Metadata',
       description: 'Delete the metadata for simulation runs',
     },
-  },    
+  },
   projects: {
     read: {
       audience: 'dispatch.biosimulations.org',
