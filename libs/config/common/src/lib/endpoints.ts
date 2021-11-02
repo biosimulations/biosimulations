@@ -178,7 +178,7 @@ export class Endpoints {
       return `${this.storageEndpoint}/${this.getSimulationRunCombineArchiveS3Path(runId)}`;
     } else {
       return `${this.storageEndpoint}/${this.getSimulationRunS3Path(runId)}/contents/${fileLocation}`;
-    }    
+    }
   }
 
   /** Create a URL for getting a summary of a simulation run or each run
@@ -537,7 +537,7 @@ export class Endpoints {
    */
   public getSimulationRunContentFileS3Path(runId: string, fileLocation: string): string {
     return `${this.getSimulationRunS3Path(runId)}/${this.simulationRunContentS3Subpath}/${location}`;
-  }  
+  }
 
   /**
    * Create a path for a file of a simulation run in an S3 bucket
