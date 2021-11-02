@@ -62,7 +62,7 @@
     "auth0": "2.37.0",
     "aws-sdk": "2.1020.0",
     "axios": "0.24.0",
-    "backoff-rxjs": "^6.5.7",
+    "backoff-rxjs": "6.5.7",
     "bull": "3.29.3",
     "cache-manager": "3.4.4",
     "cache-manager-redis-store": "2.0.0",
