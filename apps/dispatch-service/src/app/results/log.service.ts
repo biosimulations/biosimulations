@@ -23,7 +23,7 @@ export class LogService {
   }
 
   private async makeLog(path: string, makeStructuredLog=true, extraStdLog?: string): Promise<CombineArchiveLog> {
-    const log = makeStructuredLog 
+    const log = makeStructuredLog
       ? await this.readStructuredLog(path)
       : this.initStructureLog();
     const stdLog = await this.readStdLog(path) + (extraStdLog ? extraStdLog : '');
