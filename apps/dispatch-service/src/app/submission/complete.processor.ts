@@ -144,10 +144,10 @@ export class CompleteProcessor {
     const extraStdLog = (
       ''
       + '\n'
-      + `\n${ConsoleFormatting.cyan}======================= Post-processing simulation run ======================${ConsoleFormatting.noColor}`
+      + `\n${ConsoleFormatting.cyan}=========================================== Post-processing simulation run ==========================================${ConsoleFormatting.noColor}`
       + `\n${statusColor}statusReason${statusEndColor}`
       + '\n'
-      + `\n${ConsoleFormatting.cyan}============ Run complete. Thank you for using runBioSimulations! ===========${ConsoleFormatting.noColor}`
+      + `\n${ConsoleFormatting.cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${ConsoleFormatting.noColor}`
     );
     this.logService.createLog(id, !logPostSucceeded, extraStdLog, true)
       .then((run) =>
