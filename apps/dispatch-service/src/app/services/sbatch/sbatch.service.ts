@@ -1,10 +1,17 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import { EnvironmentVariable, Purpose } from '@biosimulations/datamodel/common';
 
 @Injectable()
 export class SbatchService {
-  public constructor(private configService: ConfigService) {}
+  private endpoints: Endpoints;
+  
+  public constructor(private configService: ConfigService) {
+    const env = this.configService.get('server.env');
+    this.endpoints = new Endpoints(env);
+  }
+  
   private logger = new Logger(SbatchService.name);
   public generateSbatch(
     tempSimDir: string,
@@ -15,8 +22,7 @@ export class SbatchService {
     envVars: EnvironmentVariable[],
     purpose: Purpose,
     omexName: string,
-    apiDomain: string,
-    simId: string,
+    runId: string,
   ): string {
     const homeDir = this.configService.get('hpc.homeDir');
     const bucket = this.configService.get('storage.bucket');
@@ -38,9 +44,6 @@ export class SbatchService {
     const red = '\\033[0;31m';
     const cyan = '\\033[0;36m';
 
-    if (apiDomain.startsWith('http://localhost')) {
-      apiDomain = 'https://api.biosimulations.dev/';
-    }
     if (endpoint.startsWith('https://localhost')) {
       endpoint = 'http://s3low.scality.uchc.edu';
     }
@@ -84,9 +87,15 @@ export class SbatchService {
             })
             .join(',')
         : '';
+    const runCombineArchiveUrl = this.endpoints.getRunDownloadEndpoint(runId);
+    const simulationRunS3Path = this.endpoints.getSimulationRunS3Path(runId);
+    const simulationRunContentS3Subpath = this.endpoints.getSimulationRunContentS3Subpath();
+    const simulationRunResultsHsdsPath = this.endpoints.getSimulationRunResultsHsdsPath(runId)
+    const outputArchiveS3Subpath = this.endpoints.getSimulationRunOutputS3Path(runId, false);
+
     // TODO Remove the no check flag
     const template = `#!/bin/bash
-#SBATCH --job-name=${simId}_Biosimulations
+#SBATCH --job-name=${runId}_Biosimulations
 #SBATCH --time=${maxTimeFormatted}
 #SBATCH --output=${tempSimDir}/job.output
 #SBATCH --error=${tempSimDir}/job.output
@@ -107,22 +116,22 @@ cd ${tempSimDir}
 echo -e '${cyan}Thank you for using runBioSimulations!${nc}'
 echo -e ''
 echo -e '${cyan}======================== Downloading COMBINE archive ========================${nc}'
-( ulimit -f 1048576; srun wget --no-check-certificate --progress=bar:force ${apiDomain}runs/${simId}/download -O '${omexName}')
+( ulimit -f 1048576; srun wget --no-check-certificate --progress=bar:force ${runCombineArchiveUrl} -O '${omexName}')
 echo -e ''
 echo -e '${cyan}========================= Extracting COMBINE archive ========================${nc}'
-unzip -o ${omexName} -d contents
+unzip -o ${omexName} -d ${simulationRunContentS3Subpath}
 echo -e ''
 echo -e '${cyan}========================= Executing COMBINE archive =========================${nc}'
 srun singularity run --tmpdir /local --bind ${tempSimDir}:/root "${allEnvVarsString}" ${simulator} -i '/root/${omexName}' -o '/root'
 echo -e ''
 echo -e '${cyan}=============================== Saving results ==============================${nc}'
-srun hsload -v reports.h5 '/results/${simId}'
+srun hsload -v reports.h5 '${simulationRunResultsHsdsPath}'
 echo -e ''
 echo -e '${cyan}============================== Zipping outputs ==============================${nc}'
-srun zip ${simId}.zip reports.h5 log.yml plots.zip job.output
+srun zip ${outputArchiveS3Subpath} reports.h5 log.yml plots.zip job.output
 echo -e ''
 echo -e '${cyan}=============================== Saving outputs ==============================${nc}'
-export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url ${endpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/simulations/${simId}
+export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url ${endpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/${simulationRunS3Path}
 echo -e ''
 echo -e '${cyan}============ Run complete. Thank you for using runBioSimulations! ===========${nc}'
 `;
