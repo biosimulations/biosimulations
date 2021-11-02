@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
-import { EnvironmentVariable, Purpose } from '@biosimulations/datamodel/common';
+import { EnvironmentVariable, Purpose, ConsoleFormatting } from '@biosimulations/datamodel/common';
 
 @Injectable()
 export class SbatchService {
@@ -40,9 +40,8 @@ export class SbatchService {
       .toString()
       .padStart(2, '0')}`;
 
-    const nc = '\\033[0m';
-    const red = '\\033[0;31m';
-    const cyan = '\\033[0;36m';
+    const nc = ConsoleFormatting.noColor;
+    const cyan = ConsoleFormatting.cyan;
 
     if (endpoint.startsWith('https://localhost')) {
       endpoint = 'http://s3low.scality.uchc.edu';
@@ -137,8 +136,6 @@ srun zip ${outputArchiveS3Subpath} reports.h5 log.yml plots.zip job.output
 echo -e ''
 echo -e '${cyan}=============================== Saving outputs ==============================${nc}'
 export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url ${endpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . s3://${bucket}/${simulationRunS3Path}
-echo -e ''
-echo -e '${cyan}============ Run complete. Thank you for using runBioSimulations! ===========${nc}'
 `;
 
     return template;
