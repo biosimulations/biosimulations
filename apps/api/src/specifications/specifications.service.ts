@@ -1,6 +1,10 @@
 import { SimulationRunSedDocument } from '@biosimulations/datamodel/api';
 import { SedElementType } from '@biosimulations/datamodel/common';
-import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Document, Query } from 'mongoose';
 import { SpecificationsModel } from './specifications.model';
@@ -104,7 +108,10 @@ export class SpecificationsService {
     const res: DeleteResult = await this.model
       .deleteMany({ simulationRun: runId })
       .exec();
-    const count = await this.model.find({ simulationRun: runId }).count().exec();
+    const count = await this.model
+      .find({ simulationRun: runId })
+      .count()
+      .exec();
     if (count !== 0) {
       throw new InternalServerErrorException(
         'Some specifications could not be deleted.',

@@ -761,9 +761,12 @@ SpecificationsModelSchema.set('timestamps', {
 });
 
 SedSimulationSchema.discriminators = {};
-SedSimulationSchema.discriminators[SedOneStepSimulation.name] = SedOneStepSimulationSchema;
-SedSimulationSchema.discriminators[SedSteadyStateSimulation.name] = SedSteadyStateSimulationSchema;
-SedSimulationSchema.discriminators[SedUniformTimeCourseSimulation.name] = SedUniformTimeCourseSimulationSchema;
+SedSimulationSchema.discriminators[SedOneStepSimulation.name] =
+  SedOneStepSimulationSchema;
+SedSimulationSchema.discriminators[SedSteadyStateSimulation.name] =
+  SedSteadyStateSimulationSchema;
+SedSimulationSchema.discriminators[SedUniformTimeCourseSimulation.name] =
+  SedUniformTimeCourseSimulationSchema;
 
 const sedSimulationsArraySchema = SpecificationsModelSchema.path(
   'simulations',
@@ -782,7 +785,8 @@ sedSimulationsArraySchema.discriminator(
 );
 
 SedModelChangeSchema.discriminators = {};
-SedModelChangeSchema.discriminators[SedModelAttributeChange.name] = SedModelAttributeChangeSchema;
+SedModelChangeSchema.discriminators[SedModelAttributeChange.name] =
+  SedModelAttributeChangeSchema;
 
 const sedModelChangeArraySchema = SedModelSchema.path(
   'changes',
@@ -794,7 +798,8 @@ sedModelChangeArraySchema.discriminator(
 
 SedAbstractTaskSchema.discriminators = {};
 SedAbstractTaskSchema.discriminators[SedTask.name] = SedTaskSchema;
-SedAbstractTaskSchema.discriminators[SedRepeatedTask.name] = SedRepeatedTaskSchema;
+SedAbstractTaskSchema.discriminators[SedRepeatedTask.name] =
+  SedRepeatedTaskSchema;
 
 const sedTasksArraySchema = SpecificationsModelSchema.path(
   'tasks',

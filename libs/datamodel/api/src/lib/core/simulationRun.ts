@@ -241,7 +241,8 @@ export class SimulationRun implements ISimulationRun {
   runtime?: number;
 
   @ApiProperty({
-    description: 'Size of the project (COMBINE/OMEX archive) for the simulation run',
+    description:
+      'Size of the project (COMBINE/OMEX archive) for the simulation run',
     type: Number,
     example: 1123,
     readOnly: true,
@@ -249,7 +250,8 @@ export class SimulationRun implements ISimulationRun {
   projectSize?: number;
 
   @ApiProperty({
-    description: 'Size of the results (zip of reports and plots) for the simulation run',
+    description:
+      'Size of the results (zip of reports and plots) for the simulation run',
     type: Number,
     example: 11234,
     readOnly: true,
@@ -265,7 +267,8 @@ export class SimulationRun implements ISimulationRun {
   submitted!: Date;
 
   @ApiProperty({
-    description: 'Timestamp when the status of the simulation run was last updated',
+    description:
+      'Timestamp when the status of the simulation run was last updated',
     type: String,
     format: 'date-time',
     readOnly: true,

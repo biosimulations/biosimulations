@@ -1,5 +1,9 @@
 import { SubmitProjectFile } from '@biosimulations/datamodel/api';
-import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DeleteResult } from 'mongodb';
@@ -25,7 +29,10 @@ export class FilesService {
     return this.model.find({ simulationRun: runId }).exec();
   }
 
-  public async getFile(runId: string, fileLocation: string): Promise<FileModel | null> {
+  public async getFile(
+    runId: string,
+    fileLocation: string,
+  ): Promise<FileModel | null> {
     return this.model.findOne({
       $or: [
         { id: this.getFileId(runId, fileLocation, true) },
@@ -62,7 +69,6 @@ export class FilesService {
       .find({ simulationRun: runId })
       .select('location')
       .exec();
-
     await Promise.all(
       files.map((file) => {
         return this.deleteFile(runId, file.location);
@@ -81,7 +87,9 @@ export class FilesService {
       .select('id')
       .exec();
     if (!file) {
-      throw new NotFoundException(`A file could not found for simulation run '${runId}' and location '${fileLocation}'.`);
+      throw new NotFoundException(
+        `A file could not found for simulation run '${runId}' and location '${fileLocation}'.`,
+      );
     }
 
     await this.storage.deleteObject(this.endpoints.getSimulationRunOutputS3Path(file.id));
@@ -90,13 +98,15 @@ export class FilesService {
       .deleteOne({ id: file.id })
       .exec();
     if (res.deletedCount !== 1) {
-      throw new InternalServerErrorException(
-        'File could not be deleted.',
-      );
+      throw new InternalServerErrorException('File could not be deleted.');
     }
   }
 
-  private getFileId(runId: string, fileLocation: string, includeInitialRelPath = false): string {
+  private getFileId(
+    runId: string,
+    fileLocation: string,
+    includeInitialRelPath = false,
+  ): string {
     if (fileLocation.startsWith('./')) {
       fileLocation = fileLocation.substring(2);
     }

@@ -411,7 +411,8 @@ export class SimulationRunController {
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'Run cannot be deleted because it has been published as a project',
+    description:
+      'Run cannot be deleted because it has been published as a project',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
@@ -440,7 +441,8 @@ export class SimulationRunController {
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
-    description: 'Runs cannot be deleted because some have been published as projects',
+    description:
+      'Runs cannot be deleted because some have been published as projects',
   })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,

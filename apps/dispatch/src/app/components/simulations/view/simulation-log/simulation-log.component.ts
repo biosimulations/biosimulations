@@ -320,7 +320,10 @@ export class SimulationLogComponent {
     if (this.status === SimulationRunStatus.PROCESSING) {
       return SimulationRunLogStatus.SUCCEEDED;
     } else if (this.status === SimulationRunStatus.FAILED) {
-      if (this.statusReason && this.statusReason.search('not successfully proccessed') !== -1) {
+      if (
+        this.statusReason &&
+        this.statusReason.search('not successfully proccessed') !== -1
+      ) {
         return SimulationRunLogStatus.SUCCEEDED;
       } else {
         return SimulationRunLogStatus.FAILED;
@@ -332,7 +335,10 @@ export class SimulationLogComponent {
 
   getPostProcessingStatus(): SimulationRunLogStatus {
     if (this.status === SimulationRunStatus.FAILED) {
-      if (this.statusReason && this.statusReason.search('not successfully proccessed') !== -1) {
+      if (
+        this.statusReason &&
+        this.statusReason.search('not successfully proccessed') !== -1
+      ) {
         return SimulationRunLogStatus.FAILED;
       } else {
         return SimulationRunLogStatus.SKIPPED;

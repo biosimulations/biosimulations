@@ -147,8 +147,7 @@ export class LogsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to write logs',
+    description: 'This account does not have permission to write logs',
   })
   @permissions('write:Logs')
   @ApiCreatedResponse({
@@ -199,8 +198,7 @@ export class LogsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to delete logs',
+    description: 'This account does not have permission to delete logs',
   })
   @permissions('delete:Logs')
   @HttpCode(204)
@@ -237,8 +235,7 @@ export class LogsController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to write logs',
+    description: 'This account does not have permission to write logs',
   })
   @permissions('write:Logs')
   @ApiOkResponse({

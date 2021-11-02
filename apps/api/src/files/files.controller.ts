@@ -114,7 +114,9 @@ export class FilesController {
   ): Promise<ProjectFile> {
     const file = await this.service.getFile(runId, fileLocation);
     if (!file) {
-      throw new NotFoundException(`A file could not found for simulation run '${runId}' and location '${fileLocation}'.`);
+      throw new NotFoundException(
+        `A file could not found for simulation run '${runId}' and location '${fileLocation}'.`,
+      );
     }
     return this.createReturnFile(file);
   }
@@ -140,7 +142,8 @@ export class FilesController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to write metadata about all files',
+    description:
+      'This account does not have permission to write metadata about all files',
   })
   @permissions('write:Files')
   @ApiCreatedResponse({
@@ -168,7 +171,8 @@ export class FilesController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to write metadata about all files',
+    description:
+      'This account does not have permission to write metadata about all files',
   })
   @permissions('write:Files')
   public async createSimulationFiles(
@@ -199,7 +203,8 @@ export class FilesController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description: 'This account does not have permission to write metadata about all files',
+    description:
+      'This account does not have permission to write metadata about all files',
   })
   @permissions('write:Files')
   public async createFile(
@@ -228,8 +233,7 @@ export class FilesController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to delete files',
+    description: 'This account does not have permission to delete files',
   })
   @permissions('delete:Files')
   @ApiNoContentResponse({
@@ -269,8 +273,7 @@ export class FilesController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to delete files',
+    description: 'This account does not have permission to delete files',
   })
   @permissions('delete:Files')
   @ApiNotFoundResponse({

@@ -2,7 +2,12 @@ import {
   ArchiveMetadata,
   SimulationRunMetadataInput,
 } from '@biosimulations/datamodel/api';
-import { Injectable, Logger, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -51,10 +56,14 @@ export class MetadataService {
   ): Promise<SimulationRunMetadataIdModel> {
     const sim = await this.simulationModel.findById(data.id).catch((_) => null);
     if (!sim) {
-      throw new NotFoundException(`No simulation run could be found with id '${data.id}'.`);
+      throw new NotFoundException(
+        `No simulation run could be found with id '${data.id}'.`,
+      );
     }
 
-    data.metadata = data.metadata.map(this.transformMetadata.bind(this, data.id));
+    data.metadata = data.metadata.map(
+      this.transformMetadata.bind(this, data.id),
+    );
 
     const metadata = new this.metadataModel(data);
     return metadata.save();
@@ -66,7 +75,9 @@ export class MetadataService {
   ): Promise<SimulationRunMetadataIdModel> {
     const metadataObj = await this.getMetadata(runId);
     if (!metadataObj) {
-      throw new NotFoundException(`No simulation run could be found with id '${runId}'.`);
+      throw new NotFoundException(
+        `No simulation run could be found with id '${runId}'.`,
+      );
     }
 
     metadataObj.overwrite({
@@ -77,12 +88,13 @@ export class MetadataService {
     return metadataObj.save();
   }
 
-  private transformMetadata(runId: string, archiveMetadata: ArchiveMetadata): ArchiveMetadata {
+  private transformMetadata(
+    runId: string,
+    archiveMetadata: ArchiveMetadata,
+  ): ArchiveMetadata {
     const currentUri = archiveMetadata.uri;
     if (currentUri.startsWith('./')) {
-      archiveMetadata.uri = `${runId}/${encodeURI(
-        currentUri.substring(2),
-      )}`;
+      archiveMetadata.uri = `${runId}/${encodeURI(currentUri.substring(2))}`;
     } else if (currentUri == '.') {
       archiveMetadata.uri = `${runId}`;
     }
@@ -110,16 +122,16 @@ export class MetadataService {
       .select('simulationRun')
       .exec();
     if (!metadata) {
-      throw new NotFoundException(`Metadata could not found for simulation run '${runId}'.`);
+      throw new NotFoundException(
+        `Metadata could not found for simulation run '${runId}'.`,
+      );
     }
 
     const res: DeleteResult = await this.metadataModel
       .deleteOne({ simulationRun: runId })
       .exec();
     if (res.deletedCount !== 1) {
-      throw new InternalServerErrorException(
-        'Metadata could not be deleted.',
-      );
+      throw new InternalServerErrorException('Metadata could not be deleted.');
     }
   }
 

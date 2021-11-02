@@ -32,10 +32,7 @@ import {
 } from '../specifications/specifications.model';
 
 import { LogsService } from '../logs/logs.service';
-import {
-  SimulationRunLog,
-  SimulationRunLogSchema,
-} from '../logs/logs.model';
+import { SimulationRunLog, SimulationRunLogSchema } from '../logs/logs.model';
 
 import { ResultsService } from '../results/results.service';
 import { HSDSClientModule } from '@biosimulations/hsds/client';

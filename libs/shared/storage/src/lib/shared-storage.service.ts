@@ -68,7 +68,9 @@ export class SharedStorageService {
   }
 
   public async deleteObject(id: string): Promise<AWS.S3.DeleteObjectOutput> {
-    const call = this.s3.deleteObject({ Bucket: this.BUCKET, Key: id }).promise();
+    const call = this.s3
+      .deleteObject({ Bucket: this.BUCKET, Key: id })
+      .promise();
 
     const res = await call;
 

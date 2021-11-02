@@ -63,7 +63,8 @@ export class MetadataController {
       'The payload is too large. The payload must be less than the server limit.',
   })
   @ApiNotFoundResponse({
-    description: 'No metadata found could be found for the requested simulation run',
+    description:
+      'No metadata found could be found for the requested simulation run',
     type: ErrorResponseDocument,
   })
   @ApiUnauthorizedResponse({
@@ -72,8 +73,7 @@ export class MetadataController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to write metadata',
+    description: 'This account does not have permission to write metadata',
   })
   @ApiOkResponse({
     description: 'The metadata was successfully saved to the database',
@@ -119,8 +119,7 @@ export class MetadataController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to write metadata',
+    description: 'This account does not have permission to write metadata',
   })
   @permissions('write:Metadata')
   public async makeMetadata(
@@ -148,7 +147,8 @@ export class MetadataController {
     type: [SimulationRunMetadata],
   })
   @ApiNotFoundResponse({
-    description: 'No metadata found could be found for the requested simulation run',
+    description:
+      'No metadata found could be found for the requested simulation run',
     type: ErrorResponseDocument,
   })
   @ApiUnauthorizedResponse({
@@ -157,8 +157,7 @@ export class MetadataController {
   })
   @ApiForbiddenResponse({
     type: ErrorResponseDocument,
-    description:
-      'This account does not have permission to read metadata',
+    description: 'This account does not have permission to read metadata',
   })
   @permissions('read:Metadata')
   @Get()
@@ -201,7 +200,8 @@ export class MetadataController {
     type: SimulationRunMetadata,
   })
   @ApiNotFoundResponse({
-    description: 'No metadata found could be found for the requested simulation run',
+    description:
+      'No metadata found could be found for the requested simulation run',
     type: ErrorResponseDocument,
   })
   @Get(':runId')
