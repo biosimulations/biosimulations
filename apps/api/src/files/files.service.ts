@@ -48,17 +48,16 @@ export class FilesService {
   */
 
   public async deleteSimulationRunFiles(runId: string): Promise<void> {
-    const res: DeleteResult = await this.model
-      .deleteMany({ simulationRun: runId })
+    const files = await this.model
+      .find({ simulationRun: runId })
+      .select('location')
       .exec();
-    const count = await this.model.find({ simulationRun: runId })
-      .count()
-      .exec();
-    if (count !== 0) {
-      throw new InternalServerErrorException(
-        'Some files could not be deleted.',
-      );
-    }
+
+    await Promise.all(
+      files.map((file) => {
+        return this.deleteFile(runId, file.location);
+      })
+    );
   }
 
   public async deleteFile(runId: string, fileLocation: string): Promise<void> {
@@ -74,6 +73,8 @@ export class FilesService {
     if (!file) {
       throw new NotFoundException(`A file could not found for simulation run '${runId}' and location '${fileLocation}'.`);
     }
+
+    // TODO: delete from S3
 
     const res: DeleteResult = await this.model
       .deleteOne({ id: file.id })

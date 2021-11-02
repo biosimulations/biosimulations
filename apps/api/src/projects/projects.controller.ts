@@ -211,7 +211,7 @@ export class ProjectsController {
     throw new NotFoundException(`Project with id ${projectId} not found`);
   }
 
-  @Delete()
+  // @Delete()
   @ApiOperation({
     summary: 'Delete all published projects',
     description: 'Delete all published projects',

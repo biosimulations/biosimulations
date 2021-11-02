@@ -195,14 +195,14 @@ export class SimulationRunService {
       }
     } else {
       // The simulator did not give a file id
-      throw new NotFoundException(`No SimulationRun with id '${id}' found.`);
+      throw new NotFoundException(`Simulation run with id '${id}' could not be found.`);
     }
   }
 
   public async deleteAll(): Promise<void> {
     const count = await this.projectModel.count();
     if (count > 0) {
-      throw new BadRequestException('Some runs cannot be deleted because they have been published as projects.');
+      throw new BadRequestException(`${count} runs cannot be deleted because they have been published as projects.`);
     }
 
     const runs = await this.simulationRunModel
@@ -210,14 +210,14 @@ export class SimulationRunService {
       .select('id')
       .exec();
 
-    runs.forEach((run): void => {
-      this.delete(run.id);
-    });
+    await Promise.all(
+      runs.map((run) => this.delete(run.id))
+    );
   }
 
   public async delete(
     id: string,
-  ): Promise<SimulationRunModelReturnType | null> {
+  ): Promise<void> {
     const project = await this.projectModel.findOne({ simulationRun: id }).select('id').exec();
     if (project) {
       throw new BadRequestException(`Run '${id}' cannot be deleted because it has been published as project '${project.id}'.`);
@@ -225,7 +225,7 @@ export class SimulationRunService {
 
     const run = await this.simulationRunModel.findOneAndDelete({ id });
     if (!run) {
-      return null;
+      throw new NotFoundException(`Simulation run with id '${id}' could not be found.`);
     }
 
     await this.simulationStorageService.deleteSimulationArchive(id);
@@ -234,8 +234,6 @@ export class SimulationRunService {
     await this.resultsService.deleteSimulationRunResults(id);
     await this.logsService.deleteLog(id);
     await this.metadataService.deleteSimulationRunMetadata(id);
-
-    return toApi(run);
   }
 
   public async update(
@@ -246,7 +244,7 @@ export class SimulationRunService {
 
     if (!model) {
       throw new NotFoundException(
-        `Simulation run with id '${id}' was not found.`,
+        `Simulation run with id '${id}' could not be found.`,
       );
     }
 
@@ -618,7 +616,7 @@ export class SimulationRunService {
       !('value' in runSettledResult) ||
       !runSettledResult.value
     ) {
-      throw new NotFoundException(`No run could be found with id '${id}'.`);
+      throw new NotFoundException(`Simulation run with id '${id}' could not be found.`);
     }
 
     /* initialize summary with run information */
