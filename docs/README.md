@@ -40,6 +40,20 @@ We welcome contributions to BioSimulations, runBioSimulations, and BioSimulation
 
 This package is released under the [MIT license](./License.md). This package uses a number of open-source third-party packages. Their licenses are summarized in [Dependencies](./about/Dependencies).
 
+## Show your support
+
+If you find this project interesting or useful, please give our repo a ⭐ and share with others that may benefit. If you use the code and tools in this repository as a part of an academic work, please cite us using the following bibtex entry. 
+
+```
+@software{Shaikh_BioSimulations,
+author = {Shaikh, Bilal and Marupilla, Gnaneswara and Wilson, Mike and Michael, Blinov L. and Moraru, Ion I. and Karr, Jonathan R.},
+doi = {10.5281/zenodo.5057108},
+license = {MIT},
+title = {{BioSimulations}},
+url = {https://github.com/biosimulations/Biosimulations}
+}
+```
+
 ## Contributors 🧑‍🤝‍🧑
 
 This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York and the [Center for Cell Analysis and Modeling](https://health.uconn.edu/cell-analysis-modeling/) at UConn Health as part of the [Center for Reproducible Biomodeling Modeling](https://reproduciblebiomodels.org).
