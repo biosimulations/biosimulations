@@ -18,10 +18,20 @@ import {
 } from './datamodel';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
-
+import { retryBackoff } from 'backoff-rxjs';
+import { firstValueFrom } from 'rxjs';
 const DATASET = 'datasets';
 const GROUP = 'groups';
+
+// TODO connect to env
+const MAX_RETRIES = 12;
+const RetryBackoff = retryBackoff({
+  initialInterval: 100,
+  maxRetries: MAX_RETRIES,
+  resetOnSuccess: true,
+});
 Injectable();
+
 export class SimulationHDFService {
   private endpoints: Endpoints;
   private auth: string;
@@ -31,7 +41,7 @@ export class SimulationHDFService {
     @Inject(DatasetService) private datasetService: DatasetService,
     @Inject(DomainService) private domainService: DomainService,
     @Inject(GroupService) private groupService: GroupService,
-    @Inject(AttributeService) private attrbuteService: AttributeService,
+    @Inject(AttributeService) private attributeService: AttributeService,
     @Inject(LinkService) private linkService: LinkService,
     private configService: ConfigService,
   ) {
@@ -57,8 +67,11 @@ export class SimulationHDFService {
         undefined,
         this.auth,
       )
-      .toPromise();
-    const data: InlineResponse20010 | undefined = dataResponse?.data;
+      .pipe(RetryBackoff);
+
+    const dataResponsePromise = await firstValueFrom(dataResponse);
+
+    const data: InlineResponse20010 | undefined = dataResponsePromise.data;
     return data;
   }
 
@@ -148,6 +161,25 @@ export class SimulationHDFService {
     );
     return datasets;
   }
+  public async deleteDatasets(runId: string): Promise<void> {
+    const domain = this.endpoints.getSimulationRunResultsHsdsDomain(runId);
+
+    const response = this.domainService.datasetsGet(domain).pipe(RetryBackoff);
+
+    const responsePromise = await firstValueFrom(response);
+
+    const datasetIds = responsePromise?.data.datasets || [];
+
+    await Promise.all(
+      datasetIds.map((id: string) => {
+        return firstValueFrom(
+          this.datasetService
+            .datasetsIdDelete(id, domain, this.auth)
+            .pipe(RetryBackoff),
+        );
+      }),
+    );
+  }
 
   private createDate(timestamp: number | undefined): Date | undefined {
     // HSDS defines dates as seconds since epoch. Date() takes ms.
@@ -162,9 +194,11 @@ export class SimulationHDFService {
     domain: string,
     id: string,
   ): Promise<HDF5Group | undefined> {
-    const response = await this.groupService
+    const responseObs = await this.groupService
       .groupsIdGet(id, domain)
-      .toPromise();
+      .pipe(RetryBackoff);
+
+    const response = await firstValueFrom(responseObs);
     const data = response?.data;
     return data;
   }
@@ -173,9 +207,11 @@ export class SimulationHDFService {
     domain: string,
     id: string,
   ): Promise<HDF5Dataset | undefined> {
-    const response = await this.datasetService
+    const responseObs = await this.datasetService
       .datasetsIdGet(id, domain)
-      .toPromise();
+      .pipe(RetryBackoff);
+
+    const response = await firstValueFrom(responseObs);
     return response?.data;
   }
 
@@ -183,9 +219,11 @@ export class SimulationHDFService {
     groupId: string,
     domain: string,
   ): Promise<HDF5Links[]> {
-    const linksResponse = await this.linkService
+    const linksResponseObs = await this.linkService
       .groupsIdLinksGet(groupId, domain)
-      .toPromise();
+      .pipe(RetryBackoff);
+
+    const linksResponse = await firstValueFrom(linksResponseObs);
     return linksResponse?.data.links || [];
   }
 
@@ -193,10 +231,12 @@ export class SimulationHDFService {
     domain: string,
     datasetId: string,
   ): Promise<(keyof BiosimulationsDataAtributes)[]> {
-    const response = await this.attrbuteService
+    const response = await this.attributeService
       .collectionObjUuidAttributesGet(DATASET, datasetId, this.auth, domain)
-      .toPromise();
-    const attributes = response?.data.attributes || [];
+      .pipe(RetryBackoff);
+
+    const responsePromise = await firstValueFrom(response);
+    const attributes = responsePromise?.data.attributes || [];
     return attributes.map(
       (value) => value.name as keyof BiosimulationsDataAtributes,
     );
@@ -208,7 +248,7 @@ export class SimulationHDFService {
     attribute: keyof BiosimulationsDataAtributes,
   ): Promise<string | string[]> {
     try {
-      const uriResponse = await this.attrbuteService
+      const uriResponse = this.attributeService
         .collectionObjUuidAttributesAttrGet(
           DATASET,
           datasetId,
@@ -216,8 +256,11 @@ export class SimulationHDFService {
           this.auth,
           domain,
         )
-        .toPromise();
-      return uriResponse?.data.value || '';
+        .pipe(RetryBackoff);
+
+      const uriResponsePromise = await firstValueFrom(uriResponse);
+
+      return uriResponsePromise?.data.value || '';
     } catch (e) {
       this.logger.error('error for attribute' + attribute);
       return '';
@@ -225,27 +268,14 @@ export class SimulationHDFService {
   }
 
   private async getRootGroupId(domain: string): Promise<string | undefined> {
-    const domainResponse = await this.domainService.rootGet(domain).toPromise();
+    const domainResponse = await this.domainService
+      .rootGet(domain)
+      .pipe(RetryBackoff);
 
-    const domainInfo = domainResponse?.data;
+    const domainResponsePromise = await firstValueFrom(domainResponse);
+    const domainInfo = domainResponsePromise?.data;
 
     const rootGroup = domainInfo?.root;
     return rootGroup;
-  }
-
-  public async deleteDatasets(runId: string): Promise<void> {
-    const domain = this.endpoints.getSimulationRunResultsHsdsDomain(runId);
-
-    const response = await this.domainService.datasetsGet(domain).toPromise();
-
-    const datasetIds = response?.data.datasets || [];
-
-    await Promise.all(
-      datasetIds.map((id: string) => {
-        return this.datasetService
-          .datasetsIdDelete(id, domain, this.auth)
-          .toPromise();
-      }),
-    );
   }
 }
