@@ -1,4 +1,4 @@
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, ConsoleFormatting } from '@biosimulations/datamodel/common';
 import { ProjectInput } from '@biosimulations/datamodel/api';
 import { CompleteJob, JobQueue } from '@biosimulations/messages/messages';
 
@@ -93,14 +93,15 @@ export class CompleteProcessor {
       }
     }
 
+    let statusReason!: string;
     if (errors.length === 0) {
-      let msg = 'The simulation run was successfully proccessed.';
+      statusReason = 'The simulation run was successfully proccessed.';
       if (warnings.length) {
-        msg += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
+        statusReason += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
       }
 
       this.simStatusService
-        .updateStatus(id, SimulationRunStatus.SUCCEEDED, msg)
+        .updateStatus(id, SimulationRunStatus.SUCCEEDED, statusReason)
         .then((run) =>
           this.logger.log(`Updated status of simulation ${id} to SUCCEEDED`),
         );
@@ -152,21 +153,49 @@ export class CompleteProcessor {
           });
       }
     } else {
-      let msg = 'The simulation run was not successfully proccessed.';
-      msg += '\n\nErrors:\n  * ' + errors.join('\n  * ');
+      statusReason = 'The simulation run was not successfully proccessed.';
+      statusReason += '\n\nErrors:\n  * ' + errors.join('\n  * ');
       if (warnings.length) {
-        msg += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
+        statusReason += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
       }
 
       this.simStatusService
-        .updateStatus(id, SimulationRunStatus.FAILED, msg)
+        .updateStatus(id, SimulationRunStatus.FAILED, statusReason)
         .then((run) =>
           this.logger.error(
-            `Updated status of simulation ${id} to FAILED due to one or more processing errors:\n  * ${errors.join(
+            `Updated status of simulation run '${id}' to FAILED due to one or more processing errors:\n  * ${errors.join(
               '\n  * ',
             )}`,
           ),
         );
     }
+
+    let statusColor!: string;
+    let statusEndColor!: string;
+    if (errors.length > 0) {
+      statusColor = ConsoleFormatting.red;
+      statusEndColor = ConsoleFormatting.noColor;
+    } else if (warnings.length > 0) {
+      statusColor = ConsoleFormatting.yellow;
+      statusEndColor = ConsoleFormatting.noColor;
+    } else {
+      statusColor = '';
+      statusEndColor = '';
+    }
+
+    const extraStdLog = (
+      ''
+      + '\n'
+      + `\n${ConsoleFormatting.cyan}======================= Post-processing simulation run ======================${ConsoleFormatting.noColor}`
+      + `\n${statusColor}statusReason${statusEndColor}`
+      + '\n'
+      + `\n${ConsoleFormatting.cyan}============ Run complete. Thank you for using runBioSimulations! ===========${ConsoleFormatting.noColor}`
+    );
+    this.logService.createLog(id, extraStdLog, true)
+      .then((run) =>
+        this.logger.error(
+          `Log for simulation run '${id}' could not be updated`,
+        ),
+      );
   }
 }

@@ -39,7 +39,7 @@ h3 {
   padding: 0 0.5rem;
   border-radius: 4px;
 
-  &:not(:first-child) {
+  &:not(:first-child), &.top-margin {
     margin-top: 2rem;
   }
 }
@@ -48,6 +48,9 @@ h3 {
   h3 {
     &:not(:first-child) {
       margin-top: 1rem;
+    }
+    &.top-margin {
+      margin-top: 0;
     }
   }
 }

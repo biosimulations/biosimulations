@@ -15,14 +15,14 @@ export class LogService {
     private sshService: SshService,
   ) {}
 
-  public async createLog(id: string): Promise<void> {
+  public async createLog(id: string, extraStdLog?: string, update=false): Promise<void> {
     const path = this.sshService.getSSHResultsDirectory(id);
-    return this.makeLog(path).then((value) => this.uploadLog(id, value));
+    return this.makeLog(path, extraStdLog).then((value) => this.uploadLog(id, value, update));
   }
 
-  private async makeLog(path: string): Promise<CombineArchiveLog> {
+  private async makeLog(path: string, extraStdLog?: string): Promise<CombineArchiveLog> {
     const log = await this.readLog(path);
-    const stdLog = await this.readStdLog(path);
+    const stdLog = await this.readStdLog(path) + (extraStdLog ? extraStdLog : '');
 
     log.output = stdLog;
     return log;
@@ -64,9 +64,9 @@ export class LogService {
       });
   }
 
-  private uploadLog(id: string, log: CombineArchiveLog): Promise<void> {
+  private uploadLog(id: string, log: CombineArchiveLog, update=false): Promise<void> {
     return this.submit
-      .sendLog(id, log)
+      .sendLog(id, log, update)
       .toPromise()
       .then((_) => {
         this.logger.debug('Sent Log to API');

@@ -36,7 +36,7 @@ export class SimulationRunService {
     metadata: SimulationRunMetadataInput,
   ): Observable<SimulationRunMetadata> {
     const endpoint = this.endpoints.getSimulationRunMetadataEndpoint();
-    return this.postAuthenticated<
+    return this.sendAuthenticated<
       SimulationRunMetadataInput,
       SimulationRunMetadata
     >(endpoint, metadata);
@@ -47,7 +47,7 @@ export class SimulationRunService {
     specs: SimulationRunSedDocument[],
   ): Observable<SimulationRunSedDocument[]> {
     const endpoint = this.endpoints.getSpecificationsEndpoint();
-    return this.postAuthenticated<
+    return this.sendAuthenticated<
       SimulationRunSedDocument[],
       SimulationRunSedDocument[]
     >(endpoint, specs);
@@ -59,7 +59,7 @@ export class SimulationRunService {
   ): Observable<ProjectFile[]> {
     const body: SubmitProjectFile[] = files;
     const endpoint = this.endpoints.getFilesEndpoint();
-    return this.postAuthenticated<SubmitProjectFile[], ProjectFile[]>(
+    return this.sendAuthenticated<SubmitProjectFile[], ProjectFile[]>(
       endpoint,
       body,
     );
@@ -140,23 +140,24 @@ export class SimulationRunService {
   public sendLog(
     simId: string,
     log: CombineArchiveLog,
+    update = false,
   ): Observable<CombineArchiveLog> {
     const body: CreateSimulationRunLogBody = {
       simId: simId,
       log: log,
     };
     const endpoint = this.endpoints.getSimulationRunLogsEndpoint();
-    return this.postAuthenticated<
+    return this.sendAuthenticated<
       CreateSimulationRunLogBody,
       CombineArchiveLog
-    >(endpoint, body);
+    >(endpoint, body, update ? 'put' : 'post');
   }
 
-  private postAuthenticated<T, U>(url: string, body: T): Observable<U> {
+  private sendAuthenticated<T, U>(url: string, body: T, mode: 'post' | 'put' = 'post'): Observable<U> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
-        return this.http
-          .post<U>(url, body, {
+        const method = mode === 'post' ? this.http.post : this.http.put;
+        return method<U>(url, body, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
