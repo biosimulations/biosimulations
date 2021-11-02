@@ -61,6 +61,8 @@ import { SimulationRunModelReturnType } from './simulation-run.model';
 import { AuthToken } from '@biosimulations/auth/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
+import { scopes } from '@biosimulations/config/common';
+
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
 import multer from 'multer';
@@ -112,7 +114,7 @@ export class SimulationRunController {
     description:
       'This account does not have permission to get all simulation runs. Access to all runs is limited to administrators.',
   })
-  @permissions('read:SimulationRuns')
+  @permissions(scopes.simulationRuns.read.id)
   @Get()
   public async getRuns(): Promise<SimulationRun[]> {
     const res = await this.service.getAll();
@@ -289,7 +291,7 @@ export class SimulationRunController {
     description:
       'This account does not have permission to get all simulation runs. Access to all runs is limited to administrators.',
   })
-  @permissions('read:SimulationRuns')
+  @permissions(scopes.simulationRuns.read.id)
   @ApiOkResponse({
     description: 'A summary of each run was successfully retrieved',
     type: [SimulationRunSummary],
@@ -332,7 +334,7 @@ export class SimulationRunController {
     let permission = false;
     if (user) {
       user.permissions = user.permissions || [];
-      permission = user.permissions.includes('read:Email');
+      permission = user.permissions.includes(scopes.email.read.id);
     }
     const run = await this.service.get(runId);
     if (run) {
@@ -373,7 +375,7 @@ export class SimulationRunController {
     description:
       'This account does not have permission to save simulation runs',
   })
-  @permissions('write:SimulationRuns')
+  @permissions(scopes.simulationRuns.update.id)
   @Patch(':runId')
   @ApiNotFoundResponse({
     description: 'No simulation run has the requested id',
@@ -423,7 +425,7 @@ export class SimulationRunController {
     description:
       'This account does not have permission to delete simulation runs',
   })
-  @permissions('delete:SimulationRuns')
+  @permissions(scopes.simulationRuns.delete.id)
   @Delete(':runId')
   @ApiNoContentResponse({
     description: 'The simulation run was successfully deleted',
@@ -451,7 +453,7 @@ export class SimulationRunController {
     description:
       'This account does not have permission to delete simulation runs',
   })
-  @permissions('delete:SimulationRuns')
+  @permissions(scopes.simulationRuns.delete.id)
   // @Delete()
   @ApiNoContentResponse({
     description: 'The simulation runs were successfully deleted',

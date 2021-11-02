@@ -23,6 +23,7 @@ import {
 } from '@nestjs/swagger';
 import { refreshImageBody } from './image.dto';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import { scopes } from '@biosimulations/config/common';
 
 @Controller('images')
 @ApiTags('Internal')
@@ -56,7 +57,7 @@ export class ImagesController {
       'An error occurred in triggering the building/rebuilding of the Singularity image',
     type: ErrorResponseDocument,
   })
-  @permissions('refresh:Images')
+  @permissions(scopes.images.refresh.id)
   @Post('refresh')
   public async refreshImage(
     @Body() data: refreshImageBody,

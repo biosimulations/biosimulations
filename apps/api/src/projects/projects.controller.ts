@@ -37,6 +37,7 @@ import { ProjectsService } from './projects.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { Request } from 'express';
 import { AuthToken } from '@biosimulations/auth/common';
+import { scopes } from '@biosimulations/config/common';
 
 @ApiTags('Projects')
 @Controller('projects')
@@ -219,7 +220,7 @@ export class ProjectsController {
   @ApiNoContentResponse({
     description: 'All published projects were successfully deleted',
   })
-  @permissions('delete:Projects')
+  @permissions(scopes.projects.delete.id)
   @HttpCode(204)
   public async deleteProjects(): Promise<void> {
     return this.service.deleteProjects();
@@ -237,7 +238,7 @@ export class ProjectsController {
   @ApiNoContentResponse({
     description: 'The project was successfully deleted',
   })
-  @permissions('delete:Projects')
+  @permissions(scopes.projects.delete.id)
   @ProjectIdParam()
   @HttpCode(204)
   public async deleteProject(

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ManagementClient } from 'auth0';
 import { ConfigService } from '@nestjs/config';
+import { scopes } from '@biosimulations/config/common';
 
 @Injectable()
 export class ManagementService {
@@ -10,7 +11,7 @@ export class ManagementService {
       domain: configService.get('auth.management_domain') as string,
       clientId: configService.get('auth.management_id'),
       clientSecret: configService.get('auth.management_secret'),
-      scope: 'read:users update:users',
+      scope: [scopes.users.read.id, scopes.users.update.id].join(' '),
     });
   }
 

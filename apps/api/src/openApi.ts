@@ -6,6 +6,7 @@ import {
   SecuritySchemeObject,
 } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { INestApplication } from '@nestjs/common';
+import { scopes, getScopesForAudience } from '@biosimulations/config/common';
 
 export async function setupOpenApi(app: INestApplication): Promise<void> {
   const favIcon =
@@ -96,26 +97,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     builder.addTag(tag.name, tag.description);
   }
   // TODO add all scopes/find a way to automate this from auth0 or atleast create a common library to keep consistent
-  const scopes: ScopesObject = {
-    'read:SimulationRuns': 'Get information about simulation runs',
-    'write:SimulationRuns': 'Modify simulation runs, including their status',
-    'delete:SimulationRuns': 'Delete simulation runs',
-    'read:Results': 'Get the results of simulation runs',
-    'write:Results': 'Modify the results of simulation runs',
-    'delete:Results': 'Delete the results of simulation runs',
-    'read:Logs': 'Get the logs of simulation runs',
-    'write:Logs': 'Modify the logs of simulation runs',
-    'delete:Logs': 'Delete the logs of simulation runs',
-    'read:Metadata': 'Get the metadata for simulation runs',
-    'write:Metadata': 'Modify the metadata for simulation runs',
-    'delete:Metadata': 'Delete the metadata for simulation runs',
-    'read:Projects': 'Get information about published projects',
-    'create:Projects': 'Create published projects',
-    'update:Projects': 'Modify published projects',
-    'delete:Projects': 'Delete published projects',
-    'proxyOwnership:Projects':
-      'Create and modify projects on behalf of other accounts',
-  };
+  const scopes: ScopesObject = getScopesForAudience('dispatch.biosimulations.org');
   const authorizationUrl =
     'https://auth.biosimulations.org/authorize?audience=dispatch.biosimulations.org';
   const openIdConnectUrl =

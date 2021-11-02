@@ -46,6 +46,7 @@ import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { LogsService } from './logs.service';
 import { permissions } from '@biosimulations/auth/nest';
 import { LeanDocument } from 'mongoose';
+import { scopes } from '@biosimulations/config/common';
 
 @ApiExtraModels(SedReportLog, SedPlot2DLog, SedPlot3DLog)
 @Controller('logs')
@@ -149,7 +150,7 @@ export class LogsController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to write logs',
   })
-  @permissions('write:Logs')
+  @permissions(scopes.logs.create.id)
   @ApiCreatedResponse({
     description: 'The logs for the simulation run were successfully saved',
     type: CombineArchiveLog,
@@ -200,7 +201,7 @@ export class LogsController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to delete logs',
   })
-  @permissions('delete:Logs')
+  @permissions(scopes.logs.delete.id)
   @HttpCode(204)
   public deleteLog(@Param('runId') runId: string): Promise<void> {
     return this.service.deleteLog(runId);
@@ -237,7 +238,7 @@ export class LogsController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to write logs',
   })
-  @permissions('write:Logs')
+  @permissions(scopes.logs.update.id)
   @ApiOkResponse({
     type: CombineArchiveLog,
     description:

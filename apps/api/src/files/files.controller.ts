@@ -27,6 +27,7 @@ import {
 import { FileModel } from './files.model';
 import { FilesService } from './files.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import { scopes } from '@biosimulations/config/common';
 
 @ApiTags('Files')
 @Controller('files')
@@ -48,7 +49,7 @@ export class FilesController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to get metadata about all files',
   })
-  @permissions('read:Files')
+  @permissions(scopes.files.read.id)
   public getFiles() {}
   */
 
@@ -145,7 +146,7 @@ export class FilesController {
     description:
       'This account does not have permission to write metadata about all files',
   })
-  @permissions('write:Files')
+  @permissions(scopes.files.create.id)
   @ApiCreatedResponse({
     description:
       'The metadata for the files for the simulation were successfully saved to the database',
@@ -174,7 +175,7 @@ export class FilesController {
     description:
       'This account does not have permission to write metadata about all files',
   })
-  @permissions('write:Files')
+  @permissions(scopes.files.create.id)
   public async createSimulationFiles(
     @Param('runId') runId: string,
     @Body() files: any[],
@@ -206,7 +207,7 @@ export class FilesController {
     description:
       'This account does not have permission to write metadata about all files',
   })
-  @permissions('write:Files')
+  @permissions(scopes.files.create.id)
   public async createFile(
     @Param('runId') runId: string,
     fileLocation: string,
@@ -235,7 +236,7 @@ export class FilesController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to delete files',
   })
-  @permissions('delete:Files')
+  @permissions(scopes.files.delete.id)
   @ApiNoContentResponse({
     description: 'The files for the simulation run were successfully deleted',
   })
@@ -275,7 +276,7 @@ export class FilesController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to delete files',
   })
-  @permissions('delete:Files')
+  @permissions(scopes.files.delete.id)
   @ApiNotFoundResponse({
     type: ErrorResponseDocument,
     description: 'No file has the requested run id and file location',

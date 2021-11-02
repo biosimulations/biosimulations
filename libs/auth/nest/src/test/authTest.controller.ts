@@ -19,6 +19,7 @@ import { JwtGuard } from '../lib/jwt/jwt.guard';
 import { permissions } from '../lib/permissions/permissions.decorator';
 import { PermissionsGuard } from '../lib/permissions/permissions.guard';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
+import { scopes } from '@biosimulations/config/common';
 
 @ApiTags('Authentication testing')
 @ApiOAuth2([])
@@ -72,7 +73,7 @@ export class AuthTestController {
     return req.user;
   }
 
-  @permissions('test:permissions')
+  @permissions(scopes.permissions.test.id)
   @UseGuards(JwtGuard, PermissionsGuard)
   @ApiOAuth2([])
   @ApiOperation({

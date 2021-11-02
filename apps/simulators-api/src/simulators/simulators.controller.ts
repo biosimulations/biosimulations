@@ -40,6 +40,7 @@ import { SimulatorsService } from './simulators.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import compareVersions from 'compare-versions';
 import compareVersionsWithAdditionalPoints from 'tiny-version-compare';
+import { scopes } from '@biosimulations/config/common';
 
 @ApiTags('Simulators')
 @Controller('simulators')
@@ -293,7 +294,7 @@ export class SimulatorsController {
     description:
       'This account does not have permission to save specifications of simulation tools',
   })
-  @permissions('write:Simulators')
+  @permissions(scopes.simulators.create.id)
   async create(@Body() doc: Simulator): Promise<Simulator> {
     return this.service.new(doc);
   }
@@ -373,7 +374,7 @@ export class SimulatorsController {
     description:
       'This account does not have permission to update specifications of simulation tools',
   })
-  @permissions('write:Simulators')
+  @permissions(scopes.simulators.update.id)
   @Put(':id/:version')
   @ApiOperation({
     summary: 'Update a version of a simulation tool',
@@ -418,7 +419,7 @@ export class SimulatorsController {
     description:
       'This account does not have permission to delete simulation tools',
   })
-  @permissions('delete:Simulators')
+  @permissions(scopes.simulators.delete.id)
   @Delete(':id/:version')
   @ApiOperation({
     summary: 'Delete a version of a simulation tool',
@@ -455,7 +456,7 @@ export class SimulatorsController {
     description:
       'This account does not have permission to delete simulation tools',
   })
-  @permissions('delete:Simulators')
+  @permissions(scopes.simulators.delete.id)
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete all versions of a simulation tool',
