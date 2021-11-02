@@ -46,6 +46,8 @@ copasi
 coreinfrastructure
 crbm
 Deepa
+doi
+DOI
 Dumontier
 dumontierlab
 ebi
@@ -191,6 +193,8 @@ uchc
 uconn
 ucsd
 umbc
+url
+URL
 vcell
 vcellmike
 versioning
