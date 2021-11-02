@@ -1,5 +1,14 @@
-import { Scopes, ScopeGroup, Scope } from '@biosimulations/datamodel/common';
 import { ScopesObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
+
+export interface Scope {
+    audience: string;
+    id: string;
+    description: string;
+}
+
+export type ScopeGroup = {[scope: string]: Scope};
+
+export type Scopes = {[id: string]: ScopeGroup};
 
 export const scopes: Scopes = {
   simulators: {

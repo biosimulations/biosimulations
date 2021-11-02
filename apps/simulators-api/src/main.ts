@@ -21,7 +21,7 @@ import { Resolver } from '@stoplight/json-ref-resolver';
 import * as toJsonSchema from '@openapi-contrib/openapi-schema-to-json-schema';
 import { json } from 'body-parser';
 import { BiosimulationsValidationExceptionFactory } from '@biosimulations/shared/exceptions';
-import { scopes, getScopesForAudience } from '@biosimulations/config/common';
+import { getScopesForAudience } from '@biosimulations/config/common';
 
 function setupOpenApi(
   app: INestApplication,

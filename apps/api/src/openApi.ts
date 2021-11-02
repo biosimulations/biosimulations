@@ -6,7 +6,7 @@ import {
   SecuritySchemeObject,
 } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { INestApplication } from '@nestjs/common';
-import { scopes, getScopesForAudience } from '@biosimulations/config/common';
+import { getScopesForAudience } from '@biosimulations/config/common';
 
 export async function setupOpenApi(app: INestApplication): Promise<void> {
   const favIcon =
