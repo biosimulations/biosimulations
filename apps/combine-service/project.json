@@ -27,6 +27,42 @@
     "lint": {
       "executor": "@nx-python/nx-python:lint",
       "options": {}
+    },
+    "docker": {
+      "builder": "@nx-tools/nx-docker:build",
+      "options": {
+        "file": "./PythonDockerfile",
+        "push": true,
+        "load": true,
+        "build-args": [],
+        "tags": [
+          "ghcr.io/biosimulations/combine-api:latest"
+        ],
+        "labels": [
+          "org.opencontainers.image.title=BioSimulations Combine API",
+          "org.opencontainers.image.description=Docker image for the BioSimulations Combine API",
+          "org.opencontainers.image.url=https://biosimulations.org/",
+          "org.opencontainers.image.documentation=docs.biosimulations.org",
+          "org.opencontainers.image.source=https://github.com/biosimulations/Biosimulations",
+          "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
+          "org.opencontainers.image.vendor=BioSimulations",
+          "org.opencontainers.image.licenses=MIT"
+        ],
+        "meta": {
+          "enabled": true,
+          "images": [
+            "ghcr.io/biosimulations/combine-api"
+          ],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=sha"
+          ]
+        }
+      }
     }
   },
   "tags": []

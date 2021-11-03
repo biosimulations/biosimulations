@@ -11,7 +11,9 @@
         "outputPath": "dist/apps/simulators-api",
         "main": "apps/simulators-api/src/main.ts",
         "tsConfig": "apps/simulators-api/tsconfig.app.json",
-        "assets": ["apps/simulators-api/src/assets"]
+        "assets": [
+          "apps/simulators-api/src/assets"
+        ]
       },
       "configurations": {
         "production": {
@@ -36,7 +38,9 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/simulators-api/**/*.ts"]
+        "lintFilePatterns": [
+          "apps/simulators-api/**/*.ts"
+        ]
       }
     },
     "test": {
@@ -45,7 +49,49 @@
         "jestConfig": "apps/simulators-api/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "docker": {
+      "builder": "@nx-tools/nx-docker:build",
+      "options": {
+        "file": "./Dockerfile",
+        "push": false,
+        "load": true,
+        "build-args": [
+          "app=simulators-api"
+        ],
+        "tags": [
+          "ghcr.io/biosimulations/simulators-api:latest"
+        ],
+        "labels": [
+          "org.opencontainers.image.title=BioSimulators API",
+          "org.opencontainers.image.description=Docker image for the BioSimulators API",
+          "org.opencontainers.image.url=https://biosimulators.org/",
+          "org.opencontainers.image.documentation=docs.biosimulators.org",
+          "org.opencontainers.image.source=https://github.com/biosimulations/Biosimulations",
+          "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
+          "org.opencontainers.image.vendor=BioSimulations",
+          "org.opencontainers.image.licenses=MIT"
+        ],
+        "meta": {
+          "enabled": true,
+          "images": [
+            "ghcr.io/biosimulations/api"
+          ],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=sha"
+          ]
+        }
+      }
     }
   },
-  "tags": ["scope:simulators", "type:api", "platform:server"]
+  "tags": [
+    "scope:simulators",
+    "type:api",
+    "platform:server"
+  ]
 }
