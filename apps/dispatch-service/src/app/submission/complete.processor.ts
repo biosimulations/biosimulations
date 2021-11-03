@@ -143,13 +143,16 @@ export class CompleteProcessor {
       statusEndColor = '';
     }
 
+    const cyan = ConsoleFormatting.cyan.replace('\\033', '\u001b');
+    const noColor = ConsoleFormatting.noColor.replace('\\033', '\u001b');
+
     const extraStdLog =
       '' +
       '\n' +
-      `\n${ConsoleFormatting.cyan}=========================================== Post-processing simulation run ==========================================${ConsoleFormatting.noColor}` +
+      `\n${cyan}=========================================== Post-processing simulation run ==========================================${noColor}` +
       `\n${statusColor}${statusReason}${statusEndColor}` +
       '\n' +
-      `\n${ConsoleFormatting.cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${ConsoleFormatting.noColor}`;
+      `\n${cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${noColor}`;
     this.logService
       .createLog(id, !logPostSucceeded, extraStdLog, true)
       .then((run) =>
