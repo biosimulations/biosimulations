@@ -11,7 +11,9 @@
         "outputPath": "dist/apps/dispatch-service",
         "main": "apps/dispatch-service/src/main.ts",
         "tsConfig": "apps/dispatch-service/tsconfig.app.json",
-        "assets": ["apps/dispatch-service/src/assets"]
+        "assets": [
+          "apps/dispatch-service/src/assets"
+        ]
       },
       "configurations": {
         "production": {
@@ -38,7 +40,9 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/dispatch-service/**/*.ts"]
+        "lintFilePatterns": [
+          "apps/dispatch-service/**/*.ts"
+        ]
       }
     },
     "test": {
@@ -47,8 +51,50 @@
         "jestConfig": "apps/dispatch-service/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "docker": {
+      "builder": "@nx-tools/nx-docker:build",
+      "options": {
+        "file": "./Dockerfile",
+        "push": false,
+        "load": true,
+        "build-args": [
+          "app=dispatch-service"
+        ],
+        "tags": [
+          "ghcr.io/biosimulations/dispatch-service:latest"
+        ],
+        "labels": [
+          "org.opencontainers.image.title=BioSimulations Simulation Run Service",
+          "org.opencontainers.image.description=Docker image for the BioSimulations Simulation Run Service",
+          "org.opencontainers.image.url=https://biosimulations.org/",
+          "org.opencontainers.image.documentation=docs.biosimulations.org",
+          "org.opencontainers.image.source=https://github.com/biosimulations/Biosimulations",
+          "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
+          "org.opencontainers.image.vendor=BioSimulations",
+          "org.opencontainers.image.licenses=MIT"
+        ],
+        "meta": {
+          "enabled": true,
+          "images": [
+            "ghcr.io/biosimulations/simulation-service"
+          ],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=sha"
+          ]
+        }
+      }
     }
   },
-  "tags": ["scope:dispatch", "type:service", "platform:server"],
+  "tags": [
+    "scope:dispatch",
+    "type:service",
+    "platform:server"
+  ],
   "implicitDependencies": []
 }

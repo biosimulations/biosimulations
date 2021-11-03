@@ -2,7 +2,7 @@
   "root": "apps/api",
   "sourceRoot": "apps/api/src",
   "projectType": "application",
-  "prefix": "dispatch-api",
+  "prefix": "api",
   "generators": {},
   "targets": {
     "build": {
@@ -11,7 +11,9 @@
         "outputPath": "dist/apps/api",
         "main": "apps/api/src/main.ts",
         "tsConfig": "apps/api/tsconfig.app.json",
-        "assets": ["apps/api/src/assets"]
+        "assets": [
+          "apps/api/src/assets"
+        ]
       },
       "configurations": {
         "production": {
@@ -38,7 +40,9 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/api/**/*.ts"]
+        "lintFilePatterns": [
+          "apps/api/**/*.ts"
+        ]
       }
     },
     "test": {
@@ -47,8 +51,52 @@
         "jestConfig": "apps/api/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "docker": {
+      "builder": "@nx-tools/nx-docker:build",
+      "options": {
+        "file": "./Dockerfile",
+        "push": false,
+        "load": true,
+        "build-args": [
+          "app=api"
+        ],
+        "tags": [
+          "ghcr.io/biosimulations/api:latest"
+        ],
+        "labels": [
+          "org.opencontainers.image.title=BioSimulations API",
+          "org.opencontainers.image.description=Docker image for the BioSimulations API",
+          "org.opencontainers.image.url=https://biosimulations.org/",
+          "org.opencontainers.image.documentation=docs.biosimulations.org",
+          "org.opencontainers.image.source=https://github.com/biosimulations/Biosimulations",
+          "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
+          "org.opencontainers.image.vendor=BioSimulations",
+          "org.opencontainers.image.licenses=MIT"
+        ],
+        "meta": {
+          "enabled": true,
+          "images": [
+            "ghcr.io/biosimulations/api"
+          ],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=sha"
+          ]
+        }
+      }
     }
   },
-  "tags": ["scope:dispatch", "type:api", "platform:server"],
-  "implicitDependencies": ["hdf5-api-client"]
+  "tags": [
+    "scope:dispatch",
+    "type:api",
+    "platform:server"
+  ],
+  "implicitDependencies": [
+    "hdf5-api-client"
+  ]
 }
