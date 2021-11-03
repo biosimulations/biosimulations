@@ -10,7 +10,7 @@ rm -r ${script_dir}/../libs/combine/api-client/src/lib/model/
 
 npx @openapitools/openapi-generator-cli  generate \
     -g typescript-nestjs \
-    -i ${script_dir}/../apps/combine-service/src/spec/spec.yml \
+    -i ${script_dir}/../apps/combine-api/src/spec/spec.yml \
     -o ${script_dir}/../libs/combine/api-client/src/lib/ \
     --global-property=skipFormModel=false \
     --additional-properties=stringEnums=true,nestVersion=7.0.0,supportsES6=true \
