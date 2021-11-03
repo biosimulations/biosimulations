@@ -31,9 +31,8 @@
     "docker": {
       "builder": "@nx-tools/nx-docker:build",
       "options": {
-        "file": "./PythonDockerfile",
+        "file": "./DockerfilePython",
         "push": true,
-        "load": true,
         "build-args": [],
         "tags": [
           "ghcr.io/biosimulations/combine-api:latest"
