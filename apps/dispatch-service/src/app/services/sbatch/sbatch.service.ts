@@ -90,7 +90,10 @@ export class SbatchService {
             })
             .join(',')
         : '';
-    const runCombineArchiveUrl = this.endpoints.getRunDownloadEndpoint(runId);
+    const runCombineArchiveUrl = this.endpoints.getRunDownloadEndpoint(
+      runId,
+      true,
+    );
     const simulationRunS3Path = this.endpoints.getSimulationRunS3Path(runId);
     const simulationRunContentS3Subpath =
       this.endpoints.getSimulationRunContentS3Subpath();
@@ -124,7 +127,7 @@ cd ${tempSimDir}
 echo -e '${cyan}Thank you for using runBioSimulations!${nc}'
 echo -e ''
 echo -e '${cyan}============================================ Downloading COMBINE archive ============================================${nc}'
-( ulimit -f 1048576; srun wget --no-check-certificate --progress=bar:force ${runCombineArchiveUrl} -O '${omexName}')
+( ulimit -f 1048576; srun curl -L -o '${omexName}' ${runCombineArchiveUrl})
 echo -e ''
 echo -e '${cyan}============================================= Extracting COMBINE archive ============================================${nc}'
 unzip -o '${omexName}' -d '${simulationRunContentS3Subpath}'
