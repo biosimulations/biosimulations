@@ -121,7 +121,6 @@ export class SbatchService {
       false,
     );
 
-    // TODO Remove the no check flag
     const template = `#!/bin/bash
 #SBATCH --job-name=${runId}_Biosimulations
 #SBATCH --time=${maxTimeFormatted}
@@ -169,7 +168,10 @@ export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url ${endpoi
    * @param dockerImageUrl URL for the Docker image
    * @param forceOverwrite whether to overwrite an existing Singularity image file, if it exists
    */
-  public generateImageUpdateSbatch(dockerImageUrl: string, forceOverwrite: boolean): string {
+  public generateImageUpdateSbatch(
+    dockerImageUrl: string,
+    forceOverwrite: boolean,
+  ): string {
     const homeDir = this.configService.get('hpc.homeDir');
     const singularityImageName = dockerImageUrl
       .split('docker://ghcr.io/biosimulators/')[1]
@@ -196,7 +198,9 @@ echo "Building On:"
 hostname
 echo "Using Singularity"
 singularity --version
-singularity -v pull --tmpdir /local ${forceOverwrite ? '--force' : ''} ${dockerImageUrl}`;
+singularity -v pull --tmpdir /local ${
+      forceOverwrite ? '--force' : ''
+    } ${dockerImageUrl}`;
     return template;
   }
 }
