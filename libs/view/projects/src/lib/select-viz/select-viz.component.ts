@@ -33,7 +33,7 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '@biosimulations/shared/environments';
 import { Endpoints } from '@biosimulations/config/common';
-import { VEGA_FORMAT } from '@biosimulations/ontology/extra-sources';
+import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 
 type DesignVisualizationComponent =
   | DesignHistogram1DVisualizationComponent
@@ -47,6 +47,8 @@ type DesignVisualizationComponent =
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectVisualizationComponent implements OnDestroy {
+  private vegaFormatCombineUri: string;
+
   @Input()
   visualizations!: VisualizationList[];
 
@@ -68,6 +70,17 @@ export class SelectVisualizationComponent implements OnDestroy {
     private simService: SimulationService,
     private snackBar: MatSnackBar,
   ) {
+    const vegaFormatCombineUri = BIOSIMULATIONS_FORMATS
+      .filter((format) => format.id === 'format_3969')
+      ?.[0]
+      ?.biosimulationsMetadata?.omexManifestUris
+      ?.[0];
+    if (vegaFormatCombineUri) {
+      this.vegaFormatCombineUri = vegaFormatCombineUri;
+    } else {
+      throw new Error('Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs');
+    }
+
     this.formGroup = formBuilder.group({
       visualization: [null, [Validators.required]],
       userHistogram1DFormGroup: formBuilder.group({}),
@@ -155,7 +168,7 @@ export class SelectVisualizationComponent implements OnDestroy {
             .addFileToCombineArchive(
               this.endpoints.getRunDownloadEndpoint(simulationRunId),
               'plot.vg.json',
-              VEGA_FORMAT.combineUris[0],
+              this.vegaFormatCombineUri,
               false,
               blob,
               false,

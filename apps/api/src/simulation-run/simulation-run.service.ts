@@ -42,12 +42,9 @@ import {
   SimulationTypeName,
   SimulationRunOutputTypeName,
   Ontologies,
+  EdamTerm,
 } from '@biosimulations/datamodel/common';
-import {
-  MODEL_FORMATS,
-  VEGA_FORMAT
-} from '@biosimulations/ontology/extra-sources';
-import { EdamModelingFormat } from '@biosimulations/ontology/extra-sources';
+import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import {
   DispatchFailedPayload,
@@ -113,6 +110,7 @@ interface Check {
 
 @Injectable()
 export class SimulationRunService {
+  private vegaFormatOmexManifestUris: string[];
   private endpoints: Endpoints;
   private logger = new Logger(SimulationRunService.name);
 
@@ -134,6 +132,16 @@ export class SimulationRunService {
     private configService: ConfigService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {
+    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3969')
+      ?.[0]
+      ?.biosimulationsMetadata
+      ?.omexManifestUris;
+    if (vegaFormatOmexManifestUris) {
+      this.vegaFormatOmexManifestUris = vegaFormatOmexManifestUris;
+    } else {
+      throw new Error('Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs');
+    }
+
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
   }
@@ -722,9 +730,12 @@ export class SimulationRunService {
         simulationExpt.tasks.forEach((task: SedTask): void => {
           const uri = docLocation + '/' + task.simulation.id;
 
-          let modelFormat: EdamModelingFormat | null = null;
-          for (const format of MODEL_FORMATS) {
-            if (task.model.language.startsWith(format.sedUrn)) {
+          let modelFormat: EdamTerm | null = null;
+          for (const format of BIOSIMULATIONS_FORMATS) {
+            if (
+              format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn 
+              && task.model.language.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
+            ) {
               modelFormat = format;
               break;
             }
@@ -748,9 +759,9 @@ export class SimulationRunService {
               source: task.model.source,
               language: {
                 name: modelFormat?.name || undefined,
-                acronym: modelFormat?.acronym || undefined,
+                acronym: modelFormat?.biosimulationsMetadata?.acronym || undefined,
                 sedmlUrn: task.model.language,
-                edamId: modelFormat?.edamId || undefined,
+                edamId: modelFormat?.id || undefined,
                 url: modelFormat?.url || undefined,
               },
             },
@@ -788,7 +799,7 @@ export class SimulationRunService {
       });
 
       files.forEach((file: FileModel): void => {
-        if (VEGA_FORMAT.combineUris.includes(file.format)) {
+        if (this.vegaFormatOmexManifestUris.includes(file.format)) {
           summaryOutputs.push({
             type: {
               id: 'Vega',

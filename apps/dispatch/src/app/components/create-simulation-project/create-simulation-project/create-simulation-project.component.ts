@@ -13,8 +13,9 @@ import {
   ValueType,
   SimulationType,
   SimulationTypeName,
+  EdamTerm,
 } from '@biosimulations/datamodel/common';
-import { EdamModelingFormat, MODEL_FORMATS } from '@biosimulations/ontology/extra-sources';
+import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
   DispatchService,
   SimulatorsData,
@@ -51,11 +52,6 @@ interface OntologyTerm {
   id: string;
   name: string;
 }
-
-const MODEL_FORMAT_EDAM_ID_MAP: { [id: string]: EdamModelingFormat } = {};
-MODEL_FORMATS.forEach((modelFormat: EdamModelingFormat): void => {
-  MODEL_FORMAT_EDAM_ID_MAP[modelFormat.edamId] = modelFormat;
-});
 
 enum ModelVariableType {
   symbol = 'symbol',
@@ -137,6 +133,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   ];
   compatibleSimulators?: CompatibleSimulator[];
 
+  private edamIdFormatMap: { [id: string]: EdamTerm };
+
   modelFileTypeSpecifiers!: string;
   private static INIT_MODEL_NAMESPACES = 1;
   private static INIT_MODEL_CHANGES = 3;
@@ -163,14 +161,21 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private config: ConfigService,
   ) {
+    this.edamIdFormatMap = {};
+    BIOSIMULATIONS_FORMATS.forEach((format: EdamTerm): void => {
+      if (format.id) {
+        this.edamIdFormatMap[format.id] = format;
+      };
+    });
+
     const modelFileTypeSpecifiers = new Set<string>();
-    MODEL_FORMATS.filter((modelFormat: EdamModelingFormat): boolean => {
-      return modelFormat.introspectionAvailable;
-    }).forEach((modelFormat: EdamModelingFormat): void => {
-      modelFormat.extensions.forEach((extension: string): void => {
+    BIOSIMULATIONS_FORMATS.filter((format: EdamTerm): boolean => {
+      return format?.biosimulationsMetadata?.modelFormatMetadata?.introspectionAvailable === true;
+    }).forEach((format: EdamTerm): void => {
+      format.fileExtensions.forEach((extension: string): void => {
         modelFileTypeSpecifiers.add('.' + extension);
       });
-      modelFormat.mediaTypes.forEach((mediaType: string): void => {
+      format.mediaTypes.forEach((mediaType: string): void => {
         modelFileTypeSpecifiers.add(mediaType);
       });
     });
@@ -647,10 +652,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     } else {
       formData.append('modelUrl', modelLocationDetails);
     }
-    formData.append(
-      'modelLanguage',
-      MODEL_FORMAT_EDAM_ID_MAP[modelFormat].sedUrn,
-    );
+    const modelLanguage = this.edamIdFormatMap[modelFormat]?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
+    if (modelLanguage) { // so Typescript recognizes this as a string
+      formData.append('modelLanguage', modelLanguage);
+    }
     formData.append('modelingFramework', modelingFramework);
     formData.append('simulationType', simulationType);
     formData.append('simulationAlgorithm', simulationAlgorithm);
@@ -1350,7 +1355,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           (format: OntologyTerm): boolean => {
             return (
               formatEdamIds.has(format.id) &&
-              MODEL_FORMAT_EDAM_ID_MAP[format.id].introspectionAvailable
+              this.edamIdFormatMap[format.id]?.biosimulationsMetadata?.modelFormatMetadata?.introspectionAvailable === true
             );
           },
         );
@@ -1508,10 +1513,10 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const model: any = {
       _type: 'SedModel',
       id: 'model',
-      language: MODEL_FORMAT_EDAM_ID_MAP[modelFormatControl.value].sedUrn,
+      language: this.edamIdFormatMap[modelFormatControl.value]?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
       source:
         'model.' +
-        MODEL_FORMAT_EDAM_ID_MAP[modelFormatControl.value].extensions?.[0],
+        this.edamIdFormatMap[modelFormatControl.value].fileExtensions?.[0],
       changes: [],
     };
 
@@ -1686,7 +1691,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         {
           _type: 'CombineArchiveContent',
           format:
-            MODEL_FORMAT_EDAM_ID_MAP[modelFormatControl.value].combineUris[0],
+            this.edamIdFormatMap[modelFormatControl.value].biosimulationsMetadata?.omexManifestUris[0],
           master: false,
           location: {
             _type: 'CombineArchiveLocation',

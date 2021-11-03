@@ -38,7 +38,7 @@ import {
   EnvironmentVariable,
   SimulationRun,
 } from '@biosimulations/datamodel/common';
-import { MODEL_FORMATS } from '@biosimulations/ontology/extra-sources';
+import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
 import { map, concatAll, withLatestFrom } from 'rxjs/operators';
 import { ConfigService } from '@biosimulations/shared/angular';
@@ -580,9 +580,13 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
                 sedDoc.models.forEach((model: SedModel): void => {
                   let edamId: string | null = null;
-                  for (const modelFormat of MODEL_FORMATS) {
-                    if (model.language.startsWith(modelFormat.sedUrn)) {
-                      edamId = modelFormat.edamId;
+                  for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
+                    if (
+                      modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn 
+                      && model.language.startsWith(modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
+                      && modelingFormat.id
+                    ) {
+                      edamId = modelingFormat.id;
                       break;
                     }
                   }

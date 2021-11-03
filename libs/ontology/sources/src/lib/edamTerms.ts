@@ -5,7 +5,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import isUrl from 'is-url';
 import edamJson from './edam.json';
-import { edamProposedTerms } from '@biosimulations/ontology/extra-sources';
+import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 let edamVersion = '';
 function getEdamTerms(input: any): { [id: string]: EdamTerm } {
   const edamTerms: { [id: string]: EdamTerm } = {};
@@ -30,10 +30,27 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
         jsonTerm[
           'http://www.geneontology.org/formats/oboInOwl#hasDefinition'
         ] || null;
+      
       const termName = jsonTerm['rdfs:label'];
+      
+      const mediaTypes = makeArray(jsonTerm?.['http://edamontology.org/media_type'])
+        .map((mediaType: any): string => {
+          if (typeof mediaType === 'object') {
+            mediaType = mediaType['@id'];
+          }
+
+          if (mediaType.startsWith('http://www.iana.org/assignments/media-types/')) {
+            return mediaType.substring('http://www.iana.org/assignments/media-types/'.length);
+          } else {
+            return mediaType;
+          }
+        });
+      const fileExtensions = makeArray(jsonTerm?.['http://edamontology.org/file_extension']);
+      
       const termUrl =
         'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=' +
         encodeURIComponent('http://edamontology.org/' + termId);
+      
       let moreInfoUrl: string | null = null;
       if (isUrl(jsonTerm?.['http://edamontology.org/documentation']?.['@id'])) {
         moreInfoUrl =
@@ -67,10 +84,12 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
       }
 
       const term: EdamTerm = {
+        namespace: termNameSpace,
         id: termId,
         name: termName,
         description: termDescription,
-        namespace: termNameSpace,
+        mediaTypes: mediaTypes,
+        fileExtensions: fileExtensions,
         iri: termIRI,
         url: termUrl,
         moreInfoUrl: moreInfoUrl,
@@ -84,10 +103,52 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
     }
   });
 
-  edamProposedTerms.forEach((term: any): void => {
-    term.namespace = Ontologies.EDAM;
-    term.children = [];
-    edamTerms[term.id] = term;
+  BIOSIMULATIONS_FORMATS.forEach((format: EdamTerm): void => {
+    const id = format.id;
+    if (id in edamTerms) {
+      const term = edamTerms[id];
+
+      const mediaTypes = [...format.mediaTypes];
+      term.mediaTypes.forEach((mediaType: string): void => {
+        if (!mediaTypes.includes(mediaType)) {
+          mediaTypes.push(mediaType);
+        }
+      })
+      term.mediaTypes = mediaTypes;
+
+      const fileExtensions = [...format.fileExtensions];
+      term.fileExtensions.forEach((fileExtension: string): void => {
+        if (!fileExtensions.includes(fileExtension)) {
+          fileExtensions.push(fileExtension);
+        }
+      })
+      term.fileExtensions = fileExtensions;
+
+      term.biosimulationsMetadata = format?.biosimulationsMetadata;      
+
+    } else {
+      if (!format.description) {
+        throw new Error(`Proposed EDAM term '${format.id}' must include a description.`)
+      }
+      if (!format.parents || format.parents.length === 0) {
+        throw new Error(`Proposed EDAM term '${format.id}' must include proposed parents.`)
+      }
+
+      edamTerms[id] = {
+        namespace: format.namespace,
+        id: format.id,
+        name: format.name,
+        description: format.description,
+        mediaTypes: format.mediaTypes,
+        fileExtensions: format.fileExtensions,
+        iri: format.iri,
+        url: format.url,
+        moreInfoUrl: format.moreInfoUrl,
+        parents: format.parents,
+        children: [],
+        biosimulationsMetadata: format?.biosimulationsMetadata,
+      };
+    }
   });
 
   Object.values(edamTerms).forEach((term: EdamTerm): void => {
@@ -98,6 +159,19 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
 
   return edamTerms;
 }
+
+function makeArray(value: any): any[] {
+  if (value === undefined) {
+    return [];
+  } else {
+    if (Array.isArray(value)) {
+      return value;
+    } else {
+      return [value];
+    }
+  }
+}
+
 export const edamTerms = getEdamTerms(edamJson);
 
 export const edamInfo: OntologyInfo = {

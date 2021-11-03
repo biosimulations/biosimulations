@@ -96,16 +96,32 @@ export interface IOntologyTerm extends IOntologyId {
   children: string[];
 }
 
+export interface BiosimulationsModelFormat {
+  sedUrn: string;
+  validationAvailable: boolean;
+  introspectionAvailable: boolean;
+}
+
+export interface BiosimulationsFormatMetadata {
+  acronym?: string;
+  omexManifestUris: string[];
+  modelFormatMetadata?: BiosimulationsModelFormat;
+  icon: string;  
+}
+
 export interface EdamTerm extends IOntologyTerm {
   namespace: Ontologies.EDAM;
   id: string;
   name: string;
   description: string | null;
+  mediaTypes: string[];
+  fileExtensions: string[];
   iri: string;
   url: string;
   moreInfoUrl: string | null;
   parents: string[];
   children: string[];
+  biosimulationsMetadata?: BiosimulationsFormatMetadata;
 }
 
 export interface FunderRegistryTerm extends IOntologyTerm {

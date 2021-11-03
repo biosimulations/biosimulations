@@ -28,39 +28,31 @@ export class OntologyService {
   private spdxTerms: Observable<{ [id: string]: SpdxTerm }>;
 
   public constructor(private http: HttpClient) {
-    this.edamTerms = this.fetchTerms<EdamTerm>(Ontologies.EDAM) as Observable<{
-      [id: string]: EdamTerm;
-    }>;
+    this.edamTerms = this.fetchTerms<EdamTerm>(Ontologies.EDAM);
     this.edamTerms.subscribe();
 
     this.funderRegistryTerms = this.fetchTerms<FunderRegistryTerm>(
       Ontologies.FunderRegistry,
-    ) as Observable<{ [id: string]: FunderRegistryTerm }>;
+    );
     this.funderRegistryTerms.subscribe();
 
     this.linguistTerms = this.fetchTerms<LinguistTerm>(
       Ontologies.Linguist,
-    ) as Observable<{ [id: string]: LinguistTerm }>;
+    );
     this.linguistTerms.subscribe();
 
     this.kisaoTerms = this.fetchTerms<KisaoTerm>(
       Ontologies.KISAO,
-    ) as Observable<{ [id: string]: KisaoTerm }>;
+    );
     this.kisaoTerms.subscribe();
 
-    this.sboTerms = this.fetchTerms<SboTerm>(Ontologies.SBO) as Observable<{
-      [id: string]: SboTerm;
-    }>;
+    this.sboTerms = this.fetchTerms<SboTerm>(Ontologies.SBO);
     this.sboTerms.subscribe();
 
-    this.sioTerms = this.fetchTerms<SioTerm>(Ontologies.SIO) as Observable<{
-      [id: string]: SioTerm;
-    }>;
+    this.sioTerms = this.fetchTerms<SioTerm>(Ontologies.SIO);
     this.sioTerms.subscribe();
 
-    this.spdxTerms = this.fetchTerms<SpdxTerm>(Ontologies.SPDX) as Observable<{
-      [id: string]: SpdxTerm;
-    }>;
+    this.spdxTerms = this.fetchTerms<SpdxTerm>(Ontologies.SPDX);
     this.spdxTerms.subscribe();
   }
 
@@ -91,7 +83,7 @@ export class OntologyService {
   ): Observable<{ [id: string]: T }> {
     switch (ontologyId) {
       case Ontologies.EDAM:
-        return this.edamTerms as Observable<{ [id: string]: T }>;
+        return this.edamTerms as unknown as Observable<{ [id: string]: T }>;
       case Ontologies.FunderRegistry:
         return this.funderRegistryTerms as Observable<{ [id: string]: T }>;
       case Ontologies.Linguist:
@@ -111,9 +103,7 @@ export class OntologyService {
     ontologyId: Ontologies,
     term: string,
   ): Observable<T> {
-    const termsObservable = this.getTerms<T>(ontologyId) as Observable<{
-      [id: string]: T;
-    }>;
+    const termsObservable = this.getTerms<T>(ontologyId);
     return termsObservable.pipe(
       map((terms: { [id: string]: T }): T => {
         const setTerm = terms[term];
