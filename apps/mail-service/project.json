@@ -55,7 +55,6 @@
       "options": {
         "file": "./Dockerfile",
         "push": true,
-        "load": true,
         "build-args": [
           "app=mail-service"
         ],

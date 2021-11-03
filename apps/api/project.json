@@ -56,8 +56,7 @@
       "builder": "@nx-tools/nx-docker:build",
       "options": {
         "file": "./Dockerfile",
-        "push": false,
-        "load": true,
+        "push": true,
         "build-args": [
           "app=api"
         ],
