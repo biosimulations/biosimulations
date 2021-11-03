@@ -13,7 +13,7 @@
     "auth-common": "libs/auth/common",
     "auth-nest": "libs/auth/nest",
     "combine-api-client": "libs/combine/api-client",
-    "combine-service": "apps/combine-service",
+    "combine-api": "apps/combine-api",
     "config-angular": "libs/config/angular",
     "config-common": "libs/config/common",
     "config-nest": "libs/config/nest",

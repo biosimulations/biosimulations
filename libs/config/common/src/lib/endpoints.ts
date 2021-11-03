@@ -234,8 +234,8 @@ export class Endpoints {
   }
 
   /**
-   * Create a URL to add a file to an OMEX file using the COMBINE service
-   * @returns A URL for POST endpoint for adding a file to an OMEX file using the COMBINE service
+   * Create a URL to add a file to an OMEX file using the COMBINE API
+   * @returns A URL for POST endpoint for adding a file to an OMEX file using the COMBINE API
    */
   public getAddFileToCombineArchiveEndpoint(external = false): string {
     if (external) {
