@@ -40,16 +40,6 @@ export class LogService {
       (await this.readStdLog(path)) + (extraStdLog ? extraStdLog : '');
 
     log.output = stdLog;
-    // accounts for a potential error in the logs where "type" is used instead of "category" (see #3482)
-    if (
-      log?.exception?.message &&
-      (log?.exception as any)?.type &&
-      !log?.exception?.category
-    ) {
-      log.exception.category = (log.exception as any)?.type;
-      delete (log.exception as any)?.type;
-    }
-    log.output = log?.exception?.message + '\n' + log.output;
 
     return log;
   }
@@ -70,7 +60,7 @@ export class LogService {
         log.exception = {
           message:
             'The simulation tool did not produce a valid YAML-formatted log (`log.yml` file).',
-          category: 'Invalid log',
+          type: 'Invalid log',
         };
         return log;
       });

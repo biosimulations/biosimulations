@@ -11,6 +11,6 @@
  */
 
 export interface Exception {
-  category: string;
+  type: string;
   message: string;
 }

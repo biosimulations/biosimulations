@@ -49,7 +49,7 @@
   </ng-container>
 
   <ng-container *ngIf="log?.skipReason as skipReason">
-    <h4>Reason why it was skipped: {{ skipReason.category }}</h4>
+    <h4>Reason why it was skipped: {{ skipReason.type }}</h4>
     <pre
       *ngIf="skipReason.message; else noSkipMessage"
     ><code>{{ skipReason.message }}</code></pre>
@@ -59,7 +59,7 @@
   </ng-container>
 
   <ng-container *ngIf="log?.exception as exception">
-    <h4>Exception: {{ exception.category }}</h4>
+    <h4>Exception: {{ exception.type }}</h4>
     <pre
       *ngIf="exception.message; else noExceptionMessage"
     ><code>{{ exception.message }}</code></pre>

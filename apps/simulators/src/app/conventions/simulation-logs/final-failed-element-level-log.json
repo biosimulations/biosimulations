@@ -27,7 +27,7 @@
           "id": "task_2_time_course",
           "status": "FAILED",
           "exception": {
-            "category": "FileNotFoundError",
+            "type": "FileNotFoundError",
             "message": "Model `model2.xml` does not exist."
           },
           "skipReason": null,
@@ -55,7 +55,7 @@
           "status": "SKIPPED",
           "exception": null,
           "skipReason": {
-            "category": "2DPlotNotImplemented",
+            "type": "2DPlotNotImplemented",
             "message": "Output skipped because the simulator cannot generate plots."
           },
           "output": null,

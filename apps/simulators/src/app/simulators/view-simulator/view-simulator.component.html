@@ -1276,7 +1276,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                   Reason why test was skipped
                 </p>
                 <p>
-                  Category: <code>{{ skipReason.category }}</code>
+                  Category: <code>{{ skipReason.type }}</code>
                 </p>
                 <p class="no-bottom-margin">Message</p>
                 <pre><code>{{ skipReason.message }}</code></pre>
@@ -1287,7 +1287,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                   Reason why the test failed
                 </p>
                 <p>
-                  Category: <code>{{ exception.category }}</code>
+                  Category: <code>{{ exception.type }}</code>
                 </p>
                 <p class="no-bottom-margin">Message</p>
                 <pre><code>{{ exception.message }}</code></pre>
@@ -1298,7 +1298,7 @@ simulator.exec_sedml_docs_in_combine_archive(
                 <ul class="vertically-spaced">
                   <li *ngFor="let warning of result.warnings">
                     <p>
-                      Category: <code>{{ warning.category }}</code>
+                      Category: <code>{{ warning.type }}</code>
                     </p>
                     <p class="no-bottom-margin">Message</p>
                     <pre><code>{{ warning.message }}</code></pre>

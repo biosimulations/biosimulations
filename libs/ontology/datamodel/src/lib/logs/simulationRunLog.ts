@@ -35,7 +35,7 @@ export class Exception implements IException {
   @ApiProperty({ type: String, example: 'FileNotFoundError' })
   @IsNotEmpty()
   @IsString()
-  category!: string;
+  type!: string;
 
   @ApiProperty({ type: String, example: "File 'model.xml' does not exist." })
   @IsNotEmpty()
