@@ -1,6 +1,6 @@
 name: Report a bug
 description: File a bug report to help us improve
-title: "[Bug]: "
+title: "🐛: "
 labels: ["bug", "triage"]
 body:
   - type: markdown
