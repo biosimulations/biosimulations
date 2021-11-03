@@ -3,7 +3,7 @@ name: Update COMBINE API client
 on:
   push:
     paths:
-      - 'apps/combine-service/src/spec/spec.yml'
+      - 'apps/combine-api/src/spec/spec.yml'
   workflow_dispatch:
 
 jobs:
@@ -42,7 +42,7 @@ jobs:
         uses: EndBug/add-and-commit@v7.4.0
         with:
           add: "['libs/combine/api-client/src/lib/api/', 'libs/combine/api-client/src/lib/model/']"
-          message: 'refactor(combine-service): update client'
+          message: 'refactor(combine-api): update client'
           author_name: Biosimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
           signoff: true
