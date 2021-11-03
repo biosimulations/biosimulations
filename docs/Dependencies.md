@@ -439,10 +439,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
 │  └─ licenseFile: @types/minimist/LICENSE
-├─ @types/node@14.17.27
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
-│  └─ licenseFile: nkeys.js/node_modules/@types/node/LICENSE
 ├─ @types/node@14.17.32
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3151,7 +3147,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nodejs/nan
 │  └─ licenseFile: nan/LICENSE.md
-├─ nats@2.2.0
+├─ nats@2.3.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/nats-io/nats.js
 │  ├─ publisher: The NATS Authors
