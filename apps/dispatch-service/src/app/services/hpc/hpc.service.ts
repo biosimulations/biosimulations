@@ -8,7 +8,6 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 
-// TODO This service relies on knowledge of the sbatch script, and both use the same config vars. Should be refactored, or merged with sbatch service
 @Injectable()
 export class HpcService {
   private logger = new Logger(HpcService.name);
@@ -19,46 +18,64 @@ export class HpcService {
     private sbatchService: SbatchService,
   ) {}
 
+  /** Submit a job to an HPC queue to execute a COMBINE/OMEX archive
+   * @param runId id of the simulation run
+   * @param simulator BioSimulators id of the simulation tool (e.g., `tellurium`)
+   * @param simulatorVersion version of the simulation tool (e.g., `2.2.1`)
+   * @param cpus number of CPUs to request
+   * @param memory amount of memory to request in GB
+   * @param maxTime maximum amount of wall time to request in minutes
+   * @param envVars values of environment variables to use to run the job
+   * @param purpose purpose of the simulation run (e.g., academic research)
+   * @param combineArchiveFilename filename of the COMBINE/OMEX archive to execute
+   */
   public async submitJob(
-    id: string,
+    runId: string,
     simulator: string,
-    version: string,
+    simulatorVersion: string,
     cpus: number,
     memory: number,
     maxTime: number,
     envVars: EnvironmentVariable[],
     purpose: Purpose,
-    fileName: string,
+    combineArchiveFilename: string,
   ): Promise<{
     stdout: string;
     stderr: string;
-  }> {
-    const simulatorString = `docker://ghcr.io/biosimulators/${simulator}:${version}`;
-    const simDirBase = `${this.configService.get('hpc.hpcBaseDir')}/${id}`;
+  }> {    
+    const simDirname = `${this.configService.get('hpc.hpcBaseDir')}/${runId}`;
 
-    const sbatchString = this.sbatchService.generateSbatch(
-      simDirBase,
-      simulatorString,
+    const sbatchString = this.sbatchService.generateSbatch(      
+      runId,
+      simulator,
+      simulatorVersion,
       cpus,
       memory,
       maxTime,
       envVars,
       purpose,
-      fileName,
-      id,
+      combineArchiveFilename,
+      simDirname,
     );
 
     // eslint-disable-next-line max-len
-    const command = `mkdir ${simDirBase} && echo "${sbatchString}" > ${simDirBase}/${id}.sbatch && chmod +x ${simDirBase}/${id}.sbatch && sbatch ${simDirBase}/${id}.sbatch`;
+    const sbatchFilename = `${simDirname}/${runId}.sbatch`;    
+    const command = `mkdir ${simDirname} && echo "${sbatchString}" > ${sbatchFilename} && chmod +x ${sbatchFilename} && sbatch ${sbatchFilename}`;
 
     const res = this.sshService.execStringCommand(command);
 
     return res.catch((err) => {
-      console.error('Job Submission Failed');
-      return { stdout: '', stderr: 'Failed to submit job' + err };
+      console.error(`The job for simulation run '${runId}' could not be submitted.`);
+      return {
+        stdout: '', 
+        stderr: `The job for simulation run '${runId}' could not be submitted: ${err}`,
+      };
     });
   }
 
+  /** Get the status of a job for a simulation run
+   * @param jobId id of the SLURM job
+   */
   public async getJobStatus(
     jobId: string,
   ): Promise<SimulationRunStatus | null> {

@@ -22,8 +22,8 @@ export class ImagesController {
   async refreshImage(data: ImageMessagePayload) {
     const url = data.url;
     const homeDir = this.configService.get('hpc.homeDir');
-    const force = data.force ? '--force' : '';
-    this.logger.log('sending command to update' + data.url);
+    const force = data.force;
+    this.logger.log('Sending command to update ' + url);
     const sbatch = this.sbatchService.generateImageUpdateSbatch(url, force);
     const command = `echo "${sbatch}" > updateImage.sbatch && chmod +x updateImage.sbatch && sbatch updateImage.sbatch`;
     const out = await this.sshSerivce.execStringCommand(command);
