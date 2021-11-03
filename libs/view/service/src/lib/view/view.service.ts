@@ -34,9 +34,7 @@ import {
   Project,
   EdamTerm,
 } from '@biosimulations/datamodel/common';
-import {
-  BIOSIMULATIONS_FORMATS,
-} from '@biosimulations/ontology/extra-sources';
+import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
   ArchiveMetadata as APIMetadata,
   SimulationRunMetadata,
@@ -72,7 +70,7 @@ import {
   WithContext,
 } from 'schema-dts';
 import { Endpoints } from '@biosimulations/config/common';
-import { BiosimulationsIcon } from '@biosimulations/shared/icons'
+import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
 interface ConcreteListItem {
   title: string;
@@ -100,26 +98,33 @@ export class ViewService {
   ) {
     this.omexManifestUriFormatMap = {};
     BIOSIMULATIONS_FORMATS.forEach((format: EdamTerm): void => {
-      format?.biosimulationsMetadata?.omexManifestUris?.forEach((uri: string): void => {
-        this.omexManifestUriFormatMap[uri] = format;
-      });
+      format?.biosimulationsMetadata?.omexManifestUris?.forEach(
+        (uri: string): void => {
+          this.omexManifestUriFormatMap[uri] = format;
+        },
+      );
     });
 
-    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3969')
-      ?.[0]
-      ?.biosimulationsMetadata
-      ?.omexManifestUris;
+    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter(
+      (format) => format.id === 'format_3969',
+    )?.[0]?.biosimulationsMetadata?.omexManifestUris;
     if (vegaFormatOmexManifestUris) {
       this.vegaFormatOmexManifestUris = vegaFormatOmexManifestUris;
     } else {
-      throw new Error('Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs');
+      throw new Error(
+        'Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs',
+      );
     }
 
-    const combineOmexFormat = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3686')[0];
+    const combineOmexFormat = BIOSIMULATIONS_FORMATS.filter(
+      (format) => format.id === 'format_3686',
+    )[0];
     if (combineOmexFormat) {
       this.combineOmexFormat = combineOmexFormat;
     } else {
-      throw new Error('COMBINE/OMEX format (EDAM:format_3686) must be annotated with one or more OMEX Manifest URIs');
+      throw new Error(
+        'COMBINE/OMEX format (EDAM:format_3686) must be annotated with one or more OMEX Manifest URIs',
+      );
     }
   }
 
@@ -413,8 +418,10 @@ export class ViewService {
             .filter((modelLanguageSedUrn): boolean => {
               for (const format of BIOSIMULATIONS_FORMATS) {
                 if (
-                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn
-                  && modelLanguageSedUrn.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
+                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
+                  modelLanguageSedUrn.startsWith(
+                    format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
+                  )
                 ) {
                   return true;
                 }
@@ -425,12 +432,15 @@ export class ViewService {
               let modelLanguage!: ConcreteListItem;
               for (const format of BIOSIMULATIONS_FORMATS) {
                 if (
-                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn
-                  && modelLanguageSedUrn.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
+                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
+                  modelLanguageSedUrn.startsWith(
+                    format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
+                  )
                 ) {
                   modelLanguage = {
                     title: 'Model',
-                    value: format?.biosimulationsMetadata?.acronym || format.name,
+                    value:
+                      format?.biosimulationsMetadata?.acronym || format.name,
                     icon: 'model',
                     url: format.url,
                   };
@@ -565,19 +575,19 @@ export class ViewService {
             level: 0,
             location: '',
             title: 'Project',
-            format: (
-              this.combineOmexFormat.name
-              + this.combineOmexFormat?.biosimulationsMetadata?.acronym
+            format:
+              this.combineOmexFormat.name +
+              this.combineOmexFormat?.biosimulationsMetadata?.acronym
                 ? ` (${this.combineOmexFormat?.biosimulationsMetadata?.acronym})`
-                : ''
-            ),
+                : '',
             formatUrl: this.combineOmexFormat.url,
             master: false,
             size:
               simulationRun.projectSize === undefined
                 ? 'N/A'
                 : FormatService.formatDigitalSize(simulationRun.projectSize),
-            icon: (this.combineOmexFormat?.biosimulationsMetadata?.icon || 'archive') as BiosimulationsIcon,
+            icon: (this.combineOmexFormat?.biosimulationsMetadata?.icon ||
+              'archive') as BiosimulationsIcon,
             url: this.endpoints.getRunDownloadEndpoint(id),
             basename: 'project.omex',
           },
@@ -634,7 +644,8 @@ export class ViewService {
               const formatObj = this.omexManifestUriFormatMap[format];
               formatName = formatObj.name;
               if (formatObj?.biosimulationsMetadata?.acronym) {
-                formatName += ' (' + formatObj.biosimulationsMetadata?.acronym + ')';
+                formatName +=
+                  ' (' + formatObj.biosimulationsMetadata?.acronym + ')';
               }
             } else if (format.startsWith('http://purl.org/NET/mediatypes/')) {
               formatName = format.substring(
@@ -662,7 +673,8 @@ export class ViewService {
                         : content.size,
                     ),
               formatUrl: this.omexManifestUriFormatMap?.[format]?.url,
-              icon: (this.omexManifestUriFormatMap?.[format]?.biosimulationsMetadata?.icon || 'file') as BiosimulationsIcon,
+              icon: (this.omexManifestUriFormatMap?.[format]
+                ?.biosimulationsMetadata?.icon || 'file') as BiosimulationsIcon,
             };
           });
 

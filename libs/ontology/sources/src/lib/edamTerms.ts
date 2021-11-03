@@ -30,27 +30,34 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
         jsonTerm[
           'http://www.geneontology.org/formats/oboInOwl#hasDefinition'
         ] || null;
-      
-      const termName = jsonTerm['rdfs:label'];
-      
-      const mediaTypes = makeArray(jsonTerm?.['http://edamontology.org/media_type'])
-        .map((mediaType: any): string => {
-          if (typeof mediaType === 'object') {
-            mediaType = mediaType['@id'];
-          }
 
-          if (mediaType.startsWith('http://www.iana.org/assignments/media-types/')) {
-            return mediaType.substring('http://www.iana.org/assignments/media-types/'.length);
-          } else {
-            return mediaType;
-          }
-        });
-      const fileExtensions = makeArray(jsonTerm?.['http://edamontology.org/file_extension']);
-      
+      const termName = jsonTerm['rdfs:label'];
+
+      const mediaTypes = makeArray(
+        jsonTerm?.['http://edamontology.org/media_type'],
+      ).map((mediaType: any): string => {
+        if (typeof mediaType === 'object') {
+          mediaType = mediaType['@id'];
+        }
+
+        if (
+          mediaType.startsWith('http://www.iana.org/assignments/media-types/')
+        ) {
+          return mediaType.substring(
+            'http://www.iana.org/assignments/media-types/'.length,
+          );
+        } else {
+          return mediaType;
+        }
+      });
+      const fileExtensions = makeArray(
+        jsonTerm?.['http://edamontology.org/file_extension'],
+      );
+
       const termUrl =
         'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=' +
         encodeURIComponent('http://edamontology.org/' + termId);
-      
+
       let moreInfoUrl: string | null = null;
       if (isUrl(jsonTerm?.['http://edamontology.org/documentation']?.['@id'])) {
         moreInfoUrl =
@@ -113,7 +120,7 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
         if (!mediaTypes.includes(mediaType)) {
           mediaTypes.push(mediaType);
         }
-      })
+      });
       term.mediaTypes = mediaTypes;
 
       const fileExtensions = [...format.fileExtensions];
@@ -121,17 +128,20 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
         if (!fileExtensions.includes(fileExtension)) {
           fileExtensions.push(fileExtension);
         }
-      })
+      });
       term.fileExtensions = fileExtensions;
 
       term.biosimulationsMetadata = format?.biosimulationsMetadata;
-
     } else {
       if (!format.description) {
-        throw new Error(`Proposed EDAM term '${format.id}' must include a description.`)
+        throw new Error(
+          `Proposed EDAM term '${format.id}' must include a description.`,
+        );
       }
       if (!format.parents || format.parents.length === 0) {
-        throw new Error(`Proposed EDAM term '${format.id}' must include proposed parents.`)
+        throw new Error(
+          `Proposed EDAM term '${format.id}' must include proposed parents.`,
+        );
       }
 
       edamTerms[id] = {

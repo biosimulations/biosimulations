@@ -582,9 +582,13 @@ export class DispatchComponent implements OnInit, OnDestroy {
                   let edamId: string | null = null;
                   for (const modelingFormat of BIOSIMULATIONS_FORMATS) {
                     if (
-                      modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn
-                      && model.language.startsWith(modelingFormat?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
-                      && modelingFormat.id
+                      modelingFormat?.biosimulationsMetadata
+                        ?.modelFormatMetadata?.sedUrn &&
+                      model.language.startsWith(
+                        modelingFormat?.biosimulationsMetadata
+                          ?.modelFormatMetadata?.sedUrn,
+                      ) &&
+                      modelingFormat.id
                     ) {
                       edamId = modelingFormat.id;
                       break;

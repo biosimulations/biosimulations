@@ -165,12 +165,15 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     BIOSIMULATIONS_FORMATS.forEach((format: EdamTerm): void => {
       if (format.id) {
         this.edamIdFormatMap[format.id] = format;
-      };
+      }
     });
 
     const modelFileTypeSpecifiers = new Set<string>();
     BIOSIMULATIONS_FORMATS.filter((format: EdamTerm): boolean => {
-      return format?.biosimulationsMetadata?.modelFormatMetadata?.introspectionAvailable === true;
+      return (
+        format?.biosimulationsMetadata?.modelFormatMetadata
+          ?.introspectionAvailable === true
+      );
     }).forEach((format: EdamTerm): void => {
       format.fileExtensions.forEach((extension: string): void => {
         modelFileTypeSpecifiers.add('.' + extension);
@@ -652,8 +655,11 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     } else {
       formData.append('modelUrl', modelLocationDetails);
     }
-    const modelLanguage = this.edamIdFormatMap[modelFormat]?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn;
-    if (modelLanguage) { // so Typescript recognizes this as a string
+    const modelLanguage =
+      this.edamIdFormatMap[modelFormat]?.biosimulationsMetadata
+        ?.modelFormatMetadata?.sedUrn;
+    if (modelLanguage) {
+      // so Typescript recognizes this as a string
       formData.append('modelLanguage', modelLanguage);
     }
     formData.append('modelingFramework', modelingFramework);
@@ -1355,7 +1361,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           (format: OntologyTerm): boolean => {
             return (
               formatEdamIds.has(format.id) &&
-              this.edamIdFormatMap[format.id]?.biosimulationsMetadata?.modelFormatMetadata?.introspectionAvailable === true
+              this.edamIdFormatMap[format.id]?.biosimulationsMetadata
+                ?.modelFormatMetadata?.introspectionAvailable === true
             );
           },
         );
@@ -1513,7 +1520,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const model: any = {
       _type: 'SedModel',
       id: 'model',
-      language: this.edamIdFormatMap[modelFormatControl.value]?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
+      language:
+        this.edamIdFormatMap[modelFormatControl.value]?.biosimulationsMetadata
+          ?.modelFormatMetadata?.sedUrn,
       source:
         'model.' +
         this.edamIdFormatMap[modelFormatControl.value].fileExtensions?.[0],
@@ -1691,7 +1700,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         {
           _type: 'CombineArchiveContent',
           format:
-            this.edamIdFormatMap[modelFormatControl.value].biosimulationsMetadata?.omexManifestUris[0],
+            this.edamIdFormatMap[modelFormatControl.value]
+              .biosimulationsMetadata?.omexManifestUris[0],
           master: false,
           location: {
             _type: 'CombineArchiveLocation',

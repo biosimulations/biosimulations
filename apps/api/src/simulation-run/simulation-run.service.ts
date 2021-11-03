@@ -132,14 +132,15 @@ export class SimulationRunService {
     private configService: ConfigService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {
-    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3969')
-      ?.[0]
-      ?.biosimulationsMetadata
-      ?.omexManifestUris;
+    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter(
+      (format) => format.id === 'format_3969',
+    )?.[0]?.biosimulationsMetadata?.omexManifestUris;
     if (vegaFormatOmexManifestUris) {
       this.vegaFormatOmexManifestUris = vegaFormatOmexManifestUris;
     } else {
-      throw new Error('Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs');
+      throw new Error(
+        'Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs',
+      );
     }
 
     const env = this.configService.get('server.env');
@@ -733,8 +734,10 @@ export class SimulationRunService {
           let modelFormat: EdamTerm | null = null;
           for (const format of BIOSIMULATIONS_FORMATS) {
             if (
-              format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn
-              && task.model.language.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
+              format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
+              task.model.language.startsWith(
+                format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
+              )
             ) {
               modelFormat = format;
               break;
@@ -759,7 +762,8 @@ export class SimulationRunService {
               source: task.model.source,
               language: {
                 name: modelFormat?.name || undefined,
-                acronym: modelFormat?.biosimulationsMetadata?.acronym || undefined,
+                acronym:
+                  modelFormat?.biosimulationsMetadata?.acronym || undefined,
                 sedmlUrn: task.model.language,
                 edamId: modelFormat?.id || undefined,
                 url: modelFormat?.url || undefined,

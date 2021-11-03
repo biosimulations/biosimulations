@@ -12,10 +12,7 @@ import {
   ValidationMessage,
   ValidationStatus,
 } from '../../../datamodel/validation-report.interface';
-import {
-  ModelLanguage,
-  EdamTerm,
-} from '@biosimulations/datamodel/common';
+import { ModelLanguage, EdamTerm } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/angular';
@@ -64,7 +61,10 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
   ) {
     const modelFileFormats: string[] = [];
     BIOSIMULATIONS_FORMATS.filter((format: EdamTerm): boolean => {
-      return format?.biosimulationsMetadata?.modelFormatMetadata?.validationAvailable === true;
+      return (
+        format?.biosimulationsMetadata?.modelFormatMetadata
+          ?.validationAvailable === true
+      );
     }).forEach((format: EdamTerm): void => {
       format.fileExtensions.forEach((extension: string): void => {
         modelFileFormats.push('.' + extension);

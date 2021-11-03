@@ -70,15 +70,15 @@ export class SelectVisualizationComponent implements OnDestroy {
     private simService: SimulationService,
     private snackBar: MatSnackBar,
   ) {
-    const vegaFormatCombineUri = BIOSIMULATIONS_FORMATS
-      .filter((format) => format.id === 'format_3969')
-      ?.[0]
-      ?.biosimulationsMetadata?.omexManifestUris
-      ?.[0];
+    const vegaFormatCombineUri = BIOSIMULATIONS_FORMATS.filter(
+      (format) => format.id === 'format_3969',
+    )?.[0]?.biosimulationsMetadata?.omexManifestUris?.[0];
     if (vegaFormatCombineUri) {
       this.vegaFormatCombineUri = vegaFormatCombineUri;
     } else {
-      throw new Error('Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs');
+      throw new Error(
+        'Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs',
+      );
     }
 
     this.formGroup = formBuilder.group({

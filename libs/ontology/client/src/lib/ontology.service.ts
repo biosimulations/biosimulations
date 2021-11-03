@@ -36,14 +36,10 @@ export class OntologyService {
     );
     this.funderRegistryTerms.subscribe();
 
-    this.linguistTerms = this.fetchTerms<LinguistTerm>(
-      Ontologies.Linguist,
-    );
+    this.linguistTerms = this.fetchTerms<LinguistTerm>(Ontologies.Linguist);
     this.linguistTerms.subscribe();
 
-    this.kisaoTerms = this.fetchTerms<KisaoTerm>(
-      Ontologies.KISAO,
-    );
+    this.kisaoTerms = this.fetchTerms<KisaoTerm>(Ontologies.KISAO);
     this.kisaoTerms.subscribe();
 
     this.sboTerms = this.fetchTerms<SboTerm>(Ontologies.SBO);
