@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SimulationLogComponent } from './simulation-log.component';
-import { RawSimulationLogComponent } from './raw-simulation-log.component';
 import { StructuredSimulationLogElementComponent } from './structured-simulation-log-element.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
@@ -15,7 +14,6 @@ describe('SimulationLogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SimulationLogComponent,
-        RawSimulationLogComponent,
         StructuredSimulationLogElementComponent,
       ],
       imports: [
