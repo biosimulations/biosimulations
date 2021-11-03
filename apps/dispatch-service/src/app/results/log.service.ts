@@ -7,7 +7,6 @@ import {
   SimulationRunLogStatus,
 } from '@biosimulations/datamodel/common';
 import { SshService } from '../services/ssh/ssh.service';
-import { accessSync, constants as fsConstants } from 'fs';
 
 @Injectable()
 export class LogService {
@@ -47,17 +46,11 @@ export class LogService {
   private async readStructuredLog(path: string): Promise<CombineArchiveLog> {
     const yamlFile = `${path}/log.yml`;
 
-    try {
-      accessSync(yamlFile, fsConstants.R_OK);
-    } catch {
-      return this.initStructureLog();
-    }
-
     return this.sshService
       .execStringCommand('cat ' + yamlFile)
       .then((output) => {
         if (output.stderr != '') {
-          throw new Error('No log read');
+          return this.initStructureLog();
         }
         return YAML.parse(output.stdout) as CombineArchiveLog;
       })
