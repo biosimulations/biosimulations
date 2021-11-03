@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectS3, S3 } from 'nestjs-s3';
 import * as AWS from 'aws-sdk';
@@ -17,6 +17,21 @@ export class SharedStorageService {
       configService.get('storage.publicEndpoint') ||
       'files-dev.biosimulations.org/';
     s3.config.update({ region: 'us-east-1' });
+  }
+
+  public async isObject(id: string): Promise<boolean> {
+    const call = this.s3.headObject({ Bucket: this.BUCKET, Key: id }).promise();
+
+    try {
+      await call;
+      return true;
+    } catch (error) {
+      if (error.statusCode === HttpStatus.NOT_FOUND) {
+        return false;
+      } else {
+        throw error;
+      }
+    }
   }
 
   public async getObject(id: string): Promise<AWS.S3.GetObjectOutput> {
@@ -75,7 +90,6 @@ export class SharedStorageService {
     const res = await call;
 
     if (res.$response.error) {
-      console.log(res.$response.error.message);
       throw res.$response.error.originalError;
     } else {
       return res;
