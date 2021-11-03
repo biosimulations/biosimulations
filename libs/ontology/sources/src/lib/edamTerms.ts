@@ -124,7 +124,7 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
       })
       term.fileExtensions = fileExtensions;
 
-      term.biosimulationsMetadata = format?.biosimulationsMetadata;      
+      term.biosimulationsMetadata = format?.biosimulationsMetadata;
 
     } else {
       if (!format.description) {
