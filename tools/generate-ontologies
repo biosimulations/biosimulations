@@ -7,9 +7,9 @@ set -e
 declare -A ONTOLOGY_URLS=( \
     ["edam"]="https://raw.githubusercontent.com/edamontology/edamontology/master/releases/EDAM.owl" \
     ["funderRegistry"]="https://doi.crossref.org/funderNames?mode=list" \
-    ["kisao"]="http://www.biomodels.net/kisao/KISAO" \
+    ["kisao"]="https://raw.githubusercontent.com/SED-ML/KiSAO/deploy/kisao.owl" \
     ["linguist"]="https://raw.githubusercontent.com/jaebradley/github-languages-client/master/src/languages.json" \
-    ["sbo"]="http://www.ebi.ac.uk/sbo/exports/Main/SBO_OWL.owl" \
+    ["sbo"]="https://raw.githubusercontent.com/EBI-BioModels/SBO/master/SBO_OWL.owl" \
     ["sio"]="https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio/release/sio-release.owl" \
     ["spdx"]="https://raw.githubusercontent.com/spdx/license-list-data/master/json/licenses.json" \
     )
