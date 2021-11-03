@@ -97,8 +97,7 @@ export class CompleteProcessor {
     }
 
     const logProcessingResult = processingResults[3];
-    const logPostSucceeded =
-      logProcessingResult.status === 'fulfilled' && logProcessingResult?.value;
+    const logPostSucceeded = logProcessingResult.status === 'fulfilled';
 
     /* update status with post-processing result */
     let status!: SimulationRunStatus;
