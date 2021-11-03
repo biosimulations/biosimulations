@@ -2,6 +2,7 @@
 /dist
 /coverage
 libs/ontology/sources/src/lib/*.json
+libs/ontology/extra-sources/src/lib/*.json
 *.yml
 *.yaml
 *.json

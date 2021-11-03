@@ -5,7 +5,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import isUrl from 'is-url';
 import edamJson from './edam.json';
-import edamProposedJson from './edam-proposed.json';
+import { edamProposedTerms } from '@biosimulations/ontology/extra-sources';
 let edamVersion = '';
 function getEdamTerms(input: any): { [id: string]: EdamTerm } {
   const edamTerms: { [id: string]: EdamTerm } = {};
@@ -84,7 +84,7 @@ function getEdamTerms(input: any): { [id: string]: EdamTerm } {
     }
   });
 
-  edamProposedJson.forEach((term: any): void => {
+  edamProposedTerms.forEach((term: any): void => {
     term.namespace = Ontologies.EDAM;
     term.children = [];
     edamTerms[term.id] = term;
