@@ -36,9 +36,9 @@ import {
 import {
   SimulationRunStatus,
   EnvironmentVariable,
-  MODEL_FORMATS,
   SimulationRun,
 } from '@biosimulations/datamodel/common';
+import { MODEL_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
 import { map, concatAll, withLatestFrom } from 'rxjs/operators';
 import { ConfigService } from '@biosimulations/shared/angular';

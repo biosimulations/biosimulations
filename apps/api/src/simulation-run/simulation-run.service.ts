@@ -41,11 +41,13 @@ import {
   SimulationRunLogStatus,
   SimulationTypeName,
   SimulationRunOutputTypeName,
-  ModelFormat,
-  MODEL_FORMATS,
-  VEGA_FORMAT,
   Ontologies,
 } from '@biosimulations/datamodel/common';
+import {
+  MODEL_FORMATS,
+  VEGA_FORMAT
+} from '@biosimulations/ontology/extra-sources';
+import { EdamModelingFormat } from '@biosimulations/ontology/extra-sources';
 import { SimulationStorageService } from '@biosimulations/shared/storage';
 import {
   DispatchFailedPayload,
@@ -706,7 +708,7 @@ export class SimulationRunService {
         simulationExpt.tasks.forEach((task: SedTask): void => {
           const uri = docLocation + '/' + task.simulation.id;
 
-          let modelFormat: ModelFormat | null = null;
+          let modelFormat: EdamModelingFormat | null = null;
           for (const format of MODEL_FORMATS) {
             if (task.model.language.startsWith(format.sedUrn)) {
               modelFormat = format;
