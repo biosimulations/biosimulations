@@ -236,8 +236,22 @@ export class SimulationRunService {
     await this.filesService.deleteSimulationRunFiles(id);
     await this.specificationsService.deleteSimulationRunSpecifications(id);
     await this.resultsService.deleteSimulationRunResults(id);
-    await this.logsService.deleteLog(id);
-    await this.metadataService.deleteSimulationRunMetadata(id);
+
+    try {
+      await this.logsService.deleteLog(id);
+    } catch (error) {
+      if (!(error instanceof NotFoundException)) {
+        throw error;
+      }
+    }
+
+    try {
+      await this.metadataService.deleteSimulationRunMetadata(id);
+    } catch (error) {
+      if (!(error instanceof NotFoundException)) {
+        throw error;
+      }
+    }
   }
 
   public async update(
