@@ -32,14 +32,10 @@ import {
   SimulationRunOutputDatum,
   File as CombineArchiveFile,
   Project,
+  EdamTerm,
 } from '@biosimulations/datamodel/common';
 import {
-  CombineArchiveContentFormat,
-  FORMATS,
-  MODEL_FORMATS,
-  SEDML_FORMAT,
-  COMBINE_OMEX_FORMAT,
-  VEGA_FORMAT
+  BIOSIMULATIONS_FORMATS,
 } from '@biosimulations/ontology/extra-sources';
 import {
   ArchiveMetadata as APIMetadata,
@@ -66,7 +62,6 @@ import {
   SedDocumentReports,
 } from '@biosimulations/datamodel-view';
 import { FormatService } from '@biosimulations/shared/services';
-import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { OntologyService } from '@biosimulations/ontology/client';
 import { Spec as VegaSpec } from 'vega';
 import {
@@ -77,11 +72,12 @@ import {
   WithContext,
 } from 'schema-dts';
 import { Endpoints } from '@biosimulations/config/common';
+import { BiosimulationsIcon } from '@biosimulations/shared/icons'
 
 interface ConcreteListItem {
   title: string;
   value: string;
-  icon: BiosimulationsIcon;
+  icon: string;
   url: string | null;
 }
 
@@ -89,7 +85,9 @@ interface ConcreteListItem {
   providedIn: 'root',
 })
 export class ViewService {
-  formatMap!: { [uri: string]: CombineArchiveContentFormat };
+  private omexManifestUriFormatMap: { [omexManifestUri: string]: EdamTerm };
+  private vegaFormatOmexManifestUris: string[];
+  private combineOmexFormat: EdamTerm;
 
   private endpoints = new Endpoints();
 
@@ -100,12 +98,29 @@ export class ViewService {
     private sedPlot2DVisualizationService: SedPlot2DVisualizationService,
     private ontologyService: OntologyService,
   ) {
-    this.formatMap = {};
-    FORMATS.forEach((format: CombineArchiveContentFormat): void => {
-      format.combineUris.forEach((combineUri: string): void => {
-        this.formatMap[combineUri] = format;
+    this.omexManifestUriFormatMap = {};
+    BIOSIMULATIONS_FORMATS.forEach((format: EdamTerm): void => {
+      format?.biosimulationsMetadata?.omexManifestUris?.forEach((uri: string): void => {
+        this.omexManifestUriFormatMap[uri] = format;
       });
     });
+
+    const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3969')
+      ?.[0]
+      ?.biosimulationsMetadata
+      ?.omexManifestUris;
+    if (vegaFormatOmexManifestUris) {
+      this.vegaFormatOmexManifestUris = vegaFormatOmexManifestUris;
+    } else {
+      throw new Error('Vega format (EDAM:format_3969) must be annotated with one or more OMEX Manifest URIs');
+    }
+
+    const combineOmexFormat = BIOSIMULATIONS_FORMATS.filter((format) => format.id === 'format_3686')[0];
+    if (combineOmexFormat) {
+      this.combineOmexFormat = combineOmexFormat;
+    } else {
+      throw new Error('COMBINE/OMEX format (EDAM:format_3686) must be annotated with one or more OMEX Manifest URIs');
+    }
   }
 
   public getFormattedProjectMetadata(
@@ -132,7 +147,7 @@ export class ViewService {
           abstract: metadata?.abstract,
           creators: (metadata?.creators || []).map(
             (creator: LabeledIdentifier): Creator => {
-              let icon: BiosimulationsIcon = 'link';
+              let icon: string = 'link';
               if (creator.uri) {
                 if (
                   creator.uri.match(
@@ -166,7 +181,7 @@ export class ViewService {
               return {
                 label: creator.label,
                 uri: creator.uri,
-                icon: icon,
+                icon: icon as BiosimulationsIcon,
               };
             },
           ),
@@ -356,7 +371,7 @@ export class ViewService {
               methods.push({
                 title: simulationType.title,
                 value: of(simulationType.value),
-                icon: simulationType.icon,
+                icon: simulationType.icon as BiosimulationsIcon,
                 url: simulationType.url,
               });
             });
@@ -381,7 +396,7 @@ export class ViewService {
               methods.push({
                 title: simulationAlgorithm.title,
                 value: of(simulationAlgorithm.value),
-                icon: simulationAlgorithm.icon,
+                icon: simulationAlgorithm.icon as BiosimulationsIcon,
                 url: simulationAlgorithm.url,
               });
             });
@@ -396,8 +411,11 @@ export class ViewService {
 
           Array.from(modelLanguageSedUrns)
             .filter((modelLanguageSedUrn): boolean => {
-              for (const modelFormat of MODEL_FORMATS) {
-                if (modelLanguageSedUrn.startsWith(modelFormat.sedUrn)) {
+              for (const format of BIOSIMULATIONS_FORMATS) {
+                if (
+                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn 
+                  && modelLanguageSedUrn.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
+                ) {
                   return true;
                 }
               }
@@ -405,13 +423,16 @@ export class ViewService {
             })
             .map((modelLanguageSedUrn): ConcreteListItem => {
               let modelLanguage!: ConcreteListItem;
-              for (const modelFormat of MODEL_FORMATS) {
-                if (modelLanguageSedUrn.startsWith(modelFormat.sedUrn)) {
+              for (const format of BIOSIMULATIONS_FORMATS) {
+                if (
+                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn 
+                  && modelLanguageSedUrn.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
+                ) {
                   modelLanguage = {
                     title: 'Model',
-                    value: modelFormat.acronym || modelFormat.name,
+                    value: format?.biosimulationsMetadata?.acronym || format.name,
                     icon: 'model',
-                    url: modelFormat.url,
+                    url: format.url,
                   };
                   break;
                 }
@@ -427,7 +448,7 @@ export class ViewService {
               formats.push({
                 title: modelLanguage.title,
                 value: of(modelLanguage.value),
-                icon: modelLanguage.icon,
+                icon: modelLanguage.icon as BiosimulationsIcon,
                 url: modelLanguage.url,
               });
             });
@@ -544,14 +565,19 @@ export class ViewService {
             level: 0,
             location: '',
             title: 'Project',
-            format: `${COMBINE_OMEX_FORMAT.name} (${COMBINE_OMEX_FORMAT.acronym})`,
-            formatUrl: COMBINE_OMEX_FORMAT.url,
+            format: (
+              this.combineOmexFormat.name 
+              + this.combineOmexFormat?.biosimulationsMetadata?.acronym 
+                ? ` (${this.combineOmexFormat?.biosimulationsMetadata?.acronym})`
+                : ''
+            ),
+            formatUrl: this.combineOmexFormat.url,
             master: false,
             size:
               simulationRun.projectSize === undefined
                 ? 'N/A'
                 : FormatService.formatDigitalSize(simulationRun.projectSize),
-            icon: COMBINE_OMEX_FORMAT.icon,
+            icon: (this.combineOmexFormat?.biosimulationsMetadata?.icon || 'archive') as BiosimulationsIcon,
             url: this.endpoints.getRunDownloadEndpoint(id),
             basename: 'project.omex',
           },
@@ -564,14 +590,6 @@ export class ViewService {
     return this.projService.getArchiveContents(id).pipe(
       map((contents: CombineArchiveFile[]): Path[] => {
         const root: { [path: string]: Path } = {};
-
-        let hasMaster = false;
-        for (const content of contents) {
-          if (content?.master === true) {
-            hasMaster = true;
-            break;
-          }
-        }
 
         contents
           .filter((content: CombineArchiveFile): boolean => {
@@ -602,8 +620,8 @@ export class ViewService {
             });
 
             let format = content.format;
-            if (!(format in this.formatMap)) {
-              for (const uri of Object.keys(this.formatMap)) {
+            if (!(format in this.omexManifestUriFormatMap)) {
+              for (const uri of Object.keys(this.omexManifestUriFormatMap)) {
                 if (format.startsWith(uri)) {
                   format = uri;
                   break;
@@ -612,11 +630,11 @@ export class ViewService {
             }
 
             let formatName!: string;
-            if (format in this.formatMap) {
-              const formatObj = this.formatMap[format];
+            if (format in this.omexManifestUriFormatMap) {
+              const formatObj = this.omexManifestUriFormatMap[format];
               formatName = formatObj.name;
-              if (formatObj.acronym) {
-                formatName += ' (' + formatObj.acronym + ')';
+              if (formatObj?.biosimulationsMetadata?.acronym) {
+                formatName += ' (' + formatObj.biosimulationsMetadata?.acronym + ')';
               }
             } else if (format.startsWith('http://purl.org/NET/mediatypes/')) {
               formatName = format.substring(
@@ -633,9 +651,7 @@ export class ViewService {
               title: basename,
               basename: basename,
               format: formatName,
-              master:
-                content?.master ||
-                (!hasMaster && format.startsWith(SEDML_FORMAT.combineUris[0])),
+              master: content?.master,
               url: content.url,
               size:
                 content.size === undefined
@@ -645,8 +661,8 @@ export class ViewService {
                         ? parseFloat(content.size)
                         : content.size,
                     ),
-              formatUrl: this.formatMap?.[format]?.url,
-              icon: this.formatMap?.[format]?.icon || 'file',
+              formatUrl: this.omexManifestUriFormatMap?.[format]?.url,
+              icon: (this.omexManifestUriFormatMap?.[format]?.biosimulationsMetadata?.icon || 'file') as BiosimulationsIcon,
             };
           });
 
@@ -765,7 +781,7 @@ export class ViewService {
 
           const vegaVisualizations: VegaVisualization[] = [];
           contents.forEach((content: CombineArchiveFile): void => {
-            if (VEGA_FORMAT.combineUris.includes(content.format)) {
+            if (this.vegaFormatOmexManifestUris.includes(content.format)) {
               let location = content.location;
               if (location.startsWith('./')) {
                 location = location.substring(2);

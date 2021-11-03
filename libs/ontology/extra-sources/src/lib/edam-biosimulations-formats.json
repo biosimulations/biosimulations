@@ -1,0 +1,772 @@
+[{
+    "name": "BioNetGen Language",
+    "id": "format_3972",
+    "mediaTypes": [
+      "text/bngl+plain",
+      "text/plain",
+      "text/x-bngl",
+      "application/x-bngl"
+    ],
+    "fileExtensions": ["bngl"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3972",
+    "biosimulationsMetadata": {
+      "acronym": "BNGL",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/bngl+plain"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:bngl",
+        "validationAvailable": true,
+        "introspectionAvailable": true
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "CellML",
+    "id": "format_3240",
+    "mediaTypes": [
+      "application/cellml+xml",
+      "application/x-cellml",
+      "application/xml"
+    ],
+    "fileExtensions": ["cellml", "xml"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3240",
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://identifiers.org/combine.specifications/cellml"],
+      "icon": "model",
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:cellml",
+        "validationAvailable": true,
+        "introspectionAvailable": true
+      }
+    }
+  },
+  {
+    "name": "COPASI Markup Language",
+    "id": "format_9003",
+    "description": "The native format for mathematical models used by the COPASI modeling software.",
+    "mediaTypes": [
+      "application/x-copasi",
+      "application/copasiml+xml",
+      "application/xml"
+    ],
+    "fileExtensions": ["cps"],
+    "moreInfoUrl": "http://copasi.org",
+    "parents": ["format_2013", "format_2332"],
+    "biosimulationsMetadata": {
+      "acronym": "CopasiML",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-copasi"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:copasiml",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "GINsim Markup Language",
+    "id": "format_9009",
+    "description": "Format used by the GINsim qualitative modeling tool to represent networks.",
+    "mediaTypes": ["application/ginml+xml", "application/xml"],
+    "fileExtensions": ["ginml"],
+    "moreInfoUrl": "http://ginsim.org",
+
+    "parents": ["format_2013", "format_2332"],
+    "biosimulationsMetadata": {
+      "acronym": "GINML",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/ginml+xml"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:ginml",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "High Order Calculator",
+    "id": "format_9005",
+    "description": "Interpreted programming language used as the primary scripting language for the NEURON simulator.",
+    "mediaTypes": ["text/x-hoc", "text/plain"],
+    "fileExtensions": ["hoc"],
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Hoc_(programming_language)",
+    "parents": ["format_2013", "format_2330"],
+    "biosimulationsMetadata": {
+      "acronym": "HOC",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-hoc"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:hoc",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Kappa",
+    "id": "format_9006",
+    "description": "File format for the Kappa language for rule-based computational models.",
+    "mediaTypes": ["text/x-kappa", "text/plain"],
+    "fileExtensions": ["ka"],
+    "moreInfoUrl": "https://kappalanguage.org/",
+    "parents": ["format_2013", "format_2330"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-kappa"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:kappa",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Low Entropy Model Specification",
+    "id": "format_9004",
+    "description": "Format for complex biological models and simulations.",
+    "mediaTypes": [
+      "application/lems+xml",
+      "application/x-lems",
+      "application/xml"
+    ],
+    "fileExtensions": ["xml"],
+    "moreInfoUrl": "https://lems.github.io/LEMS/",
+    "parents": ["format_2013", "format_2332"],
+    "biosimulationsMetadata": {
+      "acronym": "LEMS",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/lems+xml"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:lems",
+        "validationAvailable": true,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Mass Action Stoichiometric Simulation",
+    "id": "format_9011",
+    "description": "Format for Mass Action Stoichiometric Simulation (MASS) models based on JSON.",
+    "mediaTypes": ["application/mass+json", "application/json"],
+    "fileExtensions": ["json"],
+    "moreInfoUrl": "https://masspy.readthedocs.io/en/stable/tutorials/reading_writing_models.html",
+    "parents": ["format_2013", "format_3464"],
+    "biosimulationsMetadata": {
+      "acronym": "MASS",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/mass+json"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:mass",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Morpheus Markup Language",
+    "id": "format_9002",
+    "description": "Format for multi-scale spatial simulations.",
+    "mediaTypes": ["application/morpheusml+xml", "application/xml"],
+    "fileExtensions": ["xml"],
+    "moreInfoUrl": "https://gitlab.com/morpheus.lab/morpheus/-/wikis/morpheusml",
+    "parents": ["format_2013", "format_2332"],
+    "biosimulationsMetadata": {
+      "acronym": "MorpheusML",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/morpheusml+xml"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:morpheusml",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "NeuroML",
+    "id": "format_3971",
+    "mediaTypes": ["application/neuroml+xml", "application/xml"],
+    "fileExtensions": ["nml"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3971",
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://identifiers.org/combine.specifications/neuroml"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:neuroml",
+        "validationAvailable": true,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Pharmacometrics Markup Language ",
+    "id": "format_9007",
+    "description": "Pharmacometrics Markup Language (pharmML) is an exchange format for encoding of models, associated tasks and their annotation as used in pharmacometrics.",
+    "mediaTypes": ["application/pharmml+xml", "application/xml"],
+    "fileExtensions": ["xml"],
+    "moreInfoUrl": "http://www.pharmml.org/",
+    "parents": ["format_2013", "format_2332"],
+    "biosimulationsMetadata": {
+      "acronym": "pharmML",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/pharmml+xml"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:pharmml",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Resource Balance Analysis XML format",
+    "id": "format_9012",
+    "description": "Format for Resource Balance Analysis (RBA) models using TSV and XML.",
+    "mediaTypes": ["application/rba+zip", "application/zip"],
+    "fileExtensions": ["zip"],
+    "moreInfoUrl": "https://sysbioinra.github.io/RBApy/usage.html",
+    "parents": ["format_2013", "format_2332"],
+    "biosimulationsMetadata": {
+      "acronym": "RBA XML",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/rba+zip"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:rba",
+        "validationAvailable": true,
+        "introspectionAvailable": true
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Systems Biology Markup Language",
+    "id": "format_2585",
+    "mediaTypes": [
+      "application/sbml+xml",
+      "application/x-sbml",
+      "application/xml"
+    ],
+    "fileExtensions": ["xml", "sbml"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3972",
+    "biosimulationsMetadata": {
+      "acronym": "SBML",
+      "omexManifestUris": ["http://identifiers.org/combine.specifications/sbml"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:sbml",
+        "validationAvailable": true,
+        "introspectionAvailable": true
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Smoldyn simulation configuration language",
+    "id": "format_9001",
+    "description": "Format for particle-based simulations of biochemical reactions.",
+    "mediaTypes": [
+      "text/smoldyn+plain",
+      "text/plain",
+      "text/x-smoldyn",
+      "application/x-smoldyn"
+    ],
+    "fileExtensions": ["txt"],
+    "moreInfoUrl": "http://www.smoldyn.org/",
+    "parents": ["format_2013", "format_2330"],
+    "biosimulationsMetadata": {
+      "acronym": "Smoldyn",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/smoldyn+plain"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:smoldyn",
+        "validationAvailable": true,
+        "introspectionAvailable": true
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Virtual Cell Markup Language",
+    "id": "format_9000",
+    "description": "Format for models developed with the Virtual Cell biomodeling and simulation software suite.",
+    "mediaTypes": ["application/vcml+xml", "application/xml"],
+    "fileExtensions": ["vcml"],
+    "moreInfoUrl": "https://vcell.org/",
+    "parents": ["format_2013", "format_2332"],
+    "biosimulationsMetadata": {
+      "acronym": "VCML",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/vcml+xml"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:vcml",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "XPP",
+    "id": "format_9010",
+    "description": "Format used by the XPP mathematical modeling tool to represent a set of equations.",
+    "mediaTypes": [
+      "text/x-xpp",
+      "text/plain",
+      "text/xpp+plain",
+      "application/x-xpp"
+    ],
+    "fileExtensions": ["ode", "xpp"],
+    "moreInfoUrl": "http://www.math.pitt.edu/~bard/xpp/xpp.html",
+    "parents": ["format_2013", "format_2330"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-xpp"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:xpp",
+        "validationAvailable": true,
+        "introspectionAvailable": true
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "GINsim Markup Language, Zipped",
+    "id": "format_9008",
+    "description": "Format used by the GINsim qualitative modeling tool to represent a simulation study.",
+    "mediaTypes": [
+      "application/zginml+zip",
+      "application/x-zginml",
+      "application/zip"
+    ],
+    "fileExtensions": ["zginml", "zip"],
+    "moreInfoUrl": "http://ginsim.org",
+    "parents": ["format_2013", "format_2332", "format_3987"],
+    "biosimulationsMetadata": {
+      "acronym": "ZGINML",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/zginml+zip"],
+      "modelFormat": {
+        "sedUrn": "urn:sedml:language:zginml",
+        "validationAvailable": false,
+        "introspectionAvailable": false
+      },
+      "icon": "model"
+    }
+  },
+  {
+    "name": "Simulation Experiment Description Markup Language",
+    "id": "format_3685",
+    "mediaTypes": ["application/sedml+xml", "application/xml"],
+    "fileExtensions": ["sedml"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3685",
+    "biosimulationsMetadata": {
+      "acronym": "SED-ML",
+      "omexManifestUris": ["http://identifiers.org/combine.specifications/sed-ml"],
+      "icon": "simulation"
+    }
+  },
+  {
+    "name": "Open Modeling and Exchange",
+    "id": "format_3686",
+    "mediaTypes": ["application/omex+zip", "application/zip"],
+    "fileExtensions": ["omex", "zip"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686",
+    "biosimulationsMetadata": {
+      "acronym": "OMEX",
+      "modelFormat": null,
+      "omexManifestUris": ["http://identifiers.org/combine.specifications/omex"],
+      "icon": "archive"
+    }
+  },
+  {
+    "name": "Vega",
+    "id": "format_3969",
+    "mediaTypes": [
+      "application/vnd.vega.v5+json",
+      "application/vega+json",
+      "application/json"
+    ],
+    "fileExtensions": ["vg.json", "vg", "json"],
+    "modelFormat": null,
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3969",
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/vnd.vega.v5+json",
+        "http://purl.org/NET/mediatypes/application/vnd.vega+json",
+        "http://purl.org/NET/mediatypes/application/vega+json"
+      ],
+      "icon": "chart"
+    }
+  },
+  {
+    "name": "Bitmap Image File",
+    "id": "format_3592",
+    "mediaTypes": ["image/bmp", "image/x-bmp"],
+    "fileExtensions": ["bmp", "dib"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3592",
+    "biosimulationsMetadata": {
+      "acronym": "BMP",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/image/bmp"],
+      "icon": "image"
+    }
+  },
+  {
+    "name": "BioPAX",
+    "id": "format_3156",
+    "mediaTypes": ["application/biopax+xml"],
+    "fileExtensions": ["xml"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3156",
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://identifiers.org/combine.specifications/biopax"],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Escher",
+    "id": "format_9013",
+    "description": "Format for metabolic flux maps.",
+    "mediaTypes": ["application/escher+json"],
+    "fileExtensions": ["json"],
+    "moreInfoUrl": "https://escher.github.io/",
+    "parents": ["format_3464", "format_2013", "format_3617", "format_3547", "format_2060"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/escher+json"],
+      "icon": "chart"
+    }
+  },
+  {
+    "name": "Graphics Interchange Format",
+    "id": "format_3467",
+    "omexManifestUris": ["http://purl.org/NET/mediatypes/image/gif"],
+    "mediaTypes": ["image/gif"],
+    "fileExtensions": ["gif"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3467",
+    "biosimulationsMetadata": {
+      "acronym": "GIF",
+      "icon": "image"
+    }
+  },
+  {
+    "name": "Hierarchical Data Format 5",
+    "id": "format_3590",
+    "mediaTypes": ["application/x-hdf", "application/x-hdf5"],
+    "fileExtensions": ["h5", "hdf", "hdf5", "he5"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3590",
+    "biosimulationsMetadata": {
+      "acronym": "HDF5",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-hdf"],
+      "icon": "report"
+    }
+  },
+  {
+    "name": "Jupyter Notebook",
+    "id": "format_9017",
+    "description": "Browser-based REPL containing an ordered list of input/output cells which can contain code, text (using Markdown), mathematics, plots and rich media.",
+    "mediaTypes": ["application/x-ipynb+json"],
+    "fileExtensions": ["ipynb"],
+    "moreInfoUrl": "https://ipython.org/notebook.html",
+    "parents": ["format_3464", "format_3507"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-ipynb+json"],
+      "icon": "python"
+    }
+  },
+  {
+    "name": "Joint Photographic Experts Group",
+    "id": "format_3579",
+    "mediaTypes": ["image/jpeg"],
+    "fileExtensions": ["jpg", "jpeg"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3579",
+    "biosimulationsMetadata": {
+      "acronym": "JPEG",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/image/jpeg"],
+      "icon": "image"
+    }
+  },
+  {
+    "name": "JavaScript Object Notation",
+    "id": "format_3464",
+    "mediaTypes": ["application/json"],
+    "fileExtensions": ["json"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3464",
+    "biosimulationsMetadata": {
+      "acronym": "JSON",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/json"],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "MATLAB",
+    "id": "format_4007",
+    "mediaTypes": ["text/x-matlab"],
+    "fileExtensions": ["m"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_4007",
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-matlab"],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "MATLAB data",
+    "id": "format_3626",
+    "mediaTypes": ["application/x-matlab-data"],
+    "fileExtensions": ["mat"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3626",
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-matlab-data"],
+      "icon": "report"
+    }
+  },
+  {
+    "name": "OMEX Manifest",
+    "id": "format_9015",
+    "description": "File format for describing the contents of COMBINE/OMEX archives.",
+    "mediaTypes": ["application/omex-manifest+xml"],
+    "fileExtensions": ["xml"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686",
+    "parents": ["format_2332"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://identifiers.org/combine.specifications/omex-manifest"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "OMEX Metadata",
+    "id": "format_9014",
+    "description": "Format for using triples to describe metadata about mathematical models and simulations for serializing triples to several formats.",
+    "mediaTypes": ["application/rdf+xml"],
+    "fileExtensions": ["rdf", "xml"],
+    "moreInfoUrl": "https://co.mbine.org/standards/omex-metadata",
+    "parents": ["format_2332", "format_3255", "format_3256", "format_3261", "format_3956"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://identifiers.org/combine.specifications/omex-metadata"
+      ],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Web Ontology Language",
+    "id": "format_2197",
+    "mediaTypes": ["application/rdf+xml", "application/xml"],
+    "fileExtensions": ["owl", "rdf", "xml"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2197",
+    "biosimulationsMetadata": {
+      "acronym": "OWL",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/rdf+xml"],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Portable Document Format",
+    "id": "format_3508",
+    "mediaTypes": ["application/PDF"],
+    "fileExtensions": ["pdf"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3508",
+    "biosimulationsMetadata": {
+      "acronym": "PDF",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/PDF"],
+      "icon": "pdf"
+    }
+  },
+  {
+    "name": "Portable Network Graphics",
+    "id": "format_3603",
+    "mediaTypes": ["image/png"],
+    "fileExtensions": ["png"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3603",
+    "biosimulationsMetadata": {
+      "acronym": "PNG",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/image/png"],
+      "icon": "image"
+    }
+  },
+  {
+    "name": "Python",
+    "id": "format_3996",
+    "mediaTypes": ["application/x-python-code"],
+    "fileExtensions": ["py"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3603",
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-python-code"],
+      "icon": "python"
+    }
+  },
+  {
+    "name": "R",
+    "id": "format_3554",
+    "mediaTypes": ["text/x-r"],
+    "fileExtensions": ["r"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3999",
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-r"],
+      "icon": "r"
+    }
+  },
+  {
+    "name": "RStudio project",
+    "id": "format_9018",
+    "description": "Configuration for working with a collection of R source documents.",
+    "mediaTypes": ["application/x-r-project"],
+    "fileExtensions": ["Rproj"],
+    "moreInfoUrl": "https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects",
+    "parents": ["format_2330"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-r-project"],
+      "icon": "r"
+    }
+  },
+  {
+    "name": "Systems Biology Graphical Notation",
+    "id": "format_3692",
+    "mediaTypes": ["application/sbgn+xml"],
+    "fileExtensions": ["sbgn"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692",
+    "biosimulationsMetadata": {
+      "acronym": "SBGN",
+      "omexManifestUris": ["http://identifiers.org/combine.specifications/sbgn"],
+      "icon": "chart"
+    }
+  },
+  {
+    "name": "Synthetic Biology Open Language",
+    "id": "format_3725",
+    "mediaTypes": ["application/sbol+xml"],
+    "fileExtensions": ["sbol"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3692",
+    "biosimulationsMetadata": {
+      "acronym": "SBOL",
+      "omexManifestUris": ["http://identifiers.org/combine.specifications/sbol"],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Scilab",
+    "id": "format_9019",
+    "description": "File format used for scripts written in the Scilab programming language for execution within the Scilab software environment, typically for numerical computation.",
+    "mediaTypes": ["application/x-scilab"],
+    "fileExtensions": ["sci"],
+    "moreInfoUrl": "https://www.scilab.org/",
+    "parents": ["format_2330"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-scilab"],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "SimBiology project",
+    "id": "format_9020",
+    "description": "File format used for computational models developed with SimBiology.",
+    "mediaTypes": ["application/x-sbproj"],
+    "fileExtensions": ["sbproj"],
+    "moreInfoUrl": "https://www.mathworks.com/help/simbio/ref/sbioloadproject.html",
+    "parents": ["format_2333"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-sbproj"],
+      "icon": "archive"
+    }
+  },
+  {
+    "name": "Scalable Vector Graphics",
+    "id": "format_3604",
+    "mediaTypes": ["image/svg+xml"],
+    "fileExtensions": ["svg"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3604",
+    "biosimulationsMetadata": {
+      "acronym": "SVG",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/image/svg+xml"],
+      "icon": "image"
+    }
+  },
+  {
+    "name": "TEXT",
+    "id": "format_1964",
+    "mediaTypes": ["text/plain"],
+    "fileExtensions": ["txt"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3591",
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/text/plain"],
+      "icon": "file"
+    }
+  },
+  {
+    "name": "Tag Image File Format",
+    "id": "format_3591",
+    "mediaTypes": ["image/tiff"],
+    "fileExtensions": ["tiff"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3591",
+    "biosimulationsMetadata": {
+      "acronym": "TIFF",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/image/tiff"],
+      "icon": "image"
+    }
+  },
+  {
+    "name": "Vega-Lite",
+    "id": "format_3970",
+    "mediaTypes": ["application/vnd.vegalite.v3+json", "application/vnd.vegalite+json", "application/vega-lite+json"],
+    "fileExtensions": ["vl", "vl.json", "json"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3970",
+    "biosimulationsMetadata": {
+      "omexManifestUris": [
+        "http://purl.org/NET/mediatypes/application/vnd.vegalite.v3+json",
+        "http://purl.org/NET/mediatypes/application/vnd.vegalite+json",
+        "http://purl.org/NET/mediatypes/application/vega-lite+json"
+      ],
+      "icon": "chart"
+    }
+  },
+  {
+    "name": "WebP",
+    "id": "format_9016",
+    "description": "Format for lossy and lossless images.",
+    "mediaTypes": ["image/webp"],
+    "fileExtensions": ["webp"],
+    "moreInfoUrl": "https://developers.google.com/speed/webp",
+    "parents": ["format_2333", "format_3547"],
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/image/webp"],
+      "icon": "image"
+    }
+  },
+  {
+    "name": "Extensible Markup Language",
+    "id": "format_2332",
+    "mediaTypes": ["application/xml"],
+    "fileExtensions": ["xml"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_2332",
+    "biosimulationsMetadata": {
+      "acronym": "XML",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/xml"],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "Yet Another Markup Language",
+    "id": "format_3750",
+    "mediaTypes": ["application/x-yaml"],
+    "fileExtensions": ["yml", "yaml"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3750",
+    "biosimulationsMetadata": {
+      "acronym": "YAML",
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-yaml"],
+      "icon": "code"
+    }
+  },
+  {
+    "name": "Zip",
+    "id": "format_3987",
+    "mediaTypes": ["application/zip"],
+    "fileExtensions": ["zip"],
+    "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987",
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/zip"],
+      "icon": "archive"
+    }
+  },
+  {
+    "name": "Binary format",
+    "id": "format_2333",
+    "mediaTypes": ["application/octet-stream"],
+    "fileExtensions": [],
+    "moreInfoUrl": "https://www.iana.org/assignments/media-types/application/octet-stream",
+    "biosimulationsMetadata": {
+      "omexManifestUris": ["http://purl.org/NET/mediatypes/application/octet-stream"],
+      "icon": "file"
+    }
+  }
+]
