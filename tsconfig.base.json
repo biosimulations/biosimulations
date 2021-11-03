@@ -99,6 +99,9 @@
       "@biosimulations/ontology/datamodel": [
         "libs/ontology/datamodel/src/index.ts"
       ],
+      "@biosimulations/ontology/extra-sources": [
+        "libs/ontology/extra-sources/src/index.ts"
+      ],
       "@biosimulations/ontology/ontologies": [
         "libs/ontology/ontologies/src/index.ts"
       ],

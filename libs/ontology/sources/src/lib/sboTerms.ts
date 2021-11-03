@@ -5,7 +5,7 @@ import {
 } from '@biosimulations/datamodel/common';
 
 import sboJson from './sbo.json';
-import sboCorrectionsJson from './sbo-corrections.json';
+import { sboCorrections } from '@biosimulations/ontology/extra-sources';
 
 let sboVersion = '';
 function getSboTerms(input: any): { [id: string]: SboTerm } {
@@ -58,7 +58,7 @@ function getSboTerms(input: any): { [id: string]: SboTerm } {
     }
   });
 
-  sboCorrectionsJson.forEach((sboCorrection): void => {
+  sboCorrections.forEach((sboCorrection): void => {
     const term = Terms?.[sboCorrection.id];
     term.parents = sboCorrection.parents;
   });
