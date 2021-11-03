@@ -87,7 +87,7 @@
     "tiny-version-compare": "3.0.1",
     "tslib": "2.3.1",
     "uuid": "8.3.2",
-    "validator": "13.6.0",
+    "validator": "13.7.0",
     "yaml": "1.10.2",
     "zone.js": "0.11.4"
   },
