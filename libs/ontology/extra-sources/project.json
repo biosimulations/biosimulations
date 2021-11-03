@@ -21,7 +21,7 @@
   "tags": [
     "scope:ontology",
     "type:datamodel",
-    "platform:server",
+    "platform:any",
     "shared:false"
   ]
 }

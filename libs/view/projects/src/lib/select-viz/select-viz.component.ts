@@ -33,7 +33,7 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '@biosimulations/shared/environments';
 import { Endpoints } from '@biosimulations/config/common';
-import { VEGA_FORMAT } from '@biosimulations/datamodel/common';
+import { VEGA_FORMAT } from '@biosimulations/ontology/extra-sources';
 
 type DesignVisualizationComponent =
   | DesignHistogram1DVisualizationComponent

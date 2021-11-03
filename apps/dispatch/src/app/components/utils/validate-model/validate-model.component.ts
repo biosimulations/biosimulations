@@ -14,9 +14,8 @@ import {
 } from '../../../datamodel/validation-report.interface';
 import {
   ModelLanguage,
-  MODEL_FORMATS,
-  ModelFormat,
 } from '@biosimulations/datamodel/common';
+import { EdamModelingFormat, MODEL_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '@biosimulations/shared/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -63,9 +62,9 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
   ) {
     const modelFileFormats: string[] = [];
-    MODEL_FORMATS.filter((modelFormat: ModelFormat): boolean => {
+    MODEL_FORMATS.filter((modelFormat: EdamModelingFormat): boolean => {
       return modelFormat.validationAvailable;
-    }).forEach((modelFormat: ModelFormat): void => {
+    }).forEach((modelFormat: EdamModelingFormat): void => {
       modelFormat.extensions.forEach((extension: string): void => {
         modelFileFormats.push('.' + extension);
       });

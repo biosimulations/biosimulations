@@ -12,12 +12,6 @@ import {
   ArchiveMetadata,
   LabeledIdentifier,
   DescribedIdentifier,
-  CombineArchiveContentFormat,
-  FORMATS,
-  MODEL_FORMATS,
-  SEDML_FORMAT,
-  COMBINE_OMEX_FORMAT,
-  VEGA_FORMAT,
   SimulationRunSedDocument,
   SedAbstractTask,
   SedTask,
@@ -39,6 +33,14 @@ import {
   File as CombineArchiveFile,
   Project,
 } from '@biosimulations/datamodel/common';
+import {
+  CombineArchiveContentFormat,
+  FORMATS,
+  MODEL_FORMATS,
+  SEDML_FORMAT,
+  COMBINE_OMEX_FORMAT,
+  VEGA_FORMAT
+} from '@biosimulations/ontology/extra-sources';
 import {
   ArchiveMetadata as APIMetadata,
   SimulationRunMetadata,

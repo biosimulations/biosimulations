@@ -13,9 +13,8 @@ import {
   ValueType,
   SimulationType,
   SimulationTypeName,
-  ModelFormat,
-  MODEL_FORMATS,
 } from '@biosimulations/datamodel/common';
+import { EdamModelingFormat, MODEL_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
   DispatchService,
   SimulatorsData,
@@ -53,8 +52,8 @@ interface OntologyTerm {
   name: string;
 }
 
-const MODEL_FORMAT_EDAM_ID_MAP: { [id: string]: ModelFormat } = {};
-MODEL_FORMATS.forEach((modelFormat: ModelFormat): void => {
+const MODEL_FORMAT_EDAM_ID_MAP: { [id: string]: EdamModelingFormat } = {};
+MODEL_FORMATS.forEach((modelFormat: EdamModelingFormat): void => {
   MODEL_FORMAT_EDAM_ID_MAP[modelFormat.edamId] = modelFormat;
 });
 
@@ -165,9 +164,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     private config: ConfigService,
   ) {
     const modelFileTypeSpecifiers = new Set<string>();
-    MODEL_FORMATS.filter((modelFormat: ModelFormat): boolean => {
+    MODEL_FORMATS.filter((modelFormat: EdamModelingFormat): boolean => {
       return modelFormat.introspectionAvailable;
-    }).forEach((modelFormat: ModelFormat): void => {
+    }).forEach((modelFormat: EdamModelingFormat): void => {
       modelFormat.extensions.forEach((extension: string): void => {
         modelFileTypeSpecifiers.add('.' + extension);
       });
