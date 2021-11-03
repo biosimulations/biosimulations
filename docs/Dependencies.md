@@ -78,7 +78,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/nest
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/common/LICENSE
-├─ @nestjs/config@1.0.3
+├─ @nestjs/config@1.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/config
 │  ├─ publisher: Kamil Mysliwiec
@@ -4851,7 +4851,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/npm/validate-npm-package-name
 │  ├─ publisher: zeke
 │  └─ licenseFile: npm/node_modules/validate-npm-package-name/LICENSE
-├─ validator@13.6.0
+├─ validator@13.7.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/validatorjs/validator.js
 │  ├─ publisher: Chris O'Hara
