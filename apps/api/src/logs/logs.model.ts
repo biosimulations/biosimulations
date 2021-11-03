@@ -30,7 +30,7 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 })
 export class Exception implements IException {
   @Prop({ type: String, required: true, default: undefined })
-  category!: string;
+  type!: string;
 
   @Prop({ type: String, required: true, default: undefined })
   message!: string;

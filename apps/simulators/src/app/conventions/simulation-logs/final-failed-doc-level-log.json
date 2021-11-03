@@ -9,7 +9,7 @@
       "location": "doc_1.sedml",
       "status": "FAILED",
       "exception": {
-        "category": "FileNotFoundError",
+        "type": "FileNotFoundError",
         "message": "Model `model2.xml` does not exist."
       },
       "skipReason": null,

@@ -3815,11 +3815,11 @@ components:
             $ref: '#/components/schemas/SedDocumentLog'
     Exception:
       required:
-      - category
+      - type
       - message
       type: object
       properties:
-        category:
+        type:
           type: string
           example: FileNotFoundError
         message:
