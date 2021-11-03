@@ -18,7 +18,7 @@ export class SbatchService {
 
   private logger = new Logger(SbatchService.name);
 
-  /** Generate a SLURM script to execute a COMBINE/OMEX archive  
+  /** Generate a SLURM script to execute a COMBINE/OMEX archive
    * @param runId id of the simulation run
    * @param simulator BioSimulators id of the simulation tool (e.g., `tellurium`)
    * @param simulatorVersion version of the simulation tool (e.g., `2.2.1`)
@@ -31,7 +31,7 @@ export class SbatchService {
    * @param workDirname absolute path to a directory which should be used as the working directory
    *        for exeucting the COMBINE/OMEX archive, including where outputs should be saved
    */
-  public generateSbatch(    
+  public generateSbatch(
     runId: string,
     simulator: string,
     simulatorVersion: string,
@@ -166,7 +166,7 @@ export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url ${endpoi
   }
 
   /** Generate SLURM script to pull a Docker image and convert it to a Singularity image
-   * @param dockerImageUrl URL for the Docker image 
+   * @param dockerImageUrl URL for the Docker image
    * @param forceOverwrite whether to overwrite an existing Singularity image file, if it exists
    */
   public generateImageUpdateSbatch(dockerImageUrl: string, forceOverwrite: boolean): string {

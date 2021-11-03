@@ -42,10 +42,10 @@ export class HpcService {
   ): Promise<{
     stdout: string;
     stderr: string;
-  }> {    
+  }> {
     const simDirname = `${this.configService.get('hpc.hpcBaseDir')}/${runId}`;
 
-    const sbatchString = this.sbatchService.generateSbatch(      
+    const sbatchString = this.sbatchService.generateSbatch(
       runId,
       simulator,
       simulatorVersion,
@@ -59,7 +59,7 @@ export class HpcService {
     );
 
     // eslint-disable-next-line max-len
-    const sbatchFilename = `${simDirname}/${runId}.sbatch`;    
+    const sbatchFilename = `${simDirname}/${runId}.sbatch`;
     const command = `mkdir ${simDirname} && echo "${sbatchString}" > ${sbatchFilename} && chmod +x ${sbatchFilename} && sbatch ${sbatchFilename}`;
 
     const res = this.sshService.execStringCommand(command);
@@ -67,7 +67,7 @@ export class HpcService {
     return res.catch((err) => {
       console.error(`The job for simulation run '${runId}' could not be submitted.`);
       return {
-        stdout: '', 
+        stdout: '',
         stderr: `The job for simulation run '${runId}' could not be submitted: ${err}`,
       };
     });
