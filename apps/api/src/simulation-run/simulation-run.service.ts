@@ -719,7 +719,7 @@ export class SimulationRunService {
           let modelFormat: EdamTerm | null = null;
           for (const format of BIOSIMULATIONS_FORMATS) {
             if (
-              format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn 
+              format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn
               && task.model.language.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
             ) {
               modelFormat = format;

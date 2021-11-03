@@ -106,7 +106,7 @@ export interface BiosimulationsFormatMetadata {
   acronym?: string;
   omexManifestUris: string[];
   modelFormatMetadata?: BiosimulationsModelFormat;
-  icon: string;  
+  icon: string;
 }
 
 export interface EdamTerm extends IOntologyTerm {

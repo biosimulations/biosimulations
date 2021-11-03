@@ -413,7 +413,7 @@ export class ViewService {
             .filter((modelLanguageSedUrn): boolean => {
               for (const format of BIOSIMULATIONS_FORMATS) {
                 if (
-                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn 
+                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn
                   && modelLanguageSedUrn.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
                 ) {
                   return true;
@@ -425,7 +425,7 @@ export class ViewService {
               let modelLanguage!: ConcreteListItem;
               for (const format of BIOSIMULATIONS_FORMATS) {
                 if (
-                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn 
+                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn
                   && modelLanguageSedUrn.startsWith(format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn)
                 ) {
                   modelLanguage = {
@@ -566,8 +566,8 @@ export class ViewService {
             location: '',
             title: 'Project',
             format: (
-              this.combineOmexFormat.name 
-              + this.combineOmexFormat?.biosimulationsMetadata?.acronym 
+              this.combineOmexFormat.name
+              + this.combineOmexFormat?.biosimulationsMetadata?.acronym
                 ? ` (${this.combineOmexFormat?.biosimulationsMetadata?.acronym})`
                 : ''
             ),

@@ -84,7 +84,7 @@ export class EdamTerm extends EdamOntologyId implements IEdamTerm {
 
   @ApiProperty({
     description: "Description of the term",
-    type: String, 
+    type: String,
     nullable: true
   })
   public description: string | null = null;
@@ -248,7 +248,7 @@ export class KisaoTerm extends KisaoOntologyId implements IKisaoTerm {
 
   @ApiProperty({
     description: "Description of the term",
-    type: String, 
+    type: String,
     nullable: true,
   })
   public description: string | null = null;
@@ -297,7 +297,7 @@ export class SboTerm extends SboOntologyId implements ISboTerm {
 
   @ApiProperty({
     description: "Description of the term",
-    type: String, 
+    type: String,
     nullable: true,
   })
   public description: string | null = null;
@@ -345,7 +345,7 @@ export class SioTerm extends SioOntologyId implements ISioTerm {
 
   @ApiProperty({
     description: "Description of the term",
-    type: String, 
+    type: String,
     nullable: true
   })
   public description: string | null = null;
