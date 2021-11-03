@@ -147,7 +147,7 @@ export class CompleteProcessor {
       '' +
       '\n' +
       `\n${ConsoleFormatting.cyan}=========================================== Post-processing simulation run ==========================================${ConsoleFormatting.noColor}` +
-      `\n${statusColor}statusReason${statusEndColor}` +
+      `\n${statusColor}${statusReason}${statusEndColor}` +
       '\n' +
       `\n${ConsoleFormatting.cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${ConsoleFormatting.noColor}`;
     this.logService
