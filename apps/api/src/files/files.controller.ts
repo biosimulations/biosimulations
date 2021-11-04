@@ -244,7 +244,7 @@ export class FilesController {
   public async deleteSimulationRunFiles(
     @Param('runId') runId: string,
   ): Promise<void> {
-    this.service.deleteSimulationRunFiles(runId);
+    return this.service.deleteSimulationRunFiles(runId);
   }
 
   @ApiOperation({
