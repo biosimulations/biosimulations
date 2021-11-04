@@ -59,20 +59,7 @@
         "build-args": [
           "app=simulators-api"
         ],
-        "tags": [
-          "ghcr.io/biosimulations/simulators-api:latest"
-        ],
-        "labels": [
-          "org.opencontainers.image.title=BioSimulators API",
-          "org.opencontainers.image.description=Docker image for the BioSimulators API",
-          "org.opencontainers.image.url=https://biosimulators.org/",
-          "org.opencontainers.image.documentation=docs.biosimulators.org",
-          "org.opencontainers.image.source=https://github.com/biosimulations/Biosimulations",
-          "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
-          "org.opencontainers.image.vendor=BioSimulations",
-          "org.opencontainers.image.licenses=MIT"
-        ],
-        "meta": {
+        "metadata": {
           "enabled": true,
           "images": [
             "ghcr.io/biosimulations/api"
@@ -84,6 +71,16 @@
             "type=ref,event=pr",
             "type=semver,pattern={{version}}",
             "type=sha"
+          ],
+          "labels": [
+            "org.opencontainers.image.title=BioSimulators API",
+            "org.opencontainers.image.description=Docker image for the BioSimulators API",
+            "org.opencontainers.image.url=https://biosimulators.org/",
+            "org.opencontainers.image.documentation=docs.biosimulators.org",
+            "org.opencontainers.image.source=https://github.com/biosimulations/Biosimulations",
+            "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
+            "org.opencontainers.image.vendor=BioSimulations",
+            "org.opencontainers.image.licenses=MIT"
           ]
         }
       }

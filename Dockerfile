@@ -61,15 +61,7 @@ RUN nx build ${APP} --prod --with-deps
 
 # base image
 FROM base as prod
-LABEL \
-    org.opencontainers.image.title="BioSimulations ${APP}" \
-    org.opencontainers.image.description="Docker image for the BioSimulations ${APP} app" \
-    org.opencontainers.image.url="https://biosimulations.org/" \
-    org.opencontainers.image.documentation="https://biosimulations.org/help" \
-    org.opencontainers.image.source="https://github.com/biosimulations/Biosimulations" \
-    org.opencontainers.image.authors="BioSimulations Team <info@biosimulations.org>" \
-    org.opencontainers.image.vendor="BioSimulations Team" \
-    org.opencontainers.image.licenses="MIT"
+
 
 WORKDIR /app
 

@@ -60,21 +60,18 @@
         "build-args": [
           "app=dispatch-service"
         ],
-        "tags": [
-          "ghcr.io/biosimulations/dispatch-service:latest"
-        ],
-        "labels": [
-          "org.opencontainers.image.title=BioSimulations Simulation Run Service",
-          "org.opencontainers.image.description=Docker image for the BioSimulations Simulation Run Service",
-          "org.opencontainers.image.url=https://biosimulations.org/",
-          "org.opencontainers.image.documentation=docs.biosimulations.org",
-          "org.opencontainers.image.source=https://github.com/biosimulations/Biosimulations",
-          "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
-          "org.opencontainers.image.vendor=BioSimulations",
-          "org.opencontainers.image.licenses=MIT"
-        ],
-        "meta": {
+        "metadata": {
           "enabled": true,
+          "labels": [
+            "org.opencontainers.image.title=BioSimulations Simulation Run Service",
+            "org.opencontainers.image.description=Docker image for the BioSimulations Simulation Run Service",
+            "org.opencontainers.image.url=https://biosimulations.org/",
+            "org.opencontainers.image.documentation=docs.biosimulations.org",
+            "org.opencontainers.image.source=https://github.com/biosimulations/Biosimulations",
+            "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
+            "org.opencontainers.image.vendor=BioSimulations",
+            "org.opencontainers.image.licenses=MIT"
+          ],
           "images": [
             "ghcr.io/biosimulations/simulation-service"
           ],
