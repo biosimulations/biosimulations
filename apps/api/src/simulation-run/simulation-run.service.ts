@@ -173,7 +173,7 @@ export class SimulationRunService {
     if (!run) {
       throw new NotFoundException(
         `Simulation run with id '${id}' could not be found.`,
-      );    
+      );
     }
 
     // Return the file and metadata

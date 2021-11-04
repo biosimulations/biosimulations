@@ -231,7 +231,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
     if (
-      control.value 
+      control.value
       && control.value.size > this.config.appConfig.maxUploadFileSize
     ) {
       return {
