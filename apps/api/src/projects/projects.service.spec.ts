@@ -6,10 +6,6 @@ import { ProjectsService } from './projects.service';
 import { FilesService } from '../files/files.service';
 import { SpecificationsService } from '../specifications/specifications.service';
 import { SimulationHDFService } from '@biosimulations/hsds/client';
-import {
-  SimulationFile,
-  SimulationFileSchema,
-} from '../simulation-run/file.model';
 import { FileModel } from '../files/files.model';
 import { SpecificationsModel } from '../specifications/specifications.model';
 import { SimulationRunLog } from '../logs/logs.model';
@@ -78,10 +74,6 @@ describe('ProjectsService', () => {
       ],
       providers: [
         { provide: getModelToken(ProjectModel.name), useValue: {} },
-        {
-          provide: getModelToken(SimulationFile.name),
-          useClass: mockFile,
-        },
         {
           provide: getModelToken(SimulationRunModel.name),
           useClass: mockFile,

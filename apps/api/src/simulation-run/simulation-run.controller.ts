@@ -493,22 +493,15 @@ export class SimulationRunController {
     @Res({ passthrough: true }) response: Response,
   ): Promise<void> {
     const file = await this.service.download(runId);
-    if (file.mimetype) {
-      response.setHeader('Content-Type', file.mimetype);
+    if (file.mimeType) {
+      response.setHeader('Content-Type', file.mimeType);
     }
-    if (file.originalname) {
-      const contentDisposition = `attachment; filename=${file.originalname}`;
-      response.setHeader('Content-Disposition', contentDisposition);
-    }
+    const contentDisposition = `attachment; filename=${runId}.omex`;
+    response.setHeader('Content-Disposition', contentDisposition);
     if (file.size) {
       response.setHeader('Content-Size', file.size);
     }
-    if (file.url) {
-      response.redirect(file.url);
-    } else {
-      // Should never happen since url is a required property of the file model now
-      throw new NotFoundException('Unable to locate the file');
-    }
+    response.redirect(file.url);
   }
 
   @ApiOperation({

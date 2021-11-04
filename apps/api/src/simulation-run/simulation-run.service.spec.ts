@@ -15,7 +15,6 @@ import { HttpModule } from '@nestjs/axios';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { SimulationFile } from './file.model';
 import { SimulationRunModel } from './simulation-run.model';
 import { SimulationRunService } from './simulation-run.service';
 
@@ -80,10 +79,6 @@ describe('SimulationRunService', () => {
       ],
       providers: [
         SimulationRunService,
-        {
-          provide: getModelToken(SimulationFile.name),
-          useClass: mockFile,
-        },
         {
           provide: getModelToken(SimulationRunModel.name),
           useClass: mockFile,
