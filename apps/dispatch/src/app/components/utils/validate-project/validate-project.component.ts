@@ -72,7 +72,10 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        projectFile: ['', [Validators.required, this.maxFileSizeValidator.bind(this)]],
+        projectFile: [
+          '',
+          [Validators.required, this.maxFileSizeValidator.bind(this)],
+        ],
         projectUrl: ['', [this.urlValidator]],
         omexMetadataFormat: [OmexMetadataInputFormat.rdfxml],
         omexMetadataSchema: [OmexMetadataSchema.BioSimulations],

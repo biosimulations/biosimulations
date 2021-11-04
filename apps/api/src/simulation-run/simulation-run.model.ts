@@ -34,8 +34,9 @@ export class SimulationProjectFile {
   public url!: string;
 }
 
-export const SimulationProjectFileSchema =
-  SchemaFactory.createForClass(SimulationProjectFile);
+export const SimulationProjectFileSchema = SchemaFactory.createForClass(
+  SimulationProjectFile,
+);
 
 @Schema({
   _id: false,
@@ -59,7 +60,7 @@ export class SimulationRunModel extends Document implements SimulationRun {
 
   @Prop({
     type: SimulationProjectFile,
-    required: true
+    required: true,
   })
   projectFile!: SimulationProjectFile;
 
