@@ -11,17 +11,17 @@
     },
     ".github/workflows/nxCi.yml": "*",
     "Pipfile": [
-      "combine-service"
+      "combine-api"
     ],
     "Pipfile.lock": [
-      "combine-service"
+      "combine-api"
     ],
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*",
     "Dockerfile": "*",
     "DockerfilePython": [
-      "combine-service"
+      "combine-api"
     ]
   },
   "tasksRunnerOptions": {

@@ -18,7 +18,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/actions/toolkit
 │  └─ licenseFile: @actions/io/LICENSE.md
-├─ @angular/animations@12.2.12
+├─ @angular/animations@12.2.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -27,17 +27,17 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/cdk/LICENSE
-├─ @angular/common@12.2.12
+├─ @angular/common@12.2.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/core@12.2.12
+├─ @angular/core@12.2.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/core/README.md
-├─ @angular/forms@12.2.12
+├─ @angular/forms@12.2.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -46,7 +46,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
-├─ @angular/platform-browser@12.2.12
+├─ @angular/platform-browser@12.2.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -385,7 +385,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Pierre Vanduynslager
 │  ├─ url: https://twitter.com/@pvdlg_
 │  └─ licenseFile: @semantic-release/github/LICENSE
-├─ @semantic-release/npm@8.0.2
+├─ @semantic-release/npm@8.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/npm
 │  ├─ publisher: Pierre Vanduynslager
@@ -397,21 +397,21 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Pierre Vanduynslager
 │  ├─ url: https://twitter.com/@pvdlg_
 │  └─ licenseFile: @semantic-release/release-notes-generator/LICENSE
-├─ @sendgrid/client@7.5.0
+├─ @sendgrid/client@7.6.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/client/LICENSE
-├─ @sendgrid/helpers@7.5.0
+├─ @sendgrid/helpers@7.6.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
 │  ├─ email: help@twilio.com
 │  ├─ url: sendgrid.com
 │  └─ licenseFile: @sendgrid/helpers/LICENSE
-├─ @sendgrid/mail@7.5.0
+├─ @sendgrid/mail@7.6.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sendgrid/sendgrid-nodejs
 │  ├─ publisher: Twilio SendGrid
@@ -789,7 +789,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.1020.0
+├─ aws-sdk@2.1021.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services

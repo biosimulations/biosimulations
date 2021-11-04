@@ -191,7 +191,7 @@ jobs:
         shell: bash
         run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
 
-      - if: matrix.app == 'combine-service'
+      - if: matrix.app == 'combine-api'
         name: Build Image
         uses: whoan/docker-build-with-cache-action@v5
         with:
@@ -252,7 +252,7 @@ jobs:
         run: npm install -g @nrwl/cli
 
       - name: Test app (TypeScript)
-        if: matrix.libOrApp != 'combine-service'
+        if: matrix.libOrApp != 'combine-api'
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
@@ -278,7 +278,7 @@ jobs:
         shell: bash
         run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
 
-      - if: matrix.libOrApp == 'combine-service'
+      - if: matrix.libOrApp == 'combine-api'
         name: Build Image
         uses: whoan/docker-build-with-cache-action@v5
         with:
@@ -293,7 +293,7 @@ jobs:
           build_extra_args: "--build-arg app=${{matrix.libOrApp}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
       - name: Install dev dependencies and execute tests (Python)
-        if: matrix.libOrApp == 'combine-service'
+        if: matrix.libOrApp == 'combine-api'
         run: |
           cwd=$(pwd)
           docker run \
@@ -311,7 +311,7 @@ jobs:
             "
 
       - name: Validate OpenAPI specification for library or app (Python)
-        if: matrix.libOrApp == 'combine-service'
+        if: matrix.libOrApp == 'combine-api'
         run: |
           # ./node_modules/.bin/openapi-examples-validator apps/${{ matrix.libOrApp }}/src/spec/spec.yml
 
@@ -417,7 +417,7 @@ jobs:
           TIMESTAMP=$(date --rfc-3339=seconds | sed 's/ /T/')
           echo "::set-output name=timestamp::$TIMESTAMP"
 
-      - if: matrix.app != 'combine-service' && matrix.app != 'dispatch' && matrix.app != 'platform' && matrix.app != 'account' && matrix.app != 'simulators'
+      - if: matrix.app != 'combine-api' && matrix.app != 'dispatch' && matrix.app != 'platform' && matrix.app != 'account' && matrix.app != 'simulators'
         name: Build Image
         uses: whoan/docker-build-with-cache-action@v5
         with:
@@ -431,7 +431,7 @@ jobs:
           dockerfile: Dockerfile
           build_extra_args: "--build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
-      - if: matrix.app == 'combine-service'
+      - if: matrix.app == 'combine-api'
         name: Build Image
         uses: whoan/docker-build-with-cache-action@v5
         with:

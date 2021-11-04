@@ -70,7 +70,7 @@ export class HealthController {
 
   private combineCheck: HealthIndicatorFunction = () =>
     this.http.pingCheck(
-      'Combine-service',
+      'combine-api',
       this.endpoints.getCombineHealthEndpoint(),
     );
   private mongoCheck: HealthIndicatorFunction = () =>

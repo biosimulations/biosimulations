@@ -16,7 +16,7 @@ module.exports = {
         'account',
         'account-api',
         'mail-service',
-        'combine-service',
+        'combine-api',
         'auth',
         'config',
         'datamodel',

@@ -1,16 +1,16 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { CombineService } from './combine.service';
+import { CombineApiService } from './combine-api.service';
 
-describe('CombineService', () => {
-  let service: CombineService;
+describe('CombineApiService', () => {
+  let service: CombineApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [HttpClient, HttpHandler],
     });
-    service = TestBed.inject(CombineService);
+    service = TestBed.inject(CombineApiService);
   });
 
   it('should be created', () => {

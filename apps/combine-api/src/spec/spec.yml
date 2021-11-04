@@ -1,7 +1,7 @@
 ---
 openapi: 3.0.0
 info:
-  title: BioSimulations COMBINE service
+  title: BioSimulations COMBINE API
   version: "0.1"
   description: |-
     Endpoints for working with models (e.g., [CellML](http://cellml.org/), [SBML](http://sbml.org/)), simulation experiments (e.g., [Simulation Experiment Description Language (SED-ML)](http://sed-ml.org/)), metadata ([OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)), and simulation projects ([COMBINE/OMEX archives](https://combinearchive.org/)).

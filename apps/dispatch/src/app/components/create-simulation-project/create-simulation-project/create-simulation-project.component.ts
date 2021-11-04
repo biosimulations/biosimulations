@@ -30,7 +30,7 @@ import {
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,
 } from '../../../kisao.interface';
-import { CombineService } from '../../../services/combine/combine.service';
+import { CombineApiService } from '../../../services/combine/combine-api.service';
 import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
 import { map, concatAll, withLatestFrom, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -156,7 +156,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     private router: Router,
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
-    private combineService: CombineService,
+    private combineApiService: CombineApiService,
     private http: HttpClient,
     private snackBar: MatSnackBar,
     private config: ConfigService,
@@ -1243,7 +1243,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         (
           simulatorsData: SimulatorsData,
         ): Observable<AlgorithmSubstitution[] | undefined> => {
-          return this.combineService.getSimilarAlgorithms(
+          return this.combineApiService.getSimilarAlgorithms(
             Object.keys(simulatorsData.simulationAlgorithms),
           );
         },
