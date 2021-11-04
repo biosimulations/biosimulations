@@ -4,7 +4,7 @@ import { Observable, of, Subscription } from 'rxjs';
 import { map, catchError, concatAll, shareReplay } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
-import { CombineService } from '../../../services/combine/combine.service';
+import { CombineApiService } from '../../../services/combine/combine-api.service';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { ConfigService } from '@biosimulations/shared/angular';
 import {
@@ -47,7 +47,7 @@ export class PublishComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private simulationService: SimulationService,
-    private combineService: CombineService,
+    private combineApiService: CombineApiService,
     private projectService: ProjectService,
     private formBuilder: FormBuilder,
     private router: Router,

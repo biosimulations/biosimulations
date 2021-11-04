@@ -16,7 +16,7 @@ import {
   OntologyTerm,
 } from '../../../services/dispatch/dispatch.service';
 import { SimulationService } from '../../../services/simulation/simulation.service';
-import { CombineService } from '../../../services/combine/combine.service';
+import { CombineApiService } from '../../../services/combine/combine-api.service';
 import { Simulation } from '../../../datamodel';
 import {
   CombineArchiveSedDocSpecs,
@@ -133,7 +133,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
     private simulationService: SimulationService,
-    private combineService: CombineService,
+    private combineApiService: CombineApiService,
     private snackBar: MatSnackBar,
   ) {
     this.formGroup = this.formBuilder.group(
@@ -284,7 +284,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         (
           simulatorsData: SimulatorsData,
         ): Observable<AlgorithmSubstitution[] | undefined> => {
-          return this.combineService.getSimilarAlgorithms(
+          return this.combineApiService.getSimilarAlgorithms(
             Object.keys(simulatorsData.simulationAlgorithms),
           );
         },
@@ -566,7 +566,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     }
 
     if (archive) {
-      const sub = this.combineService
+      const sub = this.combineApiService
         .getSpecsOfSedDocsInCombineArchive(archive)
         .subscribe((archive: CombineArchiveSedDocSpecs | undefined): void => {
           if (archive) {

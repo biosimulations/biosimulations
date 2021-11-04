@@ -22,7 +22,7 @@ import { RetryStrategy } from '@biosimulations/shared/angular';
 @Injectable({
   providedIn: 'root',
 })
-export class CombineService {
+export class CombineApiService {
   private endpoints = new Endpoints();
 
   private sedmlSpecsEndpoint = this.endpoints.getSedmlSpecificationsEndpoint();

@@ -6,7 +6,7 @@ import {
   Validators,
   ValidationErrors,
 } from '@angular/forms';
-import { CombineService } from '../../../services/combine/combine.service';
+import { CombineApiService } from '../../../services/combine/combine-api.service';
 import {
   ValidationReport,
   ValidationMessage,
@@ -55,7 +55,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
   constructor(
     private config: ConfigService,
     private formBuilder: FormBuilder,
-    private combineService: CombineService,
+    private combineApiService: CombineApiService,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
   ) {
@@ -211,7 +211,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     }
 
     // call API to validate model
-    const validationSub = this.combineService
+    const validationSub = this.combineApiService
       .validateModel(model, this.formGroup.controls.modelLanguage.value)
       .subscribe((report: ValidationReport | undefined): void => {
         if (report) {

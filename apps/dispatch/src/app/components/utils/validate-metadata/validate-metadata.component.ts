@@ -6,7 +6,7 @@ import {
   Validators,
   ValidationErrors,
 } from '@angular/forms';
-import { CombineService } from '../../../services/combine/combine.service';
+import { CombineApiService } from '../../../services/combine/combine-api.service';
 import {
   ValidationReport,
   ValidationMessage,
@@ -65,7 +65,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
   constructor(
     private config: ConfigService,
     private formBuilder: FormBuilder,
-    private combineService: CombineService,
+    private combineApiService: CombineApiService,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
   ) {
@@ -209,7 +209,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     }
 
     // call API to validate metadata
-    const validationSub = this.combineService
+    const validationSub = this.combineApiService
       .validateMetadata(
         metadata,
         this.formGroup.controls.omexMetadataFormat.value,

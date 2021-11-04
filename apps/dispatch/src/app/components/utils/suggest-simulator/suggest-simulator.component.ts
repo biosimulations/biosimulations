@@ -4,7 +4,7 @@ import {
   DispatchService,
   SimulatorsData,
 } from '../../../services/dispatch/dispatch.service';
-import { CombineService } from '../../../services/combine/combine.service';
+import { CombineApiService } from '../../../services/combine/combine-api.service';
 import {
   AlgorithmSubstitution,
   AlgorithmSubstitutionPolicy,
@@ -66,7 +66,7 @@ export class SuggestSimulatorComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dispatchService: DispatchService,
-    private combineService: CombineService,
+    private combineApiService: CombineApiService,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
   ) {
@@ -83,7 +83,7 @@ export class SuggestSimulatorComponent implements OnInit {
         (
           simulatorsData: SimulatorsData,
         ): Observable<AlgorithmSubstitution[] | undefined> => {
-          return this.combineService.getSimilarAlgorithms(
+          return this.combineApiService.getSimilarAlgorithms(
             Object.keys(simulatorsData.simulationAlgorithms),
           );
         },
