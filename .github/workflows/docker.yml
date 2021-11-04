@@ -58,6 +58,8 @@ jobs:
           username: "${{ secrets.GHCR_USERNAME }}"
           password: "${{ secrets.GHCR_TOKEN }}"
 
-      - name: Build Docker Image          
+      - name: Build Docker Image
+        env:
+          INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
         run: npx nx docker ${{matrix.app}}
         
