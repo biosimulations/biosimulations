@@ -40,6 +40,7 @@ export class ViewService {
       statusLabel: SimulationStatusService.getSimulationStatusMessage(
         simulation.status,
         true,
+        false,
       ),
       // runtime:
       //   simulation.runtime !== undefined

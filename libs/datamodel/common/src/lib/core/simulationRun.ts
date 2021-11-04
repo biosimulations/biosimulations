@@ -24,6 +24,21 @@ export enum SimulationRunStatus {
   FAILED = 'FAILED',
 }
 
+export enum SimulationRunStatusName {
+  // The api has created the entry
+  CREATED = 'created',
+  // The api has submitted the run and service has accepted
+  QUEUED = 'queued',
+  // The service has starting the run
+  RUNNING = 'running',
+  // The simulation is finished running, and results are being created
+  PROCESSING = 'processing results',
+  // The run has finished
+  SUCCEEDED = 'succeeded',
+  // The run has failed
+  FAILED = 'failed',
+}
+
 export const SimulationStatusToSimulationLogStatus = (
   input: SimulationRunStatus,
 ): SimulationRunLogStatus => {
