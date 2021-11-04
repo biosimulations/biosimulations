@@ -216,7 +216,7 @@ export class SedUniformTimeCourseSimulation
 
   @ApiProperty({ type: Number })
   @Min(0)
-  @IsInt()  
+  @IsInt()
   public numberOfSteps!: number;
 
   @ApiProperty({ type: SedAlgorithm })
