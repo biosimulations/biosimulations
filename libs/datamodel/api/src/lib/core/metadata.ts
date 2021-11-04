@@ -30,7 +30,7 @@ export class SimulationRunMetadata {
       'Metadata about the COMBINE/OMEX archive of the simulation run or files in the archive',
     type: [ArchiveMetadata],
   })
-  @ValidateNested()
+  @ValidateNested({ each: true })
   @Type(() => ArchiveMetadata)
   public metadata!: ArchiveMetadata[];
 

@@ -5,6 +5,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  Min,
 } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 
@@ -40,11 +41,10 @@ class FullJsonAPIQueryParameters {
   })
   sort?: string[];
 
+  @Min(0)
   @IsInt()
-  @IsArray()
   @IsOptional()
   @ApiProperty({ type: Number, format: 'int' })
-  @Type(() => Number)
   page?: number;
 
   @IsString({ each: true })

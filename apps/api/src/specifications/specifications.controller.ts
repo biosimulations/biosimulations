@@ -19,6 +19,7 @@ import {
 } from '@nestjs/swagger';
 import {
   SimulationRunSedDocument,
+  SimulationRunSedDocumentsContainer,
   SedModel,
   SedSimulation,
   SedSimulationSchema,
@@ -449,7 +450,7 @@ export class SpecificationsController {
   @ApiBody({
     description:
       'Specifications of the simulation experiment of the simulation run',
-    type: [SimulationRunSedDocument],
+    type: SimulationRunSedDocumentsContainer,
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
@@ -461,9 +462,9 @@ export class SpecificationsController {
     type: [SimulationRunSedDocument],
   })
   public async createSpecification(
-    @Body() specifications: SimulationRunSedDocument[],
+    @Body() specifications: SimulationRunSedDocumentsContainer,
   ): Promise<SimulationRunSedDocument[]> {
-    const specs = await this.service.createSpecs(specifications);
+    const specs = await this.service.createSpecs(specifications.sedDocuments);
     return specs.map(this.returnSpec);
   }
 

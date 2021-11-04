@@ -13,9 +13,10 @@ import { from, Observable } from 'rxjs';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
   SubmitProjectFile,
-  SubmitProjectFileInput,
+  SubmitProjectFilesContainer,
   ProjectFile,
   SimulationRunSedDocument,
+  SimulationRunSedDocumentsContainer,
   SimulationRunMetadataInput,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
@@ -49,18 +50,18 @@ export class SimulationRunService {
   ): Observable<SimulationRunSedDocument[]> {
     const endpoint = this.endpoints.getSpecificationsEndpoint();
     return this.postAuthenticated<
-      SimulationRunSedDocument[],
+      SimulationRunSedDocumentsContainer,
       SimulationRunSedDocument[]
-    >(endpoint, specs);
+    >(endpoint, { sedDocuments: specs });
   }
 
   public postFiles(
     id: string,
     files: SubmitProjectFile[],
   ): Observable<ProjectFile[]> {
-    const body: SubmitProjectFileInput = { files };
+    const body: SubmitProjectFilesContainer = { files };
     const endpoint = this.endpoints.getFilesEndpoint();
-    return this.postAuthenticated<SubmitProjectFileInput, ProjectFile[]>(
+    return this.postAuthenticated<SubmitProjectFilesContainer, ProjectFile[]>(
       endpoint,
       body,
     );

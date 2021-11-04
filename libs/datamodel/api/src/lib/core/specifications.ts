@@ -36,6 +36,8 @@ import {
   ValidateNested,
   IsEnum,
   Equals,
+  Min,
+  IsInt,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -76,7 +78,7 @@ export class SedTarget implements ISedTarget {
 
   @ApiProperty({ type: [Namespace], required: false, nullable: true })
   @Type(() => Namespace)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public namespaces?: Namespace[];
 }
 
@@ -95,6 +97,7 @@ export class SedModelAttributeChange implements ISedModelAttributeChange {
   public name?: string;
 
   @ApiProperty({ type: SedTarget })
+  @ValidateNested()
   @Type(() => SedTarget)
   public target!: SedTarget;
 
@@ -138,8 +141,9 @@ export class SedModel implements ISedModel {
         { value: SedModelAttributeChange, name: 'SedModelAttributeChange' },
       ],
     },
+    keepDiscriminatorProperty: true
   })
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public changes!: SedModelChange[];
 }
 
@@ -178,7 +182,7 @@ export class SedAlgorithm implements ISedAlgorithm {
 
   @ApiProperty({ type: [SedAlgorithmParameterChange] })
   @Type(() => SedAlgorithmParameterChange)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public changes!: SedAlgorithmParameterChange[];
 }
 
@@ -211,10 +215,12 @@ export class SedUniformTimeCourseSimulation
   public outputEndTime!: number;
 
   @ApiProperty({ type: Number })
-  @IsNumber()
+  @Min(0)
+  @IsInt()  
   public numberOfSteps!: number;
 
   @ApiProperty({ type: SedAlgorithm })
+  @ValidateNested()
   @Type(() => SedAlgorithm)
   public algorithm!: SedAlgorithm;
 }
@@ -234,6 +240,7 @@ export class SedSteadyStateSimulation implements ISedSteadyStateSimulation {
   public name?: string;
 
   @ApiProperty({ type: SedAlgorithm })
+  @ValidateNested()
   @Type(() => SedAlgorithm)
   public algorithm!: SedAlgorithm;
 }
@@ -257,6 +264,7 @@ export class SedOneStepSimulation implements ISedOneStepSimulation {
   public step!: number;
 
   @ApiProperty({ type: SedAlgorithm })
+  @ValidateNested()
   @Type(() => SedAlgorithm)
   public algorithm!: SedAlgorithm;
 }
@@ -292,6 +300,7 @@ export class SedTask implements ISedTask {
   public name?: string;
 
   @ApiProperty({ type: SedModel })
+  @ValidateNested()
   @Type(() => SedModel)
   public model!: SedModel;
 
@@ -302,6 +311,7 @@ export class SedTask implements ISedTask {
       { $ref: getSchemaPath(SedOneStepSimulation) },
     ],
   })
+  @ValidateNested()
   @Type(() => Object, {
     discriminator: {
       property: '_type',
@@ -311,6 +321,7 @@ export class SedTask implements ISedTask {
         { value: SedUniformTimeCourseSimulation, name: 'SedUniformTimeCourseSimulation' },
       ],
     },
+    keepDiscriminatorProperty: true,
   })
   public simulation!: SedSimulation;
 }
@@ -352,10 +363,12 @@ export class SedVariable implements ISedVariable {
   public symbol?: string;
 
   @ApiProperty({ type: SedTarget, required: false, nullable: true })
+  @ValidateNested()
   @Type(() => SedTarget)
   public target?: SedTarget;
 
   @ApiProperty({ type: SedTask })
+  @ValidateNested()
   @Type(() => SedTask)
   public task!: SedTask;
 }
@@ -376,7 +389,7 @@ export class SedDataGenerator implements ISedDataGenerator {
 
   @ApiProperty({ type: [SedVariable] })
   @Type(() => SedVariable)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public variables!: SedVariable[];
 
   @ApiProperty({ type: String })
@@ -394,6 +407,7 @@ export class SedDataSet implements ISedDataSet {
   public id!: string;
 
   @ApiProperty({ type: SedDataGenerator })
+  @ValidateNested()
   @Type(() => SedDataGenerator)
   public dataGenerator!: SedDataGenerator;
 
@@ -423,7 +437,7 @@ export class SedReport implements ISedReport {
 
   @ApiProperty({ type: [SedDataSet] })
   @Type(() => SedDataSet)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public dataSets!: SedDataSet[];
 }
 
@@ -442,10 +456,12 @@ export class SedCurve implements ISedCurve {
   public name?: string;
 
   @ApiProperty({ type: SedDataGenerator })
+  @ValidateNested()
   @Type(() => SedDataGenerator)
   public xDataGenerator!: SedDataGenerator;
 
   @ApiProperty({ type: SedDataGenerator })
+  @ValidateNested()
   @Type(() => SedDataGenerator)
   public yDataGenerator!: SedDataGenerator;
 }
@@ -466,7 +482,7 @@ export class SedPlot2D implements ISedPlot2D {
 
   @ApiProperty({ type: [SedCurve] })
   @Type(() => SedCurve)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public curves!: SedCurve[];
 
   @ApiProperty({ type: String, enum: SedAxisScale })
@@ -493,14 +509,17 @@ export class SedSurface implements ISedSurface {
   public name?: string;
 
   @ApiProperty({ type: SedDataGenerator })
+  @ValidateNested()
   @Type(() => SedDataGenerator)
   public xDataGenerator!: SedDataGenerator;
 
   @ApiProperty({ type: SedDataGenerator })
+  @ValidateNested()
   @Type(() => SedDataGenerator)
   public yDataGenerator!: SedDataGenerator;
 
   @ApiProperty({ type: SedDataGenerator })
+  @ValidateNested()
   @Type(() => SedDataGenerator)
   public zDataGenerator!: SedDataGenerator;
 }
@@ -521,7 +540,7 @@ export class SedPlot3D implements ISedPlot3D {
 
   @ApiProperty({ type: [SedSurface] })
   @Type(() => SedSurface)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public surfaces!: SedSurface[];
 
   @ApiProperty({ type: String, enum: SedAxisScale })
@@ -564,7 +583,7 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
 
   @ApiProperty({ type: [SedModel] })
   @Type(() => SedModel)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public models!: SedModel[];
 
   @ApiProperty({
@@ -586,13 +605,14 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
         { value: SedUniformTimeCourseSimulation, name: 'SedUniformTimeCourseSimulation' },
       ],
     },
+    keepDiscriminatorProperty: true
   })
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public simulations!: SedSimulation[];
 
   @ApiProperty({ type: [SedDataGenerator] })
   @Type(() => SedDataGenerator)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public dataGenerators!: SedDataGenerator[];
 
   @ApiProperty({
@@ -614,13 +634,14 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
         { value: SedPlot3D, name: 'SedPlot3D' },
       ],
     },
+    keepDiscriminatorProperty: true
   })
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public outputs!: SedOutput[];
 
   @ApiProperty({ type: [SedTask] })
   @Type(() => SedTask)
-  @ValidateNested()
+  @ValidateNested({ each: true })
   public tasks!: SedTask[];
 
   @ApiResponseProperty({
@@ -636,4 +657,14 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
     // description: 'Timestamp when the specifications were last updated',
   })
   public updated!: string;
+}
+
+export class SimulationRunSedDocumentsContainer {
+  @ApiProperty({
+    description: "SED documents",
+    type: [SimulationRunSedDocument],
+  })
+  @ValidateNested({ each: true })
+  @Type(() => SimulationRunSedDocument)
+  sedDocuments!: SimulationRunSedDocument[]
 }

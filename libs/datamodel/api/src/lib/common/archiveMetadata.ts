@@ -114,6 +114,7 @@ export class ArchiveMetadata implements IArchiveMetadataType {
   contributors: LabeledIdentifier[] = [];
 
   @ApiPropertyOptional(LICENCE)
+  @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => LabeledIdentifier)
   license?: LabeledIdentifier[];

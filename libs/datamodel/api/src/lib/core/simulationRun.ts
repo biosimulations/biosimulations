@@ -412,7 +412,7 @@ export class PatchSimulationRun {
     example: 11234,
   })
   @IsOptional()
-  @IsPositive()
+  @Min(0)
   @IsInt()
   resultsSize?: number;
 

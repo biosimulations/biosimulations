@@ -119,7 +119,7 @@ export class Simulator implements ISimulator {
   references!: ExternalReferences;
 
   @IsOptional()
-  @ValidateNested({ each: true })
+  @ValidateNested()
   @Type(() => SpdxOntologyId)
   @ApiPropertyOptional({
     type: SpdxOntologyId,

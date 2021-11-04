@@ -121,8 +121,8 @@ export class SubmitProjectFile extends OmitType(ProjectFile, [
   'updated',
 ]) {}
 
-export class SubmitProjectFileInput {
-  @ValidateNested()
+export class SubmitProjectFilesContainer {
+  @ValidateNested({ each: true })
   @Type(() => SubmitProjectFile)
   files!: SubmitProjectFile[];
 }
