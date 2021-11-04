@@ -247,6 +247,14 @@ export class Endpoints {
   }
 
   /**
+   * Create a URL for the route of the COMBINE API
+   * @returns A URL for extracting the inputs and outputs of models
+   */
+  public getCombineApiEndpoint(): string {
+    return this.combineApi;
+  }
+
+  /**
    * Create a URL for extracting the inputs and outputs of models
    * @returns A URL for extracting the inputs and outputs of models
    */
