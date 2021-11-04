@@ -9,6 +9,12 @@ import {
   ArchiveMetadata,
   ArchiveMetadataContainer,
 } from '../common/archiveMetadata';
+import {
+  IsString,
+  IsMongoId,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 @ApiExtraModels(ArchiveMetadata)
 export class SimulationRunMetadata {
@@ -17,6 +23,7 @@ export class SimulationRunMetadata {
     description: 'Id of the metadata',
     example: '609aeb11d70ea3752d097015',
   })
+  @IsMongoId()
   public id!: string;
 
   @ApiProperty({
@@ -24,6 +31,8 @@ export class SimulationRunMetadata {
       'Metadata about the COMBINE/OMEX archive of the simulation run or files in the archive',
     type: [ArchiveMetadata],
   })
+  @ValidateNested()
+  @Type(() => ArchiveMetadata)
   public metadata!: ArchiveMetadata[];
 
   @ApiResponseProperty({
@@ -31,6 +40,7 @@ export class SimulationRunMetadata {
     format: 'date-time',
     // description: 'Timestamp when the metadata was created',
   })
+  @IsString()
   public created: string;
 
   @ApiResponseProperty({
@@ -38,6 +48,7 @@ export class SimulationRunMetadata {
     format: 'date-time',
     // description: 'Timestamp when the metadata was last updated',
   })
+  @IsString()
   public modified: string;
 
   public constructor(

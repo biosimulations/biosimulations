@@ -1,11 +1,13 @@
 import { ApiProperty, ApiResponseProperty, OmitType } from '@nestjs/swagger';
 import { File as IFile } from '@biosimulations/datamodel/common';
+import { IsString, IsPositive, IsInt, IsBoolean, IsUrl } from 'class-validator';
 
 export class ProjectFile implements IFile {
   @ApiProperty({
     type: String,
     description: 'Id of the file',
   })
+  @IsString()
   public id: string;
 
   @ApiProperty({
@@ -13,6 +15,7 @@ export class ProjectFile implements IFile {
     type: String,
     example: 'file.txt',
   })
+  @IsString()
   public name: string;
 
   @ApiProperty({
@@ -20,6 +23,7 @@ export class ProjectFile implements IFile {
     type: String,
     example: '609aeb11d70ea3752d097015',
   })
+  @IsString()
   public simulationRun: string;
 
   @ApiProperty({
@@ -27,6 +31,8 @@ export class ProjectFile implements IFile {
     type: Number,
     example: 1024,
   })
+  @IsPositive()
+  @IsInt()
   public size: number;
 
   @ApiProperty({
@@ -34,17 +40,23 @@ export class ProjectFile implements IFile {
     type: String,
     example: 'http://identifiers.org/combine.specifications/sed-ml',
   })
+  @IsString()
   public format: string;
 
   @ApiProperty({
     description: 'Whether the file is a primary file for the project',
     type: Boolean,
   })
+  @IsBoolean()
   public master: boolean;
 
   @ApiProperty({
     type: String,
     description: 'URL where the file can be retrieved',
+  })
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https'],
   })
   public url: string;
 
@@ -53,6 +65,7 @@ export class ProjectFile implements IFile {
     example: 'simulation-1.sedml',
     type: String,
   })
+  @IsString()
   public location: string;
 
   @ApiResponseProperty({

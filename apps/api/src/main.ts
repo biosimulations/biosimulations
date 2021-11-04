@@ -44,7 +44,7 @@ async function bootstrap(): Promise<void> {
       'https://run.biosimulations.org',
       'https://biosimulators.org',
       'https://biosimulators.dev',
-      'https://bio.libretexts.org', // Libre text collaboration
+      'https://bio.libretexts.org', // Libre text
       'https://vega.github.io', // Vega editor
       'http://idl.cs.washington.edu', // Lyra Vega visual editor
     ];
@@ -66,6 +66,12 @@ async function bootstrap(): Promise<void> {
       transform: true,
       transformOptions: {
         enableImplicitConversion: true,
+      },
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      forbidUnknownValues: true,
+      validationError: {
+        target: false,
       },
     }),
   );

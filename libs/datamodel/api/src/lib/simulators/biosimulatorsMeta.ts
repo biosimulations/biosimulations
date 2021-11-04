@@ -159,6 +159,4 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
     //  'When the version of the simulator catalogued in the BioSimulators registry was last updated',
   })
   public updated!: Date;
-
-  public meta: any;
 }

@@ -4,12 +4,17 @@ import {
   DescribedIdentifier as IDescribedIdentifier,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsString, IsOptional } from 'class-validator';
 
 export class LabeledIdentifier implements ILabeledIdentifier {
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
+  @IsOptional()
+  @IsString()
   uri!: string | null;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
+  @IsOptional()
+  @IsString()
   label!: string | null;
 }
 
@@ -18,9 +23,13 @@ export class DescribedIdentifier
   implements IDescribedIdentifier
 {
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
+  @IsOptional()
+  @IsString()
   uri!: string | null;
 
   @ApiProperty({ type: String, nullable: true, required: false, default: null })
+  @IsOptional()
+  @IsString()
   label!: string | null;
 
   @ApiPropertyOptional({
@@ -29,6 +38,8 @@ export class DescribedIdentifier
     required: false,
     default: null,
   })
+  @IsOptional()
+  @IsString()
   attribute_uri!: string | null;
 
   @ApiPropertyOptional({
@@ -37,6 +48,8 @@ export class DescribedIdentifier
     required: false,
     default: null,
   })
+  @IsOptional()
+  @IsString()
   attribute_label!: string | null;
 }
 

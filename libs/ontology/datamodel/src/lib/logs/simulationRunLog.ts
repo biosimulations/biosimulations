@@ -27,6 +27,8 @@ import {
   IsMongoId,
   ValidateNested,
   IsOptional,
+  Allow,
+  Equals,
 } from 'class-validator';
 import { IsOntologyTerm } from '@biosimulations/ontology/utils';
 import { Type, Transform } from 'class-transformer';
@@ -56,7 +58,9 @@ export class SedOutputElementLog implements ISedOutputElementLog {
 }
 
 export class SedOutputLog implements ISedOutputLog {
-  // _type!: string;
+  @IsNotEmpty()
+  @IsString()
+  _type!: string;
 
   @ApiProperty({ type: String })
   @NotContains('/')
@@ -98,6 +102,9 @@ export class SedOutputLog implements ISedOutputLog {
 }
 
 export class SedReportLog extends SedOutputLog implements ISedReportLog {
+  @Equals('SedReportLog')
+  _type!: string;
+
   @ApiProperty({ type: [SedOutputElementLog], nullable: true })
   @IsOptional()
   @ValidateNested({ each: true })
@@ -106,6 +113,9 @@ export class SedReportLog extends SedOutputLog implements ISedReportLog {
 }
 
 export class SedPlot2DLog extends SedOutputLog implements ISedPlot2DLog {
+  @Equals('SedPlot2DLog')
+  _type!: string;
+
   @ApiProperty({ type: [SedOutputElementLog], nullable: true })
   @IsOptional()
   @ValidateNested({ each: true })
@@ -114,6 +124,9 @@ export class SedPlot2DLog extends SedOutputLog implements ISedPlot2DLog {
 }
 
 export class SedPlot3DLog extends SedOutputLog implements ISedPlot3DLog {
+  @Equals('SedPlot3DLog')
+  _type!: string;
+
   @ApiProperty({ type: [SedOutputElementLog], nullable: true })
   @IsOptional()
   @ValidateNested({ each: true })
@@ -128,6 +141,7 @@ export class SimulatorDetail implements ISimulatorDetail {
   key!: string;
 
   @ApiProperty({ type: Object, example: { relTol: 1e-6, absTol: 1e-8 } })
+  @Allow()
   value!: any;
 }
 
@@ -247,20 +261,6 @@ export class SedDocumentLog implements ISedDocumentLog {
     nullable: true,
   })
   @IsOptional()
-  @Transform(({ value }) => {
-    value?.forEach((v: any): void => {
-      if (typeof v === 'object' && 'dataSets' in v) {
-        v._type = 'SedReportLog';
-      }
-      if (typeof v === 'object' && 'curves' in v) {
-        v._type = 'SedPlot2DLog';
-      }
-      if (typeof v === 'object' && 'surfaces' in v) {
-        v._type = 'SedPlot3DLog';
-      }
-    });
-    return value;
-  })
   @ValidateNested({ each: true })
   @Type(() => SedOutputLog, {
     discriminator: {
@@ -271,6 +271,52 @@ export class SedDocumentLog implements ISedDocumentLog {
         { value: SedPlot3DLog, name: 'SedPlot3DLog' },
       ],
     },
+  })
+  @Transform(({ value }) => {
+    return value?.map((v: any): any => {
+      if (typeof v === 'object') {
+        let v2!: any;
+        let elementsKey!: string;
+        if ('dataSets' in v) {
+          v2 = new SedReportLog();          
+          v2._type = 'SedReportLog';
+          elementsKey = 'dataSets'; 
+        } else if ('curves' in v) {
+          v2 = new SedPlot2DLog();
+          v._type = 'SedPlot2DLog';
+          elementsKey = 'curves'; 
+        } else if ('surfaces' in v) {
+          v2 = new SedPlot3DLog();
+          v._type = 'SedPlot3DLog';
+          elementsKey = 'surfaces';
+        } else {
+          return v;
+        }
+
+        Object.entries(v).forEach((keyVal: [string, any]): void => {
+          v2[keyVal[0]] = keyVal[1];
+        });
+
+        const elements = v2[elementsKey];
+        if (Array.isArray(elements)) {
+          v2[elementsKey] = elements.map((dataSet: any): any => {
+            if (typeof dataSet === 'object') {
+              const dataSet2: any = new SedOutputElementLog();
+              Object.entries(dataSet).forEach((keyVal: [string, any]): void => {
+                dataSet2[keyVal[0]] = keyVal[1];
+              });
+              return dataSet2
+
+            } else {
+              return dataSet;
+            }
+          });
+        }
+        
+        return v2
+      }
+      return v;
+    });
   })
   outputs: (SedReportLog | SedPlot2DLog | SedPlot3DLog)[] | null = null;
 }
