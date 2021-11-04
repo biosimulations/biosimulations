@@ -1,3 +1,46 @@
+# [6.0.0](https://github.com/biosimulations/biosimulations/compare/v5.9.0...v6.0.0) (2021-11-04)
+
+
+### Bug Fixes
+
+* **api:** build fix for new axios types ([e7ea984](https://github.com/biosimulations/biosimulations/commit/e7ea9849f72eefb1a051c316601e9463c3f74b1b))
+* **dispatch-service:** add a temporary check for mistructured logs ([a67bfa1](https://github.com/biosimulations/biosimulations/commit/a67bfa1347b827cc2162080b0167412e33afa12f)), closes [#3482](https://github.com/biosimulations/biosimulations/issues/3482) [#3482](https://github.com/biosimulations/biosimulations/issues/3482)
+* **dispatch-service:** remove ssl skip when downloading archive ([b4bd2c0](https://github.com/biosimulations/biosimulations/commit/b4bd2c0553bfa253002efb4063f3be30b321c15c)), closes [#3092](https://github.com/biosimulations/biosimulations/issues/3092)
+* **dispatch,api,dispatch-service:** fixed data model for exceptions in simulation run logs ([191f1d3](https://github.com/biosimulations/biosimulations/commit/191f1d36ffc8824eb900b4571b937f0c9191b258))
+* fix imports ([a076005](https://github.com/biosimulations/biosimulations/commit/a076005a50f89fa1f5cc76d66ededc44d72633ae))
+* **simulators:** fixed text overflow of simulator test results ([7a8b11a](https://github.com/biosimulations/biosimulations/commit/7a8b11a85fd8a5975e39763cfb9247801ac8f5d6))
+
+
+### Code Refactoring
+
+* **api:** cleaned up simulation run files ([0213fb5](https://github.com/biosimulations/biosimulations/commit/0213fb508b66665b98c64c713ab146505695e2b9))
+
+
+### Features
+
+* added endpoints for getting summaries of projects ([2e9a54e](https://github.com/biosimulations/biosimulations/commit/2e9a54ebba20f9883bbf2c3dd6297db906da1285))
+* **api:** added database model and validation for logs ([6a3a344](https://github.com/biosimulations/biosimulations/commit/6a3a344aa14fbd4952758f676160a9ba472b071e))
+* **api:** added endpoints for getting individual SED elements; closes [#3439](https://github.com/biosimulations/biosimulations/issues/3439) ([8aa64fc](https://github.com/biosimulations/biosimulations/commit/8aa64fc205494d27c4f444c9d669031dd3ab49cc))
+* **combine-api:** add dynamic module for combine api-client ([e7c2448](https://github.com/biosimulations/biosimulations/commit/e7c24486db6f7bf5b4cbc2b9e9c2c6a67a34bc1b)), closes [#3180](https://github.com/biosimulations/biosimulations/issues/3180)
+* **datamodel:** add validation for image digests ([6106e54](https://github.com/biosimulations/biosimulations/commit/6106e54f5d54792b24fc5994a7ac1a42bed0c790))
+* **dispatch-service:** enhanced tracking of processing results ([b4f01e3](https://github.com/biosimulations/biosimulations/commit/b4f01e3f4428b64ddb8aa3671fe738ff024515cc))
+* **dispatch:** updated publication form, finished switching to Endpoints ([a5bef72](https://github.com/biosimulations/biosimulations/commit/a5bef7248174dec74154087b92bcc6005fa87726))
+* **exceptions:** improve error handling ([4a3e8c7](https://github.com/biosimulations/biosimulations/commit/4a3e8c78dcb35756172da30ef803d2954f264bc6))
+* **hsds:** handle transient hsds query failures ([f4a19f5](https://github.com/biosimulations/biosimulations/commit/f4a19f531c80ec50d324dec009132450dd74edb2)), closes [#3413](https://github.com/biosimulations/biosimulations/issues/3413)
+* **ontology:** added parent/child relationships to ontology terms ([4107f1d](https://github.com/biosimulations/biosimulations/commit/4107f1d3d1f17a7509262caae998fd0222ebf0c3))
+* **simulators-api:** add validation for api models ([ce2c5bb](https://github.com/biosimulations/biosimulations/commit/ce2c5bb0616600289e94dc16a7dcc17cfcb27dc4))
+* **simulators,dispatch,platform:** added status bar to bottom of apps; closes [#3210](https://github.com/biosimulations/biosimulations/issues/3210) ([3630c23](https://github.com/biosimulations/biosimulations/commit/3630c23ef11325b4bb47012e4ca58ec7fefb6b7c))
+
+
+### Reverts
+
+* **dispatch-service:** revert using new config service to provide basepath ([e479d2e](https://github.com/biosimulations/biosimulations/commit/e479d2e531383e55ed64823b98b41d7be9130f7f))
+
+
+### BREAKING CHANGES
+
+* **api:** moves simulation run file information from 'Simulation Files' collection
+
 # [5.9.0](https://github.com/biosimulations/biosimulations/compare/v5.8.0...v5.9.0) (2021-10-24)
 
 
