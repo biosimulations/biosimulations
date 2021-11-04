@@ -23,15 +23,16 @@ import { MonitorProcessor } from './submission/monitor.processor';
 import { SimulationStatusService } from './services/simulationStatus.service';
 
 import {
-  ApiModule as CombineApiModule,
-  Configuration as combineConfig,
-} from '@biosimulations/combine-api-client';
+  CombineNestClientModule,
+  CombineAPIConfiguration,
+} from '@biosimulations/combine-nest-client';
 import { JobQueue } from '@biosimulations/messages/messages';
 import { MetadataService } from '../metadata/metadata.service';
 import { CombineWrapperService } from '../combineWrapper.service';
 import { FileService } from '../file/file.service';
 import { SedmlService } from '../sedml/sedml.service';
 import { ProjectService } from '@biosimulations/api-nest-client';
+import { Endpoints } from '@biosimulations/config/common';
 
 @Module({
   imports: [
@@ -41,7 +42,18 @@ import { ProjectService } from '@biosimulations/api-nest-client';
     AuthClientModule,
     SharedNatsClientModule,
     DispatchNestClientModule,
-    CombineApiModule.forRoot(() => new combineConfig({})),
+    CombineNestClientModule.forRootAsync({
+      imports: [BiosimulationsConfigModule],
+      useFactory: (configService: ConfigService) => {
+        const env = configService.get('server.env');
+        const endpoints = new Endpoints(env);
+        const combineBaseURl = endpoints.getCombineApiEndpoint();
+        return new CombineAPIConfiguration({
+          basePath: combineBaseURl,
+        });
+      },
+      inject: [ConfigService],
+    }),
     ScheduleModule.forRoot(),
     BullModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
