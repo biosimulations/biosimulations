@@ -83,9 +83,9 @@ export class MetadataController {
   @permissions(scopes.metadata.update.id)
   public async modifyMetadata(
     @Param('runId') runId: string,
-    @Body() body: ArchiveMetadata[],
+    @Body() body: SimulationRunMetadataInput,
   ): Promise<SimulationRunMetadata> {
-    const metadata = await this.service.modifyMetadata(runId, body);
+    const metadata = await this.service.modifyMetadata(runId, body.metadata);
     const data = metadata.metadata;
     return new SimulationRunMetadata(
       metadata.simulationRun,
@@ -96,7 +96,7 @@ export class MetadataController {
   }
 
   @ApiOperation({
-    summary: 'Create Metadata for SimulationRun',
+    summary: 'Create metadata for a simulation run',
     description:
       'Upload metadata about the simulation project of a simulation run',
   })

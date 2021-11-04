@@ -80,10 +80,12 @@ export class MetadataService {
       );
     }
 
-    metadataObj.overwrite({
+    const doc = {
       simulationRun: runId,
       metadata: metadata.map(this.transformMetadata.bind(this, runId)),
-    });
+      created: metadataObj.created,
+    };
+    metadataObj.overwrite(doc);
 
     return metadataObj.save();
   }

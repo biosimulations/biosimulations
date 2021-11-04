@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import { ArchiveMetadata as IArchiveMetadata } from '@biosimulations/datamodel/common';
-import { IsString, IsOptional, ValidateNested } from 'class-validator';
+import { IsString, IsOptional, ValidateNested, IsArray, IsNotEmpty } from 'class-validator';
 import { Type } from 'class-transformer';
 
 import {
@@ -35,7 +35,7 @@ type IArchiveMetadataType = Omit<IArchiveMetadata, 'created' | 'modified'> & {
 export class ArchiveMetadata implements IArchiveMetadataType {
   @ApiProperty({ type: 'string' })
   @IsString()
-  uri!: string; // Should this be in the API>
+  uri!: string; // Should this be in the API
 
   @ApiPropertyOptional(TITLE)
   @IsOptional()
@@ -53,8 +53,9 @@ export class ArchiveMetadata implements IArchiveMetadataType {
   keywords: LabeledIdentifier[] = [];
 
   @ApiProperty({ type: [String] })
-  @ValidateNested({ each: true })
-  @Type(() => String)
+  @IsNotEmpty({ each: true })
+  @IsString({ each: true })
+  @IsArray()
   thumbnails: string[] = [];
 
   @ApiPropertyOptional(DESCRIPTION)
@@ -123,12 +124,14 @@ export class ArchiveMetadata implements IArchiveMetadataType {
   funders: LabeledIdentifier[] = [];
 
   @ApiProperty(CREATED)
+  @IsOptional()
   @IsString()
   created!: string;
 
   @ApiProperty(MODIFIED)
-  @ValidateNested({ each: true })
-  @Type(() => String)
+  @IsNotEmpty({ each: true })
+  @IsString({ each: true })
+  @IsArray()
   modified: string[] = [];
 
   @ApiProperty({ type: [DescribedIdentifier] })
