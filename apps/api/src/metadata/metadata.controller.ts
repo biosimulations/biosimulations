@@ -25,7 +25,6 @@ import {
 import {
   SimulationRunMetadata,
   SimulationRunMetadataInput,
-  ArchiveMetadata,
 } from '@biosimulations/datamodel/api';
 import { MetadataService } from './metadata.service';
 import { SimulationRunMetadataModel } from './metadata.model';

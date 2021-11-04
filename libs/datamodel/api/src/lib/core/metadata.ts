@@ -10,7 +10,6 @@ import {
   ArchiveMetadataContainer,
 } from '../common/archiveMetadata';
 import {
-  IsString,
   IsMongoId,
   ValidateNested,
 } from 'class-validator';
