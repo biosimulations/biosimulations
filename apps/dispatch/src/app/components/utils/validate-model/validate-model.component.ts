@@ -78,7 +78,7 @@ export class ValidateModelComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        modelFile: ['', [Validators.required, this.maxFileSizeValidator]],
+        modelFile: ['', [Validators.required, this.maxFileSizeValidator.bind(this)]],
         modelUrl: ['', [this.urlValidator]],
         modelLanguage: [null],
       },

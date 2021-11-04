@@ -139,7 +139,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        projectFile: ['', [Validators.required, this.maxFileSizeValidator]],
+        projectFile: ['', [Validators.required, this.maxFileSizeValidator.bind(this)]],
         projectUrl: ['', [Validators.required]],
         modelFormats: [[]],
         simulationAlgorithms: [[]],
@@ -230,7 +230,10 @@ export class DispatchComponent implements OnInit, OnDestroy {
   }
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
-    if (control.value && control.value.size > 1e9) {
+    if (
+      control.value 
+      && control.value.size > this.config.appConfig.maxUploadFileSize
+    ) {
       return {
         maxSize: true,
       };

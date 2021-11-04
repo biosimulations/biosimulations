@@ -12,7 +12,7 @@
     "biosimulationsMetadata": {
       "acronym": "BNGL",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/text/bngl+plain"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:bngl",
         "validationAvailable": true,
         "introspectionAvailable": true
@@ -33,7 +33,7 @@
     "biosimulationsMetadata": {
       "omexManifestUris": ["http://identifiers.org/combine.specifications/cellml"],
       "icon": "model",
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:cellml",
         "validationAvailable": true,
         "introspectionAvailable": true
@@ -55,7 +55,7 @@
     "biosimulationsMetadata": {
       "acronym": "CopasiML",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/x-copasi"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:copasiml",
         "validationAvailable": false,
         "introspectionAvailable": false
@@ -75,7 +75,7 @@
     "biosimulationsMetadata": {
       "acronym": "GINML",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/ginml+xml"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:ginml",
         "validationAvailable": false,
         "introspectionAvailable": false
@@ -94,7 +94,7 @@
     "biosimulationsMetadata": {
       "acronym": "HOC",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-hoc"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:hoc",
         "validationAvailable": false,
         "introspectionAvailable": false
@@ -112,7 +112,7 @@
     "parents": ["format_2013", "format_2330"],
     "biosimulationsMetadata": {
       "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-kappa"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:kappa",
         "validationAvailable": false,
         "introspectionAvailable": false
@@ -135,7 +135,7 @@
     "biosimulationsMetadata": {
       "acronym": "LEMS",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/lems+xml"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:lems",
         "validationAvailable": true,
         "introspectionAvailable": false
@@ -154,7 +154,7 @@
     "biosimulationsMetadata": {
       "acronym": "MASS",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/mass+json"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:mass",
         "validationAvailable": false,
         "introspectionAvailable": false
@@ -173,7 +173,7 @@
     "biosimulationsMetadata": {
       "acronym": "MorpheusML",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/morpheusml+xml"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:morpheusml",
         "validationAvailable": false,
         "introspectionAvailable": false
@@ -189,7 +189,7 @@
     "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3971",
     "biosimulationsMetadata": {
       "omexManifestUris": ["http://identifiers.org/combine.specifications/neuroml"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:neuroml",
         "validationAvailable": true,
         "introspectionAvailable": false
@@ -208,7 +208,7 @@
     "biosimulationsMetadata": {
       "acronym": "pharmML",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/pharmml+xml"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:pharmml",
         "validationAvailable": false,
         "introspectionAvailable": false
@@ -227,7 +227,7 @@
     "biosimulationsMetadata": {
       "acronym": "RBA XML",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/rba+zip"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:rba",
         "validationAvailable": true,
         "introspectionAvailable": true
@@ -248,7 +248,7 @@
     "biosimulationsMetadata": {
       "acronym": "SBML",
       "omexManifestUris": ["http://identifiers.org/combine.specifications/sbml"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:sbml",
         "validationAvailable": true,
         "introspectionAvailable": true
@@ -272,7 +272,7 @@
     "biosimulationsMetadata": {
       "acronym": "Smoldyn",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/text/smoldyn+plain"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:smoldyn",
         "validationAvailable": true,
         "introspectionAvailable": true
@@ -291,7 +291,7 @@
     "biosimulationsMetadata": {
       "acronym": "VCML",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/vcml+xml"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:vcml",
         "validationAvailable": false,
         "introspectionAvailable": false
@@ -314,7 +314,7 @@
     "parents": ["format_2013", "format_2330"],
     "biosimulationsMetadata": {
       "omexManifestUris": ["http://purl.org/NET/mediatypes/text/x-xpp"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:xpp",
         "validationAvailable": true,
         "introspectionAvailable": true
@@ -337,7 +337,7 @@
     "biosimulationsMetadata": {
       "acronym": "ZGINML",
       "omexManifestUris": ["http://purl.org/NET/mediatypes/application/zginml+zip"],
-      "modelFormat": {
+      "modelFormatMetadata": {
         "sedUrn": "urn:sedml:language:zginml",
         "validationAvailable": false,
         "introspectionAvailable": false
@@ -365,7 +365,7 @@
     "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686",
     "biosimulationsMetadata": {
       "acronym": "OMEX",
-      "modelFormat": null,
+      "modelFormatMetadata": null,
       "omexManifestUris": ["http://identifiers.org/combine.specifications/omex"],
       "icon": "archive"
     }
@@ -379,7 +379,7 @@
       "application/json"
     ],
     "fileExtensions": ["vg.json", "vg", "json"],
-    "modelFormat": null,
+    "modelFormatMetadata": null,
     "moreInfoUrl": "https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3969",
     "biosimulationsMetadata": {
       "omexManifestUris": [
