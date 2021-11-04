@@ -10,10 +10,6 @@ import {
   SimulationRunModel,
   SimulationRunModelSchema,
 } from '../simulation-run/simulation-run.model';
-import {
-  SimulationFile,
-  SimulationFileSchema,
-} from '../simulation-run/file.model';
 import { HttpModule } from '@nestjs/axios';
 import { SharedNatsClientModule } from '@biosimulations/shared/nats-client';
 
@@ -48,10 +44,6 @@ import { OntologiesService } from '@biosimulations/ontology/ontologies';
     MongooseModule.forFeature([
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
       { name: ProjectModel.name, schema: ProjectModelSchema },
-      {
-        name: SimulationFile.name,
-        schema: SimulationFileSchema,
-      },
       {
         name: SimulationRunMetadataModel.name,
         schema: SimulationRunMetadataSchema,

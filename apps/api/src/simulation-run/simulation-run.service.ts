@@ -18,12 +18,12 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { SimulationFile } from './file.model';
 import { Model, mongo } from 'mongoose';
 import {
   SimulationRunModel,
   SimulationRunModelReturnType,
   SimulationRunModelType,
+  SimulationProjectFile,
 } from './simulation-run.model';
 import { ProjectModel } from '../projects/project.model';
 import {
@@ -115,7 +115,6 @@ export class SimulationRunService {
   private logger = new Logger(SimulationRunService.name);
 
   public constructor(
-    @InjectModel(SimulationFile.name) private fileModel: Model<SimulationFile>,
     @InjectModel(SimulationRunModel.name)
     private simulationRunModel: Model<SimulationRunModel>,
     @InjectModel(ProjectModel.name)
@@ -162,54 +161,27 @@ export class SimulationRunService {
    *
    */
   public async download(id: string): Promise<{
-    size?: number;
-    originalname?: string;
-    mimetype?: string;
-    encoding?: string;
-    url?: string;
+    size: number;
+    mimeType?: string;
+    url: string;
   }> {
     // Find the simulation with the id
     const run = await this.simulationRunModel
-      .findOne({ id }, { file: 1 })
+      .findOne({ id }, { projectSize: 1, projectFile: 1 })
       .exec();
 
-    //Get the id of the file
-    const fileId = run?.file as unknown as string;
-
-    if (fileId) {
-      // Get the file object from the db
-      const SimFile = await this.fileModel
-        .findOne(
-          { _id: fileId },
-          {
-            size: 1,
-            mimetype: 1,
-            buffer: 1,
-            originalname: 1,
-            encoding: 1,
-            url: 1,
-          },
-        )
-        .exec();
-      if (SimFile) {
-        // Return the file and metadata
-        return {
-          size: SimFile.size,
-          mimetype: SimFile.mimetype,
-          encoding: SimFile.encoding,
-          originalname: SimFile.originalname,
-          url: SimFile.url,
-        };
-      } else {
-        // The simulator gave a file id, but not found
-        throw new NotFoundException('File not found.');
-      }
-    } else {
-      // The simulator did not give a file id
+    if (!run) {
       throw new NotFoundException(
         `Simulation run with id '${id}' could not be found.`,
-      );
+      );    
     }
+
+    // Return the file and metadata
+    return {
+      size: run.projectSize,
+      mimeType: run.projectFile.mimeType,
+      url: run.projectFile.url,
+    };
   }
 
   public async deleteAll(): Promise<void> {
@@ -310,17 +282,14 @@ export class SimulationRunService {
       await this.simulationStorageService.extractSimulationArchive(s3file.Key);
       const url = encodeURI(s3file.Location);
 
-      const fileParsed = {
-        originalname: file.originalname,
-        encoding: file.encoding,
-        mimetype: file.mimetype,
+      const simulationProjectFile = {
+        originalName: file.originalname,
+        uploadTransferEncoding: file.encoding,
+        mimeType: file.mimetype,
         url: url,
-        size: file.size,
       };
 
-      const newFile = new this.fileModel(fileParsed);
-
-      return this.createRun(run, newFile, id);
+      return this.createRun(run, file.size, simulationProjectFile, id);
     } catch (err) {
       const message = err?.message || 'Error Uploading File';
       throw new BiosimulationsException(
@@ -344,8 +313,8 @@ export class SimulationRunService {
     //! This does not address the security issues of downloading user provided urls.
     //! The content size may not be present or accurate. The backend must check the size. See #2536
     let size = 0;
-    let mimetype;
-    let originalname;
+    let mimeType;
+    let originalName;
     let encoding;
 
     this.logger.debug(`Downloading file from ${url}.`);
@@ -363,8 +332,8 @@ export class SimulationRunService {
         size = 0;
         this.logger.warn(err);
       }
-      mimetype = file_headers['content-type'];
-      originalname = file_headers['content-disposition']?.split('filename=')[1];
+      mimeType = file_headers['content-type'];
+      originalName = file_headers['content-disposition']?.split('filename=')[1];
       encoding = file_headers['content-transfer-encoding'];
       if (size && size > ONE_GIGABYTE) {
         throw new PayloadTooLargeException(
@@ -375,13 +344,13 @@ export class SimulationRunService {
       }
       const fileObj: Express.Multer.File = {
         buffer: file.data,
-        originalname,
-        mimetype,
+        originalname: originalName,
+        mimetype: mimeType,
         size,
         encoding,
         // Fields below are just to satisfy the interface and are not used
         fieldname: 'file',
-        filename: originalname,
+        filename: originalName,
         stream: Readable.from(file.data),
         destination: '',
         path: '',
@@ -400,7 +369,8 @@ export class SimulationRunService {
    */
   private async createRun(
     run: UploadSimulationRun,
-    file: SimulationFile,
+    projectSize: number,
+    projectFile: SimulationProjectFile,
     id: string,
   ): Promise<SimulationRunModelReturnType> {
     const newSimulationRun = new this.simulationRunModel(run);
@@ -427,13 +397,10 @@ export class SimulationRunService {
     // We dont need to worry about any error handling since any thrown errors will be caught by the app level error handlers
     await session.withTransaction(async (session) => {
       newSimulationRun.$session(session);
-      file.$session(session);
       newSimulationRun._id = new mongo.ObjectID(id);
       newSimulationRun.id = String(newSimulationRun._id);
-      newSimulationRun.file = file;
-      newSimulationRun.projectSize = file.size;
-      newSimulationRun.depopulate('file');
-      await file.save({ session: session });
+      newSimulationRun.projectFile = projectFile;
+      newSimulationRun.projectSize = projectSize;
       await newSimulationRun.save({ session: session });
     });
     session.endSession();
