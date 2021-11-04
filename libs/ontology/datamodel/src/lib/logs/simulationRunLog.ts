@@ -278,13 +278,13 @@ export class SedDocumentLog implements ISedDocumentLog {
         let v2!: any;
         let elementsKey!: string;
         if ('dataSets' in v) {
-          v2 = new SedReportLog();          
+          v2 = new SedReportLog();
           v2._type = 'SedReportLog';
-          elementsKey = 'dataSets'; 
+          elementsKey = 'dataSets';
         } else if ('curves' in v) {
           v2 = new SedPlot2DLog();
           v._type = 'SedPlot2DLog';
-          elementsKey = 'curves'; 
+          elementsKey = 'curves';
         } else if ('surfaces' in v) {
           v2 = new SedPlot3DLog();
           v._type = 'SedPlot3DLog';
