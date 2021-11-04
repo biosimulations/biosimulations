@@ -67,7 +67,7 @@ export class TestCaseResult implements ITestCaseResult {
 
   @ApiProperty({ type: TestCaseException, nullable: true, required: true })
   @IsOptional()
-  @ValidateNested()  
+  @ValidateNested()
   @Type(() => TestCaseException)
   public exception: TestCaseException | null = null;
 
@@ -98,7 +98,7 @@ export class ValidationTests implements IValidationTests {
   @Type(() => TestCaseResult)
   public results!: TestCaseResult[];
 
-  @ApiProperty({ 
+  @ApiProperty({
     type: Number,
     required: true,
     example: 1,
