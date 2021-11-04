@@ -64,7 +64,7 @@ export class TabPageComponent implements AfterViewInit, AfterViewChecked {
   /**
    * Runs after the view is initialized. We use this instead of the ngOnInit lifecycle hook because
    * we need to wait for the projected content to be initialized. The tabs will be undefined until the projected
-   * content initializes. Simmilar, processing the url hash fragment only makes sense once we have tabs present.
+   * content initializes. Similar, processing the url hash fragment only makes sense once we have tabs present.
    */
   public ngAfterViewInit(): void {
     this.processTabChanges();
