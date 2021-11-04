@@ -1,6 +1,15 @@
 import { ApiProperty, ApiResponseProperty, OmitType } from '@nestjs/swagger';
 import { File as IFile } from '@biosimulations/datamodel/common';
-import { IsString, IsPositive, IsInt, IsBoolean, IsUrl, IsMongoId, IsNotEmpty, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsPositive,
+  IsInt,
+  IsBoolean,
+  IsUrl,
+  IsMongoId,
+  IsNotEmpty,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class ProjectFile implements IFile {
@@ -58,7 +67,8 @@ export class ProjectFile implements IFile {
   @ApiProperty({
     type: String,
     description: 'URL where the file can be retrieved',
-    example: 'https://files.biosimulations.org/s3/simulations/aaaaaaaaaaaaaaaaaaaaaaaa/contents/model.xml',
+    example:
+      'https://files.biosimulations.org/s3/simulations/aaaaaaaaaaaaaaaaaaaaaaaa/contents/model.xml',
   })
   @IsUrl({
     require_protocol: true,

@@ -1,5 +1,9 @@
 import { permissions } from '@biosimulations/auth/nest';
-import { ProjectFile, SubmitProjectFile, SubmitProjectFilesContainer } from '@biosimulations/datamodel/api';
+import {
+  ProjectFile,
+  SubmitProjectFile,
+  SubmitProjectFilesContainer,
+} from '@biosimulations/datamodel/api';
 import {
   Controller,
   Post,
@@ -152,7 +156,9 @@ export class FilesController {
       'The metadata for the files for the simulation were successfully saved to the database',
     type: [SubmitProjectFile],
   })
-  public async createFiles(@Body() files: SubmitProjectFilesContainer): Promise<void> {
+  public async createFiles(
+    @Body() files: SubmitProjectFilesContainer,
+  ): Promise<void> {
     await this.service.createFiles(files.files);
   }
 

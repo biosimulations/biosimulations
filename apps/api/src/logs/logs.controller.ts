@@ -42,9 +42,7 @@ import {
   SedReportLog,
   CreateSimulationRunLogBody,
 } from '@biosimulations/ontology/datamodel';
-import {
-  CombineArchiveLog as ICombineArchiveLog,
-} from '@biosimulations/datamodel/common';
+import { CombineArchiveLog as ICombineArchiveLog } from '@biosimulations/datamodel/common';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { LogsService } from './logs.service';
 import { permissions } from '@biosimulations/auth/nest';

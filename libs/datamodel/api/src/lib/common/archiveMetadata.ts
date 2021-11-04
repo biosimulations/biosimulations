@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import { ArchiveMetadata as IArchiveMetadata } from '@biosimulations/datamodel/common';
-import { IsString, IsOptional, ValidateNested, IsArray, IsNotEmpty } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  ValidateNested,
+  IsArray,
+  IsNotEmpty,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 import {

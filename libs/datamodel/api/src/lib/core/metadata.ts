@@ -9,10 +9,7 @@ import {
   ArchiveMetadata,
   ArchiveMetadataContainer,
 } from '../common/archiveMetadata';
-import {
-  IsMongoId,
-  ValidateNested,
-} from 'class-validator';
+import { IsMongoId, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 @ApiExtraModels(ArchiveMetadata)

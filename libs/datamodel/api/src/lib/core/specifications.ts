@@ -141,7 +141,7 @@ export class SedModel implements ISedModel {
         { value: SedModelAttributeChange, name: 'SedModelAttributeChange' },
       ],
     },
-    keepDiscriminatorProperty: true
+    keepDiscriminatorProperty: true,
   })
   @ValidateNested({ each: true })
   public changes!: SedModelChange[];
@@ -318,7 +318,10 @@ export class SedTask implements ISedTask {
       subTypes: [
         { value: SedOneStepSimulation, name: 'SedOneStepSimulation' },
         { value: SedSteadyStateSimulation, name: 'SedSteadyStateSimulation' },
-        { value: SedUniformTimeCourseSimulation, name: 'SedUniformTimeCourseSimulation' },
+        {
+          value: SedUniformTimeCourseSimulation,
+          name: 'SedUniformTimeCourseSimulation',
+        },
       ],
     },
     keepDiscriminatorProperty: true,
@@ -602,10 +605,13 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
       subTypes: [
         { value: SedOneStepSimulation, name: 'SedOneStepSimulation' },
         { value: SedSteadyStateSimulation, name: 'SedSteadyStateSimulation' },
-        { value: SedUniformTimeCourseSimulation, name: 'SedUniformTimeCourseSimulation' },
+        {
+          value: SedUniformTimeCourseSimulation,
+          name: 'SedUniformTimeCourseSimulation',
+        },
       ],
     },
-    keepDiscriminatorProperty: true
+    keepDiscriminatorProperty: true,
   })
   @ValidateNested({ each: true })
   public simulations!: SedSimulation[];
@@ -634,7 +640,7 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
         { value: SedPlot3D, name: 'SedPlot3D' },
       ],
     },
-    keepDiscriminatorProperty: true
+    keepDiscriminatorProperty: true,
   })
   @ValidateNested({ each: true })
   public outputs!: SedOutput[];
@@ -661,10 +667,10 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
 
 export class SimulationRunSedDocumentsContainer {
   @ApiProperty({
-    description: "SED documents",
+    description: 'SED documents',
     type: [SimulationRunSedDocument],
   })
   @ValidateNested({ each: true })
   @Type(() => SimulationRunSedDocument)
-  sedDocuments!: SimulationRunSedDocument[]
+  sedDocuments!: SimulationRunSedDocument[];
 }

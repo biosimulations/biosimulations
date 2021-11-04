@@ -305,15 +305,14 @@ export class SedDocumentLog implements ISedDocumentLog {
               Object.entries(dataSet).forEach((keyVal: [string, any]): void => {
                 dataSet2[keyVal[0]] = keyVal[1];
               });
-              return dataSet2
-
+              return dataSet2;
             } else {
               return dataSet;
             }
           });
         }
-        
-        return v2
+
+        return v2;
       }
       return v;
     });

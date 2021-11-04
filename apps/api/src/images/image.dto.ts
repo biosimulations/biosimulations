@@ -1,8 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsString,
-  IsNotEmpty,
-} from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
 
 export class refreshImageBody {
   @ApiProperty({ type: String })

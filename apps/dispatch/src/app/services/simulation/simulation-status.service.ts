@@ -1,4 +1,7 @@
-import { SimulationRunStatus, SimulationRunStatusName } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunStatus,
+  SimulationRunStatusName,
+} from '@biosimulations/datamodel/common';
 
 export class SimulationStatusService {
   public static isSimulationStatusRunning(
@@ -67,7 +70,8 @@ export class SimulationStatusService {
       const message = shortMessage ? status : SimulationRunStatusName[status];
       if (upperCaseFirstLetter) {
         return (
-          message.substring(0, 1).toUpperCase() + message.substring(1).toLowerCase()
+          message.substring(0, 1).toUpperCase() +
+          message.substring(1).toLowerCase()
         );
       } else {
         return message.toLowerCase();
