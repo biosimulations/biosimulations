@@ -385,7 +385,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Pierre Vanduynslager
 │  ├─ url: https://twitter.com/@pvdlg_
 │  └─ licenseFile: @semantic-release/github/LICENSE
-├─ @semantic-release/npm@8.0.2
+├─ @semantic-release/npm@8.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/npm
 │  ├─ publisher: Pierre Vanduynslager
