@@ -42,6 +42,7 @@ jobs:
           registry: 'ghcr.io'
           username: "${{ secrets.GHCR_USERNAME }}"
           password: "${{ secrets.GHCR_TOKEN }}"
-      - name: Build Docker Image
+
+      - name: Build Docker Image          
         run: npx nx docker ${{matrix.app}}
         
