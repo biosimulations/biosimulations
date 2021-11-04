@@ -1,6 +1,8 @@
 name: Docker
 on:
   push:
+    branches:
+      - dev
   pull_request:
 jobs:
   build:
@@ -11,7 +13,20 @@ jobs:
         app: [api,simulators-api,dispatch-service,mail-service,combine-api]
 
     steps:
-      - name: Checkout 
+      - name: Checkout [dev]
+        uses: actions/checkout@v2
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          fetch-depth: 0
+
+      - name: Checkout [pr]
+        uses: actions/checkout@v2
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Setup Node 
         uses: actions/setup-node@v2
         with:
           node-version: '14'
