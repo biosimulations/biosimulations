@@ -191,7 +191,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         modelLocationType: [LocationType.file, Validators.required],
         modelLocationDetails: [
           null,
-          [Validators.required, this.maxFileSizeValidator],
+          [Validators.required, this.maxFileSizeValidator.bind(this)],
         ],
         modelFormat: [null, Validators.required],
         modelNamespaces: this.formBuilder.array([], {
@@ -558,7 +558,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         'modelLocationDetails',
         this.formBuilder.control('', [
           Validators.required,
-          this.maxFileSizeValidator,
+          this.maxFileSizeValidator.bind(this),
         ]),
       );
     } else {

@@ -72,7 +72,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        metadataFile: ['', [Validators.required, this.maxFileSizeValidator]],
+        metadataFile: ['', [Validators.required, this.maxFileSizeValidator.bind(this)]],
         metadataUrl: ['', [this.urlValidator]],
         omexMetadataFormat: [OmexMetadataInputFormat.rdfxml],
         omexMetadataSchema: [OmexMetadataSchema.BioSimulations],

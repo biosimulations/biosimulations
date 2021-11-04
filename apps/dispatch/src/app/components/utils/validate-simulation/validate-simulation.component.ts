@@ -56,7 +56,7 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group(
       {
         submitMethod: [SubmitMethod.file],
-        simulationFile: ['', [Validators.required, this.maxFileSizeValidator]],
+        simulationFile: ['', [Validators.required, this.maxFileSizeValidator.bind(this)]],
         simulationUrl: ['', [this.urlValidator]],
       },
       //{
