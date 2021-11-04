@@ -6,7 +6,7 @@ import {
   Validators,
   ValidationErrors,
 } from '@angular/forms';
-import { CombineService } from '../../../services/combine/combine.service';
+import { CombineApiService } from '../../../services/combine/combine-api.service';
 import {
   ValidationReport,
   ValidationMessage,
@@ -65,7 +65,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
   constructor(
     private config: ConfigService,
     private formBuilder: FormBuilder,
-    private combineService: CombineService,
+    private combineApiService: CombineApiService,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
   ) {
@@ -216,7 +216,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
     }
 
     // call API to validate archive
-    const validationSub = this.combineService
+    const validationSub = this.combineApiService
       .validateProject(
         archive,
         this.formGroup.controls.omexMetadataFormat.value,
