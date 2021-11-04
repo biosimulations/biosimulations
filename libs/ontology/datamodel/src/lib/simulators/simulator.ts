@@ -32,6 +32,7 @@ import { Type } from 'class-transformer';
 export class Simulator implements ISimulator {
   @ApiProperty({ type: BiosimulatorsMeta })
   @Type(() => BiosimulatorsMeta)
+  @ValidateNested()
   biosimulators!: BiosimulatorsMeta;
 
   @IsString()
