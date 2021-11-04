@@ -128,9 +128,6 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
   })
   imageVersion!: imageVersions;
 
-  @Prop({ type: Object, required: false, default: null })
-  meta: any;
-
   @Prop({ type: Boolean, required: true, default: undefined })
   validated!: boolean;
 

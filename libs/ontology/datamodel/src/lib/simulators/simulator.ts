@@ -17,7 +17,6 @@ import {
 } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
-  Allow,
   IsArray,
   IsEnum,
   IsNotEmpty,
@@ -31,8 +30,9 @@ import { Image, Algorithm } from '../simulators';
 import { Type } from 'class-transformer';
 
 export class Simulator implements ISimulator {
-  @Allow()
   @ApiProperty({ type: BiosimulatorsMeta })
+  @Type(() => BiosimulatorsMeta)
+  @ValidateNested()
   biosimulators!: BiosimulatorsMeta;
 
   @IsString()
@@ -119,7 +119,7 @@ export class Simulator implements ISimulator {
   references!: ExternalReferences;
 
   @IsOptional()
-  @ValidateNested({ each: true })
+  @ValidateNested()
   @Type(() => SpdxOntologyId)
   @ApiPropertyOptional({
     type: SpdxOntologyId,

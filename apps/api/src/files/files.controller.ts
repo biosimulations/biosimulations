@@ -1,5 +1,5 @@
 import { permissions } from '@biosimulations/auth/nest';
-import { ProjectFile, SubmitProjectFile } from '@biosimulations/datamodel/api';
+import { ProjectFile, SubmitProjectFile, SubmitProjectFilesContainer } from '@biosimulations/datamodel/api';
 import {
   Controller,
   Post,
@@ -130,7 +130,7 @@ export class FilesController {
   })
   @ApiBody({
     description: 'Metadata about the files for the simulation run',
-    type: [SubmitProjectFile],
+    type: SubmitProjectFilesContainer,
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
@@ -152,8 +152,8 @@ export class FilesController {
       'The metadata for the files for the simulation were successfully saved to the database',
     type: [SubmitProjectFile],
   })
-  public async createFiles(@Body() files: SubmitProjectFile[]): Promise<void> {
-    await this.service.createFiles(files);
+  public async createFiles(@Body() files: SubmitProjectFilesContainer): Promise<void> {
+    await this.service.createFiles(files.files);
   }
 
   //@Post(':runId')
@@ -244,7 +244,7 @@ export class FilesController {
   public async deleteSimulationRunFiles(
     @Param('runId') runId: string,
   ): Promise<void> {
-    this.service.deleteSimulationRunFiles(runId);
+    return this.service.deleteSimulationRunFiles(runId);
   }
 
   @ApiOperation({

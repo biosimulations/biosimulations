@@ -198,6 +198,7 @@ async function bootstrap() {
       transformOptions: {
         enableImplicitConversion: true,
       },
+      forbidUnknownValues: true,
     }),
   );
   await app.listen(port, () => {

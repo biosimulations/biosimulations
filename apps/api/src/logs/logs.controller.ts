@@ -42,6 +42,9 @@ import {
   SedReportLog,
   CreateSimulationRunLogBody,
 } from '@biosimulations/ontology/datamodel';
+import {
+  CombineArchiveLog as ICombineArchiveLog,
+} from '@biosimulations/datamodel/common';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { LogsService } from './logs.service';
 import { permissions } from '@biosimulations/auth/nest';
@@ -99,7 +102,7 @@ export class LogsController {
   public async getLog(
     @Param('runId') runId: string,
     @Query('includeOutput') includeOutput = 'true',
-  ): Promise<LeanDocument<CombineArchiveLog>> {
+  ): Promise<LeanDocument<ICombineArchiveLog>> {
     const structLogs = await this.service.getLog(
       runId,
       includeOutput !== 'false',
@@ -167,7 +170,7 @@ export class LogsController {
   })
   public async createLog(
     @Body() body: CreateSimulationRunLogBody,
-  ): Promise<CombineArchiveLog> {
+  ): Promise<ICombineArchiveLog> {
     const log = await this.service.createLog(body?.simId, body?.log);
     return log;
   }
@@ -256,7 +259,7 @@ export class LogsController {
   public async replaceLog(
     @Param('runId') runId: string,
     @Body() body: CombineArchiveLog,
-  ): Promise<CombineArchiveLog> {
+  ): Promise<ICombineArchiveLog> {
     return this.service.replaceLog(runId, body).then((res) => res);
   }
 

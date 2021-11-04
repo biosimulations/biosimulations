@@ -27,11 +27,20 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
         'Operations for submitting a simulation run, checking the status of a run, modifying the details of a run, and deleting a run.',
     },
     {
+      name: 'Files',
+      description:
+        'Operations for creating and retrieving metadata about the files in a simulation run',
+    },
+    {
+      name: 'Specifications',
+      description:
+        'Operations for creating and retrieving simulation experiments (specifications of SED-ML files in COMBINE/OMEX archives) of simulation runs',
+    },
+    {
       name: 'Results',
       description:
         'Operations for viewing and retrieving the results of a simulation run.',
     },
-
     {
       name: 'Logs',
       description:
@@ -41,16 +50,6 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
       name: 'Metadata',
       description:
         'Operations for creating and retrieving the metadata associated with a simulation run',
-    },
-    {
-      name: 'Files',
-      description:
-        'Operations for creating and retrieving metadata about the files in a simulation run',
-    },
-    {
-      name: 'Specifications',
-      description:
-        'Operations for creating and retrieving simulation experiments (specifications of SED-ML files in COMBINE/OMEX archives) of simulation runs',
     },
     {
       name: 'Downloads',

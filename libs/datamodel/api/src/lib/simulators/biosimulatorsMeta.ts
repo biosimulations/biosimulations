@@ -14,6 +14,8 @@ import {
   IsEnum,
   IsNotEmpty,
   IsNumber,
+  IsPositive,
+  Min,
   IsOptional,
   IsString,
   ValidateNested,
@@ -40,7 +42,6 @@ export class TestCaseException implements ITestCaseException {
 
   @ApiProperty({ type: String, required: true })
   @IsString()
-  @IsNotEmpty()
   public message!: string;
 }
 
@@ -60,12 +61,13 @@ export class TestCaseResult implements ITestCaseResult {
   public resultType!: TestCaseResultType;
 
   @ApiProperty({ type: Number, required: true })
+  @Min(0)
   @IsNumber()
   public duration!: number;
 
   @ApiProperty({ type: TestCaseException, nullable: true, required: true })
-  @ValidateNested()
   @IsOptional()
+  @ValidateNested()
   @Type(() => TestCaseException)
   public exception: TestCaseException | null = null;
 
@@ -82,12 +84,11 @@ export class TestCaseResult implements ITestCaseResult {
 
   @ApiProperty({ type: String, required: true })
   @IsString()
-  @IsNotEmpty()
   public log!: string;
 }
 
 export class ValidationTests implements IValidationTests {
-  @ApiProperty({ type: String, required: true })
+  @ApiProperty({ type: String, required: true, example: '1.0.0' })
   @IsString()
   @IsNotEmpty()
   public testSuiteVersion!: string;
@@ -97,11 +98,21 @@ export class ValidationTests implements IValidationTests {
   @Type(() => TestCaseResult)
   public results!: TestCaseResult[];
 
-  @ApiProperty({ type: Number, required: true })
+  @ApiProperty({
+    type: Number,
+    required: true,
+    example: 1,
+  })
+  @IsPositive()
   @IsNumber()
   public ghIssue!: number;
 
-  @ApiProperty({ type: Number, required: true })
+  @ApiProperty({
+    type: Number,
+    required: true,
+    example: 1,
+  })
+  @IsPositive()
   @IsNumber()
   public ghActionRun!: number;
 }
@@ -159,6 +170,4 @@ export class BiosimulatorsMeta implements IBiosimulatorsMeta {
     //  'When the version of the simulator catalogued in the BioSimulators registry was last updated',
   })
   public updated!: Date;
-
-  public meta: any;
 }

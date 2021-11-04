@@ -64,8 +64,12 @@ import {
   IsEnum,
   IsUrl,
   IsOptional,
+  IsDate,
+  Min,
+  IsNumber,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsImageDigest } from '@biosimulations/datamodel/utils';
 
 export class EnvironmentVariable {
   @ApiProperty({
@@ -139,6 +143,7 @@ export class SimulationRun implements ISimulationRun {
       'sha256:5d1595553608436a2a343f8ab7e650798ef5ba5dab007b9fe31cd342bf18ec81',
     readOnly: true,
   })
+  @IsImageDigest()
   simulatorDigest!: string;
 
   // The optional properities cannot contain the '!' assertion since they are not garunteed!! Must be set in the constructor
@@ -230,6 +235,7 @@ export class SimulationRun implements ISimulationRun {
     enum: SimulationRunStatus,
     readOnly: true,
   })
+  @IsEnum(SimulationRunStatus)
   status: SimulationRunStatus;
 
   @ApiProperty({
@@ -238,6 +244,9 @@ export class SimulationRun implements ISimulationRun {
     example: 55,
     readOnly: true,
   })
+  @IsOptional()
+  @Min(0)
+  @IsNumber()
   runtime?: number;
 
   @ApiProperty({
@@ -247,6 +256,9 @@ export class SimulationRun implements ISimulationRun {
     example: 1123,
     readOnly: true,
   })
+  @IsOptional()
+  @Min(0)
+  @IsInt()
   projectSize?: number;
 
   @ApiProperty({
@@ -256,6 +268,9 @@ export class SimulationRun implements ISimulationRun {
     example: 11234,
     readOnly: true,
   })
+  @IsOptional()
+  @Min(0)
+  @IsInt()
   resultsSize?: number;
 
   @ApiProperty({
@@ -264,6 +279,7 @@ export class SimulationRun implements ISimulationRun {
     format: 'date-time',
     readOnly: true,
   })
+  @IsDate()
   submitted!: Date;
 
   @ApiProperty({
@@ -273,6 +289,7 @@ export class SimulationRun implements ISimulationRun {
     format: 'date-time',
     readOnly: true,
   })
+  @IsDate()
   updated!: Date;
 
   constructor(
@@ -395,7 +412,7 @@ export class PatchSimulationRun {
     example: 11234,
   })
   @IsOptional()
-  @IsPositive()
+  @Min(0)
   @IsInt()
   resultsSize?: number;
 
@@ -418,6 +435,8 @@ export class TypeSummary implements ITypeSummary {
     description: 'Id of the type',
     example: 'SedReport',
   })
+  @IsNotEmpty()
+  @IsString()
   id!: string;
 
   @ApiProperty({
@@ -425,12 +444,18 @@ export class TypeSummary implements ITypeSummary {
     description: 'Name of the type',
     example: 'SED-ML report',
   })
+  @IsNotEmpty()
+  @IsString()
   name!: string;
 
   @ApiProperty({
     type: String,
     description: 'URL with more information about the type',
     example: 'http://sed-ml.org/',
+  })
+  @IsUrl({
+    require_protocol: true,
+    protocols: ['http', 'https'],
   })
   url!: string;
 }

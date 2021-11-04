@@ -9,6 +9,11 @@ import {
   ArchiveMetadata,
   ArchiveMetadataContainer,
 } from '../common/archiveMetadata';
+import {
+  IsMongoId,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 @ApiExtraModels(ArchiveMetadata)
 export class SimulationRunMetadata {
@@ -17,6 +22,7 @@ export class SimulationRunMetadata {
     description: 'Id of the metadata',
     example: '609aeb11d70ea3752d097015',
   })
+  @IsMongoId()
   public id!: string;
 
   @ApiProperty({
@@ -24,6 +30,8 @@ export class SimulationRunMetadata {
       'Metadata about the COMBINE/OMEX archive of the simulation run or files in the archive',
     type: [ArchiveMetadata],
   })
+  @ValidateNested({ each: true })
+  @Type(() => ArchiveMetadata)
   public metadata!: ArchiveMetadata[];
 
   @ApiResponseProperty({
