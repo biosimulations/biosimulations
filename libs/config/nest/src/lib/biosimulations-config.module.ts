@@ -7,7 +7,6 @@ import authConfig from './biosimulations-auth-config';
 import hpcConfig from './biosimulations-hpc-config';
 import natsConfig from './biosimulations-nats-config';
 import emailConfig from './biosimulations-email.config';
-import urlsConfig from './biosimulations-urls-config';
 import storageConfig from './biosimulations-storage-config';
 import queueConfig from './biosimulations-queue-config';
 import dataConfig from './biosimulations-data-config';
@@ -25,7 +24,6 @@ import singularityConfig from './singularity-config';
         hpcConfig,
         natsConfig,
         emailConfig,
-        urlsConfig,
         storageConfig,
         queueConfig,
         dataConfig,
