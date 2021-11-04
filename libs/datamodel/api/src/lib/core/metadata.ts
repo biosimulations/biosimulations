@@ -40,7 +40,6 @@ export class SimulationRunMetadata {
     format: 'date-time',
     // description: 'Timestamp when the metadata was created',
   })
-  @IsString()
   public created: string;
 
   @ApiResponseProperty({
@@ -48,7 +47,6 @@ export class SimulationRunMetadata {
     format: 'date-time',
     // description: 'Timestamp when the metadata was last updated',
   })
-  @IsString()
   public modified: string;
 
   public constructor(

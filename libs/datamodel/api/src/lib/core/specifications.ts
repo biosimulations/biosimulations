@@ -628,7 +628,6 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
     format: 'date-time',
     // description: 'Timestamp when the specifications were created',
   })
-  @IsString()
   public created!: string;
 
   @ApiResponseProperty({
@@ -636,6 +635,5 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
     format: 'date-time',
     // description: 'Timestamp when the specifications were last updated',
   })
-  @IsString()
   public updated!: string;
 }
