@@ -99,7 +99,7 @@ export class CompleteProcessor {
     const logProcessingResult = processingResults[3];
     const logPostSucceeded = logProcessingResult.status === 'fulfilled';
 
-    /* update status with post-processing result */
+    /* calculate final status and reason */
     let status!: SimulationRunStatus;
     let statusReason!: string;
     let updateStatusMessage!: string;
@@ -120,15 +120,7 @@ export class CompleteProcessor {
       statusReason += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
     }
 
-    this.simStatusService.updateStatus(id, status, statusReason).then((run) => {
-      if (status === SimulationRunStatus.SUCCEEDED) {
-        return this.logger.log(updateStatusMessage);
-      } else {
-        return this.logger.error(updateStatusMessage);
-      }
-    });
-
-    /* append post-processing information to log */
+    /* append post-processing status reason to log */
     let statusColor!: string;
     let statusEndColor!: string;
     if (errors.length > 0) {
@@ -159,6 +151,15 @@ export class CompleteProcessor {
           `Log for simulation run '${id}' could not be updated`,
         ),
       );
+
+    /* update final status */
+    this.simStatusService.updateStatus(id, status, statusReason).then((run) => {
+      if (status === SimulationRunStatus.SUCCEEDED) {
+        return this.logger.log(updateStatusMessage);
+      } else {
+        return this.logger.error(updateStatusMessage);
+      }
+    });
 
     /* publish run as project */
     if (projectId && errors.length === 0) {
