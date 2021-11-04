@@ -62,7 +62,7 @@
         "metadata": {
           "enabled": true,
           "images": [
-            "ghcr.io/biosimulations/api"
+            "ghcr.io/biosimulations/simulators-api"
           ],
           "tags": [
             "type=schedule",
