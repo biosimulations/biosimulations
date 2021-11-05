@@ -58,6 +58,12 @@
         "build-args": [
           "app=simulators-api"
         ],
+        "cache-from": [
+          "type=registry,ref=ghcr.io/biosimulations/simulators-api:buildcache"
+        ],
+        "cache-to": [
+          "type=registry,ref=ghcr.io/biosimulations/simulators-api:buildcache,mode=max"
+        ],
         "metadata": {
           "enabled": true,
           "images": [

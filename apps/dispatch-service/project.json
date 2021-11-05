@@ -60,6 +60,12 @@
         "build-args": [
           "app=dispatch-service"
         ],
+        "cache-from": [
+          "type=registry,ref=ghcr.io/biosimulations/simulation-service:buildcache"
+        ],
+        "cache-to": [
+          "type=registry,ref=ghcr.io/biosimulations/simulation-service:buildcache,mode=max"
+        ],
         "metadata": {
           "enabled": true,
           "labels": [

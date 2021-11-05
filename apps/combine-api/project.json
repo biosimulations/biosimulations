@@ -36,6 +36,8 @@
         "build-args": [
           "app=combine-api"
         ],
+        "cache-from": ["type=registry,ref=ghcr.io/biosimulations/combine-api:buildcache"],
+        "cache-to": ["type=registry,ref=ghcr.io/biosimulations/combine-api:buildcache,mode=max"],
         "metadata": {
           "enabled": true,
           "images": [
