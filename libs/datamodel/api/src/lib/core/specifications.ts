@@ -651,7 +651,10 @@ export class SimulationRunSedDocumentInput {
   public tasks!: SedTask[];
 }
 
-export class SimulationRunSedDocument extends SimulationRunSedDocumentInput implements ISimulationRunSedDocument {
+export class SimulationRunSedDocument
+  extends SimulationRunSedDocumentInput
+  implements ISimulationRunSedDocument
+{
   @ApiResponseProperty({
     type: String,
     format: 'date-time',
