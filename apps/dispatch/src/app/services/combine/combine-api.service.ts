@@ -13,7 +13,6 @@ import {
   OmexMetadataSchema,
   ModelLanguage,
 } from '@biosimulations/datamodel/common';
-import { CombineArchiveElementMetadata } from '../../datamodel/metadata.interface';
 import { ValidationReport } from '../../datamodel/validation-report.interface';
 import { AlgorithmSubstitution } from '../../kisao.interface';
 import { Endpoints } from '@biosimulations/config/common';
@@ -26,8 +25,6 @@ export class CombineApiService {
   private endpoints = new Endpoints();
 
   private sedmlSpecsEndpoint = this.endpoints.getSedmlSpecificationsEndpoint();
-  private archiveMetadataEndpoint =
-    this.endpoints.getCombineArchiveMetadataEndpoint();
   private validateModelEndpoint = this.endpoints.getValidateModelEndpoint();
   private validateSimulationEndpoint =
     this.endpoints.getValidateSedmlEndpoint();
@@ -59,47 +56,6 @@ export class CombineApiService {
           }
           return of<undefined>(undefined);
         }),
-        shareReplay(1),
-      );
-  }
-
-  public getCombineArchiveMetadata(
-    fileOrUrl: File | string,
-    format: OmexMetadataInputFormat = OmexMetadataInputFormat.rdfxml,
-  ): Observable<
-    CombineArchiveElementMetadata[] | ValidationReport | undefined
-  > {
-    const formData = new FormData();
-    if (typeof fileOrUrl === 'object') {
-      formData.append('file', fileOrUrl);
-    } else {
-      formData.append('url', fileOrUrl);
-    }
-    formData.append('omexMetadataFormat', format);
-
-    return this.http
-      .post<CombineArchiveElementMetadata[]>(
-        this.archiveMetadataEndpoint,
-        formData,
-      )
-      .pipe(
-        catchError(
-          (
-            error: HttpErrorResponse,
-          ): Observable<ValidationReport | undefined> => {
-            if (error?.error?.validationReport) {
-              return of<ValidationReport>(
-                error?.error?.validationReport as ValidationReport,
-              );
-            }
-
-            if (!environment.production) {
-              console.error(error);
-            }
-
-            return of<undefined>(undefined);
-          },
-        ),
         shareReplay(1),
       );
   }
@@ -228,26 +184,36 @@ export class CombineApiService {
       );
   }
 
+  private similarAlgorithmsCache: {[algorithms: string]: Observable<AlgorithmSubstitution[] | undefined>} = {};
+
   public getSimilarAlgorithms(
     algorithms: string[],
   ): Observable<AlgorithmSubstitution[] | undefined> {
-    const params = new HttpParams().appendAll({ algorithms: algorithms });
-    const retryStrategy = new RetryStrategy(6, 5000);
+    const algorithmsStrList = algorithms.join('&');
+    let observable: Observable<AlgorithmSubstitution[] | undefined> = this.similarAlgorithmsCache[algorithmsStrList];
+    
+    if (!observable) {
+      const params = new HttpParams().appendAll({ algorithms: algorithms });
+      const retryStrategy = new RetryStrategy(6, 5000);
 
-    return this.http
-      .get<AlgorithmSubstitution[]>(this.similarAlgorithmsEndpoint, {
-        params: params,
-      })
-      .pipe(
-        timeout(2500),
-        retryWhen(retryStrategy.handler.bind(retryStrategy)),
-        catchError((error: HttpErrorResponse): Observable<undefined> => {
-          if (!environment.production) {
-            console.error(error);
-          }
-          return of<undefined>(undefined);
-        }),
-        shareReplay(1),
-      );
+      observable = this.http
+        .get<AlgorithmSubstitution[]>(this.similarAlgorithmsEndpoint, {
+          params: params,
+        })
+        .pipe(
+          timeout(2500),
+          retryWhen(retryStrategy.handler.bind(retryStrategy)),
+          catchError((error: HttpErrorResponse): Observable<undefined> => {
+            if (!environment.production) {
+              console.error(error);
+            }
+            return of<undefined>(undefined);
+          }),
+          shareReplay(1),
+        );
+      this.similarAlgorithmsCache[algorithmsStrList] = observable;
+    }
+
+    return observable;
   }
 }

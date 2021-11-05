@@ -158,11 +158,17 @@ export class DispatchService {
     return response;
   }
 
-  public getSimulatorsFromDb(includeTests = true): Observable<SimulatorsData> {
+  private simulatorsDataCache?: Observable<SimulatorsData>;
+
+  public getSimulatorsFromDb(): Observable<SimulatorsData> {
+    if (this.simulatorsDataCache) {
+      return this.simulatorsDataCache;
+    }
+
     const endpoint = this.endpoints.getSimulatorsEndpoint(
       undefined,
       undefined,
-      includeTests,
+      false,
     );
     const promises: {
       simulatorSpecs: ObservableInput<ISimulator[]>;
@@ -176,7 +182,7 @@ export class DispatchService {
       sboTerms: this.ontologyService.getTerms(Ontologies.SBO),
     };
 
-    return forkJoin(promises).pipe(
+    this.simulatorsDataCache = forkJoin(promises).pipe(
       map((resolvedPromises): SimulatorsData => {
         const simulatorSpecs = resolvedPromises.simulatorSpecs; // ISimulator[]
         const edamTerms = resolvedPromises.edamTerms;
@@ -328,6 +334,8 @@ export class DispatchService {
       }),
       shareReplay(1),
     );
+
+    return this.simulatorsDataCache;
   }
 
   public getSimulationLogs(
