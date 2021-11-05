@@ -196,3 +196,5 @@ export interface SpdxTerm extends IOntologyTerm {
   children: string[];
 }
 // Identifiers.org identifier
+
+export type OntologyTermMap<T extends IOntologyTerm> = { [id: string]: T };

@@ -2,11 +2,12 @@ import {
   Ontologies,
   LinguistTerm,
   OntologyInfo,
+  OntologyTermMap,
 } from '@biosimulations/datamodel/common';
 import linguistJson from './linguist.json';
 
-function getLinguistTerms(input: any): { [id: string]: LinguistTerm } {
-  const terms: { [id: string]: LinguistTerm } = {};
+function getLinguistTerms(input: any): OntologyTermMap<LinguistTerm> {
+  const terms: OntologyTermMap<LinguistTerm> = {};
   input.forEach((language: any): void => {
     if (language?.type === 'programming') {
       terms[language.name] = {

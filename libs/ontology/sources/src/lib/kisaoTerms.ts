@@ -2,13 +2,14 @@ import {
   Ontologies,
   KisaoTerm,
   OntologyInfo,
+  OntologyTermMap,
 } from '@biosimulations/datamodel/common';
 import kisaoJson from './kisao.json';
 import isUrl from 'is-url';
 
 let kisaoVersion = '';
-function getKisaoTerms(input: any): { [id: string]: KisaoTerm } {
-  const kisaoTerms: { [id: string]: KisaoTerm } = {};
+function getKisaoTerms(input: any): OntologyTermMap<KisaoTerm> {
+  const kisaoTerms: OntologyTermMap<KisaoTerm> = {};
   input = kisaoJson;
   const kisaoJsonParse = input['@graph'];
 

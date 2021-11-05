@@ -4,6 +4,7 @@ import { Observable, shareReplay, map, catchError, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import {
   IOntologyTerm,
+  OntologyTermMap,
   Ontologies,
   EdamTerm,
   KisaoTerm,
@@ -19,13 +20,13 @@ import {
 export class OntologyService {
   private endpoints = new Endpoints();
   private endpoint = this.endpoints.getOntologyEndpoint();
-  private edamTerms: Observable<{ [id: string]: EdamTerm }>;
-  private funderRegistryTerms: Observable<{ [id: string]: FunderRegistryTerm }>;
-  private linguistTerms: Observable<{ [id: string]: LinguistTerm }>;
-  private kisaoTerms: Observable<{ [id: string]: KisaoTerm }>;
-  private sboTerms: Observable<{ [id: string]: SboTerm }>;
-  private sioTerms: Observable<{ [id: string]: SioTerm }>;
-  private spdxTerms: Observable<{ [id: string]: SpdxTerm }>;
+  private edamTerms: Observable<OntologyTermMap<EdamTerm>>;
+  private funderRegistryTerms: Observable<OntologyTermMap<FunderRegistryTerm>>;
+  private linguistTerms: Observable<OntologyTermMap<LinguistTerm>>;
+  private kisaoTerms: Observable<OntologyTermMap<KisaoTerm>>;
+  private sboTerms: Observable<OntologyTermMap<SboTerm>>;
+  private sioTerms: Observable<OntologyTermMap<SioTerm>>;
+  private spdxTerms: Observable<OntologyTermMap<SpdxTerm>>;
 
   public constructor(private http: HttpClient) {
     this.edamTerms = this.fetchTerms<EdamTerm>(Ontologies.EDAM);
@@ -61,11 +62,11 @@ export class OntologyService {
 
   private fetchTerms<T extends IOntologyTerm>(
     ontologyId: Ontologies,
-  ): Observable<{ [id: string]: T }> {
+  ): Observable<OntologyTermMap<T>> {
     return this.http.get<T[]>(this.endpoint + '/' + ontologyId + '/list').pipe(
       shareReplay(1),
       map((terms) => {
-        const termSet: { [id: string]: T } = {};
+        const termSet: OntologyTermMap<T> = {};
         terms.forEach((term) => {
           termSet[term.id] = term;
         });
@@ -76,22 +77,22 @@ export class OntologyService {
 
   public getTerms<T extends IOntologyTerm>(
     ontologyId: Ontologies,
-  ): Observable<{ [id: string]: T }> {
+  ): Observable<OntologyTermMap<T>> {
     switch (ontologyId) {
       case Ontologies.EDAM:
-        return this.edamTerms as unknown as Observable<{ [id: string]: T }>;
+        return this.edamTerms as unknown as Observable<OntologyTermMap<T>>;
       case Ontologies.FunderRegistry:
-        return this.funderRegistryTerms as Observable<{ [id: string]: T }>;
+        return this.funderRegistryTerms as Observable<OntologyTermMap<T>>;
       case Ontologies.Linguist:
-        return this.linguistTerms as Observable<{ [id: string]: T }>;
+        return this.linguistTerms as Observable<OntologyTermMap<T>>;
       case Ontologies.KISAO:
-        return this.kisaoTerms as Observable<{ [id: string]: T }>;
+        return this.kisaoTerms as Observable<OntologyTermMap<T>>;
       case Ontologies.SBO:
-        return this.sboTerms as Observable<{ [id: string]: T }>;
+        return this.sboTerms as Observable<OntologyTermMap<T>>;
       case Ontologies.SIO:
-        return this.sioTerms as Observable<{ [id: string]: T }>;
+        return this.sioTerms as Observable<OntologyTermMap<T>>;
       case Ontologies.SPDX:
-        return this.spdxTerms as Observable<{ [id: string]: T }>;
+        return this.spdxTerms as Observable<OntologyTermMap<T>>;
     }
   }
 
@@ -101,7 +102,7 @@ export class OntologyService {
   ): Observable<T> {
     const termsObservable = this.getTerms<T>(ontologyId);
     return termsObservable.pipe(
-      map((terms: { [id: string]: T }): T => {
+      map((terms: OntologyTermMap<T>): T => {
         const setTerm = terms[term];
 
         if (setTerm) {
@@ -112,7 +113,7 @@ export class OntologyService {
           );
         }
       }),
-      catchError((terms: { [id: string]: T }): Observable<T> => {
+      catchError((terms: OntologyTermMap<T>): Observable<T> => {
         return of({
           namespace: (terms[Object.keys(terms)[0]] as T).namespace,
           id: term,

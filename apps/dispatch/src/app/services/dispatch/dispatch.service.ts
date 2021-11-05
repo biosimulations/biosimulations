@@ -14,6 +14,7 @@ import {
 } from '../../simulation-logs-datamodel';
 import {
   Ontologies,
+  OntologyTermMap,
   SimulationRunLogStatus,
   Purpose,
   EnvironmentVariable,
@@ -163,9 +164,9 @@ export class DispatchService {
     );
     const promises: {
       simulatorSpecs: ObservableInput<ISimulator[]>;
-      edamTerms: ObservableInput<{ [id: string]: EdamTerm }>;
-      kisaoTerms: ObservableInput<{ [id: string]: KisaoTerm }>;
-      sboTerms: ObservableInput<{ [id: string]: SboTerm }>;
+      edamTerms: ObservableInput<OntologyTermMap<EdamTerm>>;
+      kisaoTerms: ObservableInput<OntologyTermMap<KisaoTerm>>;
+      sboTerms: ObservableInput<OntologyTermMap<SboTerm>>;
     } = {
       simulatorSpecs: this.http.get<ISimulator[]>(endpoint),
       edamTerms: this.ontologyService.getTerms(Ontologies.EDAM),

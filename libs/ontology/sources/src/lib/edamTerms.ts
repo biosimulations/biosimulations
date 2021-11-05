@@ -2,13 +2,14 @@ import {
   Ontologies,
   EdamTerm,
   OntologyInfo,
+  OntologyTermMap,
 } from '@biosimulations/datamodel/common';
 import isUrl from 'is-url';
 import edamJson from './edam.json';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 let edamVersion = '';
-function getEdamTerms(input: any): { [id: string]: EdamTerm } {
-  const edamTerms: { [id: string]: EdamTerm } = {};
+function getEdamTerms(input: any): OntologyTermMap<EdamTerm> {
+  const edamTerms: OntologyTermMap<EdamTerm> = {};
 
   // Drop context
   const edamJsonParse = input['@graph'];

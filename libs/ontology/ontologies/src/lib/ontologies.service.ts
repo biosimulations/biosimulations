@@ -15,7 +15,7 @@ import {
   sioTerms,
   spdxTerms,
 } from '@biosimulations/ontology/sources';
-import { Ontologies, IOntologyTerm } from '@biosimulations/datamodel/common';
+import { Ontologies, IOntologyTerm, OntologyTermMap } from '@biosimulations/datamodel/common';
 import { OntologyInfo } from '@biosimulations/datamodel/api';
 
 @Injectable()
@@ -42,7 +42,7 @@ export class OntologiesService {
 
   static _getTerms(
     ontologyId: Ontologies,
-  ): { [id: string]: IOntologyTerm } | null {
+  ): OntologyTermMap<IOntologyTerm> | null {
     switch (ontologyId) {
       case Ontologies.EDAM:
         return edamTerms;

@@ -2,11 +2,12 @@ import {
   Ontologies,
   FunderRegistryTerm,
   OntologyInfo,
+  OntologyTermMap,
 } from '@biosimulations/datamodel/common';
 import funderRegistryJson from './funderRegistry.json';
 
-function getTerms(input: any): { [id: string]: FunderRegistryTerm } {
-  const terms: { [id: string]: FunderRegistryTerm } = {};
+function getTerms(input: any): OntologyTermMap<FunderRegistryTerm> {
+  const terms: OntologyTermMap<FunderRegistryTerm> = {};
   input.forEach((funder: any): void => {
     const id = funder.uri.replace('http://dx.doi.org/10.13039/', '');
     terms[id] = {
