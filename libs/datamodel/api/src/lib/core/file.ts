@@ -12,14 +12,14 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class ProjectFile implements IFile {
+export class ProjectFileInput {
   @ApiProperty({
     type: String,
     description: 'Id of the file',
   })
   @IsNotEmpty()
   @IsString()
-  public id: string;
+  public id!: string;
 
   @ApiProperty({
     description: 'Name of the file',
@@ -28,7 +28,7 @@ export class ProjectFile implements IFile {
   })
   @IsNotEmpty()
   @IsString()
-  public name: string;
+  public name!: string;
 
   @ApiProperty({
     description: 'Id of the associated simulation run',
@@ -37,7 +37,7 @@ export class ProjectFile implements IFile {
   })
   @IsMongoId()
   @IsString()
-  public simulationRun: string;
+  public simulationRun!: string;
 
   @ApiProperty({
     description: 'Size of the file in bytes',
@@ -46,7 +46,7 @@ export class ProjectFile implements IFile {
   })
   @IsPositive()
   @IsInt()
-  public size: number;
+  public size!: number;
 
   @ApiProperty({
     description: 'Format of the file',
@@ -55,14 +55,14 @@ export class ProjectFile implements IFile {
   })
   @IsNotEmpty()
   @IsString()
-  public format: string;
+  public format!: string;
 
   @ApiProperty({
     description: 'Whether the file is a primary file for the project',
     type: Boolean,
   })
   @IsBoolean()
-  public master: boolean;
+  public master!: boolean;
 
   @ApiProperty({
     type: String,
@@ -74,7 +74,7 @@ export class ProjectFile implements IFile {
     require_protocol: true,
     protocols: ['http', 'https'],
   })
-  public url: string;
+  public url!: string;
 
   @ApiProperty({
     description: 'Path of the file in the simulation run',
@@ -83,7 +83,12 @@ export class ProjectFile implements IFile {
   })
   @IsNotEmpty()
   @IsString()
-  public location: string;
+  public location!: string;
+}
+
+export class ProjectFile extends ProjectFileInput implements IFile {
+  public _id!: never;
+  public _v!: never;
 
   @ApiResponseProperty({
     type: String,
@@ -95,12 +100,10 @@ export class ProjectFile implements IFile {
   @ApiResponseProperty({
     type: String,
     format: 'date-time',
-    // description: 'Timestamp when the file was lasted updated',
+    // description: 'Timestamp when the file was last updated',
   })
   public updated!: string;
 
-  public _id!: never;
-  public _v!: never;
   public constructor(
     id: string,
     name: string,
@@ -113,6 +116,7 @@ export class ProjectFile implements IFile {
     created: string,
     updated: string,
   ) {
+    super();
     this.id = id;
     this.name = name;
     this.simulationRun = simulationRun;
@@ -126,13 +130,8 @@ export class ProjectFile implements IFile {
   }
 }
 
-export class SubmitProjectFile extends OmitType(ProjectFile, [
-  'created',
-  'updated',
-]) {}
-
-export class SubmitProjectFilesContainer {
+export class ProjectFileInputsContainer {
   @ValidateNested({ each: true })
-  @Type(() => SubmitProjectFile)
-  files!: SubmitProjectFile[];
+  @Type(() => ProjectFileInput)
+  files!: ProjectFileInput[];
 }

@@ -1,8 +1,8 @@
 import { permissions } from '@biosimulations/auth/nest';
 import {
   ProjectFile,
-  SubmitProjectFile,
-  SubmitProjectFilesContainer,
+  ProjectFileInput,
+  ProjectFileInputsContainer,
 } from '@biosimulations/datamodel/api';
 import {
   Controller,
@@ -134,7 +134,7 @@ export class FilesController {
   })
   @ApiBody({
     description: 'Metadata about the files for the simulation run',
-    type: SubmitProjectFilesContainer,
+    type: ProjectFileInputsContainer,
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
@@ -154,10 +154,10 @@ export class FilesController {
   @ApiCreatedResponse({
     description:
       'The metadata for the files for the simulation were successfully saved to the database',
-    type: [SubmitProjectFile],
+    type: [ProjectFileInput],
   })
   public async createFiles(
-    @Body() files: SubmitProjectFilesContainer,
+    @Body() files: ProjectFileInputsContainer,
   ): Promise<void> {
     await this.service.createFiles(files.files);
   }

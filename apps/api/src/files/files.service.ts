@@ -1,4 +1,4 @@
-import { SubmitProjectFile } from '@biosimulations/datamodel/api';
+import { ProjectFileInput } from '@biosimulations/datamodel/api';
 import {
   Injectable,
   NotFoundException,
@@ -41,7 +41,7 @@ export class FilesService {
     });
   }
 
-  public async createFiles(files: SubmitProjectFile[]): Promise<FileModel[]> {
+  public async createFiles(files: ProjectFileInput[]): Promise<FileModel[]> {
     const createdFiles = [];
     for (const file of files) {
       const fileModel = new this.model(file);
