@@ -135,8 +135,8 @@ export interface SimulationRunModelLanguageSummary {
 
 export interface SimulationRunAlgorithmSummary {
   kisaoId: string;
-  name?: string;
-  url?: string;
+  name: string;
+  url: string;
 }
 
 export interface SimulationRunModelSummary {

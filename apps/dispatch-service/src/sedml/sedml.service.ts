@@ -9,7 +9,7 @@ import {
   CombineArchiveSedDocSpecsContent,
 } from '@biosimulations/combine-api-client';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
-import { SimulationRunSedDocumentInput } from '@biosimulations/datamodel/api';
+import { SimulationRunSedDocumentInput } from '@biosimulations/ontology/datamodel';
 
 @Injectable()
 export class SedmlService {
