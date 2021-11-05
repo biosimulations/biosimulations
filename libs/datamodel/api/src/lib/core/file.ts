@@ -1,4 +1,4 @@
-import { ApiProperty, ApiResponseProperty, OmitType } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { File as IFile } from '@biosimulations/datamodel/common';
 import {
   IsString,
