@@ -162,9 +162,6 @@
       "@biosimulations/shared/utils/routes": [
         "libs/shared/utils/routes/src/index.ts"
       ],
-      "@biosimulations/simulators/database-models": [
-        "libs/simulators/database-models/src/index.ts"
-      ],
       "@biosimulations/simulation-runs/service": [
         "libs/simulation-runs/service/src/index.ts"
       ],
@@ -173,6 +170,9 @@
       ],
       "@biosimulations/simulation-runs/viz": [
         "libs/simulation-runs/viz/src/index.ts"
+      ],
+      "@biosimulations/simulators/database-models": [
+        "libs/simulators/database-models/src/index.ts"
       ]
     }
   },

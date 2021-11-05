@@ -48,10 +48,11 @@ export class FileService {
                 file.location.path != '.',
             )
             .map((file: CombineArchiveManifestContent) => {
-              const fileUrl = this.endpoints.getSimulationRunFileContentEndpoint(
-                id,
-                file.location.path,
-              );
+              const fileUrl =
+                this.endpoints.getSimulationRunFileContentEndpoint(
+                  id,
+                  file.location.path,
+                );
               // This is a silly way to get the filesize, but it works for now
               const apiFile = this.httpService.head(fileUrl).pipe(
                 pluck('headers'),

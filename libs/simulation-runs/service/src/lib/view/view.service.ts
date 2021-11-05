@@ -39,7 +39,10 @@ import {
   ArchiveMetadata as APIMetadata,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
-import { SimulationRunService, SimulatorService } from '@biosimulations/angular-api-client';
+import {
+  SimulationRunService,
+  SimulatorService,
+} from '@biosimulations/angular-api-client';
 import { VegaVisualizationService } from '../vega-visualization/vega-visualization.service';
 import { SedPlot2DVisualizationService } from '../sed-plot-2d-visualization/sed-plot-2d-visualization.service';
 import {
@@ -850,8 +853,12 @@ export class ViewService {
                       return output._type === 'SedPlot2D' ? [output] : [];
                     })
                     .map((output: SedPlot2D): SedPlot2DVisualization => {
-                      const data: Observable<SimulationRunOutput> = this.simRunService.getSimulationRunOutputResults(
-                        id, `${location}/${output.id}`, true);
+                      const data: Observable<SimulationRunOutput> =
+                        this.simRunService.getSimulationRunOutputResults(
+                          id,
+                          `${location}/${output.id}`,
+                          true,
+                        );
                       // const layout: Observable<> this.get
 
                       return {
@@ -861,21 +868,20 @@ export class ViewService {
                         userDesigned: false,
                         renderer: 'Plotly',
                         plotlyDataLayout: of(
-                            data
-                            .pipe(
-                              map(
-                                (
-                                  result: SimulationRunOutput,
-                                ): PlotlyDataLayout => {
-                                  return this.sedPlot2DVisualizationService.getPlotlyDataLayout(
-                                    id,
-                                    location,
-                                    output,
-                                    result,
-                                  );
-                                },
-                              ),
+                          data.pipe(
+                            map(
+                              (
+                                result: SimulationRunOutput,
+                              ): PlotlyDataLayout => {
+                                return this.sedPlot2DVisualizationService.getPlotlyDataLayout(
+                                  id,
+                                  location,
+                                  output,
+                                  result,
+                                );
+                              },
                             ),
+                          ),
                         ),
                       };
                     })

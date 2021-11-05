@@ -55,12 +55,12 @@
     "shared-styles": "libs/shared/styles",
     "shared-ui": "libs/shared/ui",
     "shared-utils-routes": "libs/shared/utils/routes",
+    "simulation-runs-service": "libs/simulation-runs/service",
+    "simulation-runs-ui": "libs/simulation-runs/ui",
+    "simulation-runs-viz": "libs/simulation-runs/viz",
     "simulators": "apps/simulators",
     "simulators-api": "apps/simulators-api",
     "simulators-database-models": "libs/simulators/database-models",
-    "simulators-e2e": "apps/simulators-e2e",    
-    "simulation-runs-service": "libs/simulation-runs/service",
-    "simulation-runs-ui": "libs/simulation-runs/ui",
-    "simulation-runs-viz": "libs/simulation-runs/viz"
+    "simulators-e2e": "apps/simulators-e2e"
   }
 }
