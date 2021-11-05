@@ -166,8 +166,8 @@ jobs:
           image_tag: latest,${{github.sha}}
           push_git_tag: true
           registry: ghcr.io
-          context: .
-          dockerfile: DockerfilePython
+          context: apps/combine-api
+          dockerfile: apps/combine-api/Dockerfile
           build_extra_args: "--compress=true --build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
   deployDevFrontend:
