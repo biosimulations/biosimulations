@@ -10,7 +10,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import { AuthClientService } from '@biosimulations/auth/client';
 import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
-import { 
+import {
   SimulationRunStatus,
   SimulationRunSedDocument,
   SimulationRunSedDocumentInput,
