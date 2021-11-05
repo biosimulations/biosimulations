@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import {  
-  AlgorithmKisaoDescriptionFragment,  
+import {
+  AlgorithmKisaoDescriptionFragment,
 } from '../../../../simulation-logs-datamodel';
 import * as Anser from 'anser';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
