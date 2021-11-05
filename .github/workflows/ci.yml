@@ -201,8 +201,8 @@ jobs:
           image_tag: ${{ env.BRANCH_NAME }}
           push_image_and_stages: ${{github.event_name == 'pull_request'}}
           registry: ghcr.io
-          context: apps/combine-api
-          dockerfile: apps/combine-api/Dockerfile
+          context: apps/${{matrix.app}}
+          dockerfile: Dockerfile
           build_extra_args: "--build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
       - name: Build app and dependencies
@@ -288,8 +288,8 @@ jobs:
           image_tag: ${{ env.BRANCH_NAME }}
           push_image_and_stages: ${{github.event_name == 'pull_request'}}
           registry: ghcr.io
-          context: apps/combine-api
-          dockerfile: apps/combine-api/Dockerfile
+          context: apps/${{matrix.libOrApp}}
+          dockerfile: Dockerfile
           build_extra_args: "--build-arg app=${{matrix.libOrApp}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
       - name: Install dev dependencies and execute tests (Python)
@@ -432,7 +432,7 @@ jobs:
           build_extra_args: "--build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
       - if: matrix.app == 'combine-api'
-        name: Build Image
+        name: Build Python Image
         uses: whoan/docker-build-with-cache-action@v5
         with:
           username: "${{ secrets.GHCR_USERNAME }}"
@@ -441,8 +441,8 @@ jobs:
           image_tag: ${{ env.BRANCH_NAME }}
           push_image_and_stages: ${{github.event_name == 'pull_request'}}
           registry: ghcr.io
-          context: apps/combine-api
-          dockerfile: apps/combine-api/Dockerfile
+          context: apps/${{matrix.app}}
+          dockerfile: Dockerfile
           build_extra_args: "--build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
   markDone:

@@ -124,7 +124,7 @@ jobs:
           if-no-files-found: error
 
   buildPushDockerImages:
-    name: Build and push backend docker images
+    name: Build and push backend Docker images
     runs-on: ubuntu-latest
 
     needs: [listApps]
@@ -143,7 +143,7 @@ jobs:
           echo "::set-output name=timestamp::$TIMESTAMP"
 
       - if: matrix.app != 'combine-api'
-        name: Build and Push Image
+        name: Build and Push TypeScript Image
         uses: whoan/docker-build-with-cache-action@v5
         with:
           username: "${{ secrets.GHCR_USERNAME }}"
@@ -157,7 +157,7 @@ jobs:
           build_extra_args: "--compress=true --build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
       - if: matrix.app == 'combine-api'
-        name: Build and Push Python Image Image
+        name: Build and Push Python Image
         uses: whoan/docker-build-with-cache-action@v5
         with:
           username: "${{ secrets.GHCR_USERNAME }}"
@@ -166,8 +166,8 @@ jobs:
           image_tag: latest,${{github.sha}}
           push_git_tag: true
           registry: ghcr.io
-          context: apps/combine-api
-          dockerfile: apps/combine-api/Dockerfile
+          context: apps/${{matrix.app}}
+          dockerfile: Dockerfile
           build_extra_args: "--compress=true --build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
 
   deployDevFrontend:
