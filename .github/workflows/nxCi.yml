@@ -17,6 +17,7 @@ jobs:
         name: Checkout [dev]
         with:
           fetch-depth: 0
+      
 
       - uses: actions/checkout@v2
         if: ${{ github.event_name == 'pull_request' }}
@@ -28,6 +29,9 @@ jobs:
         uses: nrwl/nx-set-shas@v2
         with:
           main-branch-name: 'dev'
+      - name: Set Branch Environment
+        if: ${{ github.event_name == 'push' }}
+        run: echo NX_BRANCH=$GITHUB_REF >> $GITHUB_ENV
 
       - uses: actions/setup-node@v2
         with:

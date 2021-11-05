@@ -4,6 +4,7 @@ on:
     branches:
       - dev
   pull_request:
+  release:
 jobs:
   build:
     runs-on: ubuntu-latest
