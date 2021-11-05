@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import {
-  RawSimulationLog,  
+  RawSimulationLog,
   StructuredLogLevel,
 } from '../../../../simulation-logs-datamodel';
 import {

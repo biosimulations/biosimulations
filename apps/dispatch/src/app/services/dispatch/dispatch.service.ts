@@ -364,6 +364,6 @@ export class DispatchService {
   public constructor(
     private http: HttpClient,
     private simRunService: SimulationRunService,
-    private ontologyService: OntologyService,    
+    private ontologyService: OntologyService,
   ) {}
 }
