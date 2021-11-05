@@ -1,6 +1,6 @@
 {
-  "root": "libs/datamodel/view",
-  "sourceRoot": "libs/datamodel/view/src",
+  "root": "libs/datamodel/simulation-runs",
+  "sourceRoot": "libs/datamodel/simulation-runs/src",
   "projectType": "library",
   "generators": {},
   "targets": {
@@ -9,16 +9,16 @@
       "options": {
         "linter": "eslint",
         "tsConfig": [
-          "libs/datamodel/view/tsconfig.lib.json",
-          "libs/datamodel/view/tsconfig.spec.json"
+          "libs/datamodel/simulation-runs/tsconfig.lib.json",
+          "libs/datamodel/simulation-runs/tsconfig.spec.json"
         ],
-        "exclude": ["**/node_modules/**", "!libs/datamodel/view/**/*"]
+        "exclude": ["**/node_modules/**", "!libs/datamodel/simulation-runs/**/*"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/datamodel/view/jest.config.js",
+        "jestConfig": "libs/datamodel/simulation-runs/jest.config.js",
         "passWithNoTests": true
       }
     }

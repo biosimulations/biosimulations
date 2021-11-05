@@ -18,7 +18,7 @@ import {
   File,
   VisualizationList,
   Visualization,
-} from '@biosimulations/datamodel-view';
+} from '@biosimulations/datamodel-simulation-runs';
 import { ViewService } from '@biosimulations/simulation-runs/service';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { Dataset, WithContext } from 'schema-dts';
@@ -74,50 +74,59 @@ export class ViewComponent implements OnInit {
 
         return throwError(appError);
       }),
+      shareReplay(1),
     );
 
     this.simulationRunId$ = project$.pipe(
       map((project) => project.simulationRun),
+      shareReplay(1),
     );
 
     this.projectMetadata$ = this.simulationRunId$.pipe(
       mergeMap((simulationRun) =>
         this.service.getFormattedProjectMetadata(simulationRun),
       ),
+      shareReplay(1),
     );
 
     this.simulationRun$ = this.simulationRunId$.pipe(
       mergeMap((simulationRun) =>
         this.service.getFormattedSimulationRun(simulationRun),
       ),
+      shareReplay(1),
     );
 
     this.projectFiles$ = this.simulationRunId$.pipe(
       mergeMap((simulationRun) =>
         this.service.getFormattedProjectFiles(simulationRun),
       ),
+      shareReplay(1),
     );
 
     this.files$ = this.simulationRunId$.pipe(
       mergeMap((simulationRun) =>
         this.service.getFormattedProjectContentFiles(simulationRun),
       ),
+      shareReplay(1),
     );
 
     this.outputs$ = this.simulationRunId$.pipe(
       mergeMap((simulationRun) =>
         this.service.getFormattedOutputFiles(simulationRun),
       ),
+      shareReplay(1),
     );
 
     this.visualizations$ = this.simulationRunId$.pipe(
       mergeMap((simulationRun) =>
         this.service.getVisualizations(simulationRun),
       ),
+      shareReplay(1),
     );
 
     this.jsonLdData$ = combineLatest([project$, this.simulationRunId$]).pipe(
       mergeMap((args) => this.service.getJsonLdData(args[1], args[0])),
+      shareReplay(1),
     );
 
     this.loaded$ = combineLatest([

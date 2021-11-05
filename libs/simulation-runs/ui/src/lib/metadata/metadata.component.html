@@ -92,9 +92,9 @@
               [href]="item.url"
               target="_blank"
               *ngIf="item.url; else noHref"
-              >{{ item.value | async }}</a
+              >{{ item.value }}</a
             >
-            <ng-template #noHref>{{ item.value | async }}</ng-template>
+            <ng-template #noHref>{{ item.value }}</ng-template>
           </td>
         </tr>
       </table>

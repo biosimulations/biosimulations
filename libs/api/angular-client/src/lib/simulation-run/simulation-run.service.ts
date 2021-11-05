@@ -33,7 +33,7 @@ export class SimulationRunService {
 
   public getSimulationRunFiles(id: string): Observable<IFile[]> {
     const url = this.endpoints.getSimulationRunFilesEndpoint(id);
-    const response = this.http.get<IFile[]>(url).pipe();
+    const response = this.http.get<IFile[]>(url).pipe(shareReplay(1));
     return response;
   }
 
@@ -46,7 +46,7 @@ export class SimulationRunService {
     id: string,
   ): Observable<SimulationRunSedDocument[]> {
     const url = this.endpoints.getSpecificationsEndpoint(id);
-    const response = this.http.get<SimulationRunSedDocument[]>(url).pipe();
+    const response = this.http.get<SimulationRunSedDocument[]>(url).pipe(shareReplay(1));
     return response;
   }
 
@@ -54,7 +54,7 @@ export class SimulationRunService {
     id: string,
   ): Observable<SimulationRunMetadata> {
     const url = this.endpoints.getSimulationRunMetadataEndpoint(id);
-    const response = this.http.get<SimulationRunMetadata>(url).pipe();
+    const response = this.http.get<SimulationRunMetadata>(url).pipe(shareReplay(1));
 
     return response;
   }
@@ -74,6 +74,7 @@ export class SimulationRunService {
       .pipe(
         shareReplay(1),
         retryWhen(retryStrategy.handler.bind(retryStrategy)),
+        shareReplay(1),
       );
     return response;
   }
@@ -90,18 +91,19 @@ export class SimulationRunService {
       .pipe(
         shareReplay(1),
         retryWhen(retryStrategy.handler.bind(retryStrategy)),
+        shareReplay(1),
       );
     return response;
   }
 
   public getSimulationRunLog(id: string): Observable<CombineArchiveLog> {
     const endpoint = this.endpoints.getSimulationRunLogsEndpoint(id);
-    return this.http.get<CombineArchiveLog>(endpoint);
+    return this.http.get<CombineArchiveLog>(endpoint).pipe(shareReplay(1));
   }
 
   public getSimulationRunSummary(id: string): Observable<SimulationRunSummary> {
     const url = this.endpoints.getSimulationRunSummariesEndpoint(id);
-    const response = this.http.get<SimulationRunSummary>(url).pipe();
+    const response = this.http.get<SimulationRunSummary>(url).pipe(shareReplay(1));
     return response;
   }
 }

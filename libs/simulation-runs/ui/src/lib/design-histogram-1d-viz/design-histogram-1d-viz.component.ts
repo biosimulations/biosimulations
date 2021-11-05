@@ -21,7 +21,7 @@ import {
   UriSetDataSetResultsMap,
   Histogram1DVisualization,
   SedDocumentReports,
-} from '@biosimulations/datamodel-view';
+} from '@biosimulations/datamodel-simulation-runs';
 import { ViewService } from '@biosimulations/simulation-runs/service';
 import { Observable, map } from 'rxjs';
 import { Spec as VegaSpec } from 'vega';

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Visualization } from '@biosimulations/datamodel-view';
+import { Visualization } from '@biosimulations/datamodel-simulation-runs';
 
 @Component({
   selector: 'biosimulations-project-visualization',

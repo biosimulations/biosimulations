@@ -32,7 +32,7 @@ export interface ProjectMetadata {
 
 export interface ListItem {
   title: string;
-  value: Observable<string>;
+  value: string;
   icon: BiosimulationsIcon;
   url: string | null;
 }

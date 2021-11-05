@@ -68,8 +68,8 @@
       "@biosimulations/datamodel-database": [
         "libs/datamodel/database/src/index.ts"
       ],
-      "@biosimulations/datamodel-view": [
-        "libs/datamodel/view/src/index.ts"
+      "@biosimulations/datamodel-simulation-runs": [
+        "libs/datamodel/simulation-runs/src/index.ts"
       ],
       "@biosimulations/datamodel/api": [
         "libs/datamodel/api/src/index.ts"
