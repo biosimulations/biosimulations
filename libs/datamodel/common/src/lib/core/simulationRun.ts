@@ -90,7 +90,7 @@ export interface SimulationRun {
   updated: Date;
 }
 
-export interface SimulationRunSedDocument {
+export interface SimulationRunSedDocumentInput {
   id: string;
   simulationRun: string;
   models: SedModel[];
@@ -98,6 +98,13 @@ export interface SimulationRunSedDocument {
   dataGenerators: SedDataGenerator[];
   outputs: SedOutput[];
   tasks: SedTask[];
+}
+
+export class SimulationRunSedDocumentInputsContainer {
+  sedDocuments!: SimulationRunSedDocumentInput[];
+}
+
+export interface SimulationRunSedDocument extends SimulationRunSedDocumentInput {
   created: string;
   updated: string;
 }

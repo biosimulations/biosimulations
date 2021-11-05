@@ -7,6 +7,8 @@ import {
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
+  SimulationRunSedDocumentInput as ISimulationRunSedDocumentInput,
+  SimulationRunSedDocumentInputsContainer as ISimulationRunSedDocumentInputsContainer,
   SedModel as ISedModel,
   SedModelAttributeChange as ISedModelAttributeChange,
   SedOneStepSimulation as ISedOneStepSimulation,
@@ -577,7 +579,7 @@ export const SedOutputSchema: SchemaObject = {
 @ApiExtraModels(SedReport)
 @ApiExtraModels(SedPlot2D)
 @ApiExtraModels(SedPlot3D)
-export class SimulationRunSedDocumentInput {
+export class SimulationRunSedDocumentInput implements ISimulationRunSedDocumentInput {
   @ApiProperty({ type: String })
   @IsString()
   public id!: string;
@@ -672,7 +674,7 @@ export class SimulationRunSedDocument
   public updated!: string;
 }
 
-export class SimulationRunSedDocumentInputsContainer {
+export class SimulationRunSedDocumentInputsContainer implements ISimulationRunSedDocumentInputsContainer {
   @ApiProperty({
     description: 'SED documents',
     type: [SimulationRunSedDocumentInput],

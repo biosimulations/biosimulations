@@ -10,7 +10,12 @@ import { Endpoints } from '@biosimulations/config/common';
 import { AuthClientService } from '@biosimulations/auth/client';
 import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { 
+  SimulationRunStatus,
+  SimulationRunSedDocument,
+  SimulationRunSedDocumentInput,
+  SimulationRunSedDocumentInputsContainer,
+} from '@biosimulations/datamodel/common';
 import {
   ProjectFileInput,
   ProjectFileInputsContainer,
@@ -18,11 +23,6 @@ import {
   SimulationRunMetadataInput,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
-import {
-  SimulationRunSedDocument,
-  SimulationRunSedDocumentInput,
-  SimulationRunSedDocumentInputsContainer,
-} from '@biosimulations/ontology/datamodel';
 
 @Injectable({})
 export class SimulationRunService {
