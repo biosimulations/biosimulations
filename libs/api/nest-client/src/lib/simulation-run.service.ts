@@ -61,7 +61,7 @@ export class SimulationRunService {
     files: SubmitProjectFile[],
   ): Observable<ProjectFile[]> {
     const body: SubmitProjectFilesContainer = { files };
-    const endpoint = this.endpoints.getFilesEndpoint();
+    const endpoint = this.endpoints.getSimulationRunFilesEndpoint();
     return this.postAuthenticated<SubmitProjectFilesContainer, ProjectFile[]>(
       endpoint,
       body,
