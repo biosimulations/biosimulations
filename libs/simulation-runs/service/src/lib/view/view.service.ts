@@ -25,6 +25,7 @@ import {
   SimulatorIdNameMap,
   PlotlyDataLayout,
   SimulationRun,
+  SimulationRunSummary,
   CombineArchiveLog,
   SedDocumentLog,
   SedTaskLog,
@@ -33,6 +34,7 @@ import {
   File as CombineArchiveFile,
   Project,
   EdamTerm,
+  OntologyTermMap,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
@@ -307,6 +309,7 @@ export class ViewService {
   ): Observable<FormattedSimulationRunMetadata> {
     return forkJoin([
       this.simRunService.getSimulationRun(id),
+      this.simRunService.getSimulationRunSummary(id),
       this.simRunService.getSimulationRunSimulationSpecifications(id),
       this.simRunService.getSimulationRunLog(id),
       this.ontologyService.getTerms<KisaoTerm>(Ontologies.KISAO),
@@ -315,16 +318,18 @@ export class ViewService {
         (
           args: [
             SimulationRun,
+            SimulationRunSummary,
             SimulationRunSedDocument[],
             CombineArchiveLog,
-            { [id: string]: KisaoTerm },
+            OntologyTermMap<KisaoTerm>,
           ],
         ): FormattedSimulationRunMetadata => {
           // SimulationRun
-          const simulationRun = args[0];
-          const sedmlArchiveContents = args[1];
-          const log = args[2];
-          const kisaoIdTermMap = args[3];
+          const simulationRun: SimulationRun = args[0];
+          const simulationRunSummary: SimulationRunSummary = args[1];
+          const sedmlArchiveContents: SimulationRunSedDocument[] = args[2];
+          const log: CombineArchiveLog = args[3];
+          const kisaoIdTermMap: OntologyTermMap<KisaoTerm> = args[4];
 
           const modelLanguageSedUrns = new Set<string>();
           const simulationTypes = new Set<string>();
@@ -750,10 +755,10 @@ export class ViewService {
     );
   }
 
-  public getVisualizations(id: string): Observable<VisualizationList[]> {
+  public getVisualizations(runId: string): Observable<VisualizationList[]> {
     return forkJoin([
-      this.simRunService.getSimulationRunFiles(id),
-      this.simRunService.getSimulationRunSimulationSpecifications(id),
+      this.simRunService.getSimulationRunFiles(runId),
+      this.simRunService.getSimulationRunSimulationSpecifications(runId),
     ]).pipe(
       map(
         (
@@ -762,6 +767,66 @@ export class ViewService {
           const contents = args[0];
           const sedmlArchiveContents = args[1];
 
+          // Vega visualizations
+          const vegaVisualizations: VegaVisualization[] = contents
+            .filter((content: CombineArchiveFile): boolean => {
+              return this.vegaFormatOmexManifestUris.includes(content.format);
+            })
+            .map((content: CombineArchiveFile): VegaVisualization => {
+              return this.makeVegaVisualization(runId, content.location, sedmlArchiveContents);
+            })
+            . sort(
+              (a: VegaVisualization, b: VegaVisualization): number => {
+                return a.name.localeCompare(b.name, undefined, { numeric: true });
+              },
+            );
+
+          const vegaVisualizationsList: VisualizationList[] =
+            vegaVisualizations.length
+              ? [
+                  {
+                    title: 'Vega charts',
+                    visualizations: vegaVisualizations,
+                  },
+                ]
+              : [];
+
+          // SED-ML visualizations
+          const sedmlVisualizationsList = sedmlArchiveContents
+            .map(
+              (sedDocLocation: SimulationRunSedDocument): VisualizationList => {
+                let location = sedDocLocation.id;
+                if (location.startsWith('./')) {
+                  location = location.substring(2);
+                }
+
+                return {
+                  title: 'SED-ML charts for ' + location,
+                  visualizations: sedDocLocation.outputs
+                    .flatMap((output: SedOutput): SedPlot2D[] => {
+                      return output._type === 'SedPlot2D' ? [output] : [];
+                    })
+                    .map((output: SedPlot2D): SedPlot2DVisualization => {
+                      return this.makeSedPlot2DVisualization(runId, location, output);
+                    })
+                    .sort((a: Visualization, b: Visualization): number => {
+                      return a.name.localeCompare(b.name, undefined, {
+                        numeric: true,
+                      });
+                    }),
+                };
+              },
+            )
+            .filter((a: VisualizationList): boolean => {
+              return a.visualizations.length > 0;
+            })
+            .sort((a: VisualizationList, b: VisualizationList): number => {
+              return a.title.localeCompare(b.title, undefined, {
+                numeric: true,
+              });
+            });
+
+          // User-designed visualizations
           const sedmlReportArchiveContents = sedmlArchiveContents.map(
             (content: SimulationRunSedDocument): SedDocumentReports => {
               return {
@@ -793,115 +858,6 @@ export class ViewService {
             },
           );
 
-          const vegaVisualizations: VegaVisualization[] = [];
-          contents.forEach((content: CombineArchiveFile): void => {
-            if (this.vegaFormatOmexManifestUris.includes(content.format)) {
-              let location = content.location;
-              if (location.startsWith('./')) {
-                location = location.substring(2);
-              }
-
-              vegaVisualizations.push({
-                _type: 'VegaVisualization',
-                id: location,
-                name: location,
-                userDesigned: false,
-                renderer: 'Vega',
-                vegaSpec: this.simRunService
-                  .getSimulationRunFileContent(id, content.location)
-                  .pipe(
-                    shareReplay(1),
-                    map((spec: VegaSpec): VegaSpec | false => {
-                      return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(
-                        id,
-                        sedmlArchiveContents,
-                        spec,
-                      );
-                    }),
-                    shareReplay(1),
-                  ),
-              });
-            }
-          });
-          vegaVisualizations.sort(
-            (a: VegaVisualization, b: VegaVisualization): number => {
-              return a.name.localeCompare(b.name, undefined, { numeric: true });
-            },
-          );
-
-          const vegaVisualizationsList: VisualizationList[] =
-            vegaVisualizations.length
-              ? [
-                  {
-                    title: 'Vega charts',
-                    visualizations: vegaVisualizations,
-                  },
-                ]
-              : [];
-
-          const sedmlVisualizationsList = sedmlArchiveContents
-            .map(
-              (sedDocLocation: SimulationRunSedDocument): VisualizationList => {
-                let location = sedDocLocation.id;
-                if (location.startsWith('./')) {
-                  location = location.substring(2);
-                }
-                return {
-                  title: 'SED-ML charts for ' + location,
-                  visualizations: sedDocLocation.outputs
-                    .flatMap((output: SedOutput): SedPlot2D[] => {
-                      return output._type === 'SedPlot2D' ? [output] : [];
-                    })
-                    .map((output: SedPlot2D): SedPlot2DVisualization => {
-                      const data: Observable<SimulationRunOutput> =
-                        this.simRunService.getSimulationRunOutputResults(
-                          id,
-                          `${location}/${output.id}`,
-                          true,
-                        );
-                      // const layout: Observable<> this.get
-
-                      return {
-                        _type: 'SedPlot2DVisualization',
-                        id: `${location}/${output.id}`,
-                        name: `${output.name || output.id}`,
-                        userDesigned: false,
-                        renderer: 'Plotly',
-                        plotlyDataLayout: of(
-                          data.pipe(
-                            map(
-                              (
-                                result: SimulationRunOutput,
-                              ): PlotlyDataLayout => {
-                                return this.sedPlot2DVisualizationService.getPlotlyDataLayout(
-                                  id,
-                                  location,
-                                  output,
-                                  result,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      };
-                    })
-                    .sort((a: Visualization, b: Visualization): number => {
-                      return a.name.localeCompare(b.name, undefined, {
-                        numeric: true,
-                      });
-                    }),
-                };
-              },
-            )
-            .filter((a: VisualizationList): boolean => {
-              return a.visualizations.length > 0;
-            })
-            .sort((a: VisualizationList, b: VisualizationList): number => {
-              return a.title.localeCompare(b.title, undefined, {
-                numeric: true,
-              });
-            });
-
           const designVisualizations: Visualization[] = [];
 
           let behaviorSubject: BehaviorSubject<
@@ -916,7 +872,7 @@ export class ViewService {
             id: 'Histogram1DVisualization',
             name: '1D histogram',
             userDesigned: true,
-            simulationRunId: id,
+            simulationRunId: runId,
             sedDocs: sedmlReportArchiveContents,
             uriSedDataSetMap: uriSedDataSetMap,
             renderer: 'Plotly',
@@ -932,7 +888,7 @@ export class ViewService {
             id: 'Heatmap2DVisualization',
             name: '2D heatmap',
             userDesigned: true,
-            simulationRunId: id,
+            simulationRunId: runId,
             sedDocs: sedmlReportArchiveContents,
             uriSedDataSetMap: uriSedDataSetMap,
             renderer: 'Plotly',
@@ -948,7 +904,7 @@ export class ViewService {
             id: 'Line2DVisualization',
             name: '2D line plot',
             userDesigned: true,
-            simulationRunId: id,
+            simulationRunId: runId,
             sedDocs: sedmlReportArchiveContents,
             uriSedDataSetMap: uriSedDataSetMap,
             renderer: 'Plotly',
@@ -969,6 +925,63 @@ export class ViewService {
         },
       ),
     );
+  }
+
+  private makeVegaVisualization(runId: string, fileLocation: string, sedmlArchiveContents: SimulationRunSedDocument[]): VegaVisualization {
+    if (fileLocation.startsWith('./')) {
+      fileLocation = fileLocation.substring(2);
+    }
+
+    return {
+      _type: 'VegaVisualization',
+      id: fileLocation,
+      name: fileLocation,
+      userDesigned: false,
+      renderer: 'Vega',
+      vegaSpec: this.simRunService
+        .getSimulationRunFileContent(runId, fileLocation)
+        .pipe(
+          shareReplay(1),
+          map((spec: VegaSpec): VegaSpec | false => {
+            return this.vegaVisualizationService.linkSignalsAndDataSetsToSimulationsAndResults(
+              runId,
+              sedmlArchiveContents,
+              spec,
+            );
+          }),
+          shareReplay(1),
+        ),
+    };
+  }
+
+  private makeSedPlot2DVisualization(runId: string, sedDocLocation: string, plot: SedPlot2D): SedPlot2DVisualization {
+    const data: Observable<SimulationRunOutput> = this.simRunService.getSimulationRunOutputResults(
+                        runId, `${sedDocLocation}/${plot.id}`, true);
+
+    return {
+      _type: 'SedPlot2DVisualization',
+      id: `${sedDocLocation}/${plot.id}`,
+      name: `${plot.name || plot.id}`,
+      userDesigned: false,
+      renderer: 'Plotly',
+      plotlyDataLayout: of(
+          data
+          .pipe(
+            map(
+              (
+                result: SimulationRunOutput,
+              ): PlotlyDataLayout => {
+                return this.sedPlot2DVisualizationService.getPlotlyDataLayout(
+                  runId,
+                  sedDocLocation,
+                  plot,
+                  result,
+                );
+              },
+            ),
+          ),
+      ),
+    };
   }
 
   public getReportResults(
