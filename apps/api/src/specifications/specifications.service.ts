@@ -1,4 +1,4 @@
-import { SimulationRunSedDocument } from '@biosimulations/datamodel/api';
+import { SimulationRunSedDocumentInput } from '@biosimulations/datamodel/api';
 import { SedElementType } from '@biosimulations/datamodel/common';
 import {
   Injectable,
@@ -93,7 +93,7 @@ export class SpecificationsService {
   }
 
   public async createSpecs(
-    specs: SimulationRunSedDocument[],
+    specs: SimulationRunSedDocumentInput[],
   ): Promise<SpecificationsModel[]> {
     const createdSpecs = [];
     for (const spec of specs) {

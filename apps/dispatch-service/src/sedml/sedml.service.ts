@@ -9,7 +9,7 @@ import {
   CombineArchiveSedDocSpecsContent,
 } from '@biosimulations/combine-api-client';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
-import { SimulationRunSedDocument } from '@biosimulations/datamodel/api';
+import { SimulationRunSedDocumentInput } from '@biosimulations/datamodel/api';
 
 @Injectable()
 export class SedmlService {
@@ -34,7 +34,7 @@ export class SedmlService {
       pluck('data'),
       pluck('contents'),
       map(this.getSpecsFromArchiveContent.bind(this, id)),
-      mergeMap((sedmlSpecs: SimulationRunSedDocument[]) => {
+      mergeMap((sedmlSpecs: SimulationRunSedDocumentInput[]) => {
         return this.submit.postSpecs(id, sedmlSpecs);
       }),
     );
@@ -45,8 +45,8 @@ export class SedmlService {
   private getSpecsFromArchiveContent(
     simulationRun: string,
     contents: CombineArchiveSedDocSpecsContent[],
-  ): SimulationRunSedDocument[] {
-    const sedmlSpecs: SimulationRunSedDocument[] = [];
+  ): SimulationRunSedDocumentInput[] {
+    const sedmlSpecs: SimulationRunSedDocumentInput[] = [];
     contents.forEach((content: CombineArchiveSedDocSpecsContent) => {
       const id: string = content.location.path.replace('./', '');
       const spec: SedDocument = content.location.value;
@@ -59,8 +59,6 @@ export class SedmlService {
         outputs: spec.outputs,
         tasks: spec.tasks,
         simulations: spec.simulations,
-        created: '',
-        updated: '',
       });
     });
     return sedmlSpecs;

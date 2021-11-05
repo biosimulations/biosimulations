@@ -575,7 +575,7 @@ export const SedOutputSchema: SchemaObject = {
 @ApiExtraModels(SedReport)
 @ApiExtraModels(SedPlot2D)
 @ApiExtraModels(SedPlot3D)
-export class SimulationRunSedDocument implements ISimulationRunSedDocument {
+export class SimulationRunSedDocumentInput {
   @ApiProperty({ type: String })
   @IsString()
   public id!: string;
@@ -649,7 +649,9 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
   @Type(() => SedTask)
   @ValidateNested({ each: true })
   public tasks!: SedTask[];
+}
 
+export class SimulationRunSedDocument extends SimulationRunSedDocumentInput implements ISimulationRunSedDocument {
   @ApiResponseProperty({
     type: String,
     format: 'date-time',
@@ -665,12 +667,12 @@ export class SimulationRunSedDocument implements ISimulationRunSedDocument {
   public updated!: string;
 }
 
-export class SimulationRunSedDocumentsContainer {
+export class SimulationRunSedDocumentInputsContainer {
   @ApiProperty({
     description: 'SED documents',
-    type: [SimulationRunSedDocument],
+    type: [SimulationRunSedDocumentInput],
   })
   @ValidateNested({ each: true })
   @Type(() => SimulationRunSedDocument)
-  sedDocuments!: SimulationRunSedDocument[];
+  sedDocuments!: SimulationRunSedDocumentInput[];
 }
