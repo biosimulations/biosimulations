@@ -211,8 +211,8 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
               }
             }
 
-            let xTicks: any[] | undefined = undefined;
-            let xAxisTitle: string | undefined = undefined;
+            let xTicks: any[] | undefined;
+            let xAxisTitle: string | undefined;
             if (selectedXUri) {
               const data = uriResultsMap?.[selectedXUri];
               if (data) {

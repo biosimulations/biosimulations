@@ -10,7 +10,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import {
   Project,
   ProjectInput,
-  ProjectSummary,  
+  ProjectSummary,
 } from '@biosimulations/datamodel/common';
 
 @Injectable({

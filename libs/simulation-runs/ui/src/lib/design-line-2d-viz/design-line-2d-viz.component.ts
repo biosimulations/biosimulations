@@ -239,8 +239,8 @@ export class DesignLine2DVisualizationComponent implements OnInit {
             const xAxisTitlesArr = Array.from(xAxisTitlesSet);
             const yAxisTitlesArr = Array.from(yAxisTitlesSet);
 
-            let xAxisTitle: string | undefined = undefined;
-            let yAxisTitle: string | undefined = undefined;
+            let xAxisTitle: string | undefined;
+            let yAxisTitle: string | undefined;
 
             if (xAxisTitlesArr.length === 1) {
               xAxisTitle = xAxisTitlesArr[0];

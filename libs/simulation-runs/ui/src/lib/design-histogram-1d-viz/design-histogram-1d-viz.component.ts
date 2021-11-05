@@ -203,7 +203,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
               type: PlotlyTraceType.histogram,
             };
 
-            let xAxisTitle: string | undefined = undefined;
+            let xAxisTitle: string | undefined;
             if (xAxisTitles.length === 1) {
               xAxisTitle = xAxisTitles[0];
             } else if (xAxisTitles.length > 1) {
@@ -307,7 +307,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
             },
           ];
 
-          let xAxisTitle: string | undefined = undefined;
+          let xAxisTitle: string | undefined;
           if (xAxisTitles.length === 1) {
             xAxisTitle = xAxisTitles[0];
           } else if (xAxisTitles.length > 1) {

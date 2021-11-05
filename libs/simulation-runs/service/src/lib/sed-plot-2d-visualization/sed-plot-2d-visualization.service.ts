@@ -75,8 +75,8 @@ export class SedPlot2DVisualizationService {
 
     const xAxisTitlesArr = Array.from(xAxisTitlesSet);
     const yAxisTitlesArr = Array.from(yAxisTitlesSet);
-    let xAxisTitle: string | undefined = undefined;
-    let yAxisTitle: string | undefined = undefined;
+    let xAxisTitle: string | undefined;
+    let yAxisTitle: string | undefined;
     let showLegend = false;
 
     if (xAxisTitlesArr.length == 1) {
