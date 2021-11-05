@@ -15,12 +15,15 @@ import {
   ProjectFileInput,
   ProjectFileInputsContainer,
   ProjectFile,
-  SimulationRunSedDocument,
-  SimulationRunSedDocumentInput,
-  SimulationRunSedDocumentInputsContainer,
   SimulationRunMetadataInput,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
+import {
+  SimulationRunSedDocument,
+  SimulationRunSedDocumentInput,
+  SimulationRunSedDocumentInputsContainer,
+} from '@biosimulations/ontology/datamodel';
+
 @Injectable({})
 export class SimulationRunService {
   private endpoints: Endpoints;

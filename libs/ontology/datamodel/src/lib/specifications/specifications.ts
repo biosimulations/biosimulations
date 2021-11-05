@@ -27,6 +27,7 @@ import {
   SedTarget as ISedTarget,
   Namespace as INamespace,
   SedAxisScale,
+  Ontologies,
 } from '@biosimulations/datamodel/common';
 import {
   IsString,
@@ -40,6 +41,7 @@ import {
   IsInt,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsOntologyTerm } from '@biosimulations/ontology/utils';
 
 export class Namespace implements INamespace {
   @ApiProperty({ type: String, enum: ['Namespace'] })
@@ -159,7 +161,7 @@ export class SedAlgorithmParameterChange
     example: 'KISAO_0000488',
     pattern: '^KISAO_\\d{7,7}$',
   })
-  @IsString()
+  @IsOntologyTerm(Ontologies.KISAO, 'KISAO_0000201')
   public kisaoId!: string;
 
   @ApiProperty({ type: String })
@@ -177,7 +179,7 @@ export class SedAlgorithm implements ISedAlgorithm {
     example: 'KISAO_0000019',
     pattern: '^KISAO_\\d{7,7}$',
   })
-  @IsString()
+  @IsOntologyTerm(Ontologies.KISAO, 'KISAO_0000000')
   public kisaoId!: string;
 
   @ApiProperty({ type: [SedAlgorithmParameterChange] })

@@ -747,8 +747,8 @@ export class SimulationRunService {
               name: task.simulation?.name,
               algorithm: {
                 kisaoId: algorithmKisaoId,
-                name: algorithmKisaoTerm?.name || undefined,
-                url: algorithmKisaoTerm?.url || undefined,
+                name: algorithmKisaoTerm?.name || `${algorithmKisaoId} (deprecated)`,
+                url: algorithmKisaoTerm?.url || 'https://www.ebi.ac.uk/ols/ontologies/kisao',
               },
             },
           });

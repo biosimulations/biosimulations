@@ -1,4 +1,4 @@
-import { SimulationRunSedDocumentInput } from '@biosimulations/datamodel/api';
+import { SimulationRunSedDocumentInput } from '@biosimulations/ontology/datamodel';
 import { SedElementType } from '@biosimulations/datamodel/common';
 import {
   Injectable,

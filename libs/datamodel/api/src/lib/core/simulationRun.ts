@@ -513,20 +513,20 @@ export class SimulationRunAlgorithmSummary
   })
   kisaoId!: string;
 
-  @ApiPropertyOptional({
+  @ApiProperty({
     type: String,
     description: 'Name of the algorithm',
     example: 'CVODE',
   })
-  name?: string;
+  name!: string;
 
-  @ApiPropertyOptional({
+  @ApiProperty({
     type: String,
     description: 'URL with more informationa about the algorithm',
     example:
       'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23KISAO_0000019',
   })
-  url?: string;
+  url!: string;
 }
 
 export class SimulationRunModelSummary implements ISimulationRunModelSummary {

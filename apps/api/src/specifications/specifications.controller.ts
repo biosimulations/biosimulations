@@ -27,7 +27,7 @@ import {
   SedDataGenerator,
   SedOutput,
   SedOutputSchema,
-} from '@biosimulations/datamodel/api';
+} from '@biosimulations/ontology/datamodel';
 import { SedElementType } from '@biosimulations/datamodel/common';
 import { SpecificationsService } from './specifications.service';
 import { SpecificationsModel } from './specifications.model';
