@@ -110,8 +110,7 @@ export class Endpoints {
     return `${this.getBaseUrl()}/ontologies`;
   }
 
-  /**
-   *
+  /** Get the URL for a file object, for all files for a simulation run, or to post files for a simulation run.
    * @param runId The id of the simulation run
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
    * @returns The URL to get the content of a COMBINE archive
@@ -145,19 +144,6 @@ export class Endpoints {
   public getSimulationRunEndpoint(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
     return `${this.simulationRuns}${id}`;
-  }
-
-  /**
-   * Get the URL for a file object.
-   * This URL points to the file object in the database, and is not a direct link to download the file
-   * In some cases, the API may be configured to automatically forward to the file download URL, but this is not guaranteed
-   *
-   * @param id The id of the file
-   * @returns Returns a URL that returns the file object from the databse
-   */
-  public getFilesEndpoint(id?: string): string {
-    id ? (id = `/${id}`) : (id = '');
-    return `${this.files}${id}`;
   }
 
   /**
