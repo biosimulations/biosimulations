@@ -25,6 +25,7 @@ import {
 } from 'rxjs/operators';
 import { SimulationRun } from '@biosimulations/datamodel/common';
 import { Endpoints } from '@biosimulations/config/common';
+import { SimulationRunService } from '@biosimulations/angular-api-client';
 
 @Injectable({
   providedIn: 'root',
@@ -55,6 +56,7 @@ export class SimulationService {
     private config: ConfigService,
     private storage: Storage,
     private httpClient: HttpClient,
+    private simRunHttpService: SimulationRunService,
   ) {
     this.initStorage();
   }
@@ -221,8 +223,7 @@ export class SimulationService {
    * @param uuid The id of the simulation
    */
   private getSimulationHttp(uuid: string): Observable<ISimulation> {
-    return this.httpClient
-      .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(uuid))
+    return this.simRunHttpService.getSimulationRun(uuid)
       .pipe(
         catchError((error: HttpErrorResponse): Observable<undefined> => {
           if (error.status === HttpStatusCode.NotFound) {

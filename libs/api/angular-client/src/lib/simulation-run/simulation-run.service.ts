@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@biosimulations/shared/environments';
 import { Observable, shareReplay } from 'rxjs';
-import { retryWhen } from 'rxjs/operators';
 import {
   SimulationRun,
   SimulationRunMetadata,
@@ -16,67 +15,59 @@ import {
 } from '@biosimulations/datamodel/common';
 import { HttpClient } from '@angular/common/http';
 import { Endpoints } from '@biosimulations/config/common';
-import { RetryStrategy } from '@biosimulations/shared/angular';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SimulationRunService {
-  private endpoints = new Endpoints(environment.env);
-  constructor(private http: HttpClient) {}
+  private endpoints: Endpoints;
+
+  private cachedRunId?: string;
+  private cachedRunObservables: {[endpoint: string]: Observable<any>} = {};
+
+  constructor(private httpClient: HttpClient) {
+    this.endpoints = new Endpoints(environment.env);
+  }
 
   public getSimulationRun(id: string): Observable<SimulationRun> {
-    const url = this.endpoints.getSimulationRunEndpoint(id);
-    const response = this.http.get<SimulationRun>(url).pipe(shareReplay(1));
-    return response;
+    const endpoint = this.endpoints.getSimulationRunEndpoint(id);
+    return this.getData<SimulationRun>(id, endpoint);
   }
 
   public getSimulationRunFiles(id: string): Observable<IFile[]> {
-    const url = this.endpoints.getSimulationRunFilesEndpoint(id);
-    const response = this.http.get<IFile[]>(url).pipe(shareReplay(1));
-    return response;
+    const endpoint = this.endpoints.getSimulationRunFilesEndpoint(id);
+    return this.getData<IFile[]>(id, endpoint);
   }
 
   public getSimulationRunFileContent(id: string, file: string) {
-    const url = this.endpoints.getSimulationRunFileContentEndpoint(id, file);
-    return this.http.get(url);
+    const endpoint = this.endpoints.getSimulationRunFileContentEndpoint(id, file);
+    return this.getData<any>(id, endpoint);
   }
 
   public getSimulationRunSimulationSpecifications(
     id: string,
   ): Observable<SimulationRunSedDocument[]> {
-    const url = this.endpoints.getSpecificationsEndpoint(id);
-    const response = this.http.get<SimulationRunSedDocument[]>(url).pipe(shareReplay(1));
-    return response;
+    const endpoint = this.endpoints.getSpecificationsEndpoint(id);
+    return this.getData<SimulationRunSedDocument[]>(id, endpoint);
   }
 
   public getSimulationRunMetadata(
     id: string,
   ): Observable<SimulationRunMetadata> {
-    const url = this.endpoints.getSimulationRunMetadataEndpoint(id);
-    const response = this.http.get<SimulationRunMetadata>(url).pipe(shareReplay(1));
-
-    return response;
+    const endpoint = this.endpoints.getSimulationRunMetadataEndpoint(id);
+    return this.getData<SimulationRunMetadata>(id, endpoint);
   }
 
   public getSimulationRunResults(
     id: string,
     includeData = false,
   ): Observable<SimulationRunResults> {
-    const url = this.endpoints.getRunResultsEndpoint(
+    const endpoint = this.endpoints.getRunResultsEndpoint(
       id,
       undefined,
       includeData,
     );
-    const retryStrategy = new RetryStrategy();
-    const response = this.http
-      .get<SimulationRunResults>(url)
-      .pipe(
-        shareReplay(1),
-        retryWhen(retryStrategy.handler.bind(retryStrategy)),
-        shareReplay(1),
-      );
-    return response;
+    return this.getData<SimulationRunResults>(id, endpoint);
   }
 
   public getSimulationRunOutputResults(
@@ -84,26 +75,32 @@ export class SimulationRunService {
     outputId: string,
     includeData = false,
   ): Observable<SimulationRunOutput> {
-    const url = this.endpoints.getRunResultsEndpoint(id, outputId, includeData);
-    const retryStrategy = new RetryStrategy();
-    const response = this.http
-      .get<SimulationRunOutput>(url)
-      .pipe(
-        shareReplay(1),
-        retryWhen(retryStrategy.handler.bind(retryStrategy)),
-        shareReplay(1),
-      );
-    return response;
+    const endpoint = this.endpoints.getRunResultsEndpoint(id, outputId, includeData);
+    return this.getData<SimulationRunOutput>(id, endpoint);
   }
 
   public getSimulationRunLog(id: string): Observable<CombineArchiveLog> {
     const endpoint = this.endpoints.getSimulationRunLogsEndpoint(id);
-    return this.http.get<CombineArchiveLog>(endpoint).pipe(shareReplay(1));
+    return this.getData<CombineArchiveLog>(id, endpoint);
   }
 
   public getSimulationRunSummary(id: string): Observable<SimulationRunSummary> {
-    const url = this.endpoints.getSimulationRunSummariesEndpoint(id);
-    const response = this.http.get<SimulationRunSummary>(url).pipe(shareReplay(1));
-    return response;
+    const endpoint = this.endpoints.getSimulationRunSummariesEndpoint(id);
+    return this.getData<SimulationRunSummary>(id, endpoint);
+  }
+
+  private getData<T>(runId: string, endpoint: string): Observable<T> {
+    if (runId !== this.cachedRunId) {
+      this.cachedRunId = runId;
+      this.cachedRunObservables = {};
+    }
+
+    let observable = this.cachedRunObservables[endpoint];
+    if (!observable) {
+      observable = this.httpClient.get<any>(endpoint).pipe(shareReplay(1));
+      this.cachedRunObservables[endpoint] = observable;
+    }
+    
+    return observable as Observable<T>;
   }
 }

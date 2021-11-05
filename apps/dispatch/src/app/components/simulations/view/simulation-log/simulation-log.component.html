@@ -399,7 +399,7 @@
         [compact]="true"
         iconActionType="toggle"
         [first]="iDoc === 0"
-        [last]="iDoc === _structuredLog.sedDocuments.length - 1"
+        [last]="iDoc === ((_structuredLog?.sedDocuments?.length || 0) - 1)"
       >
       </biosimulations-structured-simulation-log-element>
 

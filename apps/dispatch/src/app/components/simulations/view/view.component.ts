@@ -149,12 +149,14 @@ export class ViewComponent implements OnInit {
       this.outputs$,
       this.visualizations$,
       this.logs$,
-    ]).pipe(map((_) => true));
+    ]).pipe(
+      map((_) => true),
+      shareReplay(1),
+    );
   }
 
   private initSimulationRun(): void {
     this.simulation$ = this.simulationService.getSimulation(this.id).pipe(
-      shareReplay(1),
       map((simulation: Simulation | UnknownSimulation): Simulation => {
         if (isUnknownSimulation(simulation)) {
           throw new BiosimulationsError(
@@ -165,27 +167,37 @@ export class ViewComponent implements OnInit {
         }
         return simulation as Simulation;
       }),
+      shareReplay(1),
     );
 
-    this.status$ = this.simulation$.pipe(pluck('status'));
+    this.status$ = this.simulation$.pipe(
+      pluck('status'),
+      shareReplay(1),
+    );
     this.statusRunning$ = this.status$.pipe(
       map((value: SimulationRunStatus): boolean => {
         return SimulationStatusService.isSimulationStatusRunning(value);
       }),
+      shareReplay(1),
     );
     this.statusSucceeded$ = this.status$.pipe(
       map((value: SimulationRunStatus): boolean => {
         return SimulationStatusService.isSimulationStatusSucceeded(value);
       }),
+      shareReplay(1),
     );
 
     this.formattedSimulation$ = this.simulation$.pipe(
       map<Simulation, FormattedSimulation>(
         this.viewService.formatSimulation.bind(this.viewService),
       ),
+      shareReplay(1),
     );
 
-    this.loaded$ = this.formattedSimulation$.pipe(map((_): true => true));
+    this.loaded$ = this.formattedSimulation$.pipe(
+      map((_): true => true),
+      shareReplay(1),
+    );
   }
 
   selectedTabIndex = 0;
