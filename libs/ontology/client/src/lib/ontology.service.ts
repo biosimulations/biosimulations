@@ -22,13 +22,13 @@ export class OntologyService {
   private endpoint = this.endpoints.getOntologyEndpoint();
 
   private fetchedOntologyTerms: {
-    [ontologyId: string]: {[termId: string]: Observable<IOntologyTerm>}
+    [ontologyId: string]: { [termId: string]: Observable<IOntologyTerm> };
   } = {};
 
   private fetchedOntologies: {
-    [ontologyId: string]: Observable<OntologyTermMap<IOntologyTerm>>
+    [ontologyId: string]: Observable<OntologyTermMap<IOntologyTerm>>;
   } = {};
-  
+
   public constructor(private http: HttpClient) {}
 
   public getKisaoUrl(id: string): string {
@@ -51,9 +51,9 @@ export class OntologyService {
     let term: Observable<IOntologyTerm> | undefined = ontologyTerms[termId];
 
     if (!term) {
-      term = this.http.get<IOntologyTerm>(this.endpoint + '/' + ontologyId + '/' + termId).pipe(
-        shareReplay(1),
-      );
+      term = this.http
+        .get<IOntologyTerm>(this.endpoint + '/' + ontologyId + '/' + termId)
+        .pipe(shareReplay(1));
       ontologyTerms[termId] = term;
     }
 
@@ -68,17 +68,19 @@ export class OntologyService {
       return terms as Observable<OntologyTermMap<T>>;
     }
 
-    terms = this.http.get<IOntologyTerm[]>(this.endpoint + '/' + ontologyId + '/list').pipe(
-      shareReplay(1),
-      map((terms): OntologyTermMap<IOntologyTerm> => {
-        const termSet: OntologyTermMap<IOntologyTerm> = {};
-        terms.forEach((term) => {
-          termSet[term.id] = term;
-        });
-        return termSet;
-      }),
-      shareReplay(1),
-    );
+    terms = this.http
+      .get<IOntologyTerm[]>(this.endpoint + '/' + ontologyId + '/list')
+      .pipe(
+        shareReplay(1),
+        map((terms): OntologyTermMap<IOntologyTerm> => {
+          const termSet: OntologyTermMap<IOntologyTerm> = {};
+          terms.forEach((term) => {
+            termSet[term.id] = term;
+          });
+          return termSet;
+        }),
+        shareReplay(1),
+      );
 
     this.fetchedOntologies[ontologyId] = terms;
 

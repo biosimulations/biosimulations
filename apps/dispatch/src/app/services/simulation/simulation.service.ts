@@ -223,46 +223,44 @@ export class SimulationService {
    * @param uuid The id of the simulation
    */
   private getSimulationHttp(uuid: string): Observable<ISimulation> {
-    return this.simRunHttpService.getSimulationRun(uuid)
-      .pipe(
-        catchError((error: HttpErrorResponse): Observable<undefined> => {
-          if (error.status === HttpStatusCode.NotFound) {
-            return of(undefined);
-          } else {
-            return throwError(error);
-          }
-        }),
-        map((dispatchSimulation: SimulationRun | undefined): ISimulation => {
-          if (dispatchSimulation) {
-            return {
-              name: dispatchSimulation.name,
-              email: dispatchSimulation.email || undefined,
-              id: dispatchSimulation.id,
-              runtime: dispatchSimulation?.runtime || undefined,
-              status:
-                dispatchSimulation.status as unknown as SimulationRunStatus,
-              statusReason: dispatchSimulation.statusReason,
-              submitted: new Date(dispatchSimulation.submitted),
-              submittedLocally: false,
-              simulator: dispatchSimulation.simulator,
-              simulatorVersion: dispatchSimulation.simulatorVersion,
-              simulatorDigest: dispatchSimulation.simulatorDigest,
-              cpus: dispatchSimulation.cpus,
-              memory: dispatchSimulation.memory,
-              maxTime: dispatchSimulation.maxTime,
-              envVars: dispatchSimulation.envVars,
-              purpose: dispatchSimulation.purpose,
-              updated: new Date(dispatchSimulation.updated),
-              resultsSize: dispatchSimulation.resultsSize,
-              projectSize: dispatchSimulation.projectSize,
-            };
-          } else {
-            return {
-              id: uuid,
-            };
-          }
-        }),
-      );
+    return this.simRunHttpService.getSimulationRun(uuid).pipe(
+      catchError((error: HttpErrorResponse): Observable<undefined> => {
+        if (error.status === HttpStatusCode.NotFound) {
+          return of(undefined);
+        } else {
+          return throwError(error);
+        }
+      }),
+      map((dispatchSimulation: SimulationRun | undefined): ISimulation => {
+        if (dispatchSimulation) {
+          return {
+            name: dispatchSimulation.name,
+            email: dispatchSimulation.email || undefined,
+            id: dispatchSimulation.id,
+            runtime: dispatchSimulation?.runtime || undefined,
+            status: dispatchSimulation.status as unknown as SimulationRunStatus,
+            statusReason: dispatchSimulation.statusReason,
+            submitted: new Date(dispatchSimulation.submitted),
+            submittedLocally: false,
+            simulator: dispatchSimulation.simulator,
+            simulatorVersion: dispatchSimulation.simulatorVersion,
+            simulatorDigest: dispatchSimulation.simulatorDigest,
+            cpus: dispatchSimulation.cpus,
+            memory: dispatchSimulation.memory,
+            maxTime: dispatchSimulation.maxTime,
+            envVars: dispatchSimulation.envVars,
+            purpose: dispatchSimulation.purpose,
+            updated: new Date(dispatchSimulation.updated),
+            resultsSize: dispatchSimulation.resultsSize,
+            projectSize: dispatchSimulation.projectSize,
+          };
+        } else {
+          return {
+            id: uuid,
+          };
+        }
+      }),
+    );
   }
 
   /**

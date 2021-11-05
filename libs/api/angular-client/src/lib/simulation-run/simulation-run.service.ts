@@ -23,7 +23,7 @@ export class SimulationRunService {
   private endpoints: Endpoints;
 
   private cachedRunId?: string;
-  private cachedRunObservables: {[endpoint: string]: Observable<any>} = {};
+  private cachedRunObservables: { [endpoint: string]: Observable<any> } = {};
 
   constructor(private httpClient: HttpClient) {
     this.endpoints = new Endpoints(environment.env);
@@ -40,7 +40,10 @@ export class SimulationRunService {
   }
 
   public getSimulationRunFileContent(id: string, file: string) {
-    const endpoint = this.endpoints.getSimulationRunFileContentEndpoint(id, file);
+    const endpoint = this.endpoints.getSimulationRunFileContentEndpoint(
+      id,
+      file,
+    );
     return this.getData<any>(id, endpoint);
   }
 
@@ -75,7 +78,11 @@ export class SimulationRunService {
     outputId: string,
     includeData = false,
   ): Observable<SimulationRunOutput> {
-    const endpoint = this.endpoints.getRunResultsEndpoint(id, outputId, includeData);
+    const endpoint = this.endpoints.getRunResultsEndpoint(
+      id,
+      outputId,
+      includeData,
+    );
     return this.getData<SimulationRunOutput>(id, endpoint);
   }
 
@@ -100,7 +107,7 @@ export class SimulationRunService {
       observable = this.httpClient.get<any>(endpoint).pipe(shareReplay(1));
       this.cachedRunObservables[endpoint] = observable;
     }
-    
+
     return observable as Observable<T>;
   }
 }

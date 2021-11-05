@@ -22,7 +22,7 @@
     "datamodel-common": "libs/datamodel/common",
     "datamodel-database": "libs/datamodel/database",
     "datamodel-simulation-runs": "libs/datamodel/simulation-runs",
-    "datamodel-utils": "libs/datamodel/utils",    
+    "datamodel-utils": "libs/datamodel/utils",
     "dispatch": "apps/dispatch",
     "dispatch-e2e": "apps/dispatch-e2e",
     "dispatch-service": "apps/dispatch-service",

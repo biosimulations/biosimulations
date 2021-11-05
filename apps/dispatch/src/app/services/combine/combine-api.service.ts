@@ -184,14 +184,17 @@ export class CombineApiService {
       );
   }
 
-  private similarAlgorithmsCache: {[algorithms: string]: Observable<AlgorithmSubstitution[] | undefined>} = {};
+  private similarAlgorithmsCache: {
+    [algorithms: string]: Observable<AlgorithmSubstitution[] | undefined>;
+  } = {};
 
   public getSimilarAlgorithms(
     algorithms: string[],
   ): Observable<AlgorithmSubstitution[] | undefined> {
     const algorithmsStrList = algorithms.join('&');
-    let observable: Observable<AlgorithmSubstitution[] | undefined> = this.similarAlgorithmsCache[algorithmsStrList];
-    
+    let observable: Observable<AlgorithmSubstitution[] | undefined> =
+      this.similarAlgorithmsCache[algorithmsStrList];
+
     if (!observable) {
       const params = new HttpParams().appendAll({ algorithms: algorithms });
       const retryStrategy = new RetryStrategy(6, 5000);

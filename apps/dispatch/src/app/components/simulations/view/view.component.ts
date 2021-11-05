@@ -170,10 +170,7 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
-    this.status$ = this.simulation$.pipe(
-      pluck('status'),
-      shareReplay(1),
-    );
+    this.status$ = this.simulation$.pipe(pluck('status'), shareReplay(1));
     this.statusRunning$ = this.status$.pipe(
       map((value: SimulationRunStatus): boolean => {
         return SimulationStatusService.isSimulationStatusRunning(value);

@@ -28,9 +28,7 @@ import {
   EdamTerm,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
-import {
-  SimulationRunService,
-} from '@biosimulations/angular-api-client';
+import { SimulationRunService } from '@biosimulations/angular-api-client';
 import { VegaVisualizationService } from '../vega-visualization/vega-visualization.service';
 import { SedPlot2DVisualizationService } from '../sed-plot-2d-visualization/sed-plot-2d-visualization.service';
 import {
@@ -92,9 +90,7 @@ export class ViewService {
     if (sedmlFormat) {
       this.sedmlFormat = sedmlFormat;
     } else {
-      throw new Error(
-        'SED-ML format (EDAM:format_3685) could not be found',
-      );
+      throw new Error('SED-ML format (EDAM:format_3685) could not be found');
     }
 
     const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter(
@@ -124,164 +120,168 @@ export class ViewService {
     runId: string,
   ): Observable<ProjectMetadata | undefined> {
     return this.simRunService.getSimulationRunSummary(runId).pipe(
-      map((simulationRunSummary: SimulationRunSummary): ProjectMetadata | undefined => {
-        const metadata = simulationRunSummary.metadata;
-        if (!metadata) {
-          return undefined;
-        }
+      map(
+        (
+          simulationRunSummary: SimulationRunSummary,
+        ): ProjectMetadata | undefined => {
+          const metadata = simulationRunSummary.metadata;
+          if (!metadata) {
+            return undefined;
+          }
 
-        // Check for undefined metadata for all fields
-        const formattedMetadata: ProjectMetadata = {
-          thumbnails: metadata?.thumbnails || [],
-          title: metadata?.title || runId,
-          abstract: metadata?.abstract,
-          creators: (metadata?.creators || []).map(
-            (creator: LabeledIdentifier): Creator => {
-              let icon: string = 'link';
-              if (creator.uri) {
-                if (
-                  creator.uri.match(
-                    /^https?:\/\/(wwww\.)?(identifiers\.org\/orcid[:/]|orcid\.org\/)/i,
-                  )
-                ) {
-                  icon = 'orcid';
-                } else if (
-                  creator.uri.match(
-                    /^https?:\/\/(wwww\.)?(identifiers\.org\/github[:/]|github\.com\/)/i,
-                  )
-                ) {
-                  icon = 'github';
-                } else if (
-                  creator.uri.match(/^https?:\/\/(wwww\.)?(linkedin\.com\/)/i)
-                ) {
-                  icon = 'linkedin';
-                } else if (
-                  creator.uri.match(/^https?:\/\/(wwww\.)?(twitter\.com\/)/i)
-                ) {
-                  icon = 'twitter';
-                } else if (
-                  creator.uri.match(/^https?:\/\/(wwww\.)?(facebook\.com\/)/i)
-                ) {
-                  icon = 'facebook';
-                } else if (creator.uri.match(/^mailto:/i)) {
-                  icon = 'email';
+          // Check for undefined metadata for all fields
+          const formattedMetadata: ProjectMetadata = {
+            thumbnails: metadata?.thumbnails || [],
+            title: metadata?.title || runId,
+            abstract: metadata?.abstract,
+            creators: (metadata?.creators || []).map(
+              (creator: LabeledIdentifier): Creator => {
+                let icon: string = 'link';
+                if (creator.uri) {
+                  if (
+                    creator.uri.match(
+                      /^https?:\/\/(wwww\.)?(identifiers\.org\/orcid[:/]|orcid\.org\/)/i,
+                    )
+                  ) {
+                    icon = 'orcid';
+                  } else if (
+                    creator.uri.match(
+                      /^https?:\/\/(wwww\.)?(identifiers\.org\/github[:/]|github\.com\/)/i,
+                    )
+                  ) {
+                    icon = 'github';
+                  } else if (
+                    creator.uri.match(/^https?:\/\/(wwww\.)?(linkedin\.com\/)/i)
+                  ) {
+                    icon = 'linkedin';
+                  } else if (
+                    creator.uri.match(/^https?:\/\/(wwww\.)?(twitter\.com\/)/i)
+                  ) {
+                    icon = 'twitter';
+                  } else if (
+                    creator.uri.match(/^https?:\/\/(wwww\.)?(facebook\.com\/)/i)
+                  ) {
+                    icon = 'facebook';
+                  } else if (creator.uri.match(/^mailto:/i)) {
+                    icon = 'email';
+                  }
                 }
-              }
 
-              return {
-                label: creator.label,
-                uri: creator.uri,
-                icon: icon as BiosimulationsIcon,
-              };
+                return {
+                  label: creator.label,
+                  uri: creator.uri,
+                  icon: icon as BiosimulationsIcon,
+                };
+              },
+            ),
+            description: metadata?.description,
+            attributes: [],
+          };
+
+          formattedMetadata.attributes.push({
+            values: metadata?.encodes,
+            icon: 'cell',
+            title: 'Biology',
+          });
+          formattedMetadata.attributes.push({
+            values: metadata?.taxa,
+            icon: 'taxon',
+            title: 'Taxon',
+          });
+          formattedMetadata.attributes.push({
+            values: metadata?.keywords,
+            icon: 'tags',
+            title: 'Keyword',
+          });
+          (metadata?.other || []).forEach(
+            (other: DescribedIdentifier): void => {
+              formattedMetadata.attributes.push({
+                icon: 'info',
+                title: (other.attribute_label || other.attribute_uri) as string,
+                values: [
+                  {
+                    label: (other.label || other.uri) as string,
+                    uri: other.uri,
+                  },
+                ],
+              });
             },
-          ),
-          description: metadata?.description,
-          attributes: [],
-        };
-
-        formattedMetadata.attributes.push({
-          values: metadata?.encodes,
-          icon: 'cell',
-          title: 'Biology',
-        });
-        formattedMetadata.attributes.push({
-          values: metadata?.taxa,
-          icon: 'taxon',
-          title: 'Taxon',
-        });
-        formattedMetadata.attributes.push({
-          values: metadata?.keywords,
-          icon: 'tags',
-          title: 'Keyword',
-        });
-        (metadata?.other || []).forEach((other: DescribedIdentifier): void => {
+          );
           formattedMetadata.attributes.push({
-            icon: 'info',
-            title: (other.attribute_label || other.attribute_uri) as string,
-            values: [
-              {
-                label: (other.label || other.uri) as string,
-                uri: other.uri,
-              },
-            ],
+            values: metadata?.seeAlso,
+            icon: 'link',
+            title: 'More info',
           });
-        });
-        formattedMetadata.attributes.push({
-          values: metadata?.seeAlso,
-          icon: 'link',
-          title: 'More info',
-        });
-        formattedMetadata.attributes.push({
-          values: metadata?.citations,
-          icon: 'file',
-          title: 'Citation',
-        });
-        formattedMetadata.attributes.push({
-          values: metadata?.sources,
-          icon: 'code',
-          title: 'Source',
-        });
-        formattedMetadata.attributes.push({
-          values: metadata?.identifiers,
-          icon: 'id',
-          title: 'Cross reference',
-        });
-        formattedMetadata.attributes.push({
-          values: metadata?.predecessors,
-          icon: 'backward',
-          title: 'Predecessor',
-        });
-        formattedMetadata.attributes.push({
-          values: metadata?.successors,
-          icon: 'forward',
-          title: 'Successor',
-        });
-        formattedMetadata.attributes.push({
-          values: metadata?.license,
-          icon: 'license',
-          title: 'License',
-        });
-        formattedMetadata.attributes.push({
-          values: metadata?.contributors,
-          icon: 'author',
-          title: 'Curator',
-        });
-        formattedMetadata.attributes.push({
-          values: metadata?.funders,
-          icon: 'funding',
-          title: 'Funder',
-        });
-
-        if (metadata?.created) {
           formattedMetadata.attributes.push({
-            icon: 'date',
-            title: 'Created',
-            values: [
-              {
-                label: FormatService.formatDate(new Date(metadata?.created)),
-                uri: null,
-              },
-            ],
+            values: metadata?.citations,
+            icon: 'file',
+            title: 'Citation',
           });
-        }
-
-        if (metadata?.modified) {
           formattedMetadata.attributes.push({
-            icon: 'date',
-            title: 'Last modified',
-            values: [
-              {
-                label: FormatService.formatDate(
-                  new Date(metadata?.modified),
-                ),
-                uri: null,
-              },
-            ],
+            values: metadata?.sources,
+            icon: 'code',
+            title: 'Source',
           });
-        }
+          formattedMetadata.attributes.push({
+            values: metadata?.identifiers,
+            icon: 'id',
+            title: 'Cross reference',
+          });
+          formattedMetadata.attributes.push({
+            values: metadata?.predecessors,
+            icon: 'backward',
+            title: 'Predecessor',
+          });
+          formattedMetadata.attributes.push({
+            values: metadata?.successors,
+            icon: 'forward',
+            title: 'Successor',
+          });
+          formattedMetadata.attributes.push({
+            values: metadata?.license,
+            icon: 'license',
+            title: 'License',
+          });
+          formattedMetadata.attributes.push({
+            values: metadata?.contributors,
+            icon: 'author',
+            title: 'Curator',
+          });
+          formattedMetadata.attributes.push({
+            values: metadata?.funders,
+            icon: 'funding',
+            title: 'Funder',
+          });
 
-        return formattedMetadata;
-      }),
+          if (metadata?.created) {
+            formattedMetadata.attributes.push({
+              icon: 'date',
+              title: 'Created',
+              values: [
+                {
+                  label: FormatService.formatDate(new Date(metadata?.created)),
+                  uri: null,
+                },
+              ],
+            });
+          }
+
+          if (metadata?.modified) {
+            formattedMetadata.attributes.push({
+              icon: 'date',
+              title: 'Last modified',
+              values: [
+                {
+                  label: FormatService.formatDate(new Date(metadata?.modified)),
+                  uri: null,
+                },
+              ],
+            });
+          }
+
+          return formattedMetadata;
+        },
+      ),
       shareReplay(1),
     );
   }
@@ -296,10 +296,7 @@ export class ViewService {
       shareReplay(1),
       map(
         (
-          args: [
-            SimulationRunSummary,
-            SimulationRunSedDocument[],
-          ],
+          args: [SimulationRunSummary, SimulationRunSedDocument[]],
         ): FormattedSimulationRunMetadata => {
           const simulationRunSummary: SimulationRunSummary = args[0];
           const sedmlArchiveContents: SimulationRunSedDocument[] = args[1];
@@ -338,9 +335,12 @@ export class ViewService {
               });
             });
 
-          const kisaoIdSimulationAlgorithmMap: {[kisaoId: string]: SimulationRunAlgorithmSummary} = {};
+          const kisaoIdSimulationAlgorithmMap: {
+            [kisaoId: string]: SimulationRunAlgorithmSummary;
+          } = {};
           simulationRunSummary?.tasks?.forEach((task) => {
-            kisaoIdSimulationAlgorithmMap[task.simulation.algorithm.kisaoId] = task.simulation.algorithm;
+            kisaoIdSimulationAlgorithmMap[task.simulation.algorithm.kisaoId] =
+              task.simulation.algorithm;
           });
 
           Object.values(kisaoIdSimulationAlgorithmMap)
@@ -411,8 +411,11 @@ export class ViewService {
 
           formats.push({
             title: 'Simulation',
-            value: this.sedmlFormat?.biosimulationsMetadata?.acronym || this.sedmlFormat.name,
-            icon: (this.sedmlFormat?.biosimulationsMetadata?.icon || 'simulation') as BiosimulationsIcon,
+            value:
+              this.sedmlFormat?.biosimulationsMetadata?.acronym ||
+              this.sedmlFormat.name,
+            icon: (this.sedmlFormat?.biosimulationsMetadata?.icon ||
+              'simulation') as BiosimulationsIcon,
             url: this.sedmlFormat.url,
           });
 
@@ -438,9 +441,10 @@ export class ViewService {
 
           run.push({
             title: 'Duration',
-            value: simulationRunSummary.run.runtime !== undefined
-              ? FormatService.formatDuration(simulationRunSummary.run.runtime)
-              : 'N/A',
+            value:
+              simulationRunSummary.run.runtime !== undefined
+                ? FormatService.formatDuration(simulationRunSummary.run.runtime)
+                : 'N/A',
             icon: 'duration',
             url: null,
           });
@@ -454,21 +458,27 @@ export class ViewService {
 
           run.push({
             title: 'Memory',
-            value: FormatService.formatDigitalSize(simulationRunSummary.run.memory * 1e9),
+            value: FormatService.formatDigitalSize(
+              simulationRunSummary.run.memory * 1e9,
+            ),
             icon: 'memory',
             url: null,
           });
 
           run.push({
             title: 'Submitted',
-            value: FormatService.formatTime(new Date(simulationRunSummary.submitted)),
+            value: FormatService.formatTime(
+              new Date(simulationRunSummary.submitted),
+            ),
             icon: 'date',
             url: null,
           });
 
           run.push({
             title: 'Completed',
-            value: FormatService.formatTime(new Date(simulationRunSummary.updated)),
+            value: FormatService.formatTime(
+              new Date(simulationRunSummary.updated),
+            ),
             icon: 'date',
             url: null,
           });
@@ -508,7 +518,9 @@ export class ViewService {
             size:
               simulationRunSummary.run.projectSize === undefined
                 ? 'N/A'
-                : FormatService.formatDigitalSize(simulationRunSummary.run.projectSize),
+                : FormatService.formatDigitalSize(
+                    simulationRunSummary.run.projectSize,
+                  ),
             icon: (this.combineOmexFormat?.biosimulationsMetadata?.icon ||
               'archive') as BiosimulationsIcon,
             url: this.endpoints.getRunDownloadEndpoint(runId),
@@ -649,7 +661,9 @@ export class ViewService {
             size:
               simulationRunSummary.run.resultsSize === undefined
                 ? 'N/A'
-                : FormatService.formatDigitalSize(simulationRunSummary.run.resultsSize),
+                : FormatService.formatDigitalSize(
+                    simulationRunSummary.run.resultsSize,
+                  ),
             icon: 'report',
             url: this.endpoints.getRunResultsDownloadEndpoint(runId),
             basename: 'outputs.zip',
@@ -692,13 +706,15 @@ export class ViewService {
               return this.vegaFormatOmexManifestUris.includes(content.format);
             })
             .map((content: CombineArchiveFile): VegaVisualization => {
-              return this.makeVegaVisualization(runId, content.location, sedmlArchiveContents);
+              return this.makeVegaVisualization(
+                runId,
+                content.location,
+                sedmlArchiveContents,
+              );
             })
-            . sort(
-              (a: VegaVisualization, b: VegaVisualization): number => {
-                return a.name.localeCompare(b.name, undefined, { numeric: true });
-              },
-            );
+            .sort((a: VegaVisualization, b: VegaVisualization): number => {
+              return a.name.localeCompare(b.name, undefined, { numeric: true });
+            });
 
           const vegaVisualizationsList: VisualizationList[] =
             vegaVisualizations.length
@@ -726,7 +742,11 @@ export class ViewService {
                       return output._type === 'SedPlot2D' ? [output] : [];
                     })
                     .map((output: SedPlot2D): SedPlot2DVisualization => {
-                      return this.makeSedPlot2DVisualization(runId, location, output);
+                      return this.makeSedPlot2DVisualization(
+                        runId,
+                        location,
+                        output,
+                      );
                     })
                     .sort((a: Visualization, b: Visualization): number => {
                       return a.name.localeCompare(b.name, undefined, {
@@ -847,7 +867,11 @@ export class ViewService {
     );
   }
 
-  private makeVegaVisualization(runId: string, fileLocation: string, sedmlArchiveContents: SimulationRunSedDocument[]): VegaVisualization {
+  private makeVegaVisualization(
+    runId: string,
+    fileLocation: string,
+    sedmlArchiveContents: SimulationRunSedDocument[],
+  ): VegaVisualization {
     if (fileLocation.startsWith('./')) {
       fileLocation = fileLocation.substring(2);
     }
@@ -874,9 +898,17 @@ export class ViewService {
     };
   }
 
-  private makeSedPlot2DVisualization(runId: string, sedDocLocation: string, plot: SedPlot2D): SedPlot2DVisualization {
-    const data: Observable<SimulationRunOutput> = this.simRunService.getSimulationRunOutputResults(
-                        runId, `${sedDocLocation}/${plot.id}`, true);
+  private makeSedPlot2DVisualization(
+    runId: string,
+    sedDocLocation: string,
+    plot: SedPlot2D,
+  ): SedPlot2DVisualization {
+    const data: Observable<SimulationRunOutput> =
+      this.simRunService.getSimulationRunOutputResults(
+        runId,
+        `${sedDocLocation}/${plot.id}`,
+        true,
+      );
 
     return {
       _type: 'SedPlot2DVisualization',
@@ -885,23 +917,18 @@ export class ViewService {
       userDesigned: false,
       renderer: 'Plotly',
       plotlyDataLayout: of(
-          data
-          .pipe(
-            shareReplay(1),
-            map(
-              (
-                result: SimulationRunOutput,
-              ): PlotlyDataLayout => {
-                return this.sedPlot2DVisualizationService.getPlotlyDataLayout(
-                  runId,
-                  sedDocLocation,
-                  plot,
-                  result,
-                );
-              },
-            ),
-            shareReplay(1),
-          ),
+        data.pipe(
+          shareReplay(1),
+          map((result: SimulationRunOutput): PlotlyDataLayout => {
+            return this.sedPlot2DVisualizationService.getPlotlyDataLayout(
+              runId,
+              sedDocLocation,
+              plot,
+              result,
+            );
+          }),
+          shareReplay(1),
+        ),
       ),
     };
   }

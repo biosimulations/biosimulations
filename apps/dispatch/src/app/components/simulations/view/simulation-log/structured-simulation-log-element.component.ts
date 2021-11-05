@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {
-  AlgorithmKisaoDescriptionFragment,
-} from '../../../../simulation-logs-datamodel';
+import { AlgorithmKisaoDescriptionFragment } from '../../../../simulation-logs-datamodel';
 import * as Anser from 'anser';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';

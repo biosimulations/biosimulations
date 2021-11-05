@@ -104,7 +104,8 @@ export class SimulationRunSedDocumentInputsContainer {
   sedDocuments!: SimulationRunSedDocumentInput[];
 }
 
-export interface SimulationRunSedDocument extends SimulationRunSedDocumentInput {
+export interface SimulationRunSedDocument
+  extends SimulationRunSedDocumentInput {
   created: string;
   updated: string;
 }

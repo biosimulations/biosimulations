@@ -8,9 +8,7 @@ import {
   UploadSimulationRun,
   UploadSimulationRunUrl,
 } from '@biosimulations/datamodel/common';
-import {
-  SimulationLogs,
-} from '../../simulation-logs-datamodel';
+import { SimulationLogs } from '../../simulation-logs-datamodel';
 import {
   Ontologies,
   OntologyTermMap,
@@ -176,7 +174,9 @@ export class DispatchService {
       kisaoTerms: ObservableInput<OntologyTermMap<KisaoTerm>>;
       sboTerms: ObservableInput<OntologyTermMap<SboTerm>>;
     } = {
-      simulatorSpecs: this.http.get<ISimulator[]>(endpoint).pipe(shareReplay(1)),
+      simulatorSpecs: this.http
+        .get<ISimulator[]>(endpoint)
+        .pipe(shareReplay(1)),
       edamTerms: this.ontologyService.getTerms(Ontologies.EDAM),
       kisaoTerms: this.ontologyService.getTerms(Ontologies.KISAO),
       sboTerms: this.ontologyService.getTerms(Ontologies.SBO),
