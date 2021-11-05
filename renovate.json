@@ -5,7 +5,10 @@
   ],
   "rebaseWhen": "auto",
   "pip_requirements": {
-    "fileMatch": ["Pipfile", "Pipfile.lock"]
+    "fileMatch": [
+      "(^|/)Pipfile$",
+      "(^|/)Pipfile.lock$"
+    ]
   },
   "patch": {
     "automerge": true

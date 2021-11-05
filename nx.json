@@ -10,17 +10,17 @@
       "devDependencies": "*"
     },
     ".github/workflows/nxCi.yml": "*",
-    "Pipfile": [
+    "apps/combine-api/Dockerfile-assets/Pipfile": [
       "combine-api"
     ],
-    "Pipfile.lock": [
+    "apps/combine-api/Dockerfile-assets/Pipfile.lock": [
       "combine-api"
     ],
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*",
     "Dockerfile": "*",
-    "DockerfilePython": [
+    "apps/combine-api/Dockerfile": [
       "combine-api"
     ]
   },

@@ -204,8 +204,8 @@ RUN apt-get install -y --no-install-recommends \
         libgfortran5
 
 # Configure PySCeS
-COPY DockerfilePython-assets/.pys_usercfg.ini /Pysces/.pys_usercfg.ini
-COPY DockerfilePython-assets/.pys_usercfg.ini /root/Pysces/.pys_usercfg.ini
+COPY Dockerfile-assets/.pys_usercfg.ini /Pysces/.pys_usercfg.ini
+COPY Dockerfile-assets/.pys_usercfg.ini /root/Pysces/.pys_usercfg.ini
 RUN mkdir -p /Pysces \
     && mkdir -p /Pysces/psc \
     && mkdir -p /root/Pysces \
@@ -262,7 +262,7 @@ RUN apt-get -y update \
     && chmod 1777 /tmp/.X11-unix \
     \
     && rm -rf /var/lib/apt/lists/*
-COPY tools/xvfb-startup.sh /xvfb-startup.sh
+COPY Dockerfile-assets/xvfb-startup.sh /xvfb-startup.sh
 ENV XVFB_RES="1920x1080x24" \
     XVFB_ARGS=""
 
@@ -291,8 +291,8 @@ ENV ALGORITHM_SUBSTITUTION_POLICY=SIMILAR_VARIABLES \
 RUN pip install pipenv
 
 # Copy over dependency list
-COPY Pipfile /app/Pipfile
-COPY Pipfile.lock /app/Pipfile.lock
+COPY Dockerfile-assets/Pipfile /app/Pipfile
+COPY Dockerfile-assets/Pipfile.lock /app/Pipfile.lock
 
 # install environment
 RUN pipenv install --system --deploy
@@ -319,8 +319,8 @@ ENV APP=$app
 
 RUN echo building ${app}
 
-COPY apps/${app}/src/ /app/src/
-COPY apps/${app}/vendor/ /app/vendor/
+COPY src/ /app/src/
+COPY vendor/ /app/vendor/
 RUN python -m compileall /app/src/ \
     && PY_EXEC_PATH=$(which python) \
     && PY_PREFIX=$(echo ${PY_EXEC_PATH} | rev | cut -d "/" -f 3- | rev) \
