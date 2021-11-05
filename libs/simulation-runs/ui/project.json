@@ -1,0 +1,28 @@
+{
+  "projectType": "library",
+  "root": "libs/simulation-runs/ui",
+  "sourceRoot": "libs/simulation-runs/ui/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/simulation-runs/ui/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/simulation-runs/ui/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "tags": ["scope:simulations", "type:ui", "platform:web"],
+  "implicitDependencies": ["shared-assets", "shared-styles"]
+}
