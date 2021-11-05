@@ -105,7 +105,7 @@ export class MetadataService {
     if (thumbnails.length > 0) {
       archiveMetadata.thumbnails = thumbnails.map((thumbnail: string) => {
         if (thumbnail.startsWith('./')) {
-          const endpoint = this.endpoints.getSimulationRunFileEndpoint(
+          const endpoint = this.endpoints.getSimulationRunFileContentEndpoint(
             runId,
             thumbnail,
           );

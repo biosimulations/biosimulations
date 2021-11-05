@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedUiModule } from '@biosimulations/shared/ui';
-import { SharedVizUiModule } from '@biosimulations/view-visualizations';
-import { SharedProjectUiModule } from '@biosimulations/view-projects';
+import { SimulationRunsVizModule } from '@biosimulations/simulation-runs/viz';
+import { SimulationRunsUiModule } from '@biosimulations/simulation-runs/ui';
 import { SharedDebugModule } from '@biosimulations/shared/debug';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { ProjectsRoutingModule } from './projects-routing.module';
@@ -20,8 +20,8 @@ import { NgxJsonLdModule } from '@ngx-lite/json-ld';
     CommonModule,
     ProjectsRoutingModule,
     SharedUiModule,
-    SharedVizUiModule,
-    SharedProjectUiModule,
+    SimulationRunsVizModule,
+    SimulationRunsUiModule,
     BiosimulationsIconsModule,
     SharedDebugModule,
     SharedErrorComponentsModule,

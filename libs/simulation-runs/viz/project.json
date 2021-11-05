@@ -1,0 +1,28 @@
+{
+  "projectType": "library",
+  "root": "libs/simulation-runs/viz",
+  "sourceRoot": "libs/simulation-runs/viz/src",
+  "prefix": "biosimulations",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/simulation-runs/viz/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/simulation-runs/viz/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "tags": ["scope:shared", "type:ui", "platform:web"],
+  "implicitDependencies": ["shared-styles"]
+}

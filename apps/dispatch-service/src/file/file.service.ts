@@ -48,7 +48,7 @@ export class FileService {
                 file.location.path != '.',
             )
             .map((file: CombineArchiveManifestContent) => {
-              const fileUrl = this.endpoints.getSimulationRunFileEndpoint(
+              const fileUrl = this.endpoints.getSimulationRunFileContentEndpoint(
                 id,
                 file.location.path,
               );

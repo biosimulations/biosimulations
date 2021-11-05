@@ -116,7 +116,7 @@ export class Endpoints {
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run
    * @returns The URL to get the content of a COMBINE archive
    */
-  public getArchiveContentsEndpoint(
+  public getSimulationRunFilesEndpoint(
     runId?: string,
     fileLocation?: string,
   ): string {
@@ -167,7 +167,7 @@ export class Endpoints {
    * @param fileLocation The path of the file within COMBINE archive relative to its root. Should not include './'
    * @returns A URL to download the file from within the COMBINE archive
    */
-  public getSimulationRunFileEndpoint(
+  public getSimulationRunFileContentEndpoint(
     runId: string,
     fileLocation: string,
   ): string {

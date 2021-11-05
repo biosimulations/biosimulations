@@ -19,7 +19,7 @@ import {
   VisualizationList,
   Visualization,
 } from '@biosimulations/datamodel-view';
-import { ViewService } from '@biosimulations/view-service';
+import { ViewService } from '@biosimulations/simulation-runs/service';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { Dataset, WithContext } from 'schema-dts';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';

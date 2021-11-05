@@ -58,9 +58,9 @@
     "simulators": "apps/simulators",
     "simulators-api": "apps/simulators-api",
     "simulators-database-models": "libs/simulators/database-models",
-    "simulators-e2e": "apps/simulators-e2e",
-    "view-projects": "libs/view/projects",
-    "view-service": "libs/view/service",
-    "view-visualizations": "libs/view/visualizations"
+    "simulators-e2e": "apps/simulators-e2e",    
+    "simulation-runs-service": "libs/simulation-runs/service",
+    "simulation-runs-ui": "libs/simulation-runs/ui",
+    "simulation-runs-viz": "libs/simulation-runs/viz"
   }
 }
