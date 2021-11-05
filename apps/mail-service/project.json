@@ -58,6 +58,12 @@
         "build-args": [
           "app=mail-service"
         ],
+        "cache-from": [
+          "type=registry,ref=ghcr.io/biosimulations/mail-service:buildcache"
+        ],
+        "cache-to": [
+          "type=registry,ref=ghcr.io/biosimulations/mail-service:buildcache,mode=max"
+        ],
         "metadata": {
           "enabled": true,
           "images": [
