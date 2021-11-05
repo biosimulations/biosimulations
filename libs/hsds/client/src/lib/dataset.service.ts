@@ -108,7 +108,7 @@ export class SimulationHDFService {
 
     const datasetIds = response?.data.datasets || [];
 
-    // List of attrbute ids for each dataset
+    // List of attribute ids for each dataset
     const datasetAttributeIds: (keyof BiosimulationsDataAtributes)[][] =
       await Promise.all(
         datasetIds.map((datasetId: string) =>
@@ -159,8 +159,10 @@ export class SimulationHDFService {
         return datasetReturn;
       }),
     );
+
     return datasets;
   }
+
   public async deleteDatasets(runId: string): Promise<void> {
     const domain = this.endpoints.getSimulationRunResultsHsdsDomain(runId);
     await this.domainService.rootDelete(domain, this.auth);
