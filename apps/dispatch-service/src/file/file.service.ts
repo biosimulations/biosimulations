@@ -14,7 +14,7 @@ import {
 } from 'rxjs';
 import { CombineArchiveManifestContent } from '@biosimulations/combine-api-client';
 import {} from '@biosimulations/datamodel/common';
-import { ProjectFile, SubmitProjectFile } from '@biosimulations/datamodel/api';
+import { ProjectFile, ProjectFileInput } from '@biosimulations/datamodel/api';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 
 @Injectable()
@@ -42,7 +42,7 @@ export class FileService {
         pluck('data'),
         pluck('contents'),
         map((combineFiles: CombineArchiveManifestContent[]) => {
-          const apiFiles: Observable<SubmitProjectFile>[] = combineFiles
+          const apiFiles: Observable<ProjectFileInput>[] = combineFiles
             .filter(
               (file: CombineArchiveManifestContent) =>
                 file.location.path != '.',
@@ -57,18 +57,18 @@ export class FileService {
               const apiFile = this.httpService.head(fileUrl).pipe(
                 pluck('headers'),
                 pluck('content-length'),
-                map((size: string) => {
+                map((size: string): ProjectFileInput => {
                   const fileSize = parseInt(size);
-                  const fileObject: SubmitProjectFile = new SubmitProjectFile(
-                    id + '/' + file.location.path.replace('./', ''),
-                    file.location.value.filename,
-                    id,
-                    file.location.path.replace('./', ''),
-                    fileSize,
-                    file.format,
-                    file.master,
-                    fileUrl,
-                  );
+                  const fileObject: ProjectFileInput = {
+                    id: id + '/' + file.location.path.replace('./', ''),
+                    name: file.location.value.filename,
+                    simulationRun: id,
+                    location: file.location.path.replace('./', ''),
+                    size: fileSize,
+                    format: file.format,
+                    master: file.master,
+                    url: fileUrl,
+                  };
                   return fileObject;
                 }),
               );
@@ -79,9 +79,9 @@ export class FileService {
         }),
 
         // collapse observables into one and post to API
-        mergeMap((files: Observable<SubmitProjectFile[]>) => {
+        mergeMap((files: Observable<ProjectFileInput[]>) => {
           return files.pipe(
-            map((files: SubmitProjectFile[]) =>
+            map((files: ProjectFileInput[]) =>
               this.submit.postFiles(id, files),
             ),
           );

@@ -12,8 +12,8 @@ import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
-  SubmitProjectFile,
-  SubmitProjectFilesContainer,
+  ProjectFileInput,
+  ProjectFileInputsContainer,
   ProjectFile,
   SimulationRunSedDocument,
   SimulationRunSedDocumentInput,
@@ -58,11 +58,11 @@ export class SimulationRunService {
 
   public postFiles(
     id: string,
-    files: SubmitProjectFile[],
+    files: ProjectFileInput[],
   ): Observable<ProjectFile[]> {
-    const body: SubmitProjectFilesContainer = { files };
+    const body: ProjectFileInputsContainer = { files };
     const endpoint = this.endpoints.getSimulationRunFilesEndpoint();
-    return this.postAuthenticated<SubmitProjectFilesContainer, ProjectFile[]>(
+    return this.postAuthenticated<ProjectFileInputsContainer, ProjectFile[]>(
       endpoint,
       body,
     );
