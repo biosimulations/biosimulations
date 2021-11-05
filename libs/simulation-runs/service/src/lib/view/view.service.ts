@@ -61,12 +61,6 @@ import {
 import { Endpoints } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
-interface SimulationRunObservables {
-  summary: Observable<SimulationRunSummary>;
-  files: Observable<CombineArchiveFile[]>;
-  specifications: Observable<SimulationRunSedDocument[]>;
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -129,7 +123,7 @@ export class ViewService {
   public getFormattedProjectMetadata(
     runId: string,
   ): Observable<ProjectMetadata | undefined> {
-    return this.getRawDataObservables(runId).summary.pipe(
+    return this.simRunService.getSimulationRunSummary(runId).pipe(
       map((simulationRunSummary: SimulationRunSummary): ProjectMetadata | undefined => {
         const metadata = simulationRunSummary.metadata;
         if (!metadata) {
@@ -296,8 +290,8 @@ export class ViewService {
     runId: string,
   ): Observable<FormattedSimulationRunMetadata> {
     return forkJoin([
-      this.getRawDataObservables(runId).summary,
-      this.getRawDataObservables(runId).specifications,
+      this.simRunService.getSimulationRunSummary(runId),
+      this.simRunService.getSimulationRunSimulationSpecifications(runId),
     ]).pipe(
       shareReplay(1),
       map(
@@ -496,7 +490,7 @@ export class ViewService {
   }
 
   public getFormattedProjectFiles(runId: string): Observable<File[]> {
-    return this.getRawDataObservables(runId).summary.pipe(
+    return this.simRunService.getSimulationRunSummary(runId).pipe(
       map((simulationRunSummary: SimulationRunSummary): File[] => {
         return [
           {
@@ -527,7 +521,7 @@ export class ViewService {
   }
 
   public getFormattedProjectContentFiles(runId: string): Observable<Path[]> {
-    return this.getRawDataObservables(runId).files.pipe(
+    return this.simRunService.getSimulationRunFiles(runId).pipe(
       map((contents: CombineArchiveFile[]): Path[] => {
         const root: { [path: string]: Path } = {};
 
@@ -627,7 +621,7 @@ export class ViewService {
   }
 
   public getFormattedOutputFiles(runId: string): Observable<File[]> {
-    return this.getRawDataObservables(runId).summary.pipe(
+    return this.simRunService.getSimulationRunSummary(runId).pipe(
       map((simulationRunSummary: SimulationRunSummary): File[] => {
         return [
           {
@@ -681,8 +675,8 @@ export class ViewService {
 
   public getVisualizations(runId: string): Observable<VisualizationList[]> {
     return forkJoin([
-      this.getRawDataObservables(runId).files,
-      this.getRawDataObservables(runId).specifications,
+      this.simRunService.getSimulationRunFiles(runId),
+      this.simRunService.getSimulationRunSimulationSpecifications(runId),
     ]).pipe(
       shareReplay(1),
       map(
@@ -974,7 +968,7 @@ export class ViewService {
     runId: string,
     project?: Project,
   ): Observable<WithContext<Dataset>> {
-    return this.getRawDataObservables(runId).summary.pipe(
+    return this.simRunService.getSimulationRunSummary(runId).pipe(
       map(
         (simulationRunSummary: SimulationRunSummary): WithContext<Dataset> => {
           const runDataSet: Dataset = {
@@ -1196,23 +1190,5 @@ export class ViewService {
       ),
       shareReplay(1),
     );
-  }
-
-  private cachedRunId?: string;
-  private cachedRunObservables?: SimulationRunObservables;
-
-  private getRawDataObservables(runId: string): SimulationRunObservables {
-    if (runId === this.cachedRunId && this.cachedRunObservables) {
-      return this.cachedRunObservables;
-    }
-
-    this.cachedRunId = runId;
-    this.cachedRunObservables = {
-      summary: this.simRunService.getSimulationRunSummary(runId),
-      files: this.simRunService.getSimulationRunFiles(runId),
-      specifications: this.simRunService.getSimulationRunSimulationSpecifications(runId),
-    };
-
-    return this.cachedRunObservables;
   }
 }

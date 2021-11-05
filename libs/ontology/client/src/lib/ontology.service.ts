@@ -20,38 +20,16 @@ import {
 export class OntologyService {
   private endpoints = new Endpoints();
   private endpoint = this.endpoints.getOntologyEndpoint();
-  private edamTerms: Observable<OntologyTermMap<EdamTerm>>;
-  private funderRegistryTerms: Observable<OntologyTermMap<FunderRegistryTerm>>;
-  private linguistTerms: Observable<OntologyTermMap<LinguistTerm>>;
-  private kisaoTerms: Observable<OntologyTermMap<KisaoTerm>>;
-  private sboTerms: Observable<OntologyTermMap<SboTerm>>;
-  private sioTerms: Observable<OntologyTermMap<SioTerm>>;
-  private spdxTerms: Observable<OntologyTermMap<SpdxTerm>>;
 
-  public constructor(private http: HttpClient) {
-    this.edamTerms = this.fetchTerms<EdamTerm>(Ontologies.EDAM);
-    this.edamTerms.subscribe();
+  private fetchedOntologyTerms: {
+    [ontologyId: string]: {[termId: string]: Observable<IOntologyTerm>}
+  } = {};
 
-    this.funderRegistryTerms = this.fetchTerms<FunderRegistryTerm>(
-      Ontologies.FunderRegistry,
-    );
-    this.funderRegistryTerms.subscribe();
-
-    this.linguistTerms = this.fetchTerms<LinguistTerm>(Ontologies.Linguist);
-    this.linguistTerms.subscribe();
-
-    this.kisaoTerms = this.fetchTerms<KisaoTerm>(Ontologies.KISAO);
-    this.kisaoTerms.subscribe();
-
-    this.sboTerms = this.fetchTerms<SboTerm>(Ontologies.SBO);
-    this.sboTerms.subscribe();
-
-    this.sioTerms = this.fetchTerms<SioTerm>(Ontologies.SIO);
-    this.sioTerms.subscribe();
-
-    this.spdxTerms = this.fetchTerms<SpdxTerm>(Ontologies.SPDX);
-    this.spdxTerms.subscribe();
-  }
+  private fetchedOntologies: {
+    [ontologyId: string]: Observable<OntologyTermMap<IOntologyTerm>>
+  } = {};
+  
+  public constructor(private http: HttpClient) {}
 
   public getKisaoUrl(id: string): string {
     return (
@@ -60,64 +38,69 @@ export class OntologyService {
     );
   }
 
+  private fetchTerm<T extends IOntologyTerm>(
+    ontologyId: Ontologies,
+    termId: string,
+  ): Observable<T> {
+    let ontologyTerms = this.fetchedOntologyTerms[ontologyId];
+
+    if (!ontologyTerms) {
+      ontologyTerms = this.fetchedOntologyTerms[ontologyId] = {};
+    }
+
+    let term: Observable<IOntologyTerm> | undefined = ontologyTerms[termId];
+
+    if (!term) {
+      term = this.http.get<IOntologyTerm>(this.endpoint + '/' + ontologyId + '/' + termId).pipe(
+        shareReplay(1),
+      );
+      ontologyTerms[termId] = term;
+    }
+
+    return term as Observable<T>;
+  }
+
   private fetchTerms<T extends IOntologyTerm>(
     ontologyId: Ontologies,
   ): Observable<OntologyTermMap<T>> {
-    return this.http.get<T[]>(this.endpoint + '/' + ontologyId + '/list').pipe(
+    let terms = this.fetchedOntologies[ontologyId];
+    if (terms) {
+      return terms as Observable<OntologyTermMap<T>>;
+    }
+
+    terms = this.http.get<IOntologyTerm[]>(this.endpoint + '/' + ontologyId + '/list').pipe(
       shareReplay(1),
-      map((terms) => {
-        const termSet: OntologyTermMap<T> = {};
+      map((terms): OntologyTermMap<IOntologyTerm> => {
+        const termSet: OntologyTermMap<IOntologyTerm> = {};
         terms.forEach((term) => {
           termSet[term.id] = term;
         });
         return termSet;
       }),
+      shareReplay(1),
     );
+
+    this.fetchedOntologies[ontologyId] = terms;
+
+    return terms as Observable<OntologyTermMap<T>>;
   }
 
   public getTerms<T extends IOntologyTerm>(
     ontologyId: Ontologies,
   ): Observable<OntologyTermMap<T>> {
-    switch (ontologyId) {
-      case Ontologies.EDAM:
-        return this.edamTerms as unknown as Observable<OntologyTermMap<T>>;
-      case Ontologies.FunderRegistry:
-        return this.funderRegistryTerms as Observable<OntologyTermMap<T>>;
-      case Ontologies.Linguist:
-        return this.linguistTerms as Observable<OntologyTermMap<T>>;
-      case Ontologies.KISAO:
-        return this.kisaoTerms as Observable<OntologyTermMap<T>>;
-      case Ontologies.SBO:
-        return this.sboTerms as Observable<OntologyTermMap<T>>;
-      case Ontologies.SIO:
-        return this.sioTerms as Observable<OntologyTermMap<T>>;
-      case Ontologies.SPDX:
-        return this.spdxTerms as Observable<OntologyTermMap<T>>;
-    }
+    return this.fetchTerms(ontologyId);
   }
 
   private getTerm<T extends IOntologyTerm>(
     ontologyId: Ontologies,
-    term: string,
+    termId: string,
   ): Observable<T> {
-    const termsObservable = this.getTerms<T>(ontologyId);
-    return termsObservable.pipe(
-      map((terms: OntologyTermMap<T>): T => {
-        const setTerm = terms[term];
-
-        if (setTerm) {
-          return setTerm;
-        } else {
-          throw new Error(
-            `Term with id ${term} not found in ontology ${ontologyId}`,
-          );
-        }
-      }),
+    return this.fetchTerm<T>(ontologyId, termId).pipe(
       catchError((terms: OntologyTermMap<T>): Observable<T> => {
         return of({
           namespace: (terms[Object.keys(terms)[0]] as T).namespace,
-          id: term,
-          name: term,
+          id: termId,
+          name: termId,
           description: 'Unknown term',
           url: '',
           iri: '',

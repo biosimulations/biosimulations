@@ -1,15 +1,15 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import {
-  RawSimulationLog,
+  RawSimulationLog,  
+  StructuredLogLevel,
+} from '../../../../simulation-logs-datamodel';
+import {
   CombineArchiveLog,
   SedDocumentLog,
   SedTaskLog,
   SedReportLog,
   SedPlot2DLog,
   SedPlot3DLog,
-  StructuredLogLevel,
-} from '../../../../simulation-logs-datamodel';
-import {
   SimulationRunLogStatus,
   SimulationRunStatus,
   SimulationStatusToSimulationLogStatus as statusConverter,

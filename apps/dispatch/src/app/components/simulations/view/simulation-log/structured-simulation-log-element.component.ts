@@ -1,13 +1,6 @@
 import { Component, Input } from '@angular/core';
-import {
-  SedDocumentLog,
-  SedTaskLog,
-  SedReportLog,
-  SedPlot2DLog,
-  SedPlot3DLog,
-  SimulatorDetail,
-  AlgorithmKisaoDescriptionFragment,
-  CombineArchiveLog,
+import {  
+  AlgorithmKisaoDescriptionFragment,  
 } from '../../../../simulation-logs-datamodel';
 import * as Anser from 'anser';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -16,6 +9,13 @@ import { map, pluck } from 'rxjs/operators';
 import { OntologyService } from '@biosimulations/ontology/client';
 import { StructuredSimulationLogElementService } from './structured-simulation-log-element.service';
 import {
+  SedDocumentLog,
+  SedTaskLog,
+  SedReportLog,
+  SedPlot2DLog,
+  SedPlot3DLog,
+  SimulatorDetail,
+  CombineArchiveLog,
   KisaoTerm,
   SimulationRunLogStatus,
 } from '@biosimulations/datamodel/common';

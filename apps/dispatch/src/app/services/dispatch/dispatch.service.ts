@@ -10,7 +10,6 @@ import {
 } from '@biosimulations/datamodel/common';
 import {
   SimulationLogs,
-  CombineArchiveLog,
 } from '../../simulation-logs-datamodel';
 import {
   Ontologies,
@@ -19,6 +18,7 @@ import {
   Purpose,
   EnvironmentVariable,
   SimulationRun,
+  CombineArchiveLog,
 } from '@biosimulations/datamodel/common';
 import { OntologyService } from '@biosimulations/ontology/client';
 import {
@@ -31,6 +31,8 @@ import {
 import { parseValue, formatValue } from '@biosimulations/datamodel/utils';
 import { environment } from '@biosimulations/shared/environments';
 import { ISimulator } from '@biosimulations/datamodel/common';
+import { SimulationRunService } from '@biosimulations/angular-api-client';
+
 export interface AlgorithmParameter {
   id: string;
   name: string;
@@ -168,7 +170,7 @@ export class DispatchService {
       kisaoTerms: ObservableInput<OntologyTermMap<KisaoTerm>>;
       sboTerms: ObservableInput<OntologyTermMap<SboTerm>>;
     } = {
-      simulatorSpecs: this.http.get<ISimulator[]>(endpoint),
+      simulatorSpecs: this.http.get<ISimulator[]>(endpoint).pipe(shareReplay(1)),
       edamTerms: this.ontologyService.getTerms(Ontologies.EDAM),
       kisaoTerms: this.ontologyService.getTerms(Ontologies.KISAO),
       sboTerms: this.ontologyService.getTerms(Ontologies.SBO),
@@ -331,8 +333,7 @@ export class DispatchService {
   public getSimulationLogs(
     uuid: string,
   ): Observable<SimulationLogs | undefined> {
-    const endpoint = this.endpoints.getSimulationRunLogsEndpoint(uuid);
-    return this.http.get<CombineArchiveLog>(endpoint).pipe(
+    return this.simRunService.getSimulationRunLog(uuid).pipe(
       map((response: CombineArchiveLog): SimulationLogs => {
         // get structured log
         let structuredLog: CombineArchiveLog | undefined = response;
@@ -355,11 +356,14 @@ export class DispatchService {
         }
         return of<undefined>(undefined);
       }),
+
+      shareReplay(1),
     );
   }
 
   public constructor(
     private http: HttpClient,
-    private ontologyService: OntologyService,
+    private simRunService: SimulationRunService,
+    private ontologyService: OntologyService,    
   ) {}
 }
