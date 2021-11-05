@@ -121,21 +121,23 @@ export class CompleteProcessor {
     }
 
     /* append post-processing status reason to log */
+    const cyan = ConsoleFormatting.cyan.replace('\\033', '\u001b');
+    const red = ConsoleFormatting.red.replace('\\033', '\u001b');
+    const yellow = ConsoleFormatting.yellow.replace('\\033', '\u001b');
+    const noColor = ConsoleFormatting.noColor.replace('\\033', '\u001b');
+
     let statusColor!: string;
     let statusEndColor!: string;
     if (errors.length > 0) {
-      statusColor = ConsoleFormatting.red;
-      statusEndColor = ConsoleFormatting.noColor;
+      statusColor = red;
+      statusEndColor = noColor;
     } else if (warnings.length > 0) {
-      statusColor = ConsoleFormatting.yellow;
-      statusEndColor = ConsoleFormatting.noColor;
+      statusColor = yellow;
+      statusEndColor = noColor;
     } else {
       statusColor = '';
       statusEndColor = '';
     }
-
-    const cyan = ConsoleFormatting.cyan.replace('\\033', '\u001b');
-    const noColor = ConsoleFormatting.noColor.replace('\\033', '\u001b');
 
     const extraStdLog =
       '' +
