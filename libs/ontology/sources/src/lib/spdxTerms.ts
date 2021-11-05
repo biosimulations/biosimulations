@@ -2,12 +2,13 @@ import {
   Ontologies,
   SpdxTerm,
   OntologyInfo,
+  OntologyTermMap,
 } from '@biosimulations/datamodel/common';
 import isUrl from 'is-url';
 import spdxJson from './spdx.json';
 
-function getSpdxTerms(input: any): { [id: string]: SpdxTerm } {
-  const terms: { [id: string]: SpdxTerm } = {};
+function getSpdxTerms(input: any): OntologyTermMap<SpdxTerm> {
+  const terms: OntologyTermMap<SpdxTerm> = {};
   input.licenses.forEach((license: any): void => {
     const seeAlso = license?.seeAlso?.[0];
     terms[license.licenseId] = {

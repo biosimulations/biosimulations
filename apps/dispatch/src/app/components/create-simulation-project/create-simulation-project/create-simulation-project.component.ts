@@ -14,6 +14,7 @@ import {
   SimulationType,
   SimulationTypeName,
   EdamTerm,
+  OntologyTermMap,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import {
@@ -133,7 +134,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   ];
   compatibleSimulators?: CompatibleSimulator[];
 
-  private edamIdFormatMap: { [id: string]: EdamTerm };
+  private edamIdFormatMap: OntologyTermMap<EdamTerm>;
 
   modelFileTypeSpecifiers!: string;
   private static INIT_MODEL_NAMESPACES = 1;

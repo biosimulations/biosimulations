@@ -2,13 +2,14 @@ import {
   Ontologies,
   SboTerm,
   OntologyInfo,
+  OntologyTermMap,
 } from '@biosimulations/datamodel/common';
 
 import sboJson from './sbo.json';
 
 let sboVersion = '';
-function getSboTerms(input: any): { [id: string]: SboTerm } {
-  const Terms: { [id: string]: SboTerm } = {};
+function getSboTerms(input: any): OntologyTermMap<SboTerm> {
+  const Terms: OntologyTermMap<SboTerm> = {};
 
   const jsonParse = input['@graph'];
   jsonParse.forEach((jsonTerm: any) => {

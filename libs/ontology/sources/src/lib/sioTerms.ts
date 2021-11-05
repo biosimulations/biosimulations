@@ -2,13 +2,14 @@ import {
   Ontologies,
   SioTerm,
   OntologyInfo,
+  OntologyTermMap,
 } from '@biosimulations/datamodel/common';
 import isUrl from 'is-url';
 import sioJson from './sio.json';
 
 let sioVersion = '';
-function getSioTerms(input: any): { [id: string]: SioTerm } {
-  const Terms: { [id: string]: SioTerm } = {};
+function getSioTerms(input: any): OntologyTermMap<SioTerm> {
+  const Terms: OntologyTermMap<SioTerm> = {};
 
   const jsonParse = input['@graph'];
   jsonParse.forEach((jsonTerm: any) => {
