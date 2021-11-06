@@ -190,7 +190,7 @@ export class OntologyApiController {
   public getTerms(    
     @Body() ids: OntologyIdsContainer,
     @Query('fields') fields?: string | string[],
-  ): any[] {
+  ): Partial<OntologyTerm[]> {
     if (fields !== undefined) {
       if (!Array.isArray(fields)) {
         fields = [fields];

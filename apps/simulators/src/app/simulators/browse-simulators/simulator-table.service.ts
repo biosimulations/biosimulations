@@ -20,7 +20,13 @@ import {
 import { ISimulator } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/angular';
 
-type OntologyTermMap = {[ontologyId: string]: {[termId: string]: IOntologyTerm}};
+interface PartialIOntologyTerm {
+  namespace: Ontologies;
+  id: string;
+  name: string;
+}
+
+type OntologyTermMap = {[ontologyId: string]: {[termId: string]: PartialIOntologyTerm}};
 
 @Injectable({ providedIn: 'root' })
 export class SimulatorTableService {
@@ -235,10 +241,10 @@ export class SimulatorTableService {
       })
     });
 
-    return this.ontologyService.getTerms(ontologyIdsArray).pipe(
-      map((ontologyTerms: IOntologyTerm[]): OntologyTermMap => {
+    return this.ontologyService.getTerms<PartialIOntologyTerm>(ontologyIdsArray, ['namespace', 'id', 'name']).pipe(
+      map((ontologyTerms: PartialIOntologyTerm[]): OntologyTermMap => {
         const ontologyIdTermMap: OntologyTermMap = {};          
-        ontologyTerms.forEach((ontologyTerm: IOntologyTerm): void => {
+        ontologyTerms.forEach((ontologyTerm: PartialIOntologyTerm): void => {
           if (!(ontologyTerm.namespace in ontologyIdTermMap)) {
             ontologyIdTermMap[ontologyTerm.namespace] = {};  
           }
@@ -252,7 +258,7 @@ export class SimulatorTableService {
 
   getFormats(
     idVersions: Set<string>,
-    ontologyIdTermMap: {[termId: string]: IOntologyTerm},
+    ontologyIdTermMap: {[termId: string]: PartialIOntologyTerm},
   ): string[] {
     return Array.from(idVersions)
       .map((idVersion: string): string => {
@@ -357,7 +363,7 @@ export class SimulatorTableService {
     return text.join(' ');
   }
 
-  getFunding(funding: Funding[], ontologyIdTermMap: {[termId: string]: IOntologyTerm}): string {
+  getFunding(funding: Funding[], ontologyIdTermMap: {[termId: string]: PartialIOntologyTerm}): string {
     const funderIds = new Set<string>();
     const grants: string[] = [];
     funding.forEach((funding: Funding): void => {
