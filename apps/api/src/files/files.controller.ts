@@ -13,6 +13,7 @@ import {
   Param,
   NotFoundException,
   HttpCode,
+  HttpStatus,
   // Delete,
 } from '@nestjs/common';
 import {
@@ -246,7 +247,7 @@ export class FilesController {
   @ApiNoContentResponse({
     description: 'The files for the simulation run were successfully deleted',
   })
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public async deleteSimulationRunFiles(
     @Param('runId') runId: string,
   ): Promise<void> {
@@ -290,7 +291,7 @@ export class FilesController {
   @ApiNoContentResponse({
     description: 'The file was successfully deleted',
   })
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public async deleteFile(
     @Param('runId') runId: string,
     @Param('fileLocation') fileLocation: string,

@@ -11,6 +11,7 @@ import {
   Inject,
   InternalServerErrorException,
   Post,
+  HttpStatus,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
@@ -51,7 +52,7 @@ export class ImagesController {
       'The building/rebuilding of the Singularity image was successfully triggered',
     type: String,
   })
-  @HttpCode(200)
+  @HttpCode(HttpStatus.OK)
   @ApiInternalServerErrorResponse({
     description:
       'An error occurred in triggering the building/rebuilding of the Singularity image',

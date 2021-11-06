@@ -10,6 +10,7 @@ import {
   Put,
   Delete,
   HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 
 import {
@@ -322,7 +323,7 @@ export class SimulatorsController {
   @ApiNoContentResponse({
     description: 'The specifications of the simulation tool are valid',
   })
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   async validateSimulator(@Body() doc: Simulator) {
     await this.service.validate(doc);
     return;
@@ -463,7 +464,7 @@ export class SimulatorsController {
     description:
       'Delete the specifications of all versions of a simulation tool.',
   })
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   async deleteSimulator(@Param('id') id: string) {
     return this.service.deleteMany(id);
   }
@@ -488,7 +489,7 @@ export class SimulatorsController {
     summary: 'Delete all simulation tools',
     description: 'Clear the database. Use with extreme caution',
   })
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   async deleteAll() {
     return this.service.deleteAll();
   }

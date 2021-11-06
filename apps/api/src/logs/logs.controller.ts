@@ -17,6 +17,7 @@ import {
   Post,
   Put,
   HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import {
   ApiExtraModels,
@@ -203,7 +204,7 @@ export class LogsController {
     description: 'This account does not have permission to delete logs',
   })
   @permissions(scopes.logs.delete.id)
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public deleteLog(@Param('runId') runId: string): Promise<void> {
     return this.service.deleteLog(runId);
   }
@@ -283,7 +284,7 @@ export class LogsController {
   @ApiNoContentResponse({
     description: 'The log is valid',
   })
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public async validateLog(@Body() doc: CombineArchiveLog): Promise<void> {
     await this.service.validateLog(doc);
     return;
