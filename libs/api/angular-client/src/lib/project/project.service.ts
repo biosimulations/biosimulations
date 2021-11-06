@@ -19,6 +19,8 @@ import {
 export class ProjectService {
   private endpoints = new Endpoints();
 
+  private projectSummaries!: Observable<ProjectSummary[]>;
+
   constructor(private http: HttpClient) {}
 
   public isProjectValid(
@@ -59,12 +61,6 @@ export class ProjectService {
     return response;
   }
 
-  public getAllProjects(): Observable<Project[]> {
-    const url = this.endpoints.getProjectsEndpoint();
-    const response = this.http.get<Project[]>(url).pipe(shareReplay(1));
-    return response;
-  }
-
   public getProject(projectId: string): Observable<Project> {
     const url = this.endpoints.getProjectsEndpoint(projectId);
     const response = this.http.get<Project>(url).pipe(shareReplay(1));
@@ -73,8 +69,12 @@ export class ProjectService {
 
   public getProjectSummaries(): Observable<ProjectSummary[]> {
     const url = this.endpoints.getProjectSummariesEndpoint();
-    const response = this.http.get<ProjectSummary[]>(url).pipe(shareReplay(1));
-    return response;
+
+    if (!this.projectSummaries) {
+      this.projectSummaries = this.http.get<ProjectSummary[]>(url).pipe(shareReplay(1));
+    } 
+
+    return this.projectSummaries;
   }
 
   public getProjectSummary(projectId: string): Observable<ProjectSummary> {
