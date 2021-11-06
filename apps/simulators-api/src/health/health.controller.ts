@@ -6,7 +6,10 @@ import {
   HealthCheckResult,
   HealthIndicatorFunction,
 } from '@nestjs/terminus';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+} from '@nestjs/swagger';
 
 @Controller('health')
 @ApiTags('Health')
@@ -17,6 +20,10 @@ export class HealthController {
   ) {}
 
   @Get()
+  @ApiOperation({
+    summary: 'Check whether the API is operational',
+    description: 'Check whether the API is operational',
+  })
   @HealthCheck()
   public check(): Promise<HealthCheckResult> {
     return this.health.check([this.mongoCheck]);
