@@ -72,7 +72,7 @@ export class ProjectService {
 
     if (!this.projectSummaries) {
       this.projectSummaries = this.http.get<ProjectSummary[]>(url).pipe(shareReplay(1));
-    } 
+    }
 
     return this.projectSummaries;
   }
