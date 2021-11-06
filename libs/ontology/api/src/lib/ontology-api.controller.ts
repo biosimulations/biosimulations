@@ -6,6 +6,7 @@ import {
   Post,
   NotFoundException,
   Param,
+  Query,
   UseInterceptors,
   Body,
   HttpCode,
@@ -17,6 +18,7 @@ import { OntologyApiService } from './ontology-api.service';
 import {
   ApiOperation,
   ApiParam,
+  ApiQuery,
   ApiBody,
   ApiOkResponse,
   ApiNotFoundResponse,
@@ -163,6 +165,13 @@ export class OntologyApiController {
     description:
       'Get information about one or more terms in one or more ontologies',
   })
+  @ApiQuery({
+    name: 'fields',
+    description: 'Which fields to return. Default: return all fields',
+    required: false,
+    type: [String],
+    example: ['name'],
+  })
   @ApiBody({
     description:
       'List of terms (ontology and id) to obtain information about.',
@@ -178,9 +187,16 @@ export class OntologyApiController {
     type: ErrorResponseDocument,
   })
   @HttpCode(HttpStatus.OK)
-  public getTerms(
+  public getTerms(    
     @Body() ids: OntologyIdsContainer,
-  ): OntologyTerm[] {
-    return this.service.getTerms(ids.ids);
+    @Query('fields') fields?: string | string[],
+  ): any[] {
+    if (fields !== undefined) {
+      if (!Array.isArray(fields)) {
+        fields = [fields];
+      }
+    }
+
+    return this.service.getTerms(ids.ids, fields);
   }
 }

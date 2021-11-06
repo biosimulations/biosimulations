@@ -177,7 +177,7 @@ export class OntologyService {
   }
 
   public getTerms(ids: IOntologyId[]): Observable<IOntologyTerm[]> {
-    const endpoint = this.endpoints.getOntologyEndpoint(this.configService.appId, 'terms');
+    const endpoint = this.endpoints.getOntologyTermsEndpoint(this.configService.appId);
     return this.http.post<IOntologyTerm[]>(
       endpoint, 
       { 
@@ -185,6 +185,9 @@ export class OntologyService {
       },
       {
         headers: { 'Content-Type': 'application/json' },
+        params: {
+          fields: ['namespace', 'id', 'name'],
+        },
       },
     ).pipe(shareReplay(1));
   }

@@ -121,6 +121,15 @@ export class Endpoints {
     return `${api}/ontologies${ontologyId}${termId}`;
   }
 
+  /**
+   *
+   * @returns The endpoint prefix for the ontologies
+   */
+  public getOntologyTermsEndpoint(app: string, fields?: string[]): string {
+    const api = app === 'simulators' ? this.simulatorsApi : this.api;
+    return `${api}/ontologies/terms`;
+  }
+
   /** Get the URL for a file object, for all files for a simulation run, or to post files for a simulation run.
    * @param runId The id of the simulation run
    * @param fileLocation The location of the file within the COMBINE/OMEX archive for the simulation run

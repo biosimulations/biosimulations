@@ -15,7 +15,7 @@ import { TableSimulator } from './tableSimulator.interface';
   selector: 'biosimulations-browse-simulators',
   templateUrl: './browse-simulators.component.html',
   styleUrls: ['./browse-simulators.component.scss'],
-  providers: [SimulatorTableService],
+  providers: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrowseSimulatorsComponent implements OnInit {
