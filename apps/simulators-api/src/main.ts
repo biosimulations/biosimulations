@@ -159,10 +159,9 @@ async function bootstrap() {
       description:
         'Operations for getting a list of the supported ontologies, getting entire ontologies, and getting individual terms.',
     },
-        {
+    {
       name: 'Health',
-      description:
-        'Operations for checking the status of this API.',
+      description: 'Operations for checking the status of this API.',
     },
     {
       name: 'Authentication testing',
