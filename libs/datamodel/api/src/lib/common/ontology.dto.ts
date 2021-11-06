@@ -71,7 +71,7 @@ export class OntologyTerm implements IOntologyTerm {
   public children!: string[];
 }
 
-export class IdentifierBase implements IIdentifierBase {  
+export class IdentifierBase implements IIdentifierBase {
   @ApiProperty({
     description: 'Namespace of the id',
     type: String,
@@ -91,7 +91,7 @@ export class IdentifierBase implements IIdentifierBase {
   public id!: string;
 }
 
-export class OntologyId extends IdentifierBase implements IOntologyId {  
+export class OntologyId extends IdentifierBase implements IOntologyId {
   @ApiProperty({
     description: 'Namespace of the id',
     type: String,

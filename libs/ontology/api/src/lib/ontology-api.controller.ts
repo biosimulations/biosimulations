@@ -187,7 +187,7 @@ export class OntologyApiController {
     type: ErrorResponseDocument,
   })
   @HttpCode(HttpStatus.OK)
-  public getTerms(    
+  public getTerms(
     @Body() ids: OntologyIdsContainer,
     @Query('fields') fields?: string | string[],
   ): Partial<OntologyTerm[]> {
