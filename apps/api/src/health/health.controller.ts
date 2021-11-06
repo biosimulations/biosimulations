@@ -12,7 +12,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { Endpoints } from '@biosimulations/config/common';
 import { BullHealthIndicator } from './bullHealthCheck';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 @Controller('health')
 @ApiTags('Health')
@@ -31,12 +31,20 @@ export class HealthController {
   ) {}
 
   @Get()
+  @ApiOperation({
+    summary: 'Check whether the database and simulation run queue are operational',
+    description: 'Check whether the database and simulation run queue are operational',
+  })
   @HealthCheck()
   public check(): Promise<HealthCheckResult> {
     return this.health.check([this.mongoCheck, this.bullCheck]);
   }
 
   @Get('/status')
+  @ApiOperation({
+    summary: 'Check whether all parts of the system are operational',
+    description: 'Check whether all parts of the system are operational',
+  })
   @HealthCheck()
   public checkStatus(): Promise<HealthCheckResult> {
     return this.health.check([
@@ -51,12 +59,20 @@ export class HealthController {
   }
 
   @Get('/database')
+  @ApiOperation({
+    summary: 'Check whether the database is operational',
+    description: 'Check whether the database is operational',
+  })
   @HealthCheck()
   public databaseCheck(): Promise<HealthCheckResult> {
     return this.health.check([this.mongoCheck]);
   }
 
   @Get('/messaging')
+  @ApiOperation({
+    summary: 'Check whether the simulation run queue and messaging system are operational',
+    description: 'Check whether the simulation run queue and messaging system are operational',
+  })
   @HealthCheck()
   public messagingCheck(): Promise<HealthCheckResult> {
     return this.health.check([this.natsCheck, this.bullCheck]);
