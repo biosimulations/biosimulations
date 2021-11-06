@@ -6,10 +6,7 @@ import {
   HealthCheckResult,
   HealthIndicatorFunction,
 } from '@nestjs/terminus';
-import {
-  ApiTags,
-  ApiOperation,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 @Controller('health')
 @ApiTags('Health')

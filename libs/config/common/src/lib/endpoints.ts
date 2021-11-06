@@ -106,7 +106,11 @@ export class Endpoints {
    *
    * @returns The endpoint prefix for the ontologies
    */
-  public getOntologyEndpoint(app: string, ontologyId?: string, termId?: string): string {
+  public getOntologyEndpoint(
+    app: string,
+    ontologyId?: string,
+    termId?: string,
+  ): string {
     const api = app === 'simulators' ? this.simulatorsApi : this.api;
     ontologyId ? (ontologyId = `/${ontologyId}`) : (ontologyId = '');
     termId ? (termId = `/${termId}`) : (termId = '');

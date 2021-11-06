@@ -32,8 +32,10 @@ export class HealthController {
 
   @Get()
   @ApiOperation({
-    summary: 'Check whether the database and simulation run queue are operational',
-    description: 'Check whether the database and simulation run queue are operational',
+    summary:
+      'Check whether the database and simulation run queue are operational',
+    description:
+      'Check whether the database and simulation run queue are operational',
   })
   @HealthCheck()
   public check(): Promise<HealthCheckResult> {
@@ -70,8 +72,10 @@ export class HealthController {
 
   @Get('/messaging')
   @ApiOperation({
-    summary: 'Check whether the simulation run queue and messaging system are operational',
-    description: 'Check whether the simulation run queue and messaging system are operational',
+    summary:
+      'Check whether the simulation run queue and messaging system are operational',
+    description:
+      'Check whether the simulation run queue and messaging system are operational',
   })
   @HealthCheck()
   public messagingCheck(): Promise<HealthCheckResult> {
