@@ -15,7 +15,6 @@
     "combine-api": "apps/combine-api",
     "combine-api-client": "libs/combine/api-client",
     "combine-nest-client": "libs/combine/nest-client",
-    "config-angular": "libs/config/angular",
     "config-common": "libs/config/common",
     "config-nest": "libs/config/nest",
     "datamodel-api": "libs/datamodel/api",

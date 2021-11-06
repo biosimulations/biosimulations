@@ -1,4 +1,5 @@
 {
+  "appId": "dispatch",
   "appName": "runBioSimulations",
   "appNameParts": ["run", "Bio", "Simulations"],
   "logo": "assets/images/runbiosimulations-logo/logo.svg",

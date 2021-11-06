@@ -14,12 +14,13 @@ import {
   SioTerm,
   SpdxTerm,
 } from '@biosimulations/datamodel/common';
+import { ConfigService } from '@biosimulations/shared/angular';
+
 @Injectable({
   providedIn: 'root',
 })
 export class OntologyService {
   private endpoints = new Endpoints();
-  private endpoint = this.endpoints.getOntologyEndpoint();
 
   private fetchedOntologyTerms: {
     [ontologyId: string]: { [termId: string]: Observable<IOntologyTerm> };
@@ -29,7 +30,8 @@ export class OntologyService {
     [ontologyId: string]: Observable<OntologyTermMap<IOntologyTerm>>;
   } = {};
 
-  public constructor(private http: HttpClient) {}
+  public constructor(private http: HttpClient, private configService: ConfigService) {
+  }
 
   public getKisaoUrl(id: string): string {
     return (
@@ -51,9 +53,10 @@ export class OntologyService {
     let term: Observable<IOntologyTerm> | undefined = ontologyTerms[termId];
 
     if (!term) {
-      term = this.http
-        .get<IOntologyTerm>(this.endpoint + '/' + ontologyId + '/' + termId)
-        .pipe(shareReplay(1));
+      const endpoint = this.endpoints.getOntologyEndpoint(this.configService.appId, ontologyId, termId);
+      term = this.http.get<IOntologyTerm>(endpoint).pipe(
+        shareReplay(1),
+      );
       ontologyTerms[termId] = term;
     }
 
@@ -68,19 +71,18 @@ export class OntologyService {
       return terms as Observable<OntologyTermMap<T>>;
     }
 
-    terms = this.http
-      .get<IOntologyTerm[]>(this.endpoint + '/' + ontologyId + '/list')
-      .pipe(
-        shareReplay(1),
-        map((terms): OntologyTermMap<IOntologyTerm> => {
-          const termSet: OntologyTermMap<IOntologyTerm> = {};
-          terms.forEach((term) => {
-            termSet[term.id] = term;
-          });
-          return termSet;
-        }),
-        shareReplay(1),
-      );
+    const endpoint = this.endpoints.getOntologyEndpoint(this.configService.appId, ontologyId);
+    terms = this.http.get<IOntologyTerm[]>(endpoint).pipe(
+      shareReplay(1),
+      map((terms): OntologyTermMap<IOntologyTerm> => {
+        const termSet: OntologyTermMap<IOntologyTerm> = {};
+        terms.forEach((term) => {
+          termSet[term.id] = term;
+        });
+        return termSet;
+      }),
+      shareReplay(1),
+    );
 
     this.fetchedOntologies[ontologyId] = terms;
 
