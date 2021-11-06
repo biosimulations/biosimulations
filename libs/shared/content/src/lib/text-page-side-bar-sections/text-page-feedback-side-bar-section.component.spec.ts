@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import { TextPageFeedbackSideBarSectionComponent } from './text-page-feedback-side-bar-section.component';
 
 describe('TextPageFeedbackSideBarSectionComponent', () => {

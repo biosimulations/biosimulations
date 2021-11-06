@@ -4,7 +4,7 @@ import {
   TocSection,
   TocSectionsContainerDirective,
 } from '@biosimulations/shared/ui';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import { HowTo, WithContext } from 'schema-dts';
 
 @Component({

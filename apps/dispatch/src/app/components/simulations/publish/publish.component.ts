@@ -6,7 +6,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
 import { CombineApiService } from '../../../services/combine/combine-api.service';
 import { ProjectService } from '@biosimulations/angular-api-client';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import {
   Simulation,
   UnknownSimulation,

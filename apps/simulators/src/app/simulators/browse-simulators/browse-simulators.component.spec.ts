@@ -5,6 +5,8 @@ import { SharedUiModule } from '@biosimulations/shared/ui';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfigService } from '@biosimulations/config/angular';
+
 describe('BrowseSimulatorsComponent', () => {
   let component: BrowseSimulatorsComponent;
   let fixture: ComponentFixture<BrowseSimulatorsComponent>;
@@ -18,6 +20,7 @@ describe('BrowseSimulatorsComponent', () => {
         NoopAnimationsModule,
       ],
       declarations: [BrowseSimulatorsComponent],
+      providers: [ConfigService],
     }).compileComponents();
   }));
 

@@ -3,7 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
-import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { ScrollService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import { PlatformTermsOfServiceComponent } from './platform-terms-of-service.component';
 
 describe('PlatformTermsOfServiceComponent', () => {

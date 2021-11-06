@@ -15,7 +15,7 @@ import {
   throwError,
   of,
 } from 'rxjs';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import {
   concatAll,
   debounceTime,

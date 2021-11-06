@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface ErrorState {

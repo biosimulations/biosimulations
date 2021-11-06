@@ -42,7 +42,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@biosimulations/shared/environments';
 import { validateValue } from '@biosimulations/datamodel/utils';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 
 enum LocationType {
   file = 'file',
