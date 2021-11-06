@@ -6,7 +6,8 @@ import { FaqComponent } from './faq.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
-import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { ScrollService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import config from '../../../../assets/config.json';
 import { NgxJsonLdModule } from '@ngx-lite/json-ld';
 

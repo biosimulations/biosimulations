@@ -10,7 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
-import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { ScrollService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import { HealthService } from '@biosimulations/angular-api-client';
 import { PwaModule } from '@biosimulations/shared/pwa';
 import {

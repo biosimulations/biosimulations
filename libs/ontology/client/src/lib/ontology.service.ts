@@ -14,7 +14,7 @@ import {
   SioTerm,
   SpdxTerm,
 } from '@biosimulations/datamodel/common';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 
 @Injectable({
   providedIn: 'root',

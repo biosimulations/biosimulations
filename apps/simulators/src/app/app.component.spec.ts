@@ -7,7 +7,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { Storage } from '@ionic/storage-angular';
-import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { ScrollService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import { HealthService } from './services/health/health.service';
 
 describe('AppComponent', () => {

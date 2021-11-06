@@ -6,7 +6,8 @@ import { OverviewComponent } from './overview.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
-import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { ScrollService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 
 describe('OverviewComponent', () => {
   let component: OverviewComponent;

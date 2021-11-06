@@ -7,7 +7,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { ScrollService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { NgxJsonLdModule } from '@ngx-lite/json-ld';
 

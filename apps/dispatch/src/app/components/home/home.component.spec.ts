@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { HomeComponent } from './home.component';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;

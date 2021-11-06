@@ -4,7 +4,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import { Storage } from '@ionic/storage-angular';
 import { SimulationService } from './simulation.service';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 
 describe('SimulationService', () => {
   let service: SimulationService;

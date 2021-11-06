@@ -5,6 +5,8 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { ScrollService } from '@biosimulations/shared/angular';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ConfigService } from '@biosimulations/config/angular';
+
 describe('StructuredSimulationLogElementComponent', () => {
   let component: StructuredSimulationLogElementComponent;
   let fixture: ComponentFixture<StructuredSimulationLogElementComponent>;
@@ -18,7 +20,7 @@ describe('StructuredSimulationLogElementComponent', () => {
         BiosimulationsIconsModule,
         RouterTestingModule,
       ],
-      providers: [ScrollService],
+      providers: [ScrollService, ConfigService],
     }).compileComponents();
   }));
 

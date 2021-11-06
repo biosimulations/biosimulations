@@ -10,7 +10,7 @@ import {
   ColumnActionType,
   ColumnFilterType,
 } from '@biosimulations/shared/ui';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import { Observable } from 'rxjs';
 import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';

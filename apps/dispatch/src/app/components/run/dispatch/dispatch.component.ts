@@ -41,7 +41,7 @@ import {
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { Observable, Subscription } from 'rxjs';
 import { map, concatAll, withLatestFrom } from 'rxjs/operators';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 

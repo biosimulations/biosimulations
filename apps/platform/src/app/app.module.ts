@@ -17,7 +17,8 @@ import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { ScrollService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import { HealthService } from '@biosimulations/angular-api-client';
 import { PwaModule } from '@biosimulations/shared/pwa';
 

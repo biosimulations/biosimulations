@@ -5,7 +5,7 @@ import { ErrorComponent } from './error.component';
 import { Error500DialogComponent } from './error-500-dialog.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 
 describe('Error500DialogComponent', () => {
   let component: Error500DialogComponent;

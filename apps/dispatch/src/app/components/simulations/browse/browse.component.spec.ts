@@ -11,7 +11,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 
-import { ConfigService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BrowseComponent } from './browse.component';

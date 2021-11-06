@@ -56,6 +56,9 @@
       "@biosimulations/combine-nest-client": [
         "libs/combine/nest-client/src/index.ts"
       ],
+      "@biosimulations/config/angular": [
+        "libs/config/angular/src/index.ts"
+      ],
       "@biosimulations/config/common": [
         "libs/config/common/src/index.ts"
       ],

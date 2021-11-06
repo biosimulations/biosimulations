@@ -5,7 +5,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedContentModule } from '@biosimulations/shared/content';
-import { ConfigService, ScrollService } from '@biosimulations/shared/angular';
+import { ScrollService } from '@biosimulations/shared/angular';
+import { ConfigService } from '@biosimulations/config/angular';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
