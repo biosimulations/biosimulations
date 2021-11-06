@@ -37,7 +37,7 @@ export class IsOntologyTermConstraint implements ValidatorConstraintInterface {
       return false;
     }
 
-    return OntologyApiService.isTermId(ontology, value, args?.constraints[1]);
+    return OntologyApiService.isOntologyTermId(ontology, value, args?.constraints[1]);
   }
 
   public defaultMessage(args?: ValidationArguments): string {

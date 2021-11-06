@@ -13,6 +13,7 @@ import {
   LinguistTerm,
   SioTerm,
   SpdxTerm,
+  IOntologyId,
 } from '@biosimulations/datamodel/common';
 import { ConfigService } from '@biosimulations/config/angular';
 
@@ -40,7 +41,7 @@ export class OntologyService {
     );
   }
 
-  private fetchTerm<T extends IOntologyTerm>(
+  private fetchOntologyTerm<T extends IOntologyTerm>(
     ontologyId: Ontologies,
     termId: string,
   ): Observable<T> {
@@ -63,7 +64,7 @@ export class OntologyService {
     return term as Observable<T>;
   }
 
-  private fetchTerms<T extends IOntologyTerm>(
+  private fetchOntologyTerms<T extends IOntologyTerm>(
     ontologyId: Ontologies,
   ): Observable<OntologyTermMap<T>> {
     let terms = this.fetchedOntologies[ontologyId];
@@ -89,17 +90,17 @@ export class OntologyService {
     return terms as Observable<OntologyTermMap<T>>;
   }
 
-  public getTerms<T extends IOntologyTerm>(
+  public getOntologyTerms<T extends IOntologyTerm>(
     ontologyId: Ontologies,
   ): Observable<OntologyTermMap<T>> {
-    return this.fetchTerms(ontologyId);
+    return this.fetchOntologyTerms(ontologyId);
   }
 
-  private getTerm<T extends IOntologyTerm>(
+  private getOntologyTerm<T extends IOntologyTerm>(
     ontologyId: Ontologies,
     termId: string,
   ): Observable<T> {
-    return this.fetchTerm<T>(ontologyId, termId).pipe(
+    return this.fetchOntologyTerm<T>(ontologyId, termId).pipe(
       catchError((terms: OntologyTermMap<T>): Observable<T> => {
         return of({
           namespace: (terms[Object.keys(terms)[0]] as T).namespace,
@@ -114,15 +115,15 @@ export class OntologyService {
   }
 
   public getEdamTerm(id: string): Observable<EdamTerm> {
-    return this.getTerm<EdamTerm>(Ontologies.EDAM, id);
+    return this.getOntologyTerm<EdamTerm>(Ontologies.EDAM, id);
   }
 
   public getFunderRegistryTerm(id: string): Observable<FunderRegistryTerm> {
-    return this.getTerm<FunderRegistryTerm>(Ontologies.FunderRegistry, id);
+    return this.getOntologyTerm<FunderRegistryTerm>(Ontologies.FunderRegistry, id);
   }
 
   public getLinguistTerm(id: string): Observable<LinguistTerm> {
-    return this.getTerm<LinguistTerm>(Ontologies.Linguist, id);
+    return this.getOntologyTerm<LinguistTerm>(Ontologies.Linguist, id);
   }
 
   public getKisaoTerm(id: string): Observable<KisaoTerm> {
@@ -135,7 +136,7 @@ export class OntologyService {
     if (match !== null) {
       id = 'KISAO_' + '0'.repeat(7 - match[1].length) + match[1];
     }
-    return this.getTerm<KisaoTerm>(Ontologies.KISAO, id);
+    return this.getOntologyTerm<KisaoTerm>(Ontologies.KISAO, id);
   }
 
   public getSboTerm(id: string): Observable<SboTerm> {
@@ -148,7 +149,7 @@ export class OntologyService {
     if (match !== null) {
       id = 'SBO_' + '0'.repeat(7 - match[1].length) + match[1];
     }
-    return this.getTerm<SboTerm>(Ontologies.SBO, id);
+    return this.getOntologyTerm<SboTerm>(Ontologies.SBO, id);
   }
 
   public getSioTerm(id: string): Observable<SioTerm> {
@@ -161,10 +162,23 @@ export class OntologyService {
     if (match !== null) {
       id = 'SIO_' + '0'.repeat(6 - match[1].length) + match[1];
     }
-    return this.getTerm<SioTerm>(Ontologies.SIO, id);
+    return this.getOntologyTerm<SioTerm>(Ontologies.SIO, id);
   }
 
   public getSpdxTerm(id: string): Observable<SpdxTerm> {
-    return this.getTerm<SpdxTerm>(Ontologies.SPDX, id);
+    return this.getOntologyTerm<SpdxTerm>(Ontologies.SPDX, id);
+  }
+
+  public getTerms(ids: IOntologyId[]): Observable<IOntologyTerm[]> {
+    const endpoint = this.endpoints.getOntologyEndpoint(this.configService.appId, 'terms');
+    return this.http.post<IOntologyTerm[]>(
+      endpoint, 
+      { 
+        ids: ids,
+      },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
+    ).pipe(shareReplay(1));
   }
 }
