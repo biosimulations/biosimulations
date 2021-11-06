@@ -155,9 +155,19 @@ async function bootstrap() {
         'Operations for submitting, updating, retrieving, and deleting simulation tools.',
     },
     {
+      name: 'Ontologies',
+      description:
+        'Operations for getting a list of the supported ontologies, getting entire ontologies, and getting individual terms.',
+    },
+        {
+      name: 'Health',
+      description:
+        'Operations for checking the status of this API.',
+    },
+    {
       name: 'Authentication testing',
       description:
-        "Operations for checking whether a user is logged in and retrieving information about a user's privileges.",
+        'Operations for checking authentication and permissions to this API.',
     },
   ];
   for (const tag of tags) {
