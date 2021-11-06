@@ -26,6 +26,7 @@ import {
   UnsupportedMediaTypeException,
   HttpCode,
   UseInterceptors,
+  HttpStatus,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -430,7 +431,7 @@ export class SimulationRunController {
   @ApiNoContentResponse({
     description: 'The simulation run was successfully deleted',
   })
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public async deleteRun(@Param('runId') runId: string): Promise<void> {
     await this.service.delete(runId);
   }
@@ -458,7 +459,7 @@ export class SimulationRunController {
   @ApiNoContentResponse({
     description: 'The simulation runs were successfully deleted',
   })
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public async deleteAll(): Promise<void> {
     await this.service.deleteAll();
   }
@@ -562,7 +563,7 @@ export class SimulationRunController {
   @ApiNoContentResponse({
     description: 'The simulation run is valid.',
   })
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public async validateRun(
     @Param('runId') runId: string,
     @Query('validateSimulationResultsData')

@@ -15,6 +15,7 @@ import {
   Query,
   Req,
   HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import {
   ApiNoContentResponse,
@@ -221,7 +222,7 @@ export class ProjectsController {
     description: 'All published projects were successfully deleted',
   })
   @permissions(scopes.projects.delete.id)
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public async deleteProjects(): Promise<void> {
     return this.service.deleteProjects();
   }
@@ -240,7 +241,7 @@ export class ProjectsController {
   })
   @permissions(scopes.projects.delete.id)
   @ProjectIdParam()
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public async deleteProject(
     @ProjectId('projectId') projectId: string,
   ): Promise<void> {
@@ -302,7 +303,7 @@ export class ProjectsController {
   @ApiNoContentResponse({
     description: 'The project is valid.',
   })
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   public async validateProject(
     @Body() projectInput: ProjectInput,
     @Query('validateSimulationResultsData')
