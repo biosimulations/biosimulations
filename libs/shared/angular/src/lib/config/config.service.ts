@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ConfigService {
+  appId!: string;
   appName!: string;
   appNameParts!: string[];
   logo!: string;

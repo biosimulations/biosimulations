@@ -106,8 +106,15 @@ export class Endpoints {
    *
    * @returns The endpoint prefix for the ontologies
    */
-  public getOntologyEndpoint(): string {
-    return `${this.api}/ontologies`;
+  public getOntologyEndpoint(app: string, ontologyId?: string, termId?: string): string {
+    const api = app === 'simulators' ? this.simulatorsApi : this.api;
+    ontologyId ? (ontologyId = `/${ontologyId}`) : (ontologyId = '');
+    termId ? (termId = `/${termId}`) : (termId = '');
+    if (termId && !ontologyId) {
+      throw new Error('Cannot get a term without an ontology id');
+    }
+
+    return `${api}/ontologies${ontologyId}${termId}`;
   }
 
   /** Get the URL for a file object, for all files for a simulation run, or to post files for a simulation run.

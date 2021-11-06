@@ -80,7 +80,7 @@ export class OntologyApiController {
     return info;
   }
 
-  @Get(':ontologyId/list')
+  @Get(':ontologyId')
   @ApiOperation({
     summary: 'Get the terms in an ontology',
     description: 'Get a list of the terms in an ontology',

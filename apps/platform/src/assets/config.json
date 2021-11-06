@@ -1,4 +1,5 @@
 {
+  "appId": "platform",
   "appName": "BioSimulations",
   "appNameParts": ["Bio", "Simulations"],
   "logo": "assets/images/biosimulations-logo/logo.svg",
