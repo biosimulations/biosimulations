@@ -3,7 +3,7 @@
   fxLayout="row wrap"
   fxLayoutGap="1rem grid"
   fxLayoutAlign="space-around stretch"
-  *ngIf="projects$ | async as projects"
+  *ngIf="projects$ | async as projects; else statusIndicator"
 >
   <div
     class="project"
@@ -19,3 +19,7 @@
     ></biosimulations-project-card>
   </div>
 </div>
+
+<ng-template #statusIndicator>
+  <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
+</ng-template>
