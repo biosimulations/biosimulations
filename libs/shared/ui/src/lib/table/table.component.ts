@@ -984,10 +984,10 @@ export class TableComponent implements OnInit, AfterViewInit {
     delete this.filter[column.id];
     if (Array.isArray(this.columnFilterData[column.id])) {
       if (
-        this.columnFilterData[column.id].length > 0
-        && this.columnFilterData[column.id][0]
-        && typeof this.columnFilterData[column.id][0] === 'object'
-        && 'checked' in this.columnFilterData[column.id][0]
+        this.columnFilterData[column.id].length > 0 &&
+        this.columnFilterData[column.id][0] &&
+        typeof this.columnFilterData[column.id][0] === 'object' &&
+        'checked' in this.columnFilterData[column.id][0]
       ) {
         for (const val of this.columnFilterData[column.id]) {
           val.checked = false;

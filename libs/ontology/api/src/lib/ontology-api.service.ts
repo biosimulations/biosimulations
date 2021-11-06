@@ -80,7 +80,10 @@ export class OntologyApiService {
     return terms;
   }
 
-  public getOntologyTerm(ontologyId: Ontologies, termId: string): IOntologyTerm | null {
+  public getOntologyTerm(
+    ontologyId: Ontologies,
+    termId: string,
+  ): IOntologyTerm | null {
     const termsObj = OntologyApiService._getOntologyTerms(ontologyId);
     if (termsObj == null) {
       return null;
@@ -132,7 +135,10 @@ export class OntologyApiService {
     return false;
   }
 
-  public getTerms(ids: IOntologyId[], fields?: string[]): Partial<IOntologyTerm[]> {
+  public getTerms(
+    ids: IOntologyId[],
+    fields?: string[],
+  ): Partial<IOntologyTerm[]> {
     const terms: Partial<IOntologyTerm[]> = [];
     const invalidIds: string[] = [];
 
@@ -140,7 +146,7 @@ export class OntologyApiService {
       const term = this.getOntologyTerm(id.namespace, id.id);
       if (term) {
         if (fields === undefined) {
-          terms.push(term)
+          terms.push(term);
         } else {
           const leanTerm: any = {};
           fields.forEach((field: string): void => {
@@ -154,7 +160,11 @@ export class OntologyApiService {
     });
 
     if (invalidIds.length) {
-      throw new NotFoundException(`${invalidIds.length} ${invalidIds.length === 1 ? 'id is' : 'ids are'} not valid:${invalidIds.join('')}`);
+      throw new NotFoundException(
+        `${invalidIds.length} ${
+          invalidIds.length === 1 ? 'id is' : 'ids are'
+        } not valid:${invalidIds.join('')}`,
+      );
     }
 
     return terms;

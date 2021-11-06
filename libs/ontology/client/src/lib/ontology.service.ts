@@ -126,7 +126,10 @@ export class OntologyService {
   }
 
   public getFunderRegistryTerm(id: string): Observable<FunderRegistryTerm> {
-    return this.getOntologyTerm<FunderRegistryTerm>(Ontologies.FunderRegistry, id);
+    return this.getOntologyTerm<FunderRegistryTerm>(
+      Ontologies.FunderRegistry,
+      id,
+    );
   }
 
   public getLinguistTerm(id: string): Observable<LinguistTerm> {
@@ -176,23 +179,30 @@ export class OntologyService {
     return this.getOntologyTerm<SpdxTerm>(Ontologies.SPDX, id);
   }
 
-  public getTerms<T extends Partial<IOntologyTerm>>(ids: IOntologyId[], fields?: string[]): Observable<T[]> {
-    const endpoint = this.endpoints.getOntologyTermsEndpoint(this.configService.appId);
+  public getTerms<T extends Partial<IOntologyTerm>>(
+    ids: IOntologyId[],
+    fields?: string[],
+  ): Observable<T[]> {
+    const endpoint = this.endpoints.getOntologyTermsEndpoint(
+      this.configService.appId,
+    );
 
     const params: any = {};
     if (fields) {
       params.fields = fields;
     }
 
-    return this.http.post<T[]>(
-      endpoint,
-      {
-        ids: ids,
-      },
-      {
-        headers: { 'Content-Type': 'application/json' },
-        params: params,
-      },
-    ).pipe(shareReplay(1));
+    return this.http
+      .post<T[]>(
+        endpoint,
+        {
+          ids: ids,
+        },
+        {
+          headers: { 'Content-Type': 'application/json' },
+          params: params,
+        },
+      )
+      .pipe(shareReplay(1));
   }
 }

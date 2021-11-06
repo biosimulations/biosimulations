@@ -26,7 +26,9 @@ interface PartialIOntologyTerm extends Partial<IOntologyTerm> {
   name: string | null;
 }
 
-type OntologyTermMap = {[ontologyId: string]: {[termId: string]: PartialIOntologyTerm}};
+type OntologyTermMap = {
+  [ontologyId: string]: { [termId: string]: PartialIOntologyTerm };
+};
 
 @Injectable({ providedIn: 'root' })
 export class SimulatorTableService {
@@ -45,17 +47,17 @@ export class SimulatorTableService {
         if (!this.ontologyIdTermMap) {
           this.ontologyIdTermMap = this.getOntologyIdTermMap(simulators);
         }
-        
+
         return this.ontologyIdTermMap.pipe(
           map((ontologyIdTermMap: OntologyTermMap): TableSimulator[] => {
             return simulators.map((simulator: ISimulator): TableSimulator => {
               const ontologyTermIdsMap = {
-                'algorithms': new Set<string>(),
-                'parameters': new Set<string>(),
-                'frameworks': new Set<string>(),
-                'modelFormats': new Set<string>(),
-                'simulationFormats': new Set<string>(),
-                'archiveFormats': new Set<string>(),
+                algorithms: new Set<string>(),
+                parameters: new Set<string>(),
+                frameworks: new Set<string>(),
+                modelFormats: new Set<string>(),
+                simulationFormats: new Set<string>(),
+                archiveFormats: new Set<string>(),
               };
 
               for (const algorithm of simulator.algorithms) {
@@ -63,7 +65,7 @@ export class SimulatorTableService {
                   ontologyTermIdsMap['algorithms'].add(algorithm.kisaoId.id);
                 }
 
-                for (const parameter of (algorithm?.parameters || [])) {
+                for (const parameter of algorithm?.parameters || []) {
                   if (parameter.kisaoId) {
                     ontologyTermIdsMap['parameters'].add(parameter.kisaoId.id);
                   }
@@ -74,21 +76,36 @@ export class SimulatorTableService {
                 }
 
                 for (const format of algorithm.modelFormats) {
-                  ontologyTermIdsMap['modelFormats'].add(format.id + '_:_' + (format.version || ''));
+                  ontologyTermIdsMap['modelFormats'].add(
+                    format.id + '_:_' + (format.version || ''),
+                  );
                 }
 
                 for (const format of algorithm.simulationFormats) {
-                  ontologyTermIdsMap['simulationFormats'].add(format.id + '_:_' + (format.version || ''));
+                  ontologyTermIdsMap['simulationFormats'].add(
+                    format.id + '_:_' + (format.version || ''),
+                  );
                 }
 
                 for (const format of algorithm.archiveFormats) {
-                  ontologyTermIdsMap['archiveFormats'].add(format.id + '_:_' + (format.version || ''));
+                  ontologyTermIdsMap['archiveFormats'].add(
+                    format.id + '_:_' + (format.version || ''),
+                  );
                 }
               }
 
-              const modelFormats = this.getFormats(ontologyTermIdsMap['modelFormats'], ontologyIdTermMap[Ontologies.EDAM]);
-              const simulationFormats = this.getFormats(ontologyTermIdsMap['simulationFormats'], ontologyIdTermMap[Ontologies.EDAM]);
-              const archiveFormats = this.getFormats(ontologyTermIdsMap['archiveFormats'], ontologyIdTermMap[Ontologies.EDAM]);
+              const modelFormats = this.getFormats(
+                ontologyTermIdsMap['modelFormats'],
+                ontologyIdTermMap[Ontologies.EDAM],
+              );
+              const simulationFormats = this.getFormats(
+                ontologyTermIdsMap['simulationFormats'],
+                ontologyIdTermMap[Ontologies.EDAM],
+              );
+              const archiveFormats = this.getFormats(
+                ontologyTermIdsMap['archiveFormats'],
+                ontologyIdTermMap[Ontologies.EDAM],
+              );
 
               return {
                 id: simulator.id,
@@ -98,32 +115,43 @@ export class SimulatorTableService {
                 url: simulator.urls.sort(sortUrls)?.[0]?.url || null,
                 updated: new Date(simulator.biosimulators.updated),
                 license: simulator.license
-                  ? this.shortenLicense(ontologyIdTermMap?.[Ontologies.SPDX]?.[simulator.license.id]?.name || null)
+                  ? this.shortenLicense(
+                      ontologyIdTermMap?.[Ontologies.SPDX]?.[
+                        simulator.license.id
+                      ]?.name || null,
+                    )
                   : null,
-                licenseId: simulator.license
-                  ? simulator.license.id
-                  : null,
-                frameworks: Array.from(ontologyTermIdsMap['frameworks'])
-                  .map((id: string): string => {
-                    const name = ontologyIdTermMap?.[Ontologies.SBO]?.[id]?.name;
+                licenseId: simulator.license ? simulator.license.id : null,
+                frameworks: Array.from(ontologyTermIdsMap['frameworks']).map(
+                  (id: string): string => {
+                    const name =
+                      ontologyIdTermMap?.[Ontologies.SBO]?.[id]?.name;
                     if (name) {
                       return this.trimFramework(name);
                     } else {
                       return id;
                     }
-                  }),
+                  },
+                ),
                 frameworkIds: Array.from(ontologyTermIdsMap['frameworks']),
-                algorithms: Array.from(ontologyTermIdsMap['algorithms'])
-                  .map((id: string): string => {
-                    return ontologyIdTermMap?.[Ontologies.KISAO]?.[id]?.name || id;
-                  }),
+                algorithms: Array.from(ontologyTermIdsMap['algorithms']).map(
+                  (id: string): string => {
+                    return (
+                      ontologyIdTermMap?.[Ontologies.KISAO]?.[id]?.name || id
+                    );
+                  },
+                ),
                 algorithmIds: Array.from(ontologyTermIdsMap['algorithms']),
                 modelFormats: modelFormats,
                 modelFormatIds: Array.from(ontologyTermIdsMap['modelFormats']),
                 simulationFormats: simulationFormats,
-                simulationFormatIds: Array.from(ontologyTermIdsMap['simulationFormats']),
+                simulationFormatIds: Array.from(
+                  ontologyTermIdsMap['simulationFormats'],
+                ),
                 archiveFormats: archiveFormats,
-                archiveFormatIds: Array.from(ontologyTermIdsMap['archiveFormats']),
+                archiveFormatIds: Array.from(
+                  ontologyTermIdsMap['archiveFormats'],
+                ),
                 interfaceTypes: simulator.interfaceTypes.sort(
                   (a: string, b: string) => {
                     return a.localeCompare(b, undefined, {
@@ -156,10 +184,14 @@ export class SimulatorTableService {
                 image: simulator.image?.url || undefined,
                 cli: simulator?.cli?.package || undefined,
                 pythonApi: simulator?.pythonApi?.package || undefined,
-                curationStatus: UtilsService.getSimulatorCurationStatus(simulator),
-                algorithmParameters: Array.from(ontologyTermIdsMap['parameters'])
+                curationStatus:
+                  UtilsService.getSimulatorCurationStatus(simulator),
+                algorithmParameters: Array.from(
+                  ontologyTermIdsMap['parameters'],
+                )
                   .map((id: string): string => {
-                    const name = ontologyIdTermMap?.[Ontologies.KISAO]?.[id]?.name;
+                    const name =
+                      ontologyIdTermMap?.[Ontologies.KISAO]?.[id]?.name;
                     if (name) {
                       return id + ' ' + name;
                     } else {
@@ -170,8 +202,13 @@ export class SimulatorTableService {
                 dependencies: this.getDependencies(simulator.algorithms),
                 authors: this.getAuthors(simulator.authors),
                 citations: this.getCitations(simulator.references.citations),
-                identifiers: this.getIdentifiers(simulator.references.identifiers),
-                funding: this.getFunding(simulator.funding, ontologyIdTermMap?.[Ontologies.FunderRegistry] || {}),
+                identifiers: this.getIdentifiers(
+                  simulator.references.identifiers,
+                ),
+                funding: this.getFunding(
+                  simulator.funding,
+                  ontologyIdTermMap?.[Ontologies.FunderRegistry] || {},
+                ),
               };
             });
           }),
@@ -183,13 +220,15 @@ export class SimulatorTableService {
     return data;
   }
 
-  private getOntologyIdTermMap(simulators: ISimulator[]): Observable<OntologyTermMap> {
+  private getOntologyIdTermMap(
+    simulators: ISimulator[],
+  ): Observable<OntologyTermMap> {
     const ontologyTermIdsMap = {
-      'EDAM': new Set<string>(),
-      'FunderRegistry': new Set<string>(),
-      'KISAO': new Set<string>(),
-      'SBO': new Set<string>(),
-      'SPDX': new Set<string>(),
+      EDAM: new Set<string>(),
+      FunderRegistry: new Set<string>(),
+      KISAO: new Set<string>(),
+      SBO: new Set<string>(),
+      SPDX: new Set<string>(),
     };
     simulators.forEach((simulator: ISimulator): void => {
       for (const algorithm of simulator.algorithms) {
@@ -197,7 +236,7 @@ export class SimulatorTableService {
           ontologyTermIdsMap['KISAO'].add(algorithm.kisaoId.id);
         }
 
-        for (const parameter of (algorithm?.parameters || [])) {
+        for (const parameter of algorithm?.parameters || []) {
           if (parameter.kisaoId) {
             ontologyTermIdsMap['KISAO'].add(parameter.kisaoId.id);
           }
@@ -230,47 +269,55 @@ export class SimulatorTableService {
     });
 
     const ontologyIdsArray: IOntologyId[] = [];
-    Object.entries(ontologyTermIdsMap).forEach((namespaceIds: [string, Set<string>]): void => {
-      const namespace: string = namespaceIds[0];
-      const ids: Set<string> = namespaceIds[1];
-      ids.forEach((id: string): void => {
-        ontologyIdsArray.push({
-          namespace: namespace as Ontologies,
-          id: id,
-        })
-      })
-    });
-
-    return this.ontologyService.getTerms<PartialIOntologyTerm>(ontologyIdsArray, ['namespace', 'id', 'name']).pipe(
-      map((ontologyTerms: PartialIOntologyTerm[]): OntologyTermMap => {
-        const ontologyIdTermMap: OntologyTermMap = {};
-        ontologyTerms.forEach((ontologyTerm: PartialIOntologyTerm): void => {
-          if (!(ontologyTerm.namespace in ontologyIdTermMap)) {
-            ontologyIdTermMap[ontologyTerm.namespace] = {};
-          }
-          ontologyIdTermMap[ontologyTerm.namespace][ontologyTerm.id] = ontologyTerm;
+    Object.entries(ontologyTermIdsMap).forEach(
+      (namespaceIds: [string, Set<string>]): void => {
+        const namespace: string = namespaceIds[0];
+        const ids: Set<string> = namespaceIds[1];
+        ids.forEach((id: string): void => {
+          ontologyIdsArray.push({
+            namespace: namespace as Ontologies,
+            id: id,
+          });
         });
-        return ontologyIdTermMap;
-      }),
-      shareReplay(1),
+      },
     );
+
+    return this.ontologyService
+      .getTerms<PartialIOntologyTerm>(ontologyIdsArray, [
+        'namespace',
+        'id',
+        'name',
+      ])
+      .pipe(
+        map((ontologyTerms: PartialIOntologyTerm[]): OntologyTermMap => {
+          const ontologyIdTermMap: OntologyTermMap = {};
+          ontologyTerms.forEach((ontologyTerm: PartialIOntologyTerm): void => {
+            if (!(ontologyTerm.namespace in ontologyIdTermMap)) {
+              ontologyIdTermMap[ontologyTerm.namespace] = {};
+            }
+            ontologyIdTermMap[ontologyTerm.namespace][ontologyTerm.id] =
+              ontologyTerm;
+          });
+          return ontologyIdTermMap;
+        }),
+        shareReplay(1),
+      );
   }
 
   getFormats(
     idVersions: Set<string>,
-    ontologyIdTermMap: {[termId: string]: PartialIOntologyTerm},
+    ontologyIdTermMap: { [termId: string]: PartialIOntologyTerm },
   ): string[] {
-    return Array.from(idVersions)
-      .map((idVersion: string): string => {
-        const iSplit = idVersion.lastIndexOf('_:_')
-        const id = idVersion.substring(0, iSplit)
-        const version = idVersion.substring(iSplit + 3);
-        if (version) {
-          return (ontologyIdTermMap?.[id]?.name || id) + ' ' + version;
-        } else {
-          return (ontologyIdTermMap?.[id]?.name || id);
-        }
-      });
+    return Array.from(idVersions).map((idVersion: string): string => {
+      const iSplit = idVersion.lastIndexOf('_:_');
+      const id = idVersion.substring(0, iSplit);
+      const version = idVersion.substring(iSplit + 3);
+      if (version) {
+        return (ontologyIdTermMap?.[id]?.name || id) + ' ' + version;
+      } else {
+        return ontologyIdTermMap?.[id]?.name || id;
+      }
+    });
   }
 
   trimFramework(name: string): string {
@@ -363,7 +410,10 @@ export class SimulatorTableService {
     return text.join(' ');
   }
 
-  getFunding(funding: Funding[], ontologyIdTermMap: {[termId: string]: PartialIOntologyTerm}): string {
+  getFunding(
+    funding: Funding[],
+    ontologyIdTermMap: { [termId: string]: PartialIOntologyTerm },
+  ): string {
     const funderIds = new Set<string>();
     const grants: string[] = [];
     funding.forEach((funding: Funding): void => {
@@ -375,9 +425,7 @@ export class SimulatorTableService {
 
     const funderNames: string[] = [];
     for (const funderId of funderIds) {
-      funderNames.push(
-        ontologyIdTermMap?.[funderId]?.name || funderId,
-      );
+      funderNames.push(ontologyIdTermMap?.[funderId]?.name || funderId);
     }
 
     return (

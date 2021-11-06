@@ -80,7 +80,9 @@ export class OntologyApiController {
     description: 'No ontology has the requested id',
     type: ErrorResponseDocument,
   })
-  public getOntologyInfo(@Param('ontologyId') ontologyId: Ontologies): OntologyInfo {
+  public getOntologyInfo(
+    @Param('ontologyId') ontologyId: Ontologies,
+  ): OntologyInfo {
     const info = this.service.getOntologyInfo(ontologyId);
     if (!info) {
       throw new NotFoundException(`No ontology with id ${ontologyId} exists`);
@@ -109,7 +111,9 @@ export class OntologyApiController {
     description: 'No ontology has the requested id',
     type: ErrorResponseDocument,
   })
-  public getOntologyTerms(@Param('ontologyId') ontologyId: Ontologies): OntologyTerm[] {
+  public getOntologyTerms(
+    @Param('ontologyId') ontologyId: Ontologies,
+  ): OntologyTerm[] {
     const terms = this.service.getOntologyTerms(ontologyId);
     if (!terms) {
       throw new NotFoundException(`No ontology with id ${ontologyId} exists`);
@@ -173,13 +177,13 @@ export class OntologyApiController {
     example: ['name'],
   })
   @ApiBody({
-    description:
-      'List of terms (ontology and id) to obtain information about.',
+    description: 'List of terms (ontology and id) to obtain information about.',
     required: true,
     type: OntologyIdsContainer,
   })
   @ApiOkResponse({
-    description: 'Information about the requested terms was successfully retrieved',
+    description:
+      'Information about the requested terms was successfully retrieved',
     type: [OntologyTerm],
   })
   @ApiNotFoundResponse({

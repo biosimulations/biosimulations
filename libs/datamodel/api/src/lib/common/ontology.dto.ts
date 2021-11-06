@@ -7,7 +7,13 @@ import {
   OntologyInfo as IOntologyInfo,
 } from '@biosimulations/datamodel/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsUrl, IsEnum, ValidateNested } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsUrl,
+  IsEnum,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class OntologyInfo implements IOntologyInfo {
@@ -80,11 +86,11 @@ export class IdentifierBase implements IIdentifierBase {
   @IsString()
   @IsNotEmpty()
   public namespace!: string;
-  
+
   @ApiProperty({
     description: 'Id within the namespace',
     type: String,
-    example: '10.5281/zenodo.5595241'
+    example: '10.5281/zenodo.5595241',
   })
   @IsString()
   @IsNotEmpty()
@@ -128,7 +134,7 @@ export class Identifier extends IdentifierBase implements IIdentifier {
 export class OntologyIdsContainer {
   @ApiProperty({
     description: 'Identifiers of ontology terms',
-    type: [OntologyId]
+    type: [OntologyId],
   })
   @ValidateNested({ each: true })
   @Type(() => OntologyId)
