@@ -65,7 +65,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
       name: 'Health',
       description:
         'Operations for checking the status of this API.',
-    },    
+    },
     {
       name: 'Internal',
       description:
