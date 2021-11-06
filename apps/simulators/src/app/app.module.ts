@@ -17,6 +17,7 @@ import { PwaModule } from '@biosimulations/shared/pwa';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { SimulatorTableService } from './simulators/browse-simulators/simulator-table.service';
 
 import {
   MARKED_PRELOADING_STRATEGY,
@@ -118,7 +119,6 @@ routes.forEach((route: Route): void => {
     { provide: ConfigService, useValue: config },
     ScrollService,
     HealthService,
-
     {
       // Requires type declarations provided in the highlight.d.ts file in src
       provide: HIGHLIGHT_OPTIONS,
@@ -132,6 +132,7 @@ routes.forEach((route: Route): void => {
         },
       },
     },
+    SimulatorTableService,
   ],
   bootstrap: [AppComponent],
 })

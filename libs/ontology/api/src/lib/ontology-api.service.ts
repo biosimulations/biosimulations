@@ -132,14 +132,22 @@ export class OntologyApiService {
     return false;
   }
 
-  public getTerms(ids: IOntologyId[]): IOntologyTerm[] {
-    const terms: IOntologyTerm[] = [];
+  public getTerms(ids: IOntologyId[], fields?: string[]): any[] {
+    const terms: any[] = [];
     const invalidIds: string[] = [];
 
     ids.forEach((id: IOntologyId): void => {
       const term = this.getOntologyTerm(id.namespace, id.id);
       if (term) {
-        terms.push(term)
+        if (fields === undefined) {
+          terms.push(term)
+        } else {
+          const leanTerm: any = {};
+          fields.forEach((field: string): void => {
+            leanTerm[field] = (term as any)?.[field];
+          });
+          terms.push(leanTerm);
+        }
       } else {
         invalidIds.push(`\n  - ${id.namespace}: ${id.id}`);
       }

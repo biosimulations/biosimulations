@@ -20,8 +20,12 @@ import {
 import { ISimulator } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/angular';
 
-@Injectable()
+type OntologyTermMap = {[ontologyId: string]: {[termId: string]: IOntologyTerm}};
+
+@Injectable({ providedIn: 'root' })
 export class SimulatorTableService {
+  private ontologyIdTermMap!: Observable<OntologyTermMap>;
+
   constructor(
     private service: SimulatorService,
     private ontologyService: OntologyService,
@@ -32,75 +36,12 @@ export class SimulatorTableService {
       //Data from the service is an array of API objects - Convert to array of table objects
       map((simulators: ISimulator[]): Observable<TableSimulator[]> => {
         // Go through the array and convert each API object to an observable of a table object
-
-        const ontologyTermIdsMap = {
-          'EDAM': new Set<string>(),
-          'FunderRegistry': new Set<string>(),
-          'KISAO': new Set<string>(),
-          'SBO': new Set<string>(),
-          'SPDX': new Set<string>(),
-        };
-        simulators.forEach((simulator: ISimulator): void => {
-          for (const algorithm of simulator.algorithms) {
-            if (algorithm.kisaoId) {
-              ontologyTermIdsMap['KISAO'].add(algorithm.kisaoId.id);
-            }
-
-            for (const parameter of (algorithm?.parameters || [])) {
-              if (parameter.kisaoId) {
-                ontologyTermIdsMap['KISAO'].add(parameter.kisaoId.id);
-              }
-            }
-
-            for (const framework of algorithm.modelingFrameworks) {
-              ontologyTermIdsMap['SBO'].add(framework.id);
-            }
-
-            for (const format of algorithm.modelFormats) {
-              ontologyTermIdsMap['EDAM'].add(format.id);
-            }
-
-            for (const format of algorithm.simulationFormats) {
-              ontologyTermIdsMap['EDAM'].add(format.id);
-            }
-
-            for (const format of algorithm.archiveFormats) {
-              ontologyTermIdsMap['EDAM'].add(format.id);
-            }
-          }
-
-          if (simulator.license) {
-            ontologyTermIdsMap['SPDX'].add(simulator.license.id);
-          }
-
-          for (const funding of simulator.funding) {
-            ontologyTermIdsMap['FunderRegistry'].add(funding.funder.id);
-          }
-        });
-
-        const ontologyIdsArray: IOntologyId[] = [];
-        Object.entries(ontologyTermIdsMap).forEach((namespaceIds: [string, Set<string>]): void => {
-          const namespace: string = namespaceIds[0];
-          const ids: Set<string> = namespaceIds[1];
-          ids.forEach((id: string): void => {
-            ontologyIdsArray.push({
-              namespace: namespace as Ontologies,
-              id: id,
-            })
-          })
-        });
-
-        const ontologyTermsObservable: Observable<IOntologyTerm[]> = this.ontologyService.getTerms(ontologyIdsArray);
-        return ontologyTermsObservable.pipe(
-          map((ontologyTerms: IOntologyTerm[]): TableSimulator[] => {
-            const ontologyIdTermMap: {[ontologyId: string]: {[termId: string]: IOntologyTerm}} = {};          
-            ontologyTerms.forEach((ontologyTerm: IOntologyTerm): void => {
-              if (!(ontologyTerm.namespace in ontologyIdTermMap)) {
-                ontologyIdTermMap[ontologyTerm.namespace] = {};  
-              }
-              ontologyIdTermMap[ontologyTerm.namespace][ontologyTerm.id] = ontologyTerm;            
-            });
-
+        if (!this.ontologyIdTermMap) {
+          this.ontologyIdTermMap = this.getOntologyIdTermMap(simulators);
+        }
+        
+        return this.ontologyIdTermMap.pipe(
+          map((ontologyIdTermMap: OntologyTermMap): TableSimulator[] => {
             return simulators.map((simulator: ISimulator): TableSimulator => {
               const ontologyTermIdsMap = {
                 'algorithms': new Set<string>(),
@@ -234,6 +175,79 @@ export class SimulatorTableService {
       shareReplay(1),
     );
     return data;
+  }
+
+  private getOntologyIdTermMap(simulators: ISimulator[]): Observable<OntologyTermMap> {
+    const ontologyTermIdsMap = {
+      'EDAM': new Set<string>(),
+      'FunderRegistry': new Set<string>(),
+      'KISAO': new Set<string>(),
+      'SBO': new Set<string>(),
+      'SPDX': new Set<string>(),
+    };
+    simulators.forEach((simulator: ISimulator): void => {
+      for (const algorithm of simulator.algorithms) {
+        if (algorithm.kisaoId) {
+          ontologyTermIdsMap['KISAO'].add(algorithm.kisaoId.id);
+        }
+
+        for (const parameter of (algorithm?.parameters || [])) {
+          if (parameter.kisaoId) {
+            ontologyTermIdsMap['KISAO'].add(parameter.kisaoId.id);
+          }
+        }
+
+        for (const framework of algorithm.modelingFrameworks) {
+          ontologyTermIdsMap['SBO'].add(framework.id);
+        }
+
+        for (const format of algorithm.modelFormats) {
+          ontologyTermIdsMap['EDAM'].add(format.id);
+        }
+
+        for (const format of algorithm.simulationFormats) {
+          ontologyTermIdsMap['EDAM'].add(format.id);
+        }
+
+        for (const format of algorithm.archiveFormats) {
+          ontologyTermIdsMap['EDAM'].add(format.id);
+        }
+      }
+
+      if (simulator.license) {
+        ontologyTermIdsMap['SPDX'].add(simulator.license.id);
+      }
+
+      for (const funding of simulator.funding) {
+        ontologyTermIdsMap['FunderRegistry'].add(funding.funder.id);
+      }
+    });
+
+    const ontologyIdsArray: IOntologyId[] = [];
+    Object.entries(ontologyTermIdsMap).forEach((namespaceIds: [string, Set<string>]): void => {
+      const namespace: string = namespaceIds[0];
+      const ids: Set<string> = namespaceIds[1];
+      ids.forEach((id: string): void => {
+        ontologyIdsArray.push({
+          namespace: namespace as Ontologies,
+          id: id,
+        })
+      })
+    });
+
+    return this.ontologyService.getTerms(ontologyIdsArray).pipe(
+      map((ontologyTerms: IOntologyTerm[]): OntologyTermMap => {
+        const ontologyIdTermMap: OntologyTermMap = {};          
+        ontologyTerms.forEach((ontologyTerm: IOntologyTerm): void => {
+          if (!(ontologyTerm.namespace in ontologyIdTermMap)) {
+            ontologyIdTermMap[ontologyTerm.namespace] = {};  
+          }
+          ontologyIdTermMap[ontologyTerm.namespace][ontologyTerm.id] = ontologyTerm;            
+        });
+        return ontologyIdTermMap;
+      }),
+      shareReplay(1),
+    );
   }
 
   getFormats(
