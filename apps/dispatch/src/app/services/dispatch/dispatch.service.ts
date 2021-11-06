@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, forkJoin, of, ObservableInput } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, catchError, shareReplay, mergeAll } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
 
@@ -11,7 +11,6 @@ import {
 import { SimulationLogs } from '../../simulation-logs-datamodel';
 import {
   Ontologies,
-  OntologyTermMap,
   SimulationRunLogStatus,
   Purpose,
   EnvironmentVariable,
@@ -22,9 +21,6 @@ import {
 } from '@biosimulations/datamodel/common';
 import { OntologyService } from '@biosimulations/ontology/client';
 import {
-  EdamTerm,
-  KisaoTerm,
-  SboTerm,
   ValueType,
   SimulationType,
 } from '@biosimulations/datamodel/common';
