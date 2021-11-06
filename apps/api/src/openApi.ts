@@ -62,9 +62,19 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
         'Operations for getting a list of the supported ontologies, getting entire ontologies, and getting individual terms.',
     },
     {
+      name: 'Health',
+      description:
+        'Operations for checking the status of this API.',
+    },    
+    {
       name: 'Internal',
       description:
         'Operations for the management of BioSimulations by the BioSimulations Team.',
+    },
+    {
+      name: 'Authentication testing',
+      description:
+        'Operations for checking authentication and permissions to this API.',
     },
   ];
   const builder = new DocumentBuilder()
