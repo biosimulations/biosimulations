@@ -81,7 +81,7 @@ import {
   SimulationRunMetadataIdModel,
   MetadataModel,
 } from '../metadata/metadata.model';
-import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { OntologyApiService } from '@biosimulations/ontology/api';
 import { Cache } from 'cache-manager';
 
 // 1 GB in bytes to be used as file size limits
@@ -127,7 +127,7 @@ export class SimulationRunService {
     private resultsService: ResultsService,
     private logsService: LogsService,
     private metadataService: MetadataService,
-    private ontologiesService: OntologiesService,
+    private ontologiesService: OntologyApiService,
     private configService: ConfigService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {

@@ -44,7 +44,7 @@ import {
 
 import { ProjectModel, ProjectModelSchema } from '../projects/project.model';
 
-import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { OntologyApiService } from '@biosimulations/ontology/api';
 
 @Module({
   controllers: [SimulationRunController],
@@ -90,7 +90,7 @@ import { OntologiesService } from '@biosimulations/ontology/ontologies';
     LogsService,
     ResultsService,
     MetadataService,
-    OntologiesService,
+    OntologyApiService,
   ],
 })
 export class SimulationRunModule {}

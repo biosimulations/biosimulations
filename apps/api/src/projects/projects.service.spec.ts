@@ -25,7 +25,7 @@ import {
   SimulationStorageService,
 } from '@biosimulations/shared/storage';
 
-import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { OntologyApiService } from '@biosimulations/ontology/api';
 import { CacheModule } from '@nestjs/common';
 
 describe('ProjectsService', () => {
@@ -101,7 +101,7 @@ describe('ProjectsService', () => {
         ResultsService,
         LogsService,
         MetadataService,
-        OntologiesService,
+        OntologyApiService,
       ],
     }).compile();
 

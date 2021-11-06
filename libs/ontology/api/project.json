@@ -1,19 +1,19 @@
 {
-  "root": "libs/ontology/ontologies",
-  "sourceRoot": "libs/ontology/ontologies/src",
+  "root": "libs/ontology/api",
+  "sourceRoot": "libs/ontology/api/src",
   "projectType": "library",
   "generators": {},
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/ontology/ontologies/**/*.ts"]
+        "lintFilePatterns": ["libs/ontology/api/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/ontology/ontologies/jest.config.js",
+        "jestConfig": "libs/ontology/api/jest.config.js",
         "passWithNoTests": true
       }
     }

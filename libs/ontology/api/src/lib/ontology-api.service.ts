@@ -23,7 +23,7 @@ import {
 import { OntologyInfo } from '@biosimulations/datamodel/api';
 
 @Injectable()
-export class OntologiesService {
+export class OntologyApiService {
   getInfo(ontologyId: Ontologies): OntologyInfo | null {
     switch (ontologyId) {
       case Ontologies.EDAM:
@@ -67,7 +67,7 @@ export class OntologiesService {
   }
 
   getTerms(ontologyId: Ontologies): IOntologyTerm[] | null {
-    const termsObj = OntologiesService._getTerms(ontologyId);
+    const termsObj = OntologyApiService._getTerms(ontologyId);
     if (termsObj == null) {
       return null;
     }
@@ -80,7 +80,7 @@ export class OntologiesService {
   }
 
   getTerm(ontologyId: Ontologies, termId: string): IOntologyTerm | null {
-    const termsObj = OntologiesService._getTerms(ontologyId);
+    const termsObj = OntologyApiService._getTerms(ontologyId);
     if (termsObj == null) {
       return null;
     }
@@ -93,7 +93,7 @@ export class OntologiesService {
     termId: string,
     parentTermId?: string,
   ): boolean {
-    const termsObj = OntologiesService._getTerms(ontologyId);
+    const termsObj = OntologyApiService._getTerms(ontologyId);
     if (termsObj == null) {
       return false;
     }

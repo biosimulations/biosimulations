@@ -18,7 +18,7 @@ import { LogsModule } from '../logs/logs.module';
 import { SharedStorageModule } from '@biosimulations/shared/storage';
 import { BullModule } from '@nestjs/bull';
 import { MetadataModule } from '../metadata/metadata.module';
-import { OntologiesModule } from '../ontologies/ontologies.module';
+import { OntologyApiModule } from '@biosimulations/ontology/api';
 import { FilesModule } from '../files/files.module';
 import { SpecificationsModule } from '../specifications/specifications.module';
 import { ProjectsModule } from '../projects/projects.module';
@@ -65,7 +65,7 @@ import { HealthModule } from '../health/health.module';
     SimulationRunModule,
     ResultsModule,
     MetadataModule,
-    OntologiesModule,
+    OntologyApiModule,
     SharedExceptionsFiltersModule,
     AuthTestModule,
     SharedNatsClientModule,

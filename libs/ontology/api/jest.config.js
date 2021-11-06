@@ -8,6 +8,6 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../../coverage/libs/ontology/ontologies',
-  displayName: 'ontology-ontologies',
+  coverageDirectory: '../../../coverage/libs/ontology/api',
+  displayName: 'ontology-api',
 };

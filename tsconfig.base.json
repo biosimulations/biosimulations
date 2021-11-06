@@ -105,8 +105,8 @@
       "@biosimulations/ontology/extra-sources": [
         "libs/ontology/extra-sources/src/index.ts"
       ],
-      "@biosimulations/ontology/ontologies": [
-        "libs/ontology/ontologies/src/index.ts"
+      "@biosimulations/ontology/api": [
+        "libs/ontology/api/src/index.ts"
       ],
       "@biosimulations/ontology/sources": [
         "libs/ontology/sources/src/index.ts"

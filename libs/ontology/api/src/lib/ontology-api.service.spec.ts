@@ -1,15 +1,15 @@
 import { Test } from '@nestjs/testing';
-import { OntologiesService } from './ontologies.service';
+import { OntologyApiService } from './ontology-api.service';
 
-describe('OntologiesService', () => {
-  let service: OntologiesService;
+describe('OntologyApiService', () => {
+  let service: OntologyApiService;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      providers: [OntologiesService],
+      providers: [OntologyApiService],
     }).compile();
 
-    service = module.get(OntologiesService);
+    service = module.get(OntologyApiService);
   });
 
   it('should be defined', () => {

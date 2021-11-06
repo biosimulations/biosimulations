@@ -7,7 +7,7 @@ import {
 } from '@biosimulations/datamodel/common';
 import { KisaoOntologyIdSchema } from './ontologyId';
 import { IKisaoOntologyId } from '@biosimulations/datamodel/common';
-import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { OntologyApiService } from '@biosimulations/ontology/api';
 import { validateValue } from '@biosimulations/datamodel/utils';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
@@ -69,7 +69,7 @@ AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
   const type: ValueType = doc.get('type');
 
   const isKisaoId = (id: string): boolean => {
-    return OntologiesService.isTermId(Ontologies.KISAO, id);
+    return OntologyApiService.isTermId(Ontologies.KISAO, id);
   };
 
   const value: string | null = doc.get('value');
