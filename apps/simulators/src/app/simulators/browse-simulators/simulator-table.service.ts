@@ -23,7 +23,7 @@ import { UtilsService } from '@biosimulations/shared/angular';
 interface PartialIOntologyTerm extends Partial<IOntologyTerm> {
   namespace: Ontologies;
   id: string;
-  name: string;
+  name: string | null;
 }
 
 type OntologyTermMap = {[ontologyId: string]: {[termId: string]: PartialIOntologyTerm}};
