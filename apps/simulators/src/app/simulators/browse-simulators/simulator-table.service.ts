@@ -243,12 +243,12 @@ export class SimulatorTableService {
 
     return this.ontologyService.getTerms<PartialIOntologyTerm>(ontologyIdsArray, ['namespace', 'id', 'name']).pipe(
       map((ontologyTerms: PartialIOntologyTerm[]): OntologyTermMap => {
-        const ontologyIdTermMap: OntologyTermMap = {};          
+        const ontologyIdTermMap: OntologyTermMap = {};
         ontologyTerms.forEach((ontologyTerm: PartialIOntologyTerm): void => {
           if (!(ontologyTerm.namespace in ontologyIdTermMap)) {
-            ontologyIdTermMap[ontologyTerm.namespace] = {};  
+            ontologyIdTermMap[ontologyTerm.namespace] = {};
           }
-          ontologyIdTermMap[ontologyTerm.namespace][ontologyTerm.id] = ontologyTerm;            
+          ontologyIdTermMap[ontologyTerm.namespace][ontologyTerm.id] = ontologyTerm;
         });
         return ontologyIdTermMap;
       }),

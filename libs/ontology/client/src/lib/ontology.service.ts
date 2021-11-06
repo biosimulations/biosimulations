@@ -185,8 +185,8 @@ export class OntologyService {
     }
 
     return this.http.post<T[]>(
-      endpoint, 
-      { 
+      endpoint,
+      {
         ids: ids,
       },
       {
