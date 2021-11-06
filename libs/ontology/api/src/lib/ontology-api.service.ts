@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   edamInfo,
   funderRegistryInfo,
@@ -18,13 +18,14 @@ import {
 import {
   Ontologies,
   IOntologyTerm,
+  IOntologyId,
   OntologyTermMap,
 } from '@biosimulations/datamodel/common';
 import { OntologyInfo } from '@biosimulations/datamodel/api';
 
 @Injectable()
 export class OntologyApiService {
-  getInfo(ontologyId: Ontologies): OntologyInfo | null {
+  public getOntologyInfo(ontologyId: Ontologies): OntologyInfo | null {
     switch (ontologyId) {
       case Ontologies.EDAM:
         return edamInfo;
@@ -44,7 +45,7 @@ export class OntologyApiService {
     return null;
   }
 
-  static _getTerms(
+  private static _getOntologyTerms(
     ontologyId: Ontologies,
   ): OntologyTermMap<IOntologyTerm> | null {
     switch (ontologyId) {
@@ -66,8 +67,8 @@ export class OntologyApiService {
     return null;
   }
 
-  getTerms(ontologyId: Ontologies): IOntologyTerm[] | null {
-    const termsObj = OntologyApiService._getTerms(ontologyId);
+  public getOntologyTerms(ontologyId: Ontologies): IOntologyTerm[] | null {
+    const termsObj = OntologyApiService._getOntologyTerms(ontologyId);
     if (termsObj == null) {
       return null;
     }
@@ -79,8 +80,8 @@ export class OntologyApiService {
     return terms;
   }
 
-  getTerm(ontologyId: Ontologies, termId: string): IOntologyTerm | null {
-    const termsObj = OntologyApiService._getTerms(ontologyId);
+  public getOntologyTerm(ontologyId: Ontologies, termId: string): IOntologyTerm | null {
+    const termsObj = OntologyApiService._getOntologyTerms(ontologyId);
     if (termsObj == null) {
       return null;
     }
@@ -88,12 +89,12 @@ export class OntologyApiService {
     return termsObj[termId] || null;
   }
 
-  static isTermId(
+  public static isOntologyTermId(
     ontologyId: Ontologies,
     termId: string,
     parentTermId?: string,
   ): boolean {
-    const termsObj = OntologyApiService._getTerms(ontologyId);
+    const termsObj = OntologyApiService._getOntologyTerms(ontologyId);
     if (termsObj == null) {
       return false;
     }
@@ -129,5 +130,25 @@ export class OntologyApiService {
     }
 
     return false;
+  }
+
+  public getTerms(ids: IOntologyId[]): IOntologyTerm[] {
+    const terms: IOntologyTerm[] = [];
+    const invalidIds: string[] = [];
+
+    ids.forEach((id: IOntologyId): void => {
+      const term = this.getOntologyTerm(id.namespace, id.id);
+      if (term) {
+        terms.push(term)
+      } else {
+        invalidIds.push(`\n  - ${id.namespace}: ${id.id}`);
+      }
+    });
+
+    if (invalidIds.length) {
+      throw new NotFoundException(`${invalidIds.length} ${invalidIds.length === 1 ? 'id is' : 'ids are'} not valid:${invalidIds.join('')}`);
+    }
+
+    return terms;
   }
 }

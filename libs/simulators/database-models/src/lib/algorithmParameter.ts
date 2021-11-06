@@ -69,7 +69,7 @@ AlgorithmParameterSchema.post('validate', function (doc: Document, next): void {
   const type: ValueType = doc.get('type');
 
   const isKisaoId = (id: string): boolean => {
-    return OntologyApiService.isTermId(Ontologies.KISAO, id);
+    return OntologyApiService.isOntologyTermId(Ontologies.KISAO, id);
   };
 
   const value: string | null = doc.get('value');

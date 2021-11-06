@@ -713,7 +713,7 @@ export class SimulationRunService {
 
           const algorithmKisaoId =
             taskAlgorithmMap[uri] || task.simulation.algorithm.kisaoId;
-          const algorithmKisaoTerm = this.ontologiesService.getTerm(
+          const algorithmKisaoTerm = this.ontologiesService.getOntologyTerm(
             Ontologies.KISAO,
             algorithmKisaoId,
           );

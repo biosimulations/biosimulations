@@ -3,9 +3,13 @@ import {
   CacheTTL,
   Controller,
   Get,
+  Post,
   NotFoundException,
   Param,
   UseInterceptors,
+  Body,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 
 import { Ontologies } from '@biosimulations/datamodel/common';
@@ -13,12 +17,14 @@ import { OntologyApiService } from './ontology-api.service';
 import {
   ApiOperation,
   ApiParam,
+  ApiBody,
   ApiOkResponse,
   ApiNotFoundResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import {
   OntologyTerm,
+  OntologyIdsContainer,
   ErrorResponseDocument,
 } from '@biosimulations/datamodel/api';
 import { OntologyInfo } from '@biosimulations/datamodel/api';
@@ -72,8 +78,8 @@ export class OntologyApiController {
     description: 'No ontology has the requested id',
     type: ErrorResponseDocument,
   })
-  public getInfo(@Param('ontologyId') ontologyId: Ontologies): OntologyInfo {
-    const info = this.service.getInfo(ontologyId);
+  public getOntologyInfo(@Param('ontologyId') ontologyId: Ontologies): OntologyInfo {
+    const info = this.service.getOntologyInfo(ontologyId);
     if (!info) {
       throw new NotFoundException(`No ontology with id ${ontologyId} exists`);
     }
@@ -101,8 +107,8 @@ export class OntologyApiController {
     description: 'No ontology has the requested id',
     type: ErrorResponseDocument,
   })
-  public getTerms(@Param('ontologyId') ontologyId: Ontologies): OntologyTerm[] {
-    const terms = this.service.getTerms(ontologyId);
+  public getOntologyTerms(@Param('ontologyId') ontologyId: Ontologies): OntologyTerm[] {
+    const terms = this.service.getOntologyTerms(ontologyId);
     if (!terms) {
       throw new NotFoundException(`No ontology with id ${ontologyId} exists`);
     }
@@ -138,16 +144,43 @@ export class OntologyApiController {
     description: 'No term has the requested ontology and term ids',
     type: ErrorResponseDocument,
   })
-  public getTerm(
+  public getOntologyTerm(
     @Param('ontologyId') ontologyId: Ontologies,
     @Param('termId') termId: string,
   ): OntologyTerm {
-    const term = this.service.getTerm(ontologyId, termId);
+    const term = this.service.getOntologyTerm(ontologyId, termId);
     if (!term) {
       throw new NotFoundException(
         `No '${ontologyId}' term with id '${termId}' exists`,
       );
     }
     return term;
+  }
+
+  @Post('terms')
+  @ApiOperation({
+    summary: 'Get information about multiple terms',
+    description:
+      'Get information about one or more terms in one or more ontologies',
+  })
+  @ApiBody({
+    description:
+      'List of terms (ontology and id) to obtain information about.',
+    required: true,
+    type: OntologyIdsContainer,
+  })
+  @ApiOkResponse({
+    description: 'Information about the requested terms was successfully retrieved',
+    type: [OntologyTerm],
+  })
+  @ApiNotFoundResponse({
+    description: 'One or more of the requested terms is not valid',
+    type: ErrorResponseDocument,
+  })
+  @HttpCode(HttpStatus.OK)
+  public getTerms(
+    @Body() ids: OntologyIdsContainer,
+  ): OntologyTerm[] {
+    return this.service.getTerms(ids.ids);
   }
 }

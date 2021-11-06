@@ -177,9 +177,9 @@ export class DispatchService {
       simulatorSpecs: this.http
         .get<ISimulator[]>(endpoint)
         .pipe(shareReplay(1)),
-      edamTerms: this.ontologyService.getTerms(Ontologies.EDAM),
-      kisaoTerms: this.ontologyService.getTerms(Ontologies.KISAO),
-      sboTerms: this.ontologyService.getTerms(Ontologies.SBO),
+      edamTerms: this.ontologyService.getOntologyTerms(Ontologies.EDAM),
+      kisaoTerms: this.ontologyService.getOntologyTerms(Ontologies.KISAO),
+      sboTerms: this.ontologyService.getOntologyTerms(Ontologies.SBO),
     };
 
     this.simulatorsDataCache = forkJoin(promises).pipe(
