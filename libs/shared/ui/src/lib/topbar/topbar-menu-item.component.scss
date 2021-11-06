@@ -12,13 +12,18 @@
   background: transparent;
   padding: 0;
   min-width: auto;
+  border-radius: 0;
+  line-height: 30px;
+  margin-bottom: 6px;
+  border-bottom: 1.5px solid #ffffff00;
 
   &:hover:not(.mat-button-disabled) {
-    color: mat.get-color-from-palette($theme-accent);
+    border-bottom: 1.5px solid #fff;
   }
 
   &:active:not(.mat-button-disabled) {
-    color: mat.get-color-from-palette($theme-accent, darker);
+    color: #e9e9e9;
+    border-bottom: 1.5px solid #e9e9e9;
   }
 
   .button-content {

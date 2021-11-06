@@ -9,18 +9,23 @@ mat-toolbar {
   a {
     color: mat.get-color-from-palette($theme-primary);
     &:hover {
-      color: mat.get-color-from-palette($theme-accent);
+      text-decoration: underline;
+    }
+    &:active {
+      color: mat.get-color-from-palette($theme-primary, darker);
+      text-decoration: underline;
     }
   }
 }
 
 .breadcrumb {
   margin: 0;
+  margin-right: 4rem;
   padding-left: 0;
 
   li {
     list-style: none;
-    float: left;
+    display: inline;
   }
   li:not(:last-child)::after {
     content: '»';

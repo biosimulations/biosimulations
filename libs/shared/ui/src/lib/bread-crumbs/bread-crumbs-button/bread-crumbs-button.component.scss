@@ -5,11 +5,12 @@
   color: mat.get-color-from-palette($theme-primary);
 
   &:hover {
-    color: mat.get-color-from-palette($theme-accent);
+    text-decoration: underline;
   }
 
   &:active {
-    color: mat.get-color-from-palette($theme-accent, darker);
+    color: mat.get-color-from-palette($theme-primary, darker);
+    text-decoration: underline;
   }
 
   .icon {
