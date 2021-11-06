@@ -98,7 +98,7 @@ export class Endpoints {
    *
    * @returns The URL of the API
    */
-  public getBaseUrl(): string {
+  public getApiBaseUrl(): string {
     return this.api;
   }
 
@@ -107,7 +107,7 @@ export class Endpoints {
    * @returns The endpoint prefix for the ontologies
    */
   public getOntologyEndpoint(): string {
-    return `${this.getBaseUrl()}/ontologies`;
+    return `${this.api}/ontologies`;
   }
 
   /** Get the URL for a file object, for all files for a simulation run, or to post files for a simulation run.

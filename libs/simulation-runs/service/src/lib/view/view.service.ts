@@ -630,7 +630,7 @@ export class ViewService {
             location: '',
             title: 'Outputs',
             format: 'JavaScript Object Notation (JSON) in BioSimulators schema',
-            formatUrl: this.endpoints.getBaseUrl(),
+            formatUrl: this.endpoints.getApiBaseUrl(),
             master: false,
             size: null,
             icon: 'report',
