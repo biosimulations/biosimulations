@@ -982,8 +982,27 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   clearFilter(column: Column): void {
     delete this.filter[column.id];
-    for (const val of this.columnFilterData[column.id]) {
-      val.checked = false;
+    if (Array.isArray(this.columnFilterData[column.id])) {
+      if (
+        this.columnFilterData[column.id].length > 0
+        && this.columnFilterData[column.id][0]
+        && typeof this.columnFilterData[column.id][0] === 'object'
+        && 'checked' in this.columnFilterData[column.id][0]
+      ) {
+        for (const val of this.columnFilterData[column.id]) {
+          val.checked = false;
+        }
+      } else {
+        this.columnFilterData[column.id] = [null, null];
+      }
+    } else {
+      this.columnFilterData[column.id] = {
+        min: null,
+        max: null,
+        step: null,
+        minSelected: null,
+        maxSelected: null,
+      };
     }
     this.columnIsFiltered[column.id] = false;
     this.setTableStateQueryFragment();
