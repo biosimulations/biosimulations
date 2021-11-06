@@ -176,18 +176,22 @@ export class OntologyService {
     return this.getOntologyTerm<SpdxTerm>(Ontologies.SPDX, id);
   }
 
-  public getTerms(ids: IOntologyId[]): Observable<IOntologyTerm[]> {
+  public getTerms<T extends Partial<IOntologyTerm>>(ids: IOntologyId[], fields?: string[]): Observable<T[]> {
     const endpoint = this.endpoints.getOntologyTermsEndpoint(this.configService.appId);
-    return this.http.post<IOntologyTerm[]>(
+
+    const params: any = {};
+    if (fields) {
+      params.fields = fields;
+    }
+
+    return this.http.post<T[]>(
       endpoint, 
       { 
         ids: ids,
       },
       {
         headers: { 'Content-Type': 'application/json' },
-        params: {
-          fields: ['namespace', 'id', 'name'],
-        },
+        params: params,
       },
     ).pipe(shareReplay(1));
   }

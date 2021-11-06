@@ -132,8 +132,8 @@ export class OntologyApiService {
     return false;
   }
 
-  public getTerms(ids: IOntologyId[], fields?: string[]): any[] {
-    const terms: any[] = [];
+  public getTerms(ids: IOntologyId[], fields?: string[]): Partial<IOntologyTerm[]> {
+    const terms: Partial<IOntologyTerm[]> = [];
     const invalidIds: string[] = [];
 
     ids.forEach((id: IOntologyId): void => {
