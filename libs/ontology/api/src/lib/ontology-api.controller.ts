@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 
 import { Ontologies } from '@biosimulations/datamodel/common';
-import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { OntologyApiService } from './ontology-api.service';
 import {
   ApiOperation,
   ApiParam,
@@ -27,8 +27,8 @@ import { OntologyInfo } from '@biosimulations/datamodel/api';
 @ApiTags('Ontologies')
 @UseInterceptors(CacheInterceptor)
 @CacheTTL(60 * 24 * 7) // 1 week
-export class OntologiesController {
-  public constructor(private service: OntologiesService) {}
+export class OntologyApiController {
+  public constructor(private service: OntologyApiService) {}
 
   @Get()
   @ApiOperation({

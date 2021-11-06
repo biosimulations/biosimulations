@@ -6,7 +6,7 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { Ontologies } from '@biosimulations/datamodel/common';
-import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { OntologyApiService } from '@biosimulations/ontology/api';
 
 export function IsOntologyTerm(
   ontology: Ontologies,
@@ -37,7 +37,7 @@ export class IsOntologyTermConstraint implements ValidatorConstraintInterface {
       return false;
     }
 
-    return OntologiesService.isTermId(ontology, value, args?.constraints[1]);
+    return OntologyApiService.isTermId(ontology, value, args?.constraints[1]);
   }
 
   public defaultMessage(args?: ValidationArguments): string {

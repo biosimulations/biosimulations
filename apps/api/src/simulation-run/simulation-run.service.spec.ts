@@ -30,7 +30,7 @@ import { MetadataService } from '../metadata/metadata.service';
 import { SimulationRunMetadataModel } from '../metadata/metadata.model';
 import { ProjectModel } from '../projects/project.model';
 
-import { OntologiesService } from '@biosimulations/ontology/ontologies';
+import { OntologyApiService } from '@biosimulations/ontology/api';
 import { CacheModule } from '@nestjs/common';
 
 describe('SimulationRunService', () => {
@@ -105,7 +105,7 @@ describe('SimulationRunService', () => {
         ResultsService,
         LogsService,
         MetadataService,
-        OntologiesService,
+        OntologyApiService,
       ],
     }).compile();
 
