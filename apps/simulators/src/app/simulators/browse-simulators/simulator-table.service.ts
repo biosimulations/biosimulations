@@ -20,7 +20,7 @@ import {
 import { ISimulator } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/angular';
 
-interface PartialIOntologyTerm {
+interface PartialIOntologyTerm extends Partial<IOntologyTerm> {
   namespace: Ontologies;
   id: string;
   name: string;
