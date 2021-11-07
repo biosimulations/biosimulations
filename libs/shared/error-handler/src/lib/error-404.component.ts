@@ -1,11 +1,10 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'biosimulations-error-404',
   templateUrl: './error-404.component.html',
   styleUrls: ['./error-404.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Error404Component {
   @Input()

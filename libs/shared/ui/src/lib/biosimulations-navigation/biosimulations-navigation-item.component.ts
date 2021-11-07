@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  ChangeDetectionStrategy,
   ContentChildren,
   QueryList,
 } from '@angular/core';
@@ -12,7 +11,6 @@ import { BiosimulationsNavigationSubitemComponent } from './biosimulations-navig
   selector: 'biosimulations-navigation-item',
   templateUrl: './biosimulations-navigation-item.component.html',
   styleUrls: ['./biosimulations-navigation-item.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BiosimulationsNavigationItemComponent {
   @Input()

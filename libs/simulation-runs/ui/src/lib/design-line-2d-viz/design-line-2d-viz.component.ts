@@ -1,6 +1,5 @@
 import {
   Component,
-  ChangeDetectionStrategy,
   Input,
   OnInit,
 } from '@angular/core';
@@ -66,7 +65,6 @@ const TRACE_MODE_LABELS: TraceModeLabel[] = [
   selector: 'biosimulations-project-design-line-2d-visualization',
   templateUrl: './design-line-2d-viz.component.html',
   styleUrls: ['./design-line-2d-viz.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DesignLine2DVisualizationComponent implements OnInit {
   @Input()

@@ -1,11 +1,10 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Path } from '@biosimulations/datamodel-simulation-runs';
 
 @Component({
   selector: 'biosimulations-project-files',
   templateUrl: './files.component.html',
   styleUrls: ['./files.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilesComponent {
   @Input()

@@ -3,7 +3,8 @@ import {
   Input,
   HostListener,
   ElementRef,
-  OnDestroy,
+  AfterViewInit,
+  OnDestroy,  
 } from '@angular/core';
 import {
   PlotlyTrace,
@@ -17,7 +18,7 @@ import { debounce } from 'throttle-debounce';
   templateUrl: './plotly-visualization.component.html',
   styleUrls: ['./plotly-visualization.component.scss'],
 })
-export class PlotlyVisualizationComponent implements OnDestroy {
+export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
   loading = false;
   data: PlotlyTrace[] | undefined = undefined;
   layout: PlotlyLayout | undefined = undefined;
@@ -58,18 +59,30 @@ export class PlotlyVisualizationComponent implements OnDestroy {
   visible = false;
 
   private resizeDebounce!: debounce<() => void>;
+  private resizeObserver!: ResizeObserver;
 
-  constructor(private hostElement: ElementRef) {
+  constructor(private hostElement: ElementRef) {}
+
+  ngAfterViewInit() {
     this.resizeDebounce = debounce(50, false, this.setLayout.bind(this));
+
+    (async () => {
+      if (!('ResizeObserver' in window)) {
+        // Loads polyfill asynchronously, only if required.
+        const module = await import('@juggle/resize-observer');
+        window.ResizeObserver = module.ResizeObserver;
+      }
+    })();
+
+    this.resizeObserver = new ResizeObserver((entries, observer) => {
+      this.resizeDebounce();
+    });
+    this.resizeObserver.observe(this.hostElement.nativeElement.parentElement);
   }
 
   ngOnDestroy() {
     this.resizeDebounce?.cancel();
-  }
-
-  @HostListener('window:resize')
-  onResize() {
-    this.resizeDebounce();
+    this.resizeObserver.disconnect();
   }
 
   private setLayout(): void {

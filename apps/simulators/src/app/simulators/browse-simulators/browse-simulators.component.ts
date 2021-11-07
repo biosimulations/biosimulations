@@ -1,12 +1,11 @@
 import {
   Component,
-  ChangeDetectionStrategy,
   ViewChild,
   OnInit,
 } from '@angular/core';
 import { TableComponent } from '@biosimulations/shared/ui';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { columns } from './browse-simulators.columns';
 import { SimulatorTableService } from './simulator-table.service';
 import { TableSimulator } from './tableSimulator.interface';
@@ -16,12 +15,12 @@ import { TableSimulator } from './tableSimulator.interface';
   templateUrl: './browse-simulators.component.html',
   styleUrls: ['./browse-simulators.component.scss'],
   providers: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrowseSimulatorsComponent implements OnInit {
   @ViewChild(TableComponent) table!: TableComponent;
   columns = columns;
-  data: Observable<TableSimulator[]> = of([]);
+
+  data!: Observable<TableSimulator[]>;
 
   constructor(private service: SimulatorTableService) {}
 

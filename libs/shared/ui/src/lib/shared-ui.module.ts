@@ -42,6 +42,7 @@ import { TocSectionsContainerDirective } from './toc/toc-sections-container.dire
 import { ColumnsComponent } from './columns/columns.component';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { CarouselComponent } from './carousel/carousel.component';
+import { HtmlSnackBarComponent } from './html-snack-bar/html-snack-bar.component';
 
 @NgModule({
   imports: [
@@ -130,6 +131,7 @@ import { CarouselComponent } from './carousel/carousel.component';
     TocSectionsContainerDirective,
     ColumnsComponent,
     CarouselComponent,
+    HtmlSnackBarComponent,
   ],
 })
 export class SharedUiModule {}

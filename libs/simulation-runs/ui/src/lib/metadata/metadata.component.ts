@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   ProjectMetadata,
   SimulationRunMetadata,
@@ -9,7 +9,6 @@ import {
   selector: 'biosimulations-project-metadata',
   templateUrl: './metadata.component.html',
   styleUrls: ['./metadata.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MetadataComponent {
   @Input()

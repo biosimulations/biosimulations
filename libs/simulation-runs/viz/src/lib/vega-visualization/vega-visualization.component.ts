@@ -2,11 +2,11 @@ import {
   Component,
   ViewChild,
   ElementRef,
-  Input,
+  Input,  
+  AfterViewInit,
   OnDestroy,
-  HostListener,
 } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Spec } from 'vega';
 import vegaEmbed from 'vega-embed';
 import { debounce } from 'throttle-debounce';
@@ -16,43 +16,62 @@ import { debounce } from 'throttle-debounce';
   templateUrl: './vega-visualization.component.html',
   styleUrls: ['./vega-visualization.component.scss'],
 })
-export class VegaVisualizationComponent implements OnDestroy {
-  @ViewChild('vegaContainer', { static: false })
-  private vegaContainer!: ElementRef;
+export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('vegaContainer')
+  private _vegaContainer!: ElementRef;
+
+  private subscriptions: Subscription[] = [];
+
+  private resizeDebounce!: debounce<() => void>;
+  private resizeObserver!: ResizeObserver;
 
   private builtInConsoleWarn!: any;
 
-  private resizeDebounce!: debounce<() => void>;
+  constructor(private hostElement: ElementRef) {    
+  }
 
-  constructor(private hostElement: ElementRef) {
-    this.builtInConsoleWarn = console.warn;
-
+  ngAfterViewInit() {
     this.resizeDebounce = debounce(200, false, this.doOnResize.bind(this));
+
+    (async () => {
+      if (!('ResizeObserver' in window)) {
+        // Loads polyfill asynchronously, only if required.
+        const module = await import('@juggle/resize-observer');
+        window.ResizeObserver = module.ResizeObserver;
+      }
+    })();
+
+    this.resizeObserver = new ResizeObserver((entries, observer) => {
+      this.resizeDebounce();
+    });
+    this.resizeObserver.observe(this.hostElement.nativeElement.parentElement);
+
+    this.builtInConsoleWarn = console.warn;
   }
 
   ngOnDestroy() {
     console.warn = this.builtInConsoleWarn;
-    this.resizeDebounce?.cancel();
+    this.resizeDebounce.cancel();
+    this.resizeObserver.disconnect();
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  private loading = new BehaviorSubject<boolean>(true);
-  loading$ = this.loading.asObservable();
+  loading: boolean = true;
 
-  private _spec: Spec | undefined | false = undefined;
+  private _spec: Spec | null | false = null;
 
-  private error = new BehaviorSubject<string>('');
-  error$ = this.error.asObservable();
+  error: string = '';
 
   @Input()
-  set spec(value: Observable<Spec | undefined | false>) {
-    this._spec = undefined;
-    this.loading.next(true);
-    value.subscribe((value: Spec | undefined | false): void => {
-      this.error.next('');
+  set spec(value: Observable<Spec | null | false>) {
+    this.loading = true;
+    this.error = '';
+    this._spec = null;
+    const sub = value.subscribe((value: Spec | null | false) => {
       this._spec = value;
-      this.loading.next(false);
       this.render();
     });
+    this.subscriptions.push(sub);
   }
 
   private render(): void {
@@ -61,20 +80,15 @@ export class VegaVisualizationComponent implements OnDestroy {
     }
 
     if (!this._spec) {
-      this.error.next('Visualization could not be loaded.');
+      this.error = 'Visualization could not be loaded.';
       return;
     }
 
-    const rect =
-      this.hostElement.nativeElement.parentElement?.getBoundingClientRect();
-    if (
-      rect?.width === null ||
-      rect?.width === 0 ||
-      rect?.height === null ||
-      rect?.height === 0
-    ) {
+    const rect = this.getBoundingClientRect(this.hostElement.nativeElement.parentElement);
+    if (!rect) {
       return;
     }
+    
     const options = {
       width: Math.max(rect?.width, 10),
       height: Math.max(rect?.height, 10),
@@ -100,35 +114,42 @@ export class VegaVisualizationComponent implements OnDestroy {
         args[3].constructor.name === 'Error' &&
         args[3].message === '500'
       ) {
-        this.error.next('The data for the visualization could not be loaded.');
+        this.error = 'The data for the visualization could not be loaded.';
       } else {
         this.builtInConsoleWarn(...args);
       }
     }.bind(this);
 
     vegaEmbed(
-      this.vegaContainer.nativeElement,
+      this._vegaContainer.nativeElement,
       this._spec as Spec,
       options,
-    ).catch((error: Error): void => {
+    )
+    .then(() => {
+      this.loading = false;
+    })
+    .catch((error: Error): void => {
       console.error(error);
-      this.error.next(`The visualization is invalid: ${error.message}.`);
+      this.loading = false;
+      this.error = `The visualization is invalid: ${error.message}.`;
     });
   }
 
-  @HostListener('window:resize')
-  onResize() {
-    this.resizeDebounce();
+  private getBoundingClientRect(element: HTMLElement): ClientRect | null {
+    const rect = element.getBoundingClientRect();
+    if (
+      rect?.width === null ||
+      rect?.width === 0 ||
+      rect?.height === null ||
+      rect?.height === 0
+    ) {
+      return null;
+    } else {
+      return rect;
+    }
   }
 
-  doOnResize(): void {
-    const rect =
-      this.hostElement.nativeElement.parentElement?.getBoundingClientRect();
-    if (
-      !(rect?.width === null || rect?.width === 0) &&
-      !(rect?.height === null || rect?.height === 0)
-    ) {
-      this.render();
-    }
+  private doOnResize(): void {
+    this.render();
   }
 }
