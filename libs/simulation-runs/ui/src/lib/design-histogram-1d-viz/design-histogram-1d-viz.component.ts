@@ -1,6 +1,5 @@
 import {
   Component,
-  ChangeDetectionStrategy,
   Input,
   OnInit,
 } from '@angular/core';
@@ -32,7 +31,6 @@ import { Endpoints } from '@biosimulations/config/common';
   selector: 'biosimulations-project-design-histogram-1d-visualization',
   templateUrl: './design-histogram-1d-viz.component.html',
   styleUrls: ['./design-histogram-1d-viz.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DesignHistogram1DVisualizationComponent implements OnInit {
   @Input()

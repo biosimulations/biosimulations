@@ -16,6 +16,7 @@ import {
 import { Observable, of, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 import {
   Visualization,
   DesignVisualization,
@@ -144,6 +145,18 @@ export class SelectVisualizationComponent implements OnDestroy {
   }
 
   exportVisualization(format: 'vega' | 'archive'): void {
+    this.snackBar.openFromComponent(HtmlSnackBarComponent,
+      {
+        data: {
+          message: 'Your visualization is being exported ',
+          spinner: true,
+          action: 'Ok',          
+        },
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+      },
+    );
+
     const vegaSpecSub = (
       this.getDesignVisualizationComponent() as DesignVisualizationComponent
     )
@@ -163,6 +176,15 @@ export class SelectVisualizationComponent implements OnDestroy {
           a.href = URL.createObjectURL(blob);
           a.download = 'visualization.json';
           a.click();
+
+          this.snackBar.open('Your visualization was succesfully exported.',
+            undefined,
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            },
+          );
         } else {
           const sub = this.combineApiService
             .addFileToCombineArchive(
@@ -188,6 +210,15 @@ export class SelectVisualizationComponent implements OnDestroy {
                 a.download = 'project.omex';
                 a.href = fileOrUrl as string;
                 a.click();
+
+                this.snackBar.open('Your visualization was succesfully exported.',
+                  undefined,
+                  {
+                    duration: 5000,
+                    horizontalPosition: 'center',
+                    verticalPosition: 'bottom',
+                  },
+                );
               } else {
                 this.snackBar.open(
                   'Sorry! We were unable to add the visualization to this project.',

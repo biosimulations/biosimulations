@@ -1,11 +1,10 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 
 @Component({
   selector: 'biosimulations-text-page-section',
   templateUrl: './text-page-section.component.html',
   styleUrls: ['./text-page-section.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextPageSectionComponent {
   @Input()

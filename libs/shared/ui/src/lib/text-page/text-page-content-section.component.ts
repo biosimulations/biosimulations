@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { ScrollService } from '@biosimulations/shared/angular';
 
@@ -13,7 +13,6 @@ export type IconActionType =
   selector: 'biosimulations-text-page-content-section',
   templateUrl: './text-page-content-section.component.html',
   styleUrls: ['./text-page-content-section.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextPageContentSectionComponent {
   _scrollToTopOffset = 64 + 1;
@@ -81,14 +80,12 @@ export class TextPageContentSectionComponent {
       this.iconHref = this._iconAction;
       this.iconClick = null;
     } else if (this._iconActionType === 'toggle') {
-      this.icon = 'open';
+      this.icon = 'closed';
       this.closed = true;
       this.iconRouterLink = null;
       this.iconHref = null;
       this.iconClick = () => {
         this.closed = !this.closed;
-
-        // TODO: make the toggle icon change; this seems like a change detection issue
         this.icon = this.closed ? 'closed' : 'open';
       };
     } else {

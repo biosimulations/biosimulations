@@ -30,7 +30,7 @@ export class ViewSimulatorComponent implements OnInit {
   constructor(
     public route: ActivatedRoute,
     private simService: ViewSimulatorService,
-    private cd: ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef,
     private config: ConfigService,
     private snackBar: MatSnackBar,
   ) {}
@@ -205,7 +205,7 @@ export class ViewSimulatorComponent implements OnInit {
 
       tap(() => {
         this.loadingSubject.next(false);
-        this.cd.detectChanges();
+        this.changeDetectorRef.detectChanges();
       }),
     );
   }

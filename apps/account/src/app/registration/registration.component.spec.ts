@@ -18,7 +18,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 describe('RegistrationComponent', () => {
   it('should create', () => {

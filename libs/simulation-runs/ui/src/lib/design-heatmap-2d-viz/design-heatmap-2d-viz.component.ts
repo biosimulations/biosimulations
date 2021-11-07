@@ -1,6 +1,5 @@
 import {
   Component,
-  ChangeDetectionStrategy,
   Input,
   OnInit,
 } from '@angular/core';
@@ -32,7 +31,6 @@ import { Endpoints } from '@biosimulations/config/common';
   selector: 'biosimulations-project-design-heatmap-2d-visualization',
   templateUrl: './design-heatmap-2d-viz.component.html',
   styleUrls: ['./design-heatmap-2d-viz.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DesignHeatmap2DVisualizationComponent implements OnInit {
   @Input()

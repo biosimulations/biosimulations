@@ -1,17 +1,17 @@
-<div class="centered-full-width-height" *ngIf="loading$ | async">
+<div class="centered-full-width-height" *ngIf="loading">
   <biosimulations-spinner></biosimulations-spinner>
 </div>
 
 <div
   class="info-message"
-  *ngIf="(loading$ | async) === false && (error$ | async)"
+  *ngIf="loading === false && error"
 >
-  {{ error$ | async }}
+  {{ error }}
 </div>
 
 <div
   #vegaContainer
   [ngStyle]="{
-    display: (loading$ | async) || (error$ | async) ? 'none' : 'block'
+    display: loading || error ? 'none' : 'block'
   }"
 ></div>
