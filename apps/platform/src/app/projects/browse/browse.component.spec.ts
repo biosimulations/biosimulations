@@ -8,6 +8,7 @@ import { BrowseService } from './browse.service';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { BrowseComponent } from './browse.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
+import { SharedUiModule } from '@biosimulations/shared/ui';
 
 class mockBrowseService {
   getProjects() {
@@ -29,6 +30,7 @@ describe('BrowseComponent', () => {
         MatCardModule,
         BiosimulationsIconsModule,
         LazyLoadImageModule,
+        SharedUiModule,
       ],
     }).compileComponents();
   });
