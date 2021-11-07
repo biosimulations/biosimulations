@@ -2,7 +2,7 @@ import {
   Component,
   ViewChild,
   ElementRef,
-  Input,  
+  Input,
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
@@ -27,7 +27,7 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
 
   private builtInConsoleWarn!: any;
 
-  constructor(private hostElement: ElementRef) {    
+  constructor(private hostElement: ElementRef) {
   }
 
   ngAfterViewInit() {

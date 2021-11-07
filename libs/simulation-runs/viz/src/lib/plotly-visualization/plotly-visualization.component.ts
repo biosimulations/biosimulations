@@ -4,7 +4,7 @@ import {
   HostListener,
   ElementRef,
   AfterViewInit,
-  OnDestroy,  
+  OnDestroy,
 } from '@angular/core';
 import {
   PlotlyTrace,
