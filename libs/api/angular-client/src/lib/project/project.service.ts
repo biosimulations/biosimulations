@@ -71,7 +71,9 @@ export class ProjectService {
     const url = this.endpoints.getProjectSummariesEndpoint();
 
     if (!this.projectSummaries) {
-      this.projectSummaries = this.http.get<ProjectSummary[]>(url).pipe(shareReplay(1));
+      this.projectSummaries = this.http
+        .get<ProjectSummary[]>(url)
+        .pipe(shareReplay(1));
     }
 
     return this.projectSummaries;
