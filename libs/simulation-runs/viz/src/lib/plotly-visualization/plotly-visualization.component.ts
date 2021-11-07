@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  HostListener,
   ElementRef,
   AfterViewInit,
   OnDestroy,
