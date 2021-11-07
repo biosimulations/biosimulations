@@ -106,13 +106,14 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
     else:
         simulation_runs = {}
 
-    print(BColors.HEADER + "Submitting Simulations" + BColors.ENDC)
-    for simulation in simulations:
+    print(BColors.HEADER + "Submitting {} simulations ...".format(len(simulations)) + BColors.ENDC)
+    for i_simulation, simulation in enumerate(simulations):
         name = simulation['name']
         simulator = simulation['simulator']
         simulator_version = simulator_latest_versions[simulator]
         url = EXAMPLE_COMBINE_ARCHIVES_BASE_URL.format(
             biosimulators_test_suite_branch) + simulation['filename']
+        
         # get COMBINE archive
         response = requests.get(url)
         response.raise_for_status()
@@ -155,7 +156,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
 
         simulation_run = json.loads(process.stdout.decode())
         if 'id' in simulation_run:
-            print("Submitted simulation: " + simulation_run['id'])
+            print("Submitted simulation {}: {} ({})".format(i_simulation + 1, name, simulation_run['id']))
             sim_url = "https://run.biosimulations.{}/simulations/{}".format(
                 runbiosimulations_api if not runbiosimulations_api == "local" else "dev", simulation_run['id'])
             print("View: " + sim_url)
