@@ -150,7 +150,7 @@ export class SelectVisualizationComponent implements OnDestroy {
         data: {
           message: 'Your visualization is being exported ',
           spinner: true,
-          action: 'Ok',          
+          action: 'Ok',
         },
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
