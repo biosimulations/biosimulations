@@ -1,5 +1,5 @@
 from ...exceptions import BadRequestException
-from ...utils import get_temp_dir, get_results_data_set_id
+from ...utils import get_temp_dir
 from biosimulators_utils.combine.io import CombineArchiveReader
 from biosimulators_utils.combine.utils import get_sedml_contents
 from biosimulators_utils.sedml.data_model import (
