@@ -25,11 +25,11 @@ export class IsImageDigestConstraint implements ValidatorConstraintInterface {
     if (!(value && typeof value === 'string')) {
       return false;
     }
-    
+
     if (!value.startsWith('sha256:')) {
       return false;
     }
-    
+
     const hash = value.substring(7);
     if (!isHash(hash, 'sha256')) {
       return false;
