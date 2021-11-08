@@ -1,18 +1,29 @@
 name: Docker
 on:
-  push:
-    branches:
-      - dev
-  pull_request:
-  release:
+  workflow_call:
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+      GHCR_USERNAME:
+        required: true
+      GHCR_TOKEN:
+        required: true
+    inputs:
+      push:
+        required: false
+        type: boolean
+        default: true
+      apps:
+        required: false
+        type: string
+        default: "[api,simulators-api,dispatch-service,mail-service,combine-api]"
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        app: [api,simulators-api,dispatch-service,mail-service,combine-api]
-
+        app: ${{fromJSON(inputs.apps)}}
     steps:
       - name: Checkout [dev]
         uses: actions/checkout@v2
@@ -61,6 +72,6 @@ jobs:
 
       - name: Build Docker Image
         env:
-          INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
+          INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_PUSH: ${{ inputs.push }}      
         run: npx nx docker ${{matrix.app}}
-        

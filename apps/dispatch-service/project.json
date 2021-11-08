@@ -79,7 +79,8 @@
             "org.opencontainers.image.licenses=MIT"
           ],
           "images": [
-            "ghcr.io/biosimulations/simulation-service"
+            "ghcr.io/biosimulations/simulation-service",
+            "ghcr.io/biosimulations/dispatch-service"
           ],
           "tags": [
             "type=schedule",

@@ -125,50 +125,11 @@ jobs:
 
   buildPushDockerImages:
     name: Build and push backend Docker images
-    runs-on: ubuntu-latest
-
-    needs: [listApps]
-    strategy:
-      matrix:
-        app: ${{ fromJson(needs.listApps.outputs.apps) }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2.4.0
-
-      - id: get-timestamp
-        name: Get a timestamp
-        run: |
-          TIMESTAMP=$(date --rfc-3339=seconds | sed 's/ /T/')
-          echo "::set-output name=timestamp::$TIMESTAMP"
-
-      - if: matrix.app != 'combine-api'
-        name: Build and Push TypeScript Image
-        uses: whoan/docker-build-with-cache-action@v5
-        with:
-          username: "${{ secrets.GHCR_USERNAME }}"
-          password: "${{ secrets.GHCR_TOKEN }}"
-          image_name: biosimulations/${{matrix.app}}
-          image_tag: latest,${{github.sha}}
-          push_git_tag: true
-          registry: ghcr.io
-          context: .
-          dockerfile: Dockerfile
-          build_extra_args: "--compress=true --build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
-
-      - if: matrix.app == 'combine-api'
-        name: Build and Push Python Image
-        uses: whoan/docker-build-with-cache-action@v5
-        with:
-          username: "${{ secrets.GHCR_USERNAME }}"
-          password: "${{ secrets.GHCR_TOKEN }}"
-          image_name: biosimulations/${{matrix.app}}
-          image_tag: latest,${{github.sha}}
-          push_git_tag: true
-          registry: ghcr.io
-          context: apps/${{matrix.app}}
-          dockerfile: Dockerfile
-          build_extra_args: "--compress=true --build-arg app=${{matrix.app}} --label org.opencontainers.image.revision=${{github.sha}} --label org.opencontainers.image.created=${{steps.get-timestamp.outputs.timestamp}}"
+    uses: biosimulations/biosimulations/.github/workflows/docker.yml@dev
+    secrets:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
+        GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
 
   deployDevFrontend:
     name: Publish the development frontend
