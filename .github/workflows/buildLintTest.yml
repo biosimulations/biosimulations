@@ -91,7 +91,7 @@ jobs:
           name: ${{inputs.name}}
           path: dist/
           retention-days: 5
-          if-no-files-found: ${{ fromJSON('["error", "warn"]')[!inputs.affectedOnly]}}
+          if-no-files-found: ${{ fromJSON('["warn", "error"]')[!inputs.affectedOnly]}}
             
       
   agents:
