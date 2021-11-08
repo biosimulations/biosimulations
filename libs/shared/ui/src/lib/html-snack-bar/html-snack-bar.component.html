@@ -1,6 +1,9 @@
 <div class="mat-simple-snackbar-message">
-    <span [innerHTML]="data.message"></span>
-    <biosimulations-icon icon="spinner" *ngIf="data?.spinner"></biosimulations-icon>
+  <span [innerHTML]="data.message"></span>
+  <biosimulations-icon
+    icon="spinner"
+    *ngIf="data?.spinner"
+  ></biosimulations-icon>
 </div>
 <div class="mat-simple-snackbar-action" *ngIf="data.action">
   <button mat-button (click)="snackBar.dismiss()">{{ data.action }}</button>

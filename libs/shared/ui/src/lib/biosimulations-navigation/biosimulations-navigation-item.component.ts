@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  ContentChildren,
-  QueryList,
-} from '@angular/core';
+import { Component, Input, ContentChildren, QueryList } from '@angular/core';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
 import { BiosimulationsNavigationSubitemComponent } from './biosimulations-navigation-subitem.component';
 

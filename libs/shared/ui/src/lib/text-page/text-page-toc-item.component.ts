@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ScrollService } from '@biosimulations/shared/angular';
 
 @Component({

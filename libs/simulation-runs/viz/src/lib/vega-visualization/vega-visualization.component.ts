@@ -27,8 +27,7 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
 
   private builtInConsoleWarn!: any;
 
-  constructor(private hostElement: ElementRef) {
-  }
+  constructor(private hostElement: ElementRef) {}
 
   ngAfterViewInit() {
     this.resizeDebounce = debounce(200, false, this.doOnResize.bind(this));
@@ -84,11 +83,13 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
       return;
     }
 
-    const rect = this.getBoundingClientRect(this.hostElement.nativeElement.parentElement);
+    const rect = this.getBoundingClientRect(
+      this.hostElement.nativeElement.parentElement,
+    );
     if (!rect) {
       return;
     }
-    
+
     const options = {
       width: Math.max(rect?.width, 10),
       height: Math.max(rect?.height, 10),
@@ -120,19 +121,15 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
       }
     }.bind(this);
 
-    vegaEmbed(
-      this._vegaContainer.nativeElement,
-      this._spec as Spec,
-      options,
-    )
-    .then(() => {
-      this.loading = false;
-    })
-    .catch((error: Error): void => {
-      console.error(error);
-      this.loading = false;
-      this.error = `The visualization is invalid: ${error.message}.`;
-    });
+    vegaEmbed(this._vegaContainer.nativeElement, this._spec as Spec, options)
+      .then(() => {
+        this.loading = false;
+      })
+      .catch((error: Error): void => {
+        console.error(error);
+        this.loading = false;
+        this.error = `The visualization is invalid: ${error.message}.`;
+      });
   }
 
   private getBoundingClientRect(element: HTMLElement): ClientRect | null {

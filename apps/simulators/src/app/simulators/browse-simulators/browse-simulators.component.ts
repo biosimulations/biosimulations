@@ -1,8 +1,4 @@
-import {
-  Component,
-  ViewChild,
-  OnInit,
-} from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { TableComponent } from '@biosimulations/shared/ui';
 
 import { Observable } from 'rxjs';

@@ -145,17 +145,15 @@ export class SelectVisualizationComponent implements OnDestroy {
   }
 
   exportVisualization(format: 'vega' | 'archive'): void {
-    this.snackBar.openFromComponent(HtmlSnackBarComponent,
-      {
-        data: {
-          message: 'Your visualization is being exported ',
-          spinner: true,
-          action: 'Ok',
-        },
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
+    this.snackBar.openFromComponent(HtmlSnackBarComponent, {
+      data: {
+        message: 'Your visualization is being exported ',
+        spinner: true,
+        action: 'Ok',
       },
-    );
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
 
     const vegaSpecSub = (
       this.getDesignVisualizationComponent() as DesignVisualizationComponent
@@ -177,7 +175,8 @@ export class SelectVisualizationComponent implements OnDestroy {
           a.download = 'visualization.json';
           a.click();
 
-          this.snackBar.open('Your visualization was succesfully exported.',
+          this.snackBar.open(
+            'Your visualization was succesfully exported.',
             undefined,
             {
               duration: 5000,
@@ -211,7 +210,8 @@ export class SelectVisualizationComponent implements OnDestroy {
                 a.href = fileOrUrl as string;
                 a.click();
 
-                this.snackBar.open('Your visualization was succesfully exported.',
+                this.snackBar.open(
+                  'Your visualization was succesfully exported.',
                   undefined,
                   {
                     duration: 5000,

@@ -1,4 +1,9 @@
-import { Component, Inject, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Inject,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 @Component({
@@ -7,11 +12,12 @@ import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    'class': 'mat-simple-snackbar',
+    class: 'mat-simple-snackbar',
   },
 })
 export class HtmlSnackBarComponent {
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any,
-              public snackBar: MatSnackBar) {
-  }
+  constructor(
+    @Inject(MAT_SNACK_BAR_DATA) public data: any,
+    public snackBar: MatSnackBar,
+  ) {}
 }
