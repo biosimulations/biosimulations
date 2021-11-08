@@ -7,7 +7,7 @@
       "executor": "@nx-python/nx-python:build",
       "options": {
         "outputPath": "dist/apps/combine-api",
-        "main": "apps/combine-api/src/__main__.py"
+        "main": "apps/combine-api/src/app.py"
       },
       "configurations": {
         "production": {}
