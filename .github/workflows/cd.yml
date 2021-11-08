@@ -263,4 +263,10 @@ jobs:
           echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
   Release:
+    needs: [buildPushDockerImages, buildProdFrontEnds,triggerProdDeployment]
     uses: biosimulations/biosimulations/.github/workflows/release.yml@dev
+    secrets:
+      GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+      NPM_TOKEN: ${{secrets.NPM_TOKEN}}        
+      GPG_PRIVATE_KEY: ${{secrets.GPG_PRIVATE_KEY}}
+        

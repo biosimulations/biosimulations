@@ -2,6 +2,13 @@ name: Release
 on:
   workflow_dispatch:
   workflow_call:
+   secrets:
+     GH_RELEASE_TOKEN:
+        required: true
+     NPM_TOKEN:
+        required: true
+     GPG_PRIVATE_KEY:
+        required: true     
 jobs:
   Release:
     runs-on: ubuntu-latest
