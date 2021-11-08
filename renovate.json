@@ -20,32 +20,48 @@
   "minor": {
     "automerge": true
   },
-  "labels": ["dependencies"],
+  "labels": [
+    "dependencies"
+  ],
   "packageRules": [
     {
-      "matchDepTypes": ["devDependencies"],
-      "addLabels": ["dev"]
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "addLabels": [
+        "dev"
+      ]
     },
     {
-      "matchUpdateTypes": ["pin"],
+      "matchUpdateTypes": [
+        "pin"
+      ],
       "automerge": true
     },
     {
-      "matchPackagePrefixes": ["@types/"],
-      "automerge": true, 
+      "matchPackagePrefixes": [
+        "@types/"
+      ],
+      "automerge": true,
       "groupName": "types"
     },
     {
-      "matchPackagePrefixes": ["eslint"],
-      "automerge": true, 
+      "matchPackagePrefixes": [
+        "eslint"
+      ],
+      "automerge": true,
       "groupName": "eslint"
     },
     {
-      "matchPackagePrefixes": ["@nestjs/"],
+      "matchPackagePrefixes": [
+        "@nestjs/"
+      ],
       "groupName": "nest"
     },
-     {
-      "matchPackagePrefixes": [ "@angular" ],
+    {
+      "matchPackagePrefixes": [
+        "@angular"
+      ],
       "groupName": "angular",
       "matchUpdateTypes": [
         "major"
@@ -53,11 +69,13 @@
       "enabled": false
     },
     {
-      "matchPackagePrefixes": ["aws-sdk"],
-      "automerge":true
+      "matchPackagePrefixes": [
+        "aws-sdk"
+      ],
+      "automerge": true,
       "matchUpdateTypes": [
         "minor",
-        "patch",
+        "patch"
       ]
     }
   ],
