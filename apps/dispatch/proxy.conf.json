@@ -1,20 +1,20 @@
 {
-  "/dispatch-api-local": {
+  "/api-local": {
     "target": "http://localhost:3333/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
     "pathRewrite": {
-      "^/dispatch-api": ""
+      "^/api": ""
     }
   },
-  "/dispatch-api": {
-    "target": "https://run.api.biosimulations.dev/",
+  "/api": {
+    "target": "https://api.biosimulations.dev/",
     "secure": true,
     "changeOrigin": true,
     "logLevel": "debug",
     "pathRewrite": {
-      "^/dispatch-api": "/"
+      "^/api": "/"
     }
   },
   "/ontology-api": {

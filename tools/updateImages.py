@@ -10,7 +10,7 @@ EXAMPLE_COMBINE_ARCHIVES_BASE_URL = 'https://github.com/biosimulators/Biosimulat
 
 EXAMPLE_SIMULATIONS_FILENAME = __file__ + '.json'
 
-SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://run.api.biosimulations.{}/run'
+SUBMIT_SIMULATION_RUN_ENDPOINT = 'https://api.biosimulations.{}/run'
 
 
 def main(runbiosimulations_api='dev', token=None):
