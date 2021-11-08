@@ -7,6 +7,11 @@ describe('isImageDigest', () => {
     expect(new IsImageDigestConstraint().validate(value)).toBe(true);
   });
 
+  it('Should reject non-strings', () => {
+    const value = null;
+    expect(new IsImageDigestConstraint().validate(value)).toBe(false);
+  });
+
   it('Should reject invalid digests', () => {
     const value =
       'sha256:1234567890abcdef1234567890abcdef1234567890cdef1234567890abcdef';
