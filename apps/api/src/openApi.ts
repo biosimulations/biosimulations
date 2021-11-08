@@ -92,7 +92,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     .setTermsOfService('https://run.biosimulations.org/help/terms')
     .setExternalDoc(
       'API specifications (Open API JSON)',
-      'https://run.api.biosimulations.org/openapi.json',
+      'https://api.biosimulations.org/openapi.json',
     )
     .setExternalDoc('Documentation', 'https://docs.biosimulations.org')
     .setContact(

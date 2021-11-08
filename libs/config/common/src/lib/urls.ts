@@ -3,7 +3,6 @@ import { environment } from '@biosimulations/shared/environments';
 export type appName =
   | 'platformApi'
   | 'accountApi'
-  | 'dispatchApi'
   | 'combineApi'
   | 'simulatorsApi'
   | 'platform'
@@ -19,7 +18,6 @@ const envUrls: { [key in envs]: urlMap } = {
   prod: {
     platformApi: 'https://api.biosimulations.org/',
     accountApi: 'https://account.biosimulations.dev/', // NEED TO FIX LOGIN FLOW BEFORE UPDATING
-    dispatchApi: 'https://run.api.biosimulations.org/',
     combineApi: 'https://combine.api.biosimulations.org/',
     simulatorsApi: 'https://api.biosimulators.org/',
     platform: 'https://biosimulations.org',
@@ -34,7 +32,6 @@ const envUrls: { [key in envs]: urlMap } = {
   dev: {
     platformApi: 'https://api.biosimulations.dev/',
     accountApi: 'https://account.biosimulations.dev/',
-    dispatchApi: 'https://run.api.biosimulations.dev/',
     combineApi: 'https://combine.api.biosimulations.dev/',
     simulatorsApi: 'https://api.biosimulators.dev/',
     platform: 'https://biosimulations.dev',
@@ -45,7 +42,6 @@ const envUrls: { [key in envs]: urlMap } = {
   stage: {
     platformApi: 'https://api.biosimulations.org/',
     accountApi: 'https://account.biosimulations.dev/',
-    dispatchApi: 'https://run.api.biosimulations.dev/',
     combineApi: 'https://combine.api.biosimulations.dev/',
     simulatorsApi: 'https://api.biosimulators.dev/',
     platform: 'https://biosimulations.dev',
@@ -56,7 +52,6 @@ const envUrls: { [key in envs]: urlMap } = {
   local: {
     platformApi: '/api/', //proxies to localhost:3333 if using nx
     accountApi: '/api/',
-    dispatchApi: '/dispatch-api/',
     combineApi: '/combine-api/',
     simulatorsApi: '/simulators-api/',
     platform: 'https://biosimulations.dev',
