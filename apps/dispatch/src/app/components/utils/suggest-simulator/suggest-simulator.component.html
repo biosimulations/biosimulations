@@ -1,5 +1,6 @@
 <biosimulations-page
   heading="Find simulation tools that implement similar algorithms"
+  *ngIf="algorithms | async as algorithms; else loading"
 >
   <p class="instructions">
     Executing a simulation requires a simulation tool that supports the
@@ -38,7 +39,7 @@
                 (ngModelChange)="getAlgorithmSimulatorSuggestions()"
               >
                 <mat-option
-                  *ngFor="let algorithm of algorithms | async"
+                  *ngFor="let algorithm of algorithms"
                   [value]="algorithm.algorithm.id"
                   >{{ algorithm.algorithm.name }} ({{
                     algorithm.algorithm.id
@@ -197,3 +198,7 @@
     </div>
   </form>
 </biosimulations-page>
+
+<ng-template #loading>
+  <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
+</ng-template>

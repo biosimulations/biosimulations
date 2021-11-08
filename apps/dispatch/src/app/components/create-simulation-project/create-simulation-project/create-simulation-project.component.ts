@@ -43,6 +43,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '@biosimulations/shared/environments';
 import { validateValue } from '@biosimulations/datamodel/utils';
 import { ConfigService } from '@biosimulations/config/angular';
+import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 
 enum LocationType {
   file = 'file',
@@ -143,6 +144,8 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   exampleModelUrl =
     'https://raw.githubusercontent.com/biosimulators/Biosimulators_utils/dev/tests/fixtures/BIOMD0000000297.xml';
 
+  private loading = new BehaviorSubject<boolean>(true);
+  loading$ = this.loading.asObservable()
   submitPushed = false;
   projectBeingCreated = false;
 
@@ -1272,6 +1275,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
             },
           );
         }
+
         // TODO set typing and refactor. TS will not catch the type errors here
         const algSubstitutions: AlgorithmSubstitution[] =
           observerableValues[0] === undefined ? [] : observerableValues[0];
@@ -1445,6 +1449,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
         // clear errors
         this.formGroup.setErrors(null);
+
+        // set loading to false
+        this.loading.next(false);
       },
     );
     this.subscriptions.push(algorithmSubSubcription);
@@ -1501,6 +1508,17 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       },
     );
     this.subscriptions.push(projectOrUrlSub);
+
+    // print status
+    this.snackBar.openFromComponent(HtmlSnackBarComponent, {
+      data: {
+        message: 'Please wait while your project is created',
+        spinner: true,
+        action: 'Ok',
+      },
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 
   private getArchiveSpecs(): any {
@@ -1744,11 +1762,23 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           simulationAlgorithm: simulationAlgorithm,
         },
       });
+
+      this.snackBar.open('Your project was created. Please use this form to execute it.', 'Ok', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+      });
     } else {
       const a = document.createElement('a');
       a.href = projectOrUrl;
       a.download = 'project.omex';
       a.click();
+
+      this.snackBar.open('Your project was downloaded to your computer.', 'Ok', {
+        duration: 5000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+      });
     }
   }
 

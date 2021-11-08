@@ -1,6 +1,6 @@
-<biosimulations-page heading="Publish project">
+<biosimulations-page heading="Publish project" *ngIf="(valid$ | async) as valid; else loading">
   <form
-    *ngIf="(valid$ | async) === true; else invalidLoading"
+    *ngIf="valid === true; else invalid"
     [formGroup]="formGroup"
     (ngSubmit)="publishSimulation()"
   >
@@ -124,7 +124,7 @@
     </div>
   </form>
 
-  <ng-template #invalidLoading>
+  <ng-template #invalid>
     <ng-container *ngIf="valid$ | async as valid; else loading">
       <p>The simulation run is not valid for publication.</p>
 
@@ -141,11 +141,9 @@
 
       <p class="error">{{ valid }}</p>
     </ng-container>
-
-    <ng-template #loading>
-      <div class="headed-page-spinner-container">
-        <biosimulations-spinner></biosimulations-spinner>
-      </div>
-    </ng-template>
   </ng-template>
 </biosimulations-page>
+
+<ng-template #loading> 
+  <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
+</ng-template>
