@@ -10,4 +10,4 @@ on:
   pull_request:
 jobs:
   main:
-    uses: biosimulations/biosimulations/.github/buildLintTest.yml@dev
+    uses: biosimulations/biosimulations/.github/workflows/buildLintTest.yml@dev
