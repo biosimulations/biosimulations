@@ -147,7 +147,7 @@ export class SelectVisualizationComponent implements OnDestroy {
   exportVisualization(format: 'vega' | 'archive'): void {
     this.snackBar.openFromComponent(HtmlSnackBarComponent, {
       data: {
-        message: 'Please wait while your visualization is exported ',
+        message: 'Please wait while your visualization is exported',
         spinner: true,
         action: 'Ok',
       },

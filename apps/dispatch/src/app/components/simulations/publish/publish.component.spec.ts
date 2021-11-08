@@ -15,6 +15,8 @@ import { Storage } from '@ionic/storage-angular';
 import { ScrollService } from '@biosimulations/shared/angular';
 import { ConfigService } from '@biosimulations/config/angular';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SimulationService } from '../../../services/simulation/simulation.service';
+import { ProjectService } from '@biosimulations/angular-api-client';
 
 describe('PublishComponent', () => {
   let component: PublishComponent;
@@ -37,7 +39,7 @@ describe('PublishComponent', () => {
         }),
         NoopAnimationsModule,
       ],
-      providers: [ConfigService, ScrollService, Storage],
+      providers: [ConfigService, ScrollService, Storage, SimulationService, ProjectService],
       schemas: [],
     }).compileComponents();
   }));

@@ -1,8 +1,7 @@
-<biosimulations-page heading="Run a simulation project">
+<biosimulations-page heading="Run a simulation project" *ngIf="simulators.length; else loading">
   <form
     [formGroup]="formGroup"
-    (ngSubmit)="onFormSubmit()"
-    *ngIf="simulators.length; else simulatorsLoading"
+    (ngSubmit)="onFormSubmit()"    
   >
     <div class="form-section">
       <div class="form-section-head">
@@ -615,10 +614,8 @@
     </button>
     <div class="clear-float"></div>
   </form>
-
-  <ng-template #simulatorsLoading>
-    <div class="headed-page-spinner-container">
-      <biosimulations-spinner></biosimulations-spinner>
-    </div>
-  </ng-template>
 </biosimulations-page>
+
+<ng-template #loading>
+  <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
+</ng-template>

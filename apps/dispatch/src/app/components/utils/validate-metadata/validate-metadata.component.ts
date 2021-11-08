@@ -21,6 +21,7 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
 import isUrl from 'is-url';
+import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 
 enum SubmitMethod {
   file = 'file',
@@ -221,7 +222,11 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
       .subscribe((report: ValidationReport | undefined): void => {
         if (report) {
           this.status = report.status;
-
+          this.snackBar.open('The validation of your model completed.', 'Ok', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
           if (report?.errors?.length) {
             this.errors = this.convertValidationMessagesToList(
               report?.errors as ValidationMessage[],
@@ -232,6 +237,12 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
               report?.warnings as ValidationMessage[],
             );
           }
+
+          this.snackBar.open('The validation of your metadata completed.', 'Ok', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
         } else {
           let msg = 'Sorry! We were unable to validate your metadata.';
           if (submitMethodControl.value == SubmitMethod.url) {
@@ -246,6 +257,17 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
         }
       });
     this.subscriptions.push(validationSub);
+
+    // display status
+    this.snackBar.openFromComponent(HtmlSnackBarComponent, {
+      data: {
+        message: 'Please wait while your metadata is validated',
+        spinner: true,
+        action: 'Ok',
+      },
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 
   private convertValidationMessagesToList(

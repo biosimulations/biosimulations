@@ -17,6 +17,7 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
 import isUrl from 'is-url';
+import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 
 enum SubmitMethod {
   file = 'file',
@@ -210,6 +211,12 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
               report?.warnings as ValidationMessage[],
             );
           }
+
+          this.snackBar.open('The validation of your simulation completed.', 'Ok', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
         } else {
           let msg = 'Sorry! We were unable to validate your simulation.';
           if (submitMethodControl.value == SubmitMethod.url) {
@@ -224,6 +231,17 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
         }
       });
     this.subscriptions.push(validationSub);
+
+     // display status
+    this.snackBar.openFromComponent(HtmlSnackBarComponent, {
+      data: {
+        message: 'Please wait while your simulation is validated',
+        spinner: true,
+        action: 'Ok',
+      },
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 
   private convertValidationMessagesToList(

@@ -4,7 +4,6 @@ import { Observable, of, Subscription } from 'rxjs';
 import { map, catchError, concatAll, shareReplay } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
 import { SimulationService } from '../../../services/simulation/simulation.service';
-import { CombineApiService } from '../../../services/combine/combine-api.service';
 import { ProjectService } from '@biosimulations/angular-api-client';
 import { ConfigService } from '@biosimulations/config/angular';
 import {
@@ -26,6 +25,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
+import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 
 @Component({
   templateUrl: './publish.component.html',
@@ -47,7 +47,6 @@ export class PublishComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private simulationService: SimulationService,
-    private combineApiService: CombineApiService,
     private projectService: ProjectService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -169,8 +168,29 @@ export class PublishComponent implements OnInit, OnDestroy {
           if (tabWindowId) {
             tabWindowId.location.href = url;
           }
+
+          this.snackBar.open(
+            'Your project was successfully published!.',
+            'Ok',
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            },
+          );
         }
       });
     this.subscriptions.push(pubSub);
+
+    // print status
+    this.snackBar.openFromComponent(HtmlSnackBarComponent, {
+      data: {
+        message: 'Please wait while your project is published',
+        spinner: true,
+        action: 'Ok',
+      },
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
 }

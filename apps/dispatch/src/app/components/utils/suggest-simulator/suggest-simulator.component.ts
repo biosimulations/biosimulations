@@ -54,7 +54,7 @@ const EBI_KISAO_BASE_URL =
   styleUrls: ['./suggest-simulator.component.scss'],
 })
 export class SuggestSimulatorComponent implements OnInit {
-  algorithms: Observable<AlgorithmData[]> | undefined = undefined;
+  algorithms!: Observable<AlgorithmData[]>;
   private algorithmsMap: { [id: string]: AlgorithmData } | undefined =
     undefined;
 
@@ -73,7 +73,6 @@ export class SuggestSimulatorComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       algorithm: [null, [Validators.required]],
     });
-    this.formGroup.controls.algorithm.disable();
   }
 
   ngOnInit(): void {
@@ -342,7 +341,6 @@ export class SuggestSimulatorComponent implements OnInit {
             this.formGroup.controls.algorithm.setValue(simulationAlgorithm);
           }
 
-          this.formGroup.controls.algorithm.enable();
           return algorithms;
         },
       ),

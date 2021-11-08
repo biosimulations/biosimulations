@@ -15,6 +15,10 @@ $button-vertical-margin: -(math.div($button-height - $line-height, 2));
   opacity: 1;
 }
 
+biosimulations-icon::before {
+  content: " ";
+}
+
 .mat-simple-snackbar-action {
   flex-shrink: 0;
   margin: $button-vertical-margin $button-horizontal-margin * -1

@@ -1,5 +1,6 @@
 <biosimulations-page
-  heading="Create a simulation project (COMBINE/OMEX archive with a SED-ML file) for a model "
+  heading="Create a simulation project (COMBINE/OMEX archive with a SED-ML file) for a model"
+  *ngIf="(loading$ | async) === false; else loading"
 >
   <div class="instructions">
     <p>
@@ -1171,3 +1172,7 @@
     </div>
   </form>
 </biosimulations-page>
+
+<ng-template #loading>
+  <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
+</ng-template>
