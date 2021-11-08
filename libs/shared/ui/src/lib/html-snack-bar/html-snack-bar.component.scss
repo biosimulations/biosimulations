@@ -16,7 +16,7 @@ $button-vertical-margin: -(math.div($button-height - $line-height, 2));
 }
 
 biosimulations-icon::before {
-  content: " ";
+  content: ' ';
 }
 
 .mat-simple-snackbar-action {

@@ -145,7 +145,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     'https://raw.githubusercontent.com/biosimulators/Biosimulators_utils/dev/tests/fixtures/BIOMD0000000297.xml';
 
   private loading = new BehaviorSubject<boolean>(true);
-  loading$ = this.loading.asObservable()
+  loading$ = this.loading.asObservable();
   submitPushed = false;
   projectBeingCreated = false;
 
@@ -1763,22 +1763,30 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         },
       });
 
-      this.snackBar.open('Your project was created. Please use this form to execute it.', 'Ok', {
-        duration: 5000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-      });
+      this.snackBar.open(
+        'Your project was created. Please use this form to execute it.',
+        'Ok',
+        {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        },
+      );
     } else {
       const a = document.createElement('a');
       a.href = projectOrUrl;
       a.download = 'project.omex';
       a.click();
 
-      this.snackBar.open('Your project was downloaded to your computer.', 'Ok', {
-        duration: 5000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-      });
+      this.snackBar.open(
+        'Your project was downloaded to your computer.',
+        'Ok',
+        {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        },
+      );
     }
   }
 

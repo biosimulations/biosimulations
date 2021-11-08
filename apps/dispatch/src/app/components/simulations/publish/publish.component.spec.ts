@@ -39,7 +39,13 @@ describe('PublishComponent', () => {
         }),
         NoopAnimationsModule,
       ],
-      providers: [ConfigService, ScrollService, Storage, SimulationService, ProjectService],
+      providers: [
+        ConfigService,
+        ScrollService,
+        Storage,
+        SimulationService,
+        ProjectService,
+      ],
       schemas: [],
     }).compileComponents();
   }));

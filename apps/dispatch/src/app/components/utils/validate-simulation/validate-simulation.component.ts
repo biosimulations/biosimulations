@@ -212,11 +212,15 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
             );
           }
 
-          this.snackBar.open('The validation of your simulation completed.', 'Ok', {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-          });
+          this.snackBar.open(
+            'The validation of your simulation completed.',
+            'Ok',
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            },
+          );
         } else {
           let msg = 'Sorry! We were unable to validate your simulation.';
           if (submitMethodControl.value == SubmitMethod.url) {
@@ -232,7 +236,7 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
       });
     this.subscriptions.push(validationSub);
 
-     // display status
+    // display status
     this.snackBar.openFromComponent(HtmlSnackBarComponent, {
       data: {
         message: 'Please wait while your simulation is validated',

@@ -238,11 +238,15 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
             );
           }
 
-          this.snackBar.open('The validation of your metadata completed.', 'Ok', {
-            duration: 5000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-          });
+          this.snackBar.open(
+            'The validation of your metadata completed.',
+            'Ok',
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            },
+          );
         } else {
           let msg = 'Sorry! We were unable to validate your metadata.';
           if (submitMethodControl.value == SubmitMethod.url) {

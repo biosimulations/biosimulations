@@ -1,8 +1,8 @@
-<biosimulations-page heading="Run a simulation project" *ngIf="simulators.length; else loading">
-  <form
-    [formGroup]="formGroup"
-    (ngSubmit)="onFormSubmit()"    
-  >
+<biosimulations-page
+  heading="Run a simulation project"
+  *ngIf="simulators.length; else loading"
+>
+  <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
     <div class="form-section">
       <div class="form-section-head">
         <div class="mat-form-field-prefix">
