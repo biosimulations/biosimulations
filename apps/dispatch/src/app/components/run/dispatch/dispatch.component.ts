@@ -326,7 +326,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         } else {
           this.snackBar.open(
             'Sorry! We were unable to load information about the simularity among algorithms.',
-            undefined,
+            'Ok',
             {
               duration: 5000,
               horizontalPosition: 'center',
@@ -846,7 +846,7 @@ export class DispatchComponent implements OnInit, OnDestroy {
         'or from the "Your simulations page". ' +
         'When your simulation completes, you will be able to ' +
         'retrieve and visualize its results here.',
-      undefined,
+      'Ok',
       {
         duration: 10000,
       },

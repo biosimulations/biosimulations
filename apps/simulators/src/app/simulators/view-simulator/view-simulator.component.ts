@@ -262,7 +262,7 @@ export class ViewSimulatorComponent implements OnInit {
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
       'The command to pull the Docker image was copied to your clipboard.',
-      undefined,
+      'Ok',
       {
         duration: snackBarDuration,
       },
@@ -274,7 +274,7 @@ export class ViewSimulatorComponent implements OnInit {
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
       'The command to run the Docker image was copied to your clipboard.',
-      undefined,
+      'Ok',
       {
         duration: snackBarDuration,
       },
@@ -286,7 +286,7 @@ export class ViewSimulatorComponent implements OnInit {
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
       'The command to get help with the Docker image was copied to your clipboard.',
-      undefined,
+      'Ok',
       {
         duration: snackBarDuration,
       },
@@ -298,7 +298,7 @@ export class ViewSimulatorComponent implements OnInit {
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
       'The command to pull the Singularity image was copied to your clipboard.',
-      undefined,
+      'Ok',
       {
         duration: snackBarDuration,
       },
@@ -310,7 +310,7 @@ export class ViewSimulatorComponent implements OnInit {
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
       'The command to run the Singularity image was copied to your clipboard.',
-      undefined,
+      'Ok',
       {
         duration: snackBarDuration,
       },
@@ -322,7 +322,7 @@ export class ViewSimulatorComponent implements OnInit {
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
       'The command to get help with the Singularity image was copied to your clipboard.',
-      undefined,
+      'Ok',
       {
         duration: snackBarDuration,
       },
@@ -333,7 +333,7 @@ export class ViewSimulatorComponent implements OnInit {
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
       'The command to install the command-line application was copied to your clipboard.',
-      undefined,
+      'Ok',
       {
         duration: snackBarDuration,
       },
@@ -346,7 +346,7 @@ export class ViewSimulatorComponent implements OnInit {
     );
     this.snackBar.open(
       'The command to run the command-line application was copied to your clipboard.',
-      undefined,
+      'Ok',
       {
         duration: snackBarDuration,
       },
@@ -357,7 +357,7 @@ export class ViewSimulatorComponent implements OnInit {
     navigator.clipboard.writeText((cmd as string) + ' --help');
     this.snackBar.open(
       'The command to get help about the command-line application was copied to your clipboard.',
-      undefined,
+      'Ok',
       {
         duration: snackBarDuration,
       },
@@ -369,7 +369,7 @@ export class ViewSimulatorComponent implements OnInit {
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
       'The command to install the Python package was copied to your clipboard.',
-      undefined,
+      'Ok',
       {
         duration: snackBarDuration,
       },
@@ -381,7 +381,7 @@ export class ViewSimulatorComponent implements OnInit {
     navigator.clipboard.writeText(cmd);
     this.snackBar.open(
       'The command to import the Python module was copied to your clipboard.',
-      undefined,
+      'Ok',
       {
         duration: snackBarDuration,
       },

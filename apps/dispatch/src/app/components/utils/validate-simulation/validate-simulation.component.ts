@@ -216,7 +216,7 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
             msg += ` Please check that ${simulation} is an accessible URL.`;
           }
 
-          this.snackBar.open(msg, undefined, {
+          this.snackBar.open(msg, 'Ok', {
             duration: 5000,
             horizontalPosition: 'center',
             verticalPosition: 'bottom',

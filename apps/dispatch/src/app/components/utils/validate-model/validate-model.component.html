@@ -160,7 +160,7 @@
       class="validation-report"
       *ngIf="status === 'invalid' || status === 'warnings'"
     >
-      <div class="validation-report-section errors" *ngIf="errors">
+      <div class="validation-report-section error" *ngIf="errors">
         Errors:
         <ul [innerHTML]="errors"></ul>
       </div>

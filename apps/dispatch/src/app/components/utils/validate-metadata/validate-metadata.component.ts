@@ -238,7 +238,7 @@ export class ValidateMetadataComponent implements OnInit, OnDestroy {
             msg += ` Please check that ${metadata} is an accessible URL.`;
           }
 
-          this.snackBar.open(msg, undefined, {
+          this.snackBar.open(msg, 'Ok', {
             duration: 5000,
             horizontalPosition: 'center',
             verticalPosition: 'bottom',
