@@ -147,7 +147,7 @@ export class SelectVisualizationComponent implements OnDestroy {
   exportVisualization(format: 'vega' | 'archive'): void {
     this.snackBar.openFromComponent(HtmlSnackBarComponent, {
       data: {
-        message: 'Your visualization is being exported ',
+        message: 'Please wait while your visualization is exported ',
         spinner: true,
         action: 'Ok',
       },
@@ -177,7 +177,7 @@ export class SelectVisualizationComponent implements OnDestroy {
 
           this.snackBar.open(
             'Your visualization was succesfully exported.',
-            undefined,
+            'Ok',
             {
               duration: 5000,
               horizontalPosition: 'center',
@@ -212,7 +212,7 @@ export class SelectVisualizationComponent implements OnDestroy {
 
                 this.snackBar.open(
                   'Your visualization was succesfully exported.',
-                  undefined,
+                  'Ok',
                   {
                     duration: 5000,
                     horizontalPosition: 'center',
@@ -222,7 +222,7 @@ export class SelectVisualizationComponent implements OnDestroy {
               } else {
                 this.snackBar.open(
                   'Sorry! We were unable to add the visualization to this project.',
-                  undefined,
+                  'Ok',
                   {
                     duration: 5000,
                     horizontalPosition: 'center',

@@ -247,7 +247,7 @@ export class ValidateProjectComponent implements OnInit, OnDestroy {
             msg += ` Please check that ${archive} is an accessible URL.`;
           }
 
-          this.snackBar.open(msg, undefined, {
+          this.snackBar.open(msg, 'Ok', {
             duration: 5000,
             horizontalPosition: 'center',
             verticalPosition: 'bottom',

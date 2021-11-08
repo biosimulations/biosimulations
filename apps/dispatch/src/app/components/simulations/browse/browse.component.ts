@@ -588,7 +588,7 @@ export class BrowseComponent implements OnInit {
             );
             this.snackBar.open(
               'The URL for sharing the simulation was copied to your clipboard.',
-              undefined,
+              'Ok',
               {
                 duration: snackBarDuration,
               },
@@ -613,7 +613,7 @@ export class BrowseComponent implements OnInit {
             );
             this.snackBar.open(
               'The URL for sharing the simulation was copied to your clipboard.',
-              undefined,
+              'Ok',
               {
                 duration: snackBarDuration,
               },
@@ -741,7 +741,7 @@ export class BrowseComponent implements OnInit {
         const numSimulations = this.loadExampleSimulations();
         this.snackBar.open(
           `${numSimulations} example simulations were loaded into your list of simulations.`,
-          undefined,
+          'Ok',
           {
             verticalPosition: 'top',
             duration: 10000,

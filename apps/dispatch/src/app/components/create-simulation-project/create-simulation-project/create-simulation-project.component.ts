@@ -682,7 +682,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           msg += ` Please check that ${modelLocationDetails} is an accessible URL.`;
         }
 
-        this.snackBar.open(msg, undefined, {
+        this.snackBar.open(msg, 'Ok', {
           duration: 5000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom',
@@ -1264,7 +1264,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
         if (!observerableValues[0]) {
           this.snackBar.open(
             'Sorry! We were unable to load information about the simularity among algorithms.',
-            undefined,
+            'Ok',
             {
               duration: 5000,
               horizontalPosition: 'center',
@@ -1483,7 +1483,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
           console.error(error);
           this.snackBar.open(
             'Sorry! We were unable to generate your COMBINE/OMEX archive.',
-            undefined,
+            'Ok',
             {
               duration: 5000,
               horizontalPosition: 'center',
