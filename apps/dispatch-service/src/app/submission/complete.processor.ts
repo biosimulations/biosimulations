@@ -61,7 +61,7 @@ export class CompleteProcessor {
       },
       {
         name: 'The log of the simulation',
-        result: this.logService.createLog(id),
+        result: this.logService.createLog(id, false, '', false),
         required: true,
       },
       {
@@ -147,7 +147,7 @@ export class CompleteProcessor {
       '\n' +
       `\n${cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${noColor}`;
     this.logService
-      .createLog(id, logPostSucceeded, extraStdLog, true)
+      .createLog(id, true, extraStdLog, logPostSucceeded)
       .then((run) =>
         this.logger.error(
           `Log for simulation run '${id}' could not be updated`,

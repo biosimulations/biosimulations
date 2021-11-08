@@ -18,14 +18,23 @@ export class LogService {
 
   public async createLog(
     id: string,
-    makeStructuredLog = true,
+    tryPlainLog = true,
     extraStdLog?: string,
     update = false,
   ): Promise<void> {
     const path = this.sshService.getSSHResultsDirectory(id);
-    return this.makeLog(path, makeStructuredLog, extraStdLog).then((value) =>
-      this.uploadLog(id, value, update),
-    );
+    return this.makeLog(path, true, extraStdLog).then((value) => {
+      return this.uploadLog(id, value, update);
+    })
+    .catch((error) => {
+      if (tryPlainLog) {
+        return this.makeLog(path, false, extraStdLog).then((value) => {
+          return this.uploadLog(id, value, update);
+        });
+      } else {
+        throw error;
+      }
+    });
   }
 
   private async makeLog(
@@ -37,7 +46,7 @@ export class LogService {
       ? await this.readStructuredLog(path)
       : this.initStructureLog();
     const stdLog =
-      (await this.readStdLog(path)) + (extraStdLog ? extraStdLog : '');
+      (await this.readStdLog(path)) + (extraStdLog || '');
 
     log.output = stdLog;
 
