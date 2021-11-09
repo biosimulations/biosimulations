@@ -575,7 +575,7 @@ export class SimulationRunService {
       const value = await this._getRunSummary(id);
       if (
         value.run.status === SimulationRunStatus.SUCCEEDED ||
-        SimulationRunStatus.FAILED
+        value.run.status === SimulationRunStatus.FAILED
       ) {
         await this.cacheManager.set(cacheKey, value, { ttl: 0 });
       }
