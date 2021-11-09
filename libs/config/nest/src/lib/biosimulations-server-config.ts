@@ -10,9 +10,9 @@ export default registerAs('server', () => {
 
   const host = process.env.HOST || urls[app];
 
-  const port = process.env.PORT || 3333;
+  const port = parseInt(process.env.SERVER_PORT);
 
-  const limit = process.env.LIMIT || '50mb';
+  const limit = process.env.SERVER_PAYLOAD_LIMIT;
   const config = {
     env,
     app,
