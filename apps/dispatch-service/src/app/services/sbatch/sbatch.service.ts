@@ -44,8 +44,8 @@ export class SbatchService {
     workDirname: string,
   ): string {
     const homeDir = this.configService.get('hpc.homeDir');
-    const bucket = this.configService.get('storage.bucket');
-    let endpoint = this.configService.get('storage.endpoint');
+    const storageBucket = this.configService.get('storage.bucket');
+    let storageEndpoint = this.configService.get('storage.endpoint');
 
     const simulatorImage = `docker://ghcr.io/biosimulators/${simulator}:${simulatorVersion}`;
 
@@ -64,8 +64,8 @@ export class SbatchService {
     const nc = ConsoleFormatting.noColor;
     const cyan = ConsoleFormatting.cyan;
 
-    if (endpoint.startsWith('https://localhost')) {
-      endpoint = 'http://s3low.scality.uchc.edu';
+    if (storageEndpoint.startsWith('https://localhost')) {
+      storageEndpoint = 'http://s3low.scality.uchc.edu';
     }
 
     let allEnvVars = [...envVars];
@@ -143,22 +143,22 @@ cd ${workDirname}
 echo -e '${cyan}Thank you for using runBioSimulations!${nc}'
 echo -e ''
 echo -e '${cyan}============================================ Downloading COMBINE archive ============================================${nc}'
-( ulimit -f 1048576; srun curl -L -o '${combineArchiveFilename}' ${runCombineArchiveUrl})
+( ulimit -f 1048576; srun --job-name="Download-project" curl -L -o '${combineArchiveFilename}' ${runCombineArchiveUrl})
 echo -e ''
 echo -e '${cyan}============================================= Extracting COMBINE archive ============================================${nc}'
-unzip -o '${combineArchiveFilename}' -d '${simulationRunContentS3Subpath}'
+srun --job-name="Unpack-project" unzip -o '${combineArchiveFilename}' -d '${simulationRunContentS3Subpath}'
 echo -e ''
 echo -e '${cyan}============================================= Executing COMBINE archive =============================================${nc}'
-srun singularity run --tmpdir /local --bind ${workDirname}:/root "${allEnvVarsString}" ${simulatorImage} -i '/root/${combineArchiveFilename}' -o '/root'
+srun --job-name="Execute-project" singularity run --tmpdir /local --bind ${workDirname}:/root "${allEnvVarsString}" ${simulatorImage} -i '/root/${combineArchiveFilename}' -o '/root'
 echo -e ''
 echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
-srun hsload -v reports.h5 '${simulationRunResultsHsdsPath}'
+srun --job-name="Save-outputs-to-HSDS" hsload --verbose reports.h5 '${simulationRunResultsHsdsPath}'
 echo -e ''
 echo -e '${cyan}================================================== Zipping outputs ==================================================${nc}'
-srun zip '${outputArchiveS3Subpath}' reports.h5 log.yml plots.zip job.output
+srun --job-name="Zip-outputs" zip '${outputArchiveS3Subpath}' reports.h5 log.yml plots.zip job.output
 echo -e ''
 echo -e '${cyan}=================================================== Saving outputs ==================================================${nc}'
-export PYTHONWARNINGS="ignore"; srun aws --no-verify-ssl --endpoint-url ${endpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . 's3://${bucket}/${simulationRunS3Path}'
+export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-verify-ssl --endpoint-url ${storageEndpoint} s3 sync --acl public-read --exclude "*.sbatch" --exclude "*.omex" . 's3://${storageBucket}/${simulationRunS3Path}'
 `;
 
     return template;

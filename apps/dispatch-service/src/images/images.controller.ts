@@ -25,7 +25,7 @@ export class ImagesController {
     const force = data.force;
     this.logger.log('Sending command to update ' + url);
     const sbatch = this.sbatchService.generateImageUpdateSbatch(url, force);
-    const command = `echo "${sbatch}" > updateImage.sbatch && chmod +x updateImage.sbatch && sbatch updateImage.sbatch`;
+    const command = `echo "${sbatch}" > updateImage.sbatch && chmod +x updateImage.sbatch && sbatch -job-name="Update-simulator-${data.simulator}-${data.version}" updateImage.sbatch`;
     const out = await this.sshSerivce.execStringCommand(command);
 
     if (out.stderr != '') {
