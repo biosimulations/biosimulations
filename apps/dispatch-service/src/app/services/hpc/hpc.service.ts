@@ -101,9 +101,7 @@ export class HpcService {
           );
           return { stdout: '' };
         })
-      )
-      .stdout
-      .trim();
+    ).stdout.trim();
     let jobStatesArray!: JobState[];
     if (jobStatesStr) {
       jobStatesArray = jobStatesStr
@@ -122,8 +120,8 @@ export class HpcService {
     } else {
       jobStatesArray = [];
     }
-    
-    const jobStatesMap: {[step: string]: JobState} = {};
+
+    const jobStatesMap: { [step: string]: JobState } = {};
     jobStatesArray.forEach((jobState: JobState): void => {
       jobStatesMap[jobState.step] = jobState;
     });
@@ -163,7 +161,9 @@ export class HpcService {
       finalStatus == 'CANCELLED' ||
       finalStatus.startsWith('CANCELLED')
     ) {
-      this.logger.error(`Job '${jobId}' failed with response of '${finalStatus}'.`);
+      this.logger.error(
+        `Job '${jobId}' failed with response of '${finalStatus}'.`,
+      );
       simStatus = SimulationRunStatus.FAILED;
     } else {
       this.logger.warn(`Job '${jobId}' does not have a status yet.`);
