@@ -99,8 +99,9 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
     # execution simulations
     temp_dir = tempfile.mkdtemp()
     new_simulation_runs = []
+    example_simulations_filename = EXAMPLE_SIMULATIONS_RUNS_FILENAME.format('dev' if runbiosimulations_api == 'local' else runbiosimulations_api)
     if example_names:
-        with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(runbiosimulations_api), 'r') as file:
+        with open(example_simulations_filename, 'r') as file:
             simulation_runs = {run['name']: run for run in json.load(file)}
 
     else:
@@ -194,7 +195,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
         sorted_simulation_runs = natsort.natsorted(list(simulation_runs.values()),
                                                    key=lambda run: (run['name'], run['simulator'], run['simulatorVersion']),
                                                    alg=natsort.IGNORECASE)
-        with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(runbiosimulations_api), 'w') as file:
+        with open(example_simulations_filename, 'w') as file:
             json.dump(sorted_simulation_runs, file, indent=2)
 
     shutil.rmtree(temp_dir)
