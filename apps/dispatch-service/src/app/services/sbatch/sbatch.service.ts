@@ -46,6 +46,9 @@ export class SbatchService {
     const homeDir = this.configService.get('hpc.homeDir');
     const storageBucket = this.configService.get('storage.bucket');
     let storageEndpoint = this.configService.get('storage.endpoint');
+    const hsdsBasePath = this.configService.get('data.basePath');
+    const hsdsUsername = this.configService.get('data.username');
+    const hsdsPassword = this.configService.get('data.password');
 
     const simulatorImage = `docker://ghcr.io/biosimulators/${simulator}:${simulatorVersion}`;
 
@@ -152,7 +155,7 @@ echo -e '${cyan}============================================= Executing COMBINE 
 srun --job-name="Execute-project" singularity run --tmpdir /local --bind ${workDirname}:/root "${allEnvVarsString}" ${simulatorImage} -i '/root/${combineArchiveFilename}' -o '/root'
 echo -e ''
 echo -e '${cyan}=================================================== Saving results ==================================================${nc}'
-srun --job-name="Save-outputs-to-HSDS" hsload --verbose reports.h5 '${simulationRunResultsHsdsPath}'
+srun --job-name="Save-outputs-to-HSDS" hsload --endpoint ${hsdsBasePath} --username ${hsdsUsername} --password ${hsdsPassword} --verbose reports.h5 '${simulationRunResultsHsdsPath}'
 echo -e ''
 echo -e '${cyan}================================================== Zipping outputs ==================================================${nc}'
 srun --job-name="Zip-outputs" zip '${outputArchiveS3Subpath}' reports.h5 log.yml plots.zip job.output

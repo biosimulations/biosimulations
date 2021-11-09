@@ -65,7 +65,7 @@ export class HpcService {
 
     // eslint-disable-next-line max-len
     const sbatchFilename = `${simDirname}/${runId}.sbatch`;
-    const command = `mkdir ${simDirname} && echo "${sbatchString}" > ${sbatchFilename} && chmod +x ${sbatchFilename} && sbatch --job-name="Simulation-run-${runId}" ${sbatchFilename}`;
+    const command = `mkdir ${simDirname} && echo "${sbatchString}" > ${sbatchFilename} && chmod +x ${sbatchFilename} && sbatch ${sbatchFilename}`;
 
     const res = this.sshService.execStringCommand(command);
 
