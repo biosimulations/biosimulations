@@ -4,6 +4,7 @@ from unittest import mock
 import argparse
 import enum
 import json
+import json.decoder
 import natsort
 import os
 import requests
@@ -99,7 +100,8 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
     # execution simulations
     temp_dir = tempfile.mkdtemp()
     new_simulation_runs = []
-    example_simulations_filename = EXAMPLE_SIMULATIONS_RUNS_FILENAME.format('dev' if runbiosimulations_api == 'local' else runbiosimulations_api)
+    example_simulations_filename = EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(
+        'dev' if runbiosimulations_api == 'local' else runbiosimulations_api)
     if example_names:
         with open(example_simulations_filename, 'r') as file:
             simulation_runs = {run['name']: run for run in json.load(file)}
@@ -114,7 +116,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
         simulator_version = simulator_latest_versions[simulator]
         url = EXAMPLE_COMBINE_ARCHIVES_BASE_URL.format(
             biosimulators_test_suite_branch) + simulation['filename']
-        
+
         # get COMBINE archive
         response = requests.get(url)
         response.raise_for_status()
@@ -155,7 +157,16 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
                 'updated': 'XXXXXXXXX',
             })))
 
-        simulation_run = json.loads(process.stdout.decode())
+        stdout = process.stdout.decode()
+        try:
+            simulation_run = json.loads(stdout)
+        except json.decoder.JSONDecodeError as exception:
+            simulation_run = None
+            print(BColors.FAIL + "Failed to submit simulation: " + name + BColors.ENDC)
+            raise RuntimeError('Simulation could not be run on {}: {}'.format(
+                submit_endpoint,
+                stdout))
+
         if 'id' in simulation_run:
             print("Submitted simulation {}: {} ({})".format(i_simulation + 1, name, simulation_run['id']))
             sim_url = "https://run.biosimulations.{}/simulations/{}".format(
