@@ -8,6 +8,11 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 
+interface JobState {
+  name: string;
+  state: string;
+}
+
 @Injectable()
 export class HpcService {
   private logger = new Logger(HpcService.name);
@@ -60,7 +65,7 @@ export class HpcService {
 
     // eslint-disable-next-line max-len
     const sbatchFilename = `${simDirname}/${runId}.sbatch`;
-    const command = `mkdir ${simDirname} && echo "${sbatchString}" > ${sbatchFilename} && chmod +x ${sbatchFilename} && sbatch ${sbatchFilename}`;
+    const command = `mkdir ${simDirname} && echo "${sbatchString}" > ${sbatchFilename} && chmod +x ${sbatchFilename} && sbatch --job-name="Simulation-run-${runId}" ${sbatchFilename}`;
 
     const res = this.sshService.execStringCommand(command);
 
@@ -84,7 +89,7 @@ export class HpcService {
     // TODO this needs to be changed everyime job srun changes. Need a better long term solution
     // TODO account for each step failing
     const saactData = await this.sshService
-      .execStringCommand(`sacct -j ${jobId} -o state -P | tail -1`)
+      .execStringCommand(`sacct --jobs ${jobId} --format state --parsable2 | tail -1`)
       .catch((err) => {
         this.logger.error(
           'Failed to fetch status update, ' + JSON.stringify(err),
@@ -102,22 +107,40 @@ export class HpcService {
     } else if (finalStatus == 'RUNNING') {
       simStatus = SimulationRunStatus.RUNNING;
     } else if (finalStatus == 'COMPLETED') {
-      const stepStatus = (
+      const delimiter = '|';
+      const stepStates = (
         await this.sshService
-          .execStringCommand(`sacct -j ${jobId}.1 -o state -P | tail -1`)
+          .execStringCommand(`sacct --jobs ${jobId} --format jobname,state --noheader --parsable2 --delimiter "${delimiter}"`)
           .catch((err) => {
             this.logger.error(
               'Failed to fetch status update, ' + JSON.stringify(err),
             );
             return { stdout: '' };
           })
-      ).stdout.trim();
-      if (stepStatus == 'COMPLETED') {
+      )
+      .stdout
+      .trim()
+      .split(/\n/)
+      .map((jobState: string): JobState => {
+        const parts = jobState.split(delimiter);
+        return {
+          name: parts[0],
+          state: parts[1],
+        };
+      });
+      const failedSteps: string[] = [];
+      stepStates.forEach((jobState: JobState): void => {
+        if (jobState.state !== 'COMPLETED') {
+          failedSteps.push(`${jobState.name}: ${jobState.state}`);
+        }
+      });
+
+      if (failedSteps.length === 0) {
         simStatus = SimulationRunStatus.PROCESSING;
       } else {
         simStatus = SimulationRunStatus.FAILED;
         this.logger.error(
-          `Job ${jobId} completed, but simulation failed with response of ${stepStatus}`,
+          `Job ${jobId} completed, but ${failedSteps.length} steps failed:\n  * ${failedSteps.join('\n  * ')}`,
         );
       }
     } else if (
