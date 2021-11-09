@@ -24,7 +24,7 @@ export class ImagesController {
     const homeDir = this.configService.get('hpc.homeDir');
     const force = data.force;
     this.logger.log('Sending command to update ' + url);
-    const sbatch = this.sbatchService.generateImageUpdateSbatch(url, force);
+    const sbatch = this.sbatchService.generateImageUpdateSbatch(data.simulator, data.version, url, force);
     const command = `echo "${sbatch}" > updateImage.sbatch && chmod +x updateImage.sbatch && sbatch updateImage.sbatch`;
     const out = await this.sshSerivce.execStringCommand(command);
 
