@@ -9,6 +9,8 @@ import { ConfigService } from '@nestjs/config';
 import { SbatchService } from '../sbatch/sbatch.service';
 
 interface JobState {
+  id: string;
+  step: string;
   name: string;
   state: string;
 }
@@ -87,52 +89,57 @@ export class HpcService {
     jobId: string,
   ): Promise<SimulationRunStatus | null> {
     // TODO this needs to be changed everyime job srun changes. Need a better long term solution
-    // TODO account for each step failing
-    const saactData = await this.sshService
-      .execStringCommand(
-        `sacct --jobs ${jobId} --format state --parsable2 | tail -1`,
+    const delimiter = '|';
+    const jobStatesStr = (
+      await this.sshService
+        .execStringCommand(
+          `sacct --jobs ${jobId} --format jobid,jobname,state --noheader --parsable2 --delimiter "${delimiter}"`,
+        )
+        .catch((err) => {
+          this.logger.error(
+            'Failed to fetch status update, ' + JSON.stringify(err),
+          );
+          return { stdout: '' };
+        })
       )
-      .catch((err) => {
-        this.logger.error(
-          'Failed to fetch status update, ' + JSON.stringify(err),
-        );
-        return { stdout: '' };
-      });
+      .stdout
+      .trim();
+    let jobStatesArray!: JobState[];
+    if (jobStatesStr) {
+      jobStatesArray = jobStatesStr
+        .split(/\n/)
+        .map((jobState: string): JobState => {
+          const parts = jobState.split(delimiter);
+          const iDot = parts[0].indexOf('.');
+          const step = iDot === -1 ? '' : parts[0].substring(iDot + 1);
+          return {
+            id: parts[0],
+            step: step,
+            name: parts[1],
+            state: parts[2],
+          };
+        });
+    } else {
+      jobStatesArray = [];
+    }
+    
+    const jobStatesMap: {[step: string]: JobState} = {};
+    jobStatesArray.forEach((jobState: JobState): void => {
+      jobStatesMap[jobState.step] = jobState;
+    });
 
-    const saactDataOutput = saactData.stdout;
-    const finalStatus = saactDataOutput.trim();
+    const finalStatus = jobStatesMap?.['']?.state || '';
+
     let simStatus: SimulationRunStatus | null;
-    this.logger.debug(`Job status is ${finalStatus}`);
+    this.logger.debug(`Status of job '${jobId}' is '${finalStatus}'.`);
     // Can not use logical or in a switch statement.
     if (finalStatus == 'PENDING') {
       simStatus = SimulationRunStatus.QUEUED;
     } else if (finalStatus == 'RUNNING') {
       simStatus = SimulationRunStatus.RUNNING;
     } else if (finalStatus == 'COMPLETED') {
-      const delimiter = '|';
-      const stepStates = (
-        await this.sshService
-          .execStringCommand(
-            `sacct --jobs ${jobId} --format jobname,state --noheader --parsable2 --delimiter "${delimiter}"`,
-          )
-          .catch((err) => {
-            this.logger.error(
-              'Failed to fetch status update, ' + JSON.stringify(err),
-            );
-            return { stdout: '' };
-          })
-      ).stdout
-        .trim()
-        .split(/\n/)
-        .map((jobState: string): JobState => {
-          const parts = jobState.split(delimiter);
-          return {
-            name: parts[0],
-            state: parts[1],
-          };
-        });
       const failedSteps: string[] = [];
-      stepStates.forEach((jobState: JobState): void => {
+      jobStatesArray.forEach((jobState: JobState): void => {
         if (jobState.state !== 'COMPLETED') {
           failedSteps.push(`${jobState.name}: ${jobState.state}`);
         }
@@ -143,7 +150,7 @@ export class HpcService {
       } else {
         simStatus = SimulationRunStatus.FAILED;
         this.logger.error(
-          `Job ${jobId} completed, but ${
+          `Job '${jobId}' completed, but ${
             failedSteps.length
           } steps failed:\n  * ${failedSteps.join('\n  * ')}`,
         );
@@ -156,15 +163,10 @@ export class HpcService {
       finalStatus == 'CANCELLED' ||
       finalStatus.startsWith('CANCELLED')
     ) {
-      this.logger.error(`Job ${jobId} failed with response of ${finalStatus}`);
+      this.logger.error(`Job '${jobId}' failed with response of '${finalStatus}'.`);
       simStatus = SimulationRunStatus.FAILED;
-    } else if (finalStatus == 'State') {
-      this.logger.warn(`Job ${jobId} does not have a status yet`);
-      simStatus = null;
     } else {
-      this.logger.error(
-        `Job ${jobId} status failed by default with response of ${finalStatus}`,
-      );
+      this.logger.warn(`Job '${jobId}' does not have a status yet.`);
       simStatus = null;
     }
     return simStatus;
