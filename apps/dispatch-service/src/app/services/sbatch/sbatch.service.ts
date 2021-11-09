@@ -177,10 +177,14 @@ export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-ve
   }
 
   /** Generate SLURM script to pull a Docker image and convert it to a Singularity image
+   * @param simulator id of the simulator
+   * @param simulatorVersion version of the simulator
    * @param dockerImageUrl URL for the Docker image
    * @param forceOverwrite whether to overwrite an existing Singularity image file, if it exists
    */
   public generateImageUpdateSbatch(
+    simulator: string,
+    simulatorVersion: string,
     dockerImageUrl: string,
     forceOverwrite: boolean,
   ): string {
@@ -206,7 +210,7 @@ export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-ve
     const memory = this.configService.get('hpc.buildSingularityImage.memory');
 
     const template = `#!/bin/bash
-#SBATCH --job-name=Build-simulator-${data.simulator}-${data.version}
+#SBATCH --job-name=Build-simulator-${simulator}-${simulatorVersion}
 #SBATCH --time=${maxTime}
 #SBATCH --chdir=${singularityPullFolder}
 #SBATCH --partition=${slurmPartition}
