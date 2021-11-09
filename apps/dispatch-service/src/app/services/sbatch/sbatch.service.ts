@@ -44,8 +44,21 @@ export class SbatchService {
     workDirname: string,
   ): string {
     const homeDir = this.configService.get('hpc.homeDir');
+    const executablesPath = this.configService.get('hpc.executablesPath');
+
+    const modulePath = this.configService.get('hpc.module.path');
+    const moduleInitScript = this.configService.get('hpc.module.initScript');
+
+    const slurmPartition = this.configService.get('hpc.slurm.partition');
+    const slurmQos = this.configService.get('hpc.slurm.qos');
+
+    const singularityModule = this.configService.get('hpc.singularity.module');
+    const singularityCacheDir = this.configService.get('hpc.singularity.cacheDir');
+    const singularityPullFolder = this.configService.get('hpc.singularity.pullFolder');
+
     const storageBucket = this.configService.get('storage.bucket');
-    let storageEndpoint = this.configService.get('storage.endpoint');
+    const storageEndpoint = this.configService.get('storage.externalEndpoint');
+
     const hsdsBasePath = this.configService.get('data.basePath');
     const hsdsUsername = this.configService.get('data.username');
     const hsdsPassword = this.configService.get('data.password');
@@ -66,10 +79,6 @@ export class SbatchService {
 
     const nc = ConsoleFormatting.noColor;
     const cyan = ConsoleFormatting.cyan;
-
-    if (storageEndpoint.startsWith('https://localhost')) {
-      storageEndpoint = 'http://s3low.scality.uchc.edu';
-    }
 
     let allEnvVars = [...envVars];
     const vars = this.configService.get('singularity').envVars;
@@ -125,23 +134,23 @@ export class SbatchService {
     );
 
     const template = `#!/bin/bash
-#SBATCH --job-name=${runId}_Biosimulations
+#SBATCH --job-name=Simulation-run-${runId}
 #SBATCH --time=${maxTimeFormatted}
 #SBATCH --output=${workDirname}/job.output
 #SBATCH --error=${workDirname}/job.output
 #SBATCH --chdir=${workDirname}
 #SBATCH --ntasks=1
-#SBATCH --partition=crbm
+#SBATCH --partition=${slurmPartition}
 #SBATCH --mem=${memoryFormatted}M
 #SBATCH --cpus-per-task=${cpus}
-#SBATCH --qos=general\n
+#SBATCH --qos=${slurmQos}\n
 
-export MODULEPATH=/home/FCAM/crbmapi/module/
-source /usr/share/Modules/init/bash
-export PATH=$PATH:/usr/sbin/
-module load singularity/3.7.1-biosim
-export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
-export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
+export MODULEPATH=${modulePath}
+source ${moduleInitScript}
+export ${executablesPath}
+module load ${singularityModule}
+export SINGULARITY_CACHEDIR=${singularityCacheDir}
+export SINGULARITY_PULLFOLDER=${singularityPullFolder}
 cd ${workDirname}
 echo -e '${cyan}Thank you for using runBioSimulations!${nc}'
 echo -e ''
@@ -176,27 +185,43 @@ export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-ve
     forceOverwrite: boolean,
   ): string {
     const homeDir = this.configService.get('hpc.homeDir');
+    const executablesPath = this.configService.get('hpc.executablesPath');
+
+    const modulePath = this.configService.get('hpc.module.path');
+    const moduleInitScript = this.configService.get('hpc.module.initScript');
+    
+    const slurmPartition = this.configService.get('hpc.slurm.partition');  
+    const slurmQos = this.configService.get('hpc.slurm.qos');
+    
+    const singularityModule = this.configService.get('hpc.singularity.module');
+    const singularityCacheDir = this.configService.get('hpc.singularity.cacheDir');
+    const singularityPullFolder = this.configService.get('hpc.singularity.pullFolder');
+
     const singularityImageName = dockerImageUrl
       .split('docker://ghcr.io/biosimulators/')[1]
       .replace(':', '_');
 
-    const template = `#!/bin/bash
-#SBATCH --job-name=${singularityImageName}-Build
-#SBATCH --time=90:00
-#SBATCH --chdir=${homeDir}/singularity/images/
-#SBATCH --partition=crbm
-#SBATCH --qos=general
-#SBATCH --ntasks=1
-#SBATCH --output=${homeDir}/singularity/images/${singularityImageName}.output
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=16G
+    const maxTime = this.configService.get('hpc.buildSingularityImage.maxTime');
+    const cpus = this.configService.get('hpc.buildSingularityImage.cpus');
+    const memory = this.configService.get('hpc.buildSingularityImage.memory');
 
-export MODULEPATH=/home/FCAM/crbmapi/module/
-source /usr/share/Modules/init/bash
-export PATH=$PATH:/usr/sbin/
-module load singularity/3.7.1-biosim
-export SINGULARITY_CACHEDIR=${homeDir}/singularity/cache/
-export SINGULARITY_PULLFOLDER=${homeDir}/singularity/images/
+    const template = `#!/bin/bash
+#SBATCH --job-name=Build-simulator-${data.simulator}-${data.version}
+#SBATCH --time=${maxTime}
+#SBATCH --chdir=${singularityPullFolder}
+#SBATCH --partition=${slurmPartition}
+#SBATCH --qos=${slurmQos}
+#SBATCH --ntasks=1
+#SBATCH --output=${singularityPullFolder}/${singularityImageName}.output
+#SBATCH --cpus-per-task=${cpus}
+#SBATCH --mem=${memory}
+
+export MODULEPATH=${modulePath}
+source ${moduleInitScript}
+export ${executablesPath}
+module load ${singularityModule}
+export SINGULARITY_CACHEDIR=${singularityCacheDir}
+export SINGULARITY_PULLFOLDER=${singularityPullFolder}
 echo "Building On:"
 hostname
 echo "Using Singularity"
