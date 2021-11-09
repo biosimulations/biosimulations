@@ -35,7 +35,7 @@ export class MonitorProcessor {
     const jobStatus: SimulationRunStatus | null =
       await this.hpcService.getJobStatus(slurmJobId);
 
-    const message = `Checking status for job with id '${slurmJobId}' for simulation run '${simId}': status is '${jobStatus}'.`;
+    const message = `Checking status for job '${slurmJobId}' for simulation run '${simId}': status is '${jobStatus}'.`;
     this.logger.debug(message);
 
     if (jobStatus) {
