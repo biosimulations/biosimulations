@@ -104,13 +104,13 @@ paths:
                   - _type: Simulator
                     id: tellurium
                     name: tellurium
-                    version: 2.2.0
+                    version: 2.2.1
                     api:
                       _type: SimulatorApi
                       package: biosimulators_tellurium
                       module: biosimulators_tellurium
                       version: 0.1.0
-                    specs: https://api.biosimulators.org/simulators/tellurium/2.2.0
+                    specs: https://api.biosimulators.org/simulators/tellurium/2.2.1
           description: "Ids, vesions, and properties of simulators available to execute\
             \ COMBINE/OMEX archives."
         "400":
@@ -3431,13 +3431,13 @@ components:
         _type: Simulator
         id: tellurium
         name: tellurium
-        version: 2.2.0
+        version: 2.2.1
         api:
           _type: SimulatorApi
           package: biosimulators_tellurium
           module: biosimulators_tellurium
           version: 0.1.0
-        specs: https://api.biosimulators.org/simulators/tellurium/2.2.0
+        specs: https://api.biosimulators.org/simulators/tellurium/2.2.1
     BioSimulatorsId:
       description: Id of a simulation tool registered with BioSimulators.
       type: string

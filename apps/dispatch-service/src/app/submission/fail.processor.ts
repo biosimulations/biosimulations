@@ -23,11 +23,11 @@ export class FailProcessor {
     const id = data.simId;
     const reason = data.reason;
 
-    this.logger.log(`Simulation ${id} Failed. Creating logs and output`);
+    this.logger.log(`Simulation run '${id}' failed. Creating logs and output ...`);
 
     await Promise.allSettled([
       this.archiverService.updateResultsSize(id),
-      this.logService.createLog(id),
+      this.logService.createLog(id, true, '', false),
     ]);
 
     this.simStatusService.updateStatus(id, SimulationRunStatus.FAILED, reason);

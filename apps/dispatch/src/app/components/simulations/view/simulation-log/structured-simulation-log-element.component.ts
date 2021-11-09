@@ -108,13 +108,20 @@ export class StructuredSimulationLogElementComponent {
       this.formattedSimulatorDetails = value.simulatorDetails.map(
         (keyValue: SimulatorDetail): FormattedSimulatorDetail => {
           const key = keyValue.key;
-          const value = keyValue?.value || '';
+          const value = keyValue?.value;
+          let strValue!: string;
+          if (value === undefined || value === null) {
+            strValue = 'null';
+          } else if (typeof value === 'object') {
+            strValue = JSON.stringify(value, null, 2);
+          } else if (value === '') {
+            strValue = ' ';
+          } else {
+            strValue = value.toString();
+          }
           return {
             key: key,
-            value:
-              typeof value === 'object'
-                ? JSON.stringify(value, null, 2)
-                : value.toString(),
+            value: strValue,
           };
         },
       );

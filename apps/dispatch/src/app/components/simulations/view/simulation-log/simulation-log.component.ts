@@ -43,6 +43,7 @@ export class SimulationLogComponent {
 
   @Input()
   statusReason?: string;
+
   @Input()
   rawLog!: RawSimulationLog;
 

@@ -116,7 +116,7 @@ if __name__ == '__main__':
     failures = get_failed_runs(examples_api, args.runbiosimulations_api)
 
     if failures:
-        msg = 'The following example simulation runs did not succeed:\n\n{}'.format('\n\n'.join(failures))
+        msg = 'The following {} example simulation runs did not succeed:\n\n{}'.format(len(failures), '\n\n'.join(failures))
         raise SystemExit(msg)
     else:
         print('All example simulation runs succeeded!')
