@@ -53,8 +53,12 @@ export class SbatchService {
     const slurmQos = this.configService.get('hpc.slurm.qos');
 
     const singularityModule = this.configService.get('hpc.singularity.module');
-    const singularityCacheDir = this.configService.get('hpc.singularity.cacheDir');
-    const singularityPullFolder = this.configService.get('hpc.singularity.pullFolder');
+    const singularityCacheDir = this.configService.get(
+      'hpc.singularity.cacheDir',
+    );
+    const singularityPullFolder = this.configService.get(
+      'hpc.singularity.pullFolder',
+    );
 
     const storageBucket = this.configService.get('storage.bucket');
     const storageEndpoint = this.configService.get('storage.externalEndpoint');
@@ -193,13 +197,17 @@ export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-ve
 
     const modulePath = this.configService.get('hpc.module.path');
     const moduleInitScript = this.configService.get('hpc.module.initScript');
-    
+
     const slurmPartition = this.configService.get('hpc.slurm.partition');
     const slurmQos = this.configService.get('hpc.slurm.qos');
-    
+
     const singularityModule = this.configService.get('hpc.singularity.module');
-    const singularityCacheDir = this.configService.get('hpc.singularity.cacheDir');
-    const singularityPullFolder = this.configService.get('hpc.singularity.pullFolder');
+    const singularityCacheDir = this.configService.get(
+      'hpc.singularity.cacheDir',
+    );
+    const singularityPullFolder = this.configService.get(
+      'hpc.singularity.pullFolder',
+    );
 
     const singularityImageName = dockerImageUrl
       .split('docker://ghcr.io/biosimulators/')[1]

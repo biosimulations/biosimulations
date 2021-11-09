@@ -76,7 +76,9 @@ export class MetadataService {
         this.logger.log(`Posted metadata for simulation run '${id}'.`);
       },
       error: (err: AxiosError) => {
-        this.logger.error(`Failed to post metadata for simulation run '${id}'.`);
+        this.logger.error(
+          `Failed to post metadata for simulation run '${id}'.`,
+        );
         this.logger.error(err?.response?.data);
         // Its important to throw this error so that the calling service is aware posting metadata failed
         throw err;

@@ -390,7 +390,9 @@ export class SimulationRunController {
     @Param('runId') runId: string,
     @Body() body: UpdateSimulationRun,
   ): Promise<SimulationRun> {
-    this.logger.log(`Patch called for simulation run '${runId}' with ${JSON.stringify(body)}`);
+    this.logger.log(
+      `Patch called for simulation run '${runId}' with ${JSON.stringify(body)}`,
+    );
     const run = await this.service.update(runId, body);
     return this.makeSimulationRun(run);
   }

@@ -89,7 +89,9 @@ export class HpcService {
     // TODO this needs to be changed everyime job srun changes. Need a better long term solution
     // TODO account for each step failing
     const saactData = await this.sshService
-      .execStringCommand(`sacct --jobs ${jobId} --format state --parsable2 | tail -1`)
+      .execStringCommand(
+        `sacct --jobs ${jobId} --format state --parsable2 | tail -1`,
+      )
       .catch((err) => {
         this.logger.error(
           'Failed to fetch status update, ' + JSON.stringify(err),
@@ -110,24 +112,25 @@ export class HpcService {
       const delimiter = '|';
       const stepStates = (
         await this.sshService
-          .execStringCommand(`sacct --jobs ${jobId} --format jobname,state --noheader --parsable2 --delimiter "${delimiter}"`)
+          .execStringCommand(
+            `sacct --jobs ${jobId} --format jobname,state --noheader --parsable2 --delimiter "${delimiter}"`,
+          )
           .catch((err) => {
             this.logger.error(
               'Failed to fetch status update, ' + JSON.stringify(err),
             );
             return { stdout: '' };
           })
-      )
-      .stdout
-      .trim()
-      .split(/\n/)
-      .map((jobState: string): JobState => {
-        const parts = jobState.split(delimiter);
-        return {
-          name: parts[0],
-          state: parts[1],
-        };
-      });
+      ).stdout
+        .trim()
+        .split(/\n/)
+        .map((jobState: string): JobState => {
+          const parts = jobState.split(delimiter);
+          return {
+            name: parts[0],
+            state: parts[1],
+          };
+        });
       const failedSteps: string[] = [];
       stepStates.forEach((jobState: JobState): void => {
         if (jobState.state !== 'COMPLETED') {
@@ -140,7 +143,9 @@ export class HpcService {
       } else {
         simStatus = SimulationRunStatus.FAILED;
         this.logger.error(
-          `Job ${jobId} completed, but ${failedSteps.length} steps failed:\n  * ${failedSteps.join('\n  * ')}`,
+          `Job ${jobId} completed, but ${
+            failedSteps.length
+          } steps failed:\n  * ${failedSteps.join('\n  * ')}`,
         );
       }
     } else if (

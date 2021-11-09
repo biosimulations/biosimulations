@@ -211,7 +211,9 @@ export class MetadataController {
     const metadata = await this.service.getMetadata(runId);
 
     if (!metadata) {
-      throw new NotFoundException(`Metadata could not be found for simulation run '${runId}'.`);
+      throw new NotFoundException(
+        `Metadata could not be found for simulation run '${runId}'.`,
+      );
     }
     const simId = metadata.simulationRun;
     const data = metadata.metadata;
