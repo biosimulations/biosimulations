@@ -63,7 +63,7 @@ export class SbatchService {
     const storageBucket = this.configService.get('storage.bucket');
     const storageEndpoint = this.configService.get('storage.externalEndpoint');
 
-    const hsdsBasePath = this.configService.get('data.basePath');
+    const hsdsBasePath = this.configService.get('data.externalBasePath');
     const hsdsUsername = this.configService.get('data.username');
     const hsdsPassword = this.configService.get('data.password');
 
