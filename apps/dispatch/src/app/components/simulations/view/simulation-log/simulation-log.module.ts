@@ -15,6 +15,11 @@ import { HighlightModule } from 'ngx-highlightjs';
     StructuredSimulationLogElementComponent,
   ],
   exports: [SimulationLogComponent],
-  imports: [CommonModule, SharedUiModule, BiosimulationsIconsModule, HighlightModule],
+  imports: [
+    CommonModule,
+    SharedUiModule,
+    BiosimulationsIconsModule,
+    HighlightModule,
+  ],
 })
 export class SimulationLogModule {}

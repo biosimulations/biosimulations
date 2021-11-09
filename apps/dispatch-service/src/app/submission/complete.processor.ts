@@ -56,7 +56,8 @@ export class CompleteProcessor {
         name: 'simulation experiments (SED-ML documents)',
         result: this.sedmlService.processSedml(id),
         required: true,
-        moreInfo: 'https://biosimulators.org/conventions/simulation-experiments',
+        moreInfo:
+          'https://biosimulators.org/conventions/simulation-experiments',
         validator: 'https://run.biosimulations.org/utils/validate-simulation',
         plural: true,
       },
@@ -104,7 +105,9 @@ export class CompleteProcessor {
       if (processingResult.status == 'rejected') {
         let reason = '';
         reason += `The ${processingStep.name} could not be saved.`;
-        reason += ` Please check that the ${processingStep.name} ${processingStep.plural ? 'are' : 'is'} valid.`;
+        reason += ` Please check that the ${processingStep.name} ${
+          processingStep.plural ? 'are' : 'is'
+        } valid.`;
         reason += `\n    More information is available at ${processingStep.moreInfo}.`;
         if (processingStep.validator) {
           reason += ` A validation tool is\n    available at ${processingStep.validator}.`;

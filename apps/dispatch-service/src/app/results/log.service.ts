@@ -23,20 +23,18 @@ export class LogService {
     update = false,
   ): Promise<void> {
     const path = this.sshService.getSSHResultsDirectory(id);
-    return this.makeLog(path, true, extraStdLog)
-      .then((value) => {
-        return this.uploadLog(id, value, update)
-          .catch((error) => {
-            this.logger.error(`Log for simulation run '${id}' is invalid.`);
-            if (tryPlainLog) {
-              return this.makeLog(path, false, extraStdLog).then((value) => {
-                return this.uploadLog(id, value, update);
-              });
-            } else {
-              throw error;
-            }
+    return this.makeLog(path, true, extraStdLog).then((value) => {
+      return this.uploadLog(id, value, update).catch((error) => {
+        this.logger.error(`Log for simulation run '${id}' is invalid.`);
+        if (tryPlainLog) {
+          return this.makeLog(path, false, extraStdLog).then((value) => {
+            return this.uploadLog(id, value, update);
           });
-      })
+        } else {
+          throw error;
+        }
+      });
+    });
   }
 
   private async makeLog(
