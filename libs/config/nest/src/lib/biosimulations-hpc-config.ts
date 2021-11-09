@@ -31,7 +31,7 @@ export default registerAs('hpc', () => {
       cpus: process.env.HPC_BUILD_SINGULARITY_IMAGE_CPUS,
       memory: process.env.HPC_BUILD_SINGULARITY_IMAGE_MEMORY,
     },
-    fileStorage: process.env.FILE_STORAGE,    
+    fileStorage: process.env.FILE_STORAGE,
   };
 
   return config;
