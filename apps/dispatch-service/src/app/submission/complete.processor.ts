@@ -40,7 +40,7 @@ export class CompleteProcessor {
     const projectOwner = data.projectOwner;
 
     this.logger.debug(
-      `Simulation ${id} finished. Saving files, specifications, results, logs, metadata ...`,
+      `Simulation run '${id}' finished. Saving files, specifications, results, logs, metadata ...`,
     );
 
     const processingSteps = [
@@ -136,12 +136,12 @@ export class CompleteProcessor {
     if (errors.length === 0) {
       status = SimulationRunStatus.SUCCEEDED;
       statusReason = 'The simulation run was successfully proccessed.';
-      updateStatusMessage = `Updated status of simulation ${id} to ${status}`;
+      updateStatusMessage = `Updated status of simulation run '${id}' to '${status}'.`;
     } else {
       status = SimulationRunStatus.FAILED;
       statusReason = 'The simulation run was not successfully proccessed.';
       statusReason += '\n\nErrors:\n  * ' + errors.join('\n  * ');
-      updateStatusMessage = `Updated status of simulation run '${id}' to ${status} due to one or more processing errors:\n  * ${errorsDetails.join(
+      updateStatusMessage = `Updated status of simulation run '${id}' to '${status}' due to one or more processing errors:\n  * ${errorsDetails.join(
         '\n  * ',
       )}`;
     }
@@ -183,7 +183,7 @@ export class CompleteProcessor {
       .createLog(id, true, extraStdLog, logPostSucceeded)
       .catch((run) =>
         this.logger.error(
-          `Log for simulation run '${id}' could not be updated`,
+          `Log for simulation run '${id}' could not be updated.`,
         ),
       );
 
@@ -213,12 +213,12 @@ export class CompleteProcessor {
             .toPromise()
             .then((project) =>
               this.logger.log(
-                `Updated project ${projectId} for simulation ${id}`,
+                `Updated project '${projectId}' for simulation '${id}'.`,
               ),
             )
             .catch((err) =>
               this.logger.log(
-                `Project ${projectId} could not be updated with simulation ${id}`,
+                `Project '${projectId}' could not be updated with simulation '${id}'.`,
               ),
             );
         })
@@ -229,12 +229,12 @@ export class CompleteProcessor {
               .toPromise()
               .then((project) =>
                 this.logger.log(
-                  `Created project ${projectId} for simulation ${id}`,
+                  `Created project '${projectId}' for simulation '${id}'.`,
                 ),
               )
               .catch((err) =>
                 this.logger.log(
-                  `Project ${projectId} could not be created with simulation run '${id}'.`,
+                  `Project '${projectId}' could not be created with simulation run '${id}'.`,
                 ),
               );
           } else {

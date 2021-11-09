@@ -49,7 +49,6 @@ export class SimulationRunService {
   }
 
   public postSpecs(
-    id: string,
     specs: SimulationRunSedDocumentInput[],
   ): Observable<SimulationRunSedDocument[]> {
     const endpoint = this.endpoints.getSpecificationsEndpoint();

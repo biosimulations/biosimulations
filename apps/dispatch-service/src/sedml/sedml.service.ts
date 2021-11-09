@@ -27,7 +27,7 @@ export class SedmlService {
   }
 
   public async processSedml(id: string): Promise<void> {
-    this.logger.log(`Processing SED-ML file for  ${id}`);
+    this.logger.log(`Processing SED-ML document for simulation run '${id}'.`);
     const url = this.endpoints.getRunDownloadEndpoint(id, true);
     const req = this.combine.getSedMlSpecs(undefined, url);
     const sedml = req.pipe(
@@ -35,7 +35,7 @@ export class SedmlService {
       pluck('contents'),
       map(this.getSpecsFromArchiveContent.bind(this, id)),
       mergeMap((sedmlSpecs: SimulationRunSedDocumentInput[]) => {
-        return this.submit.postSpecs(id, sedmlSpecs);
+        return this.submit.postSpecs(sedmlSpecs);
       }),
     );
 

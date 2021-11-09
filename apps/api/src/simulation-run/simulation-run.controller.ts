@@ -342,7 +342,7 @@ export class SimulationRunController {
       permission ? null : (run.email = null);
       return this.makeSimulationRun(run);
     } else {
-      throw new NotFoundException(`No simulation run with id ${runId}`);
+      throw new NotFoundException(`No simulation run with id '${runId}'.`);
     }
   }
 
@@ -390,7 +390,7 @@ export class SimulationRunController {
     @Param('runId') runId: string,
     @Body() body: UpdateSimulationRun,
   ): Promise<SimulationRun> {
-    this.logger.log(`Patch called for ${runId} with ${JSON.stringify(body)}`);
+    this.logger.log(`Patch called for simulation run '${runId}' with ${JSON.stringify(body)}`);
     const run = await this.service.update(runId, body);
     return this.makeSimulationRun(run);
   }

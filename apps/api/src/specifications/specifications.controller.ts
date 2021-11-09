@@ -89,7 +89,7 @@ export class SpecificationsController {
     const specs = await this.service.getSpecificationsBySimulation(runId);
     if (specs.length === 0) {
       throw new NotFoundException(
-        `No specifications found for simulation ${runId}`,
+        `No specifications could be found for simulation run '${runId}'.`,
       );
     }
     return specs.map(this.returnSpec);
@@ -134,7 +134,7 @@ export class SpecificationsController {
     const spec = await this.service.getSpecification(runId, experimentLocation);
     if (!spec) {
       throw new NotFoundException(
-        `Specification with id ${experimentLocation} for simulation ${runId} not found`,
+        `Specifications could not be found for experiment '${experimentLocation}' for simulation run '${runId}'.`,
       );
     }
     return this.returnSpec(spec);
@@ -194,7 +194,7 @@ export class SpecificationsController {
     );
     if (!spec) {
       throw new NotFoundException(
-        `Specification with id ${modelId} at location ${experimentLocation} for simulation ${runId} not found`,
+        `Specifications could not be found for model '${modelId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
       );
     }
     return spec;
@@ -254,7 +254,7 @@ export class SpecificationsController {
     );
     if (!spec) {
       throw new NotFoundException(
-        `Specification with id ${simulationId} at location ${experimentLocation} for simulation ${runId} not found`,
+        `Specifications could not be found for simulation '${simulationId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
       );
     }
     return spec;
@@ -314,7 +314,7 @@ export class SpecificationsController {
     );
     if (!spec) {
       throw new NotFoundException(
-        `Specification with id ${taskId} at location ${experimentLocation} for simulation ${runId} not found`,
+        `Specifications could not be found for task '${taskId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
       );
     }
     return spec;
@@ -374,7 +374,7 @@ export class SpecificationsController {
     );
     if (!spec) {
       throw new NotFoundException(
-        `Specification with id ${dataGeneratorId} at location ${experimentLocation} for simulation ${runId} not found`,
+        `Specifications could not be found for data generator '${dataGeneratorId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
       );
     }
     return spec;
@@ -434,7 +434,7 @@ export class SpecificationsController {
     );
     if (!spec) {
       throw new NotFoundException(
-        `Specification with id ${outputId} at location ${experimentLocation} for simulation ${runId} not found`,
+        `Specifications could not be found for output '${outputId}' at location '${experimentLocation}' for simulation run '${runId}'.`,
       );
     }
     return spec;

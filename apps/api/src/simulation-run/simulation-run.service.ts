@@ -204,7 +204,7 @@ export class SimulationRunService {
       .exec();
     if (project) {
       throw new BadRequestException(
-        `Run '${id}' cannot be deleted because it has been published as project '${project.id}'.`,
+        `Simulation run '${id}' cannot be deleted because it has been published as project '${project.id}'.`,
       );
     }
 
