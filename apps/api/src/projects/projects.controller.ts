@@ -94,7 +94,7 @@ export class ProjectsController {
     if (proj) {
       return this.returnProject(proj);
     }
-    throw new NotFoundException(`Project with id ${projectId} not found`);
+    throw new NotFoundException(`Project with id ${projectId} not found.`);
   }
 
   @ApiOperation({
@@ -210,7 +210,7 @@ export class ProjectsController {
     if (proj) {
       return this.returnProject(proj);
     }
-    throw new NotFoundException(`Project with id ${projectId} not found`);
+    throw new NotFoundException(`Project with id ${projectId} not found.`);
   }
 
   // @Delete()

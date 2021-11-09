@@ -49,7 +49,7 @@ export class MetadataService {
     const combineMetadata: BioSimulationsCombineArchiveElementMetadata[] =
       res.data;
 
-    this.logger.log(`Extracted metadata for ${id}`);
+    this.logger.log(`Extracted metadata for simulation run '${id}'.`);
     //this.logger.error(JSON.stringify(combineMetadata))
 
     const metadata: ArchiveMetadata[] = combineMetadata
@@ -63,7 +63,7 @@ export class MetadataService {
         },
       )
       .map(this.convertMetadata, this);
-    this.logger.log(`Converted metadata for ${id}`);
+    this.logger.log(`Converted metadata for simulation run '${id}'.`);
     const postMetadata: SimulationRunMetadataInput = {
       id: id,
       metadata,
@@ -73,10 +73,10 @@ export class MetadataService {
 
     const metadataPostObserver = {
       next: (res: SimulationRunMetadata) => {
-        this.logger.log(`Posted metadata for ${id}`);
+        this.logger.log(`Posted metadata for simulation run '${id}'.`);
       },
       error: (err: AxiosError) => {
-        this.logger.error(`Failed to post metadata for ${id}`);
+        this.logger.error(`Failed to post metadata for simulation run '${id}'.`);
         this.logger.error(err?.response?.data);
         // Its important to throw this error so that the calling service is aware posting metadata failed
         throw err;

@@ -33,7 +33,7 @@ export class FileService {
   }
 
   public async processFiles(id: string): Promise<void> {
-    this.logger.log(`Processing files for ${id}`);
+    this.logger.log(`Processing files for simulation run '${id}'.`);
     const url = this.endpoints.getRunDownloadEndpoint(id, true);
 
     const files: Observable<ProjectFile[]> = this.combine

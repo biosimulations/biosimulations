@@ -88,7 +88,7 @@ export class SimulatorsService {
 
     if (!sim) {
       throw new NotFoundException(
-        `No simulation tool has id '${id}' and version '${version}'`,
+        `No simulation tool has id '${id}' and version '${version}'.`,
       );
     }
     // Preserve the original date
@@ -105,7 +105,7 @@ export class SimulatorsService {
 
     if (!sim) {
       throw new NotFoundException(
-        `No simulation tool has id '${id}' and version '${version}'`,
+        `No simulation tool has id '${id}' and version '${version}'.`,
       );
     }
     const res: DeleteResult = await this.simulator
@@ -124,7 +124,7 @@ export class SimulatorsService {
   public async deleteMany(id: string): Promise<void> {
     let numVersions = await this.simulator.count({ id }).exec();
     if (numVersions === 0) {
-      throw new NotFoundException(`No simulation tool has id '${id}'`);
+      throw new NotFoundException(`No simulation tool has id '${id}'.`);
     }
 
     const res = await this.simulator.deleteMany({ id: id }).exec();

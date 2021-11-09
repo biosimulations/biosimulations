@@ -67,13 +67,13 @@ export class ResultsService {
         return file.Body;
       } else {
         throw new NotFoundException(
-          `Results could not be found for run '${runId}'.`,
+          `Results could not be found for simulation run '${runId}'.`,
         );
       }
     } catch (error) {
       if (error.statusCode === HttpStatus.NOT_FOUND) {
         throw new NotFoundException(
-          `Results could not be found for run '${runId}'.`,
+          `Results could not be found for simulation run '${runId}'.`,
         );
       } else {
         throw error;
