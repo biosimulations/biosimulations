@@ -5,6 +5,7 @@ export default registerAs('data', () => {
     username: process.env.HSDS_USERNAME,
     password: process.env.HSDS_PASSWORD,
     basePath: process.env.HSDS_BASEPATH,
+    externalBasePath: process.env.HSDS_EXTERNAL_BASEPATH,
     withCredentials: true,
   };
   return config;
