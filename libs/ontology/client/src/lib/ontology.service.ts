@@ -137,6 +137,10 @@ export class OntologyService {
   }
 
   public getKisaoTerm(id: string): Observable<KisaoTerm> {
+    if (typeof id !== 'string') {
+      throw new Error(`'id' must be a string, not '${id}'.`);
+    }
+
     id = id.toUpperCase();
     if (!id.startsWith('KISAO')) {
       id = 'KISAO_' + id;
@@ -150,6 +154,10 @@ export class OntologyService {
   }
 
   public getSboTerm(id: string): Observable<SboTerm> {
+    if (typeof id !== 'string') {
+      throw new Error(`'id' must be a string, not '${id}'.`);
+    }
+
     id = id.toUpperCase();
     if (!id.startsWith('SBO')) {
       id = 'SBO_' + id;
@@ -163,6 +171,10 @@ export class OntologyService {
   }
 
   public getSioTerm(id: string): Observable<SioTerm> {
+    if (typeof id !== 'string') {
+      throw new Error(`'id' must be a string, not '${id}'.`);
+    }
+
     id = id.toUpperCase();
     if (!id.startsWith('SIO')) {
       id = 'SIO_' + id;
