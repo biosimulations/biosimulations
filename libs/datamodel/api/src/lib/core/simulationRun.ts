@@ -129,7 +129,7 @@ export class SimulationRun implements ISimulationRun {
   @ApiProperty({
     description: 'Version of the simulation tool to execute the simulation',
     type: String,
-    example: '2.2.0',
+    example: '2.2.1',
   })
   @IsNotEmpty()
   @IsString()

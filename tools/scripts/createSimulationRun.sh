@@ -6,7 +6,7 @@
   -d '{
   "name": "Kockout of gene A",
   "simulator": "tellurium",
-  "simulatorVersion": "2.2.0",
+  "simulatorVersion": "2.2.1",
   "cpus": 1,
   "memory": 8,
   "maxTime": 20,

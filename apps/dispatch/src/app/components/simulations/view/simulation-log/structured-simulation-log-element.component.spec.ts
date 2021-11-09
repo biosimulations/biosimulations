@@ -6,6 +6,7 @@ import { ScrollService } from '@biosimulations/shared/angular';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ConfigService } from '@biosimulations/config/angular';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 describe('StructuredSimulationLogElementComponent', () => {
   let component: StructuredSimulationLogElementComponent;
@@ -19,8 +20,18 @@ describe('StructuredSimulationLogElementComponent', () => {
         SharedUiModule,
         BiosimulationsIconsModule,
         RouterTestingModule,
+        HighlightModule,
       ],
-      providers: [ScrollService, ConfigService],
+      providers: [
+        ScrollService,
+        ConfigService,
+        {
+          provide: HIGHLIGHT_OPTIONS,
+          useValue: {
+            fullLibraryLoader: () => import('highlight.js'),
+          },
+        },
+      ],
     }).compileComponents();
   }));
 

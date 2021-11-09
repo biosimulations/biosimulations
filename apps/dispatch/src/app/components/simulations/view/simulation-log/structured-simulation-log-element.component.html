@@ -43,7 +43,7 @@
     <ul class="vertically-spaced key-value">
       <li *ngFor="let detail of formattedSimulatorDetails">
         <p class="key">{{ detail.key }}</p>
-        <pre><code>{{ detail.value }}</code></pre>
+        <pre><code [languages]="['json']" [highlight]="detail.value"></code></pre>
       </li>
     </ul>
   </ng-container>

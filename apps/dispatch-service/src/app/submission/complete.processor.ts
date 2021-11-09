@@ -45,29 +45,44 @@ export class CompleteProcessor {
 
     const processingSteps = [
       {
-        name: 'The files of the COMBINE archive',
+        name: 'COMBINE archive',
         result: this.fileService.processFiles(id),
         required: true,
+        moreInfo: 'https://combinearchive.org',
+        validator: 'https://run.biosimulations.org/utils/validate-project',
+        plural: false,
       },
       {
-        name: 'The specifications of the simulation (SED-ML documents)',
+        name: 'simulation experiments (SED-ML documents)',
         result: this.sedmlService.processSedml(id),
         required: true,
+        moreInfo: 'https://biosimulators.org/conventions/simulation-experiments',
+        validator: 'https://run.biosimulations.org/utils/validate-simulation',
+        plural: true,
       },
       {
-        name: 'The size of the simulation results',
+        name: 'simulation results',
         result: this.archiverService.updateResultsSize(id),
         required: true,
+        moreInfo: 'https://biosimulators.org/conventions/simulation-reports',
+        validator: undefined,
+        plural: true,
       },
       {
-        name: 'The log of the simulation',
+        name: 'log of the simulation run',
         result: this.logService.createLog(id, false, '', false),
         required: true,
+        moreInfo: 'https://biosimulators.org/conventions/simulation-logs',
+        validator: 'https://api.biosimulations.org',
+        plural: false,
       },
       {
-        name: 'The metadata for the COMBINE archive',
+        name: 'metadata for the COMBINE archive',
         result: this.metadataService.createMetadata(id),
         required: false,
+        moreInfo: 'https://biosimulators.org/conventions/metadata',
+        validator: 'https://run.biosimulations.org/utils/validate-metadata',
+        plural: false,
       },
     ];
 
@@ -79,19 +94,31 @@ export class CompleteProcessor {
     // Keep track of which processing step(s) failed
     const errors: string[] = [];
     const warnings: string[] = [];
+    const errorsDetails: string[] = [];
+    const warningsDetails: string[] = [];
 
     for (let iStep = 0; iStep < processingSteps.length; iStep++) {
       const processingStep = processingSteps[iStep];
       const processingResult = processingResults[iStep];
 
       if (processingResult.status == 'rejected') {
-        const reason = `${processingStep.name} could not be saved: ${processingResult.reason}`;
+        let reason = '';
+        reason += `The ${processingStep.name} could not be saved.`;
+        reason += ` Please check that the ${processingStep.name} ${processingStep.plural ? 'are' : 'is'} valid.`;
+        reason += `\n    More information is available at ${processingStep.moreInfo}.`;
+        if (processingStep.validator) {
+          reason += ` A validation tool is\n    available at ${processingStep.validator}.`;
+        }
+
+        const details = `The ${processingStep.name} could not be saved: ${processingResult.reason}`;
         if (processingStep.required) {
           errors.push(reason);
-          this.logger.error(reason);
+          errorsDetails.push(details);
+          this.logger.error(details);
         } else {
           warnings.push(reason);
-          this.logger.warn(reason);
+          warningsDetails.push(details);
+          this.logger.warn(details);
         }
       }
     }
@@ -111,13 +138,16 @@ export class CompleteProcessor {
       status = SimulationRunStatus.FAILED;
       statusReason = 'The simulation run was not successfully proccessed.';
       statusReason += '\n\nErrors:\n  * ' + errors.join('\n  * ');
-      updateStatusMessage = `Updated status of simulation run '${id}' to ${status} due to one or more processing errors:\n  * ${errors.join(
+      updateStatusMessage = `Updated status of simulation run '${id}' to ${status} due to one or more processing errors:\n  * ${errorsDetails.join(
         '\n  * ',
       )}`;
     }
 
     if (warnings.length) {
       statusReason += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
+      updateStatusMessage += `\n\nThe processing of simulation run '${id}' raised one or more warnings:\n  * ${warningsDetails.join(
+        '\n  * ',
+      )}`;
     }
 
     /* append post-processing status reason to log */
@@ -148,7 +178,7 @@ export class CompleteProcessor {
       `\n${cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${noColor}`;
     this.logService
       .createLog(id, true, extraStdLog, logPostSucceeded)
-      .then((run) =>
+      .catch((run) =>
         this.logger.error(
           `Log for simulation run '${id}' could not be updated`,
         ),
@@ -201,7 +231,7 @@ export class CompleteProcessor {
               )
               .catch((err) =>
                 this.logger.log(
-                  `Project ${projectId} could not be created with simulation ${id}`,
+                  `Project ${projectId} could not be created with simulation run '${id}'.`,
                 ),
               );
           } else {
