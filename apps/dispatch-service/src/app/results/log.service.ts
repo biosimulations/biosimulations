@@ -36,7 +36,7 @@ export class LogService {
               throw error;
             }
           });
-      })      
+      })
   }
 
   private async makeLog(
