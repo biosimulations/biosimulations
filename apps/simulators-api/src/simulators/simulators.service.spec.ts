@@ -17,11 +17,12 @@ describe('SimulatorsService', () => {
     }
     static find(filter: any, projection: any, data: any) {}
   }
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SimulatorsService,
-        { provide: 'SimulatorModel', useValue: {} },
+        { provide: 'SimulatorModel', useValue: MockSimulatorModel },
       ],
     }).compile();
 
