@@ -2,6 +2,7 @@
 ### base ###
 #############
 FROM python:3.10-buster as base
+ARGS PYTHON_VERSION=3.10
 
 WORKDIR /app
 
@@ -125,8 +126,8 @@ RUN apt-get install --no-install-recommends -y \
         -D WITH_PYTHON=ON \
         -D PYTHON_PREFIX=${PY_PREFIX} \
         -D PYTHON_EXECUTABLE:FILEPATH=${PY_EXEC_PATH} \
-        -D PYTHON_INCLUDE_DIR:PATH=/usr/local/include/python3.9 \
-        -D PYTHON_LIBRARY:FILEPATH=/usr/local/lib/libpython3.9.so \
+        -D PYTHON_INCLUDE_DIR:PATH=/usr/local/include/python${PYTHON_VERSION} \
+        -D PYTHON_LIBRARY:FILEPATH=/usr/local/lib/libpython${PYTHON_VERSION}.so \
         .. \
     \
     && make \
@@ -324,7 +325,7 @@ COPY vendor/ /app/vendor/
 RUN python -m compileall /app/src/ \
     && PY_EXEC_PATH=$(which python) \
     && PY_PREFIX=$(echo ${PY_EXEC_PATH} | rev | cut -d "/" -f 3- | rev) \
-    && python -m compileall ${PY_PREFIX}/lib/python3.9/site-packages \
+    && python -m compileall ${PY_PREFIX}/lib/python${PYTHON_VERSION}/site-packages \
     || exit 0
  
 LABEL \
