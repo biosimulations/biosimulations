@@ -30,8 +30,8 @@ const RetryBackoff = retryBackoff({
   maxRetries: MAX_RETRIES,
   resetOnSuccess: true,
 });
-Injectable();
 
+Injectable();
 export class SimulationHDFService {
   private endpoints: Endpoints;
   private auth: string;
