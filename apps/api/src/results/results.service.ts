@@ -53,9 +53,8 @@ export class ResultsService {
     datasetId: string,
   ): Promise<undefined | (string[] | number[] | boolean[])[]> {
     // The index field will be needed when we are doing slicing of the data so this will need to change
-    // TODO update the HSDS client to use the correct name "value" not "values"
-    return ((await this.results.getDatasetValues(runId, datasetId)) as any)
-      ?.value;
+
+    return (await this.results.getDatasetValues(runId, datasetId))?.value;
   }
 
   public async download(runId: string): Promise<S3.Body> {
