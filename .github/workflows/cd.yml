@@ -215,6 +215,8 @@ jobs:
     needs: [buildPushDockerImages, buildProdFrontEnds,triggerDevDeployment]
     environment: prod_environment
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2.4.0
       - name: Call Webhook
         env:
           GHCR_USERNAME: "${{ secrets.GHCR_USERNAME }}"
