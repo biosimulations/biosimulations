@@ -1,7 +1,7 @@
 #############
 ### base ###
 #############
-FROM python:3.9-buster as base
+FROM python:3.10-buster as base
 
 WORKDIR /app
 
