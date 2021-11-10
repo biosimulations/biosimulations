@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        domain: ["dev", "org"]
+        deployment: ["dev", "prod"]
     name: Check example simulation runs succeeded
     runs-on: ubuntu-latest
     steps:
@@ -31,12 +31,12 @@ jobs:
         name: Check example simulation runs succeeded
         run: |
           set +e
-          domainOutput=$(python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-api ${{matrix.domain}} 2>&1)
+          deploymentOutput=$(python ${GITHUB_WORKSPACE}/tools/check-example-simulation-runs-succeeded --runbiosimulations-deployment ${{matrix.deployment}} 2>&1)
           status=$?
-          echo "$domainOutput"
+          echo "$deploymentOutput"
 
-          echo "domainOutput<<EOF" >> $GITHUB_ENV
-          echo "$domainOutput" >> $GITHUB_ENV
+          echo "deploymentOutput<<EOF" >> $GITHUB_ENV
+          echo "$deploymentOutput" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
           exit $status
@@ -45,7 +45,7 @@ jobs:
         uses: JasonEtco/create-an-issue@v2
         if: failure()
         env:
-          OUTPUT: ${{ env.domainOutput }}
+          OUTPUT: ${{ env.deploymentOutput }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 
           update_existing: true

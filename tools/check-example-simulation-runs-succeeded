@@ -14,12 +14,12 @@ EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  'simulations', 'browse', 'example-simulations.{}.json')
 
 
-def get_validate_endpoint(biosimulations_api, run_id, validate_simulation_results_data=True):
+def get_validate_endpoint(biosimulations_deployment, run_id, validate_simulation_results_data=True):
     """ Get the endpoint for checking the status of a simulation run
 
     Args:
-        biosimulations_api (:obj:`str`): API to use to check the status of each run
-            (``dev``, ``org``, or ``local``)
+        biosimulations_deployment (:obj:`str`): deployment to use to check the status of each run
+            (``dev``, ``prod``, or ``local``)
         run_id (:obj:`str`): id of the simulation run
         validate_simulation_results_data (:obj:`bool`, optional): whether to validate
             the data of the simulation results
@@ -27,10 +27,12 @@ def get_validate_endpoint(biosimulations_api, run_id, validate_simulation_result
     Returns:
         :obj:`str`: endpoint for checking the status of each simulation run
     """
-    if biosimulations_api == 'local':
+    if biosimulations_deployment == 'local':
         endpoint = 'http://localhost:3333'
+    elif biosimulations_deployment == 'dev':
+        endpoint = 'https://api.biosimulations.dev'
     else:
-        endpoint = 'https://api.biosimulations.{}'.format(biosimulations_api)
+        endpoint = 'https://api.biosimulations.org'
 
     endpoint += '/runs/{}/validate'.format(run_id)
 
@@ -40,29 +42,31 @@ def get_validate_endpoint(biosimulations_api, run_id, validate_simulation_result
     return endpoint
 
 
-def get_run_url(biosimulations_api, id):
+def get_run_url(biosimulations_deployment, id):
     """ Get the URL for a simulation run
 
     Args:
-        biosimulations_api (:obj:`str`): API to use to check the status of each run
-            (``dev``, ``org``, or ``local``)
+        biosimulations_deployment (:obj:`str`): deployment to use to check the status of each run
+            (``dev``, ``prod``, or ``local``)
 
     Returns:
         :obj:`str`: URL for a simulation run
     """
-    if biosimulations_api == 'local':
+    if biosimulations_deployment == 'local':
         return 'http://localhost:3333/simulations/{}'.format(id)
+    elif biosimulations_deployment == 'dev':
+        return 'https://biosimulations.dev/simulations/{}'.format(id)
+    else:
+        return 'https://biosimulations.org/simulations/{}'.format(id)
 
-    return 'https://biosimulations.{}/simulations/{}'.format(biosimulations_api, id)
 
-
-def get_failed_runs(examples_api, biosimulations_api, validate_simulation_results_data=True):
+def get_failed_runs(examples_deployment, biosimulations_deployment, validate_simulation_results_data=True):
     """ Get a list of any example simulation runs that didn't succeed
 
     Args:
-        examples_api (:obj:`str`): example set to test (``dev`` or ``org``)
-        biosimulations_api (:obj:`str`): API to use to check the status of each run
-            (``dev``, ``org``, or ``local``)
+        examples_deployment (:obj:`str`): example set to test (``dev`` or ``prod``)
+        biosimulations_deployment (:obj:`str`): deployment to use to check the status of each run
+            (``dev``, ``prod``, or ``local``)
         validate_simulation_results_data (:obj:`bool`, optional): whether to validate
             the data of the simulation results
 
@@ -71,7 +75,7 @@ def get_failed_runs(examples_api, biosimulations_api, validate_simulation_result
     """
 
     # get name of file with runs
-    filename = EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(examples_api)
+    filename = EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(examples_deployment)
 
     # read simulation runs
     with open(filename, 'r') as file:
@@ -80,7 +84,7 @@ def get_failed_runs(examples_api, biosimulations_api, validate_simulation_result
     # check the status of each run
     failures = []
     for run in runs:
-        validate_endpoint = get_validate_endpoint(biosimulations_api, run['id'])
+        validate_endpoint = get_validate_endpoint(biosimulations_deployment, run['id'])
         response = requests.get(validate_endpoint)
         try:
             response.raise_for_status()
@@ -91,7 +95,7 @@ def get_failed_runs(examples_api, biosimulations_api, validate_simulation_result
                 error = 'Valiation failed'
 
             failures.append('<details><summary><b>{} (<a href="{}" target="_blank">{}</a>)</b></summary><br/>\n{}\n</details>'.format(
-                run['name'], get_run_url(biosimulations_api, run['id']), run['id'], error,
+                run['name'], get_run_url(biosimulations_deployment, run['id']), run['id'], error,
             ))
 
     # return list of failed runs
@@ -103,17 +107,17 @@ if __name__ == '__main__':
         description='Check that all of the example simulation runs succeeded.'
     )
     parser.add_argument(
-        '--runbiosimulations-api',
+        '--runbiosimulations-deployment',
         type=str,
         default='dev',
-        help='BioSimulations API which for projects should be checked (`dev`, `org`, `local`). Default: `dev`.'
+        help='BioSimulations deployment which for projects should be checked (`dev`, `prod`, `local`). Default: `dev`.'
     )
     args = parser.parse_args()
 
-    examples_api = args.runbiosimulations_api
-    if examples_api == 'local':
-        examples_api = 'dev'
-    failures = get_failed_runs(examples_api, args.runbiosimulations_api)
+    examples_deployment = args.runbiosimulations_deployment
+    if examples_deployment == 'local':
+        examples_deployment = 'dev'
+    failures = get_failed_runs(examples_deployment, args.runbiosimulations_deployment)
 
     if failures:
         msg = 'The following {} example simulation runs did not succeed:\n\n{}'.format(len(failures), '\n\n'.join(failures))
