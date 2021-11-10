@@ -6,13 +6,9 @@
  */
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
-import {
-  HSDSClientModule,
-  SimulationHDFService,
-} from '@biosimulations/hsds/client';
+import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { SharedStorageService } from '@biosimulations/shared/storage';
 import { CacheModule } from '@nestjs/common';
-import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsController } from './results.controller';
 import { ResultsService } from './results.service';
