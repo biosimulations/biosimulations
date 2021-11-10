@@ -598,12 +598,12 @@ export class Endpoints {
 
   public getSimulationRunsView(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
-    return `${this.dispatchApp}/simulations{id}`;
+    return `${this.dispatchApp}/simulations${id}`;
   }
 
   public getProjectsView(id?: string): string {
     id ? (id = `/${id}`) : (id = '');
-    return `${this.platformApp}/projects{id}`;
+    return `${this.platformApp}/projects${id}`;
   }
 
   public getSimulatorIdentifier(id: string, identifiersOrg = false): string {
@@ -632,6 +632,6 @@ export class Endpoints {
 
   public getConventionsView(page?: string): string {
     page ? (page = `/${page}`) : (page = '');
-    return `${this.simulatorsApp}/conventions{page}`;
+    return `${this.simulatorsApp}/conventions${page}`;
   }
 }
