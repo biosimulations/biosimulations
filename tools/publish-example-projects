@@ -1,28 +1,34 @@
 #!/usr/bin/env python3
 
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 import argparse
+import dotenv
 import json
 import os
 import requests
 import requests.exceptions
-import dotenv
 
-dotenv.load_dotenv('config/config.env')
+config = {
+    **dotenv.dotenv_values("secret/secret.env"),
+    **dotenv.dotenv_values("config/config.env"),
+}
+
 EXAMPLE_SIMULATIONS_FILENAME = os.path.join(os.path.dirname(__file__), 'example-projects.json')
 
 EXAMPLE_SIMULATIONS_RUNS_FILENAME = os.path.join(os.path.dirname(__file__),
                                                  '..', 'apps', 'dispatch', 'src', 'app', 'components',
                                                  'simulations', 'browse', 'example-simulations.{}.json')
 
-BIOSIMULATIONS_API_AUTH_ENDPOINT = 'https://auth.biosimulations.org/oauth/token'
-BIOSIMULATIONS_API_AUDIENCE = 'dispatch.biosimulations.org'
-BIOSIMULATIONS_API_CLIENT_ID = os.environ.get('CLIENT_ID', None)
-BIOSIMULATIONS_API_CLIENT_SECRET = os.environ.get('CLIENT_SECRET', None)
+BIOSIMULATIONS_API_AUTH_ENDPOINT = config.get('AUTH0_DOMAIN') + 'oauth/token'
+BIOSIMULATIONS_API_AUDIENCE = config.get('RUNBIOSIMULATIONS_EXAMPLES_API_AUDIENCE')
+BIOSIMULATIONS_API_CLIENT_ID = config.get('RUNBIOSIMULATIONS_EXAMPLES_CLIENT_ID', None)
+BIOSIMULATIONS_API_CLIENT_SECRET = config.get('RUNBIOSIMULATIONS_EXAMPLES_CLIENT_SECRET', None)
 
 if not BIOSIMULATIONS_API_CLIENT_ID:
-    raise ValueError('A BioSimulations API client id (`CLIENT_ID`) must be provided')
+    raise ValueError('A BioSimulations API client id (`RUNBIOSIMULATIONS_EXAMPLES_CLIENT_ID`) must be provided')
 if not BIOSIMULATIONS_API_CLIENT_SECRET:
-    raise ValueError('A BioSimulations API client secret (`CLIENT_SECRET`) must be provided')
+    raise ValueError('A BioSimulations API client secret (`RUNBIOSIMULATIONS_EXAMPLES_CLIENT_SECRET`) must be provided')
 
 
 def get_status_endpoint(biosimulations_api):
@@ -99,9 +105,14 @@ def main(biosimulations_api, example_names, dry_run=False):
     # read examples
     with open(EXAMPLE_SIMULATIONS_FILENAME, 'r') as file:
         examples = json.load(file)
+    examples.sort(key=lambda example: example['name'])
     num_total_examples = len(examples)
 
     # filter out examples that shouldn't be published
+    examples_not_publish = list(filter(
+        lambda example:
+        not example['publishToBioSimulations'],
+        examples))
     examples = list(filter(
         lambda example:
         example['publishToBioSimulations'],
@@ -123,38 +134,53 @@ def main(biosimulations_api, example_names, dry_run=False):
         runs = {run['name']: run for run in json.load(file)}
 
     # filter out examples that don't have runs
+    examples_no_runs = list(filter(
+        lambda example:
+        example['name'] not in runs,
+        examples))
     examples = list(filter(
         lambda example:
         example['name'] in runs,
         examples))
 
     # filter out examples whose runs didn't succeed
+    examples_failed_runs = list(filter(
+        lambda example:
+        not did_run_succeed(biosimulations_api, runs[example['name']]['id']),
+        examples))
     examples = list(filter(
         lambda example:
         did_run_succeed(biosimulations_api, runs[example['name']]['id']),
         examples))
 
     # publish examples
+    requests_session = requests.Session()
+    retries = Retry(total=5,
+                    backoff_factor=5,
+                    status_forcelist=[400, 408, 429, 500, 502, 503, 504])
+    requests_session.mount(get_publish_endpoint(biosimulations_api).rpartition('/')[0], HTTPAdapter(max_retries=retries))
+
     auth_headers = get_auth_headers_for_biosimulations_api()
     created = []
     updated = []
+    failures = []
     for example in examples:
         run = runs[example['name']]
 
         if not example['bioSimulationsId']:
             raise ValueError('{} must provide a BioSimulations id'.format(example['name']))
 
-        response = requests.get(get_publish_endpoint(biosimulations_api) + '/' + example['bioSimulationsId'])
+        response = requests_session.get(get_publish_endpoint(biosimulations_api) + '/' + example['bioSimulationsId'])
         try:
             response.raise_for_status()
             if run['id'] == response.json()['simulationRun']:
                 continue
 
-            method = requests.put
+            method = requests_session.put
             endpoint = get_publish_endpoint(biosimulations_api) + '/' + example['bioSimulationsId']
             updated.append(example['name'])
         except requests.exceptions.RequestException:
-            method = requests.post
+            method = requests_session.post
             endpoint = get_publish_endpoint(biosimulations_api)
             created.append(example['name'])
 
@@ -166,12 +192,38 @@ def main(biosimulations_api, example_names, dry_run=False):
                     "id": example['bioSimulationsId'],
                     "simulationRun": run['id'],
                 })
-            response.raise_for_status()
+            try:
+                response.raise_for_status()
+            except requests.exceptions.HTTPError as exception:
+                failures.append(example['name'] + ': ' + str(exception))
 
-    print('{} examples were created{}'.format(len(created), ''.join('\n  ' + example for example in created)))
-    print('{} examples were updated{}'.format(len(updated), ''.join('\n  ' + example for example in updated)))
-    print('{} examples were already published'.format(len(examples) - (len(created) + len(updated))))
-    print('{} examples were skipped'.format(num_total_examples - len(examples)))
+    print('{} examples were created{}'.format(
+        len(created),
+        ''.join('\n  ' + example for example in created)))
+    print('{} examples were updated{}'.format(
+        len(updated),
+        ''.join('\n  ' + example for example in updated)))
+    print('{} examples were already published'.format(
+        len(examples) - (len(created) + len(updated))))
+    print('{} examples were could not be published{}'.format(
+        len(failures),
+        ''.join('\n  ' + example for example in failures)))
+    print('{} examples had were skipped because they are not marked for publication{}'.format(
+        len(examples_not_publish),
+        ''.join('\n  ' + example['name'] for example in examples_not_publish)))
+    print('{} examples had no runs{}'.format(
+        len(examples_no_runs),
+        ''.join('\n  ' + example['name'] for example in examples_no_runs)))
+    print('{} examples had failed runs{}'.format(
+        len(examples_failed_runs),
+        ''.join('\n  ' + example['name'] for example in examples_failed_runs)))
+    print('{} examples were skipped'.format(
+        num_total_examples
+        - len(examples)
+        - len(examples_not_publish)
+        - len(examples_no_runs)
+        - len(examples_failed_runs)
+    ))
 
 
 if __name__ == '__main__':
