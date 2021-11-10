@@ -32,22 +32,6 @@
     "projectSize": 316955
   },
   {
-    "id": "618c129e6566ddf70d91df68",
-    "name": "Circadian clock (Vilar et al., PNAS, 2002; SBML; NRM; VCell)",
-    "simulator": "vcell",
-    "simulatorVersion": "7.4.0.26",
-    "cpus": 1,
-    "memory": 8,
-    "maxTime": 20,
-    "envVars": [],
-    "purpose": "academic",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-11-10T18:42:39.097Z",
-    "updated": "2021-11-10T18:42:39.097Z",
-    "projectSize": 867544
-  },
-  {
     "id": "618c129fc60ec10bd2621e2e",
     "name": "EGF and TNF\u03b1 signaling (Chaouiya et al., BMC Syst Biol, 2013; SBML-qual; synchronous updating; BoolNet)",
     "simulator": "boolnet",
@@ -224,22 +208,6 @@
     "projectSize": 398835
   },
   {
-    "id": "618c12bb6566ddf70d91dfb0",
-    "name": "Iron distribution (Parmar et al., BMC Syst Biol, 2017; SBML; CVODE; VCell)",
-    "simulator": "vcell",
-    "simulatorVersion": "7.4.0.26",
-    "cpus": 1,
-    "memory": 8,
-    "maxTime": 20,
-    "envVars": [],
-    "purpose": "academic",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-11-10T18:43:09.760Z",
-    "updated": "2021-11-10T18:43:09.760Z",
-    "projectSize": 398835
-  },
-  {
     "id": "618c12c06566ddf70d91dfc9",
     "name": "Lorenz system (Garny; CellML; CVODE; OpenCOR)",
     "simulator": "opencor",
@@ -301,22 +269,6 @@
     "status": "CREATED",
     "submitted": "2021-11-10T18:43:21.148Z",
     "updated": "2021-11-10T18:43:21.148Z",
-    "projectSize": 339796
-  },
-  {
-    "id": "618c12c787aaad5774d9b904",
-    "name": "Morphogenesis checkpoint (Ciliberto et al., J Cell Biol, 2003; SBML; CVODE; VCell)",
-    "simulator": "vcell",
-    "simulatorVersion": "7.4.0.26",
-    "cpus": 1,
-    "memory": 8,
-    "maxTime": 20,
-    "envVars": [],
-    "purpose": "academic",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-11-10T18:43:19.902Z",
-    "updated": "2021-11-10T18:43:19.902Z",
     "projectSize": 339796
   },
   {
@@ -464,22 +416,6 @@
     "projectSize": 216853
   },
   {
-    "id": "618c12dc6566ddf70d91e04b",
-    "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODE; VCell)",
-    "simulator": "vcell",
-    "simulatorVersion": "7.4.0.26",
-    "cpus": 1,
-    "memory": 8,
-    "maxTime": 20,
-    "envVars": [],
-    "purpose": "academic",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-11-10T18:43:41.264Z",
-    "updated": "2021-11-10T18:43:41.264Z",
-    "projectSize": 216853
-  },
-  {
     "id": "618c12dd6566ddf70d91e052",
     "name": "Repressilator (Elowitz & Leibler, Nature, 2000; SBML; CVODES; AMICI)",
     "simulator": "amici",
@@ -573,22 +509,6 @@
     "status": "CREATED",
     "submitted": "2021-11-10T18:43:52.096Z",
     "updated": "2021-11-10T18:43:52.096Z",
-    "projectSize": 376328
-  },
-  {
-    "id": "618c12e5c60ec10bd2621f64",
-    "name": "Tumor-suppressive oscillations (Caravagna et al., J Theor Biol, 2010; SBML; CVODE; VCell)",
-    "simulator": "vcell",
-    "simulatorVersion": "7.4.0.26",
-    "cpus": 1,
-    "memory": 8,
-    "maxTime": 20,
-    "envVars": [],
-    "purpose": "academic",
-    "submittedLocally": false,
-    "status": "CREATED",
-    "submitted": "2021-11-10T18:43:50.822Z",
-    "updated": "2021-11-10T18:43:50.822Z",
     "projectSize": 376328
   }
 ]
