@@ -501,7 +501,7 @@ export class DatasetService {
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    this.logger.log(`Queried results at ${this.basePath}`)
+    this.logger.log(`Queried results at ${this.basePath}`);
     return this.httpClient.get<InlineResponse2007>(
       `${this.basePath}/datasets/${encodeURIComponent(String(id))}`,
       {
