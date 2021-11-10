@@ -9,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { Endpoints } from '@biosimulations/config/common';
 import { AuthClientService } from '@biosimulations/auth/client';
 import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
-import { from, Observable } from 'rxjs';
+import { from, Observable, throwError } from 'rxjs';
 import {
   SimulationRunStatus,
   SimulationRunSedDocument,
@@ -24,6 +24,7 @@ import {
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { retryBackoff } from 'backoff-rxjs';
+import { AxiosError } from 'axios';
 @Injectable({})
 export class SimulationRunService {
   private endpoints: Endpoints;
@@ -182,7 +183,24 @@ export class SimulationRunService {
               Authorization: `Bearer ${token}`,
             },
           })
-          .pipe(RetryBackoff, pluck('data'));
+          .pipe(
+            catchError((err: AxiosError, caught) => {
+              if (err.isAxiosError) {
+                const status = err.response?.status;
+                const statusText = err.response?.statusText;
+                const message = err.response?.data?.message;
+                this.logger.error(
+                  `${status} ${statusText} ${message} for post operation on path ${url}`,
+                );
+              } else {
+                this.logger.error(err);
+              }
+
+              return throwError(() => err);
+            }),
+            RetryBackoff,
+            pluck('data'),
+          );
       }),
       mergeMap((value) => value),
     );
