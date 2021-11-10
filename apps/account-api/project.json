@@ -11,7 +11,9 @@
         "outputPath": "dist/apps/account-api",
         "main": "apps/account-api/src/main.ts",
         "tsConfig": "apps/account-api/tsconfig.app.json",
-        "assets": ["apps/account-api/src/assets"]
+        "assets": [
+          "apps/account-api/src/assets"
+        ]
       },
       "configurations": {
         "production": {
@@ -36,7 +38,9 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/account-api/**/*.ts"]
+        "lintFilePatterns": [
+          "apps/account-api/**/*.ts"
+        ]
       }
     },
     "test": {
@@ -45,8 +49,52 @@
         "jestConfig": "apps/account-api/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "docker": {
+      "builder": "@nx-tools/nx-docker:build",
+      "options": {
+        "file": "./Dockerfile",
+        "push": true,
+        "build-args": [
+          "app=account-api"
+        ],
+        "cache-from": [
+          "type=registry,ref=ghcr.io/biosimulations/account-api:buildcache"
+        ],
+        "cache-to": [
+          "type=registry,ref=ghcr.io/biosimulations/accouint-api:buildcache,mode=max"
+        ],
+        "metadata": {
+          "enabled": true,
+          "images": [
+            "ghcr.io/biosimulations/account-api"
+          ],
+          "labels": [
+            "org.opencontainers.image.title=BioSimulations Account API",
+            "org.opencontainers.image.description=Docker image for the BioSimulations Account API",
+            "org.opencontainers.image.url=https://biosimulations.org/",
+            "org.opencontainers.image.documentation=docs.biosimulations.org",
+            "org.opencontainers.image.source=https://github.com/biosimulations/Biosimulations",
+            "org.opencontainers.image.authors=BioSimulations Team <info@biosimulations.org>",
+            "org.opencontainers.image.vendor=BioSimulations",
+            "org.opencontainers.image.licenses=MIT"
+          ],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=sha"
+          ]
+        }
+      }
     }
   },
-  "tags": ["scope:account", "platform:server", "type:api"],
+  "tags": [
+    "scope:account",
+    "platform:server",
+    "type:api"
+  ],
   "implicitDependencies": []
 }
