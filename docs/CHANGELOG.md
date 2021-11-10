@@ -1,3 +1,10 @@
+## [6.0.2](https://github.com/biosimulations/biosimulations/compare/v6.0.1...v6.0.2) (2021-11-10)
+
+
+### Bug Fixes
+
+* **hsds:** update the hsds client ([419bfe9](https://github.com/biosimulations/biosimulations/commit/419bfe9a7ef4b81eea9400e2a4aa7587d734b4bf)), closes [#3317](https://github.com/biosimulations/biosimulations/issues/3317)
+
 ## [6.0.1](https://github.com/biosimulations/biosimulations/compare/v6.0.0...v6.0.1) (2021-11-10)
 
 
