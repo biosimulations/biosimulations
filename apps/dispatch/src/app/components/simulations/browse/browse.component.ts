@@ -14,7 +14,7 @@ import { ConfigService } from '@biosimulations/config/angular';
 import { Observable } from 'rxjs';
 import { environment } from '@biosimulations/shared/environments';
 import exampleSimulationsDevJson from './example-simulations.dev.json';
-import exampleSimulationsOrgJson from './example-simulations.org.json';
+import exampleSimulationsProdJson from './example-simulations.prod.json';
 import { debounceTime, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { snackBarDuration } from '@biosimulations/config/common';
@@ -833,7 +833,7 @@ export class BrowseComponent implements OnInit {
   loadExampleSimulations(): number {
     const exampleSimulationsJson =
       environment.env == 'prod'
-        ? exampleSimulationsOrgJson
+        ? exampleSimulationsProdJson
         : exampleSimulationsDevJson;
 
     const exampleSimulations =

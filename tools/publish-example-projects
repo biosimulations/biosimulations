@@ -31,52 +31,56 @@ if not BIOSIMULATIONS_API_CLIENT_SECRET:
     raise ValueError('A BioSimulations API client secret (`RUNBIOSIMULATIONS_EXAMPLES_CLIENT_SECRET`) must be provided')
 
 
-def get_status_endpoint(biosimulations_api):
+def get_status_endpoint(biosimulations_deployment):
     """ Get the endpoint for getting the status of runs
 
     Args:
-        biosimulations_api (:obj:`str`): which deployment of the BioSimulations API to use (``dev``, ``org``, or ``local``)
+        biosimulations_deployment (:obj:`str`): which deployment of the BioSimulations deployment to use (``dev``, ``prod``, or ``local``)
 
     Returns:
         :obj:`str`: endpoint for getting the status of runs
     """
-    if biosimulations_api == 'local':
+    if biosimulations_deployment == 'local':
         return 'http://localhost:3333/runs'
+    elif biosimulations_deployment == 'dev':
+        return 'https://api.biosimulations.dev/runs'
+    else:
+        return 'https://api.biosimulations.org/runs'
 
-    return 'https://api.biosimulations.{}/runs'.format(biosimulations_api)
 
-
-def get_publish_endpoint(biosimulations_api):
+def get_publish_endpoint(biosimulations_deployment):
     """ Get the endpoint for publishing projects
 
     Args:
-        biosimulations_api (:obj:`str`): which deployment of the BioSimulations API to use (``dev``, ``org``, or ``local``)
+        biosimulations_deployment (:obj:`str`): which deployment of the BioSimulations deployment to use (``dev``, ``prod``, or ``local``)
 
     Returns:
         :obj:`str`: endpoint for publishing projects
     """
-    if biosimulations_api == 'local':
+    if biosimulations_deployment == 'local':
         return 'http://localhost:3333/projects'
+    elif biosimulations_deployment == 'dev':
+        return 'https://api.biosimulations.dev/projects'
+    else:
+        return 'https://api.biosimulations.org/projects'
 
-    return 'https://api.biosimulations.{}/projects'.format(biosimulations_api)
 
-
-def did_run_succeed(biosimulations_api, id):
+def did_run_succeed(biosimulations_deployment, id):
     """ Check if a simulation run succeeded
 
     Args:
-        biosimulations_api (:obj:`str`): which deployment of the BioSimulations API to use (``dev``, ``org``, or ``local``)
+        biosimulations_deployment (:obj:`str`): which deployment of the BioSimulations deployment to use (``dev``, ``prod``, or ``local``)
         id (:obj:`str`): id of simulation run
 
     Returns:
         :obj:`bool`: whether the simulation run succeeded
     """
-    response = requests.get(get_status_endpoint(biosimulations_api) + '/' + id)
+    response = requests.get(get_status_endpoint(biosimulations_deployment) + '/' + id)
     response.raise_for_status()
     return response.json()['status'] == 'SUCCEEDED'
 
 
-def get_auth_headers_for_biosimulations_api():
+def get_auth_headers_for_biosimulations_deployment():
     """ Get authorization headers for using the BioSimulations REST API.
 
     Returns:
@@ -93,11 +97,11 @@ def get_auth_headers_for_biosimulations_api():
     return {'Authorization': response_data['token_type'] + ' ' + response_data['access_token']}
 
 
-def main(biosimulations_api, example_names, dry_run=False):
+def main(biosimulations_deployment, example_names, dry_run=False):
     """ Publish example project to BioSimulations
 
     Args:
-        biosimulations_api (:obj:`str`): which deployment of the BioSimulations API to use (``dev``, ``org``, or ``local``)
+        biosimulations_deployment (:obj:`str`): which deployment of the BioSimulations deployment to use (``dev``, ``prod``, or ``local``)
         example_names (:obj:`list` of :obj:`str`): names of examples to publish. Default: publish all examples.
         dry_run (:obj:`bool`, optional): If :obj:`True`, do not submit simulations to runBioSimulations
     """
@@ -130,7 +134,10 @@ def main(biosimulations_api, example_names, dry_run=False):
                 '\n  - '.join(sorted(missing_example_names))))
 
     # get runs
-    with open(EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(biosimulations_api), 'r') as file:
+    example_runs_filename = EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(
+        'dev' if biosimulations_deployment == 'local' else biosimulations_deployment
+    )
+    with open(, 'r') as file:
         runs = {run['name']: run for run in json.load(file)}
 
     # filter out examples that don't have runs
@@ -146,11 +153,11 @@ def main(biosimulations_api, example_names, dry_run=False):
     # filter out examples whose runs didn't succeed
     examples_failed_runs = list(filter(
         lambda example:
-        not did_run_succeed(biosimulations_api, runs[example['name']]['id']),
+        not did_run_succeed(biosimulations_deployment, runs[example['name']]['id']),
         examples))
     examples = list(filter(
         lambda example:
-        did_run_succeed(biosimulations_api, runs[example['name']]['id']),
+        did_run_succeed(biosimulations_deployment, runs[example['name']]['id']),
         examples))
 
     # publish examples
@@ -158,9 +165,9 @@ def main(biosimulations_api, example_names, dry_run=False):
     retries = Retry(total=5,
                     backoff_factor=5,
                     status_forcelist=[400, 408, 429, 500, 502, 503, 504])
-    requests_session.mount(get_publish_endpoint(biosimulations_api).rpartition('/')[0], HTTPAdapter(max_retries=retries))
+    requests_session.mount(get_publish_endpoint(biosimulations_deployment).rpartition('/')[0], HTTPAdapter(max_retries=retries))
 
-    auth_headers = get_auth_headers_for_biosimulations_api()
+    auth_headers = get_auth_headers_for_biosimulations_deployment()
     created = []
     updated = []
     failures = []
@@ -170,18 +177,18 @@ def main(biosimulations_api, example_names, dry_run=False):
         if not example['bioSimulationsId']:
             raise ValueError('{} must provide a BioSimulations id'.format(example['name']))
 
-        response = requests_session.get(get_publish_endpoint(biosimulations_api) + '/' + example['bioSimulationsId'])
+        response = requests_session.get(get_publish_endpoint(biosimulations_deployment) + '/' + example['bioSimulationsId'])
         try:
             response.raise_for_status()
             if run['id'] == response.json()['simulationRun']:
                 continue
 
             method = requests_session.put
-            endpoint = get_publish_endpoint(biosimulations_api) + '/' + example['bioSimulationsId']
+            endpoint = get_publish_endpoint(biosimulations_deployment) + '/' + example['bioSimulationsId']
             updated.append(example['name'])
         except requests.exceptions.RequestException:
             method = requests_session.post
-            endpoint = get_publish_endpoint(biosimulations_api)
+            endpoint = get_publish_endpoint(biosimulations_deployment)
             created.append(example['name'])
 
         if not dry_run:
@@ -231,8 +238,8 @@ if __name__ == '__main__':
         description='Publish the example simulation runs to BioSimulations.'
     )
     parser.add_argument(
-        '--biosimulations-api', type=str, default='dev',
-        help='BioSimulations API which projects should be published to (`dev`, `org`, `local`). Default: `dev`.'
+        '--biosimulations-deployment', type=str, default='dev',
+        help='BioSimulations deployment which projects should be published to (`dev`, `prod`, `local`). Default: `dev`.'
     )
     parser.add_argument(
         '--example', type=str, nargs='*',
@@ -248,6 +255,6 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    main(biosimulations_api=args.biosimulations_api,
+    main(biosimulations_deployment=args.biosimulations_deployment,
          example_names=args.example_names,
          dry_run=args.dry_run)

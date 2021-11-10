@@ -14,8 +14,6 @@ import tempfile
 import time
 import webbrowser
 
-GET_SIMULATORS_ENDPOINT = 'https://api.biosimulators.{}/simulators/latest'
-
 EXAMPLE_COMBINE_ARCHIVES_BASE_URL = 'https://github.com/biosimulators/Biosimulators_test_suite/raw/{}/examples/'
 
 EXAMPLE_SIMULATIONS_FILENAME = os.path.join(os.path.dirname(__file__), 'example-projects.json')
@@ -36,16 +34,37 @@ class BColors(str, enum.Enum):
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+def get_simulators_endpoint(biosimulators_deployment):
 
-def get_submit_endpoint(runbiosimulations_api):
+    if biosimulators_deployment == 'local':
+        return 'http://localhost:3333/simulators/latest'
+    elif biosimulators_deployment == 'dev':
+        return 'https://api.biosimulators.dev/simulators/latest'
+    else:
+        return 'https://api.biosimulators.org/simulators/latest'
 
-    if(runbiosimulations_api == 'local'):
+
+def get_submit_run_endpoint(runbiosimulations_deployment):
+
+    if runbiosimulations_deployment == 'local':
         return 'http://localhost:3333/runs'
+    elif runbiosimulations_deployment == 'dev':
+        return 'https://api.biosimulations.dev/runs'
+    else:
+        return 'https://api.biosimulations.org/runs'
 
-    return 'https://api.biosimulations.{}/runs'.format(runbiosimulations_api)
+
+def get_simulation_run_view_url(runbiosimulations_deployment, run_id):
+
+    if runbiosimulations_deployment == 'local':
+        return 'https://run.biosimulations.dev/simulations/{}'.format(run_id)
+    elif runbiosimulations_deployment == 'dev':
+        return 'https://run.biosimulations.dev/simulations/{}'.format(run_id)
+    else:
+        return 'https://run.biosimulations.org/simulations/{}'.format(run_id)
 
 
-def main(runbiosimulations_api='dev', biosimulators_api='org',
+def main(runbiosimulations_deployment='dev', biosimulators_deployment='prod',
          biosimulators_test_suite_branch='deploy', example_names=None,
          test_mode=False, browser=False, dry_run=False):
     """ Submit example simulations from the BioSimulators test suite to the runBioSimulations API and
@@ -53,8 +72,8 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
     dispatch app so that users can load runs of these simulations as examples.
 
     Args:
-        runbiosimulations_api (:obj:`str`): which deployment of the runBioSimulations API to use (``dev``, ``org``, or ``local``)
-        biosimulators_api (:obj:`str`): which deployment of the BioSimulators API to use (``dev`` or ``org``)
+        runbiosimulations_deployment (:obj:`str`): which deployment of the runBioSimulations deployment to use (``dev``, ``prod``, or ``local``)
+        biosimulators_deployment (:obj:`str`): which deployment of the BioSimulators deployment to use (``dev`` or ``prod``)
         biosimulators_test_suite_branch (:obj:`str`): branch of the BioSimulators test suite to use (e.g., ``deploy`` or ``dev``).
         example_names (:obj:`list` of :obj:`str`): names of example simulations to execute. Default: execute all examples.
         test_mode (:obj:`bool`, optional): whether to run this program in test mode
@@ -63,7 +82,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
     """
 
     # get latest version of each simulator
-    response = requests.get(GET_SIMULATORS_ENDPOINT.format(biosimulators_api))
+    response = requests.get(get_simulators_endpoint(biosimulators_deployment))
     response.raise_for_status()
     simulator_latest_versions = {
         simulator['id']: simulator['version'] for simulator in response.json()}
@@ -97,11 +116,11 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
             raise ValueError('No examples have the following names:\n  - {}'.format(
                 '\n  - '.join(sorted(missing_example_names))))
 
-    # execution simulations
+    # execute simulations
     temp_dir = tempfile.mkdtemp()
     new_simulation_runs = []
     example_simulations_filename = EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(
-        'dev' if runbiosimulations_api == 'local' else runbiosimulations_api)
+        'dev' if runbiosimulations_deployment == 'local' else runbiosimulations_deployment)
     if example_names:
         with open(example_simulations_filename, 'r') as file:
             simulation_runs = {run['name']: run for run in json.load(file)}
@@ -130,7 +149,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
         project_size = len(combine_archive)
 
         # submit simulation
-        submit_endpoint = get_submit_endpoint(runbiosimulations_api)
+        submit_endpoint = get_submit_run_endpoint(runbiosimulations_deployment)
         if not dry_run:
             process = subprocess.run(['curl',
                                       '-X', 'POST', submit_endpoint,
@@ -169,8 +188,8 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
 
         if 'id' in simulation_run:
             print("Submitted simulation {}: {} ({})".format(i_simulation + 1, name, simulation_run['id']))
-            sim_url = "https://run.biosimulations.{}/simulations/{}".format(
-                runbiosimulations_api if not runbiosimulations_api == "local" else "dev", simulation_run['id'])
+            get_simulation_run_view_url
+            sim_url = get_simulation_run_view_url(runbiosimulations_deployment, simulation_run['id'])
             print("View: " + sim_url)
             if browser:
                 webbrowser.open(sim_url)
@@ -200,7 +219,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
         new_simulation_runs.append(simulation_runs[name])
 
     if test_mode:
-        monitor_runs(new_simulation_runs, runbiosimulations_api)
+        monitor_runs(new_simulation_runs, runbiosimulations_deployment)
 
     else:
         sorted_simulation_runs = natsort.natsorted(list(simulation_runs.values()),
@@ -212,7 +231,7 @@ def main(runbiosimulations_api='dev', biosimulators_api='org',
     shutil.rmtree(temp_dir)
 
 
-def monitor_runs(simulation_runs, runbiosimulations_api, timeout=240):
+def monitor_runs(simulation_runs, runbiosimulations_deployment, timeout=240):
     total = len(simulation_runs)
     pending_runs = simulation_runs
     failed_runs = []
@@ -228,7 +247,7 @@ def monitor_runs(simulation_runs, runbiosimulations_api, timeout=240):
             break
         for run in pending_runs[:]:
 
-            api_host = get_submit_endpoint(runbiosimulations_api)
+            api_host = get_submit_run_endpoint(runbiosimulations_deployment)
             print("Checking status of {}".format(run['name']))
             response = requests.get(api_host + "/" + run['id'])
             try:
@@ -300,12 +319,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Submit the example simulations to the runBioSimulations API and save their runs to the dispatch app.')
     parser.add_argument(
-        '--runbiosimulations-api', type=str, default='dev',
-        help='runBioSimulations API which simulations should be submitted to (`dev`, `org`, `local`). Default: `dev`.')
+        '--runbiosimulations-deployment', type=str, default='dev',
+        help='runBioSimulations deployment which simulations should be submitted to (`dev`, `prod`, `local`). Default: `dev`.')
     parser.add_argument(
-        '--biosimulators-api', type=str, default='org',
-        help=('BioSimulators API which should be used to select the version of each simulation tool used '
-              'to execute simulations (`dev`, `org`). Default: `org`.'))
+        '--biosimulators-deployment', type=str, default='prod',
+        help=('BioSimulators deployment which should be used to select the version of each simulation tool used '
+              'to execute simulations (`dev`, `prod`). Default: `prod`.'))
     parser.add_argument(
         '--biosimulators-test-suite-branch', type=str, default='deploy',
         help=('Branch of the BioSimulators test suite from which the example COMBINE/OMEX archives should be obtained. '
@@ -336,8 +355,8 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    main(runbiosimulations_api=args.runbiosimulations_api,
-         biosimulators_api=args.biosimulators_api,
+    main(runbiosimulations_deployment=args.runbiosimulations_deployment,
+         biosimulators_deployment=args.biosimulators_deployment,
          biosimulators_test_suite_branch=args.biosimulators_test_suite_branch,
          example_names=args.example_names,
          test_mode=args.test_mode,

@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+
+import argparse
+import requests
+
+
+GET_SIMULATORS_ENDPOINT = 'https://api.biosimulators.org/simulators/'
+
+
+def get_simulators_endpoint(deployment):
+    if deployment == 'dev':
+        return 'https://api.biosimulators.dev/simulators/'
+    elif deployment == 'prod':
+        return 'https://api.biosimulators.org/simulators/'
+    else:
+        return 'http://localhost:3333/simulators'
+
+
+def get_refresh_image_endpoint(deployment):
+    if deployment == 'dev':
+        return 'https://biosimulations.dev/images/refresh'
+    elif deployment == 'prod':
+        return 'https://biosimulations.org/images/refresh'
+    else:
+        return 'http://localhost:3333/images/refresh'
+
+
+def main(runbiosimulations_deployment='dev', biosimulators_deployment='dev', token=None):
+
+    # get latest version of each simulator
+    response = requests.get(get_simulators_endpoint(biosimulators_deployment))
+    response.raise_for_status()
+    simulators = [(simulator['id'], simulator['version']) for simulator in response.json(
+    ) if (simulator['image'] and simulator['image']['url'])]
+
+    for simulator in simulators:
+        sim = simulator[0]
+        version = simulator[1]
+
+        headers = {'Authorization': "Bearer " + token}
+        response = requests.post(get_refresh_image_endpoint(runbiosimulations_deployment),
+                                 data={"simulator": sim, "version": version}, headers=headers)
+        response.raise_for_status()
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description='Submit the example simulations to the runBioSimulations API and save their runs to the dispatch app.')
+    parser.add_argument(
+        '--runbiosimulations-deployment', type=str, default='dev',
+        help='runBioSimulations API which simulations should be submitted to (`dev`, `prod`, `local`). Default: `dev`.')
+    parser.add_argument(
+        '--biosimulators-deployment', type=str, default='dev',
+        help='BioSimulators API which simulations should be submitted to (`dev`, `prod`, `local`). Default: `dev`.')
+    parser.add_argument(
+        '--token', type=str, help=('The authorization token to call the api'), dest='token')
+
+    args = parser.parse_args()
+    main(runbiosimulations_deployment=args.runbiosimulations_deployment,
+         biosimulators_deployment=args.biosimulators_deployment,
+         token=args.token)
