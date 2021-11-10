@@ -205,7 +205,8 @@ jobs:
           GHCR_TOKEN: "${{ secrets.GHCR_TOKEN }}"
           BRANCH: ${{ secrets.OVERLAY }}
         run: |
-          echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
+          git_sha=$(git rev-parse --short "$GITHUB_SHA")
+          echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"sha-'$git_sha'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
 
   triggerProdDeployment:
@@ -221,7 +222,8 @@ jobs:
           BRANCH: ${{ secrets.NAME }}
 
         run: |
-          echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"'$GITHUB_SHA'"}}' >body
+          git_sha=$(git rev-parse --short "$GITHUB_SHA")
+          echo '{"ref": "master","inputs":{"overlay": "'$BRANCH'","tag":"sha-'$git_sha'"}}' >body
           curl -X POST 'https://api.github.com/repos/biosimulations/deployment/actions/workflows/deploy.yml/dispatches' -H 'Authorization: Bearer ${{ secrets.GHCR_TOKEN }}' -H 'Content-Type: application/json' --data "@body"
   Release:
     needs: [buildPushDockerImages, buildProdFrontEnds,triggerProdDeployment]
