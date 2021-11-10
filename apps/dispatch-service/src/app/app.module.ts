@@ -47,9 +47,9 @@ import { Endpoints } from '@biosimulations/config/common';
       useFactory: (configService: ConfigService) => {
         const env = configService.get('server.env');
         const endpoints = new Endpoints(env);
-        const combineBaseURl = endpoints.getCombineApiEndpoint();
+        const combineBaseUrl = endpoints.getCombineApiEndpoint();
         return new CombineAPIConfiguration({
-          basePath: combineBaseURl,
+          basePath: combineBaseUrl,
         });
       },
       inject: [ConfigService],
