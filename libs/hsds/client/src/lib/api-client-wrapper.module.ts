@@ -1,7 +1,7 @@
 import { DynamicModule, Module, Provider } from '@nestjs/common';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 
-import { ApiModule, Configuration } from '@biosimulations/hdf5apiclient';
+import { ApiModule, Configuration } from '@biosimulations/hdf5/api-client';
 import { ConfigService } from '@nestjs/config';
 
 export interface HSDSConnectionOptions {

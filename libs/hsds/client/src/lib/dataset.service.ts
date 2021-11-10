@@ -9,7 +9,7 @@ import {
   InlineResponse2004Links as HDF5Links,
   LinkService,
   InlineResponse20010,
-} from '@biosimulations/hdf5apiclient';
+} from '@biosimulations/hdf5/api-client';
 import {
   BiosimulationsDataAtributes,
   Dataset,
