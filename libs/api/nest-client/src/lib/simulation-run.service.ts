@@ -23,7 +23,7 @@ import {
   SimulationRunMetadataInput,
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
-
+import { retryBackoff } from 'backoff-rxjs';
 @Injectable({})
 export class SimulationRunService {
   private endpoints: Endpoints;
@@ -168,6 +168,12 @@ export class SimulationRunService {
   }
 
   private postAuthenticated<T, U>(url: string, body: T): Observable<U> {
+    const MAX_RETRIES = 12;
+    const RetryBackoff = retryBackoff({
+      initialInterval: 100,
+      maxRetries: MAX_RETRIES,
+      resetOnSuccess: true,
+    });
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
@@ -176,7 +182,7 @@ export class SimulationRunService {
               Authorization: `Bearer ${token}`,
             },
           })
-          .pipe(pluck('data'));
+          .pipe(RetryBackoff, pluck('data'));
       }),
       mergeMap((value) => value),
     );
