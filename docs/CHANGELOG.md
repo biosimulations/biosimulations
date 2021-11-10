@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/biosimulations/biosimulations/compare/v6.0.0...v6.0.1) (2021-11-10)
+
+
+### Bug Fixes
+
+* **api:** fixed IsImageDigest validator for non-strings ([53501b1](https://github.com/biosimulations/biosimulations/commit/53501b1eb3f323658aa23ae9007d625f212f6c6f))
+
 # [6.0.0](https://github.com/biosimulations/biosimulations/compare/v5.9.0...v6.0.0) (2021-11-04)
 
 
