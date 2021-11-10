@@ -1,7 +1,7 @@
 import { HttpModule, Module } from '@nestjs/common';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 
-import { Configuration, DomainService } from '@biosimulations/hdf5/api-client';
+import { Configuration } from '@biosimulations/hdf5/api-client';
 import { ConfigService } from '@nestjs/config';
 import { APIClientWrapperModule } from './api-client-wrapper.module';
 import { SimulationHDFService } from './dataset.service';
@@ -30,7 +30,7 @@ import { SimulationHDFService } from './dataset.service';
       inject: [ConfigService],
     }),
   ],
-  providers: [SimulationHDFService, DomainService],
+  providers: [SimulationHDFService],
   exports: [SimulationHDFService],
 })
 export class HSDSClientModule {

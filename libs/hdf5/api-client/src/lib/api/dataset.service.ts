@@ -16,7 +16,6 @@ import {
   Inject,
   Injectable,
   Optional,
-  Logger,
 } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
@@ -42,8 +41,6 @@ export class DatasetService {
   protected basePath = 'https://data.biosimulations.dev';
   public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
-
-  private logger = new Logger(DatasetService.name);
 
   constructor(
     protected httpClient: HttpService,
@@ -501,7 +498,6 @@ export class DatasetService {
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    this.logger.log(`Queried results at ${this.basePath}`);
     return this.httpClient.get<InlineResponse2007>(
       `${this.basePath}/datasets/${encodeURIComponent(String(id))}`,
       {
