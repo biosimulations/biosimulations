@@ -50,7 +50,7 @@ export class DatasetService {
     @Optional() configuration: Configuration,
   ) {
     this.configuration = configuration || this.configuration;
-    this.basePath = configuration?.basePath || this.basePath;    
+    this.basePath = configuration?.basePath || this.basePath;
   }
 
   /**
