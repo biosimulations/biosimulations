@@ -11,7 +11,7 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { HttpService, Inject, Injectable, Optional } from '@nestjs/common';
+import { HttpService, Inject, Injectable, Optional, Logger } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { InlineObject2 } from '../model/inlineObject2';
@@ -37,12 +37,15 @@ export class DatasetService {
   public defaultHeaders: Record<string, string> = {};
   public configuration = new Configuration();
 
+  private logger = new Logger(DatasetService.name);
+
   constructor(
     protected httpClient: HttpService,
     @Optional() configuration: Configuration,
   ) {
     this.configuration = configuration || this.configuration;
     this.basePath = configuration?.basePath || this.basePath;
+    this.logger.log(this.basePath);
   }
 
   /**

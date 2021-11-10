@@ -45,7 +45,7 @@ export class APIClientWrapperModule {
   ): Promise<Provider<Configuration>[]> {
     return [
       {
-        provide: 'HSDSOPTIONS',
+        provide: Configuration,
         useFactory: options.useFactory.createHSDSConnectionOptions,
         inject: options.inject || [],
       },
