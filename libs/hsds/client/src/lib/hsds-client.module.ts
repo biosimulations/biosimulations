@@ -21,10 +21,10 @@ import { SimulationHDFService } from './dataset.service';
 
           const logger = new Logger(HSDSClientModule.name);
           logger.log(
-            `Using HSDS client with HSDS configuration:`
-            + `\n  basePath: ${basePath}`
-            + `\n  username: ${username}`
-            + `\n  password: ${password}`
+            `Using HSDS client with HSDS configuration:` +
+              `\n  basePath: ${basePath}` +
+              `\n  username: ${username}` +
+              `\n  password: ${password}`,
           );
 
           return new Configuration({
