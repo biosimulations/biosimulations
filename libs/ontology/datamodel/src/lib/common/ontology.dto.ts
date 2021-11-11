@@ -30,7 +30,7 @@ import {
 export class BiosimulationsModelFormat implements IBiosimulationsModelFormat {
   @ApiProperty({
     description:
-      'Simulation Experiment Description (SED) Markup Language URN for the term used in conjunction with simulation experiments. See http://sed-ml.org/urns.html for more information.',
+      'Simulation Experiment Description (SED) Markup Language URN for the term used in conjunction with simulation experiments. See https://sed-ml.org/urns.html for more information.',
     type: String,
   })
   public sedUrn!: string;

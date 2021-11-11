@@ -451,7 +451,7 @@ export class TypeSummary implements ITypeSummary {
   @ApiProperty({
     type: String,
     description: 'URL with more information about the type',
-    example: 'http://sed-ml.org/',
+    example: 'https://sed-ml.org/',
   })
   @IsUrl({
     require_protocol: true,
@@ -480,7 +480,7 @@ export class SimulationRunModelLanguageSummary
   @ApiProperty({
     type: String,
     description:
-      'SED-ML URN for the language. More information is available at http://sed-ml.org/urns.html.',
+      'SED-ML URN for the language. More information is available at https://sed-ml.org/urns.html.',
     example: 'urn:sedml:language:sbml',
   })
   sedmlUrn!: string;

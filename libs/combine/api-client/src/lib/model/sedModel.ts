@@ -1,6 +1,6 @@
 /**
  * BioSimulations COMBINE API
- * Endpoints for working with models (e.g., [CellML](http://cellml.org/), [SBML](http://sbml.org/)), simulation experiments (e.g., [Simulation Experiment Description Language (SED-ML)](http://sed-ml.org/)), metadata ([OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)), and simulation projects ([COMBINE/OMEX archives](https://combinearchive.org/)).  Note, this API may change significantly in the future.
+ * Endpoints for working with models (e.g., [CellML](https://cellml.org/), [SBML](http://sbml.org/)), simulation experiments (e.g., [Simulation Experiment Description Language (SED-ML)](https://sed-ml.org/)), metadata ([OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)), and simulation projects ([COMBINE/OMEX archives](https://combinearchive.org/)).  Note, this API may change significantly in the future.
  *
  * The version of the OpenAPI document: 0.1
  * Contact: info@biosimulations.org
@@ -24,7 +24,7 @@ export interface SedModel {
    */
   name?: string;
   /**
-   * A SED URN for a model language.  The full list of recognized values is available at http://sed-ml.org/urns.html.
+   * A SED URN for a model language.  The full list of recognized values is available at https://sed-ml.org/urns.html.
    */
   language: string;
   /**

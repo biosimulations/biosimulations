@@ -120,7 +120,7 @@ export class SimulationRunService {
     @InjectModel(ProjectModel.name)
     private projectModel: Model<ProjectModel>,
     private simulationStorageService: SimulationStorageService,
-    private http: HttpService,
+    private httpService: HttpService,
     @Inject('NATS_CLIENT') private client: ClientProxy,
     private filesService: FilesService,
     private specificationsService: SpecificationsService,
@@ -319,7 +319,7 @@ export class SimulationRunService {
 
     this.logger.debug(`Downloading file from ${url}.`);
     const file = await firstValueFrom(
-      this.http.get(url, {
+      this.httpService.get(url, {
         responseType: 'arraybuffer',
       }),
     );
@@ -415,7 +415,7 @@ export class SimulationRunService {
       const url = this.endpoints.getLatestSimulatorsEndpoint(simulator);
 
       return firstValueFrom(
-        this.http.get<ISimulator[]>(url).pipe(
+        this.httpService.get<ISimulator[]>(url).pipe(
           catchError((error: HttpErrorResponse): Observable<null | false> => {
             this.logger.error(error.message);
             if (error.status === HttpStatus.NOT_FOUND) {
@@ -440,7 +440,8 @@ export class SimulationRunService {
       );
 
       return firstValueFrom(
-        this.http.get<ISimulator>(url).pipe(
+        this.httpService.get<ISimulator>(url).pipe(
+          retry()
           catchError((error: HttpErrorResponse): Observable<null | false> => {
             this.logger.error(error.message);
             if (error.status === HttpStatus.NOT_FOUND) {
@@ -740,7 +741,7 @@ export class SimulationRunService {
               type: {
                 id: task.simulation._type,
                 name: SimulationTypeName[task.simulation._type],
-                url: 'http://sed-ml.org/',
+                url: 'https://sed-ml.org/',
               },
               uri: uri,
               id: task.simulation.id,
@@ -764,7 +765,7 @@ export class SimulationRunService {
               type: {
                 id: output._type,
                 name: SimulationRunOutputTypeName[output._type],
-                url: 'http://sed-ml.org/',
+                url: 'https://sed-ml.org/',
               },
               uri: docLocation + '/' + output.id,
               name: output?.name,
