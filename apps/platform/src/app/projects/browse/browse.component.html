@@ -1,23 +1,15 @@
-<div
-  class="container"
-  fxLayout="row wrap"
-  fxLayoutGap="1rem grid"
-  fxLayoutAlign="space-around stretch"
-  *ngIf="projects$ | async as projects; else statusIndicator"
+<div class="container" *ngIf="projects$ | async as projects; else statusIndicator"
+  gdGap="1rem"
+  gdColumns.xl="repeat(5, 1fr)"
+  gdColumns.lg="repeat(4, 1fr)"
+  gdColumns.md="repeat(3, 1fr)"
+  gdColumns.sm="repeat(2, 1fr)"
+  gdColumns.xs="repeat(1, 1fr)"
 >
-  <div
-    class="project"
-    fxFlex.xl="20%"
-    fxFlex.lg="25%"
-    fxFlex.md="33%"
-    fxFlex.sm="50%"
-    fxFlex.xs="100%"
+  <biosimulations-project-card
     *ngFor="let project of projects"
-  >
-    <biosimulations-project-card
-      [project]="project"
-    ></biosimulations-project-card>
-  </div>
+    [project]="project"
+  ></biosimulations-project-card>
 </div>
 
 <ng-template #statusIndicator>
