@@ -5,6 +5,7 @@
  * @license MIT
  */
 import { HttpService } from '@nestjs/axios';
+import { retryBackoff } from 'backoff-rxjs';
 import {
   Injectable,
   Inject,
@@ -416,6 +417,7 @@ export class SimulationRunService {
 
       return firstValueFrom(
         this.httpService.get<ISimulator[]>(url).pipe(
+          this.getRetryBackoff(),
           catchError((error: HttpErrorResponse): Observable<null | false> => {
             this.logger.error(error.message);
             if (error.status === HttpStatus.NOT_FOUND) {
@@ -441,7 +443,7 @@ export class SimulationRunService {
 
       return firstValueFrom(
         this.httpService.get<ISimulator>(url).pipe(
-          retry()
+          this.getRetryBackoff(),
           catchError((error: HttpErrorResponse): Observable<null | false> => {
             this.logger.error(error.message);
             if (error.status === HttpStatus.NOT_FOUND) {
@@ -460,6 +462,14 @@ export class SimulationRunService {
         ),
       );
     }
+  }
+
+  private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
+    return retryBackoff({
+      initialInterval: 100,
+      maxRetries: 10,
+      resetOnSuccess: true,
+    });
   }
 
   private updateModelRunTime(model: SimulationRunModel): SimulationRunModel {
