@@ -127,7 +127,7 @@ routes.forEach((route: Route): void => {
         languages: {
           dockerfile: () => import('highlight.js/lib/languages/dockerfile'),
           json: () => import('highlight.js/lib/languages/json'),
-          typescript: () => import('highlight.js/lib/languages/typescript'),
+          python: () => import('highlight.js/lib/languages/python'),
           xml: () => import('highlight.js/lib/languages/xml'),
         },
       },
