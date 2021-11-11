@@ -29,10 +29,10 @@
       "repoOwnerName": "biosimulators/Biosimulators_test_suite",
       "repoRef": "deploy",
       "repoPath": "examples/",
-      "exampleModelPath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock/model_ODE_deterministic.xml",
-      "exampleSimulationPath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock/simulation.sedml",
-      "exampleMetadataPath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock/metadata.rdf",
-      "exampleProjectPath": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex"
+      "exampleModelPath": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous/BIOMD0000000297_url.xml",
+      "exampleSimulationPath": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous/simulation_1.sedml",
+      "exampleMetadataPath": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous/metadata.rdf",
+      "exampleProjectPath": "sbml-core/Ciliberto-J-Cell-Biol-2003-morphogenesis-checkpoint-continuous.omex"
     },
     "maxUploadFileSize": 256000000
   }
