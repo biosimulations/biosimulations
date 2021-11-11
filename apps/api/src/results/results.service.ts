@@ -3,6 +3,7 @@ import { SharedStorageService } from '@biosimulations/shared/storage';
 import {
   Injectable,
   Logger,
+  BadRequestException,
   NotFoundException,
   HttpStatus,
 } from '@nestjs/common';
@@ -33,9 +34,27 @@ export class ResultsService {
     const timestamps = this.results.getResultsTimestamps(runId);
     const datasets = await this.results.getDatasets(runId);
 
-    const outputs: Output[] = await Promise.all(
+    const outputResults: PromiseSettledResult<Output>[] = await Promise.allSettled(
       datasets.map(this.parseDataset.bind(this, runId, includeValues)),
     );
+
+    const outputs: Output[] = [];
+    const errors: string[] = [];
+    outputResults.forEach((outputResult: PromiseSettledResult<Output>, iDataSet: number): void => {
+      if (outputResult.status === 'fulfilled' && 'value' in outputResult) {
+        outputs.push(outputResult.value);
+      } else {
+        const dataset = datasets[iDataSet];
+        errors.push(outputResult?.reason || `${dataset.attributes._type} '${dataset.attributes.uri} of simulation run '${runId}' could not be parsed.`);
+      }
+    });
+
+    if (errors.length) {
+      throw new Error(
+        `${errors.length} outputs could not be parsed for simulation run ${runId}:`
+        + `\n\n  ${errors.join('\n\n').replace(/\n/g, '\n  ')}`
+      );
+    }
 
     const dates = await timestamps;
     const results: Results = {
@@ -89,7 +108,7 @@ export class ResultsService {
     if (dataset) {
       return this.parseDataset(runId, includeData, dataset);
     }
-    throw new Error('Output Not Found');
+    throw new BadRequestException('Output Not Found');
   }
 
   private async parseDataset(
@@ -116,16 +135,27 @@ export class ResultsService {
       ((includeValues && sedIds.length == values.length) || !includeValues);
 
     if (!consistent) {
-      this.logger.error(
-        'Error parsing data due to inconsistent atributes and values. Recieved ids, labels, shapes, names,types:',
+      const summary = (
+        `${dataset.attributes._type} '${dataset.attributes.uri}' from simulation run '${runId}' could not be parsed due to values and attributes with inconsistent sizes.`
+        + `\n`
+        + `\n  values: ${values.length}`
+        + `\n  ids: ${sedIds.length}`
+        + `\n  labels: ${sedLabels.length}`
+        + `\n  names: ${sedNames.length}`
+        + `\n  shapes: ${sedShapes.length}`
+        + `\n  types: ${sedTypes.length}`
       );
-      this.logger.error(sedIds);
-      this.logger.error(sedLabels);
-      this.logger.error(sedShapes);
-      this.logger.error(sedNames);
-      this.logger.error(sedTypes);
-      this.logger.error(values.length);
-      throw new Error('Cannot process data');
+      this.logger.error(
+       summary
+        + `\n`
+        + `\n  values: ${values}`
+        + `\n  ids: ${sedIds}`
+        + `\n  labels: ${sedLabels}`
+        + `\n  names: ${sedNames}`
+        + `\n  shapes: ${sedShapes}`
+        + `\n  types: ${sedTypes}`
+      );
+      throw new BadRequestException(summary);
     }
 
     sedIds.forEach((sedId, index) => {
