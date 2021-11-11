@@ -19,23 +19,16 @@ import {
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import { retryBackoff } from 'backoff-rxjs';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 const DATASET = 'datasets';
 const GROUP = 'groups';
-
-// TODO connect to env
-const MAX_RETRIES = 12;
-const RetryBackoff = retryBackoff({
-  initialInterval: 100,
-  maxRetries: MAX_RETRIES,
-  resetOnSuccess: true,
-});
 
 Injectable();
 export class SimulationHDFService {
   private endpoints: Endpoints;
   private auth: string;
   private logger = new Logger(SimulationHDFService.name);
+  private retryBackoff: <T>(source: Observable<T>) => Observable<T>;
 
   public constructor(
     @Inject(DatasetService) private datasetService: DatasetService,
@@ -49,8 +42,16 @@ export class SimulationHDFService {
     this.endpoints = new Endpoints(env);
 
     const username = this.configService.get('data.username');
-    const password = this.configService.get('data.password');
+    const password = this.configService.get('data.password');    
     this.auth = 'Basic ' + btoa(`${username}:${password}`);
+
+    const initialInterval = this.configService.get('data.clientInitialInterval');
+    const maxRetries = this.configService.get('data.clientMaxRetries');
+    this.retryBackoff = retryBackoff({
+      initialInterval: initialInterval,
+      maxRetries: maxRetries,
+      resetOnSuccess: true,
+    });
   }
 
   public async getDatasetValues(
@@ -67,7 +68,7 @@ export class SimulationHDFService {
         undefined,
         this.auth,
       )
-      .pipe(RetryBackoff);
+      .pipe(this.retryBackoff);
 
     const dataResponsePromise = await firstValueFrom(dataResponse);
 
@@ -104,7 +105,7 @@ export class SimulationHDFService {
   public async getDatasets(runId: string): Promise<Dataset[]> {
     const domain = this.endpoints.getSimulationRunResultsHsdsDomain(runId);
 
-    const response = await this.domainService.datasetsGet(domain).toPromise();
+    const response = await this.domainService.datasetsGet(domain, this.auth).toPromise();
 
     const datasetIds = response?.data.datasets || [];
 
@@ -182,8 +183,8 @@ export class SimulationHDFService {
     id: string,
   ): Promise<HDF5Group | undefined> {
     const responseObs = await this.groupService
-      .groupsIdGet(id, domain)
-      .pipe(RetryBackoff);
+      .groupsIdGet(id, domain, this.auth)
+      .pipe(this.retryBackoff);
 
     const response = await firstValueFrom(responseObs);
     const data = response?.data;
@@ -195,8 +196,8 @@ export class SimulationHDFService {
     id: string,
   ): Promise<HDF5Dataset | undefined> {
     const responseObs = await this.datasetService
-      .datasetsIdGet(id, domain)
-      .pipe(RetryBackoff);
+      .datasetsIdGet(id, domain, this.auth)
+      .pipe(this.retryBackoff);
 
     const response = await firstValueFrom(responseObs);
     return response?.data;
@@ -207,8 +208,8 @@ export class SimulationHDFService {
     domain: string,
   ): Promise<HDF5Links[]> {
     const linksResponseObs = await this.linkService
-      .groupsIdLinksGet(groupId, domain)
-      .pipe(RetryBackoff);
+      .groupsIdLinksGet(groupId, domain, undefined, undefined, this.auth)
+      .pipe(this.retryBackoff);
 
     const linksResponse = await firstValueFrom(linksResponseObs);
     return linksResponse?.data.links || [];
@@ -220,7 +221,7 @@ export class SimulationHDFService {
   ): Promise<(keyof BiosimulationsDataAtributes)[]> {
     const response = await this.attributeService
       .collectionObjUuidAttributesGet(DATASET, datasetId, this.auth, domain)
-      .pipe(RetryBackoff);
+      .pipe(this.retryBackoff);
 
     const responsePromise = await firstValueFrom(response);
     const attributes = responsePromise?.data.attributes || [];
@@ -243,7 +244,7 @@ export class SimulationHDFService {
           this.auth,
           domain,
         )
-        .pipe(RetryBackoff);
+        .pipe(this.retryBackoff);
 
       const uriResponsePromise = await firstValueFrom(uriResponse);
 
@@ -256,8 +257,8 @@ export class SimulationHDFService {
 
   private async getRootGroupId(domain: string): Promise<string | undefined> {
     const domainResponse = await this.domainService
-      .rootGet(domain)
-      .pipe(RetryBackoff);
+      .rootGet(domain, this.auth)
+      .pipe(this.retryBackoff);
 
     const domainResponsePromise = await firstValueFrom(domainResponse);
     const domainInfo = domainResponsePromise?.data;
