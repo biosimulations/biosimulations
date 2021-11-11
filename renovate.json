@@ -49,6 +49,10 @@
       "matchPackagePrefixes": [
         "eslint"
       ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
       "automerge": true,
       "groupName": "eslint"
     },
