@@ -42,7 +42,7 @@ export class SimulationHDFService {
     this.endpoints = new Endpoints(env);
 
     const username = this.configService.get('data.username');
-    const password = this.configService.get('data.password');    
+    const password = this.configService.get('data.password');
     this.auth = 'Basic ' + btoa(`${username}:${password}`);
 
     const initialInterval = this.configService.get('data.clientInitialInterval');
