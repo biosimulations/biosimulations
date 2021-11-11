@@ -1,4 +1,6 @@
-<div class="container" *ngIf="projects$ | async as projects; else statusIndicator"
+<div
+  class="container"
+  *ngIf="projects$ | async as projects; else statusIndicator"
   gdGap="1rem"
   gdColumns.xl="repeat(5, 1fr)"
   gdColumns.lg="repeat(4, 1fr)"

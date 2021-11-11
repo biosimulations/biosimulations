@@ -45,7 +45,9 @@ export class SimulationHDFService {
     const password = this.configService.get('data.password');
     this.auth = 'Basic ' + btoa(`${username}:${password}`);
 
-    const initialInterval = this.configService.get('data.clientInitialInterval');
+    const initialInterval = this.configService.get(
+      'data.clientInitialInterval',
+    );
     const maxRetries = this.configService.get('data.clientMaxRetries');
     this.retryBackoff = retryBackoff({
       initialInterval: initialInterval,
@@ -105,7 +107,9 @@ export class SimulationHDFService {
   public async getDatasets(runId: string): Promise<Dataset[]> {
     const domain = this.endpoints.getSimulationRunResultsHsdsDomain(runId);
 
-    const response = await this.domainService.datasetsGet(domain, this.auth).toPromise();
+    const response = await this.domainService
+      .datasetsGet(domain, this.auth)
+      .toPromise();
 
     const datasetIds = response?.data.datasets || [];
 
