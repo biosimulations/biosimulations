@@ -54,7 +54,7 @@ export class ResultsService {
   ): Promise<undefined | (string[] | number[] | boolean[])[]> {
     // The index field will be needed when we are doing slicing of the data so this will need to change
 
-    return (await this.results.getDatasetValues(runId, datasetId))?.values;
+    return (await this.results.getDatasetValues(runId, datasetId))?.value;
   }
 
   public async download(runId: string): Promise<S3.Body> {
