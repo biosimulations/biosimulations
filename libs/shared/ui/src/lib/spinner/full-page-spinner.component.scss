@@ -1,12 +1,68 @@
 .container {
-  height: calc(100vh - 64px - 28px - 0.5rem);
+  height: calc(100vh - 64px);
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &.containerHasBreadcrumbs {
+    height: calc(100vh - 64px - (28px + 0.5rem));
+  }
+
+  &.containerHasTabs {
+    height: calc(100vh - 64px - (28px + 0.5rem));
+  }
+
+  &.containerHasPadding {
+    height: calc(100vh - 64px - 2 * 2rem);
+  }
+
+  &.containerHasBreadcrumbs.containerHasTabs {
+    height: calc(100vh - 64px - (28px + 0.5rem) - (28px + 0.5rem));
+  }
+
+  &.containerHasBreadcrumbs.containerHasPadding {
+    height: calc(100vh - 64px - (28px + 0.5rem) - 2 * 2rem);
+  }
+
+  &.tab.containerHasPadding {
+    height: calc(100vh - 64px - (28px + 0.5rem) - 2 * 2rem);
+  }
+
+  &.containerHasBreadcrumbs.containerHasTabs.containerHasPadding {
+    height: calc(100vh - 64px - (28px + 0.5rem) - (28px + 0.5rem) - 2 * 2rem);
+  }
 }
 
 @media screen and (max-width: 959px) {
   .container {
     height: calc(100vh - 56px);
+
+    &.containerHasBreadcrumbs {
+      height: calc(100vh - 56px);
+    }
+
+    &.containerHasTabs {
+      height: calc(100vh - 56px - (28px + 0.5rem));
+    }
+
+    &.containerHasPadding {
+      height: calc(100vh - 56px - 2 * 1rem);
+    }
+
+    &.containerHasBreadcrumbs.containerHasTabs {
+      height: calc(100vh - 56px - (28px + 0.5rem));
+    }
+
+    &.containerHasBreadcrumbs.containerHasPadding {
+      height: calc(100vh - 56px - 2 * 1rem);
+    }
+
+    &.containerHasTabs.containerHasPadding {
+      height: calc(100vh - 56px - (28px + 0.5rem) - 2 * 1rem);
+    }
+
+    &.containerHasBreadcrumbs.containerHasTabs.containerHasPadding {
+      height: calc(100vh - 56px - (28px + 0.5rem) - 2 * 1rem);
+    }
   }
 }
