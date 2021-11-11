@@ -22,6 +22,7 @@ import config from '../assets/config.json';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@biosimulations/shared/environments';
 import { ScullyLibModule } from '@scullyio/ng-lib';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 const routes: Routes = [
   {
@@ -125,12 +126,23 @@ routes.forEach((route: Route): void => {
       enabled: environment.production,
     }),
     ScullyLibModule,
+    HighlightModule,
   ],
   providers: [
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
     { provide: ConfigService, useValue: config },
     ScrollService,
     HealthService,
+    {
+      // Requires type declarations provided in the highlight.d.ts file in src
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        languages: {
+          json: () => import('highlight.js/lib/languages/json'),
+        },
+      },
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [],
