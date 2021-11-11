@@ -4,7 +4,7 @@ info:
   title: BioSimulations COMBINE API
   version: "0.1"
   description: |-
-    Endpoints for working with models (e.g., [CellML](http://cellml.org/), [SBML](http://sbml.org/)), simulation experiments (e.g., [Simulation Experiment Description Language (SED-ML)](http://sed-ml.org/)), metadata ([OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)), and simulation projects ([COMBINE/OMEX archives](https://combinearchive.org/)).
+    Endpoints for working with models (e.g., [CellML](https://cellml.org/), [SBML](http://sbml.org/)), simulation experiments (e.g., [Simulation Experiment Description Language (SED-ML)](https://sed-ml.org/)), metadata ([OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)), and simulation projects ([COMBINE/OMEX archives](https://combinearchive.org/)).
 
     Note, this API may change significantly in the future.
   contact:
@@ -485,7 +485,7 @@ paths:
       operationId: src.handlers.sed_ml.validate.handler
       summary: Validate a SED-ML file
       description: "Validate a [Simulation Experiment Description Markup Language\
-        \ (SED-ML)](http://sed-ml.org/) file. Note, this method does not validate\
+        \ (SED-ML)](https://sed-ml.org/) file. Note, this method does not validate\
         \ the sources of the models of SED-ML files or targets to models. Models files\
         \ are required for more comprehensive validation. The `/combine/validate`\
         \ endpoint provides more comprehensive validation that encompasses validation\
@@ -2433,7 +2433,7 @@ components:
       description: |-
         A SED URN for a model language.
 
-        The full list of recognized values is available at http://sed-ml.org/urns.html.
+        The full list of recognized values is available at https://sed-ml.org/urns.html.
       type: string
       example: urn:sedml:language:sbml
     CombineArchiveSpecsAndFiles:
@@ -4109,9 +4109,9 @@ tags:
 - name: Simulation projects
   description: "Operations on [COMBINE/OMEX archives](https://combinearchive.org/)"
 - name: Models
-  description: "Operations on model files (e.g., [CellML](http://cellml.org/), [SBML](http://sbml.org/))"
+  description: "Operations on model files (e.g., [CellML](https://cellml.org/), [SBML](http://sbml.org/))"
 - name: Simulation experiments
-  description: "Operations on [Simulation Experiment Description Language (SED-ML)](http://sed-ml.org/)\
+  description: "Operations on [Simulation Experiment Description Language (SED-ML)](https://sed-ml.org/)\
     \ files"
 - name: Simulation algorithms
   description: "Operations on the [Kinetic Simulation Algorithm Ontology (KiSAO)](https://github.com/SED-ML/KiSAO)"

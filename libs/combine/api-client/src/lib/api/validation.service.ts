@@ -1,6 +1,6 @@
 /**
  * BioSimulations COMBINE API
- * Endpoints for working with models (e.g., [CellML](http://cellml.org/), [SBML](http://sbml.org/)), simulation experiments (e.g., [Simulation Experiment Description Language (SED-ML)](http://sed-ml.org/)), metadata ([OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)), and simulation projects ([COMBINE/OMEX archives](https://combinearchive.org/)).  Note, this API may change significantly in the future.
+ * Endpoints for working with models (e.g., [CellML](https://cellml.org/), [SBML](http://sbml.org/)), simulation experiments (e.g., [Simulation Experiment Description Language (SED-ML)](https://sed-ml.org/)), metadata ([OMEX Metadata](https://sys-bio.github.io/libOmexMeta/)), and simulation projects ([COMBINE/OMEX archives](https://combinearchive.org/)).  Note, this API may change significantly in the future.
  *
  * The version of the OpenAPI document: 0.1
  * Contact: info@biosimulations.org
@@ -329,7 +329,7 @@ export class ValidationService {
   }
   /**
    * Validate a SED-ML file
-   * Validate a [Simulation Experiment Description Markup Language (SED-ML)](http://sed-ml.org/) file. Note, this method does not validate the sources of the models of SED-ML files or targets to models. Models files are required for more comprehensive validation. The &#x60;/combine/validate&#x60; endpoint provides more comprehensive validation that encompasses validation of model sources and targets to models.
+   * Validate a [Simulation Experiment Description Markup Language (SED-ML)](https://sed-ml.org/) file. Note, this method does not validate the sources of the models of SED-ML files or targets to models. Models files are required for more comprehensive validation. The &#x60;/combine/validate&#x60; endpoint provides more comprehensive validation that encompasses validation of model sources and targets to models.
    * @param file The two files uploaded in creating a combine archive
    * @param url URL
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
