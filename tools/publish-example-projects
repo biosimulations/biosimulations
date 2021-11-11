@@ -137,7 +137,7 @@ def main(biosimulations_deployment, example_names, dry_run=False):
     example_runs_filename = EXAMPLE_SIMULATIONS_RUNS_FILENAME.format(
         'dev' if biosimulations_deployment == 'local' else biosimulations_deployment
     )
-    with open(, 'r') as file:
+    with open(example_runs_filename, 'r') as file:
         runs = {run['name']: run for run in json.load(file)}
 
     # filter out examples that don't have runs
