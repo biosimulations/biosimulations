@@ -152,7 +152,7 @@ export class LogsController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to write logs',
   })
-  @permissions(scopes.logs.create.id)
+  @permissions(scopes.simulationRuns.create.id)
   @ApiCreatedResponse({
     description: 'The logs for the simulation run were successfully saved',
     type: CombineArchiveLog,
@@ -203,7 +203,7 @@ export class LogsController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to delete logs',
   })
-  @permissions(scopes.logs.delete.id)
+  @permissions(scopes.simulationRuns.delete.id)
   @HttpCode(HttpStatus.NO_CONTENT)
   public deleteLog(@Param('runId') runId: string): Promise<void> {
     return this.service.deleteLog(runId);
@@ -240,7 +240,7 @@ export class LogsController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to write logs',
   })
-  @permissions(scopes.logs.update.id)
+  @permissions(scopes.simulationRuns.update.id)
   @ApiOkResponse({
     type: CombineArchiveLog,
     description:

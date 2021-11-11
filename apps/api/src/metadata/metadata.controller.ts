@@ -79,7 +79,7 @@ export class MetadataController {
     description: 'The metadata was successfully saved to the database',
     type: SimulationRunMetadata,
   })
-  @permissions(scopes.metadata.update.id)
+  @permissions(scopes.simulationRuns.update.id)
   public async modifyMetadata(
     @Param('runId') runId: string,
     @Body() body: SimulationRunMetadataInput,
@@ -121,7 +121,7 @@ export class MetadataController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to write metadata',
   })
-  @permissions(scopes.metadata.create.id)
+  @permissions(scopes.simulationRuns.create.id)
   public async makeMetadata(
     @Body() body: SimulationRunMetadataInput,
   ): Promise<SimulationRunMetadata> {
@@ -159,7 +159,7 @@ export class MetadataController {
     type: ErrorResponseDocument,
     description: 'This account does not have permission to read metadata',
   })
-  @permissions(scopes.metadata.read.id)
+  @permissions(scopes.simulationRuns.read.id)
   @Get()
   public async getAllMetadata(): Promise<SimulationRunMetadata[]> {
     const metadatas = await this.service.getAllMetadata();

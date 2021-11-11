@@ -53,7 +53,7 @@ export class SpecificationsController {
       'List of the specifications of all simulation experiments (SED-ML files in COMBINE/OMEX archives) of all simulation runs',
     type: [SimulationRunSedDocument],
   })
-  @permissions(scopes.specifications.read.id)
+  @permissions(scopes.simulationRuns.read.id)
   public async getSpecifications(): Promise<SimulationRunSedDocument[]> {
     const specs = await this.service.getSpecifications();
     return specs.map(this.returnSpec);
@@ -441,7 +441,7 @@ export class SpecificationsController {
   }
 
   @Post()
-  @permissions(scopes.specifications.create.id)
+  @permissions(scopes.simulationRuns.create.id)
   @ApiOperation({
     summary: 'Save the simulation experiments of a simulation run',
     description:
