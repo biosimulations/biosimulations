@@ -18,7 +18,7 @@
     "name": "Circadian clock (Vilar et al., PNAS, 2002; SBML; NRM; VCell)",
     "simulator": "vcell",
     "filename": "sbml-core/Vilar-PNAS-2002-minimal-circardian-clock.omex",
-    "disabled": false,
+    "disabled": "VCell 7.4.0.26 doesn't correctly execute this",
     "publishToBioSimulations": true,
     "bioSimulationsId": "Minimal-circardian-clock-Vilar-PNAS-2002"
   },
