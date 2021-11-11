@@ -7,6 +7,8 @@ export default registerAs('data', () => {
     basePath: process.env.HSDS_BASEPATH,
     externalBasePath: process.env.HSDS_EXTERNAL_BASEPATH,
     withCredentials: true,
+    clientInitialInterval: parseInt(process.env.HSDS_CLIENT_INITIAL_INTERVAL),
+    clientMaxRetries: parseInt(process.env.HSDS_CLIENT_MAX_RETRIES),
   };
   return config;
 });
