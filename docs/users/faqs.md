@@ -1,4 +1,4 @@
-# FAQs
+# Frequently asked questions
 
 ## Projects
 
@@ -14,7 +14,7 @@ Yes. Projects can include one or more models, one or more simulations of those m
 
 [runBioSimulations](https://run.biosimulations.org) provides a simple web-based tool for creating COMBINE/OMEX archives from model files. [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides a command-line tool and a Python API for creating COMBINE/OMEX archives.
 
-Below are several additional tools for creating SED-ML files and COMBINE/OMEX archives. Please note that most of these tools are not fully compliant with the SED-ML and COMBINE/OMEX archive standards.
+Below are several additional tools for creating SED-ML files and COMBINE/OMEX archives. 
 
 * [CombineArchiveWeb](https://cat.bio.informatik.uni-rostock.de/)
 * [COPASI](http://copasi.org/)
@@ -22,6 +22,10 @@ Below are several additional tools for creating SED-ML files and COMBINE/OMEX ar
 * [JWS Online](http://jjj.mib.ac.uk/)
 * [tellurium](http://tellurium.analogmachine.org/)
 * [VCell](http://vcell.org/)
+
+!!! warning
+
+    Most of these tools are not fully compliant with the SED-ML and COMBINE/OMEX archive standards.
 
 **How can I validate a COMBINE/OMEX archive?**
 
@@ -63,7 +67,9 @@ No. Projects can be published anonymously without an account or registration. Ho
 
 The owner of a project can associate the project with new simulation runs. This can be used to correct mistakes and/or provide improved versions. First, use runBioSimulations to create a simulation run. Second, use BioSimulations' [REST API](https://api.biosimulations.org) to modify the project by replacing the old simulation run associated with the project with the new run. The online documentation for the API includes a simple web interface for using the API.
 
-Note, the runBioSimulations currently website only enables investigators to publish simulation runs anonymously. To be able to edit a project, currently, users must initially publish the project using BioSimulations' [REST API](https://api.biosimulations.org). 
+!!! info
+
+    The runBioSimulations currently website only enables investigators to publish simulation runs anonymously. To be able to edit a project, currently, users must initially publish the project using BioSimulations' [REST API](https://api.biosimulations.org). 
 
 Please contact the BioSimulations Team via [email](mailto:info@biosimulations.org) for additional assistance.
 
@@ -192,6 +198,12 @@ Several tools are available for creating Vega data visualizations, including the
 **How can I convert existing diagrams into Vega data visualizations?**
 
 In addition, [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides tools for creating Vega data visualizations from several model visualization formats including [Escher](https://escher.github.io/) metabolic flux maps, [GINsim](http://ginsim.org/) activity flow diagrams, and [Systems Biology Graphical Notation (SGBN)](https://sbgn.github.io/) process description maps.
+
+**How can BioSimulations render additional visualization formats?**
+
+One way to use BioSimulations with additional formats is to convert them to Vega. This can be achieved by writing scripts to convert alernative formats into Vega.
+
+Additional rendering tools could be incorporated into BioSimulations. Blease contact the [BioSimulations Team](https://biosimulations.org) to discuss how to integrate additional tools with SED-ML files, COMBINE/OMEX archives, and BioSimulations.
 
 ## Metadata about simulation projects
 

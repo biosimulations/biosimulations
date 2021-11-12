@@ -1,5 +1,7 @@
 title: User guide
 nav:
-  - Tutorial: tutorial.md
+  - "Users: exploring projects": user-guide.md
+  - "Authors: publishing projects": author-guide.md
+  - "Developers: contributing simulation capabilities": developer-guide.md
+  - BioSimulations' REST API: api.md
   - FAQs: faqs.md
-  - ...
