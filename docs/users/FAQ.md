@@ -8,21 +8,25 @@ BioSimulations supports all modeling frameworks. However, currently BioSimulatio
 
 **Which Model Formats Does Biosimulations Support?**
 
-Models can be shared in any format. However, currently BioSimulations can only simulate models encoded in the BioNetGen Language (BNGL)  and the Systems Biology Markup Language (SBML) . BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Please see BioSimulators  for more information about supported model formats.
+Models can be shared in any format. However, currently BioSimulations can only simulate models encoded in the BioNetGen Language (BNGL)  and the [Systems Biology Markup Language (SBML)](http://sbml.org). BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Please see BioSimulators  for more information about supported model formats.
 
-**Which Sbml Packages Does Biosimulations Support?**
+**Which SBML Packages Does Biosimulations Support?**
 
-Currently, BioSimulations can only simulate models that use core and Flux Balance Constraints (fbc)  or Qualitative Models (qual)  packages.
+Currently, BioSimulations can only simulate models that use core and Flux Balance Constraints (fbc) or Qualitative Models (qual)  packages.
+
+**How is Each Model Licensed?**
+
+The models, simulations, and visualizations in BioSimulations are provided under the license specified for each resource.
 
 ## Simulations 
 
 **Which simulation algorithms does BioSimulations support?**
 
-BioSimulations supports numerous algorithms for simulating logical, Flux Balance Analysis (FBA), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) models. BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Please see BioSimulators  for more information about supported simulation algorithms.
+BioSimulations supports numerous algorithms for simulating logical, Flux Balance Analysis (FBA), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) models. BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Please see BioSimulators for more information about supported simulation algorithms.
 
 **Which simulation formats does BioSimulations support?**
 
-BioSimulations provides a form for describing simulations. Internally, BioSimulations represents simulations using its own format which is similar to Simulation Experiment Description Markup Language (SED-ML) . BioSimulations can export simulations to SED-ML.
+BioSimulations provides a form for describing simulations. Internally, BioSimulations represents simulations using its own format which is similar to [Simulation Experiment Description Markup Language (SED-ML)](https://sed-ml.org). BioSimulations can export simulations to SED-ML.
 
 **How can I simulate a model that uses an alternative framework?**
 
@@ -58,11 +62,15 @@ BioSimulations uses the BioSimulators collection of containerized simulation sof
 
 BioSimulations uses the BioSimulators collection of containerized simulation software tools. These containers make it easy to execute simulations by all providing the same command-line interface. The containers are easy to install and run on your own machine. The containers can be used on top of any operating system. Please see [https://biosimulators.org](https://biosimulators.org) for more information about how to install and run these containers.
 
+**How is Each Simulation tool Licensed?**
+
+The simulation tools available through BioSimulations are provided under the open-source licenses documented for each tool. Please see [BioSimulators](https://biosimulators.org) for more information.
+
 ##  Visualizations
 
 **Which visualization formats does BioSimulations support?**
 
-Currently, simulations can only be uploaded in Vega format .
+Currently, simulations can only be uploaded in Vega format.
 
 ## General
 

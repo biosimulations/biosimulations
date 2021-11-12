@@ -1,16 +1,25 @@
-# About 
+# BioSimulations Documentation
 
-## Motivation and Goals of BioSimulations
+## Motivation and Goals
 
-More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as [COMBINE/OMEX ](https://combinearchive.org/), [SBML](http://sbml.org/) , and [SED-ML](https://www.sed-ml.org/)  and repositories such as BioModels, it is still often difficult to share and reuse models and simulations. One challenge to sharing and reusing models is the disparate formats, model repositories, and simulation tools for different types of models. The proliferation of numerous similar formats, repositories, and tools makes it difficult, especially for non-experts, to find models and to find an appropriate simulation tool for each model. In addition, the existing model repositories have limited capabilities for sharing associated resources such as training data, simulation experiments, and visualizations.
+More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as the [COMBINE/OMEX archive format](https://combinearchive.org/), the [Kinetic Simulation Algorithm Ontology (KiSAO)](https://github.com/SED-ML/KiSAO/), the [Systems Biology Markup Language (SBML)](http://sbml.org/), and the [Simulation Experiment Description Markup Language (SED-ML)](https://www.sed-ml.org/) and repositories such as [BioModels](http://biomodels.net/) and the [Physiome Model Repository](https://models.physiomeproject.org/), it is still often difficult to share and reuse models and simulations. One challenge to sharing and reusing models is the disparate formats, model repositories, and simulation tools for different types of models. The proliferation of numerous similar formats, repositories, and tools makes it difficult, especially for non-experts, to find models and to find an appropriate simulation tool for each model. In addition, the existing model repositories have limited capabilities for sharing associated resources such as training data, simulation experiments, and visualizations.
 
-BioSimulations addresses these challenges by making it easier for researchers to share and reuse models. First, BioSimulations provides authors a central portal for sharing models, simulations, and visualizations. Importantly, authors can share models in any format, authors can share simulations that require any simulator, and authors can share arbitrarily complex visualizations. Second, BioSimulations provides researchers a central portal for finding models and a simple web interface for reusing any model, simulation, or visualization. This is achieved using BioSimulators, a collection of Docker images that abstract the details of multiple modeling frameworks, simulation algorithms, model formats, and simulation tools.
+## Key Features
 
-## Supported modeling frameworks, algorithms, formats and software tools
+BioSimulations addresses these challenges by making it easier for researchers to share and reuse simulations. 
 
-BioSimulations supports all modeling frameworks and model formats. However, currently BioSimulations can only simulate logical, Flux Balance Analysis (FBA), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) models that are described in using the [BioNetGen Language (BNGL)](https://bionetgen.org)  or the [Systems Biology Markup Language (SBML)](https://sbml.org) .
+* **Central portal for publishing and discovering simulation projects**. BioSimulations provides a central portal for sharing and discovering models, simulations, and data visualizations across a broad range of modeling frameworks, model formats, simulation algorithms, simulation tools, and data visualizations. 
+* **Web-based tools for interactively exploring simulation results.** BioSimulations provides results for each simulation experiment and data visualizations for interactively exploring these results.
+* **Simple tools for reusing simulation projects.** runBioSimulations provides a simple web interface for modifying simulation experiments and running new simulations.
+* **Transparent simulation.** By building upon BioSimulators, the COMBINE/OMEX archive format, KiSAO, and SED-ML, the details of each simulation experiment are fully transparent. This makes it easy for investigators to understand and reproduce simulation experiments.
+* **Seamless integration with model development.** BioSimulations executes simulations using BioSimulators. This makes it easy for investigators to continue to work with models beyond BioSimulations using the same containerized simulation tools used by BioSimuations. Similarly, authors can use these same tools prior to publishing models to BioSimulations. This avoids duplicate effort and makes it easy for investigators to debug problems.
 
-BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Through BioSimulators, BioSimulations supports a numerous algorithms for simulating logical, FBA, and kinetic models. BioSimulators builds upon [Docker](https://docker.com)  and [BioContainers](https://biocontainers.pro) . Please see [BioSimulators](https://biosimulators.org)  for more information about supported modeling frameworks, simulation algorithms, model formats, and simulation software tools.
+## Supported Modeling Methods
+
+Currently BioSimulations can simulate constraint-based (Flux Balance Analysis (FBA) and Resource Balance Analysis (RBA)), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)), logical, spatial, particle-based and hybrid models that are described in using several languages including the [BioNetGen Language (BNGL)](https://bionetgen.org), [CellML](https://cellml.org), the [GINsim](http://ginsim.org/) Markup Language, [NeuroML](https://neuroml.org/)/[Low Entropy Model Specification Langauge (LEMS)](https://lems.github.io/LEMS/), the [RBA XML format](https://sysbioinra.github.io/RBApy/), the [Systems Biology Markup Language (SBML)](https://sbml.org) including the Flux Balance Constraints and Qualitative Modeling Packages, the [Smoldyn](http://www.smoldyn.org/) simulation configuration format, and the XPP [ODE](http://www.math.pitt.edu/~bard/xpp/help/xppodes.html) format. Currently Biosimulations supports over 60 simulation algorithm algorithms with over 20 simulation tools. More information about the available simulation methods is available at [BioSimulators](https://biosimulators.org).
+
+Importantly, BioSimulations is extensible to additional modeling frameworks, model formats, simulation algorithms, and simulation tools. The community can extend BioSimulations' capabilities by contributing simulation tools to [BioSimulators](https://biosimulators.org).
+More information, tutorials, and examples are example from BioSimulators. 
 
 <div class="logos">
 <div class="logos-row">
@@ -195,8 +204,7 @@ BioSimulations uses the BioSimulators collection of simulation tools to simulate
 
 ## Source Model Repositories
 
-In addition to models, simulations, and visualizations contributed by investigators, BioSimulations contains models, simulations, and visualizations imported from [BiGG](http://bigg.ucsd.edu/), [BioModels](http://www.ebi.ac.uk/biomodels/), and [Cell Collective](https://cellcollective.org/). BioSimulations provides a central place to find and reuse these models.
-
+In addition to models, simulations, and visualizations contributed by investigators, BioSimulations also contains models, simulations, and visualizations aggregated from several primary repositories including [BiGG](http://bigg.ucsd.edu/), [BioModels](http://www.ebi.ac.uk/biomodels/), [ModelDB](http://modeldb.science/), the [Physiome Model Repository](https://models.physiomeproject.org/), the [Resource Balance Analysis Model Repository](https://github.com/SysBioInra/Bacterial-RBA-models), [RuleHub](https://github.com/RuleWorld/RuleHub), and the [VCell Published Models Database](https://vcell.org/vcell-published-models). Prior to incorporation into BioSimulations, BioSimulations extensively extensively quality-controls and debugs these models. In many cases BioSimulations also adds additional simulation experiments, data visualizations, and metadata.
 
 <div class="logos">
 <div class="logos-row">
@@ -225,8 +233,7 @@ In addition to models, simulations, and visualizations contributed by investigat
         class="zoom"
         src="/assets/images/about/partners/cell-collective.png"
     />
-    </a>
-    -->
+    </a>    
 
     <a href="http://ginsim.org/" target="_blank" title="GINsim">
     <img class="zoom" src="/assets/images/about/partners/ginsim.svg" />
@@ -239,6 +246,23 @@ In addition to models, simulations, and visualizations contributed by investigat
     >
     <img class="zoom" src="/assets/images/about/partners/jws.svg" />
     </a>
+    -->
+
+    <a
+    href="http://modeldb.science/"
+    target="_blank"
+    title="ModelDB"
+    >
+    <img class="zoom" src="/assets/images/about/partners/modeldb.svg" />
+    </a>
+
+    <a
+    href="https://models.physiomeproject.org/"
+    target="_blank"
+    title="Physiome Model Repository"
+    >
+    <img class="zoom" src="/assets/images/about/partners/physiome.svg" />
+    </a>
 
     <a
     href="https://rba.inrae.fr/models.html"
@@ -247,239 +271,13 @@ In addition to models, simulations, and visualizations contributed by investigat
     >
     <img class="zoom" src="/assets/images/about/partners/rba.png" />
     </a>
-</div>
-</div>
-
-## Recommended tools for further exploring modeling projects
-BioSimulations provides basic capabilities for reproducing and reusing a wide range of biomodeling projects. For further exploration, we encourage users to use the domain-specific online platforms, desktop programs, and libraries outlined below.
-
-	
-|**Framework**  |Online platforms| Desktop programs| Libraries  |
-|---------|---------|---------|---------|
-|Constraint-based	     |  Fluxer       |   CBMPy iBioSim       | CBMPy COBRApy        |
-|Continuous kinetic	     |    JWS Online      |    BioNetGen (rule-based) COPASI iBioSim tellurium VCell      |      AMICI libRoadRunner PySCeS    |
-|Discrete kinetic     |    StochSS      |    BioNetGen (rule-based) COPASI iBioSim tellurium VCell      |  GillesPy2 PySCeS libRoadRunner      |
-|Logical	     | Cell Collective         |       CNORdt  |         |
-
-
-
-<div class="logos">
-<div class="logos-row">
-    <a
-    href="https://cellcollective.org/"
-    target="_blank"
-    title="Cell Collective"
-    >
-    <img
-        class="zoom"
-        src="/assets/images/about/partners/cell-collective.png"
-    />
-    </a>
-
-    <a href="https://fluxer.umbc.edu/" target="_blank" title="Fluxer">
-    <img class="zoom" src="/assets/images/about/partners/fluxer.svg" />
-    </a>
 
     <a
-    href="https://jjj.biochem.sun.ac.za/"
+    href="https://vcell.org/vcell-published-models"
     target="_blank"
-    title="JWS Online"
+    title="VCell Published Models Database"
     >
-    <img class="zoom" src="/assets/images/about/partners/jws.svg" />
-    </a>
-
-    <a href="https://stochss.org/" target="_blank" title="StochSS">
-    <img class="zoom" src="/assets/images/about/partners/stochss.svg" />
-    </a>
-
-    <a
-    href="https://vivarium-collective.github.io"
-    target="_blank"
-    title="Vivarium"
-    >
-    <img class="zoom" src="/assets/images/about/partners/vivarium.svg" />
+    <img class="zoom" src="/assets/images/about/partners/vcell.svg" />
     </a>
 </div>
 </div>
- 
-## Technological foundation of BioSimulations
-BioSimulations is implemented using several open-source tools and cloud platforms.
-
-<div class="logos">
-<div class="logos-row">
-    <a href="https://angular.io" target="_blank" title="Angular">
-    <img class="zoom" src="/assets/images/about/tech/angular.svg" />
-    </a>
-
-    <a href="https://auth0.com/" target="_blank" title="Auth0">
-    <img class="zoom" src="/assets/images/about/tech/auth0.svg" />
-    </a>
-
-    <a href="https://www.docker.com/" target="_blank" title="Docker">
-    <img class="zoom" src="/assets/images/about/tech/docker.svg" />
-    </a>
-
-    <a
-    href="https://realfavicongenerator.net/"
-    target="_blank"
-    title="Favicon Generator"
-    >
-    <img
-        class="zoom"
-        src="/assets/images/about/tech/real-favicon-generator.png"
-    />
-    </a>
-
-    <a
-    href="https://fontawesome.com"
-    target="_blank"
-    title="Font Awesome"
-    >
-    <img class="zoom" src="/assets/images/about/tech/font-awesome.svg" />
-    </a>
-
-    <a href="https://www.github.com/" target="_blank" title="GitHub">
-    <img class="zoom" src="/assets/images/about/tech/github.svg" />
-    </a>
-
-    <a href="https://gravatar.com/" target="_blank" title="Gravatar">
-    <img class="zoom" src="/assets/images/about/tech/gravatar.svg" />
-    </a>
-
-    <a href="https://kubernetes.io/" target="_blank" title="Kubernetes">
-    <img class="zoom" src="/assets/images/about/tech/kubernetes.svg" />
-    </a>
-
-    <a href="https://www.mongodb.com/" target="_blank" title="MongoDB">
-    <img class="zoom" src="/assets/images/about/tech/mongodb.svg" />
-    </a>
-
-    <a
-    href="https://material.io/"
-    target="_blank"
-    title="Material Design"
-    >
-    <img class="zoom" src="/assets/images/about/tech/material.svg" />
-    </a>
-
-    <a
-    href="https://materialtheme.arcsine.dev/"
-    target="_blank"
-    title="Material Theme Generator"
-    >
-    <img
-        class="zoom"
-        src="/assets/images/about/tech/material-theme-generator.svg"
-    />
-    </a>
-
-    <a target="_blank" href="https://nestjs.com/" title="NestJS">
-    <img class="zoom" src="/assets/images/about/tech/nestjs.svg"
-    /></a>
-    <a target="_blank" href="https://www.netlify.com" title="Netlify">
-    <img class="zoom" src="/assets/images/about/tech/netlify.svg"
-    /></a>
-    <a target="_blank" href="https://www.openapis.org/" title="OpenAPI">
-    <img class="zoom" src="/assets/images/about/tech/openapi.svg"
-    /></a>
-    <a target="_blank" href="https://spdx.org" title="SPDX">
-    <img class="zoom" src="/assets/images/about/tech/spdx.svg"
-    /></a>
-    <a target="_blank" href="https://swagger.io" title="Swagger">
-    <img class="zoom" src="/assets/images/about/tech/swagger.svg"
-    /></a>
-</div>
-</div>
-## Downloading the models, simulations, and visualizations in BioSimulations
-
-The models, simulations, and visualizations in BioSimulations can be programmatically obtained using our REST API . Documentation for the API is available at the same URL.
-## Obtaining the containerized simulation tools
-
-The containerized simulation software tools are available from [BioSimulators](https://biosimulators.org). 
-
-## Obtaining the BioSimulations source code
-
-The BioSimulations source code is available in our [Github repository](https://github.com/biosimulations/biosimulations) 
-
-The source code for the underlying simulation tools and utilities for the simulation tools functionality is available on the [BioSimulators](https://github.com/    biosimulators) Github organization.
-## License
-
-The models, simulations, and visualizations in BioSimulations are provided under the license specified for each resource. The containerized simulators are provided under the open-source licenses documented for each image. Please see [BioSimulators](https://biosimulators.org)  for more information. The BioSimulations source code is provided under the [MIT license](/License) . The licenses for BioSimulations' third-party dependencies are summarized [here](/Dependencies) .
-
-## BioSimulations Team
-
-BioSimulations was developed by the [Center for Reproducible Biomedical Modeling](http://reproduciblebiomodels.org/) including [Bilal Shaikh](https://bshaikh.com)  and [Jonathan Karr](https://www.karrlab.org)  at the [Icahn School of Medicine at Mount Sinai](https://icahn.mssm.edu) ; Akhil Marupilla, [Mike Wilson](https://www.linkedin.com/in/mike-wilson-08b3324/) , [Michael Blinov](https://health.uconn.edu/blinov-lab/) , and [Ion Moraru](https://facultydirectory.uchc.edu/profile?profileId=Moraru-Ion")  at the [Center for Cell Analysis and Modeling](https://health.uconn.edu/cell-analysis-modeling/)  at UConn Health; and [Herbert Sauro](https://www.sys-bio.org/) at the University of Washington.
-
-<div class="logos">
-<div class="logos-row">
-    <a
-    href="https://reproduciblebiomodels.org/"
-    target="_blank"
-    title="Center for Reproducible Biomedical Modeling"
-    >
-    <img class="zoom" src="/assets/images/about/team/crbm.svg" />
-    </a>
-
-    <a
-    href="https://www.karrlab.org/"
-    target="_blank"
-    title="Center for Reproducible Biomedical Modeling"
-    >
-    <img class="zoom" src="/assets/images/about/team/karr-lab.svg" />
-    </a>
-
-    <a
-    href="https://icahn.mssm.edu"
-    target="_blank"
-    title="Icahn School of Medicine at Mount Sinai"
-    >
-    <img class="zoom" src="/assets/images/about/team/sinai.svg" />
-    </a>
-
-    <a
-    href="https://health.uconn.edu/"
-    target="_blank"
-    title="UConn Health"
-    >
-    <img class="zoom" src="/assets/images/about/team/uconn.svg" />
-    </a>
-
-    <a
-    href="https://uw.edu"
-    target="_blank"
-    title="University of Washington"
-    >
-    <img class="zoom" src="/assets/images/about/team/uw.svg" />
-    </a>
-</div>
-</div>
-## Contributing to BioSimulations
-
-We welcome contributions to BioSimulations!
-
-Models, simulations, and visualizations can be contributed through this website or our REST API. Please create an account to get started.
-
-Containerized simulators can be contributed by submitting GitHub issues . Please see BioSimulators  for information about the required format, a guide to building simulator images, and examples.
-
-BioSimulations software: We welcome contributions by GitHub pull requests . Please see the Guide to Contributing  for information about how to get started. Please also contact the developers  to coordinate potential contributions.
-## Acknowledgements
-
-BioSimulations was developed with support from the [Center for Reproducible Biomodeling Modeling](https://reproduciblebiomodels.org)  from the [National Institute of Bioimaging and Bioengineering](https://www.nigms.nih.gov)  and the [National Institute of General Medical Sciences  of the National Institutes of Health](https://nih.gov)  and the [National Science Foundation](https://nsf.gov).
-
-<div class="logos">
-<div class="logos-row">
-    <a href="https://nih.gov" target="_blank" title="NIH">
-    <img class="zoom" src="/assets/images/about/funding/nih.svg" />
-    </a>
-    <a href="https://nibib.nih.gov" target="_blank" title="NIBIB">
-    <img class="zoom" src="/assets/images/about/funding/nibib.svg" />
-    </a>
-    <a href="https://nigms.nih.gov" target="_blank" title="NIGMS">
-    <img class="zoom" src="/assets/images/about/funding/nigms.svg" />
-    </a>
-    <a href="https://nsf.gov" target="_blank" title="NSF">
-    <img class="zoom" src="/assets/images/about/funding/nsf.svg" />
-    </a>
-</div>
-</div>
-

@@ -34,7 +34,7 @@ Tutorials, help and information can be found at [https://docs.biosimulations.org
 
 ### Developers 🖥️
 
-We welcome contributions to BioSimulations, runBioSimulations, and BioSimulations! Please see the [developers guide](https://docs.biosimulations.org/developers) for information about how to get started including how to install this package and how to run BioSimulations, runBioSimulations, and BioSimulators locally.
+We welcome contributions to BioSimulations, runBioSimulations, and BioSimulations! Please see the [developer guide](https://docs.biosimulations.org/developers) for information about how to get started including how to install this package and how to run BioSimulations, runBioSimulations, and BioSimulators locally.
 
 ## License ⚖️
 
