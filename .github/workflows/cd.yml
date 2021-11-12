@@ -16,7 +16,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app: ${{ fromJson("[\"account\", \"platform\", \"simulators\", \"dispatch\"]")}}
+        app: 
+          - account
+          - platform
+          - simulators
+          - dispatch
 
     steps:
       - name: Checkout repository
@@ -53,7 +57,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app: ${{ fromJson("[\"account\", \"platform\", \"simulators\", \"dispatch\"]")}}
+        app:
+          - account
+          - platform
+          - simulators
+          - dispatch
 
     steps:
       - name: Checkout repository
@@ -98,7 +106,12 @@ jobs:
     environment: dev_environment
     strategy:
       matrix:
-        app: ${{ fromJson("[\"account\", \"platform\", \"simulators\", \"dispatch\"]")}}
+        app:
+          - account
+          - platform
+          - simulators
+          - dispatch
+
     steps:
       - name: Install Node.js
         uses: actions/setup-node@v2.4.1
@@ -129,7 +142,12 @@ jobs:
     environment: prod_environment
     strategy:
       matrix:
-        app: ${{ fromJson("[\"account\", \"platform\", \"simulators\", \"dispatch\"]")}}
+        app:
+          - account
+          - platform
+          - simulators
+          - dispatch
+
     steps:
       - name: Install Node.js
         uses: actions/setup-node@v2.4.1
