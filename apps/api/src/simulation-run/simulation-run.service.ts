@@ -469,6 +469,18 @@ export class SimulationRunService {
       initialInterval: 100,
       maxRetries: 10,
       resetOnSuccess: true,
+      shouldRetry: (error: any): boolean => {
+        return [
+          HttpStatus.REQUEST_TIMEOUT,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          HttpStatus.BAD_GATEWAY,
+          HttpStatus.GATEWAY_TIMEOUT,
+          HttpStatus.SERVICE_UNAVAILABLE,
+          HttpStatus.TOO_MANY_REQUESTS,
+          undefined,
+          null,
+        ].includes(error?.status);
+      },
     });
   }
 

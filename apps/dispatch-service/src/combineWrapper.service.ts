@@ -4,13 +4,35 @@ import {
   CombineArchiveSedDocSpecs,
   SimulationProjectsService,
 } from '@biosimulations/combine-api-client';
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
+import { retryBackoff } from 'backoff-rxjs';
 
 @Injectable()
 export class CombineWrapperService {
-  public constructor(private service: SimulationProjectsService) {}
+  public constructor(private service: SimulationProjectsService) {    
+  }
+
+  private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
+    return retryBackoff({
+      initialInterval: 100,
+      maxRetries: 12,
+      resetOnSuccess: true,
+      shouldRetry: (error: any): boolean => {
+        return [
+          HttpStatus.REQUEST_TIMEOUT,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          HttpStatus.BAD_GATEWAY,
+          HttpStatus.GATEWAY_TIMEOUT,
+          HttpStatus.SERVICE_UNAVAILABLE,
+          HttpStatus.TOO_MANY_REQUESTS,
+          undefined,
+          null,
+        ].includes(error?.status);
+      },
+    });
+  }
 
   public getArchiveMetadata(
     omexMetadataFormat: string,
@@ -21,14 +43,19 @@ export class CombineWrapperService {
       omexMetadataFormat,
       file,
       url,
-    );
+    )
+    .pipe(this.getRetryBackoff());
   }
 
   public getManifest(
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<CombineArchiveManifest>> {
-    return this.service.srcHandlersCombineGetManifestHandler(file, url);
+    return this.service.srcHandlersCombineGetManifestHandler(
+        file,
+        url
+      )
+      .pipe(this.getRetryBackoff());
   }
 
   public getSedMlSpecs(
@@ -38,7 +65,8 @@ export class CombineWrapperService {
     return this.service.srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
       file,
       url,
-    );
+    )
+    .pipe(this.getRetryBackoff());
   }
 }
 

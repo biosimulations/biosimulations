@@ -34,7 +34,7 @@ export class MetadataService {
 
   public async createMetadata(id: string): Promise<void> {
     const url = this.endpoints.getRunDownloadEndpoint(id, true);
-    this.logger.debug(`Fetching metadata for archive at url: ${url}`);
+    this.logger.debug(`Fetching metadata for archive for simulation run '${id}' at URL: ${url}`);
 
     const res = await firstValueFrom(
       this.service.getArchiveMetadata(
@@ -43,8 +43,6 @@ export class MetadataService {
         url,
       ),
     );
-
-    // TODO handle errors/timeouts
 
     const combineMetadata: BioSimulationsCombineArchiveElementMetadata[] =
       res.data;
@@ -69,7 +67,7 @@ export class MetadataService {
       metadata,
     };
 
-    const metadataReq = this.submit.postMetadata(postMetadata);
+    const metadataReq = this.submit.postMetadata(id, postMetadata);
 
     const metadataPostObserver = {
       next: (res: SimulationRunMetadata) => {
@@ -77,9 +75,8 @@ export class MetadataService {
       },
       error: (err: AxiosError) => {
         this.logger.error(
-          `Failed to post metadata for simulation run '${id}'.`,
+          `Failed to post metadata for simulation run '${id}': ${err?.response?.data}.`,
         );
-        this.logger.error(err?.response?.data);
         // Its important to throw this error so that the calling service is aware posting metadata failed
         throw err;
       },

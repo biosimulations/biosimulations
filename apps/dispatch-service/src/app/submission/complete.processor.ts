@@ -113,7 +113,7 @@ export class CompleteProcessor {
           reason += ` A validation tool is\n    available at ${processingStep.validator}.`;
         }
 
-        const details = `The ${processingStep.name} could not be saved: ${processingResult.reason}`;
+        const details = `The ${processingStep.name} for simulation run '${id}' could not be saved: ${processingResult.reason}`;
         if (processingStep.required) {
           errors.push(reason);
           errorsDetails.push(details);

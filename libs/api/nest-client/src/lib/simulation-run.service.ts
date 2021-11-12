@@ -3,7 +3,7 @@ import {
   CreateSimulationRunLogBody,
 } from '@biosimulations/datamodel/common';
 import { SimulationRun } from '@biosimulations/datamodel/api';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { Endpoints } from '@biosimulations/config/common';
@@ -41,38 +41,45 @@ export class SimulationRunService {
   }
 
   public postMetadata(
+    runId: string,
     metadata: SimulationRunMetadataInput,
   ): Observable<SimulationRunMetadata> {
+    this.logger.log(`Uploading metadata for simulation run '${runId}' ....`);
     const endpoint = this.endpoints.getSimulationRunMetadataEndpoint();
     return this.postAuthenticated<
       SimulationRunMetadataInput,
       SimulationRunMetadata
-    >(endpoint, metadata);
+    >(runId, endpoint, metadata);
   }
 
   public postSpecs(
+    runId: string,
     specs: SimulationRunSedDocumentInput[],
   ): Observable<SimulationRunSedDocument[]> {
+    this.logger.log(`Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`);
     const endpoint = this.endpoints.getSpecificationsEndpoint();
     return this.postAuthenticated<
       SimulationRunSedDocumentInputsContainer,
       SimulationRunSedDocument[]
-    >(endpoint, { sedDocuments: specs });
+    >(runId, endpoint, { sedDocuments: specs });
   }
 
   public postFiles(
-    id: string,
+    runId: string,
     files: ProjectFileInput[],
   ): Observable<ProjectFile[]> {
+    this.logger.log(`Uploading files for simulation run '${runId}' ....`);
     const body: ProjectFileInputsContainer = { files };
     const endpoint = this.endpoints.getSimulationRunFilesEndpoint();
     return this.postAuthenticated<ProjectFileInputsContainer, ProjectFile[]>(
+      runId,
       endpoint,
       body,
     );
   }
+
   public updateSimulationRunStatus(
-    id: string,
+    runId: string,
     status: SimulationRunStatus,
     statusReason: string,
   ): Observable<SimulationRun> {
@@ -80,7 +87,7 @@ export class SimulationRunService {
       map((token) => {
         const httpRes = this.http
           .patch<SimulationRun>(
-            this.endpoints.getSimulationRunEndpoint(id),
+            this.endpoints.getSimulationRunEndpoint(runId),
             {
               status,
               statusReason,
@@ -91,7 +98,10 @@ export class SimulationRunService {
               },
             },
           )
-          .pipe(pluck('data'));
+          .pipe(
+            this.getRetryBackoff(),
+            pluck('data'),
+          );
 
         return httpRes;
       }),
@@ -101,14 +111,14 @@ export class SimulationRunService {
   }
 
   public updateSimulationRunResultsSize(
-    id: string,
+    runId: string,
     size: number,
   ): Observable<SimulationRun> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
           .patch<SimulationRun>(
-            this.endpoints.getSimulationRunEndpoint(id),
+            this.endpoints.getSimulationRunEndpoint(runId),
             { resultsSize: size },
             {
               headers: {
@@ -117,11 +127,11 @@ export class SimulationRunService {
             },
           )
           .pipe(
-            catchError((err, caught) => {
-              this.logger.error(err);
+            catchError((error, caught) => {
+              this.logger.error(`The size of the results for simulation run '${runId}' could not be updated: ${error}`);
               return caught;
             }),
-            retry(2),
+            retry(5),
             pluck('data'),
           );
       }),
@@ -129,53 +139,51 @@ export class SimulationRunService {
     );
   }
 
-  public getJob(id: string): Observable<SimulationRun> {
+  public getSimulationRun(runId: string): Observable<SimulationRun> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
-          .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(id), {
+          .get<SimulationRun>(this.endpoints.getSimulationRunEndpoint(runId), {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           })
-          .pipe(pluck('data'));
+          .pipe(
+            this.getRetryBackoff(),
+            pluck('data'),
+          );
       }),
       mergeMap((value) => value),
     );
   }
 
   public sendLog(
-    simId: string,
+    runId: string,
     log: CombineArchiveLog,
     update = false,
   ): Observable<CombineArchiveLog> {
     if (update) {
-      const endpoint = this.endpoints.getSimulationRunLogsEndpoint(simId);
+      const endpoint = this.endpoints.getSimulationRunLogsEndpoint(runId);
       const body: CombineArchiveLog = log;
       return this.putAuthenticated<CombineArchiveLog, CombineArchiveLog>(
+        runId,
         endpoint,
         body,
       );
     } else {
       const endpoint = this.endpoints.getSimulationRunLogsEndpoint();
       const body: CreateSimulationRunLogBody = {
-        simId: simId,
+        simId: runId,
         log: log,
       };
       return this.postAuthenticated<
         CreateSimulationRunLogBody,
         CombineArchiveLog
-      >(endpoint, body);
+      >(runId, endpoint, body);
     }
   }
 
-  private postAuthenticated<T, U>(url: string, body: T): Observable<U> {
-    const MAX_RETRIES = 12;
-    const RetryBackoff = retryBackoff({
-      initialInterval: 100,
-      maxRetries: MAX_RETRIES,
-      resetOnSuccess: true,
-    });
+  private postAuthenticated<T, U>(runId: string, url: string, body: T): Observable<U> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
@@ -191,15 +199,15 @@ export class SimulationRunService {
                 const statusText = err.response?.statusText;
                 const message = err.response?.data?.message;
                 this.logger.error(
-                  `${status} ${statusText} ${message} for post operation on path ${url}`,
+                  `${status} ${statusText} ${message} for post operation on path ${url} for simulation run ${runId}`,
                 );
               } else {
-                this.logger.error(err);
+                this.logger.error(`The post operation to ${url} for simulation run ${runId} failed: ${err}`);
               }
 
               return throwError(() => err);
             }),
-            RetryBackoff,
+            this.getRetryBackoff(),
             pluck('data'),
           );
       }),
@@ -207,7 +215,7 @@ export class SimulationRunService {
     );
   }
 
-  private putAuthenticated<T, U>(url: string, body: T): Observable<U> {
+  private putAuthenticated<T, U>(runId: string, url: string, body: T): Observable<U> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
@@ -216,9 +224,46 @@ export class SimulationRunService {
               Authorization: `Bearer ${token}`,
             },
           })
-          .pipe(pluck('data'));
+          .pipe(
+            catchError((err: AxiosError, caught) => {
+              if (err.isAxiosError) {
+                const status = err.response?.status;
+                const statusText = err.response?.statusText;
+                const message = err.response?.data?.message;
+                this.logger.error(
+                  `${status} ${statusText} ${message} for put operation on path ${url} for simulation run ${runId}`,
+                );
+              } else {
+                this.logger.error(`The put operation to ${url} for simulation run ${runId} failed: ${err}`);
+              }
+
+              return throwError(() => err);
+            }),
+            this.getRetryBackoff(),
+            pluck('data'),
+          );
       }),
       mergeMap((value) => value),
     );
+  }
+
+  private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
+    return retryBackoff({
+      initialInterval: 100,
+      maxRetries: 12,
+      resetOnSuccess: true,
+      shouldRetry: (error: any): boolean => {
+        return [
+          HttpStatus.REQUEST_TIMEOUT,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          HttpStatus.BAD_GATEWAY,
+          HttpStatus.GATEWAY_TIMEOUT,
+          HttpStatus.SERVICE_UNAVAILABLE,
+          HttpStatus.TOO_MANY_REQUESTS,
+          undefined,
+          null,
+        ].includes(error?.status);
+      },
+    });
   }
 }
