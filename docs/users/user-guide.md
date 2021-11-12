@@ -1,16 +1,33 @@
-# Tutorial
+# User guide: finding, exploring & reusing projects
 
-## Guide for users: finding, simulating, and visualizing published models
+## Finding projects
 
-Finding models
-Finding simulation experiment
-Note, simulation results will be stored permanently
-Creating variants of simulations
-Finding visualizations
-Configuring visualizations
+## Exploring projects
+
+### Metadata
+
+### Visualizations
+
+### Configuring new visualizations
+
+### Logs of simulation runs
+
+## Reusing projects: creating and executing variants of simulations with runBioSimulations
+
+In addition to this full-featured web application, [runBioSimulations](https://run.biosimulations.org) provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. This application does not require an account.
+
+## Further reusing projects beyond BioSimulations: downloading projects and executing them with your own computers
+
+### Downloading projects
+
+The models, simulations, and visualizations in BioSimulations can be programmatically obtained using our [REST API](https://api.biosimulations.org). Documentation for the API is available at the same URL.
 
 ### Recommended tools for further exploring simulation projects
-BioSimulations provides basic capabilities for reproducing and reusing a wide range of biomodeling projects. For further exploration, we encourage users to use the domain-specific online platforms, desktop programs, and libraries outlined below.
+BioSimulations provides basic capabilities for reproducing and reusing a wide range of biomodeling projects. For further work, we encourage users to use the domain-specific online platforms, desktop programs, and libraries outlined below. Consistent interfaces to the desktop and library tools below are available from [BioSimulators](https://biosimulators.org), including Docker images, command-line interfaces and Python APIs. More information about obtaining and using these tools is available from [BioSimulators](https://biosimulators.org). 
+
+!!! warning
+
+    While the BioSimulators interfaces to these tools support SED-ML and the COMBINE/OMEX archive format, the primary versions of most of the tools below do not support these formats or do not support them consistently with the specifications of the SED-ML format.
 
     
 | Framework          | Language | Online programs                                | Desktop programs                         | Libraries  |
@@ -67,43 +84,3 @@ BioSimulations provides basic capabilities for reproducing and reusing a wide ra
     </a>
 </div>
 </div>
-
-### Downloading the models, simulations, and visualizations in BioSimulations
-
-The models, simulations, and visualizations in BioSimulations can be programmatically obtained using our [REST API](https://api.biosimulations.org). Documentation for the API is available at the same URL.
-
-### Obtaining the containerized simulation tools
-
-The containerized simulation software tools are available from [BioSimulators](https://biosimulators.org). 
-
-
-
-
-## Guide for authors: publishing models, simulations, and visualizations
-
-Uploading models
-Uploading simulation experiments
-Note, simulation results will be stored permanently
-Uploading visualizations
-Sharing resources reviewers and editors
-
-## Guide for reviewers and editors: evaluating models, simulations, and visualizations
-
-Accessing resources
-
-## Guide for simulation software developers: contributing an additional simulation tool
-BioSimulations uses the BioSimulators collection of simulation tools. Please see [BioSimulators](https://biosimulators.org) for information about contributing an additional simulation tool.
-
-## User accounts for owning projects
-
-Signing up
-Signing in
-
-## Programmatically working with BioSimulations via the REST API
-
-A comprehensive API is available for submitting and retrieving projects, models, simulations, charts, and visualizations and executing simulations and retrieving their results. Please see the documentation for the [REST API](https://api.biosimulations.org) for more information.
-
-
-## Executing simulations with the stand-alone simulation web application and REST API
-
-In addition to this full-featured web application, [runBioSimulations](https://run.biosimulations.org) provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. This application does not require an account.
