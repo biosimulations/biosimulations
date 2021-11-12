@@ -24,6 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         app: ${{fromJSON(inputs.apps)}}
+
     steps:
       - name: Checkout [dev]
         uses: actions/checkout@v2
@@ -38,7 +39,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - name: Setup Node 
+      - name: Setup Node
         uses: actions/setup-node@v2
         with:
           node-version: '14'
@@ -73,5 +74,5 @@ jobs:
       - name: Build Docker Image
         env:
           INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          INPUT_PUSH: ${{ inputs.push }}      
+          INPUT_PUSH: ${{ inputs.push }}
         run: npx nx docker ${{matrix.app}}

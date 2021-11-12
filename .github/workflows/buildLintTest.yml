@@ -10,7 +10,7 @@ on:
         required: false
         type: string
         default: "CI"
-      upload: 
+      upload:
         required: false
         type: boolean
         default: true
@@ -18,11 +18,12 @@ on:
         required: false
         type: boolean
         default: true
-    
+
 env:
   NX_CLOUD_DISTRIBUTED_EXECUTION: true
+  INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-jobs:      
+jobs:
   main:
     runs-on: ubuntu-latest
     steps:
@@ -76,14 +77,15 @@ jobs:
       - run: npx nx affected --target=lint --parallel & P1=$! npx nx affected --target=build --prod --parallel & P2=$! npx nx affected --target=test --parallel & P3=$! && wait $P1 $P2 $P3
         name: Lint Build Test Affected
         if:  ${{inputs.affectedOnly}}
+
       - run:  npx nx run-many --all --target=lint --parallel & P1=$! npx nx run-many --all --target=build --prod --parallel & P2=$! npx nx run-many --all --target=test --parallel & P3=$! && wait $P1 $P2 $P3
-        
         name: Lint Build Test All
         if: ${{!inputs.affectedOnly}}
-      - run: npx nx-cloud stop-all-agents
+
+      - name: Stop CI run
+        run: npx nx-cloud stop-all-agents
         if:  always()
 
-  
       - name: Upload builds
         uses: actions/upload-artifact@v2
         if: ${{inputs.upload}}
@@ -92,8 +94,7 @@ jobs:
           path: dist/
           retention-days: 5
           if-no-files-found: ${{ fromJSON('["warn", "error"]')[!inputs.affectedOnly]}}
-            
-      
+
   agents:
     runs-on: ubuntu-latest
     name: Worker Node
@@ -125,6 +126,6 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           useRollingCache: true
-      
+
       - name: Start Nx Agent ${{ matrix.agent }}
         run: npx nx-cloud start-agent
