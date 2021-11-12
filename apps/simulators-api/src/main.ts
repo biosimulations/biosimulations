@@ -81,7 +81,7 @@ function setupOpenApi(
     customSiteTitle: 'BioSimulators API documentation',
     swaggerOptions: uiOptions,
     customfavIcon:
-      'https://github.com/biosimulations/Biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png',
+      'https://github.com/biosimulations/biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png',
     customCssUrl:
       'https://static.biosimulations.org/stylesheets/biosimulators_swagger.css',
   };
@@ -135,7 +135,7 @@ async function bootstrap() {
     .setVersion('0.1')
     .setLicense(
       'MIT License',
-      'https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE',
+      'https://github.com/biosimulations/biosimulations/blob/dev/LICENSE',
     )
     .setTermsOfService('https://biosimulators.org/help/terms')
     .setExternalDoc(

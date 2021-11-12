@@ -2,7 +2,7 @@
 /**
  * @file Contains the mongoose model definition for a simulation run. The COMBINE/OMEX archive file is stored as a ObjectId refrence to the file also stored in the database.
  * @author Bilal Shaikh
- * @copyright Biosimulations Team, 2020
+ * @copyright BioSimulations Team, 2020
  * @license MIT
  */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';

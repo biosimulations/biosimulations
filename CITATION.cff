@@ -116,7 +116,7 @@ identifiers:
     description: SciCrunch entry for BioSimulators
 license: MIT
 message: 'If you use this software, please cite it using these metadata.'
-repository-code: 'https://github.com/biosimulations/Biosimulations'
+repository-code: 'https://github.com/biosimulations/biosimulations'
 title: BioSimulations
 contact:
   - email: "info@biosimulations.org"

@@ -1,7 +1,7 @@
 /**
  * @file Test file for the results service
  * @author Bilal Shaikh
- * @copyright Biosimulations Team, 2020
+ * @copyright BioSimulations Team, 2020
  * @license MIT
  */
 import { SharedStorageService } from '@biosimulations/shared/storage';

@@ -73,16 +73,16 @@ export type staticUrlMap = { [key in staticUrlNames]: string };
 
 export const staticUrls: staticUrlMap = {
   platformNewIssue:
-    'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    'https://github.com/biosimulations/biosimulations/issues/new/choose',
   accountNewIssue:
-    'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    'https://github.com/biosimulations/biosimulations/issues/new/choose',
   dispatchNewIssue:
-    'https://github.com/biosimulations/Biosimulations/issues/new/choose',
+    'https://github.com/biosimulations/biosimulations/issues/new/choose',
   simulatorsNewIssue:
     'https://github.com/biosimulators/Biosimulators/issues/new/choose',
-  platformNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-  accountNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
-  dispatchNewPull: 'https://github.com/biosimulations/Biosimulations/compare',
+  platformNewPull: 'https://github.com/biosimulations/biosimulations/compare',
+  accountNewPull: 'https://github.com/biosimulations/biosimulations/compare',
+  dispatchNewPull: 'https://github.com/biosimulations/biosimulations/compare',
   simulatorsNewPull: 'https://github.com/biosimulators/Biosimulators/compare',
 };
 /**

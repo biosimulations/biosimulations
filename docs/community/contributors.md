@@ -62,7 +62,3 @@ Numerous individuals and groups have contributed to BioSimulations, including:
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 A key to the above emojis is available [here](https://allcontributors.org/docs/en/emoji-key).
-
-## Contributing to BioSimulations
-
-We enthusiastically welcome contributions to BioSimulations! Please see the [guide to contributing](../developers/index.md) and the [developer's code of conduct](../developers/conduct.md).

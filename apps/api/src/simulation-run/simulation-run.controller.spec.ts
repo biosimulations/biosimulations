@@ -9,7 +9,7 @@ import { HttpModule } from '@nestjs/axios';
 /**
  * @file Test file for controller
  * @author Bilal Shaikh
- * @copyright Biosimulations Team, 2020
+ * @copyright BioSimulations Team, 2020
  * @license MIT
  */
 describe('SimulationRunsController', () => {

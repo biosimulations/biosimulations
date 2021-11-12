@@ -4,17 +4,20 @@
 
 **Which modeling frameworks does BioSimulations support?**
 
-BioSimulations supports all modeling frameworks. However, currently BioSimulations can only simulate the logical, Flux Balance Analysis (FBA), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) frameworks. This includes rule-based models. BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Please see [BioSimulators](https://biosimulators.org) for more information about supported modeling frameworks.
+Currently BioSimulations can simulate constraint-based (Flux Balance Analysis (FBA) and Resource Balance Analysis (RBA)), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)), logical, spatial, particle-based and hybrid models. More information about the available simulation methods is available at [BioSimulators](https://biosimulators.org).
 
-**Which Model Formats Does Biosimulations Support?**
+BioSimulations is extensible to additional modeling frameworks, model formats, simulation algorithms, and simulation tools. The community can extend BioSimulations' capabilities by contributing simulation tools to [BioSimulators](https://biosimulators.org).
+More information, tutorials, and examples are available from BioSimulators. 
+
+**Which model formats does BioSimulations support?**
 
 Models can be shared in any format. However, currently BioSimulations can only simulate models encoded in the [BioNetGen Language (BNGL)](https://bionetgen.org) and the [Systems Biology Markup Language (SBML)](http://sbml.org). BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Please see [BioSimulators](https://biosimulators.org) for more information about supported model formats.
 
-**Which SBML Packages Does Biosimulations Support?**
+**Which SBML packages does BioSimulations support?**
 
 Currently, BioSimulations can only simulate models that use core and [Flux Balance Constraints (fbc)](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/fbc) or [Qualitative Models (qual)](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/qual) packages.
 
-**How is Each Model Licensed?**
+**How is each model licensed?**
 
 The models, simulations, and visualizations in BioSimulations are provided under the license specified for each resource.
 

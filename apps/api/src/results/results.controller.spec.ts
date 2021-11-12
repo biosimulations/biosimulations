@@ -1,7 +1,7 @@
 /**
  * @file Test file for the results controller
  * @author Bilal Shaikh
- * @copyright Biosimulations Team, 2020
+ * @copyright BioSimulations Team, 2020
  * @license MIT
  */
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
