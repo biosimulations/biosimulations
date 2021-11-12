@@ -21,7 +21,7 @@ export class DispatchProcessor {
     @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJob>,
   ) {}
   @Process()
-  private async handleSubmission(job: Job<DispatchJob>): Promise<void> {    
+  private async handleSubmission(job: Job<DispatchJob>): Promise<void> {
     const data = job.data;
 
     this.logger.debug(`Starting job for simulation run ${data.simId} ...`);
