@@ -1,18 +1,18 @@
-# FAQ
+# FAQs
 
 ## Models
 
 **Which modeling frameworks does BioSimulations support?**
 
-BioSimulations supports all modeling frameworks. However, currently BioSimulations can only simulate the logical, Flux Balance Analysis (FBA), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) frameworks. This includes rule-based models. BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Please see BioSimulators  for more information about supported modeling frameworks.
+BioSimulations supports all modeling frameworks. However, currently BioSimulations can only simulate the logical, Flux Balance Analysis (FBA), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), and discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)) frameworks. This includes rule-based models. BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Please see [BioSimulators](https://biosimulators.org) for more information about supported modeling frameworks.
 
 **Which Model Formats Does Biosimulations Support?**
 
-Models can be shared in any format. However, currently BioSimulations can only simulate models encoded in the BioNetGen Language (BNGL)  and the [Systems Biology Markup Language (SBML)](http://sbml.org). BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Please see BioSimulators  for more information about supported model formats.
+Models can be shared in any format. However, currently BioSimulations can only simulate models encoded in the [BioNetGen Language (BNGL)](https://bionetgen.org) and the [Systems Biology Markup Language (SBML)](http://sbml.org). BioSimulations uses the BioSimulators collection of simulation tools to simulate models. Please see [BioSimulators](https://biosimulators.org) for more information about supported model formats.
 
 **Which SBML Packages Does Biosimulations Support?**
 
-Currently, BioSimulations can only simulate models that use core and Flux Balance Constraints (fbc) or Qualitative Models (qual)  packages.
+Currently, BioSimulations can only simulate models that use core and [Flux Balance Constraints (fbc)](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/fbc) or [Qualitative Models (qual)](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/qual) packages.
 
 **How is Each Model Licensed?**
 
@@ -30,15 +30,15 @@ BioSimulations provides a form for describing simulations. Internally, BioSimula
 
 **How can I simulate a model that uses an alternative framework?**
 
-Please submit an issue  to request support for another modeling framework.
+Please [submit an issue](https://github.com/biosimulators/Biosimulators/issues/new/choose) to request support for another modeling framework.
 
 **How can I execute an alternative simulation algorithm?**
 
-Please submit an issue  to request support for another algorithm.
+Please [submit an issue](https://github.com/biosimulators/Biosimulators/issues/new/choose) to request support for another algorithm.
 
 **How can I simulate a model that is described in an alternative format?**
 
-Please submit an issue  to request support for another model format.
+Please [submit an issue](https://github.com/biosimulators/Biosimulators/issues/new/choose) to request support for another model format.
 
 **How long does BioSimulations store simulation results?**
 
@@ -66,7 +66,7 @@ BioSimulations uses the BioSimulators collection of containerized simulation sof
 
 The simulation tools available through BioSimulations are provided under the open-source licenses documented for each tool. Please see [BioSimulators](https://biosimulators.org) for more information.
 
-##  Visualizations
+## Visualizations
 
 **Which visualization formats does BioSimulations support?**
 
@@ -78,12 +78,9 @@ Currently, simulations can only be uploaded in Vega format.
 
 Currently, BioSimulations supports the Creative Commons licenses.
 
-**How can I publish a model/simulation/visualization under another license?**
-Please submit an issue  to request support for another license.
-
 **How can I edit a published model, simulation, or visualization?**
 
-Please contact us via email  to request edits to published a model, simulation, or visualization.
+Please contact the BioSimulations Team via [email](mailto:info@biosimulations.org) to request edits to published a model, simulation, or visualization.
 
 **How can I delete a published model, simulation, or visualization?**
 

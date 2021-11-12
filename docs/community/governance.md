@@ -1,6 +1,6 @@
 # Project governance
 
-The project is governed by a committee of maintainers who collectively decide the direction of the project with input from the community. A list of the current maintainers is available in the [README](/README.md).
+The project is governed by a committee of core developers who collectively decide the direction of the project with input from the community. A list of the current team members is available [here](../about/team.md).
 
 ## Maintainer responsibilities
 
@@ -8,7 +8,7 @@ Maintainers are people who care about the project and are responsible for helpin
 
 Maintainers have write access to this repository. Maintainers can merge their own contributions or contributions from others. Nevertheless, maintainers are encouraged to seek review from each other, particularly for significant changes.
 
-## Becoming a Maintainer
+## Becoming a maintainer
 
 To become a maintainer you need to demonstrate the following:
 

@@ -1,4 +1,4 @@
-# Technological Foundation of BioSimulations
+# Technological foundation
 BioSimulations is implemented using several open-source tools and cloud platforms.
 
 <div class="logos">
