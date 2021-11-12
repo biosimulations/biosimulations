@@ -6,7 +6,7 @@ We enthusiastically welcome contributions to BioSimulations and BioSimulators! T
 
 Before getting started, please contact the lead developers at [info@biosimulations.org](mailto:info@biosimulations.org) to coordinate your planned contributions with other ongoing efforts. Please also use GitHub issues to announce your plans to the community so that other developers can provide input into your plans and coordinate their own work. As the development community grows, we will institute additional infrastructure as needed such as a leadership committee and regular online meetings.
 
-## Repository Conventions
+## Repository conventions
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 The repository uses conventional commits to enable changelog generation and versioning. Commitizen allows developers to easily create compliant commit messages. To use Commitizen, simply run `npm run commit` instead of ` git commit` in your workflow.
@@ -58,7 +58,7 @@ Contact [info@biosimulations.org](mailto:info@biosimulations.org) to request rel
 
 This project uses [Nx](https://nx.dev). The below information should be sufficient for most development in the repository.
 
-#### Quick Start & Documentation
+#### Quick start & documentation
 
 [Nx Documentation](https://nx.dev/angular)
 
@@ -114,8 +114,8 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 
 Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
 
-##### ☁ Nx Cloud
+##### Nx Cloud
 
-###### Computation Memoization in the Cloud
+###### Computation memoization in the cloud
 
 This project uses [Nx Cloud](https://nx.app/) to help developers save time when building and testing. Visit [Nx Cloud](https://nx.app/) to learn more.

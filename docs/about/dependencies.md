@@ -1,3 +1,5 @@
+# Licenses for third-party dependencies
+
 BioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker).
 
 ```

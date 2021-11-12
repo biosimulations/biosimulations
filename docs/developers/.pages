@@ -1,6 +1,6 @@
-title: Developer Guide
+title: Developer guide
 nav:
   - index.md
-  - Developer Code of Conduct: conduct.md
-  - Source Code: source-code.md
+  - Developer code of conduct: conduct.md
+  - Source sode: source-code.md
   - ...

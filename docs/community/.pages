@@ -1,11 +1,5 @@
 title: Community
-nav:
-  - Development Team: team.md
-  - Contributors: CONTRIBUTORS.md
-  - Guide to Contributing: contributing.md
-  - Governance: governance.md
-  - Funding: funding.md
-  - Privacy Policy: privacy.md
-  - Terms of Service: terms.md
-  - License: license.md
-  - Dependencies: dependencies.md
+nav:  
+  - Contributors: contributors.md
+  - Guide to contributing: contributing.md
+  - Governance: governance.md  

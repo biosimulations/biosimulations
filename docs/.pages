@@ -1,7 +1,7 @@
-nav:  
-  #- about
+nav:    
   - users
   - developers
-  - community
   #- concepts
-  - What's New?: CHANGELOG.md
+  - News: news  
+  - community
+  - About: about

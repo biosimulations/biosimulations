@@ -1,12 +1,13 @@
-# BioSimulations Terms of Service
-## Permitted Usage
+# Terms of service
+## Permitted usage
 
-BioSimulations promotes open science by providing the community a central platform for sharing and executing biomodeling studies. The public simulation studies, simulation tools, and simulation results available through BioSimulations are available under the open-source licenses chosen by their owners. The licenses for the simulation studies and results are noted with each resource. The licenses for the simulation tools are available from BioSimulators . BioSimulations imposes no additional restrictions on the use of these community-contributed resources beyond those imposed by their owners. These licences describe who can use each resource, for which purposes, and what attribution may be required.
+BioSimulations promotes open science by providing the community a central platform for sharing and executing biomodeling studies. The public simulation studies, simulation tools, and simulation results available through BioSimulations are available under the open-source licenses chosen by their owners. The licenses for the simulation studies and results are noted with each resource. The licenses for the simulation tools are available from [BioSimulators](https://biosimulators.org). BioSimulations imposes no additional restrictions on the use of these community-contributed resources beyond those imposed by their owners. These licences describe who can use each resource, for which purposes, and what attribution may be required.
 
 ## Attribution
 
 BioSimulations requests attribution (e.g., in publications, services, or products) for use of its simulation studies and online services in accordance with good scientific practice. Please use the citation indicated in the [citation page](./citation).
-## Privacy Policy
+
+## Privacy policy
 BioSimulations collects limited personal data. Our [privacy policy](privacy.md) describes how we collect, store, and use this data and who has access to this data.
 
 ## Disclaimers
@@ -27,7 +28,7 @@ The runBioSimulations Team does not accept responsibility for personal data volu
 
 The runBioSimulations Team is not liable to you or third parties claiming through you, for any loss or damage.
 
-## Updates to Policy
+## Updates to this policy
 
 We reserve the right to update this policy at any time. The date of the most recent revision of this policy is at the bottom of this page.
 

@@ -1,10 +1,10 @@
-# BioSimulations Documentation
+# BioSimulations documentation
 
-## Motivation and Goals
+## Motivation and goals
 
 More comprehensive and more predictive models have the potential to advance biology, bioengineering, and medicine. Building more predictive models will likely require the collaborative efforts of many investigators. This requires teams to be able to share and reuse model components and simulations. Despite extensive efforts to develop standards such as the [COMBINE/OMEX archive format](https://combinearchive.org/), the [Kinetic Simulation Algorithm Ontology (KiSAO)](https://github.com/SED-ML/KiSAO/), the [Systems Biology Markup Language (SBML)](http://sbml.org/), and the [Simulation Experiment Description Markup Language (SED-ML)](https://www.sed-ml.org/) and repositories such as [BioModels](http://biomodels.net/) and the [Physiome Model Repository](https://models.physiomeproject.org/), it is still often difficult to share and reuse models and simulations. One challenge to sharing and reusing models is the disparate formats, model repositories, and simulation tools for different types of models. The proliferation of numerous similar formats, repositories, and tools makes it difficult, especially for non-experts, to find models and to find an appropriate simulation tool for each model. In addition, the existing model repositories have limited capabilities for sharing associated resources such as training data, simulation experiments, and visualizations.
 
-## Key Features
+## Key features
 
 BioSimulations addresses these challenges by making it easier for researchers to share and reuse simulations. 
 
@@ -14,9 +14,9 @@ BioSimulations addresses these challenges by making it easier for researchers to
 * **Transparent simulation.** By building upon BioSimulators, the COMBINE/OMEX archive format, KiSAO, and SED-ML, the details of each simulation experiment are fully transparent. This makes it easy for investigators to understand and reproduce simulation experiments.
 * **Seamless integration with model development.** BioSimulations executes simulations using BioSimulators. This makes it easy for investigators to continue to work with models beyond BioSimulations using the same containerized simulation tools used by BioSimulations. Similarly, authors can use these same tools prior to publishing models to BioSimulations. This avoids duplicate effort and makes it easy for investigators to debug problems.
 
-## Supported Modeling Methods
+## Supported modeling methods
 
-Currently BioSimulations can simulate constraint-based (Flux Balance Analysis (FBA) and Resource Balance Analysis (RBA)), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)), logical, spatial, particle-based and hybrid models that are described in using several languages including the [BioNetGen Language (BNGL)](https://bionetgen.org), [CellML](https://cellml.org), the [GINsim](http://ginsim.org/) Markup Language, [NeuroML](https://neuroml.org/)/[Low Entropy Model Specification Langauge (LEMS)](https://lems.github.io/LEMS/), the [RBA XML format](https://sysbioinra.github.io/RBApy/), the [Systems Biology Markup Language (SBML)](https://sbml.org) including the Flux Balance Constraints and Qualitative Modeling Packages, the [Smoldyn](http://www.smoldyn.org/) simulation configuration format, and the XPP [ODE](http://www.math.pitt.edu/~bard/xpp/help/xppodes.html) format. Currently Biosimulations supports over 60 simulation algorithm algorithms with over 20 simulation tools. More information about the available simulation methods is available at [BioSimulators](https://biosimulators.org).
+Currently BioSimulations can simulate constraint-based (Flux Balance Analysis (FBA) and Resource Balance Analysis (RBA)), continuous kinetic (ordinary differential equations (ODE) and differential-algebraic equations (DAE)), discrete kinetic (e.g., Stochastic Simulation Algorithms (SSA)), logical, spatial, particle-based and hybrid models that are described in using several languages including the [BioNetGen Language (BNGL)](https://bionetgen.org), [CellML](https://cellml.org), the [GINsim](http://ginsim.org/) Markup Language, [NeuroML](https://neuroml.org/)/[Low Entropy Model Specification Langauge (LEMS)](https://lems.github.io/LEMS/), the [RBA XML format](https://sysbioinra.github.io/RBApy/), the [Systems Biology Markup Language (SBML)](https://sbml.org) including the Flux Balance Constraints and Qualitative Models Packages, the [Smoldyn](http://www.smoldyn.org/) simulation configuration format, and the XPP [ODE](http://www.math.pitt.edu/~bard/xpp/help/xppodes.html) format. Currently Biosimulations supports over 60 simulation algorithm algorithms with over 20 simulation tools. More information about the available simulation methods is available at [BioSimulators](https://biosimulators.org).
 
 Importantly, BioSimulations is extensible to additional modeling frameworks, model formats, simulation algorithms, and simulation tools. The community can extend BioSimulations' capabilities by contributing simulation tools to [BioSimulators](https://biosimulators.org).
 More information, tutorials, and examples are example from BioSimulators. 
@@ -202,7 +202,7 @@ More information, tutorials, and examples are example from BioSimulators.
 </div>
 
 
-## Source Model Repositories
+## Source model repositories
 
 In addition to models, simulations, and visualizations contributed by investigators, BioSimulations also contains models, simulations, and visualizations aggregated from several primary repositories including [BiGG](http://bigg.ucsd.edu/), [BioModels](http://www.ebi.ac.uk/biomodels/), [ModelDB](http://modeldb.science/), the [Physiome Model Repository](https://models.physiomeproject.org/), the [Resource Balance Analysis Model Repository](https://github.com/SysBioInra/Bacterial-RBA-models), [RuleHub](https://github.com/RuleWorld/RuleHub), and the [VCell Published Models Database](https://vcell.org/vcell-published-models). Prior to incorporation into BioSimulations, BioSimulations extensively extensively quality-controls and debugs these models. In many cases BioSimulations also adds additional simulation experiments, data visualizations, and metadata.
 

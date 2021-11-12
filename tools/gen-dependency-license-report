@@ -2,7 +2,7 @@
 
 set -e
 
-DEP_LICENSES_PATH=./docs/Dependencies.md
+DEP_LICENSES_PATH=./docs/about/dependencies.md
 license-checker --production --excludePackages biosimulations@0.0.0 --out ${DEP_LICENSES_PATH}
 
 # Remove local paths
@@ -20,5 +20,5 @@ sed -i 's/\x00/\
 /g' ${DEP_LICENSES_PATH}
 
 # Add header to top of file
-header="BioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker)."
+header="# Licenses for third-party dependencies\n\nBioSimulations is released under the MIT license. Below are the licenses of the dependencies of BioSimulations, including the location of each license file where available. This report was generated using [license-checker](https://github.com/davglass/license-checker)."
 printf "${header}\n\n\`\`\`\n$(cat ${DEP_LICENSES_PATH})\n\`\`\`" > ${DEP_LICENSES_PATH}

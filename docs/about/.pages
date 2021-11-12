@@ -1,3 +1,8 @@
-title: Overview
+title: About
 nav:
-    - index.md
+  - Development team: team.md
+  - Privacy policy: privacy.md
+  - Terms of service: terms.md
+  - License: license.md
+  - Licenses for dependencies: dependencies.md
+  - Funding: funding.md
