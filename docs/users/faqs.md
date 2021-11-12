@@ -89,9 +89,9 @@ Each project is provided under the license chosen by its authors. These licenses
 
 **How can I create a badge to embed a project into my website?**
 
-We recommend using Shields.io to generate badges for projects. For example, `https://img.shields.io/badge/BioSimulatations-published-green` can be used to generate the badge below.
+We recommend using Shields.io to generate badges for projects. For example, `https://img.shields.io/badge/BioSimulations-published-green` can be used to generate the badge below.
 
-![Badge](https://img.shields.io/badge/BioSimulatations-published-green)
+![Badge](https://img.shields.io/badge/BioSimulations-published-green)
 
 ## Models
 
@@ -201,9 +201,9 @@ In addition, [BioSimulators-utils](https://github.com/Biosimulators/Biosimulator
 
 **How can BioSimulations render additional visualization formats?**
 
-One way to use BioSimulations with additional formats is to convert them to Vega. This can be achieved by writing scripts to convert alernative formats into Vega.
+One way to use BioSimulations with additional formats is to convert them to Vega. This can be achieved by writing scripts to convert alternative formats into Vega.
 
-Additional rendering tools could be incorporated into BioSimulations. Blease contact the [BioSimulations Team](https://biosimulations.org) to discuss how to integrate additional tools with SED-ML files, COMBINE/OMEX archives, and BioSimulations.
+Additional rendering tools could be incorporated into BioSimulations. Please contact the [BioSimulations Team](https://biosimulations.org) to discuss how to integrate additional tools with SED-ML files, COMBINE/OMEX archives, and BioSimulations.
 
 ## Metadata about simulation projects
 
