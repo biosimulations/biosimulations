@@ -65,7 +65,7 @@
     "axios": "0.24.0",
     "backoff-rxjs": "6.5.7",
     "bull": "3.29.3",
-    "cache-manager": "3.4.4",
+    "cache-manager": "3.5.0",
     "cache-manager-redis-store": "2.0.0",
     "class-transformer": "0.4.0",
     "class-validator": "0.13.1",
