@@ -184,6 +184,7 @@ pysces
 rba
 rbapy
 rdf
+README
 readthedocs
 realfavicongenerator
 reproduciblebiomodels
