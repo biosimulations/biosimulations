@@ -2,7 +2,6 @@ abulovic
 ADeepa
 agarny
 Akhil
-alernative
 allcontributors
 analogmachine
 annazhukova
@@ -26,11 +25,11 @@ biomodels
 bionetgen
 biosimulations
 biosimulators
-Blease
 blinov
 BNGL
 brightgreen
 bshaikh
+cbmpy
 cellcollective
 cellml
 changelog
@@ -133,6 +132,7 @@ matthiaskoenig
 matuskalas
 mbdebian
 mbine
+memoization
 metadata
 micheldumontier
 modeldb
@@ -200,7 +200,6 @@ scalability
 SCe
 Schaff
 SGBN
-Simulatations
 sinai
 Slurm
 smoldyn

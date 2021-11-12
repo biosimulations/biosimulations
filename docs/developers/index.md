@@ -19,11 +19,11 @@ The repository is organized as a monorepo using tooling from [Nx](https://nx.dev
 
 The apps folder contains code for the high level applications that are a part of BioSimulations. An application is code that is deployed independently, either as a website, API, or backend service.
 
-Each app contains a Readme file that is used to describe its purpose and internal organization.
-
 ### Libraries
 
 The libraries folder contains code that can be used by multiple apps. To enforce proper separation of concerns and manage dependency trees, Nx provides constraints on the libraries that can be used by each app. For more information, read the [Nx documentation](https://nx.dev/angular/workspace/structure/monorepo-tags), and look at the repository's [linting rules](/.eslintrc). In general, libraries should be organized by the principles recommended [here](https://nx.dev/angular/guides/monorepo-nx-enterprise).
+
+Each library contains a `README.md` file that describes its purpose and internal organization.
 
 ## Coding convention
 

@@ -83,7 +83,7 @@ export class HpcService {
   }
 
   /** Get the status of a job for a simulation run
-   * @param jobId id of the SLURM job
+   * @param jobId id of the Slurm job
    */
   public async getJobStatus(
     jobId: string,
