@@ -11,7 +11,7 @@ import { retryBackoff } from 'backoff-rxjs';
 
 @Injectable()
 export class CombineWrapperService {
-  public constructor(private service: SimulationProjectsService) {    
+  public constructor(private service: SimulationProjectsService) {
   }
 
   private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
