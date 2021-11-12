@@ -7,7 +7,7 @@ BioSimulations promotes open science by providing the community a central platfo
 
 BioSimulations requests attribution (e.g., in publications, services, or products) for use of its simulation studies and online services in accordance with good scientific practice. Please use the citation indicated in the [citation page](./citation).
 ## Privacy Policy
-BioSimulations collects limited personal data. Our [privacy policy](./PRIVACY_POLICY.md) describes how we collect, store, and use this data and who has access to this data.
+BioSimulations collects limited personal data. Our [privacy policy](privacy.md) describes how we collect, store, and use this data and who has access to this data.
 
 ## Disclaimers
 
