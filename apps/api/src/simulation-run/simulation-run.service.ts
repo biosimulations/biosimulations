@@ -1,7 +1,7 @@
 /**
  * @file Provides methods that imnplement the CRUD operations on the simulation runs in the mongo database. Is used by the controller to excute the user requests from the HTTP API.
  * @author Bilal Shaikh
- * @copyright Biosimulations Team, 2020
+ * @copyright BioSimulations Team, 2020
  * @license MIT
  */
 import { HttpService } from '@nestjs/axios';

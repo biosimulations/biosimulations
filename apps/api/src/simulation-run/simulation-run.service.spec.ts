@@ -1,7 +1,7 @@
 /**
  * @file Contains tests for the simulation run service
  * @author Bilal Shaikh
- * @copyright Biosimulations Team, 2020
+ * @copyright BioSimulations Team, 2020
  * @license MIT
  */
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';

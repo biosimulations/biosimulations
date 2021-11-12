@@ -2,7 +2,7 @@
 /**
  * @file Contains the controller for CRUD operations on simulation runs
  * @author Bilal Shaikh
- * @copyright Biosimulations Team 2020
+ * @copyright BioSimulations Team 2020
  * @license MIT
  */
 import { DispatchJob } from '@biosimulations/messages/messages';

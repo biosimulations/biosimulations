@@ -3,7 +3,7 @@
  * Requires the Mongoose module to imported to the top level app.
  * Also includes the feature module for the Simulation run and Simulation File models.
  * @author Bilal Shaikh
- * @copyright Biosimulations Team, 2020
+ * @copyright BioSimulations Team, 2020
  * @license MIT
  */
 

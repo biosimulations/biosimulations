@@ -10,7 +10,7 @@ import { getScopesForAudience } from '@biosimulations/config/common';
 
 export async function setupOpenApi(app: INestApplication): Promise<void> {
   const favIcon =
-    'https://github.com/biosimulations/Biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png';
+    'https://github.com/biosimulations/biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png';
 
   const cssUrl =
     'https://static.biosimulations.org/stylesheets/biosimulations_swagger.css';
@@ -87,7 +87,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
     .setVersion('0.1')
     .setLicense(
       'MIT License',
-      'https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE',
+      'https://github.com/biosimulations/biosimulations/blob/dev/LICENSE',
     )
     .setTermsOfService('https://run.biosimulations.org/help/terms')
     .setExternalDoc(

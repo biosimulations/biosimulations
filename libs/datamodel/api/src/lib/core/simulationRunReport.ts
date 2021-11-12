@@ -2,7 +2,7 @@
  * @file Contains API definitions for the results of simulation run, as well as general types related to results.
  * @author Bilal Shaikh <bilalshaikh42@gmail.com>
  * 2021-06-14
- * @copyright Biosimulations Team 2021
+ * @copyright BioSimulations Team 2021
  * @license MIT
  */
 

@@ -43,7 +43,7 @@ jobs:
         with:
           add: "['libs/combine/api-client/src/lib/api/', 'libs/combine/api-client/src/lib/model/']"
           message: 'refactor(combine-api): update client'
-          author_name: Biosimulations-Daemon
+          author_name: BioSimulations-Daemon
           author_email: biosimulationsdaemon@gmail.com
           signoff: true
         env:

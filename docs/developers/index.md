@@ -17,7 +17,7 @@ The repository is organized as a monorepo using tooling from [Nx](https://nx.dev
 
 ### Apps
 
-The apps folder contains code for the high level applications that are a part of Biosimulations. An application is code that is deployed independently, either as a website, API, or backend service.
+The apps folder contains code for the high level applications that are a part of BioSimulations. An application is code that is deployed independently, either as a website, API, or backend service.
 
 Each app contains a Readme file that is used to describe its purpose and internal organization.
 

@@ -1,7 +1,7 @@
 /**
  * @file  Reads the strucutred logs from the database. Reads older logs directly from the nfs disk
  * @author Bilal Shaikh
- * @copyright Biosimulations Team, 2020
+ * @copyright BioSimulations Team, 2020
  * @license MIT
  */
 import { CombineArchiveLog as ApiCombineArchiveLog } from '@biosimulations/datamodel/common';

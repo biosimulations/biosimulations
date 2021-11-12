@@ -1,9 +1,9 @@
-![Logo](https://raw.githubusercontent.com/biosimulations/Biosimulations/dev/libs/shared/assets/src/assets/images/biosimulations-logo/logo-white.svg)
+![Logo](https://raw.githubusercontent.com/biosimulations/biosimulations/dev/libs/shared/assets/src/assets/images/biosimulations-logo/logo-white.svg)
 
 
 [![DOI](https://zenodo.org/badge/207730765.svg)](https://zenodo.org/badge/latestdoi/207730765) 
-[![Continuous Integration](https://github.com/biosimulations/Biosimulations/workflows/Continuous%20Integration/badge.svg)](https://github.com/biosimulations/Biosimulations/actions?query=workflow%3A%22Continuous+Integration%22)
-[![Continuous Deployment](https://github.com/biosimulations/Biosimulations/workflows/Continuous%20Deployment/badge.svg)](https://github.com/biosimulations/Biosimulations/actions?query=workflow%3A%22Continuous+Deployment%22)
+[![Continuous Integration](https://github.com/biosimulations/biosimulations/workflows/Continuous%20Integration/badge.svg)](https://github.com/biosimulations/biosimulations/actions?query=workflow%3A%22Continuous+Integration%22)
+[![Continuous Deployment](https://github.com/biosimulations/biosimulations/workflows/Continuous%20Deployment/badge.svg)](https://github.com/biosimulations/biosimulations/actions?query=workflow%3A%22Continuous+Deployment%22)
 
 [![App Status](https://deployment.biosimulations.org/api/badge?name=biosimulations-dev&revision=true)](https://deployment.biosimulations.org/applications/biosimulations-dev)
 [![App Status](https://deployment.biosimulations.org/api/badge?name=biosimulations-prod&revision=true)](https://deployment.biosimulations.org/applications/biosimulations-prod)
@@ -50,7 +50,7 @@ author = {Shaikh, Bilal and Marupilla, Gnaneswara and Wilson, Mike and Michael, 
 doi = {10.5281/zenodo.5057108},
 license = {MIT},
 title = {{BioSimulations}},
-url = {https://github.com/biosimulations/Biosimulations}
+url = {https://github.com/biosimulations/biosimulations}
 }
 ```
 

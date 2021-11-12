@@ -38,7 +38,7 @@ function setupOpenApi(app: INestApplication) {
     .setVersion('0.1')
     .setLicense(
       'MIT License',
-      'https://github.com/biosimulations/Biosimulations/blob/dev/LICENSE',
+      'https://github.com/biosimulations/biosimulations/blob/dev/LICENSE',
     )
     .setTermsOfService('https://biosimulations.org/help/terms')
     .setExternalDoc(
@@ -77,7 +77,7 @@ function setupOpenApi(app: INestApplication) {
       operationsSorter: 'alpha',
     },
     customfavIcon:
-      'https://github.com/biosimulations/Biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png',
+      'https://github.com/biosimulations/biosimulations/raw/dev/libs/shared/assets/src/assets/icons/favicon-32x32.png',
     customCssUrl:
       'https://static.biosimulations.org/stylesheets/biosimulations_swagger.css',
   };
