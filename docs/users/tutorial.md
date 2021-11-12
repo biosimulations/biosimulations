@@ -94,12 +94,10 @@ Accessing resources
 ## Guide for simulation software developers: contributing an additional simulation tool
 BioSimulations uses the BioSimulators collection of simulation tools. Please see [BioSimulators](https://biosimulators.org) for information about contributing an additional simulation tool.
 
-
-## User accounts
+## User accounts for owning projects
 
 Signing up
 Signing in
-Editing profile
 
 ## Programmatically working with BioSimulations via the REST API
 
