@@ -21,9 +21,10 @@ export class DispatchProcessor {
     @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJob>,
   ) {}
   @Process()
-  private async handleSubmission(job: Job<DispatchJob>): Promise<void> {
-    this.logger.debug('Starting Simulation...');
+  private async handleSubmission(job: Job<DispatchJob>): Promise<void> {    
     const data = job.data;
+
+    this.logger.debug(`Starting job for simulation run ${data.simId} ...`);
 
     const response = await this.hpcService.submitJob(
       data.simId,
@@ -40,7 +41,7 @@ export class DispatchProcessor {
     if (response.stderr != '') {
       // There was an error with submission of the job
       const message =
-        "'Error submitting simulation:' + data.simId + ' ' + response.stderr,";
+        `An error occurred in submitting an HPC job for simulation run '${data.simId}': ${response.stderr}`;
       this.logger.error(message);
       this.simStatusService.updateStatus(
         data.simId,
@@ -48,7 +49,7 @@ export class DispatchProcessor {
         message,
       );
     } else if (response.stdout != null) {
-      // Get the slurm id of the job
+      // Get the SLURM id of the job
       // Expected output of the response is " Submitted batch job <ID> /n"
       const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
 

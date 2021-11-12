@@ -5,21 +5,25 @@ import { SimulationRunService } from '@biosimulations/api-nest-client';
 @Injectable()
 export class SimulationStatusService {
   private logger = new Logger(SimulationStatusService.name);
+
   public constructor(private simService: SimulationRunService) {}
+
   public updateStatus(
-    simId: string,
+    runId: string,
     simStatus: SimulationRunStatus,
     reason: string,
   ): Promise<void> {
     return this.simService
-      .updateSimulationRunStatus(simId, simStatus, reason)
+      .updateSimulationRunStatus(runId, simStatus, reason)
       .toPromise()
       .then((val) => {
-        this.logger.log('Successfully updated simulation');
+        this.logger.log(`The status of simulation run '${runId}' was succesfully updated.`);
       })
-      .catch((err) => {
-        this.logger.error('Failed to update status');
-        this.logger.error(err);
+      .catch((error) => {
+        this.logger.error(`The status of simulation run '${runId}' could not be updated: ${error}`);
+        if (simStatus === SimulationRunStatus.SUCCEEDED || simStatus === SimulationRunStatus.FAILED) {
+          throw error;
+        }
       });
   }
 }

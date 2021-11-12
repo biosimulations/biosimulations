@@ -22,7 +22,7 @@ export class AppController {
 
   @MessagePattern(DispatchMessage.processed)
   private sendEmail(@Payload() data: DispatchProcessedPayload): void {
-    firstValueFrom(this.simService.getJob(data.id)).then(
+    firstValueFrom(this.simService.getSimulationRun(data.id)).then(
       (job: SimulationRun) => {
         const email = job.email;
         //const status = job.status  use the status to determine which email to send?
@@ -40,7 +40,7 @@ export class AppController {
 
   @MessagePattern(DispatchMessage.failed)
   private sendFailedEmail(@Payload() data: DispatchProcessedPayload): void {
-    firstValueFrom(this.simService.getJob(data.id)).then(
+    firstValueFrom(this.simService.getSimulationRun(data.id)).then(
       (job: SimulationRun) => {
         const email = job.email;
         //const status = job.status  use the status to determine which email to send?

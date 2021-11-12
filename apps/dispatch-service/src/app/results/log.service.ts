@@ -11,6 +11,7 @@ import { SshService } from '../services/ssh/ssh.service';
 @Injectable()
 export class LogService {
   private logger = new Logger(LogService.name);
+
   public constructor(
     private submit: SimulationRunService,
     private sshService: SshService,
@@ -23,11 +24,11 @@ export class LogService {
     update = false,
   ): Promise<void> {
     const path = this.sshService.getSSHResultsDirectory(id);
-    return this.makeLog(path, true, extraStdLog).then((value) => {
+    return this.makeLog(id, path, true, extraStdLog).then((value) => {
       return this.uploadLog(id, value, update).catch((error) => {
-        this.logger.error(`Log for simulation run '${id}' is invalid.`);
+        this.logger.error(`Log for simulation run '${id}' is invalid: ${error}.`);
         if (tryPlainLog) {
-          return this.makeLog(path, false, extraStdLog).then((value) => {
+          return this.makeLog(id, path, false, extraStdLog).then((value) => {
             return this.uploadLog(id, value, update);
           });
         } else {
@@ -38,6 +39,7 @@ export class LogService {
   }
 
   private async makeLog(
+    id: string,
     path: string,
     makeStructuredLog = true,
     extraStdLog?: string,
@@ -45,7 +47,7 @@ export class LogService {
     const log = makeStructuredLog
       ? await this.readStructuredLog(path)
       : this.initStructureLog();
-    const stdLog = (await this.readStdLog(path)) + (extraStdLog || '');
+    const stdLog = (await this.readStdLog(id, path)) + (extraStdLog || '');
 
     log.output = stdLog;
 
@@ -85,13 +87,13 @@ export class LogService {
     };
   }
 
-  private async readStdLog(path: string): Promise<string> {
+  private async readStdLog(id: string, path: string): Promise<string> {
     const logFile = `${path}/job.output`;
     return this.sshService
       .execStringCommand('cat ' + logFile)
       .then((output) => output.stdout)
-      .catch((_) => {
-        this.logger.error(_);
+      .catch((reason) => {
+        this.logger.error(`The job output for simulation run '${id}' could not be read: ${reason}`);
         return '';
       });
   }
@@ -105,10 +107,10 @@ export class LogService {
       .sendLog(id, log, update)
       .toPromise()
       .then((_) => {
-        this.logger.debug('Sent log to API');
+        this.logger.debug(`The log for simulation run '${id}' was successfully saved.`);
       })
       .catch((reason) => {
-        this.logger.error(reason);
+        this.logger.error(`The log for simulation run '${id}' could not be ${update ? 'updated' : 'created'}: ${reason}`);
         throw reason;
       });
   }
