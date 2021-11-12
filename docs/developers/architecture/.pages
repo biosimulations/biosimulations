@@ -1,2 +1,5 @@
 nav:
+    - overview.md
+    - philosophy.md
+    - tech-foundation.md
     - ...

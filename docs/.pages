@@ -1,9 +1,9 @@
 title: Overview
 
-nav:
-  - What's New?: CHANGELOG.md
+nav:  
   #- about
   - users
   - developers
   - community
   #- concepts
+  - What's New?: CHANGELOG.md
