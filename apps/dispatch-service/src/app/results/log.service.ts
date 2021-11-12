@@ -26,7 +26,9 @@ export class LogService {
     const path = this.sshService.getSSHResultsDirectory(id);
     return this.makeLog(id, path, true, extraStdLog).then((value) => {
       return this.uploadLog(id, value, update).catch((error) => {
-        this.logger.error(`Log for simulation run '${id}' is invalid: ${error}.`);
+        this.logger.error(
+          `Log for simulation run '${id}' is invalid: ${error}.`,
+        );
         if (tryPlainLog) {
           return this.makeLog(id, path, false, extraStdLog).then((value) => {
             return this.uploadLog(id, value, update);
@@ -93,7 +95,9 @@ export class LogService {
       .execStringCommand('cat ' + logFile)
       .then((output) => output.stdout)
       .catch((reason) => {
-        this.logger.error(`The job output for simulation run '${id}' could not be read: ${reason}`);
+        this.logger.error(
+          `The job output for simulation run '${id}' could not be read: ${reason}`,
+        );
         return '';
       });
   }
@@ -107,10 +111,16 @@ export class LogService {
       .sendLog(id, log, update)
       .toPromise()
       .then((_) => {
-        this.logger.debug(`The log for simulation run '${id}' was successfully saved.`);
+        this.logger.debug(
+          `The log for simulation run '${id}' was successfully saved.`,
+        );
       })
       .catch((reason) => {
-        this.logger.error(`The log for simulation run '${id}' could not be ${update ? 'updated' : 'created'}: ${reason}`);
+        this.logger.error(
+          `The log for simulation run '${id}' could not be ${
+            update ? 'updated' : 'created'
+          }: ${reason}`,
+        );
         throw reason;
       });
   }

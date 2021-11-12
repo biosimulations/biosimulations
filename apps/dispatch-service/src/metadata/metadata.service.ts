@@ -34,7 +34,9 @@ export class MetadataService {
 
   public async createMetadata(id: string): Promise<void> {
     const url = this.endpoints.getRunDownloadEndpoint(id, true);
-    this.logger.debug(`Fetching metadata for archive for simulation run '${id}' at URL: ${url}`);
+    this.logger.debug(
+      `Fetching metadata for archive for simulation run '${id}' at URL: ${url}`,
+    );
 
     const res = await firstValueFrom(
       this.service.getArchiveMetadata(

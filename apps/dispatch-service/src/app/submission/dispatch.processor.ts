@@ -40,8 +40,7 @@ export class DispatchProcessor {
 
     if (response.stderr != '') {
       // There was an error with submission of the job
-      const message =
-        `An error occurred in submitting an HPC job for simulation run '${data.simId}': ${response.stderr}`;
+      const message = `An error occurred in submitting an HPC job for simulation run '${data.simId}': ${response.stderr}`;
       this.logger.error(message);
       this.simStatusService.updateStatus(
         data.simId,

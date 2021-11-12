@@ -56,7 +56,9 @@ export class SimulationRunService {
     runId: string,
     specs: SimulationRunSedDocumentInput[],
   ): Observable<SimulationRunSedDocument[]> {
-    this.logger.log(`Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`);
+    this.logger.log(
+      `Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`,
+    );
     const endpoint = this.endpoints.getSpecificationsEndpoint();
     return this.postAuthenticated<
       SimulationRunSedDocumentInputsContainer,
@@ -98,10 +100,7 @@ export class SimulationRunService {
               },
             },
           )
-          .pipe(
-            this.getRetryBackoff(),
-            pluck('data'),
-          );
+          .pipe(this.getRetryBackoff(), pluck('data'));
 
         return httpRes;
       }),
@@ -128,7 +127,9 @@ export class SimulationRunService {
           )
           .pipe(
             catchError((error, caught) => {
-              this.logger.error(`The size of the results for simulation run '${runId}' could not be updated: ${error}`);
+              this.logger.error(
+                `The size of the results for simulation run '${runId}' could not be updated: ${error}`,
+              );
               return caught;
             }),
             retry(5),
@@ -148,10 +149,7 @@ export class SimulationRunService {
               Authorization: `Bearer ${token}`,
             },
           })
-          .pipe(
-            this.getRetryBackoff(),
-            pluck('data'),
-          );
+          .pipe(this.getRetryBackoff(), pluck('data'));
       }),
       mergeMap((value) => value),
     );
@@ -183,7 +181,11 @@ export class SimulationRunService {
     }
   }
 
-  private postAuthenticated<T, U>(runId: string, url: string, body: T): Observable<U> {
+  private postAuthenticated<T, U>(
+    runId: string,
+    url: string,
+    body: T,
+  ): Observable<U> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
@@ -202,7 +204,9 @@ export class SimulationRunService {
                   `${status} ${statusText} ${message} for post operation on path ${url} for simulation run ${runId}`,
                 );
               } else {
-                this.logger.error(`The post operation to ${url} for simulation run ${runId} failed: ${err}`);
+                this.logger.error(
+                  `The post operation to ${url} for simulation run ${runId} failed: ${err}`,
+                );
               }
 
               return throwError(() => err);
@@ -215,7 +219,11 @@ export class SimulationRunService {
     );
   }
 
-  private putAuthenticated<T, U>(runId: string, url: string, body: T): Observable<U> {
+  private putAuthenticated<T, U>(
+    runId: string,
+    url: string,
+    body: T,
+  ): Observable<U> {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
@@ -234,7 +242,9 @@ export class SimulationRunService {
                   `${status} ${statusText} ${message} for put operation on path ${url} for simulation run ${runId}`,
                 );
               } else {
-                this.logger.error(`The put operation to ${url} for simulation run ${runId} failed: ${err}`);
+                this.logger.error(
+                  `The put operation to ${url} for simulation run ${runId} failed: ${err}`,
+                );
               }
 
               return throwError(() => err);

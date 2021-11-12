@@ -24,7 +24,9 @@ export class ArchiverService {
         .updateSimulationRunResultsSize(id, parseInt(output.stdout))
         .pipe(
           catchError((err, caught) => {
-            this.logger.error(`The results size for simulation run '${id}' could not be updated: ${err}`);
+            this.logger.error(
+              `The results size for simulation run '${id}' could not be updated: ${err}`,
+            );
             return of(null);
           }),
         )

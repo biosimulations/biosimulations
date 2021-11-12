@@ -11,8 +11,7 @@ import { retryBackoff } from 'backoff-rxjs';
 
 @Injectable()
 export class CombineWrapperService {
-  public constructor(private service: SimulationProjectsService) {
-  }
+  public constructor(private service: SimulationProjectsService) {}
 
   private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
     return retryBackoff({
@@ -39,22 +38,21 @@ export class CombineWrapperService {
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<BioSimulationsCombineArchiveElementMetadata[]>> {
-    return this.service.srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
-      omexMetadataFormat,
-      file,
-      url,
-    )
-    .pipe(this.getRetryBackoff());
+    return this.service
+      .srcHandlersCombineGetMetadataForCombineArchiveHandlerBiosimulations(
+        omexMetadataFormat,
+        file,
+        url,
+      )
+      .pipe(this.getRetryBackoff());
   }
 
   public getManifest(
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<CombineArchiveManifest>> {
-    return this.service.srcHandlersCombineGetManifestHandler(
-        file,
-        url
-      )
+    return this.service
+      .srcHandlersCombineGetManifestHandler(file, url)
       .pipe(this.getRetryBackoff());
   }
 
@@ -62,11 +60,9 @@ export class CombineWrapperService {
     file?: Blob,
     url?: string,
   ): Observable<AxiosResponse<CombineArchiveSedDocSpecs>> {
-    return this.service.srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(
-      file,
-      url,
-    )
-    .pipe(this.getRetryBackoff());
+    return this.service
+      .srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file, url)
+      .pipe(this.getRetryBackoff());
   }
 }
 

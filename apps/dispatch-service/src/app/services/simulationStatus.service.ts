@@ -17,11 +17,18 @@ export class SimulationStatusService {
       .updateSimulationRunStatus(runId, simStatus, reason)
       .toPromise()
       .then((val) => {
-        this.logger.log(`The status of simulation run '${runId}' was succesfully updated.`);
+        this.logger.log(
+          `The status of simulation run '${runId}' was succesfully updated.`,
+        );
       })
       .catch((error) => {
-        this.logger.error(`The status of simulation run '${runId}' could not be updated: ${error}`);
-        if (simStatus === SimulationRunStatus.SUCCEEDED || simStatus === SimulationRunStatus.FAILED) {
+        this.logger.error(
+          `The status of simulation run '${runId}' could not be updated: ${error}`,
+        );
+        if (
+          simStatus === SimulationRunStatus.SUCCEEDED ||
+          simStatus === SimulationRunStatus.FAILED
+        ) {
           throw error;
         }
       });
