@@ -18,7 +18,7 @@ export class SbatchService {
 
   private logger = new Logger(SbatchService.name);
 
-  /** Generate a SLURM script to execute a COMBINE/OMEX archive
+  /** Generate a Slurm script to execute a COMBINE/OMEX archive
    * @param runId id of the simulation run
    * @param simulator BioSimulators id of the simulation tool (e.g., `tellurium`)
    * @param simulatorVersion version of the simulation tool (e.g., `2.2.1`)
@@ -180,7 +180,7 @@ export PYTHONWARNINGS="ignore"; srun --job-name="Save-outputs-to-S3" aws --no-ve
     return template;
   }
 
-  /** Generate SLURM script to pull a Docker image and convert it to a Singularity image
+  /** Generate Slurm script to pull a Docker image and convert it to a Singularity image
    * @param simulator id of the simulator
    * @param simulatorVersion version of the simulator
    * @param dockerImageUrl URL for the Docker image

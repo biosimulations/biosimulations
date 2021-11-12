@@ -48,7 +48,7 @@ export class DispatchProcessor {
         message,
       );
     } else if (response.stdout != null) {
-      // Get the SLURM id of the job
+      // Get the Slurm id of the job
       // Expected output of the response is " Submitted batch job <ID> /n"
       const slurmjobId = response.stdout.trim().split(' ').slice(-1)[0];
 
