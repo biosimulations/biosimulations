@@ -83,6 +83,7 @@ http
 ibiosim
 icahn
 img
+Inra
 inrae
 Ison
 jcschaff
@@ -97,6 +98,7 @@ karrlab
 kisao
 kubernetes
 latestdoi
+lems
 libroadrunner
 linkedin
 linting
@@ -117,6 +119,7 @@ matuskalas
 mbdebian
 mbine
 Memoization
+metadata
 micheldumontier
 modeldb
 mongodb
@@ -153,7 +156,10 @@ pauleve
 pedaweb
 pgleeson
 pharmml
+physiome
+physiomeproject
 plugins
+pitt
 png
 pysces
 rba
@@ -202,5 +208,8 @@ website
 wiki
 workflow
 www
+XML
+xpp
+xppodes
 zenodo
 zhukova

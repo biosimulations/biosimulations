@@ -12,7 +12,7 @@ BioSimulations addresses these challenges by making it easier for researchers to
 * **Web-based tools for interactively exploring simulation results.** BioSimulations provides results for each simulation experiment and data visualizations for interactively exploring these results.
 * **Simple tools for reusing simulation projects.** runBioSimulations provides a simple web interface for modifying simulation experiments and running new simulations.
 * **Transparent simulation.** By building upon BioSimulators, the COMBINE/OMEX archive format, KiSAO, and SED-ML, the details of each simulation experiment are fully transparent. This makes it easy for investigators to understand and reproduce simulation experiments.
-* **Seamless integration with model development.** BioSimulations executes simulations using BioSimulators. This makes it easy for investigators to continue to work with models beyond BioSimulations using the same containerized simulation tools used by BioSimuations. Similarly, authors can use these same tools prior to publishing models to BioSimulations. This avoids duplicate effort and makes it easy for investigators to debug problems.
+* **Seamless integration with model development.** BioSimulations executes simulations using BioSimulators. This makes it easy for investigators to continue to work with models beyond BioSimulations using the same containerized simulation tools used by BioSimulations. Similarly, authors can use these same tools prior to publishing models to BioSimulations. This avoids duplicate effort and makes it easy for investigators to debug problems.
 
 ## Supported Modeling Methods
 
