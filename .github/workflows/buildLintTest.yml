@@ -18,10 +18,15 @@ on:
         required: false
         type: boolean
         default: true
+      pushDockerImages:
+        required: false
+        type: boolean
+        default: true
 
 env:
   NX_CLOUD_DISTRIBUTED_EXECUTION: true
   INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  INPUT_PUSH: ${{ inputs.pushDockerImages }}
 
 jobs:
   main:
