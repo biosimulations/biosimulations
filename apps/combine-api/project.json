@@ -21,12 +21,24 @@
       }
     },
     "test": {
-      "executor": "@nx-python/nx-python:test",
-      "options": {}
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "npx nx docker combine-api",
+          "apps/combine-api/run-tests-in-docker-container.sh"
+        ],
+        "parallel": false
+      }
     },
     "lint": {
-      "executor": "@nx-python/nx-python:lint",
-      "options": {}
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "flake8"
+        ],
+        "cwd": "apps/combine-api",
+        "parallel": false
+      }
     },
     "docker": {
       "builder": "@nx-tools/nx-docker:build",
