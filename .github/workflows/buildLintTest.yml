@@ -93,7 +93,7 @@ jobs:
         name: Lint Build Test Affected
         if:  ${{inputs.affectedOnly}}
 
-      - run:  npx nx run-many --all --target=lint --parallel & P1=$! npx nx run-many --all --target=build --prod --parallel & P2=$! npx nx run-many --all --target=test --parallel & P3=$! && wait $P1 $P2 $P3
+      - run: npx nx run-many --all --target=lint --parallel & P1=$! npx nx run-many --all --target=build --prod --parallel & P2=$! npx nx run-many --all --target=test --parallel & P3=$! && wait $P1 $P2 $P3
         name: Lint Build Test All
         if: ${{!inputs.affectedOnly}}
 
