@@ -29,7 +29,7 @@ export class SimulationRunService {
     this.endpoints = new Endpoints(environment.env);
   }
 
-  public getSimulationRun(id: string, cache=true): Observable<SimulationRun> {
+  public getSimulationRun(id: string, cache = true): Observable<SimulationRun> {
     const endpoint = this.endpoints.getSimulationRunEndpoint(id);
     return this.getData<SimulationRun>(id, endpoint, cache);
   }
@@ -96,7 +96,11 @@ export class SimulationRunService {
     return this.getData<SimulationRunSummary>(id, endpoint);
   }
 
-  private getData<T>(runId: string, endpoint: string, cache=true): Observable<T> {
+  private getData<T>(
+    runId: string,
+    endpoint: string,
+    cache = true,
+  ): Observable<T> {
     if (cache && runId !== this.cachedRunId) {
       this.cachedRunId = runId;
       this.cachedRunObservables = {};

@@ -163,13 +163,15 @@ export class ViewComponent implements OnInit {
     );
 
     this.logs$ = this.statusRunning$.pipe(
-      map((running: boolean): Observable<SimulationLogs | undefined | false> => {
-        if (running) {
-          return of(undefined);
-        } else {
-          return this.dispatchService.getSimulationLogs(id);
-        }
-      }),
+      map(
+        (running: boolean): Observable<SimulationLogs | undefined | false> => {
+          if (running) {
+            return of(undefined);
+          } else {
+            return this.dispatchService.getSimulationLogs(id);
+          }
+        },
+      ),
       concatAll(),
       shareReplay(1),
     );
@@ -211,10 +213,7 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
-    this.status$ = this.simulation$.pipe(
-      pluck('status'), 
-      shareReplay(1),
-    );
+    this.status$ = this.simulation$.pipe(pluck('status'), shareReplay(1));
     this.statusRunning$ = this.status$.pipe(
       map((value: SimulationRunStatus): boolean => {
         return SimulationStatusService.isSimulationStatusRunning(value);
