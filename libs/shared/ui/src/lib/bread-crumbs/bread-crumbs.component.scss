@@ -13,7 +13,6 @@ mat-toolbar {
     }
     &:active {
       color: mat.get-color-from-palette($theme-primary, darker);
-      text-decoration: underline;
     }
   }
 }

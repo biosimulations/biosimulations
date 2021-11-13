@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BreadCrumbButtonsComponent } from './bread-crumb-buttons.component';
+import { BreadCrumbsButtonsComponent } from './bread-crumbs-buttons.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { BreadCrumbsButtonComponent } from '../bread-crumbs-button/bread-crumbs-button.component';
 import { MaterialWrapperModule } from '../../material-wrapper.module';
-describe('BreadCrumbButtonsComponent', () => {
-  let component: BreadCrumbButtonsComponent;
-  let fixture: ComponentFixture<BreadCrumbButtonsComponent>;
+describe('BreadCrumbsButtonsComponent', () => {
+  let component: BreadCrumbsButtonsComponent;
+  let fixture: ComponentFixture<BreadCrumbsButtonsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [BreadCrumbButtonsComponent, BreadCrumbsButtonComponent],
+      declarations: [BreadCrumbsButtonsComponent, BreadCrumbsButtonComponent],
       imports: [
         RouterTestingModule,
         BiosimulationsIconsModule,
@@ -22,7 +22,7 @@ describe('BreadCrumbButtonsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BreadCrumbButtonsComponent);
+    fixture = TestBed.createComponent(BreadCrumbsButtonsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -21,7 +21,7 @@ export class BreadCrumbsButtonComponent {
   public route?: string | string[];
 
   @Input()
-  public onClick?: (route: string, router: Router) => string | undefined;
+  public onClick?: (route: string, router: Router) => string | void;
 
   @Input()
   public hover?: string;

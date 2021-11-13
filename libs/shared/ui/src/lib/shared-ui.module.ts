@@ -92,6 +92,7 @@ import { HtmlSnackBarComponent } from './html-snack-bar/html-snack-bar.component
     TocSectionsContainerDirective,
     ColumnsComponent,
     CarouselComponent,
+    BreadCrumbsModule,
   ],
   declarations: [
     TopbarComponent,
