@@ -16,7 +16,7 @@ function viewProject(url: string, router: Router): undefined {
   return undefined;
 }
 
-function rerunProject(url: string, router: Router): undefined {
+function rerunProject(url: string, router: Router): void {
   const parts = url.split('/');
   const id = parts[2].split('#')[0];
 
@@ -34,7 +34,7 @@ function rerunProject(url: string, router: Router): undefined {
       router.navigate(['/run'], { queryParams: queryParams });
     });
 
-  return undefined;
+  return;
 }
 
 function shareProject(url: string): string {
@@ -47,11 +47,11 @@ function shareProject(url: string): string {
   return 'The URL for sharing this simulation was copied to your clipboard.';
 }
 
-function publishProject(url: string, router: Router): undefined {
+function publishProject(url: string, router: Router): void {
   const parts = url.split('/');
   const id = parts[2].split('#')[0];
   router.navigate(['/simulations', id, 'publish']);
-  return undefined;
+  return;
 }
 
 const routes: Routes = [
