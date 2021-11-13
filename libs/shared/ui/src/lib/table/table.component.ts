@@ -115,7 +115,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     return this._columns;
   }
 
-  private _highlightRow!: (element: any) => boolean;
+  private _highlightRow?: (element: any) => boolean;
 
   @Input()
   set highlightRow(func: (element: any) => boolean) {
@@ -533,10 +533,20 @@ export class TableComponent implements OnInit, AfterViewInit {
           switch (column.filterType) {
             case ColumnFilterType.number: {
               if (columnIsFiltered[column.id]) {
+                if (!(column.id in this.columnFilterData)) {
+                  this.columnFilterData[column.id] = {
+                    min: null,
+                    max: null,
+                    step: null,
+                    minSelected: null,
+                    maxSelected: null,
+                  };
+                }
+
                 if (
                   filter[column.id][0] !==
                   this.columnFilterData[column.id]?.minSelected
-                ) {
+                ) {                  
                   this.columnFilterData[column.id].minSelected =
                     filter[column.id][0];
                 }
@@ -996,13 +1006,8 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.columnFilterData[column.id] = [null, null];
       }
     } else {
-      this.columnFilterData[column.id] = {
-        min: null,
-        max: null,
-        step: null,
-        minSelected: null,
-        maxSelected: null,
-      };
+      this.columnFilterData[column.id].minSelected = this.columnFilterData[column.id].min;
+      this.columnFilterData[column.id].maxSelected = this.columnFilterData[column.id].max;
     }
     this.columnIsFiltered[column.id] = false;
     this.setTableStateQueryFragment();
