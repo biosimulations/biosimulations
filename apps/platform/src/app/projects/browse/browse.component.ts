@@ -28,7 +28,7 @@ export class BrowseComponent implements OnInit {
       filterable: false,
     },
     {
-      id: 'title',      
+      id: 'title',
       key: 'title',
       heading: 'Title',
       filterable: false,
@@ -36,7 +36,7 @@ export class BrowseComponent implements OnInit {
       show: true,
     },
     {
-      id: 'abstract',      
+      id: 'abstract',
       key: ['metadata', 'abstract'],
       heading: 'Abstract',
       filterable: false,
@@ -70,9 +70,9 @@ export class BrowseComponent implements OnInit {
     //creators: LabeledIdentifier[];
     //contributors: LabeledIdentifier[];
     //license?: LabeledIdentifier[];
-    //funders: LabeledIdentifier[];    
+    //funders: LabeledIdentifier[];
     {
-      id: 'projectSize',      
+      id: 'projectSize',
       key: ['simulationRun', 'projectSize'],
       heading: 'Project size (MB)',
       hidden: false,
@@ -89,7 +89,7 @@ export class BrowseComponent implements OnInit {
     // model format
     // simulation algorithm
     {
-      id: 'simulatorId',      
+      id: 'simulatorId',
       key: ['simulationRun', 'simulator'],
       heading: 'Simulator',
       hidden: true,
@@ -97,7 +97,7 @@ export class BrowseComponent implements OnInit {
       filterable: false,
     },
     {
-      id: 'simulator',      
+      id: 'simulator',
       key: ['simulationRun', 'simulatorName'],
       heading: 'Simulator',
       hidden: false,
@@ -108,7 +108,7 @@ export class BrowseComponent implements OnInit {
       },
     },
     {
-      id: 'cpus',      
+      id: 'cpus',
       key: ['simulationRun', 'cpus'],
       heading: 'CPUs',
       hidden: false,
@@ -117,7 +117,7 @@ export class BrowseComponent implements OnInit {
       filterType: ColumnFilterType.number,
     },
     {
-      id: 'memory',      
+      id: 'memory',
       key: ['simulationRun', 'memory'],
       heading: 'Memory (GB)',
       hidden: false,
@@ -129,7 +129,7 @@ export class BrowseComponent implements OnInit {
       filterType: ColumnFilterType.number,
     },
     {
-      id: 'runtime',      
+      id: 'runtime',
       key: ['simulationRun', 'runtime'],
       heading: 'Runtime (min)',
       hidden: false,
@@ -144,7 +144,7 @@ export class BrowseComponent implements OnInit {
       filterType: ColumnFilterType.number,
     },
     {
-      id: 'resultsSize',      
+      id: 'resultsSize',
       key: ['simulationRun', 'resultsSize'],
       heading: 'Results size (MB)',
       hidden: false,
@@ -159,7 +159,7 @@ export class BrowseComponent implements OnInit {
       filterType: ColumnFilterType.number,
     },
     {
-      id: 'created',      
+      id: 'created',
       key: ['metadata', 'created'],
       heading: 'Created',
       hidden: false,
@@ -171,7 +171,7 @@ export class BrowseComponent implements OnInit {
       filterType: ColumnFilterType.date,
     },
     {
-      id: 'published',      
+      id: 'published',
       key: 'created',
       heading: 'Published',
       hidden: false,
@@ -183,7 +183,7 @@ export class BrowseComponent implements OnInit {
       filterType: ColumnFilterType.date,
     },
     {
-      id: 'updated',      
+      id: 'updated',
       key: 'updated',
       heading: 'Updated',
       hidden: false,
@@ -193,7 +193,7 @@ export class BrowseComponent implements OnInit {
         return FormatService.formatDate(value);
       },
       filterType: ColumnFilterType.date,
-    },    
+    },
   ];
 
   constructor(private service: BrowseService) {
