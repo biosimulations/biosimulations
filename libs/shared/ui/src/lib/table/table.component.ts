@@ -472,7 +472,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     });
 
-    let showColumns: { [id: string]: boolean } | undefined = undefined;
+    let showColumns: { [id: string]: boolean } | undefined;
     if (opts.has('table.c')) {
       const definedShowColumns: { [id: string]: boolean } = {};
       this.columns.forEach((column: Column): void => {
@@ -486,14 +486,14 @@ export class TableComponent implements OnInit, AfterViewInit {
       showColumns = definedShowColumns;
     }
 
-    let openControlPanelId: undefined | number = undefined;
+    let openControlPanelId: undefined | number;
     if (opts.get('table.p') != null) {
       try {
         openControlPanelId = parseInt(opts.get('table.p') as string);
       } catch (e) {} // eslint-disable-line no-empty
     }
 
-    let sort: Sort | undefined = undefined;
+    let sort: Sort | undefined;
     const sortActive = opts.get('table.sort') || undefined;
     if (sortActive) {
       const sortDirection = (opts.get('table.sortDir') ||
@@ -546,7 +546,7 @@ export class TableComponent implements OnInit, AfterViewInit {
                 if (
                   filter[column.id][0] !==
                   this.columnFilterData[column.id]?.minSelected
-                ) {                  
+                ) {
                   this.columnFilterData[column.id].minSelected =
                     filter[column.id][0];
                 }
