@@ -1,3 +1,20 @@
+@use '~@angular/material' as mat;
+@import 'biosimulations-colors';
+
 .container {
   padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  transition: all 0.5s;
+}
+
+.controls {
+  height: min-content;
+  background: grey;
+  width: 14.625rem;
+  margin-left: 1rem;
+
+  &.closed {    
+    display: none;
+  }
 }

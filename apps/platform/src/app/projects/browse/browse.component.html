@@ -1,19 +1,39 @@
-<div
-  class="container"
-  *ngIf="projects$ | async as projects; else statusIndicator"
-  gdGap="1rem"
-  gdColumns.xl="repeat(5, 1fr)"
-  gdColumns.lg="repeat(4, 1fr)"
-  gdColumns.md="repeat(3, 1fr)"
-  gdColumns.sm="repeat(2, 1fr)"
-  gdColumns.xs="repeat(1, 1fr)"
->
-  <biosimulations-project-card
-    *ngFor="let project of projects"
-    [project]="project"
-  ></biosimulations-project-card>
-</div>
+<biosimulations-bread-crumbs-position>
+  <biosimulations-bread-crumbs-button
+    icon="search"
+    label="Search & filter"
+    [onClick]="openControls"
+  ></biosimulations-bread-crumbs-button>
+</biosimulations-bread-crumbs-position>
 
-<ng-template #statusIndicator>
-  <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
-</ng-template>
+<biosimulations-table
+  [data]="projects$"
+  [columns]="columns"
+  [defaultSort]="{ active: 'title', direction: 'asc' }"
+  searchPlaceHolder="Query (e.g., metabolism)"
+  searchToolTip="Enter a query such as 'metabolism'. By default, your query will be searched over all attributes. To search over a specific attribute, prefix your query with the heading of the attirbute (with spaces replaced by dashes) such as 'last-updated: 2020'."    
+>
+</biosimulations-table>
+
+<!--
+<div class="container">    
+  <div
+    class="projects"
+    gdGap="1rem"
+    gdColumns.xl="repeat(5, 1fr)"
+    gdColumns.lg="repeat(4, 1fr)"
+    gdColumns.md="repeat(3, 1fr)"
+    gdColumns.sm="repeat(2, 1fr)"
+    gdColumns.xs="repeat(1, 1fr)"
+  >
+    <biosimulations-project-card
+      *ngFor="let project of projects"
+      [project]="project"
+    ></biosimulations-project-card>
+  </div>
+
+  <div class="controls" [ngClass]="{closed: !controlsOpen}">
+    here
+  </div>
+</div>
+-->
