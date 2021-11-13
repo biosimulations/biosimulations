@@ -39,7 +39,7 @@ options = {
 }
 app = connexion.App(__name__, specification_dir=spec_dirname, options=options)
 
-# Setup handlers for APIs
+# Set up handlers for APIs
 app.add_api(spec_filename,
             strict_validation=True,
             validate_responses=False)
