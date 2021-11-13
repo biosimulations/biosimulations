@@ -962,7 +962,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Matthijs Dabroek
 │  ├─ email: dabroek@gmail.com
 │  └─ licenseFile: cache-manager-redis-store/LICENSE
-├─ cache-manager@3.5.0
+├─ cache-manager@3.6.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/BryanDonovan/node-cache-manager
 │  ├─ publisher: Bryan Donovan
