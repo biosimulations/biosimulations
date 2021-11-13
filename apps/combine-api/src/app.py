@@ -44,7 +44,7 @@ app.add_api(spec_filename,
             strict_validation=True,
             validate_responses=False)
 
-# clean up temporary spec file for production
+# clean up temporary specifications file for production
 if env.lower() == 'prod':
     os.remove(temp_spec_filename)
 
