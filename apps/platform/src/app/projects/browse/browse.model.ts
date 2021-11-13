@@ -3,15 +3,11 @@ import {
   EnvironmentVariable,
 } from '@biosimulations/datamodel/common';
 
-export interface FormattedDate {
-  value: Date;
-  formattedValue: string;
-}
-
 export interface FormattedSimulationRunSummary {
   id: string;
   name: string;
   simulator: string;
+  simulatorName: string;
   simulatorVersion: string;
   cpus: number;
   memory: number;
@@ -19,12 +15,13 @@ export interface FormattedSimulationRunSummary {
   runtime: number;
   projectSize: number;
   resultsSize: number;
-  submitted: FormattedDate;
-  updated: FormattedDate;
+  submitted: Date;
+  updated: Date;
 }
 
 export interface FormattedProjectMetadataSummary {
   abstract?: string;
+  description?: string;
   thumbnail: string;
   keywords: LabeledIdentifier[];
   taxa: LabeledIdentifier[];
@@ -35,8 +32,8 @@ export interface FormattedProjectMetadataSummary {
   contributors: LabeledIdentifier[];
   license?: LabeledIdentifier[];
   funders: LabeledIdentifier[];
-  created: FormattedDate;
-  modified?: FormattedDate;
+  created: Date;
+  modified?: Date;
 }
 
 export interface FormattedProjectSummary {
@@ -44,6 +41,6 @@ export interface FormattedProjectSummary {
   title: string;
   simulationRun: FormattedSimulationRunSummary;
   metadata: FormattedProjectMetadataSummary;
-  created: FormattedDate;
-  updated: FormattedDate;
+  created: Date;
+  updated: Date;
 }

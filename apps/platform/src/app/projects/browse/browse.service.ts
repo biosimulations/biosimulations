@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { ProjectSummary } from '@biosimulations/datamodel/common';
-import { FormattedProjectSummary, FormattedDate } from './browse.model';
+import { FormattedProjectSummary } from './browse.model';
 import { ProjectService } from '@biosimulations/angular-api-client';
-import { FormatService } from '@biosimulations/shared/services';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { HttpStatusCode } from '@angular/common/http';
 
@@ -44,6 +43,7 @@ export class BrowseService {
                   id: run.id,
                   name: run.name,
                   simulator: simulationRun.simulator.id,
+                  simulatorName: simulationRun.simulator.name,
                   simulatorVersion: simulationRun.simulator.version,
                   cpus: simulationRun.cpus,
                   memory: simulationRun.memory,
@@ -56,6 +56,7 @@ export class BrowseService {
                 },
                 metadata: {
                   abstract: metadata?.abstract,
+                  description: metadata?.description,
                   thumbnail: thumbnail,
                   keywords: metadata.keywords,
                   taxa: metadata.taxa,
@@ -90,11 +91,7 @@ export class BrowseService {
     return metadatas;
   }
 
-  private formatDate(date: string): FormattedDate {
-    const value = new Date(date);
-    return {
-      value: value,
-      formattedValue: FormatService.formatDate(value),
-    };
+  private formatDate(date: string): Date {
+    return new Date(date);
   }
 }

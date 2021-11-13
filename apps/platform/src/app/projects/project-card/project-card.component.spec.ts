@@ -34,6 +34,7 @@ describe('ProjectCardComponent', () => {
         id: '615e7eb6e857da40033c7eb3',
         name: '',
         simulator: 'tellurium',
+        simulatorName: 'tellurium',
         simulatorVersion: '2.2.1',
         cpus: 1,
         memory: 8,
@@ -41,14 +42,8 @@ describe('ProjectCardComponent', () => {
         runtime: 1,
         projectSize: 1,
         resultsSize: 1,
-        submitted: {
-          value: new Date(),
-          formattedValue: 'date',
-        },
-        updated: {
-          value: new Date(),
-          formattedValue: 'date',
-        },
+        submitted: new Date(),
+        updated: new Date(),
       },
       metadata: {
         thumbnail: '',
@@ -62,20 +57,11 @@ describe('ProjectCardComponent', () => {
         contributors: [],
         license: undefined,
         funders: [],
-        created: {
-          value: new Date(),
-          formattedValue: 'date',
-        },
+        created: new Date(),
         modified: undefined,
       },
-      created: {
-        value: new Date(),
-        formattedValue: 'date',
-      },
-      updated: {
-        value: new Date(),
-        formattedValue: 'date',
-      },
+      created: new Date(),
+      updated: new Date(),
     };
     fixture.detectChanges();
   });

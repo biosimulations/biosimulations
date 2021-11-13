@@ -9,6 +9,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { BrowseComponent } from './browse.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 class mockBrowseService {
   getProjects() {
@@ -31,6 +32,7 @@ describe('BrowseComponent', () => {
         BiosimulationsIconsModule,
         LazyLoadImageModule,
         SharedUiModule,
+        NoopAnimationsModule,
       ],
     }).compileComponents();
   });
