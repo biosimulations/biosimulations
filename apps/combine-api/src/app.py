@@ -68,7 +68,7 @@ app.add_error_handler(500, functools.partial(
     title='Server error'))
 app.add_error_handler(exceptions.BadRequestException, exceptions._render_exception)
 
-# cross-origin resource sharing
+# enable cross-origin resource sharing
 CORS(app.app,
      origins=[
          'http://127.0.0.1:4200',
