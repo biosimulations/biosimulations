@@ -5,7 +5,7 @@ repo_url: https://github.com/biosimulations/biosimulations
 edit_uri: blob/dev/docs/
 theme:
   name: material
-  logo: assets/images/safari-pinned-tab.svg
+  logo: assets/logos/logo.svg
   favicon: assets/icons/favicon.ico
   palette:
     - media: '(prefers-color-scheme: light)'
