@@ -56,3 +56,11 @@
   font-size: 0.8rem;
   font-weight: 500;
 }
+
+.md-tabs__link:hover {
+  text-decoration: underline;
+}
+
+.md-tabs__link:active {
+  color: #1479ed;
+}
