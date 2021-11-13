@@ -1,0 +1,16 @@
+:host {
+  position: absolute;
+  z-index: 1000;
+  top: 64px;
+  right: 1rem;
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 959px) {
+  :host {
+    top: 56px;
+    right: 1rem;
+  }
+}

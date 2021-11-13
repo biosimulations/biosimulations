@@ -4,7 +4,7 @@ import { BreadCrumbsComponent } from './bread-crumbs.component';
 import { MaterialWrapperModule } from '../material-wrapper.module';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { RouterTestingModule } from '@angular/router/testing';
-import { BreadCrumbButtonsComponent } from './bread-crumb-buttons/bread-crumb-buttons.component';
+import { BreadCrumbsButtonsComponent } from './bread-crumbs-buttons/bread-crumbs-buttons.component';
 import { BreadCrumbsButtonComponent } from './bread-crumbs-button/bread-crumbs-button.component';
 
 describe('BreadCrumbsComponent', () => {
@@ -20,7 +20,7 @@ describe('BreadCrumbsComponent', () => {
       ],
       declarations: [
         BreadCrumbsComponent,
-        BreadCrumbButtonsComponent,
+        BreadCrumbsButtonsComponent,
         BreadCrumbsButtonComponent,
       ],
     }).compileComponents();
