@@ -1,12 +1,5 @@
-<div
-  class="spinner-container full-height has-breadcrumbs"
-  *ngIf="(loaded$ | async) !== true"
->
-  <biosimulations-spinner></biosimulations-spinner>
-</div>
-
 <biosimulations-tab-page
-  *ngIf="(loaded$ | async) === true"
+  *ngIf="(loaded$ | async) === true; else runLoading"
   [selectedTabIndex]="selectedTabIndex"
   (selectedTabChange)="selectedTabChange($event)"
 >
@@ -21,25 +14,39 @@
   </biosimulations-tab-page-tab>
   <!-- End summary of the run -->
 
-  <!-- The overview tab for the entire project-->
+  <!-- Metadata about the entire project (COMBINE/OMEX archive) -->
   <biosimulations-tab-page-tab
     heading="Simulation project"
     icon="model"
-    [disabled]="(resultsLoaded$ | async) !== true"
+    urlHashFragment="metadata"
   >
-    <ng-container
-      *ngIf="projectMetadata$ | async as projectMetadata; else noMetadata"
-    >
-      <biosimulations-project-metadata [project]="projectMetadata">
-      </biosimulations-project-metadata>
+    <ng-container *ngTemplateOutlet="resultsTabContent, context: {$implicit: metadataContent}">
     </ng-container>
 
-    <ng-template #noMetadata>
-      {{ noMetadataFoundMessage }}
+    <ng-template #metadataContent>
+      <ng-container
+        *ngIf="(statusSucceeded$ | async) === true; else noMetadata"
+      >
+        <biosimulations-project-metadata 
+          *ngIf="projectMetadata$ | async as projectMetadata; else metadataError"
+          [project]="projectMetadata">
+        </biosimulations-project-metadata>
+
+        <ng-template #metadataError>
+          <div class="info-message">
+            No metadata could be loaded either because the project did not contain metadata in RDF-XML format or because the metadata was invalid. Metadata is not required for simulation. However metadata is required for publication to BioSimulations. Information about BioSimulations metadata requirements is available <a href="https://biosimulators.org/conventions/metadata" target="_blank">here</a>. Further information about errors in metadata can be obtained using the <a [routerLink]="['/utils', 'validate-project']">COMBINE archive</a> and <a [routerLink]="['/utils', 'validate-metadata']">OMEX Metadata</a> validation tools.
+          </div>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #noMetadata>
+        <div class="info-message">
+          Sorry! The files for the simulation run could not be loaded because the simulation run did not succeed. Information about the failure is available in the log for the simulation run.
+        </div>
+      </ng-template>
     </ng-template>
   </biosimulations-tab-page-tab>
-
-  <!-- End overview tab-->
+  <!-- End project metadata tab-->
 
   <!--Information about files in project and generated from the project-->
   <biosimulations-tab-page-tab
@@ -47,49 +54,62 @@
     icon="project"
     urlHashFragment="files"
   >
-    <ng-container
-      *ngIf="(projectFiles$ | async) || (files$ | async); else noFiles"
-    >
-      <div class="partial-width files">
-        <biosimulations-text-page-content-section
-          heading="Project"
-          *ngIf="projectFiles$ | async as files"
-        >
-          <biosimulations-project-files
-            id="content"
-            [files]="files"
-            [usesMaster]="false"
-          >
-          </biosimulations-project-files>
-        </biosimulations-text-page-content-section>
-
-        <biosimulations-text-page-content-section
-          heading="Project contents"
-          *ngIf="files$ | async as files"
-        >
-          <biosimulations-project-files
-            id="content"
-            [files]="files"
-            [usesMaster]="true"
-          >
-          </biosimulations-project-files>
-        </biosimulations-text-page-content-section>
-
-        <biosimulations-text-page-content-section
-          heading="Simulation outputs"
-          *ngIf="outputs$ | async as files"
-        >
-          <biosimulations-project-files
-            id="content"
-            [files]="files"
-            [usesMaster]="false"
-          >
-          </biosimulations-project-files>
-        </biosimulations-text-page-content-section>
-      </div>
+    <ng-container *ngTemplateOutlet="resultsTabContent, context: {$implicit: filesContent}">
     </ng-container>
-    <ng-template #noFiles>
-      {{ noFilesMessage }}
+
+    <ng-template #filesContent>
+      <ng-container
+        *ngIf="(statusSucceeded$ | async) === true; else noFiles"
+      >
+        <div 
+          *ngIf="(projectFiles$ | async) && (files$ | async) && (outputs$ | async); else filesError"
+          class="partial-width files"
+        >
+          <biosimulations-text-page-content-section
+            heading="Project"
+            *ngIf="projectFiles$ | async as files"
+          >
+            <biosimulations-project-files
+              [files]="files"
+              [usesMaster]="false"
+            >
+            </biosimulations-project-files>
+          </biosimulations-text-page-content-section>
+
+          <biosimulations-text-page-content-section
+            heading="Project contents"
+            *ngIf="files$ | async as files"
+          >
+            <biosimulations-project-files
+              [files]="files"
+              [usesMaster]="true"
+            >
+            </biosimulations-project-files>
+          </biosimulations-text-page-content-section>
+
+          <biosimulations-text-page-content-section
+            heading="Simulation outputs"
+            *ngIf="outputs$ | async as files"
+          >
+            <biosimulations-project-files
+              [files]="files"
+              [usesMaster]="false"
+            >
+            </biosimulations-project-files>
+          </biosimulations-text-page-content-section>
+        </div>
+
+        <ng-template #filesError>
+          <div class="info-message">
+            Sorry! An error occurred in loading the files for the simulation run. Please try again. If the error persists, please submit an issue <a href="https://github.com/biosimulations/biosimulations/issues/new/choose" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-template #noFiles>
+        <div class="info-message">
+          Sorry! The files for the simulation run could not be loaded because the simulation run did not succeed. Information about the failure is available in the log for the simulation run.
+        </div>
+      </ng-template>
     </ng-template>
   </biosimulations-tab-page-tab>
 
@@ -98,20 +118,35 @@
     urlHashFragment="select-viz"
     heading="Select chart"
     icon="write"
-    [partialWidth]="true"
-    [disabled]="(resultsLoaded$ | async) !== true"
   >
-    <ng-container
-      *ngIf="visualizations$ | async as visualizations; else noVisualizations"
-    >
-      <biosimulations-project-select-visualization
-        [visualizations]="visualizations"
-        (renderVisualization)="renderVisualization($event)"
-      >
-      </biosimulations-project-select-visualization>
+    <ng-container *ngTemplateOutlet="resultsTabContent, context: {$implicit: selectVisualizationContent}">
     </ng-container>
-    <ng-template #noVisualizations>
-      {{ noVisualizationsMessage }}
+
+    <ng-template #selectVisualizationContent>
+      <ng-container
+        *ngIf="(statusSucceeded$ | async) === true; else noVisualizations"
+      >
+        <div
+          *ngIf="visualizations$ | async as visualizations; else visualizationErrors"
+          class="partial-width"
+        >
+          <biosimulations-project-select-visualization          
+            [visualizations]="visualizations"
+            (renderVisualization)="renderVisualization($event)"
+          >
+          </biosimulations-project-select-visualization>
+        </div>
+        <ng-template #visualizationErrors>
+          <div class="info-message">
+            Sorry! An error occurred in loading the visualizations for the simulation run. Please try again. If the error persists, please submit an issue <a href="https://github.com/biosimulations/biosimulations/issues/new/choose" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-template #noVisualizations>
+        <div class="info-message">
+          Sorry! The files for the simulation run could not be loaded because the simulation run did not succeed. Information about the failure is available in the log for the simulation run.
+        </div>
+      </ng-template>
     </ng-template>
   </biosimulations-tab-page-tab>
 
@@ -136,23 +171,46 @@
     heading="Log"
     icon="logs"
     urlHashFragment="log"
-    [disabled]="(resultsLoaded$ | async) !== true"
   >
-    <ng-container *ngIf="logs$ | async as logs; else noLogs">
-      <ng-container *ngIf="formattedSimulation$ | async as sim">
-        <biosimulations-simulation-log
-          [status]="sim.status"
-          [statusReason]="sim.statusReason"
-          [rawLog]="logs.raw"
-          [structuredLog]="logs.structured"
-        >
-        </biosimulations-simulation-log>
-      </ng-container>
+    <ng-container *ngTemplateOutlet="resultsTabContent, context: {$implicit: logsContent}">
     </ng-container>
 
-    <ng-template #noLogs>
-      {{ noLogsMessage }}
+    <ng-template #logsContent>
+      <ng-container *ngIf="logs$ | async as logs; else noLogs">
+        <ng-container *ngIf="formattedSimulation$ | async as sim">
+          <biosimulations-simulation-log
+            [status]="sim.status"
+            [statusReason]="sim.statusReason"
+            [rawLog]="logs.raw"
+            [structuredLog]="logs.structured"
+          >
+          </biosimulations-simulation-log>
+        </ng-container>
+      </ng-container>
+
+      <ng-template #noLogs>
+        <div class="info-message">
+          Sorry! The log for the simulation run could not be loaded. Please try again. If the error persists, please submit an issue <a href="https://github.com/biosimulations/biosimulations/issues/new/choose" target="_blank"><biosimulations-icon icon="link"></biosimulations-icon></a>.
+        </div>
+      </ng-template>
     </ng-template>
   </biosimulations-tab-page-tab>
   <!-- End logs -->
+
+  <ng-template #resultsTabContent let-content>
+    <ng-container *ngIf="(resultsLoaded$ | async) === true; else resultsLoading">
+      <ng-container *ngTemplateOutlet="content"></ng-container>
+    </ng-container>
+
+    <ng-template #resultsLoading>
+      <biosimulations-full-page-spinner
+        [containerHasTabs]="true"
+        [containerHasPadding]="true"
+      ></biosimulations-full-page-spinner>
+    </ng-template>
+  </ng-template>
 </biosimulations-tab-page>
+
+<ng-template #runLoading>
+  <biosimulations-full-page-spinner></biosimulations-full-page-spinner>
+</ng-template>

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { VegaVisualizationComponent } from './vega-visualization.component';
 import { SharedUiModule } from '@biosimulations/shared/ui';
+import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 
 describe('VegaVisualizationComponent', () => {
   let component: VegaVisualizationComponent;
@@ -9,7 +10,7 @@ describe('VegaVisualizationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [VegaVisualizationComponent],
-      imports: [SharedUiModule],
+      imports: [SharedUiModule, BiosimulationsIconsModule],
     }).compileComponents();
     (async () => {
       if (!('ResizeObserver' in window)) {

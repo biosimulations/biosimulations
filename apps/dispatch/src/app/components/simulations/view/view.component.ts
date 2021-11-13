@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Observable, of, combineLatest, map, pluck } from 'rxjs';
-import { shareReplay, concatAll } from 'rxjs/operators';
+import { shareReplay, concatAll, catchError } from 'rxjs/operators';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
   ProjectMetadata,
@@ -25,6 +26,7 @@ import { SimulationLogs } from '../../../simulation-logs-datamodel';
 import { SimulationStatusService } from '../../../services/simulation/simulation-status.service';
 import { Dataset, WithContext } from 'schema-dts';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
+import { environment } from '@biosimulations/shared/environments';
 
 @Component({
   templateUrl: './view.component.html',
@@ -37,33 +39,24 @@ export class ViewComponent implements OnInit {
   public id!: string;
 
   private simulation$!: Observable<Simulation>;
-  status$!: Observable<SimulationRunStatus>;
-  statusRunning$!: Observable<boolean>;
+  private status$!: Observable<SimulationRunStatus>;
+  private statusRunning$!: Observable<boolean>;
   statusSucceeded$!: Observable<boolean>;
 
   public formattedSimulation$!: Observable<FormattedSimulation>;
 
-  public projectMetadata$!: Observable<ProjectMetadata | undefined>;
+  public projectMetadata$!: Observable<ProjectMetadata | undefined | false>;
 
-  public projectFiles$!: Observable<Path[] | undefined>;
-  public files$!: Observable<Path[] | undefined>;
-  public outputs$!: Observable<File[] | undefined>;
+  public projectFiles$!: Observable<Path[] | undefined | false>;
+  public files$!: Observable<Path[] | undefined | false>;
+  public outputs$!: Observable<File[] | undefined | false>;
 
-  public visualizations$!: Observable<VisualizationList[] | undefined>;
+  public visualizations$!: Observable<VisualizationList[] | undefined | false>;
   public visualization: Visualization | null = null;
 
-  public logs$!: Observable<SimulationLogs | undefined>;
+  public logs$!: Observable<SimulationLogs | undefined | false>;
 
-  jsonLdData$!: Observable<WithContext<Dataset>>;
-
-  public noMetadataFoundMessage =
-    'This simulation run has no additional metadata';
-  public noFilesMessage =
-    'Sorry, we could not load the files in this simulation run';
-  public noVisualizationsMessage =
-    'Sorry, we were unable to load the visualizations for this simulation run';
-  public noLogsMessage =
-    'Sorry, we were unable to load the logs for this simulation run';
+  public jsonLdData$!: Observable<WithContext<Dataset>>;
 
   public constructor(
     private simulationService: SimulationService,
@@ -88,20 +81,48 @@ export class ViewComponent implements OnInit {
         }
       }),
       concatAll(),
+      catchError((error: HttpErrorResponse): Observable<false> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<false>(false);
+      }),
       shareReplay(1),
     );
 
-    this.projectFiles$ = this.sharedViewService.getFormattedProjectFiles(id);
-
-    this.files$ = this.statusRunning$.pipe(
-      map((running: boolean): Observable<Path[] | undefined> => {
-        if (running) {
-          return of(undefined);
+    this.projectFiles$ = this.statusSucceeded$.pipe(
+      map((succeeded: boolean): Observable<Path[] | undefined> => {
+        if (succeeded) {
+          return this.sharedViewService.getFormattedProjectFiles(id);
         } else {
-          return this.sharedViewService.getFormattedProjectContentFiles(id);
+          return of(undefined);
         }
       }),
       concatAll(),
+      catchError((error: HttpErrorResponse): Observable<false> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<false>(false);
+      }),
+      shareReplay(1),
+    );
+
+    this.files$ = this.statusSucceeded$.pipe(
+      map((succeeded: boolean): Observable<Path[] | undefined> => {
+        if (succeeded) {
+          return this.sharedViewService.getFormattedProjectContentFiles(id);
+        } else {
+          return of(undefined);
+        }
+      }),
+      concatAll(),
+      catchError((error: HttpErrorResponse): Observable<false> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<false>(false);
+      }),
       shareReplay(1),
     );
 
@@ -114,6 +135,12 @@ export class ViewComponent implements OnInit {
         }
       }),
       concatAll(),
+      catchError((error: HttpErrorResponse): Observable<false> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<false>(false);
+      }),
       shareReplay(1),
     );
 
@@ -126,11 +153,17 @@ export class ViewComponent implements OnInit {
         }
       }),
       concatAll(),
+      catchError((error: HttpErrorResponse): Observable<false> => {
+        if (!environment.production) {
+          console.error(error);
+        }
+        return of<false>(false);
+      }),
       shareReplay(1),
     );
 
     this.logs$ = this.statusRunning$.pipe(
-      map((running: boolean): Observable<SimulationLogs | undefined> => {
+      map((running: boolean): Observable<SimulationLogs | undefined | false> => {
         if (running) {
           return of(undefined);
         } else {
@@ -145,12 +178,20 @@ export class ViewComponent implements OnInit {
 
     this.resultsLoaded$ = combineLatest([
       this.projectMetadata$,
+      this.projectFiles$,
       this.files$,
       this.outputs$,
       this.visualizations$,
       this.logs$,
     ]).pipe(
-      map((_) => true),
+      map((values: any[]) => {
+        for (const value of values) {
+          if (value === undefined) {
+            return false;
+          }
+        }
+        return true;
+      }),
       shareReplay(1),
     );
   }
@@ -170,7 +211,10 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
-    this.status$ = this.simulation$.pipe(pluck('status'), shareReplay(1));
+    this.status$ = this.simulation$.pipe(
+      pluck('status'), 
+      shareReplay(1),
+    );
     this.statusRunning$ = this.status$.pipe(
       map((value: SimulationRunStatus): boolean => {
         return SimulationStatusService.isSimulationStatusRunning(value);

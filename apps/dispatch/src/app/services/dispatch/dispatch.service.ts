@@ -405,7 +405,7 @@ export class DispatchService {
 
   public getSimulationLogs(
     uuid: string,
-  ): Observable<SimulationLogs | undefined> {
+  ): Observable<SimulationLogs | undefined | false> {
     return this.simRunService.getSimulationRunLog(uuid).pipe(
       map((response: CombineArchiveLog): SimulationLogs => {
         // get structured log
@@ -423,11 +423,11 @@ export class DispatchService {
         };
       }),
 
-      catchError((error: HttpErrorResponse): Observable<undefined> => {
+      catchError((error: HttpErrorResponse): Observable<false> => {
         if (!environment.production) {
           console.error(error);
         }
-        return of<undefined>(undefined);
+        return of<false>(false);
       }),
 
       shareReplay(1),

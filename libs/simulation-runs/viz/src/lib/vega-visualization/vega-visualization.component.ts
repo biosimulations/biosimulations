@@ -79,7 +79,8 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
     }
 
     if (!this._spec) {
-      this.error = 'Visualization could not be loaded.';
+      this.error = 'The visualization could not be loaded.';
+      this.loading = false;
       return;
     }
 

@@ -69,7 +69,7 @@ export interface SedPlot2DVisualization {
   name: string;
   userDesigned: false;
   renderer: 'Plotly';
-  plotlyDataLayout: Observable<Observable<PlotlyDataLayout>>;
+  plotlyDataLayout: Observable<Observable<PlotlyDataLayout | false>>;
 }
 
 export interface Histogram1DVisualization {

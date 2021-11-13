@@ -40,11 +40,6 @@ export class SimulationService {
   private simulationsArrSubject = new BehaviorSubject<ISimulation[]>([]);
   // Local Storage Map
   private simulationsMap: { [key: string]: ISimulation } = {};
-  private simulationsSubject = new BehaviorSubject<ISimulation[]>(
-    this.simulations,
-  );
-  public simulations$: Observable<ISimulation[]> =
-    this.simulationsSubject.asObservable();
   private storageInitialized = false;
   private simulationsAddedBeforeStorageInitialized: ISimulation[] = [];
 
@@ -115,7 +110,6 @@ export class SimulationService {
         this.simulations.push(simulation);
         this.simulationsMap[simulation.id] = simulation;
       }
-      this.simulationsSubject.next(this.simulations);
 
       // save to http map
       if (this.simulationsMap$[simulation.id]) {
@@ -169,7 +163,6 @@ export class SimulationService {
           this.simulationsMap[newSimulation.id] = newSimulation;
         }
       });
-      this.simulationsSubject.next(this.simulations);
       this._storage.set(this.key, this.simulations);
     } else {
       newSimulations.forEach((newSimulation: ISimulation): void => {
@@ -223,7 +216,7 @@ export class SimulationService {
    * @param uuid The id of the simulation
    */
   private getSimulationHttp(uuid: string): Observable<ISimulation> {
-    return this.simRunHttpService.getSimulationRun(uuid).pipe(
+    return this.simRunHttpService.getSimulationRun(uuid, false).pipe(
       catchError((error: HttpErrorResponse): Observable<undefined> => {
         if (error.status === HttpStatusCode.NotFound) {
           return of(undefined);

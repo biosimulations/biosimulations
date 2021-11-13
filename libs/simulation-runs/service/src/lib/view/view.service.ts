@@ -7,6 +7,7 @@ import {
   of,
   forkJoin,
 } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import {
   LabeledIdentifier,
   DescribedIdentifier,
@@ -58,6 +59,7 @@ import {
 } from 'schema-dts';
 import { Endpoints } from '@biosimulations/config/common';
 import { BiosimulationsIcon } from '@biosimulations/shared/icons';
+import { environment } from '@biosimulations/shared/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -893,6 +895,12 @@ export class ViewService {
               spec,
             );
           }),
+          catchError((error: any): Observable<false> => {
+            if (!environment.production) {
+              console.error(error);
+            }
+            return of<false>(false);
+          }),
           shareReplay(1),
         ),
     };
@@ -926,6 +934,12 @@ export class ViewService {
               plot,
               result,
             );
+          }),
+          catchError((error: any): Observable<false> => {
+            if (!environment.production) {
+              console.error(error);
+            }
+            return of<false>(false);
           }),
           shareReplay(1),
         ),

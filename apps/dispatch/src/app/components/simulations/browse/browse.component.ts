@@ -313,7 +313,7 @@ export class BrowseComponent implements OnInit {
           simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         ) {
-          return ['/simulations', simulation.id, '#tab=design-viz'];
+          return ['/simulations', simulation.id, '#tab=select-viz'];
         } else {
           return null;
         }
@@ -328,7 +328,7 @@ export class BrowseComponent implements OnInit {
           simulation.resultsSize !== null &&
           simulation.resultsSize > 0
         ) {
-          return ['/simulations', simulation.id, '#tab=design-viz'];
+          return ['/simulations', simulation.id, '#tab=select-viz'];
         } else {
           return null;
         }
