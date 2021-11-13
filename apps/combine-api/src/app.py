@@ -32,7 +32,7 @@ if env.lower() == 'prod':
 
     spec_filename = os.path.basename(temp_spec_filename)
 
-# Instantiate app from specs
+# Instantiate app from OpenAPI specifications
 options = {
     'swagger_url': '/',
     'swagger_path': os.path.join(os.path.dirname(__file__), '..', 'vendor', 'swagger-ui-3.52.0'),
