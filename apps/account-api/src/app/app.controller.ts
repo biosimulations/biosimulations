@@ -18,7 +18,7 @@ import {
   PermissionsGuard,
 } from '@biosimulations/auth/nest';
 import { getUserId } from '@biosimulations/auth/common';
-import { scopes } from '@biosimulations/config/common';
+import { scopes } from '@biosimulations/auth/common';
 
 class CreateAccountDTO {
   @ApiProperty({ type: String })

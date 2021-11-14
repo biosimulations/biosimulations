@@ -18,7 +18,7 @@ import { ConfigService } from '@nestjs/config';
 import { AuthToken } from '@biosimulations/auth/common';
 import { isAdmin } from '@biosimulations/auth/nest';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
-import { scopes } from '@biosimulations/config/common';
+import { scopes } from '@biosimulations/auth/common';
 
 @Injectable()
 export class ProjectsService {

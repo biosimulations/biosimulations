@@ -38,7 +38,7 @@ import { ProjectsService } from './projects.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { Request } from 'express';
 import { AuthToken } from '@biosimulations/auth/common';
-import { scopes } from '@biosimulations/config/common';
+import { scopes } from '@biosimulations/auth/common';
 
 @ApiTags('Projects')
 @Controller('projects')

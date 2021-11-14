@@ -48,7 +48,7 @@ import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import { LogsService } from './logs.service';
 import { permissions } from '@biosimulations/auth/nest';
 import { LeanDocument } from 'mongoose';
-import { scopes } from '@biosimulations/config/common';
+import { scopes } from '@biosimulations/auth/common';
 
 @ApiExtraModels(SedReportLog, SedPlot2DLog, SedPlot3DLog)
 @Controller('logs')

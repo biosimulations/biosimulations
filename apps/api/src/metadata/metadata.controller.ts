@@ -30,7 +30,7 @@ import { MetadataService } from './metadata.service';
 import { SimulationRunMetadataModel } from './metadata.model';
 import { permissions } from '@biosimulations/auth/nest';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-import { scopes } from '@biosimulations/config/common';
+import { scopes } from '@biosimulations/auth/common';
 
 @ApiTags('Metadata')
 @Controller({ path: 'metadata', version: VERSION_NEUTRAL })
