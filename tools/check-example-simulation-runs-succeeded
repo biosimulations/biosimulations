@@ -55,9 +55,9 @@ def get_run_url(biosimulations_deployment, id):
     if biosimulations_deployment == 'local':
         return 'http://localhost:3333/simulations/{}'.format(id)
     elif biosimulations_deployment == 'dev':
-        return 'https://biosimulations.dev/simulations/{}'.format(id)
+        return 'https://run.biosimulations.dev/simulations/{}'.format(id)
     else:
-        return 'https://biosimulations.org/simulations/{}'.format(id)
+        return 'https://run.biosimulations.org/simulations/{}'.format(id)
 
 
 def get_failed_runs(examples_deployment, biosimulations_deployment, validate_simulation_results_data=True):
