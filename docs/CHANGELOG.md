@@ -1,3 +1,33 @@
+# [6.1.0](https://github.com/biosimulations/biosimulations/compare/v6.0.2...v6.1.0) (2021-11-14)
+
+
+### Bug Fixes
+
+* **auth:** fix import ([a7ba6b8](https://github.com/biosimulations/biosimulations/commit/a7ba6b87404b621d22c90c9fb37164b836d39f85))
+* **auth:** handle case of no custom permissions ([1c3d760](https://github.com/biosimulations/biosimulations/commit/1c3d760f42ea23bdb3c26a42dce81b09189f7f92))
+* corrected capitalization of BioSimulations ([3d981ee](https://github.com/biosimulations/biosimulations/commit/3d981ee737b852488dfd7ff8aba1317c11b7f236))
+* debugged testing COMBINE API ([35672ce](https://github.com/biosimulations/biosimulations/commit/35672ceb0ce44474f8644c1bef71584208d778c7))
+* debugged testing COMBINE API ([d18cb86](https://github.com/biosimulations/biosimulations/commit/d18cb864f29500229fa24666d9525bc228324476))
+* debugged testing COMBINE API ([2a1e6b3](https://github.com/biosimulations/biosimulations/commit/2a1e6b3fc24fcdba88f7cc839d3655d6b4be80ce))
+* debugged testing COMBINE API ([c7e1cb9](https://github.com/biosimulations/biosimulations/commit/c7e1cb9efc3daacaa6eddc1fd48806d25ec9927b))
+* **dispatch:** corrected run URLs in check simulation run tool ([a1894fa](https://github.com/biosimulations/biosimulations/commit/a1894fae9b406a62fb4d10a30d01c9988d76a95a))
+* **dispatch:** fixed dispatch simulation run view; closes [#3088](https://github.com/biosimulations/biosimulations/issues/3088) ([26a8d5a](https://github.com/biosimulations/biosimulations/commit/26a8d5a49b577c89eb04cd4b58314122f2d844c1))
+* **dispatch:** fixed highlight.js import for log formatting ([0320cc2](https://github.com/biosimulations/biosimulations/commit/0320cc201838549a4d786c117571db132ddad600))
+* fixed links, warnings ([ecb68fe](https://github.com/biosimulations/biosimulations/commit/ecb68febccdb4f17308aa62f0172adfcc7c68554))
+* fixed python code highlighting ([ef88e12](https://github.com/biosimulations/biosimulations/commit/ef88e1248bbf2f9c8493c6f9a94a7c359d4497d0))
+* fixed typos, added spelling exceptions ([7c77dc2](https://github.com/biosimulations/biosimulations/commit/7c77dc2db2b38563fea78118b1b65adca0510198))
+* removed example with COMBINE archive that intentionally fails ([04b4c6e](https://github.com/biosimulations/biosimulations/commit/04b4c6ed1923ad2fa8ec1ae1f963e638cbe95807))
+
+
+### Features
+
+* **api,dispatch-service:** improved error messages and retrying ([a6b2693](https://github.com/biosimulations/biosimulations/commit/a6b26935a12e66a5bc3ab0b00713d8613c7a3f5d))
+* **api:** improved reporting of errors with inconsistent data ([1c6c223](https://github.com/biosimulations/biosimulations/commit/1c6c2233c353f534efa0503f63b314adb9b97738))
+* **dispatch-service:** add logging to processing posts to api ([1ca1900](https://github.com/biosimulations/biosimulations/commit/1ca19009cd33f6fbbb79ba9fb15779e09e20c1c8))
+* **dispatch-service:** add retries for posting processing results ([fe9cddc](https://github.com/biosimulations/biosimulations/commit/fe9cddce4c846f15fdfd002bb8465e0e48bb3bd8)), closes [#3531](https://github.com/biosimulations/biosimulations/issues/3531)
+* improved docs ([ab6722b](https://github.com/biosimulations/biosimulations/commit/ab6722b558a0b4e0d5aca265c84a1d0afd9f2558))
+* improved docs ([209a421](https://github.com/biosimulations/biosimulations/commit/209a421c5c177600dd3e88c9469020db3c2fa51c))
+
 ## [6.0.2](https://github.com/biosimulations/biosimulations/compare/v6.0.1...v6.0.2) (2021-11-10)
 
 
