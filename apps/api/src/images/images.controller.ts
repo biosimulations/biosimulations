@@ -24,7 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { refreshImageBody } from './image.dto';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-import { scopes } from '@biosimulations/config/common';
+import { scopes } from '@biosimulations/auth/common';
 
 @Controller('images')
 @ApiTags('Internal')

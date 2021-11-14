@@ -33,7 +33,7 @@ import { SpecificationsService } from './specifications.service';
 import { SpecificationsModel } from './specifications.model';
 import { permissions } from '@biosimulations/auth/nest';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-import { scopes } from '@biosimulations/config/common';
+import { scopes } from '@biosimulations/auth/common';
 
 @ApiTags('Specifications')
 @Controller('specifications')

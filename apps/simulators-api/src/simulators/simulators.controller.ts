@@ -41,7 +41,7 @@ import { SimulatorsService } from './simulators.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
 import compareVersions from 'compare-versions';
 import compareVersionsWithAdditionalPoints from 'tiny-version-compare';
-import { scopes } from '@biosimulations/config/common';
+import { scopes } from '@biosimulations/auth/common';
 
 @ApiTags('Simulators')
 @Controller('simulators')

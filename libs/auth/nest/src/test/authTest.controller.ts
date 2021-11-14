@@ -19,7 +19,7 @@ import { JwtGuard } from '../lib/jwt/jwt.guard';
 import { permissions } from '../lib/permissions/permissions.decorator';
 import { PermissionsGuard } from '../lib/permissions/permissions.guard';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-import { scopes } from '@biosimulations/config/common';
+import { scopes } from '@biosimulations/auth/common';
 
 @ApiTags('Authentication testing')
 @ApiOAuth2([])

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ManagementClient } from 'auth0';
 import { ConfigService } from '@nestjs/config';
-import { scopes } from '@biosimulations/config/common';
+import { scopes } from '@biosimulations/auth/common';
 
 @Injectable()
 export class ManagementService {

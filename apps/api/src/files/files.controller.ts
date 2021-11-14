@@ -32,7 +32,7 @@ import {
 import { FileModel } from './files.model';
 import { FilesService } from './files.service';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
-import { scopes } from '@biosimulations/config/common';
+import { scopes } from '@biosimulations/auth/common';
 
 @ApiTags('Files')
 @Controller('files')
