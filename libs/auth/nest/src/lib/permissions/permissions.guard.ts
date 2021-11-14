@@ -28,7 +28,7 @@ export class PermissionsGuard {
     );
 
     const user: AuthToken = context.getArgs()[0].user;
-    let userPermissions = user['https://biosimulations.org/permissions'];
+    let userPermissions = user['https://biosimulations.org/permissions'] || [];
     const autoPerimissions = user['permissions'] || [];
     userPermissions = userPermissions.concat(autoPerimissions);
 
