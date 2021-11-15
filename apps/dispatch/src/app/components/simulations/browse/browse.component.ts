@@ -133,6 +133,7 @@ export class BrowseComponent implements OnInit {
         }
       },
       filterType: ColumnFilterType.number,
+      units: 'GB',
       minWidth: 34,
       show: false,
     },
@@ -161,6 +162,7 @@ export class BrowseComponent implements OnInit {
         }
       },
       filterType: ColumnFilterType.number,
+      units: 'min',
       minWidth: 34,
       show: false,
     },
@@ -217,6 +219,7 @@ export class BrowseComponent implements OnInit {
         return valueSec !== null ? SimulationStatusService.FormatService.formatDuration(valueSec) : 'N/A';
       },
       filterType: ColumnFilterType.number,
+      units: 's',
       show: false,
     },
     */
