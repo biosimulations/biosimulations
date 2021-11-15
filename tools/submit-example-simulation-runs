@@ -248,7 +248,7 @@ def monitor_runs(simulation_runs, runbiosimulations_deployment, timeout=240):
         for run in pending_runs[:]:
 
             api_host = get_submit_run_endpoint(runbiosimulations_deployment)
-            print("Checking status of {}".format(run['name']))
+            print("Checking status of {} ({})".format(run['name'], run['id']))
             response = requests.get(api_host + "/" + run['id'])
             try:
                 response.raise_for_status()
@@ -311,9 +311,35 @@ def monitor_runs(simulation_runs, runbiosimulations_deployment, timeout=240):
             print(BColors.WARNING + "TIMEOUT {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
     if passed:
         print(BColors.OKGREEN + "All runs passed" + BColors.ENDC)
+        print(BColors.OKBLUE + "Starting validation" + BColors.ENDC)
+        passed= validate_runs(passed_runs, runbiosimulations_deployment)
+
 
     return passed
 
+def validate_runs(runs,  deployment):
+    api_host = get_submit_run_endpoint(deployment)
+    valid_runs= []
+    invalid_runs = []
+    for run in runs:
+        print("Checking status of {} ({})".format(run['name'], run['id']))
+        response = requests.get(api_host + "/" + run['id'] +"/validate")
+        try:
+            response.raise_for_status()
+            print(BColors.OKGREEN + "VALID " + BColors.ENDC + run['name'] + " (" + run['id'] + ")")
+            valid_runs.append(run)
+        except requests.exceptions.HTTPError as e:
+            print(BColors.FAIL + "INVALID " + BColors.ENDC + run['name'] + " (" + run['id'] + ")")
+            invalid_runs.append(run)
+    if len(invalid_runs) > 0:
+        print(BColors.FAIL + "One or more simulations failed" + BColors.ENDC)
+        for run in invalid_runs:
+            print(BColors.FAIL + "FAILED {} --- {}".format(run['id'], run['name']) + BColors.ENDC)
+        return False
+    else:
+        print(BColors.OKGREEN + "All runs passed" + BColors.ENDC)
+        return True
+            
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
