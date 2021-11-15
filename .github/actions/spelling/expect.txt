@@ -46,6 +46,7 @@ copasi
 coreinfrastructure
 crbm
 creativecommons
+crossref
 CSV
 Deepa
 DOI
@@ -55,6 +56,7 @@ Dumontier
 dumontierlab
 ebi
 ece
+edamontology
 edu
 emoji
 escher
@@ -67,6 +69,7 @@ Fbiomodels
 fontawesome
 FSBO
 Garny
+geneontology
 Gennari
 gillespy
 ginsim
@@ -144,6 +147,7 @@ mpw
 mssm
 mylib
 naldi
+ncbi
 nestjs
 netlify
 netpyne
@@ -155,6 +159,7 @@ nickerson
 nigms
 nih
 NIHGOV
+nlm
 noninfringement
 npm
 nrwl
@@ -179,6 +184,7 @@ physiomeproject
 pitt
 plugins
 png
+pubmed
 pybionetgen
 pysces
 rba
@@ -218,9 +224,11 @@ sys
 sysbio
 sysbioinra
 systemsbiology
+tems
 todo
 uchc
 uconn
+uniprot
 ucsd
 ulm
 umbc
