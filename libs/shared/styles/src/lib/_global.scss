@@ -1281,3 +1281,10 @@ sub {
   padding: 0.25rem;
   border-radius: 4px;
 }
+
+/* transitions */
+.enter-from-right {
+  transition: width ease-in-out 1s;
+  overflow: clip;
+  width: 0;
+}

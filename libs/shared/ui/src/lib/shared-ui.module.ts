@@ -21,6 +21,8 @@ import { RouterLinkComponent } from './router-link/router-link.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { NoticeComponent } from './notice/notice.component';
 import { TableComponent } from './table/table.component';
+import { TableTabularDataComponent } from './table/table-tabular-data.component';
+import { TableControlsComponent } from './table/table-controls.component';
 import { StackedTableComponent } from './table/stacked-table.component';
 import { ResponsiveTableComponent } from './table/responsive-table.component';
 import { PageComponent } from './page/page.component';
@@ -72,6 +74,8 @@ import { HtmlSnackBarComponent } from './html-snack-bar/html-snack-bar.component
     RouterLinkComponent,
     NoticeComponent,
     TableComponent,
+    TableTabularDataComponent,
+    TableControlsComponent,
     StackedTableComponent,
     ResponsiveTableComponent,
     PageComponent,
@@ -112,6 +116,8 @@ import { HtmlSnackBarComponent } from './html-snack-bar/html-snack-bar.component
     RouterLinkComponent,
     NoticeComponent,
     TableComponent,
+    TableTabularDataComponent,
+    TableControlsComponent,
     StackedTableComponent,
     ResponsiveTableComponent,
     PageComponent,

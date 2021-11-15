@@ -12,6 +12,7 @@ export type BiosimulationsIcon =
   | 'file'
   | 'help'
   | 'tutorial'
+  | 'journal'
   | 'info'
   | 'contact'
   | 'legal'
@@ -21,6 +22,7 @@ export type BiosimulationsIcon =
   | 'error'
   | 'user'
   | 'author'
+  | 'curator'
   | 'reviewer'
   | 'reuser'
   | 'write'
@@ -176,6 +178,7 @@ export class IconComponent {
     file: { type: 'fas', name: 'file-alt' },
     user: { type: 'fas', name: 'user' },
     author: { type: 'fas', name: 'user-edit' },
+    curator: { type: 'fas', name: 'user-tag' },
     reviewer: { type: 'fas', name: 'user-check' },
     reuser: { type: 'fas', name: 'user-cog' },
     write: { type: 'fas', name: 'pencil-alt' },
@@ -184,6 +187,7 @@ export class IconComponent {
     logout: { type: 'fas', name: 'sign-out-alt' },
     help: { type: 'fas', name: 'question-circle' },
     tutorial: { type: 'fas', name: 'book-open' },
+    journal: { type: 'fas', name: 'book' },
     info: { type: 'fas', name: 'info-circle' },
     contact: { type: 'fas', name: 'comment-dots' },
     legal: { type: 'fas', name: 'balance-scale' },

@@ -1,3 +1,7 @@
+import { MatTable } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+
 export enum ColumnActionType {
   routerLink = 'routerLink',
   href = 'href',
@@ -19,6 +23,7 @@ export enum Side {
 export interface Column {
   id: string;
   heading: string;
+  units?: string;
   key?: string | string[];
   getter?: (rowData: any) => any;
   filterGetter?: (rowData: any) => any;
@@ -63,6 +68,7 @@ export interface Column {
   rightShowStacked?: boolean;
   _index?: number;
   _filterData?: any;
+  _visible?: boolean;
 }
 
 export interface IdColumnMap {
@@ -438,4 +444,10 @@ export class RowService {
 
     return searchVal;
   }
+}
+
+export interface TableDataComponent {
+  materialTable?: MatTable<any>;
+  materialPaginator?: MatPaginator;
+  materialSort?: MatSort;
 }
