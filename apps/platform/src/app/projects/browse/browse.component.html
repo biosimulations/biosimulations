@@ -7,33 +7,43 @@
 </biosimulations-bread-crumbs-position>
 
 <biosimulations-table
+  #table
   [data]="projects$"
   [columns]="columns"
-  [defaultSort]="{ active: 'title', direction: 'asc' }"
-  searchPlaceHolder="Query (e.g., metabolism)"
-  searchToolTip="Enter a query such as 'metabolism'. By default, your query will be searched over all attributes. To search over a specific attribute, prefix your query with the heading of the attirbute (with spaces replaced by dashes) such as 'last-updated: 2020'."    
+  [defaultSort]="{ active: 'title', direction: 'asc' }"  
 >
-</biosimulations-table>
-
-<!--
-<div class="container">    
   <div
-    class="projects"
-    gdGap="1rem"
-    gdColumns.xl="repeat(5, 1fr)"
-    gdColumns.lg="repeat(4, 1fr)"
-    gdColumns.md="repeat(3, 1fr)"
-    gdColumns.sm="repeat(2, 1fr)"
-    gdColumns.xs="repeat(1, 1fr)"
+    gdAuto="row"
+    gdColumns.gt-sm="1fr auto"
+    gdGap="0"
+    gdRows.lt-md="1fr"
+    class="container"
   >
-    <biosimulations-project-card
-      *ngFor="let project of projects"
-      [project]="project"
-    ></biosimulations-project-card>
-  </div>
+    <div
+      class="projects ragged-column"
+      gdGap="1rem"
+      gdColumns.xl="repeat(5, 1fr)"
+      gdColumns.lg="repeat(4, 1fr)"
+      gdColumns.md="repeat(3, 1fr)"
+      gdColumns.sm="repeat(2, 1fr)"
+      gdColumns.xs="repeat(1, 1fr)"
+    >
+      <biosimulations-project-card
+        *ngFor="let project of table.dataSource.filteredData"
+        [project]="project"
+        [columns]="columns"
+      ></biosimulations-project-card>
+    </div>
 
-  <div class="controls" [ngClass]="{closed: !controlsOpen}">
-    here
+    <div class="controls-container enter-from-right" [ngClass]="{ 'visible': controlsOpen }">
+      <biosimulations-table-controls
+        [table]="table"
+        attributesHeading='Attributes'
+        searchPlaceHolder="Query (e.g., metabolism)"
+        searchToolTip="Enter a query such as 'metabolism'. By default, your query will be searched over all attributes. To search over a specific attribute, prefix your query with the heading of the attribute (with spaces replaced by dashes) such as 'last-updated: 2020'."
+        [closeable]="false"
+        class="controls"
+      ></biosimulations-table-controls>
+    </div>
   </div>
-</div>
--->
+</biosimulations-table>

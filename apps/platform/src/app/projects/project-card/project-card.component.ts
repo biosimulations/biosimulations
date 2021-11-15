@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormattedProjectSummary } from '../browse/browse.model';
+import { Column } from '@biosimulations/shared/ui';
 
 @Component({
   selector: 'biosimulations-project-card',
@@ -7,13 +7,19 @@ import { FormattedProjectSummary } from '../browse/browse.model';
   styleUrls: ['./project-card.component.scss'],
 })
 export class ProjectCardComponent implements OnInit {
-  @Input() public project!: FormattedProjectSummary;
+  @Input() public project!: any;
 
-  public route = '';
+  @Input() public columns!: Column[];
+
+  public route!: string;
 
   public constructor() {}
 
   public ngOnInit(): void {
     this.route = `/projects/${this.project.id}`;
+  }
+
+  public isArray(value: any): boolean {
+    return Array.isArray(value);
   }
 }

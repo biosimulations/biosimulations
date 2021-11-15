@@ -54,6 +54,8 @@ export class BrowseService {
                   submitted: this.formatDate(run.submitted),
                   updated: this.formatDate(run.updated),
                 },
+                tasks: run.tasks || [],
+                outputs: run.outputs || [],
                 metadata: {
                   abstract: metadata?.abstract,
                   description: metadata?.description,
@@ -67,6 +69,7 @@ export class BrowseService {
                   contributors: metadata.contributors,
                   license: metadata?.license,
                   funders: metadata.funders,
+                  other: metadata.other,
                   created: this.formatDate(metadata.created),
                   modified: metadata?.modified
                     ? this.formatDate(metadata?.modified)

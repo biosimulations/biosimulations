@@ -16,39 +16,35 @@
   <div class="details-overlay">
     <div class="details-overlay-inner">
       <table class="icon-list">
-        <ng-container *ngFor="let encode of metadata.encodes">
-          <tr *ngIf="encode.label">
-            <td>
-              <biosimulations-icon icon="cell"></biosimulations-icon>
-            </td>
-            <td>{{ encode.label }}</td>
-          </tr>
-        </ng-container>
+        <ng-container *ngFor="let column of columns">
+          <ng-container *ngIf="column._visible">
+            <ng-container *ngIf="project._cache[column.id].value as value">
+              <ng-container *ngIf="isArray(value); else scalar">
+                <ng-container *ngFor="let v of value">
+                  <ng-container *ngTemplateOutlet="template; context: {value: v}">
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              
+              <ng-template #scalar>
+                <ng-container *ngTemplateOutlet="template; context: {value: value}">
+                </ng-container>
+              </ng-template>
 
-        <ng-container *ngFor="let taxon of metadata.taxa">
-          <tr *ngIf="taxon.label">
-            <td>
-              <biosimulations-icon icon="taxon"></biosimulations-icon>
-            </td>
-            <td>{{ taxon.label }}</td>
-          </tr>
+              <ng-template #template let-value="value">
+                <tr>
+                  <td>
+                    <biosimulations-icon 
+                      [icon]="project._cache[column.id].left.icon"
+                      [title]="column.heading"
+                    ></biosimulations-icon>
+                  </td>
+                  <td>{{ value }}</td>
+                </tr>
+              </ng-template>
+            </ng-container>
+          </ng-container>
         </ng-container>
-
-        <ng-container *ngFor="let citation of metadata.citations">
-          <tr *ngIf="citation.label">
-            <td>
-              <biosimulations-icon icon="file"></biosimulations-icon>
-            </td>
-            <td class="multiline">{{ citation.label }}</td>
-          </tr>
-        </ng-container>
-
-        <tr *ngIf="metadata.created">
-          <td>
-            <biosimulations-icon icon="date"></biosimulations-icon>
-          </td>
-          <td>{{ metadata.created }}</td>
-        </tr>
       </table>
     </div>
   </div>
