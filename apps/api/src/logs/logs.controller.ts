@@ -155,7 +155,6 @@ export class LogsController {
   @permissions(scopes.logs.create.id)
   @ApiCreatedResponse({
     description: 'The logs for the simulation run were successfully saved',
-    type: CombineArchiveLog,
   })
   @ApiBadRequestResponse({
     type: ErrorResponseDocument,
@@ -169,9 +168,8 @@ export class LogsController {
   })
   public async createLog(
     @Body() body: CreateSimulationRunLogBody,
-  ): Promise<ICombineArchiveLog> {
+  ): Promise<void> {
     const log = await this.service.createLog(body?.simId, body?.log);
-    return log;
   }
 
   @ApiOperation({
