@@ -15,7 +15,7 @@ export class SharedStorageService {
     this.BUCKET = configService.get('storage.bucket') || 'biosimdev';
     this.PUBLIC_ENDPOINT =
       configService.get('storage.publicEndpoint') ||
-      'files-dev.biosimulations.org/';
+      'https://files-dev.biosimulations.org/s3/';
     s3.config.update({ region: 'us-east-1' });
   }
 
