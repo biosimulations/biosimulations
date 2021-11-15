@@ -13,7 +13,7 @@ Yes. The [search engine](https::/biosimulations.org/projects) supports searching
 | Field                 | Description            | Units | Key                     | Typical ids                                                                   |
 |-----------------------| -----------------------|-------|-------------------------|-------------------------------------------------------------------------------|
 | Id                    | BioSimulations id      |       | `id`                    |                                                                               |
-| Title                 | Tagline                |       | `title`                 |                                                                               |
+| Title                 | Tag line               |       | `title`                 |                                                                               |
 | Abstract              | Brief summary          |       | `abstract`              |                                                                               |
 | Description           | Extended summary       |       | `description`           |                                                                               |
 | Biology               | Genes, pathways        |       | `biology`               | [GO](http://geneontology.org/), [UniProt](https://www.uniprot.org/)           |
