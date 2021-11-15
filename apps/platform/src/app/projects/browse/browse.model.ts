@@ -1,6 +1,9 @@
 import {
   LabeledIdentifier,
+  DescribedIdentifier,
   EnvironmentVariable,
+  SimulationRunTaskSummary,
+  SimulationRunOutputSummary,
 } from '@biosimulations/datamodel/common';
 
 export interface FormattedSimulationRunSummary {
@@ -32,6 +35,7 @@ export interface FormattedProjectMetadataSummary {
   contributors: LabeledIdentifier[];
   license?: LabeledIdentifier[];
   funders: LabeledIdentifier[];
+  other: DescribedIdentifier[];
   created: Date;
   modified?: Date;
 }
@@ -40,6 +44,8 @@ export interface FormattedProjectSummary {
   id: string;
   title: string;
   simulationRun: FormattedSimulationRunSummary;
+  tasks: SimulationRunTaskSummary[];
+  outputs: SimulationRunOutputSummary[];
   metadata: FormattedProjectMetadataSummary;
   created: Date;
   updated: Date;
