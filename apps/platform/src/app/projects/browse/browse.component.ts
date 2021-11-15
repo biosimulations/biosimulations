@@ -26,7 +26,7 @@ export class BrowseComponent implements OnInit {
       leftIcon: 'id',
       filterable: false,
       hidden: true,
-      show: false,      
+      show: false,
     },
     {
       id: 'title',
@@ -54,7 +54,7 @@ export class BrowseComponent implements OnInit {
       filterable: false,
       hidden: false,
       show: false,
-    },    
+    },
     {
       id: 'biology',
       key: ['metadata', 'encodes'],
@@ -110,7 +110,7 @@ export class BrowseComponent implements OnInit {
       getter: (project: FormattedProjectSummary): string[] => {
         return project.metadata.keywords.map((v: LabeledIdentifier) => v.label) as string[];
       },
-    },    
+    },
     {
       id: 'citations',
       key: ['metadata', 'citations'],
@@ -291,7 +291,7 @@ export class BrowseComponent implements OnInit {
       filterType: ColumnFilterType.number,
       units: 'MB',
     },
-    {    
+    {
       id: 'modelFormats',
       key: 'tasks',
       heading: 'Model formats',
@@ -307,7 +307,7 @@ export class BrowseComponent implements OnInit {
             })
           )
         ).sort();
-      },      
+      },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         const vals = new Set<string>();
         project.tasks.forEach((task): void => {
@@ -322,7 +322,7 @@ export class BrowseComponent implements OnInit {
         return Array.from(vals).join(' ');
       },
     },
-    {    
+    {
       id: 'simulationTypes',
       key: 'tasks',
       heading: 'Simulation types',
@@ -356,7 +356,7 @@ export class BrowseComponent implements OnInit {
             })
           )
         ).sort();
-      },      
+      },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return Array.from(
           new Set(
