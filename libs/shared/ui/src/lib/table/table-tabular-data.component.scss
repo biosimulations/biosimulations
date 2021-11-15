@@ -1,0 +1,33 @@
+:host {
+  width: 100%;
+  height: max-content;
+  overflow-x: auto;
+}
+
+.single-line-headings {
+  mat-header-cell {
+    white-space: nowrap;
+  }
+}
+
+.column-filter-icon {
+  margin-left: 0.25rem;
+  opacity: 0.54;
+}
+
+biosimulations-icon {
+  font-size: 125%;
+}
+
+mat-cell {
+  span:not(:last-child) {
+    margin-right: 0.25rem;
+  }
+}
+
+:host.square-left-border {
+  .mat-table.biosimulations-table {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}

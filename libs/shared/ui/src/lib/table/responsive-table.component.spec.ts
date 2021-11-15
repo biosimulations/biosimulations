@@ -17,6 +17,8 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { ResponsiveTableComponent } from './responsive-table.component';
 import { TableComponent } from './table.component';
+import { TableTabularDataComponent } from './table-tabular-data.component';
+import { TableControlsComponent } from './table-controls.component';
 import { StackedTableComponent } from './stacked-table.component';
 import { PageComponent } from '../page/page.component';
 import { TextPageComponent } from '../text-page/text-page.component';
@@ -28,6 +30,8 @@ import { TocSectionDirective } from '../toc/toc-section.directive';
 import { TocSectionsContainerDirective } from '../toc/toc-sections-container.directive';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { of } from 'rxjs';
 
 describe('ResponsiveTableComponent', () => {
   let component: ResponsiveTableComponent;
@@ -56,6 +60,8 @@ describe('ResponsiveTableComponent', () => {
       declarations: [
         ResponsiveTableComponent,
         TableComponent,
+        TableTabularDataComponent,
+        TableControlsComponent,
         StackedTableComponent,
         PageComponent,
         TextPageComponent,

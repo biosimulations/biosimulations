@@ -3,14 +3,13 @@ import {
   OnInit,
   AfterViewInit,
   Input,
-  ViewChild,
   Injectable,
+  TemplateRef,
 } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, MatSortable, MatSortHeader } from '@angular/material/sort';
-import { Sort, SortDirection } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortable, MatSortHeader, Sort, SortDirection } from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -23,12 +22,13 @@ import {
   RowService,
   ColumnSort,
   ColumnSortDirection,
+  TableDataComponent,
 } from './table.interface';
 import { UtilsService } from '@biosimulations/shared/angular';
 import lunr from 'lunr';
 import { ActivatedRoute, Router } from '@angular/router';
 
-// TODO fix datasource / loading functionality
+// TODO improve datasource / loading functionality
 @Injectable()
 export class TableDataSource extends MatTableDataSource<any> {
   isLoading = new BehaviorSubject(true);
@@ -50,7 +50,7 @@ export class TableDataSource extends MatTableDataSource<any> {
 interface TableState {
   filter?: { [id: string]: any[] };
   searchQuery?: string;
-  showColumns?: { [id: string]: boolean } | undefined;
+  showColumns: { [id: string]: boolean };
   openControlPanelId?: number;
   sort?: Sort;
 }
@@ -62,11 +62,14 @@ interface TableState {
   providers: [TableDataSource],
 })
 export class TableComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatTable) table!: MatTable<any>;
-  @ViewChild(MatPaginator) private paginator!: MatPaginator;
-  @ViewChild(MatSort) private sort!: MatSort;
+  @Input()
+  dataContainer?: TableDataComponent;
 
-  private _columns!: Column[];
+  private materialTable!: MatTable<any> | null;
+  private materialPaginator!: MatPaginator | null;
+  private materialSort!: MatSort | null;
+
+  private _columns?: Column[];
   showColumns!: { [id: string]: boolean };
   columnsToShow!: string[];
   private idToColumn!: IdColumnMap;
@@ -86,32 +89,33 @@ export class TableComponent implements OnInit, AfterViewInit {
   defaultSort!: ColumnSort;
 
   @Input()
-  linesPerRow = 1;
-
-  @Input()
-  set columns(columns: Column[]) {
+  set columns(columns: Column[] | undefined) {
     this._columns = columns;
     this.columnFilterData = {};
     this.showColumns = {};
-    columns.forEach((column: Column): void => {
+    columns?.forEach((column: Column): void => {
       this.showColumns[column.id] = column.show !== false;
     });
     this.setColumnsToShow();
 
-    columns.forEach((column: Column, iColumn: number): void => {
+    columns?.forEach((column: Column, iColumn: number): void => {
       column._index = iColumn;
     });
 
-    this.idToColumn = columns.reduce(
+    this.idToColumn = (columns || []).reduce(
       (map: { [id: string]: Column }, col: Column) => {
         map[col.id] = col;
         return map;
       },
       {},
     );
+
+    if (this.dataSource.data) {
+      this.setData(this.dataSource.data);
+    }
   }
 
-  get columns(): Column[] {
+  get columns(): Column[] | undefined {
     return this._columns;
   }
 
@@ -124,15 +128,15 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   @Input()
-  singleLineHeadings = false;
-
-  @Input()
   sortable = true;
 
   @Input()
   controls = true;
 
   private subscription?: Subscription;
+
+  @Input()
+  dataControlsTemplate!: TemplateRef<any>;
 
   @Input()
   set data(data: any) {
@@ -160,6 +164,11 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   setData(data: any[]): void {
+    if (!this.columns) {
+      this.dataSource.data = data;
+      return;
+    }
+
     this.dataLoaded = false;
     this.dataSorted = false;
 
@@ -179,7 +188,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       const cache: any = {};
       datum['_cache'] = cache;
 
-      this.columns.forEach((column: Column): void => {
+      this?.columns?.forEach((column: Column): void => {
         const value = RowService.getElementValue(datum, column);
         cache[column.id] = {
           value: RowService.formatElementValue(datum, value, column),
@@ -347,11 +356,15 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.materialTable = this?.dataContainer?.materialTable || null;
+    this.materialPaginator = this?.dataContainer?.materialPaginator || null;
+    this.materialSort = this?.dataContainer?.materialSort || null;
+
     this.filter = {};
     this.columnIsFiltered = {};
     this.setDataSourceFilter();
     this.dataSource.filterPredicate = this.filterData.bind(this);
-    this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.materialSort;
     this.dataSource.sortData = (data: any[], sort: Sort) => {
       const columnSort: ColumnSort = {
         active: sort.active,
@@ -369,11 +382,14 @@ export class TableComponent implements OnInit, AfterViewInit {
 
       return sortedData;
     };
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+    this.dataSource.paginator = this.materialPaginator;
+    if (this.materialTable) {
+      this.materialTable.dataSource = this.dataSource;
+    }
 
     this.route.fragment.subscribe((fragment: string | null): void => {
-      if (fragment && fragment != this.tableStateQueryFragment) {
+      fragment = fragment || '';
+      if (fragment != this.tableStateQueryFragment) {
         this.tableStateQueryFragment = fragment;
         const state = this.parseTableStateQueryFragment(fragment);
         this.setTableState(state);
@@ -382,7 +398,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   setTableStateQueryFragment(): void {
-    if (!this.dataLoaded || !this.dataSorted) {
+    if (!this.dataLoaded || (this.materialSort && !this.dataSorted)) {
       return;
     }
 
@@ -392,47 +408,47 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     if (this.controls) {
-      if (opts.has('table.q')) {
-        opts.delete('table.q');
+      if (opts.has('search')) {
+        opts.delete('search');
       }
       if (this.searchQuery) {
-        opts.set('table.q', this.searchQuery);
+        opts.set('search', this.searchQuery);
       }
 
-      this.columns.forEach((column: Column): void => {
-        if (opts.has('table.' + column.id)) {
-          opts.delete('table.' + column.id);
+      this?.columns?.forEach((column: Column): void => {
+        if (opts.has('filter.' + column.id)) {
+          opts.delete('filter.' + column.id);
         }
         if (column.id in this.filter) {
           opts.set(
-            'table.' + column.id,
+            'filter.' + column.id,
             JSON.stringify(this.filter[column.id]),
           );
         }
       });
 
-      if (opts.has('table.c')) {
-        opts.delete('table.c');
+      if (opts.has('columns')) {
+        opts.delete('columns');
       }
-      this.columns.forEach((column: Column): void => {
+      this?.columns?.forEach((column: Column): void => {
         if (this.showColumns[column.id]) {
-          opts.append('table.c', column.id);
+          opts.append('columns', column.id);
         }
       });
 
-      opts.set('table.p', this.openControlPanelId.toString());
+      opts.set('panel', this.openControlPanelId.toString());
     }
 
-    if (this.sortable) {
-      if (this.sort?.active && this.sort?.direction) {
-        opts.set('table.sort', this.sort.active);
-        opts.set('table.sortDir', this.sort.direction);
+    if (this.sortable && this.materialSort) {
+      if (this.materialSort?.active && this.materialSort?.direction) {
+        opts.set('sort', this.materialSort.active);
+        opts.set('sortDir', this.materialSort.direction);
       } else {
-        if (opts.has('table.sort')) {
-          opts.delete('table.sort');
+        if (opts.has('sort')) {
+          opts.delete('sort');
         }
-        if (opts.has('table.sortDir')) {
-          opts.delete('table.sortDir');
+        if (opts.has('sortDir')) {
+          opts.delete('sortDir');
         }
       }
     }
@@ -455,48 +471,53 @@ export class TableComponent implements OnInit, AfterViewInit {
   parseTableStateQueryFragment(value: string): TableState {
     const opts = new URLSearchParams(value);
 
-    const searchQuery = opts.get('table.q') || undefined;
+    const searchQuery = opts.get('search') || undefined;
 
     const filter: { [id: string]: any[] } = {};
     opts.forEach((val: string, key: string): void => {
       if (
-        key !== 'table.q' &&
-        key !== 'table.c' &&
-        key != 'table.p' &&
-        key.startsWith('table.') &&
-        key.replace('table.', '') in this.showColumns
+        key !== 'search' &&
+        key !== 'columns' &&
+        key != 'panel' &&
+        key.startsWith('filter.') &&
+        key.replace('filter.', '') in this.showColumns
       ) {
         try {
-          filter[key.replace('table.', '')] = JSON.parse(val);
+          filter[key.replace('filter.', '')] = JSON.parse(val);
         } catch (e) {} // eslint-disable-line no-empty
       }
     });
 
-    let showColumns: { [id: string]: boolean } | undefined;
-    if (opts.has('table.c')) {
+    let showColumns!: { [id: string]: boolean };
+    if (opts.has('columns')) {
       const definedShowColumns: { [id: string]: boolean } = {};
-      this.columns.forEach((column: Column): void => {
+      this?.columns?.forEach((column: Column): void => {
         definedShowColumns[column.id] = false;
       });
-      opts.getAll('table.c').forEach((columnId: string): void => {
+      opts.getAll('columns').forEach((columnId: string): void => {
         if (columnId in definedShowColumns) {
           definedShowColumns[columnId] = true;
         }
       });
       showColumns = definedShowColumns;
+    } else {
+      showColumns = {};
+      this?.columns?.forEach((column: Column): void => {
+        showColumns[column.id] = column.show !== false;
+      });
     }
 
-    let openControlPanelId: undefined | number;
-    if (opts.get('table.p') != null) {
+    let openControlPanelId: undefined | number = undefined;
+    if (opts.get('panel') != null) {
       try {
-        openControlPanelId = parseInt(opts.get('table.p') as string);
+        openControlPanelId = parseInt(opts.get('panel') as string);
       } catch (e) {} // eslint-disable-line no-empty
     }
 
-    let sort: Sort | undefined;
-    const sortActive = opts.get('table.sort') || undefined;
+    let sort: Sort | undefined = undefined;
+    const sortActive = opts.get('sort') || undefined;
     if (sortActive) {
-      const sortDirection = (opts.get('table.sortDir') ||
+      const sortDirection = (opts.get('sortDir') ||
         'asc') as SortDirection;
       sort = {
         active: sortActive,
@@ -528,7 +549,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
         this.filter = filter;
         const columnIsFiltered: { [id: string]: boolean } = {};
-        this.columns.forEach((column: Column): void => {
+        this?.columns?.forEach((column: Column): void => {
           columnIsFiltered[column.id] = column.id in filter;
           switch (column.filterType) {
             case ColumnFilterType.number: {
@@ -594,50 +615,48 @@ export class TableComponent implements OnInit, AfterViewInit {
 
         this.setDataSourceFilter();
 
-        if (showColumns !== undefined) {
-          this.showColumns = showColumns;
-          this.setColumnsToShow();
-        }
+        this.showColumns = showColumns;
+        this.setColumnsToShow();
 
         if (openControlPanelId !== undefined) {
           this.openControlPanelId = openControlPanelId;
         }
       }
 
-      if (this.sortable) {
+      if (this.sortable && this.materialSort) {
         if (sort) {
           if (
-            sort.active != this.sort.active ||
-            sort.direction != this.sort.direction
+            sort.active != this.materialSort.active ||
+            sort.direction != this.materialSort.direction
           ) {
             const matSortable1 = {
               id: '',
               start: sort.direction,
               disableClear: false,
             } as MatSortable;
-            this.sort.sort(matSortable1);
+            this.materialSort.sort(matSortable1);
 
             const matSortable2 = {
               id: sort.active,
               start: sort.direction as SortDirection,
               disableClear: false,
             } as MatSortable;
-            this.sort.sort(matSortable2);
+            this.materialSort.sort(matSortable2);
 
             (
-              this.sort.sortables.get(sort.active) as MatSortHeader
+              this.materialSort.sortables.get(sort.active) as MatSortHeader
             )._setAnimationTransitionState({
               fromState: sort.direction,
               toState: 'active',
             });
           }
-        } else if (this.sort.active) {
+        } else if (this.materialSort.active) {
           const matSortable3 = {
             id: '',
             start: 'asc',
             disableClear: false,
           } as MatSortable;
-          this.sort.sort(matSortable3);
+          this.materialSort.sort(matSortable3);
         }
       }
     });
@@ -1027,6 +1046,9 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.columnsToShow.push(colId);
       }
     });
+    this?.columns?.forEach((column: Column): void => {
+      column._visible = this.columnsToShow.includes(column.id);
+    });
   }
 
   refresh(): void {
@@ -1051,12 +1073,6 @@ export class TableComponent implements OnInit, AfterViewInit {
       this.setTableStateQueryFragment();
     }
   }
-
-  @Input()
-  searchPlaceHolder!: string;
-
-  @Input()
-  searchToolTip!: string;
 
   searchQuery: string | undefined = undefined;
 

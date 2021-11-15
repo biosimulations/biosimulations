@@ -1,0 +1,343 @@
+<mat-table
+  matSort
+  class="biosimulations-table"
+  [ngClass]="{ 'single-line-headings': singleLineHeadings }"
+>
+  <ng-container [matColumnDef]="column.id" *ngFor="let column of table.columns">
+    <mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      [disabled]="!sortable || column.sortable === false"
+      [ngStyle]="{
+        'min-width.em':
+          column.minWidth !== undefined ? column.minWidth / 14 : null,
+        'max-width.em':
+          column.maxWidth !== undefined ? column.maxWidth / 14 : null,
+        'justify-content': column.center !== undefined ? 'center' : null
+      }"
+    >
+      {{ column.heading }}
+      <biosimulations-icon
+        icon="filter"
+        class="column-filter-icon"
+        *ngIf="table.columnIsFiltered[column.id] === true"
+      ></biosimulations-icon>
+    </mat-header-cell>
+
+    <mat-cell
+      *matCellDef="let element"
+      [ngStyle]="{
+        'min-width.em':
+          column.minWidth !== undefined ? column.minWidth / 14 : null,
+        'max-width.em':
+          column.maxWidth !== undefined ? column.maxWidth / 14 : null
+      }"
+      [ngClass]="{ 'highlight-row': element?._highlight }"
+    >
+      <div
+        class="cell-content-container"
+        [ngClass]="{
+          center: column.center === true
+        }"
+        [ngStyle]="{
+          '-webkit-line-clamp': linesPerRow,
+          'height.px': 22 * linesPerRow - 2
+        }"
+      >
+        <span
+          [ngSwitch]="column.leftAction"
+          *ngIf="element._cache[column.id].left.icon"
+        >
+          <ng-template [ngSwitchCase]="'routerLink'">
+            <a
+              mat-icon-button
+              class="biosimulations-button primary"
+              *ngIf="
+                element._cache[column.id].left.routerLink as routerLink;
+                else noRouterLink
+              "
+              [routerLink]="routerLink"
+              [fragment]="element._cache[column.id].left.fragment"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  leftTemplate;
+                  context: { icon: element._cache[column.id].left.icon }
+                "
+              ></ng-container>
+            </a>
+            <ng-template #noRouterLink>
+              <ng-container
+                *ngTemplateOutlet="
+                  leftTemplate;
+                  context: { icon: element._cache[column.id].left.icon }
+                "
+              ></ng-container>
+            </ng-template>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'href'">
+            <a
+              mat-icon-button
+              class="biosimulations-button primary"
+              *ngIf="element._cache[column.id].left.href as href; noHref"
+              [href]="href"
+              target="_blank"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  leftTemplate;
+                  context: { icon: element._cache[column.id].left.icon }
+                "
+              ></ng-container>
+            </a>
+            <ng-template #noHref>
+              <ng-container
+                *ngTemplateOutlet="
+                  leftTemplate;
+                  context: { icon: element._cache[column.id].left.icon }
+                "
+              ></ng-container>
+            </ng-template>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'click'">
+            <button
+              mat-icon-button
+              class="biosimulations-button primary"
+              *ngIf="
+                element._cache[column.id].left.click as click;
+                else noClick
+              "
+              (click)="click(element)"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  leftTemplate;
+                  context: { icon: element._cache[column.id].left.icon }
+                "
+              ></ng-container>
+            </button>
+            <ng-template #noClick>
+              <ng-container
+                *ngTemplateOutlet="
+                  leftTemplate;
+                  context: { icon: element._cache[column.id].left.icon }
+                "
+              ></ng-container>
+            </ng-template>
+          </ng-template>
+
+          <ng-template ngSwitchDefault>
+            <ng-container
+              *ngTemplateOutlet="
+                leftTemplate;
+                context: { icon: element._cache[column.id].left.icon }
+              "
+            ></ng-container>
+          </ng-template>
+
+          <ng-template #leftTemplate let-icon="icon">
+            <biosimulations-icon
+              *ngIf="icon && element._cache[column.id].left.iconTitle"
+              [icon]="icon"
+              [title]="element._cache[column.id].left.iconTitle"
+            ></biosimulations-icon>
+          </ng-template>
+        </span>
+
+        <span
+          [ngSwitch]="column.centerAction"
+          *ngIf="element._cache[column.id].value"
+        >
+          <ng-template [ngSwitchCase]="'routerLink'">
+            <a
+              mat-icon-button
+              class="biosimulations-button primary"
+              *ngIf="
+                element._cache[column.id].center.routerLink as routerLink;
+                else noRouterLink
+              "
+              [routerLink]="routerLink"
+              [fragment]="element._cache[column.id].center.fragment"
+            >
+              <ng-container
+                *ngTemplateOutlet="centerTemplate"
+              ></ng-container>
+            </a>
+            <ng-template #noRouterLink>
+              <ng-container
+                *ngTemplateOutlet="centerTemplate"
+              ></ng-container>
+            </ng-template>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'href'">
+            <a
+              mat-icon-button
+              class="biosimulations-button primary"
+              *ngIf="
+                element._cache[column.id].center.href as href;
+                else noHref
+              "
+              [href]="href"
+              target="_blank"
+            >
+              <ng-container
+                *ngTemplateOutlet="centerTemplate"
+              ></ng-container>
+            </a>
+            <ng-template #noHref>
+              <ng-container
+                *ngTemplateOutlet="centerTemplate"
+              ></ng-container>
+            </ng-template>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'click'">
+            <button
+              mat-icon-button
+              class="biosimulations-button primary"
+              *ngIf="
+                element._cache[column.id].center.click as click;
+                else noClick
+              "
+              (click)="click(element)"
+            >
+              <ng-container
+                *ngTemplateOutlet="centerTemplate"
+              ></ng-container>
+            </button>
+            <ng-template #noClick>
+              <ng-container
+                *ngTemplateOutlet="centerTemplate"
+              ></ng-container>
+            </ng-template>
+          </ng-template>
+
+          <ng-template ngSwitchDefault>
+            <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
+          </ng-template>
+
+          <ng-template #centerTemplate>
+            <ng-container *ngIf="element._cache[column.id].value as value">
+              <span [attr.title]="element._cache[column.id].toolTip">{{
+                value
+              }}</span>
+            </ng-container>
+          </ng-template>
+        </span>
+
+        <span
+          [ngSwitch]="column.rightAction"
+          *ngIf="element._cache[column.id].right.icon"
+        >
+          <ng-template [ngSwitchCase]="'routerLink'">
+            <a
+              mat-icon-button
+              class="biosimulations-button primary"
+              *ngIf="
+                element._cache[column.id].right.routerLink as routerLink;
+                else noRouterLink
+              "
+              [routerLink]="routerLink"
+              [fragment]="element._cache[column.id].right.fragment"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  rightTemplate;
+                  context: { icon: element._cache[column.id].right.icon }
+                "
+              ></ng-container>
+            </a>
+            <ng-template #noRouterLink>
+              <ng-container
+                *ngTemplateOutlet="
+                  rightTemplate;
+                  context: { icon: element._cache[column.id].right.icon }
+                "
+              ></ng-container>
+            </ng-template>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'href'">
+            <a
+              mat-icon-button
+              class="biosimulations-button primary"
+              *ngIf="
+                element._cache[column.id].right.href as href;
+                else noHref
+              "
+              [href]="href"
+              target="_blank"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  rightTemplate;
+                  context: { icon: element._cache[column.id].right.icon }
+                "
+              ></ng-container>
+            </a>
+            <ng-template #noHref>
+              <ng-container
+                *ngTemplateOutlet="
+                  rightTemplate;
+                  context: { icon: element._cache[column.id].right.icon }
+                "
+              ></ng-container>
+            </ng-template>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'click'">
+            <button
+              mat-icon-button
+              class="biosimulations-button primary"
+              *ngIf="
+                element._cache[column.id].right.click as click;
+                else noClick
+              "
+              (click)="click(element)"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  rightTemplate;
+                  context: { icon: element._cache[column.id].right.icon }
+                "
+              ></ng-container>
+            </button>
+            <ng-template #noClick>
+              <ng-container
+                *ngTemplateOutlet="
+                  rightTemplate;
+                  context: { icon: element._cache[column.id].right.icon }
+                "
+              ></ng-container>
+            </ng-template>
+          </ng-template>
+
+          <ng-template ngSwitchDefault>
+            <ng-container
+              *ngTemplateOutlet="
+                rightTemplate;
+                context: { icon: element._cache[column.id].right.icon }
+              "
+            ></ng-container>
+          </ng-template>
+
+          <ng-template #rightTemplate let-icon="icon">
+            <biosimulations-icon
+              *ngIf="icon && element._cache[column.id].right.iconTitle"
+              [icon]="icon"
+              [title]="element._cache[column.id].right.iconTitle"
+            ></biosimulations-icon>
+          </ng-template>
+        </span>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row
+    *matHeaderRowDef="table.columnsToShow; sticky: true"
+  ></mat-header-row>
+  <mat-row *matRowDef="let row; columns: table.columnsToShow"></mat-row>
+</mat-table>

@@ -1,17 +1,38 @@
-<biosimulations-table
-  *ngIf="showTable$ | async; else stackedTable"
-  [linesPerRow]="linesPerRow"
-  [columns]="columns"
-  [singleLineHeadings]="singleLineHeadings"
-  [highlightRow]="highlightRow"
-  [sortable]="sortable"
-  [defaultSort]="defaultSort"
-  [controls]="controls"
-  [searchPlaceHolder]="searchPlaceHolder"
-  [searchToolTip]="searchToolTip"
-  [data]="data"
->
-</biosimulations-table>
+<ng-container *ngIf="showTable$ | async; else stackedTable">
+  <biosimulations-table #table
+    [columns]="columns"
+    [highlightRow]="highlightRow"
+    [sortable]="sortable"
+    [defaultSort]="defaultSort"
+    [controls]="controls"
+    [data]="data"
+    [dataContainer]="dataContainer"
+  >
+    <div
+      gdAuto="row"
+      [gdColumns.gt-sm]="controls ? 'auto 1fr' : '1fr'"
+      [gdGap]="table.controlsOpen ? '2rem' : 0"
+      gdRows.lt-md="1fr"
+      gdGap.lt-md="1rem"
+    >
+      <biosimulations-table-controls
+        *ngIf="controls"
+        [table]="table"
+        [searchPlaceHolder]="searchPlaceHolder"
+        [searchToolTip]="searchToolTip"
+        [ngClass]="{ 'closed': !table.controlsOpen }"
+      ></biosimulations-table-controls>
+
+      <biosimulations-table-tabular-data #dataContainer
+        [table]="table"
+        [singleLineHeadings]="singleLineHeadings"
+        [sortable]="sortable"
+        [linesPerRow]="linesPerRow"
+        [ngClass]="{ 'square-left-border': !table.controlsOpen }"
+      ></biosimulations-table-tabular-data>
+    </div>
+  </biosimulations-table>
+</ng-container>
 
 <ng-template #stackedTable>
   <biosimulations-stacked-table
