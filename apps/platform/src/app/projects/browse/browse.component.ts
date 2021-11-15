@@ -80,7 +80,7 @@ export class BrowseComponent implements OnInit {
     {
       id: 'taxa',
       key: ['metadata', 'taxa'],
-      heading: 'Taxon',
+      heading: 'Taxa',
       leftIcon: 'taxon',
       filterable: true,
       hidden: false,
@@ -410,7 +410,7 @@ export class BrowseComponent implements OnInit {
     {
       id: 'simulator',
       key: ['simulationRun', 'simulatorName'],
-      heading: 'Simulator',
+      heading: 'Simulation tool',
       leftIcon: 'simulator',
       hidden: false,
       show: false,
