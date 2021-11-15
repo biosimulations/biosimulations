@@ -35,36 +35,36 @@ export const scopes: Scopes = {
   },
   images: {
     refresh: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'refresh:Images',
       description: 'Build or re-build Singularity images',
     },
   },
   simulationRuns: {
     read: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'read:SimulationRuns',
       description: 'Get information about simulation runs',
     },
     create: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:SimulationRuns',
       description: 'Modify simulation runs, including their status',
     },
     update: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:SimulationRuns',
       description: 'Modify simulation runs, including their status',
     },
     delete: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'delete:SimulationRuns',
       description: 'Delete simulation runs',
     },
   },
   email: {
     read: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'read:Email',
       description:
         'Read contact email addresses for results of simulation runs',
@@ -72,140 +72,140 @@ export const scopes: Scopes = {
   },
   files: {
     read: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'read:Files',
       description: 'Get information about files of simulation runs',
     },
     create: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:Files',
       description: 'Write and modify files for simulation runs',
     },
     update: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:Files',
       description: 'Write and modify files for simulation runs',
     },
     delete: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'delete:Files',
       description: 'Delete files for simulation runs',
     },
   },
   specifications: {
     read: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'read:Specifications',
       description:
         'Get information about simulation experiments of simulation runs',
     },
     create: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:Specifications',
       description:
         'Write and modify simulation experiments for simulation runs',
     },
     update: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:Specifications',
       description:
         'Write and modify simulation experiments for simulation runs',
     },
     delete: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'delete:Specifications',
       description: 'Delete simulation experiments for simulation runs',
     },
   },
   results: {
     read: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'read:Results',
       description: 'Get the results of simulation runs',
     },
     create: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:Results',
       description: 'Modify the results of simulation runs',
     },
     update: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:Results',
       description: 'Modify the results of simulation runs',
     },
     delete: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'delete:Results',
       description: 'Delete the results of simulation runs',
     },
   },
   logs: {
     read: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'read:Logs',
       description: 'Get the logs of simulation runs',
     },
     create: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:Logs',
       description: 'Modify the logs of simulation runs',
     },
     update: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:Logs',
       description: 'Modify the logs of simulation runs',
     },
     delete: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'delete:Logs',
       description: 'Delete the logs of simulation runs',
     },
   },
   metadata: {
     read: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'read:Metadata',
       description: 'Get the metadata for simulation runs',
     },
     create: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:Metadata',
       description: 'Modify the metadata for simulation runs',
     },
     update: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'write:Metadata',
       description: 'Modify the metadata for simulation runs',
     },
     delete: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'delete:Metadata',
       description: 'Delete the metadata for simulation runs',
     },
   },
   projects: {
     read: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'read:Projects',
       description: 'Get information about published projects',
     },
     create: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'create:Projects',
       description: 'Create published projects',
     },
     update: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'update:Projects',
       description: 'Modify published projects',
     },
     delete: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'delete:Projects',
       description: 'Delete published projects',
     },
     proxyOwnership: {
-      audience: 'dispatch.biosimulations.org',
+      audience: 'api.biosimulations.org',
       id: 'proxyOwnership:Projects',
       description: 'Delete published projects',
     },
