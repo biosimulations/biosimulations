@@ -2,13 +2,48 @@
 
 ## Projects
 
+**Can I search for projects by wild cards?**
+
+Yes. The [search engine](https::/biosimulations.org/projects) supports wild cards such as `sys*`, `*tems`, and `sy*ems`.
+
+**Can I search for projects by specific attributes?**
+
+Yes. The [search engine](https::/biosimulations.org/projects) supports searching over individual attributes by prepending search queries with the key for the attribute, such as `title:xyz` to search for "xyz" in the title attribute of each project. The key for each attribute is the name of each attribute, lower cased, with spaces replaced by dashes, and without units (e.g., `project-size` for "Project size (MB)"). The table below summarizes the attributes that the search engine currently supports.
+
+| Field                 | Description            | Units | Key                     | Typical ids                                                                   |
+|-----------------------| -----------------------|-------|-------------------------|-------------------------------------------------------------------------------|
+| Id                    | BioSimulations id      |       | `id`                    |                                                                               |
+| Title                 | Tagline                |       | `title`                 |                                                                               |
+| Abstract              | Brief summary          |       | `abstract`              |                                                                               |
+| Description           | Extended summary       |       | `description`           |                                                                               |
+| Biology               | Genes, pathways        |       | `biology`               | [GO](http://geneontology.org/), [UniProt](https://www.uniprot.org/)           |
+| Taxa                  |                        |       | `taxa`                  | [Taxonomy](https://www.ncbi.nlm.nih.gov/taxonomy)                             |
+| Keywords              |                        |       | `keywords`              |                                                                               |
+| Citations             | Publications           |       | `citations`             | [DOI](https://www.doi.org/), [PubMed](https://pubmed.ncbi.nlm.nih.gov/)       |
+| Creators              | Authors                |       | `creators`              | [ORCID](https://orcid.org/)                                                   |
+| Contributors          | Curators               |       | `contributors`          | [ORCID](https://orcid.org/)                                                   |
+| License               |                        |       | `license`               | [SPDX](https://spdx.org/)                                                     |
+| Funders               | Funding agencies       |       | `funders`               | [Funder Registry](https://www.crossref.org/services/funder-registry/)         |
+| Identifiers           |                        |       | `identifiers`           | [Identifiers.org](https://identifiers.org/)                                   |
+| Additional metadata   |                        |       | `additional-metadata`   |                                                                               |
+| Project size          | COMBINE archive size   | MB    | `project-size`          |                                                                               |
+| Model formats         |                        |       | `model-formats`         | [EDAM](https://edamontology.org/), [SED-ML URN](https://sed-ml.org/urns.html) |
+| Simulation types      |                        |       | `simulation-types`      |                                                                               |
+| Simulation algorithms |                        |       | `simulation-algorithms` | [KiSAO](https://github.com/SED-ML/KiSAO)                                      |
+| Reports               | Report formats         |       | `reports`               |                                                                               |
+| Visualizations        | Visualization formats  |       | `visualizations`        |                                                                               |
+| Simulation tool       |                        |       | `simulator`             | [BioSimulators](https://biosimulators.org)                                    |
+| CPUs                  | Requested CPUs         |       | `cpus`                  |                                                                               |
+| Memory                | Requested memory       | GB    | `memory`                |                                                                               |
+| Runtime               |                        | min   | `runtime`               |                                                                               |
+| Results size          | Size of outputs        | MB    | `results-size`          |                                                                               |
+| created               | Date archived created  |       | `created`               |                                                                               |
+| published             | Date project published |       | `published`             |                                                                               |
+| updated               | Date project updated   |       | `updated`               |                                                                               |
+
 **Which formats for projects does BioSimulations support?**
 
 BioSimulations supports the [COMBINE/OMEX archive](https://combinearchive.org/) format. COMBINE/OMEX archives are zip files that contain an additional manifest file that indicates the format (e.g., CellML, CSV, SBML, SED-ML, PNG, etc.) of each file in the archive. This simple format can capture a broad range of projects. The format also provides authors the flexibility to organize their projects as appropriate.
-
-**Can projects include multiple models, simulations, and/or visualizations?**
-
-Yes. Projects can include one or more models, one or more simulations of those models, and zero or more visualizations of the results of those simulations.
 
 **How can I create a COMBINE/OMEX archive?**
 
@@ -27,13 +62,17 @@ Below are several additional tools for creating SED-ML files and COMBINE/OMEX ar
 
     Most of these tools are not fully compliant with the SED-ML and COMBINE/OMEX archive standards.
 
-**How can I validate a COMBINE/OMEX archive?**
+**Can projects include multiple models, simulations, and/or visualizations?**
 
-[runBioSimulations](https://run.biosimulations.org) provides a simple web-based tool for validating COMBINE/OMEX archives. [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides a command-line tool and a Python API for validating COMBINE/OMEX archives.
+Yes. Projects can include one or more models, one or more simulations of those models, and zero or more visualizations of the results of those simulations.
 
 **Where can I find example COMBINE/OMEX archives?**
 
 BioSimulations provides many archives. In addition, several example archives are available [here](https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples).
+
+**How can I validate a COMBINE/OMEX archive?**
+
+[runBioSimulations](https://run.biosimulations.org) provides a simple web-based tool for validating COMBINE/OMEX archives. [BioSimulators-utils](https://github.com/Biosimulators/Biosimulators_utils) provides a command-line tool and a Python API for validating COMBINE/OMEX archives.
 
 **How can I find a simulation tool for executing similar simulations on my machine?**
 
