@@ -1,5 +1,6 @@
 <ng-container *ngIf="showTable$ | async; else stackedTable">
-  <biosimulations-table #table
+  <biosimulations-table
+    #table
     [columns]="columns"
     [highlightRow]="highlightRow"
     [sortable]="sortable"
@@ -20,10 +21,11 @@
         [table]="table"
         [searchPlaceHolder]="searchPlaceHolder"
         [searchToolTip]="searchToolTip"
-        [ngClass]="{ 'closed': !table.controlsOpen }"
+        [ngClass]="{ closed: !table.controlsOpen }"
       ></biosimulations-table-controls>
 
-      <biosimulations-table-tabular-data #dataContainer
+      <biosimulations-table-tabular-data
+        #dataContainer
         [table]="table"
         [singleLineHeadings]="singleLineHeadings"
         [sortable]="sortable"

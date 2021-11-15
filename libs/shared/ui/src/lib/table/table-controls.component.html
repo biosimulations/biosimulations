@@ -1,18 +1,22 @@
-<div class="title" (click)="table.toggleControls()" [ngClass]="{hidden: !closeable}">
+<div
+  class="title"
+  (click)="table.toggleControls()"
+  [ngClass]="{ hidden: !closeable }"
+>
   <div class="title-inner">Controls</div>
   <biosimulations-icon icon="controls"></biosimulations-icon>
 </div>
 
-<mat-accordion class="controls" [ngClass]="{'left-square-border': !closeable}">
+<mat-accordion
+  class="controls"
+  [ngClass]="{ 'left-square-border': !closeable }"
+>
   <mat-expansion-panel
     [expanded]="table.openControlPanelId === 1"
     [disabled]="table.openControlPanelId === 1"
     (opened)="table.openControlPanel(1)"
   >
-    <mat-expansion-panel-header
-      collapsedHeight="32px"
-      expandedHeight="32px"
-    >
+    <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
       <mat-panel-title>
         <biosimulations-icon icon="columns"></biosimulations-icon>
         {{ attributesHeading }}
@@ -39,10 +43,7 @@
     [disabled]="table.openControlPanelId === 2"
     (opened)="table.openControlPanel(2)"
   >
-    <mat-expansion-panel-header
-      collapsedHeight="32px"
-      expandedHeight="32px"
-    >
+    <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
       <mat-panel-title>
         <biosimulations-icon icon="filter"></biosimulations-icon>
         Filters
@@ -57,7 +58,8 @@
               expandedHeight="32px"
             >
               <mat-panel-title>
-                {{ column.heading }}{{ column?.units ? ' (' + column.units + ')' : '' }}
+                {{ column.heading
+                }}{{ column?.units ? ' (' + column.units + ')' : '' }}
               </mat-panel-title>
             </mat-expansion-panel-header>
             <ng-template matExpansionPanelContent>
@@ -77,7 +79,9 @@
                       [step]="range.step"
                       [minSelected]="range.minSelected"
                       [maxSelected]="range.maxSelected"
-                      (onChange)="table.filterNumberValue(column, range, $event)"
+                      (onChange)="
+                        table.filterNumberValue(column, range, $event)
+                      "
                     >
                     </npn-slider>
                   </ng-template>
@@ -147,10 +151,7 @@
     [disabled]="table.openControlPanelId === 3"
     (opened)="table.openControlPanel(3)"
   >
-    <mat-expansion-panel-header
-      collapsedHeight="32px"
-      expandedHeight="32px"
-    >
+    <mat-expansion-panel-header collapsedHeight="32px" expandedHeight="32px">
       <mat-panel-title>
         <biosimulations-icon icon="search"></biosimulations-icon>
         Search

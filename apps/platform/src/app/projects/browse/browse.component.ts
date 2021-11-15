@@ -3,12 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrowseService } from './browse.service';
 import { FormattedProjectSummary } from './browse.model';
-import {
-  Column,
-  ColumnFilterType,
-} from '@biosimulations/shared/ui';
+import { Column, ColumnFilterType } from '@biosimulations/shared/ui';
 import { FormatService } from '@biosimulations/shared/services';
-import { LabeledIdentifier, DescribedIdentifier } from '@biosimulations/datamodel/common';
+import {
+  LabeledIdentifier,
+  DescribedIdentifier,
+} from '@biosimulations/datamodel/common';
 
 @Component({
   selector: 'biosimulations-projects-browse',
@@ -64,17 +64,20 @@ export class BrowseComponent implements OnInit {
       hidden: false,
       show: true,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.encodes.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
+        return project.metadata.encodes.map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.metadata.encodes.map((v: LabeledIdentifier) => {
-          if (!v.label && v.uri) {
-            return v.uri.replace(/[/#.]/g, ' ');
-          } else {
-            return '';
-          }
-        })
-        .join(' ');
+        return project.metadata.encodes
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return v.uri.replace(/[/#.]/g, ' ');
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
       },
     },
     {
@@ -86,17 +89,20 @@ export class BrowseComponent implements OnInit {
       hidden: false,
       show: true,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.taxa.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
+        return project.metadata.taxa.map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.metadata.taxa.map((v: LabeledIdentifier) => {
-          if (!v.label && v.uri) {
-            return v.uri.replace(/[/#.]/g, ' ');
-          } else {
-            return '';
-          }
-        })
-        .join(' ');
+        return project.metadata.taxa
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return v.uri.replace(/[/#.]/g, ' ');
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
       },
     },
     {
@@ -108,7 +114,9 @@ export class BrowseComponent implements OnInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.keywords.map((v: LabeledIdentifier) => v.label) as string[];
+        return project.metadata.keywords.map(
+          (v: LabeledIdentifier) => v.label,
+        ) as string[];
       },
     },
     {
@@ -120,17 +128,20 @@ export class BrowseComponent implements OnInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.citations.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
+        return project.metadata.citations.map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.metadata.citations.map((v: LabeledIdentifier) => {
-          if (!v.label && v.uri) {
-            return v.uri.replace(/[/#.]/g, ' ');
-          } else {
-            return '';
-          }
-        })
-        .join(' ');
+        return project.metadata.citations
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return v.uri.replace(/[/#.]/g, ' ');
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
       },
     },
     {
@@ -142,17 +153,20 @@ export class BrowseComponent implements OnInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.creators.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
+        return project.metadata.creators.map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.metadata.creators.map((v: LabeledIdentifier) => {
-          if (!v.label && v.uri) {
-            return v.uri.replace(/[/#.]/g, ' ');
-          } else {
-            return '';
-          }
-        })
-        .join(' ');
+        return project.metadata.creators
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return v.uri.replace(/[/#.]/g, ' ');
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
       },
     },
     {
@@ -164,17 +178,20 @@ export class BrowseComponent implements OnInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.contributors.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
+        return project.metadata.contributors.map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.metadata.contributors.map((v: LabeledIdentifier) => {
-          if (!v.label && v.uri) {
-            return v.uri.replace(/[/#.]/g, ' ');
-          } else {
-            return '';
-          }
-        })
-        .join(' ');
+        return project.metadata.contributors
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return v.uri.replace(/[/#.]/g, ' ');
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
       },
     },
     {
@@ -186,17 +203,20 @@ export class BrowseComponent implements OnInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return (project.metadata.license || []).map((v: LabeledIdentifier) => v.label || v.uri) as string[];
+        return (project.metadata.license || []).map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return (project.metadata.license || []).map((v: LabeledIdentifier) => {
-          if (!v.label && v.uri) {
-            return v.uri.replace(/[/#.]/g, ' ');
-          } else {
-            return '';
-          }
-        })
-        .join(' ');
+        return (project.metadata.license || [])
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return v.uri.replace(/[/#.]/g, ' ');
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
       },
     },
     {
@@ -208,17 +228,20 @@ export class BrowseComponent implements OnInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.funders.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
+        return project.metadata.funders.map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.metadata.funders.map((v: LabeledIdentifier) => {
-          if (!v.label && v.uri) {
-            return v.uri.replace(/[/#.]/g, ' ');
-          } else {
-            return '';
-          }
-        })
-        .join(' ');
+        return project.metadata.funders
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return v.uri.replace(/[/#.]/g, ' ');
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
       },
     },
     {
@@ -230,17 +253,20 @@ export class BrowseComponent implements OnInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.identifiers.map((v: LabeledIdentifier) => v.label || v.uri) as string[];
+        return project.metadata.identifiers.map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.metadata.identifiers.map((v: LabeledIdentifier) => {
-          if (!v.label && v.uri) {
-            return v.uri.replace(/[/#.]/g, ' ');
-          } else {
-            return '';
-          }
-        })
-        .join(' ');
+        return project.metadata.identifiers
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return v.uri.replace(/[/#.]/g, ' ');
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
       },
     },
     {
@@ -253,21 +279,26 @@ export class BrowseComponent implements OnInit {
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
         return project.metadata.other.map((v: DescribedIdentifier) => {
-          return (v.attribute_label || v.attribute_uri || '') + ': ' + (v.label || v.uri || '');
+          return (
+            (v.attribute_label || v.attribute_uri || '') +
+            ': ' +
+            (v.label || v.uri || '')
+          );
         }) as string[];
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.metadata.other.map((v: DescribedIdentifier) => {
-          let val = '';
-          if (!v.attribute_label && v.attribute_uri) {
-            val += v.attribute_uri.replace(/[/#.]/g, ' ');
-          }
-          if (!v.label && v.uri) {
-            val += v.uri.replace(/[/#.]/g, ' ');
-          }
-          return val;
-        })
-        .join(' ');
+        return project.metadata.other
+          .map((v: DescribedIdentifier) => {
+            let val = '';
+            if (!v.attribute_label && v.attribute_uri) {
+              val += v.attribute_uri.replace(/[/#.]/g, ' ');
+            }
+            if (!v.label && v.uri) {
+              val += v.uri.replace(/[/#.]/g, ' ');
+            }
+            return val;
+          })
+          .join(' ');
       },
     },
     // sources
@@ -303,9 +334,13 @@ export class BrowseComponent implements OnInit {
         return Array.from(
           new Set(
             project.tasks.map((task): string => {
-              return task.model.language.acronym || task.model.language.name || task.model.language.sedmlUrn;
-            })
-          )
+              return (
+                task.model.language.acronym ||
+                task.model.language.name ||
+                task.model.language.sedmlUrn
+              );
+            }),
+          ),
         ).sort();
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
@@ -334,9 +369,15 @@ export class BrowseComponent implements OnInit {
         return Array.from(
           new Set(
             project.tasks.map((task): string => {
-              return task.simulation.type.name.substring(4, 5).toUpperCase() + task.simulation.type.name.substring(5, task.simulation.type.name.length - 11);
-            })
-          )
+              return (
+                task.simulation.type.name.substring(4, 5).toUpperCase() +
+                task.simulation.type.name.substring(
+                  5,
+                  task.simulation.type.name.length - 11,
+                )
+              );
+            }),
+          ),
         ).sort();
       },
     },
@@ -352,9 +393,12 @@ export class BrowseComponent implements OnInit {
         return Array.from(
           new Set(
             project.tasks.map((task): string => {
-              return task.simulation.algorithm.name || task.simulation.algorithm.kisaoId;
-            })
-          )
+              return (
+                task.simulation.algorithm.name ||
+                task.simulation.algorithm.kisaoId
+              );
+            }),
+          ),
         ).sort();
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
@@ -362,10 +406,9 @@ export class BrowseComponent implements OnInit {
           new Set(
             project.tasks.map((task): string => {
               return task.simulation.algorithm.kisaoId;
-            })
-          )
-        )
-        .join(' ');
+            }),
+          ),
+        ).join(' ');
       },
     },
     {
@@ -402,8 +445,8 @@ export class BrowseComponent implements OnInit {
               })
               .map((output): string => {
                 return output.type.name;
-              })
-          )
+              }),
+          ),
         ).sort();
       },
     },
@@ -416,7 +459,11 @@ export class BrowseComponent implements OnInit {
       show: false,
       filterable: true,
       getter: (project: FormattedProjectSummary): string => {
-        return project.simulationRun.simulatorName + ' ' + project.simulationRun.simulatorVersion;
+        return (
+          project.simulationRun.simulatorName +
+          ' ' +
+          project.simulationRun.simulatorVersion
+        );
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.simulationRun.simulator;
@@ -530,8 +577,11 @@ export class BrowseComponent implements OnInit {
 
     if (this.route.snapshot.fragment) {
       const opts = new URLSearchParams(this.route.snapshot.fragment) as any;
-      for(const key of opts.keys()) {
-        if (['search', 'sort', 'sortDir', 'columns', 'panel'].includes(key) || key.startsWith('filter.')) {
+      for (const key of opts.keys()) {
+        if (
+          ['search', 'sort', 'sortDir', 'columns', 'panel'].includes(key) ||
+          key.startsWith('filter.')
+        ) {
           this.controlsOpen = true;
           break;
         }

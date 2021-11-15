@@ -10,7 +10,7 @@
   #table
   [data]="projects$"
   [columns]="columns"
-  [defaultSort]="{ active: 'title', direction: 'asc' }"  
+  [defaultSort]="{ active: 'title', direction: 'asc' }"
 >
   <div
     gdAuto="row"
@@ -35,10 +35,13 @@
       ></biosimulations-project-card>
     </div>
 
-    <div class="controls-container enter-from-right" [ngClass]="{ 'visible': controlsOpen }">
+    <div
+      class="controls-container enter-from-right"
+      [ngClass]="{ visible: controlsOpen }"
+    >
       <biosimulations-table-controls
         [table]="table"
-        attributesHeading='Attributes'
+        attributesHeading="Attributes"
         searchPlaceHolder="Query (e.g., metabolism)"
         searchToolTip="Enter a query such as 'metabolism'. By default, your query will be searched over all attributes. To search over a specific attribute, prefix your query with the heading of the attribute (with spaces replaced by dashes) such as 'last-updated: 2020'."
         [closeable]="false"

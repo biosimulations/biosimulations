@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './bread-crumbs-position.component.html',
   styleUrls: ['./bread-crumbs-position.component.scss'],
 })
-export class BreadCrumbsPositionComponent {
-}
+export class BreadCrumbsPositionComponent {}

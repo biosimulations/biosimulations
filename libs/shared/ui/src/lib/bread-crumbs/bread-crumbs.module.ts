@@ -21,6 +21,10 @@ import { BreadCrumbsPositionComponent } from './bread-crumbs-position/bread-crum
     RouterModule,
     BiosimulationsIconsModule,
   ],
-  exports: [BreadCrumbsComponent, BreadCrumbsButtonComponent, BreadCrumbsPositionComponent],
+  exports: [
+    BreadCrumbsComponent,
+    BreadCrumbsButtonComponent,
+    BreadCrumbsPositionComponent,
+  ],
 })
 export class BreadCrumbsModule {}

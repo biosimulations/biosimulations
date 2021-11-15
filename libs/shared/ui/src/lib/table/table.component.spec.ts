@@ -46,7 +46,12 @@ describe('TableComponent', () => {
         FlexLayoutModule,
         MatTooltipModule,
       ],
-      declarations: [TableComponent, TableTabularDataComponent, TableControlsComponent, SpinnerComponent],
+      declarations: [
+        TableComponent,
+        TableTabularDataComponent,
+        TableControlsComponent,
+        SpinnerComponent,
+      ],
     }).compileComponents();
   }));
 

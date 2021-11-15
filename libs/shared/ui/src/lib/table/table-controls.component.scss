@@ -74,9 +74,7 @@
     top: -0.125rem;
   }
 
-  &.mat-form-field-appearance-fill
-    ::ng-deep
-    .mat-form-field-subscript-wrapper {
+  &.mat-form-field-appearance-fill ::ng-deep .mat-form-field-subscript-wrapper {
     display: none;
   }
 }

@@ -9,7 +9,13 @@ import {
 import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, MatSortable, MatSortHeader, Sort, SortDirection } from '@angular/material/sort';
+import {
+  MatSort,
+  MatSortable,
+  MatSortHeader,
+  Sort,
+  SortDirection,
+} from '@angular/material/sort';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -517,8 +523,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     let sort: Sort | undefined = undefined;
     const sortActive = opts.get('sort') || undefined;
     if (sortActive) {
-      const sortDirection = (opts.get('sortDir') ||
-        'asc') as SortDirection;
+      const sortDirection = (opts.get('sortDir') || 'asc') as SortDirection;
       sort = {
         active: sortActive,
         direction: sortDirection,
@@ -1025,8 +1030,10 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.columnFilterData[column.id] = [null, null];
       }
     } else {
-      this.columnFilterData[column.id].minSelected = this.columnFilterData[column.id].min;
-      this.columnFilterData[column.id].maxSelected = this.columnFilterData[column.id].max;
+      this.columnFilterData[column.id].minSelected =
+        this.columnFilterData[column.id].min;
+      this.columnFilterData[column.id].maxSelected =
+        this.columnFilterData[column.id].max;
     }
     this.columnIsFiltered[column.id] = false;
     this.setTableStateQueryFragment();

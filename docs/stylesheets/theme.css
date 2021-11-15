@@ -7,7 +7,7 @@
   --md-accent-fg-color: #ff9800;
   --md-accent-fg-color--light: #ffe0b2;
   --md-accent-fg-color--dark: #ff7b00;
-  --md-text-font-family: "Raleway";
+  --md-text-font-family: 'Raleway';
 }
 
 .logos {
@@ -44,7 +44,7 @@
 
 .md-tabs {
   background-color: #9bcff9;
-  color: var(--md-primary-fg-color);  
+  color: var(--md-primary-fg-color);
 }
 
 .md-tabs__item {

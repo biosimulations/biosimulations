@@ -443,7 +443,7 @@ export class RowService {
     }
 
     // remove accents
-    searchVal = searchVal.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    searchVal = searchVal.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
     return searchVal;
   }

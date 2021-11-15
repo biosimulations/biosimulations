@@ -21,20 +21,24 @@
             <ng-container *ngIf="project._cache[column.id].value as value">
               <ng-container *ngIf="isArray(value); else scalar">
                 <ng-container *ngFor="let v of value">
-                  <ng-container *ngTemplateOutlet="template; context: {value: v}">
+                  <ng-container
+                    *ngTemplateOutlet="template; context: { value: v }"
+                  >
                   </ng-container>
                 </ng-container>
               </ng-container>
-              
+
               <ng-template #scalar>
-                <ng-container *ngTemplateOutlet="template; context: {value: value}">
+                <ng-container
+                  *ngTemplateOutlet="template; context: { value: value }"
+                >
                 </ng-container>
               </ng-template>
 
               <ng-template #template let-value="value">
                 <tr>
                   <td>
-                    <biosimulations-icon 
+                    <biosimulations-icon
                       [icon]="project._cache[column.id].left.icon"
                       [title]="column.heading"
                     ></biosimulations-icon>

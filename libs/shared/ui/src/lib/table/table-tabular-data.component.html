@@ -161,14 +161,10 @@
               [routerLink]="routerLink"
               [fragment]="element._cache[column.id].center.fragment"
             >
-              <ng-container
-                *ngTemplateOutlet="centerTemplate"
-              ></ng-container>
+              <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
             </a>
             <ng-template #noRouterLink>
-              <ng-container
-                *ngTemplateOutlet="centerTemplate"
-              ></ng-container>
+              <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
             </ng-template>
           </ng-template>
 
@@ -176,21 +172,14 @@
             <a
               mat-icon-button
               class="biosimulations-button primary"
-              *ngIf="
-                element._cache[column.id].center.href as href;
-                else noHref
-              "
+              *ngIf="element._cache[column.id].center.href as href; else noHref"
               [href]="href"
               target="_blank"
             >
-              <ng-container
-                *ngTemplateOutlet="centerTemplate"
-              ></ng-container>
+              <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
             </a>
             <ng-template #noHref>
-              <ng-container
-                *ngTemplateOutlet="centerTemplate"
-              ></ng-container>
+              <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
             </ng-template>
           </ng-template>
 
@@ -204,14 +193,10 @@
               "
               (click)="click(element)"
             >
-              <ng-container
-                *ngTemplateOutlet="centerTemplate"
-              ></ng-container>
+              <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
             </button>
             <ng-template #noClick>
-              <ng-container
-                *ngTemplateOutlet="centerTemplate"
-              ></ng-container>
+              <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
             </ng-template>
           </ng-template>
 
@@ -264,10 +249,7 @@
             <a
               mat-icon-button
               class="biosimulations-button primary"
-              *ngIf="
-                element._cache[column.id].right.href as href;
-                else noHref
-              "
+              *ngIf="element._cache[column.id].right.href as href; else noHref"
               [href]="href"
               target="_blank"
             >
