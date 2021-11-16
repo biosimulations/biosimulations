@@ -41,10 +41,11 @@ export class SimulationRunService {
   ): Observable<void> {
     this.logger.log(`Uploading metadata for simulation run '${runId}' ....`);
     const endpoint = this.endpoints.getSimulationRunMetadataEndpoint();
-    return this.postAuthenticated<
-      SimulationRunMetadataInput,
-      void
-    >(runId, endpoint, metadata);
+    return this.postAuthenticated<SimulationRunMetadataInput, void>(
+      runId,
+      endpoint,
+      metadata,
+    );
   }
 
   public postSpecs(
