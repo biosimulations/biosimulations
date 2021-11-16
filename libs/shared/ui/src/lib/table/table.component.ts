@@ -63,23 +63,30 @@ interface TableState {
 
 function normalizeAccentsLunrPipelineFunction(token: any): any {
   if (token.toString()) {
-    return token.update(
-      function () {
-        return token.toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      }
-    );
+    return token.update(function () {
+      return token
+        .toString()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    });
   } else {
     return token;
   }
 }
 
-lunr.Pipeline.registerFunction(normalizeAccentsLunrPipelineFunction, 'normalizeAccents');
+lunr.Pipeline.registerFunction(
+  normalizeAccentsLunrPipelineFunction,
+  'normalizeAccents',
+);
 
 function addAccentNormalizationToLunrBuilder(builder: any): void {
   // Add the pipeline function to both the indexing pipeline and the
   // searching pipeline
   builder.pipeline.before(lunr.stemmer, normalizeAccentsLunrPipelineFunction);
-  builder.searchPipeline.before(lunr.stemmer, normalizeAccentsLunrPipelineFunction);
+  builder.searchPipeline.before(
+    lunr.stemmer,
+    normalizeAccentsLunrPipelineFunction,
+  );
 }
 
 @Component({
