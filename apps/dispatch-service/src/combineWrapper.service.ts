@@ -20,16 +20,19 @@ export class CombineWrapperService {
       maxRetries: 12,
       resetOnSuccess: true,
       shouldRetry: (error: AxiosError): boolean => {
-        return error.isAxiosError && [
-          HttpStatus.REQUEST_TIMEOUT,
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          HttpStatus.BAD_GATEWAY,
-          HttpStatus.GATEWAY_TIMEOUT,
-          HttpStatus.SERVICE_UNAVAILABLE,
-          HttpStatus.TOO_MANY_REQUESTS,
-          undefined,
-          null,
-        ].includes(error?.response?.status);
+        return (
+          error.isAxiosError &&
+          [
+            HttpStatus.REQUEST_TIMEOUT,
+            HttpStatus.INTERNAL_SERVER_ERROR,
+            HttpStatus.BAD_GATEWAY,
+            HttpStatus.GATEWAY_TIMEOUT,
+            HttpStatus.SERVICE_UNAVAILABLE,
+            HttpStatus.TOO_MANY_REQUESTS,
+            undefined,
+            null,
+          ].includes(error?.response?.status)
+        );
       },
     });
   }
