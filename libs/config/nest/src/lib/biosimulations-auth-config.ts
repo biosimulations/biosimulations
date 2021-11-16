@@ -1,7 +1,7 @@
 import { registerAs } from '@nestjs/config';
 
 export default registerAs('auth', () => {
-  // TODO add authorization url based on the app
+  // TODO add authorization URL based on the app
   const config = {
     auth0_domain: process.env.AUTH0_DOMAIN,
     api_audience: process.env.API_AUDIENCE,
