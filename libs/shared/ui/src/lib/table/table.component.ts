@@ -75,7 +75,7 @@ function normalizeAccentsLunrPipelineFunction(token: any): any {
 
 lunr.Pipeline.registerFunction(normalizeAccentsLunrPipelineFunction, 'normalizeAccents');
 
-function addAccentNormalizationToLunrBuilder(builder: any): void {      
+function addAccentNormalizationToLunrBuilder(builder: any): void {
   // Add the pipeline function to both the indexing pipeline and the
   // searching pipeline
   builder.pipeline.before(lunr.stemmer, normalizeAccentsLunrPipelineFunction);
@@ -537,14 +537,14 @@ export class TableComponent implements OnInit, AfterViewInit {
       });
     }
 
-    let openControlPanelId: undefined | number = undefined;
+    let openControlPanelId: undefined | number;
     if (opts.get('panel') != null) {
       try {
         openControlPanelId = parseInt(opts.get('panel') as string);
       } catch (e) {} // eslint-disable-line no-empty
     }
 
-    let sort: Sort | undefined = undefined;
+    let sort: Sort | undefined;
     const sortActive = opts.get('sort') || undefined;
     if (sortActive) {
       const sortDirection = (opts.get('sortDir') || 'asc') as SortDirection;
