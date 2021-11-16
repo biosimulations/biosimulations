@@ -16,7 +16,7 @@ import {
   Get,
   Logger,
   NotFoundException,
-  // ForbiddenException,
+  ForbiddenException,
   Param,
   Query,
   Patch,
@@ -227,10 +227,12 @@ export class SimulationRunController {
   }
 
   private checkPublishProjectPermission(user: AuthToken, projectId?: string): void {
-    // TODO: check that the account has permission to submit publication requests with runs
-    // if (projectId && false) {
-    //   throw new ForbiddenException('This account does not have permission to submit publication requests with simulation run requests. To publish a simulation run with this account, first request a run, then review the results of the run, and then publish the run.');
-    // }
+    if (
+      projectId 
+      && !user?.permissions?.includes(scopes.simulationRuns.externallyValidate.id) // TODO: debug for machine accounts
+    ) {
+      throw new ForbiddenException('This account does not have permission to submit publication requests with simulation run requests. To publish a simulation run with this account, first request a run, then review the results of the run, and then publish the run.');
+    }
   }
 
   private getRunForFile(
