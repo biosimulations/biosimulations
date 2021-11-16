@@ -39,9 +39,12 @@ export class Endpoints {
   public constructor(external = true) {
     if (external) {
       this.api = environment.externalBiosimulationsApiEndpoints.api;
-      this.simulatorsApi = environment.externalBiosimulationsApiEndpoints.simulatorsApi;
-      this.combineApi = environment.externalBiosimulationsApiEndpoints.combineApi;
-      this.accountApi = environment.externalBiosimulationsApiEndpoints.accountApi;
+      this.simulatorsApi =
+        environment.externalBiosimulationsApiEndpoints.simulatorsApi;
+      this.combineApi =
+        environment.externalBiosimulationsApiEndpoints.combineApi;
+      this.accountApi =
+        environment.externalBiosimulationsApiEndpoints.accountApi;
       this.dataApi = environment.externalDataApiEndpoint;
     } else {
       this.api = environment.biosimulationsApiEndpoints.api;
@@ -157,9 +160,9 @@ export class Endpoints {
       fileLocation = fileLocation.substring(2);
     }
     if (fileLocation == '.') {
-      return `${
-        this.filesApi
-      }/${this.getSimulationRunCombineArchiveS3Path(runId)}`;
+      return `${this.filesApi}/${this.getSimulationRunCombineArchiveS3Path(
+        runId,
+      )}`;
     } else {
       return `${this.filesApi}/${this.getSimulationRunS3Path(
         runId,

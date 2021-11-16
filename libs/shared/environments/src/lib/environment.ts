@@ -15,4 +15,4 @@ export const environment: Environment = {
   filesApiEndpoint,
   dataApiEndpoint,
   externalDataApiEndpoint,
-}
+};

@@ -10,9 +10,7 @@ export class SimulationStorageService {
   private endpoints: Endpoints;
   private logger = new Logger(SimulationStorageService.name);
 
-  public constructor(
-    private storage: SharedStorageService,
-  ) {
+  public constructor(private storage: SharedStorageService) {
     this.endpoints = new Endpoints();
   }
 

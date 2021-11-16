@@ -3,4 +3,4 @@ export type BiosimulationsApiEndpoints = {
   simulatorsApi: string;
   combineApi: string;
   accountApi: string;
-}
+};
