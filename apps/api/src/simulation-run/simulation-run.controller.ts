@@ -188,7 +188,9 @@ export class SimulationRunController {
     let projectId: string | undefined;
 
     if (!contentType) {
-      throw new UnsupportedMediaTypeException('The content type must be \'application/json\' or \'multipart/form-data\'.');
+      throw new UnsupportedMediaTypeException(
+        "The content type must be 'application/json' or 'multipart/form-data'.",
+      );
     } else if (contentType?.startsWith('multipart/form-data')) {
       const parsedRun = this.getRunForFile(body);
       projectId = parsedRun?.projectId;
@@ -203,7 +205,7 @@ export class SimulationRunController {
       run = await this.service.createRunWithURL(body);
     } else {
       throw new UnsupportedMediaTypeException(
-        'The content type must be \'application/json\' or \'multipart/form-data\'.',
+        "The content type must be 'application/json' or 'multipart/form-data'.",
       );
     }
     const response = this.makeSimulationRun(run);
@@ -226,12 +228,17 @@ export class SimulationRunController {
     return response;
   }
 
-  private checkPublishProjectPermission(user: AuthToken, projectId?: string): void {
+  private checkPublishProjectPermission(
+    user: AuthToken,
+    projectId?: string,
+  ): void {
     if (
-      projectId
-      && !user?.permissions?.includes(scopes.simulationRuns.externallyValidate.id)
+      projectId &&
+      !user?.permissions?.includes(scopes.simulationRuns.externallyValidate.id)
     ) {
-      throw new ForbiddenException('This account does not have permission to submit publication requests with simulation run requests. To publish a simulation run with this account, first request a run, then review the results of the run, and then publish the run.');
+      throw new ForbiddenException(
+        'This account does not have permission to submit publication requests with simulation run requests. To publish a simulation run with this account, first request a run, then review the results of the run, and then publish the run.',
+      );
     }
   }
 
@@ -245,11 +252,14 @@ export class SimulationRunController {
         return JSON.parse(body.simulationRun) as UploadSimulationRun;
       } catch (e) {
         throw new BadRequestException(
-          'The \'simulationRun\' field of the body of the request is not a valid JSON document: ' + e.message,
+          "The 'simulationRun' field of the body of the request is not a valid JSON document: " +
+            e.message,
         );
       }
     } else {
-      throw new BadRequestException('The body of the simulation run request must include a \'simulationRun\' field.');
+      throw new BadRequestException(
+        "The body of the simulation run request must include a 'simulationRun' field.",
+      );
     }
   }
 
@@ -349,7 +359,9 @@ export class SimulationRunController {
       permission ? null : (run.email = null);
       return this.makeSimulationRun(run);
     } else {
-      throw new NotFoundException(`A simulation run with id '${runId}' could not be found.`);
+      throw new NotFoundException(
+        `A simulation run with id '${runId}' could not be found.`,
+      );
     }
   }
 

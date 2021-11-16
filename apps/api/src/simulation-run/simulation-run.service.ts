@@ -292,7 +292,9 @@ export class SimulationRunService {
 
       return this.createRun(run, file.size, simulationProjectFile, id);
     } catch (err) {
-      const message = err?.message || 'An error occurred in uploading the COMBINE archive for the simulation run.';
+      const message =
+        err?.message ||
+        'An error occurred in uploading the COMBINE archive for the simulation run.';
       throw new BiosimulationsException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         message,
@@ -360,7 +362,9 @@ export class SimulationRunService {
       this.logger.debug(`Downloaded file from ${url}.`);
       return this.createRunWithFile(body, fileObj);
     } else {
-      throw new BadRequestException(`The COMBINE archive for the simulation run could not be obtained from ${url}. Please check that the URL is accessible.`);
+      throw new BadRequestException(
+        `The COMBINE archive for the simulation run could not be obtained from ${url}. Please check that the URL is accessible.`,
+      );
     }
   }
   /**

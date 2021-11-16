@@ -64,7 +64,8 @@ export const scopes: Scopes = {
     externallyValidate: {
       audience: BIOSIMULATIONS_AUDIENCE,
       id: 'externallyValidate:SimulationRuns',
-      description: 'Externally validate simulation runs. Grants the ability to include requests to publish simulation runs with their creation.',
+      description:
+        'Externally validate simulation runs. Grants the ability to include requests to publish simulation runs with their creation.',
     },
     delete: {
       audience: BIOSIMULATIONS_AUDIENCE,
@@ -76,8 +77,7 @@ export const scopes: Scopes = {
     read: {
       audience: BIOSIMULATIONS_AUDIENCE,
       id: 'read:Email',
-      description:
-        'Read contact email addresses for resources',
+      description: 'Read contact email addresses for resources',
     },
   },
   files: {
