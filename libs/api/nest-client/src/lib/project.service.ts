@@ -1,6 +1,7 @@
 import { Project, ProjectInput } from '@biosimulations/datamodel/api';
 import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
+import { ConfigService } from '@nestjs/config';
 import { Endpoints } from '@biosimulations/config/common';
 import { AuthClientService } from '@biosimulations/auth/client';
 import { pluck, map, mergeMap } from 'rxjs/operators';
@@ -14,8 +15,10 @@ export class ProjectService {
   public constructor(
     private auth: AuthClientService,
     private http: HttpService,
+    private configService: ConfigService,
   ) {
-    this.endpoints = new Endpoints();
+    const env = this.configService.get('server.env');
+    this.endpoints = new Endpoints(env);
   }
 
   public getProject(id: string): Observable<Project> {
@@ -33,9 +36,9 @@ export class ProjectService {
     );
   }
 
-  public createProject(project: ProjectInput): Observable<void> {
+  public createProject(project: ProjectInput): Observable<Project> {
     const endpoint = this.endpoints.getProjectsEndpoint();
-    return this.postAuthenticated<ProjectInput, void>(endpoint, project);
+    return this.postAuthenticated<ProjectInput, Project>(endpoint, project);
   }
 
   public updateProject(id: string, project: ProjectInput): Observable<Project> {

@@ -12,9 +12,7 @@ export class Endpoints {
   private api: string;
   private simulatorsApi: string;
   private combineApi: string;
-  private accountApi: string;
-  private dataApi: string;
-  private filesApi: string;
+  private storageEndpoint: string;
   private simulationRunsS3Path: string;
   private simulationRunContentS3Subpath: string;
   private simulationRunResultsHsdsPath: string;
@@ -28,35 +26,58 @@ export class Endpoints {
   private simulationRunMetadata: string;
   private simulators: string;
   private files: string;
+  private env: string;
   private combineFile: string;
   private specifications: string;
   private projects: string;
 
-  /**
-   * @param external Whether to get an URL for accessing resources from inside the BioSimulations Kubernetes cluster
-   *        (e.g., `https://data.biosimulations.org` rather than `http://hsds`)
-   */
-  public constructor(external = true) {
-    if (external) {
-      this.api = environment.externalBiosimulationsApiEndpoints.api;
-      this.simulatorsApi =
-        environment.externalBiosimulationsApiEndpoints.simulatorsApi;
-      this.combineApi =
-        environment.externalBiosimulationsApiEndpoints.combineApi;
-      this.accountApi =
-        environment.externalBiosimulationsApiEndpoints.accountApi;
-      this.dataApi = environment.externalDataApiEndpoint;
-    } else {
-      this.api = environment.biosimulationsApiEndpoints.api;
-      this.simulatorsApi = environment.biosimulationsApiEndpoints.simulatorsApi;
-      this.combineApi = environment.biosimulationsApiEndpoints.combineApi;
-      this.accountApi = environment.biosimulationsApiEndpoints.accountApi;
-      this.dataApi = environment.dataApiEndpoint;
+  public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
+    // We can read the env that is provided in the shared environment file as the default
+    if (env == undefined) {
+      env = environment.env;
     }
-    this.filesApi = environment.filesApiEndpoint;
-    this.simulatorsApp = environment.biosimulationsAppEndpoints.simulatorsApp;
-    this.dispatchApp = environment.biosimulationsAppEndpoints.dispatchApp;
-    this.platformApp = environment.biosimulationsAppEndpoints.platformApp;
+    this.env = env;
+    switch (env) {
+      case 'local':
+        this.api = 'http://localhost:3333';
+        this.simulatorsApi = 'https://api.biosimulators.dev';
+        this.combineApi = 'https://combine.api.biosimulations.dev/';
+        this.storageEndpoint = 'https://files-dev.biosimulations.org/s3';
+        this.simulatorsApp = 'https://biosimulators.dev';
+        this.dispatchApp = 'https://run.biosimulations.dev';
+        this.platformApp = 'https://biosimulations.dev';
+        break;
+
+      case 'dev':
+        this.api = 'https://api.biosimulations.dev';
+        this.simulatorsApi = 'https://api.biosimulators.dev';
+        this.combineApi = 'https://combine.api.biosimulations.dev';
+        this.storageEndpoint = 'https://files-dev.biosimulations.org/s3';
+        this.simulatorsApp = 'https://biosimulators.dev';
+        this.dispatchApp = 'https://run.biosimulations.dev';
+        this.platformApp = 'https://biosimulations.dev';
+        break;
+
+      case 'stage':
+        this.api = 'https://api.biosimulations.dev';
+        this.simulatorsApi = 'https://api.biosimulators.dev';
+        this.combineApi = 'https://combine.api.biosimulations.dev';
+        this.storageEndpoint = 'https://files-dev.biosimulations.org/s3';
+        this.simulatorsApp = 'https://biosimulators.dev';
+        this.dispatchApp = 'https://run.biosimulations.dev';
+        this.platformApp = 'https://biosimulations.dev';
+        break;
+
+      case 'prod':
+        this.api = 'https://api.biosimulations.org';
+        this.simulatorsApi = 'https://api.biosimulators.org';
+        this.combineApi = 'https://combine.api.biosimulations.org';
+        this.storageEndpoint = 'https://files.biosimulations.org/s3';
+        this.simulatorsApp = 'https://biosimulators.org';
+        this.dispatchApp = 'https://run.biosimulations.org';
+        this.platformApp = 'https://biosimulations.org';
+        break;
+    }
 
     this.simulationRunsS3Path = 'simulations';
     this.simulationRunContentS3Subpath = 'contents';
@@ -160,11 +181,11 @@ export class Endpoints {
       fileLocation = fileLocation.substring(2);
     }
     if (fileLocation == '.') {
-      return `${this.filesApi}/${this.getSimulationRunCombineArchiveS3Path(
-        runId,
-      )}`;
+      return `${
+        this.storageEndpoint
+      }/${this.getSimulationRunCombineArchiveS3Path(runId)}`;
     } else {
-      return `${this.filesApi}/${this.getSimulationRunS3Path(
+      return `${this.storageEndpoint}/${this.getSimulationRunS3Path(
         runId,
       )}/contents/${fileLocation}`;
     }
@@ -222,7 +243,12 @@ export class Endpoints {
    * Create a URL to add a file to an OMEX file using the COMBINE API
    * @returns A URL for POST endpoint for adding a file to an OMEX file using the COMBINE API
    */
-  public getAddFileToCombineArchiveEndpoint(): string {
+  public getAddFileToCombineArchiveEndpoint(external = false): string {
+    if (external) {
+      if (this.env == 'local') {
+        return new Endpoints('dev').getAddFileToCombineArchiveEndpoint(true);
+      }
+    }
     return this.combineFile;
   }
 
@@ -289,22 +315,32 @@ export class Endpoints {
   }
 
   /**
-   * Returns the URL to download the COMBINE/OMEX archive of a simulation run.
+   * Returns the URL to download the COMBINE/OMEX archive of a simulation run. The external parameter is used to determine if the
+   * returned URL is accessible from outside the current environment.
    * Effectively, if true, then any localhost urls will be replaced with the dev deployment urls
    * @param id The id of the simulation run
+   * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    *
    * @returns A URL to download the COMBINE/OMEX archive of a simulation run
    */
-  public getRunDownloadEndpoint(id: string): string {
+  public getRunDownloadEndpoint(id: string, external = false): string {
+    if (external) {
+      if (this.env == 'local') {
+        return new Endpoints('dev').getRunDownloadEndpoint(id, external);
+      }
+    }
+
     return `${this.simulationRuns}/${id}/download`;
   }
 
   /**
-   * Returns the URL to get the results of  a simulation run.
+   * Returns the URL to get the results of  a simulation run. The external parameter is used to determine if the
+   * returned URL is accessible from outside the current environment.
    * Effectively, if true, then any localhost urls will be replaced with the dev deployment urls
    * @param runId The id of the simulation run
    * @param experimentLocationAndOutputId The id of the result output
    * @param includeData How the includeData param should be set on the URL
+   * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    *
    * @returns A URL to retrieve the results of a simulation run
    */
@@ -312,6 +348,7 @@ export class Endpoints {
     runId?: string,
     experimentLocationAndOutputId?: string,
     includeData = false,
+    external = false,
   ): string {
     runId ? (runId = `/${encodeURIComponent(runId)}`) : (runId = '');
     experimentLocationAndOutputId
@@ -323,15 +360,31 @@ export class Endpoints {
       throw new Error('Cannot get results of an output without an id');
     }
 
+    if (external) {
+      if (this.env == 'local') {
+        return new Endpoints('dev').getRunResultsEndpoint(
+          runId,
+          experimentLocationAndOutputId,
+          includeData,
+          external,
+        );
+      }
+    }
     return `${this.simulationRunResults}${runId}${experimentLocationAndOutputId}?includeData=${includeData}`;
   }
 
   /**
    *
    * @param id The id of the simulation run
+   * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    * @returns A URL to download the output of a simulation
    */
-  public getRunResultsDownloadEndpoint(id: string): string {
+  public getRunResultsDownloadEndpoint(id: string, external = false): string {
+    if (external) {
+      if (this.env == 'local') {
+        return new Endpoints('dev').getRunResultsDownloadEndpoint(id, external);
+      }
+    }
     return `${this.simulationRunResults}/${id}/download`;
   }
 
@@ -443,7 +496,7 @@ export class Endpoints {
   }
 
   public getStorageHealthEndpoint(): string {
-    return `${this.filesApi}/helloWorld.txt`;
+    return `${this.storageEndpoint}/helloWorld.txt`;
   }
 
   /**
@@ -504,10 +557,6 @@ export class Endpoints {
     }
   }
 
-  public getHsdsBasePath(): string {
-    return this.dataApi;
-  }
-
   /**
    * Create a path for the results of a simulation run in a HSDS
    * @param runId Id of the simulation run
@@ -524,10 +573,6 @@ export class Endpoints {
   public getSimulationRunResultsHsdsDomain(runId?: string): string {
     runId ? (runId = `${runId}.`) : (runId = '');
     return `${runId}${this.simulationRunResultsHsdsPath}`;
-  }
-
-  public getAccountApiEndpoint(): string {
-    return this.accountApi;
   }
 
   public getSimulatorsAppHome(): string {

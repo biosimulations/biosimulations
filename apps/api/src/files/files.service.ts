@@ -10,6 +10,7 @@ import { DeleteResult } from 'mongodb';
 import { FileModel } from './files.model';
 import { SharedStorageService } from '@biosimulations/shared/storage';
 import { Endpoints } from '@biosimulations/config/common';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class FilesService {
@@ -18,8 +19,10 @@ export class FilesService {
   public constructor(
     @InjectModel(FileModel.name) private model: Model<FileModel>,
     private storage: SharedStorageService,
+    private configService: ConfigService,
   ) {
-    this.endpoints = new Endpoints();
+    const env = configService.get('server.env');
+    this.endpoints = new Endpoints(env);
   }
 
   public async getSimulationRunFiles(runId: string): Promise<FileModel[]> {

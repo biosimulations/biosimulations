@@ -648,7 +648,7 @@ export class ViewService {
             master: false,
             size: null,
             icon: 'report',
-            url: this.endpoints.getRunResultsEndpoint(runId, undefined),
+            url: this.endpoints.getRunResultsEndpoint(runId, undefined, true),
             basename: 'outputs.json',
           },
           {
@@ -1048,6 +1048,7 @@ export class ViewService {
                 contentUrl: this.endpoints.getRunResultsEndpoint(
                   runId,
                   undefined,
+                  true,
                 ),
                 encodingFormat: 'application/json',
               },

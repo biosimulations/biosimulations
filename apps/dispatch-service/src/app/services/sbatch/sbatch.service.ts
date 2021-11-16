@@ -12,7 +12,8 @@ export class SbatchService {
   private endpoints: Endpoints;
 
   public constructor(private configService: ConfigService) {
-    this.endpoints = new Endpoints(true);
+    const env = this.configService.get('server.env');
+    this.endpoints = new Endpoints(env);
   }
 
   private logger = new Logger(SbatchService.name);
@@ -122,7 +123,10 @@ export class SbatchService {
             })
             .join(',')
         : '';
-    const runCombineArchiveUrl = this.endpoints.getRunDownloadEndpoint(runId);
+    const runCombineArchiveUrl = this.endpoints.getRunDownloadEndpoint(
+      runId,
+      true,
+    );
     const simulationRunS3Path = this.endpoints.getSimulationRunS3Path(runId);
     const simulationRunContentS3Subpath =
       this.endpoints.getSimulationRunContentS3Subpath();

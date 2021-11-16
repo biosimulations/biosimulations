@@ -3,10 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { AsyncValidatorFn, AbstractControl } from '@angular/forms';
 import { map, catchError, switchMap, tap } from 'rxjs/operators';
 import { of, timer, ObservableInput, Observable, throwError } from 'rxjs';
-import { Endpoints } from '@biosimulations/config/common';
-
-const baseUrl = new Endpoints().getAccountApiEndpoint();
-
+import { urls } from '@biosimulations/config/common';
+const baseUrl = urls.accountApi;
 @Injectable({
   providedIn: 'root',
 })
@@ -30,7 +28,7 @@ export class RegistrationService {
   ) => {
     const value = control.value;
     return timer(500).pipe(
-      switchMap((_) => this.http.get<any>(baseUrl + '/valid/' + control.value)),
+      switchMap((_) => this.http.get<any>(baseUrl + 'valid/' + control.value)),
       map((res) => (res.valid === true ? null : { server: res.message })),
       tap((_) => control.markAsTouched()),
       catchError((err, caught) => of({ 'Network Error': err })),

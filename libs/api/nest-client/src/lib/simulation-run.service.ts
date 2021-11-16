@@ -5,12 +5,14 @@ import {
 import { SimulationRun } from '@biosimulations/datamodel/api';
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
+import { ConfigService } from '@nestjs/config';
 import { Endpoints } from '@biosimulations/config/common';
 import { AuthClientService } from '@biosimulations/auth/client';
 import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
 import { from, Observable, throwError } from 'rxjs';
 import {
   SimulationRunStatus,
+  SimulationRunSedDocument,
   SimulationRunSedDocumentInput,
   SimulationRunSedDocumentInputsContainer,
 } from '@biosimulations/datamodel/common';
@@ -19,6 +21,7 @@ import {
   ProjectFileInputsContainer,
   ProjectFile,
   SimulationRunMetadataInput,
+  SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { retryBackoff } from 'backoff-rxjs';
 import { AxiosError } from 'axios';
@@ -31,34 +34,35 @@ export class SimulationRunService {
   public constructor(
     private auth: AuthClientService,
     private http: HttpService,
+    private configService: ConfigService,
   ) {
-    this.endpoints = new Endpoints();
+    const env = this.configService.get('server.env');
+    this.endpoints = new Endpoints(env);
   }
 
   public postMetadata(
     runId: string,
     metadata: SimulationRunMetadataInput,
-  ): Observable<void> {
+  ): Observable<SimulationRunMetadata> {
     this.logger.log(`Uploading metadata for simulation run '${runId}' ....`);
     const endpoint = this.endpoints.getSimulationRunMetadataEndpoint();
-    return this.postAuthenticated<SimulationRunMetadataInput, void>(
-      runId,
-      endpoint,
-      metadata,
-    );
+    return this.postAuthenticated<
+      SimulationRunMetadataInput,
+      SimulationRunMetadata
+    >(runId, endpoint, metadata);
   }
 
   public postSpecs(
     runId: string,
     specs: SimulationRunSedDocumentInput[],
-  ): Observable<void> {
+  ): Observable<SimulationRunSedDocument[]> {
     this.logger.log(
       `Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`,
     );
     const endpoint = this.endpoints.getSpecificationsEndpoint();
     return this.postAuthenticated<
       SimulationRunSedDocumentInputsContainer,
-      void
+      SimulationRunSedDocument[]
     >(runId, endpoint, { sedDocuments: specs });
   }
 

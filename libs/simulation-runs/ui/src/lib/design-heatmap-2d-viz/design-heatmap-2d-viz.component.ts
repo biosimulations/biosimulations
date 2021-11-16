@@ -402,6 +402,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
                   url: this.endpoints.getRunResultsEndpoint(
                     this.simulationRunId,
                     `${sedDocumentLocation}/${outputId}`,
+                    true,
                   ),
                   format: {
                     type: 'json',

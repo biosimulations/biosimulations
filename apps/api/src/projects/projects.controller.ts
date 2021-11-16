@@ -143,15 +143,16 @@ export class ProjectsController {
   })
   @ApiCreatedResponse({
     description: 'The simulation run was successfully published',
+    type: Project,
   })
   @OptionalAuth()
   public async createProject(
     @Body() project: ProjectInput,
     @Req() req: Request,
-  ): Promise<void> {
+  ): Promise<Project> {
     const user = req?.user as AuthToken;
-    await this.service.createProject(project, user);
-    return;
+    const proj = await this.service.createProject(project, user);
+    return this.returnProject(proj);
   }
 
   @Put(':projectId')
