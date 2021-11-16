@@ -53,7 +53,7 @@ export class Endpoints {
     this.filesApi = environment.filesApiEndpoint;
     this.simulatorsApp = environment.biosimulationsAppEndpoints.simulatorsApp;
     this.dispatchApp = environment.biosimulationsAppEndpoints.dispatchApp;
-    this.platformApp = environment.biosimulationsAppEndpoints.platformApp;    
+    this.platformApp = environment.biosimulationsAppEndpoints.platformApp;
 
     this.simulationRunsS3Path = 'simulations';
     this.simulationRunContentS3Subpath = 'contents';
