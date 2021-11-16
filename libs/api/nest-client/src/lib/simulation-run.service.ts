@@ -259,8 +259,8 @@ export class SimulationRunService {
       initialInterval: 100,
       maxRetries: 12,
       resetOnSuccess: true,
-      shouldRetry: (error: any): boolean => {
-        return [
+      shouldRetry: (error: AxiosError): boolean => {
+        return error.isAxiosError && [
           HttpStatus.REQUEST_TIMEOUT,
           HttpStatus.INTERNAL_SERVER_ERROR,
           HttpStatus.BAD_GATEWAY,
@@ -269,7 +269,7 @@ export class SimulationRunService {
           HttpStatus.TOO_MANY_REQUESTS,
           undefined,
           null,
-        ].includes(error?.status);
+        ].includes(error?.response?.status);
       },
     });
   }
