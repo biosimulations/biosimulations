@@ -61,6 +61,27 @@ interface TableState {
   sort?: Sort;
 }
 
+function normalizeAccentsLunrPipelineFunction(token: any): any {
+  if (token.toString()) {
+    return token.update(
+      function () {
+        return token.toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      }
+    );
+  } else {
+    return token;
+  }
+}
+
+lunr.Pipeline.registerFunction(normalizeAccentsLunrPipelineFunction, 'normalizeAccents');
+
+function addAccentNormalizationToLunrBuilder(builder: any): void {      
+  // Add the pipeline function to both the indexing pipeline and the
+  // searching pipeline
+  builder.pipeline.before(lunr.stemmer, normalizeAccentsLunrPipelineFunction);
+  builder.searchPipeline.before(lunr.stemmer, normalizeAccentsLunrPipelineFunction);
+}
+
 @Component({
   selector: 'biosimulations-table',
   templateUrl: './table.component.html',
@@ -315,7 +336,10 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     // set up full text index
     const columns = this.columns;
+
     this.fullTextIndex = lunr(function (this: any) {
+      this.use(addAccentNormalizationToLunrBuilder);
+
       this.ref('index');
       columns.forEach((column: Column): void => {
         this.field(column.heading.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-'));
