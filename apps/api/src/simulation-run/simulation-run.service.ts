@@ -58,6 +58,7 @@ import { Readable } from 'stream';
 import { firstValueFrom, Observable, of, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Endpoints } from '@biosimulations/config/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { FilesService } from '../files/files.service';
 import { SpecificationsService } from '../specifications/specifications.service';
 import { ResultsService } from '../results/results.service';
@@ -82,7 +83,6 @@ import {
 } from '../metadata/metadata.model';
 import { OntologyApiService } from '@biosimulations/ontology/api';
 import { Cache } from 'cache-manager';
-import { AxiosError } from 'axios';
 
 // 1 GB in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
@@ -415,9 +415,9 @@ export class SimulationRunService {
       return firstValueFrom(
         this.httpService.get<ISimulator[]>(url).pipe(
           this.getRetryBackoff(),
-          catchError((error: AxiosError): Observable<null | false> => {
+          catchError((error: HttpErrorResponse): Observable<null | false> => {
             this.logger.error(error.message);
-            if (error?.response?.status === HttpStatus.NOT_FOUND) {
+            if (error.status === HttpStatus.NOT_FOUND) {
               return of(null);
             } else {
               return of(false);
@@ -441,9 +441,9 @@ export class SimulationRunService {
       return firstValueFrom(
         this.httpService.get<ISimulator>(url).pipe(
           this.getRetryBackoff(),
-          catchError((error: AxiosError): Observable<null | false> => {
+          catchError((error: HttpErrorResponse): Observable<null | false> => {
             this.logger.error(error.message);
-            if (error?.response?.status === HttpStatus.NOT_FOUND) {
+            if (error.status === HttpStatus.NOT_FOUND) {
               return of(null);
             } else {
               return of(false);
@@ -466,20 +466,17 @@ export class SimulationRunService {
       initialInterval: 100,
       maxRetries: 10,
       resetOnSuccess: true,
-      shouldRetry: (error: AxiosError): boolean => {
-        const value =
-          error.isAxiosError &&
-          [
-            HttpStatus.REQUEST_TIMEOUT,
-            HttpStatus.INTERNAL_SERVER_ERROR,
-            HttpStatus.BAD_GATEWAY,
-            HttpStatus.GATEWAY_TIMEOUT,
-            HttpStatus.SERVICE_UNAVAILABLE,
-            HttpStatus.TOO_MANY_REQUESTS,
-            undefined,
-            null,
-          ].includes(error?.response?.status);
-        return value;
+      shouldRetry: (error: any): boolean => {
+        return [
+          HttpStatus.REQUEST_TIMEOUT,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          HttpStatus.BAD_GATEWAY,
+          HttpStatus.GATEWAY_TIMEOUT,
+          HttpStatus.SERVICE_UNAVAILABLE,
+          HttpStatus.TOO_MANY_REQUESTS,
+          undefined,
+          null,
+        ].includes(error?.status);
       },
     });
   }

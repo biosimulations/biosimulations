@@ -72,7 +72,7 @@ export class BrowseComponent implements OnInit {
         return project.metadata.encodes
           .map((v: LabeledIdentifier) => {
             if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
+              return v.uri.replace(/[/#.]/g, ' ');
             } else {
               return '';
             }
@@ -97,7 +97,7 @@ export class BrowseComponent implements OnInit {
         return project.metadata.taxa
           .map((v: LabeledIdentifier) => {
             if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
+              return v.uri.replace(/[/#.]/g, ' ');
             } else {
               return '';
             }
@@ -136,7 +136,7 @@ export class BrowseComponent implements OnInit {
         return project.metadata.citations
           .map((v: LabeledIdentifier) => {
             if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
+              return v.uri.replace(/[/#.]/g, ' ');
             } else {
               return '';
             }
@@ -161,7 +161,7 @@ export class BrowseComponent implements OnInit {
         return project.metadata.creators
           .map((v: LabeledIdentifier) => {
             if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
+              return v.uri.replace(/[/#.]/g, ' ');
             } else {
               return '';
             }
@@ -186,7 +186,7 @@ export class BrowseComponent implements OnInit {
         return project.metadata.contributors
           .map((v: LabeledIdentifier) => {
             if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
+              return v.uri.replace(/[/#.]/g, ' ');
             } else {
               return '';
             }
@@ -211,7 +211,7 @@ export class BrowseComponent implements OnInit {
         return (project.metadata.license || [])
           .map((v: LabeledIdentifier) => {
             if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
+              return v.uri.replace(/[/#.]/g, ' ');
             } else {
               return '';
             }
@@ -236,7 +236,7 @@ export class BrowseComponent implements OnInit {
         return project.metadata.funders
           .map((v: LabeledIdentifier) => {
             if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
+              return v.uri.replace(/[/#.]/g, ' ');
             } else {
               return '';
             }
@@ -261,7 +261,7 @@ export class BrowseComponent implements OnInit {
         return project.metadata.identifiers
           .map((v: LabeledIdentifier) => {
             if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
+              return v.uri.replace(/[/#.]/g, ' ');
             } else {
               return '';
             }
@@ -291,10 +291,10 @@ export class BrowseComponent implements OnInit {
           .map((v: DescribedIdentifier) => {
             let val = '';
             if (!v.attribute_label && v.attribute_uri) {
-              val += this.processUriForSearch(v.attribute_uri);
+              val += v.attribute_uri.replace(/[/#.]/g, ' ');
             }
             if (!v.label && v.uri) {
-              val += this.processUriForSearch(v.uri);
+              val += v.uri.replace(/[/#.]/g, ' ');
             }
             return val;
           })
@@ -593,9 +593,5 @@ export class BrowseComponent implements OnInit {
 
   public openControls(route: string, router: Router): void {
     this.controlsOpen = !this.controlsOpen;
-  }
-
-  private processUriForSearch(uri: string): string {
-    return uri.replace(/[/#:.]/g, ' ');
   }
 }

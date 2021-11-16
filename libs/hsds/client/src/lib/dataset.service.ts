@@ -20,8 +20,6 @@ import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import { retryBackoff } from 'backoff-rxjs';
 import { firstValueFrom, Observable } from 'rxjs';
-import { AxiosError } from 'axios';
-
 const DATASET = 'datasets';
 const GROUP = 'groups';
 
@@ -55,20 +53,17 @@ export class SimulationHDFService {
       initialInterval: initialInterval,
       maxRetries: maxRetries,
       resetOnSuccess: true,
-      shouldRetry: (error: AxiosError): boolean => {
-        return (
-          error.isAxiosError &&
-          [
-            HttpStatus.REQUEST_TIMEOUT,
-            HttpStatus.INTERNAL_SERVER_ERROR,
-            HttpStatus.BAD_GATEWAY,
-            HttpStatus.GATEWAY_TIMEOUT,
-            HttpStatus.SERVICE_UNAVAILABLE,
-            HttpStatus.TOO_MANY_REQUESTS,
-            undefined,
-            null,
-          ].includes(error?.response?.status)
-        );
+      shouldRetry: (error: any): boolean => {
+        return [
+          HttpStatus.REQUEST_TIMEOUT,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          HttpStatus.BAD_GATEWAY,
+          HttpStatus.GATEWAY_TIMEOUT,
+          HttpStatus.SERVICE_UNAVAILABLE,
+          HttpStatus.TOO_MANY_REQUESTS,
+          undefined,
+          null,
+        ].includes(error?.status);
       },
     });
   }

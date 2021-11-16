@@ -459,12 +459,13 @@ export class SpecificationsController {
   })
   @ApiCreatedResponse({
     description: 'The simulation experiments were succcessfully saved',
+    type: [SimulationRunSedDocument],
   })
   public async createSpecification(
     @Body() specifications: SimulationRunSedDocumentInputsContainer,
-  ): Promise<void> {
-    await this.service.createSpecs(specifications.sedDocuments);
-    return;
+  ): Promise<SimulationRunSedDocument[]> {
+    const specs = await this.service.createSpecs(specifications.sedDocuments);
+    return specs.map(this.returnSpec);
   }
 
   private returnSpec(specs: SpecificationsModel): SimulationRunSedDocument {

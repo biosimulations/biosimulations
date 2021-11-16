@@ -36,7 +36,7 @@ export class SedmlService {
       }),
     );
 
-    await sedml.toPromise();
+    const sedmlString = await sedml.toPromise();
   }
 
   private getSpecsFromArchiveContent(

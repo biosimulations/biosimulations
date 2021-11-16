@@ -110,6 +110,7 @@ export class MetadataController {
   })
   @ApiCreatedResponse({
     description: 'The metadata was successfully saved to the database',
+    type: SimulationRunMetadata,
   })
   @Post()
   @ApiUnauthorizedResponse({
@@ -123,10 +124,16 @@ export class MetadataController {
   @permissions(scopes.metadata.create.id)
   public async makeMetadata(
     @Body() body: SimulationRunMetadataInput,
-  ): Promise<void> {
+  ): Promise<SimulationRunMetadata> {
     const input = { ...body, simulationRun: body.id };
-    await this.service.createMetadata(input);
-    return;
+    const metadata = await this.service.createMetadata(input);
+    const data = metadata.metadata;
+    return new SimulationRunMetadata(
+      metadata.simulationRun,
+      data,
+      metadata.created,
+      metadata.updated,
+    );
   }
 
   @ApiOperation({

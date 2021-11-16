@@ -11,6 +11,7 @@ import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
 import { from, Observable, throwError } from 'rxjs';
 import {
   SimulationRunStatus,
+  SimulationRunSedDocument,
   SimulationRunSedDocumentInput,
   SimulationRunSedDocumentInputsContainer,
 } from '@biosimulations/datamodel/common';
@@ -19,6 +20,7 @@ import {
   ProjectFileInputsContainer,
   ProjectFile,
   SimulationRunMetadataInput,
+  SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { retryBackoff } from 'backoff-rxjs';
 import { AxiosError } from 'axios';
@@ -38,27 +40,26 @@ export class SimulationRunService {
   public postMetadata(
     runId: string,
     metadata: SimulationRunMetadataInput,
-  ): Observable<void> {
+  ): Observable<SimulationRunMetadata> {
     this.logger.log(`Uploading metadata for simulation run '${runId}' ....`);
     const endpoint = this.endpoints.getSimulationRunMetadataEndpoint();
-    return this.postAuthenticated<SimulationRunMetadataInput, void>(
-      runId,
-      endpoint,
-      metadata,
-    );
+    return this.postAuthenticated<
+      SimulationRunMetadataInput,
+      SimulationRunMetadata
+    >(runId, endpoint, metadata);
   }
 
   public postSpecs(
     runId: string,
     specs: SimulationRunSedDocumentInput[],
-  ): Observable<void> {
+  ): Observable<SimulationRunSedDocument[]> {
     this.logger.log(
       `Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`,
     );
     const endpoint = this.endpoints.getSpecificationsEndpoint();
     return this.postAuthenticated<
       SimulationRunSedDocumentInputsContainer,
-      void
+      SimulationRunSedDocument[]
     >(runId, endpoint, { sedDocuments: specs });
   }
 
@@ -258,20 +259,17 @@ export class SimulationRunService {
       initialInterval: 100,
       maxRetries: 12,
       resetOnSuccess: true,
-      shouldRetry: (error: AxiosError): boolean => {
-        return (
-          error.isAxiosError &&
-          [
-            HttpStatus.REQUEST_TIMEOUT,
-            HttpStatus.INTERNAL_SERVER_ERROR,
-            HttpStatus.BAD_GATEWAY,
-            HttpStatus.GATEWAY_TIMEOUT,
-            HttpStatus.SERVICE_UNAVAILABLE,
-            HttpStatus.TOO_MANY_REQUESTS,
-            undefined,
-            null,
-          ].includes(error?.response?.status)
-        );
+      shouldRetry: (error: any): boolean => {
+        return [
+          HttpStatus.REQUEST_TIMEOUT,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+          HttpStatus.BAD_GATEWAY,
+          HttpStatus.GATEWAY_TIMEOUT,
+          HttpStatus.SERVICE_UNAVAILABLE,
+          HttpStatus.TOO_MANY_REQUESTS,
+          undefined,
+          null,
+        ].includes(error?.status);
       },
     });
   }

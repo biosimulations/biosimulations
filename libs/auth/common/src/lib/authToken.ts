@@ -4,7 +4,7 @@ export interface AuthToken {
   aud:
     | 'api.biosimulations.org'
     | 'account.biosimulations.org'
-    | 'api.biosimulators.org';
+    | 'dispatch.biosimulations.org';
   iat: number;
   exp: number;
   azp: string;
