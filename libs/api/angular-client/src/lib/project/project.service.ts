@@ -51,10 +51,10 @@ export class ProjectService {
       );
   }
 
-  public publishProject(projectInput: ProjectInput): Observable<Project> {
+  public publishProject(projectInput: ProjectInput): Observable<void> {
     const url = this.endpoints.getProjectsEndpoint();
     const response = this.http
-      .post<Project>(url, projectInput, {
+      .post<void>(url, projectInput, {
         headers: { 'Content-Type': 'application/json' },
       })
       .pipe(shareReplay(1));

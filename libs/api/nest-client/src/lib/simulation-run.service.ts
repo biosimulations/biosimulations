@@ -11,7 +11,6 @@ import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
 import { from, Observable, throwError } from 'rxjs';
 import {
   SimulationRunStatus,
-  SimulationRunSedDocument,
   SimulationRunSedDocumentInput,
   SimulationRunSedDocumentInputsContainer,
 } from '@biosimulations/datamodel/common';
@@ -20,7 +19,6 @@ import {
   ProjectFileInputsContainer,
   ProjectFile,
   SimulationRunMetadataInput,
-  SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { retryBackoff } from 'backoff-rxjs';
 import { AxiosError } from 'axios';
@@ -40,26 +38,26 @@ export class SimulationRunService {
   public postMetadata(
     runId: string,
     metadata: SimulationRunMetadataInput,
-  ): Observable<SimulationRunMetadata> {
+  ): Observable<void> {
     this.logger.log(`Uploading metadata for simulation run '${runId}' ....`);
     const endpoint = this.endpoints.getSimulationRunMetadataEndpoint();
     return this.postAuthenticated<
       SimulationRunMetadataInput,
-      SimulationRunMetadata
+      void
     >(runId, endpoint, metadata);
   }
 
   public postSpecs(
     runId: string,
     specs: SimulationRunSedDocumentInput[],
-  ): Observable<SimulationRunSedDocument[]> {
+  ): Observable<void> {
     this.logger.log(
       `Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`,
     );
     const endpoint = this.endpoints.getSpecificationsEndpoint();
     return this.postAuthenticated<
       SimulationRunSedDocumentInputsContainer,
-      SimulationRunSedDocument[]
+      void
     >(runId, endpoint, { sedDocuments: specs });
   }
 
