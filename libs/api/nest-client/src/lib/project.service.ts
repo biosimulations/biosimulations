@@ -36,9 +36,9 @@ export class ProjectService {
     );
   }
 
-  public createProject(project: ProjectInput): Observable<Project> {
+  public createProject(project: ProjectInput): Observable<void> {
     const endpoint = this.endpoints.getProjectsEndpoint();
-    return this.postAuthenticated<ProjectInput, Project>(endpoint, project);
+    return this.postAuthenticated<ProjectInput, void>(endpoint, project);
   }
 
   public updateProject(id: string, project: ProjectInput): Observable<Project> {

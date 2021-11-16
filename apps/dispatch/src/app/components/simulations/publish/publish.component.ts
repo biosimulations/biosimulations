@@ -11,7 +11,7 @@ import {
   UnknownSimulation,
   isUnknownSimulation,
 } from '../../../datamodel';
-import { Project, ProjectInput } from '@biosimulations/datamodel/common';
+import { ProjectInput } from '@biosimulations/datamodel/common';
 import {
   FormBuilder,
   FormGroup,
@@ -137,12 +137,14 @@ export class PublishComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const id = this.formGroup.controls.id.value;
     const pubSub = this.projectService
       .publishProject({
-        id: this.formGroup.controls.id.value,
+        id: id,
         simulationRun: this.uuid,
       })
       .pipe(
+        map((): true => true),
         catchError((error: HttpErrorResponse): Observable<undefined> => {
           if (!environment.production) {
             console.log(error);
@@ -161,9 +163,9 @@ export class PublishComponent implements OnInit, OnDestroy {
           return of<undefined>(undefined);
         }),
       )
-      .subscribe((project: Project | undefined): void => {
-        if (project) {
-          const url = this.endpoints.getProjectsView(project.id);
+      .subscribe((project: true | undefined): void => {
+        if (project !== undefined) {
+          const url = this.endpoints.getProjectsView(id);
           const tabWindowId = window.open('about:blank', '_blank');
           if (tabWindowId) {
             tabWindowId.location.href = url;
