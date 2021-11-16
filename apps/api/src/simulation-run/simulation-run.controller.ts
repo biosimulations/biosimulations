@@ -16,6 +16,7 @@ import {
   Get,
   Logger,
   NotFoundException,
+  // ForbiddenException,
   Param,
   Query,
   Patch,
@@ -183,28 +184,29 @@ export class SimulationRunController {
   ): Promise<SimulationRun> {
     const contentType = req.header('Content-Type');
     let run: SimulationRunModelReturnType;
+    const user = req?.user as AuthToken;
     let projectId: string | undefined;
 
     if (!contentType) {
-      throw new UnsupportedMediaTypeException(' Must specifiy a Content-Type');
+      throw new UnsupportedMediaTypeException('The content type must be \'application/json\' or \'multipart/form-data\'.');
     } else if (contentType?.startsWith('multipart/form-data')) {
       const parsedRun = this.getRunForFile(body);
-      run = await this.createRunWithFile(parsedRun, file);
       projectId = parsedRun?.projectId;
+      this.checkPublishProjectPermission(user, projectId);
+      run = await this.createRunWithFile(parsedRun, file);      
     } else if (
       contentType?.startsWith('application/json') &&
       this.isUrlBody(body)
     ) {
-      run = await this.service.createRunWithURL(body);
       projectId = body?.projectId;
+      this.checkPublishProjectPermission(user, projectId);
+      run = await this.service.createRunWithURL(body);      
     } else {
       throw new UnsupportedMediaTypeException(
-        'Can only accept application/json or multipart/form-data content',
+        'The content type must be \'application/json\' or \'multipart/form-data\'.',
       );
     }
     const response = this.makeSimulationRun(run);
-
-    const owner = req?.user as AuthToken;
 
     const message: DispatchJob = {
       simId: run.id,
@@ -217,33 +219,36 @@ export class SimulationRunController {
       envVars: run.envVars,
       purpose: run.purpose,
       projectId: projectId,
-      projectOwner: owner?.sub,
+      projectOwner: user?.sub,
     };
     const sim = await this.dispatchQueue.add(message);
 
     return response;
   }
 
+  private checkPublishProjectPermission(user: AuthToken, projectId?: string): void {
+    // TODO: check that the account has permission to submit publication requests with runs
+    // if (projectId && false) {
+    //   throw new ForbiddenException('This account does not have permission to submit publication requests with simulation run requests. To publish a simulation run with this account, first request a run, then review the results of the run, and then publish the run.');
+    // }
+  }
+
   private getRunForFile(
     body: multipartSimulationRunBody | UploadSimulationRunUrl,
   ): UploadSimulationRun {
-    let parsedRun: UploadSimulationRun;
-
-    try {
-      if (this.isFileUploadBody(body)) {
-        // We are making an unsafe assertion here, since the body could have any type.
-        // This should be caught by the database validation however
-        parsedRun = JSON.parse(body.simulationRun) as UploadSimulationRun;
-      } else {
-        throw new Error('Body is invalid');
+    if (this.isFileUploadBody(body)) {
+      // We are making an unsafe assertion here, since the body could have any type.
+      // This should be caught by the database validation however
+      try {
+        return JSON.parse(body.simulationRun) as UploadSimulationRun;
+      } catch (e) {
+        throw new BadRequestException(
+          'The \'simulationRun\' field of the body of the request is not a valid JSON document: ' + e.message,
+        );
       }
-    } catch (e) {
-      throw new BadRequestException(
-        'The provided input was not valid: ' + e.message,
-      );
+    } else {
+      throw new BadRequestException('The body of the simulation run request must include a \'simulationRun\' field.');
     }
-
-    return parsedRun;
   }
 
   private async createRunWithFile(
@@ -342,7 +347,7 @@ export class SimulationRunController {
       permission ? null : (run.email = null);
       return this.makeSimulationRun(run);
     } else {
-      throw new NotFoundException(`No simulation run with id '${runId}'.`);
+      throw new NotFoundException(`A simulation run with id '${runId}' could not be found.`);
     }
   }
 
