@@ -193,14 +193,14 @@ export class SimulationRunController {
       const parsedRun = this.getRunForFile(body);
       projectId = parsedRun?.projectId;
       this.checkPublishProjectPermission(user, projectId);
-      run = await this.createRunWithFile(parsedRun, file);      
+      run = await this.createRunWithFile(parsedRun, file);
     } else if (
       contentType?.startsWith('application/json') &&
       this.isUrlBody(body)
     ) {
       projectId = body?.projectId;
       this.checkPublishProjectPermission(user, projectId);
-      run = await this.service.createRunWithURL(body);      
+      run = await this.service.createRunWithURL(body);
     } else {
       throw new UnsupportedMediaTypeException(
         'The content type must be \'application/json\' or \'multipart/form-data\'.',
@@ -228,7 +228,7 @@ export class SimulationRunController {
 
   private checkPublishProjectPermission(user: AuthToken, projectId?: string): void {
     if (
-      projectId 
+      projectId
       && !user?.permissions?.includes(scopes.simulationRuns.externallyValidate.id) // TODO: debug for machine accounts
     ) {
       throw new ForbiddenException('This account does not have permission to submit publication requests with simulation run requests. To publish a simulation run with this account, first request a run, then review the results of the run, and then publish the run.');
