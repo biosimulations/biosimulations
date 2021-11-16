@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '@biosimulations/shared/environments';
 import { Observable, shareReplay, map } from 'rxjs';
 import {
   SimulatorIdNameMap,
@@ -12,7 +11,7 @@ import { Endpoints } from '@biosimulations/config/common';
   providedIn: 'root',
 })
 export class SimulatorService {
-  private endpoints = new Endpoints(environment.env);
+  private endpoints = new Endpoints();
   constructor(private http: HttpClient) {}
 
   public getSimulatorIdNameMap(): Observable<SimulatorIdNameMap> {

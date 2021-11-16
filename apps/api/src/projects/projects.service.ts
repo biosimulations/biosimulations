@@ -14,7 +14,6 @@ import { SimulationRunService } from '../simulation-run/simulation-run.service';
 import { ProjectIdCollation, ProjectModel } from './project.model';
 import { DeleteResult } from 'mongodb';
 import { Endpoints } from '@biosimulations/config/common';
-import { ConfigService } from '@nestjs/config';
 import { AuthToken } from '@biosimulations/auth/common';
 import { isAdmin } from '@biosimulations/auth/nest';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
@@ -29,10 +28,8 @@ export class ProjectsService {
   public constructor(
     @InjectModel(ProjectModel.name) private model: Model<ProjectModel>,
     private simulationRunService: SimulationRunService,
-    private config: ConfigService,
   ) {
-    const env = config.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.endpoints = new Endpoints();
   }
 
   /** Get all projects

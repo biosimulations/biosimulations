@@ -7,7 +7,6 @@ import {
   SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { AxiosError } from 'axios';
 
 import {
@@ -25,15 +24,13 @@ export class MetadataService {
   private endpoints: Endpoints;
   public constructor(
     private service: CombineWrapperService,
-    private config: ConfigService,
     private submit: SimulationRunService,
   ) {
-    const env = config.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.endpoints = new Endpoints();
   }
 
   public async createMetadata(id: string): Promise<void> {
-    const url = this.endpoints.getRunDownloadEndpoint(id, true);
+    const url = this.endpoints.getRunDownloadEndpoint(id);
     this.logger.debug(
       `Fetching metadata for archive for simulation run '${id}' at URL: ${url}`,
     );

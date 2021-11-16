@@ -10,7 +10,6 @@ import {
 import { Output, OutputData, Results } from './datamodel';
 import { S3 } from 'aws-sdk';
 import { Endpoints } from '@biosimulations/config/common';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ResultsService {
@@ -19,10 +18,8 @@ export class ResultsService {
   public constructor(
     private storage: SharedStorageService,
     private results: SimulationHDFService,
-    private configService: ConfigService,
   ) {
-    const env = configService.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.endpoints = new Endpoints();
   }
 
   private logger = new Logger(ResultsService.name);

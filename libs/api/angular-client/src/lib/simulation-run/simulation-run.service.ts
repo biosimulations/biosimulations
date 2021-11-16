@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '@biosimulations/shared/environments';
 import { Observable, shareReplay } from 'rxjs';
 import {
   SimulationRun,
@@ -26,7 +25,7 @@ export class SimulationRunService {
   private cachedRunObservables: { [endpoint: string]: Observable<any> } = {};
 
   constructor(private httpClient: HttpClient) {
-    this.endpoints = new Endpoints(environment.env);
+    this.endpoints = new Endpoints();
   }
 
   public getSimulationRun(id: string, cache = true): Observable<SimulationRun> {

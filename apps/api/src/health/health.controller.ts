@@ -17,8 +17,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 @Controller('health')
 @ApiTags('Health')
 export class HealthController {
-  private env = this.config.get('server.env');
-  private endpoints = new Endpoints(this.env);
+  private endpoints = new Endpoints();
   private natsURL = this.config.get('nats.url');
 
   public constructor(

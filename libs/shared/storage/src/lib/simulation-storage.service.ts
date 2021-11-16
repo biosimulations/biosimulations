@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ManagedUpload } from 'aws-sdk/clients/s3';
 import { SharedStorageService } from './shared-storage.service';
 import { Endpoints } from '@biosimulations/config/common';
-import { ConfigService } from '@nestjs/config';
 // hack to get typing to work see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/47780
 // eslint-disable-next-line unused-imports/no-unused-imports-ts
 import multer from 'multer';
@@ -13,10 +12,8 @@ export class SimulationStorageService {
 
   public constructor(
     private storage: SharedStorageService,
-    private configService: ConfigService,
   ) {
-    const env = this.configService.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.endpoints = new Endpoints();
   }
 
   public async extractSimulationArchive(file: string): Promise<any> {

@@ -10,7 +10,9 @@
         "main": "apps/combine-api/src/app.py"
       },
       "configurations": {
-        "production": {}
+        "production": {},
+        "staging": {},
+        "development": {}
       }
     },
     "serve": {

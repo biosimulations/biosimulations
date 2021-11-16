@@ -1,6 +1,5 @@
 import { Endpoints } from '@biosimulations/config/common';
 import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { CombineWrapperService } from '../combineWrapper.service';
 import { HttpService } from '@nestjs/axios';
 import { map, mergeMap, pluck } from 'rxjs';
@@ -17,18 +16,16 @@ export class SedmlService {
   private endpoints: Endpoints;
 
   public constructor(
-    private config: ConfigService,
     private combine: CombineWrapperService,
     private httpService: HttpService,
     private submit: SimulationRunService,
   ) {
-    const env = config.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.endpoints = new Endpoints();
   }
 
   public async processSedml(id: string): Promise<void> {
     this.logger.log(`Processing SED-ML documents for simulation run '${id}'.`);
-    const url = this.endpoints.getRunDownloadEndpoint(id, true);
+    const url = this.endpoints.getRunDownloadEndpoint(id);
     const req = this.combine.getSedMlSpecs(undefined, url);
     const sedml = req.pipe(
       pluck('data'),

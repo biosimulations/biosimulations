@@ -22,8 +22,102 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "libs/shared/environments/src/lib/environment.ts",
-              "with": "libs/shared/environments/src/lib/environment.prod.ts"
+              "replace": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.ts",
+              "with": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.internal.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.external.ts",
+              "with": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.external-prod.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/biosimulations-app-endpoints/biosimulations-app-endpoints.ts",
+              "with": "libs/shared/environments/src/lib/biosimulations-app-endpoints/biosimulations-app-endpoints.prod.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/deployment/deployment.ts",
+              "with": "libs/shared/environments/src/lib/deployment/deployment.prod.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/files-api-endpoint/files-api-endpoint.ts",
+              "with": "libs/shared/environments/src/lib/files-api-endpoint/files-api-endpoint.prod.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.ts",
+              "with": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.internal.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.external.ts",
+              "with": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.external-prod.ts"
+            }
+          ]
+        },
+        "staging": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.ts",
+              "with": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.internal.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.external.ts",
+              "with": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.external-stage.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/biosimulations-app-endpoints/biosimulations-app-endpoints.ts",
+              "with": "libs/shared/environments/src/lib/biosimulations-app-endpoints/biosimulations-app-endpoints.stage.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/deployment/deployment.ts",
+              "with": "libs/shared/environments/src/lib/deployment/deployment.stage.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/files-api-endpoint/files-api-endpoint.ts",
+              "with": "libs/shared/environments/src/lib/files-api-endpoint/files-api-endpoint.stage.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.ts",
+              "with": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.internal.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.external.ts",
+              "with": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.external-stage.ts"
+            }
+          ]
+        },
+        "development": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.ts",
+              "with": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.internal.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.external.ts",
+              "with": "libs/shared/environments/src/lib/biosimulations-api-endpoints/biosimulations-api-endpoints.external-prod.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/biosimulations-app-endpoints/biosimulations-app-endpoints.ts",
+              "with": "libs/shared/environments/src/lib/biosimulations-app-endpoints/biosimulations-app-endpoints.dev.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/deployment/deployment.ts",
+              "with": "libs/shared/environments/src/lib/deployment/deployment.dev.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/files-api-endpoint/files-api-endpoint.ts",
+              "with": "libs/shared/environments/src/lib/files-api-endpoint/files-api-endpoint.dev.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.ts",
+              "with": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.internal.ts"
+            },
+            {
+              "replace": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.external.ts",
+              "with": "libs/shared/environments/src/lib/data-api-endpoint/data-api-endpoint.external-dev.ts"
             }
           ]
         }
