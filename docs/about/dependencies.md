@@ -895,7 +895,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Jon Schlinkert
 │  ├─ url: https://github.com/jonschlinkert
 │  └─ licenseFile: braces/LICENSE
-├─ bson@4.5.3
+├─ bson@4.5.4
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mongodb/js-bson
 │  ├─ publisher: The MongoDB NodeJS Team
@@ -3235,17 +3235,17 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: iskren.chernev@gmail.com
 │  ├─ url: https://github.com/ichernev
 │  └─ licenseFile: moment/LICENSE
-├─ mongodb-connection-string-url@2.1.0
+├─ mongodb-connection-string-url@2.2.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mongodb-js/mongodb-connection-string-url
 │  └─ licenseFile: mongodb-connection-string-url/LICENSE
-├─ mongodb@4.1.3
+├─ mongodb@4.1.4
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mongodb/node-mongodb-native
 │  ├─ publisher: The MongoDB NodeJS Team
 │  ├─ email: dbx-node@mongodb.com
 │  └─ licenseFile: mongodb/LICENSE.md
-├─ mongoose@6.0.12
+├─ mongoose@6.0.13
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Automattic/mongoose
 │  ├─ publisher: Guillermo Rauch
@@ -4793,7 +4793,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/Sebmaster/tr46.js
 │  ├─ publisher: Sebastian Mayr
 │  └─ email: npm@smayr.name
-├─ tr46@2.1.0
+├─ tr46@3.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jsdom/tr46
 │  ├─ publisher: Sebastian Mayr
@@ -5090,25 +5090,25 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: d@domenic.me
 │  ├─ url: https://domenic.me/
 │  └─ licenseFile: webidl-conversions/LICENSE.md
-├─ webidl-conversions@6.1.0
+├─ webidl-conversions@7.0.0
 │  ├─ licenses: BSD-2-Clause
 │  ├─ repository: https://github.com/jsdom/webidl-conversions
 │  ├─ publisher: Domenic Denicola
 │  ├─ email: d@domenic.me
 │  ├─ url: https://domenic.me/
 │  └─ licenseFile: mongodb-connection-string-url/node_modules/webidl-conversions/LICENSE.md
+├─ whatwg-url@11.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/jsdom/whatwg-url
+│  ├─ publisher: Sebastian Mayr
+│  ├─ email: github@smayr.name
+│  └─ licenseFile: mongodb-connection-string-url/node_modules/whatwg-url/LICENSE.txt
 ├─ whatwg-url@5.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/jsdom/whatwg-url
 │  ├─ publisher: Sebastian Mayr
 │  ├─ email: github@smayr.name
 │  └─ licenseFile: whatwg-url/LICENSE.txt
-├─ whatwg-url@9.1.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/jsdom/whatwg-url
-│  ├─ publisher: Sebastian Mayr
-│  ├─ email: github@smayr.name
-│  └─ licenseFile: mongodb-connection-string-url/node_modules/whatwg-url/LICENSE.txt
 ├─ which-boxed-primitive@1.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/inspect-js/which-boxed-primitive
