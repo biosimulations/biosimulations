@@ -229,7 +229,7 @@ export class SimulationRunController {
   private checkPublishProjectPermission(user: AuthToken, projectId?: string): void {
     if (
       projectId
-      && !user?.permissions?.includes(scopes.simulationRuns.externallyValidate.id) // TODO: debug for machine accounts
+      && !user?.permissions?.includes(scopes.simulationRuns.externallyValidate.id)
     ) {
       throw new ForbiddenException('This account does not have permission to submit publication requests with simulation run requests. To publish a simulation run with this account, first request a run, then review the results of the run, and then publish the run.');
     }
@@ -238,10 +238,10 @@ export class SimulationRunController {
   private getRunForFile(
     body: multipartSimulationRunBody | UploadSimulationRunUrl,
   ): UploadSimulationRun {
-    if (this.isFileUploadBody(body)) {
-      // We are making an unsafe assertion here, since the body could have any type.
-      // This should be caught by the database validation however
+    if (this.isFileUploadBody(body)) {      
       try {
+        // We are making an unsafe assertion here, since the body could have any type.
+        // This should be caught by the database validation however
         return JSON.parse(body.simulationRun) as UploadSimulationRun;
       } catch (e) {
         throw new BadRequestException(
