@@ -92,7 +92,7 @@ Run `ng g component my-component --project=my-app` to generate a new component.
 
 ##### Build
 
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--configuration production` flag for a production build.
+Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ##### Running unit tests
 

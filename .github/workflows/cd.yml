@@ -37,7 +37,8 @@ jobs:
         run: npm install -g @nrwl/cli
 
       - name: Build dev app
-        run: nx build ${{matrix.app}} --configuration development --with-deps
+
+        run: mv libs/shared/environments/src/lib/environment.stage.ts libs/shared/environments/src/lib/environment.prod.ts && nx build ${{matrix.app}} --prod --with-deps
 
       - name: Upload build
         uses: actions/upload-artifact@v2
@@ -78,9 +79,11 @@ jobs:
         run: npm install -g @nrwl/cli
 
       - name: Build prod app
-        run: nx build ${{matrix.app}} --configuration production --with-deps
+
+        run:  nx build ${{matrix.app}} --prod --with-deps
 
       - name: Upload build
+
         uses: actions/upload-artifact@v2
         with:
           name: ${{matrix.app}}-prod
