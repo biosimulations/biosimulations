@@ -35,7 +35,7 @@ export class AuthTestController {
     description: 'The status of the API was successfully checked',
   })
   ping(@Req() req: any) {
-    throw new ImATeapotException('Called the endpoint successfully');
+    throw new ImATeapotException('The endpoint executed successfully.');
   }
 
   @UseGuards(JwtGuard)

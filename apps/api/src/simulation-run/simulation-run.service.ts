@@ -292,7 +292,7 @@ export class SimulationRunService {
 
       return this.createRun(run, file.size, simulationProjectFile, id);
     } catch (err) {
-      const message = err?.message || 'Error Uploading File';
+      const message = err?.message || 'An error occurred in uploading the COMBINE archive for the simulation run.';
       throw new BiosimulationsException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         message,
@@ -318,7 +318,7 @@ export class SimulationRunService {
     let originalName;
     let encoding;
 
-    this.logger.debug(`Downloading file from ${url}.`);
+    this.logger.debug(`Downloading file from ${url} ...`);
     const file = await firstValueFrom(
       this.httpService.get(url, {
         responseType: 'arraybuffer',
@@ -360,7 +360,7 @@ export class SimulationRunService {
       this.logger.debug(`Downloaded file from ${url}.`);
       return this.createRunWithFile(body, fileObj);
     } else {
-      throw new Error('Unable to process file.');
+      throw new BadRequestException(`The COMBINE archive for the simulation run could not be obtained from ${url}. Please check that the URL is accessible.`);
     }
   }
   /**
@@ -580,7 +580,7 @@ export class SimulationRunService {
           "A summary of run '${runs[iRun].id}' could not be retrieved.",
         );
         throw new InternalServerErrorException(
-          'One or more summaries could not be retrieved.',
+          'One or more summaries of simulation runs could not be retrieved.',
         );
       }
       return settledResult.value;
@@ -816,7 +816,7 @@ export class SimulationRunService {
       });
     } else if (raiseErrors) {
       throw new InternalServerErrorException(
-        'Information about the files, simulation experiments, or log could not be retrieved.',
+        `Information about the files, simulation experiments, or log for simulation run '${id}' could not be retrieved.`,
       );
     }
 
@@ -855,7 +855,7 @@ export class SimulationRunService {
       };
     } else if (raiseErrors) {
       throw new InternalServerErrorException(
-        'Information about the files, simulation experiments, or log could not be retrieved.',
+        `Information about the files, simulation experiments, or log for simulation run '${id}' could not be retrieved.`,
       );
     }
 
