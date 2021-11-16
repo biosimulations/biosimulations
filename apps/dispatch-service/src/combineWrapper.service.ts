@@ -8,6 +8,7 @@ import { Injectable, HttpStatus } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 import { retryBackoff } from 'backoff-rxjs';
+import { AxiosError } from 'axios';
 
 @Injectable()
 export class CombineWrapperService {
@@ -18,8 +19,8 @@ export class CombineWrapperService {
       initialInterval: 100,
       maxRetries: 12,
       resetOnSuccess: true,
-      shouldRetry: (error: any): boolean => {
-        return [
+      shouldRetry: (error: AxiosError): boolean => {
+        return error.isAxiosError && [
           HttpStatus.REQUEST_TIMEOUT,
           HttpStatus.INTERNAL_SERVER_ERROR,
           HttpStatus.BAD_GATEWAY,
@@ -28,7 +29,7 @@ export class CombineWrapperService {
           HttpStatus.TOO_MANY_REQUESTS,
           undefined,
           null,
-        ].includes(error?.status);
+        ].includes(error?.response?.status);
       },
     });
   }
