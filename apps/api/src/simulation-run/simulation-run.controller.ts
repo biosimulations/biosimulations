@@ -238,7 +238,7 @@ export class SimulationRunController {
   private getRunForFile(
     body: multipartSimulationRunBody | UploadSimulationRunUrl,
   ): UploadSimulationRun {
-    if (this.isFileUploadBody(body)) {      
+    if (this.isFileUploadBody(body)) {
       try {
         // We are making an unsafe assertion here, since the body could have any type.
         // This should be caught by the database validation however
