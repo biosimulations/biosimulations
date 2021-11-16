@@ -86,11 +86,11 @@ jobs:
         name: Start CI Run
         if: always()
 
-      - run: npx nx affected --target=lint --parallel & P1=$! npx nx affected --target=build --prod --parallel & P2=$! npx nx affected --target=test --parallel & P3=$! && wait $P1 $P2 $P3
+      - run: npx nx affected --target=lint --parallel & P1=$! npx nx affected --target=build --configuration production --parallel & P2=$! npx nx affected --target=test --parallel & P3=$! && wait $P1 $P2 $P3
         name: Lint Build Test Affected
         if:  ${{inputs.affectedOnly}}
 
-      - run: npx nx run-many --all --target=lint --parallel & P1=$! npx nx run-many --all --target=build --prod --parallel & P2=$! npx nx run-many --all --target=test --parallel & P3=$! && wait $P1 $P2 $P3
+      - run: npx nx run-many --all --target=lint --parallel & P1=$! npx nx run-many --all --target=build --configuration production --parallel & P2=$! npx nx run-many --all --target=test --parallel & P3=$! && wait $P1 $P2 $P3
         name: Lint Build Test All
         if: ${{!inputs.affectedOnly}}
 
