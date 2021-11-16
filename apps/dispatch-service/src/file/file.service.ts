@@ -1,6 +1,5 @@
 import { Endpoints } from '@biosimulations/config/common';
 import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 
 import { CombineWrapperService } from '../combineWrapper.service';
@@ -23,18 +22,16 @@ export class FileService {
   private endpoints: Endpoints;
 
   public constructor(
-    private config: ConfigService,
     private combine: CombineWrapperService,
     private httpService: HttpService,
     private submit: SimulationRunService,
   ) {
-    const env = config.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.endpoints = new Endpoints();
   }
 
   public async processFiles(id: string): Promise<void> {
     this.logger.log(`Processing files for simulation run '${id}'.`);
-    const url = this.endpoints.getRunDownloadEndpoint(id, true);
+    const url = this.endpoints.getRunDownloadEndpoint(id);
 
     const files: Observable<ProjectFile[]> = this.combine
       .getManifest(undefined, url)

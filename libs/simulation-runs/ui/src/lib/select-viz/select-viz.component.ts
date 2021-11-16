@@ -22,7 +22,6 @@ import {
   DesignVisualization,
   VisualizationList,
 } from '@biosimulations/datamodel-simulation-runs';
-// import { urls } from '@biosimulations/config/common';
 import { DesignHistogram1DVisualizationComponent } from '../design-histogram-1d-viz/design-histogram-1d-viz.component';
 import { DesignHeatmap2DVisualizationComponent } from '../design-heatmap-2d-viz/design-heatmap-2d-viz.component';
 import { DesignLine2DVisualizationComponent } from '../design-line-2d-viz/design-line-2d-viz.component';

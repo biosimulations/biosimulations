@@ -5,6 +5,7 @@ import { Configuration } from '@biosimulations/hdf5/api-client';
 import { ConfigService } from '@nestjs/config';
 import { APIClientWrapperModule } from './api-client-wrapper.module';
 import { SimulationHDFService } from './dataset.service';
+import { Endpoints } from '@biosimulations/config/common';
 
 @Module({
   imports: [
@@ -14,7 +15,9 @@ import { SimulationHDFService } from './dataset.service';
       imports: [BiosimulationsConfigModule],
       useFactory: {
         createHSDSConnectionOptions: (service: ConfigService) => {
-          const basePath = service.get('data.basePath');
+          const endpoints = new Endpoints();
+
+          const basePath = endpoints.getHsdsBasePath();
           const username = service.get('data.username');
           const password = service.get('data.password');
           const withCredentials = service.get('data.withCredentials');

@@ -5,7 +5,6 @@ import {
 import { SimulationRun } from '@biosimulations/datamodel/api';
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
 import { Endpoints } from '@biosimulations/config/common';
 import { AuthClientService } from '@biosimulations/auth/client';
 import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
@@ -34,10 +33,8 @@ export class SimulationRunService {
   public constructor(
     private auth: AuthClientService,
     private http: HttpService,
-    private configService: ConfigService,
   ) {
-    const env = this.configService.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.endpoints = new Endpoints();
   }
 
   public postMetadata(

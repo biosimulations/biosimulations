@@ -72,7 +72,6 @@ export class VegaVisualizationService {
             anyData.url = this.endpoints.getRunResultsEndpoint(
               simulationRunId,
               anyData.sedmlUri.join('/'),
-              true,
             );
             anyData.format = {
               type: 'json',

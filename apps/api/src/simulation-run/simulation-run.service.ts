@@ -64,7 +64,6 @@ import { SpecificationsService } from '../specifications/specifications.service'
 import { ResultsService } from '../results/results.service';
 import { LogsService } from '../logs/logs.service';
 import { MetadataService } from '../metadata/metadata.service';
-import { ConfigService } from '@nestjs/config';
 import { FileModel } from '../files/files.model';
 import {
   SpecificationsModel,
@@ -129,7 +128,6 @@ export class SimulationRunService {
     private logsService: LogsService,
     private metadataService: MetadataService,
     private ontologiesService: OntologyApiService,
-    private configService: ConfigService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {
     const vegaFormatOmexManifestUris = BIOSIMULATIONS_FORMATS.filter(
@@ -143,8 +141,7 @@ export class SimulationRunService {
       );
     }
 
-    const env = this.configService.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.endpoints = new Endpoints();
   }
 
   public async setStatus(

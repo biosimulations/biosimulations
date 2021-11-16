@@ -37,8 +37,7 @@ export class SimulationHDFService {
     @Inject(LinkService) private linkService: LinkService,
     private configService: ConfigService,
   ) {
-    const env = this.configService.get('server.env');
-    this.endpoints = new Endpoints(env);
+    this.endpoints = new Endpoints();
 
     const username = this.configService.get('data.username');
     const password = this.configService.get('data.password');

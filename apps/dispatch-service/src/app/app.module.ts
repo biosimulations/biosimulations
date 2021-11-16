@@ -44,9 +44,8 @@ import { Endpoints } from '@biosimulations/config/common';
     DispatchNestClientModule,
     CombineNestClientModule.forRootAsync({
       imports: [BiosimulationsConfigModule],
-      useFactory: (configService: ConfigService) => {
-        const env = configService.get('server.env');
-        const endpoints = new Endpoints(env);
+      useFactory: () => {
+        const endpoints = new Endpoints();
         const combineBaseUrl = endpoints.getCombineApiEndpoint();
         return new CombineAPIConfiguration({
           basePath: combineBaseUrl,
