@@ -99,6 +99,12 @@ export class Organization implements IOrganization {
     description: 'Name of the organization',
   })
   name!: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    description: 'URL for the organization',
+  })
+  url?: string;
 }
 
 export class Account implements IAccount {
@@ -120,6 +126,12 @@ export class Account implements IAccount {
     description: 'Name of the account',
   })
   name!: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    description: 'URL for the account',
+  })
+  url?: string;
 
   @ApiProperty({
     type: [Organization],

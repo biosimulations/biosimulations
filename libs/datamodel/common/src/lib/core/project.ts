@@ -14,6 +14,7 @@ export interface ProjectInput extends Omit<Project, 'created' | 'updated'> {
 export interface Organization {
   id: string;
   name: string;
+  url?: string;
 }
 
 export enum AccountType {
@@ -25,6 +26,7 @@ export interface Account {
   type: AccountType;
   id: string;
   name: string;
+  url?: string;
   organizations: Organization[];
 }
 

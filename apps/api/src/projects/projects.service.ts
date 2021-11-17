@@ -274,6 +274,7 @@ export class ProjectsService {
     let type!: AccountType;
     let id!: string;
     let name!: string;
+    let url!: string | undefined;
 
     let organizationsDetails!: Auth0Organization[];
     if (this.accountManagementService.isClientId(auth0Id)) {
@@ -281,6 +282,7 @@ export class ProjectsService {
       const client = await this.accountManagementService.getClient(auth0Id);
       id = client.client_metadata.id;
       name = client.name as string;
+      url = client.client_metadata?.url;
 
       const organizationIds = JSON.parse(client.client_metadata.organizations);
       organizationsDetails = await Promise.all(
@@ -293,6 +295,7 @@ export class ProjectsService {
       const user = await this.accountManagementService.getUser(auth0Id);
       id = user?.user_metadata?.username as string;
       name = user?.name as string;
+      url = user?.user_metadata?.url;
 
       organizationsDetails = await this.accountManagementService.getUserOrganizations(auth0Id);
     }
@@ -301,6 +304,7 @@ export class ProjectsService {
         return {
           id: organization.name,
           name: organization?.display_name || organization.name,
+          url: organization?.metadata?.url,
         };
       }
     );
@@ -309,6 +313,7 @@ export class ProjectsService {
       type,
       id,
       name,
+      url,
       organizations,
     };
   }
