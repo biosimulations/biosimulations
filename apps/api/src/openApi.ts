@@ -104,7 +104,7 @@ export async function setupOpenApi(app: INestApplication): Promise<void> {
   for (const tag of tags) {
     builder.addTag(tag.name, tag.description);
   }
-  // TODO add all scopes/find a way to automate this from auth0 or at least create a common library to keep consistent
+
   const scopes: ScopesObject = getScopesForAudience('api.biosimulations.org');
   const authorizationUrl =
     'https://auth.biosimulations.org/authorize?audience=api.biosimulations.org';
