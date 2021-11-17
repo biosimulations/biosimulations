@@ -57,7 +57,7 @@ describe('ResponsiveTableComponent', () => {
         BiosimulationsIconsModule,
         FlexLayoutModule,
         MatTooltipModule,
-        NgSelectModule
+        NgSelectModule,
       ],
       declarations: [
         ResponsiveTableComponent,

@@ -636,8 +636,7 @@ export class TableComponent implements OnInit, AfterViewInit {
           }
           default: {
             this.columnFilterData[column.id]?.forEach((val: any): void => {
-              const checked =
-                filter?.[column.id]?.includes(val.value) || false;
+              const checked = filter?.[column.id]?.includes(val.value) || false;
               if (checked !== val.checked) {
                 val.checked = checked;
               }
