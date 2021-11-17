@@ -489,7 +489,7 @@ export class BrowseComponent implements OnInit {
       key: 'owner',
       heading: 'Owner',
       leftIcon: 'author',
-      filterable: false,
+      filterable: true,
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string => {
@@ -513,6 +513,7 @@ export class BrowseComponent implements OnInit {
           }
         }
       },
+      filterType: ColumnFilterType.stringAutoComplete,
       filterComparator: (value: string, other: string, sign = 1): number => {
         if (value === 'Other') {
           if (other === 'Other') {
@@ -534,7 +535,7 @@ export class BrowseComponent implements OnInit {
       key: ['metadata', 'creators'],
       heading: 'Creators',
       leftIcon: 'author',
-      filterable: false,
+      filterable: true,
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
@@ -553,13 +554,14 @@ export class BrowseComponent implements OnInit {
           })
           .join(' ');
       },
+      filterType: ColumnFilterType.stringAutoComplete,
     },
     {
       id: 'contributors',
       key: ['metadata', 'contributors'],
       heading: 'Contributors',
       leftIcon: 'curator',
-      filterable: false,
+      filterable: true,
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
@@ -578,6 +580,7 @@ export class BrowseComponent implements OnInit {
           })
           .join(' ');
       },
+      filterType: ColumnFilterType.stringAutoComplete,
     },
     {
       id: 'funders',

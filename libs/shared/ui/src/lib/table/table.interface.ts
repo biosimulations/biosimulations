@@ -10,6 +10,7 @@ export enum ColumnActionType {
 
 export enum ColumnFilterType {
   string = 'string',
+  stringAutoComplete = 'stringAutoComplete',
   number = 'number',
   date = 'date',
 }
