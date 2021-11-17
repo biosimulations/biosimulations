@@ -301,7 +301,7 @@ export class BrowseComponent implements OnInit {
     {
       id: 'simulator',
       key: ['simulationRun', 'simulatorName'],
-      heading: 'Simulation tool',
+      heading: 'Simulation tools',
       leftIcon: 'simulator',
       hidden: false,
       show: false,
@@ -551,7 +551,7 @@ export class BrowseComponent implements OnInit {
       key: ['metadata', 'contributors'],
       heading: 'Contributors',
       leftIcon: 'curator',
-      filterable: true,
+      filterable: false,
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {

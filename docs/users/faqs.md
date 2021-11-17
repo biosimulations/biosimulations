@@ -22,7 +22,7 @@ Yes. The [search engine](https::/biosimulations.org/projects) supports searching
 | Model formats         |                        |       | `model-formats`         | [EDAM](https://edamontology.org/), [SED-ML URN](https://sed-ml.org/urns.html) |
 | Simulation types      |                        |       | `simulation-types`      |                                                                               |
 | Simulation algorithms |                        |       | `simulation-algorithms` | [KiSAO](https://github.com/SED-ML/KiSAO)                                      |
-| Simulation tool       |                        |       | `simulator`             | [BioSimulators](https://biosimulators.org)                                    |
+| Simulation tools      |                        |       | `simulation-tools`      | [BioSimulators](https://biosimulators.org)                                    |
 | Reports               | Report formats         |       | `reports`               |                                                                               |
 | Visualizations        | Visualization formats  |       | `visualizations`        |                                                                               |
 | Project size          | COMBINE archive size   | MB    | `project-size`          |                                                                               |
