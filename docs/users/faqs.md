@@ -287,8 +287,24 @@ The OpenAPI [specification](https://api.biosimulations.org/openapi.json) for the
 
 BioSimulations' [REST API](https://api.biosimulations.org) provides an endpoint which returns summaries of each project. This can be used to programmatically search for projects. We plan provide a SPARQL endpoint to support more flexible querying.
 
-## User accounts
+## User accounts and organizations
 
 **Is a user account or registration needed to use BioSimulations?**
 
 No account or registration is needed to browse or publish projects to BioSimulations. However, to be able to later edit a project, users must create an account and use that account to publish the project.
+
+**How can I create an organization?**
+
+Organizations are groups of users and/or machine accounts. Currently, organizations are used to indicate projects submitted by primary model repositories such as BioModels and consortia. Please contact the [BioSimulations Team](mailto:info@biosimulations.org) to request an organization. In your request, please include the following information:
+
+- Desired id for the organization (lower case letters, numbers, dashes, and underscores)
+- Name of the organization
+- URL for more information about the organization
+- List of need user accounts
+  - Desired id (e.g., john-doe)
+  - Name (e.g., John Doe)
+  - (Optional) URL for more information about the user
+- List of needed machine accounts (tokens for programmatically submitting projects)
+  - Desired id (e.g., biomodels-bot)
+  - Name (e.g., BioModels bot)
+  - (Optional) URL for more information about the account
