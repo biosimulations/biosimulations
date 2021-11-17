@@ -21,6 +21,7 @@ export type BiosimulationsIcon =
   | 'bug'
   | 'error'
   | 'user'
+  | 'organization'
   | 'author'
   | 'curator'
   | 'reviewer'
@@ -177,6 +178,7 @@ export class IconComponent {
     orcid: { type: 'fab', name: 'orcid' },
     file: { type: 'fas', name: 'file-alt' },
     user: { type: 'fas', name: 'user' },
+    organization: { type: 'fas', name: 'users' },
     author: { type: 'fas', name: 'user-edit' },
     curator: { type: 'fas', name: 'user-tag' },
     reviewer: { type: 'fas', name: 'user-check' },

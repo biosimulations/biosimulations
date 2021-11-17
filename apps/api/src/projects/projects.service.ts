@@ -1,13 +1,17 @@
-import { ProjectInput, ProjectSummary } from '@biosimulations/datamodel/api';
+import { ProjectInput, ProjectSummary, Account, Organization } from '@biosimulations/datamodel/api';
+import { AccountType } from '@biosimulations/datamodel/common';
 import {
   Injectable,
+  Inject,
   Logger,
   NotFoundException,
   InternalServerErrorException,
   ForbiddenException,
   BadRequestException,
   HttpStatus,
+  CACHE_MANAGER,
 } from '@nestjs/common';
+import { Cache } from 'cache-manager';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
@@ -19,6 +23,8 @@ import { AuthToken } from '@biosimulations/auth/common';
 import { isAdmin } from '@biosimulations/auth/nest';
 import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { scopes } from '@biosimulations/auth/common';
+import { ManagementService as AccountManagementService } from '@biosimulations/account/management';
+import { Organization as Auth0Organization } from 'auth0';
 
 @Injectable()
 export class ProjectsService {
@@ -29,9 +35,11 @@ export class ProjectsService {
   public constructor(
     @InjectModel(ProjectModel.name) private model: Model<ProjectModel>,
     private simulationRunService: SimulationRunService,
-    private config: ConfigService,
+    private accountManagementService: AccountManagementService,
+    private configService: ConfigService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {
-    const env = config.get('server.env');
+    const env = configService.get('server.env');
     this.endpoints = new Endpoints(env);
   }
 
@@ -224,14 +232,89 @@ export class ProjectsService {
       );
     }
 
+    const ownerAuth0Id = project?.owner;
+    let owner: Account | undefined;
+    if (ownerAuth0Id) {
+      owner = await this.getAccount(ownerAuth0Id);
+    }
+
     return {
       id: id,
       simulationRun: await this.simulationRunService.getRunSummary(
         project.simulationRun,
         true,
       ),
+      owner: owner,
       created: project.created,
       updated: project.updated,
+    };
+  }
+
+  /** Get information about an account from the cache or from Auth0 if its not in the cache
+   * @param auth0Id: Auth0 user or client id
+   */
+  private async getAccount(auth0Id: string): Promise<Account> {
+    const cacheKey = `Account:info:${auth0Id}`;
+    const cachedAccount = await this.cacheManager.get(cacheKey) as Account | null;
+    
+    if (cachedAccount) {
+      return cachedAccount;
+    
+    } else {
+      const account = await this._getAccount(auth0Id);
+      await this.cacheManager.set(cacheKey, account, { ttl: 60 * 24 }); // 1 day; to enable users and organizations to change their names
+      return account;
+    }
+  }
+  
+  /** Get information about an account from Auth0
+   * @param auth0Id: Auth0 user or client id
+   */
+  private async _getAccount(auth0Id: string): Promise<Account> {
+    let type!: AccountType;
+    let id!: string;
+    let name!: string;
+    let url!: string | undefined;
+
+    let organizationsDetails!: Auth0Organization[];
+    if (this.accountManagementService.isClientId(auth0Id)) {
+      type = AccountType.machine;
+      const client = await this.accountManagementService.getClient(auth0Id);
+      id = client.client_metadata.id;
+      name = client.name as string;
+      url = client.client_metadata?.url;
+
+      const organizationIds = JSON.parse(client.client_metadata.organizations);
+      organizationsDetails = await Promise.all(
+        organizationIds.map((organizationId: string): Promise<Auth0Organization> => {
+          return this.accountManagementService.getOrganization(organizationIds);
+        })
+      );
+    } else {
+      type = AccountType.user;
+      const user = await this.accountManagementService.getUser(auth0Id);
+      id = user?.user_metadata?.username as string;
+      name = user?.name as string;
+      url = user?.user_metadata?.url;
+
+      organizationsDetails = await this.accountManagementService.getUserOrganizations(auth0Id);
+    }
+    const organizations = organizationsDetails.map(
+      (organization: Auth0Organization): Organization => {
+        return {
+          id: organization.name,
+          name: organization?.display_name || organization.name,
+          url: organization?.metadata?.url,
+        };
+      }
+    );
+
+    return {
+      type,
+      id,
+      name,
+      url,
+      organizations,
     };
   }
 

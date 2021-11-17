@@ -19,7 +19,9 @@ import {
 export class ProjectService {
   private endpoints = new Endpoints();
 
-  private projectSummaries!: Observable<ProjectSummary[]>;
+  private cachedProjectId?: string;
+  private cachedProjectObservables: { [endpoint: string]: Observable<any> } = {};
+  private cachedProjectSummaries!: Observable<ProjectSummary[]>;
 
   constructor(private http: HttpClient) {}
 
@@ -63,25 +65,41 @@ export class ProjectService {
 
   public getProject(projectId: string): Observable<Project> {
     const url = this.endpoints.getProjectsEndpoint(projectId);
-    const response = this.http.get<Project>(url).pipe(shareReplay(1));
-    return response;
+    return this.getData<Project>(projectId, url);
   }
 
   public getProjectSummaries(): Observable<ProjectSummary[]> {
     const url = this.endpoints.getProjectSummariesEndpoint();
 
-    if (!this.projectSummaries) {
-      this.projectSummaries = this.http
+    if (!this.cachedProjectSummaries) {
+      this.cachedProjectSummaries = this.http
         .get<ProjectSummary[]>(url)
         .pipe(shareReplay(1));
     }
 
-    return this.projectSummaries;
+    return this.cachedProjectSummaries;
   }
 
   public getProjectSummary(projectId: string): Observable<ProjectSummary> {
     const url = this.endpoints.getProjectSummariesEndpoint(projectId);
-    const response = this.http.get<ProjectSummary>(url).pipe(shareReplay(1));
-    return response;
+    return this.getData<ProjectSummary>(projectId, url);
+  }
+
+  private getData<T>(
+    projectId: string,
+    endpoint: string,
+  ): Observable<T> {
+    if (projectId !== this.cachedProjectId) {
+      this.cachedProjectId = projectId;
+      this.cachedProjectObservables = {};
+    }
+
+    let observable = this.cachedProjectObservables[endpoint];
+    if (!observable) {
+      observable = this.http.get<any>(endpoint).pipe(shareReplay(1));
+      this.cachedProjectObservables[endpoint] = observable;
+    }
+
+    return observable as Observable<T>;
   }
 }

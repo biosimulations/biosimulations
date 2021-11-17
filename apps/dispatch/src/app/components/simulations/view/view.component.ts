@@ -27,6 +27,7 @@ import { SimulationStatusService } from '../../../services/simulation/simulation
 import { Dataset, WithContext } from 'schema-dts';
 import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 import { environment } from '@biosimulations/shared/environments';
+import { SimulationRunService } from '@biosimulations/angular-api-client';
 
 @Component({
   templateUrl: './view.component.html',
@@ -60,6 +61,7 @@ export class ViewComponent implements OnInit {
 
   public constructor(
     private simulationService: SimulationService,
+    private simulationRunService: SimulationRunService,
     private dispatchService: DispatchService,
     private sharedViewService: SharedViewService,
     private viewService: ViewService,
@@ -75,7 +77,10 @@ export class ViewComponent implements OnInit {
     this.projectMetadata$ = this.statusSucceeded$.pipe(
       map((succeeded: boolean): Observable<ProjectMetadata | undefined> => {
         if (succeeded) {
-          return this.sharedViewService.getFormattedProjectMetadata(id);
+          return this.simulationRunService.getSimulationRunSummary(id).pipe(
+              map((simulationRunSummary) => this.sharedViewService.getFormattedProjectMetadata(simulationRunSummary)),
+              shareReplay(1),
+            );
         } else {
           return of(undefined);
         }
@@ -93,7 +98,10 @@ export class ViewComponent implements OnInit {
     this.projectFiles$ = this.statusSucceeded$.pipe(
       map((succeeded: boolean): Observable<Path[] | undefined> => {
         if (succeeded) {
-          return this.sharedViewService.getFormattedProjectFiles(id);
+          return this.simulationRunService.getSimulationRunSummary(id).pipe(
+            map((simulationRunSummary) => this.sharedViewService.getFormattedProjectFiles(simulationRunSummary)),
+            shareReplay(1),
+          );
         } else {
           return of(undefined);
         }
@@ -129,7 +137,10 @@ export class ViewComponent implements OnInit {
     this.outputs$ = this.statusSucceeded$.pipe(
       map((succeeded: boolean): Observable<File[] | undefined> => {
         if (succeeded) {
-          return this.sharedViewService.getFormattedOutputFiles(id);
+          return this.simulationRunService.getSimulationRunSummary(id).pipe(
+            map((simulationRunSummary) => this.sharedViewService.getFormattedOutputFiles(simulationRunSummary)),
+            shareReplay(1),
+          );
         } else {
           return of(undefined);
         }
@@ -176,7 +187,10 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
-    this.jsonLdData$ = this.sharedViewService.getJsonLdData(id);
+    this.jsonLdData$ = this.simulationRunService.getSimulationRunSummary(id).pipe(
+      map((simulationRunSummary) => this.sharedViewService.getJsonLdData(simulationRunSummary)),
+      shareReplay(1),
+    );
 
     this.resultsLoaded$ = combineLatest([
       this.projectMetadata$,

@@ -4,6 +4,7 @@ import {
   EnvironmentVariable,
   SimulationRunTaskSummary,
   SimulationRunOutputSummary,
+  Account,
 } from '@biosimulations/datamodel/common';
 
 export interface FormattedSimulationRunSummary {
@@ -47,6 +48,7 @@ export interface FormattedProjectSummary {
   tasks: SimulationRunTaskSummary[];
   outputs: SimulationRunOutputSummary[];
   metadata: FormattedProjectMetadataSummary;
+  owner?: Account;
   created: Date;
   updated: Date;
 }

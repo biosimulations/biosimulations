@@ -75,6 +75,7 @@ export class BrowseService {
                     ? this.formatDate(metadata?.modified)
                     : undefined,
                 },
+                owner: project?.owner,
                 created: this.formatDate(project.created),
                 updated: this.formatDate(project.updated),
               };

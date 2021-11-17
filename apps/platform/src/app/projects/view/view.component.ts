@@ -32,12 +32,11 @@ import { BiosimulationsError } from '@biosimulations/shared/error-handler';
 export class ViewComponent implements OnInit {
   public loaded$!: Observable<boolean>;
 
-  public id!: string;
-  public simulationRunId$!: Observable<string>;
+  private id!: string;
   public projectMetadata$!: Observable<ProjectMetadata | undefined>;
   public simulationRun$!: Observable<SimulationRunMetadata>;
 
-  public projectFiles$!: Observable<Path[]>;
+  public projectFiles$!: Observable<File[]>;
   public files$!: Observable<Path[]>;
   public outputs$!: Observable<File[]>;
 
@@ -60,7 +59,7 @@ export class ViewComponent implements OnInit {
 
   public ngOnInit(): void {
     const id = (this.id = this.route.snapshot.params['id']);
-    const project$ = this.projService.getProject(id).pipe(
+    const projectSummary$ = this.projService.getProjectSummary(id).pipe(
       shareReplay(1),
       catchError((error: HttpErrorResponse) => {
         const appError =
@@ -77,55 +76,50 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
-    this.simulationRunId$ = project$.pipe(
-      map((project) => project.simulationRun),
-      shareReplay(1),
-    );
-
-    this.projectMetadata$ = this.simulationRunId$.pipe(
-      mergeMap((simulationRun) =>
-        this.service.getFormattedProjectMetadata(simulationRun),
+    this.projectMetadata$ = projectSummary$.pipe(
+      map((projectSummary) =>
+        this.service.getFormattedProjectMetadata(projectSummary.simulationRun, projectSummary?.owner),
       ),
       shareReplay(1),
     );
 
-    this.simulationRun$ = this.simulationRunId$.pipe(
-      mergeMap((simulationRun) =>
-        this.service.getFormattedSimulationRun(simulationRun),
+    this.simulationRun$ = projectSummary$.pipe(
+      mergeMap((projectSummary) =>
+        this.service.getFormattedSimulationRun(projectSummary.simulationRun),
       ),
       shareReplay(1),
     );
 
-    this.projectFiles$ = this.simulationRunId$.pipe(
-      mergeMap((simulationRun) =>
-        this.service.getFormattedProjectFiles(simulationRun),
+    this.projectFiles$ = projectSummary$.pipe(
+      map((projectSummary) =>
+        this.service.getFormattedProjectFiles(projectSummary.simulationRun),
       ),
       shareReplay(1),
     );
 
-    this.files$ = this.simulationRunId$.pipe(
-      mergeMap((simulationRun) =>
-        this.service.getFormattedProjectContentFiles(simulationRun),
+    this.files$ = projectSummary$.pipe(
+      mergeMap((projectSummary) =>
+        this.service.getFormattedProjectContentFiles(projectSummary.simulationRun.id),
       ),
       shareReplay(1),
     );
 
-    this.outputs$ = this.simulationRunId$.pipe(
-      mergeMap((simulationRun) =>
-        this.service.getFormattedOutputFiles(simulationRun),
+    this.outputs$ = projectSummary$.pipe(
+      map((projectSummary) =>
+        this.service.getFormattedOutputFiles(projectSummary.simulationRun),
       ),
       shareReplay(1),
     );
 
-    this.visualizations$ = this.simulationRunId$.pipe(
-      mergeMap((simulationRun) =>
-        this.service.getVisualizations(simulationRun),
+    this.visualizations$ = projectSummary$.pipe(
+      mergeMap((projectSummary) =>
+        this.service.getVisualizations(projectSummary.simulationRun.id),
       ),
       shareReplay(1),
     );
 
-    this.jsonLdData$ = combineLatest([project$, this.simulationRunId$]).pipe(
-      mergeMap((args) => this.service.getJsonLdData(args[1], args[0])),
+    this.jsonLdData$ = projectSummary$.pipe(
+      map((projectSummary) => this.service.getJsonLdData(projectSummary.simulationRun, projectSummary)),
       shareReplay(1),
     );
 

@@ -25,8 +25,10 @@ import {
   SimulationRunOutput,
   SimulationRunOutputDatum,
   File as CombineArchiveFile,
-  Project,
+  ProjectSummary,
   EdamTerm,
+  Account,
+  Organization,
 } from '@biosimulations/datamodel/common';
 import { BIOSIMULATIONS_FORMATS } from '@biosimulations/ontology/extra-sources';
 import { SimulationRunService } from '@biosimulations/angular-api-client';
@@ -51,10 +53,10 @@ import {
 import { FormatService } from '@biosimulations/shared/services';
 import { Spec as VegaSpec } from 'vega';
 import {
-  Dataset,
-  Person,
-  Article,
-  Organization,
+  Dataset as DatasetSchema,
+  Person as PersonSchema,
+  Article as ArticleSchema,
+  Organization as OrganizationSchema,
   WithContext,
 } from 'schema-dts';
 import { Endpoints } from '@biosimulations/config/common';
@@ -119,190 +121,200 @@ export class ViewService {
   }
 
   public getFormattedProjectMetadata(
-    runId: string,
-  ): Observable<ProjectMetadata | undefined> {
-    return this.simRunService.getSimulationRunSummary(runId).pipe(
-      map(
-        (
-          simulationRunSummary: SimulationRunSummary,
-        ): ProjectMetadata | undefined => {
-          const metadata = simulationRunSummary.metadata;
-          if (!metadata) {
-            return undefined;
+    simulationRunSummary: SimulationRunSummary,
+    owner?: Account,
+  ): ProjectMetadata | undefined {
+    const metadata = simulationRunSummary.metadata;
+    if (!metadata) {
+      return undefined;
+    }
+
+    // Check for undefined metadata for all fields
+    const formattedMetadata: ProjectMetadata = {
+      thumbnails: metadata?.thumbnails || [],
+      title: metadata?.title || simulationRunSummary.id,
+      abstract: metadata?.abstract,
+      creators: (metadata?.creators || []).map(
+        (creator: LabeledIdentifier): Creator => {
+          let icon: string = 'link';
+          if (creator.uri) {
+            if (
+              creator.uri.match(
+                /^https?:\/\/(wwww\.)?(identifiers\.org\/orcid[:/]|orcid\.org\/)/i,
+              )
+            ) {
+              icon = 'orcid';
+            } else if (
+              creator.uri.match(
+                /^https?:\/\/(wwww\.)?(identifiers\.org\/github[:/]|github\.com\/)/i,
+              )
+            ) {
+              icon = 'github';
+            } else if (
+              creator.uri.match(/^https?:\/\/(wwww\.)?(linkedin\.com\/)/i)
+            ) {
+              icon = 'linkedin';
+            } else if (
+              creator.uri.match(/^https?:\/\/(wwww\.)?(twitter\.com\/)/i)
+            ) {
+              icon = 'twitter';
+            } else if (
+              creator.uri.match(/^https?:\/\/(wwww\.)?(facebook\.com\/)/i)
+            ) {
+              icon = 'facebook';
+            } else if (creator.uri.match(/^mailto:/i)) {
+              icon = 'email';
+            }
           }
 
-          // Check for undefined metadata for all fields
-          const formattedMetadata: ProjectMetadata = {
-            thumbnails: metadata?.thumbnails || [],
-            title: metadata?.title || runId,
-            abstract: metadata?.abstract,
-            creators: (metadata?.creators || []).map(
-              (creator: LabeledIdentifier): Creator => {
-                let icon: string = 'link';
-                if (creator.uri) {
-                  if (
-                    creator.uri.match(
-                      /^https?:\/\/(wwww\.)?(identifiers\.org\/orcid[:/]|orcid\.org\/)/i,
-                    )
-                  ) {
-                    icon = 'orcid';
-                  } else if (
-                    creator.uri.match(
-                      /^https?:\/\/(wwww\.)?(identifiers\.org\/github[:/]|github\.com\/)/i,
-                    )
-                  ) {
-                    icon = 'github';
-                  } else if (
-                    creator.uri.match(/^https?:\/\/(wwww\.)?(linkedin\.com\/)/i)
-                  ) {
-                    icon = 'linkedin';
-                  } else if (
-                    creator.uri.match(/^https?:\/\/(wwww\.)?(twitter\.com\/)/i)
-                  ) {
-                    icon = 'twitter';
-                  } else if (
-                    creator.uri.match(/^https?:\/\/(wwww\.)?(facebook\.com\/)/i)
-                  ) {
-                    icon = 'facebook';
-                  } else if (creator.uri.match(/^mailto:/i)) {
-                    icon = 'email';
-                  }
-                }
-
-                return {
-                  label: creator.label,
-                  uri: creator.uri,
-                  icon: icon as BiosimulationsIcon,
-                };
-              },
-            ),
-            description: metadata?.description,
-            attributes: [],
+          return {
+            label: creator.label,
+            uri: creator.uri,
+            icon: icon as BiosimulationsIcon,
           };
-
-          formattedMetadata.attributes.push({
-            values: metadata?.encodes,
-            icon: 'cell',
-            title: 'Biology',
-          });
-          formattedMetadata.attributes.push({
-            values: metadata?.taxa,
-            icon: 'taxon',
-            title: 'Taxon',
-          });
-          formattedMetadata.attributes.push({
-            values: metadata?.keywords,
-            icon: 'tags',
-            title: 'Keyword',
-          });
-          (metadata?.other || []).forEach(
-            (other: DescribedIdentifier): void => {
-              formattedMetadata.attributes.push({
-                icon: 'info',
-                title: (other.attribute_label || other.attribute_uri) as string,
-                values: [
-                  {
-                    label: (other.label || other.uri) as string,
-                    uri: other.uri,
-                  },
-                ],
-              });
-            },
-          );
-          formattedMetadata.attributes.push({
-            values: metadata?.seeAlso,
-            icon: 'link',
-            title: 'More info',
-          });
-          formattedMetadata.attributes.push({
-            values: metadata?.citations,
-            icon: 'file',
-            title: 'Citation',
-          });
-          formattedMetadata.attributes.push({
-            values: metadata?.sources,
-            icon: 'code',
-            title: 'Source',
-          });
-          formattedMetadata.attributes.push({
-            values: metadata?.identifiers,
-            icon: 'id',
-            title: 'Cross reference',
-          });
-          formattedMetadata.attributes.push({
-            values: metadata?.predecessors,
-            icon: 'backward',
-            title: 'Predecessor',
-          });
-          formattedMetadata.attributes.push({
-            values: metadata?.successors,
-            icon: 'forward',
-            title: 'Successor',
-          });
-          formattedMetadata.attributes.push({
-            values: metadata?.license,
-            icon: 'license',
-            title: 'License',
-          });
-          formattedMetadata.attributes.push({
-            values: metadata?.contributors,
-            icon: 'author',
-            title: 'Curator',
-          });
-          formattedMetadata.attributes.push({
-            values: metadata?.funders,
-            icon: 'funding',
-            title: 'Funder',
-          });
-
-          if (metadata?.created) {
-            formattedMetadata.attributes.push({
-              icon: 'date',
-              title: 'Created',
-              values: [
-                {
-                  label: FormatService.formatDate(new Date(metadata?.created)),
-                  uri: null,
-                },
-              ],
-            });
-          }
-
-          if (metadata?.modified) {
-            formattedMetadata.attributes.push({
-              icon: 'date',
-              title: 'Last modified',
-              values: [
-                {
-                  label: FormatService.formatDate(new Date(metadata?.modified)),
-                  uri: null,
-                },
-              ],
-            });
-          }
-
-          return formattedMetadata;
         },
       ),
-      shareReplay(1),
+      description: metadata?.description,
+      attributes: [],
+    };
+
+    formattedMetadata.attributes.push({
+      values: metadata?.encodes,
+      icon: 'cell',
+      title: 'Biology',
+    });
+    formattedMetadata.attributes.push({
+      values: metadata?.taxa,
+      icon: 'taxon',
+      title: 'Taxon',
+    });
+    formattedMetadata.attributes.push({
+      values: metadata?.keywords,
+      icon: 'tags',
+      title: 'Keyword',
+    });
+    (metadata?.other || []).forEach(
+      (other: DescribedIdentifier): void => {
+        formattedMetadata.attributes.push({
+          icon: 'info',
+          title: (other.attribute_label || other.attribute_uri) as string,
+          values: [
+            {
+              label: (other.label || other.uri) as string,
+              uri: other.uri,
+            },
+          ],
+        });
+      },
     );
+    formattedMetadata.attributes.push({
+      values: metadata?.seeAlso,
+      icon: 'link',
+      title: 'More info',
+    });
+    formattedMetadata.attributes.push({
+      values: metadata?.sources,
+      icon: 'code',
+      title: 'Source',
+    });
+
+    formattedMetadata.attributes.push({
+      values: metadata?.citations,
+      icon: 'file',
+      title: 'Citation',
+    });
+    formattedMetadata.attributes.push({
+      values: metadata?.identifiers,
+      icon: 'id',
+      title: 'Cross reference',
+    });
+
+    formattedMetadata.attributes.push({
+      values: metadata?.predecessors,
+      icon: 'backward',
+      title: 'Predecessor',
+    });
+    formattedMetadata.attributes.push({
+      values: metadata?.successors,
+      icon: 'forward',
+      title: 'Successor',
+    });
+
+    if (owner) {
+       formattedMetadata.attributes.push({
+        values: owner.organizations.map((organization: Organization): LabeledIdentifier => {
+          return  {
+            label: organization.name,
+            uri: organization?.url || null,
+          };
+        }),
+        icon: 'organization',
+        title: 'Organization',
+      });
+      formattedMetadata.attributes.push({
+        values: [{
+          label: owner.name,
+          uri: owner?.url || null,
+        }],
+        icon: 'author',
+        title: 'Owner',
+      });
+    }
+    formattedMetadata.attributes.push({
+      values: metadata?.contributors,
+      icon: 'author',
+      title: 'Curator',
+    });
+    formattedMetadata.attributes.push({
+      values: metadata?.funders,
+      icon: 'funding',
+      title: 'Funder',
+    });
+
+    formattedMetadata.attributes.push({
+      values: metadata?.license,
+      icon: 'license',
+      title: 'License',
+    });
+
+    if (metadata?.created) {
+      formattedMetadata.attributes.push({
+        icon: 'date',
+        title: 'Created',
+        values: [
+          {
+            label: FormatService.formatDate(new Date(metadata?.created)),
+            uri: null,
+          },
+        ],
+      });
+    }
+
+    if (metadata?.modified) {
+      formattedMetadata.attributes.push({
+        icon: 'date',
+        title: 'Last modified',
+        values: [
+          {
+            label: FormatService.formatDate(new Date(metadata?.modified)),
+            uri: null,
+          },
+        ],
+      });
+    }
+
+    return formattedMetadata;
   }
 
   public getFormattedSimulationRun(
-    runId: string,
+    simulationRunSummary: SimulationRunSummary,
   ): Observable<FormattedSimulationRunMetadata> {
-    return forkJoin([
-      this.simRunService.getSimulationRunSummary(runId),
-      this.simRunService.getSimulationRunSimulationSpecifications(runId),
-    ]).pipe(
+    return this.simRunService.getSimulationRunSimulationSpecifications(simulationRunSummary.id).pipe(
       shareReplay(1),
       map(
         (
-          args: [SimulationRunSummary, SimulationRunSedDocument[]],
+          sedmlArchiveContents: SimulationRunSedDocument[],
         ): FormattedSimulationRunMetadata => {
-          const simulationRunSummary: SimulationRunSummary = args[0];
-          const sedmlArchiveContents: SimulationRunSedDocument[] = args[1];
-
           const modelLanguageSedUrns = new Set<string>();
           const simulationTypes = new Set<string>();
           sedmlArchiveContents.forEach(
@@ -438,7 +450,7 @@ export class ViewService {
             title: 'Id',
             value: simulationRunSummary.id,
             icon: 'id',
-            url: this.endpoints.getSimulationRunsView(runId),
+            url: this.endpoints.getSimulationRunsView(simulationRunSummary.id),
           });
 
           run.push({
@@ -501,37 +513,32 @@ export class ViewService {
     );
   }
 
-  public getFormattedProjectFiles(runId: string): Observable<File[]> {
-    return this.simRunService.getSimulationRunSummary(runId).pipe(
-      map((simulationRunSummary: SimulationRunSummary): File[] => {
-        return [
-          {
-            _type: 'File',
-            level: 0,
-            location: '',
-            title: 'Project',
-            format:
-              this.combineOmexFormat.name +
-              this.combineOmexFormat?.biosimulationsMetadata?.acronym
-                ? ` (${this.combineOmexFormat?.biosimulationsMetadata?.acronym})`
-                : '',
-            formatUrl: this.combineOmexFormat.url,
-            master: false,
-            size:
-              simulationRunSummary.run.projectSize === undefined
-                ? 'N/A'
-                : FormatService.formatDigitalSize(
-                    simulationRunSummary.run.projectSize,
-                  ),
-            icon: (this.combineOmexFormat?.biosimulationsMetadata?.icon ||
-              'archive') as BiosimulationsIcon,
-            url: this.endpoints.getRunDownloadEndpoint(runId),
-            basename: 'project.omex',
-          },
-        ];
-      }),
-      shareReplay(1),
-    );
+  public getFormattedProjectFiles(simulationRunSummary: SimulationRunSummary): File[] {
+    return [
+      {
+        _type: 'File',
+        level: 0,
+        location: '',
+        title: 'Project',
+        format:
+          this.combineOmexFormat.name +
+          this.combineOmexFormat?.biosimulationsMetadata?.acronym
+            ? ` (${this.combineOmexFormat?.biosimulationsMetadata?.acronym})`
+            : '',
+        formatUrl: this.combineOmexFormat.url,
+        master: false,
+        size:
+          simulationRunSummary.run.projectSize === undefined
+            ? 'N/A'
+            : FormatService.formatDigitalSize(
+                simulationRunSummary.run.projectSize,
+              ),
+        icon: (this.combineOmexFormat?.biosimulationsMetadata?.icon ||
+          'archive') as BiosimulationsIcon,
+        url: this.endpoints.getRunDownloadEndpoint(simulationRunSummary.id),
+        basename: 'project.omex',
+      },
+    ];
   }
 
   public getFormattedProjectContentFiles(runId: string): Observable<Path[]> {
@@ -634,59 +641,54 @@ export class ViewService {
     );
   }
 
-  public getFormattedOutputFiles(runId: string): Observable<File[]> {
-    return this.simRunService.getSimulationRunSummary(runId).pipe(
-      map((simulationRunSummary: SimulationRunSummary): File[] => {
-        return [
-          {
-            _type: 'File',
-            level: 0,
-            location: '',
-            title: 'Outputs',
-            format: 'JavaScript Object Notation (JSON) in BioSimulators schema',
-            formatUrl: this.endpoints.getApiBaseUrl(),
-            master: false,
-            size: null,
-            icon: 'report',
-            url: this.endpoints.getRunResultsEndpoint(runId, undefined, true),
-            basename: 'outputs.json',
-          },
-          {
-            _type: 'File',
-            level: 0,
-            location: '',
-            title: 'Outputs',
-            format: 'Zip of HDF5 and PDF files',
-            formatUrl:
-              'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987',
-            master: false,
-            size:
-              simulationRunSummary.run.resultsSize === undefined
-                ? 'N/A'
-                : FormatService.formatDigitalSize(
-                    simulationRunSummary.run.resultsSize,
-                  ),
-            icon: 'report',
-            url: this.endpoints.getRunResultsDownloadEndpoint(runId),
-            basename: 'outputs.zip',
-          },
-          {
-            _type: 'File',
-            level: 0,
-            location: '',
-            title: 'Log',
-            format: 'YAML in BioSimulators log schema',
-            formatUrl: this.endpoints.getConventionsView('simulation-logs'),
-            master: false,
-            size: null,
-            icon: 'logs',
-            url: this.endpoints.getSimulationRunLogsEndpoint(runId),
-            basename: 'log.yml',
-          },
-        ];
-      }),
-      shareReplay(1),
-    );
+  public getFormattedOutputFiles(simulationRunSummary: SimulationRunSummary): File[] {
+    return [
+      {
+        _type: 'File',
+        level: 0,
+        location: '',
+        title: 'Outputs',
+        format: 'JavaScript Object Notation (JSON) in BioSimulators schema',
+        formatUrl: this.endpoints.getApiBaseUrl(),
+        master: false,
+        size: null,
+        icon: 'report',
+        url: this.endpoints.getRunResultsEndpoint(simulationRunSummary.id, undefined, true),
+        basename: 'outputs.json',
+      },
+      {
+        _type: 'File',
+        level: 0,
+        location: '',
+        title: 'Outputs',
+        format: 'Zip of HDF5 and PDF files',
+        formatUrl:
+          'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3987',
+        master: false,
+        size:
+          simulationRunSummary.run.resultsSize === undefined
+            ? 'N/A'
+            : FormatService.formatDigitalSize(
+                simulationRunSummary.run.resultsSize,
+              ),
+        icon: 'report',
+        url: this.endpoints.getRunResultsDownloadEndpoint(simulationRunSummary.id),
+        basename: 'outputs.zip',
+      },
+      {
+        _type: 'File',
+        level: 0,
+        location: '',
+        title: 'Log',
+        format: 'YAML in BioSimulators log schema',
+        formatUrl: this.endpoints.getConventionsView('simulation-logs'),
+        master: false,
+        size: null,
+        icon: 'logs',
+        url: this.endpoints.getSimulationRunLogsEndpoint(simulationRunSummary.id),
+        basename: 'log.yml',
+      },
+    ];
   }
 
   public getVisualizations(runId: string): Observable<VisualizationList[]> {
@@ -1006,230 +1008,224 @@ export class ViewService {
   }
 
   public getJsonLdData(
-    runId: string,
-    project?: Project,
-  ): Observable<WithContext<Dataset>> {
-    return this.simRunService.getSimulationRunSummary(runId).pipe(
-      map(
-        (simulationRunSummary: SimulationRunSummary): WithContext<Dataset> => {
-          const runDataSet: Dataset = {
-            '@type': 'Dataset',
-            includedInDataCatalog: {
-              '@type': 'DataCatalog',
-              name: 'runBioSimulations',
-              description:
-                'Database of runs of biosimulations, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
-              url: this.endpoints.getDispatchAppHome(),
-            },
-            name: simulationRunSummary.name,
-            url: this.endpoints.getSimulationRunsView(runId),
-            identifier: [
-              this.endpoints
-                .getSimulationRunsView(runId)
-                .replace('https://', 'http://'),
-              `http://identifiers.org/runbiosimulations/${runId}`,
-            ],
-            distribution: [
-              {
-                '@type': 'DataDownload',
-                description: 'Project',
-                contentUrl: this.endpoints.getRunDownloadEndpoint(runId),
-                encodingFormat: 'application/zip',
-                contentSize:
-                  simulationRunSummary.run.projectSize === undefined
-                    ? 'N/A'
-                    : FormatService.formatDigitalSize(
-                        simulationRunSummary.run.projectSize,
-                      ),
-              },
-              {
-                '@type': 'DataDownload',
-                description: 'Simulation results',
-                contentUrl: this.endpoints.getRunResultsEndpoint(
-                  runId,
-                  undefined,
-                  true,
+    simulationRunSummary: SimulationRunSummary,
+    projectSummary?: ProjectSummary,
+  ): WithContext<DatasetSchema> {
+    const runId = simulationRunSummary.id;
+    const runDataSet: DatasetSchema = {
+      '@type': 'Dataset',
+      includedInDataCatalog: {
+        '@type': 'DataCatalog',
+        name: 'runBioSimulations',
+        description:
+          'Database of runs of biosimulations, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
+        url: this.endpoints.getDispatchAppHome(),
+      },
+      name: simulationRunSummary.name,
+      url: this.endpoints.getSimulationRunsView(runId),
+      identifier: [
+        this.endpoints
+          .getSimulationRunsView(runId)
+          .replace('https://', 'http://'),
+        `http://identifiers.org/runbiosimulations/${runId}`,
+      ],
+      distribution: [
+        {
+          '@type': 'DataDownload',
+          description: 'Project',
+          contentUrl: this.endpoints.getRunDownloadEndpoint(runId),
+          encodingFormat: 'application/zip',
+          contentSize:
+            simulationRunSummary.run.projectSize === undefined
+              ? 'N/A'
+              : FormatService.formatDigitalSize(
+                  simulationRunSummary.run.projectSize,
                 ),
-                encodingFormat: 'application/json',
-              },
-              {
-                '@type': 'DataDownload',
-                description: 'Simulation outputs',
-                contentUrl: this.endpoints.getRunResultsDownloadEndpoint(runId),
-                encodingFormat: 'application/zip',
-                contentSize:
-                  simulationRunSummary.run.resultsSize === undefined
-                    ? 'N/A'
-                    : FormatService.formatDigitalSize(
-                        simulationRunSummary.run.resultsSize,
-                      ),
-              },
-              {
-                '@type': 'DataDownload',
-                description: 'Simulation log',
-                contentUrl: this.endpoints.getSimulationRunLogsEndpoint(runId),
-                encodingFormat: 'application/json',
-              },
-            ],
-            dateCreated: FormatService.formatDate(
-              new Date(simulationRunSummary.submitted),
-            ),
-            dateModified: FormatService.formatDate(
-              new Date(simulationRunSummary.updated),
-            ),
-            keywords: [
-              'mathematical model',
-              'numerical simulation',
-              'COMBINE',
-              'OMEX',
-              'Simulation Experiment Description Markup Language',
-              'SED-ML',
-              simulationRunSummary.run.simulator.name,
-            ],
-            educationalLevel: 'advanced',
-          };
-
-          const projectMeta = simulationRunSummary.metadata;
-          if (projectMeta) {
-            if (projectMeta.title) {
-              runDataSet.headline = projectMeta.title;
-            }
-            if (projectMeta.abstract) {
-              runDataSet.description = projectMeta.abstract;
-            }
-            if (projectMeta.description) {
-              runDataSet.abstract = projectMeta.description;
-            }
-            runDataSet.thumbnailUrl = projectMeta.thumbnails;
-            runDataSet.keywords = projectMeta.keywords.map(
-              (keyword: LabeledIdentifier): string => {
-                return keyword.label as string;
-              },
-            );
-            runDataSet.creator = projectMeta.creators.map(
-              (creator: LabeledIdentifier) => {
-                const person: Person = {
-                  '@type': 'Person',
-                };
-                if (creator.label) {
-                  person.name = creator.label;
-                }
-                if (creator.uri) {
-                  person.identifier = creator.uri;
-                }
-                return person;
-              },
-            );
-            runDataSet.contributor = projectMeta.contributors.map(
-              (contributor: LabeledIdentifier) => {
-                const person: Person = {
-                  '@type': 'Person',
-                };
-                if (contributor.label) {
-                  person.name = contributor.label;
-                }
-                if (contributor.uri) {
-                  person.identifier = contributor.uri;
-                }
-                return person;
-              },
-            );
-            projectMeta.identifiers
-              .filter(
-                (identifier: LabeledIdentifier) =>
-                  !!identifier && !!identifier?.uri,
-              )
-              .forEach((identifier: LabeledIdentifier): void => {
-                (runDataSet.identifier as string[]).push(
-                  identifier.uri as string,
-                );
-              });
-            runDataSet.citation = projectMeta.citations.map(
-              (citation: LabeledIdentifier) => {
-                const article: Article = {
-                  '@type': 'Article',
-                };
-                if (citation.label) {
-                  article.description = citation.label;
-                }
-                if (citation.uri) {
-                  article.identifier = citation.uri;
-                }
-                return article;
-              },
-            );
-            if (projectMeta.license) {
-              runDataSet.license = projectMeta.license
-                ?.filter((license: LabeledIdentifier) => !!license.uri)
-                ?.map((license: LabeledIdentifier) => license.uri) as string[];
-            }
-            runDataSet.funder = projectMeta.funders.map(
-              (funder: LabeledIdentifier) => {
-                const organization: Organization = {
-                  '@type': 'Organization',
-                };
-                if (funder.label) {
-                  organization.name = funder.label;
-                }
-                if (funder.uri) {
-                  organization.identifier = funder.uri;
-                }
-                return organization;
-              },
-            );
-          }
-
-          if (project) {
-            const dataSet: WithContext<Dataset> = {
-              '@context': 'https://schema.org',
-              '@type': 'Dataset',
-            };
-            Object.assign(dataSet, runDataSet);
-
-            dataSet.includedInDataCatalog = {
-              '@type': 'DataCatalog',
-              name: 'BioSimulations',
-              description:
-                'Open registry of biosimulation projects, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
-              url: this.endpoints.getPlatformAppHome(),
-            };
-            dataSet.url = this.endpoints.getProjectsView(project?.id);
-            dataSet.identifier = [...(dataSet.identifier as string[])];
-            (dataSet.identifier as string[])[0] = this.endpoints
-              .getProjectsView(project?.id)
-              .replace('https://', 'http://');
-            (
-              dataSet.identifier as string[]
-            )[1] = `http://identifiers.org/biosimulations/${project?.id}`;
-            dataSet.creativeWorkStatus = 'Published';
-            dataSet.hasPart = runDataSet;
-            dataSet.distribution = [
-              {
-                '@type': 'DataDownload',
-                description: 'Project',
-                contentUrl: this.endpoints.getProjectsEndpoint(project?.id),
-                encodingFormat: 'application/json',
-              },
-            ];
-            dataSet.datePublished = FormatService.formatDate(
-              new Date(project.created),
-            );
-            dataSet.dateModified = FormatService.formatDate(
-              new Date(project.updated),
-            );
-
-            return dataSet;
-          } else {
-            const dataSet: WithContext<Dataset> = {
-              '@context': 'https://schema.org',
-              '@type': 'Dataset',
-            };
-            Object.assign(dataSet, runDataSet);
-            return dataSet;
-          }
         },
+        {
+          '@type': 'DataDownload',
+          description: 'Simulation results',
+          contentUrl: this.endpoints.getRunResultsEndpoint(
+            runId,
+            undefined,
+            true,
+          ),
+          encodingFormat: 'application/json',
+        },
+        {
+          '@type': 'DataDownload',
+          description: 'Simulation outputs',
+          contentUrl: this.endpoints.getRunResultsDownloadEndpoint(runId),
+          encodingFormat: 'application/zip',
+          contentSize:
+            simulationRunSummary.run.resultsSize === undefined
+              ? 'N/A'
+              : FormatService.formatDigitalSize(
+                  simulationRunSummary.run.resultsSize,
+                ),
+        },
+        {
+          '@type': 'DataDownload',
+          description: 'Simulation log',
+          contentUrl: this.endpoints.getSimulationRunLogsEndpoint(runId),
+          encodingFormat: 'application/json',
+        },
+      ],
+      dateCreated: FormatService.formatDate(
+        new Date(simulationRunSummary.submitted),
       ),
-      shareReplay(1),
-    );
+      dateModified: FormatService.formatDate(
+        new Date(simulationRunSummary.updated),
+      ),
+      keywords: [
+        'mathematical model',
+        'numerical simulation',
+        'COMBINE',
+        'OMEX',
+        'Simulation Experiment Description Markup Language',
+        'SED-ML',
+        simulationRunSummary.run.simulator.name,
+      ],
+      educationalLevel: 'advanced',
+    };
+
+    const projectMeta = simulationRunSummary.metadata;
+    if (projectMeta) {
+      if (projectMeta.title) {
+        runDataSet.headline = projectMeta.title;
+      }
+      if (projectMeta.abstract) {
+        runDataSet.description = projectMeta.abstract;
+      }
+      if (projectMeta.description) {
+        runDataSet.abstract = projectMeta.description;
+      }
+      runDataSet.thumbnailUrl = projectMeta.thumbnails;
+      runDataSet.keywords = projectMeta.keywords.map(
+        (keyword: LabeledIdentifier): string => {
+          return keyword.label as string;
+        },
+      );
+      runDataSet.creator = projectMeta.creators.map(
+        (creator: LabeledIdentifier) => {
+          const person: PersonSchema = {
+            '@type': 'Person',
+          };
+          if (creator.label) {
+            person.name = creator.label;
+          }
+          if (creator.uri) {
+            person.identifier = creator.uri;
+          }
+          return person;
+        },
+      );
+      runDataSet.contributor = projectMeta.contributors.map(
+        (contributor: LabeledIdentifier) => {
+          const person: PersonSchema = {
+            '@type': 'Person',
+          };
+          if (contributor.label) {
+            person.name = contributor.label;
+          }
+          if (contributor.uri) {
+            person.identifier = contributor.uri;
+          }
+          return person;
+        },
+      );
+      projectMeta.identifiers
+        .filter(
+          (identifier: LabeledIdentifier) =>
+            !!identifier && !!identifier?.uri,
+        )
+        .forEach((identifier: LabeledIdentifier): void => {
+          (runDataSet.identifier as string[]).push(
+            identifier.uri as string,
+          );
+        });
+      runDataSet.citation = projectMeta.citations.map(
+        (citation: LabeledIdentifier) => {
+          const article: ArticleSchema = {
+            '@type': 'Article',
+          };
+          if (citation.label) {
+            article.description = citation.label;
+          }
+          if (citation.uri) {
+            article.identifier = citation.uri;
+          }
+          return article;
+        },
+      );
+      if (projectMeta.license) {
+        runDataSet.license = projectMeta.license
+          ?.filter((license: LabeledIdentifier) => !!license.uri)
+          ?.map((license: LabeledIdentifier) => license.uri) as string[];
+      }
+      runDataSet.funder = projectMeta.funders.map(
+        (funder: LabeledIdentifier) => {
+          const organization: OrganizationSchema = {
+            '@type': 'Organization',
+          };
+          if (funder.label) {
+            organization.name = funder.label;
+          }
+          if (funder.uri) {
+            organization.identifier = funder.uri;
+          }
+          return organization;
+        },
+      );
+    }
+
+    if (projectSummary) {
+      const dataSet: WithContext<DatasetSchema> = {
+        '@context': 'https://schema.org',
+        '@type': 'Dataset',
+      };
+      Object.assign(dataSet, runDataSet);
+
+      dataSet.includedInDataCatalog = {
+        '@type': 'DataCatalog',
+        name: 'BioSimulations',
+        description:
+          'Open registry of biosimulation projects, including models, simulation experiments, simulation results, and data visualizations of simulation results.',
+        url: this.endpoints.getPlatformAppHome(),
+      };
+      dataSet.url = this.endpoints.getProjectsView(projectSummary.id);
+      dataSet.identifier = [...(dataSet.identifier as string[])];
+      (dataSet.identifier as string[])[0] = this.endpoints
+        .getProjectsView(projectSummary.id)
+        .replace('https://', 'http://');
+      (
+        dataSet.identifier as string[]
+      )[1] = `http://identifiers.org/biosimulations/${projectSummary.id}`;
+      dataSet.creativeWorkStatus = 'Published';
+      dataSet.hasPart = runDataSet;
+      dataSet.distribution = [
+        {
+          '@type': 'DataDownload',
+          description: 'Project',
+          contentUrl: this.endpoints.getProjectsEndpoint(projectSummary.id),
+          encodingFormat: 'application/json',
+        },
+      ];
+      dataSet.datePublished = FormatService.formatDate(
+        new Date(projectSummary.created),
+      );
+      dataSet.dateModified = FormatService.formatDate(
+        new Date(projectSummary.updated),
+      );
+
+      return dataSet;
+    } else {
+      const dataSet: WithContext<DatasetSchema> = {
+        '@context': 'https://schema.org',
+        '@type': 'Dataset',
+      };
+      Object.assign(dataSet, runDataSet);
+      return dataSet;
+    }
   }
 }

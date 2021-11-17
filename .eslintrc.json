@@ -101,6 +101,7 @@
                   "scope:dispatch",
                   "scope:simulations",
                   "scope:ontology",
+                  "scope:account",
                   "scope:shared",
                   "shared:true"
                 ]

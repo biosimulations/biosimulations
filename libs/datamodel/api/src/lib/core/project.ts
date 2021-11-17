@@ -8,6 +8,9 @@ import {
   Project as IProject,
   ProjectInput as IProjectInput,
   ProjectSummary as IProjectSummary,
+  Account as IAccount,
+  AccountType,
+  Organization as IOrganization,
 } from '@biosimulations/datamodel/common';
 import { SimulationRunSummary } from './simulationRun';
 import {
@@ -84,6 +87,59 @@ export class ProjectInput
   public owner?: string;
 }
 
+export class Organization implements IOrganization {
+  @ApiProperty({
+    type: String,
+    description: 'Id of the organization',
+  })
+  id!: string;
+
+  @ApiProperty({
+    type: String,
+    description: 'Name of the organization',
+  })
+  name!: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    description: 'URL for the organization',
+  })
+  url?: string;
+}
+
+export class Account implements IAccount {
+  @ApiProperty({
+    type: String,
+    description: 'Type of the account',
+    enum: AccountType,
+  })
+  type!: AccountType;
+
+  @ApiProperty({
+    type: String,
+    description: 'Id of the account',
+  })
+  id!: string;
+
+  @ApiProperty({
+    type: String,
+    description: 'Name of the account',
+  })
+  name!: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    description: 'URL for the account',
+  })
+  url?: string;
+
+  @ApiProperty({
+    type: [Organization],
+    description: 'Organizations that the account is a member of',
+  })
+  organizations!: Organization[];
+}
+
 export class ProjectSummary implements IProjectSummary {
   @ApiProperty({
     type: String,
@@ -98,6 +154,12 @@ export class ProjectSummary implements IProjectSummary {
     description: 'Summary of the simulation run for the project',
   })
   simulationRun!: SimulationRunSummary;
+
+  @ApiProperty({
+    type: Account,
+    description: 'Owner of the project',
+  })
+  owner?: Account;
 
   @ApiProperty({
     type: String,

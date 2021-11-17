@@ -246,22 +246,36 @@ export const scopes: Scopes = {
     read: {
       audience: USER_AUDIENCE,
       id: 'read:users',
-      description: 'Get information about users',
+      description: 'Get information about user accounts',
     },
     create: {
       audience: USER_AUDIENCE,
       id: 'create:users',
-      description: 'Create users',
+      description: 'Create user accounts',
     },
     update: {
       audience: USER_AUDIENCE,
       id: 'update:users',
-      description: 'Modify users',
+      description: 'Modify user accounts',
     },
     delete: {
       audience: USER_AUDIENCE,
       id: 'delete:users',
-      description: 'Delete users',
+      description: 'Delete user accounts',
+    },
+  },
+  clients: {
+    read: {
+      audience: USER_AUDIENCE,
+      id: 'read:clients',
+      description: 'Get information about machine accounts',
+    },
+  },
+  organizations: {
+    read: {
+      audience: USER_AUDIENCE,
+      id: 'read:organizations',
+      description: 'Get information about organizations',
     },
   },
   permissions: {
