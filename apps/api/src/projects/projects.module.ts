@@ -35,6 +35,7 @@ import {
 } from '../metadata/metadata.model';
 
 import { OntologyApiService } from '@biosimulations/ontology/api';
+import { ManagementService as AccountManagementService } from '@biosimulations/account/management';
 
 @Module({
   imports: [
@@ -72,6 +73,7 @@ import { OntologyApiService } from '@biosimulations/ontology/api';
     ResultsService,
     MetadataService,
     OntologyApiService,
+    AccountManagementService,
   ],
   controllers: [ProjectsController],
 })

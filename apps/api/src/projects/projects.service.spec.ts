@@ -27,6 +27,7 @@ import {
 
 import { OntologyApiService } from '@biosimulations/ontology/api';
 import { CacheModule } from '@nestjs/common';
+import { ManagementService as AccountManagementService } from '@biosimulations/account/management';
 
 describe('ProjectsService', () => {
   let service: ProjectsService;
@@ -102,6 +103,7 @@ describe('ProjectsService', () => {
         LogsService,
         MetadataService,
         OntologyApiService,
+        { provide: AccountManagementService, useValue: {} },
       ],
     }).compile();
 

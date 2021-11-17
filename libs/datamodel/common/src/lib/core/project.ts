@@ -11,9 +11,27 @@ export interface ProjectInput extends Omit<Project, 'created' | 'updated'> {
   owner?: string;
 }
 
+export interface Organization {
+  id: string;
+  name: string;
+}
+
+export enum AccountType {
+  user = 'user',
+  machine = 'machine',
+}
+
+export interface Account {
+  type: AccountType;
+  id: string;
+  name: string;  
+  organizations: Organization[];
+}
+
 export interface ProjectSummary {
   id: string;
   simulationRun: SimulationRunSummary;
+  owner?: Account;
   created: string;
   updated: string;
 }

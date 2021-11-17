@@ -9,6 +9,7 @@ import {
   LabeledIdentifier,
   DescribedIdentifier,
 } from '@biosimulations/datamodel/common';
+import { RowService } from '@biosimulations/shared/ui';
 
 @Component({
   selector: 'biosimulations-projects-browse',
@@ -143,107 +144,7 @@ export class BrowseComponent implements OnInit {
           })
           .join(' ');
       },
-    },
-    {
-      id: 'creators',
-      key: ['metadata', 'creators'],
-      heading: 'Creators',
-      leftIcon: 'author',
-      filterable: false,
-      hidden: false,
-      show: false,
-      getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.creators.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
-      },
-      extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.metadata.creators
-          .map((v: LabeledIdentifier) => {
-            if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
-            } else {
-              return '';
-            }
-          })
-          .join(' ');
-      },
-    },
-    {
-      id: 'contributors',
-      key: ['metadata', 'contributors'],
-      heading: 'Contributors',
-      leftIcon: 'curator',
-      filterable: true,
-      hidden: false,
-      show: false,
-      getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.contributors.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
-      },
-      extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.metadata.contributors
-          .map((v: LabeledIdentifier) => {
-            if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
-            } else {
-              return '';
-            }
-          })
-          .join(' ');
-      },
-    },
-    {
-      id: 'license',
-      key: ['metadata', 'license'],
-      heading: 'License',
-      leftIcon: 'license',
-      filterable: true,
-      hidden: false,
-      show: false,
-      getter: (project: FormattedProjectSummary): string[] => {
-        return (project.metadata.license || []).map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
-      },
-      extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return (project.metadata.license || [])
-          .map((v: LabeledIdentifier) => {
-            if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
-            } else {
-              return '';
-            }
-          })
-          .join(' ');
-      },
-    },
-    {
-      id: 'funders',
-      key: ['metadata', 'funders'],
-      heading: 'Funders',
-      leftIcon: 'funding',
-      filterable: true,
-      hidden: false,
-      show: false,
-      getter: (project: FormattedProjectSummary): string[] => {
-        return project.metadata.funders.map(
-          (v: LabeledIdentifier) => v.label || v.uri,
-        ) as string[];
-      },
-      extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.metadata.funders
-          .map((v: LabeledIdentifier) => {
-            if (!v.label && v.uri) {
-              return this.processUriForSearch(v.uri);
-            } else {
-              return '';
-            }
-          })
-          .join(' ');
-      },
-    },
+    },    
     {
       id: 'identifiers',
       key: ['metadata', 'identifiers'],
@@ -304,24 +205,7 @@ export class BrowseComponent implements OnInit {
     // sources
     // predecessors
     // successors
-    // seeAlso
-    {
-      id: 'projectSize',
-      key: ['simulationRun', 'projectSize'],
-      heading: 'Project size',
-      leftIcon: 'disk',
-      hidden: false,
-      show: false,
-      filterable: true,
-      getter: (project: FormattedProjectSummary): number => {
-        return project.simulationRun.projectSize / 1e6;
-      },
-      formatter: (value: number): string => {
-        return FormatService.formatDigitalSize(value * 1e6);
-      },
-      filterType: ColumnFilterType.number,
-      units: 'MB',
-    },
+    // seeAlso    
     {
       id: 'modelFormats',
       key: 'tasks',
@@ -412,6 +296,25 @@ export class BrowseComponent implements OnInit {
       },
     },
     {
+      id: 'simulator',
+      key: ['simulationRun', 'simulatorName'],
+      heading: 'Simulation tool',
+      leftIcon: 'simulator',
+      hidden: false,
+      show: false,
+      filterable: true,
+      getter: (project: FormattedProjectSummary): string => {
+        return (
+          project.simulationRun.simulatorName +
+          ' ' +
+          project.simulationRun.simulatorVersion
+        );
+      },
+      extraSearchGetter: (project: FormattedProjectSummary): string => {
+        return project.simulationRun.simulator;
+      },
+    },
+    {
       id: 'reports',
       key: 'outputs',
       heading: 'Reports',
@@ -449,25 +352,23 @@ export class BrowseComponent implements OnInit {
           ),
         ).sort();
       },
-    },
+    },    
     {
-      id: 'simulator',
-      key: ['simulationRun', 'simulatorName'],
-      heading: 'Simulation tool',
-      leftIcon: 'simulator',
+      id: 'projectSize',
+      key: ['simulationRun', 'projectSize'],
+      heading: 'Project size',
+      leftIcon: 'disk',
       hidden: false,
       show: false,
       filterable: true,
-      getter: (project: FormattedProjectSummary): string => {
-        return (
-          project.simulationRun.simulatorName +
-          ' ' +
-          project.simulationRun.simulatorVersion
-        );
+      getter: (project: FormattedProjectSummary): number => {
+        return project.simulationRun.projectSize / 1e6;
       },
-      extraSearchGetter: (project: FormattedProjectSummary): string => {
-        return project.simulationRun.simulator;
+      formatter: (value: number): string => {
+        return FormatService.formatDigitalSize(value * 1e6);
       },
+      filterType: ColumnFilterType.number,
+      units: 'MB',
     },
     {
       id: 'cpus',
@@ -494,6 +395,23 @@ export class BrowseComponent implements OnInit {
       units: 'GB',
     },
     {
+      id: 'resultsSize',
+      key: ['simulationRun', 'resultsSize'],
+      heading: 'Results size',
+      leftIcon: 'disk',
+      hidden: false,
+      show: false,
+      filterable: true,
+      getter: (project: FormattedProjectSummary): number => {
+        return project.simulationRun.resultsSize / 1e6;
+      },
+      formatter: (value: number): string => {
+        return FormatService.formatDigitalSize(value * 1e6);
+      },
+      filterType: ColumnFilterType.number,
+      units: 'MB',
+    },
+    {
       id: 'runtime',
       key: ['simulationRun', 'runtime'],
       heading: 'Runtime',
@@ -511,21 +429,194 @@ export class BrowseComponent implements OnInit {
       units: 'min',
     },
     {
-      id: 'resultsSize',
-      key: ['simulationRun', 'resultsSize'],
-      heading: 'Results size',
-      leftIcon: 'disk',
+      id: 'organizations',
+      key: ['owner', 'organizations'],
+      heading: 'Organizations',
+      leftIcon: 'organization',
+      filterable: true,
       hidden: false,
       show: false,
+      getter: (project: FormattedProjectSummary): string[] => {
+        return project?.owner?.organizations?.map((organization) => organization.name) || ['None'];
+      },
+      extraSearchGetter: (project: FormattedProjectSummary): string | null => {
+        return (project?.owner?.organizations?.map((organization) => organization.id) || ['None']).join(' ');
+      },
+      comparator: (value: string, other: string, sign = 1): number => {
+        if (value === 'None') {
+          if (other === 'None') {
+            return 0;
+          } else {
+            return sign;
+          }
+        } else {
+          if (other === 'None') {
+            return -sign;
+          } else {
+            return RowService.comparator(value, other, sign);
+          }
+        }
+      },
+      filterComparator: (value: string, other: string, sign = 1): number => {
+        if (value === 'None') {
+          if (other === 'None') {
+            return 0;
+          } else {
+            return sign;
+          }
+        } else {
+          if (other === 'None') {
+            return -sign;
+          } else {
+            return RowService.comparator(value, other, sign);
+          }
+        }
+      },
+    },
+    {
+      id: 'owner',
+      key: 'owner',
+      heading: 'Owner',
+      leftIcon: 'author',
+      filterable: false,
+      hidden: false,
+      show: false,
+      getter: (project: FormattedProjectSummary): string => {
+        return project?.owner?.name || 'Other';
+      },
+      extraSearchGetter: (project: FormattedProjectSummary): string | null => {
+        return project?.owner?.id || null;
+      },
+      comparator: (value: string, other: string, sign = 1): number => {
+        if (value === 'Other') {
+          if (other === 'Other') {
+            return 0;
+          } else {
+            return sign;
+          }
+        } else {
+          if (other === 'Other') {
+            return -sign;
+          } else {
+            return RowService.comparator(value, other, sign);
+          }
+        }
+      },
+      filterComparator: (value: string, other: string, sign = 1): number => {
+        if (value === 'Other') {
+          if (other === 'Other') {
+            return 0;
+          } else {
+            return sign;
+          }
+        } else {
+          if (other === 'Other') {
+            return -sign;
+          } else {
+            return RowService.comparator(value, other, sign);
+          }
+        }
+      },
+    },
+    {
+      id: 'creators',
+      key: ['metadata', 'creators'],
+      heading: 'Creators',
+      leftIcon: 'author',
+      filterable: false,
+      hidden: false,
+      show: false,
+      getter: (project: FormattedProjectSummary): string[] => {
+        return project.metadata.creators.map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
+      },
+      extraSearchGetter: (project: FormattedProjectSummary): string => {
+        return project.metadata.creators
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return this.processUriForSearch(v.uri);
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
+      },
+    },
+    {
+      id: 'contributors',
+      key: ['metadata', 'contributors'],
+      heading: 'Contributors',
+      leftIcon: 'curator',
       filterable: true,
-      getter: (project: FormattedProjectSummary): number => {
-        return project.simulationRun.resultsSize / 1e6;
+      hidden: false,
+      show: false,
+      getter: (project: FormattedProjectSummary): string[] => {
+        return project.metadata.contributors.map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
       },
-      formatter: (value: number): string => {
-        return FormatService.formatDigitalSize(value * 1e6);
+      extraSearchGetter: (project: FormattedProjectSummary): string => {
+        return project.metadata.contributors
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return this.processUriForSearch(v.uri);
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
       },
-      filterType: ColumnFilterType.number,
-      units: 'MB',
+    },
+    {
+      id: 'funders',
+      key: ['metadata', 'funders'],
+      heading: 'Funders',
+      leftIcon: 'funding',
+      filterable: true,
+      hidden: false,
+      show: false,
+      getter: (project: FormattedProjectSummary): string[] => {
+        return project.metadata.funders.map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
+      },
+      extraSearchGetter: (project: FormattedProjectSummary): string => {
+        return project.metadata.funders
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return this.processUriForSearch(v.uri);
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
+      },
+    },
+    {
+      id: 'license',
+      key: ['metadata', 'license'],
+      heading: 'License',
+      leftIcon: 'license',
+      filterable: true,
+      hidden: false,
+      show: false,
+      getter: (project: FormattedProjectSummary): string[] => {
+        return (project.metadata.license || []).map(
+          (v: LabeledIdentifier) => v.label || v.uri,
+        ) as string[];
+      },
+      extraSearchGetter: (project: FormattedProjectSummary): string => {
+        return (project.metadata.license || [])
+          .map((v: LabeledIdentifier) => {
+            if (!v.label && v.uri) {
+              return this.processUriForSearch(v.uri);
+            } else {
+              return '';
+            }
+          })
+          .join(' ');
+      },
     },
     {
       id: 'created',
