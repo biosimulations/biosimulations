@@ -24,7 +24,7 @@ export enum AccountType {
 export interface Account {
   type: AccountType;
   id: string;
-  name: string;  
+  name: string;
   organizations: Organization[];
 }
 

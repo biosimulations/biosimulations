@@ -144,7 +144,7 @@ export class BrowseComponent implements OnInit {
           })
           .join(' ');
       },
-    },    
+    },
     {
       id: 'identifiers',
       key: ['metadata', 'identifiers'],
@@ -205,7 +205,7 @@ export class BrowseComponent implements OnInit {
     // sources
     // predecessors
     // successors
-    // seeAlso    
+    // seeAlso
     {
       id: 'modelFormats',
       key: 'tasks',
@@ -352,7 +352,7 @@ export class BrowseComponent implements OnInit {
           ),
         ).sort();
       },
-    },    
+    },
     {
       id: 'projectSize',
       key: ['simulationRun', 'projectSize'],

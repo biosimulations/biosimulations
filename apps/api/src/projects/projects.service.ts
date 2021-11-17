@@ -58,7 +58,7 @@ export class ProjectsService {
 
     const project = await this.model
       .findOne({ id })
-      .collation(ProjectIdCollation);    
+      .collation(ProjectIdCollation);
 
     return project;
   }
@@ -233,7 +233,7 @@ export class ProjectsService {
     }
 
     const ownerAuth0Id = project?.owner;
-    let owner: Account | undefined = undefined;
+    let owner: Account | undefined;
     if (ownerAuth0Id) {
       owner = await this.getAccount(ownerAuth0Id);
     }
@@ -278,7 +278,7 @@ export class ProjectsService {
     let organizationsDetails!: Auth0Organization[];
     if (this.accountManagementService.isClientId(auth0Id)) {
       type = AccountType.machine;
-      const client = await this.accountManagementService.getClient(auth0Id);        
+      const client = await this.accountManagementService.getClient(auth0Id);
       id = client.client_metadata.id;
       name = client.name as string;
 
@@ -287,10 +287,10 @@ export class ProjectsService {
         organizationIds.map((organizationId: string): Promise<Auth0Organization> => {
           return this.accountManagementService.getOrganization(organizationIds);
         })
-      );   
+      );
     } else {
       type = AccountType.user;
-      const user = await this.accountManagementService.getUser(auth0Id);        
+      const user = await this.accountManagementService.getUser(auth0Id);
       id = user?.user_metadata?.username as string;
       name = user?.name as string;
 
