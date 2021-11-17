@@ -21,6 +21,7 @@ import { TableControlsComponent } from './table-controls.component';
 import { TableDataComponent } from './table.interface';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -45,6 +46,7 @@ describe('TableComponent', () => {
         BiosimulationsIconsModule,
         FlexLayoutModule,
         MatTooltipModule,
+        NgSelectModule,
       ],
       declarations: [
         TableComponent,
