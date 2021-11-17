@@ -106,6 +106,7 @@
 
   .mat-expansion-panel:not([class*='mat-elevation-z']) {
     box-shadow: none;
+    overflow: visible;
   }
 
   .mat-expansion-panel-header {
@@ -239,3 +240,4 @@
 biosimulations-icon {
   font-size: 125%;
 }
+

@@ -84,60 +84,105 @@
                       "
                     >
                     </npn-slider>
+
+                    <button
+                      mat-icon-button
+                      class="biosimulations-button text filter-set-clear-all"
+                      (click)="table.clearFilter(column)"
+                    >
+                      Clear filter
+                    </button>
                   </ng-template>
                 </ng-template>
 
-                <mat-form-field *ngSwitchCase="'date'" appearance="fill">
-                  <mat-label>Enter a range of dates</mat-label>
-                  <mat-date-range-input [rangePicker]="picker">
-                    <input
-                      matStartDate
-                      placeholder="Start date"
-                      (dateChange)="table.filterStartDateValue(column, $event)"
-                      [value]="table.columnFilterData[column.id][0]"
-                    />
-                    <input
-                      matEndDate
-                      placeholder="End date"
-                      (dateChange)="table.filterEndDateValue(column, $event)"
-                      [value]="table.columnFilterData[column.id][1]"
-                    />
-                  </mat-date-range-input>
-                  <mat-datepicker-toggle
-                    matSuffix
-                    [for]="picker"
-                  ></mat-datepicker-toggle>
-                  <mat-date-range-picker #picker></mat-date-range-picker>
-                </mat-form-field>
+                <ng-container *ngSwitchCase="'date'">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Enter a range of dates</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                      <input
+                        matStartDate
+                        placeholder="Start date"
+                        (dateChange)="table.filterStartDateValue(column, $event)"
+                        [value]="table.columnFilterData[column.id][0]"
+                      />
+                      <input
+                        matEndDate
+                        placeholder="End date"
+                        (dateChange)="table.filterEndDateValue(column, $event)"
+                        [value]="table.columnFilterData[column.id][1]"
+                      />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </mat-form-field>
 
-                <mat-list *ngSwitchDefault>
-                  <mat-list-item
-                    *ngFor="let value of table.columnFilterData[column.id]"
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button text filter-set-clear-all"
+                    (click)="table.clearFilter(column)"
                   >
-                    <mat-checkbox
-                      #checkbox
-                      [checked]="value.checked"
-                      (change)="
-                        table.filterSetValue(column, value, checkbox.checked)
-                      "
-                      ng-attr-title
-                      [attr.title]="
-                        column.showFilterItemToolTips === true
-                          ? value.formattedValue
-                          : null
-                      "
+                    Clear filter
+                  </button>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'stringAutoComplete'">
+                  <ng-select
+                    [items]="table.columnFilterData[column.id]"
+                    [multiple]="true"
+                    bindValue="value"
+                    bindLabel="formattedValue"
+                    [closeOnSelect]="false"                  
+                    (add)="table.filterSetValue(column, $event, true)"
+                    (remove)="table.filterSetValue(column, $event, false)"
+                    (clear)="table.clearFilter(column)"
+                    (ngModel)="table.filter[column.id]"
+                    #ngSelect
+                  >
+                    <ng-option *ngFor="let value of table.columnFilterData[column.id]" [value]="value.value">{{ value.formattedValue }}</ng-option>
+                  </ng-select>
+
+                   <button
+                    mat-icon-button
+                    class="biosimulations-button text filter-set-clear-all"
+                    (click)="ngSelect.handleClearClick()"
+                  >
+                    Clear filter
+                  </button>
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                  <mat-list>
+                    <mat-list-item
+                      *ngFor="let value of table.columnFilterData[column.id]"
                     >
-                      {{ value.formattedValue }}
-                    </mat-checkbox>
-                  </mat-list-item>
-                </mat-list>
-                <button
-                  mat-icon-button
-                  class="biosimulations-button text filter-set-clear-all"
-                  (click)="table.clearFilter(column)"
-                >
-                  Clear filter
-                </button>
+                      <mat-checkbox
+                        #checkbox
+                        [checked]="value.checked"
+                        (change)="
+                          table.filterSetValue(column, value, checkbox.checked)
+                        "
+                        ng-attr-title
+                        [attr.title]="
+                          column.showFilterItemToolTips === true
+                            ? value.formattedValue
+                            : null
+                        "
+                      >
+                        {{ value.formattedValue }}
+                      </mat-checkbox>
+                    </mat-list-item>                    
+                  </mat-list>       
+                  <button
+                    mat-icon-button
+                    class="biosimulations-button text filter-set-clear-all"
+                    (click)="table.clearFilter(column)"
+                  >
+                    Clear filter
+                  </button>        
+                </ng-container>
               </ng-container>
             </ng-template>
           </mat-expansion-panel>

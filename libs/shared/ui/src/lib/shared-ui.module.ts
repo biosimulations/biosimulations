@@ -25,6 +25,7 @@ import { TableTabularDataComponent } from './table/table-tabular-data.component'
 import { TableControlsComponent } from './table/table-controls.component';
 import { StackedTableComponent } from './table/stacked-table.component';
 import { ResponsiveTableComponent } from './table/responsive-table.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { PageComponent } from './page/page.component';
 import { TabPageComponent } from './tab-page/tab-page.component';
 import { TabPageTabComponent } from './tab-page/tab-page-tab.component';
@@ -53,6 +54,7 @@ import { HtmlSnackBarComponent } from './html-snack-bar/html-snack-bar.component
     RouterModule,
     BiosimulationsIconsModule,
     BreadCrumbsModule,
+    NgSelectModule,
     MatCarouselModule.forRoot(),
   ],
   exports: [
