@@ -1,11 +1,15 @@
 :host {
-  position: absolute;
+  position: sticky;
   z-index: 1000;
   top: 64px;
-  right: 1rem;
   height: 32px;
   display: flex;
   align-items: center;
+  justify-content: end;
+  margin-top: calc(-1rem - 16px);
+  width: 100%;
+  text-align: right;
+  padding-right: 1rem;
 }
 
 @media screen and (max-width: 959px) {
