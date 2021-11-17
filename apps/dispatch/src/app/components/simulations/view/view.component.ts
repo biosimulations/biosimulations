@@ -78,9 +78,13 @@ export class ViewComponent implements OnInit {
       map((succeeded: boolean): Observable<ProjectMetadata | undefined> => {
         if (succeeded) {
           return this.simulationRunService.getSimulationRunSummary(id).pipe(
-              map((simulationRunSummary) => this.sharedViewService.getFormattedProjectMetadata(simulationRunSummary)),
-              shareReplay(1),
-            );
+            map((simulationRunSummary) =>
+              this.sharedViewService.getFormattedProjectMetadata(
+                simulationRunSummary,
+              ),
+            ),
+            shareReplay(1),
+          );
         } else {
           return of(undefined);
         }
@@ -99,7 +103,11 @@ export class ViewComponent implements OnInit {
       map((succeeded: boolean): Observable<Path[] | undefined> => {
         if (succeeded) {
           return this.simulationRunService.getSimulationRunSummary(id).pipe(
-            map((simulationRunSummary) => this.sharedViewService.getFormattedProjectFiles(simulationRunSummary)),
+            map((simulationRunSummary) =>
+              this.sharedViewService.getFormattedProjectFiles(
+                simulationRunSummary,
+              ),
+            ),
             shareReplay(1),
           );
         } else {
@@ -138,7 +146,11 @@ export class ViewComponent implements OnInit {
       map((succeeded: boolean): Observable<File[] | undefined> => {
         if (succeeded) {
           return this.simulationRunService.getSimulationRunSummary(id).pipe(
-            map((simulationRunSummary) => this.sharedViewService.getFormattedOutputFiles(simulationRunSummary)),
+            map((simulationRunSummary) =>
+              this.sharedViewService.getFormattedOutputFiles(
+                simulationRunSummary,
+              ),
+            ),
             shareReplay(1),
           );
         } else {
@@ -187,10 +199,14 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
-    this.jsonLdData$ = this.simulationRunService.getSimulationRunSummary(id).pipe(
-      map((simulationRunSummary) => this.sharedViewService.getJsonLdData(simulationRunSummary)),
-      shareReplay(1),
-    );
+    this.jsonLdData$ = this.simulationRunService
+      .getSimulationRunSummary(id)
+      .pipe(
+        map((simulationRunSummary) =>
+          this.sharedViewService.getJsonLdData(simulationRunSummary),
+        ),
+        shareReplay(1),
+      );
 
     this.resultsLoaded$ = combineLatest([
       this.projectMetadata$,

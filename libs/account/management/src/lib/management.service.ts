@@ -61,7 +61,9 @@ export class ManagementService {
    * @param id client id
    */
   getClient(id: string): Promise<Client> {
-    return this.authzClient.getClient({ client_id: id.substring(0, id.length - '@clients'.length) });
+    return this.authzClient.getClient({
+      client_id: id.substring(0, id.length - '@clients'.length),
+    });
   }
 
   getClients(page = 0, perPage = 10): Promise<Client[]> {

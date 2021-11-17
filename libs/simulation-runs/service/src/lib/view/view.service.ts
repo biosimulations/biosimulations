@@ -193,20 +193,18 @@ export class ViewService {
       icon: 'tags',
       title: 'Keyword',
     });
-    (metadata?.other || []).forEach(
-      (other: DescribedIdentifier): void => {
-        formattedMetadata.attributes.push({
-          icon: 'info',
-          title: (other.attribute_label || other.attribute_uri) as string,
-          values: [
-            {
-              label: (other.label || other.uri) as string,
-              uri: other.uri,
-            },
-          ],
-        });
-      },
-    );
+    (metadata?.other || []).forEach((other: DescribedIdentifier): void => {
+      formattedMetadata.attributes.push({
+        icon: 'info',
+        title: (other.attribute_label || other.attribute_uri) as string,
+        values: [
+          {
+            label: (other.label || other.uri) as string,
+            uri: other.uri,
+          },
+        ],
+      });
+    });
     formattedMetadata.attributes.push({
       values: metadata?.seeAlso,
       icon: 'link',
@@ -241,21 +239,25 @@ export class ViewService {
     });
 
     if (owner) {
-       formattedMetadata.attributes.push({
-        values: owner.organizations.map((organization: Organization): LabeledIdentifier => {
-          return  {
-            label: organization.name,
-            uri: organization?.url || null,
-          };
-        }),
+      formattedMetadata.attributes.push({
+        values: owner.organizations.map(
+          (organization: Organization): LabeledIdentifier => {
+            return {
+              label: organization.name,
+              uri: organization?.url || null,
+            };
+          },
+        ),
         icon: 'organization',
         title: 'Organization',
       });
       formattedMetadata.attributes.push({
-        values: [{
-          label: owner.name,
-          uri: owner?.url || null,
-        }],
+        values: [
+          {
+            label: owner.name,
+            uri: owner?.url || null,
+          },
+        ],
         icon: 'author',
         title: 'Owner',
       });
@@ -309,211 +311,223 @@ export class ViewService {
   public getFormattedSimulationRun(
     simulationRunSummary: SimulationRunSummary,
   ): Observable<FormattedSimulationRunMetadata> {
-    return this.simRunService.getSimulationRunSimulationSpecifications(simulationRunSummary.id).pipe(
-      shareReplay(1),
-      map(
-        (
-          sedmlArchiveContents: SimulationRunSedDocument[],
-        ): FormattedSimulationRunMetadata => {
-          const modelLanguageSedUrns = new Set<string>();
-          const simulationTypes = new Set<string>();
-          sedmlArchiveContents.forEach(
-            (sedDoc: SimulationRunSedDocument): void => {
-              sedDoc.tasks.forEach((abstractTask: SedAbstractTask): void => {
-                if (abstractTask._type === 'SedTask') {
-                  const task = abstractTask as SedTask;
-                  modelLanguageSedUrns.add(task.model.language);
-                  simulationTypes.add(task.simulation._type);
-                }
-              });
-            },
-          );
+    return this.simRunService
+      .getSimulationRunSimulationSpecifications(simulationRunSummary.id)
+      .pipe(
+        shareReplay(1),
+        map(
+          (
+            sedmlArchiveContents: SimulationRunSedDocument[],
+          ): FormattedSimulationRunMetadata => {
+            const modelLanguageSedUrns = new Set<string>();
+            const simulationTypes = new Set<string>();
+            sedmlArchiveContents.forEach(
+              (sedDoc: SimulationRunSedDocument): void => {
+                sedDoc.tasks.forEach((abstractTask: SedAbstractTask): void => {
+                  if (abstractTask._type === 'SedTask') {
+                    const task = abstractTask as SedTask;
+                    modelLanguageSedUrns.add(task.model.language);
+                    simulationTypes.add(task.simulation._type);
+                  }
+                });
+              },
+            );
 
-          const methods: ListItem[] = [];
+            const methods: ListItem[] = [];
 
-          Array.from(simulationTypes)
-            .map((simulationType: string): ListItem => {
-              return {
-                title: 'Simulation',
-                value:
-                  SimulationTypeBriefName[
-                    simulationType as keyof typeof SimulationTypeBriefName
-                  ],
-                icon: 'simulator' as BiosimulationsIcon,
-                url: 'https://sed-ml.org/',
-              };
-            })
-            .sort((a, b): number => {
-              return a.value.localeCompare(b.value, undefined, {
-                numeric: true,
+            Array.from(simulationTypes)
+              .map((simulationType: string): ListItem => {
+                return {
+                  title: 'Simulation',
+                  value:
+                    SimulationTypeBriefName[
+                      simulationType as keyof typeof SimulationTypeBriefName
+                    ],
+                  icon: 'simulator' as BiosimulationsIcon,
+                  url: 'https://sed-ml.org/',
+                };
+              })
+              .sort((a, b): number => {
+                return a.value.localeCompare(b.value, undefined, {
+                  numeric: true,
+                });
               });
+
+            const kisaoIdSimulationAlgorithmMap: {
+              [kisaoId: string]: SimulationRunAlgorithmSummary;
+            } = {};
+            simulationRunSummary?.tasks?.forEach((task) => {
+              kisaoIdSimulationAlgorithmMap[task.simulation.algorithm.kisaoId] =
+                task.simulation.algorithm;
             });
 
-          const kisaoIdSimulationAlgorithmMap: {
-            [kisaoId: string]: SimulationRunAlgorithmSummary;
-          } = {};
-          simulationRunSummary?.tasks?.forEach((task) => {
-            kisaoIdSimulationAlgorithmMap[task.simulation.algorithm.kisaoId] =
-              task.simulation.algorithm;
-          });
-
-          Object.values(kisaoIdSimulationAlgorithmMap)
-            .map((algorithm): ListItem => {
-              return {
-                title: 'Algorithm',
-                value: algorithm.name,
-                icon: 'code' as BiosimulationsIcon,
-                url:
-                  'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' +
-                  algorithm.kisaoId,
-              };
-            })
-            .sort((a, b): number => {
-              return a.value.localeCompare(b.value, undefined, {
-                numeric: true,
+            Object.values(kisaoIdSimulationAlgorithmMap)
+              .map((algorithm): ListItem => {
+                return {
+                  title: 'Algorithm',
+                  value: algorithm.name,
+                  icon: 'code' as BiosimulationsIcon,
+                  url:
+                    'https://www.ebi.ac.uk/ols/ontologies/kisao/terms?iri=http%3A%2F%2Fwww.biomodels.net%2Fkisao%2FKISAO%23' +
+                    algorithm.kisaoId,
+                };
+              })
+              .sort((a, b): number => {
+                return a.value.localeCompare(b.value, undefined, {
+                  numeric: true,
+                });
               });
+
+            const formats: ListItem[] = [];
+            formats.push({
+              title: 'Project',
+              value: 'COMBINE/OMEX',
+              icon: 'archive',
+              url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686',
             });
 
-          const formats: ListItem[] = [];
-          formats.push({
-            title: 'Project',
-            value: 'COMBINE/OMEX',
-            icon: 'archive',
-            url: 'https://www.ebi.ac.uk/ols/ontologies/edam/terms?iri=http%3A%2F%2Fedamontology.org%2Fformat_3686',
-          });
-
-          Array.from(modelLanguageSedUrns)
-            .filter((modelLanguageSedUrn): boolean => {
-              for (const format of BIOSIMULATIONS_FORMATS) {
-                if (
-                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
-                  modelLanguageSedUrn.startsWith(
-                    format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
-                  )
-                ) {
-                  return true;
+            Array.from(modelLanguageSedUrns)
+              .filter((modelLanguageSedUrn): boolean => {
+                for (const format of BIOSIMULATIONS_FORMATS) {
+                  if (
+                    format?.biosimulationsMetadata?.modelFormatMetadata
+                      ?.sedUrn &&
+                    modelLanguageSedUrn.startsWith(
+                      format?.biosimulationsMetadata?.modelFormatMetadata
+                        ?.sedUrn,
+                    )
+                  ) {
+                    return true;
+                  }
                 }
-              }
-              return false;
-            })
-            .map((modelLanguageSedUrn): ListItem => {
-              let modelLanguage!: ListItem;
-              for (const format of BIOSIMULATIONS_FORMATS) {
-                if (
-                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
-                  modelLanguageSedUrn.startsWith(
-                    format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
-                  )
-                ) {
-                  modelLanguage = {
-                    title: 'Model',
-                    value:
-                      format?.biosimulationsMetadata?.acronym || format.name,
-                    icon: 'model',
-                    url: format.url,
-                  };
-                  break;
+                return false;
+              })
+              .map((modelLanguageSedUrn): ListItem => {
+                let modelLanguage!: ListItem;
+                for (const format of BIOSIMULATIONS_FORMATS) {
+                  if (
+                    format?.biosimulationsMetadata?.modelFormatMetadata
+                      ?.sedUrn &&
+                    modelLanguageSedUrn.startsWith(
+                      format?.biosimulationsMetadata?.modelFormatMetadata
+                        ?.sedUrn,
+                    )
+                  ) {
+                    modelLanguage = {
+                      title: 'Model',
+                      value:
+                        format?.biosimulationsMetadata?.acronym || format.name,
+                      icon: 'model',
+                      url: format.url,
+                    };
+                    break;
+                  }
                 }
-              }
-              return modelLanguage;
-            })
-            .sort((a, b): number => {
-              return a.value.localeCompare(b.value, undefined, {
-                numeric: true,
+                return modelLanguage;
+              })
+              .sort((a, b): number => {
+                return a.value.localeCompare(b.value, undefined, {
+                  numeric: true,
+                });
               });
+
+            formats.push({
+              title: 'Simulation',
+              value:
+                this.sedmlFormat?.biosimulationsMetadata?.acronym ||
+                this.sedmlFormat.name,
+              icon: (this.sedmlFormat?.biosimulationsMetadata?.icon ||
+                'simulation') as BiosimulationsIcon,
+              url: this.sedmlFormat.url,
             });
 
-          formats.push({
-            title: 'Simulation',
-            value:
-              this.sedmlFormat?.biosimulationsMetadata?.acronym ||
-              this.sedmlFormat.name,
-            icon: (this.sedmlFormat?.biosimulationsMetadata?.icon ||
-              'simulation') as BiosimulationsIcon,
-            url: this.sedmlFormat.url,
-          });
+            const tools: ListItem[] = [];
+            tools.push({
+              title: 'Simulator',
+              value: `${simulationRunSummary.run.simulator.name} ${simulationRunSummary.run.simulator.version}`,
+              icon: 'simulator',
+              url: this.endpoints.getSimulatorsView(
+                simulationRunSummary.run.simulator.id,
+                simulationRunSummary.run.simulator.version,
+              ),
+            });
 
-          const tools: ListItem[] = [];
-          tools.push({
-            title: 'Simulator',
-            value: `${simulationRunSummary.run.simulator.name} ${simulationRunSummary.run.simulator.version}`,
-            icon: 'simulator',
-            url: this.endpoints.getSimulatorsView(
-              simulationRunSummary.run.simulator.id,
-              simulationRunSummary.run.simulator.version,
-            ),
-          });
+            const run: ListItem[] = [];
 
-          const run: ListItem[] = [];
+            run.push({
+              title: 'Id',
+              value: simulationRunSummary.id,
+              icon: 'id',
+              url: this.endpoints.getSimulationRunsView(
+                simulationRunSummary.id,
+              ),
+            });
 
-          run.push({
-            title: 'Id',
-            value: simulationRunSummary.id,
-            icon: 'id',
-            url: this.endpoints.getSimulationRunsView(simulationRunSummary.id),
-          });
+            run.push({
+              title: 'Duration',
+              value:
+                simulationRunSummary.run.runtime !== undefined
+                  ? FormatService.formatDuration(
+                      simulationRunSummary.run.runtime,
+                    )
+                  : 'N/A',
+              icon: 'duration',
+              url: null,
+            });
 
-          run.push({
-            title: 'Duration',
-            value:
-              simulationRunSummary.run.runtime !== undefined
-                ? FormatService.formatDuration(simulationRunSummary.run.runtime)
-                : 'N/A',
-            icon: 'duration',
-            url: null,
-          });
+            run.push({
+              title: 'CPUs',
+              value: simulationRunSummary.run.cpus.toString(),
+              icon: 'processor',
+              url: null,
+            });
 
-          run.push({
-            title: 'CPUs',
-            value: simulationRunSummary.run.cpus.toString(),
-            icon: 'processor',
-            url: null,
-          });
+            run.push({
+              title: 'Memory',
+              value: FormatService.formatDigitalSize(
+                simulationRunSummary.run.memory * 1e9,
+              ),
+              icon: 'memory',
+              url: null,
+            });
 
-          run.push({
-            title: 'Memory',
-            value: FormatService.formatDigitalSize(
-              simulationRunSummary.run.memory * 1e9,
-            ),
-            icon: 'memory',
-            url: null,
-          });
+            run.push({
+              title: 'Submitted',
+              value: FormatService.formatTime(
+                new Date(simulationRunSummary.submitted),
+              ),
+              icon: 'date',
+              url: null,
+            });
 
-          run.push({
-            title: 'Submitted',
-            value: FormatService.formatTime(
-              new Date(simulationRunSummary.submitted),
-            ),
-            icon: 'date',
-            url: null,
-          });
+            run.push({
+              title: 'Completed',
+              value: FormatService.formatTime(
+                new Date(simulationRunSummary.updated),
+              ),
+              icon: 'date',
+              url: null,
+            });
 
-          run.push({
-            title: 'Completed',
-            value: FormatService.formatTime(
-              new Date(simulationRunSummary.updated),
-            ),
-            icon: 'date',
-            url: null,
-          });
-
-          // return sections
-          const sections = [
-            { title: 'Modeling methods', items: methods },
-            { title: 'Modeling formats', items: formats },
-            { title: 'Simulation tools', items: tools },
-            { title: 'Simulation run', items: run },
-          ];
-          return sections.filter((section: List): boolean => {
-            return section.items.length > 0;
-          });
-        },
-      ),
-      shareReplay(1),
-    );
+            // return sections
+            const sections = [
+              { title: 'Modeling methods', items: methods },
+              { title: 'Modeling formats', items: formats },
+              { title: 'Simulation tools', items: tools },
+              { title: 'Simulation run', items: run },
+            ];
+            return sections.filter((section: List): boolean => {
+              return section.items.length > 0;
+            });
+          },
+        ),
+        shareReplay(1),
+      );
   }
 
-  public getFormattedProjectFiles(simulationRunSummary: SimulationRunSummary): File[] {
+  public getFormattedProjectFiles(
+    simulationRunSummary: SimulationRunSummary,
+  ): File[] {
     return [
       {
         _type: 'File',
@@ -641,7 +655,9 @@ export class ViewService {
     );
   }
 
-  public getFormattedOutputFiles(simulationRunSummary: SimulationRunSummary): File[] {
+  public getFormattedOutputFiles(
+    simulationRunSummary: SimulationRunSummary,
+  ): File[] {
     return [
       {
         _type: 'File',
@@ -653,7 +669,11 @@ export class ViewService {
         master: false,
         size: null,
         icon: 'report',
-        url: this.endpoints.getRunResultsEndpoint(simulationRunSummary.id, undefined, true),
+        url: this.endpoints.getRunResultsEndpoint(
+          simulationRunSummary.id,
+          undefined,
+          true,
+        ),
         basename: 'outputs.json',
       },
       {
@@ -672,7 +692,9 @@ export class ViewService {
                 simulationRunSummary.run.resultsSize,
               ),
         icon: 'report',
-        url: this.endpoints.getRunResultsDownloadEndpoint(simulationRunSummary.id),
+        url: this.endpoints.getRunResultsDownloadEndpoint(
+          simulationRunSummary.id,
+        ),
         basename: 'outputs.zip',
       },
       {
@@ -685,7 +707,9 @@ export class ViewService {
         master: false,
         size: null,
         icon: 'logs',
-        url: this.endpoints.getSimulationRunLogsEndpoint(simulationRunSummary.id),
+        url: this.endpoints.getSimulationRunLogsEndpoint(
+          simulationRunSummary.id,
+        ),
         basename: 'log.yml',
       },
     ];
@@ -1136,13 +1160,10 @@ export class ViewService {
       );
       projectMeta.identifiers
         .filter(
-          (identifier: LabeledIdentifier) =>
-            !!identifier && !!identifier?.uri,
+          (identifier: LabeledIdentifier) => !!identifier && !!identifier?.uri,
         )
         .forEach((identifier: LabeledIdentifier): void => {
-          (runDataSet.identifier as string[]).push(
-            identifier.uri as string,
-          );
+          (runDataSet.identifier as string[]).push(identifier.uri as string);
         });
       runDataSet.citation = projectMeta.citations.map(
         (citation: LabeledIdentifier) => {

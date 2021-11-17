@@ -78,7 +78,10 @@ export class ViewComponent implements OnInit {
 
     this.projectMetadata$ = projectSummary$.pipe(
       map((projectSummary) =>
-        this.service.getFormattedProjectMetadata(projectSummary.simulationRun, projectSummary?.owner),
+        this.service.getFormattedProjectMetadata(
+          projectSummary.simulationRun,
+          projectSummary?.owner,
+        ),
       ),
       shareReplay(1),
     );
@@ -99,7 +102,9 @@ export class ViewComponent implements OnInit {
 
     this.files$ = projectSummary$.pipe(
       mergeMap((projectSummary) =>
-        this.service.getFormattedProjectContentFiles(projectSummary.simulationRun.id),
+        this.service.getFormattedProjectContentFiles(
+          projectSummary.simulationRun.id,
+        ),
       ),
       shareReplay(1),
     );
@@ -119,7 +124,12 @@ export class ViewComponent implements OnInit {
     );
 
     this.jsonLdData$ = projectSummary$.pipe(
-      map((projectSummary) => this.service.getJsonLdData(projectSummary.simulationRun, projectSummary)),
+      map((projectSummary) =>
+        this.service.getJsonLdData(
+          projectSummary.simulationRun,
+          projectSummary,
+        ),
+      ),
       shareReplay(1),
     );
 

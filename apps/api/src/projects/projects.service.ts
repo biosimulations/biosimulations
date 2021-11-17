@@ -1,4 +1,9 @@
-import { ProjectInput, ProjectSummary, Account, Organization } from '@biosimulations/datamodel/api';
+import {
+  ProjectInput,
+  ProjectSummary,
+  Account,
+  Organization,
+} from '@biosimulations/datamodel/api';
 import { AccountType } from '@biosimulations/datamodel/common';
 import {
   Injectable,
@@ -255,18 +260,19 @@ export class ProjectsService {
    */
   private async getAccount(auth0Id: string): Promise<Account> {
     const cacheKey = `Account:info:${auth0Id}`;
-    const cachedAccount = await this.cacheManager.get(cacheKey) as Account | null;
-    
+    const cachedAccount = (await this.cacheManager.get(
+      cacheKey,
+    )) as Account | null;
+
     if (cachedAccount) {
       return cachedAccount;
-    
     } else {
       const account = await this._getAccount(auth0Id);
       await this.cacheManager.set(cacheKey, account, { ttl: 60 * 24 }); // 1 day; to enable users and organizations to change their names
       return account;
     }
   }
-  
+
   /** Get information about an account from Auth0
    * @param auth0Id: Auth0 user or client id
    */
@@ -286,9 +292,13 @@ export class ProjectsService {
 
       const organizationIds = JSON.parse(client.client_metadata.organizations);
       organizationsDetails = await Promise.all(
-        organizationIds.map((organizationId: string): Promise<Auth0Organization> => {
-          return this.accountManagementService.getOrganization(organizationIds);
-        })
+        organizationIds.map(
+          (organizationId: string): Promise<Auth0Organization> => {
+            return this.accountManagementService.getOrganization(
+              organizationIds,
+            );
+          },
+        ),
       );
     } else {
       type = AccountType.user;
@@ -297,7 +307,8 @@ export class ProjectsService {
       name = user?.name as string;
       url = user?.user_metadata?.url;
 
-      organizationsDetails = await this.accountManagementService.getUserOrganizations(auth0Id);
+      organizationsDetails =
+        await this.accountManagementService.getUserOrganizations(auth0Id);
     }
     const organizations = organizationsDetails.map(
       (organization: Auth0Organization): Organization => {
@@ -306,7 +317,7 @@ export class ProjectsService {
           name: organization?.display_name || organization.name,
           url: organization?.metadata?.url,
         };
-      }
+      },
     );
 
     return {

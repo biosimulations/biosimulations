@@ -20,7 +20,8 @@ export class ProjectService {
   private endpoints = new Endpoints();
 
   private cachedProjectId?: string;
-  private cachedProjectObservables: { [endpoint: string]: Observable<any> } = {};
+  private cachedProjectObservables: { [endpoint: string]: Observable<any> } =
+    {};
   private cachedProjectSummaries!: Observable<ProjectSummary[]>;
 
   constructor(private http: HttpClient) {}
@@ -85,10 +86,7 @@ export class ProjectService {
     return this.getData<ProjectSummary>(projectId, url);
   }
 
-  private getData<T>(
-    projectId: string,
-    endpoint: string,
-  ): Observable<T> {
+  private getData<T>(projectId: string, endpoint: string): Observable<T> {
     if (projectId !== this.cachedProjectId) {
       this.cachedProjectId = projectId;
       this.cachedProjectObservables = {};

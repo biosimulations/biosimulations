@@ -440,10 +440,18 @@ export class BrowseComponent implements OnInit {
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
-        return project?.owner?.organizations?.map((organization) => organization.name) || ['None'];
+        return (
+          project?.owner?.organizations?.map(
+            (organization) => organization.name,
+          ) || ['None']
+        );
       },
       extraSearchGetter: (project: FormattedProjectSummary): string | null => {
-        return (project?.owner?.organizations?.map((organization) => organization.id) || ['None']).join(' ');
+        return (
+          project?.owner?.organizations?.map(
+            (organization) => organization.id,
+          ) || ['None']
+        ).join(' ');
       },
       comparator: (value: string, other: string, sign = 1): number => {
         if (value === 'None') {
