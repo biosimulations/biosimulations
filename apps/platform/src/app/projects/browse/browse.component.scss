@@ -5,15 +5,51 @@
   padding: 1rem;
 }
 
-biosimulations-bread-crumbs-button {
-  margin-right: 1rem;
-}
-
 .controls-container.visible {
   width: calc(232px + 1rem);
 }
 
 .controls {
   padding-left: 1rem;
-  width: 232px;
+  width: 232px;  
+}
+
+@media screen and (max-width: 959px) {
+  biosimulations-bread-crumbs-position {
+    margin-top: 0;
+    height: 32px;
+    background-color: mat.get-color-from-palette($theme-primary, lighter);
+    justify-content: start;
+    float: unset;
+    top: 56px;
+    margin: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .projects {
+    padding: 1rem;
+  }
+
+  .projects:not(.visible) {
+    display: none !important;
+  }
+
+  .controls-container:not(.visible) {
+    height: 0;
+  }
+  .controls-container.visible {
+    width: 100%;
+  }  
+  .controls-container.enter-from-right {
+    transition: unset;
+  }
+  .controls {    
+    width: 100%;
+    padding: 0;
+  }
 }
