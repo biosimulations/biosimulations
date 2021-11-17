@@ -21,6 +21,7 @@
   >
     <div
       class="projects ragged-column"
+      [ngClass]="{ visible: !controlsOpen }"
       gdGap="1rem"
       gdColumns.xl="repeat(5, 1fr)"
       gdColumns.lg="repeat(4, 1fr)"

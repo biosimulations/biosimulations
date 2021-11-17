@@ -1,20 +1,17 @@
 :host {
   position: sticky;
   z-index: 1000;
-  top: 64px;
-  height: 32px;
+  top: calc(64px + 16px);
+  margin-top: -16px;
+  height: 0;
   display: flex;
   align-items: center;
-  justify-content: end;
-  margin-top: calc(-1rem - 16px);
-  width: 100%;
-  text-align: right;
-  padding-right: 1rem;
+  float: right;
+  margin-right: 1rem;
 }
 
 @media screen and (max-width: 959px) {
   :host {
-    top: 56px;
-    right: 1rem;
+    top: calc(56px + 16px);
   }
 }
