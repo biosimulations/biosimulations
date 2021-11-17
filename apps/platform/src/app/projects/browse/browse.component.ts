@@ -125,13 +125,16 @@ export class BrowseComponent implements OnInit {
       key: ['metadata', 'citations'],
       heading: 'Citations',
       leftIcon: 'journal',
-      filterable: false,
+      filterable: true,
       hidden: false,
       show: false,
       getter: (project: FormattedProjectSummary): string[] => {
         return project.metadata.citations.map(
           (v: LabeledIdentifier) => v.label || v.uri,
         ) as string[];
+      },
+      filterGetter: (project: FormattedProjectSummary): string => {
+        return project.metadata.citations.length > 0 ? 'Yes' : 'No';
       },
       extraSearchGetter: (project: FormattedProjectSummary): string => {
         return project.metadata.citations

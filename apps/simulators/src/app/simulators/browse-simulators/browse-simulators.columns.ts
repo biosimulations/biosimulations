@@ -226,7 +226,7 @@ export const columns: Column[] = [
       return null;
     },
     stackedFormatter: (value: string | undefined): string => {
-      return value ? value : 'Not available';
+      return value ? value : 'N/A';
     },
     filterGetter: (element: TableSimulator): boolean => {
       return !!element.image;
@@ -280,7 +280,7 @@ export const columns: Column[] = [
       return null;
     },
     stackedFormatter: (value: string | undefined): string => {
-      return value ? value : 'Not available';
+      return value ? value : 'N/A';
     },
     filterGetter: (element: TableSimulator): boolean => {
       return !!element?.cli;
@@ -342,7 +342,7 @@ export const columns: Column[] = [
       return null;
     },
     stackedFormatter: (value: string | undefined): string => {
-      return value ? value : 'Not available';
+      return value ? value : 'N/A';
     },
     filterGetter: (element: TableSimulator): boolean => {
       return !!element?.pythonApi;
