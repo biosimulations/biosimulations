@@ -222,7 +222,7 @@ export class ViewService {
       values: metadata?.citations,
       icon: 'file',
       title: 'Citation',
-    });          
+    });
     formattedMetadata.attributes.push({
       values: metadata?.identifiers,
       icon: 'id',
