@@ -30,6 +30,7 @@ import { TocSectionDirective } from '../toc/toc-section.directive';
 import { TocSectionsContainerDirective } from '../toc/toc-sections-container.directive';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { of } from 'rxjs';
 
@@ -56,6 +57,7 @@ describe('ResponsiveTableComponent', () => {
         BiosimulationsIconsModule,
         FlexLayoutModule,
         MatTooltipModule,
+        NgSelectModule
       ],
       declarations: [
         ResponsiveTableComponent,
