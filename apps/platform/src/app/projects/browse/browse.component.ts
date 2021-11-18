@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrowseService } from './browse.service';
@@ -10,13 +10,14 @@ import {
   DescribedIdentifier,
 } from '@biosimulations/datamodel/common';
 import { RowService } from '@biosimulations/shared/ui';
+import { ScrollService } from '@biosimulations/shared/angular';
 
 @Component({
   selector: 'biosimulations-projects-browse',
   templateUrl: './browse.component.html',
   styleUrls: ['./browse.component.scss'],
 })
-export class BrowseComponent implements OnInit {
+export class BrowseComponent implements OnInit, AfterViewInit {
   public projects$!: Observable<FormattedProjectSummary[]>;
 
   public columns: Column[] = [
@@ -673,7 +674,7 @@ export class BrowseComponent implements OnInit {
     },
   ];
 
-  constructor(private service: BrowseService, private route: ActivatedRoute) {
+  constructor(private service: BrowseService, private route: ActivatedRoute, private scrollService: ScrollService) {
     this.openControls = this.openControls.bind(this);
   }
 
@@ -694,10 +695,17 @@ export class BrowseComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+    this.scrollService.init();
+  }
+
   public controlsOpen = false;
 
   public openControls(route: string, router: Router): void {
     this.controlsOpen = !this.controlsOpen;
+    if (this.controlsOpen) {
+      this.scrollService.scrollToTop();
+    }
   }
 
   private processUriForSearch(uri: string): string {
