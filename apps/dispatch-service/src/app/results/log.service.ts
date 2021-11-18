@@ -110,7 +110,7 @@ export class LogService {
     return this.submit
       .sendLog(id, log, update)
       .toPromise()
-      .then((_) => {
+      .then(() => {
         this.logger.debug(
           `The log for simulation run '${id}' was successfully saved.`,
         );

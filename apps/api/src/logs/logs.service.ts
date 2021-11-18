@@ -38,14 +38,14 @@ export class LogsService {
   public async createLog(
     runId: string,
     apiLog: ApiCombineArchiveLog,
-  ): Promise<ApiCombineArchiveLog> {
+  ): Promise<void> {
     const log = new this.logModel({
       simId: runId,
       log: this.apiToDbCombineArchiveLog(apiLog),
     });
 
-    const res: SimulationRunLog = await log.save();
-    return this.dbToApiCombineArchiveLog(res);
+    await log.save();
+    return;
   }
 
   public async getLog(
@@ -79,7 +79,7 @@ export class LogsService {
   public async replaceLog(
     runId: string,
     apiLog: ApiCombineArchiveLog,
-  ): Promise<ApiCombineArchiveLog> {
+  ): Promise<void> {
     const log = await this.logModel.findOne({ simId: runId }).exec();
 
     if (!log) {
@@ -92,8 +92,8 @@ export class LogsService {
       simId: runId,
       log: this.apiToDbCombineArchiveLog(apiLog),
     });
-    const res = await log.save();
-    return this.dbToApiCombineArchiveLog(res);
+    await log.save();
+    return;
   }
 
   public async deleteLog(runId: string): Promise<void> {

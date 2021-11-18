@@ -240,7 +240,6 @@ export class LogsController {
   })
   @permissions(scopes.logs.update.id)
   @ApiOkResponse({
-    type: CombineArchiveLog,
     description:
       'The specifications of the version of the simulation tool were successfully modified',
   })
@@ -256,8 +255,9 @@ export class LogsController {
   public async replaceLog(
     @Param('runId') runId: string,
     @Body() body: CombineArchiveLog,
-  ): Promise<ICombineArchiveLog> {
-    return this.service.replaceLog(runId, body).then((res) => res);
+  ): Promise<void> {
+    await this.service.replaceLog(runId, body);
+    return;
   }
 
   @Post('validate')

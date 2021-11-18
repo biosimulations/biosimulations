@@ -4,7 +4,6 @@ import {
   SimulationRunMetadataInput,
   ArchiveMetadata,
   LabeledIdentifier,
-  SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -72,7 +71,7 @@ export class MetadataService {
     const metadataReq = this.submit.postMetadata(id, postMetadata);
 
     const metadataPostObserver = {
-      next: (res: SimulationRunMetadata) => {
+      next: () => {
         this.logger.log(`Posted metadata for simulation run '${id}'.`);
       },
       error: (err: AxiosError) => {

@@ -143,16 +143,15 @@ export class ProjectsController {
   })
   @ApiCreatedResponse({
     description: 'The simulation run was successfully published',
-    type: Project,
   })
   @OptionalAuth()
   public async createProject(
     @Body() project: ProjectInput,
     @Req() req: Request,
-  ): Promise<Project> {
+  ): Promise<void> {
     const user = req?.user as AuthToken;
-    const proj = await this.service.createProject(project, user);
-    return this.returnProject(proj);
+    await this.service.createProject(project, user);
+    return;
   }
 
   @Put(':projectId')
@@ -197,20 +196,16 @@ export class ProjectsController {
   @ApiOkResponse({
     description:
       'The information about the publication of the simulation run was successfully updated',
-    type: Project,
   })
   @ProjectIdParam()
   public async updateProject(
     @ProjectId('projectId') projectId: string,
     @Body() project: ProjectInput,
     @Req() req: Request,
-  ): Promise<Project> {
+  ): Promise<void> {
     const user = req?.user as AuthToken;
-    const proj = await this.service.updateProject(projectId, project, user);
-    if (proj) {
-      return this.returnProject(proj);
-    }
-    throw new NotFoundException(`Project with id ${projectId} not found.`);
+    await this.service.updateProject(projectId, project, user);
+    return
   }
 
   // @Delete()
