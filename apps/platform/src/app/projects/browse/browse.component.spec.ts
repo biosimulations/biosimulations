@@ -10,6 +10,7 @@ import { BrowseComponent } from './browse.component';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { SharedUiModule } from '@biosimulations/shared/ui';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ScrollService } from '@biosimulations/shared/angular';
 
 class mockBrowseService {
   getProjects() {
@@ -24,7 +25,7 @@ describe('BrowseComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [BrowseComponent, ProjectCardComponent],
-      providers: [{ provide: BrowseService, useClass: mockBrowseService }],
+      providers: [{ provide: BrowseService, useClass: mockBrowseService }, ScrollService],
       imports: [
         RouterTestingModule,
         MatIconModule,
