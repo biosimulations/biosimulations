@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = {version = "<2"}
+flask = {version = "<3"}
 connexion = {extras = ["swagger-ui"],version = ">=2.7.0"}
 requests = "*"
 biosimulators-utils = {version = ">=0.1.137", extras = ["bngl", "cellml", "lems", "logging", "neuroml", "sbml", "smoldyn"]}
