@@ -211,7 +211,7 @@ export class CompleteProcessor {
           this.projectService
             .updateProject(projectId, projectInput)
             .toPromise()
-            .then((project) =>
+            .then(() =>
               this.logger.log(
                 `Updated project '${projectId}' for simulation '${id}'.`,
               ),
@@ -227,7 +227,7 @@ export class CompleteProcessor {
             this.projectService
               .createProject(projectInput)
               .toPromise()
-              .then((project) =>
+              .then(() =>
                 this.logger.log(
                   `Created project '${projectId}' for simulation '${id}'.`,
                 ),

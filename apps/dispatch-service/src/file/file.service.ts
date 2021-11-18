@@ -6,15 +6,13 @@ import { HttpService } from '@nestjs/axios';
 import { CombineWrapperService } from '../combineWrapper.service';
 import {
   combineLatest,
-  firstValueFrom,
   map,
   mergeMap,
   Observable,
   pluck,
 } from 'rxjs';
 import { CombineArchiveManifestContent } from '@biosimulations/combine-api-client';
-import {} from '@biosimulations/datamodel/common';
-import { ProjectFile, ProjectFileInput } from '@biosimulations/datamodel/api';
+import { ProjectFileInput } from '@biosimulations/datamodel/api';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
 
 @Injectable()
@@ -36,7 +34,7 @@ export class FileService {
     this.logger.log(`Processing files for simulation run '${id}'.`);
     const url = this.endpoints.getRunDownloadEndpoint(id, true);
 
-    const files: Observable<ProjectFile[]> = this.combine
+    await this.combine
       .getManifest(undefined, url)
       .pipe(
         pluck('data'),
@@ -89,6 +87,6 @@ export class FileService {
         mergeMap((files) => files),
       );
 
-    const filesArray: ProjectFile[] = await firstValueFrom(files);
+    return;
   }
 }

@@ -94,14 +94,15 @@ export class SpecificationsService {
 
   public async createSpecs(
     specs: SimulationRunSedDocumentInput[],
-  ): Promise<SpecificationsModel[]> {
+  ): Promise<void> {
     const createdSpecs = [];
     for (const spec of specs) {
       const newSpec = new this.model(spec);
       await newSpec.save();
       createdSpecs.push(newSpec.save());
     }
-    return Promise.all(createdSpecs);
+    await Promise.all(createdSpecs);
+    return;
   }
 
   public async deleteSimulationRunSpecifications(runId: string): Promise<void> {

@@ -53,7 +53,7 @@ export class MetadataService {
 
   public async createMetadata(
     data: SimulationRunMetadataInput,
-  ): Promise<SimulationRunMetadataIdModel> {
+  ): Promise<void> {
     const sim = await this.simulationModel.findById(data.id).catch((_) => null);
     if (!sim) {
       throw new NotFoundException(
@@ -66,7 +66,8 @@ export class MetadataService {
     );
 
     const metadata = new this.metadataModel(data);
-    return metadata.save();
+    await metadata.save();
+    return
   }
 
   public async modifyMetadata(

@@ -41,13 +41,14 @@ export class FilesService {
     });
   }
 
-  public async createFiles(files: ProjectFileInput[]): Promise<FileModel[]> {
+  public async createFiles(files: ProjectFileInput[]): Promise<void> {
     const createdFiles = [];
     for (const file of files) {
       const fileModel = new this.model(file);
       createdFiles.push(fileModel.save());
     }
-    return Promise.all(createdFiles);
+    await Promise.all(createdFiles);
+    return;
   }
 
   /*

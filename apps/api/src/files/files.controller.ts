@@ -1,7 +1,6 @@
 import { permissions } from '@biosimulations/auth/nest';
 import {
   ProjectFile,
-  ProjectFileInput,
   ProjectFileInputsContainer,
 } from '@biosimulations/datamodel/api';
 import {
@@ -155,12 +154,12 @@ export class FilesController {
   @ApiCreatedResponse({
     description:
       'The metadata for the files for the simulation were successfully saved to the database',
-    type: [ProjectFileInput],
   })
   public async createFiles(
     @Body() files: ProjectFileInputsContainer,
   ): Promise<void> {
     await this.service.createFiles(files.files);
+    return;
   }
 
   //@Post(':runId')

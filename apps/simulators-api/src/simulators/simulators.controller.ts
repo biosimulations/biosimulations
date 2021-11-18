@@ -296,8 +296,9 @@ export class SimulatorsController {
       'This account does not have permission to save specifications of simulation tools',
   })
   @permissions(scopes.simulators.create.id)
-  async create(@Body() doc: Simulator): Promise<Simulator> {
-    return this.service.new(doc);
+  async create(@Body() doc: Simulator): Promise<void> {
+    await this.service.new(doc);
+    return;
   }
 
   @Post('validate')

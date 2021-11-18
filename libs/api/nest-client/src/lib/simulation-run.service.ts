@@ -12,16 +12,13 @@ import { pluck, map, mergeMap, retry, catchError } from 'rxjs/operators';
 import { from, Observable, throwError } from 'rxjs';
 import {
   SimulationRunStatus,
-  SimulationRunSedDocument,
   SimulationRunSedDocumentInput,
   SimulationRunSedDocumentInputsContainer,
 } from '@biosimulations/datamodel/common';
 import {
   ProjectFileInput,
   ProjectFileInputsContainer,
-  ProjectFile,
   SimulationRunMetadataInput,
-  SimulationRunMetadata,
 } from '@biosimulations/datamodel/api';
 import { retryBackoff } from 'backoff-rxjs';
 import { AxiosError } from 'axios';
@@ -43,37 +40,37 @@ export class SimulationRunService {
   public postMetadata(
     runId: string,
     metadata: SimulationRunMetadataInput,
-  ): Observable<SimulationRunMetadata> {
+  ): Observable<void> {
     this.logger.log(`Uploading metadata for simulation run '${runId}' ....`);
     const endpoint = this.endpoints.getSimulationRunMetadataEndpoint();
     return this.postAuthenticated<
       SimulationRunMetadataInput,
-      SimulationRunMetadata
+      void
     >(runId, endpoint, metadata);
   }
 
   public postSpecs(
     runId: string,
     specs: SimulationRunSedDocumentInput[],
-  ): Observable<SimulationRunSedDocument[]> {
+  ): Observable<void> {
     this.logger.log(
       `Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`,
     );
     const endpoint = this.endpoints.getSpecificationsEndpoint();
     return this.postAuthenticated<
       SimulationRunSedDocumentInputsContainer,
-      SimulationRunSedDocument[]
+      void
     >(runId, endpoint, { sedDocuments: specs });
   }
 
   public postFiles(
     runId: string,
     files: ProjectFileInput[],
-  ): Observable<ProjectFile[]> {
+  ): Observable<void> {
     this.logger.log(`Uploading files for simulation run '${runId}' ....`);
     const body: ProjectFileInputsContainer = { files };
     const endpoint = this.endpoints.getSimulationRunFilesEndpoint();
-    return this.postAuthenticated<ProjectFileInputsContainer, ProjectFile[]>(
+    return this.postAuthenticated<ProjectFileInputsContainer, void>(
       runId,
       endpoint,
       body,
@@ -159,11 +156,11 @@ export class SimulationRunService {
     runId: string,
     log: CombineArchiveLog,
     update = false,
-  ): Observable<CombineArchiveLog> {
+  ): Observable<void> {
     if (update) {
       const endpoint = this.endpoints.getSimulationRunLogsEndpoint(runId);
       const body: CombineArchiveLog = log;
-      return this.putAuthenticated<CombineArchiveLog, CombineArchiveLog>(
+      return this.putAuthenticated<CombineArchiveLog, void>(
         runId,
         endpoint,
         body,
@@ -176,7 +173,7 @@ export class SimulationRunService {
       };
       return this.postAuthenticated<
         CreateSimulationRunLogBody,
-        CombineArchiveLog
+        void
       >(runId, endpoint, body);
     }
   }

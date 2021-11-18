@@ -76,14 +76,15 @@ export class ProjectsService {
   public async createProject(
     projectInput: ProjectInput,
     user: AuthToken,
-  ): Promise<ProjectModel> {
+  ): Promise<void> {
     await this.simulationRunService.validateRun(projectInput.simulationRun);
 
     projectInput.owner = this.getOwner(projectInput, user);
 
     const project = new this.model(projectInput);
 
-    return project.save();
+    await project.save();
+    return;
   }
 
   /** Modify a project in the database
@@ -96,7 +97,7 @@ export class ProjectsService {
     id: string,
     projectInput: ProjectInput,
     user: AuthToken,
-  ): Promise<ProjectModel | null> {
+  ): Promise<void | null> {
     if (projectInput.id !== id) {
       throw new BadRequestException(
         `The project id must be '${id}'. Project ids cannot be changed. Please contact the BioSimulations Team (info@biosimulations.org) for assistance.`,
@@ -108,7 +109,7 @@ export class ProjectsService {
       .collation(ProjectIdCollation);
 
     if (!project) {
-      return null;
+      throw new NotFoundException(`Project with id ${id} not found.`);
     }
 
     const owner = this.getOwner(projectInput, user);
@@ -124,7 +125,8 @@ export class ProjectsService {
     }
 
     project.set(projectInput);
-    return project.save();
+    await project.save();
+    return;
   }
 
   private getOwner(
