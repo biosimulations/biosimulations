@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Observable, of, combineLatest, map, pluck, merge, mergeMap, iif } from 'rxjs';
-import { shareReplay, concatAll, catchError, withLatestFrom } from 'rxjs/operators';
+import { Observable, of, combineLatest, map, pluck, mergeMap, iif } from 'rxjs';
+import { shareReplay, catchError } from 'rxjs/operators';
 import { SimulationRunStatus } from '@biosimulations/datamodel/common';
 import {
   ProjectMetadata,
