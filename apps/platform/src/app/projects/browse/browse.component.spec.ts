@@ -25,7 +25,10 @@ describe('BrowseComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [BrowseComponent, ProjectCardComponent],
-      providers: [{ provide: BrowseService, useClass: mockBrowseService }, ScrollService],
+      providers: [
+        { provide: BrowseService, useClass: mockBrowseService },
+        ScrollService,
+      ],
       imports: [
         RouterTestingModule,
         MatIconModule,

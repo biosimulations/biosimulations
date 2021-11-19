@@ -164,77 +164,75 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
     return this.viewService
       .getReportResults(this.simulationRunId, selectedDataSetUris)
       .pipe(
-        map(
-          (
-            uriResultsMap: UriSetDataSetResultsMap,
-          ): PlotlyDataLayout => {
-            let allData: any = [];
-            const errors: string[] = [];
-            const xAxisTitles: string[] = [];
-            for (let selectedUri of selectedDataSetUris) {
-              if (selectedUri.startsWith('./')) {
-                selectedUri = selectedUri.substring(2);
-              }
-
-              const selectedDataSet = this.uriSedDataSetMap?.[selectedUri];
-              if (selectedDataSet) {
-                const data = uriResultsMap?.[selectedUri];
-                if (data) {
-                  allData = allData.concat(
-                    this.viewService.flattenArray(data.values),
-                  );
-                  xAxisTitles.push(data.label);
-                } else {
-                  errors.push(selectedUri);
-                }
-              }
+        map((uriResultsMap: UriSetDataSetResultsMap): PlotlyDataLayout => {
+          let allData: any = [];
+          const errors: string[] = [];
+          const xAxisTitles: string[] = [];
+          for (let selectedUri of selectedDataSetUris) {
+            if (selectedUri.startsWith('./')) {
+              selectedUri = selectedUri.substring(2);
             }
 
-            const trace = {
-              x: allData,
-              xaxis: 'x1',
-              yaxis: 'y1',
-              type: PlotlyTraceType.histogram,
-            };
-
-            let xAxisTitle: string | undefined;
-            if (xAxisTitles.length === 1) {
-              xAxisTitle = xAxisTitles[0];
-            } else if (xAxisTitles.length > 1) {
-              xAxisTitle = 'Multiple';
+            const selectedDataSet = this.uriSedDataSetMap?.[selectedUri];
+            if (selectedDataSet) {
+              const data = uriResultsMap?.[selectedUri];
+              if (data) {
+                allData = allData.concat(
+                  this.viewService.flattenArray(data.values),
+                );
+                xAxisTitles.push(data.label);
+              } else {
+                errors.push(selectedUri);
+              }
             }
+          }
 
-            const dataLayout = {
-              data: trace.x.length ? [trace] : undefined,
-              layout: {
-                xaxis1: {
-                  anchor: 'x1',
-                  title: xAxisTitle,
-                  type: 'linear',
-                },
-                yaxis1: {
-                  anchor: 'y1',
-                  title: 'Frequency',
-                  type: 'linear',
-                },
-                grid: {
-                  rows: 1,
-                  columns: 1,
-                  pattern: 'independent',
-                },
-                showlegend: false,
-                width: undefined,
-                height: undefined,
+          const trace = {
+            x: allData,
+            xaxis: 'x1',
+            yaxis: 'y1',
+            type: PlotlyTraceType.histogram,
+          };
+
+          let xAxisTitle: string | undefined;
+          if (xAxisTitles.length === 1) {
+            xAxisTitle = xAxisTitles[0];
+          } else if (xAxisTitles.length > 1) {
+            xAxisTitle = 'Multiple';
+          }
+
+          const dataLayout = {
+            data: trace.x.length ? [trace] : undefined,
+            layout: {
+              xaxis1: {
+                anchor: 'x1',
+                title: xAxisTitle,
+                type: 'linear',
               },
-              dataErrors: errors.length > 0 ? errors : undefined,
-            } as PlotlyDataLayout;
+              yaxis1: {
+                anchor: 'y1',
+                title: 'Frequency',
+                type: 'linear',
+              },
+              grid: {
+                rows: 1,
+                columns: 1,
+                pattern: 'independent',
+              },
+              showlegend: false,
+              width: undefined,
+              height: undefined,
+            },
+            dataErrors: errors.length > 0 ? errors : undefined,
+          } as PlotlyDataLayout;
 
-            return dataLayout;
-          },
-        ),
+          return dataLayout;
+        }),
         catchError((): Observable<PlotlyDataLayout> => {
           return of({
-            dataErrors: ['The results of one or more SED reports requested for the plot could not be loaded.'],
+            dataErrors: [
+              'The results of one or more SED reports requested for the plot could not be loaded.',
+            ],
           });
         }),
       );
@@ -247,7 +245,9 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
       .pipe(
         map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
           if (Object.keys(uriResultsMap).length === 0) {
-            throw new Error('The data for the visualization could not be retrieved');
+            throw new Error(
+              'The data for the visualization could not be retrieved',
+            );
           }
 
           let vegaDataSets: {

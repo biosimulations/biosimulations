@@ -3,9 +3,7 @@ import {
   ApiProperty,
   ApiResponseProperty,
 } from '@nestjs/swagger';
-import {
-  ArchiveMetadata,
-} from '../common/archiveMetadata';
+import { ArchiveMetadata } from '../common/archiveMetadata';
 import { IsMongoId, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 

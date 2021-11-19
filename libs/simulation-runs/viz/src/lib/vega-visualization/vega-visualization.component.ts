@@ -105,16 +105,16 @@ export class VegaVisualizationComponent implements AfterViewInit, OnDestroy {
       }
     });
 
-    console.warn = function(
+    console.warn = function (
       this: VegaVisualizationComponent,
       ...args: any[]
     ): void {
       if (
-        args.length === 4
-        && args[0] == 'WARN'
-        && args[1] == 'Loading failed'
-        && dataUrls.includes(args[2])
-        && args[3].constructor.name === 'Error'
+        args.length === 4 &&
+        args[0] == 'WARN' &&
+        args[1] == 'Loading failed' &&
+        dataUrls.includes(args[2]) &&
+        args[3].constructor.name === 'Error'
       ) {
         this.error = 'The data for the visualization could not be loaded.';
       } else {

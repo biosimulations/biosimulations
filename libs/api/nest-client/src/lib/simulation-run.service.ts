@@ -1,6 +1,4 @@
-import {
-  CombineArchiveLog,
-} from '@biosimulations/datamodel/common';
+import { CombineArchiveLog } from '@biosimulations/datamodel/common';
 import { SimulationRun } from '@biosimulations/datamodel/api';
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
@@ -42,10 +40,11 @@ export class SimulationRunService {
   ): Observable<void> {
     this.logger.log(`Uploading metadata for simulation run '${runId}' ....`);
     const endpoint = this.endpoints.getSimulationRunMetadataEndpoint(runId);
-    return this.postAuthenticated<
-      ArchiveMetadataContainer,
-      void
-    >(runId, endpoint, metadata);
+    return this.postAuthenticated<ArchiveMetadataContainer, void>(
+      runId,
+      endpoint,
+      metadata,
+    );
   }
 
   public postSpecs(
@@ -55,17 +54,17 @@ export class SimulationRunService {
     this.logger.log(
       `Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`,
     );
-    const endpoint = this.endpoints.getSimulationRunSimulationExperimentSpecificationsEndpoint(runId);
+    const endpoint =
+      this.endpoints.getSimulationRunSimulationExperimentSpecificationsEndpoint(
+        runId,
+      );
     return this.postAuthenticated<
       SimulationRunSedDocumentInputsContainer,
       void
     >(runId, endpoint, { sedDocuments: specs });
   }
 
-  public postFiles(
-    runId: string,
-    files: ProjectFileInput[],
-  ): Observable<void> {
+  public postFiles(runId: string, files: ProjectFileInput[]): Observable<void> {
     this.logger.log(`Uploading files for simulation run '${runId}' ....`);
     const body: ProjectFileInputsContainer = { files };
     const endpoint = this.endpoints.getSimulationRunFilesEndpoint(runId);
@@ -165,10 +164,11 @@ export class SimulationRunService {
         body,
       );
     } else {
-      return this.postAuthenticated<
-        CombineArchiveLog,
-        void
-      >(runId, endpoint, log);
+      return this.postAuthenticated<CombineArchiveLog, void>(
+        runId,
+        endpoint,
+        log,
+      );
     }
   }
 

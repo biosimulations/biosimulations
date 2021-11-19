@@ -81,9 +81,7 @@ export interface Histogram1DVisualization {
   sedDocs: SedDocumentReports[];
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayoutSubject: BehaviorSubject<
-    Observable<PlotlyDataLayout | null>
-  >;
+  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | null>>;
   plotlyDataLayout: Observable<Observable<PlotlyDataLayout | null>>;
 }
 
@@ -96,9 +94,7 @@ export interface Heatmap2DVisualization {
   sedDocs: SedDocumentReports[];
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayoutSubject: BehaviorSubject<
-    Observable<PlotlyDataLayout | null>
-  >;
+  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | null>>;
   plotlyDataLayout: Observable<Observable<PlotlyDataLayout | null>>;
 }
 
@@ -111,9 +107,7 @@ export interface Line2DVisualization {
   sedDocs: SedDocumentReports[];
   renderer: 'Plotly';
   uriSedDataSetMap: UriSedDataSetMap;
-  plotlyDataLayoutSubject: BehaviorSubject<
-    Observable<PlotlyDataLayout | null>
-  >;
+  plotlyDataLayoutSubject: BehaviorSubject<Observable<PlotlyDataLayout | null>>;
   plotlyDataLayout: Observable<Observable<PlotlyDataLayout | null>>;
 }
 

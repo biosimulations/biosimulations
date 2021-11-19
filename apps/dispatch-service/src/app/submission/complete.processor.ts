@@ -103,45 +103,44 @@ export class CompleteProcessor {
     const errorsDetails: string[] = [];
     const warningsDetails: string[] = [];
 
-    const processingResults: ProcessingResult[] =
-      await Promise.all(
-        processingSteps.map((processingStep) =>
-          processingStep.result
-            .then((value) => {
-              return {
-                succeeded: true,
-                value: value,
-              };
-            })
-            .catch((error) => {
-              let reason = '';
-              reason += `The ${processingStep.name} could not be saved.`;
-              reason += ` Please check that the ${processingStep.name} ${
-                processingStep.plural ? 'are' : 'is'
-              } valid.`;
-              reason += `\n    More information is available at ${processingStep.moreInfo}.`;
-              if (processingStep.validator) {
-                reason += ` A validation tool is\n    available at ${processingStep.validator}.`;
-              }
+    const processingResults: ProcessingResult[] = await Promise.all(
+      processingSteps.map((processingStep) =>
+        processingStep.result
+          .then((value) => {
+            return {
+              succeeded: true,
+              value: value,
+            };
+          })
+          .catch((error) => {
+            let reason = '';
+            reason += `The ${processingStep.name} could not be saved.`;
+            reason += ` Please check that the ${processingStep.name} ${
+              processingStep.plural ? 'are' : 'is'
+            } valid.`;
+            reason += `\n    More information is available at ${processingStep.moreInfo}.`;
+            if (processingStep.validator) {
+              reason += ` A validation tool is\n    available at ${processingStep.validator}.`;
+            }
 
-              const details = `The ${processingStep.name} for simulation run '${runId}' could not be saved: ${error.status}: ${error.message}`;
-              if (processingStep.required) {
-                errors.push(reason);
-                errorsDetails.push(details);
-                this.logger.error(details);
-              } else {
-                warnings.push(reason);
-                warningsDetails.push(details);
-                this.logger.warn(details);
-              }
+            const details = `The ${processingStep.name} for simulation run '${runId}' could not be saved: ${error.status}: ${error.message}`;
+            if (processingStep.required) {
+              errors.push(reason);
+              errorsDetails.push(details);
+              this.logger.error(details);
+            } else {
+              warnings.push(reason);
+              warningsDetails.push(details);
+              this.logger.warn(details);
+            }
 
-              return {
-                succeeded: false,
-              };
-            })
-        ),
-      );
-    
+            return {
+              succeeded: false,
+            };
+          }),
+      ),
+    );
+
     const log = processingResults[3]?.value;
     const logPostSucceeded = processingResults[3].succeeded;
     const runSuceededFromLog = this.getRunSuceededFromLog(log);
@@ -152,19 +151,22 @@ export class CompleteProcessor {
     let updateStatusMessage!: string;
     if (errors.length === 0) {
       postProcessingStatus = SimulationRunStatus.SUCCEEDED;
-      postProcessingStatusReason = 'The simulation run was successfully proccessed.';
+      postProcessingStatusReason =
+        'The simulation run was successfully proccessed.';
       updateStatusMessage = `Post-processing of simulation run '${runId}' completed with status '${postProcessingStatus}'.`;
     } else {
       postProcessingStatus = SimulationRunStatus.FAILED;
-      postProcessingStatusReason = 'The simulation run was not successfully proccessed.';
+      postProcessingStatusReason =
+        'The simulation run was not successfully proccessed.';
       postProcessingStatusReason += '\n\nErrors:\n  * ' + errors.join('\n  * ');
-      updateStatusMessage = `Post-processing of simulation run '${runId}' completed with status '${postProcessingStatus}' due to ${errorsDetails.length} processing errors:\n  * ${errorsDetails.join(
-        '\n  * ',
-      )}`;
+      updateStatusMessage = `Post-processing of simulation run '${runId}' completed with status '${postProcessingStatus}' due to ${
+        errorsDetails.length
+      } processing errors:\n  * ${errorsDetails.join('\n  * ')}`;
     }
 
     if (warnings.length) {
-      postProcessingStatusReason += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
+      postProcessingStatusReason +=
+        '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
       updateStatusMessage += `\n\nThe post-processing of simulation run '${runId}' raised one or more warnings:\n  * ${warningsDetails.join(
         '\n  * ',
       )}`;
@@ -206,14 +208,20 @@ export class CompleteProcessor {
 
     /* update final status */
     let finalStatus: SimulationRunStatus;
-    const finalStatusReason = runStatusReason + '\n\n' + postProcessingStatusReason;
-    if (runStatus === SimulationRunStatus.SUCCEEDED && runSuceededFromLog && postProcessingStatus === SimulationRunStatus.SUCCEEDED) {
+    const finalStatusReason =
+      runStatusReason + '\n\n' + postProcessingStatusReason;
+    if (
+      runStatus === SimulationRunStatus.SUCCEEDED &&
+      runSuceededFromLog &&
+      postProcessingStatus === SimulationRunStatus.SUCCEEDED
+    ) {
       finalStatus = SimulationRunStatus.SUCCEEDED;
     } else {
       finalStatus = SimulationRunStatus.FAILED;
     }
 
-    this.simStatusService.updateStatus(runId, finalStatus, finalStatusReason)
+    this.simStatusService
+      .updateStatus(runId, finalStatus, finalStatusReason)
       .then((run) => {
         if (postProcessingStatus === SimulationRunStatus.SUCCEEDED) {
           return this.logger.log(updateStatusMessage);
@@ -280,16 +288,16 @@ export class CompleteProcessor {
       return false;
     }
 
-    for (const sedDocLog of (log.sedDocuments || [])) {
+    for (const sedDocLog of log.sedDocuments || []) {
       if (sedDocLog.status !== SimulationRunLogStatus.SUCCEEDED) {
         return false;
       }
-      for (const taskLog of (sedDocLog.tasks || [])) {
+      for (const taskLog of sedDocLog.tasks || []) {
         if (taskLog.status !== SimulationRunLogStatus.SUCCEEDED) {
           return false;
         }
       }
-      for (const outputLog of (sedDocLog.outputs || [])) {
+      for (const outputLog of sedDocLog.outputs || []) {
         if (outputLog.status !== SimulationRunLogStatus.SUCCEEDED) {
           return false;
         }
@@ -303,7 +311,7 @@ export class CompleteProcessor {
           outputElementsLogs = outputLog.surfaces;
         }
 
-        for (const outputElementsLog of (outputElementsLogs || [])) {
+        for (const outputElementsLog of outputElementsLogs || []) {
           if (outputElementsLog.status !== SimulationRunLogStatus.SUCCEEDED) {
             return false;
           }

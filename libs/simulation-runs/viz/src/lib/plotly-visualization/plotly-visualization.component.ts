@@ -45,7 +45,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     if (value == null || value === undefined) {
       this.loading = true;
       this.errors = [];
-    } else if(value.data && value.layout) {
+    } else if (value.data && value.layout) {
       this.loading = false;
       this.data = value.data;
       this.layout = value.layout;
@@ -55,7 +55,9 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
       if (value?.dataErrors?.length) {
         this.snackBar.openFromComponent(HtmlSnackBarComponent, {
           data: {
-            message: `<p>Some aspects of the requested plot could not be produced.</p><ul><li>${value.dataErrors.join('</li><li>')}</li></ul>`,
+            message: `<p>Some aspects of the requested plot could not be produced.</p><ul><li>${value.dataErrors.join(
+              '</li><li>',
+            )}</li></ul>`,
             spinner: false,
             action: 'Ok',
           },

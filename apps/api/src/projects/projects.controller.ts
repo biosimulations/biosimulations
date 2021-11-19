@@ -269,7 +269,7 @@ export class ProjectsController {
   ): Promise<void> {
     const user = req?.user as AuthToken;
     await this.service.updateProject(projectId, project, user);
-    return
+    return;
   }
 
   // @Delete()

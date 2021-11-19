@@ -177,90 +177,88 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
     return this.viewService
       .getReportResults(this.simulationRunId, dataSetUris)
       .pipe(
-        map(
-          (
-            uriResultsMap: UriSetDataSetResultsMap,
-          ): PlotlyDataLayout => {
-            const errors: string[] = [];
+        map((uriResultsMap: UriSetDataSetResultsMap): PlotlyDataLayout => {
+          const errors: string[] = [];
 
-            const zData: any[][] = [];
-            const yTicks: string[] = [];
-            for (let selectedUri of selectedYUris) {
-              if (selectedUri.startsWith('./')) {
-                selectedUri = selectedUri.substring(2);
-              }
-
-              const selectedDataSet = this.uriSedDataSetMap?.[selectedUri];
-              if (selectedDataSet) {
-                const data = uriResultsMap?.[selectedUri];
-                if (data) {
-                  const flattenedData = this.viewService.flattenArray(
-                    data.values,
-                  );
-                  zData.push(flattenedData);
-                  yTicks.push(data.label);
-                } else {
-                  errors.push(`Y-data set '${selectedUri}'.`)
-                }
-              }
+          const zData: any[][] = [];
+          const yTicks: string[] = [];
+          for (let selectedUri of selectedYUris) {
+            if (selectedUri.startsWith('./')) {
+              selectedUri = selectedUri.substring(2);
             }
 
-            let xTicks: any[] | undefined;
-            let xAxisTitle: string | undefined;
-            if (selectedXUri) {
-              const data = uriResultsMap?.[selectedXUri];
+            const selectedDataSet = this.uriSedDataSetMap?.[selectedUri];
+            if (selectedDataSet) {
+              const data = uriResultsMap?.[selectedUri];
               if (data) {
-                xTicks = this.viewService.flattenArray(data.values);
-                xAxisTitle = data.label;
+                const flattenedData = this.viewService.flattenArray(
+                  data.values,
+                );
+                zData.push(flattenedData);
+                yTicks.push(data.label);
               } else {
-                errors.push(`X-data set '${selectedXUri}'.`)
+                errors.push(`Y-data set '${selectedUri}'.`);
               }
             }
+          }
 
-            zData.reverse();
-            yTicks.reverse();
+          let xTicks: any[] | undefined;
+          let xAxisTitle: string | undefined;
+          if (selectedXUri) {
+            const data = uriResultsMap?.[selectedXUri];
+            if (data) {
+              xTicks = this.viewService.flattenArray(data.values);
+              xAxisTitle = data.label;
+            } else {
+              errors.push(`X-data set '${selectedXUri}'.`);
+            }
+          }
 
-            const trace = {
-              z: zData,
-              y: yTicks,
-              x: xTicks,
-              xaxis: 'x1',
-              yaxis: 'y1',
-              type: PlotlyTraceType.heatmap,
-              hoverongaps: false,
-            };
+          zData.reverse();
+          yTicks.reverse();
 
-            const dataLayout = {
-              data: trace.y.length ? [trace] : undefined,
-              layout: {
-                xaxis1: {
-                  anchor: 'x1',
-                  title: xAxisTitle,
-                  type: 'linear',
-                },
-                //yaxis1: {
-                //  anchor: 'y1',
-                //  title: undefined,
-                //  type: 'linear',
-                //},
-                grid: {
-                  rows: 1,
-                  columns: 1,
-                  pattern: 'independent',
-                },
-                showlegend: false,
-                width: undefined,
-                height: undefined,
+          const trace = {
+            z: zData,
+            y: yTicks,
+            x: xTicks,
+            xaxis: 'x1',
+            yaxis: 'y1',
+            type: PlotlyTraceType.heatmap,
+            hoverongaps: false,
+          };
+
+          const dataLayout = {
+            data: trace.y.length ? [trace] : undefined,
+            layout: {
+              xaxis1: {
+                anchor: 'x1',
+                title: xAxisTitle,
+                type: 'linear',
               },
-              dataErrors: errors.length > 0 ? errors : undefined,
-            } as PlotlyDataLayout;
+              //yaxis1: {
+              //  anchor: 'y1',
+              //  title: undefined,
+              //  type: 'linear',
+              //},
+              grid: {
+                rows: 1,
+                columns: 1,
+                pattern: 'independent',
+              },
+              showlegend: false,
+              width: undefined,
+              height: undefined,
+            },
+            dataErrors: errors.length > 0 ? errors : undefined,
+          } as PlotlyDataLayout;
 
-            return dataLayout;
-          },
-        ),
+          return dataLayout;
+        }),
         catchError((): Observable<PlotlyDataLayout> => {
           return of({
-            dataErrors: ['The results of one or more SED reports requested for the plot could not be loaded.'],
+            dataErrors: [
+              'The results of one or more SED reports requested for the plot could not be loaded.',
+            ],
           });
         }),
       );
@@ -283,7 +281,9 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
       .pipe(
         map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
           if (Object.keys(uriResultsMap).length === 0) {
-            throw new Error('The data for the visualization could not be retrieved');
+            throw new Error(
+              'The data for the visualization could not be retrieved',
+            );
           }
 
           let vegaDataSets: {

@@ -200,41 +200,45 @@ export class SelectVisualizationComponent implements OnDestroy {
                 false,
               )
               .pipe(
-                catchError((error: HttpErrorResponse): Observable<undefined> => {
-                  if (!environment.production) {
-                    console.error(error);
-                  }
-                  return of<undefined>(undefined);
-                }),
+                catchError(
+                  (error: HttpErrorResponse): Observable<undefined> => {
+                    if (!environment.production) {
+                      console.error(error);
+                    }
+                    return of<undefined>(undefined);
+                  },
+                ),
               )
-              .subscribe((fileOrUrl: ArrayBuffer | string | undefined): void => {
-                if (fileOrUrl) {
-                  const a = document.createElement('a');
-                  a.download = 'project.omex';
-                  a.href = fileOrUrl as string;
-                  a.click();
+              .subscribe(
+                (fileOrUrl: ArrayBuffer | string | undefined): void => {
+                  if (fileOrUrl) {
+                    const a = document.createElement('a');
+                    a.download = 'project.omex';
+                    a.href = fileOrUrl as string;
+                    a.click();
 
-                  this.snackBar.open(
-                    'Your visualization was successfully exported.',
-                    'Ok',
-                    {
-                      duration: 5000,
-                      horizontalPosition: 'center',
-                      verticalPosition: 'bottom',
-                    },
-                  );
-                } else {
-                  this.snackBar.open(
-                    'Sorry! We were unable to add the visualization to this project.',
-                    'Ok',
-                    {
-                      duration: 5000,
-                      horizontalPosition: 'center',
-                      verticalPosition: 'bottom',
-                    },
-                  );
-                }
-              });
+                    this.snackBar.open(
+                      'Your visualization was successfully exported.',
+                      'Ok',
+                      {
+                        duration: 5000,
+                        horizontalPosition: 'center',
+                        verticalPosition: 'bottom',
+                      },
+                    );
+                  } else {
+                    this.snackBar.open(
+                      'Sorry! We were unable to add the visualization to this project.',
+                      'Ok',
+                      {
+                        duration: 5000,
+                        horizontalPosition: 'center',
+                        verticalPosition: 'bottom',
+                      },
+                    );
+                  }
+                },
+              );
             this.subscriptions.push(sub);
           }
         }),

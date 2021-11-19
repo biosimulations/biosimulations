@@ -45,13 +45,17 @@ export class ViewComponent implements OnInit {
 
   public formattedSimulation$!: Observable<FormattedSimulation>;
 
-  public projectMetadata$!: Observable<ProjectMetadata | null | undefined | false>;
+  public projectMetadata$!: Observable<
+    ProjectMetadata | null | undefined | false
+  >;
 
   public projectFiles$!: Observable<Path[] | null | undefined | false>;
   public files$!: Observable<Path[] | null | undefined | false>;
   public outputs$!: Observable<File[] | null | undefined | false>;
 
-  public visualizations$!: Observable<VisualizationList[] | null | undefined | false>;
+  public visualizations$!: Observable<
+    VisualizationList[] | null | undefined | false
+  >;
   public visualization: Visualization | null = null;
 
   public logs$!: Observable<SimulationLogs | null | undefined | false>;
@@ -75,7 +79,8 @@ export class ViewComponent implements OnInit {
 
     this.projectMetadata$ = this.statusCompleted$.pipe(
       mergeMap((completed) =>
-        iif(() => completed,
+        iif(
+          () => completed,
           this.simulationRunService.getSimulationRunSummary(id).pipe(
             map((simulationRunSummary) =>
               this.sharedViewService.getFormattedProjectMetadata(
@@ -98,7 +103,8 @@ export class ViewComponent implements OnInit {
 
     this.projectFiles$ = this.statusCompleted$.pipe(
       mergeMap((completed) =>
-        iif(() => completed,
+        iif(
+          () => completed,
           this.simulationRunService.getSimulationRunSummary(id).pipe(
             map((simulationRunSummary) =>
               this.sharedViewService.getFormattedProjectFiles(
@@ -108,7 +114,7 @@ export class ViewComponent implements OnInit {
             shareReplay(1),
           ),
           of(null),
-        )
+        ),
       ),
       catchError((error: HttpErrorResponse): Observable<false> => {
         if (!environment.production) {
@@ -121,7 +127,8 @@ export class ViewComponent implements OnInit {
 
     this.files$ = this.statusCompleted$.pipe(
       mergeMap((completed) =>
-        iif(() => completed,
+        iif(
+          () => completed,
           this.sharedViewService.getFormattedProjectContentFiles(id),
           of(null),
         ),
@@ -137,7 +144,8 @@ export class ViewComponent implements OnInit {
 
     this.outputs$ = this.statusCompleted$.pipe(
       mergeMap((completed) =>
-        iif(() => completed,
+        iif(
+          () => completed,
           this.simulationRunService.getSimulationRunSummary(id).pipe(
             map((simulationRunSummary) =>
               this.sharedViewService.getFormattedOutputFiles(
@@ -147,7 +155,7 @@ export class ViewComponent implements OnInit {
             shareReplay(1),
           ),
           of(null),
-        )
+        ),
       ),
       catchError((error: HttpErrorResponse): Observable<false> => {
         if (!environment.production) {
@@ -160,7 +168,8 @@ export class ViewComponent implements OnInit {
 
     this.visualizations$ = this.statusCompleted$.pipe(
       mergeMap((completed) =>
-        iif(() => completed,
+        iif(
+          () => completed,
           this.sharedViewService.getVisualizations(id),
           of(null),
         ),
@@ -176,10 +185,11 @@ export class ViewComponent implements OnInit {
 
     this.logs$ = this.statusCompleted$.pipe(
       mergeMap((completed) =>
-        iif(() => completed,
+        iif(
+          () => completed,
           this.dispatchService.getSimulationLogs(id),
           of(null),
-        )
+        ),
       ),
       shareReplay(1),
     );
@@ -201,8 +211,7 @@ export class ViewComponent implements OnInit {
       this.outputs$,
       this.visualizations$,
       this.logs$,
-    ])
-    .pipe(
+    ]).pipe(
       map((values: any[]) => {
         for (const value of values.slice(1)) {
           if (value === undefined) {
@@ -230,10 +239,7 @@ export class ViewComponent implements OnInit {
       shareReplay(1),
     );
 
-    const status$ = this.simulation$.pipe(
-      pluck('status'),
-      shareReplay(1),
-    );
+    const status$ = this.simulation$.pipe(pluck('status'), shareReplay(1));
 
     this.statusCompleted$ = status$.pipe(
       map((value: SimulationRunStatus): boolean => {

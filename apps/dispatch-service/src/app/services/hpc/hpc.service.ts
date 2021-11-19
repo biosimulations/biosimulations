@@ -86,9 +86,7 @@ export class HpcService {
   /** Get the status of a job for a simulation run
    * @param jobId id of the Slurm job
    */
-  public async getJobStatus(
-    jobId: string,
-  ): Promise<SimulationRunStatusReason> {
+  public async getJobStatus(jobId: string): Promise<SimulationRunStatusReason> {
     // TODO this needs to be changed everyime job srun changes. Need a better long term solution
     const delimiter = '|';
     const jobStatesStr = (
@@ -140,7 +138,7 @@ export class HpcService {
     } else if (finalStatus == 'RUNNING') {
       simStatusReason = {
         status: SimulationRunStatus.RUNNING,
-        reason: 'Simulation run job is executing.'
+        reason: 'Simulation run job is executing.',
       };
     } else if (finalStatus == 'COMPLETED') {
       const failedSteps: string[] = [];
@@ -153,12 +151,17 @@ export class HpcService {
       if (failedSteps.length === 0) {
         simStatusReason = {
           status: SimulationRunStatus.SUCCEEDED,
-          reason: 'The simulation project (COMBINE/OMEX archive) was successfully saved, the project executed successfully, and the results of the simulation experiments were sucessfully saved.',
+          reason:
+            'The simulation project (COMBINE/OMEX archive) was successfully saved, the project executed successfully, and the results of the simulation experiments were sucessfully saved.',
         };
       } else {
         simStatusReason = {
           status: SimulationRunStatus.FAILED,
-          reason: `${failedSteps.length} steps of the simulation run job failed:\n  * ${failedSteps.join('\n  * ')}`,
+          reason: `${
+            failedSteps.length
+          } steps of the simulation run job failed:\n  * ${failedSteps.join(
+            '\n  * ',
+          )}`,
         };
         this.logger.error(
           `Job '${jobId}' completed, but ${
@@ -179,7 +182,7 @@ export class HpcService {
       );
       simStatusReason = {
         status: SimulationRunStatus.FAILED,
-        reason: `Simulation run job terminated with status '${finalStatus}'.`
+        reason: `Simulation run job terminated with status '${finalStatus}'.`,
       };
     } else {
       this.logger.warn(`Job '${jobId}' does not have a status yet.`);

@@ -24,22 +24,19 @@ export class LogService {
     update = false,
   ): Promise<CombineArchiveLog> {
     const path = this.sshService.getSSHResultsDirectory(id);
-    return this.makeLog(id, path, true, extraStdLog)
-      .then((value) => {
-        return this.uploadLog(id, value, update)
-          .catch((error) => {
-            this.logger.error(
-              `Log for simulation run '${id}' is invalid: ${error}.`,
-            );
-            if (!tryPlainLog) {
-              throw error;
-            }
-            return this.makeLog(id, path, false, extraStdLog)
-              .then((value) => {
-                return this.uploadLog(id, value, update);
-              });
-          });
+    return this.makeLog(id, path, true, extraStdLog).then((value) => {
+      return this.uploadLog(id, value, update).catch((error) => {
+        this.logger.error(
+          `Log for simulation run '${id}' is invalid: ${error}.`,
+        );
+        if (!tryPlainLog) {
+          throw error;
+        }
+        return this.makeLog(id, path, false, extraStdLog).then((value) => {
+          return this.uploadLog(id, value, update);
+        });
       });
+    });
   }
 
   private async makeLog(

@@ -165,122 +165,121 @@ export class DesignLine2DVisualizationComponent implements OnInit {
     return this.viewService
       .getReportResults(this.simulationRunId, dataSetUris)
       .pipe(
-        map(
-          (
-            uriResultsMap: UriSetDataSetResultsMap,
-          ): PlotlyDataLayout => {
-            const formGroup = this.formGroup;
-            const traceMode = (formGroup.controls.traceMode as FormControl)
-              .value;
+        map((uriResultsMap: UriSetDataSetResultsMap): PlotlyDataLayout => {
+          const formGroup = this.formGroup;
+          const traceMode = (formGroup.controls.traceMode as FormControl).value;
 
-            const traces = [];
-            const xAxisTitlesSet = new Set<string>();
-            const yAxisTitlesSet = new Set<string>();
-            const errors: string[] = [];
+          const traces = [];
+          const xAxisTitlesSet = new Set<string>();
+          const yAxisTitlesSet = new Set<string>();
+          const errors: string[] = [];
 
-            for (let iCurve = 0; iCurve < this.curvesFormGroups.length; iCurve++) {
-              const curve = this.curvesFormGroups[iCurve];
-              for (const xDataUri of (curve.controls.xData as FormControl)
+          for (
+            let iCurve = 0;
+            iCurve < this.curvesFormGroups.length;
+            iCurve++
+          ) {
+            const curve = this.curvesFormGroups[iCurve];
+            for (const xDataUri of (curve.controls.xData as FormControl)
+              .value) {
+              for (const yDataUri of (curve.controls.yData as FormControl)
                 .value) {
-                for (const yDataUri of (curve.controls.yData as FormControl)
-                  .value) {
-                  const xDataSet = this.uriSedDataSetMap[xDataUri];
-                  const yDataSet = this.uriSedDataSetMap[yDataUri];
-                  const xLabel = xDataSet.name || xDataSet.label || xDataSet.id;
-                  const yLabel = yDataSet.name || yDataSet.label || yDataSet.id;
-                  let name!: string;
-                  if ((curve.controls.name as FormControl).value) {
-                    name = (curve.controls.name as FormControl).value;
+                const xDataSet = this.uriSedDataSetMap[xDataUri];
+                const yDataSet = this.uriSedDataSetMap[yDataUri];
+                const xLabel = xDataSet.name || xDataSet.label || xDataSet.id;
+                const yLabel = yDataSet.name || yDataSet.label || yDataSet.id;
+                let name!: string;
+                if ((curve.controls.name as FormControl).value) {
+                  name = (curve.controls.name as FormControl).value;
 
-                    const attributes = [];
-                    if (
-                      (curve.controls.xData as FormControl).value.length > 1
-                    ) {
-                      attributes.push(`x: ${xLabel}`);
-                    }
-                    if (
-                      (curve.controls.yData as FormControl).value.length > 1
-                    ) {
-                      attributes.push(`y: ${yLabel}`);
-                    }
-
-                    if (attributes.length) {
-                      name += ` (${attributes.join(', ')})`;
-                    }
-                  } else {
-                    name = `${yLabel} vs ${xLabel}`;
+                  const attributes = [];
+                  if ((curve.controls.xData as FormControl).value.length > 1) {
+                    attributes.push(`x: ${xLabel}`);
+                  }
+                  if ((curve.controls.yData as FormControl).value.length > 1) {
+                    attributes.push(`y: ${yLabel}`);
                   }
 
-                  const trace = {
-                    name: name,
-                    x: uriResultsMap?.[xDataUri]?.values,
-                    y: uriResultsMap?.[yDataUri]?.values,
-                    xaxis: 'x1',
-                    yaxis: 'y1',
-                    type: PlotlyTraceType.scatter,
-                    mode: traceMode,
-                  };
-
-                  if (trace.x && trace.y) {
-                    traces.push(trace);
-                    xAxisTitlesSet.add(xLabel);
-                    yAxisTitlesSet.add(yLabel);
-                  } else if (xDataUri && yDataUri) {
-                    errors.push(`Curve '${iCurve + 1}' of '${xDataUri}' and '${yDataUri}'.`);
+                  if (attributes.length) {
+                    name += ` (${attributes.join(', ')})`;
                   }
+                } else {
+                  name = `${yLabel} vs ${xLabel}`;
+                }
+
+                const trace = {
+                  name: name,
+                  x: uriResultsMap?.[xDataUri]?.values,
+                  y: uriResultsMap?.[yDataUri]?.values,
+                  xaxis: 'x1',
+                  yaxis: 'y1',
+                  type: PlotlyTraceType.scatter,
+                  mode: traceMode,
+                };
+
+                if (trace.x && trace.y) {
+                  traces.push(trace);
+                  xAxisTitlesSet.add(xLabel);
+                  yAxisTitlesSet.add(yLabel);
+                } else if (xDataUri && yDataUri) {
+                  errors.push(
+                    `Curve '${iCurve + 1}' of '${xDataUri}' and '${yDataUri}'.`,
+                  );
                 }
               }
             }
+          }
 
-            const xAxisTitlesArr = Array.from(xAxisTitlesSet);
-            const yAxisTitlesArr = Array.from(yAxisTitlesSet);
+          const xAxisTitlesArr = Array.from(xAxisTitlesSet);
+          const yAxisTitlesArr = Array.from(yAxisTitlesSet);
 
-            let xAxisTitle: string | undefined;
-            let yAxisTitle: string | undefined;
+          let xAxisTitle: string | undefined;
+          let yAxisTitle: string | undefined;
 
-            if (xAxisTitlesArr.length === 1) {
-              xAxisTitle = xAxisTitlesArr[0];
-            } else if (xAxisTitlesArr.length > 1) {
-              xAxisTitle = 'Multiple';
-            }
+          if (xAxisTitlesArr.length === 1) {
+            xAxisTitle = xAxisTitlesArr[0];
+          } else if (xAxisTitlesArr.length > 1) {
+            xAxisTitle = 'Multiple';
+          }
 
-            if (yAxisTitlesArr.length === 1) {
-              yAxisTitle = yAxisTitlesArr[0];
-            } else if (yAxisTitlesArr.length > 1) {
-              yAxisTitle = 'Multiple';
-            }
+          if (yAxisTitlesArr.length === 1) {
+            yAxisTitle = yAxisTitlesArr[0];
+          } else if (yAxisTitlesArr.length > 1) {
+            yAxisTitle = 'Multiple';
+          }
 
-            const dataLayout: PlotlyDataLayout = {
-              data: traces.length ? traces : undefined,
-              layout: {
-                xaxis1: {
-                  anchor: 'x1',
-                  title: xAxisTitle,
-                  type: (formGroup.controls.xAxisType as FormControl).value,
-                },
-                yaxis1: {
-                  anchor: 'y1',
-                  title: yAxisTitle,
-                  type: (formGroup.controls.yAxisType as FormControl).value,
-                },
-                grid: {
-                  rows: 1,
-                  columns: 1,
-                  pattern: 'independent',
-                },
-                showlegend: traces.length > 1,
-                width: undefined,
-                height: undefined,
+          const dataLayout: PlotlyDataLayout = {
+            data: traces.length ? traces : undefined,
+            layout: {
+              xaxis1: {
+                anchor: 'x1',
+                title: xAxisTitle,
+                type: (formGroup.controls.xAxisType as FormControl).value,
               },
-              dataErrors: errors.length > 0 ? errors : undefined,
-            };
+              yaxis1: {
+                anchor: 'y1',
+                title: yAxisTitle,
+                type: (formGroup.controls.yAxisType as FormControl).value,
+              },
+              grid: {
+                rows: 1,
+                columns: 1,
+                pattern: 'independent',
+              },
+              showlegend: traces.length > 1,
+              width: undefined,
+              height: undefined,
+            },
+            dataErrors: errors.length > 0 ? errors : undefined,
+          };
 
-            return dataLayout;
-          },
-        ),
+          return dataLayout;
+        }),
         catchError((): Observable<PlotlyDataLayout> => {
           return of({
-            dataErrors: ['The results of one or more SED reports requested for the plot could not be loaded.'],
+            dataErrors: [
+              'The results of one or more SED reports requested for the plot could not be loaded.',
+            ],
           });
         }),
       );
@@ -302,9 +301,11 @@ export class DesignLine2DVisualizationComponent implements OnInit {
       .pipe(
         map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
           if (Object.keys(uriResultsMap).length === 0) {
-            throw new Error('The data for the visualization could not be retrieved');
+            throw new Error(
+              'The data for the visualization could not be retrieved',
+            );
           }
-          
+
           let vegaDataSets: {
             templateNames: string[];
             sourceName: (iDataSet: number) => string;

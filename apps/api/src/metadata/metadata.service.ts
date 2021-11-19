@@ -1,6 +1,4 @@
-import {
-  ArchiveMetadata,
-} from '@biosimulations/datamodel/api';
+import { ArchiveMetadata } from '@biosimulations/datamodel/api';
 import {
   Injectable,
   Logger,
@@ -63,12 +61,10 @@ export class MetadataService {
 
     const simulationRunMetadata = new this.simulationRunMetadataModel({
       simulationRun: runId,
-      metadata: metadata.map(
-        this.transformMetadata.bind(this, runId),
-      ),
+      metadata: metadata.map(this.transformMetadata.bind(this, runId)),
     });
     await simulationRunMetadata.save();
-    return
+    return;
   }
 
   public async modifyMetadata(

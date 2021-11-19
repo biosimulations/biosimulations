@@ -674,7 +674,11 @@ export class BrowseComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  constructor(private service: BrowseService, private route: ActivatedRoute, private scrollService: ScrollService) {
+  constructor(
+    private service: BrowseService,
+    private route: ActivatedRoute,
+    private scrollService: ScrollService,
+  ) {
     this.openControls = this.openControls.bind(this);
   }
 

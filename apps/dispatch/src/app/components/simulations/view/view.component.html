@@ -30,27 +30,24 @@
 
     <ng-template #metadataContent>
       <biosimulations-project-metadata
-        *ngIf="
-          projectMetadata$ | async as projectMetadata;
-          else metadataError
-        "
+        *ngIf="projectMetadata$ | async as projectMetadata; else metadataError"
         [project]="projectMetadata"
       >
       </biosimulations-project-metadata>
 
       <ng-template #metadataError>
         <div class="info-message">
-          No metadata could be loaded either because the project did not
-          contain metadata in RDF-XML format or because the metadata was
-          invalid. Metadata is not required for simulation. However metadata
-          is required for publication to BioSimulations. Information about
-          BioSimulations metadata requirements is available
+          No metadata could be loaded either because the project did not contain
+          metadata in RDF-XML format or because the metadata was invalid.
+          Metadata is not required for simulation. However metadata is required
+          for publication to BioSimulations. Information about BioSimulations
+          metadata requirements is available
           <a
             href="https://biosimulators.org/conventions/metadata"
             target="_blank"
             >here</a
-          >. Further information about errors in metadata can be obtained
-          using the
+          >. Further information about errors in metadata can be obtained using
+          the
           <a [routerLink]="['/utils', 'validate-project']">COMBINE archive</a>
           and
           <a [routerLink]="['/utils', 'validate-metadata']">OMEX Metadata</a>
@@ -110,8 +107,8 @@
 
       <ng-template #filesError>
         <div class="info-message">
-          Sorry! An error occurred in loading the files for the simulation
-          run. Please try again. If the error persists, please submit an issue
+          Sorry! An error occurred in loading the files for the simulation run.
+          Please try again. If the error persists, please submit an issue
           <a
             href="https://github.com/biosimulations/biosimulations/issues/new/choose"
             target="_blank"
@@ -149,20 +146,20 @@
           (renderVisualization)="renderVisualization($event)"
           [runSucceeded]="(statusSucceeded$ | async) === true"
         >
-        </biosimulations-project-select-visualization>        
+        </biosimulations-project-select-visualization>
       </div>
       <ng-template #visualizationErrors>
         <div class="info-message">
           Sorry! An error occurred in loading the visualizations for the
-          simulation run. Please try again. If the error persists, please
-          submit an issue
+          simulation run. Please try again. If the error persists, please submit
+          an issue
           <a
             href="https://github.com/biosimulations/biosimulations/issues/new/choose"
             target="_blank"
             ><biosimulations-icon icon="link"></biosimulations-icon></a
           >.
         </div>
-      </ng-template>      
+      </ng-template>
     </ng-template>
   </biosimulations-tab-page-tab>
 

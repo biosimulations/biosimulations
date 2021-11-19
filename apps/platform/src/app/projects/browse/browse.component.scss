@@ -11,7 +11,7 @@
 
 .controls {
   padding-left: 1rem;
-  width: 232px;  
+  width: 232px;
 }
 
 @media screen and (max-width: 959px) {
@@ -44,11 +44,11 @@
   }
   .controls-container.visible {
     width: 100%;
-  }  
+  }
   .controls-container.enter-from-right {
     transition: unset;
   }
-  .controls {    
+  .controls {
     width: 100%;
     padding: 0;
   }

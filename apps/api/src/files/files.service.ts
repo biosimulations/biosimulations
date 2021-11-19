@@ -43,14 +43,17 @@ export class FilesService {
     });
   }
 
-  public async createFiles(runId: string, files: ProjectFileInput[]): Promise<void> {
-    this.logger.log(files)
+  public async createFiles(
+    runId: string,
+    files: ProjectFileInput[],
+  ): Promise<void> {
+    this.logger.log(files);
     await Promise.all(
       files.map((file) => {
         const fileModel = new this.model(file);
         fileModel.simulationRun = runId;
         return fileModel.save();
-      })
+      }),
     );
     return;
   }

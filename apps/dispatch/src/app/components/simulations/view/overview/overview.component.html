@@ -44,11 +44,13 @@
         <biosimulations-icon icon="status"></biosimulations-icon>
       </th>
       <td>
-        <span class="heading">Status:</span>{{ ' ' }}<span [ngClass]="{error: simulation.statusFailed }">{{ simulation.statusLabel }}</span>
-        <span *ngIf="simulation.statusRunning">{{ ' ' }}
-          <biosimulations-icon
-            icon="spinner"
-          ></biosimulations-icon>
+        <span class="heading">Status:</span>{{ ' '
+        }}<span [ngClass]="{ error: simulation.statusFailed }">{{
+          simulation.statusLabel
+        }}</span>
+        <span *ngIf="simulation.statusRunning"
+          >{{ ' ' }}
+          <biosimulations-icon icon="spinner"></biosimulations-icon>
         </span>
       </td>
     </tr>

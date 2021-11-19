@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
-import { EnvironmentVariable, Purpose, SimulationRunStatus } from '@biosimulations/datamodel/common';
+import {
+  EnvironmentVariable,
+  Purpose,
+  SimulationRunStatus,
+} from '@biosimulations/datamodel/common';
 
 export enum JobQueue {
   dispatch = 'dispatch',

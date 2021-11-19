@@ -128,7 +128,7 @@ export class MetadataController {
     @Body() body: ArchiveMetadataContainer,
   ): Promise<void> {
     await this.service.createMetadata(runId, body.metadata);
-    return
+    return;
   }
 
   @ApiOperation({

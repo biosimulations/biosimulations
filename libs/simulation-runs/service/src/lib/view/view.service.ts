@@ -991,43 +991,50 @@ export class ViewService {
       if (!reportUris.has(reportUri)) {
         reportUris.add(reportUri);
         reportObs.push(
-          this.simRunService.getSimulationRunOutputResults(
-            simulationRunId,
-            reportUri,
-            true,
-          )
-          .pipe(
-            catchError((): Observable<false> => {
-              return of(false);
-            }),
-          )
+          this.simRunService
+            .getSimulationRunOutputResults(simulationRunId, reportUri, true)
+            .pipe(
+              catchError((): Observable<false> => {
+                return of(false);
+              }),
+            ),
         );
       }
     }
 
     return forkJoin(reportObs).pipe(
       shareReplay(1),
-      map((reportResults: (SimulationRunOutput | false)[]): UriSetDataSetResultsMap => {
-        const uriResultsMap: UriSetDataSetResultsMap = {};
-        reportResults
-          .flatMap((reportResult: SimulationRunOutput | false): SimulationRunOutput[] => {
-            if (reportResult) {
-              return [reportResult];
-            } else {
-              return [];
-            }
-          })
-          .forEach((reportResult: SimulationRunOutput): void => {
-            reportResult.data.forEach((datum: SimulationRunOutputDatum): void => {
-              let outputId = reportResult.outputId;
-              if (outputId.startsWith('./')) {
-                outputId = outputId.substring(2);
-              }
-              uriResultsMap[`${outputId}/${datum.id}`] = datum;
+      map(
+        (
+          reportResults: (SimulationRunOutput | false)[],
+        ): UriSetDataSetResultsMap => {
+          const uriResultsMap: UriSetDataSetResultsMap = {};
+          reportResults
+            .flatMap(
+              (
+                reportResult: SimulationRunOutput | false,
+              ): SimulationRunOutput[] => {
+                if (reportResult) {
+                  return [reportResult];
+                } else {
+                  return [];
+                }
+              },
+            )
+            .forEach((reportResult: SimulationRunOutput): void => {
+              reportResult.data.forEach(
+                (datum: SimulationRunOutputDatum): void => {
+                  let outputId = reportResult.outputId;
+                  if (outputId.startsWith('./')) {
+                    outputId = outputId.substring(2);
+                  }
+                  uriResultsMap[`${outputId}/${datum.id}`] = datum;
+                },
+              );
             });
-          });
-        return uriResultsMap;
-      }),
+          return uriResultsMap;
+        },
+      ),
       shareReplay(1),
     );
   }

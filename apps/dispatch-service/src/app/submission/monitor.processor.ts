@@ -1,4 +1,7 @@
-import { SimulationRunStatus, SimulationRunStatusReason } from '@biosimulations/datamodel/common';
+import {
+  SimulationRunStatus,
+  SimulationRunStatusReason,
+} from '@biosimulations/datamodel/common';
 import {
   CompleteJob,
   JobQueue,
@@ -39,8 +42,16 @@ export class MonitorProcessor {
     this.logger.debug(message);
 
     if (jobStatusReason.status) {
-      if ([SimulationRunStatus.SUCCEEDED, SimulationRunStatus.FAILED].includes(jobStatusReason.status)) {
-        this.simStatusService.updateStatus(runId, SimulationRunStatus.PROCESSING, jobStatusReason.reason);
+      if (
+        [SimulationRunStatus.SUCCEEDED, SimulationRunStatus.FAILED].includes(
+          jobStatusReason.status,
+        )
+      ) {
+        this.simStatusService.updateStatus(
+          runId,
+          SimulationRunStatus.PROCESSING,
+          jobStatusReason.reason,
+        );
         this.completeQueue.add({
           runId,
           status: jobStatusReason.status,
@@ -48,15 +59,17 @@ export class MonitorProcessor {
           projectId,
           projectOwner,
         });
-
       } else {
-        this.simStatusService.updateStatus(runId, jobStatusReason.status, jobStatusReason.reason);
+        this.simStatusService.updateStatus(
+          runId,
+          jobStatusReason.status,
+          jobStatusReason.reason,
+        );
         this.monitorQueue.add(
           { slurmJobId, runId, projectId, projectOwner, retryCount },
           { delay: DELAY },
         );
       }
-
     } else {
       this.logger.warn(
         `The status of simulation run '${runId}' could not be updated because its status could not be retrieved from the HPC.`,
@@ -75,7 +88,7 @@ export class MonitorProcessor {
         this.completeQueue.add({
           runId,
           status: SimulationRunStatus.FAILED,
-          statusReason: message
+          statusReason: message,
         });
       }
     }
