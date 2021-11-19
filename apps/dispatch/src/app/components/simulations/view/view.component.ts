@@ -176,7 +176,7 @@ export class ViewComponent implements OnInit {
 
     this.logs$ = this.statusCompleted$.pipe(
       mergeMap((completed) =>
-        iif(() => completed,          
+        iif(() => completed,
           this.dispatchService.getSimulationLogs(id),
           of(null),
         )
@@ -231,7 +231,7 @@ export class ViewComponent implements OnInit {
     );
 
     const status$ = this.simulation$.pipe(
-      pluck('status'), 
+      pluck('status'),
       shareReplay(1),
     );
 

@@ -37,5 +37,5 @@ export class CompleteJob {
   status!: SimulationRunStatus;
   statusReason!: string;
   projectId?: string;
-  projectOwner?: string;  
+  projectOwner?: string;
 }
