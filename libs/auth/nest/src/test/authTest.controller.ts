@@ -1,12 +1,14 @@
 import {
   Controller,
   Get,
+  ImATeapotException,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import {
   ApiOAuth2,
   ApiOperation,
+  ApiResponse,
   ApiOkResponse,
   ApiUnauthorizedResponse,
   ApiForbiddenResponse,
@@ -23,6 +25,19 @@ import { scopes } from '@biosimulations/auth/common';
 @ApiOAuth2([])
 @Controller('auth')
 export class AuthTestController {
+  @Get('/open')
+  @ApiOperation({
+    summary: 'Check whether the API is operational',
+    description: 'Check whether the API is operational',
+  })
+  @ApiResponse({
+    status: 418,
+    description: 'The status of the API was successfully checked',
+  })
+  ping(@Req() req: any) {
+    throw new ImATeapotException('The endpoint executed successfully.');
+  }
+
   @UseGuards(JwtGuard)
   @ApiOAuth2([])
   @ApiOperation({
