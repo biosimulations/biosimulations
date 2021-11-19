@@ -94,7 +94,7 @@ export class CompleteProcessor {
 
     const processingResults: boolean[] =
       await Promise.all(
-        processingSteps.map((processingStep) => 
+        processingSteps.map((processingStep) =>
           processingStep.result
             .then(() => true)
             .catch((error) => {
@@ -124,7 +124,7 @@ export class CompleteProcessor {
         ),
       );
 
-    // Keep track of which processing step(s) failed    
+    // Keep track of which processing step(s) failed
     const logPostSucceeded = processingResults[3];
 
     /* calculate final status and reason */

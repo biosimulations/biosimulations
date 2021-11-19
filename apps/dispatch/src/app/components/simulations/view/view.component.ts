@@ -75,8 +75,8 @@ export class ViewComponent implements OnInit {
     this.initSimulationRun();
 
     this.projectMetadata$ = this.statusSucceeded$.pipe(
-      mergeMap((succeeded) => 
-        iif(() => succeeded, 
+      mergeMap((succeeded) =>
+        iif(() => succeeded,
           this.simulationRunService.getSimulationRunSummary(id).pipe(
             map((simulationRunSummary) =>
               this.sharedViewService.getFormattedProjectMetadata(
@@ -98,8 +98,8 @@ export class ViewComponent implements OnInit {
     );
 
     this.projectFiles$ = this.statusSucceeded$.pipe(
-      mergeMap((succeeded) => 
-        iif(() => succeeded, 
+      mergeMap((succeeded) =>
+        iif(() => succeeded,
           this.simulationRunService.getSimulationRunSummary(id).pipe(
             map((simulationRunSummary) =>
               this.sharedViewService.getFormattedProjectFiles(
@@ -121,8 +121,8 @@ export class ViewComponent implements OnInit {
     );
 
     this.files$ = this.statusSucceeded$.pipe(
-      mergeMap((succeeded) => 
-        iif(() => succeeded, 
+      mergeMap((succeeded) =>
+        iif(() => succeeded,
           this.sharedViewService.getFormattedProjectContentFiles(id),
           of(null),
         ),
@@ -137,7 +137,7 @@ export class ViewComponent implements OnInit {
     );
 
     this.outputs$ = this.statusSucceeded$.pipe(
-      mergeMap((succeeded) => 
+      mergeMap((succeeded) =>
         iif(() => succeeded,
           this.simulationRunService.getSimulationRunSummary(id).pipe(
             map((simulationRunSummary) =>
@@ -160,8 +160,8 @@ export class ViewComponent implements OnInit {
     );
 
     this.visualizations$ = this.statusSucceeded$.pipe(
-      mergeMap((succeeded) => 
-        iif(() => succeeded, 
+      mergeMap((succeeded) =>
+        iif(() => succeeded,
           this.sharedViewService.getVisualizations(id),
           of(null),
         ),
@@ -176,8 +176,8 @@ export class ViewComponent implements OnInit {
     );
 
     this.logs$ = this.statusRunning$.pipe(
-      mergeMap((running) => 
-        iif(() => running, 
+      mergeMap((running) =>
+        iif(() => running,
           of(null),
           this.dispatchService.getSimulationLogs(id),
         )

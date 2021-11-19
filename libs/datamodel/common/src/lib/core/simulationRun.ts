@@ -91,7 +91,7 @@ export interface SimulationRun {
 }
 
 export interface SimulationRunSedDocumentInput {
-  id: string;  
+  id: string;
   models: SedModel[];
   simulations: SedSimulation[];
   dataGenerators: SedDataGenerator[];
