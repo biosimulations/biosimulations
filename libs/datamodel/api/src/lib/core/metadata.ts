@@ -2,12 +2,9 @@ import {
   ApiExtraModels,
   ApiProperty,
   ApiResponseProperty,
-  IntersectionType,
-  OmitType,
 } from '@nestjs/swagger';
 import {
   ArchiveMetadata,
-  ArchiveMetadataContainer,
 } from '../common/archiveMetadata';
 import { IsMongoId, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -57,9 +54,3 @@ export class SimulationRunMetadata {
     this.modified = modified;
   }
 }
-
-// eslint-disable-next-line max-len
-export class SimulationRunMetadataInput extends IntersectionType(
-  OmitType(SimulationRunMetadata, ['metadata', 'created', 'modified'] as const),
-  ArchiveMetadataContainer,
-) {}

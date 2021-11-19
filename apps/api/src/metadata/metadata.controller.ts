@@ -24,7 +24,7 @@ import {
 
 import {
   SimulationRunMetadata,
-  SimulationRunMetadataInput,
+  ArchiveMetadataContainer,
 } from '@biosimulations/datamodel/api';
 import { MetadataService } from './metadata.service';
 import { SimulationRunMetadataModel } from './metadata.model';
@@ -55,7 +55,7 @@ export class MetadataController {
   })
   @ApiBody({
     description: 'Metadata about the simulation project of a simulation run',
-    type: SimulationRunMetadataInput,
+    type: ArchiveMetadataContainer,
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
@@ -77,21 +77,14 @@ export class MetadataController {
   })
   @ApiOkResponse({
     description: 'The metadata was successfully saved to the database',
-    type: SimulationRunMetadata,
   })
   @permissions(scopes.metadata.update.id)
   public async modifyMetadata(
     @Param('runId') runId: string,
-    @Body() body: SimulationRunMetadataInput,
-  ): Promise<SimulationRunMetadata> {
-    const metadata = await this.service.modifyMetadata(runId, body.metadata);
-    const data = metadata.metadata;
-    return new SimulationRunMetadata(
-      metadata.simulationRun,
-      data,
-      metadata.created,
-      metadata.updated,
-    );
+    @Body() body: ArchiveMetadataContainer,
+  ): Promise<void> {
+    await this.service.modifyMetadata(runId, body.metadata);
+    return;
   }
 
   @ApiOperation({
@@ -99,9 +92,19 @@ export class MetadataController {
     description:
       'Upload metadata about the simulation project of a simulation run',
   })
+  @Post(':runId')
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
   @ApiBody({
     description: 'Metadata about the simulation project of a simulation run',
-    type: SimulationRunMetadataInput,
+    type: ArchiveMetadataContainer,
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
@@ -110,8 +113,7 @@ export class MetadataController {
   })
   @ApiCreatedResponse({
     description: 'The metadata was successfully saved to the database',
-  })
-  @Post()
+  })  
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',
@@ -122,10 +124,10 @@ export class MetadataController {
   })
   @permissions(scopes.metadata.create.id)
   public async makeMetadata(
-    @Body() body: SimulationRunMetadataInput,
+    @Param('runId') runId: string,
+    @Body() body: ArchiveMetadataContainer,
   ): Promise<void> {
-    const input = { ...body, simulationRun: body.id };
-    await this.service.createMetadata(input);
+    await this.service.createMetadata(runId, body.metadata);
     return
   }
 

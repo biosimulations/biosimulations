@@ -50,7 +50,7 @@ export class SimulationRunService {
   public getSimulationRunSimulationSpecifications(
     id: string,
   ): Observable<SimulationRunSedDocument[]> {
-    const endpoint = this.endpoints.getSpecificationsEndpoint(id);
+    const endpoint = this.endpoints.getSimulationRunSimulationExperimentSpecificationsEndpoint(id);
     return this.getData<SimulationRunSedDocument[]>(id, endpoint);
   }
 

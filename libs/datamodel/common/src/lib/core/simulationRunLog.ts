@@ -73,8 +73,3 @@ export interface CombineArchiveLog {
   duration: number | null;
   sedDocuments: SedDocumentLog[] | null;
 }
-
-export class CreateSimulationRunLogBody {
-  simId!: string;
-  log!: CombineArchiveLog;
-}

@@ -427,7 +427,7 @@ export class Endpoints {
    * @param experimentLocation The local of the particular simulation spec (SED-ML file )
    * @returns The URL to the specified simulation spec
    */
-  public getSpecificationsEndpoint(
+  public getSimulationRunSimulationExperimentSpecificationsEndpoint(
     runId?: string,
     experimentLocation?: string,
     elementType?: string, // SedElementType

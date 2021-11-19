@@ -33,7 +33,7 @@ export class SedmlService {
     const sedml = req.pipe(
       pluck('data'),
       pluck('contents'),
-      map(this.getSpecsFromArchiveContent.bind(this, id)),
+      map(this.getSpecsFromArchiveContent.bind(this)),
       mergeMap((sedmlSpecs: SimulationRunSedDocumentInput[]) => {
         return this.submit.postSpecs(id, sedmlSpecs);
       }),
@@ -43,7 +43,6 @@ export class SedmlService {
   }
 
   private getSpecsFromArchiveContent(
-    simulationRun: string,
     contents: CombineArchiveSedDocSpecsContent[],
   ): SimulationRunSedDocumentInput[] {
     const sedmlSpecs: SimulationRunSedDocumentInput[] = [];
@@ -52,7 +51,6 @@ export class SedmlService {
       const spec: SedDocument = content.location.value;
 
       sedmlSpecs.push({
-        simulationRun: simulationRun,
         id: id,
         dataGenerators: spec.dataGenerators,
         models: spec.models,

@@ -1,6 +1,5 @@
 import {
   CombineArchiveLog,
-  CreateSimulationRunLogBody,
 } from '@biosimulations/datamodel/common';
 import { SimulationRun } from '@biosimulations/datamodel/api';
 import { Injectable, Logger, HttpStatus } from '@nestjs/common';
@@ -18,7 +17,7 @@ import {
 import {
   ProjectFileInput,
   ProjectFileInputsContainer,
-  SimulationRunMetadataInput,
+  ArchiveMetadataContainer,
 } from '@biosimulations/datamodel/api';
 import { retryBackoff } from 'backoff-rxjs';
 import { AxiosError } from 'axios';
@@ -39,12 +38,12 @@ export class SimulationRunService {
 
   public postMetadata(
     runId: string,
-    metadata: SimulationRunMetadataInput,
+    metadata: ArchiveMetadataContainer,
   ): Observable<void> {
     this.logger.log(`Uploading metadata for simulation run '${runId}' ....`);
-    const endpoint = this.endpoints.getSimulationRunMetadataEndpoint();
+    const endpoint = this.endpoints.getSimulationRunMetadataEndpoint(runId);
     return this.postAuthenticated<
-      SimulationRunMetadataInput,
+      ArchiveMetadataContainer,
       void
     >(runId, endpoint, metadata);
   }
@@ -56,7 +55,7 @@ export class SimulationRunService {
     this.logger.log(
       `Uploading simulation experiment specifications (SED-ML) for simulation run '${runId}' ....`,
     );
-    const endpoint = this.endpoints.getSpecificationsEndpoint();
+    const endpoint = this.endpoints.getSimulationRunSimulationExperimentSpecificationsEndpoint(runId);
     return this.postAuthenticated<
       SimulationRunSedDocumentInputsContainer,
       void
@@ -69,7 +68,7 @@ export class SimulationRunService {
   ): Observable<void> {
     this.logger.log(`Uploading files for simulation run '${runId}' ....`);
     const body: ProjectFileInputsContainer = { files };
-    const endpoint = this.endpoints.getSimulationRunFilesEndpoint();
+    const endpoint = this.endpoints.getSimulationRunFilesEndpoint(runId);
     return this.postAuthenticated<ProjectFileInputsContainer, void>(
       runId,
       endpoint,
@@ -157,8 +156,8 @@ export class SimulationRunService {
     log: CombineArchiveLog,
     update = false,
   ): Observable<void> {
-    if (update) {
-      const endpoint = this.endpoints.getSimulationRunLogsEndpoint(runId);
+    const endpoint = this.endpoints.getSimulationRunLogsEndpoint(runId);
+    if (update) {      
       const body: CombineArchiveLog = log;
       return this.putAuthenticated<CombineArchiveLog, void>(
         runId,
@@ -166,15 +165,10 @@ export class SimulationRunService {
         body,
       );
     } else {
-      const endpoint = this.endpoints.getSimulationRunLogsEndpoint();
-      const body: CreateSimulationRunLogBody = {
-        simId: runId,
-        log: log,
-      };
       return this.postAuthenticated<
-        CreateSimulationRunLogBody,
+        CombineArchiveLog,
         void
-      >(runId, endpoint, body);
+      >(runId, endpoint, log);
     }
   }
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ArchiveMetadata as IArchiveMetadata } from '@biosimulations/datamodel/common';
 import {
   IsString,
@@ -147,20 +147,9 @@ export class ArchiveMetadata implements IArchiveMetadataType {
   other: DescribedIdentifier[] = [];
 }
 
-export class ArchiveMetadataInput extends OmitType(ArchiveMetadata, [
-  'created',
-  'modified',
-] as const) {}
-
 export class ArchiveMetadataContainer {
   @ApiProperty({ type: [ArchiveMetadata] })
   @ValidateNested({ each: true })
   @Type(() => ArchiveMetadata)
   metadata!: ArchiveMetadata[];
-}
-export class ArchiveMetadataInputContainer {
-  @ApiProperty({ type: [ArchiveMetadataInput] })
-  @ValidateNested({ each: true })
-  @Type(() => ArchiveMetadataInput)
-  metadata!: ArchiveMetadataInput[];
 }
