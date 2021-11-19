@@ -224,7 +224,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
                 },
                 showlegend: false,
                 width: undefined,
-                height: undefined,                
+                height: undefined,
               },
               dataErrors: errors.length > 0 ? errors : undefined,
             } as PlotlyDataLayout;

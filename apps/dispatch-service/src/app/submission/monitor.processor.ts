@@ -38,10 +38,10 @@ export class MonitorProcessor {
     const message = `Status for job '${slurmJobId}' for simulation run '${runId}' is '${jobStatusReason.status}'.`;
     this.logger.debug(message);
 
-    if (jobStatusReason.status) {   
+    if (jobStatusReason.status) {
       if ([SimulationRunStatus.SUCCEEDED, SimulationRunStatus.FAILED].includes(jobStatusReason.status)) {
         this.simStatusService.updateStatus(runId, SimulationRunStatus.PROCESSING, jobStatusReason.reason);
-        this.completeQueue.add({ 
+        this.completeQueue.add({
           runId,
           status: jobStatusReason.status,
           statusReason: jobStatusReason.reason,
@@ -55,7 +55,7 @@ export class MonitorProcessor {
           { slurmJobId, runId, projectId, projectOwner, retryCount },
           { delay: DELAY },
         );
-      }       
+      }
 
     } else {
       this.logger.warn(
