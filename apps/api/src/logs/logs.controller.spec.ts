@@ -13,7 +13,7 @@ describe('LogsController', () => {
         return '';
       },
       createLog(id: string, data: any) {
-        return { simId: id, log: data };
+        return;
       },
       getOldLogs(id: string) {
         return of({

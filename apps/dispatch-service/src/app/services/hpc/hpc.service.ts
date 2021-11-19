@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { SshService } from '../ssh/ssh.service';
 import {
   SimulationRunStatus,
+  SimulationRunStatusReason,
   EnvironmentVariable,
   Purpose,
 } from '@biosimulations/datamodel/common';
@@ -87,7 +88,7 @@ export class HpcService {
    */
   public async getJobStatus(
     jobId: string,
-  ): Promise<SimulationRunStatus | null> {
+  ): Promise<SimulationRunStatusReason> {
     // TODO this needs to be changed everyime job srun changes. Need a better long term solution
     const delimiter = '|';
     const jobStatesStr = (
@@ -128,13 +129,19 @@ export class HpcService {
 
     const finalStatus = jobStatesMap?.['']?.state || '';
 
-    let simStatus: SimulationRunStatus | null;
+    let simStatusReason: SimulationRunStatusReason;
     this.logger.debug(`Status of job '${jobId}' is '${finalStatus}'.`);
     // Can not use logical or in a switch statement.
     if (finalStatus == 'PENDING') {
-      simStatus = SimulationRunStatus.QUEUED;
+      simStatusReason = {
+        status: SimulationRunStatus.QUEUED,
+        reason: 'Simulation run job is queued for execution.',
+      };
     } else if (finalStatus == 'RUNNING') {
-      simStatus = SimulationRunStatus.RUNNING;
+      simStatusReason = {
+        status: SimulationRunStatus.RUNNING,
+        reason: 'Simulation run job is executing.'
+      };
     } else if (finalStatus == 'COMPLETED') {
       const failedSteps: string[] = [];
       jobStatesArray.forEach((jobState: JobState): void => {
@@ -144,9 +151,15 @@ export class HpcService {
       });
 
       if (failedSteps.length === 0) {
-        simStatus = SimulationRunStatus.PROCESSING;
+        simStatusReason = {
+          status: SimulationRunStatus.SUCCEEDED,
+          reason: 'The simulation project (COMBINE/OMEX archive) was successfully saved, the project executed successfully, and the results of the simulation experiments were sucessfully saved.',
+        };
       } else {
-        simStatus = SimulationRunStatus.FAILED;
+        simStatusReason = {
+          status: SimulationRunStatus.FAILED,
+          reason: `${failedSteps.length} steps of the simulation run job failed:\n  * ${failedSteps.join('\n  * ')}`,
+        };
         this.logger.error(
           `Job '${jobId}' completed, but ${
             failedSteps.length
@@ -164,11 +177,18 @@ export class HpcService {
       this.logger.error(
         `Job '${jobId}' failed with response of '${finalStatus}'.`,
       );
-      simStatus = SimulationRunStatus.FAILED;
+      simStatusReason = {
+        status: SimulationRunStatus.FAILED,
+        reason: `Simulation run job terminated with status '${finalStatus}'.`
+      };
     } else {
       this.logger.warn(`Job '${jobId}' does not have a status yet.`);
-      simStatus = null;
+      simStatusReason = {
+        status: null,
+        reason: 'Simulation run job does not yet have a status.',
+      };
     }
-    return simStatus;
+
+    return simStatusReason;
   }
 }

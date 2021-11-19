@@ -211,7 +211,7 @@ export class SimulationRunController {
     const response = this.makeSimulationRun(run);
 
     const message: DispatchJob = {
-      simId: run.id,
+      runId: run.id,
       fileName: file?.originalname || 'input.omex',
       simulator: run.simulator,
       version: run.simulatorVersion,

@@ -37,6 +37,7 @@ export class ViewService {
       statusReason: simulation?.statusReason,
       statusRunning: statusRunning,
       statusSucceeded: statusSucceeded,
+      statusFailed: SimulationStatusService.isSimulationStatusFailed(simulation.status),
       statusLabel: SimulationStatusService.getSimulationStatusMessage(
         simulation.status,
         true,

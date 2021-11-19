@@ -47,6 +47,7 @@ export interface PlotlyLayout {
 }
 
 export interface PlotlyDataLayout {
-  data: PlotlyTrace[];
-  layout: PlotlyLayout;
+  data?: PlotlyTrace[];
+  layout?: PlotlyLayout;
+  dataErrors?: string[];
 }

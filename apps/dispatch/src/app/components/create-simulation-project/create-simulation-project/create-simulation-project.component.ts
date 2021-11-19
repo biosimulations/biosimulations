@@ -516,13 +516,13 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       (control: any): void => {
         if (control.newValue) {
           Object.entries(simCompatibilities).forEach(
-            ([simId, compatability]: [string, any]): void => {
+            ([simulatorId, compatability]: [string, any]): void => {
               if (
-                !control.simulators.has(simId) &&
+                !control.simulators.has(simulatorId) &&
                 compatability.algorithm.level <
                   AlgorithmSubstitutionPolicyLevels.SAME_FRAMEWORK
               ) {
-                simCompatibilities[simId].parameters = false;
+                simCompatibilities[simulatorId].parameters = false;
               }
             },
           );
@@ -531,12 +531,12 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     );
 
     this.compatibleSimulators = Object.entries(simCompatibilities).map(
-      ([simId, compatability]: [string, any]): CompatibleSimulator => {
+      ([simulatorId, compatability]: [string, any]): CompatibleSimulator => {
         return {
           simulator: {
-            id: simId,
-            name: this.simulatorSpecsMap?.[simId]?.name as string,
-            url: this.endpoints.getSimulatorsView(simId),
+            id: simulatorId,
+            name: this.simulatorSpecsMap?.[simulatorId]?.name as string,
+            url: this.endpoints.getSimulatorsView(simulatorId),
           },
           maxPolicy: compatability.algorithm,
           parametersCompatibility: compatability.parameters,

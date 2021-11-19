@@ -20,7 +20,8 @@ import {
   SedDocumentReports,
 } from '@biosimulations/datamodel-simulation-runs';
 import { ViewService } from '@biosimulations/simulation-runs/service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
 import vegaTemplate from './vega-template.json';
 import { Endpoints } from '@biosimulations/config/common';
@@ -150,7 +151,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
     }
   }
 
-  public getPlotlyDataLayout(): Observable<PlotlyDataLayout | false> {
+  public getPlotlyDataLayout(): Observable<PlotlyDataLayout> {
     let dataSetUris: string[] = [];
     this.curvesFormGroups.forEach((curve: FormGroup): void => {
       dataSetUris = dataSetUris.concat(
@@ -167,7 +168,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
         map(
           (
             uriResultsMap: UriSetDataSetResultsMap,
-          ): PlotlyDataLayout | false => {
+          ): PlotlyDataLayout => {
             const formGroup = this.formGroup;
             const traceMode = (formGroup.controls.traceMode as FormControl)
               .value;
@@ -175,9 +176,10 @@ export class DesignLine2DVisualizationComponent implements OnInit {
             const traces = [];
             const xAxisTitlesSet = new Set<string>();
             const yAxisTitlesSet = new Set<string>();
-            let missingData = false;
+            const errors: string[] = [];
 
-            for (const curve of this.curvesFormGroups) {
+            for (let iCurve = 0; iCurve < this.curvesFormGroups.length; iCurve++) {
+              const curve = this.curvesFormGroups[iCurve];
               for (const xDataUri of (curve.controls.xData as FormControl)
                 .value) {
                 for (const yDataUri of (curve.controls.yData as FormControl)
@@ -224,7 +226,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                     xAxisTitlesSet.add(xLabel);
                     yAxisTitlesSet.add(yLabel);
                   } else if (xDataUri && yDataUri) {
-                    missingData = true;
+                    errors.push(`Curve '${iCurve + 1}' of '${xDataUri}' and '${yDataUri}'.`);
                   }
                 }
               }
@@ -249,7 +251,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
             }
 
             const dataLayout: PlotlyDataLayout = {
-              data: traces,
+              data: traces.length ? traces : undefined,
               layout: {
                 xaxis1: {
                   anchor: 'x1',
@@ -270,15 +272,17 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                 width: undefined,
                 height: undefined,
               },
+              dataErrors: errors.length > 0 ? errors : undefined,
             };
 
-            if (missingData) {
-              return false;
-            } else {
-              return dataLayout;
-            }
+            return dataLayout;
           },
         ),
+        catchError((): Observable<PlotlyDataLayout> => {
+          return of({
+            dataErrors: ['The results of one or more SED reports requested for the plot could not be loaded.'],
+          });
+        }),
       );
   }
 
@@ -297,6 +301,10 @@ export class DesignLine2DVisualizationComponent implements OnInit {
       .getReportResults(this.simulationRunId, dataSetUris)
       .pipe(
         map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
+          if (Object.keys(uriResultsMap).length === 0) {
+            throw new Error('The data for the visualization could not be retrieved');
+          }
+          
           let vegaDataSets: {
             templateNames: string[];
             sourceName: (iDataSet: number) => string;

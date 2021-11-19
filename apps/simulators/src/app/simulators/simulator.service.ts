@@ -55,27 +55,27 @@ export class SimulatorService {
 
   getAllById(id: string): Observable<ISimulator[]> {
     return this.getAll().pipe(
-      map((sims: ISimulator[]) => {
-        return sims.filter((simulator: ISimulator) => simulator.id == id);
+      map((simulators: ISimulator[]) => {
+        return simulators.filter((simulator: ISimulator) => simulator.id == id);
       }),
     );
   }
 
-  getVersions(simId: string): Observable<Version[]> {
+  getVersions(simulatorId: string): Observable<Version[]> {
     return this.allSims.pipe(
-      map((sims: ISimulator[]) => {
+      map((simulators: ISimulator[]) => {
         const versions = [];
-        for (const sim of sims) {
-          if (sim.id === simId) {
+        for (const simulator of simulators) {
+          if (simulator.id === simulatorId) {
             versions.push({
-              version: sim.version,
-              image: sim.image,
-              created: sim.biosimulators.created,
+              version: simulator.version,
+              image: simulator.image,
+              created: simulator.biosimulators.created,
               curationStatus: UtilsService.getSimulatorCurationStatusMessage(
-                UtilsService.getSimulatorCurationStatus(sim),
+                UtilsService.getSimulatorCurationStatus(simulator),
                 false,
               ),
-              validated: sim.biosimulators.validated,
+              validated: simulator.biosimulators.validated,
             });
           }
         }

@@ -18,7 +18,8 @@ import {
   SedDocumentReports,
 } from '@biosimulations/datamodel-simulation-runs';
 import { ViewService } from '@biosimulations/simulation-runs/service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
 import vegaTemplate from './vega-template.json';
 import { Endpoints } from '@biosimulations/config/common';
@@ -158,7 +159,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
     formControl.setValue(Array.from(selectedUris));
   }
 
-  public getPlotlyDataLayout(): Observable<PlotlyDataLayout | false> {
+  public getPlotlyDataLayout(): Observable<PlotlyDataLayout> {
     const selectedDataSetUris = this.getSelectedDataSetUris();
     return this.viewService
       .getReportResults(this.simulationRunId, selectedDataSetUris)
@@ -166,9 +167,9 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
         map(
           (
             uriResultsMap: UriSetDataSetResultsMap,
-          ): PlotlyDataLayout | false => {
+          ): PlotlyDataLayout => {
             let allData: any = [];
-            let missingData = false;
+            const errors: string[] = [];
             const xAxisTitles: string[] = [];
             for (let selectedUri of selectedDataSetUris) {
               if (selectedUri.startsWith('./')) {
@@ -184,8 +185,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
                   );
                   xAxisTitles.push(data.label);
                 } else {
-                  missingData = true;
-                  break;
+                  errors.push(selectedUri);
                 }
               }
             }
@@ -205,7 +205,7 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
             }
 
             const dataLayout = {
-              data: [trace],
+              data: trace.x.length ? [trace] : undefined,
               layout: {
                 xaxis1: {
                   anchor: 'x1',
@@ -224,17 +224,19 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
                 },
                 showlegend: false,
                 width: undefined,
-                height: undefined,
+                height: undefined,                
               },
+              dataErrors: errors.length > 0 ? errors : undefined,
             } as PlotlyDataLayout;
 
-            if (missingData) {
-              return false;
-            } else {
-              return dataLayout;
-            }
+            return dataLayout;
           },
         ),
+        catchError((): Observable<PlotlyDataLayout> => {
+          return of({
+            dataErrors: ['The results of one or more SED reports requested for the plot could not be loaded.'],
+          });
+        }),
       );
   }
 
@@ -244,6 +246,10 @@ export class DesignHistogram1DVisualizationComponent implements OnInit {
       .getReportResults(this.simulationRunId, selectedDataSetUris)
       .pipe(
         map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
+          if (Object.keys(uriResultsMap).length === 0) {
+            throw new Error('The data for the visualization could not be retrieved');
+          }
+
           let vegaDataSets: {
             templateNames: string[];
             sourceName: (iDataSet: number) => string;

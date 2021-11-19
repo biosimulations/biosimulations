@@ -39,6 +39,11 @@ export enum SimulationRunStatusName {
   FAILED = 'failed',
 }
 
+export interface SimulationRunStatusReason {
+  status: SimulationRunStatus | null;
+  reason: string;
+}
+
 export const SimulationStatusToSimulationLogStatus = (
   input: SimulationRunStatus,
 ): SimulationRunLogStatus => {

@@ -1,5 +1,5 @@
 <div class="mat-simple-snackbar-message">
-  <span [innerHTML]="data.message"></span>
+  <div class="inner-message" [innerHTML]="data.message"></div>
   <biosimulations-icon
     icon="spinner"
     *ngIf="data?.spinner"
