@@ -113,7 +113,7 @@ export class MetadataController {
   })
   @ApiCreatedResponse({
     description: 'The metadata was successfully saved to the database',
-  })  
+  })
   @ApiUnauthorizedResponse({
     type: ErrorResponseDocument,
     description: 'A valid authorization was not provided',

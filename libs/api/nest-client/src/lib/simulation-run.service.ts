@@ -157,7 +157,7 @@ export class SimulationRunService {
     update = false,
   ): Observable<void> {
     const endpoint = this.endpoints.getSimulationRunLogsEndpoint(runId);
-    if (update) {      
+    if (update) {
       const body: CombineArchiveLog = log;
       return this.putAuthenticated<CombineArchiveLog, void>(
         runId,
