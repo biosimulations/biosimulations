@@ -206,7 +206,7 @@ export class CompleteProcessor {
 
     /* update final status */
     let finalStatus: SimulationRunStatus;
-    let finalStatusReason = runStatusReason + '\n\n' + postProcessingStatusReason;
+    const finalStatusReason = runStatusReason + '\n\n' + postProcessingStatusReason;
     if (runStatus === SimulationRunStatus.SUCCEEDED && runSuceededFromLog && postProcessingStatus === SimulationRunStatus.SUCCEEDED) {
       finalStatus = SimulationRunStatus.SUCCEEDED;
     } else {
