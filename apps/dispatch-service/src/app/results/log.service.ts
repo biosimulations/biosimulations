@@ -22,22 +22,24 @@ export class LogService {
     tryPlainLog = true,
     extraStdLog?: string,
     update = false,
-  ): Promise<void> {
+  ): Promise<CombineArchiveLog> {
     const path = this.sshService.getSSHResultsDirectory(id);
-    return this.makeLog(id, path, true, extraStdLog).then((value) => {
-      return this.uploadLog(id, value, update).catch((error) => {
-        this.logger.error(
-          `Log for simulation run '${id}' is invalid: ${error}.`,
-        );
-        if (tryPlainLog) {
-          return this.makeLog(id, path, false, extraStdLog).then((value) => {
-            return this.uploadLog(id, value, update);
+    return this.makeLog(id, path, true, extraStdLog)
+      .then((value) => {
+        return this.uploadLog(id, value, update)
+          .catch((error) => {
+            this.logger.error(
+              `Log for simulation run '${id}' is invalid: ${error}.`,
+            );
+            if (!tryPlainLog) {
+              throw error;
+            }
+            return this.makeLog(id, path, false, extraStdLog)
+              .then((value) => {
+                return this.uploadLog(id, value, update);
+              });
           });
-        } else {
-          throw error;
-        }
       });
-    });
   }
 
   private async makeLog(
@@ -106,14 +108,15 @@ export class LogService {
     id: string,
     log: CombineArchiveLog,
     update = false,
-  ): Promise<void> {
+  ): Promise<CombineArchiveLog> {
     return this.submit
       .sendLog(id, log, update)
       .toPromise()
-      .then(() => {
+      .then((value) => {
         this.logger.log(
           `The log for simulation run '${id}' was successfully saved.`,
         );
+        return log;
       })
       .catch((reason) => {
         this.logger.error(

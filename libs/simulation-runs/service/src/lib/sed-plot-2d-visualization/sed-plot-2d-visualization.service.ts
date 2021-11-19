@@ -49,7 +49,7 @@ export class SedPlot2DVisualizationService {
     const traces: PlotlyTrace[] = [];
     const xAxisTitlesSet = new Set<string>();
     const yAxisTitlesSet = new Set<string>();
-    let missingData = false;
+    const errors: string[] = [];
     for (const curve of plot.curves) {
       const xId =
         sedDocLocation + '/' + plot.id + '/' + curve.xDataGenerator.id;
@@ -69,7 +69,7 @@ export class SedPlot2DVisualizationService {
       if (trace.x && trace.y) {
         traces.push(trace as PlotlyTrace);
       } else {
-        missingData = true;
+        errors.push(`Curve '${curve.id}' of '${xId}' and '${yId}'.`);
       }
     }
 
@@ -93,12 +93,8 @@ export class SedPlot2DVisualizationService {
       showLegend = true;
     }
 
-    if (missingData) {
-      // TODO: handle error
-    }
-
     const dataLayout: PlotlyDataLayout = {
-      data: traces,
+      data: traces.length ? traces : undefined,
       layout: {
         xaxis1: {
           anchor: 'x1',
@@ -119,6 +115,7 @@ export class SedPlot2DVisualizationService {
         width: undefined,
         height: undefined,
       },
+      dataErrors: errors.length > 0 ? errors : undefined,
     };
 
     return dataLayout;

@@ -18,7 +18,8 @@ import {
   SedDocumentReports,
 } from '@biosimulations/datamodel-simulation-runs';
 import { ViewService } from '@biosimulations/simulation-runs/service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Spec as VegaSpec } from 'vega';
 import vegaTemplate from './vega-template.json';
 import { Endpoints } from '@biosimulations/config/common';
@@ -161,7 +162,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
     formControl.setValue(Array.from(selectedUris));
   }
 
-  public getPlotlyDataLayout(): Observable<PlotlyDataLayout | false> {
+  public getPlotlyDataLayout(): Observable<PlotlyDataLayout> {
     const formGroup = this.formGroup;
     const yFormControl = formGroup.controls.yDataSets as FormControl;
     const xFormControl = formGroup.controls.xDataSet as FormControl;
@@ -179,8 +180,8 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
         map(
           (
             uriResultsMap: UriSetDataSetResultsMap,
-          ): PlotlyDataLayout | false => {
-            let missingData = false;
+          ): PlotlyDataLayout => {
+            const errors: string[] = [];
 
             const zData: any[][] = [];
             const yTicks: string[] = [];
@@ -199,8 +200,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
                   zData.push(flattenedData);
                   yTicks.push(data.label);
                 } else {
-                  missingData = true;
-                  break;
+                  errors.push(`Y-data set '${selectedUri}'.`)
                 }
               }
             }
@@ -213,7 +213,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
                 xTicks = this.viewService.flattenArray(data.values);
                 xAxisTitle = data.label;
               } else {
-                missingData = true;
+                errors.push(`X-data set '${selectedXUri}'.`)
               }
             }
 
@@ -231,7 +231,7 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
             };
 
             const dataLayout = {
-              data: [trace],
+              data: trace.y.length ? [trace] : undefined,
               layout: {
                 xaxis1: {
                   anchor: 'x1',
@@ -252,15 +252,17 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
                 width: undefined,
                 height: undefined,
               },
+              dataErrors: errors.length > 0 ? errors : undefined,
             } as PlotlyDataLayout;
 
-            if (missingData) {
-              return false;
-            } else {
-              return dataLayout;
-            }
+            return dataLayout;
           },
         ),
+        catchError((): Observable<PlotlyDataLayout> => {
+          return of({
+            dataErrors: ['The results of one or more SED reports requested for the plot could not be loaded.'],
+          });
+        }),
       );
   }
 
@@ -280,6 +282,10 @@ export class DesignHeatmap2DVisualizationComponent implements OnInit {
       .getReportResults(this.simulationRunId, dataSetUris)
       .pipe(
         map((uriResultsMap: UriSetDataSetResultsMap): VegaSpec => {
+          if (Object.keys(uriResultsMap).length === 0) {
+            throw new Error('The data for the visualization could not be retrieved');
+          }
+
           let vegaDataSets: {
             templateNames: string[];
             sourceName: (iDataSet: number) => string;

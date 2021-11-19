@@ -32,6 +32,10 @@
             plots.
           </p>
 
+          <p *ngIf="!runSucceeded" class="warning">
+            One or more visualizations may not be available because the simulation run failed.
+          </p>
+
           <p>
             SED-ML L1V3 provides basic capabilities for 2D line plots. SED-ML
             L1V4 will provide capabilities for several additional types of

@@ -1,26 +1,25 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 
-import { EnvironmentVariable, Purpose } from '@biosimulations/datamodel/common';
+import { EnvironmentVariable, Purpose, SimulationRunStatus } from '@biosimulations/datamodel/common';
 
 export enum JobQueue {
   dispatch = 'dispatch',
   monitor = 'monitor',
   complete = 'complete',
-  fail = 'fail',
   metadata = 'metadata',
   health = 'health',
 }
 
 export class MonitorJob {
   slurmJobId!: string;
-  simId!: string;
+  runId!: string;
   projectId?: string;
   projectOwner?: string;
   retryCount!: number;
 }
 
 export class DispatchJob {
-  simId!: string;
+  runId!: string;
   simulator!: string;
   version!: string;
   fileName!: string;
@@ -34,12 +33,9 @@ export class DispatchJob {
 }
 
 export class CompleteJob {
-  simId!: string;
+  runId!: string;
+  status!: SimulationRunStatus;
+  statusReason!: string;
   projectId?: string;
-  projectOwner?: string;
-}
-
-export class FailJob {
-  simId!: string;
-  reason!: string;
+  projectOwner?: string;  
 }

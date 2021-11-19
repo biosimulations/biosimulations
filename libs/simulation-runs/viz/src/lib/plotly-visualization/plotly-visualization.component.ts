@@ -11,6 +11,8 @@ import {
   PlotlyDataLayout,
 } from '@biosimulations/datamodel/common';
 import { debounce } from 'throttle-debounce';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
 
 @Component({
   selector: 'biosimulations-plotly-visualization',
@@ -36,22 +38,34 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
     plotlyServerURL: 'https://chart-studio.plotly.com',
     // responsive: true,
   };
-  error = false;
+  errors: string[] = [];
 
   @Input()
-  set dataLayout(value: PlotlyDataLayout | null | undefined | false) {
-    if (value) {
+  set dataLayout(value: PlotlyDataLayout | null | undefined) {
+    if (value == null || value === undefined) {
+      this.loading = true;
+      this.errors = [];
+    } else if(value.data && value.layout) {
       this.loading = false;
       this.data = value.data;
       this.layout = value.layout;
-      this.error = false;
+      this.errors = [];
       this.setLayout();
-    } else if (value == null || value === undefined) {
-      this.loading = true;
-      this.error = false;
+
+      if (value?.dataErrors?.length) {
+        this.snackBar.openFromComponent(HtmlSnackBarComponent, {
+          data: {
+            message: `<p>Some aspects of the requested plot could not be produced.</p><ul><li>${value.dataErrors.join('</li><li>')}</li></ul>`,
+            spinner: false,
+            action: 'Ok',
+          },
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+        });
+      }
     } else {
       this.loading = false;
-      this.error = true;
+      this.errors = value?.dataErrors || [];
     }
   }
 
@@ -60,7 +74,7 @@ export class PlotlyVisualizationComponent implements AfterViewInit, OnDestroy {
   private resizeDebounce!: debounce<() => void>;
   private resizeObserver!: ResizeObserver;
 
-  constructor(private hostElement: ElementRef) {}
+  constructor(private hostElement: ElementRef, private snackBar: MatSnackBar) {}
 
   ngAfterViewInit() {
     this.resizeDebounce = debounce(50, false, this.setLayout.bind(this));

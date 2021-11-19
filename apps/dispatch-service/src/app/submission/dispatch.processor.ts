@@ -24,10 +24,10 @@ export class DispatchProcessor {
   private async handleSubmission(job: Job<DispatchJob>): Promise<void> {
     const data = job.data;
 
-    this.logger.debug(`Starting job for simulation run ${data.simId} ...`);
+    this.logger.debug(`Starting job for simulation run ${data.runId} ...`);
 
     const response = await this.hpcService.submitJob(
-      data.simId,
+      data.runId,
       data.simulator,
       data.version,
       data.cpus,
@@ -40,10 +40,10 @@ export class DispatchProcessor {
 
     if (response.stderr != '') {
       // There was an error with submission of the job
-      const message = `An error occurred in submitting an HPC job for simulation run '${data.simId}': ${response.stderr}`;
+      const message = `An error occurred in submitting an HPC job for simulation run '${data.runId}': ${response.stderr}`;
       this.logger.error(message);
       this.simStatusService.updateStatus(
-        data.simId,
+        data.runId,
         SimulationRunStatus.FAILED,
         message,
       );
@@ -54,7 +54,7 @@ export class DispatchProcessor {
 
       const monitorData: MonitorJob = {
         slurmJobId: slurmjobId.toString(),
-        simId: data.simId,
+        runId: data.runId,
         projectId: data.projectId,
         projectOwner: data.projectOwner,
         retryCount: 0,

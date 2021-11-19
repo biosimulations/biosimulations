@@ -13,7 +13,7 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, of, Subscription, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
@@ -52,6 +52,9 @@ export class SelectVisualizationComponent implements OnDestroy {
 
   @Input()
   visualizations!: VisualizationList[];
+
+  @Input()
+  runSucceeded = true;
 
   @Output()
   renderVisualization = new EventEmitter<Visualization>();
@@ -159,24 +162,85 @@ export class SelectVisualizationComponent implements OnDestroy {
       this.getDesignVisualizationComponent() as DesignVisualizationComponent
     )
       .exportToVega()
-      .subscribe((vegaSpec: VegaSpec): void => {
-        const simulationRunId = (
-          this.getSelectedVisualization() as DesignVisualization
-        ).simulationRunId;
+      .pipe(
+        map((vegaSpec: VegaSpec): void => {
+          const simulationRunId = (
+            this.getSelectedVisualization() as DesignVisualization
+          ).simulationRunId;
 
-        // download
-        const blob = new Blob([JSON.stringify(vegaSpec, null, 2)], {
-          type: 'application/vega+json',
-        });
+          // download
+          const blob = new Blob([JSON.stringify(vegaSpec, null, 2)], {
+            type: 'application/vega+json',
+          });
 
-        if (format === 'vega') {
-          const a = document.createElement('a');
-          a.href = URL.createObjectURL(blob);
-          a.download = 'visualization.json';
-          a.click();
+          if (format === 'vega') {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'visualization.json';
+            a.click();
 
+            this.snackBar.open(
+              'Your visualization was successfully exported.',
+              'Ok',
+              {
+                duration: 5000,
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom',
+              },
+            );
+          } else {
+            const sub = this.combineApiService
+              .addFileToCombineArchive(
+                this.endpoints.getRunDownloadEndpoint(simulationRunId),
+                'plot.vg.json',
+                this.vegaFormatCombineUri,
+                false,
+                blob,
+                false,
+                false,
+              )
+              .pipe(
+                catchError((error: HttpErrorResponse): Observable<undefined> => {
+                  if (!environment.production) {
+                    console.error(error);
+                  }
+                  return of<undefined>(undefined);
+                }),
+              )
+              .subscribe((fileOrUrl: ArrayBuffer | string | undefined): void => {
+                if (fileOrUrl) {
+                  const a = document.createElement('a');
+                  a.download = 'project.omex';
+                  a.href = fileOrUrl as string;
+                  a.click();
+
+                  this.snackBar.open(
+                    'Your visualization was successfully exported.',
+                    'Ok',
+                    {
+                      duration: 5000,
+                      horizontalPosition: 'center',
+                      verticalPosition: 'bottom',
+                    },
+                  );
+                } else {
+                  this.snackBar.open(
+                    'Sorry! We were unable to add the visualization to this project.',
+                    'Ok',
+                    {
+                      duration: 5000,
+                      horizontalPosition: 'center',
+                      verticalPosition: 'bottom',
+                    },
+                  );
+                }
+              });
+            this.subscriptions.push(sub);
+          }
+        }),
+        catchError((): Observable<void> => {
           this.snackBar.open(
-            'Your visualization was succesfully exported.',
+            'Sorry! The data needed to export the visualization is not available.',
             'Ok',
             {
               duration: 5000,
@@ -184,56 +248,10 @@ export class SelectVisualizationComponent implements OnDestroy {
               verticalPosition: 'bottom',
             },
           );
-        } else {
-          const sub = this.combineApiService
-            .addFileToCombineArchive(
-              this.endpoints.getRunDownloadEndpoint(simulationRunId),
-              'plot.vg.json',
-              this.vegaFormatCombineUri,
-              false,
-              blob,
-              false,
-              false,
-            )
-            .pipe(
-              catchError((error: HttpErrorResponse): Observable<undefined> => {
-                if (!environment.production) {
-                  console.error(error);
-                }
-                return of<undefined>(undefined);
-              }),
-            )
-            .subscribe((fileOrUrl: ArrayBuffer | string | undefined): void => {
-              if (fileOrUrl) {
-                const a = document.createElement('a');
-                a.download = 'project.omex';
-                a.href = fileOrUrl as string;
-                a.click();
-
-                this.snackBar.open(
-                  'Your visualization was succesfully exported.',
-                  'Ok',
-                  {
-                    duration: 5000,
-                    horizontalPosition: 'center',
-                    verticalPosition: 'bottom',
-                  },
-                );
-              } else {
-                this.snackBar.open(
-                  'Sorry! We were unable to add the visualization to this project.',
-                  'Ok',
-                  {
-                    duration: 5000,
-                    horizontalPosition: 'center',
-                    verticalPosition: 'bottom',
-                  },
-                );
-              }
-            });
-          this.subscriptions.push(sub);
-        }
-      });
+          return of();
+        }),
+      )
+      .subscribe();
     this.subscriptions.push(vegaSpecSub);
   }
 

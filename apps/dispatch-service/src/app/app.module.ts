@@ -17,7 +17,6 @@ import { LogService } from './results/log.service';
 
 import { ConfigService } from '@nestjs/config';
 import { DispatchProcessor } from './submission/dispatch.processor';
-import { FailProcessor } from './submission/fail.processor';
 import { CompleteProcessor } from './submission/complete.processor';
 import { MonitorProcessor } from './submission/monitor.processor';
 import { SimulationStatusService } from './services/simulationStatus.service';
@@ -79,11 +78,6 @@ import { Endpoints } from '@biosimulations/config/common';
       name: JobQueue.complete,
       prefix: '{complete}',
     }),
-
-    BullModule.registerQueue({
-      name: JobQueue.fail,
-      prefix: '{fail}',
-    }),
     BullModule.registerQueue({
       name: JobQueue.health,
       prefix: '{health}',
@@ -97,7 +91,6 @@ import { Endpoints } from '@biosimulations/config/common';
     ArchiverService,
     LogService,
     DispatchProcessor,
-    FailProcessor,
     CompleteProcessor,
     MonitorProcessor,
     MetadataService,

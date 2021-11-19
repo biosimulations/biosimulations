@@ -1,6 +1,9 @@
 import {
   SimulationRunStatus,
   ConsoleFormatting,
+  CombineArchiveLog,
+  SedOutputElementLog,
+  SimulationRunLogStatus,
 } from '@biosimulations/datamodel/common';
 import { ProjectInput } from '@biosimulations/datamodel/api';
 import { CompleteJob, JobQueue } from '@biosimulations/messages/messages';
@@ -17,6 +20,11 @@ import { FileService } from '../../file/file.service';
 import { SedmlService } from '../../sedml/sedml.service';
 import { ProjectService } from '@biosimulations/api-nest-client';
 import { AxiosError } from 'axios';
+
+interface ProcessingResult {
+  succeeded: boolean;
+  value?: any;
+}
 
 @Processor(JobQueue.complete)
 export class CompleteProcessor {
@@ -35,18 +43,20 @@ export class CompleteProcessor {
   private async handleProcessing(job: Job<CompleteJob>): Promise<void> {
     const data = job.data;
 
-    const id = data.simId;
+    const runId: string = data.runId;
+    const runStatus: SimulationRunStatus = data.status;
+    const runStatusReason: string = data.statusReason;
     const projectId = data.projectId;
     const projectOwner = data.projectOwner;
 
     this.logger.debug(
-      `Simulation run '${id}' finished. Saving files, specifications, results, logs, metadata ...`,
+      `Simulation run '${runId}' finished. Saving files, specifications, results, logs, metadata ...`,
     );
 
     const processingSteps = [
       {
         name: 'COMBINE archive',
-        result: this.fileService.processFiles(id),
+        result: this.fileService.processFiles(runId),
         required: true,
         moreInfo: 'https://combinearchive.org',
         validator: 'https://run.biosimulations.org/utils/validate-project',
@@ -54,7 +64,7 @@ export class CompleteProcessor {
       },
       {
         name: 'simulation experiments (SED-ML documents)',
-        result: this.sedmlService.processSedml(id),
+        result: this.sedmlService.processSedml(runId),
         required: true,
         moreInfo:
           'https://biosimulators.org/conventions/simulation-experiments',
@@ -63,7 +73,7 @@ export class CompleteProcessor {
       },
       {
         name: 'simulation results',
-        result: this.archiverService.updateResultsSize(id),
+        result: this.archiverService.updateResultsSize(runId),
         required: true,
         moreInfo: 'https://biosimulators.org/conventions/simulation-reports',
         validator: undefined,
@@ -71,7 +81,7 @@ export class CompleteProcessor {
       },
       {
         name: 'log of the simulation run',
-        result: this.logService.createLog(id, false, '', false),
+        result: this.logService.createLog(runId, false, '', false),
         required: true,
         moreInfo: 'https://biosimulators.org/conventions/simulation-logs',
         validator: 'https://api.biosimulations.org',
@@ -79,7 +89,7 @@ export class CompleteProcessor {
       },
       {
         name: 'metadata for the COMBINE archive',
-        result: this.metadataService.createMetadata(id),
+        result: this.metadataService.createMetadata(runId),
         required: false,
         moreInfo: 'https://biosimulators.org/conventions/metadata',
         validator: 'https://run.biosimulations.org/utils/validate-metadata',
@@ -87,16 +97,22 @@ export class CompleteProcessor {
       },
     ];
 
+    // Keep track of which processing step(s) failed
     const errors: string[] = [];
     const warnings: string[] = [];
     const errorsDetails: string[] = [];
     const warningsDetails: string[] = [];
 
-    const processingResults: boolean[] =
+    const processingResults: ProcessingResult[] =
       await Promise.all(
         processingSteps.map((processingStep) =>
           processingStep.result
-            .then(() => true)
+            .then((value) => {
+              return {
+                succeeded: true,
+                value: value,
+              };
+            })
             .catch((error) => {
               let reason = '';
               reason += `The ${processingStep.name} could not be saved.`;
@@ -108,7 +124,7 @@ export class CompleteProcessor {
                 reason += ` A validation tool is\n    available at ${processingStep.validator}.`;
               }
 
-              const details = `The ${processingStep.name} for simulation run '${id}' could not be saved: ${error.status}: ${error.message}`;
+              const details = `The ${processingStep.name} for simulation run '${runId}' could not be saved: ${error.status}: ${error.message}`;
               if (processingStep.required) {
                 errors.push(reason);
                 errorsDetails.push(details);
@@ -119,34 +135,37 @@ export class CompleteProcessor {
                 this.logger.warn(details);
               }
 
-              return false;
+              return {
+                succeeded: false,
+              };
             })
         ),
       );
-
-    // Keep track of which processing step(s) failed
-    const logPostSucceeded = processingResults[3];
+    
+    const log = processingResults[3]?.value;
+    const logPostSucceeded = processingResults[3].succeeded;
+    const runSuceededFromLog = this.getRunSuceededFromLog(log);
 
     /* calculate final status and reason */
-    let status!: SimulationRunStatus;
-    let statusReason!: string;
+    let postProcessingStatus!: SimulationRunStatus;
+    let postProcessingStatusReason!: string;
     let updateStatusMessage!: string;
     if (errors.length === 0) {
-      status = SimulationRunStatus.SUCCEEDED;
-      statusReason = 'The simulation run was successfully proccessed.';
-      updateStatusMessage = `Updated status of simulation run '${id}' to '${status}'.`;
+      postProcessingStatus = SimulationRunStatus.SUCCEEDED;
+      postProcessingStatusReason = 'The simulation run was successfully proccessed.';
+      updateStatusMessage = `Post-processing of simulation run '${runId}' completed with status '${postProcessingStatus}'.`;
     } else {
-      status = SimulationRunStatus.FAILED;
-      statusReason = 'The simulation run was not successfully proccessed.';
-      statusReason += '\n\nErrors:\n  * ' + errors.join('\n  * ');
-      updateStatusMessage = `Updated status of simulation run '${id}' to '${status}' due to one or more processing errors:\n  * ${errorsDetails.join(
+      postProcessingStatus = SimulationRunStatus.FAILED;
+      postProcessingStatusReason = 'The simulation run was not successfully proccessed.';
+      postProcessingStatusReason += '\n\nErrors:\n  * ' + errors.join('\n  * ');
+      updateStatusMessage = `Post-processing of simulation run '${runId}' completed with status '${postProcessingStatus}' due to ${errorsDetails.length} processing errors:\n  * ${errorsDetails.join(
         '\n  * ',
       )}`;
     }
 
     if (warnings.length) {
-      statusReason += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
-      updateStatusMessage += `\n\nThe processing of simulation run '${id}' raised one or more warnings:\n  * ${warningsDetails.join(
+      postProcessingStatusReason += '\n\nWarnings:\n  * ' + warnings.join('\n  * ');
+      updateStatusMessage += `\n\nThe post-processing of simulation run '${runId}' raised one or more warnings:\n  * ${warningsDetails.join(
         '\n  * ',
       )}`;
     }
@@ -157,48 +176,57 @@ export class CompleteProcessor {
     const yellow = ConsoleFormatting.yellow.replace('\\033', '\u001b');
     const noColor = ConsoleFormatting.noColor.replace('\\033', '\u001b');
 
-    let statusColor!: string;
-    let statusEndColor!: string;
+    let postProcessingStatusColor!: string;
+    let postProcessingStatusEndColor!: string;
     if (errors.length > 0) {
-      statusColor = red;
-      statusEndColor = noColor;
+      postProcessingStatusColor = red;
+      postProcessingStatusEndColor = noColor;
     } else if (warnings.length > 0) {
-      statusColor = yellow;
-      statusEndColor = noColor;
+      postProcessingStatusColor = yellow;
+      postProcessingStatusEndColor = noColor;
     } else {
-      statusColor = '';
-      statusEndColor = '';
+      postProcessingStatusColor = '';
+      postProcessingStatusEndColor = '';
     }
 
     const extraStdLog =
       '' +
       '\n' +
       `\n${cyan}=========================================== Post-processing simulation run ==========================================${noColor}` +
-      `\n${statusColor}${statusReason}${statusEndColor}` +
+      `\n${postProcessingStatusColor}${postProcessingStatusReason}${postProcessingStatusEndColor}` +
       '\n' +
       `\n${cyan}================================ Run complete. Thank you for using runBioSimulations! ===============================${noColor}`;
     this.logService
-      .createLog(id, true, extraStdLog, logPostSucceeded)
+      .createLog(runId, true, extraStdLog, logPostSucceeded)
       .catch((run) =>
         this.logger.error(
-          `Log for simulation run '${id}' could not be updated.`,
+          `Log for simulation run '${runId}' could not be updated.`,
         ),
       );
 
     /* update final status */
-    this.simStatusService.updateStatus(id, status, statusReason).then((run) => {
-      if (status === SimulationRunStatus.SUCCEEDED) {
-        return this.logger.log(updateStatusMessage);
-      } else {
-        return this.logger.error(updateStatusMessage);
-      }
-    });
+    let finalStatus: SimulationRunStatus;
+    let finalStatusReason = runStatusReason + '\n\n' + postProcessingStatusReason;
+    if (runStatus === SimulationRunStatus.SUCCEEDED && runSuceededFromLog && postProcessingStatus === SimulationRunStatus.SUCCEEDED) {
+      finalStatus = SimulationRunStatus.SUCCEEDED;
+    } else {
+      finalStatus = SimulationRunStatus.FAILED;
+    }
+
+    this.simStatusService.updateStatus(runId, finalStatus, finalStatusReason)
+      .then((run) => {
+        if (postProcessingStatus === SimulationRunStatus.SUCCEEDED) {
+          return this.logger.log(updateStatusMessage);
+        } else {
+          return this.logger.error(updateStatusMessage);
+        }
+      });
 
     /* publish run as project */
-    if (projectId && errors.length === 0) {
+    if (projectId && finalStatus === SimulationRunStatus.SUCCEEDED) {
       const projectInput: ProjectInput = {
         id: projectId,
-        simulationRun: id,
+        simulationRun: runId,
         owner: projectOwner,
       };
 
@@ -211,12 +239,12 @@ export class CompleteProcessor {
             .toPromise()
             .then(() =>
               this.logger.log(
-                `Updated project '${projectId}' for simulation '${id}'.`,
+                `Updated project '${projectId}' for simulation '${runId}'.`,
               ),
             )
             .catch((err) =>
               this.logger.log(
-                `Project '${projectId}' could not be updated with simulation '${id}'.`,
+                `Project '${projectId}' could not be updated with simulation '${runId}'.`,
               ),
             );
         })
@@ -227,12 +255,12 @@ export class CompleteProcessor {
               .toPromise()
               .then(() =>
                 this.logger.log(
-                  `Created project '${projectId}' for simulation '${id}'.`,
+                  `Created project '${projectId}' for simulation '${runId}'.`,
                 ),
               )
               .catch((err) =>
                 this.logger.log(
-                  `Project '${projectId}' could not be created with simulation run '${id}'.`,
+                  `Project '${projectId}' could not be created with simulation run '${runId}'.`,
                 ),
               );
           } else {
@@ -241,5 +269,48 @@ export class CompleteProcessor {
           }
         });
     }
+  }
+
+  private getRunSuceededFromLog(log?: CombineArchiveLog): boolean {
+    if (log === undefined) {
+      return false;
+    }
+
+    if (log.status !== SimulationRunLogStatus.SUCCEEDED) {
+      return false;
+    }
+
+    for (const sedDocLog of (log.sedDocuments || [])) {
+      if (sedDocLog.status !== SimulationRunLogStatus.SUCCEEDED) {
+        return false;
+      }
+      for (const taskLog of (sedDocLog.tasks || [])) {
+        if (taskLog.status !== SimulationRunLogStatus.SUCCEEDED) {
+          return false;
+        }
+      }
+      for (const outputLog of (sedDocLog.outputs || [])) {
+        if (outputLog.status !== SimulationRunLogStatus.SUCCEEDED) {
+          return false;
+        }
+
+        let outputElementsLogs: SedOutputElementLog[] | null = null;
+        if ('dataSets' in outputLog) {
+          outputElementsLogs = outputLog.dataSets;
+        } else if ('curves' in outputLog) {
+          outputElementsLogs = outputLog.curves;
+        } else if ('surfaces' in outputLog) {
+          outputElementsLogs = outputLog.surfaces;
+        }
+
+        for (const outputElementsLog of (outputElementsLogs || [])) {
+          if (outputElementsLog.status !== SimulationRunLogStatus.SUCCEEDED) {
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
   }
 }

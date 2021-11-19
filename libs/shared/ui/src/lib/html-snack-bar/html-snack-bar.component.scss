@@ -15,6 +15,10 @@ $button-vertical-margin: -(math.div($button-height - $line-height, 2));
   opacity: 1;
 }
 
+.inner-message {
+  display: inline;
+}
+
 biosimulations-icon::before {
   content: ' ';
 }

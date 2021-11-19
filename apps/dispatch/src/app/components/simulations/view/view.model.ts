@@ -20,6 +20,7 @@ export interface FormattedSimulation {
   statusReason?: string;
   statusRunning: boolean;
   statusSucceeded: boolean;
+  statusFailed: boolean;
   statusLabel: string;
   submitted: string;
   updated: string;

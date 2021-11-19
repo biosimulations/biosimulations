@@ -1,7 +1,6 @@
-import { SimulationRunStatus } from '@biosimulations/datamodel/common';
+import { SimulationRunStatus, SimulationRunStatusReason } from '@biosimulations/datamodel/common';
 import {
   CompleteJob,
-  FailJob,
   JobQueue,
   MonitorJob,
 } from '@biosimulations/messages/messages';
@@ -10,7 +9,9 @@ import { Logger } from '@nestjs/common';
 import { Job, Queue } from 'bull';
 import { HpcService } from '../services/hpc/hpc.service';
 import { SimulationStatusService } from '../services/simulationStatus.service';
+
 const MAX_MONITOR_RETRY = 20;
+
 @Processor(JobQueue.monitor)
 export class MonitorProcessor {
   private readonly logger = new Logger(MonitorProcessor.name);
@@ -20,7 +21,6 @@ export class MonitorProcessor {
 
     @InjectQueue(JobQueue.monitor) private monitorQueue: Queue<MonitorJob>,
     @InjectQueue(JobQueue.complete) private completeQueue: Queue<CompleteJob>,
-    @InjectQueue(JobQueue.fail) private failQueue: Queue<FailJob>,
   ) {}
 
   @Process()
@@ -29,47 +29,54 @@ export class MonitorProcessor {
     const slurmJobId = data.slurmJobId;
     const projectId = data.projectId;
     const projectOwner = data.projectOwner;
-    const simId = data.simId;
+    const runId = data.runId;
     let retryCount = data.retryCount;
     const DELAY = 5000;
-    const jobStatus: SimulationRunStatus | null =
+    const jobStatusReason: SimulationRunStatusReason =
       await this.hpcService.getJobStatus(slurmJobId);
 
-    const message = `Checking status for job '${slurmJobId}' for simulation run '${simId}': status is '${jobStatus}'.`;
+    const message = `Status for job '${slurmJobId}' for simulation run '${runId}' is '${jobStatusReason.status}'.`;
     this.logger.debug(message);
 
-    if (jobStatus) {
-      this.simStatusService.updateStatus(simId, jobStatus, message);
-    }
+    if (jobStatusReason.status) {   
+      if ([SimulationRunStatus.SUCCEEDED, SimulationRunStatus.FAILED].includes(jobStatusReason.status)) {
+        this.simStatusService.updateStatus(runId, SimulationRunStatus.PROCESSING, jobStatusReason.reason);
+        this.completeQueue.add({ 
+          runId,
+          status: jobStatusReason.status,
+          statusReason: jobStatusReason.reason,
+          projectId,
+          projectOwner,
+        });
 
-    if (jobStatus == SimulationRunStatus.PROCESSING) {
-      this.completeQueue.add({ simId, projectId, projectOwner });
-    } else if (jobStatus == SimulationRunStatus.FAILED) {
-      this.failQueue.add({ simId, reason: message });
-    } else if (
-      jobStatus == SimulationRunStatus.QUEUED ||
-      jobStatus == SimulationRunStatus.RUNNING
-    ) {
-      this.monitorQueue.add(
-        { slurmJobId, simId, projectId, projectOwner, retryCount },
-        { delay: DELAY },
-      );
+      } else {
+        this.simStatusService.updateStatus(runId, jobStatusReason.status, jobStatusReason.reason);
+        this.monitorQueue.add(
+          { slurmJobId, runId, projectId, projectOwner, retryCount },
+          { delay: DELAY },
+        );
+      }       
+
     } else {
       this.logger.warn(
-        `${simId} skipped update, due to unknown status of ${jobStatus}`,
+        `The status of simulation run '${runId}' could not be updated because its status could not be retrieved from the HPC.`,
       );
       // If we keep getting some unknown status that does not resolve, fail the job after some limit of retries
       if (retryCount < MAX_MONITOR_RETRY) {
         retryCount = retryCount + 1;
         this.monitorQueue.add(
-          { slurmJobId, simId, projectId, projectOwner, retryCount },
+          { slurmJobId, runId, projectId, projectOwner, retryCount },
           { delay: DELAY },
         );
       } else {
         this.logger.error(
-          `${simId} failed due to exceeded retry limit of status ${jobStatus}`,
+          `Simulation run '${runId}' appears to have failed because its status could not retrieved in the allowed ${MAX_MONITOR_RETRY} number of tries.`,
         );
-        this.failQueue.add({ simId, reason: message });
+        this.completeQueue.add({
+          runId,
+          status: SimulationRunStatus.FAILED,
+          statusReason: message
+        });
       }
     }
   }

@@ -828,11 +828,11 @@ export class ViewService {
           const designVisualizations: Visualization[] = [];
 
           let behaviorSubject: BehaviorSubject<
-            Observable<PlotlyDataLayout | false | null>
+            Observable<PlotlyDataLayout | null>
           >;
 
           behaviorSubject = new BehaviorSubject<
-            Observable<PlotlyDataLayout | false | null>
+            Observable<PlotlyDataLayout | null>
           >(of(null));
           designVisualizations.push({
             _type: 'Histogram1DVisualization',
@@ -848,7 +848,7 @@ export class ViewService {
           });
 
           behaviorSubject = new BehaviorSubject<
-            Observable<PlotlyDataLayout | false | null>
+            Observable<PlotlyDataLayout | null>
           >(of(null));
           designVisualizations.push({
             _type: 'Heatmap2DVisualization',
@@ -864,7 +864,7 @@ export class ViewService {
           });
 
           behaviorSubject = new BehaviorSubject<
-            Observable<PlotlyDataLayout | false | null>
+            Observable<PlotlyDataLayout | null>
           >(of(null));
           designVisualizations.push({
             _type: 'Line2DVisualization',
@@ -961,11 +961,13 @@ export class ViewService {
               result,
             );
           }),
-          catchError((error: any): Observable<false> => {
+          catchError((error: any): Observable<PlotlyDataLayout> => {
             if (!environment.production) {
               console.error(error);
             }
-            return of<false>(false);
+            return of({
+              dataErrors: ['The data for the plot could not be loaded.'],
+            });
           }),
           shareReplay(1),
         ),
@@ -978,7 +980,7 @@ export class ViewService {
     selectedUris: string[],
   ): Observable<UriSetDataSetResultsMap> {
     const reportUris = new Set<string>();
-    const reportObs: Observable<SimulationRunOutput>[] = [];
+    const reportObs: Observable<SimulationRunOutput | false>[] = [];
     for (let selectedUri of selectedUris) {
       if (selectedUri.startsWith('./')) {
         selectedUri = selectedUri.substring(2);
@@ -993,24 +995,37 @@ export class ViewService {
             simulationRunId,
             reportUri,
             true,
-          ),
+          )
+          .pipe(
+            catchError((): Observable<false> => {
+              return of(false);
+            }),
+          )
         );
       }
     }
 
     return forkJoin(reportObs).pipe(
       shareReplay(1),
-      map((reportResults: SimulationRunOutput[]): UriSetDataSetResultsMap => {
+      map((reportResults: (SimulationRunOutput | false)[]): UriSetDataSetResultsMap => {
         const uriResultsMap: UriSetDataSetResultsMap = {};
-        reportResults.forEach((reportResult: SimulationRunOutput): void => {
-          reportResult.data.forEach((datum: SimulationRunOutputDatum): void => {
-            let outputId = reportResult.outputId;
-            if (outputId.startsWith('./')) {
-              outputId = outputId.substring(2);
+        reportResults
+          .flatMap((reportResult: SimulationRunOutput | false): SimulationRunOutput[] => {
+            if (reportResult) {
+              return [reportResult];
+            } else {
+              return [];
             }
-            uriResultsMap[`${outputId}/${datum.id}`] = datum;
+          })
+          .forEach((reportResult: SimulationRunOutput): void => {
+            reportResult.data.forEach((datum: SimulationRunOutputDatum): void => {
+              let outputId = reportResult.outputId;
+              if (outputId.startsWith('./')) {
+                outputId = outputId.substring(2);
+              }
+              uriResultsMap[`${outputId}/${datum.id}`] = datum;
+            });
           });
-        });
         return uriResultsMap;
       }),
       shareReplay(1),

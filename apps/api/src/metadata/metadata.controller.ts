@@ -210,12 +210,10 @@ export class MetadataController {
         `Metadata could not be found for simulation run '${runId}'.`,
       );
     }
-    const simId = metadata.simulationRun;
-    const data = metadata.metadata;
 
     return new SimulationRunMetadata(
-      simId,
-      data,
+      metadata.simulationRun,
+      metadata.metadata,
       metadata.created,
       metadata.updated,
     );
