@@ -36,16 +36,16 @@ export class ProjectService {
     );
   }
 
-  public createProject(project: ProjectInput): Observable<Project> {
-    const endpoint = this.endpoints.getProjectsEndpoint();
-    return this.postAuthenticated<ProjectInput, Project>(endpoint, project);
+  public createProject(project: ProjectInput): Observable<void> {
+    const endpoint = this.endpoints.getProjectsEndpoint(project.id);
+    return this.postAuthenticated<ProjectInput, void>(endpoint, project);
   }
 
-  public updateProject(id: string, project: ProjectInput): Observable<Project> {
+  public updateProject(id: string, project: ProjectInput): Observable<void> {
     const response = from(this.auth.getToken()).pipe(
       map((token) => {
         const httpRes = this.http
-          .put<Project>(this.endpoints.getProjectsEndpoint(id), project, {
+          .put<void>(this.endpoints.getProjectsEndpoint(id), project, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

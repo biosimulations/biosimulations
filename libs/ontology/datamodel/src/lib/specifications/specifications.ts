@@ -586,10 +586,6 @@ export class SimulationRunSedDocumentInput
   @IsString()
   public id!: string;
 
-  @ApiProperty({ type: String })
-  @IsString()
-  public simulationRun!: string;
-
   @ApiProperty({ type: [SedModel] })
   @Type(() => SedModel)
   @ValidateNested({ each: true })
@@ -661,6 +657,10 @@ export class SimulationRunSedDocument
   extends SimulationRunSedDocumentInput
   implements ISimulationRunSedDocument
 {
+  @ApiProperty({ type: String })
+  @IsString()
+  public simulationRun!: string;
+
   @ApiResponseProperty({
     type: String,
     format: 'date-time',
@@ -684,6 +684,6 @@ export class SimulationRunSedDocumentInputsContainer
     type: [SimulationRunSedDocumentInput],
   })
   @ValidateNested({ each: true })
-  @Type(() => SimulationRunSedDocument)
+  @Type(() => SimulationRunSedDocumentInput)
   sedDocuments!: SimulationRunSedDocumentInput[];
 }

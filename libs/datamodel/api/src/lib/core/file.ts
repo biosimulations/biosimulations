@@ -31,15 +31,6 @@ export class ProjectFileInput {
   public name!: string;
 
   @ApiProperty({
-    description: 'Id of the associated simulation run',
-    type: String,
-    example: '609aeb11d70ea3752d097015',
-  })
-  @IsMongoId()
-  @IsString()
-  public simulationRun!: string;
-
-  @ApiProperty({
     description: 'Size of the file in bytes',
     type: Number,
     example: 1024,
@@ -89,6 +80,15 @@ export class ProjectFileInput {
 export class ProjectFile extends ProjectFileInput implements IFile {
   public _id!: never;
   public _v!: never;
+
+  @ApiProperty({
+    description: 'Id of the associated simulation run',
+    type: String,
+    example: '609aeb11d70ea3752d097015',
+  })
+  @IsMongoId()
+  @IsString()
+  public simulationRun!: string;
 
   @ApiResponseProperty({
     type: String,

@@ -440,12 +440,21 @@ export class SpecificationsController {
     return spec;
   }
 
-  @Post()
+  @Post(':runId')
   @permissions(scopes.specifications.create.id)
   @ApiOperation({
     summary: 'Save the simulation experiments of a simulation run',
     description:
       'Save the specifications of the simulation experiments (SED-ML files in the COMBINE/OMEX archive) of a simulation run',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiBody({
     description:
@@ -461,9 +470,10 @@ export class SpecificationsController {
     description: 'The simulation experiments were succcessfully saved',
   })
   public async createSpecification(
+    @Param('runId') runId: string,
     @Body() specifications: SimulationRunSedDocumentInputsContainer,
   ): Promise<void> {
-    await this.service.createSpecs(specifications.sedDocuments);
+    await this.service.createSpecs(runId, specifications.sedDocuments);
     return;
   }
 

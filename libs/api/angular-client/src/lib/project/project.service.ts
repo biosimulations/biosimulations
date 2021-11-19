@@ -55,7 +55,7 @@ export class ProjectService {
   }
 
   public publishProject(projectInput: ProjectInput): Observable<void> {
-    const url = this.endpoints.getProjectsEndpoint();
+    const url = this.endpoints.getProjectsEndpoint(projectInput.id);
     const response = this.http
       .post<void>(url, projectInput, {
         headers: { 'Content-Type': 'application/json' },

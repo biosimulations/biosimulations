@@ -87,47 +87,45 @@ export class CompleteProcessor {
       },
     ];
 
-    const processingResults: PromiseSettledResult<void>[] =
-      await Promise.allSettled(
-        processingSteps.map((processingStep) => processingStep.result),
-      );
-
-    // Keep track of which processing step(s) failed
     const errors: string[] = [];
     const warnings: string[] = [];
     const errorsDetails: string[] = [];
     const warningsDetails: string[] = [];
 
-    for (let iStep = 0; iStep < processingSteps.length; iStep++) {
-      const processingStep = processingSteps[iStep];
-      const processingResult = processingResults[iStep];
+    const processingResults: boolean[] =
+      await Promise.all(
+        processingSteps.map((processingStep) => 
+          processingStep.result
+            .then(() => true)
+            .catch((error) => {
+              let reason = '';
+              reason += `The ${processingStep.name} could not be saved.`;
+              reason += ` Please check that the ${processingStep.name} ${
+                processingStep.plural ? 'are' : 'is'
+              } valid.`;
+              reason += `\n    More information is available at ${processingStep.moreInfo}.`;
+              if (processingStep.validator) {
+                reason += ` A validation tool is\n    available at ${processingStep.validator}.`;
+              }
 
-      if (processingResult.status == 'rejected') {
-        let reason = '';
-        reason += `The ${processingStep.name} could not be saved.`;
-        reason += ` Please check that the ${processingStep.name} ${
-          processingStep.plural ? 'are' : 'is'
-        } valid.`;
-        reason += `\n    More information is available at ${processingStep.moreInfo}.`;
-        if (processingStep.validator) {
-          reason += ` A validation tool is\n    available at ${processingStep.validator}.`;
-        }
+              const details = `The ${processingStep.name} for simulation run '${id}' could not be saved: ${error.status}: ${error.message}`;
+              if (processingStep.required) {
+                errors.push(reason);
+                errorsDetails.push(details);
+                this.logger.error(details);
+              } else {
+                warnings.push(reason);
+                warningsDetails.push(details);
+                this.logger.warn(details);
+              }
 
-        const details = `The ${processingStep.name} for simulation run '${id}' could not be saved: ${processingResult.reason}`;
-        if (processingStep.required) {
-          errors.push(reason);
-          errorsDetails.push(details);
-          this.logger.error(details);
-        } else {
-          warnings.push(reason);
-          warningsDetails.push(details);
-          this.logger.warn(details);
-        }
-      }
-    }
+              return false;
+            })
+        ),
+      );
 
-    const logProcessingResult = processingResults[3];
-    const logPostSucceeded = logProcessingResult.status === 'fulfilled';
+    // Keep track of which processing step(s) failed    
+    const logPostSucceeded = processingResults[3];
 
     /* calculate final status and reason */
     let status!: SimulationRunStatus;

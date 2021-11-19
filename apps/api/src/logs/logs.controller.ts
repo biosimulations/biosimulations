@@ -41,7 +41,6 @@ import {
   SedPlot2DLog,
   SedPlot3DLog,
   SedReportLog,
-  CreateSimulationRunLogBody,
 } from '@biosimulations/ontology/datamodel';
 import { CombineArchiveLog as ICombineArchiveLog } from '@biosimulations/datamodel/common';
 import { ErrorResponseDocument } from '@biosimulations/datamodel/api';
@@ -134,10 +133,19 @@ export class LogsController {
     summary: 'Save the log for a simulation run to the database',
     description: 'Save the log for a simulation run to the database',
   })
-  @Post()
+  @Post(':runId')
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
+  })
   @ApiBody({
     description: 'The logs for the simulation run',
-    type: CreateSimulationRunLogBody,
+    type: CombineArchiveLog,
   })
   @ApiPayloadTooLargeResponse({
     type: ErrorResponseDocument,
@@ -167,9 +175,10 @@ export class LogsController {
       'The log could not be saved because the database already includes a log for the simulation run.',
   })
   public async createLog(
-    @Body() body: CreateSimulationRunLogBody,
+    @Param('runId') runId: string,
+    @Body() body: CombineArchiveLog,
   ): Promise<void> {
-    const log = await this.service.createLog(body?.simId, body?.log);
+    const log = await this.service.createLog(runId, body);
   }
 
   @ApiOperation({

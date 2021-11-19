@@ -117,11 +117,74 @@ export class ProjectsController {
     return this.service.getProjectSummary(projectId);
   }
 
-  @Post()
+  @Post('validate')
+  @ApiOperation({
+    summary: 'Validate a project for publication',
+    description:
+      'Check whether a project is valid for publication (e.g, succeeded and provides the [minimum required metadata](https://biosimulators.org/conventions/metadata). Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. 400 errors include diagnostic information which describe why the run cannot be published.',
+  })
+  @ApiQuery({
+    name: 'validateSimulationResultsData',
+    description:
+      'Whether to validate the data (e.g., numerical simulation results) for each SED-ML report and plot for each SED-ML document. Default: false.',
+    required: false,
+    type: Boolean,
+  })
+  @ApiQuery({
+    name: 'validateIdAvailable',
+    description:
+      'Whether to validate that the id is available. Default: false.',
+    required: false,
+    type: Boolean,
+  })
+  @ApiQuery({
+    name: 'validateSimulationRunNotPublished',
+    description:
+      'Whether to validate that the simulation run has not yet been published. Default: false.',
+    required: false,
+    type: Boolean,
+  })
+  @ApiBody({
+    description: 'Information about the project.',
+    type: ProjectInput,
+  })
+  @ApiPayloadTooLargeResponse({
+    type: ErrorResponseDocument,
+    description:
+      'The payload is too large. The payload must be less than the server limit.',
+  })
+  @ApiBadRequestResponse({
+    type: ErrorResponseDocument,
+    description: 'The project is not valid.',
+  })
+  @ApiNoContentResponse({
+    description: 'The project is valid.',
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public async validateProject(
+    @Body() projectInput: ProjectInput,
+    @Query('validateSimulationResultsData')
+    validateSimulationResultsData = 'false',
+    @Query('validateIdAvailable')
+    validateIdAvailable = 'false',
+    @Query('validateSimulationRunNotPublished')
+    validateSimulationRunNotPublished = 'false',
+  ): Promise<void> {
+    await this.service.validateProject(
+      projectInput,
+      validateSimulationResultsData == 'true',
+      validateIdAvailable == 'true',
+      validateSimulationRunNotPublished == 'true',
+    );
+    return;
+  }
+
+  @Post(':projectId')
   @ApiOperation({
     summary: 'Publish a simulation run',
     description: 'Publish a simulation run',
   })
+  @ProjectIdParam()
   @ApiBody({
     description: 'Information about the simulation run to publish',
     type: ProjectInput,
@@ -146,6 +209,7 @@ export class ProjectsController {
   })
   @OptionalAuth()
   public async createProject(
+    @ProjectId('projectId') projectId: string,
     @Body() project: ProjectInput,
     @Req() req: Request,
   ): Promise<void> {
@@ -253,67 +317,5 @@ export class ProjectsController {
     };
 
     return project;
-  }
-
-  @Post('validate')
-  @ApiOperation({
-    summary: 'Validate a project for publication',
-    description:
-      'Check whether a project is valid for publication (e.g, succeeded and provides the [minimum required metadata](https://biosimulators.org/conventions/metadata). Returns 204 (No Content) for a publishable run, or a 400 (Bad Input) for a run that cannot be published. 400 errors include diagnostic information which describe why the run cannot be published.',
-  })
-  @ApiQuery({
-    name: 'validateSimulationResultsData',
-    description:
-      'Whether to validate the data (e.g., numerical simulation results) for each SED-ML report and plot for each SED-ML document. Default: false.',
-    required: false,
-    type: Boolean,
-  })
-  @ApiQuery({
-    name: 'validateIdAvailable',
-    description:
-      'Whether to validate that the id is available. Default: false.',
-    required: false,
-    type: Boolean,
-  })
-  @ApiQuery({
-    name: 'validateSimulationRunNotPublished',
-    description:
-      'Whether to validate that the simulation run has not yet been published. Default: false.',
-    required: false,
-    type: Boolean,
-  })
-  @ApiBody({
-    description: 'Information about the project.',
-    type: ProjectInput,
-  })
-  @ApiPayloadTooLargeResponse({
-    type: ErrorResponseDocument,
-    description:
-      'The payload is too large. The payload must be less than the server limit.',
-  })
-  @ApiBadRequestResponse({
-    type: ErrorResponseDocument,
-    description: 'The project is not valid.',
-  })
-  @ApiNoContentResponse({
-    description: 'The project is valid.',
-  })
-  @HttpCode(HttpStatus.NO_CONTENT)
-  public async validateProject(
-    @Body() projectInput: ProjectInput,
-    @Query('validateSimulationResultsData')
-    validateSimulationResultsData = 'false',
-    @Query('validateIdAvailable')
-    validateIdAvailable = 'false',
-    @Query('validateSimulationRunNotPublished')
-    validateSimulationRunNotPublished = 'false',
-  ): Promise<void> {
-    await this.service.validateProject(
-      projectInput,
-      validateSimulationResultsData == 'true',
-      validateIdAvailable == 'true',
-      validateSimulationRunNotPublished == 'true',
-    );
-    return;
   }
 }

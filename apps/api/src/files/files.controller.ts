@@ -126,11 +126,20 @@ export class FilesController {
     return this.createReturnFile(file);
   }
 
-  @Post()
+  @Post(':runId')
   @ApiOperation({
     summary: 'Save metadata about files',
     description:
       'Save metadata about each file (contents of the COMBINE/OMEX archive) for a simulation run to the database',
+  })
+  @ApiParam({
+    name: 'runId',
+    description: 'Id of the simulation run',
+    required: true,
+    type: String,
+    schema: {
+      pattern: '^[a-f\\d]{24}$',
+    },
   })
   @ApiBody({
     description: 'Metadata about the files for the simulation run',
@@ -156,9 +165,10 @@ export class FilesController {
       'The metadata for the files for the simulation were successfully saved to the database',
   })
   public async createFiles(
+    @Param('runId') runId: string,
     @Body() files: ProjectFileInputsContainer,
   ): Promise<void> {
-    await this.service.createFiles(files.files);
+    await this.service.createFiles(runId, files.files);
     return;
   }
 

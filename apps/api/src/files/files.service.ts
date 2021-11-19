@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -15,6 +16,7 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class FilesService {
   private endpoints: Endpoints;
+  private logger = new Logger(FilesService.name);
 
   public constructor(
     @InjectModel(FileModel.name) private model: Model<FileModel>,
@@ -41,13 +43,15 @@ export class FilesService {
     });
   }
 
-  public async createFiles(files: ProjectFileInput[]): Promise<void> {
-    const createdFiles = [];
-    for (const file of files) {
-      const fileModel = new this.model(file);
-      createdFiles.push(fileModel.save());
-    }
-    await Promise.all(createdFiles);
+  public async createFiles(runId: string, files: ProjectFileInput[]): Promise<void> {
+    this.logger.log(files)
+    await Promise.all(
+      files.map((file) => {
+        const fileModel = new this.model(file);
+        fileModel.simulationRun = runId;
+        return fileModel.save();
+      })
+    );
     return;
   }
 

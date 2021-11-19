@@ -1,7 +1,6 @@
 import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 
 import {
-  CreateSimulationRunLogBody as ICreateSimulationRunLogBody,
   CombineArchiveLog as ICombineArchiveLog,
   SedDocumentLog as ISedDocumentLog,
   SedTaskLog as ISedTaskLog,
@@ -24,7 +23,6 @@ import {
   Min,
   Matches,
   NotContains,
-  IsMongoId,
   ValidateNested,
   IsOptional,
   Allow,
@@ -358,15 +356,4 @@ export class CombineArchiveLog implements ICombineArchiveLog {
   @ValidateNested({ each: true })
   @Type(() => SedDocumentLog)
   sedDocuments: SedDocumentLog[] | null = null;
-}
-
-export class CreateSimulationRunLogBody implements ICreateSimulationRunLogBody {
-  @ApiProperty({ type: String })
-  @IsMongoId()
-  simId!: string;
-
-  @ApiProperty({ type: CombineArchiveLog })
-  @ValidateNested()
-  @Type(() => CombineArchiveLog)
-  log!: CombineArchiveLog;
 }

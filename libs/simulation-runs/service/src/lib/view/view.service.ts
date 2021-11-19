@@ -536,9 +536,9 @@ export class ViewService {
         title: 'Project',
         format:
           this.combineOmexFormat.name +
-          this.combineOmexFormat?.biosimulationsMetadata?.acronym
+          (this.combineOmexFormat?.biosimulationsMetadata?.acronym
             ? ` (${this.combineOmexFormat?.biosimulationsMetadata?.acronym})`
-            : '',
+            : ''),
         formatUrl: this.combineOmexFormat.url,
         master: false,
         size:

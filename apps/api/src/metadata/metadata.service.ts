@@ -1,6 +1,5 @@
 import {
   ArchiveMetadata,
-  SimulationRunMetadataInput,
 } from '@biosimulations/datamodel/api';
 import {
   Injectable,
@@ -25,7 +24,7 @@ export class MetadataService {
   private logger: Logger = new Logger(MetadataService.name);
   public constructor(
     @InjectModel(SimulationRunMetadataModel.name)
-    private metadataModel: Model<SimulationRunMetadataModel>,
+    private simulationRunMetadataModel: Model<SimulationRunMetadataModel>,
     @InjectModel(SimulationRunModel.name)
     private simulationModel: Model<SimulationRunModel>,
     private config: ConfigService,
@@ -37,14 +36,14 @@ export class MetadataService {
   public async getAllMetadata(): Promise<
     SimulationRunMetadataIdModel[] | null
   > {
-    const metadata = await this.metadataModel.find({}).exec();
+    const metadata = await this.simulationRunMetadataModel.find({}).exec();
     return metadata;
   }
 
   public async getMetadata(
     runId: string,
   ): Promise<SimulationRunMetadataIdModel | null> {
-    const metadata = await this.metadataModel
+    const metadata = await this.simulationRunMetadataModel
       .findOne({ simulationRun: runId }, { id: 0, __v: 0 })
       .exec();
 
@@ -52,21 +51,23 @@ export class MetadataService {
   }
 
   public async createMetadata(
-    data: SimulationRunMetadataInput,
+    runId: string,
+    metadata: ArchiveMetadata[],
   ): Promise<void> {
-    const sim = await this.simulationModel.findById(data.id).catch((_) => null);
+    const sim = await this.simulationModel.findById(runId).catch((_) => null);
     if (!sim) {
       throw new NotFoundException(
-        `No simulation run could be found with id '${data.id}'.`,
+        `No simulation run could be found with id '${runId}'.`,
       );
     }
 
-    data.metadata = data.metadata.map(
-      this.transformMetadata.bind(this, data.id),
-    );
-
-    const metadata = new this.metadataModel(data);
-    await metadata.save();
+    const simulationRunMetadata = new this.simulationRunMetadataModel({
+      simulationRun: runId,
+      metadata: metadata.map(
+        this.transformMetadata.bind(this, runId),
+      ),
+    });
+    await simulationRunMetadata.save();
     return
   }
 
@@ -120,7 +121,7 @@ export class MetadataService {
   }
 
   public async deleteSimulationRunMetadata(runId: string): Promise<void> {
-    const metadata = await this.metadataModel
+    const metadata = await this.simulationRunMetadataModel
       .findOne({ simulationRun: runId })
       .select('simulationRun')
       .exec();
@@ -130,7 +131,7 @@ export class MetadataService {
       );
     }
 
-    const res: DeleteResult = await this.metadataModel
+    const res: DeleteResult = await this.simulationRunMetadataModel
       .deleteOne({ simulationRun: runId })
       .exec();
     if (res.deletedCount !== 1) {
@@ -140,10 +141,10 @@ export class MetadataService {
 
   /*
   public async deleteAllMetadata(): Promise<void> {
-    const res: DeleteResult = await this.metadataModel
+    const res: DeleteResult = await this.simulationRunMetadataModel
       .deleteMany({})
       .exec();
-    const count = await this.metadataModel.count();
+    const count = await this.simulationRunMetadataModel.count();
     if (count !== 0) {
       throw new InternalServerErrorException(
         'Some metadata could not be deleted.',

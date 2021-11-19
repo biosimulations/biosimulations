@@ -1,7 +1,7 @@
 import { Endpoints } from '@biosimulations/config/common';
 import { OmexMetadataInputFormat } from '@biosimulations/datamodel/common';
 import {
-  SimulationRunMetadataInput,
+  ArchiveMetadataContainer,
   ArchiveMetadata,
   LabeledIdentifier,
 } from '@biosimulations/datamodel/api';
@@ -63,8 +63,7 @@ export class MetadataService {
       )
       .map(this.convertMetadata, this);
     this.logger.log(`Converted metadata for simulation run '${id}'.`);
-    const postMetadata: SimulationRunMetadataInput = {
-      id: id,
+    const postMetadata: ArchiveMetadataContainer = {
       metadata,
     };
 

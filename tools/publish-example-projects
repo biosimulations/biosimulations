@@ -48,21 +48,22 @@ def get_status_endpoint(biosimulations_deployment):
         return 'https://api.biosimulations.org/runs'
 
 
-def get_publish_endpoint(biosimulations_deployment):
-    """ Get the endpoint for publishing projects
+def get_project_endpoint(biosimulations_deployment, project_id):
+    """ Get the endpoint for getting, publishing, and updating projects
 
     Args:
         biosimulations_deployment (:obj:`str`): which deployment of the BioSimulations deployment to use (``dev``, ``prod``, or ``local``)
+        project_id (:obj:`str`): project id
 
     Returns:
-        :obj:`str`: endpoint for publishing projects
+        :obj:`str`: endpoint for getting, publishing, and updating projects
     """
     if biosimulations_deployment == 'local':
-        return 'http://localhost:3333/projects'
+        return 'http://localhost:3333/projects/' + project_id
     elif biosimulations_deployment == 'dev':
-        return 'https://api.biosimulations.dev/projects'
+        return 'https://api.biosimulations.dev/projects/' + project_id
     else:
-        return 'https://api.biosimulations.org/projects'
+        return 'https://api.biosimulations.org/projects/' + project_id
 
 
 def did_run_succeed(biosimulations_deployment, id):
@@ -161,12 +162,6 @@ def main(biosimulations_deployment, example_names, dry_run=False):
         examples))
 
     # publish examples
-    requests_session = requests.Session()
-    retries = Retry(total=5,
-                    backoff_factor=5,
-                    status_forcelist=[400, 408, 429, 500, 502, 503, 504])
-    requests_session.mount(get_publish_endpoint(biosimulations_deployment).rpartition('/')[0], HTTPAdapter(max_retries=retries))
-
     auth_headers = get_auth_headers_for_biosimulations_deployment()
     created = []
     updated = []
@@ -177,19 +172,16 @@ def main(biosimulations_deployment, example_names, dry_run=False):
         if not example['bioSimulationsId']:
             raise ValueError('{} must provide a BioSimulations id'.format(example['name']))
 
-        response = requests_session.get(get_publish_endpoint(biosimulations_deployment) + '/' + example['bioSimulationsId'])
+        endpoint = get_project_endpoint(biosimulations_deployment, example['bioSimulationsId'])
+        response = requests.get(endpoint)
         try:
             response.raise_for_status()
             if run['id'] == response.json()['simulationRun']:
                 continue
 
-            method = requests_session.put
-            endpoint = get_publish_endpoint(biosimulations_deployment) + '/' + example['bioSimulationsId']
-            updated.append(example['name'])
+            method = requests.put
         except requests.exceptions.RequestException:
-            method = requests_session.post
-            endpoint = get_publish_endpoint(biosimulations_deployment)
-            created.append(example['name'])
+            method = requests.post
 
         if not dry_run:
             response = method(
@@ -201,6 +193,11 @@ def main(biosimulations_deployment, example_names, dry_run=False):
                 })
             try:
                 response.raise_for_status()
+                if method == requests.post:
+                    created.append(example['name'])
+                else:
+                    updated.append(example['name'])
+
             except requests.exceptions.HTTPError as exception:
                 failures.append(example['name'] + ': ' + str(exception))
 
@@ -212,7 +209,7 @@ def main(biosimulations_deployment, example_names, dry_run=False):
         ''.join('\n  ' + example for example in updated)))
     print('{} examples were already published'.format(
         len(examples) - (len(created) + len(updated))))
-    print('{} examples were could not be published{}'.format(
+    print('{} examples could not be published{}'.format(
         len(failures),
         ''.join('\n  ' + example for example in failures)))
     print('{} examples had were skipped because they are not marked for publication{}'.format(
