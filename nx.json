@@ -36,7 +36,8 @@
           "e2e"
         ],
         "canTrackAnalytics": true,
-        "showUsageWarnings": true
+        "showUsageWarnings": true,
+        "parallel": 3
       }
     }
   },
