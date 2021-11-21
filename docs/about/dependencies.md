@@ -1060,7 +1060,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: silverwind
 │  ├─ email: me@silverwind.io
 │  └─ licenseFile: npm/node_modules/cidr-regex/LICENSE
-├─ class-transformer@0.4.0
+├─ class-transformer@0.5.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/typestack/class-transformer
 │  ├─ publisher: TypeStack contributors
