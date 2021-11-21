@@ -2,15 +2,59 @@
 
 ## Finding projects
 
+Published projects can be browsed at [https://biosimulations.org/projects](https://biosimulations.org/projects). Each card presents a project, with a thumbnail, and title. Mousing over the thumbnail shows additional details about the project. You can customize the attributes you want to view. 
+
+![browse-projects](./images/browse.png)
+### Selecting attributes
+
+![select-attributes](./images/select.png){align=right}
+Clicking on the search icon in the top-right corner of the page opens menu with an attributes sub-menu. From here, you can select the attributes you want to view. Selecting a field will add the attributes to the details presented in the project card when you mouse over the thumbnail.
+
+ <!-- The new lines must be followed by two spaces-->
+&NewLine;  
+&NewLine;  
+&NewLine;  
+&NewLine;  
+&NewLine;  
+&NewLine;  
+
+### Searching for projects
+![search-projects](./images/search.png){align=right}
+Clicking on the the search icon at the top right of the page opens a search box. A search term, such as 'metabolism' can be entered in the search box. By default, the search term is searched against each [attribute](#selecting-attributes) of the project. Optionally, you can restrict the search to a specific attribute. For example, if you want to search for projects that have the value 'Eschiria coli' in the `taxa`  attribute, you can enter 'taxa:eschiria-coli' in the search box. The general format for queries is `attribute:value-with-dashes`. The name of the attribute, followed by a colon, followed by the search term, replacing all spaces with '-'.
+
+
+
+### Filtering projects
+
+![filter-attributes](./images/filter.png){align=right}
+The list of displayed project can be filtered by the values of their attributes. For each available attribute a menu of values is presented. Selecting a value will filter the list of projects to include only those with that value.
+
+ <!-- The new lines must be followed by two spaces-->
+&NewLine;  
+&NewLine;  
+&NewLine;  
+&NewLine;  
+&NewLine;  
+&NewLine;  
+
 ## Exploring projects
+
+Clicking on a project card opens a page with the project details. The "Overview" tab provides the associated project [metadata](#Metadata) as well as information about underlying model and [simulation run](#simulation-runs). The "Select chart" tab allows you to configure [visualizations](#visualizations) of the simulation results that can then be viewed on the "View chart" tab. The "Files" tab provides downloads and information for the project [files](#files).
 
 ### Metadata
 
+BioSimulations collects metadata to enable searching, browsing and discovering of projects. The metadata includes information about authorship, license, funding and other provenance information. It also includes information about the modelled system, such as the model organism, and tags to describe the project.
+
+![project-metadata](./images/metadata.png)
 ### Visualizations
 
-### Configuring new visualizations
+Projects can be visualized using both predefined and custom visualizations. The "Select Chart" tab allows you to select from visualizations that are defined and included in the project. Additionally, you can create your own custom visualization, by selecting one of  the "Design a chart" options. These include histograms, heatmaps and lineplots. Selecting a a plot time will open an additional menu with configuration options to select the datasets to be plotted.
+Once you have configured your visualization, you can view it by clicking on the "View chart" button.
 
-### Logs of simulation runs
+
+### Simulation Runs
+![Sidebar screenshot showing simulation run details](./images/sidebar-simulation-run.png){ align=left }
+More detailed information about the simulation execution and results can be viewed by following the links to the runBioSimulations page for the simulation. The "Logs" tab provides detailed output of the simulation excecution, including each individual simulation step and the outputs (reports and plots) produced by the simulation. Each step of the simulation is presented as a collapsible section that can be expanded to show the outputs. Both structured log files and raw output files can be downloaded from the links. 
 
 ## Reusing projects: creating and executing variants of simulations with runBioSimulations
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 :root {
   --md-primary-fg-color: #2196f3;
@@ -7,7 +7,7 @@
   --md-accent-fg-color: #ff9800;
   --md-accent-fg-color--light: #ffe0b2;
   --md-accent-fg-color--dark: #ff7b00;
-  --md-text-font-family: 'Raleway';
+  --md-text-font-family: 'Roboto';
 }
 
 .logos {
@@ -34,12 +34,8 @@
 }
 
 .md-header__button.md-logo img {
-  height: 2.4rem;
+  height: 2rem;
   width: auto;
-}
-
-.md-header__ellipsis {
-  display: none;
 }
 
 .md-tabs {
