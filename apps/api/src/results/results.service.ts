@@ -8,7 +8,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Output, OutputData, Results } from './datamodel';
-import { S3 } from 'aws-sdk';
+import { AWSError, S3 } from 'aws-sdk';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -95,7 +95,7 @@ export class ResultsService {
         );
       }
     } catch (error) {
-      if (error.statusCode === HttpStatus.NOT_FOUND) {
+      if ((error as AWSError).statusCode === HttpStatus.NOT_FOUND) {
         throw new NotFoundException(
           `Results could not be found for simulation run '${runId}'.`,
         );

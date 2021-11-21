@@ -129,35 +129,6 @@ export class ProjectsService {
     return;
   }
 
-  private getOwner(
-    projectInput: ProjectInput,
-    user: AuthToken,
-  ): string | undefined {
-    if (projectInput?.owner) {
-      if (user?.permissions?.includes(scopes.projects.proxyOwnership.id)) {
-        return projectInput.owner;
-      } else {
-        throw new ForbiddenException(
-          'Only administrators can submit projects on behalf of other accounts.',
-        );
-      }
-    }
-
-    if (!user?.sub) {
-      return undefined;
-    }
-
-    if (user.sub.search(/\|/) !== -1) {
-      return user.sub;
-    }
-
-    if (!user?.permissions?.includes(scopes.projects.proxyOwnership.id)) {
-      return user?.sub;
-    }
-
-    return undefined;
-  }
-
   /** Delete all projects
    */
   public async deleteProjects(): Promise<void> {
@@ -257,22 +228,102 @@ export class ProjectsService {
     };
   }
 
-  /** Get information about an account from the cache or from Auth0 if its not in the cache
-   * @param auth0Id: Auth0 user or client id
+  /** Check if a project is valid
+   *
+   * @param projectInput project
+   * @param validateSimulationResultsData whether to validate the data for each SED-ML report and plot of each SED-ML document
    */
-  private async getAccount(auth0Id: string): Promise<Account> {
-    const cacheKey = `Account:info:${auth0Id}`;
-    const cachedAccount = (await this.cacheManager.get(
-      cacheKey,
-    )) as Account | null;
+  public async validateProject(
+    projectInput: ProjectInput,
+    validateSimulationResultsData = false,
+    validateIdAvailable = false,
+    validateSimulationRunNotPublished = false,
+  ): Promise<void> {
+    const errors: string[] = [];
 
-    if (cachedAccount) {
-      return cachedAccount;
-    } else {
-      const account = await this._getAccount(auth0Id);
-      await this.cacheManager.set(cacheKey, account, { ttl: 60 * 24 }); // 1 day; to enable users and organizations to change their names
-      return account;
+    if (validateIdAvailable) {
+      const numProjects = await this.model
+        .findOne({ id: projectInput.id })
+        .collation(ProjectIdCollation)
+        .count();
+      if (numProjects >= 1) {
+        errors.push(
+          `The id '${projectInput.id}' is already taken by another project. Each project must have a unique id. Please choose another id.`,
+        );
+      }
     }
+
+    if (validateSimulationRunNotPublished) {
+      const project = await this.model
+        .findOne({ simulationRun: projectInput.simulationRun })
+        .select('id')
+        .collation(ProjectIdCollation);
+      if (project) {
+        errors.push(
+          `Simulation run '${projectInput.simulationRun}' has already been published as project '${project.id}'. Each run can only be published once.`,
+        );
+      }
+    }
+
+    try {
+      await this.simulationRunService.validateRun(
+        projectInput.simulationRun,
+        validateSimulationResultsData,
+      );
+    } catch (error) {
+      const message =
+        error instanceof BiosimulationsException && error.message
+          ? error.message
+          : 'Error validating run';
+      errors.push(message);
+    }
+
+    const project = new this.model(projectInput);
+    try {
+      await project.validate();
+    } catch (error) {
+      errors.push(
+        error instanceof Error && error.message
+          ? error.message
+          : 'Validation of project failed',
+      );
+    }
+
+    if (errors.length) {
+      throw new BiosimulationsException(
+        HttpStatus.BAD_REQUEST,
+        'Project is invalid',
+        errors.join('\n\n'),
+      );
+    }
+  }
+  private getOwner(
+    projectInput: ProjectInput,
+    user: AuthToken,
+  ): string | undefined {
+    if (projectInput?.owner) {
+      if (user?.permissions?.includes(scopes.projects.proxyOwnership.id)) {
+        return projectInput.owner;
+      } else {
+        throw new ForbiddenException(
+          'Only administrators can submit projects on behalf of other accounts.',
+        );
+      }
+    }
+
+    if (!user?.sub) {
+      return undefined;
+    }
+
+    if (user.sub.search(/\|/) !== -1) {
+      return user.sub;
+    }
+
+    if (!user?.permissions?.includes(scopes.projects.proxyOwnership.id)) {
+      return user?.sub;
+    }
+
+    return undefined;
   }
 
   /** Get information about an account from Auth0
@@ -331,65 +382,21 @@ export class ProjectsService {
     };
   }
 
-  /** Check if a project is valid
-   *
-   * @param projectInput project
-   * @param validateSimulationResultsData whether to validate the data for each SED-ML report and plot of each SED-ML document
+  /** Get information about an account from the cache or from Auth0 if its not in the cache
+   * @param auth0Id: Auth0 user or client id
    */
-  public async validateProject(
-    projectInput: ProjectInput,
-    validateSimulationResultsData = false,
-    validateIdAvailable = false,
-    validateSimulationRunNotPublished = false,
-  ): Promise<void> {
-    const errors: string[] = [];
+  private async getAccount(auth0Id: string): Promise<Account> {
+    const cacheKey = `Account:info:${auth0Id}`;
+    const cachedAccount = (await this.cacheManager.get(
+      cacheKey,
+    )) as Account | null;
 
-    if (validateIdAvailable) {
-      const numProjects = await this.model
-        .findOne({ id: projectInput.id })
-        .collation(ProjectIdCollation)
-        .count();
-      if (numProjects >= 1) {
-        errors.push(
-          `The id '${projectInput.id}' is already taken by another project. Each project must have a unique id. Please choose another id.`,
-        );
-      }
-    }
-
-    if (validateSimulationRunNotPublished) {
-      const project = await this.model
-        .findOne({ simulationRun: projectInput.simulationRun })
-        .select('id')
-        .collation(ProjectIdCollation);
-      if (project) {
-        errors.push(
-          `Simulation run '${projectInput.simulationRun}' has already been published as project '${project.id}'. Each run can only be published once.`,
-        );
-      }
-    }
-
-    try {
-      await this.simulationRunService.validateRun(
-        projectInput.simulationRun,
-        validateSimulationResultsData,
-      );
-    } catch (error) {
-      errors.push(error.detail);
-    }
-
-    const project = new this.model(projectInput);
-    try {
-      await project.validate();
-    } catch (error) {
-      errors.push(error.message);
-    }
-
-    if (errors.length) {
-      throw new BiosimulationsException(
-        HttpStatus.BAD_REQUEST,
-        'Project is invalid',
-        errors.join('\n\n'),
-      );
+    if (cachedAccount) {
+      return cachedAccount;
+    } else {
+      const account = await this._getAccount(auth0Id);
+      await this.cacheManager.set(cacheKey, account, { ttl: 60 * 24 }); // 1 day; to enable users and organizations to change their names
+      return account;
     }
   }
 }
