@@ -293,8 +293,9 @@ export class SimulationRunService {
       return this.createRun(run, file.size, simulationProjectFile, id);
     } catch (err) {
       const message =
-        err?.message ||
-        'An error occurred in uploading the COMBINE archive for the simulation run.';
+        err instanceof Error && err.message
+          ? err?.message
+          : 'An error occurred in uploading the COMBINE archive for the simulation run.';
       throw new BiosimulationsException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         message,

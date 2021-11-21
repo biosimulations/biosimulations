@@ -31,7 +31,10 @@ export class BullHealthIndicator extends HealthIndicator {
       );
       const isHealthy = await res.finished();
     } catch (e) {
-      throw new HealthCheckError('BullCheck failed', e.message);
+      throw new HealthCheckError(
+        'BullCheck failed',
+        e instanceof Error ? e.message : 'BullCheck failed',
+      );
     }
     return this.getStatus(key, true);
   }

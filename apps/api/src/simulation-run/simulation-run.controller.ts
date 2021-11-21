@@ -251,9 +251,10 @@ export class SimulationRunController {
         // This should be caught by the database validation however
         return JSON.parse(body.simulationRun) as UploadSimulationRun;
       } catch (e) {
+        const message = e instanceof Error && e.message ? e.message : '';
         throw new BadRequestException(
           "The 'simulationRun' field of the body of the request is not a valid JSON document: " +
-            e.message,
+            message,
         );
       }
     } else {

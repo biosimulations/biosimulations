@@ -2,6 +2,7 @@ import { Injectable, HttpStatus } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectS3, S3 } from 'nestjs-s3';
 import * as AWS from 'aws-sdk';
+import { AWSError } from 'aws-sdk';
 
 @Injectable()
 export class SharedStorageService {
@@ -26,7 +27,7 @@ export class SharedStorageService {
       await call;
       return true;
     } catch (error) {
-      if (error.statusCode === HttpStatus.NOT_FOUND) {
+      if ((error as AWSError).statusCode === HttpStatus.NOT_FOUND) {
         return false;
       } else {
         throw error;
@@ -76,7 +77,10 @@ export class SharedStorageService {
       if (err === timeoutErr) {
         throw new Error('Timeout when uploading file to storage');
       } else {
-        const message = err?.message || 'Error when uploading file to storage';
+        const message =
+          err instanceof Error && err.message
+            ? err?.message
+            : 'Error when uploading file to storage';
         throw new Error(message);
       }
     }
