@@ -33,6 +33,7 @@ import {
 import { UtilsService } from '@biosimulations/shared/angular';
 import lunr from 'lunr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { debounce } from 'throttle-debounce';
 
 // TODO improve datasource / loading functionality
 @Injectable()
@@ -390,6 +391,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.evalAutocompleteFilter?.cancel();
   }
 
   ngAfterViewInit(): void {
@@ -431,6 +433,10 @@ export class TableComponent implements OnInit, AfterViewInit {
         const state = this.parseTableStateQueryFragment(fragment);
         this.setTableState(state);
       }
+    });
+
+    this.evalAutocompleteFilter = debounce(50, false, (column: Column, filter: string) => {
+      this._evalAutocompleteFilter(column, filter);
     });
   }
 
@@ -825,6 +831,23 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
 
     return range;
+  }
+
+  public evalAutocompleteFilter!: debounce<(column: Column, filter: string) => void>;
+
+  private _evalAutocompleteFilter(column: Column, filter: string): void {
+    filter = filter
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+
+    this.columnFilterData[column.id].forEach((value: any): void => {
+      value.filtered = (
+        !filter 
+        || value.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(filter) 
+        || value.formattedValue.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(filter)
+      );
+    });
   }
 
   filterSetValue(column: Column, value: any, show: boolean): void {
