@@ -139,7 +139,7 @@
     "@nrwl/workspace": "13.2.1",
     "@nx-python/nx-python": "0.1.7",
     "@nx-tools/nx-docker": "2.0.0-alpha.3",
-    "@scullyio/init": "2.0.3",
+    "@scullyio/init": "2.0.5",
     "@scullyio/ng-lib": "2.0.2",
     "@scullyio/scully": "2.0.2",
     "@semantic-release/changelog": "6.0.1",
