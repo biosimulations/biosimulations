@@ -843,8 +843,8 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     this.columnFilterData[column.id].forEach((value: any): void => {
       value.filtered = (
-        !filter 
-        || value.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(filter) 
+        !filter
+        || value.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(filter)
         || value.formattedValue.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(filter)
       );
     });

@@ -139,7 +139,7 @@ export const columns: Column[] = [
       return simulator.algorithmParameters.map((parameter: TableAlgorithmParameter): string => parameter.kisaoId).join(' ');
     },
     filterable: true,
-    filterType: ColumnFilterType.stringAutoComplete,    
+    filterType: ColumnFilterType.stringAutoComplete,
     minWidth: 100,
     hidden: true,
     show: false,
