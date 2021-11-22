@@ -9,7 +9,7 @@ Simulators should support SED-ML L1V3 or later. To accommodate a wide range of m
 SED-ML can refer to model and data descriptor files in multiple ways, including via paths to local files, via URLs, via URL fragments to other models defined in the same SED-ML document, and via identifiers for an Identifiers.org namespace such as BioModels. When referencing files via local paths, SED-ML documents should use paths relative to the location of the SED-ML document.
 
 To ensure that COMBINE/OMEX archives are self-contained, BioSimulators encourages SED-ML documents in COMBINE/OMEX archive to reference files via relative paths within archives.
-## Concrete CPath targests for changes to CML-encoded models
+## Concrete XPath targets for changes to CML-encoded models
 
 SED-ML enables investigators to use XPaths to specify changes to models that are encoded in XML files. This encompasses models described using CellML, SBML, and other languages. SED-ML documents should use valid XPaths that resolve to XML elements. For example, `/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A']/@initialConcentration` could be used to indicate a change to the initial condition of a species.
 

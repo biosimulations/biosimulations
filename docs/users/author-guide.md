@@ -73,6 +73,9 @@ docker run ghcr.io/biosimulators/tellurium:2.2.1 -v /path/to/project:/root -v /p
 
 ## Executing projects
 
+Before submitting a project, the simulation must be executed using runBioSimulations. This tool provides a web interface for executing a simulation project. The user can upload a COMBINE/OMEX archive or provide a URL to a COMBINE/OMEX archive. The tool will execute the simulation and report any errors. The interface provides a customizable view of the simulation results and simulation logs. 
+
+
 ## Reviewing simulation results before publication
 
 Before publishing a simulation project, the user should review the simulation results. The author should verify the following: 
