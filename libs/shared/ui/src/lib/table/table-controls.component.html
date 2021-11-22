@@ -138,7 +138,9 @@
                           [selectable]="false"
                           [removable]="true"
                           (removed)="table.filterSetValue(column, value, false)">
-                          {{ value.formattedValue }}
+                          <div class="chip-content">
+                            {{ value.formattedValue }}
+                          </div>
                           <button matChipRemove>
                             <mat-icon>cancel</mat-icon>
                           </button>
