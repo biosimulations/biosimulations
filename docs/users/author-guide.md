@@ -1,28 +1,103 @@
 # Author guide: creating and publishing projects
 
-## Creating projects
+To make it easy for investigators to work with a broad range of model formats, modeling frameworks, simulation types, simulation algorithms, and simulation tools, BioSimulations uses existing community standards for creating and describing projects. BioSimulations uses the Simulation Experiment Description Markup Language (SED-ML) to describe [simulation experiments](#sed-ml) and COMBINE/OMEX archive formats for packaging and distribution of simulation [projects](#combineomex-archives). The OMEX-Meta format is used to describe the [metadata](#metadata) associated with a simulation project. Vega is used to describe charts, plots and [visualizations](#visualizations) of simulation results. More information about BioSimulation's use of these standards, and how to create and publish a project can be found below.
 
-### SED-ML
+## Creating Projects
+
+Interactive tutorials for creating projects can be found [here](https://tutorial.biosimulators.org). 
+### SED-ML 
+
+[SED-ML](https://sed-ml.org/) is used to describe simulation experiments. This includes:
+
+- Which models to simulate
+- How to modify models to simulate variants such as alternative initial conditions
+- What type of simulations to execute (e.g., steady-state, time course)
+- Which algorithms to use (e.g., CVODE, SSA)
+- Which observables to record
+- How to reduce the recorded values of the observables
+- How to plot the observables
+- How to export the observables to reports (e.g., CSV, HDF5)
+
+ [runBioSimuations](https://run.biosimulations.org/create) provides a simple web form for building COMBINE/OMEX archives with SED-ML files from model files (e.g., CellML, SBML). This tool support all of the modeling languages supported by BioSimulations. 
+
+More detailed information about creating SED-ML files to work with BioSimulations can be found at [here](../concepts/Experiments.md).
 
 ### Visualizations
 
-### Metadata
+BioSimulations recommends [Vega](https://vega.github.io/vega/) for data visualizations of simulation results. Vega is a powerful, declarative grammar for describing interactive, two-dimensional data visualizations.
+
+One key feature of Vega is that it modularly captures the graphical marks which comprise visualizations and how those graphical marks should be painted with data. This feature makes it easy to produce data visualizations for multiple simulation conditions by combining the same graphical marks with results from multiple simulations. This features also makes the provenance of data visualizations transparent. As a result, Vega is ideal for collaboration and publication.
+
+Vega files can be included in the ComBINE/OMEX archive of a simulation project to enable visualization on the [project view page](./user-guide.md#visualizations).
+
+More information on how to create Vega files that can incorporate data from BioSimulations projects can be found at [here](../concepts/Visualizations.md).
+
+### Metadata 
+BioSimulations uses the [OMEX-Meta](https://co.mbine.org/standards/omex-metadata) specification to capture metadata about the simulation project. BioSimulations has a list of recommended metadata fields that are used to display the [metadata](./user-guide.md#metadata) of a simulation project. Information about how to use theses fields can be found [here](../concepts/Metadata.md).
 
 ### COMBINE/OMEX archives
 
+BioSimulations uses COMBINE/OMEX archives to bundle the multiple files typically involved in modeling projects into a single archive. These files include, but are not limited to:
+
+- Models (e.g., in CellML, SBML format)
+- Simulation experiments (SED-ML files)s
+- Visualizations for visualizing simulation results (e.g., in Vega format)
+- Supplementary files, such as data used to calibrate the model
+- Metadata about the simulation project (RDF files that follow the OMEX Metadata guidelines)
+ 
 ## Validating projects
 
+BioSimulations provides a validation tool for validating the contents of a COMBINE/OMEX archive. This tool is available on [runBioSimulations](https://run.biosimulations.org/utils/validate-project). The user can upload a COMBINE/OMEX archive or provide a URL to a COMBINE/OMEX archive. The tool will validate the contents of the archive and report any errors. The interface provides a customizable report of the validation results, including validation of the model file, Sed-ML file, metadata, archive manifest, and any images presented in the archive.
+
+![validation-tool](../images/validate.png)
+
+!!!warning
+    This application can only validate targets for simulation observables for unchanged models. Targets for modified models cannot be validated statically, independently from executing the associated SED-ML document. Simulation tools validate such targets when they execute their parent SED-ML document. For the same reason, this application cannot validate targets for model changes. Simulation tools validate such model change targets during their execution.
+
+
+
+This validation can also be accessed programmatically from the [BioSimulations API](https://combine.api.biosimulations.org).
+
+
+
+
 ## Using BioSimulators to test projects prior to submission to BioSimulations
+
+Authors can run their simulation projects locally using the BioSimulators docker images. To run the project locally, pull the appropriate BioSimulators docker image, and then run the simulator as follows:
+
+```bash
+docker run ghcr.io/biosimulators/tellurium:2.2.1 -v /path/to/project:/root -v /path/to/output:/root/out -i project.omex -o /root/out
+```
+!!!note
+    Ensure that the directories containing the project.omex file and the output directory are mounted in the container. For more information, see the Docker documentation [here](https://docs.docker.com/storage/bind-mounts/).
 
 ## Executing projects
 
 ## Reviewing simulation results before publication
 
+Before publishing a simulation project, the user should review the simulation results. The author should verify the following: 
+
+1. The simulation runs successfully and all outputs are present.
+1. The simulation project metadata is accurate and complete.
+    1. The thumbnail image is loaded and displayed correctly.
+    1. The simulation project has a title, descriptions, and information about the authors
+    1. The simulation project contains information about the citation, license, and associated identifiers
+1. The simulation files are present and accessible. No extra files that are not intended to be published should be present
+1. The simulation results can be visualized and align with the expected results
 ## Publishing projects
 
+![share-button](./images/share.png){align=right}
+
+Once a simulation project has been submitted, and reviewed by the author, it can be published to BioSimulations. To publish a simulation project, the author must click on the "Publish" button on the project view page. The author can then select a unique id for the project and then submit the project to BioSimulations.
 ## User accounts for owning projects
 
-Signing up
-Signing in
+No login is required to access BioSimulations. However, users must have an account to manage projects. This allows for proper crediting of authors and allows authors to manage and edit their projects. BioSimulations provides a free account for users who wish to publish and manage projects.
 
+!!!note
+    User accounts are under development. If you are interested in submitting a project to BioSimulations, please contact us at info@biosimulations.org
 ## Privately sharing resources with colleagues, peer reviewers, and editors before publication
+
+![share-button](./images/share.png){align=right}
+
+Before publishing a Simulation Run, you can share the project privately, by providing them the URL of the simulation run on runBioSimulations.org. This link can be retrieved by clicking on the "Share" button in the simulation run view page.
+
