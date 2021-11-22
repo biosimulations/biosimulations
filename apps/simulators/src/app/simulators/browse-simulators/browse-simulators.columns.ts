@@ -6,7 +6,7 @@ import {
   RowService,
 } from '@biosimulations/shared/ui';
 
-import { TableSimulator } from './tableSimulator.interface';
+import { TableSimulator, TableAlgorithmParameter, TableAuthor } from './tableSimulator.interface';
 import { SimulatorCurationStatus } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/angular';
 import { FormatService } from '@biosimulations/shared/services';
@@ -127,6 +127,23 @@ export const columns: Column[] = [
     },
     minWidth: 165,
     show: false,
+  },
+  {
+    id: 'algorithmParameters',
+    heading: 'Algorithm parameters',
+    key: 'algorithmParameters',
+    getter: (simulator: TableSimulator): string[] => {
+      return simulator.algorithmParameters.map((parameter: TableAlgorithmParameter): string => parameter.name);
+    },
+    extraSearchGetter: (simulator: TableSimulator): string => {
+      return simulator.algorithmParameters.map((parameter: TableAlgorithmParameter): string => parameter.kisaoId).join(' ');
+    },
+    filterable: true,
+    filterType: ColumnFilterType.stringAutoComplete,    
+    minWidth: 100,
+    hidden: true,
+    show: false,
+    showStacked: false,
   },
   {
     id: 'modelFormats',
@@ -448,6 +465,17 @@ export const columns: Column[] = [
     minWidth: 92,
   },
   {
+    id: 'dependencies',
+    heading: 'Dependencies',
+    key: 'dependencies',
+    filterable: true,
+    filterType: ColumnFilterType.stringAutoComplete,
+    minWidth: 100,
+    hidden: true,
+    show: false,
+    showStacked: false,
+  },
+  {
     id: 'curationStatus',
     heading: 'Curation',
     key: 'curationStatus',
@@ -469,6 +497,60 @@ export const columns: Column[] = [
     minWidth: 92,
     maxWidth: 92,
     center: true,
+  },
+    {
+    id: 'authors',
+    heading: 'Authors',
+    key: 'authors',
+    getter: (simulator: TableSimulator): string[] => {
+      return simulator.authors.map((author: TableAuthor): string => author.label);
+    },
+    extraSearchGetter: (simulator: TableSimulator): string => {
+      return simulator.authors.map((author: TableAuthor): string => author.identifiers).join(' ');
+    },
+    filterable: true,
+    filterType: ColumnFilterType.stringAutoComplete,
+    minWidth: 100,
+    hidden: true,
+    show: false,
+    showStacked: false,
+  },
+  {
+    id: 'citations',
+    heading: 'Citations',
+    key: 'citations',
+    filterable: false,
+    minWidth: 100,
+    hidden: true,
+    show: false,
+    showStacked: false,
+  },
+  {
+    id: 'identifiers',
+    heading: 'Identifiers',
+    key: 'identifiers',
+    filterable: false,
+    minWidth: 100,
+    hidden: true,
+    show: false,
+    showStacked: false,
+  },
+  {
+    id: 'funding',
+    heading: 'Funding',
+    key: 'funding',
+    getter: (simulator: TableSimulator): string[] => {
+      return simulator.funding.labels;
+    },
+    extraSearchGetter: (simulator: TableSimulator): string => {
+      return simulator.funding.identifiers;
+    },
+    filterable: true,
+    filterType: ColumnFilterType.stringAutoComplete,
+    minWidth: 100,
+    hidden: true,
+    show: false,
+    showStacked: false,
   },
   {
     id: 'license',
@@ -588,65 +670,5 @@ export const columns: Column[] = [
     center: true,
     filterable: false,
     sortable: false,
-  },
-  {
-    id: 'algorithmParameters',
-    heading: 'algorithmParameters',
-    key: 'algorithmParameters',
-    filterable: false,
-    minWidth: 100,
-    hidden: true,
-    show: false,
-    showStacked: false,
-  },
-  {
-    id: 'dependencies',
-    heading: 'dependencies',
-    key: 'dependencies',
-    filterable: false,
-    minWidth: 100,
-    hidden: true,
-    show: false,
-    showStacked: false,
-  },
-  {
-    id: 'authors',
-    heading: 'authors',
-    key: 'authors',
-    filterable: false,
-    minWidth: 100,
-    hidden: true,
-    show: false,
-    showStacked: false,
-  },
-  {
-    id: 'citations',
-    heading: 'citations',
-    key: 'citations',
-    filterable: false,
-    minWidth: 100,
-    hidden: true,
-    show: false,
-    showStacked: false,
-  },
-  {
-    id: 'identifiers',
-    heading: 'identifiers',
-    key: 'identifiers',
-    filterable: false,
-    minWidth: 100,
-    hidden: true,
-    show: false,
-    showStacked: false,
-  },
-  {
-    id: 'funding',
-    heading: 'funding',
-    key: 'funding',
-    filterable: false,
-    minWidth: 100,
-    hidden: true,
-    show: false,
-    showStacked: false,
   },
 ];

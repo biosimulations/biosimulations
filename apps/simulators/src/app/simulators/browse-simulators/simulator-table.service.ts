@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SimulatorService } from '../simulator.service';
 import { Observable } from 'rxjs';
 import { map, mergeAll, shareReplay } from 'rxjs/operators';
-import { TableSimulator } from './tableSimulator.interface';
+import { TableSimulator, TableAlgorithmParameter, TableAuthor, TableFunding } from './tableSimulator.interface';
 import { OntologyService } from '@biosimulations/ontology/client';
 import {
   sortUrls,
@@ -189,16 +189,12 @@ export class SimulatorTableService {
                 algorithmParameters: Array.from(
                   ontologyTermIdsMap['parameters'],
                 )
-                  .map((id: string): string => {
-                    const name =
-                      ontologyIdTermMap?.[Ontologies.KISAO]?.[id]?.name;
-                    if (name) {
-                      return id + ' ' + name;
-                    } else {
-                      return id;
-                    }
-                  })
-                  .join(' '),
+                  .map((id: string): TableAlgorithmParameter => {
+                    return  {
+                      name: ontologyIdTermMap?.[Ontologies.KISAO]?.[id]?.name || id,
+                      kisaoId: id,
+                    };
+                  }),
                 dependencies: this.getDependencies(simulator.algorithms),
                 authors: this.getAuthors(simulator.authors),
                 citations: this.getCitations(simulator.references.citations),
@@ -338,34 +334,39 @@ export class SimulatorTableService {
     }
   }
 
-  getDependencies(algorithms: IAlgorithm[]): string {
-    const text: string[] = [];
+  getDependencies(algorithms: IAlgorithm[]): string[] {
+    const text = new Set<string>();
     algorithms.forEach((algorithm: IAlgorithm): void => {
       algorithm?.dependencies?.forEach((dependency: DependentPackage): void => {
-        text.push(dependency.name);
+        text.add(dependency.name);
       });
     });
-    return text.join(' ');
+    return Array.from(text);
   }
 
-  getAuthors(authors: Person[]): string {
-    const text: string[] = [];
-    authors.forEach((author: Person): void => {
+  getAuthors(authors: Person[]): TableAuthor[] {
+    return authors.map((author: Person): TableAuthor => {
+      const names: string[] = [];
       if (author?.firstName) {
-        text.push(author?.firstName);
+        names.push(author?.firstName);
       }
       if (author?.middleName) {
-        text.push(author?.middleName);
+        names.push(author?.middleName);
       }
       if (author?.lastName) {
-        text.push(author?.lastName);
+        names.push(author?.lastName);
       }
+
+      const identifiers: string[] = [];
       author.identifiers.forEach((identifier: Identifier): void => {
-        text.push(identifier.namespace);
-        text.push(identifier.id);
+        identifiers.push(identifier.namespace + ' ' + identifier.id);
       });
+
+      return {
+        label: names.join(' '),
+        identifiers: identifiers.join(' '),
+      };
     });
-    return text.join(' ');
   }
 
   getCitations(citations: Citation[]): string {
@@ -413,7 +414,7 @@ export class SimulatorTableService {
   getFunding(
     funding: Funding[],
     ontologyIdTermMap: { [termId: string]: PartialIOntologyTerm },
-  ): string {
+  ): TableFunding {
     const funderIds = new Set<string>();
     const grants: string[] = [];
     funding.forEach((funding: Funding): void => {
@@ -428,12 +429,9 @@ export class SimulatorTableService {
       funderNames.push(ontologyIdTermMap?.[funderId]?.name || funderId);
     }
 
-    return (
-      funderNames.join(' ') +
-      ' ' +
-      Array.from(funderIds).join(' ') +
-      ' ' +
-      grants.join(' ')
-    );
+    return {
+      labels: funderNames,
+      identifiers: Array.from(funderIds).join(' ') + ' ' + grants.join(' '),
+    };
   }
 }
