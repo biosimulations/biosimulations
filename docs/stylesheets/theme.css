@@ -60,3 +60,11 @@
 .md-tabs__link:active {
   color: #1479ed;
 }
+
+.md-grid {
+  max-width: 80rem;
+}
+
+code {
+  max-height: 600px;
+}

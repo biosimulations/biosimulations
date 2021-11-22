@@ -1,7 +1,7 @@
-nav:    
+nav:
   - users
   - developers
-  #- concepts
-  - News: news  
+  - concepts
+  - News: news
   - community
   - About: about
