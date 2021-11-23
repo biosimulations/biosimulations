@@ -2,22 +2,21 @@
 
 - Models (`sedml:model`) 
 - Model attribute changes (`sedml:changeAttribute`)
-- Simulations 
-    - steady-state (`sedml:steadyState`)
-    - one step, (`sedml:oneStep`)
-    - timecourse simulations (`sedml:uniformTimeCourse`)
-- Tasks for the execution of individual simulations of individual models (`sedml:task`) 
+- Steady-state (`sedml:steadyState`) and/or uniform timecourse (`sedml:uniformTimeCourse`) simulations
 - Algorithms (`sedml:algorithm`) 
 - Algorithm parameters (`sedml:algorithmParameter`)
-- Data Generators
-    - data generators for individual variables (`sedml:dataGenerator`, `sedml:variable`) 
-    - data generators for mathematical expressions (`sedml:dataGenerator/@math`)
-- Report outputs (`sedml:report`)
-- Plot outputs (`sedml:plot2D' , `sedml:plot3D`)
+- Tasks for the execution of individual simulations of individual models (`sedml:task`) 
+- Data generators for mathematical expressions (`sedml:dataGenerator/@math`) of individual variables (`sedml:dataGenerator`, `sedml:variable`) 
+- Reports (`sedml:report`)
+- Plots (`sedml:plot2D')
  
 **Partially Supported**, advanced, features supported by some BioSimulators tools:
 
 <!-- TODO what changes?-->
 
-- More complex model changes
+- Internal model sources (source is a another model in the same SED-ML document)
+- Models sourced by identifiers (e.g., `source="biomodels:BIOMD0000001004"`)
+- More complex model changes (`sedml:addXML`, `sedml:removeXML`, `sedml:changeXML`, `sedml:computeChange`)
 - Repeated tasks (`sedml:repeatedTask`)
+- Multi-dimensional reports (`sedml:report`) and plots (`sedml:plot2d`, `sedml:plot3d`)
+- 3D plots (`sedml:plot3d`)
