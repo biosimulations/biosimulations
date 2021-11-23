@@ -262,17 +262,17 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: https://izs.me
 │  └─ licenseFile: npm/node_modules/@npmcli/run-script/LICENSE
-├─ @nrwl/cli@13.2.1
+├─ @nrwl/cli@13.2.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
 │  └─ licenseFile: @nrwl/cli/LICENSE
-├─ @nrwl/devkit@13.2.1
+├─ @nrwl/devkit@13.2.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
 │  └─ licenseFile: @nrwl/devkit/LICENSE
-├─ @nrwl/tao@13.2.1
+├─ @nrwl/tao@13.2.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
@@ -3471,7 +3471,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: npm/node_modules/number-is-nan/license
-├─ nx@13.2.1
+├─ nx@13.2.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nrwl/nx
 │  ├─ publisher: Victor Savkin
