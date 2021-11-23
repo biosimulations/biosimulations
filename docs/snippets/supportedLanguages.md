@@ -6,5 +6,5 @@
 - Smoldyn simulation configuration format
 - Systems Biology Markup Language (SBML)
 - SBML Flux Balance Constraints (SBML-fbc) package
-- SBML Qualititative Models (SBML-qual) package
+- SBML Qualitative Models (SBML-qual) package
 - SBML Mass Action Stoichiometric Simulation (MASS) schema

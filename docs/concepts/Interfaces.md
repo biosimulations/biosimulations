@@ -51,7 +51,7 @@ optional arguments:
 Python APIs should be Python modules which provide the following attributes and methods:
 
 - `__version__ (str)`: Version of the API (e.g., `0.1.0`).
-- `get_simulator_version (() -> str)`: Get the version of the underyling simulation tool (e.g., `1.0.0`).
+- `get_simulator_version (() -> str)`: Get the version of the underlying simulation tool (e.g., `1.0.0`).
 - `preprocess_sed_task ((task: Task, variables: list[Variable]) -> Any)`: Preprocess the information required to execute a SED-ML task. This method enables users to efficiently execute multiple simulation steps (using exec_sed_task) without unnecessary duplicate computations, such as to import models from files, validate models, and identify suitable algorithms.
 
 - `exec_sed_task ((task: Task, variables: list[Variable], preprocessed_task:Any=None) -> Tuple[VariableResults, TaskLog])`: Execute a single SED-ML task involving a single simulation of a single model and return the predicted value of each requested output variable and a log of the execution of the simulation.
@@ -126,7 +126,7 @@ To ensure consistent execution of simulation experiments, command-line applicati
 
 - **Identification of SED-ML files**. SED-ML files should be identified as `omex:content` whose `format` attribute starts with `http://identifiers.org/combine.specifications/sed-ml`.
  
-- **Preferential execution of "master" files**. The OMEX format supports the declaration of a single "master" file (`omex:content[@master='true']`). When a COMBINE/OMEX archive contains a single master file, simulation tools should only execute this file. Note, if the master file is not a SED-ML document, then no simualtions should be executed. When a COMBINE/OMEX archive doesn't have a master file, all SED-ML documents should be executed.
+- **Preferential execution of "master" files**. The OMEX format supports the declaration of a single "master" file (`omex:content[@master='true']`). When a COMBINE/OMEX archive contains a single master file, simulation tools should only execute this file. Note, if the master file is not a SED-ML document, then no simulations should be executed. When a COMBINE/OMEX archive doesn't have a master file, all SED-ML documents should be executed.
 
 ## Execution of simulation experiments encoded in SED-ML
 
@@ -146,8 +146,8 @@ Tools which choose to execute alternative algorithms should support the `ALGORIT
 Below are helpful tools for implementing command-line applications and Python APIs to the above specifications:
 
 - [BioSimulators utils](https://docs.biosimulators.org/Biosimulators_utils/)  is a Python library which provides functions implementing command-line applications to the above specifications, as well as functions for interpreting COMBINE/OMEX archives and SED-ML files, generating tables and plots of simulation plots, and logging the execution of COMBINE/OMEX archives. BioSimulators utils provides high-level access to some of the lower-level libraries listed below.
-- [libCOMBINE](https://github.com/sbmlteam/libCombine)  is a library for creating and unpacking COMBINE/OMEX archives. libCOMBINE provides bindings for several langauges.
-- [libSED-ML](https://github.com/fbergmann/libSEDML)  is a library for serializing and deserializing SED documents to and from XML files. libSED-ML provides bindings for several langauges.
-- [libOmexMeta](https://github.com/sys-bio/libOmexMeta)  is a library for reading and querying OMEX Metadata files. libOmexMeta provides bindings for several langauges.
+- [libCOMBINE](https://github.com/sbmlteam/libCombine)  is a library for creating and unpacking COMBINE/OMEX archives. libCOMBINE provides bindings for several languages.
+- [libSED-ML](https://github.com/fbergmann/libSEDML)  is a library for serializing and deserializing SED documents to and from XML files. libSED-ML provides bindings for several languages.
+- [libOmexMeta](https://github.com/sys-bio/libOmexMeta)  is a library for reading and querying OMEX Metadata files. libOmexMeta provides bindings for several languages.
 - [argparse](https://docs.python.org/3/library/argparse.html)  is a Python module for implementing command-line applications.
 - [Cement](https://builtoncement.com/)  is a higher-level Python library for implementing more complex command-line applications.

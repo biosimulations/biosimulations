@@ -62,7 +62,7 @@ Simulation tools are encouraged to support a simpler subset of the features of `
 
 - **`sedml:repeatedTask`**: Simulation tools should support `resetModel="True"` as described in the SED specifications; the model specifications and initial conditions should be reset. Simulator state such as the states of random number generators should not be reset. When `resetModel="False"`, simulation tools should support limited preservation of the state of simulations between iterations. Simulation tools should accumulate changes to the specifications of the model(s) involved in the task. Simulations tools should not copy the final simulation state from the previous iteration to the initial state of the next iteration.
 
-- **Sub-tasks**: Sucessive subtasks should be executed independently, including when they involve the same model. The final state of the previous sub-task should not be used to set up the initial state for the next sub-task.
+- **Sub-tasks**: Successive subtasks should be executed independently, including when they involve the same model. The final state of the previous sub-task should not be used to set up the initial state for the next sub-task.
 
 - **Shape of model variables for the results of repeated tasks**: Repeated tasks should produce multi-dimensional results. The first dimension should represent the iterations of the main range of the repeated task. The second dimension should represent the sub-tasks of the repeated task. The results of sub-tasks should be ordered in the same order the sub-tasks were executed (in order of their order attributes). The result of each sub-task should be reshaped to the largest shape of its sibling sub-tasks by padding smaller results with `NaN`. Each nesting of repeated tasks should contribute two additional dimensions for their ranges and sub-tasks. The final dimensions should be the dimensions of the atomic tasks of the repeated task (e.g., time for tasks of uniform time courses).
 
@@ -119,6 +119,6 @@ Below are helpful tools for implementing the execution of simulation experiments
  
 - [BioSimulators utils ](https://docs.biosimulators.org/Biosimulators_utils/) is a Python library which provides functions implementing command-line interfaces to the above specifications, as well as functions for interpreting COMBINE/OMEX archives and SED-ML files, generating tables and plots of simulation plots, and logging the execution of COMBINE/OMEX archives. BioSimulators utils provides high-level access to some of the lower-level libraries listed below.
 
-- [libSED-ML](https://github.com/fbergmann/libSEDML)  is a library for serializing and deserializing SED documents to and from XML files. libSED-ML provides bindings for several langauges.
+- [libSED-ML](https://github.com/fbergmann/libSEDML)  is a library for serializing and deserializing SED documents to and from XML files. libSED-ML provides bindings for several languages.
 
 - [jlibSED-ML](https://sourceforge.net/projects/jlibsedml/)  is a Java library for serializing and deserializing SED documents to and from XML files. The library also provides methods for resolving models, working with XPath targets for model elements, applying model changes, orchestrating the execution of tasks, calculating the values of data generators, and logging the execution of simulations.
