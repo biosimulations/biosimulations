@@ -76,7 +76,7 @@ Simulation software tools, such as RunBioSimulations, should render such Vega vi
 
 5. Identify the Vega signals and data sets whose values are intended to be rendered with the values of attributes of simulations of SED-ML documents and the results of reports of SED-ML documents (Vega signals and data sets with the key `sedmlUri`).
 
-6. Set the values of these Vega signals and data sets equal to the values of the indicated attributes of SED-ML simulations and the resutls of SED-ML reports. As illustrated below, SED-ML reports should be encoded as lists of objects that represent the results of each SED-ML dataset. Data sets with multidimensional values should be captured using nested lists.
+6. Set the values of these Vega signals and data sets equal to the values of the indicated attributes of SED-ML simulations and the results of SED-ML reports. As illustrated below, SED-ML reports should be encoded as lists of objects that represent the results of each SED-ML dataset. Data sets with multidimensional values should be captured using nested lists.
 
 7. Use Vega-Embed  to render the resultant Vega visualizations.
 

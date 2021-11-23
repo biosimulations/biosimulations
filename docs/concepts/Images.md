@@ -49,18 +49,18 @@ BioContainers labels:
 
 ## Additional Recommendations for best practices
 
-To ensure that containerized simulation tools can be executed inside high-performance computing clusters where root access is typically not allowed and conversion to Singularity images is necessary, we recommend that developers also follow the best practices below for Dockerfiles. For more discusion, we recommend [Syslab's best practice guide](https://sylabs.io/guides/3.7/user-guide/singularity_and_docker.html#best-practices) for Singularity images .
+To ensure that containerized simulation tools can be executed inside high-performance computing clusters where root access is typically not allowed and conversion to Singularity images is necessary, we recommend that developers also follow the best practices below for Dockerfiles. For more discussion, we recommend [Syslab's best practice guide](https://sylabs.io/guides/3.7/user-guide/singularity_and_docker.html#best-practices) for Singularity images .
 
-- **Sources of containerized simulation tools and their dependencies**: To ensure that the construction of Docker images is reproducible and portable, the simulation tools inside images should be installed from internet sources rather than the local file system. One exception is licenses that are needed to install commerical software. These can be copied from a local directory such as assets/, deleted and squashed out of the final image, and injected again when the image is executed.
+- **Sources of containerized simulation tools and their dependencies**: To ensure that the construction of Docker images is reproducible and portable, the simulation tools inside images should be installed from internet sources rather than the local file system. One exception is licenses that are needed to install commercial software. These can be copied from a local directory such as assets/, deleted and squashed out of the final image, and injected again when the image is executed.
 - **Installation locations of containerized simulation tools and their dependencies**: Because Docker images are typically run as root, /root should be be reserved for the home directory of the user which executes the image. Similarly, /tmp should be reserved for temporary files that must be created during the execution of the image. Consequently, the simulation tools inside containers and their dependencies should be installed to different directories other than /root and /tmp.
 - **Environment variables**: All environment variables that the containerized simulation tool supports should be explicitly defined using the ENV directive.
-User priviledges: Do not use the USER directive.
+User privileges: Do not use the USER directive.
 
 ## Example
 
-An example dockerfile for [tellurium](http://tellurium.analogmachine.org/)
+An example Dockerfile for [tellurium](http://tellurium.analogmachine.org/)
 
-```dockerfile
+```Dockerfile
 # Base OS
 FROM python:3.9-slim-buster
 

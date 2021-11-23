@@ -39,7 +39,7 @@ Data for reports and plots of simulation results should be saved in HDF5 accordi
 
 - **Metadata for SED-ML files**: The following metadata should be encoded into attributes of the parent groups of HDF5 datasets which represent SED-ML files and their parent directories within their parent COMBINE archives.
 
-    - **Complete id of the COMBINE archive location**: The location of each SED-ML file and the location of each parent directory of each SED-ML file with their parent COMBINE archive (`omex-manifest:content/@location`) should be encoded into the keys uri and `combineArchiveLocation`.
+    - **Complete id of the COMBINE archive location**: The location of each SED-ML file and the location of each parent directory of each SED-ML file with their parent COMBINE archive (`omex-manifest:content/@location`) should be encoded into the keys `uri` and `combineArchiveLocation`.
 
 
 ## Example HDF5 report files

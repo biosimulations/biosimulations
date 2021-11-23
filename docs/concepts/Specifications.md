@@ -1292,7 +1292,7 @@ As an example, below is the specification for [tellurium](https://biosimulators.
     },
     {
       "id": "nleq2",
-      "name": "Newton-type method for solveing non-linear (NL) equations (EQ)",
+      "name": "Newton-type method for solving non-linear (NL) equations (EQ)",
       "kisaoId": {
         "namespace": "KISAO",
         "id": "KISAO_0000569"
@@ -1495,7 +1495,7 @@ As an example, below is the specification for [tellurium](https://biosimulators.
             "id": "KISAO_0000680"
           },
           "id": "presimulation_time",
-          "name": "Amount of time to presimulate",
+          "name": "Amount of time to pre-simulate",
           "type": "float",
           "value": "100",
           "recommendedRange": null,
@@ -1597,7 +1597,7 @@ As an example, below is the specification for [tellurium](https://biosimulators.
             "id": "KISAO_0000676"
           },
           "id": "linearity",
-          "name": "Degree of linearity of the systen",
+          "name": "Degree of linearity of the system",
           "type": "integer",
           "value": "3",
           "recommendedRange": null,

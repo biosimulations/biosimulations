@@ -8,7 +8,7 @@ On top of these guidelines, BioSimulations recommends the predicates and identif
 
 ## Recommended URIs for COMBINE/OMEX archives and the contents
 
-COMBINE/OMEX archives should be referenced using unique identifiers which begin with the prefix `http://omex-library.org/` and end with the file extension `.omex` (e.g., `http://omex-library.org/BioSimulations-0001.omex`). We recommend using identifiers that are a concentation of `http://omex-library.org/` and the filename of the COMBINE archive (e.g., `BioSimulations-0001.omex`).
+COMBINE/OMEX archives should be referenced using unique identifiers which begin with the prefix `http://omex-library.org/` and end with the file extension `.omex` (e.g., `http://omex-library.org/BioSimulations-0001.omex`). We recommend using identifiers that are a concatenation of `http://omex-library.org/` and the filename of the COMBINE archive (e.g., `BioSimulations-0001.omex`).
 
 Files in COMBINE archives should be referenced by concatenating the above identifiers with their location within their parent COMBINE archives (e.g., `http://omex-library.org/BioSimulations-0001.omex/simulation.sedml`).
 
