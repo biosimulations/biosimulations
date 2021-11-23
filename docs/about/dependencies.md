@@ -5237,7 +5237,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/yargs/yargs-parser
 │  ├─ publisher: Ben Coe
 │  ├─ email: ben@npmjs.com
-│  └─ licenseFile: @nrwl/tao/node_modules/yargs-parser/LICENSE.txt
+│  └─ licenseFile: @nrwl/cli/node_modules/yargs-parser/LICENSE.txt
 ├─ yargs-parser@20.2.9
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/yargs/yargs-parser
