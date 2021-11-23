@@ -281,17 +281,17 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nuxt-contrib/opencollective
 │  └─ licenseFile: @nuxtjs/opencollective/LICENSE
-├─ @nx-tools/ci-context@2.0.0-alpha.1
+├─ @nx-tools/ci-context@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gperdomor/nx-tools
 │  ├─ publisher: gperdomor
 │  └─ licenseFile: @nx-tools/ci-context/README.md
-├─ @nx-tools/core@2.0.0-alpha.1
+├─ @nx-tools/core@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gperdomor/nx-tools
 │  ├─ publisher: gperdomor
 │  └─ licenseFile: @nx-tools/core/README.md
-├─ @nx-tools/docker-metadata@2.0.0-alpha.1
+├─ @nx-tools/docker-metadata@2.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/gperdomor/nx-tools
 │  ├─ publisher: gperdomor
