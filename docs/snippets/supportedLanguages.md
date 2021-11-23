@@ -1,11 +1,10 @@
-- SBML 
 - BioNetGen Language  (BNGL)
 - CellML
 - GINsim Markup Language (GINML, ZGINML)
-- NeuroML/LEMS
-- RBApy format
-- Smoldyn format
-- Systems Biology Markup Language  (SBML)
-- SBML flux balance constraints (SBML-fbc)
-- SBML qualititative (SBML-qual) 
+- NeuroML/Low Entropy Model Specification Language (LEMS)
+- Resource Balance Analysis (RBA) XML format
+- Smoldyn simulation configuration format
+- Systems Biology Markup Language (SBML)
+- SBML Flux Balance Constraints (SBML-fbc) package
+- SBML Qualititative Models (SBML-qual) package
 - SBML Mass Action Stoichiometric Simulation (MASS) schema
