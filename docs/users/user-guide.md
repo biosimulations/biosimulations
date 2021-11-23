@@ -2,7 +2,7 @@
 
 ## Finding projects
 
-Published projects can be browsed at [https://biosimulations.org/projects](https://biosimulations.org/projects). Each card presents a project, with a thumbnail, and title. Mousing over the thumbnail shows additional details about the project. You can customize the attributes you want to view. 
+Published projects can be browsed at [https://biosimulations.org/projects](https://biosimulations.org/projects). Each card presents a project, with a thumbnail and title. Mousing over the thumbnail shows additional details about the project. You can customize the attributes you want to view. 
 
 ![browse-projects](./images/browse.png)
 ### Selecting attributes
@@ -20,9 +20,7 @@ Clicking on the search icon in the top-right corner of the page opens menu with 
 
 ### Searching for projects
 ![search-projects](./images/search.png){align=right}
-Clicking on the the search icon at the top right of the page opens a search box. A search term, such as 'metabolism' can be entered in the search box. By default, the search term is searched against each [attribute](#selecting-attributes) of the project. Optionally, you can restrict the search to a specific attribute. For example, if you want to search for projects that have the value 'Eschiria coli' in the `taxa`  attribute, you can enter 'taxa:eschiria-coli' in the search box. The general format for queries is `attribute:value-with-dashes`. The name of the attribute, followed by a colon, followed by the search term, replacing all spaces with '-'.
-
-
+Clicking on the the search icon at the top right of the page opens a search box. A search term, such as 'metabolism' can be entered in the search box. By default, the search term is searched against each [attribute](#selecting-attributes) of the project. Optionally, you can restrict the search to a specific attribute. For example, if you want to search for projects that have the value 'Escherichia coli' in the `taxa`  attribute, you can enter 'taxa:Escherichia coli' in the search box. For attributes with spaces in the name, replace any spaces with "-". For example, the term "last-updated:2020" searches for projects that contain the value "2020" in the `last updated` attribute.
 
 ### Filtering projects
 
@@ -48,8 +46,8 @@ BioSimulations collects metadata to enable searching, browsing and discovering o
 ![project-metadata](./images/metadata.png)
 ### Visualizations
 
-Projects can be visualized using both predefined and custom visualizations. The "Select Chart" tab allows you to select from visualizations that are defined and included in the project. Additionally, you can create your own custom visualization, by selecting one of  the "Design a chart" options. These include histograms, heatmaps and lineplots. Selecting a a plot time will open an additional menu with configuration options to select the datasets to be plotted.
-Once you have configured your visualization, you can view it by clicking on the "View chart" button.
+Projects can be visualized using both predefined and custom visualizations. The "Select Chart" tab allows you to select from visualizations that are defined and included in the project. Additionally, you can create your own custom visualization, by selecting one of  the "Design a chart" options. These include histograms, heatmaps and lineplots. Selecting a plot time will open an additional menu with configuration options to select the datasets to be plotted.
+Once you have configured your visualization, you can view it by clicking on the "View chart" button.  The "Export to Vega" button will export the visualization to a [Vega](https://vega.github.io/) specification. For more information on using vega with BioSimulations, see [here](../concepts/Visualizations.md).
 
 
 ### Simulation Runs
