@@ -361,7 +361,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/renovatebot/pep440
 │  ├─ publisher: Ayoub Kaanich
 │  └─ licenseFile: @renovate/pep440/LICENSE
-├─ @semantic-release/commit-analyzer@9.0.1
+├─ @semantic-release/commit-analyzer@9.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/commit-analyzer
 │  ├─ publisher: Pierre Vanduynslager
@@ -373,7 +373,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Stephan Bönnemann
 │  ├─ email: stephan@boennemann.me
 │  ├─ url: http://boennemann.me
-│  └─ licenseFile: @semantic-release/error/LICENSE
+│  └─ licenseFile: @semantic-release/github/node_modules/@semantic-release/error/LICENSE
 ├─ @semantic-release/error@3.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/error
@@ -381,7 +381,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: stephan@boennemann.me
 │  ├─ url: http://boennemann.me
 │  └─ licenseFile: @semantic-release/npm/node_modules/@semantic-release/error/LICENSE
-├─ @semantic-release/github@8.0.1
+├─ @semantic-release/github@8.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/github
 │  ├─ publisher: Pierre Vanduynslager
@@ -1272,6 +1272,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: maochenyan@gmail.com
 │  ├─ url: https://github.com/stevemao
 │  └─ licenseFile: conventional-commits-parser/LICENSE.md
+├─ conventional-commits-parser@3.2.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/conventional-changelog/conventional-changelog
+│  ├─ publisher: Steve Mao
+│  ├─ email: maochenyan@gmail.com
+│  ├─ url: https://github.com/stevemao
+│  └─ licenseFile: @semantic-release/commit-analyzer/node_modules/conventional-commits-parser/LICENSE.md
 ├─ cookie-signature@1.0.6
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/visionmedia/node-cookie-signature
@@ -1612,9 +1619,9 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Jon Schlinkert
 │  ├─ url: https://github.com/jonschlinkert
 │  └─ licenseFile: enquirer/LICENSE
-├─ env-ci@5.0.2
+├─ env-ci@5.4.1
 │  ├─ licenses: MIT
-│  ├─ repository: https://github.com/pvdlg/env-ci
+│  ├─ repository: https://github.com/semantic-release/env-ci
 │  ├─ publisher: Pierre Vanduynslager
 │  ├─ url: https://github.com/pvdlg
 │  └─ licenseFile: env-ci/LICENSE
@@ -1693,13 +1700,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: rfobic@gmail.com
 │  ├─ url: http://jeditoolkit.com
 │  └─ licenseFile: events/LICENSE
-├─ execa@4.1.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/sindresorhus/execa
-│  ├─ publisher: Sindre Sorhus
-│  ├─ email: sindresorhus@gmail.com
-│  ├─ url: https://sindresorhus.com
-│  └─ licenseFile: env-ci/node_modules/execa/license
 ├─ execa@5.1.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/execa
@@ -1887,6 +1887,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: hughskennedy@gmail.com
 │  ├─ url: http://hughsk.io/
 │  └─ licenseFile: from2/LICENSE.md
+├─ fromentries@1.3.2
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/feross/fromentries
+│  ├─ publisher: Feross Aboukhadijeh
+│  ├─ email: feross@feross.org
+│  ├─ url: https://feross.org
+│  └─ licenseFile: fromentries/LICENSE
 ├─ fs-constants@1.0.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/mafintosh/fs-constants
@@ -1955,13 +1962,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: sindresorhus@gmail.com
 │  ├─ url: sindresorhus.com
 │  └─ licenseFile: get-port/license
-├─ get-stream@5.2.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/sindresorhus/get-stream
-│  ├─ publisher: Sindre Sorhus
-│  ├─ email: sindresorhus@gmail.com
-│  ├─ url: https://sindresorhus.com
-│  └─ licenseFile: env-ci/node_modules/get-stream/license
 ├─ get-stream@6.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/get-stream
@@ -2141,13 +2141,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Nathan Rajlich
 │  ├─ email: nathan@tootallnate.net
 │  └─ url: http://n8.io/
-├─ human-signals@1.1.1
-│  ├─ licenses: Apache-2.0
-│  ├─ repository: https://github.com/ehmicky/human-signals
-│  ├─ publisher: ehmicky
-│  ├─ email: ehmicky@gmail.com
-│  ├─ url: https://github.com/ehmicky
-│  └─ licenseFile: env-ci/node_modules/human-signals/LICENSE
 ├─ human-signals@2.1.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/ehmicky/human-signals
@@ -3111,6 +3104,13 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: robert@broofa.com
 │  ├─ url: http://github.com/broofa
 │  └─ licenseFile: superagent/node_modules/mime/LICENSE
+├─ mime@3.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/broofa/mime
+│  ├─ publisher: Robert Kieffer
+│  ├─ email: robert@broofa.com
+│  ├─ url: http://github.com/broofa
+│  └─ licenseFile: @semantic-release/github/node_modules/mime/LICENSE
 ├─ mimic-fn@2.1.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sindresorhus/mimic-fn
@@ -3900,12 +3900,6 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: lupomontero@gmail.com
 │  ├─ url: https://lupomontero.com/
 │  └─ licenseFile: npm/node_modules/psl/LICENSE
-├─ pump@3.0.0
-│  ├─ licenses: MIT
-│  ├─ repository: https://github.com/mafintosh/pump
-│  ├─ publisher: Mathias Buus Madsen
-│  ├─ email: mathiasbuus@gmail.com
-│  └─ licenseFile: pump/LICENSE
 ├─ punycode@1.3.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/bestiejs/punycode.js
@@ -4246,7 +4240,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: i@izs.me
 │  ├─ url: http://blog.izs.me/
 │  └─ licenseFile: sax/LICENSE
-├─ semantic-release@18.0.0
+├─ semantic-release@18.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/semantic-release/semantic-release
 │  ├─ publisher: Stephan Bönnemann
