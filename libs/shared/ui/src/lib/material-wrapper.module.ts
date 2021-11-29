@@ -23,6 +23,8 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { MatTableModule } from '@angular/material/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSortModule } from '@angular/material/sort';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const materialImports = [
   FlexLayoutModule,
@@ -49,6 +51,8 @@ const materialImports = [
   DragDropModule,
   MatTooltipModule,
   MatSortModule,
+  MatChipsModule,
+  MatAutocompleteModule,
 ];
 
 @NgModule({

@@ -14,7 +14,9 @@ import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { TableControlsComponent } from './table-controls.component';
 import { TableComponent } from './table.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('TableControlsComponent', () => {
   let component: TableControlsComponent;
@@ -35,7 +37,10 @@ describe('TableControlsComponent', () => {
         NpnSliderModule,
         BiosimulationsIconsModule,
         MatTooltipModule,
-        NgSelectModule,
+        MatChipsModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatIconModule,
       ],
       declarations: [TableControlsComponent],
     }).compileComponents();

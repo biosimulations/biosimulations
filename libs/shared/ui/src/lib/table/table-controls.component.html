@@ -131,29 +131,51 @@
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'stringAutoComplete'">
-                  <ng-select
-                    [items]="table.columnFilterData[column.id]"
-                    [multiple]="true"
-                    bindValue="value"
-                    bindLabel="formattedValue"
-                    [closeOnSelect]="false"
-                    (add)="table.filterSetValue(column, $event, true)"
-                    (remove)="table.filterSetValue(column, $event, false)"
-                    (clear)="table.clearFilter(column)"
-                    (ngModel)="(table.filter[column.id])"
-                    #ngSelect
+                  <mat-chip-list #chipList>
+                    <ng-container *ngFor="let value of table.columnFilterData[column.id]">
+                      <ng-container *ngIf="value.checked">
+                        <mat-chip
+                          [selectable]="false"
+                          [removable]="true"
+                          (removed)="table.filterSetValue(column, value, false)">
+                          <div class="chip-content">
+                            {{ value.formattedValue }}
+                          </div>
+                          <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                          </button>
+                        </mat-chip>
+                      </ng-container>
+                    </ng-container>
+                    <mat-form-field appearance="fill" class="input-field">
+                      <input
+                        matInput
+                        type="text"
+                        #autoCompleteInput
+                        placeholder="Enter {{ column.heading | lowercase }} ..."
+                        [matAutocomplete]="auto"
+                        [matChipInputFor]="chipList"
+                        (keyup)="table.evalAutocompleteFilter(column, autoCompleteInput.value)">
+                      </mat-form-field>
+                  </mat-chip-list>
+                  <mat-autocomplete
+                    #auto="matAutocomplete" 
+                    (optionSelected)="table.filterSetValue(column, $event.option.value, true); autoCompleteInput.value = '';"
                   >
-                    <ng-option
-                      *ngFor="let value of table.columnFilterData[column.id]"
-                      [value]="value.value"
-                      >{{ value.formattedValue }}</ng-option
-                    >
-                  </ng-select>
+                    <ng-container *ngFor="let value of table.columnFilterData[column.id]">
+                      <mat-option
+                        *ngIf="value?.filtered !== false"
+                        [value]="value"
+                      >
+                        {{ value.formattedValue }}
+                      </mat-option>
+                    </ng-container>
+                  </mat-autocomplete>
 
                   <button
                     mat-icon-button
                     class="biosimulations-button text filter-set-clear-all"
-                    (click)="ngSelect.handleClearClick()"
+                    (click)="table.clearFilter(column)"
                   >
                     Clear filter
                   </button>
@@ -209,7 +231,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
-      <mat-form-field appearance="fill" class="search-field">
+      <mat-form-field appearance="fill" class="input-field">
         <input
           #searchInput
           matInput

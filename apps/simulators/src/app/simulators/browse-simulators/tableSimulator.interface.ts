@@ -1,5 +1,20 @@
 import { SimulatorCurationStatus } from '@biosimulations/datamodel/common';
 
+export interface TableAlgorithmParameter {
+  name: string;
+  kisaoId: string;
+}
+
+export interface TableAuthor {
+  label: string;
+  identifiers: string;
+}
+
+export interface TableFunding {
+  labels: string[];
+  identifiers: string;
+}
+
 export interface TableSimulator {
   id: string;
   name: string;
@@ -26,10 +41,10 @@ export interface TableSimulator {
   license: string | null;
   licenseId: string | null;
   updated: Date;
-  algorithmParameters: string;
-  dependencies: string;
-  authors: string;
+  algorithmParameters: TableAlgorithmParameter[];
+  dependencies: string[];
+  authors: TableAuthor[];
   citations: string;
   identifiers: string;
-  funding: string;
+  funding: TableFunding;
 }

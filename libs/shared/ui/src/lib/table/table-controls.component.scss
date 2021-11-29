@@ -52,7 +52,29 @@
   margin-top: 0.5rem;
 }
 
-.search-field {
+mat-chip-list ::ng-deep {
+  .mat-chip-list-wrapper {
+    margin: 0;
+  }
+
+  .mat-standard-chip.mat-chip-with-trailing-icon {
+    margin: 0;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    max-width: 100%;
+  }
+
+  .chip-content {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.input-field {
+  width: 100%;
+
   ::ng-deep .mat-form-field-flex {
     padding: calc(0.25rem + 10.83px) 0 10.83px 0.25rem;
     height: unset;
@@ -106,7 +128,6 @@
 
   .mat-expansion-panel:not([class*='mat-elevation-z']) {
     box-shadow: none;
-    overflow: visible;
   }
 
   .mat-expansion-panel-header {
