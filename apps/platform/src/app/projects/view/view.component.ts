@@ -33,7 +33,7 @@ export class ViewComponent implements OnInit {
   public loaded$!: Observable<boolean>;
 
   private id!: string;
-  public projectMetadata$!: Observable<ProjectMetadata | undefined>;
+  public projectMetadata$!: Observable<ProjectMetadata | null>;
   public simulationRun$!: Observable<SimulationRunMetadata>;
 
   public projectFiles$!: Observable<File[]>;
