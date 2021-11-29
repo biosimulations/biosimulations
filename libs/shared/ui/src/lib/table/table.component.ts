@@ -435,9 +435,13 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.evalAutocompleteFilter = debounce(50, false, (column: Column, filter: string) => {
-      this._evalAutocompleteFilter(column, filter);
-    });
+    this.evalAutocompleteFilter = debounce(
+      50,
+      false,
+      (column: Column, filter: string) => {
+        this._evalAutocompleteFilter(column, filter);
+      },
+    );
   }
 
   setTableStateQueryFragment(): void {
@@ -833,7 +837,9 @@ export class TableComponent implements OnInit, AfterViewInit {
     return range;
   }
 
-  public evalAutocompleteFilter!: debounce<(column: Column, filter: string) => void>;
+  public evalAutocompleteFilter!: debounce<
+    (column: Column, filter: string) => void
+  >;
 
   private _evalAutocompleteFilter(column: Column, filter: string): void {
     filter = filter
@@ -842,11 +848,18 @@ export class TableComponent implements OnInit, AfterViewInit {
       .toLowerCase();
 
     this.columnFilterData[column.id].forEach((value: any): void => {
-      value.filtered = (
-        !filter
-        || value.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(filter)
-        || value.formattedValue.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(filter)
-      );
+      value.filtered =
+        !filter ||
+        value.value
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .includes(filter) ||
+        value.formattedValue
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .includes(filter);
     });
   }
 

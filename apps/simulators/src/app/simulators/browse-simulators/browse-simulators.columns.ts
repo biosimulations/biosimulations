@@ -6,7 +6,11 @@ import {
   RowService,
 } from '@biosimulations/shared/ui';
 
-import { TableSimulator, TableAlgorithmParameter, TableAuthor } from './tableSimulator.interface';
+import {
+  TableSimulator,
+  TableAlgorithmParameter,
+  TableAuthor,
+} from './tableSimulator.interface';
 import { SimulatorCurationStatus } from '@biosimulations/datamodel/common';
 import { UtilsService } from '@biosimulations/shared/angular';
 import { FormatService } from '@biosimulations/shared/services';
@@ -133,10 +137,14 @@ export const columns: Column[] = [
     heading: 'Algorithm parameters',
     key: 'algorithmParameters',
     getter: (simulator: TableSimulator): string[] => {
-      return simulator.algorithmParameters.map((parameter: TableAlgorithmParameter): string => parameter.name);
+      return simulator.algorithmParameters.map(
+        (parameter: TableAlgorithmParameter): string => parameter.name,
+      );
     },
     extraSearchGetter: (simulator: TableSimulator): string => {
-      return simulator.algorithmParameters.map((parameter: TableAlgorithmParameter): string => parameter.kisaoId).join(' ');
+      return simulator.algorithmParameters
+        .map((parameter: TableAlgorithmParameter): string => parameter.kisaoId)
+        .join(' ');
     },
     filterable: true,
     filterType: ColumnFilterType.stringAutoComplete,
@@ -498,15 +506,19 @@ export const columns: Column[] = [
     maxWidth: 92,
     center: true,
   },
-    {
+  {
     id: 'authors',
     heading: 'Authors',
     key: 'authors',
     getter: (simulator: TableSimulator): string[] => {
-      return simulator.authors.map((author: TableAuthor): string => author.label);
+      return simulator.authors.map(
+        (author: TableAuthor): string => author.label,
+      );
     },
     extraSearchGetter: (simulator: TableSimulator): string => {
-      return simulator.authors.map((author: TableAuthor): string => author.identifiers).join(' ');
+      return simulator.authors
+        .map((author: TableAuthor): string => author.identifiers)
+        .join(' ');
     },
     filterable: true,
     filterType: ColumnFilterType.stringAutoComplete,

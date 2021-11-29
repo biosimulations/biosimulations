@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { SimulatorService } from '../simulator.service';
 import { Observable } from 'rxjs';
 import { map, mergeAll, shareReplay } from 'rxjs/operators';
-import { TableSimulator, TableAlgorithmParameter, TableAuthor, TableFunding } from './tableSimulator.interface';
+import {
+  TableSimulator,
+  TableAlgorithmParameter,
+  TableAuthor,
+  TableFunding,
+} from './tableSimulator.interface';
 import { OntologyService } from '@biosimulations/ontology/client';
 import {
   sortUrls,
@@ -188,13 +193,13 @@ export class SimulatorTableService {
                   UtilsService.getSimulatorCurationStatus(simulator),
                 algorithmParameters: Array.from(
                   ontologyTermIdsMap['parameters'],
-                )
-                  .map((id: string): TableAlgorithmParameter => {
-                    return  {
-                      name: ontologyIdTermMap?.[Ontologies.KISAO]?.[id]?.name || id,
-                      kisaoId: id,
-                    };
-                  }),
+                ).map((id: string): TableAlgorithmParameter => {
+                  return {
+                    name:
+                      ontologyIdTermMap?.[Ontologies.KISAO]?.[id]?.name || id,
+                    kisaoId: id,
+                  };
+                }),
                 dependencies: this.getDependencies(simulator.algorithms),
                 authors: this.getAuthors(simulator.authors),
                 citations: this.getCitations(simulator.references.citations),

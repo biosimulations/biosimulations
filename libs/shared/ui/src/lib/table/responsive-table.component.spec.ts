@@ -61,7 +61,7 @@ describe('ResponsiveTableComponent', () => {
         MatTooltipModule,
         MatChipsModule,
         MatAutocompleteModule,
-        MatIconModule,  
+        MatIconModule,
       ],
       declarations: [
         ResponsiveTableComponent,

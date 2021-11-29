@@ -132,12 +132,15 @@
 
                 <ng-container *ngSwitchCase="'stringAutoComplete'">
                   <mat-chip-list #chipList>
-                    <ng-container *ngFor="let value of table.columnFilterData[column.id]">
+                    <ng-container
+                      *ngFor="let value of table.columnFilterData[column.id]"
+                    >
                       <ng-container *ngIf="value.checked">
                         <mat-chip
                           [selectable]="false"
                           [removable]="true"
-                          (removed)="table.filterSetValue(column, value, false)">
+                          (removed)="table.filterSetValue(column, value, false)"
+                        >
                           <div class="chip-content">
                             {{ value.formattedValue }}
                           </div>
@@ -155,14 +158,25 @@
                         placeholder="Enter {{ column.heading | lowercase }} ..."
                         [matAutocomplete]="auto"
                         [matChipInputFor]="chipList"
-                        (keyup)="table.evalAutocompleteFilter(column, autoCompleteInput.value)">
-                      </mat-form-field>
+                        (keyup)="
+                          table.evalAutocompleteFilter(
+                            column,
+                            autoCompleteInput.value
+                          )
+                        "
+                      />
+                    </mat-form-field>
                   </mat-chip-list>
                   <mat-autocomplete
-                    #auto="matAutocomplete" 
-                    (optionSelected)="table.filterSetValue(column, $event.option.value, true); autoCompleteInput.value = '';"
+                    #auto="matAutocomplete"
+                    (optionSelected)="
+                      table.filterSetValue(column, $event.option.value, true);
+                      autoCompleteInput.value = ''
+                    "
                   >
-                    <ng-container *ngFor="let value of table.columnFilterData[column.id]">
+                    <ng-container
+                      *ngFor="let value of table.columnFilterData[column.id]"
+                    >
                       <mat-option
                         *ngIf="value?.filtered !== false"
                         [value]="value"
