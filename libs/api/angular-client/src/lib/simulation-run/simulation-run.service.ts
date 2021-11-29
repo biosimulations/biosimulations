@@ -111,7 +111,7 @@ export class SimulationRunService {
 
     let observable = this.cachedRunObservables[endpoint];
     if (!observable) {
-      observable = this.httpClient.get<any>(endpoint).pipe(shareReplay(1));
+      observable = this.httpClient.get<T>(endpoint).pipe(shareReplay(1));
       if (cache) {
         this.cachedRunObservables[endpoint] = observable;
       }

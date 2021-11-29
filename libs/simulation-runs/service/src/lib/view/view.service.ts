@@ -123,10 +123,10 @@ export class ViewService {
   public getFormattedProjectMetadata(
     simulationRunSummary: SimulationRunSummary,
     owner?: Account,
-  ): ProjectMetadata | undefined {
+  ): ProjectMetadata | null {
     const metadata = simulationRunSummary.metadata;
     if (!metadata) {
-      return undefined;
+      return null;
     }
 
     // Check for undefined metadata for all fields
