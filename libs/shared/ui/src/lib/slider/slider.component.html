@@ -1,0 +1,62 @@
+<!--npn-slider template-->
+<div class="slider" [class.disabled]="isDisabled">
+  <div
+    class="bar"
+    (mousemove)="handlerSliding($event)"
+    (panmove)="handlerSliding($event)"
+  >
+    <span
+      class="left-handle"
+      [ngClass]="{
+        active: isHandlerActive && currentHandlerIndex === handlerIndex.left,
+        'last-active': currentHandlerIndex === handlerIndex.left
+      }"
+      [style.left.%]="handlerX[handlerIndex.left]"
+      (mousedown)="setHandlerActive($event, handlerIndex.left)"
+      (panstart)="setHandlerActive($event, handlerIndex.left)"
+    >
+      <span *ngIf="!hideTooltip" class="handle-tooltip">{{
+        currentValues[handlerIndex.left]
+      }}</span>
+    </span>
+    <div class="filler">
+      <div class="step-indicators">
+        <span
+          *ngFor="let stepPos of stepIndicatorPositions"
+          [style.left.px]="stepPos"
+        ></span>
+      </div>
+      <span
+        *ngIf="multiRange"
+        [style.left.%]="handlerX[0]"
+        [style.width.%]="
+          handlerX[handlerIndex.right] - handlerX[handlerIndex.left]
+        "
+      ></span>
+      <span
+        *ngIf="!multiRange"
+        [style.left.%]="0"
+        [style.width.%]="handlerX[0]"
+      ></span>
+    </div>
+    <span
+      *ngIf="multiRange"
+      class="right-handle"
+      [ngClass]="{
+        active: isHandlerActive && currentHandlerIndex === handlerIndex.right,
+        'last-active': currentHandlerIndex === handlerIndex.right
+      }"
+      [style.left.%]="handlerX[handlerIndex.right]"
+      (mousedown)="setHandlerActive($event, handlerIndex.right)"
+      (panstart)="setHandlerActive($event, handlerIndex.right)"
+    >
+      <span *ngIf="!hideTooltip" class="handle-tooltip">{{
+        currentValues[handlerIndex.right]
+      }}</span>
+    </span>
+  </div>
+  <div class="values" *ngIf="!hideValues">
+    <span>{{ initValues[handlerIndex.left] }}</span>
+    <span>{{ initValues[handlerIndex.right] }}</span>
+  </div>
+</div>
