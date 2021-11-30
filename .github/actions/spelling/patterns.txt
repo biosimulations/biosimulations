@@ -2,3 +2,18 @@
 
 # ignore long runs of a single character:
 \b([A-Za-z])\g{-1}{3,}\b
+
+# YouTube
+https?://(?:(?:www\.|)youtube\.com|youtu.be)/(?:channel/|embed/|playlist\?list=|watch\?v=|v/|)[-a-zA-Z0-9?&=_]*
+<\s*youtube\s+id=['"][-a-zA-Z0-9?_]*['"]
+\bimg\.youtube\.com/vi/[-a-zA-Z0-9?&=_]*
+
+# Google Docs
+/docs\.google\.com/[a-z]+/d/(?:e/|)[0-9a-zA-Z_-]+/?
+# Google Drive
+\bdrive\.google\.com/file/d/[0-9a-zA-Z_?=]*
+
+# marker to ignore all code on line
+^.*/\* #no-spell-check-line \*/.*$
+# marker for ignoring a comment to the end of the line
+// #no-spell-check.*$
