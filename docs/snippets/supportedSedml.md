@@ -12,8 +12,6 @@
  
 **Partially Supported**, advanced, features supported by some BioSimulators tools:
 
-<!-- TODO what changes?-->
-
 - Internal model sources (source is a another model in the same SED-ML document)
 - Models sourced by identifiers (e.g., `source="biomodels:BIOMD0000001004"`)
 - More complex model changes (`sedml:addXML`, `sedml:removeXML`, `sedml:changeXML`, `sedml:computeChange`)
