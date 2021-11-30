@@ -18,7 +18,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+
 import { MatTableModule } from '@angular/material/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSortModule } from '@angular/material/sort';
@@ -44,7 +45,7 @@ const materialImports = [
   MatCheckboxModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  NgxMatFileInputModule,
+  MaterialFileInputModule,
   MatTableModule,
   DragDropModule,
   MatTooltipModule,

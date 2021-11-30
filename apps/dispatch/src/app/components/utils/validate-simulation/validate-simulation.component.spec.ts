@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { ValidateSimulationComponent } from './validate-simulation.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpHandler } from '@angular/common/http';
@@ -29,7 +29,7 @@ describe('ValidateSimulationComponent', () => {
         BiosimulationsIconsModule,
         MatFormFieldModule,
         MatSelectModule,
-        NgxMatFileInputModule,
+        MaterialFileInputModule,
         NoopAnimationsModule,
         IonicStorageModule.forRoot({
           driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
