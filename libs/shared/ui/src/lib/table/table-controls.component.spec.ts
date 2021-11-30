@@ -9,7 +9,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NpnSliderModule } from 'npn-slider';
 import { BiosimulationsIconsModule } from '@biosimulations/shared/icons';
 import { TableControlsComponent } from './table-controls.component';
 import { TableComponent } from './table.component';
@@ -34,7 +33,6 @@ describe('TableControlsComponent', () => {
         MatCheckboxModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        NpnSliderModule,
         BiosimulationsIconsModule,
         MatTooltipModule,
         MatChipsModule,

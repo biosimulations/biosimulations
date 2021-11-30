@@ -45,6 +45,7 @@ import { ColumnsComponent } from './columns/columns.component';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { CarouselComponent } from './carousel/carousel.component';
 import { HtmlSnackBarComponent } from './html-snack-bar/html-snack-bar.component';
+import { SliderComponent } from './slider/slider.component';
 
 @NgModule({
   imports: [
@@ -139,6 +140,7 @@ import { HtmlSnackBarComponent } from './html-snack-bar/html-snack-bar.component
     ColumnsComponent,
     CarouselComponent,
     HtmlSnackBarComponent,
+    SliderComponent,
   ],
 })
 export class SharedUiModule {}

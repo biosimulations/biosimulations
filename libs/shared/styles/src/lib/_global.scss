@@ -673,7 +673,8 @@ pre.dark {
 }
 
 /* range slider */
-npn-slider .slider {
+/* TODO move to its component css */
+biosimulations-slider .slider {
   .bar {
     & > span.left-handle,
     & > span.right-handle {
