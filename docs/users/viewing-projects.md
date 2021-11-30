@@ -54,17 +54,19 @@ Once you have configured your visualization, you can view it by clicking on the 
 ![Sidebar screenshot showing simulation run details](./images/sidebar-simulation-run.png){ align=left }
 More detailed information about the simulation execution and results can be viewed by following the links to the runBioSimulations page for the simulation. The "Logs" tab provides detailed output of the simulation execution, including each individual simulation step and the outputs (reports and plots) produced by the simulation. Each step of the simulation is presented as a collapsible section that can be expanded to show the outputs. Both structured log files and raw output files can be downloaded from the links. 
 
-## Reusing projects: creating and executing variants of simulations with runBioSimulations
+## Reusing projects
+
+### Creating and executing variants of simulations with runBioSimulations
 
 In addition to this full-featured web application, [runBioSimulations](https://run.biosimulations.org) provides a simpler web application and REST API for executing simulations. runBioSimulations simply enables users to execute COMBINE archives using a variety of simulation tools and generate time series plots of their results. This application does not require an account.
 
-## Further reusing projects beyond BioSimulations: downloading projects and executing them with your own computers
+### Downloading projects and executing them with your own computers
 
-### Downloading projects
+#### Downloading projects
 
 The models, simulations, and visualizations in BioSimulations can be programmatically obtained using our [REST API](https://api.biosimulations.org). Documentation for the API is available at the same URL.
 
-### Recommended tools for further exploring simulation projects
+#### Recommended tools for further exploring simulation projects
 BioSimulations provides basic capabilities for reproducing and reusing a wide range of biomodeling projects. For further work, we encourage users to use the domain-specific online platforms, desktop programs, and libraries outlined below. Consistent interfaces to the desktop and library tools below are available from [BioSimulators](https://biosimulators.org), including Docker images, command-line interfaces and Python APIs. More information about obtaining and using these tools is available from [BioSimulators](https://biosimulators.org). 
 
 !!! warning

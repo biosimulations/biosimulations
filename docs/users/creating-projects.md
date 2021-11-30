@@ -98,7 +98,7 @@ This validation can also be accessed programmatically from the [BioSimulations A
 
 ## Using BioSimulators to test projects prior to submission to BioSimulations
 
-BioSimulations uses BioSimulators Docker containers to execute simulations. This allows authors to run simulation projects locally using the same simulator containers as runBioSimulations. The containerized simulation tools provide a consistent environment and interface that matches that provided on runBioSimulations. This consistency makes it easy for authors to debug problems by enabling authors to use their own machines to interactively run the same simulations as runBioSimulations.
+BioSimulations uses BioSimulators Docker containers to execute simulations. This allows authors to run simulation projects locally using the same simulator containers as runBioSimulations. The containerized simulation tools provide a consistent environment and interface that matches that provided on runBioSimulations. This consistency makes it easy for authors to debug problems by enabling authors to use their own machines to interactively run the same simulations as runBioSimulations. For more detailed information and alternative methods to simulating projects see the [simulating projects guide](./simulating-projects.md).
 
 To run a project locally, pull the appropriate BioSimulators Docker image, and then run the simulator as follows:
 
