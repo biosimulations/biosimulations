@@ -116,7 +116,7 @@ In the above example, the simulation project is located at ```/path/to/COMBINE-a
 
 ## Using a Python API for a simulation tool to execute a simulation
 
-The Python APIs for simulation tools provide additional flexibility beyond their Docker images and command-line interaces. However, using these APIs typically requires additional effort beyond using the Docker images because it requires installing the dependencies for simulation tools, as well as some knowledge of the data structures used by BioSimulators.
+The Python APIs for simulation tools provide additional flexibility beyond their Docker images and command-line interfaces. However, using these APIs typically requires additional effort beyond using the Docker images because it requires installing the dependencies for simulation tools, as well as some knowledge of the data structures used by BioSimulators.
 
 Please follow these steps to use a Python API for a simulation tool to execute a modeling study.
 

@@ -64,6 +64,7 @@ Below are several additional tools for creating SED-ML files and COMBINE/OMEX ar
 
     Most of these tools are not fully compliant with the SED-ML and COMBINE/OMEX archive standards.
 
+
 **Can projects include multiple models, simulations, and/or visualizations?**
 
 Yes. Projects can include one or more models, one or more simulations of those models, and zero or more visualizations of the results of those simulations.
