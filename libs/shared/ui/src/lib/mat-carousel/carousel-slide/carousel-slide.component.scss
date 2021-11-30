@@ -1,0 +1,34 @@
+@mixin centerX() {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin centerY() {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin frame($z-index: auto) {
+  @include size();
+  position: absolute;
+  z-index: $z-index;
+}
+
+@mixin size($width: 100%, $height: $width) {
+  width: $width;
+  height: $height;
+}
+.carousel-slide {
+  @include frame();
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &-overlay {
+    @include frame();
+  }
+
+  &-content {
+    @include frame(1);
+  }
+}

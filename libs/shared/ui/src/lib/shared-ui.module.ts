@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialWrapperModule } from './material-wrapper.module';
 import { RouterModule } from '@angular/router';
@@ -42,19 +42,34 @@ import { HomeLogoComponent } from './home/home-logo.component';
 import { TocSectionDirective } from './toc/toc-section.directive';
 import { TocSectionsContainerDirective } from './toc/toc-sections-container.directive';
 import { ColumnsComponent } from './columns/columns.component';
-import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { CarouselComponent } from './carousel/carousel.component';
 import { HtmlSnackBarComponent } from './html-snack-bar/html-snack-bar.component';
 import { SliderComponent } from './slider/slider.component';
-
+import { MatCarouselComponent } from './mat-carousel/carousel.component';
+import { MatCarouselSlideComponent } from './mat-carousel/carousel-slide/carousel-slide.component';
+import {
+  HammerGestureConfig,
+  HAMMER_GESTURE_CONFIG,
+  HammerModule,
+} from '@angular/platform-browser';
+@Injectable()
+export class MatCarouselHammerConfig extends HammerGestureConfig {
+  public overrides = {
+    pinch: { enable: false },
+    rotate: { enable: false },
+  };
+}
 @NgModule({
+  providers: [
+    { provide: HAMMER_GESTURE_CONFIG, useClass: MatCarouselHammerConfig },
+  ],
   imports: [
     CommonModule,
     MaterialWrapperModule,
     RouterModule,
     BiosimulationsIconsModule,
     BreadCrumbsModule,
-    MatCarouselModule.forRoot(),
+    HammerModule,
   ],
   exports: [
     MaterialWrapperModule,
@@ -141,6 +156,8 @@ import { SliderComponent } from './slider/slider.component';
     CarouselComponent,
     HtmlSnackBarComponent,
     SliderComponent,
+    MatCarouselComponent,
+    MatCarouselSlideComponent,
   ],
 })
 export class SharedUiModule {}
