@@ -1,7 +1,10 @@
 title: User guide
 nav:
-  - "Users: exploring projects": user-guide.md
-  - "Authors: publishing projects": author-guide.md
-  - "Developers: contributing simulation capabilities": developer-guide.md
+  - 'Exploring projects': viewing-projects.md
+  - 'Finding simulation tools': finding-tools.md
+  - 'Simulating projects': simulating-projects.md
+  - 'Publishing projects': creating-projects.md
+  - 'Creating new simulation tools': creating-tools.md
   - BioSimulations' REST API: api.md
   - FAQs: faqs.md
+  - Additional resources: resources.md
