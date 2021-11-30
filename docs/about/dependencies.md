@@ -895,7 +895,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: Jon Schlinkert
 │  ├─ url: https://github.com/jonschlinkert
 │  └─ licenseFile: braces/LICENSE
-├─ bson@4.5.4
+├─ bson@4.6.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/mongodb/js-bson
 │  ├─ publisher: The MongoDB NodeJS Team
@@ -1407,6 +1407,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: TJ Holowaychuk
 │  ├─ email: tj@vision-media.ca
 │  └─ licenseFile: npm/node_modules/debug/LICENSE
+├─ debug@4.3.3
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/debug-js/debug
+│  ├─ publisher: Josh Junon
+│  ├─ email: josh.junon@protonmail.com
+│  └─ licenseFile: mquery/node_modules/debug/LICENSE
 ├─ debuglog@1.0.1
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/sam-github/node-debuglog
@@ -3245,7 +3251,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ publisher: The MongoDB NodeJS Team
 │  ├─ email: dbx-node@mongodb.com
 │  └─ licenseFile: mongodb/LICENSE.md
-├─ mongoose@6.0.13
+├─ mongoose@6.0.14
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/Automattic/mongoose
 │  ├─ publisher: Guillermo Rauch
