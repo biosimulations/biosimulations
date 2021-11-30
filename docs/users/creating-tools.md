@@ -222,7 +222,7 @@ Please follow these steps to contribute a tool to BioSimulators:
 
 1. **Optionally, also publish the source code for your simulation tool to a repository** such as BitBucket , GitHub , or GitLab .
 1. **Optionally, also publish your simulation tool to a software repository** such as CRAN  (R), NPM  (JavaScript), or PyPi  (Python).
-1. **Optionally, also register your tool with bio.tools**. Visit [bio.tools](https://bio.tools/) to submit your tool to their regsitry of research tools.
+1. **Optionally, also register your tool with bio.tools**. Visit [bio.tools](https://bio.tools/) to submit your tool to their registry of research tools.
 1. **Optionally, also submit your Dockerfile to BioContainers**. BioContainers accepts contributions via pull requests. See the[ BioContainers image registry](https://github.com/BioContainers/containers/pulls) for more information.
 
 
@@ -244,7 +244,7 @@ Each time a commit is pushed to the repository, the workflow executes the follow
 
 1. Compiles the documentation for the simulator.
 
-Each time the repository is tagged (git tag ...; git push --tags), the workflow also runs the above tasks. If the above tasks succeed, the workflow executes the follwing additional tasks:
+Each time the repository is tagged (git tag ...; git push --tags), the workflow also runs the above tasks. If the above tasks succeed, the workflow executes the following additional tasks:
 
 1. Creates a GitHub release for the tag.
 1. Pushes the compiled documentation to the repository (e.g., so it can be served by GitHub pages).
