@@ -178,7 +178,7 @@
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-unused-imports": "2.0.0",
     "husky": "7.0.4",
-    "jest": "27.4.0",
+    "jest": "27.4.1",
     "jest-preset-angular": "10.1.0",
     "license-checker": "25.0.1",
     "localforage": "1.10.0",
