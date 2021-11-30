@@ -20,35 +20,35 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/actions/toolkit
 │  └─ licenseFile: @actions/io/LICENSE.md
-├─ @angular/animations@12.2.13
+├─ @angular/animations@13.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/animations/README.md
-├─ @angular/cdk@12.2.13
+├─ @angular/cdk@13.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/cdk/LICENSE
-├─ @angular/common@12.2.13
+├─ @angular/common@13.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/common/README.md
-├─ @angular/core@12.2.13
+├─ @angular/core@13.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/core/README.md
-├─ @angular/forms@12.2.13
+├─ @angular/forms@13.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
 │  └─ licenseFile: @angular/forms/README.md
-├─ @angular/material@12.2.13
+├─ @angular/material@13.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/components
 │  └─ licenseFile: @angular/material/LICENSE
-├─ @angular/platform-browser@12.2.13
+├─ @angular/platform-browser@13.0.2
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/angular/angular
 │  ├─ publisher: angular
@@ -2016,6 +2016,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ licenses: ISC
 │  ├─ repository: https://github.com/isaacs/node-graceful-fs
 │  └─ licenseFile: graceful-fs/LICENSE
+├─ hammerjs@2.0.8
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/hammerjs/hammer.js
+│  ├─ publisher: Jorik Tangelder
+│  ├─ email: j.tangelder@gmail.com
+│  └─ licenseFile: hammerjs/LICENSE.md
 ├─ handlebars@4.7.7
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/wycats/handlebars.js
@@ -3325,6 +3331,11 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/svtslv/nestjs-s3
 │  ├─ publisher: Sviatoslav H
 │  └─ licenseFile: nestjs-s3/README.md
+├─ ngx-material-file-input@3.0.0
+│  ├─ licenses: MIT
+│  ├─ repository: https://github.com/merlosy/ngx-material-file-input
+│  ├─ publisher: Jeremy Legros
+│  └─ licenseFile: ngx-material-file-input/README.md
 ├─ nkeys.js@1.0.0-9
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com//nats-io/ts-nkeys
