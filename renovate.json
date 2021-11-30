@@ -64,6 +64,13 @@
     },
     {
       "matchPackagePrefixes": [
+        "@nrwl"
+      ],
+      "groupName": "nrwl",
+      "enabled": false
+    },
+    {
+      "matchPackagePrefixes": [
         "@angular"
       ],
       "groupName": "angular",
