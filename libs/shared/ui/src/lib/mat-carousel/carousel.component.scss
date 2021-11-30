@@ -1,0 +1,74 @@
+@mixin centerX() {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin centerY() {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin frame($z-index: auto) {
+  @include size();
+  position: absolute;
+  z-index: $z-index;
+}
+
+@mixin size($width: 100%, $height: $width) {
+  width: $width;
+  height: $height;
+}
+.carousel {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+
+  & > button {
+    position: absolute;
+    z-index: 1;
+    @include centerY();
+
+    &:first-of-type {
+      left: 30px;
+    }
+
+    &:last-of-type {
+      right: 30px;
+    }
+  }
+
+  &-list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    position: relative;
+  }
+
+  &-slide {
+    @include size(100%, 0);
+    display: flex;
+    flex-shrink: 0;
+    position: relative;
+
+    &:hover {
+      cursor: grab;
+    }
+  }
+
+  &-indicators {
+    display: flex;
+    position: absolute;
+    bottom: 15px;
+    z-index: 1;
+    @include centerX();
+    outline: none;
+
+    & > button {
+      @include size(10px);
+      margin: 7.5px;
+    }
+  }
+}
