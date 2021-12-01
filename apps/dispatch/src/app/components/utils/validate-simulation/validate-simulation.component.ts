@@ -18,6 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
 import isUrl from 'is-url';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
+import { FileInput } from 'ngx-material-file-input';
 
 enum SubmitMethod {
   file = 'file',
@@ -112,10 +113,13 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
   }
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
-    if (
-      control.value &&
-      control.value.size > this.config.appConfig.maxUploadFileSize
-    ) {
+    const fileInput: FileInput = control.value;
+    const file: File | undefined = fileInput.files
+      ? fileInput.files[0]
+      : undefined;
+    const fileSize = file?.size;
+
+    if (fileSize && fileSize > this.config.appConfig.maxUploadFileSize) {
       return {
         maxSize: true,
       };
@@ -189,7 +193,8 @@ export class ValidateSimulationComponent implements OnInit, OnDestroy {
 
     let simulation: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {
-      simulation = this.formGroup.controls.simulationFile.value;
+      const fileInput: FileInput = this.formGroup.controls.simulationFile.value;
+      simulation = fileInput.files[0];
     } else {
       simulation = this.formGroup.controls.simulationUrl.value;
     }
