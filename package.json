@@ -114,7 +114,7 @@
     "@angular/platform-browser-dynamic": "13.0.2",
     "@angular/router": "13.0.2",
     "@angular/service-worker": "13.0.2",
-    "@auth0/auth0-spa-js": "1.19.2",
+    "@auth0/auth0-spa-js": "1.19.3",
     "@commitlint/cli": "15.0.0",
     "@commitlint/config-conventional": "15.0.0",
     "@fortawesome/angular-fontawesome": "0.10.0",
