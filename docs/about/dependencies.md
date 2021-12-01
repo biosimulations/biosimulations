@@ -791,7 +791,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/auth0/node-auth0
 │  ├─ publisher: Auth0
 │  └─ licenseFile: auth0/LICENSE
-├─ aws-sdk@2.1039.0
+├─ aws-sdk@2.1040.0
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/aws/aws-sdk-js
 │  ├─ publisher: Amazon Web Services
@@ -4674,11 +4674,12 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ email: james@talmage.io
 │  ├─ url: github.com/jamestalmage
 │  └─ licenseFile: supports-hyperlinks/license
-├─ swagger-ui-dist@3.52.5
+├─ swagger-ui-dist@4.1.2
 │  ├─ licenses: Apache-2.0
 │  ├─ repository: https://github.com/swagger-api/swagger-ui
-│  └─ licenseFile: swagger-ui-dist/README.md
-├─ swagger-ui-express@4.1.6
+│  ├─ licenseFile: swagger-ui-dist/LICENSE
+│  └─ noticeFile: swagger-ui-dist/NOTICE
+├─ swagger-ui-express@4.2.0
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/scottie1984/swagger-ui-express
 │  ├─ publisher: Stephen Scott
