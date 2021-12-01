@@ -44,6 +44,7 @@ import { environment } from '@biosimulations/shared/environments';
 import { validateValue } from '@biosimulations/datamodel/utils';
 import { ConfigService } from '@biosimulations/config/angular';
 import { HtmlSnackBarComponent } from '@biosimulations/shared/ui';
+import { FileInput } from 'ngx-material-file-input';
 
 enum LocationType {
   file = 'file',
@@ -279,10 +280,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
   }
 
   maxFileSizeValidator(control: FormControl): ValidationErrors | null {
-    if (
-      control.value &&
-      control.value.size > this.config.appConfig.maxUploadFileSize
-    ) {
+    const fileInput = control.value;
+    const fileSize = fileInput?.files[0].size;
+    if (fileSize && fileSize > this.config.appConfig.maxUploadFileSize) {
       return {
         maxSize: true,
       };
@@ -614,7 +614,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
     const modelLocationType: LocationType = modelLocationTypeControl.value;
     const modelLocationDetails: File | string =
-      modelLocationDetailsControl.value;
+      modelLocationDetailsControl.value.files[0];
 
     if (
       !modelLocationDetails ||
@@ -1479,7 +1479,9 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     const options: any = {};
     formData.append('specs', JSON.stringify(archiveSpecs));
     if (this.formGroup.value.modelLocationType === LocationType.file) {
-      formData.append('files', this.formGroup.value.modelLocationDetails);
+      const modelFileInput: FileInput =
+        this.formGroup.value.modelLocationDetails;
+      formData.append('files', modelFileInput.files[0]);
     }
 
     const url = this.endpoints.getCombineArchiveCreationEndpoint();
@@ -1702,9 +1704,11 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
 
     let modelContent: any = {};
     if (this.formGroup.value.modelLocationType === LocationType.file) {
+      const fileInput: FileInput = this.formGroup.value.modelLocationDetails;
+      const filename: string = fileInput.files[0].name;
       modelContent = {
         _type: 'CombineArchiveContentFile',
-        filename: this.formGroup.value.modelLocationDetails.name,
+        filename: filename,
       };
     } else {
       modelContent = {

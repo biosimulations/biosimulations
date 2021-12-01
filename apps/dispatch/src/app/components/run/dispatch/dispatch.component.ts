@@ -44,6 +44,7 @@ import { map, concatAll, withLatestFrom } from 'rxjs/operators';
 import { ConfigService } from '@biosimulations/config/angular';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { FileInput } from 'ngx-material-file-input';
 
 interface SimulatorIdNameDisabled {
   id: string;
@@ -566,7 +567,9 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     let archive: File | string = '';
     if (submitMethodControl.value === SubmitMethod.file) {
-      archive = this.formGroup.controls.projectFile.value;
+      const fileInput: FileInput = this.formGroup.controls.projectFile.value;
+      archive = fileInput.files[0].name;
+      console.error('archive: ', archive);
     } else {
       archive = this.formGroup.controls.projectUrl.value;
     }
@@ -755,7 +758,8 @@ export class DispatchComponent implements OnInit, OnDestroy {
 
     let simulationResponse: Observable<SimulationRun>;
     if (this.formGroup.value.submitMethod == SubmitMethod.file) {
-      const projectFile: File = this.formGroup.value.projectFile;
+      const fileInput: FileInput = this.formGroup.value.projectFile;
+      const projectFile: File = fileInput.files[0];
 
       simulationResponse = this.dispatchService.submitJobForFile(
         projectFile,
