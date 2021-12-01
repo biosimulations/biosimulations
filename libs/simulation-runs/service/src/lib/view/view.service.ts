@@ -136,7 +136,7 @@ export class ViewService {
       abstract: metadata?.abstract,
       creators: (metadata?.creators || []).map(
         (creator: LabeledIdentifier): Creator => {
-          let icon: string = 'link';
+          let icon = 'link';
           if (creator.uri) {
             if (
               creator.uri.match(

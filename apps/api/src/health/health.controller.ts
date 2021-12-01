@@ -13,7 +13,6 @@ import { ConfigService } from '@nestjs/config';
 import { Endpoints } from '@biosimulations/config/common';
 import { BullHealthIndicator } from './bullHealthCheck';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { AxiosResponse } from 'axios';
 
 @Controller('health')
 @ApiTags('Health')
