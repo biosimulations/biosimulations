@@ -9,17 +9,22 @@ import { environment } from '@biosimulations/shared/environments';
  */
 
 export class Endpoints {
+  // Back end services
   private api: string;
   private simulatorsApi: string;
   private combineApi: string;
   private storageEndpoint: string;
-  private simulationRunsS3Path: string;
-  private simulationRunContentS3Subpath: string;
-  private simulationRunResultsHsdsPath: string;
+  private dataService: string;
+
+  // Front end apps
   private simulatorsApp: string;
   private dispatchApp: string;
   private platformApp: string;
 
+  // Backend subpaths
+  private simulationRunResultsHsdsPath: string;
+  private simulationRunContentS3Subpath: string;
+  private simulationRunsS3Path: string;
   private simulationRuns: string;
   private simulationRunResults: string;
   private simulationRunLogs: string;
@@ -46,6 +51,7 @@ export class Endpoints {
         this.simulatorsApp = 'https://biosimulators.dev';
         this.dispatchApp = 'https://run.biosimulations.dev';
         this.platformApp = 'https://biosimulations.dev';
+        this.dataService = 'https://data.biosimulations.dev';
         break;
 
       case 'dev':
@@ -56,6 +62,7 @@ export class Endpoints {
         this.simulatorsApp = 'https://biosimulators.dev';
         this.dispatchApp = 'https://run.biosimulations.dev';
         this.platformApp = 'https://biosimulations.dev';
+        this.dataService = 'https://data.biosimulations.dev';
         break;
 
       case 'stage':
@@ -66,6 +73,7 @@ export class Endpoints {
         this.simulatorsApp = 'https://biosimulators.dev';
         this.dispatchApp = 'https://run.biosimulations.dev';
         this.platformApp = 'https://biosimulations.dev';
+        this.dataService = 'https://data.biosimulations.dev';
         break;
 
       case 'prod':
@@ -76,6 +84,7 @@ export class Endpoints {
         this.simulatorsApp = 'https://biosimulators.org';
         this.dispatchApp = 'https://run.biosimulations.org';
         this.platformApp = 'https://biosimulations.org';
+        this.dataService = 'https://data.biosimulations.org';
         break;
     }
 
@@ -121,6 +130,13 @@ export class Endpoints {
     return `${api}/ontologies${ontologyId}${termId}`;
   }
 
+  /**
+   * Get URL for health check for data service
+   * @returns The URL of the health check
+   **/
+  public getDataServiceHealthEndpoint(): string {
+    return `${this.dataService}/info`;
+  }
   /**
    *
    * @returns The endpoint prefix for the ontologies
