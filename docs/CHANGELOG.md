@@ -1,3 +1,64 @@
+# [7.0.0](https://github.com/biosimulations/biosimulations/compare/v6.1.0...v7.0.0) (2021-12-02)
+
+
+### Bug Fixes
+
+* **api,dispatch-service,hsds:** fixed retrying in APIs ([b3109a1](https://github.com/biosimulations/biosimulations/commit/b3109a1fa5d37d0a65134adde6d9aaef90b19ac0))
+* **config:** reverted changes to localhost ([04f2c42](https://github.com/biosimulations/biosimulations/commit/04f2c42263b8b98facda48a712bfb9f7e2d2e50d))
+* corrected BioSimulators auth audience ([5c8b18d](https://github.com/biosimulations/biosimulations/commit/5c8b18d0d973bb39c8ba34375a9ba33219a76b44))
+* corrected BioSimulators auth audience ([fce4347](https://github.com/biosimulations/biosimulations/commit/fce434727d36d28f048ea3b2d852ab56574a6768))
+* corrected filtering for numerical columns ([d4bf35f](https://github.com/biosimulations/biosimulations/commit/d4bf35f09605fe5210c5b3ae953e0f6156624bec))
+* **dispatch:** fix displaying of data in cases where simulation fails and metadata is not present ([da18704](https://github.com/biosimulations/biosimulations/commit/da18704a8b8fef837b9a835d12e95c6f6644d237)), closes [#3705](https://github.com/biosimulations/biosimulations/issues/3705)
+* **dispatch:** fix file uploading ([30f9cb9](https://github.com/biosimulations/biosimulations/commit/30f9cb93e6ed9c52b08a62655de5693bd9552325)), closes [#3719](https://github.com/biosimulations/biosimulations/issues/3719)
+* **dispatch:** fix uploading of files ([f597e90](https://github.com/biosimulations/biosimulations/commit/f597e9050b7385b8e17b7179476512d15cb3d723)), closes [#3719](https://github.com/biosimulations/biosimulations/issues/3719)
+* fixed validation by upgrading from broken version of class-transformer ([ca20307](https://github.com/biosimulations/biosimulations/commit/ca203077941683837fb5426d1a7eb619d49d6b4c))
+* **platform,ui:** fixed project browse for mobile ([fcfb552](https://github.com/biosimulations/biosimulations/commit/fcfb552a52b641d9f616f1e0785929d1b4bf413e))
+* **platform:** fixed position of seach/filter button ([133f08c](https://github.com/biosimulations/biosimulations/commit/133f08c99c691b4cb62ba5c548abb2d7a41a7013))
+* **ui:** fixed autocomplete filter ([cb26564](https://github.com/biosimulations/biosimulations/commit/cb26564c503e9d10f4423c21e27993e7c77e1802))
+
+
+### Features
+
+* added ability to filter and search projects ([21c14b4](https://github.com/biosimulations/biosimulations/commit/21c14b4fec4c1a0e56773b16e7b9e9e46c306636))
+* added new component to enable components for routes to push buttons into the breadcrumbs area ([7918db1](https://github.com/biosimulations/biosimulations/commit/7918db1fccba56f3b9127bccdf042ddb7e7d83c4))
+* **api,dispatch,dispatch-service:** expanded support for failed simulation runs ([9e7e71c](https://github.com/biosimulations/biosimulations/commit/9e7e71c80a0a81de3195648304456dfcf293b00c))
+* **api,platform:** added owners, organizations to project view with hyperlinks ([63d9457](https://github.com/biosimulations/biosimulations/commit/63d9457a5244212523b727c3f7a01117b7253711))
+* **api,platform:** started to display ownership of projects ([6f8378a](https://github.com/biosimulations/biosimulations/commit/6f8378a14d2f3d3291b36d11ada2581d1e6bd2be))
+* **api:** add check for data service to status check ([d8fbbc5](https://github.com/biosimulations/biosimulations/commit/d8fbbc5308915d23e23dcd9b5962c869236f8988)), closes [#3649](https://github.com/biosimulations/biosimulations/issues/3649)
+* **api:** added new scope for externally validating simulation runs ([e3bd698](https://github.com/biosimulations/biosimulations/commit/e3bd698c989c48cda49e242d2677859d928b9324))
+* **api:** added URLs to accounts, organizations ([c6926b9](https://github.com/biosimulations/biosimulations/commit/c6926b95abbd8873bc4b56fbe77038b2cc2a76be))
+* **api:** began to limit publication requests to model repositories ([e830002](https://github.com/biosimulations/biosimulations/commit/e8300028c8f8e22a2ef59938b7c83880167df5a7))
+* **api:** working on restricting requests for publication with simulation run requests ([af7b6a0](https://github.com/biosimulations/biosimulations/commit/af7b6a0d46cedff4741d07502ccf8ef07fbbaa89))
+* **dispatch:** clarified units of columns of simulation runs table ([3ae498e](https://github.com/biosimulations/biosimulations/commit/3ae498ecc1902c6fd688889427b0fdf28ad25b2e))
+* improved table searching for data with accents ([d33617b](https://github.com/biosimulations/biosimulations/commit/d33617b73d1968f74cacaeae0bdd92e2a3aa3339))
+* **platform:** added filter for publication status ([509eaa4](https://github.com/biosimulations/biosimulations/commit/509eaa4a431eb481cde071edc666ee7bdbe3961f))
+* **platform:** scroll to top on opening projects search/filter ([26de2b6](https://github.com/biosimulations/biosimulations/commit/26de2b6f1470cc9fbb661447ac0542c2c7ea3483))
+* **platform:** started to add filtering and searching for projects ([2505d7f](https://github.com/biosimulations/biosimulations/commit/2505d7f2bdca62c3b24d4b7252cb2513a9b5aa1b))
+* **simulators:** expanded simulators filters ([1a76b7e](https://github.com/biosimulations/biosimulations/commit/1a76b7e5934c30793673ac8b2250c5b370ba2fa9))
+* **ui,platform:** added autocomplete filter for attributes with many values ([049869f](https://github.com/biosimulations/biosimulations/commit/049869f919dcf9b714fc2d27389d1b1b6ce21971))
+* **ui:** add custom caruousel component ([9a61d4f](https://github.com/biosimulations/biosimulations/commit/9a61d4f45592aa0b4c6d7205171a7b3a87b0330f))
+* **ui:** replace npn-slider with custom component ([1cc79d5](https://github.com/biosimulations/biosimulations/commit/1cc79d54bc20114247ee6af36e2d3ade44c2f64d)), closes [#3706](https://github.com/biosimulations/biosimulations/issues/3706)
+
+
+### Performance Improvements
+
+* **api,dispatch,dispatch-service,simulators-api:** removed unnecessary return of new resources ([5fce07f](https://github.com/biosimulations/biosimulations/commit/5fce07f6b52385ab5d04c276b635f78aa06e2eea))
+* **api:** don't return the log after creating ([5e37c6e](https://github.com/biosimulations/biosimulations/commit/5e37c6eca3aea9420467884f75f05558b6d30c0b)), closes [#3609](https://github.com/biosimulations/biosimulations/issues/3609)
+
+
+### Reverts
+
+* Revert "refactor(auth): removed auth/open endpoint" ([f983628](https://github.com/biosimulations/biosimulations/commit/f983628bd2b048b2a9e2b3875c4508f7a7b62746))
+* "refactor: cleaned up building Angular apps" ([d21b2ed](https://github.com/biosimulations/biosimulations/commit/d21b2edc4530ff644d92ac6f71385dc83052fa3d))
+* revert "refactor: organized endpoints configuration" ([a5e93c3](https://github.com/biosimulations/biosimulations/commit/a5e93c38a268995474525dc71e1fb72ef8fdf968)), closes [#3625](https://github.com/biosimulations/biosimulations/issues/3625)
+* revert change to build front end apps ([5870fbf](https://github.com/biosimulations/biosimulations/commit/5870fbf953b95bd55d6def44aac7a5628c0a7265))
+
+
+### BREAKING CHANGES
+
+* **api:** The logs post endpoint no longer returns the log that was created. For that, use a
+GET request after posting the log.
+
 # [6.1.0](https://github.com/biosimulations/biosimulations/compare/v6.0.2...v6.1.0) (2021-11-14)
 
 
