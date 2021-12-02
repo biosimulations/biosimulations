@@ -57,6 +57,7 @@ cjmyers
 claudine
 COBR
 cobrapy
+codecov
 codegen
 collex
 combinearchive
@@ -77,7 +78,9 @@ Deepa
 deserializing
 Deuflhard
 diagramatic
+dirname
 dockerfile
+dockerhub
 doi
 dotnetrdf
 DPlot
@@ -151,6 +154,7 @@ informatik
 Informationstechnik
 Inra
 inrae
+ipython
 iri
 Ison
 Jayit
@@ -280,6 +284,7 @@ rba
 rbapy
 rdf
 README
+readonly
 readthedocs
 realfavicongenerator
 reproduciblebiomodels
@@ -304,6 +309,7 @@ screenshot
 Seaborn
 sedml
 SGBN
+sif
 sinai
 SIO
 Slurm
@@ -333,6 +339,7 @@ timecourse
 tmp
 todo
 Totte
+ubuntu
 uchc
 uconn
 ucsd
@@ -341,6 +348,9 @@ umbc
 uniprot
 uri
 url
+username
+usp
+usr
 utils
 vcell
 vcellmike
@@ -360,6 +370,7 @@ xmlns
 xpath
 xpp
 xppodes
+yml
 zenodo
 Zentrum
 ZGINML

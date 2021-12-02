@@ -101,7 +101,7 @@
     {
       "@type": "HowToTool",
       "name": "BioSimulations",
-      "description": "Open registry of biological simulation projecs.",
+      "description": "Open registry of biological simulation projects.",
       "url": "https://biosimulations.org"
     },
     {

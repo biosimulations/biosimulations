@@ -8,7 +8,7 @@
 ### Submit a simulation
 Please follow these steps to execute a modeling project:
 
-1. Open the p[roject submission form](https://run.biosimulations.dev/run).
+1. Open the [project submission form](https://run.biosimulations.dev/run).
 1. Select a COMBINE/OMEX file to execute.
 1. Select a simulation tool and a specific version of that tool.
 1. Enter a name for your project. We recommend choosing a descriptive name that will help you recall the purpose of your project. These names will be particularly helpful if you run multiple projects.
