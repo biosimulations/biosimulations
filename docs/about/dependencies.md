@@ -148,7 +148,7 @@ BioSimulations is released under the MIT license. Below are the licenses of the 
 │  ├─ repository: https://github.com/nestjs/swagger
 │  ├─ publisher: Kamil Mysliwiec
 │  └─ licenseFile: @nestjs/swagger/LICENSE
-├─ @nestjs/terminus@8.0.1
+├─ @nestjs/terminus@8.0.3
 │  ├─ licenses: MIT
 │  ├─ repository: https://github.com/nestjs/terminus
 │  ├─ publisher: Livio Brunner
