@@ -190,7 +190,7 @@
     "ngx-markdown": "13.0.0",
     "openapi-examples-validator": "4.6.0",
     "plotly.js": "2.7.0",
-    "prettier": "2.5.0",
+    "prettier": "2.5.1",
     "sanitize-html": "2.6.0",
     "schema-dts": "1.0.0",
     "semantic-release": "18.0.1",
