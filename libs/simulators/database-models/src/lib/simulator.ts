@@ -29,7 +29,9 @@ import {
   BiosimulatorsMetaSchema,
 } from './biosimulatorsMeta';
 
-@Schema({})
+@Schema({
+  collection: 'Simulators',
+})
 export class Simulator extends Document implements ISimulator {
   @Prop({ type: BiosimulatorsMetaSchema, required: true, default: undefined })
   biosimulators!: BiosimulatorsMeta;
