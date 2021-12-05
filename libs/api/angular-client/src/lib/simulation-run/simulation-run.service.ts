@@ -30,17 +30,18 @@ export class SimulationRunService {
   }
 
   public getSimulationRun(id: string, cache = true): Observable<SimulationRun> {
-    const endpoint = this.endpoints.getSimulationRunEndpoint(id);
+    const endpoint = this.endpoints.getSimulationRunEndpoint(true, id);
     return this.getData<SimulationRun>(id, endpoint, cache);
   }
 
   public getSimulationRunFiles(id: string): Observable<IFile[]> {
-    const endpoint = this.endpoints.getSimulationRunFilesEndpoint(id);
+    const endpoint = this.endpoints.getSimulationRunFilesEndpoint(true, id);
     return this.getData<IFile[]>(id, endpoint);
   }
 
   public getSimulationRunFileContent(id: string, file: string) {
     const endpoint = this.endpoints.getSimulationRunFileContentEndpoint(
+      true,
       id,
       file,
     );
@@ -52,6 +53,7 @@ export class SimulationRunService {
   ): Observable<SimulationRunSedDocument[]> {
     const endpoint =
       this.endpoints.getSimulationRunSimulationExperimentSpecificationsEndpoint(
+        true,
         id,
       );
     return this.getData<SimulationRunSedDocument[]>(id, endpoint);
@@ -60,7 +62,7 @@ export class SimulationRunService {
   public getSimulationRunMetadata(
     id: string,
   ): Observable<SimulationRunMetadata> {
-    const endpoint = this.endpoints.getSimulationRunMetadataEndpoint(id);
+    const endpoint = this.endpoints.getSimulationRunMetadataEndpoint(true, id);
     return this.getData<SimulationRunMetadata>(id, endpoint);
   }
 
@@ -69,6 +71,7 @@ export class SimulationRunService {
     includeData = false,
   ): Observable<SimulationRunResults> {
     const endpoint = this.endpoints.getRunResultsEndpoint(
+      true,
       id,
       undefined,
       includeData,
@@ -82,6 +85,7 @@ export class SimulationRunService {
     includeData = false,
   ): Observable<SimulationRunOutput> {
     const endpoint = this.endpoints.getRunResultsEndpoint(
+      true,
       id,
       outputId,
       includeData,
@@ -90,12 +94,12 @@ export class SimulationRunService {
   }
 
   public getSimulationRunLog(id: string): Observable<CombineArchiveLog> {
-    const endpoint = this.endpoints.getSimulationRunLogsEndpoint(id);
+    const endpoint = this.endpoints.getSimulationRunLogsEndpoint(true, id);
     return this.getData<CombineArchiveLog>(id, endpoint);
   }
 
   public getSimulationRunSummary(id: string): Observable<SimulationRunSummary> {
-    const endpoint = this.endpoints.getSimulationRunSummariesEndpoint(id);
+    const endpoint = this.endpoints.getSimulationRunSummariesEndpoint(true, id);
     return this.getData<SimulationRunSummary>(id, endpoint);
   }
 

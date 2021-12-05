@@ -7,7 +7,7 @@
   },
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": [],
+    "types": ["node"],
     "strict": true
   },
   "files": ["src/main.ts", "src/polyfills.ts", "../../declarations.d.ts"]

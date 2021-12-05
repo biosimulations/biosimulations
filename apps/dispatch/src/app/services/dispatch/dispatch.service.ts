@@ -118,7 +118,7 @@ export class DispatchService {
       projectId: undefined,
     };
     return this.http.post<SimulationRun>(
-      this.endpoints.getSimulationRunEndpoint(),
+      this.endpoints.getSimulationRunEndpoint(true),
       body,
       {
         headers: { 'Content-Type': 'application/json' },
@@ -156,7 +156,7 @@ export class DispatchService {
     formData.append('simulationRun', JSON.stringify(run));
 
     const response = this.http.post<SimulationRun>(
-      this.endpoints.getSimulationRunEndpoint(),
+      this.endpoints.getSimulationRunEndpoint(true),
       formData,
     );
     return response;
@@ -170,6 +170,7 @@ export class DispatchService {
     }
 
     const endpoint = this.endpoints.getSimulatorsEndpoint(
+      true,
       undefined,
       undefined,
       false,

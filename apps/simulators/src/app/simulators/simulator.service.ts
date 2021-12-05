@@ -19,22 +19,22 @@ export interface Version {
 export class SimulatorService {
   private endpoints = new Endpoints();
 
-  allSims = this.http
-    .get<ISimulator[]>(this.endpoints.getSimulatorsEndpoint())
+  private allSims = this.http
+    .get<ISimulator[]>(this.endpoints.getSimulatorsEndpoint(true))
     .pipe(shareReplay(1));
-  latestSims = this.http
-    .get<ISimulator[]>(this.endpoints.getSimulatorsEndpoint('latest'))
+  private latestSims = this.http
+    .get<ISimulator[]>(this.endpoints.getLatestSimulatorsEndpoint(true))
     .pipe(shareReplay(1));
 
-  getAll(): Observable<ISimulator[]> {
+  public getAll(): Observable<ISimulator[]> {
     return this.allSims;
   }
 
-  getLatest(): Observable<ISimulator[]> {
+  public getLatest(): Observable<ISimulator[]> {
     return this.latestSims;
   }
 
-  getLatestById(id: string): Observable<ISimulator> {
+  public getLatestById(id: string): Observable<ISimulator> {
     return this.getLatest().pipe(
       map((value: ISimulator[]) => {
         return value.filter((simulator: ISimulator) => simulator.id === id)[0];
@@ -42,7 +42,7 @@ export class SimulatorService {
     );
   }
 
-  getOneByVersion(id: string, version: string): Observable<ISimulator> {
+  public getOneByVersion(id: string, version: string): Observable<ISimulator> {
     return this.getAll().pipe(
       map((value: ISimulator[]) => {
         return value.filter(
@@ -53,7 +53,7 @@ export class SimulatorService {
     );
   }
 
-  getAllById(id: string): Observable<ISimulator[]> {
+  public getAllById(id: string): Observable<ISimulator[]> {
     return this.getAll().pipe(
       map((simulators: ISimulator[]) => {
         return simulators.filter((simulator: ISimulator) => simulator.id == id);
@@ -61,7 +61,7 @@ export class SimulatorService {
     );
   }
 
-  getVersions(simulatorId: string): Observable<Version[]> {
+  public getVersions(simulatorId: string): Observable<Version[]> {
     return this.allSims.pipe(
       map((simulators: ISimulator[]) => {
         const versions = [];
@@ -84,14 +84,14 @@ export class SimulatorService {
     );
   }
 
-  getValidationTestResultsForOneByVersion(
+  public getValidationTestResultsForOneByVersion(
     id: string,
     version: string,
   ): Observable<ISimulator> {
     return this.http.get<ISimulator>(
-      this.endpoints.getSimulatorsEndpoint(id, version, true),
+      this.endpoints.getSimulatorsEndpoint(true, id, version, true),
     );
   }
 
-  constructor(private http: HttpClient) {}
+  public constructor(private http: HttpClient) {}
 }

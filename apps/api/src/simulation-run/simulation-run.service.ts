@@ -418,7 +418,7 @@ export class SimulationRunService {
     simulatorVersion = 'latest',
   ): Promise<ISimulator | null | false> {
     if (simulatorVersion === 'latest') {
-      const url = this.endpoints.getLatestSimulatorsEndpoint(simulator);
+      const url = this.endpoints.getLatestSimulatorsEndpoint(false,simulator);
 
       return firstValueFrom(
         this.httpService.get<ISimulator[]>(url).pipe(
@@ -442,6 +442,7 @@ export class SimulationRunService {
       );
     } else {
       const url = this.endpoints.getSimulatorsEndpoint(
+        false,
         simulator,
         simulatorVersion,
       );

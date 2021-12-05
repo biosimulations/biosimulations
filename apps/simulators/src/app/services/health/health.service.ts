@@ -12,7 +12,7 @@ export class HealthService {
 
   constructor(private http: HttpClient) {}
 
-  isHealthy(): Observable<boolean> {
+  public isHealthy(): Observable<boolean> {
     const url = this.endpoints.getSimulatorApiHealthEndpoint();
     return this.http.get<any>(url).pipe(
       map((response: any): boolean => {

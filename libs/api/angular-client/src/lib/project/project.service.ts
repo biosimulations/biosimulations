@@ -33,14 +33,18 @@ export class ProjectService {
     validateSimulationRunNotPublished = false,
   ): Observable<true | string> {
     return this.http
-      .post<void>(this.endpoints.getValidateProjectEndpoint(), projectInput, {
-        headers: { 'Content-Type': 'application/json' },
-        params: {
-          validateSimulationResultsData,
-          validateIdAvailable,
-          validateSimulationRunNotPublished,
+      .post<void>(
+        this.endpoints.getValidateProjectEndpoint(true),
+        projectInput,
+        {
+          headers: { 'Content-Type': 'application/json' },
+          params: {
+            validateSimulationResultsData,
+            validateIdAvailable,
+            validateSimulationRunNotPublished,
+          },
         },
-      })
+      )
       .pipe(
         map((): true => true),
         catchError((error: HttpErrorResponse): Observable<string> => {
@@ -55,7 +59,7 @@ export class ProjectService {
   }
 
   public publishProject(projectInput: ProjectInput): Observable<void> {
-    const url = this.endpoints.getProjectsEndpoint(projectInput.id);
+    const url = this.endpoints.getProjectsEndpoint(true, projectInput.id);
     const response = this.http
       .post<void>(url, projectInput, {
         headers: { 'Content-Type': 'application/json' },
@@ -65,12 +69,12 @@ export class ProjectService {
   }
 
   public getProject(projectId: string): Observable<Project> {
-    const url = this.endpoints.getProjectsEndpoint(projectId);
+    const url = this.endpoints.getProjectsEndpoint(true, projectId);
     return this.getData<Project>(projectId, url);
   }
 
   public getProjectSummaries(): Observable<ProjectSummary[]> {
-    const url = this.endpoints.getProjectSummariesEndpoint();
+    const url = this.endpoints.getProjectSummariesEndpoint(true);
 
     if (!this.cachedProjectSummaries) {
       this.cachedProjectSummaries = this.http
@@ -82,7 +86,7 @@ export class ProjectService {
   }
 
   public getProjectSummary(projectId: string): Observable<ProjectSummary> {
-    const url = this.endpoints.getProjectSummariesEndpoint(projectId);
+    const url = this.endpoints.getProjectSummariesEndpoint(true, projectId);
     return this.getData<ProjectSummary>(projectId, url);
   }
 

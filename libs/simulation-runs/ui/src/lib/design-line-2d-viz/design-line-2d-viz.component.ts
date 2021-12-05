@@ -477,6 +477,7 @@ export class DesignLine2DVisualizationComponent implements OnInit {
                   name: vegaDataSet.sourceName(iDataSet),
                   sedmlUri: [sedDocumentLocation, outputId],
                   url: this.endpoints.getRunResultsEndpoint(
+                    true,
                     this.simulationRunId,
                     `${sedDocumentLocation}/${outputId}`,
                     true,

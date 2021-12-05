@@ -33,7 +33,7 @@ export class FileService {
 
   public async processFiles(id: string): Promise<void> {
     this.logger.log(`Processing files for simulation run '${id}'.`);
-    const url = this.endpoints.getRunDownloadEndpoint(id, true);
+    const url = this.endpoints.getRunDownloadEndpoint(true, id);
 
     await firstValueFrom(
       this.combine.getManifest(undefined, url).pipe(
@@ -48,6 +48,7 @@ export class FileService {
             .map((file: CombineArchiveManifestContent) => {
               const fileUrl =
                 this.endpoints.getSimulationRunFileContentEndpoint(
+                  false,
                   id,
                   file.location.path,
                 );

@@ -16,7 +16,11 @@ export class SimulatorService {
   constructor(private http: HttpClient) {}
 
   public getSimulatorIdNameMap(): Observable<SimulatorIdNameMap> {
-    const endpoint = this.endpoints.getSimulatorsEndpoint(undefined, 'latest');
+    const endpoint = this.endpoints.getSimulatorsEndpoint(
+      true,
+      undefined,
+      'latest',
+    );
     return this.http.get<ISimulator[]>(endpoint).pipe(
       map((simulators: ISimulator[]): SimulatorIdNameMap => {
         const idNameMap: SimulatorIdNameMap = {};

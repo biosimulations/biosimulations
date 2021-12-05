@@ -670,7 +670,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
     formData.append('simulationType', simulationType);
     formData.append('simulationAlgorithm', simulationAlgorithm);
 
-    const url = this.endpoints.getModelIntrospectionEndpoint();
+    const url = this.endpoints.getModelIntrospectionEndpoint(true);
     const sedDoc = this.http.post<any>(url, formData).pipe(
       catchError((error: HttpErrorResponse): Observable<null> => {
         if (!environment.production) {
@@ -1484,7 +1484,7 @@ export class CreateSimulationProjectComponent implements OnInit, OnDestroy {
       formData.append('files', modelFileInput.files[0]);
     }
 
-    const url = this.endpoints.getCombineArchiveCreationEndpoint();
+    const url = this.endpoints.getCombineArchiveCreationEndpoint(true);
     const projectOrUrl: Observable<string | any> = this.http
       .post<string>(url, formData, options)
       .pipe(

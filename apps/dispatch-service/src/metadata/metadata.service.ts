@@ -32,7 +32,8 @@ export class MetadataService {
   }
 
   public async createMetadata(id: string): Promise<void> {
-    const url = this.endpoints.getRunDownloadEndpoint(id, true);
+    // get external endpoint since combine service my not be running locally
+    const url = this.endpoints.getRunDownloadEndpoint(true, id);
     this.logger.debug(
       `Fetching metadata for archive for simulation run '${id}' at URL: ${url}`,
     );

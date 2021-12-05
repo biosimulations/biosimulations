@@ -23,10 +23,10 @@ function rerunProject(url: string, router: Router): void {
   const endpoints = new Endpoints();
 
   new HttpClient(new HttpXhrBackend({ build: () => new XMLHttpRequest() }))
-    .get<SimulationRun>(endpoints.getSimulationRunEndpoint(id))
+    .get<SimulationRun>(endpoints.getSimulationRunEndpoint(true, id))
     .subscribe((simulationRun: SimulationRun): void => {
       const queryParams = {
-        projectUrl: endpoints.getRunDownloadEndpoint(id),
+        projectUrl: endpoints.getRunDownloadEndpoint(true, id),
         simulator: simulationRun.simulator,
         simulatorVersion: simulationRun.simulatorVersion,
         runName: simulationRun.name + ' (rerun)',
