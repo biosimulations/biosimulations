@@ -1,5 +1,5 @@
 import { environment } from '@biosimulations/shared/environments';
-// import { SedElementType } from '@biosimulations/datamodel/common';
+import { EndpointLoader, LoadedEndpoints } from './endpointLoader';
 
 /**
  * A class that returns various endpoints based on the environment and ids of resources.
@@ -16,6 +16,14 @@ export class Endpoints {
   private storageEndpoint: string;
   private dataService: string;
 
+  // Backend public/external services (i.e. Use endpoints that can be accessed via public URL.
+  // For example, https://api will work to access the API within kubernetes, but not for the end-user
+  private externalApi: string;
+  private externalSimulatorsApi: string;
+  private externalCombineApi: string;
+  private externalStorageEndpoint: string;
+  private externalDataService: string;
+
   // Front end apps
   private simulatorsApp: string;
   private dispatchApp: string;
@@ -25,109 +33,73 @@ export class Endpoints {
   private simulationRunResultsHsdsPath: string;
   private simulationRunContentS3Subpath: string;
   private simulationRunsS3Path: string;
-  private simulationRuns: string;
-  private simulationRunResults: string;
-  private simulationRunLogs: string;
-  private simulationRunMetadata: string;
-  private simulators: string;
-  private files: string;
-  private env: string;
-  private combineFile: string;
-  private specifications: string;
-  private projects: string;
+  //private simulationRuns: string;
+  //private simulationRunResults: string;
+  //private simulationRunLogs: string;
+  //private simulationRunMetadata: string;
+  //private simulators: string;
+  //private files: string;
+  //private combineFile: string;
+  //private specifications: string;
+  //private projects: string;
 
+  private env: string;
   public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
     // We can read the env that is provided in the shared environment file as the default
     if (env == undefined) {
       env = environment.env;
     }
     this.env = env;
-    switch (env) {
-      case 'local':
-        this.api = 'http://localhost:3333';
-        this.simulatorsApi = 'https://api.biosimulators.dev';
-        this.combineApi = 'https://combine.api.biosimulations.dev/';
-        this.storageEndpoint = 'https://files-dev.biosimulations.org/s3';
-        this.simulatorsApp = 'https://biosimulators.dev';
-        this.dispatchApp = 'https://run.biosimulations.dev';
-        this.platformApp = 'https://biosimulations.dev';
-        this.dataService = 'https://data.biosimulations.dev';
-        break;
 
-      case 'dev':
-        this.api = 'https://api.biosimulations.dev';
-        this.simulatorsApi = 'https://api.biosimulators.dev';
-        this.combineApi = 'https://combine.api.biosimulations.dev';
-        this.storageEndpoint = 'https://files-dev.biosimulations.org/s3';
-        this.simulatorsApp = 'https://biosimulators.dev';
-        this.dispatchApp = 'https://run.biosimulations.dev';
-        this.platformApp = 'https://biosimulations.dev';
-        this.dataService = 'https://data.biosimulations.dev';
-        break;
+    const endpointLoader = new EndpointLoader(env);
+    const loadedEndpoints: LoadedEndpoints = endpointLoader.loadEndpoints();
 
-      case 'stage':
-        this.api = 'https://api.biosimulations.dev';
-        this.simulatorsApi = 'https://api.biosimulators.dev';
-        this.combineApi = 'https://combine.api.biosimulations.dev';
-        this.storageEndpoint = 'https://files-dev.biosimulations.org/s3';
-        this.simulatorsApp = 'https://biosimulators.dev';
-        this.dispatchApp = 'https://run.biosimulations.dev';
-        this.platformApp = 'https://biosimulations.dev';
-        this.dataService = 'https://data.biosimulations.dev';
-        break;
-
-      case 'prod':
-        this.api = 'https://api.biosimulations.org';
-        this.simulatorsApi = 'https://api.biosimulators.org';
-        this.combineApi = 'https://combine.api.biosimulations.org';
-        this.storageEndpoint = 'https://files.biosimulations.org/s3';
-        this.simulatorsApp = 'https://biosimulators.org';
-        this.dispatchApp = 'https://run.biosimulations.org';
-        this.platformApp = 'https://biosimulations.org';
-        this.dataService = 'https://data.biosimulations.org';
-        break;
-    }
+    this.api = loadedEndpoints.api;
+    this.simulatorsApi = loadedEndpoints.simulatorsApi;
+    this.combineApi = loadedEndpoints.combineApi;
+    this.storageEndpoint = loadedEndpoints.storageEndpoint;
+    this.dataService = loadedEndpoints.dataService;
+    this.externalApi = loadedEndpoints.externalApi;
+    this.externalSimulatorsApi = loadedEndpoints.externalSimulatorsApi;
+    this.externalCombineApi = loadedEndpoints.externalCombineApi;
+    this.externalStorageEndpoint = loadedEndpoints.externalStorageEndpoint;
+    this.externalDataService = loadedEndpoints.externalDataService;
+    this.simulatorsApp = loadedEndpoints.simulatorsApp;
+    this.dispatchApp = loadedEndpoints.dispatchApp;
+    this.platformApp = loadedEndpoints.platformApp;
 
     this.simulationRunsS3Path = 'simulations';
     this.simulationRunContentS3Subpath = 'contents';
     this.simulationRunResultsHsdsPath = 'results';
 
-    this.simulationRunLogs = `${this.api}/logs`;
-    this.simulationRunResults = `${this.api}/results`;
-    this.simulationRunMetadata = `${this.api}/metadata`;
-    this.simulationRuns = `${this.api}/runs`;
-    this.simulators = `${this.simulatorsApi}/simulators`;
-    this.files = `${this.api}/files`;
-    this.combineFile = `${this.combineApi}/combine/file`;
-    this.specifications = `${this.api}/specifications`;
-    this.projects = `${this.api}/projects`;
+    // this.simulationRunLogts = `${this.api}/logs`;
+    // this.simulationRunResults = `${this.api}/results`;
+    // this.simulationRunMetadata = `${this.api}/metadata`;
+    // this.simulationRuns = `${this.api}/runs`;
+    // this.specifications = `${this.api}/specifications`;
+    // this.files = `${this.api}/files`;
+
+    // this.simulators = `${this.simulatorsApi}/simulators`;
+    // this.combineFile = `${this.combineApi}/combine/file`;
+    // this.projects = `${this.api}/projects`;
   }
 
-  /**
-   *
-   * @returns The URL of the API
-   */
-  public getApiBaseUrl(): string {
-    return this.api;
+  // HEALTH CHECKS
+
+  public getApiHealthEndpoint(): string {
+    return `${this.getApiBaseUrl(true)}/health/status`;
   }
 
-  /**
-   *
-   * @returns The endpoint prefix for the ontologies
-   */
-  public getOntologyEndpoint(
-    app: string,
-    ontologyId?: string,
-    termId?: string,
-  ): string {
-    const api = app === 'simulators' ? this.simulatorsApi : this.api;
-    ontologyId ? (ontologyId = `/${ontologyId}`) : (ontologyId = '');
-    termId ? (termId = `/${termId}`) : (termId = '');
-    if (termId && !ontologyId) {
-      throw new Error('Cannot get a term without an ontology id');
-    }
+  public getSimulatorApiHealthEndpoint(): string {
+    return `${this.getSimulatorsApiBaseUrl(true)}/health`;
+  }
 
-    return `${api}/ontologies${ontologyId}${termId}`;
+  public getCombineHealthEndpoint(): string {
+    return `${this.getCombineApiBaseUrl(true)}/health`;
+  }
+
+  public getStorageHealthEndpoint(): string {
+    return `${this.getStorageEndpointBaseUrl}/helloWorld.txt`;
   }
 
   /**
@@ -135,16 +107,40 @@ export class Endpoints {
    * @returns The URL of the health check
    **/
   public getDataServiceHealthEndpoint(): string {
-    return `${this.dataService}/info`;
+    return `${this.getDataServiceBaseUrl(true)}/info`;
   }
+
+  // ONTOLOGIES
+
+  /**
+   * Get url for ontologies endpoint
+   * @returns The endpoint for the ontologies
+   */
+  public getOntologyEndpoint(
+    app: string,
+    external: boolean,
+    ontologyId?: string,
+    termId?: string,
+  ): string {
+    const api = this.getOntologiesEndpointBaseUrl(app, external);
+    ontologyId ? (ontologyId = `/${ontologyId}`) : (ontologyId = '');
+    termId ? (termId = `/${termId}`) : (termId = '');
+    if (termId && !ontologyId) {
+      throw new Error('Cannot get a term without an ontology id');
+    }
+    return `${api}/${ontologyId}${termId}`;
+  }
+
   /**
    *
    * @returns The endpoint prefix for the ontologies
    */
-  public getOntologyTermsEndpoint(app: string, fields?: string[]): string {
-    const api = app === 'simulators' ? this.simulatorsApi : this.api;
-    return `${api}/ontologies/terms`;
+  public getOntologyTermsEndpoint(app: string, external: boolean): string {
+    const api = this.getOntologiesEndpointBaseUrl(app, external);
+    return `${api}/terms`;
   }
+
+  // FILES and FILE CONTENTS
 
   /** Get the URL for a file object, for all files for a simulation run, or to post files for a simulation run.
    * @param runId The id of the simulation run
@@ -152,6 +148,7 @@ export class Endpoints {
    * @returns The URL to get the content of a COMBINE archive
    */
   public getSimulationRunFilesEndpoint(
+    external: boolean,
     runId?: string,
     fileLocation?: string,
   ): string {
@@ -169,17 +166,7 @@ export class Endpoints {
     if (fileLocation && !runId) {
       throw new Error('Cannot get a file without a run id');
     }
-    return `${this.files}${runId}${fileLocation}`;
-  }
-
-  /**
-   *
-   * @param id The id of the simulation run
-   * @returns The URL to get the simulation run
-   */
-  public getSimulationRunEndpoint(id?: string): string {
-    id ? (id = `/${id}`) : (id = '');
-    return `${this.simulationRuns}${id}`;
+    return `${this.getFilesEndpointBaseUrl(external)}${runId}${fileLocation}`;
   }
 
   /**
@@ -190,21 +177,35 @@ export class Endpoints {
    * @returns A URL to download the file from within the COMBINE archive
    */
   public getSimulationRunFileContentEndpoint(
+    external: boolean,
     runId: string,
     fileLocation: string,
   ): string {
     if (fileLocation.startsWith('./')) {
       fileLocation = fileLocation.substring(2);
     }
+
+    const storageEndpoint = this.getStorageEndpointBaseUrl(external);
     if (fileLocation == '.') {
-      return `${
-        this.storageEndpoint
-      }/${this.getSimulationRunCombineArchiveS3Path(runId)}`;
+      return `${storageEndpoint}/${this.getSimulationRunCombineArchiveS3Path(
+        runId,
+      )}`;
     } else {
-      return `${this.storageEndpoint}/${this.getSimulationRunS3Path(
+      return `${storageEndpoint}/${this.getSimulationRunS3Path(
         runId,
       )}/contents/${fileLocation}`;
     }
+  }
+
+  // SIMULATION RUNS
+  /**
+   *
+   * @param id The id of the simulation run
+   * @returns The URL to get the simulation run
+   */
+  public getSimulationRunEndpoint(external: boolean, id?: string): string {
+    id ? (id = `/${id}`) : (id = '');
+    return `${this.getSimulationRunsEndpointBaseUrl(external)}${id}`;
   }
 
   /** Create a URL for getting a summary of a simulation run or each run
@@ -212,11 +213,16 @@ export class Endpoints {
    * @param id The id of the simulation run
    * @returns URL for getting a summary of a simulation run or each run
    */
-  public getSimulationRunSummariesEndpoint(id?: string): string {
+  public getSimulationRunSummariesEndpoint(
+    external: boolean,
+    id?: string,
+  ): string {
+    const simulationRuns = this.getSimulationRunsEndpointBaseUrl(external);
+
     if (id) {
-      return `${this.simulationRuns}/${id}/summary`;
+      return `${simulationRuns}/${id}/summary`;
     } else {
-      return `${this.simulationRuns}/summary`;
+      return `${simulationRuns}/summary`;
     }
   }
 
@@ -225,99 +231,109 @@ export class Endpoints {
    * @param id The id of the simulation run
    * @returns URL for validating a simulation run
    */
-  public getSimulationRunValidationEndpoint(id: string): string {
-    return `${this.simulationRuns}/${id}/validate`;
+  public getSimulationRunValidationEndpoint(
+    external: boolean,
+    id: string,
+  ): string {
+    const simulationRuns = this.getSimulationRunsEndpointBaseUrl(external);
+    return `${simulationRuns}/${id}/validate`;
   }
+
+  // PROJECTS
 
   /** Get the URL for information about a project or all projects
    * @param id The id of the project
    * @returns URL for information about a project or all projects
    */
-  public getProjectsEndpoint(id?: string): string {
-    return this.projects + (id ? `/${id}` : '');
+  public getProjectsEndpoint(external: boolean, id?: string): string {
+    return this.getProjectsEndpointBaseUrl(external) + (id ? `/${id}` : '');
   }
 
   /** Get the URL for a summary of a project or summaries of each project
    * @param id The id of the project
    * @returns URL for a summary of a project or summaries of each project
    */
-  public getProjectSummariesEndpoint(id?: string): string {
+  public getProjectSummariesEndpoint(external: boolean, id?: string): string {
+    const projects = this.getProjectsEndpointBaseUrl(external);
+
     if (id) {
-      return `${this.projects}/${id}/summary`;
+      return `${projects}/${id}/summary`;
     } else {
-      return `${this.projects}/summary`;
+      return `${projects}/summary`;
     }
   }
 
   /** Get the URL for validating a project
    */
-  public getValidateProjectEndpoint(): string {
-    return this.projects + '/validate';
+  public getValidateProjectEndpoint(external: boolean): string {
+    const projects = this.getProjectsEndpointBaseUrl(external);
+    return `${projects}/validate`;
   }
 
+  // COMBINE API
   /**
    * Create a URL to add a file to an OMEX file using the COMBINE API
    * @returns A URL for POST endpoint for adding a file to an OMEX file using the COMBINE API
    */
-  public getAddFileToCombineArchiveEndpoint(external = false): string {
-    if (external) {
-      if (this.env == 'local') {
-        return new Endpoints('dev').getAddFileToCombineArchiveEndpoint(true);
-      }
-    }
-    return this.combineFile;
+  public getAddFileToCombineArchiveEndpoint(external: boolean): string {
+    return this.getCombineFilesEndpointBaseUrl(external);
   }
 
   /**
    * Create a URL for the route of the COMBINE API
    * @returns A URL for extracting the inputs and outputs of models
    */
-  public getCombineApiEndpoint(): string {
-    return this.combineApi;
+  public getCombineApiEndpoint(external: boolean): string {
+    return this.getCombineApiBaseUrl(external);
   }
 
   /**
    * Create a URL for extracting the inputs and outputs of models
    * @returns A URL for extracting the inputs and outputs of models
    */
-  public getModelIntrospectionEndpoint(): string {
-    return `${this.combineApi}/sed-ml/get-parameters-variables-for-simulation`;
+  public getModelIntrospectionEndpoint(external: boolean): string {
+    const combineApi = this.getCombineApiBaseUrl(external);
+    return `${combineApi}/sed-ml/get-parameters-variables-for-simulation`;
   }
 
   /**
    * Create a URL for creating COMBINE/OMEX archives
    * @returns A URL for creating COMBINE/OMEX archives
    */
-  public getCombineArchiveCreationEndpoint(): string {
-    return `${this.combineApi}/combine/create`;
+  public getCombineArchiveCreationEndpoint(external: boolean): string {
+    return `${this.getCombineApiBaseUrl(external)}/combine/create`;
   }
 
-  public getSedmlSpecificationsEndpoint(): string {
-    return `${this.combineApi}/combine/sedml-specs`;
+  public getSedmlSpecificationsEndpoint(external: boolean): string {
+    return `${this.getCombineApiBaseUrl(external)}/combine/sedml-specs`;
   }
 
-  public getCombineArchiveMetadataEndpoint(): string {
-    return `${this.combineApi}/combine/metadata/biosimulations`;
+  public getCombineArchiveMetadataEndpoint(external: boolean): string {
+    return `${this.getCombineApiBaseUrl(
+      external,
+    )}/combine/metadata/biosimulations`;
   }
 
-  public getValidateModelEndpoint(): string {
-    return `${this.combineApi}/model/validate`;
+  public getValidateModelEndpoint(external: boolean): string {
+    return `${this.getCombineApiBaseUrl(external)}/model/validate`;
   }
 
-  public getValidateSedmlEndpoint(): string {
-    return `${this.combineApi}/sed-ml/validate`;
+  public getValidateSedmlEndpoint(external: boolean): string {
+    return `${this.getCombineApiBaseUrl(external)}/sed-ml/validate`;
   }
 
-  public getValidateOmexMetadataEndpoint(): string {
-    return `${this.combineApi}/omex-metadata/validate`;
+  public getValidateOmexMetadataEndpoint(external: boolean): string {
+    return `${this.getCombineApiBaseUrl(external)}/omex-metadata/validate`;
   }
 
-  public getValidateCombineArchiveEndpoint(): string {
-    return `${this.combineApi}/combine/validate`;
+  public getValidateCombineArchiveEndpoint(external: boolean): string {
+    return `${this.getCombineApiBaseUrl(external)}/combine/validate`;
   }
 
-  public getSimilarAlgorithmsEndpoint(): string {
-    return `${this.combineApi}/kisao/get-similar-algorithms`;
+  public getSimilarAlgorithmsEndpoint(external: boolean): string {
+    return `${this.getCombineApiBaseUrl(
+      external,
+    )}/kisao/get-similar-algorithms`;
   }
 
   /**
@@ -325,9 +341,12 @@ export class Endpoints {
    * @param id The id of the simulation run
    * @returns A URL to get the metadata of the simulation run
    */
-  public getSimulationRunMetadataEndpoint(id?: string): string {
+  public getSimulationRunMetadataEndpoint(
+    external: boolean,
+    id?: string,
+  ): string {
     id ? (id = `/${id}`) : (id = '');
-    return `${this.simulationRunMetadata}${id}`;
+    return `${this.getMetadataEndpointBaseUrl(external)}${id}`;
   }
 
   /**
@@ -339,32 +358,26 @@ export class Endpoints {
    *
    * @returns A URL to download the COMBINE/OMEX archive of a simulation run
    */
-  public getRunDownloadEndpoint(id: string, external = false): string {
-    if (external) {
-      if (this.env == 'local') {
-        return new Endpoints('dev').getRunDownloadEndpoint(id, external);
-      }
-    }
-
-    return `${this.simulationRuns}/${id}/download`;
+  public getRunDownloadEndpoint(external: boolean, id: string): string {
+    return `${this.getSimulationRunsEndpointBaseUrl(external)}/${id}/download`;
   }
 
   /**
    * Returns the URL to get the results of  a simulation run. The external parameter is used to determine if the
    * returned URL is accessible from outside the current environment.
    * Effectively, if true, then any localhost urls will be replaced with the dev deployment urls
+   * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    * @param runId The id of the simulation run
    * @param experimentLocationAndOutputId The id of the result output
    * @param includeData How the includeData param should be set on the URL
-   * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    *
    * @returns A URL to retrieve the results of a simulation run
    */
   public getRunResultsEndpoint(
+    external: boolean,
     runId?: string,
     experimentLocationAndOutputId?: string,
     includeData = false,
-    external = false,
   ): string {
     runId ? (runId = `/${encodeURIComponent(runId)}`) : (runId = '');
     experimentLocationAndOutputId
@@ -376,17 +389,9 @@ export class Endpoints {
       throw new Error('Cannot get results of an output without an id');
     }
 
-    if (external) {
-      if (this.env == 'local') {
-        return new Endpoints('dev').getRunResultsEndpoint(
-          runId,
-          experimentLocationAndOutputId,
-          includeData,
-          external,
-        );
-      }
-    }
-    return `${this.simulationRunResults}${runId}${experimentLocationAndOutputId}?includeData=${includeData}`;
+    return `${this.getResultsEndpointBaseUrl(
+      external,
+    )}${runId}${experimentLocationAndOutputId}?includeData=${includeData}`;
   }
 
   /**
@@ -395,46 +400,8 @@ export class Endpoints {
    * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    * @returns A URL to download the output of a simulation
    */
-  public getRunResultsDownloadEndpoint(id: string, external = false): string {
-    if (external) {
-      if (this.env == 'local') {
-        return new Endpoints('dev').getRunResultsDownloadEndpoint(id, external);
-      }
-    }
-    return `${this.simulationRunResults}/${id}/download`;
-  }
-
-  /**
-   *
-   * @param id The id of the simulator
-   * @param version The version of the simulator
-   * @param includeTests Whether to include the results of the validation tests
-   * @returns  A URL to get the simulators, and specific simulator, or a specific version of a simulator
-   */
-  public getSimulatorsEndpoint(
-    id?: string,
-    version?: string,
-    includeTests = false,
-  ): string {
-    id ? (id = `/${id}`) : (id = '');
-    version ? (version = `/${version}`) : (version = '');
-    const tests = includeTests ? '?includeTests=true' : '';
-    return `${this.simulators}${id}${version}${tests}`;
-  }
-
-  /**
-   *
-   * @param id The id of the simulator
-   * @param includeTests Whether to include the results of the validation tests
-   * @returns  A URL to get the latest version of each simulator, or the latest version of a specific simulator
-   */
-  public getLatestSimulatorsEndpoint(
-    id?: string,
-    includeTests = false,
-  ): string {
-    id ? (id = `?id=${id}`) : (id = '');
-    const tests = includeTests ? '?includeTests=true' : '';
-    return `${this.simulators}/latest${id}${tests}`;
+  public getRunResultsDownloadEndpoint(external: boolean, id: string): string {
+    return `${this.getResultsEndpointBaseUrl(external)}/${id}/download`;
   }
 
   /**
@@ -444,6 +411,7 @@ export class Endpoints {
    * @returns The URL to the specified simulation spec
    */
   public getSimulationRunSimulationExperimentSpecificationsEndpoint(
+    external: boolean,
     runId?: string,
     experimentLocation?: string,
     elementType?: string, // SedElementType
@@ -491,30 +459,53 @@ export class Endpoints {
       throw new Error('Cannot get a specific element without an id');
     }
 
-    return `${this.specifications}${runId}${experimentLocation}${elementTypePath}${elementId}`;
+    return `${this.getSpecificationsEndpointBaseUrl(
+      external,
+    )}${runId}${experimentLocation}${elementTypePath}${elementId}`;
   }
 
-  public getSimulationRunLogsEndpoint(id?: string): string {
+  public getSimulationRunLogsEndpoint(external: boolean, id?: string): string {
     id ? (id = `/${id}`) : (id = '');
-    return `${this.simulationRunLogs}${id}`;
+    return `${this.getLogsEndpointBaseUrl(external)}${id}`;
   }
 
-  public getApiHealthEndpoint(): string {
-    return `${this.api}/health/status`;
+  /**
+   *
+   * @param id The id of the simulator
+   * @param version The version of the simulator
+   * @param includeTests Whether to include the results of the validation tests
+   * @returns  A URL to get the simulators, and specific simulator, or a specific version of a simulator
+   */
+  public getSimulatorsEndpoint(
+    external: boolean,
+    id?: string,
+    version?: string,
+    includeTests = false,
+  ): string {
+    id ? (id = `/${id}`) : (id = '');
+    version ? (version = `/${version}`) : (version = '');
+    const tests = includeTests ? '?includeTests=true' : '';
+    return `${this.getSimulatorsEndpointBaseUrl(
+      external,
+    )}${id}${version}${tests}`;
   }
 
-  public getSimulatorApiHealthEndpoint(): string {
-    return `${this.simulatorsApi}/health`;
+  /**
+   *
+   * @param id The id of the simulator
+   * @param includeTests Whether to include the results of the validation tests
+   * @returns  A URL to get the latest version of each simulator, or the latest version of a specific simulator
+   */
+  public getLatestSimulatorsEndpoint(
+    external: boolean,
+    id?: string,
+    includeTests = false,
+  ): string {
+    id ? (id = `?id=${id}`) : (id = '');
+    const tests = includeTests ? '?includeTests=true' : '';
+    return `${this.getSimulatorsApiBaseUrl(external)}/latest${id}${tests}`;
   }
-
-  public getCombineHealthEndpoint(): string {
-    return `${this.combineApi}/health`;
-  }
-
-  public getStorageHealthEndpoint(): string {
-    return `${this.storageEndpoint}/helloWorld.txt`;
-  }
-
+  // SUBPATHS
   /**
    * Create a path a simulation run in an S3 bucket
    * @param runId Id of the simulation run
@@ -591,6 +582,7 @@ export class Endpoints {
     return `${runId}${this.simulationRunResultsHsdsPath}`;
   }
 
+  // FRONT END
   public getSimulatorsAppHome(): string {
     return this.simulatorsApp;
   }
@@ -649,5 +641,79 @@ export class Endpoints {
   public getConventionsView(page?: string): string {
     page ? (page = `/${page}`) : (page = '');
     return `${this.simulatorsApp}/conventions${page}`;
+  }
+
+  // BASE URLS
+  // base urls for the backend services depending on the "external" parameter
+
+  public getApiBaseUrl(external: boolean): string {
+    return external ? this.externalApi : this.api;
+  }
+
+  public getSimulatorsApiBaseUrl(external: boolean): string {
+    return external ? this.externalSimulatorsApi : this.simulatorsApi;
+  }
+  private getDataServiceBaseUrl(external: boolean): string {
+    return external ? this.externalDataService : this.dataService;
+  }
+
+  private getCombineApiBaseUrl(external: boolean): string {
+    return external ? this.externalCombineApi : this.combineApi;
+  }
+
+  private getOntologiesEndpointBaseUrl(app: string, external: boolean): string {
+    const api =
+      app === 'simulators'
+        ? this.getSimulatorsApiBaseUrl(external)
+        : this.getApiBaseUrl(external);
+    return `${api}/ontologies`;
+  }
+
+  private getFilesEndpointBaseUrl(external: boolean): string {
+    const api = this.getApiBaseUrl(external);
+    return `${api}/files`;
+  }
+
+  private getLogsEndpointBaseUrl(external: boolean): string {
+    const api = this.getApiBaseUrl(external);
+    return `${api}/logs`;
+  }
+
+  private getResultsEndpointBaseUrl(external: boolean): string {
+    const api = this.getApiBaseUrl(external);
+    return `${api}/results`;
+  }
+
+  private getMetadataEndpointBaseUrl(external: boolean): string {
+    const api = this.getApiBaseUrl(external);
+    return `${api}/metadata`;
+  }
+
+  private getSimulationRunsEndpointBaseUrl(external: boolean): string {
+    const api = this.getApiBaseUrl(external);
+    return `${api}/runs`;
+  }
+
+  private getSpecificationsEndpointBaseUrl(external: boolean): string {
+    const api = this.getApiBaseUrl(external);
+    return `${api}/specifications`;
+  }
+  private getProjectsEndpointBaseUrl(external: boolean): string {
+    const api = this.getApiBaseUrl(external);
+    return `${api}/projects`;
+  }
+
+  private getSimulatorsEndpointBaseUrl(external: boolean): string {
+    const api = this.getSimulatorsApiBaseUrl(external);
+    return `${api}/simulators`;
+  }
+
+  private getCombineFilesEndpointBaseUrl(external: boolean): string {
+    const api = this.getCombineApiBaseUrl(external);
+    return `${api}/combine/file`;
+  }
+
+  private getStorageEndpointBaseUrl(external: boolean): string {
+    return external ? this.externalStorageEndpoint : this.storageEndpoint;
   }
 }
