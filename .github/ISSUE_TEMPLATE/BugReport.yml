@@ -55,6 +55,7 @@ body:
     attributes:
       label: Version
       description: What version of our software are you running?
+      multiple: true
       options:
         - Production (Deployed on a .org domain)
         - Development (Deployed on a .dev domain)
