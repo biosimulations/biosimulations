@@ -19,4 +19,4 @@ jobs:
         contains(github.event.pull_request.labels.*.name, 'bug')
       with:
         project: 'https://github.com/biosimulations/biosimulations/projects/23'
-        column_name: 'Needs Triage'
+        column_name: 'Needs triage'
