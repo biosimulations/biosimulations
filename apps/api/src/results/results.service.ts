@@ -117,6 +117,12 @@ export class ResultsService {
     throw new BadRequestException('Output Not Found');
   }
 
+  public async deleteSimulationRunResults(runId: string): Promise<void> {
+    await this.results.deleteDatasets(runId);
+    await this.storage.deleteObject(
+      this.endpoints.getSimulationRunOutputS3Path(runId),
+    );
+  }
   private async parseDataset(
     runId: string,
     includeValues: boolean,
@@ -188,12 +194,5 @@ export class ResultsService {
     };
 
     return ret;
-  }
-
-  public async deleteSimulationRunResults(runId: string): Promise<void> {
-    await this.results.deleteDatasets(runId);
-    await this.storage.deleteObject(
-      this.endpoints.getSimulationRunOutputS3Path(runId),
-    );
   }
 }

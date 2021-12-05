@@ -549,7 +549,10 @@ export class ViewService {
               ),
         icon: (this.combineOmexFormat?.biosimulationsMetadata?.icon ||
           'archive') as BiosimulationsIcon,
-        url: this.endpoints.getRunDownloadEndpoint(simulationRunSummary.id),
+        url: this.endpoints.getRunDownloadEndpoint(
+          true,
+          simulationRunSummary.id,
+        ),
         basename: 'project.omex',
       },
     ];
@@ -665,11 +668,12 @@ export class ViewService {
         location: '',
         title: 'Outputs',
         format: 'JavaScript Object Notation (JSON) in BioSimulators schema',
-        formatUrl: this.endpoints.getApiBaseUrl(),
+        formatUrl: this.endpoints.getApiBaseUrl(true),
         master: false,
         size: null,
         icon: 'report',
         url: this.endpoints.getRunResultsEndpoint(
+          true,
           simulationRunSummary.id,
           undefined,
           true,
@@ -693,6 +697,7 @@ export class ViewService {
               ),
         icon: 'report',
         url: this.endpoints.getRunResultsDownloadEndpoint(
+          true,
           simulationRunSummary.id,
         ),
         basename: 'outputs.zip',
@@ -708,6 +713,7 @@ export class ViewService {
         size: null,
         icon: 'logs',
         url: this.endpoints.getSimulationRunLogsEndpoint(
+          true,
           simulationRunSummary.id,
         ),
         basename: 'log.yml',
@@ -1079,7 +1085,7 @@ export class ViewService {
         {
           '@type': 'DataDownload',
           description: 'Project',
-          contentUrl: this.endpoints.getRunDownloadEndpoint(runId),
+          contentUrl: this.endpoints.getRunDownloadEndpoint(true, runId),
           encodingFormat: 'application/zip',
           contentSize:
             simulationRunSummary.run.projectSize === undefined
@@ -1092,6 +1098,7 @@ export class ViewService {
           '@type': 'DataDownload',
           description: 'Simulation results',
           contentUrl: this.endpoints.getRunResultsEndpoint(
+            true,
             runId,
             undefined,
             true,
@@ -1101,7 +1108,7 @@ export class ViewService {
         {
           '@type': 'DataDownload',
           description: 'Simulation outputs',
-          contentUrl: this.endpoints.getRunResultsDownloadEndpoint(runId),
+          contentUrl: this.endpoints.getRunResultsDownloadEndpoint(true, runId),
           encodingFormat: 'application/zip',
           contentSize:
             simulationRunSummary.run.resultsSize === undefined
@@ -1113,7 +1120,7 @@ export class ViewService {
         {
           '@type': 'DataDownload',
           description: 'Simulation log',
-          contentUrl: this.endpoints.getSimulationRunLogsEndpoint(runId),
+          contentUrl: this.endpoints.getSimulationRunLogsEndpoint(true, runId),
           encodingFormat: 'application/json',
         },
       ],
@@ -1250,7 +1257,7 @@ export class ViewService {
         {
           '@type': 'DataDownload',
           description: 'Project',
-          contentUrl: this.endpoints.getProjectsEndpoint(projectSummary.id),
+          contentUrl: this.endpoints.getProjectsEndpoint(true,projectSummary.id),
           encodingFormat: 'application/json',
         },
       ];

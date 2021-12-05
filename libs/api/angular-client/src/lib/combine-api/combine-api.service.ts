@@ -54,7 +54,7 @@ export class CombineApiService {
     };
 
     return this.http.post<string>(
-      this.endpoints.getAddFileToCombineArchiveEndpoint(),
+      this.endpoints.getAddFileToCombineArchiveEndpoint(true),
       formData,
       {
         headers: headers,

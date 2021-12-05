@@ -124,8 +124,8 @@ export class SbatchService {
             .join(',')
         : '';
     const runCombineArchiveUrl = this.endpoints.getRunDownloadEndpoint(
-      runId,
       true,
+      runId,
     );
     const simulationRunS3Path = this.endpoints.getSimulationRunS3Path(runId);
     const simulationRunContentS3Subpath =

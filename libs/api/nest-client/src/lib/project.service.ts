@@ -25,7 +25,7 @@ export class ProjectService {
     return from(this.auth.getToken()).pipe(
       map((token) => {
         return this.http
-          .get<Project>(this.endpoints.getProjectsEndpoint(id), {
+          .get<Project>(this.endpoints.getProjectsEndpoint(false, id), {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -37,7 +37,7 @@ export class ProjectService {
   }
 
   public createProject(project: ProjectInput): Observable<void> {
-    const endpoint = this.endpoints.getProjectsEndpoint(project.id);
+    const endpoint = this.endpoints.getProjectsEndpoint(false, project.id);
     return this.postAuthenticated<ProjectInput, void>(endpoint, project);
   }
 
@@ -45,7 +45,7 @@ export class ProjectService {
     const response = from(this.auth.getToken()).pipe(
       map((token) => {
         const httpRes = this.http
-          .put<void>(this.endpoints.getProjectsEndpoint(id), project, {
+          .put<void>(this.endpoints.getProjectsEndpoint(false, id), project, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

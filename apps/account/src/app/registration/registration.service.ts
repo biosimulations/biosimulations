@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AsyncValidatorFn, AbstractControl } from '@angular/forms';
 import { map, catchError, switchMap, tap } from 'rxjs/operators';
 import { of, timer, ObservableInput, Observable, throwError } from 'rxjs';
-import { urls } from '@biosimulations/config/common';
-const baseUrl = urls.accountApi;
+const baseUrl = 'https://account.api.biosimulations.dev';
 @Injectable({
   providedIn: 'root',
 })

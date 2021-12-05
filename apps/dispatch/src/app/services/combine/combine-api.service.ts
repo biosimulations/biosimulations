@@ -24,16 +24,17 @@ import { RetryStrategy } from '@biosimulations/shared/angular';
 export class CombineApiService {
   private endpoints = new Endpoints();
 
-  private sedmlSpecsEndpoint = this.endpoints.getSedmlSpecificationsEndpoint();
-  private validateModelEndpoint = this.endpoints.getValidateModelEndpoint();
+  private sedmlSpecsEndpoint =
+    this.endpoints.getSedmlSpecificationsEndpoint(true);
+  private validateModelEndpoint = this.endpoints.getValidateModelEndpoint(true);
   private validateSimulationEndpoint =
-    this.endpoints.getValidateSedmlEndpoint();
+    this.endpoints.getValidateSedmlEndpoint(true);
   private validateMetadataEndpoint =
-    this.endpoints.getValidateOmexMetadataEndpoint();
+    this.endpoints.getValidateOmexMetadataEndpoint(true);
   private validateProjectEndpoint =
-    this.endpoints.getValidateCombineArchiveEndpoint();
+    this.endpoints.getValidateCombineArchiveEndpoint(true);
   private similarAlgorithmsEndpoint =
-    this.endpoints.getSimilarAlgorithmsEndpoint();
+    this.endpoints.getSimilarAlgorithmsEndpoint(true);
 
   public constructor(private http: HttpClient) {}
 

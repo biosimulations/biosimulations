@@ -14,29 +14,6 @@ import { AxiosError } from 'axios';
 export class CombineWrapperService {
   public constructor(private service: SimulationProjectsService) {}
 
-  private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
-    return retryBackoff({
-      initialInterval: 100,
-      maxRetries: 12,
-      resetOnSuccess: true,
-      shouldRetry: (error: AxiosError): boolean => {
-        return (
-          error.isAxiosError &&
-          [
-            HttpStatus.REQUEST_TIMEOUT,
-            HttpStatus.INTERNAL_SERVER_ERROR,
-            HttpStatus.BAD_GATEWAY,
-            HttpStatus.GATEWAY_TIMEOUT,
-            HttpStatus.SERVICE_UNAVAILABLE,
-            HttpStatus.TOO_MANY_REQUESTS,
-            undefined,
-            null,
-          ].includes(error?.response?.status)
-        );
-      },
-    });
-  }
-
   public getArchiveMetadata(
     omexMetadataFormat: string,
     file?: Blob,
@@ -67,6 +44,28 @@ export class CombineWrapperService {
     return this.service
       .srcHandlersCombineGetSedmlSpecsForCombineArchiveHandler(file, url)
       .pipe(this.getRetryBackoff());
+  }
+  private getRetryBackoff(): <T>(source: Observable<T>) => Observable<T> {
+    return retryBackoff({
+      initialInterval: 100,
+      maxRetries: 12,
+      resetOnSuccess: true,
+      shouldRetry: (error: AxiosError): boolean => {
+        return (
+          error.isAxiosError &&
+          [
+            HttpStatus.REQUEST_TIMEOUT,
+            HttpStatus.INTERNAL_SERVER_ERROR,
+            HttpStatus.BAD_GATEWAY,
+            HttpStatus.GATEWAY_TIMEOUT,
+            HttpStatus.SERVICE_UNAVAILABLE,
+            HttpStatus.TOO_MANY_REQUESTS,
+            undefined,
+            null,
+          ].includes(error?.response?.status)
+        );
+      },
+    });
   }
 }
 
