@@ -25,5 +25,6 @@ import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
     ]),
   ],
+  exports: [MetadataService],
 })
 export class MetadataModule {}

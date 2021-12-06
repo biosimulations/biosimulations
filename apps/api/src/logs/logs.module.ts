@@ -21,5 +21,6 @@ import { LogsService } from './logs.service';
   ],
 
   providers: [LogsService],
+  exports: [LogsService],
 })
 export class LogsModule {}
