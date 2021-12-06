@@ -99,7 +99,7 @@ export class Endpoints {
   }
 
   public getStorageHealthEndpoint(): string {
-    return `${this.getStorageEndpointBaseUrl}/helloWorld.txt`;
+    return `${this.getStorageEndpointBaseUrl(true)}/helloWorld.txt`;
   }
 
   /**
