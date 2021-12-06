@@ -225,7 +225,7 @@ export class EndpointLoader {
 
         defaultEndpoints.externalStorageEndpoint =
           dynamicEndpoints?.externalStorageEndpoint ||
-          'https://files-dev.biosimulations.org/s3';
+          'https://files.biosimulations.org/s3';
 
         defaultEndpoints.externalDataService =
           dynamicEndpoints?.externalDataService ||
