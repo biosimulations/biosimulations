@@ -245,14 +245,14 @@ export class EndpointLoader {
         api: process.env.API_URL,
         simulatorsApi: process.env.SIMULATORS_API_URL,
         combineApi: process.env.COMBINE_API_URL,
-        storageEndpoint: process.env.STORAGE_ENDPOINT,
-        dataService: process.env.DATA_SERVICE,
+        storageEndpoint: process.env.STORAGE_URL,
+        dataService: process.env.DATA_SERVICE_URL,
 
         externalApi: process.env.EXTERNAL_API_URL,
         externalSimulatorsApi: process.env.EXTERNAL_SIMULATORS_API_URL,
         externalCombineApi: process.env.EXTERNAL_COMBINE_API_URL,
-        externalStorageEndpoint: process.env.EXTERNAL_STORAGE_ENDPOINT,
-        externalDataService: process.env.EXTERNAL_DATA_SERVICE,
+        externalStorageEndpoint: process.env.EXTERNAL_STORAGE_URL,
+        externalDataService: process.env.EXTERNAL_DATA_SERVICE_URL,
 
         simulatorsApp: process.env.SIMULATORS_APP_URL,
         dispatchApp: process.env.DISPATCH_APP_URL,
