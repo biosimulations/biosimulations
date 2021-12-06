@@ -1257,7 +1257,10 @@ export class ViewService {
         {
           '@type': 'DataDownload',
           description: 'Project',
-          contentUrl: this.endpoints.getProjectsEndpoint(true,projectSummary.id),
+          contentUrl: this.endpoints.getProjectsEndpoint(
+            true,
+            projectSummary.id,
+          ),
           encodingFormat: 'application/json',
         },
       ];

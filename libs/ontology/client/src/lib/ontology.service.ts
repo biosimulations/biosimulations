@@ -81,7 +81,6 @@ export class OntologyService {
       this.configService.appId,
       true,
       ontologyId,
-      
     );
     terms = this.http.get<IOntologyTerm[]>(endpoint).pipe(
       shareReplay(1),
@@ -200,7 +199,7 @@ export class OntologyService {
   ): Observable<T[]> {
     const endpoint = this.endpoints.getOntologyTermsEndpoint(
       this.configService.appId,
-      true
+      true,
     );
 
     const params: any = {};
