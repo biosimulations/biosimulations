@@ -7,7 +7,7 @@
 import { BiosimulationsAuthModule } from '@biosimulations/auth/nest';
 import { BiosimulationsConfigModule } from '@biosimulations/config/nest';
 import { SimulationHDFService } from '@biosimulations/hsds/client';
-import { SharedStorageService } from '@biosimulations/shared/storage';
+import { SimulationStorageService } from '@biosimulations/shared/storage';
 import { CacheModule } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResultsController } from './results.controller';
@@ -47,7 +47,7 @@ describe('ResultsController', () => {
           useClass: MockStorageService,
         },
         {
-          provide: SharedStorageService,
+          provide: SimulationStorageService,
           useClass: MockStorageService,
         },
       ],
