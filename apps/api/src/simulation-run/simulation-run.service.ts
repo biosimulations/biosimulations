@@ -109,6 +109,13 @@ interface Check {
   isValid: (result: any) => boolean;
 }
 
+interface PromiseResult<T>{
+  id?: string;
+  succeeded: boolean;
+  value?: T;
+  error?: any;
+}
+
 @Injectable()
 export class SimulationRunService {
   private vegaFormatOmexManifestUris: string[];
@@ -574,22 +581,51 @@ export class SimulationRunService {
       .find({})
       .select('id status')
       .exec();
-    return (
-      await Promise.allSettled(
-        runs.map((run) => {
-          return this.getRunSummary(run.id, raiseErrors);
+    
+    const runSummaryResults = 
+      await Promise.all(
+        runs.map((run): Promise<PromiseResult<SimulationRunSummary>> => {
+          return this.getRunSummary(run.id, raiseErrors)
+            .then((value) => {
+              return {
+                id: run.id,
+                succeeded: true,
+                value: value,
+              };
+            })
+            .catch((error) => {
+              return {
+                id: run.id,
+                succeeded: false,
+                error: error,
+              };
+            });
         }),
-      )
-    ).map((settledResult, iRun: number) => {
-      if (settledResult.status !== 'fulfilled' || !('value' in settledResult)) {
-        console.log(
-          "A summary of run '${runs[iRun].id}' could not be retrieved.",
-        );
-        throw new InternalServerErrorException(
-          'One or more summaries of simulation runs could not be retrieved.',
-        );
+      );
+
+    const failures = runSummaryResults.filter((runSummaryResult: PromiseResult<SimulationRunSummary>): boolean => {
+      return !runSummaryResult.succeeded;
+    });
+    if (failures.length) {
+      const details: string[] = [];
+      const summaries: string[] = [];
+      failures.forEach((runSummaryResult: PromiseResult<SimulationRunSummary>) => {
+        details.push(`A summary of run '${runSummaryResult.id}' could not be retrieved: ${runSummaryResult.error.status}: ${runSummaryResult.error.message}.`);
+        summaries.push(runSummaryResult.id as string);
+      });
+
+      this.logger.error(`Summaries of ${failures.length} runs could not be obtained:\n  ${details.join('\n  ')}`);
+      throw new InternalServerErrorException(
+        `Summaries of ${failures.length} runs could not be obtained:\n  ${summaries.join('\n  ')}`
+      );
+    }
+
+    return runSummaryResults.flatMap((runSummaryResult: PromiseResult<SimulationRunSummary>): SimulationRunSummary[] => {
+      if (runSummaryResult.value) {
+        return [runSummaryResult.value];
+      } else {
+        return [];
       }
-      return settledResult.value;
     });
   }
 
@@ -620,29 +656,40 @@ export class SimulationRunService {
     raiseErrors = false,
   ): Promise<SimulationRunSummary> {
     /* get data */
-    const settledResults = await Promise.allSettled([
+    const settledResults = await Promise.all([
       this.get(id),
       this.filesService.getSimulationRunFiles(id),
       this.specificationsService.getSpecificationsBySimulation(id),
       this.logsService.getLog(id),
       this.metadataService.getMetadata(id),
-    ]);
+    ].map((promise: Promise<any>): Promise<PromiseResult<any>> => {
+      return promise
+        .then((value) => {
+          return {
+            succeeded: true,
+            value: value,
+          };
+        })
+        .catch((error) => {
+          return {
+            succeeded: false,
+            error: error,
+          };
+        })
+    }));
 
-    const runSettledResult: PromiseSettledResult<SimulationRunModelReturnType | null> =
+    const runSettledResult: PromiseResult<SimulationRunModelReturnType | null> =
       settledResults[0];
-    const filesResult: PromiseSettledResult<FileModel[]> = settledResults[1];
-    const simulationExptsResult: PromiseSettledResult<SpecificationsModel[]> =
+    const filesResult: PromiseResult<FileModel[]> = settledResults[1];
+    const simulationExptsResult: PromiseResult<SpecificationsModel[]> =
       settledResults[2];
-    const logResult: PromiseSettledResult<CombineArchiveLog> =
+    const logResult: PromiseResult<CombineArchiveLog> =
       settledResults[3];
-    const rawMetadataResult: PromiseSettledResult<SimulationRunMetadataIdModel | null> =
+    const rawMetadataResult: PromiseResult<SimulationRunMetadataIdModel | null> =
       settledResults[4];
 
-    if (
-      runSettledResult.status !== 'fulfilled' ||
-      !('value' in runSettledResult) ||
-      !runSettledResult.value
-    ) {
+    if (!runSettledResult.succeeded) {
+      this.logger.error(`Simulation run with id '${id}' could not be found: ${runSettledResult.error.status}: ${runSettledResult.error.message}.`)
       throw new NotFoundException(
         `Simulation run with id '${id}' could not be found.`,
       );
@@ -687,12 +734,9 @@ export class SimulationRunService {
 
     /* get summary of the simulation experiment */
     if (
-      filesResult.status === 'fulfilled' &&
-      !!filesResult.value &&
-      simulationExptsResult.status === 'fulfilled' &&
-      !!simulationExptsResult.value &&
-      logResult.status === 'fulfilled' &&
-      !!logResult.value
+      filesResult.succeeded && filesResult.value
+      && simulationExptsResult.succeeded && simulationExptsResult.value
+      && logResult.succeeded && logResult.value
     ) {
       const files = filesResult.value;
       const simulationExpts = simulationExptsResult.value;
@@ -821,13 +865,30 @@ export class SimulationRunService {
         }
       });
     } else if (raiseErrors) {
-      throw new InternalServerErrorException(
-        `Information about the files, simulation experiments, or log for simulation run '${id}' could not be retrieved.`,
-      );
+      const details: string[] = [];
+      const summaries: string[] = [];
+      
+      if (!filesResult.succeeded) {
+        details.push(`The files for simulation run '${id}' could not be retrieved: ${filesResult.error.status}: ${filesResult.error.message}.`)
+        summaries.push(`The files for simulation run '${id}' could not be retrieved.`)
+      }
+
+      if (!simulationExptsResult.succeeded) {
+        details.push(`The simulation experiments for simulation run '${id}' could not be retrieved: ${simulationExptsResult.error.status}: ${simulationExptsResult.error.message}.`)
+        summaries.push(`The simulation experiments for simulation run '${id}' could not be retrieved.`)
+      }
+
+      if (!logResult.succeeded) {
+        details.push(`The log for simulation run '${id}' could not be retrieved: ${logResult.error.status}: ${logResult.error.message}.`)
+        summaries.push(`The log for simulation run '${id}' could not be retrieved.`)
+      }
+
+      this.logger.error(details.join('\n\n'));
+      throw new InternalServerErrorException(summaries.join('\n'));
     }
 
     /* get top-level metadata for the project */
-    if (rawMetadataResult.status === 'fulfilled' && !!rawMetadataResult.value) {
+    if (rawMetadataResult.succeeded && rawMetadataResult.value) {
       const rawMetadata = rawMetadataResult.value;
 
       let rawMetadatum!: ArchiveMetadata;
@@ -860,8 +921,11 @@ export class SimulationRunService {
         modified: rawMetadatum.modified?.[0] || undefined,
       };
     } else if (raiseErrors) {
+      this.logger.error(
+        `The metadata for simulation run '${id}' could not be retrieved: ${rawMetadataResult.error.status}: ${rawMetadataResult.error.message}.`,
+      );
       throw new InternalServerErrorException(
-        `Information about the files, simulation experiments, or log for simulation run '${id}' could not be retrieved.`,
+        `The metadata for simulation run '${id}' could not be retrieved.`,
       );
     }
 
@@ -904,35 +968,45 @@ export class SimulationRunService {
       );
     }
 
-    const errors: string[] = [];
+    const errorDetails: string[] = [];
+    const errorSummaries: string[] = [];
 
     /**
      * Check run
      */
 
     if (run.status !== SimulationRunStatus.SUCCEEDED) {
-      errors.push(
+      errorDetails.push(
+        `The run did not succeed. The status of the run is '${run.status}'. Only successful simulation runs can be published.`,
+      );
+      errorSummaries.push(
         `The run did not succeed. The status of the run is '${run.status}'. Only successful simulation runs can be published.`,
       );
     }
 
     if (!run.projectSize) {
-      errors.push(
+      errorDetails.push(
+        `The COMBINE archive for the run appears to be empty. An error may have occurred in saving the archive. Archives must be properly saved for publication. If you believe this is incorrect, please submit an issue at https://github.com/biosimulations/biosimulations/issues/new/choose.`,
+      );
+      errorSummaries.push(
         `The COMBINE archive for the run appears to be empty. An error may have occurred in saving the archive. Archives must be properly saved for publication. If you believe this is incorrect, please submit an issue at https://github.com/biosimulations/biosimulations/issues/new/choose.`,
       );
     }
 
     if (!run.resultsSize) {
-      errors.push(
+      errorDetails.push(
+        `The results for run appear to be empty. An error may have occurred in saving the results. Results must be properly saved for publication. If you believe this is incorrect, please submit an issue at https://github.com/biosimulations/biosimulations/issues/new/choose.`,
+      );
+      errorSummaries.push(
         `The results for run appear to be empty. An error may have occurred in saving the results. Results must be properly saved for publication. If you believe this is incorrect, please submit an issue at https://github.com/biosimulations/biosimulations/issues/new/choose.`,
       );
     }
 
-    if (errors.length) {
+    if (errorDetails.length) {
       throw new BiosimulationsException(
         HttpStatus.BAD_REQUEST,
         'Simulation run is not valid for publication.',
-        errors.join('\n\n'),
+        errorSummaries.join('\n\n'),
       );
     }
 
@@ -986,8 +1060,22 @@ export class SimulationRunService {
       },
     ];
 
-    const checkResults: PromiseSettledResult<any>[] = await Promise.allSettled(
-      checks.map((check: Check) => check.check),
+    const checkResults: PromiseResult<any>[] = await Promise.all(
+      checks.map((check: Check): Promise<PromiseResult<any>> => {
+        return check.check
+          .then((value) => {
+            return {
+              succeeded: true,
+              value: value,
+            };
+          })
+          .catch((error) => {
+            return {
+              succeeded: false,
+              error: error,
+            };
+          });
+      }),
     );
 
     const checksAreValid: boolean[] = [];
@@ -996,14 +1084,17 @@ export class SimulationRunService {
       const result = checkResults[iCheck];
       let checkIsValid!: boolean;
 
-      if (result.status !== 'fulfilled') {
-        errors.push(check.errorMessage + '\n  ' + result.reason);
+      if (!result.succeeded) {
+        errorDetails.push(`${check.errorMessage}: ${result.error.status}: ${result.error.message}`);
+        errorSummaries.push(check.errorMessage);
       } else if (result.value === undefined) {
         checkIsValid = false;
-        errors.push(check.errorMessage);
+        errorDetails.push(check.errorMessage);
+        errorSummaries.push(check.errorMessage);
       } else if (!check.isValid(result.value)) {
         checkIsValid = false;
-        errors.push(check.errorMessage);
+        errorDetails.push(check.errorMessage);
+        errorSummaries.push(check.errorMessage);
       } else {
         checkIsValid = true;
       }
@@ -1013,8 +1104,8 @@ export class SimulationRunService {
 
     /* check that there are results for all specified SED-ML reports and plots */
     if (
-      checkResults[1].status === 'fulfilled' &&
-      checkResults[2].status === 'fulfilled' &&
+      checkResults[1].succeeded && checkResults[1].value &&
+      checkResults[2].succeeded && checkResults[2].value &&
       checksAreValid[1] &&
       checksAreValid[2]
     ) {
@@ -1125,12 +1216,22 @@ export class SimulationRunService {
       );
 
       if (expectedDataSetUris.size === 0) {
-        errors.push(
+        errorDetails.push(
+          'Simulation run does not specify any SED reports or plots. For publication, simulation runs must produce data for at least one SED-ML report or plot.',
+        );
+        errorSummaries.push(
           'Simulation run does not specify any SED reports or plots. For publication, simulation runs must produce data for at least one SED-ML report or plot.',
         );
       } else if (unproducedDatSetUris.length) {
         unproducedDatSetUris.sort();
-        errors.push(
+        errorDetails.push(
+          'One or more data sets of reports or data generators of plots was not recorded. ' +
+            'For publication, there must be simulation results for each data set and data ' +
+            'generator specified in each SED-ML documents in the COMBINE archive. The ' +
+            'following data sets and data generators were not recorded.\n\n  * ' +
+            unproducedDatSetUris.join('\n  * '),
+        );
+        errorSummaries.push(
           'One or more data sets of reports or data generators of plots was not recorded. ' +
             'For publication, there must be simulation results for each data set and data ' +
             'generator specified in each SED-ML documents in the COMBINE archive. The ' +
@@ -1138,18 +1239,25 @@ export class SimulationRunService {
             unproducedDatSetUris.join('\n  * '),
         );
       } else if (unrecordedDatSetUris.size) {
-        errors.push(
+        errorDetails.push(
+          'Data was not recorded for the following data sets for reports and data generators for plots.\n\n  * ' +
+            Array.from(unrecordedDatSetUris).sort().join('\n  * '),
+        );
+        errorSummaries.push(
           'Data was not recorded for the following data sets for reports and data generators for plots.\n\n  * ' +
             Array.from(unrecordedDatSetUris).sort().join('\n  * '),
         );
       }
     }
 
-    if (errors.length) {
+    if (errorDetails.length) {
+      this.logger.error(
+        `Simulation run is not valid for publication:\n\n  ${errorDetails.join('\n\n  ')}`
+      );
       throw new BiosimulationsException(
         HttpStatus.BAD_REQUEST,
         'Simulation run is not valid for publication.',
-        errors.join('\n\n'),
+        errorSummaries.join('\n\n'),
       );
     }
 

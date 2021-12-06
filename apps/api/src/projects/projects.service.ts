@@ -31,6 +31,13 @@ import { scopes } from '@biosimulations/auth/common';
 import { ManagementService as AccountManagementService } from '@biosimulations/account/management';
 import { Organization as Auth0Organization } from 'auth0';
 
+interface ProjectSummaryResult {
+  id: string;
+  succeeded: boolean;
+  value?: ProjectSummary;
+  error?: any;
+}
+
 @Injectable()
 export class ProjectsService {
   private logger = new Logger('ProjectsService');
@@ -171,27 +178,51 @@ export class ProjectsService {
    */
   public async getProjectSummaries(): Promise<ProjectSummary[]> {
     const projects = await this.model.find({}).select('id').exec();
-    const promises = projects.map((project): Promise<ProjectSummary> => {
-      return this.getProjectSummary(project.id);
+    const promises = projects.map((project): Promise<ProjectSummaryResult> => {
+      return this.getProjectSummary(project.id)
+        .then((value: ProjectSummary) => {
+          return {
+            id: project.id,
+            succeeded: true,
+            value: value,
+          };
+        })
+        .catch((error) => {
+          return {
+            id: project.id,
+            succeeded: false,
+            error: error,
+          };
+        });
     });
-    const settledResults = await Promise.allSettled(promises);
-    return settledResults.map(
+    const settledResults = await Promise.all(promises);
+
+    const failures = settledResults
+      .filter((settledResult: ProjectSummaryResult): boolean => {
+        return !settledResult.succeeded;
+      });
+    if (failures.length) {
+      const msgs = failures
+        .map((settledResult: ProjectSummaryResult): string => {
+          return `Project ${settledResult.id}: ${settledResult.error.status}: ${settledResult.error.message}`;
+        });
+      this.logger.log(
+        `Summaries could not be obtained for ${failures.length} projects:\n  ${msgs.join('\n  ')}`,
+      );
+      throw new InternalServerErrorException(
+        `Summaries could not be retrieved for ${failures.length} projects.`,
+      );
+    }
+
+    return settledResults.flatMap(
       (
-        settledResult: PromiseSettledResult<ProjectSummary>,
-        iProject: number,
-      ): ProjectSummary => {
-        if (
-          settledResult.status !== 'fulfilled' ||
-          !('value' in settledResult)
-        ) {
-          this.logger.log(
-            `Error getting summary for project '${projects[iProject].id}'.`,
-          );
-          throw new InternalServerErrorException(
-            'Summaries could not be retrieved for one or more projects.',
-          );
+        settledResult: ProjectSummaryResult,
+      ): ProjectSummary[] => {
+        if (settledResult.value) {
+          return [settledResult.value];
+        } else {
+          return [];
         }
-        return settledResult.value;
       },
     );
   }
@@ -204,6 +235,7 @@ export class ProjectsService {
     const project = await this.model
       .findOne({ id })
       .collation(ProjectIdCollation);
+    
     if (!project) {
       throw new NotFoundException(
         `Project with id '${id}' could not be found.`,

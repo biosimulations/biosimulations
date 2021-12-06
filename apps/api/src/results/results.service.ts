@@ -5,12 +5,20 @@ import {
   Logger,
   BadRequestException,
   NotFoundException,
+  InternalServerErrorException,
   HttpStatus,
 } from '@nestjs/common';
 import { Output, OutputData, Results } from './datamodel';
 import { AWSError, S3 } from 'aws-sdk';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
+
+interface OutputResult {
+  dataset: Dataset,
+  succeeded: boolean;
+  value?: Output;
+  error?: any;
+}
 
 @Injectable()
 export class ResultsService {
@@ -34,31 +42,55 @@ export class ResultsService {
     const timestamps = this.results.getResultsTimestamps(runId);
     const datasets = await this.results.getDatasets(runId);
 
-    const outputResults: PromiseSettledResult<Output>[] =
-      await Promise.allSettled(
-        datasets.map(this.parseDataset.bind(this, runId, includeValues)),
+    const outputResults: OutputResult[] =
+      await Promise.all(
+        datasets.map((dataset: Dataset): Promise<OutputResult> => {
+          return this.parseDataset(runId, includeValues, dataset)
+            .then((value: Output): OutputResult => {
+              return {
+                dataset: dataset,
+                succeeded: true,
+                value: value,
+              };
+            })
+            .catch((error: any): OutputResult => {
+              return {
+                dataset: dataset,
+                succeeded: false,
+                error: error,
+              };
+            });
+        }),
       );
 
-    const outputs: Output[] = [];
-    const errors: string[] = [];
+    const outputs: Output[] = [];    
+    const errorDetails: string[] = [];
+    const errorSummaries: string[] = [];
     outputResults.forEach(
-      (outputResult: PromiseSettledResult<Output>, iDataSet: number): void => {
-        if (outputResult.status === 'fulfilled' && 'value' in outputResult) {
+      (outputResult: OutputResult): void => {
+        if (outputResult.succeeded && outputResult.value) {
           outputs.push(outputResult.value);
         } else {
-          const dataset = datasets[iDataSet];
-          errors.push(
-            outputResult?.reason ||
-              `${dataset.attributes._type} '${dataset.attributes.uri} of simulation run '${runId}' could not be parsed.`,
+          const datasetAttrs = outputResult.dataset.attributes;
+          const error = outputResult.error;          
+          errorDetails.push(
+            `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed: ${error.status}: ${error.message}.`,
+          );
+          errorSummaries.push(
+            `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed.`,
           );
         }
       },
     );
 
-    if (errors.length) {
-      throw new Error(
-        `${errors.length} outputs could not be parsed for simulation run ${runId}:` +
-          `\n\n  ${errors.join('\n\n').replace(/\n/g, '\n  ')}`,
+    if (errorDetails.length) {
+      this.logger.error(
+        `${errorDetails.length} outputs could not be parsed for simulation run ${runId}:` +
+          `\n\n  ${errorDetails.join('\n\n').replace(/\n/g, '\n  ')}`,
+      );
+      throw new InternalServerErrorException(
+        `${errorSummaries.length} outputs could not be parsed for simulation run ${runId}:` +
+          `\n\n  ${errorSummaries.join('\n\n').replace(/\n/g, '\n  ')}`,
       );
     }
 
@@ -123,6 +155,7 @@ export class ResultsService {
       this.endpoints.getSimulationRunOutputS3Path(runId),
     );
   }
+
   private async parseDataset(
     runId: string,
     includeValues: boolean,
