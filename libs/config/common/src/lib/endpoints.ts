@@ -33,15 +33,6 @@ export class Endpoints {
   private simulationRunResultsHsdsPath: string;
   private simulationRunContentS3Subpath: string;
   private simulationRunsS3Path: string;
-  //private simulationRuns: string;
-  //private simulationRunResults: string;
-  //private simulationRunLogs: string;
-  //private simulationRunMetadata: string;
-  //private simulators: string;
-  //private files: string;
-  //private combineFile: string;
-  //private specifications: string;
-  //private projects: string;
 
   private env: string;
   public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
@@ -71,17 +62,6 @@ export class Endpoints {
     this.simulationRunsS3Path = 'simulations';
     this.simulationRunContentS3Subpath = 'contents';
     this.simulationRunResultsHsdsPath = 'results';
-
-    // this.simulationRunLogts = `${this.api}/logs`;
-    // this.simulationRunResults = `${this.api}/results`;
-    // this.simulationRunMetadata = `${this.api}/metadata`;
-    // this.simulationRuns = `${this.api}/runs`;
-    // this.specifications = `${this.api}/specifications`;
-    // this.files = `${this.api}/files`;
-
-    // this.simulators = `${this.simulatorsApi}/simulators`;
-    // this.combineFile = `${this.combineApi}/combine/file`;
-    // this.projects = `${this.api}/projects`;
   }
 
   // HEALTH CHECKS
@@ -277,14 +257,6 @@ export class Endpoints {
    */
   public getAddFileToCombineArchiveEndpoint(external: boolean): string {
     return this.getCombineFilesEndpointBaseUrl(external);
-  }
-
-  /**
-   * Create a URL for the route of the COMBINE API
-   * @returns A URL for extracting the inputs and outputs of models
-   */
-  public getCombineApiEndpoint(external: boolean): string {
-    return this.getCombineApiBaseUrl(external);
   }
 
   /**
@@ -540,7 +512,7 @@ export class Endpoints {
   ): string {
     return `${this.getSimulationRunS3Path(runId)}/${
       this.simulationRunContentS3Subpath
-    }/${location}`;
+    }/${fileLocation}`;
   }
 
   /**
@@ -653,12 +625,15 @@ export class Endpoints {
   public getSimulatorsApiBaseUrl(external: boolean): string {
     return external ? this.externalSimulatorsApi : this.simulatorsApi;
   }
-  private getDataServiceBaseUrl(external: boolean): string {
+  public getDataServiceBaseUrl(external: boolean): string {
     return external ? this.externalDataService : this.dataService;
   }
 
-  private getCombineApiBaseUrl(external: boolean): string {
+  public getCombineApiBaseUrl(external: boolean): string {
     return external ? this.externalCombineApi : this.combineApi;
+  }
+  public getStorageEndpointBaseUrl(external: boolean): string {
+    return external ? this.externalStorageEndpoint : this.storageEndpoint;
   }
 
   private getOntologiesEndpointBaseUrl(app: string, external: boolean): string {
@@ -711,9 +686,5 @@ export class Endpoints {
   private getCombineFilesEndpointBaseUrl(external: boolean): string {
     const api = this.getCombineApiBaseUrl(external);
     return `${api}/combine/file`;
-  }
-
-  private getStorageEndpointBaseUrl(external: boolean): string {
-    return external ? this.externalStorageEndpoint : this.storageEndpoint;
   }
 }
