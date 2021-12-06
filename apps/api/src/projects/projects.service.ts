@@ -93,7 +93,7 @@ export class ProjectsService implements OnModuleInit {
   }
 
   public async getCount(): Promise<number> {
-    return await this.model.count();
+    return this.model.count();
   }
   /** Save a project to the database
    *
