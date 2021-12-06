@@ -30,9 +30,8 @@ import { SpecificationsModule } from '../specifications/specifications.module';
 import { FilesModule } from '../files/files.module';
 import { MetadataModule } from '../metadata/metadata.module';
 import { ProjectsModule } from '../projects/projects.module';
-import { ProjectModel, ProjectModelSchema } from '../projects/project.model';
+
 @Module({
-  controllers: [SimulationRunController],
   imports: [
     BiosimulationsAuthModule,
     HttpModule,
@@ -46,8 +45,6 @@ import { ProjectModel, ProjectModelSchema } from '../projects/project.model';
     forwardRef(() => ProjectsModule),
     MongooseModule.forFeature([
       { name: SimulationRunModel.name, schema: SimulationRunModelSchema },
-      // TODO remove this dependency, use the service to work with the project model
-      { name: ProjectModel.name, schema: ProjectModelSchema },
     ]),
     // Need to provide hash keys to allow use on cluster.
     //See https://github.com/OptimalBits/bull/blob/develop/PATTERNS.md#redis-cluster
@@ -57,6 +54,7 @@ import { ProjectModel, ProjectModelSchema } from '../projects/project.model';
     }),
     HSDSClientModule,
   ],
+  controllers: [SimulationRunController],
   providers: [SimulationRunService],
   exports: [SimulationRunService],
 })

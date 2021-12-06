@@ -16,6 +16,7 @@ import {
   BadRequestException,
   CACHE_MANAGER,
   HttpStatus,
+  forwardRef,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -84,6 +85,7 @@ import {
 import { OntologyApiService } from '@biosimulations/ontology/api';
 import { Cache } from 'cache-manager';
 import { AxiosError } from 'axios';
+import { ProjectsService } from '../projects/projects.service';
 
 // 1 GB in bytes to be used as file size limits
 const ONE_GIGABYTE = 1000000000;
@@ -125,8 +127,6 @@ export class SimulationRunService {
   public constructor(
     @InjectModel(SimulationRunModel.name)
     private simulationRunModel: Model<SimulationRunModel>,
-    @InjectModel(ProjectModel.name)
-    private projectModel: Model<ProjectModel>,
     private simulationStorageService: SimulationStorageService,
     private httpService: HttpService,
     @Inject('NATS_CLIENT') private client: ClientProxy,
@@ -136,6 +136,8 @@ export class SimulationRunService {
     private logsService: LogsService,
     private metadataService: MetadataService,
     private ontologiesService: OntologyApiService,
+    @Inject(forwardRef(() => ProjectsService))
+    private projectService: ProjectsService,
     private configService: ConfigService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {
@@ -193,7 +195,7 @@ export class SimulationRunService {
   }
 
   public async deleteAll(): Promise<void> {
-    const count = await this.projectModel.count();
+    const count = await this.projectService.getCount();
     if (count > 0) {
       throw new BadRequestException(
         `${count} runs cannot be deleted because they have been published as projects.`,
@@ -206,13 +208,12 @@ export class SimulationRunService {
   }
 
   public async delete(id: string): Promise<void> {
-    const project = await this.projectModel
-      .findOne({ simulationRun: id })
-      .select('id')
-      .exec();
-    if (project) {
+    const projectId = await this.projectService.getProjectIdBySimulationRunId(
+      id,
+    );
+    if (projectId) {
       throw new BadRequestException(
-        `Simulation run '${id}' cannot be deleted because it has been published as project '${project.id}'.`,
+        `Simulation run '${id}' cannot be deleted because it has been published as project '${projectId}'.`,
       );
     }
 

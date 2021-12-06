@@ -15,6 +15,7 @@ import {
   BadRequestException,
   HttpStatus,
   CACHE_MANAGER,
+  OnModuleInit,
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { InjectModel } from '@nestjs/mongoose';
@@ -22,7 +23,6 @@ import { Model } from 'mongoose';
 import { SimulationRunService } from '../simulation-run/simulation-run.service';
 import { ProjectIdCollation, ProjectModel } from './project.model';
 import { DeleteResult } from 'mongodb';
-import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthToken } from '@biosimulations/auth/common';
 import { isAdmin } from '@biosimulations/auth/nest';
@@ -30,6 +30,7 @@ import { BiosimulationsException } from '@biosimulations/shared/exceptions';
 import { scopes } from '@biosimulations/auth/common';
 import { ManagementService as AccountManagementService } from '@biosimulations/account/management';
 import { Organization as Auth0Organization } from 'auth0';
+import { ModuleRef } from '@nestjs/core';
 
 interface ProjectSummaryResult {
   id: string;
@@ -39,22 +40,24 @@ interface ProjectSummaryResult {
 }
 
 @Injectable()
-export class ProjectsService {
+export class ProjectsService implements OnModuleInit {
   private logger = new Logger('ProjectsService');
 
-  private endpoints: Endpoints;
-
+  private simulationRunService!: SimulationRunService;
   public constructor(
-    @InjectModel(ProjectModel.name) private model: Model<ProjectModel>,
-    private simulationRunService: SimulationRunService,
+    @InjectModel(ProjectModel.name)
+    private model: Model<ProjectModel>,
+    private moduleRef: ModuleRef,
     private accountManagementService: AccountManagementService,
     private configService: ConfigService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) {
-    const env = configService.get('server.env');
-    this.endpoints = new Endpoints(env);
-  }
+  ) {}
 
+  public onModuleInit(): void {
+    this.simulationRunService = this.moduleRef.get(SimulationRunService, {
+      strict: false,
+    });
+  }
   /** Get all projects
    */
   public async getProjects(): Promise<ProjectModel[]> {
@@ -75,6 +78,23 @@ export class ProjectsService {
     return project;
   }
 
+  /** Get the id of a project that has the underlying simulation run of simulationRunId
+   * @Param simulationRunId id of the simulation run of the published project
+   */
+
+  public async getProjectIdBySimulationRunId(
+    simulationRunId: string,
+  ): Promise<string | undefined> {
+    const project = await this.model
+      .findOne({ simulationRun: simulationRunId })
+      .select('id')
+      .exec();
+    return project?.id;
+  }
+
+  public async getCount(): Promise<number> {
+    return await this.model.count();
+  }
   /** Save a project to the database
    *
    * @param projectInput project to save to the database
