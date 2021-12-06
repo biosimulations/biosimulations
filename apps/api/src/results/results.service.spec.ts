@@ -4,7 +4,7 @@
  * @copyright BioSimulations Team, 2020
  * @license MIT
  */
-import { SharedStorageService } from '@biosimulations/shared/storage';
+import { SimulationStorageService } from '@biosimulations/shared/storage';
 import { SimulationHDFService } from '@biosimulations/hsds/client';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -42,7 +42,7 @@ describe('ResultsService', () => {
       providers: [
         ResultsService,
         {
-          provide: SharedStorageService,
+          provide: SimulationStorageService,
           useClass: MockStorageService,
         },
         {
