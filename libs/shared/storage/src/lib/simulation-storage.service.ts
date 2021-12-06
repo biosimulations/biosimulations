@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ManagedUpload } from 'aws-sdk/clients/s3';
+import S3, { ManagedUpload } from 'aws-sdk/clients/s3';
 import { SharedStorageService } from './shared-storage.service';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
@@ -17,6 +17,32 @@ export class SimulationStorageService {
   ) {
     const env = this.configService.get('server.env');
     this.endpoints = new Endpoints(env);
+  }
+
+  public async deleteSimulationRunResults(runId: string): Promise<void> {
+    await this.deleteSimulationArchive(runId);
+  }
+
+  public async deleteSimulationRunFile(
+    runId: string,
+    fileLocation: string,
+  ): Promise<void> {
+    const fileObject = this.endpoints.getSimulationRunContentFileS3Path(
+      runId,
+      fileLocation,
+    );
+    const output = await this.storage.deleteObject(fileObject);
+
+    // TODO check deletion worked
+  }
+
+  public async getSimulationRunOutputArchive(
+    runId: string,
+  ): Promise<S3.GetObjectOutput> {
+    const file = await this.storage.getObject(
+      this.endpoints.getSimulationRunOutputS3Path(runId),
+    );
+    return file;
   }
 
   public async extractSimulationArchive(file: string): Promise<any> {

@@ -9,7 +9,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DeleteResult } from 'mongodb';
 import { FileModel } from './files.model';
-import { SharedStorageService } from '@biosimulations/shared/storage';
+import { SimulationStorageService } from '@biosimulations/shared/storage';
 import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -20,7 +20,7 @@ export class FilesService {
 
   public constructor(
     @InjectModel(FileModel.name) private model: Model<FileModel>,
-    private storage: SharedStorageService,
+    private storage: SimulationStorageService,
     private configService: ConfigService,
   ) {
     const env = configService.get('server.env');
@@ -101,9 +101,7 @@ export class FilesService {
       );
     }
 
-    await this.storage.deleteObject(
-      this.endpoints.getSimulationRunOutputS3Path(file.id),
-    );
+    await this.storage.deleteSimulationRunFile(runId, fileLocation);
 
     const res: DeleteResult = await this.model
       .deleteOne({ id: file.id })
