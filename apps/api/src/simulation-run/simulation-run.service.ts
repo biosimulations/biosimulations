@@ -109,7 +109,7 @@ interface Check {
   isValid: (result: any) => boolean;
 }
 
-interface PromiseResult<T>{
+interface PromiseResult<T> {
   id?: string;
   succeeded: boolean;
   value?: T;
@@ -581,52 +581,67 @@ export class SimulationRunService {
       .find({})
       .select('id status')
       .exec();
-    
-    const runSummaryResults =
-      await Promise.all(
-        runs.map((run): Promise<PromiseResult<SimulationRunSummary>> => {
-          return this.getRunSummary(run.id, raiseErrors)
-            .then((value) => {
-              return {
-                id: run.id,
-                succeeded: true,
-                value: value,
-              };
-            })
-            .catch((error) => {
-              return {
-                id: run.id,
-                succeeded: false,
-                error: error,
-              };
-            });
-        }),
-      );
 
-    const failures = runSummaryResults.filter((runSummaryResult: PromiseResult<SimulationRunSummary>): boolean => {
-      return !runSummaryResult.succeeded;
-    });
+    const runSummaryResults = await Promise.all(
+      runs.map((run): Promise<PromiseResult<SimulationRunSummary>> => {
+        return this.getRunSummary(run.id, raiseErrors)
+          .then((value) => {
+            return {
+              id: run.id,
+              succeeded: true,
+              value: value,
+            };
+          })
+          .catch((error) => {
+            return {
+              id: run.id,
+              succeeded: false,
+              error: error,
+            };
+          });
+      }),
+    );
+
+    const failures = runSummaryResults.filter(
+      (runSummaryResult: PromiseResult<SimulationRunSummary>): boolean => {
+        return !runSummaryResult.succeeded;
+      },
+    );
     if (failures.length) {
       const details: string[] = [];
       const summaries: string[] = [];
-      failures.forEach((runSummaryResult: PromiseResult<SimulationRunSummary>) => {
-        details.push(`A summary of run '${runSummaryResult.id}' could not be retrieved: ${runSummaryResult.error.status}: ${runSummaryResult.error.message}.`);
-        summaries.push(runSummaryResult.id as string);
-      });
+      failures.forEach(
+        (runSummaryResult: PromiseResult<SimulationRunSummary>) => {
+          details.push(
+            `A summary of run '${runSummaryResult.id}' could not be retrieved: ${runSummaryResult.error.status}: ${runSummaryResult.error.message}.`,
+          );
+          summaries.push(runSummaryResult.id as string);
+        },
+      );
 
-      this.logger.error(`Summaries of ${failures.length} runs could not be obtained:\n  ${details.join('\n  ')}`);
+      this.logger.error(
+        `Summaries of ${
+          failures.length
+        } runs could not be obtained:\n  ${details.join('\n  ')}`,
+      );
       throw new InternalServerErrorException(
-        `Summaries of ${failures.length} runs could not be obtained:\n  ${summaries.join('\n  ')}`
+        `Summaries of ${
+          failures.length
+        } runs could not be obtained:\n  ${summaries.join('\n  ')}`,
       );
     }
 
-    return runSummaryResults.flatMap((runSummaryResult: PromiseResult<SimulationRunSummary>): SimulationRunSummary[] => {
-      if (runSummaryResult.value) {
-        return [runSummaryResult.value];
-      } else {
-        return [];
-      }
-    });
+    return runSummaryResults.flatMap(
+      (
+        runSummaryResult: PromiseResult<SimulationRunSummary>,
+      ): SimulationRunSummary[] => {
+        if (runSummaryResult.value) {
+          return [runSummaryResult.value];
+        } else {
+          return [];
+        }
+      },
+    );
   }
 
   public async getRunSummary(
@@ -656,40 +671,43 @@ export class SimulationRunService {
     raiseErrors = false,
   ): Promise<SimulationRunSummary> {
     /* get data */
-    const settledResults = await Promise.all([
-      this.get(id),
-      this.filesService.getSimulationRunFiles(id),
-      this.specificationsService.getSpecificationsBySimulation(id),
-      this.logsService.getLog(id),
-      this.metadataService.getMetadata(id),
-    ].map((promise: Promise<any>): Promise<PromiseResult<any>> => {
-      return promise
-        .then((value) => {
-          return {
-            succeeded: true,
-            value: value,
-          };
-        })
-        .catch((error) => {
-          return {
-            succeeded: false,
-            error: error,
-          };
-        })
-    }));
+    const settledResults = await Promise.all(
+      [
+        this.get(id),
+        this.filesService.getSimulationRunFiles(id),
+        this.specificationsService.getSpecificationsBySimulation(id),
+        this.logsService.getLog(id),
+        this.metadataService.getMetadata(id),
+      ].map((promise: Promise<any>): Promise<PromiseResult<any>> => {
+        return promise
+          .then((value) => {
+            return {
+              succeeded: true,
+              value: value,
+            };
+          })
+          .catch((error) => {
+            return {
+              succeeded: false,
+              error: error,
+            };
+          });
+      }),
+    );
 
     const runSettledResult: PromiseResult<SimulationRunModelReturnType | null> =
       settledResults[0];
     const filesResult: PromiseResult<FileModel[]> = settledResults[1];
     const simulationExptsResult: PromiseResult<SpecificationsModel[]> =
       settledResults[2];
-    const logResult: PromiseResult<CombineArchiveLog> =
-      settledResults[3];
+    const logResult: PromiseResult<CombineArchiveLog> = settledResults[3];
     const rawMetadataResult: PromiseResult<SimulationRunMetadataIdModel | null> =
       settledResults[4];
 
     if (!runSettledResult.succeeded) {
-      this.logger.error(`Simulation run with id '${id}' could not be found: ${runSettledResult.error.status}: ${runSettledResult.error.message}.`)
+      this.logger.error(
+        `Simulation run with id '${id}' could not be found: ${runSettledResult.error.status}: ${runSettledResult.error.message}.`,
+      );
       throw new NotFoundException(
         `Simulation run with id '${id}' could not be found.`,
       );
@@ -734,9 +752,12 @@ export class SimulationRunService {
 
     /* get summary of the simulation experiment */
     if (
-      filesResult.succeeded && filesResult.value
-      && simulationExptsResult.succeeded && simulationExptsResult.value
-      && logResult.succeeded && logResult.value
+      filesResult.succeeded &&
+      filesResult.value &&
+      simulationExptsResult.succeeded &&
+      simulationExptsResult.value &&
+      logResult.succeeded &&
+      logResult.value
     ) {
       const files = filesResult.value;
       const simulationExpts = simulationExptsResult.value;
@@ -867,20 +888,32 @@ export class SimulationRunService {
     } else if (raiseErrors) {
       const details: string[] = [];
       const summaries: string[] = [];
-      
+
       if (!filesResult.succeeded) {
-        details.push(`The files for simulation run '${id}' could not be retrieved: ${filesResult.error.status}: ${filesResult.error.message}.`)
-        summaries.push(`The files for simulation run '${id}' could not be retrieved.`)
+        details.push(
+          `The files for simulation run '${id}' could not be retrieved: ${filesResult.error.status}: ${filesResult.error.message}.`,
+        );
+        summaries.push(
+          `The files for simulation run '${id}' could not be retrieved.`,
+        );
       }
 
       if (!simulationExptsResult.succeeded) {
-        details.push(`The simulation experiments for simulation run '${id}' could not be retrieved: ${simulationExptsResult.error.status}: ${simulationExptsResult.error.message}.`)
-        summaries.push(`The simulation experiments for simulation run '${id}' could not be retrieved.`)
+        details.push(
+          `The simulation experiments for simulation run '${id}' could not be retrieved: ${simulationExptsResult.error.status}: ${simulationExptsResult.error.message}.`,
+        );
+        summaries.push(
+          `The simulation experiments for simulation run '${id}' could not be retrieved.`,
+        );
       }
 
       if (!logResult.succeeded) {
-        details.push(`The log for simulation run '${id}' could not be retrieved: ${logResult.error.status}: ${logResult.error.message}.`)
-        summaries.push(`The log for simulation run '${id}' could not be retrieved.`)
+        details.push(
+          `The log for simulation run '${id}' could not be retrieved: ${logResult.error.status}: ${logResult.error.message}.`,
+        );
+        summaries.push(
+          `The log for simulation run '${id}' could not be retrieved.`,
+        );
       }
 
       this.logger.error(details.join('\n\n'));
@@ -1085,7 +1118,9 @@ export class SimulationRunService {
       let checkIsValid!: boolean;
 
       if (!result.succeeded) {
-        errorDetails.push(`${check.errorMessage}: ${result.error.status}: ${result.error.message}`);
+        errorDetails.push(
+          `${check.errorMessage}: ${result.error.status}: ${result.error.message}`,
+        );
         errorSummaries.push(check.errorMessage);
       } else if (result.value === undefined) {
         checkIsValid = false;
@@ -1104,8 +1139,10 @@ export class SimulationRunService {
 
     /* check that there are results for all specified SED-ML reports and plots */
     if (
-      checkResults[1].succeeded && checkResults[1].value &&
-      checkResults[2].succeeded && checkResults[2].value &&
+      checkResults[1].succeeded &&
+      checkResults[1].value &&
+      checkResults[2].succeeded &&
+      checkResults[2].value &&
       checksAreValid[1] &&
       checksAreValid[2]
     ) {
@@ -1252,7 +1289,9 @@ export class SimulationRunService {
 
     if (errorDetails.length) {
       this.logger.error(
-        `Simulation run is not valid for publication:\n\n  ${errorDetails.join('\n\n  ')}`
+        `Simulation run is not valid for publication:\n\n  ${errorDetails.join(
+          '\n\n  ',
+        )}`,
       );
       throw new BiosimulationsException(
         HttpStatus.BAD_REQUEST,

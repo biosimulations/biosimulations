@@ -14,7 +14,7 @@ import { Endpoints } from '@biosimulations/config/common';
 import { ConfigService } from '@nestjs/config';
 
 interface OutputResult {
-  dataset: Dataset,
+  dataset: Dataset;
   succeeded: boolean;
   value?: Output;
   error?: any;
@@ -42,46 +42,43 @@ export class ResultsService {
     const timestamps = this.results.getResultsTimestamps(runId);
     const datasets = await this.results.getDatasets(runId);
 
-    const outputResults: OutputResult[] =
-      await Promise.all(
-        datasets.map((dataset: Dataset): Promise<OutputResult> => {
-          return this.parseDataset(runId, includeValues, dataset)
-            .then((value: Output): OutputResult => {
-              return {
-                dataset: dataset,
-                succeeded: true,
-                value: value,
-              };
-            })
-            .catch((error: any): OutputResult => {
-              return {
-                dataset: dataset,
-                succeeded: false,
-                error: error,
-              };
-            });
-        }),
-      );
+    const outputResults: OutputResult[] = await Promise.all(
+      datasets.map((dataset: Dataset): Promise<OutputResult> => {
+        return this.parseDataset(runId, includeValues, dataset)
+          .then((value: Output): OutputResult => {
+            return {
+              dataset: dataset,
+              succeeded: true,
+              value: value,
+            };
+          })
+          .catch((error: any): OutputResult => {
+            return {
+              dataset: dataset,
+              succeeded: false,
+              error: error,
+            };
+          });
+      }),
+    );
 
     const outputs: Output[] = [];
     const errorDetails: string[] = [];
     const errorSummaries: string[] = [];
-    outputResults.forEach(
-      (outputResult: OutputResult): void => {
-        if (outputResult.succeeded && outputResult.value) {
-          outputs.push(outputResult.value);
-        } else {
-          const datasetAttrs = outputResult.dataset.attributes;
-          const error = outputResult.error;
-          errorDetails.push(
-            `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed: ${error.status}: ${error.message}.`,
-          );
-          errorSummaries.push(
-            `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed.`,
-          );
-        }
-      },
-    );
+    outputResults.forEach((outputResult: OutputResult): void => {
+      if (outputResult.succeeded && outputResult.value) {
+        outputs.push(outputResult.value);
+      } else {
+        const datasetAttrs = outputResult.dataset.attributes;
+        const error = outputResult.error;
+        errorDetails.push(
+          `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed: ${error.status}: ${error.message}.`,
+        );
+        errorSummaries.push(
+          `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed.`,
+        );
+      }
+    });
 
     if (errorDetails.length) {
       this.logger.error(

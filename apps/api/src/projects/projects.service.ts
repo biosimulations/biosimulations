@@ -197,17 +197,21 @@ export class ProjectsService {
     });
     const settledResults = await Promise.all(promises);
 
-    const failures = settledResults
-      .filter((settledResult: ProjectSummaryResult): boolean => {
+    const failures = settledResults.filter(
+      (settledResult: ProjectSummaryResult): boolean => {
         return !settledResult.succeeded;
-      });
+      },
+    );
     if (failures.length) {
-      const msgs = failures
-        .map((settledResult: ProjectSummaryResult): string => {
+      const msgs = failures.map(
+        (settledResult: ProjectSummaryResult): string => {
           return `Project ${settledResult.id}: ${settledResult.error.status}: ${settledResult.error.message}`;
-        });
+        },
+      );
       this.logger.log(
-        `Summaries could not be obtained for ${failures.length} projects:\n  ${msgs.join('\n  ')}`,
+        `Summaries could not be obtained for ${
+          failures.length
+        } projects:\n  ${msgs.join('\n  ')}`,
       );
       throw new InternalServerErrorException(
         `Summaries could not be retrieved for ${failures.length} projects.`,
@@ -215,9 +219,7 @@ export class ProjectsService {
     }
 
     return settledResults.flatMap(
-      (
-        settledResult: ProjectSummaryResult,
-      ): ProjectSummary[] => {
+      (settledResult: ProjectSummaryResult): ProjectSummary[] => {
         if (settledResult.value) {
           return [settledResult.value];
         } else {
@@ -235,7 +237,7 @@ export class ProjectsService {
     const project = await this.model
       .findOne({ id })
       .collation(ProjectIdCollation);
-    
+
     if (!project) {
       throw new NotFoundException(
         `Project with id '${id}' could not be found.`,
