@@ -27,7 +27,6 @@ import {
   SimulationRunModelType,
   SimulationProjectFile,
 } from './simulation-run.model';
-import { ProjectModel } from '../projects/project.model';
 import {
   UpdateSimulationRun,
   UploadSimulationRun,
