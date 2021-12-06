@@ -32,6 +32,6 @@ import { SimulationStorageService } from './simulation-storage.service';
     }),
   ],
   providers: [SharedStorageService, SimulationStorageService],
-  exports: [SharedStorageService, SimulationStorageService],
+  exports: [SimulationStorageService],
 })
 export class SharedStorageModule {}

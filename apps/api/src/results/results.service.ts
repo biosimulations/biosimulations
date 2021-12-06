@@ -1,5 +1,5 @@
 import { Dataset, SimulationHDFService } from '@biosimulations/hsds/client';
-import { SharedStorageService } from '@biosimulations/shared/storage';
+import { SimulationStorageService } from '@biosimulations/shared/storage';
 import {
   Injectable,
   Logger,
@@ -25,7 +25,7 @@ export class ResultsService {
   private endpoints: Endpoints;
 
   public constructor(
-    private storage: SharedStorageService,
+    private simStorage: SimulationStorageService,
     private results: SimulationHDFService,
     private configService: ConfigService,
   ) {
@@ -113,9 +113,8 @@ export class ResultsService {
 
   public async download(runId: string): Promise<S3.Body> {
     try {
-      const file = await this.storage.getObject(
-        this.endpoints.getSimulationRunOutputS3Path(runId),
-      );
+      const file = await this.simStorage.getSimulationRunOutputArchive(runId);
+
       if (file.Body) {
         return file.Body;
       } else {
@@ -148,9 +147,7 @@ export class ResultsService {
 
   public async deleteSimulationRunResults(runId: string): Promise<void> {
     await this.results.deleteDatasets(runId);
-    await this.storage.deleteObject(
-      this.endpoints.getSimulationRunOutputS3Path(runId),
-    );
+    await this.simStorage.deleteSimulationRunResults(runId);
   }
 
   private async parseDataset(
