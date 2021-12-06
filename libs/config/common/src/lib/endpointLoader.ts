@@ -238,7 +238,7 @@ export class EndpointLoader {
   private getDynamicEndpoints(): DynamicEndpoints | undefined {
     // If the code is running in a browser, we cannot load the environment variables, and must use hard-coded values
     const isBrowser = typeof window !== 'undefined';
-    let dynamicEndpoints = undefined;
+    let dynamicEndpoints;
 
     if (!isBrowser) {
       dynamicEndpoints = {
