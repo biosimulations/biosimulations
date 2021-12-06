@@ -63,7 +63,7 @@ export class ResultsService {
         }),
       );
 
-    const outputs: Output[] = [];    
+    const outputs: Output[] = [];
     const errorDetails: string[] = [];
     const errorSummaries: string[] = [];
     outputResults.forEach(
@@ -72,7 +72,7 @@ export class ResultsService {
           outputs.push(outputResult.value);
         } else {
           const datasetAttrs = outputResult.dataset.attributes;
-          const error = outputResult.error;          
+          const error = outputResult.error;
           errorDetails.push(
             `${datasetAttrs._type} '${datasetAttrs.uri} of simulation run '${runId}' could not be parsed: ${error.status}: ${error.message}.`,
           );

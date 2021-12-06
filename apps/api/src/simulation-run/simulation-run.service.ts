@@ -582,7 +582,7 @@ export class SimulationRunService {
       .select('id status')
       .exec();
     
-    const runSummaryResults = 
+    const runSummaryResults =
       await Promise.all(
         runs.map((run): Promise<PromiseResult<SimulationRunSummary>> => {
           return this.getRunSummary(run.id, raiseErrors)
