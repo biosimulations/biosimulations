@@ -1,12 +1,12 @@
 import {
-  SedDocument,  
+  SedDocument,
   SerializedSedDocument,
   SedModel,
   SerializedSedModel,
   SedSimulation,
   SedAbstractTask,
   SerializedSedAbstractTask,
-  SedDataGenerator,  
+  SedDataGenerator,
   SerializedSedDataGenerator,
   SedVariable,
   SerializedSedVariable,
@@ -84,13 +84,13 @@ export function deserializeSedDocument(serializedSedDoc: SerializedSedDocument):
       outputIdMap[output.id] = {
         _type: output._type,
         id: output.id,
-        name: output?.name,      
+        name: output?.name,
         dataSets: output.dataSets.map((dataSet: SerializedSedDataSet): SedDataSet => {
           return {
             _type: dataSet._type,
             id: dataSet.id,
             label: dataSet.label,
-            name: dataSet?.name,      
+            name: dataSet?.name,
             dataGenerator: dataGeneratorIdMap[dataSet.dataGenerator],
           };
         }),
@@ -99,12 +99,12 @@ export function deserializeSedDocument(serializedSedDoc: SerializedSedDocument):
       outputIdMap[output.id] = {
         _type: output._type,
         id: output.id,
-        name: output?.name,      
+        name: output?.name,
         curves: output.curves.map((curve: SerializedSedCurve): SedCurve => {
           return {
             _type: curve._type,
             id: curve.id,
-            name: curve?.name,      
+            name: curve?.name,
             xDataGenerator: dataGeneratorIdMap[curve.xDataGenerator],
             yDataGenerator: dataGeneratorIdMap[curve.yDataGenerator],
           };
@@ -116,12 +116,12 @@ export function deserializeSedDocument(serializedSedDoc: SerializedSedDocument):
       outputIdMap[output.id] = {
         _type: output._type,
         id: output.id,
-        name: output?.name,      
+        name: output?.name,
         surfaces: output.surfaces.map((surface: SerializedSedSurface): SedSurface => {
           return {
             _type: surface._type,
             id: surface.id,
-            name: surface?.name,      
+            name: surface?.name,
             xDataGenerator: dataGeneratorIdMap[surface.xDataGenerator],
             yDataGenerator: dataGeneratorIdMap[surface.yDataGenerator],
             zDataGenerator: dataGeneratorIdMap[surface.zDataGenerator],

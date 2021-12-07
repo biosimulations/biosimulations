@@ -14,7 +14,7 @@ import {
   SedAddElementModelChange as ISedAddElementModelChange,
   SedReplaceElementModelChange as ISedReplaceElementModelChange,
   SedRemoveElementModelChange as ISedRemoveElementModelChange,
-  SerializedSedComputeModelChange as ISedComputeModelChange,  
+  SerializedSedComputeModelChange as ISedComputeModelChange,
   SedOneStepSimulation as ISedOneStepSimulation,
   SedSteadyStateSimulation as ISedSteadyStateSimulation,
   SedUniformTimeCourseSimulation as ISedUniformTimeCourseSimulation,
@@ -266,7 +266,7 @@ export class SedComputeModelChange implements ISedComputeModelChange {
   public math!: string;
 }
 
-export type SedModelChange = 
+export type SedModelChange =
   | SedModelAttributeChange
   | SedAddElementModelChange
   | SedReplaceElementModelChange

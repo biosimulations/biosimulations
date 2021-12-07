@@ -267,7 +267,7 @@ export const SedComputeModelChangeSchema = SchemaFactory.createForClass(
   SedComputeModelChange,
 );
 
-export type SedModelChangeType = 
+export type SedModelChangeType =
   | SedModelAttributeChange
   | SedAddElementModelChange
   | SedReplaceElementModelChange

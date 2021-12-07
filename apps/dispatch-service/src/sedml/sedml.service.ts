@@ -61,7 +61,7 @@ export class SedmlService {
       const dataGenerators: SedDataGenerator[] = spec.dataGenerators;
       const outputs: SedOutput[] = spec.outputs;
       sedmlSpecs.push({
-        id: id,        
+        id: id,
         level: spec.level,
         version: spec.version,
         models,

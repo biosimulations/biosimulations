@@ -231,7 +231,7 @@ export class VegaVisualizationService {
       | undefined = this.getSedDocument(path, sedDocumentConfigurations);
     if (!serializedSedDocument) {
       return undefined;
-    }    
+    }
 
     const objectTypeIdStr = path?.[1];
     if (
