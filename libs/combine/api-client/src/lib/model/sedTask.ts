@@ -9,8 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedSimulation } from './sedSimulation';
-import { SedModel } from './sedModel';
 
 /**
  * A SED task.
@@ -24,8 +22,14 @@ export interface SedTask {
    * Brief description.
    */
   name?: string;
-  model: SedModel;
-  simulation: SedSimulation;
+  /**
+   * Identifier of the model.
+   */
+  model: string;
+  /**
+   * Identifier of the simulation.
+   */
+  simulation: string;
   /**
    * Type.
    */

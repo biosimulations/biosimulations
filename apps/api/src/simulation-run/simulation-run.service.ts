@@ -67,6 +67,9 @@ import { ConfigService } from '@nestjs/config';
 import { FileModel } from '../files/files.model';
 import {
   SpecificationsModel,
+  SedModel,
+  SedSimulation,
+  SedAbstractTask,
   SedTask,
   SedReport,
   SedPlot2D,
@@ -792,68 +795,88 @@ export class SimulationRunService {
           ? simulationExpt.id.substring(2)
           : simulationExpt.id;
 
-        simulationExpt.tasks.forEach((task: SedTask): void => {
-          const uri = docLocation + '/' + task.simulation.id;
-
-          let modelFormat: EdamTerm | null = null;
-          for (const format of BIOSIMULATIONS_FORMATS) {
-            if (
-              format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
-              task.model.language.startsWith(
-                format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
-              )
-            ) {
-              modelFormat = format;
-              break;
-            }
-          }
-
-          const algorithmKisaoId =
-            taskAlgorithmMap[uri] || task.simulation.algorithm.kisaoId;
-          const algorithmKisaoTerm = this.ontologiesService.getOntologyTerm(
-            Ontologies.KISAO,
-            algorithmKisaoId,
-          );
-
-          summaryTasks.push({
-            uri: docLocation + '/' + task.id,
-            id: task.id,
-            name: task?.name,
-            model: {
-              uri: docLocation + '/' + task.model.id,
-              id: task.model.id,
-              name: task.model?.name,
-              source: task.model.source,
-              language: {
-                name: modelFormat?.name || undefined,
-                acronym:
-                  modelFormat?.biosimulationsMetadata?.acronym || undefined,
-                sedmlUrn: task.model.language,
-                edamId: modelFormat?.id || undefined,
-                url: modelFormat?.url || undefined,
-              },
-            },
-            simulation: {
-              type: {
-                id: task.simulation._type,
-                name: SimulationTypeName[task.simulation._type],
-                url: 'https://sed-ml.org/',
-              },
-              uri: uri,
-              id: task.simulation.id,
-              name: task.simulation?.name,
-              algorithm: {
-                kisaoId: algorithmKisaoId,
-                name:
-                  algorithmKisaoTerm?.name ||
-                  `${algorithmKisaoId} (deprecated)`,
-                url:
-                  algorithmKisaoTerm?.url ||
-                  'https://www.ebi.ac.uk/ols/ontologies/kisao',
-              },
-            },
-          });
+        const modelMap: {[id: string]: SedModel} = {};
+        const simulationMap: {[id: string]: SedSimulation} = {};
+        simulationExpt.models.forEach((model: SedModel): void => {
+          modelMap[model.id] = model;
         });
+        simulationExpt.simulations.forEach((simulation: SedSimulation): void => {
+          simulationMap[simulation.id] = simulation;
+        });
+
+        simulationExpt.tasks
+          .flatMap((task: SedAbstractTask): SedTask[] => {
+            if (task._type === 'SedTask') {
+              return [task as SedTask];
+            } else {
+              return [];
+            }
+          })
+          .forEach((task: SedTask): void => {
+            const uri = docLocation + '/' + task.simulation;
+
+            let modelFormat: EdamTerm | null = null;
+            const model = modelMap[task.model];
+            const simulation = simulationMap[task.simulation];
+
+            for (const format of BIOSIMULATIONS_FORMATS) {
+              if (
+                format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn &&
+                model.language.startsWith(
+                  format?.biosimulationsMetadata?.modelFormatMetadata?.sedUrn,
+                )
+              ) {
+                modelFormat = format;
+                break;
+              }
+            }
+            
+            const algorithmKisaoId =
+              taskAlgorithmMap[uri] || simulation.algorithm.kisaoId;
+            const algorithmKisaoTerm = this.ontologiesService.getOntologyTerm(
+              Ontologies.KISAO,
+              algorithmKisaoId,
+            );
+
+            summaryTasks.push({
+              uri: docLocation + '/' + task.id,
+              id: task.id,
+              name: task?.name,
+              model: {
+                uri: docLocation + '/' + model.id,
+                id: model.id,
+                name: model?.name,
+                source: model.source,
+                language: {
+                  name: modelFormat?.name || undefined,
+                  acronym:
+                    modelFormat?.biosimulationsMetadata?.acronym || undefined,
+                  sedmlUrn: model.language,
+                  edamId: modelFormat?.id || undefined,
+                  url: modelFormat?.url || undefined,
+                },
+              },
+              simulation: {
+                type: {
+                  id: simulation._type,
+                  name: SimulationTypeName[simulation._type as keyof typeof SimulationTypeName],
+                  url: 'https://sed-ml.org/',
+                },
+                uri: uri,
+                id: simulation.id,
+                name: simulation?.name,
+                algorithm: {
+                  kisaoId: algorithmKisaoId,
+                  name:
+                    algorithmKisaoTerm?.name ||
+                    `${algorithmKisaoId} (deprecated)`,
+                  url:
+                    algorithmKisaoTerm?.url ||
+                    'https://www.ebi.ac.uk/ols/ontologies/kisao',
+                },
+              },
+            });
+          });
 
         simulationExpt.outputs.forEach(
           (output: SedReport | SedPlot2D | SedPlot3D): void => {
@@ -1179,7 +1202,7 @@ export class SimulationRunService {
                   '/' +
                   output.id +
                   '/' +
-                  curve.xDataGenerator.id +
+                  curve.xDataGenerator +
                   '`',
               );
               expectedDataSetUris.add(
@@ -1188,7 +1211,7 @@ export class SimulationRunService {
                   '/' +
                   output.id +
                   '/' +
-                  curve.yDataGenerator.id +
+                  curve.yDataGenerator +
                   '`',
               );
             });
@@ -1201,7 +1224,7 @@ export class SimulationRunService {
                     '/' +
                     output.id +
                     '/' +
-                    surface.xDataGenerator.id +
+                    surface.xDataGenerator +
                     '`',
                 );
                 expectedDataSetUris.add(
@@ -1210,7 +1233,7 @@ export class SimulationRunService {
                     '/' +
                     output.id +
                     '/' +
-                    surface.yDataGenerator.id +
+                    surface.yDataGenerator +
                     '`',
                 );
                 expectedDataSetUris.add(
@@ -1219,7 +1242,7 @@ export class SimulationRunService {
                     '/' +
                     output.id +
                     '/' +
-                    surface.zDataGenerator.id +
+                    surface.zDataGenerator +
                     '`',
                 );
               },

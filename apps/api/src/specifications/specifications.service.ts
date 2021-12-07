@@ -35,7 +35,7 @@ export class SpecificationsService {
         attribute = 'simulations';
         break;
       }
-      case SedElementType.SedTask: {
+      case SedElementType.SedAbstractTask: {
         attribute = 'tasks';
         break;
       }

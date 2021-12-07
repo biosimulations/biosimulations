@@ -19,6 +19,9 @@ export interface SedTaskLog {
   skipReason: Exception | null;
   output: string | null;
   duration: number | null;
+  /**
+   * KiSAO id of the simulation algorithm that was executed
+   */
   algorithm: string | null;
   simulatorDetails: Array<SimulatorDetail> | null;
 }

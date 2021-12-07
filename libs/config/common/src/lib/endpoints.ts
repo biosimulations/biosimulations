@@ -33,15 +33,6 @@ export class Endpoints {
   private simulationRunResultsHsdsPath: string;
   private simulationRunContentS3Subpath: string;
   private simulationRunsS3Path: string;
-  //private simulationRuns: string;
-  //private simulationRunResults: string;
-  //private simulationRunLogs: string;
-  //private simulationRunMetadata: string;
-  //private simulators: string;
-  //private files: string;
-  //private combineFile: string;
-  //private specifications: string;
-  //private projects: string;
 
   private env: string;
   public constructor(env?: 'local' | 'dev' | 'stage' | 'prod') {
@@ -71,17 +62,6 @@ export class Endpoints {
     this.simulationRunsS3Path = 'simulations';
     this.simulationRunContentS3Subpath = 'contents';
     this.simulationRunResultsHsdsPath = 'results';
-
-    // this.simulationRunLogts = `${this.api}/logs`;
-    // this.simulationRunResults = `${this.api}/results`;
-    // this.simulationRunMetadata = `${this.api}/metadata`;
-    // this.simulationRuns = `${this.api}/runs`;
-    // this.specifications = `${this.api}/specifications`;
-    // this.files = `${this.api}/files`;
-
-    // this.simulators = `${this.simulatorsApi}/simulators`;
-    // this.combineFile = `${this.combineApi}/combine/file`;
-    // this.projects = `${this.api}/projects`;
   }
 
   // HEALTH CHECKS
@@ -113,7 +93,7 @@ export class Endpoints {
   // ONTOLOGIES
 
   /**
-   * Get url for ontologies endpoint
+   * Get URL for ontologies endpoint
    * @returns The endpoint for the ontologies
    */
   public getOntologyEndpoint(
@@ -128,7 +108,7 @@ export class Endpoints {
     if (termId && !ontologyId) {
       throw new Error('Cannot get a term without an ontology id');
     }
-    return `${api}/${ontologyId}${termId}`;
+    return `${api}${ontologyId}${termId}`;
   }
 
   /**
@@ -352,7 +332,7 @@ export class Endpoints {
   /**
    * Returns the URL to download the COMBINE/OMEX archive of a simulation run. The external parameter is used to determine if the
    * returned URL is accessible from outside the current environment.
-   * Effectively, if true, then any localhost urls will be replaced with the dev deployment urls
+   * Effectively, if true, then any localhost URLs will be replaced with the dev deployment URLs
    * @param id The id of the simulation run
    * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    *
@@ -365,7 +345,7 @@ export class Endpoints {
   /**
    * Returns the URL to get the results of  a simulation run. The external parameter is used to determine if the
    * returned URL is accessible from outside the current environment.
-   * Effectively, if true, then any localhost urls will be replaced with the dev deployment urls
+   * Effectively, if true, then any localhost URLs will be replaced with the dev deployment URLs
    * @param external A boolean flag on whether the URL returned should be accessible from outside the current system.
    * @param runId The id of the simulation run
    * @param experimentLocationAndOutputId The id of the result output
@@ -503,7 +483,7 @@ export class Endpoints {
   ): string {
     id ? (id = `?id=${id}`) : (id = '');
     const tests = includeTests ? '?includeTests=true' : '';
-    return `${this.getSimulatorsApiBaseUrl(external)}/latest${id}${tests}`;
+    return `${this.getSimulatorsApiBaseUrl(external)}/simulators/latest${id}${tests}`;
   }
   // SUBPATHS
   /**
@@ -644,7 +624,7 @@ export class Endpoints {
   }
 
   // BASE URLS
-  // base urls for the backend services depending on the "external" parameter
+  // base URLs for the backend services depending on the "external" parameter
 
   public getApiBaseUrl(external: boolean): string {
     return external ? this.externalApi : this.api;

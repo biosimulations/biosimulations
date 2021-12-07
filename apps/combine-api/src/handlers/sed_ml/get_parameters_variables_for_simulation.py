@@ -193,7 +193,7 @@ def handler(body, modelFile=None):
             response_var = {
                 "_type": "SedVariable",
                 "id": '{}{}'.format(var.id, sim_suffix),
-                "task": task,
+                "task": task['id'],
             }
 
             if var.name:
@@ -219,6 +219,7 @@ def handler(body, modelFile=None):
             data_generator = {
                 "_type": "SedDataGenerator",
                 "id": "data_generator{}_{}".format(sim_suffix, var.id),
+                "parameters": [],
                 "variables": [response_var],
                 "math": response_var['id'],
             }
@@ -234,7 +235,7 @@ def handler(body, modelFile=None):
                 'id': 'data_set{}_{}'.format(sim_suffix, var.id),
                 'label': var.name or var.id,
                 'name': var.name,
-                'dataGenerator': data_generator,
+                'dataGenerator': data_generator['id'],
             }
 
             report['dataSets'].append(data_set)
@@ -258,8 +259,8 @@ def handler(body, modelFile=None):
                         "_type": "SedCurve",
                         "id": '{}{}'.format(curve.id, sim_suffix),
                         "name": curve.name,
-                        "xDataGenerator": var_data_gen_map[curve.x_data_generator.variables[0]],
-                        "yDataGenerator": var_data_gen_map[curve.y_data_generator.variables[0]],
+                        "xDataGenerator": var_data_gen_map[curve.x_data_generator.variables[0]]['id'],
+                        "yDataGenerator": var_data_gen_map[curve.y_data_generator.variables[0]]['id'],
                         "xScale": curve.x_scale.value,
                         "yScale": curve.y_scale.value,
                     })
@@ -283,9 +284,9 @@ def handler(body, modelFile=None):
                         "_type": "SedSurface",
                         "id": '{}{}'.format(curve.id, sim_suffix),
                         "name": curve.name,
-                        "xDataGenerator": var_data_gen_map[curve.x_data_generator.variables[0]],
-                        "yDataGenerator": var_data_gen_map[curve.y_data_generator.variables[0]],
-                        "zDataGenerator": var_data_gen_map[curve.z_data_generator.variables[0]],
+                        "xDataGenerator": var_data_gen_map[curve.x_data_generator.variables[0]]['id'],
+                        "yDataGenerator": var_data_gen_map[curve.y_data_generator.variables[0]]['id'],
+                        "zDataGenerator": var_data_gen_map[curve.z_data_generator.variables[0]]['id'],
                         "xScale": curve.x_scale.value,
                         "yScale": curve.y_scale.value,
                         "zScale": curve.z_scale.value,

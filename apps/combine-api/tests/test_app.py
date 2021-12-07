@@ -637,10 +637,44 @@ class HandlersTestCase(unittest.TestCase):
             },
         )
 
-        plot = sed_doc['outputs'][-1]
+        data_gen_u = next(data_gen for data_gen in sed_doc['dataGenerators'] if data_gen['id'] == 'data_generator_dynamics_U')
+        data_gen_v = next(data_gen for data_gen in sed_doc['dataGenerators'] if data_gen['id'] == 'data_generator_dynamics_V')
+        self.assertEqual(data_gen_u, {
+            "_type": "SedDataGenerator",
+            "id": "data_generator_dynamics_U",
+            "name": 'Dynamics of "U"',
+            "parameters": [],
+            "variables": [{
+                "_type": "SedVariable",
+                "id": "dynamics_U",
+                "name": 'Dynamics of "U"',
+                "target": {
+                    "_type": "SedTarget",
+                    "value": "U",
+                },
+                "task": "task",
+            }],
+            "math": "dynamics_U",            
+        })
+        self.assertEqual(data_gen_v, {
+            "_type": "SedDataGenerator",
+            "id": "data_generator_dynamics_V",
+            "name": 'Dynamics of "V"',
+            "parameters": [],
+            "variables": [{
+                "_type": "SedVariable",
+                "id": "dynamics_V",
+                "name": 'Dynamics of "V"',
+                "target": {
+                    "_type": "SedTarget",
+                    "value": "V",
+                },
+                "task": "task",
+            }],
+            "math": "dynamics_V",
+        })
 
-        del plot['curves'][0]['xDataGenerator']['variables'][0]['task']
-        del plot['curves'][0]['yDataGenerator']['variables'][0]['task']
+        plot = sed_doc['outputs'][-1]
 
         self.assertEqual(
             plot,
@@ -653,38 +687,10 @@ class HandlersTestCase(unittest.TestCase):
                         "_type": "SedCurve",
                         "id": "curve_1",
                         "name": "V vs U",
-                        "xDataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "id": "data_generator_dynamics_U",
-                            "name": 'Dynamics of "U"',
-                            "variables": [{
-                                "_type": "SedVariable",
-                                "id": "dynamics_U",
-                                "name": 'Dynamics of "U"',
-                                "target": {
-                                    "_type": "SedTarget",
-                                    "value": "U",
-                                },
-                            }],
-                            "math": "dynamics_U",
-                        },
-                        "yDataGenerator": {
-                            "_type": "SedDataGenerator",
-                            "id": "data_generator_dynamics_V",
-                            "name": 'Dynamics of "V"',
-                            "variables": [{
-                                "_type": "SedVariable",
-                                "id": "dynamics_V",
-                                "name": 'Dynamics of "V"',
-                                "target": {
-                                    "_type": "SedTarget",
-                                    "value": "V",
-                                },
-                            }],
-                            "math": "dynamics_V",
-                        },
-                        "xScale": "linear",
-                        "yScale": "linear",
+                        "xDataGenerator": "data_generator_dynamics_U",
+                        "yDataGenerator": "data_generator_dynamics_V",
+                        'xScale': 'linear',
+                        'yScale': 'linear',
                     }
                 ]
             },

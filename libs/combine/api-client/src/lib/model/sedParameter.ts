@@ -9,15 +9,28 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedTask } from './sedTask';
-import { SedRepeatedTask } from './sedRepeatedTask';
 
 /**
- * A SED abstract task.
+ * Parameter of a calculation
  */
-/**
- * @type SedAbstractTask
- * A SED abstract task.
- * @export
- */
-export type SedAbstractTask = SedRepeatedTask | SedTask;
+export interface SedParameter {
+  /**
+   * Unique identifier within its parent SED document.
+   */
+  id: string;
+  /**
+   * Brief description.
+   */
+  name?: string;
+  /**
+   * Value of the parameter
+   */
+  value: number;
+  /**
+   * Type
+   */
+  _type: SedParameterType;
+}
+export enum SedParameterType {
+  SedParameter = 'SedParameter',
+}

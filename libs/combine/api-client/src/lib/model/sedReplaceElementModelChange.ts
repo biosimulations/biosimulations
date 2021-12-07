@@ -9,15 +9,30 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedTask } from './sedTask';
-import { SedRepeatedTask } from './sedRepeatedTask';
+import { SedTarget } from './sedTarget';
 
 /**
- * A SED abstract task.
+ * Replacement of an element of a model
  */
-/**
- * @type SedAbstractTask
- * A SED abstract task.
- * @export
- */
-export type SedAbstractTask = SedRepeatedTask | SedTask;
+export interface SedReplaceElementModelChange {
+  /**
+   * Type.
+   */
+  _type: SedReplaceElementModelChangeType;
+  target: SedTarget;
+  /**
+   * Unique identifier within its parents SED document.
+   */
+  id: string;
+  /**
+   * Brief description
+   */
+  name?: string;
+  /**
+   * Elements which should replace the target.
+   */
+  newElements: Array<string>;
+}
+export enum SedReplaceElementModelChangeType {
+  SedReplaceElementModelChange = 'SedReplaceElementModelChange',
+}

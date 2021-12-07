@@ -9,15 +9,26 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedTask } from './sedTask';
-import { SedRepeatedTask } from './sedRepeatedTask';
+import { SedTarget } from './sedTarget';
 
 /**
- * A SED abstract task.
+ * Removal of an element from a model
  */
-/**
- * @type SedAbstractTask
- * A SED abstract task.
- * @export
- */
-export type SedAbstractTask = SedRepeatedTask | SedTask;
+export interface SedRemoveElementModelChange {
+  /**
+   * Type.
+   */
+  _type: SedRemoveElementModelChangeType;
+  target: SedTarget;
+  /**
+   * Unique identifier within its parents SED document.
+   */
+  id: string;
+  /**
+   * Brief description
+   */
+  name?: string;
+}
+export enum SedRemoveElementModelChangeType {
+  SedRemoveElementModelChange = 'SedRemoveElementModelChange',
+}

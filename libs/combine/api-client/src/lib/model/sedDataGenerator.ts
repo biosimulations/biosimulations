@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { SedParameter } from './sedParameter';
 import { SedVariable } from './sedVariable';
 
 /**
@@ -23,6 +24,10 @@ export interface SedDataGenerator {
    * Brief description.
    */
   name?: string;
+  /**
+   * Parameters.
+   */
+  parameters: Array<SedParameter>;
   /**
    * Variables.
    */

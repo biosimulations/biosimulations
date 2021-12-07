@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedDataGenerator } from './sedDataGenerator';
 
 /**
  * A surface a 3D plot.
@@ -23,9 +22,18 @@ export interface SedSurface {
    * Brief description.
    */
   name?: string;
-  xDataGenerator: SedDataGenerator;
-  yDataGenerator: SedDataGenerator;
-  zDataGenerator: SedDataGenerator;
+  /**
+   * Identifier of the data generator for the x data of the surface.
+   */
+  xDataGenerator: string;
+  /**
+   * Identifier of the data generator for the y data of the surface.
+   */
+  yDataGenerator: string;
+  /**
+   * Identifier of the data generator for the z data of the surface.
+   */
+  zDataGenerator: string;
   /**
    * Type.
    */

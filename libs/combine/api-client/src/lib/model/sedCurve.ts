@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedDataGenerator } from './sedDataGenerator';
 
 /**
  * Curve of a 2D SED plot
@@ -23,8 +22,14 @@ export interface SedCurve {
    * Brief description.
    */
   name?: string;
-  xDataGenerator: SedDataGenerator;
-  yDataGenerator: SedDataGenerator;
+  /**
+   * Identifier of the data generator for the x data of the curve.
+   */
+  xDataGenerator: string;
+  /**
+   * Identifier of the data generator for the y data of the curve.
+   */
+  yDataGenerator: string;
   /**
    * Type.
    */

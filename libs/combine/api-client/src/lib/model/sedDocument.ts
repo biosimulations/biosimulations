@@ -9,11 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedTask } from './sedTask';
 import { SedSimulation } from './sedSimulation';
 import { SedOutput } from './sedOutput';
 import { SedDataGenerator } from './sedDataGenerator';
 import { SedModel } from './sedModel';
+import { SedAbstractTask } from './sedAbstractTask';
 
 /**
  * A SED document.
@@ -42,7 +42,7 @@ export interface SedDocument {
   /**
    * Tasks.
    */
-  tasks: Array<SedTask>;
+  tasks: Array<SedAbstractTask>;
   /**
    * Data generators.
    */

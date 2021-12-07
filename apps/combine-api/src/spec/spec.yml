@@ -989,482 +989,6 @@ paths:
       summary: Get the possible observables of a simulation as a list of SED variables.
 components:
   schemas:
-    SedPlot2D:
-      description: Specifications for a 2D SED plot.
-      required:
-      - id
-      - curves
-      - xScale
-      - yScale
-      - _type
-      type: object
-      properties:
-        id:
-          description: Unique identifier within its parent SED document.
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        curves:
-          description: List of the curves of the plot (tuples of x and y data).
-          type: array
-          items:
-            $ref: '#/components/schemas/SedCurve'
-        xScale:
-          $ref: '#/components/schemas/SedAxisScale'
-          description: Scale of the x axis.
-        yScale:
-          $ref: '#/components/schemas/SedAxisScale'
-          description: Scale of the y axis.
-        _type:
-          description: Type of the plot.
-          enum:
-          - SedPlot2D
-          type: string
-      example:
-        _type: SedPlot2D
-        id: ntp_dynamics
-        name: NTP dynamics
-        curves:
-        - _type: SedCurve
-          id: atp_dynamics
-          name: ATP dynamics
-          xDataGenerator:
-            _type: SedDataGenerator
-            id: data_generator_time
-            name: Time
-            variables:
-            - _type: SedVariable
-              id: time
-              name: Time
-              task:
-                _type: SedTask
-                id: task
-                name: Task
-                model:
-                  _type: SedModel
-                  id: model
-                  language: urn:sedml:language:sbml
-                  source: model.xml
-                  changes: []
-                simulation:
-                  _type: SedUniformTimeCourseSimulation
-                  id: koSimulation
-                  initialTime: 0
-                  outputStartTime: 0
-                  outputEndTime: 0
-                  numberOfSteps: 10
-                  algorithm:
-                    _type: SedAlgorithm
-                    kisaoId: KISAO_0000437
-                    changes: []
-              symbol: urn:sedml:symbol:time
-            math: time
-          yDataGenerator:
-            _type: SedDataGenerator
-            id: data_generator_atp
-            name: ATP
-            variables:
-            - _type: SedVariable
-              id: atp
-              name: ATP
-              task:
-                _type: SedTask
-                id: task
-                name: Task
-                model:
-                  _type: SedModel
-                  id: model
-                  language: urn:sedml:language:sbml
-                  source: model.xml
-                  changes: []
-                simulation:
-                  _type: SedUniformTimeCourseSimulation
-                  id: koSimulation
-                  initialTime: 0
-                  outputStartTime: 0
-                  outputEndTime: 0
-                  numberOfSteps: 10
-                  algorithm:
-                    _type: SedAlgorithm
-                    kisaoId: KISAO_0000437
-                    changes: []
-              target:
-                _type: SedTarget
-                value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
-                namespaces:
-                - _type: Namespace
-                  prefix: sbml
-                  uri: http://www.sbml.org/sbml/level3/version1/core
-            math: atp
-        xScale: linear
-        yScale: log
-    SedPlot3D:
-      description: Specifications for a 3D surface plot.
-      required:
-      - id
-      - surfaces
-      - xScale
-      - yScale
-      - zScale
-      - _type
-      type: object
-      properties:
-        id:
-          description: Unique id within its parent SED document.
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        surfaces:
-          description: "List of surfaces (tuples of x, y, and z data)."
-          type: array
-          items:
-            $ref: '#/components/schemas/SedSurface'
-        xScale:
-          $ref: '#/components/schemas/SedAxisScale'
-          description: Scale of the x axis.
-        yScale:
-          $ref: '#/components/schemas/SedAxisScale'
-          description: Scale of the y axis.
-        zScale:
-          $ref: '#/components/schemas/SedAxisScale'
-          description: Scale of the z axis.
-        _type:
-          description: Type of the output.
-          enum:
-          - SedPlot3D
-          type: string
-      example:
-        _type: SedPlot3D
-        id: plot
-        name: Plot
-        surfaces:
-        - _type: SedSurface
-          id: atp_concentration
-          name: ATP concentration
-          xDataGenerator:
-            _type: SedDataGenerator
-            id: data_generator_y
-            name: "Y"
-            variables:
-            - _type: SedVariable
-              id: "y"
-              name: "Y"
-              task:
-                _type: SedTask
-                id: task
-                name: Task
-                model:
-                  _type: SedModel
-                  id: model
-                  language: urn:sedml:language:sbml
-                  source: model.xml
-                  changes: []
-                simulation:
-                  _type: SedSteadyStateSimulation
-                  id: simulation
-                  algorithm:
-                    _type: SedAlgorithm
-                    kisaoId: KISAO_0000437
-                    changes: []
-              symbol: urn:sedml:symbol:y
-            math: "y"
-          zDataGenerator:
-            _type: SedDataGenerator
-            id: data_generator_atp
-            name: ATP
-            variables:
-            - _type: SedVariable
-              id: atp
-              name: ATP
-              task:
-                _type: SedTask
-                id: task
-                name: Task
-                model:
-                  _type: SedModel
-                  id: model
-                  language: urn:sedml:language:sbml
-                  source: model.xml
-                  changes: []
-                simulation:
-                  _type: SedUniformTimeCourseSimulation
-                  id: koSimulation
-                  initialTime: 0
-                  outputStartTime: 0
-                  outputEndTime: 0
-                  numberOfSteps: 10
-                  algorithm:
-                    _type: SedAlgorithm
-                    kisaoId: KISAO_0000437
-                    changes: []
-              target:
-                _type: SedTarget
-                value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
-                namespaces:
-                - _type: Namespace
-                  prefix: sbml
-                  uri: http://www.sbml.org/sbml/level3/version1/core
-            math: atp
-        xScale: linear
-        yScale: linear
-        zScale: log
-    SedCurve:
-      description: Curve of a 2D SED plot
-      required:
-      - id
-      - xDataGenerator
-      - yDataGenerator
-      - _type
-      type: object
-      properties:
-        id:
-          description: Unique identifier with its parent SED document.
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        xDataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Identifier of the data generator for the x data of the curve.
-        yDataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Identifier of the data generator for the y data of the curve.
-        _type:
-          description: Type.
-          enum:
-          - SedCurve
-          type: string
-      example:
-        _type: SedCurve
-        id: atp_dynamics
-        name: ATP dynamics
-        xDataGenerator:
-          _type: SedDataGenerator
-          id: data_generator_time
-          name: Time
-          variables:
-          - _type: SedVariable
-            id: time
-            name: Time
-            task:
-              _type: SedTask
-              id: task
-              name: Task
-              model:
-                _type: SedModel
-                id: model
-                language: urn:sedml:language:sbml
-                source: model.xml
-                changes: []
-              simulation:
-                _type: SedUniformTimeCourseSimulation
-                id: koSimulation
-                initialTime: 0
-                outputStartTime: 0
-                outputEndTime: 0
-                numberOfSteps: 10
-                algorithm:
-                  _type: SedAlgorithm
-                  kisaoId: KISAO_0000437
-                  changes: []
-            symbol: urn:sedml:symbol:time
-          math: time
-        yDataGenerator:
-          _type: SedDataGenerator
-          id: data_generator_atp
-          name: ATP
-          variables:
-          - _type: SedVariable
-            id: atp
-            name: ATP
-            task:
-              _type: SedTask
-              id: task
-              name: Task
-              model:
-                _type: SedModel
-                id: model
-                language: urn:sedml:language:sbml
-                source: model.xml
-                changes: []
-              simulation:
-                _type: SedUniformTimeCourseSimulation
-                id: koSimulation
-                initialTime: 0
-                outputStartTime: 0
-                outputEndTime: 0
-                numberOfSteps: 10
-                algorithm:
-                  _type: SedAlgorithm
-                  kisaoId: KISAO_0000437
-                  changes: []
-            target:
-              _type: SedTarget
-              value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
-              namespaces:
-              - _type: Namespace
-                prefix: sbml
-                uri: http://www.sbml.org/sbml/level3/version1/core
-          math: atp
-    SedSurface:
-      description: A surface a 3D plot.
-      required:
-      - id
-      - xDataGenerator
-      - yDataGenerator
-      - zDataGenerator
-      - _type
-      type: object
-      properties:
-        id:
-          description: Unique identifier within its parent SED document.
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        xDataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Identifier of the data generator for the x data of the surface.
-        yDataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Identifier of the data generator for the y data of the surface.
-        zDataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Identifier of the data generator for the z data of the surface.
-        _type:
-          description: Type.
-          enum:
-          - SedSurface
-          type: string
-      example:
-        _type: SedSurface
-        id: atp_concentration
-        name: ATP concentration
-        xDataGenerator:
-          _type: SedDataGenerator
-          id: data_generator_y
-          name: "Y"
-          variables:
-          - _type: SedVariable
-            id: "y"
-            name: "Y"
-            task:
-              _type: SedTask
-              id: task
-              name: Task
-              model:
-                _type: SedModel
-                id: model
-                language: urn:sedml:language:sbml
-                source: model.xml
-                changes: []
-              simulation:
-                _type: SedSteadyStateSimulation
-                id: simulation
-                algorithm:
-                  _type: SedAlgorithm
-                  kisaoId: KISAO_0000437
-                  changes: []
-            symbol: urn:sedml:symbol:y
-          math: "y"
-        zDataGenerator:
-          _type: SedDataGenerator
-          id: data_generator_atp
-          name: ATP
-          variables:
-          - _type: SedVariable
-            id: atp
-            name: ATP
-            task:
-              _type: SedTask
-              id: task
-              name: Task
-              model:
-                _type: SedModel
-                id: model
-                language: urn:sedml:language:sbml
-                source: model.xml
-                changes: []
-              simulation:
-                _type: SedUniformTimeCourseSimulation
-                id: koSimulation
-                initialTime: 0
-                outputStartTime: 0
-                outputEndTime: 0
-                numberOfSteps: 10
-                algorithm:
-                  _type: SedAlgorithm
-                  kisaoId: KISAO_0000437
-                  changes: []
-            target:
-              _type: SedTarget
-              value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
-              namespaces:
-              - _type: Namespace
-                prefix: sbml
-                uri: http://www.sbml.org/sbml/level3/version1/core
-          math: atp
-    SedDataGenerator:
-      description: Data generator for SED report or plot.
-      required:
-      - id
-      - math
-      - variables
-      - _type
-      type: object
-      properties:
-        id:
-          description: Unique identifier within its parent SED document.
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        variables:
-          description: Variables.
-          type: array
-          items:
-            $ref: '#/components/schemas/SedVariable'
-        math:
-          description: Mathematical expression for its value.
-          type: string
-        _type:
-          description: Type.
-          enum:
-          - SedDataGenerator
-          type: string
-      example:
-        _type: SedDataGenerator
-        id: data_generator_time
-        name: Time
-        variables:
-        - _type: SedVariable
-          id: time
-          name: Time
-          task:
-            _type: SedTask
-            id: task
-            name: Task
-            model:
-              _type: SedModel
-              id: model
-              language: urn:sedml:language:sbml
-              source: model.xml
-              changes: []
-            simulation:
-              _type: SedUniformTimeCourseSimulation
-              id: koSimulation
-              initialTime: 0
-              outputStartTime: 0
-              outputEndTime: 0
-              numberOfSteps: 10
-              algorithm:
-                _type: SedAlgorithm
-                kisaoId: KISAO_0000437
-                changes: []
-          symbol: urn:sedml:symbol:time
-        math: time
     SedDocument:
       description: A SED document.
       required:
@@ -1503,7 +1027,7 @@ components:
           description: Tasks.
           type: array
           items:
-            $ref: '#/components/schemas/SedTask'
+            $ref: '#/components/schemas/SedAbstractTask'
         dataGenerators:
           description: Data generators.
           type: array
@@ -1523,76 +1047,6 @@ components:
         tasks: []
         dataGenerators: []
         outputs: []
-    SedReport:
-      description: A SED report.
-      required:
-      - id
-      - _type
-      - dataSets
-      type: object
-      properties:
-        id:
-          description: Unique identifier within its parent SED document.
-          type: string
-        _type:
-          description: Type of the output.
-          enum:
-          - SedReport
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        dataSets:
-          description: List of the data sets of the report (rows of the report).
-          type: array
-          items:
-            $ref: '#/components/schemas/SedDataSet'
-      example:
-        _type: SedReport
-        id: report
-        name: Report
-        dataSets:
-        - _type: SedDataSet
-          id: data_set_atp
-          name: ATP
-          label: ATP
-          dataGenerator:
-            _type: SedDataGenerator
-            id: data_generator_atp
-            name: ATP
-            variables:
-            - _type: SedVariable
-              id: atp
-              name: ATP
-              task:
-                _type: SedTask
-                id: task
-                name: Task
-                model:
-                  _type: SedModel
-                  id: model
-                  language: urn:sedml:language:sbml
-                  source: model.xml
-                  changes: []
-                simulation:
-                  _type: SedUniformTimeCourseSimulation
-                  id: koSimulation
-                  initialTime: 0
-                  outputStartTime: 0
-                  outputEndTime: 0
-                  numberOfSteps: 10
-                  algorithm:
-                    _type: SedAlgorithm
-                    kisaoId: KISAO_0000437
-                    changes: []
-              target:
-                _type: SedTarget
-                value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
-                namespaces:
-                - _type: Namespace
-                  prefix: sbml
-                  uri: http://www.sbml.org/sbml/level3/version1/core
-            math: atp
     CombineArchive:
       description: A COMBINE/OMEX archive.
       required:
@@ -1940,53 +1394,6 @@ components:
               prefix: sbml
               uri: http://www.sbml.org/sbml/level3/version1/core
           newValue: "1.1"
-    SedTask:
-      description: A SED task.
-      required:
-      - id
-      - model
-      - simulation
-      - _type
-      type: object
-      properties:
-        id:
-          description: Unique identifier within is parent SED document.
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        model:
-          $ref: '#/components/schemas/SedModel'
-          description: Model.
-        simulation:
-          $ref: '#/components/schemas/SedSimulation'
-          description: Simulation
-        _type:
-          description: Type.
-          enum:
-          - SedTask
-          type: string
-      example:
-        _type: SedTask
-        id: task
-        name: Task
-        model:
-          _type: SedModel
-          id: model
-          language: urn:sedml:language:sbml
-          source: model.xml
-          changes: []
-        simulation:
-          _type: SedUniformTimeCourseSimulation
-          id: koSimulation
-          initialTime: 0
-          outputStartTime: 0
-          outputEndTime: 0
-          numberOfSteps: 10
-          algorithm:
-            _type: SedAlgorithm
-            kisaoId: KISAO_0000437
-            changes: []
     SedUniformTimeCourseSimulation:
       description: A SED uniform time course simulation.
       required:
@@ -2102,57 +1509,6 @@ components:
           _type: SedAlgorithm
           kisaoId: KISAO_0000019
           changes: []
-    SedVariable:
-      description: A SED variable.
-      required:
-      - id
-      - task
-      - _type
-      type: object
-      properties:
-        id:
-          description: Unique identifier within its parent SED document.
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        task:
-          $ref: '#/components/schemas/SedTask'
-          description: Task.
-        target:
-          $ref: '#/components/schemas/SedTarget'
-          description: "Target within a model (e.g., of a variable explicitly defined\
-            \ in the specification of a model, such as the concentration of a species)."
-        symbol:
-          description: "Symbol (e.g., for an implicit variable that is not explicitly\
-            \ defined in the specification of a model, such as time)."
-          type: string
-        _type:
-          description: Type.
-          enum:
-          - SedVariable
-          type: string
-      example:
-        id: atp
-        name: ATP
-        task:
-          id: task
-          model:
-            id: model
-            language: urn:sedml:language:sbml
-            source: model.xml
-            _type: SedModel
-            changes: []
-          simulation:
-            _type: SedSteadyStateSimulation
-            id: simulation
-            algorithm:
-              _type: SedAlgorithm
-              kisaoId: KISAO_0000437
-              changes: []
-          _type: SedTask
-        symbol: urn:sedml:symbol:time
-        _type: SedVariable
     SedRepeatedTask:
       description: A SED repeated task.
       required:
@@ -2182,90 +1538,6 @@ components:
       - linear
       type: string
       example: linear
-    SedOutput:
-      oneOf:
-      - $ref: '#/components/schemas/SedPlot2D'
-      - $ref: '#/components/schemas/SedPlot3D'
-      - $ref: '#/components/schemas/SedReport'
-      discriminator:
-        propertyName: _type
-      description: An output of a SED document.
-      type: object
-      example:
-        _type: SedReport
-        id: report
-        name: Report
-        dataSets:
-        - _type: SedDataSet
-          id: data_set_atp
-          name: ATP
-          label: ATP
-          dataGenerator:
-            _type: SedDataGenerator
-            id: data_generator_atp
-            name: ATP
-            variables:
-            - _type: SedVariable
-              id: atp
-              name: ATP
-              task:
-                _type: SedTask
-                id: task
-                name: Task
-                model:
-                  _type: SedModel
-                  id: model
-                  language: urn:sedml:language:sbml
-                  source: model.xml
-                  changes: []
-                simulation:
-                  _type: SedUniformTimeCourseSimulation
-                  id: koSimulation
-                  initialTime: 0
-                  outputStartTime: 0
-                  outputEndTime: 0
-                  numberOfSteps: 10
-                  algorithm:
-                    _type: SedAlgorithm
-                    kisaoId: KISAO_0000437
-                    changes: []
-              target:
-                _type: SedTarget
-                value: "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='atp']"
-                namespaces:
-                - _type: Namespace
-                  prefix: sbml
-                  uri: http://www.sbml.org/sbml/level3/version1/core
-            math: atp
-    SedAbstractTask:
-      oneOf:
-      - $ref: '#/components/schemas/SedTask'
-      - $ref: '#/components/schemas/SedRepeatedTask'
-      discriminator:
-        propertyName: _type
-      description: A SED abstract task.
-      type: object
-      example:
-        _type: SedTask
-        id: task
-        name: Task
-        model:
-          _type: SedModel
-          id: model
-          language: urn:sedml:language:sbml
-          source: model.xml
-          changes: []
-        simulation:
-          _type: SedUniformTimeCourseSimulation
-          id: koSimulation
-          initialTime: 0
-          outputStartTime: 0
-          outputEndTime: 0
-          numberOfSteps: 10
-          algorithm:
-            _type: SedAlgorithm
-            kisaoId: KISAO_0000437
-            changes: []
     SedSimulation:
       oneOf:
       - $ref: '#/components/schemas/SedSteadyStateSimulation'
@@ -2312,68 +1584,6 @@ components:
         title: Unsupported model langauge
         detail: Models of language XYZ are not supported
         type: NotImplementedError
-    SedDataSet:
-      description: A SED data set
-      required:
-      - id
-      - label
-      - dataGenerator
-      - _type
-      type: object
-      properties:
-        id:
-          description: Unique identifier within its parent SED document.
-          type: string
-        label:
-          description: Brief description
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        dataGenerator:
-          $ref: '#/components/schemas/SedDataGenerator'
-          description: Generator which provides the data for the data set.
-        _type:
-          description: Type.
-          enum:
-          - SedDataSet
-          type: string
-      example:
-        _type: SedDataSet
-        id: data_set_time
-        name: Time
-        label: Time
-        dataGenerator:
-          _type: SedDataGenerator
-          id: data_generator_time
-          name: Time
-          variables:
-          - _type: SedVariable
-            id: time
-            name: Time
-            task:
-              _type: SedTask
-              id: task
-              name: Task
-              model:
-                _type: SedModel
-                id: model
-                language: urn:sedml:language:sbml
-                source: model.xml
-                changes: []
-              simulation:
-                _type: SedUniformTimeCourseSimulation
-                id: koSimulation
-                initialTime: 0
-                outputStartTime: 0
-                outputEndTime: 0
-                numberOfSteps: 10
-                algorithm:
-                  _type: SedAlgorithm
-                  kisaoId: KISAO_0000437
-                  changes: []
-            symbol: urn:sedml:symbol:time
-          math: time
     SedAlgorithm:
       description: A SED algorithm.
       required:
@@ -2645,6 +1855,10 @@ components:
     SedModelChange:
       oneOf:
       - $ref: '#/components/schemas/SedModelAttributeChange'
+      - $ref: '#/components/schemas/SedAddElementModelChange'
+      - $ref: '#/components/schemas/SedRemoveElementModelChange'
+      - $ref: '#/components/schemas/SedReplaceElementModelChange'
+      - $ref: '#/components/schemas/SedComputeModelChange'
       discriminator:
         propertyName: _type
       description: A SED model change.
@@ -3770,6 +2984,604 @@ components:
           example: ok
       example:
         status: ok
+    SedRemoveElementModelChange:
+      description: Removal of an element from a model
+      required:
+      - _type
+      - target
+      - id
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - SedRemoveElementModelChange
+          type: string
+        target:
+          $ref: '#/components/schemas/SedTarget'
+          description: Target
+        id:
+          description: Unique identifier within its parents SED document.
+          type: string
+        name:
+          description: Brief description
+          type: string
+      example:
+        _type: SedRemoveElementModelChange
+        id: remove_parameter_k1
+        name: remove parameter k1
+        target:
+          _type: SedTarget
+          value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']"
+          namespaces:
+          - _type: Namespace
+            prefix: sbml
+            uri: http://www.sbml.org/sbml/level3/version1/core
+    SedAddElementModelChange:
+      description: Addition of an element to a model
+      required:
+      - _type
+      - newElements
+      - target
+      - id
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - SedAddElementModelChange
+          type: string
+        target:
+          $ref: '#/components/schemas/SedTarget'
+          description: Target
+        id:
+          description: Unique identifier within its parents SED document.
+          type: string
+        name:
+          description: Brief description
+          type: string
+        newElements:
+          description: Children that should be appended to the target.
+          type: array
+          items:
+            type: string
+      example:
+        _type: SedAddElementModelChange
+        id: add parameter_k2
+        name: add parameter k2
+        target:
+          _type: SedTarget
+          value: /sbml:sbml/sbml:model/sbml:listOfParameters
+          namespaces:
+          - _type: Namespace
+            prefix: sbml
+            uri: http://www.sbml.org/sbml/level3/version1/core
+        newElements:
+        - <parameter id='k2' value='1.1'/>
+    SedParameter:
+      title: Root Type for SedParameter
+      description: Parameter of a calculation
+      required:
+      - value
+      - id
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        value:
+          description: Value of the parameter
+          type: number
+        _type:
+          description: Type
+          enum:
+          - SedParameter
+          type: string
+      example:
+        type: SedParameter
+        id: k1
+        name: k1
+        value: 2
+    SedSetValueComputeModelChange:
+      description: Dynamic change to an attribute of a model
+      type: object
+    SedReplaceElementModelChange:
+      description: Replacement of an element of a model
+      required:
+      - _type
+      - newElements
+      - target
+      - id
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - SedReplaceElementModelChange
+          type: string
+        target:
+          $ref: '#/components/schemas/SedTarget'
+          description: Target
+        id:
+          description: Unique identifier within its parents SED document.
+          type: string
+        name:
+          description: Brief description
+          type: string
+        newElements:
+          description: Elements which should replace the target.
+          type: array
+          items:
+            type: string
+      example:
+        _type: SedReplaceElementModelChange
+        id: replace_parameter_k1
+        name: replace parameter k1
+        target:
+          _type: SedTarget
+          value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']"
+          namespaces:
+          - _type: Namespace
+            prefix: sbml
+            uri: http://www.sbml.org/sbml/level3/version1/core
+        newElements:
+        - <parameter id='k1' value='1.1'/>
+    SedAbstractTask:
+      oneOf:
+      - $ref: '#/components/schemas/SedTask'
+      - $ref: '#/components/schemas/SedRepeatedTask'
+      discriminator:
+        propertyName: _type
+      description: A SED abstract task.
+      type: object
+      example:
+        _type: SedTask
+        id: task
+        name: Task
+        model: model
+        simulation: koSimulation
+    SedComputeModelChange:
+      description: Change an attribute of an element of a model based on a calculation
+      required:
+      - _type
+      - target
+      - id
+      - math
+      - variables
+      - parameters
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - SedComputeModelChange
+          type: string
+        target:
+          $ref: '#/components/schemas/SedTarget'
+          description: Target
+        id:
+          description: Unique identifier within its parents SED document.
+          type: string
+        name:
+          description: Brief description
+          type: string
+        parameters:
+          description: Parameters.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedParameter'
+        variables:
+          description: Variables.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedVariable'
+        math:
+          description: Mathematical expression for its new value.
+          type: string
+      example:
+        _type: SedComputeModelChange
+        id: change_parameter_k1
+        name: change parameter k1
+        target:
+          _type: SedTarget
+          value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']/@value"
+          namespaces:
+          - _type: Namespace
+            prefix: sbml
+            uri: http://www.sbml.org/sbml/level3/version1/core
+        variables:
+        - _type: SedVariable
+          id: time
+          name: Time
+          task:
+            _type: SedTask
+            id: task
+            name: Task
+            model: model
+            simulation: koSimulation
+          symbol: urn:sedml:symbol:time
+        parameters:
+        - _type: SedParameter
+          id: min_to_sec
+          name: minutes to seconds
+          value: 60
+        math: min_to_sec * time
+    SedCurve:
+      description: Curve of a 2D SED plot
+      required:
+      - id
+      - xDataGenerator
+      - yDataGenerator
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier with its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        xDataGenerator:
+          description: Identifier of the data generator for the x data of the curve.
+          type: string
+        yDataGenerator:
+          description: Identifier of the data generator for the y data of the curve.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedCurve
+          type: string
+      example:
+        _type: SedCurve
+        id: atp_dynamics
+        name: ATP dynamics
+        xDataGenerator: data_generator_time
+        yDataGenerator: data_generator_atp
+    SedDataGenerator:
+      description: Data generator for SED report or plot.
+      required:
+      - id
+      - math
+      - parameters
+      - variables
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        parameters:
+          description: Parameters.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedParameter'
+        variables:
+          description: Variables.
+          type: array
+          items:
+            $ref: '#/components/schemas/SedVariable'
+        math:
+          description: Mathematical expression for its value.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedDataGenerator
+          type: string
+      example:
+        _type: SedDataGenerator
+        id: data_generator_time
+        name: Time
+        parameters:
+        - _type: SedParameter
+          id: min_to_sec
+          name: minutes to seconds
+          value: 60
+        variables:
+        - _type: SedVariable
+          id: time
+          name: Time
+          task:
+            _type: SedTask
+            id: task
+            name: Task
+            model: model
+            simulation: koSimulation
+          symbol: urn:sedml:symbol:time
+        math: min_to_sec * time
+    SedDataSet:
+      description: A SED data set
+      required:
+      - id
+      - label
+      - dataGenerator
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        label:
+          description: Brief description
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        dataGenerator:
+          description: Id of the data generator which provides the data for the data
+            set.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedDataSet
+          type: string
+      example:
+        _type: SedDataSet
+        id: data_set_time
+        name: Time
+        label: Time
+        dataGenerator: data_generator_time
+    SedOutput:
+      oneOf:
+      - $ref: '#/components/schemas/SedPlot2D'
+      - $ref: '#/components/schemas/SedPlot3D'
+      - $ref: '#/components/schemas/SedReport'
+      discriminator:
+        propertyName: _type
+      description: An output of a SED document.
+      type: object
+      example:
+        _type: SedReport
+        id: report
+        name: Report
+        dataSets:
+        - _type: SedDataSet
+          id: data_set_atp
+          name: ATP
+          label: ATP
+          dataGenerator: data_generator_atp
+    SedPlot2D:
+      description: Specifications for a 2D SED plot.
+      required:
+      - id
+      - curves
+      - xScale
+      - yScale
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        curves:
+          description: List of the curves of the plot (tuples of x and y data).
+          type: array
+          items:
+            $ref: '#/components/schemas/SedCurve'
+        xScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the x axis.
+        yScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the y axis.
+        _type:
+          description: Type of the plot.
+          enum:
+          - SedPlot2D
+          type: string
+      example:
+        _type: SedPlot2D
+        id: ntp_dynamics
+        name: NTP dynamics
+        curves:
+        - _type: SedCurve
+          id: atp_dynamics
+          name: ATP dynamics
+          xDataGenerator: data_generator_time
+          yDataGenerator: data_generator_atp
+        xScale: linear
+        yScale: log
+    SedPlot3D:
+      description: Specifications for a 3D surface plot.
+      required:
+      - id
+      - surfaces
+      - xScale
+      - yScale
+      - zScale
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique id within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        surfaces:
+          description: "List of surfaces (tuples of x, y, and z data)."
+          type: array
+          items:
+            $ref: '#/components/schemas/SedSurface'
+        xScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the x axis.
+        yScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the y axis.
+        zScale:
+          $ref: '#/components/schemas/SedAxisScale'
+          description: Scale of the z axis.
+        _type:
+          description: Type of the output.
+          enum:
+          - SedPlot3D
+          type: string
+      example:
+        _type: SedPlot3D
+        id: plot
+        name: Plot
+        surfaces:
+        - _type: SedSurface
+          id: atp_concentration
+          name: ATP concentration
+          xDataGenerator: data_generator_x
+          yDataGenerator: data_generator_y
+          zDataGenerator: data_generator_atp
+        xScale: linear
+        yScale: linear
+        zScale: log
+    SedReport:
+      description: A SED report.
+      required:
+      - id
+      - _type
+      - dataSets
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        _type:
+          description: Type of the output.
+          enum:
+          - SedReport
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        dataSets:
+          description: List of the data sets of the report (rows of the report).
+          type: array
+          items:
+            $ref: '#/components/schemas/SedDataSet'
+      example:
+        _type: SedReport
+        id: report
+        name: Report
+        dataSets:
+        - _type: SedDataSet
+          id: data_set_atp
+          name: ATP
+          label: ATP
+          dataGenerator: data_generator_atp
+    SedSurface:
+      description: A surface a 3D plot.
+      required:
+      - id
+      - xDataGenerator
+      - yDataGenerator
+      - zDataGenerator
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        xDataGenerator:
+          description: Identifier of the data generator for the x data of the surface.
+          type: string
+        yDataGenerator:
+          description: Identifier of the data generator for the y data of the surface.
+          type: string
+        zDataGenerator:
+          description: Identifier of the data generator for the z data of the surface.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedSurface
+          type: string
+      example:
+        _type: SedSurface
+        id: atp_concentration
+        name: ATP concentration
+        xDataGenerator: data_generator_x
+        yDataGenerator: data_generator_y
+        zDataGenerator: data_generator_atp
+    SedTask:
+      description: A SED task.
+      required:
+      - id
+      - model
+      - simulation
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within is parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        model:
+          description: Identifier of the model.
+          type: string
+        simulation:
+          description: Identifier of the simulation.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedTask
+          type: string
+      example:
+        _type: SedTask
+        id: task
+        name: Task
+        model: model
+        simulation: koSimulation
+    SedVariable:
+      description: A SED variable.
+      required:
+      - id
+      - task
+      - _type
+      type: object
+      properties:
+        id:
+          description: Unique identifier within its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        task:
+          description: Task.
+          type: string
+        target:
+          $ref: '#/components/schemas/SedTarget'
+          description: "Target within a model (e.g., of a variable explicitly defined\
+            \ in the specification of a model, such as the concentration of a species)."
+        symbol:
+          description: "Symbol (e.g., for an implicit variable that is not explicitly\
+            \ defined in the specification of a model, such as time)."
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedVariable
+          type: string
+      example:
+        id: atp
+        name: ATP
+        task: task
+        symbol: urn:sedml:symbol:time
+        _type: SedVariable
     CombineArchiveLog:
       required:
       - status
@@ -3924,6 +3736,7 @@ components:
           example: 10.5
         algorithm:
           nullable: true
+          description: KiSAO id of the simulation algorithm that was executed
           type: string
           example: KISAO_0000019
         simulatorDetails:

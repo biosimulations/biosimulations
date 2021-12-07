@@ -8,23 +8,28 @@ import { SimulationRunModel } from '../simulation-run/simulation-run.model';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import {
   SimulationRunSedDocument as ISimulationRunSedDocument,
-  SedModel as ISedModel,
+  SerializedSedModel as ISedModel,
   SedModelAttributeChange as ISedModelAttributeChange,
+  SedAddElementModelChange as ISedAddElementModelChange,
+  SedReplaceElementModelChange as ISedReplaceElementModelChange,
+  SedRemoveElementModelChange as ISedRemoveElementModelChange,
+  SerializedSedComputeModelChange as ISedComputeModelChange,
   SedOneStepSimulation as ISedOneStepSimulation,
   SedSteadyStateSimulation as ISedSteadyStateSimulation,
   SedUniformTimeCourseSimulation as ISedUniformTimeCourseSimulation,
   SedAlgorithm as ISedAlgorithm,
   SedAlgorithmParameterChange as ISedAlgorithmParameterChange,
-  SedTask as ISedTask,
-  SedRepeatedTask as ISedRepeatedTask,
-  SedDataGenerator as ISedDataGenerator,
-  SedReport as ISedReport,
-  SedPlot2D as ISedPlot2D,
-  SedPlot3D as ISedPlot3D,
-  SedDataSet as ISedDataSet,
-  SedCurve as ISedCurve,
-  SedSurface as ISedSurface,
-  SedVariable as ISedVariable,
+  SerializedSedTask as ISedTask,
+  SerializedSedRepeatedTask as ISedRepeatedTask,
+  SerializedSedDataGenerator as ISedDataGenerator,
+  SerializedSedReport as ISedReport,
+  SerializedSedPlot2D as ISedPlot2D,
+  SerializedSedPlot3D as ISedPlot3D,
+  SerializedSedDataSet as ISedDataSet,
+  SerializedSedCurve as ISedCurve,
+  SerializedSedSurface as ISedSurface,
+  SedParameter as ISedParameter,
+  SerializedSedVariable as ISedVariable,
   SedTarget as ISedTarget,
   Namespace as INamespace,
   SedAxisScale,
@@ -81,6 +86,64 @@ export const SedTargetSchema = SchemaFactory.createForClass(SedTarget);
   storeSubdocValidationError: false,
   strict: 'throw',
 })
+export class SedParameter implements ISedParameter {
+  @Prop({
+    type: String,
+    enum: ['SedParameter'],
+    required: true,
+    default: undefined,
+  })
+  public _type!: 'SedParameter';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+
+  @Prop({ type: Number, required: true, default: undefined })
+  public value!: number;
+}
+
+export const SedParameterSchema = SchemaFactory.createForClass(SedParameter);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedVariable implements ISedVariable {
+  @Prop({
+    type: String,
+    enum: ['SedVariable'],
+    required: true,
+    default: undefined,
+  })
+  public _type!: 'SedVariable';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public symbol?: string;
+
+  @Prop({ type: SedTargetSchema, required: false, default: undefined })
+  public target?: SedTarget;
+
+  @Prop({ type: String, required: true, default: undefined })
+  public task!: string;
+}
+
+export const SedVariableSchema = SchemaFactory.createForClass(SedVariable);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
 export class SedModelAttributeChange implements ISedModelAttributeChange {
   public _type!: 'SedModelAttributeChange';
 
@@ -101,7 +164,115 @@ export const SedModelAttributeChangeSchema = SchemaFactory.createForClass(
   SedModelAttributeChange,
 );
 
-export type SedModelChangeType = SedModelAttributeChange;
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedAddElementModelChange implements ISedAddElementModelChange {
+  public _type!: 'SedAddElementModelChange';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+
+  @Prop({ type: SedTargetSchema, required: true, default: undefined })
+  public target!: SedTarget;
+
+  @Prop({ type: [String], required: true, default: undefined })
+  public newElements!: string[];
+}
+
+export const SedAddElementModelChangeSchema = SchemaFactory.createForClass(
+  SedAddElementModelChange,
+);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedReplaceElementModelChange implements ISedReplaceElementModelChange {
+  public _type!: 'SedReplaceElementModelChange';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+
+  @Prop({ type: SedTargetSchema, required: true, default: undefined })
+  public target!: SedTarget;
+
+  @Prop({ type: [String], required: true, default: undefined })
+  public newElements!: string[];
+}
+
+export const SedReplaceElementModelChangeSchema = SchemaFactory.createForClass(
+  SedReplaceElementModelChange,
+);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedRemoveElementModelChange implements ISedRemoveElementModelChange {
+  public _type!: 'SedRemoveElementModelChange';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+
+  @Prop({ type: SedTargetSchema, required: true, default: undefined })
+  public target!: SedTarget;
+}
+
+export const SedRemoveElementModelChangeSchema = SchemaFactory.createForClass(
+  SedRemoveElementModelChange,
+);
+
+@Schema({
+  _id: false,
+  storeSubdocValidationError: false,
+  strict: 'throw',
+})
+export class SedComputeModelChange implements ISedComputeModelChange {
+  public _type!: 'SedComputeModelChange';
+
+  @Prop({ type: String, required: true, default: undefined })
+  public id!: string;
+
+  @Prop({ type: String, required: false, default: undefined })
+  public name?: string;
+
+  @Prop({ type: SedTargetSchema, required: true, default: undefined })
+  public target!: SedTarget;
+
+  @Prop({ type: [SedParameterSchema], required: true, default: undefined })
+  public parameters!: SedParameter[];
+
+  @Prop({ type: [SedVariableSchema], required: true, default: undefined })
+  public variables!: SedVariable[];
+
+  @Prop({ type: String, required: true, default: undefined })
+  public math!: string;
+}
+
+export const SedComputeModelChangeSchema = SchemaFactory.createForClass(
+  SedComputeModelChange,
+);
+
+export type SedModelChangeType = 
+  | SedModelAttributeChange
+  | SedAddElementModelChange
+  | SedReplaceElementModelChange
+  | SedRemoveElementModelChange
+  | SedComputeModelChange;
 
 @Schema({
   _id: false,
@@ -112,7 +283,13 @@ export type SedModelChangeType = SedModelAttributeChange;
 export class SedModelChange {
   @Prop({
     type: String,
-    enum: [SedModelAttributeChange.name],
+    enum: [
+      SedModelAttributeChange.name,
+      SedAddElementModelChange.name,
+      SedReplaceElementModelChange.name,
+      SedRemoveElementModelChange.name,
+      SedComputeModelChange.name,
+    ],
     required: true,
     default: undefined,
   })
@@ -348,15 +525,15 @@ export class SedTask implements ISedTask {
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;
 
-  @Prop({ type: SedModelSchema, required: true, default: undefined })
-  public model!: SedModel;
+  @Prop({ type: String, required: true, default: undefined })
+  public model!: string;
 
   @Prop({
-    type: SedSimulationSchema,
+    type: String,
     required: true,
     default: undefined,
   })
-  public simulation!: SedSimulationType;
+  public simulation!: string;
 }
 
 export const SedTaskSchema = SchemaFactory.createForClass(SedTask);
@@ -390,7 +567,10 @@ export type SedAbstractTaskTypes = SedTask | SedRepeatedTask;
 export class SedAbstractTask {
   @Prop({
     type: String,
-    enum: [SedTask.name, SedRepeatedTask.name],
+    enum: [
+      SedTask.name,
+      SedRepeatedTask.name
+    ],
     required: true,
     default: undefined,
   })
@@ -411,38 +591,6 @@ export const SedAbstractTaskSchema =
   storeSubdocValidationError: false,
   strict: 'throw',
 })
-export class SedVariable implements ISedVariable {
-  @Prop({
-    type: String,
-    enum: ['SedVariable'],
-    required: true,
-    default: undefined,
-  })
-  public _type!: 'SedVariable';
-
-  @Prop({ type: String, required: true, default: undefined })
-  public id!: string;
-
-  @Prop({ type: String, required: false, default: undefined })
-  public name?: string;
-
-  @Prop({ type: String, required: false, default: undefined })
-  public symbol?: string;
-
-  @Prop({ type: SedTargetSchema, required: false, default: undefined })
-  public target?: SedTarget;
-
-  @Prop({ type: SedTaskSchema, required: true, default: undefined })
-  public task!: SedTask;
-}
-
-export const SedVariableSchema = SchemaFactory.createForClass(SedVariable);
-
-@Schema({
-  _id: false,
-  storeSubdocValidationError: false,
-  strict: 'throw',
-})
 export class SedDataGenerator implements ISedDataGenerator {
   @Prop({
     type: String,
@@ -457,6 +605,9 @@ export class SedDataGenerator implements ISedDataGenerator {
 
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;
+
+  @Prop({ type: [SedParameterSchema], required: true, default: undefined })
+  public parameters!: SedParameter[];
 
   @Prop({ type: [SedVariableSchema], required: true, default: undefined })
   public variables!: SedVariable[];
@@ -485,8 +636,8 @@ export class SedDataSet implements ISedDataSet {
   @Prop({ type: String, required: true, default: undefined })
   public id!: string;
 
-  @Prop({ type: SedDataGeneratorSchema, required: true, default: undefined })
-  public dataGenerator!: SedDataGenerator;
+  @Prop({ type: String, required: true, default: undefined })
+  public dataGenerator!: string;
 
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;
@@ -537,11 +688,11 @@ export class SedCurve implements ISedCurve {
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;
 
-  @Prop({ type: SedDataGeneratorSchema, required: true, default: undefined })
-  public xDataGenerator!: SedDataGenerator;
+  @Prop({ type: String, required: true, default: undefined })
+  public xDataGenerator!: string;
 
-  @Prop({ type: SedDataGeneratorSchema, required: true, default: undefined })
-  public yDataGenerator!: SedDataGenerator;
+  @Prop({ type: String, required: true, default: undefined })
+  public yDataGenerator!: string;
 }
 
 export const SedCurveSchema = SchemaFactory.createForClass(SedCurve);
@@ -602,14 +753,14 @@ export class SedSurface implements ISedSurface {
   @Prop({ type: String, required: false, default: undefined })
   public name?: string;
 
-  @Prop({ type: SedDataGeneratorSchema, required: true, default: undefined })
-  public xDataGenerator!: SedDataGenerator;
+  @Prop({ type: String, required: true, default: undefined })
+  public xDataGenerator!: string;
 
-  @Prop({ type: SedDataGeneratorSchema, required: true, default: undefined })
-  public yDataGenerator!: SedDataGenerator;
+  @Prop({ type: String, required: true, default: undefined })
+  public yDataGenerator!: string;
 
-  @Prop({ type: SedDataGeneratorSchema, required: true, default: undefined })
-  public zDataGenerator!: SedDataGenerator;
+  @Prop({ type: String, required: true, default: undefined })
+  public zDataGenerator!: string;
 }
 
 export const SedSurfaceSchema = SchemaFactory.createForClass(SedSurface);
@@ -714,6 +865,20 @@ export class SpecificationsModel
   public simulationRun!: string;
 
   @Prop({
+    type: Number,
+    required: true,
+    default: undefined,
+  })
+  public level!: number;
+
+  @Prop({
+    type: Number,
+    required: true,
+    default: undefined,
+  })
+  public version!: number;
+
+  @Prop({
     type: [SedOutputSchema],
     required: true,
     default: undefined,
@@ -725,7 +890,7 @@ export class SpecificationsModel
     required: true,
     default: undefined,
   })
-  public tasks!: SedTask[];
+  public tasks!: SedAbstractTaskTypes[];
 
   @Prop({
     Type: [SedDataGeneratorSchema],
@@ -787,6 +952,14 @@ sedSimulationsArraySchema.discriminator(
 SedModelChangeSchema.discriminators = {};
 SedModelChangeSchema.discriminators[SedModelAttributeChange.name] =
   SedModelAttributeChangeSchema;
+SedModelChangeSchema.discriminators[SedAddElementModelChange.name] =
+  SedAddElementModelChangeSchema;
+SedModelChangeSchema.discriminators[SedReplaceElementModelChange.name] =
+  SedReplaceElementModelChangeSchema;
+SedModelChangeSchema.discriminators[SedRemoveElementModelChange.name] =
+  SedRemoveElementModelChangeSchema;
+SedModelChangeSchema.discriminators[SedComputeModelChange.name] =
+  SedComputeModelChangeSchema;
 
 const sedModelChangeArraySchema = SedModelSchema.path(
   'changes',
@@ -794,6 +967,22 @@ const sedModelChangeArraySchema = SedModelSchema.path(
 sedModelChangeArraySchema.discriminator(
   SedModelAttributeChange.name,
   SedModelAttributeChangeSchema,
+);
+sedModelChangeArraySchema.discriminator(
+  SedAddElementModelChange.name,
+  SedAddElementModelChangeSchema,
+);
+sedModelChangeArraySchema.discriminator(
+  SedReplaceElementModelChange.name,
+  SedReplaceElementModelChangeSchema,
+);
+sedModelChangeArraySchema.discriminator(
+  SedRemoveElementModelChange.name,
+  SedRemoveElementModelChangeSchema,
+);
+sedModelChangeArraySchema.discriminator(
+  SedComputeModelChange.name,
+  SedComputeModelChangeSchema,
 );
 
 SedAbstractTaskSchema.discriminators = {};

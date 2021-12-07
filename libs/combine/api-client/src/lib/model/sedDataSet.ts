@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedDataGenerator } from './sedDataGenerator';
 
 /**
  * A SED data set
@@ -27,7 +26,10 @@ export interface SedDataSet {
    * Brief description.
    */
   name?: string;
-  dataGenerator: SedDataGenerator;
+  /**
+   * Id of the data generator which provides the data for the data set.
+   */
+  dataGenerator: string;
   /**
    * Type.
    */

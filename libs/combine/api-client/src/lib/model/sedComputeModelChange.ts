@@ -9,34 +9,40 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { SedParameter } from './sedParameter';
+import { SedVariable } from './sedVariable';
 import { SedTarget } from './sedTarget';
 
 /**
- * A SED variable.
+ * Change an attribute of an element of a model based on a calculation
  */
-export interface SedVariable {
-  /**
-   * Unique identifier within its parent SED document.
-   */
-  id: string;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  /**
-   * Task.
-   */
-  task: string;
-  target?: SedTarget;
-  /**
-   * Symbol (e.g., for an implicit variable that is not explicitly defined in the specification of a model, such as time).
-   */
-  symbol?: string;
+export interface SedComputeModelChange {
   /**
    * Type.
    */
-  _type: SedVariableType;
+  _type: SedComputeModelChangeType;
+  target: SedTarget;
+  /**
+   * Unique identifier within its parents SED document.
+   */
+  id: string;
+  /**
+   * Brief description
+   */
+  name?: string;
+  /**
+   * Parameters.
+   */
+  parameters: Array<SedParameter>;
+  /**
+   * Variables.
+   */
+  variables: Array<SedVariable>;
+  /**
+   * Mathematical expression for its new value.
+   */
+  math: string;
 }
-export enum SedVariableType {
-  SedVariable = 'SedVariable',
+export enum SedComputeModelChangeType {
+  SedComputeModelChange = 'SedComputeModelChange',
 }

@@ -101,25 +101,24 @@ def handler(body, file=None):
             traceback.print_exc()
             continue
 
-        sed_model_specs = collections.OrderedDict()
+        sed_model_specs = []
         for model in sed_doc.models:
             sed_model_spec = {
                 "_type": "SedModel",
                 "id": model.id,
-                "name": model.name,
                 "source": model.source,
                 "language": model.language,
                 "changes": [],
             }
             if model.name:
                 sed_model_spec['name'] = model.name
-            sed_model_specs[model.id] = sed_model_spec
+            # TODO: add model changes
+            sed_model_specs.append(sed_model_spec)
 
-        sed_simulation_specs = collections.OrderedDict()
+        sed_simulation_specs = []
         for sim in sed_doc.simulations:
             sed_sim_spec = {
                 "id": sim.id,
-                "name": sim.name,
                 "algorithm": {
                     "_type": "SedAlgorithm",
                     "kisaoId": sim.algorithm.kisao_id,
@@ -152,19 +151,18 @@ def handler(body, file=None):
                     "newValue": change.new_value,
                 })
 
-            sed_simulation_specs[sim.id] = sed_sim_spec
+            sed_simulation_specs.append(sed_sim_spec)
 
-        sed_task_specs = collections.OrderedDict()
+        sed_task_specs = []
         for task in sed_doc.tasks:
             sed_task_spec = {
                 "id": task.id,
-                "name": task.name,
             }
 
             if isinstance(task, Task):
                 sed_task_spec['_type'] = 'SedTask'
-                sed_task_spec['model'] = sed_model_specs[task.model.id]
-                sed_task_spec['simulation'] = sed_simulation_specs[task.simulation.id]
+                sed_task_spec['model'] = task.model.id
+                sed_task_spec['simulation'] = task.simulation.id
 
             elif isinstance(task, RepeatedTask):
                 sed_task_spec['_type'] = 'SedRepeatedTask'
@@ -172,14 +170,14 @@ def handler(body, file=None):
             if task.name:
                 sed_task_spec['name'] = task.name
 
-            sed_task_specs[task.id] = sed_task_spec
+            sed_task_specs.append(sed_task_spec)
 
-        sed_data_generator_specs = collections.OrderedDict()
+        sed_data_generator_specs = []
         for data_generator in sed_doc.data_generators:
             sed_data_generator_spec = {
                 '_type': 'SedDataGenerator',
                 'id': data_generator.id,
-                'name': data_generator.name,
+                'parameters': [],
                 'variables': [],
                 'math': data_generator.math,
             }
@@ -187,7 +185,51 @@ def handler(body, file=None):
             if data_generator.name:
                 sed_data_generator_spec['name'] = data_generator.name
 
-            sed_data_generator_specs[data_generator.id] = sed_data_generator_spec
+            for parameter in data_generator.parameters:
+                parameter_spec = {
+                    '_type': 'SedParameter',
+                    'id': parameter.id,
+                    'value': parameter.value,
+                }
+                if parameter.name:
+                    parameter_spec['name'] = parameter.name
+                sed_data_generator_specs['parameters'].append(parameter_spec)
+
+            for variable in data_generator.variables:
+                variable_spec = {
+                    '_type': 'SedVariable',
+                    'id': variable.id,
+                }
+                if variable.name:
+                    variable_spec['name'] = variable.name
+                if variable.target:
+                    variable_spec['target'] = {
+                        "_type": 'SedTarget',
+                        "value": variable.target,
+                        "namespaces": [
+                            {
+                                '_type': 'Namespace',
+                                'prefix': prefix,
+                                'uri': uri,
+                            }
+                            if prefix else
+                            {
+                                '_type': 'Namespace',
+                                'uri': uri,
+                            }
+                            for prefix, uri in variable.target_namespaces.items()
+
+                        ]
+                    }
+                if variable.symbol:
+                    variable_spec['symbol'] = variable.symbol
+                if variable.task:
+                    variable_spec['task'] = variable.task.id
+                if variable.model:
+                    variable_spec['model'] = variable.model.id
+                sed_data_generator_spec['variables'].append(variable_spec)
+
+            sed_data_generator_specs.append(sed_data_generator_spec)
 
         sed_doc_outputs_specs = []
         for output in sed_doc.outputs:
@@ -195,7 +237,6 @@ def handler(body, file=None):
                 sed_doc_output_specs = {
                     '_type': 'SedReport',
                     'id': output.id,
-                    'name': output.name,
                     'dataSets': [],
                 }
 
@@ -206,23 +247,13 @@ def handler(body, file=None):
                     data_set_specs = {
                         '_type': 'SedDataSet',
                         'id': data_set.id,
-                        'name': data_set.name,
-                        'dataGenerator': {
-                            '_type': 'SedDataGenerator',
-                            'id': data_set.data_generator.id,
-                            'name': data_set.data_generator.name,
-                            'variables': [],
-                            'math': data_set.data_generator.math,
-                        }
+                        'dataGenerator': data_set.data_generator.id,
                     }
 
                     if data_set.name:
                         data_set_specs['name'] = data_set.name
                     if data_set.label:
                         data_set_specs['label'] = data_set.label
-                    if data_set.data_generator.name:
-                        data_set_specs['dataGenerator']['name'] = \
-                            data_set.data_generator.name
 
                     sed_doc_output_specs['dataSets'].append(data_set_specs)
 
@@ -230,7 +261,6 @@ def handler(body, file=None):
                 sed_doc_output_specs = {
                     '_type': 'SedPlot2D',
                     'id': output.id,
-                    'name': output.name,
                     'curves': [],
                     'xScale': None,
                     'yScale': None,
@@ -250,31 +280,12 @@ def handler(body, file=None):
                     curve_specs = {
                         '_type': 'SedCurve',
                         'id': curve.id,
-                        'name': curve.name,
-                        'xDataGenerator': {
-                            '_type': 'SedDataGenerator',
-                            'id': curve.x_data_generator.id,
-                            'name': curve.x_data_generator.name,
-                            'variables': [],
-                            'math': curve.x_data_generator.math,
-                        },
-                        'yDataGenerator': {
-                            '_type': 'SedDataGenerator',
-                            'id': curve.y_data_generator.id,
-                            'name': curve.y_data_generator.name,
-                            'variables': [],
-                            'math': curve.y_data_generator.math,
-                        },
+                        'xDataGenerator': curve.x_data_generator.id,
+                        'yDataGenerator': curve.y_data_generator.id,
                     }
 
                     if curve.name:
                         curve_specs['name'] = curve.name
-                    if curve.x_data_generator.name:
-                        curve_specs['xDataGenerator']['name'] = \
-                            curve.x_data_generator.name
-                    if curve.y_data_generator.name:
-                        curve_specs['yDataGenerator']['name'] = \
-                            curve.y_data_generator.name
 
                     sed_doc_output_specs['curves'].append(curve_specs)
 
@@ -292,7 +303,6 @@ def handler(body, file=None):
                 sed_doc_output_specs = {
                     '_type': 'SedPlot3D',
                     'id': output.id,
-                    'name': output.name,
                     'surfaces': [],
                     'xScale': None,
                     'yScale': None,
@@ -315,41 +325,13 @@ def handler(body, file=None):
                     surface_specs = {
                         '_type': 'SedSurface',
                         'id': surface.id,
-                        'name': surface.name,
-                        'xDataGenerator': {
-                            '_type': 'SedDataGenerator',
-                            'id': surface.x_data_generator.id,
-                            'name': surface.x_data_generator.name,
-                            'variables': [],
-                            'math': surface.x_data_generator.math,
-                        },
-                        'yDataGenerator': {
-                            '_type': 'SedDataGenerator',
-                            'id': surface.y_data_generator.id,
-                            'name': surface.y_data_generator.name,
-                            'variables': [],
-                            'math': surface.y_data_generator.math,
-                        },
-                        'zDataGenerator': {
-                            '_type': 'SedDataGenerator',
-                            'id': surface.z_data_generator.id,
-                            'name': surface.z_data_generator.name,
-                            'variables': [],
-                            'math': surface.z_data_generator.math,
-                        },
+                        'xDataGenerator': surface.x_data_generator.id,
+                        'yDataGenerator': surface.y_data_generator.id,
+                        'zDataGenerator': surface.z_data_generator.id,
                     }
 
                     if surface.name:
                         surface_specs['name'] = surface.name
-                    if surface.x_data_generator.name:
-                        surface_specs['xDataGenerator']['name'] = \
-                            surface.x_data_generator.name
-                    if surface.y_data_generator.name:
-                        surface_specs['yDataGenerator']['name'] = \
-                            surface.y_data_generator.name
-                    if surface.z_data_generator.name:
-                        surface_specs['zDataGenerator']['name'] = \
-                            surface.z_data_generator.name
 
                     sed_doc_output_specs['surfaces'].append(surface_specs)
 
@@ -376,10 +358,10 @@ def handler(body, file=None):
             '_type': 'SedDocument',
             'level': sed_doc.level,
             'version': sed_doc.version,
-            'models': list(sed_model_specs.values()),
-            'simulations': list(sed_simulation_specs.values()),
-            'tasks': list(sed_task_specs.values()),
-            'dataGenerators': list(sed_data_generator_specs.values()),
+            'models': sed_model_specs,
+            'simulations': sed_simulation_specs,
+            'tasks': sed_task_specs,
+            'dataGenerators': sed_data_generator_specs,
             'outputs': sed_doc_outputs_specs,
         }
 

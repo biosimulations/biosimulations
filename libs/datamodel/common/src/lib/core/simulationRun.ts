@@ -1,11 +1,11 @@
 import { SimulationRunLogStatus } from './simulationRunLog';
 import { Purpose } from './purpose';
 import {
-  SedModel,
-  SedSimulation,
-  SedTask,
-  SedDataGenerator,
-  SedOutput,
+  SerializedSedModel as SedModel,
+  SerializedSedSimulation as SedSimulation,
+  SerializedSedAbstractTask as SedAbstractTask,
+  SerializedSedDataGenerator as SedDataGenerator,
+  SerializedSedOutput as SedOutput,
 } from '../sedml';
 import { LabeledIdentifier, DescribedIdentifier } from './archiveMetadata';
 
@@ -97,11 +97,13 @@ export interface SimulationRun {
 
 export interface SimulationRunSedDocumentInput {
   id: string;
+  level: number;
+  version: number;
   models: SedModel[];
   simulations: SedSimulation[];
   dataGenerators: SedDataGenerator[];
   outputs: SedOutput[];
-  tasks: SedTask[];
+  tasks: SedAbstractTask[];
 }
 
 export class SimulationRunSedDocumentInputsContainer {

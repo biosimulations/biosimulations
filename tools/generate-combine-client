@@ -5,8 +5,8 @@ set -e
 # location of this script
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-rm -r ${script_dir}/../libs/combine/api-client/src/lib/api/
-rm -r ${script_dir}/../libs/combine/api-client/src/lib/model/
+rm -rf ${script_dir}/../libs/combine/api-client/src/lib/api/
+rm -rf ${script_dir}/../libs/combine/api-client/src/lib/model/
 
 npx @openapitools/openapi-generator-cli  generate \
     -g typescript-nestjs \

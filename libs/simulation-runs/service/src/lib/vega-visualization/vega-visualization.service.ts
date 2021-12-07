@@ -3,9 +3,11 @@ import {
   SedSimulation,
   SedReport,
   SimulationRunSedDocument,
+  SedDocument,
 } from '@biosimulations/datamodel/common';
 import { Spec as VegaSpec } from 'vega';
 import { Endpoints } from '@biosimulations/config/common';
+import { deserializeSedDocument } from '../sed-document/sed-document';
 
 @Injectable({
   providedIn: 'root',
@@ -159,13 +161,23 @@ export class VegaVisualizationService {
     path: any,
     sedDocumentConfigurations: SimulationRunSedDocument[],
   ): SedReport | SedReport[] | undefined {
-    const sedDocument:
+    const serializedSedDocument:
       | SimulationRunSedDocument
       | SimulationRunSedDocument[]
       | undefined = this.getSedDocument(path, sedDocumentConfigurations);
-    if (!sedDocument || Array.isArray(sedDocument)) {
+    if (!serializedSedDocument || Array.isArray(serializedSedDocument)) {
       return undefined;
     }
+    const sedDocument = deserializeSedDocument({
+      _type: 'SedDocument',
+      version: serializedSedDocument.version,
+      level: serializedSedDocument.level,
+      models: serializedSedDocument.models,
+      simulations: serializedSedDocument.simulations,
+      tasks: serializedSedDocument.tasks,
+      dataGenerators: serializedSedDocument.dataGenerators,
+      outputs: serializedSedDocument.outputs,
+    });
 
     const reportTypeIdStr = path?.[1];
     if (
@@ -184,15 +196,16 @@ export class VegaVisualizationService {
     const multipleReports = reportId === '*';
 
     let iReport = -1;
-    for (const thisOutput of sedDocument.outputs) {
-      if (thisOutput._type === 'SedReport') {
+
+    for (const output of sedDocument.outputs) {
+      if (output._type === 'SedReport') {
         iReport++;
         if (
           ['', 'Report'].includes(reportType) &&
-          (['*', thisOutput.id].includes(reportId) ||
+          (['*', output.id].includes(reportId) ||
             reportId === `[${iReport}]`)
         ) {
-          reports.push(thisOutput as SedReport);
+          reports.push(output as SedReport);
         }
       }
     }
@@ -212,13 +225,13 @@ export class VegaVisualizationService {
     path: any,
     sedDocumentConfigurations: SimulationRunSedDocument[],
   ): any {
-    const sedDocument:
+    const serializedSedDocument:
       | SimulationRunSedDocument
       | SimulationRunSedDocument[]
       | undefined = this.getSedDocument(path, sedDocumentConfigurations);
-    if (!sedDocument) {
+    if (!serializedSedDocument) {
       return undefined;
-    }
+    }    
 
     const objectTypeIdStr = path?.[1];
     if (
@@ -233,10 +246,23 @@ export class VegaVisualizationService {
     const objectId = objectTypeIdArr[objectTypeIdArr.length - 1];
 
     const sedObjects: (SedSimulation | SedReport)[] = [];
-    const multipleSedObjects = objectId === '*' || Array.isArray(sedDocument);
-    const sedDocuments = Array.isArray(sedDocument)
-      ? sedDocument
-      : [sedDocument];
+    const multipleSedObjects = objectId === '*' || Array.isArray(serializedSedDocument);
+    const serializedSedDocuments = Array.isArray(serializedSedDocument)
+      ? serializedSedDocument
+      : [serializedSedDocument];
+
+    const sedDocuments = serializedSedDocuments.map((serializedSedDocument): SedDocument => {
+      return deserializeSedDocument({
+        _type: 'SedDocument',
+        version: serializedSedDocument.version,
+        level: serializedSedDocument.level,
+        models: serializedSedDocument.models,
+        simulations: serializedSedDocument.simulations,
+        tasks: serializedSedDocument.tasks,
+        dataGenerators: serializedSedDocument.dataGenerators,
+        outputs: serializedSedDocument.outputs,
+      });
+    });
 
     for (const sedDocument of sedDocuments) {
       for (let iSim = 0; iSim < sedDocument.simulations.length; iSim++) {

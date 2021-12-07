@@ -241,8 +241,8 @@ def export_sed_doc(sed_doc_specs):
     task_id_map = {}
     for task_spec in sed_doc_specs['tasks']:
         if task_spec['_type'] == 'SedTask':
-            model_id = task_spec.get('model').get('id')
-            sim_id = task_spec.get('simulation').get('id')
+            model_id = task_spec.get('model')
+            sim_id = task_spec.get('simulation')
             model = model_id_map.get(model_id, None)
             sim = simulation_id_map.get(sim_id, None)
 
@@ -285,7 +285,7 @@ def export_sed_doc(sed_doc_specs):
         )
 
         for var_spec in data_gen_spec['variables']:
-            task_id = var_spec.get('task').get('id')
+            task_id = var_spec.get('task')
             task = task_id_map.get(task_id, None)
 
             if not task:
@@ -321,7 +321,7 @@ def export_sed_doc(sed_doc_specs):
                 name=output_spec.get('name', None),
             )
             for data_set_spec in output_spec['dataSets']:
-                data_gen_id = data_set_spec['dataGenerator']['id']
+                data_gen_id = data_set_spec['dataGenerator']
                 data_gen = data_gen_id_map.get(
                     data_gen_id, None)
 
@@ -346,8 +346,8 @@ def export_sed_doc(sed_doc_specs):
                 name=output_spec.get('name', None),
             )
             for curve_spec in output_spec['curves']:
-                x_data_gen_id = curve_spec['xDataGenerator']['id']
-                y_data_gen_id = curve_spec['yDataGenerator']['id']
+                x_data_gen_id = curve_spec['xDataGenerator']
+                y_data_gen_id = curve_spec['yDataGenerator']
                 x_data_gen = data_gen_id_map.get(x_data_gen_id, None)
                 y_data_gen = data_gen_id_map.get(y_data_gen_id, None)
 
@@ -380,9 +380,9 @@ def export_sed_doc(sed_doc_specs):
                 name=output_spec.get('name', None),
             )
             for surface_spec in output_spec['surfaces']:
-                x_data_gen_id = surface_spec['xDataGenerator']['id']
-                y_data_gen_id = surface_spec['yDataGenerator']['id']
-                z_data_gen_id = surface_spec['zDataGenerator']['id']
+                x_data_gen_id = surface_spec['xDataGenerator']
+                y_data_gen_id = surface_spec['yDataGenerator']
+                z_data_gen_id = surface_spec['zDataGenerator']
                 x_data_gen = data_gen_id_map.get(x_data_gen_id, None)
                 y_data_gen = data_gen_id_map.get(y_data_gen_id, None)
                 z_data_gen = data_gen_id_map.get(z_data_gen_id, None)

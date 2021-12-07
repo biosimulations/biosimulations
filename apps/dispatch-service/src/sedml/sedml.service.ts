@@ -6,6 +6,11 @@ import { HttpService } from '@nestjs/axios';
 import { map, mergeMap, pluck } from 'rxjs';
 import {
   SedDocument,
+  SedModel,
+  SedSimulation,
+  SedAbstractTask,
+  SedDataGenerator,
+  SedOutput,
   CombineArchiveSedDocSpecsContent,
 } from '@biosimulations/combine-api-client';
 import { SimulationRunService } from '@biosimulations/api-nest-client';
@@ -50,14 +55,20 @@ export class SedmlService {
     contents.forEach((content: CombineArchiveSedDocSpecsContent) => {
       const id: string = content.location.path.replace('./', '');
       const spec: SedDocument = content.location.value;
-
+      const models: SedModel[] = spec.models;
+      const simulations: SedSimulation[] = spec.simulations;
+      const tasks: SedAbstractTask[] = spec.tasks;
+      const dataGenerators: SedDataGenerator[] = spec.dataGenerators;
+      const outputs: SedOutput[] = spec.outputs;
       sedmlSpecs.push({
-        id: id,
-        dataGenerators: spec.dataGenerators,
-        models: spec.models,
-        outputs: spec.outputs,
-        tasks: spec.tasks,
-        simulations: spec.simulations,
+        id: id,        
+        level: spec.level,
+        version: spec.version,
+        models,
+        simulations,
+        tasks,
+        dataGenerators,
+        outputs,
       });
     });
     return sedmlSpecs;

@@ -41,28 +41,8 @@
               "_type": "SedTask",
               "id": "BIOMD0000000912_task",
               "name": "Caravagna2010",
-              "model": {
-                "_type": "SedModel",
-                "id": "BIOMD0000000912",
-                "name": "Caravagna2010 - Tumour suppression by immune system",
-                "source": "Caravagna2010.xml",
-                "language": "urn:sedml:language:sbml",
-                "changes": []
-              },
-              "simulation": {
-                "_type": "SedUniformTimeCourseSimulation",
-                "id": "BIOMD0000000912_sim",
-                "name": "Caravagna2010",
-                "initialTime": 0,
-                "outputStartTime": 0,
-                "outputEndTime": 1000,
-                "numberOfSteps": 5000,
-                "algorithm": {
-                  "_type": "SedAlgorithm",
-                  "kisaoId": "KISAO_0000019",
-                  "changes": []
-                }
-              }
+              "model": "BIOMD0000000912",
+              "simulation": "BIOMD0000000912_sim"
             }
           ],
           "dataGenerators": [
@@ -70,28 +50,104 @@
               "_type": "SedDataGenerator",
               "id": "data_generator_time",
               "name": "time",
-              "variables": [],
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "var_time",
+                  "name": "time",
+                  "symbol": "urn:sedml:symbol:time",
+                  "task": "BIOMD0000000912_task"
+                }
+              ],
               "math": "var_time"
             },
             {
               "_type": "SedDataGenerator",
               "id": "data_generator_T",
               "name": "T",
-              "variables": [],
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "var_T",
+                  "name": "T",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='T']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://sed-ml.org/sed-ml/level1/version3"
+                      },
+                      {
+                        "_type": "Namespace",
+                        "prefix": "sbml",
+                        "uri": "http://www.sbml.org/sbml/level2/version4"
+                      }
+                    ]
+                  },
+                  "task": "BIOMD0000000912_task"
+                }
+              ],
               "math": "var_T"
             },
             {
               "_type": "SedDataGenerator",
               "id": "data_generator_E",
               "name": "E",
-              "variables": [],
+              "parameters": [],
+              "variables": [
+                {
+                  "_type": "SedVariable",
+                  "id": "var_E",
+                  "name": "E",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='E']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://sed-ml.org/sed-ml/level1/version3"
+                      },
+                      {
+                        "_type": "Namespace",
+                        "prefix": "sbml",
+                        "uri": "http://www.sbml.org/sbml/level2/version4"
+                      }
+                    ]
+                  },
+                  "task": "BIOMD0000000912_task"
+                }
+              ],
               "math": "var_E"
             },
             {
               "_type": "SedDataGenerator",
               "id": "data_generator_I",
               "name": "I",
-              "variables": [],
+              "parameters": [],
+              "variables": [{
+                  "_type": "SedVariable",
+                  "id": "var_I",
+                  "name": "I",
+                  "target": {
+                    "_type": "SedTarget",
+                    "value": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='I']",
+                    "namespaces": [
+                      {
+                        "_type": "Namespace",
+                        "uri": "http://sed-ml.org/sed-ml/level1/version3"
+                      },
+                      {
+                        "_type": "Namespace",
+                        "prefix": "sbml",
+                        "uri": "http://www.sbml.org/sbml/level2/version4"
+                      }
+                    ]
+                  },
+                  "task": "BIOMD0000000912_task"
+                }],
               "math": "var_I"
             }
           ],
@@ -104,54 +160,26 @@
                 {
                   "_type": "SedDataSet",
                   "id": "data_set_time",
-                  "name": null,
                   "label": "time",
-                  "dataGenerator": {
-                    "_type": "SedDataGenerator",
-                    "id": "data_generator_time",
-                    "name": "time",
-                    "variables": [],
-                    "math": "var_time"
-                  }
+                  "dataGenerator": "data_generator_time"
                 },
                 {
                   "_type": "SedDataSet",
                   "id": "data_set_T",
-                  "name": null,
                   "label": "T",
-                  "dataGenerator": {
-                    "_type": "SedDataGenerator",
-                    "id": "data_generator_T",
-                    "name": "T",
-                    "variables": [],
-                    "math": "var_T"
-                  }
+                  "dataGenerator": "data_generator_T"
                 },
                 {
                   "_type": "SedDataSet",
                   "id": "data_set_E",
-                  "name": null,
                   "label": "E",
-                  "dataGenerator": {
-                    "_type": "SedDataGenerator",
-                    "id": "data_generator_E",
-                    "name": "E",
-                    "variables": [],
-                    "math": "var_E"
-                  }
+                  "dataGenerator": "data_generator_E"
                 },
                 {
                   "_type": "SedDataSet",
                   "id": "data_set_I",
-                  "name": null,
                   "label": "I",
-                  "dataGenerator": {
-                    "_type": "SedDataGenerator",
-                    "id": "data_generator_I",
-                    "name": "I",
-                    "variables": [],
-                    "math": "var_I"
-                  }
+                  "dataGenerator": "data_generator_I"
                 }
               ]
             },
@@ -164,58 +192,22 @@
                   "_type": "SedCurve",
                   "id": "plot_1_T_time",
                   "name": "T",
-                  "xDataGenerator": {
-                    "_type": "SedDataGenerator",
-                    "id": "data_generator_time",
-                    "name": "time",
-                    "variables": [],
-                    "math": "var_time"
-                  },
-                  "yDataGenerator": {
-                    "_type": "SedDataGenerator",
-                    "id": "data_generator_T",
-                    "name": "T",
-                    "variables": [],
-                    "math": "var_T"
-                  }
+                  "xDataGenerator": "data_generator_time",
+                  "yDataGenerator": "data_generator_T"
                 },
                 {
                   "_type": "SedCurve",
                   "id": "plot_1_E_time",
                   "name": "E",
-                  "xDataGenerator": {
-                    "_type": "SedDataGenerator",
-                    "id": "data_generator_time",
-                    "name": "time",
-                    "variables": [],
-                    "math": "var_time"
-                  },
-                  "yDataGenerator": {
-                    "_type": "SedDataGenerator",
-                    "id": "data_generator_E",
-                    "name": "E",
-                    "variables": [],
-                    "math": "var_E"
-                  }
+                  "xDataGenerator": "data_generator_time",
+                  "yDataGenerator": "data_generator_E"
                 },
                 {
                   "_type": "SedCurve",
                   "id": "plot_1_I_time",
                   "name": "I",
-                  "xDataGenerator": {
-                    "_type": "SedDataGenerator",
-                    "id": "data_generator_time",
-                    "name": "time",
-                    "variables": [],
-                    "math": "var_time"
-                  },
-                  "yDataGenerator": {
-                    "_type": "SedDataGenerator",
-                    "id": "data_generator_I",
-                    "name": "I",
-                    "variables": [],
-                    "math": "var_I"
-                  }
+                  "xDataGenerator": "data_generator_time",
+                  "yDataGenerator": "data_generator_I"
                 }
               ],
               "xScale": "linear",

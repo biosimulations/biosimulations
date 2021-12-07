@@ -9,6 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { SedAddElementModelChange } from './sedAddElementModelChange';
+import { SedReplaceElementModelChange } from './sedReplaceElementModelChange';
+import { SedParameter } from './sedParameter';
+import { SedVariable } from './sedVariable';
+import { SedComputeModelChange } from './sedComputeModelChange';
+import { SedRemoveElementModelChange } from './sedRemoveElementModelChange';
 import { SedTarget } from './sedTarget';
 import { SedModelAttributeChange } from './sedModelAttributeChange';
 
@@ -20,4 +26,9 @@ import { SedModelAttributeChange } from './sedModelAttributeChange';
  * A SED model change.
  * @export
  */
-export type SedModelChange = SedModelAttributeChange;
+export type SedModelChange =
+  | SedAddElementModelChange
+  | SedComputeModelChange
+  | SedModelAttributeChange
+  | SedRemoveElementModelChange
+  | SedReplaceElementModelChange;

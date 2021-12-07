@@ -9,13 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedTask } from './sedTask';
 import { CombineArchiveContentUrl } from './combineArchiveContentUrl';
 import { SedSimulation } from './sedSimulation';
 import { SedOutput } from './sedOutput';
 import { SedDataGenerator } from './sedDataGenerator';
 import { SedModel } from './sedModel';
 import { CombineArchiveContentFile } from './combineArchiveContentFile';
+import { SedAbstractTask } from './sedAbstractTask';
 import { SedDocument } from './sedDocument';
 
 /**
