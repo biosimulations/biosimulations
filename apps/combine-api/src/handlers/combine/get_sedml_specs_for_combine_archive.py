@@ -16,7 +16,6 @@ from biosimulators_utils.sedml.data_model import (
 from biosimulators_utils.sedml.io import (
     SedmlSimulationReader,
 )
-import collections
 import os
 import requests
 import requests.exceptions
