@@ -191,7 +191,7 @@
     "openapi-examples-validator": "4.6.0",
     "plotly.js": "2.7.0",
     "prettier": "2.5.1",
-    "sanitize-html": "2.6.0",
+    "sanitize-html": "2.6.1",
     "schema-dts": "1.0.0",
     "semantic-release": "18.0.1",
     "throttle-debounce": "3.0.1",
