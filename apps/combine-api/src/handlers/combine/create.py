@@ -11,6 +11,10 @@ from biosimulators_utils.sedml.data_model import (
     SedDocument,
     Model,
     ModelAttributeChange,
+    AddElementModelChange,
+    ReplaceElementModelChange,
+    RemoveElementModelChange,
+    ComputeModelChange,
     OneStepSimulation,
     SteadyStateSimulation,
     UniformTimeCourseSimulation,
@@ -26,6 +30,7 @@ from biosimulators_utils.sedml.data_model import (
     Curve,
     Surface,
     AxisScale,
+    Parameter,
 )
 from biosimulators_utils.sedml.io import (
     SedmlSimulationWriter,
@@ -186,13 +191,62 @@ def export_sed_doc(sed_doc_specs):
         model_id_map[model.id] = model
 
         for change_spec in model_spec['changes']:
-            change = ModelAttributeChange(
-                target=change_spec.get('target').get('value'),
-                new_value=change_spec.get('newValue'),
-            )
-            model.changes.append(change)
+            if change_spec['_type'] == 'SedModelAttributeChange':
+                change = ModelAttributeChange(
+                    new_value=change_spec.get('newValue'),
+                )
+
+            elif change_spec['_type'] == 'SedAddElementModelChange':
+                change = AddElementModelChange(
+                    new_elements=change_spec.get('newElements'),
+                )
+
+            elif change_spec['_type'] == 'SedReplaceElementModelChange':
+                change = ReplaceElementModelChange(
+                    new_elements=change_spec.get('newElements'),
+                )
+
+            elif change_spec['_type'] == 'SedRemoveElementModelChange':
+                change = RemoveElementModelChange()
+
+            elif change_spec['_type'] == 'SedComputeModelChange':
+                change = ComputeModelChange(
+                    parameters=[],
+                    variables=[],
+                    math=change_spec.get('math'),
+                )
+                for parameter_spec in change_spec.get('parameters', []):
+                    change.parameters.append(Parameter(
+                        id=parameter_spec.get('id'),
+                        name=parameter_spec.get('name', None),
+                        value=parameter_spec.get('value'),
+                    ))
+                for variable_spec in change_spec.get('variables', []):
+                    change.variables.append(Variable(
+                        id=variable_spec.get('id'),
+                        name=variable_spec.get('name', None),
+                        model=variable_spec.get('model', None),
+                        target=variable_spec.get('target', {}).get('value', None),
+                        target_namespaces={
+                            namespace['prefix']: namespace['uri']
+                            for namespace in variable_spec.get('target', {}).get('namespaces', [])
+                        },
+                        symbol=variable_spec.get('symbol', None),
+                        task=variable_spec.get('task', None),
+                    ))
+
+            else:
+                raise BadRequestException(
+                    title='Changes of type `{}` are not supported'.format(
+                        change_spec['_type']),
+                    instance=NotImplementedError('Invalid change')
+                )
+
+            change.target = change_spec.get('target').get('value')
             for ns in change_spec.get('target').get('namespaces', []):
                 change.target_namespaces[ns.get('prefix', None)] = ns['uri']
+
+            model.changes.append(change)
 
     # add simulations to SED document
     simulation_id_map = {}
@@ -266,6 +320,7 @@ def export_sed_doc(sed_doc_specs):
                 simulation=sim,
             )
         else:
+            # TODO: support repeated tasks
             raise BadRequestException(
                 title='Tasks of type `{}` are not supported'.format(
                     task_spec['_type']),
@@ -426,5 +481,23 @@ def export_sed_doc(sed_doc_specs):
             )  # pragma: no cover: unreachable due to schema validation
 
         sed_doc.outputs.append(output)
+
+    # deserialize references
+    model_map = {}
+    for model in sed_doc.models:
+        model_map[model.id] = model
+
+    task_map = {}
+    for task in sed_doc.tasks:
+        task_map[task.id] = task
+
+    for model in sed_doc.models:
+        for change in model.changes:
+            if isinstance(change, ComputeModelChange):
+                for variable in change.variables:
+                    if variable.model:
+                        variable.model = model_map[variable.model]
+                    if variable.task:
+                        variable.task = task_map[variable.task]
 
     return sed_doc
