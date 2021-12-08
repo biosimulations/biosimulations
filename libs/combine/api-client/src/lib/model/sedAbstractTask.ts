@@ -10,7 +10,10 @@
  * Do not edit the class manually.
  */
 import { SedTask } from './sedTask';
+import { SedSetValueComputeModelChange } from './sedSetValueComputeModelChange';
+import { SedRange } from './sedRange';
 import { SedRepeatedTask } from './sedRepeatedTask';
+import { SedSubTask } from './sedSubTask';
 
 /**
  * A SED abstract task.

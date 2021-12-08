@@ -198,6 +198,8 @@ def handler(body, modelFile=None):
 
             if var.name:
                 response_var['name'] = var.name
+            if var.model:
+                response_var['model'] = var.model.id
             if var.symbol:
                 response_var['symbol'] = var.symbol
             if var.target:

@@ -1428,6 +1428,7 @@ components:
           type: number
         numberOfSteps:
           description: Number of steps.
+          minimum: 1
           type: integer
         algorithm:
           $ref: '#/components/schemas/SedAlgorithm'
@@ -1509,28 +1510,6 @@ components:
           _type: SedAlgorithm
           kisaoId: KISAO_0000019
           changes: []
-    SedRepeatedTask:
-      description: A SED repeated task.
-      required:
-      - id
-      - _type
-      type: object
-      properties:
-        id:
-          description: Unique identifiers with its parent SED document.
-          type: string
-        name:
-          description: Brief description.
-          type: string
-        _type:
-          description: Type.
-          enum:
-          - SedRepeatedTask
-          type: string
-      example:
-        _type: SedRepeatedTask
-        id: task
-        name: Task
     SedAxisScale:
       description: ""
       enum:
@@ -3086,9 +3065,6 @@ components:
         id: k1
         name: k1
         value: 2
-    SedSetValueComputeModelChange:
-      description: Dynamic change to an attribute of a model
-      type: object
     SedReplaceElementModelChange:
       description: Replacement of an element of a model
       required:
@@ -3197,12 +3173,7 @@ components:
         - _type: SedVariable
           id: time
           name: Time
-          task:
-            _type: SedTask
-            id: task
-            name: Task
-            model: model
-            simulation: koSimulation
+          task: task
           symbol: urn:sedml:symbol:time
         parameters:
         - _type: SedParameter
@@ -3289,12 +3260,7 @@ components:
         - _type: SedVariable
           id: time
           name: Time
-          task:
-            _type: SedTask
-            id: task
-            name: Task
-            model: model
-            simulation: koSimulation
+          task: task
           symbol: urn:sedml:symbol:time
         math: min_to_sec * time
     SedDataSet:
@@ -3576,12 +3542,316 @@ components:
           enum:
           - SedVariable
           type: string
+        model:
+          description: Identifier of the model from which the variable should be recorded
+          type: string
       example:
         id: atp
         name: ATP
         task: task
         symbol: urn:sedml:symbol:time
         _type: SedVariable
+    SedUniformRange:
+      description: Uniform range
+      required:
+      - _type
+      - end
+      - start
+      - numberOfSteps
+      - id
+      - type
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - SedUniformRange
+          type: string
+        id:
+          description: Unique identifier within is parent SED document.
+          type: string
+        name:
+          description: Brief description
+          type: string
+        start:
+          description: First value
+          type: number
+        end:
+          description: Last value
+          type: number
+        numberOfSteps:
+          description: "Number of steps, equal to the 1 less than the number of iterations."
+          minimum: 1
+          type: integer
+        type:
+          description: Type
+          enum:
+          - linear
+          - log
+          type: string
+      example:
+        _type: SedUniformRange
+        id: range
+        name: range
+        start: 0
+        end: 10
+        numberOfSteps: 10
+        type: linear
+    SedRange:
+      oneOf:
+      - $ref: '#/components/schemas/SedUniformRange'
+      - $ref: '#/components/schemas/SedVectorRange'
+      - $ref: '#/components/schemas/SedFunctionalRange'
+      description: Range
+      type: object
+      example:
+        _type: SedUniformRange
+        id: range
+        name: range
+        start: 0
+        end: 10
+        numberOfSteps: 10
+        type: linear
+    SedVectorRange:
+      description: Vector range
+      required:
+      - _type
+      - id
+      - values
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - SedVectorRange
+          type: string
+        id:
+          description: Unique identifier within is parent SED document.
+          type: string
+        name:
+          description: Brief description
+          type: string
+        values:
+          description: Value of each iteration of the range
+          type: array
+          items:
+            type: number
+      example:
+        _type: SedVectorRange
+        id: range
+        name: range
+        values:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+    SedFunctionalRange:
+      description: Functional range
+      required:
+      - _type
+      - id
+      - range
+      - parameters
+      - variables
+      - math
+      type: object
+      properties:
+        _type:
+          description: Type
+          enum:
+          - SedFunctionalRange
+          type: string
+        id:
+          description: Unique identifier within is parent SED document.
+          type: string
+        name:
+          description: Brief description
+          type: string
+        range:
+          description: Range over which the mathematical expression should be evaluated
+          type: string
+        parameters:
+          description: Parameters of the mathematical expression
+          type: array
+          items:
+            $ref: '#/components/schemas/SedParameter'
+        variables:
+          description: Variables of the mathematical expression
+          type: array
+          items:
+            $ref: '#/components/schemas/SedVariable'
+        math:
+          description: Mathematical expression
+          type: string
+      example:
+        _type: SedFunctionalRange
+        id: functional_range
+        name: functional range
+        range: vector_range
+        parameters:
+        - _type: SedParameter
+          id: p
+          value: 1
+        variables:
+        - _type: SedVariable
+          id: t
+          task: task
+          symbol: urn:sedml:symbol:time
+        math: p * vector_range + t
+    SedSubTask:
+      description: Sub task of a repeated task
+      required:
+      - task
+      - order
+      - _type
+      type: object
+      properties:
+        task:
+          description: Identifier of the task.
+          type: string
+        order:
+          description: Order of the subtask within its parent repeated task.
+          type: number
+        _type:
+          description: Type
+          enum:
+          - SedSubTask
+          type: string
+      example:
+        _type: SedSubTask
+        task: time_course_simulation
+        order: 1
+    SedRepeatedTask:
+      description: A SED repeated task.
+      required:
+      - id
+      - _type
+      - ranges
+      - resetModelForEachIteration
+      - subTasks
+      - range
+      - changes
+      type: object
+      properties:
+        id:
+          description: Unique identifiers with its parent SED document.
+          type: string
+        name:
+          description: Brief description.
+          type: string
+        _type:
+          description: Type.
+          enum:
+          - SedRepeatedTask
+          type: string
+        range:
+          description: Main range which defines the iterations of the task
+          type: string
+        ranges:
+          description: Child ranges of the task
+          type: array
+          items:
+            $ref: '#/components/schemas/SedRange'
+        resetModelForEachIteration:
+          description: Whether to accumulate changes to models over iterations of
+            the task or to begin each iteration from the same models
+          type: boolean
+        changes:
+          description: Changes to apply to models at each iteration of the task
+          type: array
+          items:
+            $ref: '#/components/schemas/SedSetValueComputeModelChange'
+        subTasks:
+          description: Component tasks of the repeated task
+          type: array
+          items:
+            $ref: '#/components/schemas/SedSubTask'
+      example:
+        _type: SedRepeatedTask
+        id: repeated_task
+        name: Repeated task
+        ranges:
+        - _type: SedUniformRange
+          id: main_range
+          start: 0
+          end: 10
+          numberOfSteps: 10
+          type: linear
+        range: main_range
+        resetModelForEachIteration: true
+        subTasks:
+        - _type: SedSubTask
+          task: basic_task_1
+          order: 1
+        - _type: SedSubTask
+          task: basic_task_2
+          order: 2
+        changes: []
+    SedSetValueComputeModelChange:
+      description: Dynamic change to an attribute of a model
+      required:
+      - _type
+      - id
+      - model
+      - target
+      - parameters
+      - variables
+      - math
+      type: object
+      properties:
+        _type:
+          description: Type.
+          enum:
+          - SedSetValueComputeModelChange
+          type: string
+        id:
+          description: Unique identifier within its parents SED document.
+          type: string
+        name:
+          description: Brief description
+          type: string
+        model:
+          description: Identifier of the model to modify
+          type: string
+        target:
+          $ref: '#/components/schemas/SedTarget'
+          description: Target within the model to modify
+        symbol:
+          description: Symbol within the model to modify
+          type: string
+        parameters:
+          description: Parameters of the mathematical expression
+          type: string
+        variables:
+          description: Variables of the mathematical expression
+          type: string
+        range:
+          description: Identifier for the range used in the mathematical expression
+          type: string
+        math:
+          description: Mathematical expression
+          type: string
+      example:
+        _type: SedSetValueComputeModelChange
+        id: modify_parameter_k1
+        name: modify parameter k1
+        model: model
+        target:
+          _type: SedTarget
+          value: "/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='k1']"
+          namespaces:
+          - _type: Namespace
+            prefix: sbml
+            uri: http://www.sbml.org/sbml/level3/version1/core
+        parameters:
+        - _type: SedParameter
+          id: p
+          value: 2
+        variables: []
+        range: range
+        math: p* range
     CombineArchiveLog:
       required:
       - status

@@ -9,38 +9,24 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedTarget } from './sedTarget';
 
 /**
- * A SED variable.
+ * Sub task of a repeated task
  */
-export interface SedVariable {
+export interface SedSubTask {
   /**
-   * Unique identifier within its parent SED document.
-   */
-  id: string;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  /**
-   * Task.
+   * Identifier of the task.
    */
   task: string;
-  target?: SedTarget;
   /**
-   * Symbol (e.g., for an implicit variable that is not explicitly defined in the specification of a model, such as time).
+   * Order of the subtask within its parent repeated task.
    */
-  symbol?: string;
+  order: number;
   /**
-   * Type.
+   * Type
    */
-  _type: SedVariableType;
-  /**
-   * Identifier of the model from which the variable should be recorded
-   */
-  model?: string;
+  _type: SedSubTaskType;
 }
-export enum SedVariableType {
-  SedVariable = 'SedVariable',
+export enum SedSubTaskType {
+  SedSubTask = 'SedSubTask',
 }

@@ -9,6 +9,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { SedSetValueComputeModelChange } from './sedSetValueComputeModelChange';
+import { SedRange } from './sedRange';
+import { SedSubTask } from './sedSubTask';
 
 /**
  * A SED repeated task.
@@ -26,6 +29,26 @@ export interface SedRepeatedTask {
    * Type.
    */
   _type: SedRepeatedTaskType;
+  /**
+   * Main range which defines the iterations of the task
+   */
+  range: string;
+  /**
+   * Child ranges of the task
+   */
+  ranges: Array<SedRange>;
+  /**
+   * Whether to accumulate changes to models over iterations of the task or to begin each iteration from the same models
+   */
+  resetModelForEachIteration: boolean;
+  /**
+   * Changes to apply to models at each iteration of the task
+   */
+  changes: Array<SedSetValueComputeModelChange>;
+  /**
+   * Component tasks of the repeated task
+   */
+  subTasks: Array<SedSubTask>;
 }
 export enum SedRepeatedTaskType {
   SedRepeatedTask = 'SedRepeatedTask',

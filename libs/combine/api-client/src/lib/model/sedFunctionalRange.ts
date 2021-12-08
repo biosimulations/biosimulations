@@ -9,38 +9,42 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedTarget } from './sedTarget';
+import { SedParameter } from './sedParameter';
+import { SedVariable } from './sedVariable';
 
 /**
- * A SED variable.
+ * Functional range
  */
-export interface SedVariable {
+export interface SedFunctionalRange {
   /**
-   * Unique identifier within its parent SED document.
+   * Type
+   */
+  _type: SedFunctionalRangeType;
+  /**
+   * Unique identifier within is parent SED document.
    */
   id: string;
   /**
-   * Brief description.
+   * Brief description
    */
   name?: string;
   /**
-   * Task.
+   * Range over which the mathematical expression should be evaluated
    */
-  task: string;
-  target?: SedTarget;
+  range: string;
   /**
-   * Symbol (e.g., for an implicit variable that is not explicitly defined in the specification of a model, such as time).
+   * Parameters of the mathematical expression
    */
-  symbol?: string;
+  parameters: Array<SedParameter>;
   /**
-   * Type.
+   * Variables of the mathematical expression
    */
-  _type: SedVariableType;
+  variables: Array<SedVariable>;
   /**
-   * Identifier of the model from which the variable should be recorded
+   * Mathematical expression
    */
-  model?: string;
+  math: string;
 }
-export enum SedVariableType {
-  SedVariable = 'SedVariable',
+export enum SedFunctionalRangeType {
+  SedFunctionalRange = 'SedFunctionalRange',
 }

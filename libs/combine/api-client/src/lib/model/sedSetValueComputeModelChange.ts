@@ -12,35 +12,47 @@
 import { SedTarget } from './sedTarget';
 
 /**
- * A SED variable.
+ * Dynamic change to an attribute of a model
  */
-export interface SedVariable {
-  /**
-   * Unique identifier within its parent SED document.
-   */
-  id: string;
-  /**
-   * Brief description.
-   */
-  name?: string;
-  /**
-   * Task.
-   */
-  task: string;
-  target?: SedTarget;
-  /**
-   * Symbol (e.g., for an implicit variable that is not explicitly defined in the specification of a model, such as time).
-   */
-  symbol?: string;
+export interface SedSetValueComputeModelChange {
   /**
    * Type.
    */
-  _type: SedVariableType;
+  _type: SedSetValueComputeModelChangeType;
   /**
-   * Identifier of the model from which the variable should be recorded
+   * Unique identifier within its parents SED document.
    */
-  model?: string;
+  id: string;
+  /**
+   * Brief description
+   */
+  name?: string;
+  /**
+   * Identifier of the model to modify
+   */
+  model: string;
+  target: SedTarget;
+  /**
+   * Symbol within the model to modify
+   */
+  symbol?: string;
+  /**
+   * Parameters of the mathematical expression
+   */
+  parameters: string;
+  /**
+   * Variables of the mathematical expression
+   */
+  variables: string;
+  /**
+   * Identifier for the range used in the mathematical expression
+   */
+  range?: string;
+  /**
+   * Mathematical expression
+   */
+  math: string;
 }
-export enum SedVariableType {
-  SedVariable = 'SedVariable',
+export enum SedSetValueComputeModelChangeType {
+  SedSetValueComputeModelChange = 'SedSetValueComputeModelChange',
 }

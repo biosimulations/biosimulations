@@ -9,38 +9,44 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SedTarget } from './sedTarget';
 
 /**
- * A SED variable.
+ * Uniform range
  */
-export interface SedVariable {
+export interface SedUniformRange {
   /**
-   * Unique identifier within its parent SED document.
+   * Type
+   */
+  _type: SedUniformRangeType;
+  /**
+   * Unique identifier within is parent SED document.
    */
   id: string;
   /**
-   * Brief description.
+   * Brief description
    */
   name?: string;
   /**
-   * Task.
+   * First value
    */
-  task: string;
-  target?: SedTarget;
+  start: number;
   /**
-   * Symbol (e.g., for an implicit variable that is not explicitly defined in the specification of a model, such as time).
+   * Last value
    */
-  symbol?: string;
+  end: number;
   /**
-   * Type.
+   * Number of steps, equal to the 1 less than the number of iterations.
    */
-  _type: SedVariableType;
+  numberOfSteps: number;
   /**
-   * Identifier of the model from which the variable should be recorded
+   * Type
    */
-  model?: string;
+  type: SedUniformRangeType;
 }
-export enum SedVariableType {
-  SedVariable = 'SedVariable',
+export enum SedUniformRangeType {
+  SedUniformRange = 'SedUniformRange',
+}
+export enum SedUniformRangeType {
+  Linear = 'linear',
+  Log = 'log',
 }
