@@ -285,7 +285,7 @@ export interface SerializedSedDataGenerator extends Omit<SedDataGenerator, 'vari
 
 export interface SedDataSet {
   _type: 'SedDataSet';
-  id: string;  
+  id: string;
   name?: string;
   label: string;
   dataGenerator: SedDataGenerator;
